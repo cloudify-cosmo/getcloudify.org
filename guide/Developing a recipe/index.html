@@ -1,0 +1,15 @@
+---
+layout: guide
+title: Developing a Recipe
+---
+<ul>
+    {% for page in site.categories.devrecipe %}
+    <li>
+        <a href="{{ page.url }}">
+            {{ page.title }}
+            <span class="postdate title">{{ page.date | date_to_string }}</span>
+        </a>
+    </li>
+    {% endfor %}
+</ul>
+
