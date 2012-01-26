@@ -46,7 +46,7 @@ PFX files contain the private and the public key, CERT files contain the public 
 
 *Management API (REST) X509 Certificates*
 Management certificates are used to authenticate the REST API client (for example, during a scaling-out command). The public key (cert file) is uploaded to the Azure "Management Certificates" section. The private key is installed on the client's local certificate store:
-!CLOUD:Cloudify Documentation Home^certificates1.png!
+<img src="../images/azure/certificates1.png"/>
 
 h1.First-Time Setup
 
@@ -112,21 +112,21 @@ h3. Upload Management Certificate
 p.Log in with your Windows Live credentials to the Azure Management Portal at [http://windows.azure.com] 
 
 # From the bottom-left menu select "Hosted Services"
-<img src="../images/azure/config7.png/>
+<img src="../images/azure/config7.png"/>
 # From the top-left menu select "Management Certificates"
-<img src="../images/azure/config8.png/>
+<img src="../images/azure/config8.png"/>
 # Click the "Add Certificate" icon
 (top left)
-<img src="../images/azure/config9.png/>
+<img src="../images/azure/config9.png"/>
 # Browse to azure_api.cer file
-<img src="../images/azure/config10.png/>
+<img src="../images/azure/config10.png"/>
 
 h3. Update the Blob Storage details
 p.
 # From the bottom-left menu select "Hosted Services"
-<img src="../images/azure/config7.png/>
+<img src="../images/azure/config7.png"/>
 # From the top-left menu select "Storage Accounts"
 # If you don't have one already, create a new Storage Account.
 # Copy the storage account name and paste it to <Cloudify Home>\tools\cli\plugins\azure\azure.properties sotrageAccount value.
 # Click the "View Access Key" button and copy the Primary Access Key to the azure.properties storageAccessKey value
-<img src="../images/azure/blobstorage_accesskeys.png/>
+<img src="../images/azure/blobstorage_accesskeys.png"/>
