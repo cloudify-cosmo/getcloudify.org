@@ -15,12 +15,12 @@ the service on the new provisioned VM.
 The following snippet shows how to decalre the SLA, using the numInstances attribute
 <pre>
 service {
-  name "jboss-service"
-  icon "jboss.jpg"
-  type "APP_SERVER"
-  numInstances 2
+    name "jboss-service"
+    icon "jboss.jpg"
+    type "APP_SERVER"
+    numInstances 2
 
-  //recipe body here
+    //recipe body here
 }
 </pre>
 
@@ -34,14 +34,14 @@ The Recipe developer needs to add the compute block to the service recipe in ord
 
 <pre>
 service {
-  name "jboss-service"
-  icon "jboss.jpg"
-  type "APP_SERVER"
-  numInstances 2
-  compute{
-����template 	"BIG_LINUX_32"
-  }
+    name "jboss-service"
+    icon "jboss.jpg"
+    type "APP_SERVER"
+    numInstances 2
+    compute{
+        template 	"BIG_LINUX_32"
+    }
   
-  //recipe body here
+    //recipe body here
 </pre>
 
