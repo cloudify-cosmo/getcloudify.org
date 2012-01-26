@@ -5,7 +5,9 @@ cat: userguide
 sidebar: Bootstrap on Azure
 ---
 p. This document is a quick start guide for Cloudify - Azure Edition 
-h1.Prerequisites
+
+h1. Prerequisites
+
 p.
 * Windows machine (running Windows 7 , Windows Server 2008 or Windows Vista SP1)
 Make sure you have the latest Windows service packs, as some of them are prerequisites for the Windows Azure SDK
@@ -16,8 +18,10 @@ and "Visual Studio 2010 SP1"
 * Java Development Kit 1.6(<a href="http://www.oracle.com/technetwork/java/javase/downloads/index.html">Java JDK</a>)
 * The Cloudify installation with the Cloudify Interactive Shell <a href="http://gigaspaces.com/cloudify">Download Cloudify</a>
 
-h1.Azure Terminology
+h1. Azure Terminology
+
 p.
+
 *Role Instance*
 A Role Instance is a Virtual Machine running one or more processes that serve a specific purpose.
 
@@ -48,17 +52,21 @@ PFX files contain the private and the public key, CERT files contain the public 
 Management certificates are used to authenticate the REST API client (for example, during a scaling-out command). The public key (cert file) is uploaded to the Azure "Management Certificates" section. The private key is installed on the client's local certificate store:
 <img src="../images/azure/certificates1.png"/>
 
-h1.First-Time Setup
+h1. First-Time Setup
 
 p.This section covers the Cloudify installation, generation of self-signed certificates, and starting a new Hosted Service (without any application deployments).
-h3.Install GigaSpaces Cloudify 
+h3. Install GigaSpaces Cloudify 
+
 p.
+
 # Install Cloudify see (link to install here)
 
 
-h3.Update Subscription ID in azure.properties
+h3. Update Subscription ID in azure.properties
 
-p.Login to http://windows.azure.com
+
+p. 
+Login to http://windows.azure.com
 
 If an "Isolated Storage Quota" popup appears click the "Change Quota" button (allows the windows azure silverlight application to use your local disk as a temporary storage).
 
@@ -75,25 +83,27 @@ If an "Isolated Storage Quota" popup appears click the "Change Quota" button (al
 
 h3. Create Remote Desktop Certificates 
 
-p.In this tutorial we will use the password 123456 in order to encrypt pfx files.
+p. 
+In this tutorial we will use the password 123456 in order to encrypt pfx files.
 # Create an Azure management (private and public) certificate protected with the password 123456. This password is not the Windows password; it is only used for encrypting the PFX file that holds the private key.
 Open a command prompt window (Start-> cmd.exe)
-{code}cd <Cloudify Home>\tools\cli\plugins\azure
-encutil -create -alias azure_rdp -pwd 123456 -pfx azure_rdp.pfx -cert azure_rdp.cer{code}
+<pre>cd <Cloudify Home>\tools\cli\plugins\azure
+encutil -create -alias azure_rdp -pwd 123456 -pfx azure_rdp.pfx -cert azure_rdp.cer</pre>
 # Choose a Windows password and encrypt it. This is not your windows azure password. This is the Windows Operating System password used for logging into the virtual machines (role instances) via Remote Desktop. Choose a password with at least 10 characters, containing capital letters, lower case letters and numbers.
-{code}encutil -encrypt -text MyPassword007 -cert azure_rdp.cer > password.txt
-notepad password.txt{code}
+<pre>encutil -encrypt -text MyPassword007 -cert azure_rdp.cer > password.txt
+notepad password.txt</pre>
 Copy the encrypted password and paste it into <Cloudify Home>\tools\cli\plugins\azure\azure.properties file as the value of "rdpLoginEncryptedPassword"
 Change the value of "rdpLoginUsername" to "Administrator". This would be your Windows Operating System user name that is used to log in with Remote Desktop.
 
 
 h3. Create Management (API) Certificates
 
-p.This step is only required if you wish to change the number of role instances from the interactive shell (scale out)
+p. 
+This step is only required if you wish to change the number of role instances from the interactive shell (scale out)
 # Create the management API certificate:
-{code}encutil -create -alias azure_api -pwd 123456 -pfx azure_api.pfx -cert azure_api.cer{code}
+<pre>encutil -create -alias azure_api -pwd 123456 -pfx azure_api.pfx -cert azure_api.cer</pre>
 # Save the certificate thumbprint, for later use.
-{code}encutil -thumbprint -cert azure_api.cer{code}
+<pre>encutil -thumbprint -cert azure_api.cer</pre>
 # Copy the thumbprint and paste it into <Cloudify Home>\tools\cli\plugins\azure\azure.properties as the value of "certificateThumbprint"(required for scaling out)
 # Install the management certificate on the local management store.
 Open MMC (Start-> mmc)
@@ -109,7 +119,9 @@ Check the "Mark this key exportable"  (Click Next then Finish)
 
 h3. Upload Management Certificate
 
-p.Log in with your Windows Live credentials to the Azure Management Portal at [http://windows.azure.com] 
+
+p. 
+Log in with your Windows Live credentials to the Azure Management Portal at [http://windows.azure.com] 
 
 # From the bottom-left menu select "Hosted Services"
 <img src="../images/azure/config7.png"/>
@@ -122,7 +134,9 @@ p.Log in with your Windows Live credentials to the Azure Management Portal at [h
 <img src="../images/azure/config10.png"/>
 
 h3. Update the Blob Storage details
+
 p.
+
 # From the bottom-left menu select "Hosted Services"
 <img src="../images/azure/config7.png"/>
 # From the top-left menu select "Storage Accounts"
