@@ -8,7 +8,7 @@ p. This document is a quick start guide for Cloudify - Azure Edition
 
 h1. Prerequisites
 
-p.
+
 * Windows machine (running Windows 7 , Windows Server 2008 or Windows Vista SP1)
 Make sure you have the latest Windows service packs, as some of them are prerequisites for the Windows Azure SDK
 * Windows Azure SDK - *August 2011* v1.4 <a href="http://www.microsoft.com/windowsazure/sdk/">Azure SDK</a>. After the installation is complete select to install also the "Windows Azure Tools for Microsoft Visual Studio 2010"
@@ -20,7 +20,6 @@ and "Visual Studio 2010 SP1"
 
 h1. Azure Terminology
 
-p.
 
 *Role Instance*
 A Role Instance is a Virtual Machine running one or more processes that serve a specific purpose.
@@ -37,7 +36,9 @@ Azure Hosted Services consists of one or two deployments (staging and/or product
 *Subscription*
 Subscription is associated with your Windows Live account, and can run zero or more Hosted Services
 
-h5.Azure Security Credentials
+h5. Azure Security Credentials
+
+
 Understanding Azure security credentials is necessary to successfully manage a Java application running on Azure.
 
 *Windows Live Credentials*
@@ -57,7 +58,7 @@ h1. First-Time Setup
 p.This section covers the Cloudify installation, generation of self-signed certificates, and starting a new Hosted Service (without any application deployments).
 h3. Install GigaSpaces Cloudify 
 
-p.
+
 
 # Install Cloudify see (link to install here)
 
@@ -65,7 +66,7 @@ p.
 h3. Update Subscription ID in azure.properties
 
 
-p. 
+
 Login to http://windows.azure.com
 
 If an "Isolated Storage Quota" popup appears click the "Change Quota" button (allows the windows azure silverlight application to use your local disk as a temporary storage).
@@ -83,7 +84,7 @@ If an "Isolated Storage Quota" popup appears click the "Change Quota" button (al
 
 h3. Create Remote Desktop Certificates 
 
-p. 
+ 
 In this tutorial we will use the password 123456 in order to encrypt pfx files.
 # Create an Azure management (private and public) certificate protected with the password 123456. This password is not the Windows password; it is only used for encrypting the PFX file that holds the private key.
 Open a command prompt window (Start-> cmd.exe)
@@ -98,7 +99,7 @@ Change the value of "rdpLoginUsername" to "Administrator". This would be your Wi
 
 h3. Create Management (API) Certificates
 
-p. 
+
 This step is only required if you wish to change the number of role instances from the interactive shell (scale out)
 # Create the management API certificate:
 <pre>encutil -create -alias azure_api -pwd 123456 -pfx azure_api.pfx -cert azure_api.cer</pre>
@@ -120,7 +121,6 @@ Check the "Mark this key exportable"  (Click Next then Finish)
 h3. Upload Management Certificate
 
 
-p. 
 Log in with your Windows Live credentials to the Azure Management Portal at [http://windows.azure.com] 
 
 # From the bottom-left menu select "Hosted Services"
@@ -135,7 +135,6 @@ Log in with your Windows Live credentials to the Azure Management Portal at [htt
 
 h3. Update the Blob Storage details
 
-p.
 
 # From the bottom-left menu select "Hosted Services"
 <img src="../images/azure/config7.png"/>
