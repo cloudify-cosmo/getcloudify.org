@@ -1,0 +1,22 @@
+p. Describes Application Deployment
+
+h1. Deploying your Application in a Single Command
+
+Once you have your application recipe ready with all it's dependencies, all you need to do is to instruct the shell to deploy your application. 
+
+* Assuming you already bootstrapped your cloud or localcloud environment, connect to the REST service using the connect command.
+* Use the install-application command to deploy your application.
+
+Cloudify will zip your recipe and ship it to the Cloudify Controller. Then, a fully automated deployment will take place, exactly they way you designed it.
+
+You can use the Cloudify shell to follow the deployment progress and you can also use Cloudify Web Management Console to verify the installation or trace the installation logs.
+
+h1. Using the shell to trace the Deployment
+
+You can use the Cloudify Shell to trace the application installation. First Cloudify will list the service contained in the application recipe and their inter dependencies. The Cloudify shell gives you detailed progress report about each service being installed and started. The shell notifies you about each life-cycle event being invoked and later informs about the success or failure in green or red, respectively. While in progress, Cloudify helps the user watch the progress by plotting a dot every two seconds.
+
+<img src="../images/deploy/cli-marked.jpg"/>
+
+In case of recipe compilation error or runtime error, Cloudify will plot the error to the Shell in red.
+
+<img src="../images/deploy/GroovyRunTimeCLI.JPG"/>
