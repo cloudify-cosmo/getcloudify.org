@@ -63,13 +63,13 @@ p.Login to http://windows.azure.com
 If an "Isolated Storage Quota" popup appears click the "Change Quota" button (allows the windows azure silverlight application to use your local disk as a temporary storage).
 
 # From the bottom-left menu, select "Hosted Services"
-<img src="images/config1.png"/>
+<img src="../images/azure/config1.png"/>
 # From the top-left menu, select "Hosted Services"
-<img src="images/config2.png"/>
+<img src="../images/azure/config2.png"/>
 # Select the Subscription row
-<img src="images/config3.png"/>
+<img src="../images/azure/config3.png"/>
 # Copy the subscription id (bottom right)
-<img src="images/config3b.png"/>
+<img src="../images/azure/config3b.png"/>
 # Paste it into  <Cloudify Home>\tools\cli\plugins\azure\azure.properties as the value of "subscriptionId"
 
 
@@ -83,7 +83,7 @@ encutil -create -alias azure_rdp -pwd 123456 -pfx azure_rdp.pfx -cert azure_rdp.
 # Choose a Windows password and encrypt it. This is not your windows azure password. This is the Windows Operating System password used for logging into the virtual machines (role instances) via Remote Desktop. Choose a password with at least 10 characters, containing capital letters, lower case letters and numbers.
 {code}encutil -encrypt -text MyPassword007 -cert azure_rdp.cer > password.txt
 notepad password.txt{code}
-Copy the encrypted password and paste it into c:\cloudify\tools\cli\plugins\azure\azure.properties file as the value of "rdpLoginEncryptedPassword"
+Copy the encrypted password and paste it into <Cloudify Home>\tools\cli\plugins\azure\azure.properties file as the value of "rdpLoginEncryptedPassword"
 Change the value of "rdpLoginUsername" to "Administrator". This would be your Windows Operating System user name that is used to log in with Remote Desktop.
 
 
@@ -112,21 +112,21 @@ h3. Upload Management Certificate
 p.Log in with your Windows Live credentials to the Azure Management Portal at [http://windows.azure.com] 
 
 # From the bottom-left menu select "Hosted Services"
-!CLOUD:Cloudify Documentation Home^config7.png!
+<img src="../images/azure/config7.png/>
 # From the top-left menu select "Management Certificates"
-!CLOUD:Cloudify Documentation Home^config8.png!
+<img src="../images/azure/config8.png/>
 # Click the "Add Certificate" icon
 (top left)
-!CLOUD:Cloudify Documentation Home^config9.png!
+<img src="../images/azure/config9.png/>
 # Browse to azure_api.cer file
-!CLOUD:Cloudify Documentation Home^config10.png!
+<img src="../images/azure/config10.png/>
 
 h3. Update the Blob Storage details
 p.
 # From the bottom-left menu select "Hosted Services"
-!CLOUD:Cloudify Documentation Home^config7.png!
+<img src="../images/azure/config7.png/>
 # From the top-left menu select "Storage Accounts"
 # If you don't have one already, create a new Storage Account.
 # Copy the storage account name and paste it to <Cloudify Home>\tools\cli\plugins\azure\azure.properties sotrageAccount value.
 # Click the "View Access Key" button and copy the Primary Access Key to the azure.properties storageAccessKey value
-!CLOUD:Cloudify Documentation Home^blobstorage_accesskeys.png!
+<img src="../images/azure/blobstorage_accesskeys.png/>
