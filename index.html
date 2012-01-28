@@ -1,3 +1,275 @@
-<html>
-    <body>Coming Soon</body>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <title>GIGASPACES Community</title>
+    <link rel="stylesheet" href="css/template.css" type="text/css"/>
+</head>
+
+<body>
+<div id="WrapperBg">
+<div id="Wrapper">
+{% include header.html %}
+<div id="contentWrap">
+<div class="breadcrumbs">HomePage > Cloudify Documentation</div>
+<div class="clear"></div>
+
+<!--Search-->
+
+<div id="learnFrom">
+    <h2>Learn from our Knowledge Base</h2>
+
+    <div class="searchWrap">
+        <form>
+            <input id="search" value="Search..."/>
+            <input id="goBtn" type="submit" value="Go"/>
+        </form>
+    </div>
+</div>
+<div id="content" class="contentNoRight">
+<h1 class="pageTitle">Programmer's Guide</h1>
+<a class="btnGetCloudifyFreeEdition" href="#"></a>
+<!--Start left content -->
+
+<div class="DocumentsWrap">
+<p>
+    This guide is written for application developers who wish to build scaled-out applications with
+    GigaSpaces XAP.
+    The guide provides all the information and tools needed to quickly develop either basic or more complex
+    scaled-out applications.
+    This includes reference documentation, foundations, APIs, configurations and more advanced topics.
+</p>
+
+<p>
+    <span class="notice"></span>
+    Note that this guide is specific to XAP developers.
+    For instructions for XAP.NET developers, please refer to the XAP.NET Programmer's Guide.
+</p>
+
+<ul class="tableOfcontentList">
+<!-- start line odd
+========================== -->
+<li class="odd">
+    <div class="leftSide">
+        <h3>The Runtime Environment</h3>
+
+        <p>
+            This section gives a detailed description of the GigaSpaces deployment & runtime
+            environment.
+        </p>
+        <ul>
+            <li><a href="#">The Grid Service Agent</a> - A process manager that manages Service Grid
+                processes such as GSM, GSC and LUS
+            </li>
+            <li><a href="#">The Grid Service Container</a> - A container which hosts Processing Unit
+                Instances provisioned to it by the GSM
+            </li>
+            <li><a href="#">The Grid Service Manager</a> - Manages Processing Unit deployments and
+                GigaSpaces Containers
+            </li>
+            <li><a href="#">The Lookup Service</a> - A registry of services (GSM, GSC, Space Instances,
+                Processing Unit Instances) that can be lookup up using it.
+            </li>
+        </ul>
+    </div>
+    <div class="rightSide">
+        <h3>Packaging and Deployment</h3>
+
+        <p>
+            This section deals with the internals of the GigaSpaces XAP packaging and deployment unit,
+            namely the processing unit.
+            It explains how to create it and how to run it in the various runtime modes.
+        </p>
+        <ul>
+            <li><a href="#">The Processing Unit Structure and Configuration</a> - This page describes
+                the processing unit directory structure
+            </li>
+            <li><a href="#">Deploying and Running the Processing Unit</a> - This section describes the
+                various options to debug and run your processing units
+            </li>
+            <li><a href="#">Obtaining Cluster Information</a> - Obtaining information about the
+                clustering topology, member id and other cluster related information can be useful in
+                many cases. Cluster information can be provided to the processing unit instances at
+                deployment time via the class org.openspaces.core.cluster.ClusterInfo, which can be
+                injected into the processing unit components
+            </li>
+        </ul>
+    </div>
+    <div class="clear"></div>
+</li>
+<!-- start line even
+========================== -->
+<li class="even">
+    <div class="leftSide">
+        <h3>The In-Memory Data Grid</h3>
+
+        <p>
+            Explains the concepts of the GigaSpaces in-memory data grid (the Space), how to access it,
+            and how to configure advanced capabilities, such as persistency, eviction, etc.
+        </p>
+        <ul>
+            <li><a href="#">Space Topologies</a> - Explains the topologies and clustering mechanism of
+                the GigaSpaces in-memory data grid (the Space)
+            </li>
+            <li><a href="#">Deploying and Interacting with the Space</a> - Overview of GigaSpaces
+                in-memory data grid - how to create a data grid, connect to it, and interact with it.
+            </li>
+            <li><a href="#">Modeling and Accessing Your Data</a> - This section will teach you how to
+                design your data for distributing on the data grid and about the various APIs for
+                accessing you data. Advanced Topics
+            </li>
+            <li><a href="#">Caching Scenarios</a> - GigaSpaces IMDG supports three different caching
+                mechanisms: in-line cache, side cache and client cache.
+            </li>
+        </ul>
+    </div>
+    <div class="rightSide">
+        <h3>Services on Top of the Data Grid</h3>
+
+        <p>
+            This page provides an overview of the various service components that are available on top
+            of the GigSpaces DataGrid framework. It also outlines when to choose each one of them
+        </p>
+        <ul>
+            <li><a href="#">Space Topologies</a> - Explains the topologies and clustering mechanism of
+                the GigaSpaces in-memory data grid (the Space)
+            </li>
+            <li><a href="#">Deploying and Interacting with the Space</a> - Overview of GigaSpaces
+                in-memory data grid - how to create a data grid, connect to it, and interact with it.
+            </li>
+            <li><a href="#">Modeling and Accessing Your Data</a> - This section will teach you how to
+                design your data for distributing on the data grid and about the various APIs for
+                accessing you data. Advanced Topics
+            </li>
+            <li><a href="#">Caching Scenarios</a> - GigaSpaces IMDG supports three different caching
+                mechanisms: in-line cache, side cache and client cache.
+            </li>
+        </ul>
+    </div>
+    <div class="clear"></div>
+</li>
+<!-- start line odd
+========================== -->
+<li class="odd">
+    <div class="leftSide">
+        <h3>Integrations</h3>
+        <ul>
+            <li><a href="#">Maven Plugin</a> - Installing the OpenSpaces Maven plugin, creating and
+                running a Processing Unit project.
+            </li>
+            <li><a href="#">Mule ESB </a> - OpenSpaces Mule ESB integration allows you to use the Space
+                as a Mule external transport, replace Mule VM transport with transport over the Space,
+                enhances the Mule SEDA model, and can be packaged and run as a Processing Unit.
+            </li>
+        </ul>
+    </div>
+    <div class="rightSide">
+        <h3>Administration and Monitoring API</h3>
+
+        <p>
+            Simple API to monitor and administer GigaSpaces services and components.
+        </p>
+        <ul>
+            <li><a href="#">Dump</a> - Simple API to generate dump files of the runtime GigaSpaces
+                environment.
+            </li>
+            <li><a href="#">Logging API</a> - Simple API extract and filter out logging information of
+                GigaSpaces runtime.
+            </li>
+            <li><a href="#">Administrative Alerts</a> - Runtime administrative alerts - monitoring the
+                "health state" of the system.
+            </li>
+        </ul>
+    </div>
+    <div class="clear"></div>
+</li>
+<!-- start line even
+========================== -->
+<li class="even">
+    <div class="leftSide">
+        <h3>Appendix</h3>
+        <ul>
+            <li><a href="#">XAP Overview</a> - GigaSpaces XAP is a platform for scaling out stateful
+                applications. XAP uses the GigaSpaces space as a core middleware, and provides the
+                Spring-based Open Spaces framework as a development environment.
+            </li>
+            <li><a href="#">OpenSpaces FAQ</a> - Frequently asked questions about OpenSpaces.
+                XAP-Community FAQ
+            </li>
+            <li><a href="#">About Jini </a> - Jini is an open architecture that allows the
+                implementation of network services - One such service is JavaSpaces.
+            </li>
+        </ul>
+    </div>
+    <div class="rightSide">
+        <h3>Interoperability</h3>
+        <ul>
+            <li><a href="#">Platform Interoperability in GigaSpaces</a> - The possibility for
+                organizations whose projects include a combination of Java, .NET and C++ platforms to
+                communicate and access each other easily and efficiently while also maintaining the
+                benefits of the GigaSpaces scale-out application server.
+                <a href="#">XAP CPP</a> - The GigaSpaces C++ API has been designed to allow the same
+            </li>
+            <li><a href="#">Deploying and Interacting with the Space</a> - Overview of GigaSpaces
+                in-memory data grid - how to create a data grid, connect to it, and interact with it.
+            </li>
+            <li><a href="#">Modeling and Accessing Your Data</a> - This section will teach you how to
+                design your data for distributing on the data grid and about the various APIs for
+                accessing you data. Advanced Topics
+            </li>
+            <li>level of flexibility, usability and interoperability of the Java <a href="#">POJO</a>
+                and <a href="#">.NET C# PONO</a> counterpart APIs for building scalable, low-latency SBA
+                applications.
+            </li>
+        </ul>
+    </div>
+    <div class="clear"></div>
+</li>
+<!-- start line odd
+========================== -->
+<li class="odd">
+    <div class="leftSide">
+        <h3>Web Application Support</h3>
+        <ul>
+            <li><a href="#">Web Processing Unit Container</a> - Allows you to deploy a web application
+                (WAR) into the Service Grid.
+            </li>
+        </ul>
+    </div>
+    <div class="rightSide">
+        <h3></h3>
+
+        <p>
+        </p>
+        <ul>
+            <li><a href="#"></a></li>
+            <li><a href="#"></a></li>
+            <li><a href="#"></a></li>
+        </ul>
+    </div>
+    <div class="clear"></div>
+</li>
+
+</ul>
+<!-- End table of content list -->
+
+
+</div>
+<div class="clear"></div>
+</div>
+</div>
+<!--Start pagination -->
+<div class="clear"></div>
+
+<!--Start Footer -->
+
+{% include footer.html %}
+</div>
+<!--End site wrapper -->
+
+
+</div>
+<!--End site bg top wrapper -->
+</body>
 </html>
