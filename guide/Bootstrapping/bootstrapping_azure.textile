@@ -21,46 +21,4 @@ Please note that currently, each application needs a seperate deployment on Wind
 
 The command to use is azure:bootstrap-application
 
-<pre>
-DESCRIPTION
-        azure:bootstrap-app
-
-        Starts Azure Role Instances based on the specified application description.
-
-SYNTAX
-        azure:bootstrap-app [options] application-file
-
-ARGUMENTS
-        application-file
-                The application directory or archive
-
-OPTIONS
-        --help
-                Display this help message
-        -azure-pwd
-                The password that protects the PFX file containing the Remote Desktop certificate. This option must be specified
-                the first time an application is bootstrapped since it is required for creating an azure hosted-service
-        -timeout
-                The number of minutes to wait until the operation is done. By default waits 30 minutes.
-                (defaults to 30)
-        -azure-slot
-                The Azure Deployment slot (staging or production). Default: staging
-                (defaults to staging)
-        -azure-location
-                The Azure Hosted service location (data center region).
-                (defaults to Anywhere US)
-        -progress
-                The polling interval in minutes used for checking if the operation is done. Defaults to 1 minute. Use together
-                with the -timeout option
-                (defaults to 1)
-        -azure-name
-                The Azure Deployment name in production is the [application name], and in staging is the [application
-                name]-staging
-        -azure-description
-                The Azure Hosted service description (empty by default).
-                (defaults to )
-        --verbose
-                show detailed execution result including exception stack trace
-        -azure-svc
-                The Azure Hosted Service name. Default: [application name]
-</pre>
+<script src="https://gist.github.com/1695721.js?file=bootstrap.txt"></script>
