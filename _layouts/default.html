@@ -1,0 +1,83 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>GIGASPACES Community</title>
+<link rel="stylesheet" href="css/template.css" type="text/css"  />
+</head>
+
+<body>
+<div id="WrapperBg">
+    <div id="Wrapper">
+       {{header}}
+        <div id="contentWrap">
+            <div class="breadcrumbs">HomePage > Cloudify Documentation</div>
+            <div class="clear"></div>
+            
+            <!--Search-->
+            
+            <div id="learnFrom">
+                <h2>Learn from our Knowledge Base</h2>
+                <div class="searchWrap">
+                <form>
+                    <input id="search" value="Search..."/>
+                    <input id="goBtn" type="submit" value="Go" />
+                </form>     
+                </div>
+            </div>
+            <div id="content">
+                <h1 class="pageTitle">Cloudify Documentation</h1>
+                <div class="right">
+                    <a class="btnGetCloudifyFreeEdition" href="#"></a>
+                    
+                    <!--Checkbox groups-->
+                    
+                    <div class="rightContentBox">
+                        <h3>Filter</h3>
+                        <form>
+                            <input type="checkbox" name="Filter" value="Servers" />Servers<br />
+                            <input type="checkbox" name="Filter" value="Recipes" />Recipes<br />
+                            <input type="checkbox" name="Filter" value="API's" />API's<br />
+                            <input type="checkbox" name="Filter" value="NoSQL" checked="checked" />NoSQL
+                        </form> 
+                    </div>
+                    <div class="rightContentBox">
+                        <h3>Top Topics</h3>
+                        <form>
+                            <input type="checkbox" name="Top Topics" value="Servers" checked="checked" />MongoDB<br />
+                            <input type="checkbox" name="Top Topics" value="Recipes" checked="checked" />WebSphere<br />
+                            <input type="checkbox" name="Top Topics" value="API's" />Getting Started<br />
+                            <input type="checkbox" name="Top Topics" value="NoSQL"  />NoSQL
+                        </form> 
+                    </div>
+                </div>
+                
+                <!--Start left content -->
+                
+                <div class="DocumentsWrap">
+                  {{content}}
+                </div>
+                <div class="clear"></div>
+            </div>
+        </div>
+       <!--Start pagination -->
+       <ul class="pagination">
+            <li class="current"><a href="#">1</a></li>
+            <li><a href="#">2</a></li>
+            <li><a href="#">3</a></li>
+            <li><a href="#">4</a></li>
+            <li><a href="#">5</a></li>
+            <li><a href="#">next >></a></li>
+       </ul>
+    <div class="clear"></div>
+    
+    <!--Start Footer -->
+    
+   {{footer}}
+    
+    </div><!--End site wrapper -->
+
+
+</div><!--End site bg top wrapper -->
+</body>
+</html>
