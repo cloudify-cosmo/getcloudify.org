@@ -1,9 +1,10 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-<title>GIGASPACES Community</title>
-<link rel="stylesheet" href="/css/template.css" type="text/css"  />
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <title>GIGASPACES Community</title>
+    <link rel="stylesheet" href="/css/template.css" type="text/css"/>
 </head>
 
 <body>
@@ -13,45 +14,49 @@
         <div id="contentWrap">
             <div class="breadcrumbs">HomePage > Cloudify Documentation</div>
             <div class="clear"></div>
-            
+
             <!--Search-->
-            
+
             <div id="learnFrom">
                 <h2>Learn from our Knowledge Base</h2>
+
                 <div class="searchWrap">
-                <form>
-                    <input id="search" value="Search..."/>
-                    <input id="goBtn" type="submit" value="Go" />
-                </form>     
+                    <form>
+                        <input id="search" value="Search..."/>
+                        <input id="goBtn" type="submit" value="Go"/>
+                    </form>
                 </div>
             </div>
             <div id="content">
                 <h1 class="pageTitle">Cloudify Documentation</h1>
+
                 <div class="right">
                     <a class="btnGetCloudifyFreeEdition" href="#"></a>
                     {% include toc.html %}
 
                 </div>
-                
+
                 <!--Start left content -->
-                
+
                 <div class="DocumentsWrap">
-                  {{content}}
+                    {{content}}
                 </div>
                 <div class="clear"></div>
             </div>
         </div>
-       <!--Start pagination -->
+        <!--Start pagination -->
 
-    <div class="clear"></div>
-    
-    <!--Start Footer -->
+        <div class="clear"></div>
 
-    {% include header.html %}
-    
-    </div><!--End site wrapper -->
+        <!--Start Footer -->
+
+        {% include footer.html %}
+
+    </div>
+    <!--End site wrapper -->
 
 
-</div><!--End site bg top wrapper -->
+</div>
+<!--End site bg top wrapper -->
 </body>
 </html>
