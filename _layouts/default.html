@@ -29,27 +29,8 @@
                 <h1 class="pageTitle">Cloudify Documentation</h1>
                 <div class="right">
                     <a class="btnGetCloudifyFreeEdition" href="#"></a>
-                    
-                    <!--Checkbox groups-->
-                    
-                    <div class="rightContentBox">
-                        <h3>Filter</h3>
-                        <form>
-                            <input type="checkbox" name="Filter" value="Servers" />Servers<br />
-                            <input type="checkbox" name="Filter" value="Recipes" />Recipes<br />
-                            <input type="checkbox" name="Filter" value="API's" />API's<br />
-                            <input type="checkbox" name="Filter" value="NoSQL" checked="checked" />NoSQL
-                        </form> 
-                    </div>
-                    <div class="rightContentBox">
-                        <h3>Top Topics</h3>
-                        <form>
-                            <input type="checkbox" name="Top Topics" value="Servers" checked="checked" />MongoDB<br />
-                            <input type="checkbox" name="Top Topics" value="Recipes" checked="checked" />WebSphere<br />
-                            <input type="checkbox" name="Top Topics" value="API's" />Getting Started<br />
-                            <input type="checkbox" name="Top Topics" value="NoSQL"  />NoSQL
-                        </form> 
-                    </div>
+                    {% include toc.html %}
+
                 </div>
                 
                 <!--Start left content -->
