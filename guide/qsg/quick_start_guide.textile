@@ -159,9 +159,10 @@ The Mongo Config (mongoConfig) Server recipe does the following:
 * Detects a successful startup using the MongoLivenessDetector plugin.
 * Looks for metrics (Active Read Clients, Active Write Client etc.) to be displayed in the Web UI.
 
-The mongo-config service file is located at {{<cloudify root>/examples/petclinic/mongoConfig/mongoConfig-service.groovy}}. 
+The mongo-config service file is located at &lt;cloudify root&gt;/examples/petclinic/mongoConfig/mongoConfig-service.groovy. 
 
 h4. The Mongo Sharding Server (mongos) Recipe 
+
 The Mongo Router(mongos) Recipe does the following: 
 * Calculates its port according to its instance ID and properties file and notifies the serviceContext, so that the other services will be able to access it.
 * Unzips and installs the mongo binaries on the VM.
@@ -170,7 +171,7 @@ The Mongo Router(mongos) Recipe does the following:
 * Detects a successful startup using the MongoLivenessDetector plugin.
 * Looks for metrics (Active Read Clients, Active Write Client etc.) to be displayed in the Web UI.
 
-The mongos service file is located at {{<cloudify root>/examples/petclinic/mongos/mongos-service.groovy}}.
+The mongos service file is located at &lt;cloudify root&gt;/examples/petclinic/mongos/mongos-service.groovy.
 
 h4. The Mongo Data Shards (mongod) Recipe
 
@@ -193,11 +194,11 @@ The Tomcat Recipe does the following:
 * Monitors Tomcat performance using the JMX Monitoring Plugin
 
 Here's the relevant code snippets that show how we expose the mongos service instance (host and port) to the tomcat service instance.
-For that purpose, we use our powerfull ServiceContext API and its k/v store mechanism.
+For that purpose, we use our powerful ServiceContext API and its k/v store mechanism.
 
 <script src="https://gist.github.com/1698917.js?file=exposeMongosService.groovy"></script>
   
- And then retrieving the data in <cloudify root>/examples/petclinic/tomcat/tomcat_start.groovy
+ And then we retrieve the data in &lt;cloudify root&gt;/examples/petclinic/tomcat/tomcat_start.groovy
 
 <script src="https://gist.github.com/1698923.js?file=retrieveMongosServie.groovy"></script>
 
@@ -223,7 +224,7 @@ You can add a few owners and pets and then search for them to make sure that the
 
 h1. Step 5 - Monitoring the application
 
-To monitor the application open a web browser (the latest versions Firefox or Chrome, IE is not fully supported at this point) and log into the [Web Management Console|The Web Management Console] (The shell gives you the exact URL when bootstrapping the localcloud). Usually it would be {{[http://localhost:8099]}}. You don't need to specify any username or password, just click the login button to login anonymously. 
+To monitor the application open a web browser (the latest versions Firefox or Chrome, IE is not fully supported at this point) and log into the "Web Management Console":http://www.gigaspaces.com/wiki/display/CLOUD/The+Web+Management+Console (The shell gives you the exact URL when bootstrapping the localcloud). Usually it would be "http://localhost:8099":http://localhost:8099. You don't need to specify any username or password, just click the login button to login anonymously. 
 
 Click the the *Topology* link at the upper pane, and switch to the Topology tab. Use the application selection combo box at the top right to navigate to the pet clinic application. You should see the application map as described in the pet clinic application recipe. Each service has a realtime status and shows the number of actual service instances. Click one of the services in the application map. 
 
@@ -232,7 +233,7 @@ At the lower pane you can move between several views:
 * Infrastructure view: Lists the virtual hosts on which your application services are deployed.
 * Services view: allows you to look at individual service instances and correlate their various metrics.
 
-!GRA:Images2^petClinic_in_webui_screenShot2.jpg|thumbnail!
+<img src="/guide/images/setup/petClinic_in_webui_screenShot2.jpg" width="630" height="300"/>
 
 h1. Step 6 - Uninstalling the Application
 
