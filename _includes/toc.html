@@ -8,21 +8,18 @@
     <div class="TableOfContents">
 	
         <ul>
-		{% for topic in site.guide %}                         
+		{% for t in site.categories %}                         
 			<li>
-			<a  class="treeLink" href="#">{% topic.title %}</a>
+			<a  class="treeLink" href="#">{{ t.category }}</a>
+			{% for x in t %}
 			 <ul>
-				<li><a class="treeLink" href="#">Quick Start Guide</a></li>
-				<li><a class="treeLink" href="#">Screen Casts</a></li>
-				<li><a class="treeLink" href="#">Scaling Your Web Application</a></li>
-				<li><a class="treeLink" href="#">Setting Up Your First Data Grid</a></li>
-				<li><a class="treeLink" href="#">Writing Your First XTP Application</a></li>
-				<li><a class="treeLink" href="#">Introduction to XAP JPA</a></li>
-				<li><a class="treeLink" href="#">Beyond the Basics</a></li>
+				<li><a class="treeLink" href="#">{{ x.title}}</a></li>
+				
 			</ul>
+			{% endfor %}
 			</li>
-       </ul>
-	   {% endfor %}
+			 {% endfor %}
+       </ul>	  
     </div>
 </div>
 <div class="rightContentBox section">

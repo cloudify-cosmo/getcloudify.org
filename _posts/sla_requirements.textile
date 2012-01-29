@@ -1,0 +1,48 @@
+---
+layout: guide
+title: Deploying an Application on Windows Azure
+category: Developing Recipies
+---
+p. Installing an Application Windows Azure is done from Cloudify Interactive Shell with a single command
+
+h1. Starting the Interactive Shell
+To start the Cloudify Inreractive Shell go to <Cloudify Home>/tools/cli and run cloudify.bat or cloudify.sh, if your running on Linux or Mac OS.
+
+h1. Connect to Cloudify Controller
+If you have bootstrapped your deployment before and now you need to reconnect, use the connect command. Otherwise, skip to the next section
+On the interactive shell type <pre>connect [your azure deployment URL]/rest</pre>
+If you don't remember your deployment URL, you can get it from Azure Console
+
+h1. Deploying your Application
+Deploying your application is the process where Cloudify Controller on Azure is instructed to execute the application recipe. The controller uses the Cloudify Driver to make Azure start worker role instances according to the recipe SLAs
+Once the roles are active, Cloudify agents are discovered by the cdontroller and the recipe is shipped to them for execution.
+
+The command to use is install-application (as with any Cloud)
+<pre>
+DESCRIPTION
+        install-application
+
+        Installs an application. If you specify a folder path it will be packed and deployed. If you sepcify an application archive, the shell will deploy that file.
+
+SYNTAX
+        install-application [options] application-file
+
+ARGUMENTS
+        application-file
+                The application recipe file path, folder or archive
+
+OPTIONS
+        --help
+                Display this help message
+        -name
+                The name of the application
+        -timeout
+                The number of minutes to wait until the operation is done. Defaults to 10 minutes.
+                (defaults to 10)
+        -progress
+                The polling time interval in minutes, used for checking if the operation is done. Defaults to 1 minute. Use
+                together with the -timeout option
+                (defaults to 1)
+        --verbose
+                show detailed execution result including exception stack trace
+</pre>
