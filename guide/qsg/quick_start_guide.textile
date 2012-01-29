@@ -31,7 +31,7 @@ The Application's production environment is based on a 2-tier architecture:
 
 Obviously, the amount of instances for each of the above components can be easily changed, by modifying the numInstances attribute of the relevant Cloudify recipe file (i.e: &lt;service-name&gt;-service.groovy).
 
-[Note]: When you install MongoDB on Windows 7, you need to make sure that you run as an administrator. See "Installing MongoDB on Windows 7":http://www.mongodb.org/display/DOCS/Windows+Service.
+*Note*: When you install MongoDB on Windows 7, you need to make sure that you run as an administrator. See "Installing MongoDB on Windows 7":http://www.mongodb.org/display/DOCS/Windows+Service.
 
 
 h1. Step 1 - Install Cloudify
@@ -201,19 +201,18 @@ For that purpose, we use our powerfull ServiceContext API and its k/v store mech
 <script src="https://gist.github.com/1698923.js?file=retrieveMongosServie.groovy"></script>
 
 From this point, the tomcat service instance knows the host address and port of the mongos service instance.
-.
 
 The mongod service file is located at &lt;cloudify root&gt;/examples/petclinic/tomcat/tomcat-service.groovy.
 
 h1. Step 4 - Deploying the Recipe
 
-Now that you are more familiar with the recipe mechanism, let's deploy the application. Please type the following (replace {{<Cloudify root>}} with the Cloudify's installation location on your machine:
-<pre>cloudify@default> install-application -timeout 10 <Cloudify root>/examples/petclinic</pre>
+Now that you are more familiar with the recipe mechanism, let's deploy the application. Please type the following (replace &lt;Cloudify root&gt; with the Cloudify's installation location on your machine:
+<script src="https://gist.github.com/1698955.js?file=install_app_on_cloudify.sh"></script>
 
 You may add the __--verbose__ option for more verbosity during the installation process. We've added the __-timeout__ option since the recipe itself downloads the service binaries (in our case the Tomcat and mongoDB distribution) from the web when installing for the first time, so the first installation may take longer.
 To be on the safe side, specify a timeout of at least 10 minutes as described above, which means that the shell will wait for 10 *minutes* for the application to install.
 
-{note}Currently the Cloudify shell does not support backslashes so your path separator has to be forward slash even if you're running on Windows.{note}
+ *Note*: Currently the Cloudify shell does not support backslashes so your path separator has to be forward slash even if you're running on Windows.
 
 You will see a progress report within the shell (see the screenshot below) until the entire application has been successfully installed. If an error occurred the shell will report and abort installation, so you will know at which phase and for which service it has occurred without leaving the shell application.
 
@@ -237,18 +236,14 @@ At the lower pane you can move between several views:
 h1. Step 6 - Uninstalling the Application
 
 To uninstall the application please type the following:
-<pre>
-cloudify@default> uninstall-application petclinic
-</pre>
+<script src="https://gist.github.com/1698981.js?file=uninstallApplicationPetclinic.sh"></script>
 
 You will be prompted if you want to uninstall, type 'y' and click enter. 
 
 h1. Step 7 - Tearing Down the Local Cloud
 
 To turn off all localcloud services type the following command:
-</pre>
-cloudify@default> teardown-localcloud
-</pre>
+<script src="https://gist.github.com/1698986.js?file=teardownLocalcloud.sh"></script>
 
 h1. What Next?
 
