@@ -29,7 +29,7 @@ The Application's production environment is based on a 2-tier architecture:
 ## Routing Processes (mongos): A routing and coordination process that mediates between client requests and the actual mongod instances.  When receiving client requests, the mongos process routes the request to the appropriate mongod instance(s) and merges any results sent back to the client.
 ## Mongod instances (AKA shards): In our case, there are two instances of mongod to store the application data.
 
-Obviously, the amount of instances for each of the above components can be easily changed, by modifying the numInstances attribute of the relevant Cloudify recipe file (i.e: <service-name>-service.groovy).
+Obviously, the amount of instances for each of the above components can be easily changed, by modifying the numInstances attribute of the relevant Cloudify recipe file (i.e: &lt;service-name&gt;-service.groovy).
 
 [Note]: When you install MongoDB on Windows 7, you need to make sure that you run as an administrator. See "Installing MongoDB on Windows 7":http://www.mongodb.org/display/DOCS/Windows+Service.
 
@@ -44,9 +44,7 @@ You should get the Cloudify prompt as seen in the screenshot below:
 h1. Step 2 - Bootstrap a Local Cloud
 
 To bootstrap your localcloud, which is a full fledged Cloudify setup on your local machine, type in the shell:
-<pre><code class="java">
-cloudify@default> bootstrap-localcloud
-</code></pre>
+<pre><code class="java">cloudify@default> bootstrap-localcloud</code></pre>
 
 *Tip*: You can hit tab to view the list of available commands, or type __help__ to see all of the command with their description. If you wish to see help for a specific command simply type &lt;command name&gt; __--help__
 
@@ -97,8 +95,7 @@ In the Pet Clinic application we have 4 services:
 # Mongo Data Shards (We named this service: mongod)
 
 Here's what our Pet Clinic application recipe should look like:
-<pre><code class="java">
-application {
+<pre><code class="java">application {
   name="petclinic-mongo"
   service {
     name = "mongod"
@@ -114,8 +111,8 @@ application {
     name = "tomcat"
     dependsOn = ["mongos"]
   }
-}
-</code></pre>
+}</code></pre>
+
 From the above code, one can learn:
 * The names of all the involved services.
 * That the mongos service depends on two services: mongoConfig and mongod.
@@ -146,14 +143,14 @@ For example: For Amazon EC2, you can get a list of available types (m1.small , c
 The metrics are probed from the service repeatedly every 5 seconds.
 *# *A UI configuration section* (called userInterface) which tells Cloudify Web Management Console how to visualize the monitored metrics.
 * An optional file that contains the actual image to be used for displaying this service in the Cloudify Web Management Console.
-* An optional service properties file ({{(<service name>.properties}}) which (if exists) contains configurable parameters to be used in this service.
-* All the specified life cycle script files, e.g. {{<service name>_install.groovy, <service name>_start.groovy}} etc.
-For example: The (((<service name>_install.groovy}} script will typically run during the installation of the service, if it's specified in the lifecycle section of the service file.
+* An optional service properties file (&lt;service name&gt;.properties) which (if exists) contains configurable parameters to be used in this service.
+* All the specified life cycle script files, e.g. &lt;service name&gt;_install.groovy, &lt;service name&gt;_start.groovy etc.
+For example: The (&lt;service name&gt;_install.groovy script will typically run during the installation of the service, if it's specified in the lifecycle section of the service file.
 The above naming of handler files is optional. You can name the handler files as you wish, as long as you specify their exact names in the corresponding service file.
 The usage of any handler file is optional. For example: If you don't specify a post-installation handler file in the service filet, then no handler will be activated after the service has been installed.
-* An optional folder called {{usmlib}} which should contain all your plugins jar files (required only if you developed your own plugins).
-Cloudify comes with [built-in plugin implementations|http://www.gigaspaces.com/wiki/display/CLOUD/Monitoring+Plugins+Development] that you can configure as needed, but you can also develop your own monitoring plugins and pack them with the recipe (in jar files under usmlib sub-folder within each service folder).
-In the Pet Clinic application we used our Cloudify Mongo Plugin ([cloudify-mongo-plugin.jar|http://www.gigaspaces.com/wiki/download/attachments/55935974/CloudifyMongoPlugins_sources2_0.zip]) to get details and to detect port liveness.
+* An optional folder called __usmlib__ which should contain all your plugins jar files (required only if you developed your own plugins).
+Cloudify comes with "built-in plugin implementations":http://www.gigaspaces.com/wiki/display/CLOUD/Monitoring+Plugins+Development that you can configure as needed, but you can also develop your own monitoring plugins and pack them with the recipe (in jar files under usmlib sub-folder within each service folder).
+In the Pet Clinic application we used our Cloudify Mongo Plugin "cloudify-mongo-plugin.jar":http://www.gigaspaces.com/wiki/download/attachments/55935974/CloudifyMongoPlugins_sources2_0.zip to get details and to detect port liveness.
 
 
 h4. The Life Cycle Scripts
