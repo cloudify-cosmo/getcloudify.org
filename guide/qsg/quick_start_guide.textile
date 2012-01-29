@@ -1,0 +1,320 @@
+---
+layout: default
+title: 10-Minute Quick Start Guide
+cat: userguide
+sidebar: 10-Minute Quick Start Guide
+---
+
+{summary}Cloudify an example application in 10 minutes{summary}
+
+h1. Introduction
+
+
+h4. About this Guide
+
+The goal of this quick start guide is get you familiar with Cloudify with a few simple steps.For this purpose, e will use one of our built-in examples (the "PetClinic" application, a port of the classis Spring PetClinic sample application which uses [MongoDB|http://www.mongodb.org] as the database instead of MySql).
+This guide will teach you how to:
+* Use an example recipe to deploy an application on a [localcloud|http://www.gigaspaces.com/wiki/display/CLOUD/Bootstrapping|Bootstrapping] using Cloudify, starting from how to install Cloudify  and ending in monitoring the deployed application.
+* Use the Cloudify Command line tool.
+* Monitor your deployed application, using Cloudify's [Web Management Console|The Web Management Console].
+
+h1. About the Pet Clinic Application
+
+The Pet Clinic Application presented in this tutorial is a port to Grails of the standard [Java based Spring framework sample app|http://static.springsource.org/docs/petclinic.html].
+It is using MongoDB instead of MySql as the backend store, and leverages the Grails GORM bindings to MongoDB. The users of the application are employees of the clinic who need to view and manage information regarding the veterinarians, pet owners, and their pets.
+The Application's production environment is based on a 2-tier architecture:
+# Web and Business Logic Tier - Composed of the Grails application deployed on Apache Tomcat.
+# The Data Tier - Composed of [a sharded MongoDB cluster|http://www.mongodb.org/display/DOCS/Sharding+Introduction|Sharded MongoDB], which is composed of the following components:
+## [Configuration Server|http://www.mongodb.org/display/DOCS/Configuring+Sharding#ConfiguringSharding-ConfigServers|MongoDB Configuration Server] : Stores the cluster's metadata, which includes basic information on each shard server and the chunks contained therein.
+## Routing Processes (mongos): A routing and coordination process that mediates between client requests and the actual mongod instances.  When receiving client requests, the mongos process routes the request to the appropriate mongod instance(s) and merges any results sent back to the client.
+## Mongod instances (AKA shards): In our case, there are two instances of mongod to store the application data.
+
+Obviously, the amount of instances for each of the above components can be easily changed, by modifying the numInstances attribute of the relevant Cloudify recipe file (i.e: <service-name>-service.groovy).
+
+[Note]: When you install MongoDB on Windows 7, you need to make sure that you run as an administrator. See [Installing MongoDB on Windows 7|http://www.mongodb.org/display/DOCS/Windows+Service].
+
+
+h1. Step 1 - Install Cloudify
+
+To install Cloudify simply [download|http://www.gigaspaces.com/cloudify] and unzip the distribution zip file.
+Then cd to {{<Cloudify Root>/bin}} folder and run the {{cloudify.sh(bat)}} script. 
+You should get the Cloudify prompt as seen in the screenshot below:
+
+!GRA:Images2^shell_start2.jpg|thumbnail!
+
+h1. Step 2 - Bootstrap a Local Cloud
+
+To bootstrap your localcloud, which is a full fledged Cloudify setup on your local machine, type in the shell:
+{code}
+cloudify@default> bootstrap-localcloud
+{code}
+
+{tip}{*}Tip*: You can hit tab to view the list of available commands, or type {{help}} to see all of the command with their description. If you wish to see help for a specific command simply type {{<command name> \--help}}{tip}
+
+You should get progress output reporting the start of the following services:
+* Local agent
+* The Management service
+* The REST gatway service
+* The Web Management Console Service
+The Cloudify shell will also connect to the REST service automatically so you will not have to run the {{connect}} command separately.
+
+!GRA:Images2^shell_boot3.jpg!
+
+Your environment is now ready for application deployment.
+
+h1. Step 3 - Learn about the Application Recipe
+
+First, let's take a brief look at the Pet Clinic application recipe you're about to deploy.
+In the <Cloudify Root>/examples/petclinic folder you will find the following files and folders:
+# The application recipe: petclinic-mongo-application.groovy
+# The Configuration Server (mongoConfig) recipe folder
+# The Shards (mongod) recipe folder
+# The Routing Processes (mongos) recipe folder
+# The Tomcat recipe folder
+In each of the above folders you will find all the files required to run the corresponding service.
+
+The following diagram depicts the application recipe file and folder structure: 
+
+!GRA:Images2^pet_clinic_anatomy3.jpg!
+
+h4. The Application Recipe
+
+Every application has its own mandatory application level recipe.
+The application level recipe describes the various application services and their inter-dependencies.
+As a rule of thumb, each unique set of processes which are functioning as one tier, should be regarded as a service, e.g. a tomcat cluster, or a MySql primary and backup servers. 
+Please note the difference between a service and a service instance:
+A service can also be defined as a cluster which is composed of at least one service instance.
+Every service instance resides on one host (typically this would be a VM), whereas a service is the aggregation of all service instances, and as such can span over multiple machines depending, on its number of instance. A typical application is composed of multiple tiers, such as a web server tier and a database tier.
+Each tier can contain one or more instances, for example: two Tomcat instances and one MySQL instance.
+In the Cloudify lingo that translates into two services, the first having two service instances and the second having one service instance.
+
+If your application is composed of three Tomcat instances (in a cluster) and two MySql instances (also in a cluster) , then when using Cloudify, you will have one application composed of two services (Tomcat and MySql). The Tomcat service will be composed of three service instances and the MySql service will be composed of two service instances.
+
+In the Pet Clinic application we have 4 services:
+# Tomcat  (We named this service: tomcat)
+# Mongo Configuration Server (We named this service: mongoConfig)
+# Mongo Sharding Server (We named this service: mongos)
+# Mongo Data Shards (We named this service: mongod)
+
+Here's what our Pet Clinic application recipe should look like:
+{code}
+application {
+	name="petclinic-mongo"
+
+	service {
+		name = "mongod"
+	}
+
+	service {
+		name = "mongoConfig"
+	}
+
+	service {
+		name = "mongos"
+		dependsOn = ["mongoConfig", "mongod"]
+	}
+
+	service {
+		name = "tomcat"
+		dependsOn = ["mongos"]
+	}
+}
+{code}
+From the above code, one can learn:
+* The names of all the involved services.
+* That the mongos service depends on two services: mongoConfig and mongod.
+* That the tomcat service depends on mongos service.
+
+In general, a dependent service will start running only after the services it depends on have started.
+
+h4. The Service Level Recipe
+
+Every service has its own mandatory service level recipe.
+However, the [recipe structure|http://www.gigaspaces.com/wiki/display/CLOUD/Developing+Recipes] is common to all of them.
+
+Each service folder contains all the information required by the service:
+* A service file ({{<service name>-service.groovy}})  which can contain some or all the following sections:
+*# *A prolog section* which contains the service name, type, number of required instances and the icon to display for this service in the Cloudify Web Management Console.
+*# *A lifecycle section* which is the most important part of the recipe. 
+This section tells Cloudify how to handle the Service lifecycle events such as installation, startup, shut down and uninstall.
+Each event will be handled by a handler which can be an external Groovy script, a shell script or a batch file (depending on the operating system).
+Whichever handler you specify, it must reside in the service folder.
+Cloudify can execute the same recipe on different operating systems, provided that you specify the instructions for each type of OS family within the recipe.
+*# *A compute section* where you can insert a template name.
+    A template name is the API name of the hardware type for each instance of the service.
+For example: For Amazon EC2, you can get a list of available types (m1.small , c1.medium etc.) from [http://aws.amazon.com/ec2/instance-types|http://aws.amazon.com/ec2/instance-types].
+*# *A customCommands section* in which you can add commands that you will later be able to run whenever you want.
+*# *A plugins section* which tells Cloudify how to:
+*#* Verify if the service has started correctly, by probing the started service for its runtime details at startup time, or by requesting a (specific) response from a certain URL, or by checking a certain port, etc.
+*#* Get service-specific monitoring metrics (e.g.: Tomcat active sessions if you're running a Tomcat service, or the number of active connections if you're running mysql). This can be done via various probing strategies, such as JMX, JDBC, CLI or even a custom implementation created by the recipe developer.
+The metrics are probed from the service repeatedly every 5 seconds.
+*# *A UI configuration section* (called userInterface) which tells Cloudify Web Management Console how to visualize the monitored metrics.
+* An optional file that contains the actual image to be used for displaying this service in the Cloudify Web Management Console.
+* An optional service properties file ({{(<service name>.properties}}) which (if exists) contains configurable parameters to be used in this service.
+* All the specified life cycle script files, e.g. {{<service name>_install.groovy, <service name>_start.groovy}} etc.
+For example: The (((<service name>_install.groovy}} script will typically run during the installation of the service, if it's specified in the lifecycle section of the service file.
+The above naming of handler files is optional. You can name the handler files as you wish, as long as you specify their exact names in the corresponding service file.
+The usage of any handler file is optional. For example: If you don't specify a post-installation handler file in the service filet, then no handler will be activated after the service has been installed.
+* An optional folder called {{usmlib}} which should contain all your plugins jar files (required only if you developed your own plugins).
+Cloudify comes with [built-in plugin implementations|http://www.gigaspaces.com/wiki/display/CLOUD/Monitoring+Plugins+Development] that you can configure as needed, but you can also develop your own monitoring plugins and pack them with the recipe (in jar files under usmlib sub-folder within each service folder).
+In the Pet Clinic application we used our Cloudify Mongo Plugin ([cloudify-mongo-plugin.jar|http://www.gigaspaces.com/wiki/download/attachments/55935974/CloudifyMongoPlugins_sources2_0.zip]) to get details and to detect port liveness.
+
+
+h4. The Life Cycle Scripts
+
+Open the Groovy scripts (with a text editor) in the tomcat recipe folder and you will see that these are groovy scripts, in which you can use any Groovy or Java code you wish.
+The only unique Cloudify API that is being used is the [ServiceContext API|http://www.gigaspaces.com/wiki/display/CLOUD/The+Service+Context+API|ServiceContext API]. This API exposes the service runtime details so that one service can locate and use the details of another service within the same application.
+By using this API, we expose the port (for example) of the mongod service instance to the all the other services in the Pet Clinic Application.
+
+h4. Getting the service binaries
+
+The service binaries, namely the Tomcat and MongoDB distributions, can be quite large to upload upon installation.
+The recipe downloads them upon installation from a file repository (this can be any http, ftp or file system location) so they're not uploaded with the recipe.
+The binaries are fetched using Groovy's built in support for [Apache Ant|http://ant.apache.org/] called [AntBuilder|http://groovy.codehaus.org/api/groovy/util/AntBuilder.html] and the Ant {{get}} task.
+
+h4. The Mongo Config (mongoConfig) Service Recipe
+
+The Mongo Config (mongoConfig) Server recipe does the following: 
+* Calculates its port according to its instance ID and properties file and notifies the serviceContext, so that the other services will be able to access it.
+* Unzips and installs the mongo binaries on the VM.
+* Starts the Configuration Server process.
+* Detects a successful startup using the MongoLivenessDetector plugin.
+* Looks for metrics (Active Read Clients, Active Write Client etc.) to be displayed in the Web UI.
+
+The mongo-config service file is located at {{<cloudify root>/examples/petclinic/mongoConfig/mongoConfig-service.groovy}}. 
+
+h4. The Mongo Sharding Server (mongos) Recipe 
+The Mongo Router(mongos) Recipe does the following: 
+* Calculates its port according to its instance ID and properties file and notifies the serviceContext, so that the other services will be able to access it.
+* Unzips and installs the mongo binaries on the VM.
+* Looks for host address and port of the mongoConfig service (using the serviceContext API).
+* Starts the Router Server process.
+* Detects a successful startup using the MongoLivenessDetector plugin.
+* Looks for metrics (Active Read Clients, Active Write Client etc.) to be displayed in the Web UI.
+
+The mongos service file is located at {{<cloudify root>/examples/petclinic/mongos/mongos-service.groovy}}.
+
+h4. The Mongo Data Shards (mongod) Recipe
+
+The Mongo Data Shards (mongod) Recipe does the following:
+* Calculates its port according to its instance ID and properties file and notifies the serviceContext, so that the other services will be able to access it.
+* Unzips and installs the mongo binaries on the VM
+* Starts the Shard Server process.
+* Detects a successful startup using the MongoLivenessDetector plugin
+* Looks for metrics (Active Read Clients, Active Write Client etc.) to be displayed in the Web UI.
+
+The mongod service file is located at {{<cloudify root>/examples/petclinic/mongod/mongod-service.groovy}}.
+
+h4. The Tomcat Recipe
+
+The Tomcat Recipe does the following:
+* Unzips and installs the tomcat binaries on the VM
+* Configures the tomcat Http Port and the enables remote JMX
+* Starts the mongos process
+* Detects a successful startup using the PortLivnessDetector on port 8080
+* Monitors Tomcat performance using the JMX Monitoring Plugin
+
+Here's the relevant code snippets that show how we expose the mongos service instance (host and port) to the tomcat service instance.
+For that purpose, we use our powerfull ServiceContext API and its k/v store mechanism.
+
+{code}
+ 
+// In <cloudify root>/examples/petclinic/mongos/mongos_install.groovy
+import com.gigaspaces.cloudify.dsl.context.ServiceContextFactory
+  // ...
+  // Getting the mongos service instance ID
+instanceID = serviceContext.getInstanceId()
+
+  // Calculating the mongos port and storing it in the serviceContext for later use 
+  // (by the service and by other services).
+serviceContext.attributes.thisInstance["port"] = config.basePort+instanceID
+  // ...
+
+
+{code}
+  
+ And then retrieving the data in <cloudify root>/examples/petclinic/tomcat/tomcat_start.groovy
+
+
+{code}
+import com.gigaspaces.cloudify.dsl.context.ServiceContextFactory
+  // ...
+  // Getting the tomcat service instance ID
+instanceID = serviceContext.getInstanceId()
+
+  // Waiting for the mongos service for 20 seconds
+mongoService = serviceContext.waitForService(config.mongoService, 20, TimeUnit.SECONDS) 
+
+  // Waiting for the mongos service instances for 60 seconds (In this case, 
+  //  there's only one mongos instance, but we support more).
+mongoInstances = mongoService.waitForInstances(mongoService.numberOfPlannedInstances, 60, TimeUnit.SECONDS) 
+
+  // Retrieving the mongos host address.
+  // Note that the mongoInstances array is zero based.
+def mongoServiceHost = mongoInstances[instanceID-1].hostAddress
+
+ // Retrieving the mongos port
+ // Note that the mongoServiceInstances array is one based.
+def mongoServiceInstances=serviceContext.attributes.mongos.instances
+mongoServicePort=mongoServiceInstances[instanceID].port
+
+{code}
+
+From this point, the tomcat service instance knows the host address and port of the mongos service instance.
+.
+
+The mongod service file is located at {{<cloudify root>/examples/petclinic/tomcat/tomcat-service.groovy}}.
+
+h1. Step 4 - Deploying the Recipe
+
+Now that you are more familiar with the recipe mechanism, let's deploy the application. Please type the following (replace {{<Cloudify root>}} with the Cloudify's installation location on your machine:
+{code}
+cloudify@default> install-application -timeout 10 <Cloudify root>/examples/petclinic
+{code}
+
+You may add the {{\--verbose}} option for more verbosity during the installation process. We've added the {{\-timeout}} option since the recipe itself downloads the service binaries (in our case the Tomcat and mongoDB distribution) from the web when installing for the first time, so the first installation may take longer.
+To be on the safe side, specify a timeout of at least 10 minutes as described above, which means that the shell will wait for 10 *minutes* for the application to install.
+
+{note}Currently the Cloudify shell does not support backslashes so your path separator has to be forward slash even if you're running on Windows.{note}
+
+You will see a progress report within the shell (see the screenshot below) until the entire application has been successfully installed. If an error occurred the shell will report and abort installation, so you will know at which phase and for which service it has occurred without leaving the shell application.
+
+Once the application installation is finished successfully you can open your web browser with the following link: [http://localhost:8080/petclinic-mongo|http://localhost:8080/petclinic-mongo]
+
+You can add a few owners and pets and then search for them to make sure that the application is functioning properly. 
+
+h1. Step 5 - Monitoring the application
+
+To monitor the application open a web browser (the latest versions Firefox or Chrome, IE is not fully supported at this point) and log into the [Web Management Console|The Web Management Console] (The shell gives you the exact URL when bootstrapping the localcloud). Usually it would be {{[http://localhost:8099]}}. You don't need to specify any username or password, just click the login button to login anonymously. 
+
+Click the the *Topology* link at the upper pane, and switch to the Topology tab. Use the application selection combo box at the top right to navigate to the pet clinic application. You should see the application map as described in the pet clinic application recipe. Each service has a realtime status and shows the number of actual service instances. Click one of the services in the application map. 
+
+At the lower pane you can move between several views:
+* Metrics view: displays the service metrics configured in the recipe GUI section
+* Infrastructure view: Lists the virtual hosts on which your application services are deployed.
+* Services view: allows you to look at individual service instances and correlate their various metrics.
+
+!GRA:Images2^petClinic_in_webui_screenShot2.jpg|thumbnail!
+
+h1. Step 6 - Uninstalling the Application
+
+To uninstall the application please type the following:
+{code}
+cloudify@default> uninstall-application petclinic
+{code}
+
+You will be prompted if you want to uninstall, type 'y' and click enter. 
+
+h1. Step 7 - Tearing Down the Local Cloud
+
+To turn off all localcloud services type the following command:
+{code}
+cloudify@default> teardown-localcloud
+{code}
+
+h1. What Next?
+
+* Learn more about [recipe development|Developing Recipes].
+* Learn more about cloud portability and [cloud drivers|Developing a Custom Cloud Driver].
+* Learn how to [develop a monitoring plugin|Monitoring Plugins Development].
+* Learn how to further monitor your application with the [Web Manager|The Web Management Console].
