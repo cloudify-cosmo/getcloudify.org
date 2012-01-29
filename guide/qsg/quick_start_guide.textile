@@ -194,48 +194,11 @@ The Tomcat Recipe does the following:
 Here's the relevant code snippets that show how we expose the mongos service instance (host and port) to the tomcat service instance.
 For that purpose, we use our powerfull ServiceContext API and its k/v store mechanism.
 
-<pre>
- 
-// In <cloudify root>/examples/petclinic/mongos/mongos_install.groovy
-import com.gigaspaces.cloudify.dsl.context.ServiceContextFactory
-  // ...
-  // Getting the mongos service instance ID
-instanceID = serviceContext.getInstanceId()
-
-  // Calculating the mongos port and storing it in the serviceContext for later use 
-  // (by the service and by other services).
-serviceContext.attributes.thisInstance["port"] = config.basePort+instanceID
-  // ...
-
-
-</pre>
+<script src="https://gist.github.com/1698923.js?file=retrieveMongosServie.groovy"></script>
   
  And then retrieving the data in <cloudify root>/examples/petclinic/tomcat/tomcat_start.groovy
 
-
-<pre>
-import com.gigaspaces.cloudify.dsl.context.ServiceContextFactory
-  // ...
-  // Getting the tomcat service instance ID
-instanceID = serviceContext.getInstanceId()
-
-  // Waiting for the mongos service for 20 seconds
-mongoService = serviceContext.waitForService(config.mongoService, 20, TimeUnit.SECONDS) 
-
-  // Waiting for the mongos service instances for 60 seconds (In this case, 
-  //  there's only one mongos instance, but we support more).
-mongoInstances = mongoService.waitForInstances(mongoService.numberOfPlannedInstances, 60, TimeUnit.SECONDS) 
-
-  // Retrieving the mongos host address.
-  // Note that the mongoInstances array is zero based.
-def mongoServiceHost = mongoInstances[instanceID-1].hostAddress
-
- // Retrieving the mongos port
- // Note that the mongoServiceInstances array is one based.
-def mongoServiceInstances=serviceContext.attributes.mongos.instances
-mongoServicePort=mongoServiceInstances[instanceID].port
-
-</pre>
+<script src="https://gist.github.com/1698923.js?file=retrieveMongosServie.groovy"></script>
 
 From this point, the tomcat service instance knows the host address and port of the mongos service instance.
 .
