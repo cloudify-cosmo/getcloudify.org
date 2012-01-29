@@ -7,15 +7,31 @@
 	</script>
     <div class="TableOfContents">
 	
-        <ul>
-		{% for category in site.categories %}                        
+        <ul>		                 
 			<li>
-			<a  class="treeLink" href="#">{{ category[0] }}</a>
+			<a  class="treeLink" href="/guide/Overview">Overview</a>
 				<ul>
 				
 				</ul>
 			</li>
-			 {% endfor %}
+            <li>
+			<a  class="treeLink" href="/guide/qsg">Quick Start Guide</a>
+				<ul>
+				<li><a  class="treeLink" href="/guide/qsg/quick_start_guide">Quick Start Guide</a</li>
+				</ul>
+			</li>
+            <li>
+			<a  class="treeLink" href="/guide/Bootstrapping">Bootstrapping</a>
+				<ul>
+				<li><a  class="treeLink" href="bootstrapping_azure">Bootstrapping on Azure</a</li>
+				</ul>
+			</li>			
+			<li>
+			<a  class="treeLink" href="/guide/Developing">Developing Recipes</a>
+				<ul>
+				<li><a  class="treeLink" href="/guide/Developing/extending_recipes">Extending Recipes</a</li>
+				</ul>
+			</li>
        </ul>	  
     </div>
 </div>
