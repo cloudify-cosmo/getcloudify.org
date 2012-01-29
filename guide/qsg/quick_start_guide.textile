@@ -180,7 +180,7 @@ The Mongo Data Shards (mongod) Recipe does the following:
 * Detects a successful startup using the MongoLivenessDetector plugin
 * Looks for metrics (Active Read Clients, Active Write Client etc.) to be displayed in the Web UI.
 
-The mongod service file is located at {{<cloudify root>/examples/petclinic/mongod/mongod-service.groovy}}.
+The mongod service file is located at &lt;cloudify root&gt;/examples/petclinic/mongod/mongod-service.groovy.
 
 h4. The Tomcat Recipe
 
@@ -194,7 +194,7 @@ The Tomcat Recipe does the following:
 Here's the relevant code snippets that show how we expose the mongos service instance (host and port) to the tomcat service instance.
 For that purpose, we use our powerfull ServiceContext API and its k/v store mechanism.
 
-<script src="https://gist.github.com/1698923.js?file=retrieveMongosServie.groovy"></script>
+<script src="https://gist.github.com/1698917.js?file=exposeMongosService.groovy"></script>
   
  And then retrieving the data in <cloudify root>/examples/petclinic/tomcat/tomcat_start.groovy
 
@@ -203,23 +203,21 @@ For that purpose, we use our powerfull ServiceContext API and its k/v store mech
 From this point, the tomcat service instance knows the host address and port of the mongos service instance.
 .
 
-The mongod service file is located at {{<cloudify root>/examples/petclinic/tomcat/tomcat-service.groovy}}.
+The mongod service file is located at &lt;cloudify root&gt;/examples/petclinic/tomcat/tomcat-service.groovy.
 
 h1. Step 4 - Deploying the Recipe
 
 Now that you are more familiar with the recipe mechanism, let's deploy the application. Please type the following (replace {{<Cloudify root>}} with the Cloudify's installation location on your machine:
-<pre>
-cloudify@default> install-application -timeout 10 <Cloudify root>/examples/petclinic
-</pre>
+<pre>cloudify@default> install-application -timeout 10 <Cloudify root>/examples/petclinic</pre>
 
-You may add the {{\--verbose}} option for more verbosity during the installation process. We've added the {{\-timeout}} option since the recipe itself downloads the service binaries (in our case the Tomcat and mongoDB distribution) from the web when installing for the first time, so the first installation may take longer.
+You may add the __--verbose__ option for more verbosity during the installation process. We've added the __-timeout__ option since the recipe itself downloads the service binaries (in our case the Tomcat and mongoDB distribution) from the web when installing for the first time, so the first installation may take longer.
 To be on the safe side, specify a timeout of at least 10 minutes as described above, which means that the shell will wait for 10 *minutes* for the application to install.
 
 {note}Currently the Cloudify shell does not support backslashes so your path separator has to be forward slash even if you're running on Windows.{note}
 
 You will see a progress report within the shell (see the screenshot below) until the entire application has been successfully installed. If an error occurred the shell will report and abort installation, so you will know at which phase and for which service it has occurred without leaving the shell application.
 
-Once the application installation is finished successfully you can open your web browser with the following link: [http://localhost:8080/petclinic-mongo|http://localhost:8080/petclinic-mongo]
+Once the application installation is finished successfully you can open your web browser with the following link: "http://localhost:8080/petclinic-mongo":http://localhost:8080/petclinic-mongo
 
 You can add a few owners and pets and then search for them to make sure that the application is functioning properly. 
 
