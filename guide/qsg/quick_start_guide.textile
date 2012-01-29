@@ -130,7 +130,7 @@ The metrics are probed from the service repeatedly every 5 seconds.
 * An optional file that contains the actual image to be used for displaying this service in the Cloudify Web Management Console.
 * An optional service properties file (&lt;service name&gt;.properties) which (if exists) contains configurable parameters to be used in this service.
 * All the specified life cycle script files, e.g. &lt;service name&gt;_install.groovy, &lt;service name&gt;_start.groovy etc.
-For example: The (&lt;service name&gt;_install.groovy script will typically run during the installation of the service, if it's specified in the lifecycle section of the service file.
+For example: The &lt;service name&gt;_install.groovy script will typically run during the installation of the service, if it's specified in the lifecycle section of the service file.
 The above naming of handler files is optional. You can name the handler files as you wish, as long as you specify their exact names in the corresponding service file.
 The usage of any handler file is optional. For example: If you don't specify a post-installation handler file in the service filet, then no handler will be activated after the service has been installed.
 * An optional folder called __usmlib__ which should contain all your plugins jar files (required only if you developed your own plugins).
