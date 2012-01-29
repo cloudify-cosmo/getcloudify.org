@@ -8,15 +8,16 @@
     <div class="TableOfContents">
 	
         <ul>
-		{% for t in site.categories %}                         
+		{% for category in site.categories %}                        
 			<li>
-			<a  class="treeLink" href="#">{{ t.category }}</a>
-			{% for x in t.posts %}
-			 <ul>
-				<li><a class="treeLink" href="#">{{ x.title}}</a></li>
-				
-			</ul>
-			{% endfor %}
+			<a  class="treeLink" href="#">{{ category[0] }}</a>
+				<ul>
+				{% for post in site.posts %}
+					{% if post.category == category[0] %}
+					 <li> <a href="{{ post.url }}"> {{ post.title }}</a></li>
+					{% endif %}				
+				{% endfor %}
+				</ul>
 			</li>
 			 {% endfor %}
        </ul>	  
