@@ -95,8 +95,7 @@ In the Pet Clinic application we have 4 services:
 # Mongo Data Shards (We named this service: mongod)
 
 Here's what our Pet Clinic application recipe should look like:
-<pre><code class="java">
-application {
+<pre><code class="java">application {
   name="petclinic-mongo"
   service {
     name = "mongod"
@@ -112,8 +111,8 @@ application {
     name = "tomcat"
     dependsOn = ["mongos"]
   }
-}
-</code></pre>
+}</code></pre>
+
 From the above code, one can learn:
 * The names of all the involved services.
 * That the mongos service depends on two services: mongoConfig and mongod.
