@@ -13,31 +13,25 @@ The Service Context API provides means to access other Application Services or o
 
 h1. Gaining access to the Service Context API
 
-The ServiceContext API is accessed using the _ServiceContextFactory__:
-
-import org.cloudifysource.dsl.context.ServiceContextFactory;
-def context = ServiceContextFactory.getServiceContext()
+The ServiceContext API is accessed using the __ServiceContextFactory__:
 <script src="https://gist.github.com/1700385.js?file=getServiceContext.groovy"></script>
 
 
 Now, you can access any Application service by name, using the __waitForService__ Method:
-
 <script src="https://gist.github.com/1700450.js?file=wait4Cassandra.groovy"></script>
 
-The _current_ service - the service in which the above code would be running - can be accessed using __context.serviceName__.
+The __current__ service - the service in which the above code would be running - can be accessed using __context.serviceName__.
+
 h1. The Service Methods
 
 The __Service__ object has the following methods:
-
 <script src="https://gist.github.com/1700479.js?file=serviceMethods.groovy"></script>
-
-
 
 h1. The Service Instance Methods
 
 The __ServiceInstance__ object can be referenced from the __Service__ object using __getInstances()__.
 
-To find out the current instance Id, use __context.getInstanceId()___.
+To find out the current instance Id, use __context.getInstanceId()__.
 
 The {{ServiceInstance}} object provides the following methods:
 {code}
