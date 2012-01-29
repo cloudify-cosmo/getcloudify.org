@@ -143,14 +143,14 @@ For example: For Amazon EC2, you can get a list of available types (m1.small , c
 The metrics are probed from the service repeatedly every 5 seconds.
 *# *A UI configuration section* (called userInterface) which tells Cloudify Web Management Console how to visualize the monitored metrics.
 * An optional file that contains the actual image to be used for displaying this service in the Cloudify Web Management Console.
-* An optional service properties file ({{(<service name>.properties}}) which (if exists) contains configurable parameters to be used in this service.
-* All the specified life cycle script files, e.g. {{<service name>_install.groovy, <service name>_start.groovy}} etc.
-For example: The (((<service name>_install.groovy}} script will typically run during the installation of the service, if it's specified in the lifecycle section of the service file.
+* An optional service properties file (&lt;service name&gt;.properties) which (if exists) contains configurable parameters to be used in this service.
+* All the specified life cycle script files, e.g. &lt;service name&gt;_install.groovy, &lt;service name&gt;_start.groovy etc.
+For example: The (&lt;service name&gt;_install.groovy script will typically run during the installation of the service, if it's specified in the lifecycle section of the service file.
 The above naming of handler files is optional. You can name the handler files as you wish, as long as you specify their exact names in the corresponding service file.
 The usage of any handler file is optional. For example: If you don't specify a post-installation handler file in the service filet, then no handler will be activated after the service has been installed.
-* An optional folder called {{usmlib}} which should contain all your plugins jar files (required only if you developed your own plugins).
-Cloudify comes with [built-in plugin implementations|http://www.gigaspaces.com/wiki/display/CLOUD/Monitoring+Plugins+Development] that you can configure as needed, but you can also develop your own monitoring plugins and pack them with the recipe (in jar files under usmlib sub-folder within each service folder).
-In the Pet Clinic application we used our Cloudify Mongo Plugin ([cloudify-mongo-plugin.jar|http://www.gigaspaces.com/wiki/download/attachments/55935974/CloudifyMongoPlugins_sources2_0.zip]) to get details and to detect port liveness.
+* An optional folder called __usmlib__ which should contain all your plugins jar files (required only if you developed your own plugins).
+Cloudify comes with "built-in plugin implementations":http://www.gigaspaces.com/wiki/display/CLOUD/Monitoring+Plugins+Development that you can configure as needed, but you can also develop your own monitoring plugins and pack them with the recipe (in jar files under usmlib sub-folder within each service folder).
+In the Pet Clinic application we used our Cloudify Mongo Plugin "cloudify-mongo-plugin.jar":http://www.gigaspaces.com/wiki/download/attachments/55935974/CloudifyMongoPlugins_sources2_0.zip to get details and to detect port liveness.
 
 
 h4. The Life Cycle Scripts
