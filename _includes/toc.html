@@ -12,8 +12,12 @@
 			<li>
 			<a  class="treeLink" href="#">{{ category[0] }}</a>
 				<ul>
-				{% for item  in category[1] %}					
-					 <li> <a href=""> {{ item.title }}</a></li>								
+				{% for post in site.posts %}	
+					{% for cat in post.categories}
+						{% if cat[0] == category[0] %}
+						 <li> <a href=""> {{ post.title }}</a></li>
+					    {% endif %}		
+					{% endfor %}	
 				{% endfor %}
 				</ul>
 			</li>
