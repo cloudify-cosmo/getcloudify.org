@@ -194,11 +194,11 @@ The Tomcat Recipe does the following:
 * Monitors Tomcat performance using the JMX Monitoring Plugin
 
 Here's the relevant code snippets that show how we expose the mongos service instance (host and port) to the tomcat service instance.
-For that purpose, we use our powerfull ServiceContext API and its k/v store mechanism.
+For that purpose, we use our powerful ServiceContext API and its k/v store mechanism.
 
 <script src="https://gist.github.com/1698917.js?file=exposeMongosService.groovy"></script>
   
- And then retrieving the data in &lt;cloudify root&gt;/examples/petclinic/tomcat/tomcat_start.groovy
+ And then we retrieve the data in &lt;cloudify root&gt;/examples/petclinic/tomcat/tomcat_start.groovy
 
 <script src="https://gist.github.com/1698923.js?file=retrieveMongosServie.groovy"></script>
 
