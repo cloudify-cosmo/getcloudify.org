@@ -8,9 +8,9 @@
     <div class="TableOfContents">
 	
         <ul>
-            <li><a class="treeLink" href="#">topic 1</a></li>              
+		{% for topic in site.guide %}                         
 			<li>
-			<a href="#">topic 2</a>
+			<a  class="treeLink" href="#">{% topic.title %}</a>
 			 <ul>
 				<li><a class="treeLink" href="#">Quick Start Guide</a></li>
 				<li><a class="treeLink" href="#">Screen Casts</a></li>
@@ -22,6 +22,7 @@
 			</ul>
 			</li>
        </ul>
+	   {% endfor %}
     </div>
 </div>
 <div class="rightContentBox section">
