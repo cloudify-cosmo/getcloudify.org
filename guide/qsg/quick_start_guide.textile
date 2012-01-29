@@ -45,9 +45,11 @@ You should get the Cloudify prompt as seen in the screenshot below:
 h1. Step 2 - Bootstrap a Local Cloud
 
 To bootstrap your localcloud, which is a full fledged Cloudify setup on your local machine, type in the shell:
-{code}
+The following snippet shows how to decalre the SLA, using the numInstances attribute
+<pre>
 cloudify@default> bootstrap-localcloud
-{code}
+The following snippet shows how to decalre the SLA, using the numInstances attribute
+</pre>
 
 {tip}{*}Tip*: You can hit tab to view the list of available commands, or type {{help}} to see all of the command with their description. If you wish to see help for a specific command simply type {{<command name> \--help}}{tip}
 
@@ -97,7 +99,7 @@ In the Pet Clinic application we have 4 services:
 # Mongo Data Shards (We named this service: mongod)
 
 Here's what our Pet Clinic application recipe should look like:
-{code}
+<pre>
 application {
 	name="petclinic-mongo"
 
@@ -119,7 +121,7 @@ application {
 		dependsOn = ["mongos"]
 	}
 }
-{code}
+</pre>
 From the above code, one can learn:
 * The names of all the involved services.
 * That the mongos service depends on two services: mongoConfig and mongod.
@@ -217,7 +219,7 @@ The Tomcat Recipe does the following:
 Here's the relevant code snippets that show how we expose the mongos service instance (host and port) to the tomcat service instance.
 For that purpose, we use our powerfull ServiceContext API and its k/v store mechanism.
 
-{code}
+<pre>
  
 // In <cloudify root>/examples/petclinic/mongos/mongos_install.groovy
 import com.gigaspaces.cloudify.dsl.context.ServiceContextFactory
@@ -231,12 +233,12 @@ serviceContext.attributes.thisInstance["port"] = config.basePort+instanceID
   // ...
 
 
-{code}
+</pre>
   
  And then retrieving the data in <cloudify root>/examples/petclinic/tomcat/tomcat_start.groovy
 
 
-{code}
+<pre>
 import com.gigaspaces.cloudify.dsl.context.ServiceContextFactory
   // ...
   // Getting the tomcat service instance ID
@@ -258,7 +260,7 @@ def mongoServiceHost = mongoInstances[instanceID-1].hostAddress
 def mongoServiceInstances=serviceContext.attributes.mongos.instances
 mongoServicePort=mongoServiceInstances[instanceID].port
 
-{code}
+</pre>
 
 From this point, the tomcat service instance knows the host address and port of the mongos service instance.
 .
@@ -268,9 +270,9 @@ The mongod service file is located at {{<cloudify root>/examples/petclinic/tomca
 h1. Step 4 - Deploying the Recipe
 
 Now that you are more familiar with the recipe mechanism, let's deploy the application. Please type the following (replace {{<Cloudify root>}} with the Cloudify's installation location on your machine:
-{code}
+<pre>
 cloudify@default> install-application -timeout 10 <Cloudify root>/examples/petclinic
-{code}
+</pre>
 
 You may add the {{\--verbose}} option for more verbosity during the installation process. We've added the {{\-timeout}} option since the recipe itself downloads the service binaries (in our case the Tomcat and mongoDB distribution) from the web when installing for the first time, so the first installation may take longer.
 To be on the safe side, specify a timeout of at least 10 minutes as described above, which means that the shell will wait for 10 *minutes* for the application to install.
@@ -299,18 +301,18 @@ At the lower pane you can move between several views:
 h1. Step 6 - Uninstalling the Application
 
 To uninstall the application please type the following:
-{code}
+<pre>
 cloudify@default> uninstall-application petclinic
-{code}
+</pre>
 
 You will be prompted if you want to uninstall, type 'y' and click enter. 
 
 h1. Step 7 - Tearing Down the Local Cloud
 
 To turn off all localcloud services type the following command:
-{code}
+</pre>
 cloudify@default> teardown-localcloud
-{code}
+</pre>
 
 h1. What Next?
 
