@@ -11,7 +11,7 @@
 		{% for t in site.categories %}                         
 			<li>
 			<a  class="treeLink" href="#">{{ t.category }}</a>
-			{% for x in t %}
+			{% for x in t.posts %}
 			 <ul>
 				<li><a class="treeLink" href="#">{{ x.title}}</a></li>
 				
