@@ -95,23 +95,7 @@ In the Pet Clinic application we have 4 services:
 # Mongo Data Shards (We named this service: mongod)
 
 Here's what our Pet Clinic application recipe should look like:
-<pre><code class="java">application {
-  name="petclinic-mongo"
-  service {
-    name = "mongod"
-  }  
-  service {
-    name = "mongoConfig"
-  }
-  service {
-    name = "mongos"
-    dependsOn = ["mongoConfig", "mongod"]
-  }
-  service {
-    name = "tomcat"
-    dependsOn = ["mongos"]
-  }
-}</code></pre>
+<script src="https://gist.github.com/1698895.js?file=petclinic-application.groovy"></script>
 
 From the above code, one can learn:
 * The names of all the involved services.
