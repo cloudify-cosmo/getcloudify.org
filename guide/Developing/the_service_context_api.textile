@@ -7,10 +7,12 @@ category: devrecipe
 {summary}The Service Context API provides means to access other Application Services or other Service Nodes from within a lifecycle script{summary}
 
 h1. The Service Context API
+
 The Service Context API provides means to access other Application Services or other Service Nodes from within a lifecycle script.
 
 
 h1. Gaining access to the Service Context API
+
 The ServiceContext API is accessed using the _ServiceContextFactory__:
 
 import org.cloudifysource.dsl.context.ServiceContextFactory;
@@ -20,8 +22,6 @@ def context = ServiceContextFactory.getServiceContext()
 
 Now, you can access any Application service by name, using the __waitForService__ Method:
 
-def serviceName = "cassandra"
-def service = context.waitForService(serviceName, 20, TimeUnit.SECONDS)
 <script src="https://gist.github.com/1700450.js?file=wait4Cassandra.groovy"></script>
 
 The _current_ service - the service in which the above code would be running - can be accessed using __context.serviceName__.
@@ -30,15 +30,11 @@ h1. The Service Methods
 The __Service__ object has the following methods:
 
 <script src="https://gist.github.com/1700479.js?file=serviceMethods.groovy"></script>
-public String getName();
-public int getNumberOfPlannedInstances();
-public int getNumberOfActualInstances();
-public ServiceInstance[] waitForInstances(final int howmany,
-			final long timeout, final TimeUnit timeUnit);
-public ServiceInstance[] getInstances();
+
 
 
 h1. The Service Instance Methods
+
 The __ServiceInstance__ object can be referenced from the __Service__ object using __getInstances()__.
 
 To find out the current instance Id, use __context.getInstanceId()___.
@@ -57,6 +53,7 @@ public Object getMonitors(String serviceMonitorsKey);
 {code}
 
 h1. Writing and Reading Runtime Attributes
+
 Cloudify allows the user to exchange information between different contexts such as Application, Service and Service Instance, using the Attributes API.
 
 The Attributes API is identical to the Groovy HashMap API.
