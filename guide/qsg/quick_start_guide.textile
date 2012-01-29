@@ -14,18 +14,18 @@ h4. About this Guide
 
 The goal of this quick start guide is get you familiar with Cloudify with a few simple steps.For this purpose, we will use one of our built-in examples (the "PetClinic" application, a port of the classis Spring PetClinic sample application which uses "MongoDB":http://www.mongodb.org as the database instead of MySql).
 This guide will teach you how to: 
-*Use an example recipe to deploy an application on a "localcloud(Bootstrapping)":http://www.gigaspaces.com/wiki/display/CLOUD/Bootstrapping using Cloudify, starting from how to install Cloudify and ending in monitoring the deployed application.
-*Use the Cloudify Command line tool.
-*Monitor your deployed application, using Cloudify's "Web Management Console":http://www.gigaspaces.com/wiki/display/CLOUD/The+Web+Management+Console.
+* Use an example recipe to deploy an application on a "localcloud(Bootstrapping)":http://www.gigaspaces.com/wiki/display/CLOUD/Bootstrapping using Cloudify, starting from how to install Cloudify and ending in monitoring the deployed application.
+* Use the Cloudify Command line tool.
+* Monitor your deployed application, using Cloudify's "Web Management Console":http://www.gigaspaces.com/wiki/display/CLOUD/The+Web+Management+Console.
 
 h1. About the Pet Clinic Application
 
-The Pet Clinic Application presented in this tutorial is a port to Grails of the standard [Java based Spring framework sample app|http://static.springsource.org/docs/petclinic.html].
+The Pet Clinic Application presented in this tutorial is a port to Grails of the standard "Java based Spring framework sample app":http://static.springsource.org/docs/petclinic.html.
 It is using MongoDB instead of MySql as the backend store, and leverages the Grails GORM bindings to MongoDB. The users of the application are employees of the clinic who need to view and manage information regarding the veterinarians, pet owners, and their pets.
 The Application's production environment is based on a 2-tier architecture:
 # Web and Business Logic Tier - Composed of the Grails application deployed on Apache Tomcat.
-# The Data Tier - Composed of [a sharded MongoDB cluster|http://www.mongodb.org/display/DOCS/Sharding+Introduction|Sharded MongoDB], which is composed of the following components:
-## [Configuration Server|http://www.mongodb.org/display/DOCS/Configuring+Sharding#ConfiguringSharding-ConfigServers|MongoDB Configuration Server] : Stores the cluster's metadata, which includes basic information on each shard server and the chunks contained therein.
+# The Data Tier - Composed of "a sharded MongoDB cluster(Sharded MongoDB)":http://www.mongodb.org/display/DOCS/Sharding+Introduction, which is composed of the following components:
+## "Configuration Server(MongoDB Configuration Server)":http://www.mongodb.org/display/DOCS/Configuring+Sharding#ConfiguringSharding-ConfigServers : Stores the cluster's metadata, which includes basic information on each shard server and the chunks contained therein.
 ## Routing Processes (mongos): A routing and coordination process that mediates between client requests and the actual mongod instances.  When receiving client requests, the mongos process routes the request to the appropriate mongod instance(s) and merges any results sent back to the client.
 ## Mongod instances (AKA shards): In our case, there are two instances of mongod to store the application data.
 
