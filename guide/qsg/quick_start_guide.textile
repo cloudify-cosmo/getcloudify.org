@@ -29,7 +29,7 @@ The Application's production environment is based on a 2-tier architecture:
 ## Routing Processes (mongos): A routing and coordination process that mediates between client requests and the actual mongod instances.  When receiving client requests, the mongos process routes the request to the appropriate mongod instance(s) and merges any results sent back to the client.
 ## Mongod instances (AKA shards): In our case, there are two instances of mongod to store the application data.
 
-Obviously, the amount of instances for each of the above components can be easily changed, by modifying the numInstances attribute of the relevant Cloudify recipe file (i.e: <service-name>-service.groovy).
+Obviously, the amount of instances for each of the above components can be easily changed, by modifying the numInstances attribute of the relevant Cloudify recipe file (i.e: &lt;service-name&gt;-service.groovy).
 
 [Note]: When you install MongoDB on Windows 7, you need to make sure that you run as an administrator. See "Installing MongoDB on Windows 7":http://www.mongodb.org/display/DOCS/Windows+Service.
 
@@ -44,9 +44,7 @@ You should get the Cloudify prompt as seen in the screenshot below:
 h1. Step 2 - Bootstrap a Local Cloud
 
 To bootstrap your localcloud, which is a full fledged Cloudify setup on your local machine, type in the shell:
-<pre><code class="java">
-cloudify@default> bootstrap-localcloud
-</code></pre>
+<pre><code class="java">cloudify@default> bootstrap-localcloud</code></pre>
 
 *Tip*: You can hit tab to view the list of available commands, or type __help__ to see all of the command with their description. If you wish to see help for a specific command simply type &lt;command name&gt; __--help__
 
