@@ -45,11 +45,9 @@ You should get the Cloudify prompt as seen in the screenshot below:
 h1. Step 2 - Bootstrap a Local Cloud
 
 To bootstrap your localcloud, which is a full fledged Cloudify setup on your local machine, type in the shell:
-The following snippet shows how to decalre the SLA, using the numInstances attribute
-<pre>
+<pre><code class="java">
 cloudify@default> bootstrap-localcloud
-The following snippet shows how to decalre the SLA, using the numInstances attribute
-</pre>
+</code></pre>
 
 {tip}{*}Tip*: You can hit tab to view the list of available commands, or type {{help}} to see all of the command with their description. If you wish to see help for a specific command simply type {{<command name> \--help}}{tip}
 
@@ -99,29 +97,29 @@ In the Pet Clinic application we have 4 services:
 # Mongo Data Shards (We named this service: mongod)
 
 Here's what our Pet Clinic application recipe should look like:
-<pre>
+<pre><pre><code class="java">
 application {
-	name="petclinic-mongo"
+  name="petclinic-mongo"
 
-	service {
-		name = "mongod"
-	}
+  service {
+    name = "mongod"
+  }
 
-	service {
-		name = "mongoConfig"
-	}
+  service {
+    name = "mongoConfig"
+  }
 
-	service {
-		name = "mongos"
-		dependsOn = ["mongoConfig", "mongod"]
-	}
+  service {
+    name = "mongos"
+    dependsOn = ["mongoConfig", "mongod"]
+  }
 
 	service {
 		name = "tomcat"
 		dependsOn = ["mongos"]
 	}
 }
-</pre>
+</code></pre>
 From the above code, one can learn:
 * The names of all the involved services.
 * That the mongos service depends on two services: mongoConfig and mongod.
