@@ -4,9 +4,11 @@ title: Specifiying SLA per Service & Resource Requirements
 cat: userguide
 sidebar: Specifying Service SLA & Resources
 ---
+
 p. The recipe allows each service to specify its initial SLA and Resource Requirements
 
 h1. Specifying Service SLA
+
 Eache Service can declare its initial SLA in the service recipe. The SLA is declared as number of minimal instances Cloudify should start and keep.
 Cloudify will not declare the installation of this service successful unless the specified number of instances has been validated by the specific Startup Plugin / Probe declared by the Service
 In case of an unfunctional instance (discovered using the Stop Detection Plugin / Probe), Cloudify will attempt to reinstall and start the instance. In case of a crushed VM, Cloudify will instruct the Cloud API to provision a new VM and will install
@@ -15,8 +17,10 @@ the service on the new provisioned VM.
 The following snippet shows how to decalre the SLA, using the numInstances attribute
 <script src="https://gist.github.com/1704790.js?file=gistfile1.groovy"></script>
 
-p.
+
+
 h1. Specifying Resource Requirements
+
 Cloudify is designed to decouple applications from Cloud so Cloud Portability is simple and there is no lock-in risk. In order to do so, the application service recipe declares the resource requiremnts
 refering to a Cloudify template, rather than to specific cloud image ID or to specific cloud hardware ID.
 Cloudify Tempaltes are blocks of configuration in the Cloud Driver configuration file, that specify specific OS Images and hardware profiles as well as firewall definitions and security considerations, in specific cloud dialect.
