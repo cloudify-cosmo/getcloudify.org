@@ -1,0 +1,145 @@
+---
+layout: default
+title: The Service Recipe
+category: devrecipe
+---
+p. Describes the service recipe sections and syntax
+
+h1. Service Recipe Sections
+
+* Prolog: Service name, icon filename, tier type, number of instances
+* Compute: Hardware and Software requirements
+* Life-cycle: Event names mapped to handling scripts or closures
+* Custom: Custom Event names mapped to handling scripts or colusres
+* Plug-ins: Life detector, Details and Monitoring plugins
+* UI: Widgets and Menus configuration per service
+
+h1. The Service Recipe Prolog
+
+<pre>
+service {
+  name "jboss-service"
+  icon "jboss.jpg"
+  type "APP_SERVER"
+  numInstances 2
+
+  //recipe body here
+}
+
+</pre>
+
+h5. Tier Types
+
+The tier type is indicated for end user information and for GUI modeling. Supported tier types are:
+* WEB_SERVER
+* APP_SERVER
+* DATABASE
+* NOSQL_DB
+* MESSAGE_BUS
+* ESB_SERVER
+* SECURITY_SERVER
+
+h1. Lifecycle Event Handler
+
+Lifecycle event handlers can be an external Groovy script (located in the same folder as the service recipe), a windows bat or Linux/Unix shell script (again in the same folder), or inline closure in case of very short code. If you want to use script written in other languages, you can run them from a Groovy script providing them with the context using environment variables or through a bat / shell script.\\
+<pre>
+lifecycle{
+  init "mysql_install.groovy"
+  start "mysql_start.groovy"
+  postStart "mysql_poststart.groovy"
+  stop "mysql_stop.groovy"
+}
+
+</pre>
+
+In some cases you want a recipe that can run on several operating systems. you can use the following lifecycle event handler notation
+
+<pre>
+lifecycle{
+  init "tomcat_install.groovy"
+  start ([
+    "Win.*" : "tomcat_run.bat",
+    "Linux" : "tomcat_run.sh",
+    "Mac.*" : "tomcat_run.sh"
+  ])
+
+  preStop ([
+    "Win.*" : "tomcat_stop.bat",
+    "Linux" : "tomcat_stop.sh",
+    "Mac.*" : "tomcat_stop.sh"
+  ])
+}
+</pre>
+
+h3. Best practices for lifecycle event handlers: 
+
+The best approach is divide and conquer. Do one step at a time. For example in the pre-install phase only get the service binaries from the repository or the internet; in the install event only do the unzipping of the binaries of the service. In the post-install, tweak any configuration files that needs updating etc.
+
+This methodology makes the recipes easier to maintain, troubleshoot and makes the external scripts reusable in different applications recipes.
+
+h3. Passing context to event handlers
+
+Lifecycle scripts get the context injected to them as environment variables or as system variables
+<img src="/guide/images/recipes/context_injection.png"/>
+
+h1. Plugins
+
+Cloudify Service Recipe use several types of plugins for different purposes:
+* <b>Process Level Monitoring</b> - this plugin is transparent to the recipe developer. It monitors the OS process of the service and reports the following metrics:
+** Process CPU
+** Process CPU usage
+** Kernel CPU time
+** Process Memory
+** Number of Page faults
+* <b>Service Start Detector Plugin</b> - used for detecting a successful start of service in order to invoke postStart and dependent services
+* <b>Service Stop Detector Plugin</b> - used to detect a non functional or crushed service instance in order to provide self-healing or compansate with a new instance on a new VM
+* <b>Details Plugin</b> - used to get custom service details reported to the Admin API and to the Web Console
+** Currently {{org.openspaces.usm.jmx.JmxDetails}} using JMX Mbeans attributes, is the only built-in plugin
+* *Monitoring Plugin* - used to get custom metrics sampled once every X seconds and reported to Admin API and Web Console
+** Currently, {{org.openspaces.usm.jmx.JmxMonitor}}, using JMX Mbeans attributes, is the only built-in plugin.
+
+
+There are two modes of using plugins
+
+* Configure a built-in plugin
+<img src="/guide/images/recipes/builtin_plugin.png"/>
+
+* Add a custom plugin. Custom plugins and their dependencies should be located (as jars) under {{usmlib}} sub-folder
+!custom_plugin.png!\\
+
+{code:java}
+plugins([
+  plugin {
+    name "portLiveness"
+    className "org.openspaces.usm.liveness.PortLivenessDetector"
+    config ([
+      "Port" : [8080],
+      "TimeoutInSeconds" : 60,
+      "Host" : "127.0.0.1"
+    ])
+  },
+  plugin {
+    name "jmx"
+      className "org.openspaces.usm.jmx.JmxMonitor"
+      config([
+        "Current Http Threads Busy": [
+          "Catalina:type=ThreadPool,name=\"http-bio-8080\"",
+          "currentThreadsBusy"
+        ],
+        "Current Http Threads count": [
+        "Catalina:type=ThreadPool,name=\"http-bio-8080\"",
+        "currentThreadCount"
+      ],
+      "Backlog": [
+        "Catalina:type=ProtocolHandler,port=8080",
+        "backlog"
+      ],
+      "Active Sessions":[
+        "Catalina:type=Manager,context=/travel,host=localhost",
+        "activeSessions"
+      ],
+      port: 9999
+    ])
+  }
+])
+{code}
