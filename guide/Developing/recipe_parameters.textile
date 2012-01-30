@@ -16,24 +16,6 @@ For this end, recipes can be parameterized using a java properties file with the
 Use a simple key=value notation (e.g. key1=value1 in the file)
 
 The values in the file will be available in the DSL closures as string parameters you can use. They are also available in other strings using the format $\{key1\}.
+<script src="https://gist.github.com/1704385.js?file=service_params.js"></script>
 
-<pre>
-version = "5.5.0"
-name = "apache-activemq-${version}"
-zipName = "${name}-bin.zip"
-installDir = "install"
-downloadPath = "http://apache.spd.co.il//activemq/apache-activemq/${version}/${zipName}"
-script = "install/${name}/bin/activemq"
-</pre>
-
-<pre>
-new AntBuilder().sequential {
-	mkdir(dir:installDir)
-	get(src:downloadPath, dest:"${installDir}/${zipName}", skipexisting:true)
-	unzip(src:"${installDir}/${zipName}", dest:installDir, overwrite:true)
-	//dos2unix on the linux script files
-	fixcrlf(srcDir:"${installDir}/${name}/bin", eol:"lf", eof:"remove", excludes:"*.bat *.jar")
-	chmod(dir:"${installDir}/${name}/bin", perm:'+x', excludes:"*.bat *.jar")
-}
-
-</pre>
+<script src="https://gist.github.com/1704390.js?file=using_params.js"></script>
