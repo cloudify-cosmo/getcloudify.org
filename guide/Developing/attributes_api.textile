@@ -3,18 +3,11 @@ layout: default
 title:Attributes Facade
 category: devrecipe
 ---
+h1. Service Attributes explained
 
 Services across an application may sometime need to expose some attributes to the other services, for example some monitoring port which is determined at runtime at each service instance and so on. This attributes can be stored in an application context, a service context or a service instance context, and they can be read and updated by all the services instances that exists in the application. The way to do so is using the service context that exists once a service instance is running. For example:
-<pre>
-service{
-  name “myService”
-  lifecycle {
-    postStart {
-      context.attributes.thisInstance.myKey = “myValue”
-      println context.attributes.otherService.otherKey
-    }
-  }
-  </pre>
+<script src="https://gist.github.com/1704821.js?file=gistfile1.groovy"></script>
+
 This example shows that after the service instance is started, it will keep under that instance context “myValue” under “myKey” that everyone else can access. Additionally it will print another service named otherService attribute value of key “otherKey”.
 The entire API looks like this:
 context.attributes.thisInstance.myKey = “myValue” – store myValue for myKey under this instance attributes context.
