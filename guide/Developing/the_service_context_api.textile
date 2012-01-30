@@ -1,7 +1,7 @@
 ---
 layout: default
 title: The Service Context API
-category: devrecipe
+category: Developing Recipes
 ---
 
 {summary}The Service Context API provides means to access other Application Services or other Service Nodes from within a lifecycle script{summary}
@@ -33,57 +33,22 @@ The __ServiceInstance__ object can be referenced from the __Service__ object usi
 
 To find out the current instance Id, use __context.getInstanceId()__.
 
-The {{ServiceInstance}} object provides the following methods:
-{code}
-public int getInstanceID(); 
-public String getHostAddress();
-public String getHostName(); 
-//Invoke a custom command
-public void invoke(String commandName); 
-//get the service instances detail
-public Object getDetails(String serviceDetailsKey);
-//get the service instance monitor
-public Object getMonitors(String serviceMonitorsKey);
-{code}
+The _ServiceInstance__ object provides the following methods:
+<script src="https://gist.github.com/1703676.js?file=serviceInstanceMethods.groovy"></script>
 
 h1. Writing and Reading Runtime Attributes
 
-Cloudify allows the user to exchange information between different contexts such as Application, Service and Service Instance, using the Attributes API.
+Cloudify enables the user to exchange information between different contexts such as Application, Service and Service Instance, using the Attributes API.
 
 The Attributes API is identical to the Groovy HashMap API.
-Obtaining access to the attributes of an application, service or service instance is done through the Service Context API
-{code}
-def context = com.gigaspaces.cloudify.dsl.context.ServiceContextFactory.getServiceContext()
-context.attributes.thisService["myKey"];
-{code}
-The next sections demonstrate how to use this Attributes API in different use cases.
-h3. Writing and Reading Service and Application Attributes
-{code}
-//write an application level attribute
-context.attributes.thisApplication["myKey"] = "myValue"
-//read an application level attribute
-def appAttribute = context.attributes.thisApplication["myKey"]
-//write a service level attribute
-context.attributes.thisService["myKey"] = "myValue"
-//read a service level attribute from current service
-def serviceAttribute = context.attributes.thisService["myKey"]
+Obtaining access to the attributes of an application, service or service instance is done through the Service Context API:
+<script src="https://gist.github.com/1703679.js?file=accessAttributes.groovy"></script>
 
-//to read an attribute of a different service use the service name in this example cassandra
-def cassandraAttribute = context.attributes.cassandra["port"]
-{code}
+The next sections demonstrate how to use this Attributes API in various use cases.
+h3. Writing and Reading Service and Application Attributes:
+<script src="https://gist.github.com/1703703.js?file=readWriteAttr1.groovy"></script>
+
 h3. Writing and Reading Service Instance Attributes
-The Attributes API allows to fetch keys from another service instance in the same cluster or from another service
-
-{code}
-//writing an attribute at the service instance level
-context.attributes.thisInstance["myKey"] = "myValue"
-//reading an attribute from an instance in the same cluster
-context.attributes.thisService.instances[1].port = 4000
-//reading an attribute from an instance of the tomcat service
-context.attributes.tomcat.instances[1].jmxPort = 1099
-//Instances is also iterable so you can do iterable stuff of groovy on top of it such as:
-context.attributes.tomcat.instances.each{println it.key}
-
-
-{code}
+The Attributes API allows to retrieve values of attributes from other service instances in the same cluster(service) or from other services in the same application:
+<script src="https://gist.github.com/1703758.js?file=wRInstanceAttrs.groovy"></script>
 
