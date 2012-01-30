@@ -1,0 +1,34 @@
+---
+layout: default
+title: The Application Recipe
+category: devrecipe
+---
+p. Describes the application recipe functionality and syntax
+
+The application recipe file is located at the root level of the input folder and the packaged recipe zip file.
+The Application recipe describes an application as a set of services (both USM and XAP embedded such as data-grid, Stateful and stateless  PU)
+Most importantly, it describe service names and dependencies.\\
+<pre>
+application {
+	name="petclinic-mongo"
+	
+	service {
+		name = "mongod"		
+	}
+	
+	service {
+		name = "mongoConfig"		
+	}
+	
+	service {
+		name = "mongos"
+		dependsOn = ["mongoConfig", "mongod"]
+	}
+	
+	service {
+		name = "tomcat"
+		dependsOn = ["mongos"]
+	}
+}
+
+</pre>
