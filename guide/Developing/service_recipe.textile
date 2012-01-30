@@ -16,17 +16,7 @@ h1. Service Recipe Sections
 
 h1. The Service Recipe Prolog
 
-<pre>
-service {
-  name "jboss-service"
-  icon "jboss.jpg"
-  type "APP_SERVER"
-  numInstances 2
-
-  //recipe body here
-}
-
-</pre>
+<script src="https://gist.github.com/1704290.js?file=prolog.js"></script>
 
 h5. Tier Types
 
@@ -42,34 +32,11 @@ The tier type is indicated for end user information and for GUI modeling. Suppor
 h1. Lifecycle Event Handler
 
 Lifecycle event handlers can be an external Groovy script (located in the same folder as the service recipe), a windows bat or Linux/Unix shell script (again in the same folder), or inline closure in case of very short code. If you want to use script written in other languages, you can run them from a Groovy script providing them with the context using environment variables or through a bat / shell script.\\
-<pre>
-lifecycle{
-  init "mysql_install.groovy"
-  start "mysql_start.groovy"
-  postStart "mysql_poststart.groovy"
-  stop "mysql_stop.groovy"
-}
-
-</pre>
+<script src="https://gist.github.com/1704288.js?file=lifecycle.js"></script>
 
 In some cases you want a recipe that can run on several operating systems. you can use the following lifecycle event handler notation
 
-<pre>
-lifecycle{
-  init "tomcat_install.groovy"
-  start ([
-    "Win.*" : "tomcat_run.bat",
-    "Linux" : "tomcat_run.sh",
-    "Mac.*" : "tomcat_run.sh"
-  ])
-
-  preStop ([
-    "Win.*" : "tomcat_stop.bat",
-    "Linux" : "tomcat_stop.sh",
-    "Mac.*" : "tomcat_stop.sh"
-  ])
-}
-</pre>
+<script src="https://gist.github.com/1704284.js?file=multiple_lifecycle.js"></script>
 
 h3. Best practices for lifecycle event handlers: 
 
@@ -106,40 +73,5 @@ There are two modes of using plugins
 
 * Add a custom plugin. Custom plugins and their dependencies should be located (as jars) under {{usmlib}} sub-folder
 <img src="/guide/images/recipes/custom_plugin.png"/>
+<script src="https://gist.github.com/1704279.js?file=plugins.js"></script>
 
-<pre>
-plugins([
-  plugin {
-    name "portLiveness"
-    className "org.openspaces.usm.liveness.PortLivenessDetector"
-    config ([
-      "Port" : [8080],
-      "TimeoutInSeconds" : 60,
-      "Host" : "127.0.0.1"
-    ])
-  },
-  plugin {
-    name "jmx"
-      className "org.openspaces.usm.jmx.JmxMonitor"
-      config([
-        "Current Http Threads Busy": [
-          "Catalina:type=ThreadPool,name=\"http-bio-8080\"",
-          "currentThreadsBusy"
-        ],
-        "Current Http Threads count": [
-        "Catalina:type=ThreadPool,name=\"http-bio-8080\"",
-        "currentThreadCount"
-      ],
-      "Backlog": [
-        "Catalina:type=ProtocolHandler,port=8080",
-        "backlog"
-      ],
-      "Active Sessions":[
-        "Catalina:type=Manager,context=/travel,host=localhost",
-        "activeSessions"
-      ],
-      port: 9999
-    ])
-  }
-])
-</pre>
