@@ -1,0 +1,95 @@
+---
+layout: default
+title: Configuring the UI in the Recipe
+category: devrecipe
+---
+p. Describes the use of probes to monitor service configuration, performance and availability
+h1. Introduction
+
+Cloudify provides the capability to monitor application services configuration as well as availability and performance using blocks of groovy called probes.
+
+The probes are groovy closures in the recipe. The following sections describe the different available probes. The probes are placed within the life-cycle part of the recipe.
+
+h1. Monitoring Configuration with Details Probes
+
+Cloudify enables you to monitor configuration using different application and tier APIs such as JMX, JDBC, REST, CLI etc.
+
+All you need to do is implement the {{details}} closure (which is the reserved closure name) returning a {{Map}} of {{String}} keys with the configuration attribute name and a numeric value.
+
+The following example demonstrates how to monitor JBoss attributes using a JMX probe
+<pre>
+details{
+   builder = new JmxBuilder()
+   key = "Bind Address"
+   beanName = "jboss.system:type=ServerConfig"
+   attribute = "BindAddress"
+   RMIConnector client = builder.clientConnector( port: 1099)
+   client.connect()
+   connection = client.getMBeanServerConnection();
+   value = connection.getAttribute(beanName, attribute); 
+   client.close()
+   return [key:value]
+}
+</pre>
+h1. Monitoring Performance with Metrics Probes
+
+Cloudify enables you to monitor metrics using different application and tier APIs such as JMX, JDBC, REST, CLI, or whatever monitoring methods you have available.
+
+All you need to do is implement the monitors closure returning a {{Map}} of {{String}} keys with the metric name and a numeric value.
+
+The following example demonstrates how to monitor Tomcat metrics using a JMX probe:
+<pre>
+monitors{
+   builder = new JmxBuilder()
+   key = "Active Sessions"
+   key1 = "Backlog"
+   beanName = "Catalina:type=Manager,context=/travel,host=localhost"
+   attribute = "activeSessions"
+   attribute1 = "backlog"
+   RMIConnector client = builder.clientConnector( port: 1099)
+   client.connect()
+   connection = client.getMBeanServerConnection();
+   value = connection.getAttribute(beanName, attribute);
+   value1 =  connection.getAttribute(beanName, attribute1);
+   client.close()
+   return [key:value,key1:value1]
+}
+</pre>
+h1. Monitoring Availability with Start-up and Shutdown Detection Probes
+
+
+Cloudify needs to detect your service availability before installing dependent services. In similar manner, Cloudify needs to detect crashed tiers or hung tiers in order to maintain the service SLA.
+
+For these ends, Cloudify exposes the {{startDetection}} and {{stopDetection}} Probes.
+
+You can implement both of them the way you want, either at the platform or even at the application level, to detect non-functional parts of your application or infrastructure.
+h5. The start detection probe
+
+The {{startDetection}} is a groovy closure that returns a boolean value. It is invoked with several retries by the USM following the successful completion of the {{start}} life-cycle event. If returns {{true}} the service instance will be declared as running. If it failed during all retries, the service instance will be uninstalled.
+The following example checks if the service instance is listening on ports 3668 and 3667 as an indication to be up and running. Once this rule returns true, the service instance is consider "started".
+<pre>
+startDetection {
+    ServiceUtils.isPortsOccupied([3668,3667], "127.0.0.1")
+}
+</pre>
+
+The following examples checkes whether a MySQL installation has a specific table in the application schema as an indication that the DB is ready for the application business logic.
+<pre>
+def sql = Sql.newInstance("jdbc:mysql://localhost:3306/${dbName}", "${dbUsder}",
+           "${dbPassword}", "com.mysql.jdbc.Driver")
+rows = sql.rows("SELECT table_name FROM information_schema.tables "+
+   "WHERE table_schema = '${dbName}' AND table_name = '${tablename}'");
+return (rows.length > 0)
+</pre>
+h5. The stop detection probe
+
+The {{stopDetection}} probe is invoked periodically after the service is declared running. It will check each service instance for being alive or even functional from application perspective (depending on the probe implementation). If the probe returns {{true}} while checking the stop condition, the instance is declared dead and the USM attempts to restart it or to install a new instance.
+
+{info}It is important to note that Cloudify will invoke the {{restart}} event if you implemented one and the {{start}} event will only serve as a fallback.{info}
+
+The following example checks if the service instance is listening on port 7777 as an indication to be up and running. Once this rule returns false, the service instance is consider "dead."
+<pre>
+stopDetection {
+    ServiceUtils.isPortOccupied([7777])
+}
+</pre>
