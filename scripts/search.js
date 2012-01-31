@@ -12,7 +12,8 @@ $(document).ready(function () {
         pageTitle:pageTitle
     }
 
-    $('#searchForm').submit(function () {
+
+    $('#goBtn').click(function () {
         googleSearch();
         return false;
     });
