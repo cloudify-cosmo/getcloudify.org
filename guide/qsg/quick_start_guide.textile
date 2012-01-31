@@ -69,6 +69,7 @@ In the &lt;Cloudify Root&gt;/examples/petclinic folder you will find the followi
 # The Shards (mongod) recipe folder
 # The Routing Processes (mongos) recipe folder
 # The Tomcat recipe folder
+* The Apache Load Balancer folder
 
 In each of the above folders you will find all the files required to run the corresponding service.
 
@@ -89,19 +90,20 @@ In the Cloudify lingo that translates into two services, the first having two se
 
 If your application is composed of three Tomcat instances (in a cluster) and two MySql instances (also in a cluster) , then when using Cloudify, you will have one application composed of two services (Tomcat and MySql). The Tomcat service will be composed of three service instances and the MySql service will be composed of two service instances.
 
-In the Pet Clinic application we have 4 services:
+In the Pet Clinic application we have 4 services and a load-balancer service:
+# Apache Load Balancer Service
 # Tomcat  (We named this service: tomcat)
 # Mongo Configuration Server (We named this service: mongoConfig)
 # Mongo Sharding Server (We named this service: mongos)
 # Mongo Data Shards (We named this service: mongod)
 
 Here's what our Pet Clinic application recipe should look like:
-<script src="https://gist.github.com/1698895.js?file=petclinic-application.groovy"></script>
+<script src="https://gist.github.com/1710340.js?file=gistfile1.groovy"></script>
 
 From the above code, one can learn:
 * The names of all the involved services.
 * That the mongos service depends on two services: mongoConfig and mongod.
-* That the tomcat service depends on mongos service.
+* That the tomcat service depends on mongos service and on apache-lb service.
 
 In general, a dependent service will start running only after the services it depends on have started.
 
@@ -205,6 +207,9 @@ For that purpose, we use our powerful ServiceContext API and its k/v store mecha
 From this point, the tomcat service instance knows the host address and port of the mongos service instance.
 
 The mongod service file is located at &lt;cloudify root&gt;/examples/petclinic/tomcat/tomcat-service.groovy.
+
+h4. The Apache LB Recipe
+
 
 h1. Step 4 - Deploying the Recipe
 
