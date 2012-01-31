@@ -209,6 +209,14 @@ From this point, the tomcat service instance knows the host address and port of 
 The mongod service file is located at &lt;cloudify root&gt;/examples/petclinic/tomcat/tomcat-service.groovy.
 
 h4. The Apache LB Recipe
+The Apache Recipe does the following:
+* Dowloads Apache sources and compiles them 
+* Installs the Apache configured with mod_proxy and mod_proxy_balancer
+* Configures Apache to work on port 8090
+* Includes custom commands for adding and removing nodes from the Load Balancer
+* Start the Apache
+
+<script src="https://gist.github.com/1710373.js?file=gistfile1.groovy"></script>
 
 
 h1. Step 4 - Deploying the Recipe
@@ -247,7 +255,15 @@ To uninstall the application please type the following:
 
 You will be prompted if you want to uninstall, type 'y' and click enter. 
 
-h1. Step 7 - Tearing Down the Local Cloud
+h1. Step 7 - Adding / Removing Nodes Dynamically
+In order to add a Tomcat node on the fly and register it in the Load-Balancer we need to invoke the set-instances command
+this command receive 2 arguments
+* The service name
+* The desired number of instances
+
+As a result Cloudify will adjust the number of instances of the indicated service to the number provided by the user 
+
+h1. Step 8 - Tearing Down the Local Cloud
 
 To turn off all localcloud services type the following command:
 <script src="https://gist.github.com/1698986.js?file=teardownLocalcloud.sh"></script>
