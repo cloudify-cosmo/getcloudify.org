@@ -63,8 +63,8 @@ Your environment is now ready for application deployment.
 h1. Step 3 - Learn about the Application Recipe
 
 First, let's take a brief look at the Pet Clinic application recipe you're about to deploy.
-In the &lt;Cloudify Root&gt;/examples/petclinic folder you will find the following files and folders:
-# The application recipe: petclinic-mongo-application.groovy
+In the &lt;Cloudify Root&gt;/examples/petclinic-apache folder you will find the following files and folders:
+# The application recipe: petclinic-mongo-apache-application.groovy
 # The Configuration Server (mongoConfig) recipe folder
 # The Shards (mongod) recipe folder
 # The Routing Processes (mongos) recipe folder
@@ -161,7 +161,7 @@ The Mongo Config (mongoConfig) Server recipe does the following:
 * Detects a successful startup using the MongoLivenessDetector plugin.
 * Looks for metrics (Active Read Clients, Active Write Client etc.) to be displayed in the Web UI.
 
-The mongo-config service file is located at &lt;cloudify root&gt;/examples/petclinic/mongoConfig/mongoConfig-service.groovy. 
+The mongo-config service file is located at &lt;cloudify root&gt;/examples/petclinic-apache/mongoConfig/mongoConfig-service.groovy. 
 
 h4. The Mongo Sharding Server (mongos) Recipe 
 
@@ -173,7 +173,7 @@ The Mongo Router(mongos) Recipe does the following:
 * Detects a successful startup using the MongoLivenessDetector plugin.
 * Looks for metrics (Active Read Clients, Active Write Client etc.) to be displayed in the Web UI.
 
-The mongos service file is located at &lt;cloudify root&gt;/examples/petclinic/mongos/mongos-service.groovy.
+The mongos service file is located at &lt;cloudify root&gt;/examples/petclinic-apache/mongos/mongos-service.groovy.
 
 h4. The Mongo Data Shards (mongod) Recipe
 
@@ -184,7 +184,7 @@ The Mongo Data Shards (mongod) Recipe does the following:
 * Detects a successful startup using the MongoLivenessDetector plugin
 * Looks for metrics (Active Read Clients, Active Write Client etc.) to be displayed in the Web UI.
 
-The mongod service file is located at &lt;cloudify root&gt;/examples/petclinic/mongod/mongod-service.groovy.
+The mongod service file is located at &lt;cloudify root&gt;/examples/petclinic-apache/mongod/mongod-service.groovy.
 
 h4. The Tomcat Recipe
 
@@ -200,13 +200,13 @@ For that purpose, we use our powerful ServiceContext API and its k/v store mecha
 
 <script src="https://gist.github.com/1698917.js?file=exposeMongosService.groovy"></script>
   
- And then we retrieve the data in &lt;cloudify root&gt;/examples/petclinic/tomcat/tomcat_start.groovy
+ And then we retrieve the data in &lt;cloudify root&gt;/examples/petclinic-apache/tomcat/tomcat_start.groovy
 
 <script src="https://gist.github.com/1698923.js?file=retrieveMongosServie.groovy"></script>
 
 From this point, the tomcat service instance knows the host address and port of the mongos service instance.
 
-The mongod service file is located at &lt;cloudify root&gt;/examples/petclinic/tomcat/tomcat-service.groovy.
+The mongod service file is located at &lt;cloudify root&gt;/examples/petclinic-apache/tomcat/tomcat-service.groovy.
 
 h4. The Apache LB Recipe
 The Apache Recipe does the following:
