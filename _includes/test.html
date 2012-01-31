@@ -2,22 +2,73 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <title>GIGASPACES Community</title>
+<link rel="stylesheet" href="../css/jquery-ui-1.8.17.custom.css" type="text/css" media="all" />
+
 <script type="text/javascript" src="http://code.jquery.com/jquery-1.6.4.js"></script>
-	<script type="text/javascript" src="../scripts/jquery.jstree.js"></script>
+<script src="../scripts/jquery-ui-1.8.17.custom.min.js" type="text/javascript"></script>
+	
 </head>
 <body>
 <script>	
-$(document).ready(function () {	
-		$(".TableOfContents").jstree( {"themes" : {"theme" : "classic", "dots" : false, "icons" : false },plugins:["themes","html_data"]} ).loaded ($(".TableOfContents").css("background-color","transparent"))
+$(function() {
+		$( "#accordion" ).accordion();
 	});
 
 </script>
-<div class="rightContentBox">
+
+<div class="rightContentBox" >
     <h3>Table of Contents</h3>
 	
-    <div class="TableOfContents" style="border:1px solid;height:300px;">
-	
-        <ul>
+    <div id="accordion">
+		<h3><a href="#">Quick Start Guide</a></h3>
+		<div>
+			<ul>
+				<li><a style="color:gray" href="#">Quick Start Guide</a></li>
+				<li><a style="color:gray" href="#">Screen Casts</a></li>
+				<li><a class="default" href="#">Scaling Your Web Application</a></li>
+				<li><a class="default" href="#">Setting Up Your First Data Grid</a></li>
+				<li><a class="default" href="#">Writing Your First XTP Application</a></li>
+				<li><a class="default" href="#">Introduction to XAP JPA</a></li>
+				<li><a class="default" href="#">Beyond the Basics</a></li>
+			</ul>
+		</div>
+		<h3><a href="#">Setup</a></h3>
+		<div>
+			<ul>
+				<li><a style="color:gray" href="#">Quick Start Guide</a></li>
+				<li><a style="color:gray" href="#">Screen Casts</a></li>
+				<li><a class="default" href="#">Scaling Your Web Application</a></li>
+				<li><a class="default" href="#">Setting Up Your First Data Grid</a></li>
+				<li><a class="default" href="#">Writing Your First XTP Application</a></li>
+				<li><a class="default" href="#">Introduction to XAP JPA</a></li>
+				<li><a class="default" href="#">Beyond the Basics</a></li>
+			</ul>
+		</div>
+		<h3><a href="#">Deployment</a></h3>
+		<div>
+			<ul>
+				<li><a style="color:gray" href="#">Quick Start Guide</a></li>
+				<li><a style="color:gray" href="#">Screen Casts</a></li>
+				<li><a class="default" href="#">Scaling Your Web Application</a></li>
+				<li><a class="default" href="#">Setting Up Your First Data Grid</a></li>
+				<li><a class="default" href="#">Writing Your First XTP Application</a></li>
+				<li><a class="default" href="#">Introduction to XAP JPA</a></li>
+				<li><a class="default" href="#">Beyond the Basics</a></li>
+			</ul>
+		</div>
+		<h3><a href="#">Development</a></h3>
+		<div>
+			<ul>
+				<li><a style="color:gray" href="#">Quick Start Guide</a></li>
+				<li><a style="color:gray" href="#">Screen Casts</a></li>
+				<li><a class="default" href="#">Scaling Your Web Application</a></li>
+				<li><a class="default" href="#">Setting Up Your First Data Grid</a></li>
+				<li><a class="default" href="#">Writing Your First XTP Application</a></li>
+				<li><a class="default" href="#">Introduction to XAP JPA</a></li>
+				<li><a class="default" href="#">Beyond the Basics</a></li>
+			</ul>
+		</div>
+        <!--<ul>
             <li><a style="color:gray" href="#">Quick Start Guide</a></li>
             <li><a style="color:gray" href="#">Screen Casts</a></li>
             <li><a class="default" href="#">Scaling Your Web Application</a></li>
@@ -37,7 +88,7 @@ $(document).ready(function () {
 				<li><a href="#">Beyond the Basics</a></li>
 			</ul>
 			</li>
-       </ul>
+       </ul>-->
 	   
 	
     </div>

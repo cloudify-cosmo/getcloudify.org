@@ -4,7 +4,9 @@ title: Configuring the UI in the Recipe
 category: devrecipe
 ---
 p. Describes the order of events in Cloudify Application lifecycle
+
 h1. Lifecycle Events Overview
+
 Cloudify supports lifecycle events at three levels:
 * Application level - these events are invoked typing commands in the Cloudify Shell
 * Service level events - these are supported through the Service Recipe
@@ -17,19 +19,22 @@ Application level events are not currently supported by the Application recipe. 
 
 There are two events:
 
-Application installation - Installing the application service and starting them by order of dependencies. this process starts when the user types the install-application command on the shell. More information bout the application installation can be found under the Application Recipe section.
+Application installation - Installing the application service and starting them by order of dependencies. this process starts when the user types the install-application command on the shell.
+ More information bout the application installation can be found under the Application Recipe section.
 
-Application uninstallation - Shutting down the application services and removing the installations and the VMs by order of dependencies. This process starts when the user types the uninstall-application command on the shell.\\
+Application uninstallation - Shutting down the application services and removing the installations and the VMs by order of dependencies. This process starts when the user types the uninstall-application command on the shell.
 <img src="/guide/images/recipes/app_lifecycle.png"/>
 
 h1. Service level events
 
-Cluster-level, or service-level, lifecycle events can be customized in the Service Recipe. They are triggered by the ESM. These events are useful for doing something just before any service instances have been installed or after the last service instance had been shutdown and the cluster is about to be shutdown. They can run on either specific nodes or all nodes.
+Cluster-level, or service-level, lifecycle events can be customized in the Service Recipe. They are triggered by the ESM. 
+These events are useful for doing something just before any service instances have been installed or after the last service instance had been shutdown and the cluster is about to be shutdown. 
+They can run on either specific nodes or all nodes.
 <img src="/guide/images/recipes/srvc_lifecycle1.png"/>
 
 h1. Service Instance level events
 
-Each service instance has the following lifecycle events that can be customized.\\
+Each service instance has the following lifecycle events that can be customized.
 <img src="/guide/images/recipes/instance_lifecycle.png"/>
 
 In addition, custom lifecycle events can be added and invoked from the Cloudify shell. For more information see custom lifecycle events.

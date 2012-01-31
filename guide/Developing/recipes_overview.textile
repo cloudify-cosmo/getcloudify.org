@@ -1,0 +1,43 @@
+---
+layout: default
+title: Recipes Overview
+category: devrecipe
+---
+p. Describes the recipe framework, terminology and syntax
+
+h1. Recipes Overview
+
+Recipes are execution plans for installing, starting, orchestrating and monitoring your application stack without changing the application code or architecture.
+Recipe ingredients includes:
+* The recipe file written in domain specific language based on Groovy. The recipe file describes the following:
+** the service name
+** number of instances
+** lifecycle events handling scripts or inline handling blocks
+** monitoring configurations
+** scaling and custom alert rules based on monitored metrics\\
+
+* Additional Groovy or shell scripts that handle the different lifecycle events of the entire application and of each service
+* Optionally- custom monitoring and life detection plugins for technologies that are not covered by built in plugins
+<img src="/guide/images/recipes/recipe_ingrid.png"/>
+
+h1. Basic Concepts
+
+* Cloudify is built to onboard and manage <b>applications</b>.
+* An <b>Application is a set of Services</b>, each <b>Service is a cluster of a an application tier</b> (e.g. cluster of Tomcats)
+* Each Service is installed, managed and monitored by a <b>Service Recipe</b>.
+* The <b>Application Recipe</b> sets the application name and the service inter-dependencies
+* Future release will also support <b>provided services</b>(where the tier is only monitored for availability) by Cloudify
+* The mandatory part of the recipe is the <b>life-cycle events</b> section - it maps events to scripts
+
+h1. Lifecycle Events
+
+Cloudify supports lifecycle events at 3 levels:
+* Application level - these events are invoked typing commands in the Cloudify Shell
+* Service level events - these are supported through the Service Recipe
+* Service Instance level events - these are the most important ones. Also supported through the service recipe
+* Service and Service instance custom events - are like built in life-cycle events but discussed separately.
+
+h1. The input folder structure
+
+<img src="/guide/images/recipes/recipe_folder.png"/>
+

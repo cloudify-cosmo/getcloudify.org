@@ -79,7 +79,7 @@ If an "Isolated Storage Quota" popup appears click the "Change Quota" button (al
 <img src="../images/azure/config3.png"/>
 # Copy the subscription id (bottom right)
 <img src="../images/azure/config3b.png"/>
-# Paste it into  <Cloudify Home>\tools\cli\plugins\azure\azure.properties as the value of "subscriptionId"
+# Paste it into  c:\cloudify\tools\cli\plugins\azure\azure.properties as the value of "subscriptionId"
 
 
 h3. Create Remote Desktop Certificates 
@@ -88,11 +88,9 @@ h3. Create Remote Desktop Certificates
 In this tutorial we will use the password 123456 in order to encrypt pfx files.
 # Create an Azure management (private and public) certificate protected with the password 123456. This password is not the Windows password; it is only used for encrypting the PFX file that holds the private key.
 Open a command prompt window (Start-> cmd.exe)
-<pre>cd <Cloudify Home>\tools\cli\plugins\azure
-encutil -create -alias azure_rdp -pwd 123456 -pfx azure_rdp.pfx -cert azure_rdp.cer</pre>
+<script src="https://gist.github.com/1704694.js?file=gistfile1.bat"></script>
 # Choose a Windows password and encrypt it. This is not your windows azure password. This is the Windows Operating System password used for logging into the virtual machines (role instances) via Remote Desktop. Choose a password with at least 10 characters, containing capital letters, lower case letters and numbers.
-<pre>encutil -encrypt -text MyPassword007 -cert azure_rdp.cer > password.txt
-notepad password.txt</pre>
+<script src="https://gist.github.com/1704711.js?file=gistfile1.bat"></script>
 Copy the encrypted password and paste it into <Cloudify Home>\tools\cli\plugins\azure\azure.properties file as the value of "rdpLoginEncryptedPassword"
 Change the value of "rdpLoginUsername" to "Administrator". This would be your Windows Operating System user name that is used to log in with Remote Desktop.
 
@@ -102,10 +100,12 @@ h3. Create Management (API) Certificates
 
 This step is only required if you wish to change the number of role instances from the interactive shell (scale out)
 # Create the management API certificate:
-<pre>encutil -create -alias azure_api -pwd 123456 -pfx azure_api.pfx -cert azure_api.cer</pre>
+
+<script src="https://gist.github.com/1704718.js?file=gistfile1.bat"></script>
 # Save the certificate thumbprint, for later use.
-<pre>encutil -thumbprint -cert azure_api.cer</pre>
-# Copy the thumbprint and paste it into <Cloudify Home>\tools\cli\plugins\azure\azure.properties as the value of "certificateThumbprint"(required for scaling out)
+
+<script src="https://gist.github.com/1704720.js?file=gistfile1.bat"></script>
+# Copy the thumbprint and paste it into c:\cloudify\tools\cli\plugins\azure\azure.properties as the value of "certificateThumbprint"(required for scaling out)
 # Install the management certificate on the local management store.
 Open MMC (Start-> mmc)
 File -> Add Snapins 
@@ -121,7 +121,7 @@ Check the "Mark this key exportable"  (Click Next then Finish)
 h3. Upload Management Certificate
 
 
-Log in with your Windows Live credentials to the Azure Management Portal at [http://windows.azure.com] 
+Log in with your Windows Live credentials to the Azure Management Portal <a href="http://windows.azure.com">Azure Management Portal</a> 
 
 # From the bottom-left menu select "Hosted Services"
 <img src="../images/azure/config7.png"/>
@@ -140,6 +140,6 @@ h3. Update the Blob Storage details
 <img src="../images/azure/config7.png"/>
 # From the top-left menu select "Storage Accounts"
 # If you don't have one already, create a new Storage Account.
-# Copy the storage account name and paste it to <Cloudify Home>\tools\cli\plugins\azure\azure.properties sotrageAccount value.
+# Copy the storage account name and paste it to c:\cloudify\tools\cli\plugins\azure\azure.properties sotrageAccount value.
 # Click the "View Access Key" button and copy the Primary Access Key to the azure.properties storageAccessKey value
 <img src="../images/azure/blobstorage_accesskeys.png"/>
