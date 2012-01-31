@@ -5,12 +5,10 @@ cat: User Guide
 sidebar: 10-Minute Quick Start Guide
 ---
 
-{summary}Cloudify an example application in 10 minutes{summary}
-
 h1. Introduction
 
 
-h3. About this Guide
+h2. About this Guide
 
 The goal of this quick start guide is get you familiar with Cloudify with a few simple steps. For this purpose, we will use one of our built-in examples (the "PetClinic" application, is a port of the classis Spring PetClinic sample application which uses "MongoDB":http://www.mongodb.org as the database instead of MySql).
 
@@ -19,7 +17,7 @@ This guide will teach you how to:
 * Use the Cloudify Command line tool.
 * Monitor your deployed application, using Cloudify's "Web Management Console":http://www.gigaspaces.com/wiki/display/CLOUD/The+Web+Management+Console.
 
-h3. About the Pet Clinic Application
+h2. About the Pet Clinic Application
 
 The Pet Clinic Application presented in this tutorial is a port to Grails of the standard "Java based Spring framework sample app":http://static.springsource.org/docs/petclinic.html.
 It is using MongoDB instead of MySql as the backend store, and leverages the Grails GORM bindings to MongoDB. The users of the application are employees of the clinic who need to view and manage information regarding the veterinarians, pet owners, and their pets.
@@ -77,7 +75,7 @@ The following diagram depicts the application recipe file and folder structure:
 <img src="/guide/images/setup/pet_clinic_anatomy3.JPG" />
 
 
-h4. The Application Recipe
+h2. The Application Recipe
 
 Every application has its own mandatory application level recipe.
 The application level recipe describes the various application services and their inter-dependencies.
@@ -107,7 +105,7 @@ From the above code, one can learn:
 
 In general, a dependent service will start running only after the services it depends on have started.
 
-h4. The Service Level Recipe
+h3. The Service Level Recipe
 
 Every service has its own mandatory service level recipe.
 However, the "recipe structure":http://www.gigaspaces.com/wiki/display/CLOUD/Developing+Recipes is common to all of them.
@@ -140,19 +138,19 @@ Cloudify comes with "built-in plugin implementations":http://www.gigaspaces.com/
 In the Pet Clinic application we used our Cloudify Mongo Plugin "cloudify-mongo-plugin.jar":http://www.gigaspaces.com/wiki/download/attachments/55935974/CloudifyMongoPlugins_sources2_0.zip to get details and to detect port liveness.
 
 
-h4. The Life Cycle Scripts
+h3. The Life Cycle Scripts
 
 Open the Groovy scripts (with a text editor) in the tomcat recipe folder and you will see that these are groovy scripts, in which you can use any Groovy or Java code you wish.
 The only unique Cloudify API that is being used is the "ServiceContext API":../Developing/the_service_context_api. This API exposes the service runtime details so that one service can locate and use the details of another service within the same application.
 By using this API, we expose the port (for example) of the mongod service instance to the all the other services in the Pet Clinic Application.
 
-h4. Getting the service binaries
+h3. Getting the service binaries
 
 The service binaries, namely the Tomcat and MongoDB distributions, can be quite large to upload upon installation.
 The recipe downloads them upon installation from a file repository (this can be any http, ftp or file system location) so they're not uploaded with the recipe.
 The binaries are fetched using Groovy's built in support for "Apache Ant":http://ant.apache.org called "AntBuilder":http://groovy.codehaus.org/api/groovy/util/AntBuilder.html and the Ant __get__ task.
 
-h4. The Mongo Config (mongoConfig) Service Recipe
+h3. The Mongo Config (mongoConfig) Service Recipe
 
 The Mongo Config (mongoConfig) Server recipe does the following: 
 * Calculates its port according to its instance ID and properties file and notifies the serviceContext, so that the other services will be able to access it.
@@ -163,7 +161,7 @@ The Mongo Config (mongoConfig) Server recipe does the following:
 
 The mongo-config service file is located at &lt;cloudify root&gt;/examples/petclinic-apache/mongoConfig/mongoConfig-service.groovy. 
 
-h4. The Mongo Sharding Server (mongos) Recipe 
+h3. The Mongo Sharding Server (mongos) Recipe 
 
 The Mongo Router(mongos) Recipe does the following: 
 * Calculates its port according to its instance ID and properties file and notifies the serviceContext, so that the other services will be able to access it.
@@ -175,7 +173,7 @@ The Mongo Router(mongos) Recipe does the following:
 
 The mongos service file is located at &lt;cloudify root&gt;/examples/petclinic-apache/mongos/mongos-service.groovy.
 
-h4. The Mongo Data Shards (mongod) Recipe
+h3. The Mongo Data Shards (mongod) Recipe
 
 The Mongo Data Shards (mongod) Recipe does the following:
 * Calculates its port according to its instance ID and properties file and notifies the serviceContext, so that the other services will be able to access it.
@@ -186,7 +184,7 @@ The Mongo Data Shards (mongod) Recipe does the following:
 
 The mongod service file is located at &lt;cloudify root&gt;/examples/petclinic-apache/mongod/mongod-service.groovy.
 
-h4. The Tomcat Recipe
+h3. The Tomcat Recipe
 
 The Tomcat Recipe does the following:
 * Unzips and installs the tomcat binaries on the VM
@@ -200,7 +198,7 @@ For that purpose, we use our powerful ServiceContext API and its k/v store mecha
 
 <script src="https://gist.github.com/1698917.js?file=exposeMongosService.groovy"></script>
   
- And then we retrieve the data in &lt;cloudify root&gt;/examples/petclinic-apache/tomcat/tomcat_start.groovy
+And then we retrieve the data in &lt;cloudify root&gt;/examples/petclinic-apache/tomcat/tomcat_start.groovy
 
 <script src="https://gist.github.com/1698923.js?file=retrieveMongosServie.groovy"></script>
 
@@ -208,7 +206,7 @@ From this point, the tomcat service instance knows the host address and port of 
 
 The mongod service file is located at &lt;cloudify root&gt;/examples/petclinic-apache/tomcat/tomcat-service.groovy.
 
-h4. The Apache LB Recipe
+h3. The Apache LB Recipe
 The Apache Recipe does the following:
 * Dowloads Apache sources and compiles them 
 * Installs the Apache configured with mod_proxy and mod_proxy_balancer
