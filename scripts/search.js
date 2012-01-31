@@ -97,7 +97,7 @@ $(document).ready(function () {
 //                $("#resultDiv").hide();
 //                $("#pageContent").fadeIn();
 //            });
-                    $(".DocumentsWrap").hide('fast', function () {
+                    $("#pageContent").hide('fast', function () {
                         $(".pageTitle").text("Search Results");
                         $("#resultDiv").fadeIn();
                         $(".breadcrumb").html('<a href="#">Back to ' + settings.pageTitle + '</a>');
