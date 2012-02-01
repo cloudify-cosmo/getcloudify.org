@@ -2,11 +2,11 @@
 /* CSS Document */
 /*** Core html template stuff ***/
 html{   background:url(../images/bgFooterWrap.png) no-repeat bottom center }
-body{ font-family:"ProximaNova-Regular",Arial, Helvetica, sans-serif;background:url(../images/bgTopX.png) repeat-x top center; color:#231f20; text-align:left;font-size:12px; margin:0px auto; width:auto; overflow-x: hidden}
+body{ font-family:"ProximaNova-Regular",Arial, Helvetica, sans-serif;background:url(../images/bgTopX.png) repeat-x top center; color:#231f20; text-align:left;font-size:14px; margin:0px auto; width:auto; overflow-x: hidden}
 
 p, pre, blockquote,a, ol, h1, h2, h3, h4, h5, h6, ul, li, select, input,textarea, table, td, tr, span, label, form { direction:ltr;font-family:font-family:"ProximaNova-Regular",Arial, Helvetica, sans-serif;}
 div, th{ text-align:left}
-
+ li{ list-style-type:none;}
 a:focus, a:visited, a:link
 {
   -moz-outline: none;
@@ -62,8 +62,9 @@ img { border: 0 none; }
 .Wrapper{ width:990px; margin:0 auto; position:relative;}
 .header{ width:100%; padding:72px 0 0 0; height:134px}
 .logo{ float::left;display:block; width:484px; height:45px;}
-.topMenu{ margin:33px 0 0 0;background:url(../images/bgTopMenu.png) repeat-x top left; height:55px; width:1037px; position:absolute; left:-30px}
+.topMenu{ margin:33px 0 0 0;background:url(../images/bgTopMenu.png) repeat-x top left; height:55px; width:1037px; position:relative; left:-22px}
 ._topMenu ul  {padding: 0 0 0 0; list-style-type:none; margin:0 0 0 0}
+._topmenu { position:relative; width:100%; left:-40px}
 ._topmenu li{ float:left; padding:0px; width:171px;list-style-type:none;}
 ._topmenu li#current{ float:left;background:url(../images/bgTopMenu.png) repeat-x bottom left; height:55px }
 ._topmenu li.sep{ background:url(../images/bgLiSep.png) no-repeat top left; width:2px; height:50px; margin:4px 0 0 0; padding:0px}
@@ -92,9 +93,9 @@ span.title2{ font-family: "ProximaNova-Bold";color:#5b94af;font-size:14px; line-
 .breadcrumbs{color:#c0c0c0; font-size:10px; float:left; margin:0 0 17px 0;font-family:"ProximaNova-Regular";}
 .contentWrap{ margin:15px 0 0 6px; }
 .learnFrom{background: url(../images/bgSearchWrapper.png) no-repeat top left; height:69px; position:relative; width:100%}
-.searchWrap{background: url(../images/bgSearch.png) no-repeat top left; height:50px; width:507px; position:absolute; top:9px; right:10px}
+.searchWrap{background: url(../images/bgSearch.png) no-repeat top left; height:50px; width:507px; position:relative; top:9px; right:10px; float:right;}
 input.search{ float:left; margin:15px 0 0 13px; width:452px; background:none; border:none; padding:3px 0 0 25px; text-shadow:0 -1px 0 white; font-style:italic;font-family:"ProximaNova-Regular"; font-size:16px;color:#304e62}
-input.goBtn{ position:absolute; right:10px;top:12px; background:url(../images/btnGo.png) no-repeat top left; width:57px; height:27px; text-indent:-999px; overflow:hidden;cursor:pointer; border:none;}
+input.goBtn{ position:relative; float:right; right:10px;top:-25px; background:url(../images/btnGo.png) no-repeat top left; width:57px; height:27px; text-indent:-999px; overflow:hidden;cursor:pointer; border:none;}
 input.goBtn:hover{ background-position:0 -28px}
 
 .learnFrom h2{ font-family:"ProximaNova-Regular"; color:#ffffff; font-weight:normal; float:left; margin:25px 0 0 68px}
