@@ -34,7 +34,8 @@ Here are three general examples:
 			"Mac.*" : { 
 				// Any Java or groovy code.				
 				YourClass yc = new YourClass();
-				yc.update();							
+				yc.update();
+				return "OK"				
 			}
 			
 		])
@@ -50,7 +51,7 @@ Here are three general examples:
 			def userFile = new File(context.serviceDirectory + lineSeparator + firstName+"_"+lastName+".txt";
 			System.out.println("User :"+firstName+ " " +lastName + " text is "+userFile.text)
 			
-			ServiceUtils.killProcess(context.externalProcessId)
+			return "OK"
 		}
     ])	
 		
