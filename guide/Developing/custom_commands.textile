@@ -43,7 +43,7 @@ h4. What's the syntax ?
 	// and then it prints the content of firstName_lastName.txt.
 	customCommands ([	
 		// A command with two parameters (firstName and lastName)	
-        "YOUR_COMMAND_NAME" : {firstName, lastName->  
+        "YOUR_COMMAND_NAME" : {firstName, lastName ->  
 			def lineSeparator = System.getProperty("line.separator");
 			def userFile = new File(context.serviceDirectory + lineSeparator + firstName+"_"+lastName+".txt";
 			System.out.println("User :"+firstName+ " " +lastName + " text is "+userFile.text)
