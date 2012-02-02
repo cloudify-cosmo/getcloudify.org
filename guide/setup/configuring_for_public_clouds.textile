@@ -7,12 +7,12 @@ sidebar: Configuring for public clouds
 
 h1. Configuring for public clouds
  
-h2. One of the best things about Cloudify is that you don't need to change your recipe at all when you want to switch between public cloud providers, nor do you have to install anything on "your" cloud prior to using Cloudify.
+h4. One of the best things about Cloudify is that you don't need to change your recipe at all when you want to switch between public cloud providers, nor do you have to install anything on "your" cloud prior to using Cloudify.
 Regardless of the public cloud provider (Amazon EC2, to Microst Azure etc.), your recipe remains the same.
 
 p. The following is irrelevant for Azure. Click here for more information about on-boarding to Azure.
 
-h2. In order for Cloudify to help you meet your needs, you need to give us an additional information such as :
+h4. In order for Cloudify to help you meet your needs, you need to give us an additional information such as :
 * Where should the Cloudify binaries be retrieved from.
 * The prefix name for each of your machine(a separate one for managment and for instances machines).
 * You credentials in the Cloud
@@ -23,12 +23,11 @@ h2. In order for Cloudify to help you meet your needs, you need to give us an ad
 
 All the above information needs to be specified in the &lt;CLOUD-PROVIDER&gt;-cloud.groovy file which is located(or created by you and placed) in &lt;Cloudify Root&gt;/tools/cli/plugins/esc/CLOUD-PROVIDER.
 
-Here's an example of ec2-cloud.groovy(For Amazon EC2 cloud with placeholders): 
+h4. Here's an example of ec2-cloud.groovy(For Amazon EC2 cloud with placeholders): 
 
 <script src="https://gist.github.com/1722422.js?file=ec2-cloud.groovy"></script>
 
-Click here for more More info in 
-http://www.gigaspaces.com/wiki/display/CLOUD/Bootstrapping+on+EC2
+h4. You can find more regarding Bootstrapping+on+EC2 in "http://www.gigaspaces.com/wiki/display/CLOUD/Bootstrapping+on+EC2":http://www.gigaspaces.com/wiki/display/CLOUD/Bootstrapping+on+EC2
 
 
 
