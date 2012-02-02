@@ -1,0 +1,84 @@
+---
+layout: default
+title: Using Custom Commands
+category: devrecipe
+---
+
+h1. Using Custom Commands
+
+h4. 
+In some cases, you want to invoke a command during the run time of your application at your convinience and not limit it to "lifecycle events":/guide/Developing/lifecycle_events.
+Well, Cloudify comes to your rescue and enables you to add such commands.
+
+h4. What's the syntax ?
+	The custom commands (customCommands) section can contain and array of commands.
+	Here are three general examples:
+	
+	// Example #1
+	customCommands ([
+        "YOUR_COMMAND_NAME" : "myFile.groovy"
+    ])
+	
+	//Example #2
+	customCommands ([
+        "YOUR_1ST_COMMAND_NAME" : "my2ndFile.groovy", 
+		
+		"YOUR_2ND_COMMAND_NAME" : ([
+			"Win.*" : "my3rdFile.bat",
+			"Linux" : "anotherFile.sh",
+			"Mac.*" : { 
+				// Any Java or groovy code.				
+				YourClass yc = new YourClass();
+				yc.update();							
+			}
+			
+		])
+    ])	
+
+	//Example #3 
+	customCommands ([	
+		// A command with two parameters (firstName and lastName)	
+        "YOUR_COMMAND_NAME" : {firstName, lastName->  
+			def lineSeparator = System.getProperty("line.separator");
+			def userFile = new File(context.serviceDirectory + lineSeparator + firstName+"_"+lastName+".txt";
+			System.out.println("User :"+firstName+ " " +lastName + " text is "+userFile.text)
+			
+			ServiceUtils.killProcess(context.externalProcessId)
+		}
+    ])	
+		
+	
+Note: 
+# If you use a java code, don't forget to add an import line (import ...yourpackage.YourClass) in the begining of the service file.
+# If YourClass is indeed "yours" and not a Cloudify class and not a standard Java class, then you also need to place the jar containing the YourClass in the usmlib folder in the service folder.
+	
+	
+	
+	Note:
+	# You can use .sh,.bat or .groovy file or an inlne command (Java or Groovy).
+	# If you specify a file name, you must place it in the service folder.
+
+h4. Where should I place the customCommands section?
+	The {{customCommands}} section should be placed in the prolog (main) section of the relevant service file (&lt;service name&gt;-service.groovy).
+
+h4. When and how will it be activated?
+	During the "installtation and deployment":/.... of your applicaion, the custom commands that you specified in the recipe, will be registered for later use.
+    After your application is up and running, you can activate any of the custom commands at any time.
+		
+	Here's how to invoke a custom command that requires no parameters:	
+		__invoke ServiceName customCommandName__
+
+	Here's how to invoke a custom command that requires two parameters (x and y):	
+		__invoke ServiceName customCommandName x y__
+		
+
+h4. Specific examples:
+	customCommands ([
+        "updateWar" : "update_war.groovy"
+    ])
+
+h4. Need More ?
+
+Additional and more complexed custom commands will be availble soon.
+
+
