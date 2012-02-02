@@ -8,18 +8,21 @@ h1. Using Custom Commands
 
 h4. 
 In some cases, you want to invoke a command during the run time of your application at your convinience and not limit it to "lifecycle events":/guide/Developing/lifecycle_events.
-Well, Cloudify comes to your rescue and enables you to add such commands.
+Well, Cloudify comes to your rescue and enables you to add such custom commands.
 
 h4. What's the syntax ?
-	The custom commands (customCommands) section can contain and array of commands.
+	The custom commands (customCommands) section can contain an array of commands.
 	Here are three general examples:
 	
-	// Example #1
+	// Example #1 : Run myFile.groovy whenever YOUR_COMMAND_NAME is invoked.
+	
 	customCommands ([
         "YOUR_COMMAND_NAME" : "myFile.groovy"
     ])
 	
-	//Example #2
+	//Example #2 : 
+	// Run my2ndFile.groovy whenever YOUR_1ST_COMMAND_NAME is invoked.
+	// Activate a different code for each OS.
 	customCommands ([
         "YOUR_1ST_COMMAND_NAME" : "my2ndFile.groovy", 
 		
@@ -35,7 +38,9 @@ h4. What's the syntax ?
 		])
     ])	
 
-	//Example #3 
+	//Example #3: 
+	// The following YOUR_COMMAND_NAME receives two parameters (firstName and lastName) 
+	// and then it prints the content of firstName_lastName.txt.
 	customCommands ([	
 		// A command with two parameters (firstName and lastName)	
         "YOUR_COMMAND_NAME" : {firstName, lastName->  
@@ -91,7 +96,8 @@ Here's what you should do:
 
 # Two months later : 
   ##Run the cloudify client.
-  ##Type: __use-application YOUR_APP_NAME__
+  ##Type: __connect REST-ADMIN-SERVER-URL__
+  ##Type: __use-application YOUR-APP-NAME__
   ##Type __updateWar__ and wait...
   ##If all goes well, your new war in now deployed.
 	
