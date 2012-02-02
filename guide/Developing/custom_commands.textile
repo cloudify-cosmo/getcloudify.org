@@ -14,46 +14,15 @@ Well, Cloudify comes to your rescue and enables you to add such custom commands.
 h4. What's the syntax ?
 
 The custom commands (customCommands) section can contain an array of commands.
-Here are three general examples:
+Here are two general examples:
 	
-	// Example #1 : Run myFile.groovy whenever YOUR_COMMAND_NAME is invoked.
+	// Example #1 : Run myFile.groovy whenever YOUR_COMMAND_NAME is invoked.	
+	<script src="https://gist.github.com/1723535.js?file=custom1.groovy"></script>
 	
-	customCommands ([
-        "YOUR_COMMAND_NAME" : "myFile.groovy"
-    ])
-	
-	//Example #2 : 
-	// Run my2ndFile.groovy whenever YOUR_1ST_COMMAND_NAME is invoked.
-	// Activate a different code for each OS.
-	customCommands ([
-        "YOUR_1ST_COMMAND_NAME" : "my2ndFile.groovy", 
-		
-		"YOUR_2ND_COMMAND_NAME" : ([
-			"Win.*" : "my3rdFile.bat",
-			"Linux" : "anotherFile.sh",
-			"Mac.*" : { 
-				// Any Java or groovy code.				
-				YourClass yc = new YourClass();
-				yc.update();
-				return "OK"				
-			}
-			
-		])
-    ])	
-
-	//Example #3: 
+	//Example #2 : 	
 	// The following YOUR_COMMAND_NAME receives two parameters (firstName and lastName) 
 	// and then it prints the content of firstName_lastName.txt.
-	customCommands ([	
-		// A command with two parameters (firstName and lastName)	
-        "YOUR_COMMAND_NAME" : {firstName, lastName ->  
-			def lineSeparator = System.getProperty("line.separator");
-			def userFile = new File(context.serviceDirectory + lineSeparator + firstName+"_"+lastName+".txt";
-			System.out.println("User :"+firstName+ " " +lastName + " text is "+userFile.text)
-			
-			return "OK"
-		}
-    ])	
+    <script src="https://gist.github.com/1723545.js?file=customCommands2.groovy"></script>
 		
 	
 Note: 
