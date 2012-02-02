@@ -6,7 +6,7 @@ body{ font-family:"ProximaNova-Regular",Arial, Helvetica, sans-serif;background:
 
 p, pre, blockquote,a, ol, h1, h2, h3, h4, h5, h6, ul, li, select, input,textarea, table, td, tr, span, label, form { direction:ltr;font-family:font-family:"ProximaNova-Regular",Arial, Helvetica, sans-serif;}
 div, th{ text-align:left}
- li{ list-style-type:none;}
+.topMenu li,.footer li,.leftContentBox li{ list-style-type:none;}
 a:focus, a:visited, a:link
 {
   -moz-outline: none;
@@ -19,16 +19,16 @@ a:focus, a:visited, a:link
 
 a:link, a:visited {
 	text-decoration: none;
-	color:#ae8814;
+	color:#008AEF;
 }
 a:hover{ text-decoration: none}
 
-a{outline:0;}
-
+.Wrapper a{outline:0;}
+.Wrapper ul{ margin:0px}
 input.button { cursor: pointer; border: #666666 solid 1px; color:#FFFFFF; font-weight:bold; }
 input.button:hover { }
 
-p { margin-top: 0; margin-bottom: 5px; }
+ p { margin-top: 0; margin-bottom: 5px; }
 
 img { border: 0 none; }
 
@@ -65,38 +65,38 @@ img { border: 0 none; }
 .topMenu{ margin:33px 0 0 0;background:url(../images/bgTopMenu.png) repeat-x top left; height:55px; width:1037px; position:relative; left:-22px}
 ._topMenu ul  {padding: 0 0 0 0; list-style-type:none; margin:0 0 0 0}
 ._topmenu { position:relative; width:100%; left:-40px}
-._topmenu li{ float:left; padding:0px; width:171px;list-style-type:none;}
-._topmenu li#current{ float:left;background:url(../images/bgTopMenu.png) repeat-x bottom left; height:55px }
-._topmenu li.sep{ background:url(../images/bgLiSep.png) no-repeat top left; width:2px; height:50px; margin:4px 0 0 0; padding:0px}
-._topmenu li a{ color:#123448; display:block;}
-._topmenu li a span{width:auto;display:block;}
+._topmenu li.topmenuli{ float:left; padding:0px; width:171px;list-style-type:none;}
+._topmenu li.topmenuli#current{ float:left;background:url(../images/bgTopMenu.png) repeat-x bottom left; height:55px }
+._topmenu li.sep{ background:url(../images/bgLiSep.png) no-repeat top left; width:2px; height:50px; margin:4px 0 0 0; padding:0px; float:left}
+._topmenu li.topmenuli a{ color:#123448; display:block;}
+._topmenu li.topmenuli a span{width:auto;display:block;}
 span.title1{ font-family: "ProximaNova-Bold";font-size:18px;line-height:22px;}
-._topmenu li a:hover span.title1{ text-decoration:underline;}
+._topmenu li.topmenuli a:hover span.title1{ text-decoration:underline;}
 span.title2{ font-family: "ProximaNova-Bold";color:#5b94af;font-size:14px; line-height:14px;}
 
-._topmenu li a {
+._topmenu li.topmenuli a {
    background: url(../images/menuIconsSpriteAll.png) no-repeat top left; padding:10px 0 8px 52px;
 }
-._topmenu li a.bgMenu1{ background-position: 12px 15px; } 
-._topmenu li:hover a.bgMenu1,._topmenu li#current a.bgMenu1{ background-position: 12px -476px; } 
-._topmenu li a.bgMenu2{ background-position: 12px -64px;} 
-._topmenu li:hover a.bgMenu2,._topmenu li#current a.bgMenu2{ background-position: 12px -555px;} 
-._topmenu li a.bgMenu3{ background-position: 7px -148px; } 
-._topmenu li:hover a.bgMenu3,._topmenu li#current a.bgMenu3{ background-position: 7px -639px; } 
-._topmenu li a.bgMenu4{ background-position: 7px -232px; } 
-._topmenu li:hover a.bgMenu4,._topmenu li#current a.bgMenu4{ background-position: 7px -723px; } 
-._topmenu li a.bgMenu5{ background-position: 7px -318px;} 
-._topmenu li:hover a.bgMenu5,._topmenu li#current a.bgMenu5{ background-position: 7px -809px;} 
-._topmenu li a.bgMenu6{ background-position: 7px -396px;} 
-._topmenu li:hover a.bgMenu6,._topmenu li#current a.bgMenu6{ background-position: 7px -887px;} 
+._topmenu li.topmenuli a.bgMenu1{ background-position: 12px 15px; } 
+._topmenu li.topmenuli:hover a.bgMenu1,._topmenu li.topmenuli#current a.bgMenu1{ background-position: 12px -476px; } 
+._topmenu li.topmenuli a.bgMenu2{ background-position: 12px -64px;} 
+._topmenu li.topmenuli:hover a.bgMenu2,._topmenu li.topmenuli#current a.bgMenu2{ background-position: 12px -555px;} 
+._topmenu li.topmenuli a.bgMenu3{ background-position: 7px -148px; } 
+._topmenu li.topmenuli:hover a.bgMenu3,._topmenu li.topmenuli#current a.bgMenu3{ background-position: 7px -639px; } 
+._topmenu li.topmenuli a.bgMenu4{ background-position: 7px -232px; } 
+._topmenu li.topmenuli:hover a.bgMenu4,._topmenu li.topmenuli#current a.bgMenu4{ background-position: 7px -723px; } 
+._topmenu li.topmenuli a.bgMenu5{ background-position: 7px -318px;} 
+._topmenu li.topmenuli:hover a.bgMenu5,._topmenu li.topmenuli#current a.bgMenu5{ background-position: 7px -809px;} 
+._topmenu li.topmenuli a.bgMenu6{ background-position: 7px -396px;} 
+._topmenu li.topmenuli:hover a.bgMenu6,._topmenu li.topmenuli#current a.bgMenu6{ background-position: 7px -887px;} 
 
 .breadcrumbs{color:#c0c0c0; font-size:10px; float:left; margin:0 0 17px 0;font-family:"ProximaNova-Regular";}
 .contentWrap{ margin:15px 0 0 6px; }
 .learnFrom{background: url(../images/bgSearchWrapper.png) no-repeat top left; height:69px; position:relative; width:100%}
 .searchWrap{background: url(../images/bgSearch.png) no-repeat top left; height:50px; width:507px; position:relative; top:9px; right:10px; float:right;}
-input.search{ float:left; margin:15px 0 0 13px; width:452px; background:none; border:none; padding:3px 0 0 25px; text-shadow:0 -1px 0 white; font-style:italic;font-family:"ProximaNova-Regular"; font-size:16px;color:#304e62}
-input.goBtn{ position:relative; float:right; right:10px;top:-25px; background:url(../images/btnGo.png) no-repeat top left; width:57px; height:27px; text-indent:-999px; overflow:hidden;cursor:pointer; border:none;}
-input.goBtn:hover{ background-position:0 -28px}
+input#search{ float:left; margin:15px 0 0 13px; width:452px; background:none; border:none; padding:3px 0 0 25px; text-shadow:0 -1px 0 white; font-style:italic;font-family:"ProximaNova-Regular"; font-size:16px;color:#304e62}
+input#goBtn{ position:relative; float:right; right:10px;top:-25px; background:url(../images/btnGo.png) no-repeat top left; width:57px; height:27px; text-indent:-999px; overflow:hidden;cursor:pointer; border:none;}
+input#goBtn:hover{ background-position:0 -28px}
 
 .learnFrom h2{ font-family:"ProximaNova-Regular"; color:#ffffff; font-weight:normal; float:left; margin:25px 0 0 68px}
 .content{background:url(../images/bgInnerContentToppic.png) top left repeat-y;}
@@ -106,18 +106,18 @@ input.goBtn:hover{ background-position:0 -28px}
 .pageTitle{font-family:"ProximaNova-bold"; color:#0f3a53; font-size:22px; margin:35px 0 25px 0; float:left;width:707px;}
 /*--documents blog layout--*/
 .DocumentsWrap{ width:707px; float:left; padding:0 0 0px 0}
-.DocumentsWrap a ,.contentNoRight a{color:#008aef; border-bottom:solid 1px #7fc4f7;}
-ul.documents{border-top:solid 1px #e4e4e4; float:left;}
-ul.documents li{ border-bottom:solid 1px #e4e4e4; min-height:64px; padding:28px 0 28px 156px; line-height:16px;background:url(../images/bgDocIcon.png) no-repeat scroll 0 23px ;}
-ul.documents li.special{ background:url(../images/bgSpDocIcon.png) no-repeat scroll 0 23px ;}
+.DocumentsWrap a ,.contentNoRight a,.DocumentsWrapRight a{color:#008aef; border-bottom:solid 1px #7fc4f7;}
+ul.documents{border-top:solid 1px #e4e4e4; float:left; padding:0px}
+ul.documents li.reg{ border-bottom:solid 1px #e4e4e4; min-height:64px; padding:28px 0 28px 156px; line-height:16px;background:url(../images/bgDocIcon.png) no-repeat scroll 0 23px ;}
+ul.documents li.special{ background:url(../images/bgSpDocIcon.png) no-repeat scroll 0 23px ;border-bottom:solid 1px #e4e4e4; min-height:64px; padding:28px 0 28px 156px; line-height:16px;}
 ul.documents li p{ float:left;}
 ul.documents li a.docTitle{font-family:"ProximaNova-Regular"; color:#38cbe6; font-size:18px; border-bottom:solid 1px #9be5f2; display:inline-block; margin:0 0 5px 0}
 .rmore{ background:url(../images/iconMoreBorder.png) no-repeat scroll 100% 4px; padding:0 13px 0 0; text-transform:capitalize; color:#008aef; font-size:11px; display:inline-block; border-bottom:none !important;}
 .rmore span{border-bottom:solid 1px #bfe2fb; cursor:pointer}
 ul.pagination{ float:right; margin:12px 0 0 0}
-ul.pagination li{float:left; padding:0px}
-ul.pagination li a{color:#0f3a53; text-decoration:underline; padding:2px 6px}
-ul.pagination li.current a,ul.pagination li:hover a{ background:#f3f3f3; border:solid 1px #e6e7e7;padding:1px 5px;}
+ul.pagination li.paginationli{float:left; padding:0px}
+ul.pagination li.paginationli a{color:#0f3a53; text-decoration:underline; padding:2px 6px}
+ul.pagination li.paginationli#pageCurrent a,ul.pagination li.paginationli:hover a{ background:#f3f3f3; border:solid 1px #e6e7e7;padding:1px 5px;}
 /*--home right layout--*/
 .right{ float:right; width:243px;}
 .btnGetCloudifyFreeEdition{ background:url(../images/btnGetCloudify.png) no-repeat top left; width:215px; height:39px; display:block; margin: 24px auto; border-bottom:none !important}
@@ -128,25 +128,26 @@ ul.pagination li.current a,ul.pagination li:hover a{ background:#f3f3f3; border:
 .leftContentBox h3{ margin:0 0 0 0; color:#0f3a53;font-family:"ProximaNova-Regular"; font-size:18px; font-weight:normal;}
 .leftContentBox input{ margin:0 12px 11px 0; display:inline-block;}
 .leftContentBox form{ font-family:"ProximaNova-Regular"; font-size:11px; color:#231f20}
+.leftContentBox a{color:#525252 !important; text-decoration:none !important; font-size:14px !important;}
 .content .section a{color:#231f20 !important; text-decoration:underline !important; font-size:11px !important; border-bottom:none; display:block; 
 padding:0 0 10px 0}
 /*--Topic Layout--*/
 .right{ float:right;}
 .topicTitle{font-family:"ProximaNova-Regular"; font-size:18px; color:#2b7195; margin:0 0 10px 0}
 span.notice{ background:url(../images/notice.png) no-repeat top left; display:inline-block; width:13px; height:13px; margin:0 2px 0 0}
-p.ligther{ color:#5f5f5f !important}
-ul.topicPagination{ width:707px; border-top:1px solid #E4E4E4;}
+p.ligther{ color:#525252 !important}
+ul.topicPagination{ width:707px; border-top:1px solid #E4E4E4;padding:0px}
 ul.topicPagination li{ padding:0px; }
 .prev{ float:left;}
 .prev a{ color:#0f3a53; font-size:14px; border-bottom:solid 1px #4a6b7d;}
 .next{float:right;}
 .next a{font-size:14px;color:#008aef;border-bottom:solid 1px #7fc4f7;}
-.TableOfContents{height:600px; }
+.TableOfContents{/*height:600px;*/ }
 li.open{ padding:0 0 0 16px}
 li.plus{ padding:0 0 0 24px}
 
-.TableOfContents li{ line-height:18px;color:#231f20; text-decoration:underline; font-size:11px} 
-.TableOfContents ul{ margin-bottom:5px}
+.TableOfContents li{ line-height:18px;color:#231f20; text-decoration:none; font-size:11px} 
+.TableOfContents ul{ margin-bottom:5px; padding:0px}
 
 
 /*--Table Of Content Layout--*/
@@ -154,7 +155,7 @@ li.plus{ padding:0 0 0 24px}
 .contentNoRight .DocumentsWrap{ width:100%}
 .contentNoRight .btnGetCloudifyFreeEdition{ float:right;}
 
-ul.tableOfcontentList{}
+ul.tableOfcontentList,ul.tableOfcontentList ul{ padding:0px}
 ul.tableOfcontentList li{ padding:0px; }
 li.odd{ background:#ebebeb;}
 li.even{ background:#ffffff;}
@@ -167,12 +168,9 @@ ul.tableOfcontentList p{color:#9094a0; font-size:12px;}
 .DocumentsWrapRight{ width:707px; float:right; padding:0 0 0px 0}
 /*--footer--*/
 .footer{background:url(../images/bgFooter.png) repeat-x bottom left; height:122px; margin:123px 0 0 0}
-ul.footerLeftMenu{ float:left; margin:22px 0 0 0}
-ul.footerLeftMenu li{ float:left; padding:0 16px 0 0}
-ul.footerLeftMenu li a{ font-size:10px; color:#f36c21; text-decoration:underline;}
-ul.footerRightMenu{ float:right; margin:22px 0 0 0}
-ul.footerRightMenu li{ float:left; padding:0 6px 0 0;font-size:10px; color:#c0c0c0;}
-ul.footerRightMenu li a{ font-size:10px; color:#c0c0c0; text-decoration:underline;}
-
-.searchTxt { position:relative; top:-5px;left:20;}
-.searchBtn { position:relative; top:-5px;left:120;}
+ul.footerLeftMenu{ float:left; margin:22px 0 0 0; padding:0px}
+ul.footerLeftMenu li.footerli{ float:left; padding:0 16px 0 0}
+ul.footerLeftMenu li.footerli a{ font-size:10px; color:#f36c21; text-decoration:underline;}
+ul.footerRightMenu{ float:right; margin:22px 0 0 0;padding:0px}
+ul.footerRightMenu li.footerli{ float:left; padding:0 6px 0 0;font-size:10px; color:#c0c0c0;}
+ul.footerRightMenu li.footerli a{ font-size:10px; color:#c0c0c0; text-decoration:underline;}
