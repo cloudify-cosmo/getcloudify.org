@@ -6,13 +6,15 @@ category: devrecipe
 
 h1. Using Custom Commands
 
-h4. 
+h4. What is it ?
+
 In some cases, you want to invoke a command during the run time of your application at your convinience and not limit it to "lifecycle events":/guide/Developing/lifecycle_events.
 Well, Cloudify comes to your rescue and enables you to add such custom commands.
 
 h4. What's the syntax ?
-	The custom commands (customCommands) section can contain an array of commands.
-	Here are three general examples:
+
+The custom commands (customCommands) section can contain an array of commands.
+Here are three general examples:
 	
 	// Example #1 : Run myFile.groovy whenever YOUR_COMMAND_NAME is invoked.
 	
@@ -64,17 +66,19 @@ Note:
 	# If you specify a file name, you must place it in the service folder.
 
 h4. Where should I place the customCommands section?
-	The {{customCommands}} section should be placed in the prolog (main) section of the relevant service file (&lt;service name&gt;-service.groovy).
+
+The {{customCommands}} section should be placed in the prolog (main) section of the relevant service file (&lt;service name&gt;-service.groovy).
 
 h4. When and how will it be activated?
-	During the "installtation and deployment":/.... of your applicaion, the custom commands that you specified in the recipe, will be registered for later use.
-    After your application is up and running, you can activate any of the custom commands at any time.
-		
-	Here's how to invoke a custom command that requires no parameters:	
-		__invoke ServiceName customCommandName__
 
-	Here's how to invoke a custom command that requires two parameters (x and y):	
-		__invoke ServiceName customCommandName x y__
+During the "installtation and deployment":/.... of your applicaion, the custom commands that you specified in the recipe, will be registered for later use.
+After your application is up and running, you can activate any of the custom commands at any time.
+	
+Here's how to invoke a custom command that requires no parameters:	
+	__invoke ServiceName customCommandName__
+
+Here's how to invoke a custom command that requires two parameters (x and y):	
+	__invoke ServiceName customCommandName x y__
 		
 
 h4. Specific examples:
