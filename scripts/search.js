@@ -83,7 +83,7 @@ $(document).ready(function () {
                     else {
                         // No results were found for this search.
                         resultsDiv.empty();
-                        $('<p>', {className:'notFound', html:'No Results Were Found!'}).hide().appendTo(resultsDiv).fadeIn();
+                        $('<p>', {className:'notFound', html:'<h3 class="searchNoResult">Oops, we can\'t find what you were looking for. Try rephrasing your search</h3>'}).hide().appendTo(resultsDiv).fadeIn();
                     }
 //            $(".breadcrumbs").click(function() {
 //                //$(".breadcrumbs").html('<a href="#">Cloudify Documentation Home</a>');
