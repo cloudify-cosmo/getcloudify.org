@@ -6,7 +6,6 @@ $(document).ready(function () {
         apiURL:'https://www.googleapis.com/customsearch/v1',
         apiKey:'AIzaSyCR79snpFgr45ear_SBoqkjQaGa7FHYg4I', // Change this to your site
         cx:'005646302152591029507:wp1h0fve318',
-        append:false,
         perPage:10, // A maximum of 10 is allowed by Google
         page:0, // The start page
         pageTitle:pageTitle
@@ -44,12 +43,8 @@ $(document).ready(function () {
                 success:function (data) {
                     var results = data.items;
                     if (results) {
-                        if (!settings.append) {
-                            // This is executed when running a new search,
-                            // instead of clicking on the More button:
-                            resultsDiv.text('');
-                            $(".topicPagination").remove();
-                        }
+                        resultsDiv.text('');
+                        $(".topicPagination").remove();
                         // If results were returned, add them to a pageContainer div,
                         // after which append them to the #resultsDiv:
                         //var ul = $('<ul>', {className:'documents'});
@@ -68,7 +63,7 @@ $(document).ready(function () {
                             '<li class="next"><a href="#">Next</a></li>' +
                             '<div class="clear"></div>' +
                             '</ul><div class="clear"></div>';
-                        $("#contentWrap").append(topicPaginationHtml);
+                        $(".documents").append(topicPaginationHtml);
                         $(".documents").before(topicPaginationHtml);
                         if (settings.page > 0) {
                             $(".prev").click(function () {
