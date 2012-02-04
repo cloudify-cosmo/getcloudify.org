@@ -62,15 +62,8 @@ $(document).ready(function () {
                         }
                         ul.hide().appendTo(resultsDiv).fadeIn('slow');
                         resultsDiv.append('<div class="clear"></div>');
-                        // Checking if there are more pages with results,
-                        // and deciding whether to activate the prev and next links:
-//                        var topicPaginationHtml = '<ul class="topicPagination">' +
-//                            '<li class="prev"><a href="#">Previous</a></li>' +
-//                            '<li class="next"><a href="#">Next</a></li>' +
-//                            '<div class="clear"></div>' +
-//                            '</ul><div class="clear"></div>';
                         $(".documents").append(topicPaginationHtml);
-//                        $(".documents").before(topicPaginationHtml);
+
                         if (settings.page > 0) {
                             $(".prev").click(function () {
                                 googleSearch({append:false, page:settings.page - 1});
@@ -78,6 +71,7 @@ $(document).ready(function () {
                         } else {
                             $('.prev').bind('click', false);
                         }
+
                         if (data.queries.request[0].totalResults > (settings.page + 1) * settings.perPage) {
                             $(".next").click(function () {
                                 googleSearch({append:false, page:settings.page + 1});
@@ -124,7 +118,7 @@ $(document).ready(function () {
             '<li class="reg">',
             '<a class="docTitle" href="',
             r.link,
-            '" target="_blank">'
+            '">'
             , r.title,
             '</a>',
             '<br class="clear"/>',
