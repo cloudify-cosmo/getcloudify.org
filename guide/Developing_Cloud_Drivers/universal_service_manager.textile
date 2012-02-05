@@ -18,11 +18,11 @@ Ideally, the process you are running already comes with the required scripts to 
 
 h3. What is a recipe
 
-A recipe is basically a list of instructions that the USM will execute when required. It is intended as a tool that can be used by someone with little or no development experience, but with a background in operations. More details are available in "CLOUD":/guide/Developing/recipes_overview
+A recipe is basically a list of instructions that the USM will execute when required. It is intended as a tool that can be used by someone with little or no development experience, but with a background in operations. More details are available in "Developing Recipes":/guide/Developing/recipes_overview
 
 h1. USM Lifecycle
 
-h1. *IMAGE HERE*
+h1.  *IMAGE HERE*
 
 The life-cycle phases of the USM can be controlled by the user, allowing for a high level of customization. The USM life-cycle is split into phases, each contains one or more events. The recipe can implement any of these events and ignore the ones it does not need.
 The only mandatory event is the 'start' event, which starts up the external process.
@@ -124,40 +124,39 @@ executable before the command line is launched.
 * If the first word in the command line ends with '.groovy', the USM will launch the groovy processor provided with GigaSpaces (in tools/groovy under the
 GigaSpaces installation directory) passing the given command line to it. It will also set the CLASSPATH environment variable, making specific jar files available
 to the Groovy runtime, like the files in the PU's lib dir.
-* {color:#ff3333}ADD DETAILS OF LOOKING FOR ALTERNATIVE COMMAND LINES FROM OTHER OS.{color}
+* *ADD DETAILS OF LOOKING FOR ALTERNATIVE COMMAND LINES FROM OTHER OS.*
 
 h3. Complex command lines
 
-The USM is not a replacement for the operating system's command shell. It does not handle parameters, single and double quotes, white spaces and other special characters
-the same way that the shell does. If your command line is complex, it is recommended that you copy the command to a script file (windows batch file, unix shell script, etc)
-and use the new script file's name as the command line. This will ensure that your command is executed the way it was meant to, just like it was executed from
-a shell.
+The USM is not a replacement for the operating system's command shell. 
+It does not handle parameters, single and double quotes, white spaces and other special characters the same way that the shell does. 
+If your command line is complex, it is recommended that you copy the command to a script file (windows batch file, unix shell script, etc) and use the new script file's name as the command line. 
+This will ensure that your command is executed the way it was meant to, just like it was executed from a shell.
 
 h1. Plugins
 
-The recipe file is intended to handle most of the common use cases, but it is impossible to handle all scenarios. Eventually, you may encounter a scenario that
-requires writing custom code to handle a certain kind of event or performance statistic. This is what the plugin mechanism allows. A plugin is a java class that
-implements the com.gigaspaces.cloudify.dsl.Plugin interface, plus one or more additional interfaces as described here. The POJO class name, plus a map of parameters,
-is defined in the recipe file. When the USM loads, it will execute the plugin according to the interfaces it implements, giving the developer the required
-flexibility. The jar file containing the compiled plugin implementation, plus any additional classes and resources it needs, should be places in your recipe folder
-before it is packaged, under the usmlib directory. When the PU is deployed, these files will be placed in the PU's lib dir, making them available to the USM's classloader.
+The recipe file is intended to handle most of the common use cases, but it is impossible to handle all scenarios. 
+Eventually, you may encounter a scenario that requires writing custom code to handle a certain kind of event or performance statistic. 
+This is what the plugin mechanism allows. A plugin is a java class that implements the com.gigaspaces.cloudify.dsl.Plugin interface, plus one or more additional interfaces as described here. 
+The POJO class name, plus a map of parameters,is defined in the recipe file. 
+When the USM loads, it will execute the plugin according to the interfaces it implements, giving the developer the required flexibility. 
+The jar file containing the compiled plugin implementation, plus any additional classes and resources it needs, should be places in your recipe folder before it is packaged, under the usmlib directory. 
+When the PU is deployed, these files will be placed in the PU's lib dir, making them available to the USM's classloader.
 
 h3. How plugins works
 
-A class implementing a plugin should implement the interfaces that it would like to hook into (like specific events, monitors, etc) and it must have a default
-constructor. When the USM starts up, it reads the DSL file and creates an instance of the class according to the classname specified in the recipe file, and passes to this
-object the parameters map that is also specified in the recipe file. This object is then added to the USM's Spring Application Context, making it a singleton
-spring bean. The object will be injected to the various hooks in the USM according to the interfaces that the plugin implements.
+A class implementing a plugin should implement the interfaces that it would like to hook into (like specific events, monitors, etc) and it must have a default constructor. 
+When the USM starts up, it reads the DSL file and creates an instance of the class according to the classname specified in the recipe file, and passes to this object the parameters map that is also specified in the recipe file. 
+This object is then added to the USM's Spring Application Context, making it a singleton spring bean. 
+The object will be injected to the various hooks in the USM according to the interfaces that the plugin implements.
 
 
 h3. Monitors and Details
 
-The GigaSpaces Service Grid allows a Processing Unit instance to publish data about itself in a key/value format, for both static data (ServiceDetails) which remains
-constant for the lifetime of the PU, and dynamic data(ServiceMonitors) which changes all the time. LINK HERE.
-The USM publishes a set of details and monitors, mostly related to the operating system statistics of the monitored process, but A Recipe may add additional
-details and monitors if required.
-At this time, adding monitors or details requires implementing a DSL plugin (LINK HERE) though a future update will allow a recipe developer to define
-the details/monitors directly in the recipe. To publish monitors or details, the plugin should implement one or borh of the relevant interfaces:
+The GigaSpaces Service Grid allows a Processing Unit instance to publish data about itself in a key/value format, for both static data (ServiceDetails) which remains constant for the lifetime of the PU, and dynamic data(ServiceMonitors) which changes all the time. *LINK HERE*.
+The USM publishes a set of details and monitors, mostly related to the operating system statistics of the monitored process, but A Recipe may add additional details and monitors if required.
+At this time, adding monitors or details requires implementing a DSL plugin *(LINK HERE)* though a future update will allow a recipe developer to define the details/monitors directly in the recipe. 
+To publish monitors or details, the plugin should implement one or borh of the relevant interfaces:
 org.openspaces.usm.details.Details and org.openspaces.usm.monitors.Monitor.
 
 h1. USM Technical Design
@@ -175,8 +174,8 @@ This diagram shows all of the available interfaces: !USM_Interfaces.JPG|thumbnai
 
 h3. Processing Unit Structure
 
-The USM is deployed just like a standard GigaSpaces Processing Unit. It includes a standard pu.xml file, the usm.jar implementation files (available in the
-GigaSpaces installation folder under lib/platform/usm) and an additional folder, called 'ext', where the service recipe and any additional resources are placed.
+The USM is deployed just like a standard GigaSpaces Processing Unit. 
+It includes a standard pu.xml file, the usm.jar implementation files (available in the GigaSpaces installation folder under lib/platform/usm) and an additional folder, called 'ext', where the service recipe and any additional resources are placed.
 PU
 + lib
 &nbsp;&nbsp;&nbsp;&nbsp; \| usm.jar
@@ -188,24 +187,29 @@ PU
 &nbsp;&nbsp;&nbsp;&nbsp; | <RECIPE>-service.groovy
 &nbsp;&nbsp;&nbsp;&nbsp; | <Recipe Files>
 
+
 h3. Process Handling
 
 The USM acts as a proxy to an external process defined by the recipe, representing this process in the GigaSpaces service grid. To do this, it monitors
-Operating System metrics for this process, like CPU Usage, Memory consumption, etc. But to be able to do this, the USM must first find the process.  This sounds
-easy, since the USM is the component that launches the external script. But in reality, the USM may launch a process that launches another process, that launches another
-one, etc. For instance, a process may be launched from a groovy script. This translates to the USM launching a shell process like bash for the groovy launch script,
-which launches a JVM that runs the Groovy Script, which launches the actual process. It is this final process that the USM should monitor, not the initial shell process that it launched.
+Operating System metrics for this process, like CPU Usage, Memory consumption, etc. 
+But to be able to do this, the USM must first find the process.  This sounds easy, since the USM is the component that launches the external script. 
+But in reality, the USM may launch a process that launches another process, that launches another one, etc. 
+For instance, a process may be launched from a groovy script. 
+This translates to the USM launching a shell process like bash for the groovy launch script, which launches a JVM that runs the Groovy Script, which launches the actual process. 
+It is this final process that the USM should monitor, not the initial shell process that it launched.
 
 The USM handles this by comparing the operating system's process tree before the external process is launched, and after it was launched. A new process whose parent
 process is the USM's JVM, is called the *child process*. The USM then looks for a process that was launched by the child process in a similar fashion, and continues
-down the process tree until a 'leaf' process is found, that has no child processes. This process is called the *actual process*, and this is the process that the
-USM will monitor for performance statistics. Note that the child process and the actual process may be the same.
+down the process tree until a 'leaf' process is found, that has no child processes. 
+This process is called the *actual process*, and this is the process that the USM will monitor for performance statistics. 
+Note that the child process and the actual process may be the same.
 
 Before the USM can find the actual process, it must first know that the actual process has launched\! Launching the chain of processes that eventually starts the
-actual process may take an indeterminate amount of time. It is for this reason that the USM supports the startDetection event, which is how the recipe determines
-when the actual process has started. This is most often accomplished by waiting for a port to open on the local host (like port 80 for a web server) or for a certain
-text message to be written to a log file. For example, by polling the port until it becomes available, the recipe can indicate to the USM when the actual process is ready. A utility for scanning a port is packaged with the USM, though the recipe can configure any arbitrary code to determine this.
+actual process may take an indeterminate amount of time. 
+It is for this reason that the USM supports the startDetection event, which is how the recipe determines when the actual process has started. 
+This is most often accomplished by waiting for a port to open on the local host (like port 80 for a web server) or for a certain text message to be written to a log file. 
+For example, by polling the port until it becomes available, the recipe can indicate to the USM when the actual process is ready. A utility for scanning a port is packaged with the USM, though the recipe can configure any arbitrary code to determine this.
 
-NOTE: If one of the processes in the process tree under the child process launched multiple processes, the USM will not be able to determine which process is
-the actual process. This behavior is not currently supported by the USM.
+NOTE: If one of the processes in the process tree under the child process launched multiple processes, the USM will not be able to determine which process is the actual process. 
+This behavior is not currently supported by the USM.
 
