@@ -1,0 +1,78 @@
+---
+layout: default
+title: Using Custom Commands
+category: devrecipe
+---
+
+h1. Using Custom Commands
+
+h4. What is it ?
+
+In some cases, you want to invoke a command during the run time of your application at your convinience and not limit it to "lifecycle events":/guide/Developing/lifecycle_events .
+Well, Cloudify comes to your rescue and enables you to add such custom commands.
+
+h4. What's the syntax ?
+
+The custom commands (customCommands) section can contain an array of commands.
+Here are two general examples:
+	
+Example #1 : Run myFile.groovy whenever YOUR_COMMAND_NAME is invoked.	
+<script src="https://gist.github.com/1723535.js?file=custom1.groovy"></script>
+	
+Example #2 : 	
+The following YOUR_COMMAND_NAME receives two parameters (firstName and lastName) 
+and then it prints the content of firstName_lastName.txt.
+<script src="https://gist.github.com/1723545.js?file=customCommands2.groovy"></script>
+		
+	
+Note: 
+# If you use a java code, don't forget to add an import line (import ...yourpackage.YourClass) in the begining of the service file.
+# If YourClass is indeed "yours" and not a Cloudify class and not a standard Java class, then you also need to place the jar containing YourClass in the usmlib folder in the service folder.		
+# You can use .sh,.bat or .groovy file or an inlne code (Java or Groovy).
+# If you specify a file name, you must place it in the service folder.
+
+h4. Where should I place the customCommands section?
+
+The {{customCommands}} section should be placed in the prolog (main) section of the relevant service file (&lt;service name&gt;-service.groovy).
+
+h4. When and how will it be activated?
+
+During the "installtation and deployment":/guide/Deploying/deploying_apps of your applicaion, the custom commands that you specified in the recipe, will be registered for later use.
+After your application is up and running, you can activate any of the custom commands at any time.
+	
+Here's how to invoke a custom command that requires no parameters:	
+<script src="https://gist.github.com/1723692.js?file=invokeCc.groovy"></script>
+
+Here's how to invoke a custom command that requires two parameters (x and y):	
+<script src="https://gist.github.com/1723695.js?file=invokeCc2.groovy"></script>
+		
+
+h4. Specific examples:
+
+Scenario:
+*You on-boarded your application to a cloud with Cloudify.
+*Your application includes one tomcat service.
+*Two months after the installation, you fixed a bug in your tomcat war.
+*You want to update the war without being forced to re-deploy the whole application.
+
+Here's what you should do:
+# During the installation, your tomcat service file should include the following section : 
+<script src="https://gist.github.com/1723735.js?file=update_warcc.groovy"></script>
+# The tomcat service folder should contain the update_war.groovy
+  Here's the content of update_war.groovy 
+  <script src="https://gist.github.com/1723340.js?file=update_war.groovy"></script>
+# Two months later : 
+##Run the cloudify client.
+##Type: __connect REST-ADMIN-SERVER-URL__
+##Type: __use-application YOUR-APP-NAME__
+##Type __updateWar__ and wait...
+##If all goes well, your new war in now deployed.
+	
+	
+	
+
+h4. Need More ?
+
+Additional and more complexed custom commands will be availble soon.
+
+

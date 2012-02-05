@@ -13,9 +13,9 @@ h2. About this Guide
 The goal of this quick start guide is get you familiar with Cloudify with a few simple steps. For this purpose, we will use one of our built-in examples (the "PetClinic" application, is a port of the classis Spring PetClinic sample application which uses "MongoDB":http://www.mongodb.org as the database instead of MySql).
 
 This guide will teach you how to:
-* Use an example recipe to deploy an application on a "localcloud(Bootstrapping)":http://www.gigaspaces.com/wiki/display/CLOUD/Bootstrapping using Cloudify, starting from how to install Cloudify and ending in monitoring the deployed application.
+* Use an example recipe to deploy an application on a "localcloud(Bootstrapping)":/guide/Bootstrapping/bootstrapping_localcloud using Cloudify, starting from how to install Cloudify and ending in monitoring the deployed application.
 * Use the Cloudify Command line tool.
-* Monitor your deployed application, using Cloudify's "Web Management Console":http://www.gigaspaces.com/wiki/display/CLOUD/The+Web+Management+Console.
+* Monitor your deployed application, using Cloudify's "Web Management Console":/guide/Monitoring/the_web_management_console.
 
 h2. About the Pet Clinic Application
 
@@ -38,6 +38,7 @@ h1. Step 1 - Install Cloudify
 To install Cloudify simply "download":http://www.gigaspaces.com/cloudify and unzip the distribution zip file.
 Then cd to &lt;Cloudify Root&gt;/bin folder and run the cloudify.sh or cloudify.bat script. 
 You should get the Cloudify prompt as seen in the screenshot below:
+
 <img src="/guide/images/setup/shell_start2.jpg" width="630" height="300" />
 
 h1. Step 2 - Bootstrap a Local Cloud
@@ -54,6 +55,7 @@ You should get progress output reporting the start of the following services:
 * The Web Management Console Service
 
 The Cloudify shell will also connect to the REST service automatically so you will not have to run the __connect__ command separately.
+
 <img src="/guide/images/setup/shell_boot3.jpg" width="630" height="300" />
 
 Your environment is now ready for application deployment.
@@ -72,6 +74,7 @@ In the &lt;Cloudify Root&gt;/examples/petclinic-apache folder you will find the 
 In each of the above folders you will find all the files required to run the corresponding service.
 
 The following diagram depicts the application recipe file and folder structure: 
+
 <img src="/guide/images/setup/pet_clinic_anatomy3.JPG" />
 
 
@@ -108,7 +111,7 @@ In general, a dependent service will start running only after the services it de
 h3. The Service Level Recipe
 
 Every service has its own mandatory service level recipe.
-However, the "recipe structure":http://www.gigaspaces.com/wiki/display/CLOUD/Developing+Recipes is common to all of them.
+However, the "recipe structure":/guide/Developing/recipes_overview is common to all of them.
 
 Each service folder contains all the information required by the service:
 * A service file (__&lt;service name&gt;-service.groovy__)  which can contain some or all the following sections:
@@ -134,7 +137,7 @@ For example: The &lt;service name&gt;_install.groovy script will typically run d
 The above naming of handler files is optional. You can name the handler files as you wish, as long as you specify their exact names in the corresponding service file.
 The usage of any handler file is optional. For example: If you don't specify a post-installation handler file in the service filet, then no handler will be activated after the service has been installed.
 * An optional folder called __usmlib__ which should contain all your plugins jar files (required only if you developed your own plugins).
-Cloudify comes with "built-in plugin implementations":http://www.gigaspaces.com/wiki/display/CLOUD/Monitoring+Plugins+Development that you can configure as needed, but you can also develop your own monitoring plugins and pack them with the recipe (in jar files under usmlib sub-folder within each service folder).
+Cloudify comes with "built-in plugin implementations":/guide/Plugins_and_Probes/develop_your_plugin that you can configure as needed, but you can also develop your own monitoring plugins and pack them with the recipe (in jar files under usmlib sub-folder within each service folder).
 In the Pet Clinic application we used our Cloudify Mongo Plugin "cloudify-mongo-plugin.jar":http://www.gigaspaces.com/wiki/download/attachments/55935974/CloudifyMongoPlugins_sources2_0.zip to get details and to detect port liveness.
 
 
@@ -235,7 +238,7 @@ You can add a few owners and pets and then search for them to make sure that the
 
 h1. Step 5 - Monitoring the application
 
-To monitor the application open a web browser (the latest versions Firefox or Chrome, IE is not fully supported at this point) and log into the "Web Management Console":http://www.gigaspaces.com/wiki/display/CLOUD/The+Web+Management+Console (The shell gives you the exact URL when bootstrapping the localcloud). Usually it would be "http://localhost:8099":http://localhost:8099. You don't need to specify any username or password, just click the login button to login anonymously. 
+To monitor the application open a web browser (the latest versions Firefox or Chrome, IE is not fully supported at this point) and log into the "Web Management Console":/guide/Monitoring/the_web_management_console (The shell gives you the exact URL when bootstrapping the localcloud). Usually it would be "http://localhost:8099":http://localhost:8099. You don't need to specify any username or password, just click the login button to login anonymously. 
 
 Click the the *Topology* link at the upper pane, and switch to the Topology tab. Use the application selection combo box at the top right to navigate to the pet clinic application. You should see the application map as described in the pet clinic application recipe. Each service has a realtime status and shows the number of actual service instances. Click one of the services in the application map. 
 
@@ -270,7 +273,7 @@ To turn off all localcloud services type the following command:
 
 h1. What Next?
 
-* Learn more about [recipe development|Developing Recipes].
+* Learn more about "recipe development":/guide/Developing/recipes_overview.
 * Learn more about cloud portability and [cloud drivers|Developing a Custom Cloud Driver].
 * Learn how to [develop a monitoring plugin|Monitoring Plugins Development].
 * Learn how to further monitor your application with the [Web Manager|The Web Management Console].
