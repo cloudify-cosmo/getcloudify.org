@@ -4,7 +4,7 @@ title: Developing a custom cloud driver
 category: Developer Guide
 ---
 
-{summary}How to develop your custom Cloud Driver{summary}
+p. How to develop your custom Cloud Driver.
 
 h1. The Cloud Driver Interface
 
@@ -16,15 +16,24 @@ The Cloud Driver Interface defines the methods for provisioning and installing t
 * The {{stopMachine}} method called by the ESM when a service needs to be shutdown or when a node needs to be moved to a larger machine etc, will shutdown and terminate the VM specified.
 * The {{teardownCloud}} method will be shutting down and terminating any VM associated with the current Cloudify installation, once the user invoked the {{teardown-cloud}} from the Shell. 
 
+
 <script src="https://gist.github.com/1744993.js?file=CloudifyProvisioning.java"></script>
 
 h1. The Cloud Driver Configuration DSL File
+
 The Cloud Driver configuration file describes a particular configuration for the specific cloud vendor with several sub-sections:
 * Configuration section that holds the management machine template name ans some other general configuration attributes
 * Provider section describes the different attributes needed for the cloud driver to upload files from the shell to the cloud, accessing the management VMs etc.
 * User section that describes the security credentials required for Cloudify to access the cloud API
 * Templates section which is a map of VM template aliases mapped to their configurations. A template is a set of attributes the cloud driver needs to locate the right image to use and the machine HW to provision. Users reference the template aliases in the service recipe in order to get the required SW and HW from the cloud without addressing a specific Cloud API or terminology.
 * Custom section is used by the developer of the cloud driver to add any set of custom attributes
+
+Here's an example of ec2-cloud.groovy (For Amazon EC2 cloud with placeholders): 
+
+<script src="https://gist.github.com/1722422.js?file=ec2-cloud.groovy"></script>
+
+
+
 {code}
 cloud2 {
 
