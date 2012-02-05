@@ -6,23 +6,23 @@ category: Developer Guide
 
 h1. Overview
 
-The Universal Service Manager (USM) is a GigaSpaces [processing unit|http://www.gigaspaces.com/wiki/display/XAP8/The+Processing+Unit+Structure+and+Configuration]&nbsp; specially designed to install, execute, monitor and manage an external process. The USM manages the lifecycle
+The Universal Service Manager (USM) is a GigaSpaces "processing unit":http://www.gigaspaces.com/wiki/display/XAP8/The+Processing+Unit+Structure+and+Configuration]&nbsp; specially designed to install, execute, monitor and manage an external process. The USM manages the lifecycle
 of the external process, and acts as a proxy for it in the GigaSpaces Service Grid. This allows operators to deploy any application to the cloud via the service grid,
 and gain all of its benefits (Centralized management, remote deployment, performance statistics, etc...)
 
 h3. How it works
 
-Setting up a server process usually means setting up the host (physical or virtual), downloading and unzipping the binaries, setting up configuration files and scripts for start-up/shutdown. The USM helps you automate this process on a machine running in the GigaSpaces service grid. With the USM, you set up a file with all of the details required to download, install, run and monitor your process. This file, called a recipe, uses a Domain Specific Language (DSL) specifically designed to describe the process of automating process deployment and monitoring. The USM project also offers built-in plugins and tools which can be used for common scenarios. The Recipe DSL makes it easy to describe how your process should be installed and executed, using either command line operations (including windows batch files, Unix shell scripts and OS-independent groovy scripts) or small snippets of code called closure which can be embedded into the recipe file. (More information is available online for [Groovy|http://groovy.codehaus.org/] and [Closures|http://groovy.codehaus.org/Closures])
+Setting up a server process usually means setting up the host (physical or virtual), downloading and unzipping the binaries, setting up configuration files and scripts for start-up/shutdown. The USM helps you automate this process on a machine running in the GigaSpaces service grid. With the USM, you set up a file with all of the details required to download, install, run and monitor your process. This file, called a recipe, uses a Domain Specific Language (DSL) specifically designed to describe the process of automating process deployment and monitoring. The USM project also offers built-in plugins and tools which can be used for common scenarios. The Recipe DSL makes it easy to describe how your process should be installed and executed, using either command line operations (including windows batch files, Unix shell scripts and OS-independent groovy scripts) or small snippets of code called closure which can be embedded into the recipe file. (More information is available online for "Groovy":http://groovy.codehaus.org/ and "Closures":http://groovy.codehaus.org/Closures)
 
 Ideally, the process you are running already comes with the required scripts to start and stop it, so a simple recipe will only require you to set the names of these scripts, and you're ready to go.
 
 h3. What is a recipe
 
-A recipe is basically a list of instructions that the USM will execute when required. It is intended as a tool that can be used by someone with little or no development experience, but with a background in operations. More details are available in [CLOUD:Developing Recipes]
+A recipe is basically a list of instructions that the USM will execute when required. It is intended as a tool that can be used by someone with little or no development experience, but with a background in operations. More details are available in "CLOUD":/guide/Developing/recipes_overview
 
 h1. USM Lifecycle
 
-IMAGE HERE
+h1. *IMAGE HERE*
 
 The life-cycle phases of the USM can be controlled by the user, allowing for a high level of customization. The USM life-cycle is split into phases, each contains one or more events. The recipe can implement any of these events and ignore the ones it does not need.
 The only mandatory event is the 'start' event, which starts up the external process.
@@ -193,7 +193,7 @@ PU
 h3. Process Handling
 
 The USM acts as a proxy to an external process defined by the recipe, representing this process in the GigaSpaces service grid. To do this, it monitors
-Operating System metrics for this process, like CPU Usage, Memory consumption, etc. But to be able to do this, the USM must first find the process.	This sounds
+Operating System metrics for this process, like CPU Usage, Memory consumption, etc. But to be able to do this, the USM must first find the process.  This sounds
 easy, since the USM is the component that launches the external script. But in reality, the USM may launch a process that launches another process, that launches another
 one, etc. For instance, a process may be launched from a groovy script. This translates to the USM launching a shell process like bash for the groovy launch script,
 which launches a JVM that runs the Groovy Script, which launches the actual process. It is this final process that the USM should monitor, not the initial shell process that it launched.
