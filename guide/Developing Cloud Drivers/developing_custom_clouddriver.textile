@@ -1,0 +1,129 @@
+---
+layout: default
+title: Developing a custom cloud driver
+category: Developer Guide
+---
+
+{summary}How to develop your custom Cloud Driver{summary}
+h1. The Cloud Driver Interface
+The Cloud Driver Interface defines the methods for provisioning and installing the management virtual machines, the application virtual machines and getting Cloud information back.
+
+* The {{setConfig}} method is called after the user invoked the {{bootstrap-cloud}} command from the Cloudify shell, loading the configuration file and preparing the Cloud Driver configuration {{Map}}
+* The {{bootstrapCloud}} method succeeds the {{setConfig}} method; provisions the Cloudify management VM and installs the different Cloudify management services on that VM(s)
+* The {{startMachine}} method called by the ESM when a new service needs to be installed, will provision a new VM and install the Clodify agent on this VM, returning the VM details
+* The {{stopMachine}} method called by the ESM when a service needs to be shutdown or when a node needs to be moved to a larger machine etc, will shutdown and terminate the VM specified.
+* The {{teardownCloud}} method will be shutting down and terminating any VM associated with the current Cloudify installation, once the user invoked the {{teardown-cloud}} from the Shell. 
+{code}
+public interface CloudifyProvisioning {
+
+	/**************
+	 * Passes a configuration map for all setting defined for this cloud.
+	 * 
+	 * @param config The configuration settings.
+	 */
+	void setConfig(Map<String, Object> config);
+	
+	/*************
+	 * Sets up a cloud environment. This includes (at-least) setting up cloudify management servers and running the required processes on them.
+	 * Additional steps may apply for some clouds.
+	 * 
+	 * @param cloud The cloud settings.
+	 * @throws CloudProvisioningException If provisioning of the cloud environment failed.
+	 */	 
+	void bootstrapCloud(Cloud2 cloud) throws CloudProvisioningException; 
+	
+	/*************
+	 * Tears down a running cloud environment. It is the responsibility of the cloud driver to release all cloud resources relevant
+	 * to this environment. 
+	 * 
+	 * Implementations may choose to uninstall all running applications and services before shutting down the machines, or just to close down
+	 * all running instances. It is recommended to shut down all applications and services before tearing down the cloud environment. 
+	 * @param cloud The cloud settings.
+	 * @throws CloudProvisioningException If a problem was encountered while shutting down the cloud environment.
+	 */
+	void teardownCloud(Cloud2 cloud) throws CloudProvisioningException;
+	  
+	
+	/***************
+	 * Starts an additional machine on the cloud to scale out this specific service.
+	 *   
+	 * @param duration Time duration to wait for the instance.
+	 * @param unit Time unit to wait for the instance.
+	 * @return The details of the started instance.
+	 * @throws TimeoutException In case the instance was not started in the allotted time.
+	 * @throws CloudProvisioningException If a problem was encountered while starting the machine.
+	 */
+	MachineDetails startMachine(long duration, TimeUnit unit) throws TimeoutException, CloudProvisioningException; 
+	
+	/****************
+	 * Stops a specific machine for scaling in or shutting down a specific service.
+	 * @throws CloudProvisioningException
+	 */
+	void StopMachine(final String machineId) throws CloudProvisioningException;
+
+	/************
+	 * Returns the name of this cloud.
+	 * @return the name of the cloud.
+	 */
+	String getCloudName();
+
+}
+
+{code}
+h1. The Cloud Driver Configuration DSL File
+The Cloud Driver configuration file describes a particular configuration for the specific cloud vendor with several sub-sections:
+* Configuration section that holds the management machine template name ans some other general configuration attributes
+* Provider section describes the different attributes needed for the cloud driver to upload files from the shell to the cloud, accessing the management VMs etc.
+* User section that describes the security credentials required for Cloudify to access the cloud API
+* Templates section which is a map of VM template aliases mapped to their configurations. A template is a set of attributes the cloud driver needs to locate the right image to use and the machine HW to provision. Users reference the template aliases in the service recipe in order to get the required SW and HW from the cloud without addressing a specific Cloud API or terminology.
+* Custom section is used by the developer of the cloud driver to add any set of custom attributes
+{code}
+cloud2 {
+
+	configuration {
+		className "com.gigaspaces.cloudify.provisioning.DefaultCloudProvisioning"
+		managementMachineTemplate "SMALL_LINUX_32"
+	}
+
+	provider {
+		provider "aws-ec2"
+		localDirectory "tools/cli/plugins/esc/ec2/upload"
+		remoteDirectory "/home/ec2-user/gs-files"
+		cloudifyUrl "https://s3.amazonaws.com/test-repository-ec2dev/cloudify/gigaspaces.zip"
+		machineNamePrefix "gs_esm_gsa_"
+		securityGroup "default"
+
+		dedicatedManagementMachines true
+		managementOnlyFiles ([])
+		connectedToPrivateIp false
+
+		sshLoggingLevel "WARNING"
+		managementGroup "management_machine"
+		numberOfManagementMachines 2
+		zones (["agent"])
+		reservedMemoryCapacityPerMachineInMB 1024
+	}
+	user {
+		user "0VCFNJS3FXHYXXXXXXXXXXX"
+		apiKey "fPdu7rYBF0mtdJs1nmzcdA8yA/3kbV2XXXXXXXXXX"
+		keyFile "cloud-demo.pem"
+		keyPair "cloud-demo"
+	}
+	templates ([
+				SMALL_LINUX_32 : template{
+					imageId "us-east-1/ami-76f0061f"
+					machineMemoryMB "1600"
+					hardwareId "m1.small"
+				}
+			])
+	
+	custom ([
+		"key1":123,
+		"key2":"112233",
+		key3:"key3"])
+}
+{code}
+h1. Packaging it all into a Cloud Plugin
+h3. Adding a Plugin Folder
+h3. Packing the Cloud Driver to a jar
+h3. Placing the Cloud Driver Config File
