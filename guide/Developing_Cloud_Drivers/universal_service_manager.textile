@@ -92,8 +92,8 @@ NFS server would make recovery of a USM instance impossible.
 # This option usually implies using a Virtual Machine that has the required binaries pre-installed, or using a fixed set of machines that have been previously
 set up with the required files. This approach is a good fit for applications that expect to be deployed on a fairly static well-known system, or on one specific
 cloud vendor.
-# Packaging the process files inside the PU will make the packaged file considerably larger. The current version of the GigaSpaces Service Grid should not
-be used with files larger then 150 MB ({color:#ff0033}VERIFY THIS{color}), but for smaller sizes, the packaged PU is kept on at least two hosts (the hosts running the GigaSpaces Grid Service Managers). A future version will support larger files.
+# Packaging the process files inside the PU will make the packaged file considerably larger. 
+  The current version of the GigaSpaces Service Grid should not be used with files larger then 150 MB *VERIFY THIS*, but for smaller sizes, the packaged PU is kept on at least two hosts (the hosts running the GigaSpaces Grid Service Managers). A future version will support larger files.
 
 h1. Executable Recipe Entries
 
@@ -107,10 +107,9 @@ that handling of spaces, single quotes and double quotes is operating system spe
 in your recipe, but requires a working knowledge of the Groovy programming language. In addition, it is important to note that the working folder of the code executed
 in a closure is the working folder of the USM's JVM (i.e. the GigaSpaces Grid Services Container). This is usually the bin directory under the GigaSpaces install directory, and not
 the USM's service folder. To find the service folder, use the Service Context, as .
-* A map: In some cases, a recipe is expected to run on multiple operating systems. Each operating system may require a slightly different implementation. The map
-option allows you to define a mapping for each operating system. The map's key is a string that represents a Java Regular Expression (See more details in the [Javadoc|http://download.oracle.com/javase/6/docs/api/index.html?java/util/regex/package-summary.html]) and its value
-should be one of the previously described options. The USM will attempt to match the operating system it is running on (using Java's 'os.name' attribute) to the keys
-in the map, and execute the first entry that is a match. Typical keys are 'Linux', 'Win.\*', 'Mac.\*' (all recent apple operating systems). A list of operating system names is available [here|http://lopica.sourceforge.net/os.html].
+* A map: In some cases, a recipe is expected to run on multiple operating systems. Each operating system may require a slightly different implementation. The map option allows you to define a mapping for each operating system. The map's key is a string that represents a Java Regular Expression (See more details in the "Javadoc"/http://download.oracle.com/javase/6/docs/api/index.html?java/util/regex/package-summary.html and its value should be one of the previously described options. 
+  The USM will attempt to match the operating system it is running on (using Java's 'os.name' attribute) to the keys in the map, and execute the first entry that is a match. Typical keys are 'Linux', 'Win.\*', 'Mac.\*' (all recent apple operating systems). 
+  A list of operating system names is available "here".http://lopica.sourceforge.net/os.html.
 
 Note that all external processes are launched using the service directory ('ext' in the Processing Unit) as the process' working directory.
 
@@ -137,7 +136,7 @@ h1. Plugins
 
 The recipe file is intended to handle most of the common use cases, but it is impossible to handle all scenarios. 
 Eventually, you may encounter a scenario that requires writing custom code to handle a certain kind of event or performance statistic. 
-This is what the plugin mechanism allows. A plugin is a java class that implements the com.gigaspaces.cloudify.dsl.Plugin interface, plus one or more additional interfaces as described here. 
+This is what the plugin mechanism allows. A plugin is a java class that implements the __com.gigaspaces.cloudify.dsl.Plugin__ interface, plus one or more additional interfaces as described here. 
 The POJO class name, plus a map of parameters,is defined in the recipe file. 
 When the USM loads, it will execute the plugin according to the interfaces it implements, giving the developer the required flexibility. 
 The jar file containing the compiled plugin implementation, plus any additional classes and resources it needs, should be places in your recipe folder before it is packaged, under the usmlib directory. 
@@ -157,7 +156,7 @@ The GigaSpaces Service Grid allows a Processing Unit instance to publish data ab
 The USM publishes a set of details and monitors, mostly related to the operating system statistics of the monitored process, but A Recipe may add additional details and monitors if required.
 At this time, adding monitors or details requires implementing a DSL plugin *(LINK HERE)* though a future update will allow a recipe developer to define the details/monitors directly in the recipe. 
 To publish monitors or details, the plugin should implement one or borh of the relevant interfaces:
-org.openspaces.usm.details.Details and org.openspaces.usm.monitors.Monitor.
+__org.openspaces.usm.details.Details__ and __org.openspaces.usm.monitors.Monitor__.
 
 h1. USM Technical Design
 
@@ -190,17 +189,18 @@ PU
 
 h3. Process Handling
 
-The USM acts as a proxy to an external process defined by the recipe, representing this process in the GigaSpaces service grid. To do this, it monitors
-Operating System metrics for this process, like CPU Usage, Memory consumption, etc. 
-But to be able to do this, the USM must first find the process.  This sounds easy, since the USM is the component that launches the external script. 
+The USM acts as a proxy to an external process defined by the recipe, representing this process in the GigaSpaces service grid. 
+To do this, it monitors Operating System metrics for this process, like CPU Usage, Memory consumption, etc. 
+But to be able to do this, the USM must first find the process.  
+This sounds easy, since the USM is the component that launches the external script. 
 But in reality, the USM may launch a process that launches another process, that launches another one, etc. 
 For instance, a process may be launched from a groovy script. 
 This translates to the USM launching a shell process like bash for the groovy launch script, which launches a JVM that runs the Groovy Script, which launches the actual process. 
 It is this final process that the USM should monitor, not the initial shell process that it launched.
 
 The USM handles this by comparing the operating system's process tree before the external process is launched, and after it was launched. A new process whose parent
-process is the USM's JVM, is called the *child process*. The USM then looks for a process that was launched by the child process in a similar fashion, and continues
-down the process tree until a 'leaf' process is found, that has no child processes. 
+process is the USM's JVM, is called the *child process*. 
+The USM then looks for a process that was launched by the child process in a similar fashion, and continues down the process tree until a 'leaf' process is found, that has no child processes. 
 This process is called the *actual process*, and this is the process that the USM will monitor for performance statistics. 
 Note that the child process and the actual process may be the same.
 
