@@ -204,8 +204,7 @@ The USM then looks for a process that was launched by the child process in a sim
 This process is called the *actual process*, and this is the process that the USM will monitor for performance statistics. 
 Note that the child process and the actual process may be the same.
 
-Before the USM can find the actual process, it must first know that the actual process has launched\! Launching the chain of processes that eventually starts the
-actual process may take an indeterminate amount of time. 
+Before the USM can find the actual process, it must first know that the actual process has launched! Launching the chain of processes that eventually starts the actual process may take an indeterminate amount of time. 
 It is for this reason that the USM supports the startDetection event, which is how the recipe determines when the actual process has started. 
 This is most often accomplished by waiting for a port to open on the local host (like port 80 for a web server) or for a certain text message to be written to a log file. 
 For example, by polling the port until it becomes available, the recipe can indicate to the USM when the actual process is ready. A utility for scanning a port is packaged with the USM, though the recipe can configure any arbitrary code to determine this.
