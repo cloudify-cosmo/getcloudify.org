@@ -25,62 +25,17 @@ The Cloud Driver configuration file describes a particular configuration for the
 * Configuration section that holds the management machine template name ans some other general configuration attributes
 * Provider section describes the different attributes needed for the cloud driver to upload files from the shell to the cloud, accessing the management VMs etc.
 * User section that describes the security credentials required for Cloudify to access the cloud API
-* Templates section which is a map of VM template aliases mapped to their configurations. A template is a set of attributes the cloud driver needs to locate the right image to use and the machine HW to provision. Users reference the template aliases in the service recipe in order to get the required SW and HW from the cloud without addressing a specific Cloud API or terminology.
+* Templates section which is a map of VM template aliases mapped to their configurations. A template is a set of attributes the cloud driver needs to locate the suitable image to use and the machine HW to provision. Users reference the template aliases in the service recipe in order to get the required SW and HW from the cloud without addressing a specific Cloud API or terminology.
 * Custom section is used by the developer of the cloud driver to add any set of custom attributes
+
 
 Here's an example of ec2-cloud.groovy (For Amazon EC2 cloud with placeholders): 
 
 <script src="https://gist.github.com/1722422.js?file=ec2-cloud.groovy"></script>
 
 
-
-{code}
-cloud2 {
-
-	configuration {
-		className "com.gigaspaces.cloudify.provisioning.DefaultCloudProvisioning"
-		managementMachineTemplate "SMALL_LINUX_32"
-	}
-
-	provider {
-		provider "aws-ec2"
-		localDirectory "tools/cli/plugins/esc/ec2/upload"
-		remoteDirectory "/home/ec2-user/gs-files"
-		cloudifyUrl "https://s3.amazonaws.com/test-repository-ec2dev/cloudify/gigaspaces.zip"
-		machineNamePrefix "gs_esm_gsa_"
-		securityGroup "default"
-
-		dedicatedManagementMachines true
-		managementOnlyFiles ([])
-		connectedToPrivateIp false
-
-		sshLoggingLevel "WARNING"
-		managementGroup "management_machine"
-		numberOfManagementMachines 2
-		zones (["agent"])
-		reservedMemoryCapacityPerMachineInMB 1024
-	}
-	user {
-		user "0VCFNJS3FXHYXXXXXXXXXXX"
-		apiKey "fPdu7rYBF0mtdJs1nmzcdA8yA/3kbV2XXXXXXXXXX"
-		keyFile "cloud-demo.pem"
-		keyPair "cloud-demo"
-	}
-	templates ([
-				SMALL_LINUX_32 : template{
-					imageId "us-east-1/ami-76f0061f"
-					machineMemoryMB "1600"
-					hardwareId "m1.small"
-				}
-			])
-	
-	custom ([
-		"key1":123,
-		"key2":"112233",
-		key3:"key3"])
-}
-{code}
 h1. Packaging it all into a Cloud Plugin
+
 h3. Adding a Plugin Folder
 h3. Packing the Cloud Driver to a jar
 h3. Placing the Cloud Driver Config File
