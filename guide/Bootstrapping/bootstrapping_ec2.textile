@@ -33,7 +33,7 @@ Step 3:
 
 * This private key enables Cloudify cloud driver to create SSH connections to the newly created instances on EC2.
 
-2. Edit ec2-cloud.groovy under <Cloudify Root>/tools/cli/plugins/esc/ec2/ and set the following:
+2. Edit ec2-cloud.groovy under &lt;Cloudify Root&gt;/tools/cli/plugins/esc/ec2/ and set the following:
 * In the provider section, update the following attributes' values: 
  ** *cloudifyUrl* - Insert a full url path to the location of cloudify binaries (gigaspaces-cloudify.zip).
      If you have a private cloud, do the following:
@@ -47,22 +47,24 @@ Step 3:
 
 * In the user section, update the following attributes' values: 
  ** *user* - Insert your EC2 Access Key ID.
-You can get an active Access Key ID from the [Access Credentials section in "EC2 Console(Link to the Access Credentials section in EC2 Console)":https://aws-portal.amazon.com/gp/aws/developer/account/index.html?action=access-key as shown here:
+You can get an active Access Key ID from the Access Credentials section in "EC2 Console(Link to the Access Credentials section in EC2 Console)":https://aws-portal.amazon.com/gp/aws/developer/account/index.html?action=access-key as shown here:
 !GRA:Images2^EC2_ACCESS_KEY_AND_SECRET_KEY3.jpg!
  ** *apiKey* - Insert your EC2 Secret Access Key.
-You can get a Secret Access Key from the [Access Credentials section in EC2 Console|https://aws-portal.amazon.com/gp/aws/developer/account/index.html?action=access-key|Link to the Access Credentials section in EC2 Console] as shown above.
+You can get a Secret Access Key from the "Access Credentials section in EC2 Console(Link to the Access Credentials section in EC2 Console)":https://aws-portal.amazon.com/gp/aws/developer/account/index.html?action=access-key as shown above.
 {color:red}Note that the secret key must correspond to the above Access Key ID (that you set in the *user* attribute).{color} 
 ** *keyFile* - Insert the name of the private key file that you created (i.e.: myKeyPair-name.pem in our example).
 
 * In the template section, update the following:  				 
  ** *locationId* - Insert the zone type from EC2 (e.g. : us-east-1 which stands for US East,Virginia).
  ** *imageId* - Insert the Amazon Machine type ID. 
-     You can find the available types in [EC2 images types page|https://console.aws.amazon.com/ec2/home?region=us-east-1#s=Images] as shown here:
+     You can find the available types in "EC2 images types page":https://console.aws.amazon.com/ec2/home?region=us-east-1#s=Images as shown here:
 !GRA:Images2^EC2_AMAZON_MACHINE_IMAGES2.JPG!
  ** *hardwareId* - Insert the Amazon API name of the desired hardware type.
-     You can get it from [EC2 instance types page|http://aws.amazon.com/ec2/instance-types] (e.g.: m1.small , c1.medium etc.) as shown here:
-!GRA:Images2^EC2_Instance_Types3.jpg!
- ** *options* ([jclouds|http://www.jclouds.org/documentation]) .
+     You can get it from "EC2 instance types page":http://aws.amazon.com/ec2/instance-types (e.g.: m1.small , c1.medium etc.) as shown here:
+
+<img src="/guide/images/ec2/EC2_Instance_Types3.jpg" />
+
+ ** *options* ("jclouds":http://www.jclouds.org/documentation) .
     *** *securityGroups* - Insert security group/s to determine whether network ports are opened or blocked on your instances.
     *** *keyPair* - Insert the name of the key pair that you created (whose content is in the .pem file in *keyFile* attribute in the user section).
 
