@@ -66,54 +66,8 @@ You can get a Secret Access Key from the [Access Credentials section in EC2 Cons
 
 Here's an example of ec2-cloud.groovy(with placeholders):
 
-{code}
-cloud {
-	name = "ec2"
-	configuration {
-	    className "com.gigaspaces.cloudify.esc.driver.provisioning.jclouds.DefaultCloudProvisioning"
-	    managementMachineTemplate "SMALL_LINUX_32"
-	    connectToPrivateIp false
-	}
 
-	provider {
-	    provider "aws-ec2"
-	    localDirectory "tools/cli/plugins/esc/ec2/upload"
-	    remoteDirectory "/home/ec2-user/gs-files"
-	    cloudifyUrl "REPLACE_WITH_FULL_URL_PATH_TO_gigaspaces-cloudify.zip"		
-		  
-	    machineNamePrefix "REPLACE_WITH_YOUR_DESIRED_INSTANCE_NAME_PREFIX"
-		
-	    dedicatedManagementMachines true
-	    managementOnlyFiles ([])
-		
+<script src="https://gist.github.com/1722422.js?file=ec2-cloud.groovy"></script>
 
-	    sshLoggingLevel "WARNING"
-	    managementGroup "REPLACE_WITH_MANAGEMENT_MACHINES_PREFIX"
-	    numberOfManagementMachines 1
-	    zones (["agent"])
-	    reservedMemoryCapacityPerMachineInMB 1024
-		
-	}
 
-	user {
-            user "REPLACE_WITH_EC2_ACCESS_KEY_ID"
-	    apiKey "REPLACE_WITH_EC2_SECRET_ACCESS_KEY"
-	    keyFile "REPLACE_WITH_THE_PRIVATE_KEY_FILE_NAME_YOU_CREATED_ON_EC2"
-	}
-		
-	templates ([
-	    SMALL_LINUX_32 : template{
-            locationId "REPLACE_WITH_ZONE_TYPE"					 
-            imageId "REPLACE_WITH_ZONE_TYPE/REPLACE_WITH_AMAZON_MACHINE_ID"			  
-            machineMemoryMB 1600	
-            hardwareId "REPLACE_WITH_EC2_API_NAME_OF_DESIRED_HARDWARE_TYPE"				
-	    options ([
-                "securityGroups" : ["REPLACE_WITH_DESIRED_SECURITY_GROUP1", "REPLACE_WITH_DESIRED_SECURITY_GROUP2"] as String[],  
-	        "keyPair" : "REPLACE_WITH_THE_KEY_PAIR_NAME_YOU_CREATED_ON_EC2" 
-            ])
-	   }
-        ])			
-}
-{code}
-
-* Once you are done, run <Cloudify Root>/tools/cli/cloudify.sh (or cloudify.bat on Windows) and then(when it's ready), run the following command: bootstrap-cloud ec2
+* Once you are done, run &lt;Cloudify Root&gt;/tools/cli/cloudify.sh (or cloudify.bat on Windows) and then(when it's ready), run the following command: bootstrap-cloud ec2
