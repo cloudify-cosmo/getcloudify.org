@@ -5,11 +5,46 @@ cat: User Guide
 sidebar: The web Management Console
 ---
 
-h1. The web Management Console
+h1. Overview
 
-Here you can monitor ....
+The web Management Console is deployed as a service when Cloudify is bootstrapped.
+It is used to verify, troubleshoot and monitor your application and has the following capabilities:
+
+* Overview Dashboard
+* Application Map - It shows the deployment plan and displays statuses on actual deployment.
+* Monitoring Panel - Metrics are available per "USM":/guide/overview/universal_service_manager service .
+* Service Details - More information is available about the USM service.
+* Infrastructure list - It lists all the machines and the services they contain.
+* Services list - It lists all the service instances.
+* Correlation charts - Enables you to comppare service instances.
+* Log view - Enables you to browse logs.
+
+h1. The dashboard
+
+* The Dashboard gives you high level information about your grid and deployed applications
+** Grid health - The dashboard displays an aggregated status of the entire Cloudify service grid based on alerts.
+** Resource consumption - The dashboard presents an aggregated view of CPU and Memory utilization across the management and the application virtual hosts
+** Grid Services health and inventory - the dashboard provides a book-keeping view of all the Cloudify service grid services and their health
+** Applications and application services - the dashboard provides a list of services by application. You can toggle between the different applications clicking the vertical tabs
+
+* The Alerts Console - the dashboard lower pane serves as alerts console where each row aggregates a group of alerts.
+
+!dashboard_withtext.png|thumbnail!
+
+h1. Verifying Application Deployment
+
+The application map is a graphical representation of your application deployment plan as reflected in the uploaded recipe. Cloudify visualize this plan as connected application services. On each service shape its information is presented in addition to the number of actual instances and health status.
+The service widget also allow for actions.
+
+!appmap_withtext.png|thumbnail!
+!services_withtext.png|thumbnail!
+
+h1. Monitoring Applications
+
+!appmap_withtext.png|thumbnail!
+
+h1. Troubleshooting Cloudify 
+
+!logs_withtext.png|thumbnail!
 
 
-Need to add more info here.
-
-test
