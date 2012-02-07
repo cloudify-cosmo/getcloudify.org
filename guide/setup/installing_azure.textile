@@ -102,7 +102,6 @@ This step is only required if you wish to change the number of role instances fr
 # Create the management API certificate:
  *encutil -create -alias azure_api -pwd 123456 -pfx azure_api.pfx -cert azure_api.cer*
 # Save the certificate thumbprint, for later use.
-
  *encutil -thumbprint -cert azure_api.cer*
 
 # Copy the thumbprint and paste it into c:\cloudify\tools\cli\plugins\azure\azure.properties as the value of "certificateThumbprint"(required for scaling out)
