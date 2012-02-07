@@ -1,0 +1,76 @@
+---
+layout: default
+title: Monitoring the application during deployment using the Cloudify client
+cat: User Guide
+sidebar: Monitoring the application during deployment using the Cloudify client
+---
+
+h1. Monitoring the application during deployment using the Cloudify client
+
+During the deployment you can also view the current status in the Cloudify shell console.
+In the console you can see at every moment:
+* The number of planned instances
+* The number of installed instances
+* Success or failure of each of the services and its stage(life cycle event).
+
+Here's an example of the console output during the installation of our build-in "Pet Clinic Application":/guide/qsg/quick_start_guide : 
+
+@
+cloudify@default> install-application --verbose ../../examples/petclinic
+Validating file petclinic
+Uploading application petclinic-mongo
+Application [petclinic-mongo] with 4 services
+Service [mongod] 2 planned instances
+Service [mongoConfig] 1 planned instances
+Service [mongos] depends on [mongoConfig, mongod] 1 planned instances
+Service [tomcat] depends on [mongos] 1 planned instances
+deploying mongod service
+.......
+[HOST_NAME/MACHINE-IP] mongod-1 INSTALL invoked
+...
+[HOST_NAME/MACHINE-IP] mongod-2 INSTALL invoked
+................................................
+[HOST_NAME/MACHINE-IP] mongod-2 INSTALL completed [OK]
+[HOST_NAME/MACHINE-IP] mongod-2 START invoked
+...
+Planned service instances: 2, Actual service instances: 1
+.....
+[HOST_NAME/MACHINE-IP] mongod-1 INSTALL completed [OK]
+[HOST_NAME/MACHINE-IP] mongod-1 START invoked
+.....
+Planned service instances: 2, Actual service instances: 2
+Service "mongod" successfully installed
+deploying mongoConfig service
+.
+[HOST_NAME/MACHINE-IP] mongoConfig-1 INSTALL invoked
+[HOST_NAME/MACHINE-IP] mongoConfig-1 INSTALL completed [OK]
+[HOST_NAME/MACHINE-IP] mongoConfig-1 START invoked
+.
+Planned service instances: 1, Actual service instances: 1
+Service "mongoConfig" successfully installed
+deploying mongos service
+.
+[HOST_NAME/MACHINE-IP] mongos-1 INSTALL invoked
+[HOST_NAME/MACHINE-IP] mongos-1 INSTALL completed [OK]
+[HOST_NAME/MACHINE-IP] mongos-1 START invoked
+..
+[HOST_NAME/MACHINE-IP] mongos-1 POST_START invoked
+...
+[HOST_NAME/MACHINE-IP] mongos-1 POST_START completed [OK]
+...
+Planned service instances: 1, Actual service instances: 1
+Service "mongos" successfully installed
+deploying tomcat service
+.
+[HOST_NAME/MACHINE-IP] tomcat-1 INSTALL invoked
+[HOST_NAME/MACHINE-IP] tomcat-1 INSTALL completed [OK]
+....
+[HOST_NAME/MACHINE-IP] tomcat-1 PRE_START invoked
+[HOST_NAME/MACHINE-IP] tomcat-1 PRE_START completed [OK]
+..
+[HOST_NAME/MACHINE-IP] tomcat-1 START invoked
+...
+Planned service instances: 1, Actual service instances: 1
+Service "tomcat" successfully installed
+Application petclinic-mongo installed successfully
+@
