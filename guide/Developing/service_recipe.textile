@@ -17,6 +17,7 @@ h1. Service Recipe Sections
 h1. The Service Recipe Prolog
 
 <script src="https://gist.github.com/1704290.js?file=prolog.js"></script>
+<script src="https://gist.github.com/1760251.js?file=Recipe_Prolog.groovy"></script>
 
 h5. Tier Types
 
@@ -33,10 +34,12 @@ h1. Lifecycle Event Handler
 
 Lifecycle event handlers can be an external Groovy script (located in the same folder as the service recipe), a windows bat or Linux/Unix shell script (again in the same folder), or inline closure in case of very short code. If you want to use script written in other languages, you can run them from a Groovy script providing them with the context using environment variables or through a bat / shell script.\\
 <script src="https://gist.github.com/1704288.js?file=lifecycle.js"></script>
+<script src="https://gist.github.com/1760256.js?file=Lifecycle.groovy"></script>
 
 In some cases you want a recipe that can run on several operating systems. you can use the following lifecycle event handler notation
 
 <script src="https://gist.github.com/1704284.js?file=multiple_lifecycle.js"></script>
+<script src="https://gist.github.com/1760265.js?file=mult_lifecycle.groovy"></script>
 
 h3. Best practices for lifecycle event handlers: 
 
@@ -74,4 +77,5 @@ There are two modes of using plugins
 * Add a custom plugin. Custom plugins and their dependencies should be located (as jars) under {{usmlib}} sub-folder
 <img src="/guide/images/recipes/custom_plugin.png"/>
 <script src="https://gist.github.com/1704279.js?file=plugins.js"></script>
+<script src="https://gist.github.com/1760272.js?file=plugins.groovy"></script>
 
