@@ -223,7 +223,8 @@ The Apache Recipe does the following:
 h1. Step 4 - Deploying the Recipe
 
 Now that you are more familiar with the recipe mechanism, let's deploy the application. Please type the following (replace &lt;Cloudify root&gt; with the Cloudify's installation location on your machine:
-<script src="https://gist.github.com/1698955.js?file=install_app_on_cloudify.sh"></script>
+
+install-application -timeout 10 &lt;Cloudify root&gt;/examples/petclinic
 
 You may add the __--verbose__ option for more verbosity during the installation process. We've added the __-timeout__ option since the recipe itself downloads the service binaries (in our case the Tomcat and mongoDB distribution) from the web when installing for the first time, so the first installation may take longer.
 To be on the safe side, specify a timeout of at least 10 minutes as described above, which means that the shell will wait for 10 *minutes* for the application to install.
