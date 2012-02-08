@@ -4,10 +4,6 @@ title: The Service Context API
 category: Developing Recipes
 ---
 
-h1. Summary
-
-The Service Context API provides means to access other Application Services or other Service Nodes from within a lifecycle script.
-
 h1. The Service Context API
 
 The Service Context API provides means to access other Application Services or other Service Nodes from within a lifecycle script.
@@ -41,19 +37,8 @@ The _ServiceInstance__ object provides the following methods:
 h1. Writing and Reading Runtime Attributes
 
 Cloudify enables the user to exchange information between different contexts such as Application, Service and Service Instance, using the Attributes API.
+You can read more about it "here(Service Attributes API)":/guide/developing/attributes_api
 
-The Attributes API is identical to the Groovy HashMap API.
-Obtaining access to the attributes of an application, service or service instance is done through the Service Context API:
-<script src="https://gist.github.com/1703679.js?file=accessAttributes.groovy"></script>
 
-The next sections demonstrate how to use this Attributes API in various use cases.
 
-h3. Writing and Reading Service and Application Attributes:
-
-<script src="https://gist.github.com/1703703.js?file=readWriteAttr1.groovy"></script>
-
-h3. Writing and Reading Service Instance Attributes
-
-The Attributes API enables you to retrieve values of attributes from other service instances in the same cluster(service) or from other services in the same application:
-<script src="https://gist.github.com/1703758.js?file=wRInstanceAttrs.groovy"></script>
 

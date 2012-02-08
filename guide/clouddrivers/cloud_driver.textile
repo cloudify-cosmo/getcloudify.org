@@ -4,45 +4,54 @@ title: The Cloud Driver
 category: clouddrivers
 ---
 
+h3. Summary
+
 The Cloudify cloud driver is responsible of integrating with the cloud infrastructure to provide the on-demand compute resources that Cloudify requires. 
 
-Provisioning Compute Resources
+h3. Provisioning Compute Resources
+
 Cloudify uses "gentless-installation" meaning it does not require any Cloudify code to already be running on the new machine to use it. Cloudify will connect to a Linux machine over ssh and install the required components there, connecting it to the Cloudify Cluster. (Note: support for windows machines using WinRM is in the works and will hopefully be available soon)
 As a result, no special VM image is required. Any *-nix machine can be used, whether virtual or physical. Provisioning does not have to use a real "cloud" You can just use a list of existing machines to be allocated as required. 
 
-When is the Cloud Driver used
-The Cloud Driver is loaded and used by two Cloudify Components
-1.	The Cloudify CLI will load an instance of the cloud driver when the "bootstrap-cloud" or "eardown-cloud" command is called. This instance is only used to provision/release the management machines, and then discarded. This instance will only use the start/stop machine command for management machines (see the API section).
-2.	The ESM (Elastic Service Manager) will load one instance of the cloud driver for each deployed service. This instance will be responsible for scaling out/in one specific service. At any one time there should be only a single instance of the ESM running in a cluster, with zero or more instances of the cloud driver running in it. 
+h3. When is the Cloud Driver used
 
-How it works
-The cloud driver is basically a Java POJO. Its class name is part of the cloud configuration file (*-cloud.groovy). Cloudify will instantiate this class (using the no-arg constructor) as required and delegate scale out/in requests to it. 
-On scale out, the driver is only responsible for allocating the machine, with ssh running, and returning the machine details to Cloudify. The details include the machine Host/IP and the login credentials required to access the machine. On scale in, the driver is required to shut-down release the machine back to the resource pool. In virtualized environments (including most IaaS clouds) this usually means shutting down the virtual machine. In physical environment this cloud mean shutting the machine, or just shutting down the Cloudify Agent running on the machine.
+The Cloud Driver is loaded and used by two Cloudify Components:
+#  The Cloudify CLI will load an instance of the cloud driver when the "bootstrap-cloud" or "teardown-cloud" command is called. This instance is only used to provision/release the management machines, and then discarded. This instance will only use the start/stop machine command for management machines (see the API section below).
+#	The ESM (Elastic Service Manager) will load one instance of the cloud driver for each deployed service. This instance will be responsible for scaling out/in one specific service. At any time, there should be only one instance of the ESM running in a cluster, with zero or more instances of the cloud driver running in it.
 
-Dealing with provisioning errors 
-Cloud providers and APIs are not perfect, nothing is. And in large scale distributed environments such as these, error can and do occur. It is important to remember that the cloud driver infrastructure is NOT �transactional�. It is the cloud driver implementation�s responsibility to properly handle any errors from remote machines. Most importantly, the cloud driver is responsible to properly release resources if an error was encountered while provisioning a machine. For instance, if a cloud driver requests a machine from the cloud and then waits for the machine to become available, the machine may take too long to start, exceeding the required timeout. In this case, it is the responsibility of the cloud driver to shut down the machine before throwing a TimeoutException to the cloud driver infrastructure (note that is such a case, Cloudify will re-issue the request for the new machine).
+h3. How it works
 
-The Cloud Driver  API
+The cloud driver is basically a Java POJO. Its class name must be specified in the cloud configuration file (*-cloud.groovy). Cloudify will instantiate this class (using the no-arg constructor) as required and delegate scale out/in requests to it. 
+On scale out, the driver is only responsible for allocating the machine, with ssh running, and returning the machine details to Cloudify. The details include the machine Host/IP and the login credentials required to access the machine. On scale in, the driver is required to shut-down and release the machine back to the resource pool. In virtualized environments (including most IaaS clouds) this usually means shutting down the virtual machine. In physical environment this means shutting down the machine, or just shutting down the Cloudify Agent running on the machine.
+
+h3. Dealing with provisioning errors 
+
+Cloud providers and APIs are not perfect, nothing is. And in large scale distributed environments such as these, error can and do occur. It is important to remember that the cloud driver infrastructure is NOT "transactional". It is the cloud driver implementation's responsibility to properly handle any errors from remote machines. Most importantly, it is the cloud driver's responsibility to properly release resources if an error has ocurred while provisioning a machine. 
+For instance, if a cloud driver requests a machine from the cloud and then waits for the machine to become available, the machine may take too long to start, exceeding the required timeout. In this case, it is the responsibility of the cloud driver to shut down the machine before throwing a TimeoutException to the cloud driver infrastructure (note that in such a case, Cloudify will re-issue the request for the new machine).
+
+h3. The Cloud Driver  API
+
 A cloud driver implementation is a class that implements the org.cloudifysource.esc.driver.provisioning.ProvisioningDriver interface:
+<script src="https://gist.github.com/1769906.js?file=ProvisioningDriver.java"></script>
 
-<script src="https://gist.github.com/1747267.js?file=CloudDriver"></script>
-Configuring the cloud driver
-The implementing class of the cloud driver, along with any required cloud configuration information, is specified in a Groovy DSL based configuration file. This information is used to populate a cloud configuration object  of type org.cloudifysource.dsl.cloud.Cloud. This object is passed to the cloud
-Driver instance in the setConfig() call. 
+h3. Configuring the cloud driver
+
+The implementing class of the cloud driver, along with any required cloud configuration information, is specified in a Groovy DSL based configuration file. This information is used to populate a cloud configuration object whose type is __org.cloudifysource.dsl.cloud.Cloud__ . This object is passed to the cloud driver instance in the setConfig() call. 
 
 Here is a sample of the configuration file:
-<script src="https://gist.github.com/1747297.js?file=cloudDriverConfig"></script>
+<script src="https://gist.github.com/1770098.js?file=cloudDriverConfig.groovy"></script>
 
-The default cloud driver
-Cloudify comes with built-in cloud driver that is based on the popular jclouds framework. 
-This cloud driver allows you to deploy Cloudify services to many cloud providers and APIs. For a full listing of supported clouds, see "this page:http://www.jclouds.org/documentation/reference/supported-providers"
-The default cloud driver can be used as is, or used as the basis for extension to fit your requirements.
+h3. The default cloud driver
 
-Deploying a custom cloud driver
-There are several things to consider when creating your own cloud driver, or tweaking the configuration of an existing one.
--	Class file loading: the cloud driver implementation classes must be available to both the client the bootstraps the cloud and to the ESM, which is responsible for scaling in/out services. It is your responsibility to make sure that the classes are on the classpath of the required components. A simple option is to add the jar file containing your classes to the Cloudify distribution under lib/required. These jar files will be automatically added to the classpath of all components.
--	Once the bootstrap/scale  process successfully provisions a new machine, a startup script will be executed on the remote machine over SSH, responsible for installing Cloudify and starting the Cloudify agent. Some implementations may need to tweak this process to fit specific environments. For instance: system proxies, mount points and paths may all need to change to adapt to a specific cloud implementation. The default startup script is available under <Cloudify_Install>/tools/cli/plugins/esc/ec2/upload/bootstrap-management.sh . This script works with the built-in cloud driver, but you can probably use it as a basis for your changes. Just place the modified script in your local directory (see the cloud configuration file above) and the file will be automatically uploaded to the new machine.
+Cloudify comes with a built-in cloud driver that is based on the popular jclouds framework. 
+This cloud driver enables you to deploy Cloudify services in many cloud providers and APIs. For a full listing of supported clouds, see "this page":http://www.jclouds.org/documentation/reference/supported-providers .
+The default cloud driver can be used as is, or as the basis for an extension that suits your requirements.
 
+h3. Deploying a custom cloud driver
 
-
-
+There are several things to consider when creating your own cloud driver, or tweaking the configuration of an existing one:
+* Class file loading: The cloud driver implementation classes must be available to both the client that bootstraps the cloud and to the ESM, which is responsible for scaling in/out services. It is your responsibility to make sure that the classes are on the classpath of the required components. A simple option is to add the jar file containing your classes to the Cloudify distribution under lib/required. These jar files will be automatically added to the classpath of all components.
+* Once the bootstrap/scale process successfully provisions a new machine, a startup script will be executed on the remote machine over SSH, responsible for installing Cloudify and starting the Cloudify agent. Some implementations may need to tweak this process to fit specific environments. For instance: system proxies, mount points and paths may all need to change to adapt to a specific cloud implementation. 
+The default startup script is available under &lt;Cloudify_Install&gt;/tools/cli/plugins/esc/ec2/upload/bootstrap-management.sh. 
+This script works with the built-in cloud driver, but you can probably use it as a basis for your changes. 
+Just place the modified script in your local directory (see the cloud configuration file above) and the file will be automatically uploaded to the new machine.
