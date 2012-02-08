@@ -31,7 +31,7 @@ This is equivalent to:
 A service instance can read, write or modify any of the attributes of other service instances and also of other services, and other service instances. This is done by specifying the service name instead of thisService. 
 For example: 
  *context.attributes.tomcat.myKey = "myValue"* - This stores myValue for myKey under tomcat service context.
- *context.attributes.tomcat.instances[1].myKey = "myValue"* - This stores myValue for myKey under tomcat service instance id 1 context (instance ids are 1-based).
+ *context.attributes.tomcat.instances&#91;1&#93;.myKey = "myValue"* - This stores myValue for myKey under tomcat service instance id 1 context (instance ids are 1-based).
  
 You *CANNOT* access attributes of other applications, only attributes that belong to this application, its services and their instances.
 You can also iterate over instances in the following way:
