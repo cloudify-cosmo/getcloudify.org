@@ -1,0 +1,23 @@
+---
+layout: default
+title: Bootstrapping Cloudify on Windows Azure
+category: Bootstrapping
+---
+p. Bootstrapping Cloudify on Windows Azure is quite simple and done from your computer using the Cloudify Interactive Shell 
+
+h1. Starting the Interactive Shell
+
+p. To start the Cloudify Inreractive Shell go to <Cloudify Home>/tools/cli and run cloudify.bat or cloudify.sh, if your running on Linux or Mac OS.
+
+h1. Bootstrapping Windows Azure
+
+p. Bootstrapping on Windows Azure is a process where Cloudify Cloud Driver on your machine interacts with Windows Azure management API to create a new Azure Deployment. Cloudify instrcuts Azure to do the following:
+* Create a management worker role with Cloudify controller components
+* Create a webui role with Cloudify Management Console webserver
+* Create worker roles for each application service according to your recipe
+
+Please note that currently, each application needs a seperate deployment on Windows Azure and therefore it will have a seperate Cloudify controller installation
+
+The command to use is azure:bootstrap-application
+
+<script src="https://gist.github.com/1695721.js?file=bootstrap.txt"></script>
