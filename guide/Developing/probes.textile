@@ -18,6 +18,7 @@ All you need to do is implement the {{details}} closure (which is the reserved c
 
 The following example demonstrates how to monitor JBoss attributes using a JMX probe
 <script src="https://gist.github.com/1704403.js?file=detauils_probe.js"></script>
+<script src="https://gist.github.com/1767179.js?file=details_probe.groovy"></script>
 
 h1. Monitoring Performance with Metrics Probes
 
@@ -27,6 +28,7 @@ All you need to do is implement the monitors closure returning a {{Map}} of {{St
 
 The following example demonstrates how to monitor Tomcat metrics using a JMX probe:
 <script src="https://gist.github.com/1704405.js?file=monitoring_probe.js"></script>
+<script src="https://gist.github.com/1767183.js?file=monitoring_probe.groovy"></script>
 
 h1. Monitoring Availability with Start-up and Shutdown Detection Probes
 
@@ -42,9 +44,11 @@ The {{startDetection}} is a groovy closure that returns a boolean value. It is i
 The following example checks if the service instance is listening on ports 3668 and 3667 as an indication to be up and running. Once this rule returns true, the service instance is consider "started".
 
 <script src="https://gist.github.com/1704407.js?file=start_probe.js"></script>
+<script src="https://gist.github.com/1767188.js?file=start_probe.groovy"></script>
 
 The following examples checkes whether a MySQL installation has a specific table in the application schema as an indication that the DB is ready for the application business logic.
 <script src="https://gist.github.com/1704411.js?file=sql_probe-example.js"></script>
+<script src="https://gist.github.com/1767229.js?file=sql_probe-example.groovy"></script>
 
 h5. The stop detection probe
 
@@ -54,4 +58,6 @@ The {{stopDetection}} probe is invoked periodically after the service is declare
 
 The following example checks if the service instance is listening on port 7777 as an indication to be up and running. Once this rule returns false, the service instance is consider "dead".
 
-<script src="https://gist.github.com/1704417.js?file=stop_detector.js"></script><script src="https://gist.github.com/1704417.js?file=stop_detector.js"></script>
+<script src="https://gist.github.com/1704417.js?file=stop_detector.js"></script>
+<script src="https://gist.github.com/1767292.js?file=stop_detector.groovy"></script>
+
