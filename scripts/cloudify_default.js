@@ -43,7 +43,7 @@ if ($("#slideshow").exists()) {    // Do something}
       $('#slideInner').animate({
         'marginLeft' : slideWidth*(-currentPosition)
       });
-  }  
+  })  
 };
 
  // manageControls: Hides and shows controls depending on currentPosition
@@ -56,4 +56,4 @@ if ($("#slideshow").exists()) {    // Do something}
     else{ $('#rightControl').show() }
   };   
   
-);  
+});  
