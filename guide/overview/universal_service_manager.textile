@@ -29,24 +29,24 @@ The only mandatory event is the 'start' event, which starts up the external proc
 
 The life-cycle phases and events are described below.
 
-*h3. Service Start Phase
+h3. Service Start Phase
 
 events: preServiceStart
 Called once when a service starts. This event will only execute on the first instance of the service that launches (which has an instance ID of 1).
 Note that other instances may be launching at the same time, so their init Phase, may be executing at the same time at a different instance.
 
-*h3. Initialization Phase
+h3. Initialization Phase
 events: init
 
 Called when the USM first starts up. Should be used to validate system level settings (supported operating system, hardware architecture, etc...)
 
-*h3. Install Phase
+h3. Install Phase
 
 events: preInstall, install, postInstall
 Called after the init phase ends. This is where an application is expected to setup any binaries it requires to run.
 Note that a future version of Cloudify will provide built-in integration with standard package managers, like apt, yum, msi or maven.
 
-*h3. Start Phase:
+h3. Start Phase:
 
 events: preStart, start, startDetection, postStart
 The start event is the only mandatory event, where the external process is launched. The events should be used as following:
@@ -56,7 +56,7 @@ The start event is the only mandatory event, where the external process is launc
 an operating system shell for a start up script which then launches the actual process. The USM does not necessarily know when the actual process is ready, to this event offers a hint. When this event finishes,
 the USM will scan the operating system for the process tree it just launched (i.e. the process launched in the start event, and all of its children
 
-*h3. Stop Phase:
+h3. Stop Phase:
 
 events: preStop, postStop
 By default, the USM 'stops' the external process by killing the process using an operating system call (using the Sigar library). This is an effective approach
@@ -64,7 +64,7 @@ for most cases, but may not work for some cases where a process needs to perform
 the recipe should use the preStart event to handle any additional logic. For instance, a tomcat recipe may call the shutdown script on the preStart phase, then wait
 until the shutdown command closes the tomcat process.
 
-* h3. Shutdown Phase:
+h3. Shutdown Phase:
 
 events: shutdown
 The shutdown event should be used to perform any required cleanup before the USM instance shuts down. This if often used when running on  physical hosts
