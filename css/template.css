@@ -5,7 +5,7 @@ html{   background:url(../images/bgFooterWrap.png) no-repeat bottom center }
 body{ font-family:"ProximaNova-Regular",Arial, Helvetica, sans-serif;background:url(../images/bgTopX.png) repeat-x top center; color:#231f20; text-align:left;font-size:14px; margin:0px auto; width:auto; overflow-x: hidden}
 
 p, pre, blockquote,a, ol, h1, h2, h3, h4, h5, h6, ul, li, select, input,textarea, table, td, tr, span, label, form { direction:ltr;font-family:font-family:"ProximaNova-Regular",Arial, Helvetica, sans-serif;}
-div, th{ text-align:left}
+div { text-align:left;}
 .topMenu li,.footer li,.leftContentBox li{ list-style-type:none;}
 a:focus, a:visited, a:link
 {
@@ -21,7 +21,7 @@ a:link, a:visited {
 	text-decoration: none;
 	color:#008AEF;
 }
-a:hover{ text-decoration: none}
+a:hover{ }
 
 .Wrapper a{outline:0;}
 .Wrapper ul{ margin:0px}
@@ -31,6 +31,17 @@ input.button:hover { }
  p { margin-top: 0; margin-bottom: 5px; }
 
 img { border: 0 none; }
+table
+{
+border-collapse:collapse;
+}
+/*table,td,th{border:solid 1px #000000;}*/
+th{font-weight:bold;}
+
+table,tr {background-color: #FFFFFF;}
+table,tr:nth-child(2n+1) {
+  background-color: #DCDCDC;
+}
 
 .clear { 
 	clear: both !important;
@@ -167,6 +178,171 @@ ul.tableOfcontentList h3{ color:#1caab8; border-bottom:solid 1px #c6eaed; font-s
 ul.tableOfcontentList p{color:#9094a0; font-size:12px;}
 .left{ float:left; width:243px;}
 .DocumentsWrapRight{ width:707px; float:right; padding:0 0 0px 0}
+
+/*--comming soon--*/
+.commingSoonWrap{ background:url(../images/bgCommingSoon.png) repeat-x bottom left; min-height:607px; position:relative; left:-28px; width:1037px}
+.commingSoon{ width:990px; margin:0 auto; position:relative;}
+.csRight{ float:right; width:254px;}
+.csBox{ width:100%; margin-bottom:12px}
+.csBoxTop{ width:100%; background:url(../images/topRoudedBox.png) no-repeat top left; height:8px;}
+.csBoxMid{ width:100%; background:url(../images/midRoudedBox.png)repeat-y top left;}
+.csBoxBtm{ width:100%; background:url(../images/btmRoudedBox.png) no-repeat top left; height:7px}
+.twitts{ /*padding:0 21px; width:212px*/padding:0 11px; width:233px}
+.twitts h3{ margin:0px; background:url(../images/iconTwitter.png) no-repeat scroll 0 7px; padding:10px 0 2px 41px; color:#1e7894; font-size:16px; margin:0}
+ul.twitterList{ padding:0px; margin:0px 0 8px 0; width:207px}
+ul.twitterList li{ list-style-type:none; border-bottom:solid 1px white; padding:8px 0 10px 0}
+ul.twitterList li span{ color:#393939; font-size:11px;}
+ul.twitterList li a{ color:#24acc5; font-size:11px; border:none; text-decoration:none}
+a.join{ background:url(../images/iconTwitterArrow.png) no-repeat scroll 0 3px; padding:0 0 8px 17px; text-decoration:none; border:none; color:#246f96; font-weight:bold; display:block;}
+span.likes{ font-size:12px; color:#393939; width:172px; padding:4px 0 0 0; display:inline-block}
+a.facebook_like{ border:none; float:right;}
+.facebookBox{ padding:0 12px 0; width:230px; height:150px;}
+.csLeft{ width:650px; float:left; margin:0 0 0 24px}
+.fbFaces{ margin-bottom:11px;}
+.emailNote{ margin:74px 0 0 0;}
+.emailNote p{ color:#246e95; font-family: "ProximaNova-Bold"; font-size:26px; line-height:36px;}
+.emailNote form{ margin:33px 0 0 0}
+input#email{ background:url(../images/bgInputEmail.png) no-repeat top left; border:none; width:378px;height:69px; display:inline-block; font-size:22px; color:#8c8c8c; line-height:32px; padding:0 0 0 18px; float:left}
+input#sendBtn{ background:url(../images/btnEmailSubmit.png) no-repeat top left; width:247px; height:68px; border:none; text-indent:-999px; overflow:hidden; float:left; cursor:pointer;}
+input#sendBtn:hover{ background-position:0 -68px}
+input#sendBtn:focus{background-position:0 -136px}
+
+/*twitter*/
+#twtr-widget-1 .twtr-doc, #twtr-widget-1 .twtr-hd a, #twtr-widget-1 h3, #twtr-widget-1 h4 {
+    background: none !important;
+    color: #FFFFFF !important;
+}
+.twtr-tweets{font-family:"ProximaNova-Regular"; font-size:11px;}
+.twtr-hd{ padding:0px !important}
+.twtr-tweet {border-bottom:solid 1px white !important; padding:8px 0 10px 0 !important}
+.twtr-tweets a{ text-decoration:none; border:none;}
+.twtr-ft div a{ display:none;}
+.twtr-ft  span{ float:left !important;}
+.twtr-ft a.twtr-join-conv{background:url(../images/iconTwitterArrow.png) no-repeat scroll 0 3px; padding:0 0 8px 17px; text-decoration:none; border:none; color:#246f96 !important; font-weight:bold; display:block;}
+
+/*facebook*/
+.fan_box a:hover{
+  text-decoration: none;
+}
+.fan_box .full_widget{
+  height: 200px;
+  border: 0 !important;
+  background: none !important;
+  position: relative;
+}
+.fan_box .connect_top{
+  background: none !important;
+  padding: 0 !important;
+}
+.fan_box .profileimage, .fan_box .name_block{
+  display: none;
+}
+.fan_box .connect_action{
+  padding: 0 !important;
+}
+.fan_box .connections{
+  padding: 0 !important;
+  border: 0 !important;
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 11px;
+  font-weight: bold;
+  color: #666;
+}
+span.total{
+  color: #393939;
+  font-weight: bold;
+  white-space:nowrap;
+  display:inline-block;
+  overflow:hidden;
+  text-overflow:clip;
+  width:150px;
+  position:relative;
+  font-family:"ProximaNova-Regular";
+  top:125px;
+  font-size:11px;
+}
+
+
+.fan_box .connections .connections_grid {
+  padding-top: 0px !important;
+}
+.fan_box .connections_grid .grid_item{
+  padding: 0 2px 0px 0 !important;
+  width:44px !important;
+}
+
+.fan_box .connections_grid .grid_item img{width:44px !important; height:45px !important;}
+.fan_box .connections_grid .grid_item .name{
+  font-family: "lucida grande",tahoma,verdana,arial,sans-serif;
+  font-weight: normal;
+  color: #666 !important;
+  padding-top: 1px !important;
+  display:none;
+}
+.fan_box .connect_widget{
+position: absolute;
+top: 120px;
+right: 5px;
+margin: 0 !important;
+}
+.fan_box .connect_widget .connect_widget_interactive_area {
+margin: 0 !important;
+}
+.fan_box .connect_widget td.connect_widget_vertical_center {
+padding: 0 !important;
+}
+
+
+/*Counter*/
+.counter{ }
+h2.sitelaunch{ position:relative; margin:0px; top:36px; left:73px; font-family:"ProximaNova-Bold"; font-size:18px; line-height:36px;color:#f05223; font-weight:normal;}
+#countdown_dashboard {
+	height: 129px;
+	background:url(../images/bgCounter.png) no-repeat top left;
+	padding:66px 0 0 58px;
+	
+}
+
+.dash {
+	width: 110px;
+	height: 114px;
+	background: none;
+	float: left;
+	margin-left: 24px;
+	position: relative;
+}
+
+.dash .digit {
+	font-size: 55px;
+	font-weight: bold;
+	float: left;
+	width: 55px;
+	text-align: center;
+	font-family: Times;
+	color: #ffffff;
+	position: relative;
+	font-family: Arial, Helvetica, sans-serif;
+}
+
+.dash_title {
+	position: absolute;
+	display: block;
+	bottom: 0px;
+	right: 6px;
+	font-size: 9pt;
+	color: #555;
+	text-transform: uppercase;
+	letter-spacing: 2px;
+}
+
+.dev_comment {
+	font-size: 14pt;
+	color: #777;
+	text-align: center;
+	font-style: italic;
+	margin: 40px 10px;
+}
+
 /*--footer--*/
 .footer{background:url(../images/bgFooter.png) repeat-x bottom left; height:122px; margin:123px 0 0 0}
 ul.footerLeftMenu{ float:left; margin:22px 0 0 0; padding:0px}

@@ -44,7 +44,7 @@ You should get the Cloudify prompt as seen in the screenshot below:
 h1. Step 2 - Bootstrap a Local Cloud
 
 To bootstrap your localcloud, which is a full fledged Cloudify setup on your local machine, type in the shell:
-<script src="https://gist.github.com/1699046.js?file=bootstrapLocalcloud.sh"></script>
+ *bootstrap-localcloud*
 
 *Tip*: You can hit tab to view the list of available commands, or type __help__ to see all of the command with their description. If you wish to see help for a specific command simply type &lt;command name&gt; __--help__
 
@@ -210,6 +210,7 @@ From this point, the tomcat service instance knows the host address and port of 
 The mongod service file is located at &lt;cloudify root&gt;/examples/petclinic-apache/tomcat/tomcat-service.groovy.
 
 h3. The Apache LB Recipe
+
 The Apache Recipe does the following:
 * Dowloads Apache sources and compiles them 
 * Installs the Apache configured with mod_proxy and mod_proxy_balancer
@@ -223,7 +224,8 @@ The Apache Recipe does the following:
 h1. Step 4 - Deploying the Recipe
 
 Now that you are more familiar with the recipe mechanism, let's deploy the application. Please type the following (replace &lt;Cloudify root&gt; with the Cloudify's installation location on your machine:
-<script src="https://gist.github.com/1698955.js?file=install_app_on_cloudify.sh"></script>
+ *install-application -timeout 10 &lt;Cloudify root&gt;/examples/petclinic*
+ 
 
 You may add the __--verbose__ option for more verbosity during the installation process. We've added the __-timeout__ option since the recipe itself downloads the service binaries (in our case the Tomcat and mongoDB distribution) from the web when installing for the first time, so the first installation may take longer.
 To be on the safe side, specify a timeout of at least 10 minutes as described above, which means that the shell will wait for 10 *minutes* for the application to install.
@@ -252,8 +254,8 @@ At the lower pane you can move between several views:
 
 h1. Step 6 - Uninstalling the Application
 
-To uninstall the application please type the following:
-<script src="https://gist.github.com/1698981.js?file=uninstallApplicationPetclinic.sh"></script>
+To uninstall the application please type the following: *uninstall-application petclinic*
+
 
 You will be prompted if you want to uninstall, type 'y' and click enter. 
 
@@ -268,8 +270,7 @@ As a result Cloudify will adjust the number of instances of the indicated servic
 
 h1. Step 8 - Tearing Down the Local Cloud
 
-To turn off all localcloud services type the following command:
-<script src="https://gist.github.com/1698986.js?file=teardownLocalcloud.sh"></script>
+To turn off all localcloud services type the following command: *teardown-localcloud*
 
 h1. What Next?
 
