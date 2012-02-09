@@ -1,6 +1,9 @@
 $(function() {
 		$( "#accordion" ).accordion({autoHeight:false, navigation: true,collapsible: true});
 		
+});  
+
+$(document).ready(function(){		
 	var currentPosition = 0;
 	var slideWidth = 560;
 	var slides = $('.slide');
