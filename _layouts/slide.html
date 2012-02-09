@@ -1,13 +1,25 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
         "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
-{% include head_section.html %}
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <title>Cloudify - {{ page.cat }} - {{ page.title }}</title>
+    <link rel="stylesheet" href="/css/template.css" type="text/css"/>
+    <link rel="stylesheet" href="/css/jquery-ui-1.8.17.custom.css" type="text/css" media="all"/>
+    <link rel="stylesheet" href="/css/slide.css" type="text/css" media="all"/>
+    <script type="text/javascript" src="http://code.jquery.com/jquery-1.6.4.js"></script>
+    <script type="text/javascript" src="/scripts/search.js"></script>
+    <script type="text/javascript" src="/scripts/jquery-ui-1.8.17.custom.min.js"></script>
+    <script type="text/javascript" src="/scripts/jquery.min.js"></script>
+    <script type="text/javascript" src="/scripts/cloudify_default.js"></script>
+</head>
+
 <body>
 <div class="WrapperBg">
     <div class="Wrapper">
         {% include header.html %}
         <div class="contentWrap">
-            <!--<div class="breadcrumbs">Home Page > Cloudify Documentation</div>-->
+            <div class="breadcrumbs">HomePage > Cloudify Documentation</div>
             <div class="clear"></div>
 
             <!--Search-->
@@ -26,7 +38,9 @@
                 <div id="resultsDiv" class="DocumentsWrap"></div>
                 <div id="pageContent" class="DocumentsWrapRight">
                     <h1 class="pageTitle">{{ page.title }}</h1>
+					XXXXXX<br/>
                     {{content}}
+					<br/>XXXXXX
                 </div>
                 <div class="clear"></div>
             </div>

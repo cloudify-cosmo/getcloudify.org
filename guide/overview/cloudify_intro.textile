@@ -1,0 +1,143 @@
+---
+layout: default
+title: Introduction to Cloudify.
+category: overview
+---
+
+h1. Introduction 
+
+It is a given today that most enterprises want to make a move to the cloud - whether public or private - to gain the benefits of agility and cost reduction. However, deploying mission-critical applications to the cloud can present significant challenges. For the enterprise market in particular, cloud-enablement of mission critical applications is an uncharted territory, not fully understood at best, and therefore not widely common. So while the public cloud market offers a lot of solutions for simpler applications, the bulk of the applications comprising enterprise business, from analytics apps through financial and trading apps to e-commerce and more, have still not made the move due to the challenges associated with it: 
+
+* *Porting Your Existing Applications to the Cloud with No Code Change*: Most applications are not ready for elastic, cloud-based deployment. They lack tools for dynamic configuration and deployment, and certainly for triggering and managing scaling procedures.
+* *Ensuring Business Continuity*: The main reason for moving into a virtualized deployment environment is to save costs and gain agility. However, without ensuring application high availability, nothing is really gained.
+* *Avoiding Getting Locked in to a Single Infrastructure Provider*: There are many emerging solutions, making it difficult to select the right one, and creating a knowledge gap, cost risks, and potential lock-in to any vendor selected, limiting future changes.
+* *Loss of Control*: Coping with elastic and virtualized application makes monitoring and management a challenge.
+
+GigaSpaces, as a long-term leader in developing solutions for enterprise applications, set out to resolve the challenge, making it easy for enterprises to move even their most complex, data-rich, and performance-critical applications to the cloud - as-is, without any code or architectural changes. The result is GigaSpaces Cloudify
+
+h1. What is GigaSpaces Cloudify?
+
+Cloudify's mission statement can be stated as follows: to cloud-enable enterprise and mission-critical apps easily and non-intrusively. Essentially, this means that Cloudify enables you to take an existing application and seamlessly deploy and manage it on your private or public cloud, with no code changes. When we set out to create Cloudify, we followed three primary design guidelines:
+
+|<img src="/guide/images/overview/any-stack.jpg" />|*Any app, any stack:* We wanted to provide a flexible yet simple mechanism to deploy and manage applications on the cloud. But we also wanted it to be flexible enough to support any kind of application. In other words, we decided that our platform would support your application no matter what application stack you use (Java/Spring, Java EE, PHP, .NET, Ruby on Rails or others), whether you are using a relational (such as MySQL) or non-relational (e.g., Apache Cassandra) data store, or if you choose to add other middleware components. Regardless of your application set-up, you can still use Cloudify to... Cloudify it.|
+|<img src="/guide/images/overview/Any-cloud.jpg" />|*Any cloud:* Enterprises want the same kind of flexibility in their underlying cloud environment as they do with the application stack. Some are looking to use public clouds such as Amazon, Rackspace, and Azure, while others are focused on private clouds, ranging from higher-level cloud platforms such as OpenStack and cloud.com, all the way down to plain virtualized environments such as VMWare vCenter and Citrix XenServer. Moreover, some enterprises have expressed the need to deploy the same application on multiple environments, say, for cloud bursting. This meant that we had to create a framework flexible enough to handle any application stack, yet on the other hand, isolate the application completely from the underlying cloud runtime, whatever it may be.|
+|<img src="/guide/images/overview/Full-control.jpg" />|*Full control:* When deploying enterprise, mission-critical apps to the cloud using existing PaaS solutions, you gain benefits in agility and productivity, because the underlying OS and runtime are no longer the issue, but rather the application itself. But in many cases, you lose at least some degree of control, because you are not exposed to the underlying infrastructure and cannot monitor and tune it as you are accustomed to with traditional data centers and applications. Because Cloudify does have access to those resources, it can provide a much greater level of control, but only if you actually want it. Otherwise, it hides the complexities using a set of predefined application blueprints and best practices that the users with less advanced needs will typically find sufficient.|
+
+
+h1. The Road to Cloudify - How We Enabled Seamless Cloudification
+
+For many years, "GigaSpaces XAP":http://www.gigaspaces.com/wiki, our end to end, elastic application platform, has been running the most demanding applications for a variety of mission-critical and high-performance use cases. It is battle-tested, so to speak. XAP's core runtime is designed to enable management and on-demand scaling of enterprise applications in both cloud and on-premise environments. Furthermore, it can use underlying virtualization technology to provision or decommission resources on the fly, as needed by the application. 
+We wanted to open these most-appealing capabilities of XAP to as many applications and use cases as possible, without necessitating the efforts that might be entailed for migration to all of XAP's features. The way to do this was to enable any type of middleware service (web containers, databases, messaging servers, or anything that can be installed and started with a script), and not just XAP's own application containers, to be managed and scaled within the same powerful runtime platform. 
+To open XAP's runtime platform, we created several mechanisms that mediate between the provisioned service and the runtime environment:
+
+|<img src="/guide/images/overview/recipe-config.png" />|*Recipe-based configuration:* At the core of Cloudify stands a mechanism of application recipes. A recipe is a sort of "manual" that tells Cloudify all the details that are needed to run an application: what middleware services it needs to run, what the dependencies are between these services (for example, a Tomcat-based web app might depend on a MySQL instance), how to install those services and where to find the application and service binaries, when to spin up more instances or terminate existing ones, and even how to monitor each of the services. Recipes are expressed in a Groovy-based DSL (domain specific language), which makes them very intuitive and easy to extend and customize. Cloudify is also bundled with a number of pre-configured, built in recipes for popular middleware components, such as JBoss, Tomcat, MySQL, Cassandra, MongoDB and others.|
+||<img src="/guide/images/overview/Built-in-recipes.jpg" title="Built-In Recipes" />|
+||<p align="center"><b>Figure 1.  Built-In Recipes</b></p>|
+|<img src="/guide/images/overview/usm.png" />|*Universal Service Adapter:* This component runs on every node, and translates the recipe into actions on the local node (such as installation, service initialization, service monitoring, and so on). It can be considered Cloudify's local delegate on each node. What is special about the Universal Service Adapter is that it doesn't "care" what service it manages (Tomcat, MySQL, Cassandra, JBoss, or even Apache with mod_php), as long as the recipe configures it correctly.|
+|<img src="/guide/images/overview/Cluster-Aware-Monitoring.jpg" />|*Pluggable cluster-aware monitoring:* The monitoring framework was built as a set of plug-ins for common monitoring protocols (such as JMX, SNMP, JDBC/SQL, and others). The Universal Service Adapter activates the plug-in locally on each service node, and the plug-in connects to the local service and starts collecting metrics from it (for example, it might connect to a JMX bean in Tomcat, reporting data from that bean). These metrics are then communicated to the Cloudify runtime, exposed to the user through the various user interfaces, and are used for auto-scaling decisions defined within the recipe.|
+||<img src="/guide/images/overview/onboard.png" />|
+||<p align="center"><b>Figure 2.  The Result: Easy Deployment to the Cloud</b></p>|
+
+
+
+h1. True Cloud Portability
+
+Now that Cloudify's main purpose and components have been explained, we can look at the underlying Cloud infrastructure. Cloudify contains a very powerful abstraction called the _Cloud Driver_. This abstraction was designed to isolate the application from the underlying cloud environments, and to provide a common foundation for integrating with all major cloud and virtualization vendors. 
+
+GigaSpaces Cloudify is already "integrated with the Microsoft Windows Azure cloud":/guide/setup/installing_azure and "Amazon EC2":/guide/bootstrapping/bootstrapping_ec2, and will soon be integrated with many other virtualization and cloud vendors. A great deal of work has already taken place with Citrix CloudStack (AKA Cloud.com), OpenStack, Rackspace, GoGrid, and Citrix XenServer. Each of these will be natively supported by Cloudify. As part of these efforts, GigaSpaces has also made contributions to the open source "JClouds":http://www.jclouds.org/ project around its OpenStack compute and BLOB store support, with plans for additional contributions in the future, because we believe that cloud portability is key to reducing entry barriers and making cloud less intimidating.  
+
+The list of platforms above is diverse. So Cloudify has been specifically designed to be flexible enough to use each of these environments for provisioning virtual hosts, adding and removing them on demand according to the application's requirements. 
+
+h3. <img src="/guide/images/information.gif" /> Why Is Cloud Portability Important?
+
+The issue of Cloud portability is often overlooked, because in the quest for application cloud-enablement there are more pressing issues, such as getting your application working on the cloud to begin with. But ensuring that your application and deployment configuration is not bound to a specific cloud environment is important for several reasons:
+
+|<img src="/guide/images/overview/no-lockin.jpg"/>|*Avoiding cloud vendor lock-in:* Enterprises often migrate from one cloud to another, or from a public to private cloud, because of service levels, pricing, and more. What works today might not work as well later. So, it is in your best interest to avoid being tied to a specific environment or vendor. But doesn't Cloudify actually lock you into Cloudify itself instead of to the cloud platform? To a certain degree, it does. However, by its nature, Cloudify is completely non-intrusive to the application code, so the lock-in is much less risky for you; Cloudify automates and standardizes deployment steps that enterprises follow in any event, which is an overall benefit to operations, instead of being a cost. The key is that Cloudify helps you keep your application cloud-neutral and untouched, and the bottom line is that your application is what you care about most, what you have developed, invested in, and perfected.|
+|<img src="/guide/images/overview/Any-cloud.jpg" />|*Enabling Multi-Cloud Deployments:* Another important factor is the ability to mix and match on-premise and cloud environments, or availability zones of the same cloud environment as part of the same application. This can help you deal with a number of important scenarios:
+* *Cloud bursting*: An application's average load is often different from its peak load. For example, e-commerce websites sustain a fairly consistent load most of the year. Then, for very short periods, such as Black Friday or Cyber Monday, loads increase significantly. If an application is serviced from a public cloud, it can easily accommodate the increase (assuming the application is scalable enough, of course). But if you are running in your own data center, you don't want to buy ten times more hardware than you need on average just to be able to sustain the Black Friday loads. In this case, an appealing option is to "burst" to the cloud - use the cloud to provision more resources when needed and have the application use them to deal with the excess load. To be able to burst to the cloud, you need a framework that can manage the application in your own data center (virtualized or not) and on public clouds.
+* *Improving Quality of Service*: Applications that service users globally often use content delivery networks. But CDNs are only good for static content (images, videos, etc.). What if you could bring the entire application closer to the users? Having a platform that can manage the application on multiple zones or environments is a key enabler for this. Simply choose the availability zones and cloud providers that are closest to your users and deploy the application there. The ability of the deployment platform to isolate the application from the underlying cloud environment is what makes this possible.
+* *Cross-Data-Center and Cross-Cloud High Availability*: Deploying your application on multiple cloud environments, or even multiple data centers of the same cloud environment, makes it far less sensitive to failures. While parts of your application may be out of service, other parts can still be fully functional and even used to compensate for the failures of other parts and receive traffic that they serviced before the failure|
+
+
+h1. Gradual Cloud Adoption
+
+Cloudify is designed to enable gradual migration to the Cloud - at the pace and under the circumstances that suit your business, organizational, and application needs. The elimination of any need for code or architecture changes is key to this approach. Let's take a look at how [Cloudify recipes|Developing Recipes] support this principle:
+* *Basic recipe - Configure lifecycle*: Use your existing scripts and skill-set to develop only the basic lifecycle part of the recipe to automate installation, configuration, and startup of the application on the cloud. No deep knowledge of the Cloud is required, so the learning curve and effort are small.
+* *Add True Cluster-Aware Visibility:* With Cloudify, this is a very simple process:
+** No need to model the GUI - Cloudify knows the app model automatically
+** Basic OS level and process level monitoring are out-of-the-box
+** No need for manual installation - Cloudify installs the probes whether they are built in or custom probes. With most popular technologies (SNMP, JDBC, JMX) the user only needs to configure the monitoring plug-in. The collected/monitored custom metrics are first-class citizens in Cloudify and can serve any purpose.
+* *Add scaling rules:* Now that your application is automated, self-healing, and monitored, you might want to add elasticity. Scaling rules are easily configured in the recipe DSL and can dictate adding or removing computation resources based on simple or complex SLA monitoring (utilizing the metrics you monitor).
+* *Add custom alerts:* Again, easily configured in the DSL and using custom metrics - custom fire alerts that can reach your NOC dashboard via SNMP or other protocols.
+
+h1. Key Features 
+
+{table:boarder=0}
+{tr}
+{td:width=5%}
+!any-stack.jpg!
+{td}
+
+{td:width=30%|valign=top}
+*Any App, Any Stack*\\
+Deploy any middleware stack using a recipe based deployment mechanism
+{td}
+
+{td:width=10%}{td}
+
+{td:width=5%}
+!Automation-of-the-Entire-Lifecycle.jpg!
+{td}
+
+{td:width=30%|valign=top}
+*Automation of the Entire Lifecycle*\\
+Deploy, manage, and update your application using a single platform
+{td}
+{tr}
+
+{tr}
+{td}
+!Automatic-Self-hEALING.jpg!
+{td}
+
+{td:width=30%|valign=top}
+*Automatic Self-Healing*\\
+Crashed nodes and machines are automatically replaced by new ones, following recipe instructions
+{td}
+
+{td:width=10%}{td}
+
+{td}
+!Any-cloud.jpg!
+{td}
+
+{td:width=30%|valign=top}
+*Any Cloud*\\
+Deploy, manage, and update your application using a single platform
+{td}
+{tr}
+
+{tr}
+{td}
+!Auto-Scale.jpg!
+{td}
+
+{td:width=30%|valign=top}
+*Auto-Scale, Your Way*\\
+Automatic scaling of your application services based on out-of-the-box or custom metrics
+{td}
+
+{td:width=10%}{td}
+
+{td}
+!Cluster-Aware-Monitoring.jpg!
+{td}
+
+{td:width=30%|valign=top}
+*Cluster-Aware Monitoring & Management*\\
+Pluggable monitoring, custom alerts, and application-aware monitoring console
+{td}
+{tr}
+
+{table}
+
