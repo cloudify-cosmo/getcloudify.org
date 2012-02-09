@@ -43,10 +43,8 @@ if ($("#slideshow").exists()) {    // Do something}
       $('#slideInner').animate({
         'marginLeft' : slideWidth*(-currentPosition)
       });
- }
-  
-    
-});
+  }  
+};
 
  // manageControls: Hides and shows controls depending on currentPosition
   function manageControls(position){
@@ -56,5 +54,6 @@ if ($("#slideshow").exists()) {    // Do something}
     // Hide right arrow if position is last slide
     if(position==numberOfSlides-1){ $('#rightControl').hide() }
     else{ $('#rightControl').show() }
-    }
-  });
+  };   
+  
+);  
