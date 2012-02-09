@@ -33,23 +33,17 @@ To open XAP's runtime platform, we created several mechanisms that mediate betwe
 |<img src="/guide/images/overview/recipe-config.png" />|*Recipe-based configuration:* At the core of Cloudify stands a mechanism of application recipes. A recipe is a sort of "manual" that tells Cloudify all the details that are needed to run an application: what middleware services it needs to run, what the dependencies are between these services (for example, a Tomcat-based web app might depend on a MySQL instance), how to install those services and where to find the application and service binaries, when to spin up more instances or terminate existing ones, and even how to monitor each of the services. Recipes are expressed in a Groovy-based DSL (domain specific language), which makes them very intuitive and easy to extend and customize. Cloudify is also bundled with a number of pre-configured, built in recipes for popular middleware components, such as JBoss, Tomcat, MySQL, Cassandra, MongoDB and others.|
 ||<img src="/guide/images/overview/Built-in-recipes.jpg" title="Built-In Recipes" />|
 ||<p align="center"><b>Figure 1.  Built-In Recipes</b></p>|
-
-
 |<img src="/guide/images/overview/usm.png" />|*Universal Service Adapter:* This component runs on every node, and translates the recipe into actions on the local node (such as installation, service initialization, service monitoring, and so on). It can be considered Cloudify's local delegate on each node. What is special about the Universal Service Adapter is that it doesn't "care" what service it manages (Tomcat, MySQL, Cassandra, JBoss, or even Apache with mod_php), as long as the recipe configures it correctly.|
 |<img src="/guide/images/overview/Cluster-Aware-Monitoring.jpg" />|*Pluggable cluster-aware monitoring:* The monitoring framework was built as a set of plug-ins for common monitoring protocols (such as JMX, SNMP, JDBC/SQL, and others). The Universal Service Adapter activates the plug-in locally on each service node, and the plug-in connects to the local service and starts collecting metrics from it (for example, it might connect to a JMX bean in Tomcat, reporting data from that bean). These metrics are then communicated to the Cloudify runtime, exposed to the user through the various user interfaces, and are used for auto-scaling decisions defined within the recipe.|
-
-
 |<img src="/guide/images/overview/onboard.png" />|
 |*<p align="center">Figure 2.  The Result: Easy Deployment to the Cloud</p>*|
 
-{caption:titlelocation=below|aligntitle=center|type=Figure|num=2|title=The Result: Easy Deployment to the Cloud}
-!onboard.png|align=center!
-{caption}
 
 h1. True Cloud Portability
+
 Now that Cloudify's main purpose and components have been explained, we can look at the underlying Cloud infrastructure. Cloudify contains a very powerful abstraction called the _Cloud Driver_. This abstraction was designed to isolate the application from the underlying cloud environments, and to provide a common foundation for integrating with all major cloud and virtualization vendors. 
 
-GigaSpaces Cloudify is already [integrated with the Microsoft Windows Azure cloud|First Time Setup on Azure] and Amazon EC2, and will soon be integrated with many other virtualization and cloud vendors. A great deal of work has already taken place with Citrix CloudStack (AKA Cloud.com), OpenStack, Rackspace, GoGrid, and Citrix XenServer. Each of these will be natively supported by Cloudify. As part of these efforts, GigaSpaces has also made contributions to the open source [JClouds|http://www.jclouds.org/] project around its OpenStack compute and BLOB store support, with plans for additional contributions in the future, because we believe that cloud portability is key to reducing entry barriers and making cloud less intimidating.  
+GigaSpaces Cloudify is already "integrated with the Microsoft Windows Azure cloud":/guide/setup/installing_azure and "Amazon EC2":/guide/bootstrapping/bootstrapping_ec2, and will soon be integrated with many other virtualization and cloud vendors. A great deal of work has already taken place with Citrix CloudStack (AKA Cloud.com), OpenStack, Rackspace, GoGrid, and Citrix XenServer. Each of these will be natively supported by Cloudify. As part of these efforts, GigaSpaces has also made contributions to the open source [JClouds|http://www.jclouds.org/] project around its OpenStack compute and BLOB store support, with plans for additional contributions in the future, because we believe that cloud portability is key to reducing entry barriers and making cloud less intimidating.  
 
 The list of platforms above is diverse. So Cloudify has been specifically designed to be flexible enough to use each of these environments for provisioning virtual hosts, adding and removing them on demand according to the application's requirements. 
 
