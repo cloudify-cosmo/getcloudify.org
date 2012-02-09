@@ -44,7 +44,7 @@ h1. True Cloud Portability
 
 Now that Cloudify's main purpose and components have been explained, we can look at the underlying Cloud infrastructure. Cloudify contains a very powerful abstraction called the _Cloud Driver_. This abstraction was designed to isolate the application from the underlying cloud environments, and to provide a common foundation for integrating with all major cloud and virtualization vendors. 
 
-GigaSpaces Cloudify is already "integrated with the Microsoft Windows Azure cloud":/guide/setup/installing_azure and "Amazon EC2":/guide/bootstrapping/bootstrapping_ec2, and will soon be integrated with many other virtualization and cloud vendors. A great deal of work has already taken place with Citrix CloudStack (AKA Cloud.com), OpenStack, Rackspace, GoGrid, and Citrix XenServer. Each of these will be natively supported by Cloudify. As part of these efforts, GigaSpaces has also made contributions to the open source [JClouds|http://www.jclouds.org/] project around its OpenStack compute and BLOB store support, with plans for additional contributions in the future, because we believe that cloud portability is key to reducing entry barriers and making cloud less intimidating.  
+GigaSpaces Cloudify is already "integrated with the Microsoft Windows Azure cloud":/guide/setup/installing_azure and "Amazon EC2":/guide/bootstrapping/bootstrapping_ec2, and will soon be integrated with many other virtualization and cloud vendors. A great deal of work has already taken place with Citrix CloudStack (AKA Cloud.com), OpenStack, Rackspace, GoGrid, and Citrix XenServer. Each of these will be natively supported by Cloudify. As part of these efforts, GigaSpaces has also made contributions to the open source "JClouds":http://www.jclouds.org/ project around its OpenStack compute and BLOB store support, with plans for additional contributions in the future, because we believe that cloud portability is key to reducing entry barriers and making cloud less intimidating.  
 
 The list of platforms above is diverse. So Cloudify has been specifically designed to be flexible enough to use each of these environments for provisioning virtual hosts, adding and removing them on demand according to the application's requirements. 
 
@@ -52,31 +52,13 @@ h3. <img src="/guide/images/information.gif" /> Why Is Cloud Portability Importa
 
 The issue of Cloud portability is often overlooked, because in the quest for application cloud-enablement there are more pressing issues, such as getting your application working on the cloud to begin with. But ensuring that your application and deployment configuration is not bound to a specific cloud environment is important for several reasons:
 
-{section}
-{column}
-!no-lockin.jpg!
-{column}
-
-{column}
-*Avoiding cloud vendor lock-in:* Enterprises often migrate from one cloud to another, or from a public to private cloud, because of service levels, pricing, and more. What works today might not work as well later. So, it is in your best interest to avoid being tied to a specific environment or vendor. 
-
-But doesn't Cloudify actually lock you into Cloudify itself instead of to the cloud platform? To a certain degree, it does. However, by its nature, Cloudify is completely non-intrusive to the application code, so the lock-in is much less risky for you; Cloudify automates and standardizes deployment steps that enterprises follow in any event, which is an overall benefit to operations, instead of being a cost. The key is that Cloudify helps you keep your application cloud-neutral and untouched, and the bottom line is that your application is what you care about most, what you have developed, invested in, and perfected.
-{column}
-{section}
-
-{section}
-{column}
-!Any-cloud.jpg!
-{column}
-
-{column}
-*Enabling Multi-Cloud Deployments:* Another important factor is the ability to mix and match on-premise and cloud environments, or availability zones of the same cloud environment as part of the same application. This can help you deal with a number of important scenarios:
+|<img src="/guide/images/overview/no-lockin.jpg"/>|*Avoiding cloud vendor lock-in:* Enterprises often migrate from one cloud to another, or from a public to private cloud, because of service levels, pricing, and more. What works today might not work as well later. So, it is in your best interest to avoid being tied to a specific environment or vendor.|
+|| But doesn't Cloudify actually lock you into Cloudify itself instead of to the cloud platform? To a certain degree, it does. However, by its nature, Cloudify is completely non-intrusive to the application code, so the lock-in is much less risky for you; Cloudify automates and standardizes deployment steps that enterprises follow in any event, which is an overall benefit to operations, instead of being a cost. The key is that Cloudify helps you keep your application cloud-neutral and untouched, and the bottom line is that your application is what you care about most, what you have developed, invested in, and perfected.|
+|<img src="/guide/images/overview/Any-cloud.jpg" />|*Enabling Multi-Cloud Deployments:* Another important factor is the ability to mix and match on-premise and cloud environments, or availability zones of the same cloud environment as part of the same application. This can help you deal with a number of important scenarios:
 * *Cloud bursting*: An application's average load is often different from its peak load. For example, e-commerce websites sustain a fairly consistent load most of the year. Then, for very short periods, such as Black Friday or Cyber Monday, loads increase significantly. If an application is serviced from a public cloud, it can easily accommodate the increase (assuming the application is scalable enough, of course). But if you are running in your own data center, you don't want to buy ten times more hardware than you need on average just to be able to sustain the Black Friday loads. In this case, an appealing option is to "burst" to the cloud - use the cloud to provision more resources when needed and have the application use them to deal with the excess load. To be able to burst to the cloud, you need a framework that can manage the application in your own data center (virtualized or not) and on public clouds.
 * *Improving Quality of Service*: Applications that service users globally often use content delivery networks. But CDNs are only good for static content (images, videos, etc.). What if you could bring the entire application closer to the users? Having a platform that can manage the application on multiple zones or environments is a key enabler for this. Simply choose the availability zones and cloud providers that are closest to your users and deploy the application there. The ability of the deployment platform to isolate the application from the underlying cloud environment is what makes this possible.
-* *Cross-Data-Center and Cross-Cloud High Availability*: Deploying your application on multiple cloud environments, or even multiple data centers of the same cloud environment, makes it far less sensitive to failures. While parts of your application may be out of service, other parts can still be fully functional and even used to compensate for the failures of other parts and receive traffic that they serviced before the failure
-{column}
-{section}
-{info}
+* *Cross-Data-Center and Cross-Cloud High Availability*: Deploying your application on multiple cloud environments, or even multiple data centers of the same cloud environment, makes it far less sensitive to failures. While parts of your application may be out of service, other parts can still be fully functional and even used to compensate for the failures of other parts and receive traffic that they serviced before the failure|
+
 
 h1. Gradual Cloud Adoption
 
