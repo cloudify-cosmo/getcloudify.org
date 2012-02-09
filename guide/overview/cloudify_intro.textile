@@ -33,6 +33,7 @@ To open XAP's runtime platform, we created several mechanisms that mediate betwe
 |<img src="/guide/images/overview/recipe-config.png" />|*Recipe-based configuration:* At the core of Cloudify stands a mechanism of application recipes. A recipe is a sort of "manual" that tells Cloudify all the details that are needed to run an application: what middleware services it needs to run, what the dependencies are between these services (for example, a Tomcat-based web app might depend on a MySQL instance), how to install those services and where to find the application and service binaries, when to spin up more instances or terminate existing ones, and even how to monitor each of the services. Recipes are expressed in a Groovy-based DSL (domain specific language), which makes them very intuitive and easy to extend and customize. Cloudify is also bundled with a number of pre-configured, built in recipes for popular middleware components, such as JBoss, Tomcat, MySQL, Cassandra, MongoDB and others.|
 ||<img src="/guide/images/overview/Built-in-recipes.jpg" title="Built-In Recipes" />|
 ||<p align="center"><b>Figure 1.  Built-In Recipes</b></p>|
+
 |<img src="/guide/images/overview/usm.png" />|*Universal Service Adapter:* This component runs on every node, and translates the recipe into actions on the local node (such as installation, service initialization, service monitoring, and so on). It can be considered Cloudify's local delegate on each node. What is special about the Universal Service Adapter is that it doesn't "care" what service it manages (Tomcat, MySQL, Cassandra, JBoss, or even Apache with mod_php), as long as the recipe configures it correctly.|
 |<img src="/guide/images/overview/Cluster-Aware-Monitoring.jpg" />|*Pluggable cluster-aware monitoring:* The monitoring framework was built as a set of plug-ins for common monitoring protocols (such as JMX, SNMP, JDBC/SQL, and others). The Universal Service Adapter activates the plug-in locally on each service node, and the plug-in connects to the local service and starts collecting metrics from it (for example, it might connect to a JMX bean in Tomcat, reporting data from that bean). These metrics are then communicated to the Cloudify runtime, exposed to the user through the various user interfaces, and are used for auto-scaling decisions defined within the recipe.|
 |<img src="/guide/images/overview/onboard.png" />|
@@ -158,46 +159,4 @@ Pluggable monitoring, custom alerts, and application-aware monitoring console
 {tr}
 
 {table}
-
-
-
-{comment}
-h1. Cloud Challenges
-
-* *Port you Applications to the Cloud without changing the App*
-Existing applications are not ready for elastic deployment. They lack tools for dynamic configuration and deployment, and certainly for triggering and managing scaling procedures.
-Cloudify enables seamless on-boarding to any cloud environment without any changes to code or architecture.
-** Cloudify Cloud Driver isolates the application from the underlying cloud technology
-** Built-in recipes for common application scenarios & stacks
-** Continuous monitoring and management of the entire application lifecycle (installation, deployment, startup, monitoring automatic scaling and self-healing, shutdown)
-* *Ensuring Business Continuity*
-The main reason for moving into virtualization is to save costs and gain agility. However, without ensuring application high availability, nothing is really gained.
-Cloudify includes an application-aware self-healing mechanism to keep your application Always On. 
-** Cloudify identifies and refreshes non-functioning / hung services
-** Scaling rules ensure automatic elasticity/scaling out Application- and cluster-aware monitoring console
-* *Avoiding Getting Locked in to a Single Infrastructure Provider*
-There are many emerging solutions, making it difficult to select the right one, and creating a knowledge gap, cost risks, and potential lock-in to any vendor selected, limiting future changes.
-
-Cloudify supports all main private, public, and virtualization vendors, hiding their APIs and configuration details from your application. 
-** Technology-agnostic Cloud Driver enables you to select any cloud vendor, now or later, or run a hybrid environment
-* *Loss of Control*
-Coping with elastic and virtualized application makes monitoring and management a challenge.
-
-Cloudify offers fine-grained, cluster-aware monitoring to ensure are always fully alert to your applications' functioning 
-** Pluggable, customizable monitoring framework
-** Built in and custom alerts
-
-h1. Key Benefits
-
-GigaSpaces PaaS Enablement Platform delivers:
-* *Seamless On-boarding of Any Application to the Cloud* 
-Quickly and seamlessly, with no code change
-
-* *Any cloud:* Run your app on any environment - public, private, or hybrid cloud, plain virtualization, or a combination of environments (for cloud bursting, e.g.). Cloudify completely isolates the application from the underlying cloud runtime. So you get the same flexibility you're accustomed to, no matter which environment you choose.
-
-* *Any app, any stack:* Your existing applications can easily move to the cloud, without any code or architecture changes: Cloudify supports any kind of application, using any application stack, with a relational or non-relational data store, or for use with other middleware components.
-
-* *Full control:* Losing control and visibility when moving to the cloud means nothing gained in terms of agility and productivity. Cloudify offers built-in monitoring and management services, but also facilitates using your existing tools on the cloud.
-
-
 
