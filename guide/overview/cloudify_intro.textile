@@ -34,11 +34,15 @@ To open XAP's runtime platform, we created several mechanisms that mediate betwe
 ||<img src="/guide/images/overview/Built-in-recipes.jpg" title="Built-In Recipes" />|
  <p align="center"><b>Figure 1.  Built-In Recipes</b></p>
 
+XXXX
 
 |<img src="/guide/images/overview/usm.png" />|*Universal Service Adapter:* This component runs on every node, and translates the recipe into actions on the local node (such as installation, service initialization, service monitoring, and so on). It can be considered Cloudify's local delegate on each node. What is special about the Universal Service Adapter is that it doesn't "care" what service it manages (Tomcat, MySQL, Cassandra, JBoss, or even Apache with mod_php), as long as the recipe configures it correctly.|
 |<img src="/guide/images/overview/Cluster-Aware-Monitoring.jpg" />|*Pluggable cluster-aware monitoring:* The monitoring framework was built as a set of plug-ins for common monitoring protocols (such as JMX, SNMP, JDBC/SQL, and others). The Universal Service Adapter activates the plug-in locally on each service node, and the plug-in connects to the local service and starts collecting metrics from it (for example, it might connect to a JMX bean in Tomcat, reporting data from that bean). These metrics are then communicated to the Cloudify runtime, exposed to the user through the various user interfaces, and are used for auto-scaling decisions defined within the recipe.|
 |<img src="/guide/images/overview/onboard.png" />||
-|*<p align="center">Figure 2.  The Result: Easy Deployment to the Cloud</p>*|
+<p align="center"><b>Figure 2.  The Result: Easy Deployment to the Cloud</b></p>
+
+
+XXXXX
 
 
 h1. True Cloud Portability
