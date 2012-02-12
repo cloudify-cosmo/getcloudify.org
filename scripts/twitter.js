@@ -1,9 +1,9 @@
 ﻿new TWTR.Widget({
     version: 2,
-    type: 'search',
+    type: 'profile',
     width:100,
-    search: 'ecommerce fail',
     interval: 30000,
+	  rpp: 3,
     title: '',
     subject: '',
     width: 230,
@@ -26,5 +26,5 @@
 		avatars: false,
         behavior: 'default'
     }
-}).render().start();
+}).render().setUser('cloudifysource').start();
 
