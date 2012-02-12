@@ -8,6 +8,7 @@
     subject: '',
     width: 230,
     height: 278,
+	avatars: false,
     theme: {
         shell: {
             background: 'none',
