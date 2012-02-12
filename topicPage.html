@@ -1,0 +1,179 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>GIGASPACES Community</title>
+<link rel="stylesheet" href="css/template.css" type="text/css"  />
+</head>
+
+<body>
+<div class="WrapperBg">
+    <div class="Wrapper">
+        <div class="header">
+            <a class="logo" href="/"></a>
+            <div class="clear"></div>
+            <div class="topMenu">
+                <ul class="_topmenu">
+                    <li class="topmenuli" id="current"><a class="bgMenu1" href="#"><span class="title1">Discuss</span><span class="title2">Customer Forums</span></a></li>
+                    <li class="sep"></li>
+                    <li class="topmenuli"><a class="bgMenu2" href="#"><span class="title1">Learn</span><span class="title2">Knowledge Base</span></a></li>
+                    <li class="sep"></li>
+                    <li class="topmenuli"><a class="bgMenu3" href="#"><span class="title1">Ideas</span><span class="title2">Your Suggestions</span></a></li>
+                    <li class="sep"></li>
+                    <li class="topmenuli"><a class="bgMenu4" href="#"><span class="title1">Read</span><span class="title2">Knowledge Base</span></a></li>
+                    <li class="sep"></li>
+                    <li class="topmenuli"><a class="bgMenu5" href="#"><span class="title1">Support</span><span class="title2">Your Account</span></a></li>
+                    <li class="sep"></li>
+                    <li class="topmenuli"><a class="bgMenu6" href="#"><span class="title1">Develop</span><span class="title2">Build & Integrate</span></a></li>
+                </ul>
+                
+                
+                <div class="clear"></div>
+            </div>
+        </div>
+        <div class="contentWrap">
+            <div class="breadcrumbs">HomePage > Cloudify Documentation</div>
+            <div class="clear"></div>
+            
+            <!--Search-->
+            
+            <div class="learnFrom">
+                <h2>Learn from our Knowledge Base</h2>
+                <div class="searchWrap">
+                <form>
+                    <input class="search" value="Search..."/>
+                    <input class="goBtn" type="submit" value="Go" />
+                </form>     
+                </div>
+            </div>
+            <div class="content">
+                <div class="left">
+                    <a class="btnGetCloudifyFreeEdition" href="#"></a>
+                    
+                    <!--Checkbox groups-->
+                    
+                    <div class="leftContentBox">
+                       <h3>Table of Contents</h3>
+                       <div class="clear"></div>
+                       <div class="TableOfContents">
+                            <ul> 
+                                <li class="open">Quick Start Guide</li>
+                                <li>Screen Casts</li>
+                                <li class="plus">Scaling Your Web Application</li>
+                                <li>Setting Up Your First Data Grid</li>
+                                <li class="plus">Writing Your First XTP Application</li>
+                                <li class="plus">Introduction to XAP JPA</li>
+                                <li class="plus">Beyond the Basics</li>
+                            </ul>
+                            <ul>
+                                <li class="open">Product Overview</li>
+                                <li>Concepts</li>
+                                <li>A Typical SBA Application</li>
+                                <li>Database Integration</li>
+                                <li>Product Architecture</li>
+                                <li>The Application Layer</li>
+                                <li class="plus">Terminology</li>
+                            </ul>
+                            <ul>
+                                <li class="open">Programmer's Guide</li>
+                                <li class="plus">The Runtime Environment</li>
+                                <li class="plus">Packaging and Deployment</li>
+                                <li class="plus">The In-Memory Data Grid</li>
+                                <li class="plus">Services on Top of the Data Grid</li>
+                                <li class="plus">Web Application Support</li>
+                                <li class="plus">Administration and Monitoring API</li>
+                                <li class="plus">Integrations</li>
+                                <li class="plus">Interoperability</li>
+                                <li class="plus">Appendix</li>
+                            </ul>
+                            <ul>
+                            
+                            <li class="open">Administrator's Guide</li>
+                                <li class="plus">Installation</li>
+                                <li class="plus">Configuring the System</li>
+                                <li class="plus">Web Management Console</li>
+                                <li class="plus">Security</li>
+                                <li class="plus">GigaSpaces Logging</li>
+                                <li class="plus">Networking How Tos</li>
+                                <li class="plus">Managing and Monitoring a Running System</li>
+                                <li class="plus">Advanced Tasks</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="leftContentBox section">
+                        <h3>Section Contents</h3>
+                        <a href="#">The Grid Service Agent</a>
+                        <a href="#">The Grid Service Container </a>
+                        <a href="#">The Grid Service Manager</a>
+                        <a href="#">The Lookup Service </a>
+                    </div>
+                </div>
+                
+                <!--Start right content -->
+
+                <div class="DocumentsWrapRight">
+                     <h1 class="pageTitle">The Runtime Environment</h1>
+                	<p>This section gives a detailed description of the GigaSpaces deployment & runtime environment.</p>
+                    <div class="topicTitle">The GigaSpaces Runtime Environment</div>
+                    <p>The basic unit of deployment in the GigaSpaces XAP platform is the <a href="#">Processing Unit.</a></p>
+                    <p>Once packaged, a processing unit is deployed onto the GigaSpaces runtime environment, which is called the Service Grid.
+                     It is responsible for materializing the processing unit's configuration, provisioning its instances to the runtime infrastructure and making sure they continue to run properly over time.
+                    </p>
+                    <img  src="images/XapPremiumEdition.png"  style="padding:0 0 0 62px"/>
+                    <p class="ligther">
+                    <span class="notice"></span>When developing your processing unit, you can run and debug the processing unit within your IDE.
+                     You will typically deploy it to the GigaSpaces runtime environment when it's ready for production or when you want to run it in the real-life runtime environment.
+                    </p>
+                    <p>                 
+						The service grid is composed of a number of components:
+                    </p>
+                    <img src="images/schema.jpg" />
+                    <div class="topicTitle">The Grid Service Agent (GSA)</div>
+                    <p><a href="#">The Grid Service Agent (GSA)</a> has been introduced with GigaSpaces XAP 7.0. 
+                    You can think of it as a daemon or a background service, which can start and stop any of the other runtime components (at the process/JVM level).
+                    </p>
+                    <p>
+                    Typically, the GSA is started with the hosting machine's startup.
+                    Using the agent, you can bootstrap the entire cluster very easily, and start and stop additional GSCs, GSMs and lookup services at will.
+                    </p>
+                    <p>
+                    All of the above components are fully manageable from the GigaSpaces management interfaces such as the <a href="#">GUI</a> and the administration and <a href="#">monitoring API</a>.
+                    </p>
+                    <div class="topicTitle">The Grid Service Container (GSC)</div>
+                    <p>
+                    When a processing unit is deployed, its instances are provisioned to the running GigaSpaces containers. 
+                    The Grid Service Container provides an isolated runtime for the processing unit instance, and exposes its state to The <a href="#">Grid Service Manager</a>.
+                    </p>
+                </div>
+                <div class="clear"></div>
+            </div>
+        </div>
+       <!--Start Topic pagination -->
+       <ul class="topicPagination right">
+            <li class="prev"><a href="#">Previous</a></li>
+            <li class="next"><a href="#">Next</a></li>
+            <div class="clear"></div>
+       </ul>
+    <div class="clear"></div>
+    
+    <!--Start Footer -->
+    
+    <div class="footer">
+        <ul class="footerLeftMenu">
+            <li class="footerli"><a href="#">About GigaSpaces</a></li>
+            <li class="footerli"><a href="#">Contact Us</a></li>
+        </ul>
+        <ul class="footerRightMenu">
+            <li class="footerli">Copyright © 2012 GigaSpaces. All rights reserved.</li>
+            <li class="footerli"><a href="#">Terms of Use</a></li>
+            <li class="footerli">|</li>
+            <li class="footerli"> <a href="#">Privacy Policy</a></li>
+        </ul>
+    </div>
+    
+    </div><!--End site wrapper -->
+
+
+</div><!--End site bg top wrapper -->
+</body>
+</html>
