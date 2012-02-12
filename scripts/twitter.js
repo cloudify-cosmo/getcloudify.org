@@ -7,8 +7,7 @@
     title: '',
     subject: '',
     width: 230,
-    height: 278,
-	avatars: false,
+    height: 278,	
     theme: {
         shell: {
             background: 'none',
