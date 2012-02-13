@@ -32,7 +32,7 @@ $(document).ready(function () {
         try {
             $.ajax({
                 type:'GET',
-                url:settings.apiURL, //'https://www.googleapis.com/customsearch/v1?q=test&key=AIzaSyDtPBklZhOh95eUoKATkGEzmb1Ww8EqzJo&cx=002601473084935334357:7_nojuat7c4&alt=json',//settings.apiURL,
+                url:settings.apiURL,
                 dataType:'jsonp',
                 data:{q:settings.term,
                     key:settings.apiKey,
