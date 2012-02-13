@@ -9,6 +9,20 @@
     <script type="text/javascript" src="/scripts/jquery-ui-1.8.17.custom.min.js"></script>
     <script type="text/javascript" src="/scripts/cloudify_default.js"></script>
     <script type="text/javascript">
+    $(document).ready(function()
+       {
+       	 $(this).removeClass("current");
+    	 $(function(){
+            $("div.TableOfContents").find("a").each(function(){
+            if( location.href.indexOf(this.href) != -1) {
+            $(this).addClass("current");
+             
+            }
+            });
+        });
+       });
+    </script>
+    <script type="text/javascript">
         var _gaq = _gaq || [];
         _gaq.push(['_setAccount', 'UA-29063606-1']);
         _gaq.push(['_trackPageview']);
