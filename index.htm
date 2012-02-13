@@ -15,11 +15,7 @@
 			$("#mc-embedded-subscribe-form").validate({
 			   errorLabelContainer: "#messageBox",
 			   wrapper: "li",debug:false,
-			   submitHandler: function() { 
-					alert("We’ll be sending an email your way once the site is launched. !");
-					//mce-NAME = "";
-					//mce-EMAIL ="";
-			   }
+				submitHandler:function(form) {form.submit();}
 			   })
 		  });
  	  </script>
