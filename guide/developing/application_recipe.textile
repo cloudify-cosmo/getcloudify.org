@@ -1,12 +1,17 @@
 ---
 layout: default
 title: The Application Recipe
-category: devrecipe
+category: Developing Recipes
 ---
 p. Describes the application recipe functionality and syntax
 
-The application recipe file is located at the root level of the input folder and the packaged recipe zip file.
-The Application recipe describes an application as a set of services (both USM and XAP embedded such as data-grid, Stateful and stateless  PU)
-Most importantly, it describe service names and dependencies.
+h1. The Application Recipe
+
+p. The application recipe file is located at the root level of the input folder and the packaged recipe zip file.
+The Application recipe describes an application as a set of services, and their inter-dependencies. The dependency means that Cloudify will not trigger the start life cycle event of a service unless the services on which it depends have successfully started as well.
+
+p. The application recipe also includes a name for the application which will be used by the various manegement and monitoring tools to identify the application. The name should be unique across all applications that are managed by the same cloudify controller.
+
+Here's an example for an application recipe file:
 
 <script src="https://gist.github.com/1759968.js?file=app_recipe.groovy"></script>
