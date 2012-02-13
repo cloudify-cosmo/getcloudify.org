@@ -15,7 +15,7 @@
 			$("#mc-embedded-subscribe-form").validate({
 			   errorLabelContainer: "#messageBox",
 			   wrapper: "li",debug:true,
-			   submitHandler: function() { alert("Submitted!") }
+			   submitHandler:function(form) {form.submit();}
 			   })
 		  });
  	  </script>
