@@ -12,7 +12,12 @@
            	$("div.expand").hide();
            	$("li.expandBtn").click(function(){	
     		  $(this).next("div.expand").slideToggle(500);
-    		  $(this).html("collapse");
+    		  if($(this).html("expand");){
+    		  	$(this).html("collapse");	
+    		  }else{
+    		  	$(this).html("expand");
+    		  }
+    		  
   		 });
            	
            });
