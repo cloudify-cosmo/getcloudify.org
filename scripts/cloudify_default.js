@@ -6,7 +6,9 @@ $(function() {
 	var slides = $('.slide');
 	var numberOfSlides = slides.length;
   
-if ($("#slideshow").exists()) { }   // Do something
+if ($("#slideshow").exists()) {    // Do something
+
+}
 	// Remove scrollbar in JS .
   $('#slidesContainer').css('overflow', 'hidden');
 
