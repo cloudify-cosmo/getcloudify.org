@@ -12,10 +12,10 @@
            	$("div.expand").hide();
            	$("li.expandBtn").click(function(){	
     		  $(this).next("div.expand").slideToggle(500);
-    		  if($(this).html("expand")){
-    		  	$(this).html("collapse");	
+    		  if($(this).html()=="More..."){
+    		  	$(this).html("Less...");	
     		  }else{
-    		  	$(this).html("expand");
+    		  	$(this).html("More...");
     		  }
     		  
   		 });
