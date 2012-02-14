@@ -30,6 +30,15 @@
              
             }
             });
+            
+           $(function(){ 
+           	$(".expand").hide();
+           	$(".expandBtn").click(function(){	
+    		  $(this).next(".expand").slideToggle(500);
+  		 });
+           	
+           });
+            
         });
     </script>
     
