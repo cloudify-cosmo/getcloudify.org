@@ -6,9 +6,9 @@ $(function() {
 	var slides = $('.slide');
 	var numberOfSlides = slides.length;
   
-if ($("#slideshow").exists()) {    // Do something
+if ($("#slideshow").exists()) {    // Do something}
 
-}
+
 	// Remove scrollbar in JS .
   $('#slidesContainer').css('overflow', 'hidden');
 
@@ -44,7 +44,7 @@ if ($("#slideshow").exists()) {    // Do something
       // Move slideInner using margin-left
       $('#slideInner').animate({
         'marginLeft' : slideWidth*(-currentPosition)
-      });
+      //});
   })  
 };
 
