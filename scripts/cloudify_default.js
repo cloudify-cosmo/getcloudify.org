@@ -44,9 +44,9 @@ if ($("#slideshow").exists()) {    // Do something}
       // Move slideInner using margin-left
       $('#slideInner').animate({
         'marginLeft' : slideWidth*(-currentPosition)
-      //});
+      });
   })  
-};
+}//;
 
  // manageControls: Hides and shows controls depending on currentPosition
   function manageControls(position){
