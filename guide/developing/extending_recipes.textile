@@ -1,16 +1,26 @@
 ---
 layout: default
 title: Extending Service Recipes
-category: devrecipe
+category: Developing Recipes
 ---
 p. Cloudify recipes are like object oriented classes. they can be extended, inheriting the parent recipe functionality
 
-h1. Extending a recipe
+h1. Why Extending in the First Place?
+In many scenarios, you may want to create a new service which is based on an already existing service, overriding only parts of it with your own modifications. For example you may want to use the Tomcat recipe that's provided out of the box (under {{&lt;Cloudify installation root&gt;}}) with a few modifications without needing to copy the existing recipe and all its relevant content.
 
-To start the Cloudify Inreractive Shell go to <Cloudify Home>/tools/cli and run cloudify.bat or cloudify.sh, if your running on Linux or Mac OS.
 
-Cloudify allows to extend and override parts of recipes.
-If you are familiar with OOP, this is similar to inheritance. In the following example the travel-tomcat service extends the tomcat service
-<script src="https://gist.github.com/1704748.js?file=gistfile1.groovy"></script>
-You may add different scripts in the extended recipe folder to override the original life-cycle scripts.
+h1. Extending Recipes
+Extending recipe is quite simple - create a new service recipe file (e.g. {{my-tomcat-service.groovy}}) that extends the already existing one.
+To do so, you should use the “extend” keyword in the new service recipe in the following manner:
 
+<script src="https://gist.github.com/1821880.js?file=service.groovy"></script>
+
+The extend key word must appear first in the service block for the extension to work properly.
+All the recipe properties which do not appear inside the new recipe are taken from the extended (or parent) service recipe. All the files from the extended service directory will be copied upon installation to the new service deployment directory. If there are files with the same name in the new service directory, they will be used instead. The extend mechanism is recursive, which means that one service can extend another service that extends a third service, and so on. Each level of extension respects the above rules, where more specific elements override the same elements in parent recipes.
+Extension works for any of the elements of a service recipe, whether top-level ones (e.g. {{lifecycle}} or more specific ones (e.g. {{lifecycle -> init}}. For example consider the following parent recipe:
+
+<script src="https://gist.github.com/1821896.js?file=service.groovy"></script>
+
+The extending service can for example add stop behavior and/or change only the init behavior while keeping the postStart behavior of the extended service.
+
+<script src="https://gist.github.com/1821900.js?file=service.groovy"></script>
