@@ -6,7 +6,7 @@ $(function() {
 	var slides = $('.slide');
 	var numberOfSlides = slides.length;
   
-if ($("#slideshow").length()) //{    // Do something}
+if ($("#slideshow").exist()) {    // Do something}
 
 
 	// Remove scrollbar in JS .
@@ -46,7 +46,7 @@ if ($("#slideshow").length()) //{    // Do something}
         'marginLeft' : slideWidth*(-currentPosition)
       });
   })  
-}//;
+};
 
  // manageControls: Hides and shows controls depending on currentPosition
   function manageControls(position){
