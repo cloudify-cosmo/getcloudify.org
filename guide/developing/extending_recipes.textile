@@ -6,10 +6,12 @@ category: Developing Recipes
 p. Cloudify recipes are like object oriented classes. they can be extended, inheriting the parent recipe functionality
 
 h1. Why Extending in the First Place?
+
 In many scenarios, you may want to create a new service which is based on an already existing service, overriding only parts of it with your own modifications. For example you may want to use the Tomcat recipe that's provided out of the box (under {{&lt;Cloudify installation root&gt;}}) with a few modifications without needing to copy the existing recipe and all its relevant content.
 
 
 h1. Extending Recipes
+
 Extending recipe is quite simple - create a new service recipe file (e.g. {{my-tomcat-service.groovy}}) that extends the already existing one.
 To do so, you should use the “extend” keyword in the new service recipe in the following manner:
 
