@@ -7,6 +7,17 @@
     <script type="text/javascript" src="http://code.jquery.com/jquery-1.6.4.js"></script>
     <script type="text/javascript" src="/scripts/search.js"></script>
     <script type="text/javascript" src="/scripts/jquery-ui-1.8.17.custom.min.js"></script>
+    <script type="text/javascript">
+             $(function(){ 
+           	$("div.expand").hide();
+           	$("a.expandBtn").click(function(){	
+    		  $(this).next("div.expand").slideToggle(500);
+  		 });
+           	
+           });
+    
+    </script>
+    
     <script type="text/javascript" src="/scripts/cloudify_default.js"></script>
 
 
