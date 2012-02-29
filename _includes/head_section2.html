@@ -1,0 +1,60 @@
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <title>Cloudify - {{ page.title }}</title>
+    <link rel="stylesheet" href="/css/template.css" type="text/css"/>
+    <link rel="stylesheet" href="/css/jquery-ui-1.8.17.custom.css" type="text/css" media="all"/>	
+	<link rel="shortcut icon" href="favicon.ico" type="image/x-icon" />
+	<link rel="stylesheet" href="/css/screen.css" type="text/css" media="all"/>
+    <script type="text/javascript" src="http://code.jquery.com/jquery-1.6.4.js"></script>
+    <script type="text/javascript" src="/scripts/search.js"></script>
+    <script type="text/javascript" src="/scripts/jquery-ui-1.8.17.custom.min.js"></script>
+    <script type="text/javascript" src="/scripts/easySlider1.7.js"></script>
+    <script type="text/javascript" src="/scripts/easyslider.js"></script>	
+    <script type="text/javascript">
+             $(function(){ 
+           	$("div.expand").hide();
+           	$("li.expandBtn").click(function(){	
+    		  $(this).next("div.expand").slideToggle(500);
+    		  if($(this).html()=="More..."){
+    		  	$(this).html("Less...");	
+    		  }else{
+    		  	$(this).html("More...");
+    		  }
+    		  
+  		 });
+           	
+           });
+    
+    </script>
+    
+    <script type="text/javascript" src="/scripts/cloudify_default.js"></script>
+
+
+
+    <script type="text/javascript">
+        var _gaq = _gaq || [];
+        _gaq.push(['_setAccount', 'UA-29063606-1']);
+        _gaq.push(['_trackPageview']);
+
+        (function() {
+            var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+            ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+            var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+        })();
+        
+       	 $(this).removeClass("current");
+    	 $(function(){
+            $("div.ui-accordion").find("a").each(function(){
+            if( location.href.indexOf(this.location.href) != -1) {
+            $(this).addClass("current");
+             
+            }
+            });
+            
+  
+            
+        });
+    </script>
+    
+
+</head>
