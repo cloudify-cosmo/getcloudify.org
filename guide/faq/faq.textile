@@ -8,18 +8,14 @@ h1. F.A.Q
 
 Below is a list of F.A.Q.
 
-"Which clouds do you support?":#q1
-"Can I remove a service after I deploy an application?":#q2
-"Can I add a service after I deploy an application?":#q3
-
 |_. Question |
 |"Which clouds do you support?":#q1|
 |"Can I remove a service after I deploy an application?":#q2|
-|"Can I add a service after I deploy an application?":#q3|
+|"Can I remove a service after I deploy an application?":#q2|
+|"I deployed a tomcat service and now I have a new WAR file. Do I need to re-install the whole application?":#q4|
 
-h1. F.A.Q
 
-h4(#q1). Which clouds do you support?
+#h4(#q1). Which clouds do you support?
 
 Our Cloud Driver has built-in implementations for the following:
 * Microsoft Azure
@@ -32,13 +28,22 @@ Our Cloud Driver has built-in implementations for the following:
 In general: Cloudify works with *any* cloud that supports the JCloud API.
 
 
-h4(#q2). Can I remove a service after I deploy an application?
+#h4(#q2). Can I remove a service after I deploy an application?
 
 Yes....
 
-h4(#q3). Can I add a service after I deploy an application?
+#h4(#q3). Can I add a service after I deploy an application?
 
 Yes....
+
+#h4(#q4). I deployed a tomcat service and now I have a new WAR file. Do I need to re-install the whole application?
+
+You don't need to re-install an application in order to update a WAR file.
+In order to do that, when you install an application, you must add an "updateWar" custom command to your recipe.
+You can read more about custom commands "here":/guide/developing/custom_commands .
+
+
+
 
 
 
