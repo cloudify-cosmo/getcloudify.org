@@ -15,62 +15,89 @@ Below is a list of new features, improvements, fixed issues, and known issues in
 "Cloudify 2.0.1 m3":#rcm3 Will be published soon.
 
 
-
 h1(#rcm2). Cloudify 2.0.1 m2
 
-h4. Breaking changes and Updates
- 
-|_. ID|_. Description |_. Component |
-|aaa|bbb|ccc21|
-|aaa|bbb|ccc22|
+h4. Breaking changes and Updates 
+
+|_. ID|_. Description |_. Components |
+||||
 
 h4. Enhancements and New Features 
 
-|_. ID|_. Description |_. Component |
-|aaa|bbb|ccc31|
-|aaa|bbb|ccc32|
+|_. ID|_. Description |_. Components |
+||||
+
 
 h4. Bug Fixes 
 
-|_. ID|_. Description |_. Component |
-|aaa|bbb|ccc41|
-|aaa|bbb|ccc42|
+|_. ID|_. Description |_. Components |
+||||
 
 h4. Known Issues 
 
-|_. ID|_. Description |_. Component |
-|aaa|bbb|ccc51|
-|aaa|bbb|ccc52|
+|_ID |_ Description |_ Components |
+|CLOUDIFY-444  | after confirming service/application uninstall, the curser must go to new line  | CLI |
+|CLOUDIFY-443  | Uninstall service/application takes too long to return  | CLI |
+|CLOUDIFY-441  | Null pointer exception in CLI when installation failes  | CLI |
+|CLOUDIFY-431  | a timeout exception is not thrown when installation of petclinic fails  | CLI |
+|CLOUDIFY-411  | recipe validation must check that the recipe file name and decendant groovy scripts do not contain illegal characters  | CLI |
+|CLOUDIFY-405  | Recipe installation stuck  | CLI USM |
+|CLOUDIFY-434  | maven build doesn't work on a clean .m2 repository  | Packaging |
+|CLOUDIFY-369  | When memoryCapacityPerContainer is specified in stateful service DSL it should override the value calculated from the ec2 machine size  | Packaging |
+|CLOUDIFY-415  | External groovy scripts with a '-' character fail to execute correctly.  | USM |
+|CLOUDIFY-410  | When cli invoke command is executed with not enough parameters then an obscure exception is raised in the USM  | USM |
+|CLOUDIFY-357  | install-application and install-service returns with exit code 0 on some failure conditions  | CLI |
+|CLOUDIFY-355  | uninstall-application/service waits past the time it took for service/applicatio to uninstall  | CLI |
+|CLOUDIFY-343  | Cloudify Command history does not work properly. It does not cache all the commands that are typed and cannot navigate using up/down arrow keys reliably.  | CLI |
+|CLOUDIFY-345  | Install application does not work second time on cloud/ec2 machines  | ESC REST |
+|CLOUDIFY-369  | When memoryCapacityPerContainer is specified in stateful service DSL it should override the value calculated from the ec2 machine size  | Packaging |
+|CLOUDIFY-358  | Azure boot code does not re-use the CLI start-agent and start-management commands  | Packaging |
+|CLOUDIFY-356  | Azure management machine does not start the management space  | Packaging |
+|CLOUDIFY-365  | USM Port detection based on netstat does not work on Azure  | USM |
+|CLOUDIFY-276  | CLI does not stop waiting for service even if the service failed to start  | CLI |
+|CLOUDIFY-297  | sla memoryCapacityPerContainer is being overriden by cloud and is also not calculated correctly  | REST |
+|CLOUDIFY-323  | Undelying process dies on Linux if GSC dies  | USM |
+|CLOUDIFY-265  | USM Recovery after GSC Crash can fail if more then one GSC fails at the same time  | USM |
+|CLOUDIFY-254  | azure:bootstrap-app does not work after azure:teardown-app  | CLI |
+|CLOUDIFY-228  | Actual number of service instances exceeds planned number of instances  | CLI |
+|CLOUDIFY-226  | Cloudify for azure fails when not running as administrator  | CLI |
+|CLOUDIFY-233  | Install service or application that's already installed fails with http 500 error instead of reporting properly that it's already installed  | CLI REST |
+|CLOUDIFY-257  | Custom command parameters only work for closure, not external scripts  | USM |
+|CLOUDIFY-229  | FileLivenessDetector should check relative or absolute path  | USM |
+|CLOUDIFY-65  | CLI does not wrap to new line when command is longer than the command window width  | CLI |
+|CLOUDIFY-66  | CLI does not support back slash ('\') as file separator  | CLI |
+|CLOUDIFY-156  | In some cases no error appears is presented by the shell if bootstrap-localcloud fails to start the Cloudify agent  | CLI |
+|CLOUDIFY-225  | Exceptions in the REST gateway are not displayed in the CLI  | CLI |
+|CLOUDIFY-182  | Discovery Warnings in GSC logs  | CLI REST |
+|CLOUDIFY-224  | Failure to install a service after uninstall which follows a forced installation abortion from the shell (Ctrl+C)  | CLI USM |
+|CLOUDIFY-192  | Web-ui does not always present DSL dependsOn connections - sometimes there is redundent link and sometimes its missing a link  | MONITORING |
+|CLOUDIFY-161  | Cannot use AntBuilder from within a life cycle closure  | USM |
+
 
 <!-- End of Release Notes -->
 
 h1(#rcm3). Cloudify 2.0.1 m3
 
-h4. Breaking changes and Updates
- 
-|_. ID|_. Description |_. Component |
-|xxx|yyy|zzz21|
-|xxx|yyy|zzz22|
+
+h4. Breaking changes and Updates 
+
+|_. ID|_. Description |_. Components |
+||||
 
 h4. Enhancements and New Features 
 
-|_. ID|_. Description |_. Component |
-|xxx|yyy|zzz31|
-|xxx|yyy|zzz32|
+|_. ID|_. Description |_. Components |
+||||
+
 
 h4. Bug Fixes 
 
-|_. ID|_. Description |_. Component |
-|xxx|yyy|zzz41|
-|xxx|yyy|zzz42|
+|_. ID|_. Description |_. Components |
+||||
 
 h4. Known Issues 
 
-|_. ID|_. Description |_. Component |
-|xxx|yyy|zzz51|
-|xxx|yyy|zzz52|
+|_. ID|_. Description |_. Components |
+||||
 
 <!-- End of Release Notes -->
-
-
-
