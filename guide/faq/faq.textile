@@ -55,7 +55,7 @@ h2(#q). *Q: Which clouds do you support?*
 * Terramark
 
 <br/>
-In general: Cloudify works with *any* cloud that supports the JCloud API.
+In general: Cloudify works with *any* cloud that supports the"JClouds":http://www.jclouds.org/ API.
 
 "Back to top":#top
 
@@ -63,8 +63,7 @@ h2(#q). *Q: Can I remove a service after I deploy an application?*
 
  *A:* Yes. 
       Assuming that your service is called myAppName:
-	  Run the following command from Cloudify CLI:
-	  *uninstall-service myAppName*
+	  Run the following command from Cloudify CLI: *uninstall-service myAppName*
  
 
 "Back to top":#top
@@ -73,8 +72,7 @@ h2(#q). *Q: Can I add a service after I deploy an application?*
 
  *A:* Yes. 
       Assuming that your service is called myAppName and is located in /user/myApps:
-	  Run the following command from Cloudify CLI:
-	  *install-service /user/myApps/myAppName*
+	  Run the following command from Cloudify CLI: *install-service /user/myApps/myAppName*
 
 "Back to top":#top
 
@@ -94,7 +92,7 @@ h2(#q). *Q: Where can I get help?*
 
 h2(#q). *Q: Where can I get updated about new releases?*
 
- *A:* You need to ... 
+ *A:*  Our Release notes page is "here":/guide/release_notes/release_notes .
 
 "Back to top":#top
 
@@ -106,14 +104,18 @@ h2(#q). *Q: What is Cloudify's pricing?*
 
 h2(#q). *Q: Is Cloudify open source?
 
- *A:* Yes we are .... 
+ *A:* Yes indeed.
+ 
+ "We":http://www.gigaSpaces.com have also contributed to the "JClouds":http://www.jclouds.org/ open source project around its OpenStack compute and BLOB store support, and we plan to contribute more in the future, because we believe that cloud portability is key to reducing entry barriers and making cloud less intimidating. 
 
 "Back to top":#top
 
 
 h2(#q). *Q: What application stacks can I use?*
 
- *A:* cloudify enables you to on-board any Application onto any Cloud.
+ *A:* Cloudify enables you to on-board any Application onto any Cloud.
+ 	We wanted to provide a flexible yet simple mechanism to deploy and manage applications on the cloud. But we also wanted it to be flexible enough to support any kind of application. In other words, we decided that our platform would support your application no matter what application stack you use (Java/Spring, Java EE, PHP, .NET, Ruby on Rails or others), whether you are using a relational (such as MySQL) or non-relational (e.g., Apache Cassandra) data store, or if you choose to add other middleware components. Regardless of your application set-up, you can still use Cloudify to... Cloudify it.
+ 
 
 "Back to top":#top
 
