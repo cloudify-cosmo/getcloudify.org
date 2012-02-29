@@ -25,7 +25,7 @@ Below is a list of F.A.Q.
 
 h2(#q). *Q: How do I get cloudify?*
 
- *A:* You can download it "here":http://bit.ly/ztbg9u
+ *A:* You can download it "here":http://bit.ly/ztbg9u .
 
  
 h2(#q). *Q: What is the license?*
@@ -61,13 +61,20 @@ In general: Cloudify works with *any* cloud that supports the JCloud API.
 
 h2(#q). *Q: Can I remove a service after I deploy an application?*
 
- *A:* Yes....
+ *A:* Yes. 
+      Assuming that your service is called myAppName:
+	  Run the following command from Cloudify CLI:
+	  *uninstall-service myAppName*
+ 
 
 "Back to top":#top
 
 h2(#q). *Q: Can I add a service after I deploy an application?*
 
- *A:* Yes....
+ *A:* Yes. 
+      Assuming that your service is called myAppName and is located in /user/myApps:
+	  Run the following command from Cloudify CLI:
+	  *install-service /user/myApps/myAppName*
 
 "Back to top":#top
 
@@ -93,7 +100,7 @@ h2(#q). *Q: Where can I get updated about new releases?*
 
 h2(#q). *Q: What is Cloudify's pricing?*
 
- *A:* The pricing model is ... 
+ *A:* You can read about it "here":http://www.gigaspaces.com/cloudify-pricing
 
 "Back to top":#top
 
