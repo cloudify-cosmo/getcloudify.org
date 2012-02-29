@@ -9,7 +9,6 @@ h1(#top). F.A.Q
 Below is a list of F.A.Q.
 
 * "How do I get Cloudify?":#q01
-* "What is the license?":#q02
 * "How do I install Cloudify":#q03
 * "Which clouds do you support?":#q04
 * "Can I remove a service after I deploy an application?":#q05
@@ -19,7 +18,7 @@ Below is a list of F.A.Q.
 * "What is Cloudify's pricing?":#q
 * "Is Cloudify open source?":#q
 * "What application stacks can I use?":#q
-* "Is Cloudify a service?":#q
+
 
 
 h2(#q). *Q: How do I get cloudify?*
@@ -27,12 +26,6 @@ h2(#q). *Q: How do I get cloudify?*
  *A:* You can download it "here":http://bit.ly/ztbg9u .
 
  
-h2(#q). *Q: What is the license?*
-
- *A:* The license is .... 
-
-
-
 h2(#q). *Q: How do I install Cloudify?*
 
  *A:* We refer you to the following:
@@ -78,7 +71,7 @@ h2(#q). *Q: Can I add a service after I deploy an application?*
 h2(#q). *Q: I deployed a Tomcat service and now I have a new WAR file. Do I need to re-install the whole application?*
 
  *A:* You don't need to re-install an application in order to update a WAR file.
-In order to do that, when you install an application, you must add an "updateWar" custom command to your recipe.
+In order to do that, when you install an application, you must add an "updateWar" custom command (in your recipe's custom commands section) to your recipe.
 You can read more about custom commands "here":/guide/developing/custom_commands 
 
 "Back to top":#top
@@ -87,12 +80,14 @@ h2(#q). *Q: Where can I get updated about new releases?*
 
  *A:*  Our Release notes page is "here":/guide/release_notes/release_notes .
 
+ <br/>
 "Back to top":#top
 
 h2(#q). *Q: What is Cloudify's pricing?*
 
  *A:* You can read about it "here":http://www.gigaspaces.com/cloudify-pricing
 
+ <br/>
 "Back to top":#top
 
 h2(#q). *Q: Is Cloudify open source?
@@ -101,6 +96,7 @@ h2(#q). *Q: Is Cloudify open source?
  
  "We":http://www.gigaSpaces.com have also contributed to the "JClouds":http://www.jclouds.org/ open source project around its OpenStack compute and BLOB store support, and we plan to contribute more in the future, because we believe that cloud portability is key to reducing entry barriers and making cloud less intimidating. 
 
+ <br/>
 "Back to top":#top
 
 
@@ -109,13 +105,8 @@ h2(#q). *Q: What application stacks can I use?*
  *A:* Cloudify enables you to on-board any Application onto any Cloud.
  	We wanted to provide a flexible yet simple mechanism to deploy and manage applications on the cloud. But we also wanted it to be flexible enough to support any kind of application. In other words, we decided that our platform would support your application no matter what application stack you use (Java/Spring, Java EE, PHP, .NET, Ruby on Rails or others), whether you are using a relational (such as MySQL) or non-relational (e.g., Apache Cassandra) data store, or if you choose to add other middleware components. Regardless of your application set-up, you can still use Cloudify to... Cloudify it.
  
-
+<br/>
 "Back to top":#top
 
-h2(#q). *Q: Is Cloudify a service?*
-
- *A:* A service ???? 
-
-"Back to top":#top
 
 
