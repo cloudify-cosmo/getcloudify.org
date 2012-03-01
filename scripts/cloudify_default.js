@@ -195,8 +195,19 @@ $.fn.slideFadeUp = function(speed, callback) {
     if (jQuery.browser.msie) { this.style.removeAttribute('filter'); }
     if (jQuery.isFunction(callback)) { callback(); }
   }); 
+  
 }; 
 /* --- end of the optional code --- */
+/* ------------- added by Yaron ------------ */
+  prettyPrint();
+	 $("span.pln").click(function(eventObject) {
+		var currKey = $(eventObject.currentTarget).text().trim();
+		var tooltip = $(".overlay");
+		var position = $(eventObject.currentTarget).offset();				
+		$("span",tooltip).text(messages[currKey]);				
+		tooltip.css("top",position.top - 20).css("left",position.left + 200).show();
+		$(".closeDiv").click(function() {$(".overlay").hide();})
+	 })
 })(jQuery);
 
 
@@ -230,6 +241,9 @@ $.fn.slideFadeUp = function(speed, callback) {
 
 
 $(function() {
+
+$("a.newwindow").attr("target","_blank");
+
 		$( "#accordion" ).accordion({autoHeight:false, navigation: true,collapsible: true});
 		
 	var currentPosition = 0;
