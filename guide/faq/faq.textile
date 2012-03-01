@@ -1,0 +1,126 @@
+---
+layout: default
+title: Frequently Asked Questions (FAQ)
+category: FAQ
+---
+
+
+ <span id="#top"></span>
+
+* "How do I get Cloudify?":#q01
+* "How do I install Cloudify":#q02
+* "Which clouds do you support?":#q03
+* "Can I remove a service after I deploy an application?":#q04
+* "Can I add a service after I deploy an application?":#q05
+* "I deployed a Tomcat service and now I have a new WAR file. Do I need to re-install the whole application?":#q06
+* "Where can I get updated about new releases?":#q07
+* "What is Cloudify's pricing?":#q08
+* "What application stacks can I use?":#q09
+* "Is Cloudify a service?":#q10
+* "Is Cloudify open source?":#q11
+* "Is Cloudify free?":#q12
+
+
+h2(#q01). *Q: How do I get cloudify?*
+
+ *A:* You can download it "here":http://bit.ly/ztbg9u .
+
+ 
+h2(#q02). *Q: How do I install Cloudify?*
+
+ *A:* We refer you to the following:
+* "Installing the Cloudify client":/guide/setup/installing_the_cloudify_client
+* "Command-line reference":/guide/setup/command_line_reference
+
+<br/>
+"Back to top":#top
+
+
+h2(#q03). *Q: Which clouds do you support?*
+
+ *A:* Our Cloud Driver has built-in implementations for the following:
+* Microsoft Azure
+* OpenStack
+* Citrix Cloud Stack (Previously Cloud.Com Product)
+* EC2
+* Rackspace
+* Terramark
+
+<br/>
+In general: Cloudify works with *any* cloud that supports the "JClouds":http://www.jclouds.org/ API.
+
+"Back to top":#top
+
+h2(#q04). *Q: Can I remove a service after I deploy an application?*
+
+ *A:* Yes. 
+ <br/>
+      Assuming that your service is called myServiceName:
+	  Run the following command from Cloudify CLI: *uninstall-service myServiceName*
+ 
+
+"Back to top":#top
+
+h2(#q05). *Q: Can I add a service after I deploy an application?*
+
+ *A:* Yes. 
+      Assuming that your service is called myServiceName and is located in /user/myApps/currApp/:
+	  Run the following command from Cloudify CLI: *install-service /user/myApps/currApp/myServiceName*
+
+"Back to top":#top
+
+h2(#q06). *Q: I deployed a Tomcat service and now I have a new WAR file.*
+ *Do I need to re-install the whole application?*
+
+ *A:* You don't need to re-install an application in order to update a WAR file.
+In order to do that, when you install an application, you must add an "updateWar" custom command (in your recipe's custom commands section) to your recipe.
+You can read more about custom commands "here":/guide/developing/custom_commands .
+
+"Back to top":#top
+
+h2(#q07). *Q: Where can I get updated about new releases?*
+
+ *A:*  Our Release notes page is "here":/guide/release_notes/release_notes .
+
+ <br/>
+"Back to top":#top
+
+h2(#q08). *Q: What is Cloudify's pricing?*
+
+ *A:* You can read about it "here":http://www.gigaspaces.com/cloudify-pricing
+
+ <br/>
+"Back to top":#top
+
+h2(#q09). *Q: What application stacks can I use?*
+
+ *A:* Cloudify enables you to on-board any Application onto any Cloud.
+ 	We wanted to provide a flexible yet simple mechanism to deploy and manage applications on the cloud. But we also wanted it to be flexible enough to support any kind of application. In other words, we decided that our platform would support your application no matter what application stack you use (Java/Spring, Java EE, PHP, .NET, Ruby on Rails or others), whether you are using a relational (such as MySQL) or non-relational (e.g., Apache Cassandra) data store, or if you choose to add other middleware components. Regardless of your application set-up, you can still use Cloudify to... Cloudify it.
+ 
+<br/>
+"Back to top":#top
+
+h2(#q10). *Is Cloudify a service?*
+
+ *A:* No, cloudify is a downloadable software product that can run on your laptop, data center or any cloud environment. 
+
+<br/>
+"Back to top":#top
+
+
+h2(#q11). *Is Cloudify open source?*
+
+ *A:* Most of Cloudify's components are open sourced. The sources can be found on "GitHub":https://github.com/CloudifySource/cloudify and are licensed under the "Apache2 license":http://www.apache.org/licenses/LICENSE-2.0 .
+Some parts of Cloudify are still not open sourced, but we plan to gradually open source most of them over the next few months. 
+
+<br/>
+"Back to top":#top
+
+
+h2(#q12). *Is Cloudify free?*
+
+ *A:* Cloudify has a number of editions, one of which is completely free production usage, with no size limits. The other editions are paid editions, and differ from the free edition in that they include commercial support from GigaSpaces and premium features.
+
+<br/>
+"Back to top":#top
+
