@@ -4,18 +4,18 @@ title: Application recipe reference
 category: test
 ---
 
-<script>
-var messages = {
+ <script>
+ var messages = {
   application: "The application element",
   name: "The application or service name",
   service: "The service block",
   dependsOn: "Array of services names on which the current service dependes"
  }
-</script> 
+ </script> 
 
-<pre class="prettyprint">
-application {
- name="petclinic"
+ <pre class="prettyprint">
+ application {
+   name="petclinic"
  
  service {
   name = "mongod"  
@@ -34,5 +34,5 @@ application {
   name = "tomcat"
   dependsOn = ["mongos"]
  }
-}
-</pre>
+ }
+ </pre>
