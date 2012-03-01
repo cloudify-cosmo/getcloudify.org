@@ -3,41 +3,45 @@ layout: default
 title: Application recipe reference
 category: test
 ---
-notextile..
-<script type="text/javascript">
- alert($('pre.prettyprint').text());
+p. the application recipe refernce
+
+
+ <script type="text/javascript">
+  alert($('pre.prettyprint').text());
  
- var messages = {
-  application: 'The application element',
-  name: 'The application or service name',
-  service: 'The service block',
-  dependsOn: 'Array of services names on which the current service dependes'
- }
- </script> 
+  var messages = {
+   application: 'The application element',
+   name: 'The application or service name',
+   service: 'The service block',
+   dependsOn: 'Array of services names on which the current service dependes'
+  }
+  </script> 
 
  
- <pre class="prettyprint">
- application {
-   name='petclinic'
+  <pre class="prettyprint">
+  application {
+    name='petclinic'
  
- service {
-  name = 'mongod'
- }
+  service {
+   name = 'mongod'
+  }
  
- service {
-  name = 'mongoConfig'
- }
+  service {
+   name = 'mongoConfig'
+  }
  
- service {
-  name = 'mongos'
-  dependsOn = ['mongoConfig', 'mongod']
- }
+  service {
+   name = 'mongos'
+   dependsOn = ['mongoConfig', 'mongod']
+  }
  
- service {
-  name = 'tomcat'
-  dependsOn = ['mongos']
- }
- }
- </pre>
- p.
+  service {
+   name = 'tomcat'
+   dependsOn = ['mongos']
+  }
+  }
+  </pre>
+  
+  
+
  
