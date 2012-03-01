@@ -1,0 +1,33 @@
+---
+layout: default
+title: Bootstrapping
+category: Bootstrapping
+---
+
+
+h1. The Bootstrapping process
+
+Cloudify aims to minimize the prerequisites from a server (either virtual or physical) so that a standard operating system can run Cloudify immediately, without any special preinstalled software.
+To achieve this, Cloudify connects to the provided host over SSH and uploads the required bootstrap files.
+It's performed from *nix systems and Windows support is currently available only on Windows Azure, but will be available soon in other clouds as well.
+
+The bootstrapping process usually includes a startup script (available under tools/cli/plugins/esc/<Cloud-Provider-Name>/upload/bootstrap-management.sh) and any required additional files, like an ssh key file. 
+Once the files are uploaded, the bootstrap script is launched. 
+
+The bootstrap-management.sh script is responsible for:
+* Downloading the Cloudify installation (the source is configurable, and can include any FTP/HTTP/HTTPS server)
+* Installing Java (required to run the Cloudify Agent)
+* Installing Cloudify.
+* Running the Cloudify agent.
+
+Bootstrapping a management machine will launch the Cloudify controller processes, whereas bootstrapping a non-management will only launch the Cloudify agent, so that the Cloudify controller can use this machine to install and scale services.
+
+Note that the bootstrapping script is aimed at handling the most common installation scenario, but some clouds, especially private clouds, require more tweaking to work correctly. 
+By editing the bootstrap-management.sh script, administrators can modify the bootstrapping process to match their needs.
+
+Common changes include:
+* Setting up Network shares.
+* Downloading the Cloudify installation from a local network resource, like an NFS share.
+* Setting up the Java environment using an existing JDK (i.e. setting up JAVA_HOME).
+
+
