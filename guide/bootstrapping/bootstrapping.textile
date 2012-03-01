@@ -11,7 +11,7 @@ Cloudify aims to minimize the prerequisites from a server (either virtual or phy
 To achieve this, Cloudify connects to the provided host over SSH and uploads the required bootstrap files.
 It's performed from *nix systems and Windows support is currently available only on Windows Azure, but will be available soon in other clouds as well.
 
-The bootstrapping process usually includes a startup script (available under tools/cli/plugins/esc/<Cloud-Provider-Name>/upload/bootstrap-management.sh) and any required additional files, like an ssh key file. 
+The bootstrapping process usually includes a startup script (available under tools/cli/plugins/esc/&lt;Cloud-Provider-Name&gt;/upload/bootstrap-management.sh) and any required additional files, like an ssh key file. 
 Once the files are uploaded, the bootstrap script is launched. 
 
 The bootstrap-management.sh script is responsible for:
@@ -31,6 +31,6 @@ Common changes include:
 * Setting up the Java environment using an existing JDK (i.e. setting up JAVA_HOME) .
 
 <br/>
-You can "(newwindow)fork":https://github.com/CloudifySource/cloudify/blob/master/esc/config/bootstrap-management.sh the bootstrap-management.sh on GitHub or edit the file in tools/cli/plugins/esc/<Cloud-Provider-Name>/upload/bootstrap-management.sh in the Cloudify version that you have "(newwindow)donwloaded(Click here to download the Cloudify zip file)":http://bit.ly/ztbg9u .
+You can "(newwindow)fork":https://github.com/CloudifySource/cloudify/blob/master/esc/config/bootstrap-management.sh the bootstrap-management.sh on GitHub or edit the file in tools/cli/plugins/esc/&lt;Cloud-Provider-Name&gt;/upload/bootstrap-management.sh in the Cloudify version that you have "(newwindow)donwloaded(Click here to download the Cloudify zip file)":http://bit.ly/ztbg9u .
 
 
