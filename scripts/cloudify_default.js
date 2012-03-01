@@ -8,6 +8,7 @@ Dual licensed under the MIT (http://www.adipalaz.com/docs/mit-license.txt) and G
 (function($) {
 
 $("a.newwindow").attr("target","_blank");
+$(".newwindow").attr("target","_blank");
 
 $.fn.expandAll = function(options) {
     var o = $.extend({}, $.fn.expandAll.defaults, options);   
