@@ -243,7 +243,6 @@ $.fn.slideFadeUp = function(speed, callback) {
 $(function() {
 
 $("a.newwindow").attr("target","_blank");
-$(".newwindow").attr("target","_blank");
 
 		$( "#accordion" ).accordion({autoHeight:false, navigation: true,collapsible: true});
 		
