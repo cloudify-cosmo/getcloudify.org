@@ -20,10 +20,8 @@
     		  	$(this).html("More...");
     		  }
     		  
-  		 });
-           	
-           };
-		   /* ------------- added by Yaron ------------ */
+			});
+           /* ------------- added by Yaron ------------ */
 			//prettyPrint();
 	        $("span.pln").click( function(eventObject) {
 				var currKey = $(eventObject.currentTarget).text().trim();
@@ -32,7 +30,8 @@
 				$("span",tooltip).text(messages[currKey]);				
 				tooltip.css("top",position.top - 20).css("left",position.left + 200).show();
 				$(".closeDiv").click(function() {$(".overlay").hide();})
-			 });
+			 });	
+           }
 	 );
     
     </script>
