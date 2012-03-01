@@ -198,7 +198,7 @@ $.fn.slideFadeUp = function(speed, callback) {
   
 }; 
 /* --- end of the optional code --- */
-
+ 
 })(jQuery);
 
 
