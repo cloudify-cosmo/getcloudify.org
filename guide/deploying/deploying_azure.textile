@@ -20,7 +20,9 @@ h1. Deploying your Application
 Deploying your application is the process where Cloudify Controller on Azure is instructed to execute the application recipe. The controller uses the Cloudify Driver to make Azure start worker role instances according to the recipe SLAs
 Once the roles are active, Cloudify agents are discovered by the cdontroller and the recipe is shipped to them for execution.
 
-The command to use is install-application (as with any Cloud)
+The following examples installs the travel application recipe for azure. The azure recipe differs in that it configures a reverse proxy that allows
+access to the travel application via port 80 (instead of port 8080)
+<script src="https://gist.github.com/1875363.js"> </script>
+
+h1. install-application commandline options
 <script src="https://gist.github.com/1760347.js?file=install_app_cmd"></script>
-
-
