@@ -6,6 +6,9 @@ Copyright (c) 2009 Adriana Palazova
 Dual licensed under the MIT (http://www.adipalaz.com/docs/mit-license.txt) and GPL (http://www.adipalaz.com/docs/gpl-license.txt) licenses
 ------------------------------------------------ */
 (function($) {
+
+$("a.newwindow").attr("target","_blank");
+
 $.fn.expandAll = function(options) {
     var o = $.extend({}, $.fn.expandAll.defaults, options);   
     
