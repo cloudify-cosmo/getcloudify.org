@@ -28,7 +28,7 @@
            };
 		   /* ------------- added by Yaron ------------ */
 			$("span.pln").css("cursor","pointer");
-			$("span.pln").hover(function(){$(this).fadeOut(100);$(this).fadeIn(500);});
+			$("span.pln").hover(function(){$(this).css("font-weight","bold");},function(){$(this).css("font-weight","regular");});
 	        $("span.pln").click( function(eventObject) {
 				var currKey = $(eventObject.currentTarget).text().trim();
 				var tooltip = $(".overlay");
