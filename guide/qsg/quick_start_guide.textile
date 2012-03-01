@@ -64,7 +64,7 @@ h1. Step 3 - Learn about the Application Recipe
 
 First, let's take a brief look at the PetClinic application recipe you're about to deploy.
 In the &lt;Cloudify Root&gt;/examples/petclinic folder you will find the following files and folders:
-# The application recipe: petclinic-mongo-apache-application.groovy
+# The application recipe: petclinic-mongo-application.groovy
 # The Configuration Server (mongoConfig) recipe folder
 # The Shards (mongod) recipe folder
 # The Routing Processes (mongos) recipe folder
@@ -96,12 +96,12 @@ The Pet Clinic application has 4 services:
 
 Here's what our Pet Clinic application recipe looks like:
 
-<script src="https://gist.github.com/1710340.js?file=gistfile1.groovy"></script>
+<script src="https://gist.github.com/1943898.js?file=petclinic_app_recipe.groovy"></script>
 
 From the above code, one can learn:
 * The names of all the involved services.
 * That the mongos service depends on two services: mongoConfig and mongod.
-* That the tomcat service depends on mongos service and on apache-lb service.
+* That the tomcat service depends on mongos service.
 
 In general, a dependent service will start running only after the services it depends on have successfully started.
 
