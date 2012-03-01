@@ -6,10 +6,6 @@ Copyright (c) 2009 Adriana Palazova
 Dual licensed under the MIT (http://www.adipalaz.com/docs/mit-license.txt) and GPL (http://www.adipalaz.com/docs/gpl-license.txt) licenses
 ------------------------------------------------ */
 (function($) {
-
-$("a.newwindow").attr("target","_blank");
-$(".newwindow").attr("target","_blank");
-
 $.fn.expandAll = function(options) {
     var o = $.extend({}, $.fn.expandAll.defaults, options);   
     
@@ -245,6 +241,10 @@ $.fn.slideFadeUp = function(speed, callback) {
 
 
 $(function() {
+
+$("a.newwindow").attr("target","_blank");
+$(".newwindow").attr("target","_blank");
+
 		$( "#accordion" ).accordion({autoHeight:false, navigation: true,collapsible: true});
 		
 	var currentPosition = 0;
