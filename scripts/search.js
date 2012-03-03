@@ -122,7 +122,7 @@ $(document).ready(function () {
             , r.title,
             '</a>',
             '<br class="clear"/>',
-            r.snippet,'&nbsp;&nbsp;'
+            r.snippet,'&nbsp;&nbsp;',
             '<a class="rmore" href="', r.link, '" target="_blank">',
             '<span>Read More...</span></a></li>'
         ];
