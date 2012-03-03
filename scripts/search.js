@@ -119,8 +119,7 @@ $(document).ready(function () {
             '<a class="docTitle" href="',
             r.link,
             '">'
-            , r.title,
-            '&nbsp;&nbsp;',
+            , r.title,'&nbsp;&nbsp;',
             '</a>',
             '<br class="clear"/>',
             r.snippet,
