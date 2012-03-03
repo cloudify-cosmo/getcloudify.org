@@ -119,10 +119,10 @@ $(document).ready(function () {
             '<a class="docTitle" href="',
             r.link,
             '">'
-            , r.title,'&nbsp;&nbsp;',
+            , r.title,
             '</a>',
             '<br class="clear"/>',
-            r.snippet,
+            r.snippet,'&nbsp;&nbsp;'
             '<a class="rmore" href="', r.link, '" target="_blank">',
             '<span>Read More...</span></a></li>'
         ];
