@@ -120,11 +120,12 @@ $(document).ready(function () {
             r.link,
             '">'
             , r.title,
+            '&nbsp;&nbsp;',
             '</a>',
             '<br class="clear"/>',
             r.snippet,
             '<a class="rmore" href="', r.link, '" target="_blank">',
-            '<span>&nbsp;&nbsp;Read More</span></a></li>'
+            '<span>Read More...</span></a></li>'
         ];
 
 
