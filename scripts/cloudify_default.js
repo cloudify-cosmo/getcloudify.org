@@ -198,16 +198,7 @@ $.fn.slideFadeUp = function(speed, callback) {
   
 }; 
 /* --- end of the optional code --- */
-/* ------------- added by Yaron ------------ */
-  prettyPrint();
-	 $("span.pln").click(function(eventObject) {
-		var currKey = $(eventObject.currentTarget).text().trim();
-		var tooltip = $(".overlay");
-		var position = $(eventObject.currentTarget).offset();				
-		$("span",tooltip).text(messages[currKey]);				
-		tooltip.css("top",position.top - 20).css("left",position.left + 200).show();
-		$(".closeDiv").click(function() {$(".overlay").hide();})
-	 })
+ 
 })(jQuery);
 
 
