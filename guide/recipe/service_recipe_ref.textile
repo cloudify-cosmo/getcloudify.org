@@ -23,43 +23,43 @@ lifecycle: 'A block specifying the handlers for the different lifecycle events'
 <pre class='prettyprint'>
 service {
 	
-	name "mongod"
-	icon "mongodb.png"
-	type "NOSQL_DB"
-	numInstances 2
+    name "mongod"
+    icon "mongodb.png"
+    type "NOSQL_DB"
+    numInstances 2
 	
-	compute {
-		template "SMALL_LINUX_32"
-	}
+    compute {
+        template "SMALL_LINUX_32"
+    }
 
-	lifecycle {
-		install "mongod_install.groovy"
-		start "mongod_start.groovy"			
-		startDetectionTimeoutSecs 60
-		startDetection {
-			ServiceUtils.isPortOccupied(context.attributes.thisInstance["port"])
-		}
-	}
+    lifecycle {
+        install "mongod_install.groovy"
+        start "mongod_start.groovy"			
+        startDetectionTimeoutSecs 60
+        startDetection {
+            ServiceUtils.isPortOccupied(context.attributes.thisInstance["port"])
+        }
+    }
 	
-	plugins([ 	
-		plugin {
-			name "MongoDBMonitorsPlugin"
-			className "org.cloudifysource.mongodb.MongoDBMonitorsPlugin"
-			config([				
-				"host":"127.0.0.1",				
-				"dbName":"petclinic",
-				"dataSpec" : [
-				    "Active Read Clients":"globalLock.activeClients.readers", 
-					"Active Write Clients":"globalLock.activeClients.writers", 
-					"Read Clients Waiting":"globalLock.currentQueue.readers", 
-					"Write Clients Waiting":"globalLock.currentQueue.writers", 
-					"Current Active Connections":"connections.current",
-					"Open Cursors":"cursors.totalOpen"
-				]
-			])
-		}		
-	])
-	// UI config below
+    plugins([ 	
+        plugin {
+            name "MongoDBMonitorsPlugin"
+            className "org.cloudifysource.mongodb.MongoDBMonitorsPlugin"
+            config([				
+                   "host":"127.0.0.1",				
+                   "dbName":"petclinic",
+                   "dataSpec" : [
+                                "Active Read Clients":"globalLock.activeClients.readers", 
+                                "Active Write Clients":"globalLock.activeClients.writers", 
+                                "Read Clients Waiting":"globalLock.currentQueue.readers", 
+                                "Write Clients Waiting":"globalLock.currentQueue.writers", 
+                                "Current Active Connections":"connections.current",
+                                "Open Cursors":"cursors.totalOpen"
+                                ]
+                  ])
+        }		
+    ])
+    // UI config below
 }
 </pre>
 <script>
