@@ -6,9 +6,50 @@ category: Release Notes
 
 h1. Overview
 
-Below is a list of new features, improvements, fixed issues, and known issues in Cloudify 2.0.
+Below is a list of new features, improvements, fixed issues, and known issues in Cloudify.
 
+"Cloudify 2.1.0 M2":#rcm3  - published on March 05, 2012
 "Cloudify 2.0.0 GA":#rcm2  - published on Jan 11, 2012
+
+h1(#rcm3). Cloudify 2.1.0 M2
+
+h4. New Features and Improvements
+|_. ID |_. Description |_. Components |
+|CLOUDIFY-473 | Default cloud driver should share jclouds context across all instances of processing units with same cloud driver config | Cloud Driver |
+|CLOUDIFY-520 | Add multiple mongo instances support with different ports via the mongodb cloudify plugin | Packaging |
+
+h4. Fixed Issues
+|_. ID |_. Description |_. Components |
+|CLOUDIFY-524 | Misleading message when running teardown-cloud ec2 and there is no mgt machine | CLI Cloud Driver |
+|CLOUDIFY-540 | Second bootstrap-localcloud fails to start agent | CLI |
+|CLOUDIFY-550 | Fix RuntimeException being hidden (caught) in the certain situatuins | REST |
+|CLOUDIFY-556 | Add handling for exceptions originated in the adminAPI getters. | REST |
+|CLOUDIFY-573 | Default cloud driver always uses private IP for cluster communications | Cloud Driver |
+|CLOUDIFY-527 | bootstrap-cloud ec2 does not always print error message without --verbose | CLI |
+|CLOUDIFY-577 | wrong message on list-services when no services installed | CLI |
+|CLOUDIFY-470 | ErrorStatusException and CLIStatusException do not have a proper getMessage() implementation | CLI |
+|CLOUDIFY-554 | Azure Bootstrap has difficulties executing groovy scripts | Cloud Driver |
+|CLOUDIFY-451 | REST service must have dependency on managementSpace | CLI REST |
+
+h4. Known Issues 
+|_. ID |_. Description |_. Components |
+|CLOUDIFY-549 | JClouds NullPointerException when parsing image | CLI Cloud Driver |
+|CLOUDIFY-547 | Remove icon URLs from DSL unit test recipes and fix test to check icon actually exists in resources folder | Packaging |
+|CLOUDIFY-552 | The Installation of a recipe doesn't stop | CLI USM |
+|CLOUDIFY-559 | Service installation will fail in the Start event if the .out file is in use(locked). | USM |
+|CLOUDIFY-560 | bootstrap-localcloud should set JAVA_HOME | CLI |
+|CLOUDIFY-564 | Can't find resource for bundle java.util.PropertyResourceBundle, key failed_to_invoke_instance | CLI |
+|CLOUDIFY-566 | WebUI indicates PU is good and then in progress while installing a service that has deployment on another service | USM |
+|CLOUDIFY-572 | Log dump is not created | CLI MONITORING USM |
+|CLOUDIFY-580 | set-instances does not work on non-localcloud! | REST |
+|CLOUDIFY-581 | Teardown cloud keeps machine running on cloud | USM |
+|CLOUDIFY-582 | ESM cannot start new service - loop after restarting new service | USM |
+|CLOUDIFY-583 | pet-clinic recipe stopped working | Packaging |
+|CLOUDIFY-585 | overrides feature in bootstrap-managememnt script does not work | Cloud Driver |
+|CLOUDIFY-586 | Leaked floating IP on openstack if failed to attach IP to server | Cloud Driver |
+|CLOUDIFY-594 | azure:teardown-app --help in the CLI is incorrect | CLI |
+|CLOUDIFY-595 | teardown-cloud wrong description | CLI |
+
 
 h1(#rcm2). Cloudify 2.0.0 GA
 
