@@ -27,9 +27,9 @@
            	
            };
 		   /* ------------- added by Yaron ------------ */
-			$("span.pln").css("cursor","pointer");
-			$("span.pln").hover(function(){$(this).css("background-color:","#CECECE");},function(){$(this).css("background-color:","transparent");});
-	        $("span.pln").click( function(eventObject) {
+			$("span.pln, span.kwd").css("cursor","pointer");
+			$("span.pln, span.kwd").hover(function(){$(this).css("background-color:","#CECECE");},function(){$(this).css("background-color:","transparent");});
+	        $("span.pln, span.kwd").click( function(eventObject) {
 				var currKey = $(eventObject.currentTarget).text().trim();
 				var tooltip = $(".overlay");
 				var position = $(eventObject.currentTarget).offset();				
