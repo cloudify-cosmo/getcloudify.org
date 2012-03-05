@@ -18,6 +18,7 @@ category: FAQ
 * "What application stacks can I use?":#q09
 * "Is Cloudify a service?":#q10
 * "Is Cloudify open source?":#q11
+* "Whats does the test-recipe command do?":#q12
 
 
 h2(#q01). *Q: How do I get cloudify?*
@@ -129,5 +130,25 @@ Some parts of Cloudify are still not open sourced, but we plan to gradually open
 <br/>
 "Back to top":#top
 <hr/>
+
+
+h2(#q12). *Whats does the test-recipe command do?*
+*What is the difference between test-recipe and install-application?*
+
+ *A:* The test-recipe enables you to test one service recipe of yours.
+      The test-recipe actually runs a service recipe (and all its lifecycle event handlers).
+      It does NOT require a bootsrap, nor does it perform one, so obviously, it does NOT create a management machine.
+
+      P.S. : 
+	   Currently Cloudify does NOT enable you test an application recipe, only a service recipe.
+
+<br/>
+"Back to top":#top
+<hr/>
+
+
+
+
+
 
 
