@@ -15,7 +15,11 @@ type: 'The service tier type to be used in the  manangement console, possible va
 numInstances: 'The number of instances planned for this service, required',
 compute: 'A block specifying the compute resources to use for this service',
 template: 'An attribute specifying a template name in the Cloud Driver configuration file',
-lifecycle: 'A block specifying the handlers for the different lifecycle events'
+lifecycle: 'A block specifying the handlers for the different lifecycle events',
+plugins: 'A list of monitoring plugins to be invoked by this recipe',
+plugin: ' A plugin descriptor block, contains the plugin class and configuration',
+className: 'The class to load for this plugin. must be found in the the Cloudify agent classpath. Custom plugins should be under usmlib folder'
+
 }
 </script> 
 
