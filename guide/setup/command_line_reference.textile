@@ -21,7 +21,7 @@ h1. Available Commands
 |azure:bootstrap-app|Starts Azure Role Instances based on the specified application description. |
 |azure:connect-app|Connects to a bootstrapped application. |
 |azure:set-instances|Sets the number of service instances |
-|azure:teardown-app|Installs an application consisting of one or more services. If you specify a folder path it will be packed and deployed. If you sepcify a service archive, the shell will deploy that file.|
+|azure:teardown-app|Uninstalls the application, terminates the management machines all the VMs |
 |bootstrap-cloud|Starts Cloudify Agent without any zone, and the Cloudify management processes on the provided cloud. |
 |bootstrap-localcloud|Starts Cloudify Agent without any zone, and the Cloudify management processes on local machine. These processes are isolated from Cloudify processes running on other machines.|
 |bye|Terminates the shell |
@@ -41,7 +41,7 @@ h1. Available Commands
 |shutdown-management|Shuts down the agent running on the local machine. |
 |start-agent|Starts Cloudify Agent with the specified zone. The agent communicates with other agent and management machines. |
 |start-management|Starts Cloudify Agent with management zone, and the Cloudify management processes on local machine. The management processes communicate with other agent and management machines.|
-|teardown-cloud|Terminates management machines. |
+|teardown-cloud|Uninstalls the installed applications, terminates management machines and all the VMs. |
 |teardown-localcloud|Tears down the Local Cloud installed on the local machine. |
 |test-recipe|Tests a recipe |
 |uninstall-application|Uninstalls an application. |
