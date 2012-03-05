@@ -8,10 +8,14 @@ h3. Click on the keywirds to get more information
 
 <script type="text/javascript">
 var messages = {
-service: 'The service root element',
-name: 'The application or service name',
-
-dependsOn: 'Array of services names on which the current service dependes'
+service: 'The service root element, required',
+name: 'The service name, required',
+icon: 'The service icon file to be used in the management console, optional',
+type: 'The service tier type to be used in the  manangement console, possible values: ',
+numInstances: 'The number of instances planned for this service, required',
+compute: 'A block specifying the compute resources to use for this service',
+template: 'An attribute specifying a template name in the Cloud Driver configuration file',
+lifecycle: 'A block specifying the handlers for the different lifecycle events'
 }
 </script> 
 
