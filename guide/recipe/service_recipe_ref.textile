@@ -8,10 +8,14 @@ h3. Click on the keywirds to get more information
 
 <script type="text/javascript">
 var messages = {
-service: 'The service root element',
-name: 'The application or service name',
-
-dependsOn: 'Array of services names on which the current service dependes'
+service: 'The service root element, required',
+name: 'The service name, required',
+icon: 'The service icon file to be used in the management console, optional',
+type: 'The service tier type to be used in the  manangement console, possible values: ',
+numInstances: 'The number of instances planned for this service, required',
+compute: 'A block specifying the compute resources to use for this service',
+template: 'An attribute specifying a template name in the Cloud Driver configuration file',
+lifecycle: 'A block specifying the handlers for the different lifecycle events'
 }
 </script> 
 
@@ -19,43 +23,43 @@ dependsOn: 'Array of services names on which the current service dependes'
 <pre class='prettyprint'>
 service {
 	
-	name "mongod"
-	icon "mongodb.png"
-	type "NOSQL_DB"
-	numInstances 2
+    name "mongod"
+    icon "mongodb.png"
+    type "NOSQL_DB"
+    numInstances 2
 	
-	compute {
-		template "SMALL_LINUX_32"
-	}
+    compute {
+        template "SMALL_LINUX_32"
+    }
 
-	lifecycle {
-		install "mongod_install.groovy"
-		start "mongod_start.groovy"			
-		startDetectionTimeoutSecs 60
-		startDetection {
-			ServiceUtils.isPortOccupied(context.attributes.thisInstance["port"])
-		}
-	}
+    lifecycle {
+        install "mongod_install.groovy"
+        start "mongod_start.groovy"			
+        startDetectionTimeoutSecs 60
+        startDetection {
+            ServiceUtils.isPortOccupied(context.attributes.thisInstance["port"])
+        }
+    }
 	
-	plugins([ 	
-		plugin {
-			name "MongoDBMonitorsPlugin"
-			className "org.cloudifysource.mongodb.MongoDBMonitorsPlugin"
-			config([				
-				"host":"127.0.0.1",				
-				"dbName":"petclinic",
-				"dataSpec" : [
-				    "Active Read Clients":"globalLock.activeClients.readers", 
-					"Active Write Clients":"globalLock.activeClients.writers", 
-					"Read Clients Waiting":"globalLock.currentQueue.readers", 
-					"Write Clients Waiting":"globalLock.currentQueue.writers", 
-					"Current Active Connections":"connections.current",
-					"Open Cursors":"cursors.totalOpen"
-				]
-			])
-		}		
-	])
-	// UI config below
+    plugins([ 	
+        plugin {
+            name "MongoDBMonitorsPlugin"
+            className "org.cloudifysource.mongodb.MongoDBMonitorsPlugin"
+            config([				
+                   "host":"127.0.0.1",				
+                   "dbName":"petclinic",
+                   "dataSpec" : [
+                                "Active Read Clients":"globalLock.activeClients.readers", 
+                                "Active Write Clients":"globalLock.activeClients.writers", 
+                                "Read Clients Waiting":"globalLock.currentQueue.readers", 
+                                "Write Clients Waiting":"globalLock.currentQueue.writers", 
+                                "Current Active Connections":"connections.current",
+                                "Open Cursors":"cursors.totalOpen"
+                                ]
+                  ])
+        }		
+    ])
+    // UI config below
 }
 </pre>
 <script>
