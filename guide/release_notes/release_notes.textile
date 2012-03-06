@@ -13,19 +13,19 @@ Below is a list of new features, improvements, fixed issues, and known issues in
 
 h1(#rcm3). Cloudify 2.1.0 M2
 
-h4. New Features and Improvements
+h3. New Features and Improvements
 
 |_. ID |_. Description |_. Components |
 |CLOUDIFY-473 | Developers can now use a single jclouds instance for all cloud driver instances. A jclouds context (instance) is fairly heavy (&gt; 7MB on EC2) and takes a while to load. This will save a significant amount of time when installing new services. | Cloud Driver |
 |CLOUDIFY-520 | Add multiple mongo instances support with different ports via the mongodb cloudify plugin | Packaging |
 
-h4. Fixed Issues
+h3. Fixed Issues
 
 |_. ID |_. Description |_. Components |
 |CLOUDIFY-524 | Misleading message when running teardown-cloud ec2 and there is no mgt machine | CLI Cloud Driver |
-|CLOUDIFY-540 | Second bootstrap-localcloud fails to start agent | CLI |
-|CLOUDIFY-550 | Fix RuntimeException being hidden (caught) in the certain situations | REST |
-|CLOUDIFY-556 | Add handling for exceptions originated in the adminAPI getters. | REST |
+|CLOUDIFY-540 | Consecutive bootstrap-localcloud command fails to start agent | CLI |
+|CLOUDIFY-550 | Unrepoerted RuntimeException (caught) in the certain situations | REST |
+|CLOUDIFY-556 | Exceptions henadling for exceptions originated in the adminAPI getters. | REST |
 |CLOUDIFY-573 | Default cloud driver always uses private IP for cluster communications | Cloud Driver |
 |CLOUDIFY-527 | bootstrap-cloud ec2 does not always print error message without --verbose | CLI |
 |CLOUDIFY-577 | wrong message on list-services when no services installed | CLI |
