@@ -28,7 +28,7 @@ h3. Fixed Issues
 |CLOUDIFY-556 | Exceptions henadling for exceptions originated in the adminAPI getters. | REST |
 |CLOUDIFY-573 | Default cloud driver always uses private IP for cluster communications | Cloud Driver |
 |CLOUDIFY-527 | bootstrap-cloud ec2 does not always print error message without --verbose | CLI |
-|CLOUDIFY-577 | wrong message on list-services when no services installed | CLI |
+|CLOUDIFY-577 | Wrong message on list-services when no services installed | CLI |
 |CLOUDIFY-470 | ErrorStatusException and CLIStatusException do not have a proper getMessage() implementation | CLI |
 |CLOUDIFY-554 | Azure Bootstrap has difficulties executing groovy scripts | Cloud Driver |
 |CLOUDIFY-451 | REST service must have dependency on managementSpace | CLI REST |
@@ -36,11 +36,11 @@ h3. Fixed Issues
 h3. Known Issues 
 
 |_. ID |_. Description |_. Components |
-|CLOUDIFY-549 | JClouds NullPointerException when parsing images | CLI Cloud Driver |
+|CLOUDIFY-549 | JClouds throws NullPointerException when parsing images | CLI Cloud Driver |
 |CLOUDIFY-547 | Remove icon URLs from DSL unit test recipes and fix test to check icon actually exists in resources folder | Packaging |
-|CLOUDIFY-552 | The Installation of a recipe doesn't stop | CLI USM |
+|CLOUDIFY-552 | The Installation of a recipe doesn't timeout | CLI USM |
 |CLOUDIFY-559 | Service installation will fail in the Start event if the .out file is in use(locked). | USM |
-|CLOUDIFY-560 | bootstrap-localcloud should set JAVA_HOME | CLI |
+|CLOUDIFY-560 | bootstrap-localcloud doesn't set JAVA_HOME. Use must set manually| CLI |
 |CLOUDIFY-564 | Can't find resource for bundle java.util.PropertyResourceBundle, key failed_to_invoke_instance | CLI |
 |CLOUDIFY-566 | WebUI indicates PU is good and then in progress while installing a service that has deployment on another service | USM |
 |CLOUDIFY-572 | Log dump is not created | CLI MONITORING USM |
