@@ -41,16 +41,16 @@ h3. Known Issues
 |CLOUDIFY-552 | The Installation of a recipe doesn't timeout | CLI USM |
 |CLOUDIFY-559 | Service installation will fail in the Start event if the .out file is in use(locked). | USM |
 |CLOUDIFY-560 | bootstrap-localcloud doesn't set JAVA_HOME. Use must set manually| CLI |
-|CLOUDIFY-564 | Can't find resource for bundle java.util.PropertyResourceBundle, key failed_to_invoke_instance | CLI |
-|CLOUDIFY-566 | WebUI indicates PU is good and then in progress while installing a service that has deployment on another service | USM |
+|CLOUDIFY-564 | Exception thrown when custom command name is wrong or does not exist | CLI |
+|CLOUDIFY-566 | Misleading status for Web Console service during bootstrap| USM |
 |CLOUDIFY-572 | Log dump is not created | CLI MONITORING USM |
-|CLOUDIFY-580 | set-instances does not work on non-localcloud! | REST |
-|CLOUDIFY-581 | Teardown cloud keeps machine running on cloud | USM |
-|CLOUDIFY-582 | ESM cannot start a new service - loop after restarting new service | USM |
-|CLOUDIFY-585 | overrides feature in bootstrap-managememnt script does not work | Cloud Driver |
+|CLOUDIFY-580 | set-instances does not work only on localcloud | REST |
+|CLOUDIFY-581 | Teardown cloud keeps machine running on the cloud | USM |
+|CLOUDIFY-582 | Infinite retries to install a service instance in some situations | USM |
+|CLOUDIFY-585 | override feature in bootstrap-managememnt script does not work | Cloud Driver |
 |CLOUDIFY-586 | Leaked floating IP on openstack if failed to attach IP to server | Cloud Driver |
 |CLOUDIFY-594 | azure:teardown-app --help in the CLI is incorrect | CLI |
-|CLOUDIFY-595 | teardown-cloud wrong description | CLI |
+|CLOUDIFY-595 | teardown-cloud incorrect help information | CLI |
 
 
 h1(#rcm2). Cloudify 2.0.0 GA
