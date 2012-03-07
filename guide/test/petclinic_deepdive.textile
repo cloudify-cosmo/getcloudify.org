@@ -12,6 +12,22 @@ h2. About this deep dive
 This post will give you a more thorough walkthru into the MongoDB recipe in the Pet Clinic Application recipe that we described in the "Quick Start Guide":/guide/qsg/quick_start_guide .
 
 
+h2. What is Database Sharding?
+
+Database Sharding can be simply defined as a "shared-nothing" partitioning scheme for large databases across a number of servers, enabling new levels of database performance and scalability achievable. 
+Another way of "looking" at it, is : 
+Breaking your database down into smaller chunks called "shards" and spreading those shards across a number of distributed servers.
+
+
+h2. MongoDB Sharding
+
+MongoDB supports an automated sharding/partitioning architecture, enabling horizontal scaling across multiple nodes. 
+
+A MongoDB shard cluster consists of two or more shards, one or more configuration servers, and any number of routing processes to which the application servers connect. 
+
+Each shard consists of one or more servers and stores data using mongod processes (mongod is the core MongoDB database process).
+In a production environment, each shard will consist of multiple servers to ensure availability and automated failover. 
+
 
 h2. About the Pet Clinic Application
 
@@ -28,20 +44,6 @@ Obviously, the amount of instances for each of the above components can be easil
 
 *Note*: When you install MongoDB on Windows 7, you need to make sure that you run as an administrator. See "Installing MongoDB on Windows 7":http://www.mongodb.org/display/DOCS/Windows+Service.
 
-h2. What is Database Sharding?
-
-Database Sharding can be simply defined as a "shared-nothing" partitioning scheme for large databases across a number of servers, enabling new levels of database performance and scalability achievable. 
-Another way of "looking" at it, is : 
-Breaking your database down into smaller chunks called "shards" and spreading those shards across a number of distributed servers.
-
-h2. MongoDB Sharding
-
-MongoDB supports an automated sharding/partitioning architecture, enabling horizontal scaling across multiple nodes. 
-
-A MongoDB shard cluster consists of two or more shards, one or more configuration servers, and any number of routing processes to which the application servers connect. 
-
-Each shard consists of one or more servers and stores data using mongod processes (mongod is the core MongoDB database process).
-In a production environment, each shard will consist of multiple servers to ensure availability and automated failover. 
 
 h2. Our Pet Clinic Topology
 
@@ -66,7 +68,7 @@ The following diagram depicts the application recipe file and folder structure:
 <img src="/guide/images/setup/pet_clinic_anatomy3.JPG" />
 
 
-h3. The Mongo Config Server (mongoConfig) Service Recipe
+h2. The Mongo Config Server (mongoConfig) Service Recipe
 
 The Mongo Config Server (mongoConfig) Server recipe does the following:
 * Calculates its port according to its instance ID and properties file and notifies the serviceContext, so that the other services will be able to access it.
@@ -77,7 +79,7 @@ The Mongo Config Server (mongoConfig) Server recipe does the following:
 
 The mongo-config service file is located at &lt;cloudify root&gt;/examples/petclinic/mongoConfig/mongoConfig-service.groovy. 
 
-h3. The Mongo Sharding Server (mongos) Recipe 
+h2. The Mongo Sharding Server (mongos) Recipe 
 
 The Mongo Router (mongos) recipe does the following:
 * Calculates its port according to its instance ID and properties file and notifies the serviceContext, so that the other services will be able to access it.
@@ -89,7 +91,7 @@ The Mongo Router (mongos) recipe does the following:
 
 The mongos service file is located at &lt;cloudify root&gt;/examples/petclinic/mongos/mongos-service.groovy.
 
-h3. The Mongo Data Shards (mongod) Recipe
+h2. The Mongo Data Shards (mongod) Recipe
 
 The Mongo Data Shards (mongod) Recipe does the following:
 * Calculates its port according to its instance ID and properties file and notifies the serviceContext, so that the other services will be able to access it.
