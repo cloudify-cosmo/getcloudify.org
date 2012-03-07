@@ -4,10 +4,7 @@ title: Mongo DB Sharding in Pet Clinic Application recipe
 cat: User Guide
 ---
 
-h1. Introduction
-
-
-h2. About this deep dive
+h2. About this post
 
 This post will give you a more thorough walkthru into the MongoDB recipe in the Pet Clinic Application recipe that we described in the "Quick Start Guide":/guide/qsg/quick_start_guide .
 
@@ -52,8 +49,13 @@ Here's our Pet Clinic Application's Topology:
 
 <img src="/guide/images/overview/petClinicSharding.jpg" />
 
+h2. Our Pet Clinic Recipe Anatomy
 
-h1. Mongo services in the Pet Clinic Recipe
+The following diagram depicts the application recipe file and folder structure: 
+
+<img src="/guide/images/setup/pet_clinic_anatomy3.JPG" />
+
+h2. Mongo services in the Pet Clinic Recipe
 
 Let's take a closer look at the Mongo entities in the PetClinic application recipe.
 # The Configuration Server (mongoConfig) recipe folder
@@ -62,10 +64,6 @@ Let's take a closer look at the Mongo entities in the PetClinic application reci
 
 In each of the above folders you will find all the files required to run the corresponding service. 
 A "service" in this context is an application tier - e.g. web container, database, etc.
-
-The following diagram depicts the application recipe file and folder structure: 
-
-<img src="/guide/images/setup/pet_clinic_anatomy3.JPG" />
 
 
 h2. The Mongo Config Server (mongoConfig) Service Recipe

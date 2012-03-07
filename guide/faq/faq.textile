@@ -19,6 +19,7 @@ category: FAQ
 * "Is Cloudify a service?":#q10
 * "Is Cloudify open source?":#q11
 * "What does the test-recipe command do?":#q12
+* "Where will the serviceDirectory point to?":#q13
 
 
 h2(#q01). *Q: How do I get cloudify?*
@@ -142,6 +143,20 @@ h2(#q12). *What does the test-recipe command do?*
       P.S. : 
 	   Currently Cloudify does NOT enable you test an application recipe, only a service recipe.
 
+<br/>
+"Back to top":#top
+<hr/>
+
+h2(#q13). *Where will the serviceDirectory point to?*
+*If I have two service instances.*
+*Will the statement ${serviceContext.serviceDirectory} be identical for both them on localcloud?*
+
+ *A:* No. 
+      The ${serviceContext.serviceDirectory} is actually the instance's working directory.
+      Each instance has its own working directory on every cloud (public, private and localcloud).
+      Assuming that your service is named myService:
+       The 1st instance's working directory will be myService_1 and the second's will be myService_2.
+ 
 <br/>
 "Back to top":#top
 <hr/>
