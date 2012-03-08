@@ -66,6 +66,24 @@ In each of the above folders you will find all the files required to run the cor
 A "service" in this context is an application tier - e.g. web container, database, etc.
 
 
+h2. The Mongo Data Shards (mongod) Recipe
+
+The Mongo Data Shards (mongod) Recipe does the following:
+* Calculates its port according to its instance ID and properties file and notifies the serviceContext, so that the other services will be able to access it.
+* Downloads, unzips and installs the mongo binaries on the VM
+* Starts the Shard Server process.
+* Detects a successful startup using the MongoLivenessDetector plugin
+* Looks for metrics (Active Read Clients, Active Write Client etc.) to be displayed in the Web UI.
+
+The mongod service file is located at &lt;cloudify root&gt;/examples/petclinic/mongod/mongod-service.groovy.
+
+<script src="https://gist.github.com/1999961.js?file=mongod_install.groovy"></script>
+
+Here's the start bla bla .... 
+
+<script src="https://gist.github.com/2000070.js?file=mongod_start.groovy"></script>
+
+
 h2. The Mongo Config Server (mongoConfig) Service Recipe
 
 The Mongo Config Server (mongoConfig) Server recipe does the following:
@@ -89,19 +107,8 @@ The Mongo Router (mongos) recipe does the following:
 
 The mongos service file is located at &lt;cloudify root&gt;/examples/petclinic/mongos/mongos-service.groovy.
 
-h2. The Mongo Data Shards (mongod) Recipe
 
-The Mongo Data Shards (mongod) Recipe does the following:
-* Calculates its port according to its instance ID and properties file and notifies the serviceContext, so that the other services will be able to access it.
-* Downloads, unzips and installs the mongo binaries on the VM
-* Starts the Shard Server process.
-* Detects a successful startup using the MongoLivenessDetector plugin
-* Looks for metrics (Active Read Clients, Active Write Client etc.) to be displayed in the Web UI.
-
-The mongod service file is located at &lt;cloudify root&gt;/examples/petclinic/mongod/mongod-service.groovy.
-
-
-Here's the relevant code snippets that show how we expose the mongos service instance (host and port) to the tomcat service instance.
+Here are the relevant code snippets that show how we expose the mongos service instance (host and port) to the tomcat service instance.
 For that purpose, we use our powerful ServiceContext API and its k/v store mechanism.
 
 <script src="https://gist.github.com/1698917.js?file=exposeMongosService.groovy"></script>
