@@ -139,7 +139,7 @@ h2(#q12). *Q: What does the test-recipe command do?*
  *A:* The test-recipe enables you to test one service recipe of yours. <br/> 
       The test-recipe actually runs a service recipe (and all its lifecycle event handlers).<br/>
       It does NOT require a bootsrap, nor does it perform one, so obviously, it does NOT create a management machine.
-<br/><br/>	  
+<br/>
       P.S. : 
 	   Currently Cloudify does NOT enable you test an application recipe, only a service recipe.
 
@@ -156,11 +156,13 @@ h2(#q13). *Q: Where will the serviceDirectory point to?*
       The ${serviceContext.serviceDirectory} is actually the instance's working directory.
 
     <br/>  Each instance has its own working directory on every cloud (public, private and localcloud).
-
-    <br/>  Assuming that your application is named myApp and your service is named myService:
-    <br/>   On localcloud:   The 1st instance's working directory will be &lt;Cloudify Root&gt;/work/processing-units/myApp_myService_1/ext and the second's will be &lt;Cloudify Root&gt;/work/processing-units/myApp_myService_2/ext.
-    <br/>   On a real cloud: The 1st instance's working directory will be remoteDirectory/work/processing-units/myApp_myService_1/ext and the second's will be remoteDirectory/work/processing-units/myApp_myService_2/ext.
-	<br/>   remoteDirectory should be set in the provider section in <Cloudify Root>/tools/cli/plugins/esc/YOUR_CLOUD_PROVIDER_NAME/YOUR_CLOUD_PROVIDER_NAME-cloud.groovy .
+<br/>
+    <br/>  Assuming that your application is named myApp and your service is named myService:<br/>
+ *On localcloud:*
+ <br/> The 1st instance's working directory will be &lt;Cloudify Root&gt;/work/processing-units/myApp_myService_1/ext and the second's will be &lt;Cloudify Root&gt;/work/processing-units/myApp_myService_2/ext.<br/>
+ *On a real cloud:* 
+ <br/> The 1st instance's working directory will be remoteDirectory/work/processing-units/myApp_myService_1/ext and the second's will be remoteDirectory/work/processing-units/myApp_myService_2/ext.<br/> 
+ *Note* that remoteDirectory should be set in the provider section in <Cloudify Root>/tools/cli/plugins/esc/YOUR_CLOUD_PROVIDER_NAME/YOUR_CLOUD_PROVIDER_NAME-cloud.groovy .
  
 <br/>
 "Back to top":#top
