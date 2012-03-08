@@ -159,9 +159,11 @@ h2(#q13). *Q: Where will the serviceDirectory point to?*
 
     <br/>  Assuming that your application is named myApp and your service is named myService:<br/>
 * *On localcloud:*
- The 1st instance's working directory will be &lt;Cloudify Root&gt;/work/processing-units/myApp_myService_1/ext and the second's will be &lt;Cloudify Root&gt;/work/processing-units/myApp_myService_2/ext.<br/>
+** The 1st instance's working directory will be &lt;Cloudify Root&gt;/work/processing-units/myApp_myService_1/ext 
+** The second's will be &lt;Cloudify Root&gt;/work/processing-units/myApp_myService_2/ext.
 * *On a real cloud:* 
-  The 1st instance's working directory will be remoteDirectory/work/processing-units/myApp_myService_1/ext and the second's will be remoteDirectory/work/processing-units/myApp_myService_2/ext.<br/> 
+** The 1st instance's working directory will be remoteDirectory/work/processing-units/myApp_myService_1/ext 
+** The second's will be remoteDirectory/work/processing-units/myApp_myService_2/ext.
   *Note* that remoteDirectory should be set in the provider section in <Cloudify Root>/tools/cli/plugins/esc/YOUR_CLOUD_PROVIDER_NAME/YOUR_CLOUD_PROVIDER_NAME-cloud.groovy .
  
 <br/>
