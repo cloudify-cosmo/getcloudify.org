@@ -77,10 +77,10 @@ The Mongo Data Shards (mongod) Recipe does the following:
 
 The mongod service file is located at &lt;cloudify root&gt;/examples/petclinic/mongod/mongod-service.groovy.
 
-The following is the installation event handler:
+The following is the installation event handler of the mongod service:
 <script src="https://gist.github.com/1999961.js?file=mongod_install.groovy"></script>
 
-And here's start event handler:
+And here's the start event handler of the mongod service:
 <script src="https://gist.github.com/2000070.js?file=mongod_start.groovy"></script>
 
 
@@ -94,6 +94,10 @@ The Mongo Config Server (mongoConfig) Server recipe does the following:
 * Looks for metrics (Active Read Clients, Active Write Client etc.) to be displayed in the Web UI.
 
 The mongo-config service file is located at &lt;cloudify root&gt;/examples/petclinic/mongoConfig/mongoConfig-service.groovy. 
+
+The installation event handler of the mongoConfig service is similar to the mongod service.
+Here's The start event handler of the mongoConfig service:
+
 
 h2. The Mongo Sharding Server (mongos) Recipe 
 
