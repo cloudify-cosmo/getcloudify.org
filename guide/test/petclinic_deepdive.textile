@@ -113,16 +113,16 @@ The Mongo Router (mongos) recipe does the following:
 The mongos service file is located at &lt;cloudify root&gt;/examples/petclinic/mongos/mongos-service.groovy.
 
 
-Here are the relevant code snippets that show how we expose the mongos service instance (host and port) to the tomcat service instance.
-For that purpose, we use our powerful ServiceContext API and its k/v store mechanism.
-
-<script src="https://gist.github.com/1698917.js?file=exposeMongosService.groovy"></script>
   
-And then we retrieve the data in &lt;cloudify root&gt;/examples/petclinic/tomcat/tomcat_start.groovy
+And then the tomcat service can retrieve the data in &lt;cloudify root&gt;/examples/petclinic/tomcat/tomcat_start.groovy
 
 <script src="https://gist.github.com/1698923.js?file=retrieveMongosServie.groovy"></script>
 
 From this point, the tomcat service instance knows the host address and port of the mongos service instance.
+
+
+
+
 
 
 

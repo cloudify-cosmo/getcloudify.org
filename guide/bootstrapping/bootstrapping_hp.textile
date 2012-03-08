@@ -13,15 +13,13 @@ h1. Bootstrapping on HP
 
 In order to bootstrap Cloudify on the HP cloud you first need to set up  an account. Before you can use the shell to bootstrap your  environment for the first time, please have the following:
 1. Generate a private key and place the file (.pem) under &lt;Cloudify Root&gt;/tools/cli/plugins/esc/openstack/upload folder.
-* In the "HP web console":https://manage.hpcloud.com/compute/100/keypairs create a key pair and copy the private key and save it as a  .pem file.
+* In the "keypairs":https://manage.hpcloud.com/compute/100/keypairs section of the HP web console, create a key pair, copy the private key and save it as a .pem file.
 
 Step 1:
 <img src="/guide/images/hp/compute_create_new_key_pair_hp_cloud_services.png" />
 
 Step 2:
-<img src="/guide/images/hp/api_keys_hp_cloud_services.png" />
 <img src="/guide/images/hp/compute_create_new_key_pair_2_hp_cloud_services.png" />
-
 
 * This private key is used by the Cloudify cloud driver to create SSH connections to the newly created instances.
 
@@ -41,8 +39,8 @@ Step 2:
  ** *user* - Insert your Access Key.
  ** *apiKey* - Insert your Secret Access Key.
  
-You can get your access key and secrey key in the 'API Keys' section of the web console: https://manage.hpcloud.com/account/api_keys.
-As shown below
+You can get your access key and secret key in the "API Keys":https://manage.hpcloud.com/account/api_keys section of the web console as shown below
+<img src="/guide/images/hp/api_keys_hp_cloud_services.png" />
 {color:red}N.{color} 
 ** *keyFile* - Insert the name of the private key file that you created (i.e.: myKeyPair-name.pem in our example).
 
@@ -62,6 +60,6 @@ Here's an example of openstack-cloud.groovy(with placeholders):
 * Once you are done, run &lt;Cloudify Root&gt;/tools/cli/cloudify.sh (or cloudify.bat on Windows) and then(when it's ready), run the following command: *bootstrap-cloud openstack* as shown below:
 
 <br/>
-<img src="/guide/images/setup/bootstrap_hp.jpg" />
+<img src="/guide/images/setup/bootstrap_hp.png" />
 
 <br/>
