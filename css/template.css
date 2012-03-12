@@ -446,15 +446,19 @@ table.overviewtable td {
 
 /* for pretty print*/
 .overlay {
-    position: absolute;
+position: absolute;
+min-width: 200px;
+min-height: 30px;
+display:none;
+z-index: 3000;
+overflow:visible;
+}
+.overlayFrame {
+    
 	/* box-shadow: 10px 10px 5px #888888; */
 	background-color:#ecf3fa;
 	/* opacity:0.85; */
-	min-width: 200px;
-	min-height: 30px;
-	overflow:visible;
-	display:none;
-	z-index: 3000;
+	
 	text-align: left;
 	padding:2px 2px 2px 2px;
 	
