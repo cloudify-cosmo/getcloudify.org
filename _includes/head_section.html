@@ -28,10 +28,9 @@
 				var currKey = $(eventObject.currentTarget).text().trim();
 				var tooltip = $(".overlay");
 				var position = $(eventObject.currentTarget).offset();				
-				$("#desc",tooltip).text(messages[currKey]);				
-				//tooltip.css("top",position.top - 50 + "px").css("left",eventObject.pageX).show();
-				tooltip.offset({ top: position.top - 50, left: eventObject.pageX }).show();
-				$("#closeBut").click(function() {$(".overlay").hide();})
+				$("#desc",tooltip).text(messages[currKey]);		
+				tooltip.offset({ top: position.top - 50, left: position.left }).show();
+				$("#closeBut").click(function() {$(".overlay").offset({top:0,left:0}).hide();})
 			 });	
            }
 	 );
