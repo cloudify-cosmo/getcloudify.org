@@ -29,7 +29,8 @@
 				var tooltip = $(".overlay");
 				var position = $(eventObject.currentTarget).offset();				
 				$("#desc",tooltip).text(messages[currKey]);				
-				tooltip.css("top",position.top - 50 + "px").css("left",eventObject.pageX + 100 + "px").show();
+				//tooltip.css("top",position.top - 50 + "px").css("left",eventObject.pageX).show();
+				tooltip.offset({ top: position.top - 50, left: eventObject.pageX }).show();
 				$("#closeBut").click(function() {$(".overlay").hide();})
 			 });	
            }
