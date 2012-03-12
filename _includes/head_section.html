@@ -25,11 +25,11 @@
 			$("span.pln, span.kwd").css("cursor","pointer");
 			$("span.pln, span.kwd").hover(function(){$(this).css("background-color","#CECECE");},function(){$(this).css("background-color","transparent");});
 	        $("span.pln, span.kwd").click( function(eventObject) {
-				var currKey = $(eventObject.delegateTarget).text().trim();
+				var currKey = $(eventObject.currentTarget).text().trim();
 				var tooltip = $(".overlay");
-				var position = $(eventObject.delegateTarget).offset();				
+				var position = $(eventObject.currentTarget).offset();				
 				$("#desc",tooltip).text(messages[currKey]);				
-				tooltip.css("top",position.top - 50 + "px").css("left",position.left + 50 + "px").show();
+				tooltip.css("top",position.top - 50 + "px").css("left",eventObject.pageX + 100 + "px").show();
 				$("#closeBut").click(function() {$(".overlay").hide();})
 			 });	
            }
