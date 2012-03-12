@@ -23,38 +23,19 @@ Cloudify's mission statement can be stated as follows: to cloud-enable enterpris
 
     <tr>
         <td><img src="/guide/images/overview/any-stack.jpg"/></td>
-        <td><b>Any app, any stack:</b> We wanted to provide a flexible yet simple mechanism to deploy and manage
-            applications on the cloud. But we also wanted it to be flexible enough to support any kind of application.
-            In other words, we decided that our platform would support your application no matter what application stack
-            you use (Java/Spring, Java EE, PHP, .NET, Ruby on Rails or others), whether you are using a relational (such
-            as MySQL) or non-relational (e.g., Apache Cassandra) data store, or if you choose to add other middleware
-            components. Regardless of your application set-up, you can still use Cloudify to... Cloudify it.
+        <td><b>Any app, any stack:</b> We wanted to provide a flexible yet simple mechanism to deploy and manage applications on the cloud. But we also wanted it to be flexible enough to support any kind of application. In other words, we decided that our platform would support your application no matter what application stack you use (Java/Spring, Java EE, PHP, .NET, Ruby on Rails or others), whether you are using a relational (such as MySQL) or non-relational (e.g., Apache Cassandra) data store, or if you choose to add other middleware components. Regardless of your application set-up, you can still use Cloudify to... Cloudify it.
         </td>
     </tr>
 
     <tr>
         <td><img src="/guide/images/overview/Any-cloud.jpg"/></td>
-        <td><b>Any cloud:</b> Enterprises want the same kind of flexibility in their underlying cloud environment as
-            they do with the application stack. Some are looking to use public clouds such as Amazon, Rackspace, and
-            Azure, while others are focused on private clouds, ranging from higher-level cloud platforms such as
-            OpenStack and cloud.com, all the way down to plain virtualized environments such as VMWare vCenter and
-            Citrix XenServer. Moreover, some enterprises have expressed the need to deploy the same application on
-            multiple environments, say, for cloud bursting. This meant that we had to create a framework flexible enough
-            to handle any application stack, yet on the other hand, isolate the application completely from the
-            underlying cloud runtime, whatever it may be.
+        <td><b>Any cloud:</b> Enterprises want the same kind of flexibility in their underlying cloud environment as they do with the application stack. Some are looking to use public clouds such as Amazon, Rackspace, and Azure, while others are focused on private clouds, ranging from higher-level cloud platforms such as OpenStack and cloud.com, all the way down to plain virtualized environments such as VMWare vCenter and             Citrix XenServer. Moreover, some enterprises have expressed the need to deploy the same application on             multiple environments, say, for cloud bursting. This meant that we had to create a framework flexible enough             to handle any application stack, yet on the other hand, isolate the application completely from the underlying cloud runtime, whatever it may be.
         </td>
     </tr>
 
     <tr>
         <td><img src="/guide/images/overview/Full-control.jpg"/></td>
-        <td><b>Full control:</b> When deploying enterprise, mission-critical apps to the cloud using existing PaaS
-            solutions, you gain benefits in agility and productivity, because the underlying OS and runtime are no
-            longer the issue, but rather the application itself. But in many cases, you lose at least some degree of
-            control, because you are not exposed to the underlying infrastructure and cannot monitor and tune it as you
-            are accustomed to with traditional data centers and applications. Because Cloudify does have access to those
-            resources, it can provide a much greater level of control, but only if you actually want it. Otherwise, it
-            hides the complexities using a set of predefined application blueprints and best practices that the users
-            with less advanced needs will typically find sufficient.
+        <td><b>Full control:</b> When deploying enterprise, mission-critical apps to the cloud using existing PaaS solutions, you gain benefits in agility and productivity, because the underlying OS and runtime are no longer the issue, but rather the application itself. But in many cases, you lose at least some degree of control, because you are not exposed to the underlying infrastructure and cannot monitor and tune it as you are accustomed to with traditional data centers and applications. Because Cloudify does have access to those             resources, it can provide a much greater level of control, but only if you actually want it. Otherwise, it             hides the complexities using a set of predefined application blueprints and best practices that the users with less advanced needs will typically find sufficient.
         </td>
     </tr>
 
@@ -164,30 +145,11 @@ The issue of Cloud portability is often overlooked, because in the quest for app
             and cloud environments, or availability zones of the same cloud environment as part of the same application.
             This can help you deal with a number of important scenarios:
             <ul>
-                <li>*Cloud bursting*: An application's average load is often different from its peak load. For example,
-                    e-commerce websites sustain a fairly consistent load most of the year. Then, for very short periods,
-                    such as Black Friday or Cyber Monday, loads increase significantly. If an application is serviced
-                    from a public cloud, it can easily accommodate the increase (assuming the application is scalable
-                    enough, of course). But if you are running in your own data center, you don't want to buy ten times
-                    more hardware than you need on average just to be able to sustain the Black Friday loads. In this
-                    case, an appealing option is to "burst" to the cloud - use the cloud to provision more resources
-                    when needed and have the application use them to deal with the excess load. To be able to burst to
-                    the cloud, you need a framework that can manage the application in your own data center (virtualized
-                    or not) and on public clouds.
+                <li>*Cloud bursting*: An application's average load is often different from its peak load. For example, e-commerce websites sustain a fairly consistent load most of the year. Then, for very short periods, such as Black Friday or Cyber Monday, loads increase significantly. If an application is serviced from a public cloud, it can easily accommodate the increase (assuming the application is scalable enough, of course). But if you are running in your own data center, you don't want to buy ten times more hardware than you need on average just to be able to sustain the Black Friday loads. In this case, an appealing option is to "burst" to the cloud - use the cloud to provision more resources when needed and have the application use them to deal with the excess load. To be able to burst to the cloud, you need a framework that can manage the application in your own data center (virtualized or not) and on public clouds.
                 </li>
-                <li>*Improving Quality of Service*: Applications that service users globally often use content delivery
-                    networks. But CDNs are only good for static content (images, videos, etc.). What if you could bring
-                    the entire application closer to the users? Having a platform that can manage the application on
-                    multiple zones or environments is a key enabler for this. Simply choose the availability zones and
-                    cloud providers that are closest to your users and deploy the application there. The ability of the
-                    deployment platform to isolate the application from the underlying cloud environment is what makes
-                    this possible.
+                <li>*Improving Quality of Service*: Applications that service users globally often use content delivery networks. But CDNs are only good for static content (images, videos, etc.). What if you could bring the entire application closer to the users? Having a platform that can manage the application on multiple zones or environments is a key enabler for this. Simply choose the availability zones and cloud providers that are closest to your users and deploy the application there. The ability of the deployment platform to isolate the application from the underlying cloud environment is what makes this possible.
                 </li>
-                <li>*Cross-Data-Center and Cross-Cloud High Availability*: Deploying your application on multiple cloud
-                    environments, or even multiple data centers of the same cloud environment, makes it far less
-                    sensitive to failures. While parts of your application may be out of service, other parts can still
-                    be fully functional and even used to compensate for the failures of other parts and receive traffic
-                    that they serviced before the failure
+                <li>*Cross-Data-Center and Cross-Cloud High Availability*: Deploying your application on multiple cloud environments, or even multiple data centers of the same cloud environment, makes it far less sensitive to failures. While parts of your application may be out of service, other parts can still be fully functional and even used to compensate for the failures of other parts and receive traffic that they serviced before the failure.
                 </li>
             </ul>
         </td>
