@@ -2,7 +2,7 @@
 /* CSS Document */
 /*** Core html template stuff ***/
 html{ background:url(../images/bgTopX.png) repeat-x top center;width:100%; }
-body{ font-family:"ProximaNova-Regular",Arial, Helvetica, sans-serif; color:#231f20; text-align:left;font-size:14px; margin:0px auto; width:100%;overflow: auto;background:url(../images/bgFooterWrap.png) no-repeat bottom center; }
+body{ font-family:"ProximaNova-Regular",Arial, Helvetica, sans-serif; color:#231f20; text-align:left;font-size:14px; margin:0px auto; width:100%;overflow: auto;background:url(../images/bgFooter.png) repeat-x bottom center; }
 
 p, pre, blockquote,a, ol, h1, h2, h3, h4, h5, h6, ul, li, select, input,textarea, table, td, tr, span, label, form { direction:ltr;font-family:font-family:"ProximaNova-Regular",Arial, Helvetica, sans-serif;}
 div, th{ text-align:left}	
@@ -52,7 +52,7 @@ input.button { cursor: pointer; border: #666666 solid 1px; color:#FFFFFF; font-w
 input.button:hover { }
 
  p { margin-top: 0; margin-bottom: 5px; }
-
+h3.searchNoResult{ min-height:400px}
 img { border: 0 none; }
 
 .clear { 
@@ -94,9 +94,9 @@ li.expandBtn{ background:none !important; color:#FDA603 !important; display:inli
 ._topmenu li.sep{ background:url(../images/bgLiSep.png) no-repeat top left; width:2px; height:50px; margin:4px 0 0 0; padding:0px; float:left}
 ._topmenu li.topmenuli a{ color:#123448; display:block;}
 ._topmenu li.topmenuli a span{width:auto;display:block;}
-span.title1{ font-family: "ProximaNova-Bold";font-size:18px;line-height:22px;}
+span.title1{ font-family: "ProximaNova-Bold";font-size:14px;line-height:18px;}
 ._topmenu li.topmenuli a:hover span.title1{ text-decoration:underline;}
-span.title2{ font-family: "ProximaNova-Bold";color:#5b94af;font-size:14px; line-height:14px;}
+span.title2{ font-family: "ProximaNova-Bold";color:#5b94af;font-size:12px; line-height:13px;}
 
 ._topmenu li.topmenuli a {
    background: url(../images/menuIconsSpriteAll.png) no-repeat top left; padding:10px 0 8px 52px;
@@ -137,6 +137,27 @@ span.title2{ font-family: "ProximaNova-Bold";color:#5b94af;font-size:14px; line-
 
 /*---------------------------------------REMOVE AFTER LAUNCH-------------------------------*/
 
+/*----------------------------------------------------------------------
+	new top menu
+----------------------------------------------------------------------*/
+
+._topmenu li.topmenuli a {
+   background: url(../images/top-menu-sprites.png) no-repeat top left; padding:13px 0 8px 46px;
+}
+._topmenu li.topmenuli a.bgMenu1{ background-position: 5px 12px; } 
+._topmenu li.topmenuli:hover a.bgMenu1,._topmenu li.topmenuli#current a.bgMenu1{ background-position: 5px -69px; } 
+._topmenu li.topmenuli a.bgMenu2{ background-position: 12px -230px; padding-left:50px} 
+._topmenu li.topmenuli:hover a.bgMenu2,._topmenu li.topmenuli#current a.bgMenu2{ background-position: 12px -314px;} 
+._topmenu li.topmenuli a.bgMenu3{ background-position: 5px /*-399px;*not soon*/ -566px} 
+._topmenu li.topmenuli:hover a.bgMenu3,._topmenu li.topmenuli#current a.bgMenu3{ /*background-position: 5px -483px;*/ background-position: 5px /*-399px;*not soon*/ -566px } 
+._topmenu li.topmenuli a.bgMenu4{ background-position: 4px /*-651px;*not soon*/-823px;padding-left:48px} 
+._topmenu li.topmenuli:hover a.bgMenu4,._topmenu li.topmenuli#current a.bgMenu4{ background-position: 4px /*-651px;*not soon*/-823px/*background-position: 4px -737px;*/ } 
+._topmenu li.topmenuli a.bgMenu5{ background-position: 12px /*-909px;*not soon*/-1075px;padding-left:58px} 
+._topmenu li.topmenuli:hover a.bgMenu5,._topmenu li.topmenuli#current a.bgMenu5{ background-position: 12px /*-909px;*not soon*/-1075px/*background-position: 12px -992px;*/} 
+._topmenu li.topmenuli a.bgMenu6{ background-position: 7px /*-1157px;*not soon*/-1317px;padding-left:54px} 
+._topmenu li.topmenuli:hover a.bgMenu6,._topmenu li.topmenuli#current a.bgMenu6{  background-position: 7px /*-1157px;*not soon*/-1317px/*background-position: 7px -1237px;*/} 
+/*-------*/
+
 
 
 
@@ -152,6 +173,8 @@ span.title2{ font-family: "ProximaNova-Bold";color:#5b94af;font-size:14px; line-
 input#search{ float:left; margin:15px 0 0 13px; width:452px; background:none; border:none; padding:3px 0 0 25px; text-shadow:0 -1px 0 white; font-style:italic;font-family:"ProximaNova-Regular"; font-size:16px;color:#304e62}
 input#goBtn{ position:relative; float:right; right:10px;top:-25px; background:url(../images/btnGo.png) no-repeat top left; width:57px; height:27px; text-indent:-999px; overflow:hidden;cursor:pointer; border:none;}
 input#goBtn:hover{ background-position:0 -28px}
+input.goBtn{ position:relative; float:right; right:10px;top:-25px; background:url(../images/btnGo.png) no-repeat top left; width:57px; height:27px; text-indent:-999px; overflow:hidden;cursor:pointer; border:none;}
+input.goBtn:hover{ background-position:0 -28px}
 
 .learnFrom h2{ font-family:"ProximaNova-Regular"; color:#ffffff; font-weight:normal; float:left; margin:25px 0 0 68px}
 .content{background:url(../images/bgInnerContentToppic.png) top left repeat-y;}
@@ -355,6 +378,10 @@ margin: 0 !important;
 .fan_box .connect_widget td.connect_widget_vertical_center {
 padding: 0 !important;
 background:#F3F3F3;
+border:none;
+}
+.app_content_7169711435 .regulartable tr, .app_content_7169711435 td {
+    border: none;
 }
 
 
@@ -647,7 +674,7 @@ img.comment-bottom{position:absolute; bottom:0; margin:0;}
 .homeSearch{background: url(../images/bgSearch-w712.png) no-repeat top left; height:69px; position:relative; width:100%}
 .homeSearch h2{ font-family:"ProximaNova-Regular"; color:#ffffff; font-weight:bold; float:left; margin:25px 0 0 20px}
 .homeSearch .searchWrap{background: url(../images/home/hp-search-bg.png) no-repeat top left; height:50px; width:449px; position:relative; top:9px; right:10px; float:right;}
-.homeSearch input.search{ float:left; margin:15px 0 0 13px; width:452px; background:none; border:none; padding:3px 0 0 25px; text-shadow:0 -1px 0 white; font-style:italic;font-family:"ProximaNova-Regular"; font-size:16px;color:#304e62}
+.homeSearch input.search{ float:left; margin:15px 0 0 13px; width:359px; background:none; border:none; padding:3px 0 0 25px; text-shadow:0 -1px 0 white; font-style:italic;font-family:"ProximaNova-Regular"; font-size:16px;color:#304e62}
 
 .hp-left-col{float:left;width:712px;}
 .hp-right-col{float:right;width:240px;}
@@ -659,7 +686,7 @@ img.comment-bottom{position:absolute; bottom:0; margin:0;}
 
 
 .tblSections{border:0; text-align:center; width:100%; margin:38px 0 45px 9px;}
-.tblSections tr, .tblSections td{padding:0;margin:0;}
+.tblSections tr, .tblSections td{padding:0;margin:0; border:0}
 .tblSections img{display:block;margin:0 auto 12px auto;}
 
 .secTitle{color:#38cbe6;font-weight:bold; font-size:28px;}
