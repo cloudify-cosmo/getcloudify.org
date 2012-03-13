@@ -1,13 +1,12 @@
 ﻿new TWTR.Widget({
     version: 2,
-    type: 'profile',
-    width:100,
+    type: 'search',
+    search: '@cloudifysource',
     interval: 30000,
-	  rpp: 3,
     title: '',
     subject: '',
-    width: 230,
-    height: 278,	
+    width: 220,
+    height: 60,
     theme: {
         shell: {
             background: 'none',
@@ -26,5 +25,5 @@
 		avatars: false,
         behavior: 'default'
     }
-}).render().setUser('cloudifysource').start();
+}).render().start();
 
