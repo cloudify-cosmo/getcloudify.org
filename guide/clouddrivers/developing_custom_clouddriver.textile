@@ -43,6 +43,19 @@ This in turn will call the Cloud API using the API security settings in order to
 
 <script src="https://gist.github.com/2036493.js?file=createServer.java"></script>
 
+This will return an array of MachineDetails (org.cloudifysource.esc.driver.provisioning.MachineDetails) for each of the management Machines.
+These details will be used by Cloudify CLI to connect to the Hosts and install the management components on them. Finally Cloudify will start the Cloudify Controller components: the ESM, the GSM, the LUS and the Management Space. It will also start the Web Container for the Management application and the REST API container.
+
+h4. Installing an Application
+
+This is a server side scenario from Cloud Driver perspective. Once the Controller had been instructed to install an application, it will command the Driver to start X virtual machines according to the recipe instructions.
+The Cloud Driver needs first to get the Admin Object so it can report to the Admin about the VMs public IPs and other details. This is done using the setAdmin method by the Controller
+Next the Controller will ask the Driver to repeat the startMachine method until all machines are up and running with Cloudify Agent registered in the LUS or until timeout occurs.
+The startMachine flow is simple: The driver calls the IaaS API. Polls the API for the VM details. Ping the VM to makes sure its accessible and then access it with SSH, this time installing the Cloudify Agent components: GSA and GSC and starting them.
+The Driver will get the machine information from the template properties corresponding to the requested template name. The template information is within the config object
+The same flow will happen if the Controller needs to compensate for a crushed VM or to rebalance one of the services.
+
+
 
 h1. The Cloud Driver Interface
 
