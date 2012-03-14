@@ -29,6 +29,19 @@ The below sequence diagrams explains it in a more technical fashion.
 <img src="/guide/images/clouddrivers/cluster-healing.png"/>
 
 
+h3. Flows explained
+
+h4. Bootstrapping Cloud
+
+In this scenario the Cloud Driver resides on the client side as no VM with Cloudify Server (Controller) exist.
+The user instructs the Cloudify Interactive Shell to bootstrap Cloudify, providing a specific Cloud Driver implementation and configuration.
+The Cloud Driver is instantiated by the shell and now the shell will need to give the Driver Reference to its configuration object
+(org.cloudifysource.dsl.cloud.Cloud).  This is done by calling the setConfig method.
+
+Next the Cloud Driver will be invoked by the shell using the startManagementMachines method.
+This in turn will call the Cloud API using the API security settings in order to get the management VMs.
+
+<script src="https://gist.github.com/2036493.js?file=createServer.java"></script>
 
 
 h1. The Cloud Driver Interface
