@@ -6,6 +6,18 @@ category: Developer Guide
 
 p. How to develop your custom Cloud Driver.
 
+h1. How does the Cloud Driver Works – Technical introduction
+
+Cloudify Cloud Driver (ProvisioningDriver is the Interface Name), has 4 main scenarios
+# Bootstrap Cloud – which is the installation of Cloudify Management VM and Controller on a Cloud from your laptop
+# Install Application – which is the creation of Application VMs with Cloudify Agent on them as part of an application deployment. In this case, the Cloud Driver resides on the management VM as part of Cloudify Controller
+# Uninstall Application – termination of Application VMs.
+# Teardown Cloud – Termination of all Cloudify VMs and components on the Cloud.
+ Another scenario: Cluster Healing is the same as Install Application from Cloud Driver perspective
+
+
+
+
 h1. The Cloud Driver Interface
 
 The Cloud Driver Interface defines the methods for provisioning and installing the management virtual machines, the application virtual machines and getting Cloud information back.
