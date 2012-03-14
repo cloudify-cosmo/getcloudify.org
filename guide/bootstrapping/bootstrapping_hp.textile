@@ -69,19 +69,13 @@ For example: for installing our Pet Clinic Application, just type:
 For more information, feel free to read our "Quick Start Guide":/guide/qsg/quick_start_guide.
 
 h1. Enabling wire logging
+
 For development and debugging purposes, it can be usefull to view the actual messages sent to the Openstack cloud controller.
 To do this, modify your openstack-cloud.groovy by setting the "openstack.wireLog" entry in the custom section of the file to "true".
 
 For example: 
 
-custom ([
-          // HP Cloud endpoints
-     	"openstack.endpoint" : "https://az-2.region-a.geo-1.compute.hpcloudsvc.com/",
-		"openstack.identity.endpoint": "https://region-a.geo-1.identity.hpcloudsvc.com:35357/",
-		"openstack.tenant" : "XXXXXXXXXXX",
-		"openstack.wireLog": "true"
-
-	])
+<script src="https://gist.github.com/2035261.js?file=custom-wireLog.groovy"></script>
 
 Note that once you enable the wire logs, they appear in the Cloudify command line interface when you run the 'bootstrap-cloud' command (and in the relevant log file in the logs directory)
-as well as in the log of them ESM when it starts or stops a machine for scale out/in.
+as well as in the log of the ESM when it starts or stops a machine for scale out/in.

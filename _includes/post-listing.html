@@ -1,0 +1,24 @@
+{% for post in posts limit: listing_limit %}
+<div class="post-listing">
+	<h2><a href="{{ post.url }}" class="dark-link">{{ post.title }}</a></h2>
+	<div class="low-top">
+		<span class="low-top ">Posted on  {{ post.date |format_date }} in <a href="/categories/{{ post.category | slugize }}">{{ post.category }}</a></span>
+		<span class="tag-list">
+			{% for tag in post.tags %}
+			<a href="/tags/{{ tag  | slugize}}">{{ tag }}</a>
+			{% endfor %}
+		</span>
+	</div>
+
+
+	{% if post.summary %}	
+	<p>{{ post.summary | strip_html | truncatewords: 150 }}</p>
+	{% elsif post.description %}
+	<p>{{ post.description | strip_html | truncatewords: 100 }}</p>
+	{% else %}
+	<p>{{ post.content | strip_html | truncatewords: 50 }}</p>
+	{% endif %}
+	
+	<p class><a href="{{ post.url }}">Read more...</a></p>
+</div>
+{% endfor %}
