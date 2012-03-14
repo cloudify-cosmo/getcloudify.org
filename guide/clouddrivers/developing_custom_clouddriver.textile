@@ -31,7 +31,9 @@ The below sequence diagrams explains it in a more technical fashion.
 
 h3. Flows explained
 
+
 h4. Bootstrapping Cloud
+
 
 In this scenario the Cloud Driver resides on the client side as no VM with Cloudify Server (Controller) exist.
 The user instructs the Cloudify Interactive Shell to bootstrap Cloudify, providing a specific Cloud Driver implementation and configuration.
@@ -46,7 +48,9 @@ This in turn will call the Cloud API using the API security settings in order to
 This will return an array of MachineDetails (org.cloudifysource.esc.driver.provisioning.MachineDetails) for each of the management Machines.
 These details will be used by Cloudify CLI to connect to the Hosts and install the management components on them. Finally Cloudify will start the Cloudify Controller components: the ESM, the GSM, the LUS and the Management Space. It will also start the Web Container for the Management application and the REST API container.
 
+
 h4. Installing an Application
+
 
 This is a server side scenario from Cloud Driver perspective. Once the Controller had been instructed to install an application, it will command the Driver to start X virtual machines according to the recipe instructions.
 The Cloud Driver needs first to get the Admin Object so it can report to the Admin about the VMs public IPs and other details. This is done using the setAdmin method by the Controller
@@ -55,27 +59,36 @@ The startMachine flow is simple: The driver calls the IaaS API. Polls the API fo
 The Driver will get the machine information from the template properties corresponding to the requested template name. The template information is within the config object
 The same flow will happen if the Controller needs to compensate for a crushed VM or to rebalance one of the services.
 
+
 h4. Uninstalling an Application
+
 
 h4. Tearing Down the Cloud
 
 
+
 h1. Setting Up Your Project
+
 
 p. This section will teach you what you need in your eclipse project
 
 h1. Before You Code
 
+
 p. This section explains how to get what you need from your cloud account – credentials, SSH access etc.
 
+
 h3. Getting the Security Credentials for API Access
+
 
 The security credentials you will need to have for the cloud driver are of two kinds:
 * The credentials for the Cloud IaaS API calls
 * The credentials for accessing a VM with SSH
 In some cases you will need the storage credentials as well
 
+
 h3. Getting the right Image and HW for Management
+
 You will need to define HW / SW templates in the Cloud Driver configuration file. One of them will define the management VM. 
 Keep In mind the following:
 * The management VM must have public IP to be accessed from the internet or other subnets within the organization using HTTP
