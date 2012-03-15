@@ -1,22 +1,13 @@
-{% assign currImg = "blog-leading-image.png" %}
-
 {% for post in posts limit: listing_limit %}
 <div class="blogtPostBox">
   <div class="blogInfoLeft">
-    <img src="../images/{{ currImg }}" />
-	
-	{% if currImg == "blog-leading-image.png" %}
-		{% assign currImg = "blog-leading-image.png" %}
-	{% else %}
-		{% assign currImg = "blog-leading-image.png" %}
-	{% endif %}	
-	
+    <img src="../images/{% cycle 'blog-leading-image.png', 'blog-leading-image.png' %}" />	
   </div>  
   <div class="blogInfoRight">
     <a class="title">{{ post.title }}</a>
 	  <div class="blogPostInfo">
-	    <span>Posted By: <a href="#">Uri Cohen</a>  |  {{ post.date |format_date }} <!--|  in <a href="/categories/{{ post.category | slugize }}">{{ post.category }}</a> --></span>
-	  </div>
+	    <span>Posted By: <image align="center" height=45 width=45 src="/images/{{ post.image }}"/> <a href="#">Uri Cohen</a>  |  {{ post.date | date: '%B' }} {{ post.date | date: '%e' }}, {{ post.date | date: '%Y' }}  <!--|  in <a href="/categories/{{ post.category | slugize }}">{{ post.category }}</a> --></span>
+	  </div>	  	  	
       <p>
 		{% if post.summary %}	
 			<p>{{ post.summary | strip_html | truncatewords: 150 }}</p>
