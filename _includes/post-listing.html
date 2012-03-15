@@ -6,7 +6,8 @@
   <div class="blogInfoRight">
     <a class="title">{{ post.title }}</a>
 	  <div class="blogPostInfo">
-	    <span>Posted By: <image align="center" height=45 width=45 src="/images/{{ post.image }}"/> <a href="#">Uri Cohen</a>  |  {{ post.date | date: '%B' }} {{ post.date | date: '%e' }}, {{ post.date | date: '%Y' }}  <!--|  in <a href="/categories/{{ post.category | slugize }}">{{ post.category }}</a> --></span>
+	  <br/>	  	 
+	    <span>Posted By: <image align="center" height=45 width=45 src="/images/{{ post.image }}"/> <a href="#">{{ post.author }}</a>  |  {{ post.date | date: '%B' }} {{ post.date | date: '%e' }}, {{ post.date | date: '%Y' }}  <!--|  in <a href="/categories/{{ post.category | slugize }}">{{ post.category }}</a> --></span>
 	  </div>	  	  	
       <p>
 		{% if post.summary %}	
