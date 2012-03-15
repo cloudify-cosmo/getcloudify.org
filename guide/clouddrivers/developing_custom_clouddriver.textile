@@ -40,6 +40,9 @@ The user instructs the Cloudify Interactive Shell to bootstrap Cloudify, providi
 The Cloud Driver is instantiated by the shell and now the shell will need to give the Driver Reference to its configuration object
 (org.cloudifysource.dsl.cloud.Cloud).  This is done by calling the setConfig method.
 
+<script src="https://gist.github.com/2043019.js?file=setConfig.java"></script>
+
+
 Next the Cloud Driver will be invoked by the shell using the startManagementMachines method.
 This in turn will call the Cloud API using the API security settings in order to get the management VMs.
 
