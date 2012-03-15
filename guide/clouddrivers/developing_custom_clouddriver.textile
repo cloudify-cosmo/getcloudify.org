@@ -31,6 +31,8 @@ The below sequence diagrams explains it in a more technical fashion.
 
 h3. Flows explained
 
+In this tutorial we will demonstrate the flows using the Openstack Cloud Driver (OpenstackCloudDriver) that extends the CloudDriverSupport base Class
+and implements the ProvisioningDriver Interface
 
 h4. Bootstrapping Cloud
 
@@ -46,7 +48,7 @@ The Cloud Driver is instantiated by the shell and now the shell will need to giv
 Next the Cloud Driver will be invoked by the shell using the startManagementMachines method.
 This in turn will call the Cloud API using the API security settings in order to get the management VMs.
 
-<script src="https://gist.github.com/2036493.js?file=createServer.java"></script>
+<script src="https://gist.github.com/2043033.js?file=createServer.java"></script>
 
 This will return an array of MachineDetails (org.cloudifysource.esc.driver.provisioning.MachineDetails) for each of the management Machines.
 These details will be used by Cloudify CLI to connect to the Hosts and install the management components on them. Finally Cloudify will start the Cloudify Controller components: the ESM, the GSM, the LUS and the Management Space. It will also start the Web Container for the Management application and the REST API container.
@@ -64,6 +66,10 @@ The same flow will happen if the Controller needs to compensate for a crushed VM
 
 
 h4. Uninstalling an Application
+
+This is a server side scenario from Cloud Driver Perspective. The Controller had been instructed to uninstall a deployed application. The Controller will shut down the Application services and will command the Cloud Driver to terminate
+the VMs used by these service. This is done VM by VM suing the stopMachine method. The Cloud Driver connects the the IaaS API and instruct it to terminate each VM 
+
 
 
 h4. Tearing Down the Cloud
