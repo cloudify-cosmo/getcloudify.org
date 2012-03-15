@@ -1,14 +1,14 @@
-{% assign currImg = "blog-icon-zip.png" %}
+{% assign currImg = "blog-leading-image.png" %}
 
 {% for post in posts limit: listing_limit %}
 <div class="blogtPostBox">
   <div class="blogInfoLeft">
     <img src="../images/{{ currImg }}" />
 	
-	{% if currImg == "blog-icon-zip.png" %}
-		{% assign currImg = "blog-icon-recipe.png" %}
+	{% if currImg == "blog-leading-image.png" %}
+		{% assign currImg = "blog-leading-image.png" %}
 	{% else %}
-		{% assign currImg = "blog-icon-zip.png" %}
+		{% assign currImg = "blog-leading-image.png" %}
 	{% endif %}	
 	
   </div>  
