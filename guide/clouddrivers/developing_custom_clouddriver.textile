@@ -67,6 +67,10 @@ The same flow will happen if the Controller needs to compensate for a crushed VM
 
 h4. Uninstalling an Application
 
+This is a server side scenario from Cloud Driver Perspective. The Controller had been instructed to uninstall a deployed application. The Controller will shut down the Application services and will command the Cloud Driver to terminate
+the VMs used by these service. This is done VM by VM suing the stopMachine method. The Cloud Driver connects the the IaaS API and instruct it to terminate each VM 
+
+
 
 h4. Tearing Down the Cloud
 
