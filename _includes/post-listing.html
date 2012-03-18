@@ -1,13 +1,13 @@
 {% for post in posts limit: listing_limit %}
 <div class="blogtPostBox">
   <div class="blogInfoLeft">
-    <img src="/images/{{ post.image }}" />	
+    <img width="100" height="120" src="/images/{{ post.image }}" />	
   </div>  
   <div class="blogInfoRight">
     <a class="title">{{ post.title }}</a>
 	  <div class="blogPostInfo">
 	  <br/>	  	 
-	    <span>Posted By:<a href="#">{{ post.author }}</a>  |  {{ post.date | date: '%B' }} {{ post.date | date: '%e' }}, {{ post.date | date: '%Y' }}  <!--|  in <a href="/categories/{{ post.category | slugize }}">{{ post.category }}</a> --></span>
+	    <span>Posted By: <a href="#">{{ post.author }}</a>  on  {{ post.date | date: '%B' }} {{ post.date | date: '%e' }}, {{ post.date | date: '%Y' }}  <!--|  in <a href="/categories/{{ post.category | slugize }}">{{ post.category }}</a> --></span>
 	  </div>	  	  	
       <p>
 		{% if post.summary %}	
