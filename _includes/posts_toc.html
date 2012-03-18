@@ -17,9 +17,11 @@
 </div>
 
 
+<div class="leftContentBox blogLeft-topTitle">
+	<h3>Archived Posts</h3>
+</div>
+
  <ul class="blog-archive-list">
-	<li><a href="#">June 2012</a> <span class="blue">(2)</span></li>
-	  <li><a href="#">June 2012</a> <span class="blue">(2)</span></li>
-	 <li><a href="#">June 2012</a> <span class="blue">(2)</span></li>
-	
+ {% assign posts_collate = site.posts %}
+ {% include posts_months.html %}
  </ul>
