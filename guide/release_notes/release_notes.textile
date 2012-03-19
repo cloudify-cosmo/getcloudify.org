@@ -11,21 +11,40 @@ h1. Overview
 
 Below is a list of new features, improvements, fixed issues, and known issues in Cloudify.
 
-"Cloudify 2.1.0 M2":#rcm3  - published on March 05, 2012
+"Cloudify 2.1.0 M3":#rcm3  - published on March 19, 2012
 "Cloudify 2.0.1 GA":#rcm4  - published on March 06, 2012
 "Cloudify 2.0.0 GA":#rcm2  - published on Jan 11, 2012
 
-h1(#rcm3). Cloudify 2.1.0 M2
+h1(#rcm3). Cloudify 2.1.0 M3
 
 h3. New Features and Improvements
 
 |_. ID |_. Description |_. Components |
+|CLOUDIFY-579 | local cloud should bind to 127.0.0.1 | CLI |
+|CLOUDIFY-638 | Missing exception handling in start-management | CLI |
+|CLOUDIFY-575 | Openstack Driver | Cloud Driver |
+|CLOUDIFY-625 | BYON cloud groovy file credentials configuration | Cloud Driver |
+|CLOUDIFY-604 | Rename SMALL_LINUX_32 to SMALL_LINUX | Packaging |
+|CLOUDIFY-593 | Central project location for cloud configurations | Packaging |
+|CLOUDIFY-622 | Reduce build time of Cloudify zip while building on local environment | Packaging |
+|CLOUDIFY-503 | Add a .gitignore file to the cloudify root folder | Packaging |
+|CLOUDIFY-592 | Service URL | USM |
 |CLOUDIFY-473 | Developers can now use a single jclouds instance for all cloud driver instances. A jclouds context (instance) is fairly heavy (&gt; 7MB on EC2) and takes a while to load. This will save a significant amount of time when installing new services. | Cloud Driver |
 |CLOUDIFY-520 | Add multiple mongo instances support with different ports via the mongodb cloudify plugin | Packaging |
 
 h3. Fixed Issues
 
 |_. ID |_. Description |_. Components |
+|CLOUDIFY-606 | azure:bootstrap-app may fail on iisproxy deployment | CLI |
+|CLOUDIFY-585 | overrides feature in bootstrap-managememnt script does not work | Cloud Driver |
+|CLOUDIFY-599 | Cloud driver provision exception swallowed | Cloud Driver |
+|CLOUDIFY-608 | Bootstrap cloud with connectToPrivateIp=false still uses private IP as NIC_ADDR | Cloud Driver |
+|CLOUDIFY-601 | Azure doesn't work in 2.1.0 M2 | Cloud Driver |
+|CLOUDIFY-583 | pet-clinic recipe stopped working | Packaging |
+|CLOUDIFY-628 | REST server logs includes failed discovery messages to host 'true' | REST |
+|CLOUDIFY-611 | REST server running on azure seems to be looking for a locator with IP Address "true" | REST |
+|CLOUDIFY-620 | Wrong template selection | USM |
+|CLOUDIFY-635 | Can't create ServiceContext in external script running from test-recipe | USM |
 |CLOUDIFY-524 | Misleading message when running teardown-cloud ec2 and there is no mgt machine | CLI Cloud Driver |
 |CLOUDIFY-540 | Consecutive bootstrap-localcloud command fails to start agent | CLI |
 |CLOUDIFY-550 | Unrepoerted RuntimeException (caught) in the certain situations | REST |
@@ -40,7 +59,7 @@ h3. Fixed Issues
 h3. Known Issues 
 
 |_. ID |_. Description |_. Components |
-|CLOUDIFY-601 | Azure doesn't work in 2.1.0 M2. Please use 2.0.1 instead. | Cloud Driver |
+|CLOUDIFY-601 | Azure doesn't work in 2.1.0 M2. Please use 2.0.1 instead. Fixed in 2.1.0 M3| Cloud Driver |
 |CLOUDIFY-549 | JClouds throws NullPointerException when parsing images | CLI Cloud Driver |
 |CLOUDIFY-547 | Remove icon URLs from DSL unit test recipes and fix test to check icon actually exists in resources folder | Packaging |
 |CLOUDIFY-552 | The Installation of a recipe doesn't timeout | CLI USM |
@@ -52,7 +71,7 @@ h3. Known Issues
 |CLOUDIFY-580 | set-instances does not work only on localcloud | REST |
 |CLOUDIFY-581 | Teardown cloud keeps machine running on the cloud | USM |
 |CLOUDIFY-582 | Infinite retries to install a service instance in some situations | USM |
-|CLOUDIFY-585 | override feature in bootstrap-managememnt script does not work | Cloud Driver |
+|CLOUDIFY-585 | override feature in bootstrap-managememnt script does not work. Fixed in 2.1.0 M3| Cloud Driver |
 |CLOUDIFY-586 | Leaked floating IP on openstack if failed to attach IP to server | Cloud Driver |
 |CLOUDIFY-594 | azure:teardown-app --help in the CLI is incorrect | CLI |
 |CLOUDIFY-595 | teardown-cloud incorrect help information | CLI |
