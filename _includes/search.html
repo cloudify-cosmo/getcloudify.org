@@ -1,4 +1,9 @@
-<div class="learnFrom">
+{% if currSearchClass %} 
+  {% assign currClass=currSearchClass %}
+{% else %}
+ {% assign currClass="learnFrom" %}
+{% endif %}
+<div class="{{currClass}}">
     <h2>{{ searchHdr }}</h2>
 
     <div class="searchWrap">
@@ -8,3 +13,5 @@
         </form>
     </div>
 </div>
+
+{% assign currSearchClass = null %}
