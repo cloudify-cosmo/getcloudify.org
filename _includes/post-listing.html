@@ -1,7 +1,7 @@
 {% for post in posts limit: listing_limit %}
 <div class="blogtPostBox">
   <div class="blogInfoLeft">
-    <img width="100" height="120" src="/images/{{ post.image }}" />	
+    <img title="{{ post.author }}" width="100" height="120" src="/images/{{ post.image }}" />
   </div>  
   <div class="blogInfoRight">
     <a class="title">{{ post.title }}</a>
@@ -19,7 +19,7 @@
 		{% endif %}	
 		<p class><a href="{{ post.url }}">Read more...</a></p>	  	  
 	  </p>
-		<span>
+		<span> {% if post.tags | size %} Tags:{% endif %}
 			{% for tag in post.tags %}
 			  <a class="postTag" href="/tags/{{ tag  | slugize}}">{{ tag }} ({{site.tags[tag] | size }})</a>
 			{% endfor %}
