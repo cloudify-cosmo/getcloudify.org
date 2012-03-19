@@ -56,6 +56,8 @@ module Jekyll
 	
       def paginate_files(config)
         config['paginate_files'] ||= ['index.html']
+		config['paginate_files'] = 'blog.textile'
+		config['paginate']='5' 
         config.pluralized_array('paginate_file', 'paginate_files')
       end
 
