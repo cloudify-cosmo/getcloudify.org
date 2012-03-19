@@ -1,37 +1,31 @@
 ﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
         "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
-{% include head_section.html %}
+{% include head_section_video.html %}
 <body>
 <div class="WrapperBg">
     <a class="fork-guide" target="_blank" href="https://github.com/CloudifySource/cloudify"></a>
     <div class="Wrapper">
         {% include header.html %}
-        <div class="contentWrap">
-			<div class="breadcrumbs">Home Page >  {{ page.title }}</div>            
+        <div class="contentWrap dwn">
+			<div class="breadcrumbs">Home Page > Vidoes</div>            
             <div class="clear"></div>
 
             <!--Search-->			
-			{% assign searchHdr="Events & Webinars" %}
+			{% assign currSearchClass="videoSearch dwn" %}
+			{% assign searchHdr="Watch and Learn" %}
             {% include search.html %}
 
 
-            <div class="content">
-                <div class="left">
-                    <a class="btnGetCloudifyFreeEdition" target="_blank" href="/downloads/get_cloudify"></a>
-                    {% include webinar_toc.html %}
-
-                </div>
+            
+                
 
                 <!--Start left content -->
 
-                <div id="resultsDiv" class="DocumentsWrap"></div>
-                <div id="pageContent" class="DocumentsWrapRight">
-                    <h1 class="pageTitle">{{ page.title }}</h1>
+                <div id="resultsDiv" class="DocumentsWrap"></div>                                   
                     {{content}}
-                </div>
                 <div class="clear"></div>
-            </div>
+            
         </div>
         <!--Start pagination -->
 
