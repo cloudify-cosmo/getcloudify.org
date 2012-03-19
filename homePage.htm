@@ -1,0 +1,245 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>CloudifySource Community</title>
+    <link rel="stylesheet" href="css/template.css" type="text/css" />
+     <script src="scripts/jquery-1.7.1.js" type="text/javascript"></script>
+    <script src="http://widgets.twimg.com/j/2/widget.js" type="text/javascript"></script>
+    <script type="text/javascript" >
+    $(function() {
+        //this script display text note when you hover one of the img at homePage
+		$('.sec-discusBox').hide();
+								  
+			$('.tblSections td').hover(function() { 
+		  	$(this).children('.replaceWrape').children('img').fadeOut('300');
+		  	$(this).children('.replaceWrape').children('.sec-discusBox').fadeIn('100'); 
+		  
+		},
+		 function() { $(this).children('.replaceWrape').children(".sec-discusBox").fadeOut('300'); 
+		            $(this).children('.replaceWrape').children('img').fadeIn('100');
+		});							  
+								  
+    });
+	</script>
+
+</head>
+<body>
+    <div class="WrapperBg">
+        <div class="Wrapper">
+            <div class="header">
+                <a class="logo" href="/"></a>
+                <div class="clear">
+                </div>
+            </div>
+
+
+
+              <!--  HOME PAGE NEW CODE   -->
+            <div class="contentWrapHome">
+                 <div class="hp-left-col">
+                    <!--Search-->					
+					{% include search.html %}
+                </div>
+
+                 <div class="hp-right-col">
+                        <a class="hp-btn-getCloudify" href="#"></a>
+                 </div>
+                <div class="clear"></div>
+
+
+                <table class="tblSections" cellpadding="0" cellspacing="0">
+                    <tr>
+                        <td width="231">
+                        <div class="replaceWrape box1">
+                           <div class="sec-discusBox">
+                            Visit the Cloudify forums to join the conversation, get support, suggest new features and ideas, and help your peers find the answers they need.
+                            <a href="http://forums.cloudifysource.org">More</a>
+                           </div>
+                           <img src="images/home/hp-Discuss-bg.png" />
+                         </div>
+                           <a class="hoverState" href="#">
+                                <span class="secTitle">Discuss & Suggest</span><br />
+                                <span class="sec-subTitle">Visit our support forums</span>
+                          </a>
+                        </td>
+                        <td></td>
+                        <td>
+                        <div class="replaceWrape box2">
+                           <div class="sec-discusBox">
+                           Check out the Cloudify documentation, and learn how to get your Cloudify up and running in just a few steps.
+                            <br />
+                            <a href="http://www.cloudifysource.org/guide">More</a>
+                           </div>
+                            <img src="images/home/hp-learn-bg.png" />
+     					</div>
+                         <a  class="hoverState" href="#">
+                                <span class="secTitle">Learn</span><br />
+                                 <span class="sec-subTitle">Learn from our knowledge base</span>
+                           </a>
+                        </td>
+                        <td></td>
+                        <td width="260">
+                        <div class="replaceWrape box3">
+                            <div class="sec-discusBox">
+                           Visit our blog and read about the latest in cloud, best practices, and new ways to leverage and customize Cloudify to your needs.
+                            <a href="http://www.cloudifysource.org/blog">More</a>
+                           </div>
+                            <img src="images/home/hp-read-bg.png" />
+						</div>
+                         <a  class="hoverState" href="#">
+                        
+                              <span class="secTitle">Read</span><br />
+                                 <span class="sec-subTitle">Blog Posts and Updates</span>
+                    </a>
+                        </td>
+                    </tr>
+                    <tr height="47">
+                        <td>&nbsp;</td>
+                    </tr>
+
+                      <tr>
+                        <td>
+                        <div class="replaceWrape box1">
+                            <div class="sec-discusBox">
+                            Watch our demos and tutorials to see Cloudify in action with popular platforms and apps stacks.
+                            <br />
+                            <a href="http://http://wwww.cloudifysource.org/cloudifysourcetv">More</a>
+                           </div>
+                           <img src="images/home/hp-watch-bg.png" />
+                         </div>  
+                         <a  class="hoverState" href="#">
+                                 <span class="secTitle">Watch</span><br />
+                                 <span class="sec-subTitle">Visit CloudifySourceTV</span>
+                          </a>
+                        </td>
+                        <td></td>
+                        <td>
+                        <div class="replaceWrape box2">
+                            <div class="sec-discusBox">
+                            Wanna learn more? Register for our webinars, events, and discover how to take Cloudify to the next level.
+                            <br />
+                            <a href="http://www.cloudifysource.org/participate">More</a>
+                           </div>
+                            <img src="images/home/hp-participate-bg.png" />
+                        </div>   
+                         <a  class="hoverState" href="#">
+
+                                 <span class="secTitle">Participate</span><br />
+                                 <span class="sec-subTitle">Join our events and webinars</span>
+                          </a>
+                        </td>
+                        <td></td>
+                        <td>
+                        <div class="replaceWrape box3">
+                            <div class="sec-discusBox">
+                            Fork the code on GitHub, download our milestone builds, or download the free GA release from gigaspaces.com, and help us make the Cloudify user experience even better.
+                            <br />
+                            <a href="http://www.cloudifysource.org/downloads/get_cloudify">More</a>
+                           </div>
+                            <img src="images/home/hp-develop-bg.png" />
+                         </div>  
+                         <a  class="hoverState" href="#">
+                              <span class="secTitle">Develop</span><br />
+                                 <span class="sec-subTitle">Get Involved</span>
+                          </a>
+                        </td>
+                    </tr>
+                
+                </table>
+
+
+
+                 <!-- bottom left colum -->
+                 <div class="hp-left-col">
+                      <div class="homeSearch">
+                        <h2>Recent Updates</h2>
+                        <a class="hp-btn-go" href="#"></a>
+                      </div>
+
+                      <!-- update blog post -->
+                      <div class="hp-update-icon hp-update-blogpost">
+                         Blog Post
+                      </div>
+
+                      <div class="recentUpdates-box">
+                            Lorem ipsum dolor sit amet, consectetur adipiscing elit. In id porttitor felis. Pellentesque pharetra, libero eget eleifend pretium, diam diam porta odio, eget placerat est mi sed tortor.
+                      </div>
+                      <div class="clear"></div>
+                       <!-- update events -->
+                      <div class="hp-update-icon hp-update-evets">
+                         Book the Date
+                      </div>
+
+                      <div class="recentUpdates-box">
+                            Lorem ipsum dolor sit amet, consectetur adipiscing elit. In id porttitor felis. Pellentesque pharetra, libero eget eleifend pretium, diam diam porta odio, eget placerat est mi sed tortor.
+                      </div>
+                      <div class="clear"></div>
+
+                       <!-- update news -->
+                      <div class="hp-update-icon hp-update-news">
+                         News
+                      </div>
+
+                      <div class="recentUpdates-box">
+                            Lorem ipsum dolor sit amet, consectetur adipiscing elit. In id porttitor felis. Pellentesque pharetra, libero eget eleifend pretium, diam diam porta odio, eget placerat est mi sed tortor.
+                      </div>
+                      <div class="clear"></div>
+
+
+                 </div>
+
+                 <!-- bottom right colum -->
+                 <div class="hp-right-col">
+                    <div class="hp-twitter">
+                         <script src="scripts/hp-twitter.js" type="text/javascript"></script>
+                    </div>
+
+                    <div class="hp-facebook">
+                             <script src="http://static.ak.connect.facebook.com/js/api_lib/v0.4/FeatureLoader.js.php" type="text/javascript"></script>
+                                <script type="text/javascript">                                    FB.init("1690883eb733618b294e98cb1dfba95a");</script>
+                                <!-- FBML <fb:fan profile_id="7169711435" connections="10" width="240" height="240" css="http://www.cloudifysource.org/css/template.css?13"></fb:fan>                                FBML -->
+                                <script src="scripts/fbvalidate.js" type="text/javascript"></script>
+                                
+                    </div>
+
+                    <a href="#" >
+                        <img src="images/home/hp-banner1.png" class="hp-sideBanner" />
+                    </a>
+
+                     <a href="#">
+                         <img src="images/home/hp-banner2.png" />
+                    </a>
+                 </div>
+
+                 <div class="clear"></div>
+
+
+
+
+            </div>
+            <!-- END  HOME PAGE NEW CODE   -->
+
+
+
+            <div class="clear">
+            </div>
+            <!--Start Footer -->
+            <div class="footer">
+                <ul class="footerLeftMenu">
+                    <li class="footerli"><a href="#">About GigaSpaces</a></li>
+                    <li class="footerli"><a href="#">Contact Us</a></li>
+                </ul>
+                <ul class="footerRightMenu">
+                    <li class="footerli">Copyright © 2012 GigaSpaces. All rights reserved.</li>
+                    <li class="footerli"><a href="#">Terms of Use</a></li>
+                    <li class="footerli">|</li>
+                    <li class="footerli"><a href="#">Privacy Policy</a></li>
+                </ul>
+            </div>
+        </div>
+        <!--End site wrapper -->
+    </div>
+    <!--End site bg top wrapper -->
+</body>
+</html>
