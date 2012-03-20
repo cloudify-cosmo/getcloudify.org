@@ -1,9 +1,4 @@
-﻿---
-layout: nil
-title: nil
----
-
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
@@ -30,19 +25,31 @@ title: nil
 
 </head>
 <body>
-	
-    <div class="WrapperBg">	
+    <div class="WrapperBg">
+    <!--can you insert it include?-->
+    <a class="fork-guide" target="_blank" href="https://github.com/CloudifySource/cloudify"></a>
+    
+    <ul class="loginMenu">
+    	<li><a target="_blank" href="https://cloudifysource.zendesk.com/access/unauthenticated?return_to=https%3A%2F%2Fcloudifysource.zendesk.com%2Flogin">Login</a></li>
+    	<li class="sep">|</li>
+    	<li><a target="_blank" href="https://cloudifysource.zendesk.com/registration">Sign-Up</a></li>
+    </ul>
+    <!--end content to include-->
+    
         <div class="Wrapper">
             <div class="header">
                 <a class="logo" href="/"></a>
                 <div class="clear">
                 </div>
-            </div>         
+            </div>
+
+
+
+              <!--  HOME PAGE NEW CODE   -->
             <div class="contentWrapHome">
-                 <div class="hp-left-col">   
-                   <!-- {% assign currSearchClass="homeSearch" %}
-                   {% assign searchHdr="xxxCommunity Topics" %}				 
-				   {% include search.html %}  -->
+                 <div class="hp-left-col">
+                    <!--Search-->					
+					{% include search.html %}
                 </div>
 
                  <div class="hp-right-col">
@@ -61,7 +68,7 @@ title: nil
                            </div>
                            <img src="images/home/hp-Discuss-bg.png" />
                          </div>
-                           <a class="hoverState" href="#">
+                           <a class="hoverState" href="http://forums.cloudifysource.org">
                                 <span class="secTitle">Discuss & Suggest</span><br />
                                 <span class="sec-subTitle">Visit our support forums</span>
                           </a>
@@ -76,7 +83,7 @@ title: nil
                            </div>
                             <img src="images/home/hp-learn-bg.png" />
      					</div>
-                         <a  class="hoverState" href="#">
+                         <a  class="hoverState" href="http://www.cloudifysource.org/guide">
                                 <span class="secTitle">Learn</span><br />
                                  <span class="sec-subTitle">Learn from our knowledge base</span>
                            </a>
@@ -90,7 +97,7 @@ title: nil
                            </div>
                             <img src="images/home/hp-read-bg.png" />
 						</div>
-                         <a  class="hoverState" href="#">
+                         <a  class="hoverState" href="http://www.cloudifysource.org/blog">
                         
                               <span class="secTitle">Read</span><br />
                                  <span class="sec-subTitle">Blog Posts and Updates</span>
@@ -107,11 +114,11 @@ title: nil
                             <div class="sec-discusBox">
                             Watch our demos and tutorials to see Cloudify in action with popular platforms and apps stacks.
                             <br />
-                            <a href="http://http://wwww.cloudifysource.org/cloudifysourcetv">More</a>
+                            <a href="http://wwww.cloudifysource.org/cloudifysourcetv">More</a>
                            </div>
                            <img src="images/home/hp-watch-bg.png" />
                          </div>  
-                         <a  class="hoverState" href="#">
+                         <a  class="hoverState" href="http://wwww.cloudifysource.org/cloudifysourcetv">
                                  <span class="secTitle">Watch</span><br />
                                  <span class="sec-subTitle">Visit CloudifySourceTV</span>
                           </a>
@@ -126,7 +133,7 @@ title: nil
                            </div>
                             <img src="images/home/hp-participate-bg.png" />
                         </div>   
-                         <a  class="hoverState" href="#">
+                         <a  class="hoverState" href="http://www.cloudifysource.org/participate">
 
                                  <span class="secTitle">Participate</span><br />
                                  <span class="sec-subTitle">Join our events and webinars</span>
@@ -142,7 +149,7 @@ title: nil
                            </div>
                             <img src="images/home/hp-develop-bg.png" />
                          </div>  
-                         <a  class="hoverState" href="#">
+                         <a  class="hoverState" href="http://www.cloudifysource.org/downloads/get_cloudify">
                               <span class="secTitle">Develop</span><br />
                                  <span class="sec-subTitle">Get Involved</span>
                           </a>
@@ -152,12 +159,19 @@ title: nil
                 </table>
 
 
+    <!-- banner go  -->
+    <div class="bcmAmember">
+      <h4>Become a CloudifySource Community Member Today</h4>
+      <a class="hp-btn-go" href="https://cloudifysource.zendesk.com/registration"></a>
+    </div>
+    <!--end banner -->
+
+
 
                  <!-- bottom left colum -->
                  <div class="hp-left-col">
                       <div class="homeSearch">
                         <h2>Recent Updates</h2>
-                        <a class="hp-btn-go" href="#"></a>
                       </div>
 
                       <!-- update blog post -->
@@ -206,11 +220,11 @@ title: nil
                                 
                     </div>
 
-                    <a href="#" >
+                    <a href="http://www.youtube.com/watch?v=FlEXUusfTfM" >
                         <img src="images/home/hp-banner1.png" class="hp-sideBanner" />
                     </a>
 
-                     <a href="#">
+                     <a href="http://bit.ly/FPhmIn">
                          <img src="images/home/hp-banner2.png" />
                     </a>
                  </div>
@@ -238,6 +252,13 @@ title: nil
                     <li class="footerli"><a href="#">Terms of Use</a></li>
                     <li class="footerli">|</li>
                     <li class="footerli"><a href="#">Privacy Policy</a></li>
+                </ul>
+                <ul class="footerSocialMenu">
+                    <li class="footerFb"><a href="#"></a></li>
+                    <li class="footerRss"><a href="#"></a></li>
+                    <!--<li class="footerMell"><a href="#"></a></li>-->
+                    <li class="footerTwitt"><a href="#"></a></li>
+                    <li class="footerYt"><a href="#"></a></li>
                 </ul>
             </div>
         </div>
