@@ -151,3 +151,11 @@ create a template with the image and HW you selected:
 set the management machine templates to the template you created:
 
 <script src="https://gist.github.com/2070776.js?file=driver.groovy"></script>
+
+h1. Packing and Adding to Cloudify
+
+In order to use your custom cloud driver you need to the following:
+# Add your java binaries as jar to <Cloudify>/lib/platfrom
+# Add your cloud driver configuration and security certificate under <Cloudify>/tools/cli/plugins/esc as noted in the below diagram
+
+<img src="/guide/images/clouddrivers/cloud_driver_plugin.png"/>
