@@ -7,33 +7,24 @@ abstract: Lists the Cloudify installation and setup prerequisites
 pageord: 1
 ---
 
-h2. Installation
+h2. Before You Install
 
-h3. On Cloudify Client Machine
+h3. Prerequisites for Installing the Cloudify Interactive Shell Client 
 
-* JDK 1.5 or 1.6 must be installed:
-** "(newwindow)JDK 1.5":http://java.sun.com/javase/downloads/index_jdk5.jsp - download the latest update (for example, JDK 5 Update 19).
+* JDK 1.6 must be installed:
 ** "(newwindow)JDK 1.6":http://java.sun.com/javase/downloads/index.jsp - download the latest update (for example, JDK 6 Update 23).
-* The JAVA_HOME environment variable must point to the correct JDK (not JRE) directory prior to installing Cloudify. For example, D:\Java\jdk1.6.0_23.
-* The JAVA_HOME environment variable should be added to the beginning of the Path environment variable. For example, %JAVA_HOME%\bin;SystemRoot%\system32;%SystemRoot%;%SystemRoot%
-* You have reviewed the Supported Platforms section.
-* *For localcloud only*: You must set the NIC_ADDR environment variable to the machine IP.
+* You must set the JAVA_HOME environment variable, and make sure it points to the correct JDK (not JRE) directory prior to installing Cloudify. For example, D:\Java\jdk1.6.0_23.
+* The JAVA_HOME/bin directory should be added to the beginning of the Path environment variable. For example, %JAVA_HOME%\bin;SystemRoot%\system32;%SystemRoot%;%SystemRoot%
 
-h3. On the Cloud Images you may use with Cloudify
+h3. Prerequisites for Cloud Images that Are Used By Cloudify
 
-* Assuming Oracle or IBM JDK 6 or higher on any Image (management and application VM)
-* SSH must be enabled for Linux Images.
+When installing applications on the cloud, Cloudify provision virtual machines for you. It is assumed by Cloudify that these virtual machines: 
+* Have Oracle JDK 6 or higher included in the image. 
+* SSH daemon started and running port 22.
 
 
 h2. Networking and Ports on the Cloud
 
-* Cloudify assumes that all ports for all private IPs within the same security groups are opened.
-* Cloudify assumes SSH is configured to port 22.
-* Ports 8099 and 8100 should be opened on management machines so that Cloudify client can interact with the REST gateway and its Management Web Application.
-
-
-
-<!-- http://www.gigaspaces.com/wiki/display/XAP8/Installing+GigaSpaces -->
-
-<a href="http://java.sun.com/javase/downloads/index.jsp">JDK 1.6</a>
-    
+Cloudify assumes the following with regrads to networking: 
+* Within the security group to which the started images belong, all ports are are open for bidirectional communication via private IPs.
+* Ports 8099 and 8100 on the management VMs are open for communication from the outside via the VMs' public IP, so that the Cloudify interactive shell client can interact with the REST gateway and users can access the management web application.
