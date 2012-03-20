@@ -10,14 +10,13 @@ pageord: 8
 h1. Service Attributes 
 
 Services across an application may sometime need to expose some attributes to other services.
-For example: a monitoring port which is determined at runtime of each service instance.
-These attributes can be stored in an application context, a service context or a service instance context, and they can be read and updated by all the services instances that exists in the application. 
+For example: a monitoring port which is determined at runtime at each service instance and so on.
+These attributes can be stored in an application context, a service context or a service instance context, and they can be read and updated by all the services instances that exist in the application. 
 You can achieve that by using the service context once a service instance is running. 
 For example:
 <script src="https://gist.github.com/1704821.js?file=gistfile1.groovy"></script>
 
-The above example shows that the value "myValue" will be kept under "myKey" after the service instance is started, 
-and that every other service instance in the application can access it and modify it.
+The above example shows that the value "myValue" will be kept under "myKey" after the service instance is started,and that every other service instance in the application can access it and modify it.
 Additionally it will print the value of the otherKey attribute of the service named otherService.
 
 
