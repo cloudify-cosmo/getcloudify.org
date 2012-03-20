@@ -221,7 +221,7 @@ $.fn.slideFadeUp = function(speed, callback) {
 	   $(this).removeClass("current");
 
             $("div.ui-accordion").find("a").each(function(){
-            if( location.href.indexOf(this.location.href) != -1) {
+            //if( location.href.indexOf(this.location.href) != -1) {
             $(this).addClass("current");
              
             }
