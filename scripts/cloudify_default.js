@@ -232,7 +232,7 @@ $("a.newwindow").attr("target","_blank");
 	var slides = $('.slide');
 	var numberOfSlides = slides.length;
   
-if ($("#slideshow").exist()) {    // Do something}
+if ($("#slideshow").exist()) {};    // Do something}
 
 
 	// Remove scrollbar in JS .
@@ -275,7 +275,7 @@ if ($("#slideshow").exist()) {    // Do something}
   
   
   
-};
+//};
 
 
 
