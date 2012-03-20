@@ -11,20 +11,23 @@ h1. Bootstrapping The Bring You Own Node (BYON) Host Pool
 
 h2. BYON Overview
 
-The BYON Cloud Driver is an implementation of the Cloudify Cloud Driver allowing a user to use a set of physical machines or virtual machines
+The BYON Cloud Driver is an implementation of the Cloudify Cloud Driver allowing a user to use a set of physical 
+machines or virtual machines
 as one or more pools for application virtualizations.
 Typical use case for such a scenario can be development and QA Labs.
 
-The BYON works very similar to other Cloud Drivers. It defines templates that have aliases that can be referenced by the different
-recipes. Each template is a pool of machines that can be defined by specifying each IP, IP range or even a CIDR mask.
+The BYON works very similar to other Cloud Drivers. It defines templates that have aliases that can be referenced 
+by the different recipes. 
+Each template is a pool of machines that can be defined by specifying each IP, IP range or even a CIDR mask.
 
-When the BYON driver is asked to bootstrap the pool it simply access one machine in the template specified for the management
-machine and using SSH it installs the Cloudify management components on it.
+When the BYON driver is asked to bootstrap the pool it simply access one machine in the template specified for the 
+management machine and using SSH it installs the Cloudify management components on it.
 
-When the BYON driver is requested by Cloudify controller to provision machines for application installation, it will install and start Cloudify agent 
-on available machine using the templates names specified in the service recipes.
+When the BYON driver is requested by Cloudify controller to provision machines for application installation, 
+it will install and start Cloudify agent on available machine using the templates names specified in the service recipes.
 
-In that sense you can allocate different HW and SW stack to different services, exactly the same way as running a recipe on a cloud
+In that sense you can allocate different HW and SW stack to different services, exactly the same way as running a recipe 
+on a cloud
 
 h2. BYON Prerequisites 
 
@@ -33,20 +36,24 @@ Please check the "Prerequisites page":/guide/bootstrapping/bootstrapping_byon fo
 
 h2. Configuring the BYON Driver
 
-The BYON configuration is quite simple. The configuration file byon.groovy is located under <Cloudify>/tools/cli/plugins/esc/byon
+The BYON configuration is quite simple. The configuration file byon.groovy is located 
+under <Cloudify>/tools/cli/plugins/esc/byon
 
 In this file you need to modify the following attributes:
 
 In the configuration block: 
 * set the SSH username (remoteUsername)
 * set the SSH password (remotePassword)
-* set the management machine template (managementMachineTemplate) to the template name you want to use for the management machine 
+* set the management machine template (managementMachineTemplate) to the template name you want to use for 
+the management machine 
 
-Next, you need to create template(s) for your machine pools. As you can see there is an example template names "SMALL_LINUX_32" 
+Next, you need to create template(s) for your machine pools. As you can see there is an example template 
+names "SMALL_LINUX_32" 
 You can use this example for additional pools changing the template name.
 In each template you need to configure the following:
 * node id (id) - this is an alias for the host
-* node ip (ip) - the IP of the host. Cloudify uses private IP and assumes that the Cloudify client is in the same LAN as the IPs specified in
+* node ip (ip) - the IP of the host. Cloudify uses private IP and assumes that the Cloudify client is in 
+the same LAN as the IPs specified in
 the configuration file
 
 <script src="https://gist.github.com/2137727.js?file=template.groovy"></script>
