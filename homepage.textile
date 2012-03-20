@@ -127,7 +127,7 @@ category: home
                       <a href="/blog" class="hp-update-icon hp-update-blogpost">Blog Post</a>
 
                       <div class="recentUpdates-box">
-                            Lorem ipsum dolor sit amet, consectetur adipiscing elit. In id porttitor felis. Pellentesque pharetra, libero eget eleifend pretium, diam diam porta odio, eget placerat est mi sed tortor.
+                         {% for post in site.posts limit:1 %}<a href="{{ post.url }}">{{ post.title }} <br/>tamir{% endfor %}	
                       </div>
                       <div class="clear"></div>
                        <!-- update events -->
