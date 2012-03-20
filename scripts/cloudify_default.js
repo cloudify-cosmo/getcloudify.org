@@ -216,20 +216,6 @@ $.fn.slideFadeUp = function(speed, callback) {
 
 
 
-       //$(function() {
-
-	   //$(this).removeClass("current");
-
-            //$("div.ui-accordion").find("a").each(function(){
-            //if( location.href.indexOf(this.location.href) != -1) {
-           // $(this).addClass("current");
-             
-            //}
-
-            //});
-  
-            
-        //});
 
 
 
@@ -246,7 +232,7 @@ $("a.newwindow").attr("target","_blank");
 	var slides = $('.slide');
 	var numberOfSlides = slides.length;
   
-if ($("#slideshow").exist()) {    // Do something
+if ($("#slideshow").exist()) {    // Do something}
 
 
 	// Remove scrollbar in JS .
@@ -289,19 +275,25 @@ if ($("#slideshow").exist()) {    // Do something
   
   
   
-  	   $(this).removeClass("current");
-
-            $("div.ui-accordion").find("a").each(function(){
-            if( location.href.indexOf(this.location.href) != -1) {
-            $(this).addClass("current");
-             
-            }
-
-            });
-  
-  
-  
 };
+
+
+
+
+
+$(function() {
+
+	$(this).removeClass("current");
+	$("div.ui-accordion").find("a").each(function(){
+		if( location.href.indexOf(this.location.href) != -1) {
+		$(this).addClass("current");
+		}
+	
+	});            
+});
+
+
+
 
  // manageControls: Hides and shows controls depending on currentPosition
   function manageControls(position){
