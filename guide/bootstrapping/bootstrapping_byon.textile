@@ -42,7 +42,12 @@ In the configuration block:
 * set the SSH password (remotePassword)
 * set the management machine templaate (managementMachineTemplate) to the tamplate name you want to use for the management machine 
 
-
+Next, you need to create template(s) for your machine pools. As you can see there is an example template names "SMALL_LINUX_32" 
+You can use this example for additional pools changing the template name.
+In each template you need to configure the following:
+* node id (id) - this is an alias for the host
+* node ip (ip) - the IP of the host. Cloudify uses private IP and assumes that the cloudify client is in the same LAN as the IPs specified in
+the configuration file
 
 
 
