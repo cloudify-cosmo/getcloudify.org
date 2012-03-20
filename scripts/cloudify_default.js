@@ -216,20 +216,20 @@ $.fn.slideFadeUp = function(speed, callback) {
 
 
 
-       $(function() {
+       //$(function() {
 
-	   $(this).removeClass("current");
+	   //$(this).removeClass("current");
 
-            $("div.ui-accordion").find("a").each(function(){
+            //$("div.ui-accordion").find("a").each(function(){
             //if( location.href.indexOf(this.location.href) != -1) {
-            $(this).addClass("current");
+           // $(this).addClass("current");
              
-            }
+            //}
 
-            });
+            //});
   
             
-        });
+        //});
 
 
 
@@ -285,7 +285,22 @@ if ($("#slideshow").exist()) {    // Do something}
       $('#slideInner').animate({
         'marginLeft' : slideWidth*(-currentPosition)
       });
-  })  
+  })
+  
+  
+  
+  	   $(this).removeClass("current");
+
+            $("div.ui-accordion").find("a").each(function(){
+            if( location.href.indexOf(this.location.href) != -1) {
+            $(this).addClass("current");
+             
+            }
+
+            });
+  
+  
+  
 };
 
  // manageControls: Hides and shows controls depending on currentPosition
