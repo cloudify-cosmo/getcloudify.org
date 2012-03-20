@@ -12,7 +12,7 @@
 		$(function() {
 
 	<!--this code make the playlist-->		
-	var playListURL = 'http://gdata.youtube.com/feeds/api/playlists/D470957921551B9A?&max-results=5&v=2&alt=json&callback=?';
+	var playListURL = 'http://gdata.youtube.com/feeds/api/playlists/D470957921551B9A?&max-results=50&v=2&alt=json&callback=?';
 	var videoURL= 'http://www.youtube.com/watch?v=';
 	$.getJSON(playListURL, function(data) {
 		var list_data="";
@@ -61,6 +61,54 @@
 		//$('div.mainVideo-box h3.'+currentId+'').show();      
 
 	});
+	
+	
+	
+	
+   //add more firs time enterd
+	var count=0;
+    $('ul.videoThumbs li').each(
+      function(){
+        if(++count == 5){
+          $(this).parent().append('<li ><a href="#" class="moreVid">Click here for more...</a></li>');
+        }
+        else if(count > 5){
+          $(this).css('display','none');
+        }
+      }
+    );
+	
+
+
+//add more when click for more
+	$('a.moreVid').click(function() {
+		var count=0;
+		var toShow = '';
+		$('ul.videoThumbs li').each(
+			  function(){
+					if(++count <= toShow+10 ){
+					  $(this).css('display','block');
+					}
+					else if(count > toShow+10  ){
+						$(this).css('display','none');
+					if($(this).children().hasClass('moreVid') ){
+						$(this).css('display','block');
+					}
+		
+					}
+		  		}
+		);
+	});
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 	
 });
 
