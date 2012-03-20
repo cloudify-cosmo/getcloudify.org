@@ -9,6 +9,8 @@ pageord: 1
 
 h2. Installation
 
+h3. On Cloudify Client Machine
+
 * JDK 1.5 or 1.6 must be installed:
 ** JDK 1.5 - download the latest update (for example, JDK 5 Update 19).
 ** JDK 1.6 - download the latest update (for example, JDK 6 Update 23).
@@ -17,12 +19,13 @@ h2. Installation
 * You have reviewed the Supported Platforms section.
 * *For localcloud only*: You must set the NIC_ADDR environment variable to the machine IP.
 
-h2. Setup on public and private clouds
+h3. On the Cloud Images you may use with Cloudify
 
 * Assuming Oracle or IBM SDK 6 or higher on any Image (management and application VM)
 * SSH must be enabled for Linux Images.
 
-h2. Networking and Ports
+
+h2. Networking and Ports on the Cloud
 
 * Cloudify assumes that all ports for all private IPs within the same security groups are opened.
 * Cloudify assumes SSH is configured to port 22.
