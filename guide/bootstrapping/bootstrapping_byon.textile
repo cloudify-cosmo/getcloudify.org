@@ -6,5 +6,32 @@ publish: false
 abstract: Explains the bootsrapping process on BYON
 pageord: 1
 ---
-h1. The Bootstrapping BYON
+
+h1. Bootstrapping The Bring You Own Node (BYON) Host Pool
+
+h2. BYON Overview
+
+The BYON Cloud Driver is an impelementation of the Cloudify Cloud Driver allowing a user to use a set of physical machines or virtual machines
+as one or more pools for application virtualizations.
+Typical use case for such a scenario can be development and QA Labs.
+
+The BYON works very similar to other Cloud Drivers. It defines templates that have aliases that can be referenced by the different
+recipes. Each template is a pool of machines that can be defined by specifying each IP, IP range or even a CIDR mask.
+
+When the BYON driver is asked to bootstrap the pool it simply access one machine in the template specified for the management
+machine and using SSH it installs the Cloudify management components on it.
+
+When the BYON driver is requested by Cloudify controller to provision machines for application installation, it will install and start Cloudify agent 
+on availabel machine using the temaplates names specified in the service recipes.
+
+In that sense you can allocate different HW and SW stack to different services, exactly the same way as running a recipe on a cloud
+
+h2. BYON Prerequisites 
+
+Please note that Cloudify expects Java JDK and SSH to be installed on the machines in the pools. 
+Please check the Prerequisites page for more information.
+
+
+
+
 
