@@ -17,12 +17,12 @@ Cloudify Cloud Driver (ProvisioningDriver is the Interface Name), has 4 main sce
 Another scenario: Cluster Healing is the same as Install Application from Cloud Driver perspective
 
 
-h3. Flows explained
+h2. Flows explained
 
 In this tutorial we will demonstrate the flows using the Openstack Cloud Driver (OpenstackCloudDriver) that extends the CloudDriverSupport base Class
 and implements the ProvisioningDriver Interface
 
-h4. Bootstrapping Cloud
+h3. Bootstrapping Cloud
 <img src="/guide/images/clouddrivers/bootstrapping.png"/>
 
 In this scenario the Cloud Driver resides on the client side as no VM with Cloudify Server (Controller) exist.
@@ -42,7 +42,7 @@ This will return an array of MachineDetails (org.cloudifysource.esc.driver.provi
 These details will be used by Cloudify CLI to connect to the Hosts and install the management components on them. Finally Cloudify will start the Cloudify Controller components: the ESM, the GSM, the LUS and the Management Space. It will also start the Web Container for the Management application and the REST API container.
 
 
-h4. Installing an Application
+h3. Installing an Application
 
 <img src="/guide/images/clouddrivers/installApplication.png"/>
 
@@ -58,7 +58,7 @@ Cluster healing looks like this:
 <img src="/guide/images/clouddrivers/cluster-healing.png"/>
 
 
-h4. Uninstalling an Application
+h3. Uninstalling an Application
 
 <img src="/guide/images/clouddrivers/uninstallApplication.png"/>
 
@@ -71,7 +71,7 @@ The call to the Cloud IaaS API looke like this:
 
 <script src="https://gist.github.com/2043089.js?file=terminateServerAPI.java"></script>
 
-h4. Tearing Down the Cloud
+h3. Tearing Down the Cloud
 
 <img src="/guide/images/clouddrivers/tearDown.png"/>
 
