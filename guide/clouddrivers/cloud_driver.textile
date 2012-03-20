@@ -19,7 +19,7 @@ As a result, no special VM image is required. Any *-nix image can be used, wheth
 h1. When the Cloud Driver Is Used
 
 The Cloud Driver is loaded and used by two Cloudify Components:
-# The Cloudify CLI loads an instance of the cloud driver when the "bootstrap-cloud" or "teardown-cloud" command is called. This instance is only used to provision/decomission the management machines, and is then discarded of. This instance will only use the start/stop machine command for management machines (see the API section below).
+# The Cloudify CLI loads an instance of the cloud driver when the "bootstrap-cloud" or "teardown-cloud" command is called. This instance is only used to provision/decommission the management machines, and is then discarded of. This instance will only use the start/stop machine command for management machines (see the API section below).
 # The ESM (Elastic Service Manager) will load one instance of the cloud driver for each deployed service. This instance will be responsible for scaling out/in one specific service. At any time, there should be only one instance of the ESM running in a cluster, with zero or more instances of the cloud driver running in it.
 
 h1. How It Works
