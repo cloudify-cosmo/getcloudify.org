@@ -49,6 +49,19 @@ In each template you need to configure the following:
 * node ip (ip) - the IP of the host. Cloudify uses private IP and assumes that the cloudify client is in the same LAN as the IPs specified in
 the configuration file
 
+h1. Using the BYON driver
+
+In order to bootstrap the driver, start the Cloudify shell.
+type the bootstrap-cloud command suing byon as the cloud provider argument
+That's all. 
+Cloudify Controller will be installed one of the machines in the pool you designated for management machines and from that point 
+you can install any application usine the install-application command
+
+h2. Tearing down the BYON installation
+
+In order to shit down the installation, you need to use the teardown-cloud command with byon as cloud provider argument
+
+
 
 
 
