@@ -216,7 +216,20 @@ $.fn.slideFadeUp = function(speed, callback) {
 
 
 
+       $(function() {
 
+	   $(this).removeClass("current");
+
+            $("div.ui-accordion").find("a").each(function(){
+            if( location.href.indexOf(this.location.href) != -1) {
+            $(this).addClass("current");
+             
+            }
+
+            });
+  
+            
+        });
 
 
 
@@ -294,17 +307,3 @@ if ($("#slideshow").exist()) {    // Do something}
 
 
 
-       $(function() {
-
-	   $(this).removeClass("current");
-
-            $("div.ui-accordion").find("a").each(function(){
-            if( location.href.indexOf(this.location.href) != -1) {
-            $(this).addClass("current");
-             
-            }
-
-            });
-  
-            
-        });
