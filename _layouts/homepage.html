@@ -1,45 +1,28 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
         "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
-{% include head_section.html %}
+{% include head_section_home.html %}
 <body>
 <div class="WrapperBg">
-    <div class="Wrapper">
-        {% include header.html %}
-        <div class="contentWrap">
-            <!--<div class="breadcrumbs">Home Page > Cloudify Documentation</div>-->
-            <div class="clear"></div>
-
-            <!--Search-->
-			{% assign searchHdr="Search our Knowledge Base" %}
-            {% include search.html %}
-
-
-            <div class="content">
-               
-                <!--Start left content -->
-
-                <div id="resultsDiv" class="DocumentsWrap"></div>
-                <div id="pageContent" class="DocumentsWrapRight">
-                    <h1 class="pageTitle">{{ page.title }}</h1>
-                    {{content}}
-                </div>
-                <!--<div class="clear"></div> -->
-            </div>
-        </div>
-        <!--Start pagination -->
-
-        <div class="clear"></div>
-
-        <!--Start Footer -->
-
-        {% include footer.html %}
-
-    </div>
-    <!--End site wrapper -->
-
-
+  <a class="fork-guide" target="_blank" href="https://github.com/CloudifySource/cloudify"></a>    
+  {% include login.html %}
+  <div class="Wrapper">
+   {% include header.html %}
+   <div class="contentWrap">
+     <div class="breadcrumbs">Home Page</div>
+    {% assign searchHdr="Search our Knowledge Base" %}
+    {% include search.html %} 
+     
+     <div class="contentWrapHome">   
+	 <div class="hp-right-col">
+        <a class="hp-btn-getCloudify" href="http://www.cloudifysource.org/downloads/get_cloudify"></a>
+     </div>	
+     {{content}}  
+    </div>	
+    <div class="clear"></div>       
+   {% include footer.html %}  
+  </div>     
 </div>
-<!--End site bg top wrapper -->
+
 </body>
 </html>
