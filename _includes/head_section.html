@@ -28,7 +28,8 @@
 				var currKey = $(eventObject.currentTarget).text().trim();
 				if (currKey == "name") {
 					var prevKey = $(eventObject.currentTarget).prev("span.pln").text().trim();
-					currKey = prevKey + "." + currKey;
+					currKey = prevKey + "_" + currKey;
+					alert(currKey)
 				}
 				var tooltip = $(".overlay");
 				var position = $(eventObject.currentTarget).offset();				
