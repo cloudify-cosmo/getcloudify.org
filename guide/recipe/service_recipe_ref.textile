@@ -12,7 +12,7 @@ h3. Click on the keywords to get more information
 <script type="text/javascript">
 var messages = {
 service: 'The service root element, required',
-name: 'The service name, required',
+service_name: 'The service name, required',
 icon: 'The service icon file to be used in the management console, optional',
 type: 'The service tier type to be used in the  manangement console, possible values: ',
 numInstances: 'The number of instances planned for this service, required',
@@ -21,6 +21,7 @@ template: 'An attribute specifying a template name in the Cloud Driver configura
 lifecycle: 'A block specifying the handlers for the different lifecycle events',
 plugins: 'A list of monitoring plugins to be invoked by this recipe',
 plugin: ' A plugin descriptor block, contains the plugin class and configuration',
+plugin_name: 'An alias for this plugin',
 className: 'The class to load for this plugin. must be found in the the Cloudify agent classpath. Custom plugins should be under usmlib folder'
 
 }
