@@ -26,6 +26,10 @@
 			$("span.pln, span.kwd").hover(function(){$(this).css("background-color","#CECECE");},function(){$(this).css("background-color","transparent");});
 	        $("span.pln, span.kwd").click( function(eventObject) {
 				var currKey = $(eventObject.currentTarget).text().trim();
+				if (currKey == "name") {
+					var prevKey = $(eventObject.currentTarget).prev("span.pln");
+					currKey = prevKey + "." + currKey;
+				}
 				var tooltip = $(".overlay");
 				var position = $(eventObject.currentTarget).offset();				
 				$("#desc",tooltip).text(messages[currKey]);		
