@@ -64,6 +64,14 @@ the configuration file
 
 <script src="https://gist.github.com/2137727.js?file=template.groovy"></script>
 
+In order to add machines without specifying each IP, you can use a range of machine IPs. 
+For example, you can configure ipRange: 10.10.10.10-10.10.10.20, or CIDR 10.10.10.8/29 
+(which translates to range 10.10.10.8 - 10.10.10.15).
+The Ids for these cloud nodes would be generated based on the prefix you define,
+and the code will add an index to that prefix (e.g. bubi1, bubi2 etc.)
+Please note – the current version has a known issue: it only supports ranging on the last byte of the IP
+(meaning on the numbers that come after the last dot).
+
 
 
 h1. Using the BYON driver
