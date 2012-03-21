@@ -27,7 +27,7 @@
 	        $("span.pln, span.kwd").click( function(eventObject) {
 				var currKey = $(eventObject.currentTarget).text().trim();
 				if (currKey == "name") {
-					var prevKey = $(eventObject.currentTarget).prev("span.pln");
+					var prevKey = $(eventObject.currentTarget).prev("span.pln").text().trim();
 					currKey = prevKey + "." + currKey;
 				}
 				var tooltip = $(".overlay");
