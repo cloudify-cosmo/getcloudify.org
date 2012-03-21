@@ -26,6 +26,12 @@ management machine and using SSH it installs the Cloudify management components 
 When the BYON driver is requested by Cloudify controller to provision machines for application installation, 
 it will install and start Cloudify agent on available machine using the templates names specified in the service recipes.
 
+When there are not enough machines to allocate, this exception will be thrown:
+"Failed to create new cloud node, all nodes are currently used".
+The application installation would not revert, just like it doesn't revert on other clouds.
+The Cloudify Controller would keep retrying to get a new machine from the cloud. 
+
+
 In that sense you can allocate different HW and SW stack to different services, exactly the same way as running a recipe 
 on a cloud
 
