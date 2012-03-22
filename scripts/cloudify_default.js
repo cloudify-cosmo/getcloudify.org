@@ -231,6 +231,24 @@ $("a.newwindow").attr("target","_blank");
 	var slideWidth = 560;
 	var slides = $('.slide');
 	var numberOfSlides = slides.length;
+	
+
+	$(this).removeClass("current");
+	$("div.ui-accordion").find("a").each(function(){
+		if( location.href.indexOf(this.location.href) != -1) {
+		$(this).addClass("current");
+		}
+	
+	});            
+	
+	
+	
+	
+	
+	
+	
+	
+	
   
 if ($("#slideshow").exist()) {};    // Do something}
 
@@ -281,16 +299,7 @@ if ($("#slideshow").exist()) {};    // Do something}
 
 
 
-$(function() {
 
-	$(this).removeClass("current");
-	$("div.ui-accordion").find("a").each(function(){
-		if( location.href.indexOf(this.location.href) != -1) {
-		$(this).addClass("current");
-		}
-	
-	});            
-});
 
 
 
