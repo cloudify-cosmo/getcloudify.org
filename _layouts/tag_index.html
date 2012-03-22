@@ -23,7 +23,7 @@ layout: mainblog
     <img title="{{ post.author }}" width="80" height="96" src="/images/{{ post.image }}" />
   </div>  
   <div class="blogInfoRight">
-    <a class="title">{{ post.title }}</a>
+    <a href="{{ post.url }}" class="title">{{ post.title }}</a>
 	  <div class="blogPostInfo">
 	  <br/>	  	 
 	    <span>Posted By: <a href="#">{{ post.author }}</a>  on  {{ post.date | date: '%B' }} {{ post.date | date: '%e' }}, {{ post.date | date: '%Y' }}  <!--|  in <a href="/categories/{{ post.category | slugize }}">{{ post.category }}</a> --></span>
