@@ -4,7 +4,7 @@ title: Cloudify Prerequisites
 category: Installation & Setup
 publish: true
 abstract: Lists the Cloudify installation and setup prerequisites
-pageord: 1
+pageord: 100
 ---
 
 h2. Before You Install
@@ -15,11 +15,12 @@ h3. Prerequisites for Installing the Cloudify Interactive Shell Client
 ** "(newwindow)JDK 1.6":http://java.sun.com/javase/downloads/index.jsp - download the latest update (for example, JDK 6 Update 23).
 * You must set the JAVA_HOME environment variable, and make sure it points to the correct JDK (not JRE) directory prior to installing Cloudify. For example, D:\Java\jdk1.6.0_23.
 * The JAVA_HOME/bin directory should be added to the beginning of the Path environment variable. For example, %JAVA_HOME%\bin;SystemRoot%\system32;%SystemRoot%;%SystemRoot%
+ * There's no need to set the PATH if JAVA_HOME is set.
 
 h3. Prerequisites for Cloud Images that Are Used By Cloudify
 
 When installing applications on the cloud, Cloudify provision virtual machines for you. It is assumed by Cloudify that these virtual machines: 
-* Have Oracle JDK 6 or higher included in the image. 
+* Have JDK 1.6 or higher included in the image. 
 * SSH daemon started and running port 22.
 
 
