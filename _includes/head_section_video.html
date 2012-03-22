@@ -30,7 +30,8 @@
 			var url = videoURL + videoID;
 			var thumb = "http://img.youtube.com/vi/"+ videoID +"/0.jpg";
 			//var description = item.description.$s;
-			list_data += '<li id="'+videoID+'" class="videoThumbBox"><div class="vidThumb"><a href="'+ url +'" title="'+ feedTitle +'"><img alt="'+ feedTitle+'" src="'+ thumb +'"></a></div> <h4>'+feedTitle+'</h4><span class="mainVidDate">'+upDate+'</span><div class="clear"></div></li>';
+			var dateFor = new Date(upDate);
+			list_data += '<li id="'+videoID+'" class="videoThumbBox"><div class="vidThumb"><a href="'+ url +'" title="'+ feedTitle +'"><img alt="'+ feedTitle+'" src="'+ thumb +'"></a></div> <h4>'+feedTitle+'</h4><span class="mainVidDate">'+dateFor.toDateString('dd')+'</span><div class="clear"></div></li>';
 			showDescription += '<p class="'+videoID+'" style="display:none" >'+deScrip+'</p>';
 			movieTitle += '<h3 class="'+videoID+'" style="display:none"> '+feedTitle+'</h3>';
 			updated += '<span class="'+videoID+'" style="display:none">'+upDate+'</span>';
@@ -66,42 +67,61 @@
 	
 	
 	
-   //add more firs time enterd
-	var count=0;
-    $('ul.videoThumbs li').each(
-      function(){
-        if(++count == 5){
-          $(this).parent().append('<li ><a href="#" class="moreVid">Click here for more...</a></li>');
-        }
-        else if(count > 5){
-          $(this).css('display','none');
-        }
-      }
-    );
+  // VIdeo thumbs - AG
+	 //VIDEO THUMBS - show first page 
+	$('ul.videoThumbs li:gt(4)').hide();
+
+    
+    // add next/prev button
+	if($('ul.videoThumbs li').length>4){
+		$(".videoThumbsPag").append('<span  class="prevVid" style="cursor:pointer;">Prev...</span>&nbsp;<span class="moreVid" style="cursor:pointer;">Next</span>')
+		
+
+	}
 	
 
+    if ($('ul.videoThumbs').children('li:visible:first').index() == 0) {$('.prevVid').hide()}
 
-//add more when click for more
-	$('a.moreVid').click(function() {
-		var count=0;
-		var toShow = '';
-		$('ul.videoThumbs li').each(
-			  function(){
-					if(++count <= toShow+10 ){
-					  $(this).css('display','block');
-					}
-					else if(count > toShow+10  ){
-						$(this).css('display','none');
-					if($(this).children().hasClass('moreVid') ){
-						$(this).css('display','block');
-					}
-		
-					}
-		  		}
-		);
+	$('.moreVid').click(function() {
+        if ($('ul.videoThumbs li:visible:last').is(':last-child')) {
+           // alert('no-next');
+            $('.moreVid').hide();
+		    return false;
+        }
+
+        var currentIndex = $('ul.videoThumbs').children('li:visible:last').index(),
+            nextIndex = currentIndex + 6;
+        $('ul.videoThumbs li').hide();
+        $('ul.videoThumbs li:lt(' + nextIndex + '):gt(' + currentIndex + ')').show();
+
+         $('.prevVid').show();
+	    
 	});
 	
 	
+	
+	$('.prevVid').click(function() {
+        if ($('ul.videoThumbs li:visible:first').is(':first-child')) {
+            alert('no-pev');
+		    return false;
+		
+        }else{
+		    var currentIndex = $('ul.videoThumbs').children('li:visible:first').index(),
+			    nextIndex = currentIndex - 5;
+		    $('ul.videoThumbs li').hide();
+		    $('ul.videoThumbs li:lt(' + currentIndex + '):gt(' + nextIndex + ')').show();
+		     if (currentIndex == 0) {$('.prevVid').hide()}
+
+            if (nextIndex == 0) {$('.prevVid').hide()}
+           
+           $('.moreVid').show();
+           
+           
+	    }
+
+	
+	});
+// ENd video thumbs - AG
 	
 	
 	
