@@ -10,13 +10,12 @@
    {% include header.html %}
    <div class="contentWrap">
      <div class="breadcrumbs">Home Page</div>
-    {% assign searchHdr="Search our Knowledge Base" %}
-    {% include search.html %} 
-     
-     <div class="contentWrapHome">   
-	 <div class="hp-right-col">
-        <a class="hp-btn-getCloudify" href="http://www.cloudifysource.org/downloads/get_cloudify"></a>
+    {% include homesearch.html %} 
+     <div class="hp-right-col">
+       <a class="hp-btn-getCloudify" href="http://www.cloudifysource.org/downloads/get_cloudify"></a>
      </div>	
+     <div class="contentWrapHome">   
+
 	 <div id="resultsDiv" class="DocumentsWrap"></div>
      {{content}}  
     </div>	
