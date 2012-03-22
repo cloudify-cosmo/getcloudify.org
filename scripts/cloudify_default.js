@@ -225,7 +225,7 @@ $(function() {
 
 $("a.newwindow").attr("target","_blank");
 
-		$( "#accordion" ).accordion({autoHeight:false, navigation: true,collapsible: true});
+		//$( "#accordion" ).accordion({autoHeight:false, navigation: true,collapsible: true});
 		
 	var currentPosition = 0;
 	var slideWidth = 560;
