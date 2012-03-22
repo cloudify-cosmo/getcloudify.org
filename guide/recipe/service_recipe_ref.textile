@@ -22,7 +22,17 @@ lifecycle: 'A block specifying the handlers for the different lifecycle events',
 plugins: 'A list of monitoring plugins to be invoked by this recipe',
 plugin: ' A plugin descriptor block, contains the plugin class and configuration',
 plugin_name: 'An alias for this plugin',
-className: 'The class to load for this plugin. must be found in the the Cloudify agent classpath. Custom plugins should be under usmlib folder'
+className: 'The class to load for this plugin. must be found in the the Cloudify agent classpath. Custom plugins should be under usmlib folder',
+userInterface: 'The custom metric configuration in the management GUI',
+metricGroups: 'A block describing groups of custom metrics as sub menus in the GUI',
+metricGroup: 'A group of custom metrics as sub menu in the GUI',
+widgetGroups: 'A block describing metrics mappings to widgets in GUI',
+widgetGroup: 'A group of Widgets presenting a custom metric',
+widgetGroup_name:'The name of the group',
+widgets: 'The widgets used in the group',
+balanceGauge: 'A gauge showing the relative SD in the cluster',
+barLineChart: 'A complex chart showing bars for min-max range in the cluster and a line for cluster AVG' 
+
 
 }
 </script> 
