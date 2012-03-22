@@ -236,7 +236,7 @@ $("a.newwindow").attr("target","_blank");
 	$(this).removeClass("current");
 	$("div.ui-accordion").find("a").each(function(){
 		//if( location.href.indexOf(this.location.href) != -1) {
-		if( location.href.indexOf(this.location) != -1) {
+		if( location.href.indexOf(this.location) == -1) {
 		$(this).addClass("current");
 		}
 	
