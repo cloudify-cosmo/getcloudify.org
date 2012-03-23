@@ -15,6 +15,7 @@
 	<script type="text/javascript" src="/scripts/prettify/prettify.js"></script>
     <script type="text/javascript">
              $(function(){ 
+             	$("a.youtube").YouTubePopup({ hideTitleBar: true });
            	$("div.expand").hide();
            	$("li.expandBtn").click(function(){	
     		  $(this).next("div.expand").slideToggle(500);
@@ -65,13 +66,7 @@
 
     </script>
     
-    <script type="text/javascript" charset="utf-8">
-  $(document).ready(function(){
-    $("a[rel^='prettyPhoto']").prettyPhoto();
-  });
-</script>
-
-    
+ 
 
 </head>
 <body>
@@ -327,6 +322,11 @@
                 <div id="resultsDiv" class="DocumentsWrap"></div>
                 <div id="pageContent" class="DocumentsWrapRight">
                     <h1 class="pageTitle">Terabyte Elastic Cache Clusters on Cisco UCS and Amazon EC2</h1>
+					 
+					  <span class="blogPostInfo">Posted By: <a href="#">Sean Kumar</a>  on January  5, 2012  
+					  </span>
+					  <br/><br/><br/>
+					 
                     <h3>Overview</h3>
 <p class="MsoNormal">Last week I was working on a new opportunity. The prospect needs to store 1 Terabyte of data in memory to address scalability challenges and were interested in using GigaSpaces. I was tasked with creating a demonstration of this and want to share my experience as a blog post.</p>
 <h3>Scope</h3>

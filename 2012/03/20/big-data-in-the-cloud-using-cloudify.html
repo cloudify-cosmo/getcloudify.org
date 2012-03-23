@@ -15,6 +15,7 @@
 	<script type="text/javascript" src="/scripts/prettify/prettify.js"></script>
     <script type="text/javascript">
              $(function(){ 
+             	$("a.youtube").YouTubePopup({ hideTitleBar: true });
            	$("div.expand").hide();
            	$("li.expandBtn").click(function(){	
     		  $(this).next("div.expand").slideToggle(500);
@@ -65,13 +66,7 @@
 
     </script>
     
-    <script type="text/javascript" charset="utf-8">
-  $(document).ready(function(){
-    $("a[rel^='prettyPhoto']").prettyPhoto();
-  });
-</script>
-
-    
+ 
 
 </head>
 <body>
@@ -327,6 +322,11 @@
                 <div id="resultsDiv" class="DocumentsWrap"></div>
                 <div id="pageContent" class="DocumentsWrapRight">
                     <h1 class="pageTitle">Big Data in the Cloud using Cloudify</h1>
+					 
+					  <span class="blogPostInfo">Posted By: <a href="#">Nati Shalom</a>  on March 20, 2012  
+					  </span>
+					  <br/><br/><br/>
+					 
                     <div xmlns="http://www.w3.org/1999/xhtml">
 	<p><a href="https://plus.google.com/114723964985237592593/posts">Edd Dumbill</a> wrote an interesting article on O'Reilly Radar covering the current solutions for running <a href="http://radar.oreilly.com/2012/02/big-data-in-the-cloud-microsoft-amazon-google.html">Big Data in the Cloud</a></p>
 	<p style="padding-left: 30px;">Big data and cloud technology go hand-in-hand. Big data needs clusters of servers for processing, which clouds can readily provide.</p>

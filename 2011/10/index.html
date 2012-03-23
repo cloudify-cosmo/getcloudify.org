@@ -15,6 +15,7 @@
 	<script type="text/javascript" src="/scripts/prettify/prettify.js"></script>
     <script type="text/javascript">
              $(function(){ 
+             	$("a.youtube").YouTubePopup({ hideTitleBar: true });
            	$("div.expand").hide();
            	$("li.expandBtn").click(function(){	
     		  $(this).next("div.expand").slideToggle(500);
@@ -65,13 +66,7 @@
 
     </script>
     
-    <script type="text/javascript" charset="utf-8">
-  $(document).ready(function(){
-    $("a[rel^='prettyPhoto']").prettyPhoto();
-  });
-</script>
-
-    
+ 
 
 </head>
 <body>
@@ -327,6 +322,7 @@
                 <div id="resultsDiv" class="DocumentsWrap"></div>
                 <div id="pageContent" class="DocumentsWrapRight">
                     <h1 class="pageTitle"></h1>
+					
                     <h1>October 2011</h1>
 <ol class="archive">
   

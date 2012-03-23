@@ -15,6 +15,7 @@
 	<script type="text/javascript" src="/scripts/prettify/prettify.js"></script>
     <script type="text/javascript">
              $(function(){ 
+             	$("a.youtube").YouTubePopup({ hideTitleBar: true });
            	$("div.expand").hide();
            	$("li.expandBtn").click(function(){	
     		  $(this).next("div.expand").slideToggle(500);
@@ -65,13 +66,7 @@
 
     </script>
     
-    <script type="text/javascript" charset="utf-8">
-  $(document).ready(function(){
-    $("a[rel^='prettyPhoto']").prettyPhoto();
-  });
-</script>
-
-    
+ 
 
 </head>
 <body>
@@ -327,6 +322,11 @@
                 <div id="resultsDiv" class="DocumentsWrap"></div>
                 <div id="pageContent" class="DocumentsWrapRight">
                     <h1 class="pageTitle">Lessons from Zynga and Sony on moving from Amazon AWS</h1>
+					 
+					  <span class="blogPostInfo">Posted By: <a href="#">Nati Shalom</a>  on March 14, 2012  
+					  </span>
+					  <br/><br/><br/>
+					 
                     	<p>Earlier this month Zynga announced its move from Amazon AWS to its own private Z-Cloud. Sony also started to move increasing parts of its workload from Amazon to Rackspace OpenStack.</p>
 	<p>There isn't so much in common between these different use cases, except for the fact that they may indicate the beginning of a trend (I&rsquo;ll get back to that toward the end) where companies start to take more control over their cloud infrastructure.<br />
 		<br />

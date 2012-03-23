@@ -15,6 +15,7 @@
 	<script type="text/javascript" src="/scripts/prettify/prettify.js"></script>
     <script type="text/javascript">
              $(function(){ 
+             	$("a.youtube").YouTubePopup({ hideTitleBar: true });
            	$("div.expand").hide();
            	$("li.expandBtn").click(function(){	
     		  $(this).next("div.expand").slideToggle(500);
@@ -65,13 +66,7 @@
 
     </script>
     
-    <script type="text/javascript" charset="utf-8">
-  $(document).ready(function(){
-    $("a[rel^='prettyPhoto']").prettyPhoto();
-  });
-</script>
-
-    
+ 
 
 </head>
 <body>
@@ -327,6 +322,11 @@
                 <div id="resultsDiv" class="DocumentsWrap"></div>
                 <div id="pageContent" class="DocumentsWrapRight">
                     <h1 class="pageTitle">Behind the Curtains of Cloudify, GigaSpaces' New Product</h1>
+					 
+					  <span class="blogPostInfo">Posted By: <a href="#">Uri Cohen</a>  on October 24, 2011  
+					  </span>
+					  <br/><br/><br/>
+					 
                     <div xmlns="http://www.w3.org/1999/xhtml">
   <p>Announcing a new product is a major and exciting milestone in a company&#39;s lifecycle. Our last announcment was the launch of <a href="http://www.gigaspaces.com/xap">XAP</a>&nbsp;a few years ago - the Xtreme Application Platform aimed to provide a complete end to end scalability solution through the entire application stack, meaning Data, Web, Messaging, everything.</p>
 	<p>Today is one of those exciting days, as we are announcing a new product, <a href="http://www.gigaspaces.com/cloudify">Cloudify</a>.</p>
