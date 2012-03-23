@@ -9,7 +9,7 @@ pageord: 200
 
 p. How to develop your custom Cloud Driver.
 
-h1. How does the Cloud Driver Works – Technical introduction
+h1. How does the Cloud Driver Work? – Technical introduction
 
 Cloudify Cloud Driver (ProvisioningDriver is the Interface Name), has 4 main scenarios
 # Bootstrap Cloud – which is the installation of Cloudify Management VM and Controller on a Cloud from your laptop
@@ -66,8 +66,7 @@ h3. Uninstalling an Application
 
 <img src="/guide/images/clouddrivers/uninstallApplication.png"/>
 
-This is a server side scenario from Cloud Driver Perspective. The Controller had been instructed to uninstall a deployed application. The Controller will shut down the Application services and will command the Cloud Driver to terminate
-the VMs used by these service. This is done VM by VM suing the stopMachine method. The Cloud Driver connects the the IaaS API and instruct it to terminate each VM 
+This is a server side scenario from Cloud Driver Perspective. The Controller had been instructed to uninstall a deployed application. The Controller will shut down the Application services and will command the Cloud Driver to terminate the VMs used by these service. This is done by VM suing the stopMachine method. The Cloud Driver connects the the IaaS API and instruct it to terminate each VM 
 
 <script src="https://gist.github.com/2043076.js?file=stopMachine.java"></script>
 
