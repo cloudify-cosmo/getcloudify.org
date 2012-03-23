@@ -1,10 +1,148 @@
+/*!
+ * jQuery YouTube Popup Player Plugin v2.0
+ * http://lab.abhinayrathore.com/jquery_youtube/
+ * Last Updated: Oct 20 2011
+ */
+(function ($) {
+    var YouTubeDialog = null;
+    var methods = {
+        //initialize plugin
+        init: function (options) {
+            options = $.extend({}, $.fn.YouTubePopup.defaults, options);
+
+            // initialize YouTube Player Dialog
+            if (YouTubeDialog == null) {
+                YouTubeDialog = $('<div></div>').css({ display: 'none', padding: 0 });
+                $('body').append(YouTubeDialog);
+                YouTubeDialog.dialog({ autoOpen: false, resizable: false, draggable: options.draggable, modal: options.modal,
+                    close: function () {
+						YouTubeDialog.html(''); 
+						$(".ui-dialog-titlebar").show();
+					}
+                });
+            }
+
+            return this.each(function () {
+                var obj = $(this);
+                var data = obj.data('YouTube');
+                if (!data) { //check if event is already assigned
+                    obj.data('YouTube', { target: obj, 'active': true });
+                    $(obj).bind('click.YouTubePopup', function () {
+                        var youtubeId = options.youtubeId;
+                        if ($.trim(youtubeId) == '') youtubeId = obj.attr(options.idAttribute);
+                        var videoTitle = options.title;
+                        if ($.trim(videoTitle) == '') videoTitle = obj.attr('title');
+
+                        //Format YouTube URL
+                        var YouTubeURL = "http://www.youtube.com/embed/" + youtubeId + "?rel=0&showsearch=0&autohide=" + options.autohide;
+                        YouTubeURL += "&autoplay=" + options.autoplay + "&color1=" + options.color1 + "&color2=" + options.color2;
+                        YouTubeURL += "&controls=" + options.controls + "&fs=" + options.fullscreen + "&loop=" + options.loop;
+                        YouTubeURL += "&hd=" + options.hd + "&showinfo=" + options.showinfo + "&color=" + options.color + "&theme=" + options.theme;
+
+                        //Setup YouTube Dialog
+                        YouTubeDialog.html(getYouTubePlayer(YouTubeURL, options.width, options.height));
+                        YouTubeDialog.dialog({ 'width': 'auto', 'height': 'auto' }); //reset width and height
+                        YouTubeDialog.dialog({ 'minWidth': options.width, 'minHeight': options.height, title: videoTitle });
+                        YouTubeDialog.dialog('open');
+						$(".ui-widget-overlay").fadeTo('fast', options.overlayOpacity); //set Overlay opacity
+						if(options.hideTitleBar && options.modal){ //hide Title Bar (only if Modal is enabled)
+							$(".ui-dialog-titlebar").hide(); //hide Title Bar
+							$(".ui-widget-overlay").click(function () { YouTubeDialog.dialog("close"); }); //automatically assign Click event to overlay
+						}
+						if(options.clickOutsideClose && options.modal){ //assign clickOutsideClose event only if Modal option is enabled
+							$(".ui-widget-overlay").click(function () { YouTubeDialog.dialog("close"); }); //assign Click event to overlay
+						}
+                        return false;
+                    });
+                }
+            });
+        },
+        destroy: function () {
+            return this.each(function () {
+                $(this).unbind(".YouTubePopup");
+                $(this).removeData('YouTube');
+            });
+        }
+    };
+
+    function getYouTubePlayer(URL, width, height) {
+        var YouTubePlayer = '<iframe title="YouTube video player" style="margin:0; padding:0;" width="' + width + '" ';
+        YouTubePlayer += 'height="' + height + '" src="' + URL + '" frameborder="0" allowfullscreen></iframe>';
+        return YouTubePlayer;
+    }
+
+    $.fn.YouTubePopup = function (method) {
+        if (methods[method]) {
+            return methods[method].apply(this, Array.prototype.slice.call(arguments, 1));
+        } else if (typeof method === 'object' || !method) {
+            return methods.init.apply(this, arguments);
+        } else {
+            $.error('Method ' + method + ' does not exist on jQuery.YouTubePopup');
+        }
+    };
+
+    //default configuration
+    $.fn.YouTubePopup.defaults = {
+		'youtubeId': '',
+		'title': '',
+		'idAttribute': 'rel',
+		'draggable': false,
+		'modal': true,
+		'width': 640,
+		'height': 480,
+		'hideTitleBar': false,
+		'clickOutsideClose': false,
+		'overlayOpacity': 0.5,
+		'autohide': 2,
+		'autoplay': 1,
+		'color': 'red',
+		'color1': 'FFFFFF',
+		'color2': 'FFFFFF',
+		'controls': 1,
+		'fullscreen': 1,
+		'loop': 0,
+		'hd': 1,
+		'showinfo': 0,
+		'theme': 'light'
+    };
+})(jQuery);
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 /* ------------------------------------------------------------------------
   Class: prettyPhoto
 	Use: Lightbox clone for jQuery
 	Author: Stephane Caron (http://www.no-margin-for-errors.com)
 	Version: 3.1.4
-------------------------------------------------------------------------- */
+------------------------------------------------------------------------- 
 
 (function($){$.prettyPhoto={version:'3.1.4'};$.fn.prettyPhoto=function(pp_settings){pp_settings=jQuery.extend({hook:'rel',animation_speed:'fast',ajaxcallback:function(){},slideshow:5000,autoplay_slideshow:false,opacity:0.80,show_title:true,allow_resize:true,allow_expand:true,default_width:500,default_height:344,counter_separator_label:'/',theme:'pp_default',horizontal_padding:20,hideflash:false,wmode:'opaque',autoplay:true,modal:false,deeplinking:true,overlay_gallery:true,overlay_gallery_max:30,keyboard_shortcuts:true,changepicturecallback:function(){},callback:function(){},ie6_fallback:true,markup:'<div class="pp_pic_holder"> \
       <div class="ppt">&nbsp;</div> \
@@ -82,3 +220,6 @@ $pp_pic_holder.attr('class','pp_pic_holder '+settings.theme);$pp_overlay.css({'o
 $pp_pic_holder.find('.pp_previous, .pp_nav .pp_arrow_previous').bind('click',function(){$.prettyPhoto.changePage('previous');$.prettyPhoto.stopSlideshow();return false;});$pp_pic_holder.find('.pp_next, .pp_nav .pp_arrow_next').bind('click',function(){$.prettyPhoto.changePage('next');$.prettyPhoto.stopSlideshow();return false;});_center_overlay();};if(!pp_alreadyInitialized&&getHashtag()){pp_alreadyInitialized=true;hashIndex=getHashtag();hashRel=hashIndex;hashIndex=hashIndex.substring(hashIndex.indexOf('/')+1,hashIndex.length-1);hashRel=hashRel.substring(0,hashRel.indexOf('/'));setTimeout(function(){$("a["+pp_settings.hook+"^='"+hashRel+"']:eq("+hashIndex+")").trigger('click');},50);}
 return this.unbind('click.prettyphoto').bind('click.prettyphoto',$.prettyPhoto.initialize);};function getHashtag(){url=location.href;hashtag=(url.indexOf('#prettyPhoto')!==-1)?decodeURI(url.substring(url.indexOf('#prettyPhoto')+1,url.length)):false;return hashtag;};function setHashtag(){if(typeof theRel=='undefined')return;location.hash=theRel+'/'+rel_index+'/';};function clearHashtag(){if(location.href.indexOf('#prettyPhoto')!==-1)location.hash="prettyPhoto";}
 function getParam(name,url){name=name.replace(/[\[]/,"\\\[").replace(/[\]]/,"\\\]");var regexS="[\\?&]"+name+"=([^&#]*)";var regex=new RegExp(regexS);var results=regex.exec(url);return(results==null)?"":results[1];}})(jQuery);var pp_alreadyInitialized=false;
+
+
+*/
