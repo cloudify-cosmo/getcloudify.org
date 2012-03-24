@@ -7,10 +7,10 @@
 <id>{{siteUrl}}</id>
 <rights>Copyright (c) 2012 Gigaspaces</rights>
 {% for post in site.posts limit:30 %}<entry>
-<title>{{ post.title }}</title>
+<title>{{ post.title | escape }}</title>
 <link href="{{ siteUrl }}{{ post.url }}"/>
 <updated>{{ post.date | date_to_xmlschema }}</updated>
 <id>{{ siteUrl }}{{ post.url }}</id>
-<summary type="html">{{ post.content | strip_html | truncatewords: 20 }}</summary>
+<summary type="html">{{ post.content | strip_html | escape | truncatewords: 20 }}</summary>
 </entry>{% endfor %}
 </feed>
