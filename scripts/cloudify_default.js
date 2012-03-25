@@ -1,7 +1,6 @@
 
 
 
-
 /* ---------------------------------------------
 expandAll v.1.3.8.2
 http://www.adipalaz.com/experiments/jquery/expand.html
@@ -237,7 +236,7 @@ $("a.newwindow").attr("target","_blank");
 	var numberOfSlides = slides.length;
 	
 
-	$(this).removeClass("current");
+	$("div.ui-accordion a").removeClass("current");
 	$("div.ui-accordion").find("a").each(function(){
 		//if( location.href.indexOf(this.location.href) != -1) {
 		if( location.href.indexOf(this.href) != -1) {	
