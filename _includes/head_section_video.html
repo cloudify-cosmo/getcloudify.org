@@ -57,7 +57,7 @@
 	
 	//this code show the right description after we click on playlist link
 	$('li.videoThumbBox a').click(function() {
-		$('#resultsDiv').hide();
+		$('#resultsDiv').children().hide();
 		$('p , div.clipTitle h3 , div.mainVidDate span ').hide();
 		//$('div.mainVideo-box h3').hide();
 		var currentId = $(this).parent().parent().attr('id');
