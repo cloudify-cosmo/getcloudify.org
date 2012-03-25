@@ -319,7 +319,7 @@ if ($("#slideshow").exist()) {};    // Do something}
 
 window.onload = function () {
 	
-	alert("It's loaded 123!");
+	alert("It's loaded 121213!");
 	
 	$('body').addClass("bodyClass");
 	
