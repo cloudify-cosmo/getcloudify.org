@@ -317,11 +317,10 @@ if ($("#slideshow").exist()) {};    // Do something}
   
 });  
 
+// loads body bg image. solves flivkering of image on apge laod
 window.onload = function () {
 	
-	alert("It's loaded 121213!");
-	
-	$('body').addClass("bodyClass");
+$('body').addClass("bodyClass");
 	
 }
 
