@@ -317,7 +317,13 @@ if ($("#slideshow").exist()) {};    // Do something}
   
 });  
 
-window.onload = function () { alert("It's loaded!") }
+window.onload = function () {
+	
+	alert("It's loaded!")
+	
+	$('body').css("background", "url(../images/bgFooter.png) repeat-x bottom center");
+	
+}
 
 
 
