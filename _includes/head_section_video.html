@@ -57,6 +57,7 @@
 	
 	//this code show the right description after we click on playlist link
 	$('li.videoThumbBox a').click(function() {
+		$('#resultsDiv').hide();
 		$('p , div.clipTitle h3 , div.mainVidDate span ').hide();
 		//$('div.mainVideo-box h3').hide();
 		var currentId = $(this).parent().parent().attr('id');
@@ -68,13 +69,13 @@
 	
 	
 	
-  // VIdeo thumbs - AG
+    // VIdeo thumbs - AG
 	 //VIDEO THUMBS - show first page 
-	$('ul.videoThumbs li:gt(4)').hide();
+	$('ul.videoThumbs li:gt(3)').hide();
 
     
     // add next/prev button
-	if($('ul.videoThumbs li').length>4){
+	if($('ul.videoThumbs li').length>3){
 		$(".videoThumbsPag").append('<span  class="prevVid" style="cursor:pointer;">Prev...</span>&nbsp;<span class="moreVid" style="cursor:pointer;">Next</span>')
 		
 
@@ -90,13 +91,17 @@
 		    return false;
         }
 
-        var currentIndex = $('ul.videoThumbs').children('li:visible:last').index(),
+        
+        var currentIndex = $('ul.videoThumbs').children('li:visible:last').index();
             nextIndex = currentIndex + 6;
         $('ul.videoThumbs li').hide();
         $('ul.videoThumbs li:lt(' + nextIndex + '):gt(' + currentIndex + ')').show();
 
          $('.prevVid').show();
-	    
+		 if ($('ul.videoThumbs li:visible:last').is(':last-child')) {
+		 	$('.moreVid').hide();
+		    return false;
+		 }
 	});
 	
 	
@@ -105,24 +110,31 @@
         if ($('ul.videoThumbs li:visible:first').is(':first-child')) {
             alert('no-pev');
 		    return false;
-		
         }else{
 		    var currentIndex = $('ul.videoThumbs').children('li:visible:first').index(),
-			    nextIndex = currentIndex - 5;
+			    nextIndex = currentIndex - 4;
 		    $('ul.videoThumbs li').hide();
-		    $('ul.videoThumbs li:lt(' + currentIndex + '):gt(' + nextIndex + ')').show();
+			//if (nextIndex == 0){nextIndex=-1;}
+		    //$('ul.videoThumbs li:lt(' + currentIndex + '):gt(' + nextIndex + ')').show();
+			if (currentIndex == 4){
+			$('ul.videoThumbs li:lt(4):gt(0)').show();
+			$('ul.videoThumbs li:first-child').show();
+			}else{
+				$('ul.videoThumbs li:lt(' + currentIndex + '):gt(' + nextIndex + ')').show();
+			}
+			
 		     if (currentIndex == 0) {$('.prevVid').hide()}
 
             if (nextIndex == 0) {$('.prevVid').hide()}
            
-           $('.moreVid').show();
-           
+          	 $('.moreVid').show();
            
 	    }
 
 	
 	});
 // ENd video thumbs - AG
+
 	
 	
 	
