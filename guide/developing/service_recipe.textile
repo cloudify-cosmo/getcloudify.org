@@ -50,7 +50,34 @@ This methodology makes the recipes easier to maintain, troubleshoot and makes th
 
 h3. Passing context to event handlers
 
-Lifecycle scripts get the context injected to them as environment variables or as system variables
+The service context is available in the service file and can be used in closures, such as lifecycle events and custom commands. To access the context, just use the 'context' variable, i.e. 
+<pre class="prettyprint"> 
+ def instanceId = context.instanceId
+</pre> 
+
+To use the service context in external groovy file, use the ServiceContextFactory to get an instance of the service context. For instance:
+
+<pre class="prettyprint"> 
+  import org.cloudifysource.dsl.context.ServiceContextFactory
+  ...
+  def context = ServiceContextFactory.getServiceContext() 
+</pre>
+
+Note that you should only use the Sevice Context Factory from external groovy files, not for the service file itself.
+
+Non-JVM based executables do not have simple access to the service context, but some of the information is available as environment variables:
+
+LOOKUPGROUPS
+LOOKUPLOCATORS
+USM_CLUSTER_NAME
+USM_APPLICATION_NAME
+USM_SERVICE_NAME
+USM_PU_UNIQUE_NAME
+USM_INSTANCE_ID
+USM_NUMBER_OF_INSTANCES
+USM_RUNNING_NUMBER
+USM_SERVICE_FILE_NAME
+
 <img src="/guide/images/recipes/context_injection.png"/>
 
 h1. Plugins
@@ -80,3 +107,6 @@ There are two modes of using plugins
 <img src="/guide/images/recipes/monitoring_cycle.png"/>
 <script src="https://gist.github.com/1760272.js?file=plugins.groovy"></script>
 
+<script>
+prettyPrint();
+</script>
