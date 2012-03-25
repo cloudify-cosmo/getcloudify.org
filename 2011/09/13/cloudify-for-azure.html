@@ -1,0 +1,441 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <title>Cloudify - Cloudify for Azure</title>
+    <link rel="stylesheet" href="/css/template.css" type="text/css"/>
+    <link rel="stylesheet" href="/css/jquery-ui-1.8.17.custom.css" type="text/css" media="all"/>
+    <link rel="stylesheet" type="text/css" href="/scripts/prettify/prettify.css">	
+	<link rel="shortcut icon" href="favicon.ico" type="image/x-icon" />
+    <script type="text/javascript" src="http://code.jquery.com/jquery-1.6.4.js"></script>
+    <script type="text/javascript" src="/scripts/search.js"></script>
+    <script type="text/javascript" src="/scripts/jquery-ui-1.8.17.custom.min.js"></script>
+    <script type="text/javascript" src="/scripts/jquery.prettyPhoto.js"></script>
+	<script type="text/javascript" src="/scripts/prettify/prettify.js"></script>
+    <script type="text/javascript">
+             $(function(){ 
+             	$("a.youtube").YouTubePopup({ hideTitleBar: true });
+           	$("div.expand").hide();
+           	$("li.expandBtn").click(function(){	
+    		  $(this).next("div.expand").slideToggle(500);
+    		  if($(this).html()=="More..."){
+    		  	$(this).html("Less...");	
+    		  }else{
+    		  	$(this).html("More...");
+    		  }
+    		  
+			});
+           /* ------------- added by Yaron ------------ */
+			$("span.pln, span.kwd").css("cursor","pointer");
+			$("span.pln, span.kwd").hover(function(){$(this).css("background-color","#CECECE");},function(){$(this).css("background-color","transparent");});
+	        $("span.pln, span.kwd").click( function(eventObject) {
+				var currKey = $(eventObject.currentTarget).text().trim();
+				if (currKey == "name") {
+					var prevKey = $(eventObject.currentTarget).prev().prev("span.pln").text().trim();
+					currKey = prevKey + "_" + currKey;
+					
+				}
+				var tooltip = $(".overlay");
+				var position = $(eventObject.currentTarget).offset();				
+				$("#desc",tooltip).text(messages[currKey]);		
+				tooltip.show().offset({ top: position.top + tooltip.scrollTop() - 75, left: position.left + 100});
+				$("#tipImg").position()
+				$("#closeBut").click(function() {$(".overlay").offset({top:0,left:0}).hide();})
+			 });	
+           }
+	 );
+    
+    </script>
+    
+    <script type="text/javascript" src="/scripts/cloudify_default.js"></script>
+
+
+
+    <script type="text/javascript">
+        var _gaq = _gaq || [];
+        _gaq.push(['_setAccount', 'UA-29063606-1']);
+        _gaq.push(['_trackPageview']);
+
+        (function() {
+            var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+            ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+            var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+        })();
+        
+
+    </script>
+    
+ 
+
+</head>
+<body>
+<div class="WrapperBg">
+    <a class="fork-guide" target="_blank" href="https://github.com/CloudifySource/cloudify"></a>
+	<ul class="loginMenu">
+	<li><a target="_blank" href="https://cloudifysource.zendesk.com/access/unauthenticated?return_to=https%3A%2F%2Fcloudifysource.zendesk.com%2Flogin">Login</a></li>
+	<li class="sep">|</li>
+	<li><a target="_blank" href="https://cloudifysource.zendesk.com/registration">Sign-Up</a></li>
+</ul>
+    <div class="Wrapper">
+        <div class="header">
+    <a class="logo" href="/"></a>
+    <div class="clear"></div>
+            <div class="topMenu">
+                <ul class="_topmenu">
+                    <li class="topmenuli"><a class="bgMenu1" target="_blank" href="http://forums.cloudifysource.org/forums"><span class="title1">Discuss & Suggest</span><span class="title2">Support Forums</span></a></li>
+                    <li class="sep"></li>
+                    <li class="topmenuli"><a class="bgMenu2" href="/guide"><span class="title1">Learn</span><span class="title2">Knowledge Base</span></a></li>
+                    <li class="sep"></li>
+                    <li class="topmenuli"><a class="bgMenu3" href="/participate"><span class="title1">Participate</span><span class="title2">Events & Webinars</span></a></li>
+                    <li class="sep"></li>
+                    <li class="topmenuli"><a class="bgMenu4" href="/blog"><span class="title1">Read</span><span class="title2">Blog Posts & Updates</span></a></li>
+                    <li class="sep"></li>
+                    <li class="topmenuli"><a class="bgMenu5" href="/cloudifysourcetv"><span class="title1">Watch</span><span class="title2">Watch & Learn</span></a></li>
+                    <li class="sep"></li>
+                    <li class="topmenuli"><a class="bgMenu6" target="_blank" href="https://github.com/CloudifySource/cloudify"><span class="title1">Develop</span><span class="title2">Get Involved</span></a></li>
+
+		</ul>
+		<div class="clear"></div>
+	</div>
+</div>
+
+<!-- Tooltip Container -->
+<div class="overlay">
+<div class="overlayFrame">
+<div style="width:100%;height:25px;align:left;"><img src="/images/close.png" id="closeBut"/></div>
+<div><span id="desc"></span><br/>
+ <span id="required"></span><br/>
+ <span id="values"></span>
+ </div>
+</div>
+<img src="/images/box_edge.png" id="tipImg"/>  
+</div>
+        <div class="contentWrap">            
+			<div class="breadcrumbs">Home Page > Cloudify Blogs > Cloudify for Azure</div>
+            <div class="clear"></div>
+
+            <!--Search-->
+			
+            
+ 
+
+<div class="learnFrom">
+    <h2>Blog Posts and Updates</h2>
+
+    <div class="searchWrap">
+        <form id="searchForm" action="#" method="get">
+            <input id="search" class="searchTxt" type="text" placeholder="Search..."/>
+            <input id="goBtn" class="searchBtn" type="submit" value="Go"/>
+        </form>
+    </div>
+</div>
+
+
+
+
+
+            <div class="content">
+                <div class="left">
+                    <a class="btnGetCloudifyFreeEdition" target="_blank" href="/downloads/get_cloudify"></a>
+                    <!--Event groups-->
+
+
+
+<div class="leftContentBox blogLeft-topTitle">
+	<h3>Recent Posts</h3>
+</div>
+
+
+<div class="leftContentBox blogLeftBox"> 
+   
+	<a href="/2012/03/25/petclinic_deepdive.html">Mongo DB Sharding in Pet Clinic Application recipe 
+	 <img class="noMargin" src="/images/arrow-right-blue.png" /></a><br />
+	<span class="date">March 25, 2012</span>  
+	<br/><br/>
+  
+	<a href="/2012/03/20/big-data-in-the-cloud-using-cloudify.html">Big Data in the Cloud using Cloudify 
+	 <img class="noMargin" src="/images/arrow-right-blue.png" /></a><br />
+	<span class="date">March 20, 2012</span>  
+	<br/><br/>
+  
+	<a href="/2012/03/14/lessons-from-zynga-and-sony-on-moving-from-amazon-aws.html">Lessons from Zynga and Sony on moving from Amazon AWS 
+	 <img class="noMargin" src="/images/arrow-right-blue.png" /></a><br />
+	<span class="date">March 14, 2012</span>  
+	<br/><br/>
+		
+</div>
+
+<div class="leftContentBox blogLeft-topTitle">
+	<h3>Archived Posts</h3>
+</div>
+
+ <ul class="blog-archive-list">
+ 
+ 
+	
+	
+	
+	
+	
+	
+
+	
+<li><a href="/2012/03">March 2012</a> <span class="blue">(3)</span></li>
+
+	
+
+	
+		
+			
+		
+	
+
+	
+	
+	
+	
+	
+	
+
+	
+
+	
+		
+			
+		
+	
+
+	
+	
+	
+	
+	
+	
+
+	
+
+	
+		
+			
+<li><a href="/2012/02">February 2012</a> <span class="blue">(1)</span></li>
+
+			
+		
+	
+
+	
+	
+	
+	
+	
+	
+
+	
+
+	
+		
+			
+<li><a href="/2012/01">January 2012</a> <span class="blue">(2)</span></li>
+
+			
+		
+	
+
+	
+	
+	
+	
+	
+	
+
+	
+
+	
+		
+			
+		
+	
+
+	
+	
+	
+	
+	
+	
+
+	
+
+	
+		
+
+<li><a href="/2011/11">November 2011</a> <span class="blue">(1)</span></li>
+
+		
+	
+
+	
+	
+	
+	
+	
+	
+
+	
+
+	
+		
+			
+<li><a href="/2011/10">October 2011</a> <span class="blue">(1)</span></li>
+
+			
+		
+	
+
+	
+	
+	
+	
+	
+	
+
+	
+
+	
+		
+			
+<li><a href="/2011/09">September 2011</a> <span class="blue">(1)</span></li>
+
+			
+		
+	
+
+	
+	
+	
+	
+	
+	
+
+	
+
+	
+
+	
+
+
+
+
+
+ 
+ </ul>
+
+                </div>
+
+                <!--Start left content -->
+
+                <div id="resultsDiv" class="DocumentsWrap"></div>
+                <div id="pageContent" class="DocumentsWrapRight">
+                    <h1 class="pageTitle">Cloudify for Azure</h1>
+					 
+					  <span class="blogPostInfo">Posted By: <a href="#">Uri Cohen</a>  on September 13, 2011  
+					  </span>
+					  <br/><br/><br/>
+					 
+                    <p><a class="thickbox" href="http://blog.gigaspaces.com/wp-content/uploads/2011/07/image.png"><img alt="image" border="0" height="204" src="http://blog.gigaspaces.com/wp-content/uploads/2011/07/image_thumb.png" style="background-image: none; border-right-width: 0px; padding-left: 0px; padding-right: 0px; display: inline; border-top-width: 0px; border-bottom-width: 0px; border-left-width: 0px; padding-top: 0px" title="image" width="612" /></a></p>
+<p>By now, if you're following GigaSpaces, you should probably have heard about our new <a href="http://bit.ly/nskgGj">Cloudify for Azure offering</a>. In this post I'll try to provide a high level overview of what this offering is about, how it was conceptualized, and what are its benefits for the end user.</p>
+<p> </p>
+<h2> Cloudify - A Brief Intro</h2>
+<p> If I were to summarize Cloudify's mission statement to a single sentence - it would be to <strong>cloud-enable enterprise and mission critical apps easily and non-intrusively</strong>.  This essentially means that Cloudify enables you to take an existing application and seamlessly deploy and manage it on your private or public cloud, with no code changes. When we set out to create Cloudify, we had three primary design guidelines in mind:</p>
+<p><a class="thickbox" href="http://blog.gigaspaces.com/wp-content/uploads/2011/07/image1.png"><img align="left" alt="image" border="0" height="86" src="http://blog.gigaspaces.com/wp-content/uploads/2011/07/image_thumb1.png" style="background-image: none; border-right-width: 0px; margin: 0px 6px 0px 0px; padding-left: 0px; padding-right: 0px; display: inline; float: left; border-top-width: 0px; border-bottom-width: 0px; border-left-width: 0px; padding-top: 0px" title="image" width="75" /></a><strong>Any app, any stack</strong>: We wanted to provide a flexible yet simple mechanism to deploy and manage applications on the cloud. That's pretty much standard. But we also wanted it to be flexible enough to support any kind of application - i.e.  No matter what your application stack of choice is: Java/Spring, JEE, PHP, .NET, Ruby on Rails or others, with a relational (e.g. MySQL) or non-relational (e.g. Apache Cassandra) data store, or with other middleware components, you will still be able to leverage Cloudify to... well, Cloudify it. </p>
+<p> </p>
+<p><a class="thickbox" href="http://blog.gigaspaces.com/wp-content/uploads/2011/07/image2.png"><img align="left" alt="image" border="0" height="88" src="http://blog.gigaspaces.com/wp-content/uploads/2011/07/image_thumb2.png" style="background-image: none; border-right-width: 0px; margin: 0px 6px 0px 0px; padding-left: 0px; padding-right: 0px; display: inline; float: left; border-top-width: 0px; border-bottom-width: 0px; border-left-width: 0px; padding-top: 0px" title="image" width="79" /></a><strong>Any cloud</strong>: From talking to numerous customers and prospects, we quickly realized that they want the same kind of flexibility in their underlying cloud environment as they do with the application stack. For example, many customers talked about public clouds such as Amazon, Rackspace, and Azure, while others talked about private cloud, ranging from higher level cloud platforms such as OpenStack and <a href="http://cloud.com">cloud.com</a>, all the way down to plain virtualized environments such as VMWare vCenter and Citrix XenServer. Moreover, some expressed the need to deploy the same application on multiple environments, for example for <a href="http://searchcloudcomputing.techtarget.com/definition/cloud-bursting ">cloud bursting </a>purposes. This meant that we had to create a framework flexible enough to, on one hand, handle any application stack, yet on the other hand, isolate the application completely from the underlying cloud runtime, whatever it may be.</p>
+<p><a class="thickbox" href="http://blog.gigaspaces.com/wp-content/uploads/2011/07/image3.png"><img align="left" alt="image" border="0" height="89" src="http://blog.gigaspaces.com/wp-content/uploads/2011/07/image_thumb3.png" style="background-image: none; border-right-width: 0px; margin: 0px 6px 0px 0px; padding-left: 0px; padding-right: 0px; display: inline; float: left; border-top-width: 0px; border-bottom-width: 0px; border-left-width: 0px; padding-top: 0px" title="image" width="78" /></a><strong>Full control</strong>: When deploying enterprise, mission critical apps to the cloud using existing PaaS solutions, you gain a lot of benefits such as agility and productivity since it's no longer about the underlying OS and runtime, but rather about the application itself. But in many cases, you lose at least some degree of control, since you're not exposed to the underlying infrastructure and cannot monitor and tune it the way you're used to with traditional data centers and applications. Since Cloudify does have access to those resources, it can provide a much greater level of control, but only if you actually want it. Otherwise, it hides the complexities using a set of predefined application blueprints and best practices that the less advanced users will typically find sufficient.</p>
+<p> </p>
+<h2>So How Did We Get Here to Begin With?</h2>
+<p>GigaSpaces has been providing XAP, our <a href="http://www.gigaspaces.com/xap" target="_blank">end to end, elastic application platform</a>, for quite some time now. XAP is being used for the most demanding applications, for a variety of mission critical and high performance use cases, so you can say it's pretty much battle proven. XAP's core runtime is designed to allow for the management and on demand scaling of such application's on both cloud and on premise environments. Furthermore, it can use the underlying virtualization technology, when such is available, to provision or decommission resources on the fly, as needed by the application. Realizing that the above are some of XAP's most appealing capabilities, and taking into consideration the fact that migrating to XAP may in some cases entail non-trivial efforts, we wanted to open it to as many applications and use cases as possible. The way to do this was to enable any type of middleware service (web containers, databases, messaging servers, and basically anything you can install and start with a script..) and not just XAP's own application containers, to be managed and scaled within the same powerful runtime platform. To open XAP's runtime platform in this way, we've created a number of mechanisms that mediate between the provisioned service and the runtime environment:</p>
+<p><strong><a class="thickbox" href="http://blog.gigaspaces.com/wp-content/uploads/2011/07/RecipeWithFiles.png"><img align="left" alt="RecipeWithFiles" border="0" height="69" src="http://blog.gigaspaces.com/wp-content/uploads/2011/07/RecipeWithFiles_thumb.png" style="background-image: none; border-right-width: 0px; padding-left: 0px; padding-right: 0px; display: inline; float: left; border-top-width: 0px; border-bottom-width: 0px; border-left-width: 0px; padding-top: 0px" title="RecipeWithFiles" width="87" /></a>Recipe-based configuration</strong>: At the core of Cloudify stands the mechanism of application recipes. You can think of a recipe as a "manual" that tells Cloudify all the details that are needed to run an application: what middleware services it needs to run, what the dependencies are between these services (e.g. a Tomcat-based web app that accesses a MySQL instance), how to install those services and where to find the application and service binaries, when to spin more instances or terminate existing ones, and even how to monitor each of the services. Recipes are expressed in a Groovy based DSL (domain specific language), which makes them very intuitive and easy to extend and customize.</p>
+<p><strong><a class="thickbox" href="http://blog.gigaspaces.com/wp-content/uploads/2011/07/Complex-Deployments.png"><img align="left" alt="Complex Deployments" border="0" height="83" src="http://blog.gigaspaces.com/wp-content/uploads/2011/07/Complex-Deployments_thumb.png" style="background-image: none; border-right-width: 0px; margin: 0px 6px 0px 0px; padding-left: 0px; padding-right: 0px; display: inline; float: left; border-top-width: 0px; border-bottom-width: 0px; border-left-width: 0px; padding-top: 0px" title="Complex Deployments" width="73" /></a>Universal service adapter: </strong>This component runs on every node, and basically translates the recipe into actions (install, start service, monitor it, etc.) on the local node. You can think of it as Cloudify's local delegate on each node. The nice thing about it, is that it doesn't really care what service it manages (Tomcat, MySQL, Cassandra, JBoss, or even Apache with mod_php), as long as the recipe configures it correctly.</p>
+<p> </p>
+<p><strong><a class="thickbox" href="http://blog.gigaspaces.com/wp-content/uploads/2011/07/Monitoring-n-Management.png"><img align="left" alt="Monitoring n Management" border="0" height="87" src="http://blog.gigaspaces.com/wp-content/uploads/2011/07/Monitoring-n-Management_thumb.png" style="background-image: none; border-right-width: 0px; margin: 0px 6px 0px 0px; padding-left: 0px; padding-right: 0px; display: inline; float: left; border-top-width: 0px; border-bottom-width: 0px; border-left-width: 0px; padding-top: 0px" title="Monitoring n Management" width="75" /></a>Pluggable and customizable monitoring: </strong>The monitoring framework was built as a set of plugins for common monitoring protocols (e.g. JMX, SNMP, JDBC/SQL, and others). The universal service adapter activates the plugin locally on each service node, and the plugin connects to the local service and starts collecting metrics from it (for example the value of a certain JMX MBean in Tomcat). These metrics are then communicated to the Cloudify runtime, exposed to the user via the various user interfaces, and are used for auto-scaling decisions defined within the recipe.</p>
+<h2>How Does Azure Fit into the Picture?</h2>
+<p>So now that we understood Cloudify's main purpose and components, let's talk about the underlying Cloud infrastructure. Cloudify contains a very powerful abstraction called the <strong>Multi-Cloud Adapter. </strong>This abstraction was designed to isolate the application from the underlying cloud environments, and to provide a common foundation for integrating with all major cloud and virtualization vendors. Azure is one of the first clouds which we have integrated with Cloudify, but we plan to integrate Cloudify with many virtualization and cloud vendors over time. We've already done a lot of work around Amazon EC2, OpenStack, Rackspace, GoGrid, <a href="http://www.gigaspaces.com/citrix">Citrix XenServer </a>and we intend to have each and every one of them natively supported by Cloudify. As part of these efforts, we've also made contributions to the excellent <a href="http://www.jclouds.org/">JClouds project </a>around its OpenStack compute and blob store support, and we plan to continue contributing to it the future, since we believe cloud portability is key in reducing the entry barriers and making people feel more comfortable with their choices (knowing they will not be locked in to their cloud platform of choice later). It's worth noting, that the list of platforms above is diverse and there's quite a large variance between the supported platforms. We've designed Cloudify to be flexible enough to be able to use these environments for provisioning virtual hosts and add and remove them on demand per the application's requirements. But it's not just about VM provisioning. In many cases, you'd want to leverage a certain platform's unique capabilities, such as Azure's load balancer or failover capabilities. By using the <a href="http://www.microsoft.com/windowsazure/features/compute/ ">Azure worker role</a>, load balancing becomes as simple as spinning up another role instance and provisioning the application (e.g. A Tomcat web server) to run on it. In addition, the worker role guarantees automatic self-healing by the Azure cloud in the event that the application instance fails, since Azure automatically recovers role instances when they fail. This also enables the user to utilize the Azure blob store for storing application and service binaries. If you use Tomcat, this would probably be the best place to put your Tomcat installation binaries, and even the application's deployment package (a .war file in our case). The other bit is that Cloudify does not limit your ability to leverage other Azure cloud services in any way , such as SQLAzure, the table service, or the queue service, since it is not intrusive to your application. So in short - Cloudify and Azure are a great match, allowing you to easily on-board your mission critical Java apps to Azure while still leveraging Azure's built in capabilities.</p>
+<h2>A Few Words about Cloud Portability</h2>
+<p>Cloud portability is often underrated, since in the quest for cloud-enablement of your application, there are much more pressing issues, such as, say, getting the thing working on the cloud to begin with... But making sure your application and deployment configuration is not bound to a specific cloud environments is important for a number of reasons:</p>
+<p><a class="thickbox" href="http://blog.gigaspaces.com/wp-content/uploads/2011/07/image4.png"><img align="left" alt="image" border="0" height="80" src="http://blog.gigaspaces.com/wp-content/uploads/2011/07/image_thumb4.png" style="background-image: none; border-right-width: 0px; margin: 0px 6px 0px 0px; padding-left: 0px; padding-right: 0px; display: inline; float: left; border-top-width: 0px; border-bottom-width: 0px; border-left-width: 0px; padding-top: 0px" title="image" width="92" /></a><strong>Avoid cloud vendor lock-in</strong>: In many cases, we've seen customers migrate from one cloud to another, or from public to private cloud for a variety of reasons, such as service levels, pricing, and more. What works and fits the bill today may prove the opposite in a year or two, and as a user you want to make sure you're not tied to a specific environment or vendor. One might (rightfully) ask whether using Cloudify doesn't actually lock you in to Cloudify itself instead of the cloud platform. Well, it does to an extent, but by its nature Cloudify is completely non-intrusive to the application code, so the lock in is much less risky for you. The key is that Cloudify helps you keep your application, which is what you care about most, cloud-neutral. </p>
+<p><a class="thickbox" href="http://blog.gigaspaces.com/wp-content/uploads/2011/07/image5.png"><img align="left" alt="image" border="0" height="88" hspace="5" src="http://blog.gigaspaces.com/wp-content/uploads/2011/07/image_thumb5.png" style="background-image: none; border-right-width: 0px; margin: 0px 6px 0px 0px; padding-left: 0px; padding-right: 0px; display: inline; float: left; border-top-width: 0px; border-bottom-width: 0px; border-left-width: 0px; padding-top: 0px" title="image" vspace="5" width="79" /></a><strong>Multi-Cloud Deployments: </strong>Another important factor is the ability to mix and match on premise and cloud environments or availability zones of the same cloud environment as part of the same application. This can help you deal with a number of important scenarios:</p>
+<p>  </p>
+<ul>
+  <li><strong>Cloud bursting</strong>: In many cases, your application average load is very different from its peak load. Take e-commerce web sites for example. For most of the year they sustain a fairly reasonable load, but for very short periods such as black Friday or Cyber Monday, their loads increase significantly. When your applications is serviced from a public cloud, you can easily accommodate by spinning up more hosts (assuming your application is scalable enough of course). But if you're running in your own data center (as many e-comm sites often do) you don't want to buy 10 times more hardware than you need on average just to be able to sustain the black Friday madness. In such cases, one of the most appealing options is to "burst" to the cloud - so you use the cloud to provision more resources when needed and have the application use them to deal with the excess load. To be able to burst to the cloud, you need a framework that can manage the application in your own data center (virtualized or not) and on public clouds.</li>
+	<li><strong>Improve Quality of Service: </strong>Applications that service users globally often use content delivery networks to optimize the delivery of the application their users. But CDNs are only good for static content (images, videos, etc.). What if you could bring the entire application closer to the users? in such cases, having a platform that can manage the application on multiple zones or environments is a key enabler for this. You simply choose the availability zones and cloud providers that are closest to your users and deploy the application there. The ability of the deployment platform to isolate the application from the underlying cloud environment is what makes this possible.</li>
+	<li><strong>Cross-Data-Center and Cross-Cloud High Availability</strong>: Deploying your application on multiple cloud environments, or even multiple data centers of the same same cloud environment, makes it far less sensitive to failures such as the <a href="http://www.zdnet.com/blog/btl/amazons-n-virginia-ec2-cluster-down-networking-event-triggered-problems/47679?tag=mantle_skin;content" target="_blank">one occurred in Amazon's US-East data center recently</a>.  Why parts of your application maybe out of service, other parts can still be fully functional and even used to compensate for the failures of other parts and receive traffic that they serviced before the failure.</li>
+</ul>
+<ul></ul>
+<h2>Final Words</h2>
+<p>Cloudify for Azure takes all of Cloudify's capabilities and makes them available on Azure:</p>
+<ul>
+	<li>Enable users to easily deploy even the most complex Java apps onto Azure with zero code changes</li>
+	<li>Provide an enterprise-grade production environment for your Java app on Azure through continuous availability, elastic scalability, production ready management and monitoring, and fully automated deployment</li>
+	<li>Maximize Azure's platform capabilities with extremely tight integration</li>
+	<li>Leverage GigaSpaces' decade of experience in delivering application platforms for large-scale, mission-critical Java applications</li>
+</ul>
+
+                    <div id="disqus_thread"></div>
+<script type="text/javascript">
+    /* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
+    var disqus_shortname = 'cloudifysource'; // required: replace example with your forum shortname
+    var disqus_identifier = '/2011/09/13/cloudify-for-azure.html';
+
+    /* * * DON'T EDIT BELOW THIS LINE * * */
+    (function() {
+        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+        dsq.src = 'http://' + disqus_shortname + '.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="http://disqus.com" class="dsq-brlink">blog comments powered by <span class="logo-disqus">Disqus</span></a>
+
+                </div>
+
+                <div class="clear"></div>
+            </div>
+        </div>
+
+        <!--Start pagination -->
+
+        <div class="clear"></div>
+
+        <!--Start Footer -->
+
+        <div class="footer">
+    <!--<ul class="footerLeftMenu">
+        <li class="footerli"><a href="#">About GigaSpaces</a></li>
+        <li class="footerli"><a href="#">Contact Us</a></li>
+    </ul> -->
+    <ul class="footerRightMenu">
+        <li class="footerli">Copyright © 2012 GigaSpaces. All rights reserved.</li>
+        <li class="footerli"><a href="/about_us">About Us</a></li>
+        <li class="footerli">|</li>
+        <li class="footerli"><a href="/terms_of_use">Terms of Use</a></li>
+        <li class="footerli">|</li>
+        <li class="footerli"> <a href="/privacy_policy">Privacy Policy</a></li>
+    </ul> 
+    <ul class="footerSocialMenu">
+        <li class="footerFb"><a href="https://www.facebook.com/GigaSpaces?sk=app_201742856511228"></a></li>
+        <li class="footerRss"><a href="/atom.xml"></a></li>
+        <!--<li class="footerMell"><a href="#"></a></li>-->
+        <li class="footerTwitt"><a href="http://www.twitter.com/cloudifysource"></a></li>
+        <li class="footerYt"><a href="http://www.youtube.com/cloudifysource"></a></li>
+    </ul>
+</div>
+
+
+    </div>
+    <!--End site wrapper -->
+
+
+</div>
+<!--End site bg top wrapper -->
+</body>
+</html>

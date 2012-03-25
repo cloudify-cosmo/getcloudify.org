@@ -1,0 +1,450 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <title>Cloudify - Top Myths of Moving Mission-Critical Applications to the Cloud</title>
+    <link rel="stylesheet" href="/css/template.css" type="text/css"/>
+    <link rel="stylesheet" href="/css/jquery-ui-1.8.17.custom.css" type="text/css" media="all"/>
+    <link rel="stylesheet" type="text/css" href="/scripts/prettify/prettify.css">	
+	<link rel="shortcut icon" href="favicon.ico" type="image/x-icon" />
+    <script type="text/javascript" src="http://code.jquery.com/jquery-1.6.4.js"></script>
+    <script type="text/javascript" src="/scripts/search.js"></script>
+    <script type="text/javascript" src="/scripts/jquery-ui-1.8.17.custom.min.js"></script>
+    <script type="text/javascript" src="/scripts/jquery.prettyPhoto.js"></script>
+	<script type="text/javascript" src="/scripts/prettify/prettify.js"></script>
+    <script type="text/javascript">
+             $(function(){ 
+             	$("a.youtube").YouTubePopup({ hideTitleBar: true });
+           	$("div.expand").hide();
+           	$("li.expandBtn").click(function(){	
+    		  $(this).next("div.expand").slideToggle(500);
+    		  if($(this).html()=="More..."){
+    		  	$(this).html("Less...");	
+    		  }else{
+    		  	$(this).html("More...");
+    		  }
+    		  
+			});
+           /* ------------- added by Yaron ------------ */
+			$("span.pln, span.kwd").css("cursor","pointer");
+			$("span.pln, span.kwd").hover(function(){$(this).css("background-color","#CECECE");},function(){$(this).css("background-color","transparent");});
+	        $("span.pln, span.kwd").click( function(eventObject) {
+				var currKey = $(eventObject.currentTarget).text().trim();
+				if (currKey == "name") {
+					var prevKey = $(eventObject.currentTarget).prev().prev("span.pln").text().trim();
+					currKey = prevKey + "_" + currKey;
+					
+				}
+				var tooltip = $(".overlay");
+				var position = $(eventObject.currentTarget).offset();				
+				$("#desc",tooltip).text(messages[currKey]);		
+				tooltip.show().offset({ top: position.top + tooltip.scrollTop() - 75, left: position.left + 100});
+				$("#tipImg").position()
+				$("#closeBut").click(function() {$(".overlay").offset({top:0,left:0}).hide();})
+			 });	
+           }
+	 );
+    
+    </script>
+    
+    <script type="text/javascript" src="/scripts/cloudify_default.js"></script>
+
+
+
+    <script type="text/javascript">
+        var _gaq = _gaq || [];
+        _gaq.push(['_setAccount', 'UA-29063606-1']);
+        _gaq.push(['_trackPageview']);
+
+        (function() {
+            var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+            ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+            var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+        })();
+        
+
+    </script>
+    
+ 
+
+</head>
+<body>
+<div class="WrapperBg">
+    <a class="fork-guide" target="_blank" href="https://github.com/CloudifySource/cloudify"></a>
+	<ul class="loginMenu">
+	<li><a target="_blank" href="https://cloudifysource.zendesk.com/access/unauthenticated?return_to=https%3A%2F%2Fcloudifysource.zendesk.com%2Flogin">Login</a></li>
+	<li class="sep">|</li>
+	<li><a target="_blank" href="https://cloudifysource.zendesk.com/registration">Sign-Up</a></li>
+</ul>
+    <div class="Wrapper">
+        <div class="header">
+    <a class="logo" href="/"></a>
+    <div class="clear"></div>
+            <div class="topMenu">
+                <ul class="_topmenu">
+                    <li class="topmenuli"><a class="bgMenu1" target="_blank" href="http://forums.cloudifysource.org/forums"><span class="title1">Discuss & Suggest</span><span class="title2">Support Forums</span></a></li>
+                    <li class="sep"></li>
+                    <li class="topmenuli"><a class="bgMenu2" href="/guide"><span class="title1">Learn</span><span class="title2">Knowledge Base</span></a></li>
+                    <li class="sep"></li>
+                    <li class="topmenuli"><a class="bgMenu3" href="/participate"><span class="title1">Participate</span><span class="title2">Events & Webinars</span></a></li>
+                    <li class="sep"></li>
+                    <li class="topmenuli"><a class="bgMenu4" href="/blog"><span class="title1">Read</span><span class="title2">Blog Posts & Updates</span></a></li>
+                    <li class="sep"></li>
+                    <li class="topmenuli"><a class="bgMenu5" href="/cloudifysourcetv"><span class="title1">Watch</span><span class="title2">Watch & Learn</span></a></li>
+                    <li class="sep"></li>
+                    <li class="topmenuli"><a class="bgMenu6" target="_blank" href="https://github.com/CloudifySource/cloudify"><span class="title1">Develop</span><span class="title2">Get Involved</span></a></li>
+
+		</ul>
+		<div class="clear"></div>
+	</div>
+</div>
+
+<!-- Tooltip Container -->
+<div class="overlay">
+<div class="overlayFrame">
+<div style="width:100%;height:25px;align:left;"><img src="/images/close.png" id="closeBut"/></div>
+<div><span id="desc"></span><br/>
+ <span id="required"></span><br/>
+ <span id="values"></span>
+ </div>
+</div>
+<img src="/images/box_edge.png" id="tipImg"/>  
+</div>
+        <div class="contentWrap">            
+			<div class="breadcrumbs">Home Page > Cloudify Blogs > Top Myths of Moving Mission-Critical Applications to the Cloud</div>
+            <div class="clear"></div>
+
+            <!--Search-->
+			
+            
+ 
+
+<div class="learnFrom">
+    <h2>Blog Posts and Updates</h2>
+
+    <div class="searchWrap">
+        <form id="searchForm" action="#" method="get">
+            <input id="search" class="searchTxt" type="text" placeholder="Search..."/>
+            <input id="goBtn" class="searchBtn" type="submit" value="Go"/>
+        </form>
+    </div>
+</div>
+
+
+
+
+
+            <div class="content">
+                <div class="left">
+                    <a class="btnGetCloudifyFreeEdition" target="_blank" href="/downloads/get_cloudify"></a>
+                    <!--Event groups-->
+
+
+
+<div class="leftContentBox blogLeft-topTitle">
+	<h3>Recent Posts</h3>
+</div>
+
+
+<div class="leftContentBox blogLeftBox"> 
+   
+	<a href="/2012/03/25/petclinic_deepdive.html">Mongo DB Sharding in Pet Clinic Application recipe 
+	 <img class="noMargin" src="/images/arrow-right-blue.png" /></a><br />
+	<span class="date">March 25, 2012</span>  
+	<br/><br/>
+  
+	<a href="/2012/03/20/big-data-in-the-cloud-using-cloudify.html">Big Data in the Cloud using Cloudify 
+	 <img class="noMargin" src="/images/arrow-right-blue.png" /></a><br />
+	<span class="date">March 20, 2012</span>  
+	<br/><br/>
+  
+	<a href="/2012/03/14/lessons-from-zynga-and-sony-on-moving-from-amazon-aws.html">Lessons from Zynga and Sony on moving from Amazon AWS 
+	 <img class="noMargin" src="/images/arrow-right-blue.png" /></a><br />
+	<span class="date">March 14, 2012</span>  
+	<br/><br/>
+		
+</div>
+
+<div class="leftContentBox blogLeft-topTitle">
+	<h3>Archived Posts</h3>
+</div>
+
+ <ul class="blog-archive-list">
+ 
+ 
+	
+	
+	
+	
+	
+	
+
+	
+<li><a href="/2012/03">March 2012</a> <span class="blue">(3)</span></li>
+
+	
+
+	
+		
+			
+		
+	
+
+	
+	
+	
+	
+	
+	
+
+	
+
+	
+		
+			
+		
+	
+
+	
+	
+	
+	
+	
+	
+
+	
+
+	
+		
+			
+<li><a href="/2012/02">February 2012</a> <span class="blue">(1)</span></li>
+
+			
+		
+	
+
+	
+	
+	
+	
+	
+	
+
+	
+
+	
+		
+			
+<li><a href="/2012/01">January 2012</a> <span class="blue">(2)</span></li>
+
+			
+		
+	
+
+	
+	
+	
+	
+	
+	
+
+	
+
+	
+		
+			
+		
+	
+
+	
+	
+	
+	
+	
+	
+
+	
+
+	
+		
+
+<li><a href="/2011/11">November 2011</a> <span class="blue">(1)</span></li>
+
+		
+	
+
+	
+	
+	
+	
+	
+	
+
+	
+
+	
+		
+			
+<li><a href="/2011/10">October 2011</a> <span class="blue">(1)</span></li>
+
+			
+		
+	
+
+	
+	
+	
+	
+	
+	
+
+	
+
+	
+		
+			
+<li><a href="/2011/09">September 2011</a> <span class="blue">(1)</span></li>
+
+			
+		
+	
+
+	
+	
+	
+	
+	
+	
+
+	
+
+	
+
+	
+
+
+
+
+
+ 
+ </ul>
+
+                </div>
+
+                <!--Start left content -->
+
+                <div id="resultsDiv" class="DocumentsWrap"></div>
+                <div id="pageContent" class="DocumentsWrapRight">
+                    <h1 class="pageTitle">Top Myths of Moving Mission-Critical Applications to the Cloud</h1>
+					 
+					  <span class="blogPostInfo">Posted By: <a href="#">Nati Shalom</a>  on February 19, 2012  
+					  </span>
+					  <br/><br/><br/>
+					 
+                    <div xmlns="http://www.w3.org/1999/xhtml">
+	<p><em>Special <strong>Guest Post</strong></em><strong><em> </em></strong><em><strong>By Nati Shalom,</strong></em><em><strong> at <a href="http://cloudnewsdaily.com/">CloudNewsDaily.com</a></strong></em></p>
+	<p><a href="http://natishalom.typepad.com/.a/6a00d835457b7453ef016301479e1d970d-pi" style="float: left;"><img alt="Mission Crtical CLoud" class="asset  asset-image at-xid-6a00d835457b7453ef016301479e1d970d" src="http://natishalom.typepad.com/.a/6a00d835457b7453ef016301479e1d970d-250wi" style="width: 250px; margin: 0px 5px 5px 0px;" title="Mission Critical Cloud" /></a></p>
+	<p><span style="font-family: arial, helvetica, sans-serif; font-size: 11pt;"><a href="http://www.cloudpro.co.uk/cloud-essentials/hybrid-cloud/2629/companies-nearing-mission-critical-apps-cloud">Research conducted by HP</a> found that the majority of businesses in the EMEA region are planning to move their mission-critical apps to the cloud. Of the 940 respondents, 80 per cent revealed plans to move mission-critical apps at some point over the next two to five years. This is a fairly dramatic shift in how most companies and enterprises in particular plans to embrace the Cloud.</span></p>
+	<p><span style="font-family: arial, helvetica, sans-serif; font-size: 11pt;">This would be a good time for a reality check, to look at some of the predominant myths about cloud adoption, and what we should change as we start to embrace mission critical applications in the cloud.</span></p>
+	<p> </p>
+	<p><span style="font-size: 15px; font-weight: bold;"><strong>Myth 1: The cloud is a silver bullet solution</strong></span></p>
+	<h3><span style="font-weight: normal; font-family: arial, helvetica, sans-serif; font-size: 11pt;">We have all borne witness to failures with Amazon and other major cloud providers over the past few years.  Because of this, we need to realize that in the cloud, failure is prone to happen even more often than with traditional enterprise IT. This instability is built into cloud economics &ndash; to move mission-critical application into the cloud we need to cope with these failures, rather than simply try to prevent them from happening. Mission-critical apps are often built to survive failure, but the fail-over processes assumes manual intervention and static configuration.</span></h3>
+	<p><span style="font-family: arial, helvetica, sans-serif; font-size: 11pt;"><em><strong>Reality Check</strong></em><strong>:</strong> To move mission-critical applications to the cloud we need to completely automate the fail-over and recovery processes.</span></p>
+	<p> </p>
+	<h3><strong>Myth 2: The cloud cuts costs</strong></h3>
+	<h3><span style="font-weight: normal; font-family: arial, helvetica, sans-serif; font-size: 11pt;">Many people think that cloud economics starts to pay dividends immediately when you move to an on-demand usage model, paying only for what you use. Cloud can actually be fairly expensive when hosting environments in use are not elastic. I was surprised to see how many startups and SaaS organizations still run their applications in the cloud just as they would in any static hosting environment. While the pay-per-use model has a lot of promise for cost-savings if our applications aren&rsquo;t designed for elasticity the cost of running the application in the cloud may end up costing you more. Most of the mission-critical applications have not been designed for elasticity and on-demand usage.</span></h3>
+	<p><span style="font-family: arial, helvetica, sans-serif; font-size: 11pt;"><strong><em>Reality Check:</em></strong> To benefit from the overall cloud economics, with mission-critical application we need to provide more flexibility in the way we employ elasticity. For example, for applications that were not designed for scale-out we could automate the move from small instances to large instances &ndash; this is basically an elastic scale-up model. We can also embrace hybrid models where most of our resources are statically provisioned and we can employ elasticity only to part of our resources that are easy to scale &ndash; such as the web tier.</span></p>
+	<p> </p>
+	<h3><strong>Myth 3: The cloud is simple</strong></h3>
+	<h3><span style="font-weight: normal; font-family: arial, helvetica, sans-serif; font-size: 11pt;">When cloud came out it was touted as a much simpler model for running IT. The common example given was usually the time it takes to get a new machine into our data center. In traditional enterprises this could take weeks, where in cloud getting a new machine can be done in a matter of minutes.  However, as IT becomes more efficient, this is no longer the case.</span></h3>
+	<p><span style="font-family: arial, helvetica, sans-serif; font-size: 11pt;">If we compare the process of running applications within our IT with the way we run applications in the cloud, we will see that the time it takes to bring in a new machine is only small part of the actual process of running and managing the application. Quite often this process is actually much more complex in the cloud. This is mostly due to fact that cloud is more dynamic in nature, and there is a lack of tools that can provide the level of control that is expected when dealing with mission-critical applications.</span></p>
+	<p><span style="font-family: arial, helvetica, sans-serif; font-size: 11pt;">Additionally, most of the existing mission-critical applications come with the requirement for a high degree of management and control. However, a lot of the management and monitoring tools involve a high degree of manual configuration just to get the required monitoring capabilities in place, and manual processes to get a new version or feature of the application into production.</span></p>
+	<p><span style="font-family: arial, helvetica, sans-serif; font-size: 11pt;"><strong><em>Reality Check:</em></strong> To move mission-critical application into the cloud all these processes needs to be completely automated from the development stage up to the production.</span></p>
+	<p> </p>
+	<h3><strong>Myth 4: The cloud is inherently scalable</strong></h3>
+	<h3><span style="font-weight: normal; font-family: arial, helvetica, sans-serif; font-size: 11pt;">While cloud can scale to 100&rsquo;s of machines via an API, the truth is that most applications were not designed to take advantage of this approach.  So while cloud itself can be fairly scalable the application running on the cloud doesn&rsquo;t become anymore scalable by simply running in that environment, unless they were designed for scaling from the onset.</span></h3>
+	<p><span style="font-family: arial, helvetica, sans-serif; font-size: 11pt;">Most of the existing mission-critical applications were not designed for cloud scaling. People believe to fully benefit from cloud scaling often involves a complete re-write of the application, and most enterprises just aren&rsquo;t ready to make such as major shift.</span></p>
+	<p><span style="font-family: arial, helvetica, sans-serif; font-size: 11pt;"><strong><em>Reality Check:</em></strong> To move mission critical application to the cloud we need to do this in baby steps, starting with only automation and repackaging of the apps, without any code changes.  Later steps would involve changing of modules within the application, as needed.</span></p>
+	<p> </p>
+	<h3><strong>Myth 5: Cloud Bursting</strong></h3>
+	<p><span style="font-family: arial, helvetica, sans-serif; font-size: 11pt;">Cloud bursting is an economical model that enables you to combine statically provisioned resources for the part of your application that needs 24/7 utilization and use on-demand resources on the cloud only in cases where you&rsquo;re running out of resources. In this model, you can design your cost at the optimum level between fixed and on-demand cost.</span></p>
+	<p><span style="font-family: arial, helvetica, sans-serif; font-size: 11pt;">Many cloud providers offer network connectivity (a.k.a VPC) between private and public cloud resources to enable cloud-bursting and hybrid clouds. Having said that, many applications (mission-critical application in particular) tend to be data sensitive.</span></p>
+	<p><span style="font-family: arial, helvetica, sans-serif; font-size: 11pt;"><strong><em>Reality Check:</em></strong> To implement cloud-bursting not enough to have network connectivity, you also need to be able to move data not just processes. Content delivery networks (CDN) now make it possible to bring static data closer to the processes. For mission critical applications the same is needed for transactional and analytics data &ndash; without it cloud-bursting may remain an interesting theoretical model.</span></p>
+	<p> </p>
+	<h3><strong>Final Thoughts</strong></h3>
+	<p><span style="font-family: arial, helvetica, sans-serif; font-size: 11pt;">As the industry becomes more mature and ready to move mission critical apps to the cloud, we need to manage our expectations from the cloud infrastructure.  It&rsquo;s important to realize that while cloud holds a lot of promise for cost savings, scaling and more, how we run our application and business in the cloud remains our sole responsibility. In this post I tried to outline more specifically the top misconceptions we need to make clear in order to start moving mission-critical applications into the cloud.</span></p>
+	<p><span style="font-family: arial, helvetica, sans-serif; font-size: 11pt;">I also believe that Hybrid cloud is the way to go &ndash; not just for legacy applications but also for new applications. For this to happen we need to think of how do we make cloud-portability a practical reality, as well as how do we practically migrate mission critical applications that were not built for a dynamic environment into the cloud without forcing a complete re-write. Based on the experience with many of the DevOps automation tools over the past years I believe that we can gain a lot by starting with automation of deployment, fail-over and scaling processes as well as automation of the management and monitoring of our applications.</span></p>
+	<p><span style="font-family: arial, helvetica, sans-serif; font-size: 11pt;">With Cloudify we took many of those lessons and packaged them into a product that makes the process of moving mission-critical applications into the any cloud vastly simpler. Our experience on that regard has proven to be tremendously successful as we proved to be able to take real life telco application that wasn&rsquo;t written to cloud and migrate it into the cloud in matter of 4 weeks without any code change.</span></p>
+	<p style="color: #000088; text-align: left;"> </p>
+	<p style="color: #000088;"><strong><span style="color: black;">References</span></strong></p>
+	<ul>
+		<li><a href="http://www.cloudpro.co.uk/cloud-essentials/hybrid-cloud/2629/companies-nearing-mission-critical-apps-cloud" style="text-align: left;">Companies nearing mission critical apps in the cloud</a></li>
+		<li><a href="http://natishalom.typepad.com/nati_shaloms_blog/2011/12/making-cloud-portability-a-practical-reality.html" style="text-align: left;">Making cloud portability a practical reality</a></li>
+		<li><a href="http://www.cloudifysource.org" style="text-align: left;">Cloudify community site</a></li>
+	</ul>
+	<p> </p>
+	<ul></ul>
+</div>
+<div class="feedflare"><a href="http://feeds.feedburner.com/~ff/NatiShalom?a=dQhSvZGof2g:d3B-dDOVTGw:yIl2AUoC8zA"><img border="0" src="http://feeds.feedburner.com/~ff/NatiShalom?d=yIl2AUoC8zA" /></a> <a href="http://feeds.feedburner.com/~ff/NatiShalom?a=dQhSvZGof2g:d3B-dDOVTGw:qj6IDK7rITs"><img border="0" src="http://feeds.feedburner.com/~ff/NatiShalom?d=qj6IDK7rITs" /></a></div>
+<p><img height="1" src="http://feeds.feedburner.com/~r/NatiShalom/~4/dQhSvZGof2g" width="1" /></p>
+
+                    <div id="disqus_thread"></div>
+<script type="text/javascript">
+    /* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
+    var disqus_shortname = 'cloudifysource'; // required: replace example with your forum shortname
+    var disqus_identifier = '/2012/02/19/top-myths-of-moving-mission-critical-applications-to-the-cloud.html';
+
+    /* * * DON'T EDIT BELOW THIS LINE * * */
+    (function() {
+        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+        dsq.src = 'http://' + disqus_shortname + '.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="http://disqus.com" class="dsq-brlink">blog comments powered by <span class="logo-disqus">Disqus</span></a>
+
+                </div>
+
+                <div class="clear"></div>
+            </div>
+        </div>
+
+        <!--Start pagination -->
+
+        <div class="clear"></div>
+
+        <!--Start Footer -->
+
+        <div class="footer">
+    <!--<ul class="footerLeftMenu">
+        <li class="footerli"><a href="#">About GigaSpaces</a></li>
+        <li class="footerli"><a href="#">Contact Us</a></li>
+    </ul> -->
+    <ul class="footerRightMenu">
+        <li class="footerli">Copyright © 2012 GigaSpaces. All rights reserved.</li>
+        <li class="footerli"><a href="/about_us">About Us</a></li>
+        <li class="footerli">|</li>
+        <li class="footerli"><a href="/terms_of_use">Terms of Use</a></li>
+        <li class="footerli">|</li>
+        <li class="footerli"> <a href="/privacy_policy">Privacy Policy</a></li>
+    </ul> 
+    <ul class="footerSocialMenu">
+        <li class="footerFb"><a href="https://www.facebook.com/GigaSpaces?sk=app_201742856511228"></a></li>
+        <li class="footerRss"><a href="/atom.xml"></a></li>
+        <!--<li class="footerMell"><a href="#"></a></li>-->
+        <li class="footerTwitt"><a href="http://www.twitter.com/cloudifysource"></a></li>
+        <li class="footerYt"><a href="http://www.youtube.com/cloudifysource"></a></li>
+    </ul>
+</div>
+
+
+    </div>
+    <!--End site wrapper -->
+
+
+</div>
+<!--End site bg top wrapper -->
+</body>
+</html>
