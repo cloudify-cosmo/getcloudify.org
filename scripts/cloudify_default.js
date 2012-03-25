@@ -317,12 +317,6 @@ if ($("#slideshow").exist()) {};    // Do something}
   
 });  
 
-// loads body bg image. solves flivkering of image on apge laod
-window.onload = function () {
-	
-$('body').addClass("bodyClass");
-	
-}
 
 
 

@@ -9264,3 +9264,14 @@ if ( typeof define === "function" && define.amd && define.amd.jQuery ) {
 
 
 })( window );
+
+
+///
+//
+// loads body bg image. solves flivkering of image on apge laod
+window.onload = function () {
+	
+$('body').addClass("bodyClass");
+	
+}
+
