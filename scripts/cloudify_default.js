@@ -319,7 +319,7 @@ if ($("#slideshow").exist()) {};    // Do something}
 
 window.onload = function () {
 	
-	alert("It's loaded!");
+	alert("It's loaded 123!");
 	
 	$('body').css("background", "url(../images/bgFooter.png) repeat-x bottom center");
 	
