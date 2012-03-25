@@ -9,21 +9,19 @@
     <div class="Wrapper">
         {% include header.html %}
         <div class="contentWrap dwn cloudifysourcetv">
-			<div class="breadcrumbs">Home Page > Vidoes</div>            
+			<div class="breadcrumbs">Home Page > {{ page.title }}</div>            
             <div class="clear"></div>
+			
 
             <!--Search-->			
 			{% assign currSearchClass="videoSearch dwn" %}
 			{% assign searchHdr="Watch and Learn" %}
             {% include search.html %}
-
-
             
-                
-
                 <!--Start left content -->
 
-                <div id="resultsDiv" class="DocumentsWrap"></div>                                   
+                <div id="resultsDiv" class="DocumentsWrap"></div>                   		
+				 <h1 class="pageTitle">{{ page.title }}</h1>
                     {{content}}
                 <div class="clear"></div>
             
