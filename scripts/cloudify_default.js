@@ -317,6 +317,8 @@ if ($("#slideshow").exist()) {};    // Do something}
   
 });  
 
+window.onload = function () { alert("It's loaded!") }
+
 
 
 
