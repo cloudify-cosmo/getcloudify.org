@@ -55,7 +55,7 @@ echo ---------------------
 
 
 mv ${DEST_FOLDER}/_posts ${DEST_FOLDER}/posts
-
+cp -f ${SRC}/homepage ${DEST_FOLDER}/index.html
 
 
 

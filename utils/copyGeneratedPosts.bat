@@ -82,6 +82,7 @@ goto end
 
 :b4End
 rename %DEST_FOLDER%\_posts posts
+copy /y %SRC%\homepage %DEST_FOLDER%\index.html
 pause
 
 

@@ -10,6 +10,9 @@
     <script type="text/javascript" src="/scripts/search.js"></script>    	   
     <script src="http://widgets.twimg.com/j/2/widget.js" type="text/javascript"></script>
     <script type="text/javascript" >
+    window.onload = function () {
+	$('body').addClass("bodyClass");
+     }
     $(function() {
         //this script display text note when you hover one of the img at homePage
 		$('.sec-discusBox').hide();
@@ -57,7 +60,7 @@
     <div class="clear"></div>
             <div class="topMenu">
                 <ul class="_topmenu">
-                    <li class="topmenuli"><a class="bgMenu1" target="_blank" href="http://forums.cloudifysource.org/forums"><span class="title1">Discuss & Suggest</span><span class="title2">Support Forums</span></a></li>
+                    <li class="topmenuli"><a class="bgMenu1" href="http://forums.cloudifysource.org/forums"><span class="title1">Discuss & Suggest</span><span class="title2">Support Forums</span></a></li>
                     <li class="sep"></li>
                     <li class="topmenuli"><a class="bgMenu2" href="/guide"><span class="title1">Learn</span><span class="title2">Knowledge Base</span></a></li>
                     <li class="sep"></li>
@@ -115,11 +118,11 @@
 <div class="replaceWrape box1">
 <div class="sec-discusBox">
 Visit the Cloudify forums to join the conversation, get support, suggest new features and ideas, and help your peers find the answers they need.
-<a href="http://forums.cloudifysource.org">More</a>
+<a href="http://forums.cloudifysource.org/forums">More</a>
 </div>
 <img src="images/home/hp-Discuss-bg.png" />
 </div>
-<a class="hoverState" href="http://forums.cloudifysource.org">
+<a class="hoverState" href="http://forums.cloudifysource.org/forums">
 <span class="secTitle">Discuss &amp; Suggest</span><br />
 <span class="sec-subTitle">Visit our support forums</span>
 </a>
@@ -220,7 +223,7 @@ Fork the code on GitHub, download our milestone builds, or download the free GA 
 <!-- update blog post -->
 <p><a href="/blog" class="hp-update-icon hp-update-blogpost">Blog Post</a></p>
 <div class="recentUpdates-box">
-<a href="/2012/03/25/petclinic_deepdive.html">Mongo DB Sharding in Pet Clinic Application recipe</a><br/>
+<a href="/2012/03/25/petclinic_deepdive.html">Mongo DB Sharding in the Pet Clinic Application recipe</a><br/>
 About this post This post will give you a more thorough walk-through into the MongoDB recipe in the Pet Clinic&#8230;
 
 </div>
