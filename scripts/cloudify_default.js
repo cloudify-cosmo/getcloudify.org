@@ -255,6 +255,20 @@ $("a.newwindow").attr("target","_blank");
                 $(this).parent().addClass('active');
             }
         });
+        
+        
+        
+        
+      //for blog-inner-menu current   
+       $("ul.blog-archive-list li a").removeClass("current");
+	$("ul.blog-archive-list li").find("a").each(function(){
+		//if( location.href.indexOf(this.location.href) != -1) {
+		if((location.pathname.split('/')[location.pathname.split('/').length-1]) == (this.pathname.split('/')[this.pathname.split('/').length-1])){//(location.href.indexOf(this.href) != -1) {
+		$(this).addClass("current");
+		$('.bgMenu4').parent().addClass('active');
+		}
+
+	});   
 
 	
 	
