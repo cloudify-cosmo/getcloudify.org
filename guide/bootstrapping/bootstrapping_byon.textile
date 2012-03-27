@@ -44,11 +44,16 @@ In each template you need to configure the following:
 * node id (id) - this is an alias for the host
 * node ip (ip) - the IP of the host. Cloudify uses private IP and assumes that the Cloudify client is in the same LAN as the IPs specified in the configuration file
 
-<script src="https://gist.github.com/2137727.js?file=template.groovy"></script>
+<script src="https://gist.github.com/2218634.js"> </script>
 
 In order to add machines without specifying each IP, you can use a range of machine IPs. For example, you can configure ipRange: 10.10.10.10-10.10.10.20, or CIDR 10.10.10.8/29 (which translates to range 10.10.10.8 - 10.10.10.15).
 The Ids for these cloud nodes would be generated based on the prefix you define, and the code will add an index to that prefix (e.g. bubi1, bubi2 etc.)
 Please note the current version has a known issue: it only supports ranging on the last byte of the IP (meaning on the numbers that come after the last dot).
+
+h2. Multiple Templates Usage
+
+Multiple templates can be used allowing you to have a seperate pool for the management services and another pool for the application services:
+<script src="https://gist.github.com/2218678.js"> </script>
 
 Please note, that in the current version the BYON Driver will not fetch machine by the order in which they are listed in the configuration file.
 
@@ -62,4 +67,3 @@ h2. Tearing down the BYON installation
 In order to shut down the installation, you need to use the teardown-cloud command with byon as cloud provider argument.
 @teardown-cloud byon@
 
-<script src="https://gist.github.com/2218346.js"> </script>
