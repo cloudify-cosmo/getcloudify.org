@@ -9,24 +9,24 @@ tags:
  - Sharding
 ---
 
-h2. Can you shard on a cloud in a galaxy far far away ? 
+h2. Can you shard on a cloud platform in a galaxy far far away ? 
 
-In general, managing a "sharded mongo":http://www.mongodb.org/display/DOCS/Sharding+Introduction setup is not an easy task but it's much more difficult to do it on a cloud.
-When you deploy a sharded mongo on a cloud (any cloud...), you have quite a few barriers that you need to overcome :
-* How will you make sure that the Mongo Routing Server finds the location of the shards ?
+In general, managing a "sharded Mongo":http://www.mongodb.org/display/DOCS/Sharding+Introduction setup is not an easy task but it's much more difficult to do it on any cloud.
+When you deploy a sharded Mongo on a cloud (any cloud...), you have quite a few barriers that you need to overcome :
+* How to ensure that the Mongo Routing Server finds the location of the shards
 * Does this router know where the Mongo Config Server resides ? 
 * How can you verify that your sharding actually works?
-* Will you be able to monitor your application's perfomance?
+* Will you be able to monitor your application's performance?
 * Can you scale out or in ? 
 
 <br/>
 Cloudify enables you to achieve all of the above and more.
-So, in order to understand how we do it, I will give you a more thorough walk-through into the MongoDB recipe in the Pet Clinic Application recipe that we described in the "Quick Start Guide":/guide/qsg/quick_start_guide.
+So, in order to understand how to get this done, I will give you a more thorough walk-through into the MongoDB recipe in the Pet Clinic Application recipe that we described in the "Quick Start Guide":/guide/qsg/quick_start_guide.
 
 
 h2. What is Database Sharding?
 
-Database Sharding can be simply defined as a "shared-nothing" partitioning scheme for large databases across a number of servers, enabling new levels of database performance and scalability achievable. 
+Database sharding can be simply defined as a "shared-nothing" partitioning scheme for large databases across a number of servers, making new levels of database performance and scalability achievable. 
 Another way of "looking" at it, is : 
 Breaking your database down into smaller chunks called "shards" and spreading those shards across a number of distributed servers.
 
@@ -37,29 +37,29 @@ MongoDB supports an automated sharding/partitioning architecture, enabling horiz
 
 A MongoDB shard cluster consists of two or more shards, one or more configuration servers, and any number of routing processes to which the application servers connect. 
 
-Each shard consists of one or more servers and stores data using mongod processes (mongod is the core MongoDB database process).
+Each shard consists of one or more servers and stores data using MongoD processes (MongoD is the core MongoDB database process).
 In a production environment, each shard will consist of multiple servers to ensure availability and automated failover. 
 
 h2. About the Pet Clinic Application
 
 The Pet Clinic Application presented in the Quick Start Guide is a port to Grails of the standard "Java based Spring framework PetClinic sample app":http://static.springsource.org/docs/petclinic.html.
-It uses MongoDB instead of MySql as the backend store, and leverages the Grails GORM bindings to MongoDB. The users of the application are employees of the clinic who need to view and manage information regarding veterinarians, pet owners, and their pets.
-The Application's production environment is based on a 2-tier architecture:
-# Web and Business Logic Tier - Composed of the Grails application deployed on Apache Tomcat.
-# The Data Tier - Composed of "a sharded MongoDB cluster(Sharded MongoDB)":http://www.mongodb.org/display/DOCS/Sharding+Introduction, which is composed of the following components:
+It uses MongoDB instead of MySQL as the backend store, and leverages the Grails GORM bindings to MongoDB. The users of the application are employees of the clinic who need to view and manage information regarding veterinarians, pet owners, and their pets.
+The application's production environment is based on a two-tier architecture:
+# Web and Business Logic Tier - Comprised of the Grails application deployed on Apache Tomcat.
+# The Data Tier - Comprised of "a sharded MongoDB cluster(Sharded MongoDB)":http://www.mongodb.org/display/DOCS/Sharding+Introduction, which is comprised itself of the following components:
 ## "Configuration Server(MongoDB Configuration Server)":http://www.mongodb.org/display/DOCS/Configuring+Sharding#ConfiguringSharding-ConfigServers : Stores the cluster's metadata, which includes basic information on each shard server and the chunks contained therein.
-## Routing Processes (mongos): A routing and coordination process that mediates between client requests and the actual mongod instances.  When receiving client requests, the mongos process routes the request to the appropriate mongod instance(s) and merges any results sent back to the client.
-## Mongod instances (AKA shards): In our case, there are two instances of mongod to store the application data.
+## Routing Processes (MongoS): A routing and coordination process that mediates between client requests and the actual mongod instances.  When receiving client requests, the MongoS process routes the request to the appropriate MongoD instance(s) and merges any results sent back to the client.
+## MongoD instances (AKA shards): In our case, there are two instances of MongoD to store the application data.
 
-Obviously, the amount of instances for each of the above components can be easily changed, by modifying the numInstances attribute of the relevant Cloudify recipe file (i.e: &lt;service-name&gt;-service.groovy).
+Obviously, the amount of instances for each of the above components can easily be changed, by modifying the numInstances attribute of the relevant Cloudify recipe file (i.e: &lt;service-name&gt;-service.groovy).
 
-*Note*: When you install MongoDB on Windows 7, you need to make sure that you run as an administrator. See "Installing MongoDB on Windows 7":http://www.mongodb.org/display/DOCS/Windows+Service.
+*Note*: When you install MongoDB on Windows 7, you need to make sure that you login as an administrator. See "Installing MongoDB on Windows 7":http://www.mongodb.org/display/DOCS/Windows+Service.
 
 
 h2. Our Pet Clinic Topology
 
-As mentioned above, in our recipe we use: two shards (Mongod), one configuration server (MongoConfig), one routing server (MongoS) and one Tomcat.
-Here's our Pet Clinic Application's Topology:
+As mentioned above, in our recipe we're going to use: two shards (MongoD), one configuration server (MongoConfig), one routing server (MongoS) and one Tomcat.
+This is our Pet Clinic Application's Topology:
 
 <img src="/guide/images/overview/petClinicSharding.jpg" />
 
@@ -84,7 +84,7 @@ h2. The Mongo Data Shards (mongod) Recipe
 
 The Mongo Data Shards (mongod) Recipe does the following:
 * Calculates its port according to its instance ID and properties file and notifies the serviceContext, so that the other services will be able to access it.
-* Downloads, unzips and installs the mongo binaries on the VM
+* Downloads, unzips and installs the Mongo binaries on the VM
 * Starts the Shard Server process.
 * Detects a successful startup using the MongoLivenessDetector plugin
 * Looks for metrics (Active Read Clients, Active Write Client etc.) to be displayed in the Web UI.
@@ -102,7 +102,7 @@ h2. The Mongo Config Server (mongoConfig) Service Recipe
 
 The Mongo Config Server (mongoConfig) Server recipe does the following:
 * Calculates its port according to its instance ID and properties file and notifies the serviceContext, so that the other services will be able to access it.
-* Downloads, unzips and installs the mongo binaries on the VM.
+* Downloads, unzips and installs the Mongo binaries on the VM.
 * Starts the Configuration Server process.
 * Detects a successful startup using the MongoLivenessDetector plugin.
 * Looks for metrics (Active Read Clients, Active Write Client etc.) to be displayed in the Web UI.
@@ -118,10 +118,10 @@ h2. The Mongo Sharding Server (mongos) Recipe
 
 The Mongo Router (mongos) recipe does the following:
 * Calculates its port according to its instance ID and properties file and notifies the serviceContext, so that the other services will be able to access it.
-* Downloads, unzips and installs the mongo binaries on the VM.
+* Downloads, unzips and installs the Mongo binaries on the VM.
 * Starts the Router Server process.
 * Detects a successful startup using the MongoLivenessDetector plugin.
-* Looks for host address and port of the mongoConfig service (using the serviceContext API) and the the Mongo data shards (mongod), and configures sharding.
+* Looks for host address and port of the mongoConfig service (using the serviceContext API) and the Mongo data shards (mongod), and configures sharding.
 * Looks for metrics (Active Read Clients, Active Write Client etc.) to be displayed in the Web UI.
 
 The mongos service file is located at &lt;cloudify root&gt;/examples/petclinic/mongos/mongos-service.groovy.
@@ -139,6 +139,12 @@ Now, the tomcat service can retrieve the data in &lt;cloudify root&gt;/examples/
 <script src="https://gist.github.com/1698923.js?file=retrieveMongosServie.groovy"></script>
 
 From this point, the tomcat service instance knows the host address and port of the mongos service instance.
+
+
+As you can see, by using Cloudify, you are now able to quickly shard and manage MongoDB on the cloud of your choice. 
+
+For more information on Mongo sharding with Cloudify visit "Cloudify In Action":http://www.cloudifysource.org/cloudifysourcetv online demo.
+We also recommend that you register to the "Manage your Sharded MongoDB Setup":http://www.cloudifysource.org/participate webinar which will be held on April 24th, 2012.
 
 
 
