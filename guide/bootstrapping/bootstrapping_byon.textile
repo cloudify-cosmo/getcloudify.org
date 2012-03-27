@@ -55,7 +55,9 @@ Please note, that in the current version the BYON Driver will not fetch machine 
 h1. Using the BYON driver
 
 In order to bootstrap the driver, start the Cloudify shell. Type the bootstrap-cloud command using byon as the cloud provider argument. Cloudify Controller will be installed one of the machines in the pool you designated for management machines and from that point you can install any application using the install-application command.
+@bootstrap-cloud byon@
 
 h2. Tearing down the BYON installation
 
-In order to shut down the installation, you need to use the teardown-cloud command with byon as cloud provider argument
+In order to shut down the installation, you need to use the teardown-cloud command with byon as cloud provider argument.
+@teardown-cloud byon@
