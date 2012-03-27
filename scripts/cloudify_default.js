@@ -240,7 +240,14 @@ $("a.newwindow").attr("target","_blank");
 		$(this).addClass("current");
 		}
 	
-	});            
+	});     
+	
+	//for top menu current
+	$("li.topmenuli").removeAttr("id");
+	$("li.topmenuli").find("a").click(function(){
+		//if( location.href.indexOf(this.location.href) != -1)
+		$(this).parent().attr('id','current');	
+	});  
 	
 	
 	
