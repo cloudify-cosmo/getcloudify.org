@@ -238,6 +238,7 @@ $("a.newwindow").attr("target","_blank");
 		//if( location.href.indexOf(this.location.href) != -1) {
 		if((location.pathname.split('/')[location.pathname.split('/').length-1]) == (this.pathname.split('/')[this.pathname.split('/').length-1])){//(location.href.indexOf(this.href) != -1) {
 		$(this).addClass("current");
+		$('.bgMenu2').parent().addClass('active');
 		}
 	
 	});     
