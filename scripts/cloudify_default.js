@@ -245,7 +245,7 @@ $("a.newwindow").attr("target","_blank");
 	//for top menu current
 	$("li.topmenuli").removeAttr("id");
 	$("li.topmenuli").find("a").each(function(){
-		if( location.href.indexOf(this.location.href) != -1){
+		(location.href.indexOf(this.href) != -1) {
 		  $(this).parent().attr('id','current');	
 		}
 			
