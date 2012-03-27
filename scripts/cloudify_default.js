@@ -243,13 +243,13 @@ $("a.newwindow").attr("target","_blank");
 	});     
 	
 	//for top menu current
-	$("li.topmenuli").removeAttr("id");
-	$("li.topmenuli").find("a").each(function(){
-		(location.href.indexOf(this.href) != -1) {
-		  $(this).parent().attr('id','current');	
-		}
+	//$("li.topmenuli").removeAttr("id");
+	//$("li.topmenuli").find("a").each(function(){
+	//	if((location.pathname.split('/')[location.pathname.split('/').length-1]) == (this.pathname.split('/')[this.pathname.split('/').length-1])){
+		//  $(this).parent().attr('id','current');	
+		//}
 			
-	});  
+	//});  
 	
 	
 	
