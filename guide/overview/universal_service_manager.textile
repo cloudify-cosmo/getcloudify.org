@@ -150,7 +150,7 @@ h1. USM Technical Design
 This section describes some of the technical details of the implementation of the USM implementation. Familiarity with these details is not required to
 create most recipe, but is useful for the more advanced implementations.
 
-h3. Implementing events and other integration points.
+h3. Implementing events and other integration points
 
 The USM relies heavily on spring based dependency injection. All user-controlled events and integration points are implemented as POJOs that implement one or more of the USM interfaces. For example, the 'init' event is handled by a POJO that implements the _org.openspaces.usm.events.InitListener_ interface. During the USM start-up, it loads the DSL file and uses the settings defined there to create a set of POJOs which implements the behavior described in the recipe.
 
