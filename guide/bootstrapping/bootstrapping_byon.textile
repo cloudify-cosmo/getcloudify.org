@@ -74,6 +74,8 @@ With the example below , vm1 ,vm2 and vm3 are listed as the SMALL_LINUX_32 templ
 To associate the service with the SMALL_LINUX_32 template it should include the following:
 <script src="https://gist.github.com/2219191.js"> </script>
 
+|The IPs list can call another method that will fetch available machines from some external repository or some cloud scheduling tool.|
+
 h3. CIDR Configuration
 
 In order to add machines without specifying specific IP, you can use a range of machine IPs. For example, you can configure ipRange: 10.10.10.10-10.10.10.20, or CIDR 10.10.10.8/29 (which translates to range 10.10.10.8 - 10.10.10.15). 
@@ -81,6 +83,7 @@ The Ids for these cloud nodes would be generated based on the prefix you define,
 <script src="https://gist.github.com/2222903.js"> </script>
 
 Please note the current version has a known issue: it supports only ranging on the last byte of the IP (meaning on the numbers that come after the last dot).
+
 
 h3. bootstrap-management.sh
 
