@@ -15,9 +15,11 @@ set SRC=REPLACE_WITH_DOCS_ROOT_FOLDER\_site
 set DEST_FOLDER=REPLACE_WITH_DOCS_ROOT_FOLDER
 
 del /s/q %DEST_FOLDER%\tags
+rmdir /s/q %DEST_FOLDER%\tags
 echo ---------------------
 
 del /s/q %DEST_FOLDER%\blog
+rmdir /s/q %DEST_FOLDER%\blog
 echo ---------------------
   
 @rem Deleting old pages folders content
@@ -29,6 +31,7 @@ SET currPage=%PAGEROOT%%pagecounter%
 if not exist %currPage% goto :loopYears
 echo Deleting old %currPage% folder files ...
 del /s/q %currPage%\*
+rmdir /s/q %currPage%
 echo ---------------------
 goto :loopPages
 
@@ -41,6 +44,7 @@ set currYearFolder=%DEST_FOLDER%\%currYear%
 if not exist %currYearFolder% goto :looFolders
 echo Deleting old %currYearFolder% folder files ...
 del /s/q %currYearFolder%\*
+rmdir /s/q %currYearFolder%
 echo ---------------------
 goto :loopYears
 
@@ -81,7 +85,8 @@ goto end
 
 
 :b4End
-rename %DEST_FOLDER%\_posts posts
+if exist %DEST_FOLDER%\_posts rename %DEST_FOLDER%\_posts posts
+if exist %DEST_FOLDER%\_plugins rename %DEST_FOLDER%\_plugins plugins
 copy /y %SRC%\homepage %DEST_FOLDER%\index.html
 pause
 
