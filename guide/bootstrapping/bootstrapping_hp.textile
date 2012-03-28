@@ -16,7 +16,8 @@ h1. Bootstrapping on HP
 
 In order to bootstrap Cloudify on the HP cloud you first need to set up  an account. Before you can use the shell to bootstrap your  environment for the first time, please have the following:
 1. Generate a private key and place the file (.pem) under &lt;Cloudify Root&gt;/tools/cli/plugins/esc/openstack/upload folder.
-* In the "keypairs":https://manage.hpcloud.com/compute/100/keypairs section of the HP web console, create a key pair, copy the private key and save it as a .pem file.
+
+|In the "keypairs":https://manage.hpcloud.com/compute/100/keypairs section of the HP web console, create a key pair, copy the private key and save it as a .pem file.|
 
 Step 1:
 <img src="/guide/images/hp/compute_create_new_key_pair_hp_cloud_services.png" />
@@ -24,7 +25,7 @@ Step 1:
 Step 2:
 <img src="/guide/images/hp/compute_create_new_key_pair_2_hp_cloud_services.png" />
 
-* This private key is used by the Cloudify cloud driver to create SSH connections to the newly created instances.
+|This private key is used by the Cloudify cloud driver to create SSH connections to the newly created instances.|
 
 2. Edit openstack-cloud.groovy under &lt;Cloudify Root&gt;/tools/cli/plugins/esc/openstack/ and set the following:
 * In the provider section, update the following attributes' values: 
@@ -65,20 +66,17 @@ Here's an example of openstack-cloud.groovy(with placeholders):
 <br/>
 <img src="/guide/images/setup/bootstrap_hp.png" />
 
-* You can then install any of our built-in example recipes.
-For example: for installing our Pet Clinic Application, just type: 
-&nbsp;&nbsp;&nbsp;&nbsp; *install-application -timeout 10 ../../examples/petclinic*
-<br/>
-For more information, feel free to read our "Quick Start Guide":/guide/qsg/quick_start_guide.
+You can then install any of the built-in examples. For installing the Pet Clinic Application, type: 
+@install-application -timeout 10 ../../examples/petclinic@
+
+For more information, see the "Quick Start Guide":/guide/qsg/quick_start_guide.
 
 h1. Enabling wire logging
 
-For development and debugging purposes, it can be usefull to view the actual messages sent to the Openstack cloud controller.
-To do this, modify your openstack-cloud.groovy by setting the "openstack.wireLog" entry in the custom section of the file to "true".
+For development and debugging purposes, it can be usefull to view the actual messages sent to the Openstack cloud controller. To do this, modify your openstack-cloud.groovy by setting the "openstack.wireLog" entry in the custom section of the file to "true".
 
 For example: 
 
 <script src="https://gist.github.com/2035261.js?file=custom-wireLog.groovy"></script>
 
-Note that once you enable the wire logs, they appear in the Cloudify command line interface when you run the 'bootstrap-cloud' command (and in the relevant log file in the logs directory)
-as well as in the log of the ESM when it starts or stops a machine for scale out/in.
+Once you enable the wire logs, they appear in the Cloudify command line interface when you run the 'bootstrap-cloud' command (and in the relevant log file in the logs directory) as well as in the log of the ESM when it starts or stops a machine for scale out/in.
