@@ -9,41 +9,34 @@ pageord: 200
 
 p. How to develop your custom Cloud Driver.
 
-h1. How does the Cloud Driver Work? – Technical introduction
+h1. How does the Cloud Driver Work? â€“ Technical introduction
 
-Cloudify Cloud Driver (ProvisioningDriver is the Interface Name), has 4 main scenarios
-# Bootstrap Cloud – which is the installation of Cloudify Management VM and Controller on a Cloud from your laptop
-# Install Application – which is the creation of Application VMs with Cloudify Agent on them as part of an application deployment. In this case, the Cloud Driver resides on the management VM as part of Cloudify Controller
-# Uninstall Application – termination of Application VMs.
-# Teardown Cloud – Termination of all Cloudify VMs and components on the Cloud.
+Cloudify Cloud Driver (ProvisioningDriver is the Interface Name), has 4 main scenarios:
+# Bootstrap Cloud â€“ which is the installation of Cloudify Management VM and Controller on a Cloud from your laptop.
+# Install Application â€“ which is the creation of Application VMs with Cloudify Agent on them as part of an application deployment. In this case, the Cloud Driver resides on the management VM as part of Cloudify Controller.
+# Uninstall Application â€“ termination of Application VMs.
+# Teardown Cloud â€“ Termination of all Cloudify VMs and components on the Cloud.
 
 Another scenario: Cluster Healing is the same as Install Application from Cloud Driver perspective
 
-
 h2. Flows explained
 
-In this tutorial we will demonstrate the flows using the Openstack Cloud Driver (OpenstackCloudDriver) that extends the CloudDriverSupport base Class
-and implements the ProvisioningDriver Interface
+In this tutorial we will demonstrate the flows using the Openstack Cloud Driver (OpenstackCloudDriver) that extends the CloudDriverSupport base Class and implements the ProvisioningDriver Interface
 
 h3. Bootstrapping Cloud
 
 <img src="/guide/images/clouddrivers/bootstrapping.png"/>
 
-In this scenario the Cloud Driver resides on the client side as no VM with Cloudify Server (Controller) exist.
-The user instructs the Cloudify Interactive Shell to bootstrap Cloudify, providing a specific Cloud Driver implementation and configuration.
-The Cloud Driver is instantiated by the shell and now the shell will need to give the Driver Reference to its configuration object
-(org.cloudifysource.dsl.cloud.Cloud).  This is done by calling the setConfig method.
+In this scenario the Cloud Driver resides on the client side as no VM with Cloudify Server (Controller) exist. The user instructs the Cloudify Interactive Shell to bootstrap Cloudify, providing a specific Cloud Driver implementation and configuration.
+The Cloud Driver is instantiated by the shell and now the shell will need to give the Driver Reference to its configuration object (org.cloudifysource.dsl.cloud.Cloud).  This is done by calling the setConfig method.
 
 <script src="https://gist.github.com/2043019.js?file=setConfig.java"></script>
 
-
-Next the Cloud Driver will be invoked by the shell using the startManagementMachines method.
-This in turn will call the Cloud API using the API security settings in order to get the management VMs.
+Next the Cloud Driver will be invoked by the shell using the startManagementMachines method. This in turn will call the Cloud API using the API security settings in order to get the management VMs.
 
 <script src="https://gist.github.com/2043033.js?file=createServer.java"></script>
 
-This will return an array of MachineDetails (org.cloudifysource.esc.driver.provisioning.MachineDetails) for each of the management Machines.
-These details will be used by Cloudify CLI to connect to the Hosts and install the management components on them. Finally Cloudify will start the Cloudify Controller components: the ESM, the GSM, the LUS and the Management Space. It will also start the Web Container for the Management application and the REST API container.
+This will return an array of MachineDetails (org.cloudifysource.esc.driver.provisioning.MachineDetails) for each of the management Machines. These details will be used by Cloudify CLI to connect to the Hosts and install the management components on them. Finally Cloudify will start the Cloudify Controller components: the ESM, the GSM, the LUS and the Management Space. It will also start the Web Container for the Management application and the REST API container.
 
 
 h3. Installing an Application
@@ -51,10 +44,10 @@ h3. Installing an Application
 <img src="/guide/images/clouddrivers/installApplication.png"/>
 
 This is a server side scenario from Cloud Driver perspective. Once the Controller had been instructed to install an application, it will command the Driver to start X virtual machines according to the recipe instructions.
-The Cloud Driver needs first to get the Admin Object so it can report to the Admin about the VMs public IPs and other details. This is done using the setAdmin method by the Controller
+The Cloud Driver needs first to get the Admin Object so it can report to the Admin about the VMs public IPs and other details. This is done using the setAdmin method by the Controller.
 Next the Controller will ask the Driver to repeat the startMachine method until all machines are up and running with Cloudify Agent registered in the LUS or until timeout occurs.
 The startMachine flow is simple: The driver calls the IaaS API. Polls the API for the VM details. Ping the VM to makes sure its accessible and then access it with SSH, this time installing the Cloudify Agent components: GSA and GSC and starting them.
-The Driver will get the machine information from the template properties corresponding to the requested template name. The template information is within the config object
+The Driver will get the machine information from the template properties corresponding to the requested template name. The template information is within the config object.
 The same flow will happen if the Controller needs to compensate for a crushed VM or to rebalance one of the services.
 
 Cluster healing looks like this:
@@ -70,7 +63,7 @@ This is a server side scenario from Cloud Driver Perspective. The Controller had
 
 <script src="https://gist.github.com/2043076.js?file=stopMachine.java"></script>
 
-The call to the Cloud IaaS API looke like this:
+The call to the Cloud IaaS API looks like this:
 
 <script src="https://gist.github.com/2043089.js?file=terminateServerAPI.java"></script>
 
@@ -78,22 +71,19 @@ h3. Tearing Down the Cloud
 
 <img src="/guide/images/clouddrivers/tearDown.png"/>
 
-This scenario runs in the Cloudify Shell (Client Side). The user instructs the Shell to teardown the Cloudify Installation.
-This actually means terminating the management VMs.
-The Shell inoves the Cloud Driver stopManagementMachines method
+This scenario runs in the Cloudify Shell (Client Side). The user instructs the Shell to teardown the Cloudify Installation. This actually means terminating the management VMs. The Shell inoves the Cloud Driver stopManagementMachines method:
 
 <script src="https://gist.github.com/2043105.js?file=stopManagement.java"></script>
 
 
 h1. Setting Up Your Project
 
-
 p. This section will teach you what you need in your eclipse project
 
 h3. Prepare your Maven pom file
 
 The following sections section are needed in your pom file:
-Set the cloudify version property (optional – you can set it directly in the jar dependency element)
+Set the cloudify version property (optional â€“ you can set it directly in the jar dependency element)
 
 <script src="https://gist.github.com/2070735.js?file=version.xml"></script>
 
@@ -105,18 +95,12 @@ Add the Clopudify Repository
 <script src="https://gist.github.com/2070752.js?file=repo.xml"></script>
 
 
-
-
-
-
 h1. Before You Code
 
 
-p. This section explains how to get what you need from your cloud account – credentials, SSH access etc.
-
+p. This section explains how to get what you need from your cloud account â€“ credentials, SSH access etc.
 
 h3. Getting the Security Credentials for API Access
-
 
 The security credentials you will need to have for the cloud driver are of two kinds:
 * The credentials for the Cloud IaaS API calls
@@ -124,18 +108,14 @@ The security credentials you will need to have for the cloud driver are of two k
 In some cases you will need the storage credentials as well
 
 For example this is how you would do it with Openstack:
-The Openstack administrator will create a user login ID for you.
-When you receive your user id, it will be accompanied by an access key and a secret key.
-The access key is used in the Cloud driver configuration for the setting “user”.
-The secret key should be used to set the “apiKey” setting.
-In order to enable SSL, required for bootstrapping the system, generate a key pair with "HybridFox":http://code.google.com/p/hybridfox/
-and save it in the cloud driver “upload” directory.
-Also, set the “keyFile” property to the name you gave the key pair in the Cloud driver configuration file.
+The Openstack administrator will create a user login ID for you. When you receive your user id, it will be accompanied by an access key and a secret key.
+The access key is used in the Cloud driver configuration for the setting user. The secret key should be used to set the â€œapiKeyâ€� setting.
+In order to enable SSL, required for bootstrapping the system, generate a key pair with "HybridFox":http://code.google.com/p/hybridfox/ and save it in the cloud driver uploadâ directory.
+Also, set the â€œkeyFileâ€� property to the name you gave the key pair in the Cloud driver configuration file.
 
 <script src="https://gist.github.com/2042919.js?file=driver_user.groovy"></script>
 
 <img src="/guide/images/clouddrivers/cloud_driver_plugin.png"/>
-
 
 h3. Getting the right Image and HW for Management
 
@@ -148,8 +128,7 @@ Keep In mind the following:
 
 h3. Configure the management template
 
-
-Now you nedd to tweak the Cloud Driver configuration file:
+Now you need to tweak the Cloud Driver configuration file:
 create a template with the image and HW you selected:
 
 <script src="https://gist.github.com/2070794.js?file=templates.groovy"></script>
