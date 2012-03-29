@@ -1,0 +1,258 @@
+---
+layout: index
+title: Cloudify Documentation Home
+category: Index
+publish: true
+abstract: Cloudify Documentation Home
+pageord: 1
+---
+<div class="contentNoRight">
+<h1 class="pageTitle">Cloudify User's Guide</h1>
+<a class="btnGetCloudifyFreeEdition" target="_blank" href="/downloads/get_cloudify"></a>
+<!--Start left content -->
+
+<div class="DocumentsWrap">
+<p>
+    This guide is written for application developers and administrators.
+    The guide provides all the information and tools needed to install, setup and leverage Cloudify for on boarding your applications to any cloud environment.
+    It includes an overview section, getting started guide, reference documentation, APIs, configurations and other topics.
+</p>
+<p>
+    <span class="notice"></span>
+    Note that this guide is specific to Cloudify developers.
+</p>
+
+<ul class="tableOfcontentList">
+<!-- start line odd
+========================== -->
+<li class="odd">
+    <div class="leftSide">
+        <h3>Getting Started</h3>
+        <p>This section contains a short Quick Start Guide to get you up and running with Cloudify in minutes.</p>
+        <ul>
+            {% assign category = 'Getting Started' %}			
+            {% for pagex in site.page_categories[category] %}
+            {% if  forloop.index == 6 %}
+            <li class="expandBtn">More...</li>
+            <div class="expand">
+                {% endif %}
+                <li><a href="{{page.url}}">{{pagex.title}} </a> - {{pagex.abstract}}.</li>
+                {% if forloop.last and forloop.index > 5 %}
+            </div>
+            {% endif %}
+            {% endfor %}
+        </ul>
+    </div>
+    <div class="rightSide">
+        <h3>Product Overview</h3>
+        <p>This section contains a comprehensive overview of how Cloudify works, how it's architected and what are its main components. </p>
+        <ul>
+            {% assign category = 'Product Overview' %}
+            {% for page in site.page_categories[category] %}
+            {% if  forloop.index == 6 %}
+            <li class="expandBtn">More...</li>
+            <div class="expand">
+                {% endif %}
+                <li><a href="{{page.url}}">{{page.title}} </a> - {{page.abstract}}.</li>
+                {% if forloop.last and forloop.index > 5 %}
+            </div>
+            {% endif %}
+            {% endfor %}
+        </ul>
+    </div>
+    <div class="clear"></div>
+</li>
+<!-- start line even
+========================== -->
+<li class="even">
+    <div class="leftSide">
+        <h3>Installation & Setup</h3>
+        <p>This section contains information about how to install Cloudify and configure for usage on various clouds.</p>
+        <ul>
+            {% assign category = 'Installation & Setup' %}
+            {% for page in site.page_categories[category] %}
+            {% if  forloop.index == 6 %}
+            <li class="expandBtn">More...</li>
+            <div class="expand">
+                {% endif %}
+                <li><a href="{{page.url}}">{{page.title}} </a> - {{page.abstract}}.</li>
+                {% if forloop.last and forloop.index > 5 %}
+            </div>
+            {% endif %}
+            {% endfor %}
+        </ul>
+    </div>
+    <div class="rightSide">
+        <h3>Developing Recipes</h3>
+        <p>This section explains the concept and practicalities of application recipes, which the mechanism that allows Cloudify to support any kind of middelware stack</p>
+        <ul>
+            {% assign category = 'Developing Recipes' %}
+            {% for page in site.page_categories[category] %}
+            {% if  forloop.index == 6 %}
+            <li class="expandBtn">More...</li>
+            <div class="expand">
+                {% endif %}
+                <li><a href="{{page.url}}">{{page.title}} </a> - {{page.abstract}}.</li>
+                {% if forloop.last and forloop.index > 5 %}
+            </div>
+            {% endif %}
+            {% endfor %}
+        </ul>
+    </div>
+    <div class="clear"></div>
+</li>
+<!-- start line odd
+========================== -->
+<li class="odd">
+    <div class="leftSide">
+        <h3>Bootstrapping</h3>
+        <p>This section contains information about bootstrapping different cloud environments using Cloudify</p>
+        <ul>
+            {% assign category = 'Bootstrapping' %}
+            {% for page in site.page_categories[category] %}
+            {% if  forloop.index == 6 %}
+            <li class="expandBtn">More...</li>
+            <div class="expand">
+                {% endif %}
+                <li><a href="{{page.url}}">{{page.title}} </a> - {{page.abstract}}.</li>
+                {% if forloop.last and forloop.index > 5 %}
+            </div>
+            {% endif %}
+            {% endfor %}
+        </ul>
+    </div>
+    <div class="rightSide">
+        <h3>Monitoring Your Applications</h3>
+        <p>This section explains the various aspects of monitoring your applications with Cloudify</p>
+        <ul>
+            {% assign category = 'Monitoring Your Applications' %}
+            {% for page in site.page_categories[category] %}
+            {% if  forloop.index == 6 %}
+            <li class="expandBtn">More...</li>
+            <div class="expand">
+                {% endif %}
+                <li><a href="{{page.url}}">{{page.title}} </a> - {{page.abstract}}.</li>
+                {% if forloop.last and forloop.index > 5 %}
+            </div>
+            {% endif %}
+            {% endfor %}
+        </ul>
+    </div>
+    <div class="clear"></div>
+</li>
+<!-- start line even
+========================== -->
+<li class="even">
+    <div class="leftSide">
+        <h3>Developing Cloud Drivers</h3>
+        <p>This section contains information about how to configure and develop cloud drivers that allow Cloudify to integrate with any cloud environment</p>
+        <ul>
+            {% assign category = 'Developing Cloud Drivers' %}
+            {% for page in site.page_categories[category] %}
+            {% if  forloop.index == 6 %}
+            <li class="expandBtn">More...</li>
+            <div class="expand">
+                {% endif %}
+                <li><a href="{{page.url}}">{{page.title}} </a> - {{page.abstract}}.</li>
+                {% if forloop.last and forloop.index > 5 %}
+            </div>
+            {% endif %}
+            {% endfor %}
+        </ul>
+    </div>
+    <div class="rightSide">
+        <h3>Developing Plugins and Probes</h3>
+        <p>This section contains information about developing custom monitoring plugins</p>
+        <ul>
+            {% assign category = 'Developing Plugins and Probes' %}
+            {% for page in site.page_categories[category] %}
+            {% if  forloop.index == 6 %}
+            <li class="expandBtn">More...</li>
+            <div class="expand">
+                {% endif %}
+                <li><a href="{{page.url}}">{{page.title}} </a> - {{page.abstract}}.</li>
+                {% if forloop.last and forloop.index > 5 %}
+            </div>
+            {% endif %}
+            {% endfor %}
+        </ul>
+    </div>
+    <div class="clear"></div>
+</li>
+<!-- start line odd
+========================== -->
+<li class="odd">
+    <div class="leftSide">
+        <h3>Deploying Services & Applications</h3>
+        <p>This section contains information about deploying your applications and services to the Cloud using Cloudify</p>
+        <ul>
+            {% assign category = 'Deploying Services & Applications' %}
+            {% for page in site.page_categories[category] %}
+            {% if  forloop.index == 6 %}
+            <li class="expandBtn">More...</li>
+            <div class="expand">
+                {% endif %}
+                <li><a href="{{page.url}}">{{page.title}} </a> - {{page.abstract}}.</li>
+                {% if forloop.last and forloop.index > 5 %}
+            </div>
+            {% endif %}
+            {% endfor %}
+        </ul>
+    </div>
+    <div class="rightSide">
+        <h3>Cloudify API</h3>
+        <p>This section contains Cloudify API</p>
+        <ul>
+            <li><a href="/guide/api/">Cloudify API</a> - Contains Cloudify JavaDoc.</li>
+        </ul>
+    </div>
+    <div class="clear"></div>
+</li>
+
+<!-- start line even
+            ========================== -->
+<li class="even">
+    <div class="leftSide">
+        <h3>Release Notes</h3>
+        <p>This section contains a list of features, improvements, fixed issues, and known issues in Cloudify</p>
+        <ul>
+            {% assign category = 'Release Notes' %}
+            {% for page in site.page_categories[category] %}
+            {% if  forloop.index == 6 %}
+            <li class="expandBtn">More...</li>
+            <div class="expand">
+                {% endif %}
+                <li><a href="{{page.url}}">{{page.title}} </a> - {{page.abstract}}.</li>
+                {% if forloop.last and forloop.index > 5 %}
+            </div>
+            {% endif %}
+            {% endfor %}
+        </ul>
+    </div>
+    <div class="rightSide">
+        <h3>Frequently Asked Questions (FAQ)</h3>
+        <p>This section contains a collection of frequently asked questions about Cloudify and it provides you with answers to them.</p>
+        <ul>
+            {% assign category = 'FAQ' %}
+            {% for page in site.page_categories[category] %}
+            {% if  forloop.index == 6 %}
+            <li class="expandBtn">More...</li>
+            <div class="expand">
+                {% endif %}
+                <li><a href="{{page.url}}">{{page.title}} </a> - {{page.abstract}}.</li>
+                {% if forloop.last and forloop.index > 5 %}
+            </div>
+            {% endif %}
+            {% endfor %}
+        </ul>
+    </div>
+    <div class="clear"></div>
+</li>
+
+<!-- End table of content list -->
+
+
+
+</div>
+<div class="clear"></div>
+</div>
