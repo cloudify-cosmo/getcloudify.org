@@ -37,9 +37,9 @@ Notes:
 * When using user-defined Java libraries in your Groovy closures or scripts, make sure to use proper import statement where appropriate, and place the relevant jar files in the usmlib directory of the service for which the commands were defined.
 * Any external script invoked by the custom command should be includes in the service folder.
 
-h1. Where to Place the <code>customCommands</code> Section in Your Service Recipe
+h1. Where to Place the @customCommands@ Section in Your Service Recipe
 
-The <code>customCommands</code> section should be placed in the prolog (main) section of the relevant service file (<code>&lt;service name&gt;-service.groovy</code>). Here's an example:
+The @customCommands@ section should be placed in the prolog (main) section of the relevant service file (@&lt;service name&gt;-service.groovy@). Here's an example:
 todo: example
 
 h1. Invoking Custom Commands
@@ -78,9 +78,9 @@ Custom command can be leveraged to implement this scenario:
    todo: check s3
 * When you'd like to update the .war file:
 ** Start the Cloudify interactive shell.
-** Type: <code>connect REST-ADMIN-SERVER-URL</code>
-**Type: <code>use-application YOUR-APP-NAME</code>
-**Type <code>updateWar</code> and wait for the command to complete.
+** Type: @connect REST-ADMIN-SERVER-URL@
+**Type: @use-application YOUR-APP-NAME@
+**Type @updateWar@ and wait for the command to complete.
 ** If all goes well, your new war should now deployed.
 
 

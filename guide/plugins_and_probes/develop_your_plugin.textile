@@ -44,7 +44,7 @@ h2. The Plugin Interface
 These methods enables the Plugin to get access to the ServiceContext API for contextual information and to a set of configuration properties declared in the recipe.
 
 Please note the order of calls:
-<code>setServiceContext</code> is being invoked first by the USM, injecting the instance of <code>ServiceContext</code>. Then, the USM invokes the <code>setConfig</code> injecting a <code>Map</code> of the configuration from the recipe.
+@setServiceContext@ is being invoked first by the USM, injecting the instance of @ServiceContext@. Then, the USM invokes the @setConfig@ injecting a @Map@ of the configuration from the recipe.
 
 
 h2. Usage example
