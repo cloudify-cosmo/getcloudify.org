@@ -37,10 +37,11 @@ h1. Monitoring Availability with Start-up and Shutdown Detection Probes
 
 Cloudify needs to detect your service availability before installing dependent services. In similar manner, Cloudify needs to detect crashed tiers or hung tiers in order to maintain the service SLA.
 
-For these ends, Cloudify exposes the {{startDetection}} and {{stopDetection}} Probes.
+For fulfilling above, Cloudify exposes the <code>startDetection</code> and <code>stopDetection</code> Probes.
 
 You can implement both of them the way you want, either at the platform or even at the application level, to detect non-functional parts of your application or infrastructure.
-h5. The start detection probe
+
+h2. The start detection probe
 
 The {{startDetection}} is a groovy closure that returns a boolean value. It is invoked with several retries by the USM following the successful completion of the {{start}} life-cycle event. If returns {{true}} the service instance will be declared as running. If it failed during all retries, the service instance will be uninstalled.
 The following example checks if the service instance is listening on ports 3668 and 3667 as an indication to be up and running. Once this rule returns true, the service instance is consider "started".
@@ -50,7 +51,7 @@ The following example checks if the service instance is listening on ports 3668 
 The following examples checkes whether a MySQL installation has a specific table in the application schema as an indication that the DB is ready for the application business logic.
 <script src="https://gist.github.com/1767229.js?file=sql_probe-example.groovy"></script>
 
-h5. The stop detection probe
+h2. The stop detection probe
 
 The {{stopDetection}} probe is invoked periodically after the service is declared running. It will check each service instance for being alive or even functional from application perspective (depending on the probe implementation). If the probe returns {{true}} while checking the stop condition, the instance is declared dead and the USM attempts to restart it or to install a new instance.
 
