@@ -18,7 +18,7 @@ h1. Monitoring Configuration with Details Probes
 
 Cloudify enables you to monitor configuration using different application and tier APIs such as JMX, JDBC, REST, CLI etc.
 
-All you need to do is implement the {{details}} closure (which is the reserved closure name) returning a {{Map}} of {{String}} keys with the configuration attribute name and a numeric value.
+All you need to do is implement the <code>details</code> closure (which is the reserved closure name) returning a <code>Map</code> of <code>String</code> keys with the configuration attribute name and a numeric value.
 
 The following example demonstrates how to monitor JBoss attributes using a JMX probe
 <script src="https://gist.github.com/1767179.js?file=details_probe.groovy"></script>
@@ -27,7 +27,7 @@ h1. Monitoring Performance with Metrics Probes
 
 Cloudify enables you to monitor metrics using different application and tier APIs such as JMX, JDBC, REST, CLI, or whatever monitoring methods you have available.
 
-All you need to do is implement the monitors closure returning a {{Map}} of {{String}} keys with the metric name and a numeric value.
+All you need to do is implement the monitors closure returning a <code>Map</code> of <code>String</code> keys with the metric name and a numeric value.
 
 The following example demonstrates how to monitor Tomcat metrics using a JMX probe:
 <script src="https://gist.github.com/1767183.js?file=monitoring_probe.groovy"></script>
@@ -43,7 +43,7 @@ You can implement both of them the way you want, either at the platform or even 
 
 h2. The start detection probe
 
-The {{startDetection}} is a groovy closure that returns a boolean value. It is invoked with several retries by the USM following the successful completion of the {{start}} life-cycle event. If returns {{true}} the service instance will be declared as running. If it failed during all retries, the service instance will be uninstalled.
+The <code>startDetection</code> is a groovy closure that returns a boolean value. It is invoked with several retries by the USM following the successful completion of the <code>start</code> life-cycle event. If returns <code>true</code> the service instance will be declared as running. If it failed during all retries, the service instance will be uninstalled.
 The following example checks if the service instance is listening on ports 3668 and 3667 as an indication to be up and running. Once this rule returns true, the service instance is consider "started".
 
 <script src="https://gist.github.com/1767188.js?file=start_probe.groovy"></script>
@@ -53,9 +53,9 @@ The following examples checkes whether a MySQL installation has a specific table
 
 h2. The stop detection probe
 
-The {{stopDetection}} probe is invoked periodically after the service is declared running. It will check each service instance for being alive or even functional from application perspective (depending on the probe implementation). If the probe returns {{true}} while checking the stop condition, the instance is declared dead and the USM attempts to restart it or to install a new instance.
+The <code>stopDetection</code> probe is invoked periodically after the service is declared running. It will check each service instance for being alive or even functional from application perspective (depending on the probe implementation). If the probe returns <code>true</code> while checking the stop condition, the instance is declared dead and the USM attempts to restart it or to install a new instance.
 
-{info}It is important to note that Cloudify will invoke the {{restart}} event if you implemented one and the {{start}} event will only serve as a fallback.{info}
+{info}It is important to note that Cloudify will invoke the <code>restart</code> event if you implemented one and the <code>start</code> event will only serve as a fallback.{info}
 
 The following example checks if the service instance is listening on port 7777 as an indication to be up and running. Once this rule returns false, the service instance is consider "dead".
 

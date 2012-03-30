@@ -10,22 +10,22 @@ pageord: 7
 p. The Service Context API provides means to access other Application Services or other Service Nodes from within a lifecycle script
 h1. Gaining access to the Service Context API
 
-The ServiceContext API is accessed using the {{ServiceContextFactory}}:
+The ServiceContext API is accessed using the <code>ServiceContextFactory</code>:
 {code}
 import com.gigaspaces.cloudify.dsl.context.ServiceContextFactory
 def context = ServiceContextFactory.getServiceContext()
 {code}
 
-Now, you can access any Application service by name, using the {{getService}} Method:
+Now, you can access any Application service by name, using the <code>getService</code> Method:
 
 {code}
 def serviceName = "cassandra"
 def service = context.waitForService(serviceName, 20, TimeUnit.SECONDS)
 {code}
-The _current_ service - the service in which the above code would be running - can be accessed using {{context.serviceName}}.
+The _current_ service - the service in which the above code would be running - can be accessed using <code>context.serviceName</code>.
 h1. The Service Methods
 
-The {{Service}} object has the following methods:
+The <code>Service</code> object has the following methods:
 {code}
 public String getName();
 public int getNumberOfPlannedInstances();
@@ -36,11 +36,11 @@ public ServiceInstance[] getInstances();
 {code}
 
 h1. The Service Instance Methods
-The {{ServiceInstance}} object can be referenced from the {{Service}} object using {{getInstances()}}.
+The <code>ServiceInstance</code> object can be referenced from the <code>Service</code> object using <code>getInstances()</code>.
 
-To find out the current instance Id, use {{context.getInstanceId()}}.
+To find out the current instance Id, use <code>context.getInstanceId()</code>.
 
-The {{ServiceInstance}} object provides the following methods:
+The <code>ServiceInstance</code> object provides the following methods:
 {code}
 public int getInstanceID(); 
 public String getHostAddress();

@@ -92,9 +92,9 @@ Cloudify Service Recipe use several types of plugins for different purposes:
 * <b>Service Start Detector Plugin</b> - used for detecting a successful start of service in order to invoke postStart and dependent services
 * <b>Service Stop Detector Plugin</b> - used to detect a non functional or crushed service instance in order to provide self-healing or compansate with a new instance on a new VM
 * <b>Details Plugin</b> - used to get custom service details reported to the Admin API and to the Web Console
-** Currently {{org.openspaces.usm.jmx.JmxDetails}} using JMX Mbeans attributes, is the only built-in plugin
+** Currently <code>org.openspaces.usm.jmx.JmxDetails</code> using JMX Mbeans attributes, is the only built-in plugin
 * *Monitoring Plugin* - used to get custom metrics sampled once every X seconds and reported to Admin API and Web Console
-** Currently, {{org.openspaces.usm.jmx.JmxMonitor}}, using JMX Mbeans attributes, is the only built-in plugin.
+** Currently, <code>org.openspaces.usm.jmx.JmxMonitor</code>, using JMX Mbeans attributes, is the only built-in plugin.
 
 
 There are two modes of using plugins
@@ -102,7 +102,7 @@ There are two modes of using plugins
 * Configure a built-in plugin
 <img src="/guide/images/recipes/builtin_plugin.png"/>
 
-* Add a custom plugin. Custom plugins and their dependencies should be located (as jars) under {{usmlib}} sub-folder
+* Add a custom plugin. Custom plugins and their dependencies should be located (as jars) under <code>usmlib</code> sub-folder
 <img src="/guide/images/recipes/custom_plugin.png"/>
 <img src="/guide/images/recipes/monitoring_cycle.png"/>
 <script src="https://gist.github.com/1760272.js?file=plugins.groovy"></script>
