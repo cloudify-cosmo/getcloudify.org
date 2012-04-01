@@ -11,22 +11,17 @@ p. How to Install Cloudify on a Private Cloud
 
 h1. Store Cloudify Binaries on the Cloud
 
-As private Clouds often don't allow for interent outbound calls, or just in order to speed up Cloudify, you need to store Cloudify binaries 
-on a local storage.
+As private Clouds often don't allow for interent outbound calls, or just in order to speed up Cloudify, you need to store Cloudify binaries on a local storage.
 
-Cloudify Cloud Driver will use the stored binaries when bootstrapping Cloudify management and when installing the Cloudify agents
-on the applications virtual hosts. Some Private Clouds might have a storage service so you can use this service to install the binaries
-and get a URI you can use with the cloud driver configuration. In Citrix Cloudstack case, you will need to create a VM 
-on which you will store the Cloudify Binaries.
+Cloudify Cloud Driver will use the stored binaries when bootstrapping Cloudify management and when installing the Cloudify agents on the applications virtual hosts. Some Private Clouds might have a storage service so you can use this service to install the binaries and get a URI you can use with the cloud driver configuration. In Citrix Cloudstack case, you will need to create a VM on which you will store the Cloudify Binaries.
 
 h1. Create The Images You Need
 
-this step is optional as you can use images you already have with Cloudify. However, if your applications requires additional
-images, you can create them via the private cloud console. In this example on Citrix Cloudstack
+This step is optional as you can use images you already have with Cloudify. However, if your applications requires additional images, you can create them via the private cloud console. In this example on Citrix Cloudstack.
 
 h1. Configure the Cloud Driver
 
-the last step is about configuring the Cloud Driver. This involves mainly 2 things:
+The last step is about configuring the Cloud Driver. This involves mainly 2 things:
 * Credentials for using the Cloud API
 * The templates with the images your application would like to consume
 
