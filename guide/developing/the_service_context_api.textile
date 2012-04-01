@@ -15,27 +15,27 @@ The Service Context API provides means to access other Application Services or o
 
 h1. Gaining access to the Service Context API
 
-The ServiceContext API is accessed using the __ServiceContextFactory__:
+The ServiceContext API is accessed using the @ServiceContextFactory@:
 <script src="https://gist.github.com/1700385.js?file=getServiceContext.groovy"></script>
 
 
-Now, you can access any Application service by name, using the __waitForService__ Method:
+Now, you can access any Application service by name, using the @waitForService@ Method:
 <script src="https://gist.github.com/1700450.js?file=wait4Cassandra.groovy"></script>
 
-The __current__ service - the service in which the above code would be running - can be accessed using __context.serviceName__.
+The @current@ service - the service in which the above code would be running - can be accessed using @context.serviceName@.
 
 h1. The Service Methods
 
-The __Service__ object has the following methods:
+The @Service@ object has the following methods:
 <script src="https://gist.github.com/1700479.js?file=serviceMethods.groovy"></script>
 
 h1. The Service Instance Methods
 
-The __ServiceInstance__ object can be referenced from the __Service__ object using __getInstances()__.
+The @ServiceInstance@ object can be referenced from the @Service@ object using @getInstances()@.
 
-To find out the current instance Id, use __context.getInstanceId()__.
+To find out the current instance Id, use @context.getInstanceId()@.
 
-The _ServiceInstance__ object provides the following methods:
+The @ServiceInstance@ object provides the following methods:
 <script src="https://gist.github.com/1703676.js?file=serviceInstanceMethods.groovy"></script>
 
 h1. Writing and Reading Runtime Attributes
