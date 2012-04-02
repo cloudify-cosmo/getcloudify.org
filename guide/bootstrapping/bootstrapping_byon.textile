@@ -23,10 +23,14 @@ h3. Management Machines Provisioning
 
 When the BYON cloud driver is requested to bootstrap BYON cloud, it accesses one of the machines listed on the management machine template, accesses the machine using SSH and installs the Cloudify management components on it.
 
+<img src="/guide/images/byon/bootstrap_BYON.png" />
+
 h3. Application Machines Provisioning
 
 When the Cloudify controller requests the BYON cloud driver to provision a machine for application installaion, the BYON cloud driver allocates one machine from the template associated with the service recipe.
-Once the machine is allocated, the BYON cloud driver installs Cloudify, starts the Cloudify agent, and initiates the service installation process using the relevant service install script.
+Once the machine is allocated, the BYON cloud driver installs Cloudify, starts the Cloudify agent, and initiates the service installation process using the relevant service install script. 
+
+<img src="/guide/images/byon/install_app_BYON.png" />
 
 When there's an insufficient number of machines for allocation, the following exception will be thrown:
 @Failed to create new cloud node, all nodes are currently used@
