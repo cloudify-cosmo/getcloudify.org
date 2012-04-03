@@ -31,12 +31,12 @@ pageord: 1
         <p>This section contains a short Quick Start Guide to get you up and running with Cloudify in minutes.</p>
         <ul>
             {% assign category = 'Getting Started' %}			
-            {% for pagex in site.page_categories[category] %}
+            {% for page in site.page_categories[category] %}
             {% if  forloop.index == 6 %}
             <li class="expandBtn">More...</li>
             <div class="expand">
                 {% endif %}
-                <li><a href="{{page.url}}">{{pagex.title}} </a> - {{pagex.abstract}}.</li>
+                <li><a href="{{page.url}}">{{page.title}} </a> - {{page.abstract}}.</li>
                 {% if forloop.last and forloop.index > 5 %}
             </div>
             {% endif %}

@@ -86,7 +86,7 @@ In order to add machines without specifying specific IPs, you can use a range of
 The Ids for these cloud nodes would be generated based on the prefix you define, Cloudify will add an index to that prefix (e.g. vm1, vm2 etc.)
 <script src="https://gist.github.com/2222903.js"> </script>
 
-Please note the current version has a known issue: it supports only ranging on the last byte of the IP (meaning on the numbers that come after the last dot).
+h4(noteYellow). Please note the current version has a known issue: it supports only ranging on the last byte of the IP (meaning on the numbers that come after the last dot).
 
 h3. bootstrap-management.sh
 
@@ -120,5 +120,4 @@ Cloudify Controller will be installed one the management machine. From that poin
 
 h2. Tearing down the BYON installation
 
-In order to shut down the installation, you need to use the un-install the application as usual and terminate the cloud using the teardown-cloud command using byon as cloud provider argument:
-    &nbsp;&nbsp;&nbsp; *teardown-cloud byon*
+In order to shut down the installation, you need to use the un-install the application as usual and terminate the cloud using the teardown-cloud command using byon as cloud provider argument:    &nbsp;&nbsp;&nbsp; *teardown-cloud byon*
