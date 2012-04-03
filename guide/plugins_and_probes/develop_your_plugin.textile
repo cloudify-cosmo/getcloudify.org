@@ -43,8 +43,8 @@ h2. The Plugin Interface
 
 These methods enables the Plugin to get access to the ServiceContext API for contextual information and to a set of configuration properties declared in the recipe.
 
-h4(noteYellow).  Note the order of calls:
-@setServiceContext@ is being invoked first by the USM, injecting the instance of @ServiceContext@. Then, the USM invokes the @setConfig@ injecting a @Map@ of the configuration from the recipe.
+<h4 class="noteYellow">  Note the order of calls:
+@setServiceContext@ is being invoked first by the USM, injecting the instance of @ServiceContext@. Then, the USM invokes the @setConfig@ injecting a @Map@ of the configuration from the recipe.</h4>
 
 
 h2. Usage example
@@ -53,7 +53,7 @@ Here is a sample of a plugins declaration statement from a tomcat recipe, using 
 
 <script src="https://gist.github.com/1745731.js?file=plugins.groovy"></script>
 
-h4(noteYellow). Note that the plugin implementation class in this sample is _org.cloudifysource.usm.jmx.JmxMonitor_, and it receives an initial configuration of Key/Value pairs which map an attribute's display name to the JMX ObjectName notation of the relevant attribute, as well as the JMX port used to access the JMX Agent.
+<h4 class="noteYellow"> Note that the plugin implementation class in this sample is _org.cloudifysource.usm.jmx.JmxMonitor_, and it receives an initial configuration of Key/Value pairs which map an attribute's display name to the JMX ObjectName notation of the relevant attribute, as well as the JMX port used to access the JMX Agent.</h4>
 
 h1. Built-in Plugins
 

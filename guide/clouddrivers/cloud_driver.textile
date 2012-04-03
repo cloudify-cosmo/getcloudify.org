@@ -15,7 +15,7 @@ h1. Provisioning Compute Resources
 
 Cloudify uses "agentless-installation", meaning it does not require any Cloudify code to already be running on a newly allocated machine in order to use it. The Cloudify controller connects to the newly allocated machine over ssh and installs the required components on it, connecting it to the Cloudify Cluster. 
 
-h4(noteYellow). Note: On clouds other than Azure, Cloudify only supports *-nix hosts that have ssh enabled. Generic windows support is in the workings.
+<h4 class="noteYellow">Note: On clouds other than Azure, Cloudify only supports *-nix hosts that have ssh enabled. Generic windows support is in the workings. </h4>
 
 As a result, no special VM image is required. Any *-nix image can be used, whether virtual or physical. Provisioning does not have to use a real "cloud", in future version you will even be able to use an arbitrary set of non-virtualized hosts to be used by Cloudify as required.
 
@@ -35,7 +35,7 @@ h1. Dealing with Provisioning Errors
 Cloud providers and APIs are not perfect. In such large scale distributed environments, errors can and do occur. It is important to remember that the cloud driver infrastructure is NOT "transactional". It is the cloud driver implementation's responsibility to properly handle any errors from cloud environment. Most importantly, it is the cloud driver's responsibility to properly release resources if an error has occurred while provisioning a machine.
 For instance, if a cloud driver requests a machine from the cloud and then waits for the machine to become available, the machine may take too long to start, exceeding the required timeout. In this case, it is the responsibility of the cloud driver to shut down the machine before throwing a TimeoutException to the cloud driver infrastructure.
 
-h4(noteYellow). Note that in such a case, Cloudify will re-issue the request for the new machine.
+<h4 class="noteYellow">Note that in such a case, Cloudify will re-issue the request for the new machine.</h4>
 
 h1. The Cloud Driver API
 
