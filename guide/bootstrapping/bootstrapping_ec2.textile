@@ -4,12 +4,12 @@ title: Bootstrapping Cloudify on Amazon EC2
 category: Bootstrapping
 publish: true
 abstract: Explains how to bootstrap Cloudify on Amazon EC2
-pageord: 4
+pageord: 400
 ---
 
 h1. Summary
 
-Explains how to bootstrap Cloudify on Amazon EC2 Clouds 
+Explains how to bootstrap Cloudify on Amazon EC2 Cloud.
 
 
 h1. Bootstrapping on EC2
@@ -59,12 +59,12 @@ You can get a Secret Access Key from the "Access Credentials section in EC2 Cons
 
 * In the template section, update the following:  				 
  ** *locationId* - Insert the zone type from EC2 (e.g. : us-east-1 which stands for US East,Virginia).
- ** *imageId* - Insert the Amazon Machine type ID. 
+ ** *imageId* - Insert the Amazon Machine type ID.
+     *Note that different EC2 regions have different AMIs for the same image configuration.*
      You can find the available types in "EC2 images types page":https://console.aws.amazon.com/ec2/home?region=us-east-1#s=Images as shown here:
-!GRA:Images2^EC2_AMAZON_MACHINE_IMAGES2.JPG!
+<img src="/guide/images/ec2/ec2_images_types.jpg" />
  ** *hardwareId* - Insert the Amazon API name of the desired hardware type.
      You can get it from "EC2 instance types page":http://aws.amazon.com/ec2/instance-types (e.g.: m1.small , c1.medium etc.) as shown here:
-
 <img src="/guide/images/ec2/EC2_Instance_Types3.jpg" />
 
  ** *options* ("jclouds":http://www.jclouds.org/documentation) .

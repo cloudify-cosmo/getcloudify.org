@@ -10,9 +10,7 @@ pageord: 2
 
 h1. Overview
 
-The Universal Service Manager (USM) is a GigaSpaces "processing unit":http://www.gigaspaces.com/wiki/display/XAP8/The+Processing+Unit+Structure+and+Configuration specially designed to install, execute, monitor and manage an external process. The USM manages the lifecycle
-of the external process, and acts as a proxy for it in the GigaSpaces Service Grid. This allows operators to deploy any application to the cloud via the service grid,
-and gain all of its benefits (Centralized management, remote deployment, performance statistics, etc...)
+The Universal Service Manager (USM) is a GigaSpaces "processing unit":http://www.gigaspaces.com/wiki/display/XAP8/The+Processing+Unit+Structure+and+Configuration specially designed to install, execute, monitor and manage an external process. The USM manages the lifecycle of the external process, and acts as a proxy for it in the GigaSpaces Service Grid. This allows operators to deploy any application to the cloud via the service grid, and gain all of its benefits (Centralized management, remote deployment, performance statistics, etc...)
 
 h3. How it works
 
@@ -22,16 +20,11 @@ Ideally, the process you are running already comes with the required scripts to 
 
 h3. What is a recipe
 
-A recipe is basically a list of instructions that the USM will execute when required. It is intended as a tool that can be used by someone with little or no development experience, but with a background in operations. More details are available in "Developing Recipes":/guide/developing/recipes_overview
+A recipe is basically a list of instructions that the USM will execute when required. It is intended as a tool that can be used by someone with little or no development experience, but with a background in operations. More details are available in "Developing Recipes":/guide/developing/recipes_overview.
 
 h1. USM Lifecycle
 
-h1.  *IMAGE HERE*
-
-The life-cycle phases of the USM can be controlled by the user, allowing for a high level of customization. The USM life-cycle is split into phases, each contains one or more events. The recipe can implement any of these events and ignore the ones it does not need.
-The only mandatory event is the 'start' event, which starts up the external process.
-
-The life-cycle phases and events are described below.
+The life-cycle phases of the USM can be controlled by the user, allowing for a high level of customization. The USM life-cycle is split into phases, each contains one or more events. The recipe can implement any of these events and ignore the ones it does not need. The only mandatory event is the 'start' event, which starts up the external process. The life-cycle phases and events are described below.
 
 h3. Service Start Phase
 
@@ -74,7 +67,7 @@ h3. Shutdown Phase:
 events: shutdown
 The shutdown event should be used to perform any required cleanup before the USM instance shuts down. This if often used when running on  physical hosts
 to delete any files that were saved to a location on the local file system that is not under the default service directory (which is deleted automatically when
-the USM instance is undeployed).
+the USM instance is un-deployed).
 
 h1. Service Installation
 
@@ -86,7 +79,7 @@ The files are typically made available using one of the following ways, or a com
 # Include the required files in the packaged service folder, either as a compressed archive that will be uncompressed during the install phase, or as the uncompressed
 files.
 
-Note that each of these options has an impact on the architecture of the deployed system:
+Each of these options has an impact on the architecture of the deployed system:
 # Downloading the files from the internet requires an outgoing connection to the internet (which may not be available in some environments) as well as sufficient
 bandwidth to ensure a speedy download. The time required to download the files is also a factor, as a slow download will significantly increase the start-up time
 of each of the instances. Finally, the source site MUST be available at all times, in case a host or a service instance fails and a USM instance has to be
@@ -103,31 +96,21 @@ h1. Executable Recipe Entries
 
 Several of the recipe parameters are executable entries - entries that define execution of recipe-specific code, like executing a shell script.
 The USM supports several ways to define an executable entry. Each of these way has a different input.
-* Command line (String): The string indicates a command line that should be executed as an external process. If spaces exist in the command line, each of the words is considered
-a single parameter and a String Array is created from all of the words, so that the first word is the executable to run, and the others are parameters to the executable.
-* A list: Similar to the command line option, this option defines the command line by stating its parts explicitly, allowing a user to pass parameters that contains spaces. Note
-that handling of spaces, single quotes and double quotes is operating system specific, and it is the responsibility of the recipe developer to handle this correctly.
-* A closure: An executable piece of code that is executed inside the USM's JVM. This option offers the best performance and allows you to avoid additional files
-in your recipe, but requires a working knowledge of the Groovy programming language. In addition, it is important to note that the working folder of the code executed
-in a closure is the working folder of the USM's JVM (i.e. the GigaSpaces Grid Services Container). This is usually the bin directory under the GigaSpaces install directory, and not
-the USM's service folder. To find the service folder, use the Service Context, as .
+* Command line (String): The string indicates a command line that should be executed as an external process. If spaces exist in the command line, each of the words is considered a single parameter and a String Array is created from all of the words, so that the first word is the executable to run, and the others are parameters to the executable.
+* A list: Similar to the command line option, this option defines the command line by stating its parts explicitly, allowing a user to pass parameters that contains spaces. Note that handling of spaces, single quotes and double quotes is operating system specific, and it is the responsibility of the recipe developer to handle this correctly.
+* A closure: An executable piece of code that is executed inside the USM's JVM. This option offers the best performance and allows you to avoid additional files in your recipe, but requires a working knowledge of the Groovy programming language. In addition, it is important to note that the working folder of the code executed in a closure is the working folder of the USM's JVM (i.e. the GigaSpaces Grid Services Container). This is usually the bin directory under the GigaSpaces install directory, and not the USM's service folder. To find the service folder, use the Service Context.
 * A map: In some cases, a recipe is expected to run on multiple operating systems. Each operating system may require a slightly different implementation. The map option allows you to define a mapping for each operating system. The map's key is a string that represents a Java Regular Expression (See more details in the "Javadoc"/http://download.oracle.com/javase/6/docs/api/index.html?java/util/regex/package-summary.html and its value should be one of the previously described options. 
   The USM will attempt to match the operating system it is running on (using Java's 'os.name' attribute) to the keys in the map, and execute the first entry that is a match. Typical keys are 'Linux', 'Win.\*', 'Mac.\*' (all recent apple operating systems). 
-  A list of operating system names is available "here".http://lopica.sourceforge.net/os.html.
+A list of operating system names is available "here".http://lopica.sourceforge.net/os.html.
 
-Note that all external processes are launched using the service directory ('ext' in the Processing Unit) as the process' working directory.
+|All external processes are launched using the service directory ('ext' in the Processing Unit) as the process' working directory. |
 
 h1. Command line handling
 
 The USM performs some common modifications to the given command line, based on some common use cases:
-* On windows, if the first word in the command line ends with '.bat', indicating that it is a windows batch file, the command is prepended with 'cmd.exe' and '/c'.
-This is the correct way to execute a batch file.
-* On none windows machines, if the first parameter is a file that in the recipe service folder or one of its subdirectories (to any level) the file is marked as
-executable before the command line is launched.
-* If the first word in the command line ends with '.groovy', the USM will launch the groovy processor provided with GigaSpaces (in tools/groovy under the
-GigaSpaces installation directory) passing the given command line to it. It will also set the CLASSPATH environment variable, making specific jar files available
-to the Groovy runtime, like the files in the PU's lib dir.
-* *ADD DETAILS OF LOOKING FOR ALTERNATIVE COMMAND LINES FROM OTHER OS.*
+* On windows, if the first word in the command line ends with '.bat', indicating that it is a windows batch file, the command is prepended with 'cmd.exe' and '/c'. This is the correct way to execute a batch file.
+ndows machines, if the first parameter is a file that in the recipe service folder or one of its subdirectories (to any level) the file is marked as executable before the command line is launched.
+* If the first word in the command line ends with '.groovy', the USM will launch the groovy processor provided with GigaSpaces (in tools/groovy under the GigaSpaces installation directory) passing the given command line to it. It will also set the CLASSPATH environment variable, making specific jar files available to the Groovy runtime, like the files in the PU's lib dir.
 
 h3. Complex command lines
 
@@ -151,15 +134,13 @@ h3. How plugins works
 
 A class implementing a plugin should implement the interfaces that it would like to hook into (like specific events, monitors, etc) and it must have a default constructor. 
 When the USM starts up, it reads the DSL file and creates an instance of the class according to the classname specified in the recipe file, and passes to this object the parameters map that is also specified in the recipe file. 
-This object is then added to the USM's Spring Application Context, making it a singleton spring bean. 
-The object will be injected to the various hooks in the USM according to the interfaces that the plugin implements.
-
+This object is then added to the USM's Spring Application Context, making it a singleton spring bean. The object will be injected to the various hooks in the USM according to the interfaces that the plugin implements.
 
 h3. Monitors and Details
 
-The GigaSpaces Service Grid allows a Processing Unit instance to publish data about itself in a key/value format, for both static data (ServiceDetails) which remains constant for the lifetime of the PU, and dynamic data(ServiceMonitors) which changes all the time. *LINK HERE*.
+The GigaSpaces Service Grid allows a Processing Unit instance to publish data about itself in a key/value format, for both static data (ServiceDetails) which remains constant for the lifetime of the PU, and dynamic data(ServiceMonitors) which changes all the time.
 The USM publishes a set of details and monitors, mostly related to the operating system statistics of the monitored process, but A Recipe may add additional details and monitors if required.
-At this time, adding monitors or details requires implementing a DSL plugin *(LINK HERE)* though a future update will allow a recipe developer to define the details/monitors directly in the recipe. 
+At this time, adding monitors or details requires implementing a DSL plugin though a future update will allow a recipe developer to define the details/monitors directly in the recipe. 
 To publish monitors or details, the plugin should implement one or borh of the relevant interfaces:
 __org.openspaces.usm.details.Details__ and __org.openspaces.usm.monitors.Monitor__.
 
@@ -170,9 +151,7 @@ create most recipe, but is useful for the more advanced implementations.
 
 h3. Implementing events and other integration points.
 
-The USM relies heavily on spring based dependency injection. All user-controlled events and integration points are implemented as POJOs that implement one or
-more of the USM interfaces. For example, the 'init' event is handled by a POJO that implements the _org.openspaces.usm.events.InitListener_ interface. During
-the USM start-up, it loads the DSL file and uses the settings defined there to create a set of POJOs which implements the behavior described in the recipe.
+The USM relies heavily on spring based dependency injection. All user-controlled events and integration points are implemented as POJOs that implement one or more of the USM interfaces. For example, the 'init' event is handled by a POJO that implements the _org.openspaces.usm.events.InitListener_ interface. During the USM start-up, it loads the DSL file and uses the settings defined there to create a set of POJOs which implements the behavior described in the recipe.
 
 This diagram shows all of the available interfaces: 
 <img src="/guide/images/usm/USM_Interfaces.JPG" width="630" height="130" />
@@ -195,26 +174,15 @@ PU
 
 h3. Process Handling
 
-The USM acts as a proxy to an external process defined by the recipe, representing this process in the GigaSpaces service grid. 
-To do this, it monitors Operating System metrics for this process, like CPU Usage, Memory consumption, etc. 
-But to be able to do this, the USM must first find the process.  
-This sounds easy, since the USM is the component that launches the external script. 
-But in reality, the USM may launch a process that launches another process, that launches another one, etc. 
-For instance, a process may be launched from a groovy script. 
-This translates to the USM launching a shell process like bash for the groovy launch script, which launches a JVM that runs the Groovy Script, which launches the actual process. 
-It is this final process that the USM should monitor, not the initial shell process that it launched.
+The USM acts as a proxy to an external process defined by the recipe, representing this process in the GigaSpaces service grid. To do this, it monitors Operating System metrics for this process, like CPU Usage, Memory consumption, etc. But to be able to do this, the USM must first find the process.  This sounds easy, since the USM is the component that launches the external script. 
+But in reality, the USM may launch a process that launches another process, that launches another one, etc. For instance, a process may be launched from a groovy script. This translates to the USM launching a shell process like bash for the groovy launch script, which launches a JVM that runs the Groovy Script, which launches the actual process. It is this final process that the USM should monitor, not the initial shell process that it launched.
 
-The USM handles this by comparing the operating system's process tree before the external process is launched, and after it was launched. A new process whose parent
-process is the USM's JVM, is called the *child process*. 
-The USM then looks for a process that was launched by the child process in a similar fashion, and continues down the process tree until a 'leaf' process is found, that has no child processes. 
-This process is called the *actual process*, and this is the process that the USM will monitor for performance statistics. 
-Note that the child process and the actual process may be the same.
+The USM handles this by comparing the operating system's process tree before the external process is launched, and after it was launched. A new process whose parent process is the USM's JVM, is called the *child process*. The USM then looks for a process that was launched by the child process in a similar fashion, and continues down the process tree until a 'leaf' process is found, that has no child processes. This process is called the *actual process*, and this is the process that the USM will monitor for performance statistics. 
 
-Before the USM can find the actual process, it must first know that the actual process has launched! Launching the chain of processes that eventually starts the actual process may take an indeterminate amount of time. 
-It is for this reason that the USM supports the startDetection event, which is how the recipe determines when the actual process has started. 
-This is most often accomplished by waiting for a port to open on the local host (like port 80 for a web server) or for a certain text message to be written to a log file. 
-For example, by polling the port until it becomes available, the recipe can indicate to the USM when the actual process is ready. A utility for scanning a port is packaged with the USM, though the recipe can configure any arbitrary code to determine this.
+|The child process and the actual process may be the same.|
 
-NOTE: If one of the processes in the process tree under the child process launched multiple processes, the USM will not be able to determine which process is the actual process. 
-This behavior is not currently supported by the USM.
+Before the USM can find the actual process, it must first know that the actual process has launched! Launching the chain of processes that eventually starts the actual process may take an indeterminate amount of time. It is for this reason that the USM supports the start Detection event, which is how the recipe determines when the actual process has started. This is most often accomplished by waiting for a port to open on the local host (like port 80 for a web server) or for a certain text message to be written to a log file. For example, by polling the port until it becomes available, the recipe can indicate to the USM when the actual process is ready. A utility for scanning a port is packaged with the USM, though the recipe can configure any arbitrary code to determine this.
+
+|If one of the processes in the process tree under the child process launched multiple processes, the USM will not be able to determine which process is the actual process. This behavior is not currently supported by the USM.|
+
 

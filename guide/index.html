@@ -1,178 +1,506 @@
----
-layout: index
-title: Cloudify Documentation Home
-cat: Index
-publish: true
-abstract: Cloudify Documentation Home
-pageord: 1
----
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>	
+    <title>Cloudify - Cloudify Documentation Home</title>
+    <link rel="stylesheet" href="/css/template.css" type="text/css"/>    
+	<link rel="canonical" href="http://www.cloudifysource.org/guide/index_raw.html"/>	
+    <link rel="stylesheet" href="/css/jquery-ui-1.8.17.custom.css" type="text/css" media="all"/>
+    <link rel="stylesheet" type="text/css" href="/scripts/prettify/prettify.css">	
+	<link rel="shortcut icon" href="/favicon.ico" type="image/x-icon" />
+    <script type="text/javascript" src="/scripts/jquery-1.6.4.js"></script>
+    <script type="text/javascript" src="/scripts/search.js"></script>
+    <script type="text/javascript" src="/scripts/jquery-ui-1.8.17.custom.min.js"></script>
+    <script type="text/javascript" src="/scripts/jquery.prettyPhoto.js"></script>
+	<script type="text/javascript" src="/scripts/prettify/prettify.js"></script>
+    <script type="text/javascript">
+    window.onload = function () {
+	$('body').addClass("bodyClass");
+ 	}
+             $(function(){ 
+             	$("a.youtube").YouTubePopup({ hideTitleBar: true });
+           	$("div.expand").hide();
+           	$("li.expandBtn").click(function(){	
+    		  $(this).next("div.expand").slideToggle(500);
+    		  if($(this).html()=="More..."){
+    		  	$(this).html("Less...");	
+    		  }else{
+    		  	$(this).html("More...");
+    		  }
+    		  
+			});
+           /* ------------- added by Yaron ------------ */
+			$("span.pln, span.kwd").css("cursor","pointer");
+			$("span.pln, span.kwd").hover(function(){$(this).css("background-color","#CECECE");},function(){$(this).css("background-color","transparent");});
+	        $("span.pln, span.kwd").click( function(eventObject) {
+				var currKey = $(eventObject.currentTarget).text().trim();
+				if (currKey == "name") {
+					var prevKey = $(eventObject.currentTarget).prev().prev("span.pln").text().trim();
+					currKey = prevKey + "_" + currKey;
+					
+				}
+				var tooltip = $(".overlay");
+				var position = $(eventObject.currentTarget).offset();				
+				$("#desc",tooltip).text(messages[currKey]);		
+				tooltip.show().offset({ top: position.top + tooltip.scrollTop() - 75, left: position.left + 100});
+				$("#tipImg").position()
+				$("#closeBut").click(function() {$(".overlay").offset({top:0,left:0}).hide();})
+			 });
+			 
+			 
+			 
+ 
+          
+          
+           
+			 
+			 
+			 
+           }
+           
+           
+          
+  
+           
+           
+           
+           
+	 );
+    
+    </script>
+    
+    <script type="text/javascript" src="/scripts/cloudify_default.js"></script>
 
-<div class="contentNoRight">
-    <h1 class="pageTitle">Cloudify User's Guide</h1>
-    <a class="btnGetCloudifyFreeEdition" target="_blank" href="/downloads/get_cloudify"></a>
-    <!--Start left content -->
 
-    <div class="DocumentsWrap">
-        <p>
-            This guide is written for application developers and administrators.
-            The guide provides all the information and tools needed to install, setup and leverage Cloudify for on boarding your applications to any cloud environment.
-            It includes an overview section, getting started guide, reference documentation, APIs, configurations and other topics.
-        </p>
 
-        <ul class="tableOfcontentList">
-            <!-- start line odd
-           ========================== -->
-            <li class="odd">
-                <div class="leftSide">
-                    <h3>Getting Started</h3>
-                    <p>This section contains a short Quick Start Guide to get you up and running with Cloudify in minutes.</p>
-                    <ul>                        
-                        <li><a href="/guide/qsg/quick_start_guide">Quick Start Guide</a> - 10-Minute Quick Start Guide</li>
-                    </ul>
-                </div>
-                <div class="rightSide">
-                    <h3>Product Overview</h3>
-                    <p>This section contains a comprehensive overview of how Cloudify works, how it's architected and what are its main components. </p>
-                    <ul>
-                        <li><a href="/guide/overview/cloudify_intro">Introduction to Cloudify</a> - Architecture overview, design principles and key features of Cloudify</li>                    
-                      
-                        <li><a href="/guide/overview/universal_service_manager">The Universal Service Manager</a> - Describes the Universal Service Manager (USM), a key components that allows Cloudify to run and monitor any kind of middleware stack.</li>
-                       
-                        
-                    </ul>
-                </div>
-                <div class="clear"></div>
-            </li>
-            <!-- start line even
-           ========================== -->
-            <li class="even">
-                <div class="leftSide">
-                    <h3>Installation & Setup</h3>
-                    <p>This section contains information about how to install Cloudify and configure for usage on various clouds.</p>
-                    <ul>
-					    <li><a href="/guide/setup/cloudify_prerequisites">Cloudify Prerequisites</a> - Lists Cloudify Prerequisites</li>
-						<li><a href="/guide/setup/installing_the_cloudify_client">Installing the Cloudify Interactive Shell</a> - Explains how to install and start the Cloudify interactive shell on your computer.</li>
-						<li><a href="/guide/setup/command_line_reference">Command Line Reference</a> - Lists the available interactive shell commands and how to use them.</li>
-                        <li><a href="/guide/setup/configuring_for_public_clouds">Configuring for Public Clouds</a> - Explains how to Configure Cloudify to run your application on public clouds.</li>
-						<li><a href="/guide/setup/installing_private_cloud">Installing on a Private Cloud</a> - Explains how to setup Cloudify to run your application on a private cloud.</li>
-                        <li><a href="/guide/setup/installing_azure">Cloudify on Windows Azure</a> - Explains how to install Cloudify on Windows Azure </li>                        				
-					</ul>
-                </div>
-                <div class="rightSide">
-                    <h3>Developing Recipes</h3>
-                    <p>This section explains the concept and practicalities of application recipes, which the mechanism that allows Cloudify to support any kind of middelware stack</p>
-                    <ul>
-                        <li><a href="/guide/developing/recipes_overview">Anatomy of a Recipe</a> - An overview of the recipe framework, terminology and syntax.</li>
-                        <li><a href="/guide/developing/application_recipe">The Application Descriptor</a> - Describes the part of the recipe that defines which application tiers compose your application and their inter-dependencies.</li>
-                        <li><a href="/guide/developing/service_recipe">The Service Descriptor</a> - Describes the part of the recipe that defines a specific application tier (or service), how to setup them up and have Cloudify manage them.</li>
-                        <li><a href="/guide/developing/lifecycle_events">Lifecycle Events</a> - Describes the order of events in Cloudify application and service lifecycle.</li>
-                        <li class="expandBtn">More...</li>
-                        <div class="expand">
-                        <li><a href="/guide/developing/recipe_parameters">Recipe Parameters</a> - Describes how to parameterize a recipe and externalize key configuration elements</li>
-                        <li><a href="/guide/developing/extending_recipes">Extending Recipes</a> - Explains how to create new recipe from existing one by overriding only the elements you wish modify.</li>
-                        <li><a href="/guide/developing/the_service_context_api">The Service Context API</a> - Describes the Service Context API, which is Cloudify's API for interacting with an applications service's runtime environment and context.</li>
-                        <li><a href="/guide/developing/attributes_api">Attributes API</a> - Describes the Attributes API, which is used for sharing information between services of the same application</li>						
-						<li><a href="/guide/developing/custom_commands">Custom Commands</a> - Describes the custom commands mechanism and usage</li>											
-                        <li><a href="/guide/developing/sla_requirements">SLA Requirements</a> - Explains how to specify SLA elements per application service, e.g. initial number of instances.</li>
-                        <li><a href="/guide/developing/probes">Monitoring Probes</a> - Describes the use of monitoring probes and plugins to monitor service status, performance and availability</li>
-                        <li><a href="/guide/developing/configuring_ui_section">Configuring the Web Based UI</a> - Explains how to configure the web based UI to present the information generated by probes and monitoring plugins.</li>
-                        </div>
-                    </ul>
-                </div>
-                <div class="clear"></div>
-            </li>
-            <!-- start line odd
-           ========================== -->
-            <li class="odd">
-                <div class="leftSide">
-                    <h3>Bootstrapping</h3>
-					<p>This section contains information about bootstrapping different cloud environments using Cloudify</p>
-                    <ul>
-                        <li><a href="/guide/bootstrapping/bootstrapping_process">Bootstrapping</a> - Explains the bootsrapping process.</li>
-                        <li><a href="/guide/bootstrapping/bootstrapping_localcloud">Bootstrapping Cloudify on localcloud</a> - Explains how to bootstrap Cloudify on localcloud.</li>
-                        <li><a href="/guide/bootstrapping/bootstrapping_azure">Bootstrapping Cloudify on Windows Azure</a> - Explains how to bootstrap Cloudify on Windows Azure.</li>
-						<li><a href="/guide/bootstrapping/bootstrapping_ec2">Bootstrapping Cloudify on Amazon EC2</a> - Explains how to bootstrap Cloudify on Amazon EC2.</li>
-						<li><a href="/guide/bootstrapping/bootstrapping_hp">Bootstrapping Cloudify on HP OpenStack Cloud</a> - Explains how to bootstrap Cloudify on HP's public cloud.</li>
-						<li><a href="/guide/bootstrapping/bootstrapping_byon">Bootstrapping Cloudify in a Non-Cloud Environment</a> - Explains how to bootstrap Cloudify on a non-cloud environment</li>
-						
-                    </ul>
-                </div>
-                <div class="rightSide">
-                    <h3>Monitoring Your Applications</h3>
-					<p>This section explains the various aspects of monitoring your applications with Cloudify</p>
-                    <ul>
-                        <li><a href="/guide/monitoring/monitoring_app_during_deploy">Monitoring During Deployment</a> - Explains how to monitoring your application during the deployment.</li>
-                        <li><a href="/guide/monitoring/the_web_management_console">The Web Based Management Console</a> - Describes how to use the web based UI.</li>
-                        <li><a href="/guide/monitoring/monitoring_app_post_deploy">Monitoring with the Cloudify Interactive Shell</a> - Explains how to monitor your application Cloudify client.</li>
-                    </ul>
-                </div>
-                <div class="clear"></div>
-            </li>
-            <!-- start line even
-           ========================== -->
-            <li class="even">
-                <div class="leftSide">
-                    <h3>Developing Cloud Drivers</h3>
-					<p>This section contains information about how to configure and develop cloud drivers that allow Cloudify to integrate with any cloud environment</p>
-                    <ul>
-                        <li><a href="/guide/clouddrivers/cloud_driver">The Cloud Driver</a> - An overview about the cloud driver interface and key functionalities.</li>
-						<li><a href="/guide/clouddrivers/developing_custom_clouddriver">Custom cloud driver</a> - An overview about developing a custom cloud driver.</li>
-                    </ul>
-                </div>
-                <div class="rightSide">
-                    <h3>Plugins and Probes</h3>
-					<p>This section contains information about developing custom monitoring plugins</p>
-                    <ul>
-                        <li><a href="/guide/plugins_and_probes/develop_your_plugin">Develop a Custom Monitoring Plugin</a> - Describes how to develop custom monitoring plugins.</li>
-                    </ul>
-                </div>
-                <div class="clear"></div>
-            </li>  
-			 <!-- start line odd
-           ========================== -->
-			<li class="odd">
-                <div class="leftSide">
-                    <h3>Deploying Services & Applications</h3>
-					<p>This section contains information about deploying your applications and services to the Cloud using Cloudify</p>
-                    <ul>
-                        <li><a href="/guide/deploying/deploying_apps">Deploying Applications and Services</a> - Explains how to deploy your applications using Cloudify.</li>
-                        <li><a href="/guide/deploying/deploying_azure">Deploying on to Azure</a> - Explains how to deploy your applications on to the Windows Azure cloud using Cloudify.</li>
-                    </ul>
-                </div>
-                <div class="rightSide">
-                    <h3>Cloudify API</h3>
-					<p>This section contains Cloudify API</p>
-                    <ul>
-                        <li><a href="/guide/api/">Cloudify API</a> - Contains Cloudify JavaDoc.</li>                
-                    </ul>
-                </div>
-                <div class="clear"></div>
-            </li>
+    <script type="text/javascript">
+        var _gaq = _gaq || [];
+        _gaq.push(['_setAccount', 'UA-29063606-1']);
+        _gaq.push(['_trackPageview']);
+
+        (function() {
+            var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+            ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+            var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+        })();
+        
+
+    </script>
+    
+ 
+
+</head>
+
+<body>
+<div class="WrapperBg">
+    <a class="fork-guide" target="_blank" href="https://github.com/CloudifySource/cloudify"></a>        
+    <div class="Wrapper">
+        <div class="header">
+    <a class="logo" href="/"></a>
+    <div class="clear"></div>
+            <div class="topMenu">
+                <ul class="_topmenu">
+                    <li class="topmenuli"><a class="bgMenu1" href="http://forums.cloudifysource.org/forums"><span class="title1">Discuss & Suggest</span><span class="title2">Support Forums</span></a></li>
+                    <li class="sep"></li>
+                    <li class="topmenuli"><a class="bgMenu2" href="/guide"><span class="title1">Learn</span><span class="title2">Knowledge Base</span></a></li>
+                    <li class="sep"></li>
+                    <li class="topmenuli"><a class="bgMenu3" href="/participate"><span class="title1">Participate</span><span class="title2">Events & Webinars</span></a></li>
+                    <li class="sep"></li>
+                    <li class="topmenuli"><a class="bgMenu4" href="/blog"><span class="title1">Read</span><span class="title2">Blog Posts & Updates</span></a></li>
+                    <li class="sep"></li>
+                    <li class="topmenuli"><a class="bgMenu5" href="/cloudifysourcetv"><span class="title1">Watch</span><span class="title2">Watch & Learn</span></a></li>
+                    <li class="sep"></li>
+                    <li class="topmenuli"><a class="bgMenu6" target="_blank" href="https://github.com/CloudifySource/cloudify"><span class="title1">Develop</span><span class="title2">Get Involved</span></a></li>
+
+		</ul>
+		<div class="clear"></div>
+	</div>
+</div>
+
+<!-- Tooltip Container -->
+<div class="overlay">
+<div class="overlayFrame">
+<div style="width:100%;height:25px;align:left;"><img src="/images/close.png" id="closeBut"/></div>
+<div><span id="desc"></span><br/>
+ <span id="required"></span><br/>
+ <span id="values"></span>
+ </div>
+</div>
+<img src="/images/box_edge.png" id="tipImg"/>  
+</div>
+        <div class="contentWrap">
+            <div class="clear"></div>
+
+            <!--Search-->
 			
-			<!-- start line even
-			========================== -->			
-			<li class="even">
-                <div class="leftSide">
-                    <h3>Release Notes</h3>
-					<p>This section contains a list of features, improvements, fixed issues, and known issues in Cloudify</p>
-                    <ul>
-                        <li><a href="/guide/release_notes/release_notes">Release Notes 2.0</a> - A list of features, improvements, fixed issues, and known issues in Cloudify.</li>
-                    </ul>
-                </div>
-                <div class="rightSide">
-                    <h3>Frequently Asked Questions (FAQ)</h3>
-					<p>This section contains a collection of frequently asked questions about Cloudify and it provides you with answers to them.</p>
-                    <ul>                        
-						<li><a href="/guide/faq/faq">FAQ</a> - Contains Frequently Asked Questions and answers.</li>						
-                    </ul>
-                </div>
-                <div class="clear"></div>
-            </li>  			
-						
-			<!-- End table of content list -->
+            
+ 
+
+<div class="learnFrom">
+    <h2>Search our Knowledge Base</h2>
+
+    <div class="searchWrap">
+        <form id="searchForm" action="#" method="get">
+            <input id="search" class="searchTxt" type="text" placeholder="Search..."/>
+            <input id="goBtn" class="searchBtn" type="submit" value="Go"/>
+        </form>
+    </div>
+</div>
 
 
 
+
+            <div id="resultsDiv" class="DocumentsWrapRight"></div>
+            <div id="pageContent" class="contentNoRight">
+                <div class="contentNoRight">
+<h1 class="pageTitle">Cloudify User's Guide</h1>
+<a class="btnGetCloudifyFreeEdition" target="_blank" href="/downloads/get_cloudify"></a>
+<!--Start left content -->
+
+<div class="DocumentsWrap">
+<p>
+    This guide is written for application developers and administrators.
+    The guide provides all the information and tools needed to install, setup and leverage Cloudify for on boarding your applications to any cloud environment.
+    It includes an overview section, getting started guide, reference documentation, APIs, configurations and other topics.
+</p>
+<p>
+    <span class="notice"></span>
+    Note that this guide is specific to Cloudify developers.
+</p>
+
+<ul class="tableOfcontentList">
+<!-- start line odd
+========================== -->
+<li class="odd">
+    <div class="leftSide">
+        <h3>Getting Started</h3>
+        <p>This section contains a short Quick Start Guide to get you up and running with Cloudify in minutes.</p>
+        <ul>
+            			
+            
+            
+                <li><a href="/guide/index_raw.html">Minute Quick Start Guide </a> - A short quick start guide to help you easily get started with Cloudify. Start here if you're new to Cloudify.</li>
+                
+            
+        </ul>
+    </div>
+    <div class="rightSide">
+        <h3>Product Overview</h3>
+        <p>This section contains a comprehensive overview of how Cloudify works, how it's architected and what are its main components. </p>
+        <ul>
+            
+            
+            
+                <li><a href="/guide/overview/cloudify_intro">Introduction to Cloudify </a> - Architecture overview, design principles and key features of Cloudify.</li>
+                
+            
+            
+                <li><a href="/guide/overview/universal_service_manager">The Universal Service Manager (USM) </a> - Describes the Universal Service Manager (USM), which allows Cloudify to run and monitor any kind of middleware technology.</li>
+                
+            
+        </ul>
     </div>
     <div class="clear"></div>
+</li>
+<!-- start line even
+========================== -->
+<li class="even">
+    <div class="leftSide">
+        <h3>Installation & Setup</h3>
+        <p>This section contains information about how to install Cloudify and configure for usage on various clouds.</p>
+        <ul>
+            
+            
+            
+                <li><a href="/guide/setup/cloudify_prerequisites">Cloudify Prerequisites </a> - Lists the Cloudify installation and setup prerequisites.</li>
+                
+            
+            
+                <li><a href="/guide/setup/installing_the_cloudify_client">Installing the Cloudify Interactive Shell </a> - Explains how to install and start the Cloudify interactive shell on your computer.</li>
+                
+            
+            
+                <li><a href="/guide/setup/command_line_reference">Command Line Reference </a> - Lists the available interactive shell commands and how to use them.</li>
+                
+            
+            
+                <li><a href="/guide/setup/configuring_for_public_clouds">Configuring for Public Clouds </a> - Explains how to Configure Cloudify to run your application on public clouds.</li>
+                
+            
+            
+                <li><a href="/guide/setup/installing_private_cloud">Installing on a Private Cloud </a> - Explains how to setup Cloudify to run your application on a private cloud.</li>
+                
+            
+            
+            <li class="expandBtn">More...</li>
+            <div class="expand">
+                
+                <li><a href="/guide/setup/installing_azure">Cloudify on Windows Azure </a> - Explains how to install Cloudify on Windows Azure.</li>
+                
+            </div>
+            
+            
+        </ul>
+    </div>
+    <div class="rightSide">
+        <h3>Developing Recipes</h3>
+        <p>This section explains the concept and practicalities of application recipes, which the mechanism that allows Cloudify to support any kind of middelware stack</p>
+        <ul>
+            
+            
+            
+                <li><a href="/guide/developing/recipes_overview">Anatomy of a Recipe </a> - An overview of the recipe framework, terminology and syntax.</li>
+                
+            
+            
+                <li><a href="/guide/developing/application_recipe">The Application Descriptor </a> - Describes the part of the recipe that defines which application tiers compose your application and their inter-dependencies.</li>
+                
+            
+            
+                <li><a href="/guide/developing/service_recipe">The Service Descriptor </a> - Describes the part of the recipe that defines a specific application tier (or service), how to setup them up and have Cloudify manage them.</li>
+                
+            
+            
+                <li><a href="/guide/developing/lifecycle_events">Lifecycle Events </a> - Describes the order of events in Cloudify application and service lifecycle.</li>
+                
+            
+            
+                <li><a href="/guide/developing/recipe_parameters">Recipe Parameterization </a> - Describes how to parameterize a recipe and externalize key configuration elements.</li>
+                
+            
+            
+            <li class="expandBtn">More...</li>
+            <div class="expand">
+                
+                <li><a href="/guide/developing/extending_recipes">Extending Service Recipes </a> - Explains how to create new recipe from existing one by overriding only the elements you wish modify.</li>
+                
+            
+            
+                <li><a href="/guide/developing/the_service_context_api">The Service Context API </a> - Describes the Service Context API, which is Cloudify's API for interacting with an applications service's runtime environment and context.</li>
+                
+            
+            
+                <li><a href="/guide/developing/attributes_api">The Attributes API </a> - Describes the Attributes API, which is used for sharing information between services of the same application.</li>
+                
+            
+            
+                <li><a href="/guide/developing/custom_commands">Using Custom Commands </a> - Describes the custom commands mechanism and usage.</li>
+                
+            
+            
+                <li><a href="/guide/developing/sla_requirements">SLA Requirements </a> - Explains how to specify SLA elements per application service, e.g. initial number of instances.</li>
+                
+            
+            
+                <li><a href="/guide/plugins_and_probes/probes">Using Probes For Monitoring </a> - Describes the use of monitoring probes and plugins to monitor service status, performance and availability.</li>
+                
+            
+            
+                <li><a href="/guide/developing/configuring_ui_section">Configuring the Web Based UI </a> - Explains how to configure the web based UI to present the information generated by probes and monitoring plugins.</li>
+                
+            </div>
+            
+            
+        </ul>
+    </div>
+    <div class="clear"></div>
+</li>
+<!-- start line odd
+========================== -->
+<li class="odd">
+    <div class="leftSide">
+        <h3>Bootstrapping</h3>
+        <p>This section contains information about bootstrapping different cloud environments using Cloudify</p>
+        <ul>
+            
+            
+            
+                <li><a href="/guide/bootstrapping/bootstrapping_process">The Bootstrapping Process </a> - Explains the bootsrapping process.</li>
+                
+            
+            
+                <li><a href="/guide/bootstrapping/bootstrapping_localcloud">Bootstrapping Cloudify on localcloud </a> - Explains how to bootstrap Cloudify on a localcloud.</li>
+                
+            
+            
+                <li><a href="/guide/bootstrapping/bootstrapping_azure">Bootstrapping Cloudify on Windows Azure </a> - Explains how to bootstrap Cloudify on Windows Azure.</li>
+                
+            
+            
+                <li><a href="/guide/bootstrapping/bootstrapping_ec2">Bootstrapping Cloudify on Amazon EC2 </a> - Explains how to bootstrap Cloudify on Amazon EC2.</li>
+                
+            
+            
+                <li><a href="/guide/bootstrapping/bootstrapping_hp">Bootstrapping Cloudify on HP OpenStack Cloud </a> - Explains how to bootstrap Cloudify on HP OpenStack Cloud.</li>
+                
+            
+            
+            <li class="expandBtn">More...</li>
+            <div class="expand">
+                
+                <li><a href="/guide/bootstrapping/bootstrapping_byon">Bootstrapping Cloudify in a Non-Cloud Environment </a> - Explains how to bootstrap Cloudify and deploy applications in a distributed environment utilizing existing servers.</li>
+                
+            </div>
+            
+            
+        </ul>
+    </div>
+    <div class="rightSide">
+        <h3>Monitoring Your Applications</h3>
+        <p>This section explains the various aspects of monitoring your applications with Cloudify</p>
+        <ul>
+            
+            
+            
+                <li><a href="/guide/monitoring/monitoring_app_during_deploy">Monitoring Your Application Application during Deployment </a> - Explains how to monitor your application during the deployment process using the Cloudify moniitoring tools.</li>
+                
+            
+            
+                <li><a href="/guide/monitoring/the_web_management_console">The Web Based Management Console </a> - Describes how to use the web based UI.</li>
+                
+            
+            
+                <li><a href="/guide/monitoring/monitoring_app_post_deploy">Monitoring with the Cloudify Interactive Shell </a> - Explains how to monitor your application Cloudify client.</li>
+                
+            
+        </ul>
+    </div>
+    <div class="clear"></div>
+</li>
+<!-- start line even
+========================== -->
+<li class="even">
+    <div class="leftSide">
+        <h3>Developing Cloud Drivers</h3>
+        <p>This section contains information about how to configure and develop cloud drivers that allow Cloudify to integrate with any cloud environment</p>
+        <ul>
+            
+            
+            
+                <li><a href="/guide/clouddrivers/cloud_driver">The Cloud Driver </a> - An overview about the cloud driver interface and key functions.</li>
+                
+            
+            
+                <li><a href="/guide/clouddrivers/developing_custom_clouddriver">Developing a custom cloud driver </a> - An overview about developing a custom cloud driver.</li>
+                
+            
+        </ul>
+    </div>
+    <div class="rightSide">
+        <h3>Developing Plugins and Probes</h3>
+        <p>This section contains information about developing custom monitoring plugins</p>
+        <ul>
+            
+            
+            
+                <li><a href="/guide/plugins_and_probes/develop_your_plugin">Develop a Custom Monitoring Plugin </a> - Describes how to develop custom monitoring plugins.</li>
+                
+            
+        </ul>
+    </div>
+    <div class="clear"></div>
+</li>
+<!-- start line odd
+========================== -->
+<li class="odd">
+    <div class="leftSide">
+        <h3>Deploying Services & Applications</h3>
+        <p>This section contains information about deploying your applications and services to the Cloud using Cloudify</p>
+        <ul>
+            
+            
+            
+                <li><a href="/guide/deploying/deploying_apps">Deploying Applications </a> - Explains how to deploy your applications using Cloudify.</li>
+                
+            
+            
+                <li><a href="/guide/deploying/deploying_azure">Deploying an Application on Windows Azure </a> - Explains how to deploy your applications on to the Windows Azure cloud using Cloudify.</li>
+                
+            
+        </ul>
+    </div>
+    <div class="rightSide">
+        <h3>Cloudify API</h3>
+        <p>This section contains Cloudify API</p>
+        <ul>
+            <li><a href="/guide/api/">Cloudify API</a> - Contains Cloudify JavaDoc.</li>
+        </ul>
+    </div>
+    <div class="clear"></div>
+</li>
+
+<!-- start line even
+            ========================== -->
+<li class="even">
+    <div class="leftSide">
+        <h3>Release Notes</h3>
+        <p>This section contains a list of features, improvements, fixed issues, and known issues in Cloudify</p>
+        <ul>
+            
+            
+            
+                <li><a href="/guide/release_notes/release_notes">Release Notes </a> - A list of features, improvements, fixed issues, and known issues in Cloudify.</li>
+                
+            
+        </ul>
+    </div>
+    <div class="rightSide">
+        <h3>Frequently Asked Questions (FAQ)</h3>
+        <p>This section contains a collection of frequently asked questions about Cloudify and it provides you with answers to them.</p>
+        <ul>
+            
+            
+            
+                <li><a href="/guide/faq/faq">Frequently Asked Questions </a> - Contains Frequently Asked Questions and answers.</li>
+                
+            
+        </ul>
+    </div>
+    <div class="clear"></div>
+</li>
+
+<!-- End table of content list -->
+
+
+
 </div>
+<div class="clear"></div>
+</div>
+            </div>
+        </div>
+        <div class="clear"></div>
+
+       
+
+    </div>
+    <!--End site wrapper -->
+ <!--Start Footer -->
+        <div class="footer">
+    <!--<ul class="footerLeftMenu">
+        <li class="footerli"><a href="#">About GigaSpaces</a></li>
+        <li class="footerli"><a href="#">Contact Us</a></li>
+    </ul> -->
+    <ul class="footerRightMenu">
+        <li class="footerli">Copyright © 2012 GigaSpaces. All rights reserved.</li>
+        <li class="footerli"><a href="/about_us">About Us</a></li>
+        <li class="footerli">|</li>
+        <li class="footerli"><a href="/terms_of_use">Terms of Use</a></li>
+        <li class="footerli">|</li>
+        <li class="footerli"> <a href="/privacy_policy">Privacy Policy</a></li>
+    </ul> 
+    <ul class="footerSocialMenu">
+        <li class="footerFb"><a href="https://www.facebook.com/GigaSpaces?sk=app_201742856511228"></a></li>
+        <li class="footerRss"><a href="/atom.xml"></a></li>
+        <!--<li class="footerMell"><a href="#"></a></li>-->
+        <li class="footerTwitt"><a href="http://www.twitter.com/cloudifysource"></a></li>
+        <li class="footerYt"><a href="http://www.youtube.com/cloudifysource"></a></li>
+    </ul>
+</div>
+
+
+</div>
+<!--End site bg top wrapper -->
+
+</body>
+</html>

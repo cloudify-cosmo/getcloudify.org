@@ -87,7 +87,10 @@ goto end
 :b4End
 if exist %DEST_FOLDER%\_posts rename %DEST_FOLDER%\_posts posts
 if exist %DEST_FOLDER%\_plugins rename %DEST_FOLDER%\_plugins plugins
+echo Copying %SRC%\homepage to %DEST_FOLDER%\index.html ...
 copy /y %SRC%\homepage %DEST_FOLDER%\index.html
+echo Copying %SRC%\guide\index_raw.html to %DEST_FOLDER%\guide\index.html ...
+copy /y %SRC%\guide\index_raw.html %DEST_FOLDER%\guide\index.html
 pause
 
 

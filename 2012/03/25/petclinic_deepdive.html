@@ -2,9 +2,10 @@
         "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>	
     <title>Cloudify - Mongo DB Sharding in the Pet Clinic Application recipe</title>
-    <link rel="stylesheet" href="/css/template.css" type="text/css"/>
+    <link rel="stylesheet" href="/css/template.css" type="text/css"/>    
+	<link rel="canonical" href="http://www.cloudifysource.org/2012/03/25/petclinic_deepdive.html"/>	
     <link rel="stylesheet" href="/css/jquery-ui-1.8.17.custom.css" type="text/css" media="all"/>
     <link rel="stylesheet" type="text/css" href="/scripts/prettify/prettify.css">	
 	<link rel="shortcut icon" href="/favicon.ico" type="image/x-icon" />
@@ -92,12 +93,7 @@
 </head>
 <body>
 <div class="WrapperBg">
-    <a class="fork-guide" target="_blank" href="https://github.com/CloudifySource/cloudify"></a>
-	<ul class="loginMenu">
-	<li><a target="_blank" href="https://cloudifysource.zendesk.com/access/unauthenticated?return_to=https%3A%2F%2Fcloudifysource.zendesk.com%2Flogin">Login</a></li>
-	<li class="sep">|</li>
-	<li><a target="_blank" href="https://cloudifysource.zendesk.com/registration">Sign-Up</a></li>
-</ul>
+    <a class="fork-guide" target="_blank" href="https://github.com/CloudifySource/cloudify"></a>	
     <div class="Wrapper">
         <div class="header">
     <a class="logo" href="/"></a>
@@ -377,7 +373,7 @@ When you deploy a sharded Mongo on a cloud (any cloud&#8230;), you have quite a 
 Cloudify enables you to achieve all of the above and more.<br />
 So, in order to understand how to get this done, I will give you a more thorough walk-through into the MongoDB recipe in the Pet Clinic Application recipe that we described in the <a href="/guide/qsg/quick_start_guide">Quick Start Guide</a>.</p>
 <h2>What is Database Sharding?</h2>
-<p>Database sharding can be simply defined as a <a href="http://en.wikipedia.org/wiki/Shared_nothing_architecture">&#8220;shared-nothing&#8221;</a> partitioning scheme for large databases across a number of servers, making new levels of database performance and scalability achievable. <br />
+<p>Database sharding can be simply defined as a <a href="http://en.wikipedia.org/wiki/Shared_nothing_architecture">shared-nothing</a> partitioning scheme for large databases across a number of servers, making new levels of database performance and scalability achievable.<br />
 Another way of &#8220;looking&#8221; at it, is : <br />
 Breaking your database down into smaller chunks called &#8220;shards&#8221; and spreading those shards across a number of distributed servers.</p>
 <h2>MongoDB Sharding</h2>

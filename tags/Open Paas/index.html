@@ -1,0 +1,573 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>	
+    <title>Cloudify - Tag: Open Paas</title>
+    <link rel="stylesheet" href="/css/template.css" type="text/css"/>    
+	<link rel="canonical" href="http://www.cloudifysource.orgtags/Open Paas/index.html"/>	
+    <link rel="stylesheet" href="/css/jquery-ui-1.8.17.custom.css" type="text/css" media="all"/>
+    <link rel="stylesheet" type="text/css" href="/scripts/prettify/prettify.css">	
+	<link rel="shortcut icon" href="/favicon.ico" type="image/x-icon" />
+    <script type="text/javascript" src="/scripts/jquery-1.6.4.js"></script>
+    <script type="text/javascript" src="/scripts/search.js"></script>
+    <script type="text/javascript" src="/scripts/jquery-ui-1.8.17.custom.min.js"></script>
+    <script type="text/javascript" src="/scripts/jquery.prettyPhoto.js"></script>
+	<script type="text/javascript" src="/scripts/prettify/prettify.js"></script>
+    <script type="text/javascript">
+    window.onload = function () {
+	$('body').addClass("bodyClass");
+ 	}
+             $(function(){ 
+             	$("a.youtube").YouTubePopup({ hideTitleBar: true });
+           	$("div.expand").hide();
+           	$("li.expandBtn").click(function(){	
+    		  $(this).next("div.expand").slideToggle(500);
+    		  if($(this).html()=="More..."){
+    		  	$(this).html("Less...");	
+    		  }else{
+    		  	$(this).html("More...");
+    		  }
+    		  
+			});
+           /* ------------- added by Yaron ------------ */
+			$("span.pln, span.kwd").css("cursor","pointer");
+			$("span.pln, span.kwd").hover(function(){$(this).css("background-color","#CECECE");},function(){$(this).css("background-color","transparent");});
+	        $("span.pln, span.kwd").click( function(eventObject) {
+				var currKey = $(eventObject.currentTarget).text().trim();
+				if (currKey == "name") {
+					var prevKey = $(eventObject.currentTarget).prev().prev("span.pln").text().trim();
+					currKey = prevKey + "_" + currKey;
+					
+				}
+				var tooltip = $(".overlay");
+				var position = $(eventObject.currentTarget).offset();				
+				$("#desc",tooltip).text(messages[currKey]);		
+				tooltip.show().offset({ top: position.top + tooltip.scrollTop() - 75, left: position.left + 100});
+				$("#tipImg").position()
+				$("#closeBut").click(function() {$(".overlay").offset({top:0,left:0}).hide();})
+			 });
+			 
+			 
+			 
+ 
+          
+          
+           
+			 
+			 
+			 
+           }
+           
+           
+          
+  
+           
+           
+           
+           
+	 );
+    
+    </script>
+    
+    <script type="text/javascript" src="/scripts/cloudify_default.js"></script>
+
+
+
+    <script type="text/javascript">
+        var _gaq = _gaq || [];
+        _gaq.push(['_setAccount', 'UA-29063606-1']);
+        _gaq.push(['_trackPageview']);
+
+        (function() {
+            var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+            ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+            var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+        })();
+        
+
+    </script>
+    
+ 
+
+</head>
+<body>
+<div class="WrapperBg">
+    <a class="fork-guide" target="_blank" href="https://github.com/CloudifySource/cloudify"></a>	
+    <div class="Wrapper">
+        <div class="header">
+    <a class="logo" href="/"></a>
+    <div class="clear"></div>
+            <div class="topMenu">
+                <ul class="_topmenu">
+                    <li class="topmenuli"><a class="bgMenu1" href="http://forums.cloudifysource.org/forums"><span class="title1">Discuss & Suggest</span><span class="title2">Support Forums</span></a></li>
+                    <li class="sep"></li>
+                    <li class="topmenuli"><a class="bgMenu2" href="/guide"><span class="title1">Learn</span><span class="title2">Knowledge Base</span></a></li>
+                    <li class="sep"></li>
+                    <li class="topmenuli"><a class="bgMenu3" href="/participate"><span class="title1">Participate</span><span class="title2">Events & Webinars</span></a></li>
+                    <li class="sep"></li>
+                    <li class="topmenuli"><a class="bgMenu4" href="/blog"><span class="title1">Read</span><span class="title2">Blog Posts & Updates</span></a></li>
+                    <li class="sep"></li>
+                    <li class="topmenuli"><a class="bgMenu5" href="/cloudifysourcetv"><span class="title1">Watch</span><span class="title2">Watch & Learn</span></a></li>
+                    <li class="sep"></li>
+                    <li class="topmenuli"><a class="bgMenu6" target="_blank" href="https://github.com/CloudifySource/cloudify"><span class="title1">Develop</span><span class="title2">Get Involved</span></a></li>
+
+		</ul>
+		<div class="clear"></div>
+	</div>
+</div>
+
+<!-- Tooltip Container -->
+<div class="overlay">
+<div class="overlayFrame">
+<div style="width:100%;height:25px;align:left;"><img src="/images/close.png" id="closeBut"/></div>
+<div><span id="desc"></span><br/>
+ <span id="required"></span><br/>
+ <span id="values"></span>
+ </div>
+</div>
+<img src="/images/box_edge.png" id="tipImg"/>  
+</div>
+        <div class="contentWrap">            
+			<div class="breadcrumbs">Home Page > Cloudify Blogs > Tag: Open Paas</div>
+            <div class="clear"></div>
+
+            <!--Search-->
+			
+            
+ 
+
+<div class="learnFrom">
+    <h2>Blog Posts and Updates</h2>
+
+    <div class="searchWrap">
+        <form id="searchForm" action="#" method="get">
+            <input id="search" class="searchTxt" type="text" placeholder="Search..."/>
+            <input id="goBtn" class="searchBtn" type="submit" value="Go"/>
+        </form>
+    </div>
+</div>
+
+
+
+
+
+            <div class="content">
+                <div class="left">
+                    <a class="btnGetCloudifyFreeEdition" target="_blank" href="/downloads/get_cloudify"></a>
+                    <!--Event groups-->
+
+
+
+<div class="leftContentBox blogLeft-topTitle">
+	<h3>Recent Posts</h3>
+</div>
+
+
+<div class="leftContentBox blogLeftBox"> 
+   
+	<a href="/2012/03/25/petclinic_deepdive.html">Mongo DB Sharding in the Pet Clinic Application recipe 
+	 <img class="noMargin" src="/images/arrow-right-blue.png" /></a><br />
+	<span class="date">March 25, 2012</span>  
+	<br/><br/>
+  
+	<a href="/2012/03/20/big-data-in-the-cloud-using-cloudify.html">Big Data in the Cloud using Cloudify 
+	 <img class="noMargin" src="/images/arrow-right-blue.png" /></a><br />
+	<span class="date">March 20, 2012</span>  
+	<br/><br/>
+  
+	<a href="/2012/03/14/lessons-from-zynga-and-sony-on-moving-from-amazon-aws.html">Lessons from Zynga and Sony on moving from Amazon AWS 
+	 <img class="noMargin" src="/images/arrow-right-blue.png" /></a><br />
+	<span class="date">March 14, 2012</span>  
+	<br/><br/>
+		
+</div>
+
+<div class="leftContentBox blogLeft-topTitle">
+	<h3>Archived Posts</h3>
+</div>
+
+ <ul class="blog-archive-list">
+ 
+ 
+	
+	
+	
+	
+	
+	
+
+	
+<li><a href="/2012/03">March 2012</a> <span class="blue">(3)</span></li>
+
+	
+
+	
+		
+			
+		
+	
+
+	
+	
+	
+	
+	
+	
+
+	
+
+	
+		
+			
+		
+	
+
+	
+	
+	
+	
+	
+	
+
+	
+
+	
+		
+			
+<li><a href="/2012/02">February 2012</a> <span class="blue">(1)</span></li>
+
+			
+		
+	
+
+	
+	
+	
+	
+	
+	
+
+	
+
+	
+		
+			
+<li><a href="/2012/01">January 2012</a> <span class="blue">(2)</span></li>
+
+			
+		
+	
+
+	
+	
+	
+	
+	
+	
+
+	
+
+	
+		
+			
+		
+	
+
+	
+	
+	
+	
+	
+	
+
+	
+
+	
+		
+
+<li><a href="/2011/11">November 2011</a> <span class="blue">(1)</span></li>
+
+		
+	
+
+	
+	
+	
+	
+	
+	
+
+	
+
+	
+		
+			
+<li><a href="/2011/10">October 2011</a> <span class="blue">(1)</span></li>
+
+			
+		
+	
+
+	
+	
+	
+	
+	
+	
+
+	
+
+	
+		
+			
+<li><a href="/2011/09">September 2011</a> <span class="blue">(1)</span></li>
+
+			
+		
+	
+
+	
+	
+	
+	
+	
+	
+
+	
+
+	
+
+	
+
+
+
+
+
+ 
+ </ul>
+
+                </div>
+
+                <!--Start left content -->
+
+                <div id="resultsDiv" class="DocumentsWrap"></div>
+                <div id="pageContent" class="DocumentsWrapRight">
+                    <h1 class="pageTitle">Tag: Open Paas</h1>					
+
+
+
+
+
+
+
+
+
+														
+                    
+
+
+
+
+<div class="blogtPostBox">
+  <div class="blogInfoLeft">
+    <img title="Tamir Korem" width="80" height="96" src="/images/tamir.jpg" />
+  </div>  
+  <div class="blogInfoRight">
+    <a href="/2012/03/25/petclinic_deepdive.html" class="title">Mongo DB Sharding in the Pet Clinic Application recipe</a>
+	  <div class="blogPostInfo">
+	  <br/>	  	 
+	    <span>Posted By: <a href="#">Tamir Korem</a>  on  March 25, 2012  <!--|  in <a href="/categories/"></a> --></span>
+	  </div>	  	  	
+      <p>
+		
+			<p>Can you shard on a cloud platform in a galaxy far far away ? In general, managing a sharded Mongo setup is not an easy task but it&#8217;s much more difficult to do it on any cloud. When you deploy a sharded Mongo on a cloud (any cloud&#8230;), you have...</p>
+			
+		<p class><a href="/2012/03/25/petclinic_deepdive.html">Read more...</a></p>	  	  
+	  </p>
+		<span>  Additional Tags: 		
+			
+				
+			     <a class="postTag" href="/tags/Cloudify">Cloudify (9)</a>
+			   	
+			
+				
+			     <a class="postTag" href="/tags/MongoDB">MongoDB (1)</a>
+			   	
+			
+				
+			     <a class="postTag" href="/tags/Sharding">Sharding (1)</a>
+			   	
+			
+				
+			     <a class="postTag" href="/tags/NoSQL">NoSQL (1)</a>
+			   	
+			
+					
+			
+		</span>
+	    
+  </div>
+  <div class="clear" ></div>    
+</div>  
+
+
+
+<div class="blogtPostBox">
+  <div class="blogInfoLeft">
+    <img title="Nati Shalom" width="80" height="96" src="/images/nati.png" />
+  </div>  
+  <div class="blogInfoRight">
+    <a href="/2012/03/14/lessons-from-zynga-and-sony-on-moving-from-amazon-aws.html" class="title">Lessons from Zynga and Sony on moving from Amazon AWS</a>
+	  <div class="blogPostInfo">
+	  <br/>	  	 
+	    <span>Posted By: <a href="#">Nati Shalom</a>  on  March 14, 2012  <!--|  in <a href="/categories/"></a> --></span>
+	  </div>	  	  	
+      <p>
+		
+			<p>Earlier this month Zynga announced its move from Amazon AWS to its own private Z-Cloud. Sony also started to move increasing parts of its workload from Amazon to Rackspace OpenStack. There isn't so much in common between these different use cases, except for the fact that they may indicate the...</p>
+			
+		<p class><a href="/2012/03/14/lessons-from-zynga-and-sony-on-moving-from-amazon-aws.html">Read more...</a></p>	  	  
+	  </p>
+		<span>  Additional Tags: 		
+			
+				
+			     <a class="postTag" href="/tags/Cloudify">Cloudify (9)</a>
+			   	
+			
+				
+			     <a class="postTag" href="/tags/Cloud">Cloud (4)</a>
+			   	
+			
+					
+			
+		</span>
+	    
+  </div>
+  <div class="clear" ></div>    
+</div>  
+
+
+
+<div class="blogtPostBox">
+  <div class="blogInfoLeft">
+    <img title="Nati Shalom" width="80" height="96" src="/images/nati.png" />
+  </div>  
+  <div class="blogInfoRight">
+    <a href="/2012/02/19/top-myths-of-moving-mission-critical-applications-to-the-cloud.html" class="title">Top Myths of Moving Mission-Critical Applications to the Cloud</a>
+	  <div class="blogPostInfo">
+	  <br/>	  	 
+	    <span>Posted By: <a href="#">Nati Shalom</a>  on  February 19, 2012  <!--|  in <a href="/categories/"></a> --></span>
+	  </div>	  	  	
+      <p>
+		
+			<p>Special Guest Post By Nati Shalom, at CloudNewsDaily.com Research conducted by HP found that the majority of businesses in the EMEA region are planning to move their mission-critical apps to the cloud. Of the 940 respondents, 80 per cent revealed plans to move mission-critical apps at some point over the...</p>
+			
+		<p class><a href="/2012/02/19/top-myths-of-moving-mission-critical-applications-to-the-cloud.html">Read more...</a></p>	  	  
+	  </p>
+		<span>  Additional Tags: 		
+			
+				
+			     <a class="postTag" href="/tags/Cloudify">Cloudify (9)</a>
+			   	
+			
+				
+			     <a class="postTag" href="/tags/Cloud">Cloud (4)</a>
+			   	
+			
+					
+			
+		</span>
+	    
+  </div>
+  <div class="clear" ></div>    
+</div>  
+
+
+
+<div class="blogtPostBox">
+  <div class="blogInfoLeft">
+    <img title="Nati Shalom" width="80" height="96" src="/images/nati.png" />
+  </div>  
+  <div class="blogInfoRight">
+    <a href="/2012/01/16/gigaspaces-cloudify-and-vmware-cloudfoundry-the-new-paas-jailbreaker.html" class="title">GigaSpaces Cloudify and VMware CloudFoundry the new PaaS Jailbreaker</a>
+	  <div class="blogPostInfo">
+	  <br/>	  	 
+	    <span>Posted By: <a href="#">Nati Shalom</a>  on  January 16, 2012  <!--|  in <a href="/categories/"></a> --></span>
+	  </div>	  	  	
+      <p>
+		
+			<p>I was reading Krishnan Subramanian's post, Two Events That "Clouded" Our Thinking In 2011. The thing that caught my attention was Krishnan's comments on why PaaS is a superior alternative to DevOps: The shift in the thinking about the enterprise cloud consumption also poured water into the &ldquo;DevOps&rdquo; concept advocated...</p>
+			
+		<p class><a href="/2012/01/16/gigaspaces-cloudify-and-vmware-cloudfoundry-the-new-paas-jailbreaker.html">Read more...</a></p>	  	  
+	  </p>
+		<span>  Additional Tags: 		
+			
+				
+			     <a class="postTag" href="/tags/Cloudify">Cloudify (9)</a>
+			   	
+			
+				
+			     <a class="postTag" href="/tags/PaaS">PaaS (1)</a>
+			   	
+			
+				
+			     <a class="postTag" href="/tags/CloudFoundry">CloudFoundry (2)</a>
+			   	
+			
+					
+			
+				
+			     <a class="postTag" href="/tags/DevOps">DevOps (1)</a>
+			   	
+			
+		</span>
+	    
+  </div>
+  <div class="clear" ></div>    
+</div>  
+
+
+
+
+                </div>
+                <div class="clear"></div>
+            </div>
+        </div>
+        <!--Start pagination -->
+
+        <div class="clear"></div>
+
+        <!--Start Footer -->
+
+        <div class="footer">
+    <!--<ul class="footerLeftMenu">
+        <li class="footerli"><a href="#">About GigaSpaces</a></li>
+        <li class="footerli"><a href="#">Contact Us</a></li>
+    </ul> -->
+    <ul class="footerRightMenu">
+        <li class="footerli">Copyright © 2012 GigaSpaces. All rights reserved.</li>
+        <li class="footerli"><a href="/about_us">About Us</a></li>
+        <li class="footerli">|</li>
+        <li class="footerli"><a href="/terms_of_use">Terms of Use</a></li>
+        <li class="footerli">|</li>
+        <li class="footerli"> <a href="/privacy_policy">Privacy Policy</a></li>
+    </ul> 
+    <ul class="footerSocialMenu">
+        <li class="footerFb"><a href="https://www.facebook.com/GigaSpaces?sk=app_201742856511228"></a></li>
+        <li class="footerRss"><a href="/atom.xml"></a></li>
+        <!--<li class="footerMell"><a href="#"></a></li>-->
+        <li class="footerTwitt"><a href="http://www.twitter.com/cloudifysource"></a></li>
+        <li class="footerYt"><a href="http://www.youtube.com/cloudifysource"></a></li>
+    </ul>
+</div>
+
+
+    </div>
+    <!--End site wrapper -->
+
+
+</div>
+<!--End site bg top wrapper -->
+</body>
+</html>
