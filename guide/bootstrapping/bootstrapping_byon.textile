@@ -21,7 +21,7 @@ The BYON Bootstrap Process involves the following:
 
 h3. Management Machines Provisioning
 
-When the BYON cloud driver is requested to bootstrap BYON cloud, it accesses one of the machines listed on the management machine template, accesses the machine using SSH and installs the Cloudify management components on it.
+When the BYON cloud driver is requested to bootstrap BYON cloud, it accesses one of the machines listed on the management machine template, by using SSH and installs the Cloudify management components on it.
 
 <img src="/guide/images/byon/bootstrap_BYON.png" />
 
@@ -34,13 +34,13 @@ Once the machine is allocated, the BYON cloud driver installs Cloudify, starts t
 
 When there's an insufficient number of machines for allocation, the following exception will be thrown:
 @Failed to create new cloud node, all nodes are currently used@
-In this case, the application installation will not revert, just like it doesn't revert on other clouds. The Cloudify Controller will keep retrying and look for available machine to provision the service. You may stop the process by un-installing the application.
+In this case, the application installation will not revert, just like it doesn't revert on other clouds. The Cloudify Controller will keep retrying to look for available machine to provision the service. You may stop the process by un-installing the application.
 
 The BYON approach allows you to allocate different HW and SW stack to each application services, similar to a recipe running on a cloud where machines are provisioned and started in a dynamic manner.
 
 h2. BYON Prerequisites 
 
-Cloudify expects Java JDK , "(newwindow)wget":https://www.gnu.org/software/wget/ , "(newwindow)sed unix command":http://linux.about.com/od/commands/l/blcmdl1_sed.htm and "(newwindow)SSH":http://linux.about.com/od/commands/l/blcmdl1_ssh.htm to be installed on the machines specified on the Template pool. Please check the "Prerequisites page":/guide/setup/cloudify_prerequisites for more information.
+Cloudify expects Java JDK , "(newwindow)wget":https://www.gnu.org/software/wget/ , "(newwindow)sed unix command":http://linux.about.com/od/commands/l/blcmdl1_sed.htm and "(newwindow)SSH":http://linux.about.com/od/commands/l/blcmdl1_ssh.htm to be installed on the machines specified on the template pool. Please check the "Cloudify Prerequisites Page":/guide/setup/cloudify_prerequisites for more information.
 
 h2. Configuring the BYON Driver
 
@@ -51,14 +51,14 @@ The general structure of the byon-cloud.groovy file is:
 
 Please modify the following attributes to include the relevant values:
 
-h3. configuration Block
+h3. configuration section
 
 |_.Attribute|_.Description|
 |remoteUsername|SSH username|
 |remotePassword|SSH password|
 |managementMachineTemplate|management machine template|
 
-h3. provider Block
+h3. provider section
 
 |_.Attribute|_.Description|
 |provider | Should be "byon"|
@@ -67,7 +67,7 @@ h3. provider Block
 |cloudifyUrl| The Cloudify URL location. |
 |machineNamePrefix| Machine prefix|
 
-h3. templates Block
+h3. templates section
 
 By default you will have the "SMALL_LINUX_32" template. You may change this name and have multiple templates specified to fit your application needs. With each template you should specify the following:
 * node id (id) - this is an alias for the host/VM.
