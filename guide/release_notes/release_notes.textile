@@ -11,15 +11,19 @@ h1. Overview
 
 Below is a list of new features, improvements, fixed issues, and known issues in Cloudify.
 
-"Cloudify 2.1.0 M3":#rcm3  - published on March 19, 2012
-"Cloudify 2.0.1 GA":#rcm4  - published on March 06, 2012
+"Cloudify 2.1.0 M4":#rcm3  - published on April 05, 2012
+"Cloudify 2.0.1 GA":#rcm1  - published on March 06, 2012
 "Cloudify 2.0.0 GA":#rcm2  - published on Jan 11, 2012
 
-h1(#rcm3). Cloudify 2.1.0 M3
+h1(#rcm3). Cloudify 2.1.0
 
 h3. New Features and Improvements
 
 |_. ID |_. Description |_. Components |
+|CLOUDIFY-205 | Show uninstall application/service progress in CLI | CLI |
+|CLOUDIFY-653 | Allow sudo calls in bootstrap-management | Cloud Driver |
+|CLOUDIFY-624 | Support templates configuration in the BYON cloud groovy file | Cloud Driver |
+|CLOUDIFY-626 | In BYON cloud, after a machine is terminated - delete the files we put there | Cloud Driver |
 |CLOUDIFY-579 | local cloud should bind to 127.0.0.1 | CLI |
 |CLOUDIFY-638 | Missing exception handling in start-management | CLI |
 |CLOUDIFY-575 | Openstack Driver | Cloud Driver |
@@ -35,6 +39,13 @@ h3. New Features and Improvements
 h3. Fixed Issues
 
 |_. ID |_. Description |_. Components |
+| CLOUDIFY-612 | Agents in the web-ui take a long time to disappear on openstack | Cloud Driver |
+| CLOUDIFY-651 | azure:bootstrap-app may fail on TimeoutException when polling with azureconfig.exe /get-deployment-status | Cloud Driver |
+| CLOUDIFY-658 | Support IP range configuration in BYON | Cloud Driver |
+| CLOUDIFY-672 | CLI does not exit on exit command if called after bootstrap-cloud | CLI |
+| CLOUDIFY-673 | test-recipe occasionally fails | CLI |
+| CLOUDIFY-623 | Thread leak in CLI | CLI |
+| CLOUDIFY-646 | a timeout exception is thrown in the cli even if the given timeout was not reached | CLI |
 |CLOUDIFY-606 | azure:bootstrap-app may fail on iisproxy deployment | CLI |
 |CLOUDIFY-585 | overrides feature in bootstrap-managememnt script does not work | Cloud Driver |
 |CLOUDIFY-599 | Cloud driver provision exception swallowed | Cloud Driver |
@@ -76,7 +87,7 @@ h3. Known Issues
 |CLOUDIFY-594 | azure:teardown-app --help in the CLI is incorrect | CLI |
 |CLOUDIFY-595 | teardown-cloud incorrect help information | CLI |
 
-h1(#rcm4). Cloudify 2.0.1 GA
+h1(#rcm1). Cloudify 2.0.1 GA
 
 h3. Fixed Issues 
 
