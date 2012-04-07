@@ -71,7 +71,7 @@ h3. templates section
 
 By default you will have the "SMALL_LINUX_32" template. You may change this name and have multiple templates specified to fit your application needs. With each template you should specify the following:
 * node id (id) - this is an alias for the host/VM.
-* node ip (ip) - the IP of the host/VM. Cloudify uses private IP and assumes that the Cloudify client used to initiate the bootstrap and install process is in the same LAN as the IPs specified in the configuration file.
+* node ip (ip) - the IP of the host/VM. Cloudify uses a private IP and assumes that the Cloudify client used to initiate the bootstrap and install process is in the same LAN as the IPs specified in the configuration file.
 
 With the example below , vm1 ,vm2 and vm3 are listed as the SMALL_LINUX_32 template pool:
 
@@ -113,11 +113,16 @@ Cloudify BYON driver allocates machines from the pool randomly. Future releases 
 
 h1. Using the BYON driver
 
-In order to bootstrap the BYON driver, start the Cloudify shell and yype the following command:
+In order to bootstrap the BYON driver, start the Cloudify shell and type the following command:
    &nbsp;&nbsp;&nbsp; *bootstrap-cloud byon*
 
 Cloudify Controller will be installed one the management machine. From that point you can install your application using the install-application command as usual.
 
 h2. Tearing down the BYON installation
 
-In order to shut down the installation, you need to use the un-install the application as usual and terminate the cloud using the teardown-cloud command using byon as cloud provider argument:    &nbsp;&nbsp;&nbsp; *teardown-cloud byon*
+In order to shut down the installation, you need to use the teardown-cloud command using byon as cloud provider argument.
+Type the following command: *@teardown-cloud byon@*
+
+
+
+
