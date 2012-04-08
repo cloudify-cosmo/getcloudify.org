@@ -30,3 +30,7 @@ In case of recipe compilation error or runtime error, Cloudify will plot the err
 
 <img src="../images/deploy/GroovyRunTimeCLI.jpg"/>
 
+<h4 class="warn">Known Limitation: In case your start script returns, Cloudify will consider your service instance dead and will attempt re-installing it.
+To avoid this undesired behavior, please make your start script sleep forever.
+We are working on a fix to this limitation.</h4>
+

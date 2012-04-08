@@ -30,7 +30,7 @@ h3. Service Start Phase
 
 events: preServiceStart
 Called once when a service starts. This event will only execute on the first instance of the service that launches (which has an instance ID of 1).
-<h4 class="noteYellow"> Note that other instances may be launching at the same time, so their init Phase, may be executing at the same time at a different instance.</h4>
+<h4 class="warn"> Note that other instances may be launching at the same time, so their init Phase, may be executing at the same time at a different instance.</h4>
 
 h3. Initialization Phase
 
@@ -43,7 +43,7 @@ h3. Install Phase
 events: preInstall, install, postInstall
 Called after the init phase ends. This is where an application is expected to setup any binaries it requires to run.
 
-<h4 class="noteYellow"> Note that a future version of Cloudify will provide built-in integration with standard package managers, like apt, yum, msi or maven.</h4>
+<h4 class="warn"> Note that a future version of Cloudify will provide built-in integration with standard package managers, like apt, yum, msi or maven.</h4>
 
 h3. Start Phase:
 
@@ -100,14 +100,14 @@ The USM supports several ways to define an executable entry. Each of these way h
 * Command line (String): The string indicates a command line that should be executed as an external process. If spaces exist in the command line, each of the words is considered a single parameter and a String Array is created from all of the words, so that the first word is the executable to run, and the others are parameters to the executable.
 * A list: Similar to the command line option, this option defines the command line by stating its parts explicitly, allowing a user to pass parameters that contains spaces. 
 
-<h4 class="noteYellow"> Note that handling of spaces, single quotes and double quotes is operating system specific, and it is the responsibility of the recipe developer to handle this correctly.</h4>
+<h4 class="warn"> Note that handling of spaces, single quotes and double quotes is operating system specific, and it is the responsibility of the recipe developer to handle this correctly.</h4>
 
 * A closure: An executable piece of code that is executed inside the USM's JVM. This option offers the best performance and allows you to avoid additional files in your recipe, but requires a working knowledge of the Groovy programming language. In addition, it is important to note that the working folder of the code executed in a closure is the working folder of the USM's JVM (i.e. the GigaSpaces Grid Services Container). This is usually the bin directory under the GigaSpaces install directory, and not the USM's service folder. To find the service folder, use the Service Context.
 * A map: In some cases, a recipe is expected to run on multiple operating systems. Each operating system may require a slightly different implementation. The map option allows you to define a mapping for each operating system. The map's key is a string that represents a Java Regular Expression (See more details in the "Javadoc"/http://download.oracle.com/javase/6/docs/api/index.html?java/util/regex/package-summary.html and its value should be one of the previously described options. 
   The USM will attempt to match the operating system it is running on (using Java's 'os.name' attribute) to the keys in the map, and execute the first entry that is a match. Typical keys are 'Linux', 'Win.\*', 'Mac.\*' (all recent apple operating systems). 
 A list of operating system names is available "here".http://lopica.sourceforge.net/os.html.
 
-<h4 class="noteYellow"> All external processes are launched using the service directory ('ext' in the Processing Unit) as the process' working directory.</h4>
+<h4 class="warn"> All external processes are launched using the service directory ('ext' in the Processing Unit) as the process' working directory.</h4>
 
 h1. Command line handling
 
@@ -183,10 +183,10 @@ But in reality, the USM may launch a process that launches another process, that
 
 The USM handles this by comparing the operating system's process tree before the external process is launched, and after it was launched. A new process whose parent process is the USM's JVM, is called the *child process*. The USM then looks for a process that was launched by the child process in a similar fashion, and continues down the process tree until a 'leaf' process is found, that has no child processes. This process is called the *actual process*, and this is the process that the USM will monitor for performance statistics. 
 
-<h4 class="noteYellow"> The child process and the actual process may be the same.</h4>
+<h4 class="warn"> The child process and the actual process may be the same.</h4>
 
 Before the USM can find the actual process, it must first know that the actual process has launched! Launching the chain of processes that eventually starts the actual process may take an indeterminate amount of time. It is for this reason that the USM supports the start Detection event, which is how the recipe determines when the actual process has started. This is most often accomplished by waiting for a port to open on the local host (like port 80 for a web server) or for a certain text message to be written to a log file. For example, by polling the port until it becomes available, the recipe can indicate to the USM when the actual process is ready. A utility for scanning a port is packaged with the USM, though the recipe can configure any arbitrary code to determine this.
 
-<h4 class="noteYellow"> If one of the processes in the process tree under the child process launched multiple processes, the USM will not be able to determine which process is the actual process. This behavior is not currently supported by the USM.</h4>
+<h4 class="warn"> If one of the processes in the process tree under the child process launched multiple processes, the USM will not be able to determine which process is the actual process. This behavior is not currently supported by the USM.</h4>
 
 

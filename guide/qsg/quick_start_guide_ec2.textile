@@ -32,7 +32,7 @@ The Application's production environment is based on a 2-tier architecture:
 
 Obviously, the amount of instances for each of the above components can be easily changed, by modifying the numInstances attribute of the relevant Cloudify recipe file (i.e: &lt;service-name&gt;-service.groovy).
 
-<h4 class="noteYellow">
+<h4 class="warn">
 When you install MongoDB on Windows 7, you need to make sure that you run as an administrator. See "Installing MongoDB on Windows 7":http://www.mongodb.org/display/DOCS/Windows+Service.
 </h4>
 
@@ -88,7 +88,7 @@ Every application has its own mandatory application level descriptor.
 The application level recipe describes the application services and their inter-dependencies.
 As a rule of thumb, each unique set of processes which are functioning as one tier, should be regarded as a service, e.g. a tomcat cluster, or a MySql primary and backup servers. 
 
-<h4 class="noteYellow">Please note the difference between a service and a service instance. A service can be defined as a cluster which is composed of at least one service instance.</h4>
+<h4 class="warn">Please note the difference between a service and a service instance. A service can be defined as a cluster which is composed of at least one service instance.</h4>
 
 Every service instance resides on one host (typically this would be a VM), whereas a service is the aggregation of all service instances, and as such can span multiple machines, depending on its number of instance. A typical application is composed of multiple tiers, such as a web server tier and a database tier.
 Each tier can contain one or more instances, for example: two Tomcat instances and one MySQL instance.
@@ -219,7 +219,7 @@ Now that you are more familiar with the recipe mechanism, let's deploy the appli
 You may add the @--verbose@ option for more verbosity during the installation process. We've added the @-timeout@ option since the recipe itself downloads the service binaries (in our case the Tomcat and mongoDB distribution) from the web when installing for the first time, so the first installation may take longer.
 To be on the safe side, specify a timeout of at least 50 minutes as described above, which means that the shell will wait for 50 *minutes* for the application to install.
 
- <h4 class="noteYellow"> Note: Currently the Cloudify shell does not support backslashes so your path separator has to be forward slash even if you're running on Windows.</h4>
+ <h4 class="warn"> Note: Currently the Cloudify shell does not support backslashes so your path separator has to be forward slash even if you're running on Windows.</h4>
 
 You will see a progress report within the shell (see the screenshot below) until the entire application has been successfully installed. If an error occurred the shell will report and abort installation, so you will know at which phase and for which service it has occurred without leaving the shell application.
 

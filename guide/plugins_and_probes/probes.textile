@@ -55,7 +55,7 @@ h4. The stop detection probe
 
 The @stopDetection@ probe is invoked periodically after the service is declared running. It will check each service instance for being alive or even functional from application perspective (depending on the probe implementation). If the probe returns @true@ while checking the stop condition, the instance is declared dead and the USM attempts to restart it or to install a new instance.
 
-<h4 class="noteYellow">It is important to note that Cloudify will invoke the @restart@ event if you implemented one and the @start@ event will only serve as a fallback. </h4>
+<h4 class="warn">It is important to note that Cloudify will invoke the @restart@ event if you implemented one and the @start@ event will only serve as a fallback. </h4>
 
 The following example checks if the service instance is listening on port 7777 as an indication to be up and running. Once this rule returns false, the service instance is consider "dead".
 

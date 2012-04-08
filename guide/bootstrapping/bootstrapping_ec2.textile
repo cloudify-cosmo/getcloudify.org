@@ -54,13 +54,13 @@ You can get an active Access Key ID from the Access Credentials section in "(new
 <img src="/guide/images/ec2/EC2_ACCESS_KEY_AND_SECRET_KEY3.jpg" />
  ** *apiKey* - Insert your EC2 Secret Access Key.
 You can get a Secret Access Key from the "(newwindow)Access Credentials section in EC2 Console(Link to the Access Credentials section in EC2 Console)":https://aws-portal.amazon.com/gp/aws/developer/account/index.html?action=access-key as shown above.
-<h4 class="noteYellow">Note that the secret key must correspond to the above Access Key ID (that you set in the *user* attribute).</h4>
+<h4 class="warn">Note that the secret key must correspond to the above Access Key ID (that you set in the *user* attribute).</h4>
 ** *keyFile* - Insert the name of the private key file that you created (i.e.: myKeyPair-name.pem in our example).
 
 * In the template section, update the following:  				 
  ** *locationId* - Insert the zone type from EC2 (e.g. : us-east-1 which stands for US East,Virginia).
  ** *imageId* - Insert the Amazon Machine type ID.
-     <h4 class="noteYellow">Note that different EC2 regions have different AMIs for the same image configuration.*</h4>
+     <h4 class="warn">Note that different EC2 regions have different AMIs for the same image configuration.*</h4>
      You can find the available types in "(newwindow)EC2 images types page":https://console.aws.amazon.com/ec2/home?region=us-east-1#s=Images as shown here:
 <img src="/guide/images/ec2/ec2_images_types.jpg" />
  ** *hardwareId* - Insert the Amazon API name of the desired hardware type.

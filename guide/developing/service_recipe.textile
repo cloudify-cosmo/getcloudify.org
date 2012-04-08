@@ -63,7 +63,7 @@ To use the service context in external groovy file, use the ServiceContextFactor
   def context = ServiceContextFactory.getServiceContext() 
 </pre>
 
-<h4 class="noteYellow">Note that you should only use the Sevice Context Factory from external groovy files, not for the service file itself.</h4>
+<h4 class="warn">Note that you should only use the Sevice Context Factory from external groovy files, not for the service file itself.</h4>
 
 Non-JVM based executables do not have simple access to the service context, but some of the information is available as environment variables:
 
