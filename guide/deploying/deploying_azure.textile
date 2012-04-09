@@ -10,6 +10,10 @@ p. Installing an Application Windows Azure is done from Cloudify Interactive She
 
 h1. Starting the Interactive Shell
 
+<h4 class="warn">Known Limitation: In case your start script returns, Cloudify will consider your service instance dead and will attempt re-installing it.
+To avoid this undesired behavior, please make your start script sleep forever.
+We are working on a fix to this limitation.</h4>
+
 To start the Cloudify Inreractive Shell go to <Cloudify Home>/tools/cli and run cloudify.bat or cloudify.sh, if your running on Linux or Mac OS.
 
 h1. Connect to Cloudify Controller
@@ -31,6 +35,3 @@ h1. install-application commandline options
 
 <script src="https://gist.github.com/1760347.js?file=install_app_cmd"></script>
 
-<h4 class="warn">Known Limitation: In case your start script returns, Cloudify will consider your service instance dead and will attempt re-installing it.
-To avoid this undesired behavior, please make your start script sleep forever.
-We are working on a fix to this limitation.</h4>
