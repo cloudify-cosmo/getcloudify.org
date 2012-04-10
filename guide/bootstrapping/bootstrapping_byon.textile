@@ -7,13 +7,13 @@ abstract: Explains how to bootstrap Cloudify and deploy applications in a distri
 pageord: 600
 ---
 
-Cloudify can be configured to leverage an arbitrary set of existing servers (virtualized or non-virtualized), and utilize these when deploying and managing deployed deployed Cloudify services. This type of utilizing existing servers referred as "Bring Your Own Node" (BYON).
+Cloudify can be configured to leverage an arbitrary set of existing servers (virtualized or non-virtualized), and utilize these when deploying and managing deployed Cloudify services. This type of utilizing existing servers is referred as "Bring Your Own Node" (BYON).
 
 h2. BYON Cloud Driver Overview
 
 The BYON Cloud Driver is an implementation of the Cloudify Cloud Driver, allowing a user to leverage a set of physical machines or virtual machines to run and manage Cloudify services. A typical use case for such a scenario can be development or QA environment where the VMs are available and you would like to construct a pool of existing VMs to deploy each application service.
 
-The BYON cloud driver works in a very similar manner to other Cloud Drivers. It defines templates and aliases . These can be referenced and associated with the different recipes. Each template is a pool of machines that can be defined by specific IP, IP range and a "(newwindow)CIDR mask":http://en.wikipedia.org/wiki/CIDR.
+The BYON cloud driver works in a very similar manner to other Cloud Drivers. It defines templates and aliases . These can be referenced and associated with the different recipes. Each template is a pool of machines that can be defined by specific IPs, IPs range or list and a "(newwindow)CIDR mask":http://en.wikipedia.org/wiki/CIDR.
 
 h2. BYON Bootstrap Process
 
@@ -33,10 +33,8 @@ Once the machine is allocated, the BYON cloud driver installs Cloudify, starts t
 <img src="/guide/images/byon/install_app_BYON.png" />
 
 When there's an insufficient number of machines for allocation, the following exception will be thrown:
-@Failed to create new cloud node, all nodes are currently used@
-In this case, the application installation will not revert, just like it doesn't revert on other clouds. The Cloudify Controller will keep retrying to look for available machine to provision the service. You may stop the process by un-installing the application.
-
-The BYON approach allows you to allocate different HW and SW stack to each application services, similar to a recipe running on a cloud where machines are provisioned and started in a dynamic manner.
+@Failed to create a new cloud node for template "your template name", all available nodes are currently used@
+In this case, the application installation will not revert, just like it doesn't revert on other clouds. The Cloudify Controller will keep retrying to look for available machines to provision the service. You may stop the process by un-installing the application.
 
 h2. BYON Prerequisites 
 
@@ -47,18 +45,19 @@ h2. Configuring the BYON Driver
 The main configuration file of the BYON is the byon-cloud.groovy which is located under &lt;Cloudify-Root&gt;/tools/cli/plugins/esc/byon.
 The general structure of the byon-cloud.groovy file is:
 
-<script src="https://gist.github.com/2222854.js"> </script>
+<script src="https://gist.github.com/2337323.js?file=byon-cloud.groovy"></script>
 
 Please modify the following attributes to include the relevant values:
 
-h3. configuration section
+h3. The configuration section
 
 |_.Attribute|_.Description|
 |remoteUsername|SSH username|
 |remotePassword|SSH password|
 |managementMachineTemplate|management machine template|
 
-h3. provider section
+
+h3. The provider section
 
 |_.Attribute|_.Description|
 |provider | Should be "byon"|
@@ -67,44 +66,51 @@ h3. provider section
 |cloudifyUrl| The Cloudify URL location. |
 |machineNamePrefix| Machine prefix|
 
-h3. templates section
+h3. The templates section
 
-By default you will have the "SMALL_LINUX_32" template. You may change this name and have multiple templates specified to fit your application needs. With each template you should specify the following:
+By default you will have the "SMALL_LINUX" template. You may change this name and have multiple templates specified to fit your application needs. With each template you should specify the following:
 * node id (id) - this is an alias for the host/VM.
 * node ip (ip) - the IP of the host/VM. Cloudify uses a private IP and assumes that the Cloudify client used to initiate the bootstrap and install process is in the same LAN as the IPs specified in the configuration file.
 
-With the example below , vm1 ,vm2 and vm3 are listed as the SMALL_LINUX_32 template pool:
+In the example below , vm1 ,vm2 and vm3 are listed as the SMALL_LINUX template pool:
 
-<script src="https://gist.github.com/2218634.js"> </script>
+<script src="https://gist.github.com/2337401.js?file=templates.groovy"></script>
 
-To associate the service with the SMALL_LINUX_32 template it should include the following:
-<script src="https://gist.github.com/2219191.js"> </script>
+To associate the service with the SMALL_LINUX template it should include the following:
 
-h3. CIDR Configuration
+<script src="https://gist.github.com/2337408.js?file=cassandra.groovy"></script>
 
-In order to add machines without specifying specific IPs, you can use a range of machine IPs. For example, you can configure ipRange: 10.10.10.10-10.10.10.20, or CIDR 10.10.10.8/29 (which translates to range 10.10.10.8 - 10.10.10.15). 
+
+h3. IP and Id configuration
+
+In order to add machines without specifying specific IPs, you can use a range of machine IPs. For example, you can configure a range of IPs: 10.10.10.10-10.10.10.20, or use a CIDR notation like 10.10.10.8/29 (which translates to range 10.10.10.8 - 10.10.10.15). 
 The Ids for these cloud nodes would be generated based on the prefix you define, Cloudify will add an index to that prefix (e.g. vm1, vm2 etc.)
-<script src="https://gist.github.com/2222903.js"> </script>
+You can also set up the id by using a template in which Cloudify will replace the {0} parameter with an index (e.g. vm{0}-lab will be translated to vm1-lab, vm2-lab etc.).
+<script src="https://gist.github.com/2337455.js?file=complextemplates.groovy"></script>
 
-<h4 class="warn"> Please note the current version has a known issue: it supports only ranging on the last byte of the IP (meaning on the numbers that come after the last dot).</h4>
+
+<h4 class="warn">For each specified machine that lacks a user and password, Cloudify will use remoteUsername and remotePassword from the configuration section above.</h4>
 
 h3. bootstrap-management.sh
 
-The bootstrap-management.sh script is used to install Cloudify on each remote machine , and start the agent. You might need to modify it to fit your environment. The following parameters can be set using this script:
-- LUS_IP_ADDRESS - Ip of the head node that runs a LUS and ESM. May be my IP. (Required)
-- GSA_MODE - 'agent' if this node should join an already running node. Otherwise, any value.
-- NO_WEB_SERVICES - 'true' if web-services (rest, webui) should not be deployed (only if GSA_MODE != 'agent')
-- MACHINE_IP_ADDRESS - The IP of this server (Useful if multiple NICs exist)
-- MACHINE_ZONES - This is required if this is not a management machine
-- WORKING_HOME_DIRECTORY - This is where the files were copied to (cloudify installation, etc..)
-- CLOUDIFY_LINK - If this url is found, it will be downloaded to $WORKING_HOME_DIRECTORY/gigaspaces.zip
+The bootstrap-management.sh script is used to install Cloudify on each remote machine and start the agent. You might need to modify it to fit your environment. The following parameters can be set using this script:
+* *LUS_IP_ADDRESS* - IP of the head node that runs a LUS and ESM. May be my IP. (Required)
+* *GSA_MODE* - "agent" or "management" (The default is "management").
+Cloudify can run in 2 different modes: 
+*# As a management machine (with all the management services: esm, rest etc.)  - At least one management machine is required in a Cloudify environment. 
+*# As a plain agent, which runs a processing unit (pu) but doesn't perform cloudify-management tasks. - It is used for deployment of applications and services. 
+* *NO_WEB_SERVICES* - 'true' if web-services (rest, webui) should not be deployed (only if GSA_MODE is not 'agent')
+* *MACHINE_IP_ADDRESS* - The IP of this server (Useful if multiple NICs exist)
+* *MACHINE_ZONES* - This is required if this is not a management machine
+* *WORKING_HOME_DIRECTORY* - This is where the files were copied to (cloudify installation, etc..)
+* *CLOUDIFY_LINK* - If this URL is found, it will be downloaded to $WORKING_HOME_DIRECTORY/gigaspaces.zip
 
 h2. Multiple Templates Usage
 
 Multiple templates can be used, allowing you to have a separate pool for the Management Services and another pool for the Application Services:
 <script src="https://gist.github.com/2218678.js"> </script>
 In this case the services will include the right template:
-<script src="https://gist.github.com/2219224.js"> </script>
+<script src="https://gist.github.com/2343730.js?file=ServicewithTemplate3.groovy"></script>
 The byon-cloud.groovy should include the following section:
 <script src="https://gist.github.com/2219244.js"> </script>
 
@@ -116,11 +122,11 @@ h1. Using the BYON driver
 In order to bootstrap the BYON driver, start the Cloudify shell and type the following command:
    &nbsp;&nbsp;&nbsp; *bootstrap-cloud byon*
 
-Cloudify Controller will be installed one the management machine. From that point you can install your application using the install-application command as usual.
+Cloudify Controller will be installed on the management machine. From that point you can install your application using the install-application command as usual.
 
 h2. Tearing down the BYON installation
 
-In order to shut down the installation, you need to use the teardown-cloud command using byon as cloud provider argument.
+In order to shut down the installation, you need to use the teardown-cloud command using byon as the cloud provider argument.
 Type the following command: *@teardown-cloud byon@*
 
 
