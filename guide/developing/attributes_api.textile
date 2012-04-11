@@ -16,28 +16,23 @@ You can achieve that by using the service context once a service instance is run
 For example:
 <script src="https://gist.github.com/1704821.js?file=gistfile1.groovy"></script>
 
-The above example shows that the value "myValue" will be kept under "myKey" after the service instance is started,and that every other service instance in the application can access it and modify it.
+The above example shows that the value @"myValue"@ will be kept under @"myKey"@ after the service instance is started,and that every other service instance in the application can access it and modify it.
 Additionally it will print the value of the otherKey attribute of the service named otherService.
 
 
 h1. The API syntax
 
- *context.attributes.thisInstance.myKey = "myValue"*  - This stores myValue for myKey under this instance attributes context.
-This is equivalent to:
- *context.attributes.thisInstance["myKey"]  = "myValue"*
-
- *context.attributes.thisService.myKey = "myValue"*  - This stores myValue for myKey under this service attributes context. In this case, there is only one myKey value under a service context, so any updates which are done by any instance of any service to the service context, will overwrite each other.
+* @context.attributes.thisInstance.myKey = "myValue"@  - This stores myValue for myKey under this instance attributes context. This is equivalent to: @context.attributes.thisInstance["myKey"]  = "myValue"@
+* @context.attributes.thisService.myKey = "myValue"@  - This stores @myValue@ for @myKey@ under this service attributes context. In this case, there is only one myKey value under a service context, so any updates which are done by any instance of any service to the service context, will overwrite each other.
+* @context.attributes.thisApplication.myKey = "myValue@ - This stores @myValue@ for @myKey@ under this entire application attributes context. In this case, there is only one @myKey@ value in the entire application context, so any updates which are done by any instance of any service to the application context, will overwrite each other.
  
- *context.attributes.thisApplication.myKey = "myValue" - This stores myValue for myKey under this entire application attributes context. In this case, there is only one myKey value in the entire application context, so any updates which are done by any instance of any service to the application context, will overwrite each other.
- 
-A service instance can read, write or modify any of the attributes of other service instances and also of other services, and other service instances. This is done by specifying the service name instead of thisService. 
-For example: 
- *context.attributes.tomcat.myKey = "myValue"* - This stores myValue for myKey under tomcat service context.
- *context.attributes.tomcat.instances&#91;1&#93;.myKey = "myValue"* - This stores myValue for myKey under tomcat service instance id 1 context (instance ids are 1-based).
+A service instance can read, write or modify any of the attributes of other service instances and also of other services, and other service instances. This is done by specifying the service name instead of thisService. For example: 
+* @context.attributes.tomcat.myKey = "myValue"@ - This stores @myValue@ for @myKey@ under the tomcat service context.
+* @context.attributes.tomcat.instances[1].myKey = "myValue"@ - This stores @myValue@ for myKey under tomcat service instance ID 1 context (instance IDs are 1-based).
  
 You *CANNOT* access attributes of other applications, only attributes that belong to this application, its services and their instances.
 You can also iterate over instances in the following way:
- *context.attributes.thisService.instances.foreach{println t.myKey}*
+@context.attributes.thisService.instances.foreach{println t.myKey}@
 
 The context of the attributes is always visible to the other services and can be altered by them completely, the isolation is not for security purposes, but for application context purposes which provides an easy way to read and update attributes between the various services. 
 However, as stated, one application *cannot* read nor modify other applications' attributes.
