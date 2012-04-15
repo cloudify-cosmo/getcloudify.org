@@ -105,6 +105,15 @@ Cloudify can run in 2 different modes:
 * *WORKING_HOME_DIRECTORY* - This is where the files were copied to (cloudify installation, etc..)
 * *CLOUDIFY_LINK* - If this URL is found, it will be downloaded to $WORKING_HOME_DIRECTORY/gigaspaces.zip
 
+<h4 class="info"><ul><li>The bootstrap-management.sh is copied (via SSH) from the client's upload folder (&lt;Cloudify-Root&gt;/tools/cli/plugins/esc/byon/upload) to the remote directory on each deployed machine.</li>
+
+<li>SSH is also used to invoke the bootstrap-management.sh on the target machines.</li>
+
+<li>As mentioned above, the remote directory is configured in the cloud's groovy file (remoteDirectory in byon-cloud.groovy) and its default is /tmp/gs-files.</li>
+
+<li>When multiple machines are started, it's executed on different threads parallelly.</li>
+</h4>
+
 h2. Multiple Templates Usage
 
 Multiple templates can be used, allowing you to have a separate pool for the Management Services and another pool for the Application Services:
