@@ -7,28 +7,27 @@ publish: true
 pageord: 200
 ---
 
-p. Installing the Cloudify shell client on your computer takes a few minutes. To install the client, follow the below steps:
+This topic provides step-by-step instructions for installing the Cloudify interactive shell client.
 
-# Install java on your machine
-# <a target="_blank" href="http://bit.ly/ztbg9u" title="click here to download the Cloudify zip file">Download</a> and unzip the Cloudify zip file
-# Go to the &lt;Cloudify Installation Folder&gt;/tools/cli and run cloudify.bat or cloudify.sh
-  You should get the Cloudify prompt as seen in the screenshot below:
-<img src="/guide/images/setup/shell_start2.jpg" width="630" height="300" />
+h1. Prerequisites
 
-h2. Setting the shell window buffer size (on Windows)
+Before you install the Cloudify interactive shell client, make sure that your environment meets all the minimum requirements. For more information, see "Cloudify Prerequisites":/guide/setup/cloudify_prerequisites.
 
-The shell has a known issue of getting stuck when reaching the row limit of characters. Therefore, we advise you to configure the command window buffer size and window size for the Cloudify shell.
+h1. To install the Cloudify client
 
-# Right click the title bar of the command window.
-# Choose the Properties option.
-# Select the Layout tab (3rd tab from from left).
-# Modify the width and height of the Screen buffer and of the Window and then press OK.
+# Install @java@ on your machine
+# "Download(Click here to download the Cloudify zip file)":http://bit.ly/ztbg9u and unzip the Cloudify zip file
+# Go to the @&lt;Cloudify Installation Folder&gt;/tools/cli@ and run @cloudify.bat@ or @cloudify.sh@
+  The following screen appears.
+  <img src="/guide/images/setup/shell_start2.jpg" width="630" height="300" />
 
-As Shown below:
-<img src="/guide/images/setup/shell_conf1.png" width="650" height="290" />
-<img src="/guide/images/setup/shell_conf2.png" />
+h1. Configuring the shell window buffer size (on Windows)
 
+The shell has a known issue of freezing when reaching the maximum number of characters allowed in a row. Therefore, we recommend that you configure the *Screen Buffer Size* and *Window Size* for the command prompt window in which the Cloudify shell is running.
 
+h2. To configure the command prompt window
 
-
-
+# Right-click on the title bar of the command prompt window, and then click *Properties*.
+  <img src="/guide/images/setup/shell_conf1.png" width="650" height="290" />
+# On the *Layout* tab, under *Screen Buffer Size* and *Window Size* sections, specify the desired *Width* and *Height* sizes, and then click *OK*.
+  !/guide/images/setup/shell_conf2.png!
