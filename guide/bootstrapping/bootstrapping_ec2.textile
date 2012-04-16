@@ -57,7 +57,7 @@ You can get a Secret Access Key from the "(newwindow)Access Credentials section 
 <h4 class="warn">Note that the secret key must correspond to the above Access Key ID (that you set in the *user* attribute).</h4>
 ** *keyFile* - Insert the name of the private key file that you created (i.e.: myKeyPair-name.pem in our example).
 
-* In the template section, update the following:  				 
+* In the templates section, update the following:  				 
  ** *locationId* - Insert the zone type from EC2 (e.g. : us-east-1 which stands for US East,Virginia).
  ** *imageId* - Insert the Amazon Machine type ID.
      <h4 class="warn">Note that different EC2 regions have different AMIs for the same image configuration.*</h4>
@@ -75,6 +75,7 @@ You can get a Secret Access Key from the "(newwindow)Access Credentials section 
 Here's an example of ec2-cloud.groovy(with placeholders):
 
 <script src="https://gist.github.com/1722422.js?file=ec2-cloud.groovy"></script>
+
 
 
 * Once you are done, run &lt;Cloudify Root&gt;/tools/cli/cloudify.sh (or cloudify.bat on Windows) and then(when it's ready), run the following command: *bootstrap-cloud ec2* as shown below:

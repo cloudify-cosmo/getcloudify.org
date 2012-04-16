@@ -47,7 +47,36 @@ You should get the Cloudify prompt as seen below:
 
 h1. Step 2 - Bootstrap on EC2
 
-<h4 class="warn">You must "configure the EC2 cloud driver":/guide/bootstrapping/bootstrapping_ec2 prior to bootstrapping on EC2.</h4>
+In order to bootstrap Cloudify on EC2 you need an account on Amazon Web Services. Before you can use the shell to bootstrap your EC2 environment for the first time, please have the following:
+1. Generate a private key and place the file (.pem) under &lt;Cloudify Root&gt;/tools/cli/plugins/esc/ec2/upload folder.
+* In the "(newwindow)EC2 Console(Note that this link leads to US east key pairs menu)":https://console.aws.amazon.com/ec2/home?region=us-east-1#s=KeyPairs create a key pair and download the private key (.pem file).
+* Click the Key Pairs under *Networking and Security* in the Navigation pane and then click the *Create Key Pair* button (call it myKeyPair-name and then save it as myKeyPair-name.pem) as shown here:
+
+Step 1:
+
+<img src="/guide/images/ec2/EC2_CREATE_KEY_PAIRS_RAW3.jpg" />
+Step 2:
+
+<img src="/guide/images/ec2/EC2_CREATE_KEY_PAIRS_1_RAW3.jpg" />
+Step 3:
+
+<img src="/guide/images/ec2/EC2_CREATE_KEY_PAIR_SUCCESS_AND_SAVE3.jpg" />
+
+* This private key enables Cloudify cloud driver to create SSH connections to the newly created instances on EC2.
+
+2. Edit ec2-cloud.groovy under &lt;Cloudify Root&gt;/tools/cli/plugins/esc/ec2/ and set the following:
+* In the user section, update the following attributes' values: 
+ ** *user* - Insert your EC2 Access Key ID.
+You can get an active Access Key ID from the Access Credentials section in "(newwindow)EC2 Console(Link to the Access Credentials section in EC2 Console)":https://aws-portal.amazon.com/gp/aws/developer/account/index.html?action=access-key as shown here:
+<img src="/guide/images/ec2/EC2_ACCESS_KEY_AND_SECRET_KEY3.jpg" />
+ ** *apiKey* - Insert your EC2 Secret Access Key.
+You can get a Secret Access Key from the "(newwindow)Access Credentials section in EC2 Console(Link to the Access Credentials section in EC2 Console)":https://aws-portal.amazon.com/gp/aws/developer/account/index.html?action=access-key as shown above.
+<h4 class="warn">Note that the secret key must correspond to the above Access Key ID (that you set in the *user* attribute).</h4>
+** *keyFile* - Insert the name of the private key file that you created (i.e.: myKeyPair-name.pem in our example).
+* In the templates section, update *keyPair* under *options* ("jclouds":http://www.jclouds.org/documentation) .    
+    ** You need to insert the name of the key pair that you created (whose content is in the .pem file in *keyFile* attribute in the user section).
+
+<h4 class="info">Click "here":/guide/bootstrapping/bootstrapping_ec2 for a thorough walk-through of how to configure the EC2 cloud driver.</h4>
 
 To bootstrap on EC2, type in the shell: &nbsp;&nbsp;&nbsp; *@bootstrap-cloud ec2@*
 
