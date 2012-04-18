@@ -30,7 +30,7 @@ The Application's production environment is based on a 2-tier architecture:
 ## Routing Processes (mongos): A routing and coordination process that mediates between client requests and the actual mongod instances.  When receiving client requests, the mongos process routes the request to the appropriate mongod instance(s) and merges any results sent back to the client.
 ## Mongod instances (AKA shards): In our case, there are two instances of mongod to store the application data.
 
-Obviously, the amount of instances for each of the above components can be easily changed, by modifying the numInstances attribute of the relevant Cloudify recipe file (i.e: &lt;service-name&gt;-service.groovy).
+Obviously, the amount of instances for each of the above components can be easily changed, by modifying the numInstances attribute of the relevant Cloudify recipe file (i.e: @<service-name>-service.groovy@).
 
 <h4 class="warn">
 When you install MongoDB on Windows 7, you need to make sure that you run as an administrator. See "Installing MongoDB on Windows 7":http://www.mongodb.org/display/DOCS/Windows+Service.
@@ -40,7 +40,7 @@ When you install MongoDB on Windows 7, you need to make sure that you run as an 
 h1. Step 1 - Install Cloudify
 
 To install Cloudify simply "download":http://bit.ly/ztbg9u and unzip the distribution zip file.
-Then cd to &lt;Cloudify Root&gt;/bin folder and run the cloudify.sh or cloudify.bat script. 
+Then cd to @<Cloudify Root/bin@ folder and run the @cloudify.sh@ or @cloudify.bat@ script. 
 You should get the Cloudify prompt as seen below:
 
 <img src="/guide/images/setup/shell_start2.jpg" width="630" height="300" />
@@ -64,15 +64,15 @@ Step 3:
 
 * This private key enables Cloudify cloud driver to create SSH connections to the newly created instances on EC2.
 
-2. Edit ec2-cloud.groovy under &lt;Cloudify Root&gt;/tools/cli/plugins/esc/ec2/ and set the following:
+2. Edit the @ec2-cloud.groovy@ file located at @<Cloudify Root>/tools/cli/plugins/esc/ec2/@ and set the following:
 * In the user section, update the following attributes' values: 
- ** *user* - Insert your EC2 Access Key ID.
+ ** @user@ - Insert your EC2 Access Key ID.
 You can get an active Access Key ID from the Access Credentials section in "(newwindow)EC2 Console(Link to the Access Credentials section in EC2 Console)":https://aws-portal.amazon.com/gp/aws/developer/account/index.html?action=access-key as shown here:
 <img src="/guide/images/ec2/EC2_ACCESS_KEY_AND_SECRET_KEY3.jpg" />
- ** *apiKey* - Insert your EC2 Secret Access Key.
+ ** @apiKey@ - Insert your EC2 Secret Access Key.
 You can get a Secret Access Key from the "(newwindow)Access Credentials section in EC2 Console(Link to the Access Credentials section in EC2 Console)":https://aws-portal.amazon.com/gp/aws/developer/account/index.html?action=access-key as shown above.
 <h4 class="warn">Note that the secret key must correspond to the above Access Key ID (that you set in the *user* attribute).</h4>
-** *keyFile* - Insert the name of the private key file that you created (i.e.: myKeyPair-name.pem in our example).
+** @keyFile2 - Insert the name of the private key file that you created (i.e.: @myKeyPair-name.pem@ in our example).
 * In the templates section, update *keyPair* under *options* ("jclouds":http://www.jclouds.org/documentation) .    
     ** You need to insert the name of the key pair that you created (whose content is in the .pem file in *keyFile* attribute in the user section).
 
@@ -80,7 +80,7 @@ You can get a Secret Access Key from the "(newwindow)Access Credentials section 
 
 To bootstrap on EC2, type in the shell: &nbsp;&nbsp;&nbsp; *@bootstrap-cloud ec2@*
 
-*Tip*: You can hit tab to view the list of available commands, or type @help@ to see all of the command with their description. If you wish to see help for a specific command simply type &lt;command name&gt; @--help@
+*Tip*: You can hit tab to view the list of available commands, or type @help@ to see all of the command with their description. If you wish to see help for a specific command simply type @<command name> --help@
 
 You should get a progress indication output reporting the start of the following services:
 * Local agent: A component that runs on any Cloudify managed VM, and is responsbible starting application services, gathering monitoring metrics and monitoring their availability.
@@ -98,8 +98,8 @@ For more information about bootstrapping on ec2, click "here":/guide/bootstrappi
 h1. Step 3 - Learn about the Application Recipe
 
 First, let's take a brief look at the PetClinic application recipe you're about to deploy.
-In the &lt;Cloudify Root&gt;/examples/petclinic folder you will find the following files and folders:
-# The application recipe: petclinic-mongo-application.groovy
+In the @<Cloudify Root>/examples/petclinic@ folder you will find the following files and folders:
+# The application recipe: @petclinic-mongo-application.groovy@
 # The Configuration Server (mongoConfig) recipe folder
 # The Shards (mongod) recipe folder
 # The Routing Processes (mongos) recipe folder
@@ -149,7 +149,7 @@ However, the "recipe structure":/guide/developing/recipes_overview is common to 
 
 Each service folder contains all the information required by the service:
 
-* A service file (__&lt;service name&gt;-service.groovy__)  which can contain some or all of the following sections:
+* A service file (@<service name>-service.groovy@)  which can contain some or all of the following sections:
 *# *A prolog section* which contains the service name, type, number of required instances and the icon to display for this service in the Cloudify Web Management Console./guide/
 *# *A lifecycle section* which is the most important part of the recipe. 
 This section tells Cloudify how to handle the Service lifecycle events such as installation, startup, shut down and uninstall.
@@ -161,11 +161,11 @@ Cloudify can execute the same recipe on different operating systems, provided th
 *# *A plugins section* which tells Cloudify how to:
 *#* Verify if the service has started correctly, by probing the started service for its runtime details at startup time, or by requesting a (specific) response from a certain URL, or by checking a certain port, etc.
 *#* Get service-specific monitoring metrics (e.g.: Tomcat active sessions if you're running a Tomcat service, or the number of active connections if you're running mysql). This can be done via various probing strategies, such as JMX, JDBC, CLI or even a custom implementation created by the recipe developer. The metrics are probed from the service repeatedly every 5 seconds.
-*# *A UI configuration section* (called userInterface) which defines to the Cloudify Web Management Console how to visualize the monitored metrics.
+*# *A UI configuration section* (called @userInterface@) which defines to the Cloudify Web Management Console how to visualize the monitored metrics.
 * An optional file that contains an image to be used for displaying this service in the Cloudify Web Management Console.
 * An optional service properties file (&lt;service name&gt;.properties) which (if exists) contains configurable parameters to be used by this service.
 * All the specified life cycle script files, e.g. &lt;service name&gt;_install.groovy, &lt;service name&gt;_start.groovy etc.
-For example: The &lt;service name&gt;_install.groovy script will typically run during the installation of the service, if it's specified in the lifecycle section of the service file. The above naming of the life cycle scripts is optional. You can name them as you wish, as long as you specify their exact names in the corresponding service file.
+For example: The @<service name>_install.groovy@ script will typically run during the installation of the service, if it's specified in the lifecycle section of the service file. The above naming of the life cycle scripts is optional. You can name them as you wish, as long as you specify their exact names in the corresponding service file.
 The usage of any handler file is optional. For example: If you don't specify a post-installation script in the service recipe, then no handler will be activated after the service has been installed.
 * An optional folder called @usmlib@ which should contain all your plugins jar files (required only if you developed your own plugins).
 Cloudify comes with "built-in plugin implementations":/guide/plugins_and_probes/develop_your_plugin that you can configure as needed, but you can also develop your own monitoring plugins and pack them with the recipe (in jar files under usmlib sub-folder within each service folder).
@@ -244,7 +244,7 @@ The tomcat service file is located at &lt;cloudify root&gt;/examples/petclinic/t
 h1. Step 4 - Deploying the Recipe
 
 Now that you are more familiar with the recipe mechanism, let's deploy the application. Please type the following (replace &lt;Cloudify root&gt; with the Cloudify's installation location on your machine:
- *install-application -timeout 50 &lt;Cloudify root&gt;/examples/petclinic*
+ @install-application -timeout 50 <Cloudify root>/examples/petclinic@
  
 
 You may add the @--verbose@ option for more verbosity during the installation process. We've added the @-timeout@ option since the recipe itself downloads the service binaries (in our case the Tomcat and mongoDB distribution) from the web when installing for the first time, so the first installation may take longer.
@@ -278,9 +278,9 @@ To uninstall the application please type the following: *uninstall-application p
 
 You will be prompted if you want to uninstall, type 'y' and click enter. 
 
-h1. Step 7 - Tearing Down the Local Cloud
+h1. Step 7 - Tearing Down the Cloudify Controller on the Cloud
 
-To turn off all localcloud services type the following command: *teardown-localcloud*
+To turn off all Cloudify services type the following command: *teardown-cloud ec2*
 
 h1. What's Next?
 
