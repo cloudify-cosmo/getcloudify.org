@@ -25,9 +25,11 @@ The Pet Clinic Application presented in this tutorial is a port to Grails of the
 It is using MongoDB instead of MySql as the backend store, and leverages the Grails GORM bindings to MongoDB. The users of the application are employees of the clinic who need to view and manage information regarding veterinarians, pet owners, and their pets.
 The Application's production environment is based on a 2-tier architecture:
 # Web and Business Logic Tier - Composed of the Grails application deployed on Apache Tomcat.
-# The Data Tier - Composed of Mongod sharded instances (AKA shards): In our case, there are two instances of mongod to store the application data.
+# The Data Tier - Composed of and single mongod instance. 
 
-Obviously, the amount of instances for each of the above components can be easily changed, by modifying the numInstances attribute of the relevant Cloudify recipe file (i.e: &lt;service-name&gt;-service.groovy).
+(info)h4. The "Amazon Quick Start Guide":guide/qsg/quick_start_guide_ec2 shows how to deploy the same application on Amazon EC2, and contains a sharded MongoDB configuration with multiple mongod instances
+
+Obviously, the amount of instances for each of the above components can be easily changed, by modifying the numInstances attribute of the relevant Cloudify recipe file (i.e: @<service-name>-service.groovy@).
 
 <h4 class="warn">When you install MongoDB on Windows 7, you need to make sure that you run as an administrator. See "Installing MongoDB on Windows 7":http://www.mongodb.org/display/DOCS/Windows+Service.
 </h4>
@@ -36,17 +38,17 @@ Obviously, the amount of instances for each of the above components can be easil
 h1. Step 1 - Install Cloudify
 
 To install Cloudify simply "download":http://bit.ly/ztbg9u and unzip the distribution zip file.
-Then cd to &lt;Cloudify Root&gt;/bin folder and run the cloudify.sh or cloudify.bat script. 
-You should get the Cloudify prompt as seen below:
+Then cd to the @<Cloudify Root>/bin@ folder and run the @cloudify.sh@ or @cloudify.bat@ script. 
+You should get the below Cloudify prompt:
 
 <img src="/guide/images/setup/shell_start2.jpg" width="630" height="300" />
 
 h1. Step 2 - Bootstrap a Local Cloud
 
 To bootstrap your localcloud, which is a full fledged Cloud emulation on your local machine, type in the shell:
- *bootstrap-localcloud*
+@bootstrap-localcloud@
 
-*Tip*: You can hit tab to view the list of available commands, or type __help__ to see all of the command with their description. If you wish to see help for a specific command simply type &lt;command name&gt; __--help__
+(info)h4. You can hit tab to view the list of available commands, or type @help@ to see all of the command with their description. If you wish to see help for a specific command simply type @<command name> --help@.
 
 You should get a progress indication output reporting the start of the following services:
 * Local agent: A component that's runs on any Cloudify managed VM, and is responsbible starting application services, gathering monitoring metrics and monitoring their availability.
@@ -63,10 +65,10 @@ Your environment is now ready for application deployment.
 h1. Step 3 - Learn about the Application Recipe
 
 First, let's take a brief look at the PetClinic application recipe you're about to deploy.
-In the &lt;Cloudify Root&gt;/examples/petclinic folder you will find the following files and folders:
-# The application recipe: petclinic-mongo-application.groovy
-# The Shards (mongod) recipe folder
-# The Tomcat recipe folder
+In the @<Cloudify Root>/examples/petclinic@ folder you will find the following files and folders:
+# The application recipe: @petclinic-mongo-application.groovy@
+# The mongod recipe folder
+# The tomcat recipe folder
 
 In each of the above folders you will find all the files required to run the corresponding service. A "service" in this context is an application tier - e.g. web container, database, etc.
 
@@ -88,11 +90,9 @@ Every service instance resides on one host (typically this would be a VM), where
 Each tier can contain one or more instances, for example: two Tomcat instances and one MySQL instance.
 In the Cloudify lingo that translates into two services, the first having two service instances and the second having one service instance.
 
-The Pet Clinic application has 4 services:
+The Pet Clinic application has 2 services:
 # Tomcat  (We named this service: tomcat)
-# MongoDB Configuration Server (We named this service: mongoConfig)
-# MongoDB Sharding Server (We named this service: mongos)
-# MongoDB Data Shards (We named this service: mongod)
+# MongoDB (We named this service: mongod)
 
 Here's what our Pet Clinic application recipe looks like:
 
@@ -111,8 +111,8 @@ However, the "recipe structure":/guide/developing/recipes_overview is common to 
 
 Each service folder contains all the information required by the service:
 
-* A service file (__&lt;service name&gt;-service.groovy__)  which can contain some or all the following sections:
-*# *A prolog section* which contains the service name, type, number of required instances and the icon to display for this service in the Cloudify Web Management Console./guide/
+* A service file (@<service name>-service.groovy@)  which can contain some or all the following sections:
+*# *A prolog section* which contains the service name, type, number of required instances and the icon to display for this service in the "Cloudify Web Management Console":/guide/monitoring/the_web_management_console
 *# *A lifecycle section* which is the most important part of the recipe. 
 This section tells Cloudify how to handle the Service lifecycle events such as installation, startup, shut down and uninstall.
 Each event will be handled by a handler which can be an external Groovy script, a shell script or a batch file (depending on the operating system). Whichever handler you prefer, it must reside in the service folder.
@@ -123,14 +123,14 @@ Cloudify can execute the same recipe on different operating systems, provided th
 *# *A plugins section* which tells Cloudify how to:
 *#* Verify if the service has started correctly, by probing the started service for its runtime details at startup time, or by requesting a (specific) response from a certain URL, or by checking a certain port, etc.
 *#* Get service-specific monitoring metrics (e.g.: Tomcat active sessions if you're running a Tomcat service, or the number of active connections if you're running mysql). This can be done via various probing strategies, such as JMX, JDBC, CLI or even a custom implementation created by the recipe developer. The metrics are probed from the service repeatedly every 5 seconds.
-*# *A UI configuration section* (called userInterface) which defines to the Cloudify Web Management Console how to visualize the monitored metrics.
+*# *A UI configuration section* (called @userInterface@) which defines to the Cloudify Web Management Console how to visualize the monitored metrics.
 * An optional file that contains an image to be used for displaying this service in the Cloudify Web Management Console.
-* An optional service properties file (&lt;service name&gt;.properties) which (if exists) contains configurable parameters to be used by this service.
-* All the specified life cycle script files, e.g. &lt;service name&gt;_install.groovy, &lt;service name&gt;_start.groovy etc.
-For example: The &lt;service name&gt;_install.groovy script will typically run during the installation of the service, if it's specified in the lifecycle section of the service file. The above naming of the life cycle scripts is optional. You can name them as you wish, as long as you specify their exact names in the corresponding service file.
+* An optional service properties file (@<service name>.properties@) which (if exists) contains configurable parameters to be used by this service.
+* All the specified life cycle script files, e.g. @<service name>_install.groovy, <service name>_start.groovy@, etc.
+For example: The @<service name&>_install.groovy@ script will typically run during the installation of the service, if it's specified in the lifecycle section of the service file. The above naming of the life cycle scripts is optional. You can name them as you wish, as long as you specify their exact names in the corresponding service file.
 The usage of any handler file is optional. For example: If you don't specify a post-installation script in the service recipe, then no handler will be activated after the service has been installed.
-* An optional folder called __usmlib__ which should contain all your plugins jar files (required only if you developed your own plugins).
-Cloudify comes with "built-in plugin implementations":/guide/plugins_and_probes/develop_your_plugin that you can configure as needed, but you can also develop your own monitoring plugins and pack them with the recipe (in jar files under usmlib sub-folder within each service folder).
+* An optional folder called @usmlib@ which should contain all your plugins jar files (required only if you developed your own plugins).
+Cloudify comes with "built-in plugin implementations":/guide/plugins_and_probes/develop_your_plugin that you can configure as needed, but you can also develop your own monitoring plugins and pack them with the recipe (in jar files under @usmlib@ sub-folder within each service folder).
 In the Pet Clinic application we used our Cloudify Mongo Plugin "cloudify-mongo-plugin.jar":http://www.gigaspaces.com/wiki/download/attachments/55935974/CloudifyMongoPlugins_sources2_0.zip to get details and to detect port liveness.
 
 
@@ -177,13 +177,13 @@ And then we retrieve the data in &lt;cloudify root&gt;/examples/petclinic/tomcat
 
 From this point, the tomcat service instance knows the host address and port of the mongod service instance.
 
-The tomcat service file is located at &lt;cloudify root&gt;/examples/petclinic/tomcat/tomcat-service.groovy.
+The tomcat service file is located at @<cloudify root>/examples/petclinic/tomcat/tomcat-service.groovy@.
 
 
 h1. Step 4 - Deploying the Recipe
 
 Now that you are more familiar with the recipe mechanism, let's deploy the application. Please type the following (replace &lt;Cloudify root&gt; with the Cloudify's installation location on your machine:
- *install-application -timeout 10 &lt;Cloudify root&gt;/examples/petclinic-simple*
+@install-application -timeout 10 <cloudify root>/examples/petclinic-simple@
  
 
 You may add the @--verbose@ option for more verbosity during the installation process. We've added the @-timeout@ option since the recipe itself downloads the service binaries (in our case the Tomcat and mongoDB distribution) from the web when installing for the first time, so the first installation may take longer.
@@ -212,14 +212,13 @@ At the lower pane you can move between several views:
 
 h1. Step 6 - Uninstalling the Application
 
-To uninstall the application please type the following: *uninstall-application petclinic*
+To uninstall the application you should type the following: @uninstall-application petclinic@
 
-
-You will be prompted if you want to uninstall, type 'y' and click enter. 
+You will be prompted if you want to uninstall, type @y@ and click enter. 
 
 h1. Step 7 - Tearing Down the Local Cloud
 
-To turn off all localcloud services type the following command: *teardown-localcloud*
+To turn off all localcloud services type the following command: @teardown-localcloud@
 
 h1. What's Next?
 
