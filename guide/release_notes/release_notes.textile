@@ -7,16 +7,103 @@ abstract: A list of features, improvements, fixed issues, and known issues in Cl
 pageord: 1
 ---
 
+<span id="#top" />
+
 h1. Overview
 
-Below is a list of new features, improvements, fixed issues, and known issues in Cloudify.
+h4. Below is a list of new features, improvements, fixed issues, and known issues in Cloudify.
+
+"Cloudify 2.1.0 RC":#rcm5  - published on April 17, 2012
+This milestone contains the following key improvements:
+* Scaling rules - Enables services to define scaling rules for scaling out or shrinking in. 
+* "Bring Your Own Node (BYON) (Bring Your Own Node)":/guide/bootstrapping/bootstrapping_byon enhancement - It now supports ip and id in the custom nodesList of the templates section (instead of ipList and idPrefix). BYON also supports host names.
+
+<hr/>
 
 "Cloudify 2.1.0 M4":#rcm3  - published on April 05, 2012
+This milestone contains the following key improvements:
+* "Bring Your Own Node (BYON) (Bring Your Own Node)":/guide/bootstrapping/bootstrapping_byon support - Enables you to deploy applications in a Non-Cloud Environment.
+* "Openstack Driver":/guide/bootstrapping/bootstrapping_hp - Enables you to deploy applications on HP OpenStack Cloud.
+
+<hr/>
+
 "Cloudify 2.0.2 GA":#rcm4  - published on April 10, 2012
+This milestone contains the following key improvement:
+* We added a lightweight version of the Pet-Clinic example.
+
+<hr/>
+
 "Cloudify 2.0.1 GA":#rcm1  - published on March 06, 2012
+This milestone contains the following key improvements:
+* We upgraded Azure to SDK v1.6.
+* Fixed the Pet-Clinic example.
+
+<hr/>
+
 "Cloudify 2.0.0 GA":#rcm2  - published on Jan 11, 2012
 
-h1(#rcm3). Cloudify 2.1.0
+<hr/>
+
+h1(#rcm5). Cloudify 2.1.0 RC
+
+h3. New Features and Improvements
+
+|_. ID |_. Description |_. Components |
+|CLOUDIFY-656 | Consistent UX on uninstall and bootstrap commands | CLI |
+|CLOUDIFY-689 | BYON cloud groovy nodes IP/id is confusing - change phrasing | Cloud Driver |
+|CLOUDIFY-639 | add timeout duration in startDetection to the exception message. | USM |
+|CLOUDIFY-652 | Use the message bundle for error messages on BYON cloud driver | Cloud Driver |
+
+
+h3. Fixed Issues
+
+|_. ID |_. Description |_. Components |
+|CLOUDIFY-710 | Byon messages are not always printed to the console | Cloud Driver |
+|CLOUDIFY-705 | Installation fails on EC2 private image | Cloud Driver |
+|CLOUDIFY-697 | BYON cloud driver does not support host names (just IPs) | Cloud Driver |
+|CLOUDIFY-694 | AdminApiController throws 404 exception on every request | REST |
+|CLOUDIFY-691 | can't use service context at the "read-service stage" | CLI |
+|CLOUDIFY-688 | Object CustomNodeImpl implementation of equals and hashcode is wrong | ESC |
+|CLOUDIFY-683 | Thread leak in the RestPollingRunnable class. | REST |
+|CLOUDIFY-670 | Invoking a custom command before a service is deployed - returns "success" | CLI Cloud Driver USM |
+|CLOUDIFY-665 | Invoking a custom command before the service is up returns success status. | CLI |
+|CLOUDIFY-662 | Shutdown lifecycle event is invoked even if not defined in the service DSL | USM |
+|CLOUDIFY-661 | The shutdown lifecycle event is invoked even if not defined in the service DSL file. | USM |
+|CLOUDIFY-603 | ConcurrentModification in USM when a service details is not serializable | USM |
+|CLOUDIFY-580 | set-instances does not work on non-localcloud! | REST |
+|CLOUDIFY-564 | Can't find resource for bundle java.util.PropertyResourceBundle, key failed_to_invoke_instance | CLI |
+|CLOUDIFY-508 | Message text uses months count instead of minutes | CLI |
+|CLOUDIFY-475 | [WEBUI] service icons do not work on local cloud | MONITORING |
+
+
+h3. Known Issues 
+
+|_. ID |_. Description |_. Components |
+|CLOUDIFY-723 | Mongo recipes failed to install due to ClassNotFoundException | Packaging |
+|CLOUDIFY-712 | MarshallingException on management machine openstack | MONITORING |
+|CLOUDIFY-711 | installing servers (for application deployment) copies the entire gigaspaces zip and extracted folder, not required at all. | Cloud Driver |
+|CLOUDIFY-709 | Error 500 from the rest server is not handled well by the CLI | CLI |
+|CLOUDIFY-701 | install application doesn't stop when failing because of service configuration error | CLI |
+|CLOUDIFY-696 | rest interface fails to show admin stats | REST |
+|CLOUDIFY-686 | in tomcat service recipe context.getInstanceId() throws an exception | CLI |
+|CLOUDIFY-685 | Installation executer service is limited and might cause a delay in application installations. | REST |
+|CLOUDIFY-674 | second installation of stockdemo (after first install and uninstall) fails on ec2 and localcloud | Test |
+|CLOUDIFY-649 | esm starts machines in a never ending loop in case the cloud server returned error code 413(Request Entity Too Large) | Cloud Driver ESC |
+|CLOUDIFY-605 | install-application does not work with eager mode (azure) | REST |
+|CLOUDIFY-598 | Azure iisproxy service is not compatible with the new network port detector functionality | Cloud Driver |
+|CLOUDIFY-597 | On Azure the following log is misleading "Deploying service management.iisproxy with a recipe that does not define number of instances. Assuming number of instances is 1" is incorrect | REST |
+|CLOUDIFY-590 | when bootstrap fails, machines are not terminated by default | CLI Cloud Driver |
+|CLOUDIFY-589 | private/public ip of management machines is shown as N/A in the webui. | USM |
+|CLOUDIFY-586 | Leaked floating IP on openstack if failed to attach IP to server | Cloud Driver |
+|CLOUDIFY-582 | ESM cannot start new service - loop after restarting new service | USM |
+|CLOUDIFY-581 | Teardown cloud keeps machine running on cloud | USM |
+
+
+
+<br/>
+"Back to top":#top
+
+h1(#rcm3). Cloudify 2.1.0 M4
 
 h3. New Features and Improvements
 
@@ -88,13 +175,18 @@ h3. Known Issues
 |CLOUDIFY-594 | azure:teardown-app --help in the CLI is incorrect | CLI |
 |CLOUDIFY-595 | teardown-cloud incorrect help information | CLI |
 
+<br/>
+"Back to top":#top
+
 h1(#rcm4). Cloudify 2.0.2 GA
 
 h3. Fixed Issues 
 
 |_. ID |_. Description |_. Components |
-|CLOUDIFY-695 | A lightweight version of Pet-Clinc example was added. For more info "click here":/guide/qsg/quick_start_guide | Packaging |
+|CLOUDIFY-695 | A lightweight version of the Pet-Clinic example was added. For more info "click here":/guide/qsg/quick_start_guide | Packaging |
 
+<br/>
+"Back to top":#top
 
 h1(#rcm1). Cloudify 2.0.1 GA
 
@@ -117,7 +209,7 @@ h3. Known Issues
 |CLOUDIFY-405  | Recipe installation stuck  | CLI USM |
 |CLOUDIFY-434  | maven build doesn't work on a clean .m2 repository  | Packaging |
 |CLOUDIFY-369  | When memoryCapacityPerContainer is specified in stateful service DSL it should override the value calculated from the ec2 machine size  | Packaging |
-|CLOUDIFY-415  | External groovy scripts with a '-' character fail to execute correctly.  | USM |
+|CLOUDIFY-415  | External groovy scripts with a '-' character fails to execute correctly.  | USM |
 |CLOUDIFY-410  | When cli invoke command is executed with not enough parameters then an obscure exception is raised in the USM  | USM |
 |CLOUDIFY-357  | install-application and install-service returns with exit code 0 on some failure conditions  | CLI |
 |CLOUDIFY-355  | uninstall-application/service waits past the time it took for service/applicatio to uninstall  | CLI |
@@ -146,5 +238,7 @@ h3. Known Issues
 |CLOUDIFY-192  | Web-ui does not always present DSL dependsOn connections - sometimes there is redundent link and sometimes its missing a link  | MONITORING |
 |CLOUDIFY-161  | Cannot use AntBuilder from within a life cycle closure  | USM |
 
+<br/>
+"Back to top":#top
 
 <!-- End of Release Notes -->
