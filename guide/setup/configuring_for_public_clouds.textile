@@ -7,38 +7,24 @@ abstract: Explains how to Configure Cloudify to run your application on public c
 pageord: 400
 ---
 
-h1. Configuring for public clouds
+h1. Configuring for Public Clouds
  
-One of the best things about Cloudify is that you don't need to change your recipe at all when you want to switch between public cloud providers, nor do you have to install anything on "your" cloud prior to using Cloudify.
-Regardless of the public cloud provider (Amazon EC2, to Microst Azure etc.), your recipe remains the same.
+One of the best things about Cloudify is that you don't need to change your recipe at all when you want to switch between public cloud providers, nor do you have to install anything on "your" cloud prior to using Cloudify. Regardless of the public cloud provider (Amazon EC2, Windows Azure, etc.), your recipe remains the same.
 
-p. The following is *irrelevant* for Azure. "Click here":/guide/setup/installing_azure for more information about on-boarding to Azure.
+For information about configuring Cloudify on Windows Azure, see "Cloudify on Windows Azure":/guide/setup/installing_azure.
 
-In order for Cloudify to help you meet your needs, you need to give us an additional information such as :
-* Where should the Cloudify binaries be retrieved from.
-* The prefix name for each of your machine(a separate one for managment and for instances machines).
-* You credentials in the Cloud
-* Declarations and definitions of templates that your recipe uses.
-  These templates contain the type of hardware (according to your cloud's api) that you need for each of your required machines.
-  You can later specify them in your recipe's compute section.
+For Cloudify to work, you must configure the cloud driver configuration file &lt;@CLOUD-PROVIDER@&gt;@-cloud.groovy@ located in the &lt;@Cloudify Root@&gt;@/tools/cli/plugins/esc/CLOUD-PROVIDER@ folder.
 
+The following lists the information that must be configured in the cloud driver configuration file:
+* The URL from where Cloudify can be downloaded
+* The prefix to add to the name of each machine
+* You credentials for the Cloud
+* Declarations and definitions of templates that your recipes use.
+  These templates contain the type of hardware (depending on your cloud's api) that you need for each of your required machines. Once defined, you can specify them in your recipe's compute section.
 
-All the above information needs to be specified in the &lt;CLOUD-PROVIDER&gt;-cloud.groovy file which is located (or created by you and placed) in &lt;Cloudify Root&gt;/tools/cli/plugins/esc/CLOUD-PROVIDER.
+h4(info). If the deployment on your public cloud provider requires a key pair file, you must create it and place it in the &lt;@Cloudify Root@&gt;@/tools/cli/plugins/esc/CLOUD-PROVIDER/upload@ folder.
 
-If the deployment on your public cloud provider requires a key pair file, you need to create one and place that file in &lt;Cloudify Root&gt;/tools/cli/plugins/esc/CLOUD-PROVIDER/upload folder.
-
-
-
- Here's an example of ec2-cloud.groovy (For Amazon EC2 cloud with placeholders): 
-
+The following shows an example of the ec2-cloud.groovy configuration file for the Amazon EC2 cloud with placeholders: 
 <script src="https://gist.github.com/1722422.js?file=ec2-cloud.groovy"></script>
 
- *"Click here":/guide/bootstrapping/bootstrapping_ec2* for more information on Bootstrapping on EC2. 
-
-
-
-
-
-
-
-
+For information about bootstrapping on EC2, see "Bootstrapping Cloudify on Windows Azure":/guide/bootstrapping/bootstrapping_ec2.
