@@ -7,25 +7,22 @@ abstract: Lists the Cloudify installation and setup prerequisites
 pageord: 100
 ---
 
-h2. Before You Install
+This topic describes the minimum requirements for installing Cloudify.
 
-h3. Prerequisites for Installing the Cloudify Interactive Shell Client 
+h1. Prerequisites for Installing the Cloudify Shell 
 
-* JDK 1.6 must be installed:
-** "(newwindow)JDK 1.6":http://java.sun.com/javase/downloads/index.jsp - download the latest update (for example, JDK 6 Update 23).
-* You must set the JAVA_HOME environment variable, and make sure it points to the correct JDK (not JRE) directory prior to installing Cloudify. For example, D:\Java\jdk1.6.0_23.
-* The JAVA_HOME/bin directory should be added to the beginning of the Path environment variable. For example, %JAVA_HOME%\bin;SystemRoot%\system32;%SystemRoot%;%SystemRoot%
- * There's no need to set the PATH if JAVA_HOME is set.
+* JDK 1.6 or higher must be installed -- "(newwindow)download":http://java.sun.com/javase/downloads/index.jsp the latest update (e.g. JDK 6 Update 23).
+* The @JAVA_HOME@ environment variable must point to the correct *JDK* (<span style="color:red;">not JRE</span>) directory before installing Cloudify. For example, @D:\Java\jdk1.6.0_23@.
+* @%JAVA_HOME%\bin@ must be added to the beginning of the @PATH@ environment variable. For example, @%JAVA_HOME%\bin;%SystemRoot%\System32;%SystemRoot%;@
 
-h3. Prerequisites for Cloud Images that Are Used By Cloudify
+h1. Prerequisites for Cloud Images that are used by Cloudify
 
-When installing applications on the cloud, Cloudify provision virtual machines for you. It is assumed by Cloudify that these virtual machines: 
-* Have JDK 1.6 or higher included in the image. 
-* SSH daemon started and running port 22.
+When installing applications on the cloud, Cloudify provisions VMs using cloud images. These cloud images must meet the following minimum requirements:
+* JDK 1.6 or higher must be installed in the image. 
+* The SSH daemon must be started and running port 22.
 
+h1. Networking and Ports on the Cloud
 
-h2. Networking and Ports on the Cloud
-
-Cloudify assumes the following with regrads to networking: 
-* Within the security group to which the started images belong, all ports are are open for bidirectional communication via private IPs.
-* Ports 8099 and 8100 on the management VMs are open for communication from the outside via the VMs' public IP, so that the Cloudify interactive shell client can interact with the REST gateway and users can access the management web application.
+In order for Cloudify to operate correctly, your environment must meet the following networking requirements:
+* Within the security group to which the started images belong, all ports must be open for bidirectional communication from private IP addresses.
+* On the management VMs, ports 8099 and 8100 must be open for communication from the Internet via the VMs' public IP address. This allows the Cloudify shell to interact with the REST server and allows users to access the management web application.
