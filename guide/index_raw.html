@@ -230,6 +230,26 @@ pageord: 1
         </ul>
     </div>
     <div class="rightSide">
+        <h3>Contribute to Cloudify</h3>
+        <p>This section contains a description of how to contribute to the Cloudify Open Source Project.</p>
+        <ul>
+            {% assign category = 'Contribute' %}
+            {% for page in site.page_categories[category] %}
+            {% if  forloop.index == 6 %}
+            <li class="expandBtn">More...</li>
+            <div class="expand">
+                {% endif %}
+                <li><a href="{{page.url}}">{{page.title}} </a> - {{page.abstract}}.</li>
+                {% if forloop.last and forloop.index > 5 %}
+            </div>
+            {% endif %}
+            {% endfor %}
+        </ul>
+    </div>
+    <div class="clear"></div>
+</li>
+<li class="odd">
+    <div class="leftSide">
         <h3>Frequently Asked Questions (FAQ)</h3>
         <p>This section contains a collection of frequently asked questions about Cloudify and it provides you with answers to them.</p>
         <ul>
@@ -248,7 +268,6 @@ pageord: 1
     </div>
     <div class="clear"></div>
 </li>
-
 <!-- End table of content list -->
 
 
