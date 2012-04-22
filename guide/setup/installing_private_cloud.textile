@@ -1,29 +1,25 @@
 ---
 layout: default
-title: Installing on a Private Cloud
+title: Configuring for Private Clouds
 category: Installation & Setup
 publish: true
 abstract: Explains how to setup Cloudify to run your application on a private cloud
 pageord: 500
 ---
 
-p. How to Install Cloudify on a Private Cloud
+For Cloudify to work, you must configure the cloud driver configuration file <CLOUD-PROVIDER>-cloud.groovy located in the <Cloudify Root>/tools/cli/plugins/esc/CLOUD-PROVIDER folder. However, for private clouds we recommend that you perform the following tasks *BEFORE* configuring the cloud driver configuration file:
 
-h1. Store Cloudify Binaries on the Cloud
+# Store Cloudify Distribution File on the Private Cloud
+Because private clouds often block outbound Internet connections, or simply to speed-up the Cloudify provisioning process, we recommend that you store the Cloudify distribution file locally. The distribution file is used by the Cloudify cloud driver when bootstrapping Cloudify management machines, and when installing the Cloudify agent on application machines. Some private clouds provide a storage service from which you can fetch the distribution file; you can specify the URI of this service in the cloud driver configuration file, as loaction from which to fetch the distribution file. If you are using Citrix Cloudstack as your private cloud, you must create a VM on which to store the Cloudify distribution file.
 
-As private Clouds often don't allow for interent outbound calls, or just in order to speed up Cloudify, you need to store Cloudify binaries on a local storage.
+# Create The Images You Require
+The Cloudify distribution file comes with built-in Cloudify images. However, if your application requires additional images, you can create them using the private cloud's console.
 
-Cloudify Cloud Driver will use the stored binaries when bootstrapping Cloudify management and when installing the Cloudify agents on the applications virtual hosts. Some Private Clouds might have a storage service so you can use this service to install the binaries and get a URI you can use with the cloud driver configuration. In Citrix Cloudstack case, you will need to create a VM on which you will store the Cloudify Binaries.
-
-h1. Create The Images You Need
-
-This step is optional as you can use images you already have with Cloudify. However, if your applications requires additional images, you can create them via the private cloud console. In this example on Citrix Cloudstack.
-
-h1. Configure the Cloud Driver
-
-The last step is about configuring the Cloud Driver. This involves mainly 2 things:
-* Credentials for using the Cloud API
-* The templates with the images your application would like to consume
-
+The following lists the information that must be configured in the cloud driver configuration file:
+* The URL from where Cloudify can be downloaded
+* The prefix to add to the name of each machine
+* You credentials for the Cloud
+* Declarations and definitions of templates that your recipes use.
+  These templates contain the type of hardware (depending on your cloud’s api) that you need for each of your required machines. Once defined, you can specify them in your recipe’s compute section.
 
 <script src="https://gist.github.com/1771108.js?file=cloudstack.groovy"></script>
