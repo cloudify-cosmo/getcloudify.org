@@ -61,17 +61,17 @@ h2. Prerequisites
 Before you use the Cloudify shell to bootstrap on EC2, make sure that you perform the following tasks:
 
 # Create an Amazon Web Services account.
-# Create an EC2 private key file (.pem) and save it under @<Cloudify Root>/tools/cli/plugins/esc/ec2/upload@. You can create and download an EC2 private key file, as follows:
+# Create an EC2 private key file (.pem) and save it under @<cloudify root>/tools/cli/plugins/esc/ec2/upload@. You can create and download an EC2 private key file, as follows:
 ## Browse to your EC2 management console, expand *Network & Security*, click *Key Pairs*, and then click *Create Key Pair*.
 <img src="/guide/images/ec2/EC2_CREATE_KEY_PAIRS_RAW3.jpg" />
 ## Specify the *Key Pair Name*, and then click *Create*.
 <h4 class="info">Make a note of the name as this information will be required for configuring the Cloudify cloud driver. For this example, we will use *myKeyPair-name* that creates the corresponding *myKeyPair-name.pem* key pair file.</h4>
 <img src="/guide/images/ec2/EC2_CREATE_KEY_PAIRS_1_RAW3.jpg" />
 ## When the download dialog box opens, click *OK* to save the EC2 key pair file.
-<h4 class="info">Make sure the file is saved under @<Cloudify Root>/tools/cli/plugins/esc/ec2/upload@.</h4>
+<h4 class="info">Make sure the file is saved under @<cloudify root>/tools/cli/plugins/esc/ec2/upload@.</h4>
 <img src="/guide/images/ec2/EC2_CREATE_KEY_PAIR_SUCCESS_AND_SAVE3.jpg" />
 <h4 class="info">The private key enables Cloudify cloud driver to create SSH connections to newly created instances on EC2.</h4>
-# Configure the Cloudify EC2 cloud driver @<Cloudify Root>/tools/cli/plugins/esc/ec2/@. To configure the EC2 cloud driver, edit the file and modify the following attribute values:
+# Configure the Cloudify EC2 cloud driver @<cloudify root>/tools/cli/plugins/esc/ec2/@. To configure the EC2 cloud driver, edit the file and modify the following attribute values:
 #* In the @user@ section:
 #** @user@--Type your EC2 *Access Key ID*.
 To obtain your active *Access Key ID*, browse to your AWS management console, click *Security Credentials*, click *"(newwindow)Access Keys(Link to the AWS management console's Access Credentials tab)":https://aws-portal.amazon.com/gp/aws/developer/account/index.html?action=access-key*, and then click the *Access Credentials* tab.
@@ -106,7 +106,7 @@ h1(#step3). Step 3 - Understand the Recipe
 
 Before deploying the application, you must configure the recipe that will be used for the deployment. In this example, we have already configured this for you; Therefore, recipe can be used as-is without any further configuration and you can proceed to the next step. However, we recommend you read this step to gain an understanding of the recipe, and optionally configure the number of service instances used by the services defined in the recipe.
 
-Recipes are the execution plans for installing, starting, orchestrating, and monitoring your application stack without changing the application code or architecture. The deployment files and folders are located in the application's recipe folder, in our example @<Cloudify Root>/examples/petclinic@. The following is a list of the application recipe's files and folders that are used to deploy the PetClinic application:
+Recipes are the execution plans for installing, starting, orchestrating, and monitoring your application stack without changing the application code or architecture. The deployment files and folders are located in the application's recipe folder, in our example @<cloudify root>/examples/petclinic@. The following is a list of the application recipe's files and folders that are used to deploy the PetClinic application:
 * The application descriptor file: @petclinic-mongo-application.groovy@
 * The Configuration Server (mongoConfig) recipe folder
 * The Shards (mongod) recipe folder
@@ -244,9 +244,7 @@ Once this is completed, the @tomcat@ service instance knows the host address and
 
 h1(#step4). Step 4 - Deploy the Recipe
 
-Now that you are more familiar with the recipe mechanism, let's deploy the application. At the Cloudify shell prompt, type:
-<p style="padding-left:1em;">*install-application* @-timeout 50 <cloudify root>/examples/petclinic@
-<span style="padding-left:1em;">where @<Cloudify root>@ is the path to the Cloudify installation on your machine.</span></p>
+Now that you are more familiar with the recipe mechanism, let's deploy the application. At the Cloudify shell prompt, type: *install-application* @-timeout 50 <cloudify root>/examples/petclinic@
 
 h4(warn). Currently the Cloudify shell does not support backslashes so you must use a forward slash (@/@) as your path separator even if you are running on Windows.
 
