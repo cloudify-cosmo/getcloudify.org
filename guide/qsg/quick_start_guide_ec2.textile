@@ -31,9 +31,9 @@ The application's environment is based on the following 2-tier architecture:
 |_. Tier |_. Service |
 | Web and Business Logic Tier | A Grails platform deployed on Apache Tomcat server |
 | Database Tier | A "sharded MongoDB server cluster(Sharded MongoDB)":http://www.mongodb.org/display/DOCS/Sharding+Introduction compriised of the following components:
-<ul><li> "Configuration Server(MongoDB Configuration Server)":http://www.mongodb.org/display/DOCS/Configuring+Sharding#ConfiguringSharding-ConfigServers--Stores the cluster's metadata including basic information on each shard server and the chunks contained therein.</li>
-<li> Routing Processes (mongos): A routing and coordination process that mediates between client requests and the actual mongod instances.  When receiving client requests, the mongos process routes the request to the appropriate mongod instance(s) and merges any results sent back to the client.</li>
-<li> Mongod instances (AKA shards): In our example, there are two instances of mongod used for storing the application's data.</li></ul> |
+<ul><li>*"Configuration Server(MongoDB Configuration Server)":http://www.mongodb.org/display/DOCS/Configuring+Sharding#ConfiguringSharding-ConfigServers*:Stores the cluster's metadata including basic information on each shard server and the chunks contained therein.</li>
+<li>*Routing Processes (mongos)*: A routing and coordination process that mediates between client requests and the actual mongod instances.  When receiving client requests, the mongos process routes the request to the appropriate mongod instance(s) and merges any results sent back to the client.</li>
+<li>*Mongod instances (AKA shards)*: In our example, there are two instances of mongod used for storing the application's data.</li></ul> |
 
 h4(info). The number of service instances can be easily configured by modifying the numInstances attribute in the relevant Cloudify recipe file (e.g. @<service-name>-service.groovy@).
 
