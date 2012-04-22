@@ -1,17 +1,17 @@
 ---
 layout: default
-title: Cloudify on Windows Azure
+title: Configuring for Azure
 cat: Installation & Setup
 publish: true
-abstract: Explains how to install Cloudify on Windows Azure
+abstract: Explains how to configure Windows Azure for Cloudify
 pageord: 600
 ---
-p. This document is a quick start guide for Cloudify - Azure Edition 
+
+This topic provides instructions for configuring Windows Azure for Cloudify.
 
 h1. Prerequisites
 
-
-* Windows machine (running Windows 7 , Windows Server 2008 or Windows Vista SP1)
+* Windows machine (running Windows 7 , Windows Server 2008, or Windows Vista SP1)
 Make sure you have the latest Windows service packs, as some of them are prerequisites for the Windows Azure SDK
 * Windows Azure SDK - v1.6 <a href="http://www.microsoft.com/downloads/info.aspx?na=41&srcfamilyid=e4635d95-61ce-415e-ae92-3004856c08e2&srcdisplaylang=en&u=http%3a%2f%2fdownload.microsoft.com%2fdownload%2fD%2fF%2f4%2fDF442AB0-FAAE-44FF-A04E-F41E72FE6B6F%2fWindowsAzureSDK-x64.msi">Azure SDK v1.6 64bit</a>. or <a href="http://www.microsoft.com/downloads/info.aspx?na=41&srcfamilyid=e4635d95-61ce-415e-ae92-3004856c08e2&srcdisplaylang=en&u=http%3a%2f%2fdownload.microsoft.com%2fdownload%2fD%2fF%2f4%2fDF442AB0-FAAE-44FF-A04E-F41E72FE6B6F%2fWindowsAzureSDK-x86.msi">Azure SDK v1.6 32bit</a>
 * Windows Azure account (<a href="http://www.microsoft.com/windowsazure/free-trial/">Windows Azure</a> )
@@ -37,7 +37,7 @@ Azure Hosted Services consists of one or two deployments (staging and/or product
 *Subscription*
 Subscription is associated with your Windows Live account, and can run zero or more Hosted Services
 
-h5. Azure Security Credentials
+h1. Azure Security Credentials
 
 
 Understanding Azure security credentials is necessary to successfully manage a Java application running on Azure.
@@ -54,19 +54,24 @@ PFX files contain the private and the public key, CERT files contain the public 
 Management certificates are used to authenticate the REST API client (for example, during a scaling-out command). The public key (cert file) is uploaded to the Azure "Management Certificates" section. The private key is installed on the client's local certificate store:
 <img src="../images/azure/certificates1.png"/>
 
-h1. First-Time Setup
+h1. Configuring Windows Azure
 
-p.This section covers the Cloudify installation, generation of self-signed certificates, and starting a new Hosted Service (without any application deployments).
-h3. Install GigaSpaces Cloudify 
+This section provides step-by-step instructions for the following tasks:
+# "Installing the Cloudify shell":#installCloudifyShell
+# "Updating *subscriptionId* in azure.properties":#updateSubscriptionId
+# "Creating Remote Desktop certificates":#createRDCertificate
+# "Creating the Management certificate":#createManagementCertificate
+# "Uploading the Management certificate":#uploadManagementCertificate
+# "Updating the Blob Storage details":#updateBlobStorage
 
-* Unzip "Cloudify":http://gigaspaces.com/cloudify-pricing to c:\ (Rename it to c:\cloudify )
+h3(#installCloudifyShell). Installing the Cloudify shell
 
-h3. Update Subscription ID in azure.properties
+For information about installing the Cloudify shell, see "Installing the Cloudify Shell":/guide/setup/installing_the_cloudify_client
 
-Login to http://windows.azure.com
+h3(#updateSubscriptionId). Updating *subscriptionId* in azure.properties
 
-If an "Isolated Storage Quota" popup appears click the "Change Quota" button (allows the windows azure silverlight application to use your local disk as a temporary storage).
-
+# Login to your "Azure Management Portal":http://windows.azure.com
+  If the *Isolated Storage Quota* dialog box opens, click *Change Quota* to allow Windows Azure's Silverlight application to use your local disk for temporary storage.
 # From the bottom-left menu, select "Hosted Services"
 <img src="../images/azure/config1.png"/>
 # From the top-left menu, select "Hosted Services"
@@ -77,9 +82,7 @@ If an "Isolated Storage Quota" popup appears click the "Change Quota" button (al
 <img src="../images/azure/config3b.png"/>
 # Paste it into  c:\cloudify\tools\cli\plugins\azure\azure.properties as the value of "subscriptionId"
 
-
-h3. Create Remote Desktop Certificates 
-
+h3(#createRDCertificate). Create Remote Desktop Certificates 
  
 In this tutorial we will use the password 123456 in order to encrypt pfx files.
 # Create an Azure management (private and public) certificate protected with the password 123456. This password is not the Windows password; it is only used for encrypting the PFX file that holds the private key.
@@ -90,9 +93,7 @@ Open a command prompt window (Start-> cmd.exe)
 Copy the encrypted password and paste it into <Cloudify Home>\tools\cli\plugins\azure\azure.properties file as the value of "rdpLoginEncryptedPassword"
 Change the value of "rdpLoginUsername" to "Administrator". This would be your Windows Operating System user name that is used to log in with Remote Desktop.
 
-
-h3. Create Management (API) Certificates
-
+h3(createManagementCertificate). Create Management (API) Certificates
 
 This step is only required if you wish to change the number of role instances from the interactive shell (scale out)
 # Create the management API certificate:
@@ -113,8 +114,7 @@ Click next and enter the file password (123456)
 Check the "Mark this key exportable"  (Click Next then Finish)
 # Delete the PFX file from your hard drive (it is in the cert store and can be exported when working from a different computer)
 
-h3. Upload Management Certificate
-
+h3(#uploadManagementCertificate). Upload Management Certificate
 
 Log in with your Windows Live credentials to the Azure Management Portal <a href="http://windows.azure.com">Azure Management Portal</a> 
 
@@ -128,8 +128,7 @@ Log in with your Windows Live credentials to the Azure Management Portal <a href
 # Browse to azure_api.cer file
 <img src="../images/azure/config10.png"/>
 
-h3. Update the Blob Storage details
-
+h3(#updateBlobStorage). Update the Blob Storage details
 
 # From the bottom-left menu select "Hosted Services"
 <img src="../images/azure/config7.png"/>
