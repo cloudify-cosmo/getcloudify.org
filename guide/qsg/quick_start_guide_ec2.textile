@@ -28,10 +28,10 @@ The application's environment is based on the following 2-tier architecture:
 
 |_. Tier |_. Service |
 | Web and Business Logic Tier | A Grails platform deployed on Apache Tomcat server |
-| Database Tier | A "sharded MongoDB server cluster(Sharded MongoDB)":http://www.mongodb.org/display/DOCS/Sharding+Introduction compriised of the following components:
+| Database Tier | A "sharded MongoDB server cluster(Sharded MongoDB)":http://www.mongodb.org/display/DOCS/Sharding+Introduction comprised of the following components:
 <ul><li>*"Configuration Server(MongoDB Configuration Server)":http://www.mongodb.org/display/DOCS/Configuring+Sharding#ConfiguringSharding-ConfigServers*: Stores the cluster's metadata including basic information on each shard server and the chunks contained therein.</li>
-<li>*Routing Processes (mongos)*: A routing and coordination process that mediates between client requests and the actual mongod instances.  When receiving client requests, the mongos process routes the request to the appropriate mongod instance(s) and merges any results sent back to the client.</li>
-<li>*Mongod instances (AKA shards)*: In our example, there are two instances of mongod used for storing the application's data.</li></ul> |
+<li>*Routing Processes (mongos)*: A routing and coordination process that mediates between client requests and the actual @mongod@ instances.  When receiving client requests, the @mongos@ process routes the request to the appropriate @mongod@ instance(s) and merges any results sent back to the client.</li>
+<li>*Mongod instances (AKA shards)*: In our example, there are two instances of @mongod@ used for storing the application's data.</li></ul> |
 
 h4(info). The number of service instances can be easily configured by modifying the numInstances attribute in the relevant Cloudify recipe file (e.g. @<service-name>-service.groovy@).
 
@@ -67,21 +67,21 @@ Before you use the Cloudify shell to bootstrap on EC2, make sure that you perfor
 ## Specify the *Key Pair Name*, and then click *Create*.
 <h4 class="info">Make a note of the name as this information will be required for configuring the Cloudify cloud driver. For this example, we will use *myKeyPair-name* that creates the corresponding *myKeyPair-name.pem* key pair file.</h4>
 <img src="/guide/images/ec2/EC2_CREATE_KEY_PAIRS_1_RAW3.jpg" />
-## When the download dialog box opens, click *OK* to save the EC2 keypair file.
+## When the download dialog box opens, click *OK* to save the EC2 key pair file.
 <h4 class="info">Make sure the file is saved under @<Cloudify Root>/tools/cli/plugins/esc/ec2/upload@.</h4>
 <img src="/guide/images/ec2/EC2_CREATE_KEY_PAIR_SUCCESS_AND_SAVE3.jpg" />
 <h4 class="info">The private key enables Cloudify cloud driver to create SSH connections to newly created instances on EC2.</h4>
 # Configure the Cloudify EC2 cloud driver @<Cloudify Root>/tools/cli/plugins/esc/ec2/@. To configure the EC2 cloud driver, edit the file and modify the following attribute values:
 #* In the @user@ section:
 #** @user@--Type your EC2 *Access Key ID*.
-To obtain your active *Access Key ID*, browse to your AWS management console, click *Security Credentials*, and then click the *"(newwindow)Access Keys(Link to the AWS management console's Access Credentials tab)":https://aws-portal.amazon.com/gp/aws/developer/account/index.html?action=access-key*, click *Access Credentials* tab.
+To obtain your active *Access Key ID*, browse to your AWS management console, click *Security Credentials*, click *"(newwindow)Access Keys(Link to the AWS management console's Access Credentials tab)":https://aws-portal.amazon.com/gp/aws/developer/account/index.html?action=access-key*, and then click the *Access Credentials* tab.
 <img src="/guide/images/ec2/EC2_ACCESS_KEY_AND_SECRET_KEY3.jpg" />
 #** @apiKey@--Type your EC2 *Secret Access Key*.
-To obtain your *Secret Access Key*, browse to your AWS management console, click *Security Credentials*, click the *"(newwindow)Access Keys(Link to the AWS management console's Access Credentials tab)":https://aws-portal.amazon.com/gp/aws/developer/account/index.html?action=access-key*, click *Access Credentials* tab, and then click *Show*.
+To obtain your *Secret Access Key*, browse to your AWS management console, click *Security Credentials*, click *"(newwindow)Access Keys(Link to the AWS management console's Access Credentials tab)":https://aws-portal.amazon.com/gp/aws/developer/account/index.html?action=access-key*, click the *Access Credentials* tab, and then click *Show*.
 <h4 class="info">The Secret Access Key must correspond to the specified Access Key ID.</h4>
 #** @keyFile@--Type the name of the previously created key pair file (in our example, *myKeyPair-name.pem*).
 #* In the @templates@ section, under @options@:
-#** @keyPair@--Type the *Key Pair Name* used when creating the key pair file. (in our example, *myKeyPair-name*).
+#** @keyPair@--Type the *Key Pair Name* used when creating the key pair file (in our example, *myKeyPair-name*).
 
 <h4 class="info">For a more information about how to configure the EC2 cloud driver, see "Bootstrapping Cloudify on EC2":/guide/bootstrapping/bootstrapping_ec2.</h4>
 
@@ -122,6 +122,8 @@ The following diagram depicts the application's recipe file and folder structure
 For more information about recipes, see "Anatomy of a Recipe":/guide/developing/recipies_overview
 
 h2. The Application Recipe
+
+Every recipe must have an application descriptor file that describes the services it requires and their interdependencies. As a rule of thumb, each unique set of processes that function as one tier, should be regarded as a service, e.g. a tomcat cluster, or a set of MySql primary and backup servers. 
 
 h4(info). It is important to distinguish between a service and a service instance. A service can be defined as a cluster which is composed of at least one service instance. Every service instance resides on one host (typically this would be a VM), whereas a service is the aggregation of all service instances and as such can span multiple machines.
 
@@ -243,8 +245,8 @@ Once this is completed, the @tomcat@ service instance knows the host address and
 h1(#step4). Step 4 - Deploy the Recipe
 
 Now that you are more familiar with the recipe mechanism, let's deploy the application. At the Cloudify shell prompt, type:
-p(. *install-application* @-timeout 50 <cloudify root>/examples/petclinic@
-p((. where @<Cloudify root>@ is the path to the Cloudify installation on your machine.
+<p style="padding-left:1em;">*install-application* @-timeout 50 <cloudify root>/examples/petclinic@</p>
+<p style="padding-left:2em;">where @<Cloudify root>@ is the path to the Cloudify installation on your machine.</p>
 
 h4(warn). Currently the Cloudify shell does not support backslashes so you must use a forward slash (@/@) as your path separator even if you are running on Windows.
 
