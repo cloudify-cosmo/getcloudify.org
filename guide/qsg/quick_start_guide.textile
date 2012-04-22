@@ -19,7 +19,7 @@ This guide teaches you how to:
 * "Understand the Recipe":#step3
 * "Deploy the Recipe":#step4
 * "Monitor the Application":#step5
-* "Uninstall the Appliation":#step6
+* "Uninstall the Application":#step6
 * "Teardown the Local Cloud":#step7
 
 h2. About the PetClinic Application
@@ -55,7 +55,7 @@ The local cloud is a full-fledged cloud emulation environment that allows the us
 To bootstrap the local cloud, at the Cloudify shell prompt, type: *bootstrap-localcloud*
 
 The installation progress is displayed for the following Cloudify components as the local cloud is bootstrapping:
-* *The Cloudify agent*--The component that runs on all Cloudify managed VMs that is responsbible starting application services, gathering monitoring metrics, and monitoring their availability.
+* *The Cloudify agent*--The component that runs on all Cloudify managed VMs that is responsible starting application services, gathering monitoring metrics, and monitoring their availability.
 * *The management service*--The "brains" of Cloudify that is responsible for provisioning VMs, triggering the deployment process, and aggregating the metrics collected by each Cloudify agent.
 * *The REST gateway service*--The service that exposes a RESTful interface to the services provided by the management service.
 * *The Web management console service*--The service that provides a Web-based GUI to the Cloudify environment and allows you to easily monitor your applications.
@@ -81,7 +81,7 @@ The following diagram depicts the application's recipe file and folder structure
 
 <img src="/guide/images/setup/pet_clinic_anatomy4.jpg" />
 
-For more information about recipies, see "Anatomy of a Recipe":/guide/developing/recipies_overview
+For more information about recipes, see "Anatomy of a Recipe":/guide/developing/recipies_overview
 
 h2. The Application Recipe
 
@@ -116,7 +116,7 @@ Each service folder contains all the information required by the service. The fo
 h4(info). Cloudify can use the same recipe for different operating systems, as long as you specify the relevant instructions for each within the recipe, or the instructions are generic to all of them. The use of handler files is optional. For example, if a post-installation script is not specified in the service recipe, then Cloudify does not execute a handler after the service has been installed.
 
 *# *A compute section*--This section specifies the template name to use when provisioning VMs.
-    The template name corresponds to a template name specified in the cloud driver, that defines defines a pool of machines that can be used when provisioning VMs. In this context, it refers to the hardware profiles available to provision VMs for service instances. A hardware profile maps to a specific hardware setup and image size (e.g. in Amazon EC2 it would map to the combination of the *hardware id* [@m1.small@, @c1.medium@, etc.] and an *ami id*). This allows for clear separation between the application recipe and the cloud environment on which it runs. For more information, see "Cloud Drivers":/guide/clouddrivers/cloud_driver.
+    The template name corresponds to a template name specified in the cloud driver, that defines a pool of machines that can be used when provisioning VMs. In this context, it refers to the hardware profiles available to provision VMs for service instances. A hardware profile maps to a specific hardware setup and image size (e.g. in Amazon EC2 it would map to the combination of the *hardware id* [@m1.small@, @c1.medium@, etc.] and an *ami id*). This allows for clear separation between the application recipe and the cloud environment on which it runs. For more information, see "Cloud Drivers":/guide/clouddrivers/cloud_driver.
 *# *A custom commands section*--This sections defines custom commands that you can be invoked via the Cloudify shell.
 *# *A plugins section*--This section defined plugins that Cloudify can use to perform the following tasks:
 *#* Verify that a service has started correctly--For example, the plugin might probe the service for its runtime details, request and expect a specific response from a specified URL, check a specified port, etc.
@@ -141,7 +141,7 @@ For more information, see "Lifecycle Events":/guide/developing/lifecycle_events.
 
 h3. Getting the Service Binaries
 
-The service binaries, in our example the Tomcat and MongoDB distributions, can be quite large to upload to machines being provisioned for a service instance. Therefore, when provisioning machines the recipes fetch the binaries from a specifed file repository (this can be any http, ftp or file system location) and are not uploaded with the recipe, thus improving the performance and responsiveness of the Cloudify environment. The binaries are fetched using Groovy's built in support for "Apache Ant":http://ant.apache.org called "AntBuilder":http://groovy.codehaus.org/api/groovy/util/AntBuilder.html and the Ant @get@ task.
+The service binaries, in our example the Tomcat and MongoDB distributions, can be quite large to upload to machines being provisioned for a service instance. Therefore, when provisioning machines the recipes fetch the binaries from a specified file repository (this can be any http, ftp or file system location) and are not uploaded with the recipe, thus improving the performance and responsiveness of the Cloudify environment. The binaries are fetched using Groovy's built in support for "Apache Ant":http://ant.apache.org called "AntBuilder":http://groovy.codehaus.org/api/groovy/util/AntBuilder.html and the Ant @get@ task.
 
 h3. The Mongo Data Shards (mongod) Recipe
 
