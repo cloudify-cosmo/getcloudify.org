@@ -248,9 +248,9 @@ Now that you are more familiar with the recipe mechanism, let's deploy the appli
 
 h4(warn). Currently the Cloudify shell does not support backslashes so you must use a forward slash (@/@) as your path separator even if you are running on Windows.
 
-In this example, we specified a timeout of 50 minutes (@-timeout 50@) to allow sufficient time for the recipe to download the service binaries (Tomcat and MongoDB distributions) from the web and install the application. Optionally, you may add the @--verbose@ switch do display more information during the installation process.
+In this example, we specified a timeout of 50 minutes (@-timeout 50@) to allow sufficient time for the recipe to download the service binaries (Tomcat and MongoDB distributions) from the web and install the application. Optionally, you may add the @--verbose@ switch to display additional information during the installation process.
 
-h4(info).If an error occurs during installation, an error message is displayed and the installation is aborted. The error message will help you identify at which phase the problem occurred and for which service it.
+h4(info). If an error occurs during installation, an error message is displayed and the installation is aborted. The error message will help you identify at which phase the problem occurred and for which service it.
 
 Once the application installation has successfully completed, you can access the PetClinic application by browsing to "http://YOUR_APPLICATION_IP_ON_EC2:8080/petclinic-mongo":http://YOUR_APPLICATION_IP_ON_EC2:8080/petclinic-mongo.
 
