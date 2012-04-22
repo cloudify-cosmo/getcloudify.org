@@ -191,7 +191,7 @@ The Mongo Config Server (mongoConfig) Server recipe does the following:
 * Detects whether the server started successfully by using the MongoLivenessDetector plugin
 * Collects metrics (Active Read Clients, Active Write Client, etc.) for displaying in the Cloudify web management console
 
-The mongo-config service file is @<cloudify root>/examples/petclinic/mongoConfig/mongoConfig-service.groovy. 
+The mongo-config service file is @<cloudify root>/examples/petclinic/mongoConfig/mongoConfig-service.groovy@. 
 
 h3. The Mongo Sharding Server (mongos) Recipe 
 
@@ -203,7 +203,7 @@ The Mongo Router (mongos) recipe does the following:
 * Uses the serviceContext API to detect the host address and port for the mongoConfig and the mongod services, and configures sharding accordingly.
 * Collects metrics (Active Read Clients, Active Write Client, etc.) for displaying in the Cloudify web management console
 
-The mongos service file is @<cloudify root>/examples/petclinic/mongos/mongos-service.groovy.
+The mongos service file is @<cloudify root>/examples/petclinic/mongos/mongos-service.groovy@.
 
 h3. The Mongo Data Shards (mongod) Recipe
 
@@ -245,8 +245,8 @@ Once this is completed, the @tomcat@ service instance knows the host address and
 h1(#step4). Step 4 - Deploy the Recipe
 
 Now that you are more familiar with the recipe mechanism, let's deploy the application. At the Cloudify shell prompt, type:
-<p style="padding-left:1em;">*install-application* @-timeout 50 <cloudify root>/examples/petclinic@</p>
-<p style="padding-left:2em;">where @<Cloudify root>@ is the path to the Cloudify installation on your machine.</p>
+<p style="padding-left:1em;">*install-application* @-timeout 50 <cloudify root>/examples/petclinic@
+<span style="padding-left:1em;">where @<Cloudify root>@ is the path to the Cloudify installation on your machine.</span></p>
 
 h4(warn). Currently the Cloudify shell does not support backslashes so you must use a forward slash (@/@) as your path separator even if you are running on Windows.
 
