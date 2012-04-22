@@ -9,9 +9,9 @@ pageord: 500
 
 For Cloudify to work, you must configure the cloud driver configuration file <CLOUD-PROVIDER>-cloud.groovy located in the <Cloudify Root>/tools/cli/plugins/esc/CLOUD-PROVIDER folder. However, for private clouds we recommend that you perform the following tasks *BEFORE* configuring the cloud driver configuration file:
 
-# Store Cloudify Distribution File on the Private Cloud
+* *Store Cloudify Distribution File on the Private Cloud*
 Because private clouds often block outbound Internet connections, or simply to speed-up the Cloudify provisioning process, we recommend that you store the Cloudify distribution file locally. The distribution file is used by the Cloudify cloud driver when bootstrapping Cloudify management machines, and when installing the Cloudify agent on application machines. Some private clouds provide a storage service from which you can fetch the distribution file; you can specify the URI of this service in the cloud driver configuration file, as loaction from which to fetch the distribution file. If you are using Citrix Cloudstack as your private cloud, you must create a VM on which to store the Cloudify distribution file.
-# Create The Images You Require
+* *Create The Images You Require*
 The Cloudify distribution file comes with built-in Cloudify images. However, if your application requires additional images, you can create them using the private cloud's console.
 
 The following lists the information that must be configured in the cloud driver configuration file:
