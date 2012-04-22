@@ -1,41 +1,43 @@
 ---
 layout: default
-title: The Pet Clinic Application on EC2
+title: 10-Minute EC2 Quick Start Guide
 cat: Getting Started
 publish: true
-abstract: A short quick start guide to help you easily deploy our Pet Clinic application on Amazon EC2 Cloud.
+abstract: A quick start guide to help you get started with Cloudify on EC2. Start here if you're new to Cloudify and you want to install your application on EC2
 pageord: 200
 ---
 
 h1. Introduction
 
-
 h2. About this Guide
 
-The goal of this quick start guide is get you familiar with Cloudify in a few simple steps and also help you in deploying our Pet Clinic application on Amazon EC2 Cloud. For this purpose, we will use one of our built-in examples (the PetClinic application, which is a port of the classic Spring PetClinic sample application. It uses Grails for the web tier and "MongoDB":http://www.mongodb.org as the database instead of MySql).
+The goal of this quick start guide is to familiarize you with Cloudify in a few simple steps. For this purpose, we will use the PetClinic application (an example application that is included in the Cloudify distribution file) to demonstrate the steps required to deploy an application on an Amazon EC2 cloud. For a quick start guide to using Cloudify on a local cloud, see "10-Minute Quick Start Guide":guide/qsg/quick_start_guide.
 
-This guide will teach you how to:
-* Use an example recipe to deploy an application on a "Amazon EC2 Cloud":/guide/bootstrapping/bootstrapping_ec2 using Cloudify, from the installation of Cloudify iteself, deployment of your applocation and finally monitoring you deployed application using Cloudify's management tools.
-* Use the Cloudify interactive shell.
-* Monitor your deployed application, using Cloudify's "Web Based Management Console":/guide/monitoring/the_web_management_console.
+This guide teaches you how to:
+* "Install the Cloudify Shell":#step1
+* "Bootstrap the Local Cloud":#step2
+* "Understand the Recipe":#step3
+* "Deploy the Recipe":#step4
+* "Monitor the Application":#step5
+* "Uninstall the Application":#step6
+* "Teardown the Local Cloud":#step7
 
 h2. About the Pet Clinic Application
 
-The Pet Clinic Application presented in this tutorial is a port to Grails of the standard "Java based Spring framework PetClinic sample app":http://static.springsource.org/docs/petclinic.html.
-It is using MongoDB instead of MySql as the backend store, and leverages the Grails GORM bindings to MongoDB. The users of the application are employees of the clinic who need to view and manage information regarding veterinarians, pet owners, and their pets.
-The Application's production environment is based on a 2-tier architecture:
-# Web and Business Logic Tier - Composed of the Grails application deployed on Apache Tomcat.
-# The Data Tier - Composed of "a sharded MongoDB cluster(Sharded MongoDB)":http://www.mongodb.org/display/DOCS/Sharding+Introduction, which is composed of the following components:
-## "Configuration Server(MongoDB Configuration Server)":http://www.mongodb.org/display/DOCS/Configuring+Sharding#ConfiguringSharding-ConfigServers : Stores the cluster's metadata, which includes basic information on each shard server and the chunks contained therein.
-## Routing Processes (mongos): A routing and coordination process that mediates between client requests and the actual mongod instances.  When receiving client requests, the mongos process routes the request to the appropriate mongod instance(s) and merges any results sent back to the client.
-## Mongod instances (AKA shards): In our case, there are two instances of mongod to store the application data.
+The PetClinic application presented in this guide is a port of the "Spring PetClinic application":http://static.springsource.org/docs/petclinic.html to "Grails":http://grails.org/ and MongoDB, and uses the Grails GORM bindings to MongoDB. The users of the application are employees of the clinic who, in the course of their work, need to view and manage information regarding veterinarians, the clients, and their pets.
 
-Obviously, the amount of instances for each of the above components can be easily changed, by modifying the numInstances attribute of the relevant Cloudify recipe file (i.e: @<service-name>-service.groovy@).
+The application's environment is based on the following 2-tier architecture:
 
-<h4 class="warn">
-When you install MongoDB on Windows 7, you need to make sure that you run as an administrator. See "Installing MongoDB on Windows 7":http://www.mongodb.org/display/DOCS/Windows+Service.
-</h4>
+|_. Tier |_. Service |
+| Web and Business Logic Tier | A Grails platform deployed on Apache Tomcat server |
+| Database Tier | A "sharded MongoDB server cluster(Sharded MongoDB)":http://www.mongodb.org/display/DOCS/Sharding+Introduction compriised of the following components:
+* "Configuration Server(MongoDB Configuration Server)":http://www.mongodb.org/display/DOCS/Configuring+Sharding#ConfiguringSharding-ConfigServers--Stores the cluster's metadata including basic information on each shard server and the chunks contained therein
+* Routing Processes (mongos): A routing and coordination process that mediates between client requests and the actual mongod instances.  When receiving client requests, the mongos process routes the request to the appropriate mongod instance(s) and merges any results sent back to the client.
+* Mongod instances (AKA shards): In our example, there are two instances of mongod used for storing the application's data |
 
+h4(info). The number of service instances can be easily configured by modifying the numInstances attribute in the relevant Cloudify recipe file (e.g. @<service-name>-service.groovy@).
+
+h4(warn). When you install MongoDB on Windows 7, you must run MongoDB with administrative credentials. For more information, see the "Installing Windows 7" section of the "Windows Service":http://www.mongodb.org/display/DOCS/Windows+Service page.
 
 h1. Step 1 - Install Cloudify
 
