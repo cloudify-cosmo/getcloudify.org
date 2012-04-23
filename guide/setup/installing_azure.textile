@@ -59,7 +59,7 @@ h3(#config1). Configuring the Azure properties file
 # From the *Properties* pane, copy the *Subscription ID* value.
 <img src="../images/azure/config3b.png"/>
 # Edit the @azure.properties@ file located in @<cloudify root>\tools\cli\plugins\azure\@, find the *subscriptionId* property, and then paste the copied *Subscription ID* value.
-h4(info). In the azure.properties file included in the Cloudify distribution file, the @cspackFolder@ property defines the path to the Windows Azure SDK. If the path is not correct for your installation, then specify the correct path.
+<h4 class="info">In the azure.properties file included in the Cloudify distribution file, the @cspackFolder@ property defines the path to the Windows Azure SDK. If the path is not correct for your installation, then specify the correct path.</h4>
 
 h3(#config2). Configuring Remote Desktop certificates (Optional)
 
@@ -89,21 +89,18 @@ This section describes how to configure the management certificates that are req
 ### In the *Certificates snap-in* dialog box, click *Computer account*, click *Finish*, and then in the *Add or Remove Snap-ins* dialog box click *OK*.
 ### In the navigation pane, expand the Certificates tree, right-click *Personal*, point to *All Tasks*, and then click *Import*.
 ### In the *Certificate Import* wizard, click *Next*, browse to the @azure_api.pfx@ file, click *Next*, type the password for the file (@123456@), select *Mark this key exportable*, click *Next*, and then click *Finish*.
-h4(info). Make sure when you browse for the file that the browse dialog box filter is PFX and not CER.
-
+<h4 class="info">Make sure when you browse for the file that the browse dialog box filter is PFX and not CER.</h4>
 ## Delete the PFX file.
-h4(info). The certificate is saved in the certificate store and can be exported if required for a different computer.
-
+<h4 class="info">The certificate is saved in the certificate store and can be exported if required for a different computer.</h4>
 # Upload Management Certificate
-
-# Login to your "Azure Management Portal":http://windows.azure.com.
-# On the views pane, click *Hosted Services, Storage Accounts & CDN*.
+## Login to your "Azure Management Portal":http://windows.azure.com.
+## On the views pane, click *Hosted Services, Storage Accounts & CDN*.
 <img src="../images/azure/config7.png"/>
-# On the navigation pane, click *Management Certificates*.
+## On the navigation pane, click *Management Certificates*.
 <img src="../images/azure/config8.png"/>
-# Click *Add Certificate*.
+## Click *Add Certificate*.
 <img src="../images/azure/config9.png"/>
-# Browse to the @azure_api.cer@ file, and then click *OK*.
+## Browse to the @azure_api.cer@ file, and then click *OK*.
 <img src="../images/azure/config10.png"/>
 
 h3(#config4). Update the Blob Storage details
@@ -114,8 +111,7 @@ This section describes how to configure the blob storage that is used for storin
 # On the views pane, click *Hosted Services, Storage Accounts & CDN*.
 <img src="../images/azure/config7.png"/>
 # On the navigation pane, click *Storage Accounts*.
-h4(info). If necessary, create a new atorage account.
-
+<h4 class="info">If necessary, create a new atorage account.</h4>
 # Copy the *Storage Account Name* value, edit the @azure.properties@ file, find the *storageAccount* property, and then paste the copied *Storage Account Name* value.
 # Click *View Access Key*, copy the *Primary Access Key* value, edit the @azure.properties@ file, find the *storageAccessKey* property, and then paste the copied *View Access Key* value.
 <img src="../images/azure/blobstorage_accesskeys.png"/>
