@@ -44,7 +44,8 @@ Before you bootstrap the Cloudify management machine, make sure that the machine
 * "(newwindow)wget":https://www.gnu.org/software/wget/
 * "(newwindow)sed unix command":http://linux.about.com/od/commands/l/blcmdl1_sed.htm
 * "(newwindow)SSH":http://linux.about.com/od/commands/l/blcmdl1_ssh.htm
-For more information, see "Cloudify Prerequisites Page":/guide/setup/cloudify_prerequisites.
+
+For more information, see "Cloudify Prerequisites":/guide/setup/cloudify_prerequisites.
 
 h2. Configuring the BYON Cloud Driver
 
@@ -106,7 +107,7 @@ The bootstrap-management.sh script is used to install Cloudify on each machine b
 Cloudify can run in 2 different modes: 
 *# As a management machine that runs all the management services: ESM, REST, ... - At least one management machine is required in a Cloudify environment. 
 *# As an agent that runs a processing unit (PU) but doesn't perform Cloudify management tasks - It is used for deployment of applications and services. 
-* *NO_WEB_SERVICES* - 'true' if web-services (REST, webui) should not be deployed. (only if GSA_MODE is not 'agent')
+* *NO_WEB_SERVICES* - "true" if web-services (REST, webui) should not be deployed. (only if GSA_MODE is not 'agent')
 * *MACHINE_IP_ADDRESS* - The IP address of this server. (Useful if it has multiple NICs)
 * *MACHINE_ZONES* - This is required if this is not a management machine.
 * *WORKING_HOME_DIRECTORY* - The working folder specified in the configuration file to which installation files were copied (Cloudify installation files, ...)
