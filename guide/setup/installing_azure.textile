@@ -28,14 +28,14 @@ Understanding Windows Azure security credentials is necessary in order to succes
 Credentials consist of the username and password used to log into the Azure "Management Portal":http://windows.azure.com. Because Windows Live does not support two-factor authentication, make sure you use a strong password.
 
 *Remote Desktop Personal inFormation eXchange (RDP PFX) Certificate*
-The RDP PFX certificate contains both a private and public key, and is attached to an Azure deployment. After the PFX certificate is created on your local machine, you must upload it to a specific deployment. The PFX file is password protected for uploading the certificate to Azure (this is *NOT* your Windows password). _The certificate in the PFX file is used to encrypt and decrypt the Windows passwords used to log into your Azure VMs_.
+The RDP PFX certificate contains both a private and public key, and is attached to an Azure deployment. After the PFX certificate is created on your local machine, you must upload it to a specific deployment. The PFX file is protected by a password when uploading the certificate to Azure. The certificate in the PFX file is used to encrypt and decrypt the Windows password that you use to log in to your Azure VMs (role instances) via Remote Desktop.
 
-h4(info). Do not confuse the password that protects the PFX file, with the Windows password that is encrypted using the certificate saved in the PFX file and that you use to log in to your Azure VMs (role instances) via Remote Desktop.
+h4(info). Do not confuse the password that protects the PFX file, with the Windows password that is encrypted using the certificate saved in the PFX file and that you use to log in to your Azure VMs.
 
 h4(info). PFX files contain both the private and the public keys, whilst CERT files contain only the public key.
 
 *Management API (REST) X509 Certificates*
-Management certificates are used to authenticate the REST API client (for example, when running a scaling-out command). For the authentication to occur, the public key (CERT file) must be uploaded to the "Management Certificates" section of your Azure Management Portal, and the private key must be installed in the client machine's local certificate store:
+Management certificates are used to authenticate the REST API client (for example, when running a scaling-out command). For the authentication to occur, the public key (*CERT* file) must be uploaded to the "Management Certificates" section of your Azure Management Portal, and the private key (*PFX* file) must be installed in the client machine's local certificate store.
 <img src="../images/azure/certificates1.png"/>
 
 h2. Configuring Windows Azure
@@ -49,7 +49,7 @@ This section provides step-by-step instructions for the following tasks:
 h3(#config1). Configuring the Azure properties file
 
 # Login to your "Azure Management Portal":http://windows.azure.com.
-  If the *Isolated Storage Quota* dialog box opens, click *Change Quota* to allow Windows Azure's Silverlight application to use your local disk for temporary storage.
+<h4 class="info">If the *Isolated Storage Quota* dialog box opens, click *Change Quota* to allow Windows Azure's Silverlight application to use your local disk for temporary storage.</h4>
 # On the views pane, click *Hosted Services, Storage Accounts & CDN*.
 <img src="../images/azure/config1.png"/>
 # On the navigation pane, click *Hosted Services*.
@@ -63,12 +63,12 @@ h3(#config1). Configuring the Azure properties file
 
 h3(#config2). Configuring Remote Desktop certificates (Optional)
 
-This section describes how to create the certificats for remote access to your VMs. For this example, we will use the password @123456@ to encrypt the PFX files.
+This section describes how to create the certificates for remote access to your VMs. For this example, we will use the password @123456@ to encrypt the PFX files.
 
 # Create a protected Azure management (private and public) certificate--At the Windows command prompt, navigating to the Azure plugins folder, and then create the certificate, as per the following example:
 <script src="https://gist.github.com/1760185.js?file=certificate%20creation"></script>
 # Choose a Windows password to use when logging in to your Azure VMs (role instances), and then encrypt it using the certificate--At the Windows command prompt, create the password and save it in *password.txt*, and then *Notepad* to copy the saved password.
-h4(info). Choose a password with at least 10 characters, containing capital letters, lower case letters, and numbers.
+<h4 class="info">Choose a password with at least 10 characters, containing capital letters, lower case letters, and numbers.</h4>
 <script src="https://gist.github.com/1760193.js?file=API_certificate"></script>
 # Edit the @azure.properties@ file, find the *rdpLoginEncryptedPassword* property, and then paste the copied encrypted password value. Find the *rdpLoginUsername* property, and then specify the value as "Administrator". This is the Windows Operating System user name that is used to log in with Remote Desktop.
 
@@ -76,7 +76,7 @@ h3(#config3). Configuring Management (API) certificates (Optional)
  
 This section describes how to configure the management certificates that are required to change the number of role instances (scale-out) from the Cloudify shell.
 
-# Create the management API certificate using the following steps:
+# Create the management certificate using the following steps:
 ## Create the certificate--At the Windows command prompt, type:
 *encutil* -create -alias @azure_api@ -pwd @123456@ -pfx @azure_api.pfx@ -cert @azure_api.cer@
 ## Save the certificate thumbprint--At the Windows command prompt, type:
@@ -92,7 +92,7 @@ This section describes how to configure the management certificates that are req
 <h4 class="info">Make sure when you browse for the file that the browse dialog box filter is PFX and not CER.</h4>
 ## Delete the PFX file.
 <h4 class="info">The certificate is saved in the certificate store and can be exported if required for a different computer.</h4>
-# Upload Management Certificate
+# Upload the management certificate
 ## Login to your "Azure Management Portal":http://windows.azure.com.
 ## On the views pane, click *Hosted Services, Storage Accounts & CDN*.
 <img src="../images/azure/config7.png"/>
@@ -111,7 +111,7 @@ This section describes how to configure the blob storage that is used for storin
 # On the views pane, click *Hosted Services, Storage Accounts & CDN*.
 <img src="../images/azure/config7.png"/>
 # On the navigation pane, click *Storage Accounts*.
-<h4 class="info">If necessary, create a new atorage account.</h4>
+<h4 class="info">If necessary, create a new storage account.</h4>
 # Copy the *Storage Account Name* value, edit the @azure.properties@ file, find the *storageAccount* property, and then paste the copied *Storage Account Name* value.
 # Click *View Access Key*, copy the *Primary Access Key* value, edit the @azure.properties@ file, find the *storageAccessKey* property, and then paste the copied *View Access Key* value.
 <img src="../images/azure/blobstorage_accesskeys.png"/>
