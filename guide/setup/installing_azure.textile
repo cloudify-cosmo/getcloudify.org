@@ -69,11 +69,8 @@ This section describes how to create the certificats for remote access to your V
 # Create a protected Azure management (private and public) certificate--At the Windows command prompt, navigating to the Azure plugins folder, and then create the certificate, as per the following example:
 <script src="https://gist.github.com/1760185.js?file=certificate%20creation"></script>
 # Choose a Windows password to use when logging in to your Azure VMs (role instances), and then encrypt it using the certificate--At the Windows command prompt, create the password and save it in *password.txt*, and then *Notepad* to copy the saved password.
-
 h4(info). Choose a password with at least 10 characters, containing capital letters, lower case letters, and numbers.
-
 <script src="https://gist.github.com/1760193.js?file=API_certificate"></script>
-
 # Edit the @azure.properties@ file, find the *rdpLoginEncryptedPassword* property, and then paste the copied encrypted password value. Find the *rdpLoginUsername* property, and then specify the value as "Administrator". This is the Windows Operating System user name that is used to log in with Remote Desktop.
 
 h3(#config3). Configuring Management (API) certificates (Optional)
