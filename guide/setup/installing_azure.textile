@@ -41,12 +41,12 @@ Management certificates are used to authenticate the REST API client (for exampl
 h2. Configuring Windows Azure
 
 This section provides step-by-step instructions for the following tasks:
-# "Configuring the Azure properties file":#updateSubscriptionId
-# "Creating Remote Desktop certificates":#createRDCertificate
-# "Configuring Management certificates":#createManagementCertificate
-# "Updating the Blob Storage details":#updateBlobStorage
+* "Configuring the Azure properties file":#config1
+* "Configuring Remote Desktop certificates":#createRDCertificate
+* "Configuring Management certificates":#createManagementCertificate
+* "Updating the Blob Storage details":#updateBlobStorage
 
-h3(#updateSubscriptionId). Configuring the Azure properties file
+h3(#config1). Configuring the Azure properties file
 
 # Login to your "Azure Management Portal":http://windows.azure.com.
   If the *Isolated Storage Quota* dialog box opens, click *Change Quota* to allow Windows Azure's Silverlight application to use your local disk for temporary storage.
@@ -62,7 +62,7 @@ h3(#updateSubscriptionId). Configuring the Azure properties file
 
 h4(info). In the azure.properties file included in the Cloudify distribution file, the *cspackFolder* property defines the path to the Windows Azure SDK. If the path is not correct for your installation, then specify the correct path.
 
-h3(#createRDCertificate). Creating Remote Desktop certificates (Optional)
+h3(#createRDCertificate). Configuring Remote Desktop certificates (Optional)
 
 This section describes how to create the certificats for remote access to your VMs. For this example, we will use the password @123456@ to encrypt the PFX files.
 
@@ -86,7 +86,7 @@ This section describes how to configure the management certificates that are req
 ## Save the certificate thumbprint--At the Windows command prompt, type:
 *encutil* -thumbprint -cert @azure_api.cer@
 ## Copy the saved thumbprint, edit the @azure.properties@ file, find the *certificateThumbprint* property, and then paste the copied thumbprint value.
-## Install the management certificate on the local machines certificate store.
+## Install the management certificate on the local machine's certificate store, as follows:
 ### Click *Start*, click *Run*, type @mmc@, and then click *OK*.
 ### On the *File* menu, click *Add/Remove Snap-in*
 ### In the *Available snap-ins* pane, select *Certificates*, and then click *Add*
