@@ -9,26 +9,26 @@ pageord: 600
 
 This topic provides instructions for configuring Windows Azure for Cloudify.
 
-h1. Prerequisites
+h2. Prerequisites
 
 * Windows 7, Windows Server 2008, or Windows Vista SP1 with the latest service packs installed
 * Windows Azure SDK "Azure SDK v1.6 64-bit [x64]":http://www.microsoft.com/downloads/info.aspx?na=41&srcfamilyid=e4635d95-61ce-415e-ae92-3004856c08e2&srcdisplaylang=en&u=http%3a%2f%2fdownload.microsoft.com%2fdownload%2fD%2fF%2f4%2fDF442AB0-FAAE-44FF-A04E-F41E72FE6B6F%2fWindowsAzureSDK-x64.msi or "Azure SDK v1.6 32-bit [x86]":http://www.microsoft.com/downloads/info.aspx?na=41&srcfamilyid=e4635d95-61ce-415e-ae92-3004856c08e2&srcdisplaylang=en&u=http%3a%2f%2fdownload.microsoft.com%2fdownload%2fD%2fF%2f4%2fDF442AB0-FAAE-44FF-A04E-F41E72FE6B6F%2fWindowsAzureSDK-x86.msi
 * "Windows Azure":http://www.microsoft.com/windowsazure/free-trial/ account
-* "Silverlight(Download Silverlight)":http://www.microsoft.com/getsilverlight/-enabled web browser (required by Azure Management Portal)
+* "Silverlight-enabled(Download Silverlight)":http://www.microsoft.com/getsilverlight/ web browser (required by Azure Management Portal)
 * "Java Development Kit 1.6(Download JDK)":http://www.oracle.com/technetwork/java/javase/downloads/index.html
 * Cloudify shell (for information about installing the Cloudify shell, see "Installing the Cloudify Shell":/guide/setup/installing_the_cloudify_client)
 
 For information about Windows Azure terminology, see "Windows Azure Glossary":http://msdn.microsoft.com/en-us/library/windowsazure/gg433095.aspx.
 
-h1. Understanding Windows Azure Security Credentials
+h2. Understanding Windows Azure Security Credentials
 
-Understanding Windows Azure security credentials is necessary to successfully manage a Java application running on Azure.
+Understanding Windows Azure security credentials is necessary in order to successfully manage a Java application running on Azure.
 
 *Windows Live Credentials*
 Credentials consist of the username and password used to log into the Azure "Management Portal":http://windows.azure.com. Because Windows Live does not support two-factor authentication, make sure you use a strong password.
 
 *Remote Desktop Personal inFormation eXchange (RDP PFX) Certificate*
-The RDP PFX certificate contains both a private and public key, and is attached to an Azure deployment. After the PFX certificate is generated on your local machine, you must upload it to a specific deployment. The PFX file is password protected for uploading the certificate to Azure (this is *NOT* your Windows password). _The certificate in the PFX file is used to encrypt and decrypt the Windows passwords used to log into your Azure VMs_.
+The RDP PFX certificate contains both a private and public key, and is attached to an Azure deployment. After the PFX certificate is created on your local machine, you must upload it to a specific deployment. The PFX file is password protected for uploading the certificate to Azure (this is *NOT* your Windows password). _The certificate in the PFX file is used to encrypt and decrypt the Windows passwords used to log into your Azure VMs_.
 
 h4(info). Do not confuse the password that protects the PFX file, with the Windows password that is encrypted using the certificate saved in the PFX file and that you use to log in to your Azure VMs (role instances) via Remote Desktop.
 
@@ -38,7 +38,7 @@ h4(info). PFX files contain both the private and the public keys, whilst CERT fi
 Management certificates are used to authenticate the REST API client (for example, when running a scaling-out command). For the authentication to occur, the public key (CERT file) must be uploaded to the "Management Certificates" section of your Azure Management Portal, and the private key must be installed in the client machine's local certificate store:
 <img src="../images/azure/certificates1.png"/>
 
-h1. Configuring Windows Azure
+h2. Configuring Windows Azure
 
 This section provides step-by-step instructions for the following tasks:
 # "Configuring the Azure properties file":#updateSubscriptionId
@@ -64,7 +64,7 @@ h4(info). In the azure.properties file included in the Cloudify distribution fil
 
 h3(#createRDCertificate). Creating Remote Desktop certificates (Optional)
 
-This section describes how to create the certificats for remote access to your VMs. For this example, we will use the password *123456* to encrypt the PFX files.
+This section describes how to create the certificats for remote access to your VMs. For this example, we will use the password @123456@ to encrypt the PFX files.
 
 # Create a protected Azure management (private and public) certificate--At the Windows command prompt, navigating to the Azure plugins folder, and then create the certificate, as per the following example:
 <script src="https://gist.github.com/1760185.js?file=certificate%20creation"></script>
@@ -81,16 +81,18 @@ h3(createManagementCertificate). Configuring Management (API) certificates (Opti
 This section describes how to configure the management certificates that are required to change the number of role instances (scale-out) from the Cloudify shell.
 
 # Create the management API certificate using the following steps:
-## Create the certificate--At the Windows command prompt, type: *encutil* -create -alias @azure_api@ -pwd @123456@ -pfx @azure_api.pfx@ -cert @azure_api.cer@
-## Save the certificate thumbprint--At the Windows command prompt, type: *encutil* -thumbprint -cert @azure_api.cer@
+## Create the certificate--At the Windows command prompt, type:
+*encutil* -create -alias @azure_api@ -pwd @123456@ -pfx @azure_api.pfx@ -cert @azure_api.cer@
+## Save the certificate thumbprint--At the Windows command prompt, type:
+*encutil* -thumbprint -cert @azure_api.cer@
 ## Copy the saved thumbprint, edit the @azure.properties@ file, find the *certificateThumbprint* property, and then paste the copied thumbprint value.
 ## Install the management certificate on the local machines certificate store.
-###Click *Start*, click *Run*, type @mmc@, and then click *OK*.
-###On the *File* menu, click *Add/Remove Snap-in*
-###In the *Available snap-ins* pane, select *Certificates*, and then click *Add*
-###In the *Certificates snap-in* dialog box, click *Computer account*, click *Finish*, and then in the *Add or Remove Snap-ins* dialog box click *OK*.
-###In the navigation pane, expand the Certificates tree, right-click *Personal*, point to *All Tasks*, and then click *Import*.
-###In the *Certificate Import Wizard*, click *Next*, browse to the @azure_api.pfx@ file, click *Next*, type the password for the file (@123456@), select *Mark this key exportable*, click *Next*, and then click *Finish*.
+### Click *Start*, click *Run*, type @mmc@, and then click *OK*.
+### On the *File* menu, click *Add/Remove Snap-in*
+### In the *Available snap-ins* pane, select *Certificates*, and then click *Add*
+### In the *Certificates snap-in* dialog box, click *Computer account*, click *Finish*, and then in the *Add or Remove Snap-ins* dialog box click *OK*.
+### In the navigation pane, expand the Certificates tree, right-click *Personal*, point to *All Tasks*, and then click *Import*.
+### In the *Certificate Import* wizard, click *Next*, browse to the @azure_api.pfx@ file, click *Next*, type the password for the file (@123456@), select *Mark this key exportable*, click *Next*, and then click *Finish*.
 h4(info). Make sure when you browse for the file that the browse dialog box filter is PFX and not CER.
 
 ## Delete the PFX file.
@@ -117,6 +119,7 @@ This section describes how to configure the blob storage that is used for storin
 <img src="../images/azure/config7.png"/>
 # On the navigation pane, click *Storage Accounts*.
 h4(info). If necessary, create a new atorage account.
+
 # Copy the *Storage Account Name* value, edit the @azure.properties@ file, find the *storageAccount* property, and then paste the copied *Storage Account Name* value.
 # Click *View Access Key*, copy the *Primary Access Key* value, edit the @azure.properties@ file, find the *storageAccessKey* property, and then paste the copied *View Access Key* value.
 <img src="../images/azure/blobstorage_accesskeys.png"/>
