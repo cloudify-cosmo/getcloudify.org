@@ -11,16 +11,16 @@ One of the best things about Cloudify is that you don't need to change your reci
 
 For information about configuring Cloudify on Windows Azure, see "Cloudify on Windows Azure":/guide/setup/installing_azure.
 
-For Cloudify to work, you must configure the cloud driver configuration file @<CLOUD-PROVIDER>-cloud.groovy@ located in the @<Cloudify Root>/tools/cli/plugins/esc/CLOUD-PROVIDER@ folder.
+For Cloudify to work, you must configure the cloud driver configuration file @<CLOUD-PROVIDER>-cloud.groovy@ located in the @<cloudify root>/tools/cli/plugins/esc/CLOUD-PROVIDER@ folder.
 
 The following lists the information that must be configured in the cloud driver configuration file:
 * The URL from where Cloudify can be downloaded
 * The prefix to add to the name of each machine
-* You credentials for the Cloud
-* Declarations and definitions of templates that your recipes use.
+* You credentials for the cloud
+* Declarations and definitions of templates that your recipes use
   These templates contain the type of hardware (depending on your cloud's api) that you need for each of your required machines. Once defined, you can specify them in your recipe's compute section.
 
-h4(info). If the deployment on your public cloud provider requires a key pair file, you must create it and place it in the @<Cloudify Root>/tools/cli/plugins/esc/CLOUD-PROVIDER/upload@ folder.
+h4(info). If the deployment on your public cloud provider requires a key pair file, you must create it and place it in the @<cloudify root>/tools/cli/plugins/esc/CLOUD-PROVIDER/upload@ folder.
 
 The following shows an example of the ec2-cloud.groovy configuration file for the Amazon EC2 cloud with placeholders: 
 <script src="https://gist.github.com/1722422.js?file=ec2-cloud.groovy"></script>
