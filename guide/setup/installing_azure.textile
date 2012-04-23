@@ -42,9 +42,9 @@ h2. Configuring Windows Azure
 
 This section provides step-by-step instructions for the following tasks:
 * "Configuring the Azure properties file":#config1
-* "Configuring Remote Desktop certificates":#createRDCertificate
-* "Configuring Management certificates":#createManagementCertificate
-* "Updating the Blob Storage details":#updateBlobStorage
+* "Configuring Remote Desktop certificates":#config2
+* "Configuring Management certificates":#config3
+* "Updating the Blob Storage details":#config4
 
 h3(#config1). Configuring the Azure properties file
 
@@ -62,7 +62,7 @@ h3(#config1). Configuring the Azure properties file
 
 h4(info). In the azure.properties file included in the Cloudify distribution file, the *cspackFolder* property defines the path to the Windows Azure SDK. If the path is not correct for your installation, then specify the correct path.
 
-h3(#createRDCertificate). Configuring Remote Desktop certificates (Optional)
+h3(#config2). Configuring Remote Desktop certificates (Optional)
 
 This section describes how to create the certificats for remote access to your VMs. For this example, we will use the password @123456@ to encrypt the PFX files.
 
@@ -76,7 +76,7 @@ h4(info). Choose a password with at least 10 characters, containing capital lett
 
 # Edit the @azure.properties@ file, find the *rdpLoginEncryptedPassword* property, and then paste the copied encrypted password value. Find the *rdpLoginUsername* property, and then specify the value as "Administrator". This is the Windows Operating System user name that is used to log in with Remote Desktop.
 
-h3(createManagementCertificate). Configuring Management (API) certificates (Optional)
+h3(#config3). Configuring Management (API) certificates (Optional)
  
 This section describes how to configure the management certificates that are required to change the number of role instances (scale-out) from the Cloudify shell.
 
@@ -110,7 +110,7 @@ h4(info). The certificate is saved in the certificate store and can be exported 
 # Browse to the @azure_api.cer@ file, and then click *OK*.
 <img src="../images/azure/config10.png"/>
 
-h3(#updateBlobStorage). Update the Blob Storage details
+h3(#config4). Update the Blob Storage details
 
 This section describes how to configure the blob storage that is used for storing the Cloudify distribution file and Cloudify images.
 
