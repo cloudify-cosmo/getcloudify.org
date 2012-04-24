@@ -18,7 +18,7 @@ The service descriptor file describes the following information:
 * "Lifecycle events":/guide/developing/lifecycle_events: Maps events to handling scripts or closures and, as such, is the most important part of the service recipe
 * Custom commands: Maps custom events to handling scripts that can be invoked as commands using the Cloudify shell
 * Plugins: Liveness and Monitoring plugins
-* UI layout: The layout for the collected metrics to display in Cloudify's web management console
+* UI layout: The layout for the collected metrics to display in the "Cloudify web management console":/guide/monitoring/the_web_management_console
 <h4 class="info">In future releases, Cloudify will also support "*provided services*". These services are not provisioned by Cloudify and are only monitored for availability.</h4>
 
 h3(#general). General Section
@@ -26,9 +26,9 @@ h3(#general). General Section
 The *General* section describes the following attributes:
 
 |_. Attributes |_. Description |
-| @name@ | The service name is used to identify the services by the various Cloudify management and monitoring tools. Therefore, the name must be unique across all services that are managed by the same Cloudify controller. |
-| @icon@ | This specifies an optional image file to use as an icon for a service in the *Application Map* of the "Cloudify web management console":/guide/monitoring/the_web_management_console. |
-| @type@ | The service type is used by the Cloudify web management console to determine the location of the service on the *Application Map*. If you do not specify an @icon@ in this section, the service type also used to determine the icon to display on *Application Map*. The following service types are supported:
+| @name@ | The service name is used to identify this service by the various Cloudify management and monitoring tools. Therefore, the name must be unique across all services that are managed by the same Cloudify controller. |
+| @icon@ | The optional image file to use as an icon for this service in the *Application Map* that is displayed in the "Cloudify web management console":/guide/monitoring/the_web_management_console. |
+| @type@ | The service type is used by the Cloudify web management console to determine the location of this service in the *Application Map*. If you do not specify an @icon@ in this section, the service type is used to determine the default icon to display in the *Application Map*. The following service types are supported:
 <ul><li>WEB_SERVER</li>
 <li>APP_SERVER</li>
 <li>DATABASE</li>
@@ -36,6 +36,7 @@ The *General* section describes the following attributes:
 <li>MESSAGE_BUS</li>
 <li>ESB_SERVER</li>
 <li>SECURITY_SERVER</li></ul> |
-| @numInstances@ | |
+| @numInstances@ | The initial number of instances provisioned when this service is started. |
 
+The following shows an example of the *General* section.
 <script src="https://gist.github.com/1760251.js?file=Recipe_Prolog.groovy"></script>
