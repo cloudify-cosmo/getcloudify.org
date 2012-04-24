@@ -3,7 +3,7 @@ layout: default
 title: Anatomy of a Recipe
 category: Developing Recipes
 publish: true
-abstract: An overview of the recipe framework, terminology and syntax
+abstract: An overview of the recipe framework and terminology
 pageord: 1
 ---
 
@@ -13,10 +13,10 @@ h2. Basic Concepts
 
 * Cloudify is designed to onboard and manage *applications*
 * An *application* is a set of *services*, and each *service* is a cluster of service instances that make-up an *application tier* (e.g. cluster of Tomcats service instances)
-* An *application recipe* defines the application name, the services it requires and their interdependencies
+* An *"application recipe":/guide/developing/application_recipe* describes the application name, the services it requires and their interdependencies
 * Each *service* is installed, managed, and monitored by a *service recipe*
-* A *service recipe* defines the following:
-** General configuration: The service name, service type, number of service instances, and the service icon filename
+* A *"service recipe":/guide/developing/service_recipe* describes the following information:
+** General: The service name, service type, number of service instances, and the service icon filename
 ** Compute: Hardware and software requirements
 ** "Lifecycle events":/guide/developing/lifecycle_events: Maps events to handling scripts or closures and, as such, is the most important part of the service recipe
 ** Custom commands: Maps custom events to handling scripts that can be invoked as commands using the Cloudify shell
@@ -32,7 +32,7 @@ Application recipes are the execution plans for installing, starting, orchestrat
 | Application | An application recipe is comprised of the application descriptor file and the recipes for the services it requires. |
 | Service | Each service recipe is comprised of the service descriptor file, handler scripts, optional monitoring plugins, an optional service icon file, and an optional recipe parameter file. |
 
-To deploy an application you need a single application recipe that uses one or more service recipes to provision the services it requires. All the files that comprise the application recipe are stored in the application recipe folder.
+To deploy an application you need a single application recipe that uses one or more service recipes to provision the services it requires. All the files that comprise the application recipe must be located in the application's recipe folder.
 !/guide/images/recipes/recipe_ingrid.png!
 
 The following diagram depicts the application's recipe folder structure.
