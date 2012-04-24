@@ -3,18 +3,16 @@ layout: default
 title: The Application Recipe
 category: Developing Recipes
 publish: true
-abstract: Describes the part of the recipe that defines which application tiers compose your application and their inter-dependencies
+abstract: Describes the part of the recipe that describes which application services your application requires and their interdependencies
 pageord: 2
 ---
-p. Describes the application recipe functionality and syntax
 
-h1. The Application Recipe
+An application recipe is comprised of the application descriptor file and the recipes for the services it requires. This topic provides information about the application descriptor file.
 
-p. The application recipe file is located at the root level of the input folder and the packaged recipe zip file.
-The Application recipe describes an application as a set of services, and their inter-dependencies. The dependency means that Cloudify will not trigger the start life cycle event of a service unless the services on which it depends have successfully started as well.
+The application descriptor file must be located in the root of the appllication's recipe folder.
+The file describes the application name, the services it requires and their interdependencies. The dependency means that Cloudify will not trigger the start lifecycle event of the dependent service until the services on which it depends have successfully started.
 
-p. The application recipe also includes a name for the application which will be used by the various manegement and monitoring tools to identify the application. The name should be unique across all applications that are managed by the same cloudify controller.
+The application name is used to identify the application by the various Cloudify management and monitoring tools. Therefore, the name must be unique across all applications that are managed by the same Cloudify controller.
 
-Here's an example for an application recipe file:
-
+The following shows an example application descriptor file:
 <script src="https://gist.github.com/1759968.js?file=app_recipe.groovy"></script>
