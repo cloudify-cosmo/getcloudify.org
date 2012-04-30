@@ -14,20 +14,20 @@ h2. Lifecycle Events Overview
 h4(warn). Known Limitation: In case your start script returns, Cloudify will treat your service instance as having stopped and will therefore attempt to provision it again. To avoid this behavior, make sure your start script sleeps forever.
 
 Cloudify supports the following types of lifecycle events:
-* "Application events":#application--These are built-in events that are invoked by typing commands at the Cloudify shell prompt.
-* "Service events":#service--These are events described in the service recipe that are invoked by the ESM(Elastic Service Manager).
-* "Service instance events":#instance--These are the most important events described in the service recipe that are invoked by the ESM.
-* "Custom events":/guide/developing/custom_commands--These are custom events described in the service recipe that are invoked by typing commands at the Cloudify shell prompt.
+* "Application events":#application--Built-in Cloudify events that are invoked by typing commands at the Cloudify shell prompt.
+* "Service events":#service--Events described in the service recipe that are invoked by the ESM(Elastic Service Manager).
+* "Service instance events":#instance--The most important lifecycle events described in the service recipe, that are invoked by the ESM.
+* "Custom events":/guide/developing/custom_commands--Custom events described in the service recipe that are invoked by typing commands at the Cloudify shell prompt.
 
-When a lifecycle event is invoked, an "event handler":#handler script is run to perform the actions required by the the event. For example, if an installation event is invoked by the ESM, the corresponding installation event handler described in the service descriptor file is run.
+When a lifecycle event is invoked, an "event handler":#handler script, which performs the actions required by the the event, is run. For example, if an installation event is invoked by the ESM, the corresponding installation event handler (described in the service descriptor file) is run.
 
 h2(#application). Application Events
 
 Application events are built-in to Cloudify and currently cannot be customized in the application recipe. They are invoked by typing commands at the Cloudify shell prompt.
 
 There are two application events:
-* Application install - To install an application, at the Cloudify shell prompt, type: @*install-application* <applicationName>@. This command provisions the required application services, starts the services in order of dependencies, and then installs the application.
-* Application uninstall - To uninstall an application, at the Cloudify shell prompt, type: @*uninstall-application* <applicationName>@. This command unistalls the application, stops the services and unprovisions the services in order of dependencies.
+* Application install - To install an application, at the Cloudify shell prompt, type: @<b>install-application</b> <applicationName>@. This command provisions the required application services, starts the services in order of dependencies, and then installs the application.
+* Application uninstall - To uninstall an application, at the Cloudify shell prompt, type: @<b>uninstall-application</b> <applicationName>@. This command uninstalls the application, stops the services and unprovisions the services in order of dependencies.
 
 <img src="/guide/images/recipes/app_lifecycle.png"/>
 
@@ -51,17 +51,17 @@ Lifecycle event handlers are described in the @lifecycle@ section of the service
 
 The following is a list of lifecycle events to which event handlers can be allocated:
 
-* init
-* preInstall
-* install
-* postInstall
-* preStart
-* postStart
-* preStop
-* postStop
-* shutdown
-* preServiceStart
-* preServiceStop
+* @init@
+* @preInstall@
+* @install@
+* @postInstall@
+* @preStart@
+* @postStart@
+* @preStop@
+* @postStop@
+* @shutdown@
+* @preServiceStart@
+* @preServiceStop@
 
 The following example shows a @lifecycle@ section describing the allocation of event handlers to lifecycle events.
 <script src="https://gist.github.com/1760256.js?file=Lifecycle.groovy"></script>
@@ -72,14 +72,14 @@ The following example shows a @lifecycle@ section describing the allocation of o
 
 h3. Retrieving the Service Context from within Event Handlers
 
-The service context can be retrieved from within event handler scripts or closures using the "Service Context API":/guide/developing/the_service_context_api. The following example shows how to use the ServiceContextFactory to retrieve an instance of the service context in a Groovy event handler script:
+The service context can be retrieved from within event handler scripts or closures using the "Service Context API":/guide/developing/the_service_context_api. The following example shows how to use the @ServiceContextFactory@ to retrieve an instance of the service context in a Groovy event handler script:
 <pre class="prettyprint"> 
   import org.cloudifysource.dsl.context.ServiceContextFactory
   ...
   def context = ServiceContextFactory.getServiceContext() 
 </pre>
 
-h4(warn). You can only use the SeviceContextFactory from within an external Groovy file, and not from within the service descriptor file.
+h4(warn). You can only use the @ServiceContextFactory@ from within an external Groovy file, and not from within the service descriptor file.
 
 To access the context's instanceId, simply use the @context@ variable used to retieve an instance of the service context, as follows:
 <pre class="prettyprint"> 
@@ -87,7 +87,7 @@ To access the context's instanceId, simply use the @context@ variable used to re
 </pre> 
 
 <h4 class="info">
-Non-JVM based executables cannot directly access to the service context. However, some of the context's information is available via the following environment variables:
+Non-JVM based executables cannot directly access the service context. However, some of the context's information is available to them via the following environment variables:
 <ul><li>LOOKUPGROUPS</li>
 <li>LOOKUPLOCATORS</li>
 <li>USM_CLUSTER_NAME</li>
@@ -99,6 +99,7 @@ Non-JVM based executables cannot directly access to the service context. However
 <li>USM_RUNNING_NUMBER</li>
 <li>USM_SERVICE_FILE_NAME</li></ul></h4>
 
+The lifecycle events use the USM(Universal Service Manager) to invoke the external event handlers, as shown in the following diagram:
 <img src="/guide/images/recipes/context_injection.png"/>
 
 h3. Best Practices: Lifecycle Event Handlers
@@ -110,4 +111,4 @@ When describing lifecycle event handlers, the best approach is to divide and con
 | install | Unzip the service binaries |
 | postInstall | Tweak configuration files as required |
 
-This methodology makes recipes easier to maintain and troubleshoot. Additionally, by designing external event handler scripts in this way, you can reuse then in different application recipes.
+This methodology makes recipes easier to maintain and troubleshoot. Additionally, by designing external event handler scripts in this way, you can reuse them in different application recipes.
