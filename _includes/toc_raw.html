@@ -8,10 +8,14 @@
 			 <ul>
 			 {% if category == "API" %}
 				   <li><a href="/guide/api">Cloudify API Documentation</a></li>
-			 {% else %}							
-			  {% for page in site.page_categories[category] %}				
-				  <li><a href="{{page.url}}">{{page.title}}</a></li>							   
-			  {% endfor %}	
+			 {% else %}	
+				{% if category == "Contributing" %}
+				   <li><a href="/guide/contribute">Contributing to the Cloudify Open Source Project</a></li>
+				{% else %}				 
+					{% for page in site.page_categories[category] %}				
+					<li><a href="{{page.url}}">{{page.title}}</a></li>							   
+					{% endfor %}	
+				{% endif %}
              {% endif %}			  
 			 </ul>
 		</div>
