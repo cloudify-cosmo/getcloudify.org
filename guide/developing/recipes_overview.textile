@@ -3,44 +3,37 @@ layout: default
 title: Anatomy of a Recipe
 category: Developing Recipes
 publish: true
-abstract: An overview of the recipe framework, terminology and syntax
+abstract: An overview of the recipe framework and terminology
 pageord: 1
 ---
 
 This topic provides an overview of the recipe framework, terminology, and syntax.
 
-h1. Recipes Overview
+h2. Basic Concepts
 
-Recipes are the execution plans for installing, starting, orchestrating, and monitoring your application stack without changing the application code or architecture. They are comprised of the following recipe ingredients:
-* The recipe descriptor file written in a domain specific language based on Groovy. The recipe file describes the following:
-** The service name
-** The number of instances
-** The lifecycle events' handling scripts or inline handling blocks
-** The monitoring configurations
-** The scaling and custom alert rules based on monitored metrics
+* Cloudify is designed to onboard and manage *applications*
+* An *application* is a set of *services*, and each *service* is a cluster of service instances that make-up an *application tier* (e.g. cluster of Tomcats service instances)
+* An *"application recipe":/guide/developing/application_recipe* describes the application name, the services it requires and their interdependencies
+* Each *service* is installed, managed, and monitored by a *service recipe*
+* A *"service recipe":/guide/developing/service_recipe* describes the following information:
+** General: The service name, service type, number of service instances, and the service icon filename
+** Compute: Hardware and software requirements
+** "Lifecycle events":/guide/developing/lifecycle_events: Maps events to handling scripts or closures and, as such, is the most important part of the service recipe
+** Custom commands: Maps custom events to handling scripts that can be invoked as commands using the Cloudify shell
+** Plugins: Liveness and Monitoring plugins
+** UI layout: The layout for the collected metrics to display in Cloudify's web management console
+<h4 class="info">In future releases, Cloudify will also support "*provided services*". These services are not provisioned by Cloudify and are only monitored for availability.</h4>
 
-* Additional Groovy or shell scripts that handle the different lifecycle events of the entire application, or of each service
-* Optionally, custom monitoring and port liveness detection plugins for technologies that are not covered by the built-in plugins
-<img src="/guide/images/recipes/recipe_ingrid.png"/>
+h2. Overview
 
-h1. Basic Concepts
+Application recipes are the execution plans for installing, starting, orchestrating, and monitoring your application stack without changing the application's code or architecture. Cloudify uses the following recipes types:
 
-* Cloudify is built to onboard and manage *applications*.
-* An *application* is a set of *services*, and each *service* is a cluster of a an *application tier* (e.g. cluster of Tomcats service instances)
-* Each Service is installed, managed and monitored by a <b>Service Recipe</b>.
-* The <b>Application Recipe</b> sets the application name and the service inter-dependencies
-* Future release will also support <b>provided services</b>(where the tier is only monitored for availability) by Cloudify
-* The mandatory part of the recipe is the <b>life-cycle events</b> section - it maps events to scripts
+|_. Recipe type |_. Description |
+| Application | An application recipe is comprised of the application descriptor file and the recipes for the services it requires. |
+| Service | Each service recipe is comprised of the service descriptor file, handler scripts, optional monitoring plugins, an optional service icon file, and an optional recipe parameter file. |
 
-h1. Lifecycle Events
+To deploy an application you need a single application recipe that uses one or more service recipes to provision the services it requires. All the files that comprise the application recipe must be located in the application's recipe folder.
+!/guide/images/recipes/recipe_ingrid.png!
 
-Cloudify supports lifecycle events at 3 levels:
-* Application level - these events are invoked typing commands in the Cloudify Shell
-* Service level events - these are supported through the Service Recipe
-* Service Instance level events - these are the most important ones. Also supported through the service recipe
-* Service and Service instance custom events - are like built in life-cycle events but discussed separately.
-
-h1. The input folder structure
-
-<img src="/guide/images/recipes/recipe_folder.png"/>
-
+The following diagram depicts the application's recipe folder structure.
+!/guide/images/recipes/recipe_folder.png!
