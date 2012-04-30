@@ -3,47 +3,111 @@ layout: default
 title: Lifecycle Events
 category: Developing Recipes
 publish: true
-abstract: Describes the order of events in Cloudify application and service lifecycle
+abstract: Describes the events in the Cloudify application and service lifecycles
 pageord: 4
-
 ---
-p. Describes the Various Life Cycle Events in the Application Lifecycle
 
-h1. Lifecycle Events Overview
+This topic describes the events that comprise the Cloudify application and service lifecycles.
 
-<h4 class="warn">Known Limitation: In case your start script returns, Cloudify will consider your service instance dead and will attempt re-installing it.
-To avoid this undesired behavior, please make your start script sleep forever.
-We are working on a fix to this limitation.</h4>
+h2. Lifecycle Events Overview
 
-Cloudify supports lifecycle events at three levels:
-* Application level events - these events are invoked typing commands in the Cloudify Shell
-* Service level events - these are supported through the Service Recipe
-* Service Instance level events - these are the most important ones. Also supported through the service recipe
-* Service and Service instance custom events - are like built in life-cycle events but discussed separately.
+h4(warn). Known Limitation: In case your start script returns, Cloudify will treat your service instance as having stopped and will therefore attempt to provision it again. To avoid this behavior, make sure your start script sleeps forever.
 
-h1. Application level events
+Cloudify supports the following types of lifecycle events:
+* "Application events":#application--These are built-in events that are invoked by typing commands at the Cloudify shell prompt.
+* "Service events":#service--These are events described in the service recipe that are invoked by the ESM(Elastic Service Manager).
+* "Service instance events":#instance--These are the most important events described in the service recipe that are invoked by the ESM.
+* "Custom events":/guide/developing/custom_commands--These are custom events described in the service recipe that are invoked by typing commands at the Cloudify shell prompt.
 
-Application level events are not currently supported by the Application recipe. They are invoked through the shell and are not subject to customization.
+When a lifecycle event is invoked, an "event handler":#handler script is run to perform the actions required by the the event. For example, if an installation event is invoked by the ESM, the corresponding installation event handler described in the service descriptor file is run.
 
-There are two events:
+h2(#application). Application Events
 
-Application installation - Installing the application service and starting them by order of dependencies. this process starts when the user types the install-application command on the shell.
- More information bout the application installation can be found under the Application Recipe section.
+Application events are built-in to Cloudify and currently cannot be customized in the application recipe. They are invoked by typing commands at the Cloudify shell prompt.
 
-Application uninstallation - Shutting down the application services and removing the installations and the VMs by order of dependencies. This process starts when the user types the uninstall-application command on the shell.
+There are two application events:
+* Application install - To install an application, at the Cloudify shell prompt, type: @*install-application* <applicationName>@. This command provisions the required application services, starts the services in order of dependencies, and then installs the application.
+* Application uninstall - To uninstall an application, at the Cloudify shell prompt, type: @*uninstall-application* <applicationName>@. This command unistalls the application, stops the services and unprovisions the services in order of dependencies.
+
 <img src="/guide/images/recipes/app_lifecycle.png"/>
 
-h1. Service level events
+h2(#service). Service Events
 
-Cluster-level, or service-level, lifecycle events can be customized in the Service Recipe. They are triggered by the ESM. 
-These events are useful for doing something just before any service instances have been installed or after the last service instance had been shutdown and the cluster is about to be shutdown. 
-They can run on either specific nodes or all nodes.
+Service events can be customized in the service recipe. They are triggered by the ESM. These events are useful for performing tasks just before service instances are provisioned, or after the last service instance is unprovisioned but just before the cluster is shut down. They can run on all or specific nodes.
+
+The following diagram shows the service events lifecycle.
 <img src="/guide/images/recipes/srvc_lifecycle1.png"/>
 
-h1. Service Instance level events
+h2(#instance). Service Instance Events
 
-Each service instance has the following lifecycle events that can be customized.
+Each service instance can be customized in the service recipe. They are triggered by the ESM.
+
+The following diagram shows the service instance events lifecycle.
 <img src="/guide/images/recipes/instance_lifecycle.png"/>
 
-In addition, custom lifecycle events can be added and invoked from the Cloudify shell. For more information see custom lifecycle events.
+h2(#handler). Lifecycle Event Handlers
 
+Lifecycle event handlers are described in the @lifecycle@ section of the service descriptor file. They can be described as an external script file located in the same folder as the service recipe (supported formats include: Groovy scripts, Windows batch files, or Linux/Unix shell scripts), or as inline closures (useful when the required code is very short code). You can use scripts written in other languages by running them from within a supported external script file, providing them with context using environment variables.
+
+The following is a list of lifecycle events to which event handlers can be allocated:
+
+* init
+* preInstall
+* install
+* postInstall
+* preStart
+* postStart
+* preStop
+* postStop
+* shutdown
+* preServiceStart
+* preServiceStop
+
+The following example shows a @lifecycle@ section describing the allocation of event handlers to lifecycle events.
+<script src="https://gist.github.com/1760256.js?file=Lifecycle.groovy"></script>
+
+In some cases, you require a recipe that can run on several operating systems. 
+The following example shows a @lifecycle@ section describing the allocation of operating system specific event handlers to life cycle events.
+<script src="https://gist.github.com/1760265.js?file=mult_lifecycle.groovy"></script>
+
+h3. Retrieving the Service Context from within Event Handlers
+
+The service context can be retrieved from within event handler scripts or closures using the "Service Context API":/guide/developing/the_service_context_api. The following example shows how to use the ServiceContextFactory to retrieve an instance of the service context in a Groovy event handler script:
+<pre class="prettyprint"> 
+  import org.cloudifysource.dsl.context.ServiceContextFactory
+  ...
+  def context = ServiceContextFactory.getServiceContext() 
+</pre>
+
+h4(warn). You can only use the SeviceContextFactory from within an external Groovy file, and not from within the service descriptor file.
+
+To access the context's instanceId, simply use the @context@ variable used to retieve an instance of the service context, as follows:
+<pre class="prettyprint"> 
+ def instanceId = context.instanceId
+</pre> 
+
+<h4 class="info">
+Non-JVM based executables cannot directly access to the service context. However, some of the context's information is available via the following environment variables:
+<ul><li>LOOKUPGROUPS</li>
+<li>LOOKUPLOCATORS</li>
+<li>USM_CLUSTER_NAME</li>
+<li>USM_APPLICATION_NAME</li>
+<li>USM_SERVICE_NAME</li>
+<li>USM_PU_UNIQUE_NAME</li>
+<li>USM_INSTANCE_ID</li>
+<li>USM_NUMBER_OF_INSTANCES</li>
+<li>USM_RUNNING_NUMBER</li>
+<li>USM_SERVICE_FILE_NAME</li></ul></h4>
+
+<img src="/guide/images/recipes/context_injection.png"/>
+
+h3. Best Practices: Lifecycle Event Handlers
+
+When describing lifecycle event handlers, the best approach is to divide and conquer. Divide the task into simple logical steps, completing each step before starting the next step, for example:
+
+|_. Event |_. Task Step |
+| preInstall | Get the service binaries |
+| install | Unzip the service binaries |
+| postInstall | Tweak configuration files as required |
+
+This methodology makes recipes easier to maintain and troubleshoot. Additionally, by designing external event handler scripts in this way, you can reuse then in different application recipes.
