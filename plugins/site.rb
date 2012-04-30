@@ -51,7 +51,7 @@ module Jekyll
             payload["page_categories"][category] = pages.sort {|p1, p2| p1["pageord"] <=> p2["pageord"]}
         end		
 		
-		payload["categories"]=["Getting Started","Product Overview","Installation & Setup","Bootstrapping","Developing Recipes","Deploying Services & Applications","Undeployment","Monitoring Your Applications","Developing Cloud Drivers", "Plugins and Probes","API","Recipe Reference","Release Notes","Contribute","FAQ"]
+		payload["categories"]=["Getting Started","Product Overview","Installation & Setup","Bootstrapping","Developing Recipes","Deploying Services & Applications","Undeployment","Monitoring Your Applications","Developing Cloud Drivers", "Plugins and Probes","API","Recipe Reference","Release Notes","Contributing","FAQ"]
 					
         h["site"] = payload		
         h
