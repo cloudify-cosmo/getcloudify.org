@@ -3,24 +3,15 @@ layout: default
 title: Recipe Parameterization
 category: Developing Recipes
 publish: true
-abstract: Describes how to parameterize a recipe and externalize key configuration elements
+abstract: Describes how to use same recipe in different environments using parameters  
 pageord: 5
-
 ---
 
-p. Describes how to run the same recipe in different environments using parameters
+When designing recipes, we recommend that you create *environment agnostic* service descriptor files so that the recipe can run in different environment. This is easily achieved using a Java *properties* file to define keys that you can use as parameters in your service descriptor file.
 
+The properties file must be saved in the same folder as the service descriptor file, and we recommend using the following naming convention: @<myRecipe>-service.properties@ (e.g. jboss-service.properties). The keys are defined using a simple @Key=Value@ notation (e.g. @myKey=myValue@) and can be used in DSL closures as string parameters. They can also be used in other strings using the @${Key}@ notation (e.g. @${myKey}@).
 
-Recipes need to be environment agnostic!
-
-In some cases there are user set values that needs to be changed from one run to another
-
-For this end, recipes can be parameterized using a java properties file with the naming convention of myrecipe-service.properties (e.g. jboss-service.properties)
-
-Use a simple key=value notation (e.g. key1=value1 in the file)
-
-The values in the file will be available in the DSL closures as string parameters you can use. They are also available in other strings using the format $\{key1\}.
-
+The following shows an example properties file and a section of its corresponding service descriptor file that uses the defined keys as parameters.
 <script src="https://gist.github.com/1767665.js?file=service_params.groovy"></script>
 
 <script src="https://gist.github.com/1767627.js?file=using_params.groovy"></script>
