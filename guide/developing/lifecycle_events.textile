@@ -17,13 +17,12 @@ Cloudify supports the following types of lifecycle events:
 * "Application events":#application--Built-in Cloudify events that are invoked by typing commands at the Cloudify shell prompt.
 * "Service events":#service--Events described in the service recipe that are invoked by the ESM(Elastic Service Manager).
 * "Service instance events":#instance--The most important lifecycle events described in the service recipe, that are invoked by the ESM.
-* "Custom events":/guide/developing/custom_commands--Custom events described in the service recipe that are invoked by typing commands at the Cloudify shell prompt.
 
 When a lifecycle event is invoked, an "event handler":#handler script, which performs the actions required by the the event, is run. For example, if an installation event is invoked by the ESM, the corresponding installation event handler (described in the service descriptor file) is run.
 
 h2(#application). Application Events
 
-Application events are built-in to Cloudify and currently cannot be customized in the application recipe. They are invoked by typing commands at the Cloudify shell prompt.
+Application events are built-in to Cloudify and currently cannot be customized in the application recipe. They are invoked by typing commands at the Cloudify shell prompt, which perform various tasks such as copying recipes to management machines, and then triggers the corresponding built-in application event.
 
 There are two application events:
 * Application install - To install an application, at the Cloudify shell prompt, type: @<b>install-application</b> <applicationName>@. This command provisions the required application services, starts the services in order of dependencies, and then installs the application.
