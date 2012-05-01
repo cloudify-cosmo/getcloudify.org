@@ -17,13 +17,12 @@ Cloudify supports the following types of lifecycle events:
 * "Application events":#application--Built-in Cloudify events that are invoked by typing commands at the Cloudify shell prompt.
 * "Service events":#service--Events described in the service recipe that are invoked by the ESM(Elastic Service Manager).
 * "Service instance events":#instance--The most important lifecycle events described in the service recipe, that are invoked by the ESM.
-* "Custom events":/guide/developing/custom_commands--Custom events described in the service recipe that are invoked by typing commands at the Cloudify shell prompt.
 
 When a lifecycle event is invoked, an "event handler":#handler script, which performs the actions required by the the event, is run. For example, if an installation event is invoked by the ESM, the corresponding installation event handler (described in the service descriptor file) is run.
 
 h2(#application). Application Events
 
-Application events are built-in to Cloudify and currently cannot be customized in the application recipe. They are invoked by typing commands at the Cloudify shell prompt.
+Application events are built-in to Cloudify and currently cannot be customized in the application recipe. They are invoked by typing commands at the Cloudify shell prompt, which perform various tasks such as copying recipes to management machines, and then triggers the corresponding built-in application event.
 
 There are two application events:
 * Application install - To install an application, at the Cloudify shell prompt, type: @<b>install-application</b> <applicationName>@. This command provisions the required application services, starts the services in order of dependencies, and then installs the application.
@@ -33,7 +32,7 @@ There are two application events:
 
 h2(#service). Service Events
 
-Service events can be customized in the service recipe. They are triggered by the ESM. These events are useful for performing tasks just before service instances are provisioned, or after the last service instance is unprovisioned but just before the cluster is shut down. They can run on all or specific nodes.
+Service events can be customized in the service recipe. They are triggered by the ESM. These events are useful for performing tasks just before service instances are provisioned, or after the last service instance is unprovisioned but just before the cluster is shut down. They can run on all or specific service instances.
 
 The following diagram shows the service events lifecycle.
 <img src="/guide/images/recipes/srvc_lifecycle1.png"/>
@@ -47,7 +46,7 @@ The following diagram shows the service instance events lifecycle.
 
 h2(#handler). Lifecycle Event Handlers
 
-Lifecycle event handlers are described in the @lifecycle@ section of the service descriptor file. They can be described as an external script file located in the same folder as the service recipe (supported formats include: Groovy scripts, Windows batch files, or Linux/Unix shell scripts), or as inline closures (useful when the required code is very short code). You can use scripts written in other languages by running them from within a supported external script file, providing them with context using environment variables.
+Lifecycle event handlers are described in the @lifecycle@ section of the service descriptor file. They can be described as an external script file located in the same folder as the service recipe (supported formats include: Groovy scripts, Windows batch files, or *nix shell scripts), or as inline closures (useful when the required code is very short code). You can use scripts written in other languages by running them from within a supported external script file, providing them with context using environment variables.
 
 The following is a list of lifecycle events to which event handlers can be allocated:
 
@@ -64,7 +63,7 @@ The following is a list of lifecycle events to which event handlers can be alloc
 * @preServiceStop@
 
 The following example shows a @lifecycle@ section describing the allocation of event handlers to lifecycle events.
-<script src="https://gist.github.com/1760256.js?file=Lifecycle.groovy"></script>
+<script src="https://gist.github.com/2566219.js?file=lifecycle.groovy"></script>
 
 In some cases, you require a recipe that can run on several operating systems. 
 The following example shows a @lifecycle@ section describing the allocation of operating system specific event handlers to life cycle events.
@@ -72,12 +71,8 @@ The following example shows a @lifecycle@ section describing the allocation of o
 
 h3. Retrieving the Service Context from within Event Handlers
 
-The service context can be retrieved from within event handler scripts or closures using the "Service Context API":/guide/developing/the_service_context_api. The following example shows how to use the @ServiceContextFactory@ to retrieve an instance of the service context in a Groovy event handler script:
-<pre class="prettyprint"> 
-  import org.cloudifysource.dsl.context.ServiceContextFactory
-  ...
-  def context = ServiceContextFactory.getServiceContext() 
-</pre>
+The service context can be retrieved from within event handler scripts or closures using the "Service Context API":/guide/developing/the_service_context_api. The following example shows how to use @ServiceContextFactory@ to retrieve an instance of the service context in a Groovy event handler script:
+<script src="https://gist.github.com/1700385.js?file=getServiceContext.groovy"></script>
 
 h4(warn). You can only use the @ServiceContextFactory@ from within an external Groovy file, and not from within the service descriptor file.
 

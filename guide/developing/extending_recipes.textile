@@ -6,26 +6,40 @@ publish: true
 abstract: Explains how to create new recipe from existing one by overriding only the elements you wish modify
 pageord: 6
 ---
-p. Cloudify recipes are like object oriented classes. they can be extended, inheriting the parent recipe functionality
 
-h1. Why Extending in the First Place?
+Cloudify recipes are like object-oriented classes in that they can be extended.
 
-In many scenarios, you may want to create a new service which is based on an already existing service, overriding only parts of it with your own modifications. For example you may want to use the Tomcat recipe that's provided out of the box (under &lt;@Cloudify installation root@&gt;) with a few modifications without needing to copy the existing recipe and all its relevant content.
+h2. Why Extend?
 
+In many scenarios, you may want to create a new service which is based on an already existing service, overriding only parts of it with your own modifications. For example, you may want to use the Tomcat recipe (included in the Cloudify distribution under @<cloudifyInstallationFolder>@) with a few modifications, without needing to copy the existing recipe and all of its relevant content.
 
-h1. Extending Recipes
+Cloudify provides this mechanism by allowing you to extend recipes. Extending recipes allows new recipes to inherit elements from their parent recipes and only describe elements they want to ovverride.
 
-Extending recipe is quite simple - create a new service recipe file (e.g. {{my-tomcat-service.groovy}}) that extends the already existing one.
-To do so, you should use the “extend” keyword in the new service recipe in the following manner:
+h2. How does Extending Work?
 
-<script src="https://gist.github.com/1821880.js?file=service.groovy"></script>
+Extending recipes follows the following simple rules:
+* *Recursion*--The extend mechanism is recursive, which means that one service can extend another service, that extends a third service, and so on.
+* *Inheritance*--Each extension level inherits from its parent only if a more specific element does not exist in the child recipe.
 
-The extend key word must appear first in the service block for the extension to work properly.
-All the recipe properties which do not appear inside the new recipe are taken from the extended (or parent) service recipe. All the files from the extended service directory will be copied upon installation to the new service deployment directory. If there are files with the same name in the new service directory, they will be used instead. The extend mechanism is recursive, which means that one service can extend another service that extends a third service, and so on. Each level of extension respects the above rules, where more specific elements override the same elements in parent recipes.
-Extension works for any of the elements of a service recipe, whether top-level ones (e.g. {{lifecycle}} or more specific ones (e.g. @lifecycle -> init@. For example consider the following parent recipe:
+Thus, a new recipe inherits all attributes and files from its parent recipes only if the attributes or files do not exist in the new recipe.
 
+h4(info). When copying files from a parent recipe to a child recipe, they are copied to the child service's deployment folder.
+
+Extending recipes works for any of the elements of a service recipe, whether they are top-level elements (e.g. @lifecycle@) or more specific elements (e.g. @lifecycle -> init@).
+
+For example, consider the following parent service recipe:
 <script src="https://gist.github.com/1821896.js?file=service.groovy"></script>
 
-The extending service can for example add stop behavior and/or change only the init behavior while keeping the postStart behavior of the extended service.
+The extending service recipe can, for example, add the @preStop@ event handler and/or change only the @init@ event handler, while keeping the @postStart@ event handler of the extended service.
 
-<script src="https://gist.github.com/1821900.js?file=service.groovy"></script>
+<script src="https://gist.github.com/2566234.js?file=service.groovy"></script>
+
+h2. Extending Recipes
+
+Cloudify makes extending a recipe easy.
+
+h3. To extend a recipe
+# In your application recipe, create a new service recipe file (e.g. @my-tomcat-service.groovy@).
+# In the service block, specify the @extend@ attribute using the path to the service recipe being extended as its value, as follows:
+<script src="https://gist.github.com/1821880.js?file=service.groovy"></script>
+<h4 class="warn">For the extension to work, the @extend@ attribute must be the first attribute in the service block.</h4>
