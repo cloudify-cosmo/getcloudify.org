@@ -1,71 +1,59 @@
 ---
 layout: default
-title: Using Custom Commands
+title: Custom Commands
 category: Developing Recipes
 publish: true
 abstract: Describes the custom commands mechanism and usage
 pageord: 9
 ---
 
-h1. Custom Commands - What They Are and What They're Good for
+When a custom command is invoked using the Cloudify shell, it runs the corresponding custom command handler described in the service descriptor file.
 
-In many cases, you want fine grained control over your application service, which is not limited to the built in "lifecycle events":/guide/developing/lifecycle_events. These command can be invoked using the interactive shell, and in the future also the web based UI. Cloudify has a mechanism called "Custom Commands" that allows you to define these commands using Groovy closures, Groovy scripts, or even shell scripts. The commands can be parameterized, so you can transfer parameters to them upon invocation.
-This can be a very effective mechanism to implement various application-level concerns, such as hot upgrades (e.g. replacing a .war file with another and refreshing the web container), database schema updates and more.
+h2. Why use Custom Commands?
 
-h1. Defining a Custom Command
+In many scenarios, you may want to have greater control over your application service than is provided by the built-in "lifecycle events":/guide/developing/lifecycle_events. For example, you may want to implement various application-level concerns, such as hot upgrades (e.g. replacing a @.war@ file, and then refreshing the web container), database schema updates, and more.
 
-Custom commands are defined in a customCommands section in your service recipe. They can contain an array of commands.
-Here are some general examples:
+Cloudify provides this mechanism by allowing you to describe *Custom Commands* using Groovy closures, external Groovy scripts, or external shell/batch scripts. The commands can be parameterized, and are invoked using the Cloudfy shell. 
 
-h3. * Using a Groovy Script / Shell or Batch Script
+h2. Describing a Custom Command
 
+Custom commands are described in @customCommands@ sections of your service descriptor file. Each @customCommands@ section can contain one or more commands defined as an array.
+
+The following example shows the @customCommands@ sections for allocating an external Groovy script, shell script, and batch script.
 <script src="https://gist.github.com/1723535.js?file=custom1.groovy"></script>
 
-h3. * Printing parameters to the console of the executing cloudify agent
-
-The following YOUR_COMMAND_NAME receives two parameters (firstName and lastName) 
-todo: and then it prints the content of firstName_lastName.txt.
+The following example describes the @customCommands@ section for a command using a Groovy closure that take two parameters.
 <script src="https://gist.github.com/1723545.js?file=customCommands2.groovy"></script>
 		
+h4(warn). When using user-defined Java libraries in your Groovy closures or scripts, make sure you the relevant @import@ statement, and place the corresponding @jar@ files in the @usmlib@ folder of the service.
 
-<h4 class="warn">When using user-defined Java libraries in your Groovy closures or scripts, make sure to use proper import statement where appropriate, and place the relevant jar files in the usmlib directory of the service for which the commands were defined.</h4>
+h4(warn). Any external script invoked by the custom command must be copied to the service folder.
 
-<h4 class="warn">Any external script invoked by the custom command should be includes in the service folder.</h4>
-
-h1. Where to Place the {{customCommands}} Section in Your Service Recipe
-
-The @customCommands@ section should be placed in the prolog (main) section of the relevant <br/>service file (&lt;service name>-service.groovy). Here's an example:
+The @customCommands@ section must be located in the @service@ section of the relevant service descriptor file (@<service name>-service.groovy@). The following example shows the @customCommands@ section after the @lifecycle@ section, in the @service@ section.
 <script src="https://gist.github.com/2267558.js?file=tomcat.groovy"></script>
 
-h1. Invoking Custom Commands
+h2. Invoking Custom Commands
 
-h3. Invoking from the Interactive Shell
-
-During the "installation and deployment":/guide/deploying/deploying_apps of your application, the custom commands that you specified in the recipe, will be registered for later use.
-After your application is up and running, you can activate any of the custom commands at any time from the interactive shell.
+During the "deployment":/guide/deploying/deploying_apps of your application, the custom commands that you specified in the recipe are registered. Once your application is up and running, you can invoke custom commands at any time from the Cloudify shell.
 	
-Here's how to invoke a custom command that requires no parameters:
-&nbsp;&nbsp;&nbsp; *@invoke ServiceName customCommandName@*
+To invoke a custom command that does have parameters, at the Cloudify shell prompt, type: *@invoke@* @ServiceName customCommandName@
 
-Here's how to invoke a custom command that requires two parameters (x and y):	
-&nbsp;&nbsp;&nbsp; *@invoke ServiceName customCommandName x y@*
+To invoke a custom command that has two parameters, at the Cloudify shell prompt, type: *@invoke@* @ServiceName customCommandName x y@
 
-Consider the following scenario:
-* You on-boarded your application to a cloud with Cloudify.
-* Your application includes one tomcat service.
+For example, let's consider the following scenario:
+* You used Cloudify to on-boarded your application, which includes a Tomcat service, to a cloud.
 * After the installation, you fixed a bug in your web application.
-* You want to update the .war file without taking own the Tomcat server or its containing VM. In other words, you want to avoid redeploying the entire application.
+* You want to update the @.war@ file without taking down the Tomcat service, or its host VM. In other words, you want to avoid redeploying the entire application.
 
-Custom command can be leveraged to implement this scenario:
-* During installation, your tomcat service file should include the following section, which defines an "UpdateWar" custom command:
+h3. To implement the update, you can perform the following taks
 
-<script src="https://gist.github.com/1723735.js?file=update_warcc.groovy"></script>
-
-* The tomcat service folder should contain the update_war.groovy script, here's its content:
+* Describe the following *updateWar* custom command in the @customCommands@ section of the tomcat service descriptor file, *BEFORE* you deploy your application.
+  <script src="https://gist.github.com/1723735.js?file=update_warcc.groovy"></script>
+* Add the following @update_war.groovy@ script to the Tomcat service folder.
   <script src="https://gist.github.com/1723340.js?file=update_war.groovy"></script>
-* When you'd like to update the .war file:
-** Start the Cloudify interactive shell.
-** Type: *@connect REST-ADMIN-SERVER-URL@*
-** Type: *@use-application YOUR-APP-NAME@*
-** Type  *@invoke tomcat updateWar@* and wait for the command to complete.
-** If all goes well, your new war should now deployed.
+* At the Cloudify shell, invoke the @updateWar@, as follows:
+** Type: *@connect@* @REST-ADMIN-SERVER-URL@ (to connect to the management machine)
+** Type: *@use-application@* @YOUR-APP-NAME@ (to set the current application context)
+** Type  *@invoke@* @tomcat updateWar@
+
+Once the command finishes, the new @war@ file should be deployed.
