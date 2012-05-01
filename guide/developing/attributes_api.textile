@@ -19,8 +19,8 @@ The following example shows the assignment of @myValue@ to the @myKey@ attribute
 h2. The API syntax
 
 The following list shows the syntax for assigning values to attributes of applications, services, and service instances:
-* <b>@context.attributes.thisInstance.myKey@</b> @= "myValue"@--Assigns @myValue@ to the <b>@myKey@</b> attribute of the current service instance context. This is equivalent to: <b>@context.attributes.thisInstance["myKey"]@</b>@  = "myValue"@
-* <b>@context.attributes.thisService.myKey@</b>@ = "myValue"@--Assigns @myValue@ to the <b>@myKey@</b> attribute of the current service context. Note: There is only one <b>@myKey@</b> attribute per service context. Therefore, any updates to its value by any instance of any service, will overwrite the value.
+* <b>@context.attributes.thisInstance.myKey @</b>@= "myValue"@--Assigns @myValue@ to the <b>@myKey@</b> attribute of the current service instance context. This is equivalent to: <b>@context.attributes.thisInstance["myKey"]@</b>@  = "myValue"@
+* <b>@context.attributes.thisService.myKey @</b>@= "myValue"@--Assigns @myValue@ to the <b>@myKey@</b> attribute of the current service context. Note: There is only one <b>@myKey@</b> attribute per service context. Therefore, any updates to its value by any instance of any service, will overwrite the value.
 * <b>@context.attributes.thisApplication.myKey@</b>@ = "myValue@--Assigns @myValue@ to the <b>@myKey@</b> attribute of the current application context. Note: There is only one <b>@myKey@</b> attribute in a entire application context. Therefore, any updates to its value by any instance of any service, will overwrite the value.
 
 A service instance can read or modify any of the attributes of other service instances and services. This is done by specifying the service name instead of @thisService@. For example:
