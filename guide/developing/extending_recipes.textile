@@ -28,9 +28,9 @@ Extending recipes works for any of the elements of a service recipe, whether the
 For example, consider the following parent service recipe:
 <script src="https://gist.github.com/1821896.js?file=service.groovy"></script>
 
-The extending service recipe can, for example, add @stop@ behavior and/or change only the @init@ behavior, while keeping the @postStart@ behavior of the extended service.
+The extending service recipe can, for example, add the @preStop@ event handler and/or change only the @init@ event handler, while keeping the @postStart@ event handler of the extended service.
 
-<script src="https://gist.github.com/1821900.js?file=service.groovy"></script>
+<script src="https://gist.github.com/2566234.js?file=service.groovy"></script>
 
 h2. Extending Recipes
 
