@@ -17,8 +17,9 @@ This guide teaches you how to:
 * "Understand the Recipe":#step3
 * "Deploy the Recipe":#step4
 * "Monitor the Application":#step5
-* "Uninstall the Application":#step6
-* "Teardown the Local Cloud":#step7
+* "Scale the Application":#step6
+* "Uninstall the Application":#step7
+* "Teardown the Cloud":#step8
 
 h2. About the Pet Clinic Application
 
@@ -106,7 +107,7 @@ h1(#step3). Step 3 - Understand the Recipe
 
 Before deploying the application, you must configure the recipe that will be used for the deployment. In this example, we have already configured this for you; Therefore, recipe can be used as-is without any further configuration and you can proceed to the next step. However, we recommend you read this step to gain an understanding of the recipe, and optionally configure the number of service instances used by the services defined in the recipe.
 
-Recipes are the execution plans for installing, starting, orchestrating, and monitoring your application stack without changing the application code or architecture. The deployment files and folders are located in the application's recipe folder, in our example @<cloudify root>/examples/petclinic@. The following is a list of the application recipe's files and folders that are used to deploy the PetClinic application:
+Recipes are the execution plans for installing, starting, orchestrating, and monitoring your application stack without changing the application code or architecture. The deployment files and folders are located in the application's recipe folder, in our example @<cloudify root>/recipes/apps/petclinic@. The following is a list of the application recipe's files and folders that are used to deploy the PetClinic application:
 * The application descriptor file: @petclinic-mongo-application.groovy@
 * The Configuration Server (mongoConfig) recipe folder
 * The Shards (mongod) recipe folder
@@ -189,7 +190,7 @@ The Mongo Config Server (mongoConfig) Server recipe does the following:
 * Detects whether the server started successfully by using the MongoLivenessDetector plugin
 * Collects metrics (Active Read Clients, Active Write Client, etc.) for displaying in the Cloudify web management console
 
-The mongo-config service file is @<cloudify root>/examples/petclinic/mongoConfig/mongoConfig-service.groovy@. 
+The mongo-config service file is @<cloudify root>/recipes/apps/petclinic/mongoConfig/mongoConfig-service.groovy@. 
 
 h3. The Mongo Sharding Server (mongos) Recipe 
 
@@ -201,7 +202,7 @@ The Mongo Router (mongos) recipe does the following:
 * Uses the serviceContext API to detect the host address and port for the mongoConfig and the mongod services, and configures sharding accordingly.
 * Collects metrics (Active Read Clients, Active Write Client, etc.) for displaying in the Cloudify web management console
 
-The mongos service file is @<cloudify root>/examples/petclinic/mongos/mongos-service.groovy@.
+The mongos service file is @<cloudify root>/recipes/apps/petclinic/mongos/mongos-service.groovy@.
 
 h3. The Mongo Data Shards (mongod) Recipe
 
@@ -212,7 +213,7 @@ The Mongo Data Shards (mongod) Recipe does the following:
 * Detects whether the server started successfully by using the MongoLivenessDetector plugin
 * Collects metrics (Active Read Clients, Active Write Client, etc.) for displaying in the Cloudify web management console
 
-The @mongod@ service file is @<cloudify root>/examples/petclinic/mongod/mongod-service.groovy@.
+The @mongod@ service file is @<cloudify root>/recipes/apps/petclinic/mongod/mongod-service.groovy@.
 
 h3. The Tomcat Recipe
 
@@ -223,7 +224,7 @@ The Tomcat Recipe does the following:
 * Detects whether the server started successfully by using the PortLivnessDetector plugin to check port 8080
 * Monitors Tomcat performance by using the JMX Monitoring plugin
 
-The tomcat service file is @<cloudify root>/examples/petclinic/tomcat/tomcat-service.groovy@.
+The tomcat service file is @<cloudify root>/recipes/apps/petclinic/tomcat/tomcat-service.groovy@.
 
 h3. Configuring @tomcat@ with the @mongod@ port
 
@@ -233,7 +234,7 @@ Firstly, the Mongo Data Shards recipe exposes the details of the @mongod@ servic
 
 <script src="https://gist.github.com/1698917.js?file=exposeMongosService.groovy"></script>
   
-Then the Tomcat recipe (@<cloudify root>/examples/petclinic/tomcat/tomcat_start.groovy@) retrieves the data, as follows:
+Then the Tomcat recipe (@<cloudify root>/recipes/apps/petclinic/tomcat/tomcat_start.groovy@) retrieves the data, as follows:
 
 <script src="https://gist.github.com/1698923.js?file=retrieveMongosServie.groovy"></script>
 
@@ -242,7 +243,7 @@ Once this is completed, the @tomcat@ service instance knows the host address and
 
 h1(#step4). Step 4 - Deploy the Recipe
 
-Now that you are more familiar with the recipe mechanism, let's deploy the application. At the Cloudify shell prompt, type: *install-application* @-timeout 50 <cloudify root>/examples/petclinic@
+Now that you are more familiar with the recipe mechanism, let's deploy the application. At the Cloudify shell prompt, type: *install-application* @-timeout 50 <cloudify root>/recipes/apps/petclinic@
 
 h4(warn). Currently the Cloudify shell does not support backslashes so you must use a forward slash (@/@) as your path separator even if you are running on Windows.
 
@@ -272,13 +273,42 @@ In the lower pane, you can navigate between several views:
 
 <img src="/guide/images/setup/petClinic_in_webui_screenShot2.jpg" width="630" height="300"/>
 
-h1(#step6). Step 6 - Uninstall the Application
+h1(#step6). Step 6 - Scale the Application
+
+Cloudify supports two methods for scaling a service: 
+# "Manual Scaling":#ms1
+# "Automatic Scaling":#sr1
+
+
+h2(#ms1). Manual Scaling 
+
+Cloudify also enables you to set the number of service instances manually.
+If you want to set the number of service instances manually, type the following command in the Cloudify Shell: *set-instances service-name number-of-required-instances*. 
+
+h4(info). In order to enable manual scaling, you must set the *elastic* attribute to true in the service file.
+
+
+In the following example, Cloudify adjusts the number of tomcat service instances to three.
+If the tomcat service has *two* instances prior to invoking the following command, it *increases* the number of tomcat service instances to three and if the tomcat service has *five* instances prior to invoking the following command, it *decreases* the number of tomcat service instances to three.
+
+*set-instances tomcat 3*
+
+h2(#sr1). Automatic Scaling (Scaling Rules)
+
+Cloudify enables each service to define one scaling rule for deciding if the service needs to scale out or scale in. For example, Cloudify can decide based on the average number of busy threads, to increase the number of tomcat service instances or to decrease it.
+
+Here's a snippet of a tomcat service file : 
+<script src="https://gist.github.com/2580529.js?file=mini_tomcat_auto_scaling.groovy"></script>
+
+If you want to read more about Scaling rules, click "here":/guide/developing/scaling_rules.
+
+h1(#step7). Step 7 - Uninstall the Application
 
 To uninstall the application, at the Cloudify shell prompt, type: *uninstall-application* @petclinic@
 
-h1(#step7). Step 7 - Teardown the Local Cloud
+h1(#step8). Step 8 - Teardown the Cloud
 
-To shut down the local cloud installation, at the Cloudify shell prompt, type: *teardown-cloud* @ec2@
+To shut down your cloud installation, at the Cloudify shell prompt, type: *teardown-cloud* @ec2@
 
 h1. What's Next?
 
