@@ -36,6 +36,7 @@ When the relevant cloud driver receives a request to bootstrap a cloud, it perfo
 # Allocates a machine from the pool of available machines defined in the management machine template
 # Connects to the allocated machine via SSH
 # Installs and starts the Cloudify management components (Cloudify controller and the relevant cloud driver)
+
 !/guide/images/bootstrapping/bootstrap_cloud.png!
 
 h3. Provisioning Machines for Application Services
@@ -45,6 +46,7 @@ When the Cloudify controller receives a request to install an application, it re
 # Connects to the allocated machine via SSH
 # Installs and starts the Cloudify agent
 # Initiates the installation of the service using the relevant service installation script
+
 !/guide/images/bootstrapping/install_app.png!
 
 h4(warn). When allocating a machine, if there aren't any machines available in the pool, the following error message is displayed: @Failed to create a new cloud node for template <your template name>, all available nodes are currently used@
@@ -75,7 +77,7 @@ For information about how to configure specific cloud environments, see the rele
 
 h2. Bootstrapping
 
-The bootstrapping process has the following steps:
+The following procedure descirbes the steps for bootstrapping a cloud and an application:
 # Starting the Cloudify shell--For information about running the Cloudify shell, see "Installing the Cloudify Shell":/guide/setup/installing_the_cloudify_client.
 # Starting the bootstrapping process for provisioning machines for Cloudify management--At the Cloudify shell prompt, type the relevant command to bootstrap your cloud. The commands for specific cloud environments are provided in their relevant topics.
 # Starting the bootstrapping process for provisioning machines for application services--At the Cloudify shell prompt, type the relevant command for installing your application. For example, to install the PetClinic application, type: *@install-application@* @-timeout 10 <cloudify root>/examples/petclinic-simple@.
