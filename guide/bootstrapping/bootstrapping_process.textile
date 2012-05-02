@@ -36,7 +36,7 @@ When the relevant cloud driver receives a request to bootstrap a cloud, it perfo
 # Allocates a machine from the pool of available machines defined in the management machine template
 # Connects to the allocated machine via SSH
 # Installs and starts the Cloudify management components (Cloudify controller and the relevant cloud driver)
-!/guide/images/bootstraping/bootstrap_cloud.png!
+!/guide/images/bootstrapping/bootstrap_cloud.png!
 
 h3. Provisioning Machines for Application Services
 
@@ -45,7 +45,7 @@ When the Cloudify controller receives a request to install an application, it re
 # Connects to the allocated machine via SSH
 # Installs and starts the Cloudify agent
 # Initiates the installation of the service using the relevant service installation script
-!/guide/images/bootstraping/install_app.png!
+!/guide/images/bootstrapping/install_app.png!
 
 h4(warn). When allocating a machine, if there aren't any machines available in the pool, the following error message is displayed: @Failed to create a new cloud node for template <your template name>, all available nodes are currently used@
 If this happens, the application installation does not revert, and the Cloudify controller continually retries until a machine becomes available.
