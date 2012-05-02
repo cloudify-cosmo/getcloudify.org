@@ -13,6 +13,14 @@ h1. Overview
 
 h4. Below is a list of new features, improvements, fixed issues, and known issues in Cloudify.
 
+"Cloudify 2.1.0 GA":#ga21  - published on May 2, 2012
+This milestone contains the following key improvements:
+* Scaling rules - Enables services to define scaling rules for scaling out or shrinking in. 
+* The Cloudify Interactive Shell now offers an improved user experience: Cloud bootstrapping, Application installation and uninstallation, as well as cloud teardown. These improvements facilitate progress tracking and simplify troubleshooting and recipe debugging.
+
+
+<hr/>
+
 "Cloudify 2.1.0 RC":#rcm5  - published on April 18, 2012
 This milestone contains the following key improvements:
 * Scaling rules - Enables services to define scaling rules for scaling out or shrinking in. 
@@ -43,6 +51,47 @@ This milestone contains the following key improvements:
 "Cloudify 2.0.0 GA":#rcm2  - published on Jan 11, 2012
 
 <hr/>
+
+
+h1(#ga21). Cloudify 2.1.0 GA
+
+h3. New Features and Improvements
+
+|_. ID |_. Description |_. Components |
+|CLOUDIFY-511 | Fix all URLs to point to the new online repositories | Packaging |
+|CLOUDIFY-724 | Reorder recipes folders | Packaging |
+|CLOUDIFY-660 | Support automatic scaling number of instances based on thresholds | REST |
+|CLOUDIFY-523 | Allow user to download Cloudify sources and build a full Cloudify zip locally | Packaging |
+|CLOUDIFY-747 | Change the mongo pet-clinic applications to inherit the service implementation | CLI |
+|CLOUDIFY-767 | service instance installation timeout is too short. | REST |
+|CLOUDIFY-753 | mongos poststart groovy files throws null pointer if mongod is not installed | CLI |
+|CLOUDIFY-695 | Add a lightweight version of Pet-Clinic | Packaging |
+
+
+h3. Fixed Issues
+
+|_. ID |_. Description |_. Components |
+|CLOUDIFY-586 | Leaked floating IP on openstack if failed to attach IP to server | Cloud Driver |
+|CLOUDIFY-657 | Stack trace is being displayed in the CLI when not in verbose mode | CLI |
+|CLOUDIFY-727 | Petclinic-simple tomcat updateWar does not work properly | CLI |
+|CLOUDIFY-730 | Upgrade mongo recipe based on petclinic-simple changes | CLI |
+|CLOUDIFY-731 | Windows driver search files under GS\tools\cli\plugins\esc\ec2\upload\*.* instead of GS\tools\cli\plugins\esc\ec2-win\upload\*.* | Cloud Driver |
+|CLOUDIFY-735 | Remote_rest_gateway_exception is received when I installed the PetClinic | CLI USM |
+|CLOUDIFY-756 | polling remote server on rackspace and hp openstack runs without polling interval | ESC |
+|CLOUDIFY-757 | DSLException in the REST when deploying an app/service on byon | Cloud Driver |
+|CLOUDIFY-748 | Uninstall and teardown does not stop the machines on openstack and Rackspace | ESC |
+|CLOUDIFY-734 | The Pet Clinic recipe fails when using extend in mongo* services | CLI ESC USM |
+|CLOUDIFY-711 | Installing servers (for application deployment) copies the entire gigaspaces zip and extracted folder, not required at all. | Cloud Driver |
+|CLOUDIFY-768 | Cloud groovy files contain our key-pair value (cloud-demo) instead of a place holder (ENTER_KEY_PAIR_NAME) | Cloud Driver |
+|CLOUDIFY-582 | ESM cannot start a new service - loop after restarting new service | USM |
+|CLOUDIFY-581 | Teardown cloud keeps machine running on the cloud | USM |
+|CLOUDIFY-483 | Increase default ESM memory to 256MB when upgrading from 8.0.6 to 9.0.0 | CLI |
+|CLOUDIFY-605 | install-application does not work with eager mode (azure) | REST |
+
+
+<br/>
+"Back to top":#top
+
 
 h1(#rcm5). Cloudify 2.1.0 RC
 

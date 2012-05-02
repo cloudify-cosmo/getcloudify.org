@@ -1,0 +1,60 @@
+---
+layout: default
+title: Using Scaling Rules
+category: Developing Recipes
+publish: false
+abstract: Describes the Scaling Rules mechanism and usage
+pageord: 1200
+---
+
+h2. Scaling services
+
+Cloudify supports two methods of scaling a service:
+# "Automatic Scaling":#sr1
+# "Manual Scaling":#ms1
+
+
+h2(#sr1). Automatic Scaling (Scaling Rules)
+
+Cloudify enables each service to define one scaling rule for deciding if the service needs to scale out or shrink in. For example, a tomcat service can decide based on the average of busy threads, to increase the cluster size (i.e. the number of service instances) or to decrease it.
+
+h4(info). In the current version, you can only describe one scaling rule per service.
+
+
+h2. The Scaling Rule Flow
+
+<img src="/guide/images/recipes/scale_rule_flow.jpg"/>
+
+h2. The Scaling Rule's Elements
+
+* *Metrics* - Scaling rules are based on metrics defined by a recipe and are collected by the various java or groovy plugins from the application service.
+The following are available:
+** Any custom KPI (Key Performance Indicator)-  For example : JMX attributes
+** Sampling rates - For example : the number of requests per second.
+* *Statistic* - A scaling rule relates to a whole cluster that contains one or more instances of a service.
+The following are available: 
+** Avg/min/max/percentile
+** Time range
+* *Thresholds* - The rule has upper and lower thresholds. 
+When the metric value is above the upper threshold, Cloudify increases the number of provisioned service instances.
+When the metric value is below the lower threshold, Cloudify decreases the number of provisioned service instances.
+
+
+h2. Scaling rules syntax
+
+<script src="https://gist.github.com/2566833.js?file=tomcat_auto_scaling.groovy"></script>
+
+
+h2(#ms1). Manual Scaling 
+
+Cloudify also enables you to set the number of service instances manually.
+In the following example, Cloudify will adjust the number of tomcat service instances to three.
+If the tomcat service has *two* instances prior to invoking the following command, it will *increase* that number to three and if the tomcat service has *five* instances prior to invoking the following command, it will *decrease* that number to three.
+
+*@set-instances tomcat 3@*
+
+In order to enable manual scaling, you must set the *elastic* attribute to true in the service file.
+
+Here's a snippet of a tomcat service file : 
+<script src="https://gist.github.com/2567663.js?file=tomcat_manual_scaling.groovy"></script>
+
