@@ -7,28 +7,22 @@ abstract: Explains how to specify SLA elements per application service, e.g. ini
 pageord: 12
 ---
 
-p. The recipe allows each service to specify its initial SLA and Resource Requirements
+Cloudify service recipes can describe the initial SLA and resource requirements for each service.
 
-h1. Specifying Service SLA
+h2. Specifying Service SLA
 
-Eache Service can declare its initial SLA in the service recipe. The SLA is declared as number of minimal instances Cloudify should start and keep.
-Cloudify will not declare the installation of this service successful unless the specified number of instances has been validated by the specific Startup Plugin / Probe declared by the Service
-In case of an unfunctional instance (discovered using the Stop Detection Plugin / Probe), Cloudify will attempt to reinstall and start the instance. In case of a crushed VM, Cloudify will instruct the Cloud API to provision a new VM and will install
-the service on the new provisioned VM.
+You can describe the initial service SLA for each service as the minimum number of service instances Cloudify must start and maintain for the service. Cloudify does not consider the installation of the service successful, unless the specified number of service instances have started and been verified (using the startup validation plugin declared in the service descriptor file).
 
-The following snippet shows how to decalre the SLA, using the numInstances attribute
+If Cloudify detects that a service's minimum number of service instances are not running, Cloudify will attempt to heal by reinstalling and starting the service instance again. If Cloudify detects that a service instance's VM has stopped responding, Cloudify provisions a new VM for the service instance.
+
+The following example shows how to describe the SLA using the @numInstances@ attribute.
 <script src="https://gist.github.com/1704790.js?file=gistfile1.groovy"></script>
 
+h2. Specifying Resource Requirements
 
+Cloudify is designed to decouple applications from their host cloud, thereby making cloud portability simple. Cloudify provides this mechanism by describing an application's resource requiremnts as a Cloudify template, rather than as a specific cloud image ID or cloud hardware ID.
 
-h1. Specifying Resource Requirements
+Cloudify templates are sections of configuration in the Cloud Driver configuration file that describe specific OS images and hardware profiles (as well as firewall definitions and security considerations) using specific cloud terminology. The Cloudify distribution file contains Cloud Drivers with a variety of predefined templates that can be added to, or modified, as required.
 
-Cloudify is designed to decouple applications from Cloud so Cloud Portability is simple and there is no lock-in risk. In order to do so, the application service recipe declares the resource requiremnts
-refering to a Cloudify template, rather than to specific cloud image ID or to specific cloud hardware ID.
-Cloudify Tempaltes are blocks of configuration in the Cloud Driver configuration file, that specify specific OS Images and hardware profiles as well as firewall definitions and security considerations, in specific cloud dialect.
-Cloudify Cloud Driver comes with a variety of predefined templates but the Cloudify administrator can add as many templates as needed.
-
-The Recipe developer needs to add the compute block to the service recipe in order to reference a template
-
+To use a Cloud Driver template, simply add it to the @compute@ section located in the @General@ section of the service descriptor file. The following example shows a service using the @BIG_LINUX_32@ template.
 <script src="https://gist.github.com/1704794.js?file=gistfile1.groovy"></script>
-
