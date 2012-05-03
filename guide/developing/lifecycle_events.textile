@@ -25,8 +25,8 @@ h2(#application). Application Events
 Application events are built-in to Cloudify and currently cannot be customized in the application recipe. They are invoked by typing commands at the Cloudify shell prompt, which perform various tasks such as copying recipes to management machines, and then triggers the corresponding built-in application event.
 
 There are two application events:
-* Application install - To install an application, at the Cloudify shell prompt, type: @<b>install-application</b> <applicationName>@. This command provisions the required application services, starts the services in order of dependencies, and then installs the application.
-* Application uninstall - To uninstall an application, at the Cloudify shell prompt, type: @<b>uninstall-application</b> <applicationName>@. This command uninstalls the application, stops the services and unprovisions the services in order of dependencies.
+* Application install - To install an application, at the Cloudify shell prompt, type: *@install-application@* *<applicationName>@. This command provisions the required application services, starts the services in order of dependencies, and then installs the application.
+* Application uninstall - To uninstall an application, at the Cloudify shell prompt, type: *@uninstall-application@* @<applicationName>@. This command uninstalls the application, stops the services and unprovisions the services in order of dependencies.
 
 <img src="/guide/images/recipes/app_lifecycle.png"/>
 
@@ -77,9 +77,7 @@ The service context can be retrieved from within event handler scripts or closur
 h4(warn). You can only use the @ServiceContextFactory@ from within an external Groovy file, and not from within the service descriptor file.
 
 To access the context's instanceId, simply use the @context@ variable used to retieve an instance of the service context, as follows:
-<pre class="prettyprint"> 
- def instanceId = context.instanceId
-</pre> 
+<script src="https://gist.github.com/2568113.js?file=getInstanceId.groovy"></script>
 
 <h4 class="info">
 Non-JVM based executables cannot directly access the service context. However, some of the context's information is available to them via the following environment variables:

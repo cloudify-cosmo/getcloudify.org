@@ -22,14 +22,14 @@ Custom commands are described in @customCommands@ sections of your service descr
 The following example shows the @customCommands@ sections for allocating an external Groovy script, shell script, and batch script.
 <script src="https://gist.github.com/1723535.js?file=custom1.groovy"></script>
 
-The following example describes the @customCommands@ section for a command using a Groovy closure that take two parameters.
+The following example describes the @customCommands@ section for a command using a Groovy closure that has two parameters.
 <script src="https://gist.github.com/1723545.js?file=customCommands2.groovy"></script>
 		
 h4(warn). When using user-defined Java libraries in your Groovy closures or scripts, make sure you the relevant @import@ statement, and place the corresponding @jar@ files in the @usmlib@ folder of the service.
 
 h4(warn). Any external script invoked by the custom command must be copied to the service folder.
 
-The @customCommands@ section must be located in the @service@ section of the relevant service descriptor file (@<service name>-service.groovy@). The following example shows the @customCommands@ section after the @lifecycle@ section, in the @service@ section.
+The @customCommands@ section must be located in the "@General@":/guide/developing/service_recipe section of the relevant service descriptor file (@<service name>-service.groovy@). The following example shows the @customCommands@ section after the @lifecycle@ section, in the @General@ section of the service desciptor file.
 <script src="https://gist.github.com/2267558.js?file=tomcat.groovy"></script>
 
 h2. Invoking Custom Commands
@@ -54,6 +54,6 @@ h3. To implement the update, you can perform the following taks
 * At the Cloudify shell, invoke the @updateWar@, as follows:
 ** Type: *@connect@* @REST-ADMIN-SERVER-URL@ (to connect to the management machine)
 ** Type: *@use-application@* @YOUR-APP-NAME@ (to set the current application context)
-** Type  *@invoke@* @tomcat updateWar@
+** Type:  *@invoke@* @tomcat updateWar@
 
 Once the command finishes, the new @war@ file should be deployed.
