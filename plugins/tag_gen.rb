@@ -1,7 +1,7 @@
 # Code based on http://mikewest.org/2009/11/my-jekyll-fork
 # forked from http://github.com/rfelix/my_jekyll_extensions
 
-require 'AOP'
+require 'aop'
 
 module Jekyll
  

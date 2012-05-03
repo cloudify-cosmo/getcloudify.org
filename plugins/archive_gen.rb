@@ -1,6 +1,6 @@
 # Code based on http://mikewest.org/2009/11/my-jekyll-fork
 
-require 'AOP'
+require 'aop'
 
 module Jekyll
 
