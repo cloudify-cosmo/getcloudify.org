@@ -1,6 +1,6 @@
 ---
 layout: default
-title: Using Scaling Rules
+title: Scaling Rules
 category: Developing Recipes
 publish: true
 abstract: Describes the Scaling Rules mechanism and usage
@@ -17,8 +17,6 @@ Cloudify supports two methods for scaling a service:
 h2(#sr1). Automatic Scaling (Scaling Rules)
 
 Cloudify enables each service to define one scaling rule for deciding if the service needs to scale out or scale in. For example, Cloudify can decide based on the average number of busy threads, to increase the number of tomcat service instances or to decrease it.
-
-h4(info). In the current version, you can only describe one scaling rule per service.
 
 
 h3. The Scaling Rule Flow
@@ -43,8 +41,7 @@ Scaling rules have upper and lower thresholds, they are based on metrics defined
 h3. Scaling rules syntax
 
 <script src="https://gist.github.com/2566833.js?file=tomcat_auto_scaling.groovy"></script>
-
-<br/>
+h4(info). In the current version, you can only describe one scaling rule per service.
 
 h2(#ms1). Manual Scaling 
 
