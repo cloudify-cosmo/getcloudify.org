@@ -21,16 +21,16 @@ Once the bootstrapping pocess connects to an allocated machine, it uploads the f
 The following table describes the startup scripts for bootstrapping *nix and Windows, management and application service machines.
 
 |_. Script |_. OS |_. Type |_. Description |
-| @bootstrap-management.sh@ | *nix | Shell | This script is used for provisioning both management and application service machines, and performs the following tasks as required:
+| @bootstrap-management.sh@ | *nix | Shell | This script is used for bootstrapping both management and application service machines, and performs the following tasks as required:
 <ul><li>Downloads the Cloudify distrubtion file</li>
 <li>Installs Java (required to run the Cloudify agent)</li>
 <li>Installs Cloudify</li>
 <li>Runs the Cloudify agent</li></ul> |
-| @bootstrap-management.ps1@ | Windows | PowerShell | This script is used for provisioning management machines, and performs the following tasks:
+| @bootstrap-management.ps1@ | Windows | PowerShell | This script is used for bootstrapping management machines, and performs the following tasks:
 <ul><li>Downloads the Cloudify distrubtion file</li>
 <li>Installs Java (required to run the Cloudify agent)</li>
 <li>Installs Cloudify</li></ul> |
-| @bootstrap-client.ps1@ | Windows | PowerShell | This script is used for provisioning application service machines, and performs the following tasks:
+| @bootstrap-client.ps1@ | Windows | PowerShell | This script is used for bootstrapping application service machines, and performs the following tasks:
 <ul><li>Downloads the Cloudify distrubtion file</li>
 <li>Installs Java (required to run the Cloudify agent)</li>
 <li>Installs Cloudify</li>
@@ -101,4 +101,4 @@ For information about how to configure specific cloud environments, see the rele
 * "Configuring Azure":/guide/bootstrapping/bootstrapping_azure
 * "Configuring EC2":/guide/bootstrapping/bootstrapping_ec2
 * "Configuring OpenStack Cloud":/guide/bootstrapping/bootstrapping_hp
-* "Configuring a Tradiional Data Center (BYON)":/guide/bootstrapping/bootstrapping_byon
+* "Configuring a Traditional Data Center [BYON]":/guide/bootstrapping/bootstrapping_byon
