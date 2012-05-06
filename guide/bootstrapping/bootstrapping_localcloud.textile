@@ -11,16 +11,16 @@ A local cloud is a full-fledged cloud emulation environment that allows the user
 
 h2. Prerequisites
 
-Before you bootstrp your local cloud, make sure that your environment meets all the minimum requirements. For more information, see the "Prerequisites":/guide/bootstrapping/bootstrapping_process#prereqs section of the Bootstrapping Process topic.
+Before you bootstrp your local cloud, make sure that your environment meets all the minimum requirements. For more information, see "Prerequisites":/guide/bootstrapping/bootstrapping_process#prereqs.
 
 h2. Bootstrapping
 
-Bootstrapping the Local Cloud is extremely simple, just follow steps 1 & 2 of the "bootstrapping":/guide/bootstrapping/bootstrapping_process#boot section in the Bootstrapping Process topic, typing the following command: @bootstrap-localcloud@
+Bootstrapping the Local Cloud is extremely simple, just follow the "bootstrapping":/guide/bootstrapping/bootstrapping_process#boot procedure, typing the following command in step 2: @bootstrap-localcloud@
 
-h4(warn). If you exit the shell, the local cloud is not teared down and it will continue running until your explicitly "teardown" the local cloud:#tear. If this happens, to teardown the cloud, start the Cloudify shell, and then at the prompt, type @connect localhost@ to connect. This will reconnect the shell to the local cloud environment.
+h4(warn). If you exit the shell, the local cloud is not teared down and it will continue running until your explicitly "teardown":#tear the local cloud. If this happens, to teardown the cloud, start the Cloudify shell, and then at the prompt, type @connect localhost@. This will reconnect the shell to the local cloud environment.
 
 h2(#tear). Teardown
 
 To shut down the local cloud environment, at the Cloudify shell prompt, type: *@teardown-localcloud@*
 
-h4(info). This uninstalls application, and shuts down all local cloud processes running on your machine.
+h4(info). This uninstalls applications and shuts down all local cloud processes running on your machine.
