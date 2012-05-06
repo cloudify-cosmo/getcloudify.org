@@ -16,17 +16,29 @@ The bootstrapping process is responsible for allocating machines (virtual or phy
 # Connects to the allocated machine via SSH
 # Installs and starts the relevant components
 
-Once the bootstrapping pocess connects to an allocated machine, it uploads the files required to bootstrap the machine. These usually includes a startup script (@<cloudifyInstallationFolder>/tools/cli/plugins/esc/<cloudProviderName>/upload/bootstrap-management.sh), and any required files such as an SSH key file. Once the files are uploaded, the bootstrap script is run.
+Once the bootstrapping pocess connects to an allocated machine, it uploads the files required to bootstrap the machine. These usually includes a startup script and any required files such as an SSH key file located in the upload folder (@<cloudifyInstallationFolder>/tools/cli/plugins/esc/<cloudProviderName>/upload@). Once the files are uploaded, the relevant bootstrap script is run.
 
-The bootstrap-management.sh script is performs for the following tasks:
-* Downloads the Cloudify distrubtion file
-* Installs Java (required to run the Cloudify agent)
-* Installs Cloudify
-* Runs the Cloudify agent
+The following table describes the startup scripts for bootstrapping *nix and Windows, management and application service machines.
+
+|_. Script |_. OS |_. Type |_. Description |
+| @bootstrap-management.sh@ | *nix | Shell | This script is used for provisioning both management and application service machines, and performs the following tasks as required:
+<ul><li>Downloads the Cloudify distrubtion file</li>
+<li>Installs Java (required to run the Cloudify agent)</li>
+<li>Installs Cloudify</li>
+<li>Runs the Cloudify agent</li></ul> |
+| @bootstrap-management.ps1@ | Windows | PowerShell | This script is used for provisioning management machines, and performs the following tasks:
+<ul><li>Downloads the Cloudify distrubtion file</li>
+<li>Installs Java (required to run the Cloudify agent)</li>
+<li>Installs Cloudify</li></ul> |
+| @bootstrap-client.ps1@ | Windows | PowerShell | This script is used for provisioning application service machines, and performs the following tasks:
+<ul><li>Downloads the Cloudify distrubtion file</li>
+<li>Installs Java (required to run the Cloudify agent)</li>
+<li>Installs Cloudify</li>
+<li>Runs the Cloudify agent</li></ul> |
 
 Bootstrapping a management machine will start the Cloudify controller processes, whereas bootstrapping an application's service instance machine will only launch the Cloudify agent. The Cloudify agent enables the Cloudify controller to use the service instance machine to install and scale services.
 
-h4(info). The bootstrapping script is aimed at handling the most common installation scenario, but some clouds, especially private clouds, require more tweaking to work correctly. By editing the bootstrap-management.sh script, you can modify the bootstrapping process to match their requirements.
+h4(info). The bootstrapping script is aimed at handling the most common installation scenario, but some clouds, especially private clouds, require more tweaking to work correctly. By editing the @bootstrap-management.sh@ script, you can modify the bootstrapping process to match their requirements.
 
 The following sections describe the bootstrapping process for the supported machine types.
 
@@ -51,7 +63,7 @@ When the Cloudify controller receives a request to install an application, it re
 
 h4(warn). When allocating a machine, if there aren't any machines available in the pool, the following error message is displayed: @Failed to create a new cloud node for template <your template name>, all available nodes are currently used@
 If this happens, the application installation does not revert, and the Cloudify controller continually retries until a machine becomes available.
-*To stop this process, at the Cloudify shell prompt, kill the install command (@Ctrl-C@), and then run the corresponding uninstall command.*
+To stop this process, at the Cloudify shell prompt, kill the install command (@Ctrl-C@), and then run the corresponding uninstall command.
 
 h2. Bootstrapping Prerequisites
 
@@ -73,7 +85,7 @@ Additionally, different cloud environments have their own specific configuration
 * The Cloudify distrubtion file location when its saved locally
 * The cloud environment via its management console (credentials, certificates, ...)
 
-For information about how to configure specific cloud environments, see the relevant topic in the "Bootstrapping":/guide/bootstrapping menu.
+For information about how to configure specific cloud environments, see the "Next Steps":/guide/bootstrapping section.
 
 h2. Bootstrapping
 
@@ -81,3 +93,12 @@ The following procedure descirbes the steps for bootstrapping a cloud and an app
 # Starting the Cloudify shell--For information about running the Cloudify shell, see "Installing the Cloudify Shell":/guide/setup/installing_the_cloudify_client.
 # Starting the bootstrapping process for provisioning machines for Cloudify management--At the Cloudify shell prompt, type the relevant command to bootstrap your cloud. For example, to provision a local cloud, type: *@bootstrap-localcloud@*. The commands for specific cloud environments are provided in their relevant topics.
 # Starting the bootstrapping process for provisioning machines for application services--At the Cloudify shell prompt, type the relevant command for installing your application. For example, to install the PetClinic application, type: *@install-application@* @-timeout 10 <cloudify root>/examples/petclinic-simple@.
+
+h2(#next). Next Steps
+
+For information about how to configure specific cloud environments, see the relevant topic from the following list:
+* "Configuring a Local Cloud":/guide/bootstrapping/bootstrapping_localcloud
+* "Configuring Azure":/guide/bootstrapping/bootstrapping_azure
+* "Configuring EC2":/guide/bootstrapping/bootstrapping_ec2
+* "Configuring OpenStack Cloud":/guide/bootstrapping/bootstrapping_hp
+* "Configuring a Tradiional Data Center (BYON)":/guide/bootstrapping/bootstrapping_byon
