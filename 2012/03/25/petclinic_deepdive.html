@@ -454,7 +454,7 @@ A &#8220;service&#8221; in this context is an application tier &#8211; e.g. web 
 	<li>Detects a successful startup using the MongoLivenessDetector plugin</li>
 	<li>Looks for metrics (Active Read Clients, Active Write Client etc.) to be displayed in the Web UI.</li>
 </ul>
-<p>The mongod service file is located at &lt;cloudify root&gt;/examples/petclinic/mongod/mongod-service.groovy.</p>
+<p>The mongod service file is located at &lt;cloudify root&gt;/recipes/apps/petclinic/mongod/mongod-service.groovy.</p>
 <p>The following is the installation event handler of the mongod service:<br />
 <script src="https://gist.github.com/1999961.js?file=mongod_install.groovy"></script></p>
 <p>And here&#8217;s the start event handler of the mongod service:<br />
@@ -468,7 +468,7 @@ A &#8220;service&#8221; in this context is an application tier &#8211; e.g. web 
 	<li>Detects a successful startup using the MongoLivenessDetector plugin.</li>
 	<li>Looks for metrics (Active Read Clients, Active Write Client etc.) to be displayed in the Web UI.</li>
 </ul>
-<p>The mongo-config service file is located at &lt;cloudify root&gt;/examples/petclinic/mongoConfig/mongoConfig-service.groovy.</p>
+<p>The mongo-config service file is located at &lt;cloudify root&gt;/recipes/apps/petclinic/mongoConfig/mongoConfig-service.groovy.</p>
 <p>The installation event handler of the mongoConfig service is similar to the mongod service.<br />
 Here&#8217;s the start event handler of the mongoConfig service:<br />
 <script src="https://gist.github.com/2001221.js?file=mongoConfig_start.groovy"></script></p>
@@ -482,13 +482,13 @@ Here&#8217;s the start event handler of the mongoConfig service:<br />
 	<li>Looks for host address and port of the mongoConfig service (using the serviceContext <span class="caps">API</span>) and the Mongo data shards (mongod), and configures sharding.</li>
 	<li>Looks for metrics (Active Read Clients, Active Write Client etc.) to be displayed in the Web UI.</li>
 </ul>
-<p>The mongos service file is located at &lt;cloudify root&gt;/examples/petclinic/mongos/mongos-service.groovy.</p>
+<p>The mongos service file is located at &lt;cloudify root&gt;/recipes/apps/petclinic/mongos/mongos-service.groovy.</p>
 <p>The installation event handler of the mongos service is similar to the mongod service.<br />
 Here&#8217;s the start event handler of the mongos service:<br />
 <script src="https://gist.github.com/2012345.js?file=mongos_start.groovy"></script></p>
 <p>And here&#8217;s the post start event handler of the mongos service:<br />
 <script src="https://gist.github.com/2015626.js?file=mongos_postStart.groovy"></script></p>
-<p>Now, the tomcat service can retrieve the data in &lt;cloudify root&gt;/examples/petclinic/tomcat/tomcat_start.groovy</p>
+<p>Now, the tomcat service can retrieve the data in &lt;cloudify root&gt;/recipes/apps/petclinic/tomcat/tomcat_start.groovy</p>
 <script src="https://gist.github.com/1698923.js?file=retrieveMongosServie.groovy"></script><p>From this point, the tomcat service instance knows the host address and port of the mongos service instance.</p>
 <p>As you can see, by using Cloudify, you are now able to quickly shard and manage MongoDB on the cloud of your choice.</p>
 <p>For more information on Mongo sharding with Cloudify visit <a href="http://www.cloudifysource.org/cloudifysourcetv">Cloudify In Action</a> online demo.<br />
