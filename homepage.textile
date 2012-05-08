@@ -1,335 +1,190 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
-        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml">
-<head>
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>	
-    <title>Cloudify - Community Home Page</title>
-    <link rel="stylesheet" href="/css/template.css" type="text/css"/>    
-	<link rel="canonical" href="http://www.cloudifysource.org/homepage"/>	
-	<link rel="shortcut icon" href="/favicon.ico" type="image/x-icon" />
-	<script src="scripts/jquery-1.7.1.js" type="text/javascript"></script>    
-    <script type="text/javascript" src="/scripts/search.js"></script>    	   
-    <script src="/scripts/widget.js" type="text/javascript"></script>
-    <script type="text/javascript" >
-    window.onload = function () {
-	$('body').addClass("bodyClass");
-     }
-    $(function() {
-        //this script display text note when you hover one of the img at homePage
-		$('.sec-discusBox').hide();
+---
+layout: homepage
+category: home
+---                
+            
+                <div class="clear"></div>
 
-			$('.tblSections td').hover(function() { 
-		  	$(this).children('.replaceWrape').children('img').fadeOut('300');
-		  	$(this).children('.replaceWrape').children('.sec-discusBox').fadeIn('100'); 
 
-		},
-		 function() { $(this).children('.replaceWrape').children(".sec-discusBox").fadeOut('300'); 
-		            $(this).children('.replaceWrape').children('img').fadeIn('100');
-		});							  
-
-    });
-	</script>
-
-    <script type="text/javascript" src="/scripts/cloudify_default.js"></script>
-    <script type="text/javascript">
-        var _gaq = _gaq || [];
-        _gaq.push(['_setAccount', 'UA-29063606-1']);
-        _gaq.push(['_trackPageview']);
-
-        (function() {
-            var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
-            ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
-            var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
-        })();
-        
-
-    </script>
-    
-
-</head>
-<body>
-<div class="WrapperBg">
-	<div class="theOpenPass">
-		<a href="/guide/overview/cloudify_intro">The Open PaaS Stack</a>
-	</div>
-
-  <a class="fork-guide" target="_blank" href="https://github.com/CloudifySource/cloudify"></a>    
-  <div class="Wrapper">
-   <div class="header">
-    <a class="logo" href="/"></a>
-    <div class="clear"></div>
-            <div class="topMenu">
-                <ul class="_topmenu">
-                    <li class="topmenuli"><a class="bgMenu1" href="http://forums.cloudifysource.org/forums"><span class="title1">Discuss & Suggest</span><span class="title2">Support Forums</span></a></li>
-                    <li class="sep"></li>
-                    <li class="topmenuli"><a class="bgMenu2" href="/guide/qsg/quick_start_guide"><span class="title1">Learn</span><span class="title2">Knowledge Base</span></a></li>
-                    <li class="sep"></li>
-                    <li class="topmenuli"><a class="bgMenu3" href="/participate"><span class="title1">Participate</span><span class="title2">Events & Webinars</span></a></li>
-                    <li class="sep"></li>
-                    <li class="topmenuli"><a class="bgMenu4" href="/blog"><span class="title1">Read</span><span class="title2">Blog Posts & Updates</span></a></li>
-                    <li class="sep"></li>
-                    <li class="topmenuli"><a class="bgMenu5" href="/cloudifysourcetv"><span class="title1">Watch</span><span class="title2">Watch & Learn</span></a></li>
-                    <li class="sep"></li>
-                    <li class="topmenuli"><a class="bgMenu6" href="/guide/contribute/how_to"><span class="title1">Develop</span><span class="title2">Get Involved</span></a></li>
-
-		</ul>
-		<div class="clear"></div>
-	</div>
-</div>
-
-<!-- Tooltip Container -->
-<div class="overlay">
-<div class="overlayFrame">
-<div style="width:100%;height:25px;align:left;"><img src="/images/close.png" id="closeBut"/></div>
-<div><span id="desc"></span><br/>
- <span id="required"></span><br/>
- <span id="values"></span>
- </div>
-</div>
-<img src="/images/box_edge.png" id="tipImg"/>  
-</div>
-   <div class="contentWrap">
-     <div class="breadcrumbs">Home Page</div>
-     <div class="clear"></div>  
-    <div class="hp-left-col">
-	<div class="homeSearch">
-		<h2>Community Topics</h2>
-		<div class="searchWrap">
-			<form id="searchForm" action="#" method="get">
-				<input id="search" class="search" placeholder="Search..." />
-				<input id="goBtn" class="goBtn" type="submit" value="Go" />
-			</form>
-		</div>
-	</div>
-</div>	
-
- 
- 
-     <div class="hp-right-col">
-       <a class="hp-btn-getCloudify" href="http://www.cloudifysource.org/downloads/get_cloudify"></a>
-     </div>	
-     <div class="contentWrapHome">   
-
-	 <div id="resultsDiv" class="DocumentsWrap"></div>
-                     <div class="clear"></div>
-<table class="tblSections" cellpadding="0" cellspacing="0">
-<tr>
-<td width="231">
-<div class="replaceWrape box1">
-<div class="sec-discusBox">
-Visit the Cloudify forums to join the conversation, get support, suggest new features and ideas, and help your peers find the answers they need.
-<a href="http://forums.cloudifysource.org/forums">More</a>
-</div>
-<img src="images/home/hp-Discuss-bg.png" />
-</div>
-<a class="hoverState" href="http://forums.cloudifysource.org/forums">
-<span class="secTitle">Discuss &amp; Suggest</span><br />
-<span class="sec-subTitle">Visit our support forums</span>
-</a>
-</td>
+                <table class="tblSections" cellpadding="0" cellspacing="0">
+                    <tr>
+                        <td width="231">
+                        <div class="replaceWrape box1">
+                           <div class="sec-discusBox">
+                            Visit the Cloudify forums to join the conversation, get support, suggest new features and ideas, and help your peers find the answers they need.
+                            <a href="http://forums.cloudifysource.org/forums">More</a>
+                           </div>
+                           <img src="images/home/hp-Discuss-bg.png" />
+                         </div>
+                           <a class="hoverState" href="http://forums.cloudifysource.org/forums">
+                                <span class="secTitle">Discuss & Suggest</span><br />
+                                <span class="sec-subTitle">Visit our support forums</span>
+                          </a>
+                        </td>
                         <td></td>
-<td>
-<div class="replaceWrape box2">
-<div class="sec-discusBox">
-Check out the Cloudify documentation, and learn how to get your Cloudify up and running in just a few steps.
-<br />
-<a href="/guide">More</a>
-</div>
-<img src="images/home/hp-learn-bg.png" />
-</div>
-<a  class="hoverState" href="/guide">
-<span class="secTitle">Learn</span><br />
-<span class="sec-subTitle">Learn from our knowledge base</span>
-</a>
-</td>
+                        <td>
+                        <div class="replaceWrape box2">
+                           <div class="sec-discusBox">
+                           Check out the Cloudify documentation, and learn how to get your Cloudify up and running in just a few steps.
+                            <br />
+                            <a href="http://www.cloudifysource.org/guide">More</a>
+                           </div>
+                            <img src="images/home/hp-learn-bg.png" />
+     					</div>
+                         <a  class="hoverState" href="http://www.cloudifysource.org/guide">
+                                <span class="secTitle">Learn</span><br />
+                                 <span class="sec-subTitle">Learn from our knowledge base</span>
+                           </a>
+                        </td>
                         <td></td>
-<td width="260">
-<div class="replaceWrape box3">
-<div class="sec-discusBox">
-Visit our blog and read about the latest in cloud, best practices, and new ways to leverage and customize Cloudify to your needs.
-<a href="/blog">More</a>
-</div>
-<img src="images/home/hp-read-bg.png" />
-</div>
-<a  class="hoverState" href="/blog">
-
-<span class="secTitle">Read</span><br />
-<span class="sec-subTitle">Blog Posts and Updates</span>
-</a>
-</td>
-</tr>
-<tr height="47">
+                        <td width="260">
+                        <div class="replaceWrape box3">
+                            <div class="sec-discusBox">
+                           Visit our blog and read about the latest in cloud, best practices, and new ways to leverage and customize Cloudify to your needs.
+                            <a href="http://www.cloudifysource.org/blog">More</a>
+                           </div>
+                            <img src="images/home/hp-read-bg.png" />
+						</div>
+                         <a  class="hoverState" href="http://www.cloudifysource.org/blog">
+                        
+                              <span class="secTitle">Read</span><br />
+                                 <span class="sec-subTitle">Blog Posts and Updates</span>
+                    </a>
+                        </td>
+                    </tr>
+                    <tr height="47">
                         <td>&nbsp;</td>
-</tr>
-<tr>
-<td>
-<div class="replaceWrape box1">
-<div class="sec-discusBox">
-Watch our demos and tutorials to see Cloudify in action with popular platforms and apps stacks.
-<br />
-<a href="/cloudifysourcetv">More</a>
-</div>
-<img src="images/home/hp-watch-bg.png" />
-</div>
-<a  class="hoverState" href="/cloudifysourcetv">
-<span class="secTitle">Watch</span><br />
-<span class="sec-subTitle">Visit CloudifySourceTV</span>
-</a>
-</td>
+                    </tr>
+
+                      <tr>
+                        <td>
+                        <div class="replaceWrape box1">
+                            <div class="sec-discusBox">
+                            Watch our demos and tutorials to see Cloudify in action with popular platforms and apps stacks.
+                            <br />
+                            <a href="http://www.cloudifysource.org/cloudifysourcetv">More</a>
+                           </div>
+                           <img src="images/home/hp-watch-bg.png" />
+                         </div>  
+                         <a  class="hoverState" href="http://www.cloudifysource.org/cloudifysourcetv">
+                                 <span class="secTitle">Watch</span><br />
+                                 <span class="sec-subTitle">Visit CloudifySourceTV</span>
+                          </a>
+                        </td>
                         <td></td>
-<td>
-<div class="replaceWrape box2">
-<div class="sec-discusBox">
-Wanna learn more? Register for our webinars, events, and discover how to take Cloudify to the next level.
-<br />
-<a href="/participate">More</a>
-</div>
-<img src="images/home/hp-participate-bg.png" />
-</div>
-<a  class="hoverState" href="/participate">
-<span class="secTitle">Participate</span><br />
-<span class="sec-subTitle">Join our events and webinars</span>
-</a>
-</td>
+                        <td>
+                        <div class="replaceWrape box2">
+                            <div class="sec-discusBox">
+                            Wanna learn more? Register for our webinars, events, and discover how to take Cloudify to the next level.
+                            <br />
+                            <a href="http://www.cloudifysource.org/participate">More</a>
+                           </div>
+                            <img src="images/home/hp-participate-bg.png" />
+                        </div>   
+                         <a  class="hoverState" href="http://www.cloudifysource.org/participate">
+
+                                 <span class="secTitle">Participate</span><br />
+                                 <span class="sec-subTitle">Join our events and webinars</span>
+                          </a>
+                        </td>
                         <td></td>
-<td>
-<div class="replaceWrape box3">
-<div class="sec-discusBox">
-Fork the code on GitHub, download our milestone builds, or download the free GA release from gigaspaces.com, and help us make the Cloudify user experience even better.
-<br />
-<a href="/guide/contribute/how_to">More</a>
-</div>
-<img src="images/home/hp-develop-bg.png" />
-</div>
-<a  class="hoverState" href="/guide/contribute/how_to">
-<span class="secTitle">Develop</span><br />
-<span class="sec-subTitle">Get Involved</span>
-</a>
-</td>
-</tr>
-
-</table>
-<!-- banner go  -->
-<div class="bcmAmember">
-  <h4>Become a CloudifySource Community Member Today</h4>
-  <a class="btnGoGreen" href="https://cloudifysource.zendesk.com/registration"></a>
-</div>
-<!--end banner -->
+                        <td>
+                        <div class="replaceWrape box3">
+                            <div class="sec-discusBox">
+                            Fork the code on GitHub, download our milestone builds, or download the free GA release from gigaspaces.com, and help us make the Cloudify user experience even better.
+                            <br />
+                            <a href="http://www.cloudifysource.org/downloads/get_cloudify">More</a>
+                           </div>
+                            <img src="images/home/hp-develop-bg.png" />
+                         </div>  
+                         <a  class="hoverState" href="http://www.cloudifysource.org/downloads/get_cloudify">
+                              <span class="secTitle">Develop</span><br />
+                                 <span class="sec-subTitle">Get Involved</span>
+                          </a>
+                        </td>
+                    </tr>
+                
+                </table>
 
 
-
-
-<!-- bottom right colum -->
-<div class="hp-right-col">
-<div class="hp-twitter">
-<script src="scripts/hp-twitter.js" type="text/javascript"></script>
-</div>
-<div class="hp-facebook">
+    <!-- banner go  -->
+    <div class="bcmAmember">
+      <h4>Become a CloudifySource Community Member Today</h4>
+      <a class="btnGoGreen" href="https://cloudifysource.zendesk.com/registration"></a>
+    </div>
+    <!--end banner -->
 
 
 
-
-
-<script type="text/javascript" src="http://static.ak.connect.facebook.com/js/api_lib/v0.4/FeatureLoader.js.php/en_US"></script>
-<script type="text/javascript">FB.init("1690883eb733618b294e98cb1dfba95a");</script>
-<fb:fan profile_id="7169711435" stream="0" connections="10" logobar="0" width="240" height="240" css="http://www.cloudifysource.org/css/template.css?13"></fb:fan>
-
-
-</div>
-
-
-
-
-
-
-
-
-
-
-<a href="http://www.youtube.com/watch?v=FlEXUusfTfM" >
-<img src="images/home/hp-banner1.png" class="hp-sideBanner" />
-</a>
-<a href="http://bit.ly/FPhmIn">
-<img src="images/home/hp-banner2.png" />
-</a>
-</div>
-
-  
-  
-<!-- bottom left colum -->
-<div class="hp-left-col">
-<div class="homeSearch">
+                 <!-- bottom left colum -->
+                 <div class="hp-left-col">
+                      <div class="homeSearch">
                         <h2>Recent Updates</h2>
-</div>
-<!-- update blog post -->
-<p><a href="/blog" class="hp-update-icon hp-update-blogpost">Blog Post</a></p>
-<div class="recentUpdates-box">
-<a href="/2012/05/03/mapping-the-cloudpaas-stack.html">Mapping the Cloud/PaaS Stack</a><br/>
-Cloud is evolving at an incredible pace, changing almost every aspect of our industry. It&rsquo;s only natural then, that with&#8230;
+                      </div>
 
-</div>
+                      <!-- update blog post -->
+					  
+                      <a href="/blog" class="hp-update-icon hp-update-blogpost">Blog Post</a>
+
+                      <div class="recentUpdates-box">
+                         {% for post in site.posts limit:1 %} {% include shortenedPost.html %} {% endfor %}	
+                      </div>
                       <div class="clear"></div>
-<!-- update events -->
-<p><a class="hp-update-icon hp-update-evets" href="/participate">Upcoming Events</a></p>
-<div class="recentUpdates-box">
-<a href="/participate">Event: Cloud Computing Summit at The DevOps PaaS Infusion</a><br>Join us for Cloudify-sponsored and led meetup in <span class="caps">NYC</span>&#8230;
-</div>
+                       <!-- update events -->                      
+					  <a class="hp-update-icon hp-update-evets" href="http://www.cloudifysource.org/participate">Upcoming Events</a>
+
+                      <div class="recentUpdates-box">
+                        <a href="/participate">Webinar: Manage a Sharded MongoDB Setup in the Cloud</a><br>MongoDB supports an automated sharding architecture, enabling horizontal scaling across multiple nodes...
+					  </div>
                       <div class="clear"></div>
-<!-- update news -->
-<div class="hp-update-icon hp-update-news">
-News
-</div>
-<p><div class="recentUpdates-box"><a href="https://github.com/CloudifySource/cloudify-recipes/tree/master/service-recipes/chef">Announcing Chef Integration:</a><br />Check out our new Chef integration on Github&#8230;<a href="https://github.com/CloudifySource/cloudify-recipes/tree/master/service-recipes/chef">Read More</a></p>
-</div>
+
+                       <!-- update news -->
+                      <div class="hp-update-icon hp-update-news">
+                         News
+                      </div>
+
+                      <div class="recentUpdates-box">
+                          <a href="http://rww.to/GKRysY">  ReadWriteWeb: Driver for Deploying Any App to Any Cloud Available for Free</a><br />
+			Last December, a company called GigaSpaces began demonstrating a unique kind of Java-based...<a href="http://rww.to/GKRysY">Read More</a>
+                      </div>
                       <div class="clear"></div>
-</div>  
-  
-  
+
+
+                 </div>
+
+                 <!-- bottom right colum -->
+                 <div class="hp-right-col">
+                    <div class="hp-twitter">
+                         <script src="scripts/hp-twitter.js" type="text/javascript"></script>
+                    </div>
+
+                    <div class="hp-facebook">
+                             <script src="http://static.ak.connect.facebook.com/js/api_lib/v0.4/FeatureLoader.js.php" type="text/javascript"></script>
+                                <script type="text/javascript">FB.init("1690883eb733618b294e98cb1dfba95a");</script>
+                                <!-- FBML <fb:fan profile_id="7169711435" connections="10" width="240" height="240" css="http://www.cloudifysource.org/css/template.css?13"></fb:fan>                                FBML -->
+                                <script src="scripts/fbvalidate.js" type="text/javascript"></script>
+                                
+                    </div>
+
+                    <a href="http://www.youtube.com/watch?v=FlEXUusfTfM" >
+                        <img src="images/home/hp-banner1.png" class="hp-sideBanner" />
+                    </a>
+
+                     <a href="http://bit.ly/FPhmIn">
+                         <img src="images/home/hp-banner2.png" />
+                    </a>
+                 </div>
+
+                 <div class="clear"></div>
 
 
 
-</div>
+
+            
+            
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-    <div class="clear"></div>       
-   <div class="footer">
-    <!--<ul class="footerLeftMenu">
-        <li class="footerli"><a href="#">About GigaSpaces</a></li>
-        <li class="footerli"><a href="#">Contact Us</a></li>
-    </ul> -->
-    <ul class="footerRightMenu">
-        <li class="footerli">Copyright © 2012 GigaSpaces. All rights reserved.</li>
-        <li class="footerli"><a href="/about_us">About Us</a></li>
-        <li class="footerli">|</li>
-        <li class="footerli"><a href="/terms_of_use">Terms of Use</a></li>
-        <li class="footerli">|</li>
-        <li class="footerli"> <a href="/privacy_policy">Privacy Policy</a></li>
-    </ul> 
-    <ul class="footerSocialMenu">
-        <li class="footerFb"><a href="https://www.facebook.com/GigaSpaces?sk=app_201742856511228"></a></li>
-        <li class="footerRss"><a href="/atom.xml"></a></li>
-        <!--<li class="footerMell"><a href="#"></a></li>-->
-        <li class="footerTwitt"><a href="http://www.twitter.com/cloudifysource"></a></li>
-        <li class="footerYt"><a href="http://www.youtube.com/cloudifysource"></a></li>
-    </ul>
-</div>
-  
-  </div>     
-</div>
-
-</body>
-</html>
+            <div class="clear">
+            </div>
+    
