@@ -1,26 +1,26 @@
 ---
 layout: default
-title: Bootstrapping Cloudify on local cloud
+title: Bootstrapping a Local Cloud
 category: Bootstrapping
 publish: true
 abstract: Explains how to bootstrap Cloudify on a local cloud
 pageord: 200
 ---
-h1. Starting the Cloudify Shell
 
-Cloudify shell is used to bootstrap different Cloud environments and install your applications on them. To use the shell, simple go to your Cloudify Installation root/bin folder and run cloudify.bat on windows or cloudify.sh on linux.
+A local cloud is a full-fledged cloud emulation environment that allows the user to run all Cloudify management and application services on a single machine.
 
-h1. Bootstrapping the Local Cloud
+h2. Prerequisites
 
-The Local Cloud is a development environment that allows the user to run all Cloudify management services and application services on a single machine.
-Bootstrapping the Local Cloud is extremely simple - just start the Cloudify shell and type: __bootstrap-localcloud__
+Before you bootstrap your local cloud, make sure that your environment meets all the minimum requirements. For more information, see "Bootstrapping Prerequisites":/guide/bootstrapping/bootstrapping_process#prereqs.
 
-<script src="https://gist.github.com/1744529.js?file=bootstrap_localcloud"></script>
+h2. Bootstrapping
 
-Once completed, the shell will present the URL of the Web based UI and the and the Cloudify Contoller REST endpoint. The shell automatically connects to the controller as part of the bootstrap process, so you don't need to explicitly type the @connect@ command.
+Bootstrapping the local cloud is extremely simple, just follow the "bootstrapping":/guide/bootstrapping/bootstrapping_process#boot procedure, typing the following command in step 2: *@bootstrap-localcloud@*
 
-<h4 class="warn">Note however that if you exited from the shell this will not tear down the local cloud and it will keep on running until your explicitly tear it down (see below). If you started the shell again, and want it to connect back to the local cloud type @connect localhost@. This will reconnect it to the running local cloud environment.</h4>
+h4(warn). If you exit the shell, the local cloud is not teared down and it will continue running until your explicitly "teardown":#tear the local cloud. If this happens, to teardown the cloud, start the Cloudify shell, and then at the prompt, type *@connect@* @localhost@. This will reconnect the shell to the local cloud environment.
 
-h1. Tearing-Down the Local Cloud
+h2(#tear). Teardown
 
-To terminate all resources associated with the local cloud, type __tear-down localcloud__. This will uninstall any installed application, and shut down all local cloud process running on your local machine.
+To shut down the local cloud environment, at the Cloudify shell prompt, type: *@teardown-localcloud@*
+
+h4(info). This uninstalls applications and shuts down all local cloud processes running on your machine.
