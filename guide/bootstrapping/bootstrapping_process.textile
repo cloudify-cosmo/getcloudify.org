@@ -65,7 +65,7 @@ h4(warn). When allocating a machine, if there aren't any machines available in t
 If this happens, the application installation does not revert, and the Cloudify controller continually retries until a machine becomes available.
 To stop this process, at the Cloudify shell prompt, kill the install command (@Ctrl-C@), and then run the corresponding uninstall command.
 
-h2. Bootstrapping Prerequisites
+h2(#prereqs). Prerequisites
 
 Cloudify aims to minimize the prerequisites required from a server (either virtual or physical) so that a standard operating system can run Cloudify immediately, without any specific preinstalled software. Cloudify achieves this by uploading all the files it requires during the bootstrapping process.
 
@@ -87,12 +87,13 @@ Additionally, different cloud environments have their own specific configuration
 
 For information about how to configure specific cloud environments, see the "Next Steps":/guide/bootstrapping section.
 
-h2. Bootstrapping
+h2(#boot). Bootstrapping
 
 The following procedure descirbes the steps for bootstrapping a cloud and an application:
 # Starting the Cloudify shell--For information about running the Cloudify shell, see "Installing the Cloudify Shell":/guide/setup/installing_the_cloudify_client.
 # Starting the bootstrapping process for provisioning machines for Cloudify management--At the Cloudify shell prompt, type the relevant command to bootstrap your cloud. For example, to provision a local cloud, type: *@bootstrap-localcloud@*. The commands for specific cloud environments are provided in their relevant topics.
-# Starting the bootstrapping process for provisioning machines for application services--At the Cloudify shell prompt, type the relevant command for installing your application. For example, to install the PetClinic application, type: *@install-application@* @-timeout 10 <cloudify root>/recipes/apps/petclinic-simple@.
+  <h4 class="info">Once the command completes, the URL of the Cloudify web management console and the Cloudify contoller's REST endpoint are display in the shell. Also, the shell automatically connects to the controller as part of the bootstrap process, so you don't have to explicitly type the @connect@ command.</h4>
+# Starting the bootstrapping process for provisioning machines for application services--At the Cloudify shell prompt, type the relevant command for installing your application. For example, to install the PetClinic application, type: *@install-application@* @-timeout 10 <cloudify root>/examples/petclinic-simple@.
 
 h2(#next). Next Steps
 
