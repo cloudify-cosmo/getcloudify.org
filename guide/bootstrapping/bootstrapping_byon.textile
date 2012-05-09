@@ -103,10 +103,10 @@ You can also customize the id using the parameter placeholder @{0}@ which Cloudi
 
 h3. The Custom Section
 
-This section contains custom properties that are used to extend existing drivers or create new ones.
+This section contains custom properties that are used to extend existing drivers.
 
 |_.Attribute|_.Description|
-|cleanGsFilesOnShutdown|It defines whether files/folders should be deleted when Cloudify stops a machine (occurs when Cloudify uninstalls an application or activates teardown). Values: true or false|
+|cleanGsFilesOnShutdown|It defines whether files/folders should be deleted when Cloudify stops a machine (occurs when Cloudify uninstalls an application or initiates teardown). Values: true or false|
 |itemsToClean|Lists the files/folders that need to be deleted (only if cleanGsFilesOnShutdown is set to "true").|
 
 h4(warn). These settings apply to all the deployed servers. We do not recemmend to set itemsToClean to delete the entire gigaspaces folder, because it will also remove the logs folder contained in it.
