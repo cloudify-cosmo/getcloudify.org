@@ -31,9 +31,17 @@ widgetGroup: 'A group of Widgets presenting a custom metric',
 widgetGroup_name:'The name of the group',
 widgets: 'The widgets used in the group',
 balanceGauge: 'A gauge showing the relative SD in the cluster',
-barLineChart: 'A complex chart showing bars for min-max range in the cluster and a line for cluster AVG' 
-
-
+barLineChart: 'A complex chart showing bars for min-max range in the cluster and a line for cluster AVG' ,
+elastic:'A global flag that enables changing the number of instances for this service',
+minAllowedInstances:'The minimum number of service instances. Used together with scaling rules',
+maxAllowedInstances:'The maximum number of service instances. Used together with scaling rules',
+scaleCooldownInSeconds:'The time (in seconds) that scaling rules are disabled after scale in or out',
+samplingPeriodInSeconds:'The time (in seconds) between two consecutive metric samples. Used together with scaling rules',
+metric:'The name of the metric that is the basis for the scale rule decision',
+movingTimeRangeInSeconds:'The sliding time range (in seconds) for aggregating per-instance metric samples.',
+statistics:'The algorithms for aggregating metric samples by instances and by time',
+highThreshold:'The value above which the number of instances is increased',
+lowThreshold:'The value below which the number of instances is decreased'
 }
 </script> 
 
@@ -45,19 +53,54 @@ service {
     icon "mongodb.png"
     type "NOSQL_DB"
     numInstances 2
+    elastic true
+    minAllowedInstances 1
+    maxAllowedInstances 2
+    scaleCooldownInSeconds 20
+    samplingPeriodInSeconds 1
 	
     compute {
         template "SMALL_LINUX_32"
     }
 
     lifecycle {
-        install "mongod_install.groovy"
-        start "mongod_start.groovy"			
+        init  "mongod_init.groovy"
+        preInstall  "mongod_preInstall.groovy"
+        install  "mongod_install.groovy"
+        postInstall  "mongod_postInstall.groovy"
+        preStart  "mongod_preStart.groovy"
+        start  "mongod_start.groovy"
+        postStart  "mongod_postStart.groovy"
+        preStop  "mongod_preStop.groovy"
+        postStop  "mongod_postStop.groovy"
+        shutdown  "mongod_shutdown.groovy"
+        preServiceStart  "mongod_preServiceStart.groovy"
+        preServiceStop  "mongod_preServiceStop.groovy"		
         startDetectionTimeoutSecs 60
         startDetection {
             ServiceUtils.isPortOccupied(context.attributes.thisInstance["port"])
         }
     }
+	
+    scalingRules ([
+      scalingRule {
+        serviceStatistics {
+          metric "Total Requests Count"
+          movingTimeRangeInSeconds 20
+          statistics Statistics.maximumThroughput
+        }
+
+        highThreshold {
+          value 1
+          instancesIncrease 1
+        }
+
+        lowThreshold {
+          value 0.2
+          instancesDecrease 1
+        }
+      }
+    ])	
 	
     plugins([ 	
         plugin {
