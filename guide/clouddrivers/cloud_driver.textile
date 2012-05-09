@@ -15,7 +15,6 @@ h1. Provisioning Compute Resources
 
 Cloudify uses "agentless-installation", meaning it does not require any Cloudify code to already be running on a newly allocated machine in order to use it. The Cloudify controller connects to the newly allocated machine over ssh and installs the required components on it, connecting it to the Cloudify Cluster. 
 
-<h4 class="warn">Note: On clouds other than Azure, Cloudify only supports *-nix hosts that have ssh enabled. Generic windows support is in the workings. </h4>
 
 As a result, no special VM image is required. Any *-nix image can be used, whether virtual or physical. Provisioning does not have to use a real "cloud", in future version you will even be able to use an arbitrary set of non-virtualized hosts to be used by Cloudify as required.
 
