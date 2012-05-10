@@ -40,6 +40,8 @@ Scaling rules have upper and lower thresholds, they are based on metrics defined
 
 h3. Scaling rules syntax
 
+Here is a snippet from a recipe that adds one tomcat instance if at least one tomcat instance has more than 1 request per second and removes one tomcat instance if the tomcat cluster (all the tomcat instances) has less than 0.2 requests per second.
+
 <script src="https://gist.github.com/2566833.js?file=tomcat_auto_scaling.groovy"></script>
 h4(info). In the current version, you can only describe one scaling rule per service.
 
