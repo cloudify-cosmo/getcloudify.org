@@ -1,0 +1,76 @@
+---
+layout: default
+title: Configuring OpenStack
+category: Installation & Setup
+publish: true
+abstract: Explains how to configure HP OpenStack Cloud for Cloudify
+pageord: 600
+--- 
+
+This topic provides instructions for configuring HP OpenStack Cloud for Cloudify.
+
+h2. Prerequisites
+
+* An "HP OpenStack Cloud":http://www.hpcloud.com/ account
+* Cloudify shell (for information about installing the Cloudify shell, see "Installing the Cloudify Shell":/guide/setup/installing_the_cloudify_client)
+
+h2. Configuring HP OpenStack Cloud
+
+This section provides step-by-step instructions for the following configuration tasks:
+
+# "Generate a private key":#key
+# "Configure the Cloudify cloud driver configuration file":#driver
+# "Enabling Wire Logging [Optional]":#log
+
+h3(#key). Generate a private key
+
+# In the HP web console, under "Key Pairs":https://manage.hpcloud.com/compute/100/keypairs, click *Create Key Pair*, and then type a name for the key pair.
+!/guide/images/hp/compute_create_new_key_pair_hp_cloud_services.png!
+# Copy the key and save it as a @.pem@ private key file (e.g. @myKeyPair-name.pem@) in the @<cloudifyRoot>/tools/cli/plugins/esc/openstack/upload@ folder.
+!/guide/images/hp/compute_create_new_key_pair_2_hp_cloud_services.png!
+
+h4(info). The private key enables the Cloudify cloud driver to open SSH connections to the newly created instances.
+
+h3(#driver). Configure the Cloudify cloud driver configuration file
+
+Edit the OpenStack cloud driver configuration file (@openstack-cloud.groovy@) located in the @<cloudifyRoot>/tools/cli/plugins/esc/openstack/@ folder, and modify the following attributes:
+* In the *provider* section: 
+** *cloudifyUrl*--Specify the full URL to the location of Cloudify distribution file
+    If you have a private cloud, do the following:
+**# Download gigaspaces-cloudify.zip from FULL_URL_PATH_TO_gigaspaces-cloudify.zip
+**# Place the downloaded gigaspaces-cloudify.zip in your private cloud.
+**# Set the *cloudifyUrl* attribute to "FULL_URL_PATH_TO_gigaspaces-cloudify.zip_ON_YOUR_PRIVATE_CLOUD".
+** *machineNamePrefix*--The value that you specify will be used as the name prefix for each of your service instances.
+** *managementOnlyFiles*--<font color="red"><b>TBD</b></font>.
+** *managementGroup*--The value that you specify will be used as the name prefix for each of your management instances.
+** *zones*--<font color="red"><b>TBD</b></font>.
+* In the *user* section:
+** *user*--Specify your *Access Key*.
+** *apiKey*--Specify your corresponding *Secret Access Key*.
+You can obtain your *Access Key* and *Secret Access Key* from the "(newwindow)API Keys":https://manage.hpcloud.com/account/api_keys section of the OpenStack web console, as follows:
+!/guide/images/hp/api_keys_hp_cloud_services.jpg!
+<h4 class="impt">Note that the *Secret Access Key* must correspond to the *Access Key* specified in the *user* attribute.</h4>
+** *keyFile*--Specify the name of the private key file that you created (@myKeyPair-name.pem@ in our example).
+* In the *templates* section:  				 
+** *imageId*--Specify the *HP Install Image ID* (AMI).
+** *hardwareId*--Specify the HP *Machine Size*.
+** *options* ("jclouds":http://www.jclouds.org/documentation)
+*** *securityGroups*--Specify security groups to determine whether network ports are opened or blocked on your instances.
+*** *keyPair*--Specify the name of the key pair that you created (whose content is in the .pem file in *keyFile* attribute in the user section).
+
+The following shows an example @openstack-cloud.groovy@ file:
+<script src="https://gist.github.com/1994256.js?file=openstack-cloud.groovy"></script>
+
+h3(#log). Enabling Wire Logging [Optional]
+
+For development and debugging purposes, it can be usefull to view the actual messages sent to the Openstack cloud controller.
+To configure logging, edit your @openstack-cloud.groovy@, and then in the *custom* section, set the *openstack.wireLog* attribute to *true*.
+
+The following example shows the *openstack.wireLog* attribute set to *true*.
+<script src="https://gist.github.com/2035261.js?file=custom-wireLog.groovy"></script>
+
+h4(warn). Once you enable the wire logs, they appear in the following the Cloudify shell when you run the 'bootstrap-cloud' command (and the relevant log file in the logs folder), and in the ESM log when it starts or stops a machine for scale out/in.
+
+h2. What's Next?
+
+"Bootstrapping OpenStack":/guide/bootstrapping/bootstrapping_hp
