@@ -1,92 +1,24 @@
 ---
 layout: default
-title: Bootstrapping Cloudify on Amazon EC2
+title: Bootstrapping EC2
 category: Bootstrapping
 publish: true
 abstract: Explains how to bootstrap Cloudify on Amazon EC2
 pageord: 400
----
+--- 
 
-h1. Summary
+This topic provides instructions for bootstrapping Cloudify on Amazon EC2.
 
-Explains how to bootstrap Cloudify on Amazon EC2 Cloud.
+h2. Prerequisites
 
+Before you bootstrap your Amazon EC2 cloud, make sure that your environment meets all the minimum requirements. For more information, see "Bootstrapping Prerequisites":/guide/bootstrapping/bootstrapping_process#prereqs and "Configuring EC2":/guide/setup/configuring_ec2.
 
-h1. Bootstrapping on EC2
+h2. Bootstrapping
 
-In order to bootstrap Cloudify on EC2 you need an account on Amazon Web Services. Before you can use the shell to bootstrap your EC2 environment for the first time, please have the following:
-1. Generate a private key and place the file (.pem) under &lt;Cloudify Root&gt;/tools/cli/plugins/esc/ec2/upload folder.
-* In the "(newwindow)EC2 Console(Note that this link leads to US east key pairs menu)":https://console.aws.amazon.com/ec2/home?region=us-east-1#s=KeyPairs create a key pair and download the private key (.pem file).
-* Click the Key Pairs under *Networking and Security* in the Navigation pane and then click the *Create Key Pair* button (call it myKeyPair-name and then save it as myKeyPair-name.pem) as shown here:
+Bootstrapping the Amazon EC2 cloud is extremely simple, just follow the "bootstrapping":/guide/bootstrapping/bootstrapping_process#boot procedure, typing the following command in step 2: *@bootstrap-cloud@* @ec2@
 
-Step 1:
+h2(#tear). Teardown
 
-<img src="/guide/images/ec2/EC2_CREATE_KEY_PAIRS_RAW3.jpg" />
+To shut down the Amazon EC2 environment, at the Cloudify shell prompt, type: *@teardown-cloud@* @ec2@
 
-
-
-
-Step 2:
-
-<img src="/guide/images/ec2/EC2_CREATE_KEY_PAIRS_1_RAW3.jpg" />
-
-Step 3:
-
-<img src="/guide/images/ec2/EC2_CREATE_KEY_PAIR_SUCCESS_AND_SAVE3.jpg" />
-
-* This private key enables Cloudify cloud driver to create SSH connections to the newly created instances on EC2.
-
-2. Edit ec2-cloud.groovy under &lt;Cloudify Root&gt;/tools/cli/plugins/esc/ec2/ and set the following:
-* In the provider section, update the following attributes' values: 
- ** *cloudifyUrl* - Insert a full url path to the location of cloudify binaries (gigaspaces-cloudify.zip).
-     If you have a private cloud, do the following:
- **# Download gigaspaces-cloudify.zip from FULL_URL_PATH_TO_gigaspaces-cloudify.zip
- **# Place the downloaded gigaspaces-cloudify.zip in your private cloud.
- **# Set the *cloudifyUrl* attribute to "FULL_URL_PATH_TO_gigaspaces-cloudify.zip_ON_YOUR_PRIVATE_CLOUD".
- ** *machineNamePrefix* - The value that you insert will be added as a name prefix to each one of your instances (not management instances).
- ** *managementOnlyFiles* - <font color="red"><b>TBD</b></font>.
- ** *managementGroup* - The value that you insert will be added as a name prefix to each one of your management instances.
- ** *zones* - <font color="red"><b>TBD</b></font>.
-
-* In the user section, update the following attributes' values: 
- ** *user* - Insert your EC2 Access Key ID.
-You can get an active Access Key ID from the Access Credentials section in "(newwindow)EC2 Console(Link to the Access Credentials section in EC2 Console)":https://aws-portal.amazon.com/gp/aws/developer/account/index.html?action=access-key as shown here:
-<img src="/guide/images/ec2/EC2_ACCESS_KEY_AND_SECRET_KEY3.jpg" />
- ** *apiKey* - Insert your EC2 Secret Access Key.
-You can get a Secret Access Key from the "(newwindow)Access Credentials section in EC2 Console(Link to the Access Credentials section in EC2 Console)":https://aws-portal.amazon.com/gp/aws/developer/account/index.html?action=access-key as shown above.
-<h4 class="warn">Note that the secret key must correspond to the above Access Key ID (that you set in the *user* attribute).</h4>
-** *keyFile* - Insert the name of the private key file that you created (i.e.: myKeyPair-name.pem in our example).
-
-* In the templates section, update the following:  				 
- ** *locationId* - Insert the zone type from EC2 (e.g. : us-east-1 which stands for US East,Virginia).
- ** *imageId* - Insert the Amazon Machine type ID.
-     <h4 class="warn">Note that different EC2 regions have different AMIs for the same image configuration.*</h4>
-     You can find the available types in "(newwindow)EC2 images types page":https://console.aws.amazon.com/ec2/home?region=us-east-1#s=Images as shown here:
-<img src="/guide/images/ec2/ec2_images_types.jpg" />
- ** *hardwareId* - Insert the Amazon API name of the desired hardware type.
-     You can get it from "EC2 instance types page":http://aws.amazon.com/ec2/instance-types (e.g.: m1.small , c1.medium etc.) as shown here:
-<img src="/guide/images/ec2/EC2_Instance_Types3.jpg" />
-
- ** *options* ("jclouds":http://www.jclouds.org/documentation) .
-    *** *securityGroups* - Insert security group/s to determine whether network ports are opened or blocked on your instances.
-    *** *keyPair* - Insert the name of the key pair that you created (whose content is in the .pem file in *keyFile* attribute in the user section).
-
-h4(warn). The following cloud driver attributes for EC2 are region specific: @locationId@, @imageId@, @securityGroups@, @keyPair@. If you change to a different EC2 region, update these attributes with the corresponding regional values. For more information about the EC2 @AMIs@, @Security Groups@, and @SSH Key Pairs@ attributes, see "AWS Documentation - Appendix A - Resources":http://docs.amazonwebservices.com/AWSEC2/latest/UserGuide/resources.html.
-
-<br/>
-Here's an example of ec2-cloud.groovy(with placeholders):
-
-<script src="https://gist.github.com/1722422.js?file=ec2-cloud.groovy"></script>
-
-
-
-* Once you are done, run &lt;Cloudify Root&gt;/tools/cli/cloudify.sh (or cloudify.bat on Windows) and then(when it's ready), run the following command: *bootstrap-cloud ec2* as shown below:
-
-<br/>
-<img src="/guide/images/setup/bootstrap_ec2_2.jpg" />
-
-* You can then install any of our built-in example recipes.
-For example: for installing our Pet Clinic Application, just type: 
-&nbsp;&nbsp;&nbsp;&nbsp; *install-application -timeout 10 &lt;cloudify root&gt;/recipes/apps/petclinic*
-<br/>
-For more information, feel free to read our "Quick Start Guide":/guide/qsg/quick_start_guide.
+h4(info). This uninstalls applications and shuts down all the management and service instance machines.
