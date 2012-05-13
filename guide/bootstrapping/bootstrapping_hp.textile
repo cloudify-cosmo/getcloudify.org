@@ -1,84 +1,24 @@
 ---
 layout: default
-title: Bootstrapping Cloudify on HP OpenStack Cloud
+title: Bootstrapping OpenStack
 category: Bootstrapping
 publish: true
 abstract: Explains how to bootstrap Cloudify on HP OpenStack Cloud
 pageord: 500
----
+--- 
 
-h1. Summary
+This topic provides instructions for bootstrapping Cloudify on HP OpenStack Cloud.
 
-Explains how to bootstrap Cloudify on HP's public cloud.
+h2. Prerequisites
 
+Before you bootstrap your HP OpenStack Cloud, make sure that your environment meets all the minimum requirements. For more information, see "Bootstrapping Prerequisites":/guide/bootstrapping/bootstrapping_process#prereqs and "Configuring OpenStack":/guide/setup/configuring_openstack.
 
-h1. Bootstrapping on HP
+h2. Bootstrapping
 
-In order to bootstrap Cloudify on the HP cloud you first need to set up  an account. Before you can use the shell to bootstrap your  environment for the first time, please have the following:
-1. Generate a private key and place the file (.pem) under &lt;Cloudify Root&gt;/tools/cli/plugins/esc/openstack/upload folder.
-* In the "keypairs":https://manage.hpcloud.com/compute/100/keypairs section of the HP web console, create a key pair, copy the private key and save it as a .pem file.
+Bootstrapping HP OpenStack Cloud is extremely simple, just follow the "bootstrapping":/guide/bootstrapping/bootstrapping_process#boot procedure, typing the following command in step 2: *@bootstrap-cloud@* @openstack@
 
-Step 1:
-<img src="/guide/images/hp/compute_create_new_key_pair_hp_cloud_services.png" />
+h2(#tear). Teardown
 
-Step 2:
-<img src="/guide/images/hp/compute_create_new_key_pair_2_hp_cloud_services.png" />
+To shut down the HP OpenStack Cloud environment, at the Cloudify shell prompt, type: *@teardown-cloud@* @openstack@
 
-* This private key is used by the Cloudify cloud driver to create SSH connections to the newly created instances.
-
-2. Edit openstack-cloud.groovy under &lt;Cloudify Root&gt;/tools/cli/plugins/esc/openstack/ and set the following:
-* In the provider section, update the following attributes' values: 
- ** *cloudifyUrl* - Insert a full url path to the location of cloudify binaries (gigaspaces-cloudify.zip).
-     If you have a private cloud, do the following:
- **# Download gigaspaces-cloudify.zip from FULL_URL_PATH_TO_gigaspaces-cloudify.zip
- **# Place the downloaded gigaspaces-cloudify.zip in your private cloud.
- **# Set the *cloudifyUrl* attribute to "FULL_URL_PATH_TO_gigaspaces-cloudify.zip_ON_YOUR_PRIVATE_CLOUD".
- ** *machineNamePrefix* - The value that you insert will be added as a name prefix to each one of your instances (not management instances).
- ** *managementOnlyFiles* - <font color="red"><b>TBD</b></font>.
- ** *managementGroup* - The value that you insert will be added as a name prefix to each one of your management instances.
- ** *zones* - <font color="red"><b>TBD</b></font>.
-
-* In the user section, update the following attributes' values: 
- ** *user* - Insert your Access Key.
- ** *apiKey* - Insert your Secret Access Key.
- 
-You can get your access key and secret key in the "API Keys":https://manage.hpcloud.com/account/api_keys section of the web console as shown below
-<img src="/guide/images/hp/api_keys_hp_cloud_services.jpg" />
-
-** *keyFile* - Insert the name of the private key file that you created (i.e.: myKeyPair-name.pem in our example).
-
-* In the templates section, update the following:  				 
-** *imageId* - Insert the HP Install Image ID. 
-** *hardwareId* - Insert the HP machine Size.
-** *options* 
-*** *securityGroups* - Insert security group/s to determine whether network ports are opened or blocked on your instances.
-*** *keyPair* - Insert the name of the key pair that you created (whose content is in the .pem file in *keyFile* attribute in the user section).
-
-<br/>
-Here's an example of openstack-cloud.groovy(with placeholders):
-
-<script src="https://gist.github.com/1994256.js?file=openstack-cloud.groovy"></script>
-
-
-* Once you are done, run &lt;Cloudify Root&gt;/tools/cli/cloudify.sh (or cloudify.bat on Windows) and then(when it's ready), run the following command: *bootstrap-cloud openstack* as shown below:
-
-<br/>
-<img src="/guide/images/setup/bootstrap_hp.png" />
-
-* You can then install any of our built-in example recipes.
-For example: for installing our Pet Clinic Application, just type: 
-&nbsp;&nbsp;&nbsp;&nbsp; *install-application -timeout 10 &lt;cloudify root&gt;/recipes/apps/petclinic*
-<br/>
-For more information, feel free to read our "Quick Start Guide":/guide/qsg/quick_start_guide.
-
-h1. Enabling wire logging
-
-For development and debugging purposes, it can be usefull to view the actual messages sent to the Openstack cloud controller.
-To do this, modify your openstack-cloud.groovy by setting the "openstack.wireLog" entry in the custom section of the file to "true".
-
-For example: 
-
-<script src="https://gist.github.com/2035261.js?file=custom-wireLog.groovy"></script>
-
-<h4 class="warn"> Note that once you enable the wire logs, they appear in the Cloudify command line interface when you run the 'bootstrap-cloud' command (and in the relevant log file in the logs directory) 
-as well as in the log of the ESM when it starts or stops a machine for scale out/in.</h4>
+h4(info). This uninstalls applications and shuts down all the management and service instance machines.

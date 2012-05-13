@@ -5,7 +5,7 @@ category: Bootstrapping
 publish: true
 abstract: Explains the bootstrapping process
 pageord: 100
----
+--- 
 
 Cloudify uses a boostrapping process to provision machines for Cloudify management, and machines for services required to deploy applications.
 
@@ -95,11 +95,18 @@ The following procedure descirbes the steps for bootstrapping a cloud and an app
   <h4 class="info">Once the command completes, the URL of the Cloudify web management console and the Cloudify contoller's REST endpoint are display in the shell. Also, the shell automatically connects to the controller as part of the bootstrap process, so you don't have to explicitly type the @connect@ command.</h4>
 # Starting the bootstrapping process for provisioning machines for application services--At the Cloudify shell prompt, type the relevant command for installing your application. For example, to install the PetClinic application, type: *@install-application@* @-timeout 10 <cloudify root>/examples/petclinic-simple@.
 
-h2(#next). Next Steps
+h2(#next). What's Next?
 
 For information about how to configure specific cloud environments, see the relevant topic from the following list:
-* "Configuring a Local Cloud":/guide/bootstrapping/bootstrapping_localcloud
-* "Configuring Azure":/guide/bootstrapping/bootstrapping_azure
-* "Configuring EC2":/guide/bootstrapping/bootstrapping_ec2
-* "Configuring OpenStack Cloud":/guide/bootstrapping/bootstrapping_hp
-* "Configuring a Traditional Data Center [BYON]":/guide/bootstrapping/bootstrapping_byon
+* "Configuring a Local Cloud":/guide/setup/post_installation_configuration
+* "Configuring Azure":/guide/setup/configuring_azure
+* "Configuring EC2":/guide/setup/configuring_ec2
+* "Configuring OpenStack":/guide/setup/configuring_openstack
+* "Configuring a Traditional Data Center [BYON]":/guide/setup/configuring_byon
+
+For information about how to bootstrap specific cloud environments, see the relevant topic from the following list:
+* "Bootstrapping a Local Cloud":/guide/bootstrapping/bootstrapping_localcloud
+* "Bootstrapping Azure":/guide/bootstrapping/bootstrapping_azure
+* "Bootstrapping EC2":/guide/bootstrapping/bootstrapping_ec2
+* "Bootstrapping OpenStack":/guide/bootstrapping/bootstrapping_hp
+* "Bootstrapping a Traditional Data Center [BYON]":/guide/bootstrapping/bootstrapping_byon

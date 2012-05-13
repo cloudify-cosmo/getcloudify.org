@@ -5,11 +5,11 @@ cat: Getting Started
 publish: true
 abstract: A quick start guide to help you get started with Cloudify. Start here if you're new to Cloudify
 pageord: 100
----
+--- 
 
 h1. Introduction
 
-The goal of this quick start guide is to familiarize you with Cloudify in a few simple steps. For this purpose, we will use the PetClinic application (an example application that is included in the Cloudify distribution file) to demonstrate the steps required to deploy an application on a local cloud. For a quick start guide to using Cloudify on EC2, see "10-Minute EC2 Quick Start Guide":quick_start_guide_ec2.
+The goal of this quick start guide is to familiarize you with Cloudify in a few simple steps. For this purpose, we will use the PetClinic application (an example application that is included in the Cloudify distribution file) to demonstrate the steps required to deploy an application on a local cloud. For a quick start guide to using Cloudify on EC2, see "10-Minute EC2 Quick Start Guide":/guide/qsg/quick_start_guide_ec2.
 
 This guide teaches you how to:
 * "Install the Cloudify Shell":#step1
@@ -31,7 +31,7 @@ The application's environment is based on the following 2-tier architecture:
 | Web and Business Logic Tier | A Grails platform deployed on Apache Tomcat server |
 | Database Tier | A MongoDB server |
 
-h4(info#n1). The number of service instances can be easily configured by modifying the numInstances attribute in the relevant Cloudify recipe file (e.g. @<service-name>-service.groovy@). For an example, see the "10-Minute EC2 Quick Start Guide":/guide/qsg/quick_start_guide_ec2 that shows how to deploy the PetClinic application on Amazon EC2 using a sharded MongoDB data tier with multiple @mongod@ service instances.
+h4(info#n1). The number of service instances can be easily configured by modifying the numInstances attribute in the relevant Cloudify recipe file (e.g. @<service-name>-service.groovy@). For an example, see the "10-Minute EC2 Quick Start Guide":guide/qsg/quick_start_guide_ec2 that shows how to deploy the PetClinic application on Amazon EC2 using a sharded MongoDB data tier with multiple @mongod@ service instances.
 
 h4(impt). When you install MongoDB on Windows 7, you must run MongoDB with administrative credentials. For more information, see the "Installing Windows 7" section of the "Windows Service":http://www.mongodb.org/display/DOCS/Windows+Service page.
 
@@ -152,9 +152,6 @@ The MongoDB (@mongod@) Recipe does the following:
 * Collects metrics (Active Read Clients, Active Write Client, etc.) for displaying in the Cloudify web management console
 
 The @mongod@ service file is @<cloudify root>/recipes/apps/petclinic/mongod/mongod-service.groovy@.
-
-h4(info). The mongod uses the "extends mechanism":/guide/developing/extending_recipes and its actual code is in @<cloudify root>/recipes/services/mongodb/mongod@.
-
 
 h3. The Tomcat Recipe
 

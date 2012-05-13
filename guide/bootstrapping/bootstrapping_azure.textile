@@ -5,13 +5,13 @@ category: Bootstrapping
 publish: true
 abstract: Explains how to bootstrap Cloudify on Windows Azure
 pageord: 301
----
+--- 
 
-A local cloud is a full-fledged cloud emulation environment that allows the user to run all Cloudify management and application services on a single machine.
+This topic provides instructions for bootstrapping Cloudify on Windows Azure.
 
 h2. Prerequisites
 
-Before you bootstrap your Windows Azure cloud, make sure that your environment meets all the minimum requirements. For more information, see "Configuring Azure":/guide/setup/installing_azure and "Bootstrapping Prerequisites":/guide/bootstrapping/bootstrapping_process#prereqs.
+Before you bootstrap your Windows Azure cloud, make sure that your environment meets all the minimum requirements. For more information, see "Bootstrapping Prerequisites":/guide/bootstrapping/bootstrapping_process#prereqs and "Configuring Azure":/guide/setup/configuring_azure.
 
 h2. Bootstrapping
 
@@ -22,12 +22,12 @@ Bootstrapping on Windows Azure is a process where the Cloudify cloud driver on y
 
 Currently, each application is deployed with its own Cloudify controller installation.
 
-The following example shows the command for bootstrapping the Cloudify controller and the Cloudify agents for the travel application (tomcat and cassandra roles).
+Bootstrapping the Windows Azure cloud is extremely simple, just follow the "bootstrapping":/guide/bootstrapping/bootstrapping_process#boot procedure, typing the following command in step 2: "*@azure:bootstrap-app@*":https://gist.github.com/1695721
 
-Bootstrapping the Windows Azure cloud is extremely simple, just follow the "bootstrapping":/guide/bootstrapping/bootstrapping_process#boot procedure, typing the following command in step 2: *@azure:bootstrap-app@* @-azure-pwd 123456 -azure-svc mytraveldemo c:/cloudify/examples/azure/travel@
+The following example shows the command for bootstrapping the Cloudify controller and the Cloudify agents for the travel application (tomcat and cassandra roles): *@azure:bootstrap-app@* @-azure-pwd 123456 -azure-svc mytraveldemo c:/cloudify/examples/azure/travel@
 
 h2(#tear). Teardown
 
-To shut down the local cloud environment, at the Cloudify shell prompt, type: *@teardown-localcloud@*
+To shut down the Windows Azure environment, at the Cloudify shell prompt, type: *@azure:teardown-app@* @<appName>@
 
-h4(info). This uninstalls applications and shuts down all local cloud processes running on your machine.
+h4(info). This uninstalls applications and shuts down all the management and service instance machines.

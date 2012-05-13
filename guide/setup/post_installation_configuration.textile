@@ -5,7 +5,7 @@ category: Installation & Setup
 publish: true
 abstract: Describes the post-installation tasks that you should complete after installing the Cloudify shell
 pageord: 300
----
+--- 
 
 This topic describes the post-installation tasks that you should complete after "installing the Cloudify shell":/guide/setup/installing_the_cloudify_client. The post-installation tasks will prepare you for bootstrapping clouds and deploying applications.
 
@@ -18,9 +18,10 @@ The following is a list of the post-installation tasks you should complete:
 h2(#clouds). Configure Clouds
 
 Every cloud implementation is different. Therefore, for Cloudify to work with your cloud, you may need to configure aspects of your cloud such as SSH security. For information about configuring your cloud provider to work with Cloudify, refer to the relevent topic from the following list of supported clouds:
-* "Configuring Azure":/guide/bootstrapping/bootstrapping_azure
-* "Configuring EC2":/guide/bootstrapping/bootstrapping_ec2
-* "Configuring OpenStack Cloud":/guide/bootstrapping/bootstrapping_hp
+* "Configuring Azure":/guide/setup/configuring_azure
+* "Configuring EC2":/guide/setup/configuring_ec2
+* "Configuring OpenStack":/guide/setup/configuring_openstack
+* "Configuring a Traditional Data Center [BYON]":/guide/setup/configuring_byon
 
 h2(#images). Create Cloud Images
 
@@ -65,5 +66,5 @@ Before deploying the application, you should configure the recipe that will be u
 
 h2. See Also
 
-* "Cloudify Prerequisites":/guide/setup/cloudify_prerequisites
-* "Installing the Cloudify Shell":/guide/setup/installing_the_cloudify_client
+* "Configuring Azure":/guide/setup/configuring_azure
+* "Configuring EC2":/guide/setup/configuring_ec2
