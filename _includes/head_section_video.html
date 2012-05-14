@@ -27,7 +27,7 @@
 		$.each(data.feed.entry, function(i, item) {
 			var feedTitle = item.title.$t;
 			var deScrip = item.media$group.media$description.$t;
-			var upDate = item.updated.$t;
+			var upDate = item.published.$t;
 			var feedURL = item.link[1].href;
 			var fragments = feedURL.split("/");
 			var videoID = fragments[fragments.length - 2];
