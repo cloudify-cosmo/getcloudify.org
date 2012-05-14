@@ -56,7 +56,6 @@ echo ---------------------
 
 mv ${DEST_FOLDER}/_posts ${DEST_FOLDER}/posts
 mv ${DEST_FOLDER}/_plugins ${DEST_FOLDER}/plugins
-cp -f ${SRC}/homepage ${DEST_FOLDER}/index.html
 cp -f ${SRC}/guide/index_raw.html ${DEST_FOLDER}/guide/index.html
 cp -f ${SRC}/guide/toc.html ${DEST_FOLDER}/_includes/toc.html
 
