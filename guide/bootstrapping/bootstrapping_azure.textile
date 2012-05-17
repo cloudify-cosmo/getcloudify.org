@@ -22,9 +22,11 @@ Bootstrapping on Windows Azure is a process where the Cloudify cloud driver on y
 
 Currently, each application is deployed with its own Cloudify controller installation.
 
-Bootstrapping the Windows Azure cloud is extremely simple, just follow the "bootstrapping":/guide/bootstrapping/bootstrapping_process#boot procedure, typing the following command in step 2: "*@azure:bootstrap-app@*":https://gist.github.com/1695721
+Bootstrapping the Windows Azure cloud is extremely simple, just follow the "bootstrapping":/guide/bootstrapping/bootstrapping_process#boot procedure, typing the following command in step 2: "*@azure:bootstrap-app@*":https://gist.github.com/1695721.
 
-The following example shows the command for bootstrapping the Cloudify controller and the Cloudify agents for the travel application (tomcat and cassandra roles): *@azure:bootstrap-app@* @-azure-pwd 123456 -azure-svc mytraveldemo c:/cloudify/examples/azure/travel@
+The following example shows the command for bootstrapping the Cloudify controller and the Cloudify agents for the travel application (tomcat and cassandra roles): *@azure:bootstrap-app@* @-azure-pwd 123456 -azure-svc mytraveldemo c:/cloudify/examples/azure/travel@. Once the bootstrapping is completed, the Windows Azure management portal displays the roles in the *Hosted Services* view.
+
+!/guide/images/azure/azure_after_bootstrap.png!
 
 h2(#tear). Teardown
 
