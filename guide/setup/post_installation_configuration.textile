@@ -27,16 +27,19 @@ h2(#images). Create Cloud Images
 
 Cloudify uses cloud images when provisioning machines as part of the "bootstrapping":/guide/bootstrapping/bootstrapping_process process, by requesting the cloud service to create a machine using the specified cloud image (for an example of how to create a cloud image, see Amazon's Web Services > <a href="http://docs.amazonwebservices.com/AmazonEC2/gsg/2006-06-26/creating-an-image.html">Creating an Image</a>). Therefore, you must make sure you create images that meet the minimum prerequisites.
 
+The following sections describe the minimum requirements for both Windows and *nix images.
+
 h3. Software
 
 For Cloudify to work, your environment must meet the following software requirements:
-* JDK 1.6 or higher must be installed.
-* The SSH daemon must be started and running port 22.
+* JDK 1.6 or higher must be installed
+* The SSH daemon must be started and running port 22
 
 h3. Networking and Ports
 
 For Cloudify to work, your environment must meet the following networking requirements:
-* Within the security group to which the started images belong, all ports must be open for bidirectional communication from private IP addresses.
+* All ports open between machines in same service
+* All ports open between management machines and all other machines
 * On the management VMs, ports 8099 and 8100 must be open for communication from the Internet via the VMs' public IP address. This allows the Cloudify shell to interact with the REST server and allows users to access the management web application.
 
 h2(#drivers). Configure Cloud Drivers
