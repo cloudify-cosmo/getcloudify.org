@@ -7,42 +7,32 @@ abstract: Explains how to configure the web management console to present the in
 pageord: 11
 ---
 
-The Cloudify web management console allows you to monitor your applications. Yu can use the service descriptor recipe file to describe the layout of monitored metrics in the management console's UI.
-
-h2. What can be Configured?
-
-The Cloudify web management console displays custom metrics using the Line-Bar Chart and the Balance Gauge (Additional widgets will be added in future versions).
-Each widget displays a default metric but has a drop-down menu to allow the user to choose other metrics
-
-The images below show the GUI widgets and the Metrics drop down menu:
-!/guide/images/recipes/widgets.png!
+The Cloudify web management console provides a web-based gui for monitoring your applications and their corresponding services. In particular, in the *Applications* view, the *Metrics* pane displays a group of widgets that show metrics for the selected service using line-bar charts and balance gauges. Each widget displays a default metric but has a drop-down menu for selecting other metrics. The layout of the *Metrics* pane and the metric groups and widgets for the drop-down menu, can be configured for each service in its descriptor file.
 
 h2. Built-In and Custom Metrics
 
-By default, Cloudify monitors generic metrics such as CPU and memory utilization. But it can also monitor any other, more specific, metrics using one of the following custom mechanisms:
+By default, Cloudify monitors generic metrics such as CPU usage and memory utilization. But it can also monitor any other, more specific, metrics using one of the following custom mechanisms:
 * "Monitoring Probes":/guide/plugins_and_probes/probes--Groovy closures that emit metrics and their current value.
 * "Monitoring Plugins":/guide/plugins_and_probes/develop_your_plugin--Java classes that emit metrics and their current value.
 
-Cloudify invokes the probe or plugin every 5 seconds, and expects to receive a *Map* that contains the names of the metrics as keys and their respective values. Both the built-in and custom metrics can be displayed in the web management console, and the service descriptor file has a dedicated section which controls how they are displayed.
-
-h2. Configuring the Metrics Menus
-
-In the web management console, the *Applications* view contains a dedicated pane that is used to display the monitored metrics, and allows you to choose between the metrics using a dedicated drop-down combo box (metric menu). The metric menus are divided into logical groups of metrics. The recipe allows you to configure these groups and determine which metrics (built in as well as custom) will belong to each menu. Here's an example for how this is done:
-
-<script src="https://gist.github.com/1766801.js?file=ui_config.groovy"></script>
-
-In the above recipe snippet, we have ...
-todo:
-
+Cloudify invokes the probe or plugin every 5 seconds, and expects to receive a *Map* that contains the names of the metrics as keys and their respective values. Both the built-in and custom metrics can be displayed in the web management console.
 
 h2. Configuring the Metrics Pane
 
-You can also control the appearance and default metrics that will appear in the metrics pane for each service. You can determine how many widgets will show up in the Metrics section of the UI, and what will be the metric presented by default for each widget.
+In the web management console, the *Applications* view contains a dedicated pane that is used to display the monitored metrics, and allows you to choose between the metrics using a dedicated drop-down combo box (metric menu). The metric menus are divided into logical groups of metrics (metric groups). The recipe enables you to configure these groups in the service descriptor file and determine which built-in and custom metrics belong in each metric group. Default metrics are displayed in  widgets, the layout of which is described in the *widgetsGroup* section.
 
+The following example shows the *userInterface* section for the PetClinic's Mongo database service. The *metricGroups* section describes the *MongoDB* metric group that contains 6 metric. The *widgetGroups* describes 6 default metrics to display and the layout for each widget.
 
-h2. List of Built-In Metrics
+h4(info). It is not necessary to define a widget per metric as you can change the displayed metric using the metric menu.
 
+<script src="https://gist.github.com/1766801.js?file=ui_config.groovy"></script>
+
+The following shows the manifestation of the example, the former showing the *Metrics* pane, and the latter showing the metric menu.
+
+!/guide/images/recipes/appmap.png!
+
+!/guide/images/recipes/widgets.png!
 
 h2. Built-In Recipes as an Example
 
-The best way to start with metrics configuraiton is to look at one of the built in examples, e.g. the PetClinic recipe under &lt;cloudify root&gt;/recipes/apps/petclinic. The tomcat recipe (&lt;cloudify root&gt;/recipes/apps/petclinic/tomcat/tomcat-service.groovy) uses a the JMX plugin, whereas the MongoDB recipes (e.g. &lt;cloudify root&gt;/recipes/apps/petclinic/mongod) use a "custom plugin":/guide/plugins_and_probes/develop_your_plugin that connects to MongoDB using its Java API and fetches metrics using specific MongoDB API commands.
+The best way to start with metrics configuraiton is to look at one of the built-in examples, e.g. the PetClinic recipe under @<cloudifyRoot>/examples/petclinic. The tomcat recipe (@<cloudifyRoot>/examples/petclinic/tomcat/tomcat-service.groovy) uses a the JMX plugin, whereas the MongoDB recipes (@<cloudifyRoot>/examples/petclinic/mongod) usea a "custom plugin":/guide/plugins_and_probes/develop_your_plugin that connects to MongoDB using its Java API and fetches metrics using specific MongoDB API commands.
