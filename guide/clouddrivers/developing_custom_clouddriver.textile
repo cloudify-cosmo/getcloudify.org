@@ -74,8 +74,7 @@ In this scenario, the cloud driver resides on the client machine. At the Cloudif
 
 h2. Setting Up Your Project
 
-
-p. This section will teach you what you need in your eclipse project
+This section will teach you what you need in your eclipse project
 
 h4. Prepare your Maven pom file
 
@@ -91,19 +90,11 @@ Add the Clopudify Repository
 
 <script src="https://gist.github.com/2070752.js?file=repo.xml"></script>
 
-
-
-
-
-
 h2. Before You Code
 
+This section explains how to get what you need from your cloud account – credentials, SSH access etc.
 
-p. This section explains how to get what you need from your cloud account – credentials, SSH access etc.
-
-
-h4. Getting the Security Credentials for API Access
-
+h3. Getting the Security Credentials for API Access
 
 The security credentials you will need to have for the cloud driver are of two kinds:
 * The credentials for the Cloud IaaS API calls
@@ -123,8 +114,7 @@ Also, set the “keyFile” property to the name you gave the key pair in the Cl
 
 <img src="/guide/images/clouddrivers/cloud_driver_plugin.png"/>
 
-
-h4. Getting the right Image and HW for Management
+h3. Getting the right Image and HW for Management
 
 You will need to define HW / SW templates in the Cloud Driver configuration file. One of them will define the management VM. 
 Keep In mind the following:
@@ -133,8 +123,7 @@ Keep In mind the following:
 * It will require X of disk space and Y GB of RAM memory
 * Currently it must be a Linux Image 
 
-h4. Configure the management template
-
+h3. Configure the management template
 
 Now you nedd to tweak the Cloud Driver configuration file:
 create a template with the image and HW you selected:
