@@ -3,9 +3,9 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>	
-    <title>Cloudify - Mapping the Cloud/PaaS Stack</title>
+    <title>Cloudify - PaaS, Does It Really Mean No-Ops?</title>
     <link rel="stylesheet" href="/css/template.css" type="text/css"/>    
-	<link rel="canonical" href="http://www.cloudifysource.org/2012/05/03/mapping-the-cloudpaas-stack.html"/>	
+	<link rel="canonical" href="http://www.cloudifysource.org/2012/05/28/paas_does_it_really_mean_no_ops.html"/>	
     <link rel="stylesheet" href="/css/jquery-ui-1.8.17.custom.css" type="text/css" media="all"/>
     <link rel="stylesheet" type="text/css" href="/scripts/prettify/prettify.css">	
 	<link rel="shortcut icon" href="/favicon.ico" type="image/x-icon" />
@@ -130,7 +130,7 @@
 <img src="/images/box_edge.png" id="tipImg"/>  
 </div>
         <div class="contentWrap">            
-			<div class="breadcrumbs">Home Page > Cloudify Blogs > Mapping the Cloud/PaaS Stack</div>
+			<div class="breadcrumbs">Home Page > Cloudify Blogs > PaaS, Does It Really Mean No-Ops?</div>
             <div class="clear"></div>
 
             <!--Search-->
@@ -484,49 +484,47 @@
 
                 <div id="resultsDiv" class="DocumentsWrap"></div>
                 <div id="pageContent" class="DocumentsWrapRight">
-                    <h1 class="pageTitle">Mapping the Cloud/PaaS Stack</h1>
+                    <h1 class="pageTitle">PaaS, Does It Really Mean No-Ops?</h1>
 					 
-					  <span class="blogPostInfo">Posted By: <a href="#">Nati Shalom</a>  on May  3, 2012  
+					  <span class="blogPostInfo">Posted By: <a href="#">Yaron Parasol</a>  on May 28, 2012  
 					  </span>
 					  <br/><br/><br/>
 					 
-                    <div xmlns="http://www.w3.org/1999/xhtml">
-                <p>Cloud is evolving at an incredible pace, changing almost every aspect of our industry. It&rsquo;s only natural then, that with this change also comes a continuous evolution of how we classify and categorize the various components of the cloud stack.</p>
-                <p>In earlier days, it was enough to draw the lines between IaaS, PaaS, and SaaS, and while this categorization is still very handy, we are beginning to see the lines between these categories start to blur. On the one hand, we see more IaaS providers starting to move up the stack, and on the other hand, we are seeing new categories such as DevOps gaining popularity and bridging the gaps between the IaaS and the PaaS layers.</p>
-                <p>&nbsp;</p>
-                <p><a href="http://www.saasblogs.com/images/uploads/2008/12/cloud_stack.gif"><img alt="" height="313" src="http://natishalom.typepad.com/cloud_stack-1.gif" style="margin: 5px;" width="420" /></a></p>
-                <p>I was recently asked to draw a map of how I see the current cloud stack. This ended up being an interesting exercise. To make things simpler I decided to focus on the IaaS/PaaS&nbsp;piece, both because&nbsp;this is my area of expertise,&nbsp;and also because IMO this is where many interesting developments are taking place. I ended up with the diagram below, which I thought would be worth sharing in order to get feedback and different perspectives.</p>
-                <p>It&rsquo;s important to note, that this diagram is not based on any scientific scoring of different products in the market. I&#39;ll leave that part to the analysts. The specific products I chose to use are only there to illustrate and support my analysis of the components in the stack and where they map to within each category.</p>
-                <p><strong>What&#39;s Driving the Cloud Stack?</strong></p>
-                <p>The two main (and often conflicting) driving forces behind the evolution of the cloud stack are <em>Productivity</em> and <em>Control</em>. As cloud started to emerge it was <strong>productivity</strong> that took center stage, often by giving up almost completely&nbsp;on the level of <strong>control</strong>. As the industry started to mature we started to see an evolution where we could have various degrees of tradeoffs between these two driving forces. A good indicator of this, is the rise of DevOps and Private Clouds. We could also see the new open source movement as yet another major step in that direction - the most notable one is OpenStack, and the recent Citrix announcement about the moving of Cloud Stack into the Apache Foundation.</p>
-                <p>We could also see similar movement happening on the PaaS layer, where VMware launched Cloud Foundry as both a self-service PaaS for development productivity, and as an open source project to provide users with more control.&nbsp;<a href="http://www.cloudifysource.org">Cloudify</a>&nbsp;takes similar yet more explicit moves in that direction by bringing DevOps and PaaS together, in addition to making it open source.</p>
-                <p>&nbsp;</p>
-                <p style="text-align: left;"><a href="http://natishalom.typepad.com/.a/6a00d835457b7453ef016765fadad2970b-pi" style="display: inline;"><img width="600" height="360" alt="Screen Shot 2012-05-01 at 12.27.40 PM" border="0" src="http://natishalom.typepad.com/.a/6a00d835457b7453ef016765fadad2970b-800wi" title="Screen Shot 2012-05-01 at 12.27.40 PM" /></a><br />
-                                &nbsp;</p>
-                <p><strong>Mapping the PaaS Stack</strong></p>
-                <p><a href="http://www.linkedin.com/in/gevaperry">Geva Perry</a>&nbsp;wrote a good summary mapping the current Java PaaS players in his post&nbsp;<a href="http://t.co/gB8n2Zo4">Listing the Java PaaS Public and Private Clouds</a>&nbsp;. Geva chose to classify the different players based on their private/public cloud position and language support (Java in this particular case). Obviously the correlation behind public/private cloud and productivity/control is fairly close, so I can see where he was coming from. While this makes a lot of sense, I believe that it&rsquo;s not accurate enough as there are still solutions that work on both private and public clouds and are not limited to just Java - Cloudify included. So is there a better way to classify the PaaS providers?</p>
-                <p>Here is my suggestion:</p>
-                <p>I would classify the PaaS providers based on those who focus on delivering PaaS through a self-service portal I&rsquo;ll refer to them as&nbsp;<strong>PaaS service providers,</strong>&nbsp;where they assume full control over the underlying infrastructure and own the entire operation of your application - this is where I would put GAE, Heroku etc. Next will be&nbsp; those who gives you the tools to build your own PaaS on private or public clouds, I&rsquo;ll refer to them as&nbsp;<strong>PaaS stack providers</strong>&nbsp;- this is where Cloudify and I believe, Cloud Foundry and Stackato also fit in.</p>
-                <p>The second sub-category of classification would be on the level of openness and control i.e. open source, language support, cloud environment support, DevOps support and such.</p>
-                <p>In any case, we can easily get into a complex matrix of features/mapping for even more fine-grained classification but this far beyond the scope of this post which is merely drawing a rough map rather than providing a complete competitive analysis.</p>
-                <p><strong>How would you categorize the Cloud/PaaS Stack?</strong></p>
-                <p>As I noted earlier, this is just my own personal view on the subject. I hope that this will spark an interesting debate in which we may either come out smarter, or possibly even more confused. :)</p>
-                <p><strong><br />
-                                </strong></p>
-</div>
-
-
-
-
-        
-
-
-
+                    <h1>PaaS, Does It Really Mean No-Ops?</h1>
+<p>I&rsquo;d like to start with a brief overview of the evolution of the cloud &ndash; and why I think a new approach to PaaS solutions is needed &ndash; and the best scenarios for this to come into play.<br />
+                First there was IaaS. Cloud was created with the notion of IT agility and cost-reduction. You need servers? No problem! Forget about red tape, forget about sys admins. You create an account and in few clicks you select the hardware profile and OS image you need, and voila, your server is out there, ready for you to use. No hassles, immediate gratitude.</p>
+<p>Well, this is true as long as the images you get form your cloud provider match your needs. If you have custom needs, you will have to create and maintain your own image. So, you need the sys admin&rsquo;s knowledge. However, we&rsquo;re also seeing a change in methodology here &ndash; sys admins no longer need to install the servers once they&rsquo;re up. Instead, they provide their expertise using approved and maintained images on the cloud. Application developers can choose the right image for them and from that point on, create virtual machines in the amount and hardware size they need for their applications.</p>
+<p>Now let&rsquo;s switch to PaaS. The idea of no-ops is the guideline for many of the <a href="http://bit.ly/Jp1WqQ">existing PaaS offerings</a>. Their use cases and features are all about developers. As <a href="http://www.enterpriseirregulars.com/39361/despite-much-hope-paas-momentum-hasn%E2%80%99t-blown-the-doors-off-yet/">Michael Cote put it</a>:</p>
+<blockquote>
+                <p><br />
+                                &ldquo;The point of PaaS is to make a developer&rsquo;s life even easier: you don&rsquo;t need to manage your cloud deployments at the the lower level of IaaS, or even wire together your Puppet/Chef scripts. The promise of PaaS is similar to that of Java application servers: just write your applications (your business logic) and do magic deployment into the platform, where everything else is taken care of.&rdquo;</p>
+</blockquote>
+<p>Developers need to deploy applications to the Cloud. They don&rsquo;t want to care about the OS but they also don&rsquo;t want to care about platforms, load balancers etc. They want to focus on what they know &ndash; writing code.<br />
+                This is definitely a very productive approach for some developers and some applications. Reality shows that a big portion of Cloud users don&rsquo;t find these solutions a good fit for their purposes. These users continue to deploy and manage their applications on infrastructure clouds, as if they were running on premise leveraging the good old Ops folks. Others have taken a more agile approach, using configuration management and automation tools such as Chef. <br />
+                These users chose not to use PaaS because they need flexibility and control. PaaS doesn&rsquo;t seem to answer a lot of the current IT challenges &#8211; see for example <a href="http://bit.ly/K3aUiY">here </a>and <a href="http://bit.ly/LLeZqt">here</a>.</p>
+<p>Existing applications with a variety of platforms, some using extremely complex topologies (like Hadoop, or a sharded MongoDB setup) are some of the reasons why PaaS won&rsquo;t cut it for many users. <br />
+                They would like to install their chosen versions of their preferred platforms, use their OS image, with their configured security groups, tune them in a manner that fits their applications and deploy their applications with the topology they choose.<br />
+                Chef, like other DevOps tools, go a long way here and helps to achieve the flexibility while re-establishing a new agile relationship between Dev and Ops. Ops bring in their knowledge and skillset, but they document it and maintain it as code in a more structured and configurable way. This in turn gives the application guys the agility they need, putting a complex application to work in a single click and eliminating the platform black box experience which they dislike so much.</p>
+<h2>&nbsp;</h2>
+<h2>Application vs. Separate Platforms</h2>
+<p>However, DevOps tools still fall short when it comes to managing applications. They are not aware of the application&rsquo;s inner dependencies. They don&rsquo;t know how to monitor the application, scale it or even run a complex multi-tier recovery process. Most of these tools can&rsquo;t even provision an entire application on the cloud.</p>
+<p>So what if you could extend the DevOps experience to apply to the entire application lifecycle?</p>
+<p>What if you could use Chef and the likes for installation but not stop there &#8211; automate things like failover and recovery, and even monitoring and scaling? You will still have all the Ops wisdom tailored to each of your applications and be able to automate any of your existing applications without re-architecting them.</p>
+<p>This is exactly our take on PaaS, a DevOps style process that can describe any application&rsquo;s lifecycle on any runtime environment, providing full automation without taking away the control. &nbsp;And this is exactly what we set out to do with our Open Source PaaS platform &ndash; Cloudify, borrowing the idea of recipes but extending it to be application-centric and not infrastructure-centric.</p>
+<p>The recipe describes the application dependencies and lifecycle events externally without any code or architecture change.</p>
+<p><script src="https://gist.github.com/2818112.js?file=mongod.groovy"></script></p>
+<p>See how to create your own recipes <a href="http://bit.ly/Lv7lRx">here</a>.</p>
+<p>Mapping events like installation, start, post-start and stop to scripts or Chef cookbooks, exposing groovy and <span class="caps">REST</span> interfaces for context sharing and dynamic configuration and even provide a way to describe monitoring techniques, scaling rules and process &ldquo;liveness&rdquo; detection.</p>
+<p>So think about it this way: while most PaaS services come with a catalog of predefined application blueprints, allowing the user to control only the application code, this new kind of PaaS stack, allows the user to <strong>define</strong> the blueprint, that is &#8211; any blueprint!</p>
+<p>So, the recipes combine the Ops expertise with the power of automation for the developers. They completely remove the lock-in risk from the application-stack perspective.<br />
+                You can read more the recipes, download Cloudify and experience it yourself or even join the community and influence the roadmap at <a href="http://bit.ly/JPiTKU">cloudifysource.org</a>.</p>
+<p>Come and see us battle it out in the <a href="http://bit.ly/JPiND4">PaaS Death Match</a> at Cloudslam &rsquo;12.<br />
+                &nbsp;</p>
                     <div id="disqus_thread"></div>
 <script type="text/javascript">
     /* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
     var disqus_shortname = 'cloudifysource'; // required: replace example with your forum shortname
-    var disqus_identifier = '/2012/05/03/mapping-the-cloudpaas-stack.html';
+    var disqus_identifier = '/2012/05/28/paas_does_it_really_mean_no_ops.html';
 
     /* * * DON'T EDIT BELOW THIS LINE * * */
     (function() {
