@@ -25,7 +25,7 @@ The cloud driver is loaded and used by the following Cloudify components:
 
 h2. How It Works
 
-The cloud driver is a Java POJO that uses a configuration file. When defining a cloud's configuration file, you must define its class name in its cloud driver configuration file (@<cloudifyInstallationFolder>/tools/cli/plugins/esc/<cloudName>/<cloudName>-cloud.groovy). Cloudify will instantiate this class (using the @no-arg@ constructor) as required, and delegate scale out/in requests to it.
+The cloud driver is a Java POJO that uses a configuration file. When defining a cloud's configuration file, you must define its class name in its cloud driver configuration file (@<cloudifyRoot>/tools/cli/plugins/esc/<cloudName>/<cloudName>-cloud.groovy). Cloudify will instantiate this class (using the @no-arg@ constructor) as required, and delegate scale out/in requests to it.
 
 When scaling-out, the driver is responsible for allocating the machine, verifying that SSH is enabled on it, and returning the machine details to Cloudify. The  returned details include the machine's Host/IP address and the login credentials required to access the machine. When scaling-in, the driver is responsible for shutting down the machine and releasing it to the pool of available machines. In virtualized environments (including most IaaS clouds), this usually means shutting down the virtual machine itself. In contrast, in physical environments, this means either shutting down the machine itself, or simplay stopping the Cloudify agent running on the machine.
 
@@ -41,7 +41,7 @@ h2. The Cloud Driver API
 The cloud driver implementation class implements the following __org.cloudifysource.esc.driver.provisioning.ProvisioningDriver__ interface:
 <script src="https://gist.github.com/1769906.js?file=ProvisioningDriver.java"></script>
 
-h2. Configuring the Cloud Driver
+h2. The Cloud Driver Configuration File
 
 The implementing class of the cloud driver, along with any required cloud configuration information, is specified in a Groovy DSL based configuration file. This information is used to populate the cloud configuration object whose type is __org.cloudifysource.dsl.cloud.Cloud__. This object is passed to the cloud driver instance in the @setConfig()@ call. 
 
@@ -55,12 +55,6 @@ The default cloud driver can be used as-is, or as the basis for an extension tha
 
 h4(info). GigaSpaces regularly tests this cloud driver implementation on "Amazon EC2":http://aws.amazon.com and "Rackspace Cloud":http://www.rackspace.com.
 
-h2. Developing & Using Custom Cloud Drivers
+h2. See Also
 
-Since the cloud driver is an open interface, users can implement their own cloud driver to support specific private cloud environments, or to create a more granular configuration of public cloud environments.
-
-There are several things to consider when creating your own cloud driver, or tweaking the configuration of an existing one:
-* *Loading custom class files*--The cloud driver implementation classes must be available to both the client that bootstraps the cloud, and to the Cloudify ESM management components, which are responsible for scaling services. Currently, it is the cloud driver developer's responsibility to make sure that the classes are on the classpath of the required components, for example, by adding the jar file containing your classes to the Cloudify distribution under @<cloudifyInstallationFolder>/lib/required@. These jar files are automatically added to the classpath of all components, and by adding them to the distribution they will always be available when provisioning new machines. Typically, the distribution file is downloaded from a cloud'd local network file store (e.g. Amazon S3 in the case of Amazon).
-* *Loading custom startup scripts*--Once the bootstrap or scale-out process successfully provisions a new machine, a startup script is executed on the remote machine over SSH. The script is responsible for downloading and installing Cloudify, and then starting the Cloudify agent. In some implementations, you may need to tweak this process to fit the requirements of specific environments (e.g., system proxies, mount points, and paths). You can use the default startup script (@<cloudifyInstallationFolder>/tools/cli/plugins/esc/ec2/upload/bootstrap-management.sh@), which works with the built-in cloud driver, as the basis for the startup script for your own cloud driver. Simply place the modified script in the upload directory corresponding to your cloud of choice (e.g. For EC2, @<cloudifyInstallationFolder>/tools/cli/plugins/esc/ec2/upload/) and the script will be automatically uploaded to every new machine.
-
-For more information, see "Developing Custom Cloud Drivers":/guide/clouddrivers/developing_custom_clouddriver.
+* "Developing Custom Cloud Drivers":/guide/clouddrivers/developing_custom_clouddriver
