@@ -128,7 +128,7 @@ h1. Plugins
 
 The recipe file is intended to handle most of the common use cases, but it is impossible to handle all scenarios. 
 Eventually, you may encounter a scenario that requires writing custom code to handle a certain kind of event or performance statistic. 
-This is what the plugin mechanism allows. A plugin is a java class that implements the __com.gigaspaces.cloudify.dsl.Plugin__ interface, plus one or more additional interfaces as described here. 
+This is what the plugin mechanism allows. A plugin is a java class that implements the __org.cloudifysource.dsl.Plugin__ interface, plus one or more additional interfaces as described here. 
 The POJO class name, plus a map of parameters,is defined in the recipe file. 
 When the USM loads, it will execute the plugin according to the interfaces it implements, giving the developer the required flexibility. 
 The jar file containing the compiled plugin implementation, plus any additional classes and resources it needs, should be places in your recipe folder before it is packaged, under the usmlib directory. 
