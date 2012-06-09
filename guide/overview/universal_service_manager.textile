@@ -60,7 +60,7 @@ h3. Stop Phase:
 events: preStop, postStop
 By default, the USM 'stops' the external process by killing the process using an operating system call (using the Sigar library). This is an effective approach
 for most cases, but may not work for some cases where a process needs to perform specific operations during shutdown, like persisting state to disk. In these cases,
-the recipe should use the preStart event to handle any additional logic. For instance, a tomcat recipe may call the shutdown script on the preStart phase, then wait
+the recipe should use the preStop event to handle any additional logic. For instance, a tomcat recipe may call the shutdown script on the preStop phase, then wait
 until the shutdown command closes the tomcat process.
 
 h3. Shutdown Phase:
