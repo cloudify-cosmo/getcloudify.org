@@ -41,6 +41,7 @@ Cloudify needs to detect your service availability before installing dependent s
 For these ends, Cloudify exposes the @startDetection@ and @stopDetection@ Probes.
 
 You can implement both of them the way you want, either at the platform or even at the application level, to detect non-functional parts of your application or infrastructure.
+
 h4. The start detection probe
 
 The @startDetection@ is a groovy closure that returns a boolean value. It is invoked with several retries by the USM following the successful completion of the @start@ life-cycle event. If returns @true@ the service instance will be declared as running. If it failed during all retries, the service instance will be uninstalled.

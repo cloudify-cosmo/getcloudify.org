@@ -72,7 +72,7 @@ Before you use the Cloudify shell to bootstrap on EC2, make sure that you perfor
 <h4 class="info">Make sure the file is saved under @<cloudify root>/tools/cli/plugins/esc/ec2/upload@.</h4>
 <img src="/guide/images/ec2/EC2_CREATE_KEY_PAIR_SUCCESS_AND_SAVE3.jpg" />
 <h4 class="info">The private key enables Cloudify cloud driver to create SSH connections to newly created instances on EC2.</h4>
-# Configure the Cloudify EC2 cloud driver @<cloudify root>/tools/cli/plugins/esc/ec2/@. To configure the EC2 cloud driver, edit the file and modify the following attribute values:
+# Configure the Cloudify EC2 cloud driver @<cloudify root>/tools/cli/plugins/esc/ec2/ec2-cloud.groovy@. To configure the EC2 cloud driver, edit the file and modify the following attribute values:
 #* In the @user@ section:
 #** @user@--Type your EC2 *Access Key ID*.
 To obtain your active *Access Key ID*, browse to your AWS management console, click *Security Credentials*, click *"(newwindow)Access Keys(Link to the AWS management console's Access Credentials tab)":https://aws-portal.amazon.com/gp/aws/developer/account/index.html?action=access-key*, and then click the *Access Credentials* tab.
