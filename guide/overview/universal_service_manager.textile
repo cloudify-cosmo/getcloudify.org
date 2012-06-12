@@ -60,13 +60,13 @@ h3. Stop Phase:
 events: preStop, postStop
 By default, the USM 'stops' the external process by killing the process using an operating system call (using the Sigar library). This is an effective approach
 for most cases, but may not work for some cases where a process needs to perform specific operations during shutdown, like persisting state to disk. In these cases,
-the recipe should use the preStart event to handle any additional logic. For instance, a tomcat recipe may call the shutdown script on the preStart phase, then wait
+the recipe should use the preStop event to handle any additional logic. For instance, a tomcat recipe may call the shutdown script on the preStop phase, then wait
 until the shutdown command closes the tomcat process.
 
 h3. Shutdown Phase:
 
 events: shutdown
-The shutdown event should be used to perform any required cleanup before the USM instance shuts down. This if often used when running on  physical hosts
+The shutdown event should be used to perform any required cleanup before the USM instance shuts down. It is oftenly used when running on  physical hosts
 to delete any files that were saved to a location on the local file system that is not under the default service directory (which is deleted automatically when
 the USM instance is un-deployed).
 
@@ -128,7 +128,7 @@ h1. Plugins
 
 The recipe file is intended to handle most of the common use cases, but it is impossible to handle all scenarios. 
 Eventually, you may encounter a scenario that requires writing custom code to handle a certain kind of event or performance statistic. 
-This is what the plugin mechanism allows. A plugin is a java class that implements the __com.gigaspaces.cloudify.dsl.Plugin__ interface, plus one or more additional interfaces as described here. 
+This is what the plugin mechanism allows. A plugin is a java class that implements the __org.cloudifysource.dsl.Plugin__ interface, plus one or more additional interfaces as described here. 
 The POJO class name, plus a map of parameters,is defined in the recipe file. 
 When the USM loads, it will execute the plugin according to the interfaces it implements, giving the developer the required flexibility. 
 The jar file containing the compiled plugin implementation, plus any additional classes and resources it needs, should be places in your recipe folder before it is packaged, under the usmlib directory. 
@@ -162,8 +162,8 @@ This diagram shows all of the available interfaces:
 
 h3. Processing Unit Structure
 
-The USM is deployed just like a standard GigaSpaces Processing Unit. 
-It includes a standard pu.xml file, the usm.jar implementation files (available in the GigaSpaces installation folder under lib/platform/usm) and an additional folder, called 'ext', where the service recipe and any additional resources are placed.
+The USM is deployed just like a standard XAP Processing Unit. 
+It includes a standard pu.xml file, the usm.jar implementation files (available in the XAP installation folder under lib/platform/usm) and an additional folder, called 'ext', where the service recipe and any additional resources are placed.
 PU
 + lib
 &nbsp;&nbsp;&nbsp;&nbsp; \| usm.jar
