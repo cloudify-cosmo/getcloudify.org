@@ -9,17 +9,23 @@ pageord: 200
 
 This topic is an overview of how to develop custom cloud drivers. For general information about the Cloudify cloud driver, see "The Cloud Driver":/guide/clouddrivers/cloud_driver.
 
+h2. Introduction
+
+The cloud driver is an open interface enabling users to implement their own cloud drivers to support specific private cloud environments, or to create a more granular configuration of public cloud environments.
+
+There are several things to consider when creating your own cloud driver, or tweaking the configuration of an existing one:
+* *Loading custom class files*--The cloud driver implementation classes must be available to both the client that bootstraps the cloud, and to the Cloudify ESM management components, which are responsible for scaling services. Currently, it is the cloud driver developer's responsibility to make sure that the classes are on the classpath of the required components, for example, by adding the jar file containing your classes to the Cloudify distribution under @<cloudifyRoot>/lib/required@. These jar files are automatically added to the classpath of all components, and by adding them to the distribution they will always be available when provisioning new machines. Typically, the distribution file is downloaded from a cloud'd local network file store (e.g. Amazon S3 in the case of Amazon).
+* *Loading custom startup scripts*--Once the bootstrap or scale-out process successfully provisions a new machine, a startup script is executed on the remote machine over SSH. The script is responsible for downloading and installing Cloudify, and then starting the Cloudify agent. In some implementations, you may need to tweak this process to fit the requirements of specific environments (e.g., system proxies, mount points, and paths). You can use the default startup script (@<cloudifyRoot>/tools/cli/plugins/esc/ec2/upload/bootstrap-management.sh@), which works with the built-in cloud driver, as the basis for the startup script for your own cloud driver. Simply place the modified script in the @upload@ folder corresponding to your cloud of choice (e.g. For EC2, @<cloudifyRoot>/tools/cli/plugins/esc/ec2/upload/@) and it will automatically be uploaded to every new machine.
+
 h2. How does the Cloud Driver Work? (A Technical Overview)
 
 To explain the main cloud driver scenarios, we will use the Openstack cloud driver (@OpenstackCloudDriver@) that extends the @CloudDriverSupport@ base class and implements the @ProvisioningDriver@ interface.
 
-The Cloudify cloud driver (@ProvisioningDriver@ is the Interface Name), has methods corresponding to the following main scenarios:
-* *"Bootstrapping a Cloud":#bootstrap*--Allocates machines and installs the Cloudify controller
+The Cloudify cloud driver (Interface Name: @ProvisioningDriver@) is a Java POJO that uses a configuration file to define cloud specific attributes, and has methods corresponding to the following main scenarios:
+* *"Bootstrapping a Cloud":#bootstrap*--Allocates machines and installs the Cloudify controller.
 * *"Installing an Application":#install*--Allocates machines for application services and installs the application's services (including the Cloudify agent). In this scenario, the cloud driver resides on the management machine as part of the Cloudify controller.<h4 class="info">There is also a *Cluster healing* scenario which is treated by Cloudify as being the same as the *Installing an application* scenario.</h4>
 * *"Uninstalling an Application":#uninstall*--Stops the application's services and instructs the cloud driver to unininstall the machines used by the services.
-* *"Tearing Down a Cloud":#teardown*--Uninstalls all Cloudify machines and components.
-
-h4(info). The cloud driver is a Java POJO that uses a configuration file to define cloud specific attributes and methods. 
+* *"Tearing Down a Cloud":#teardown*--Uninstalls all Cloudify machines and components. 
 
 h3(#bootstrap). Bootstrapping a Cloud
 
@@ -72,72 +78,6 @@ In this scenario, the cloud driver resides on the client machine. At the Cloudif
 
 <script src="https://gist.github.com/2043105.js?file=stopManagement.java"></script>
 
-h2. Setting Up Your Project
+h2. See Also
 
-This section will teach you what you need in your eclipse project
-
-h4. Prepare your Maven pom file
-
-The following sections section are needed in your pom file:
-Set the cloudify version property (optional – you can set it directly in the jar dependency element)
-
-<script src="https://gist.github.com/2070735.js?file=version.xml"></script>
-
-Add the jar dependency: 
-<script src="https://gist.github.com/2070742.js?file=dependencies.xml"></script>
-
-Add the Clopudify Repository
-
-<script src="https://gist.github.com/2070752.js?file=repo.xml"></script>
-
-h2. Before You Code
-
-This section explains how to get what you need from your cloud account – credentials, SSH access etc.
-
-h3. Getting the Security Credentials for API Access
-
-The security credentials you will need to have for the cloud driver are of two kinds:
-* The credentials for the Cloud IaaS API calls
-* The credentials for accessing a VM with SSH
-In some cases you will need the storage credentials as well
-
-For example this is how you would do it with Openstack:
-The Openstack administrator will create a user login ID for you.
-When you receive your user id, it will be accompanied by an access key and a secret key.
-The access key is used in the Cloud driver configuration for the setting “user”.
-The secret key should be used to set the “apiKey” setting.
-In order to enable SSL, required for bootstrapping the system, generate a key pair with "HybridFox":http://code.google.com/p/hybridfox/
-and save it in the cloud driver “upload” directory.
-Also, set the “keyFile” property to the name you gave the key pair in the Cloud driver configuration file.
-
-<script src="https://gist.github.com/2042919.js?file=driver_user.groovy"></script>
-
-<img src="/guide/images/clouddrivers/cloud_driver_plugin.png"/>
-
-h3. Getting the right Image and HW for Management
-
-You will need to define HW / SW templates in the Cloud Driver configuration file. One of them will define the management VM. 
-Keep In mind the following:
-* The management VM must have public IP to be accessed from the internet or other subnets within the organization using HTTP
-* The management VM must have SSH access to be installed
-* It will require X of disk space and Y GB of RAM memory
-* Currently it must be a Linux Image 
-
-h3. Configure the management template
-
-Now you nedd to tweak the Cloud Driver configuration file:
-create a template with the image and HW you selected:
-
-<script src="https://gist.github.com/2070794.js?file=templates.groovy"></script>
-
-set the management machine templates to the template you created:
-
-<script src="https://gist.github.com/2070776.js?file=driver.groovy"></script>
-
-h2. Packing and Adding to Cloudify
-
-In order to use your custom cloud driver you need to the following:
-# Add your java binaries as jar to <Cloudify>/lib/required
-# Add your cloud driver configuration and security certificate under <Cloudify>/tools/cli/plugins/esc as noted in the below diagram
-
-<img src="/guide/images/clouddrivers/cloud_driver_plugin.png"/>
+* "Turorial - Developing a custom cloud driver using Maven":/guide/clouddrivers/tutorial_maven
