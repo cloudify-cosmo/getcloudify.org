@@ -73,7 +73,7 @@ In some cases, you require a recipe that can run on several operating systems.
 The following example shows a @lifecycle@ section describing the allocation of operating system specific event handlers to life cycle events.
 <script src="https://gist.github.com/1760265.js?file=mult_lifecycle.groovy"></script>
 
-h3(locator). Process Locator Events
+h3(#locator). Process Locator Events
 
 Cloudify's process monitoring, liveness detection, and stop events use process ids to perform their functions. By default, Cloudify collects the process ids by scanning the process tree launched by a service recipe and locating all the *leaf* processes (processess that did not spawn any new processes).
 
