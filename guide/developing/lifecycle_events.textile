@@ -41,27 +41,29 @@ h2(#instance). Service Instance Events
 
 Each service instance can be customized in the service recipe. They are triggered by the ESM.
 
-The following diagram shows the service instance events lifecycle.
+The following diagram shows the main service instance events lifecycle.
 <img src="/guide/images/recipes/service_instance_lifecycle.png"/>
 
 h2(#handler). Lifecycle Event Handlers
 
 Lifecycle event handlers are described in the @lifecycle@ section of the service descriptor file. They can be described as an external script file located in the same folder as the service recipe (supported formats include: Groovy scripts, Windows batch files, or *nix shell scripts), or as inline closures (useful when the required code is very short code). You can use scripts written in other languages by running them from within a supported external script file, providing them with context using environment variables.
 
-The following is a list of lifecycle events to which event handlers can be allocated:
+The following is a complete sequence of lifecycle events to which event handlers can be allocated:
 
+* @preServiceStart@
 * @init@
 * @preInstall@
 * @install@
 * @postInstall@
 * @preStart@
 * @start@
+* @startDetection@
+* @locator@
 * @postStart@
 * @preStop@
 * @stop@
 * @postStop@
 * @shutdown@
-* @preServiceStart@
 * @preServiceStop@
 
 The following example shows a @lifecycle@ section describing the allocation of event handlers to lifecycle events.
@@ -70,6 +72,21 @@ The following example shows a @lifecycle@ section describing the allocation of e
 In some cases, you require a recipe that can run on several operating systems. 
 The following example shows a @lifecycle@ section describing the allocation of operating system specific event handlers to life cycle events.
 <script src="https://gist.github.com/1760265.js?file=mult_lifecycle.groovy"></script>
+
+h3(locator). Process Locator Events
+
+Cloudify's process monitoring, liveness detection, and stop events use process ids to perform their functions. By default, Cloudify collects the process ids by scanning the process tree launched by a service recipe and locating all the *leaf* processes (processess that did not spawn any new processes).
+
+The process locator event (@locator@) is triggered after the @startDetection@ event and enables you to override the default list of process ids collected by Cloudify. By describing an event handler for the locator event in the lifecycle section of the service recipe, you can write your own code for collecting a list of a service's process ids and return the list to Cloudify for monitoring. This enables Cloudify to monitor all the processes of a service, and will ONLY identify a service as stopped if ALL of the associated processes have stopped.
+
+Alternatively, if you do not want to monitor process at all, describe a process locator closure that returns an empty list of process ids. For example, this is useful when you have a service that frequenty spawns and kills processes, or when you do not want to monitor the liveness of your service.
+
+If you do not describe a locator closure in the service recipe, Cloudify uses the default behavior.
+
+h4(impt). If the lifecycle section of your service recipe does not describe a @start@ event handler, thereby enabling a machine to start using services preconfigured in an image, the process locator event is not triggered. Therfore, if you want to monitor the service's processes, describe the monitors section of the service recipe with the relavant monitoring code.
+
+The folowing example shows a @locator@ closure in a service recipe.
+<script src="https://gist.github.com/2965258.js"> </script>
 
 h3. Retrieving the Service Context from within Event Handlers
 
