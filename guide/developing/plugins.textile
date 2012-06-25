@@ -27,9 +27,9 @@ h2. Types of Probe Monitoring
 The following table describes the different types of monitoring implemented using probes.
 
 |_. Monitoring Type |_. Description |
-|*Configuration Probes*|This type of monitor retrieves custom service details. When using *Scripted* probes, it is described in the @details@ section of the service configuration file.|
-|*Performance Probes*|This type of monitor retrieves custom metrics at regular intervals. When using *Scripted* probes, it is described in the @monitors@ section of the service configuration file.|
-|*Availability Probes*|This type of monitor detects the availabilty of a service instance, as follows:<ul><li>*Service Start Detector* ("@startDetection@":/guide/plugins_and_probes/probes#start) - Detects the successful start of a specified service instance. This is used in the service lifecycle to invoke postStart events and dependent services.</li><li>*Service Stop Detector* ("@stopDetection@":/guide/plugins_and_probes/probes#stop) - Detects a stopped service instance. This is used in the service lifecycle to initiate self-healing process that provisions a new instance of the stopped service.</li></ul>|
+|*Configuration*|This type of monitor retrieves custom service details. When using *Scripted* probes, it is described in the @details@ section of the service configuration file.|
+|*Performance*|This type of monitor retrieves custom metrics at regular intervals. When using *Scripted* probes, it is described in the @monitors@ section of the service configuration file.|
+|*Availability*|This type of monitor detects the availabilty of a service instance, as follows:<ul><li>*Service Start Detector* ("@startDetection@":/guide/plugins_and_probes/probes#start) - Detects the successful start of a specified service instance. This is used in the service lifecycle to invoke postStart events and dependent services.</li><li>*Service Stop Detector* ("@stopDetection@":/guide/plugins_and_probes/probes#stop) - Detects a stopped service instance. This is used in the service lifecycle to initiate self-healing process that provisions a new instance of the stopped service.</li></ul>|
 
 h2. Describing Probes
 
