@@ -91,6 +91,11 @@ echo Copying %SRC%\guide\index_raw.html to %DEST_FOLDER%\guide\index.html ...
 copy /y %SRC%\guide\index_raw.html %DEST_FOLDER%\guide\index.html
 echo Copying %SRC%\guide\toc.html to %DEST_FOLDER%\_includes\toc.html ...
 copy /y %SRC%\guide\toc.html %DEST_FOLDER%\_includes\toc.html
+
+echo Creating versions by cscript //nologo version.js
+pushd %DEST_FOLDER%\scripts
+cscript //nologo version.js
+popd
 pause
 
 

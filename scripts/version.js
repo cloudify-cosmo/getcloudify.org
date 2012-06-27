@@ -7,6 +7,9 @@
 
 var debug = false,
     dataFile = 'version.data.js';
+	
+var currentVersionText='Current';
+var VersionTitle='This document refers to Cloudify Version: ';
 
 /* Generates content object
  * Run from command prompt: cscript //nologo version.js */
@@ -66,7 +69,7 @@ function addPageVersions() {
 	if (!isEmpty((pages = getAlternatePages(path)))) {
 		debugWrite('Pages: ' + pages + '\tLength: ' + pages.length);
 		
-		options['version'] += '<option selected="true">Other Versions</option>';
+		options['version'] += '<option selected="true">Choose another version</option>';
 		for (page in pages) {
 			debugWrite('Processing page: ' + page);
 			
@@ -74,32 +77,33 @@ function addPageVersions() {
 			debugWrite('pageParts: ' + pageParts);
 			
 			value = //pageParts[0] +
-					' Version: ' + ((pageParts[1]) ? pageParts[1].replace(/_/g, '\.') : 'Current') +
-					((pageParts[2]) ? ' Release: ' + getRelease(pageParts[2]) : '');
+					' Version: ' + ((pageParts[1]) ? pageParts[1].replace(/_/g, '\.') : currentVersionText) +
+					((pageParts[2]) ? ' ,Release: ' + getRelease(pageParts[2]) : '');
 					//((pageParts[2]) ? ' Release: ' + ((releases[pageParts[2]]) ? releases[pageParts[2]] : pageParts[2]) : '');
 			debugWrite('Value: ' + value + '\tpageCurrent: ' + pageCurrent);
 			
-			options['version'] += '<option label="' + page + '">' + value + '</option>'; //((page == pageCurrent) ? ' selected="true"' : '') + '>' + value + '</option>';
+			options['version'] += '<option text="' + value + '" value="' + page + '">' + value + '</option>'; //((page == pageCurrent) ? ' selected="true"' : '') + '>' + value + '</option>';
 		}
 		
 		debugWrite('options[version]: ' + options['version']);
 		
 		var urlPath = base + '/' + path[0] + '/' + path[1] + '/';
+		
 		pageParts = pageCurrent.split('-');
-		var versionShowing = ' Version: ' +	((pageParts[1]) ? pageParts[1].replace(/_/g, '\.') : 'Current') +
-			((pageParts[2]) ? ' Release: ' + getRelease(pageParts[2]) : ''); //((releases[pageParts[2]]) ? releases[pageParts[2]] : pageParts[2]) : '');
+		var versionShowing = VersionTitle +	((pageParts[1]) ? pageParts[1].replace(/_/g, '\.') : currentVersionText) +
+			((pageParts[2]) ? ' ,Release: ' + getRelease(pageParts[2]) : ''); //((releases[pageParts[2]]) ? releases[pageParts[2]] : pageParts[2]) : '');
 		
-		injectToHtml('#pageContent', '<div id="versionSelectionTop">', '');
+		injectToHtml('#pageVersion', '<span id="versionSelectionTop">', '');
 		
-		injectToHtml('#versionSelectionTop', '<table class="versionTable">', '<tr><td class="versionShowing"></td><td class="versionSelection"></td></tr>');
-		injectToHtml('#versionSelectionTop table td.versionShowing', '<span>', versionShowing);
-		injectToHtml('#versionSelectionTop table td.versionSelection', '<select onchange="document.location.href = \'' + urlPath + '\' + this.options[this.selectedIndex].label;">', options['version'], 'append');
+		injectToHtml('#versionSelectionTop', '<table class="versionTable">', '<tr><td class="impt"></td><td class="versionSelection"></td></tr>');
+		injectToHtml('#versionSelectionTop table td.impt', '<span>', versionShowing);
+		injectToHtml('#versionSelectionTop table td.versionSelection', '<select onchange="document.location.href = \'' + urlPath + '\' + this.options[this.selectedIndex].value;">', options['version'], 'append');
 		
-		injectToHtml('#pageContent', '<div id="versionSelectionBottom">', '', 'append');
+		injectToHtml('#pageContent', '<span id="versionSelectionBottom">', '', 'append');
 		injectToHtml('#versionSelectionBottom', '<br>', '');
-		injectToHtml('#versionSelectionBottom', '<table class="versionTable">', '<tr><td class="versionShowing"></td><td class="versionSelection"></td></tr>', 'append');
-		injectToHtml('#versionSelectionBottom table td.versionShowing', '<span>', versionShowing);
-		injectToHtml('#versionSelectionBottom table td.versionSelection', '<select onchange="document.location.href = \'' + urlPath + '\' + this.options[this.selectedIndex].label;">', options['version'], 'append');
+		injectToHtml('#versionSelectionBottom', '<table class="versionTable">', '<tr><td class="impt"></td><td class="versionSelection"></td></tr>', 'append');
+		injectToHtml('#versionSelectionBottom table td.impt', '<span>', versionShowing);
+		injectToHtml('#versionSelectionBottom table td.versionSelection', '<select onchange="document.location.href = \'' + urlPath + '\' + this.options[this.selectedIndex].value;">', options['version'], 'append');
 	}
 	
 }

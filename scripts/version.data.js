@@ -65,6 +65,8 @@ var guide = {
 		'command_line_reference':true,
 		'service_recipe_ref':true
 	},
+	'reference':{
+	},
 	'release_notes':{
 		'release_notes':true
 	},
