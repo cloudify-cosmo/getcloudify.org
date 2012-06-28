@@ -121,6 +121,8 @@ The following diagram depicts the application's recipe file and folder structure
 
 <img src="/guide/images/setup/pet_clinic_anatomy3.JPG" />
 
+h4(info). All the services in this application extend a corresponding recipe in ../../../services/ folder.      
+
 For more information about recipes, see "Anatomy of a Recipe":/guide/developing/recipes_overview
 
 h2. The Application Recipe
@@ -217,17 +219,6 @@ The Mongo Data Shards (mongod) Recipe does the following:
 
 The @mongod@ service file is @<cloudify root>/recipes/apps/petclinic/mongod/mongod-service.groovy@.
 
-h3. The Tomcat Recipe
-
-The Tomcat Recipe does the following:
-* Downloads, unzips, and installs the Tomcat binaries on the VM
-* Configures the Tomcat HTTP Port and then enables remote JMX
-* Starts the Tomcat process (using the bin/catalina script)
-* Detects whether the server started successfully
-* Monitors Tomcat performance by using the JMX Monitoring plugin
-
-The tomcat service file is @<cloudify root>/recipes/apps/petclinic/tomcat/tomcat-service.groovy@.
-
 h3. The apacheLB Recipe
 
 The apacheLB Recipe does the following:
@@ -238,6 +229,17 @@ The apacheLB Recipe does the following:
 * Monitors the apacheLB liveness by using the "process locator":/guide/developing/lifecycle_events#locator.
 
 The apacheLB service file is @<cloudify root>/recipes/apps/petclinic/apacheLB/apacheLB-service.groovy@.
+
+h3. The Tomcat Recipe
+
+The Tomcat Recipe does the following:
+* Downloads, unzips, and installs the Tomcat binaries on the VM
+* Configures the Tomcat HTTP Port and then enables remote JMX
+* Starts the Tomcat process (using the bin/catalina script)
+* Detects whether the server started successfully
+* Monitors Tomcat performance by using the JMX Monitoring plugin
+
+The tomcat service file is @<cloudify root>/recipes/apps/petclinic/tomcat/tomcat-service.groovy@.
 
 h3. Configuring @tomcat@ with the @mongod@ port
 

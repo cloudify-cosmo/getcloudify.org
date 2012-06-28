@@ -8,7 +8,8 @@
 var debug = false,
     dataFile = 'version.data.js';
 	
-var currentVersionText='Current';
+var currentVersionNumber='2.1.1 ,Release: M2';
+var currentVersionText=currentVersionNumber;
 var VersionTitle='This document refers to Cloudify Version: ';
 
 /* Generates content object
@@ -55,6 +56,13 @@ function processFolder(folder, level, closeBrace) {
 }
 
 function addPageVersions() {
+	/* Remove this when we move to the GA*/
+	if ( true ) { 
+		setDefaultBottomVersion();
+		return;
+	}
+	/* End of the section to be removed */
+	
 	var href = document.location.href, //'http://cloudify.org/guide/qsg/quick_start_guide', //document.location.href;
 	    base = href.substr(0, href.indexOf('guide')-1),
 	    path = href.substr(href.indexOf('guide')).split('/'),
@@ -105,7 +113,18 @@ function addPageVersions() {
 		injectToHtml('#versionSelectionBottom table td.impt', '<span>', versionShowing);
 		injectToHtml('#versionSelectionBottom table td.versionSelection', '<select onchange="document.location.href = \'' + urlPath + '\' + this.options[this.selectedIndex].value;">', options['version'], 'append');
 	}
+	else {
+		setDefaultBottomVersion();
+	}
 	
+}
+
+
+function setDefaultBottomVersion(){
+		injectToHtml('#pageContent', '<span id="versionSelectionBottom">', '', 'append');
+		injectToHtml('#versionSelectionBottom', '<br>', '','append');
+		injectToHtml('#versionSelectionBottom', '<br>', '','append');
+		injectToHtml('#versionSelectionBottom', '<span class="impt">', VersionTitle + currentVersionNumber, 'append');	
 }
 
 function getAlternatePages (path) {
@@ -129,10 +148,15 @@ function getAlternatePages (path) {
 }
 
 function getRelease(release) {
-	var releases = {
+	/*var origreleases = {
 			ga: 'General Availability',
 			mx: 'Milestone ',
 			rc: 'Release Candidate'
+		}, */
+	var releases = {
+			ga: 'GA',
+			mx: 'M',
+			rc: 'RC'
 		},
 		milestone = null;
 	

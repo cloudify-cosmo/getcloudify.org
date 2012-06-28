@@ -11,12 +11,11 @@
     <script type="text/javascript" src="/scripts/jquery-ui-1.8.17.custom.min.js"></script>
     <script type="text/javascript" src="/scripts/jquery.prettyPhoto.js"></script>
 	<script type="text/javascript" src="/scripts/prettify/prettify.js"></script>
-	<!--<script type="text/javascript" src="/scripts/version.data.js"></script>
-	<script type="text/javascript" src="/scripts/version.js"></script> -->
+	<script type="text/javascript" src="/scripts/version.data.js"></script>
+	<script type="text/javascript" src="/scripts/version.js"></script>			
     <script type="text/javascript">
     window.onload = function () {
-		$('body').addClass("bodyClass");
-		//addPageVersions();
+		$('body').addClass("bodyClass");	
  	}
              $(function(){ 
              	$("a.youtube").YouTubePopup({ hideTitleBar: true });
@@ -51,6 +50,17 @@
 	 );
     
     </script>
+	
+	{% if needVersions != null %} 
+		<script type="text/javascript">								
+			var origOnLoad = window.onload;
+			window.onload = function() {
+				origOnLoad();
+				addPageVersions();
+			}	
+		</script>			
+		{% assign needVersions = null %}
+	{% endif %}	
     
     <script type="text/javascript" src="/scripts/cloudify_default.js"></script>
 	{% include googleanalytics.html %}
