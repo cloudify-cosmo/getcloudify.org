@@ -38,8 +38,9 @@ For Cloudify to work, your environment must meet the following software requirem
 h3. Networking and Ports
 
 For Cloudify to work, your environment must meet the following networking requirements:
-* All ports open between machines in same service
-* All ports open between management machines and all other machines
+* All ports open between VMs in same application (or service if you're just installing a single service)
+* All ports open between management VM(s) and all other VMs managed by it (containing service instances of services and applications that are managed by the controller installed on the management VM).
+* For Linux VMs, port 22 (ssh) should be open for communication from the internet via the VMs' public IP address. This is required for bootstrapping the Cloudify installation over ssh on each of the started VMs. 
 * On the management VMs, ports 8099 and 8100 must be open for communication from the Internet via the VMs' public IP address. This allows the Cloudify shell to interact with the REST server and allows users to access the management web application.
 
 h2(#drivers). Configure Cloud Drivers
