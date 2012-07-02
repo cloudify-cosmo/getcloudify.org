@@ -8,7 +8,7 @@
 var debug = false,
     dataFile = 'version.data.js';
 	
-var currentVersionNumber='2.1.1 ,Release: M2';
+var currentVersionNumber='2.1.1, Release: M2';
 var currentVersionText=currentVersionNumber;
 var VersionTitle='This document refers to Cloudify Version: ';
 
@@ -86,7 +86,7 @@ function addPageVersions() {
 			
 			value = //pageParts[0] +
 					' Version: ' + ((pageParts[1]) ? pageParts[1].replace(/_/g, '\.') : currentVersionText) +
-					((pageParts[2]) ? ' ,Release: ' + getRelease(pageParts[2]) : '');
+					((pageParts[2]) ? ', Release: ' + getRelease(pageParts[2]) : '');
 					//((pageParts[2]) ? ' Release: ' + ((releases[pageParts[2]]) ? releases[pageParts[2]] : pageParts[2]) : '');
 			debugWrite('Value: ' + value + '\tpageCurrent: ' + pageCurrent);
 			
@@ -99,7 +99,7 @@ function addPageVersions() {
 		
 		pageParts = pageCurrent.split('-');
 		var versionShowing = VersionTitle +	((pageParts[1]) ? pageParts[1].replace(/_/g, '\.') : currentVersionText) +
-			((pageParts[2]) ? ' ,Release: ' + getRelease(pageParts[2]) : ''); //((releases[pageParts[2]]) ? releases[pageParts[2]] : pageParts[2]) : '');
+			((pageParts[2]) ? ', Release: ' + getRelease(pageParts[2]) : ''); //((releases[pageParts[2]]) ? releases[pageParts[2]] : pageParts[2]) : '');
 		
 		injectToHtml('#pageVersion', '<span id="versionSelectionTop">', '');
 		
