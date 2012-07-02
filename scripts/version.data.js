@@ -5,7 +5,8 @@ var guide = {
 		'bootstrapping_ec2':true,
 		'bootstrapping_hp':true,
 		'bootstrapping_localcloud':true,
-		'bootstrapping_process':true
+		'bootstrapping_process':true,
+		'bootstrapping_rs':true
 	},
 	'clouddrivers':{
 		'cloud_driver':true,
@@ -76,6 +77,7 @@ var guide = {
 		'configuring_byon':true,
 		'configuring_ec2':true,
 		'configuring_openstack':true,
+		'configuring_rsopenstack':true,
 		'installing_the_cloudify_client':true,
 		'post_installation_configuration':true
 	},
