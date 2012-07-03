@@ -2,61 +2,69 @@
         "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>	
-    <title>Cloudify - Tag: AWS</title>
-    <link rel="stylesheet" href="/css/template.css" type="text/css"/>    
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>	
+	<title>Cloudify - Tag: AWS</title>
+	<link rel="stylesheet" href="/css/template.css" type="text/css"/>	
 	<link rel="canonical" href="http://www.cloudifysource.orgtags/AWS/index.html"/>	
-    <link rel="stylesheet" href="/css/jquery-ui-1.8.17.custom.css" type="text/css" media="all"/>
-    <link rel="stylesheet" type="text/css" href="/scripts/prettify/prettify.css">	
+	<link rel="stylesheet" href="/css/jquery-ui-1.8.17.custom.css" type="text/css" media="all"/>
+	<link rel="stylesheet" type="text/css" href="/scripts/prettify/prettify.css">	
 	<link rel="shortcut icon" href="/favicon.ico" type="image/x-icon" />
-    <script type="text/javascript" src="/scripts/jquery-1.6.4.js"></script>
-    <script type="text/javascript" src="/scripts/search.js"></script>
-    <script type="text/javascript" src="/scripts/jquery-ui-1.8.17.custom.min.js"></script>
-    <script type="text/javascript" src="/scripts/jquery.prettyPhoto.js"></script>
+	<script type="text/javascript" src="/scripts/jquery-1.6.4.js"></script>
+	<script type="text/javascript" src="/scripts/search.js"></script>
+	<script type="text/javascript" src="/scripts/jquery-ui-1.8.17.custom.min.js"></script>
+	<script type="text/javascript" src="/scripts/jquery.prettyPhoto.js"></script>
 	<script type="text/javascript" src="/scripts/prettify/prettify.js"></script>
 	<script type="text/javascript" src="/scripts/version.data.js"></script>
 	<script type="text/javascript" src="/scripts/version.js"></script>			
-    <script type="text/javascript">
-    window.onload = function () {
+	<script type="text/javascript">
+	window.onload = function () {
 		$('body').addClass("bodyClass");	
  	}
-             $(function(){ 
-             	$("a.youtube").YouTubePopup({ hideTitleBar: true });
-           	$("div.expand").hide();
-           	$("li.expandBtn").click(function(){	
-    		  $(this).next("div.expand").slideToggle(500);
-    		  if($(this).html()=="More..."){
-    		  	$(this).html("Less...");	
-    		  }else{
-    		  	$(this).html("More...");
-    		  }
-    		  
-			});
-           /* ------------- added by Yaron ------------ */
-			$("span.pln, span.kwd").css("cursor","pointer");
-			$("span.pln, span.kwd").hover(function(){$(this).css("background-color","#CECECE");},function(){$(this).css("background-color","transparent");});
-	        $("span.pln, span.kwd").click( function(eventObject) {
-				var currKey = $(eventObject.currentTarget).text().trim();
-				if (currKey == "name") {
-					var prevKey = $(eventObject.currentTarget).prev().prev("span.pln").text().trim();
+	
+	$(function(){ 
+		$("a.youtube").YouTubePopup({ hideTitleBar: true });
+		$("div.expand").hide();
+		$("li.expandBtn").click(function(){	
+			$(this).next("div.expand").slideToggle(500);
+			if($(this).html()=="More..."){
+				$(this).html("Less...");	
+			}else{
+				$(this).html("More...");
+			}
+				  
+		});
+		
+	   /* ------------- added by Yaron/modified by Shlomo ------------ */
+		$("#closeBut").parent().hide();
+		$("#required").prev().hide();
+		$("#required").hide();
+		$("#required").next().hide();
+		$("#values").hide();
+		$("span.pln, span.kwd").css("cursor","pointer");
+		$("span.pln, span.kwd").hover(function(eventObject){
+			$(this).css("background-color","#CECECE");
+			var currKey = $(eventObject.currentTarget).text().trim();
+			if (currKey == "name") {
+				var prevKey = $(eventObject.currentTarget).prev().prev("span.pln").text().trim();
 					currKey = prevKey + "_" + currKey;
-					
-				}
-				var tooltip = $(".overlay");
-				var position = $(eventObject.currentTarget).offset();				
-				$("#desc",tooltip).text(messages[currKey]);		
-				tooltip.show().offset({ top: position.top + tooltip.scrollTop() - 75, left: position.left + 100});
-				$("#tipImg").position()
-				$("#closeBut").click(function() {$(".overlay").offset({top:0,left:0}).hide();})
-			 });
-           }
-	 );
-    
-    </script>
+			}
+			if (messages[currKey]) {
+				var tooltip = $(".overlay"),
+					position = $(eventObject.currentTarget).offset();
+				$("#desc",tooltip).text(messages[currKey]);
+				tooltip.show().offset({ top: position.top + tooltip.scrollTop() - 50, left: position.left + 100});
+				$("#tipImg").position();
+			}}, function(){
+				$(".overlay").offset({top:0,left:0}).hide();
+				$(this).css("background-color","transparent");
+		});
+	});
+	
+	</script>
 	
 		
-    
-    <script type="text/javascript" src="/scripts/cloudify_default.js"></script>
+	
+	<script type="text/javascript" src="/scripts/cloudify_default.js"></script>
 	<script type="text/javascript">
 
    var _gaq = _gaq || [];

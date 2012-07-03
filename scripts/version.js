@@ -58,7 +58,7 @@ function processFolder(folder, level, closeBrace) {
 function addPageVersions() {
 	/* Remove this when we move to the GA*/
 	if ( true ) { 
-		setDefaultBottomVersion();
+		//setDefaultBottomVersion();
 		return;
 	}
 	/* End of the section to be removed */
