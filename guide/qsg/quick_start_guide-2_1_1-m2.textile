@@ -128,13 +128,13 @@ For example, the @<service name&>_install.groovy@ script will typically run duri
 <h4 class="info">You can specify any preferred name for lifecycle handlers, as long as you specify their exact names in the corresponding service file.</h4>
 
 * An optional folder called @usmlib@ which must contain all the jar files of your custom plugins.
-Cloudify is distributed with "built-in plugins":/guide/plugins_and_probes/develop_your_plugin that you can configure as required. However, you can also develop your own monitoring plugins and add them to the recipe in this folder. For example, in the PetClinic application we used our Cloudify Mongo Plugin "cloudify-mongo-plugin.jar":http://www.gigaspaces.com/wiki/download/attachments/55935974/CloudifyMongoPlugins_sources2_0.zip to retrieve details from the @mongod@ service, and to detect port liveness.
+Cloudify is distributed with "built-in plugins":/guide/plugins_and_probes/develop_your_plugin that you can configure as required. However, you can also develop your own monitoring plugins and add them to the recipe in this folder. For example, in the PetClinic application we used the Cloudify Mongo Plugin "cloudify-mongo-plugin.jar":http://www.gigaspaces.com/wiki/download/attachments/55935974/CloudifyMongoPlugins_sources2_0.zip to retrieve details from the @mongod@ service, and to detect port liveness.
 
 For more information, see "The Service Recipe":/guide/developing/service_recipe.
 
 h3. The Lifecycle Scripts
 
-If you view any of the Groovy scripts in the tomcat recipe folder, and you will notice that they are essentially regular groovy scripts in which you can write any Groovy or Java code. The only difference is use of the Cloudify API ("ServiceContext API":../developing/the_service_context_api). This API exposes the service runtime details to the script, so that a service can locate and use the details of another service within the same application. For example, in our PetClinic application we use the API to expose the port of the @mongod@ service instance to the all the other services in the PetClinic application.
+If you view any of the Groovy scripts in the tomcat recipe folder, and you will notice that they are essentially regular groovy scripts in which you can write any Groovy or Java code. The only difference is use of the Cloudify API ("ServiceContext API":../developing/the_service_context_api). This API exposes the service runtime details to the script, so that a service can locate and use the details of another service within the same application. For example, in the PetClinic application we use the API to expose the port of the @mongod@ service instance to the all the other services in the PetClinic application.
 
 For more information, see "Lifecycle Events":/guide/developing/lifecycle_events.
 
@@ -166,7 +166,7 @@ The tomcat service file is @<cloudify root>/recipes/apps/petclinic/tomcat/tomcat
 
 h3. Configuring @tomcat@ with the @mongod@ port
 
-In this example, we use our ServiceContext API and its k/v store mechanism, to share the @mongod@ service instance (host address and port) details with the @tomcat@ service instance.
+In this example, we use the ServiceContext API and its k/v store mechanism, to share the @mongod@ service instance (host address and port) details with the @tomcat@ service instance.
 
 Firstly, the MongoDB recipe exposes the details of the @mongod@ service instance, as follows:
 <script src="https://gist.github.com/2291670.js?file=exposeMongodService.groovy"></script>
@@ -248,7 +248,7 @@ To shut down the local cloud installation, at the Cloudify shell prompt, type: *
 
 h1. What's Next?
 
-* Install our extended PetClinic Application on "EC2":/guide/qsg/quick_start_guide_ec2.
+* Install the extended PetClinic Application on "EC2":/guide/qsg/quick_start_guide_ec2.
 * Learn more about "recipe development":/guide/developing/recipes_overview.
 * Learn more about cloud portability and "cloud drivers":/guide/clouddrivers/cloud_driver.
 * Learn how to "develop a monitoring plugin":/guide/plugins_and_probes/develop_your_plugin.

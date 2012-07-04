@@ -8,7 +8,7 @@
 var debug = false,
     dataFile = 'version.data.js';
 	
-var currentVersionNumber='2.1.1, Release: M2';
+var currentVersionNumber='2.1.1, Release: GA';
 var currentVersionText=currentVersionNumber;
 var VersionTitle='This document refers to Cloudify Version: ';
 
