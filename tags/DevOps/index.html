@@ -1,0 +1,823 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>	
+	<title>Cloudify - Tag: DevOps</title>
+	<link rel="stylesheet" href="/css/template.css" type="text/css"/>	
+	<link rel="canonical" href="http://www.cloudifysource.orgtags/DevOps/index.html"/>	
+	<link rel="stylesheet" href="/css/jquery-ui-1.8.17.custom.css" type="text/css" media="all"/>
+	<link rel="stylesheet" type="text/css" href="/scripts/prettify/prettify.css">	
+	<link rel="shortcut icon" href="/favicon.ico" type="image/x-icon" />
+	<script type="text/javascript" src="/scripts/jquery-1.6.4.js"></script>
+	<script type="text/javascript" src="/scripts/search.js"></script>
+	<script type="text/javascript" src="/scripts/jquery-ui-1.8.17.custom.min.js"></script>
+	<script type="text/javascript" src="/scripts/jquery.prettyPhoto.js"></script>
+	<script type="text/javascript" src="/scripts/prettify/prettify.js"></script>
+	<script type="text/javascript" src="/scripts/version.data.js"></script>
+	<script type="text/javascript" src="/scripts/version.js"></script>			
+	<script type="text/javascript">
+	window.onload = function () {
+		$('body').addClass("bodyClass");	
+ 	}
+	
+	$(function(){ 
+		$("a.youtube").YouTubePopup({ hideTitleBar: true });
+		$("div.expand").hide();
+		$("li.expandBtn").click(function(){	
+			$(this).next("div.expand").slideToggle(500);
+			if($(this).html()=="More..."){
+				$(this).html("Less...");	
+			}else{
+				$(this).html("More...");
+			}
+				  
+		});
+		
+	   /* ------------- added by Yaron/modified by Shlomo ------------ */
+		$("#closeBut").parent().hide();
+		$("#required").prev().hide();
+		$("#required").hide();
+		$("#required").next().hide();
+		$("#values").hide();
+		$("span.pln, span.kwd").css("cursor","pointer");
+		$("span.pln, span.kwd").hover(function(eventObject){
+			$(this).css("background-color","#CECECE");
+			var currKey = $(eventObject.currentTarget).text().trim();
+			if (currKey == "name") {
+				var prevKey = $(eventObject.currentTarget).prev().prev("span.pln").text().trim();
+					currKey = prevKey + "_" + currKey;
+			}
+			if (messages[currKey]) {
+				var tooltip = $(".overlay"),
+					position = $(eventObject.currentTarget).offset();
+				$("#desc",tooltip).text(messages[currKey]);
+				tooltip.show().offset({ top: position.top + tooltip.scrollTop() - 50, left: position.left + 100});
+				$("#tipImg").position();
+			}}, function(){
+				$(".overlay").offset({top:0,left:0}).hide();
+				$(this).css("background-color","transparent");
+		});
+	});
+	
+	</script>
+	
+		
+	
+	<script type="text/javascript" src="/scripts/cloudify_default.js"></script>
+	<script type="text/javascript">
+
+   var _gaq = _gaq || [];
+   _gaq.push(['_setAccount', 'UA-31930048-1']);
+   _gaq.push(['_trackPageview']);
+
+   (function() {
+	   var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+	   ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+	   var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+   })();
+
+</script>
+	<script type="text/javascript">
+ var _gauges = _gauges || [];
+(function() {
+		var t   = document.createElement('script');
+		t.type  = 'text/javascript';
+		t.async = true;
+		t.id    = 'gauges-tracker';
+		t.setAttribute('data-site-id', '4fd5058b613f5d712200004f');
+		t.src = '//secure.gaug.es/track.js';
+		var s = document.getElementsByTagName('script')[0];
+		s.parentNode.insertBefore(t, s);
+})();
+</script> 
+</head>
+<body>
+<div class="WrapperBg">
+    <a class="fork-guide" target="_blank" href="https://github.com/CloudifySource/cloudify"></a>	
+    <div class="Wrapper">
+        <div class="header">
+    <a class="logo" href="/"></a>
+    <div class="clear"></div>
+            <div class="topMenu">
+                <ul class="_topmenu">
+                    <li class="topmenuli"><a class="bgMenu1" href="http://forums.cloudifysource.org/forums"><span class="title1">Discuss & Suggest</span><span class="title2">Support Forums</span></a></li>
+                    <li class="sep"></li>
+                    <li class="topmenuli"><a class="bgMenu2" href="/guide/qsg/quick_start_guide"><span class="title1">Learn</span><span class="title2">Knowledge Base</span></a></li>
+                    <li class="sep"></li>
+                    <li class="topmenuli"><a class="bgMenu3" href="/participate"><span class="title1">Participate</span><span class="title2">Events & Webinars</span></a></li>
+                    <li class="sep"></li>
+                    <li class="topmenuli"><a class="bgMenu4" href="/blog"><span class="title1">Read</span><span class="title2">Blog Posts & Updates</span></a></li>
+                    <li class="sep"></li>
+                    <li class="topmenuli"><a class="bgMenu5" href="/cloudifysourcetv"><span class="title1">Watch</span><span class="title2">Watch & Learn</span></a></li>
+                    <li class="sep"></li>
+                    <li class="topmenuli"><a class="bgMenu6" href="/guide/contribute/how_to"><span class="title1">Develop</span><span class="title2">Get Involved</span></a></li>
+
+		</ul>
+		<div class="clear"></div>
+	</div>
+</div>
+
+<!-- Tooltip Container -->
+<div class="overlay">
+<div class="overlayFrame">
+<div style="width:100%;height:25px;align:left;"><img src="/images/close.png" id="closeBut"/></div>
+<div><span id="desc"></span><br/>
+ <span id="required"></span><br/>
+ <span id="values"></span>
+ </div>
+</div>
+<img src="/images/box_edge.png" id="tipImg"/>  
+</div>
+        <div class="contentWrap">            
+			<div class="breadcrumbs">Home Page > Cloudify Blogs > Tag: DevOps</div>
+            <div class="clear"></div>
+
+            <!--Search-->
+			
+            
+ 
+
+<div class="learnFrom">
+    <h2>Blog Posts and Updates</h2>
+
+    <div class="searchWrap">
+        <form id="searchForm" action="#" method="get">
+            <input id="search" class="searchTxt" type="text" placeholder="Search..."/>
+            <input id="goBtn" class="searchBtn" type="submit" value="Go"/>
+        </form>
+    </div>
+</div>
+ 
+<div class="hp-right-col">
+ 		<a class="hp-btn-getCloudify" href="/downloads/get_cloudify">Get Cloudify!</a>
+</div>
+
+
+
+
+
+
+            <div class="content">
+                <div class="left">
+                    
+                    <!--Event groups-->
+
+
+
+<div class="leftContentBox blogLeft-topTitle">
+	<h3>Recent Posts</h3>
+</div>
+
+
+<div class="leftContentBox blogLeftBox"> 
+   
+	<a href="/2012/07/09/extending_chef_to_manage_the_entire_application.html">Extending Chef to manage the entire application lifecycle 
+	 <img class="noMargin" src="/images/arrow-right-blue.png" /></a><br />
+	<span class="date">July  9, 2012</span>  
+	<br/><br/>
+  
+	<a href="/2012/06/22/gigaspaces-mirantis-big-data-on-openstack.html">Gigaspaces and Mirantis - Big Data On OpenStack 
+	 <img class="noMargin" src="/images/arrow-right-blue.png" /></a><br />
+	<span class="date">June 22, 2012</span>  
+	<br/><br/>
+  
+	<a href="/2012/06/18/lessons-from-heroku-amazon-outage.html">Lessons From Heroku Amazon Outage 
+	 <img class="noMargin" src="/images/arrow-right-blue.png" /></a><br />
+	<span class="date">June 18, 2012</span>  
+	<br/><br/>
+		
+</div>
+
+               <!--start -->
+                 <div class="leftContentBox blogLeft-topTitle blog-left-title2 tumblr">
+                        <h3>CloudifySource on Tumblr</h3>
+                 </div>   
+                <div class="leftContentBox">                     
+                <!-- start sw-rss-feed code --> 
+                <script type="text/javascript"> 
+                <!-- 
+                rssfeed_url = new Array(); 
+                rssfeed_url[0]="http://cloudifysource.tumblr.com/rss";  
+                rssfeed_frame_width="230"; 
+                rssfeed_frame_height="250"; 
+                rssfeed_scroll="on"; 
+                rssfeed_scroll_step="6"; 
+                rssfeed_scroll_bar="off"; 
+                rssfeed_target="_blank"; 
+                rssfeed_font_size="11"; 
+                rssfeed_font_face="Trebuchet MS,Helvetica,Arial,Sans-serif"; 
+                rssfeed_border="off"; 
+                rssfeed_css_url=""; 
+                rssfeed_title="off"; 
+                rssfeed_title_name=""; 
+                rssfeed_title_bgcolor="#393939"; 
+                rssfeed_title_color="#393939"; 
+                rssfeed_title_bgimage="http://"; 
+                rssfeed_footer="off"; 
+                rssfeed_footer_name="rss feed"; 
+                rssfeed_footer_bgcolor="#fff"; 
+                rssfeed_footer_color="#333"; 
+                rssfeed_footer_bgimage="http://"; 
+                rssfeed_item_title_length="50"; 
+                rssfeed_item_title_color="#246F96"; 
+                rssfeed_item_bgcolor="#none"; 
+                rssfeed_item_bgimage="http://"; 
+                rssfeed_item_border_bottom="on"; 
+                rssfeed_item_source_icon="off"; 
+                rssfeed_item_date="off"; 
+                rssfeed_item_description="on"; 
+                rssfeed_item_description_length="120"; 
+                rssfeed_item_description_color="#393939"; 
+                rssfeed_item_description_link_color="#333"; 
+                rssfeed_item_description_tag="off"; 
+                rssfeed_no_items="0"; 
+                rssfeed_cache = "f2f79ba4f12501d5f8454c1d22c042c4"; 
+                //--> 
+                </script> 
+                <script type="text/javascript" src="http://feed.surfing-waves.com/js/rss-feed.js"></script> 
+                <!-- end sw-rss-feed code -->
+                </div>
+<!--end-->
+
+
+<div class="leftContentBox blogLeft-topTitle">
+	<h3>Archived Posts</h3>
+</div>
+
+ <ul class="blog-archive-list">
+ 
+ 
+	
+	
+	
+	
+	
+	
+
+	
+<li><a href="/2012/07">July 2012</a> <span class="blue">(1)</span></li>
+
+	
+
+	
+		
+			
+<li><a href="/2012/06">June 2012</a> <span class="blue">(3)</span></li>
+
+			
+		
+	
+
+	
+	
+	
+	
+	
+	
+
+	
+
+	
+		
+			
+		
+	
+
+	
+	
+	
+	
+	
+	
+
+	
+
+	
+		
+			
+		
+	
+
+	
+	
+	
+	
+	
+	
+
+	
+
+	
+		
+			
+<li><a href="/2012/05">May 2012</a> <span class="blue">(5)</span></li>
+
+			
+		
+	
+
+	
+	
+	
+	
+	
+	
+
+	
+
+	
+		
+			
+		
+	
+
+	
+	
+	
+	
+	
+	
+
+	
+
+	
+		
+			
+		
+	
+
+	
+	
+	
+	
+	
+	
+
+	
+
+	
+		
+			
+		
+	
+
+	
+	
+	
+	
+	
+	
+
+	
+
+	
+		
+			
+		
+	
+
+	
+	
+	
+	
+	
+	
+
+	
+
+	
+		
+			
+<li><a href="/2012/03">March 2012</a> <span class="blue">(3)</span></li>
+
+			
+		
+	
+
+	
+	
+	
+	
+	
+	
+
+	
+
+	
+		
+			
+		
+	
+
+	
+	
+	
+	
+	
+	
+
+	
+
+	
+		
+			
+		
+	
+
+	
+	
+	
+	
+	
+	
+
+	
+
+	
+		
+			
+<li><a href="/2012/02">February 2012</a> <span class="blue">(1)</span></li>
+
+			
+		
+	
+
+	
+	
+	
+	
+	
+	
+
+	
+
+	
+		
+			
+<li><a href="/2012/01">January 2012</a> <span class="blue">(2)</span></li>
+
+			
+		
+	
+
+	
+	
+	
+	
+	
+	
+
+	
+
+	
+		
+			
+		
+	
+
+	
+	
+	
+	
+	
+	
+
+	
+
+	
+		
+
+<li><a href="/2011/11">November 2011</a> <span class="blue">(1)</span></li>
+
+		
+	
+
+	
+	
+	
+	
+	
+	
+
+	
+
+	
+		
+			
+<li><a href="/2011/10">October 2011</a> <span class="blue">(1)</span></li>
+
+			
+		
+	
+
+	
+	
+	
+	
+	
+	
+
+	
+
+	
+		
+			
+<li><a href="/2011/09">September 2011</a> <span class="blue">(1)</span></li>
+
+			
+		
+	
+
+	
+	
+	
+	
+	
+	
+
+	
+
+	
+
+	
+
+
+
+
+
+ 
+ </ul>
+
+                </div>
+
+                <!--Start left content -->
+
+                <div id="resultsDiv" class="DocumentsWrap"></div>
+                <div id="pageContent" class="DocumentsWrapRight">
+                    <h1 class="pageTitle">Tag: DevOps</h1>					
+
+
+
+
+
+
+
+
+
+														
+                    
+
+
+
+
+<div class="blogtPostBox">
+  <div class="blogInfoLeft">
+    <img title="Sharone Revah Zitzman" width="80" height="96" src="/images/sharone.jpg" />
+  </div>  
+  <div class="blogInfoRight">
+    <a href="/2012/07/09/extending_chef_to_manage_the_entire_application.html" class="title">Extending Chef to manage the entire application lifecycle</a>
+	  <div class="blogPostInfo">
+	  <br/>	  	 
+	    <span>Posted By: <a href="#">Sharone Revah Zitzman</a>  on  July  9, 2012  <!--|  in <a href="/categories/"></a> --></span>
+	  </div>	  	  	
+      <p>
+		
+			<p>Below are the recording of the webinar held a couple of days ago, in case you couldn&#39;t catch it live, as well as the slideshare. We&#39;re currently putting together our list of upcoming webinars for the next couple of months, feel free to suggest topics that you&#39;re interested in hearing...</p>
+			
+		<p class><a href="/2012/07/09/extending_chef_to_manage_the_entire_application.html">Read more...</a></p>	  	  
+	  </p>
+		<span>  Additional Tags: 		
+			
+				
+			     <a class="postTag" href="/tags/Chef">Chef (2)</a>
+			   	
+			
+					
+			
+				
+			     <a class="postTag" href="/tags/Cloudify">Cloudify (15)</a>
+			   	
+			
+		</span>
+	    
+  </div>
+  <div class="clear" ></div>    
+</div>  
+
+
+
+<div class="blogtPostBox">
+  <div class="blogInfoLeft">
+    <img title="Yaron Parasol" width="80" height="96" src="/images/yaron.jpg" />
+  </div>  
+  <div class="blogInfoRight">
+    <a href="/2012/05/28/paas_does_it_really_mean_no_ops.html" class="title">PaaS, Does It Really Mean No-Ops?</a>
+	  <div class="blogPostInfo">
+	  <br/>	  	 
+	    <span>Posted By: <a href="#">Yaron Parasol</a>  on  May 28, 2012  <!--|  in <a href="/categories/"></a> --></span>
+	  </div>	  	  	
+      <p>
+		
+			<p>PaaS, Does It Really Mean No-Ops? I&rsquo;d like to start with a brief overview of the evolution of the cloud &ndash; and why I think a new approach to PaaS solutions is needed &ndash; and the best scenarios for this to come into play. First there was IaaS. Cloud was...</p>
+			
+		<p class><a href="/2012/05/28/paas_does_it_really_mean_no_ops.html">Read more...</a></p>	  	  
+	  </p>
+		<span>  Additional Tags: 		
+			
+				
+			     <a class="postTag" href="/tags/Cloudify">Cloudify (15)</a>
+			   	
+			
+					
+			
+				
+			     <a class="postTag" href="/tags/NoOps">NoOps (1)</a>
+			   	
+			
+				
+			     <a class="postTag" href="/tags/PaaS">PaaS (5)</a>
+			   	
+			
+				
+			     <a class="postTag" href="/tags/IaaS">IaaS (1)</a>
+			   	
+			
+		</span>
+	    
+  </div>
+  <div class="clear" ></div>    
+</div>  
+
+
+
+<div class="blogtPostBox">
+  <div class="blogInfoLeft">
+    <img title="Dotan Horovits" width="80" height="96" src="/images/dotan.jpg" />
+  </div>  
+  <div class="blogInfoRight">
+    <a href="/2012/05/13/cloud_integration_and_devops_automation.html" class="title">Cloud integration and DevOps automation experience shared</a>
+	  <div class="blogPostInfo">
+	  <br/>	  	 
+	    <span>Posted By: <a href="#">Dotan Horovits</a>  on  May 13, 2012  <!--|  in <a href="/categories/"></a> --></span>
+	  </div>	  	  	
+      <p>
+		
+			<p>Cloud integration and DevOps automation experience&nbsp;shared The Cloud carries the message of automation to system architecture. The ability to spin up VMs on demand and take them down when no longer needed as per the applications&#8217; real-time requirements and metrics is the key for making the system truely elastic, scalable...</p>
+			
+		<p class><a href="/2012/05/13/cloud_integration_and_devops_automation.html">Read more...</a></p>	  	  
+	  </p>
+		<span>  Additional Tags: 		
+			
+				
+			     <a class="postTag" href="/tags/Cloudify">Cloudify (15)</a>
+			   	
+			
+					
+			
+				
+			     <a class="postTag" href="/tags/Cloud">Cloud (7)</a>
+			   	
+			
+				
+			     <a class="postTag" href="/tags/PaaS">PaaS (5)</a>
+			   	
+			
+		</span>
+	    
+  </div>
+  <div class="clear" ></div>    
+</div>  
+
+
+
+<div class="blogtPostBox">
+  <div class="blogInfoLeft">
+    <img title="Yaron Parasol" width="80" height="96" src="/images/yaron.jpg" />
+  </div>  
+  <div class="blogInfoRight">
+    <a href="/2012/05/01/whats_new_in_cloudify_2_1.html" class="title">What's new in Cloudify 2.1</a>
+	  <div class="blogPostInfo">
+	  <br/>	  	 
+	    <span>Posted By: <a href="#">Yaron Parasol</a>  on  May  1, 2012  <!--|  in <a href="/categories/"></a> --></span>
+	  </div>	  	  	
+      <p>
+		
+			<p>Today we&#8217;re officially launching the Cloudify 2.1 GA release release, so I thought it would be a good chance to recap what we&#8217;ve been up to in the past few months. The Lowdown Over the past couple of months we&#8217;ve been working closely with the first Cloudify users and customers...</p>
+			
+		<p class><a href="/2012/05/01/whats_new_in_cloudify_2_1.html">Read more...</a></p>	  	  
+	  </p>
+		<span>  Additional Tags: 		
+			
+				
+			     <a class="postTag" href="/tags/Chef">Chef (2)</a>
+			   	
+			
+				
+			     <a class="postTag" href="/tags/Scale Rules">Scale Rules (1)</a>
+			   	
+			
+				
+			     <a class="postTag" href="/tags/BYON">BYON (1)</a>
+			   	
+			
+				
+			     <a class="postTag" href="/tags/Cloud Driver">Cloud Driver (1)</a>
+			   	
+			
+					
+			
+		</span>
+	    
+  </div>
+  <div class="clear" ></div>    
+</div>  
+
+
+
+<div class="blogtPostBox">
+  <div class="blogInfoLeft">
+    <img title="Nati Shalom" width="80" height="96" src="/images/nati.png" />
+  </div>  
+  <div class="blogInfoRight">
+    <a href="/2012/01/16/gigaspaces-cloudify-and-vmware-cloudfoundry-the-new-paas-jailbreaker.html" class="title">GigaSpaces Cloudify and VMware CloudFoundry the new PaaS Jailbreaker</a>
+	  <div class="blogPostInfo">
+	  <br/>	  	 
+	    <span>Posted By: <a href="#">Nati Shalom</a>  on  January 16, 2012  <!--|  in <a href="/categories/"></a> --></span>
+	  </div>	  	  	
+      <p>
+		
+			<p>I was reading Krishnan Subramanian's post, Two Events That "Clouded" Our Thinking In 2011. The thing that caught my attention was Krishnan's comments on why PaaS is a superior alternative to DevOps: The shift in the thinking about the enterprise cloud consumption also poured water into the &ldquo;DevOps&rdquo; concept advocated...</p>
+			
+		<p class><a href="/2012/01/16/gigaspaces-cloudify-and-vmware-cloudfoundry-the-new-paas-jailbreaker.html">Read more...</a></p>	  	  
+	  </p>
+		<span>  Additional Tags: 		
+			
+				
+			     <a class="postTag" href="/tags/Cloudify">Cloudify (15)</a>
+			   	
+			
+				
+			     <a class="postTag" href="/tags/PaaS">PaaS (5)</a>
+			   	
+			
+				
+			     <a class="postTag" href="/tags/CloudFoundry">CloudFoundry (2)</a>
+			   	
+			
+				
+			     <a class="postTag" href="/tags/Open Paas">Open Paas (4)</a>
+			   	
+			
+					
+			
+		</span>
+	    
+  </div>
+  <div class="clear" ></div>    
+</div>  
+
+
+
+
+                </div>
+                <div class="clear"></div>
+            </div>
+        </div>
+        <!--Start pagination -->
+
+        <div class="clear"></div>
+
+        <!--Start Footer -->
+
+        <div class="footer">
+    <!--<ul class="footerLeftMenu">
+        <li class="footerli"><a href="#">About GigaSpaces</a></li>
+        <li class="footerli"><a href="#">Contact Us</a></li>
+    </ul> -->
+    <ul class="footerRightMenu">
+        <li class="footerli">Copyright © 2012 GigaSpaces. All rights reserved.</li>
+        <li class="footerli"><a href="/about_us">About Us</a></li>
+        <li class="footerli">|</li>
+        <li class="footerli"><a href="/terms_of_use">Terms of Use</a></li>
+        <li class="footerli">|</li>
+        <li class="footerli"> <a href="/privacy_policy">Privacy Policy</a></li>
+    </ul> 
+    <ul class="footerSocialMenu">
+        <li class="footerFb"><a href="https://www.facebook.com/GigaSpaces?sk=app_201742856511228"></a></li>
+        <li class="footerRss"><a href="/atom.xml"></a></li>
+        <!--<li class="footerMell"><a href="#"></a></li>-->
+        <li class="footerTwitt"><a href="http://www.twitter.com/cloudifysource"></a></li>
+        <li class="footerYt"><a href="http://www.youtube.com/cloudifysource"></a></li>
+    </ul>
+</div>
+
+
+    </div>
+    <!--End site wrapper -->
+
+
+</div>
+<!--End site bg top wrapper -->
+</body>
+</html>

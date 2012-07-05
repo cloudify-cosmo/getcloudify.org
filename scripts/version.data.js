@@ -6,7 +6,7 @@ var guide = {
 		'bootstrapping_hp':true,
 		'bootstrapping_localcloud':true,
 		'bootstrapping_process':true,
-		'bootstrapping_rs':true
+		'bootstrapping_rsopenstack':true
 	},
 	'clouddrivers':{
 		'cloud_driver':true,
