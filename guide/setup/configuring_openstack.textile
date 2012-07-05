@@ -39,10 +39,10 @@ Edit the OpenStack cloud driver configuration file (@openstack-cloud.groovy@) lo
     If you have a private cloud, do the following:
 **# Download gigaspaces-cloudify.zip from FULL_URL_PATH_TO_gigaspaces-cloudify.zip
 **# Place the downloaded gigaspaces-cloudify.zip in your private cloud.
-**# Set the *cloudifyUrl* attribute to "FULL_URL_PATH_TO_gigaspaces-cloudify.zip_ON_YOUR_PRIVATE_CLOUD".
-** *machineNamePrefix*--The value that you specify will be used as the name prefix for each of your service instances.
+**# Set the *cloudifyUrl* attribute to "FULL_URL_PATH_ON_YOUR_PRIVATE_CLOUD_TO_gigaspaces-cloudify.zip".
+** *machineNamePrefix*--The value that you specify is used as the name prefix for each of your service instances.
 ** *managementOnlyFiles*--<font color="red"><b>TBD</b></font>.
-** *managementGroup*--The value that you specify will be used as the name prefix for each of your management instances.
+** *managementGroup*--The value that you specify is used as the name prefix for each of your management instances.
 ** *zones*--<font color="red"><b>TBD</b></font>.
 * In the *user* section:
 ** *user*--Specify your *Access Key*.
@@ -69,7 +69,7 @@ To configure logging, edit your @openstack-cloud.groovy@, and then in the *custo
 The following example shows the *openstack.wireLog* attribute set to *true*.
 <script src="https://gist.github.com/2035261.js?file=custom-wireLog.groovy"></script>
 
-h4(warn). Once you enable the wire logs, they appear in the following the Cloudify shell when you run the 'bootstrap-cloud' command (and the relevant log file in the logs folder), and in the ESM log when it starts or stops a machine for scale out/in.
+h4(warn). Once you enable the wire logs, they appear in the Cloudify shell when you run the 'bootstrap-cloud' command (and the relevant log file in the logs folder), and in the ESM log when it starts or stops a machine for scale out/in.
 
 h2. What's Next?
 
