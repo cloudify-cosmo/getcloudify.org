@@ -53,11 +53,9 @@ var guide = {
 		'probes':true
 	},
 	'qsg':{
-		'quick_start_guide-2_1_1-ga':true,
 		'quick_start_guide-2_1_1-m2':true,
 		'quick_start_guide':true,
 		'quick_start_guide_apache':true,
-		'quick_start_guide_ec2-2_1_1-ga':true,
 		'quick_start_guide_ec2-2_1_1-m2':true,
 		'quick_start_guide_ec2':true
 	},
@@ -65,8 +63,6 @@ var guide = {
 		'app_recipe_ref':true,
 		'command_line_reference':true,
 		'service_recipe_ref':true
-	},
-	'reference':{
 	},
 	'release_notes':{
 		'release_notes':true

@@ -1,6 +1,6 @@
 ---
 layout: default
-title: 10-Minute EC2 Quick Start Guide
+title: 10-Minute EC2 Quick Start Guide 
 cat: Getting Started
 publish: true
 abstract: A quick start guide to help you get started with Cloudify on EC2. Start here if you're new to Cloudify and you want to install your application on EC2
@@ -113,12 +113,15 @@ Recipes are the execution plans for installing, starting, orchestrating, and mon
 * The Shards (mongod) recipe folder
 * The Routing Processes (mongos) recipe folder
 * The Tomcat recipe folder
+* The apacheLB recipe folder
 
 The files required to run the specified services can be found in their corresponding folders. A "service" in this context is an application tier - e.g. web container, database, etc.
 
 The following diagram depicts the application's recipe file and folder structure.
 
-<img src="/guide/images/setup/pet_clinic_anatomy3_211m2.JPG" />
+<img src="/guide/images/setup/pet_clinic_anatomy3.JPG" />
+
+h4(info). All the services in this application extend a corresponding recipe in ../../../services/ folder.      
 
 For more information about recipes, see "Anatomy of a Recipe":/guide/developing/recipes_overview
 
@@ -130,20 +133,21 @@ h4(info). It is important to distinguish between a service and a service instanc
 
 A typical application is composed of multiple tiers, such as a web tier and a database tier. Each tier can contain one or more service instances, e.g. two Tomcat service instances and one MySQL service instance. In Cloudify terminology, we refer to this scenario as having two services; the first having two service instances and the second having one service instance.
 
-In our example, the PetClinic application has 4 services:
+In our example, the PetClinic application has 5 services:
 * Tomcat  (We called this service: @tomcat@)
 * MongoDB Configuration Server (We called this service: @mongoConfig@)
 * MongoDB Sharding Server (We called this service: @mongos@)
 * MongoDB Data Shards (We called this service: @mongod@)
+* Apache Load Balancer  (We called this service: @apacheLB@)
 
 The following shows the corresponding application descriptor file for the PetClinic application.
 
-<script src="https://gist.github.com/1943898.js?file=petclinic_app_recipe.groovy"></script>
+<script src="https://gist.github.com/2965408.js?file=petclinic_app_recipe211-ga.groovy"></script>
 
 From the application descriptor file, we can learn the following information:
 * The names of the services required to run the application.
 * The @mongos@ service depends on the @mongoConfig@ and @mongod@ services; hence the @mongos@ service will not start until these services have successfully started.
-* The @tomcat@ service depends on the @mongod@ service; hence the @tomcat@ service will not start until the @mongod@ service has successfully started.
+* The @tomcat@ service depends on the @mongod@ service and on the apacheLB service; hence the @tomcat@ service will not start until the @mongod@ service and the apacheLB service have successfully started.
 
 h3. The Service Level Recipe
 
@@ -215,13 +219,24 @@ The Mongo Data Shards (mongod) Recipe does the following:
 
 The @mongod@ service file is @<cloudify root>/recipes/apps/petclinic/mongod/mongod-service.groovy@.
 
+h3. The apacheLB Recipe
+
+The apacheLB Recipe does the following:
+* Installs apache on the VM
+* Configures the apache load balancer 
+* Starts the apacheLB process
+* Detects whether the server started successfully by using the PortLivnessDetector plugin to check port 8080
+* Monitors the apacheLB liveness by using the "process locator":/guide/developing/lifecycle_events#locator.
+
+The apacheLB service file is @<cloudify root>/recipes/apps/petclinic/apacheLB/apacheLB-service.groovy@.
+
 h3. The Tomcat Recipe
 
 The Tomcat Recipe does the following:
 * Downloads, unzips, and installs the Tomcat binaries on the VM
 * Configures the Tomcat HTTP Port and then enables remote JMX
 * Starts the Tomcat process (using the bin/catalina script)
-* Detects whether the server started successfully by using the PortLivnessDetector plugin to check port 8080
+* Detects whether the server started successfully
 * Monitors Tomcat performance by using the JMX Monitoring plugin
 
 The tomcat service file is @<cloudify root>/recipes/apps/petclinic/tomcat/tomcat-service.groovy@.
@@ -251,7 +266,7 @@ In this example, we specified a timeout of 50 minutes (@-timeout 50@) to allow s
 
 h4(info). If an error occurs during installation, an error message is displayed and the installation is aborted. The error message will help you identify at which phase the problem occurred and for which service it.
 
-Once the application installation has successfully completed, you can access the PetClinic application by browsing to "http://YOUR_APPLICATION_IP_ON_EC2:8080/petclinic-mongo":http://YOUR_APPLICATION_IP_ON_EC2:8080/petclinic-mongo.
+Once the application installation has successfully completed, you can access the PetClinic application by browsing to "http://YOUR_APPLICATION_IP_ON_EC2:8080/petclinic":http://YOUR_APPLICATION_IP_ON_EC2:8080/petclinic.
 
 To test the application, try adding a few owners and pets, and then search for them to make sure that the application is functioning correctly. 
 
@@ -316,4 +331,4 @@ h1. What's Next?
 * Learn more about cloud portability and "cloud drivers":/guide/clouddrivers/cloud_driver.
 * Learn how to "develop a monitoring plugin":/guide/plugins_and_probes/develop_your_plugin.
 * Learn more about monitoring your application with the "Cloudify Web Management Console":/guide/monitoring/the_web_management_console.
-<!-- version 2.1.1-m2 -->
+<!-- version 2.1.1-ga -->
