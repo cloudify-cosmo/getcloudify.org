@@ -15,11 +15,11 @@
     <script type="text/javascript" src="http://jzaefferer.github.com/jquery-validation/jquery.validate.js"></script>
       <script type="text/javascript">
 		  $(document).ready(function(){
-			//$("#mc-embedded-subscribe-form").validate({
-			   //errorLabelContainer: "#messageBox",
+			$("#mc-embedded-subscribe-form").validate({
+			   errorLabelContainer: "#messageBox",
 			   //wrapper: "li",debug:true,
 			   //submitHandler: function() { alert("Submitted!") }
-			  // })
+			   })
 			 $("a.youtube").YouTubePopup({ hideTitleBar: true });  
 		  });
  	  </script>
@@ -78,6 +78,7 @@
 		    </form>
 		</div>
 		<!--End mc_embed_signup-->
+		<div id="messageBox"></div>
 	   </div>                               
 
 
