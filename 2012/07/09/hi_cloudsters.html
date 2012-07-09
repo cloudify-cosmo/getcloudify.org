@@ -1,0 +1,738 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>	
+	<title>Cloudify - Hi Cloudsters</title>
+	<script src="//cdn.optimizely.com/js/59503762.js"></script>
+	<link rel="stylesheet" href="/css/template.css" type="text/css"/>	
+	<link rel="canonical" href="http://www.cloudifysource.org/2012/07/09/hi_cloudsters.html"/>	
+	<link rel="stylesheet" href="/css/jquery-ui-1.8.17.custom.css" type="text/css" media="all"/>
+	<link rel="stylesheet" type="text/css" href="/scripts/prettify/prettify.css">	
+	<link rel="shortcut icon" href="/favicon.ico" type="image/x-icon" />
+	<script type="text/javascript" src="/scripts/jquery-1.6.4.js"></script>
+	<script type="text/javascript" src="/scripts/search.js"></script>
+	<script type="text/javascript" src="/scripts/jquery-ui-1.8.17.custom.min.js"></script>
+	<script type="text/javascript" src="/scripts/jquery.prettyPhoto.js"></script>
+	<script type="text/javascript" src="/scripts/prettify/prettify.js"></script>
+	<script type="text/javascript" src="/scripts/version.data.js"></script>
+	<script type="text/javascript" src="/scripts/version.js"></script>			
+	<script type="text/javascript">
+	window.onload = function () {
+		$('body').addClass("bodyClass");	
+ 	}
+	
+	$(function(){ 
+		$("a.youtube").YouTubePopup({ hideTitleBar: true });
+		$("div.expand").hide();
+		$("li.expandBtn").click(function(){	
+			$(this).next("div.expand").slideToggle(500);
+			if($(this).html()=="More..."){
+				$(this).html("Less...");	
+			}else{
+				$(this).html("More...");
+			}
+				  
+		});
+		
+	   /* ------------- added by Yaron/modified by Shlomo ------------ */
+		$("#closeBut").parent().hide();
+		$("#required").prev().hide();
+		$("#required").hide();
+		$("#required").next().hide();
+		$("#values").hide();
+		$("span.pln, span.kwd").css("cursor","pointer");
+		$("span.pln, span.kwd").hover(function(eventObject){
+			$(this).css("background-color","#CECECE");
+			var currKey = $(eventObject.currentTarget).text().trim();
+			if (currKey == "name") {
+				var prevKey = $(eventObject.currentTarget).prev().prev("span.pln").text().trim();
+					currKey = prevKey + "_" + currKey;
+			}
+			if (messages[currKey]) {
+				var tooltip = $(".overlay"),
+					position = $(eventObject.currentTarget).offset();
+				$("#desc",tooltip).text(messages[currKey]);
+				tooltip.show().offset({ top: position.top + tooltip.scrollTop() - 50, left: position.left + 100});
+				$("#tipImg").position();
+			}}, function(){
+				$(".overlay").offset({top:0,left:0}).hide();
+				$(this).css("background-color","transparent");
+		});
+	});
+	
+	</script>
+	
+		
+	
+	<script type="text/javascript" src="/scripts/cloudify_default.js"></script>
+	<script type="text/javascript">
+
+   var _gaq = _gaq || [];
+   _gaq.push(['_setAccount', 'UA-31930048-1']);
+   _gaq.push(['_trackPageview']);
+
+   (function() {
+	   var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+	   ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+	   var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+   })();
+
+</script>
+	<script type="text/javascript">
+ var _gauges = _gauges || [];
+(function() {
+		var t   = document.createElement('script');
+		t.type  = 'text/javascript';
+		t.async = true;
+		t.id    = 'gauges-tracker';
+		t.setAttribute('data-site-id', '4fd5058b613f5d712200004f');
+		t.src = '//secure.gaug.es/track.js';
+		var s = document.getElementsByTagName('script')[0];
+		s.parentNode.insertBefore(t, s);
+})();
+</script> 
+</head>
+<body>
+<div class="WrapperBg">
+    <a class="fork-guide" target="_blank" href="https://github.com/CloudifySource/cloudify"></a>	
+    <div class="Wrapper">
+        <div class="header">
+    <a class="logo" href="/"></a>
+    <div class="clear"></div>
+            <div class="topMenu">
+                <ul class="_topmenu">
+                    <li class="topmenuli"><a class="bgMenu1" href="http://forums.cloudifysource.org/forums"><span class="title1">Discuss & Suggest</span><span class="title2">Support Forums</span></a></li>
+                    <li class="sep"></li>
+                    <li class="topmenuli"><a class="bgMenu2" href="/guide/qsg/quick_start_guide"><span class="title1">Learn</span><span class="title2">Knowledge Base</span></a></li>
+                    <li class="sep"></li>
+                    <li class="topmenuli"><a class="bgMenu3" href="/participate"><span class="title1">Participate</span><span class="title2">Events & Webinars</span></a></li>
+                    <li class="sep"></li>
+                    <li class="topmenuli"><a class="bgMenu4" href="/blog"><span class="title1">Read</span><span class="title2">Blog Posts & Updates</span></a></li>
+                    <li class="sep"></li>
+                    <li class="topmenuli"><a class="bgMenu5" href="/cloudifysourcetv"><span class="title1">Watch</span><span class="title2">Watch & Learn</span></a></li>
+                    <li class="sep"></li>
+                    <li class="topmenuli"><a class="bgMenu6" href="/guide/contribute/how_to"><span class="title1">Develop</span><span class="title2">Get Involved</span></a></li>
+
+		</ul>
+		<div class="clear"></div>
+	</div>
+</div>
+
+<!-- Tooltip Container -->
+<div class="overlay">
+<div class="overlayFrame">
+<div style="width:100%;height:25px;align:left;"><img src="/images/close.png" id="closeBut"/></div>
+<div><span id="desc"></span><br/>
+ <span id="required"></span><br/>
+ <span id="values"></span>
+ </div>
+</div>
+<img src="/images/box_edge.png" id="tipImg"/>  
+</div>
+<div class="clear"></div>
+        <div class="contentWrap">            
+			<div class="breadcrumbs">Home Page > Cloudify Blogs > Hi Cloudsters</div>
+            <div class="clear"></div>
+
+            <!--Search-->
+			
+            
+ 
+
+<div class="learnFrom">
+    <h2>Blog Posts and Updates</h2>
+
+    <div class="searchWrap">
+        <form id="searchForm" action="#" method="get">
+            <input id="search" class="searchTxt" type="text" placeholder="Search..."/>
+            <input id="goBtn" class="searchBtn" type="submit" value="Go"/>
+        </form>
+    </div>
+</div>
+ 
+<div class="hp-right-col">
+ 		<a class="hp-btn-getCloudify" href="/downloads/get_cloudify">Get Cloudify!</a>
+</div>
+
+
+
+
+			
+            <div class="content">
+                <div class="left">
+                    
+                    <!--Event groups-->
+
+
+
+<div class="leftContentBox blogLeft-topTitle">
+	<h3>Recent Posts</h3>
+</div>
+
+
+<div class="leftContentBox blogLeftBox"> 
+   
+	<a href="/2012/07/09/whats_cool_in_cloudify_2_1_1.html">What's cool in Cloudify 2.1.1 
+	 <img class="noMargin" src="/images/arrow-right-blue.png" /></a><br />
+	<span class="date">July  9, 2012</span>  
+	<br/><br/>
+  
+	<a href="/2012/07/09/hi_cloudsters.html">Hi Cloudsters 
+	 <img class="noMargin" src="/images/arrow-right-blue.png" /></a><br />
+	<span class="date">July  9, 2012</span>  
+	<br/><br/>
+  
+	<a href="/2012/07/09/extending_chef_to_manage_the_entire_application.html">Extending Chef to manage the entire application lifecycle 
+	 <img class="noMargin" src="/images/arrow-right-blue.png" /></a><br />
+	<span class="date">July  9, 2012</span>  
+	<br/><br/>
+		
+</div>
+
+               <!--start -->
+                 <div class="leftContentBox blogLeft-topTitle blog-left-title2 tumblr">
+                        <h3>CloudifySource on Tumblr</h3>
+                 </div>   
+                <div class="leftContentBox">                     
+                <!-- start sw-rss-feed code --> 
+                <script type="text/javascript"> 
+                <!-- 
+                rssfeed_url = new Array(); 
+                rssfeed_url[0]="http://cloudifysource.tumblr.com/rss";  
+                rssfeed_frame_width="230"; 
+                rssfeed_frame_height="250"; 
+                rssfeed_scroll="on"; 
+                rssfeed_scroll_step="6"; 
+                rssfeed_scroll_bar="off"; 
+                rssfeed_target="_blank"; 
+                rssfeed_font_size="11"; 
+                rssfeed_font_face="Trebuchet MS,Helvetica,Arial,Sans-serif"; 
+                rssfeed_border="off"; 
+                rssfeed_css_url=""; 
+                rssfeed_title="off"; 
+                rssfeed_title_name=""; 
+                rssfeed_title_bgcolor="#393939"; 
+                rssfeed_title_color="#393939"; 
+                rssfeed_title_bgimage="http://"; 
+                rssfeed_footer="off"; 
+                rssfeed_footer_name="rss feed"; 
+                rssfeed_footer_bgcolor="#fff"; 
+                rssfeed_footer_color="#333"; 
+                rssfeed_footer_bgimage="http://"; 
+                rssfeed_item_title_length="50"; 
+                rssfeed_item_title_color="#246F96"; 
+                rssfeed_item_bgcolor="#none"; 
+                rssfeed_item_bgimage="http://"; 
+                rssfeed_item_border_bottom="on"; 
+                rssfeed_item_source_icon="off"; 
+                rssfeed_item_date="off"; 
+                rssfeed_item_description="on"; 
+                rssfeed_item_description_length="120"; 
+                rssfeed_item_description_color="#393939"; 
+                rssfeed_item_description_link_color="#333"; 
+                rssfeed_item_description_tag="off"; 
+                rssfeed_no_items="0"; 
+                rssfeed_cache = "f2f79ba4f12501d5f8454c1d22c042c4"; 
+                //--> 
+                </script> 
+                <script type="text/javascript" src="http://feed.surfing-waves.com/js/rss-feed.js"></script> 
+                <!-- end sw-rss-feed code -->
+                </div>
+<!--end-->
+
+
+<div class="leftContentBox blogLeft-topTitle">
+	<h3>Archived Posts</h3>
+</div>
+
+ <ul class="blog-archive-list">
+ 
+ 
+	
+	
+	
+	
+	
+	
+
+	
+<li><a href="/2012/07">July 2012</a> <span class="blue">(3)</span></li>
+
+	
+
+	
+		
+			
+		
+	
+
+	
+	
+	
+	
+	
+	
+
+	
+
+	
+		
+			
+		
+	
+
+	
+	
+	
+	
+	
+	
+
+	
+
+	
+		
+			
+<li><a href="/2012/06">June 2012</a> <span class="blue">(3)</span></li>
+
+			
+		
+	
+
+	
+	
+	
+	
+	
+	
+
+	
+
+	
+		
+			
+		
+	
+
+	
+	
+	
+	
+	
+	
+
+	
+
+	
+		
+			
+		
+	
+
+	
+	
+	
+	
+	
+	
+
+	
+
+	
+		
+			
+<li><a href="/2012/05">May 2012</a> <span class="blue">(5)</span></li>
+
+			
+		
+	
+
+	
+	
+	
+	
+	
+	
+
+	
+
+	
+		
+			
+		
+	
+
+	
+	
+	
+	
+	
+	
+
+	
+
+	
+		
+			
+		
+	
+
+	
+	
+	
+	
+	
+	
+
+	
+
+	
+		
+			
+		
+	
+
+	
+	
+	
+	
+	
+	
+
+	
+
+	
+		
+			
+		
+	
+
+	
+	
+	
+	
+	
+	
+
+	
+
+	
+		
+			
+<li><a href="/2012/03">March 2012</a> <span class="blue">(3)</span></li>
+
+			
+		
+	
+
+	
+	
+	
+	
+	
+	
+
+	
+
+	
+		
+			
+		
+	
+
+	
+	
+	
+	
+	
+	
+
+	
+
+	
+		
+			
+		
+	
+
+	
+	
+	
+	
+	
+	
+
+	
+
+	
+		
+			
+<li><a href="/2012/02">February 2012</a> <span class="blue">(1)</span></li>
+
+			
+		
+	
+
+	
+	
+	
+	
+	
+	
+
+	
+
+	
+		
+			
+<li><a href="/2012/01">January 2012</a> <span class="blue">(2)</span></li>
+
+			
+		
+	
+
+	
+	
+	
+	
+	
+	
+
+	
+
+	
+		
+			
+		
+	
+
+	
+	
+	
+	
+	
+	
+
+	
+
+	
+		
+
+<li><a href="/2011/11">November 2011</a> <span class="blue">(1)</span></li>
+
+		
+	
+
+	
+	
+	
+	
+	
+	
+
+	
+
+	
+		
+			
+<li><a href="/2011/10">October 2011</a> <span class="blue">(1)</span></li>
+
+			
+		
+	
+
+	
+	
+	
+	
+	
+	
+
+	
+
+	
+		
+			
+<li><a href="/2011/09">September 2011</a> <span class="blue">(1)</span></li>
+
+			
+		
+	
+
+	
+	
+	
+	
+	
+	
+
+	
+
+	
+
+	
+
+
+
+
+
+ 
+ </ul>
+
+                </div>
+
+                <!--Start left content -->
+
+                <div id="resultsDiv" class="DocumentsWrap"></div>
+                <div id="pageContent" class="DocumentsWrapRight">
+                    <h1 class="pageTitle">Hi Cloudsters</h1>
+					 
+					  <span class="blogPostInfo">Posted By: <a href="#">Tamir Korem</a>  on July  9, 2012  
+					  </span>
+					  <br/><br/><br/>
+					 
+                                                                            	<div mcedit="repeat_1:0:postcard_heading00" style="color: #505050;font-family: Arial;font-size: 14px;line-height: 150%;text-align: left;" mc:edit="repeat_1:0:postcard_heading00"><div class="edit-content"><span id="tpl-content-repeat_1:0:postcard_heading00" class="tpl-content"></span></div></div>
+                                                            <div class="edit-image"><div id="tpl-image-content-repeat_1:0:postcard_image" class="tpl-image-content"><div style="text-align: none;"><img width="549" height="358" border="0" style="border:px none ; border-color:; border-style:none; border-width: px; height: 358px; width: 549px; margin: 0; padding: 0;max-width:560px;" alt="" src="https://d2q0qd5iz04n9u.cloudfront.net/_ssl/proxy.php/http/gallery.mailchimp.com/5e963581396e0c0e43ed217f8/images/HomePage_2_copy.jpg"></div><p></div></div><br />
+                                                            <div mcedit="repeat_1:0:std_content00" style="color: #505050;font-family: Arial;font-size: 14px;line-height: 150%;text-align: left;" mc:edit="repeat_1:0:std_content00"><div class="edit-content"><span id="tpl-content-repeat_1:0:std_content00" class="tpl-content"><h1 style="color: #202020;display: block;font-family: Arial;font-size: 34px;font-weight: bold;line-height: 100%;margin-top: 0;margin-right: 0;margin-bottom: 10px;margin-left: 0;text-align: left;" class="h1"></h1><br />
+We wanted to share a few brief updates with you to keep you in the loop on all the exciting stuff we&#8217;ve been working on here at Cloudify, including our new <a href="http://www.cloudifysource.org/2012/07/09/whats_cool_in_cloudify_2_1_1.html"><b>2.1.1 release</b></a>, new features, integrations, and other improvements<br>
+<br>
+Feel free to follow our <a target="_blank" style="color: #336699;font-weight: normal;text-decoration: underline;" href="http://www.cloudifysource.org/blog/">blog</a>, or our <a target="_blank" style="color: #336699;font-weight: normal;text-decoration: underline;" href="http://cloudifysource.tumblr.com">Tumblr </a>for ongoing product updates and news.<br>
+<br>
+And as always, you&#8217;re welcome to drop us a <a target="_blank" style="color: #336699;font-weight: normal;text-decoration: underline;" href="mailto:info@cloudifysource.org">line</a>, or visit our <a target="_blank" style="color: #336699;font-weight: normal;text-decoration: underline;" href="https://cloudifysource.zendesk.com/forums">forums </a>if you need any kind of help.<br>
+<br>
+Hope you enjoy the read,<br>
+<br>
+Tamir Korem<br>
+<a style="color: rgb(51, 102, 153);font-weight: normal;text-decoration: underline;" href="mailto:tkorem@cloudifysource.org%20tkorem@cloudifysource.org%20t?subject=Cloudify%20Inquiry">tkorem@cloudifysource.org</a><br>
+Cloudify Evangelist<br>
+<a style="color: rgb(51, 102, 153);font-weight: normal;text-decoration: underline;" href="http://www.cloudifysource.org/">www.cloudifysource.org</a>&nbsp;<br>
+<br>
+<img width="120" height="92" align="left" style="width: 120px;height: 92px;margin: 5px;border: 0;line-height: 100%;outline: none;text-decoration: none;display: inline;" src="https://d2q0qd5iz04n9u.cloudfront.net/_ssl/proxy.php/http/gallery.mailchimp.com/5e963581396e0c0e43ed217f8/images/Recipe.png"><br>
+<h4 style="color: #202020;display: block;font-family: Arial;font-size: 22px;font-weight: bold;line-height: 100%;margin-top: 0;margin-right: 0;margin-bottom: 10px;margin-left: 0;text-align: left;" class="null"><br />
+	<span style="color:#00b4da;">Cloudify Recipes Repository</span></h4><br />
+<br>
+<br>
+We now have a new <a target="_blank" style="color: #336699;font-weight: normal;text-decoration: underline;" href="https://github.com/CloudifySource/cloudify-recipes">Cloudify-recipes repository</a> on GitHub, for easy access to all of the Cloudify recipes. &nbsp;<br>
+<br>
+It contains several application recipes (many more recipes will be added soon).&nbsp;<br>
+<br>
+In each recipe folder (service or application) there&#8217;s a <span class="caps">README</span>.md that contains the following attributes of the recipe:&nbsp;<br />
+<ul><br />
+	<li><span style="color:#00b4da;"><strong>Status</strong>:</span> Tested / Incubator</li> 	<li><span style="color:#00b4da;"> <strong>Description</strong>:</span> A short description of the recipe</li> 	<li><span style="color:#00b4da;"><strong>Contributors</strong>:</span> A list of names of the developers who contributed to the recipe.</li> 	<li><span style="color:#00b4da;"><strong>Build</strong>:</span> A full url of the distribution zip file in which this recipe has been tested.</li> 	<li><span style="color:#00b4da;"><strong>Permissions</strong>:</span> Whether special permissions are required on the cloud&#8217;s VMs.</li> 	<li><span style="color:#00b4da;"><strong>Release date</strong>:</span> The date in which the recipe was last tested and released.&nbsp;&nbsp;&nbsp;</li></p>
+</ul>
+<p>Obviously, the <span class="caps">README</span>.md file also contains a description of the recipe and of the features in it.<br>
+In order to contribute to this repository, you can create a GitHub fork and when you&#8217;re done, send us a pull request and we&#8217;ll merge it once we approve it.&nbsp;<strong><span style="color:#00b4da;">So go ahead &#8211; contribute your own!&nbsp;</span></strong><br>
+<br>
+<br>
+<img width="89" height="70" align="left" style="width: 89px;height: 70px;line-height: 100%;outline: none;text-decoration: none;display: inline;margin: 5px;border: 0;" src="https://d2q0qd5iz04n9u.cloudfront.net/_ssl/proxy.php/http/gallery.mailchimp.com/5e963581396e0c0e43ed217f8/images/OC_Chef_Logo.jpg"><br>
+<span style="color:#00b4da;"><span style="font-size: 22px; font-weight: bold; line-height: 100%; ">New Chef Integration</span></span><br>
+&nbsp;&nbsp;&nbsp;<br>
+<br>
+<br>
+We have been working hard to offer Cloudify users integration with the DevOps tool Chef, you can find it <a target="_blank" style="color: #336699;font-weight: normal;text-decoration: underline;" href="https://github.com/CloudifySource/cloudify-recipes">here</a>. &nbsp;On that note, we recently hosted a webinar with a demo of how to do-it-yourself, you can watch it <a target="_blank" style="color: #336699;font-weight: normal;text-decoration: underline;" href="http://bit.ly/O7YROe">here</a>.<br>
+<br>
+For those who are not familiar with&nbsp;<font color="#336699"><a target="_blank" style="color: #336699;font-weight: normal;text-decoration: underline;" href="http://www.opscode.com/chef/">Chef</a>, </font>it is an excellent tool for setting up your environment and automating complex IT processes. It promotes the concept of DevOps and managing your infrastructure as code, for the setup phase. &nbsp;The concept of DevOps and recipes can now be taken beyond setup, to actually accelerate the entire lifecycle of your applications, from setup, to monitoring, through maintaining high availability, and auto-scaling when required with this integration.<br>
+<br>
+We&#8217;ve now opened up Cloudify to Chef users by enabling you to specify Chef recipes and roles for installation and configuration of Cloudify services.<br>
+We&#8217;ve also created a Chef-Server recipe in case you want to use your private Chef server on the cloud. As always all the source files are open under Apache2 and you can find them in our github <a target="_blank" style="color: #336699;font-weight: normal;text-decoration: underline;" href="https://github.com/CloudifySource/cloudify-recipes">recipes repository</a>.<br>
+<br>
+<br>
+<img width="100" height="75" align="left" style="width: 100px;height: 75px;line-height: 100%;outline: none medium;text-decoration: none;display: inline;margin: 5px;border: 0;" src="https://d2q0qd5iz04n9u.cloudfront.net/_ssl/proxy.php/http/gallery.mailchimp.com/5e963581396e0c0e43ed217f8/images/PetClinic.png">&nbsp;&nbsp;&nbsp;&nbsp;<br>
+<span style="color:#00b4da;"><span style="font-size: 22px; font-weight: bold; line-height: 100%; ">Pet Clinic and Apache Load Balancer</span></span><br>
+<br>
+<br>
+The Pet Clinic recipe has been enhanced and it now contains an Apache Load Balancer service (apacheLB). We&#8217;ve also created a built-in <a target="_blank" style="color: #336699;font-weight: normal;text-decoration: underline;" href="https://github.com/CloudifySource/cloudify-recipes/blob/master/services/apacheLB/README.md#load-testing">load</a> custom command in the apacheLB recipe, which will enable you to test the application under heavy loads; providing a scaling rules mechanism <span style="color:#00b4da;"><em><strong>out of the box</strong></em></span> with this recipe.<br>
+<br>
+Please note that the apacheLB has been added to the extended PetClinic application and <u><span class="caps">NOT</span></u> to the PetClinic-Simple, because we wanted the PetClinic-Simple to remain&#8230; simple. But if you need it, you can easily add the LB service recipe to the PetClinic-Simple.<br>
+<br>
+More info can be found in:<br />
+<ul><li>The <a target="_blank" style="color: #336699;font-weight: normal;text-decoration: underline;" href="https://github.com/CloudifySource/cloudify-recipes/tree/master/apps/petclinic">PetClinic recipe</a> in GitHub.</li> 	<li>The <a target="_blank" style="color: #336699;font-weight: normal;text-decoration: underline;" href="https://github.com/CloudifySource/cloudify-recipes/blob/master/services/apacheLB/README.md">Apache Load Balancer recipe</a>.&nbsp;&nbsp;&nbsp;</li> 	<li><a target="_blank" style="color: #336699;font-weight: normal;text-decoration: underline;" href="http://www.cloudifysource.org/guide/qsg/quick_start_guide_ec2">EC2 Quick Start guide</a></li></p>
+<p></ul><br><hr><br />
+<br><h4 style="color: #202020;display: block;font-family: Arial;font-size: 22px;font-weight: bold;line-height: 100%;margin-top: 0;margin-right: 0;margin-bottom: 10px;margin-left: 0;text-align: left;" class="null"><span style="color:#00b4da;">Other News in Short</span></h4><br />
+<br>
+<img align="left" style="line-height: 15.555556297302246px;display: inline;border: 0;height: auto;outline: none;text-decoration: none;" src="https://d2q0qd5iz04n9u.cloudfront.net/_ssl/proxy.php/http/cdn4.iconfinder.com/data/icons/SUPERVISTA/business/png/128/benchmarking.png" alt="http://cdn4.iconfinder.com/data/icons/SUPERVISTA/business/png/128/benchmarking.png"><br>
+&nbsp;In order to ensure accurate documentation across versions, from now on, you&#8217;ll find documentation versioning with every article in the&nbsp;<a target="_blank" style="color: rgb(51, 102, 153);font-weight: normal;text-decoration: underline;" href="http://www.cloudifysource.org/guide">Cloudify guide</a>.<br>
+At the bottom of every page in the guide&nbsp;you will find a version label (see example below).<br>
+<br>
+<img width="560" height="76" align="none" style="height: 76px;line-height: 15.555556297302246px;width: 560px;display: inline;border: 0;outline: none;text-decoration: none;" src="https://d2q0qd5iz04n9u.cloudfront.net/_ssl/proxy.php/http/gallery.mailchimp.com/5e963581396e0c0e43ed217f8/images/cl_versions2.png"><br>
+Pages that describe new or modified features, now contain version options in a drop down menu (see example below). &nbsp;By selecting your version, you will then automatically be redirected to that version&#8217;s page.<br>
+<br>
+<img width="650" height="92" align="none" style="height: 92px;line-height: 15.555556297302246px;width: 650px;display: inline;outline: none;text-decoration: none;border: 0;" src="https://d2q0qd5iz04n9u.cloudfront.net/_ssl/proxy.php/http/gallery.mailchimp.com/5e963581396e0c0e43ed217f8/images/cl_versions1f53483.png"><br>
+<br>
+<img width="95" height="95" align="left" style="line-height: 100%;outline: none;text-decoration: none;display: inline;width: 95px;height: 95px;margin: 5px;border: 0;" src="https://d2q0qd5iz04n9u.cloudfront.net/_ssl/proxy.php/http/gallery.mailchimp.com/5e963581396e0c0e43ed217f8/images/RackspacesTutorial.png"><br>
+&nbsp;A new <a target="_blank" style="color: #336699;font-weight: normal;text-decoration: underline;" href="http://www.rackspace.com/cloud">Rackspace cloud</a> tutorial has been added to the documentation in the community, for both&nbsp;<a target="_blank" style="color: #336699;font-weight: normal;text-decoration: underline;" href="http://www.cloudifysource.org/guide/bootstrapping/bootstrapping_rsopenstack">bootstrapping</a> and <a target="_blank" style="color: #336699;font-weight: normal;text-decoration: underline;" href="http://www.cloudifysource.org/guide/setup/configuring_rsopenstack">configuration</a>.&nbsp;<br>
+<br>
+<img width="100" height="101" align="left" style="line-height: 100%;outline: none;text-decoration: none;display: inline;width: 100px;height: 101px;margin: 5px;border: 0;" src="https://d2q0qd5iz04n9u.cloudfront.net/_ssl/proxy.php/http/www.cloudifysource.org/images/home/hp-develop-bg.png"><br>
+&nbsp;The Cloudify download process has been simplified &#8211; and no longer requires authentication, to give Cloudify a try. So go ahead and download your version of choice <a target="_blank" style="color: #336699;font-weight: normal;text-decoration: underline;" href="http://www.cloudifysource.org/downloads/get_cloudify">here </a>- pain free.<br>
+<br>
+<br>
+<img width="100" height="104" align="left" style="line-height: 18px;outline: none;text-decoration: none;display: inline;width: 100px;height: 104px;margin: 5px;border: 0;" src="https://d2q0qd5iz04n9u.cloudfront.net/_ssl/proxy.php/http/www.cloudifysource.org/images/imgDwnGetReady.png"><br>
+<span style="color:#00b4da;"><strong>Travis CI for Cloudify Builds</strong></span><br>
+<br>
+<br>
+It was important to us to have Cloudify users know what&#8217;s going on behind the scenes at all times, and to increase the transparency of our work, so we have started using&nbsp;<a target="_blank" style="color: #336699;font-weight: normal;text-decoration: underline;" href="http://about.travis-ci.org/docs">Travis CI</a> for our Cloudify builds. Travis CI is a hosted continuous integration service for the open source community, that provides status tracking&nbsp;<a target="_blank" style="color: #336699;font-weight: normal;text-decoration: underline;" href="http://travis-ci.org/#%21/CloudifySource/cloudify">Cloudify&#8217;s builds</a>&nbsp;at every moment. We&#8217;ve also integrated this tool with our <a target="_blank" style="color: #336699;font-weight: normal;text-decoration: underline;" href="https://github.com/CloudifySource/cloudify/blob/master/README.md">GitHub repo</a> &#8211; so you will always be able to find the status of Cloudify&#8217;s builds there as well.<br>
+<br>
+<br>
+<img width="100" height="100" align="left" style="width: 100px;height: 100px;margin: 5px;border: 0;line-height: 100%;outline: none;text-decoration: none;display: inline;" src="https://d2q0qd5iz04n9u.cloudfront.net/_ssl/proxy.php/http/cdn3.iconfinder.com/data/icons/lovely/PNG/128/Contacts.png"> <span id="OLK_SRC_BODY_SECTION"><span style="color:#00b4da;"><strong>Help us make Cloudify awesome!</strong></span> We have published the Cloudify roadmap so you can know about all the features that are in the works, see it <a target="_blank" style="color: #336699;font-weight: normal;text-decoration: underline;" href="https://cloudifysource.zendesk.com/forums/20575288-feature-requests-ideas">here</a>, where your votes on features and feature requests are most welcome.&nbsp;</div></div><br />
+<br>
+<br></p>
+                    <div id="disqus_thread"></div>
+<script type="text/javascript">
+    /* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
+    var disqus_shortname = 'cloudifysource'; // required: replace example with your forum shortname
+    var disqus_identifier = '/2012/07/09/hi_cloudsters.html';
+
+    /* * * DON'T EDIT BELOW THIS LINE * * */
+    (function() {
+        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+        dsq.src = 'http://' + disqus_shortname + '.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="http://disqus.com" class="dsq-brlink">blog comments powered by <span class="logo-disqus">Disqus</span></a>
+
+                </div>
+
+                <div class="clear"></div>
+            </div>
+        </div>
+
+        <!--Start pagination -->
+
+        <div class="clear"></div>
+
+        <!--Start Footer -->
+
+        <div class="footer">
+    <!--<ul class="footerLeftMenu">
+        <li class="footerli"><a href="#">About GigaSpaces</a></li>
+        <li class="footerli"><a href="#">Contact Us</a></li>
+    </ul> -->
+    <ul class="footerRightMenu">
+        <li class="footerli">Copyright © 2012 GigaSpaces. All rights reserved.</li>
+        <li class="footerli"><a href="/about_us">About Us</a></li>
+        <li class="footerli">|</li>
+        <li class="footerli"><a href="/terms_of_use">Terms of Use</a></li>
+        <li class="footerli">|</li>
+        <li class="footerli"> <a href="/privacy_policy">Privacy Policy</a></li>
+    </ul> 
+    <ul class="footerSocialMenu">
+        <li class="footerFb"><a href="https://www.facebook.com/GigaSpaces?sk=app_201742856511228"></a></li>
+        <li class="footerRss"><a href="/atom.xml"></a></li>
+        <!--<li class="footerMell"><a href="#"></a></li>-->
+        <li class="footerTwitt"><a href="http://www.twitter.com/cloudifysource"></a></li>
+        <li class="footerYt"><a href="http://www.youtube.com/cloudifysource"></a></li>
+    </ul>
+</div>
+
+
+    </div>
+    <!--End site wrapper -->
+
+
+</div>
+<!--End site bg top wrapper -->
+</body>
+</html>
