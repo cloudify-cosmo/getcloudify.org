@@ -17,18 +17,45 @@
 		  $(document).ready(function(){
 			$("#mc-embedded-subscribe-form").validate({
 			   errorLabelContainer: "#messageBox",
-			   wrapper: "li",debug:true,
-			   submitHandler: function() { alert("Submitted!") }
+			   //wrapper: "li",debug:true,
+			   //submitHandler: function() { alert("Submitted!") }
 			   })
 			 $("a.youtube").YouTubePopup({ hideTitleBar: true });  
 		  });
  	  </script>
+<script type="text/javascript">
+ var _gauges = _gauges || [];
+(function() {
+		var t   = document.createElement('script');
+		t.type  = 'text/javascript';
+		t.async = true;
+		t.id    = 'gauges-tracker';
+		t.setAttribute('data-site-id', '4fd5058b613f5d712200004f');
+		t.src = '//secure.gaug.es/track.js';
+		var s = document.getElementsByTagName('script')[0];
+		s.parentNode.insertBefore(t, s);
+})();
+</script> 
+<script type="text/javascript">
+
+   var _gaq = _gaq || [];
+   _gaq.push(['_setAccount', 'UA-31930048-1']);
+   _gaq.push(['_trackPageview']);
+
+   (function() {
+	   var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+	   ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+	   var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+   })();
+
+</script>
 </head>
 
 <body>
+<a class="fork-guide" target="_blank" href="https://github.com/CloudifySource/cloudify"></a>
 <div class="WrapperBg">
     <div class="Wrapper">
-        <div class="header">
+  <div class="header">
             <a class="logo" href="/"></a>
             <div class="clear"></div>
         </div>
@@ -40,17 +67,21 @@
            
            <div class="subscribeWrap">
            	<div class="subscribeTitle"></div>
-            <h3>To receive updates on new versions & other cool stuff</h3>
-            <div class="subscribeForm">
-                  <form action="http://cloudifysource.us4.list-manage.com/subscribe/post?u=5e963581396e0c0e43ed217f8&amp;id=3f9fc73021" method="post" id="mc-embedded-subscribe-form" name="mc-embedded-subscribe-form" class="validate" target="_blank">
-            <input type="email" value="" name="EMAIL" class="required subscribeTxt email" id="subscribe" placeholder="Enter your e-Mail" title="Please enter a valid email address.">
-            <input type="submit" value="Go" name="subscribe" id="subscribeGoBtn" class="subscribeBtn">
+                <h3>To receive updates on new versions & other cool stuff</h3>
 
-                                </form>
+		<!-- Begin MailChimp Signup Form -->
+		
+		<div class="subscribeForm">
+		    <form action="http://cloudifysource.us4.list-manage.com/subscribe/post?u=5e963581396e0c0e43ed217f8&amp;id=3f9fc73021" method="post" id="mc-embedded-subscribe-form" name="mc-embedded-subscribe-form" class="validate" target="_blank">
+		         <input type="email" value="" name="EMAIL" class="required subscribeTxt email" id="mce-EMAIL" placeholder="Enter your e-Mail" title="Please enter a valid email address.">
+		         <input type="submit" value="Go" name="subscribe" id="mc-embedded-subscribe" class="subscribeBtn ">
+		    </form>
+		</div>
+		<!--End mc_embed_signup-->
+		<div id="messageBox"></div>
+	   </div>                               
 
-            </div>
-           </div>
-           
+
            <div class="shareWrap">
            	<div class="shareTitle"></div>
             <p class="shareText">If you want to shout out about <a href="http://www.cloudifysource.org/" >Cloudify</a> on <strong>any</strong> social network we would be much obliged.</p>
@@ -74,6 +105,10 @@
                 <li class="check"><a href="http://www.cloudifysource.org/guide/qsg/quick_start_guide"></a></li>
                 <li class="watch"><a class="youtube" rel="V3NNreNRxMQ" href="#"></a></li>
            </ul>
+           
+          
+            
+            
     
     <!--Start Footer -->
     <div class="clear"></div>
