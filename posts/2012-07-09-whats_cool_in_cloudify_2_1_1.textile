@@ -1,6 +1,6 @@
 ---
 layout: blogpost
-title: What's cool in Cloudify 2.1.1
+title: What's Cool in Cloudify 2.1.1
 image: yaron.jpg
 author: Yaron Parasol
 tags: 
@@ -10,17 +10,18 @@ tags:
  - Monitoring 
 ---
 
-We are happy to announce a new Cloudify service pack (2.1.1) as General Availability.
-This service pack provides many stability improvements thanks to customers and community users reporting issues and asking questions about their use cases.
+We are happy to announce a new Cloudify service pack (2.1.1) released yesterday that is now GA.
 
-In addition, we are releasing the enhanced "process locator":/guide/developing/lifecycle_events#locator feature allowing for multi-process recipes. 
-Using the process locator, you can give Cloudify a list of process IDs to monitor for availability and use as a trigger for service recovery.
+This service pack provides many stability improvements thanks to input we received from our customers and community users who have reported issues and asked questions about their specific use cases.
 
-This opens the door for colocation of several tiers in the same virtual machine.
+In addition, this release includes the enhanced, and much requested and awaited, "process locator":/guide/developing/lifecycle_events#locator feature enabling multi-process recipes. 
+
+Using the process locator, you can give Cloudify a list of process IDs to monitor availability and use as a trigger for service recovery, now making it possible to open the door for colocation of several tiers in the same virtual machine.
 
 Here's an example of how to monitor two different applications with the process locator.
+
 In this example, the monitored applications are Apache Web Server and Tomcat Servlet Engine:
 
 <script src="https://gist.github.com/3076019.js?file=multiprocess.groovy"></script>
 
-In one of our next blog posts, we'll show you how to use "(newwindow)PTQL":http://support.hyperic.com/display/SIGAR/PTQL in cloudify recipes to monitor the basic KPIs (cpu,memory,etc) for each of these processes.
+In one of our next blog posts, we'll show you how to use "(newwindow)PTQL":http://support.hyperic.com/display/SIGAR/PTQL in Cloudify recipes to monitor the basic KPIs (CPU, memory, etc) for each of these processes.  Stay tuned.
