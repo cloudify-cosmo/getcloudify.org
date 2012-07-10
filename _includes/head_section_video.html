@@ -82,13 +82,10 @@
 	
 	//this code show the right description after we click on playlist link
 	$('li.videoThumbBox a').click(function() {
-		$('#resultsDiv').children().hide();
 		$('p , div.clipTitle h3 , div.mainVidDate span ').hide();
-		//$('div.mainVideo-box h3').hide();
 		var currentId = $(this).parent().parent().attr('id');
-		document.location.hash = currentId;
+		 document.location.hash = currentId;
 		$('p.'+currentId+' , div.clipTitle h3.'+currentId+' , div.mainVidDate span.'+currentId+'' ).show();  
-		//$('div.mainVideo-box h3.'+currentId+'').show();      
 
 	});
 	
