@@ -62,11 +62,19 @@
 		$(movieTitle).appendTo("div.clipTitle");<!-- push movie title  -->
 		$(updated).appendTo(".mainVidDate div");<!-- push movie title  -->
 			
-			//load the first description
-			var currentId = $('li.videoThumbBox').attr('id');
-			$('p.'+currentId+'').show();
-			$('h3.'+currentId+'').show();
-            $('span.'+currentId+'').show();
+       	//load the first description	
+		 var currentId;	
+		 if(document.location.hash != "")
+		 {
+            currentId = document.location.hash.replace('#','');
+         }else{
+			currentId = $('li.videoThumbBox').attr('id');
+         }		 
+		//var currentId = $('li.videoThumbBox').attr('id');
+		$('p.'+currentId+'').show();
+		$('h3.'+currentId+'').show();
+        	$('span.'+currentId+'').show();
+
 	
 	//this code load the player
 	$("ul.videoThumbs").ytplaylist({addThumbs:true, autoPlay: false, holderId: 'ytvideo2'});
@@ -78,6 +86,7 @@
 		$('p , div.clipTitle h3 , div.mainVidDate span ').hide();
 		//$('div.mainVideo-box h3').hide();
 		var currentId = $(this).parent().parent().attr('id');
+		document.location.hash = currentId;
 		$('p.'+currentId+' , div.clipTitle h3.'+currentId+' , div.mainVidDate span.'+currentId+'' ).show();  
 		//$('div.mainVideo-box h3.'+currentId+'').show();      
 
