@@ -119,14 +119,13 @@
 		// Create a blank iframe. This will be used to actually load
 		// the Gist in another document context so that we dont'
 		// corrupt the active document.
-		var iframe = $( "<iframe id='tmpGist' src='about:blank'></iframe>" )
+		var iframe = $( "<iframe src='about:blank'></iframe>" )
 			.hide()
 			.prependTo( "html" )
 		;
 
 		// Get the iframe document.
-		//var iframeDocument = iframe[ 0 ].contentWindow.document;
-		var iframeDocument = $("#tmpGist");
+		var iframeDocument = iframe[ 0 ].contentWindow.document;
 
 		// Create a function that will handle the first write defined
 		// by the gist (writing the stylesheet).
