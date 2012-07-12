@@ -22,16 +22,16 @@
 	$(function(){ 
 		$("a.youtube").YouTubePopup({ hideTitleBar: true });
 		$("div.expand").hide();
-		$("span.inlineExpandBtn").append("<span class='arrowsDown'>&raquo;</span>").click(function(){
-			$(this).children('span').toggleClass('arrowsDown').toggleClass('arrowsUp');
+		$("span.inlineExpandBtn").append("<span class='arrow arrowsDown'>&raquo;</span>").click(function(){
+			$(this).children('span.arrow').toggleClass('arrowsDown').toggleClass('arrowsUp');
 			$(this).parent().next("div.expand").slideToggle(500);
 		});
-		$("span.expandBtn").append("<span class='arrowsDown'>&raquo;</span>").click(function(){
+		$("span.expandBtn").append("<span class='arrow arrowsDown'>&raquo;</span>").click(function(){
 			var div = $(this),
 				divExpand = div.children("div.expand"),
 				divExpandIframe = divExpand.children("iframe");
 			
-			div.children('span').toggleClass('arrowsDown').toggleClass('arrowsUp');
+			div.children('span.arrow').toggleClass('arrowsDown').toggleClass('arrowsUp');
 			if (divExpand.length==0) {
 				divExpand = $("<div class='expand' />").hide().appendTo(div);
 				divExpand.width(700).height(480).css("border", "1px outset");
@@ -40,19 +40,64 @@
 				divExpandIframe = $("<iframe />").appendTo(divExpand);
 				divExpandIframe.width(700).height(480).css({"overflow":"auto", "border":"0"});
 				if ($.browser.webkit) {
+					divExpandIframe.contents().find("html").css("background", "none");
 					divExpandIframe.contents().find("head").append('<link rel="stylesheet" href="/css/template.css" type="text/css"/>');
 					divExpandIframe.contents().find("head").append('<link rel="stylesheet" href="/css/jquery-ui-1.8.17.custom.css" type="text/css" media="all"/>');
 					divExpandIframe.contents().find("head").append('<link rel="stylesheet" type="text/css" href="/scripts/prettify/prettify.css">');
 					divExpandIframe.contents().find("body").css("margin-left", "30px");
-					divExpandIframe.contents().find("body").load(div.attr("title") + " #pageContent");
+					//divExpandIframe.contents().find("body").load(div.attr("title") + " #pageContent");
+					
+					$.get(div.attr("title"), function(data) {
+						data = data.split("</head>")[2];
+						data = data.replace(/^[\s\S]*?(<div.*?id="pageContent".*?>[\s\S]*?<\/div>)[\s\S]*?<div class="clear">[\s\S]*?$/, "$1");
+						
+						var gistScripts = data.match(/<script src="https:\/\/gist.github.com\/[\d]+\.js.*?">/g);
+						console.log('gistScripts.length: ' + gistScripts.length);
+						if (gistScripts.length > 0) {
+							var jsFile = null;
+							divExpandIframe.contents().find("head").append('<link rel="stylesheet" href="https:\/\/gist.github.com/stylesheets/gist/embed.css"/>');
+							for (var i=0; i < gistScripts.length; i++) {
+								jsFile = gistScripts[i].replace(/<script src="(https:\/\/gist.github.com\/[\d]+\.js).*?">/, "$1");
+								console.log('jsFile: ' + jsFile);
+								//$.ajax({
+								//	url:jsFile,
+								//	cache: true,
+								//	dataType:"script"
+									//processData: false,
+									//xhrFields: { withCredentials: true },
+									//success: function(scriptData){
+									//	console.log('scriptData: ' + scriptData);
+									//	var content = scriptData.match(/<div.*\\n/);
+									//	console.log('content: ' + content);
+									//	data = data.replace('<script src="jsFile.*?">', content);
+									//}
+								//}).done
+								$.get(jsFile, {}, function(scriptData) {
+									console.log('scriptData: ' + scriptData);
+									var content = scriptData.match(/<div.*\\n/);
+									console.log('content: ' + content);
+									data = data.replace('<script src="jsFile.*?">', content);
+								});
+							}
+						}
+						divExpandIframe.contents().find("body").html(data);
+						//divExpandIframe.contents().find("body").html(divExpandIframe.contents().find("#pageContent").html());
+					});
 				}
 				else
 					divExpandIframe.load(function(){
+						divExpandIframe.contents().find("html").css("background", "none");
 						divExpandIframe.contents().find("head").append('<link rel="stylesheet" href="/css/template.css" type="text/css"/>');
 						divExpandIframe.contents().find("head").append('<link rel="stylesheet" href="/css/jquery-ui-1.8.17.custom.css" type="text/css" media="all"/>');
 						divExpandIframe.contents().find("head").append('<link rel="stylesheet" type="text/css" href="/scripts/prettify/prettify.css">');
 						divExpandIframe.contents().find("body").css("margin-left", "30px");
-						divExpandIframe.contents().find("body").load(div.attr("title") + " #pageContent");
+						//divExpandIframe.contents().find("body").load(div.attr("title") + " #pageContent");
+						
+						$.get(div.attr("title"), function(data) {
+							alert(data);
+							divExpandIframe.contents().find("body").html($("#pageContent", data));
+							//divExpandIframe.contents().find("body").html(divExpandIframe.contents().find("#pageContent").html());
+						});
 					});
 			}
 			divExpand.slideToggle(500);
