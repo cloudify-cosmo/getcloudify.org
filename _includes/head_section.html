@@ -13,7 +13,8 @@
 	<script type="text/javascript" src="/scripts/jquery.prettyPhoto.js"></script>
 	<script type="text/javascript" src="/scripts/prettify/prettify.js"></script>
 	<script type="text/javascript" src="/scripts/version.data.js"></script>
-	<script type="text/javascript" src="/scripts/version.js"></script>			
+	<script type="text/javascript" src="/scripts/version.js"></script>
+	<script type="text/javascript" src="/scripts/jquery.gist-frame.js"></script>
 	<script type="text/javascript">
 	window.onload = function () {
 		$('body').addClass("bodyClass");	
@@ -45,43 +46,29 @@
 					divExpandIframe.contents().find("head").append('<link rel="stylesheet" href="/css/jquery-ui-1.8.17.custom.css" type="text/css" media="all"/>');
 					divExpandIframe.contents().find("head").append('<link rel="stylesheet" type="text/css" href="/scripts/prettify/prettify.css">');
 					divExpandIframe.contents().find("body").css("margin-left", "30px");
-					//divExpandIframe.contents().find("body").load(div.attr("title") + " #pageContent");
 					
 					$.get(div.attr("title"), function(data) {
-						data = data.split("</head>")[2];
+						data = data.split("</head>").pop();
 						data = data.replace(/^[\s\S]*?(<div.*?id="pageContent".*?>[\s\S]*?<\/div>)[\s\S]*?<div class="clear">[\s\S]*?$/, "$1");
 						
-						var gistScripts = data.match(/<script src="https:\/\/gist.github.com\/[\d]+\.js.*?">/g);
-						console.log('gistScripts.length: ' + gistScripts.length);
-						if (gistScripts.length > 0) {
-							var jsFile = null;
+						var gistScripts = data.match(/<script src="https:\/\/gist.github.com\/[\d]+\.js.*?">.*?<\/script>/g);
+						if (gistScripts) {
+							var gistId = null;
 							divExpandIframe.contents().find("head").append('<link rel="stylesheet" href="https:\/\/gist.github.com/stylesheets/gist/embed.css"/>');
 							for (var i=0; i < gistScripts.length; i++) {
-								jsFile = gistScripts[i].replace(/<script src="(https:\/\/gist.github.com\/[\d]+\.js).*?">/, "$1");
-								console.log('jsFile: ' + jsFile); 
-								//$.ajax({
-								//	url:jsFile,
-								//	cache: true,
-								//	dataType:"script"
-									//processData: false,
-									//xhrFields: { withCredentials: true },
-									//success: function(scriptData){
-									//	console.log('scriptData: ' + scriptData);
-									//	var content = scriptData.match(/<div.*\\n/);
-									//	console.log('content: ' + content);
-									//	data = data.replace('<script src="jsFile.*?">', content);
-									//}
-								//}).done
-								$.get(jsFile, {}, function(scriptData) {
-									console.log('scriptData: ' + scriptData);
-									var content = scriptData.match(/<div.*\\n/);
-									console.log('content: ' + content);
-									data = data.replace('<script src="jsFile.*?">', content);
+								console.log('gistScripts[' + i + ']: ' + gistScripts[i]);
+								gistId = gistScripts[i].replace(/<script src="https:\/\/gist.github.com\/([\d]+)\.js.*?">.*?<\/script>/, "$1");
+								console.log('gistId: ' + gistId);
+								data = data.replace(gistScripts[i], '<div id="gist' + gistId +'"></div>');
+								var gistResult = $.getGist(gistId);
+								
+								gistResult.done(function(gist){
+									var gistId = $(gist.ordered[0].content).find(".gist-meta").children("a[href^='https']").attr("href").match(/[\d]+/);
+									divExpandIframe.contents().find("#gist" + gistId).html($(gist.ordered[0].content));
 								});
 							}
 						}
 						divExpandIframe.contents().find("body").html(data);
-						//divExpandIframe.contents().find("body").html(divExpandIframe.contents().find("#pageContent").html());
 					});
 				}
 				else
@@ -91,12 +78,27 @@
 						divExpandIframe.contents().find("head").append('<link rel="stylesheet" href="/css/jquery-ui-1.8.17.custom.css" type="text/css" media="all"/>');
 						divExpandIframe.contents().find("head").append('<link rel="stylesheet" type="text/css" href="/scripts/prettify/prettify.css">');
 						divExpandIframe.contents().find("body").css("margin-left", "30px");
-						//divExpandIframe.contents().find("body").load(div.attr("title") + " #pageContent");
 						
 						$.get(div.attr("title"), function(data) {
-							//alert(data);
-							divExpandIframe.contents().find("body").html($("#pageContent", data));
-							//divExpandIframe.contents().find("body").html(divExpandIframe.contents().find("#pageContent").html());
+							data = data.split("</head>").pop();
+							data = data.replace(/^[\s\S]*?(<div.*?id="pageContent".*?>[\s\S]*?<\/div>)[\s\S]*?<div class="clear">[\s\S]*?$/, "$1");
+							
+							var gistScripts = data.match(/<script src="https:\/\/gist.github.com\/[\d]+\.js.*?">.*?<\/script>/g);
+							if (gistScripts) {
+								var gistId = null;
+								divExpandIframe.contents().find("head").append('<link rel="stylesheet" href="https:\/\/gist.github.com/stylesheets/gist/embed.css"/>');
+								for (var i=0; i < gistScripts.length; i++) {
+									gistId = gistScripts[i].replace(/<script src="https:\/\/gist.github.com\/([\d]+)\.js.*?">.*?<\/script>/, "$1");
+									data = data.replace(gistScripts[i], '<div id="gist' + gistId +'"></div>');
+									var gistResult = $.getGist(gistId);
+									
+									gistResult.done(function(gist){
+										var gistId = $(gist.ordered[0].content).find(".gist-meta").children("a[href^='https']").attr("href").match(/[\d]+/);
+										divExpandIframe.contents().find("#gist" + gistId).html($(gist.ordered[0].content));
+									});
+								}
+							}
+							divExpandIframe.contents().find("body").html(data);
 						});
 					});
 			}
