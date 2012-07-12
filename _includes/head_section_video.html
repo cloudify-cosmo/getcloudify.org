@@ -1,6 +1,7 @@
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>	
 	<title>Cloudify - {{ page.title }}</title>
+    <script src="//cdn.optimizely.com/js/59503762.js"></script>
     <link rel="stylesheet" href="/css/template.css" type="text/css"/>
 	<link rel="canonical" href="http://www.cloudifysource.org{{page.url}}"/>	
 	<link rel="shortcut icon" href="/favicon.ico" type="image/x-icon" />
@@ -9,6 +10,7 @@
 	<script src="http://www.youtube.com/player_api"></script>
     <script src="/scripts/www-widgetapi-vfll_Uq2Q.js" async=""></script>
 	<script src="/scripts/videoPlayer.js" type="text/javascript"></script>
+	<script type="text/javascript" src="/scripts/jquery.pajinate.js"></script>
     <script type="text/ecmascript">
 	window.onload = function () {
 	$('body').addClass("bodyClass");
@@ -43,16 +45,36 @@
 		
 		
 		$(list_data).appendTo(".videoThumbs");<!-- push li to ul.videoThumbs -->
+		
+		<!--make the prev next pageination-->
+		$('#paging_container3').pajinate({
+			items_per_page : 5,
+			item_container_id : '.videoThumbs',
+			nav_panel_id : '.alt_page_navigation'
+		
+		});
+		
+		
+		
+		
 		$('.videoDesc').empty();
 		$(showDescription).appendTo(".videoDesc");<!-- push movie description  -->
 		$(movieTitle).appendTo("div.clipTitle");<!-- push movie title  -->
 		$(updated).appendTo(".mainVidDate div");<!-- push movie title  -->
 			
-			//load the first description
-			var currentId = $('li.videoThumbBox').attr('id');
-			$('p.'+currentId+'').show();
-			$('h3.'+currentId+'').show();
-            $('span.'+currentId+'').show();
+       	//load the first description	
+		 var currentId;	
+		 if(document.location.hash != "")
+		 {
+            currentId = document.location.hash.replace('#','');
+         }else{
+			currentId = $('li.videoThumbBox').attr('id');
+         }		 
+		//var currentId = $('li.videoThumbBox').attr('id');
+		$('p.'+currentId+'').show();
+		$('h3.'+currentId+'').show();
+        	$('span.'+currentId+'').show();
+
 	
 	//this code load the player
 	$("ul.videoThumbs").ytplaylist({addThumbs:true, autoPlay: false, holderId: 'ytvideo2'});
@@ -60,83 +82,81 @@
 	
 	//this code show the right description after we click on playlist link
 	$('li.videoThumbBox a').click(function() {
-		$('#resultsDiv').children().hide();
 		$('p , div.clipTitle h3 , div.mainVidDate span ').hide();
-		//$('div.mainVideo-box h3').hide();
 		var currentId = $(this).parent().parent().attr('id');
+		 document.location.hash = currentId;
 		$('p.'+currentId+' , div.clipTitle h3.'+currentId+' , div.mainVidDate span.'+currentId+'' ).show();  
-		//$('div.mainVideo-box h3.'+currentId+'').show();      
 
 	});
 	
 	
 	
 	
-    // VIdeo thumbs - AG
-	 //VIDEO THUMBS - show first page 
-	$('ul.videoThumbs li:gt(3)').hide();
-
-    
-    // add next/prev button
-	if($('ul.videoThumbs li').length>3){
-		$(".videoThumbsPag").append('<span  class="prevVid" style="cursor:pointer;">Prev...</span>&nbsp;<span class="moreVid" style="cursor:pointer;">Next</span>')
-		
-
-	}
-	
-
-    if ($('ul.videoThumbs').children('li:visible:first').index() == 0) {$('.prevVid').hide()}
-
-	$('.moreVid').click(function() {
-        if ($('ul.videoThumbs li:visible:last').is(':last-child')) {
-           // alert('no-next');
-            $('.moreVid').hide();
-		    return false;
-        }
-
-        
-        var currentIndex = $('ul.videoThumbs').children('li:visible:last').index();
-            nextIndex = currentIndex + 6;
-        $('ul.videoThumbs li').hide();
-        $('ul.videoThumbs li:lt(' + nextIndex + '):gt(' + currentIndex + ')').show();
-
-         $('.prevVid').show();
-		 if ($('ul.videoThumbs li:visible:last').is(':last-child')) {
-		 	$('.moreVid').hide();
-		    return false;
-		 }
-	});
-	
-	
-	
-	$('.prevVid').click(function() {
-        if ($('ul.videoThumbs li:visible:first').is(':first-child')) {
-            alert('no-pev');
-		    return false;
-        }else{
-		    var currentIndex = $('ul.videoThumbs').children('li:visible:first').index(),
-			    nextIndex = currentIndex - 4;
-		    $('ul.videoThumbs li').hide();
-			//if (nextIndex == 0){nextIndex=-1;}
-		    //$('ul.videoThumbs li:lt(' + currentIndex + '):gt(' + nextIndex + ')').show();
-			if (currentIndex == 4){
-			$('ul.videoThumbs li:lt(4):gt(0)').show();
-			$('ul.videoThumbs li:first-child').show();
-			}else{
-				$('ul.videoThumbs li:lt(' + currentIndex + '):gt(' + nextIndex + ')').show();
-			}
-			
-		     if (currentIndex == 0) {$('.prevVid').hide()}
-
-            if (nextIndex == 0) {$('.prevVid').hide()}
-           
-          	 $('.moreVid').show();
-           
-	    }
-
-	
-	});
-// ENd video thumbs - AG
+  //  // VIdeo thumbs - AG
+//	 //VIDEO THUMBS - show first page 
+//	$('ul.videoThumbs li:gt(3)').hide();
+//
+//    
+//    // add next/prev button
+//	if($('ul.videoThumbs li').length>3){
+//		$(".videoThumbsPag").append('<span  class="prevVid" style="cursor:pointer;">Prev...</span>&nbsp;<span class="moreVid" style="cursor:pointer;">Next</span>')
+//		
+//
+//	}
+//	
+//
+//    if ($('ul.videoThumbs').children('li:visible:first').index() == 0) {$('.prevVid').hide()}
+//
+//	$('.moreVid').click(function() {
+//        if ($('ul.videoThumbs li:visible:last').is(':last-child')) {
+//           // alert('no-next');
+//            $('.moreVid').hide();
+//		    return false;
+//        }
+//
+//        
+//        var currentIndex = $('ul.videoThumbs').children('li:visible:last').index();
+//            nextIndex = currentIndex + 6;
+//        $('ul.videoThumbs li').hide();
+//        $('ul.videoThumbs li:lt(' + nextIndex + '):gt(' + currentIndex + ')').show();
+//
+//         $('.prevVid').show();
+//		 if ($('ul.videoThumbs li:visible:last').is(':last-child')) {
+//		 	$('.moreVid').hide();
+//		    return false;
+//		 }
+//	});
+//	
+//	
+//	
+//	$('.prevVid').click(function() {
+//        if ($('ul.videoThumbs li:visible:first').is(':first-child')) {
+//            alert('no-pev');
+//		    return false;
+//        }else{
+//		    var currentIndex = $('ul.videoThumbs').children('li:visible:first').index(),
+//			    nextIndex = currentIndex - 4;
+//		    $('ul.videoThumbs li').hide();
+//			//if (nextIndex == 0){nextIndex=-1;}
+//		    //$('ul.videoThumbs li:lt(' + currentIndex + '):gt(' + nextIndex + ')').show();
+//			if (currentIndex == 4){
+//			$('ul.videoThumbs li:lt(4):gt(0)').show();
+//			$('ul.videoThumbs li:first-child').show();
+//			}else{
+//				$('ul.videoThumbs li:lt(' + currentIndex + '):gt(' + nextIndex + ')').show();
+//			}
+//			
+//		     if (currentIndex == 0) {$('.prevVid').hide()}
+//
+//            if (nextIndex == 0) {$('.prevVid').hide()}
+//           
+//          	 $('.moreVid').show();
+//           
+//	    }
+//
+//	
+//	});
+//// ENd video thumbs - AG    
 
 	
 	

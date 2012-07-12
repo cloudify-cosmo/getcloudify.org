@@ -67,8 +67,16 @@ jQuery.fn.ytplaylist = function(options) {
 		
 		
 		//load inital video
-		var firstVid = selector.children("li:first-child").addClass("currentvideo").children().children("a").attr("href");
-		$("#"+options.holderId+"").html(play(youtubeid(firstVid)));
+		//var firstVid = selector.children("li:first-child").addClass("currentvideo").children().children("a").attr("href");
+		//$("#"+options.holderId+"").html(play(youtubeid(firstVid)));
+		// custom- added to send video links				
+		 if(document.location.hash != "")
+		 {
+		     $("#"+options.holderId+"").html(play(document.location.hash.replace('#','')));
+		 }else{
+			 var firstVid = selector.children("li:first-child").addClass("currentvideo").children().children("a").attr("href");
+			 $("#"+options.holderId+"").html(play(youtubeid(firstVid)));
+		 }
 		
 		//load video on request
 		selector.children("li").children().children("a").click(function() {

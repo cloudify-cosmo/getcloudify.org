@@ -13,7 +13,8 @@ table
     border-collapse: collapse;
 }
 
-
+.fl{float:left}
+.fr{float:right}
 
 td{ 
 	padding:3px 6px; 	
@@ -86,11 +87,11 @@ li.expandBtn{ background:none !important; color:#FDA603 !important; display:inli
 /*----------------------------------------------------------------------
 	template stuff
 ----------------------------------------------------------------------*/
-.WrapperBg{ background:url(../images/bgTopWrapper.png) no-repeat top center; width:1042px;margin:0 auto;position:relative}
+.WrapperBg{ background:url(../images/bgTopWrapperNew.png) no-repeat top center; width:1042px;margin:0 auto;position:relative}
 .Wrapper{ width:990px; margin:0 auto; position:relative;}
-.header{ width:100%; padding:72px 0 0 0; height:134px}
-.logo{ float::left;display:block; width:484px; height:45px;}
-.topMenu{ margin:33px 0 0 0;background:url(../images/bgTopMenu.png) repeat-x top left; height:55px; width:1037px; position:relative; left:-22px}
+.header{ width:100%; padding:0px 0 0 0; height:10px}
+.logo{ float::left;display:block; width:484px; height:96px;top:10px;}
+.topMenu{ margin:0px 0 0 0;background:url(../images/bgTopMenu.png) repeat-x top left; height:55px; width:1037px; position:relative; left:-22px}
 ._topMenu ul  {padding: 0 0 0 0; list-style-type:none; margin:0 0 0 0}
 ._topmenu { position:relative; width:100%; left:-40px}
 ._topmenu li.topmenuli{ float:left; padding:0px; width:171px;list-style-type:none;}
@@ -281,6 +282,40 @@ ul.tableOfcontentList p{color:#9094a0; font-size:12px;}
 .left{ float:left; width:243px;}
 .DocumentsWrapRight{ width:707px; float:right; padding:0 0 0px 0}
 
+
+
+/*----------------------------------------------------------------------
+	new home page
+----------------------------------------------------------------------*/
+
+
+.hpBannerWrap{ background:url(../images/bgTopBanner.png) repeat-x bottom left #fff; width:973px; height:371px; padding:0px 31px 0px 31px; margin:-21px 0 30px -34px;font-family:"ProximaNova-Regular";float:left}
+.hpBannerWrap h1{ color:#ff5a00; text-shadow:0px -1px 0px #ab3c00; font-size:36px; text-transform:capitalize; margin:0 0 13px 0 !important;font-family:"ProximaNova-Regular" }
+
+.hpBannerWrap h1,.hpBannerWrap h2,.hpBannerWrap h3{ margin:0px;}
+.hpBannerLeft{ background:url(../images/pcImg.png) no-repeat top left; width:494px; height:309px; position:relative;}
+.hpBannerLeft a.wtd{ font-family:"ProximaNova-bold",Arial, Helvetica, sans-serif; color:#277ca8;font-size:24px; position:absolute; bottom:5px; left:135px;
+background:url(../images/btnWatchTheDemo.png) no-repeat  scroll 100% 3px; height:30px; padding:0 36px 0 0 ;}
+.hpBannerLeft a.wtd:hover{ background-position:100% -30px;}
+.hpBannerRight{ width:443px; padding:13px 0 0 15px; color:#213540; background:url(../images/bannerRightArrows.png) no-repeat scroll 100% 124px}
+.hpBannerRight h2{ font-size:20px; margin:0 0 15px 0; font-weight:normal;}
+.hpBannerRight h3{ font-size:22px; font-weight:bold; margin:0 0 13px 0}
+.hp-banner-getCloudify
+{
+	background:url(../images/btnGetCloudify.png) no-repeat scroll 0 3px ; 
+    color: #FFFFFF !important;
+    font-size: 32px;
+    font-weight: bold;
+    outline: 0 none;
+    padding: 19px 0px;
+    text-shadow: 1px -1px 1px #999999;
+    text-transform: capitalize;
+	border-bottom:none !important;
+	width:313px; height:34px; display:block;
+	text-align:center;	
+}
+.hp-banner-getCloudify:hover{ background-position:0 -69px;}
+.hp-banner-getCloudify:focus{background-position:0 -140px;}
 
 
 /*--comming soon--*/
@@ -607,6 +642,25 @@ ul.videoThumbs li{ list-style-type:none}
 .rightVideoThumbs{ float:right; width:304px; margin:25px 0 0 0}
 .bg-videoContent{background: url(../images/bg-videoContent.jpg) repeat-y  !important; margin:0 0 -123px 0; padding:0 0 25px 0; width:680px !important; float:left}
 
+}
+
+
+.page_navigation , .alt_page_navigation{
+	padding-bottom: 10px;
+}
+
+.page_navigation a, .alt_page_navigation a{
+	padding:3px 5px;
+	margin:2px;
+	color:white;
+	text-decoration:none;
+	float: left;
+	font-family: Tahoma;
+	font-size: 12px;
+	background-color:#4DA0CB;
+}
+a.page_link,a.first_link,a.last_link{ display:none !important;}
+.ellipse{display:none !important;}
 /*----------------------------------------------------------------------
 	Participate  page
 ----------------------------------------------------------------------*/
@@ -855,7 +909,7 @@ text-transform: capitalize;
 .btnGoGreen:hover{ background-position:0 -51px}
 .btnGoGreen:focus{background-position:0 0}
 
-.theOpenPass{ z-index:1;position:absolute; background:url(../images/home/bgTopOpenPaaS.png) repeat-x top left; width:1036px; text-align:center; left:5px; right:0; margin:0 auto; top:150px; height:56px; line-height:56px}
+.theOpenPass{ display:none; z-index:1;position:absolute; background:url(../images/home/bgTopOpenPaaS.png) repeat-x top left; width:1036px; text-align:center; left:5px; right:0; margin:0 auto; top:150px; height:56px; line-height:56px}
 .theOpenPass a{font-family:"ProximaNova-Bold"; font-size:36px; color:#213540;background:url(../images/home/btnOpenPaaSGo.png) no-repeat scroll 100% 11px; padding:0 35px 0 0;cursor:pointer; position:relative; z-index:2}
 .theOpenPass a:hover{ background-position:100% -66px}
 
@@ -1003,4 +1057,98 @@ a.image { border-bottom:none!important;}
 
 td.versionSelection {
 	padding: 3px 0px !important;
+}
+
+/*----------------------------------------------------------------------
+	thank-you page
+----------------------------------------------------------------------*/
+.thanksTitleWrap{font-family:"ProximaNova-Bold"; margin:118px 0 0 0}
+.thanksTitleWrap h1{background:url(../images/thanks/thankTitle.png) no-repeat top center;width:100%;height:45px;text-indent:-999px;overflow:hidden;margin:0;}
+.thanksTitleWrap h2{color:#1e7894;font-size:32px;text-align:center;margin:0;}
+
+.subscribeWrap{background:url(../images/thanks/bgSubscribe.png) no-repeat top left;width:100%;height:80px;position:relative;margin:47px 0 30px 0;padding:1px 0 0 19px; float:left;}
+.subscribeWrapHome{background:url(../images/home/bgBeMember.png) no-repeat top left;width:718px;height:80px;position:relative;margin:-1px 0 30px 0;padding:1px 0 0 19px; float:left;}
+.subscribeWrap .subscribeTitle{background:url(../images/thanks/subscribeTitle.png) no-repeat top left;width:167px;height:43px;position:absolute;top:-15px;left:-3px;}
+.subscribeWrap .subscribeForm{background:url(../images/thanks/bgSubscribeInput.png) no-repeat scroll left top transparent;float:right;height:51px;position:relative;right:20px;top:10px;width:367px;margin:6px 12px 0 0;}
+.subscribeWrapHome .subscribeForm{background:url(../images/home/bgHomeSubscribeInput.png) no-repeat scroll left top transparent;float:right;height:51px;position:relative;right:20px;top:10px;width:312px;margin:6px 12px 0 0;}
+
+.subscribeWrap .subscribeForm input#mce-EMAIL{height:42px;background:none repeat scroll 0 0 transparent;border:medium none;color:#8c8c8c;float:left;font-family:"ProximaNova-Regular";font-size:16px;text-shadow:0 -1px 0 #FFF;width:261px;margin:4px 0 0 13px;padding:3px 0 0 13px;}
+.subscribeWrapHome .subscribeForm input#mce-EMAIL{height:30px;background:none repeat scroll 0 0 transparent;border:medium none;color:#8c8c8c;float:left;font-family:"ProximaNova-Regular";font-size:16px;text-shadow:0 -1px 0 #FFF;width:212px;margin:6px 0 0 13px;padding:0px 0 0 13px;}
+
+.subscribeWrap .subscribeForm input#mc-embedded-subscribe{text-indent:0; background:url(../images/thanks/btnGoSubscribe.png) no-repeat scroll left top transparent;border:medium none;cursor:pointer;float:right;height:50px;overflow:hidden;position:relative;width:59px;text-shadow:1px -1px 1px #999;text-transform:uppercase;color:#fff;font-size:21px;}
+.subscribeWrapHome .subscribeForm input#mc-embedded-subscribe{text-indent:0; background:url(../images/home/btnOrangeGo.png) no-repeat scroll left top transparent;border:medium none;cursor:pointer;float:right;height:44px;overflow:hidden;position:relative;width:59px;text-shadow:1px -1px 1px #999;text-transform:uppercase;color:#fff;font-size:21px;}
+
+.subscribeWrap .subscribeForm input#mc-embedded-subscribe:hover{background-position:0 -51px;}
+.subscribeWrapHome .subscribeForm input#mc-embedded-subscribe:hover{background-position:0 -44px;}
+.subscribeWrap .subscribeForm input#mc-embedded-subscribe:focus{background-position:0 -103px;}
+.subscribeWrapHome .subscribeForm input#mc-embedded-subscribe:focus{background-position:0 -44px;}
+
+
+
+
+
+
+.subscribeWrap  #messageBox{color:#A21700;float:left;}
+.subscribeWrap .subscribeForm form{ list-style-type:none;}
+.subscribeWrap h3{color:#fda603;font-size:21px;width:auto;float:left;margin:28px 0 0;}
+
+.shareWrap{ background:url(../images/thanks/bgShare.png) no-repeat top left; width:345px; height:276px; position:relative; padding:41px 0 0 18px; float:left;}
+
+.shareWrap .shareTitle{background:url(../images/thanks/shareTitle.png) no-repeat top left;width:167px;height:43px;position:absolute;top:-15px;left:-3px;}
+.shareWrap .shareText{ color:#246e95; font-size:24px;}
+ul.shareLinks{ width:208px; float:right; padding:0px; margin:22px 22px 0 0 !important;}
+ul.shareLinks li { float:right; list-style-type:none; background:none; margin:0 0 5px 0}
+ul.shareLinks li a{ float:right; background:url(../images/thanks/shareBtns.png) no-repeat top left; display:block; width:64px; height:62px;}
+
+ul.shareLinks li.tumblr a{ background-position:0 0;}
+ul.shareLinks li.tumblr:hover a{ background-position:0 -64px;}
+ul.shareLinks li.fb a{ background-position:0 -129px;}
+ul.shareLinks li.fb:hover a{ background-position:0 -193px;}
+ul.shareLinks li.twitter a{ background-position:0 -258px;}
+ul.shareLinks li.twitter:hover a{ background-position:0 -322px;}
+ul.shareLinks li.in a{ background-position:0 -387px;}
+ul.shareLinks li.in:hover a{ background-position:0 -450px;}
+ul.shareLinks li.quora a{ background-position:0 -515px;}
+ul.shareLinks li.quora:hover a{ background-position:0 -579px;}
+
+
+
+ul.rightBtnsWrap{ width:562px; float:right; padding:0px; margin:0px}
+ul.rightBtnsWrap li{ list-style-type:none;}
+ul.rightBtnsWrap li a{ display:block; width:563px;height:117px;}
+ul.rightBtnsWrap li.join {  background:url(../images/thanks/btnJoin.png) no-repeat top left; width:563px;height:117px;}
+ul.rightBtnsWrap li.check a{  background:url(../images/thanks/btnCheck.png) no-repeat top left;}
+ul.rightBtnsWrap li.check a:hover{ background-position:0 -115px}
+ul.rightBtnsWrap li.check a:focus{ background-position:0 -229px}
+ul.rightBtnsWrap li.watch a{  background:url(../images/thanks/btnWatchDemo.png) no-repeat top left;}
+ul.rightBtnsWrap li.watch a:hover{ background-position:0 -117px}
+ul.rightBtnsWrap li.watch a:focus{ background-position:0 -233px}
+
+ul.rightBtnsWrap ul.btnJoinLinks li a{ float:left; background:url(../images/thanks/btnJoinLinks.png) no-repeat top left; display:block;  height:40px; }
+ul.rightBtnsWrap ul.btnJoinLinks li.quora a{background-position:0 1px;width:98px}
+ul.rightBtnsWrap ul.btnJoinLinks li.quora a:hover{background-position:0 -41px;}
+ul.rightBtnsWrap ul.btnJoinLinks li.zen a{background-position:0 -81px;width:144px}
+ul.rightBtnsWrap ul.btnJoinLinks li.zen a:hover{background-position:0 -119px;width:144px}
+ul.rightBtnsWrap ul.btnJoinLinks li.stack a{background-position:0 -160px;width:180px}
+ul.rightBtnsWrap ul.btnJoinLinks li.stack a:hover{background-position:0 -201px;width:180px}
+ul.rightBtnsWrap ul.btnJoinLinks { padding:68px 0 0 135px}
+
+
+
+
+/*home page search*/
+
+.homeSearchTop{background:none; height:63px; position:relative; width:406px; z-index:999; float:right}
+.homeSearchTop .searchWrap{background: url(../images/bgSearchV2.png) no-repeat top left; height:50px; width:449px; position:relative; top:21px; right:-42px; float:right;}
+.homeSearchTop input#goBtn{ position:relative; float:right; right:42px;top:-31px; background:url(../images/btnGoSearchV2.png) no-repeat top left; width:54px; height:39px; text-indent:-999px; overflow:hidden;cursor:pointer; border:none;}
+.homeSearchTop input#goBtn:hover{ background-position:0 -41px}
+.homeSearchTop input.search,.homeSearch input#search{ margin:10px 0 0 13px !important}
+/**/
+
+
+
+
+
+@media screen and (max-device-width:800px) {
+a.fork-guide {display:none}
 }
