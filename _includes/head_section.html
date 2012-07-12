@@ -94,7 +94,7 @@
 						//divExpandIframe.contents().find("body").load(div.attr("title") + " #pageContent");
 						
 						$.get(div.attr("title"), function(data) {
-							alert(data);
+							//alert(data);
 							divExpandIframe.contents().find("body").html($("#pageContent", data));
 							//divExpandIframe.contents().find("body").html(divExpandIframe.contents().find("#pageContent").html());
 						});
