@@ -22,8 +22,29 @@
 	$(function(){ 
 		$("a.youtube").YouTubePopup({ hideTitleBar: true });
 		$("div.expand").hide();
-		$("span.expandBtn").css({"color":"#008AEF", "border-bottom":"1px solid #7FC4F7"});
-		$("span.expandBtn").click(function(){
+		$("span.inlineExpandBtn").css({"color":"#008AEF", "border-bottom":"1px solid #7FC4F7"}).click(function(){
+			$(this).parent().next("div.expand").slideToggle(500);
+			/*var div = $(this),
+				divExpand = div.children("div.expand"),
+				divExpandIframe = divExpand.children("iframe");
+			
+			if (divExpand.length==0) {
+				divExpand = $("<div class='expand' />").hide().appendTo(div);
+				divExpand.width(700).height(480).css("border", "1px outset");
+			}
+			if (divExpandIframe.length==0) {
+				divExpandIframe = $("<iframe />").appendTo(divExpand);
+				divExpandIframe.width(700).height(480).css({"overflow":"auto", "border":"0"});
+				if ($.browser.webkit)
+					divExpandIframe.contents().find("html").load(div.attr("title") + " #pageContent");
+				else
+					divExpandIframe.load(function(){
+						divExpandIframe.contents().find("html").load(div.attr("title") + " #pageContent");
+					});
+			}
+			divExpand.slideToggle(500);*/
+		});
+		$("span.expandBtn").css({"color":"#008AEF", "border-bottom":"1px solid #7FC4F7"}).click(function(){
 			var div = $(this),
 				divExpand = div.children("div.expand"),
 				divExpandIframe = divExpand.children("iframe");
@@ -51,7 +72,6 @@
 			}else{
 				$(this).html("More...");
 			}
-				  
 		});
 		
 	   /* ------------- added by Yaron/modified by Shlomo ------------ */
