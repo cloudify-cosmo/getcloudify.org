@@ -39,11 +39,20 @@
 			if (divExpandIframe.length==0) {
 				divExpandIframe = $("<iframe />").appendTo(divExpand);
 				divExpandIframe.width(700).height(480).css({"overflow":"auto", "border":"0"});
-				if ($.browser.webkit)
-					divExpandIframe.contents().find("html").load(div.attr("title") + " #pageContent");
+				if ($.browser.webkit) {
+					divExpandIframe.contents().find("head").append('<link rel="stylesheet" href="/css/template.css" type="text/css"/>');
+					divExpandIframe.contents().find("head").append('<link rel="stylesheet" href="/css/jquery-ui-1.8.17.custom.css" type="text/css" media="all"/>');
+					divExpandIframe.contents().find("head").append('<link rel="stylesheet" type="text/css" href="/scripts/prettify/prettify.css">');
+					divExpandIframe.contents().find("body").css("margin-left", "30px");
+					divExpandIframe.contents().find("body").load(div.attr("title") + " #pageContent");
+				}
 				else
 					divExpandIframe.load(function(){
-						divExpandIframe.contents().find("html").load(div.attr("title") + " #pageContent");
+						divExpandIframe.contents().find("head").append('<link rel="stylesheet" href="/css/template.css" type="text/css"/>');
+						divExpandIframe.contents().find("head").append('<link rel="stylesheet" href="/css/jquery-ui-1.8.17.custom.css" type="text/css" media="all"/>');
+						divExpandIframe.contents().find("head").append('<link rel="stylesheet" type="text/css" href="/scripts/prettify/prettify.css">');
+						divExpandIframe.contents().find("body").css("margin-left", "30px");
+						divExpandIframe.contents().find("body").load(div.attr("title") + " #pageContent");
 					});
 			}
 			divExpand.slideToggle(500);

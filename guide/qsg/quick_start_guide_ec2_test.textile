@@ -23,20 +23,20 @@ This guide teaches you how to:
 
 h2. About the Pet Clinic Application
 
-The PetClinic application presented in this guide is a port of the "Spring PetClinic":http://static.springsource.org/docs/petclinic.html application to "Grails":http://grails.org/ and MongoDB, and uses the Grails GORM bindings to MongoDB. The users of the application are employees of the clinic who, in the course of their work, need to view and manage information regarding veterinarians, the clients, and their pets.
+The PetClinic application presented in this guide is a port of the "(newwindow)Spring PetClinic":http://static.springsource.org/docs/petclinic.html application to "(newwindow)Grails":http://grails.org/ and MongoDB, and uses the Grails GORM bindings to MongoDB. The users of the application are employees of the clinic who, in the course of their work, need to view and manage information regarding veterinarians, the clients, and their pets.
 
 The application's environment is based on the following 2-tier architecture:
 
 |_. Tier |_. Service |
 | Web and Business Logic Tier | A Grails platform deployed on Apache Tomcat server |
-| Database Tier | A "sharded MongoDB server cluster(Sharded MongoDB)":http://www.mongodb.org/display/DOCS/Sharding+Introduction comprised of the following components:
-<ul><li>*"Configuration Server(MongoDB Configuration Server)":http://www.mongodb.org/display/DOCS/Configuring+Sharding#ConfiguringSharding-ConfigServers*: Stores the cluster's metadata including basic information on each shard server and the chunks contained therein.</li>
+| Database Tier | A "(newwindow)sharded MongoDB server cluster(Sharded MongoDB)":http://www.mongodb.org/display/DOCS/Sharding+Introduction comprised of the following components:
+<ul><li>*"(newwindow)Configuration Server(MongoDB Configuration Server)":http://www.mongodb.org/display/DOCS/Configuring+Sharding#ConfiguringSharding-ConfigServers*: Stores the cluster's metadata including basic information on each shard server and the chunks contained therein.</li>
 <li>*Routing Processes (mongos)*: A routing and coordination process that mediates between client requests and the actual @mongod@ instances.  When receiving client requests, the @mongos@ process routes the request to the appropriate @mongod@ instance(s) and merges any results sent back to the client.</li>
 <li>*Mongod instances (AKA shards)*: In our example, there are two instances of @mongod@ used for storing the application's data.</li></ul> |
 
 h4(info). The number of service instances can be easily configured by modifying the numInstances attribute in the relevant Cloudify recipe file (e.g. @<service-name>-service.groovy@).
 
-h4(warn). When you install MongoDB on Windows 7, you must run MongoDB with administrative credentials. For more information, see the "Installing Windows 7" section of the "Windows Service":http://www.mongodb.org/display/DOCS/Windows+Service page.
+h4(warn). When you install MongoDB on Windows 7, you must run MongoDB with administrative credentials. For more information, see the "Installing Windows 7" section of the "(newwindow)Windows Service":http://www.mongodb.org/display/DOCS/Windows+Service page.
 
 h1(#step1). Step 1 - Install the Cloudify shell
 
@@ -49,7 +49,7 @@ Before you install the Cloudify shell, make sure that your environment meets all
 h2. To install the Cloudify shell
 
 # Install @Java@ on your machine.
-# "Download(Click here to download the Cloudify zip file)":http://bit.ly/ztbg9u and unzip the Cloudify distribution file.
+# "(newwindow)Download(Click here to download the Cloudify zip file)":http://bit.ly/ztbg9u and unzip the Cloudify distribution file.
 # Go to the @<cloudify installation folder>/bin@ folder, and then run @cloudify.bat@ (Windows) or @cloudify.sh@ (==*==nix) depending on the operating system running on your machine.
 
 For more information, see <span class="expandBtn" title="/guide/setup/installing_the_cloudify_client">Installing the Cloudify Shell</span>.
@@ -159,7 +159,7 @@ Each service folder contains all the information required by the service. The fo
 For example, the @<service name>_install.groovy@ script will typically run during the installation of the service, if it's specified in the @lifecycle@ section of the service descriptor file.
 <h4 class="info">You can specify any preferred name for lifecycle handlers, as long as you specify their exact names in the corresponding service file.</h4>
 * An optional folder called @usmlib@ which must contain all the jar files of your custom probes.
-Cloudify is distributed with "Scripted Probes":/guide/plugins_and_probes/probes that you can configure as required. However, you can also develop your own "Plugin Probes":/guide/plugins_and_pobes/develop_your_plugin and add them to the recipe in this folder. For example, in the PetClinic application we used our Cloudify Mongo Plugin Probe "cloudify-mongo-plugin.jar":http://www.gigaspaces.com/wiki/download/attachments/55935974/CloudifyMongoPlugins_sources2_0.zip to retrieve details from the @mongod@ service, and to detect port liveness.
+Cloudify is distributed with "Scripted Probes":/guide/plugins_and_probes/probes that you can configure as required. However, you can also develop your own "Plugin Probes":/guide/plugins_and_pobes/develop_your_plugin and add them to the recipe in this folder. For example, in the PetClinic application we used our Cloudify Mongo Plugin Probe "(newwindow)cloudify-mongo-plugin.jar":http://www.gigaspaces.com/wiki/download/attachments/55935974/CloudifyMongoPlugins_sources2_0.zip to retrieve details from the @mongod@ service, and to detect port liveness.
 
 h3. The Lifecycle Scripts
 
@@ -167,7 +167,7 @@ If you view any of the Groovy scripts in the tomcat recipe folder, and you will 
 
 h3. Getting the Service Binaries
 
-The service binaries, in our example the Tomcat and MongoDB distributions, can be quite large to upload to machines being provisioned for a service instance. Therefore, when provisioning machines the recipes fetch the binaries from a specified file repository (this can be any http, ftp or file system location) and are not uploaded with the recipe, thus improving the performance and responsiveness of the Cloudify environment. The binaries are fetched using Groovy's built in support for "Apache Ant":http://ant.apache.org called "AntBuilder":http://groovy.codehaus.org/api/groovy/util/AntBuilder.html and the Ant @get@ task.
+The service binaries, in our example the Tomcat and MongoDB distributions, can be quite large to upload to machines being provisioned for a service instance. Therefore, when provisioning machines the recipes fetch the binaries from a specified file repository (this can be any http, ftp or file system location) and are not uploaded with the recipe, thus improving the performance and responsiveness of the Cloudify environment. The binaries are fetched using Groovy's built in support for "(newwindow)Apache Ant":http://ant.apache.org called "(newwindow)AntBuilder":http://groovy.codehaus.org/api/groovy/util/AntBuilder.html and the Ant @get@ task.
 
 h3. The Mongo Service Recipes
 
@@ -224,7 +224,7 @@ In this example, we specified a timeout of 50 minutes (@-timeout 50@) to allow s
 
 h4(info). If an error occurs during installation, an error message is displayed and the installation is aborted. The error message will help you identify at which phase the problem occurred and for which service it.
 
-Once the application installation has successfully completed, you can access the PetClinic application by browsing to "http://YOUR_APPLICATION_IP_ON_EC2:8080/petclinic-mongo":http://YOUR_APPLICATION_IP_ON_EC2:8080/petclinic-mongo.
+Once the application installation has successfully completed, you can access the PetClinic application by browsing to @http://YOUR_APPLICATION_IP_ON_EC2:8080/petclinic-mongo@.
 
 To test the application, try adding a few owners and pets, and then search for them to make sure that the application is functioning correctly. 
 
@@ -232,7 +232,7 @@ h1(#step5). Step 5 - Monitor the Application
 
 To monitor the application,  open a web browser, and then browse to the "Web Management Console":/guide/monitoring/the_web_management_console. Once the page is loaded, simply login anonymously without specifying a username or password.
 
-h4(info). You can find the exact URL displayed in the Cloudify shell when bootstrapping the local cloud. The default URL is "http://WEB_UI_SERVICE:8099":http://WEB_UI_SERVICE:8099.  
+h4(info). You can find the exact URL displayed in the Cloudify shell when bootstrapping the local cloud. The default URL is @http://WEB_UI_SERVICE:8099@.  
 
 Test the Cloudify web management console as follows:
 * Click the *Topology* link, and then click on the Topology tab.
