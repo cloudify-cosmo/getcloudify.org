@@ -291,7 +291,7 @@ $("a.newwindow").attr("target","_blank");
 	
 	
   
-if ($("#slideshow").exist()) {};    // Do something}
+//if ($("#slideshow").exist()) {};    // Do something}
 
 
 	// Remove scrollbar in JS .
