@@ -1,6 +1,6 @@
 ---
 layout: default
-title: 10-Minute EC2 Quick Start Guide
+title: Getting Started with Cloudify on EC2
 cat: Getting Started
 publish: false
 abstract: A quick start guide to help you get started with Cloudify on EC2. Start here if you are new to Cloudify and you want to install your application on EC2
@@ -44,7 +44,7 @@ This step describes how to install the Cloudify shell on your local machine.
 
 h2. Prerequisites
 
-Before you install the Cloudify shell, make sure that your environment meets all the minimum requirements. For more information, see <span class="expandBtn" title="/guide/setup/cloudify_prerequisites">Cloudify Prerequisites</span>.
+Before you install the Cloudify shell, make sure that your environment meets all the minimum requirements. For more information, see <span class="inlineExpandBtn" title="/guide/setup/cloudify_prerequisites">Cloudify Prerequisites</span>.
 
 h2. To install the Cloudify shell
 
@@ -52,7 +52,7 @@ h2. To install the Cloudify shell
 # "(newwindow)Download(Click here to download the Cloudify zip file)":http://bit.ly/ztbg9u and unzip the Cloudify distribution file.
 # Go to the @<cloudify installation folder>/bin@ folder, and then run @cloudify.bat@ (Windows) or @cloudify.sh@ (==*==nix) depending on the operating system running on your machine.
 
-For more information, see <span class="expandBtn" title="/guide/setup/installing_the_cloudify_client">Installing the Cloudify Shell</span>.
+For more information, see <span class="inlineExpandBtn" title="/guide/setup/installing_the_cloudify_client">Installing the Cloudify Shell</span>.
 
 h1(#step2). Step 2 - Bootstrap on EC2
 
@@ -74,7 +74,7 @@ Before you use the Cloudify shell to bootstrap on EC2, make sure that you perfor
 #* In the @templates@ section, under @options@:
 #** @keyPair@--Type the *Key Pair Name* used when creating the key pair file (in our example, *myKeyPair-name*).
 
-For a more information about how to configure the EC2 cloud driver, see <span class="expandBtn" title="/guide/setup/configuring_ec2">Configure EC2</span>.
+For a more information about how to configure the EC2 cloud driver, see <span class="inlineExpandBtn" title="/guide/setup/configuring_ec2">Configure EC2</span>.
 
 h2. To bootstrap Cloudify on EC2
 
@@ -91,30 +91,18 @@ h4(info). To obtain a list of all the available commands, type @<tab>@, or to vi
 <img src="/guide/images/setup/bootstrapp_ec2_1.jpg" width="714" height="495" />
 
 Your EC2 cloud is now ready for deploying the PetClinic application.
-For more information about Bootstrapping on EC2, see <span class="expandBtn" title="/guide/bootstrapping/bootstrapping_ec2">Boostrap EC2</span>.
+For more information about Bootstrapping on EC2, see <span class="inlineExpandBtn" title="/guide/bootstrapping/bootstrapping_ec2">Boostrap EC2</span>.
 
 h1(#step3). Step 3 - Understand the Recipe
 
 Before deploying an application, you must configure the recipe that will be used for the deployment. In this example, we have already configured this for you; therefore, the recipe can be used as-is without any further configuration and you can proceed to the next step. However, we recommend you read about recipes, and then optionally configure the number of service instances used by the services defined in the recipe.
 
-For more information about recipes, click <span class="inlineExpandBtn">here</span>.
+For more information about recipes, click <span class="inlineToggleExpandBtn">here</span>.
 <div class="expand">
-* <span class="expandBtn" title="/guide/developing/recipes_overview">Anatomy of a Recipe</span>
-* <span class="expandBtn" title="/guide/developing/application_recipe">The Application Recipe</span>
-* <span class="expandBtn" title="/guide/developing/service_recipe">The Service Recipe</span>
-* <span class="expandBtn" title="/guide/developing/lifecycle_events">Lifecycle Events</span>
-* <span class="expandBtn" title="/guide/developing/recipe_parameters">Recipe Parameterization</span>
-* <span class="expandBtn" title="/guide/developing/extending_recipes">Extending Service Recipes</span>
-* <span class="expandBtn" title="/guide/developing/the_service_context_api">The Service Context API</span>
-* <span class="expandBtn" title="/guide/developing/attributes_api">The Attributes API</span>
-* <span class="expandBtn" title="/guide/developing/custom_commands">Custom Commands</span>
-* <span class="expandBtn" title="/guide/developing/plugins">Probes</span>
-* <span class="expandBtn" title="/guide/developing/configuring_ui_section">Configuring the Web Management Console</span>
-* <span class="expandBtn" title="/guide/developing/sla_requirements">SLA Requirements</span>
-* <span class="expandBtn" title="/guide/developing/scaling_rules">Scaling Rules</span>
 
-<br />
-The following is a list of the application recipe's files and folders, in our example located @<cloudify root>/recipes/apps/petclinic@, that are used to deploy the PetClinic application:
+h2. Anatomy of a Recipe
+
+Recipes are the execution plans for installing, starting, orchestrating, and monitoring your application stack without changing the application code or architecture. The deployment files and folders are located in the application's recipe folder, in our example @<cloudify root>/recipes/apps/petclinic@. The following is a list of the application recipe's files and folders, in our example located @<cloudify root>/recipes/apps/petclinic@, that are used to deploy the PetClinic application:
 * The application descriptor file: @petclinic-mongo-application.groovy@
 * The Configuration Server (mongoConfig) recipe folder
 * The Shards (mongod) recipe folder
@@ -125,8 +113,12 @@ The following is a list of the application recipe's files and folders, in our ex
 The files required to run the specified services can be found in their corresponding folders.
 
 The following diagram depicts the PetClinic application's recipe file and folder structure.
+<img src="/guide/images/setup/pet_clinic_anatomy3.JPG" />
 
-<img src="/guide/images/setup/pet_clinic_anatomy3_211m2.JPG" />
+h4(info). All the services in this application extend a corresponding recipe in ../../../services/ folder.      
+
+For more information about recipes, see <span class="inlineExpandBtn" title="/guide/developing/recipes_overview">Anatomy of a Recipe</span>.
+For more information about extending services, see <span class="inlineExpandBtn" title="/guide/developing/extending_recipes">Extending Service Recipes</span>.
 
 h2. The Application Recipe
 
@@ -140,16 +132,18 @@ In our example, the PetClinic application has the following services, each servi
 
 The following shows the corresponding application descriptor file for the PetClinic application.
 
-<script src="https://gist.github.com/1943898.js?file=petclinic_app_recipe.groovy"></script>
+<script src="https://gist.github.com/2965408.js?file=petclinic_app_recipe211-ga.groovy"></script>
 
 From the application descriptor file, we can learn the following information:
 * The names of the services required to run the application.
 * The @mongos@ service depends on the @mongoConfig@ and @mongod@ services; hence the @mongos@ service will not start until these services have successfully started.
 * The @tomcat@ service depends on the @mongod@ service; hence the @tomcat@ service will not start until the @mongod@ service has successfully started.
 
+For more information, see <span class="inlineExpandBtn" title="/guide/developing/application_recipe">The Application Recipe</span>.
+
 h3. The Service Level Recipe
 
-Every service has its own mandatory service recipe based on a "recipe structure":/guide/developing/recipes_overview that is common to all of them.
+Every service has its own mandatory service recipe based on a <span class="inlineExpandBtn" title="/guide/developing/recipes_overview">recipe structure</span> that is common to all of them.
 
 Each service folder contains all the information required by the service. The following is a list of the service recipe's files and folders:
 
@@ -159,11 +153,19 @@ Each service folder contains all the information required by the service. The fo
 For example, the @<service name>_install.groovy@ script will typically run during the installation of the service, if it's specified in the @lifecycle@ section of the service descriptor file.
 <h4 class="info">You can specify any preferred name for lifecycle handlers, as long as you specify their exact names in the corresponding service file.</h4>
 * An optional folder called @usmlib@ which must contain all the jar files of your custom probes.
-Cloudify is distributed with "Scripted Probes":/guide/plugins_and_probes/probes that you can configure as required. However, you can also develop your own "Plugin Probes":/guide/plugins_and_pobes/develop_your_plugin and add them to the recipe in this folder. For example, in the PetClinic application we used our Cloudify Mongo Plugin Probe "(newwindow)cloudify-mongo-plugin.jar":http://www.gigaspaces.com/wiki/download/attachments/55935974/CloudifyMongoPlugins_sources2_0.zip to retrieve details from the @mongod@ service, and to detect port liveness.
+Cloudify is distributed with <span class="inlineExpandBtn" title="/guide/plugins_and_probes/probes">Scripted Probes</span> that you can configure as required. However, you can also develop your own <span class="inlineExpandBtn" title="/guide/plugins_and_probes/develop_your_plugin">Plugin Probes</span> and add them to the recipe in this folder. For example, in the PetClinic application we used our Cloudify Mongo Plugin Probe "(newwindow)cloudify-mongo-plugin.jar":http://www.gigaspaces.com/wiki/download/attachments/55935974/CloudifyMongoPlugins_sources2_0.zip to retrieve details from the @mongod@ service, and to detect port liveness.
+
+For more information, see <span class="inlineExpandBtn" title="/guide/developing/service_recipe">The Service Recipe</span>.
 
 h3. The Lifecycle Scripts
 
 If you view any of the Groovy scripts in the tomcat recipe folder, and you will notice that they are essentially regular groovy scripts in which you can write any Groovy or Java code. The only difference is the use of the Cloudify API ("ServiceContext API":../developing/the_service_context_api). This API exposes the service runtime details to the script, so that a service can locate and use the details of another service within the same application. For example, in our PetClinic application we use the API to expose the port of the @mongod@ service instance to the all the other services in the PetClinic application.
+
+For more information, see the following topics:
+* <span class="expandBtn" title="/guide/developing/lifecycle_events">Lifecycle Events</span>
+* <span class="expandBtn" title="/guide/developing/custom_commands">Custom Commands</span>
+* <span class="expandBtn" title="/guide/developing/plugins">Probes</span>
+* <span class="expandBtn" title="/guide/developing/configuring_ui_section">Configuring the Web Management Console</span>
 
 h3. Getting the Service Binaries
 
@@ -230,7 +232,7 @@ To test the application, try adding a few owners and pets, and then search for t
 
 h1(#step5). Step 5 - Monitor the Application
 
-To monitor the application,  open a web browser, and then browse to the "Web Management Console":/guide/monitoring/the_web_management_console. Once the page is loaded, simply login anonymously without specifying a username or password.
+To monitor the application,  open a web browser, and then browse to the <span class="inlineExpandBtn" title="/guide/monitoring/the_web_management_console">Web Management Console</span>. Once the page is loaded, simply login anonymously without specifying a username or password.
 
 h4(info). You can find the exact URL displayed in the Cloudify shell when bootstrapping the local cloud. The default URL is @http://WEB_UI_SERVICE:8099@.  
 
@@ -269,7 +271,7 @@ Cloudify enables each service to define a scaling rule for deciding if the servi
 Here's a snippet of a @tomcat@ service descriptor file : 
 <script src="https://gist.github.com/2580529.js?file=mini_tomcat_auto_scaling.groovy"></script>
 
-For more information, see <span class="expandBtn" title="/guide/developing/scaling_rules">Scaling Rules</span>.
+For more information, see <span class="inlineExpandBtn" title="/guide/developing/scaling_rules">Scaling Rules</span>.
 
 h1(#step7). Step 7 - Uninstall the Application
 
@@ -285,4 +287,4 @@ h1. What's Next?
 * Learn more about cloud portability and "cloud drivers":/guide/clouddrivers/cloud_driver.
 * Learn how to "develop a monitoring plugin":/guide/plugins_and_probes/develop_your_plugin.
 * Learn more about monitoring your application with the "Cloudify Web Management Console":/guide/monitoring/the_web_management_console.
-<!-- version 2.1.1-m2 -->
+<!-- version 2.1.1-ga -->

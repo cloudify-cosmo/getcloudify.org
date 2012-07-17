@@ -24,54 +24,46 @@
 		$("div.expand").hide();
 		
 		{% if needExpandBtn != null %} 
-			$("span.inlineExpandBtn").append("<span class='arrow arrowsDown'>&raquo;</span>").click(function(){
+			$("span.inlineToggleExpandBtn").append("<span class='arrow arrowsDown'>&raquo;</span>").click(function(){
 				$(this).children('span.arrow').toggleClass('arrowsDown').toggleClass('arrowsUp');
 				$(this).parent().next("div.expand").slideToggle(500);
 			});
-			$("span.expandBtn").append("<span class='arrow arrowsDown'>&raquo;</span>").click(function(){
-				var div = $(this),
-					divExpand = div.children("div.expand"),
+			$("span.expandBtn,span.inlineExpandBtn").append("<span class='arrow arrowsDown'>&raquo;</span>").click(function(){
+				var elem = $(this),
+					divExpand = elem.children("div.expand"),
 					divExpandIframe = divExpand.children("iframe");
 				
-				div.children('span.arrow').toggleClass('arrowsDown').toggleClass('arrowsUp');
+				elem.children('span.arrow').toggleClass('arrowsDown').toggleClass('arrowsUp');
 				if (divExpand.length==0) {
-					divExpand = $("<div class='expand' />").hide().appendTo(div);
-					divExpand.width(700).height(480).css("border", "1px outset");
+					divExpand = $("<div class='expand'><span id='expandLoading'>Loading content ...</span></div>").hide().appendTo(elem);
+					divExpand.width(725).height(480).css("border", "none");
 				}
 				if (divExpandIframe.length==0) {
-					divExpandIframe = $("<iframe src='" + div.attr("title") + "' />").hide().appendTo(divExpand);
-					divExpandIframe.width(700).height(480).css({"overflow":"auto", "border":"0"});
+					divExpandIframe = $("<iframe src='" + elem.attr("title") + "' />").hide().appendTo(divExpand);
+					divExpandIframe.width(725).height(480).css({"overflow-x":"hidden", "overflow-y":"auto", "border":"0"});
 					
-					if ($.browser.webkit) {
-						setTimeout(function() {
-								divExpandIframe.contents().find("html").css("background", "none");
-								divExpandIframe.contents().find("head").append('<link rel="stylesheet" href="/css/template.css" type="text/css"/>');
-								divExpandIframe.contents().find("head").append('<link rel="stylesheet" href="/css/jquery-ui-1.8.17.custom.css" type="text/css" media="all"/>');
-								divExpandIframe.contents().find("head").append('<link rel="stylesheet" type="text/css" href="/scripts/prettify/prettify.css">');
-								divExpandIframe.contents().find("body").css({"margin-left":"30px", "background":"none"});
-								
-								var data = divExpandIframe.contents().find("#pageContent");
-
-								divExpandIframe.contents().find("body").html(data);
-								divExpandIframe.contents().find("#versionSelectionBottom").remove();
-								divExpandIframe.fadeIn('slow');
-							}, 1000
-						);
-					}
-					else
-						divExpandIframe.load(function(){
+					var getContent = function(){
 							divExpandIframe.contents().find("html").css("background", "none");
 							divExpandIframe.contents().find("head").append('<link rel="stylesheet" href="/css/template.css" type="text/css"/>');
 							divExpandIframe.contents().find("head").append('<link rel="stylesheet" href="/css/jquery-ui-1.8.17.custom.css" type="text/css" media="all"/>');
 							divExpandIframe.contents().find("head").append('<link rel="stylesheet" type="text/css" href="/scripts/prettify/prettify.css">');
-							divExpandIframe.contents().find("body").css({"margin-left":"30px", "background":"none"});
+							divExpandIframe.contents().find("body").css("background","none");
 							
 							var data = divExpandIframe.contents().find("#pageContent");
 
 							divExpandIframe.contents().find("body").html(data);
 							divExpandIframe.contents().find("#versionSelectionBottom").remove();
+							divExpandIframe.contents().find("img").width(707);
+							
+							$("#expandLoading").remove();
 							divExpandIframe.fadeIn('slow');
-						});
+						};
+					
+					if ($.browser.webkit) {
+						setTimeout(getContent, 1000);
+					}
+					else
+						divExpandIframe.load(getContent);
 				}
 				divExpand.slideToggle(500);
 			});
