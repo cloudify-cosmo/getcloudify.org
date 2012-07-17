@@ -14,7 +14,6 @@
 	<script type="text/javascript" src="/scripts/prettify/prettify.js"></script>
 	<script type="text/javascript" src="/scripts/version.data.js"></script>
 	<script type="text/javascript" src="/scripts/version.js"></script>
-	<script type="text/javascript" src="/scripts/jquery.gist-frame.js"></script>
 	<script type="text/javascript">
 	window.onload = function () {
 		$('body').addClass("bodyClass");	
@@ -38,15 +37,26 @@
 				divExpand.width(700).height(480).css("border", "1px outset");
 			}
 			if (divExpandIframe.length==0) {
-				divExpandIframe = $("<iframe />").appendTo(divExpand);
+				divExpandIframe = $("<iframe src='" + div.attr("title") + "' />").hide().appendTo(divExpand);
 				divExpandIframe.width(700).height(480).css({"overflow":"auto", "border":"0"});
+				
 				if ($.browser.webkit) {
-					divExpandIframe.contents().find("html").css("background", "none");
-					divExpandIframe.contents().find("head").append('<link rel="stylesheet" href="/css/template.css" type="text/css"/>');
-					divExpandIframe.contents().find("head").append('<link rel="stylesheet" href="/css/jquery-ui-1.8.17.custom.css" type="text/css" media="all"/>');
-					divExpandIframe.contents().find("head").append('<link rel="stylesheet" type="text/css" href="/scripts/prettify/prettify.css">');
-					divExpandIframe.contents().find("body").css("margin-left", "30px");
+					setTimeout(function() {
+							divExpandIframe.contents().find("html").css("background", "none");
+							divExpandIframe.contents().find("head").append('<link rel="stylesheet" href="/css/template.css" type="text/css"/>');
+							divExpandIframe.contents().find("head").append('<link rel="stylesheet" href="/css/jquery-ui-1.8.17.custom.css" type="text/css" media="all"/>');
+							divExpandIframe.contents().find("head").append('<link rel="stylesheet" type="text/css" href="/scripts/prettify/prettify.css">');
+							divExpandIframe.contents().find("body").css({"margin-left":"30px", "background":"none"});
+							
+							var data = divExpandIframe.contents().find("#pageContent");
+
+							divExpandIframe.contents().find("body").html(data);
+							divExpandIframe.contents().find("#versionSelectionBottom").remove();
+							divExpandIframe.fadeIn('slow');
+						}, 1000
+					);
 					
+					/*
 					$.get(div.attr("title"), function(data) {
 						data = data.split("</head>").pop();
 						data = data.replace(/^[\s\S]*?(<div.*?id="pageContent".*?>[\s\S]*?<\/div>)[\s\S]*?<div class="clear">[\s\S]*?$/, "$1");
@@ -69,7 +79,7 @@
 							}
 						}
 						divExpandIframe.contents().find("body").html(data);
-					});
+					}); */
 				}
 				else
 					divExpandIframe.load(function(){
@@ -77,8 +87,24 @@
 						divExpandIframe.contents().find("head").append('<link rel="stylesheet" href="/css/template.css" type="text/css"/>');
 						divExpandIframe.contents().find("head").append('<link rel="stylesheet" href="/css/jquery-ui-1.8.17.custom.css" type="text/css" media="all"/>');
 						divExpandIframe.contents().find("head").append('<link rel="stylesheet" type="text/css" href="/scripts/prettify/prettify.css">');
-						divExpandIframe.contents().find("body").css("margin-left", "30px");
+						divExpandIframe.contents().find("body").css({"margin-left":"30px", "background":"none"});
 						
+						var data = divExpandIframe.contents().find("#pageContent");
+
+						divExpandIframe.contents().find("body").html(data);
+						divExpandIframe.contents().find("#versionSelectionBottom").remove();
+						divExpandIframe.fadeIn('slow');
+						
+						/*
+						var data = divExpandIframe.contents().find("body").html()
+										.replace(/^[\s\S]*?(<div.*?id="pageContent".*?>[\s\S]*<\/div>)[\s\S]*<div class="clear">[\s\S]*?$/, "$1")
+										.replace(/<span id="versionSelectionBottom">[\s\S]*?<\/span>[\s\S]*?<\/span>/, "");
+						divExpandIframe.contents().find("body").html(data);
+						divExpandIframe.fadeIn('slow');
+						
+						//divExpandIframe.attr('src', divExpand.attr("title"));
+						
+						/*
 						$.get(div.attr("title"), function(data) {
 							data = data.split("</head>").pop();
 							data = data.replace(/^[\s\S]*?(<div.*?id="pageContent".*?>[\s\S]*?<\/div>)[\s\S]*?<div class="clear">[\s\S]*?$/, "$1");
@@ -99,7 +125,7 @@
 								}
 							}
 							divExpandIframe.contents().find("body").html(data);
-						});
+						}); */
 					});
 			}
 			divExpand.slideToggle(500);
