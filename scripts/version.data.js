@@ -57,7 +57,8 @@ var guide = {
 		'quick_start_guide_2_1_1-m2':true,
 		'quick_start_guide_apache':true,
 		'quick_start_guide_ec2':true,
-		'quick_start_guide_ec2_2_1_1-m2':true
+		'quick_start_guide_ec2_2_1_1-m2':true,
+		'quick_start_guide_ec2_test':true
 	},
 	'recipe':{
 		'app_recipe_ref':true,

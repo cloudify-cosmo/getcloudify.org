@@ -16,7 +16,8 @@
 	<script type="text/javascript" src="/scripts/jquery.prettyPhoto.js"></script>
 	<script type="text/javascript" src="/scripts/prettify/prettify.js"></script>
 	<script type="text/javascript" src="/scripts/version.data.js"></script>
-	<script type="text/javascript" src="/scripts/version.js"></script>			
+	<script type="text/javascript" src="/scripts/version.js"></script>
+	<script type="text/javascript" src="/scripts/jquery.gist-frame.js"></script>
 	<script type="text/javascript">
 	window.onload = function () {
 		$('body').addClass("bodyClass");	
@@ -25,6 +26,87 @@
 	$(function(){ 
 		$("a.youtube").YouTubePopup({ hideTitleBar: true });
 		$("div.expand").hide();
+		$("span.inlineExpandBtn").append("<span class='arrow arrowsDown'>&raquo;</span>").click(function(){
+			$(this).children('span.arrow').toggleClass('arrowsDown').toggleClass('arrowsUp');
+			$(this).parent().next("div.expand").slideToggle(500);
+		});
+		$("span.expandBtn").append("<span class='arrow arrowsDown'>&raquo;</span>").click(function(){
+			var div = $(this),
+				divExpand = div.children("div.expand"),
+				divExpandIframe = divExpand.children("iframe");
+			
+			div.children('span.arrow').toggleClass('arrowsDown').toggleClass('arrowsUp');
+			if (divExpand.length==0) {
+				divExpand = $("<div class='expand' />").hide().appendTo(div);
+				divExpand.width(700).height(480).css("border", "1px outset");
+			}
+			if (divExpandIframe.length==0) {
+				divExpandIframe = $("<iframe />").appendTo(divExpand);
+				divExpandIframe.width(700).height(480).css({"overflow":"auto", "border":"0"});
+				if ($.browser.webkit) {
+					divExpandIframe.contents().find("html").css("background", "none");
+					divExpandIframe.contents().find("head").append('<link rel="stylesheet" href="/css/template.css" type="text/css"/>');
+					divExpandIframe.contents().find("head").append('<link rel="stylesheet" href="/css/jquery-ui-1.8.17.custom.css" type="text/css" media="all"/>');
+					divExpandIframe.contents().find("head").append('<link rel="stylesheet" type="text/css" href="/scripts/prettify/prettify.css">');
+					divExpandIframe.contents().find("body").css("margin-left", "30px");
+					
+					$.get(div.attr("title"), function(data) {
+						data = data.split("</head>").pop();
+						data = data.replace(/^[\s\S]*?(<div.*?id="pageContent".*?>[\s\S]*?<\/div>)[\s\S]*?<div class="clear">[\s\S]*?$/, "$1");
+						
+						var gistScripts = data.match(/<script src="https:\/\/gist.github.com\/[\d]+\.js.*?">.*?<\/script>/g);
+						if (gistScripts) {
+							var gistId = null;
+							divExpandIframe.contents().find("head").append('<link rel="stylesheet" href="https:\/\/gist.github.com/stylesheets/gist/embed.css"/>');
+							for (var i=0; i < gistScripts.length; i++) {
+								console.log('gistScripts[' + i + ']: ' + gistScripts[i]);
+								gistId = gistScripts[i].replace(/<script src="https:\/\/gist.github.com\/([\d]+)\.js.*?">.*?<\/script>/, "$1");
+								console.log('gistId: ' + gistId);
+								data = data.replace(gistScripts[i], '<div id="gist' + gistId +'"></div>');
+								var gistResult = $.getGist(gistId);
+								
+								gistResult.done(function(gist){
+									var gistId = $(gist.ordered[0].content).find(".gist-meta").children("a[href^='https']").attr("href").match(/[\d]+/);
+									divExpandIframe.contents().find("#gist" + gistId).html($(gist.ordered[0].content));
+								});
+							}
+						}
+						divExpandIframe.contents().find("body").html(data);
+					});
+				}
+				else
+					divExpandIframe.load(function(){
+						divExpandIframe.contents().find("html").css("background", "none");
+						divExpandIframe.contents().find("head").append('<link rel="stylesheet" href="/css/template.css" type="text/css"/>');
+						divExpandIframe.contents().find("head").append('<link rel="stylesheet" href="/css/jquery-ui-1.8.17.custom.css" type="text/css" media="all"/>');
+						divExpandIframe.contents().find("head").append('<link rel="stylesheet" type="text/css" href="/scripts/prettify/prettify.css">');
+						divExpandIframe.contents().find("body").css("margin-left", "30px");
+						
+						$.get(div.attr("title"), function(data) {
+							data = data.split("</head>").pop();
+							data = data.replace(/^[\s\S]*?(<div.*?id="pageContent".*?>[\s\S]*?<\/div>)[\s\S]*?<div class="clear">[\s\S]*?$/, "$1");
+							
+							var gistScripts = data.match(/<script src="https:\/\/gist.github.com\/[\d]+\.js.*?">.*?<\/script>/g);
+							if (gistScripts) {
+								var gistId = null;
+								divExpandIframe.contents().find("head").append('<link rel="stylesheet" href="https:\/\/gist.github.com/stylesheets/gist/embed.css"/>');
+								for (var i=0; i < gistScripts.length; i++) {
+									gistId = gistScripts[i].replace(/<script src="https:\/\/gist.github.com\/([\d]+)\.js.*?">.*?<\/script>/, "$1");
+									data = data.replace(gistScripts[i], '<div id="gist' + gistId +'"></div>');
+									var gistResult = $.getGist(gistId);
+									
+									gistResult.done(function(gist){
+										var gistId = $(gist.ordered[0].content).find(".gist-meta").children("a[href^='https']").attr("href").match(/[\d]+/);
+										divExpandIframe.contents().find("#gist" + gistId).html($(gist.ordered[0].content));
+									});
+								}
+							}
+							divExpandIframe.contents().find("body").html(data);
+						});
+					});
+			}
+			divExpand.slideToggle(500);
+		});
 		$("li.expandBtn").click(function(){	
 			$(this).next("div.expand").slideToggle(500);
 			if($(this).html()=="More..."){
@@ -32,7 +114,6 @@
 			}else{
 				$(this).html("More...");
 			}
-				  
 		});
 		
 	   /* ------------- added by Yaron/modified by Shlomo ------------ */
@@ -94,8 +175,8 @@
 </script> 
 </head>
 <body>
-<div class="WrapperBg">
-    <a class="fork-guide" target="_blank" href="https://github.com/CloudifySource/cloudify"></a>	
+<a class="fork-guide" target="_blank" href="https://github.com/CloudifySource/cloudify"></a>
+<div class="WrapperBg">    
     <div class="Wrapper">
         <div class="header">
     <a class="logo" href="/"></a>
@@ -160,7 +241,7 @@
 
 			
             <div class="content">
-                <div class="left">
+                <div id="alTag_LeftBlog" class="left">
                     
                     <!--Event groups-->
 
@@ -804,6 +885,12 @@
     </ul>
 </div>
 
+<script type="text/javascript">
+window.AIConfig = {};
+window.AIConfig.mailTextField = 'EMAIL';
+window.AIConfig.accountId='cloudifysource';
+document.write(unescape("%3Cscript src='http://test.activeinsight.net/trw.js' type='text/javascript'%3E%3C/script%3E"));
+</script>
 
     </div>
     <!--End site wrapper -->
