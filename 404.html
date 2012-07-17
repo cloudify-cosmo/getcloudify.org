@@ -4,6 +4,22 @@ title: Oops, Page Not Found. Cloudify - The Open Source PaaS Stack
 cat: 404
 ---
 
+<script type="text/javascript">
+if ( $(location).attr("href").match(/^.*\/guide\/^(\d+\.\d+\/).*$/)) {
+	var parts = $(location).attr("href").split("/guide/");
+	var newPage = join(parts[0],"/guide/2.1/",parts[1]);
+	alert("true: " + newPage);
+	$(location).attr("href", newPage);
+}
+else {
+	var parts = $(location).attr("href").split("/guide/");
+	var newPage = join(parts[0],"/guide/2.1/",parts[1]);
+	alert("false: " + newPage);
+	$(location).attr("href", newPage);	
+}
+
+
+
 <p align="center">
  <a style="border:none !important;" href="http://www.cloudifysource.org"><img src="/images/404.jpg" /></a>
 <p>
