@@ -5,7 +5,7 @@ cat: 404
 ---
 
 <script type="text/javascript">
-if ( $(location).attr("href").match("^.*/guide/^(\d*\.+\d*)/.*$")) {
+if ( $(location).attr("href").match("^.*/guide/^(\d*\.+\d*).*$")) {
 	var parts = $(location).attr("href").split("/guide/");
 	var newPage = parts[0] + "/guide/2.1/" + parts[1];
 	alert("true2: " + newPage);
