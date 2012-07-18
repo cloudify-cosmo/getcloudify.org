@@ -39,7 +39,7 @@
 					divExpand.width(725).height(480).css("border", "none");
 				}
 				if (divExpandIframe.length==0) {
-					divExpandIframe = $("<iframe src='" + elem.attr("title") + "' />").hide().appendTo(divExpand);
+					divExpandIframe = $("<iframe src='" + elem.attr("title") + "' />").css("opacity", 0).appendTo(divExpand);
 					divExpandIframe.width(725).height(480).css({"overflow-x":"hidden", "overflow-y":"auto", "border":"0"});
 					
 					var getContent = function(){
@@ -53,14 +53,24 @@
 
 							divExpandIframe.contents().find("body").html(data);
 							divExpandIframe.contents().find("#versionSelectionBottom").remove();
-							divExpandIframe.contents().find("img").width(707);
+							
+							divExpandIframe.contents().find("img").each(function(){
+								var maxWidth = 707;
+								
+								if ($(this).width() > (maxWidth - $(this).offset().left)) {
+									$(this).width(maxWidth - $(this).offset().left);
+								}
+							});
 							
 							$("#expandLoading").remove();
-							divExpandIframe.fadeIn('slow');
+							divExpandIframe.animate({"opacity":1}, 'slow');
 						};
 					
 					if ($.browser.webkit) {
-						setTimeout(getContent, 1000);
+						var load = function(callback) {
+							(divExpandIframe.contents().find("#pageContent").html()) ? callback() : setTimeout(function() {load(callback);}, 500);
+						};
+						load(getContent);
 					}
 					else
 						divExpandIframe.load(getContent);
