@@ -3,7 +3,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
 	<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>	
-	<title>Cloudify - Automate Your Legacy Application on the Cloud</title>
+	<title>Cloudify - Automate Your Application on the Cloud</title>
 	<script src="//cdn.optimizely.com/js/59503762.js"></script>
 	<link rel="stylesheet" href="/css/template.css" type="text/css"/>	
 	<link rel="canonical" href="http://www.cloudifysource.org/2012/07/19/automate_your_legacy_application_on_the_cloud.html"/>	
@@ -133,7 +133,7 @@
 </div>
 <div class="clear"></div>
         <div class="contentWrap">            
-			<div class="breadcrumbs">Home Page > Cloudify Blogs > Automate Your Legacy Application on the Cloud</div>
+			<div class="breadcrumbs">Home Page > Cloudify Blogs > Automate Your Application on the Cloud</div>
             <div class="clear"></div>
 
             <!--Search-->
@@ -174,7 +174,7 @@
 
 <div class="leftContentBox blogLeftBox"> 
    
-	<a href="/2012/07/19/automate_your_legacy_application_on_the_cloud.html">Automate Your Legacy Application on the Cloud 
+	<a href="/2012/07/19/automate_your_legacy_application_on_the_cloud.html">Automate Your Application on the Cloud 
 	 <img class="noMargin" src="/images/arrow-right-blue.png" /></a><br />
 	<span class="date">July 19, 2012</span>  
 	<br/><br/>
@@ -602,7 +602,7 @@
 
                 <div id="resultsDiv" class="DocumentsWrap"></div>
                 <div id="pageContent" class="DocumentsWrapRight">
-                    <h1 class="pageTitle">Automate Your Legacy Application on the Cloud</h1>
+                    <h1 class="pageTitle">Automate Your Application on the Cloud</h1>
 					 
 					  <span class="blogPostInfo">Posted By: <a href="#">Tamir Korem</a>  on July 19, 2012  
 					  </span>
@@ -643,13 +643,13 @@ The following code snippet demonstrates several general examples:</p>
 <p>Here&#8217;s the code snippet in the apacheLB-service.groovy :</p>
 <script src="https://gist.github.com/3069771.js?file=addRemoveNode.groovy"></script><p>As you can see, in apacheLB-service.groovy, there are two custom commands: addNode and removeNode. You need to add a postStart lifecycle event to each service whose instances you want add to the load balancer configuration. You need to add a postStop lifecycle event to each service whose instances you want removed from the load balancer configuration.<br />
 For example, these commands are invoked during the <code>postStart</code> and <code>postStop</code> <a href="http://www.cloudifysource.org/guide/developing/lifecycle_events" class="newwindow">lifecycle event handlers</a><br />
-,of the tomcat service in the <a href="https://github.com/CloudifySource/cloudify-recipes/tree/master/apps/petclinic" class="newwindow">PetClinic Recipe</a>. <br />
-The following presentation illustrates the various steps from the installation of the services to modifying the <code>apacheLB</code> configuration by invoking custom commands:</p>
-<div style="width:684px" id="__ss_13575384"> <strong style="display:block;margin:12px 0 4px"><a href="http://www.slideshare.net/tamirko/custom-commands211" title="Cloudify&#39;s Custom Commands Are Here To Stay" target="_blank">Cloudify&#39;s Custom Commands Are Here To Stay</a></strong> <iframe src="http://www.slideshare.net/slideshow/embed_code/13575384?rel=0" width="684" height="557" frameborder="0" marginwidth="0" marginheight="0" scrolling="no" style="border:1px solid #CCC;border-width:1px 1px 0" allowfullscreen></iframe> <div style="padding:5px 0 12px"> View more PowerPoint from <a href="http://www.slideshare.net/tamirko" target="_blank">tamirko</a> </div> </div>
+,of the tomcat service in the <a href="https://github.com/CloudifySource/cloudify-recipes/tree/master/apps/petclinic" class="newwindow">PetClinic Recipe</a>.</p>
+<p>The following presentation illustrates how the Custom Commands Machanism works with Apache and tomcat, from the installation of the services to modifying the <code>apacheLB</code> configuration by invoking custom commands:</p>
+<div style="width:684px" id="__ss_13575384"> <strong style="display:block;margin:12px 0 4px"><a href="http://www.slideshare.net/tamirko/custom-commands211" title="Automate Your Application on the Cloud" target="_blank">Automate Your Application on the Cloud</a></strong> <iframe src="http://www.slideshare.net/slideshow/embed_code/13575384?rel=0" width="684" height="557" frameborder="0" marginwidth="0" marginheight="0" scrolling="no" style="border:1px solid #CCC;border-width:1px 1px 0" allowfullscreen></iframe> <div style="padding:5px 0 12px"> View more PowerPoint from <a href="http://www.slideshare.net/tamirko" target="_blank">tamirko</a> </div> </div>
 <h4>Example 2: Testing Your Load Balancer Under Heavy Loads</h4>
 <p>On every machine on which apache is installed, you will also find the <a href="http://httpd.apache.org/docs/2.0/programs/ab.html" class="newwindow">ab command</a> which is a server benchmarking tool provided with the Apache <span class="caps">HTTP</span> distribution.<br />
 In the <code>apacheLB</code> recipe, you can find a <code>"load"</code> custom command that uses <code>ab</code>, thus enabling you to test your application under load, by using the recipe&#8217;s <a href="https://github.com/CloudifySource/cloudify-recipes/blob/master/services/apacheLB/README.md#load-testing" class="newwindow">load</a> custom command.</p>
-<p>Here&#8217;s the 2&quot;load&quot;@ code snippet in apacheLB-service.groovy :</p>
+<p>Here&#8217;s the <code>"load"</code> code snippet in apacheLB-service.groovy :</p>
 <script src="https://gist.github.com/3069774.js?file=loadApache.groovy"></script><h4>Example 3: Updating Your Application</h4>
 <p>Let&#8217;s say, you installed a tomcat web server and deployed your war file on it (with Cloudify). <br />
 Now you have a newer version of the war file.</p>

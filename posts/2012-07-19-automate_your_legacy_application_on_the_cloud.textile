@@ -1,6 +1,6 @@
 ---
 layout: blogpost
-title: Automate Your Legacy Application on the Cloud
+title: Automate Your Application on the Cloud
 image: tamir.jpg
 author: Tamir Korem
 tags: 
@@ -71,9 +71,10 @@ Here's the code snippet in the apacheLB-service.groovy :
 As you can see, in apacheLB-service.groovy, there are two custom commands: addNode and removeNode. You need to add a postStart lifecycle event to each service whose instances you want add to the load balancer configuration. You need to add a postStop lifecycle event to each service whose instances you want removed from the load balancer configuration.
 For example, these commands are invoked during the @postStart@ and @postStop@ "(newwindow)lifecycle event handlers":http://www.cloudifysource.org/guide/developing/lifecycle_events
 ,of the tomcat service in the "(newwindow)PetClinic Recipe":https://github.com/CloudifySource/cloudify-recipes/tree/master/apps/petclinic. 
-The following presentation illustrates the various steps from the installation of the services to modifying the @apacheLB@ configuration by invoking custom commands:
 
-<div style="width:684px" id="__ss_13575384"> <strong style="display:block;margin:12px 0 4px"><a href="http://www.slideshare.net/tamirko/custom-commands211" title="Cloudify&#39;s Custom Commands Are Here To Stay" target="_blank">Cloudify&#39;s Custom Commands Are Here To Stay</a></strong> <iframe src="http://www.slideshare.net/slideshow/embed_code/13575384?rel=0" width="684" height="557" frameborder="0" marginwidth="0" marginheight="0" scrolling="no" style="border:1px solid #CCC;border-width:1px 1px 0" allowfullscreen></iframe> <div style="padding:5px 0 12px"> View more PowerPoint from <a href="http://www.slideshare.net/tamirko" target="_blank">tamirko</a> </div> </div>
+The following presentation illustrates how the Custom Commands Machanism works with Apache and tomcat, from the installation of the services to modifying the @apacheLB@ configuration by invoking custom commands:
+
+<div style="width:684px" id="__ss_13575384"> <strong style="display:block;margin:12px 0 4px"><a href="http://www.slideshare.net/tamirko/custom-commands211" title="Automate Your Application on the Cloud" target="_blank">Automate Your Application on the Cloud</a></strong> <iframe src="http://www.slideshare.net/slideshow/embed_code/13575384?rel=0" width="684" height="557" frameborder="0" marginwidth="0" marginheight="0" scrolling="no" style="border:1px solid #CCC;border-width:1px 1px 0" allowfullscreen></iframe> <div style="padding:5px 0 12px"> View more PowerPoint from <a href="http://www.slideshare.net/tamirko" target="_blank">tamirko</a> </div> </div>
 
 
 h4. Example 2: Testing Your Load Balancer Under Heavy Loads
@@ -81,7 +82,7 @@ h4. Example 2: Testing Your Load Balancer Under Heavy Loads
 On every machine on which apache is installed, you will also find the "(newwindow)ab command":http://httpd.apache.org/docs/2.0/programs/ab.html which is a server benchmarking tool provided with the Apache HTTP distribution.
 In the @apacheLB@ recipe, you can find a @"load"@ custom command that uses @ab@, thus enabling you to test your application under load, by using the recipe's "(newwindow)load":https://github.com/CloudifySource/cloudify-recipes/blob/master/services/apacheLB/README.md#load-testing custom command.
 
-Here's the 2"load"@ code snippet in apacheLB-service.groovy : 
+Here's the @"load"@ code snippet in apacheLB-service.groovy : 
 
 <script src="https://gist.github.com/3069774.js?file=loadApache.groovy"></script>
 

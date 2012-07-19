@@ -27,7 +27,8 @@ The *General* section describes the following attributes:
 
 |_. Attributes |_. Description |
 | @name@ | The service name is used to identify this service by the various Cloudify management and monitoring tools. Therefore, the name must be unique across all services that are managed by the same Cloudify controller. |
-| @icon@ | The optional image file to use as an icon for this service in the *Application Map* that is displayed in the "Cloudify web management console":/guide/monitoring/the_web_management_console. |
+| @icon@ | The optional image file to use as an icon for this service in the *Application Map* that is displayed in the "Cloudify web management console":/guide/monitoring/the_web_management_console. 
+<h4 class="info">It is recommended that the image will not exceed the size of 20x20 pixels, as this can burden the image loading within the Web Management Console, thus resulting in slower performance. Images exceeding the specified dimensions will be scaled to fit regardless.</h4>|
 | @type@ | The service type is used by the Cloudify web management console to determine the location of this service in the *Application Map*. If you do not specify an @icon@ in this section, the service type is used to determine the default icon to display in the *Application Map*. The following service types are supported:
 <ul><li>WEB_SERVER</li>
 <li>APP_SERVER</li>
