@@ -17,7 +17,6 @@
 	<script type="text/javascript" src="/scripts/prettify/prettify.js"></script>
 	<script type="text/javascript" src="/scripts/version.data.js"></script>
 	<script type="text/javascript" src="/scripts/version.js"></script>
-	<script type="text/javascript" src="/scripts/jquery.gist-frame.js"></script>
 	<script type="text/javascript">
 	window.onload = function () {
 		$('body').addClass("bodyClass");	
@@ -26,87 +25,8 @@
 	$(function(){ 
 		$("a.youtube").YouTubePopup({ hideTitleBar: true });
 		$("div.expand").hide();
-		$("span.inlineExpandBtn").append("<span class='arrow arrowsDown'>&raquo;</span>").click(function(){
-			$(this).children('span.arrow').toggleClass('arrowsDown').toggleClass('arrowsUp');
-			$(this).parent().next("div.expand").slideToggle(500);
-		});
-		$("span.expandBtn").append("<span class='arrow arrowsDown'>&raquo;</span>").click(function(){
-			var div = $(this),
-				divExpand = div.children("div.expand"),
-				divExpandIframe = divExpand.children("iframe");
-			
-			div.children('span.arrow').toggleClass('arrowsDown').toggleClass('arrowsUp');
-			if (divExpand.length==0) {
-				divExpand = $("<div class='expand' />").hide().appendTo(div);
-				divExpand.width(700).height(480).css("border", "1px outset");
-			}
-			if (divExpandIframe.length==0) {
-				divExpandIframe = $("<iframe />").appendTo(divExpand);
-				divExpandIframe.width(700).height(480).css({"overflow":"auto", "border":"0"});
-				if ($.browser.webkit) {
-					divExpandIframe.contents().find("html").css("background", "none");
-					divExpandIframe.contents().find("head").append('<link rel="stylesheet" href="/css/template.css" type="text/css"/>');
-					divExpandIframe.contents().find("head").append('<link rel="stylesheet" href="/css/jquery-ui-1.8.17.custom.css" type="text/css" media="all"/>');
-					divExpandIframe.contents().find("head").append('<link rel="stylesheet" type="text/css" href="/scripts/prettify/prettify.css">');
-					divExpandIframe.contents().find("body").css("margin-left", "30px");
-					
-					$.get(div.attr("title"), function(data) {
-						data = data.split("</head>").pop();
-						data = data.replace(/^[\s\S]*?(<div.*?id="pageContent".*?>[\s\S]*?<\/div>)[\s\S]*?<div class="clear">[\s\S]*?$/, "$1");
-						
-						var gistScripts = data.match(/<script src="https:\/\/gist.github.com\/[\d]+\.js.*?">.*?<\/script>/g);
-						if (gistScripts) {
-							var gistId = null;
-							divExpandIframe.contents().find("head").append('<link rel="stylesheet" href="https:\/\/gist.github.com/stylesheets/gist/embed.css"/>');
-							for (var i=0; i < gistScripts.length; i++) {
-								console.log('gistScripts[' + i + ']: ' + gistScripts[i]);
-								gistId = gistScripts[i].replace(/<script src="https:\/\/gist.github.com\/([\d]+)\.js.*?">.*?<\/script>/, "$1");
-								console.log('gistId: ' + gistId);
-								data = data.replace(gistScripts[i], '<div id="gist' + gistId +'"></div>');
-								var gistResult = $.getGist(gistId);
-								
-								gistResult.done(function(gist){
-									var gistId = $(gist.ordered[0].content).find(".gist-meta").children("a[href^='https']").attr("href").match(/[\d]+/);
-									divExpandIframe.contents().find("#gist" + gistId).html($(gist.ordered[0].content));
-								});
-							}
-						}
-						divExpandIframe.contents().find("body").html(data);
-					});
-				}
-				else
-					divExpandIframe.load(function(){
-						divExpandIframe.contents().find("html").css("background", "none");
-						divExpandIframe.contents().find("head").append('<link rel="stylesheet" href="/css/template.css" type="text/css"/>');
-						divExpandIframe.contents().find("head").append('<link rel="stylesheet" href="/css/jquery-ui-1.8.17.custom.css" type="text/css" media="all"/>');
-						divExpandIframe.contents().find("head").append('<link rel="stylesheet" type="text/css" href="/scripts/prettify/prettify.css">');
-						divExpandIframe.contents().find("body").css("margin-left", "30px");
-						
-						$.get(div.attr("title"), function(data) {
-							data = data.split("</head>").pop();
-							data = data.replace(/^[\s\S]*?(<div.*?id="pageContent".*?>[\s\S]*?<\/div>)[\s\S]*?<div class="clear">[\s\S]*?$/, "$1");
-							
-							var gistScripts = data.match(/<script src="https:\/\/gist.github.com\/[\d]+\.js.*?">.*?<\/script>/g);
-							if (gistScripts) {
-								var gistId = null;
-								divExpandIframe.contents().find("head").append('<link rel="stylesheet" href="https:\/\/gist.github.com/stylesheets/gist/embed.css"/>');
-								for (var i=0; i < gistScripts.length; i++) {
-									gistId = gistScripts[i].replace(/<script src="https:\/\/gist.github.com\/([\d]+)\.js.*?">.*?<\/script>/, "$1");
-									data = data.replace(gistScripts[i], '<div id="gist' + gistId +'"></div>');
-									var gistResult = $.getGist(gistId);
-									
-									gistResult.done(function(gist){
-										var gistId = $(gist.ordered[0].content).find(".gist-meta").children("a[href^='https']").attr("href").match(/[\d]+/);
-										divExpandIframe.contents().find("#gist" + gistId).html($(gist.ordered[0].content));
-									});
-								}
-							}
-							divExpandIframe.contents().find("body").html(data);
-						});
-					});
-			}
-			divExpand.slideToggle(500);
-		});
+		
+		
 		$("li.expandBtn").click(function(){	
 			$(this).next("div.expand").slideToggle(500);
 			if($(this).html()=="More..."){
@@ -255,17 +175,17 @@
 
 <div class="leftContentBox blogLeftBox"> 
    
+	<a href="/2012/07/19/automate_your_legacy_application_on_the_cloud.html">Automate Your Legacy Application on the Cloud 
+	 <img class="noMargin" src="/images/arrow-right-blue.png" /></a><br />
+	<span class="date">July 19, 2012</span>  
+	<br/><br/>
+  
 	<a href="/2012/07/10/hi_cloudsters.html">What Kept Us Busy - A Cloudify Update 
 	 <img class="noMargin" src="/images/arrow-right-blue.png" /></a><br />
 	<span class="date">July 10, 2012</span>  
 	<br/><br/>
   
 	<a href="/2012/07/09/whats_cool_in_cloudify_2_1_1.html">What's Cool in Cloudify 2.1.1 
-	 <img class="noMargin" src="/images/arrow-right-blue.png" /></a><br />
-	<span class="date">July  9, 2012</span>  
-	<br/><br/>
-  
-	<a href="/2012/07/09/extending_chef_to_manage_the_entire_application.html">Extending Chef to manage the entire application lifecycle 
 	 <img class="noMargin" src="/images/arrow-right-blue.png" /></a><br />
 	<span class="date">July  9, 2012</span>  
 	<br/><br/>
@@ -339,7 +259,22 @@
 	
 
 	
-<li><a href="/2012/07">July 2012</a> <span class="blue">(3)</span></li>
+<li><a href="/2012/07">July 2012</a> <span class="blue">(4)</span></li>
+
+	
+
+	
+		
+			
+		
+	
+
+	
+	
+	
+	
+	
+	
 
 	
 
@@ -676,6 +611,40 @@
     <img title="Tamir Korem" width="80" height="96" src="/images/tamir.jpg" />
   </div>  
   <div class="blogInfoRight">
+    <a href="/2012/07/19/automate_your_legacy_application_on_the_cloud.html" class="title">Automate Your Legacy Application on the Cloud</a>
+	  <div class="blogPostInfo">
+	  <br/>	  	 
+	    <span>Posted By: <a href="#">Tamir Korem</a>  on  July 19, 2012  <!--|  in <a href="/categories/"></a> --></span>
+	  </div>	  	  	
+      <p>
+		
+			<p>Your Application is Installed on a Cloud. Now What ? Ok, so you installed an application on a cloud and now you want to update it, replace your .war file, modify the DB schema etc. I guess, some of the following thoughts may run in your head : &#8220;Now I...</p>
+			
+		<p class><a href="/2012/07/19/automate_your_legacy_application_on_the_cloud.html">Read more...</a></p>	  	  
+	  </p>
+		<span>  Tags:
+			
+			  <a class="postTag" href="/tags/Cloudify">Cloudify (18)</a>
+			
+			  <a class="postTag" href="/tags/GitHub">GitHub (2)</a>
+			
+			  <a class="postTag" href="/tags/Apache">Apache (2)</a>
+			
+			  <a class="postTag" href="/tags/Scale Rules">Scale Rules (2)</a>
+			
+			  <a class="postTag" href="/tags/Load Balancer">Load Balancer (1)</a>
+			
+		</span>
+	    
+  </div>
+  <div class="clear" ></div>    
+</div>
+
+<div class="blogtPostBox">
+  <div class="blogInfoLeft">
+    <img title="Tamir Korem" width="80" height="96" src="/images/tamir.jpg" />
+  </div>  
+  <div class="blogInfoRight">
     <a href="/2012/07/10/hi_cloudsters.html" class="title">What Kept Us Busy - A Cloudify Update</a>
 	  <div class="blogPostInfo">
 	  <br/>	  	 
@@ -689,7 +658,7 @@
 	  </p>
 		<span>  Tags:
 			
-			  <a class="postTag" href="/tags/Cloudify">Cloudify (17)</a>
+			  <a class="postTag" href="/tags/Cloudify">Cloudify (18)</a>
 			
 			  <a class="postTag" href="/tags/Cloud">Cloud (8)</a>
 			
@@ -717,9 +686,9 @@
 	  </p>
 		<span>  Tags:
 			
-			  <a class="postTag" href="/tags/Cloudify">Cloudify (17)</a>
+			  <a class="postTag" href="/tags/Cloudify">Cloudify (18)</a>
 			
-			  <a class="postTag" href="/tags/Apache">Apache (1)</a>
+			  <a class="postTag" href="/tags/Apache">Apache (2)</a>
 			
 			  <a class="postTag" href="/tags/Multiprocess">Multiprocess (1)</a>
 			
@@ -753,7 +722,7 @@
 			
 			  <a class="postTag" href="/tags/DevOps">DevOps (5)</a>
 			
-			  <a class="postTag" href="/tags/Cloudify">Cloudify (17)</a>
+			  <a class="postTag" href="/tags/Cloudify">Cloudify (18)</a>
 			
 		</span>
 	    
@@ -783,43 +752,9 @@
 			
 			  <a class="postTag" href="/tags/Big Data">Big Data (2)</a>
 			
-			  <a class="postTag" href="/tags/Cloudify">Cloudify (17)</a>
+			  <a class="postTag" href="/tags/Cloudify">Cloudify (18)</a>
 			
 			  <a class="postTag" href="/tags/Open PaaS">Open PaaS (3)</a>
-			
-		</span>
-	    
-  </div>
-  <div class="clear" ></div>    
-</div>
-
-<div class="blogtPostBox">
-  <div class="blogInfoLeft">
-    <img title="Nati Shalom" width="80" height="96" src="/images/nati.png" />
-  </div>  
-  <div class="blogInfoRight">
-    <a href="/2012/06/18/lessons-from-heroku-amazon-outage.html" class="title">Lessons From The Heroku Amazon Outage</a>
-	  <div class="blogPostInfo">
-	  <br/>	  	 
-	    <span>Posted By: <a href="#">Nati Shalom</a>  on  June 18, 2012  <!--|  in <a href="/categories/"></a> --></span>
-	  </div>	  	  	
-      <p>
-		
-			<p>Earlier this week we experienced the third significant AWS outage in the past 14 months, as reported by Justin Lee in his report&nbsp;Heroku, Pinterest Among Sites Knocked Offline in Amazon Data Center Outage&nbsp;on theWhirr magazine: An&nbsp;Amazon&nbsp;data center in Ashburn, Virginia suffered a power outage at 9:45 p.m. PDT on Thursday,...</p>
-			
-		<p class><a href="/2012/06/18/lessons-from-heroku-amazon-outage.html">Read more...</a></p>	  	  
-	  </p>
-		<span>  Tags:
-			
-			  <a class="postTag" href="/tags/PaaS">PaaS (5)</a>
-			
-			  <a class="postTag" href="/tags/Open PaaS">Open PaaS (3)</a>
-			
-			  <a class="postTag" href="/tags/Heroku">Heroku (1)</a>
-			
-			  <a class="postTag" href="/tags/AWS">AWS (1)</a>
-			
-			  <a class="postTag" href="/tags/EC2">EC2 (2)</a>
 			
 		</span>
 	    
