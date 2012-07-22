@@ -56,6 +56,11 @@ function processFolder(folder, level, closeBrace) {
 }
 
 function addPageVersions() {
+
+	if ( true ) {
+		return;
+	}
+
 	var href = document.location.href, //'http://cloudify.org/guide/qsg/quick_start_guide', //document.location.href;
 	    base = href.substr(0, href.indexOf('guide')-1),
 	    path = href.substr(href.indexOf('guide')).split('/'),
