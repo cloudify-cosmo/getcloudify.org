@@ -51,7 +51,7 @@ h2. To install the Cloudify shell
 # Install @Java@ on your machine.
 # "Download(Click here to download the Cloudify zip file)":http://bit.ly/ztbg9u and unzip the Cloudify distribution file.
 # Go to the @<cloudify installation folder>/bin@ folder, and then run @cloudify.bat@ (Windows) or @cloudify.sh@ (Linux) depending on the operating system running on your machine.
-  <img src="/guide/images/setup/shell_start2.jpg" width="630" height="300" />
+  <img src="/guide/2.1/images/setup/shell_start2.jpg" width="630" height="300" />
 
 h1(#step2). Step 2 - Bootstrap on EC2
 
@@ -64,19 +64,19 @@ Before you use the Cloudify shell to bootstrap on EC2, make sure that you perfor
 # Create an Amazon Web Services account.
 # Create an EC2 private key file (.pem) and save it under @<cloudify root>/tools/cli/plugins/esc/ec2/upload@. You can create and download an EC2 private key file, as follows:
 ## Browse to your EC2 management console, expand *Network & Security*, click *Key Pairs*, and then click *Create Key Pair*.
-<img src="/guide/images/ec2/EC2_CREATE_KEY_PAIRS_RAW3.jpg" />
+<img src="/guide/2.1/images/ec2/EC2_CREATE_KEY_PAIRS_RAW3.jpg" />
 ## Specify the *Key Pair Name*, and then click *Create*.
 <h4 class="info">Make a note of the name as this information will be required for configuring the Cloudify cloud driver. For this example, we will use *myKeyPair-name* that creates the corresponding *myKeyPair-name.pem* key pair file.</h4>
-<img src="/guide/images/ec2/EC2_CREATE_KEY_PAIRS_1_RAW3.jpg" />
+<img src="/guide/2.1/images/ec2/EC2_CREATE_KEY_PAIRS_1_RAW3.jpg" />
 ## When the download dialog box opens, click *OK* to save the EC2 key pair file.
 <h4 class="info">Make sure the file is saved under @<cloudify root>/tools/cli/plugins/esc/ec2/upload@.</h4>
-<img src="/guide/images/ec2/EC2_CREATE_KEY_PAIR_SUCCESS_AND_SAVE3.jpg" />
+<img src="/guide/2.1/images/ec2/EC2_CREATE_KEY_PAIR_SUCCESS_AND_SAVE3.jpg" />
 <h4 class="info">The private key enables Cloudify cloud driver to create SSH connections to newly created instances on EC2.</h4>
 # Configure the Cloudify EC2 cloud driver @<cloudify root>/tools/cli/plugins/esc/ec2/ec2-cloud.groovy@. To configure the EC2 cloud driver, edit the file and modify the following attribute values:
 #* In the @user@ section:
 #** @user@--Type your EC2 *Access Key ID*.
 To obtain your active *Access Key ID*, browse to your AWS management console, click *Security Credentials*, click *"(newwindow)Access Keys(Link to the AWS management console's Access Credentials tab)":https://aws-portal.amazon.com/gp/aws/developer/account/index.html?action=access-key*, and then click the *Access Credentials* tab.
-<img src="/guide/images/ec2/EC2_ACCESS_KEY_AND_SECRET_KEY3.jpg" />
+<img src="/guide/2.1/images/ec2/EC2_ACCESS_KEY_AND_SECRET_KEY3.jpg" />
 #** @apiKey@--Type your EC2 *Secret Access Key*.
 To obtain your *Secret Access Key*, browse to your AWS management console, click *Security Credentials*, click *"(newwindow)Access Keys(Link to the AWS management console's Access Credentials tab)":https://aws-portal.amazon.com/gp/aws/developer/account/index.html?action=access-key*, click the *Access Credentials* tab, and then click *Show*.
 <h4 class="info">The Secret Access Key must correspond to the specified Access Key ID.</h4>
@@ -98,7 +98,7 @@ The installation progress is displayed for the following Cloudify components as 
 
 h4(info). To obtain a list of all the available commands, type @<tab>@, or to view help for a specific command, type @[cmd] --help@. Note that the Cloudify shell automatically connects to the REST service such that you do not have to run the *connect* command separately. For more information about Cloudify commands, see "Command Line Reference":/guide/setup/command_line_reference.
 
-<img src="/guide/images/setup/bootstrapp_ec2_1.jpg" width="714" height="495" />
+<img src="/guide/2.1/images/setup/bootstrapp_ec2_1.jpg" width="714" height="495" />
 
 Your EC2 cloud is now ready for deploying the PetClinic application.
 For more information about Bootstrapping on EC2, see "Bootstrapping Cloudify on EC2":/guide/bootstrapping/bootstrapping_ec2.
@@ -118,7 +118,7 @@ The files required to run the specified services can be found in their correspon
 
 The following diagram depicts the application's recipe file and folder structure.
 
-<img src="/guide/images/setup/pet_clinic_anatomy3_211m2.JPG" />
+<img src="/guide/2.1/images/setup/pet_clinic_anatomy3_211m2.JPG" />
 
 For more information about recipes, see "Anatomy of a Recipe":/guide/developing/recipes_overview
 
@@ -271,7 +271,7 @@ In the lower pane, you can navigate between several views:
 * *Infrastructure view*--Lists the virtual hosts on which your application services are deployed.
 * *Services view*--Displays the individual service instances and correlates their various metrics.
 
-<img src="/guide/images/setup/petClinic_in_webui_screenShot2.jpg" width="630" height="300"/>
+<img src="/guide/2.1/images/setup/petClinic_in_webui_screenShot2.jpg" width="630" height="300"/>
 
 h1(#step6). Step 6 - Scale the Application
 
