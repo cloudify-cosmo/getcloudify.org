@@ -1,0 +1,32 @@
+---
+layout: default
+title: Deploying on Azure
+category: Deploying Services & Applications
+publish: true
+abstract: Explains how to deploy your applications on Windows Azure using Cloudify
+pageord: 2
+---
+This topic explains how to deploy your applications on Windows Azure using Cloudify.
+
+Deploying your application is the process whereby the Cloudify controller running on Azure is instructed to run your application's recipe. The controller uses the Cloudify driver to request Azure to start worker role instances using the recipe SLAs. Once the roles are active, the Cloudify agents (that were installed on the roles) are discovered by the controller, which then proceeds to upload the recipe to them and instructs the agents to run the recipe.
+
+h2. Deploying your Application
+
+Once your "application recipe":/guide/developing/recipes_overview and its dependencies are ready, and you have "bootstrapped":/guide/bootstrapping/bootstrapping_process your cloud, you can now deploy the application.
+
+The following procedure describes the steps for deploying your application on Azure:
+# Connect to the REST service--At the Cloudify shell prompt, type: *@connect@* @<yourAzureDeploymentURL>/rest@
+  <h4 class="info">If you do not remember your deployment URL, you can retrieve it from the Azure "Management Portal":http://windows.azure.com/</h4>
+# Deploy the application--At the Cloudify shell prompt, type: *@install-application@* @<appName>@
+
+The following example shows the command for deploying the travel application. The Azure recipe is different to other application recipes in that it configures a reverse proxy that allows access to the travel application via port 80 (instead of port 8080).
+<script src="https://gist.github.com/1875363.js"></script>
+
+h2. Undeploying
+
+|_. Command |_. Description |
+| *@uninstall-service@* @serviceName@ | Not available |
+| *@uninstall-application@* @appName@ | Uninstalls the specified application&#42; |
+| *@azure:teardown-app@* @hostedServiceName@ | Uninstalls all services and the application, and shuts down all machines in a hosted service |
+
+h4(warn). Uninstalling an application on Azure kills the services deployed on roles but leaves the roles alive. Subsequent application installations will be faster since there is no need to create the roles again.

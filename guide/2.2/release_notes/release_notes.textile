@@ -1,0 +1,259 @@
+---
+layout: default
+title: Release Notes
+category: Release Notes
+publish: true
+abstract: A list of features, improvements, fixed issues, and known issues in Cloudify
+pageord: 1
+---
+
+<span id="#top" />
+
+h1. Overview
+
+h4. Below is a list of new features, improvements, fixed issues, and known issues in Cloudify.
+We track all the issues in our public "JIRA":https://cloudifysource.atlassian.net.
+
+"Cloudify 2.1.1 GA":#v211ga  - published on July 8, 2012
+This version contains the following key improvements:
+* "Process Locator":/guide/developing/lifecycle_events#locator -  Enables recipes to specify which processes will be monitored for process metrics and process failures.
+Utility functions are provided to locate processes by names, as well as by a query language "(newwindow)(SIGAR PTQL)":http://support.hyperic.com/display/SIGAR/PTQL.
+* We've added lots of WEB UI enhancements.
+
+
+<hr/>
+
+"Cloudify 2.1.1 M2":#v211m2  - published on June 7, 2012
+This milestone contains the following key improvements:
+* "Process Locator":/guide/developing/lifecycle_events#locator -  Enables recipes to specify which processes will be monitored for process metrics and process failures.
+Utility functions are provided to locate processes by names, as well as by a query language "(newwindow)(SIGAR PTQL)":http://support.hyperic.com/display/SIGAR/PTQL.
+* We've added lots of WEB UI enhancements.
+
+
+<hr/>
+
+"Cloudify 2.1.0 GA":#ga21  - published on May 2, 2012
+This milestone contains the following key improvements:
+* "Scaling rules":/guide/developing/scaling_rules - Enables services to define scaling rules for scaling out or shrinking in. 
+* The Cloudify Interactive Shell now offers an improved user experience: Cloud bootstrapping, Application installation and uninstallation, as well as cloud teardown. These improvements facilitate progress tracking and simplify troubleshooting and recipe debugging.
+
+
+<hr/>
+
+
+h1(#v211ga). Cloudify 2.1.1 GA
+
+h3. Fixed Issues
+
+|_. ID |_. Description |_. Components |
+|"(newwindow)CLOUDIFY-945":https://cloudifysource.atlassian.net/browse/CLOUDIFY-945 | Fix cloudify package to embed the most recent xap package | Packaging |
+|"(newwindow)CLOUDIFY-908":https://cloudifysource.atlassian.net/browse/CLOUDIFY-908 | out-of-date image id in ec2-win groovy file | Cloud Driver |
+|"(newwindow)CLOUDIFY-907":https://cloudifysource.atlassian.net/browse/CLOUDIFY-907 | Wrong error message in the CLI on missing pem file | CLI |
+|"(newwindow)CLOUDIFY-894":https://cloudifysource.atlassian.net/browse/CLOUDIFY-894 | admin object not closed by Byon provisioning driver | Cloud Driver |
+|"(newwindow)CLOUDIFY-874":https://cloudifysource.atlassian.net/browse/CLOUDIFY-874 | Cloud drivers (specifically Byon) closes the admin object of the ESM. | Cloud Driver |
+
+
+
+h3. Known Issues
+
+|_. ID |_. Description |_. Components |
+|"(newwindow)CLOUDIFY-957":https://cloudifysource.atlassian.net/browse/CLOUDIFY-957 | The CLI does not work if it's path contains space chars | CLI |
+|"(newwindow)CLOUDIFY-956":https://cloudifysource.atlassian.net/browse/CLOUDIFY-956 | Starting the management services on windows machine hangs in some case. | ESC |
+|"(newwindow)CLOUDIFY-955":https://cloudifysource.atlassian.net/browse/CLOUDIFY-955 | Stray log lines appear in the log when installing an application. | CLI |
+|"(newwindow)CLOUDIFY-952":https://cloudifysource.atlassian.net/browse/CLOUDIFY-952 | Setting setUsePrivateAddress(); to false for a machine does not work. | ESC |
+|"(newwindow)CLOUDIFY-951":https://cloudifysource.atlassian.net/browse/CLOUDIFY-951 | Size of returned Process locators must be limited | USM |
+|"(newwindow)CLOUDIFY-950":https://cloudifysource.atlassian.net/browse/CLOUDIFY-950 | Incorrect validation error when bootstrapping cloud with two templates | Cloud Driver |
+|"(newwindow)CLOUDIFY-933":https://cloudifysource.atlassian.net/browse/CLOUDIFY-933 | Agent machine not terminated on ec2 | Cloud Driver |
+|"(newwindow)CLOUDIFY-931":https://cloudifysource.atlassian.net/browse/CLOUDIFY-931 | Teardown cloud with 'force' option should kill all machines, not just agents. | CLI |
+|"(newwindow)CLOUDIFY-927":https://cloudifysource.atlassian.net/browse/CLOUDIFY-927 | context.applicationName is null in the | USM |
+|"(newwindow)CLOUDIFY-925":https://cloudifysource.atlassian.net/browse/CLOUDIFY-925 | Openstack cloud driver has hard-coded username of root | Cloud Driver |
+|"(newwindow)CLOUDIFY-924":https://cloudifysource.atlassian.net/browse/CLOUDIFY-924 | service.numberOfPlannedInstances is incorrect | USM |
+|"(newwindow)CLOUDIFY-911":https://cloudifysource.atlassian.net/browse/CLOUDIFY-911 | Management machine leak if failed to connect to REST service | Cloud Driver |
+|"(newwindow)CLOUDIFY-906":https://cloudifysource.atlassian.net/browse/CLOUDIFY-906 | Web-UI: Cloudify logo should point to cloudifysource.org | Packaging |
+|"(newwindow)CLOUDIFY-905":https://cloudifysource.atlassian.net/browse/CLOUDIFY-905 | in byon - when a machine is stopped, allocated again and stopped again - it remains "in use" | Cloud Driver |
+|"(newwindow)CLOUDIFY-902":https://cloudifysource.atlassian.net/browse/CLOUDIFY-902 | When a machine is started on ec2 and the connection to it fails we wait until the esm timeout expires to start a new machine. | ESC |
+|"(newwindow)CLOUDIFY-899":https://cloudifysource.atlassian.net/browse/CLOUDIFY-899 | When unzip is missing we should stop bootstrap with a clear err message | CLI |
+|"(newwindow)CLOUDIFY-898":https://cloudifysource.atlassian.net/browse/CLOUDIFY-898 | Service files deleted before shutdown is invoked. | USM |
+|"(newwindow)CLOUDIFY-897":https://cloudifysource.atlassian.net/browse/CLOUDIFY-897 | Teardown does not return the CLI to the default application context | CLI |
+|"(newwindow)CLOUDIFY-891":https://cloudifysource.atlassian.net/browse/CLOUDIFY-891 | waitForService returns null | USM |
+|"(newwindow)CLOUDIFY-888":https://cloudifysource.atlassian.net/browse/CLOUDIFY-888 | Autoscaling presentation in the UI is very misleading | ESC |
+|"(newwindow)CLOUDIFY-886":https://cloudifysource.atlassian.net/browse/CLOUDIFY-886 | Sigar instance being reinitialized every predetermined time interval | USM |
+|"(newwindow)CLOUDIFY-883":https://cloudifysource.atlassian.net/browse/CLOUDIFY-883 | USM tries to locate a process even when no processor locator is defined | USM |
+|"(newwindow)CLOUDIFY-877":https://cloudifysource.atlassian.net/browse/CLOUDIFY-877 | CLI jams linux terminal when killall -9 java is invoked | CLI |
+|"(newwindow)CLOUDIFY-872":https://cloudifysource.atlassian.net/browse/CLOUDIFY-872 | Process locator is not triggered if no start event is specified | USM |
+|"(newwindow)CLOUDIFY-871":https://cloudifysource.atlassian.net/browse/CLOUDIFY-871 | If process locator returns empty list, a warning should be displayed | USM |
+|"(newwindow)CLOUDIFY-868":https://cloudifysource.atlassian.net/browse/CLOUDIFY-868 | start closure is expected to return a process object even when there's a process locator defined | USM |
+|"(newwindow)CLOUDIFY-865":https://cloudifysource.atlassian.net/browse/CLOUDIFY-865 | Cloudify distribution is deployed in folder "gs-files" instead of the remoteDirectory | Cloud Driver |
+|"(newwindow)CLOUDIFY-864":https://cloudifysource.atlassian.net/browse/CLOUDIFY-864 | Byon fails on install-application when using host names instead of IPs | Cloud Driver |
+|"(newwindow)CLOUDIFY-860":https://cloudifysource.atlassian.net/browse/CLOUDIFY-860 | GSM waits for allocation for no reason | ESC |
+|"(newwindow)CLOUDIFY-859":https://cloudifysource.atlassian.net/browse/CLOUDIFY-859 | delete machine attempt while the server is in build state returns an error | Cloud Driver |
+|"(newwindow)CLOUDIFY-858":https://cloudifysource.atlassian.net/browse/CLOUDIFY-858 | requests for cloud API should catch IOExceptions and be resent again until retry attempts are exceeded | Cloud Driver |
+|"(newwindow)CLOUDIFY-851":https://cloudifysource.atlassian.net/browse/CLOUDIFY-851 | Remove the need to specify machineMemoryMB 1600 when using a clouds | Cloud Driver |
+|"(newwindow)CLOUDIFY-850":https://cloudifysource.atlassian.net/browse/CLOUDIFY-850 | Upgrade to latest ec2 amzn linux amis with latest security patches | Cloud Driver |
+|"(newwindow)CLOUDIFY-848":https://cloudifysource.atlassian.net/browse/CLOUDIFY-848 | lifecycle groovy scripts are not executed correctly on Ubuntu 12.04 | USM |
+|"(newwindow)CLOUDIFY-847":https://cloudifysource.atlassian.net/browse/CLOUDIFY-847 | uninstall-service does NOT kill the VM on OpenStack | USM |
+|"(newwindow)CLOUDIFY-846":https://cloudifysource.atlassian.net/browse/CLOUDIFY-846 | Invoking two bootstrap at the same time - provisions the same machine | CLI, USM |
+|"(newwindow)CLOUDIFY-845":https://cloudifysource.atlassian.net/browse/CLOUDIFY-845 | Success in invoking two consecutive bootstrap-cloud openstack commands with the same openstack-cloud.groovy | CLI, USM |
+|"(newwindow)CLOUDIFY-843":https://cloudifysource.atlassian.net/browse/CLOUDIFY-843 | optional Rate limiting implemented by cloud driver framework | Cloud Driver |
+|"(newwindow)CLOUDIFY-842":https://cloudifysource.atlassian.net/browse/CLOUDIFY-842 | Official Cloudify download from GigaSpaces website has broken sh files | Packaging |
+|"(newwindow)CLOUDIFY-841":https://cloudifysource.atlassian.net/browse/CLOUDIFY-841 | Error Message contains XAP terminology | CLI |
+|"(newwindow)CLOUDIFY-837":https://cloudifysource.atlassian.net/browse/CLOUDIFY-837 | Clean application/service/instance attributes entries after uninstall | USM |
+|"(newwindow)CLOUDIFY-832":https://cloudifysource.atlassian.net/browse/CLOUDIFY-832 | Byon node-specific credentials should be renamed | Cloud Driver |
+|"(newwindow)CLOUDIFY-829":https://cloudifysource.atlassian.net/browse/CLOUDIFY-829 | uninstall-service for failed service prints old error messages. | CLI |
+|"(newwindow)CLOUDIFY-827":https://cloudifysource.atlassian.net/browse/CLOUDIFY-827 | Failed to retrieve mongodb icon | CLI |
+|"(newwindow)CLOUDIFY-823":https://cloudifysource.atlassian.net/browse/CLOUDIFY-823 | Scaling Rules alert seak in MB memory instead of number of instances | REST |
+|"(newwindow)CLOUDIFY-820":https://cloudifysource.atlassian.net/browse/CLOUDIFY-820 | Cloudify service configured to run with 0 instance result in deploying 1 instance | Test |
+|"(newwindow)CLOUDIFY-818":https://cloudifysource.atlassian.net/browse/CLOUDIFY-818 | Can't allocate a machine on Amazon ec2 | ESC |
+|"(newwindow)CLOUDIFY-815":https://cloudifysource.atlassian.net/browse/CLOUDIFY-815 | Unclear message in Shell when installing an already existing server | CLI |
+|"(newwindow)CLOUDIFY-814":https://cloudifysource.atlassian.net/browse/CLOUDIFY-814 | Very long stack trace printed in shell when cloud driver credentials are wrong | CLI |
+|"(newwindow)CLOUDIFY-813":https://cloudifysource.atlassian.net/browse/CLOUDIFY-813 | uninstall-service should use pu.undeployAndWait using a different thread | REST |
+|"(newwindow)CLOUDIFY-811":https://cloudifysource.atlassian.net/browse/CLOUDIFY-811 | GSM does not recover service in-case of corruption failure | CLI |
+|"(newwindow)CLOUDIFY-809":https://cloudifysource.atlassian.net/browse/CLOUDIFY-809 | Closing the Cloudiy Shell on Ubuntu 12 automatically terminates all localcloud processes | CLI |
+|"(newwindow)CLOUDIFY-806":https://cloudifysource.atlassian.net/browse/CLOUDIFY-806 | teardown-cloud may leave agent machine running | Cloud Driver |
+|"(newwindow)CLOUDIFY-805":https://cloudifysource.atlassian.net/browse/CLOUDIFY-805 | cloud.groovy templates section should not be a map | Cloud Driver |
+|"(newwindow)CLOUDIFY-804":https://cloudifysource.atlassian.net/browse/CLOUDIFY-804 | 2 machines remain alive after teardown | Cloud Driver |
+|"(newwindow)CLOUDIFY-802":https://cloudifysource.atlassian.net/browse/CLOUDIFY-802 | Cloud-generated private key assigned to a specific machine is used for the entire cloud | Cloud Driver |
+|"(newwindow)CLOUDIFY-800":https://cloudifysource.atlassian.net/browse/CLOUDIFY-800 | Default paths for services, application and clouds in CLI | CLI, Packaging |
+|"(newwindow)CLOUDIFY-799":https://cloudifysource.atlassian.net/browse/CLOUDIFY-799 | petclinic-simple on azure fails to load correctly | Cloud Driver |
+|"(newwindow)CLOUDIFY-797":https://cloudifysource.atlassian.net/browse/CLOUDIFY-797 | Cloudify with the attached cloud config fails to start recipes (openjdk-7) | USM |
+|"(newwindow)CLOUDIFY-793":https://cloudifysource.atlassian.net/browse/CLOUDIFY-793 | cloud configuration properties related to image must be in cloud template | Cloud Driver |
+|"(newwindow)CLOUDIFY-792":https://cloudifysource.atlassian.net/browse/CLOUDIFY-792 | CLI welcome screen should not print red Windows back-slash when running on non-windows machines | CLI |
+|"(newwindow)CLOUDIFY-791":https://cloudifysource.atlassian.net/browse/CLOUDIFY-791 | List-services and list-applications does not list anything sometimes | CLI |
+|"(newwindow)CLOUDIFY-781":https://cloudifysource.atlassian.net/browse/CLOUDIFY-781 | teardown-localcloud should not fail if the user answered Y that he agrees to uninstall applications. | CLI |
+|"(newwindow)CLOUDIFY-780":https://cloudifysource.atlassian.net/browse/CLOUDIFY-780 | CLI or Local Cloud should verify java home | CLI |
+|"(newwindow)CLOUDIFY-773":https://cloudifysource.atlassian.net/browse/CLOUDIFY-773 | The ElasticMachineProvisioningCloudifyAdapter's logger is too noisy in case of an exception. | ESC |
+|"(newwindow)CLOUDIFY-770":https://cloudifysource.atlassian.net/browse/CLOUDIFY-770 | HP openstack cloud API returns response status 404 on shutdown machine GET request. | ESC |
+|"(newwindow)CLOUDIFY-763":https://cloudifysource.atlassian.net/browse/CLOUDIFY-763 | after uninstalling an application, the cli prompt is still in the context of that application | CLI |
+|"(newwindow)CLOUDIFY-759":https://cloudifysource.atlassian.net/browse/CLOUDIFY-759 | in service recipe tomcat the custom command updateWar is not complete | CLI |
+|"(newwindow)CLOUDIFY-755":https://cloudifysource.atlassian.net/browse/CLOUDIFY-755 | Test for multiple machine templates on BYON | Test |
+|"(newwindow)CLOUDIFY-750":https://cloudifysource.atlassian.net/browse/CLOUDIFY-750 | Mongos fails to deploy when number of mongos bigger than number of mongoConfig | CLI |
+|"(newwindow)CLOUDIFY-717":https://cloudifysource.atlassian.net/browse/CLOUDIFY-717 | Missing Validation: if the key file is not present in the upload dir, management succeeds but no services can be started | Cloud Driver |
+|"(newwindow)CLOUDIFY-716":https://cloudifysource.atlassian.net/browse/CLOUDIFY-716 | Recipe parser may log a SEVERE IllegalArgumentException in case of closures inside arrays | Packaging |
+|"(newwindow)CLOUDIFY-715":https://cloudifysource.atlassian.net/browse/CLOUDIFY-715 | Bootstrap hangs on a invalid license key in the cloudify folder | CLI |
+|"(newwindow)CLOUDIFY-699":https://cloudifysource.atlassian.net/browse/CLOUDIFY-699 | updateWar custom command fails when the URL contains a question mark | CLI, USM |
+|"(newwindow)CLOUDIFY-693":https://cloudifysource.atlassian.net/browse/CLOUDIFY-693 | @grab is not supported in a service file | CLI |
+|"(newwindow)CLOUDIFY-692":https://cloudifysource.atlassian.net/browse/CLOUDIFY-692 | A property called "service" fails the recipe | CLI, USM |
+|"(newwindow)CLOUDIFY-685":https://cloudifysource.atlassian.net/browse/CLOUDIFY-685 | Installation executer service is limited and might cause a delay in application installations. | REST |
+|"(newwindow)CLOUDIFY-680":https://cloudifysource.atlassian.net/browse/CLOUDIFY-680 | startDetection supports only closure and not scripts. | CLI, ESC, USM |
+|"(newwindow)CLOUDIFY-666":https://cloudifysource.atlassian.net/browse/CLOUDIFY-666 | A timeout prevents management machine from starting | CLI, Cloud Driver, USM |
+|"(newwindow)CLOUDIFY-663":https://cloudifysource.atlassian.net/browse/CLOUDIFY-663 | test-recipe does not work without lookup service (bootstrap-localclout) | CLI |
+|"(newwindow)CLOUDIFY-647":https://cloudifysource.atlassian.net/browse/CLOUDIFY-647 | cannot bootstrap multiple localclouds, even after using different lookupgroups | CLI |
+|"(newwindow)CLOUDIFY-617":https://cloudifysource.atlassian.net/browse/CLOUDIFY-617 | Elastic Machine Provisioning Adapter (cloud driver wrapper) does not handle the case where an agent is shutdown but the machine failed to terminate | Cloud Driver |
+|"(newwindow)CLOUDIFY-616":https://cloudifysource.atlassian.net/browse/CLOUDIFY-616 | Azure bootstrap does not validate the container name in the configuration is a valid DNS name | CLI |
+|"(newwindow)CLOUDIFY-613":https://cloudifysource.atlassian.net/browse/CLOUDIFY-613 | Installation stuck if compute template name not found in driver. | CLI |
+|"(newwindow)CLOUDIFY-597":https://cloudifysource.atlassian.net/browse/CLOUDIFY-597 | On Azure the following log is misleading "Deploying service management.iisproxy with a recipe that does not define number of instances. Assuming number of instances is 1" is incorrect | REST |
+|"(newwindow)CLOUDIFY-589":https://cloudifysource.atlassian.net/browse/CLOUDIFY-589 | private/public ip of XAP services machines is shown as N/A in the webui. | USM |
+|"(newwindow)CLOUDIFY-566":https://cloudifysource.atlassian.net/browse/CLOUDIFY-566 | WebUI indicates PU is good and then in progress while installing a service that has deployment on another service | USM |
+|"(newwindow)CLOUDIFY-559":https://cloudifysource.atlassian.net/browse/CLOUDIFY-559 | Service installation will fail in the Start event if the .out file is in use(locked). | USM |
+|"(newwindow)CLOUDIFY-547":https://cloudifysource.atlassian.net/browse/CLOUDIFY-547 | Remove icon URLs from DSL unit test recipes and fix test to check icon actually exists in resources folder | Packaging |
+|"(newwindow)CLOUDIFY-539":https://cloudifysource.atlassian.net/browse/CLOUDIFY-539 | Unzip fails on Windows 7 professional | Packaging |
+|"(newwindow)CLOUDIFY-538":https://cloudifysource.atlassian.net/browse/CLOUDIFY-538 | customCommands for different OS doesn't work | CLI |
+
+
+
+<br/>
+"Back to top":#top
+
+h1(#v211m2). Cloudify 2.1.1 M2
+
+h3. New Features and Improvements
+
+|_. ID |_. Description |_. Components |
+|"CLOUDIFY-828":https://cloudifysource.atlassian.net/browse/CLOUDIFY-828 | Groovy Service parser should allow importing groovy classes from service directory | Packaging |
+|"CLOUDIFY-821":https://cloudifysource.atlassian.net/browse/CLOUDIFY-821 | Manual merge from github pull request | Packaging |
+|"CLOUDIFY-784":https://cloudifysource.atlassian.net/browse/CLOUDIFY-784 | Rest API for generating machine dump files | REST |
+|"CLOUDIFY-774":https://cloudifysource.atlassian.net/browse/CLOUDIFY-774 | add a network block to the mongos recipe | CLI |
+|"CLOUDIFY-765":https://cloudifysource.atlassian.net/browse/CLOUDIFY-765 | when using teardown cloud -force without connecting to the rest gateway, inform the user that only management machines will be shut down | CLI |
+|"CLOUDIFY-761":https://cloudifysource.atlassian.net/browse/CLOUDIFY-761 | BYON cloud does not inject public ip and private ip to usm processing unit instnaces. | Cloud Driver, USM |
+|"CLOUDIFY-739":https://cloudifysource.atlassian.net/browse/CLOUDIFY-739 | in byon cloud driver, support deletion of specific items on stop machine. | Cloud Driver |
+|"CLOUDIFY-526":https://cloudifysource.atlassian.net/browse/CLOUDIFY-526 | Better timeout message | CLI |
+|"CLOUDIFY-293":https://cloudifysource.atlassian.net/browse/CLOUDIFY-293 | Process Tree support | USM |
+|"CLOUDIFY-270":https://cloudifysource.atlassian.net/browse/CLOUDIFY-270 | Application/Service Cloud Properties | USM |
+
+
+h3. Fixed Issues
+
+|_. ID |_. Description |_. Components |
+|"CLOUDIFY-822":https://cloudifysource.atlassian.net/browse/CLOUDIFY-822 | Byon teardown fails when the management machines are set by host name (instead of IPs) | Cloud Driver |
+|"CLOUDIFY-803":https://cloudifysource.atlassian.net/browse/CLOUDIFY-803 | NPE if service defined network block but leaves description empty | USM |
+|"CLOUDIFY-801":https://cloudifysource.atlassian.net/browse/CLOUDIFY-801 | Typo in cli message in "StartManagement.java" | CLI |
+|"CLOUDIFY-796":https://cloudifysource.atlassian.net/browse/CLOUDIFY-796 | Throttling required in case the cloud server returned error code 500 | CLI, Cloud Driver |
+|"CLOUDIFY-787":https://cloudifysource.atlassian.net/browse/CLOUDIFY-787 | in byon, configuration of host names and an ip range is ambiguous. | Cloud Driver |
+|"CLOUDIFY-751":https://cloudifysource.atlassian.net/browse/CLOUDIFY-751 | Test-Recipe does not load jar files from usmlib | CLI |
+|"CLOUDIFY-746":https://cloudifysource.atlassian.net/browse/CLOUDIFY-746 | SSH password is logged when bootstrap-management.sh fails | ESC |
+|"CLOUDIFY-742":https://cloudifysource.atlassian.net/browse/CLOUDIFY-742 | teardown-cloud ec2 do not terminate management machine | CLI, Cloud Driver |
+|"CLOUDIFY-736":https://cloudifysource.atlassian.net/browse/CLOUDIFY-736 | cli does not enforce number of instances to be legit | CLI |
+|"CLOUDIFY-722":https://cloudifysource.atlassian.net/browse/CLOUDIFY-722 | At verbose mode ip:port of webui and rest is not displayed | CLI |
+|"CLOUDIFY-648":https://cloudifysource.atlassian.net/browse/CLOUDIFY-648 | invoke start detection from groovy file cause shutdown when return false result (part of ALU PoC) | MONITORING |
+|"CLOUDIFY-560":https://cloudifysource.atlassian.net/browse/CLOUDIFY-560 | bootstrap-localcloud should set JAVA_HOME | CLI |
+|"CLOUDIFY-542":https://cloudifysource.atlassian.net/browse/CLOUDIFY-542 | AgentlessInstaller logs the SSH password in FINE level | Cloud Driver |
+|"CLOUDIFY-528":https://cloudifysource.atlassian.net/browse/CLOUDIFY-528 | bootstrap-cloud ec2 does not close management machine in case of partial failure | CLI |
+|"CLOUDIFY-521":https://cloudifysource.atlassian.net/browse/CLOUDIFY-521 | Machine is not terminated after teardown-cloud ec2 | CLI, Cloud Driver |
+|"CLOUDIFY-507":https://cloudifysource.atlassian.net/browse/CLOUDIFY-507 | Fix ApplicationSetUpTest that uses a bad relative path to cassandra. | Test |
+|"CLOUDIFY-477":https://cloudifysource.atlassian.net/browse/CLOUDIFY-477 | sometimes when there is an error with install-application, the installation does not stop. | CLI, USM |
+|"CLOUDIFY-221":https://cloudifysource.atlassian.net/browse/CLOUDIFY-221 | Recipe validation | USM |
+
+
+<br/>
+"Back to top":#top
+
+
+h1(#ga21). Cloudify 2.1.0 GA
+
+h3. New Features and Improvements
+
+|_. ID |_. Description |_. Components |
+|"CLOUDIFY-511":https://cloudifysource.atlassian.net/browse/CLOUDIFY-511 | All URLs point to the new online repositories | Packaging |
+|"CLOUDIFY-724":https://cloudifysource.atlassian.net/browse/CLOUDIFY-724 | Recipes folders have been changed | Packaging |
+|"CLOUDIFY-660":https://cloudifysource.atlassian.net/browse/CLOUDIFY-660 | We added a support for automatic scaling number of instances based on thresholds | REST |
+|"CLOUDIFY-523":https://cloudifysource.atlassian.net/browse/CLOUDIFY-523 | Users are allowed to download Cloudify sources and build a full Cloudify zip locally | Packaging |
+|"CLOUDIFY-747":https://cloudifysource.atlassian.net/browse/CLOUDIFY-747 | The mongo* pet-clinic services inherit the service implementation | CLI |
+|"CLOUDIFY-767":https://cloudifysource.atlassian.net/browse/CLOUDIFY-767 | Service instance installation timeout is now 60 minutes | REST |
+|"CLOUDIFY-753":https://cloudifysource.atlassian.net/browse/CLOUDIFY-753 | mongos poststart throws an illegalState exception with a clear message if mongod is not installed | CLI |
+|"CLOUDIFY-695":https://cloudifysource.atlassian.net/browse/CLOUDIFY-695 | A lightweight version of Pet-Clinic has been added. | Packaging |
+
+
+
+
+h3. Fixed Issues
+
+|_. ID |_. Description |_. Components |
+|"CLOUDIFY-586":https://cloudifysource.atlassian.net/browse/CLOUDIFY-586 | Leaked floating IP on openstack if failed to attach IP to server | Cloud Driver |
+|"CLOUDIFY-657":https://cloudifysource.atlassian.net/browse/CLOUDIFY-657 | Stack trace is being displayed in the CLI when not in verbose mode | CLI |
+|"CLOUDIFY-727":https://cloudifysource.atlassian.net/browse/CLOUDIFY-727 | Petclinic-simple tomcat updateWar does not work properly | CLI |
+|"CLOUDIFY-730":https://cloudifysource.atlassian.net/browse/CLOUDIFY-730 | Upgrade mongo recipe based on petclinic-simple changes | CLI |
+|"CLOUDIFY-731":https://cloudifysource.atlassian.net/browse/CLOUDIFY-731 | Windows driver search files under GS\tools\cli\plugins\esc\ec2\upload\*.* instead of GS\tools\cli\plugins\esc\ec2-win\upload\*.* | Cloud Driver |
+|"CLOUDIFY-735":https://cloudifysource.atlassian.net/browse/CLOUDIFY-735 | Remote_rest_gateway_exception is received when I installed the PetClinic | CLI USM |
+|"CLOUDIFY-756":https://cloudifysource.atlassian.net/browse/CLOUDIFY-756 | polling remote server on rackspace and hp openstack runs without polling interval | ESC |
+|"CLOUDIFY-757":https://cloudifysource.atlassian.net/browse/CLOUDIFY-757 | DSLException in the REST when deploying an app/service on byon | Cloud Driver |
+|"CLOUDIFY-748":https://cloudifysource.atlassian.net/browse/CLOUDIFY-748 | Uninstall and teardown does not stop the machines on openstack and Rackspace | ESC |
+|"CLOUDIFY-734":https://cloudifysource.atlassian.net/browse/CLOUDIFY-734 | The Pet Clinic recipe fails when using extend in mongo* services | CLI ESC USM |
+|"CLOUDIFY-711":https://cloudifysource.atlassian.net/browse/CLOUDIFY-711 | Installing servers (for application deployment) copies the entire gigaspaces zip and extracted folder, not required at all. | Cloud Driver |
+|"CLOUDIFY-768":https://cloudifysource.atlassian.net/browse/CLOUDIFY-768 | Cloud groovy files contain our key-pair value (cloud-demo) instead of a place holder (ENTER_KEY_PAIR_NAME) | Cloud Driver |
+|"CLOUDIFY-582":https://cloudifysource.atlassian.net/browse/CLOUDIFY-582 | ESM cannot start a new service - loop after restarting new service | USM |
+|"CLOUDIFY-581":https://cloudifysource.atlassian.net/browse/CLOUDIFY-581 | Teardown cloud keeps machine running on the cloud | USM |
+|"CLOUDIFY-483":https://cloudifysource.atlassian.net/browse/CLOUDIFY-483 | Increase default ESM memory to 256MB when upgrading from 8.0.6 to 9.0.0 | CLI |
+|"CLOUDIFY-605":https://cloudifysource.atlassian.net/browse/CLOUDIFY-605 | install-application does not work with eager mode (azure) | REST |
+
+
+
+h3. Known Issues
+
+|_. ID |_. Description |_. Components |
+|"CLOUDIFY-779":https://cloudifysource.atlassian.net/browse/CLOUDIFY-779 | ESC (cloud driver) logs do not contain the service name | ESC |
+|"CLOUDIFY-773":https://cloudifysource.atlassian.net/browse/CLOUDIFY-773 | The ElasticMachineProvisioningCloudifyAdapter's logger is too noisy in case of an exception. | ESC |
+|"CLOUDIFY-770":https://cloudifysource.atlassian.net/browse/CLOUDIFY-770 | HP openstack cloud API returns response status 404 on shutdown machine GET request. | ESC |
+|"CLOUDIFY-763":https://cloudifysource.atlassian.net/browse/CLOUDIFY-763 | after uninstalling an application, the cli prompt is still in the context of that application | CLI |
+|"CLOUDIFY-759":https://cloudifysource.atlassian.net/browse/CLOUDIFY-759 | in service recipe tomcat the custom command updateWar is not complete | CLI |
+|"CLOUDIFY-755":https://cloudifysource.atlassian.net/browse/CLOUDIFY-755 | Test for multiple machine templates on BYON | Test |
+|"CLOUDIFY-751":https://cloudifysource.atlassian.net/browse/CLOUDIFY-751 | Test-Recipe does not load jar files from usmlib | CLI |
+|"CLOUDIFY-750":https://cloudifysource.atlassian.net/browse/CLOUDIFY-750 | Mongos fails to deploy when number of mongos bigger than number of mongoConfig | CLI |
+|"CLOUDIFY-746":https://cloudifysource.atlassian.net/browse/CLOUDIFY-746 | SSH password is logged when bootstrap-management.sh fails | ESC |
+|"CLOUDIFY-740":https://cloudifysource.atlassian.net/browse/CLOUDIFY-740 | WebUI shows NA instead of the actual private/public ips at Windows machines only | Cloud Driver |
+|"CLOUDIFY-737":https://cloudifysource.atlassian.net/browse/CLOUDIFY-737 | ServiceReader is unable to read service files that contain a negative number in one of its properties | CLI |
+
+
+<br/>
+"Back to top":#top
+
+<!-- End of Release Notes -->
