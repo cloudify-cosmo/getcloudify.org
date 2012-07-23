@@ -9,7 +9,7 @@ pageord: 200
 
 h1. Introduction
 
-The goal of this quick start guide is to familiarize you with Cloudify in a few simple steps. For this purpose, we will use the PetClinic application (an example application that is included in the Cloudify distribution file) to demonstrate the steps required to deploy an application on an Amazon EC2 cloud. For a quick start guide to using Cloudify on a local cloud, see "10-Minute Quick Start Guide":/guide/qsg/quick_start_guide.
+The goal of this quick start guide is to familiarize you with Cloudify in a few simple steps. For this purpose, we will use the PetClinic application (an example application that is included in the Cloudify distribution file) to demonstrate the steps required to deploy an application on an Amazon EC2 cloud. For a quick start guide to using Cloudify on a local cloud, see "Getting Started with Cloudify":/guide/qsg/quick_start_guide.
 
 This guide teaches you how to:
 * "Install the Cloudify Shell":#step1
@@ -86,9 +86,9 @@ The installation progress is displayed for the following Cloudify components as 
 * *The REST gateway service*--The service that exposes a RESTful interface to the services provided by the management service.
 * *The Web management console service*--The service that provides a Web-based GUI to the Cloudify environment and allows you to easily monitor your applications.
 
-h4(info). To obtain a list of all the available commands, type @<tab>@, or to view help for a specific command, type @[cmd] --help@. Note that the Cloudify shell automatically connects to the REST service such that you do not have to run the *connect* command separately. For more information about Cloudify commands, see "Command Line Reference":/guide/recipe/command_line_reference.
+h4(info). To obtain a list of all the available commands, type @<tab>@, or to view help for a specific command, type @[cmd] --help@. Note that the Cloudify shell automatically connects to the REST service such that you do not have to run the *connect* command separately. For more information about Cloudify commands, see "(newwindow)Command Line Reference":/guide/recipe/command_line_reference.
 
-<img src="/guide/2.1/images/setup/bootstrapp_ec2_1.jpg" width="714" height="495" />
+<img src="/guide/images/setup/bootstrapp_ec2_1.jpg" width="714" height="495" />
 
 Your EC2 cloud is now ready for deploying the PetClinic application.
 For more information about Bootstrapping on EC2, see <span class="inlineExpandBtn" title="/guide/bootstrapping/bootstrapping_ec2">Boostrap EC2</span>.
@@ -113,7 +113,7 @@ Recipes are the execution plans for installing, starting, orchestrating, and mon
 The files required to run the specified services can be found in their corresponding folders.
 
 The following diagram depicts the PetClinic application's recipe file and folder structure.
-<img src="/guide/2.1/images/setup/pet_clinic_anatomy3.JPG" />
+<img src="/guide/images/setup/pet_clinic_anatomy3.JPG" />
 
 h4(info). All the services in this application extend a corresponding recipe in ../../../services/ folder.      
 
@@ -159,7 +159,7 @@ For more information, see <span class="inlineExpandBtn" title="/guide/developing
 
 h3. The Lifecycle Scripts
 
-If you view any of the Groovy scripts in the tomcat recipe folder, and you will notice that they are essentially regular groovy scripts in which you can write any Groovy or Java code. The only difference is the use of the Cloudify API ("ServiceContext API":../developing/the_service_context_api). This API exposes the service runtime details to the script, so that a service can locate and use the details of another service within the same application. For example, in our PetClinic application we use the API to expose the port of the @mongod@ service instance to the all the other services in the PetClinic application.
+If you view any of the Groovy scripts in the tomcat recipe folder, and you will notice that they are essentially regular groovy scripts in which you can write any Groovy or Java code. The only difference is the use of the Cloudify API (<span class="inlineExpandBtn" title="/guide/developing/the_service_context_api">ServiceContext API</span>). This API exposes the service runtime details to the script, so that a service can locate and use the details of another service within the same application. For example, in our PetClinic application we use the API to expose the port of the @mongod@ service instance to the all the other services in the PetClinic application.
 
 For more information, see the following topics:
 * <span class="expandBtn" title="/guide/developing/lifecycle_events">Lifecycle Events</span>
@@ -247,7 +247,7 @@ In the lower pane, you can navigate between several views:
 * *Infrastructure view*--Lists the virtual hosts on which your application services are deployed.
 * *Services view*--Displays the individual service instances and correlates their various metrics.
 
-<img src="/guide/2.1/images/setup/petClinic_in_webui_screenShot2.jpg" width="630" height="300"/>
+<img src="/guide/images/setup/petClinic_in_webui_screenShot2.jpg" width="630" height="300"/>
 
 h1(#step6). Step 6 - Scale the Application
 
