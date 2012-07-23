@@ -1,64 +1,57 @@
 ---
 layout: default
-title: Using Probes For Monitoring
+title: Using Scripted Probes
 category: Plugins and Probes
 publish: true
-abstract: Describes the use of monitoring probes and plugins to monitor service status, performance and availability
+abstract: Describes the use of Scripted probes for monitoring service configuration, performance, and availability
 pageord: 100
-
 ---
-p. Describes the use of probes to monitor service configuration, performance and availability
+
+This topic describes the use of *Scripted* probes for monitoring service configuration, performance, and availability.
 
 h2. Introduction
 
-Cloudify provides the capability to monitor application services configuration as well as availability and performance using blocks of groovy called probes.
+Scripted probes are Groovy closures described in the "lifecycle":/guide/developing/lifecycle_events section of a service descriptor file that enable you to monitor service configuration, performance, and availability. They are designed to provide a simple mechanism for creating probes using code snippets.
 
-The probes are groovy closures in the recipe. The following sections describe the different available probes. The probes are placed within the life-cycle part of the recipe.
+h2. Monitoring using Configuration Probes
 
-h2. Monitoring Configuration with Details Probes
+Cloudify enables you to monitor service configuration metrics using different application and tier APIs such as JMX, JDBC, REST, CLI, etc. To implement them, simply add the relevant @details@ closure (a reserved closure name) returning a @Map@ of @String@ keys containing the metric attribute name and it's numeric value.
 
-Cloudify enables you to monitor configuration using different application and tier APIs such as JMX, JDBC, REST, CLI etc.
-
-All you need to do is implement the @details@ closure (which is the reserved closure name) returning a @Map@ of @String@ keys with the configuration attribute name and a numeric value.
-
-The following example demonstrates how to monitor JBoss attributes using a JMX probe
+The following example demonstrates how to monitor JBoss configuration attributes using a JMX probe.
 <script src="https://gist.github.com/1767179.js?file=details_probe.groovy"></script>
 
-h2. Monitoring Performance with Metrics Probes
+h2. Monitoring using Performance Probes
 
-Cloudify enables you to monitor metrics using different application and tier APIs such as JMX, JDBC, REST, CLI, or whatever monitoring methods you have available.
+Cloudify enables you to monitor performance metrics using different application and tier APIs such as JMX, JDBC, REST, CLI, etc. To implement them, simply add the relevant @monitors@ closure (a reserved closure name) returning a @Map@ of @String@ keys containing the metric attribute name and it's numeric value.
 
-All you need to do is implement the monitors closure returning a @Map@ of @String@ keys with the metric name and a numeric value.
-
-The following example demonstrates how to monitor Tomcat metrics using a JMX probe:
+The following example demonstrates how to monitor Tomcat performance metrics using a JMX probe.
 <script src="https://gist.github.com/1767183.js?file=monitoring_probe.groovy"></script>
 
-h2. Monitoring Availability with Start-up and Shutdown Detection Probes
+h2. Monitoring using Availability Probes
 
+Before Cloudify starts a service that is dependent on other services, it checks the availability of these services by using start detection (@startDetection@) probes to determine whether they are running. Similarly, to ensure SLAs are adhered to, Cloudify uses stop detection (@stopDetection@) probes to monitor whether services have crashed or hung, thus triggering the appropriate action.
 
-Cloudify needs to detect your service availability before installing dependent services. In similar manner, Cloudify needs to detect crashed tiers or hung tiers in order to maintain the service SLA.
+You can customize these probes, either at the platform or at the application level, to detect unresponsive components of your application or infrastructure.
 
-For these ends, Cloudify exposes the @startDetection@ and @stopDetection@ Probes.
+h3(#start). The Start Detection Probe
 
-You can implement both of them the way you want, either at the platform or even at the application level, to detect non-functional parts of your application or infrastructure.
+The @startDetection@ probe is a groovy closure that returns a boolean value, @true@ indicating that the service instance is running and hence deemed to be "started". The probe is invoked after the successful completion of the service's lifecycle @start@ event. If the probe fails to detect the running service instance, it periodically (@startDetectionIntervalSecs@, default: 1 second) retries until it times out (@startDetectionTimeoutSecs@, default: 90 seconds) as described in the service recipe. If all retries fail, the service instance is uninstalled.
 
-h4. The start detection probe
-
-The @startDetection@ is a groovy closure that returns a boolean value. It is invoked with several retries by the USM following the successful completion of the @start@ life-cycle event. If returns @true@ the service instance will be declared as running. If it failed during all retries, the service instance will be uninstalled.
-The following example checks if the service instance is listening on ports 3668 and 3667 as an indication to be up and running. Once this rule returns true, the service instance is consider "started".
-
+The following example demonstrates how to detect that a service instance is running by listening on ports 3667 and 3668.
 <script src="https://gist.github.com/1767188.js?file=start_probe.groovy"></script>
 
-The following example checkes whether a MySQL installation has a specific table in the application schema as an indication that the DB is ready for the application business logic.
-<script src="https://gist.github.com/1767229.js?file=sql_probe-example.groovy"></script>
+The following example demonstrates how to detect that a MySQL service instance is running by checking that a specific table exists in the application schema.
+<script src="https://gist.github.com/2835820.js"> </script>
 
-h4. The stop detection probe
+h3(#stop). The Stop Detection Probe
 
-The @stopDetection@ probe is invoked periodically after the service is declared running. It will check each service instance for being alive or even functional from application perspective (depending on the probe implementation). If the probe returns @true@ while checking the stop condition, the instance is declared dead and the USM attempts to restart it or to install a new instance.
+The @stopDetection@ probe is a groovy closure that returns a boolean value, @true@ indicating that the service instance is not running and hence deemed to be "stopped". The probe is invoked after the service instance is deemed to be "started". The probe is run periodically (every 5 seconds), and if it detects a stopped service instance, it attempts to restart it or to install a new instance.
 
-<h4 class="warn">It is important to note that Cloudify will invoke the @restart@ event if you implemented one and the @start@ event will only serve as a fallback. </h4>
+<h4 class="impt">When restarting a stopped service instance, Cloudify invokes the @stop@ event followed by the @start@ event as described in the service recipe.</h4>
 
-The following example checks if the service instance is listening on port 7777 as an indication to be up and running. Once this rule returns false, the service instance is consider "dead".
+The following example demonstrates how to detect that a service instance is not running by listening on port 7777.
+<script src="https://gist.github.com/2836172.js"> </script>
 
-<script src="https://gist.github.com/1767292.js?file=stop_detector.groovy"></script>
+h2. See Also
 
+* "Using Plugin probes":/guide/plugins_and_probes/develop_your_plugin
