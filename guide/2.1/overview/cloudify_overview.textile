@@ -8,53 +8,77 @@ pageord: 1
 ---
 
 <div id="pageTabs">
-	<ul>
-		<li><a href="#tabs-1">Nunc tincidunt</a></li>
-		<li><a href="#tabs-2">Proin dolor</a></li>
-		<li><a href="#tabs-3">Aenean lacinia</a></li>
-	</ul>
-	<div id="tabs-1">
-		<p>Proin elit arcu, rutrum commodo, vehicula tempus, commodo a, risus. Curabitur nec arcu. Donec sollicitudin mi sit amet mauris. Nam elementum quam ullamcorper ante. Etiam aliquet massa et lorem. Mauris dapibus lacus auctor risus. Aenean tempor ullamcorper leo. Vivamus sed magna quis ligula eleifend adipiscing. Duis orci. Aliquam sodales tortor vitae ipsum. Aliquam nulla. Duis aliquam molestie erat. Ut et mauris vel pede varius sollicitudin. Sed ut dolor nec orci tincidunt interdum. Phasellus ipsum. Nunc tristique tempus lectus.</p>
-	</div>
-	<div id="tabs-2">
-		<p>Morbi tincidunt, dui sit amet facilisis feugiat, odio metus gravida ante, ut pharetra massa metus id nunc. Duis scelerisque molestie turpis. Sed fringilla, massa eget luctus malesuada, metus eros molestie lectus, ut tempus eros massa ut dolor. Aenean aliquet fringilla sem. Suspendisse sed ligula in ligula suscipit aliquam. Praesent in eros vestibulum mi adipiscing adipiscing. Morbi facilisis. Curabitur ornare consequat nunc. Aenean vel metus. Ut posuere viverra nulla. Aliquam erat volutpat. Pellentesque convallis. Maecenas feugiat, tellus pellentesque pretium posuere, felis lorem euismod felis, eu ornare leo nisi vel felis. Mauris consectetur tortor et purus.</p>
-	</div>
-	<div id="tabs-3">
-		<p>Mauris eleifend est et turpis. Duis id erat. Suspendisse potenti. Aliquam vulputate, pede vel vehicula accumsan, mi neque rutrum erat, eu congue orci lorem eget lorem. Vestibulum non ante. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Fusce sodales. Quisque eu urna vel enim commodo pellentesque. Praesent eu risus hendrerit ligula tempus pretium. Curabitur lorem enim, pretium nec, feugiat nec, luctus a, lacus.</p>
-		<p>Duis cursus. Maecenas ligula eros, blandit nec, pharetra at, semper at, magna. Nullam ac lacus. Nulla facilisi. Praesent viverra justo vitae neque. Praesent blandit adipiscing velit. Suspendisse potenti. Donec mattis, pede vel pharetra blandit, magna ligula faucibus eros, id euismod lacus dolor eget odio. Nam scelerisque. Donec non libero sed nulla mattis commodo. Ut sagittis. Donec nisi lectus, feugiat porttitor, tempor ac, tempor vitae, pede. Aenean vehicula velit eu tellus interdum rutrum. Maecenas commodo. Pellentesque nec elit. Fusce in lacus. Vivamus a libero vitae lectus hendrerit hendrerit.</p>
-	</div>
-</div>
+<ul>
+	<li><a href="#choose">Choosing the Cloud</a></li>
+	<li><a href="#cloudify">Cloudify</a></li>
+	<li><a href="#architecture">Architecture</a></li>
+</ul>
+<div id="choose">
+Some of the main impetuses for moving to the cloud include:
+* *On-demand Availability & Scalability* -- Scale your application resources to efficiently consume what you need now
+* *Rapid Deployment & Agility* -- Reduce the time to deploy your application by utilizing an agile process for provisioning compute resources
+* *Cost-reduction* -- Realize the cost benefits of procuring cloud compute resources without the overhead of system administrators
 
-<div id="pageAccordion">
-	<h3><a href="#">Section 1</a></h3>
-	<div>
-		<p>Mauris mauris ante, blandit et, ultrices a, suscipit eget, quam. Integer ut neque. Vivamus nisi metus, molestie vel, gravida in, condimentum sit amet, nunc. Nam a nibh. Donec suscipit eros. Nam mi. Proin viverra leo ut odio. Curabitur malesuada. Vestibulum a velit eu ante scelerisque vulputate.</p>
-	</div>
-	<h3><a href="#">Section 2</a></h3>
-	<div>
-		<p>Sed non urna. Donec et ante. Phasellus eu ligula. Vestibulum sit amet purus. Vivamus hendrerit, dolor at aliquet laoreet, mauris turpis porttitor velit, faucibus interdum tellus libero ac justo. Vivamus non quam. In suscipit faucibus urna. </p>
-	</div>
-	<h3><a href="#">Section 3</a></h3>
-	<div>
-		<p>Nam enim risus, molestie et, porta ac, aliquam ac, risus. Quisque lobortis. Phasellus pellentesque purus in massa. Aenean in pede. Phasellus ac libero ac tellus pellentesque semper. Sed ac felis. Sed commodo, magna quis lacinia ornare, quam ante aliquam nisi, eu iaculis leo purus venenatis dui. </p>
-		<ul>
-			<li>List item one</li>
-			<li>List item two</li>
-			<li>List item three</li>
-		</ul>
-	</div>
-	<h3><a href="#">Section 4</a></h3>
-	<div>
-		<p>Cras dictum. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Aenean lacinia mauris vel est. </p><p>Suspendisse eu nisl. Nullam ut libero. Integer dignissim consequat lectus. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. </p>
-	</div>
+<br />
+And the objective is to realize these benefits without having to change your application or choice of stack, nor do you want to lose the ability to configure and fine-tune your application and its environment. However, using off-the-shelf clouds often requires you to compromise on one or more of the following objectives:
+<ul>
+	<li>*No Code Change* -- One of your primary objectives when moving to a cloud solution is to take your application and deploy it in the cloud without having to rewrite any of your code. This can be challenging enough if your application is not ready for an elastic, cloud-based deployment. It can be made significantly more difficult if the cloud's prepackaged images do not provide the versions of services on which your application depends, or may simply not provide the custom environment that your application requires.</li>
+	<li>*No Lock-in* -- Another important objective is to have the flexibility to change cloud providers if the need arises. Therefore, if you have to customize your application to work in a specific cloud, this can make it difficult to move to one of the many emerging solution providers due to the complexities of migrating to a new architecture.</li>
+	<li>*Full Control* -- And of course, you want to be in control of the environment in which your applications runs, to fine-tune, monitor, upgrade, and configure your resources in the cloud according to your needs, and not as dictated but by limiting environments that some clouds provide.</li>
+</ul>
+</div>
+<div id="cloudify">
+So, what is Cloudify? And how can it help you achieve your objectives?
+<br />
+In a nutshell, Cloudify is an enterprise-class open source PaaS stack that sits between your application and your chosen cloud. It enables your application to concentrate on doing what it does best, leaving Cloudify to ensure that the resources it needs are available regardless of the cloud and stack used. Cloudify is designed to achieve the following objectives:
+
+<table class="overviewtable">
+	<tr>
+		<td valign="top"><img src="../images/overview/any-stack.jpg"/></td>
+		<td valign="top">*Any App, Any Stack* -- Move your application to the cloud without making any code changes, regardless of the application stack (Java/Spring, Java EE, Ruby on Rails, ...), database store (relational such as MySQL or non-relational such as Apache Cassandra), or any other middleware components it uses.</td>
+	</tr>
+	<tr>
+		<td valign="top"><img src="../images/overview/any-cloud.jpg"/></td>
+		<td valign="top">*Any Cloud* -- Move your application to any cloud environment, from any environment, at any time. Cloudify supports public clouds (Amazon EC2, Windows Azure, Rackspace, ...) and private clouds (OpenStack, cloud.com, VMWare vCenter, Citrix XenServer, ...). Moreover, to support enterprises that want to deploy the same application in multiple environments (say, for cloud bursting), Cloudify's framework is designed to be flexible enough to handle any application stack, and yet on the other hand, isolate the application completely from the underlying cloud runtime. By hiding the APIs and configuration of a cloud from your application, your application can be easily moved from cloud to cloud.</td>
+	</tr>
+	<tr>
+		<td valign="top"><img src="../images/overview/full-control.jpg"/></td>
+		<td valign="top">*Full Control* -- Move your application confident in the knowledge that you are in full control of its environment. In many clouds, you lose at least some degree of control because the underlying infrastructure is not exposed to you, and hence you cannot monitor and fine-tune it as you are accustomed to doing with traditional data centers and applications. Because Cloudify does have access to the infrastructure, it provides a much greater level of control, but only if you actually want it. Otherwise, it hides their complexities using a set of predefined application blueprints and best practices, that users with less advanced requirements will typically find sufficient.</td>
+	</tr>
+</table>
+</div>
+<div id="architecture">
+In contrast to "(newwindow)DevOps":http://www.cloudifysource.org/2012/05/28/paas_does_it_really_mean_no_ops.html tools that simply assist in installing your applications, Cloudify provides a mechanism to manage the entire lifecycle of your application. Built on proven technology (our mission-critical high-performance elastic application platform "(newwindow)GigaSpace XAP":http://www.gigaspaces.com/wiki), Cloudify uses recipes to describe an application, its services and their interdependencies, how to monitor, self-heal, and scale the services, and its resources. As a result, deploying your application becomes a simple 3-step process:
+
+# Prepare your deployment
+#* Set up your cloud and describe your machine in the cloud driver
+#* Prepare the binaries
+#* Describe the application lifecycle and its services in the recipe
+# Deploy the services and application
+#* Provisions machine in your cloud using cloud drivers
+#* Downloads, installs, and configures your services
+#* Installs your application
+#* Configures your monitoring and scaling features
+# Monitor and manage the deployment using the Cloudify web management console or the Cloudify shell
+
+<img src="../images/overview/onboard.png" width="655px" />
+
+The following diagram shows the architecture that enables this simple process:
+<img src="../images/overview/architecture.png" width="655px" />
+
+Cloudify Universal Service Adapters are at the heart of architecture that makes Cloudify work. It is deployed to every Cloudify provisioned machine and translates recipes into actions (installation, service initialization, service monitoring, ...). What makes the adapter special is that it is service agnostic (Tomcat, MySQL, Cassandra, JBoss, Apache with mod_php, ...) and can therefore run any kind of service as long as the recipe is properly configured.
+<img src="../images/overview/universal-service-agents.png" title="Built-In Recipes" width="655px"/>
+
+Cloudify recipes are Groovy files that describe the execution plans for the lifecycle of the application (for installing, starting, orchestrating, and monitoring your application stack) and uses cloud drivers (that describe the machines and their images for your chosen cloud) for provisioning machines in your cloud.
+<img src="../images/overview/Built-in-recipes.png" title="Built-In Recipes" width="655px"/>
+
+</div>
 </div>
 
 <script type="text/javascript">
 	$(function() {
 		$('#pageTabs').tabs({event:'mouseover'});
-		$('#pageTabs a').css('border-bottom', 'none');
-		$('#pageAccordion').accordion({event:'mouseover'});
-		$('#pageAccordion a').css('border-bottom', 'none');
+		$('#pageTabs > ul > li > a').css('border-bottom', 'none');
 		
 		if ($.browser.mozilla) $('#pageContent .pageTitle').css('float', 'none');
 	});
