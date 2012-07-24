@@ -12,60 +12,43 @@ source ~/.bash_profile
 rvm requiremets
 rvm requirements
 rvm install 1.9.3
-
 rvm rubygems 1.8.17
-
 gem install Jekyll
-
 gem install jekyll_ext
-
 gem install top
 gem install RedCloth
-
 rvm 1.9.3 do gem install jekyll_ext
-
 cp /usr/local/rvm/gems/ruby-1.9.3-p125/gems/jekyll-0.11.2/lib/jekyll/converters/textile.rb /usr/local/rvm/gems/ruby-1.9.3-p125/gems/jekyll-0.11.2/lib/jekyll/converters/orig_textile.rb
 </pre></code>
 
 edit /usr/local/rvm/gems/ruby-1.9.3-p125/gems/jekyll-0.11.2/lib/jekyll/converters/textile.rb
-In line 25 , change  :
+In line 25 ,   :
 <pre><code>
-    def output_ext(ext(
+    def output_ext(ext)
       ".html"
     end
-</pre></code>
-<pre><code>
-to 
-
-    def output_ext(ext(
+/* change the above to  */
+    def output_ext(ext)
          ""
     end
 </pre></code>
-	
 <pre><code>
 cp /usr/local/rvm/gems/ruby-1.9.3-p125/gems/jekyll-0.11.2/bin/jekyll
 /usr/local/rvm/gems/ruby-1.9.3-p125/gems/jekyll-0.11.2/bin/orig_jekyll
 </pre></code>
-
 Change the following in 
 /usr/local/rvm/gems/ruby-1.9.3-p125/gems/jekyll-0.11.2/bin/jekyll
-Right after the following two lines ( lines 268-269 ):
-
+right after the following two lines ( lines 268-269 ):
 <pre><code>
   mime_types = WEBrick::HTTPUtils::DefaultMimeTypes
   mime_types.store 'js', 'application/javascript'
-</pre></code>  
-
-Add the following line: 
+/* Add the following line: */
 <pre><code>
   mime_types.store nil, 'text/html'  
 </pre></code> 
-
 stop your Jekyll server  
-
 <pre><code>
 cd YOUR_SITE_ROOTFOLDER
 rm –rf _site
 </pre></code>
-
 start your Jekyll server  
