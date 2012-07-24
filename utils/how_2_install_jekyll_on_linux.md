@@ -42,7 +42,6 @@ right after the following two lines (lines 268-269):
   mime_types = WEBrick::HTTPUtils::DefaultMimeTypes
   mime_types.store 'js', 'application/javascript'
 /* Add the following line: */
-<pre><code>
   mime_types.store nil, 'text/html'  
 </pre></code> 
 stop your Jekyll server  
