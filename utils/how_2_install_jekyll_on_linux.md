@@ -18,14 +18,15 @@ gem install top
 gem install RedCloth
 rvm 1.9.3 do gem install jekyll_ext
 cp /usr/local/rvm/gems/ruby-1.9.3-p125/gems/jekyll-0.11.2/lib/jekyll/converters/textile.rb /usr/local/rvm/gems/ruby-1.9.3-p125/gems/jekyll-0.11.2/lib/jekyll/converters/orig_textile.rb
+
 </pre></code>
 edit /usr/local/rvm/gems/ruby-1.9.3-p125/gems/jekyll-0.11.2/lib/jekyll/converters/textile.rb
-In line 25 ,   :
+In line 25 :
 <pre><code>
     def output_ext(ext)
       ".html"
     end
-<!-- change the above to the following  -->
+// change the above to the following  :
     def output_ext(ext)
          ""
     end
