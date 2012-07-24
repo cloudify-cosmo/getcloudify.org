@@ -1,9 +1,8 @@
 
-This document describes all you need to know in order install Jekyll on Linux
+Here is all you need to know in order install Jekyll on Linux
 --------------------------------------------------------------------------------
 
 Perform all the following as root : 
-
 <pre><code>
 yum install curl
 bash -s stable < <(curl -s https://raw.github.com/wayneeseguin/rvm/master/binscripts/rvm-installer)
@@ -20,14 +19,13 @@ gem install RedCloth
 rvm 1.9.3 do gem install jekyll_ext
 cp /usr/local/rvm/gems/ruby-1.9.3-p125/gems/jekyll-0.11.2/lib/jekyll/converters/textile.rb /usr/local/rvm/gems/ruby-1.9.3-p125/gems/jekyll-0.11.2/lib/jekyll/converters/orig_textile.rb
 </pre></code>
-
 edit /usr/local/rvm/gems/ruby-1.9.3-p125/gems/jekyll-0.11.2/lib/jekyll/converters/textile.rb
 In line 25 ,   :
 <pre><code>
     def output_ext(ext)
       ".html"
     end
-/* change the above to  */
+<!-- change the above to the following  -->
     def output_ext(ext)
          ""
     end
@@ -38,7 +36,7 @@ cp /usr/local/rvm/gems/ruby-1.9.3-p125/gems/jekyll-0.11.2/bin/jekyll
 </pre></code>
 Change the following in 
 /usr/local/rvm/gems/ruby-1.9.3-p125/gems/jekyll-0.11.2/bin/jekyll
-right after the following two lines ( lines 268-269 ):
+right after the following two lines (lines 268-269):
 <pre><code>
   mime_types = WEBrick::HTTPUtils::DefaultMimeTypes
   mime_types.store 'js', 'application/javascript'
