@@ -49,4 +49,5 @@ stop your Jekyll server
 cd YOUR_SITE_ROOTFOLDER
 rm –rf _site
 </pre></code>
+
 start your Jekyll server  
