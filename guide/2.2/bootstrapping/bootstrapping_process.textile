@@ -45,7 +45,7 @@ When the relevant cloud driver receives a request to bootstrap a cloud, it perfo
 # Connects to the allocated machine via SSH (*nix) or WinRM (Windows)
 # Installs and starts the Cloudify management components (Cloudify controller and the relevant cloud driver)
 
-!../2.2/images/bootstrapping/bootstrap_cloud.png!
+!../../images/bootstrapping/bootstrap_cloud.png!
 
 h3. Provisioning Machines for Application Services
 
@@ -55,7 +55,7 @@ When the Cloudify controller receives a request to install an application, it re
 # Installs and starts the Cloudify agent
 # Initiates the installation of the service using the relevant service installation script
 
-!../2.2/images/bootstrapping/install_app.png!
+!../../images/bootstrapping/install_app.png!
 
 h4(warn). When allocating a machine using the BYON cloud driver, if there aren't any machines available in the pool, the following error message is displayed: @Failed to create a new cloud node for template <your template name>, all available nodes are currently used@
 If this happens, the application installation does not revert, and the Cloudify controller continually retries until a machine becomes available.

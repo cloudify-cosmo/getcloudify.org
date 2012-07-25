@@ -26,19 +26,19 @@ Cloudify's mission statement can be stated as follows: to cloud-enable enterpris
 
 <table class="overviewtable">
     <tr>
-        <td><img src="../2.2/images/overview/any-stack.jpg"/></td>
+        <td><img src="../../images/overview/any-stack.jpg"/></td>
         <td>*Any app, any stack*: We wanted to provide a simple mechanism for deploying and managing
             applications on the cloud. But we also wanted it to be flexible enough to support any kind of application.
             In other words, we decided that our platform would support your application no matter what application stack you use (Java/Spring, Java EE, PHP, .NET, Ruby on Rails, or others), whether you are using a relational (e.g. MySQL) or non-relational (e.g. Apache Cassandra) data store, or whether you choose to add other middleware components. Regardless of your application set-up, you can use Cloudify to... Cloudify it!
         </td>
     </tr>
     <tr>
-        <td><img src="../2.2/images/overview/Any-cloud.jpg"/></td>
+        <td><img src="../../images/overview/Any-cloud.jpg"/></td>
         <td>*Any cloud*: Enterprises want the same kind of flexibility in their underlying cloud environment as they do with the application stack. Some are looking to use public clouds such as Amazon, Rackspace, and Azure, while others are focused on private clouds ranging from higher-level cloud platforms such as OpenStack and cloud.com, all the way down to plain virtualized environments such as VMWare vCenter and Citrix XenServer. Moreover, some enterprises have expressed the need to deploy the same application in multiple environments, say, for cloud bursting. This meant that we had to create a framework flexible enough to handle any application stack, yet on the other hand, isolate the application completely from the underlying cloud runtime, whatever it may be.
         </td>
     </tr>
     <tr>
-        <td><img src="../2.2/images/overview/Full-control.jpg"/></td>
+        <td><img src="../../images/overview/Full-control.jpg"/></td>
         <td>*Full control*: When deploying enterprise, mission-critical apps to the cloud using existing PaaS(Platform as a Service) solutions, you gain benefits in agility and productivity because the underlying OS and runtime are no longer the issue, but rather the application itself. But in many cases, you lose at least some degree of control because the underlying infrastructure is not exposed to you, and hence you cannot monitor and tune it as you are accustomed to doing with traditional data centers and applications. Because Cloudify does have access to those resources, it can provide a much greater level of control, but only if you actually want it. Otherwise, it hides their complexities using a set of predefined application blueprints and best practices, that users with less advanced requirements will typically find sufficient.
         </td>
     </tr>
@@ -51,7 +51,7 @@ For many years, "GigaSpaces XAP":http://www.gigaspaces.com/wiki (our end-to-end,
 To achieve this, we first enabled any type of middleware service (web containers, databases, messaging servers, or anything that can be installed and started with a script), and not just XAP's own application containers, to be managed and scaled within the same powerful runtime platform. Then, we opened XAP's runtime platform by creating several mechanisms that mediate between the provisioned service and the runtime environment, as follows:
 <table class="overviewtable">
     <tr>
-        <td><img src="../2.2/images/overview/recipe-config.png"/></td>
+        <td><img src="../../images/overview/recipe-config.png"/></td>
         <td>*Recipe-based configuration*: At the core of Cloudify stands a mechanism of application recipes. A recipe is a sort of "manual" that tells Cloudify all the details required to run an application:
 		* What middleware services it requires to run
 		* What the dependencies are between the services (e.g. a Tomcat-based web app might depend on a MySQL instance)
@@ -63,25 +63,25 @@ To achieve this, we first enabled any type of middleware service (web containers
     </tr>
     <tr>
         <td></td>
-        <td><img src="../2.2/images/overview/Built-in-recipes.jpg" title="Built-In Recipes"/></td>
+        <td><img src="../../images/overview/Built-in-recipes.jpg" title="Built-In Recipes"/></td>
     </tr>
     <tr>
         <td></td>
         <td><p align="center">*Figure 1. Built-In Recipes*</p></td>
     </tr>
     <tr>
-        <td><img src="../2.2/images/overview/usm.png"/></td>
+        <td><img src="../../images/overview/usm.png"/></td>
         <td>*Universal Service Adapter*: This component runs on every node and translates the recipe into actions on the local node (e.g. installation, service initialization, service monitoring). It can be considered as Cloudify's local delegate on each node. What is special about the Universal Service Adapter is that it doesn't "care" what service it manages (e.g. Tomcat, MySQL, Cassandra, JBoss, or even Apache with @mod_php@), as long as the recipe configures it correctly.
         </td>
     </tr>
     <tr>
-        <td><img src="../2.2/images/overview/Cluster-Aware-Monitoring.jpg"/></td>
+        <td><img src="../../images/overview/Cluster-Aware-Monitoring.jpg"/></td>
         <td>*Pluggable cluster-aware monitoring*: The monitoring framework was built as a set of plug-ins for common monitoring protocols (e.g. JMX, SNMP, JDBC/SQL). The Universal Service Adapter activates the plug-in locally on each service node, and then the plug-in connects to the local service and starts collecting metrics from it (for example, it might connect to a JMX bean in Tomcat and then collect metrics from that bean). These metrics are then communicated to the Cloudify runtime which uses them when making auto-scaling decision based on rules defined in the recipe, and exposes them to the user through the various user interfaces.
         </td>
     </tr>
     <tr>
         <td></td>
-        <td><img src="../2.2/images/overview/onboard.png"/></td>
+        <td><img src="../../images/overview/onboard.png"/></td>
     </tr>
     <tr>
         <td></td>
@@ -89,7 +89,7 @@ To achieve this, we first enabled any type of middleware service (web containers
     </tr>
     <tr>
         <td></td>
-        <td><img src="../2.2/images/overview/architecture.jpg"/></td>
+        <td><img src="../../images/overview/architecture.jpg"/></td>
     </tr>
     <tr>
         <td></td>
@@ -112,7 +112,7 @@ The issue of Cloud portability is often overlooked because in the quest for appl
 <table class="overviewtable">
     <tr>
         <td width="10%" valign="top">
-            <img src="../2.2/images/overview/no-lockin.jpg"/>
+            <img src="../../images/overview/no-lockin.jpg"/>
         </td>
         <td width="70%" valign="top">
             *Avoiding cloud vendor lock-in*: Enterprises often migrate from one cloud to another, or from a public to private cloud, because of service levels, pricing, and more. What works today might not work as well later. So, it is in your best interest to avoid being tied to a specific environment or vendor. But doesn't Cloudify actually lock you into Cloudify itself instead of to the cloud platform? To a certain degree, it does. However, by its nature, Cloudify is completely non-intrusive to the application code and thus the lock-in is much less risky for you; Cloudify simply automates and standardizes deployment steps that enterprises follow in any event, providing an overall benefit to operations instead of being a cost. The key is that Cloudify helps you keep your application cloud-neutral and untouched, and the bottom line is that your application that you have developed, invested in, and perfected, is what you care about most.
@@ -120,7 +120,7 @@ The issue of Cloud portability is often overlooked because in the quest for appl
     </tr>
     <tr>
         <td width="10%" valign="top">
-            <img src="../2.2/images/overview/Any-cloud.jpg"/>
+            <img src="../../images/overview/Any-cloud.jpg"/>
         </td>
         <td width="70%" valign="top">
             *Enabling Multi-Cloud Deployments*: Another important factor is the ability to mix and match on-premise and cloud environments, or availability zones of the same cloud environment as part of the same application. This can help you deal with a number of important scenarios:
@@ -151,14 +151,14 @@ h1. Key Features
 
 <table class="overviewtable" border="0">
     <tr>
-        <td width="5%"><img src="../2.2/images/overview/any-stack.jpg"/></td>
+        <td width="5%"><img src="../../images/overview/any-stack.jpg"/></td>
         <td width="30%" valign="top">
             *Any App, Any Stack*
             Deploy any middleware stack using a recipe based deployment mechanism
         </td>
         <td width="10%"></td>
         <td width="5%">
-            <img src="../2.2/images/overview/Automation-of-the-Entire-Lifecycle.jpg"/>
+            <img src="../../images/overview/Automation-of-the-Entire-Lifecycle.jpg"/>
         </td>
         <td width="30%" valign="top">
             *Automation of the Entire Lifecycle*
@@ -168,7 +168,7 @@ h1. Key Features
 
     <tr>
         <td>
-            <img src="../2.2/images/overview/Automatic-Self-hEALING.jpg"/>
+            <img src="../../images/overview/Automatic-Self-hEALING.jpg"/>
         </td>
         <td width="30%" valign="top">
             *Automatic Self-Healing*
@@ -176,7 +176,7 @@ h1. Key Features
         </td>
         <td width="10%"></td>
         <td>
-            <img src="../2.2/images/overview/Any-cloud.jpg"/>
+            <img src="../../images/overview/Any-cloud.jpg"/>
         </td>
         <td width="30%" valign="top">
             *Any Cloud*
@@ -185,7 +185,7 @@ h1. Key Features
     </tr>
     <tr>
         <td>
-            <img src="../2.2/images/overview/Auto-Scale.jpg"/>
+            <img src="../../images/overview/Auto-Scale.jpg"/>
         </td>
         <td width="30%" valign="top">
             *Auto-Scale, Your Way*
@@ -194,7 +194,7 @@ h1. Key Features
         <td width="10%"></td>
 
         <td>
-            <img src="../2.2/images/overview/Cluster-Aware-Monitoring.jpg"/>
+            <img src="../../images/overview/Cluster-Aware-Monitoring.jpg"/>
         </td>
         <td width="30%" valign="top">
             *Cluster-Aware Monitoring & Management*
@@ -207,7 +207,7 @@ h1. Key Features
 
         <td width="10%"></td>
         <td>
-            <img src="../2.2/images/overview/fullytestable.jpg"/>
+            <img src="../../images/overview/fullytestable.jpg"/>
         </td>
         <td width="30%" valign="top">
             *Fully Testable on Your Laptop*

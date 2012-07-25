@@ -28,21 +28,21 @@ There are two application events:
 * Application install - To install an application, at the Cloudify shell prompt, type: *@install-application@* @<applicationName>@. This command provisions the required application services, starts the services in order of dependencies, and then installs the application.
 * Application uninstall - To uninstall an application, at the Cloudify shell prompt, type: *@uninstall-application@* @<applicationName>@. This command stops and removes all of the application's services and Cloudify agents, and then terminates the machines on which the services ran.
 
-<img src="../2.2/images/recipes/app_lifecycle.png"/>
+<img src="../../images/recipes/app_lifecycle.png"/>
 
 h2(#service). Service Events
 
 Service events can be customized in the service recipe. They are triggered by the ESM. These events are useful for performing tasks just before service instances are provisioned, or after the last service instance is unprovisioned but just before the cluster is shut down. They can run on all or specific service instances.
 
 The following diagram shows the service events lifecycle.
-<img src="../2.2/images/recipes/srvc_lifecycle1.png"/>
+<img src="../../images/recipes/srvc_lifecycle1.png"/>
 
 h2(#instance). Service Instance Events
 
 Each service instance can be customized in the service recipe. They are triggered by the ESM.
 
 The following diagram shows the main service instance events lifecycle.
-<img src="../2.2/images/recipes/service_instance_lifecycle.png"/>
+<img src="../../images/recipes/service_instance_lifecycle.png"/>
 
 h2(#handler). Lifecycle Event Handlers
 
@@ -112,7 +112,7 @@ Non-JVM based executables cannot directly access the service context. However, s
 <li>USM_SERVICE_FILE_NAME</li></ul></h4>
 
 Lifecycle events use the USM(Universal Service Manager) to invoke external event handlers, as shown in the following diagram:
-<img src="../2.2/images/recipes/context_injection.png"/>
+<img src="../../images/recipes/context_injection.png"/>
 
 h3. Best Practices: Lifecycle Event Handlers
 
