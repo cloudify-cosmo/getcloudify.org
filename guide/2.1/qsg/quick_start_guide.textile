@@ -9,7 +9,7 @@ pageord: 100
 
 h1. Introduction
 
-The goal of this quick start guide is to familiarize you with Cloudify in a few simple steps. For this purpose, we will use the PetClinic application (an example application that is included in the Cloudify distribution file) to demonstrate the steps required to deploy an application on a local cloud. For a quick start guide to using Cloudify on EC2, see "10-Minute EC2 Quick Start Guide":/guide/qsg/quick_start_guide_ec2.
+The goal of this quick start guide is to familiarize you with Cloudify in a few simple steps. For this purpose, we will use the PetClinic application (an example application that is included in the Cloudify distribution file) to demonstrate the steps required to deploy an application on a local cloud. For a quick start guide to using Cloudify on EC2, see "10-Minute EC2 Quick Start Guide":../qsg/quick_start_guide_ec2.
 
 This guide teaches you how to:
 * "Install the Cloudify Shell":#step1
@@ -31,7 +31,7 @@ The application's environment is based on the following 2-tier architecture:
 | Web and Business Logic Tier | A Grails platform deployed on Apache Tomcat server |
 | Database Tier | A MongoDB server |
 
-h4(info#n1). The number of service instances can be easily configured by modifying the numInstances attribute in the relevant Cloudify recipe file (e.g. @<service-name>-service.groovy@). For an example, see the "10-Minute EC2 Quick Start Guide":/guide/qsg/quick_start_guide_ec2 that shows how to deploy the PetClinic application on Amazon EC2 using a sharded MongoDB data tier with multiple @mongod@ service instances.
+h4(info#n1). The number of service instances can be easily configured by modifying the numInstances attribute in the relevant Cloudify recipe file (e.g. @<service-name>-service.groovy@). For an example, see the "10-Minute EC2 Quick Start Guide":../qsg/quick_start_guide_ec2 that shows how to deploy the PetClinic application on Amazon EC2 using a sharded MongoDB data tier with multiple @mongod@ service instances.
 
 h4(impt). When you install MongoDB on Windows 7, you must run MongoDB with administrative credentials. For more information, see the "Installing Windows 7" section of the "Windows Service":http://www.mongodb.org/display/DOCS/Windows+Service page.
 
@@ -41,14 +41,14 @@ This step describes how to install the Cloudify shell on your local machine.
 
 h2. Prerequisites
 
-Before you install the Cloudify shell, make sure that your environment meets all the minimum requirements. For more information, see "Cloudify Prerequisites":/guide/setup/cloudify_prerequisites.
+Before you install the Cloudify shell, make sure that your environment meets all the minimum requirements. For more information, see "Cloudify Prerequisites":../setup/cloudify_prerequisites.
 
 h2. To install the Cloudify shell
 
 # Install @Java@ on your machine.
 # "Download(Click here to download the Cloudify zip file)":http://bit.ly/ztbg9u and unzip the Cloudify distribution file.
 # Go to the @<cloudify installation folder>/bin@ folder, and then run @cloudify.bat@ (Windows) or @cloudify.sh@ (Linux) depending on the operating system running on your machine.
-  <img src="/guide/2.1/images/setup/shell_start2.jpg" width="630" height="300" />
+  <img src="../../images/setup/shell_start2.jpg" width="630" height="300" />
 
 h1(#step2). Step 2 - Bootstrap on a Local Cloud
 
@@ -62,9 +62,9 @@ The installation progress is displayed for the following Cloudify components as 
 * *The REST gateway service*--The service that exposes a RESTful interface to the services provided by the management service.
 * *The Web management console service*--The service that provides a Web-based GUI to the Cloudify environment and allows you to easily monitor your applications.
 
-h4(info). To obtain a list of all the available commands, type @<tab>@, or to view help for a specific command, type @[cmd] --help@. Note that the Cloudify shell automatically connects to the REST service such that you do not have to run the *connect* command separately. For more information about Cloudify commands, see "Command Line Reference":/guide/setup/command_line_reference.
+h4(info). To obtain a list of all the available commands, type @<tab>@, or to view help for a specific command, type @[cmd] --help@. Note that the Cloudify shell automatically connects to the REST service such that you do not have to run the *connect* command separately. For more information about Cloudify commands, see "Command Line Reference":../setup/command_line_reference.
 
-<img src="/guide/2.1/images/setup/shell_boot3.jpg" width="630" height="300" />
+<img src="../../images/setup/shell_boot3.jpg" width="630" height="300" />
 
 Your local cloud is now ready for deploying the PetClinic application.
 
@@ -81,12 +81,12 @@ The files required to run the MongoDB and the Tomcat services are found in the c
 
 The following diagram depicts the application's recipe file and folder structure.
 
-<img src="/guide/2.1/images/setup/pet_clinic_anatomy4_211ga.jpg" />
+<img src="../../images/setup/pet_clinic_anatomy4_211ga.jpg" />
 
 h4(info). The *mongod* service extends the mongod service in ../../../services/mongodb/mongod and the 
       and the *tomcat* service extends the tomcat service in ../../../services/mongodb/tomcat and the 
 
-For more information about recipes, see "Anatomy of a Recipe":/guide/developing/recipes_overview
+For more information about recipes, see "Anatomy of a Recipe":../developing/recipes_overview
 
 h2. The Application Recipe
 
@@ -110,16 +110,16 @@ From the application descriptor file, we can learn the following information:
 
 h3. The Service Recipe
 
-Every service has its own mandatory service recipe based on a "recipe structure":/guide/developing/recipes_overview that is common to all of them.
+Every service has its own mandatory service recipe based on a "recipe structure":../developing/recipes_overview that is common to all of them.
 
 Each service folder contains all the information required by the service. The following is a list of the service recipe's files and folders:
 
 * A service descriptor file (@<service name>-service.groovy@) that consists of some or all the following sections:
-* *A prolog section*--This section describes the service name, type, number of required instances, and the icon to display for this service in the "Cloudify web management console":/guide/monitoring/the_web_management_console.
+* *A prolog section*--This section describes the service name, type, number of required instances, and the icon to display for this service in the "Cloudify web management console":../monitoring/the_web_management_console.
 * *A lifecycle section*--This is the most important section of the service descriptor file, which describes how to handle the service lifecycle events such as installation, startup, shut down, and uninstall. Each event is allocated a handler, which can be an external Groovy script, a shell script, or a batch file (depending on the operating system). The handlers must reside in the service folder.
 <h4 class="info">Cloudify can use the same recipe for different operating systems, as long as you specify the relevant instructions for each within the recipe, or the instructions are generic to all of them. The use of handler files is optional. For example, if a post-installation script is not specified in the service recipe, then Cloudify does not execute a handler after the service has been installed.</h4>
 * *A compute section*--This section specifies the template name to use when provisioning VMs.
-    The template name corresponds to a template name specified in the cloud driver, that defines a pool of machines that can be used when provisioning VMs. In this context, it refers to the hardware profiles available to provision VMs for service instances. A hardware profile maps to a specific hardware setup and image size (e.g. in Amazon EC2 it would map to the combination of the *hardware id* [@m1.small@, @c1.medium@, etc.] and an *ami id*). This allows for clear separation between the application recipe and the cloud environment on which it runs. For more information, see "Cloud Drivers":/guide/clouddrivers/cloud_driver.
+    The template name corresponds to a template name specified in the cloud driver, that defines a pool of machines that can be used when provisioning VMs. In this context, it refers to the hardware profiles available to provision VMs for service instances. A hardware profile maps to a specific hardware setup and image size (e.g. in Amazon EC2 it would map to the combination of the *hardware id* [@m1.small@, @c1.medium@, etc.] and an *ami id*). This allows for clear separation between the application recipe and the cloud environment on which it runs. For more information, see "Cloud Drivers":../clouddrivers/cloud_driver.
 * *A custom commands section*--This sections defines custom commands that you can be invoked via the Cloudify shell.
 * *A plugins section*--This section defined plugins that Cloudify can use to perform the following tasks:
 ** Verify that a service has started correctly--For example, the plugin might probe the service for its runtime details, request and expect a specific response from a specified URL, check a specified port, etc.
@@ -131,15 +131,15 @@ For example, the @<service name&>_install.groovy@ script will typically run duri
 <h4 class="info">You can specify any preferred name for lifecycle handlers, as long as you specify their exact names in the corresponding service file.</h4>
 
 * An optional folder called @usmlib@ which must contain all the jar files of your custom plugins.
-Cloudify is distributed with "built-in plugins":/guide/plugins_and_probes/develop_your_plugin that you can configure as required. However, you can also develop your own monitoring plugins and add them to the recipe in this folder. For example, in the PetClinic application we used the Cloudify Mongo Plugin "cloudify-mongo-plugin.jar":http://www.gigaspaces.com/wiki/download/attachments/55935974/CloudifyMongoPlugins_sources2_0.zip to retrieve details from the @mongod@ service, and to detect port liveness.
+Cloudify is distributed with "built-in plugins":../plugins_and_probes/develop_your_plugin that you can configure as required. However, you can also develop your own monitoring plugins and add them to the recipe in this folder. For example, in the PetClinic application we used the Cloudify Mongo Plugin "cloudify-mongo-plugin.jar":http://www.gigaspaces.com/wiki/download/attachments/55935974/CloudifyMongoPlugins_sources2_0.zip to retrieve details from the @mongod@ service, and to detect port liveness.
 
-For more information, see "The Service Recipe":/guide/developing/service_recipe.
+For more information, see "The Service Recipe":../developing/service_recipe.
 
 h3. The Lifecycle Scripts
 
 If you view any of the Groovy scripts in the tomcat recipe folder, and you will notice that they are essentially regular groovy scripts in which you can write any Groovy or Java code. The only difference is use of the Cloudify API ("ServiceContext API":../developing/the_service_context_api). This API exposes the service runtime details to the script, so that a service can locate and use the details of another service within the same application. For example, in the PetClinic application we use the API to expose the port of the @mongod@ service instance to the all the other services in the PetClinic application.
 
-For more information, see "Lifecycle Events":/guide/developing/lifecycle_events.
+For more information, see "Lifecycle Events":../developing/lifecycle_events.
 
 h3. Getting the Service Binaries
 
@@ -195,7 +195,7 @@ To test the application, try adding a few owners and pets, and then search for t
 
 h1(#step5). Step 5 - Monitor the Application
 
-To monitor the application,  open a web browser (supported browsers include the latest versions of Firefox or Chrome, but not Internet Explorer which it is not fully supported at this time), and then browse to the "Web Management Console":/guide/monitoring/the_web_management_console. Once the page is loaded, simply login anonymously without specifying a username or password.
+To monitor the application,  open a web browser (supported browsers include the latest versions of Firefox or Chrome, but not Internet Explorer which it is not fully supported at this time), and then browse to the "Web Management Console":../monitoring/the_web_management_console. Once the page is loaded, simply login anonymously without specifying a username or password.
 
 h4(info). You can find the exact URL displayed in the Cloudify shell when bootstrapping the local cloud. The default URL is "http://localhost:8099":http://localhost:8099.  
 
@@ -209,7 +209,7 @@ In the lower pane, you can navigate between several views:
 * *Infrastructure view*--Lists the virtual hosts on which your application services are deployed.
 * *Services view*--Displays the individual service instances and correlates their various metrics.
 
-<img src="/guide/2.1/images/setup/petClinic_in_webui_screenShot4.jpg" width="630" height="300"/>
+<img src="../../images/setup/petClinic_in_webui_screenShot4.jpg" width="630" height="300"/>
 
 h1(#step6). Step 6 - Scale the Application
 
@@ -238,7 +238,7 @@ Cloudify enables each service to define one scaling rule for deciding if the ser
 Here's a snippet of a tomcat service file : 
 <script src="https://gist.github.com/2580529.js?file=mini_tomcat_auto_scaling.groovy"></script>
 
-If you want to read more about Scaling rules, click "here":/guide/developing/scaling_rules.
+If you want to read more about Scaling rules, click "here":../developing/scaling_rules.
 
 
 h1(#step7). Step 7 - Uninstall the Application
@@ -253,9 +253,9 @@ To shut down the local cloud installation, at the Cloudify shell prompt, type: *
 
 h1. What's Next?
 
-* Install the extended PetClinic Application on "EC2":/guide/qsg/quick_start_guide_ec2.
-* Learn more about "recipe development":/guide/developing/recipes_overview.
-* Learn more about cloud portability and "cloud drivers":/guide/clouddrivers/cloud_driver.
-* Learn how to "develop a monitoring plugin":/guide/plugins_and_probes/develop_your_plugin.
-* Learn more about monitoring your application with the "Cloudify Web Management Console":/guide/monitoring/the_web_management_console.
+* Install the extended PetClinic Application on "EC2":../qsg/quick_start_guide_ec2.
+* Learn more about "recipe development":../developing/recipes_overview.
+* Learn more about cloud portability and "cloud drivers":../clouddrivers/cloud_driver.
+* Learn how to "develop a monitoring plugin":../plugins_and_probes/develop_your_plugin.
+* Learn more about monitoring your application with the "Cloudify Web Management Console":../monitoring/the_web_management_console.
 <!-- version 2.1.1-ga -->

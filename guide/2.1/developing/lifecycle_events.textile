@@ -28,21 +28,21 @@ There are two application events:
 * Application install - To install an application, at the Cloudify shell prompt, type: *@install-application@* @<applicationName>@. This command provisions the required application services, starts the services in order of dependencies, and then installs the application.
 * Application uninstall - To uninstall an application, at the Cloudify shell prompt, type: *@uninstall-application@* @<applicationName>@. This command stops and removes all of the application's services and Cloudify agents, and then terminates the machines on which the services ran.
 
-<img src="/guide/2.1/images/recipes/app_lifecycle.png"/>
+<img src="../../images/recipes/app_lifecycle.png"/>
 
 h2(#service). Service Events
 
 Service events can be customized in the service recipe. They are triggered by the ESM. These events are useful for performing tasks just before service instances are provisioned, or after the last service instance is unprovisioned but just before the cluster is shut down. They can run on all or specific service instances.
 
 The following diagram shows the service events lifecycle.
-<img src="/guide/2.1/images/recipes/srvc_lifecycle1.png"/>
+<img src="../../images/recipes/srvc_lifecycle1.png"/>
 
 h2(#instance). Service Instance Events
 
 Each service instance can be customized in the service recipe. They are triggered by the ESM.
 
 The following diagram shows the main service instance events lifecycle.
-<img src="/guide/2.1/images/recipes/service_instance_lifecycle.png"/>
+<img src="../../images/recipes/service_instance_lifecycle.png"/>
 
 h2(#handler). Lifecycle Event Handlers
 
@@ -90,7 +90,7 @@ The folowing example shows a @locator@ closure in a service recipe.
 
 h3. Retrieving the Service Context from within Event Handlers
 
-The service context can be retrieved from within event handler scripts or closures using the "Service Context API":/guide/developing/the_service_context_api. The following example shows how to use @ServiceContextFactory@ to retrieve an instance of the service context in a Groovy event handler script:
+The service context can be retrieved from within event handler scripts or closures using the "Service Context API":../developing/the_service_context_api. The following example shows how to use @ServiceContextFactory@ to retrieve an instance of the service context in a Groovy event handler script:
 <script src="https://gist.github.com/1700385.js?file=getServiceContext.groovy"></script>
 
 h4(warn). You can only use the @ServiceContextFactory@ from within an external Groovy file, and not from within the service descriptor file.
@@ -112,7 +112,7 @@ Non-JVM based executables cannot directly access the service context. However, s
 <li>USM_SERVICE_FILE_NAME</li></ul></h4>
 
 Lifecycle events use the USM(Universal Service Manager) to invoke external event handlers, as shown in the following diagram:
-<img src="/guide/2.1/images/recipes/context_injection.png"/>
+<img src="../../images/recipes/context_injection.png"/>
 
 h3. Best Practices: Lifecycle Event Handlers
 

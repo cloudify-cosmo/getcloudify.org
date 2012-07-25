@@ -20,7 +20,7 @@ Ideally, the process you are running already comes with the required scripts to 
 
 h3. What is a recipe
 
-A recipe is basically a list of instructions that the USM will execute when required. It is intended as a tool that can be used by someone with little or no development experience, but with a background in operations. More details are available in "Developing Recipes":/guide/developing/recipes_overview.
+A recipe is basically a list of instructions that the USM will execute when required. It is intended as a tool that can be used by someone with little or no development experience, but with a background in operations. More details are available in "Developing Recipes":../developing/recipes_overview.
 
 h1. USM Lifecycle
 
@@ -158,7 +158,7 @@ h3. Implementing events and other integration points
 The USM relies heavily on spring based dependency injection. All user-controlled events and integration points are implemented as POJOs that implement one or more of the USM interfaces. For example, the 'init' event is handled by a POJO that implements the _org.openspaces.usm.events.InitListener_ interface. During the USM start-up, it loads the DSL file and uses the settings defined there to create a set of POJOs which implements the behavior described in the recipe.
 
 This diagram shows all of the available interfaces: 
-<img src="/guide/2.2/images/usm/USM_Interfaces.JPG" width="630" height="130" />
+<img src="../2.2/images/usm/USM_Interfaces.JPG" width="630" height="130" />
 
 h3. Processing Unit Structure
 

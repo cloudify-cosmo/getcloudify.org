@@ -45,7 +45,7 @@ When the relevant cloud driver receives a request to bootstrap a cloud, it perfo
 # Connects to the allocated machine via SSH (*nix) or WinRM (Windows)
 # Installs and starts the Cloudify management components (Cloudify controller and the relevant cloud driver)
 
-!/guide/2.2/images/bootstrapping/bootstrap_cloud.png!
+!../2.2/images/bootstrapping/bootstrap_cloud.png!
 
 h3. Provisioning Machines for Application Services
 
@@ -55,7 +55,7 @@ When the Cloudify controller receives a request to install an application, it re
 # Installs and starts the Cloudify agent
 # Initiates the installation of the service using the relevant service installation script
 
-!/guide/2.2/images/bootstrapping/install_app.png!
+!../2.2/images/bootstrapping/install_app.png!
 
 h4(warn). When allocating a machine using the BYON cloud driver, if there aren't any machines available in the pool, the following error message is displayed: @Failed to create a new cloud node for template <your template name>, all available nodes are currently used@
 If this happens, the application installation does not revert, and the Cloudify controller continually retries until a machine becomes available.
@@ -75,18 +75,18 @@ The following table is a list of the prerequisites for bootstrapping your Cloudi
 |^. Operating System Specific Requirements |^. <ul><li>Windows file sharing enabled on port 445 (CIFS)</li><li>WinRM enabled on port 5985<h4 class="info">To enable WinRM on your machine before bootstrapping a cloud, at the PowerShell prompt with administrative credentials, type the following commands:<ul><li>*@set-item@* @WSMan:\localhost\Client\TrustedHosts -Value * -Force@</li><li>*@set-item@* @WSMan:\localhost\Shell\MaxMemoryPerShellMB -Value 0 -Force@</li><li>Enable-PSRemoting</li><li>	Set-ExecutionPolicy unrestricted</li></ul></h4><h4 class="impt">Setting TrustedHosts to '*' has security implications. Please consult with your IT department before running this command.</h4></li><li>Windows PowerShell installed and included in the system path on the client machine (the machine where Cloudify shell is installed and runs the *@bootstrap-cloud@* command) and management machines.  (Exists by default on Windows 7 and Windiws Server 2008)</li></ul><h4 class="impt">Cloudify uses PowerShell to run commands on remote machines. Therefore, you must use a client machine running Windows to bootstrap a machine running Windows; however, a client machine running Windows can bootstrap a machine runnnig *nix.</h4> |^. <ul><li>"(newwindow)wget":https://www.gnu.org/software/wget/</li><li>"(newwindow)sed unix command":http://linux.about.com/od/commands/l/blcmdl1_sed.htm</li><li>unzip</li><li>"(newwindow)SSH":http://linux.about.com/od/commands/l/blcmdl1_ssh.htm daemon must be started and running port 22</li></ul> |
 
 Additionally, different cloud environments have their own specific configuration prerequisites. The following is a list of prerequisites you may need to configure for your cloud environment:
-* "Cloud driver files":/guide/clouddrivers/cloud_driver--Describes templates and aliases that can be referenced by and associated with different recipes. Each template defines the pool of available machines.
+* "Cloud driver files":../clouddrivers/cloud_driver--Describes templates and aliases that can be referenced by and associated with different recipes. Each template defines the pool of available machines.
 * Bootstrap management script
 * Network shares
 * The Cloudify distrubtion file location when its saved locally
 * The cloud environment via its management console (credentials, certificates, ...)
 
-For information about how to configure specific cloud environments, see "Next Steps":/guide/bootstrapping.
+For information about how to configure specific cloud environments, see "Next Steps":../bootstrapping.
 
 h2(#boot). Bootstrapping
 
 The following procedure describes the steps for bootstrapping a cloud and an application:
-# Start the Cloudify shell--For information about running the Cloudify shell, see "Installing the Cloudify Shell":/guide/setup/installing_the_cloudify_client.
+# Start the Cloudify shell--For information about running the Cloudify shell, see "Installing the Cloudify Shell":../setup/installing_the_cloudify_client.
 # Start the bootstrapping process for provisioning machines for Cloudify management--At the Cloudify shell prompt, type the relevant command to bootstrap your cloud. For example, to provision a local cloud, type: *@bootstrap-localcloud@*. The commands for specific cloud environments are provided in their relevant topics.
   <h4 class="info">Once the command completes, the URL of the Cloudify web management console and the Cloudify contoller's REST endpoint are display in the shell. Also, the shell automatically connects to the controller as part of the bootstrap process, so you don't have to explicitly type the @connect@ command.</h4>
 # Start the bootstrapping process for provisioning machines for application services--At the Cloudify shell prompt, type the relevant command for installing your application. For example, to install the PetClinic application, type: *@install-application@* @-timeout 10 <cloudify root>/examples/petclinic-simple@.
@@ -94,15 +94,15 @@ The following procedure describes the steps for bootstrapping a cloud and an app
 h2(#next). What's Next?
 
 For information about how to configure specific cloud environments, see the relevant topic from the following list:
-* "Configuring a Local Cloud":/guide/setup/post_installation_configuration
-* "Configuring Azure":/guide/setup/configuring_azure
-* "Configuring EC2":/guide/setup/configuring_ec2
-* "Configuring OpenStack":/guide/setup/configuring_openstack
-* "Configuring a Traditional Data Center [BYON]":/guide/setup/configuring_byon
+* "Configuring a Local Cloud":../setup/post_installation_configuration
+* "Configuring Azure":../setup/configuring_azure
+* "Configuring EC2":../setup/configuring_ec2
+* "Configuring OpenStack":../setup/configuring_openstack
+* "Configuring a Traditional Data Center [BYON]":../setup/configuring_byon
 
 For information about how to bootstrap specific cloud environments, see the relevant topic from the following list:
-* "Bootstrapping a Local Cloud":/guide/bootstrapping/bootstrapping_localcloud
-* "Bootstrapping Azure":/guide/bootstrapping/bootstrapping_azure
-* "Bootstrapping EC2":/guide/bootstrapping/bootstrapping_ec2
-* "Bootstrapping OpenStack":/guide/bootstrapping/bootstrapping_hp
-* "Bootstrapping a Traditional Data Center [BYON]":/guide/bootstrapping/bootstrapping_byon
+* "Bootstrapping a Local Cloud":../bootstrapping/bootstrapping_localcloud
+* "Bootstrapping Azure":../bootstrapping/bootstrapping_azure
+* "Bootstrapping EC2":../bootstrapping/bootstrapping_ec2
+* "Bootstrapping OpenStack":../bootstrapping/bootstrapping_hp
+* "Bootstrapping a Traditional Data Center [BYON]":../bootstrapping/bootstrapping_byon

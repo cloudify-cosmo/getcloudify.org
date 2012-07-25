@@ -16,7 +16,7 @@ h2. Prerequisites
 * A "Windows Azure":http://www.microsoft.com/windowsazure/free-trial/ account
 * "Silverlight-enabled(Download Silverlight)":http://www.microsoft.com/getsilverlight/ web browser (required by Azure Management Portal)
 * "Java Development Kit 1.6(Download JDK)":http://www.oracle.com/technetwork/java/javase/downloads/index.html
-* Cloudify shell (for information about installing the Cloudify shell, see "Installing the Cloudify Shell":/guide/setup/installing_the_cloudify_client)
+* Cloudify shell (for information about installing the Cloudify shell, see "Installing the Cloudify Shell":../setup/installing_the_cloudify_client)
 
 For information about Windows Azure terminology, see "Windows Azure Glossary":http://msdn.microsoft.com/en-us/library/windowsazure/gg433095.aspx.
 
@@ -36,7 +36,7 @@ h4(info). PFX files contain both the private and the public keys, whilst CERT fi
 
 *Management API (REST) X509 Certificates*
 Management certificates are used to authenticate the REST API client (for example, when running a scaling-out command). For the authentication to occur, the public key (*CERT* file) must be uploaded to the "Management Certificates" section of your Azure Management Portal, and the private key (*PFX* file) must be installed in the client machine's local certificate store.
-<img src="../images/azure/certificates1.png"/>
+<img src="../../images/azure/certificates1.png"/>
 
 h2. Configuring Windows Azure
 
@@ -51,13 +51,13 @@ h3(#config1). Configuring the Azure properties file
 # Login to your "Azure Management Portal":http://windows.azure.com.
 <h4 class="info">If the *Isolated Storage Quota* dialog box opens, click *Change Quota* to allow Windows Azure's Silverlight application to use your local disk for temporary storage.</h4>
 # On the views pane, click *Hosted Services, Storage Accounts & CDN*.
-<img src="../images/azure/config1.png"/>
+<img src="../../images/azure/config1.png"/>
 # On the navigation pane, click *Hosted Services*.
-<img src="../images/azure/config2.png"/>
+<img src="../../images/azure/config2.png"/>
 # Select the Azure *Subscription* row.
-<img src="../images/azure/config3.png"/>
+<img src="../../images/azure/config3.png"/>
 # From the *Properties* pane, copy the *Subscription ID* value.
-<img src="../images/azure/config3b.png"/>
+<img src="../../images/azure/config3b.png"/>
 # Edit the @azure.properties@ file located in @<cloudify root>\tools\cli\plugins\azure\@, find the *subscriptionId* property, and then paste the copied *Subscription ID* value.
 <h4 class="info">In the azure.properties file included in the Cloudify distribution file, the @cspackFolder@ property defines the path to the Windows Azure SDK. If the path is not correct for your installation, then specify the correct path.</h4>
 
@@ -95,13 +95,13 @@ This section describes how to configure the management certificates that are req
 # Upload the management certificate
 ## Login to your "Azure Management Portal":http://windows.azure.com.
 ## On the views pane, click *Hosted Services, Storage Accounts & CDN*.
-<img src="../images/azure/config7.png"/>
+<img src="../../images/azure/config7.png"/>
 ## On the navigation pane, click *Management Certificates*.
-<img src="../images/azure/config8.png"/>
+<img src="../../images/azure/config8.png"/>
 ## Click *Add Certificate*.
-<img src="../images/azure/config9.png"/>
+<img src="../../images/azure/config9.png"/>
 ## Browse to the @azure_api.cer@ file, and then click *OK*.
-<img src="../images/azure/config10.png"/>
+<img src="../../images/azure/config10.png"/>
 
 h3(#config4). Update the Blob Storage details
 
@@ -109,13 +109,13 @@ This section describes how to configure the blob storage that is used for storin
 
 # Login to your "Azure Management Portal":http://windows.azure.com.
 # On the views pane, click *Hosted Services, Storage Accounts & CDN*.
-<img src="../images/azure/config7.png"/>
+<img src="../../images/azure/config7.png"/>
 # On the navigation pane, click *Storage Accounts*.
 <h4 class="info">If necessary, create a new storage account.</h4>
 # Copy the *Storage Account Name* value, edit the @azure.properties@ file, find the *storageAccount* property, and then paste the copied *Storage Account Name* value.
 # Click *View Access Key*, copy the *Primary Access Key* value, edit the @azure.properties@ file, find the *storageAccessKey* property, and then paste the copied *View Access Key* value.
-<img src="../images/azure/blobstorage_accesskeys.png"/>
+<img src="../../images/azure/blobstorage_accesskeys.png"/>
 
 h2. What's Next?
 
-"Bootstrapping Azure":/guide/bootstrapping/bootstrapping_azure
+"Bootstrapping Azure":../bootstrapping/bootstrapping_azure
