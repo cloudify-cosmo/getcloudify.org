@@ -140,10 +140,8 @@ var guide = {
 			'faq':true
 		},
 		'integrations':{
-			'chef':{
-				'chef_documentation':true,
-				'chef_getting_started':true
-			},
+			'chef_documentation':true,
+			'chef_getting_started':true
 		},
 		'monitoring':{
 			'monitoring_app_post_deploy':true,

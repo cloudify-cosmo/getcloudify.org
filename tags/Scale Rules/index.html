@@ -3,10 +3,10 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
 	<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>	
-	<title>Cloudify - Cloud integration and DevOps automation experience shared</title>
+	<title>Cloudify - Tag: Scale Rules</title>
 	<script src="//cdn.optimizely.com/js/59503762.js"></script>
 	<link rel="stylesheet" href="/css/template.css" type="text/css"/>	
-	<link rel="canonical" href="http://www.cloudifysource.org/2012/05/13/cloud_integration_and_devops_automation.html"/>	
+	<link rel="canonical" href="http://www.cloudifysource.orgtags/Scale Rules/index.html"/>	
 	<link rel="stylesheet" href="/css/jquery-ui-1.8.17.custom.css" type="text/css" media="all"/>
 	<link rel="stylesheet" type="text/css" href="/scripts/prettify/prettify.css">	
 	<link rel="shortcut icon" href="/favicon.ico" type="image/x-icon" />
@@ -95,7 +95,7 @@
 </script> 
 </head>
 <body>
-<a class="fork-guide" target="_blank" href="https://github.com/CloudifySource/cloudify"></a>
+<a class="fork-guide" target="_blank" href="https://github.com/CloudifySource/cloudify"></a>	
 <div class="WrapperBg">    
     <div class="Wrapper">
         <div class="header">
@@ -133,7 +133,7 @@
 </div>
 <div class="clear"></div>
         <div class="contentWrap">            
-			<div class="breadcrumbs">Home Page > Cloudify Blogs > Cloud integration and DevOps automation experience shared</div>
+			<div class="breadcrumbs">Home Page > Cloudify Blogs > Tag: Scale Rules</div>
             <div class="clear"></div>
 
             <!--Search-->
@@ -159,9 +159,10 @@
 
 
 
-			
+
+
             <div class="content">
-                <div id="alTag_LeftBlog" class="left">
+                <div class="left" id="alTag_LeftBlog">
                     
                     <!--Event groups-->
 
@@ -602,43 +603,115 @@
 
                 <div id="resultsDiv" class="DocumentsWrap"></div>
                 <div id="pageContent" class="DocumentsWrapRight">
-                    <h1 class="pageTitle">Cloud integration and DevOps automation experience shared</h1>
-					 
-					  <span class="blogPostInfo">Posted By: <a href="#">Dotan Horovits</a>  on May 13, 2012  
-					  </span>
-					  <br/><br/><br/>
-					 
-                    <div class="post-117 post type-post status-publish format-standard hentry category-cloud category-devops category-iaas category-paas tag-apache tag-cloudify tag-ec2 tag-jclouds tag-jersey tag-jsch tag-openstack tag-rackspace tag-rest tag-vfs" id="post-117">
-<p><h1 class="entry-title">Cloud integration and DevOps automation experience&nbsp;shared</h1></p>
-<div class="entry entry-content">
-						<p>The Cloud carries the message of automation to system architecture. The ability to spin up VMs on demand and take them down when no longer needed as per the applications&#8217; real-time requirements and metrics is the key for making the system truely elastic, scalable and self-healing. When using external IaaS providers, this also saves the hassle of managing the IT aspects of the on-demand infrastructure.</p>
-<p>But with potential of automation comes the challenge of integrating with the cloud provider (or providers) and automating the management of the VMs, dealing with DevOps aspects such as accessing the VM, transferring contents to it, performing installations, running and stopping processes on it, coordinating between the services, etc. On this post I&#8217;d like to share with you some of my experience integrating with IaaS cloud providers, as part of my work with customers using the open source <a href="http://www.cloudifysource.org" title="cloudifysource.org">Cloudify</a> PaaS product. Cloudify provides out-of-the-box integration with many popular cloud providers, such as&nbsp;<a href="http://aws.amazon.com/" oncontextmenu="mugicRightClick(this);" onclick="return mugicPopWin(this,event);">Amazon EC2</a>&nbsp;and&nbsp;<a href="http://www.rackspace.com/">The Rackspace Cloud</a>,&nbsp;as well as integration with the popular&nbsp;<a href="http://www.jclouds.org/">jclouds</a>&nbsp;framework and <a href="http://openstack.org/" title="openstack.org">OpenStack</a>&nbsp;open&nbsp;standard. But when encountering an emerging cloud provider or standard, you just need to pull up your sleeves and write your own integration. As a best practice, I use Java for the cloud integration and try to leverage on well-proven and community-backed open source projects wherever possible. Let&#8217;s see how I did it.</p>
-<p>First we need to integrate with the IaaS <span class="caps">API</span> to enable automation of resource allocation and deallocation.&nbsp;The main integration point is called a <a href="http://www.cloudifysource.org/guide/2.1/clouddrivers/cloud_driver.html">Cloud Driver</a>, which is basically a Java class that adheres to a <a href="http://www.cloudifysource.org/guide/2.1/clouddrivers/developing_custom_clouddriver.html" title="Developing a custom cloud driver">simple <span class="caps">API</span></a> for accessing the cloud for resources. Various clouds expose various APIs for accessing them. Programmatic access is native and easy to implement from the Cloud Driver code. <span class="caps">REST</span> <span class="caps">API</span> is also quite popular, in which cases I found the <a href="http://jersey.java.net/" title="Apache Jersey">Apache Jersey</a> client open source library quite convenient for implementing a <a href="http://www.mkyong.com/webservices/jax-rs/restful-java-client-with-jersey-client/">RESTful client</a>. Jersey is based on <a href="http://docs.oracle.com/javaee/6/tutorial/doc/giepu.html" title="Building RESTful Web Services with JAX-RS"><span class="caps">JAX</span>-RS</a> Java community standard, and offers easy handling of various flavors of calls, cookie handling, policy governance, etc.&nbsp;Cloudify offers a convenient&nbsp;<a href="https://gist.github.com/1770098" title="DSL example">Groovy-based <span class="caps">DSL</span></a>&nbsp;that enables you to configure the cloud provider&#8217;s parameters and properties in a declarative and easy-to-read manner, and takes care of the wiring for you. When writing your custom cloud driver you should make sure to sample and use the values from the Groovy (you can add custom properties as needed), so after the cloud driver is ready for a given cloud provider, you can use it in any deployment by simply setting the configuration.&nbsp;I used the source code of the cloud drivers on CloudifySource public&nbsp;<a href="https://github.com/CloudifySource/cloudify">GitHub repository</a>, as a great source of reference for writing my cloud driver.</p>
-<p>The next DevOps aspect of the integration is accessing the VMs and managing them. Linux/Unix VMs are accessed via <span class="caps">SSH</span> for executing scripts, and uses <span class="caps">SFTP</span> for file transfer. For generic file transfer layer there&#8217;s the&nbsp;<a href="http://commons.apache.org/vfs/" title="Apache VFS">Apache Commons VFS2</a> (Virtual File System), which offers a&nbsp;uniform view of the files from various different sources (local FS, remote over <span class="caps">HTTP</span>, etc.). For remote command execution over <span class="caps">SSH</span> there&#8217;s <a href="http://www.jcraft.com/jsch/">JCraft&#8217;s JSch</a> library, providing a Java implementation of SSH2. Authentication also needs to be addressed with the above. Luckily, many of these things that we used to do manually as part of DevOps integration are new being taken care of by Cloudify. Indeed, there&#8217;s still much integration headache with ports not opened, passwords incorrect etc. which takes up most of the time, and more logs are definitely required in Cloudify to figure things out and troubleshoot. What I did is I simply forked the <a href="https://github.com/CloudifySource/cloudify">open source project from GitHub</a> and debugged right through the code, which has the side benefit of &nbsp;fixing and improving the project on the fly and contributing back to the community. I should mention that although the environments I integrated with where Linux-based, Cloudify also provides support for Windows-based systems (based on WinRM, <span class="caps">CIFS</span> and PowerShell).</p>
-<p>One of the coolest things added in Cloudify 2.1 that was <a href="http://www.cloudifysource.org/2012/05/01/whats_new_in_cloudify_2_1.html">launched last week</a> was the <a href="http://www.cloudifysource.org/guide/2.1/bootstrapping/bootstrapping_byon.html"><span class="caps">BYON</span> (Bring Your Own Node) driver</a>, which allows you to take your&nbsp;existing bare-metal servers and use them as managed resources for deployment by Cloudify, as if they were on-demand resources. This provides a neat answer to the <a href="http://www.infoworld.com/d/cloud-computing/going-native-the-move-bare-metal-cloud-services-192507" title="InfoWorld: Going native: The move to bare-metal cloud services">growing demand for bare-metal cloud services</a>. I&#8217;m still waiting for the opportunity to give this one a wet run with a customer in the field&#8230;</p>
-<p>All in all, it turned out to be a straight-forward task to integrate with a new cloud provider. Just make sure you have a stable environment and a test code on how to consume the APIs, and use the existing examples as reference, and you&#8217;re good to go.</p>
-                    <div id="disqus_thread"></div>
-<script type="text/javascript">
-    /* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
-    var disqus_shortname = 'cloudifysource'; // required: replace example with your forum shortname
-    var disqus_identifier = '/2012/05/13/cloud_integration_and_devops_automation.html';
+                    <h1 class="pageTitle">Tag: Scale Rules</h1>					
 
-    /* * * DON'T EDIT BELOW THIS LINE * * */
-    (function() {
-        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
-        dsq.src = 'http://' + disqus_shortname + '.disqus.com/embed.js';
-        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
-    })();
-</script>
-<noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
-<a href="http://disqus.com" class="dsq-brlink">blog comments powered by <span class="logo-disqus">Disqus</span></a>
+
+
+
+
+
+
+
+
+														
+                    
+
+
+
+
+<div class="blogtPostBox">
+  <div class="blogInfoLeft">
+    <img title="Tamir Korem" width="80" height="96" src="/images/tamir.jpg" />
+  </div>  
+  <div class="blogInfoRight">
+    <a href="/2012/07/19/automate_your_legacy_application_on_the_cloud.html" class="title">Automate Your Application on the Cloud with Cloudify Custom Commands</a>
+	  <div class="blogPostInfo">
+	  <br/>	  	 
+	    <span>Posted By: <a href="#">Tamir Korem</a>  on  July 19, 2012  <!--|  in <a href="/categories/"></a> --></span>
+	  </div>	  	  	
+      <p>
+		
+			<p>Your Application is Installed on a Cloud. Now What ? Ok, so you installed an application on a cloud and now you want to update it, replace your .war file, modify the DB schema etc. I guess, some of the following thoughts may run in your head : &#8220;Now I...</p>
+			
+		<p class><a href="/2012/07/19/automate_your_legacy_application_on_the_cloud.html">Read more...</a></p>	  	  
+	  </p>
+		<span>  Additional Tags: 		
+			
+				
+			     <a class="postTag" href="/tags/Cloudify">Cloudify (18)</a>
+			   	
+			
+				
+			     <a class="postTag" href="/tags/GitHub">GitHub (2)</a>
+			   	
+			
+				
+			     <a class="postTag" href="/tags/Apache">Apache (2)</a>
+			   	
+			
+					
+			
+				
+			     <a class="postTag" href="/tags/Load Balancer">Load Balancer (1)</a>
+			   	
+			
+		</span>
+	    
+  </div>
+  <div class="clear" ></div>    
+</div>  
+
+
+
+<div class="blogtPostBox">
+  <div class="blogInfoLeft">
+    <img title="Yaron Parasol" width="80" height="96" src="/images/yaron.jpg" />
+  </div>  
+  <div class="blogInfoRight">
+    <a href="/2012/05/01/whats_new_in_cloudify_2_1.html" class="title">What's new in Cloudify 2.1</a>
+	  <div class="blogPostInfo">
+	  <br/>	  	 
+	    <span>Posted By: <a href="#">Yaron Parasol</a>  on  May  1, 2012  <!--|  in <a href="/categories/"></a> --></span>
+	  </div>	  	  	
+      <p>
+		
+			<p>Today we&#8217;re officially launching the Cloudify 2.1 GA release release, so I thought it would be a good chance to recap what we&#8217;ve been up to in the past few months. The Lowdown Over the past couple of months we&#8217;ve been working closely with the first Cloudify users and customers...</p>
+			
+		<p class><a href="/2012/05/01/whats_new_in_cloudify_2_1.html">Read more...</a></p>	  	  
+	  </p>
+		<span>  Additional Tags: 		
+			
+				
+			     <a class="postTag" href="/tags/Chef">Chef (2)</a>
+			   	
+			
+					
+			
+				
+			     <a class="postTag" href="/tags/BYON">BYON (1)</a>
+			   	
+			
+				
+			     <a class="postTag" href="/tags/Cloud Driver">Cloud Driver (1)</a>
+			   	
+			
+				
+			     <a class="postTag" href="/tags/DevOps">DevOps (5)</a>
+			   	
+			
+		</span>
+	    
+  </div>
+  <div class="clear" ></div>    
+</div>  
+
+
+
 
                 </div>
-
                 <div class="clear"></div>
             </div>
         </div>
-
         <!--Start pagination -->
 
         <div class="clear"></div>

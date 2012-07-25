@@ -18,7 +18,7 @@ I guess, some of the following thoughts may run in your head : "Now I need to lo
 
 In this post, I will walk you through Cloudify's Custom Commands Mechanism.
 
-"(newwindow)Cloudify Custom Commands":http://www.cloudifysource.org/guide/developing/custom_commands enable admin users or third-party tools to remotely manage service instances, which is especially useful when remote service APIs aren't available.
+"(newwindow)Cloudify Custom Commands":http://www.cloudifysource.org/guide/2.1/developing/custom_commands enable admin users or third-party tools to remotely manage service instances, which is especially useful when remote service APIs aren't available.
 They can also come in handy in cross-service manipulations, where one service manipulates another service in the application, thus enabling static applications to become much more dynamic without replacing the stack.
 
 All you need to do is add a few lines to your recipe file and you're good to go.
@@ -69,7 +69,7 @@ Here's the code snippet in the apacheLB-service.groovy :
 <script src="https://gist.github.com/3069771.js?file=addRemoveNode.groovy"></script>
 
 As you can see, in apacheLB-service.groovy, there are two custom commands: addNode and removeNode. You need to add a postStart lifecycle event to each service whose instances you want add to the load balancer configuration. You need to add a postStop lifecycle event to each service whose instances you want removed from the load balancer configuration.
-For example, these commands are invoked during the @postStart@ and @postStop@ "(newwindow)lifecycle event handlers":http://www.cloudifysource.org/guide/developing/lifecycle_events
+For example, these commands are invoked during the @postStart@ and @postStop@ "(newwindow)lifecycle event handlers":http://www.cloudifysource.org/guide/2.1/developing/lifecycle_events
 ,of the tomcat service in the "(newwindow)PetClinic Recipe":https://github.com/CloudifySource/cloudify-recipes/tree/master/apps/petclinic. 
 
 The following presentation illustrates how the Custom Commands Machanism works with Apache and tomcat, from the installation of the services to modifying the @apacheLB@ configuration by invoking custom commands:
