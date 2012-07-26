@@ -58,11 +58,13 @@
 
 
 </div>
-{% capture xxx %}{{ page.url | remove: "/guide/" | split:/ | first }}{% endcapture %}
-{% capture yyy %}{{ page.url | remove: "/guide/" | split:\/ | first }}{% endcapture %}
-<span>version-{{currentVersion}}-vv</span>
-<span>xx-{{xxx}}-xx</span>
-<span>yy-{{yyy}}-yy</span>
+{% capture xxx %}{{ page.url | remove: "/guide/" | split:'/' | first }}{% endcapture %}
+{% capture yyy %}{{ page.url | remove: "/guide/" | split:'\/' | first }}{% endcapture %}
+{% capture zzz %}{{ page.url | remove: "/guide/" | split:"\/" | first }}{% endcapture %}
+<span>aa-{{currentVersion}}-vv</span>
+<span>xxx-{{xxx}}-xxx</span>
+<span>yyy-{{yyy}}-yyy</span>
+<span>zzz-{{zzz}}-zzz</span>
 <!--End site bg top wrapper -->
 </body>
 </html>
