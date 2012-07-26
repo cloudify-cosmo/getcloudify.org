@@ -21,7 +21,8 @@
 
             <div class="content">
                 <div class="left">
-                    {% capture currentVersion %}{{ page.url | remove: "/guide/" | split:"/" | first }}{% endcapture %}					
+                    {% capture currentVersion %}{{ page.url | remove: "/guide/" | split:"/" | first }}{% endcapture %}
+<span>{{currentVersion}}</span>
 					{% case currentVersion %}
 						{% when "2.1" %}
 							{% include toc2.1.html %}
