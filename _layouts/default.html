@@ -21,9 +21,17 @@
 
             <div class="content">
                 <div class="left">
-                    {% capture currentVersion %}{{ page.url | remove: "/guide/" | split:"/" | first }}{% endcapture %}
-					{% capture currTOC %}{{ "toc" | append: currentVersion | append: ".html" }}{% endcapture %}					
-					{% include currTOC %}					
+                    {% capture currentVersion %}{{ page.url | remove: "/guide/" | split:"/" | first }}{% endcapture %}					
+					{% case currentVersion %}
+						{% when "2.1" %}
+							{% include toc2.1.html %}
+						{% when "2.2" %}
+							{% include toc2.2.html %}
+						{% when "2.3" %}
+							{% include toc2.3.html %}
+						{% else %}
+							{% include toc2.1.html %}
+					{% endcase %}																	
                 </div>
 
                 <!--Start left content -->
