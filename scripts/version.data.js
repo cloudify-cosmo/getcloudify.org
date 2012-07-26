@@ -173,6 +173,9 @@ var guide = {
 		'release_notes':{
 			'release_notes':true
 		},
+		'rest_api':{
+			'rest_api_attributes':true
+		},
 		'setup':{
 			'cloudify_prerequisites':true,
 			'configuring_azure':true,
