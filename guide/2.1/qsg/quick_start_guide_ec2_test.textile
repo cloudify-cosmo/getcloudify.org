@@ -100,8 +100,9 @@ Before deploying an application, you must configure the recipe that will be used
 For more information about recipes, click <span class="inlineToggleExpandBtn">here</span>.
 <div class="expand">
 
-h2. Anatomy of a Recipe
+h2. <span class="inlineToggleExpandBtn">Anatomy of a Recipe</span>
 
+<div class="expand">
 Recipes are the execution plans for installing, starting, orchestrating, and monitoring your application stack without changing the application code or architecture. The deployment files and folders are located in the application's recipe folder, in our example @<cloudify root>/recipes/apps/petclinic@. The following is a list of the application recipe's files and folders, in our example located @<cloudify root>/recipes/apps/petclinic@, that are used to deploy the PetClinic application:
 * The application descriptor file: @petclinic-mongo-application.groovy@
 * The Configuration Server (mongoConfig) recipe folder
@@ -117,11 +118,13 @@ The following diagram depicts the PetClinic application's recipe file and folder
 
 h4(info). All the services in this application extend a corresponding recipe in ../../../services/ folder.      
 
-For more information about recipes, see <span class="inlineExpandBtn" title="../developing/recipes_overview">Anatomy of a Recipe</span>.
-For more information about extending services, see <span class="inlineExpandBtn" title="../developing/extending_recipes">Extending Service Recipes</span>.
+For more information about recipes, see "(newwindow)Anatomy of a Recipe":../developing/recipes_overview.
+For more information about extending services, see "(newwindow)Extending Service Recipes":../developing/extending_recipes.
+</div>
 
-h2. The Application Recipe
+h2. <span class="inlineToggleExpandBtn">The Application Recipe</span>
 
+<div class="expand">
 Every recipe must have an application descriptor file that describes the services (tiers) it requires and their interdependencies.
 
 In our example, the PetClinic application has the following services, each service containing one or more <acronym title="It is important to distinguish between a service and a service instance. A service can be defined as a cluster which is composed of at least one service instance. Every service instance resides on one host, typically this would be a virtual machine, whereas a service is the aggregation of all service instances and as such can span multiple machines">service instances</acronym>:
@@ -139,11 +142,13 @@ From the application descriptor file, we can learn the following information:
 * The @mongos@ service depends on the @mongoConfig@ and @mongod@ services; hence the @mongos@ service will not start until these services have successfully started.
 * The @tomcat@ service depends on the @mongod@ service; hence the @tomcat@ service will not start until the @mongod@ service has successfully started.
 
-For more information, see <span class="inlineExpandBtn" title="../developing/application_recipe">The Application Recipe</span>.
+For more information, see "(newwindow)The Application Recipe":../developing/application_recipe.
+</div>
 
-h3. The Service Level Recipe
+h2. <span class="inlineToggleExpandBtn">The Service Recipe</span>
 
-Every service has its own mandatory service recipe based on a <span class="inlineExpandBtn" title="../developing/recipes_overview">recipe structure</span> that is common to all of them.
+<div class="expand">
+Every service has its own mandatory service recipe based on a "(newwindow)recipe structure":../developing/recipes_overview that is common to all of them.
 
 Each service folder contains all the information required by the service. The following is a list of the service recipe's files and folders:
 
@@ -153,26 +158,31 @@ Each service folder contains all the information required by the service. The fo
 For example, the @<service name>_install.groovy@ script will typically run during the installation of the service, if it's specified in the @lifecycle@ section of the service descriptor file.
 <h4 class="info">You can specify any preferred name for lifecycle handlers, as long as you specify their exact names in the corresponding service file.</h4>
 * An optional folder called @usmlib@ which must contain all the jar files of your custom probes.
-Cloudify is distributed with <span class="inlineExpandBtn" title="../plugins_and_probes/probes">Scripted Probes</span> that you can configure as required. However, you can also develop your own <span class="inlineExpandBtn" title="../plugins_and_probes/develop_your_plugin">Plugin Probes</span> and add them to the recipe in this folder. For example, in the PetClinic application we used our Cloudify Mongo Plugin Probe "(newwindow)cloudify-mongo-plugin.jar":http://www.gigaspaces.com/wiki/download/attachments/55935974/CloudifyMongoPlugins_sources2_0.zip to retrieve details from the @mongod@ service, and to detect port liveness.
+Cloudify is distributed with "(newwindow)Scripted Probes":../plugins_and_probes/probes that you can configure as required. However, you can also develop your own "(newwindow)Plugin Probes":../plugins_and_probes/develop_your_plugin and add them to the recipe in this folder. For example, in the PetClinic application we used our Cloudify Mongo Plugin Probe "(newwindow)cloudify-mongo-plugin.jar":http://www.gigaspaces.com/wiki/download/attachments/55935974/CloudifyMongoPlugins_sources2_0.zip to retrieve details from the @mongod@ service, and to detect port liveness.
 
-For more information, see <span class="inlineExpandBtn" title="../developing/service_recipe">The Service Recipe</span>.
+For more information, see "(newwindow)The Service Recipe":../developing/service_recipe.
 
-h3. The Lifecycle Scripts
+h3. <span class="inlineToggleExpandBtn">The Lifecycle Scripts</span>
 
-If you view any of the Groovy scripts in the tomcat recipe folder, and you will notice that they are essentially regular groovy scripts in which you can write any Groovy or Java code. The only difference is the use of the Cloudify API (<span class="inlineExpandBtn" title="../developing/the_service_context_api">ServiceContext API</span>). This API exposes the service runtime details to the script, so that a service can locate and use the details of another service within the same application. For example, in our PetClinic application we use the API to expose the port of the @mongod@ service instance to the all the other services in the PetClinic application.
+<div class="expand">
+If you view any of the Groovy scripts in the tomcat recipe folder, and you will notice that they are essentially regular groovy scripts in which you can write any Groovy or Java code. The only difference is the use of the Cloudify API ("(newwindow)ServiceContext API":../developing/the_service_context_api). This API exposes the service runtime details to the script, so that a service can locate and use the details of another service within the same application. For example, in our PetClinic application we use the API to expose the port of the @mongod@ service instance to the all the other services in the PetClinic application.
 
 For more information, see the following topics:
-* <span class="expandBtn" title="../developing/lifecycle_events">Lifecycle Events</span>
-* <span class="expandBtn" title="../developing/custom_commands">Custom Commands</span>
-* <span class="expandBtn" title="../developing/plugins">Probes</span>
-* <span class="expandBtn" title="../developing/configuring_ui_section">Configuring the Web Management Console</span>
+* "(newwindow)Lifecycle Events":../developing/lifecycle_events
+* "(newwindow)Custom Commands":../developing/custom_commands
+* "(newwindow)Probes":../developing/plugins
+* "(newwindow)Configuring the Web Management Console":../developing/configuring_ui_section
+</div>
 
-h3. Getting the Service Binaries
+h3. <span class="inlineToggleExpandBtn">Getting the Service Binaries</span>
 
+<div class="expand">
 The service binaries, in our example the Tomcat and MongoDB distributions, can be quite large to upload to machines being provisioned for a service instance. Therefore, when provisioning machines the recipes fetch the binaries from a specified file repository (this can be any http, ftp or file system location) and are not uploaded with the recipe, thus improving the performance and responsiveness of the Cloudify environment. The binaries are fetched using Groovy's built in support for "(newwindow)Apache Ant":http://ant.apache.org called "(newwindow)AntBuilder":http://groovy.codehaus.org/api/groovy/util/AntBuilder.html and the Ant @get@ task.
+</div>
 
-h3. The Mongo Service Recipes
+h3. <span class="inlineToggleExpandBtn">The Mongo Service Recipes</span>
 
+<div class="expand">
 In general, the Mongo service recipes do the following:
 * Calculates its port based on its instance ID and properties file, and then notifies the serviceContext API so that other services can communicate with it
 * Downloads, unzips, and installs the Mongo binaries on the provisioned machine
@@ -190,8 +200,11 @@ The following table lists the service descriptor files for the Mongo services:
 |*@mongos@*|@<cloudifyRoot>/recipes/apps/petclinic/mongos/mongos-service.groovy@|
 |*@mongod@*|@<cloudifyRoot>/recipes/apps/petclinic/mongod/mongod-service.groovy@|
 
-h3. The Tomcat Recipe
+</div>
 
+h3. <span class="inlineToggleExpandBtn">The Tomcat Recipe</span>
+
+<div class="expand">
 The Tomcat Recipe does the following:
 * Downloads, unzips, and installs the Tomcat binaries on the provisioned machine
 * Configures the Tomcat HTTP Port and then enables remote JMX
@@ -200,9 +213,11 @@ The Tomcat Recipe does the following:
 * Monitors Tomcat performance by using the JMX Monitoring plugin
 
 The tomcat service descriptor file is @<cloudify root>/recipes/apps/petclinic/tomcat/tomcat-service.groovy@.
+</div>
 
-h3. Configuring @tomcat@ with the @mongod@ port
+h3. <span class="inlineToggleExpandBtn">Configuring @tomcat@ with the @mongod@ port</span>
 
+<div class="expand">
 In this example, we use our ServiceContext API and its k/v store mechanism, to share the @mongod@ service instance (host address and port) details with the @tomcat@ service instance.
 
 Firstly, the Mongo Data Shards recipe exposes the details of the @mongod@ service instance, as follows:
@@ -214,6 +229,8 @@ Then the Tomcat recipe retrieves the details, as follows:
 <script src="https://gist.github.com/1698923.js?file=retrieveMongosServie.groovy"></script>
 
 Once this is completed, the @tomcat@ service instance knows the host address and port of the @mongod@ service instance, and can communicate with it.
+</div>
+</div>
 </div>
 
 h1(#step4). Step 4 - Deploy the Recipe
