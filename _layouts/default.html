@@ -21,9 +21,9 @@
 
             <div class="content">
                 <div class="left">
-                    
-                    {% include toc.html %}
-
+                    {% capture currentVersion %}{{ page.url | remove: "/guide/" | split:"/" | first }}{% endcapture %}
+					{% capture currTOC %}{{ "toc" | append: currentVersion | append: ".html" }}{% endcapture %}					
+					{% include currTOC %}					
                 </div>
 
                 <!--Start left content -->
