@@ -7,15 +7,17 @@ abstract: Describes how to use access Cloudify attributes using the REST API rec
 pageord: 100
 ---
 
-Cloudify Attributes exposed over REST
-Cloudify services and application can use attributes to calculate and exchange data required for the installation, set-up and release of resources. For example, a service can define its home folder or version number in its pre-install step and use it again during post-start. Once set, attributes can be used to exchange information between services and service instances. Each attribute has a predefined scope:
-* Instance – the attribute is set and shared per service instance. If, for example, you deploy 2 instances of Tomcat, each will have a separate “port” attribute available for use, with a different value. 
-* Service – the attribute is available for all the instances of a specific service. Following the same example, the home folder or start-up script can be shared between all Tomcat instances.
-* Application – the attribute is shared by all the instances of the services of the same application. E.g., if your application is comprised of a web server and a database, you might want the database port (calculated at runtime) to be available to the web server.
-* Global – The attribute is shared between all instances, services and application.
+Cloudify application and service attributes can be used to share information accross an application. For example, a service's home folder or version number can be shared between service instances by setting them in the pre-install step of the service lifecycle and using them in the post-start step.
 
-Up until now Cloudify attributes could be set and read only through a recipe groovy file, and through a ServiceContext object. This constraint is now lifted, as attributes are now exposed over the REST API, and can therefore be used through every REST client.
+The following is a list of the different attribute contexts:
 
-Assume you deploy the petclinic application, which includes a Mongod service, and would like to add a new Person entry to the database immediately after it is installed. You already have a javascript file you prepared, which adds a new Person to the database and then prints all the Person objects found. Instead of using the ServiceContext object in your groovy file to get mongod’s port and home folder, you can leave it clean and just call a batch file which handles the querying and execution of your javascript.
+* Instance –- attributes in this context are set per service instance. For example, if you deploy 2 instances of Tomcat, you can use an instance context attribute to share their *port* value. 
+* Service -– attributes in this context are set per service. Following the same example, you can use a service context attribute to share the home folder between all Tomcat instances.
+* Application -– attributes in this context are set per application. For example, if your application is comprised of a web server and a database, you can use an applucation context attribute to share the database port (calculated at runtime) between services or service instances.
+* Global -– attributes in this context are shared between all instances, services, and the application.
+
+For example, let's say you deploy the petclinic application that includes a Mongod service and would like to add a new Person entry to the database immediately after it is installed. You have written the JavaScript script that adds a new Person to the database and then prints all the Person objects found. You can use the REST API to retrieve Mongod’s port and home folder without modifying your script, and simply call a batch file which handles the querying and execution of your javascript.
 
 h4(info). An environment variable named “USM_INSTANCE_ID” holds the instance number of the service instance which called your batch file. This is in inherent feature available on all operating systems.
+
+<script src="https://gist.github.com/3181273.js"> </script>
