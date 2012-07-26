@@ -22,7 +22,6 @@
             <div class="content">
                 <div class="left">
                     {% capture currentVersion %}{{ page.url | remove: "/guide/" | split:"/" | first }}{% endcapture %}
-<span>{{currentVersion}}</span>
 					{% case currentVersion %}
 						{% when "2.1" %}
 							{% include toc2.1.html %}
@@ -59,6 +58,11 @@
 
 
 </div>
+{% capture xxx %}{{ page.url | remove: "/guide/" | split:/ | first }}{% endcapture %}
+{% capture yyy %}{{ page.url | remove: "/guide/" | split:\/ | first }}{% endcapture %}
+<span>version-{{currentVersion}}-vv</span>
+<span>xx-{{xxx}}-xx</span>
+<span>yy-{{yyy}}-yy</span>
 <!--End site bg top wrapper -->
 </body>
 </html>
