@@ -58,13 +58,25 @@
 
 
 </div>
-{% capture xxx %}{{ page.url | remove: "/guide/" | split:'/' | first }}{% endcapture %}
-{% capture yyy %}{{ page.url | remove: "/guide/" | split:'\/' | first }}{% endcapture %}
-{% capture zzz %}{{ page.url | remove: "/guide/" | split:"\/" | first }}{% endcapture %}
+{% capture xxx %}{{ page.url | remove: "/guide/" | remove: "/html/" | split:/ | first }}{% endcapture %}
+{% capture xx2 %}{{ page.url | remove: "/guide/" | remove: "/html/" | split:/ | first }}{% endcapture %}
+{% capture xx3 %}{{ page.url | remove: "/guide/" | remove: "/html/" | split:/ | first }}{% endcapture %}
+{% capture yyy %}{{ page.url | remove: "/guide/" | remove: "/.html/"| split:/ | first }}{% endcapture %}
+{% capture yy2 %}{{ page.url | remove: "/guide/" | remove: "/.html/"| split:/ | first }}{% endcapture %}
+{% capture yy2 %}{{ page.url | remove: "/guide/" | remove: "/.html/"| split:/ | first }}{% endcapture %}
+{% capture zzz %}{{ page.url | remove: "/guide/" | remove: "/\.html/"| split:/ | first }}{% endcapture %}
+{% capture zz2 %}{{ page.url | remove: "/guide/" | remove: "/\.html/"| split:/ | first }}{% endcapture %}
+{% capture zz2 %}{{ page.url | remove: "/guide/" | remove: "/\.html/"| split:/ | first }}{% endcapture %}
 <span>aa-{{currentVersion}}-vv</span>
 <span>xxx-{{xxx}}-xxx</span>
+<span>xx2-{{xx2}}-xxx</span>
+<span>xx3-{{xx3}}-xxx</span>
 <span>yyy-{{yyy}}-yyy</span>
+<span>yyy-{{yy2}}-yyy</span>
+<span>yyy-{{yy3}}-yyy</span>
 <span>zzz-{{zzz}}-zzz</span>
+<span>zz2-{{zz2}}-zzz</span>
+<span>zz3-{{zz3}}-zzz</span>
 <!--End site bg top wrapper -->
 </body>
 </html>
