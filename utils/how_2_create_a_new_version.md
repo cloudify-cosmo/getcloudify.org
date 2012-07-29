@@ -45,10 +45,10 @@ So I had to do the following stuff manually...
 *Generate*
 -----------------
 
-Start your local Jekyll.
-*Wait until all files are generated ( Sometimes many files are generated 15-20 seconds after the server is up...
-(look in _site to make sure ... ) 
-*Run copyGeneratedPosts.sh/bat (This script is in utils folder. It will take care of the blog posts/tags etc as well).
-*Make sure that now _includes\contains toc2.2.html, toc2.3.html, toc2.4.html etc...
-*Push to GitHub.
+* Start your local Jekyll.  
+* Wait until all files are generated ( Sometimes many files are generated 15-20 seconds after the server is up...  
+(look in _site to make sure ... )  
+* Run copyGeneratedPosts.sh/bat (This script is in utils folder. It will take care of the blog posts/tags etc as well). 
+* Make sure that now _includes\contains toc2.2.html, toc2.3.html, toc2.4.html etc...  
+* Push to GitHub. 
 
