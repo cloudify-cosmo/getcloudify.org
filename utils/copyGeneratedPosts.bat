@@ -6,6 +6,7 @@
 @rem The following folders will be copied:
 @rem tags page* 2011 2012 etc... (all the posts paging related folders.
 
+set CURRENT_VERSION=2.2
 
 set EXCLUDED_DIRS="css downloads guide images scripts webfonts"
 
@@ -87,11 +88,22 @@ goto end
 :b4End
 if exist %DEST_FOLDER%\_posts rename %DEST_FOLDER%\_posts posts
 if exist %DEST_FOLDER%\_plugins rename %DEST_FOLDER%\_plugins plugins
-echo Copying %SRC%\guide\index_raw.html to %DEST_FOLDER%\guide\index.html ...
-copy /y %SRC%\guide\index_raw.html %DEST_FOLDER%\guide\index.html
-echo Copying %SRC%\guide\toc.html to %DEST_FOLDER%\_includes\toc.html ...
-copy /y %SRC%\guide\toc.html %DEST_FOLDER%\_includes\toc.html
 
+echo Copying %SRC%\guide\%CURRENT_VERSION%\index_raw.html to %DEST_FOLDER%\guide\%CURRENT_VERSION%\index.html ...
+copy /y %SRC%\guide\%CURRENT_VERSION%\index_raw.html %DEST_FOLDER%\guide\%CURRENT_VERSION%\index.html
+
+echo Copying %SRC%\guide\%CURRENT_VERSION%\toc.html to %DEST_FOLDER%\_includes\toc%CURRENT_VERSION%.html ...
+copy /y %SRC%\guide\%CURRENT_VERSION%\toc.html %DEST_FOLDER%\_includes\toc%CURRENT_VERSION%.html
+
+for /F %%i in ('dir /AD /b %SRC%\guide') do call :guileFolders %%i
+
+goto b4Cscript
+
+:guileFolders
+copy /y %SRC%\guide\%1\toc.html %DEST_FOLDER%\_includes\toc%1.html
+goto end
+
+:b4Cscript
 echo Creating versions by cscript //nologo version.js
 pushd %DEST_FOLDER%\scripts
 cscript //nologo version.js
