@@ -7,6 +7,7 @@
 # tags page* 2011 2012 etc... (all the posts paging related folders.
 
 clear
+CURRENT_VERSION=2.2
 
 EXCLUDED_DIRS="css downloads guide images scripts webfonts"
 
@@ -56,7 +57,16 @@ echo ---------------------
 
 mv ${DEST_FOLDER}/_posts ${DEST_FOLDER}/posts
 mv ${DEST_FOLDER}/_plugins ${DEST_FOLDER}/plugins
-cp -f ${SRC}/guide/index_raw.html ${DEST_FOLDER}/guide/index.html
-cp -f ${SRC}/guide/toc.html ${DEST_FOLDER}/_includes/toc.html
+cp -f ${SRC}/guide/${CURRENT_VERSION}/index_raw.html ${DEST_FOLDER}/guide/${CURRENT_VERSION}/index.html
+
+for currVersion in `ls -l ${SRC}/guide | grep "^d" | awk {'print $9'} | grep -E "[0-9].*"`
+ do  
+  cp -vf ${SRC}/guide/${currVersion}/toc.html ${DEST_FOLDER}/_includes/toc${currVersion}.html  
+done
+
+
+
+
+
 
 
