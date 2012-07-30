@@ -25,7 +25,7 @@ The following example shows the @customCommands@ sections for allocating an exte
 The following example describes the @customCommands@ section for a command using a Groovy closure that has two parameters.
 <script src="https://gist.github.com/1723545.js?file=customCommands2.groovy"></script>
 		
-h4(warn). When using user-defined Java libraries in your Groovy closures or scripts, make sure you the relevant @import@ statement, and place the corresponding @jar@ files in the @usmlib@ folder of the service.
+h4(warn). When using user-defined Java libraries in your Groovy closures or scripts, make sure you add the relevant @import@ statement, and place the corresponding @jar@ files in the @usmlib@ folder of the service.
 
 h4(warn). Any external script invoked by the custom command must be copied to the service folder.
 
@@ -45,7 +45,7 @@ For example, let's consider the following scenario:
 * After the installation, you fixed a bug in your web application.
 * You want to update the @.war@ file without taking down the Tomcat service, or its host VM. In other words, you want to avoid redeploying the entire application.
 
-h3. To implement the update, you can perform the following taks
+h3. To implement the update, you can perform the following tasks
 
 * Describe the following *updateWar* custom command in the @customCommands@ section of the tomcat service descriptor file, *BEFORE* you deploy your application.
   <script src="https://gist.github.com/1723735.js?file=update_warcc.groovy"></script>
