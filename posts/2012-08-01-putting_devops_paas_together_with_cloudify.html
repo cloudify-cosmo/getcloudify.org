@@ -1,0 +1,60 @@
+---
+layout: blogpost
+title: Putting DevOps and PaaS together with Cloudify
+image: nati.png
+author: Nati Shalom
+tags: 
+ - Cloudify
+ - Cloud
+ - PaaS
+ - DevOps
+---
+
+<p>DevOps and PaaS represent two different paradigms for delivering applications to the cloud.</p>
+<ul>
+<li><strong>DevOps</strong>&#0160;- DevOps takes an automation      approach - with DevOps we&#0160;basically&#0160;script the process of      installation, configuration and deployment of the application stack.&#0160;</li>
+<li><strong>PaaS</strong> - PaaS&#0160;takes an abstraction      approach by abstracting the details of the cloud infrastructure from the      developers.&#0160;</li>
+</ul>
+<p>DevOps tends to cater to operations guys that want to maintain the&#0160;flexibility&#0160;and control over the&#0160;infrastructure&#0160;and PaaS caters more to developers who just want to write code and deliver it&#0160;without&#0160;worrying&#0160;too much about the details of the underlying infrastructure.</p>
+<p><img alt="" src="http://natishalom.typepad.com/.a/6a00d835457b7453ef01774398253d970d-pi" style="display: block; margin-left: auto; margin-right: auto;" width="400" /></p>
+<p>&#0160;</p>
+<p>For a while DevOps and PaaS had been considered two competing paradigms as noted in&#0160;Tom Mornini's (Engine Yard) post&#0160;<a href="http://www.zdnet.com/news/devops-is-doa/6308483">DevOps is DOA</a>:</p>
+<blockquote>
+<p>&quot;DevOps essentially requires everyone involved in the development, deployment, and management of software to change the way they work, to cross-train for multiple functions, and to collaborate with people they've all too often viewed as adversaries. It creates new processes and methodologies and, in many cases, uses new tools to get the job done. In addition, it often requires a small army of consultants to implement and manage the transition. That is why the "promise" and "potential" of DevOps has yet to be realized by more than a handful of real-world companies.</p>
+<p>...The appeal of the DevOps model fades even further when you consider the fact that there is a better option! You can achieve the intended benefits of DevOps without any of the turmoil by taking advantage of Platform-as-a-Service offerings, or PaaS.&quot;</p>
+</blockquote>
+<p><strong>Putting&#0160;DevOps and PaaS&#0160;together</strong></p>
+<p>The truth is that it&#39;s hard to choose between the two paradigms. DevOps provides a high degree of control and flexibility but this&#0160;flexibility&#0160;comes at the cost of complexity and reduced productivity and often requires a culture change as Tom Mornini pointed out. PaaS on the other hand, provides an&#0160;extremely&#0160;simple deployment environment but it also forces you to fit into the PaaS environment, including the&#0160;language&#0160;of choice, middleware stack and cloud environment etc.</p>
+<p><strong>The best of both worlds- The control of DevOps and Productivity of PaaS</strong></p>
+<p>Do we really need to choose between the two? We can use DevOps as the foundation of the PaaS infrastructure. In this way, the operations guys can choose&#0160;their&#0160;stack of choice, package&#0160;their&#0160;specific blueprint, pick&#0160;their&#0160;cloud of choice and package all that as a pre-baked environment to the developers who in turn can be relieved of all of the details as they would be with any other PaaS. In this way we get the control of DevOps and productivity of PaaS.</p>
+<p>At this point I&#39;ll refer to Cloudify as an implementation reference of that concept to illustrate my point in this regard.</p>
+<p><strong>Putting DevOps and PaaS together with Cloudify</strong></p>
+<p><a href="http://www.cloudifysource.org">Cloudify</a> is an Open PaaS Stack that brings DevOps and PaaS&#0160;together.&#0160;Here is how:</p>
+<p><strong>The control of DevOps&#0160;</strong></p>
+<ol>
+<li><strong>Application Blueprint</strong> -&#0160;Cloudify allows you to add      your own application blueprint into the platform through recipes<strong><span style="text-decoration: underline;">.&#0160;</span></strong><a href="http://www.cloudifysource.org/guide/2.1/developing/recipes_overview">Recipes</a>&#0160;are at the heart of Cloudify      architecture. A&#0160;recipe&#0160;in Cloudify is a Groovy-based DSL.      The&#0160;recipe&#0160;is where you define your application stack, including      the installation, configuration, monitoring, scaling and fail-over and      tell Cloudify what, how and where to deploy your app.</li>
+<li><strong>Integration with DevOps tools such      as Chef</strong> - <a href="http://www.cloudifysource.org/guide/2.2/integrations/chef_documentation">Cloudify allows you to call Chef&#0160;cookbooks</a>&#0160;from      within a Cloudify&#0160;recipe. This gives Cloudify users a way to leverage      the wide&#0160;variety&#0160;of existing Chef cookbooks and community and      decorate it with a Cloudify&#0160;recipe&#0160;if needed, to add scaling,      fail-over automation etc.</li>
+<li><strong>Operational Task Automation</strong> -&#0160;<a href="http://www.cloudifysource.org/guide/2.1/developing/custom_commands">Custom Commands </a>&#0160;allow you to attach common      operation tasks such as update-app, such as in the case of a web app,      run-snapshot in the case of a database and more, as part of a      service&#0160;recipe, as well as automate the post-deployment operational      procedures of an application alongside its lifecycle.</li>
+</ol>
+<p><strong>The productivity of PaaS</strong></p>
+<p>Developers can run one of the existing&#0160;recipes&#0160;as they would with any other PaaS without going through any of the steps above. Unlike other Platforms-as-a-Service, they can also customize the existing recipes or pick custom&#0160;recipes that cover their specific environment and application blueprint. All this without losing that same productivity. Developers can also get better&#0160;visibility&#0160;into the underlying infrastructure, and have a better&#0160;experience&#0160;when troubleshooting. They can also use Cloudify as an automation tool as part of&#0160;their&#0160;continuous deployment environment.</p>
+<p><strong>Final words</strong></p>
+<p><span style="text-decoration: underline;">Adrian Cockcroft</span>&#0160;a&#0160;highly regarded Cloud Architect at Netflix provides an excellent insight on how DevOps and PaaS work at&#0160;Netflix&#0160;in his post&#0160;<a href="http://perfcap.blogspot.co.il/2012/03/ops-devops-and-noops-at-netflix.html">Ops, DevOps and PaaS (NoOps) at Netflix</a>:</p>
+<blockquote>
+<p>"We have a small number of DevOps engineers embedded in the development organization who are building and extending automation for our PaaS, and we have hundreds of developers using NoOps to get their code and datastores deployed in our PaaS."</p>
+</blockquote>
+<p>An interesting lesson from the Netflix experience is that an important part of running an online service is the&#0160;ability to resolve any friction for developing and managing such a service. Moving a large part of the operational&#0160;responsibility&#0160;to the developers makes it even more important that the development&#0160;platform&#0160;(PaaS) come with operations tools that are pre-baked into the developer environment. &#0160;At the same time, that same environment needs to also cater to a dedicated (but a significantly smaller) operational team. &#0160;This makes the idea of putting DevOps and PaaS&#0160;together&#0160;even more critical to reach the business agility and&#0160;operational&#0160;efficiency. Netflix built&#0160;their&#0160;own PaaS environment to address such a need. Cloudify provides a similar solution for those who want to build&#0160;their&#0160;own&#0160;Netflix&#0160;environment but without the hassle involved with doing it themselves.</p>
+<p><strong>References</strong></p>
+<ul>
+<li><a href="http://www.cloudifysource.org/2012/05/28/paas_does_it_really_mean_no_ops.html">PaaS, Does It Really Mean No-Ops?</a></li>
+<li><a href="http://perfcap.blogspot.co.il/2012/03/ops-devops-and-noops-at-netflix.html">Ops, DevOps and PaaS (NoOps) at Netflix</a></li>
+<li><a href="http://natishalom.typepad.com/nati_shaloms_blog/2012/06/lessons-from-amazon-rds-on-bringing-existing-apps-to-the-cloud.html">Mapping the Cloud/PaaS Stack</a></li>
+<li><a href="http://natishalom.typepad.com/nati_shaloms_blog/2012/01/there-are-currently-two-main-approaches-for-developing-and-managing-application-in-the-cloudpaas-paas-takes-a-developer-ap.html">GigaSpaces Cloudify &amp; VMware Cloud Foundry the new      PaaS Jailbreaker</a></li>
+<li><a href="http://www.zdnet.com/news/devops-is-doa/6308483">DevOps is DOA</a></li>
+<li><a href="http://natishalom.typepad.com/nati_shaloms_blog/2011/03/productivity-vs-control-tradeoffs-in-paas.html">Productivity vs. Control tradeoffs in PaaS</a></li>
+<li><a href="http://www.keeneview.com/2011/08/devops-and-paas-friend-or-foe.html">DevOps and PaaS - Friend or Foe?</a></li>
+<li><a href="http://natishalom.typepad.com/nati_shaloms_blog/2011/01/paas-shouldnt-be-built-in-silos.html">PaaS shouldn't be built in Silos</a></li>
+</ul>
+<p>&#0160;</p>
+<p><img src=http://cdn5.iconfinder.com/data/icons/social/128/picons03.png>&nbsp;<a href="https://twitter.com/intent/follow?screen_name=natishalom">Follow Nati Shalom</a> on Twitter.
+	
