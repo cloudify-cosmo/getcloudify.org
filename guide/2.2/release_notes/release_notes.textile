@@ -14,6 +14,13 @@ h1. Overview
 h4. Below is a list of new features, improvements, fixed issues, and known issues in Cloudify.
 We track all the issues in our public "JIRA":https://cloudifysource.atlassian.net.
 
+"Cloudify 2.2.0 M2":#v220m2  - published on Aug 6, 2012
+This version contains the following key improvements:
+* "Attributes Per Template":../setup/configuring_ec2 -  Many attributes are now per template in the cloud-driver file. For example: localDirectory, remoteDirectory and keyFile.
+* "Run as a sudoer":../setup/configuring_openstack - Users are now able to bootstrap and install a application as a sudoer on linux machines, just by setting privileged attribute to true in the cloud-driver file.
+
+<hr/>
+
 "Cloudify 2.1.1 GA":#v211ga  - published on July 8, 2012
 This version contains the following key improvements:
 * "Process Locator":../developing/lifecycle_events#locator -  Enables recipes to specify which processes will be monitored for process metrics and process failures.
@@ -41,6 +48,81 @@ This milestone contains the following key improvements:
 <hr/>
 
 
+h1(#v220m2). Cloudify 2.2.0 M2
+
+h3. New Features and Improvements
+
+|_. ID |_. Description |_. Components |
+|"(newwindow)CLOUDIFY-981":https://cloudifysource.atlassian.net/browse/CLOUDIFY-981 | Show elapsed event execution time of lifecycle events. | USM |
+|"(newwindow)CLOUDIFY-963":https://cloudifysource.atlassian.net/browse/CLOUDIFY-963 | Service DSL should have a marker interface to indicate executable entries | USM |
+|"(newwindow)CLOUDIFY-948":https://cloudifysource.atlassian.net/browse/CLOUDIFY-948 | DSL files should be able to load parts of the DSL from an external file | Packaging |
+|"(newwindow)CLOUDIFY-937":https://cloudifysource.atlassian.net/browse/CLOUDIFY-937 | Hook for a script in Cloud Driver template | Cloud Driver |
+|"(newwindow)CLOUDIFY-934":https://cloudifysource.atlassian.net/browse/CLOUDIFY-934 | Privileges per cloud template | Cloud Driver |
+|"(newwindow)CLOUDIFY-930":https://cloudifysource.atlassian.net/browse/CLOUDIFY-930 | set-instances may display irrelavant log messages | CLI |
+|"(newwindow)CLOUDIFY-922":https://cloudifysource.atlassian.net/browse/CLOUDIFY-922 | Expose Cloudify attributes over REST | REST |
+|"(newwindow)CLOUDIFY-921":https://cloudifysource.atlassian.net/browse/CLOUDIFY-921 | Per template local directory | Packaging |
+|"(newwindow)CLOUDIFY-879":https://cloudifysource.atlassian.net/browse/CLOUDIFY-879 | Groovy DSL executable entries should have a marker interface | USM |
+|"(newwindow)CLOUDIFY-852":https://cloudifysource.atlassian.net/browse/CLOUDIFY-852 | USM Monitors result caching | USM |
+|"(newwindow)CLOUDIFY-461":https://cloudifysource.atlassian.net/browse/CLOUDIFY-461 | Smart Java Install | Cloud Driver |
+|"(newwindow)CLOUDIFY-170":https://cloudifysource.atlassian.net/browse/CLOUDIFY-170 | Create init() and destroy() methods for the com.gigaspaces.cloudify.dsl.Plugin interface | MONITORING, USM |
+|"(newwindow)CLOUDIFY-160":https://cloudifysource.atlassian.net/browse/CLOUDIFY-160 | Stop event | USM |
+
+
+h3. Fixed Issues
+
+|_. ID |_. Description |_. Components |
+|"(newwindow)CLOUDIFY-990":https://cloudifysource.atlassian.net/browse/CLOUDIFY-990 | Icon file DSL validation doesn't work for services contained in an application | Packaging |
+|"(newwindow)CLOUDIFY-983":https://cloudifysource.atlassian.net/browse/CLOUDIFY-983 | Expose attribute actions over CLI | CLI |
+|"(newwindow)CLOUDIFY-979":https://cloudifysource.atlassian.net/browse/CLOUDIFY-979 | Uninstall lifecycle events don't show if there is more than one instance. | REST |
+|"(newwindow)CLOUDIFY-966":https://cloudifysource.atlassian.net/browse/CLOUDIFY-966 | In rackspace, the tenant id is called 'cloud account number' and should be named accordingly in the rs cloud config file | Cloud Driver |
+|"(newwindow)CLOUDIFY-959":https://cloudifysource.atlassian.net/browse/CLOUDIFY-959 | NIC_ADDRESS environment variable is being defined by the RMI_OPTIONS variable when cloudify starts | CLI |
+|"(newwindow)CLOUDIFY-951":https://cloudifysource.atlassian.net/browse/CLOUDIFY-951 | Size of returned Process locators must be limited | USM |
+|"(newwindow)CLOUDIFY-950":https://cloudifysource.atlassian.net/browse/CLOUDIFY-950 | Incorrect validation error when bootstrapping cloud with two templates | Cloud Driver |
+|"(newwindow)CLOUDIFY-949":https://cloudifysource.atlassian.net/browse/CLOUDIFY-949 | install application stuck in loop when trying to install petclinic-simple and travel on localcloud | USM |
+|"(newwindow)CLOUDIFY-945":https://cloudifysource.atlassian.net/browse/CLOUDIFY-945 | Fix cloudify package to embed the most recent xap package | Packaging |
+|"(newwindow)CLOUDIFY-928":https://cloudifysource.atlassian.net/browse/CLOUDIFY-928 | Rest lifecycle events cleaning | REST |
+|"(newwindow)CLOUDIFY-919":https://cloudifysource.atlassian.net/browse/CLOUDIFY-919 | unistall-application with wrong service name get stacked | CLI |
+|"(newwindow)CLOUDIFY-914":https://cloudifysource.atlassian.net/browse/CLOUDIFY-914 | rackspace bootstrap bug - NoRouteToHostException | CLI, Cloud Driver |
+|"(newwindow)CLOUDIFY-898":https://cloudifysource.atlassian.net/browse/CLOUDIFY-898 | Service files deleted before shutdown is invoked. | USM |
+|"(newwindow)CLOUDIFY-883":https://cloudifysource.atlassian.net/browse/CLOUDIFY-883 | USM tries to locate a process even when no processor locator is defined | USM |
+|"(newwindow)CLOUDIFY-875":https://cloudifysource.atlassian.net/browse/CLOUDIFY-875 | bootstrap-localcloud doesn't honor timout | CLI |
+|"(newwindow)CLOUDIFY-871":https://cloudifysource.atlassian.net/browse/CLOUDIFY-871 | If process locator returns empty list, a warning should be displayed | USM |
+|"(newwindow)CLOUDIFY-839":https://cloudifysource.atlassian.net/browse/CLOUDIFY-839 | UI not showing all services | MONITORING |
+|"(newwindow)CLOUDIFY-827":https://cloudifysource.atlassian.net/browse/CLOUDIFY-827 | Failed to retrieve mongodb icon | CLI |
+|"(newwindow)CLOUDIFY-161":https://cloudifysource.atlassian.net/browse/CLOUDIFY-161 | Cannot use AntBuilder from within a life cycle closure | USM |
+
+
+h3. Known Issues
+
+|_. ID |_. Description |_. Components |
+|"(newwindow)CLOUDIFY-1016":https://cloudifysource.atlassian.net/browse/CLOUDIFY-1016 | file transfer between nodes is broken when using multiple templates | Cloud Driver, ESC |
+|"(newwindow)CLOUDIFY-1014":https://cloudifysource.atlassian.net/browse/CLOUDIFY-1014 | process locator/start detector does not detect service stopped | USM |
+|"(newwindow)CLOUDIFY-1005":https://cloudifysource.atlassian.net/browse/CLOUDIFY-1005 | Runtime error in monitors/details closure of recipe causes problems in the webui | USM |
+|"(newwindow)CLOUDIFY-1004":https://cloudifysource.atlassian.net/browse/CLOUDIFY-1004 | The tail command should be limited to 1000 lines. | CLI, REST |
+|"(newwindow)CLOUDIFY-1001":https://cloudifysource.atlassian.net/browse/CLOUDIFY-1001 | Bootstrapping on RedHat | Cloud Driver |
+|"(newwindow)CLOUDIFY-1000":https://cloudifysource.atlassian.net/browse/CLOUDIFY-1000 | Remove com.gigaspaces.client.router.disableNewRouter=true settings from CLI startup scripts | Packaging |
+|"(newwindow)CLOUDIFY-999":https://cloudifysource.atlassian.net/browse/CLOUDIFY-999 | After "Events polling task has expired" occurred there is no connection to my app/services | CLI |
+|"(newwindow)CLOUDIFY-998":https://cloudifysource.atlassian.net/browse/CLOUDIFY-998 | requiretty is not commented on CentOs | Cloud Driver, ESC, USM |
+|"(newwindow)CLOUDIFY-997":https://cloudifysource.atlassian.net/browse/CLOUDIFY-997 | Command fail when running bash command as root with sudo | Cloud Driver |
+|"(newwindow)CLOUDIFY-995":https://cloudifysource.atlassian.net/browse/CLOUDIFY-995 | Application name is missing, but no error is thrown | CLI, ESC, USM |
+|"(newwindow)CLOUDIFY-993":https://cloudifysource.atlassian.net/browse/CLOUDIFY-993 | CLI remains connected after a successfully tearing-down the cloud | CLI |
+|"(newwindow)CLOUDIFY-992":https://cloudifysource.atlassian.net/browse/CLOUDIFY-992 | When invoking a long lansting (over 60 seconds) custom command from one service on a different service (remote call). Timeout occur | USM |
+|"(newwindow)CLOUDIFY-989":https://cloudifysource.atlassian.net/browse/CLOUDIFY-989 | NPE upon USM shutdown | USM |
+|"(newwindow)CLOUDIFY-988":https://cloudifysource.atlassian.net/browse/CLOUDIFY-988 | ESM uses remoteDirectory of application cloud templates and not the one specified in management cloud templates | ESC |
+|"(newwindow)CLOUDIFY-987":https://cloudifysource.atlassian.net/browse/CLOUDIFY-987 | CLI command use-application doesn't validate the given application name. | CLI |
+|"(newwindow)CLOUDIFY-986":https://cloudifysource.atlassian.net/browse/CLOUDIFY-986 | Wrong error message in the CLI for the set-attributes command | CLI |
+|"(newwindow)CLOUDIFY-984":https://cloudifysource.atlassian.net/browse/CLOUDIFY-984 | Fix checkstyle comments | CLI, Cloud Driver, ESC, REST, USM |
+|"(newwindow)CLOUDIFY-982":https://cloudifysource.atlassian.net/browse/CLOUDIFY-982 | Bootstrap script directory split | Cloud Driver |
+|"(newwindow)CLOUDIFY-978":https://cloudifysource.atlassian.net/browse/CLOUDIFY-978 | Unexpected warning in USM: space-config.proxy-settings.connection-retries | USM |
+|"(newwindow)CLOUDIFY-971":https://cloudifysource.atlassian.net/browse/CLOUDIFY-971 | Confusing help for bootstrap-cloud | CLI |
+|"(newwindow)CLOUDIFY-970":https://cloudifysource.atlassian.net/browse/CLOUDIFY-970 | Double Cloudify version printed in the CLI | CLI |
+|"(newwindow)CLOUDIFY-964":https://cloudifysource.atlassian.net/browse/CLOUDIFY-964 | Can't set EBS block size in default cloud driver | Cloud Driver |
+|"(newwindow)CLOUDIFY-961":https://cloudifysource.atlassian.net/browse/CLOUDIFY-961 | the bootstrap-cloud command's timeout description is wrong | CLI |
+|"(newwindow)CLOUDIFY-958":https://cloudifysource.atlassian.net/browse/CLOUDIFY-958 | Petclinic fails on CentOS 6.2 | Test |
+|"(newwindow)CLOUDIFY-956":https://cloudifysource.atlassian.net/browse/CLOUDIFY-956 | Starting the management services on windows machine hangs in some case. | ESC |
+
+
+
 h1(#v211ga). Cloudify 2.1.1 GA
 
 h3. Fixed Issues
@@ -51,7 +133,6 @@ h3. Fixed Issues
 |"(newwindow)CLOUDIFY-907":https://cloudifysource.atlassian.net/browse/CLOUDIFY-907 | Wrong error message in the CLI on missing pem file | CLI |
 |"(newwindow)CLOUDIFY-894":https://cloudifysource.atlassian.net/browse/CLOUDIFY-894 | admin object not closed by Byon provisioning driver | Cloud Driver |
 |"(newwindow)CLOUDIFY-874":https://cloudifysource.atlassian.net/browse/CLOUDIFY-874 | Cloud drivers (specifically Byon) closes the admin object of the ESM. | Cloud Driver |
-
 
 
 h3. Known Issues
