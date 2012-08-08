@@ -17,7 +17,7 @@ The following is a list of the different attribute contexts:
 * *Application* : Attributes in this context are set per application. For example, if your application is comprised of a web server and a database, you can use an application context attribute to share the database port (calculated at runtime) between services or service instances.
 * *Global* : Attributes in this context are shared between all instances, services, and the application.
 
-<br/>For example, let's say you deploy the PetClinic application that includes a Mongod service and would like to add a new Person entry to the database immediately after it is installed. Once you have written the JavaScript (myscript.js) that adds a new Person to the database, you can use the REST API to retrieve Mongod's port and home folder and simply call a batch/shell file that handles the querying and execution of your javascript.
+<br/>For example, let's say you deploy the PetClinic application that includes a Mongod service and would like to add a new Person entry to the database immediately after it is installed. Once you have written the script (in this example myscript.js) that adds a new Person to the database, you can use the REST API to retrieve Mongod's port and home folder and simply call a batch/shell file that handles the querying and execution of your script.
 
 The following snippet shows how to implement this in a batch file using @curl@ for the REST query and batch commands to parse the results: 
 <script src="https://gist.github.com/3181273.js"> </script>
