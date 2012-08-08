@@ -7,10 +7,6 @@
 
 var debug = false,
     dataFile = 'version.data.js';
-	
-var currentVersionNumber='2.1.1, Release: GA';
-var currentVersionText=currentVersionNumber;
-var VersionTitle='This document refers to Cloudify Version: ';
 
 /* Generates content object
  * Run from command prompt: cscript //nologo version.js */
@@ -56,101 +52,100 @@ function processFolder(folder, level, closeBrace) {
 }
 
 function addPageVersions() {
-
-	if ( true ) {
-		return;
-	}
-
-	var href = document.location.href, //'http://cloudify.org/guide/qsg/quick_start_guide', //document.location.href;
+	var href = document.location.href,
 	    base = href.substr(0, href.indexOf('guide')-1),
 	    path = href.substr(href.indexOf('guide')).split('/'),
-		pageBasename = path[2].split('-')[0],
-		pageCurrent = path[2],
-		pageParts = pages = value = null,
+		currVersion = path[1],
+		pageTemplate = versions = value = null,
+		phVersion = '__Version__',
+		versionTitle='This document refers to Cloudify Version: ',
 		options = new Object;
 	
 	debugWrite('Base: ' + base + '\tPath: ' + path);
 	
 	options['version'] = '';
-	if (!isEmpty((pages = getAlternatePages(path)))) {
-		debugWrite('Pages: ' + pages + '\tLength: ' + pages.length);
+	if (!isEmpty((versions = getAlternatePages(path)))) {
+		debugWrite('versions: ' + versions + '\tLength: ' + versions.length);
 		
-		options['version'] += '<option selected="true">Choose another version</option>';
-		for (page in pages) {
-			debugWrite('Processing page: ' + page);
+		path[1] = phVersion;
+		pageTemplate = base + '/' + path.join('/');
+		options['version'] += '<option selected="true">Other versions</option>';
+		for (var version in versions) {
+			debugWrite('Processing version: ' + version);
 			
-			pageParts = page.split('-');
-			debugWrite('pageParts: ' + pageParts);
+			value = ' Cloudify ' + version;
+			debugWrite('Value: ' + value + '\tpageCurrent: ' + path[3]);
 			
-			value = //pageParts[0] +
-					' Version: ' + ((pageParts[1]) ? pageParts[1].replace(/_/g, '\.') : currentVersionText) +
-					((pageParts[2]) ? ', Release: ' + getRelease(pageParts[2]) : '');
-					//((pageParts[2]) ? ' Release: ' + ((releases[pageParts[2]]) ? releases[pageParts[2]] : pageParts[2]) : '');
-			debugWrite('Value: ' + value + '\tpageCurrent: ' + pageCurrent);
-			
-			options['version'] += '<option text="' + value + '" value="' + page + '">' + value + '</option>'; //((page == pageCurrent) ? ' selected="true"' : '') + '>' + value + '</option>';
+			options['version'] += '<option text="' + value + '" value="' + pageTemplate.replace(phVersion, version) + '">' + value + '</option>';
 		}
 		
 		debugWrite('options[version]: ' + options['version']);
 		
-		var urlPath = base + '/' + path[0] + '/' + path[1] + '/';
+		var versionShowing = versionTitle +	currVersion;
 		
-		pageParts = pageCurrent.split('-');
-		var versionShowing = VersionTitle +	((pageParts[1]) ? pageParts[1].replace(/_/g, '\.') : currentVersionText) +
-			((pageParts[2]) ? ', Release: ' + getRelease(pageParts[2]) : ''); //((releases[pageParts[2]]) ? releases[pageParts[2]] : pageParts[2]) : '');
+		$('#todHdr').addClass('version');
+		injectToHtml('#todHdr', '<span id="versionSelectionToc">', '', 'after');
+		injectToHtml('#versionSelectionToc', '<select onchange="document.location.href = this.options[this.selectedIndex].value;">', options['version']);
 		
-		injectToHtml('#pageVersion', '<span id="versionSelectionTop">', '');
-		
-		injectToHtml('#versionSelectionTop', '<table class="versionTable">', '<tr><td class="impt"></td><td class="versionSelection"></td></tr>');
-		injectToHtml('#versionSelectionTop table td.impt', '<span>', versionShowing);
-		injectToHtml('#versionSelectionTop table td.versionSelection', '<select onchange="document.location.href = \'' + urlPath + '\' + this.options[this.selectedIndex].value;">', options['version'], 'append');
+		//injectToHtml('#pageVersion', '<span id="versionSelectionTop">', '');
+		//injectToHtml('#versionSelectionTop', '<table class="versionTable">', '<tr><td class="impt"></td><td class="versionSelection"></td></tr>');
+		//injectToHtml('#versionSelectionTop table td.impt', '<span>', versionShowing);
+		//injectToHtml('#versionSelectionTop table td.versionSelection', '<select onchange="document.location.href = this.options[this.selectedIndex].value;">', options['version'], 'append');
 		
 		injectToHtml('#pageContent', '<span id="versionSelectionBottom">', '', 'append');
 		injectToHtml('#versionSelectionBottom', '<br>', '');
 		injectToHtml('#versionSelectionBottom', '<table class="versionTable">', '<tr><td class="impt"></td><td class="versionSelection"></td></tr>', 'append');
 		injectToHtml('#versionSelectionBottom table td.impt', '<span>', versionShowing);
-		injectToHtml('#versionSelectionBottom table td.versionSelection', '<select onchange="document.location.href = \'' + urlPath + '\' + this.options[this.selectedIndex].value;">', options['version'], 'append');
+		injectToHtml('#versionSelectionBottom table td.versionSelection', '<select onchange="document.location.href = this.options[this.selectedIndex].value;">', options['version'], 'append');
 	}
 	else {
-		setDefaultBottomVersion();
-	}
-	
-}
-
-
-function setDefaultBottomVersion(){
 		injectToHtml('#pageContent', '<span id="versionSelectionBottom">', '', 'append');
 		injectToHtml('#versionSelectionBottom', '<br>', '','append');
 		injectToHtml('#versionSelectionBottom', '<br>', '','append');
-		injectToHtml('#versionSelectionBottom', '<span class="impt">', VersionTitle + currentVersionNumber, 'append');	
+		injectToHtml('#versionSelectionBottom', '<span class="impt">', versionTitle + currVersion, 'append');
+	}
 }
 
 function getAlternatePages (path) {
-	if (guide[path[1]]) {
-		var pages = new Object(),
-		    pageBasename = path[2].split('-')[0],
-			len = pageBasename.length;
-		
-		for (page in guide[path[1]]) {
-			if (page.substr(0, len) == pageBasename &&
-			    page.substr(len,1) != '_' &&
-				page != path[2]) {
-				pages[page] = true;
-			}
+	var versions = new Object();
+	
+	for (var version in guide) {
+		if (version !== path[1] &&
+			((guide[version])[path[2]])[path[3]]) {
+			versions[version] = true;
 		}
-		
-		return ((pages) ? pages : null);
 	}
-	else
-		return null;
+	
+	return ((versions) ? versions : null);
 }
 
+function injectToHtml(target, element, innerHtml, location) {
+	if (location === 'append')
+		$(element).html(innerHtml).appendTo(target);
+	else if (location === "after")
+		$(element).html(innerHtml).insertAfter(target);
+	else
+		$(element).html(innerHtml).prependTo(target);
+}
+
+function isEmpty(map) {
+   for (var key in map) {
+         return false;
+   }
+   return true;
+}
+
+function debugWrite(msg) {
+	if (debug) {
+		if (typeof WScript !== 'undefined')
+			WScript.Echo ('version.js::' + msg);
+		else if (typeof console !== 'undefined')
+			console.log('version.js::' + msg);
+	}
+}
+
+/*
 function getRelease(release) {
-	/*var origreleases = {
-			ga: 'General Availability',
-			mx: 'Milestone ',
-			rc: 'Release Candidate'
-		}, */
 	var releases = {
 			ga: 'GA',
 			mx: 'M',
@@ -166,26 +161,4 @@ function getRelease(release) {
 	}
 	return ((releases[release]) ? releases[release] + ((release=='mx') ? milestone : '') : release);
 }
-
-function injectToHtml(target, element, msg, location) {
-	if (location == 'append')
-		$(element).html(msg).appendTo(target);
-	else
-		$(element).html(msg).prependTo(target);
-}
-
-function isEmpty(map) {
-   for (var key in map) {
-         return false;
-   }
-   return true;
-}
-
-function debugWrite(msg) {
-	if (debug) {
-		if (typeof WScript != 'undefined')
-			WScript.Echo ('version.js::' + msg);
-		else if (typeof console != 'undefined')
-			console.log('version.js::' + msg);
-	}
-}
+*/
