@@ -7,19 +7,28 @@ abstract: Describes how to use access Cloudify attributes using the REST API rec
 pageord: 100
 ---
 
-Cloudify application and service attributes can be used to share information accross an application. 
+Cloudify application and service attributes can be used to share information across an application. 
 <br/>For example, a service's home folder or version number can be shared between service instances by setting them in the pre-install step of the service lifecycle and using them in the post-start step.
 
 The following is a list of the different attribute contexts:
 
 * *Instance* : Attributes in this context are set per service instance. For example, if you deploy 2 instances of Tomcat, you can use an instance context attribute to share their *port* value. 
 * *Service*  : Attributes in this context are set per service. Following the same example, you can use a service context attribute to share the home folder between all Tomcat instances.
-* *Application* : Attributes in this context are set per application. For example, if your application is comprised of a web server and a database, you can use an applucation context attribute to share the database port (calculated at runtime) between services or service instances.
+* *Application* : Attributes in this context are set per application. For example, if your application is comprised of a web server and a database, you can use an application context attribute to share the database port (calculated at runtime) between services or service instances.
 * *Global* : Attributes in this context are shared between all instances, services, and the application.
 
-<br/>For example, let's say you deploy the petclinic application that includes a Mongod service and would like to add a new Person entry to the database immediately after it is installed. You have written the JavaScript script that adds a new Person to the database and then prints all the Person objects found. You can use the REST API to retrieve Mongod's port and home folder without modifying your script, and simply call a batch file which handles the querying and execution of your javascript.
+<br/>For example, let's say you deploy the PetClinic application that includes a Mongod service and would like to add a new Person entry to the database immediately after it is installed. Once you have written the JavaScript (myscript.js) that adds a new Person to the database, you can use the REST API to retrieve Mongod's port and home folder and simply call a batch/shell file that handles the querying and execution of your javascript.
 
-h4(info). An environment variable named "USM_INSTANCE_ID" holds the instance number of the service instance which called your batch file. This is in inherent feature available on all operating systems.
-
-Here's an example of usage: 
+The following snippet shows how to implement this in a batch file using @curl@ for the REST query and batch commands to parse the results: 
 <script src="https://gist.github.com/3181273.js"> </script>
+
+h4(info). Cloudify uses the *USM_INSTANCE_ID* environment variable to store the instance ID of the service instance that calls your batch file, regardless of the operating systems.
+
+Additionally, the attributes can be accessed using any REST client, or the Cloudify shell using the *"list-attributes":../recipe/command_line_reference#list_attrs* and *"set-attributes":../recipe/command_line_reference#set_attrs* commands.
+
+The following are examples of how to access attributes:
+
+|_.Method|_.Command|_.Description|
+|Cloudify shell|*@set-attributes@* @-scope@ _@global@_ @'{"home_folder":"d:\tomcat"}'@|Sets the @home_folder@ attribute in the *Global* context|
+|Cloudify shell|*@list-attributes@* @-scope@ _@application@_|Lists attributes in the *Application* context|
+|CURL REST Client|*@curl@* _@http://localhost:8100/attributes/applications/default@_|Lists attributes in the *Application* context|

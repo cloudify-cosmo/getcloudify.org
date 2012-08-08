@@ -9,11 +9,9 @@ pageord: 300
 
 h2. Summary
 
-Once you have installed the "Cloudify shell":../setup/installing_the_cloudify_client , you can start using the available commands the Cloudify shell provides.
+Once you have installed the "Cloudify shell":../setup/installing_the_cloudify_client , you can start using the commands that the Cloudify shell provides.
 
-Cloudify commands in the Cloudify shell. To start the Cloudify shell, open a *Command Prompt* window, and then type @cloudify.bat@. To exit Cloudify Shell, type @exit@.
-
-To obtain a list of all the available commands, type @<tab>@, or to view help for a specific command, type @[cmd] --help@.
+To obtain a list of the available commands, type @<tab>@, or to view help for a specific command, type @[cmd] --help@.
 
 h2(#commands). Available Commands
 
@@ -36,9 +34,11 @@ The following table is a list and brief description of the available Cloudify co
 |"install-service":#install_srv|Installs a service. If you specify a folder, the folder is packed and deployed. If you specify a service archive, the archive file is deployed. |
 |"invoke":#invoke|Invokes a custom command |
 |"list-applications":#list_apps|Lists all deployed applications |
+|"list-attributes":#list_attrs|Lists attributes in the cloudify controller attribute store |
 |"list-instances":#list_instances|Lists all instances of the specified service |
 |"list-service":#list_srvs|Lists all deployed services for the current application |
 |"quit":#quit|Exits the shell |
+|"set-attributes":#set_attrs|Sets attributes in the cloudify controller attribute store |
 |"set-instances":#set_instances|Sets the number of instances of an elastic service |
 |"shutdown-agent":#shut_agent|Shuts down the Cloudify agent running on the local machine |
 |"shutdown-management":#shut_mgmt|Shuts down the Cloudify agent running on the management machine |
@@ -133,6 +133,11 @@ h2(#list_apps). list-applications
 <script src="https://gist.github.com/2863141.js"> </script>
 "back":#commands
 
+h2(#list_attrs). list-attributes
+
+<script src="https://gist.github.com/3293882.js"> </script>
+"back":#commands
+
 h2(#list_instances). list-instances
 
 <script src="https://gist.github.com/2863146.js"> </script>
@@ -146,6 +151,11 @@ h2(#list_srvs). list-services
 h2(#quit). quit
 
 <script src="https://gist.github.com/2863153.js"> </script>
+"back":#commands
+
+h2(#set_attrs). set-attributes
+
+<script src="https://gist.github.com/3293916.js"> </script>
 "back":#commands
 
 h2(#set_instances). set-instances
