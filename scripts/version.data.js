@@ -37,6 +37,10 @@ var guide = {
 			'sla_requirements':true,
 			'the_service_context_api':true
 		},
+		'examples':{
+			'ant_examples':true,
+			'file_examples':true
+		},
 		'faq':{
 			'faq':true
 		},
