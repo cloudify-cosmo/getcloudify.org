@@ -7,13 +7,7 @@ abstract: Architecture overview, design principles and key features of Cloudify
 pageord: 1
 ---
 
-<div id="pageTabs">
-<ul>
-	<li><a href="#motivation">Motivation for Cloud</a></li>
-	<li><a href="#cloudify">About Cloudify</a></li>
-	<li><a href="#architecture">How Cloudify Works</a></li>
-	<li><a href="#features">Cloudify Features</a></li>
-</ul>
+<div>
 <div id="motivation">
 <p>Some of the main impetuses for moving to the cloud include:</p>
 <table class="overviewtable">
@@ -72,10 +66,10 @@ In contrast to "(newwindow)DevOps":http://www.cloudifysource.org/2012/05/28/paas
 #* Configures your monitoring and scaling features
 # Monitor and manage the deployment using the Cloudify web management console or the Cloudify shell
 
-<img src="../../images/overview/onboard.png" width="655px" />
+<img src="../../images/overview/onboard.png" width="635px" />
 
 The following diagram shows the architecture that enables this simple process:
-<img src="../../images/overview/architecture.png" width="655px" />
+<img src="../../images/overview/architecture.png" width="635px" />
 
 This architecture is made possible by Cloudify's Universal Service Adapters that are deployed to every Cloudify provisioned machine. These adapters perform the key feature that allows you to achieve your objectives (no code change, no lock-in, and full control) by translating simple recipes into actions (installation, service initialization, service monitoring, ...). What makes these adapters special is that they are service agnostic (Tomcat, MySQL, Cassandra, JBoss, Apache with mod_php, ...) and can therefore run any kind of service as long as its recipe is properly configured.
 
@@ -83,14 +77,14 @@ This architecture therefore enables you to write recipes describing all the comp
 
 Using this allows you to achieve your objectives as follows:
 * *No Code Change* -- This is achieved using application recipes that describe the services and their dependencies.
-<img src="../../images/overview/universal-service-agents.png" title="Built-In Recipes" width="630px"/>
+<img src="../../images/overview/universal-service-agents.png" title="Built-In Recipes" width="610px"/>
 * *No Lock-in* -- This is achieved by describing a @compute@ section a service's recipe that uses templates from the cloud driver configuration file. In this example, the service uses the *SMALL_LINUX* template that is described in both the OpenStack and Amazon EC2 cloud driver configuration files. Therefore, switching between the clouds is as simple as specifying which cloud driver file to use.
-<img src="../../images/overview/no-lockin.png" title="Built-In Recipes" width="630px"/>
+<img src="../../images/overview/no-lockin.png" title="Built-In Recipes" width="610px"/>
 * *Full Control* -- This is achieved using the Cloudify web management console and the Cloudify shell. You can customize them by describing addition commands and monitors in the service recipe files. In this example, the *Total Requests Count* is described in the @monitors@ section of a service's recipe file.
-<img src="../../images/overview/full-control.png" title="Built-In Recipes" width="630px"/>
+<img src="../../images/overview/full-control.png" title="Built-In Recipes" width="610px"/>
 
 And finally, to make setting up recipes and cloud driver configuration files even easier, Cloudify comes prepackaged with a variety of application and service recipe files, and cloud driver configuration files.
-<img src="../../images/overview/Built-in-recipes.png" title="Built-In Recipes" width="655px"/>
+<img src="../../images/overview/Built-in-recipes.png" title="Built-In Recipes" width="635px"/>
 </div>
 <div id="features" style="padding-left:0;padding-right:0;">
 <table class="overviewtable" border="0">
@@ -161,11 +155,40 @@ And finally, to make setting up recipes and cloud driver configuration files eve
 </div>
 </div>
 
+<div id="pageSlider">
+<ul>
+	<li><iframe id="frmMotivation" class="sliderFrame"></iframe></li>
+	<li><iframe id="frmCloudify" class="sliderFrame"></iframe></li>
+	<li><iframe id="frmArchitecture" class="sliderFrame"></iframe></li>
+	<li><iframe id="frmFeatures" class="sliderFrame"></iframe></li>
+</ul>
+</div>
+
 <script type="text/javascript">
 	$(function() {
-		$('#pageTabs').tabs({event:'mouseover'});
-		$('#pageTabs > ul > li > a').css('border-bottom', 'none');
+		var slideTitle = new Array("Motivation for Cloud", "About Cloudify", "How Cloudify Works", "Cloudify Features"),
+			frmWidth = "667px",
+			frmHeight = "700px";
 		
-		if ($.browser.mozilla) $('#pageContent .pageTitle').css('float', 'none');
+		$('#pageSlider').easySlider({auto:true, numeric:true, pause:5000});
+		
+		$('#pageSlider').css({"height":frmHeight});
+		$('#pageSlider ul, #pageSlider li').css({"margin":"0", "padding":"0", "list-style":"none"});
+		$('#pageSlider li').css({"height":frmHeight, "width":frmWidth, "overflow":"hidden"});
+		
+		$('#frmMotivation').contents().find('body').append($('#motivation'));
+		$('#frmCloudify').contents().find('body').append($('#cloudify'));
+		$('#frmArchitecture').contents().find('body').append($('#architecture'));
+		$('#frmFeatures').contents().find('body').append($('#features'));
+		
+		$('.sliderFrame').css({"border":"0", "height":frmHeight, "width":frmWidth});
+		$('.sliderFrame').contents().find("html").css("background", "none");
+		$('.sliderFrame').contents().find("head").append('<link rel="stylesheet" href="/css/template.css" type="text/css"/>');
+		
+		for (var x=0; x<slideTitle.length; x++) {
+			$('#controls' + (x+1) + ' a').text(slideTitle[x]);
+		}
+		
+		$('#pageSlider').prepend($('#controls'));
 	});
 </script>
