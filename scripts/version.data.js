@@ -153,6 +153,7 @@ var guide = {
 		'overview':{
 			'cloudify_intro':true,
 			'cloudify_overview':true,
+			'cloudify_overview_slider':true,
 			'cloud_driver_overview':true,
 			'universal_service_manager':true
 		},
