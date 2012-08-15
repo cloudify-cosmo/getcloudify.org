@@ -1204,6 +1204,124 @@ span.arrowsUp {
 	margin-left: 0;
 }
 
+/* Added by Shlomo (Tech-Tav Documentation) for jQueryUI tabs in product overview */
+#pageTabs > ul > li > a {
+	border-bottom: none;
+}
+
+#pageTabs {
+	background: transparent;
+	border: none;
+	float: left;
+	margin-bottom: 25px;
+	width: 100%;
+}
+#pageTabs .ui-tabs-nav {
+	background: transparent;
+	border: none;
+	-moz-border-radius: 0px;
+	-webkit-border-radius: 0px;
+	border-radius: 0px;
+	float: left;
+	margin: 0;
+	padding: 4px 0;
+	position: relative;
+	width: 110px;
+	z-index: 2;
+}
+#pageTabs .ui-tabs-nav li {
+	background: url(/images/verTabBackground.png) 0 0 repeat-x;
+	border: none;
+	-moz-border-radius: 0px;
+	-webkit-border-radius: 0px;
+	border-radius: 0px;
+	clear: both;
+	margin: 0;
+	overflow: hidden;
+	padding: 0;
+	top: 0;
+	white-space: normal;
+	width: 110px !important;
+}
+#pageTabs .ui-tabs-nav li.vertab-first {
+	border-radius: 8px 0px 0px 0px;
+}
+#pageTabs .ui-tabs-nav li.vertab-last {
+	border-radius: 0px 0px 0px 8px;
+}
+#pageTabs .ui-tabs-nav li.ui-tabs-selected {
+	background: url(/images/verTabSelectedBackground.png) 0 0 repeat-x;
+	border: 0 none;
+	overflow: visible;
+}
+#pageTabs .ui-tabs-nav li.ui-tabs-selected a {
+	background: url(/images/verTabSelectedArrow.png) 110px 28px no-repeat;
+	overflow: visible;
+	width: 122px;
+}
+#pageTabs .ui-tabs-nav li.ui-tabs-selected a .vertab-wrapper .vertab-content div {
+	color: #ffffff !important;
+}
+#pageTabs .ui-tabs-nav li a {
+	background: none;
+	border-bottom: none;
+	font-size: 12px;
+	font-weight: normal;
+	height: auto;
+	line-height: 14px;
+	margin: 0;
+	padding: 10px 0 8px 5px;
+	text-align: left;
+	width: 110px;
+}
+#pageTabs .ui-tabs-nav li a .vertab-wrapper {
+	overflow: hidden;
+}
+#pageTabs .ui-tabs-nav li a .vertab-wrapper .vertab-icon {
+	float: left;
+	width: 0;
+}
+#pageTabs .ui-tabs-nav li a .vertab-wrapper .vertab-content {
+	float: left;
+	height: 64px;
+	margin: 0;
+	padding: 0;
+	padding-left: 15px;
+	width: 89px;
+}
+#pageTabs .ui-tabs-nav li a .vertab-wrapper .vertab-content .vertab-centering {
+	display: table-cell;
+	height: 64px;
+	vertical-align: middle;
+}
+#pageTabs .ui-tabs-nav li a .vertab-wrapper .vertab-content .vertab-centering .vertab-title {
+	color: #000000;
+	font-size: 14px;
+	font-weight: bold;
+	margin: 0;
+	margin-bottom: 4px;
+	padding: 0;
+}
+#pageTabs .ui-tabs-nav li a .vertab-wrapper .vertab-content .vertab-centering .vertab-body {
+	color: #000000;
+	font-size: 14px;
+	font-weight: bold;
+}
+
+#pageTabsContent {
+	border: 1px solid lightGrey;
+	border-radius: 0 5px 5px 5px;
+	float: left;
+	margin-top: 4px;
+	max-width: 81%;
+	padding: 10px;
+	z-index: 1;
+}
+#pageTabsContent > div {
+	padding-left:0;
+	padding-right:0;
+}
+
 /* Added by Shlomo (Tech-Tav Documentation) for easySlider */
 #controls {
 	height: 28px;
