@@ -12,8 +12,9 @@ pageord: 1
 <ul>
 	<li class="vertab-first"><a href="#motivation"><div class="vertab-wrapper"><div class="vertab-icon"></div><div class="vertab-content"><div class="vertab-centering"><div class="vertab-title">Motivation for Cloud</div><div class="vertab-body"></div></div></div></div></a></li>
 	<li><a href="#cloudify"><div class="vertab-wrapper"><div class="vertab-icon"></div><div class="vertab-content"><div class="vertab-centering"><div class="vertab-title">About Cloudify</div><div class="vertab-body"></div></div></div></div></a></li>
-	<li><a href="#architecture"><div class="vertab-wrapper"><div class="vertab-icon"></div><div class="vertab-content"><div class="vertab-centering"><div class="vertab-title">How Cloudify Works</div><div class="vertab-body"></div></div></div></div></a></li>
-	<li class="vertab-last"><a href="#features"><div class="vertab-wrapper"><div class="vertab-icon"></div><div class="vertab-content"><div class="vertab-centering"><div class="vertab-title">Cloudify Features</div><div class="vertab-body"></div></div></div></div></a></li>
+	<li><a href="#how"><div class="vertab-wrapper"><div class="vertab-icon"></div><div class="vertab-content"><div class="vertab-centering"><div class="vertab-title">How Cloudify Works</div><div class="vertab-body"></div></div></div></div></a></li>
+	<li><a href="#features"><div class="vertab-wrapper"><div class="vertab-icon"></div><div class="vertab-content"><div class="vertab-centering"><div class="vertab-title">Cloudify Features</div><div class="vertab-body"></div></div></div></div></a></li>
+	<li class="vertab-last"><a href="#architecture"><div class="vertab-wrapper"><div class="vertab-icon"></div><div class="vertab-content"><div class="vertab-centering"><div class="vertab-title">Cloudify's Architecture</div><div class="vertab-body"></div></div></div></div></a></li>
 </ul>
 </div>
 <div id="pageTabsContent">
@@ -61,8 +62,8 @@ In a nutshell, Cloudify is an enterprise-class open source PaaS stack that sits 
 	</tr>
 </table>
 </div>
-<div id="architecture">
-In contrast to "(newwindow)DevOps":http://www.cloudifysource.org/2012/05/28/paas_does_it_really_mean_no_ops.html tools that simply assist in installing your applications, Cloudify provides a mechanism to manage the entire lifecycle of your application. Built on proven technology (our mission-critical high-performance elastic application platform "(newwindow)GigaSpace XAP":http://www.gigaspaces.com/wiki), Cloudify uses recipes to describe an application, its services & their interdependencies, how to monitor, self-heal, and scale its services & their resources. As a result, deploying your application becomes a simple process:
+<div id="how">
+In contrast to "(newwindow)DevOps":http://www.cloudifysource.org/2012/05/28/paas_does_it_really_mean_no_ops.html tools that simply assist in installing your applications, Cloudify provides a mechanism to manage the entire lifecycle of your application. Built on proven technology (our mission-critical high-performance elastic application platform "(newwindow)GigaSpace XAP":http://www.gigaspaces.com/wiki), Cloudify uses recipes to describe an application, its services & their interdependencies, how to monitor, self-heal, and scale its services & their resources. As a result, deploying and managing your application becomes a simple process:
 
 # Prepare your deployment
 #* Set up your cloud and describe your machines in the cloud driver
@@ -76,15 +77,7 @@ In contrast to "(newwindow)DevOps":http://www.cloudifysource.org/2012/05/28/paas
 # Monitor and manage the deployment using the Cloudify web management console or the Cloudify shell
 
 <img src="../../images/overview/onboard.png" width="570px" />
-
-The following diagram shows the architecture that enables this simple process:
-<img src="../../images/overview/architecture.png" width="570px" />
-
-This architecture is made possible by Cloudify's Universal Service Adapters that are deployed to every Cloudify provisioned machine. These adapters perform the key feature that allows you to achieve your objectives (no code change, no lock-in, and full control) by translating simple recipes into actions (installation, service initialization, service monitoring, ...). What makes these adapters special is that they are service agnostic (Tomcat, MySQL, Cassandra, JBoss, Apache with mod_php, ...) and can therefore run any kind of service as long as its recipe is properly configured.
-
-This architecture therefore enables you to write recipes describing all the components required to run your application and leaves Cloudify to handle the details of implementing the environment. The recipes are simple Groovy files that describe the execution plans for the lifecycle of the application (for installing, starting, orchestrating, and monitoring your application stack) and use cloud drivers configuration files (that describe the machines and their images for your chosen cloud) for provisioning machines in your cloud.
-
-Using this allows you to achieve your objectives as follows:
+This process is made possible by Cloudify's <a onclick="$('#pageTabs').tabs('select', '#architecture');">architecture</a> and enables you to achieve your objectives, as follows:
 * *No Code Change* -- This is achieved using application recipes that describe the services and their dependencies.
 <img src="../../images/overview/universal-service-agents.png" title="Built-In Recipes" width="545px"/>
 * *No Lock-in* -- This is achieved by describing a @compute@ section a service's recipe that uses templates from the cloud driver configuration file. In this example, the service uses the *SMALL_LINUX* template that is described in both the OpenStack and Amazon EC2 cloud driver configuration files. Therefore, switching between the clouds is as simple as specifying which cloud driver file to use.
@@ -162,6 +155,16 @@ And finally, to make setting up recipes and cloud driver configuration files eve
         </td>
     </tr>
 </table>
+</div>
+<div id="architecture">
+Cloudify implements a layered architecture that hide the implementation details that enable the simple deployment process, as follows:
+<img src="../../images/overview/architecture.png" width="570px" />
+
+This architecture is made possible by Cloudify's Universal Service Adapters that are deployed to every Cloudify provisioned machine. These adapters perform the key feature that allows you to achieve your objectives (no code change, no lock-in, and full control) by translating simple recipes into actions (installation, service initialization, service monitoring, ...). What makes these adapters special is that they are service agnostic (Tomcat, MySQL, Cassandra, JBoss, Apache with mod_php, ...) and can therefore run any kind of service as long as its recipe is properly configured.
+
+h4(info). Cloudify recipes are simple Groovy files that describe the execution plans for the lifecycle of the application (for installing, starting, orchestrating, and monitoring your application stack). The recipes use cloud drivers configuration files (that describe machines and their images for your chosen cloud) for provisioning machines for your services.
+
+Using this architecture, you can write recipes describing all the components required to run your application, confident in the knowledge that Cloudify will handle all the details of implementing the environment.
 </div>
 </div>
 </div>
