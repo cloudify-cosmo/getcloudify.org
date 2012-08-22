@@ -1225,25 +1225,6 @@ h4.info, h4.warn,h4.impt { font-weight:normal !important; }
 
 a.image { border-bottom:none!important;}
 
-/**
-  * CssForScriptName: version.js
-  * Created: 22nd June 2012
-  * By: Shlomo Sagir, Tech-Tav Documentation Limited
-  *
-  **/
-#versionSelectionTop { margin:1px 0px 0px 1px; }
-.versionTable { border-style:hidden; }
-.versionShowing span { color:#5d5d5d; font-size:1em; font-weight:bold; margin-right:10px; }
-.versionSelection select { color:#1364c4; font-size:1em; margin-left:10px; }
-#pageVersion {
-    display: inline-block;
-    margin: -20px 0px 0px 0px !important;	
-}
-
-td.versionSelection {
-	padding: 3px 0px !important;
-}
-
 /*----------------------------------------------------------------------
 	thank-you page
 ----------------------------------------------------------------------*/
@@ -1334,6 +1315,38 @@ ul.rightBtnsWrap ul.btnJoinLinks { padding:68px 0 0 135px}
 a.fork-guide {display:none}
 }
 
+/**
+  * CssForScriptName: version.js
+  * Created: 22nd June 2012
+  * By: Shlomo Sagir, Tech-Tav Documentation Limited
+  *
+  **/
+#versionSelectionTop { margin:1px 0px 0px 1px; }
+.versionTable { border-style:hidden; }
+.versionShowing span { color:#5d5d5d; font-size:1em; font-weight:bold; margin-right:10px; }
+.versionSelection select { color:#1364c4; font-size:1em; margin-left:10px; }
+#pageVersion {
+    display: inline-block;
+    margin: -20px 0px 0px 0px !important;	
+}
+td.versionSelection { padding: 3px 0px !important; }
+#versionSelectionToc select {
+	color: #1364C4;
+    float: right;
+    margin-bottom: 7px;
+    margin-left: 16px;
+    margin-top: 10px;
+}
+#todHdr.version {
+	color: #00B4DA;
+    float: left;
+    font-size: 14px;
+    font-weight: bold;
+    margin-bottom: 7px;
+	margin-left: 0;
+}
+#versionSelectionBottom { float: left; }
+
 /* Added by Shlomo (Tech-Tav Documentation) for QSG expanding blocks */
 span.expandBtn, span.inlineExpandBtn, span.inlineToggleExpandBtn {
 	color: #008AEF;
@@ -1372,24 +1385,6 @@ span.arrowsUp {
     -o-transform: rotate(-90deg);
     -ms-transform: rotate(-90deg);
     transform: rotate(-90deg);
-}
-
-/* Added by Shlomo (Tech-Tav Documentation) for versioning */
-#versionSelectionToc select {
-	color: #1364C4;
-    float: right;
-    margin-bottom: 7px;
-    margin-left: 16px;
-    margin-top: 10px;
-}
-
-#todHdr.version {
-	color: #00B4DA;
-    float: left;
-    font-size: 14px;
-    font-weight: bold;
-    margin-bottom: 7px;
-	margin-left: 0;
 }
 
 /* Added by Shlomo (Tech-Tav Documentation) for jQueryUI tabs in product overview */
@@ -1543,6 +1538,9 @@ span.arrowsUp {
 	background: #00B4DA;
 	color:white;
 }
+
+/* class for tables */
+table.alignTop td { vertical-align: top; }
 
 /* End of additions by Shlomo */
 

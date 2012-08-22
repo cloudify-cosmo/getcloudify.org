@@ -3,32 +3,49 @@ layout: default
 title: Cloudify Attributes Over REST
 category: REST API
 publish: true
-abstract: Describes how to use access Cloudify attributes using the REST API recipe in different environments using parameters
+abstract: Describes how to use access Cloudify attributes using the REST API
 pageord: 100
 ---
 
-Cloudify application and service attributes can be used to share information across an application. 
-<br/>For example, a service's home folder or version number can be shared between service instances by setting them in the pre-install step of the service lifecycle and using them in the post-start step.
+Cloudify application and service attributes can be used to share information across an application. The context (scope) of the attribute determines which components can share it. The following is a list of the different attribute contexts:
 
-The following is a list of the different attribute contexts:
+* *Instance* -- Attributes in this context are set per service instance. For example, if you deploy 2 instances of Tomcat, you can use an instance context attribute to share their *port* value. 
+* *Service* -- Attributes in this context are set per service. Following the same example, you can use a service context attribute to share the home folder between all Tomcat instances.
+* *Application* -- Attributes in this context are set per application. For example, if your application is comprised of a web server and a database, you can use an application context attribute to share the database port (calculated at runtime) between services or service instances.
+* *Global* -- Attributes in this context are shared between all instances, services, and the application.
 
-* *Instance* : Attributes in this context are set per service instance. For example, if you deploy 2 instances of Tomcat, you can use an instance context attribute to share their *port* value. 
-* *Service*  : Attributes in this context are set per service. Following the same example, you can use a service context attribute to share the home folder between all Tomcat instances.
-* *Application* : Attributes in this context are set per application. For example, if your application is comprised of a web server and a database, you can use an application context attribute to share the database port (calculated at runtime) between services or service instances.
-* *Global* : Attributes in this context are shared between all instances, services, and the application.
+<br />
+For example, let's say you deploy the PetClinic application that includes a Mongod service and would like to add a new Person entry to the database immediately after it is installed. The problem is that since the Mongod port and home folder are calculated when the service is started, you can't specify these details in your script. You can achieve your goal using the following steps:
+# Write a script that adds a new Person to the database without specifying the database details.
+# In the @preInstall@ step of the service "lifecycle":../developing/lifecycle_events#handler, set attributes for sharing Mongod's port (@port@) and home folder (@home@).
+# In the @postStart@ step of the service "lifecycle":../developing/lifecycle_events#handler, call a batch file to retrieve Mongod's port and home folder, and then runs your script with the correct Mongod service details.
 
-<br/>For example, let's say you deploy the PetClinic application that includes a Mongod service and would like to add a new Person entry to the database immediately after it is installed. Once you have written the script (in this example myscript.js) that adds a new Person to the database, you can use the REST API to retrieve Mongod's port and home folder and simply call a batch/shell file that handles the querying and execution of your script.
-
-The following snippet shows how to implement this in a batch file using @curl@ for the REST query and batch commands to parse the results: 
+The following snippet shows how to implement the @postStart@ batch file using @curl@ for the REST query and batch commands to parse the results: 
 <script src="https://gist.github.com/3181273.js"> </script>
 
-h4(info). Cloudify uses the *USM_INSTANCE_ID* environment variable to store the instance ID of the service instance that calls your batch file, regardless of the operating systems.
+h4(info). Cloudify uses the *USM_INSTANCE_ID* environment variable to store the instance ID of the service instance that calls your batch file, regardless of the operating system.
 
-Additionally, the attributes can be accessed using any REST client, or the Cloudify shell using the *"list-attributes":../recipe/command_line_reference#list_attrs* and *"set-attributes":../recipe/command_line_reference#set_attrs* commands.
+h2. Accessing REST API Attributes
 
-The following are examples of how to access attributes:
+REST API attributes can be accessed using any REST client, or the Cloudify shell using the *"list-attributes":../recipe/command_line_reference#list_attrs* and *"set-attributes":../recipe/command_line_reference#set_attrs* commands. The following table shows examples of how to access attributes.
 
+table(alignTop).
 |_.Method|_.Command|_.Description|
 |Cloudify shell|*@set-attributes@* @-scope@ _@global@_ @'{"home_folder":"d:\tomcat"}'@|Sets the @home_folder@ attribute in the *Global* context|
 |Cloudify shell|*@list-attributes@* @-scope@ _@application@_|Lists attributes in the *Application* context|
 |CURL REST Client|*@curl@* _@http://localhost:8100/attributes/applications/default@_|Lists attributes in the *Application* context|
+
+h2. REST API Request Format
+
+The following table shows the request formats for each attribute context, where @<host>@ is the address of the REST API host.
+
+table(alignTop).
+|_.Context|_.Request Method/Verb|_.Request Format|_.Description|
+|/2.*Instance*|GET|*URL*: http://@<host>@/attributes/instances/@<applicationName>@/@<serviceName>@/@<instanceId>@/@<attributeName>@|Gets one or more instance attributes where:<ul><li>@<applicationName>@ is the name of the application</li><li>@<serviceName>@ is the name of the service</li><li>@<instanceId>@ is the id of an instance of the service</li><li>@<attributeName>@ is the name of the attribute. Omit this value to get a list of all attributes for the specified instance</li></ul>|
+|POST|*URL*: http://@<host>@/attributes/instances/@<applicationName>@/@<serviceName>@/@<instanceId>@<br />*DATA*:  @<object>@|Sets one or more instance attributes where:<ul><li>@<applicationName>@ is the name of the application</li><li>@<serviceName>@ is the name of the service</li><li>@<instanceId>@ is the id of an instance of the service</li><li>@<object>@ is a JSON object that describes the attributes to be set</li></ul>|
+|/2.*Service*|GET|*URL*: http://@<host>@/attributes/services/@<applicationName>@/@<serviceName>@/@<attributeName>@|Gets one or more service attributes where:<ul><li>@<applicationName>@ is the name of the application</li><li>@<serviceName>@ is the name of the service</li><li>@<attributeName>@ is the name of the attribute. Omit this value to get a list of all attributes for the specified service</li></ul>|
+|POST|*URL*: http://@<host>@/attributes/services/@<applicationName>@/@<serviceName>@<br />*DATA*:  @<object>@|Sets one or more service attributes where:<ul><li>@<applicationName>@ is the name of the application</li><li>@<serviceName>@ is the name of the service</li><li>@<object>@ is a JSON object that describes the attributes to be set</li></ul>|
+|/2.*Application*|GET|*URL*: http://@<host>@/attributes/applications/@<applicationName>@/@<attributeName>@|Gets one or more application attributes where:<ul><li>@<applicationName>@ is the name of the application</li><li>@<attributeName>@ is the name of the attribute. Omit this value to get a list of all attributes for the specified application</li></ul>|
+|POST|*URL*: http://@<host>@/attributes/applications/@<applicationName>@<br />*DATA*: @<object>@|Sets one or more application attributes where:<ul><li>@<applicationName>@ is the name of the application</li><li>@<object>@ is a JSON object that describes the attributes to be set</li></ul>|
+|/2.*Global*|GET|*URL*: http://@<host>@/attributes/globals/@<attributeName>@|Gets one or more global attributes where @<attributeName>@ is the name of the attribute. Omit this value to get a list of all attributes for the specified application.|
+|POST|*URL*: http://@<host>@/attributes/globals<br />*DATA*: @<object>@|Sets one or more global attributes where @<object>@ is a JSON object that describes the attributes to be set.|
