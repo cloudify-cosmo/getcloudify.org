@@ -36,9 +36,8 @@ h3(#driver). Configure the Cloudify cloud driver configuration file
 Edit the OpenStack cloud driver configuration file (@openstack-cloud.groovy@) located in the @<cloudifyRoot>/tools/cli/plugins/esc/openstack/@ folder, and modify the following attributes:
 * In the *provider* section: 
 ** *machineNamePrefix*--The value that you specify is used as the name prefix for each of your service instances.
-** *managementOnlyFiles*--<font color="red"><b>TBD</b></font>.
+** *managementOnlyFiles*--An array containing a list of files to copy to management machines and not agent machines. Use this list to specify files such as the private key file (e.g. @myKeyPair-name.pem@) required by the cloud driver..
 ** *managementGroup*--The value that you specify is used as the name prefix for each of your management instances.
-** *zones*--<font color="red"><b>TBD</b></font>.
 * In the *user* section:
 ** *user*--Specify your *Access Key*.
 ** *apiKey*--Specify your corresponding *Secret Access Key*.
