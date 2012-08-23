@@ -41,7 +41,7 @@ category: home
                                         <ul>
                                             <li><a href="#tabs-1" class="btn-b3">service</a></li>
                                             <li><a href="#tabs-2" class="btn-b3">application</a></li>
-                                            <li><a href="#tabs-3" class="btn-b3">driver</a></li>
+                                            <li><a href="#tabs-3" class="btn-b3">autoscaling</a></li>
                                         </ul>
                                         <div class="clear">
                                         </div>
@@ -76,11 +76,18 @@ category: home
                                         <div id="tabs-3">
                                             <p>
                                             <code class="prettyprint">
-                                                compute {
-                                                &nbsp;&nbsp;//maps to a template configuration 
-                                                &nbsp;&nbsp;//in the cloud driver
-                        	                &nbsp;&nbsp;template "SMALL_LINUX"
-	                                        }
+                                                scalingRule {
+			                        &nbsp;&nbsp;serviceStatistics {
+				                &nbsp;&nbsp;&nbsp;&nbsp;metric "Total Requests Count"
+				                &nbsp;&nbsp;&nbsp;&nbsp;statistics Statistics.maximumThroughput
+				                &nbsp;&nbsp;&nbsp;&nbsp;movingTimeRangeInSeconds 20
+			                        &nbsp;&nbsp;}
+
+			                        &nbsp;&nbsp;highThreshold {
+				                &nbsp;&nbsp;&nbsp;&nbsp;value 1
+				                &nbsp;&nbsp;&nbsp;&nbsp;instancesIncrease 1
+			                        &nbsp;&nbsp;}
+		                                }
                                             </code>     
                                             </p>
                                         </div>
