@@ -52,7 +52,12 @@ category: home
                                                 &nbsp;&nbsp;name "mysql"<br />
                                                 &nbsp;&nbsp;icon "mysql.jpg"<br />
                                                 &nbsp;&nbsp;type "DATABASE"<br />
-                                                &nbsp;&nbsp;...<br />
+                                                <br />
+                                                &nbsp;&nbsp;lifecycle{ <br />
+                                                &nbsp;&nbsp;&nbsp;&nbsp;install "mysql_install.groovy" <br />
+						&nbsp;&nbsp;&nbsp;&nbsp;start "mysql_start.groovy" <br />
+						&nbsp;&nbsp;&nbsp;&nbsp;...
+                                                &nbsp;&nbsp;}
                                                 }
                                             </code>
                                             </p>
