@@ -49,10 +49,10 @@ category: home
                                             <p>
                                             <code class="prettyprint">
                                                 service {<br />
-                                                    name "mysql"<br />
-                                                    icon "mysql.jpg"<br />
-                                                    type "DATABASE"<br />
-                                                ...<br />
+                                                &nbsp;&nbsp;name "mysql"<br />
+                                                &nbsp;&nbsp;icon "mysql.jpg"<br />
+                                                &nbsp;&nbsp;type "DATABASE"<br />
+                                                &nbsp;&nbsp;...<br />
                                                 }
                                             </code>
                                             </p>
@@ -61,14 +61,14 @@ category: home
                                             <p>
                                             <code class="prettyprint">
                                                 application {<br />
-                                                    name="petclinic"<br />
-                                                    service { <br />
-                                                        name = "mongod" <br />
-                                                    } <br />
-                                                    service { <br />
-                        	        name = "tomcat" <br />
-		        dependsOn = ["mongod"] <br />
-	                            } <br />
+                                                &nbsp;&nbsp;name="petclinic"<br />
+                                                &nbsp;&nbsp;service { <br />
+                                                &nbsp;&nbsp;&nbsp;&nbsp;name = "mongod" <br />
+                                                &nbsp;&nbsp;} <br />
+                                                &nbsp;&nbsp;service { <br />
+                        	                &nbsp;&nbsp;&nbsp;&nbsp;name = "tomcat" <br />
+		                                &nbsp;&nbsp;&nbsp;&nbsp;dependsOn = ["mongod"] <br />
+	                                        &nbsp;&nbsp;} <br />
                                                 } <br />
                                             </code>
                                             </p>
@@ -77,10 +77,10 @@ category: home
                                             <p>
                                             <code class="prettyprint">
                                                 compute {
-                                                    //maps to a template configuration 
-                                                    //in the cloud driver
-                        	    template "SMALL_LINUX"
-	                        }
+                                                &nbsp;&nbsp;//maps to a template configuration 
+                                                &nbsp;&nbsp;//in the cloud driver
+                        	                &nbsp;&nbsp;template "SMALL_LINUX"
+	                                        }
                                             </code>     
                                             </p>
                                         </div>
