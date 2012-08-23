@@ -10,9 +10,9 @@ pageord: 100
 Cloudify application and service attributes can be used to share information across an application. The context (scope) of the attribute determines which components can share it. The following is a list of the different attribute contexts:
 
 * *Instance* -- Attributes in this context are set per service instance. For example, if you deploy 2 instances of Tomcat, you can use an instance context attribute to share their *port* value. 
-* *Service* -- Attributes in this context are set per service. Following the same example, you can use a service context attribute to share the home folder between all Tomcat instances.
-* *Application* -- Attributes in this context are set per application. For example, if your application is comprised of a web server and a database, you can use an application context attribute to share the database port (calculated at runtime) between services or service instances.
-* *Global* -- Attributes in this context are shared between all instances, services, and the application.
+* *Service* -- Attributes in this context are set per service. For example, if you deploy 2 instances of Tomcat, you can use a service context attribute to share the URL of the web server’s management interface (e.g. @/tomcat-manager@) between all Tomcat instances.
+* *Application* -- Attributes in this context are set per application. For example, you can use an application context attribute to share the URL of the *front-end* service of your application, like a load-balancer.
+* *Global* -- Attributes in this context are shared between all instances, services, and the applications.
 
 <br />
 For example, let's say you deploy the PetClinic application that includes a Mongod service and would like to add a new Person entry to the database immediately after it is installed. The problem is that since the Mongod port and home folder are calculated when the service is started, you can't specify these details in your script. You can achieve your goal using the following steps:
