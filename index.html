@@ -49,9 +49,9 @@ category: home
                                             <p>
                                             <code class="prettyprint">
                                                 service {<br />
-                                                name "mysql"<br />
-                                                icon "mysql.jpg"<br />
-                                                type "DATABASE"<br />
+                                                    name "mysql"<br />
+                                                    icon "mysql.jpg"<br />
+                                                    type "DATABASE"<br />
                                                 ...<br />
                                                 }
                                             </code>
@@ -61,23 +61,26 @@ category: home
                                             <p>
                                             <code class="prettyprint">
                                                 application {<br />
-                                                name "mysql"<br />
-                                                icon "mysql.jpg"<br />
-                                                type "DATABASE"<br />
-                                                ...<br />
-                                                }
+                                                    name="petclinic"<br />
+                                                    service { <br />
+                                                        name = "mongod" <br />
+                                                    } <br />
+                                                    service { <br />
+                        	        name = "tomcat" <br />
+		        dependsOn = ["mongod"] <br />
+	                            } <br />
+                                                } <br />
                                             </code>
                                             </p>
                                         </div>
                                         <div id="tabs-3">
                                             <p>
                                             <code class="prettyprint">
-                                                driver {<br />
-                                                name "mysql"<br />
-                                                icon "mysql.jpg"<br />
-                                                type "DATABASE"<br />
-                                                ...<br />
-                                                }
+                                                compute {
+                                                    //maps to a template configuration 
+                                                    //in the cloud driver
+                        	    template "SMALL_LINUX"
+	                        }
                                             </code>     
                                             </p>
                                         </div>
