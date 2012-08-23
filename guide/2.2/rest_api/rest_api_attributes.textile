@@ -10,7 +10,7 @@ pageord: 100
 Cloudify application and service attributes can be used to share information across an application. The context (scope) of the attribute determines which components can share it. The following is a list of the different attribute contexts:
 
 * *Instance* -- Attributes in this context are set per service instance. For example, if you deploy 2 instances of Tomcat, you can use an instance context attribute to share their *port* value. 
-* *Service* -- Attributes in this context are set per service. For example, if you deploy 2 instances of Tomcat, you can use a service context attribute to share the URL of the web server’s management interface (e.g. @/tomcat-manager@) between all Tomcat instances.
+* *Service* -- Attributes in this context are set per service. For example, if you deploy 2 instances of Tomcat, you can use a service context attribute to share the URL of the web server's management interface (e.g. @/tomcat-manager@) between all Tomcat instances.
 * *Application* -- Attributes in this context are set per application. For example, you can use an application context attribute to share the URL of the *front-end* service of your application, like a load-balancer.
 * *Global* -- Attributes in this context are shared between all instances, services, and the applications.
 
