@@ -78,13 +78,12 @@ category: home
                                             <code class="prettyprint">
                                                 scalingRule { <br />
 			                        &nbsp;&nbsp;serviceStatistics { <br />
-				                &nbsp;&nbsp;&nbsp;&nbsp;metric "Total Requests Count" <br />
-				                &nbsp;&nbsp;&nbsp;&nbsp;statistics Statistics.maximumThroughput <br />
+				                &nbsp;&nbsp;&nbsp;&nbsp;metric "Requests per second" <br />				                
 				                &nbsp;&nbsp;&nbsp;&nbsp;movingTimeRangeInSeconds 20 <br />
 			                        &nbsp;&nbsp;} <br />
                					<br />
 			                        &nbsp;&nbsp;highThreshold { <br />
-				                &nbsp;&nbsp;&nbsp;&nbsp;value 1 <br />
+				                &nbsp;&nbsp;&nbsp;&nbsp;value 100 <br />
 				                &nbsp;&nbsp;&nbsp;&nbsp;instancesIncrease 1 <br />
 			                        &nbsp;&nbsp;} <br />
 		                                }<br />
