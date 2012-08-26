@@ -7,7 +7,7 @@ new TWTR.Widget({
     title: '',
     subject: '',
     width: 1005,
-    height: 60,
+    height: 56,
     theme: {
         shell: {
             background: 'none',
