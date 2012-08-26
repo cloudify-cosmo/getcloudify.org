@@ -24,7 +24,7 @@
         loop: true,
         live: true,
 		avatars: false,
-        behavior: 'default'
+        behavior: 'all'
     }
 }).render().setUser('cloudifysource').start();
 
