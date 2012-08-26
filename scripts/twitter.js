@@ -2,7 +2,7 @@
     version: 2,
     type: 'profile',
     width:100,
-    interval: 30000,
+    interval: 120000,
 	  rpp: 3,
     title: '',
     subject: '',
