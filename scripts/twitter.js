@@ -4,7 +4,7 @@
     width:100,
     interval: 120000,
 	  rpp: 3,
-    title: '',
+    title: 'what people say about...',
     subject: '',
     width: 230,
     height: 278,	
