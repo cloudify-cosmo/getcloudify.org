@@ -6,7 +6,7 @@ new TWTR.Widget({
     interval: 30000,
     title: '',
     subject: '',
-    width: 800,
+    width: 1005,
     height: 60,
     theme: {
         shell: {
