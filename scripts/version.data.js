@@ -56,7 +56,6 @@ var guide = {
 		},
 		'overview':{
 			'cloudify_intro':true,
-			'cloudify_overview':true,
 			'cloud_driver_overview':true,
 			'universal_service_manager':true
 		},
@@ -139,6 +138,10 @@ var guide = {
 			'sla_requirements':true,
 			'the_service_context_api':true
 		},
+		'examples':{
+			'ant_examples':true,
+			'file_examples':true
+		},
 		'faq':{
 			'faq':true
 		},
@@ -152,8 +155,6 @@ var guide = {
 		},
 		'overview':{
 			'cloudify_intro':true,
-			'cloudify_overview':true,
-			'cloudify_overview_slider':true,
 			'cloud_driver_overview':true,
 			'universal_service_manager':true
 		},
