@@ -92,17 +92,19 @@
 		
 	   /* ------------- added by Yaron/modified by Shlomo ------------ */
 		$("#closeBut").parent().hide();
-		$("#required").prev().hide();
-		$("#required").hide();
-		$("#required").next().hide();
+		//$("#required").prev().hide();
+		//$("#required").hide();
+		//$("#required").next().hide();
 		$("#values").hide();
 		$("span.pln, span.kwd").hover(function(eventObject){
+			var keys = {"name":true, "provider":true, "user":true, "value":true};
 			var currKey = $(eventObject.currentTarget).text().trim();
-			if (currKey == "name") {
-				var prevKey = $(eventObject.currentTarget).prev().prev("span.pln").text().trim();
-				currKey = prevKey + "_" + currKey;
-			}
-			if (currKey == "value") {
+			//if (currKey == "name") {
+			//	var prevKey = $(eventObject.currentTarget).prev().prev("span.pln").text().trim();
+			//	currKey = prevKey + "_" + currKey;
+			//}
+			//if (currKey == "value" || currKey == "provider") {
+			if (keys[currKey]) {
 				var prevKey = $(eventObject.currentTarget).prevUntil("span.pun:contains('{')").last().prev().prev("span.pln").text().trim() ? $(eventObject.currentTarget).prevUntil("span.pun:contains('{')").last().prev().prev("span.pln").text().trim() : $(eventObject.currentTarget).prev().prev("span.pln").text().trim();
 				currKey = prevKey + "_" + currKey;
 			}
@@ -110,7 +112,19 @@
 				var tooltip = $(".overlay"),
 					position = $(eventObject.currentTarget).offset();
 				$(this).css({"background-color":"#CECECE", "cursor" : "help"});
-				$("#desc",tooltip).text(messages[currKey]);
+				var message = messages[currKey].split("::"); console.log(message);
+				$("#desc",tooltip).text(message[0].trim());
+				if (message[1] && message[1].trim().toLowerCase() == "required") {
+					$("#required").prev().show();
+					$("#required").show();
+					$("#required").next().show();
+					$("#required").css("color", "red");
+					$("#required").text("Required");
+				} else {
+					$("#required").prev().hide();
+					$("#required").hide();
+					$("#required").next().hide();
+				}
 				tooltip.show().offset({ top: position.top + tooltip.scrollTop() - 50, left: position.left + 100});
 				$("#tipImg").position();
 			}}, function(){
