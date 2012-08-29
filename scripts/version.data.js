@@ -171,6 +171,7 @@ var guide = {
 		},
 		'recipe':{
 			'app_recipe_ref':true,
+			'cloud_driver_config_ref':true,
 			'command_line_reference':true,
 			'service_recipe_ref':true
 		},
