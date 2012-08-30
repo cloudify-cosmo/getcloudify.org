@@ -121,6 +121,7 @@ var guide = {
 		'deploying':{
 			'deploying_apps':true,
 			'deploying_azure':true,
+			'deploying_srvs':true,
 			'troubleshoot_app':true
 		},
 		'developing':{
