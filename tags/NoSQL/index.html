@@ -40,18 +40,10 @@
 		
 	   /* ------------- added by Yaron/modified by Shlomo ------------ */
 		$("#closeBut").parent().hide();
-		//$("#required").prev().hide();
-		//$("#required").hide();
-		//$("#required").next().hide();
 		$("#values").hide();
 		$("span.pln, span.kwd").hover(function(eventObject){
 			var keys = {"name":true, "provider":true, "user":true, "value":true};
 			var currKey = $(eventObject.currentTarget).text().trim();
-			//if (currKey == "name") {
-			//	var prevKey = $(eventObject.currentTarget).prev().prev("span.pln").text().trim();
-			//	currKey = prevKey + "_" + currKey;
-			//}
-			//if (currKey == "value" || currKey == "provider") {
 			if (keys[currKey]) {
 				var prevKey = $(eventObject.currentTarget).prevUntil("span.pun:contains('{')").last().prev().prev("span.pln").text().trim() ? $(eventObject.currentTarget).prevUntil("span.pun:contains('{')").last().prev().prev("span.pln").text().trim() : $(eventObject.currentTarget).prev().prev("span.pln").text().trim();
 				currKey = prevKey + "_" + currKey;
