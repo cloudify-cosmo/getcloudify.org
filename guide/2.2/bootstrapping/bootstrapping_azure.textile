@@ -15,21 +15,26 @@ Before you bootstrap your Windows Azure cloud, make sure that your environment m
 
 h2. Bootstrapping
 
-Bootstrapping on Windows Azure is a process where the Cloudify cloud driver on your machine interacts with the Windows Azure management API to create a new Azure deployment. Cloudify instructs Azure to perform the following tasks:
-* Create a management role with the Cloudify controller components
-* Create a webui role with the Cloudify web management console webserver
-* Create worker roles for each application service according to your recipe
+Bootstrapping on Windows Azure is a process where the Cloudify cloud driver on your machine interacts with the Windows Azure management API to create a new Azure deployment. 
 
-Currently, each application is deployed with its own Cloudify controller installation.
+Once your cloud configuration file is ready and contains all the required templates for your future application, you can type *@bootstrap-cloud azure@* at the Cloudify shell prompt to begin bootstrapping you configuration.
 
-Bootstrapping the Windows Azure cloud is extremely simple, just follow the "bootstrapping":../bootstrapping/bootstrapping_process#boot procedure, typing the following command in step 2: "*@azure:bootstrap-app@*":https://gist.github.com/1695721.
+The bootstrapping may take up to 10 minutes and when it's done, you can start installing your applications and services using the Cloudify shell prompt (invoke install-service, install-application).
 
-The following example shows the command for bootstrapping the Cloudify controller and the Cloudify agents for the travel application (tomcat and cassandra roles): *@azure:bootstrap-app@* @-azure-pwd 123456 -azure-svc mytraveldemo c:/cloudify/examples/azure/travel@. Once the bootstrapping is completed, the Windows Azure management portal displays the roles in the *Hosted Services* view.
+Here's a screenshot of your portal after bootstrapping:
 
 !../../images/azure/azure_after_bootstrap.png!
 
+
+h2(#uninstall). Uninstalling an application
+
+To uninstall an installed application, type: *@uninstall-application@* @<appName>@
+at the Cloudify shell prompt.
+
 h2(#tear). Teardown
 
-To shut down the Windows Azure environment, at the Cloudify shell prompt, type: *@azure:teardown-app@* @<appName>@
+To shut down the Windows Azure environment, type: *@teardown-cloud@* @<appName>@
+at the Cloudify shell prompt.
 
 h4(info). This uninstalls applications and shuts down all the management and service instance machines.
+
