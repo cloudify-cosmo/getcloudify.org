@@ -165,10 +165,8 @@ var guide = {
 		},
 		'qsg':{
 			'quick_start_guide':true,
-			'quick_start_guide_2_1_1-m2':true,
 			'quick_start_guide_apache':true,
 			'quick_start_guide_ec2':true,
-			'quick_start_guide_ec2_2_1_1-m2':true,
 			'quick_start_guide_helloworld':true
 		},
 		'recipe':{
