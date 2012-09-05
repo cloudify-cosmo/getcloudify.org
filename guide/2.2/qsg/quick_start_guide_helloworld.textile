@@ -7,7 +7,7 @@ abstract: A quick start guide to help you get started with Cloudify. Start here 
 pageord: 50
 --- 
 
-The goal of this quick start guide is to familiarize you with Cloudify in a few simple steps. For this purpose, we will use a Hello World application (an example application that is included in the Cloudify distribution file) to demonstrate the steps required to deploy an application on a local cloud. For a quick start guide to using Cloudify on EC2, see "Deploy a multitier app on EC2 Quick Start Guide":../qsg/quick_start_guide_ec2.
+The goal of this quick start guide is to familiarize you with Cloudify in a few simple steps. For this purpose, we will use a Hello World application (an example application that is included in the Cloudify distribution file) to demonstrate the steps required to deploy an application on a local cloud.
 
 This guide teaches you how to:
 * "Install the Cloudify Shell":#step1
@@ -19,7 +19,7 @@ This guide teaches you how to:
 
 h2. About the Hello World Application
 
-The Hello World application presented in this guide is actually a war file that's deployed on "(newwindow)Tomcat":http://tomcat.apache.org .
+The Hello World application presented in this guide is actually a @war@ file that's deployed on "(newwindow)Tomcat":http://tomcat.apache.org.
 All the binaries are located in the recipe folder, so you don't need an Internet connection.
 Once installed, this application displays several parameters, as shown in the following screenshot:
 
@@ -49,7 +49,7 @@ To bootstrap on a local cloud, at the Cloudify shell prompt, type: *bootstrap-lo
 
 <img src="../../images/setup/shell_boot322m4.jpg" width="550" height="300" />
 
-Your local cloud is now ready for deploying the helloworld application.
+Your local cloud is now ready for deploying the *helloworld* application.
 For more information about bootstrapping on a local cloud, see <span class="inlineExpandBtn" title="../bootstrapping/bootstrapping_localcloud">Boostrap a Local Cloud</span>.
 
 h1(#step3). Step 3 - Deploy the Recipe
@@ -62,7 +62,7 @@ In this example, we specified a timeout of 10 minutes (@-timeout 10@) to allow s
 
 h4(info). If an error occurs during installation, an error message is displayed and the installation is aborted. The error message will help you identify at which phase the problem occurred and for which service it.
 
-Once the application installation has successfully completed, you can access the helloworld application by browsing to @http://localhost:8080/helloworld@.
+Once the application installation has successfully completed, you can access the *helloworld* application by browsing to @http://localhost:8080/helloworld@.
 
 h1(#step4). Step 4 - Monitor the Application
 
@@ -72,7 +72,7 @@ h4(info). You can find the exact URL displayed in the Cloudify shell when bootst
 
 Test the Cloudify web management console as follows:
 * Click the *Topology* link, and then click on the Topology tab.
-* Use the *Select Application* combo box to navigate to the helloworld application. You should see an application map that corresponds to the helloworld application recipe.
+* Use the *Select Application* combo box to navigate to the *helloworld* application. You should see an application map that corresponds to the helloworld application recipe.
 * Each service has a real-time status and shows the number of actual service instances. Click one of the services in the application map.
 
 <br />
@@ -86,7 +86,7 @@ In the lower pane, you can navigate between several views:
 
 h1(#step5). Step 5 - Uninstall the Application
 
-To uninstall the application, at the Cloudify shell prompt, type: *uninstall-application* @helloworld@
+To uninstall the application, at the Cloudify shell prompt, type: *@uninstall-application@* @helloworld@
 
 h1(#step6). Step 6 - Teardown the Local Cloud
 
@@ -95,7 +95,6 @@ To shut down the local cloud installation, at the Cloudify shell prompt, type: *
 
 h1. What's Next?
 
-* Install the extended PetClinic Application on "EC2":../qsg/quick_start_guide_ec2.
 * Learn more about "recipe development":../developing/recipes_overview.
 * Learn more about cloud portability and "cloud drivers":../clouddrivers/cloud_driver.
 * Learn how to "develop a monitoring plugin":../plugins_and_probes/develop_your_plugin.
