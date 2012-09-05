@@ -7,47 +7,44 @@ abstract: Explains how to configure Windows Azure for Cloudify
 pageord: 400
 --- 
 
-This topic provides instructions for configuring Windows Azure for Cloudify.
-
-
-h2. Windows Azure IaaS API 
-
-The windows azure cloud driver uses the new Windows Azure IaaS API to enable users to easily deploy any application to the Windows Azure cloud. 
-It conforms to the normal cloud configuration files you are used to in cloudify, thus making the process extremely simple.
-
-
-<h4 class="info">Currently support is limited to linux images.</h4>
-
+This topic provides instructions for configuring Windows Azure for Cloudify using the IaaS API.
 
 h2. Prerequisites
 
-You must "(newwindow)register for it":https://www.windowsazure.com/en-us/pricing/free-trial in order to have the ability to launch Virtual Machines,since this is still a preview feature.
+* Windows 7, Windows Server 2008, or Windows Vista SP1 with the latest service packs installed
+* Windows Azure SDK "Azure SDK v1.6 64-bit [x64]":http://www.microsoft.com/downloads/info.aspx?na=41&srcfamilyid=e4635d95-61ce-415e-ae92-3004856c08e2&srcdisplaylang=en&u=http%3a%2f%2fdownload.microsoft.com%2fdownload%2fD%2fF%2f4%2fDF442AB0-FAAE-44FF-A04E-F41E72FE6B6F%2fWindowsAzureSDK-x64.msi or "Azure SDK v1.6 32-bit [x86]":http://www.microsoft.com/downloads/info.aspx?na=41&srcfamilyid=e4635d95-61ce-415e-ae92-3004856c08e2&srcdisplaylang=en&u=http%3a%2f%2fdownload.microsoft.com%2fdownload%2fD%2fF%2f4%2fDF442AB0-FAAE-44FF-A04E-F41E72FE6B6F%2fWindowsAzureSDK-x86.msi
+* A "Windows Azure":http://www.microsoft.com/windowsazure/free-trial/ account
+* "Silverlight-enabled(Download Silverlight)":http://www.microsoft.com/getsilverlight/ web browser (required by Azure Management Portal)
+* "Java Development Kit 1.6(Download JDK)":http://www.oracle.com/technetwork/java/javase/downloads/index.html
+* "OpenSSL":http://www.openssl.org
+* Cloudify shell (for information about installing the Cloudify shell, see "Installing the Cloudify Shell":../setup/installing_the_cloudify_client)
 
-After registering, you need to create your own self-signed X509 certificate using OpenSSL:
-* *@openssl req -x509 -nodes -days 365 -newkey rsa:2048 -keyout azure-cert.pem -out azure-cert.pem@*
-The above will create the azure-cert.pem file that contains the public and private key of the certificate.
-* *@openssl pkcs12 -export -out azure-cert.pfx -in azure-cert.pem -name "My Self Signed Cert"@* 
-The above will convert the .pem file to to PKCS12 format (.pfx)
-* *@openssl x509 -outform der -in azure-cert.pem -out azure-cert.cer@*
-The above will extract the public key into a .cer file.
+h2. Configuring Windows Azure
 
-<br/>
-Once you have the public key in a .cer format, you need to upload this to the Azure environment using the management portal:
+This section provides step-by-step instructions for the following configuration tasks:
 
-!../../images/azure/azure_platform.png!
+# "Generate a private key":#key
+# "Configure the Cloudify cloud driver configuration file":#driver
 
+h3(#key). Generate a private key
 
-Once you have uploaded the certificate, you can ahead and switch to the preview portal, which will give you a clearer view of the virtual machines you are about to launch:
-!../../images/azure/azure_sbscribe.png!
+# Create the certificate file (@azure-cer.pem@) public and private keys for the certificate -- Run the following command: *@openssl@* @req -x509 -nodes -days 365 -newkey rsa:2048 -keyout azure-cert.pem -out azure-cert.pem@
+# Convert the file to PKCS12 format (.pfx) -- Run the following command: *@openssl@* @pkcs12 -export -out azure-cert.pfx -in azure-cert.pem -name "My Self Signed Cert"@
+# Extract the public key to a @.cer@ file -- Run the following command: *@openssl@* @x509 -outform der -in azure-cert.pem -out azure-cert.cer@
+# Upload the @.cer@ file to your Azure account using the Azure Management Console -- Click *Management Certificates*, and then click *Add Certificate*.
+<img src="../../images/azure/azure_platform.png" width="655px">
 
+h2(info). Once the certificate is uploaded, you can click *Visit the Preview Portal* to view the list of virtual machines you can provision.
+<img src="../../images/azure/azure_sbscribe.png" width="655px">
 
-h2. Configuring the Cloud Driver
+h3(#driver). Configure the Cloudify cloud driver configuration file
 
-Edit the cloud driver file under <CLOUDIFY-ROOT_FOLDER>/tools/cli/plugins/esc/azure/azure-cloud.groovy and fill in the missing parts.
-Instructions are included in the file, as shown in the following code snippet:
+Edit the Azure cloud driver configuration file (azure-cloud.groovy) located in the <cloudifyRoot>/tools/cli/plugins/esc/azure/ folder.
+<br />
+The following shows an example @azure-cloud.groovy@ file.
 <script src="https://gist.github.com/3609738.js?file=azure-cloud.groovy"></script>
 
-h4(impt). In order for you to connect to your service from your laptop, you must specify the ports you wish to open in the template used by the service.
+h4(impt). To remotely connect to your service from a laptop, you must specify the connection ports in the template used by the service.
 
 <script src="https://gist.github.com/3598533.js?file=tomcat_azure.groovy"></script>
 
