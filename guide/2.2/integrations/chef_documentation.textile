@@ -67,13 +67,13 @@ h4(info). Alternatively, you can configure Cloudify to use an existing Chef Serv
 h3. Loading Cookbooks
 
 The Chef Server requires cookbooks to enable clients to install different services. Cookbooks can be loaded in the following ways:
-* Using knife -- see "NEED A URL DOC NAME FOR HERE":AND-A-URL-FOR-HERE.
+* Using knife -- Use the command: *@knife@* @cookbook upload [COOKBOOKS...] (options)@. For more information, see "Managing Cookbooks With Knife":http://wiki.opscode.com/display/chef/Managing+Cookbooks+With+Knife.
 * Adding a repository in the @chef-server@ recipe properties file, as follows:
 <script src="https://gist.github.com/3656605.js"> </script>
 # Pushing recipes using custom commands add to the service recipe file. For example, the @chef-server@ recipe exposes the following commands:
 <script src="https://gist.github.com/3656626.js"> </script>
 
-The updateCookbooks command can be used to upload cookbooks from different repositories such as GIT and SVN or just using a tarball. For example, I can upload the MySQL cookbook tarball by typing the following command at the Cloudify shell prompt: *@invoke@* @updateCookbooks@ _@tar, cloudifysource.org/chef-repo/cookbooks/mysql.tar.gz@_
+The updateCookbooks command can be used to upload cookbooks from different repositories such as GIT and SVN or just using a tarball. For example, I can upload the MySQL cookbook tarball by typing the following command at the Cloudify shell prompt: *@invoke@* @updateCookbooks@ _@tar 'http://repository.cloudifysource.org/chef-cookbooks/mysql_cookbook_with_deps.tgz'@_
 
 h3. Running your Recipe
 
