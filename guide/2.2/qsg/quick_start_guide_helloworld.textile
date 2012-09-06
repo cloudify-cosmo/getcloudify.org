@@ -12,7 +12,7 @@ The goal of this quick start guide is to familiarize you with Cloudify in a few 
 This guide teaches you how to:
 * "Install the Cloudify Shell":#step1
 * "Bootstrap on a Local Cloud":#step2
-* "Deploy the Recipe":#step3
+* "Deploy the Application":#step3
 * "Monitor the Application":#step4
 * "Uninstall the Application":#step5
 * "Teardown the Local Cloud":#step6
@@ -52,9 +52,9 @@ To bootstrap on a local cloud, at the Cloudify shell prompt, type: *bootstrap-lo
 Your local cloud is now ready for deploying the *helloworld* application.
 For more information about bootstrapping on a local cloud, see <span class="inlineExpandBtn" title="../bootstrapping/bootstrapping_localcloud">Boostrap a Local Cloud</span>.
 
-h1(#step3). Step 3 - Deploy the Recipe
+h1(#step3). Step 3 - Deploy the Application
 
-Now that you are more familiar with the recipe mechanism, let's deploy the application. At the Cloudify shell prompt, type: *install-application* @-timeout 10 <cloudify root>/recipes/apps/helloworld@
+Now that the cloud is ready, let's deploy the application. At the Cloudify shell prompt, type: *install-application* @-timeout 10 <cloudify root>/recipes/apps/helloworld@
 
 h4(warn). Currently the Cloudify shell does not support backslashes so you must use a forward slash (@/@) as your path separator even if you are running on Windows.
 

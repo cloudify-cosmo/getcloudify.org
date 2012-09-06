@@ -9,53 +9,42 @@ pageord: 100
 
 h2. Introduction
 
-This tutorial will help you get started with integrating chef recipes into your cloudify applications. We will assume that you are familiar with the basics of the cloudify platform (if not, we suggest "the cloudify quick start guide":../qsg/quick_start_guide) and the basics of the opscode chef platform (if not, we suggest "the chef fast start guide":http://wiki.opscode.com/display/chef/Fast+Start+Guide).
+This goal of this quide is to help you get started with integrating Chef "(newwindow)Recipes":http://wiki.opscode.com/display/chef/Recipes into your cloudify applications. If you are not already familiar with the basics of the Cloudify and the Chef Platforms, we recommend that you carefully read the Cloudify "(newwindow)Quick Start Guide":../qsg/quick_start_guide_helloworld and Chef "(newwindow)Fast Start Guide":http://wiki.opscode.com/display/chef/Fast+Start+Guide respectively.
 
-Chef comes in two flavors:
-* a client-server model in which clients pull all relevant data from the server and then push back their newly formed configuration (useful for management of inter-server dependencies)
-* a chef-solo model in which the clients pull the recipes as a tarball from the network and configure themselves in a stand-alone fashion. 
+This guide is based on Chef's client-server model (where clients pull all relevant data from the server and then push back their newly formed configuration) to provide a Chef service to an application called *fluffy* deployed on Cloudify.
 
-The example below will use a chef-server as one of the application's services, similar to what is done in the travel-chef example you can find in the cloudify-recipes repository.
+h4(info) This is similar to the travel-chef example that is available in the "@cloudify-recipes@":https://github.com/CloudifySource/cloudify-recipes examples repository.
 
-h2. Preparing the application
+This guide teaches you how to:
+# "Prepare your Application":#step1
+# "Configure your Application to use a Chef Service":#step2
+# "Deploy your Application with the Chef Service":#step3
 
-To use the chef-server configuration, you'll need to include the two following cloudify recipes in your application, available in the cloudify-recipes example repository (https://github.com/CloudifySource/cloudify-recipes):
-* chef-server: Sets up a single server configured with the chef-server package.
-* chef: This is the service that will be extended by all the services to be bootstrapped using chef.
+h2(#step1). Step 1 -- Prepare your Application
 
-Create a directory for your application. In this tutorial, we will assume that your application is named "fluffy", so you will have apps/fluffy/fluffy.groovy as your application manifest. Let's also assume that apart from the chef-server, you will have a mysql server bootsrapped using chef, and a webapp server bootstrapped directly through cloudify. In this case, fluffy.groovy should have the following contents:
-<pre>
-    service {
-        name = "chef-server"
-    }
+# Under @apps/fluffy/@, create the application recipe (@fluffy.groovy@).
+# Add the following services and configuration items in their respective folders to the application (under @apps/fluffy@):
+#* @mysql@ -- A basic Cloudify service that extends the basic Chef service. You can copy the groovy file from the @cloudify-recipes@ examples repository.
+#* @webapp@ -- A non-Chef Cloudify recipe (this is outside the scope of this tutorial).
+#* @roles@ -- Contains a ruby file defining each of the chef roles to be used by the services in your application. In this example, we will use a single file "mysql.rb" with the following contents:
+<script src="https://gist.github.com/3653737.js"> </script>
+#* @cookbooks@ -- The chef cookbooks with the code that you need to flesh out with the roles you defined. In our example, we will use a fluffy cookbook with a mysql recipe that depends on the @mysql@ cookbook, and defines our additional databases/users. You can copy this from the @cloudify-recipes@ examples repository, and you can copy its dependencies from the same repository or the Ppscode cookbooks repository.
 
-    service {
-        name = "mysql"
-        dependsOn = ["chef-server"]
-    }     
+h2(#step2). Step 2 -- Configure your Application to use a Chef Service
 
-    service {
-        name = "webapp"
-        dependsOn = ["mysql"]
-    }
-}
-</pre>
+h4(impt). Please note that the following instructions use *Cloudify* recipes and NOT *Chef* Recipes.
 
-Apart from the manifest, apps/fluffy should contain the following subdirectories:
-* chef-server: extends the chef-server service and fetches the chef data. Copy this from the cloudify-recipes repository and change fetch_chef_data.sh to point at the repository where you plan to keep the published version of this application. Note that, unlike the case presented here, you can also keep the chef code in a completely separate repository (e.g. if the same chef codebase is used for non-cloudify deployments).
-* mysql: an basic cloudify service that does nothing much except to extend the basic chef service. You can copy the groovy file from cloudify-recipes.
-* webapp: A non-chef cloudify recipe - outside the scope of this tutorial.
-* roles: will contain a ruby file defining each of the chef roles to be used by the services in our application. In this case it will have only a single file "mysql.rb" with the following contents:
-<pre>
-    name "mysql"
-    description "mysql master server"
-    run_list "recipe[fluffy::mysql]"
-    default_attributes "mysql" => { "bind_address" => "0.0.0.0" }
-</pre>
-* cookbooks: The chef cookbooks with the code that you need to flesh out with the roles you defined. In our case, we will need a fluffy cookbook with a mysql recipe that depends on the mysql cookbook and defines our additional databases/users. You can copy this from cloudify-recipes and you can copy its dependencies from cloudify recipes or the opscode cookbooks repository.
+To add a Chef service to your application:
+# Add the following *service* recipes to your application:
+** "@chef@":https://github.com/CloudifySource/cloudify-recipes/blob/master/services/chef/chef-service.groovy -- The base service that will be extended by all the services to be bootstrapped using @chef@.
+** "@chef-server@":https://github.com/CloudifySource/cloudify-recipes/blob/master/services/chef/chef-service.groovy -- Sets up a single-server instance configured with the @chef-server@ package. This service extends the @chef-server@ service and fetches the @chef@ data. Copy this from the @cloudify-recipes@ examples repository and change @fetch_chef_data.sh@ to point at the repository where you plan to keep the published version of this application.
+<h4 class="info">You can also keep the @chef@ code in a completely separate repository (e.g. if the same @chef@ codebase is used for non-Cloudify deployments).</h4>
+# Add the service to your *application* recipe (fluffy.groovy)
+<script src="https://gist.github.com/3653290.js"> </script>
+<h4 class="info">Note that the @mysql@ server is provisioned by Chef and that the @webapp@ server is provisioned by Cloudify.</h4>
 
-h2. Installing the application
+h2(#step3). Step 3 -- Deploy your Application with the Chef Service
 
-We are now ready to install the application. Launch the cloudify shell, bootstrap a cloud (e.g. "bootstrap-cloud ec2") and then install the application by running "install_application {relative path your local apps dir}/apps/fluffy".
+To install the application, using the Cloudify shell, bootstrap a cloud (e.g. *@bootstrap-cloud@* @ec2@), and then install the application (*@install-application@* @<cloudifyRoot>/apps/fluffy@".
 
-According to our application manifest the chef-server machine will be installed first and as the last part of its installation it will pull the chef cookbooks and roles as we defined in the chef-server service file "fetch_chef_data.sh" (this logic is incorporated as the postStart command "chef_server_loadCookbooks.sh", and is also available as a custom command to be rerun if/when the chef cookbooks are updated) . Afterwards, the fluffy mysql service will install chef and then run the chef client with the same role as the service's name (the role we defined in mysql.rb).
+h4(info). The installation proceeds according in the sequence specified in your application recipe, i.e. the first step provisions the @chef-server@ machine and pulls the Chef cookbooks and roles as defined in the @chef-server@ service file @fetch_chef_data.sh@ (this logic is incorporated as the @postStart@ event handler @chef_server_loadCookbooks.sh@ described in the lifecycle section of the service recipe, and is also available as a custom command to be rerun should the Chef cookbooks are updated). The next step provisions the mysql service, which in turn installs Chef and then runs the Chef client with the same role as the service's name (i.e. the role defined in @mysql.rb@).
