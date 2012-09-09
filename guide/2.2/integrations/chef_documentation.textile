@@ -43,22 +43,21 @@ Once the Chef server is deployed, its location is published as an attribute in C
 
 h4(info). Alternatively, you can configure Cloudify to use an existing Chef Server.
 
-h3. Loading Cookbooks
+h3. Loading the mySQL Cookbook
+The Cloudify Chef Server recipe adds a functionality to the Chef Server that allows users to upload Chef cookbooks as tarballs.
+This is done by using the invoke command of Cloudify shell.
+Type the following command at the Cloudify shell prompt: *@invoke@* @updateCookbooks@ _@tar 'http://repository.cloudifysource.org/chef-cookbooks/mysql_cookbook_with_deps.tgz'@_
 
-The Chef Server requires cookbooks to enable clients to install different services. Cookbooks can be loaded in the following ways:
-* Using knife -- Use the command: *@knife@* @cookbook upload [COOKBOOKS...] (options)@. For more information, see "Managing Cookbooks With Knife":http://wiki.opscode.com/display/chef/Managing+Cookbooks+With+Knife.
-* Adding a repository in the @chef-server@ recipe properties file, as follows:
-<script src="https://gist.github.com/3656605.js"> </script>
-# Pushing recipes using custom commands add to the service recipe file. For example, the @chef-server@ recipe exposes the following commands:
-<script src="https://gist.github.com/3656626.js"> </script>
+h3. Installing the mysql_vanilla recipe
+In the cloudify shell prompt type:
+install-service followed by the path to the mysql_vanilla folder
 
-The updateCookbooks command can be used to upload cookbooks from different repositories such as GIT and SVN or just using a tarball. For example, I can upload the MySQL cookbook tarball by typing the following command at the Cloudify shell prompt: *@invoke@* @updateCookbooks@ _@tar 'http://repository.cloudifysource.org/chef-cookbooks/mysql_cookbook_with_deps.tgz'@_
+That's all! Cloudify will start installing the mySQL server recipe.
+You can trace the installation progress using the Cloudify shell or Cloudify Web UI.
 
-h3. Running your Recipe
+h2. Running Additional Cookbooks
 
-Chef based Cloudify recipes are run in the same way as other Cloudify recipes. You use must the Cloudify shell to connect to your Cloudify REST gateway, and then use the *@install-application@* command with the full path to your Chef recipe. You can monitor the installation progress in the Cloudify shell.
-
-h2. Preparing a Cloudify Chef Recipe
+h3. Creating Recipes based on Chef Cookbooks
 
 If you are not familiar with Cloudify recipes, please read "Anatomy of a Recipe":http://www.cloudifysource.org/guide/2.1/developing/recipes_overview first.
 
@@ -74,6 +73,25 @@ Optionally, you can specify the following sections in your recipe:
 #* Custom Commands -- Describes custom commands that add functionality. The commands can be invoked using the Cloudify shell at any time. They are usually used for different maintenance and application upgrade tasks.
 # In the same folder, create a service properties file (@<serviceName>-service.properties@), specifying a property called @runParams@. For example, you can assign a groovy structure that gives an array of the Chef recipes to use, the name of the cookbook, and the default attributes.
 <script src="https://gist.github.com/3656114.js"> </script>
+
+h3. Loading Cookbooks
+
+The Chef Server requires cookbooks to enable clients to install different services. Cookbooks can be loaded in the following ways:
+* Using knife -- Use the command: *@knife@* @cookbook upload [COOKBOOKS...] (options)@. For more information, see "Managing Cookbooks With Knife":http://wiki.opscode.com/display/chef/Managing+Cookbooks+With+Knife.
+* Adding a repository in the @chef-server@ recipe properties file, as follows:
+<script src="https://gist.github.com/3656605.js"> </script>
+# Pushing recipes using custom commands add to the service recipe file. For example, the @chef-server@ recipe exposes the following commands:
+<script src="https://gist.github.com/3656626.js"> </script>
+
+The updateCookbooks command can be used to upload cookbooks from different repositories such as GIT and SVN or just using a tarball. For example, I can upload the MySQL cookbook tarball by typing the following command at the Cloudify shell prompt: *@invoke@* @updateCookbooks@ _@tar 'http://repository.cloudifysource.org/chef-cookbooks/mysql_cookbook_with_deps.tgz'@_
+
+h3. Running your Recipe
+
+Chef based Cloudify recipes are run in the same way as other Cloudify recipes. You use must the Cloudify shell to connect to your Cloudify REST gateway, and then use the *@install-application@* command with the full path to your Chef recipe. You can monitor the installation progress in the Cloudify shell.
+
+
+
+
 
 h2. How does Cloudify use Chef?
 
