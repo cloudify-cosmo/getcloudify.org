@@ -29,22 +29,7 @@ To obtain the basic Chef recipes provided by Cloudify, download the following fi
 In addition download the mySql example "@Simple mySQL example@":https://github.com/CloudifySource/cloudify-recipes/tree/master/services/chef-services/mysql-vanilla
 and save it to the same location.
 
-h3. Preparing a Cloudify Chef Recipe
-
-If you are not familiar with Cloudify recipes, please read "Anatomy of a Recipe":http://www.cloudifysource.org/guide/2.1/developing/recipes_overview first.
-
-To create a Cloudify Chef recipe:
-# Create a application recipe folder (e.g. use name of your application).
-# Add the application level recipe file describing the service dependencies.
-# Create a sub folder for each service.
-# In the Chef service folder, create a service recipe (@<serviceName>-service.groovy@) that extends the @chef@ recipe, specifying the service name, icon, number of instances, ....
-<script src="https://gist.github.com/3656102.js"> </script>
-Optionally, you can specify the following sections in your recipe:
-#* Monitoring -- Describes the custom performance indicators (metrics) to collate.
-#* Scaling Rules --Describes the performance indicator and thresholds to use to scale your service.
-#* Custom Commands -- Describes custom commands that add functionality. The commands can be invoked using the Cloudify shell at any time. They are usually used for different maintenance and application upgrade tasks.
-# In the same folder, create a service properties file (@<serviceName>-service.properties@), specifying a property called @runParams@. For example, you can assign a groovy structure that gives an array of the Chef recipes to use, the name of the cookbook, and the default attributes.
-<script src="https://gist.github.com/3656114.js"> </script>
+h2. Running the mySQL example
 
 h3. Deploying the Chef Server
 
@@ -72,6 +57,23 @@ The updateCookbooks command can be used to upload cookbooks from different repos
 h3. Running your Recipe
 
 Chef based Cloudify recipes are run in the same way as other Cloudify recipes. You use must the Cloudify shell to connect to your Cloudify REST gateway, and then use the *@install-application@* command with the full path to your Chef recipe. You can monitor the installation progress in the Cloudify shell.
+
+h2. Preparing a Cloudify Chef Recipe
+
+If you are not familiar with Cloudify recipes, please read "Anatomy of a Recipe":http://www.cloudifysource.org/guide/2.1/developing/recipes_overview first.
+
+To create a Cloudify Chef recipe:
+# Create a application recipe folder (e.g. use name of your application).
+# Add the application level recipe file describing the service dependencies.
+# Create a sub folder for each service.
+# In the Chef service folder, create a service recipe (@<serviceName>-service.groovy@) that extends the @chef@ recipe, specifying the service name, icon, number of instances, ....
+<script src="https://gist.github.com/3656102.js"> </script>
+Optionally, you can specify the following sections in your recipe:
+#* Monitoring -- Describes the custom performance indicators (metrics) to collate.
+#* Scaling Rules --Describes the performance indicator and thresholds to use to scale your service.
+#* Custom Commands -- Describes custom commands that add functionality. The commands can be invoked using the Cloudify shell at any time. They are usually used for different maintenance and application upgrade tasks.
+# In the same folder, create a service properties file (@<serviceName>-service.properties@), specifying a property called @runParams@. For example, you can assign a groovy structure that gives an array of the Chef recipes to use, the name of the cookbook, and the default attributes.
+<script src="https://gist.github.com/3656114.js"> </script>
 
 h2. How does Cloudify use Chef?
 
