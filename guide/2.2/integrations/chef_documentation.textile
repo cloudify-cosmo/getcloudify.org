@@ -28,6 +28,7 @@ h3. Downloading Cloudify Chef Recipes and Supporting Files
 To obtain the basic Chef recipes provided by Cloudify, download the following files and save them under @<cloudifyRoot>/recipes/services@:
 * "@chef@":https://github.com/CloudifySource/cloudify-recipes/tree/master/services/chef
 * "@chef-server@":https://github.com/CloudifySource/cloudify-recipes/tree/master/services/chef-server
+
 In addition download the mySql example "@Simple mySQL example@":https://github.com/CloudifySource/cloudify-recipes/tree/master/services/chef-services/mysql-vanilla
 and save it to the same location.
 
@@ -51,7 +52,8 @@ h3. Loading the mySQL Cookbook
 
 The Cloudify Chef Server recipe adds a functionality to the Chef Server that allows users to upload Chef cookbooks as tarballs.
 This is done by using the invoke command of Cloudify shell.
-Type the following command at the Cloudify shell prompt: *@invoke@* @updateCookbooks@ _@tar 'http://repository.cloudifysource.org/chef-cookbooks/mysql_cookbook_with_deps.tgz'@_
+Type the following command at the Cloudify shell prompt:
+*@invoke@* @updateCookbooks@ _@tar 'http://repository.cloudifysource.org/chef-cookbooks/mysql_cookbook_with_deps.tgz'@_
 
 h3. Installing the mysql_vanilla recipe
 
