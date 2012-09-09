@@ -15,15 +15,7 @@ Before you proceed, make sure you are familiar with the basic concepts of Chef. 
 
 In order to facilitate usage of Chef cookbooks for service installation, Cloudify provides a basic, configurable Chef recipe that does most of the work for you without any hassle. Typically you will only need to configure this recipe and take care of the post deployment phases that Chef doesn't cover.
 
-h2. How does Cloudify use Chef?
 
-The following diagrams depict the Cloudify and Chef flow:
-# Cloudify provisions machines and installs Cloudify agents as part of the deployment.
-<img src="../../images/integrations/create_virtual_machines.png" width="655px">
-# Cloudify executes a parameterized Cloudify Chef client recipe. This recipe installs and runs the Chef client, providing the required data bag and roles required for the Chef client to run.
-<img src="../../images/integrations/install_chef_clients.png" width="655px">
-# Chef executes the Chef cookbook and installs the required software.
-<img src="../../images/integrations/chef_installs_software.png" width="655px">
 
 h2. Installing Cloudify with Chef
 
@@ -79,9 +71,15 @@ h3. Running your Recipe
 
 Chef based Cloudify recipes are run in the same way as other Cloudify recipes. You use must the Cloudify shell to connect to your Cloudify REST gateway, and then use the *@install-application@* command with the full path to your Chef recipe. You can monitor the installation progress in the Cloudify shell.
 
-h2. Cloudify-Chef Integration Under the Hood
+h2. How does Cloudify use Chef?
 
-This section explains how Cloudify wraps a chef cookbook and runs it.
+The following diagrams depict the Cloudify and Chef flow:
+# Cloudify provisions machines and installs Cloudify agents as part of the deployment.
+<img src="../../images/integrations/create_virtual_machines.png" width="655px">
+# Cloudify executes a parameterized Cloudify Chef client recipe. This recipe installs and runs the Chef client, providing the required data bag and roles required for the Chef client to run.
+<img src="../../images/integrations/install_chef_clients.png" width="655px">
+# Chef executes the Chef cookbook and installs the required software.
+<img src="../../images/integrations/chef_installs_software.png" width="655px">
 
 h3. Chef Installation
 
