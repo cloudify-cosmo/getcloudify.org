@@ -1,19 +1,51 @@
 ---
 layout: default
-title: How to use Ant in Groovy And in Cloudify
-category: Examples
+title: File management and manipulations in Groovy And in Cloudify
+category: Common Paterns
 publish: true
-abstract: Code snippets of how to use ant commands in Cloudify
+abstract: Code snippets of how to use files in Groovy And in Cloudify
 pageord: 100
 ---
 
 <span id="#top" />
+* "How do I use a regular expression to replace a string in a file?":#regexp1
+* "How do I find all the groovy comments in all the groovy files in a folder?":#comments1
+* "How do I download a file in groovy without Ant":#download1
 * "How do I download a file in Groovy?":#antget1
 * "How do I zip/unzip a file in Groovy?":#unzip1
 * "How do I copy/move a file in Groovy?":#copy1
 * "How do I change files/folders permissions in Groovy?":#chmod1
 * "How do I execute a system command or an executable in Groovy?":#exec1
 
+
+h3(#regexp1). How do I use a regular expression to replace a string in a file? 
+
+<script src="https://gist.github.com/3264023.js?file=replaceInFile.groovy"></script>
+
+The example is used in the install lifecycle event handler of the "(newwindow)tomcat service recipe":https://github.com/CloudifySource/cloudify-recipes/blob/master/services/tomcat/tomcat_install.groovy.
+
+More info about Groovy files, can be found "(newwindow)here":http://groovy.codehaus.org/groovy-jdk/java/io/File.html.
+
+"Back to top":#top
+<hr/>
+
+h3(#comments1). How do I find all the groovy comments in all the groovy files in a folder? 
+
+<script src="https://gist.github.com/3264460.js?file=findComments.groovy"></script>
+
+More info about Groovy files, can be found "(newwindow)here":http://www.groovyexamples.org/tag/file.
+
+"Back to top":#top
+<hr/>
+
+h3(#download1). How do I download a file in groovy without Ant?
+
+<script src="https://gist.github.com/3264773.js?file=download.groovy"></script>
+
+More info about Groovy files, can be found "(newwindow)here":http://www.groovyexamples.org/tag/file.
+
+"Back to top":#top
+<hr/>
 
 h3(#antget1). How do I download a file in Groovy? 
 
@@ -70,3 +102,5 @@ More info about the exec task in Ant, can be found "(newwindow)here":http://ant.
 
 "Back to top":#top
 <hr/>
+
+

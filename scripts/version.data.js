@@ -115,6 +115,9 @@ var guide = {
 			'developing_custom_clouddriver':true,
 			'tutorial_maven':true
 		},
+		'common_paterns':{
+			'file_examples':true
+		},
 		'contribute':{
 			'how_to':true
 		},
@@ -138,10 +141,6 @@ var guide = {
 			'service_recipe':true,
 			'sla_requirements':true,
 			'the_service_context_api':true
-		},
-		'examples':{
-			'ant_examples':true,
-			'file_examples':true
 		},
 		'faq':{
 			'faq':true
