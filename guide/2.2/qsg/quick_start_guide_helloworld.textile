@@ -54,7 +54,13 @@ For more information about bootstrapping on a local cloud, see <span class="inli
 
 h1(#step3). Step 3 - Deploy the Application
 
-Now that the cloud is ready, let's deploy the application. At the Cloudify shell prompt, type: *install-application* @-timeout 10 <cloudify root>/recipes/apps/helloworld@
+You can get the hello world application recipe in one of the following ways:
+# Download it from "https://github.com/CloudifySource/cloudify-recipes/zipball/master":https://github.com/CloudifySource/cloudify-recipes/zipball/master
+and extract it to YOUR_LOCAL_ROOT_FOLDER.
+# In YOUR_LOCAL_ROOT_FOLDER, invoke the following command :
+ *@git clone@* __git@github.com:CloudifySource/cloudify-recipes.git__
+
+Now that the cloud is ready, let's deploy the application. At the Cloudify shell prompt, type: *install-application* @-timeout 10 YOUR_LOCAL_ROOT_FOLDER/recipes/apps/helloworld@
 
 h4(warn). Currently the Cloudify shell does not support backslashes so you must use a forward slash (@/@) as your path separator even if you are running on Windows.
 
