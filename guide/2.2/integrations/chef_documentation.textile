@@ -44,7 +44,7 @@ To deploy the Chef Server:
 
 Once the Chef server is deployed, its location is published as the "global attribute":..developing/attributes_api @chef_server_url@ in Cloudify's attributes store.
 
-h4(info). Alternatively, you can configure Cloudify to use an existing Chef Server by setting this attribute manually using the Cloudify shell. This can be a Chef server you installed separately or the "Hosted Chef":http://www.opscode.com/hosted-chef/ service.
+h4(info). Alternatively, you can configure Cloudify to use an existing Chef Server by setting this attribute manually using the Cloudify shell, as presented below. This can be a Chef server you installed separately or the "Hosted Chef":http://www.opscode.com/hosted-chef/ service. <br/><script src="https://gist.github.com/3705045.js?file=chef-set-attributes"></script>
 
 h3. Loading the mySQL Cookbook
 
@@ -94,6 +94,8 @@ The updateCookbooks command can be used to upload cookbooks from different repos
 h3. Running your Recipe
 
 Chef based Cloudify recipes are executed in the same way as other Cloudify recipes are. You use must use the Cloudify shell to connect to your Cloudify REST gateway, and then use the *@install-application@* command with the full path to your application recipe folder. You can monitor the installation progress using the Cloudify shell and Web UI.
+
+h4(info). *Chef Version* <br/>By default, the Cloudify Chef recipe uses the latest stable version of the Chef client and server. This is defined by the property @chef.version@ in the @chef.properties@ file of the base Chef recipe. If you want to use a different Chef version, change this property to the right version. Note however that the Cloudify Chef integration is only tested with the default version in the above file. When installing Chef server using the @chef-server@ Cloudify recipe, chef-solo is used. The recipe downloads the relevant cookbooks from a tarball, whose URL is specified in the property @chef.bootstrapCookbooksUrl@ in the same properties file above. If you want to use a different version of one of those cookbooks, you will need to modify this property accordingly.
 
 h2. TL;DR - How Does Cloudify Use Chef?
 
