@@ -7,22 +7,45 @@ abstract: Cloudify-Chef integration documentation
 pageord: 200
 ---
 
+
+
 Cloudify 2.2 (starting from milestone 2) supports the "Opscode Chef":http://wiki.opscode.com/display/chef/Recipes platform as an additional method of conveniently deploying and configuring application services.
-
 Chef provides a powerful multi-platform framework for configuring operating systems and services. It complements Cloudify recipes by handling the scope of intra-machine configurations. Using Chef, the lifecycle of services can be simplified as Chef takes care of keeping service configurations up-to-date with current specifications as defined by roles and cookbooks.
-
 Before you proceed, make sure you are familiar with the basic concepts of Chef. For information, see "Chef Basics":http://wiki.opscode.com/display/chef/Chef+Basics.
-
 In order to use Chef cookbooks for service installation, Cloudify provides a configurable base Chef recipe that does most of the Chef bootstrapping work. Typically you will only need to extend this recipe and take care of the pre and post deployment phases that Chef doesn't handle.
 
+Sections of the page:
+* "How Does Cloudify Use Chef":#how
+* "Chef Installation":#install
+* "Using Chef with Cloudify":#using
+* "Running the MySQL Example":#example
+* "Running Additional Cookbooks":#additional
 
-h2. Using Chef with Cloudify
+h2(#how). How Does Cloudify Use Chef?
+
+The following diagrams depict the Cloudify/Chef integration flow:
+# Cloudify provisions machines and installs Cloudify agents as part of the deployment.
+<img src="../../images/integrations/create_virtual_machines.png" width="655px">
+# Cloudify executes a parameterized Cloudify Chef client recipe. This recipe installs and runs the Chef client.
+<img src="../../images/integrations/install_chef_clients.png" width="655px">
+# Chef executes the Chef cookbook and installs the required software.
+<img src="../../images/integrations/chef_installs_software.png" width="655px">
+
+h2(#install). Chef Installation
+
+Cloudify installs the chef client once the chef recipe triggers the install step of the service lifecycle, as follows.
+<script src="https://gist.github.com/3656778.js"> </script>
+
+The @ChefBootstrap.getBootstrap@ method is a factory method pattern that selects the correct bootstrap strategy depending to the current operating system. The @install@ method invoked on the factory, installs the Chef client using @gem@ or @yum@ install.
+
+
+h2(#using). Using Chef with Cloudify
 
 The next sections of this guide assume that you have Cloudify installed and that you have "bootstrapped a Cloudify environment":../bootstrapping/bootstrapping_process, ready to install an application. For a quick introduction to setting up a Cloudify cloud, see Cloudify's "Quick Start Guide":../qsg/quick_start_guide_helloworld.
 
 h4(info). If you'd like to use Cloudify for installing a Chef server, and using 2.2 miletone 4 or lower, please make sure to use a Ubuntu 11.10 or 12.04 Cloud Driver template, since the Chef server recipe has only been certified for Ubuntu at this point. You can find such a template for Amazon ec2 in the "Cloudify cloud drivers repo on Github":https://github.com/CloudifySource/cloudify-cloud-drivers
 
-h3. Downloading Cloudify Chef Recipes and Related Artifacts
+h3(#download). Downloading Cloudify Chef Recipes and Related Artifacts
 
 To obtain the basic Chef recipes provided by Cloudify, download the following files and save them under @<cloudifyRoot>/recipes/services@:
 * The base "@chef@" recipe:https://github.com/CloudifySource/cloudify-recipes/tree/master/services/chef
@@ -32,7 +55,7 @@ In addition, download the "@simple mySQL example@":https://github.com/CloudifySo
 
 h4(info). You can also clone the entire "CloudifySource recipes repository":https://github.com/CloudifySource/cloudify-recipes/ from Github using the command @git clone https://github.com/CloudifySource/cloudify-recipes.git@
 
-h2. Running the mySQL example
+h2(#example). Running the MySQL Example
 
 h3. Deploying the Chef Server
 
@@ -61,7 +84,7 @@ Assuming you've succesfully uploaded the @mysql@ cookbook using the custom comma
 That's all! Cloudify will start installing the mySQL server recipe.
 You can trace the installation progress using the Cloudify shell or the Cloudify Web UI.
 
-h2. Running Additional Cookbooks
+h2(#additional). Running Additional Cookbooks
 
 h3. Creating Recipes based on Chef Cookbooks
 
@@ -96,23 +119,6 @@ h3. Running your Recipe
 Chef based Cloudify recipes are executed in the same way as other Cloudify recipes are. You use must use the Cloudify shell to connect to your Cloudify REST gateway, and then use the *@install-application@* command with the full path to your application recipe folder. You can monitor the installation progress using the Cloudify shell and Web UI.
 
 h4(info). *Chef Version* <br/>By default, the Cloudify Chef recipe uses the latest stable version of the Chef client and server. This is defined by the property @chef.version@ in the @chef.properties@ file of the base Chef recipe. If you want to use a different Chef version, change this property to the right version. Note however that the Cloudify Chef integration is only tested with the default version in the above file. When installing Chef server using the @chef-server@ Cloudify recipe, chef-solo is used. The recipe downloads the relevant cookbooks from a tarball, whose URL is specified in the property @chef.bootstrapCookbooksUrl@ in the same properties file above. If you want to use a different version of one of those cookbooks, you will need to modify this property accordingly.
-
-h2. TL;DR - How Does Cloudify Use Chef?
-
-The following diagrams depict the Cloudify/Chef integration flow:
-# Cloudify provisions machines and installs Cloudify agents as part of the deployment.
-<img src="../../images/integrations/create_virtual_machines.png" width="655px">
-# Cloudify executes a parameterized Cloudify Chef client recipe. This recipe installs and runs the Chef client.
-<img src="../../images/integrations/install_chef_clients.png" width="655px">
-# Chef executes the Chef cookbook and installs the required software.
-<img src="../../images/integrations/chef_installs_software.png" width="655px">
-
-h3. Chef Installation
-
-Cloudify installs the chef client once the chef recipe triggers the install step of the service lifecycle, as follows.
-<script src="https://gist.github.com/3656778.js"> </script>
-
-The @ChefBootstrap.getBootstrap@ method is a factory method pattern that selects the correct bootstrap strategy depending to the current operating system. The @install@ method invoked on the factory, installs the Chef client using @gem@ or @yum@ install.
 
 h3. Running Chef
 
