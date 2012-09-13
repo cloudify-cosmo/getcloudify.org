@@ -58,6 +58,16 @@ The driver gets the machine information from the template attributes (correspond
 The same scenario will occur if the controller has to compensate for a crashed machine or to rebalance one of the services, as shown in the following diagram:
 <img src="../../images/clouddrivers/cluster-healing.png"/>
 
+h4(#cloudConf). Parameterizing the Cloud Driver
+
+In order to pass configuration information to the Cloud Driver, at the Cloudify shell prompt, type: 
+
+*@install-application@* @-cloudConfiguration PATH_TO_CONF PATH_TO_APPLICATION@
+@cloudConfiguration@ contains a path (relative/absolute) to a file or a directory containing configuration information to be used by the cloud driver for this application as shown in the following code snippet:
+<script src="https://gist.github.com/3713008.js?file=setCustomDataFile.java"></script>
+
+
+
 h3(#uninstall). Uninstalling an Application
 
 <img src="../../images/clouddrivers/uninstallApplication.png"/>
