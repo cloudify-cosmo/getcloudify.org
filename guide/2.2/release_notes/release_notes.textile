@@ -14,6 +14,15 @@ h1. Overview
 h4. Below is a list of new features, improvements, fixed issues, and known issues in Cloudify.
 We track all the issues in our public "JIRA":https://cloudifysource.atlassian.net.
 
+"Cloudify 2.2.0 M5":#v220m5  - published on Sep 23, 2012
+This version contains the following key improvements:
+* "Rest API":../rest_api/rest_api_attributes - Cloudify's context attributes are now exposed over a REST API.
+* "Attributes Per Template":../setup/configuring_ec2 -  Many attributes are now per template in the cloud-driver file. For example: localDirectory, remoteDirectory and keyFile.
+* "Run as a sudoer":../setup/configuring_openstack - Users are now able to bootstrap and install an application as a sudoer on linux machines, just by setting the privileged attribute to true in the cloud-driver file.
+* "Azure IaaS API":../setup/configuring_azure - Users are now able to bootstrap and install an application on Windows Azure using the IaaS API.
+
+<hr/>
+
 "Cloudify 2.2.0 M4":#v220m4  - published on Sep 9, 2012
 This version contains the following key improvements:
 * "Rest API":../rest_api/rest_api_attributes - Cloudify's context attributes are now exposed over a REST API.
@@ -55,6 +64,68 @@ This milestone contains the following key improvements:
 * The Cloudify Interactive Shell now offers an improved user experience: Cloud bootstrapping, Application installation and uninstallation, as well as cloud teardown. These improvements facilitate progress tracking and simplify troubleshooting and recipe debugging.
 
 <hr/>
+
+h1(#v220m5). Cloudify 2.2.0 M5
+
+h3. New Features and Improvements
+
+|_. ID |_. Description |_. Components |
+|"(newwindow)CLOUDIFY-1063":https://cloudifysource.atlassian.net/browse/CLOUDIFY-1063 | All default clouds should have the privileged flag set to true | Cloud Driver |
+|"(newwindow)CLOUDIFY-1056":https://cloudifysource.atlassian.net/browse/CLOUDIFY-1056 | Print "This may take a few minutes" message when using any of the bootstrap commands. | CLI |
+|"(newwindow)CLOUDIFY-1044":https://cloudifysource.atlassian.net/browse/CLOUDIFY-1044 | start-management command should verify correct license | CLI |
+|"(newwindow)CLOUDIFY-996":https://cloudifysource.atlassian.net/browse/CLOUDIFY-996 | Ubuntu support in default EC2 cloud driver | ESC |
+|"(newwindow)CLOUDIFY-962":https://cloudifysource.atlassian.net/browse/CLOUDIFY-962 | azure cloud driver for IaaS deployment | Cloud Driver |
+
+
+h3. Fixed Issues
+
+|_. ID |_. Description |_. Components |
+|"(newwindow)CLOUDIFY-1088":https://cloudifysource.atlassian.net/browse/CLOUDIFY-1088 | Cloudify download link should be generated according to the PlatformInfo build information | DSL |
+|"(newwindow)CLOUDIFY-1087":https://cloudifysource.atlassian.net/browse/CLOUDIFY-1087 | Add tar.gz for bigdata package | Packaging |
+|"(newwindow)CLOUDIFY-1085":https://cloudifysource.atlassian.net/browse/CLOUDIFY-1085 | rackspace bootstrapping is broken | ESC |
+|"(newwindow)CLOUDIFY-1066":https://cloudifysource.atlassian.net/browse/CLOUDIFY-1066 | NPE in EC2 Cloud driver | Cloud Driver |
+|"(newwindow)CLOUDIFY-1065":https://cloudifysource.atlassian.net/browse/CLOUDIFY-1065 | remove old azure | Packaging |
+|"(newwindow)CLOUDIFY-1052":https://cloudifysource.atlassian.net/browse/CLOUDIFY-1052 | The validation for service icon doesn't work. | CLI, ESC, USM |
+|"(newwindow)CLOUDIFY-995":https://cloudifysource.atlassian.net/browse/CLOUDIFY-995 | Application name is missing, but no error is thrown | CLI, ESC, USM |
+|"(newwindow)CLOUDIFY-989":https://cloudifysource.atlassian.net/browse/CLOUDIFY-989 | NPE upon USM shutdown | USM |
+
+
+h3. Known Issues
+
+|_. ID |_. Description |_. Components |
+|"(newwindow)CLOUDIFY-1092":https://cloudifysource.atlassian.net/browse/CLOUDIFY-1092 | set-instances -location-aware fails if the service was running with location-aware scaling-rules | Cloud Driver |
+|"(newwindow)CLOUDIFY-1090":https://cloudifysource.atlassian.net/browse/CLOUDIFY-1090 | REST Undeploy should wait for all service machines to shut down | Cloud Driver |
+|"(newwindow)CLOUDIFY-1086":https://cloudifysource.atlassian.net/browse/CLOUDIFY-1086 | cloudify.sh uses variable EXT_CLOUDIFY_JAVA_OPTIONS instead of EXT_JAVA_OPTIONS | CLI |
+|"(newwindow)CLOUDIFY-1080":https://cloudifysource.atlassian.net/browse/CLOUDIFY-1080 | Prevent uninstalling management | CLI |
+|"(newwindow)CLOUDIFY-1077":https://cloudifysource.atlassian.net/browse/CLOUDIFY-1077 | Chef server recipe does not work with the new EC2 Ubuntu template | Cloud Driver |
+|"(newwindow)CLOUDIFY-1075":https://cloudifysource.atlassian.net/browse/CLOUDIFY-1075 | uninstall operations should wait until the the cloud driver confirms that the machines were shutdown | Cloud Driver, ESC |
+|"(newwindow)CLOUDIFY-1071":https://cloudifysource.atlassian.net/browse/CLOUDIFY-1071 | start-management should print log files instead of tailing its output | CLI |
+|"(newwindow)CLOUDIFY-1069":https://cloudifysource.atlassian.net/browse/CLOUDIFY-1069 | Stabilize BYON tests | Cloud Driver |
+|"(newwindow)CLOUDIFY-1059":https://cloudifysource.atlassian.net/browse/CLOUDIFY-1059 | USM logs partial error log in some cases | USM |
+|"(newwindow)CLOUDIFY-1058":https://cloudifysource.atlassian.net/browse/CLOUDIFY-1058 | Machine leak in openstack cloud | Cloud Driver |
+|"(newwindow)CLOUDIFY-1054":https://cloudifysource.atlassian.net/browse/CLOUDIFY-1054 | Logs are not clear enough | MONITORING |
+|"(newwindow)CLOUDIFY-1051":https://cloudifysource.atlassian.net/browse/CLOUDIFY-1051 | Upgrade jsch | Cloud Driver |
+|"(newwindow)CLOUDIFY-1042":https://cloudifysource.atlassian.net/browse/CLOUDIFY-1042 | ManagementOnlyFiles should be per template, not global! | Cloud Driver |
+|"(newwindow)CLOUDIFY-1041":https://cloudifysource.atlassian.net/browse/CLOUDIFY-1041 | BYON should support running as a sudoer | Cloud Driver, USM |
+|"(newwindow)CLOUDIFY-1037":https://cloudifysource.atlassian.net/browse/CLOUDIFY-1037 | Cloudify REST security configuration | REST |
+|"(newwindow)CLOUDIFY-1036":https://cloudifysource.atlassian.net/browse/CLOUDIFY-1036 | Validation of recipe | REST |
+|"(newwindow)CLOUDIFY-1032":https://cloudifysource.atlassian.net/browse/CLOUDIFY-1032 | uninstall-application failed | CLI |
+|"(newwindow)CLOUDIFY-1029":https://cloudifysource.atlassian.net/browse/CLOUDIFY-1029 | add support for accepting dynamic location when starting a vm | Cloud Driver, ESC |
+|"(newwindow)CLOUDIFY-1028":https://cloudifysource.atlassian.net/browse/CLOUDIFY-1028 | ec2 cloud driver may fail to start machine when number of machines is 18 | Cloud Driver |
+|"(newwindow)CLOUDIFY-1026":https://cloudifysource.atlassian.net/browse/CLOUDIFY-1026 | dsl.jar exists in Xap lib/required directory, it includes in it apache classes which can cause dependencies in running app on Xap | Packaging |
+|"(newwindow)CLOUDIFY-1021":https://cloudifysource.atlassian.net/browse/CLOUDIFY-1021 | Application failed to deploy is still listed on the applications list | CLI |
+|"(newwindow)CLOUDIFY-1019":https://cloudifysource.atlassian.net/browse/CLOUDIFY-1019 | One tomcat instance is missing in travel-lb recipe on rackspace | Cloud Driver, ESC, REST, USM |
+|"(newwindow)CLOUDIFY-1014":https://cloudifysource.atlassian.net/browse/CLOUDIFY-1014 | process locator/start detector does not detect service stopped | USM |
+|"(newwindow)CLOUDIFY-1001":https://cloudifysource.atlassian.net/browse/CLOUDIFY-1001 | Bootstrapping on RedHat | Cloud Driver |
+|"(newwindow)CLOUDIFY-992":https://cloudifysource.atlassian.net/browse/CLOUDIFY-992 | When invoking a long lansting (over 60 seconds) custom command from one service on a different service (remote call). Timeout occur | USM |
+|"(newwindow)CLOUDIFY-982":https://cloudifysource.atlassian.net/browse/CLOUDIFY-982 | Bootstrap script directory split | Cloud Driver |
+|"(newwindow)CLOUDIFY-958":https://cloudifysource.atlassian.net/browse/CLOUDIFY-958 | Petclinic fails on CentOS 6.2 | Test |
+|"(newwindow)CLOUDIFY-956":https://cloudifysource.atlassian.net/browse/CLOUDIFY-956 | Starting the management services on windows machine hangs in some case. | ESC |
+
+
+
+<br/>
+"Back to top":#top
 
 
 h1(#v220m4). Cloudify 2.2.0 M4
