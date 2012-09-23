@@ -16,10 +16,8 @@ We track all the issues in our public "JIRA":https://cloudifysource.atlassian.ne
 
 "Cloudify 2.2.0 M5":#v220m5  - published on Sep 23, 2012
 This version contains the following key improvements:
-* "Rest API":../rest_api/rest_api_attributes - Cloudify's context attributes are now exposed over a REST API.
-* "Attributes Per Template":../setup/configuring_ec2 -  Many attributes are now per template in the cloud-driver file. For example: localDirectory, remoteDirectory and keyFile.
-* "Run as a sudoer":../setup/configuring_openstack - Users are now able to bootstrap and install an application as a sudoer on linux machines, just by setting the privileged attribute to true in the cloud-driver file.
-* "Azure IaaS API":../setup/configuring_azure - Users are now able to bootstrap and install an application on Windows Azure using the IaaS API.
+* "Local cloud footprint":../bootstrapping/bootstrapping_localcloud - The footprint of local cloud has been dramatically reduced. Now all the local cloud's components are packed into 2 JVMs. 
+* "Ubuntu Support in EC2":../setup/configuring_ec2 -  A new Ubuntu template (SMALL_UBUNTU) has been added to the default EC2 cloud driver.
 
 <hr/>
 
