@@ -74,7 +74,7 @@ h3. Loading the mySQL Cookbook
 The Cloudify Chef Server recipe adds a "custom command":../developing/custom_commands to the Chef Server that allows users to upload cookbooks to the Chef server. You can point to a HTTP URL of a cookbooks tarball, a git or SVN repository URL (more on this below).
 
 This is done by invoking the @updateCookbooks@ custom command from the Cloudify shell.
-*@invoke@* @updateCookbooks@ _@tar 'http://repository.cloudifysource.org/chef-cookbooks/mysql_cookbook_with_deps.tgz'@_
+*@invoke@* @chef-server@ @updateCookbooks@ _@tar 'http://repository.cloudifysource.org/chef-cookbooks/mysql_cookbook_with_deps.tgz'@_
 
 h3. Installing the @mysql_vanilla@ Recipe
 
@@ -112,7 +112,7 @@ The Chef Server requires cookbooks to enable clients to install different servic
 <script src="https://gist.github.com/3690695.js?file=cheftarball.groovy"></script>
 # Pushing recipes using custom commands add to the service recipe file. For example, the @chef-server@ recipe exposes the following commands:
 <script src="https://gist.github.com/3656626.js"> </script>
-The updateCookbooks command can be used to upload cookbooks from different repositories such as GIT and SVN or just using a tarball. For example, I can upload the MySQL cookbook tarball by typing the following command at the Cloudify shell prompt: *@invoke@* @updateCookbooks@ _@tar 'http://repository.cloudifysource.org/chef-cookbooks/mysql_cookbook_with_deps.tgz'@_
+The updateCookbooks command can be used to upload cookbooks from different repositories such as GIT and SVN or just using a tarball. For example, I can upload the MySQL cookbook tarball by typing the following command at the Cloudify shell prompt: *@invoke@* @chef-server@ @updateCookbooks@ _@tar 'http://repository.cloudifysource.org/chef-cookbooks/mysql_cookbook_with_deps.tgz'@_
 
 h3. Running your Recipe
 
