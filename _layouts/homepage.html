@@ -18,7 +18,22 @@
 	 <div id="resultsDiv" class="DocumentsWrap"></div>
      {{content}}  
     </div>	
-    <div class="clear"></div>       
+    <div class="clear"></div>  
+	<script type="text/javascript">
+      mixpanel.track('HomePage zzz');
+	  
+	  mixpanel.track_links('#hpdownload a', 'xx clicked hpdownload linktttt');	
+	mixpanel.track_links('.hp-banner-getCloudify a', 'hp-banner clicked hpdownload linkaaa');	
+	mixpanel.track_links('hp-banner-getCloudify a', 'ggg hp-banner clicked hpdownload linkaaa');	
+	mixpanel.track_links('hp-banner-getCloudify', 'yy hp-banner clicked hpdownload linkbbb');	
+	  	  
+	  function mixFunction() {		
+		mixpanel.track_links('#hpdownload a', 'xx clicked hpdownload link23');	
+		mixpanel.track_links('.hp-banner-getCloudify a', 'hp-banner clicked hpdownload link43');	
+		mixpanel.track_links('hp-banner-getCloudify a', 'ggg hp-banner clicked hpdownload link45');	
+		mixpanel.track_links('hp-banner-getCloudify', 'yy hp-banner clicked hpdownload link64');	
+	}
+	</script>
    {% include footer.html %}  
   </div>     
 </div>
