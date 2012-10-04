@@ -14,6 +14,13 @@ h1. Overview
 h4. Below is a list of new features, improvements, fixed issues, and known issues in Cloudify.
 We track all the issues in our public "JIRA":https://cloudifysource.atlassian.net.
 
+"Cloudify 2.2.0 RC":#v220rc  - published on Oct 4, 2012
+This version contains the following key improvements:
+*  Azure IaaS -  Azure IaaS is now supported.
+* "BYON as a sudoer":../bootstrapping/bootstrapping_byon -  Users can now install recipes on BYON as sudoers.
+
+<hr/>
+
 "Cloudify 2.2.0 M5":#v220m5  - published on Sep 23, 2012
 This version contains the following key improvements:
 * "Local cloud footprint":../bootstrapping/bootstrapping_localcloud - The memory footprint of local cloud has been dramatically reduced. Now all the local cloud's components are packed into 2 JVMs. 
@@ -59,6 +66,73 @@ This milestone contains the following key improvements:
 * The Cloudify Interactive Shell now offers an improved user experience: Cloud bootstrapping, Application installation and uninstallation, as well as cloud teardown. These improvements facilitate progress tracking and simplify troubleshooting and recipe debugging.
 
 <hr/>
+
+h1(#v220rc). Cloudify 2.2.0 RC
+
+h3. New Features and Improvements
+
+|_. ID |_. Description |_. Components |
+|"(newwindow)CLOUDIFY-1089":https://cloudifysource.atlassian.net/browse/CLOUDIFY-1089 | Do not copy cloud file separately into upload folder | Cloud Driver |
+|"(newwindow)CLOUDIFY-1091":https://cloudifysource.atlassian.net/browse/CLOUDIFY-1091 | Clean up of XAP BD URL setup | DSL |
+|"(newwindow)CLOUDIFY-1097":https://cloudifysource.atlassian.net/browse/CLOUDIFY-1097 | Remove location-aware flag from set-instances CLI | CLI |
+
+
+h3. Fixed Issues
+
+|_. ID |_. Description |_. Components |
+|"(newwindow)CLOUDIFY-925":https://cloudifysource.atlassian.net/browse/CLOUDIFY-925 | Openstack cloud driver has hard-coded username of root | Cloud Driver |
+|"(newwindow)CLOUDIFY-1001":https://cloudifysource.atlassian.net/browse/CLOUDIFY-1001 | Bootstrapping on RedHat | Cloud Driver |
+|"(newwindow)CLOUDIFY-1041":https://cloudifysource.atlassian.net/browse/CLOUDIFY-1041 | BYON should support running as a sudoer | Cloud Driver, USM |
+|"(newwindow)CLOUDIFY-1069":https://cloudifysource.atlassian.net/browse/CLOUDIFY-1069 | Stabilize BYON tests | Cloud Driver |
+|"(newwindow)CLOUDIFY-1077":https://cloudifysource.atlassian.net/browse/CLOUDIFY-1077 | Chef server recipe does not work with the new EC2 Ubuntu template | Cloud Driver |
+|"(newwindow)CLOUDIFY-1080":https://cloudifysource.atlassian.net/browse/CLOUDIFY-1080 | Prevent uninstalling management | CLI |
+|"(newwindow)CLOUDIFY-1081":https://cloudifysource.atlassian.net/browse/CLOUDIFY-1081 | Typo in cloudConfiguration description | CLI, Cloud Driver |
+|"(newwindow)CLOUDIFY-1084":https://cloudifysource.atlassian.net/browse/CLOUDIFY-1084 | bootstrap script sudo test should redirect output to /dev/nul | Cloud Driver |
+|"(newwindow)CLOUDIFY-1086":https://cloudifysource.atlassian.net/browse/CLOUDIFY-1086 | cloudify.sh uses variable EXT_CLOUDIFY_JAVA_OPTIONS instead of EXT_JAVA_OPTIONS | CLI |
+|"(newwindow)CLOUDIFY-1096":https://cloudifysource.atlassian.net/browse/CLOUDIFY-1096 | Management application shouldn't show when using the list-application command | REST |
+|"(newwindow)CLOUDIFY-1111":https://cloudifysource.atlassian.net/browse/CLOUDIFY-1111 | ec2 windows default image id is out of date. | ESC |
+|"(newwindow)CLOUDIFY-1112":https://cloudifysource.atlassian.net/browse/CLOUDIFY-1112 | pem key file not found exception during bootstrap on ec2-win | ESC |
+
+
+h3. Known Issues
+
+|_. ID |_. Description |_. Components |
+|"(newwindow)CLOUDIFY-956":https://cloudifysource.atlassian.net/browse/CLOUDIFY-956 | Starting the management services on windows machine hangs in some case. | ESC |
+|"(newwindow)CLOUDIFY-958":https://cloudifysource.atlassian.net/browse/CLOUDIFY-958 | Petclinic fails on CentOS 6.2 | Test |
+|"(newwindow)CLOUDIFY-982":https://cloudifysource.atlassian.net/browse/CLOUDIFY-982 | Bootstrap script directory split | Cloud Driver |
+|"(newwindow)CLOUDIFY-992":https://cloudifysource.atlassian.net/browse/CLOUDIFY-992 | When invoking a long lansting (over 60 seconds) custom command from one service on a different service (remote call). Timeout occur | USM |
+|"(newwindow)CLOUDIFY-1014":https://cloudifysource.atlassian.net/browse/CLOUDIFY-1014 | process locator/start detector does not detect service stopped | USM |
+|"(newwindow)CLOUDIFY-1019":https://cloudifysource.atlassian.net/browse/CLOUDIFY-1019 | One tomcat instance is missing in travel-lb recipe on rackspace | Cloud Driver, ESC, REST, USM |
+|"(newwindow)CLOUDIFY-1021":https://cloudifysource.atlassian.net/browse/CLOUDIFY-1021 | Application failed to deploy is still listed on the applications list | CLI |
+|"(newwindow)CLOUDIFY-1026":https://cloudifysource.atlassian.net/browse/CLOUDIFY-1026 | dsl.jar exists in Xap lib/required directory, it includes in it apache classes which can cause dependencies in running app on Xap | Packaging |
+|"(newwindow)CLOUDIFY-1028":https://cloudifysource.atlassian.net/browse/CLOUDIFY-1028 | ec2 cloud driver may fail to start machine when number of machines is 18 | Cloud Driver |
+|"(newwindow)CLOUDIFY-1029":https://cloudifysource.atlassian.net/browse/CLOUDIFY-1029 | add support for accepting dynamic location when starting a vm | Cloud Driver, ESC |
+|"(newwindow)CLOUDIFY-1032":https://cloudifysource.atlassian.net/browse/CLOUDIFY-1032 | uninstall-application failed | CLI |
+|"(newwindow)CLOUDIFY-1036":https://cloudifysource.atlassian.net/browse/CLOUDIFY-1036 | Validation of recipe | REST |
+|"(newwindow)CLOUDIFY-1037":https://cloudifysource.atlassian.net/browse/CLOUDIFY-1037 | Cloudify REST security configuration | REST |
+|"(newwindow)CLOUDIFY-1042":https://cloudifysource.atlassian.net/browse/CLOUDIFY-1042 | ManagementOnlyFiles should be per template, not global! | Cloud Driver |
+|"(newwindow)CLOUDIFY-1051":https://cloudifysource.atlassian.net/browse/CLOUDIFY-1051 | Upgrade jsch | Cloud Driver |
+|"(newwindow)CLOUDIFY-1054":https://cloudifysource.atlassian.net/browse/CLOUDIFY-1054 | Logs are not clear enough | MONITORING |
+|"(newwindow)CLOUDIFY-1059":https://cloudifysource.atlassian.net/browse/CLOUDIFY-1059 | USM logs partial error log in some cases | USM |
+|"(newwindow)CLOUDIFY-1071":https://cloudifysource.atlassian.net/browse/CLOUDIFY-1071 | start-management should print log files instead of tailing its output | CLI |
+|"(newwindow)CLOUDIFY-1075":https://cloudifysource.atlassian.net/browse/CLOUDIFY-1075 | uninstall operations should wait until the the cloud driver confirms that the machines were shutdown | Cloud Driver, ESC |
+|"(newwindow)CLOUDIFY-1090":https://cloudifysource.atlassian.net/browse/CLOUDIFY-1090 | REST Undeploy should wait for all service machines to shut down | Cloud Driver |
+|"(newwindow)CLOUDIFY-1092":https://cloudifysource.atlassian.net/browse/CLOUDIFY-1092 | set-instances -location-aware fails if the service was running with location-aware scaling-rules | Cloud Driver |
+|"(newwindow)CLOUDIFY-1101":https://cloudifysource.atlassian.net/browse/CLOUDIFY-1101 | Clean-up redundant code in uninstall-application command | CLI |
+|"(newwindow)CLOUDIFY-1102":https://cloudifysource.atlassian.net/browse/CLOUDIFY-1102 | External lifecycle processes do not have a timeout | USM |
+|"(newwindow)CLOUDIFY-1105":https://cloudifysource.atlassian.net/browse/CLOUDIFY-1105 | CLI commands separated by ";" are parsed by the bash shell and causes errors | CLI |
+|"(newwindow)CLOUDIFY-1106":https://cloudifysource.atlassian.net/browse/CLOUDIFY-1106 | Cloud key file shouldn't be copied to agent machines | ESC |
+|"(newwindow)CLOUDIFY-1108":https://cloudifysource.atlassian.net/browse/CLOUDIFY-1108 | Rest Controllers' methods return status code 200 instead of informative HTTP error code. | REST |
+|"(newwindow)CLOUDIFY-1113":https://cloudifysource.atlassian.net/browse/CLOUDIFY-1113 | Add an ec2-win boot-strapping test | Test |
+|"(newwindow)CLOUDIFY-1117":https://cloudifysource.atlassian.net/browse/CLOUDIFY-1117 | uninstall should stop the installation process | REST |
+|"(newwindow)CLOUDIFY-1120":https://cloudifysource.atlassian.net/browse/CLOUDIFY-1120 | Inaccurate data returned from REST attributes API | REST |
+|"(newwindow)CLOUDIFY-1122":https://cloudifysource.atlassian.net/browse/CLOUDIFY-1122 | Recipe validation should happen after processing inheritance and not before | DSL |
+
+
+
+<br/>
+"Back to top":#top
+
 
 h1(#v220m5). Cloudify 2.2.0 M5
 
