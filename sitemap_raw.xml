@@ -14,7 +14,7 @@ layout: nil
  
 {% for post in site.posts %}
 <url>
- <loc>post-{{ siteUrl }}{{ post.url }}</loc>
+ <loc>{{ siteUrl }}{{ post.url }}</loc>
  <lastmod>{{ post.date | date: "%Y-%m-%d" }}</lastmod>
  <changefreq>monthly</changefreq>
  <priority>0.2</priority>
