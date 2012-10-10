@@ -95,6 +95,10 @@ copy /y %SRC%\guide\%CURRENT_VERSION%\index_raw.html %DEST_FOLDER%\guide\%CURREN
 echo Copying %SRC%\guide\%CURRENT_VERSION%\toc.html to %DEST_FOLDER%\_includes\toc%CURRENT_VERSION%.html ...
 copy /y %SRC%\guide\%CURRENT_VERSION%\toc.html %DEST_FOLDER%\_includes\toc%CURRENT_VERSION%.html
 
+echo Copying %SRC%\sitemap_raw.xml to %DEST_FOLDER%\sitemap.xml ...
+copy /y %SRC%\sitemap_raw.xml %DEST_FOLDER%\sitemap.xml
+
+
 for /F %%i in ('dir /AD /b %SRC%\guide') do call :guileFolders %%i
 
 goto b4Cscript

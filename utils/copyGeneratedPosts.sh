@@ -44,6 +44,10 @@ cp ${SRC}/archives_raw ${DEST_FOLDER}/archives
 echo "Copying atom.xml ..."
 cp ${SRC}/atom_raw.xml ${DEST_FOLDER}/atom.xml
 
+echo "Copying sitemap.xml ..."
+cp ${SRC}/sitemap_raw ${DEST_FOLDER}/sitemap.xml
+
+
 echo "Copying blog ..."
 newBlogFolder=${DEST_FOLDER}/blog
 if [ ! -d ${newBlogFolder} ]; then

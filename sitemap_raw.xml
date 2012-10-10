@@ -1,0 +1,71 @@
+---
+layout: nil
+---
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.sitemaps.org/schemas/sitemap/0.9 http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd" xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+{% assign siteUrl="http://www.cloudifysource.org" %}
+<url>
+ <loc>{{ siteUrl }}</loc>
+ <lastmod>{{ site.time | date: "%Y-%m-%d" }}</lastmod>
+ <changefreq>daily</changefreq>
+ <priority>1.0</priority>
+</url>
+ 
+{% for post in site.posts %}
+<url>
+ <loc>post-{{ siteUrl }}{{ post.url }}</loc>
+ <lastmod>{{ post.date | date: "%Y-%m-%d" }}</lastmod>
+ <changefreq>monthly</changefreq>
+ <priority>0.2</priority>
+</url>
+{% endfor %}
+ 
+{% for page in site.pages %}
+    {% if page.url contains '_raw' %}
+<url>
+ <loc>{{ siteUrl }}{{ page.url | remove :'_raw' }}</loc>
+ <lastmod>{{ site.time | date: "%Y-%m-%d" }}</lastmod>
+ {% if page.changefreq %}
+ <changefreq>{{ page.changefreq }}</changefreq>
+ {% endif %}
+ {% if page.priority %}
+ <priority>{{ page.priority }}</priority>
+{% endif %}
+</url>
+	{% else %}
+		{% if page.url contains 'orig' %}
+		{% else %}
+			{% if page.url contains 'test' %}
+			{% else %}
+				{% if page.url contains 'hp.html' %}
+				{% else %}
+					{% if page.url contains 'sharonetest' %}
+					{% else %}				
+						<url>
+							<loc>{{ siteUrl }}{{ page.url }}</loc>
+							<lastmod>{{ site.time | date: "%Y-%m-%d" }}</lastmod>
+							{% if page.changefreq %}
+								<changefreq>{{ page.changefreq }}</changefreq>
+							{% endif %}
+							{% if page.priority %}
+								<priority>{{ page.priority }}</priority>
+							{% endif %}
+						</url>
+					{% endif %}				
+				{% endif %}
+			{% endif %}	
+		{% endif %}	
+	{% endif %}			
+{% endfor %}
+  
+{% for currRawtag in site.tags %}
+	{% capture currTag %}{{ currRawtag[0] }} {% endcapture %}
+<url>
+ <loc>{{ siteUrl }}/tags/{{ currTag | append :'dummy' | remove :' dummy' }}</loc>
+ <lastmod>{{ site.time | date: "%Y-%m-%d" }}</lastmod>
+</url>
+  {% endfor %}
+ 
+    
+</urlset>
