@@ -19,21 +19,7 @@
      {{content}}  
     </div>	
     <div class="clear"></div>  
-	<script type="text/javascript">
-      mixpanel.track('Home Page Views');	  
-	  mixpanel.track_links('#hpdownload', 'Get Cloudify Btn Clicks on HP');			  	 	 
-	  
-	  mixpanel.track_links('#redis', 'redis recipe views');			  	 	 
-	  mixpanel.track_links('#nginx', 'nginx recipe views');
-	  mixpanel.track_links('#play', 'play recipe views');
-	  
-	  mixpanel.track_links('#postgresql', 'postgresql recipe views');		  	 	 
-	  mixpanel.track_links('#chef', 'chef recipe views');  	 	 
-	  mixpanel.track_links('#couchdb', 'couchdb recipe views');
-	  
-	  mixpanel.track_links('#recipes', 'recipes repo views');			  	 	 
-	  mixpanel.track_forms('#mc-embedded-subscribe-form', 'Home Page Subscribe Clicks');		  
-	</script>
+   {% include mixpanel_hp.html %}  
    {% include footer.html %}  
   </div>     
 </div>
