@@ -58,4 +58,14 @@ To make your cloud driver available to the machines in your cloud, perform the f
 # On the machine where Cloudify is installed, edit the cloud driver configuration file, and in the @provider@ section, specify the @cloudifyUrl@ attribute (Cloudify installation source) as the location of the Cloudify distribution file.
 <h4 class="info">When you bootstrap your cloud, Cloudify uses the local cloud driver configuration file and passes it to the bootstrapped cloud for use when provisioning machines.</h4>
 
+h2. Overrides
+
+The cloud driver's "upload" directory may include an optional "cloudify-overrides" sub-directory. 
+If exists, the contents of the overrides directory will be copied into the Cloudify installation directory. 
+This allows the cloud administrator to overwrite specific Cloudify files. 
+For instance, a specialized logging configuration file may be placed at "upload/cloudify-overrides/config/gs_logging.properties".
+This gs_logging.properties file will be copied to the management machine and will overwrite the default Cloudify logging configuration. 
+This file will also be copied to any service machine (when it starts), if its template uses the same upload directory.
+
+
 h4(info). To speed up the testing when developing cloud drivers, you can place the cloud driver jar files in the @<cloudName>/upload/Cloudify-overrides/lib/platform/esm@ folder on your local machine and Cloudify will upload them to provisioned machines from your local machine.
