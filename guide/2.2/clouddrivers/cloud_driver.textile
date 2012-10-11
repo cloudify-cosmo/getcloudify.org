@@ -23,6 +23,8 @@ The cloud driver is loaded and used by the following Cloudify components:
 ** *@install-application@*, *@uninstall-application@* (application machines)
 * The ESM(Elastic Service Manager) will load one instance of the cloud driver for each deployed service. Each instance is responsible for scaling out/in the specified service. At all times, there can only be one instance of the ESM in a cluster, running zero or more instances of the cloud driver.
 
+h4(warn). Modifying the cloud driver has an effect *only* before the "bootstrapping":../bootstrapping/bootstrapping_process.
+
 h2. How It Works
 
 The cloud driver is a Java POJO that uses a configuration file. When defining a cloud's configuration file, you must define its class name in its cloud driver configuration file (@<cloudifyRoot>/tools/cli/plugins/esc/<cloudName>/<cloudName>-cloud.groovy@). Cloudify will instantiate this class (using the @no-arg@ constructor) as required, and delegate scale out/in requests to it.
@@ -54,6 +56,7 @@ Cloudify comes with a built-in cloud driver implementation that is based on the 
 The default cloud driver can be used as-is, or as the basis for an extension that suits your requirements.
 
 h4(info). GigaSpaces regularly tests this cloud driver implementation on "Amazon EC2":http://aws.amazon.com and "Rackspace Cloud":http://www.rackspace.com.
+
 
 h2. See Also
 
