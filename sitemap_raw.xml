@@ -22,7 +22,9 @@ layout: nil
 {% endfor %}
  
 {% for page in site.pages %}
-    {% if page.url contains '_raw' %}
+  {% if page.url contains '2.1' %}
+	 {% else %}
+       {% if page.url contains '_raw' %}
 <url>
  <loc>{{ siteUrl }}{{ page.url | remove :'_raw' }}</loc>
  <lastmod>{{ site.time | date: "%Y-%m-%d" }}</lastmod>
@@ -33,30 +35,22 @@ layout: nil
  <priority>{{ page.priority }}</priority>
 {% endif %}
 </url>
-	{% else %}
-		{% if page.url contains 'orig' %}
-		{% else %}
-			{% if page.url contains 'test' %}
-			{% else %}
-				{% if page.url contains 'hp.html' %}
-				{% else %}
-					{% if page.url contains 'sharonetest' %}
-					{% else %}				
-						<url>
-							<loc>{{ siteUrl }}{{ page.url }}</loc>
-							<lastmod>{{ site.time | date: "%Y-%m-%d" }}</lastmod>
-							{% if page.changefreq %}
-								<changefreq>{{ page.changefreq }}</changefreq>
-							{% endif %}
-							{% if page.priority %}
-								<priority>{{ page.priority }}</priority>
-							{% endif %}
-						</url>
-					{% endif %}				
+	   {% else %}
+		 {% if page.url contains 'orig' or page.url contains 'test' or page.url contains 'hp.html' or page.url contains 'sharonetest' or page.url contains '2.1' %}
+		 {% else %}					
+			<url>
+				<loc>{{ siteUrl }}{{ page.url }}</loc>
+				<lastmod>{{ site.time | date: "%Y-%m-%d" }}</lastmod>
+				{% if page.changefreq %}
+					<changefreq>{{ page.changefreq }}</changefreq>
 				{% endif %}
-			{% endif %}	
-		{% endif %}	
-	{% endif %}			
+				{% if page.priority %}
+					<priority>{{ page.priority }}</priority>
+				{% endif %}
+			</url>
+		 {% endif %}	
+	 {% endif %}	
+  {% endif %}
 {% endfor %}
   
 {% for currRawtag in site.tags %}
