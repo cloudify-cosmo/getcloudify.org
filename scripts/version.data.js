@@ -170,6 +170,8 @@ var guide = {
 		'release_notes':{
 			'release_notes':true
 		},
+		'restapi':{
+		},
 		'rest_api':{
 			'rest_api_attributes':true
 		},
