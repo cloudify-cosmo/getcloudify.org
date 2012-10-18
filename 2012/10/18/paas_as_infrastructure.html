@@ -4,10 +4,10 @@
 <head>
     
 	<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>	
-	<title>Cloudify - Tag: Load Balancer</title>
+	<title>Cloudify - PaaS as Infrastructure</title>
 	<script src="//cdn.optimizely.com/js/59503762.js"></script>
 	<link rel="stylesheet" href="/css/template.css" type="text/css"/>	
-	<link rel="canonical" href="http://www.cloudifysource.orgtags/Load Balancer/index.html"/>	
+	<link rel="canonical" href="http://www.cloudifysource.org/2012/10/18/paas_as_infrastructure.html"/>	
 	<link rel="stylesheet" href="/css/jquery-ui-1.8.17.custom.css" type="text/css" media="all"/>
 	<link rel="stylesheet" type="text/css" href="/scripts/prettify/prettify.css">	
 	<link rel="shortcut icon" href="/favicon.ico" type="image/x-icon" />
@@ -110,7 +110,7 @@ mixpanel.init("96365f48f34c41c7b91e045b4f48d53d");</script><!-- end Mixpanel -->
 	
 </head>
 <body>
-<a class="fork-guide" target="_blank" href="https://github.com/CloudifySource/cloudify"></a>	
+<a class="fork-guide" target="_blank" href="https://github.com/CloudifySource/cloudify"></a>
 <div class="WrapperBg">    
     <div class="Wrapper">
         <div class="header">
@@ -148,7 +148,7 @@ mixpanel.init("96365f48f34c41c7b91e045b4f48d53d");</script><!-- end Mixpanel -->
 </div>
 <div class="clear"></div>
         <div class="contentWrap">            
-			<div class="breadcrumbs">Home Page > Cloudify Blogs > Tag: Load Balancer</div>
+			<div class="breadcrumbs">Home Page > Cloudify Blogs > PaaS as Infrastructure</div>
             <div class="clear"></div>
 
             <!--Search-->
@@ -174,10 +174,9 @@ mixpanel.init("96365f48f34c41c7b91e045b4f48d53d");</script><!-- end Mixpanel -->
 
 
 
-
-
+			
             <div class="content">
-                <div class="left" id="alTag_LeftBlog">
+                <div id="alTag_LeftBlog" class="left">
                     
                     <!--Event groups-->
 
@@ -777,71 +776,75 @@ mixpanel.init("96365f48f34c41c7b91e045b4f48d53d");</script><!-- end Mixpanel -->
 
                 <div id="resultsDiv" class="DocumentsWrap"></div>
                 <div id="pageContent" class="DocumentsWrapRight">
-                    <h1 class="pageTitle">Tag: Load Balancer</h1>					
+                    <h1 class="pageTitle">PaaS as Infrastructure</h1>
+					 
+					  <span class="blogPostInfo">Posted By: <a href="#">Nati Shalom</a>  on October 18, 2012  
+					  </span>
+					  <br/><br/><br/>
+					 
+                    <p class="p1"><strong>The blurring line between PaaS and IaaS&nbsp;</strong></p>
+<p class="p3">The core of IaaS services is centered around &nbsp;Compute, Storage Network however over the past years the infrastructure moved up the stack and includes more application services such as Database as a Service, Hadoop Map/Reduce, and application lifecycle services.&nbsp;</p>
+<p class="p2">On the other hand, PaaS services offer similar services through the PaaS platform itself with the main difference being that quite often those services were designed to fit only the application that runs on that particular PaaS.</p>
+<p class="p2">So rather than the traditional view, where we draw a clear line between the IaaS and PaaS layer we need to view them differently, where the PaaS and IaaS layers overlap each other on the software services layer.</p>
+<p class="p2">&nbsp;</p>
+<p class="p2">
+<p><a class="asset-img-link" style="display: inline;" href="http://natishalom.typepad.com/.a/6a00d835457b7453ef017c3296558d970b-pi"><img class="asset  asset-image at-xid-6a00d835457b7453ef017c3296558d970b" title="Screen Shot 2012-10-17 at 4.54.54 AM" src="http://natishalom.typepad.com/.a/6a00d835457b7453ef017c3296558d970b-500wi" alt="Screen Shot 2012-10-17 at 4.54.54 AM" /></a></p><br />
+<p class="p2"><strong>IaaS and PaaS share a similar technology stack</strong></p><br />
+<p class="p2">A close look into the OpenStack infrastructure shows that even on the infrastructure level running the compute, storage and network services relies on messaging services such as RabbitMQ, databases such as Postgress, a load balancer such as Nginx and other software services. Running these software services for our infrastructure is not much different than running our apps. &nbsp;With both the infrastructure and application we would need to address the scalability and high availabilityof these services and manage them through our infrastructure.</p><br />
+<p class="p2">If that is the case wouldn&#8217;t it make sense to share the same underlying technology to run our infrastructure and our apps?</p><br />
+<p class="p2"><strong>Sharing the software services between your IaaS and PaaS</strong></p><br />
+<p class="p2">A typical public PaaS platform is built out of two main parts &#8211; a self-service portal, and a backend system that runs our apps.</p><br />
+<p class="p2">With many of the public PaaS solutions such as <span class="caps">GAE</span>, Heroku the backend that runs our PaaS is treated as a blackbox.</p><br />
+<p class="p2">Amazon Elastic Beanstalk does things differently in that respect &#8211; as it took a bottom-up approach. It uses the same <span class="caps">AWS</span> infrastructure to run Elastic Beanstalk and the infrastructure &#8211; this provides a lot of flexibility to its users, and equally as important, consistency between the way they run and manage their app and infrastructure. VMware took even a bigger step in this regard with CloudFoundry and <span class="caps">BOSH</span> and made their entire PaaS backend open source which gives users even greater flexibility. With Cloudify we took this idea a step further by introducing the concept of recipes into the core of the Cloudify infrastructure, and recently introduced our&nbsp;<a href="http://www.cloudifysource.org/guide/2.2/integrations/chef_documentation.html">integration with Chef</a>&nbsp;in a way that will enable users to run their Chef cookbooks as part of Cloudify. Chef has already gained popularity as a configuration and automation framework for setting up many of the OpenStack cloud deployments. Having Chef tightly integrated into the PaaS layer, simply put, makes perfect sense.</p><br />
+<p>&nbsp;</p><br />
+<hr /><br />
+<h3>Don&#8217;t miss Nati Shalom speak about&nbsp;<a href="http://www.meetup.com/The-Bay-Area-Chef-User-Group/events/86568132/" target="_blank">Chef as a foundation for PaaS: How Cloudify Uses Chef&nbsp;</a>at the upcoming Bay Area Chef User Group, this coming Friday, October 19th.&nbsp;</h3><br />
+<p><strong>For those not in the area&#8230;stay tuned, we just might be streaming live to the<a href="http://www.cloudifysource.org/blog/"> CloudifySource Blog.</a></strong></p><br />
+<hr /></p>
+<p class="p2"><strong>Example &#8211; Building your own <span class="caps">RDS</span> with Cloudify</strong></p>
+<p class="p2">To illustrate the idea of how we can use share the same deployment framework between our IaaS and PaaS layer I&#8217;ll pick one of these software services to demonstrate the idea with. In this particular case, I&#8217;ve chosen to use a database as a service. Database as a service is often a good reference for a service that fits in both our infrastructure and application. Here is how we can easily set a database as a service with Cloudify:</p>
+<p class="p2">1. Directly through the use of <a href="http://www.cloudifysource.org/guide/2.2/developing/recipes_overview">Cloudify recipes</a></p>
+<script src="https://gist.github.com/3911417.js?file=mysql.groovy"></script><p>&nbsp;</p>
+<p class="p2">You can refer to the full <a href="https://github.com/CloudifySource/cloudify-recipes/tree/master/services/mysql" target="_self">MySQL recipe</a> here.</p>
+<p class="p2">2. Through the use of <a href="http://www.cloudifysource.org/guide/2.2/integrations/chef_documentation.html">Chef cookbooks</a></p>
+<p class="p2">&nbsp;</p>
+<p class="p2">If you are already using Chef you can plug-in to the Chef MySQL cookbook by extending the Cloudify recipe to use Chef, as you can see in the snippet below:</p>
+<script src="https://gist.github.com/3911443.js?file=runParams.groovy"></script><p>&nbsp;</p>
+<p class="p3">You can read the full details on how to <a href="http://www.cloudifysource.org/guide/2.2/integrations/chef_documentation.html" target="_self">run Chef with Cloudify</a> in our documentation.</p>
+<p class="p2"><strong>Running through bare metal environment</strong></p>
+<p class="p3">Even in the case where we share the same software services through our infrastructure and application, we tend to run them differently.</p>
+<p class="p2">Quite often infrastructure services will run on bare-metal environments, as we don&#8217;t want to create dependencies between our virtualiation layer and the underlying infrastructure that runs it. &nbsp;</p>
+<p class="p2">To enable this level of flexibility, we need to abstract the underlying compute layer from our service orchestration layer. In this way, we can use the same recipe and deploy it on either a bare-metal environment or a virtaulization layer. (Read: <a href="http://www.cloudifysource.org/guide/2.2/setup/configuring_byon.html" target="_self">Configuring a Traditional Data Center [<span class="caps">BYON</span>]</a>)</p>
+<p class="p2"><strong>Final notes</strong></p>
+<p class="p3">Up until recently, PaaS and IaaS were treated as two separate and closed entities and the integration between the two was done pretty much in a blackbox approach.&nbsp;The fact that both the IaaS and PaaS underlying infrastructure were closed was the primary reason behind this.</p>
+<p class="p2">Now with the growing adoption of open source IaaS such as OpenStack and CloudStack, and similarly with PaaS such CloudFoundry and Cloudify we have the opportunity to change this paradigm. There isn&#8217;t much of a reason why we shouldn&#8217;t be able to share the same orchestration, and configuration layers between our IaaS and PaaS layers. Amazon Elastic Beanstalk is a good reference why this makes a lot of sense.</p>
+<p class="p2"><strong>Special thanks</strong></p>
+<p class="p2">Special thanks to&nbsp;<a href="http://www.linkedin.com/in/borisrenski">Boris Renski</a> who was the main inspiration behind this post.</p>
+<p class="p2">&nbsp;</p>
+<p class="p2">
+<p><a class="asset-img-link" style="float: left;" href="http://natishalom.typepad.com/.a/6a00d835457b7453ef017c329cd14f970b-pi"><img class="asset  asset-image at-xid-6a00d835457b7453ef017c329cd14f970b" style="width: 55px; margin: 0px 5px 5px 0px;" title="1311765722_picons03" src="http://natishalom.typepad.com/.a/6a00d835457b7453ef017c329cd14f970b-75wi" alt="1311765722_picons03" /></a><br /><a title="Follow Nati Shalom on Twitter!" href="https://twitter.com/intent/follow?screen_name=natishalom" target="_blank">Follow Nati </a>on Twitter!</p></p>
+                    <div id="disqus_thread"></div>
+<script type="text/javascript">
+    /* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
+    var disqus_shortname = 'cloudifysource'; // required: replace example with your forum shortname
+    var disqus_identifier = '/2012/10/18/paas_as_infrastructure.html';
 
-
-
-
-
-
-
-
-
-														
-                    
-
-
-
-
-<div class="blogtPostBox">
-  <div class="blogInfoLeft">
-    <img title="Tamir Korem" width="80" height="96" src="/images/tamir.jpg" />
-  </div>  
-  <div class="blogInfoRight">
-    <a href="/2012/07/19/automate_your_legacy_application_on_the_cloud.html" class="title">Automate Your Application on the Cloud with Cloudify Custom Commands</a>
-	  <div class="blogPostInfo">
-	  <br/>	  	 
-	    <span>Posted By: <a href="#">Tamir Korem</a>  on  July 19, 2012  <!--|  in <a href="/categories/"></a> --></span>
-	  </div>	  	  	
-      <p>
-		
-			<p>Your Application is Installed on a Cloud. Now What ? Ok, so you installed an application on a cloud and now you want to update it, replace your .war file, modify the DB schema etc. I guess, some of the following thoughts may run in your head : &#8220;Now I...</p>
-			
-		<p class><a href="/2012/07/19/automate_your_legacy_application_on_the_cloud.html">Read more...</a></p>	  	  
-	  </p>
-		<span>  Additional Tags: 		
-			
-				
-			     <a class="postTag" href="/tags/Cloudify">Cloudify (28)</a>
-			   	
-			
-				
-			     <a class="postTag" href="/tags/GitHub">GitHub (2)</a>
-			   	
-			
-				
-			     <a class="postTag" href="/tags/Apache">Apache (2)</a>
-			   	
-			
-				
-			     <a class="postTag" href="/tags/Scale Rules">Scale Rules (2)</a>
-			   	
-			
-					
-			
-		</span>
-	    
-  </div>
-  <div class="clear" ></div>    
-</div>  
-
-
-
+    /* * * DON'T EDIT BELOW THIS LINE * * */
+    (function() {
+        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+        dsq.src = 'http://' + disqus_shortname + '.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="http://disqus.com" class="dsq-brlink">blog comments powered by <span class="logo-disqus">Disqus</span></a>
 
                 </div>
+
                 <div class="clear"></div>
             </div>
         </div>
+
         <!--Start pagination -->
 
         <div class="clear"></div>
