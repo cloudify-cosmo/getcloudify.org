@@ -17,6 +17,17 @@ insert the new GA version :
     
 This will make sure that the banner links will always lead to the latest GA.
 
+*404.html*
+-----------------
+
+Change :
+
+var newPage = parts[0] + "/guide/2.2/" + parts[1]; 
+
+to :
+
+var newPage = parts[0] + "/guide/2.3/" + parts[1];
+
 
 *if-then-else*
 -----------------
