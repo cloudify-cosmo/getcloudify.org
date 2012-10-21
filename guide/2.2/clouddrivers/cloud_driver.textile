@@ -50,6 +50,22 @@ The implementing class of the cloud driver, along with any required cloud config
 The following example shows a sample configuration file:
 <script src="https://gist.github.com/1770098.js?file=cloudDriverConfig.groovy"></script>
 
+
+h2(#gstr). GString expressions in the cloud driver.
+
+You can use Groovy GString expressions in the cloud driver DSL, thus you can easily set the values you need in the DSL using a simple properties file with a naming convention as shown in the following example:
+
+Set the following values in ec2-cloud.properties : 
+
+<script src="https://gist.github.com/3927152.js?file=ec2-cloud.properties"></script>
+
+And then you'll be able to use them in ec2-cloud.groovy:
+
+<script src="https://gist.github.com/3927146.js?file=ec2-cloud.groovy"></script>
+
+<h4 class="impt">In order for this to work, you must maintain a naming convention: The cloud driver should be named *yourcloudprovider-cloud.groovy* and the properites file must be named *yourcloudprovider-cloud.properties*</h4>
+<br/>
+
 h2. The Default Cloud Driver
 
 Cloudify comes with a built-in cloud driver implementation that is based on the popular "jclouds":http://www.jclouds.org framework. This cloud driver enables you to deploy Cloudify services for many cloud providers and APIs. For a full listing of supported clouds, see "jclouds : Supported Providers":http://www.jclouds.org/documentation/reference/supported-providers.
