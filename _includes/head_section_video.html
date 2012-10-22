@@ -18,6 +18,17 @@
 	}	
 		$(function() {
 
+	//popup contact form
+	$("li.contactUs,div.contactUsWrapper").mouseenter(function(){
+		$("div.contactUsWrapper").css("visibility","visible");
+		$("a.contactUsLink").css("visibility","hidden");
+	});
+	$("li.contactUs,div.contactUsWrapper").mouseleave(function(){
+		$("div.contactUsWrapper").css("visibility","hidden")
+		$("a.contactUsLink").css("visibility","visible");
+	});
+	//end popup contact form
+
 	<!--this code make the playlist-->		
         var playListURL = 'http://gdata.youtube.com/feeds/api/playlists/D470957921551B9A?&max-results=50&v=2&alt=json&callback=?';
 //	var playListURL = 'http://gdata.youtube.com/feeds/api/playlists/B2A4E1367126848D?&max-results=50&v=2&alt=json&callback=?';
