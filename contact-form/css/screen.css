@@ -1,0 +1,44 @@
+/*
+By Joe Pettersson @ http://www.joepettersson.com/accessible-php-and-jquery-contact-form/
+Based on a design by Orman Clark @ http://www.premiumpixels.com/clean-simple-signup-form-psd/
+*/
+
+/***** Global Elements *****/
+html, body { border:0; margin:0; padding:0; }
+body { font:12px Arial, Helvetica, sans-serif; background: url(../img/page-background.png) repeat; }
+
+img { border:0;}
+a img { border:0 }
+
+a, a:link, a:visited { text-decoration:underline;}
+a:hover {text-decoration: none;}
+
+/***** Demo Elements} *****/
+#back {display: block; margin: 15px 0px; color: #005555; font-size: 11px;}
+
+/***** Contact Form Elements *****/
+.clear:after { content: "."; display: block; height: 0; clear: both; visibility: hidden;}
+.clear { display: inline-block; }
+html[xmlns] .clear { display: block;}
+* html .clear { height: 1%;}
+.wrapper { width:300px; margin:0 auto; padding: 50px 0px;}
+
+#contactWrapper { width:300px; border:1px solid #cfdede; background:#fdfdfd; padding:30px; }
+#contactWrapper h1 { font-size: 11px; margin: -33px 0px 30px; padding: 5px 0px 0px 15px; font-size: 12px; text-transform: uppercase; background: url(../img/title-background.png) no-repeat; width: 138px; height: 22px; color: #fff; font-weight: bold;}
+#contactWrapper label { display:block; float:none; font-size:12px; width:auto; font-weight: bold; margin-bottom: 7px; color: #333333;}
+#contactWrapper label.error { display:block; float:none; font-size:12px; width:auto; font-weight: normal; margin-bottom: 0px; color: #bb3737; background: #fad6d6; border: 1px solid #bb3737; margin-top: 5px; padding: 5px 7px;}
+#contactWrapper label.checked { display:none; background: none; border: 0px; margin-top: 0px; padding: 0px; text-indent: -5000px;}
+#contactWrapper em { color: #01b3b3;}
+#contactWrapper .stage { margin-bottom: 20px;}
+#contactWrapper .requiredNote { margin: 20px 0px 20px; color: #333; font-weight: bold;}
+#contactWrapper .success { padding: 10px; background: #f0ffc1; border: 1px solid #819934; margin-bottom: 15px; color: #819934;}
+#contactWrapper .success p { margin: 0px;}
+
+form#contactform input, form#contactform textarea { border: 1px solid #cfdede; padding:8px 12px; font-size:12px; color:#333; border-radius: 3px; -moz-border-radius: 3px; -webkit-border-radius: 3px; -o-border-radius: 3px; width: 274px; background: url(../img/page-background.png) repeat; color: #777777;}
+form#contactform textarea {font:12px Arial, Helvetica, sans-serif; padding: 12px;}
+form#contactform input:focus, form#contactform textarea:focus { outline: none; border: 1px solid #649d9d;}
+
+#submitButton {display: block;text-indent: -5000px;width: 300px!important;height: 47px;background-image:url(../img/send-button-sprite.png)!important;background-repeat: no-repeat;border: 0px!important;padding: 0px!important;}
+#submitButton {background-position: 0 0;}
+#submitButton:hover {background-position: 0 -47px;}
+#submitButton:active {background-position: 0 -47px;}
