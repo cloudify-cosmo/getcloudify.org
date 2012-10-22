@@ -22,6 +22,16 @@
  	}
 	
 	$(function(){ 
+	//popup contact form
+	$("li.contactUs,div.contactUsWrapper").mouseenter(function(){
+		$("div.contactUsWrapper").css("visibility","visible");
+		$("a.contactUsLink").css("visibility","hidden");
+	});
+	$("li.contactUs,div.contactUsWrapper").mouseleave(function(){
+		$("div.contactUsWrapper").css("visibility","hidden")
+		$("a.contactUsLink").css("visibility","visible");
+	});
+	//end popup contact form
 		$("a.youtube").YouTubePopup({ hideTitleBar: true });
 		$("div.expand").hide();
 		
