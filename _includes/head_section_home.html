@@ -20,6 +20,19 @@
 	$('body').addClass("bodyClass");
      }
     $(function() {
+
+	//popup contact form
+	$("li.contactUs,div.contactUsWrapper").mouseenter(function(){
+		$("div.contactUsWrapper").css("visibility","visible");
+		$("a.contactUsLink").css("visibility","hidden");
+	});
+	$("li.contactUs,div.contactUsWrapper").mouseleave(function(){
+		$("div.contactUsWrapper").css("visibility","hidden")
+		$("a.contactUsLink").css("visibility","visible");
+	});
+	//end popup contact form
+
+
     	$("#tabs").tabs();
     	$("a.youtube").YouTubePopup({ hideTitleBar: true });
         //this script display text note when you hover one of the img at homePage
