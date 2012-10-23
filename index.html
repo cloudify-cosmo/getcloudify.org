@@ -42,42 +42,64 @@ category: home
                                 <div class="grayBoxMid">
                                     <div id="tabs">
                                         <ul>
-                                            <li><a href="#tabs-1" class="btn-b3">service</a></li>
                                             <li><a href="#tabs-2" class="btn-b3">application</a></li>
-                                            <li><a href="#tabs-3" class="btn-b3">driver</a></li>
+                                            <li><a href="#tabs-1" class="btn-b3">service</a></li>
+                                            <li><a href="#tabs-3" class="btn-b3">autoscaling</a></li>
                                         </ul>
                                         <div class="clear">
                                         </div>
                                         <div id="tabs-1">
                                             <p>
+                                            <code class="prettyprint">
                                                 service {<br />
-                                                name "mysql"<br />
-                                                icon "mysql.jpg"<br />
-                                                type "DATABASE"<br />
-                                                ...<br />
-                                                }
-                                              <a href="https://github.com/CloudifySource/cloudify-recipes" class="seeAll" target="_blank">See All</a>
-                                              </p>
+                                                &nbsp;&nbsp;name "mysql"<br />
+                                                &nbsp;&nbsp;icon "mysql.jpg"<br />
+                                                &nbsp;&nbsp;type "DATABASE"<br />
+                                                <br />
+                                                &nbsp;&nbsp;lifecycle{ <br />
+                                                &nbsp;&nbsp;&nbsp;&nbsp;install "mysql_install.groovy" <br />
+                        					&nbsp;&nbsp;&nbsp;&nbsp;start "mysql_start.groovy" <br />
+						&nbsp;&nbsp;&nbsp;&nbsp;...<br />
+                                                &nbsp;&nbsp;}<br />
+                                                }<br />
+                                            </code>
+                                            </p>
+                                             <a href="http://www.cloudifysource.org/guide/developing/service_recipe" class="seeAll" target="_blank">Learn More</a>
                                         </div>
                                         <div id="tabs-2">
                                             <p>
+                                            <code class="prettyprint">
                                                 application {<br />
-                                                name "mysql"<br />
-                                                icon "mysql.jpg"<br />
-                                                type "DATABASE"<br />
-                                                ...<br />
-                                                }
+                                                &nbsp;&nbsp;name="petclinic"<br />
+                                                &nbsp;&nbsp;service { <br />
+                                                &nbsp;&nbsp;&nbsp;&nbsp;name = "mysql" <br />
+                                                &nbsp;&nbsp;} <br />
+                                                &nbsp;&nbsp;service { <br />
+                        	                &nbsp;&nbsp;&nbsp;&nbsp;name = "tomcat" <br />
+		                                &nbsp;&nbsp;&nbsp;&nbsp;dependsOn = ["mysql"] <br />
+	                                        &nbsp;&nbsp;} <br />
+                                                } <br />
+                                            </code>
                                             </p>
+                                            <a href="http://www.cloudifysource.org/guide/developing/application_recipe" class="seeAll" target="_blank">Learn More</a>
                                         </div>
                                         <div id="tabs-3">
                                             <p>
-                                                driver {<br />
-                                                name "mysql"<br />
-                                                icon "mysql.jpg"<br />
-                                                type "DATABASE"<br />
-                                                ...<br />
-                                                }
+                                            <code class="prettyprint">
+                                                scalingRule { <br />
+			                        &nbsp;&nbsp;serviceStatistics { <br />
+				                &nbsp;&nbsp;&nbsp;&nbsp;metric "Requests per second" <br />				                
+				                &nbsp;&nbsp;&nbsp;&nbsp;movingTimeRangeInSeconds 20 <br />
+			                        &nbsp;&nbsp;} <br />
+               					<br />
+			                        &nbsp;&nbsp;highThreshold { <br />
+				                &nbsp;&nbsp;&nbsp;&nbsp;value 100 <br />
+				                &nbsp;&nbsp;&nbsp;&nbsp;instancesIncrease 1 <br />
+			                        &nbsp;&nbsp;} <br />
+		                                }<br />
+                                            </code>     
                                             </p>
+                                            <a href="http://www.cloudifysource.org/guide/developing/scaling_rules" class="seeAll" target="_blank">Learn More</a>
                                         </div>
                                         <div class="clear">
                                         </div>
