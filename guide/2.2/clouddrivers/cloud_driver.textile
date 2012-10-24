@@ -73,6 +73,16 @@ And then you'll be able to use them in ec2-cloud.groovy:
 <h4 class="impt">In order for this to work, you must maintain a naming convention: The cloud driver should be named *yourcloudprovider-cloud.groovy* and the properites file must be named *yourcloudprovider-cloud.properties*</h4>
 <br/>
 
+
+h2(#cscr). Custom script or code in the Cloud Driver Configuration.
+
+You can script inline or point to an uploaded script as shown in the following example:
+
+<script src="https://gist.github.com/3946829.js?file=inline.groovy"></script>
+
+<br/>
+
+
 h2. The Default Cloud Driver
 
 Cloudify comes with a built-in cloud driver implementation that is based on the popular "jclouds":http://www.jclouds.org framework. This cloud driver enables you to deploy Cloudify services for many cloud providers and APIs. For a full listing of supported clouds, see "jclouds : Supported Providers":http://www.jclouds.org/documentation/reference/supported-providers.
