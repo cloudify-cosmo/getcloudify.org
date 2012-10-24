@@ -25,6 +25,16 @@
  	}
 	
 	$(function(){ 
+	//popup contact form
+	$("li.contactUs,div.contactUsWrapper").mouseenter(function(){
+		$("div.contactUsWrapper").css("visibility","visible");
+		$("a.contactUsLink").css("visibility","hidden");
+	});
+	$("li.contactUs,div.contactUsWrapper").mouseleave(function(){
+		$("div.contactUsWrapper").css("visibility","hidden")
+		$("a.contactUsLink").css("visibility","visible");
+	});
+	//end popup contact form
 		$("a.youtube").YouTubePopup({ hideTitleBar: true });
 		$("div.expand").hide();
 		
@@ -114,6 +124,32 @@ mixpanel.init("96365f48f34c41c7b91e045b4f48d53d");</script><!-- end Mixpanel -->
 <div class="WrapperBg">    
     <div class="Wrapper">
         <div class="header">
+    <div class="headersLinks">
+        <ul>
+            <li><a href="https://cloudifysource.zendesk.com/registration" target="_blank">Sign Up</a></li>
+            <li class="sep">|</li>
+            <li><a href="https://cloudifysource.zendesk.com/login" target="_blank" class="lock">Login</a></li>
+            <li class="sep">|</li>
+            <li class="contactUs"><a  class="contactUsLink" href="#" target="_blank">Contact Us</a></li>
+        </ul>
+        <div class="contactUsWrapper">
+            <form action="https://www.salesforce.com/servlet/servlet.WebToLead?encoding=UTF-8" method="POST">
+            <input type=hidden name="oid" value="00D300000000KEt">
+            <input type=hidden name="retURL" value="http://www.cloudifysource.org/thank_you_contact.htm">
+            <input  id="first_name" name="first_name" type="hidden" />
+            <input  id="last_name" name="last_name" type="text" class="cuInput" placeholder="Your Name"/>
+            <span class="cuValid"></span>
+            <input  id="email" name="email"  type="text"  placeholder="Your Email"/><br>
+            <span class="cuValid"></span>
+            <textarea  id="00N80000003kH4I" name="00N80000003kH4I" type="text" wrap="soft" placeholder="Your Message"></textarea>
+ <input id="00N80000003kH2d" maxlength="50" name="00N80000003kH2d" size="20" type="text" value="CloudifySource Community Contact" style="display: none" />            
+<input type="submit" class="cuSend" name="submit" value="Contact" />
+            </form>
+        </div>
+    </div>
+
+
+
     <a class="logo" href="/"></a>
     <div class="clear"></div>
             <div class="topMenu">
@@ -944,11 +980,12 @@ mixpanel.init("96365f48f34c41c7b91e045b4f48d53d");</script><!-- end Mixpanel -->
 
     </ul> 
     <ul class="footerSocialMenu">
-        <li class="footerFb"><a href="https://www.facebook.com/GigaSpaces?sk=app_201742856511228"></a></li>
-        <li class="footerRss"><a href="/atom.xml"></a></li>
-        <!--<li class="footerMell"><a href="#"></a></li>-->
-        <li class="footerTwitt"><a href="http://www.twitter.com/cloudifysource"></a></li>
-        <li class="footerYt"><a href="http://www.youtube.com/cloudifysource"></a></li>
+        <li class="footerFb"><a href="https://www.facebook.com/GigaSpaces?sk=app_201742856511228" target="_blank"></a></li>
+        <li class="footerRss"><a href="/atom.xml" target="_blank"></a></li>
+        <li class="footerTwitt"><a href="http://www.twitter.com/cloudifysource" target="_blank"></a></li>
+        <li class="footerYt"><a href="http://www.youtube.com/cloudifysource" target="_blank"></a></li>
+        <li class="footerMell"><a alt="Contact-us" title="Contact-us" href="mailto:info@cloudifysource.org?Contact-us from cloudifysource website" target="_blank"></a></li>
+        <li class="footerTumblr"><a href="http://cloudifysource.tumblr.com" target="_blank"></a></li>
     </ul>
 </div>
 
