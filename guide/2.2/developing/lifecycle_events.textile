@@ -80,7 +80,11 @@ Cloudify's process monitoring, liveness detection, and stop events use process i
 
 The process locator event (@locator@) is triggered after the @startDetection@ event and enables you to override the default list of process ids collected by Cloudify. By describing an event handler for the locator event in the lifecycle section of the service recipe, you can write your own code for collecting a list of a service's process ids and return the list to Cloudify for monitoring. This enables Cloudify to monitor all the processes of a service, and will ONLY identify a service as stopped if ALL of the associated processes have stopped.
 
-Alternatively, if you do not want to monitor process at all, describe a process locator closure that returns an empty list of process ids. For example, this is useful when you have a service that frequenty spawns and kills processes, or when you do not want to monitor the liveness of your service.
+h4(impt). Alternatively, if you do not want to monitor process at all, describe a process locator closure that returns @NO_PROCESS_LOCATORS@ (which is an empty list of process ids).
+For example, this is useful when you have a service that frequenty spawns and kills processes, or when you do not want to monitor the liveness of your service.
+
+Here's an example :
+<script src="https://gist.github.com/3968608.js?file=NO_PROCESS_LOCATORS.groovy"></script>
 
 If you do not describe a locator closure in the service recipe, Cloudify uses the default behavior.
 
