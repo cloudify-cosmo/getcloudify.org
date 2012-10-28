@@ -60,15 +60,16 @@
  <script type="text/javascript" >
 //mixpanel people function/////
 mixpanel.people.identify("glassneryo@yahoo.com");
+mixpanel.people.set("referrer", document.referrer);
+
 mixpanel.people.set({
     $email: 'glassneryo@yahoo.com',
 });
 
+
 mixpanel.people.set({
-    "$email": "glassneryo@yahoo.com",    // only special properties need the $
-    "$last_login": new Date(),         // properties can be dates...
-    "credits": 150,                    // ...or numbers
-    "gender": "Male"                   // feel free to define your own properties
+    "gender": "male",
+    "referrer": document.referrer
 });
 
 </script>
