@@ -60,8 +60,12 @@
  <script type="text/javascript" >
 //mixpanel people function/////
 mixpanel.register({gender: "male"});
-mixpanel.people.identify("email");
-mixpanel.people.set({ $first_name: 'John' });
+mixpanel.people.identify("jsmith@email.com");
+mixpanel.people.set({
+    $email: 'jsmith@email.com',
+    $first_name: 'John',
+    $last_name: 'Smith'
+});
 mixpanel.people.set({"Subscribed": "True"})
 
 </script>
