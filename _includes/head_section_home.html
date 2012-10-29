@@ -59,7 +59,8 @@
 
  <script type="text/javascript" >
 //mixpanel people function/////
-mixpanel.people.identify(email);
+mixpanel.register({gender: "male"});
+mixpanel.people.identify($email);
 
 mixpanel.people.set({"Subscribed": "True"})
 
