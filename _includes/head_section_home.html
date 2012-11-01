@@ -27,11 +27,15 @@
 		$("div.contactUsWrapper").css("visibility","visible");
 		$("a.contactUsLink").css("visibility","hidden");
 	});
-	$("input.cuSend,a.contactUsWrapperClose").submit(function(){
+	$("input.cuSend").submit(function(){
 		$("div.contactUsWrapper").css("visibility","hidden")
 		$("a.contactUsLink").css("visibility","visible");
 	});
-	//end popup contact form
+	$("a.contactUsWrapperClose").click(function(){
+			$("div.contactUsWrapper").css("visibility","hidden")
+			$("a.contactUsLink").css("visibility","visible");
+		});	
+//end popup contact form
 
 
     	$("#tabs").tabs();
