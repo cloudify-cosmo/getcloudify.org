@@ -1,0 +1,69 @@
+---
+layout: blogpost
+title: Moving Enterprise Workloads to the Cloud on a Massive Scale
+image: nati.png
+author: Nati Shalom
+tags: 
+ - Devops
+ - PaaS
+ - OpsCode
+ - OpenStack
+ - Virtualization
+---
+
+
+<h2><strong>The Current Approach </strong></h2>
+
+<ul>
+  <li><strong>Focus on building IaaS</strong> - Current cloud strategies of many enterprises has been centered on making the infrastructure cloud ready. This basically means ensuring that they are able to spawn machines more easily than they were before. A quick look at many initiatives of this nature shows that there is still only a small portion of enterprises whose applications run on such new systems. </li>
+
+  <li><strong>Build a new PaaS</strong> - PaaS has been taught as the answer to run apps on the cloud. The reality however, is that most of the existing PaaS solutions only cater to new apps and quite often the small, and "non" mission-critical share of our enterprise applications, which still leaves the majority of our enterprise workload outside of our cloud infrastructure. </li>
+
+  <li><strong>App Migration as a One Off Project -</strong> The other approach for migrating applications to the cloud has been to select a small group of applications, and then migrate these one by one to the cloud. Quite often the thought behind this approach has been that application migration is a one-off project. The reality is that applications are more of a living organism - things fail, are moved, or need to be added and removed over time. Therefore it's not enough to move apps to the cloud using some sort of virtualization technique, it's critical that the way they're run and maintained will also fit the dynamic nature of the cloud. </li>
+</ul>
+
+<h2><strong>Why is This not Going to Work?</strong></h2>
+
+<p>Simple math shows that if you apply this model to the rest of your apps, it's probably going to take years of effort to migrate all your apps to the cloud. The cost of doing so is going to be extremely high, not to mention the time to market issue which can be even an even greater risk in the end, as it will reflect on cost of operation, profit margins and even the ability to survive in this an extremely competitive market, if it is too long.</p>
+
+<h2><strong>What's missing?</strong></h2>
+
+<p>What we're missing is a simple and systematic way to brings all these hundreds and thousands of apps to the cloud.</p>
+
+<h2><strong>Moving Enterprise Workloads to the Cloud at a Massive Scale</strong></h2>
+
+<p>Instead of thinking of cloud migration as a one-off thing, we need to think of cloud migration on a massive scale.</p>
+
+<p>Thinking in such terms drives a fairly different approach. </p>
+
+<p>I've listed the principles, that IMO, are the crux to such a strategy, below:</p>
+
+<ul>
+  <li><strong>No Code Change</strong> - Any change, even the slightest one, to our existing apps will slow down our migration efforts substantially. Furthermore, many of the apps are third-party apps, where we often times don't even have control over the application code, so changing the app is likely not an option. There are many things that we can benefit from by moving our apps to the cloud, such as automation, ease of change, and configuration. We can obviously benefit more if we change our apps to take better advantage of the cloud infrastructure, but the right order would be to do this after we've already migrated the app to the cloud in the first place. There, of course, will still be many cases where just automating the way we run our apps and make them available on-demand would be sufficient enough. </li>
+
+  <li><strong>Plug-in to the Current Way of Running Apps</strong> - The common way for running apps today is either through custom shell scripts in the simple case, or through configuration management tools such as Chef or Puppet in the more advanced case. If we want to migrate apps at a massive scale, we need to be able to plug-in to the most common environments, and make it possible to import them almost as is. In this way, we could leverage the knowledge and know-how that has already been invested into these systems and make the migration process vastly shorter. </li>
+
+  <li><strong>Use Shared Infrastructure Across the Stack Regardless of the Language</strong> - Using different frameworks for each element of our application stack based on the language and environment in not going to scale for obvious reasons, such as complexity, a large number of moving parts, inconsistency, among other reasons. </li>
+
+  <li><strong>Add Cloud Properties from the Outside</strong> - There are many cloud properties that we can apply to our existing apps without forcing any changes. For example, we can automate the scaling from small to bigger machines, we can also automate the configuration, and setup. We can significantly simplify the way we run the app by making it available on-demand. All these cloud properties can be plugged into almost any existing app without forcing a real change, as noted in the <a href="http://natishalom.typepad.com/nati_shaloms_blog/2012/06/lessons-from-amazon-rds-on-bringing-existing-apps-to-the-cloud.html">MySQL example</a>. </li>
+
+  <li><strong>Use the Baby Steps Approach</strong> - One of the main inhibitors to migrating apps was the <em>all or nothing </em>approach. There are many risks involved in migrating apps that go well beyond the technology challenge. The easiest way to mitigate such risks is by taking them one at a time. For example, we can first make our apps cloud ready, in which case we will abstract the automation part from the target infrastructure. By doing so, the decision where to run our app becomes tactical and less strategic. We can choose to run our production in our private data center, and run only testing and demos on the cloud. In this way, we can also make the migration gradual and smoother. </li>
+
+  <li><strong>Incorporate Bare-Metal into our Cloud</strong> - One of the main challenges that I've seen for moving true enterprise workloads to the cloud wasn't necessarily related to the cloud, but to the virtualization overhead that is often used as the underlying infrastructure of many clouds. Today it is possible, to gain access to bare metal clouds&#160; which make it possible to run almost any workload including I/O intensive ones without any performance overhead, as I noted in my post about the emergence of <a href="http://natishalom.typepad.com/nati_shaloms_blog/2012/05/bare-metal-paas.html">bare-metal clouds</a>. </li>
+</ul>
+
+<h2><strong>Final Notes</strong></h2>
+
+<p>I often like to compare the revolution that we're experiencing right now in the IT industry to a similar revolution that happened in the automotive industry few decades ago.</p>
+
+<p>You probably know what I'm referring to. The automotive industry experienced a similar revolution when Henry Ford came up with his Model-T car. The change wasn't so much in the engine or other parts of the car, but rather in the scale and cost in which cars could now be produced. As I noted earlier, in many aspects cloud is the IT industry manufacturing assembly line.</p>
+
+<p>As with cars, it doesn't make sense to run only 10% of our cars on the new manufacturing assembly line, and build the rest in the traditional way. So is the case with our IT. Now the question becomes how to make the move. </p>
+
+<p>In this post I outlined what I believe should be the principles to migrate apps at a massive scale. In the next post I'll describe more specifically the Cloudify way of doing this - stay tuned...</p>
+
+
+<p><a href="http://natishalom.typepad.com/.a/6a00d835457b7453ef017c329cd14f970b-pi"><img style="display: inline; float: left" title="1311765722_picons03" alt="1311765722_picons03" align="left" src="http://natishalom.typepad.com/.a/6a00d835457b7453ef017c329cd14f970b-75wi" width="42" height="42" /></a> 
+
+  <br /><a href="https://twitter.com/intent/follow?screen_name=natishalom">Follow Nati </a>on Twitter!</p>
+

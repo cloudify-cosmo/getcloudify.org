@@ -4,10 +4,10 @@
 <head>
     
 	<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>	
-	<title>Cloudify - What's new in Cloudify 2.1</title>
+	<title>Cloudify - Moving Enterprise Workloads to the Cloud on a Massive Scale</title>
 	<script src="//cdn.optimizely.com/js/59503762.js"></script>
 	<link rel="stylesheet" href="/css/template.css" type="text/css"/>	
-	<link rel="canonical" href="http://www.cloudifysource.org/2012/05/01/whats_new_in_cloudify_2_1.html"/>	
+	<link rel="canonical" href="http://www.cloudifysource.org/2012/10/30/moving_enterprise_workloads_to_the_cloud_on_a_massive_scale.html"/>	
 	<link rel="stylesheet" href="/css/jquery-ui-1.8.17.custom.css" type="text/css" media="all"/>
 	<link rel="stylesheet" type="text/css" href="/scripts/prettify/prettify.css">	
 	<link rel="shortcut icon" href="/favicon.ico" type="image/x-icon" />
@@ -211,7 +211,7 @@ mixpanel.track_forms('#ki_form', 'Qualaroo');
 </div>
 <div class="clear"></div>
         <div class="contentWrap">            
-			<div class="breadcrumbs">Home Page > Cloudify Blogs > What's new in Cloudify 2.1</div>
+			<div class="breadcrumbs">Home Page > Cloudify Blogs > Moving Enterprise Workloads to the Cloud on a Massive Scale</div>
             <div class="clear"></div>
 
             <!--Search-->
@@ -869,57 +869,47 @@ mixpanel.track_forms('#ki_form', 'Qualaroo');
 
                 <div id="resultsDiv" class="DocumentsWrap"></div>
                 <div id="pageContent" class="DocumentsWrapRight">
-                    <h1 class="pageTitle">What's new in Cloudify 2.1</h1>
+                    <h1 class="pageTitle">Moving Enterprise Workloads to the Cloud on a Massive Scale</h1>
 					 
-					  <span class="blogPostInfo">Posted By: <a href="#">Yaron Parasol</a>  on May  1, 2012  
+					  <span class="blogPostInfo">Posted By: <a href="#">Nati Shalom</a>  on October 30, 2012  
 					  </span>
 					  <br/><br/><br/>
 					 
-                    <p>Today we&#8217;re officially launching the Cloudify 2.1 GA release release, so I thought it would be a good chance to recap what we&#8217;ve been up to in the past few months.</p>
-<h2>The Lowdown</h2>
-<p>Over the past couple of months we&#8217;ve been working closely with the first Cloudify users and customers in order to really get the feature priorities right and to constantly improve the user experience in this latest version.<br />
-I thought this would be a good opportunity to recap what we&#8217;ve achieved so far, and what we&#8217;re up to behind the scenes, and hope to include in versions in the near future.</p>
-<h2>Cloudifysource Community</h2>
-<p>When we started thinking about Cloudify we immediately decided we are going open source. After all, the whole idea behind this product was openness. The problem we were looking to solve was that of allowing existing applications to easily migrate to the cloud. This, in fact, means two different things for two different user groups:</p>
-<ol>
-	<li>For application people it means no changes to their stack or code &#8211; taking the application as is</li>
-	<li>For the operations experts it means automating the installation, startup and recovery processes of the application without totally changing their compliance and work standards.</li>
-</ol>
-<p>Ok, so we designed Cloudify in a very open manner and open-sourced it yadda yadda&#8230; but what&#8217;s an open-source product without a stellar community of developers?<br />
-While we were peddling hard just to get the first version of Cloudify out, through challenging beta sites, we were investing in a parallel effort of establishing an entire set of services a community needs. A month ago we launched cloudifysource.org and we&#8217;re hoping to keep on developing and evolving it &#8211; per your needs (so keep the suggestions coming!).<br />
-There you will find anything needed to actually use Cloudify, have your questions answered in our forums and your suggestions put on the record in our Ideas thread. The community is also where you&#8217;re encouraged to get involved in the development effort, and contribute whatever you create: plugins, cloud drivers or even features for the community.</p>
-<h2>Chef Integration</h2>
-<p>Cloudify is DevOps by <span class="caps">DNA</span>. The recipe concept which is central to Cloudify drew inspiration from Chef and Puppet. So it was only a natural move to combine the powers of Chef with Cloudify.<br />
-Chef being focused on single node management as its basic functionality, is orchestrated by Cloudify to install the right cookbook on the right VM with installation configuration provided by Cloudify recipes.<br />
-You can already see the prototype of this effort on <a href="https://github.com/CloudifySource/cloudify-recipes/tree/master/service-recipes/chef" class="newwindow">Github</a> (where you can find the rest of the Cloudify sources too). Fear not though, a more complete integration with many cookbooks is in the works.</p>
-<h2>What does Cloudify 2.1 have to offer?</h2>
+                    <h2><strong>The Current Approach </strong></h2>
 <ul>
-	<li>An improved user experience:<br />
-The Cloudify Interactive Shell offers a better experience with all processes: Cloud bootstrapping, Application installation and uninstallation, as well as cloud teardown. These improvements facilitate progress tracking and simplify troubleshooting and recipe debugging.</li>
-	<li>Scale your application:<br />
-The key drivers to the cloud are efficiency and agility, which you already very well know. By making your application elastic, you take cloud benefits to the max. Bottom line:  no more over-provisioning.<br />
-Your application can start with a certain size that fits the average demand and can scale manually or automatically when load increases.<br />
-What&#8217;s more, unlike other PaaS products, Cloudify provides custom metrics as the trigger for such provisioning changes. The set-instances command allows you to manually change the size of any service within your application. The <a href="http://www.cloudifysource.org/guide/2.1/developing/scaling_rules">scaling rules</a> section of the recipe enables a simple yet powerful automated elasticity. These, combined with custom commands and recipe lifecycle events, give you an entire mechanism to take care of load-balancing and dynamic configuration of the elastic cluster.</li>
-	<li>So go on, build your own cloud:<br />
-Cloudify 2.1 comes with a new <a href="http://www.cloudifysource.org/guide/2.1/bootstrapping/bootstrapping_byon"><span class="caps">BYON</span></a> (Bring Your Own Node) Cloud Driver, honestly we love this feature, and hope you will too. The idea with this driver is that it actually helps users create their own cloud-like environment using hosts (physical or virtual) provisioned by other tools or manually. The <span class="caps">BYON</span> driver allows for nearly unlimited host listing and discovery, so pretty much anything from hard-coded lists to integration with your <span class="caps">CMDB</span> can work. This translates to faster and cheaper setup of elastic environments, be it for development, testing or even production. Your recipes running on the <span class="caps">BYON</span> driver, are needless to say, completely portable to any cloud without the slightest change.</li>
-	<li><a href="http://www.cloudifysource.org/guide/2.1/release_notes/release_notes">And more&#8230;</a></li>
+  <li><strong>Focus on building IaaS</strong> &#8211; Current cloud strategies of many enterprises has been centered on making the infrastructure cloud ready. This basically means ensuring that they are able to spawn machines more easily than they were before. A quick look at many initiatives of this nature shows that there is still only a small portion of enterprises whose applications run on such new systems. </li>
+  <li><strong>Build a new PaaS</strong> &#8211; PaaS has been taught as the answer to run apps on the cloud. The reality however, is that most of the existing PaaS solutions only cater to new apps and quite often the small, and &#8220;non&#8221; mission-critical share of our enterprise applications, which still leaves the majority of our enterprise workload outside of our cloud infrastructure. </li>
+  <li><strong>App Migration as a One Off Project -</strong> The other approach for migrating applications to the cloud has been to select a small group of applications, and then migrate these one by one to the cloud. Quite often the thought behind this approach has been that application migration is a one-off project. The reality is that applications are more of a living organism &#8211; things fail, are moved, or need to be added and removed over time. Therefore it&#8217;s not enough to move apps to the cloud using some sort of virtualization technique, it&#8217;s critical that the way they&#8217;re run and maintained will also fit the dynamic nature of the cloud. </li>
 </ul>
-<h2>What&#8217;s next?</h2>
-<p>We&#8217;ve already starting working on version 2.2.<br />
-Since we&#8217;re still in its planning phase, we would love to get your suggestions and input.<br />
-A few things we can already share:</p>
+<h2><strong>Why is This not Going to Work?</strong></h2>
+<p>Simple math shows that if you apply this model to the rest of your apps, it&#8217;s probably going to take years of effort to migrate all your apps to the cloud. The cost of doing so is going to be extremely high, not to mention the time to market issue which can be even an even greater risk in the end, as it will reflect on cost of operation, profit margins and even the ability to survive in this an extremely competitive market, if it is too long.</p>
+<h2><strong>What&#8217;s missing?</strong></h2>
+<p>What we&#8217;re missing is a simple and systematic way to brings all these hundreds and thousands of apps to the cloud.</p>
+<h2><strong>Moving Enterprise Workloads to the Cloud at a Massive Scale</strong></h2>
+<p>Instead of thinking of cloud migration as a one-off thing, we need to think of cloud migration on a massive scale.</p>
+<p>Thinking in such terms drives a fairly different approach. </p>
+<p>I&#8217;ve listed the principles, that <span class="caps">IMO</span>, are the crux to such a strategy, below:</p>
 <ul>
-	<li>The Chef integration will be completed in this release, with ongoing efforts of releasing recipes using particular platforms cookbooks</li>
-	<li>An advanced format of the scaling rules will enable any logic as a result of threshold breach, allowing for even the most complex scaling scenario</li>
-	<li>We plan to provide a single sign on security model to the <span class="caps">REST</span> and Web servers on the Cloudify  Controller to ease the integration with your existing security arrangements</li>
-	<li>2.2 will support a multi-tenant Cloud Driver so you can deploy different applications with different credentials using the same Cloudify installation</li>
-	<li>And much more, so keep on following our posts &#8211; and talk to us&#8230;we&#8217;re listening.</li>
+  <li><strong>No Code Change</strong> &#8211; Any change, even the slightest one, to our existing apps will slow down our migration efforts substantially. Furthermore, many of the apps are third-party apps, where we often times don&#8217;t even have control over the application code, so changing the app is likely not an option. There are many things that we can benefit from by moving our apps to the cloud, such as automation, ease of change, and configuration. We can obviously benefit more if we change our apps to take better advantage of the cloud infrastructure, but the right order would be to do this after we&#8217;ve already migrated the app to the cloud in the first place. There, of course, will still be many cases where just automating the way we run our apps and make them available on-demand would be sufficient enough. </li>
+  <li><strong>Plug-in to the Current Way of Running Apps</strong> &#8211; The common way for running apps today is either through custom shell scripts in the simple case, or through configuration management tools such as Chef or Puppet in the more advanced case. If we want to migrate apps at a massive scale, we need to be able to plug-in to the most common environments, and make it possible to import them almost as is. In this way, we could leverage the knowledge and know-how that has already been invested into these systems and make the migration process vastly shorter. </li>
+  <li><strong>Use Shared Infrastructure Across the Stack Regardless of the Language</strong> &#8211; Using different frameworks for each element of our application stack based on the language and environment in not going to scale for obvious reasons, such as complexity, a large number of moving parts, inconsistency, among other reasons. </li>
+  <li><strong>Add Cloud Properties from the Outside</strong> &#8211; There are many cloud properties that we can apply to our existing apps without forcing any changes. For example, we can automate the scaling from small to bigger machines, we can also automate the configuration, and setup. We can significantly simplify the way we run the app by making it available on-demand. All these cloud properties can be plugged into almost any existing app without forcing a real change, as noted in the <a href="http://natishalom.typepad.com/nati_shaloms_blog/2012/06/lessons-from-amazon-rds-on-bringing-existing-apps-to-the-cloud.html">MySQL example</a>. </li>
+  <li><strong>Use the Baby Steps Approach</strong> &#8211; One of the main inhibitors to migrating apps was the <em>all or nothing </em>approach. There are many risks involved in migrating apps that go well beyond the technology challenge. The easiest way to mitigate such risks is by taking them one at a time. For example, we can first make our apps cloud ready, in which case we will abstract the automation part from the target infrastructure. By doing so, the decision where to run our app becomes tactical and less strategic. We can choose to run our production in our private data center, and run only testing and demos on the cloud. In this way, we can also make the migration gradual and smoother. </li>
+  <li><strong>Incorporate Bare-Metal into our Cloud</strong> &#8211; One of the main challenges that I&#8217;ve seen for moving true enterprise workloads to the cloud wasn&#8217;t necessarily related to the cloud, but to the virtualization overhead that is often used as the underlying infrastructure of many clouds. Today it is possible, to gain access to bare metal clouds&#160; which make it possible to run almost any workload including I/O intensive ones without any performance overhead, as I noted in my post about the emergence of <a href="http://natishalom.typepad.com/nati_shaloms_blog/2012/05/bare-metal-paas.html">bare-metal clouds</a>. </li>
 </ul>
+<h2><strong>Final Notes</strong></h2>
+<p>I often like to compare the revolution that we&#8217;re experiencing right now in the IT industry to a similar revolution that happened in the automotive industry few decades ago.</p>
+<p>You probably know what I&#8217;m referring to. The automotive industry experienced a similar revolution when Henry Ford came up with his Model-T car. The change wasn&#8217;t so much in the engine or other parts of the car, but rather in the scale and cost in which cars could now be produced. As I noted earlier, in many aspects cloud is the IT industry manufacturing assembly line.</p>
+<p>As with cars, it doesn&#8217;t make sense to run only 10% of our cars on the new manufacturing assembly line, and build the rest in the traditional way. So is the case with our IT. Now the question becomes how to make the move. </p>
+<p>In this post I outlined what I believe should be the principles to migrate apps at a massive scale. In the next post I&#8217;ll describe more specifically the Cloudify way of doing this &#8211; stay tuned&#8230;</p>
+<p><a href="http://natishalom.typepad.com/.a/6a00d835457b7453ef017c329cd14f970b-pi"><img style="display: inline; float: left" title="1311765722_picons03" alt="1311765722_picons03" align="left" src="http://natishalom.typepad.com/.a/6a00d835457b7453ef017c329cd14f970b-75wi" width="42" height="42" /></a> <br />
+<br />
+  <br /><a href="https://twitter.com/intent/follow?screen_name=natishalom">Follow Nati </a>on Twitter!</p>
                     <div id="disqus_thread"></div>
 <script type="text/javascript">
     /* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
     var disqus_shortname = 'cloudifysource'; // required: replace example with your forum shortname
-    var disqus_identifier = '/2012/05/01/whats_new_in_cloudify_2_1.html';
+    var disqus_identifier = '/2012/10/30/moving_enterprise_workloads_to_the_cloud_on_a_massive_scale.html';
 
     /* * * DON'T EDIT BELOW THIS LINE * * */
     (function() {

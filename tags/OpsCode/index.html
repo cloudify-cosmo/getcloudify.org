@@ -4,10 +4,10 @@
 <head>
     
 	<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>	
-	<title>Cloudify - What's new in Cloudify 2.1</title>
+	<title>Cloudify - Tag: OpsCode</title>
 	<script src="//cdn.optimizely.com/js/59503762.js"></script>
 	<link rel="stylesheet" href="/css/template.css" type="text/css"/>	
-	<link rel="canonical" href="http://www.cloudifysource.org/2012/05/01/whats_new_in_cloudify_2_1.html"/>	
+	<link rel="canonical" href="http://www.cloudifysource.orgtags/OpsCode/index.html"/>	
 	<link rel="stylesheet" href="/css/jquery-ui-1.8.17.custom.css" type="text/css" media="all"/>
 	<link rel="stylesheet" type="text/css" href="/scripts/prettify/prettify.css">	
 	<link rel="shortcut icon" href="/favicon.ico" type="image/x-icon" />
@@ -146,7 +146,7 @@ mixpanel.track_forms('#ki_form', 'Qualaroo');
 	
 </head>
 <body>
-<a class="fork-guide" target="_blank" href="https://github.com/CloudifySource/cloudify"></a>
+<a class="fork-guide" target="_blank" href="https://github.com/CloudifySource/cloudify"></a>	
 <div class="WrapperBg">    
     <div class="Wrapper">
         <div class="header">
@@ -211,7 +211,7 @@ mixpanel.track_forms('#ki_form', 'Qualaroo');
 </div>
 <div class="clear"></div>
         <div class="contentWrap">            
-			<div class="breadcrumbs">Home Page > Cloudify Blogs > What's new in Cloudify 2.1</div>
+			<div class="breadcrumbs">Home Page > Cloudify Blogs > Tag: OpsCode</div>
             <div class="clear"></div>
 
             <!--Search-->
@@ -237,9 +237,10 @@ mixpanel.track_forms('#ki_form', 'Qualaroo');
 
 
 
-			
+
+
             <div class="content">
-                <div id="alTag_LeftBlog" class="left">
+                <div class="left" id="alTag_LeftBlog">
                     
                     <!--Event groups-->
 
@@ -869,74 +870,71 @@ mixpanel.track_forms('#ki_form', 'Qualaroo');
 
                 <div id="resultsDiv" class="DocumentsWrap"></div>
                 <div id="pageContent" class="DocumentsWrapRight">
-                    <h1 class="pageTitle">What's new in Cloudify 2.1</h1>
-					 
-					  <span class="blogPostInfo">Posted By: <a href="#">Yaron Parasol</a>  on May  1, 2012  
-					  </span>
-					  <br/><br/><br/>
-					 
-                    <p>Today we&#8217;re officially launching the Cloudify 2.1 GA release release, so I thought it would be a good chance to recap what we&#8217;ve been up to in the past few months.</p>
-<h2>The Lowdown</h2>
-<p>Over the past couple of months we&#8217;ve been working closely with the first Cloudify users and customers in order to really get the feature priorities right and to constantly improve the user experience in this latest version.<br />
-I thought this would be a good opportunity to recap what we&#8217;ve achieved so far, and what we&#8217;re up to behind the scenes, and hope to include in versions in the near future.</p>
-<h2>Cloudifysource Community</h2>
-<p>When we started thinking about Cloudify we immediately decided we are going open source. After all, the whole idea behind this product was openness. The problem we were looking to solve was that of allowing existing applications to easily migrate to the cloud. This, in fact, means two different things for two different user groups:</p>
-<ol>
-	<li>For application people it means no changes to their stack or code &#8211; taking the application as is</li>
-	<li>For the operations experts it means automating the installation, startup and recovery processes of the application without totally changing their compliance and work standards.</li>
-</ol>
-<p>Ok, so we designed Cloudify in a very open manner and open-sourced it yadda yadda&#8230; but what&#8217;s an open-source product without a stellar community of developers?<br />
-While we were peddling hard just to get the first version of Cloudify out, through challenging beta sites, we were investing in a parallel effort of establishing an entire set of services a community needs. A month ago we launched cloudifysource.org and we&#8217;re hoping to keep on developing and evolving it &#8211; per your needs (so keep the suggestions coming!).<br />
-There you will find anything needed to actually use Cloudify, have your questions answered in our forums and your suggestions put on the record in our Ideas thread. The community is also where you&#8217;re encouraged to get involved in the development effort, and contribute whatever you create: plugins, cloud drivers or even features for the community.</p>
-<h2>Chef Integration</h2>
-<p>Cloudify is DevOps by <span class="caps">DNA</span>. The recipe concept which is central to Cloudify drew inspiration from Chef and Puppet. So it was only a natural move to combine the powers of Chef with Cloudify.<br />
-Chef being focused on single node management as its basic functionality, is orchestrated by Cloudify to install the right cookbook on the right VM with installation configuration provided by Cloudify recipes.<br />
-You can already see the prototype of this effort on <a href="https://github.com/CloudifySource/cloudify-recipes/tree/master/service-recipes/chef" class="newwindow">Github</a> (where you can find the rest of the Cloudify sources too). Fear not though, a more complete integration with many cookbooks is in the works.</p>
-<h2>What does Cloudify 2.1 have to offer?</h2>
-<ul>
-	<li>An improved user experience:<br />
-The Cloudify Interactive Shell offers a better experience with all processes: Cloud bootstrapping, Application installation and uninstallation, as well as cloud teardown. These improvements facilitate progress tracking and simplify troubleshooting and recipe debugging.</li>
-	<li>Scale your application:<br />
-The key drivers to the cloud are efficiency and agility, which you already very well know. By making your application elastic, you take cloud benefits to the max. Bottom line:  no more over-provisioning.<br />
-Your application can start with a certain size that fits the average demand and can scale manually or automatically when load increases.<br />
-What&#8217;s more, unlike other PaaS products, Cloudify provides custom metrics as the trigger for such provisioning changes. The set-instances command allows you to manually change the size of any service within your application. The <a href="http://www.cloudifysource.org/guide/2.1/developing/scaling_rules">scaling rules</a> section of the recipe enables a simple yet powerful automated elasticity. These, combined with custom commands and recipe lifecycle events, give you an entire mechanism to take care of load-balancing and dynamic configuration of the elastic cluster.</li>
-	<li>So go on, build your own cloud:<br />
-Cloudify 2.1 comes with a new <a href="http://www.cloudifysource.org/guide/2.1/bootstrapping/bootstrapping_byon"><span class="caps">BYON</span></a> (Bring Your Own Node) Cloud Driver, honestly we love this feature, and hope you will too. The idea with this driver is that it actually helps users create their own cloud-like environment using hosts (physical or virtual) provisioned by other tools or manually. The <span class="caps">BYON</span> driver allows for nearly unlimited host listing and discovery, so pretty much anything from hard-coded lists to integration with your <span class="caps">CMDB</span> can work. This translates to faster and cheaper setup of elastic environments, be it for development, testing or even production. Your recipes running on the <span class="caps">BYON</span> driver, are needless to say, completely portable to any cloud without the slightest change.</li>
-	<li><a href="http://www.cloudifysource.org/guide/2.1/release_notes/release_notes">And more&#8230;</a></li>
-</ul>
-<h2>What&#8217;s next?</h2>
-<p>We&#8217;ve already starting working on version 2.2.<br />
-Since we&#8217;re still in its planning phase, we would love to get your suggestions and input.<br />
-A few things we can already share:</p>
-<ul>
-	<li>The Chef integration will be completed in this release, with ongoing efforts of releasing recipes using particular platforms cookbooks</li>
-	<li>An advanced format of the scaling rules will enable any logic as a result of threshold breach, allowing for even the most complex scaling scenario</li>
-	<li>We plan to provide a single sign on security model to the <span class="caps">REST</span> and Web servers on the Cloudify  Controller to ease the integration with your existing security arrangements</li>
-	<li>2.2 will support a multi-tenant Cloud Driver so you can deploy different applications with different credentials using the same Cloudify installation</li>
-	<li>And much more, so keep on following our posts &#8211; and talk to us&#8230;we&#8217;re listening.</li>
-</ul>
-                    <div id="disqus_thread"></div>
-<script type="text/javascript">
-    /* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
-    var disqus_shortname = 'cloudifysource'; // required: replace example with your forum shortname
-    var disqus_identifier = '/2012/05/01/whats_new_in_cloudify_2_1.html';
+                    <h1 class="pageTitle">Tag: OpsCode</h1>					
 
-    /* * * DON'T EDIT BELOW THIS LINE * * */
-    (function() {
-        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
-        dsq.src = 'http://' + disqus_shortname + '.disqus.com/embed.js';
-        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
-    })();
-</script>
-<noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
-<a href="http://disqus.com" class="dsq-brlink">blog comments powered by <span class="logo-disqus">Disqus</span></a>
+
+
+
+
+
+
+
+
+														
+                    
+
+
+
+
+<div class="blogtPostBox">
+  <div class="blogInfoLeft">
+    <img title="Nati Shalom" width="80" height="96" src="/images/nati.png" />
+  </div>  
+  <div class="blogInfoRight">
+    <a href="/2012/10/30/moving_enterprise_workloads_to_the_cloud_on_a_massive_scale.html" class="title">Moving Enterprise Workloads to the Cloud on a Massive Scale</a>
+	  <div class="blogPostInfo">
+	  <br/>	  	 
+	    <span>Posted By: <a href="#">Nati Shalom</a>  on  October 30, 2012  <!--|  in <a href="/categories/"></a> --></span>
+	  </div>	  	  	
+      <p>
+		
+			<p>The Current Approach Focus on building IaaS &#8211; Current cloud strategies of many enterprises has been centered on making the infrastructure cloud ready. This basically means ensuring that they are able to spawn machines more easily than they were before. A quick look at many initiatives of this nature shows...</p>
+			
+		<p class><a href="/2012/10/30/moving_enterprise_workloads_to_the_cloud_on_a_massive_scale.html">Read more...</a></p>	  	  
+	  </p>
+		<span>  Additional Tags: 		
+			
+				
+			     <a class="postTag" href="/tags/Devops">Devops (1)</a>
+			   	
+			
+				
+			     <a class="postTag" href="/tags/PaaS">PaaS (10)</a>
+			   	
+			
+					
+			
+				
+			     <a class="postTag" href="/tags/OpenStack">OpenStack (2)</a>
+			   	
+			
+				
+			     <a class="postTag" href="/tags/Virtualization">Virtualization (2)</a>
+			   	
+			
+		</span>
+	    
+  </div>
+  <div class="clear" ></div>    
+</div>  
+
+
+
 
                 </div>
-
                 <div class="clear"></div>
             </div>
         </div>
-
         <!--Start pagination -->
 
         <div class="clear"></div>
