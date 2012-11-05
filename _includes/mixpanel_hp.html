@@ -17,21 +17,22 @@ mixpanel.track_forms('#ki_form', 'Qualaroo');
 
 //mixpanel.track_forms('div.contactUsWrapper form', 'Contact Us');
 
+var grabEmail;
 
-
-//$("#mc-embedded-subscribe").click(function() {
-//var currEmail = document.getElementById("mce-EMAIL").value;	
-  //mixpanel.name_tag(currEmail);
-//});
+$("#mc-embedded-subscribe").click(function() {
+var currEmail = document.getElementById("mce-EMAIL").value;	
+  mixpanel.name_tag(currEmail);
+  grabEmail=$("input#mce-EMAIL").val();
+});
 
 
 //mixpanel people function:
 mixpanel.register({gender: "male"});
 mixpanel.people.identify("yonefrat@gmail.com");
 mixpanel.people.set({
-    $email: 'yonefrat@gmail.com',
-    $first_name: 'yon',
-    $last_name: 'Glass'
+    $email: 'grabEmail',
+    //$first_name: 'yon',
+    //$last_name: 'Glass'
 });
 
 </script>
