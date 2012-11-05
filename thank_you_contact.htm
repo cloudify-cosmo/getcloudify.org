@@ -47,6 +47,8 @@ mixpanel.init("96365f48f34c41c7b91e045b4f48d53d");</script> <!--end Mixpanel -->
 //mixpanel global page tracking:
 mixpanel.track_forms('#ki_form', 'Qualaroo');
 mixpanel.track('Cloudify Community Page Views', {'page name' : document.title, 'url' : window.location.pathname});  
+mixpanel.track_links("ul.shareLinks a", "Social Button Clicks", function(ele) { return { type: $(ele).attr('type')}});
+
 </script>
 
 </head>
