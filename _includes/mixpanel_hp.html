@@ -11,7 +11,7 @@ $(function(){
 });
 
 //Track Subscribers
-mixpanel.track_forms('#mc-embedded-subscribe-form', 'Register for Event Button Clicks');	
+mixpanel.track_forms('#mc-embedded-subscribe-form', 'Register for Event Button Clicks',{'page name' : document.title, 'url' : window.location.pathname});	
 mixpanel.track_forms('#ki_form', 'Qualaroo');
 
 
