@@ -4,8 +4,8 @@ mixpanel.track_links('#hpdownload', 'Get Cloudify Btn Clicks on HP');
 
 
 
-mixpanel.track_links("div.LatestRecipes a", "Button Latest Recipes Clicked", function(ele) { return { type: $(ele).attr('type')}});
-
+mixpanel.track_links("div.LatestRecipes a", "Latest Recipes Button Clicks", function(ele) { return { type: $(ele).attr('type')}});
+mixpanel.track_links("div.GetConnected a", "Social Button Clicks", function(ele) { return { type: $(ele).attr('type')}});
 
 
 
