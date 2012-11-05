@@ -97,7 +97,8 @@
 		$('p , div.clipTitle h3 , div.mainVidDate span ').hide();
 		var currentId = $(this).parent().parent().attr('id');
 		 document.location.hash = currentId;
-		$('p.'+currentId+' , div.clipTitle h3.'+currentId+' , div.mainVidDate span.'+currentId+'' ).show();  
+		$('p.'+currentId+' , div.clipTitle h3.'+currentId+' , div.mainVidDate span.'+currentId+'' ).show(); 
+		mixpanel.track("Watched Video",{'page name' : document.title, 'url' : document.location.hash});
 	});
 	
 	
