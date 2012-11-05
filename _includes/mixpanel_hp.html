@@ -1,28 +1,16 @@
 <script type="text/javascript">
 mixpanel.track('Cloudify Community Page Views', {'page name' : document.title, 'url' : window.location.pathname});  
-mixpanel.track_links('#hpdownload', 'Get Cloudify Btn Clicks on HP');			  	 	 
-
-
-
 mixpanel.track_links("div.LatestRecipes a", "Latest Recipes Button Clicks", function(ele) { return { type: $(ele).attr('type')}});
 mixpanel.track_links("div.GetConnected a", "Social Button Clicks", function(ele) { return { type: $(ele).attr('type')}});
 
+// This sends us an event every time a user clicks the HP Get Cloudify button
+$(function(){ 
+  $("a.hp-banner-getCloudify").click(function() {
+	    mixpanel.track("Home Page Download Button Clicks",{'page name' : document.title, 'url' : window.location.pathname}); 
+	});
+});
 
 
-
-
-
-
-
-mixpanel.track_links('#redis', 'redis recipe views');			  	 	 
-mixpanel.track_links('#nginx', 'nginx recipe views');
-mixpanel.track_links('#play', 'play recipe views');
-
-mixpanel.track_links('#postgresql', 'postgresql recipe views');		  	 	 
-mixpanel.track_links('#chef', 'chef recipe views');  	 	 
-mixpanel.track_links('#couchdb', 'couchdb recipe views');
-
-mixpanel.track_links('#recipes', 'recipes repo views');			  	 	 
 mixpanel.track_forms('#mc-embedded-subscribe-form', 'Home Page Subscribe Clicks');	
 //mixpanel.track_forms('div.contactUsWrapper form', 'Contact Us');
 mixpanel.track_forms('#ki_form', 'Qualaroo');
