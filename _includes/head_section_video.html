@@ -98,7 +98,7 @@
 		var currentId = $(this).parent().parent().attr('id');
 		 document.location.hash = currentId;
 		$('p.'+currentId+' , div.clipTitle h3.'+currentId+' , div.mainVidDate span.'+currentId+'' ).show();  
-
+		mixpanel.track("Watched Video",{'page name' : document.title, 'url' : window.location.pathname});
 	});
 	
 	
