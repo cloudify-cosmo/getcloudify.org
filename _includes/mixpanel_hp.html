@@ -2,6 +2,18 @@
 mixpanel.track('Cloudify Community Page Views', {'page name' : document.title, 'url' : window.location.pathname});  
 mixpanel.track_links('#hpdownload', 'Get Cloudify Btn Clicks on HP');			  	 	 
 
+
+
+mixpanel.track_links("div.LatestRecipes a", "Button Latest Recipes Clicked", function(ele) { return { type: $(ele).attr('type')}});
+
+
+
+
+
+
+
+
+
 mixpanel.track_links('#redis', 'redis recipe views');			  	 	 
 mixpanel.track_links('#nginx', 'nginx recipe views');
 mixpanel.track_links('#play', 'play recipe views');
