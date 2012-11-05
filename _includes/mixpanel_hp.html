@@ -10,17 +10,19 @@ $(function(){
 	});
 });
 
-
-mixpanel.track_forms('#mc-embedded-subscribe-form', 'Home Page Subscribe Clicks');	
-//mixpanel.track_forms('div.contactUsWrapper form', 'Contact Us');
+//Track Subscribers
+mixpanel.track_forms('#mc-embedded-subscribe-form', 'Register for Event Button Clicks');	
 mixpanel.track_forms('#ki_form', 'Qualaroo');
 
 
+//mixpanel.track_forms('div.contactUsWrapper form', 'Contact Us');
 
-$("#mc-embedded-subscribe").click(function() {
-var currEmail = document.getElementById("mce-EMAIL").value;	
-  mixpanel.name_tag(currEmail);
-});
+
+
+//$("#mc-embedded-subscribe").click(function() {
+//var currEmail = document.getElementById("mce-EMAIL").value;	
+  //mixpanel.name_tag(currEmail);
+//});
 
 
 //mixpanel people function:
