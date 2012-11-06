@@ -33,7 +33,9 @@ The Accessing REST API can be accessed using any REST client, or the Cloudify sh
 <tr><th>Method</th><th>Command</th><th>Description</th></tr>
 <tr><td>Cloudify shell</td><td>*@set-attributes@* @-scope@ _@global@_ @'{"home_folder":"d:\tomcat"}'@</td><td>Sets the @home_folder@ attribute in the *Global* context</td></tr>
 <tr><td>Cloudify shell</td><td>*@list-attributes@* @-scope@ _@application@_</td><td>Lists attributes in the *Application* context</td></tr>
-<tr><td>CURL REST Client</td><td>*@curl@* _@http://localhost:8100/attributes/applications/default@_</td><td>Lists attributes in the *Application* context</td></tr>
+<tr><td>CURL REST Client</td><td>*@curl@* _@http://localhost:8100/attributes/applications/default@_</td><td>Lists attributes in the default *Application* context</td></tr>
+<tr><td>CURL REST Client</td><td>*@curl@* _@http://localhost:8100/attributes/instances/@_<applicationName>/<serviceName>/<instanceId> -H "Content-Type: application/json" -X POST -d '{"<key>":"<value>"}'</td><td>Sets an attribute in the Service context</td></tr>
+<tr><td>CURL REST Client</td><td>*@curl@* _@http://localhost:8100/attributes/instances/@_<applicationName>/<serviceName>/<instanceId>/<key> -H "Content-Type: application/json" -X DELETE</td><td>Deletes an attribute in the Instance context</td></tr>
 </table>
 
 h2. REST API Request Format
