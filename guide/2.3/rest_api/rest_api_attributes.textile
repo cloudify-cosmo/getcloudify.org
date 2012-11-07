@@ -34,8 +34,8 @@ The Accessing REST API can be accessed using any REST client, or the Cloudify sh
 <tr><td>Cloudify shell</td><td>*@set-attributes@* @-scope@ _@global@_ @'{"home_folder":"d:\tomcat"}'@</td><td>Sets the @home_folder@ attribute in the *Global* context</td></tr>
 <tr><td>Cloudify shell</td><td>*@list-attributes@* @-scope@ _@application@_</td><td>Lists attributes in the *Application* context</td></tr>
 <tr><td>CURL REST Client</td><td>*@curl@* _@http://<HOST>:8100/attributes/applications/default@_</td><td>Lists attributes in the default *Application* context</td></tr>
-<tr><td>CURL REST Client</td><td>*@curl@* _@http://<HOST>:8100/attributes/instances/@_<applicationName>/<serviceName>/<instanceId> -H "Content-Type: application/json" -X POST -d '{&#34;&lt;key&gt;&#34;:&#34;&lt;value&gt;&#34;}'</td><td>Sets an attribute in the *Service* context</td></tr>
-<tr><td>CURL REST Client</td><td>*@curl@* _@http://<HOST>:8100/attributes/instances/@_<applicationName>/<serviceName>/<instanceId>/<key> -H "Content-Type: application/json" -X DELETE</td><td>Deletes an attribute in the *Instance* context</td></tr>
+<tr><td>CURL REST Client</td><td>*@curl@* _@http://<HOST>:8100/attributes/instances/@_&lt;applicationName&gt;/&lt;serviceName&gt; -H "Content-Type: application/json" -X POST -d '{&#34;&lt;key&gt;&#34;:&#34;&lt;value&gt;&#34;}'</td><td>Sets an attribute in the *Service* context</td></tr>
+<tr><td>CURL REST Client</td><td>*@curl@* _@http://<HOST>:8100/attributes/instances/@_&lt;applicationName&gt;/&lt;serviceName&gt;/&lt;instanceId&gt;/&lt;key&gt; -H "Content-Type: application/json" -X DELETE</td><td>Deletes an attribute in the *Instance* context</td></tr>
 </table>
 
 h2. REST API Request Format
