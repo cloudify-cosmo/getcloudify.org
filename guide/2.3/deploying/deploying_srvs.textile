@@ -1,0 +1,42 @@
+---
+layout: default
+title: Deploying Services
+category: Deploying Services & Applications
+publish: true
+abstract: Explains how to deploy services to your Cloudify deployment
+pageord: 100
+---
+
+When "bootstrapping":../bootstrapping/bootstrapping_process your cloud, the services defined in the recipes are provisioned as part of the bootstrapping process. However, when testing and developing recipes, or when deploying services that have no dependencies, you might want to deploy these services individually instead of as part of an application.
+
+This topic explains how to deploy services to your Cloudify deployment.
+
+h2. Deploying a Service
+
+Once you have described your new "service recipe":../developing/service_recipe and its dependencies, you are ready to deploy the new service.
+
+The following procedure describes the steps for deploying the service:
+# Connect to the REST service -- At the Cloudify shell prompt, type: *@connect@* @<RESTservice>@
+# Set the current application context -- At the Cloudify shell prompt, type: *@use-application@* @<appName>@
+# Deploy the service -- At the Cloudify shell prompt, type: *@install-service@* @<serviceName>@
+
+In the first stage of the deployment, Cloudify packages your recipe and uploads it to the Cloudify controller. Then, a fully-automated deployment takes place, exactly as described in the recipe. You can monitor the deployment progress in the following ways:
+* "Cloudify shell":#monitor --During the deployment, progress information is displayed in the shell
+* "Cloudify web management console":../monitoring/the_web_management_console --Once the deployment has completed, you can verify the installation using the *Services* view in the web management console.
+<h4 class="impt">When the service displays in the web management console, it *is* connected to the other services in the application _even though_ the connecting line/arrow is missing.</h4>
+* Review the installation logs
+
+h2(#monitor). Monitoring your Deployment
+
+In the Cloudify shell used to run your service deployment, you can monitor its progress using the following information displayed in the shell:
+
+* The number of planned service instances as described in the recipe.
+* Detailed progress about the <span style="color:green;">success</span> or <span style="color:red;">failure</span> of each lifecycle event run. Additionally, Cloudify plots a dot every two seconds to indicate the progress of the current action.
+
+<br />
+The following example shows the progress of a successful deployment of the *apacheLB* service.
+<img width="700" src="../../images/deploy/install-service.jpg">
+
+h2. Undeploying a Service
+
+To uninstall the service, at the Cloudify shell prompt, type: *@uninstall-service@* @<serviceName>@

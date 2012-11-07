@@ -138,9 +138,9 @@ mixpanel.init("96365f48f34c41c7b91e045b4f48d53d");</script> <!--end Mixpanel -->
 
 //mixpanel global page tracking:
 mixpanel.track_forms('#ki_form', 'Qualaroo');
-mixpanel.track('Cloudify Community Page Views', {'page name' : document.title, 'url' : window.location.pathname});
+mixpanel.track('page viewed', {'page name' : document.title, 'url' : window.location.pathname});  
 $(function(){ 
-	// This sends us an event every time a user clicks the button
+    // This sends us an event every time a user clicks the button
 	$("a.hp-btn-getCloudify").click(function() {
 	    mixpanel.track("Get Cloudify Button Clicks",{'page name' : document.title, 'url' : window.location.pathname}); 
 	});
