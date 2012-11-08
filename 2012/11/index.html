@@ -4,10 +4,10 @@
 <head>
     
 	<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>	
-	<title>Cloudify - It's Time to Play with Cloudify</title>
+	<title>Cloudify - </title>
 	<script src="//cdn.optimizely.com/js/59503762.js"></script>
 	<link rel="stylesheet" href="/css/template.css" type="text/css"/>	
-	<link rel="canonical" href="http://www.cloudifysource.org/2012/08/09/time_to_play_with_cloudify.html"/>	
+	<link rel="canonical" href="http://www.cloudifysource.org2012/11/index.html"/>	
 	<link rel="stylesheet" href="/css/jquery-ui-1.8.17.custom.css" type="text/css" media="all"/>
 	<link rel="stylesheet" type="text/css" href="/scripts/prettify/prettify.css">	
 	<link rel="shortcut icon" href="/favicon.ico" type="image/x-icon" />
@@ -217,7 +217,7 @@ $(function(){
 </div>
 <div class="clear"></div>
         <div class="contentWrap">            
-			<div class="breadcrumbs">Home Page > Cloudify Blogs > It's Time to Play with Cloudify</div>
+			<div class="breadcrumbs">Home Page > Cloudify Blogs > </div>
             <div class="clear"></div>
 
             <!--Search-->
@@ -893,52 +893,115 @@ $(function(){
 
                 <div id="resultsDiv" class="DocumentsWrap"></div>
                 <div id="pageContent" class="DocumentsWrapRight">
-                    <h1 class="pageTitle">It's Time to Play with Cloudify</h1>
-					 
-					  <span class="blogPostInfo">Posted By: <a href="#">Tamir Korem</a>  on August  9, 2012  
-					  </span>
-					  <br/><br/><br/>
-					 
-                    <h2>The Play framework</h2>
-<p><strong>Play framework</strong> is an open source web application framework, written in Scala and Java, which follows the model-view-controller architectural pattern. <br />
-It aims to optimize developer productivity by using convention over configuration, hot code reloading and display of errors in the browser.</p>
-<p>The moto of <a href="http://www.playframework.org/" class="newwindow">Play framework</a> is :  <strong>The Play framework makes it easier to build web applications with Java &amp; Scala.</strong></p>
-<p>Play is based on a lightweight, stateless, web-friendly architecture and features predictable and minimal resource consumption (<span class="caps">CPU</span>, memory, threads) for highly-scalable applications &#8211; thanks to its reactive model, based on Iteratee IO.</p>
-<h2>The Play Recipe.</h2>
-<p>Well, we&#8217;ve just created a recipe that enables users to install the Play framework <strong>on a cloud</strong> with Cloudify and obviously deploy their applications on clouds&#8217; VM.</p>
-<p>In this recipe, we also enable users to connect their Play application to any DB, either with Cloudify, or by specifying an external DB <span class="caps">URL</span>.</p>
-<p>In our example recipe, we deploy a slighly modified Play Sample Application named: <a href="http://www.playframework.org/documentation/2.0.1/Samples" class="newwindow">computer-database</a>.<br />
-We use our built-in <a href="https://github.com/CloudifySource/cloudify-recipes/tree/master/services/mysql" class="newwindow">MySQL recipe</a> (mysql) recipe and also our <a href="https://github.com/CloudifySource/cloudify-recipes/tree/master/services/apacheLB" class="newwindow">Apache load balancer</a> (apacheLB) and the computer-database application connects to both of them and uses them almost seamlessly.</p>
-<p>We&#8217;ve also added several useful <a href="/guide/2.1/developing/custom_commands" class="newwindow">custom commands</a> :</p>
-<ul>
-	<li><strong>replace</strong> &#8211; which enables users to replace a string in a file (relative to play home folder).<br />
- &#8211; Usage : <code>invoke play replace all|first origString newString relativePath</code></li>
-	<li><strong>cmd</strong> &#8211; which enables users to invoke <strong>any</strong> Play framework command line and up to 3 arguments. <br />
- &#8211; Usage : <code>invoke play cmd nameOfTheCommand [arg1] [arg2] [arg3]</code></li>
-	<li><strong>updateApp</strong> &#8211; which enables users to update their application<br />
- &#8211; Usage : <code>invoke play updateApp http://www.mynewapplication.zip</code></li>
-</ul>
-<br/>
-
-<p>Cloudify enables you to develop, deploy, compile, package and monitor your application from your desktop even though your Play framework environment and your Play application are on a cloud.</p>
-<p>As usual with Cloudify &#8211; It works on <strong>any cloud !!!</strong></p>
-<p>Here&#8217;s a screenshot of our Web UI on Amazon EC2 (it&#8217;s also been tested on OpenStack)  : <br />
-<img src="/images/play203.jpg" /></p>
-<h2>Test the application under load</h2>
-<p>In order to test your application under load, you can use the apacheLB <a href="https://github.com/CloudifySource/cloudify-recipes/blob/master/services/apacheLB/README.md#load-testing" class="newwindow">load</a> custom command.<br />
-The following will fire 45000 requests on http://LB_IP_ADDRESS:LB_PORT/computers with 300 concurrent requests each time:<br />
- <strong>invoke apacheLB load 45000 300 computers</strong></p>
-<h2>One more thing for the &#8220;road&#8221;</h2>
-<p>We&#8217;ve also added <a href="/guide/2.1/developing/scaling_rules" class="newwindow">scaling rules</a> so that your Play application can scale out automatically.<br />
-If the <span class="caps">CPU</span> usage is higher than a certain threshold, Cloudify allocates a new machine on the cloud and on it, Cloudify installs the Play framework and deploys the computer-database or any other Play application.<br />
-Once the application is up and running on the new machine, Cloudify registers this new VM to the Apache load balancer.</p>
-<p>It all happens &#8220;out of the box&#8221; with Cloudify.</p>
-<p>Check out the <a href="https://github.com/CloudifySource/cloudify-recipes/tree/master/apps/computers" class="newwindow">computers</a> recipe.</p>
+                    <h1 class="pageTitle"></h1>
+					
+                    <h1>November 2012</h1>
+<ol class="archive">
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+      
+		<div class="blogtPostBox">
+  <div class="blogInfoLeft">
+    <img title="Nati Shalom" width="80" height="96" src="/images/nati.png" />
+  </div>  
+  <div class="blogInfoRight">
+    <a href="/2012/11/02/moving_enterprise_workloads_to_the_cloud_on_a_massive_scale_cloudify_way.html" class="title">Moving Enterprise Workloads to the Cloud on a Massive Scale - The Cloudify Way</a>
+	  <div class="blogPostInfo">
+	  <br/>	  	 
+	    <span>Posted By: <a href="#">Nati Shalom</a>  on  November  2, 2012  <!--|  in <a href="/categories/"></a> --></span>
+	  </div>	  	  	
+      <p>
+		
+			<p>In my previous post Moving Enterprise Workloads to the Cloud on a Massive Scale, I pointed out the reasons for moving Enterprise workloads to the cloud. I also argued that the current approach doesn&#8217;t work, as we need to think of moving apps not as one-off projects, or as an...</p>
+			
+		<p class><a href="/2012/11/02/moving_enterprise_workloads_to_the_cloud_on_a_massive_scale_cloudify_way.html">Read more...</a></p>	  	  
+	  </p>
+		<span>  Tags:
+			
+			  <a class="postTag" href="/tags/Devops">Devops (2)</a>
+			
+			  <a class="postTag" href="/tags/PaaS">PaaS (11)</a>
+			
+			  <a class="postTag" href="/tags/OpsCode">OpsCode (2)</a>
+			
+			  <a class="postTag" href="/tags/Enterprise">Enterprise (1)</a>
+			
+			  <a class="postTag" href="/tags/Virtualization">Virtualization (3)</a>
+			
+		</span>
+	    
+  </div>
+  <div class="clear" ></div>    
+</div>
+      
+    
+  
+    
+  
+</ol>
                     <div id="disqus_thread"></div>
 <script type="text/javascript">
     /* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
     var disqus_shortname = 'cloudifysource'; // required: replace example with your forum shortname
-    var disqus_identifier = '/2012/08/09/time_to_play_with_cloudify.html';
+    var disqus_identifier = '2012/11/index.html';
 
     /* * * DON'T EDIT BELOW THIS LINE * * */
     (function() {
