@@ -14,7 +14,8 @@
 																<h2 id="REST_API-/service/applications"><a class="permalink" title="Get a permanent link to this section" href="#REST_API-/service/applications">/service/applications</a></h2>				
 												<h3>HTTP Methods</h3>
 									<h4>GET</h4>
-											<p>Creates and returns a map containing all of the deployed application names.</p>
+											<p>Creates and returns a map containing all of the deployed application
+ names.</p>
 																																																																							<h3>Response</h3>
 													<div class="panel">
 								<div class="panelHeader">
@@ -31,25 +32,46 @@
 																						<ul>
 																					<li>Returns "200 OK" - success.</li>
 																			</ul>
+																<h2 id="REST_API-/service/applications/description"><a class="permalink" title="Get a permanent link to this section" href="#REST_API-/service/applications/description">/service/applications/description</a></h2>				
+												<h3>HTTP Methods</h3>
+									<h4>GET</h4>
+											<p>Creates and returns a map containing all of the deployed application
+ names.</p>
+																																																																							<h3>Response</h3>
+													<div class="panel">
+								<div class="panelHeader">
+									Response to a GET on /service/applications/description
+								</div>	
+								<div class="panelContent">
+									<pre class="code">{
+  "status" : "success",
+  "response" : [ "petclinic", "travel" ]
+}</pre>
+								</div>
+							</div>
+																			<p>In the example, the deployed applications in the service grid are petclinic and travel</p>
+																						<ul>
+																					<li>Returns "200 OK" - success.</li>
+																			</ul>
 																<h2 id="REST_API-/service/applications/{applicationName}/services"><a class="permalink" title="Get a permanent link to this section" href="#REST_API-/service/applications/{applicationName}/services">/service/applications/{applicationName}/services</a></h2>				
 												<h3>HTTP Methods</h3>
 									<h4>GET</h4>
-											<p>Creates and returns a map containing all of the deployed service names installed under a specific application
- context.</p>
+											<p>Creates and returns a map containing all of the deployed service names
+ installed under a specific application context.</p>
 																															<h3>Parameters</h3>
 						<table>
 							<tr>
 								<th>Type</th>
 								<th>Name</th>
-								<th>Decription</th>
+								<th>Description</th>
 								<th>Mandatory</th>
-								<th>Location</th>
+								<th>Parameter type</th>
 								<th>Default value</th>
 							</tr>
 															<tr>
 									<td>java.lang.String</td>
 									<td>applicationName</td>
-																			<td></td> 
+																			<td></td>
 																		<td>true</td>
 									<td>PathVariable</td>
 																			<td></td>
@@ -69,7 +91,47 @@
 							</div>
 																												<ul>
 																					<li>Returns "200 OK" - success.</li>
-																												<li>Returns "200 OK" - failed_to_locate_app.</li>
+																												<li>Returns "500 Internal Server Error" - failed_to_locate_app.</li>
+																			</ul>
+																<h2 id="REST_API-/service/applications/{applicationName}/services/description"><a class="permalink" title="Get a permanent link to this section" href="#REST_API-/service/applications/{applicationName}/services/description">/service/applications/{applicationName}/services/description</a></h2>				
+												<h3>HTTP Methods</h3>
+									<h4>GET</h4>
+											<p>Creates and returns a map containing all of the deployed service names
+ installed under a specific application context.</p>
+																															<h3>Parameters</h3>
+						<table>
+							<tr>
+								<th>Type</th>
+								<th>Name</th>
+								<th>Description</th>
+								<th>Mandatory</th>
+								<th>Parameter type</th>
+								<th>Default value</th>
+							</tr>
+															<tr>
+									<td>java.lang.String</td>
+									<td>applicationName</td>
+																			<td></td>
+																		<td>true</td>
+									<td>PathVariable</td>
+																			<td></td>
+																	</tr>
+													</table>
+																																																			<h3>Response</h3>
+													<div class="panel">
+								<div class="panelHeader">
+									Response to a GET on /service/applications/{applicationName}/services/description
+								</div>	
+								<div class="panelContent">
+									<pre class="code">{
+  "status" : "sucess",
+  "response" : [ "service1", "service2" ]
+}</pre>
+								</div>
+							</div>
+																												<ul>
+																					<li>Returns "200 OK" - success.</li>
+																												<li>Returns "500 Internal Server Error" - failed_to_locate_app.</li>
 																			</ul>
 																<h2 id="REST_API-/service/applications/{applicationName}/services/{serviceName}/addinstance"><a class="permalink" title="Get a permanent link to this section" href="#REST_API-/service/applications/{applicationName}/services/{serviceName}/addinstance">/service/applications/{applicationName}/services/{serviceName}/addinstance</a></h2>				
 												<h3>HTTP Methods</h3>
@@ -80,9 +142,9 @@
 							<tr>
 								<th>Type</th>
 								<th>Name</th>
-								<th>Decription</th>
+								<th>Description</th>
 								<th>Mandatory</th>
-								<th>Location</th>
+								<th>Parameter type</th>
 								<th>Default value</th>
 							</tr>
 															<tr>
@@ -113,17 +175,19 @@
 																																																													<h2 id="REST_API-/service/applications/{applicationName}/services/{serviceName}/address/{hostAddress}/tail"><a class="permalink" title="Get a permanent link to this section" href="#REST_API-/service/applications/{applicationName}/services/{serviceName}/address/{hostAddress}/tail">/service/applications/{applicationName}/services/{serviceName}/address/{hostAddress}/tail</a></h2>				
 												<h3>HTTP Methods</h3>
 									<h4>GET</h4>
-											<p>Retrieves the tail of a service log. This method uses the service name and the instance host address to retrieve
- the instance log tail. Important: a machine might hold more than one service instance. In such a scenario,
- only one of the service instance logs will be tailed and returned.</p>
+											<p>Retrieves the tail of a service log. This method uses the service name
+ and the instance host address to retrieve the instance log tail.
+ Important: a machine might hold more than one service instance. In such a
+ scenario, only one of the service instance logs will be tailed and
+ returned.</p>
 																															<h3>Parameters</h3>
 						<table>
 							<tr>
 								<th>Type</th>
 								<th>Name</th>
-								<th>Decription</th>
+								<th>Description</th>
 								<th>Mandatory</th>
-								<th>Location</th>
+								<th>Parameter type</th>
 								<th>Default value</th>
 							</tr>
 															<tr>
@@ -183,23 +247,23 @@
 								</div>
 							</div>
 																												<ul>
-																					<li>Returns "200 OK" - success.</li>
-																												<li>Returns "200 OK" - failed_to_locate_service.</li>
+																					<li>Returns "200 OK".</li>
+																												<li>Returns "500 Internal Server Error" - failed_to_locate_service.</li>
 																			</ul>
 																<h2 id="REST_API-/service/applications/{applicationName}/services/{serviceName}/beans/{beanName}/invoke"><a class="permalink" title="Get a permanent link to this section" href="#REST_API-/service/applications/{applicationName}/services/{serviceName}/beans/{beanName}/invoke">/service/applications/{applicationName}/services/{serviceName}/beans/{beanName}/invoke</a></h2>				
 												<h3>HTTP Methods</h3>
 									<h4>POST</h4>
-											<p>Invokes a custom command on all of the specified service instances. 
- Custom parameters are passed as a map using
- the POST method and contain the command name and parameter values for the specified command.</p>
+											<p>Invokes a custom command on all of the specified service instances.
+ Custom parameters are passed as a map using the POST method and contain
+ the command name and parameter values for the specified command.</p>
 																															<h3>Parameters</h3>
 						<table>
 							<tr>
 								<th>Type</th>
 								<th>Name</th>
-								<th>Decription</th>
+								<th>Description</th>
 								<th>Mandatory</th>
-								<th>Location</th>
+								<th>Parameter type</th>
 								<th>Default value</th>
 							</tr>
 															<tr>
@@ -270,8 +334,8 @@
 							</div>
 																												<ul>
 																					<li>Returns "200 OK" - success.</li>
-																												<li>Returns "200 OK" - failed_to_locate_service.</li>
-																												<li>Returns "200 OK" - no_processing_unit_instances_found_for_invocation.</li>
+																												<li>Returns "500 Internal Server Error" - failed_to_locate_service.</li>
+																												<li>Returns "500 Internal Server Error" - no_processing_unit_instances_found_for_invocation.</li>
 																			</ul>
 																<h2 id="REST_API-/service/applications/{applicationName}/services/{serviceName}/instances"><a class="permalink" title="Get a permanent link to this section" href="#REST_API-/service/applications/{applicationName}/services/{serviceName}/instances">/service/applications/{applicationName}/services/{serviceName}/instances</a></h2>				
 												<h3>HTTP Methods</h3>
@@ -282,9 +346,9 @@
 							<tr>
 								<th>Type</th>
 								<th>Name</th>
-								<th>Decription</th>
+								<th>Description</th>
 								<th>Mandatory</th>
-								<th>Location</th>
+								<th>Parameter type</th>
 								<th>Default value</th>
 							</tr>
 															<tr>
@@ -313,7 +377,7 @@
 									<pre class="code">{
   "status" : "success",
   "response" : {
-    "1" : "12.7.0.0.1"
+    "1" : "127.0.0.1"
   }
 }</pre>
 								</div>
@@ -321,21 +385,22 @@
 																			<p>In the example instance id is 1 and the HOST is 127.0.0.1</p>
 																						<ul>
 																					<li>Returns "200 OK" - success.</li>
-																												<li>Returns "200 OK" - failed_to_locate_service.</li>
+																												<li>Returns "500 Internal Server Error" - failed_to_locate_service.</li>
 																			</ul>
 																<h2 id="REST_API-/service/applications/{applicationName}/services/{serviceName}/instances/{instanceId}/beans/{beanName}/invoke"><a class="permalink" title="Get a permanent link to this section" href="#REST_API-/service/applications/{applicationName}/services/{serviceName}/instances/{instanceId}/beans/{beanName}/invoke">/service/applications/{applicationName}/services/{serviceName}/instances/{instanceId}/beans/{beanName}/invoke</a></h2>				
 												<h3>HTTP Methods</h3>
 									<h4>POST</h4>
-											<p>Invokes a custom command on a specific service instance. Custom parameters are passed as a map using POST method
- and contain the command name and parameter values for the specified command.</p>
+											<p>Invokes a custom command on a specific service instance. Custom
+ parameters are passed as a map using POST method and contain the command
+ name and parameter values for the specified command.</p>
 																															<h3>Parameters</h3>
 						<table>
 							<tr>
 								<th>Type</th>
 								<th>Name</th>
-								<th>Decription</th>
+								<th>Description</th>
 								<th>Mandatory</th>
-								<th>Location</th>
+								<th>Parameter type</th>
 								<th>Default value</th>
 							</tr>
 															<tr>
@@ -373,7 +438,8 @@
 															<tr>
 									<td>java.util.Map</td>
 									<td>params</td>
-																			<td>a Map containing the result of each invocation on a service instance</td>
+																			<td>a Map containing the result of each invocation on a service
+            instance</td>
 																		<td>true</td>
 									<td>RequestBody</td>
 																			<td></td>
@@ -412,9 +478,9 @@
 							</div>
 																												<ul>
 																					<li>Returns "200 OK" - success.</li>
-																												<li>Returns "200 OK" - failed_to_locate_service.</li>
-																												<li>Returns "200 OK" - service_instance_unavailable.</li>
-																												<li>Returns "200 OK" - failed_to_invoke_instance.</li>
+																												<li>Returns "500 Internal Server Error" - failed_to_locate_service.</li>
+																												<li>Returns "500 Internal Server Error" - service_instance_unavailable.</li>
+																												<li>Returns "500 Internal Server Error" - failed_to_invoke_instance.</li>
 																			</ul>
 																<h2 id="REST_API-/service/applications/{applicationName}/services/{serviceName}/instances/{instanceId}/remove"><a class="permalink" title="Get a permanent link to this section" href="#REST_API-/service/applications/{applicationName}/services/{serviceName}/instances/{instanceId}/remove">/service/applications/{applicationName}/services/{serviceName}/instances/{instanceId}/remove</a></h2>				
 												<h3>HTTP Methods</h3>
@@ -425,9 +491,9 @@
 							<tr>
 								<th>Type</th>
 								<th>Name</th>
-								<th>Decription</th>
+								<th>Description</th>
 								<th>Mandatory</th>
-								<th>Location</th>
+								<th>Parameter type</th>
 								<th>Default value</th>
 							</tr>
 															<tr>
@@ -457,22 +523,22 @@
 													</table>
 																																																								<ul>
 																					<li>Returns "200 OK" - success.</li>
-																												<li>Returns "200 OK" - failed_to_locate_service.</li>
-																												<li>Returns "200 OK" - service_instance_unavailable.</li>
+																												<li>Returns "500 Internal Server Error" - failed_to_locate_service.</li>
+																												<li>Returns "500 Internal Server Error" - service_instance_unavailable.</li>
 																			</ul>
 																<h2 id="REST_API-/service/applications/{applicationName}/services/{serviceName}/instances/{instanceId}/tail"><a class="permalink" title="Get a permanent link to this section" href="#REST_API-/service/applications/{applicationName}/services/{serviceName}/instances/{instanceId}/tail">/service/applications/{applicationName}/services/{serviceName}/instances/{instanceId}/tail</a></h2>				
 												<h3>HTTP Methods</h3>
 									<h4>GET</h4>
-											<p>Retrieves the tail of a service log. This method used the service name and instance id To retrieve the the
- instance log tail.</p>
+											<p>Retrieves the tail of a service log. This method used the service name
+ and instance id To retrieve the the instance log tail.</p>
 																															<h3>Parameters</h3>
 						<table>
 							<tr>
 								<th>Type</th>
 								<th>Name</th>
-								<th>Decription</th>
+								<th>Description</th>
 								<th>Mandatory</th>
-								<th>Location</th>
+								<th>Parameter type</th>
 								<th>Default value</th>
 							</tr>
 															<tr>
@@ -532,21 +598,22 @@
 								</div>
 							</div>
 																												<ul>
-																					<li>Returns "200 OK" - success.</li>
-																												<li>Returns "200 OK" - failed_to_locate_service.</li>
+																					<li>Returns "200 OK".</li>
+																												<li>Returns "500 Internal Server Error" - failed_to_locate_service.</li>
 																			</ul>
 																<h2 id="REST_API-/service/applications/{applicationName}/services/{serviceName}/tail"><a class="permalink" title="Get a permanent link to this section" href="#REST_API-/service/applications/{applicationName}/services/{serviceName}/tail">/service/applications/{applicationName}/services/{serviceName}/tail</a></h2>				
 												<h3>HTTP Methods</h3>
 									<h4>GET</h4>
-											<p>Retrieves the log tail from all of the specified service's instances. To retrieve the the instance log tail.</p>
+											<p>Retrieves the log tail from all of the specified service's instances. To
+ retrieve the the instance log tail.</p>
 																															<h3>Parameters</h3>
 						<table>
 							<tr>
 								<th>Type</th>
 								<th>Name</th>
-								<th>Decription</th>
+								<th>Description</th>
 								<th>Mandatory</th>
-								<th>Location</th>
+								<th>Parameter type</th>
 								<th>Default value</th>
 							</tr>
 															<tr>
@@ -598,8 +665,8 @@
 								</div>
 							</div>
 																												<ul>
-																					<li>Returns "200 OK" - success.</li>
-																												<li>Returns "200 OK" - failed_to_locate_service.</li>
+																					<li>Returns "200 OK".</li>
+																												<li>Returns "500 Internal Server Error" - failed_to_locate_service.</li>
 																			</ul>
 																<h2 id="REST_API-/service/applications/{applicationName}/services/{serviceName}/timeout/{timeoutInMinutes}/undeploy"><a class="permalink" title="Get a permanent link to this section" href="#REST_API-/service/applications/{applicationName}/services/{serviceName}/timeout/{timeoutInMinutes}/undeploy">/service/applications/{applicationName}/services/{serviceName}/timeout/{timeoutInMinutes}/undeploy</a></h2>				
 												<h3>HTTP Methods</h3>
@@ -610,9 +677,9 @@
 							<tr>
 								<th>Type</th>
 								<th>Name</th>
-								<th>Decription</th>
+								<th>Description</th>
 								<th>Mandatory</th>
-								<th>Location</th>
+								<th>Parameter type</th>
 								<th>Default value</th>
 							</tr>
 															<tr>
@@ -634,7 +701,7 @@
 															<tr>
 									<td>int</td>
 									<td>timeoutInMinutes</td>
-																			<td></td> 
+																			<td></td>
 																		<td>true</td>
 									<td>PathVariable</td>
 																			<td></td>
@@ -656,7 +723,7 @@
 							</div>
 																												<ul>
 																					<li>Returns "200 OK" - success.</li>
-																												<li>Returns "200 OK" - failed_to_locate_service.</li>
+																												<li>Returns "500 Internal Server Error" - failed_to_locate_service.</li>
 																			</ul>
 																<h2 id="REST_API-/service/applications/{applicationName}/services/{serviceName}/timeout/{timeout}"><a class="permalink" title="Get a permanent link to this section" href="#REST_API-/service/applications/{applicationName}/services/{serviceName}/timeout/{timeout}">/service/applications/{applicationName}/services/{serviceName}/timeout/{timeout}</a></h2>				
 												<h3>HTTP Methods</h3>
@@ -666,9 +733,9 @@
 							<tr>
 								<th>Type</th>
 								<th>Name</th>
-								<th>Decription</th>
+								<th>Description</th>
 								<th>Mandatory</th>
-								<th>Location</th>
+								<th>Parameter type</th>
 								<th>Default value</th>
 							</tr>
 															<tr>
@@ -722,10 +789,19 @@
 															<tr>
 									<td>org.springframework.web.multipart.MultipartFile</td>
 									<td>propsFile</td>
-																			<td></td>
+																			<td> <<<<<<< HEAD</td>
 																		<td>true</td>
 									<td>RequestParam</td>
 																			<td></td>
+																	</tr>
+															<tr>
+									<td>java.lang.Boolean</td>
+									<td>selfHealing</td>
+																			<td> ======= >>>>>>> 88e40d7 CLOUDIFY-1126 Fix checkStyle and
+            bugs found by findBugs</td>
+																		<td>false</td>
+									<td>RequestParam</td>
+																			<td>true</td>
 																	</tr>
 													</table>
 																															<h3>Request</h3>
@@ -770,9 +846,9 @@
 							<tr>
 								<th>Type</th>
 								<th>Name</th>
-								<th>Decription</th>
+								<th>Description</th>
 								<th>Mandatory</th>
-								<th>Location</th>
+								<th>Parameter type</th>
 								<th>Default value</th>
 							</tr>
 															<tr>
@@ -844,22 +920,23 @@
 							</div>
 																												<ul>
 																					<li>Returns "200 OK" - success.</li>
-																												<li>Returns "200 OK" - failed_to_locate_service.</li>
-																												<li>Returns "200 OK" - service_not_elastic.</li>
+																												<li>Returns "500 Internal Server Error" - failed_to_locate_service.</li>
+																												<li>Returns "500 Internal Server Error" - service_not_elastic.</li>
 																			</ul>
 																<h2 id="REST_API-/service/applications/{applicationName}/timeout/{timeoutInMinutes}"><a class="permalink" title="Get a permanent link to this section" href="#REST_API-/service/applications/{applicationName}/timeout/{timeoutInMinutes}">/service/applications/{applicationName}/timeout/{timeoutInMinutes}</a></h2>				
 												<h3>HTTP Methods</h3>
 									<h4>DELETE</h4>
-											<p>Uninstalls an application by uninstalling all of its services. Order of uninstallations is determined by the
- context property 'com.gs.application.services' which should exist in all service PUs.</p>
+											<p>Uninstalls an application by uninstalling all of its services. Order of
+ uninstallations is determined by the context property
+ 'com.gs.application.services' which should exist in all service PUs.</p>
 																															<h3>Parameters</h3>
 						<table>
 							<tr>
 								<th>Type</th>
 								<th>Name</th>
-								<th>Decription</th>
+								<th>Description</th>
 								<th>Mandatory</th>
-								<th>Location</th>
+								<th>Parameter type</th>
 								<th>Default value</th>
 							</tr>
 															<tr>
@@ -873,7 +950,7 @@
 															<tr>
 									<td>int</td>
 									<td>timeoutInMinutes</td>
-																			<td></td> 
+																			<td></td>
 																		<td>true</td>
 									<td>PathVariable</td>
 																			<td></td>
@@ -895,23 +972,23 @@
 							</div>
 																												<ul>
 																					<li>Returns "200 OK" - success.</li>
-																												<li>Returns "200 OK" - failed_to_locate_app.</li>
+																												<li>Returns "500 Internal Server Error" - failed_to_locate_app.</li>
 																			</ul>
 																<h2 id="REST_API-/service/applications/{applicationName}/timeout/{timeout}"><a class="permalink" title="Get a permanent link to this section" href="#REST_API-/service/applications/{applicationName}/timeout/{timeout}">/service/applications/{applicationName}/timeout/{timeout}</a></h2>				
 												<h3>HTTP Methods</h3>
 									<h4>POST</h4>
-											<p>Deploys an application to the service grid. 
- An application is consisted of a group of services that might have dependencies between themselves. 
- The application will be deployed according to the dependency order defined in
- the application file and deployed asynchronously if possible.</p>
+											<p>Deploys an application to the service grid. An application is consisted
+ of a group of services that might have dependencies between themselves.
+ The application will be deployed according to the dependency order
+ defined in the application file and deployed asynchronously if possible.</p>
 																															<h3>Parameters</h3>
 						<table>
 							<tr>
 								<th>Type</th>
 								<th>Name</th>
-								<th>Decription</th>
+								<th>Description</th>
 								<th>Mandatory</th>
-								<th>Location</th>
+								<th>Parameter type</th>
 								<th>Default value</th>
 							</tr>
 															<tr>
@@ -925,7 +1002,7 @@
 															<tr>
 									<td>int</td>
 									<td>timeout</td>
-																			<td></td> 
+																			<td></td>
 																		<td>true</td>
 									<td>PathVariable</td>
 																			<td></td>
@@ -938,6 +1015,25 @@
 									<td>RequestParam</td>
 																			<td></td>
 																	</tr>
+															<tr>
+									<td>org.springframework.web.multipart.MultipartFile</td>
+									<td>recipeOverridesFile</td>
+																			<td>The application overrides file - to overrides the application
+            properties</td>
+																		<td>false</td>
+									<td>RequestParam</td>
+																			<td></td>
+																	</tr>
+															<tr>
+									<td>java.lang.Boolean</td>
+									<td>selfHealing</td>
+																			<td>if true, there will be an attempt to restart the recipe in
+            case a problem occurred in its life-cycle, otherwise, if the
+            recipe fails to execute, no attempt to recover will made</td>
+																		<td>false</td>
+									<td>RequestParam</td>
+																			<td></td>
+																	</tr>
 													</table>
 																															<h3>Request</h3>
 													<div class="panel">
@@ -947,7 +1043,8 @@
 								<div class="panelContent">
 									<pre class="code">{
   "applicationName" : "petclinic",
-  "srcFile" : "packaged application file"
+  "srcFile" : "packaged application file",
+  "recipeOverridesFile" : "recipe overrides file"
 }</pre>
 								</div>
 							</div>
@@ -979,9 +1076,9 @@
 							<tr>
 								<th>Type</th>
 								<th>Name</th>
-								<th>Decription</th>
+								<th>Description</th>
 								<th>Mandatory</th>
-								<th>Location</th>
+								<th>Parameter type</th>
 								<th>Default value</th>
 							</tr>
 															<tr>
@@ -1010,9 +1107,9 @@
 							<tr>
 								<th>Type</th>
 								<th>Name</th>
-								<th>Decription</th>
+								<th>Description</th>
 								<th>Mandatory</th>
-								<th>Location</th>
+								<th>Parameter type</th>
 								<th>Default value</th>
 							</tr>
 															<tr>
@@ -1068,9 +1165,9 @@
 							</div>
 																												<ul>
 																					<li>Returns "200 OK" - success.</li>
-																												<li>Returns "200 OK" - machine_not_found.</li>
-																												<li>Returns "200 OK" - dump_file_too_large.</li>
-																												<li>Returns "200 OK" - Failed to generate dump.</li>
+																												<li>Returns "500 Internal Server Error" - machine_not_found.</li>
+																												<li>Returns "500 Internal Server Error" - dump_file_too_large.</li>
+																												<li>Returns "500 Internal Server Error" - Failed to generate dump.</li>
 																												<li>Returns "500 Internal Server Error" - IOException.</li>
 																			</ul>
 																<h2 id="REST_API-/service/dump/machines"><a class="permalink" title="Get a permanent link to this section" href="#REST_API-/service/dump/machines">/service/dump/machines</a></h2>				
@@ -1082,9 +1179,9 @@
 							<tr>
 								<th>Type</th>
 								<th>Name</th>
-								<th>Decription</th>
+								<th>Description</th>
 								<th>Mandatory</th>
-								<th>Location</th>
+								<th>Parameter type</th>
 								<th>Default value</th>
 							</tr>
 															<tr>
@@ -1134,9 +1231,9 @@
 							</div>
 																												<ul>
 																					<li>Returns "200 OK" - success.</li>
-																												<li>Returns "200 OK" - machine_not_found.</li>
-																												<li>Returns "200 OK" - dump_file_too_large.</li>
-																												<li>Returns "200 OK" - Failed to generate dump.</li>
+																												<li>Returns "500 Internal Server Error" - machine_not_found.</li>
+																												<li>Returns "500 Internal Server Error" - dump_file_too_large.</li>
+																												<li>Returns "500 Internal Server Error" - Failed to generate dump.</li>
 																												<li>Returns "500 Internal Server Error" - IOException.</li>
 																			</ul>
 																<h2 id="REST_API-/service/dump/processing-units/"><a class="permalink" title="Get a permanent link to this section" href="#REST_API-/service/dump/processing-units/">/service/dump/processing-units/</a></h2>				
@@ -1148,9 +1245,9 @@
 							<tr>
 								<th>Type</th>
 								<th>Name</th>
-								<th>Decription</th>
+								<th>Description</th>
 								<th>Mandatory</th>
-								<th>Location</th>
+								<th>Parameter type</th>
 								<th>Default value</th>
 							</tr>
 															<tr>
@@ -1175,23 +1272,24 @@
 							</div>
 																																																<ul>
 																					<li>Returns "200 OK" - success.</li>
-																												<li>Returns "200 OK" - dump_file_too_large.</li>
-																												<li>Returns "200 OK" - Failed to generate dump.</li>
+																												<li>Returns "500 Internal Server Error" - dump_file_too_large.</li>
+																												<li>Returns "500 Internal Server Error" - Failed to generate dump.</li>
 																												<li>Returns "500 Internal Server Error" - IOException.</li>
 																			</ul>
 																<h2 id="REST_API-/service/lifecycleEventContainerID/{lifecycleEventContainerID}/cursor/{cursor}"><a class="permalink" title="Get a permanent link to this section" href="#REST_API-/service/lifecycleEventContainerID/{lifecycleEventContainerID}/cursor/{cursor}">/service/lifecycleEventContainerID/{lifecycleEventContainerID}/cursor/{cursor}</a></h2>				
 												<h3>HTTP Methods</h3>
 									<h4>GET</h4>
-											<p>Returns the lifecycle events according to the lifecycleEventContainerID id that is returned as a response when
- installing/un-installing a service/application and according to the cursor position.</p>
+											<p>Returns the lifecycle events according to the lifecycleEventContainerID
+ id that is returned as a response when installing/un-installing a
+ service/application and according to the cursor position.</p>
 																															<h3>Parameters</h3>
 						<table>
 							<tr>
 								<th>Type</th>
 								<th>Name</th>
-								<th>Decription</th>
+								<th>Description</th>
 								<th>Mandatory</th>
-								<th>Location</th>
+								<th>Parameter type</th>
 								<th>Default value</th>
 							</tr>
 															<tr>
@@ -1230,22 +1328,25 @@
 							</div>
 																												<ul>
 																					<li>Returns "200 OK" - success.</li>
-																												<li>Returns "200 OK" - Lifecycle events container with UUID ... does not exist or expired.</li>
-																												<li>Returns "200 OK" - execution exception message.</li>
+																												<li>Returns "500 Internal Server Error" - Lifecycle events container with UUID ... does not exist or expired.</li>
+																												<li>Returns "500 Internal Server Error" - execution exception message.</li>
 																			</ul>
 																<h2 id="REST_API-/service/testrest"><a class="permalink" title="Get a permanent link to this section" href="#REST_API-/service/testrest">/service/testrest</a></h2>				
 												<h3>HTTP Methods</h3>
 									<h4>GET</h4>
-											<p>Tests whether the restful service is able to locate the service grid using the admin API. 
- <p>The admin API searches for a LUS (Lookup Service) according to the lookup groups/locators defined.</p>
+											<p>Tests whether the restful service is able to locate the service grid
+ using the admin API.
+ <p>
+ The admin API searches for a LUS (Lookup Service) according to the lookup
+ groups/locators defined.</p>
 																															<h3>Parameters</h3>
 						<table>
 							<tr>
 								<th>Type</th>
 								<th>Name</th>
-								<th>Decription</th>
+								<th>Description</th>
 								<th>Mandatory</th>
-								<th>Location</th>
+								<th>Parameter type</th>
 								<th>Default value</th>
 							</tr>
 															<tr>
@@ -1283,7 +1384,7 @@
 																			<p>response status is success if the restful service located the service grid, otherwise it is error and the response's body will contain error description, the groups and locators.</p>
 																						<ul>
 																					<li>Returns "200 OK" - success.</li>
-																												<li>Returns "200 OK" - failed_to_locate_lookup_service.</li>
+																												<li>Returns "500 Internal Server Error" - failed_to_locate_lookup_service.</li>
 																			</ul>
 																	<div class="header">
 				<h1>AttributesController</h1>
@@ -1299,9 +1400,9 @@
 							<tr>
 								<th>Type</th>
 								<th>Name</th>
-								<th>Decription</th>
+								<th>Description</th>
 								<th>Mandatory</th>
-								<th>Location</th>
+								<th>Parameter type</th>
 								<th>Default value</th>
 							</tr>
 															<tr>
@@ -1338,9 +1439,9 @@
 							<tr>
 								<th>Type</th>
 								<th>Name</th>
-								<th>Decription</th>
+								<th>Description</th>
 								<th>Mandatory</th>
-								<th>Location</th>
+								<th>Parameter type</th>
 								<th>Default value</th>
 							</tr>
 															<tr>
@@ -1391,9 +1492,9 @@
 							<tr>
 								<th>Type</th>
 								<th>Name</th>
-								<th>Decription</th>
+								<th>Description</th>
 								<th>Mandatory</th>
-								<th>Location</th>
+								<th>Parameter type</th>
 								<th>Default value</th>
 							</tr>
 															<tr>
@@ -1433,9 +1534,9 @@
 							<tr>
 								<th>Type</th>
 								<th>Name</th>
-								<th>Decription</th>
+								<th>Description</th>
 								<th>Mandatory</th>
-								<th>Location</th>
+								<th>Parameter type</th>
 								<th>Default value</th>
 							</tr>
 															<tr>
@@ -1479,9 +1580,9 @@
 							<tr>
 								<th>Type</th>
 								<th>Name</th>
-								<th>Decription</th>
+								<th>Description</th>
 								<th>Mandatory</th>
-								<th>Location</th>
+								<th>Parameter type</th>
 								<th>Default value</th>
 							</tr>
 															<tr>
@@ -1543,9 +1644,9 @@
 							<tr>
 								<th>Type</th>
 								<th>Name</th>
-								<th>Decription</th>
+								<th>Description</th>
 								<th>Mandatory</th>
-								<th>Location</th>
+								<th>Parameter type</th>
 								<th>Default value</th>
 							</tr>
 															<tr>
@@ -1592,9 +1693,9 @@
 							<tr>
 								<th>Type</th>
 								<th>Name</th>
-								<th>Decription</th>
+								<th>Description</th>
 								<th>Mandatory</th>
-								<th>Location</th>
+								<th>Parameter type</th>
 								<th>Default value</th>
 							</tr>
 															<tr>
@@ -1639,9 +1740,9 @@
 							<tr>
 								<th>Type</th>
 								<th>Name</th>
-								<th>Decription</th>
+								<th>Description</th>
 								<th>Mandatory</th>
-								<th>Location</th>
+								<th>Parameter type</th>
 								<th>Default value</th>
 							</tr>
 															<tr>
@@ -1684,9 +1785,9 @@
 							<tr>
 								<th>Type</th>
 								<th>Name</th>
-								<th>Decription</th>
+								<th>Description</th>
 								<th>Mandatory</th>
-								<th>Location</th>
+								<th>Parameter type</th>
 								<th>Default value</th>
 							</tr>
 															<tr>
@@ -1726,9 +1827,9 @@
 							<tr>
 								<th>Type</th>
 								<th>Name</th>
-								<th>Decription</th>
+								<th>Description</th>
 								<th>Mandatory</th>
-								<th>Location</th>
+								<th>Parameter type</th>
 								<th>Default value</th>
 							</tr>
 															<tr>
@@ -1764,9 +1865,9 @@
 							<tr>
 								<th>Type</th>
 								<th>Name</th>
-								<th>Decription</th>
+								<th>Description</th>
 								<th>Mandatory</th>
-								<th>Location</th>
+								<th>Parameter type</th>
 								<th>Default value</th>
 							</tr>
 															<tr>
@@ -1820,9 +1921,9 @@
 							<tr>
 								<th>Type</th>
 								<th>Name</th>
-								<th>Decription</th>
+								<th>Description</th>
 								<th>Mandatory</th>
-								<th>Location</th>
+								<th>Parameter type</th>
 								<th>Default value</th>
 							</tr>
 															<tr>
@@ -1861,9 +1962,9 @@
 							<tr>
 								<th>Type</th>
 								<th>Name</th>
-								<th>Decription</th>
+								<th>Description</th>
 								<th>Mandatory</th>
-								<th>Location</th>
+								<th>Parameter type</th>
 								<th>Default value</th>
 							</tr>
 															<tr>
@@ -1916,9 +2017,9 @@
 							<tr>
 								<th>Type</th>
 								<th>Name</th>
-								<th>Decription</th>
+								<th>Description</th>
 								<th>Mandatory</th>
-								<th>Location</th>
+								<th>Parameter type</th>
 								<th>Default value</th>
 							</tr>
 															<tr>
@@ -1985,9 +2086,9 @@
 							<tr>
 								<th>Type</th>
 								<th>Name</th>
-								<th>Decription</th>
+								<th>Description</th>
 								<th>Mandatory</th>
-								<th>Location</th>
+								<th>Parameter type</th>
 								<th>Default value</th>
 							</tr>
 															<tr>
@@ -2043,9 +2144,9 @@
 							<tr>
 								<th>Type</th>
 								<th>Name</th>
-								<th>Decription</th>
+								<th>Description</th>
 								<th>Mandatory</th>
-								<th>Location</th>
+								<th>Parameter type</th>
 								<th>Default value</th>
 							</tr>
 															<tr>
@@ -2105,9 +2206,9 @@
 							<tr>
 								<th>Type</th>
 								<th>Name</th>
-								<th>Decription</th>
+								<th>Description</th>
 								<th>Mandatory</th>
-								<th>Location</th>
+								<th>Parameter type</th>
 								<th>Default value</th>
 							</tr>
 															<tr>
@@ -2185,9 +2286,9 @@
 							<tr>
 								<th>Type</th>
 								<th>Name</th>
-								<th>Decription</th>
+								<th>Description</th>
 								<th>Mandatory</th>
-								<th>Location</th>
+								<th>Parameter type</th>
 								<th>Default value</th>
 							</tr>
 															<tr>
@@ -2250,9 +2351,9 @@
 							<tr>
 								<th>Type</th>
 								<th>Name</th>
-								<th>Decription</th>
+								<th>Description</th>
 								<th>Mandatory</th>
-								<th>Location</th>
+								<th>Parameter type</th>
 								<th>Default value</th>
 							</tr>
 															<tr>
@@ -2297,9 +2398,9 @@
 							<tr>
 								<th>Type</th>
 								<th>Name</th>
-								<th>Decription</th>
+								<th>Description</th>
 								<th>Mandatory</th>
-								<th>Location</th>
+								<th>Parameter type</th>
 								<th>Default value</th>
 							</tr>
 															<tr>
@@ -2358,9 +2459,9 @@
 							<tr>
 								<th>Type</th>
 								<th>Name</th>
-								<th>Decription</th>
+								<th>Description</th>
 								<th>Mandatory</th>
-								<th>Location</th>
+								<th>Parameter type</th>
 								<th>Default value</th>
 							</tr>
 															<tr>
@@ -2408,9 +2509,9 @@
 							<tr>
 								<th>Type</th>
 								<th>Name</th>
-								<th>Decription</th>
+								<th>Description</th>
 								<th>Mandatory</th>
-								<th>Location</th>
+								<th>Parameter type</th>
 								<th>Default value</th>
 							</tr>
 															<tr>
@@ -2462,9 +2563,9 @@
 							<tr>
 								<th>Type</th>
 								<th>Name</th>
-								<th>Decription</th>
+								<th>Description</th>
 								<th>Mandatory</th>
-								<th>Location</th>
+								<th>Parameter type</th>
 								<th>Default value</th>
 							</tr>
 															<tr>
@@ -2534,9 +2635,9 @@
 							<tr>
 								<th>Type</th>
 								<th>Name</th>
-								<th>Decription</th>
+								<th>Description</th>
 								<th>Mandatory</th>
-								<th>Location</th>
+								<th>Parameter type</th>
 								<th>Default value</th>
 							</tr>
 															<tr>

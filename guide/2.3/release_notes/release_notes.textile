@@ -16,8 +16,9 @@ We track all the issues in our public "JIRA":https://cloudifysource.atlassian.ne
 
 "Cloudify 2.3.0 M1":#v230m1  - published on Nov 8, 2012
 This version contains the following key improvements:
-* "TBD1":../bootstrapping/bootstrapping_localcloud - Key Feature no 1
-* "TBD2":../setup/configuring_ec2 - Key Feature no 2
+* "DSL Overrides":../recipe/command_line_reference#install_app - Enables users to override application and service level properties in all the services of an application, by setting the value of the *-overrides* argument.
+* "Disable Self Healing":../recipe/command_line_reference#install_app - An option to disable recipes self healing has been added. Now recipes can be activated in a 'debug' mode, in which there are no attempts to recover after failures. It can be achieved by setting the value of the *-disableSelfHealing* argument.
+* "(newwindow)JClouds 1.5.2":http://www.jclouds.org/documentation/releasenotes/1.5/ - Cloudify now supports JClouds 1.5.2 GA.
 
 <hr/>
 
@@ -27,18 +28,56 @@ h1(#v230m1). Cloudify 2.3.0 M1
 h3. New Features and Improvements
 
 |_. ID |_. Description |_. Components |
-|Will be published today|Will be published today|Will be published today|
+|"(newwindow)CLOUDIFY-1177":https://cloudifysource.atlassian.net/browse/CLOUDIFY-1177 | USM should expose instance ID as a service details | USM |
+|"(newwindow)CLOUDIFY-1142":https://cloudifysource.atlassian.net/browse/CLOUDIFY-1142 | Option to disable Recipe self healing | USM |
+|"(newwindow)CLOUDIFY-1126":https://cloudifysource.atlassian.net/browse/CLOUDIFY-1126 | DSL Overrides | DSL |
+|"(newwindow)CLOUDIFY-1125":https://cloudifysource.atlassian.net/browse/CLOUDIFY-1125 | Option to disable DSL Validation in DSL Reader | DSL |
+|"(newwindow)CLOUDIFY-1116":https://cloudifysource.atlassian.net/browse/CLOUDIFY-1116 | Upgrade jclouds to 1.5 GA | Cloud Driver |
 
 
 h3. Fixed Issues
 
 |_. ID |_. Description |_. Components |
-|Will be published today|Will be published today|Will be published today|
+|"(newwindow)CLOUDIFY-1188":https://cloudifysource.atlassian.net/browse/CLOUDIFY-1188 | recipes that use CLOUDIFY_ prefixed env variables are broken | USM |
+|"(newwindow)CLOUDIFY-1187":https://cloudifysource.atlassian.net/browse/CLOUDIFY-1187 | usm lifecycle event messages are truncated. | REST |
+|"(newwindow)CLOUDIFY-1182":https://cloudifysource.atlassian.net/browse/CLOUDIFY-1182 | uninstallApplication passes wrong time units to the undeployAndWait method | REST |
+|"(newwindow)CLOUDIFY-1178":https://cloudifysource.atlassian.net/browse/CLOUDIFY-1178 | stopMachine does not work if the connectToPrivateIp property is set to false | ESC |
+|"(newwindow)CLOUDIFY-1156":https://cloudifysource.atlassian.net/browse/CLOUDIFY-1156 | Add support for allowing multiple services and service instances to be deployed on the same machine | DSL, REST |
+|"(newwindow)CLOUDIFY-1108":https://cloudifysource.atlassian.net/browse/CLOUDIFY-1108 | Rest Controllers' methods return status code 200 instead of informative HTTP error code. | REST |
+|"(newwindow)CLOUDIFY-1059":https://cloudifysource.atlassian.net/browse/CLOUDIFY-1059 | USM logs partial error log in some cases | USM |
+|"(newwindow)CLOUDIFY-1026":https://cloudifysource.atlassian.net/browse/CLOUDIFY-1026 | dsl.jar exists in Xap lib/required directory, it includes in it apache classes which can cause dependencies in running app on Xap | Packaging |
+|"(newwindow)CLOUDIFY-1021":https://cloudifysource.atlassian.net/browse/CLOUDIFY-1021 | Application failed to deploy is still listed on the applications list | CLI |
+|"(newwindow)CLOUDIFY-514":https://cloudifysource.atlassian.net/browse/CLOUDIFY-514 | Replace depenedency of commons-exec snapshot version with stable version | CLI |
+
 
 h3. Known Issues
 
 |_. ID |_. Description |_. Components |
-|Will be published today|Will be published today|Will be published today|
+|"(newwindow)CLOUDIFY-1214":https://cloudifysource.atlassian.net/browse/CLOUDIFY-1214 | non-interactive shell should exit with error code if an error was encountered | CLI |
+|"(newwindow)CLOUDIFY-1212":https://cloudifysource.atlassian.net/browse/CLOUDIFY-1212 | when we load management machine we only pass locators IPs without ports | MONITORING |
+|"(newwindow)CLOUDIFY-1210":https://cloudifysource.atlassian.net/browse/CLOUDIFY-1210 | CLI log messages format is broken | CLI |
+|"(newwindow)CLOUDIFY-1208":https://cloudifysource.atlassian.net/browse/CLOUDIFY-1208 | uninstall-application takes very long to finish | REST |
+|"(newwindow)CLOUDIFY-1206":https://cloudifysource.atlassian.net/browse/CLOUDIFY-1206 | add support for shared machine provisioning using application name as the isolation id | REST |
+|"(newwindow)CLOUDIFY-1205":https://cloudifysource.atlassian.net/browse/CLOUDIFY-1205 | Processing unit status remains INTACT while ESM requests to start a new machine after failover | MONITORING |
+|"(newwindow)CLOUDIFY-1204":https://cloudifysource.atlassian.net/browse/CLOUDIFY-1204 | teardown-cloud byon prints a lot of Admin API warning | Cloud Driver |
+|"(newwindow)CLOUDIFY-1203":https://cloudifysource.atlassian.net/browse/CLOUDIFY-1203 | Add support for overrides file when using the REST API to install service. | REST |
+|"(newwindow)CLOUDIFY-1202":https://cloudifysource.atlassian.net/browse/CLOUDIFY-1202 | EC2 Windows support is broken | Cloud Driver |
+|"(newwindow)CLOUDIFY-1201":https://cloudifysource.atlassian.net/browse/CLOUDIFY-1201 | Event polling task failed on remote server | CLI |
+|"(newwindow)CLOUDIFY-1200":https://cloudifysource.atlassian.net/browse/CLOUDIFY-1200 | Cloudstack Driver => Managment machine starts, but when I tear it down it is not being terminated. However, when I uninstall an app, the machine terminates just fine | Cloud Driver |
+|"(newwindow)CLOUDIFY-1197":https://cloudifysource.atlassian.net/browse/CLOUDIFY-1197 | add support for running tests in multiple ec2 regions with a flag | Cloud Driver |
+|"(newwindow)CLOUDIFY-1192":https://cloudifysource.atlassian.net/browse/CLOUDIFY-1192 | windows machine do not show the private/public cloud machine IP | Cloud Driver |
+|"(newwindow)CLOUDIFY-1186":https://cloudifysource.atlassian.net/browse/CLOUDIFY-1186 | helloworld example application url bug | REST |
+|"(newwindow)CLOUDIFY-1183":https://cloudifysource.atlassian.net/browse/CLOUDIFY-1183 | Move all dsl validations in the rest to validation methods in the POJO | REST |
+|"(newwindow)CLOUDIFY-1180":https://cloudifysource.atlassian.net/browse/CLOUDIFY-1180 | Web-ui logs out while opening REST in chrome browser | REST |
+|"(newwindow)CLOUDIFY-1179":https://cloudifysource.atlassian.net/browse/CLOUDIFY-1179 | If local host name can't be resolved, Cloudify fails to start an agent | Cloud Driver |
+|"(newwindow)CLOUDIFY-1175":https://cloudifysource.atlassian.net/browse/CLOUDIFY-1175 | Failed to install service appears in REST logs but no indication in CLI call | CLI |
+|"(newwindow)CLOUDIFY-1174":https://cloudifysource.atlassian.net/browse/CLOUDIFY-1174 | Missing validation for groovy properties names | DSL |
+|"(newwindow)CLOUDIFY-1173":https://cloudifysource.atlassian.net/browse/CLOUDIFY-1173 | Recipes fail on CentOS 6 on Openstack | Cloud Driver, ESC, REST, USM |
+|"(newwindow)CLOUDIFY-1171":https://cloudifysource.atlassian.net/browse/CLOUDIFY-1171 | Cloudify/OpenStack Integration 500 Internal Server Error | CLI |
+|"(newwindow)CLOUDIFY-1170":https://cloudifysource.atlassian.net/browse/CLOUDIFY-1170 | Unpack Cloudify-Override in Openstack fails | Cloud Driver |
+|"(newwindow)CLOUDIFY-1168":https://cloudifysource.atlassian.net/browse/CLOUDIFY-1168 | when startDetection succeeds but effective return value is not instanceof Boolean, it returns true | DSL |
+|"(newwindow)CLOUDIFY-1166":https://cloudifysource.atlassian.net/browse/CLOUDIFY-1166 | cli's list-attributes: cannot retrieve instance-level attributes of all instances | CLI, REST |
+
 
 <br/>
 "Back to top":#top
