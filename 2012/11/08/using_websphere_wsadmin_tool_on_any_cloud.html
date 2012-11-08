@@ -4,10 +4,10 @@
 <head>
     
 	<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>	
-	<title>Cloudify - Tag: ZenDesk</title>
+	<title>Cloudify - Using WebSphere's wsadmin tool on any Cloud</title>
 	<script src="//cdn.optimizely.com/js/59503762.js"></script>
 	<link rel="stylesheet" href="/css/template.css" type="text/css"/>	
-	<link rel="canonical" href="http://www.cloudifysource.orgtags/ZenDesk/index.html"/>	
+	<link rel="canonical" href="http://www.cloudifysource.org/2012/11/08/using_websphere_wsadmin_tool_on_any_cloud.html"/>	
 	<link rel="stylesheet" href="/css/jquery-ui-1.8.17.custom.css" type="text/css" media="all"/>
 	<link rel="stylesheet" type="text/css" href="/scripts/prettify/prettify.css">	
 	<link rel="shortcut icon" href="/favicon.ico" type="image/x-icon" />
@@ -152,7 +152,7 @@ $(function(){
 	
 </head>
 <body>
-<a class="fork-guide" target="_blank" href="https://github.com/CloudifySource/cloudify"></a>	
+<a class="fork-guide" target="_blank" href="https://github.com/CloudifySource/cloudify"></a>
 <div class="WrapperBg">    
     <div class="Wrapper">
         <div class="header">
@@ -217,7 +217,7 @@ $(function(){
 </div>
 <div class="clear"></div>
         <div class="contentWrap">            
-			<div class="breadcrumbs">Home Page > Cloudify Blogs > Tag: ZenDesk</div>
+			<div class="breadcrumbs">Home Page > Cloudify Blogs > Using WebSphere's wsadmin tool on any Cloud</div>
             <div class="clear"></div>
 
             <!--Search-->
@@ -243,10 +243,9 @@ $(function(){
 
 
 
-
-
+			
             <div class="content">
-                <div class="left" id="alTag_LeftBlog">
+                <div id="alTag_LeftBlog" class="left">
                     
                     <!--Event groups-->
 
@@ -909,71 +908,44 @@ $(function(){
 
                 <div id="resultsDiv" class="DocumentsWrap"></div>
                 <div id="pageContent" class="DocumentsWrapRight">
-                    <h1 class="pageTitle">Tag: ZenDesk</h1>					
+                    <h1 class="pageTitle">Using WebSphere's wsadmin tool on any Cloud</h1>
+					 
+					  <span class="blogPostInfo">Posted By: <a href="#">Tamir Korem</a>  on November  8, 2012  
+					  </span>
+					  <br/><br/><br/>
+					 
+                    <p>WebSphere is a very powerful and robust application and in order to make our lives easier, <br />
+the folks from <span class="caps">IBM</span> created the <a href="http://pic.dhe.ibm.com/infocenter/wasinfo/v6r1/index.jsp?topic=%2Fcom.ibm.websphere.express.doc%2Finfo%2Fexp%2Fae%2Frxml_commandline.html" class="newwindow">wsadmin tool</a> which enables you to run various scripts on WebSphere.</p>
+<p>Here in the Cloudify Land, we created a recipe that installs WebSphere on any cloud.<br />
+<impt> That&#8217;s right : You can run the same recipe on every cloud without changing even one character!!!</p>
+<p>Cloudify enables developers (from within the recipe) to invoke the wsadmin tool in order to manage WebSphere Application Servers, their configuration, application deployment, and even run-time operations.</p>
+<p>The recipe contains three <span class="caps">JACL</span> scripts :  <a href="https://github.com/CloudifySource/cloudify-recipes/blob/master/services/websphere/installWasApplication.jacl" class="newwindow">installWasApplication.jacl</a>: , <a href="https://github.com/CloudifySource/cloudify-recipes/blob/master/services/websphere/startWasApplication.jacl" class="newwindow">startWasApplication.jacl</a> and <a href="https://github.com/CloudifySource/cloudify-recipes/blob/master/services/websphere/uninstallWasApplication.jacl" class="newwindow">uninstallWasApplication.jacl</a>.</p>
+<p>Here&#8217;s snippet of <code>installWasApplication.jacl</code> that you can use for installing any application on your WebSphere on any cloud :</p>
+<script src="https://gist.github.com/4038158.js?file=installApp.sh"></script><p>You can develop your own <span class="caps">JACL</span> scripts, or any other scripts which are supported by the wsadmin tool and then Cloudify will run them whenever you need.</p>
+<h4 class="impt">To see it in action, <a href="http://www.cloudifysource.org/cloudifysourcetv#K3p-wNhC9gA" rel="K3p-wNhC9gA" class="youtube wtd" data-bitly-type="bitly_hover_card">click here</a> to watch the demo.</h4>
+<p>Click <a href="https://github.com/CloudifySource/cloudify-recipes/blob/master/services/websphere" class="newwindow">here</a> to view the recipe in Cloudify recipes Repository.</p>
+                    <div id="disqus_thread"></div>
+<script type="text/javascript">
+    /* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
+    var disqus_shortname = 'cloudifysource'; // required: replace example with your forum shortname
+    var disqus_identifier = '/2012/11/08/using_websphere_wsadmin_tool_on_any_cloud.html';
 
-
-
-
-
-
-
-
-
-														
-                    
-
-
-
-
-<div class="blogtPostBox">
-  <div class="blogInfoLeft">
-    <img title="Tamir Korem" width="80" height="96" src="/images/tamir.jpg" />
-  </div>  
-  <div class="blogInfoRight">
-    <a href="/2012/05/09/how_we_built_it.html" class="title">How We Built This site</a>
-	  <div class="blogPostInfo">
-	  <br/>	  	 
-	    <span>Posted By: <a href="#">Tamir Korem</a>  on  May  9, 2012  <!--|  in <a href="/categories/"></a> --></span>
-	  </div>	  	  	
-      <p>
-		
-			<p>A lot of people have asked us how we built this community web site and what technologies we used. So we decided to share our experience with others in a meetup. The following PPT outlines some of the requiremets and technologies we chose to use to build it &#8211; Github...</p>
-			
-		<p class><a href="/2012/05/09/how_we_built_it.html">Read more...</a></p>	  	  
-	  </p>
-		<span>  Additional Tags: 		
-			
-				
-			     <a class="postTag" href="/tags/Cloudify">Cloudify (28)</a>
-			   	
-			
-				
-			     <a class="postTag" href="/tags/GitHub">GitHub (2)</a>
-			   	
-			
-				
-			     <a class="postTag" href="/tags/Jekyll">Jekyll (1)</a>
-			   	
-			
-				
-			     <a class="postTag" href="/tags/Disqus">Disqus (1)</a>
-			   	
-			
-					
-			
-		</span>
-	    
-  </div>
-  <div class="clear" ></div>    
-</div>  
-
-
-
+    /* * * DON'T EDIT BELOW THIS LINE * * */
+    (function() {
+        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+        dsq.src = 'http://' + disqus_shortname + '.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="http://disqus.com" class="dsq-brlink">blog comments powered by <span class="logo-disqus">Disqus</span></a>
 
                 </div>
+
                 <div class="clear"></div>
             </div>
         </div>
+
         <!--Start pagination -->
 
         <div class="clear"></div>
