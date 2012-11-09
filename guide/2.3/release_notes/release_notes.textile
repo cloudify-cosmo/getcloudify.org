@@ -16,11 +16,14 @@ We track all the issues in our public "JIRA":https://cloudifysource.atlassian.ne
 
 "Cloudify 2.3.0 M1":#v230m1  - published on Nov 8, 2012
 This version contains the following key improvements:
-* "DSL Overrides":../recipe/command_line_reference#install_app - Enables users to override application and service level properties in all the services of an application, by setting the value of the *-overrides* argument.
+* "DSL Overrides":../recipe/command_line_reference#install_app - Enables users to override application and service level properties at installation time, without changing the original recipe. 
 * "Disable Self Healing":../recipe/command_line_reference#install_app - An option to disable recipes self healing has been added. Now recipes can be activated in a 'debug' mode, in which there are no attempts to recover after failures. It can be achieved by setting the value of the *-disableSelfHealing* argument.
-* "(newwindow)JClouds 1.5.2":http://www.jclouds.org/documentation/releasenotes/1.5/ - Cloudify now supports JClouds 1.5.2 GA.
+This will allow recipes developers to debug and read log files after failures. 
+* "(newwindow)JClouds 1.5.2":http://www.jclouds.org/documentation/releasenotes/1.5/ - Cloudify now supports JClouds 1.5.2 GA for the default cloud driver.
 
 <hr/>
+
+
 
 
 h1(#v230m1). Cloudify 2.3.0 M1

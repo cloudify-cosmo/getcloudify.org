@@ -15,9 +15,10 @@ cat: User Guide
       <br class="clear"/>
       <h4>This milestone contains the following key improvements:
        <ul>
-       <li>* <u>DSL Overrides</u> : Enables users to override application and service level properties in all the services of an application.</li>
-        <li>* <u>Disable Self Healing</u> : An option to disable recipes self healing has been added.	
-        <li>* <u>JClouds 1.5.2</u> : Cloudify now supports JClouds 1.5.2 GA.	
+       <li>* <u>DSL Overrides</u> : Enables users to override application and service level properties at installation time, without changing the original recipe. </li>
+        <li>* <u>Disable Self Healing</u> : An option to disable recipes self healing has been added. Now recipes can be activated in a 'debug' mode, in which there are no attempts to recover after failures. It can be achieved by setting the value of the *-disableSelfHealing* argument.
+		This will allow recipes developers to debug and read log files after failures. 
+        <li>* <u>JClouds 1.5.2</u> : Cloudify now supports JClouds 1.5.2 GA for the default cloud driver.	
         <br/>
        </li>	  	
       </ul> 
