@@ -29,4 +29,7 @@ $(function(){
 	    mixpanel.track("Get Cloudify Button Clicks",{'page name' : document.title, 'url' : window.location.pathname}); 
 	});
 });
+
+
+mixpanel.track_forms("#searchForm", "Search",{'page name' : document.title, 'url' : window.location.pathname},mp_keyword);
 </script>
