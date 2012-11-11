@@ -33,17 +33,11 @@ $(function(){
 
 mixpanel.track_forms("#searchForm", "Search",{'page name' : document.title, 'url' :  window.location.pathname});
 mixpanel.track(
-        "Search", // Event
-        {
-            "keyword": "free video streaming", 
-        }
-    );
-
+        "Search",
 $(function(){ 
-    // This sends us an event every time a user clicks the button
 	$("#goBtn").click(function() {
 	var value = $('#search').val();
-	    mixpanel.track("Search",{'page name' : document.title, "keyword": value}); 
+	    mixpanel.track("Search",{"keyword": value}); 
 	});
 });
 </script>
