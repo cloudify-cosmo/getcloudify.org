@@ -39,5 +39,14 @@ mixpanel.people.set({
 //mixpanel people function:
 mixpanel.register({gender: "male"});
 
-
+//trake search terms
+mixpanel.track_forms("#searchForm", "Search",{'page name' : document.title, 'url' :  window.location.pathname});
+mixpanel.track(
+        "Search",
+$(function(){ 
+	$("#goBtn").click(function() {
+	var value = $('#search').val();
+	    mixpanel.track("Search",{"keyword": value}); 
+	});
+});
 </script>
