@@ -43,6 +43,16 @@ The *General* section describes the following attributes:
 The following shows an example of the *General* section.
 <script src="https://gist.github.com/1760251.js?file=Recipe_Prolog.groovy"></script>
 
+h3. Isolation SLA (Multi Tenant Deployment)
+
+Cloudify allows deployment of several services on the same host. Please note that this feature is currently tested for the BYON Cloud Driver only.
+The purpose of this feature is to maximize utilization of phyiscal hosts when used as a cloud under BYON. 
+There are 2 supported modes:
+* dedicated - The host will be dedicated to this service instance only, no other services will be deployed on this host. This is the default.
+* public - The host can be share by all applications and tenants based on projected capacity as expressed in the Isolation SLA section
+
+<script src="https://gist.github.com/4058818.js"> </script>
+
 h2. Loading Sections from a File
 
 Any of the sections in the service descriptor file can be described in an external file and loaded into the service descriptor file. This enables you to create sections with your preferences that can be shared between multiple services.
