@@ -43,7 +43,7 @@ $(function(){
 $(".ki_submit_button").click(function() {
 
 if($('input').hasClass('ki_explain_small')){
-  var currEmail =  $("input.ki_explain_small).val();	
+  var currEmail =  $("input.ki_explain_small").val();	
   mixpanel.name_tag(currEmail);
   mixpanel.people.identify(currEmail);
   mixpanel.people.set({
