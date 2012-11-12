@@ -20,9 +20,10 @@ The following procedure describes the steps for deploying the service:
 # Set the current application context -- At the Cloudify shell prompt, type: *@use-application@* @<appName>@
 # Deploy the service -- At the Cloudify shell prompt, type: *@install-service@* @<serviceName>@
 
-h3. deploying with properties (Recipe Parameterization)
+h3. Deploying with properties (Recipe Parameterization)
+
 During Installation you can use an external properties file to override properties in the service recipe.
-To do so use the install-service commands with the -overrides flag, pointing to exernal properties file.
+To do so use the install-service commands with the -overrides flag, pointing to external properties file.
 The file may contain groovy statements in the same manner as the internal recipe properties file.
 
 In the first stage of the deployment, Cloudify packages your recipe and uploads it to the Cloudify controller. Then, a fully-automated deployment takes place, exactly as described in the recipe. You can monitor the deployment progress in the following ways:

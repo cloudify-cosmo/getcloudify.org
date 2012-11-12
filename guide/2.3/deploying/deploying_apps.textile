@@ -17,9 +17,10 @@ The following procedure describes the steps for deploying your application:
 # Connect to the REST service--At the Cloudify shell prompt, type: *@connect@* @<RESTservice>@
 # Deploy the application--At the Cloudify shell prompt, type: *@install-application@* @<appName>@
 
-h3. deploying with properties (Recipe Parameterization)
+h3. Deploying with properties (Recipe Parameterization)
+
 During Installation you can use an external properties file to override properties in the application and services recipes.
-To do so use the install-application commands with the -overrides flag, pointing to exernal properties file.
+To do so use the install-application commands with the -overrides flag, pointing to external properties file.
 The file may contain groovy statements in the same manner as the internal recipe properties files.
 
 In the first stage of the deployment, Cloudify packages your recipe and uploads it to the Cloudify controller. Then, a fully-automated deployment takes place, exactly as described in the recipe. You can monitor the deployment progress in the following ways:
