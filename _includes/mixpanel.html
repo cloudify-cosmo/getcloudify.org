@@ -59,8 +59,8 @@ $("#ki_form").live('change', function(){
 	  $email: currEmail,
 	  $first_name: currEmail,
 	  });
-	} return { type: $(ele).attr('type')}
-	},{'email': currEmail});
+	} return { type: $(ele).attr('type'),email: currEmail}
+	});
   }
 });
 
