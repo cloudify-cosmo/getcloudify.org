@@ -46,8 +46,7 @@ mixpanel.track_links("a.eaTitle", "Product Download - Early Access Builds", {'re
 // mixpanel- trakc only if email requested
 var currEmail="";
 $("body").live('change', function(){
-     //$('#ki_form').submit(function() {
-$("#ki_form").live('change', function(){
+ $("#ki_form").live('change', function(){
   if($("#ki_question_99437").length != 0) {
 	currEmail =  $("input.ki_explain_small").val();	
 	mixpanel.track_links("#ki_submit_button", "Qualaroo", function(ele) {
