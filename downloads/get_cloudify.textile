@@ -71,8 +71,7 @@ mixpanel.track('get_cloudify page views');
 $(function(){ 
 	$("a#downloadme").click(function() {
 	var verName=$('a#downloadme').attr('href').split("/")[6];//for event version name by the download file;
-	    mixpanel.track_links('#downloadme',verName); 
-		mixpanel.track_links('#downloadme', '"Product Download -"+verName');
+		mixpanel.track_links('#downloadme', 'verName');
 	});
 });
 </script>
