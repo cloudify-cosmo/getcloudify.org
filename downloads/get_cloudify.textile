@@ -65,10 +65,10 @@ _gaq.push(['_trackPageview', '/downloads/cloudify-2.2.0-ga-b2500/get_cloudify'])
 
 <script text="javascript">
 mixpanel.track('get_cloudify page views');
-
+var verName="";
 $(function(){ 
-	$("a#downloadme").click(function() {
-		 mixpanel.track_links('#downloadme', "Product Download 2");
-	});
+var verName=$('a#downloadme').attr('href').split("/")[6]; 
 });
+mixpanel.track_links('#downloadme', verName);
+
 </script>
