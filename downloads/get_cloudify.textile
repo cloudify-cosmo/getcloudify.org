@@ -67,7 +67,7 @@ _gaq.push(['_trackPageview', '/downloads/cloudify-2.2.0-ga-b2500/get_cloudify'])
 mixpanel.track('get_cloudify page views');
 var verName="";
 $(function(){ 
-var verName=$('a#downloadme').attr('href').split("/")[6]; 
+verName=$('a#downloadme').attr('href').split("/")[6]; 
 });
 mixpanel.track_links('#downloadme', verName);
 
