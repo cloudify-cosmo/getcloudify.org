@@ -40,9 +40,8 @@ $(function(){
 });
 
 // mixpanel- trakc only if email requested
-$("#ki_submit_button").click(function() {
-
-if($('input').hasClass('ki_explain_small')){
+var currEmail =  $("input.ki_explain_small").val();	
+mixpanel.track_links("#ki_submit_button", "Qualaroo", function(ele) { if($('input').hasClass('ki_explain_small')){
   var currEmail =  $("input.ki_explain_small").val();	
   mixpanel.name_tag(currEmail);
   mixpanel.people.identify(currEmail);
@@ -50,6 +49,18 @@ if($('input').hasClass('ki_explain_small')){
   $email: currEmail,
   $first_name: currEmail,
   });
-}
-});
+} });
+//
+//$("#ki_submit_button").click(function() {
+
+//if($('input').hasClass('ki_explain_small')){
+ // var currEmail =  $("input.ki_explain_small").val();	
+ // mixpanel.name_tag(currEmail);
+ // mixpanel.people.identify(currEmail);
+ // mixpanel.people.set({
+ // $email: currEmail,
+ // $first_name: currEmail,
+//  });
+//}
+//});
 </script>
