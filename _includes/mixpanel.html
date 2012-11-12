@@ -44,11 +44,12 @@ mixpanel.track_links("a.eaTitle", "Product Download - Early Access Builds", {'re
 
 
 // mixpanel- trakc only if email requested
+var currEmail="";
 $("body").live('change', function(){
      //$('#ki_form').submit(function() {
 $("#ki_form").live('change', function(){
   if($("#ki_question_99437").length != 0) {
-	var currEmail =  $("input.ki_explain_small").val();	
+	currEmail =  $("input.ki_explain_small").val();	
 	mixpanel.track_links("#ki_submit_button", "Qualaroo", function(ele) {
 	 if($('input').hasClass('ki_explain_small')){
 	  var currEmail =  $("input.ki_explain_small").val();	
@@ -59,7 +60,7 @@ $("#ki_form").live('change', function(){
 	  $first_name: currEmail,
 	  });
 	} return { type: $(ele).attr('type')}
-	});
+	},{'email': currEmail});
   }
 });
 
