@@ -44,7 +44,7 @@ mixpanel.track_links("a.eaTitle", "Product Download - Early Access Builds", {'re
 
 
 // mixpanel- trakc only if email requested
-$("body").live('change', function(){
+$("body").live('submit', function(){
      $('#ki_form').submit(function() {
   if($("#ki_question_99437").length != 0) {
 	var currEmail =  $("input.ki_explain_small").val();	
