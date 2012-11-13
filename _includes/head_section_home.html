@@ -9,6 +9,8 @@
 	<link rel="canonical" href="http://www.cloudifysource.org{{page.url}}"/>	
 	<link rel="shortcut icon" href="/favicon.ico" type="image/x-icon" />
 	<script src="scripts/jquery-1.7.1.js" type="text/javascript"></script> 
+	<script src="scripts/jquery.zrssfeed.min.js" type="text/javascript"></script>
+	<script src="scripts/jquery.vticker.js" type="text/javascript"></script>
 	<link rel="stylesheet" href="/css/jquery-ui-1.8.17.custom.css" type="text/css" media="all"/>
     <script type="text/javascript" src="/scripts/jquery-ui-1.8.17.custom.min.js"></script>
     <script type="text/javascript" src="/scripts/jquery.prettyPhoto.js"></script>
@@ -50,7 +52,31 @@
 		},
 		 function() { $(this).children('.replaceWrape').children(".sec-discusBox").fadeOut('300'); 
 		            $(this).children('.replaceWrape').children('img').fadeIn('100');
-		});							  
+		});
+
+
+		//rss feed slider
+		$('.blogFeed').rssfeed('http://www.cloudifysource.org/atom.xml',{
+			header: false,
+			titletag: 'div',
+			date: false,
+			content: false,
+			linktarget:'_blank',
+		}, function(e) {
+			$.zazar.ticker({selector: '.blogFeed ul'});
+		});
+		
+		
+		$('.newsFeed').rssfeed('http://cloudifysource.tumblr.com/rss',{
+			header: false,
+			titletag: 'div',
+			date: false,
+			content: false,
+			limit: 2
+		}, function(e) {
+			$.zazar.rotate({selector: '.newsFeed ul'});
+		});
+
 								  
     });
 	</script>
