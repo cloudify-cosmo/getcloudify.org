@@ -23,11 +23,19 @@
 		$("div.contactUsWrapper").css("visibility","visible");
 		$("a.contactUsLink").css("visibility","hidden");
 	});
-	$("li.contactUs,div.contactUsWrapper").mouseleave(function(){
+	$("input.cuSend").click(function(){
+		$('.cuValid').hide();
+	});
+	$("input.cuSend").submit(function(){
 		$("div.contactUsWrapper").css("visibility","hidden")
 		$("a.contactUsLink").css("visibility","visible");
+
 	});
-	//end popup contact form
+	$("a.contactUsWrapperClose").click(function(){
+			$("div.contactUsWrapper").css("visibility","hidden")
+			$("a.contactUsLink").css("visibility","visible");
+		});	
+//end popup contact form
 
 	<!--this code make the playlist-->		
         var playListURL = 'http://gdata.youtube.com/feeds/api/playlists/D470957921551B9A?&max-results=50&v=2&alt=json&callback=?';
