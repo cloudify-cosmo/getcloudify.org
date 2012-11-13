@@ -17,3 +17,16 @@ The application name is used to identify the application by the various Cloudify
 
 The following shows an example application descriptor file:
 <script src="https://gist.github.com/1759968.js?file=app_recipe.groovy"></script>
+
+h3. Application and Services Properties
+
+In order to make Cloudify recipes flexible and configurable, you can use the application level properties file (which can take groovy statements as values).
+
+The properties file should be named according to the following convention: 
+  *_@applicationName-application.properties@_* 
+
+Any property in the properties file, should be unique since its value will be used with any occurrence of this key in the application recipe and all the corresponding service recipes.
+
+At runtime you can override any of these values using the overrides flag with a file named: 
+applicationName-application.overrides as described "here":../recipe/command_line_reference#install_app.
+
