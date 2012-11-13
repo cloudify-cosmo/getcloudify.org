@@ -62,6 +62,7 @@
 	$("input.cuSend").submit(function(){
 		$("div.contactUsWrapper").css("visibility","hidden")
 		$("a.contactUsLink").css("visibility","visible");
+		$('.cuValid').hide();
 	});
 	$("a.contactUsWrapperClose").click(function(){
 			$("div.contactUsWrapper").css("visibility","hidden")
@@ -100,7 +101,7 @@
         setupFormValidation: function()
         {
             //form validation rules
-	    $('.cuValid').hide();	
+	    	
             $("#contactUs").validate({
                 rules: {
                     last_name: "required",
