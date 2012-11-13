@@ -8,11 +8,10 @@ yum install curl
 bash -s stable < <(curl -s https://raw.github.com/wayneeseguin/rvm/master/binscripts/rvm-installer)
 source /etc/profile.d/rvm.sh
 source ~/.bash_profile
-rvm requiremets
 rvm requirements
 rvm install 1.9.3
 rvm rubygems 1.8.17
-gem install Jekyll
+gem install jekyll
 gem install jekyll_ext
 gem install top
 gem install RedCloth
@@ -50,4 +49,9 @@ cd YOUR_SITE_ROOTFOLDER
 rm –rf _site
 </pre></code>
 
-start your Jekyll server  
+start your Jekyll server  :  
+
+jekyll --server
+
+Access your local site (the default port is 4000): 
+http://localhost:4000
