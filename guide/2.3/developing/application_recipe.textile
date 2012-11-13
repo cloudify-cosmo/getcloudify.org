@@ -27,6 +27,16 @@ The properties file should be named according to the following convention:
 
 Any property in the properties file, should be unique since its value will be used with any occurrence of this key in the application recipe and all the corresponding service recipes.
 
-At runtime you can override any of these values using the overrides flag with a file named: 
-applicationName-application.overrides as described "here":../recipe/command_line_reference#install_app.
+At runtime you can override any of these values using the overrides flag with a properties file, as described "here":../recipe/command_line_reference#install_app.
+
+h4. Usage Example
+
+Assuming that : 
+# Your application is called myApp
+# The myApp recipe is comprised of two services :Tomcat and MySQL
+# myApp-application.properties contains the following: _@databasePort=3306@_
+
+The _@databasePort@_ is common to all the service instances in the myApp application. It is known by both the Tomcat service and by the MySQL service, thus users (in this case) are not bound to accessing the service context nor do they need to store this data (db port) in it.
+
+
 
