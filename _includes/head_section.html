@@ -23,14 +23,22 @@
 	
 	$(function(){ 
 	//popup contact form
-	$("li.contactUs,div.contactUsWrapper").mouseenter(function(){
-		$("div.contactUsWrapper").css("visibility","visible");
-		$("a.contactUsLink").css("visibility","hidden");
-	});
-	$("li.contactUs,div.contactUsWrapper").mouseleave(function(){
-		$("div.contactUsWrapper").css("visibility","hidden")
-		$("a.contactUsLink").css("visibility","visible");
-	});
+		$("li.contactUs,div.contactUsWrapper").mouseenter(function(){
+			$("div.contactUsWrapper").css("visibility","visible");
+			$("a.contactUsLink").css("visibility","hidden");
+		});
+		$("input.cuSend").click(function(){
+			$('.cuValid').hide();
+		});
+		$("input.cuSend").submit(function(){
+			$("div.contactUsWrapper").css("visibility","hidden")
+			$("a.contactUsLink").css("visibility","visible");
+	
+		});
+		$("a.contactUsWrapperClose").click(function(){
+				$("div.contactUsWrapper").css("visibility","hidden")
+				$("a.contactUsLink").css("visibility","visible");
+			});	
 	//end popup contact form
 		$("a.youtube").YouTubePopup({ hideTitleBar: true });
 		$("div.expand").hide();
@@ -148,6 +156,46 @@
 		{% assign needVersions = null %}
 	{% endif %}	
 	
+
+<script type="text/javascript" >
+(function($,W,D)
+{
+    var JQUERY4U = {};
+
+    JQUERY4U.UTIL =
+    {
+        setupFormValidation: function()
+        {
+            //form validation rules
+
+            $("#contactUs").validate({
+                rules: {
+                    last_name: "required",
+                    email: {
+                        required: true,
+                        email: true
+                    },
+                },
+                messages: {
+                    last_name: "Please enter your first name",
+                    email: "Please enter a valid email address",
+                },
+                submitHandler: function(form) {
+                    form.submit();
+                }
+            });
+        }
+    }
+
+    //when the dom has loaded setup form validation rules
+    $(D).ready(function($) {
+        JQUERY4U.UTIL.setupFormValidation();
+    });
+
+})(jQuery, window, document);
+</script>
+
+
 	<script type="text/javascript" src="/scripts/cloudify_default.js"></script>
 	{% include googleanalytics.html %}
 	{% include gauges.html %}
