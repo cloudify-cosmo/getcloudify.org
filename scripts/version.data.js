@@ -259,7 +259,6 @@ var guide = {
 			'probes':true
 		},
 		'qsg':{
-			'natiqsg':true,
 			'quick_start_guide':true,
 			'quick_start_guide_apache':true,
 			'quick_start_guide_ec2':true,

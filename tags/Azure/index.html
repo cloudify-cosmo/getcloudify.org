@@ -19,21 +19,67 @@
 	<script type="text/javascript" src="/scripts/easySlider1.7.js"></script>
 	<script type="text/javascript" src="/scripts/version.data.js"></script>
 	<script type="text/javascript" src="/scripts/version.js"></script>
-	<script type="text/javascript">
+	<script src="http://ajax.aspnetcdn.com/ajax/jquery.validate/1.9/jquery.validate.min.js"></script>
+<script type="text/javascript" >
+(function($,W,D)
+{
+    var JQUERY4U = {};
+
+    JQUERY4U.UTIL =
+    {
+        setupFormValidation: function()
+        {
+            //form validation rules
+
+            $("#contactUs").validate({
+                rules: {
+                    last_name: "required",
+                    email: {
+                        required: true,
+                        email: true
+                    },
+                },
+                messages: {
+                    last_name: "Please enter your first name",
+                    email: "Please enter a valid email address",
+                },
+                submitHandler: function(form) {
+                    form.submit();
+                }
+            });
+        }
+    }
+
+    //when the dom has loaded setup form validation rules
+    $(D).ready(function($) {
+        JQUERY4U.UTIL.setupFormValidation();
+    });
+
+})(jQuery, window, document);
+</script>
+<script type="text/javascript">
 	window.onload = function () {
 		$('body').addClass("bodyClass");	
  	}
 	
 	$(function(){ 
 	//popup contact form
-	$("li.contactUs,div.contactUsWrapper").mouseenter(function(){
-		$("div.contactUsWrapper").css("visibility","visible");
-		$("a.contactUsLink").css("visibility","hidden");
-	});
-	$("li.contactUs,div.contactUsWrapper").mouseleave(function(){
-		$("div.contactUsWrapper").css("visibility","hidden")
-		$("a.contactUsLink").css("visibility","visible");
-	});
+		$("li.contactUs,div.contactUsWrapper").mouseenter(function(){
+			$("div.contactUsWrapper").css("visibility","visible");
+			$("a.contactUsLink").css("visibility","hidden");
+		});
+		$("input.cuSend").click(function(){
+			$('.cuValid').hide();
+		});
+		$("input.cuSend").submit(function(){
+			$("div.contactUsWrapper").css("visibility","hidden")
+			$("a.contactUsLink").css("visibility","visible");
+	
+		});
+		$("a.contactUsWrapperClose").click(function(){
+				$("div.contactUsWrapper").css("visibility","hidden")
+				$("a.contactUsLink").css("visibility","visible");
+			});	
 	//end popup contact form
 		$("a.youtube").YouTubePopup({ hideTitleBar: true });
 		$("div.expand").hide();
@@ -87,6 +133,10 @@
 	
 		
 	
+
+
+
+
 	<script type="text/javascript" src="/scripts/cloudify_default.js"></script>
 	<script type="text/javascript">
 
@@ -218,7 +268,6 @@ $("body").live('change', function(){
             <input type=hidden name="oid" value="00D300000000KEt">
             <input type=hidden name="retURL" value="http://www.cloudifysource.org/thank_you_contact.htm">
             <input  id="first_name" name="first_name" type="hidden" />
-	    <span class="cuValid"></span>
             <input  id="last_name" name="last_name" type="text" class="cuInput" placeholder="Your Name"/>
             <span class="cuValid"></span>
             <input  id="email" name="email"  type="text"  placeholder="Your Email"/><br>
