@@ -22,10 +22,12 @@
     window.onload = function () {
 	$('body').addClass("bodyClass");
      }
-    $(function() {
+
+
+jQuery(function() {
 
 		//rss feed slider
-		$('.blogFeed').rssfeed('http://www.cloudifysource.org/atom.xml',{
+		jQuery('.blogFeed').rssfeed('http://www.cloudifysource.org/atom.xml',{
 			header: false,
 			titletag: 'div',
 			date: false,
@@ -36,7 +38,7 @@
 		});
 		
 		
-		$('.newsFeed').rssfeed('http://cloudifysource.tumblr.com/rss',{
+		jQuery('.newsFeed').rssfeed('http://cloudifysource.tumblr.com/rss',{
 			header: false,
 			titletag: 'div',
 			date: false,
@@ -45,6 +47,7 @@
 		}, function(e) {
 			$.zazar.ticker({selector: '.newsFeed ul'});
 		});
+	});
 
 
 
@@ -53,6 +56,9 @@
 
 
 
+
+
+    $(function() {
 
 	//popup contact form
 	$("li.contactUs,div.contactUsWrapper").mouseenter(function(){
