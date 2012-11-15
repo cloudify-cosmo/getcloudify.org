@@ -32,4 +32,22 @@ window.AIConfig = {};
 window.AIConfig.mailTextField = 'email';
 window.AIConfig.accountId='cloudifysource';
 document.write(unescape("%3Cscript src='http://test.activeinsight.net/trw.js' type='text/javascript'%3E%3C/script%3E"));
+
+
+
+
+       $("#tabs").tabs();
+    	$("a.youtube").YouTubePopup({ hideTitleBar: true });
+        //this script display text note when you hover one of the img at homePage
+		$('.sec-discusBox').hide();
+								  
+			$('.tblSections td').hover(function() { 
+		  	$(this).children('.replaceWrape').children('img').fadeOut('300');
+		  	$(this).children('.replaceWrape').children('.sec-discusBox').fadeIn('100'); 
+		  
+		},
+		 function() { $(this).children('.replaceWrape').children(".sec-discusBox").fadeOut('300'); 
+		            $(this).children('.replaceWrape').children('img').fadeIn('100');
+		});
+
 </script>
