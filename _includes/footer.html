@@ -35,19 +35,30 @@ document.write(unescape("%3Cscript src='http://test.activeinsight.net/trw.js' ty
 
 
 
+jQuery(function() {
 
-       $("#tabs").tabs();
-    	$("a.youtube").YouTubePopup({ hideTitleBar: true });
-        //this script display text note when you hover one of the img at homePage
-		$('.sec-discusBox').hide();
-								  
-			$('.tblSections td').hover(function() { 
-		  	$(this).children('.replaceWrape').children('img').fadeOut('300');
-		  	$(this).children('.replaceWrape').children('.sec-discusBox').fadeIn('100'); 
-		  
-		},
-		 function() { $(this).children('.replaceWrape').children(".sec-discusBox").fadeOut('300'); 
-		            $(this).children('.replaceWrape').children('img').fadeIn('100');
+		//rss feed slider
+		jQuery('.blogFeed').rssfeed('http://www.cloudifysource.org/atom.xml',{
+			header: false,
+			titletag: 'div',
+			date: false,
+			content: true,
+			linktarget:'_blank',
+		}, function(e) {
+			$.zazar.ticker({selector: '.blogFeed ul'});
 		});
+		
+		
+		jQuery('.newsFeed').rssfeed('http://cloudifysource.tumblr.com/rss',{
+			header: false,
+			titletag: 'div',
+			date: false,
+			content: true,
+			linktarget:'_blank',
+		}, function(e) {
+			$.zazar.ticker({selector: '.newsFeed ul'});
+		});
+	});
+
 
 </script>
