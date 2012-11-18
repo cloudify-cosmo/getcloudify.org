@@ -109,7 +109,7 @@ var guide = {
 			'developing_custom_clouddriver':true,
 			'tutorial_maven':true
 		},
-		'common_paterns':{
+		'common_patterns':{
 			'file_examples':true
 		},
 		'contribute':{
@@ -212,7 +212,7 @@ var guide = {
 			'developing_custom_clouddriver':true,
 			'tutorial_maven':true
 		},
-		'common_paterns':{
+		'common_patterns':{
 			'file_examples':true
 		},
 		'contribute':{
@@ -259,6 +259,7 @@ var guide = {
 			'probes':true
 		},
 		'qsg':{
+			'natiqsg':true,
 			'quick_start_guide':true,
 			'quick_start_guide_apache':true,
 			'quick_start_guide_ec2':true,
@@ -280,6 +281,7 @@ var guide = {
 		},
 		'setup':{
 			'cloudify_prerequisites':true,
+			'cloudify_without_shell':true,
 			'configuring_azure':true,
 			'configuring_byon':true,
 			'configuring_ec2':true,
