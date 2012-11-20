@@ -98,6 +98,7 @@ var guide = {
 		'bootstrapping':{
 			'bootstrapping_azure':true,
 			'bootstrapping_byon':true,
+			'bootstrapping_cloud':true,
 			'bootstrapping_ec2':true,
 			'bootstrapping_hp':true,
 			'bootstrapping_localcloud':true,
