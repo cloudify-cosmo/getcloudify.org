@@ -261,7 +261,6 @@ var guide = {
 			'probes':true
 		},
 		'qsg':{
-			'natiqsg':true,
 			'quick_start_guide':true,
 			'quick_start_guide_apache':true,
 			'quick_start_guide_ec2':true,
@@ -289,6 +288,7 @@ var guide = {
 			'configuring_ec2':true,
 			'configuring_openstack':true,
 			'configuring_rsopenstack':true,
+			'installation_and_setup':true,
 			'installing_the_cloudify_client':true,
 			'post_installation_configuration':true
 		},

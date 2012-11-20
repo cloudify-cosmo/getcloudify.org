@@ -1,10 +1,10 @@
 ---
 layout: default
-title: A Quick Start Guide for Cloudify
-cat: Getting Started
-publish: false
-abstract: A quick start guide to Cloudify
-pageord: 599
+title: Cloudify Installation and Setup
+cat: Installation & Setup
+publish: true
+abstract: Cloudify Installation and Setup
+pageord: 250
 --- 
 
 Cloudify can run in your cloud environment out of the box. 
@@ -19,9 +19,19 @@ h3. Download and Setup Cloudify
 h3. Setup Cloudify to work with your cloud provider account
 
 To enable Cloudify to work &#34;under&#34; your cloud provider, you need to set Cloudify's cloud driver file that corresponds the cloud provider that you use.
-In this cloud driver, you need to set your API key , SSH key information etc., as described in the list below.
+In this cloud driver, you need to set your API key , SSH key information etc.
 
-The following is a list of supported cloud providers configurations:
+For example: 
+Assuming that your cloud provider is Amazon EC2 : 
+In your ec2-cloud.properties you need to set the following properties values:
+user="ENTER_USER_HERE"
+apiKey="ENTER_API_KEY_HERE"
+keyFile="ENTER_KEY_FILE_HERE"
+keyPair="ENTER_KEY_PAIR_HERE"
+
+You can find more info about parameterization of the cloud driver configuration "here":../clouddrivers/cloud_driver#gstr.
+
+The following is a list of supported cloud provider and their advanced configurations:
 
 * "Amazon EC2":../setup/configuring_ec2
 * "HP OpenStack Cloud":../setup/configuring_openstack
@@ -34,7 +44,7 @@ h4(impt). This step is done only once per cloud provider account.
             
 h3. Bootsrapping Cloudify on your cloud environment
 
-Cloudify uses a boostrapping process to provision machines for Cloudify management, and machines for services required to deploy applications.
+Cloudify uses a "boostrapping process":../bootstrapping/bootstrapping_process to provision machines for Cloudify management, and machines for services required to deploy applications.
 This step is often done once for all your applications' deployments.
 You need to use Cloudify interactive shell for bootstrapping, installing applications and controlling your Cloudify environment.
 
@@ -43,13 +53,10 @@ h5. Steps
 ## Start the Cloudify shell on your desktop 
 Go to <Cloudify home>/bin and start the Cloudify.sh or Cloudify.bat
 ## Bootsrap Cloudify management on your cloud provider
-       Type *_@boootsrap-cloud cloudProviderName@_* on your Cloudify shell.
-	   e.g.:
-        For EC2, type : Type *_@boootsrap-cloud ec2@_* 
-        For OpenStack, type : Type *_@boootsrap-cloud openstack@_* 
-        For Azure, type : Type *_@boootsrap-cloud azure@_* 
-        For RackSpace, type : Type *_@boootsrap-cloud rsopenstack@_* 
-        For BYON, type : Type *_@boootsrap-cloud byon@_* 	   
+       Type <span class="snippet">boootsrap-cloud cloudProviderName</span> on your Cloudify shell.
+	   Examples:
+        For Amazon EC2, type :       <span class="snippet">boootsrap-cloud ec2</span>
+        For HP OpenStack Cloud, type : <span class="snippet">boootsrap-cloud openstack</span>
 ## Manage your Cloudify environment 
 Upon successful bootstrap, the URL of Cloudify's management console will be displayed. Browse the web UI URL to view your Cloudify environment as shown in the following image:
 

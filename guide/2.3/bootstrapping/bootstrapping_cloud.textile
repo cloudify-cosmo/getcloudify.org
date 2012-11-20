@@ -24,13 +24,13 @@ The following is a list of supported cloud provider configurations :
 
 h2. Bootstrapping
 
-Bootstrapping a cloud is extremely simple, just follow the "bootstrapping":../bootstrapping/bootstrapping_process#boot procedure, typing the following command in step 2: *@bootstrap-cloud@* @cloudProviderName@
-For example, for Amazon EC2, type : *@bootstrap-cloud@* @ec2@
+Bootstrapping a cloud is extremely simple, just follow the "bootstrapping":../bootstrapping/bootstrapping_process#boot procedure, typing the following command in step 2: <span class="snippet">bootstrap-cloud cloudProviderName</span>
+For example, for Amazon EC2, type : <span class="snippet">bootstrap-cloud ec2</span>
 
 
 h2(#tear). Teardown
 
-To shut down the cloud environment, at the Cloudify shell prompt, type: *@teardown-cloud@* @cloudProviderName@
-For example, for RackSpace type : *@teardown-cloud@* @rsopenstack@
+To shut down the cloud environment, at the Cloudify shell prompt, type: <span class="snippet">teardown-cloud cloudProviderName</span>
+For example, for RackSpace type : <span class="snippet">teardown-cloud rsopenstack</span>
 
 h4(info). This uninstalls applications and shuts down all the management and service instance machines.
