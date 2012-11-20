@@ -35,8 +35,7 @@
 																<h2 id="REST_API-/service/applications/description"><a class="permalink" title="Get a permanent link to this section" href="#REST_API-/service/applications/description">/service/applications/description</a></h2>				
 												<h3>HTTP Methods</h3>
 									<h4>GET</h4>
-											<p>Creates and returns a map containing all of the deployed application
- names.</p>
+											<p>Creates and returns a list containing all of the deployed application details.</p>
 																																																																							<h3>Response</h3>
 													<div class="panel">
 								<div class="panelHeader">
@@ -789,16 +788,23 @@
 															<tr>
 									<td>org.springframework.web.multipart.MultipartFile</td>
 									<td>propsFile</td>
-																			<td> <<<<<<< HEAD</td>
+																			<td></td>
 																		<td>true</td>
+									<td>RequestParam</td>
+																			<td></td>
+																	</tr>
+															<tr>
+									<td>org.springframework.web.multipart.MultipartFile</td>
+									<td>cloudOverridesFile</td>
+																			<td>- A file containing override parameters to be used by the cloud driver</td>
+																		<td>false</td>
 									<td>RequestParam</td>
 																			<td></td>
 																	</tr>
 															<tr>
 									<td>java.lang.Boolean</td>
 									<td>selfHealing</td>
-																			<td> ======= >>>>>>> 88e40d7 CLOUDIFY-1126 Fix checkStyle and
-            bugs found by findBugs</td>
+																			<td></td>
 																		<td>false</td>
 									<td>RequestParam</td>
 																			<td>true</td>
@@ -888,6 +894,14 @@
 									<td>locationAware</td>
 																			<td></td>
 																		<td>true</td>
+									<td>RequestParam</td>
+																			<td></td>
+																	</tr>
+															<tr>
+									<td>java.lang.String</td>
+									<td>authGroups</td>
+																			<td></td> 
+																		<td>false</td>
 									<td>RequestParam</td>
 																			<td></td>
 																	</tr>
@@ -1016,10 +1030,26 @@
 																			<td></td>
 																	</tr>
 															<tr>
+									<td>java.lang.String</td>
+									<td>authGroups</td>
+																			<td>The the group for which this deployment will be available</td>
+																		<td>false</td>
+									<td>RequestParam</td>
+																			<td></td>
+																	</tr>
+															<tr>
 									<td>org.springframework.web.multipart.MultipartFile</td>
 									<td>recipeOverridesFile</td>
 																			<td>The application overrides file - to overrides the application
             properties</td>
+																		<td>false</td>
+									<td>RequestParam</td>
+																			<td></td>
+																	</tr>
+															<tr>
+									<td>org.springframework.web.multipart.MultipartFile</td>
+									<td>cloudOverrides</td>
+																			<td></td> 
 																		<td>false</td>
 									<td>RequestParam</td>
 																			<td></td>
@@ -1092,6 +1122,14 @@
 															<tr>
 									<td>org.springframework.web.multipart.MultipartFile</td>
 									<td>srcFile</td>
+																			<td></td>
+																		<td>false</td>
+									<td>RequestParam</td>
+																			<td></td>
+																	</tr>
+															<tr>
+									<td>java.lang.String</td>
+									<td>authGroups</td>
 																			<td></td>
 																		<td>false</td>
 									<td>RequestParam</td>
