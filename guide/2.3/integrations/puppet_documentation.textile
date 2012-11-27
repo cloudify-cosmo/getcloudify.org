@@ -24,6 +24,7 @@ Sections of the page:
 * "Using Puppet with Cloudify":#using
 * "Running the Hello-Puppet Example":#example
 * "Running Additional Manifests and Classes":#additional
+* "Running Iteratively Using Custom Commands":#custom
 
 
 h2(#how). How Does Cloudify Use Puppet?
@@ -99,8 +100,8 @@ h3. Custom Puppet Features
 # *instance_id* - instance id (defaults to current instance)
 
 Example (the following will write the myname attribute of the hello-puppet application):
- <span class="snippet">file { 'my-name': path => '/tmp/myname', ensure => present, mode => 0666, content => get_cloudify_attribute('myname', 'application'), } 
- </span>
+ <script src="https://gist.github.com/4155902.js?file=puppetFile.rb"></script>
+
 
 Custom Type The cloudify_attribute custom type allows the user to set a Cloudify attribute of any type. The arguments are similar to those of the get_cloudify_attribute function:
 # *name* - name of the attribute (no default)
@@ -111,9 +112,13 @@ Custom Type The cloudify_attribute custom type allows the user to set a Cloudify
 # *instance_id* - instance id (defaults to current instance)
 
 Example (the following will set/change the myname attribute of the hello-puppet application): 
-<span class="snippet">
-cloudify_attribute { 'myname': value => 'Inigo Montoya', type => 'application', ensure => present, application => 'hello-puppet' }
-</span>
+<script src="https://gist.github.com/4155892.js?file=cloudifypuppet.rb"></script>
+
+
+h2(#custom). Running Puppet Iteratively Using Cloudify's Custom Commands
+
+<script src="https://gist.github.com/4155785.js?file=puppetCustomCmd.groovy"></script>
+
 
 h3. References
 
