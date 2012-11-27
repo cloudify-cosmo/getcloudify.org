@@ -245,7 +245,8 @@ var guide = {
 			'faq':true
 		},
 		'integrations':{
-			'chef_documentation':true
+			'chef_documentation':true,
+			'puppet_documentation':true
 		},
 		'monitoring':{
 			'monitoring_app_post_deploy':true,
