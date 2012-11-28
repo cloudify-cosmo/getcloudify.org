@@ -28,7 +28,7 @@
 
 
 	jQuery(function() {
-
+	jQuery.noConflict();
 		//rss feed slider
 		jQuery('.blogFeed').rssfeed('http://www.cloudifysource.org/atom.xml',{
 			header: false,
@@ -37,7 +37,7 @@
 			content: true,
 			linktarget:'_blank',
 		}, function(e) {
-			$.zazar.ticker({selector: '.blogFeed ul'});
+			jQuery.zazar.ticker({selector: '.blogFeed ul'});
 		});
 		
 		
@@ -48,7 +48,7 @@
 			content: true,
 			linktarget:'_blank',
 		}, function(e) {
-			$.zazar.ticker({selector: '.newsFeed ul'});
+			jQuery.zazar.ticker({selector: '.newsFeed ul'});
 		});
 	});
 
