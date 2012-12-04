@@ -388,21 +388,35 @@ $("body").live('change', function(){
                 <div class="tumblrFeed leftContentBox">                     
                 
                 </div>
-			<script type="text/javascript" >                                
-			jQuery(function() {
-				jQuery.noConflict();
-				jQuery('.tumblrFeed').rssfeed('http://cloudifysource.tumblr.com/rss',{
-						header: false,
-						titletag: 'div',
-						date: false,
-						content: true,
-						linktarget:'_blank',
-					}, function(e) {
-						jQuery.zazar.ticker({selector: '.tumblrFeed ul'});
-					});
-				});                                
+			<script type="text/javascript" >                                				
+jQuery.noConflict();
+(function($) { 
+  $(function() {
+	$('.tumblrFeed').rssfeed('http://cloudifysource.tumblr.com/rss',{
+		header: false,
+		titletag: 'div',
+		date: false,
+		content: true,
+		linktarget:'_blank',
+		}, function(e) {
+		$.zazar.ticker({selector: '.tumblrFeed ul'});
+		});
+	}); 
+  });
+})(jQuery);				
+				
+				
+				
+				
+				
+				
 			</script>  
 		<!--end-->
+		
+		
+		
+		
+
 
 
 <div class="leftContentBox blogLeft-topTitle">
