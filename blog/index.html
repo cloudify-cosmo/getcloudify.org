@@ -385,16 +385,16 @@ $("body").live('change', function(){
                 
                 </div>
 			<script type="text/javascript" >                                
-			jQuery(function() {
-				jQuery.noConflict();
-					jQuery('.tumblr').rssfeed('http://cloudifysource.tumblr.com/rss',{
+			$(function() {
+				$.noConflict();
+					$('.tumblr').rssfeed('http://cloudifysource.tumblr.com/rss',{
 						header: false,
 						titletag: 'div',
 						date: false,
 						content: true,
 						linktarget:'_blank',
 					}, function(e) {
-						jQuery.zazar.ticker({selector: '.tumblr ul'});
+						$.zazar.ticker({selector: '.tumblr ul'});
 					});
 				});                                
 			</script>  
