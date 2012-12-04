@@ -64,74 +64,74 @@
 </script>
 <script type="text/javascript">
 	//window.onload = function () {
-	$(function(){ 	
-		$('body').addClass("bodyClass");	
+	jQuery(function(){ 	
+		jQuery('body').addClass("bodyClass");	
  	}
 	
-	$(function(){ 
+	jQuery(function(){ 
 	//popup contact form
-		$("li.contactUs,div.contactUsWrapper").mouseenter(function(){
-			$("div.contactUsWrapper").css("visibility","visible");
-			$("a.contactUsLink").css("visibility","hidden");
+		jQuery"li.contactUs,div.contactUsWrapper").mouseenter(function(){
+			jQuery("div.contactUsWrapper").css("visibility","visible");
+			jQuery("a.contactUsLink").css("visibility","hidden");
 		});
-		$("input.cuSend").click(function(){
-			$('.cuValid').hide();
+		jQuery("input.cuSend").click(function(){
+			jQuery('.cuValid').hide();
 		});
-		$("input.cuSend").submit(function(){
-			$("div.contactUsWrapper").css("visibility","hidden")
-			$("a.contactUsLink").css("visibility","visible");
+	jQuery("input.cuSend").submit(function(){
+			jQuery("div.contactUsWrapper").css("visibility","hidden")
+			jQuery("a.contactUsLink").css("visibility","visible");
 	
 		});
-		$("a.contactUsWrapperClose").click(function(){
-				$("div.contactUsWrapper").css("visibility","hidden")
-				$("a.contactUsLink").css("visibility","visible");
+		jQuery("a.contactUsWrapperClose").click(function(){
+				jQuery("div.contactUsWrapper").css("visibility","hidden")
+			jQuery("a.contactUsLink").css("visibility","visible");
 			});	
 	//end popup contact form
-		$("a.youtube").YouTubePopup({ hideTitleBar: true });
-		$("div.expand").hide();
+		jQuery("a.youtube").YouTubePopup({ hideTitleBar: true });
+		jQuery("div.expand").hide();
 		
 		
-		$("li.expandBtn").click(function(){	
-			$(this).next("div.expand").slideToggle(500);
-			if($(this).html()=="More..."){
-				$(this).html("Less...");	
+		jQuery("li.expandBtn").click(function(){	
+			jQuery(this).next("div.expand").slideToggle(500);
+			if(jQuery(this).html()=="More..."){
+				jQuery(this).html("Less...");	
 			}else{
-				$(this).html("More...");
+				jQuery(this).html("More...");
 			}
 		});
 		
 	   /* ------------- added by Yaron/modified by Shlomo ------------ */
-		$("#closeBut").parent().hide();
-		$("#values").hide();
-		$("span.pln, span.kwd").hover(function(eventObject){
+		jQuery("#closeBut").parent().hide();
+		jQuery("#values").hide();
+		jQuery("span.pln, span.kwd").hover(function(eventObject){
 			var keys = {"name":true, "provider":true, "user":true, "value":true};
-			var currKey = $(eventObject.currentTarget).text().trim();
+			var currKey = jQuery(eventObject.currentTarget).text().trim();
 			if (keys[currKey]) {
-				var prevKey = $(eventObject.currentTarget).prevUntil("span.pun:contains('{')").last().prev().prev("span.pln").text().trim() ? $(eventObject.currentTarget).prevUntil("span.pun:contains('{')").last().prev().prev("span.pln").text().trim() : $(eventObject.currentTarget).prev().prev("span.pln").text().trim();
+				var prevKey = jQuery(eventObject.currentTarget).prevUntil("span.pun:contains('{')").last().prev().prev("span.pln").text().trim() ? $(eventObject.currentTarget).prevUntil("span.pun:contains('{')").last().prev().prev("span.pln").text().trim() : $(eventObject.currentTarget).prev().prev("span.pln").text().trim();
 				currKey = prevKey + "_" + currKey;
 			}
 			if (messages[currKey]) {
-				var tooltip = $(".overlay"),
-					position = $(eventObject.currentTarget).offset();
-				$(this).css({"background-color":"#CECECE", "cursor" : "help"});
+				var tooltip = jQuery(".overlay"),
+					position = jQuery(eventObject.currentTarget).offset();
+				jQuery(this).css({"background-color":"#CECECE", "cursor" : "help"});
 				var message = messages[currKey].split("::"); console.log(message);
-				$("#desc",tooltip).text(message[0].trim());
+				jQuery("#desc",tooltip).text(message[0].trim());
 				if (message[1] && message[1].trim().toLowerCase() == "required") {
-					$("#required").prev().show();
-					$("#required").show();
-					$("#required").next().show();
-					$("#required").css("color", "red");
-					$("#required").text("Required");
+					jQuery("#required").prev().show();
+					jQuery("#required").show();
+					jQuery("#required").next().show();
+					jQuery("#required").css("color", "red");
+					jQuery("#required").text("Required");
 				} else {
-					$("#required").prev().hide();
-					$("#required").hide();
-					$("#required").next().hide();
+					jQuery("#required").prev().hide();
+					jQuery("#required").hide();
+					jQuery("#required").next().hide();
 				}
 				tooltip.show().offset({ top: position.top + tooltip.scrollTop() - 50, left: position.left + 100});
-				$("#tipImg").position();
+				jQuery("#tipImg").position();
 			}}, function(){
-				$(".overlay").offset({top:0,left:0}).hide();
-				$(this).css("background-color","transparent");
+				jQuery(".overlay").offset({top:0,left:0}).hide();
+				jQuery(this).css("background-color","transparent");
 		});
 	});
 	
