@@ -55,11 +55,11 @@
 				currentNum = $( "#amount" ).val( ui.value ).val();
 				currentDiv = ' .stage'+currentNum;
 				currentDivNoDot = ' stage'+currentNum;
-				currentDivText = ' .stage'+currentNum+' p';
+				currentDivText = ' .stage'+currentNum+' .stageText';
 				for(i=0;i<=currentNum;i++){
 				visStage='.stage'+i;
 				$(visStage).show();
-				visStageText='.stage'+i+' p';
+				visStageText='.stage'+i+' .stageText';
 				$(visStageText).hide();
 				}
 				$(currentDivText).show();
@@ -82,7 +82,7 @@
 		for(i=0;i<=value;i++){
 			visStage='.stage'+i;
 			$(visStage).show();
-			visStageText='.stage'+i+' p';
+			visStageText='.stage'+i+' .stageText';
 			$(visStageText).hide();
 		}
 		if(currentDiv=='.stage'){
