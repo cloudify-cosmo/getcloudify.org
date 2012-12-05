@@ -31,247 +31,248 @@
 
 
 <script type="text/javascript" >
-    $(function() {
+    $(function () {
         //slider
-	var currentNum;
-	var visStage;
-	var visStageText;
-	var value = document.location.hash.replace('#','');
-	var currentDiv ='.stage'+value;
-	var currentDivNoDot='stage'+value;
-	var currentDivClass;
-	var currentDivText =' .stage'+value+' .stageText';;
-	var bgPos;
-	$( "#slider-range-min" ).slider({
+        var currentNum;
+        var visStage;
+        var visStageText;
+        var value = document.location.hash.replace('#', '');
+        var currentDiv = '.stage' + value;
+        var currentDivNoDot = 'stage' + value;
+        var currentDivClass;
+        var currentDivText = ' .stage' + value + ' .stageText'; ;
+        var bgPos;
+        $("#slider-range-min").slider({
             range: "min",
             min: 0,
             max: 8,
             value: value,
-            slide: function( event, ui ) {
-                $( "#amount" ).val( ui.value );
-				$( "#slider-range-min" ).removeClass(currentDivNoDot);
-				$(currentDiv).hide();
-				//$('.stage').attr('style', '');
-				currentNum = $( "#amount" ).val( ui.value ).val();
-				currentDiv = ' .stage'+currentNum;
-				currentDivNoDot = ' stage'+currentNum;
-				currentDivText = ' .stage'+currentNum+' .stageText';
-				for(i=0;i<=currentNum;i++){
-				visStage='.stage'+i;
-				$(visStage).show();
-				visStageText='.stage'+i+' .stageText';
-				$(visStageText).hide();
-				}
-				$(currentDivText).show();
-				//$(visStageText).hide();
+            slide: function (event, ui) {
+                $("#amount").val(ui.value);
+                $("#slider-range-min").removeClass(currentDivNoDot);
+                $(currentDiv).hide();
+                //$('.stage').attr('style', '');
+                currentNum = $("#amount").val(ui.value).val();
+                currentDiv = ' .stage' + currentNum;
+                currentDivNoDot = ' stage' + currentNum;
+                currentDivText = ' .stage' + currentNum + ' .stageText';
+                for (i = 0; i <= currentNum; i++) {
+                    visStage = '.stage' + i;
+                    $(visStage).show();
+                    visStageText = '.stage' + i + ' .stageText';
+                    $(visStageText).hide();
+                }
+                $(currentDivText).show();
+                //$(visStageText).hide();
 
-				//$(curDiv).show();
-				currentDivClass = $(currentDiv).text();
-				$( "#slider-range-min" ).addClass(currentDivNoDot);
+                //$(curDiv).show();
+                currentDivClass = $(currentDiv).text();
+                $("#slider-range-min").addClass(currentDivNoDot);
 
-				
-				// getter
-				value = $( "#amount" ).val( ui.value ).val();
-				document.location.hash=value;
-				//window.history.pushState("object or string", "Title", "/new-url");
+
+                // getter
+                value = $("#amount").val(ui.value).val();
+                document.location.hash = value;
+                //window.history.pushState("object or string", "Title", "/new-url");
             }
 
         });
-        $( "#amount" ).val( $( "#slider-range-min" ).slider( "value" ) );
-		//for display stages on loading page.
-		for(i=0;i<=value;i++){
-			visStage='.stage'+i;
-			$(visStage).show();
-			visStageText='.stage'+i+' .stageText';
-			$(visStageText).hide();
-		}
-		if(currentDiv=='.stage'){
-		$('.stage0').show();
-		currentDivClass = $('.stage0').text();
-		$(currentDivText).show();
-		$( "#slider-range-min" ).addClass('stage0');
-		}else{
-		$(currentDiv).show();
-		currentDivClass = $(currentDiv).text();
-		$(currentDivText).show();
-		$( "#slider-range-min" ).addClass(currentDivNoDot);
-		}
-		
-			
-		
-		
-		
-		
-		//float btns for trigger stages when clicking
-		//upload Recipe
-		$('.uploadRecipe').mouseenter(function(){
-			bgPos = $(currentDiv+".stage").css("background-position")
-			$(currentDiv+".stage").css('background-position', '0 -346px');
-		});
-		$('.uploadRecipe').click(function(){
-			//for change slider hand position:
-			$('.stage').hide();
-			$( "#slider-range-min" ).removeClass(currentDivNoDot);
-			currentDivNoDot = "stage1";
-			currentDiv = ".stage1";
-			$( "#slider-range-min" ).addClass(currentDivNoDot);
-			$(currentDiv+".stage").show();
-			
-			//for change stage current image hand position:
-			$(currentDiv+".stage").css('background-position', '0 -346px');
-			//show stage text:
-			$('.stage1  .stageText').show()
-    	});
-		//End uploadRecipe
-		
-		//Create Vms
-		$('.createVms').mouseenter(function(){
-			bgPos = $(currentDiv+".stage").css("background-position")
-			$(currentDiv+".stage").css('background-position', '0 -692px');
-		});
-		$('.createVms').click(function(){
-			//for change slider hand position:
-			$('.stage').hide();
-			$( "#slider-range-min" ).removeClass(currentDivNoDot);
-			currentDivNoDot = "stage2";
-			currentDiv = ".stage2";
-			$( "#slider-range-min" ).addClass(currentDivNoDot);
-			$(currentDiv+".stage").show();
-			
-			//for change stage current image hand position:
-			$(currentDiv+".stage").css('background-position', '0 -692px');
-			//show stage text:
-			$('.stage2  .stageText').show()
-    	});
-		//End Create Vms 
-
-
-		//Install Agent
-		$('.installAgent').mouseenter(function(){
-			bgPos = $(currentDiv+".stage").css("background-position")
-			$(currentDiv+".stage").css('background-position', '0 -1038px');
-		});
-		$('.installAgent').click(function(){
-			//for change slider hand position:
-			$('.stage').hide();
-			$( "#slider-range-min" ).removeClass(currentDivNoDot);
-			currentDivNoDot = "stage3";
-			currentDiv = ".stage3";
-			$( "#slider-range-min" ).addClass(currentDivNoDot);
-			$(currentDiv+".stage").show();
-			
-			//for change stage current image hand position:
-			$(currentDiv+".stage").css('background-position', '0 -1038px');
-			//show stage text:
-			$('.stage3  .stageText').show()
-    	});
-		//End Install Agent
+        $("#amount").val($("#slider-range-min").slider("value"));
+        //for display stages on loading page.
+        for (i = 0; i <= value; i++) {
+            visStage = '.stage' + i;
+            $(visStage).show();
+            visStageText = '.stage' + i + ' .stageText';
+            $(visStageText).hide();
+        }
+        if (currentDiv == '.stage') {
+            $('.stage0').show();
+            currentDivClass = $('.stage0').text();
+            $(currentDivText).show();
+            $("#slider-range-min").addClass('stage0');
+        } else {
+            $(currentDiv).show();
+            currentDivClass = $(currentDiv).text();
+            $(currentDivText).show();
+            $("#slider-range-min").addClass(currentDivNoDot);
+        }
 
 
 
-		//Recipe
-		$('.recipe').mouseenter(function(){
-			bgPos = $(currentDiv+".stage").css("background-position")
-			$(currentDiv+".stage").css('background-position', '0 -1384px');
-		});
-		$('.recipe').click(function(){
-			//for change slider hand position:
-			$('.stage').hide();
-			$( "#slider-range-min" ).removeClass(currentDivNoDot);
-			currentDivNoDot = "stage4";
-			currentDiv = ".stage4";
-			$( "#slider-range-min" ).addClass(currentDivNoDot);
-			$(currentDiv+".stage").show();
-			
-			//for change stage current image hand position:
-			$(currentDiv+".stage").css('background-position', '0 -1384px');
-			//show stage text:
-			$('.stage4  .stageText').show()
-    	});
-		//End Recipe
-		
-		//Install App Services
-		$('.InstallAppServices').mouseenter(function(){
-			bgPos = $(currentDiv+".stage").css("background-position")
-			$(currentDiv+".stage").css('background-position', '0 -1730px');
-		});
-		$('.InstallAppServices').click(function(){
-			//for change slider hand position:
-			$('.stage').hide();
-			$( "#slider-range-min" ).removeClass(currentDivNoDot);
-			currentDivNoDot = "stage5";
-			currentDiv = ".stage5";
-			$( "#slider-range-min" ).addClass(currentDivNoDot);
-			$(currentDiv+".stage").show();
-			//for change stage current image hand position:
-			$(currentDiv+".stage").css('background-position', '0 -1730px');
-			//show stage text:
-			$('.stage5  .stageText').show()
-		});
-		//End Install App Services
-		
-		//Monitoring
-		 $('.monitoring').mouseenter(function(){
-			bgPos = $(currentDiv+".stage").css("background-position")
-			$(currentDiv+".stage").css('background-position', '0 -2076px');
-		});
-		$('.monitoring').click(function(){
-			//for change slider hand position:
-			$('.stage').hide();
-			$( "#slider-range-min" ).removeClass(currentDivNoDot);
-			currentDivNoDot = "stage6";
-			currentDiv = ".stage6";
-			$( "#slider-range-min" ).addClass(currentDivNoDot);
-			$(currentDiv+".stage").show();
-			//for change stage current image hand position:
-			$(currentDiv+".stage").css('background-position', '0 -2076px');
-			//show stage text:
-			$('.stage6  .stageText').show()
-		});
-		//End Monitoring
-		
-		
-		//Auto Scaling
-		 $('.autoScaling').mouseenter(function(){
-			bgPos = $(currentDiv+".stage").css("background-position")
-			$(currentDiv+".stage").css('background-position', '0 -2422px');
-		});
-		$('.autoScaling').click(function(){
-			//for change slider hand position:
-			$('.stage').hide();
-			$( "#slider-range-min" ).removeClass(currentDivNoDot);
-			currentDivNoDot = "stage7";
-			currentDiv = ".stage7";
-			$( "#slider-range-min" ).addClass(currentDivNoDot);
-			$(currentDiv+".stage").show();
-			//for change stage current image hand position:
-			$(currentDiv+".stage").css('background-position', '0 -2422px');
-			//show stage text:
-			$('.stage7  .stageText').show()
-		});
-		//End Auto Scaling
-		
-		
-		//FailOver
-		 $('.failOver').mouseenter(function(){
-			bgPos = $(currentDiv+".stage").css("background-position")
-			$(currentDiv+".stage").css('background-position', '0 -2768px');
-		});
-		$('.failOver').click(function(){
-			//for change slider hand position:
-			$('.stage').hide();
-			$( "#slider-range-min" ).removeClass(currentDivNoDot);
-			currentDivNoDot = "stage8";
-			currentDiv = ".stage8";
-			$( "#slider-range-min" ).addClass(currentDivNoDot);
-			$(currentDiv+".stage").show();
-			//for change stage current image hand position:
-			$(currentDiv+".stage").css('background-position', '0 -2768px');
-			//show stage text:
-			$('.stage8  .stageText').show()
-		});
-		//End FailOver
-		
+
+
+
+        //float btns for trigger stages when clicking
+        //upload Recipe
+        $('.uploadRecipe').mouseenter(function () {
+            bgPos = $(currentDiv + ".stage").css("background-position")
+            $(currentDiv + ".stage").css('background-position', '0 -346px');
+        });
+        $('.uploadRecipe').click(function () {
+            //for change slider hand position:
+            $('.stage').hide();
+            $("#slider-range-min").removeClass(currentDivNoDot);
+            currentDivNoDot = "stage1";
+            currentDiv = ".stage1";
+            $("#slider-range-min").addClass(currentDivNoDot);
+            $(currentDiv + ".stage").show();
+
+            //for change stage current image hand position:
+            $(currentDiv + ".stage").css('background-position', '0 -346px');
+            //show stage text:
+            $('.stage1  .stageText').show()
+            window.history.pushState("object or string", "devops", "/devops");
+        });
+        //End uploadRecipe
+
+        //Create Vms
+        $('.createVms').mouseenter(function () {
+            bgPos = $(currentDiv + ".stage").css("background-position")
+            $(currentDiv + ".stage").css('background-position', '0 -692px');
+        });
+        $('.createVms').click(function () {
+            //for change slider hand position:
+            $('.stage').hide();
+            $("#slider-range-min").removeClass(currentDivNoDot);
+            currentDivNoDot = "stage2";
+            currentDiv = ".stage2";
+            $("#slider-range-min").addClass(currentDivNoDot);
+            $(currentDiv + ".stage").show();
+
+            //for change stage current image hand position:
+            $(currentDiv + ".stage").css('background-position', '0 -692px');
+            //show stage text:
+            $('.stage2  .stageText').show()
+        });
+        //End Create Vms 
+
+
+        //Install Agent
+        $('.installAgent').mouseenter(function () {
+            bgPos = $(currentDiv + ".stage").css("background-position")
+            $(currentDiv + ".stage").css('background-position', '0 -1038px');
+        });
+        $('.installAgent').click(function () {
+            //for change slider hand position:
+            $('.stage').hide();
+            $("#slider-range-min").removeClass(currentDivNoDot);
+            currentDivNoDot = "stage3";
+            currentDiv = ".stage3";
+            $("#slider-range-min").addClass(currentDivNoDot);
+            $(currentDiv + ".stage").show();
+
+            //for change stage current image hand position:
+            $(currentDiv + ".stage").css('background-position', '0 -1038px');
+            //show stage text:
+            $('.stage3  .stageText').show()
+        });
+        //End Install Agent
+
+
+
+        //Recipe
+        $('.recipe').mouseenter(function () {
+            bgPos = $(currentDiv + ".stage").css("background-position")
+            $(currentDiv + ".stage").css('background-position', '0 -1384px');
+        });
+        $('.recipe').click(function () {
+            //for change slider hand position:
+            $('.stage').hide();
+            $("#slider-range-min").removeClass(currentDivNoDot);
+            currentDivNoDot = "stage4";
+            currentDiv = ".stage4";
+            $("#slider-range-min").addClass(currentDivNoDot);
+            $(currentDiv + ".stage").show();
+
+            //for change stage current image hand position:
+            $(currentDiv + ".stage").css('background-position', '0 -1384px');
+            //show stage text:
+            $('.stage4  .stageText').show()
+        });
+        //End Recipe
+
+        //Install App Services
+        $('.InstallAppServices').mouseenter(function () {
+            bgPos = $(currentDiv + ".stage").css("background-position")
+            $(currentDiv + ".stage").css('background-position', '0 -1730px');
+        });
+        $('.InstallAppServices').click(function () {
+            //for change slider hand position:
+            $('.stage').hide();
+            $("#slider-range-min").removeClass(currentDivNoDot);
+            currentDivNoDot = "stage5";
+            currentDiv = ".stage5";
+            $("#slider-range-min").addClass(currentDivNoDot);
+            $(currentDiv + ".stage").show();
+            //for change stage current image hand position:
+            $(currentDiv + ".stage").css('background-position', '0 -1730px');
+            //show stage text:
+            $('.stage5  .stageText').show()
+        });
+        //End Install App Services
+
+        //Monitoring
+        $('.monitoring').mouseenter(function () {
+            bgPos = $(currentDiv + ".stage").css("background-position")
+            $(currentDiv + ".stage").css('background-position', '0 -2076px');
+        });
+        $('.monitoring').click(function () {
+            //for change slider hand position:
+            $('.stage').hide();
+            $("#slider-range-min").removeClass(currentDivNoDot);
+            currentDivNoDot = "stage6";
+            currentDiv = ".stage6";
+            $("#slider-range-min").addClass(currentDivNoDot);
+            $(currentDiv + ".stage").show();
+            //for change stage current image hand position:
+            $(currentDiv + ".stage").css('background-position', '0 -2076px');
+            //show stage text:
+            $('.stage6  .stageText').show()
+        });
+        //End Monitoring
+
+
+        //Auto Scaling
+        $('.autoScaling').mouseenter(function () {
+            bgPos = $(currentDiv + ".stage").css("background-position")
+            $(currentDiv + ".stage").css('background-position', '0 -2422px');
+        });
+        $('.autoScaling').click(function () {
+            //for change slider hand position:
+            $('.stage').hide();
+            $("#slider-range-min").removeClass(currentDivNoDot);
+            currentDivNoDot = "stage7";
+            currentDiv = ".stage7";
+            $("#slider-range-min").addClass(currentDivNoDot);
+            $(currentDiv + ".stage").show();
+            //for change stage current image hand position:
+            $(currentDiv + ".stage").css('background-position', '0 -2422px');
+            //show stage text:
+            $('.stage7  .stageText').show()
+        });
+        //End Auto Scaling
+
+
+        //FailOver
+        $('.failOver').mouseenter(function () {
+            bgPos = $(currentDiv + ".stage").css("background-position")
+            $(currentDiv + ".stage").css('background-position', '0 -2768px');
+        });
+        $('.failOver').click(function () {
+            //for change slider hand position:
+            $('.stage').hide();
+            $("#slider-range-min").removeClass(currentDivNoDot);
+            currentDivNoDot = "stage8";
+            currentDiv = ".stage8";
+            $("#slider-range-min").addClass(currentDivNoDot);
+            $(currentDiv + ".stage").show();
+            //for change stage current image hand position:
+            $(currentDiv + ".stage").css('background-position', '0 -2768px');
+            //show stage text:
+            $('.stage8  .stageText').show()
+        });
+        //End FailOver
+
     });
 	</script>
 
