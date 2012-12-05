@@ -9,22 +9,19 @@
 	<link rel="stylesheet" href="/css/template.css" type="text/css"/>	
 	<link rel="canonical" href="http://www.cloudifysource.org/blog_raw"/>	
 	<link rel="stylesheet" href="/css/jquery-ui-1.8.17.custom.css" type="text/css" media="all"/>
-	<link rel="stylesheet" type="text/css" href="/scripts/prettify/prettify.css">	
+	<link rel="stylesheet" type="text/css" href="/scripts/prettify/prettify.css">		
+	<link rel="stylesheet" type="text/css" href="/scripts/lightbox/jquery.lightbox-0.5.css" media="screen" />	
 	<link rel="shortcut icon" href="/favicon.ico" type="image/x-icon" />
-	<!--<script type="text/javascript" src="/scripts/jquery-1.6.4.js"></script>-->
-        <script src="/scripts/jquery-1.7.1.js" type="text/javascript"></script> 
-        <script src="/scripts/jquery.zrssfeed.min.js" type="text/javascript"></script>
-	<script src="/scripts/jquery.vticker.js" type="text/javascript"></script>
-	
+	<script type="text/javascript" src="/scripts/jquery-1.6.4.js"></script>
 	<script type="text/javascript" src="/scripts/search.js"></script>
 	<script type="text/javascript" src="/scripts/jquery-ui-1.8.17.custom.min.js"></script>
 	<script type="text/javascript" src="/scripts/jquery.prettyPhoto.js"></script>
 	<script type="text/javascript" src="/scripts/prettify/prettify.js"></script>
-	<!--<script type="text/javascript" src="/scripts/easySlider1.7.js"></script>-->
+	<script type="text/javascript" src="/scripts/easySlider1.7.js"></script>
 	<script type="text/javascript" src="/scripts/version.data.js"></script>
 	<script type="text/javascript" src="/scripts/version.js"></script>
-
-	<script src="http://ajax.aspnetcdn.com/ajax/jquery.validate/1.9/jquery.validate.min.js"></script>
+	<script type="text/javascript" src="/scripts/jquery.lightbox-0.5.js"></script>
+	<!--<script src="http://ajax.aspnetcdn.com/ajax/jquery.validate/1.9/jquery.validate.min.js"></script>
 <script type="text/javascript" >
 (function($,W,D)
 {
@@ -61,77 +58,76 @@
     });
 
 })(jQuery, window, document);
-</script>
+</script>-->
 <script type="text/javascript">
-	//window.onload = function () {
-	jQuery(function(){ 	
-		jQuery('body').addClass("bodyClass");	
+	window.onload = function () {
+		$('body').addClass("bodyClass");	
  	}
 	
-	jQuery(function(){ 
+	$(function(){ 
 	//popup contact form
-		jQuery"li.contactUs,div.contactUsWrapper").mouseenter(function(){
-			jQuery("div.contactUsWrapper").css("visibility","visible");
-			jQuery("a.contactUsLink").css("visibility","hidden");
+		$("li.contactUs,div.contactUsWrapper").mouseenter(function(){
+			$("div.contactUsWrapper").css("visibility","visible");
+			$("a.contactUsLink").css("visibility","hidden");
 		});
-		jQuery("input.cuSend").click(function(){
-			jQuery('.cuValid').hide();
+		$("input.cuSend").click(function(){
+			$('.cuValid').hide();
 		});
-	jQuery("input.cuSend").submit(function(){
-			jQuery("div.contactUsWrapper").css("visibility","hidden")
-			jQuery("a.contactUsLink").css("visibility","visible");
+		$("input.cuSend").submit(function(){
+			$("div.contactUsWrapper").css("visibility","hidden")
+			$("a.contactUsLink").css("visibility","visible");
 	
 		});
-		jQuery("a.contactUsWrapperClose").click(function(){
-				jQuery("div.contactUsWrapper").css("visibility","hidden")
-			jQuery("a.contactUsLink").css("visibility","visible");
+		$("a.contactUsWrapperClose").click(function(){
+				$("div.contactUsWrapper").css("visibility","hidden")
+				$("a.contactUsLink").css("visibility","visible");
 			});	
 	//end popup contact form
-		jQuery("a.youtube").YouTubePopup({ hideTitleBar: true });
-		jQuery("div.expand").hide();
+		$("a.youtube").YouTubePopup({ hideTitleBar: true });
+		$("div.expand").hide();
 		
 		
-		jQuery("li.expandBtn").click(function(){	
-			jQuery(this).next("div.expand").slideToggle(500);
-			if(jQuery(this).html()=="More..."){
-				jQuery(this).html("Less...");	
+		$("li.expandBtn").click(function(){	
+			$(this).next("div.expand").slideToggle(500);
+			if($(this).html()=="More..."){
+				$(this).html("Less...");	
 			}else{
-				jQuery(this).html("More...");
+				$(this).html("More...");
 			}
 		});
 		
 	   /* ------------- added by Yaron/modified by Shlomo ------------ */
-		jQuery("#closeBut").parent().hide();
-		jQuery("#values").hide();
-		jQuery("span.pln, span.kwd").hover(function(eventObject){
+		$("#closeBut").parent().hide();
+		$("#values").hide();
+		$("span.pln, span.kwd").hover(function(eventObject){
 			var keys = {"name":true, "provider":true, "user":true, "value":true};
-			var currKey = jQuery(eventObject.currentTarget).text().trim();
+			var currKey = $(eventObject.currentTarget).text().trim();
 			if (keys[currKey]) {
-				var prevKey = jQuery(eventObject.currentTarget).prevUntil("span.pun:contains('{')").last().prev().prev("span.pln").text().trim() ? $(eventObject.currentTarget).prevUntil("span.pun:contains('{')").last().prev().prev("span.pln").text().trim() : $(eventObject.currentTarget).prev().prev("span.pln").text().trim();
+				var prevKey = $(eventObject.currentTarget).prevUntil("span.pun:contains('{')").last().prev().prev("span.pln").text().trim() ? $(eventObject.currentTarget).prevUntil("span.pun:contains('{')").last().prev().prev("span.pln").text().trim() : $(eventObject.currentTarget).prev().prev("span.pln").text().trim();
 				currKey = prevKey + "_" + currKey;
 			}
 			if (messages[currKey]) {
-				var tooltip = jQuery(".overlay"),
-					position = jQuery(eventObject.currentTarget).offset();
-				jQuery(this).css({"background-color":"#CECECE", "cursor" : "help"});
+				var tooltip = $(".overlay"),
+					position = $(eventObject.currentTarget).offset();
+				$(this).css({"background-color":"#CECECE", "cursor" : "help"});
 				var message = messages[currKey].split("::"); console.log(message);
-				jQuery("#desc",tooltip).text(message[0].trim());
+				$("#desc",tooltip).text(message[0].trim());
 				if (message[1] && message[1].trim().toLowerCase() == "required") {
-					jQuery("#required").prev().show();
-					jQuery("#required").show();
-					jQuery("#required").next().show();
-					jQuery("#required").css("color", "red");
-					jQuery("#required").text("Required");
+					$("#required").prev().show();
+					$("#required").show();
+					$("#required").next().show();
+					$("#required").css("color", "red");
+					$("#required").text("Required");
 				} else {
-					jQuery("#required").prev().hide();
-					jQuery("#required").hide();
-					jQuery("#required").next().hide();
+					$("#required").prev().hide();
+					$("#required").hide();
+					$("#required").next().hide();
 				}
 				tooltip.show().offset({ top: position.top + tooltip.scrollTop() - 50, left: position.left + 100});
-				jQuery("#tipImg").position();
+				$("#tipImg").position();
 			}}, function(){
-				jQuery(".overlay").offset({top:0,left:0}).hide();
-				jQuery(this).css("background-color","transparent");
+				$(".overlay").offset({top:0,left:0}).hide();
+				$(this).css("background-color","transparent");
 		});
 	});
 	
@@ -364,6 +360,11 @@ $("body").live('change', function(){
 
 <div class="leftContentBox blogLeftBox"> 
    
+	<a href="/2012/12/05/cloudify_2_2_and_roadmap.html">Cloudify 2.2 and Roadmap 
+	 <img class="noMargin" src="/images/arrow-right-blue.png" /></a><br />
+	<span class="date">December  5, 2012</span>  
+	<br/><br/>
+  
 	<a href="/2012/11/08/using_websphere_wsadmin_tool_on_any_cloud.html">Using WebSphere's wsadmin tool on any Cloud 
 	 <img class="noMargin" src="/images/arrow-right-blue.png" /></a><br />
 	<span class="date">November  8, 2012</span>  
@@ -373,11 +374,6 @@ $("body").live('change', function(){
 	 <img class="noMargin" src="/images/arrow-right-blue.png" /></a><br />
 	<span class="date">November  2, 2012</span>  
 	<br/><br/>
-  
-	<a href="/2012/10/30/moving_enterprise_workloads_to_the_cloud_on_a_massive_scale.html">Moving Enterprise Workloads to the Cloud on a Massive Scale 
-	 <img class="noMargin" src="/images/arrow-right-blue.png" /></a><br />
-	<span class="date">October 30, 2012</span>  
-	<br/><br/>
 		
 </div>
 
@@ -385,37 +381,51 @@ $("body").live('change', function(){
                  <div class="leftContentBox blogLeft-topTitle blog-left-title2 tumblr">
                         <h3>CloudifySource on Tumblr</h3>
                  </div>   
-                <div class="tumblrFeed leftContentBox">                     
-                
+                <div class="leftContentBox">                     
+                <!-- start sw-rss-feed code --> 
+                <script type="text/javascript"> 
+                <!-- 
+                rssfeed_url = new Array(); 
+                rssfeed_url[0]="http://cloudifysource.tumblr.com/rss";  
+                rssfeed_frame_width="230"; 
+                rssfeed_frame_height="250"; 
+                rssfeed_scroll="on"; 
+                rssfeed_scroll_step="6"; 
+                rssfeed_scroll_bar="off"; 
+                rssfeed_target="_blank"; 
+                rssfeed_font_size="11"; 
+                rssfeed_font_face="Trebuchet MS,Helvetica,Arial,Sans-serif"; 
+                rssfeed_border="off"; 
+                rssfeed_css_url=""; 
+                rssfeed_title="off"; 
+                rssfeed_title_name=""; 
+                rssfeed_title_bgcolor="#393939"; 
+                rssfeed_title_color="#393939"; 
+                rssfeed_title_bgimage="http://"; 
+                rssfeed_footer="off"; 
+                rssfeed_footer_name="rss feed"; 
+                rssfeed_footer_bgcolor="#fff"; 
+                rssfeed_footer_color="#333"; 
+                rssfeed_footer_bgimage="http://"; 
+                rssfeed_item_title_length="50"; 
+                rssfeed_item_title_color="#246F96"; 
+                rssfeed_item_bgcolor="#none"; 
+                rssfeed_item_bgimage="http://"; 
+                rssfeed_item_border_bottom="on"; 
+                rssfeed_item_source_icon="off"; 
+                rssfeed_item_date="off"; 
+                rssfeed_item_description="on"; 
+                rssfeed_item_description_length="120"; 
+                rssfeed_item_description_color="#393939"; 
+                rssfeed_item_description_link_color="#333"; 
+                rssfeed_item_description_tag="off"; 
+                rssfeed_no_items="0"; 
+                rssfeed_cache = "f2f79ba4f12501d5f8454c1d22c042c4"; 
+                //--> 
+                </script> 	
+                <!-- end sw-rss-feed code -->
                 </div>
-			<script type="text/javascript" >                                				
-jQuery.noConflict();
-(function($) { 
-  $(function() {
-	$('.tumblrFeed').rssfeed('http://cloudifysource.tumblr.com/rss',{
-		header: false,
-		titletag: 'div',
-		date: false,
-		content: true,
-		linktarget:'_blank',
-		}, function(e) {
-		$.zazar.ticker({selector: '.tumblrFeed ul'});
-		});
-	}); 
- })(jQuery);				
-				
-				
-				
-				
-				
-				
-			</script>  
-		<!--end-->
-		
-		
-		
-		
-
+<!--end-->
 
 
 <div class="leftContentBox blogLeft-topTitle">
@@ -433,7 +443,25 @@ jQuery.noConflict();
 	
 
 	
+<li><a href="/2012/12">December 2012</a> <span class="blue">(1)</span></li>
+
+	
+
+	
+		
+			
 <li><a href="/2012/11">November 2012</a> <span class="blue">(2)</span></li>
+
+			
+		
+	
+
+	
+	
+	
+	
+	
+	
 
 	
 
@@ -1004,6 +1032,38 @@ jQuery.noConflict();
 
 <div class="blogtPostBox">
   <div class="blogInfoLeft">
+    <img title="Yaron Parasol" width="80" height="96" src="/images/yaron.jpg" />
+  </div>  
+  <div class="blogInfoRight">
+    <a href="/2012/12/05/cloudify_2_2_and_roadmap.html" class="title">Cloudify 2.2 and Roadmap</a>
+	  <div class="blogPostInfo">
+	  <br/>	  	 
+	    <span>Posted By: <a href="#">Yaron Parasol</a>  on  December  5, 2012  <!--|  in <a href="/categories/"></a> --></span>
+	  </div>	  	  	
+      <p>
+		
+			<p>Hi Cloudifiers, It&#8217;s always fun to tell you about new features and possibilities. This time it&#8217;s double the fun, as we debut a new version, but are already working on another one that will be coming out pretty soon. Let&#8217;s start with version 2.2. I think the icing on the...</p>
+			
+		<p class><a href="/2012/12/05/cloudify_2_2_and_roadmap.html">Read more...</a></p>	  	  
+	  </p>
+		<span>  Tags:
+			
+			  <a class="postTag" href="/tags/Cloudify">Cloudify (29)</a>
+			
+			  <a class="postTag" href="/tags/Chef">Chef (5)</a>
+			
+			  <a class="postTag" href="/tags/Version">Version (1)</a>
+			
+			  <a class="postTag" href="/tags/News">News (1)</a>
+			
+		</span>
+	    
+  </div>
+  <div class="clear" ></div>    
+</div>
+
+<div class="blogtPostBox">
+  <div class="blogInfoLeft">
     <img title="Tamir Korem" width="80" height="96" src="/images/tamir.jpg" />
   </div>  
   <div class="blogInfoRight">
@@ -1125,40 +1185,6 @@ jQuery.noConflict();
 			  <a class="postTag" href="/tags/Cloud Deployment">Cloud Deployment (1)</a>
 			
 			  <a class="postTag" href="/tags/Disaster Recovery">Disaster Recovery (1)</a>
-			
-		</span>
-	    
-  </div>
-  <div class="clear" ></div>    
-</div>
-
-<div class="blogtPostBox">
-  <div class="blogInfoLeft">
-    <img title="Nati Shalom" width="80" height="96" src="/images/nati.png" />
-  </div>  
-  <div class="blogInfoRight">
-    <a href="/2012/10/18/paas_as_infrastructure.html" class="title">PaaS as Infrastructure</a>
-	  <div class="blogPostInfo">
-	  <br/>	  	 
-	    <span>Posted By: <a href="#">Nati Shalom</a>  on  October 18, 2012  <!--|  in <a href="/categories/"></a> --></span>
-	  </div>	  	  	
-      <p>
-		
-			<p>The blurring line between PaaS and IaaS&nbsp; The core of IaaS services is centered around &nbsp;Compute, Storage Network however over the past years the infrastructure moved up the stack and includes more application services such as Database as a Service, Hadoop Map/Reduce, and application lifecycle services.&nbsp; On the other hand,...</p>
-			
-		<p class><a href="/2012/10/18/paas_as_infrastructure.html">Read more...</a></p>	  	  
-	  </p>
-		<span>  Tags:
-			
-			  <a class="postTag" href="/tags/Cloudify">Cloudify (28)</a>
-			
-			  <a class="postTag" href="/tags/PaaS">PaaS (11)</a>
-			
-			  <a class="postTag" href="/tags/IaaS">IaaS (2)</a>
-			
-			  <a class="postTag" href="/tags/Chef">Chef (4)</a>
-			
-			  <a class="postTag" href="/tags/MySQL">MySQL (2)</a>
 			
 		</span>
 	    
