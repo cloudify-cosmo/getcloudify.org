@@ -2,7 +2,6 @@
         "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 {% include head_section.html %}
-
 <body>
 <a class="fork-guide" target="_blank" href="https://github.com/CloudifySource/cloudify"></a>        
 <div class="WrapperBg">
@@ -31,12 +30,13 @@
 
 
 <script type="text/javascript" >
+alert("slider page is " + {{ sliderPage}} );
     $(function () {
         //slider
         var currentNum;
         var visStage;
         var visStageText;
-        var value = 2; // set 0 - 8 for set the first stage that you want to see on page load.
+        var value = {{ sliderPage }}; // set 0 - 8 for set the first stage that you want to see on page load.
         var currentDiv = '.stage' + value;
         var currentDivNoDot = 'stage' + value;
         var currentDivClass;
