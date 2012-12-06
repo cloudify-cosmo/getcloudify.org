@@ -511,6 +511,7 @@ document.write(unescape("%3Cscript src='http://test.activeinsight.net/trw.js' ty
             slide: function (event, ui) {
                 $("#amount").val(ui.value);
                 $("#slider-range-min").removeClass(currentDivNoDot);
+                $(currentDiv+ '.stage').css('background-position', '')
                 $(currentDiv).hide();
                 //$('.stage').attr('style', '');
                 currentNum = $("#amount").val(ui.value).val();
