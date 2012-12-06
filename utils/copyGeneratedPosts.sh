@@ -7,7 +7,7 @@
 # tags page* 2011 2012 etc... (all the posts paging related folders.
 
 clear
-CURRENT_VERSION=2.2
+CURRENT_VERSION=2.3
 
 EXCLUDED_DIRS="css downloads guide images scripts webfonts"
 
@@ -26,7 +26,7 @@ rm -rf ${DEST_FOLDER}/20*
 
 aZero=0
 #rem Go over folders and copy ONLY the relevant files and folders
-for currFolder in `ls -l ${SRC} | grep "^d" | awk {'print $9'}`
+for currFolder in `ls -l ${SRC} | grep "^d" | grep -v "how" | awk {'print $9'}`
  do
    folderExcluded=`echo ${EXCLUDED_DIRS} | grep -c "${currFolder}"`
    if [ $folderExcluded -eq $aZero ]; then

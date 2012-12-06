@@ -73,6 +73,7 @@ set currFolder=%2
 set includeFolder=true
 echo %EXCLUDED_DIRS% | findstr /c:%currFolder% >nul && set includeFolder=false||set includeFolder=true
 if "%includeFolder%" == "true" (
+  if "%2" == "how" goto end
   echo Copying %currFolder% folder from %1\%2 to %DEST_FOLDER%\%2\...
   xcopy /S/Y %1\%2 %DEST_FOLDER%\%2\
   echo Copied %currFolder% folder
