@@ -30,6 +30,7 @@ The following table is a list and brief description of the available Cloudify co
 |"connect":#connect|Connects to the specified admin REST server |
 |"disconnect":#disconnect|Disconnects from the specified admin REST server |
 |"exit":#exit|Exits the shell |
+|"get-template":#get_template|Gets a cloud's template |
 |"help":#help|Lists all the available commands |
 |"install-application":#install_app|Installs an application. If you specify a folder, the folder is packed and deployed. If you specify an application archive, the archive file is deployed. |
 |"install-service":#install_srv|Installs a service. If you specify a folder, the folder is packed and deployed. If you specify a service archive, the archive file is deployed. |
@@ -37,7 +38,9 @@ The following table is a list and brief description of the available Cloudify co
 |"list-applications":#list_apps|Lists all deployed applications |
 |"list-attributes":#list_attrs|Lists attributes in the cloudify controller attribute store |
 |"list-instances":#list_instances|Lists all instances of the specified service |
+|"list-templates":#list_templates|List all the cloud's templates |
 |"list-service":#list_srvs|Lists all deployed services for the current application |
+|"remove-template":#remove_template|Removes templates from the cloud |
 |"quit":#quit|Exits the shell |
 |"set-attributes":#set_attrs|Sets attributes in the cloudify controller attribute store |
 |"set-instances":#set_instances|Sets the number of instances of an elastic service |
@@ -115,6 +118,12 @@ h2(#exit). exit
 <script src="https://gist.github.com/2863108.js"> </script>
 "back":#commands
 
+
+h2(#get_template). get-template
+
+<script src="https://gist.github.com/4244739.js?file=getTemplate"></script>
+"back":#commands
+
 h2(#help). help
 
 <script src="https://gist.github.com/2863110.js"> </script>
@@ -150,9 +159,21 @@ h2(#list_instances). list-instances
 <script src="https://gist.github.com/2863146.js"> </script>
 "back":#commands
 
+h2(#list_templates). list-templates
+
+<script src="https://gist.github.com/4244735.js?file=listTemplates"></script>
+"back":#commands
+
+
 h2(#list_srvs). list-services
 
 <script src="https://gist.github.com/2863150.js"> </script>
+"back":#commands
+
+
+h2(#remove_template). remove-template
+
+<script src="https://gist.github.com/4244720.js?file=remove-template"></script>
 "back":#commands
 
 h2(#quit). quit
