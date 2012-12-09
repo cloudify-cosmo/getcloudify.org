@@ -24,9 +24,12 @@ The following is a list of supported cloud provider configurations :
 
 h2. Bootstrapping
 
-Bootstrapping a cloud is extremely simple, just follow the "bootstrapping":../bootstrapping/bootstrapping_process#boot procedure, typing the following command in step 2: <span class="snippet">bootstrap-cloud cloudProviderName</span>
+Bootstrapping a cloud is extremely simple. Just follow the "bootstrapping":../bootstrapping/bootstrapping_process#boot procedure and type the following command: <span class="snippet">bootstrap-cloud cloudProviderName</span>
 For example, for Amazon EC2, type : <span class="snippet">bootstrap-cloud ec2</span>
 
+The above will use the cloud driver properties which are located in the cloudProviderName folder @&lt;cloudifyRoot&gt;/tools/cli/plugins/esc/cloudProviderName@, but you can override these properties during bootstrapping.
+To do so, simply type: <span class="snippet">bootstrap-cloud -cloud-overrides PATH_TO_PROPERTIES_FILE cloudProviderName</span>
+For example, for Amazon EC2, type : <span class="snippet">bootstrap-cloud -cloud-overrides myFile.properties ec2</span>
 
 h2(#tear). Teardown
 
