@@ -17,6 +17,12 @@ The following procedure describes the steps for deploying your application:
 # Connect to the REST service--At the Cloudify shell prompt, type: *@connect@* @<RESTservice>@
 # Deploy the application--At the Cloudify shell prompt, type: *@install-application@* @<appName>@
 
+h3(#dsbl). Disable Self Healing
+
+Setting the *disableSelfHealing* option in the install command will prevent the service instances from shutting down in case of an error in a lifecycle event. The service will just remain in an error state until the service is uninstalled. 
+This is useful for debugging applications in actual cloud environments.
+e.g : At the Cloudify shell prompt, type: *@install-application@* @-disableSelfHealing@ @<appName>@
+
 h3. Deploying with properties (Recipe Parameterization)
 
 During the installation you can use an external properties file to override properties in the application and services recipes.
