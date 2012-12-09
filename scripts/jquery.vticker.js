@@ -15,7 +15,6 @@
 
 
 (function($){
-
 	$.zazar = {
 		all: function() {
 
