@@ -64,7 +64,15 @@
 <script type="text/javascript">
    $(window).bind("load", function() {
         //rss feed slider						
-        $('.tumblerFeed').rssfeed('http://cloudifysource.tumblr.com/rss', {}, function (e) {
+        $('.tumblerFeed').rssfeed('http://cloudifysource.tumblr.com/rss', {
+        	header: false,
+        	titletag: 'div',
+        	date: false,
+        	content: true,
+        	linktarget:'_blank',
+        }
+        
+        , function (e) {
             $(e).find('div.rssBody').vTicker({ showItems: 1 });
         });
     });                                
