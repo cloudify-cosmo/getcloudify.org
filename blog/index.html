@@ -394,20 +394,10 @@ $("body").live('change', function(){
 				<script type="text/javascript" >                                
 				$(function() {
 					//jQuery.noConflict();
-						//rss feed slider
-						$('.tumblerFeed').rssfeed('http://cloudifysource.tumblr.com/rss',{
-							header: false,
-							titletag: 'div',
-							date: false,
-							content: true,
-							linktarget:'_blank',
-						}, function(e) {
-							$.zazar.ticker({selector: '.tumblerFeed ul'});
-						});
-						
-						//$('#ticker2').rssfeed('http://feeds.bbc.co.uk/iplayer/highlights/tv',{}, function(e) {
-							//$(e).find('div.rssBody').vTicker({ showItems: 1});
-					//	});
+						//rss feed slider						
+						$('.tumblerFeed').rssfeed('http://feeds.bbc.co.uk/iplayer/highlights/tv',{}, function(e) {
+							$(e).find('div.rssBody').vTicker({ showItems: 1});
+					});
 					});                                
 				</script>   
                 </div>
