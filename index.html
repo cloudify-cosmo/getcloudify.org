@@ -200,8 +200,14 @@ jQuery(function() {
 			date: false,
 			content: true,
 			linktarget:'_blank',
-		}, function(e) {
-			jQuery.zazar.ticker({selector: '.blogFeed ul'});
+		}, 
+		
+		//function(e) {
+			//jQuery.zazar.ticker({selector: '.blogFeed ul'});
+		//});
+		
+		function(e) {
+			jQuery(e).find('div.rssBody').vTicker({ showItems: 1});
 		});
 		
 		
@@ -211,8 +217,14 @@ jQuery(function() {
 			date: false,
 			content: true,
 			linktarget:'_blank',
-		}, function(e) {
-			jQuery.zazar.ticker({selector: '.newsFeed ul'});
+		}, 
+		
+		//function(e) {
+			//jQuery.zazar.ticker({selector: '.newsFeed ul'});
+		//});
+		
+		function(e) {
+			jQuery(e).find('div.rssBody').vTicker({ showItems: 1});
 		});
 	});                                
 </script>                                
