@@ -15,7 +15,7 @@
 
 
 (function($){
-
+$.noConflict();
 	$.zazar = {
 		all: function() {
 
