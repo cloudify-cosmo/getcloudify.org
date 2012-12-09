@@ -83,6 +83,25 @@ You can script inline or point to an uploaded script as shown in the following e
 <br/>
 
 
+h2(#addtmp). Adding templates 
+
+After the "bootstrapping process":../bootstrapping/bootstrapping_process is over, you may add more templates to the cloud.
+Simply use the "add-templates":../recipe/command_line_reference#add_templates CLI command as follows: <span class="snippet">add-templates [directory or file path] </span>
+
+* If the path is to a groovy file, then the file should be named *-tempalte.groovy and it should be the only one with that suffix in its directory. 
+  All the files in its directory will be copied to the management machine together with the groovy file itself.
+  
+* If the path is to a folder or of a zip file, then the folder (or the unzipped folder) should include at least one template file (a file that ends with @-template.groovy@ and all the required files for evaluating the template files (e.g. the upload folder).
+
+All the template groovy files that have prefix other than the template's name, will be renamed to &lt;template name&gt;-template.groovy.
+For example &#34;linux-template.groovy&#34; will become &#34;SMALL_LINUX-template.groovy&#34;.
+Properties and overrides files will be renamed in the same manner.
+
+h4(info). Only one template per groovy file is allowed. - If a groovy file contains more than one template, then an exception will be thrown and no templates will be added.
+				
+h4(impt). Templates that already exist, will NOT be overridden.
+
+
 h2. The Default Cloud Driver
 
 Cloudify comes with a built-in cloud driver implementation that is based on the popular "jclouds":http://www.jclouds.org framework. This cloud driver enables you to deploy Cloudify services for many cloud providers and APIs. For a full listing of supported clouds, see "jclouds : Supported Providers":http://www.jclouds.org/documentation/reference/supported-providers.
