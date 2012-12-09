@@ -57,6 +57,14 @@
 })(jQuery, window, document);
 </script>-->
 <script type="text/javascript">
+    $(window).bind("load", function () {
+        //rss feed slider						
+        $('.tumblrFeed').rssfeed('http://cloudifysource.tumblr.com/rss', {}, function (e) {
+            $(e).find('div.rssBody').vTicker({ showItems: 1 });
+        });
+    });                                
+</script>
+<script type="text/javascript">
 	window.onload = function () {
 		$('body').addClass("bodyClass");	
  	}
