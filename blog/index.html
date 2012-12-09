@@ -392,18 +392,22 @@ $("body").live('change', function(){
                  </div>   
                 <div class="leftContentBox tumblerFeed">                     
 				<script type="text/javascript" >                                
-				jQuery(function() {
-					jQuery.noConflict();
+				$(function() {
+					//jQuery.noConflict();
 						//rss feed slider
-						jQuery('.tumblerFeed').rssfeed('http://cloudifysource.tumblr.com/rss',{
+						$('.tumblerFeed').rssfeed('http://cloudifysource.tumblr.com/rss',{
 							header: false,
 							titletag: 'div',
 							date: false,
 							content: true,
 							linktarget:'_blank',
 						}, function(e) {
-							jQuery.zazar.ticker({selector: '.tumblerFeed ul'});
+							$.zazar.ticker({selector: '.tumblerFeed ul'});
 						});
+						
+						//$('#ticker2').rssfeed('http://feeds.bbc.co.uk/iplayer/highlights/tv',{}, function(e) {
+							//$(e).find('div.rssBody').vTicker({ showItems: 1});
+					//	});
 					});                                
 				</script>   
                 </div>
