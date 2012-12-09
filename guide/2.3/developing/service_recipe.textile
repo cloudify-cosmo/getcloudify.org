@@ -45,13 +45,28 @@ The following shows an example of the *General* section.
 
 h3(#mtd). Isolation SLA (Multi Tenant Deployment)
 
-Cloudify allows deployment of several services on the same host. Please note that this feature is currently tested for the BYON Cloud Driver only.
+Cloudify allows deployment of several services on the same host. 
 The purpose of this feature is to maximize utilization of phyiscal hosts when used as a cloud under BYON. 
-There are 2 supported modes:
-* dedicated - The host will be dedicated to this service instance only, no other services will be deployed on this host. This is the default.
-* global - The host can be share by all applications and tenants based on projected capacity as expressed in the Isolation SLA section
+There are four supported modes:
+# *dedicated* (default) - The host will be dedicated to this service instance only. No other services will be deployed on this host.
+# *global* - The host can be shared by all applications and tenants based on projected capacity as expressed in the Isolation SLA section
+# *appShared* - Services belonging to the same application may share machines.
+# *tenantShared* - Services belonging to the same authentication Group may share machines.
 
+h4(impt). In the current version, you *cannot* install services nor applications on the management machines. We will change it in one of our next versions.
+
+<br/>
+Here's example of usage:
+ 
 <script src="https://gist.github.com/4058818.js"> </script>
+
+You can define one of the following in the -service.groovy file :
+
+<script src="https://gist.github.com/4244273.js?file=isolationSLA.groovy"></script>
+
+h4(info). If none are defined, then a dedicated isolation is used, which means that service instances may NOT share machines.
+
+h4(impt). Please note that this feature is currently tested for the BYON Cloud Driver only.
 
 h2. Loading Sections from a File
 
