@@ -191,10 +191,11 @@ category: home
                                 Blog Post</a>
                                 
 <script type="text/javascript" >                                
-jQuery(function() {
-	jQuery.noConflict();
+//jQuery(function() {
+	//jQuery.noConflict();
+	$(window).bind("load", function() {
 		//rss feed slider
-		jQuery('.blogFeed').rssfeed('http://www.cloudifysource.org/atom.xml',{
+		$('.blogFeed').rssfeed('http://www.cloudifysource.org/atom.xml',{
 			header: false,
 			titletag: 'div',
 			date: false,
@@ -202,16 +203,13 @@ jQuery(function() {
 			linktarget:'_blank',
 		}, 
 		
-		//function(e) {
-			//jQuery.zazar.ticker({selector: '.blogFeed ul'});
-		//});
 		
 		function(e) {
-			jQuery(e).find('div.rssBody').vTicker({ showItems: 1});
+			$(e).find('div.rssBody').vTicker({ showItems: 1});
 		});
 		
 		
-		jQuery('.newsFeed').rssfeed('http://cloudifysource.tumblr.com/rss',{
+		$('.newsFeed').rssfeed('http://cloudifysource.tumblr.com/rss',{
 			header: false,
 			titletag: 'div',
 			date: false,
@@ -219,12 +217,10 @@ jQuery(function() {
 			linktarget:'_blank',
 		}, 
 		
-		//function(e) {
-			//jQuery.zazar.ticker({selector: '.newsFeed ul'});
-		//});
+
 		
 		function(e) {
-			jQuery(e).find('div.rssBody').vTicker({ showItems: 1});
+			$(e).find('div.rssBody').vTicker({ showItems: 1});
 		});
 	});                                
 </script>                                
