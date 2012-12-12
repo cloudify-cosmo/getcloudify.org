@@ -11,7 +11,13 @@ $(document).ready(function () {
         pageTitle:pageTitle
     }
 
-    $('#searchForm').click(function () {
+   // $('#searchForm').submit(function () {
+       // googleSearch();
+       // return false;
+   // });
+    
+    
+   $('#goBtn').click(function () {
         googleSearch();
         return false;
     });
