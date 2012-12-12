@@ -29,9 +29,8 @@ mixpanel.people.set({
     $first_name: grabEmail,
     $created: new Date(),
     $last_seen:new Date(),
-    "referrer": document.referrer,
     });
-
+mixpanel.people.set("referrer", document.referrer);
 
 
 
