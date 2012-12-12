@@ -34,8 +34,10 @@ $(function(){
 mixpanel.track_forms("#searchForm", "Search",{'page name' : document.title, 'url' :  window.location.pathname});
 $(function(){ 
 	$("#goBtn").click(function() {
+		
 	var value = $('#search').val();
 	    mixpanel.track("Search",{"keyword": value}); 
+	    googleSearch();
 	});
 });
 
