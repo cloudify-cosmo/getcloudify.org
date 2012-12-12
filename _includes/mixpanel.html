@@ -38,6 +38,7 @@ $(function(){
 	var value = $('#search').val();
 	    mixpanel.track("Search",{"keyword": value}); 
 	    googleSearch();
+	    return false;
 	});
 });
 
