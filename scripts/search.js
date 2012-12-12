@@ -17,7 +17,7 @@ $(document).ready(function () {
     });
 
 
-    $('.learnFrom').click(function () {
+    $('.deployApp').click(function () {
         googleSearch();
         return false;
     });
