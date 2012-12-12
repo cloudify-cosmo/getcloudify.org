@@ -24,11 +24,12 @@ var currEmail = document.getElementById("mce-EMAIL").value;
   mixpanel.name_tag(currEmail);
   grabEmail=$("input#mce-EMAIL").val();
   mixpanel.people.identify(grabEmail);
-mixpanel.people.set("referrer", document.referrer{
+mixpanel.people.set({
     $email: grabEmail,
     $first_name: grabEmail,
     $created: new Date(),
     $last_seen:new Date(),
+    "referrer": document.referrer,
     });
 
 
