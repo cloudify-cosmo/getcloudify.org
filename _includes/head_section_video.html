@@ -107,17 +107,15 @@
 		$(list_data).appendTo(".videoThumbs");<!-- push li to ul.videoThumbs -->
 		
 		<!--make the prev next pageination-->
-		$('#paging_container3').pajinate({
-			num_page_links_to_display : 3,
-			items_per_page : 5,
-			wrap_around: true,
-			show_first_last: false,
-			item_container_id : '.videoThumbs',
-			nav_panel_id : '.alt_page_navigation'
-			
-			
-		
-		});
+		//$('#paging_container3').pajinate({
+		//	num_page_links_to_display : 3,
+		//	items_per_page : 5,
+		//	wrap_around: true,
+		//	show_first_last: false,
+		//	item_container_id : '.videoThumbs',
+		//	nav_panel_id : '.alt_page_navigation'
+
+	//	});
 		
 		
 		
@@ -181,6 +179,32 @@
 
 
 		});
+		
+		
+		
+		
+		
+		
+		
+	<!--make the prev next pageination-->
+		$(window).bind("load", function () {
+			$('#paging_container3').pajinate({
+			num_page_links_to_display : 3,
+			items_per_page : 5,
+			wrap_around: true,
+			show_first_last: false,
+			item_container_id : '.videoThumbs',
+			nav_panel_id : '.alt_page_navigation'
+			
+			
+		
+		});
+		});	
+		
+		
+		
+		
+		
 	
 	</script>
     
