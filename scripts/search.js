@@ -1,6 +1,6 @@
 $(document).ready(function () {
 
-    $("resultsDiv").hide();
+    $("resultsDiv").empty();
     var pageTitle = $(".pageTitle").text();
     var config = {
         apiURL:'https://www.googleapis.com/customsearch/v1',
