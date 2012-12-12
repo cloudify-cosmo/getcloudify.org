@@ -216,8 +216,11 @@ $(function(){
 mixpanel.track_forms("#searchForm", "Search",{'page name' : document.title, 'url' :  window.location.pathname});
 $(function(){ 
 	$("#goBtn").click(function() {
+		
 	var value = $('#search').val();
 	    mixpanel.track("Search",{"keyword": value}); 
+	    googleSearch();
+	    return false;
 	});
 });
 
@@ -239,6 +242,8 @@ $("body").live('change', function(){
 	  mixpanel.people.set({
 	  $email: currEmail,
 	  $first_name: currEmail,
+	  $created: new Date(),
+	  $last_seen:new Date(),
 	  });
 	} return { type: $(ele).attr('type'),email: currEmail}
 	});
@@ -376,6 +381,11 @@ $("body").live('change', function(){
 
 <div class="leftContentBox blogLeftBox"> 
    
+	<a href="/2012/12/12/cloud_deployment_enterprise_paas.html">Enterprises Taking Off to the Cloud(s) 
+	 <img class="noMargin" src="/images/arrow-right-blue.png" /></a><br />
+	<span class="date">December 12, 2012</span>  
+	<br/><br/>
+  
 	<a href="/2012/12/05/cloudify_2_2_and_roadmap.html">Cloudify 2.2 and Roadmap 
 	 <img class="noMargin" src="/images/arrow-right-blue.png" /></a><br />
 	<span class="date">December  5, 2012</span>  
@@ -384,11 +394,6 @@ $("body").live('change', function(){
 	<a href="/2012/11/08/using_websphere_wsadmin_tool_on_any_cloud.html">Using WebSphere's wsadmin tool on any Cloud 
 	 <img class="noMargin" src="/images/arrow-right-blue.png" /></a><br />
 	<span class="date">November  8, 2012</span>  
-	<br/><br/>
-  
-	<a href="/2012/11/02/moving_enterprise_workloads_to_the_cloud_on_a_massive_scale_cloudify_way.html">Moving Enterprise Workloads to the Cloud on a Massive Scale - The Cloudify Way 
-	 <img class="noMargin" src="/images/arrow-right-blue.png" /></a><br />
-	<span class="date">November  2, 2012</span>  
 	<br/><br/>
 		
 </div>
@@ -418,7 +423,22 @@ $("body").live('change', function(){
 	
 
 	
-<li><a href="/2012/12">December 2012</a> <span class="blue">(1)</span></li>
+<li><a href="/2012/12">December 2012</a> <span class="blue">(2)</span></li>
+
+	
+
+	
+		
+			
+		
+	
+
+	
+	
+	
+	
+	
+	
 
 	
 
@@ -1007,6 +1027,34 @@ $("body").live('change', function(){
 
 <div class="blogtPostBox">
   <div class="blogInfoLeft">
+    <img title="Tamir Korem" width="80" height="96" src="/images/tamir.jpg" />
+  </div>  
+  <div class="blogInfoRight">
+    <a href="/2012/09/19/hi_cloudsters.html" class="title">Community Update - Sep 19th 2012</a>
+	  <div class="blogPostInfo">
+	  <br/>	  	 
+	    <span>Posted By: <a href="#">Tamir Korem</a>  on  September 19, 2012  <!--|  in <a href="/categories/"></a> --></span>
+	  </div>	  	  	
+      <p>
+		
+			<p>Hi Cloudsters, Just a quick update on the things we&#8217;ve been working on lately: &nbsp; &nbsp;Chef Integration &nbsp;&nbsp;&nbsp; We have been enhancing the integration with the DevOps tool Chef. For those who are not familiar with Chef, it is an excellent tool for setting up your environment and automating complex...</p>
+			
+		<p class><a href="/2012/09/19/hi_cloudsters.html">Read more...</a></p>	  	  
+	  </p>
+		<span>  Tags:
+			
+			  <a class="postTag" href="/tags/Cloudify">Cloudify (29)</a>
+			
+			  <a class="postTag" href="/tags/Cloud">Cloud (15)</a>
+			
+		</span>
+	    
+  </div>
+  <div class="clear" ></div>    
+</div>
+
+<div class="blogtPostBox">
+  <div class="blogInfoLeft">
     <img title="Nati Shalom" width="80" height="96" src="/images/nati.png" />
   </div>  
   <div class="blogInfoRight">
@@ -1027,7 +1075,7 @@ $("body").live('change', function(){
 			
 			  <a class="postTag" href="/tags/Cloud">Cloud (15)</a>
 			
-			  <a class="postTag" href="/tags/PaaS">PaaS (11)</a>
+			  <a class="postTag" href="/tags/PaaS">PaaS (12)</a>
 			
 			  <a class="postTag" href="/tags/Open PaaS">Open PaaS (8)</a>
 			
@@ -1091,7 +1139,7 @@ $("body").live('change', function(){
 			
 			  <a class="postTag" href="/tags/Cloud">Cloud (15)</a>
 			
-			  <a class="postTag" href="/tags/PaaS">PaaS (11)</a>
+			  <a class="postTag" href="/tags/PaaS">PaaS (12)</a>
 			
 			  <a class="postTag" href="/tags/DevOps">DevOps (8)</a>
 			
@@ -1128,34 +1176,6 @@ $("body").live('change', function(){
 			  <a class="postTag" href="/tags/Scale Rules">Scale Rules (2)</a>
 			
 			  <a class="postTag" href="/tags/Load Balancer">Load Balancer (1)</a>
-			
-		</span>
-	    
-  </div>
-  <div class="clear" ></div>    
-</div>
-
-<div class="blogtPostBox">
-  <div class="blogInfoLeft">
-    <img title="Tamir Korem" width="80" height="96" src="/images/tamir.jpg" />
-  </div>  
-  <div class="blogInfoRight">
-    <a href="/2012/07/10/hi_cloudsters1.html" class="title">What Kept Us Busy - A Cloudify Update</a>
-	  <div class="blogPostInfo">
-	  <br/>	  	 
-	    <span>Posted By: <a href="#">Tamir Korem</a>  on  July 10, 2012  <!--|  in <a href="/categories/"></a> --></span>
-	  </div>	  	  	
-      <p>
-		
-			<p>We wanted to share a few brief updates with you to keep you in the loop on all the exciting stuff we&#8217;ve been working on here at Cloudify, including our new 2.1.1 release, new features, integrations, and other improvements Feel free to follow our blog, or our Tumblr for ongoing...</p>
-			
-		<p class><a href="/2012/07/10/hi_cloudsters1.html">Read more...</a></p>	  	  
-	  </p>
-		<span>  Tags:
-			
-			  <a class="postTag" href="/tags/Cloudify">Cloudify (29)</a>
-			
-			  <a class="postTag" href="/tags/Cloud">Cloud (15)</a>
 			
 		</span>
 	    

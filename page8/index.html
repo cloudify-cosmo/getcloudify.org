@@ -216,8 +216,11 @@ $(function(){
 mixpanel.track_forms("#searchForm", "Search",{'page name' : document.title, 'url' :  window.location.pathname});
 $(function(){ 
 	$("#goBtn").click(function() {
+		
 	var value = $('#search').val();
 	    mixpanel.track("Search",{"keyword": value}); 
+	    googleSearch();
+	    return false;
 	});
 });
 
@@ -239,6 +242,8 @@ $("body").live('change', function(){
 	  mixpanel.people.set({
 	  $email: currEmail,
 	  $first_name: currEmail,
+	  $created: new Date(),
+	  $last_seen:new Date(),
 	  });
 	} return { type: $(ele).attr('type'),email: currEmail}
 	});
@@ -376,6 +381,11 @@ $("body").live('change', function(){
 
 <div class="leftContentBox blogLeftBox"> 
    
+	<a href="/2012/12/12/cloud_deployment_enterprise_paas.html">Enterprises Taking Off to the Cloud(s) 
+	 <img class="noMargin" src="/images/arrow-right-blue.png" /></a><br />
+	<span class="date">December 12, 2012</span>  
+	<br/><br/>
+  
 	<a href="/2012/12/05/cloudify_2_2_and_roadmap.html">Cloudify 2.2 and Roadmap 
 	 <img class="noMargin" src="/images/arrow-right-blue.png" /></a><br />
 	<span class="date">December  5, 2012</span>  
@@ -384,11 +394,6 @@ $("body").live('change', function(){
 	<a href="/2012/11/08/using_websphere_wsadmin_tool_on_any_cloud.html">Using WebSphere's wsadmin tool on any Cloud 
 	 <img class="noMargin" src="/images/arrow-right-blue.png" /></a><br />
 	<span class="date">November  8, 2012</span>  
-	<br/><br/>
-  
-	<a href="/2012/11/02/moving_enterprise_workloads_to_the_cloud_on_a_massive_scale_cloudify_way.html">Moving Enterprise Workloads to the Cloud on a Massive Scale - The Cloudify Way 
-	 <img class="noMargin" src="/images/arrow-right-blue.png" /></a><br />
-	<span class="date">November  2, 2012</span>  
 	<br/><br/>
 		
 </div>
@@ -418,7 +423,22 @@ $("body").live('change', function(){
 	
 
 	
-<li><a href="/2012/12">December 2012</a> <span class="blue">(1)</span></li>
+<li><a href="/2012/12">December 2012</a> <span class="blue">(2)</span></li>
+
+	
+
+	
+		
+			
+		
+	
+
+	
+	
+	
+	
+	
+	
 
 	
 
@@ -1004,6 +1024,34 @@ $("body").live('change', function(){
                 <div id="pageContent" class="DocumentsWrapRight">
                     <h1 class="pageTitle">Blog Posts</h1>					
 
+
+<div class="blogtPostBox">
+  <div class="blogInfoLeft">
+    <img title="Uri Cohen" width="80" height="96" src="/images/uric.jpeg" />
+  </div>  
+  <div class="blogInfoRight">
+    <a href="/2011/10/24/behind-the-curtains-of-cloudify-gigaspaces-new-product.html" class="title">Behind the Curtains of Cloudify, GigaSpaces' New Product</a>
+	  <div class="blogPostInfo">
+	  <br/>	  	 
+	    <span>Posted By: <a href="#">Uri Cohen</a>  on  October 24, 2011  <!--|  in <a href="/categories/"></a> --></span>
+	  </div>	  	  	
+      <p>
+		
+			<p>Announcing a new product is a major and exciting milestone in a company&#39;s lifecycle. Our last announcment was the launch of XAP&nbsp;a few years ago &#8211; the Xtreme Application Platform aimed to provide a complete end to end scalability solution through the entire application stack, meaning Data, Web, Messaging, everything....</p>
+			
+		<p class><a href="/2011/10/24/behind-the-curtains-of-cloudify-gigaspaces-new-product.html">Read more...</a></p>	  	  
+	  </p>
+		<span>  Tags:
+			
+			  <a class="postTag" href="/tags/Cloudify">Cloudify (29)</a>
+			
+			  <a class="postTag" href="/tags/Cloud">Cloud (15)</a>
+			
+		</span>
+	    
+  </div>
+  <div class="clear" ></div>    
+</div>
 
 <div class="blogtPostBox">
   <div class="blogInfoLeft">
