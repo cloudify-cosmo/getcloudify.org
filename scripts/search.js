@@ -22,6 +22,11 @@ $(document).ready(function () {
         return false;
     });
 
+$("#searchForm").submit(function() {
+    search($("#search").get(0));
+    return false;
+});​
+
 $('#search').keydown(function(e){
  //enter button in ASCII code
  if(e.keyCode == 13){
