@@ -22,15 +22,17 @@ $(document).ready(function () {
         return false;
     });
 
-$("#searchForm").submit(function() {
-    search($("#search").get(0));
-    return false;
-});​
+function search(input) {
+    $('<p>').text('searching for '+input.value).appendTo('body');
+}
+
+
 
 $('#search').keydown(function(e){
  //enter button in ASCII code
  if(e.keyCode == 13){
   $("#goBtn").click();
+  return false;
  }
 });
 
