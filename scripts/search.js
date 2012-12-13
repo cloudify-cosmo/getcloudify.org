@@ -22,10 +22,6 @@ $(document).ready(function () {
         return false;
     });
 
-function search(input) {
-    $('<p>').text('searching for '+input.value).appendTo('body');
-}
-
 
 
 $('#search').keydown(function(e){
