@@ -22,11 +22,11 @@ $(document).ready(function () {
         return false;
     });
 
-
-    $('.deployApp').click(function () {
-        googleSearch();
-        return false;
-    });
+ //enter button in ASCII code
+ if(e.keyCode == 13){
+  $("#goBtn").click();
+ }
+});
 
 
 
