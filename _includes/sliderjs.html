@@ -77,6 +77,9 @@
             bgPos = $(currentDiv + ".stage").css("background-position")
             $(currentDiv + ".stage").css('background-position', '0 -365px');
         });
+        $('.uploadRecipe').mouseleave(function () {        
+            $(currentDiv + ".stage").css('background-position', bgPos);
+        });
         $('.uploadRecipe').click(function () {
             //for change slider hand position:
             $('.stage').hide();
