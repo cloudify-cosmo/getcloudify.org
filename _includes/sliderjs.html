@@ -93,7 +93,8 @@
             //for change stage current image hand position:
             $(currentDiv + ".stage").css('background-position', '0 -365px');
             //show stage text:
-            $('.stage1  .stageText').show()
+            $('.stage1  .stageText').show();
+            bgPos = $(currentDiv + ".stage").css("background-position")
             window.history.pushState("object or string", "Title", "/how/devops");
         });
         //End uploadRecipe
@@ -118,6 +119,7 @@
             $(currentDiv + ".stage").css('background-position', '0 -730px');
             //show stage text:
             $('.stage2  .stageText').show();
+            bgPos = $(currentDiv + ".stage").css("background-position");
             window.history.pushState("object or string", "Title", "/how/cloud_migration");
         });
         //End Create Vms 
@@ -143,6 +145,7 @@
             $(currentDiv + ".stage").css('background-position', '0 -1095px');
             //show stage text:
             $('.stage3  .stageText').show();
+            bgPos = $(currentDiv + ".stage").css("background-position");
             window.history.pushState("object or string", "Title", "/how/application_management");
         });
         //End Install Agent
@@ -169,6 +172,7 @@
             $(currentDiv + ".stage").css('background-position', '0 -1460px');
             //show stage text:
             $('.stage4  .stageText').show();
+            bgPos = $(currentDiv + ".stage").css("background-position");
             window.history.pushState("object or string", "Title", "/how/cloudify_paas");
         });
         //End Recipe
@@ -192,6 +196,7 @@
             $(currentDiv + ".stage").css('background-position', '0 -1825px');
             //show stage text:
             $('.stage5  .stageText').show();
+            bgPos = $(currentDiv + ".stage").css("background-position");
             window.history.pushState("object or string", "Title", "/how/cloud_deployment");
         });
         //End Install App Services
@@ -215,6 +220,7 @@
             $(currentDiv + ".stage").css('background-position', '0 -2190px');
             //show stage text:
             $('.stage6  .stageText').show();
+            bgPos = $(currentDiv + ".stage").css("background-position");
             window.history.pushState("object or string", "Title", "/how/cloud_monitoring");
         });
         //End Monitoring
@@ -240,6 +246,7 @@
             $(currentDiv + ".stage").css('background-position', '0 -2555px');
             //show stage text:
             $('.stage7  .stageText').show();
+            bgPos = $(currentDiv + ".stage").css("background-position");
             window.history.pushState("object or string", "Title", "/how/elastic_cloud");
         });
         //End Auto Scaling
@@ -264,6 +271,7 @@
             $(currentDiv + ".stage").css('background-position', '0 -2920px');
             //show stage text:
             $('.stage8  .stageText').show();
+            bgPos = $(currentDiv + ".stage").css("background-position");
             document.location.href = "/how/cloud_automation";
 
         });
