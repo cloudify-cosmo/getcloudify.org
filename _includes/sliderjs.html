@@ -74,8 +74,7 @@
 
         //float btns for trigger stages when clicking
         //upload Recipe
-        $('.uploadRecipe').mouseenter(function () {
-            
+        $('.uploadRecipe').mouseenter(function () {           
             $(currentDiv + ".stage").css('background-position', '0 -365px');
         });
         $('.uploadRecipe').mouseleave(function () {        
@@ -100,9 +99,11 @@
 
         //Create Vms
         $('.createVms').mouseenter(function () {
-            bgPos = $(currentDiv + ".stage").css("background-position")
             $(currentDiv + ".stage").css('background-position', '0 -730px');
         });
+        $('.createVms').mouseleave(function () {        
+            $(currentDiv + ".stage").css('background-position', bgPos);
+        }); 
         $('.createVms').click(function () {
             //for change slider hand position:
             $('.stage').hide();
@@ -123,9 +124,11 @@
 
         //Install Agent
         $('.installAgent').mouseenter(function () {
-            bgPos = $(currentDiv + ".stage").css("background-position")
             $(currentDiv + ".stage").css('background-position', '0 -1095px');
         });
+        $('.installAgent').mouseleave(function () {        
+            $(currentDiv + ".stage").css('background-position', bgPos);
+        });        
         $('.installAgent').click(function () {
             //for change slider hand position:
             $('.stage').hide();
