@@ -47,6 +47,7 @@
 
         });
         $("#amount").val($("#slider-range-min").slider("value"));
+        bgPos = $(currentDiv + ".stage").css("background-position")
         //for display stages on loading page.
         for (i = 0; i <= value; i++) {
             visStage = '.stage' + i;
@@ -74,7 +75,7 @@
         //float btns for trigger stages when clicking
         //upload Recipe
         $('.uploadRecipe').mouseenter(function () {
-            bgPos = $(currentDiv + ".stage").css("background-position")
+            
             $(currentDiv + ".stage").css('background-position', '0 -365px');
         });
         $('.uploadRecipe').mouseleave(function () {        
