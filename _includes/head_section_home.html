@@ -14,10 +14,27 @@
 	<script src="scripts/jquery.zrssfeed.min.js" type="text/javascript"></script>
 	<script src="scripts/jquery.vticker.js" type="text/javascript"></script>
 
+<!-- Add fancyBox -->
+<link rel="stylesheet" href="/scripts/fancyBox/source/jquery.fancybox.css?v=2.1.3" type="text/css" media="screen" />
+<script type="text/javascript" src="/scripts/fancyBox/source/jquery.fancybox.pack.js?v=2.1.3"></script>
+
+<!-- Optionally add helpers - button, thumbnail and/or media -->
+<link rel="stylesheet" href="/scripts/fancyBox/source/helpers/jquery.fancybox-buttons.css?v=1.0.5" type="text/css" media="screen" />
+<script type="text/javascript" src="/scripts/fancyBox/source/helpers/jquery.fancybox-buttons.js?v=1.0.5"></script>
+<script type="text/javascript" src="/scripts/fancyBox/source/helpers/jquery.fancybox-media.js?v=1.0.5"></script>
+
+<link rel="stylesheet" href="/scripts/fancyBox/source/helpers/jquery.fancybox-thumbs.css?v=1.0.7" type="text/css" media="screen" />
+<script type="text/javascript" src="/scripts/fancyBox/source/helpers/jquery.fancybox-thumbs.js?v=1.0.7"></script>
+
+
+
+
+
+
 <script type="text/javascript" src="/scripts/jquery-ui-1.8.17.custom.min.js"></script>
 	<link rel="stylesheet" href="/css/jquery-ui-1.8.17.custom.css" type="text/css" media="all"/>
     
-    <script type="text/javascript" src="/scripts/jquery.prettyPhoto.js"></script>
+    <!--<script type="text/javascript" src="/scripts/jquery.prettyPhoto.js"></script>-->
     <script type="text/javascript" src="/scripts/search.js"></script>    	   
     <script src="/scripts/widget.js" type="text/javascript"></script>
     <script type="text/javascript" src="/scripts/prettify/prettify.js"></script>
@@ -53,7 +70,14 @@
 
 //start Tabs
     	$("#tabs").tabs();
-    	$("a.youtube").YouTubePopup({ hideTitleBar: true });
+	//for lightbox
+	$('.fancybox-media').fancybox({
+		openEffect  : 'none',
+		closeEffect : 'none',
+		helpers : {
+			media : {}
+		}
+	});
         //this script display text note when you hover one of the img at homePage
 		$('.sec-discusBox').hide();
 								  
