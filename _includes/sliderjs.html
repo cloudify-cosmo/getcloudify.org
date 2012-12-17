@@ -150,9 +150,11 @@
 
         //Recipe
         $('.recipe').mouseenter(function () {
-            bgPos = $(currentDiv + ".stage").css("background-position")
             $(currentDiv + ".stage").css('background-position', '0 -1460px');
         });
+        $('.recipe').mouseleave(function () {        
+            $(currentDiv + ".stage").css('background-position', bgPos);
+        });         
         $('.recipe').click(function () {
             //for change slider hand position:
             $('.stage').hide();
@@ -172,9 +174,11 @@
 
         //Install App Services
         $('.InstallAppServices').mouseenter(function () {
-            bgPos = $(currentDiv + ".stage").css("background-position")
             $(currentDiv + ".stage").css('background-position', '0 -1825px');
         });
+        $('.InstallAppServices').mouseleave(function () {        
+            $(currentDiv + ".stage").css('background-position', bgPos);
+        });          
         $('.InstallAppServices').click(function () {
             //for change slider hand position:
             $('.stage').hide();
@@ -193,9 +197,11 @@
 
         //Monitoring
         $('.monitoring').mouseenter(function () {
-            bgPos = $(currentDiv + ".stage").css("background-position")
             $(currentDiv + ".stage").css('background-position', '0 -2190px');
         });
+        $('.monitoring').mouseleave(function () {        
+            $(currentDiv + ".stage").css('background-position', bgPos);
+        });         
         $('.monitoring').click(function () {
             //for change slider hand position:
             $('.stage').hide();
@@ -215,9 +221,12 @@
 
         //Auto Scaling
         $('.autoScaling').mouseenter(function () {
-            bgPos = $(currentDiv + ".stage").css("background-position")
             $(currentDiv + ".stage").css('background-position', '0 -2555px');
         });
+        $('.autoScaling').mouseleave(function () {        
+            $(currentDiv + ".stage").css('background-position', bgPos);
+        });         
+        
         $('.autoScaling').click(function () {
             //for change slider hand position:
             $('.stage').hide();
@@ -237,9 +246,11 @@
 
         //FailOver
         $('.failOver').mouseenter(function () {
-            bgPos = $(currentDiv + ".stage").css("background-position")
             $(currentDiv + ".stage").css('background-position', '0 -2920px');
         });
+        $('.failOver').mouseleave(function () {        
+            $(currentDiv + ".stage").css('background-position', bgPos);
+        });         
         $('.failOver').click(function () {
             //for change slider hand position:
             $('.stage').hide();
