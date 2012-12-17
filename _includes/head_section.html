@@ -102,11 +102,14 @@
 	
 	//for lightbox 
 	 $('.fancybox-media').fancybox({
-		openEffect  : 'none',
-		closeEffect : 'none',
-		helpers : {
-			media : {}
-		}
+	openEffect	: 'elastic',
+    	closeEffect	: 'elastic',
+
+    	helpers : {
+    		title : {
+    			type : 'inside'
+    		}
+    	}
 	});
 	
 	$('a.lightbox').fancybox();
