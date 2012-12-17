@@ -20,7 +20,14 @@
 			   //wrapper: "li",debug:true,
 			   //submitHandler: function() { alert("Submitted!") }
 			   })
-			 $("a.youtube").YouTubePopup({ hideTitleBar: true });  
+			 //for lightbox 
+			 $('.fancybox-media').fancybox({
+				openEffect  : 'none',
+				closeEffect : 'none',
+				helpers : {
+					media : {}
+				}
+			});
 		  });
  	  </script>
 <script type="text/javascript">
@@ -135,7 +142,7 @@ mixpanel.track_forms('#ki_form', 'Qualaroo');mixpanel.track_forms('#ki_form', 'Q
                     </ul>
                 </li>
                 <li class="check"><a href="/guide/qsg/quick_start_guide?TYP1_DL"></a></li>
-                <li class="watch"><a class="youtube" rel="V3NNreNRxMQ" href="#"></a></li>
+                <li class="watch"><a class="fancybox-media" href="http://www.youtube.com/watch?v=V3NNreNRxMQ"></a></li>
            </ul>
            
           
