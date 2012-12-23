@@ -26,7 +26,8 @@
                 currentDivNoDot = ' stage' + currentNum;
                 currentDivText = ' .stage' + currentNum + ' .stageText';
                 for (i = 0; i <= currentNum; i++) {
-                    visStage = '.stage' + i;
+                   $('.stage').hide();
+                   visStage = '.stage' + i;
                     $(visStage).show();
                     visStageText = '.stage' + i + ' .stageText';
                     $(visStageText).hide();
@@ -74,6 +75,8 @@
 
 
         //float btns for trigger stages when clicking
+
+        
         //upload Recipe
         $('.uploadRecipe').mouseenter(function () {           
             $(currentDiv + ".stage").css('background-position', '0 -365px');
