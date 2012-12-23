@@ -275,7 +275,8 @@
             //show stage text:
             $('.stage8  .stageText').show();
             bgPos = $(currentDiv + ".stage").css("background-position");
-            document.location.href = "/how/cloud_automation";
+            //document.location.href = "/how/cloud_automation";
+            window.history.pushState("object or string", "Title", "/how/cloud_automation");
 
         });
         //End FailOver
