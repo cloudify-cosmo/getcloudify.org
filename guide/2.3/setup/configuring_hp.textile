@@ -1,20 +1,20 @@
 ---
 layout: default
-title: Configuring OpenStack Cloud
+title: Configuring HP Cloud
 category: Installation & Setup
 publish: true
-abstract: Explains how to configure OpenStack Cloud for Cloudify
-pageord: 600
+abstract: Explains how to configure HP Cloud for Cloudify
+pageord: 625
 --- 
 
-This topic provides instructions for configuring OpenStack Cloud for Cloudify.
+This topic provides instructions for configuring HP Cloud for Cloudify.
 
 h2. Prerequisites
 
-* An "OpenStack Cloud":http://www.hpcloud.com/ account
+* An "HP Cloud":http://www.hpcloud.com/ account
 * Cloudify shell (for information about installing the Cloudify shell, see "Installing the Cloudify Shell":../setup/installing_the_cloudify_client)
 
-h2. Configuring an OpenStack Cloud
+h2. Configuring an HP Cloud
 
 This section provides step-by-step instructions for the following configuration tasks:
 
@@ -24,7 +24,7 @@ This section provides step-by-step instructions for the following configuration 
 
 h3(#key). Generate a private key
 
-# In the OpenStack web console, under "Key Pairs":https://manage.hpcloud.com/compute/100/keypairs, click *Create Key Pair*, and then type a name for the key pair.
+# In the HP web console, under "Key Pairs":https://manage.hpcloud.com/compute/100/keypairs, click *Create Key Pair*, and then type a name for the key pair.
 !../../images/hp/compute_create_new_key_pair_hp_cloud_services.png!
 # Copy the key and save it as a @.pem@ private key file (e.g. @myKeyPair-name.pem@) in the @<cloudifyRoot>/tools/cli/plugins/esc/openstack/upload@ folder.
 !../../images/hp/compute_create_new_key_pair_2_hp_cloud_services.png!
@@ -86,16 +86,6 @@ The following is a list of OpenStack Hardware Ids:
 <h4 class="impt">For setting the cloud driver, we reccomend that you use "parameterization of the cloud driver configuration":../clouddrivers/cloud_driver#gstr, but you can also set the cloud driver directly as shown in the following example (of an @openstack-cloud.groovy@ file):</h4>
 
 <script src="https://gist.github.com/3273517.js?file=openstack-cloud2_2m2.groovy"></script>
-
-h3(#log). Enabling Wire Logging [Optional]
-
-For development and debugging purposes, it can be usefull to view the actual messages sent to the Openstack cloud controller.
-To configure logging, edit your @openstack-cloud.groovy@, and then in the *custom* section, set the *openstack.wireLog* attribute to *true*.
-
-The following example shows the *openstack.wireLog* attribute set to *true*.
-<script src="https://gist.github.com/2035261.js?file=custom-wireLog.groovy"></script>
-
-h4(warn). Once you enable the wire logs, they appear in the Cloudify shell when you run the 'bootstrap-cloud' command (and the relevant log file in the logs folder), and in the ESM log when it starts or stops a machine for scale out/in.
 
 h2. What's Next?
 

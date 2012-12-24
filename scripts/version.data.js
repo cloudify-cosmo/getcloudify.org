@@ -285,8 +285,10 @@ var guide = {
 			'configuring_azure':true,
 			'configuring_byon':true,
 			'configuring_ec2':true,
+			'configuring_hp':true,
 			'configuring_openstack':true,
 			'configuring_rsopenstack':true,
+			'configuring_security':true,
 			'installation_and_setup':true,
 			'installing_the_cloudify_client':true,
 			'post_installation_configuration':true
