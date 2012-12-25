@@ -71,7 +71,7 @@ h2. Resource-based Authorization - Authorization Groups
 A group represents an organizational unit, such as "Sales", "Management" or "Europe". Each user can be a member of multiple groups, or not a member of any group. The user store configuration includes a section referring to group membership. In the context of Cloudify security, group membership is used to enforce another level of authorization, and therefore refer to these groups as "Authorization Groups".
 The following illustration shows how roles and authorization groups interact. Note that the Role "Cloud Admin" permits the user to perform management on the entire cloud level, (e.g. teardown) and therefore does not require membership to any authorization group.
 
-<a class="lightbox" href="../../images/setup/rolebased_sec_2_3_0.jpg"><img src="../../images/setup/rolebased_sec_2_3_0_thumb.jpg" alt="pic is missing" /></a>
+<a class="fancybox-media" href="../../images/setup/rolebased_sec_2_3_0.jpg"><img src="../../images/setup/rolebased_sec_2_3_0_thumb.jpg" alt="pic is missing" /></a>
 
 Like users, managed resources (applications and services) are also associated with one or more authorization group. This association is set automatically when an application is installed - the application is set with the authorization groups of the installing user (unless otherwise specified, as shown in the "Command Examples section":#comsec. Services are always associated with the authorization group of the application containing them.
 Only some users are authorized to access each resource, hence the name - "resource-based authorization". Group-based authorization is performed only after the user has been authenticated and verified as holding a role that grants the access required for the attempted action (e.g. the user has the role "App Manager" which is required when attempting to delete an application). At this stage the user's groups are retrieved from the user store according to the configuration, and compared to the groups associated with the target resource. Only if the user is a member of at least one of the resource's groups, this resource is accessible to the user.
@@ -121,7 +121,7 @@ h3(#consecprov). Security Provider Configuration
 
 Configure the user store in a spring-security.xml file (as shown in the following image), and specify this file upon bootstrap. An example of this file can be found in the Cloudify distribution, in &lt;CLOUDIFY HOME&gt;/config/security/spring-security.xml.
 
-<a class="lightbox" href="../../images/setup/securityxml.jpg"><img src="../../images/setup/securityxml_thumb.jpg" alt="pic is missing" /></a>
+<a class="fancybox-media" href="../../images/setup/securityxml.jpg"><img src="../../images/setup/securityxml_thumb.jpg" alt="pic is missing" /></a>
 
 
 h4. Configuring a File-based User Store
@@ -134,15 +134,15 @@ This configuration defines a connection to a directory, and existing user reposi
 * Connection details
 The LDAP connection string should be set to the organization's LDAP server:  		ldap://&lt;ldap host&gt;:&lt;ldap port&gt;/&lt;directory root&gt;
 	Also required are the credentials of an existing LDAP user that has READ permissions.  
-<a class="lightbox" href="../../images/setup/ldapxml.jpg"><img src="../../images/setup/ldapxml_thumb.jpg" alt="pic is missing" /></a>
+<a class="fancybox-media" href="../../images/setup/ldapxml.jpg"><img src="../../images/setup/ldapxml_thumb.jpg" alt="pic is missing" /></a>
 
 
 * Roles' attribute
-In order to retrieve the security roles of the user (e.g. App Manager), it is required to specify the name of the attribute holding this information, according to your schema. In our example, we used the "description" attribute, but it is preferred to use a more intuitive attribute name, such as "Roles" or even "CloudifyRoles", to avoid ambiguity. The name of this attribute is required in two locations in the configuration: <a class="lightbox" href="../../images/setup/rolesxml.jpg"><img src="../../images/setup/rolesxml_thumb.jpg" alt="pic is missing" /></a>
+In order to retrieve the security roles of the user (e.g. App Manager), it is required to specify the name of the attribute holding this information, according to your schema. In our example, we used the "description" attribute, but it is preferred to use a more intuitive attribute name, such as "Roles" or even "CloudifyRoles", to avoid ambiguity. The name of this attribute is required in two locations in the configuration: <a class="fancybox-media" href="../../images/setup/rolesxml.jpg"><img src="../../images/setup/rolesxml_thumb.jpg" alt="pic is missing" /></a>
 
 * Authorization groups
 The authorization groups of a user are the groups this user is a member of, that are located in a specific directory branch ("ou"). This means it is possible to define Cloudify-related groups in a separate branch than other organization groups, if this is preferred.
-<a class="lightbox" href="../../images/setup/authgroupxml.jpg"><img src="../../images/setup/authgroupxml_thumb.jpg" alt="pic is missing" /></a>
+<a class="fancybox-media" href="../../images/setup/authgroupxml.jpg"><img src="../../images/setup/authgroupxml_thumb.jpg" alt="pic is missing" /></a>
 
 
 h4(#comsec). Bootstraping Cloudify in a Secure Mode
