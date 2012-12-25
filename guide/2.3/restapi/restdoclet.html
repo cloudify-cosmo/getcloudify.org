@@ -3,7 +3,7 @@
 	<head>
 		<meta http-equiv="content-type" content="text/html; charset=UTF-8">
 		<title>Cloudify  REST API</title>
-		<link href="restdoclet.css" media="screen" type="text/css" rel="stylesheet" />
+		<link href=restdoclet.css media="screen" type="text/css" rel="stylesheet" />
 	</head>
 	<body>
 											<div class="header">
@@ -11,12 +11,55 @@
 				<p class="excerpt">Mapping of URIs that begin with /service</p>
 							</div>
 			<div class="separator"></div>
-																<h2 id="REST_API-/service/applications"><a class="permalink" title="Get a permanent link to this section" href="#REST_API-/service/applications">/service/applications</a></h2>				
+																<h2 id="REST_API-/service/application/{applicationName}/install/permissions"><a class="permalink" title="Get a permanent link to this section" href="#REST_API-/service/application/{applicationName}/install/permissions">/service/application/{applicationName}/install/permissions</a></h2>				
+												<h3>HTTP Methods</h3>
+									<h4>GET</h4>
+											<p>Returns a valid response if the user is fully authorized and has permissions
+ for installing an application.</p>
+																															<h3>Parameters</h3>
+						<table>
+							<tr>
+								<th>Type</th>
+								<th>Name</th>
+								<th>Description</th>
+								<th>Mandatory</th>
+								<th>Parameter type</th>
+								<th>Default value</th>
+							</tr>
+															<tr>
+									<td>String</td>
+																			<td>applicationName</td>
+																												<td>the application name</td>
+																		<td>true</td>
+									<td>PathVariable</td>
+																			<td></td>
+																	</tr>
+													</table>
+																																																													<h2 id="REST_API-/service/applications"><a class="permalink" title="Get a permanent link to this section" href="#REST_API-/service/applications">/service/applications</a></h2>				
 												<h3>HTTP Methods</h3>
 									<h4>GET</h4>
 											<p>Creates and returns a map containing all of the deployed application
  names.</p>
-																																																																							<h3>Response</h3>
+																															<h3>Parameters</h3>
+						<table>
+							<tr>
+								<th>Type</th>
+								<th>Name</th>
+								<th>Description</th>
+								<th>Mandatory</th>
+								<th>Parameter type</th>
+								<th>Default value</th>
+							</tr>
+															<tr>
+									<td>String</td>
+																			<td>applicationName</td>
+																												<td>the application name</td>
+																		<td>true</td>
+									<td>PathVariable</td>
+																			<td></td>
+																	</tr>
+													</table>
+																																																			<h3>Response</h3>
 													<div class="panel">
 								<div class="panelHeader">
 									Response to a GET on /service/applications
@@ -35,8 +78,28 @@
 																<h2 id="REST_API-/service/applications/description"><a class="permalink" title="Get a permanent link to this section" href="#REST_API-/service/applications/description">/service/applications/description</a></h2>				
 												<h3>HTTP Methods</h3>
 									<h4>GET</h4>
-											<p>Creates and returns a list containing all of the deployed application details.</p>
-																																																																							<h3>Response</h3>
+											<p>Creates and returns a list containing all of the deployed application
+ details.</p>
+																															<h3>Parameters</h3>
+						<table>
+							<tr>
+								<th>Type</th>
+								<th>Name</th>
+								<th>Description</th>
+								<th>Mandatory</th>
+								<th>Parameter type</th>
+								<th>Default value</th>
+							</tr>
+															<tr>
+									<td>String</td>
+																			<td>applicationName</td>
+																												<td>the application name</td>
+																		<td>true</td>
+									<td>PathVariable</td>
+																			<td></td>
+																	</tr>
+													</table>
+																																																			<h3>Response</h3>
 													<div class="panel">
 								<div class="panelHeader">
 									Response to a GET on /service/applications/description
@@ -68,9 +131,9 @@
 								<th>Default value</th>
 							</tr>
 															<tr>
-									<td>java.lang.String</td>
-									<td>applicationName</td>
-																			<td></td>
+									<td>String</td>
+																			<td>applicationName</td>
+																												<td></td>
 																		<td>true</td>
 									<td>PathVariable</td>
 																			<td></td>
@@ -108,9 +171,9 @@
 								<th>Default value</th>
 							</tr>
 															<tr>
-									<td>java.lang.String</td>
-									<td>applicationName</td>
-																			<td></td>
+									<td>String</td>
+																			<td>applicationName</td>
+																												<td></td>
 																		<td>true</td>
 									<td>PathVariable</td>
 																			<td></td>
@@ -147,25 +210,25 @@
 								<th>Default value</th>
 							</tr>
 															<tr>
-									<td>java.lang.String</td>
-									<td>applicationName</td>
-																			<td>The application name where the service resides</td>
+									<td>String</td>
+																			<td>applicationName</td>
+																												<td>The application name where the service resides</td>
 																		<td>true</td>
 									<td>PathVariable</td>
 																			<td></td>
 																	</tr>
 															<tr>
-									<td>java.lang.String</td>
-									<td>serviceName</td>
-																			<td>The service name</td>
+									<td>String</td>
+																			<td>serviceName</td>
+																												<td>The service name</td>
 																		<td>true</td>
 									<td>PathVariable</td>
 																			<td></td>
 																	</tr>
 															<tr>
-									<td>java.util.Map</td>
-									<td>params</td>
-																			<td>map that holds a timeout value for this action</td>
+									<td>Map</td>
+																			<td>params</td>
+																												<td>map that holds a timeout value for this action</td>
 																		<td>true</td>
 									<td>RequestBody</td>
 																			<td></td>
@@ -190,33 +253,33 @@
 								<th>Default value</th>
 							</tr>
 															<tr>
-									<td>java.lang.String</td>
-									<td>applicationName</td>
-																			<td>The application name</td>
+									<td>String</td>
+																			<td>applicationName</td>
+																												<td>The application name</td>
 																		<td>true</td>
 									<td>PathVariable</td>
 																			<td></td>
 																	</tr>
 															<tr>
-									<td>java.lang.String</td>
-									<td>serviceName</td>
-																			<td>The service name</td>
+									<td>String</td>
+																			<td>serviceName</td>
+																												<td>The service name</td>
 																		<td>true</td>
 									<td>PathVariable</td>
 																			<td></td>
 																	</tr>
 															<tr>
-									<td>java.lang.String</td>
-									<td>hostAddress</td>
-																			<td>The service instance's host address</td>
+									<td>String</td>
+																			<td>hostAddress</td>
+																												<td>The service instance's host address</td>
 																		<td>true</td>
 									<td>PathVariable</td>
 																			<td></td>
 																	</tr>
 															<tr>
 									<td>int</td>
-									<td>numLines</td>
-																			<td>The number of lines to tail</td>
+																			<td>numLines</td>
+																												<td>The number of lines to tail</td>
 																		<td>true</td>
 									<td>RequestParam</td>
 																			<td></td>
@@ -266,33 +329,33 @@
 								<th>Default value</th>
 							</tr>
 															<tr>
-									<td>java.lang.String</td>
-									<td>applicationName</td>
-																			<td>The application name</td>
+									<td>String</td>
+																			<td>applicationName</td>
+																												<td>The application name</td>
 																		<td>true</td>
 									<td>PathVariable</td>
 																			<td></td>
 																	</tr>
 															<tr>
-									<td>java.lang.String</td>
-									<td>serviceName</td>
-																			<td>The service name</td>
+									<td>String</td>
+																			<td>serviceName</td>
+																												<td>The service name</td>
 																		<td>true</td>
 									<td>PathVariable</td>
 																			<td></td>
 																	</tr>
 															<tr>
-									<td>java.lang.String</td>
-									<td>beanName</td>
-																			<td>deprecated</td>
+									<td>String</td>
+																			<td>beanName</td>
+																												<td>deprecated</td>
 																		<td>true</td>
 									<td>PathVariable</td>
 																			<td></td>
 																	</tr>
 															<tr>
-									<td>java.util.Map</td>
-									<td>params</td>
-																			<td>The command parameters</td>
+									<td>Map</td>
+																			<td>params</td>
+																												<td>The command parameters</td>
 																		<td>true</td>
 									<td>RequestBody</td>
 																			<td></td>
@@ -351,17 +414,17 @@
 								<th>Default value</th>
 							</tr>
 															<tr>
-									<td>java.lang.String</td>
-									<td>applicationName</td>
-																			<td>The application name</td>
+									<td>String</td>
+																			<td>applicationName</td>
+																												<td>The application name</td>
 																		<td>true</td>
 									<td>PathVariable</td>
 																			<td></td>
 																	</tr>
 															<tr>
-									<td>java.lang.String</td>
-									<td>serviceName</td>
-																			<td>The service name</td>
+									<td>String</td>
+																			<td>serviceName</td>
+																												<td>The service name</td>
 																		<td>true</td>
 									<td>PathVariable</td>
 																			<td></td>
@@ -403,41 +466,41 @@
 								<th>Default value</th>
 							</tr>
 															<tr>
-									<td>java.lang.String</td>
-									<td>applicationName</td>
-																			<td>The application name</td>
+									<td>String</td>
+																			<td>applicationName</td>
+																												<td>The application name</td>
 																		<td>true</td>
 									<td>PathVariable</td>
 																			<td></td>
 																	</tr>
 															<tr>
-									<td>java.lang.String</td>
-									<td>serviceName</td>
-																			<td>The service name</td>
+									<td>String</td>
+																			<td>serviceName</td>
+																												<td>The service name</td>
 																		<td>true</td>
 									<td>PathVariable</td>
 																			<td></td>
 																	</tr>
 															<tr>
 									<td>int</td>
-									<td>instanceId</td>
-																			<td>The service instance number to be invoked</td>
+																			<td>instanceId</td>
+																												<td>The service instance number to be invoked</td>
 																		<td>true</td>
 									<td>PathVariable</td>
 																			<td></td>
 																	</tr>
 															<tr>
-									<td>java.lang.String</td>
-									<td>beanName</td>
-																			<td>depreciated</td>
+									<td>String</td>
+																			<td>beanName</td>
+																												<td>depreciated</td>
 																		<td>true</td>
 									<td>PathVariable</td>
 																			<td></td>
 																	</tr>
 															<tr>
-									<td>java.util.Map</td>
-									<td>params</td>
-																			<td>a Map containing the result of each invocation on a service
+									<td>Map</td>
+																			<td>params</td>
+																												<td>a Map containing the result of each invocation on a service
             instance</td>
 																		<td>true</td>
 									<td>RequestBody</td>
@@ -496,25 +559,25 @@
 								<th>Default value</th>
 							</tr>
 															<tr>
-									<td>java.lang.String</td>
-									<td>applicationName</td>
-																			<td>The application name where the service resides</td>
+									<td>String</td>
+																			<td>applicationName</td>
+																												<td>The application name where the service resides</td>
 																		<td>true</td>
 									<td>PathVariable</td>
 																			<td></td>
 																	</tr>
 															<tr>
-									<td>java.lang.String</td>
-									<td>serviceName</td>
-																			<td>The service name</td>
+									<td>String</td>
+																			<td>serviceName</td>
+																												<td>The service name</td>
 																		<td>true</td>
 									<td>PathVariable</td>
 																			<td></td>
 																	</tr>
 															<tr>
 									<td>int</td>
-									<td>instanceId</td>
-																			<td>the service instance ID to remove</td>
+																			<td>instanceId</td>
+																												<td>the service instance ID to remove</td>
 																		<td>true</td>
 									<td>PathVariable</td>
 																			<td></td>
@@ -541,33 +604,33 @@
 								<th>Default value</th>
 							</tr>
 															<tr>
-									<td>java.lang.String</td>
-									<td>applicationName</td>
-																			<td>The application name</td>
+									<td>String</td>
+																			<td>applicationName</td>
+																												<td>The application name</td>
 																		<td>true</td>
 									<td>PathVariable</td>
 																			<td></td>
 																	</tr>
 															<tr>
-									<td>java.lang.String</td>
-									<td>serviceName</td>
-																			<td>The service name</td>
-																		<td>true</td>
-									<td>PathVariable</td>
-																			<td></td>
-																	</tr>
-															<tr>
-									<td>int</td>
-									<td>instanceId</td>
-																			<td>The service instance id</td>
+									<td>String</td>
+																			<td>serviceName</td>
+																												<td>The service name</td>
 																		<td>true</td>
 									<td>PathVariable</td>
 																			<td></td>
 																	</tr>
 															<tr>
 									<td>int</td>
-									<td>numLines</td>
-																			<td>The number of lines to tail</td>
+																			<td>instanceId</td>
+																												<td>The service instance id</td>
+																		<td>true</td>
+									<td>PathVariable</td>
+																			<td></td>
+																	</tr>
+															<tr>
+									<td>int</td>
+																			<td>numLines</td>
+																												<td>The number of lines to tail</td>
 																		<td>true</td>
 									<td>RequestParam</td>
 																			<td></td>
@@ -616,25 +679,25 @@
 								<th>Default value</th>
 							</tr>
 															<tr>
-									<td>java.lang.String</td>
-									<td>applicationName</td>
-																			<td>The application name</td>
+									<td>String</td>
+																			<td>applicationName</td>
+																												<td>The application name</td>
 																		<td>true</td>
 									<td>PathVariable</td>
 																			<td></td>
 																	</tr>
 															<tr>
-									<td>java.lang.String</td>
-									<td>serviceName</td>
-																			<td>The service name</td>
+									<td>String</td>
+																			<td>serviceName</td>
+																												<td>The service name</td>
 																		<td>true</td>
 									<td>PathVariable</td>
 																			<td></td>
 																	</tr>
 															<tr>
 									<td>int</td>
-									<td>numLines</td>
-																			<td>The number of lines to tail</td>
+																			<td>numLines</td>
+																												<td>The number of lines to tail</td>
 																		<td>true</td>
 									<td>RequestParam</td>
 																			<td></td>
@@ -682,25 +745,25 @@
 								<th>Default value</th>
 							</tr>
 															<tr>
-									<td>java.lang.String</td>
-									<td>applicationName</td>
-																			<td>The application name</td>
+									<td>String</td>
+																			<td>applicationName</td>
+																												<td>The application name</td>
 																		<td>true</td>
 									<td>PathVariable</td>
 																			<td></td>
 																	</tr>
 															<tr>
-									<td>java.lang.String</td>
-									<td>serviceName</td>
-																			<td>The service name</td>
+									<td>String</td>
+																			<td>serviceName</td>
+																												<td>The service name</td>
 																		<td>true</td>
 									<td>PathVariable</td>
 																			<td></td>
 																	</tr>
 															<tr>
 									<td>int</td>
-									<td>timeoutInMinutes</td>
-																			<td></td>
+																			<td>timeoutInMinutes</td>
+																												<td></td>
 																		<td>true</td>
 									<td>PathVariable</td>
 																			<td></td>
@@ -738,73 +801,83 @@
 								<th>Default value</th>
 							</tr>
 															<tr>
-									<td>java.lang.String</td>
-									<td>applicationName</td>
-																			<td></td>
+									<td>String</td>
+																			<td>applicationName</td>
+																												<td></td>
 																		<td>true</td>
 									<td>PathVariable</td>
 																			<td></td>
 																	</tr>
 															<tr>
-									<td>java.lang.String</td>
-									<td>serviceName</td>
-																			<td></td>
+									<td>String</td>
+																			<td>serviceName</td>
+																												<td></td>
 																		<td>true</td>
 									<td>PathVariable</td>
 																			<td></td>
 																	</tr>
 															<tr>
 									<td>int</td>
-									<td>timeout</td>
-																			<td></td>
+																			<td>timeout</td>
+																												<td></td>
 																		<td>true</td>
 									<td>PathVariable</td>
 																			<td></td>
 																	</tr>
 															<tr>
-									<td>java.lang.String</td>
-									<td>templateName</td>
-																			<td></td>
+									<td>String</td>
+																			<td>template</td>
+																												<td></td>
 																		<td>false</td>
 									<td>RequestParam</td>
 																			<td></td>
 																	</tr>
 															<tr>
-									<td>java.lang.String</td>
-									<td>zone</td>
-																			<td></td>
+									<td>String</td>
+																			<td>zone</td>
+																												<td></td>
 																		<td>true</td>
 									<td>RequestParam</td>
 																			<td></td>
 																	</tr>
 															<tr>
-									<td>org.springframework.web.multipart.MultipartFile</td>
-									<td>srcFile</td>
-																			<td></td>
+									<td>MultipartFile</td>
+																			<td>file</td>
+																												<td></td>
 																		<td>true</td>
 									<td>RequestParam</td>
 																			<td></td>
 																	</tr>
 															<tr>
-									<td>org.springframework.web.multipart.MultipartFile</td>
-									<td>propsFile</td>
-																			<td></td>
+									<td>MultipartFile</td>
+																			<td>props</td>
+																												<td></td>
 																		<td>true</td>
 									<td>RequestParam</td>
 																			<td></td>
 																	</tr>
 															<tr>
-									<td>org.springframework.web.multipart.MultipartFile</td>
-									<td>cloudOverridesFile</td>
-																			<td>- A file containing override parameters to be used by the cloud driver</td>
+									<td>String</td>
+																			<td>authGroups</td>
+																												<td>The authorization groups for which this deployment will be
+            available</td>
 																		<td>false</td>
 									<td>RequestParam</td>
 																			<td></td>
 																	</tr>
 															<tr>
-									<td>java.lang.Boolean</td>
-									<td>selfHealing</td>
+									<td>MultipartFile</td>
+																			<td>cloudOverridesFile</td>
+																												<td>- A file containing override parameters to be used by the
+            cloud driver</td>
+																		<td>false</td>
+									<td>RequestParam</td>
 																			<td></td>
+																	</tr>
+															<tr>
+									<td>Boolean</td>
+																			<td>selfHealing</td>
+																												<td></td>
 																		<td>false</td>
 									<td>RequestParam</td>
 																			<td>true</td>
@@ -858,50 +931,42 @@
 								<th>Default value</th>
 							</tr>
 															<tr>
-									<td>java.lang.String</td>
-									<td>applicationName</td>
-																			<td></td>
+									<td>String</td>
+																			<td>applicationName</td>
+																												<td></td>
 																		<td>true</td>
 									<td>PathVariable</td>
 																			<td></td>
 																	</tr>
 															<tr>
-									<td>java.lang.String</td>
-									<td>serviceName</td>
-																			<td></td>
-																		<td>true</td>
-									<td>PathVariable</td>
-																			<td></td>
-																	</tr>
-															<tr>
-									<td>int</td>
-									<td>timeout</td>
-																			<td></td>
+									<td>String</td>
+																			<td>serviceName</td>
+																												<td></td>
 																		<td>true</td>
 									<td>PathVariable</td>
 																			<td></td>
 																	</tr>
 															<tr>
 									<td>int</td>
-									<td>count</td>
+																			<td>timeout</td>
+																												<td></td>
+																		<td>true</td>
+									<td>PathVariable</td>
 																			<td></td>
+																	</tr>
+															<tr>
+									<td>int</td>
+																			<td>count</td>
+																												<td></td>
 																		<td>true</td>
 									<td>RequestParam</td>
 																			<td></td>
 																	</tr>
 															<tr>
 									<td>boolean</td>
-									<td>locationAware</td>
-																			<td></td>
+																			<td>location-aware</td>
+																												<td></td>
 																		<td>true</td>
-									<td>RequestParam</td>
-																			<td></td>
-																	</tr>
-															<tr>
-									<td>java.lang.String</td>
-									<td>authGroups</td>
-																			<td></td> 
-																		<td>false</td>
 									<td>RequestParam</td>
 																			<td></td>
 																	</tr>
@@ -954,17 +1019,17 @@
 								<th>Default value</th>
 							</tr>
 															<tr>
-									<td>java.lang.String</td>
-									<td>applicationName</td>
-																			<td>The application name</td>
+									<td>String</td>
+																			<td>applicationName</td>
+																												<td>The application name</td>
 																		<td>true</td>
 									<td>PathVariable</td>
 																			<td></td>
 																	</tr>
 															<tr>
 									<td>int</td>
-									<td>timeoutInMinutes</td>
-																			<td></td>
+																			<td>timeoutInMinutes</td>
+																												<td></td>
 																		<td>true</td>
 									<td>PathVariable</td>
 																			<td></td>
@@ -1006,58 +1071,59 @@
 								<th>Default value</th>
 							</tr>
 															<tr>
-									<td>java.lang.String</td>
-									<td>applicationName</td>
-																			<td>The application name</td>
+									<td>String</td>
+																			<td>applicationName</td>
+																												<td>The application name</td>
 																		<td>true</td>
 									<td>PathVariable</td>
 																			<td></td>
 																	</tr>
 															<tr>
 									<td>int</td>
-									<td>timeout</td>
-																			<td></td>
+																			<td>timeout</td>
+																												<td></td>
 																		<td>true</td>
 									<td>PathVariable</td>
 																			<td></td>
 																	</tr>
 															<tr>
-									<td>org.springframework.web.multipart.MultipartFile</td>
-									<td>srcFile</td>
-																			<td>The compressed application file</td>
+									<td>MultipartFile</td>
+																			<td>file</td>
+																												<td>The compressed application file</td>
 																		<td>true</td>
 									<td>RequestParam</td>
 																			<td></td>
 																	</tr>
 															<tr>
-									<td>java.lang.String</td>
-									<td>authGroups</td>
-																			<td>The the group for which this deployment will be available</td>
+									<td>String</td>
+																			<td>authGroups</td>
+																												<td>The authorization groups for which this deployment will be
+            available</td>
 																		<td>false</td>
 									<td>RequestParam</td>
 																			<td></td>
 																	</tr>
 															<tr>
-									<td>org.springframework.web.multipart.MultipartFile</td>
-									<td>recipeOverridesFile</td>
-																			<td>The application overrides file - to overrides the application
+									<td>MultipartFile</td>
+																			<td>recipeOverridesFile</td>
+																												<td>The application overrides file - to overrides the application
             properties</td>
 																		<td>false</td>
 									<td>RequestParam</td>
 																			<td></td>
 																	</tr>
 															<tr>
-									<td>org.springframework.web.multipart.MultipartFile</td>
-									<td>cloudOverrides</td>
-																			<td></td> 
+									<td>MultipartFile</td>
+																			<td>cloudOverridesFile</td>
+																												<td>File of overriding cloud properties</td>
 																		<td>false</td>
 									<td>RequestParam</td>
 																			<td></td>
 																	</tr>
 															<tr>
-									<td>java.lang.Boolean</td>
-									<td>selfHealing</td>
-																			<td>if true, there will be an attempt to restart the recipe in
+									<td>Boolean</td>
+																			<td>selfHealing</td>
+																												<td>if true, there will be an attempt to restart the recipe in
             case a problem occurred in its life-cycle, otherwise, if the
             recipe fails to execute, no attempt to recover will made</td>
 																		<td>false</td>
@@ -1098,45 +1164,7 @@
 																												<li>Returns "500 Internal Server Error" - DSLException.</li>
 																												<li>Returns "500 Internal Server Error" - IOException.</li>
 																			</ul>
-																<h2 id="REST_API-/service/cloudcontroller/deploy"><a class="permalink" title="Get a permanent link to this section" href="#REST_API-/service/cloudcontroller/deploy">/service/cloudcontroller/deploy</a></h2>				
-												<h3>HTTP Methods</h3>
-									<h4>POST</h4>
-																															<h3>Parameters</h3>
-						<table>
-							<tr>
-								<th>Type</th>
-								<th>Name</th>
-								<th>Description</th>
-								<th>Mandatory</th>
-								<th>Parameter type</th>
-								<th>Default value</th>
-							</tr>
-															<tr>
-									<td>java.lang.String</td>
-									<td>applicationName</td>
-																			<td></td>
-																		<td>false</td>
-									<td>RequestParam</td>
-																			<td>default</td>
-																	</tr>
-															<tr>
-									<td>org.springframework.web.multipart.MultipartFile</td>
-									<td>srcFile</td>
-																			<td></td>
-																		<td>false</td>
-									<td>RequestParam</td>
-																			<td></td>
-																	</tr>
-															<tr>
-									<td>java.lang.String</td>
-									<td>authGroups</td>
-																			<td></td>
-																		<td>false</td>
-									<td>RequestParam</td>
-																			<td></td>
-																	</tr>
-													</table>
-																																																													<h2 id="REST_API-/service/dump/machine/{ip}/"><a class="permalink" title="Get a permanent link to this section" href="#REST_API-/service/dump/machine/{ip}/">/service/dump/machine/{ip}/</a></h2>				
+																<h2 id="REST_API-/service/dump/machine/{ip}"><a class="permalink" title="Get a permanent link to this section" href="#REST_API-/service/dump/machine/{ip}">/service/dump/machine/{ip}</a></h2>				
 												<h3>HTTP Methods</h3>
 									<h4>GET</h4>
 											<p>Get the dump of a given machine, by its ip.</p>
@@ -1151,25 +1179,25 @@
 								<th>Default value</th>
 							</tr>
 															<tr>
-									<td>java.lang.String</td>
-									<td>ip</td>
-																			<td></td>
+									<td>String</td>
+																			<td>ip</td>
+																												<td></td>
 																		<td>true</td>
 									<td>PathVariable</td>
 																			<td></td>
 																	</tr>
 															<tr>
-									<td>java.lang.String</td>
-									<td>processors</td>
-																			<td>The list of processors to be used</td>
+									<td>String</td>
+																			<td>processors</td>
+																												<td>The list of processors to be used</td>
 																		<td>false</td>
 									<td>RequestParam</td>
 																			<td>summary, network, thread, log</td>
 																	</tr>
 															<tr>
 									<td>long</td>
-									<td>fileSizeLimit</td>
-																			<td></td>
+																			<td>fileSizeLimit</td>
+																												<td></td>
 																		<td>false</td>
 									<td>RequestParam</td>
 																			<td>5242880</td>
@@ -1178,7 +1206,7 @@
 																															<h3>Request</h3>
 													<div class="panel">
 								<div class="panelHeader">
-									Request body for a GET on /service/dump/machine/{ip}/
+									Request body for a GET on /service/dump/machine/{ip}
 								</div>
 								<div class="panelContent">
 									<pre class="code">{
@@ -1190,7 +1218,7 @@
 																																											<h3>Response</h3>
 													<div class="panel">
 								<div class="panelHeader">
-									Response to a GET on /service/dump/machine/{ip}/
+									Response to a GET on /service/dump/machine/{ip}
 								</div>	
 								<div class="panelContent">
 									<pre class="code">{
@@ -1223,17 +1251,17 @@
 								<th>Default value</th>
 							</tr>
 															<tr>
-									<td>java.lang.String</td>
-									<td>processors</td>
-																			<td>The list of processors to be used</td>
+									<td>String</td>
+																			<td>processors</td>
+																												<td>The list of processors to be used</td>
 																		<td>false</td>
 									<td>RequestParam</td>
 																			<td>summary, network, thread, log</td>
 																	</tr>
 															<tr>
 									<td>long</td>
-									<td>fileSizeLimit</td>
-																			<td></td>
+																			<td>fileSizeLimit</td>
+																												<td></td>
 																		<td>false</td>
 									<td>RequestParam</td>
 																			<td>5242880</td>
@@ -1274,7 +1302,7 @@
 																												<li>Returns "500 Internal Server Error" - Failed to generate dump.</li>
 																												<li>Returns "500 Internal Server Error" - IOException.</li>
 																			</ul>
-																<h2 id="REST_API-/service/dump/processing-units/"><a class="permalink" title="Get a permanent link to this section" href="#REST_API-/service/dump/processing-units/">/service/dump/processing-units/</a></h2>				
+																<h2 id="REST_API-/service/dump/processing-units"><a class="permalink" title="Get a permanent link to this section" href="#REST_API-/service/dump/processing-units">/service/dump/processing-units</a></h2>				
 												<h3>HTTP Methods</h3>
 									<h4>GET</h4>
 											<p>Get the dump of all the processing units.</p>
@@ -1290,8 +1318,8 @@
 							</tr>
 															<tr>
 									<td>long</td>
-									<td>fileSizeLimit</td>
-																			<td></td>
+																			<td>fileSizeLimit</td>
+																												<td></td>
 																		<td>false</td>
 									<td>RequestParam</td>
 																			<td>5242880</td>
@@ -1300,7 +1328,7 @@
 																															<h3>Request</h3>
 													<div class="panel">
 								<div class="panelHeader">
-									Request body for a GET on /service/dump/processing-units/
+									Request body for a GET on /service/dump/processing-units
 								</div>
 								<div class="panelContent">
 									<pre class="code">{
@@ -1331,17 +1359,17 @@
 								<th>Default value</th>
 							</tr>
 															<tr>
-									<td>java.lang.String</td>
-									<td>lifecycleEventContainerID</td>
-																			<td>the unique task ID</td>
+									<td>String</td>
+																			<td>lifecycleEventContainerID</td>
+																												<td>the unique task ID</td>
 																		<td>true</td>
 									<td>PathVariable</td>
 																			<td></td>
 																	</tr>
 															<tr>
 									<td>int</td>
-									<td>cursor</td>
-																			<td>event entry cursor</td>
+																			<td>cursor</td>
+																												<td>event entry cursor</td>
 																		<td>true</td>
 									<td>PathVariable</td>
 																			<td></td>
@@ -1369,6 +1397,229 @@
 																												<li>Returns "500 Internal Server Error" - Lifecycle events container with UUID ... does not exist or expired.</li>
 																												<li>Returns "500 Internal Server Error" - execution exception message.</li>
 																			</ul>
+																<h2 id="REST_API-/service/templates"><a class="permalink" title="Get a permanent link to this section" href="#REST_API-/service/templates">/service/templates</a></h2>				
+												<h3>HTTP Methods</h3>
+									<h4>POST</h4>
+											<p>Add templates to the cloud.</p>
+																															<h3>Parameters</h3>
+						<table>
+							<tr>
+								<th>Type</th>
+								<th>Name</th>
+								<th>Description</th>
+								<th>Mandatory</th>
+								<th>Parameter type</th>
+								<th>Default value</th>
+							</tr>
+															<tr>
+									<td>MultipartFile</td>
+																			<td>templatesFolder</td>
+																												<td>The templates zip file</td>
+																		<td>true</td>
+									<td>RequestParam</td>
+																			<td></td>
+																	</tr>
+													</table>
+																															<h3>Request</h3>
+													<div class="panel">
+								<div class="panelHeader">
+									Request body for a POST on /service/templates
+								</div>
+								<div class="panelContent">
+									<pre class="code">{
+  "templatesFolder" : "templates folder"
+}</pre>
+								</div>
+							</div>
+																																											<h3>Response</h3>
+													<div class="panel">
+								<div class="panelHeader">
+									Response to a POST on /service/templates
+								</div>	
+								<div class="panelContent">
+									<pre class="code">{
+  "status" : "success",
+  "response" : [ "template1", "template2", "template3" ]
+}</pre>
+								</div>
+							</div>
+																			<p>In case of failure a RestErrorException will be thrown and its args will contain two maps: a map of hosts and foreach host its failed to add templates with their error reasons (which is a map of template name and error description) and a map of hosts and for each host its list of successfuly added templates.</p>
+																						<ul>
+																					<li>Returns "200 OK" - success.</li>
+																												<li>Returns "500 Internal Server Error" - Failed to add all the templates to all the REST instances..</li>
+																			</ul>
+														<h4>GET</h4>
+											<p>Get the cloud's templates.</p>
+																															<h3>Parameters</h3>
+						<table>
+							<tr>
+								<th>Type</th>
+								<th>Name</th>
+								<th>Description</th>
+								<th>Mandatory</th>
+								<th>Parameter type</th>
+								<th>Default value</th>
+							</tr>
+															<tr>
+									<td>MultipartFile</td>
+																			<td>templatesFolder</td>
+																												<td>The templates zip file</td>
+																		<td>true</td>
+									<td>RequestParam</td>
+																			<td></td>
+																	</tr>
+													</table>
+																																																													<h2 id="REST_API-/service/templates/internal"><a class="permalink" title="Get a permanent link to this section" href="#REST_API-/service/templates/internal">/service/templates/internal</a></h2>				
+												<h3>HTTP Methods</h3>
+									<h4>POST</h4>
+											<p>Internal method. Add template files to the cloud configuration directory
+ and to the cloud object. This method supposed to be invoked from
+ addTempaltes of a REST instance.</p>
+																															<h3>Parameters</h3>
+						<table>
+							<tr>
+								<th>Type</th>
+								<th>Name</th>
+								<th>Description</th>
+								<th>Mandatory</th>
+								<th>Parameter type</th>
+								<th>Default value</th>
+							</tr>
+															<tr>
+									<td>MultipartFile</td>
+																			<td>templatesFolder</td>
+																												<td>The templates zip file</td>
+																		<td>true</td>
+									<td>RequestParam</td>
+																			<td></td>
+																	</tr>
+													</table>
+																																																													<h2 id="REST_API-/service/templates/{templateName}"><a class="permalink" title="Get a permanent link to this section" href="#REST_API-/service/templates/{templateName}">/service/templates/{templateName}</a></h2>				
+												<h3>HTTP Methods</h3>
+									<h4>GET</h4>
+											<p>Get template from the cloud.</p>
+																															<h3>Parameters</h3>
+						<table>
+							<tr>
+								<th>Type</th>
+								<th>Name</th>
+								<th>Description</th>
+								<th>Mandatory</th>
+								<th>Parameter type</th>
+								<th>Default value</th>
+							</tr>
+															<tr>
+									<td>String</td>
+																			<td>templateName</td>
+																												<td>The name of the template to remove</td>
+																		<td>true</td>
+									<td>PathVariable</td>
+																			<td></td>
+																	</tr>
+													</table>
+																																																											<h4>DELETE</h4>
+											<p>Removes a template from the cloud.</p>
+																															<h3>Parameters</h3>
+						<table>
+							<tr>
+								<th>Type</th>
+								<th>Name</th>
+								<th>Description</th>
+								<th>Mandatory</th>
+								<th>Parameter type</th>
+								<th>Default value</th>
+							</tr>
+															<tr>
+									<td>String</td>
+																			<td>templateName</td>
+																												<td>The name of the template to remove</td>
+																		<td>true</td>
+									<td>PathVariable</td>
+																			<td></td>
+																	</tr>
+													</table>
+																																																			<h3>Response</h3>
+													<div class="panel">
+								<div class="panelHeader">
+									Response to a DELETE on /service/templates/{templateName}
+								</div>	
+								<div class="panelContent">
+									<pre class="code">{"status": "success"}</pre>
+								</div>
+							</div>
+																			<p>In case of failure a RestErrorException will be thrown and its args will contain the list of all the host that failed to remove the template.</p>
+																						<ul>
+																					<li>Returns "200 OK" - success.</li>
+																												<li>Returns "500 Internal Server Error" - Failed to remove the template from all the REST instances..</li>
+																			</ul>
+																<h2 id="REST_API-/service/templates/{templateName}/internal"><a class="permalink" title="Get a permanent link to this section" href="#REST_API-/service/templates/{templateName}/internal">/service/templates/{templateName}/internal</a></h2>				
+												<h3>HTTP Methods</h3>
+									<h4>DELETE</h4>
+											<p>Internal method. Remove template file from the cloud configuration
+ directory and from the cloud's templates map. This method supposed to be
+ invoked from removeTempalte of a REST instance.</p>
+																															<h3>Parameters</h3>
+						<table>
+							<tr>
+								<th>Type</th>
+								<th>Name</th>
+								<th>Description</th>
+								<th>Mandatory</th>
+								<th>Parameter type</th>
+								<th>Default value</th>
+							</tr>
+															<tr>
+									<td>String</td>
+																			<td>templateName</td>
+																												<td>the name of the template to remove</td>
+																		<td>true</td>
+									<td>PathVariable</td>
+																			<td></td>
+																	</tr>
+													</table>
+																																																													<h2 id="REST_API-/service/testlogin"><a class="permalink" title="Get a permanent link to this section" href="#REST_API-/service/testlogin">/service/testlogin</a></h2>				
+												<h3>HTTP Methods</h3>
+									<h4>GET</h4>
+											<p>Tests whether the authentication was successful.</p>
+																															<h3>Parameters</h3>
+						<table>
+							<tr>
+								<th>Type</th>
+								<th>Name</th>
+								<th>Description</th>
+								<th>Mandatory</th>
+								<th>Parameter type</th>
+								<th>Default value</th>
+							</tr>
+															<tr>
+									<td>String</td>
+																			<td>templateName</td>
+																												<td>the name of the template to remove</td>
+																		<td>true</td>
+									<td>PathVariable</td>
+																			<td></td>
+																	</tr>
+													</table>
+																																																			<h3>Response</h3>
+													<div class="panel">
+								<div class="panelHeader">
+									Response to a GET on /service/testlogin
+								</div>	
+								<div class="panelContent">
+									<pre class="code">{
+  "status" : "error",
+  "response" : {
+    "error" : "Login failed",
+    "error_args" : [ [ "localcloud" ], [ "jini://127.0.0.1:4172/" ] ]
+  }
+}</pre>
+								</div>
+							</div>
+																			<p>response status is success if the user authentication was successful, otherwise it is error and the response's body will contain the error description.</p>
+																						<ul>
+																					<li>Returns "200 OK" - success.</li>
+																												<li>Returns "500 Internal Server Error" - Login failed.</li>
+																			</ul>
 																<h2 id="REST_API-/service/testrest"><a class="permalink" title="Get a permanent link to this section" href="#REST_API-/service/testrest">/service/testrest</a></h2>				
 												<h3>HTTP Methods</h3>
 									<h4>GET</h4>
@@ -1388,17 +1639,9 @@
 								<th>Default value</th>
 							</tr>
 															<tr>
-									<td>java.lang.String</td>
-									<td>lifecycleEventContainerID</td>
-																			<td>the unique task ID</td>
-																		<td>true</td>
-									<td>PathVariable</td>
-																			<td></td>
-																	</tr>
-															<tr>
-									<td>int</td>
-									<td>cursor</td>
-																			<td>event entry cursor</td>
+									<td>String</td>
+																			<td>templateName</td>
+																												<td>the name of the template to remove</td>
 																		<td>true</td>
 									<td>PathVariable</td>
 																			<td></td>
@@ -1424,6 +1667,49 @@
 																					<li>Returns "200 OK" - success.</li>
 																												<li>Returns "500 Internal Server Error" - failed_to_locate_lookup_service.</li>
 																			</ul>
+																<h2 id="REST_API-/service/verifyCloudAdmin"><a class="permalink" title="Get a permanent link to this section" href="#REST_API-/service/verifyCloudAdmin">/service/verifyCloudAdmin</a></h2>				
+												<h3>HTTP Methods</h3>
+									<h4>GET</h4>
+											<p>Verifies the authenticated user has role ROLE_CLOUDADMIINS.</p>
+																															<h3>Parameters</h3>
+						<table>
+							<tr>
+								<th>Type</th>
+								<th>Name</th>
+								<th>Description</th>
+								<th>Mandatory</th>
+								<th>Parameter type</th>
+								<th>Default value</th>
+							</tr>
+															<tr>
+									<td>String</td>
+																			<td>templateName</td>
+																												<td>the name of the template to remove</td>
+																		<td>true</td>
+									<td>PathVariable</td>
+																			<td></td>
+																	</tr>
+													</table>
+																																																			<h3>Response</h3>
+													<div class="panel">
+								<div class="panelHeader">
+									Response to a GET on /service/verifyCloudAdmin
+								</div>	
+								<div class="panelContent">
+									<pre class="code">{
+  "status" : "error",
+  "response" : {
+    "error" : "User is not a CloudAdmin",
+    "error_args" : [ [ "localcloud" ], [ "jini://127.0.0.1:4172/" ] ]
+  }
+}</pre>
+								</div>
+							</div>
+																			<p>response status is success if the user user has role ROLE_CLOUDADMIINS, otherwise it is error and the response's body will contain the error description.</p>
+																						<ul>
+																					<li>Returns "200 OK" - success.</li>
+																												<li>Returns "500 Internal Server Error" - User is not a CloudAdmin.</li>
+																			</ul>
 																	<div class="header">
 				<h1>AttributesController</h1>
 				<p class="excerpt">Mapping of URIs that begin with /attributes</p>
@@ -1444,9 +1730,9 @@
 								<th>Default value</th>
 							</tr>
 															<tr>
-									<td>java.lang.String</td>
-									<td>applicationName</td>
-																			<td>The application name</td>
+									<td>String</td>
+																			<td>applicationName</td>
+																												<td>The application name</td>
 																		<td>true</td>
 									<td>PathVariable</td>
 																			<td></td>
@@ -1483,17 +1769,18 @@
 								<th>Default value</th>
 							</tr>
 															<tr>
-									<td>java.lang.String</td>
-									<td>applicationName</td>
-																			<td>The application name</td>
+									<td>String</td>
+																			<td>applicationName</td>
+																												<td>The application name</td>
 																		<td>true</td>
 									<td>PathVariable</td>
 																			<td></td>
 																	</tr>
 															<tr>
-									<td>java.util.Map</td>
-									<td>attributesMap</td>
-																			<td>a Map containing the attributes' names (keys) and values to set</td>
+									<td>Map</td>
+																			<td>attributesMap</td>
+																												<td>a Map containing the attributes' names (keys) and values to
+            set</td>
 																		<td>true</td>
 									<td>RequestBody</td>
 																			<td></td>
@@ -1536,9 +1823,9 @@
 								<th>Default value</th>
 							</tr>
 															<tr>
-									<td>java.lang.String</td>
-									<td>applicationName</td>
-																			<td>The application name</td>
+									<td>String</td>
+																			<td>applicationName</td>
+																												<td>The application name</td>
 																		<td>true</td>
 									<td>PathVariable</td>
 																			<td></td>
@@ -1578,17 +1865,17 @@
 								<th>Default value</th>
 							</tr>
 															<tr>
-									<td>java.lang.String</td>
-									<td>applicationName</td>
-																			<td>The application name</td>
+									<td>String</td>
+																			<td>applicationName</td>
+																												<td>The application name</td>
 																		<td>true</td>
 									<td>PathVariable</td>
 																			<td></td>
 																	</tr>
 															<tr>
-									<td>java.lang.String</td>
-									<td>attributeName</td>
-																			<td>The name (key) of the attribute to get</td>
+									<td>String</td>
+																			<td>attributeName</td>
+																												<td>The name (key) of the attribute to get</td>
 																		<td>true</td>
 									<td>PathVariable</td>
 																			<td></td>
@@ -1624,25 +1911,25 @@
 								<th>Default value</th>
 							</tr>
 															<tr>
-									<td>java.lang.String</td>
-									<td>applicationName</td>
-																			<td>The application name</td>
+									<td>String</td>
+																			<td>applicationName</td>
+																												<td>The application name</td>
 																		<td>true</td>
 									<td>PathVariable</td>
 																			<td></td>
 																	</tr>
 															<tr>
-									<td>java.lang.String</td>
-									<td>attributeName</td>
-																			<td>The name of the attribute to get</td>
+									<td>String</td>
+																			<td>attributeName</td>
+																												<td>The name of the attribute to get</td>
 																		<td>true</td>
 									<td>PathVariable</td>
 																			<td></td>
 																	</tr>
 															<tr>
-									<td>java.lang.Object</td>
-									<td>attributeValue</td>
-																			<td>The value to set</td>
+									<td>Object</td>
+																			<td>attributeValue</td>
+																												<td>The value to set</td>
 																		<td>true</td>
 									<td>RequestBody</td>
 																			<td></td>
@@ -1688,17 +1975,17 @@
 								<th>Default value</th>
 							</tr>
 															<tr>
-									<td>java.lang.String</td>
-									<td>applicationName</td>
-																			<td>The application name</td>
+									<td>String</td>
+																			<td>applicationName</td>
+																												<td>The application name</td>
 																		<td>true</td>
 									<td>PathVariable</td>
 																			<td></td>
 																	</tr>
 															<tr>
-									<td>java.lang.String</td>
-									<td>attributeName</td>
-																			<td>The name of the attribute to get</td>
+									<td>String</td>
+																			<td>attributeName</td>
+																												<td>The name of the attribute to get</td>
 																		<td>true</td>
 									<td>PathVariable</td>
 																			<td></td>
@@ -1737,17 +2024,17 @@
 								<th>Default value</th>
 							</tr>
 															<tr>
-									<td>java.lang.String</td>
-									<td>applicationName</td>
-																			<td>The application name</td>
+									<td>String</td>
+																			<td>applicationName</td>
+																												<td>The application name</td>
 																		<td>true</td>
 									<td>PathVariable</td>
 																			<td></td>
 																	</tr>
 															<tr>
-									<td>java.lang.String</td>
-									<td>attributeName</td>
-																			<td>The name of the attribute to get</td>
+									<td>String</td>
+																			<td>attributeName</td>
+																												<td>The name of the attribute to get</td>
 																		<td>true</td>
 									<td>PathVariable</td>
 																			<td></td>
@@ -1784,9 +2071,10 @@
 								<th>Default value</th>
 							</tr>
 															<tr>
-									<td>java.util.Map</td>
-									<td>attributesMap</td>
-																			<td>a Map containing the attributes' names (keys) and values to set</td>
+									<td>Map</td>
+																			<td>attributesMap</td>
+																												<td>a Map containing the attributes' names (keys) and values to
+            set</td>
 																		<td>true</td>
 									<td>RequestBody</td>
 																			<td></td>
@@ -1829,9 +2117,10 @@
 								<th>Default value</th>
 							</tr>
 															<tr>
-									<td>java.util.Map</td>
-									<td>attributesMap</td>
-																			<td>a Map containing the attributes' names (keys) and values to set</td>
+									<td>Map</td>
+																			<td>attributesMap</td>
+																												<td>a Map containing the attributes' names (keys) and values to
+            set</td>
 																		<td>true</td>
 									<td>RequestBody</td>
 																			<td></td>
@@ -1871,9 +2160,9 @@
 								<th>Default value</th>
 							</tr>
 															<tr>
-									<td>java.lang.String</td>
-									<td>attributeName</td>
-																			<td>The name (key) of the attribute to get</td>
+									<td>String</td>
+																			<td>attributeName</td>
+																												<td>The name (key) of the attribute to get</td>
 																		<td>true</td>
 									<td>PathVariable</td>
 																			<td></td>
@@ -1909,17 +2198,17 @@
 								<th>Default value</th>
 							</tr>
 															<tr>
-									<td>java.lang.String</td>
-									<td>attributeName</td>
-																			<td>The name of the attribute to get</td>
+									<td>String</td>
+																			<td>attributeName</td>
+																												<td>The name of the attribute to get</td>
 																		<td>true</td>
 									<td>PathVariable</td>
 																			<td></td>
 																	</tr>
 															<tr>
-									<td>java.lang.Object</td>
-									<td>attributeValue</td>
-																			<td>The value to set</td>
+									<td>Object</td>
+																			<td>attributeValue</td>
+																												<td>The value to set</td>
 																		<td>true</td>
 									<td>RequestBody</td>
 																			<td></td>
@@ -1965,9 +2254,9 @@
 								<th>Default value</th>
 							</tr>
 															<tr>
-									<td>java.lang.String</td>
-									<td>attributeName</td>
-																			<td>The name of the attribute to delete</td>
+									<td>String</td>
+																			<td>attributeName</td>
+																												<td>The name of the attribute to delete</td>
 																		<td>true</td>
 									<td>PathVariable</td>
 																			<td></td>
@@ -1991,6 +2280,56 @@
 																						<ul>
 																					<li>Returns "200 OK" - success.</li>
 																			</ul>
+																<h2 id="REST_API-/attributes/instances/{applicationName}/{serviceName}"><a class="permalink" title="Get a permanent link to this section" href="#REST_API-/attributes/instances/{applicationName}/{serviceName}">/attributes/instances/{applicationName}/{serviceName}</a></h2>				
+												<h3>HTTP Methods</h3>
+									<h4>GET</h4>
+											<p>Gets multiple attributes' values, from all instances, scope: instance
+ attributes.</p>
+																															<h3>Parameters</h3>
+						<table>
+							<tr>
+								<th>Type</th>
+								<th>Name</th>
+								<th>Description</th>
+								<th>Mandatory</th>
+								<th>Parameter type</th>
+								<th>Default value</th>
+							</tr>
+															<tr>
+									<td>String</td>
+																			<td>applicationName</td>
+																												<td>The application name</td>
+																		<td>true</td>
+									<td>PathVariable</td>
+																			<td></td>
+																	</tr>
+															<tr>
+									<td>String</td>
+																			<td>serviceName</td>
+																												<td>The service name</td>
+																		<td>true</td>
+									<td>PathVariable</td>
+																			<td></td>
+																	</tr>
+													</table>
+																																																			<h3>Response</h3>
+													<div class="panel">
+								<div class="panelHeader">
+									Response to a GET on /attributes/instances/{applicationName}/{serviceName}
+								</div>	
+								<div class="panelContent">
+									<pre class="code">{
+  "status" : "success",
+  "response" : {
+    "instanceId:attribute1Name" : "attribute1Value",
+    "instanceId:attribute2Name" : "attribute2Value"
+  }
+}</pre>
+								</div>
+							</div>
+																												<ul>
+																					<li>Returns "200 OK" - success.</li>
+																			</ul>
 																<h2 id="REST_API-/attributes/instances/{applicationName}/{serviceName}/{instanceId}"><a class="permalink" title="Get a permanent link to this section" href="#REST_API-/attributes/instances/{applicationName}/{serviceName}/{instanceId}">/attributes/instances/{applicationName}/{serviceName}/{instanceId}</a></h2>				
 												<h3>HTTP Methods</h3>
 									<h4>GET</h4>
@@ -2006,25 +2345,25 @@
 								<th>Default value</th>
 							</tr>
 															<tr>
-									<td>java.lang.String</td>
-									<td>applicationName</td>
-																			<td>The application name</td>
+									<td>String</td>
+																			<td>applicationName</td>
+																												<td>The application name</td>
 																		<td>true</td>
 									<td>PathVariable</td>
 																			<td></td>
 																	</tr>
 															<tr>
-									<td>java.lang.String</td>
-									<td>serviceName</td>
-																			<td>The service name</td>
+									<td>String</td>
+																			<td>serviceName</td>
+																												<td>The service name</td>
 																		<td>true</td>
 									<td>PathVariable</td>
 																			<td></td>
 																	</tr>
 															<tr>
 									<td>int</td>
-									<td>instanceId</td>
-																			<td>The service instance id</td>
+																			<td>instanceId</td>
+																												<td>The service instance id</td>
 																		<td>true</td>
 									<td>PathVariable</td>
 																			<td></td>
@@ -2061,33 +2400,34 @@
 								<th>Default value</th>
 							</tr>
 															<tr>
-									<td>java.lang.String</td>
-									<td>applicationName</td>
-																			<td>The application name</td>
+									<td>String</td>
+																			<td>applicationName</td>
+																												<td>The application name</td>
 																		<td>true</td>
 									<td>PathVariable</td>
 																			<td></td>
 																	</tr>
 															<tr>
-									<td>java.lang.String</td>
-									<td>serviceName</td>
-																			<td>The service name</td>
+									<td>String</td>
+																			<td>serviceName</td>
+																												<td>The service name</td>
 																		<td>true</td>
 									<td>PathVariable</td>
 																			<td></td>
 																	</tr>
 															<tr>
 									<td>int</td>
-									<td>instanceId</td>
-																			<td>The service instance id</td>
+																			<td>instanceId</td>
+																												<td>The service instance id</td>
 																		<td>true</td>
 									<td>PathVariable</td>
 																			<td></td>
 																	</tr>
 															<tr>
-									<td>java.util.Map</td>
-									<td>attributesMap</td>
-																			<td>a Map containing the attributes' names (keys) and values to set</td>
+									<td>Map</td>
+																			<td>attributesMap</td>
+																												<td>a Map containing the attributes' names (keys) and values to
+            set</td>
 																		<td>true</td>
 									<td>RequestBody</td>
 																			<td></td>
@@ -2130,25 +2470,25 @@
 								<th>Default value</th>
 							</tr>
 															<tr>
-									<td>java.lang.String</td>
-									<td>applicationName</td>
-																			<td>The application name</td>
+									<td>String</td>
+																			<td>applicationName</td>
+																												<td>The application name</td>
 																		<td>true</td>
 									<td>PathVariable</td>
 																			<td></td>
 																	</tr>
 															<tr>
-									<td>java.lang.String</td>
-									<td>serviceName</td>
-																			<td>The service name</td>
+									<td>String</td>
+																			<td>serviceName</td>
+																												<td>The service name</td>
 																		<td>true</td>
 									<td>PathVariable</td>
 																			<td></td>
 																	</tr>
 															<tr>
 									<td>int</td>
-									<td>instanceId</td>
-																			<td>The service instance id</td>
+																			<td>instanceId</td>
+																												<td>The service instance id</td>
 																		<td>true</td>
 									<td>PathVariable</td>
 																			<td></td>
@@ -2188,33 +2528,33 @@
 								<th>Default value</th>
 							</tr>
 															<tr>
-									<td>java.lang.String</td>
-									<td>applicationName</td>
-																			<td>The application name</td>
+									<td>String</td>
+																			<td>applicationName</td>
+																												<td>The application name</td>
 																		<td>true</td>
 									<td>PathVariable</td>
 																			<td></td>
 																	</tr>
 															<tr>
-									<td>java.lang.String</td>
-									<td>serviceName</td>
-																			<td>The service name</td>
+									<td>String</td>
+																			<td>serviceName</td>
+																												<td>The service name</td>
 																		<td>true</td>
 									<td>PathVariable</td>
 																			<td></td>
 																	</tr>
 															<tr>
 									<td>int</td>
-									<td>instanceId</td>
-																			<td>The service instance id</td>
+																			<td>instanceId</td>
+																												<td>The service instance id</td>
 																		<td>true</td>
 									<td>PathVariable</td>
 																			<td></td>
 																	</tr>
 															<tr>
-									<td>java.lang.String</td>
-									<td>attributeName</td>
-																			<td>The name (key) of the attribute to get</td>
+									<td>String</td>
+																			<td>attributeName</td>
+																												<td>The name (key) of the attribute to get</td>
 																		<td>true</td>
 									<td>PathVariable</td>
 																			<td></td>
@@ -2250,41 +2590,41 @@
 								<th>Default value</th>
 							</tr>
 															<tr>
-									<td>java.lang.String</td>
-									<td>applicationName</td>
-																			<td>The application name</td>
+									<td>String</td>
+																			<td>applicationName</td>
+																												<td>The application name</td>
 																		<td>true</td>
 									<td>PathVariable</td>
 																			<td></td>
 																	</tr>
 															<tr>
-									<td>java.lang.String</td>
-									<td>serviceName</td>
-																			<td>The service name</td>
+									<td>String</td>
+																			<td>serviceName</td>
+																												<td>The service name</td>
 																		<td>true</td>
 									<td>PathVariable</td>
 																			<td></td>
 																	</tr>
 															<tr>
 									<td>int</td>
-									<td>instanceId</td>
-																			<td>The service instance id</td>
+																			<td>instanceId</td>
+																												<td>The service instance id</td>
 																		<td>true</td>
 									<td>PathVariable</td>
 																			<td></td>
 																	</tr>
 															<tr>
-									<td>java.lang.String</td>
-									<td>attributeName</td>
-																			<td>The name of the attribute to get</td>
+									<td>String</td>
+																			<td>attributeName</td>
+																												<td>The name of the attribute to get</td>
 																		<td>true</td>
 									<td>PathVariable</td>
 																			<td></td>
 																	</tr>
 															<tr>
-									<td>java.lang.Object</td>
-									<td>attributeValue</td>
-																			<td>The value to set</td>
+									<td>Object</td>
+																			<td>attributeValue</td>
+																												<td>The value to set</td>
 																		<td>true</td>
 									<td>RequestBody</td>
 																			<td></td>
@@ -2330,33 +2670,33 @@
 								<th>Default value</th>
 							</tr>
 															<tr>
-									<td>java.lang.String</td>
-									<td>applicationName</td>
-																			<td>The application name</td>
+									<td>String</td>
+																			<td>applicationName</td>
+																												<td>The application name</td>
 																		<td>true</td>
 									<td>PathVariable</td>
 																			<td></td>
 																	</tr>
 															<tr>
-									<td>java.lang.String</td>
-									<td>serviceName</td>
-																			<td>The service name</td>
+									<td>String</td>
+																			<td>serviceName</td>
+																												<td>The service name</td>
 																		<td>true</td>
 									<td>PathVariable</td>
 																			<td></td>
 																	</tr>
 															<tr>
 									<td>int</td>
-									<td>instanceId</td>
-																			<td>The service instance id</td>
+																			<td>instanceId</td>
+																												<td>The service instance id</td>
 																		<td>true</td>
 									<td>PathVariable</td>
 																			<td></td>
 																	</tr>
 															<tr>
-									<td>java.lang.String</td>
-									<td>attributeName</td>
-																			<td>The name of the attribute to get</td>
+									<td>String</td>
+																			<td>attributeName</td>
+																												<td>The name of the attribute to get</td>
 																		<td>true</td>
 									<td>PathVariable</td>
 																			<td></td>
@@ -2395,17 +2735,17 @@
 								<th>Default value</th>
 							</tr>
 															<tr>
-									<td>java.lang.String</td>
-									<td>applicationName</td>
-																			<td>The application name</td>
+									<td>String</td>
+																			<td>applicationName</td>
+																												<td>The application name</td>
 																		<td>true</td>
 									<td>PathVariable</td>
 																			<td></td>
 																	</tr>
 															<tr>
-									<td>java.lang.String</td>
-									<td>serviceName</td>
-																			<td>The service name</td>
+									<td>String</td>
+																			<td>serviceName</td>
+																												<td>The service name</td>
 																		<td>true</td>
 									<td>PathVariable</td>
 																			<td></td>
@@ -2442,25 +2782,26 @@
 								<th>Default value</th>
 							</tr>
 															<tr>
-									<td>java.lang.String</td>
-									<td>applicationName</td>
-																			<td>The application name</td>
+									<td>String</td>
+																			<td>applicationName</td>
+																												<td>The application name</td>
 																		<td>true</td>
 									<td>PathVariable</td>
 																			<td></td>
 																	</tr>
 															<tr>
-									<td>java.lang.String</td>
-									<td>serviceName</td>
-																			<td>The service name</td>
+									<td>String</td>
+																			<td>serviceName</td>
+																												<td>The service name</td>
 																		<td>true</td>
 									<td>PathVariable</td>
 																			<td></td>
 																	</tr>
 															<tr>
-									<td>java.util.Map</td>
-									<td>attributesMap</td>
-																			<td>a Map containing the attributes' names (keys) and values to set</td>
+									<td>Map</td>
+																			<td>attributesMap</td>
+																												<td>a Map containing the attributes' names (keys) and values to
+            set</td>
 																		<td>true</td>
 									<td>RequestBody</td>
 																			<td></td>
@@ -2503,17 +2844,17 @@
 								<th>Default value</th>
 							</tr>
 															<tr>
-									<td>java.lang.String</td>
-									<td>applicationName</td>
-																			<td>The application name</td>
+									<td>String</td>
+																			<td>applicationName</td>
+																												<td>The application name</td>
 																		<td>true</td>
 									<td>PathVariable</td>
 																			<td></td>
 																	</tr>
 															<tr>
-									<td>java.lang.String</td>
-									<td>serviceName</td>
-																			<td>The service name</td>
+									<td>String</td>
+																			<td>serviceName</td>
+																												<td>The service name</td>
 																		<td>true</td>
 									<td>PathVariable</td>
 																			<td></td>
@@ -2553,25 +2894,25 @@
 								<th>Default value</th>
 							</tr>
 															<tr>
-									<td>java.lang.String</td>
-									<td>applicationName</td>
-																			<td>The application name</td>
+									<td>String</td>
+																			<td>applicationName</td>
+																												<td>The application name</td>
 																		<td>true</td>
 									<td>PathVariable</td>
 																			<td></td>
 																	</tr>
 															<tr>
-									<td>java.lang.String</td>
-									<td>serviceName</td>
-																			<td>The service name</td>
+									<td>String</td>
+																			<td>serviceName</td>
+																												<td>The service name</td>
 																		<td>true</td>
 									<td>PathVariable</td>
 																			<td></td>
 																	</tr>
 															<tr>
-									<td>java.lang.String</td>
-									<td>attributeName</td>
-																			<td>The name (key) of the attribute to get</td>
+									<td>String</td>
+																			<td>attributeName</td>
+																												<td>The name (key) of the attribute to get</td>
 																		<td>true</td>
 									<td>PathVariable</td>
 																			<td></td>
@@ -2607,33 +2948,33 @@
 								<th>Default value</th>
 							</tr>
 															<tr>
-									<td>java.lang.String</td>
-									<td>applicationName</td>
-																			<td>The application name</td>
+									<td>String</td>
+																			<td>applicationName</td>
+																												<td>The application name</td>
 																		<td>true</td>
 									<td>PathVariable</td>
 																			<td></td>
 																	</tr>
 															<tr>
-									<td>java.lang.String</td>
-									<td>serviceName</td>
-																			<td>The service name</td>
+									<td>String</td>
+																			<td>serviceName</td>
+																												<td>The service name</td>
 																		<td>true</td>
 									<td>PathVariable</td>
 																			<td></td>
 																	</tr>
 															<tr>
-									<td>java.lang.String</td>
-									<td>attributeName</td>
-																			<td>The name of the attribute to get</td>
+									<td>String</td>
+																			<td>attributeName</td>
+																												<td>The name of the attribute to get</td>
 																		<td>true</td>
 									<td>PathVariable</td>
 																			<td></td>
 																	</tr>
 															<tr>
-									<td>java.lang.Object</td>
-									<td>attributeValue</td>
-																			<td>The value to set</td>
+									<td>Object</td>
+																			<td>attributeValue</td>
+																												<td>The value to set</td>
 																		<td>true</td>
 									<td>RequestBody</td>
 																			<td></td>
@@ -2679,25 +3020,25 @@
 								<th>Default value</th>
 							</tr>
 															<tr>
-									<td>java.lang.String</td>
-									<td>applicationName</td>
-																			<td>The application name</td>
+									<td>String</td>
+																			<td>applicationName</td>
+																												<td>The application name</td>
 																		<td>true</td>
 									<td>PathVariable</td>
 																			<td></td>
 																	</tr>
 															<tr>
-									<td>java.lang.String</td>
-									<td>serviceName</td>
-																			<td>The service name</td>
+									<td>String</td>
+																			<td>serviceName</td>
+																												<td>The service name</td>
 																		<td>true</td>
 									<td>PathVariable</td>
 																			<td></td>
 																	</tr>
 															<tr>
-									<td>java.lang.String</td>
-									<td>attributeName</td>
-																			<td>The name of the attribute to get</td>
+									<td>String</td>
+																			<td>attributeName</td>
+																												<td>The name of the attribute to get</td>
 																		<td>true</td>
 									<td>PathVariable</td>
 																			<td></td>
