@@ -32,7 +32,11 @@
 							{% if currentVersion contains '2.3' %}					
 								{% include toc2.3.html %}
 							{% else %}
-								{% include toc2.1.html %}
+								{% if currentVersion contains '2.4' %}					
+									{% include toc2.4.html %}								
+								{% else %}	
+									{% include toc2.3.html %}																
+								{% endif %}														
 							{% endif %}						
 						{% endif %}
 					{% endif %}							
