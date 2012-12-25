@@ -205,6 +205,7 @@ var guide = {
 			'bootstrapping_ec2':true,
 			'bootstrapping_hp':true,
 			'bootstrapping_localcloud':true,
+			'bootstrapping_openstack':true,
 			'bootstrapping_process':true,
 			'bootstrapping_rsopenstack':true
 		},
