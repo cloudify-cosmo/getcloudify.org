@@ -4,10 +4,10 @@
 <head>
     
 	<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>	
-	<title>Cloudify - Tag: Load Balancer</title>
+	<title>Cloudify - Cloudify 2.3.0 Has Landed</title>
 	<script src="//cdn.optimizely.com/js/59503762.js"></script>
 	<link rel="stylesheet" href="/css/template.css" type="text/css"/>	
-	<link rel="canonical" href="http://www.cloudifysource.orgtags/Load Balancer/index.html"/>	
+	<link rel="canonical" href="http://www.cloudifysource.org/2012/12/27/cloudify_230_has_landed.html"/>	
 	<link rel="stylesheet" href="/css/jquery-ui-1.8.17.custom.css" type="text/css" media="all"/>
 	<link rel="stylesheet" type="text/css" href="/scripts/prettify/prettify.css">		
 	<link rel="stylesheet" type="text/css" href="/scripts/lightbox/jquery.lightbox-0.5.css" media="screen" />	
@@ -312,7 +312,7 @@ $("body").live('change', function(){
 </head>
 
 <body>
-<a class="fork-guide" target="_blank" href="https://github.com/CloudifySource/cloudify"></a>	
+<a class="fork-guide" target="_blank" href="https://github.com/CloudifySource/cloudify"></a>
 <div class="WrapperBg">    
     <div class="Wrapper">
         <div class="header">
@@ -379,7 +379,7 @@ $("body").live('change', function(){
 </div>
 <div class="clear"></div>
         <div class="contentWrap">            
-			<div class="breadcrumbs">Home Page > Cloudify Blogs > Tag: Load Balancer</div>
+			<div class="breadcrumbs">Home Page > Cloudify Blogs > Cloudify 2.3.0 Has Landed</div>
             <div class="clear"></div>
 
             <!--Search-->
@@ -405,10 +405,9 @@ $("body").live('change', function(){
 
 
 
-
-
+			
             <div class="content">
-                <div class="left" id="alTag_LeftBlog">
+                <div id="alTag_LeftBlog" class="left">
                     
                     <!--Event groups-->
 
@@ -1077,71 +1076,55 @@ $("body").live('change', function(){
 
                 <div id="resultsDiv" class="DocumentsWrap"></div>
                 <div id="pageContent" class="DocumentsWrapRight">
-                    <h1 class="pageTitle">Tag: Load Balancer</h1>					
+                    <h1 class="pageTitle">Cloudify 2.3.0 Has Landed</h1>
+					 
+					  <span class="blogPostInfo">Posted By: <a href="#">Uri Cohen</a>  on December 27, 2012  
+					  </span>
+					  <br/><br/><br/>
+					 
+                    <h2>Hi Cloudifiers,</h2>
+<p>As promised just a few weeks ago, we worked very hard to bring you even more awesome features on top of 2.2, with our new 2.3 release. And we&#8217;re happy to do it just before the holidays :)</p>
+<p>In 2.2 we <a href="/2012/12/05/cloudify_2_2_and_roadmap.html">announced</a> our <a href="/guide/2.3/integrations/chef_documentation">Chef integration</a>, <a href="/guide/2.3/restapi/restdoclet"><span class="caps">REST</span> <span class="caps">API</span></a>, and a number of important usability improvements that allow for more robust applications on top of Cloudify.</p>
+<p>With version 2.3, which we announced today, we have a few more surprises up our sleeve, and some are quite significant.</p>
+<ul>
+	<li><a href="/guide/setup/configuring_security">Security and multi-tenancy</a> Cloudify 2.3 introduces a comprehensive security model for securing the access to the Cloudify controller, including pluggable authentication, authorization and transport security. <br />
+Users are assigned roles and privileges, and can belong to one or more groups. Groups are completely isolated, and members of one group can never manage or view the applications and services of another group. Within a group, users can be assigned different privileges, for example only view the deployed applications and services, or deploy new applications, or change the configuration of the controller.</li>
+	<li><a href="/guide/developing/service_recipe#mtd">Deployment isolation</a> Also related to security and multi-tenancy. Upon deploying applications and services, they&#8217;re automatically assigned the group to which the user deploying the app belongs. This user can choose the deployment isolation level from other applications and services, i.e. if and how the service or application being deployed will share resources with already deployed applications and services. Users can opt for complete isolation (meaning their deployment will not share any VM with already deployed services), group-shared (meaning their deployment can share VMs with already deployed services from the same group, that have the same isolation level) or globally-shared (meaning their deployment can share VMs with any deployed service that can be globally shared as well). This gives users the option to provide better SLAs for more important services, or share VMs between services to better utilize the underlying cloud infrastructure.</li>
+	<li><a href="/guide/2.3/clouddrivers/cloud_driver#addtmp">Dynamic configuration of cloud driver templates</a> Until 2.3, cloud driver templates were static from the moment the controller has started. With 2.3, you can introduce, edit and delete templates at runtime using Cloudify&#8217;s <span class="caps">CLI</span> or <span class="caps">REST</span> interfaces. So if your IaaS provider introduces new images or hardware types, they can be introduced to the Cloudify controller and used by your applications and services without taking down or reconfiguring the controller.</li>
+	<li><a href="/guide/2.3/recipe/command_line_reference#install_app">Cloud, application and service overrides</a> The new overrides mechanism allows you to override almost any aspect of your cloud driver template, application or service recipe at deployment time. This opens the door to many interesting use cases, such as hosting a catalog of applications and service recipes, and then tweaking them at deployment time per the user&#8217;s requirements (e.g. starting your Cassandra cluster with 5 and not 3 instances, or setting the auto-scaling threshold for your Tomcat cluster at 80% <span class="caps">CPU</span> utilization rather than 70%).</li>
+	<li>Improved OpenStack support / JClouds 1.5.3: Version 2.3 leverages <a href="http://www.jclouds.org/" class="newwindow">JClouds</a> 1.5.3, which, in turn, has much better support for OpenStack. Up until 2.3, Cloudify&#8217;s OpenStack support was based on a native cloud driver which used the OpenStack APIs directly. In 2.3, we were finally able to switch to JClouds, and consequently, also better support the full range of OpenStack configuration options and the <a href="http://www.openstack.org/software/folsom/" class="newwindow">Folsom release</a>.</li>
+	<li>Troubleshooting: Cloudify 2.3 takes another step in making it easier for users to develop recipes. When developing new recipes, <a href="/guide/2.3/recipe/command_line_reference#install_app">Cloudify now allows you</a> to &#8216;freeze&#8217; the situation in case of recipe execution failure, and let you log in to the VMs to troubleshoot the failure.</li>
+	<li>(More) New recipes: we&#8217;ve added a few more recipes to our <a href="https://github.com/CloudifySource/cloudify-recipes/" class="newwindow">Github repo</a>, most notably <a href="https://github.com/CloudifySource/cloudify-recipes/tree/master/services/storm" class="newwindow">Storm</a>, <a href="https://github.com/CloudifySource/cloudify-recipes/tree/master/services/zookeeper" class="newwindow">Zookeeper</a>, <a href="https://github.com/CloudifySource/cloudify-recipes/tree/master/services/couchbase" class="newwindow">CouchBase</a>, The <a href="https://github.com/CloudifySource/cloudify-recipes/tree/master/services/play">Play Framework</a>, <a href="https://github.com/CloudifySource/cloudify-recipes/tree/master/services/vertx" class="newwindow">Vertx</a> and <a href="https://github.com/CloudifySource/cloudify-recipes/tree/master/services/biginsights" class="newwindow">Hadoop</a> (using IBM&#8217;s BigInsights Hadoop distro). Stay tuned, more recipes are expected soon.</li>
+</ul>
+<h2>One More Thing&#8230;</h2>
+<p>Besides all that, we&#8217;ve also been busy working on a cool new project called the Cloudify Player. Think of it as an embeddable, one click player for Cloudify recipes. The idea is to let users try out applications and frameworks using Cloudify and its recipes. You create a recipe (or use one of the <a href="https://github.com/CloudifySource/cloudify-recipes/tree/master/services/">existing ones</a>) and then, with a few simple steps done online, get an embeddable <span class="caps">HTML</span> code snippet that you can embed into any web page. Any visitor of this page can then test drive the application or framework that the recipe deploys, with a single click. So if you&#8217;re developing an open source framework, or have a product you want to easily showcase to your users, the Cloudify Player is the tool for you. Here&#8217;s a preview of what it actually looks like, hope you&#8217;re excited about it as much as we are!</p>
 
+<p><a class="fancybox-media btn-watch" media="Youtube" alt="vid is missing" href="http://www.youtube.com/embed/Y9vEXPewzTw">Click here to view it</a></p>
+<p>As always, we welcome your <a href="https://cloudifysource.zendesk.com/forums">feedback</a>, <a href="https://cloudifysource.atlassian.net/secure/Dashboard.jspa" class="newwindow">bug reports</a> and <a href="http://www.cloudifysource.org/guide/2.3/contribute/how_to">contributions</a> to Cloudify.</p>
+<p>Happy Holidays,<br />
+Uri and the entire Cloudify team.</p>
+                    <div id="disqus_thread"></div>
+<script type="text/javascript">
+    /* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
+    var disqus_shortname = 'cloudifysource'; // required: replace example with your forum shortname
+    var disqus_identifier = '/2012/12/27/cloudify_230_has_landed.html';
 
-
-
-
-
-
-
-
-														
-                    
-
-
-
-
-<div class="blogtPostBox">
-  <div class="blogInfoLeft">
-    <img title="Tamir Korem" width="80" height="96" src="/images/tamir.jpg" />
-  </div>  
-  <div class="blogInfoRight">
-    <a href="/2012/07/19/automate_your_legacy_application_on_the_cloud.html" class="title">Automate Your Application on the Cloud with Cloudify Custom Commands</a>
-	  <div class="blogPostInfo">
-	  <br/>	  	 
-	    <span>Posted By: <a href="#">Tamir Korem</a>  on  July 19, 2012  <!--|  in <a href="/categories/"></a> --></span>
-	  </div>	  	  	
-      <p>
-		
-			<p>Your Application is Installed on a Cloud. Now What ? Ok, so you installed an application on a cloud and now you want to update it, replace your .war file, modify the DB schema etc. I guess, some of the following thoughts may run in your head : &#8220;Now I...</p>
-			
-		<p class><a href="/2012/07/19/automate_your_legacy_application_on_the_cloud.html">Read more...</a></p>	  	  
-	  </p>
-		<span>  Additional Tags: 		
-			
-				
-			     <a class="postTag" href="/tags/Cloudify">Cloudify (30)</a>
-			   	
-			
-				
-			     <a class="postTag" href="/tags/GitHub">GitHub (2)</a>
-			   	
-			
-				
-			     <a class="postTag" href="/tags/Apache">Apache (2)</a>
-			   	
-			
-				
-			     <a class="postTag" href="/tags/Scale Rules">Scale Rules (2)</a>
-			   	
-			
-					
-			
-		</span>
-	    
-  </div>
-  <div class="clear" ></div>    
-</div>  
-
-
-
+    /* * * DON'T EDIT BELOW THIS LINE * * */
+    (function() {
+        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+        dsq.src = 'http://' + disqus_shortname + '.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="http://disqus.com" class="dsq-brlink">blog comments powered by <span class="logo-disqus">Disqus</span></a>
 
                 </div>
+
                 <div class="clear"></div>
             </div>
         </div>
+
         <!--Start pagination -->
 
         <div class="clear"></div>
