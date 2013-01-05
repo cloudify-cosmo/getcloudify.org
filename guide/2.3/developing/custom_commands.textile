@@ -13,7 +13,7 @@ h2. Why use Custom Commands?
 
 In many scenarios, you may want to have greater control over your application service than is provided by the built-in "lifecycle events":../developing/lifecycle_events. For example, you may want to implement various application-level concerns, such as hot upgrades (e.g. replacing a @.war@ file, and then refreshing the web container), database schema updates, and more.
 
-Cloudify provides this mechanism by allowing you to describe *Custom Commands* using Groovy closures, external Groovy scripts, or external shell/batch scripts. The commands can be parameterized, and are invoked using the Cloudfy shell. 
+Cloudify provides this mechanism by allowing you to describe *Custom Commands* using Groovy closures, external Groovy scripts, or external shell/batch scripts. The commands can be parameterized, and are invoked using the Cloudify shell. 
 
 h2. Describing a Custom Command
 
@@ -29,7 +29,7 @@ h4(warn). When using user-defined Java libraries in your Groovy closures or scri
 
 h4(warn). Any external script invoked by the custom command must be copied to the service folder.
 
-The @customCommands@ section must be located in the "@General@":../developing/service_recipe section of the relevant service descriptor file (@<service name>-service.groovy@). The following example shows the @customCommands@ section after the @lifecycle@ section, in the @General@ section of the service desciptor file.
+The @customCommands@ section must be located in the "@General@":../developing/service_recipe section of the relevant service descriptor file (@<service name>-service.groovy@). The following example shows the @customCommands@ section after the @lifecycle@ section, in the @General@ section of the service descriptor file.
 <script src="https://gist.github.com/2267558.js?file=tomcat.groovy"></script>
 
 h2. Invoking Custom Commands
