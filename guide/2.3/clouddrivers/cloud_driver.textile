@@ -115,7 +115,8 @@ The @reservedMemoryCapacityPerMachineInMB@ attribue which is set in the provider
 
 The @machineMemoryMB@ attribue which is set in the templates section of the cloud driver for each template, is the amount of RAM available to a machine.
 
-* The value of reservedMemoryCapacityPerMachineInMB must be smaller then the value of machineMemoryMB which is defined in the template.
+* In a dedicated mode (isolationSLA - one service instance per machine): 
+The value of reservedMemoryCapacityPerMachineInMB must be smaller then the value of machineMemoryMB which is defined in the template.
 Cloudify will use the remaining memory on the machine for capacity planning of this service instance, and will thus be able to install the instance on the newly allocated machine. 
 
 * If a service uses one of the Multi Tenancy modes:
