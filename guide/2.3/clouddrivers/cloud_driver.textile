@@ -111,21 +111,18 @@ h4(impt). Templates that already exist, will NOT be overridden.
 
 h2(#rsv). Setting Reserved Memory
 
-The @reservedMemoryCapacityPerMachineInMB@ attribue which is set in the provider section of the cloud driver, is the estimated amount of RAM used by the operating system and the GSA running on the machine and any other non-Cloudify application running on the machine (An example of non-Cloudify applications is if the VM comes with pre-installed applications, that are not a part of Cloudify and are not a part of the current recipe).
+The @reservedMemoryCapacityPerMachineInMB@ attribue which is set in the provider section of the cloud driver, is the estimated amount of RAM used by the operating system and the Cloudify agent running on the machine and any other non-Cloudify application running on the machine (An example of non-Cloudify applications is if the VM comes with pre-installed applications, that are not a part of Cloudify and are not a part of the current recipe).
 
-The @machineMB@ attribue which is set in the templates section of the cloud driver for each template, is the amount of RAM available to a machine.
+The @machineMemoryMB@ attribue which is set in the templates section of the cloud driver for each template, is the amount of RAM available to a machine.
 
-* In a dedicated mode (isolationSLA - one service instance per machine): 
-Cloudify calulates the following formula value: 
-<span class="snippet">instanceMemoryMB = machineMB - reservedMemoryCapacityPerMachineInMB </span>
-This value is used as the memory capacity which is required by each (one) service instance.
-In other words, the reservedMemoryCapacityPerMachineInMB must to be smaller than machineMB, so that Cloudify will be able to allocate a new machine for the instance. 
-
-h4(impt). @instanceMemoryMB@ is the estimated amount of memory required by one service instance and NOT the actual memory that the service instance will use.
+* The value of reservedMemoryCapacityPerMachineInMB must be smaller then the value of machineMemoryMB which is defined in the template.
+Cloudify will use the remaining memory on the machine for capacity planning of this service instance, and will thus be able to install the instance on the newly allocated machine. 
 
 * If a service uses one of the Multi Tenancy modes:
-In this case, Cloudify uses the following formula <span class="snippet">instanceMemoryMB = isolationSla.getInstanceMemoryMB() (user input). </span>
-So in this case, the user should verify that <span class="snippet">machineMB - reservedMemoryCapacityPerMachineInMB > instanceMemoryMB </span>, otherwise there will not be enough memory to install even a single instance. 
+The memory capacity requirement of the service instance is defined by the user (via isolationSLA), therefore the user must specify a valid number in the instanceMemoryMB property, taking into account the reservedMemoryCapacityPerMachineInMB and machineMemoryMB, otherwise there will not be enough memory to install even a single instance. 
+
+h4(impt). The reservedMemoryCapacityPerMachineInMB is only relevant in a Multi Tenancy mode, since in the dedicated mode, the capacity planning parameters are calculated by Cloudify.
+
 
 <br/>
 You can read about isolationSLA (Multi Tenant Deployment) "here":../developing/service_recipe#mtd.
