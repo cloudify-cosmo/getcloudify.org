@@ -28,7 +28,7 @@ var messages = {
 	sshLoggingLevel:'Logging level for the internal cloud provider logger. Defaults to INFO',
 	managementGroup:'The prefix for new machines provisioned as Cloudify management machines::required',
 	numberOfManagementMachines:'Number of management machines to start when the cloud is bootstrapped. We recommend specifying 2 for you production environment::required',
-	reservedMemoryCapacityPerMachineInMB:'The estimated amount of RAM used by the operating system and the GSA running on the machine',
+	reservedMemoryCapacityPerMachineInMB:'The estimated amount of RAM used by the operating system and the GSA running on the machine and any other non-Cloudify application running on the machine',
 	provider_user:'Cloud authentication information',
 	user_user:'Identity used to access cloud. When used with the default driver, maps to the identity used to create the ComputeServiceContext',
 	apiKey:'Key used to access cloud. When used with the default driver, maps to the credential used to create the ComputeServiceContext',
