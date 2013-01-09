@@ -109,6 +109,28 @@ h4(info). Only one template per groovy file is allowed. - If a groovy file conta
 h4(impt). Templates that already exist, will NOT be overridden.
 
 
+h2(#rsv). Setting Reserved Memory
+
+The @reservedMemoryCapacityPerMachineInMB@ attribue which is set in the provider section of the cloud driver, is the estimated amount of RAM used by the operating system and the GSA running on the machine and any other non-Cloudify application running on the machine (An example of non-Cloudify applications is if the VM comes with pre-installed applications, that are not a part of Cloudify and are not a part of the current recipe).
+
+The @machineMB@ attribue which is set in the templates section of the cloud driver for each template, is the amount of RAM available to a machine.
+
+* In a dedicated mode (isolationSLA - one service instance per machine): 
+Cloudify calulates the following formula value: 
+<span class="snippet">instanceMemoryMB = machineMB - reservedMemoryCapacityPerMachineInMB </span>
+This value is used as the memory capacity which is required by each (one) service instance.
+In other words, the reservedMemoryCapacityPerMachineInMB must to be smaller than machineMB, so that Cloudify will be able to allocate a new machine for the instance. 
+
+h4(impt). @instanceMemoryMB@ is the estimated amount of memory required by one service instance and NOT the actual memory that the service instance will use.
+
+* If a service uses one of the Multi Tenancy modes:
+In this case, Cloudify uses the following formula <span class="snippet">instanceMemoryMB = isolationSla.getInstanceMemoryMB() (user input). </span>
+So in this case, the user should verify that <span class="snippet">machineMB - reservedMemoryCapacityPerMachineInMB > instanceMemoryMB </span>, otherwise there will not be enough memory to install even a single instance. 
+
+<br/>
+You can read about isolationSLA (Multi Tenant Deployment) "here":../developing/service_recipe#mtd.
+
+
 h2. The Default Cloud Driver
 
 Cloudify comes with a built-in cloud driver implementation that is based on the popular "jclouds":http://www.jclouds.org framework. This cloud driver enables you to deploy Cloudify services for many cloud providers and APIs. For a full listing of supported clouds, see "jclouds : Supported Providers":http://www.jclouds.org/documentation/reference/supported-providers.
