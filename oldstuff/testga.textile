@@ -4,5 +4,17 @@ title: Test1
 category: About Us
 ---
 
-h1. Test1
-<a href="http://repository.cloudifysource.org/org/cloudifysource/2.3.0-RELEASE/gigaspaces-cloudify-2.3.0-ga-b3500.zip">Download</a>
+h1. Test Google Analytics
+<a id="downloadme" href="http://repository.cloudifysource.org/org/cloudifysource/2.3.0-RELEASE/gigaspaces-cloudify-2.3.0-ga-b3500.zip">Download</a>
+
+<script text="javascript">
+function trigger_download() {
+downloadme=$('a#downloadme').attr('href').split("cloudify-")[1];
+downloadme="/downloads/cloudify-" + downloadme.split("\.zip")[0] + "/testGa";
+document.getElementById('downloadme').click();
+_gaq.push(['_trackPageview', downloadme]);
+
+}
+</script>
+
+
