@@ -46,8 +46,8 @@ You can obtain your *Access Key* and *Secret Access Key* from the "(newwindow)AP
 <h4 class="impt">Note that the *Secret Access Key* must correspond to the *Access Key* specified in the *user* attribute.</h4>
 ** *keyFile*--Specify the name of the private key file that you created (@myKeyPair-name.pem@ in our example).
 * In the *templates* section:  				 
-** *imageId*--Specify the *HP Install Image ID*.
-** *hardwareId*--Specify the HP *Machine Size*.
+** *imageId*--Specify the *HP Image ID* and *Availability Zone* (Availability Zone/imageId) . e.g. : az-2.region-a.geo-1/221
+** *hardwareId*--Specify the HP *Machine Size ID* and *Availability Zone* (Availability Zone/hardwareId) . e.g. : az-2.region-a.geo-1/102
 ** *options* ("jclouds":http://www.jclouds.org/documentation)
 *** *securityGroups*--Specify "(newwindow)security groups":https://console.hpcloud.com/compute/100/security_groups to determine whether network ports are opened or blocked on your instances.
 *** *keyPair*--Specify the name of the key pair that you created (whose content is in the .pem file in *keyFile* attribute in the user section).
