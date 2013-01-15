@@ -38,8 +38,8 @@ Edit the HP cloud driver configuration file (@hp-cloud.groovy@) located in the @
 ** *managementOnlyFiles*--An array containing a list of files to copy to management machines and not agent machines. Use this list to specify files such as the private key file (e.g. @myKeyPair-name.pem@) required by the cloud driver..
 ** *managementGroup*--The value that you specify is used as the name prefix for each of your management instances.
 * In the *user* section:
-** *user*--Specify your credentials *Access Key ID:Tenant Name*. The Access Key ID is *NOT* the tenant ID and the Tenant Name is usually the account's email address.
-e.g : 64576452:joe@friends.com. Refer to the "(newwindow)HP console":https://console.hpcloud.com/account/api_keys for these details.
+** *user*--Specify your credentials *Tenant Name:Access Key ID*. The Access Key ID is *NOT* the tenant ID and the Tenant Name is usually the account's email address.
+e.g : joe@friends.com:42981781133893. Refer to the "(newwindow)HP console":https://console.hpcloud.com/account/api_keys for these details.
 ** *apiKey*--Specify your corresponding *API Key*.
 You can obtain your *Access Key* and *Secret Access Key* from the "(newwindow)API Keys":https://manage.hpcloud.com/account/api_keys section of the HP OpenStack web console, as follows:
 !../../images/hp/api_keys_hp_cloud_services.jpg!
