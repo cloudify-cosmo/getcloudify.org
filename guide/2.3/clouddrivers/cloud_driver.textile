@@ -50,6 +50,18 @@ The implementing class of the cloud driver, along with any required cloud config
 The following example shows a sample configuration file:
 <script src="https://gist.github.com/1770098.js?file=cloudDriverConfig.groovy"></script>
 
+h2(#jurl). Setting Java download path in the Cloud Driver Configuration.
+
+By default, Cloudify download java from http://repository.cloudifysource.org/com/oracle/java/1.6.0_32/jdk-6u32-linux-i586.bin (32 bit) and from http://repository.cloudifysource.org/com/oracle/java/1.6.0_32/jdk-6u32-linux-x64.bin (64 bit).
+
+However, if you know that the VM comes with a pre-installed JDK, you can set the javaUrl attribute's value to "NO_INSTALL" as shown in the following example:
+<script src="https://gist.github.com/4537447.js"></script>
+
+If you want Cloudify to download java from a different location, you can set the javaUrl attribute's value to that location as shown in the following example:
+
+<script src="https://gist.github.com/4537455.js"></script>
+
+
 
 h2(#sos). Setting OS variables in the Cloud Driver Configuration.
 
