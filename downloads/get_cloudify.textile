@@ -64,6 +64,10 @@ $(function(){
 	  	trigger_download();
 	       window.location = '/thank_you.htm';
 	});
+
+	$("a#downloadme").click(function() {
+	       window.location = '/thank_you.htm';
+	});
 	
 	function trigger_download() {
 	var downloadme=$('a#downloadme').attr('href').split("cloudify-")[1];
