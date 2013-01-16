@@ -56,16 +56,23 @@ cat: User Guide
     <div class="clear"></div>
 </div>
 <script text="javascript">
-function trigger_download() {
-var downloadme=$('a#downloadme').attr('href').split("cloudify-")[1];
-downloadme="/downloads/cloudify-" + downloadme.split("\.zip")[0] + "/get_cloudify";
-document.getElementById('downloadme').click();
-_gaq.push(['_trackPageview', downloadme]);
-window.location = '/thank_you.htm';
-});
 
-$('div.dwnGoBtn').click(){ // fix for chrome and safari
-	trigger_download();
+
+$(function(){
+
+	$('div.dwnGoBtn').click(){ // fix for chrome and safari
+		trigger_download();
+	});
+	
+	function trigger_download() {
+	var downloadme=$('a#downloadme').attr('href').split("cloudify-")[1];
+	downloadme="/downloads/cloudify-" + downloadme.split("\.zip")[0] + "/get_cloudify";
+	document.getElementById('downloadme').click();
+	_gaq.push(['_trackPageview', downloadme]);
+	window.location = '/thank_you.htm';
+	});
+
+
 });
 
 </script>
