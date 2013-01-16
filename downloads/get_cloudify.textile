@@ -16,7 +16,7 @@ cat: User Guide
                 <h3>Download the Latest GA Release</h3>
                 <p>Get the latest Cloudify GA release - version 2.3.0!</p>
                 <!--<a href="/thank_you.htm" class="dwnGoBtn" onclick="trigger_download();"></a>-->
- 		<div class="dwnGoBtn" onclick="trigger_download();"></div>
+ 		<div class="dwnGoBtn"></div>
                 <a id="downloadme"   target="_blank" href="http://repository.cloudifysource.org/org/cloudifysource/2.3.0-RELEASE/gigaspaces-cloudify-2.3.0-ga-b3500.zip" style="display: none;"></a>
 		<br/>
 		<p><a href="http://www.cloudifysource.org/guide/2.3/release_notes/release_notes" target="_blank" >View the <b>release notes</b></a>.</p>
@@ -64,10 +64,9 @@ _gaq.push(['_trackPageview', downloadme]);
 window.location = '/thank_you.htm';
 });
 
-//$('a.dwnGoBtn').mouseup(function(e){ // fix for chrome and safari
-//e.preventDefault();
-//document.getElementById('downloadme').click();
-//});
+$('div.dwnGoBtn').click(){ // fix for chrome and safari
+	trigger_download();
+});
 
 </script>
 
