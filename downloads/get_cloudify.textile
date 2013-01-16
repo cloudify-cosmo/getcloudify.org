@@ -56,14 +56,16 @@ cat: User Guide
 </div>
 <script text="javascript">
 function trigger_download() {
-$( '#downloadme' ).get(0).nodeName;
-location.href = "http://repository.cloudifysource.org/org/cloudifysource/2.3.0-RELEASE/gigaspaces-cloudify-2.3.0-ga-b3500.zip";
 downloadme=$('a#downloadme').attr('href').split("cloudify-")[1];
 downloadme="/downloads/cloudify-" + downloadme.split("\.zip")[0] + "/get_cloudify";
 document.getElementById('downloadme').click();
 _gaq.push(['_trackPageview', downloadme]);
-
 }
+
+$(".dwnGoBtn").click(function(){
+    location.href = "http://repository.cloudifysource.org/org/cloudifysource/2.3.0-RELEASE/gigaspaces-cloudify-2.3.0-ga-b3500.zip";
+});
+
 </script>
 
 
