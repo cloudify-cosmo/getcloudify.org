@@ -65,7 +65,8 @@ $(function(){
 	       window.location = '/thank_you.htm';
 	});
 
-	$("a#downloadme").mouseup(function() {
+	$("a#downloadme").click(function(e) {
+	       e.preventDefault();
 	       window.location = '/thank_you.htm';
 	});
 	
