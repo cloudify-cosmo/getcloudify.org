@@ -58,6 +58,7 @@ cat: User Guide
 function trigger_download() {
 var downloadme=$('a#downloadme').attr('href').split("cloudify-")[1];
 downloadme="/downloads/cloudify-" + downloadme.split("\.zip")[0] + "/get_cloudify";
+window.location = $('#downloadme').attr('href');
 document.getElementById('downloadme').click();
 _gaq.push(['_trackPageview', downloadme]);
 }
