@@ -63,6 +63,10 @@ document.getElementById('downloadme').click();
 _gaq.push(['_trackPageview', downloadme]);
 }
 
+$('a#downloadme').mouseup(function(e){ // fix for chrome and safari
+document.getElementById('downloadme').click();
+});
+
 </script>
 
 
