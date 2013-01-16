@@ -68,8 +68,12 @@ $(function(){
 	$("a#downloadme").click(function(e) {
 	       e.preventDefault();
 	       window.location = 'http://repository.cloudifysource.org/org/cloudifysource/2.3.0-RELEASE/gigaspaces-cloudify-2.3.0-ga-b3500.zip';
-               window.location.replace = '/thank_you.htm';
+              setTimeout();
 	});
+
+	setTimeout(function() {
+	  window.location.href = "/thank_you.htm";
+	}, 5000);
 	
 	function trigger_download() {
 	var downloadme=$('a#downloadme').attr('href').split("cloudify-")[1];
