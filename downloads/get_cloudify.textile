@@ -94,6 +94,8 @@ $(function(){
 mixpanel.track('get_cloudify page views');
 var verName="";
 verName=$('a#downloadme').attr('href').split("/")[6]; 
-mixpanel.track_links('#downloadme', 'Product Download -' + verName);
-mixpanel.track_links('#downloadme', {'Product Download V':[verName]});
+//mixpanel.track_links('#downloadme', 'Product Download -' + verName);
+$("a#downloadme").click(function() {
+	mixpanel.track('Product Download', {'Products':[verName]});
+});
 </script>
