@@ -174,3 +174,36 @@ h4. Install application with explicit authorization groups
 
 h4(info). Multiple authorization groups need to be comma-separated. 
  
+
+ 
+h4. Authorized roles (Who Can Do What)
+
+<span id="autha"/>Here is a list of actions and their corresponding authorized roles.
+
+|_.Action|_.Authorized roles |
+|bootstrap-cloud |Cloud Admin|
+|teardown-cloud|Cloud Admin|
+|add-templates|Cloud Admin|
+|remove-template|Cloud Admin|
+|install-application|Cloud Admin , App Manager|
+|install-service|Cloud Admin , App Manager|
+|list-applications|All Roles|
+|list-attributes|Cloud Admin , App Manager|
+|list-instances|All Roles|
+|list-services|All Roles|
+|list-templates|Cloud Admin , App Manager|
+|remove-attributes|All Roles|
+|set-attributes|Cloud Admin , App Manager|
+|set-instances|Cloud Admin , App Manager|
+|uninstall-application|Cloud Admin , App Manager|
+|uninstall-service|Cloud Admin , App Manager|
+|use-application|Just a shell command, not active on the server|
+
+h4(info). All Roles: Cloud Admin, App Manager, Viewer.
+
+h4(impt). Actions regarding Applications/Services/instances are always applicable only for in the scope of the authorization-groups the user belongs to
+
+h4(impt). Starting/terminating machines on the cloud requires credentials to that cloud account, regardless of the security limitations CLoudify enforces through Spring Security.
+
+For a list of the available Cloudify commands, click "here":../recipe/command_line_reference.
+
