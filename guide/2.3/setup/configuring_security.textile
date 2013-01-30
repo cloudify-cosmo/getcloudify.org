@@ -63,8 +63,9 @@ Cloudify currently uses three rigid roles:
 * Application Manager - Users granted this role can list, install and uninstall applications and services, and change the number of service instances deployed. Application managers are expected to be set for different organizational units, as will be explained later.
 * Viewer - This role permits the user to only view (list)  applications, services and instances. It is not uncommon to have many users granted this role.
 
-h4(impt). Roles are not hierarchical - they do not fully contain one another. For example, a Cloud Admin can tear down the cloud, but cannot deploy applications. If you wish to allow a user to perform both actions - grant the user both roles.
+h4(impt). Roles are not hierarchical - they do not fully contain one another. For example, a Cloud Admin can tear down the cloud, but is not necessarily able to uninstall applications. This depends on the authorization groups membership of the user. If you wish to allow a user to perform both actions - grant the user both roles.
 
+h4(impt). Roles (Authorities) permit a user to do something. A role is practically a bunch of actions the user is allowed to execute (e.g. install-applications). Users that don't have roles can't do anything. They will be able to log in, but won't see or create or modify anything.
 
 h2. Resource-based Authorization - Authorization Groups
 
@@ -76,6 +77,12 @@ The following illustration shows how roles and authorization groups interact. No
 Like users, managed resources (applications and services) are also associated with one or more authorization group. This association is set automatically when an application is installed - the application is set with the authorization groups of the installing user (unless otherwise specified, as shown in the "Command Examples section":#comsec. Services are always associated with the authorization group of the application containing them.
 Only some users are authorized to access each resource, hence the name - "resource-based authorization". Group-based authorization is performed only after the user has been authenticated and verified as holding a role that permits the attempted action (e.g. the user has the role "App Manager" which is required when attempting to delete an application). At this stage the user's groups are retrieved from the user store and compared to the groups associated with the managed resource. Only if the user is a member of at least one of the resource's groups, this resource is accessible to the user.
 For example, if an application is installed by a user that is a member of the groups "Finance" and "US East", these groups will automatically be set as the authorization groups of the application, unless otherwise specified. Thereafter, only members of "Finance" or "US East" will be able to list or manage this application, depending on their roles. 
+
+h4(impt). Authentication groups are associated with users and with resources (e.g. Applications). This is how Cloudify determines which user can see/manage which resource.
+
+h4(impt). When a user creates a resource (e.g. install-application) the user's auth-groups are automatically set on that resource. If the user has no auth-groups, the resource has no auth-groups.
+
+h4(impt). Resources that have no auth-groups will not be accessible nor seen by *anyone, except for cloud admins*. So in such a scenario, even the user who installed it, will not see it, unless she is a cloud admin.
 
 
 h2(#confsec). Configuring & Bootstrapping a Secure Cloudify Manager
