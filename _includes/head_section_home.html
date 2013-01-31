@@ -92,35 +92,7 @@
 
 //End Tabs
 
-//start captcha Code
-	function randomgen()
-	{
-    var rannumber='';
-		for(ranNum=1; ranNum<=6; ranNum++){
-			rannumber+=Math.floor(Math.random()*10).toString();
-		}
-		$('#verifyNum').html(rannumber);
-		$('#verifyNumHidden').val(rannumber);
-	}
-	randomgen();
-//Verification number generate code Ends here
-  
-//Validation Starts Here    
-	$('#contactUs').submit(function() {
-		if($('#enterVerify').val() == $('#verifyNumHidden').val() ) {
-			//$('form').attr('action', 'https://example.com/MyForm');
-			return true;
-		}
-		else
-		{
-			alert("Please Enter Correct Verification Number");
-			randomgen();
-			$('#enterVerify').select();
-			$('#enterVerify').focus();
-			return false;
-		}
-	});
-//end captcha Code;
+
 								  
 });
 </script>
@@ -157,6 +129,35 @@
     //when the dom has loaded setup form validation rules
     $(D).ready(function($) {
         JQUERY4U.UTIL.setupFormValidation();
+//start captcha Code
+	function randomgen()
+	{
+    var rannumber='';
+		for(ranNum=1; ranNum<=6; ranNum++){
+			rannumber+=Math.floor(Math.random()*10).toString();
+		}
+		$('#verifyNum').html(rannumber);
+		$('#verifyNumHidden').val(rannumber);
+	}
+	randomgen();
+//Verification number generate code Ends here
+  
+//Validation Starts Here    
+	$('#contactUs').submit(function() {
+		if($('#enterVerify').val() == $('#verifyNumHidden').val() ) {
+			//$('form').attr('action', 'https://example.com/MyForm');
+			return true;
+		}
+		else
+		{
+			alert("Please Enter Correct Verification Number");
+			randomgen();
+			$('#enterVerify').select();
+			$('#enterVerify').focus();
+			return false;
+		}
+	});
+//end captcha Code;        
     });
 
 })(jQuery, window, document);
