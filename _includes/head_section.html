@@ -43,7 +43,8 @@
 	<script type="text/javascript" src="/scripts/version.data.js"></script>
 	<script type="text/javascript" src="/scripts/version.js"></script>
 	<script type="text/javascript" src="/scripts/jquery.lightbox-0.5.js"></script>
-	<!--<script src="http://ajax.aspnetcdn.com/ajax/jquery.validate/1.9/jquery.validate.min.js"></script>
+
+
 <script type="text/javascript" >
 (function($,W,D)
 {
@@ -54,7 +55,7 @@
         setupFormValidation: function()
         {
             //form validation rules
-
+	    	
             $("#contactUs").validate({
                 rules: {
                     last_name: "required",
@@ -77,10 +78,39 @@
     //when the dom has loaded setup form validation rules
     $(D).ready(function($) {
         JQUERY4U.UTIL.setupFormValidation();
+//start captcha Code
+	function randomgen()
+	{
+    var rannumber='';
+		for(ranNum=1; ranNum<=6; ranNum++){
+			rannumber+=Math.floor(Math.random()*10).toString();
+		}
+		$('#verifyNum').html(rannumber);
+		$('#verifyNumHidden').val(rannumber);
+	}
+	randomgen();
+//Verification number generate code Ends here
+  
+//Validation Starts Here    
+	$('#contactUs').submit(function() {
+		if($('#enterVerify').val() == $('#verifyNumHidden').val() ) {
+			//$('form').attr('action', 'https://example.com/MyForm');
+			return true;
+		}
+		else
+		{
+			alert("Please Enter Correct Verification Number");
+			randomgen();
+			$('#enterVerify').select();
+			$('#enterVerify').focus();
+			return false;
+		}
+	});
+//end captcha Code;        
     });
 
 })(jQuery, window, document);
-</script>-->
+</script>
 <script type="text/javascript">
     $(window).bind("load", function () {
         //rss feed slider						
