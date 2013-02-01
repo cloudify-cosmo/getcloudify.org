@@ -68,7 +68,16 @@ $(function(){
 	$("a#downloadme").click(function(e) {
 	       e.preventDefault();
 	       window.location = 'http://repository.cloudifysource.org/org/cloudifysource/2.3.0-RELEASE/gigaspaces-cloudify-2.3.0-ga-b3500.zip';
+	
+	       
+                //track mixpanel
+		var verName="";
+		verName=$('a#downloadme').attr('href').split("/")[6]; 
+		mixpanel.track('Product Download F-clickFunction', {'Products':[verName]});
+
+	       //track google
 	       trigger_download();
+
                setTimeout(function() {
 	 		 window.location.href = "/thank_you.htm";
 	       }, 5000);
@@ -80,11 +89,11 @@ $(function(){
 	var downloadme=$('a#downloadme').attr('href').split("cloudify-")[1];
 	downloadme="/downloads/cloudify-" + downloadme.split("\.zip")[0] + "/get_cloudify";
 	_gaq.push(['_trackPageview', downloadme]);
-	
-        //track mixpanel
+        
+       //track mixpanel
 	var verName="";
 	verName=$('a#downloadme').attr('href').split("/")[6]; 
-	mixpanel.track('Product Download F-02/02/13', {'Products':[verName]});
+	mixpanel.track('Product Download F-triggerFunction', {'Products':[verName]});
 
 	}
 
