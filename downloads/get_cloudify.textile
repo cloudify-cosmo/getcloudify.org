@@ -80,7 +80,11 @@ $(function(){
 	var downloadme=$('a#downloadme').attr('href').split("cloudify-")[1];
 	downloadme="/downloads/cloudify-" + downloadme.split("\.zip")[0] + "/get_cloudify";
 	_gaq.push(['_trackPageview', downloadme]);
-	 mixpanel.track('Product Download Sucsses', {'Products':[downloadme]});
+	
+        //track mixpanel
+	var verName="";
+	verName=$('a#downloadme').attr('href').split("/")[6]; 
+	mixpanel.track('Product Download F-01/02/13', {'Products':[verName]});
 
 	}
 
