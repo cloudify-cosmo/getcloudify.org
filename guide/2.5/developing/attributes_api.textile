@@ -29,7 +29,7 @@ A service instance can read or modify any of the attributes of other service ins
 
 h4(info). You *cannot* access attributes of other applications. You can only access attributes that belong to the current application, its services, and their service instances. 
 
-The following example shows how to use the @foreach@ method to iterate through the attributes of service instances: @context.attributes.thisService.instances.foreach{println t.myKey}@
+The following example shows how to use the @each@ method to iterate through the attributes of service instances: @context.attributes.thisService.instances.each{println it.myKey}@
 
 h2. Reading and Writing Attributes
 
