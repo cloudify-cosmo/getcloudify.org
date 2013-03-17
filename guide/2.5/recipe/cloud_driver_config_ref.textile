@@ -21,7 +21,7 @@ var messages = {
 	provider_provider:'The name of the cloud provider. When using the default cloud driver, maps to the Compute Service Context provider name::required',
 	localDirectory:'All files from this LOCAL folder will be copied to the folder specified in remoteDirectory::required',
 	remoteDirectory:'Files from the local folder will be copied to this folder on the remote machine::required',
-	cloudifyUrl:'The HTTP/S URL from where the Cloudify package can be downloaded by newly provisioned machines::required',
+	cloudifyUrl:'The HTTP/S URL from where the Cloudify package can be downloaded by newly provisioned machines',
 	machineNamePrefix:'The prefix for new machines provisioned for services::required',
 	dedicatedManagementMachines:'Specifies whether cloudify should try to deploy services on the management machine. Do not change this unless you know EXACTLY what you are doing. Defaults to true',
 	managementOnlyFiles:'An array containing a list of files to copy to management machines and not agent machines. Use this list to specify files such as the private key file (e.g. myKeyPair-name.pem) required by the cloud driver',
@@ -61,7 +61,7 @@ cloud {
               provider "aws-ec2"
               localDirectory "tools/cli/plugins/esc/ec2/upload"
               remoteDirectory "/home/ec2-user/gs-files"
-              cloudifyUrl "http://repository.cloudifysource.org/org/cloudifysource/2.0.1/gigaspaces-cloudify-2.0.1-m1-b1190-13.zip"
+              cloudifyUrl "http://repository.cloudifysource.org/org/cloudifysource/2.5.0-M4/gigaspaces-cloudify-2.5.0-m4-b3985"
               machineNamePrefix "cloudify_agent_"
               dedicatedManagementMachines true
               managementOnlyFiles ([])
@@ -74,7 +74,7 @@ cloud {
        user {
               user "ENTER_USER"
               apiKey "ENTER_API_KEY"
-              keyFile "cloud-demo.pem"
+              
        }
 
        templates ([
@@ -83,6 +83,7 @@ cloud {
                         machineMemoryMB 1600
                         hardwareId "m1.small"
                         locationId "us-east-1"
+                        keyFile "cloud-demo.pem"
                                   
                         options ([
                             "securityGroups" : ["default"] as String[],
