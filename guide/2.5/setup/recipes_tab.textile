@@ -25,7 +25,7 @@ The webui has a spring context XML file called "cloudify-webui-context.xml" :
 <script src="https://gist.github.com/tamirko/5230978.js"></script>
 
 You can define your own file which overrides the cloudify-webui-context.xml.
-For localcloud you place it under "config" (XXX) and for remote clouds you will place it under an override folder (XXX). 
+For localcloud you place it under the "config" folder under CloudifyRoot folder and for remote clouds you will place it under a cloudify-overrides (e.g.: For EC2, place the file in CloudifyRoot/clouds/ec2/upload/cloudify-overrides/config/cloudify-webui-context-override.xml). 
 The overriding file should be named "cloudify-webui-context-override.xml".
 
 # Modifying the value for "recipesRepository" to true will turn the feature on. 
