@@ -1,0 +1,47 @@
+---
+layout: default
+title: Recipes Tab
+category: Installation & Setup
+publish: true
+abstract: How to use the Recipes Tab
+pageord: 800
+---
+
+h2. The Recipes Tab
+
+Cloudify comes with a hidden repository feature. 
+If you switch the feature ON, by default we clone the Cloudify recipes repository and then allow you to browse through it, modify the files and install services/applications. 
+
+h4(info). Despite the fact that it's called "Cloudify repository" and despite the fact that this feature uses "GIT" behind the scenes, it is by no means a fully qualified SVC in the current version. Cloudify does NOT use "commit" nor "push" code. It simply clones the content of the repository. 
+Updating the content of a file simply translates into writing the content of that specific file. 
+Cloudify has a basic support to collisions (prevents you from saving a file after someone else has changed it while you were editing).
+
+Here's a screenshot that shows the recipes tab:
+<a class="fancybox-media" href="../../images/setup/browse_recipes.png"><img src="../../images/setup/browse_recipes_thumb.png" alt="pic is missing" /></a>
+
+h2. Configuration
+
+The webui has a spring context XML file called "cloudify-webui-context.xml" : 
+<script src="https://gist.github.com/tamirko/5230978.js"></script>
+
+You can define your own file which overrides the cloudify-webui-context.xml.
+For localcloud you place it under "config" (XXX) and for remote clouds you will place it under an override folder (XXX). 
+The overriding file should be named "cloudify-webui-context-override.xml".
+
+# Modifying the value for "recipesRepository" to true will turn the feature on. 
+# Modifying the "URI" on repositoryDefinitionBean - will modify the location from which is cloned by Cloudify.
+# Modifying the "rootFolder" on repositoryDefinitionBean - will modify the target folder to which is cloned by Cloudify. 
+# Modifying "existingMethod" will modify how Cloudify handles an existing clone. USE will simply use the folder, USE_IF_VALID will validate this is a proper clone - if not, Cloudify will delete the folder and clone again. 
+
+Here's an override example:
+<script src="https://gist.github.com/tamirko/5230984.js"></script>
+
+This configuration also allows you to modify the implementation of the interface. 
+The interface is available as a MAVEN dependency with the following details :
+<script src="https://gist.github.com/tamirko/5230970.js"></script>
+
+h2. Using the Recipes Tab
+
+The recipes tab enables you to modify a recipe and then install it.
+Here's a screenshot that shows it:
+<a class="fancybox-media" href="../../images/setup/edit_recipe.jpg"><img src="../../images/setup/edit_recipe_thumb.jpg" alt="pic is missing" /></a>
