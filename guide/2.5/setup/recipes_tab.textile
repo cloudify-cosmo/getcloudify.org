@@ -1,20 +1,19 @@
 ---
 layout: default
-title: Recipes Tab
+title: The Recipe Repository
 category: Installation & Setup
 publish: true
-abstract: How to use the Recipes Tab
+abstract: How to use the Cloudify recipes repository from the WEB UI.
 pageord: 800
 ---
 
-h2. The Recipes Tab
+h2. The Cloudify Recipe Repository 
 
-Cloudify comes with a hidden repository feature. 
-If you switch the feature ON, by default we clone the Cloudify recipes repository and then allow you to browse through it, modify the files and install services/applications. 
+Cloudify Web UI has a functionality called the recipe repository. By default, this functionality is turned off. 
+When turned on, the Cloudify manager will clone the Cloudify recipes repository to the local disk and allow you to browse it, modify files and install services and applications.
 
-h4(info). Despite the fact that it's called "Cloudify repository" and despite the fact that this feature uses "GIT" behind the scenes, it is by no means a fully qualified SVC in the current version. Cloudify does NOT use "commit" nor "push" code. It simply clones the content of the repository. 
-Updating the content of a file simply translates into writing the content of that specific file. 
-Cloudify has a basic support to collisions (prevents you from saving a file after someone else has changed it while you were editing).
+h4(info). The repository feature is not a full-blown VCS at this point. Cloudify does not commit or push code changes to the cloned remote repository. It simply clones the content of the repository to the local disk. Updating the content of a file simply updates the content of that file on the local disk of the Cloudify manager. 
+The repository implements basic collision detection which prevents you from saving a file after another user has changed it while you were editing it. 
 
 Here's a screenshot that shows the recipes tab:
 <a class="fancybox-media" href="../../images/setup/browse_recipes.png"><img src="../../images/setup/browse_recipes_thumb.png" alt="pic is missing" /></a>
@@ -28,10 +27,16 @@ You can define your own file which overrides the cloudify-webui-context.xml.
 For localcloud you place it under the "config" folder under CloudifyRoot folder and for remote clouds you will place it under a cloudify-overrides (e.g.: For EC2, place the file in CloudifyRoot/clouds/ec2/upload/cloudify-overrides/config/cloudify-webui-context-override.xml). 
 The overriding file should be named "cloudify-webui-context-override.xml".
 
-# Modifying the value for "recipesRepository" to true will turn the feature on. 
-# Modifying the "URI" on repositoryDefinitionBean - will modify the location from which is cloned by Cloudify.
-# Modifying the "rootFolder" on repositoryDefinitionBean - will modify the target folder to which is cloned by Cloudify. 
-# Modifying "existingMethod" will modify how Cloudify handles an existing clone. USE will simply use the folder, USE_IF_VALID will validate this is a proper clone - if not, Cloudify will delete the folder and clone again. 
+# Modifying the value of the "recipesRepository" property to "@true@" will turn the feature on. 
+# Modifying the value of the "URI" property in repositoryDefinitionBean - will modify the location from which is cloned by Cloudify.
+# Modifying the value of the "rootFolder" property in repositoryDefinitionBean - will modify the target folder to which is cloned by Cloudify. 
+# Modifying the value of "existingMethod" property in will modify how Cloudify handles an existing clone. USE will simply use the folder, USE_IF_VALID will validate that this is a proper clone - if not, Cloudify will delete the folder and clone again. 
+
+# Modifying the value of the "recipesRepository" property to "true" will turn the feature on.
+# Modifying the value of the "URI" property of the "repositoryDefinitionBean" bean will modify the git which is cloned by Cloudify.
+# Modifying the value of the "rootFolder" property of the "repositoryDefinitionBean" bean will modify the target folder to which the repo is cloned.
+# Modifying the value of the "existingMethod" property of the same bean will modify how Cloudify handles an existing clone. USE will simply use the folder, USE_IF_VALID will validate that this is a proper clone . If it’s not valid, Cloudify will delete the folder and clone again.
+
 
 Here's an override example:
 <script src="https://gist.github.com/tamirko/5230984.js"></script>
@@ -42,6 +47,6 @@ The interface is available as a MAVEN dependency with the following details :
 
 h2. Using the Recipes Tab
 
-The recipes tab enables you to modify a recipe and then install it.
+The recipe repository tab enables you to modify a recipe and then install it.
 Here's a screenshot that shows it:
 <a class="fancybox-media" href="../../images/setup/edit_recipe.jpg"><img src="../../images/setup/edit_recipe_thumb.jpg" alt="pic is missing" /></a>
