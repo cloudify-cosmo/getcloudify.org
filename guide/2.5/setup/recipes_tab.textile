@@ -27,15 +27,10 @@ You can define your own file which overrides the cloudify-webui-context.xml.
 For localcloud you place it under the "config" folder under CloudifyRoot folder and for remote clouds you will place it under a cloudify-overrides (e.g.: For EC2, place the file in CloudifyRoot/clouds/ec2/upload/cloudify-overrides/config/cloudify-webui-context-override.xml). 
 The overriding file should be named "cloudify-webui-context-override.xml".
 
-# Modifying the value of the "recipesRepository" property to "@true@" will turn the feature on. 
-# Modifying the value of the "URI" property in repositoryDefinitionBean - will modify the location from which is cloned by Cloudify.
-# Modifying the value of the "rootFolder" property in repositoryDefinitionBean - will modify the target folder to which is cloned by Cloudify. 
-# Modifying the value of "existingMethod" property in will modify how Cloudify handles an existing clone. USE will simply use the folder, USE_IF_VALID will validate that this is a proper clone - if not, Cloudify will delete the folder and clone again. 
-
-# Modifying the value of the "recipesRepository" property to "true" will turn the feature on.
-# Modifying the value of the "URI" property of the "repositoryDefinitionBean" bean will modify the git which is cloned by Cloudify.
-# Modifying the value of the "rootFolder" property of the "repositoryDefinitionBean" bean will modify the target folder to which the repo is cloned.
-# Modifying the value of the "existingMethod" property of the same bean will modify how Cloudify handles an existing clone. USE will simply use the folder, USE_IF_VALID will validate that this is a proper clone . If it's not valid, Cloudify will delete the folder and clone again.
+# Modifying the value for "recipesRepository" property to "true" will turn the feature on.
+# Modifying the "URI" property of the "repositoryDefinitionBean" bean will modify the git which is cloned by Cloudify.
+# Modifying the "rootFolder" property of "repositoryDefinitionBean" bean will modify the target folder to which the repo is cloned.
+# Modifying the "existingMethod" property of the same bean will modify how Cloudify handles an existing clone. USE will simply use the folder, USE_IF_VALID will validate that this is a proper clone . If it’s not valid, Cloudify will delete the folder and clone again.
 
 
 Here's an override example:
