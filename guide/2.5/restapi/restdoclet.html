@@ -7,6 +7,164 @@
 	</head>
 	<body>
 											<div class="header">
+				<h1>ConfigController</h1>
+				<p class="excerpt">Mapping of URIs that begin with /{version}/config</p>
+									<p>ConfigRestController provides Rest implementation for Configuration.</p>
+							</div>
+			<div class="separator"></div>
+																<h2 id="REST_API-/{version}/config/compute"><a class="permalink" title="Get a permanent link to this section" href="#REST_API-/{version}/config/compute">/{version}/config/compute</a></h2>				
+												<h3>HTTP Methods</h3>
+									<h4>POST</h4>
+											<p>add compute template.</p>
+																																																																															<h4>GET</h4>
+											<p>get all compute template.</p>
+																																																																															<h4>DELETE</h4>
+											<p>delete compute template.</p>
+																																																																																	<h2 id="REST_API-/{version}/config/loadbalancer"><a class="permalink" title="Get a permanent link to this section" href="#REST_API-/{version}/config/loadbalancer">/{version}/config/loadbalancer</a></h2>				
+												<h3>HTTP Methods</h3>
+									<h4>POST</h4>
+											<p>add load balancer template.</p>
+																																																																															<h4>GET</h4>
+											<p>get all load balancer templates.</p>
+																																																																															<h4>DELETE</h4>
+											<p>delete load balancer templates.</p>
+																																																																																	<h2 id="REST_API-/{version}/config/network"><a class="permalink" title="Get a permanent link to this section" href="#REST_API-/{version}/config/network">/{version}/config/network</a></h2>				
+												<h3>HTTP Methods</h3>
+									<h4>POST</h4>
+											<p>add network template.</p>
+																																																																																	<h2 id="REST_API-/{version}/config/network/{networkName}"><a class="permalink" title="Get a permanent link to this section" href="#REST_API-/{version}/config/network/{networkName}">/{version}/config/network/{networkName}</a></h2>				
+												<h3>HTTP Methods</h3>
+									<h4>GET</h4>
+											<p>get all network template.</p>
+																															<h3>Parameters</h3>
+						<table>
+							<tr>
+								<th>Type</th>
+								<th>Name</th>
+								<th>Description</th>
+								<th>Mandatory</th>
+								<th>Parameter type</th>
+								<th>Default value</th>
+							</tr>
+															<tr>
+									<td>String</td>
+																			<td>networkName</td>
+																												<td>the network name</td>
+																		<td>true</td>
+									<td>PathVariable</td>
+																			<td></td>
+																	</tr>
+													</table>
+																																																											<h4>DELETE</h4>
+											<p>delete network template.</p>
+																															<h3>Parameters</h3>
+						<table>
+							<tr>
+								<th>Type</th>
+								<th>Name</th>
+								<th>Description</th>
+								<th>Mandatory</th>
+								<th>Parameter type</th>
+								<th>Default value</th>
+							</tr>
+															<tr>
+									<td>String</td>
+																			<td>networkName</td>
+																												<td>the network name</td>
+																		<td>true</td>
+									<td>PathVariable</td>
+																			<td></td>
+																	</tr>
+													</table>
+																																																													<h2 id="REST_API-/{version}/config/securitygroups"><a class="permalink" title="Get a permanent link to this section" href="#REST_API-/{version}/config/securitygroups">/{version}/config/securitygroups</a></h2>				
+												<h3>HTTP Methods</h3>
+									<h4>POST</h4>
+											<p>add security group template.</p>
+																															<h3>Parameters</h3>
+						<table>
+							<tr>
+								<th>Type</th>
+								<th>Name</th>
+								<th>Description</th>
+								<th>Mandatory</th>
+								<th>Parameter type</th>
+								<th>Default value</th>
+							</tr>
+															<tr>
+									<td>String</td>
+																			<td>networkName</td>
+																												<td>the network name</td>
+																		<td>true</td>
+									<td>PathVariable</td>
+																			<td></td>
+																	</tr>
+													</table>
+																																																													<h2 id="REST_API-/{version}/config/storage"><a class="permalink" title="Get a permanent link to this section" href="#REST_API-/{version}/config/storage">/{version}/config/storage</a></h2>				
+												<h3>HTTP Methods</h3>
+									<h4>POST</h4>
+											<p>add storage templates.</p>
+																															<h3>Parameters</h3>
+						<table>
+							<tr>
+								<th>Type</th>
+								<th>Name</th>
+								<th>Description</th>
+								<th>Mandatory</th>
+								<th>Parameter type</th>
+								<th>Default value</th>
+							</tr>
+															<tr>
+									<td>String</td>
+																			<td>networkName</td>
+																												<td>the network name</td>
+																		<td>true</td>
+									<td>PathVariable</td>
+																			<td></td>
+																	</tr>
+													</table>
+																																																											<h4>GET</h4>
+											<p>get all storage templates.</p>
+																															<h3>Parameters</h3>
+						<table>
+							<tr>
+								<th>Type</th>
+								<th>Name</th>
+								<th>Description</th>
+								<th>Mandatory</th>
+								<th>Parameter type</th>
+								<th>Default value</th>
+							</tr>
+															<tr>
+									<td>String</td>
+																			<td>networkName</td>
+																												<td>the network name</td>
+																		<td>true</td>
+									<td>PathVariable</td>
+																			<td></td>
+																	</tr>
+													</table>
+																																																											<h4>DELETE</h4>
+											<p>delete storage templates.</p>
+																															<h3>Parameters</h3>
+						<table>
+							<tr>
+								<th>Type</th>
+								<th>Name</th>
+								<th>Description</th>
+								<th>Mandatory</th>
+								<th>Parameter type</th>
+								<th>Default value</th>
+							</tr>
+															<tr>
+									<td>String</td>
+																			<td>networkName</td>
+																												<td>the network name</td>
+																		<td>true</td>
+									<td>PathVariable</td>
+																			<td></td>
+																	</tr>
+													</table>
+																																																														<div class="header">
 				<h1>ServiceController</h1>
 				<p class="excerpt">Mapping of URIs that begin with /service</p>
 							</div>
@@ -14,8 +172,7 @@
 																<h2 id="REST_API-/service/application/{applicationName}/install/permissions"><a class="permalink" title="Get a permanent link to this section" href="#REST_API-/service/application/{applicationName}/install/permissions">/service/application/{applicationName}/install/permissions</a></h2>				
 												<h3>HTTP Methods</h3>
 									<h4>GET</h4>
-											<p>Returns a valid response if the user is fully authorized and has permissions
- for installing an application.</p>
+											<p>Returns a valid response if the user is fully authorized and has permissions for installing an application.</p>
 																															<h3>Parameters</h3>
 						<table>
 							<tr>
@@ -38,8 +195,7 @@
 																																																													<h2 id="REST_API-/service/applications"><a class="permalink" title="Get a permanent link to this section" href="#REST_API-/service/applications">/service/applications</a></h2>				
 												<h3>HTTP Methods</h3>
 									<h4>GET</h4>
-											<p>Creates and returns a map containing all of the deployed application
- names.</p>
+											<p>Creates and returns a map containing all of the deployed application names.</p>
 																															<h3>Parameters</h3>
 						<table>
 							<tr>
@@ -78,8 +234,7 @@
 																<h2 id="REST_API-/service/applications/description"><a class="permalink" title="Get a permanent link to this section" href="#REST_API-/service/applications/description">/service/applications/description</a></h2>				
 												<h3>HTTP Methods</h3>
 									<h4>GET</h4>
-											<p>Creates and returns a list containing all of the deployed application
- details.</p>
+											<p>Creates and returns a list containing all of the deployed application details.</p>
 																															<h3>Parameters</h3>
 						<table>
 							<tr>
@@ -118,8 +273,8 @@
 																<h2 id="REST_API-/service/applications/{applicationName}/services"><a class="permalink" title="Get a permanent link to this section" href="#REST_API-/service/applications/{applicationName}/services">/service/applications/{applicationName}/services</a></h2>				
 												<h3>HTTP Methods</h3>
 									<h4>GET</h4>
-											<p>Creates and returns a map containing all of the deployed service names
- installed under a specific application context.</p>
+											<p>Creates and returns a map containing all of the deployed service names installed under a specific application
+ context.</p>
 																															<h3>Parameters</h3>
 						<table>
 							<tr>
@@ -158,8 +313,8 @@
 																<h2 id="REST_API-/service/applications/{applicationName}/services/description"><a class="permalink" title="Get a permanent link to this section" href="#REST_API-/service/applications/{applicationName}/services/description">/service/applications/{applicationName}/services/description</a></h2>				
 												<h3>HTTP Methods</h3>
 									<h4>GET</h4>
-											<p>Creates and returns a map containing all of the deployed service names
- installed under a specific application context.</p>
+											<p>Creates and returns a map containing all of the deployed service names installed under a specific application
+ context.</p>
 																															<h3>Parameters</h3>
 						<table>
 							<tr>
@@ -237,11 +392,9 @@
 																																																													<h2 id="REST_API-/service/applications/{applicationName}/services/{serviceName}/address/{hostAddress}/tail"><a class="permalink" title="Get a permanent link to this section" href="#REST_API-/service/applications/{applicationName}/services/{serviceName}/address/{hostAddress}/tail">/service/applications/{applicationName}/services/{serviceName}/address/{hostAddress}/tail</a></h2>				
 												<h3>HTTP Methods</h3>
 									<h4>GET</h4>
-											<p>Retrieves the tail of a service log. This method uses the service name
- and the instance host address to retrieve the instance log tail.
- Important: a machine might hold more than one service instance. In such a
- scenario, only one of the service instance logs will be tailed and
- returned.</p>
+											<p>Retrieves the tail of a service log. This method uses the service name and the instance host address to retrieve
+ the instance log tail. Important: a machine might hold more than one service instance. In such a scenario, only
+ one of the service instance logs will be tailed and returned.</p>
 																															<h3>Parameters</h3>
 						<table>
 							<tr>
@@ -315,9 +468,8 @@
 																<h2 id="REST_API-/service/applications/{applicationName}/services/{serviceName}/beans/{beanName}/invoke"><a class="permalink" title="Get a permanent link to this section" href="#REST_API-/service/applications/{applicationName}/services/{serviceName}/beans/{beanName}/invoke">/service/applications/{applicationName}/services/{serviceName}/beans/{beanName}/invoke</a></h2>				
 												<h3>HTTP Methods</h3>
 									<h4>POST</h4>
-											<p>Invokes a custom command on all of the specified service instances.
- Custom parameters are passed as a map using the POST method and contain
- the command name and parameter values for the specified command.</p>
+											<p>Invokes a custom command on all of the specified service instances. Custom parameters are passed as a map using
+ the POST method and contain the command name and parameter values for the specified command.</p>
 																															<h3>Parameters</h3>
 						<table>
 							<tr>
@@ -452,9 +604,8 @@
 																<h2 id="REST_API-/service/applications/{applicationName}/services/{serviceName}/instances/{instanceId}/beans/{beanName}/invoke"><a class="permalink" title="Get a permanent link to this section" href="#REST_API-/service/applications/{applicationName}/services/{serviceName}/instances/{instanceId}/beans/{beanName}/invoke">/service/applications/{applicationName}/services/{serviceName}/instances/{instanceId}/beans/{beanName}/invoke</a></h2>				
 												<h3>HTTP Methods</h3>
 									<h4>POST</h4>
-											<p>Invokes a custom command on a specific service instance. Custom
- parameters are passed as a map using POST method and contain the command
- name and parameter values for the specified command.</p>
+											<p>Invokes a custom command on a specific service instance. Custom parameters are passed as a map using POST method
+ and contain the command name and parameter values for the specified command.</p>
 																															<h3>Parameters</h3>
 						<table>
 							<tr>
@@ -500,8 +651,7 @@
 															<tr>
 									<td>Map</td>
 																			<td>params</td>
-																												<td>a Map containing the result of each invocation on a service
-            instance</td>
+																												<td>a Map containing the result of each invocation on a service instance</td>
 																		<td>true</td>
 									<td>RequestBody</td>
 																			<td></td>
@@ -591,8 +741,8 @@
 																<h2 id="REST_API-/service/applications/{applicationName}/services/{serviceName}/instances/{instanceId}/tail"><a class="permalink" title="Get a permanent link to this section" href="#REST_API-/service/applications/{applicationName}/services/{serviceName}/instances/{instanceId}/tail">/service/applications/{applicationName}/services/{serviceName}/instances/{instanceId}/tail</a></h2>				
 												<h3>HTTP Methods</h3>
 									<h4>GET</h4>
-											<p>Retrieves the tail of a service log. This method used the service name
- and instance id To retrieve the the instance log tail.</p>
+											<p>Retrieves the tail of a service log. This method used the service name and instance id To retrieve the the
+ instance log tail.</p>
 																															<h3>Parameters</h3>
 						<table>
 							<tr>
@@ -666,8 +816,7 @@
 																<h2 id="REST_API-/service/applications/{applicationName}/services/{serviceName}/tail"><a class="permalink" title="Get a permanent link to this section" href="#REST_API-/service/applications/{applicationName}/services/{serviceName}/tail">/service/applications/{applicationName}/services/{serviceName}/tail</a></h2>				
 												<h3>HTTP Methods</h3>
 									<h4>GET</h4>
-											<p>Retrieves the log tail from all of the specified service's instances. To
- retrieve the the instance log tail.</p>
+											<p>Retrieves the log tail from all of the specified service's instances. To retrieve the the instance log tail.</p>
 																															<h3>Parameters</h3>
 						<table>
 							<tr>
@@ -1011,9 +1160,8 @@
 																<h2 id="REST_API-/service/applications/{applicationName}/timeout/{timeoutInMinutes}"><a class="permalink" title="Get a permanent link to this section" href="#REST_API-/service/applications/{applicationName}/timeout/{timeoutInMinutes}">/service/applications/{applicationName}/timeout/{timeoutInMinutes}</a></h2>				
 												<h3>HTTP Methods</h3>
 									<h4>DELETE</h4>
-											<p>Uninstalls an application by uninstalling all of its services. Order of
- uninstallations is determined by the context property
- 'com.gs.application.services' which should exist in all service PUs.</p>
+											<p>Uninstalls an application by uninstalling all of its services. Order of uninstallations is determined by the
+ context property 'com.gs.application.services' which should exist in all service PUs.</p>
 																															<h3>Parameters</h3>
 						<table>
 							<tr>
@@ -1062,10 +1210,9 @@
 																<h2 id="REST_API-/service/applications/{applicationName}/timeout/{timeout}"><a class="permalink" title="Get a permanent link to this section" href="#REST_API-/service/applications/{applicationName}/timeout/{timeout}">/service/applications/{applicationName}/timeout/{timeout}</a></h2>				
 												<h3>HTTP Methods</h3>
 									<h4>POST</h4>
-											<p>Deploys an application to the service grid. An application is consisted
- of a group of services that might have dependencies between themselves.
- The application will be deployed according to the dependency order
- defined in the application file and deployed asynchronously if possible.</p>
+											<p>Deploys an application to the service grid. An application is consisted of a group of services that might have
+ dependencies between themselves. The application will be deployed according to the dependency order defined in
+ the application file and deployed asynchronously if possible.</p>
 																															<h3>Parameters</h3>
 						<table>
 							<tr>
@@ -1103,8 +1250,7 @@
 															<tr>
 									<td>String</td>
 																			<td>authGroups</td>
-																												<td>The authorization groups for which this deployment will be
-            available</td>
+																												<td>The authorization groups for which this deployment will be available</td>
 																		<td>false</td>
 									<td>RequestParam</td>
 																			<td></td>
@@ -1112,8 +1258,7 @@
 															<tr>
 									<td>MultipartFile</td>
 																			<td>recipeOverridesFile</td>
-																												<td>The application overrides file - to overrides the application
-            properties</td>
+																												<td>The application overrides file - to overrides the application properties</td>
 																		<td>false</td>
 									<td>RequestParam</td>
 																			<td></td>
@@ -1129,9 +1274,32 @@
 															<tr>
 									<td>Boolean</td>
 																			<td>selfHealing</td>
-																												<td>if true, there will be an attempt to restart the recipe in
-            case a problem occurred in its life-cycle, otherwise, if the
-            recipe fails to execute, no attempt to recover will made</td>
+																												<td>if true, there will be an attempt to restart the recipe in case a problem occurred in its life-cycle,
+            otherwise, if the recipe fails to execute, no attempt to recover will made</td>
+																		<td>false</td>
+									<td>RequestParam</td>
+																			<td></td>
+																	</tr>
+															<tr>
+									<td>boolean</td>
+																			<td>debugAll</td>
+																												<td>Indicates if all lifecycle events should have a breakpoint</td>
+																		<td>false</td>
+									<td>RequestParam</td>
+																			<td>false</td>
+																	</tr>
+															<tr>
+									<td>String</td>
+																			<td>debugEvents</td>
+																												<td>Indicates which lifecycle events should have a breakpoint</td>
+																		<td>false</td>
+									<td>RequestParam</td>
+																			<td></td>
+																	</tr>
+															<tr>
+									<td>String</td>
+																			<td>debugMode</td>
+																												<td>Indicates the debug mode to use One of 'instead', 'after' or 'onError'</td>
 																		<td>false</td>
 									<td>RequestParam</td>
 																			<td></td>
@@ -1159,7 +1327,7 @@
 									<pre class="code">{
   "status" : "success",
   "response" : {
-    "srviceOrder" : "[mongod,mongoConfig,apacheLB,mongos,tomcat]",
+    "serviceOrder" : "[mongod,mongoConfig,apacheLB,mongos,tomcat]",
     "lifecycleEventContainerID" : "07db2a16-62f8-4669-ac41-ed9afe3a3b02"
   }
 }</pre>
@@ -1170,7 +1338,196 @@
 																												<li>Returns "500 Internal Server Error" - DSLException.</li>
 																												<li>Returns "500 Internal Server Error" - IOException.</li>
 																			</ul>
-																<h2 id="REST_API-/service/dump/machine/{ip}"><a class="permalink" title="Get a permanent link to this section" href="#REST_API-/service/dump/machine/{ip}">/service/dump/machine/{ip}</a></h2>				
+																<h2 id="REST_API-/service/controllers"><a class="permalink" title="Get a permanent link to this section" href="#REST_API-/service/controllers">/service/controllers</a></h2>				
+												<h3>HTTP Methods</h3>
+									<h4>GET</h4>
+																															<h3>Parameters</h3>
+						<table>
+							<tr>
+								<th>Type</th>
+								<th>Name</th>
+								<th>Description</th>
+								<th>Mandatory</th>
+								<th>Parameter type</th>
+								<th>Default value</th>
+							</tr>
+															<tr>
+									<td>String</td>
+																			<td>applicationName</td>
+																												<td>The application name</td>
+																		<td>true</td>
+									<td>PathVariable</td>
+																			<td></td>
+																	</tr>
+															<tr>
+									<td>int</td>
+																			<td>timeout</td>
+																												<td></td>
+																		<td>true</td>
+									<td>PathVariable</td>
+																			<td></td>
+																	</tr>
+															<tr>
+									<td>MultipartFile</td>
+																			<td>file</td>
+																												<td>The compressed application file</td>
+																		<td>true</td>
+									<td>RequestParam</td>
+																			<td></td>
+																	</tr>
+															<tr>
+									<td>String</td>
+																			<td>authGroups</td>
+																												<td>The authorization groups for which this deployment will be available</td>
+																		<td>false</td>
+									<td>RequestParam</td>
+																			<td></td>
+																	</tr>
+															<tr>
+									<td>MultipartFile</td>
+																			<td>recipeOverridesFile</td>
+																												<td>The application overrides file - to overrides the application properties</td>
+																		<td>false</td>
+									<td>RequestParam</td>
+																			<td></td>
+																	</tr>
+															<tr>
+									<td>MultipartFile</td>
+																			<td>cloudOverridesFile</td>
+																												<td>File of overriding cloud properties</td>
+																		<td>false</td>
+									<td>RequestParam</td>
+																			<td></td>
+																	</tr>
+															<tr>
+									<td>Boolean</td>
+																			<td>selfHealing</td>
+																												<td>if true, there will be an attempt to restart the recipe in case a problem occurred in its life-cycle,
+            otherwise, if the recipe fails to execute, no attempt to recover will made</td>
+																		<td>false</td>
+									<td>RequestParam</td>
+																			<td></td>
+																	</tr>
+															<tr>
+									<td>boolean</td>
+																			<td>debugAll</td>
+																												<td>Indicates if all lifecycle events should have a breakpoint</td>
+																		<td>false</td>
+									<td>RequestParam</td>
+																			<td>false</td>
+																	</tr>
+															<tr>
+									<td>String</td>
+																			<td>debugEvents</td>
+																												<td>Indicates which lifecycle events should have a breakpoint</td>
+																		<td>false</td>
+									<td>RequestParam</td>
+																			<td></td>
+																	</tr>
+															<tr>
+									<td>String</td>
+																			<td>debugMode</td>
+																												<td>Indicates the debug mode to use One of 'instead', 'after' or 'onError'</td>
+																		<td>false</td>
+									<td>RequestParam</td>
+																			<td></td>
+																	</tr>
+													</table>
+																																																											<h4>DELETE</h4>
+											<p>Schedules termination of all agents running the cloudify manager.</p>
+																															<h3>Parameters</h3>
+						<table>
+							<tr>
+								<th>Type</th>
+								<th>Name</th>
+								<th>Description</th>
+								<th>Mandatory</th>
+								<th>Parameter type</th>
+								<th>Default value</th>
+							</tr>
+															<tr>
+									<td>String</td>
+																			<td>applicationName</td>
+																												<td>The application name</td>
+																		<td>true</td>
+									<td>PathVariable</td>
+																			<td></td>
+																	</tr>
+															<tr>
+									<td>int</td>
+																			<td>timeout</td>
+																												<td></td>
+																		<td>true</td>
+									<td>PathVariable</td>
+																			<td></td>
+																	</tr>
+															<tr>
+									<td>MultipartFile</td>
+																			<td>file</td>
+																												<td>The compressed application file</td>
+																		<td>true</td>
+									<td>RequestParam</td>
+																			<td></td>
+																	</tr>
+															<tr>
+									<td>String</td>
+																			<td>authGroups</td>
+																												<td>The authorization groups for which this deployment will be available</td>
+																		<td>false</td>
+									<td>RequestParam</td>
+																			<td></td>
+																	</tr>
+															<tr>
+									<td>MultipartFile</td>
+																			<td>recipeOverridesFile</td>
+																												<td>The application overrides file - to overrides the application properties</td>
+																		<td>false</td>
+									<td>RequestParam</td>
+																			<td></td>
+																	</tr>
+															<tr>
+									<td>MultipartFile</td>
+																			<td>cloudOverridesFile</td>
+																												<td>File of overriding cloud properties</td>
+																		<td>false</td>
+									<td>RequestParam</td>
+																			<td></td>
+																	</tr>
+															<tr>
+									<td>Boolean</td>
+																			<td>selfHealing</td>
+																												<td>if true, there will be an attempt to restart the recipe in case a problem occurred in its life-cycle,
+            otherwise, if the recipe fails to execute, no attempt to recover will made</td>
+																		<td>false</td>
+									<td>RequestParam</td>
+																			<td></td>
+																	</tr>
+															<tr>
+									<td>boolean</td>
+																			<td>debugAll</td>
+																												<td>Indicates if all lifecycle events should have a breakpoint</td>
+																		<td>false</td>
+									<td>RequestParam</td>
+																			<td>false</td>
+																	</tr>
+															<tr>
+									<td>String</td>
+																			<td>debugEvents</td>
+																												<td>Indicates which lifecycle events should have a breakpoint</td>
+																		<td>false</td>
+									<td>RequestParam</td>
+																			<td></td>
+																	</tr>
+															<tr>
+									<td>String</td>
+																			<td>debugMode</td>
+																												<td>Indicates the debug mode to use One of 'instead', 'after' or 'onError'</td>
+																		<td>false</td>
+									<td>RequestParam</td>
+																			<td></td>
+																	</tr>
+													</table>
+																																																													<h2 id="REST_API-/service/dump/machine/{ip}"><a class="permalink" title="Get a permanent link to this section" href="#REST_API-/service/dump/machine/{ip}">/service/dump/machine/{ip}</a></h2>				
 												<h3>HTTP Methods</h3>
 									<h4>GET</h4>
 											<p>Get the dump of a given machine, by its ip.</p>
@@ -1351,9 +1708,8 @@
 																<h2 id="REST_API-/service/lifecycleEventContainerID/{lifecycleEventContainerID}/cursor/{cursor}"><a class="permalink" title="Get a permanent link to this section" href="#REST_API-/service/lifecycleEventContainerID/{lifecycleEventContainerID}/cursor/{cursor}">/service/lifecycleEventContainerID/{lifecycleEventContainerID}/cursor/{cursor}</a></h2>				
 												<h3>HTTP Methods</h3>
 									<h4>GET</h4>
-											<p>Returns the lifecycle events according to the lifecycleEventContainerID
- id that is returned as a response when installing/un-installing a
- service/application and according to the cursor position.</p>
+											<p>Returns the lifecycle events according to the lifecycleEventContainerID id that is returned as a response when
+ installing/un-installing a service/application and according to the cursor position.</p>
 																															<h3>Parameters</h3>
 						<table>
 							<tr>
@@ -1478,9 +1834,8 @@
 																																																													<h2 id="REST_API-/service/templates/internal"><a class="permalink" title="Get a permanent link to this section" href="#REST_API-/service/templates/internal">/service/templates/internal</a></h2>				
 												<h3>HTTP Methods</h3>
 									<h4>POST</h4>
-											<p>Internal method. Add template files to the cloud configuration directory
- and to the cloud object. This method supposed to be invoked from
- addTemplates of a REST instance.</p>
+											<p>Internal method. Add template files to the cloud configuration directory and to the cloud object. This method
+ supposed to be invoked from addTemplates of a REST instance. *</p>
 																															<h3>Parameters</h3>
 						<table>
 							<tr>
@@ -1503,9 +1858,8 @@
 																																																													<h2 id="REST_API-/service/templates/internal/{templateName}"><a class="permalink" title="Get a permanent link to this section" href="#REST_API-/service/templates/internal/{templateName}">/service/templates/internal/{templateName}</a></h2>				
 												<h3>HTTP Methods</h3>
 									<h4>DELETE</h4>
-											<p>Internal method. Remove template file from the cloud configuration
- directory and from the cloud's templates map. This method supposed to be
- invoked from removeTemplate of a REST instance.</p>
+											<p>Internal method. Remove template file from the cloud configuration directory and from the cloud's templates map.
+ This method supposed to be invoked from removeTemplate of a REST instance.</p>
 																															<h3>Parameters</h3>
 						<table>
 							<tr>
@@ -1629,11 +1983,9 @@
 																<h2 id="REST_API-/service/testrest"><a class="permalink" title="Get a permanent link to this section" href="#REST_API-/service/testrest">/service/testrest</a></h2>				
 												<h3>HTTP Methods</h3>
 									<h4>GET</h4>
-											<p>Tests whether the restful service is able to locate the service grid
- using the admin API.
+											<p>Tests whether the restful service is able to locate the service grid using the admin API.
  <p>
- The admin API searches for a LUS (Lookup Service) according to the lookup
- groups/locators defined.</p>
+ The admin API searches for a LUS (Lookup Service) according to the lookup groups/locators defined.</p>
 																															<h3>Parameters</h3>
 						<table>
 							<tr>
@@ -1717,6 +2069,1229 @@
 																												<li>Returns "500 Internal Server Error" - User is not a CloudAdmin.</li>
 																			</ul>
 																	<div class="header">
+				<h1>InfraController</h1>
+				<p class="excerpt">Mapping of URIs that begin with /{version}/infra</p>
+									<p>InfraController provides Rest implementation for Infra. <br>
+ </br> 
+ <li>Hosts – the actually managed hosts</li> 
+ <li>Storage – the actual handlers for Storage</li>
+ <li>Load Balancer – the handler for LB and its groups</li></p>
+							</div>
+			<div class="separator"></div>
+																<h2 id="REST_API-/{version}/infra/hosts"><a class="permalink" title="Get a permanent link to this section" href="#REST_API-/{version}/infra/hosts">/{version}/infra/hosts</a></h2>				
+												<h3>HTTP Methods</h3>
+									<h4>GET</h4>
+											<p>get all hosts.</p>
+																															<h3>Parameters</h3>
+						<table>
+							<tr>
+								<th>Type</th>
+								<th>Name</th>
+								<th>Description</th>
+								<th>Mandatory</th>
+								<th>Parameter type</th>
+								<th>Default value</th>
+							</tr>
+															<tr>
+									<td>String</td>
+																			<td>templateName</td>
+																												<td>The name of the template to remove</td>
+																		<td>true</td>
+									<td>PathVariable</td>
+																			<td></td>
+																	</tr>
+													</table>
+																																																											<h4>PUT</h4>
+											<p>add BYON host.</p>
+																															<h3>Parameters</h3>
+						<table>
+							<tr>
+								<th>Type</th>
+								<th>Name</th>
+								<th>Description</th>
+								<th>Mandatory</th>
+								<th>Parameter type</th>
+								<th>Default value</th>
+							</tr>
+															<tr>
+									<td>String</td>
+																			<td>templateName</td>
+																												<td>The name of the template to remove</td>
+																		<td>true</td>
+									<td>PathVariable</td>
+																			<td></td>
+																	</tr>
+													</table>
+																																																											<h4>DELETE</h4>
+											<p>remove BYON host.</p>
+																															<h3>Parameters</h3>
+						<table>
+							<tr>
+								<th>Type</th>
+								<th>Name</th>
+								<th>Description</th>
+								<th>Mandatory</th>
+								<th>Parameter type</th>
+								<th>Default value</th>
+							</tr>
+															<tr>
+									<td>String</td>
+																			<td>templateName</td>
+																												<td>The name of the template to remove</td>
+																		<td>true</td>
+									<td>PathVariable</td>
+																			<td></td>
+																	</tr>
+													</table>
+																																																													<h2 id="REST_API-/{version}/infra/securitygroups "><a class="permalink" title="Get a permanent link to this section" href="#REST_API-/{version}/infra/securitygroups ">/{version}/infra/securitygroups </a></h2>				
+												<h3>HTTP Methods</h3>
+									<h4>POST</h4>
+											<p>add group security.</p>
+																															<h3>Parameters</h3>
+						<table>
+							<tr>
+								<th>Type</th>
+								<th>Name</th>
+								<th>Description</th>
+								<th>Mandatory</th>
+								<th>Parameter type</th>
+								<th>Default value</th>
+							</tr>
+															<tr>
+									<td>String</td>
+																			<td>templateName</td>
+																												<td>The name of the template to remove</td>
+																		<td>true</td>
+									<td>PathVariable</td>
+																			<td></td>
+																	</tr>
+													</table>
+																																																													<h2 id="REST_API-/{version}/infra/securitygroups/{groupName}"><a class="permalink" title="Get a permanent link to this section" href="#REST_API-/{version}/infra/securitygroups/{groupName}">/{version}/infra/securitygroups/{groupName}</a></h2>				
+												<h3>HTTP Methods</h3>
+									<h4>POST</h4>
+											<p>add security rule.</p>
+																															<h3>Parameters</h3>
+						<table>
+							<tr>
+								<th>Type</th>
+								<th>Name</th>
+								<th>Description</th>
+								<th>Mandatory</th>
+								<th>Parameter type</th>
+								<th>Default value</th>
+							</tr>
+															<tr>
+									<td>String</td>
+																			<td>groupName</td>
+																												<td>the group name</td>
+																		<td>true</td>
+									<td>PathVariable</td>
+																			<td></td>
+																	</tr>
+													</table>
+																																																											<h4>DELETE</h4>
+											<p>remove security rule.</p>
+																															<h3>Parameters</h3>
+						<table>
+							<tr>
+								<th>Type</th>
+								<th>Name</th>
+								<th>Description</th>
+								<th>Mandatory</th>
+								<th>Parameter type</th>
+								<th>Default value</th>
+							</tr>
+															<tr>
+									<td>String</td>
+																			<td>groupName</td>
+																												<td>the group name</td>
+																		<td>true</td>
+									<td>PathVariable</td>
+																			<td></td>
+																	</tr>
+													</table>
+																																																											<h4>PUT</h4>
+											<p>update security rule.</p>
+																															<h3>Parameters</h3>
+						<table>
+							<tr>
+								<th>Type</th>
+								<th>Name</th>
+								<th>Description</th>
+								<th>Mandatory</th>
+								<th>Parameter type</th>
+								<th>Default value</th>
+							</tr>
+															<tr>
+									<td>String</td>
+																			<td>groupName</td>
+																												<td>the group name</td>
+																		<td>true</td>
+									<td>PathVariable</td>
+																			<td></td>
+																	</tr>
+													</table>
+																																																											<h4>GET</h4>
+											<p>get security rule by name.</p>
+																															<h3>Parameters</h3>
+						<table>
+							<tr>
+								<th>Type</th>
+								<th>Name</th>
+								<th>Description</th>
+								<th>Mandatory</th>
+								<th>Parameter type</th>
+								<th>Default value</th>
+							</tr>
+															<tr>
+									<td>String</td>
+																			<td>groupName</td>
+																												<td>the group name</td>
+																		<td>true</td>
+									<td>PathVariable</td>
+																			<td></td>
+																	</tr>
+													</table>
+																																																														<div class="header">
+				<h1>DeploymentsController</h1>
+				<p class="excerpt">Mapping of URIs that begin with /{version}/deployments</p>
+									<p>This controller is responsible for retrieving information about deployments.
+ It is also the entry point for deploying services and application. <br>
+ <br>
+ The response body will always return in a JSON representation of the
+ {@link Response} Object. <br>
+ A controller method may return the {@link Response} Object directly. in this
+ case this return value will be used as the response body. Otherwise, an
+ implicit wrapping will occur. the return value will be inserted into
+ {@code Response#setResponse(Object)}. other fields of the {@link Response}
+ object will be filled with default values. <br>
+ <h1>Important</h1> {@code @ResponseBody} annotations are not permitted. <br>
+ <br>
+ <h1>Possible return values</h1> 200 - OK<br>
+ 400 - controller throws an exception<br>
+ 500 - Unexpected exception<br>
+ <br></p>
+							</div>
+			<div class="separator"></div>
+																<h2 id="REST_API-/{version}/deployments/appName}/service/{serviceName}/alerts"><a class="permalink" title="Get a permanent link to this section" href="#REST_API-/{version}/deployments/appName}/service/{serviceName}/alerts">/{version}/deployments/appName}/service/{serviceName}/alerts</a></h2>				
+												<h3>HTTP Methods</h3>
+									<h4>GET</h4>
+											<p>get service alert by given name.</p>
+																															<h3>Parameters</h3>
+						<table>
+							<tr>
+								<th>Type</th>
+								<th>Name</th>
+								<th>Description</th>
+								<th>Mandatory</th>
+								<th>Parameter type</th>
+								<th>Default value</th>
+							</tr>
+															<tr>
+									<td>String</td>
+																			<td>appName</td>
+																												<td>the application name</td>
+																		<td>true</td>
+									<td>PathVariable</td>
+																			<td></td>
+																	</tr>
+															<tr>
+									<td>String</td>
+																			<td>serviceName</td>
+																												<td>the service name</td>
+																		<td>true</td>
+									<td>PathVariable</td>
+																			<td></td>
+																	</tr>
+													</table>
+																																																													<h2 id="REST_API-/{version}/deployments/{appName}"><a class="permalink" title="Get a permanent link to this section" href="#REST_API-/{version}/deployments/{appName}">/{version}/deployments/{appName}</a></h2>				
+												<h3>HTTP Methods</h3>
+									<h4>GET</h4>
+											<p>get application status by given name.</p>
+																															<h3>Parameters</h3>
+						<table>
+							<tr>
+								<th>Type</th>
+								<th>Name</th>
+								<th>Description</th>
+								<th>Mandatory</th>
+								<th>Parameter type</th>
+								<th>Default value</th>
+							</tr>
+															<tr>
+									<td>String</td>
+																			<td>appName</td>
+																												<td>the application name</td>
+																		<td>true</td>
+									<td>PathVariable</td>
+																			<td></td>
+																	</tr>
+													</table>
+																																																											<h4>PUT</h4>
+											<p>update application by given name.</p>
+																															<h3>Parameters</h3>
+						<table>
+							<tr>
+								<th>Type</th>
+								<th>Name</th>
+								<th>Description</th>
+								<th>Mandatory</th>
+								<th>Parameter type</th>
+								<th>Default value</th>
+							</tr>
+															<tr>
+									<td>String</td>
+																			<td>appName</td>
+																												<td>the application name</td>
+																		<td>true</td>
+									<td>PathVariable</td>
+																			<td></td>
+																	</tr>
+													</table>
+																																																											<h4>DELETE</h4>
+											<p>uninstall an application by given name.</p>
+																															<h3>Parameters</h3>
+						<table>
+							<tr>
+								<th>Type</th>
+								<th>Name</th>
+								<th>Description</th>
+								<th>Mandatory</th>
+								<th>Parameter type</th>
+								<th>Default value</th>
+							</tr>
+															<tr>
+									<td>String</td>
+																			<td>appName</td>
+																												<td>application name</td>
+																		<td>true</td>
+									<td>PathVariable</td>
+																			<td></td>
+																	</tr>
+													</table>
+																																																													<h2 id="REST_API-/{version}/deployments/{appName}/attributes"><a class="permalink" title="Get a permanent link to this section" href="#REST_API-/{version}/deployments/{appName}/attributes">/{version}/deployments/{appName}/attributes</a></h2>				
+												<h3>HTTP Methods</h3>
+									<h4>POST</h4>
+											<p>This method sets the given attributes to the application scope. Note that
+ this action is Update or write. so the given attribute may not pre-exist.</p>
+																															<h3>Parameters</h3>
+						<table>
+							<tr>
+								<th>Type</th>
+								<th>Name</th>
+								<th>Description</th>
+								<th>Mandatory</th>
+								<th>Parameter type</th>
+								<th>Default value</th>
+							</tr>
+															<tr>
+									<td>String</td>
+																			<td>appName</td>
+																												<td>- the application name</td>
+																		<td>true</td>
+									<td>PathVariable</td>
+																			<td></td>
+																	</tr>
+															<tr>
+									<td>SetApplicationAttributesRequest</td>
+																			<td>attributesRequest</td>
+																												<td>- An instance of {@link SetApplicationAttributesRequest} (as
+            JSON) that holds the requested attributes</td>
+																		<td>true</td>
+									<td>RequestBody</td>
+																			<td></td>
+																	</tr>
+													</table>
+																																																											<h4>GET</h4>
+											<p>get application attributes.</p>
+																															<h3>Parameters</h3>
+						<table>
+							<tr>
+								<th>Type</th>
+								<th>Name</th>
+								<th>Description</th>
+								<th>Mandatory</th>
+								<th>Parameter type</th>
+								<th>Default value</th>
+							</tr>
+															<tr>
+									<td>String</td>
+																			<td>appName</td>
+																												<td>the application name</td>
+																		<td>true</td>
+									<td>PathVariable</td>
+																			<td></td>
+																	</tr>
+													</table>
+																																																													<h2 id="REST_API-/{version}/deployments/{appName}/attributes/{attributeName}"><a class="permalink" title="Get a permanent link to this section" href="#REST_API-/{version}/deployments/{appName}/attributes/{attributeName}">/{version}/deployments/{appName}/attributes/{attributeName}</a></h2>				
+												<h3>HTTP Methods</h3>
+									<h4>PUT</h4>
+											<p>update application attributes.</p>
+																															<h3>Parameters</h3>
+						<table>
+							<tr>
+								<th>Type</th>
+								<th>Name</th>
+								<th>Description</th>
+								<th>Mandatory</th>
+								<th>Parameter type</th>
+								<th>Default value</th>
+							</tr>
+															<tr>
+									<td>String</td>
+																			<td>appName</td>
+																												<td>the application name</td>
+																		<td>true</td>
+									<td>PathVariable</td>
+																			<td></td>
+																	</tr>
+															<tr>
+									<td>String</td>
+																			<td>attributeName</td>
+																												<td>the attribute name</td>
+																		<td>true</td>
+									<td>PathVariable</td>
+																			<td></td>
+																	</tr>
+															<tr>
+									<td>UpdateApplicationAttributeRequest</td>
+																			<td>updateApplicationAttributeRequest</td>
+																												<td>update application attribute request
+            {@link updateApplicationAttributeRequest}</td>
+																		<td>true</td>
+									<td>RequestBody</td>
+																			<td></td>
+																	</tr>
+													</table>
+																																																											<h4>DELETE</h4>
+											<p>delete application attribute.</p>
+																															<h3>Parameters</h3>
+						<table>
+							<tr>
+								<th>Type</th>
+								<th>Name</th>
+								<th>Description</th>
+								<th>Mandatory</th>
+								<th>Parameter type</th>
+								<th>Default value</th>
+							</tr>
+															<tr>
+									<td>String</td>
+																			<td>appName</td>
+																												<td>the application name</td>
+																		<td>true</td>
+									<td>PathVariable</td>
+																			<td></td>
+																	</tr>
+															<tr>
+									<td>String</td>
+																			<td>attributeName</td>
+																												<td>attribute name to delete</td>
+																		<td>true</td>
+									<td>PathVariable</td>
+																			<td></td>
+																	</tr>
+													</table>
+																																																													<h2 id="REST_API-/{version}/deployments/{appName}/service/{serviceName}/attributes"><a class="permalink" title="Get a permanent link to this section" href="#REST_API-/{version}/deployments/{appName}/service/{serviceName}/attributes">/{version}/deployments/{appName}/service/{serviceName}/attributes</a></h2>				
+												<h3>HTTP Methods</h3>
+									<h4>GET</h4>
+											<p>get service attribute by given name.</p>
+																															<h3>Parameters</h3>
+						<table>
+							<tr>
+								<th>Type</th>
+								<th>Name</th>
+								<th>Description</th>
+								<th>Mandatory</th>
+								<th>Parameter type</th>
+								<th>Default value</th>
+							</tr>
+															<tr>
+									<td>String</td>
+																			<td>appName</td>
+																												<td>the application name</td>
+																		<td>true</td>
+									<td>PathVariable</td>
+																			<td></td>
+																	</tr>
+															<tr>
+									<td>String</td>
+																			<td>serviceName</td>
+																												<td>the service name</td>
+																		<td>true</td>
+									<td>PathVariable</td>
+																			<td></td>
+																	</tr>
+													</table>
+																																																											<h4>POST</h4>
+											<p>set service attribute by given name.</p>
+																															<h3>Parameters</h3>
+						<table>
+							<tr>
+								<th>Type</th>
+								<th>Name</th>
+								<th>Description</th>
+								<th>Mandatory</th>
+								<th>Parameter type</th>
+								<th>Default value</th>
+							</tr>
+															<tr>
+									<td>String</td>
+																			<td>appName</td>
+																												<td>the application name</td>
+																		<td>true</td>
+									<td>PathVariable</td>
+																			<td></td>
+																	</tr>
+															<tr>
+									<td>String</td>
+																			<td>serviceName</td>
+																												<td>the service name</td>
+																		<td>true</td>
+									<td>PathVariable</td>
+																			<td></td>
+																	</tr>
+															<tr>
+									<td>SetServiceAttributesRequest</td>
+																			<td>request</td>
+																												<td>service attributes request</td>
+																		<td>true</td>
+									<td>RequestBody</td>
+																			<td></td>
+																	</tr>
+													</table>
+																																																											<h4>PUT</h4>
+											<p>update service attribute by given name.</p>
+																															<h3>Parameters</h3>
+						<table>
+							<tr>
+								<th>Type</th>
+								<th>Name</th>
+								<th>Description</th>
+								<th>Mandatory</th>
+								<th>Parameter type</th>
+								<th>Default value</th>
+							</tr>
+															<tr>
+									<td>String</td>
+																			<td>appName</td>
+																												<td>the application name</td>
+																		<td>true</td>
+									<td>PathVariable</td>
+																			<td></td>
+																	</tr>
+															<tr>
+									<td>String</td>
+																			<td>serviceName</td>
+																												<td>the service name</td>
+																		<td>true</td>
+									<td>PathVariable</td>
+																			<td></td>
+																	</tr>
+													</table>
+																																																													<h2 id="REST_API-/{version}/deployments/{appName}/service/{serviceName}/attributes/{attributeName}"><a class="permalink" title="Get a permanent link to this section" href="#REST_API-/{version}/deployments/{appName}/service/{serviceName}/attributes/{attributeName}">/{version}/deployments/{appName}/service/{serviceName}/attributes/{attributeName}</a></h2>				
+												<h3>HTTP Methods</h3>
+									<h4>DELETE</h4>
+											<p>delete service attribute by given name.</p>
+																															<h3>Parameters</h3>
+						<table>
+							<tr>
+								<th>Type</th>
+								<th>Name</th>
+								<th>Description</th>
+								<th>Mandatory</th>
+								<th>Parameter type</th>
+								<th>Default value</th>
+							</tr>
+															<tr>
+									<td>String</td>
+																			<td>appName</td>
+																												<td>the application name</td>
+																		<td>true</td>
+									<td>PathVariable</td>
+																			<td></td>
+																	</tr>
+															<tr>
+									<td>String</td>
+																			<td>serviceName</td>
+																												<td>the service name</td>
+																		<td>true</td>
+									<td>PathVariable</td>
+																			<td></td>
+																	</tr>
+															<tr>
+									<td>String</td>
+																			<td>attributeName</td>
+																												<td>attribute name to delete</td>
+																		<td>true</td>
+									<td>PathVariable</td>
+																			<td></td>
+																	</tr>
+													</table>
+																																																													<h2 id="REST_API-/{version}/deployments/{appName}/service/{serviceName}/instances/{instanceId}/attributes"><a class="permalink" title="Get a permanent link to this section" href="#REST_API-/{version}/deployments/{appName}/service/{serviceName}/instances/{instanceId}/attributes">/{version}/deployments/{appName}/service/{serviceName}/instances/{instanceId}/attributes</a></h2>				
+												<h3>HTTP Methods</h3>
+									<h4>GET</h4>
+											<p>get service instance attribute by given name.</p>
+																															<h3>Parameters</h3>
+						<table>
+							<tr>
+								<th>Type</th>
+								<th>Name</th>
+								<th>Description</th>
+								<th>Mandatory</th>
+								<th>Parameter type</th>
+								<th>Default value</th>
+							</tr>
+															<tr>
+									<td>String</td>
+																			<td>appName</td>
+																												<td>the application name</td>
+																		<td>true</td>
+									<td>PathVariable</td>
+																			<td></td>
+																	</tr>
+															<tr>
+									<td>String</td>
+																			<td>serviceName</td>
+																												<td>the service name</td>
+																		<td>true</td>
+									<td>PathVariable</td>
+																			<td></td>
+																	</tr>
+															<tr>
+									<td>Integer</td>
+																			<td>instanceId</td>
+																												<td>the instance id</td>
+																		<td>true</td>
+									<td>PathVariable</td>
+																			<td></td>
+																	</tr>
+													</table>
+																																																											<h4>POST</h4>
+											<p>set service instance attribute by given name , id.</p>
+																															<h3>Parameters</h3>
+						<table>
+							<tr>
+								<th>Type</th>
+								<th>Name</th>
+								<th>Description</th>
+								<th>Mandatory</th>
+								<th>Parameter type</th>
+								<th>Default value</th>
+							</tr>
+															<tr>
+									<td>String</td>
+																			<td>appName</td>
+																												<td>the application name</td>
+																		<td>true</td>
+									<td>PathVariable</td>
+																			<td></td>
+																	</tr>
+															<tr>
+									<td>String</td>
+																			<td>serviceName</td>
+																												<td>the service name</td>
+																		<td>true</td>
+									<td>PathVariable</td>
+																			<td></td>
+																	</tr>
+															<tr>
+									<td>Integer</td>
+																			<td>instanceId</td>
+																												<td>the instance id</td>
+																		<td>true</td>
+									<td>PathVariable</td>
+																			<td></td>
+																	</tr>
+															<tr>
+									<td>SetServiceInstanceAttributesRequest</td>
+																			<td>request</td>
+																												<td>service instance attributes request</td>
+																		<td>true</td>
+									<td>RequestBody</td>
+																			<td></td>
+																	</tr>
+													</table>
+																																																											<h4>PUT</h4>
+											<p>update service instance attribute by given name , id.</p>
+																															<h3>Parameters</h3>
+						<table>
+							<tr>
+								<th>Type</th>
+								<th>Name</th>
+								<th>Description</th>
+								<th>Mandatory</th>
+								<th>Parameter type</th>
+								<th>Default value</th>
+							</tr>
+															<tr>
+									<td>String</td>
+																			<td>appName</td>
+																												<td>the application name</td>
+																		<td>true</td>
+									<td>PathVariable</td>
+																			<td></td>
+																	</tr>
+															<tr>
+									<td>String</td>
+																			<td>serviceName</td>
+																												<td>the service name</td>
+																		<td>true</td>
+									<td>PathVariable</td>
+																			<td></td>
+																	</tr>
+															<tr>
+									<td>String</td>
+																			<td>instanceId</td>
+																												<td>the instance id</td>
+																		<td>true</td>
+									<td>PathVariable</td>
+																			<td></td>
+																	</tr>
+													</table>
+																																																													<h2 id="REST_API-/{version}/deployments/{appName}/service/{serviceName}/instances/{instanceId}/attributes/{attributeName}"><a class="permalink" title="Get a permanent link to this section" href="#REST_API-/{version}/deployments/{appName}/service/{serviceName}/instances/{instanceId}/attributes/{attributeName}">/{version}/deployments/{appName}/service/{serviceName}/instances/{instanceId}/attributes/{attributeName}</a></h2>				
+												<h3>HTTP Methods</h3>
+									<h4>DELETE</h4>
+											<p>This method deletes a curtain attribute from the service instance scope.</p>
+																															<h3>Parameters</h3>
+						<table>
+							<tr>
+								<th>Type</th>
+								<th>Name</th>
+								<th>Description</th>
+								<th>Mandatory</th>
+								<th>Parameter type</th>
+								<th>Default value</th>
+							</tr>
+															<tr>
+									<td>String</td>
+																			<td>appName</td>
+																												<td>- the application name</td>
+																		<td>true</td>
+									<td>PathVariable</td>
+																			<td></td>
+																	</tr>
+															<tr>
+									<td>String</td>
+																			<td>serviceName</td>
+																												<td>- the service name</td>
+																		<td>true</td>
+									<td>PathVariable</td>
+																			<td></td>
+																	</tr>
+															<tr>
+									<td>Integer</td>
+																			<td>instanceId</td>
+																												<td>- the instance id</td>
+																		<td>true</td>
+									<td>PathVariable</td>
+																			<td></td>
+																	</tr>
+															<tr>
+									<td>String</td>
+																			<td>attributeName</td>
+																												<td>- the required attribute to delete</td>
+																		<td>true</td>
+									<td>PathVariable</td>
+																			<td></td>
+																	</tr>
+													</table>
+																																																													<h2 id="REST_API-/{version}/deployments/{appName}/service/{serviceName}/instances/{instanceId}/metadata"><a class="permalink" title="Get a permanent link to this section" href="#REST_API-/{version}/deployments/{appName}/service/{serviceName}/instances/{instanceId}/metadata">/{version}/deployments/{appName}/service/{serviceName}/instances/{instanceId}/metadata</a></h2>				
+												<h3>HTTP Methods</h3>
+									<h4>GET</h4>
+											<p>get service instance details. provides metadata about an instance with
+ given application , service name</p>
+																															<h3>Parameters</h3>
+						<table>
+							<tr>
+								<th>Type</th>
+								<th>Name</th>
+								<th>Description</th>
+								<th>Mandatory</th>
+								<th>Parameter type</th>
+								<th>Default value</th>
+							</tr>
+															<tr>
+									<td>String</td>
+																			<td>appName</td>
+																												<td>the application name</td>
+																		<td>true</td>
+									<td>PathVariable</td>
+																			<td></td>
+																	</tr>
+															<tr>
+									<td>String</td>
+																			<td>serviceName</td>
+																												<td>the service name</td>
+																		<td>true</td>
+									<td>PathVariable</td>
+																			<td></td>
+																	</tr>
+															<tr>
+									<td>Integer</td>
+																			<td>instanceId</td>
+																												<td>the instance id</td>
+																		<td>true</td>
+									<td>PathVariable</td>
+																			<td></td>
+																	</tr>
+													</table>
+																																																											<h4>POST</h4>
+											<p>set service instance details by given name.</p>
+																															<h3>Parameters</h3>
+						<table>
+							<tr>
+								<th>Type</th>
+								<th>Name</th>
+								<th>Description</th>
+								<th>Mandatory</th>
+								<th>Parameter type</th>
+								<th>Default value</th>
+							</tr>
+															<tr>
+									<td>String</td>
+																			<td>appName</td>
+																												<td>the application name</td>
+																		<td>true</td>
+									<td>PathVariable</td>
+																			<td></td>
+																	</tr>
+															<tr>
+									<td>String</td>
+																			<td>serviceName</td>
+																												<td>the service name</td>
+																		<td>true</td>
+									<td>PathVariable</td>
+																			<td></td>
+																	</tr>
+															<tr>
+									<td>String</td>
+																			<td>instanceId</td>
+																												<td>the instance id</td>
+																		<td>true</td>
+									<td>PathVariable</td>
+																			<td></td>
+																	</tr>
+													</table>
+																																																													<h2 id="REST_API-/{version}/deployments/{appName}/service/{serviceName}/instances/{instanceId}/metrics"><a class="permalink" title="Get a permanent link to this section" href="#REST_API-/{version}/deployments/{appName}/service/{serviceName}/instances/{instanceId}/metrics">/{version}/deployments/{appName}/service/{serviceName}/instances/{instanceId}/metrics</a></h2>				
+												<h3>HTTP Methods</h3>
+									<h4>GET</h4>
+											<p>get service instance metrics by given specific instanceId.</p>
+																															<h3>Parameters</h3>
+						<table>
+							<tr>
+								<th>Type</th>
+								<th>Name</th>
+								<th>Description</th>
+								<th>Mandatory</th>
+								<th>Parameter type</th>
+								<th>Default value</th>
+							</tr>
+															<tr>
+									<td>String</td>
+																			<td>appName</td>
+																												<td>the application name</td>
+																		<td>true</td>
+									<td>PathVariable</td>
+																			<td></td>
+																	</tr>
+															<tr>
+									<td>String</td>
+																			<td>serviceName</td>
+																												<td>the service name</td>
+																		<td>true</td>
+									<td>PathVariable</td>
+																			<td></td>
+																	</tr>
+															<tr>
+									<td>Integer</td>
+																			<td>instanceId</td>
+																												<td>the instance name</td>
+																		<td>true</td>
+									<td>PathVariable</td>
+																			<td></td>
+																	</tr>
+													</table>
+																																																													<h2 id="REST_API-/{version}/deployments/{appName}/service/{serviceName}/metadata"><a class="permalink" title="Get a permanent link to this section" href="#REST_API-/{version}/deployments/{appName}/service/{serviceName}/metadata">/{version}/deployments/{appName}/service/{serviceName}/metadata</a></h2>				
+												<h3>HTTP Methods</h3>
+									<h4>GET</h4>
+											<p>This method provides metadata about a service belonging to a specific
+ application.</p>
+																															<h3>Parameters</h3>
+						<table>
+							<tr>
+								<th>Type</th>
+								<th>Name</th>
+								<th>Description</th>
+								<th>Mandatory</th>
+								<th>Parameter type</th>
+								<th>Default value</th>
+							</tr>
+															<tr>
+									<td>String</td>
+																			<td>appName</td>
+																												<td>- the application name the service belongs to</td>
+																		<td>true</td>
+									<td>PathVariable</td>
+																			<td></td>
+																	</tr>
+															<tr>
+									<td>String</td>
+																			<td>serviceName</td>
+																												<td>- the service name</td>
+																		<td>true</td>
+									<td>PathVariable</td>
+																			<td></td>
+																	</tr>
+													</table>
+																																																											<h4>POST</h4>
+											<p>set service details by given name.</p>
+																															<h3>Parameters</h3>
+						<table>
+							<tr>
+								<th>Type</th>
+								<th>Name</th>
+								<th>Description</th>
+								<th>Mandatory</th>
+								<th>Parameter type</th>
+								<th>Default value</th>
+							</tr>
+															<tr>
+									<td>String</td>
+																			<td>appName</td>
+																												<td>the application name</td>
+																		<td>true</td>
+									<td>PathVariable</td>
+																			<td></td>
+																	</tr>
+															<tr>
+									<td>String</td>
+																			<td>serviceName</td>
+																												<td>the service name</td>
+																		<td>true</td>
+									<td>PathVariable</td>
+																			<td></td>
+																	</tr>
+													</table>
+																																																											<h4>PUT</h4>
+											<p>update service details by given name.</p>
+																															<h3>Parameters</h3>
+						<table>
+							<tr>
+								<th>Type</th>
+								<th>Name</th>
+								<th>Description</th>
+								<th>Mandatory</th>
+								<th>Parameter type</th>
+								<th>Default value</th>
+							</tr>
+															<tr>
+									<td>String</td>
+																			<td>appName</td>
+																												<td>the application name</td>
+																		<td>true</td>
+									<td>PathVariable</td>
+																			<td></td>
+																	</tr>
+															<tr>
+									<td>String</td>
+																			<td>serviceName</td>
+																												<td>the service name</td>
+																		<td>true</td>
+									<td>PathVariable</td>
+																			<td></td>
+																	</tr>
+													</table>
+																																																													<h2 id="REST_API-/{version}/deployments/{appName}/service/{serviceName}/metrics"><a class="permalink" title="Get a permanent link to this section" href="#REST_API-/{version}/deployments/{appName}/service/{serviceName}/metrics">/{version}/deployments/{appName}/service/{serviceName}/metrics</a></h2>				
+												<h3>HTTP Methods</h3>
+									<h4>GET</h4>
+											<p>get service metrics by given service name.</p>
+																															<h3>Parameters</h3>
+						<table>
+							<tr>
+								<th>Type</th>
+								<th>Name</th>
+								<th>Description</th>
+								<th>Mandatory</th>
+								<th>Parameter type</th>
+								<th>Default value</th>
+							</tr>
+															<tr>
+									<td>String</td>
+																			<td>appName</td>
+																												<td>the application name</td>
+																		<td>true</td>
+									<td>PathVariable</td>
+																			<td></td>
+																	</tr>
+															<tr>
+									<td>String</td>
+																			<td>serviceName</td>
+																												<td>the service name</td>
+																		<td>true</td>
+									<td>PathVariable</td>
+																			<td></td>
+																	</tr>
+													</table>
+																																																													<h2 id="REST_API-/{version}/deployments/{appName}/services"><a class="permalink" title="Get a permanent link to this section" href="#REST_API-/{version}/deployments/{appName}/services">/{version}/deployments/{appName}/services</a></h2>				
+												<h3>HTTP Methods</h3>
+									<h4>POST</h4>
+											<p>Installs an service.</p>
+																															<h3>Parameters</h3>
+						<table>
+							<tr>
+								<th>Type</th>
+								<th>Name</th>
+								<th>Description</th>
+								<th>Mandatory</th>
+								<th>Parameter type</th>
+								<th>Default value</th>
+							</tr>
+															<tr>
+									<td>String</td>
+																			<td>appName</td>
+																												<td>the service name</td>
+																		<td>true</td>
+									<td>PathVariable</td>
+																			<td></td>
+																	</tr>
+													</table>
+																																																													<h2 id="REST_API-/{version}/deployments/{appName}/services/{serviceName}"><a class="permalink" title="Get a permanent link to this section" href="#REST_API-/{version}/deployments/{appName}/services/{serviceName}">/{version}/deployments/{appName}/services/{serviceName}</a></h2>				
+												<h3>HTTP Methods</h3>
+									<h4>GET</h4>
+											<p>get Service status by given name.</p>
+																															<h3>Parameters</h3>
+						<table>
+							<tr>
+								<th>Type</th>
+								<th>Name</th>
+								<th>Description</th>
+								<th>Mandatory</th>
+								<th>Parameter type</th>
+								<th>Default value</th>
+							</tr>
+															<tr>
+									<td>String</td>
+																			<td>appName</td>
+																												<td>the application name</td>
+																		<td>true</td>
+									<td>PathVariable</td>
+																			<td></td>
+																	</tr>
+															<tr>
+									<td>String</td>
+																			<td>serviceName</td>
+																												<td>the service name</td>
+																		<td>true</td>
+									<td>PathVariable</td>
+																			<td></td>
+																	</tr>
+													</table>
+																																																											<h4>PUT</h4>
+											<p>update service by given name.</p>
+																															<h3>Parameters</h3>
+						<table>
+							<tr>
+								<th>Type</th>
+								<th>Name</th>
+								<th>Description</th>
+								<th>Mandatory</th>
+								<th>Parameter type</th>
+								<th>Default value</th>
+							</tr>
+															<tr>
+									<td>String</td>
+																			<td>appName</td>
+																												<td>the application name</td>
+																		<td>true</td>
+									<td>PathVariable</td>
+																			<td></td>
+																	</tr>
+															<tr>
+									<td>String</td>
+																			<td>serviceName</td>
+																												<td>the service name</td>
+																		<td>true</td>
+									<td>PathVariable</td>
+																			<td></td>
+																	</tr>
+													</table>
+																																																											<h4>DELETE</h4>
+											<p>uninstall a service by given name.</p>
+																															<h3>Parameters</h3>
+						<table>
+							<tr>
+								<th>Type</th>
+								<th>Name</th>
+								<th>Description</th>
+								<th>Mandatory</th>
+								<th>Parameter type</th>
+								<th>Default value</th>
+							</tr>
+															<tr>
+									<td>String</td>
+																			<td>appName</td>
+																												<td>the application name</td>
+																		<td>true</td>
+									<td>PathVariable</td>
+																			<td></td>
+																	</tr>
+															<tr>
+									<td>String</td>
+																			<td>serviceName</td>
+																												<td>the service name</td>
+																		<td>true</td>
+									<td>PathVariable</td>
+																			<td></td>
+																	</tr>
+													</table>
+																																																													<h2 id="REST_API-/{version}/deployments/{name}"><a class="permalink" title="Get a permanent link to this section" href="#REST_API-/{version}/deployments/{name}">/{version}/deployments/{name}</a></h2>				
+												<h3>HTTP Methods</h3>
+									<h4>POST</h4>
+											<p>Installs an application.</p>
+																															<h3>Parameters</h3>
+						<table>
+							<tr>
+								<th>Type</th>
+								<th>Name</th>
+								<th>Description</th>
+								<th>Mandatory</th>
+								<th>Parameter type</th>
+								<th>Default value</th>
+							</tr>
+															<tr>
+									<td>String</td>
+																			<td>appName</td>
+																												<td>the application name</td>
+																		<td>true</td>
+									<td>PathVariable</td>
+																			<td></td>
+																	</tr>
+													</table>
+																																																														<div class="header">
+				<h1>AlertController</h1>
+				<p class="excerpt">Mapping of URIs that begin with /{version}/alerts</p>
+									<p>AlertsRestController provides Rest implementation for Alerts.</p>
+							</div>
+			<div class="separator"></div>
+																<h2 id="REST_API-/{version}/alerts/"><a class="permalink" title="Get a permanent link to this section" href="#REST_API-/{version}/alerts/">/{version}/alerts/</a></h2>				
+												<h3>HTTP Methods</h3>
+									<h4>GET</h4>
+											<p>get manager alerts.</p>
+																															<h3>Parameters</h3>
+						<table>
+							<tr>
+								<th>Type</th>
+								<th>Name</th>
+								<th>Description</th>
+								<th>Mandatory</th>
+								<th>Parameter type</th>
+								<th>Default value</th>
+							</tr>
+															<tr>
+									<td>String</td>
+																			<td>appName</td>
+																												<td>the application name</td>
+																		<td>true</td>
+									<td>PathVariable</td>
+																			<td></td>
+																	</tr>
+													</table>
+																																																														<div class="header">
+				<h1>RepoController</h1>
+				<p class="excerpt">Mapping of URIs that begin with /{version}/repo</p>
+									<p>RepoController provides Rest implementation for The Recipes stored for users to use. <br></p>
+							</div>
+			<div class="separator"></div>
+																<h2 id="REST_API-/{version}/repo/apps"><a class="permalink" title="Get a permanent link to this section" href="#REST_API-/{version}/repo/apps">/{version}/repo/apps</a></h2>				
+												<h3>HTTP Methods</h3>
+									<h4>POST</h4>
+											<p>push application recipe .</p>
+																															<h3>Parameters</h3>
+						<table>
+							<tr>
+								<th>Type</th>
+								<th>Name</th>
+								<th>Description</th>
+								<th>Mandatory</th>
+								<th>Parameter type</th>
+								<th>Default value</th>
+							</tr>
+															<tr>
+									<td>String</td>
+																			<td>appName</td>
+																												<td>the application name</td>
+																		<td>true</td>
+									<td>PathVariable</td>
+																			<td></td>
+																	</tr>
+													</table>
+																																																													<h2 id="REST_API-/{version}/repo/apps/{appName}"><a class="permalink" title="Get a permanent link to this section" href="#REST_API-/{version}/repo/apps/{appName}">/{version}/repo/apps/{appName}</a></h2>				
+												<h3>HTTP Methods</h3>
+									<h4>GET</h4>
+											<p>get application recipe given name.</p>
+																															<h3>Parameters</h3>
+						<table>
+							<tr>
+								<th>Type</th>
+								<th>Name</th>
+								<th>Description</th>
+								<th>Mandatory</th>
+								<th>Parameter type</th>
+								<th>Default value</th>
+							</tr>
+															<tr>
+									<td>String</td>
+																			<td>appName</td>
+																												<td>the application name</td>
+																		<td>true</td>
+									<td>PathVariable</td>
+																			<td></td>
+																	</tr>
+													</table>
+																																																											<h4>PUT</h4>
+											<p>update application recipe given name.</p>
+																															<h3>Parameters</h3>
+						<table>
+							<tr>
+								<th>Type</th>
+								<th>Name</th>
+								<th>Description</th>
+								<th>Mandatory</th>
+								<th>Parameter type</th>
+								<th>Default value</th>
+							</tr>
+															<tr>
+									<td>String</td>
+																			<td>appName</td>
+																												<td>the application name</td>
+																		<td>true</td>
+									<td>PathVariable</td>
+																			<td></td>
+																	</tr>
+													</table>
+																																																											<h4>DELETE</h4>
+											<p>delete application recipe given name.</p>
+																															<h3>Parameters</h3>
+						<table>
+							<tr>
+								<th>Type</th>
+								<th>Name</th>
+								<th>Description</th>
+								<th>Mandatory</th>
+								<th>Parameter type</th>
+								<th>Default value</th>
+							</tr>
+															<tr>
+									<td>String</td>
+																			<td>appName</td>
+																												<td>the application name</td>
+																		<td>true</td>
+									<td>PathVariable</td>
+																			<td></td>
+																	</tr>
+													</table>
+																																																														<div class="header">
 				<h1>AttributesController</h1>
 				<p class="excerpt">Mapping of URIs that begin with /attributes</p>
 							</div>
