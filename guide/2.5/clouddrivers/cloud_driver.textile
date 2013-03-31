@@ -47,6 +47,36 @@ h2. The Cloud Driver Configuration File
 
 The implementing class of the cloud driver, along with any required cloud configuration information, is specified in a Groovy DSL based configuration file. This information is used to populate the cloud configuration object whose type is __org.cloudifysource.dsl.cloud.Cloud__. This object is passed to the cloud driver instance in the @setConfig()@ call. 
 
+<span id="tic"></span>
+
+h3. Template Installer Configuration
+
+The template installer configuration feature enables "tweaking" specific values in the Cloudify bootstrapping process. This allows setting alternate port numbers, extended timeout values, etc.
+This feature allows bootstrapping on environments where Cloudify's sensible default values do not work. Problems are usually related to long network initialization times, slow connection times and long host name resolution times.
+
+h4(info). A template is not required to set all of the fields shown here. Fields that are not specified will use the default value.
+
+Here is a sample of a template with all values of the installer configuration block specified. The values given here are the default ones:
+
+<script src="https://gist.github.com/tamirko/5280271.js"></script>
+	
+<span id="poc"></span>
+
+h3. Port Configuration
+
+Cloudify's bootstrap process includes a file transfer step and a remote execution step. 
+By default, the port used for remote communications in each of these steps is determined by the protocol used. For example, SCP file transfer defaults to port 22 and CIFS file transfer defaults to port 445. 
+The "-1" value specified in the port fields of the installer section indicates that the installation should use the default port.
+
+h3. Windows Support
+
+h4(impt). Currently some of the installer configuration fields are not supported with Windows agent images. 
+
+The unsupported fields are:
+* fileTransferConnectionTimeoutMillis (not supported with the CIFS file transfer mode)
+* remoteExecutionPort (not supported with the WinRM remote execution mode)
+
+
 <span id="cd"></span>
 The following example shows a sample configuration file:
 <script src="https://gist.github.com/tamirko/5056934.js"></script>
