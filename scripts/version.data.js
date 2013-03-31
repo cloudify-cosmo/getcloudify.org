@@ -416,5 +416,7 @@ var guide = {
 			'undeploy_apps':true,
 			'undeploy_azure':true
 		},
+	},
+	'ref':{
 	}
 };
