@@ -15,7 +15,10 @@ if ( $(location).attr("href").match("^.*/guide/.*$") )  {
 }
 $(function() {
 
-
+$('iframe').load( function() {
+    $('iframe').contents().find("body")
+      .append($("<style type='text/css'>  body{background:#ffffff;}  </style>"));
+});
 });
 
 function changeCSS() {
