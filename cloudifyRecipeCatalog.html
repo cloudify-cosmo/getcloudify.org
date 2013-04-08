@@ -17,18 +17,15 @@ $(function() {
 
 $('iframe').load( function() {
     $('iframe').contents().find("body")
-      .append($("<style type='text/css'>  body{background:#ffffff;}  </style>"));
+      .append($("<style type='text/css'>  body{background:#ffffff !important;}  </style>"));
 });
 });
 
-function changeCSS() {
-    document.getElementsByClassName("nav-links").style.display = 'none';
-}
 </script>
 
 <div class="demoAppWrap">
 	<div class="demoAppWrap2">
-	<iframe onload="javascript:changeCSS()" src="http://launch.cloudifysource.org/demos/embedded/default_demo@gigaspaces.com" scrolling="no">
+	<iframe src="http://launch.cloudifysource.org/demos/embedded/default_demo@gigaspaces.com" scrolling="no">
 	</iframe>
 	</div>
 	</div>
