@@ -81,3 +81,77 @@ h2(#troubleshoot). Troubleshooting an Application's Deployment
 Using the *Application* view's *Logs* panel, you can trace deployment issues without leaving the web management console.
 
 <img src="../../images/webui/appmap_logs.png" height="335" width="640"/>
+
+
+
+h2(#reverse-proxy). Running Via A Reverse Proxy
+
+_Version 2.5.1 onwards_
+
+It is possible to set up a reverse proxy for the management console. This can be desirable e.g. when access to the Management Console is done via a gateway. Reverse proxy setups are currently available and tested only on the Apache web server.
+
+
+h3. Configuring The Proxy
+
+Enable the relevant modules, by uncommenting (or adding) the following lines inside @httpd.conf@:
+
+<pre>
+<code>
+LoadModule  proxy_module         modules/mod_proxy.so
+LoadModule  proxy_http_module    modules/mod_proxy_http.so
+</code>
+</pre>
+
+Add your server's name, and define a virtual host for the configuration, where @gs.webui.com@ represents your server's DNS:
+
+<pre>
+<code>
+NameVirtualHost *:80
+<VirtualHost *:80>
+	ServerName gs.webui.com
+</VirtualHost>
+</code>
+</pre>
+
+
+Create mappings to channel proxy paths (@webui-endpoint@ being the proxied path obsecuring the address of the Management Console):
+
+<pre>
+<code>
+<VirtualHost *:80>
+	...
+	ProxyPass /webui-endpoint/ http://127.0.0.1:8099/ 
+	ProxyPassReverse /webui-endpoint/ http://127.0.0.1:8099/
+	ProxyPreserveHost on
+</VirtualHost>
+</code>
+</pre>
+
+Set a redirection rule for serving the login page:
+
+<pre>
+<code>
+<VirtualHost *:80>
+	...
+	RedirectMatch /Gs_webui\.html /webui-endpoint/Gs_webui.html
+</VirtualHost>
+</code>
+</pre>
+
+
+h3. Debugging Your Proxy
+
+You can dump logging information to custom files on the Apache server by adding the following rules:
+
+<pre>
+<code>
+<VirtualHost *:80>
+	...
+	ErrorLog "logs/webui-error_log"
+	CustomLog "logs/webui-access_log" common
+</VirtualHost>
+</code>
+</pre>
+
+
+For more information on apache's reverse proxy configuration, see "the corresponding entry on the Apache Tutor":http://www.apachetutor.org/admin/reverseproxies.
