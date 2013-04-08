@@ -1,0 +1,36 @@
+---
+layout: default
+title: The Recipes Debugger
+category: Developing Recipes
+publish: true
+abstract: Explains how to use the Cloudify's recipes Debugger. 
+pageord: 13
+---
+
+h2. Debugging Recipes
+
+One of the challenges in developing Cloudify services is that they are often stateful. 
+That means that they publish and consume runtime attributes of other service instances and other services. 
+Furthermore, they have runtime context of their own, containing their IP addresses, ports, number of instances and other metadata. 
+
+To solve these runtime debugging problems we added a new remote debugging capability that enables users to debug shell scripts and groovy scripts in place. 
+The idea behind the Cloudify debugger is to run groovy and shell life cycle event scripts through an augmented launcher that uses an SSH session and allows the end user to connect remotely and debug the script in the actual cloud environment.
+
+h2. Usage 
+
+Users can set up debug breakpoints by using new options in the CLI.
+
+Examples of usage : 
+# install-service -debug-all -debug-mode onError serviceName
+# install-service -debug-events install -debug-mode after serviceName
+# install-service -debug-events start serviceName
+
+* -debug-mode can be one of the following : instead, after or onError. - Defaults to instead.
+* -debug-all debugs all the supported lifecycle events.
+* -debug-events debugs the specified events
+
+
+
+
+        
+

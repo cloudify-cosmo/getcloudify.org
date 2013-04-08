@@ -1,0 +1,64 @@
+---
+layout: default
+title: Cloudify Tutorial
+category: Tutorial
+publish: false
+abstract: How to develop Cloudify recipes
+pageord: 100
+---
+
+h2. Best Practices for Developing Cloudify Recipes
+
+* Setup
+** Prerequisites
+*** "Cloudify Prerequisites":../setup/cloudify_prerequisites
+* Installing Cloudify 
+** "Download":/downloads/get_cloudify the distribution zip file and "install":../setup/installing_the_cloudify_client the Cloudify client.
+** Now you are ready to develop recipes with Cloudify
+* Creating a Recipe Skeleton 
+** Each application recipe is comprised of the application descriptor file and the recipes for the services it requires.
+** Each service recipe is comprised of the service descriptor file and its supporting files.
+** Click here to download a skeleton of an application recipe (the recipe should contain external scripts that do nothing).
+* Develop with life cycle events 
+** What is life cycle event ? 
+** ...
+** the following life cycle events are avail : ... 
+*** When to use each event (best practice for pre install, start, post start, etc)	
+*** init ? 
+*** The most common are install,start,postStart and preStop
+*** example : tomcat, ... postStart - registers itself to a load balancer.
+*** It's better to externalize everything...
+		We support that... 
+		  Does this work every other section as well, not just UI ?  Can u load("monitors.groovy") ? 		  
+*** How to debug - write individual scripts that do not depend on the cloudify APIs, only get params and execute things.
+*** When installing use vagrant and destroy the box on every iteration to get a clean slate 
+*** We recommend that you use scripts/files and not clusures (even though clusures are also supported by Cloudify).
+*** we recommend that you use classes and functions when you have complex logic, 
+		in order to avoid code duplication and complications and to ease the development and debugging process.	    	
+*** Test scripts with standalone Groovy
+*** path to groovy and .... same as above : write individual scripts that do not depend on the cloudify APIs, only get params and execute things.	
+*** Externalize all variables, compare between properties and attributes and when to use each 
+**** Accessing attributes means remote access call (space API) from the caller's machine (the invoking service instance) to the management machine.
+* Running on Cloudify 
+** You can start with local cloud, but know the differences (port clashes, API that won't work, local resources). 
+*** Here it's also best to use vagrant for a clean env 		
+** Run on the cloud, best to start with EC2 which is the most stable.  should I write that EC2 is the most stable ? 
+** Use the disableSelfHealing flag (or whatever it's called) for failures 
+* Developing metric probes 
+** Same tips, mostly externalize things and test in an isolated env. 
+** How to know your metrics are working - 
+*** check in the webui, 
+*** add debugging messages (don't forget to remove/disable them later... 
+*** check manually from external clients				
+** Protect your code with exception catch blocks ,otherwise the error might fail the recipe.
+* Troubleshooting 
+** Pitfalls 
+** What logs to look at and logging naming logic 
+*** In most cases ,the GSC* log files should interest you.
+***	The other log files should also be kept, for cases in which u send stuff to Cloudify for debugging.
+** Main messages in logs that you want to be familiar with
+*** monitored ...			
+** Monitoring progress with CLI (tail) and UI (log view, event timeline, etc)
+*** tail -f ...
+				
+
