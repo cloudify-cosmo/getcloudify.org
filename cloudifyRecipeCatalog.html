@@ -14,15 +14,20 @@ if ( $(location).attr("href").match("^.*/guide/.*$") )  {
 	}
 }
 $(function() {
-	//$('#target-div').load('http://15.185.167.188/demos/133/8e7550a6-d1e4-4045-8677-d24696887e2e','body','callback');
+
+
 });
+
+function changeCSS() {
+    document.getElementsByClassName("nav-links").style.display = 'none';
+}
 </script>
 
 <div class="demoAppWrap">
 	<div style="position: absolute; left: 0px; top: 0px; border: solid 2px #555; width:594px; height:332px;">
 	<div style="overflow: hidden; margin-top: -100px; margin-left: -25px;">
 	</div>
-	<iframe src="http://launch.cloudifysource.org/demos/embedded/default_demo@gigaspaces.com" scrolling="no" style="height: 490px; border: 0px none; width: 619px; margin-top: -60px; margin-left: -24px; ">
+	<iframe onload="javascript:changeCSS()" src="http://launch.cloudifysource.org/demos/embedded/default_demo@gigaspaces.com" scrolling="no" style="height: 490px; border: 0px none; width: 619px; margin-top: -60px; margin-left: -24px; ">
 	</iframe>
 	</div>
 	</div>
