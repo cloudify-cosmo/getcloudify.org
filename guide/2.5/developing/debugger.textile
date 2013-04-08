@@ -17,7 +17,13 @@ To solve these runtime debugging problems we added a new remote debugging capabi
 The idea behind the Cloudify debugger is to run groovy and shell life cycle event scripts through an augmented launcher that uses an SSH session and allows the end user to connect remotely and debug the script in the actual cloud environment.
 
 <b>Currently the debugger will only work on linux</b>
+
 h2. Usage 
+
+The debugger allows user to pause the recipe execution before the execution of a lifecycle script; after a lifecycle script
+terminated with error or after the execution of a lifecycle script.
+The user can specify if the debug pause will apply to a specific lifecycle script or to any of the scripts.
+Currently the debugger will not apply to an inline lifecycle event closure.
 
 Users can set up debug breakpoints by using new options in the CLI.
 
@@ -29,6 +35,12 @@ Examples of usage :
 * -debug-mode can be one of the following : instead, after or onError. - Defaults to instead.
 * -debug-all debugs all the supported lifecycle events.
 * -debug-events debugs the specified events
+
+Once the service installation will start and the recipe will reach the requested debug point, a message will be 
+printed to the Cloudify shell. The message will indicate to the user how to connect ot the debgger session using telnet
+
+Once the user is connected to the debugger session, there are several debugging options that can be used from the command prompt:
+
 
 
 
