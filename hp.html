@@ -13,8 +13,9 @@ category: home
                             <h1 style="text-align: center;">
                                 Cloudify - The Open Source PaaS Stack</h1>
                             <div class="hpBannerLeft fl">
-                                <a href="#" rel="V3NNreNRxMQ" class="youtube wtd">Watch the demo
-                                  <span class="playMovie"></span>              
+                             <a class="fancybox-media wtd" href="http://www.youtube.com/watch?v=V3NNreNRxMQ">Watch the demo
+                               
+                                 <span class="playMovie"></span> 
                                 </a>
                             </div>
                             <div class="hpBannerRight fr">
@@ -42,42 +43,64 @@ category: home
                                 <div class="grayBoxMid">
                                     <div id="tabs">
                                         <ul>
-                                            <li><a href="#tabs-1" class="btn-b3">service</a></li>
                                             <li><a href="#tabs-2" class="btn-b3">application</a></li>
-                                            <li><a href="#tabs-3" class="btn-b3">driver</a></li>
+                                            <li><a href="#tabs-1" class="btn-b3">service</a></li>
+                                            <li><a href="#tabs-3" class="btn-b3">autoscaling</a></li>
                                         </ul>
                                         <div class="clear">
                                         </div>
                                         <div id="tabs-1">
                                             <p>
+                                            <code class="prettyprint">
                                                 service {<br />
-                                                name "mysql"<br />
-                                                icon "mysql.jpg"<br />
-                                                type "DATABASE"<br />
-                                                ...<br />
-                                                }
-                                              <a href="https://github.com/CloudifySource/cloudify-recipes" class="seeAll" target="_blank">See All</a>
-                                              </p>
+                                                &nbsp;&nbsp;name "mysql"<br />
+                                                &nbsp;&nbsp;icon "mysql.jpg"<br />
+                                                &nbsp;&nbsp;type "DATABASE"<br />
+                                                <br />
+                                                &nbsp;&nbsp;lifecycle{ <br />
+                                                &nbsp;&nbsp;&nbsp;&nbsp;install "mysql_install.groovy" <br />
+                                                				&nbsp;&nbsp;&nbsp;&nbsp;start "mysql_start.groovy" <br />
+						&nbsp;&nbsp;&nbsp;&nbsp;...<br />
+                                                &nbsp;&nbsp;}<br />
+                                                }<br />
+                                            </code>
+                                            </p>
+                                             <a href="http://www.cloudifysource.org/guide/developing/service_recipe" class="seeAll" target="_blank">Learn More</a>
                                         </div>
                                         <div id="tabs-2">
                                             <p>
+                                            <code class="prettyprint">
                                                 application {<br />
-                                                name "mysql"<br />
-                                                icon "mysql.jpg"<br />
-                                                type "DATABASE"<br />
-                                                ...<br />
-                                                }
+                                                &nbsp;&nbsp;name="petclinic"<br />
+                                                &nbsp;&nbsp;service { <br />
+                                                &nbsp;&nbsp;&nbsp;&nbsp;name = "mysql" <br />
+                                                &nbsp;&nbsp;} <br />
+                                                &nbsp;&nbsp;service { <br />
+                        	                &nbsp;&nbsp;&nbsp;&nbsp;name = "tomcat" <br />
+		                                &nbsp;&nbsp;&nbsp;&nbsp;dependsOn = ["mysql"] <br />
+	                                        &nbsp;&nbsp;} <br />
+                                                } <br />
+                                            </code>
                                             </p>
+                                            <a href="http://www.cloudifysource.org/guide/developing/application_recipe" class="seeAll" target="_blank">Learn More</a>
                                         </div>
                                         <div id="tabs-3">
                                             <p>
-                                                driver {<br />
-                                                name "mysql"<br />
-                                                icon "mysql.jpg"<br />
-                                                type "DATABASE"<br />
-                                                ...<br />
-                                                }
+                                            <code class="prettyprint">
+                                                scalingRule { <br />
+			                        &nbsp;&nbsp;serviceStatistics { <br />
+				                &nbsp;&nbsp;&nbsp;&nbsp;metric "Requests per second" <br />				                
+				                &nbsp;&nbsp;&nbsp;&nbsp;movingTimeRangeInSeconds 20 <br />
+			                        &nbsp;&nbsp;} <br />
+               					<br />
+			                        &nbsp;&nbsp;highThreshold { <br />
+				                &nbsp;&nbsp;&nbsp;&nbsp;value 100 <br />
+				                &nbsp;&nbsp;&nbsp;&nbsp;instancesIncrease 1 <br />
+			                        &nbsp;&nbsp;} <br />
+		                                }<br />
+                                            </code>     
                                             </p>
+                                            <a href="http://www.cloudifysource.org/guide/developing/scaling_rules" class="seeAll" target="_blank">Learn More</a>
                                         </div>
                                         <div class="clear">
                                         </div>
@@ -93,20 +116,20 @@ category: home
                                 </div>
                                 <div class="grayBoxMid">
                                     <ul class="firstList">
-                                        <li><a href="https://github.com/CloudifySource/cloudify/tree/master/recipes/src/main/resources/recipes/services/redis">
+                                        <li><a  id="Redis" target="_blank" href="https://github.com/CloudifySource/cloudify-recipes/tree/master/services/redis">
                                             <img src="images/home/logoRedis.png" /></a></li>
-                                        <li><a href="https://github.com/CloudifySource/cloudify/tree/master/recipes/src/main/resources/recipes/services/nginx">
+                                        <li><a id="Nqinx" target="_blank" href="https://github.com/CloudifySource/cloudify-recipes/tree/master/services/nginx">
                                             <img src="images/home/logoNqinx.png" /></a></li>
-                                        <li><a href="https://github.com/CloudifySource/cloudify-recipes/tree/master/services/play">
+                                        <li><a id="Play" target="_blank" href="https://github.com/CloudifySource/cloudify-recipes/tree/master/services/play">
                                             <img src="images/home/logoPlay.png" /></a></li>
                                     </ul>
                                     <ul class="secondeList">
-                                        <li><a href="https://github.com/CloudifySource/cloudify/tree/master/recipes/src/main/resources/recipes/services/postgresql">
+                                        <li><a id="PostgreSql" target="_blank" href="https://github.com/CloudifySource/cloudify-recipes/tree/master/services/postgresql">
                                             <img src="images/home/logoPostgreSql.png" /></a></li>
-                                        <!--<li><a href="#"><img src="images/home/logoRails.png" /></a></li>-->
-                                        <li><a href="https://github.com/CloudifySource/cloudify-recipes/tree/master/services/chef">
+                                        <!--<li><a id="Rails" href="#"><img src="images/home/logoRails.png" /></a></li>-->
+                                        <li><a id="Chef" target="_blank" href="https://github.com/CloudifySource/cloudify-recipes/tree/master/services/chef">
                                             <img src="images/home/logoChef.png" /></a></li>
-                                        <li><a href="https://github.com/CloudifySource/cloudify/tree/master/recipes/src/main/resources/recipes/services/couchdb">
+                                        <li><a  id="CouchDB" target="_blank" href="https://github.com/CloudifySource/cloudify-recipes/tree/master/services/couchdb">
                                             <img src="images/home/logoCouchDB.png" /></a></li>
                                     </ul>
                                     <div class="clear">
@@ -167,49 +190,47 @@ category: home
                             <!-- update blog post -->
                             <a href="http://www.cloudifysource.org/blog" class="hp-update-icon hp-update-blogpost">
                                 Blog Post</a>
+                                
+<script type="text/javascript" >                                
+//jQuery(function() {
+	//jQuery.noConflict();
+	$(window).bind("load", function() {
+		//rss feed slider
+		$('.blogFeed').rssfeed('http://www.cloudifysource.org/atom.xml',{
+			header: false,
+			titletag: 'div',
+			date: false,
+			content: true,
+			linktarget:'_blank',
+		}, 
+		
+		
+		function(e) {
+			$(e).find('div.rssBody').vTicker({ showItems: 1});
+		});
+		
+		
+		$('.newsFeed').rssfeed('http://cloudifysource.tumblr.com/rss',{
+			header: false,
+			titletag: 'div',
+			date: false,
+			content: true,
+			linktarget:'_blank',
+		}, 
+		
+
+		
+		function(e) {
+			$(e).find('div.rssBody').vTicker({ showItems: 1});
+		});
+	});                                
+</script>                                
+                                
+                                
+                                
+                                
                             <div class="recentUpdates-box blogFeed">
-                                            <!-- start sw-rss-feed code --> 
-                        										<script type="text/javascript"> 
-                                            <!-- 
-                                            rssfeed_url = new Array(); 
-                                            rssfeed_url[0]="http://www.cloudifysource.org/atom.xml";  
-                                            rssfeed_frame_width="330"; 
-                                            rssfeed_frame_height="90"; 
-                                            rssfeed_scroll="on"; 
-                                            rssfeed_scroll_step="6"; 
-                                            rssfeed_scroll_bar="off"; 
-                                            rssfeed_target="_blank"; 
-                                            rssfeed_font_size="15"; 
-                                            rssfeed_font_face="Trebuchet MS,Helvetica,Arial,Sans-serif"; 
-                                            rssfeed_border="off"; 
-                                            rssfeed_css_url=""; 
-                                            rssfeed_title="off"; 
-                                            rssfeed_title_name=""; 
-                                            rssfeed_title_bgcolor="#008AEF"; 
-                                            rssfeed_title_color="#008AEF"; 
-                                            rssfeed_title_bgimage="http://"; 
-                                            rssfeed_footer="off"; 
-                                            rssfeed_footer_name="rss feed"; 
-                                            rssfeed_footer_bgcolor="#fff"; 
-                                            rssfeed_footer_color="#333"; 
-                                            rssfeed_footer_bgimage="http://"; 
-                                            rssfeed_item_title_length="50"; 
-                                            rssfeed_item_title_color="#008AEF"; 
-                                            rssfeed_item_bgcolor="#none"; 
-                                            rssfeed_item_bgimage="http://"; 
-                                            rssfeed_item_border_bottom="on"; 
-                                            rssfeed_item_source_icon="off"; 
-                                            rssfeed_item_date="off"; 
-                                            rssfeed_item_description="on"; 
-                                            rssfeed_item_description_length="120"; 
-                                            rssfeed_item_description_color="#393939"; 
-                                            rssfeed_item_description_link_color="#333"; 
-                                            rssfeed_item_description_tag="off"; 
-                                            rssfeed_no_items="0"; 
-                                            rssfeed_cache = "f2f79ba4f12501d5f8454c1d22c042c4"; 
-                                            //--> 
-                                            </script>                                             
-                                            <!-- end sw-rss-feed code -->
+
                             </div>
                             <div class="clear">
                             </div>
@@ -217,59 +238,16 @@ category: home
                             <a class="hp-update-icon hp-update-evets" href="http://www.cloudifysource.org/participate">
                                 Upcoming Events</a>
                             <div class="recentUpdates-box">
-                                <a href="http://www.cloudifysource.org/participate">Industry Event: Cassandra Summit
-                                    2012</a><br>
-                                The massive computing and storage resources that are needed to support big data
-                                applications make cloud environments an ideal fit...</div>
+                                <a href="http://www.cloudifysource.org/participate">Community Event: DevOps Con Israel 2013</a><br>
+                                Join us at the upcoming DevOps Con IL 2013 – the first ever DevOps conference of its kind in Israel....</div>
                             <div class="clear">
                             </div>
                             <!-- update news -->
                             <div class="hp-update-icon hp-update-news">
                                 News
                             </div>
-                            <div class="recentUpdates-box blogFeed">
-                                        <!-- start sw-rss-feed code --> 
-                                        <script type="text/javascript"> 
-                                        <!-- 
-                                        rssfeed_url = new Array(); 
-                                        rssfeed_url[0]="http://cloudifysource.tumblr.com/rss";  
-                                        rssfeed_frame_width="330"; 
-                                        rssfeed_frame_height="90"; 
-                                        rssfeed_scroll="on"; 
-                                        rssfeed_scroll_step="6"; 
-                                        rssfeed_scroll_bar="off"; 
-                                        rssfeed_target="_blank"; 
-                                        rssfeed_font_size="15"; 
-                                        rssfeed_font_face="Trebuchet MS,Helvetica,Arial,Sans-serif"; 
-                                        rssfeed_border="off"; 
-                                        rssfeed_css_url=""; 
-                                        rssfeed_title="off"; 
-                                        rssfeed_title_name=""; 
-                                        rssfeed_title_bgcolor="#008AEF"; 
-                                        rssfeed_title_color="#008AEF"; 
-                                        rssfeed_title_bgimage="http://"; 
-                                        rssfeed_footer="off"; 
-                                        rssfeed_footer_name="rss feed"; 
-                                        rssfeed_footer_bgcolor="#fff"; 
-                                        rssfeed_footer_color="#333"; 
-                                        rssfeed_footer_bgimage="http://"; 
-                                        rssfeed_item_title_length="50"; 
-                                        rssfeed_item_title_color="#008AEF"; 
-                                        rssfeed_item_bgcolor="#none"; 
-                                        rssfeed_item_bgimage="http://"; 
-                                        rssfeed_item_border_bottom="on"; 
-                                        rssfeed_item_source_icon="off"; 
-                                        rssfeed_item_date="off"; 
-                                        rssfeed_item_description="on"; 
-                                        rssfeed_item_description_length="120"; 
-                                        rssfeed_item_description_color="#393939"; 
-                                        rssfeed_item_description_link_color="#333"; 
-                                        rssfeed_item_description_tag="off"; 
-                                        rssfeed_no_items="0"; 
-                                        rssfeed_cache = "f2f79ba4f12501d5f8454c1d22c042c5"; 
-                                        //--> 
-                                        </script> 
-                                        <!-- end sw-rss-feed code -->                            
+                            <div class="recentUpdates-box newsFeed">
+
                             </div>
                             <div class="clear">
                             </div>
