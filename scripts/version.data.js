@@ -230,7 +230,9 @@ var guide = {
 			'attributes_api':true,
 			'configuring_ui_section':true,
 			'custom_commands':true,
+			'debugger':true,
 			'extending_recipes':true,
+			'how_storage_works':true,
 			'lifecycle_events':true,
 			'plugins':true,
 			'recipes_overview':true,
@@ -238,6 +240,7 @@ var guide = {
 			'scaling_rules':true,
 			'service_recipe':true,
 			'sla_requirements':true,
+			'storage':true,
 			'the_service_context_api':true
 		},
 		'faq':{
@@ -340,7 +343,9 @@ var guide = {
 			'attributes_api':true,
 			'configuring_ui_section':true,
 			'custom_commands':true,
+			'debugger':true,
 			'extending_recipes':true,
+			'how_storage_works':true,
 			'lifecycle_events':true,
 			'plugins':true,
 			'recipes_overview':true,
@@ -348,6 +353,7 @@ var guide = {
 			'scaling_rules':true,
 			'service_recipe':true,
 			'sla_requirements':true,
+			'storage':true,
 			'the_service_context_api':true
 		},
 		'faq':{
@@ -411,6 +417,9 @@ var guide = {
 			'petclinic_deepdive':true,
 			'tamir':true,
 			'yaron':true
+		},
+		'tutorial':{
+			'tutorial':true
 		},
 		'undeploying':{
 			'undeploy_apps':true,
