@@ -418,9 +418,6 @@ var guide = {
 			'tamir':true,
 			'yaron':true
 		},
-		'tutorial':{
-			'tutorial':true
-		},
 		'undeploying':{
 			'undeploy_apps':true,
 			'undeploy_azure':true
