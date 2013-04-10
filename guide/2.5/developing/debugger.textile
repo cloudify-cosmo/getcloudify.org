@@ -54,7 +54,7 @@ Once the service installation starts and the recipe reaches the requested debugg
 2. Go to the Cloudify Web UI, get the IP address of the service (tomcat) instance :
 <a class="fancybox-media" href="../../images/developing/apachelb_in_webui.jpg"><img src="../../images/developing/apachelb_in_webui_thumb.jpg" alt="pic is missing" /></a>
  
-3. Ssh to tomcat VM and invoke the following command *@debug@* on the tomcat VM.
+3. Ssh to tomcat VM and invoke the *@debug@* command on the tomcat VM.
    Once the user is connected to the debugger session, there are several debugging options that can be used from the command prompt:
 <script src="https://gist.github.com/tamirko/5344757.js"></script>
 
@@ -67,13 +67,13 @@ h4(info). ctrl+d or "exit" freezes everything, so that (for example) you can com
 * Create a remote debug configuration for the tomcat IP address from above and port 10000
 
 <br/>
+Click on the following image to learn how to configure remote debugging of groovy scripts in Eclipse:
+<a href="http://www.youtube.com/watch?v=gzv6mgISE0s" rel="gzv6mgISE0s" class="video fancybox-media"><img src="../../images/developing/remote_groovy_debug_eclipse.jpg" alt="pic is missing" /></a>
 
 5. Invoke *@run-script tomcat_install.groovy@*
    Cloudify will pause until IDE connects.   
 
 6. Add breakpoints to your groovy code (in your IDE).
-Click on the following image to learn how to configure remote debugging of groovy scripts in Eclipse:
-<a href="http://www.youtube.com/watch?v=gzv6mgISE0s" rel="gzv6mgISE0s" class="video fancybox-media"><img src="../../images/developing/remote_groovy_debug_eclipse.jpg" alt="pic is missing" /></a>
 
 7. Debug away ... 
 
