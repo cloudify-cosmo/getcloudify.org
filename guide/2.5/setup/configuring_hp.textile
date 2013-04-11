@@ -29,14 +29,14 @@ h3(#key). Generate a private key
 
 # In the HP web console, under "Key Pairs":https://manage.hpcloud.com/compute/100/keypairs, click *Create Key Pair*, and then type a name for the key pair.
 !../../images/hp/compute_create_new_key_pair_hp_cloud_services.png!
-# Copy the key and save it as a @.pem@ private key file (e.g. @myKeyPair-name.pem@) in the @<cloudifyRoot>/tools/cli/plugins/esc/hp/upload@ folder.
+# Copy the key and save it as a @.pem@ private key file (e.g. @myKeyPair-name.pem@) in the @<cloudifyRoot>/clouds/hp/upload@ folder.
 !../../images/hp/compute_create_new_key_pair_2_hp_cloud_services.png!
 
 h4(info). The private key enables the Cloudify cloud driver to open SSH connections to the newly created instances.
 
 h3(#driver). Configure the Cloudify cloud driver configuration file
 
-Edit the HP cloud driver configuration file (@hp-cloud.groovy@) located in the @<cloudifyRoot>/tools/cli/plugins/esc/hp/@ folder, and modify the following attributes:
+Edit the HP cloud driver configuration file (@hp-cloud.groovy@) located in the @<cloudifyRoot>/clouds/hp/@ folder, and modify the following attributes:
 * In the *provider* section: 
 ** *machineNamePrefix*--The value that you specify is used as the name prefix for each of your service instances.
 ** *managementOnlyFiles*--An array containing a list of files to copy to management machines and not agent machines. Use this list to specify files such as the private key file (e.g. @myKeyPair-name.pem@) required by the cloud driver..

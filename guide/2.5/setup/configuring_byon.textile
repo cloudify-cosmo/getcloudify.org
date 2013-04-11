@@ -18,7 +18,7 @@ h2. Prerequisites
 
 h2. Configuring the BYON Cloud Driver
 
-The main BYON configuration file is @byon-cloud.groovy@ and is located in the @<cloudifyRoot>/tools/cli/plugins/esc/byon@ folder.
+The main BYON configuration file is @byon-cloud.groovy@ and is located in the @<cloudifyRoot>/clouds/byon@ folder.
 
 
 <h4 class="impt">For setting the configuration file, we reccomend that you use "parameterization of the cloud driver configuration":../clouddrivers/cloud_driver#gstr, but you can also set the configuration file directly as shown in the following example (of a @byon-cloud.groovy@ file):</h4>
@@ -83,7 +83,7 @@ Cloudify can run in 2 different modes:
 * *WORKING_HOME_DIRECTORY* - The working folder specified in the configuration file to which installation files were copied (Cloudify installation files, ...)
 * *CLOUDIFY_LINK* - If this URL is valid, it will be downloaded to @$WORKING_HOME_DIRECTORY/gigaspaces.zip@
 
-<h4 class="info"><ul><li>The @bootstrap-management.sh@ is copied (via SSH) from the client's *localDirectory* (@<cloudifyRoot>/tools/cli/plugins/esc/byon/upload@) to the *remoteDirectory* on each provisioned machine.</li>
+<h4 class="info"><ul><li>The @bootstrap-management.sh@ is copied (via SSH) from the client's *localDirectory* (@<cloudifyRoot>/clouds/byon/upload@) to the *remoteDirectory* on each provisioned machine.</li>
 
 <li>SSH is used to run @bootstrap-management.sh@ on machines being provisioned.</li>
 

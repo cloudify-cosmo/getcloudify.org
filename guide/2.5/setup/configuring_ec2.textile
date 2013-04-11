@@ -26,7 +26,7 @@ h3(#key). Generate a private key
 <a class="fancybox-media" href="../../images/ec2/EC2_CREATE_KEY_PAIRS_RAW3.jpg"><img src="../../images/ec2/EC2_CREATE_KEY_PAIRS_RAW3_THUMB.jpg" alt="pic is missing" /></a>
 # Type a name for the key pair.
 <a class="fancybox-media" href="../../images/ec2/EC2_CREATE_KEY_PAIRS_1_RAW3.jpg"><img src="../../images/ec2/EC2_CREATE_KEY_PAIRS_1_RAW3_THUMB.jpg" alt="pic is missing" /></a>
-# Save the private key file (e.g. @myKeyPair-name.pem@) in the @<cloudifyRoot>/tools/cli/plugins/esc/ec2/upload@ folder.
+# Save the private key file (e.g. @myKeyPair-name.pem@) in the @<cloudifyRoot>/clouds/ec2/upload@ folder.
 <a class="fancybox-media" href="../../images/ec2/EC2_CREATE_KEY_PAIR_SUCCESS_AND_SAVE3.jpg"><img src="../../images/ec2/EC2_ACCESS_KEY_AND_SECRET_KEY3_THUMB.jpg" alt="pic is missing" /></a>
 
 
@@ -75,7 +75,7 @@ h2. Cloud Driver Configuration
 *** *keyPair*--Specify the name of the key pair that you created (whose content is in the .pem file in *keyFile* attribute).
 
 
-<h4 class="impt">For setting the cloud driver, we reccomend that you use "parameterization of the cloud driver configuration":../clouddrivers/cloud_driver#gstr, but you can also set the cloud driver directly (@ec2-cloud.groovy@) located in the @<cloudifyRoot>/tools/cli/plugins/esc/ec2/@ folder  as shown in the following example (of an @ec2-cloud.groovy@ file):</h4>
+<h4 class="impt">For setting the cloud driver, we reccomend that you use "parameterization of the cloud driver configuration":../clouddrivers/cloud_driver#gstr, but you can also set the cloud driver directly (@ec2-cloud.groovy@) located in the @<cloudifyRoot>/clouds/ec2/@ folder  as shown in the following example (of an @ec2-cloud.groovy@ file):</h4>
 
 <script src="https://gist.github.com/3273680.js?file=ec2-driver2-2m2.groovy"></script>
 
