@@ -1,4 +1,3 @@
-
 Here is all you need to know in order install Jekyll on Linux
 --------------------------------------------------------------------------------
 
@@ -46,7 +45,7 @@ right after the following two lines (lines 268-269):
 stop your Jekyll server  
 <pre><code>
 cd YOUR_SITE_ROOTFOLDER
-rm –rf _site
+rm ï¿½rf _site
 </pre></code>
 
 start your Jekyll server  :  
@@ -55,3 +54,9 @@ jekyll --server
 
 Access your local site (the default port is 4000): 
 http://localhost:4000
+
+
+
+Click [here]https://sites.google.com/site/gigaspacesprivatewiki/cloudifysource-documentation for Windows instructions.
+
+
