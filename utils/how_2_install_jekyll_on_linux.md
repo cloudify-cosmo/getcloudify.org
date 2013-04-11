@@ -57,6 +57,6 @@ http://localhost:4000
 
 
 
-Click [here](ttps://sites.google.com/site/gigaspacesprivatewiki/cloudifysource-documentation) for Windows instructions.
+Click [here](https://sites.google.com/site/gigaspacesprivatewiki/cloudifysource-documentation) for Windows instructions.
 
 
