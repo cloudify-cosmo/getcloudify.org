@@ -9,6 +9,10 @@ pageord: 500
 
 This topic provides instructions for configuring Amazon EC2 for Cloudify.
 
+<span id="ec2driver"></span>
+To learn how to get the credentials and all the other details and how to use them, <a href="http://www.youtube.com/watch?v=jYOiqlQL1o8" rel="jYOiqlQL1o8" class="video fancybox-media"><img src="../../images/setup/hpec2_howto.jpg" width="326" height="195" alt="pic is missing" /></a>.
+
+
 h2. Prerequsites
 
 * An "Amazon Web Services":http://aws.amazon.com/ account
@@ -22,7 +26,7 @@ h3(#key). Generate a private key
 <a class="fancybox-media" href="../../images/ec2/EC2_CREATE_KEY_PAIRS_RAW3.jpg"><img src="../../images/ec2/EC2_CREATE_KEY_PAIRS_RAW3_THUMB.jpg" alt="pic is missing" /></a>
 # Type a name for the key pair.
 <a class="fancybox-media" href="../../images/ec2/EC2_CREATE_KEY_PAIRS_1_RAW3.jpg"><img src="../../images/ec2/EC2_CREATE_KEY_PAIRS_1_RAW3_THUMB.jpg" alt="pic is missing" /></a>
-# Save the private key file (e.g. @myKeyPair-name.pem@) in the @<cloudifyRoot>/tools/cli/plugins/esc/ec2/upload@ folder.
+# Save the private key file (e.g. @myKeyPair-name.pem@) in the @<cloudifyRoot>/clouds/ec2/upload@ folder.
 <a class="fancybox-media" href="../../images/ec2/EC2_CREATE_KEY_PAIR_SUCCESS_AND_SAVE3.jpg"><img src="../../images/ec2/EC2_ACCESS_KEY_AND_SECRET_KEY3_THUMB.jpg" alt="pic is missing" /></a>
 
 
@@ -71,12 +75,10 @@ h2. Cloud Driver Configuration
 *** *keyPair*--Specify the name of the key pair that you created (whose content is in the .pem file in *keyFile* attribute).
 
 
-<h4 class="impt">For setting the cloud driver, we reccomend that you use "parameterization of the cloud driver configuration":../clouddrivers/cloud_driver#gstr, but you can also set the cloud driver directly (@ec2-cloud.groovy@) located in the @<cloudifyRoot>/tools/cli/plugins/esc/ec2/@ folder  as shown in the following example (of an @ec2-cloud.groovy@ file):</h4>
+<h4 class="impt">For setting the cloud driver, we reccomend that you use "parameterization of the cloud driver configuration":../clouddrivers/cloud_driver#gstr, but you can also set the cloud driver directly (@ec2-cloud.groovy@) located in the @<cloudifyRoot>/clouds/ec2/@ folder  as shown in the following example (of an @ec2-cloud.groovy@ file):</h4>
 
-<script src="https://gist.github.com/tamirko/3273680.js"></script>
+<script src="https://gist.github.com/tamirko/5402388.js"></script>
 
-<span id="ec2driver"></span>
-<h4 class="impt">To learn how to get the credentials and all the other details and how to use them, <a href="http://www.youtube.com/watch?v=jYOiqlQL1o8" rel="jYOiqlQL1o8" class="video fancybox-media">click here</a>.</h4>
 <span id="ec2demo"></span>
 <h4 class="impt">To see it in action, <a href="http://www.youtube.com/watch?v=0X4qDa68uI4" rel="0X4qDa68uI4" class="video fancybox-media">click here</a> to watch the demo.</h4>
 
