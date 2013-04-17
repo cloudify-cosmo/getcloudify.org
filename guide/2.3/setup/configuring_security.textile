@@ -214,39 +214,31 @@ h4(impt). Starting/terminating machines on the cloud requires credentials to tha
 
 For a list of the available Cloudify commands, click "here":../recipe/command_line_reference.
 
+<span id="csc"></span>
 
 h2. Integrating a Custom Authentication Provider
 
 h4. Dependencies
 
-Your code should use spring-security-core version 3.1.3.RELEASE.
+The spring-security-core version 3.1.3.RELEASE should be used.
 
 h4. Authentication Provider Object
 
 Implement your custom authentication provider. 
-•	Implement interface: 
-org.springframework.security.authentication.AuthenticationProvider
-•	The method “authenticate()” should return a customized “Authentication” object, as explained below.
+* Implement interface: @org.springframework.security.authentication.AuthenticationProvider@
+* The method *"authenticate()"* should return a customized *"Authentication"* object, as explained below.
 
 h4. Authentication Object
 
-Implement your custom “Authentication” object, returned by the authentication provider’s “authenticate()” method. 
-•	Extend class:
-org.cloudifysource.rest.security.CustomAuthenticationToken
+Implement your custom *"Authentication"* object, returned by the authentication provider's *"authenticate()"* method. 
+* Extend class: @org.cloudifysource.rest.security.CustomAuthenticationToken@
 
 h4. Deploy
 
-•	Compile your code and create a jar file. Copy the jar to <cloudify_home>\lib\required.
-•	Create a jar file.
-•	Copy the jar to <cloudify_home>\lib\required.
+# Create a jar file.
+# Copy the jar to CLOUDIFY_ROOT_FOLDER\lib\required.
 
 h4. Configure
 
 Configure spring-security.xml to use your custom authentication provider:
-	<sec:authentication-manager alias="authenticationManager">
-		<sec:authentication-provider ref="myAuthProvider"/>
-	</sec:authentication-manager>
-	
-	<bean id="myAuthProvider" class="com.AuthProvider.MyAuthProvider"/>
-
-
+ <script src="https://gist.github.com/tamirko/5402900.js"></script>
