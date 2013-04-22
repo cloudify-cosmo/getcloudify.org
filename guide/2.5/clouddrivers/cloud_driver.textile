@@ -27,7 +27,7 @@ h4(warn). Modifying the cloud driver has an effect *only* before the "bootstrapp
 
 h2. How It Works
 
-The cloud driver is a Java POJO that uses a configuration file. When defining a cloud's configuration file, you must define its class name in its cloud driver configuration file (@<cloudifyRoot>/tools/cli/plugins/esc/<cloudName>/<cloudName>-cloud.groovy@). Cloudify will instantiate this class (using the @no-arg@ constructor) as required, and delegate scale out/in requests to it.
+The cloud driver is a Java POJO that uses a configuration file. When defining a cloud's configuration file, you must define its class name in its cloud driver configuration file (@<cloudifyRoot>/clouds/<cloudName>/<cloudName>-cloud.groovy@). Cloudify will instantiate this class (using the @no-arg@ constructor) as required, and delegate scale out/in requests to it.
 
 When scaling-out, the driver is responsible for allocating the machine, verifying that SSH is enabled on it, and returning the machine details to Cloudify. The  returned details include the machine's Host/IP address and the login credentials required to access the machine. When scaling-in, the driver is responsible for shutting down the machine and releasing it to the pool of available machines. In virtualized environments (including most IaaS clouds), this usually means shutting down the virtual machine itself. In contrast, in physical environments, this means either shutting down the machine itself, or simplay stopping the Cloudify agent running on the machine.
 

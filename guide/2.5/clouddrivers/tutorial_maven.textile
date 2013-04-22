@@ -51,7 +51,7 @@ Next, configure the @managementMachineTemplate@ attribute in your recipe to use 
 
 h2. Packing and Adding to Cloudify
 
-Finally, package your cloud driver class, and any additional classes and resources that it depends on, as a jar file and place it in the @<cloudifyRoot>/lib/platform/esm@ folder. Additionally, place your cloud driver configuration file and security certificate in the @<cloudifyRoot>/tools/cli/plugins/esc@ folder.
+Finally, package your cloud driver class, and any additional classes and resources that it depends on, as a jar file and place it in the @<cloudifyRoot>/lib/platform/esm@ folder. Additionally, place your cloud driver configuration file and security certificate in the @<cloudifyRoot>/clouds@ folder.
 
 To make your cloud driver available to the machines in your cloud, perform the following steps:
 # Repackage the Cloudify distribution file with your cloud driver files, and save it in a location that can be accessed by your cloud machine.

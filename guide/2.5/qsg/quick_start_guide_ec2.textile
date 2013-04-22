@@ -61,9 +61,9 @@ h2. Prerequisites
 Before you use the Cloudify shell to bootstrap on EC2, make sure that you perform the following tasks:
 
 # Create an Amazon Web Services account.
-# Create an EC2 private key file (.pem) and save it under @<cloudify root>/tools/cli/plugins/esc/ec2/upload@.
+# Create an EC2 private key file (.pem) and save it under @<cloudify root>/clouds/ec2/upload@.
 <h4 class="info">The private key enables Cloudify cloud driver to create SSH connections to newly created instances on EC2.</h4>
-# Configure the Cloudify EC2 cloud driver @<cloudify root>/tools/cli/plugins/esc/ec2/ec2-cloud.groovy@. To configure the EC2 cloud driver, edit the file and modify the following attribute values:
+# Configure the Cloudify EC2 cloud driver @<cloudify root>/clouds/ec2/ec2-cloud.groovy@. To configure the EC2 cloud driver, edit the file and modify the following attribute values:
 #* In the @user@ section:
 #** @user@--Type your EC2 *Access Key ID*.
 #** @apiKey@--Type your EC2 *Secret Access Key*.

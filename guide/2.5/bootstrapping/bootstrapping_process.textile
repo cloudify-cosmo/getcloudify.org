@@ -16,7 +16,7 @@ The bootstrapping process is responsible for allocating machines (virtual or phy
 # Connects to the allocated machine via SSH (*nix) or WinRM (Windows)
 # Installs and starts the relevant components
 
-Once the bootstrapping pocess connects to an allocated machine, it uploads the files required to bootstrap the machine. These usually includes a startup script and any required files such as an SSH key file located in the upload folder (@<cloudifyRoot>/tools/cli/plugins/esc/<cloudProviderName>/upload@). Once the files are uploaded, the relevant bootstrap script is run.
+Once the bootstrapping pocess connects to an allocated machine, it uploads the files required to bootstrap the machine. These usually includes a startup script and any required files such as an SSH key file located in the upload folder (@<cloudifyRoot>/clouds/<cloudProviderName>/upload@). Once the files are uploaded, the relevant bootstrap script is run.
 
 The following table describes the startup scripts for bootstrapping *nix and Windows, management and application service machines.
 

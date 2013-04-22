@@ -67,6 +67,24 @@ h4(info). ctrl+d or "exit" freezes everything, so that (for example) you can com
 * Create a remote debug configuration for the tomcat IP address from above and port 10000
 
 <br/>
+
+<b>Here's how you can configure remote debugging of groovy scripts in intelliJ:</b>
+# If the groovy script that you want to debug is part of a groovy module in your intelliJ project skip to 3
+# File->New Project
+## Choose your Groovy Module
+## Project Location: <location of your service root directory> e.g for tomcat the folder named tomcat
+## Click Next
+## Use Library: <your groovy home directory>
+## Click Finish
+# Goto Run->Edit Configurations
+## Click Plus Symbol->Remote
+## Fill in the form with Name:<your configuration name>
+### Host:<the host the debug console is waiting on>
+### Port:<the port the debug console is waiting on - 10000 by defualt>
+### Search sources using module's classpath: <the module in which your script is>
+
+You can then add a breakpoint to your script and debug by pressing the debug symbol or Shift+F9 while your remote configuration is showing up.
+
 Click on the following image to learn how to configure remote debugging of groovy scripts in Eclipse:
 <a href="http://www.youtube.com/watch?v=gzv6mgISE0s" rel="gzv6mgISE0s" class="video fancybox-media"><img src="../../images/developing/remote_groovy_debug_eclipse.jpg" alt="pic is missing" /></a>
 
