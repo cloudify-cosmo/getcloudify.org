@@ -4,10 +4,10 @@
 <head>
     
 	<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>	
-	<title>Cloudify - Tag: Disaster Recovery</title>
+	<title>Cloudify - How to get the Cloudify Management REST API URL</title>
 	<script src="//cdn.optimizely.com/js/59503762.js"></script>
 	<link rel="stylesheet" href="/css/template.css" type="text/css"/>	
-	<link rel="canonical" href="http://www.cloudifysource.orgtags/Disaster Recovery/index.html"/>	
+	<link rel="canonical" href="http://www.cloudifysource.org/2013/04/24/cloudify_management_rest_api_url.html"/>	
 	<link rel="stylesheet" href="/css/jquery-ui-1.8.17.custom.css" type="text/css" media="all"/>
 	<link rel="stylesheet" type="text/css" href="/scripts/prettify/prettify.css">		
 	<link rel="stylesheet" type="text/css" href="/scripts/lightbox/jquery.lightbox-0.5.css" media="screen" />	
@@ -337,7 +337,7 @@ $("body").live('change', function(){
 </head>
 
 <body>
-<a class="fork-guide" target="_blank" href="https://github.com/CloudifySource/cloudify"></a>	
+<a class="fork-guide" target="_blank" href="https://github.com/CloudifySource/cloudify"></a>
 <div class="WrapperBg">    
     <div class="Wrapper">
         <div class="header">
@@ -413,7 +413,7 @@ $("body").live('change', function(){
 <div class="clear"></div>
 
         <div class="contentWrap">            
-			<div class="breadcrumbs">Home Page > Cloudify Blogs > Tag: Disaster Recovery</div>
+			<div class="breadcrumbs">Home Page > Cloudify Blogs > How to get the Cloudify Management REST API URL</div>
             <div class="clear"></div>
 
             <!--Search-->
@@ -439,10 +439,9 @@ $("body").live('change', function(){
 
 
 
-
-
+			
             <div class="content">
-                <div class="left" id="alTag_LeftBlog">
+                <div id="alTag_LeftBlog" class="left">
                     
                     <!--Event groups-->
 
@@ -1242,147 +1241,52 @@ $("body").live('change', function(){
 
                 <div id="resultsDiv" class="DocumentsWrap"></div>
                 <div id="pageContent" class="DocumentsWrapRight">
-                    <h1 class="pageTitle">Tag: Disaster Recovery</h1>					
+                    <h1 class="pageTitle">How to get the Cloudify Management REST API URL</h1>
+					 
+					  <span class="blogPostInfo">Posted By: <a href="#">Tamir Korem</a>  on April 24, 2013  
+					  </span>
+					  <br/><br/><br/>
+					 
+                    <h2>The Rest <span class="caps">API</span> <span class="caps">URL</span></h2>
+<p>In some cases when you develop a recipe, you may need access to the Cloudify management server/s.</p>
+<h4 class="impt">In a production environment, we recommend that you use two management servers.</h4>
+<p>This access may be required for invoking <span class="caps">REST</span> <span class="caps">API</span> calls either on the management servers or on services via the management servers. In any case, you need the management servers&#8217; <span class="caps">REST</span> <span class="caps">URL</span>.</p>
+<h4 class="info">Cloudify will soon <a href="https://cloudifysource.atlassian.net/browse/CLOUDIFY-1515?jql=resolution%20%3D%20Unresolved%20AND%20reporter%20%3D%20currentUser%28%29" class="newwindow">expose</a> this IP address, but until then, there are two options:</h4>
+<h3>Use <span class="caps">LOOKUPLOCATORS</span></h3>
+<p>Retrieve the value of the <strong><code>LOOKUPLOCATORS</code></strong> environment variable from within a recipe, parse it and then get the address from it.<br />
+The <span class="caps">LOOKUPLOCATORS</span> environment variable contains the IP address and port of the <span class="caps">LUS</span> (Lookup Service), so you need to take the IP address and instead of the <span class="caps">LUS</span> port, use 8100 which is the default <span class="caps">REST</span> <span class="caps">API</span> port in Cloudify.<br />
+In case you have two management servers, the structure of the <span class="caps">LOOKUPLOCATORS</span> environment variable is <strong><code>IP_ADDRESS1:port1;IP_ADDRESS2:port2</code></strong> and after parsing it, you can use any of the two IP addresses.</p>
+<h3>Wrap the <span class="caps">CLI</span> with a script</h3>
+<p>I&#8217;ve created a short script that retrieves the <span class="caps">REST</span> IP addresses and ports and then stores it in the Cloudify service context attributes store.<br />
+Here it is : <br />
+<script src="https://gist.github.com/tamirko/5451271.js"></script></p>
 
+<p><br/> <br />
+Have fun, <br />
+<br/> <br />
+ Tamir.</p>
+                    <div id="disqus_thread"></div>
+<script type="text/javascript">
+    /* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
+    var disqus_shortname = 'cloudifysource'; // required: replace example with your forum shortname
+    var disqus_identifier = '/2013/04/24/cloudify_management_rest_api_url.html';
 
-
-
-
-
-
-
-
-														
-                    
-
-
-
-
-<div class="blogtPostBox">
-  <div class="blogInfoLeft">
-    <img title="Nati Shalom" width="80" height="96" src="/images/nati.png" />
-  </div>  
-  <div class="blogInfoRight">
-    <a href="/2013/03/07/carrier_grade_cloud_paas.html" class="title">Carrier Grade Cloud/PaaS</a>
-	  <div class="blogPostInfo">
-	  <br/>	  	 
-	    <span>Posted By: <a href="#">Nati Shalom</a>  on  March  7, 2013  <!--|  in <a href="/categories/"></a> --></span>
-	  </div>	  	  	
-      <p>
-		
-			<p>Cloud is becoming the next-generation backbone for running the web As the technology for building and running cloud infrastructure&nbsp;matures,&nbsp;it is starting to&nbsp;spread out into more industries and&nbsp;revolutionizing how even the most&nbsp;conservative&nbsp;organizations&nbsp;are running their entire operations. One of the&nbsp;areas&nbsp;undergoing a transformation&nbsp;is the carrier backbone services. For those who are not familiar,...</p>
-			
-		<p class><a href="/2013/03/07/carrier_grade_cloud_paas.html">Read more...</a></p>	  	  
-	  </p>
-		<span>  Additional Tags: 		
-			
-					
-			
-				
-			     <a class="postTag" href="/tags/OpenStack">OpenStack (3)</a>
-			   	
-			
-				
-			     <a class="postTag" href="/tags/Cloud Computing">Cloud Computing (3)</a>
-			   	
-			
-				
-			     <a class="postTag" href="/tags/PaaS">PaaS (15)</a>
-			   	
-			
-		</span>
-	    
-  </div>
-  <div class="clear" ></div>    
-</div>  
-
-
-
-<div class="blogtPostBox">
-  <div class="blogInfoLeft">
-    <img title="Ali Hodroj" width="80" height="96" src="/images/ali.png" />
-  </div>  
-  <div class="blogInfoRight">
-    <a href="/2013/03/04/cloudifying_high_availability.html" class="title">Cloudifying High Availability</a>
-	  <div class="blogPostInfo">
-	  <br/>	  	 
-	    <span>Posted By: <a href="#">Ali Hodroj</a>  on  March  4, 2013  <!--|  in <a href="/categories/"></a> --></span>
-	  </div>	  	  	
-      <p>
-		
-			<p>The following is Part 1 of 2 on architecting highly available cloud applications using Cloudify. The first part introduces the concepts, challenges, and solutions to achieve highest levels of availability and disaster recovery in the cloud. The second part revisits the concept to provide a solution architecture and demo source...</p>
-			
-		<p class><a href="/2013/03/04/cloudifying_high_availability.html">Read more...</a></p>	  	  
-	  </p>
-		<span>  Additional Tags: 		
-			
-					
-			
-				
-			     <a class="postTag" href="/tags/Cloud">Cloud (19)</a>
-			   	
-			
-				
-			     <a class="postTag" href="/tags/High Availability">High Availability (1)</a>
-			   	
-			
-				
-			     <a class="postTag" href="/tags/PaaS">PaaS (15)</a>
-			   	
-			
-		</span>
-	    
-  </div>
-  <div class="clear" ></div>    
-</div>  
-
-
-
-<div class="blogtPostBox">
-  <div class="blogInfoLeft">
-    <img title="Dotan Horovits" width="80" height="96" src="/images/dotan.jpg" />
-  </div>  
-  <div class="blogInfoRight">
-    <a href="/2012/10/24/aws-outage-multi-availability-zone-multi-cloud.html" class="title">AWS Outage - Moving from Multi-Availability-Zone to Multi-Cloud</a>
-	  <div class="blogPostInfo">
-	  <br/>	  	 
-	    <span>Posted By: <a href="#">Dotan Horovits</a>  on  October 24, 2012  <!--|  in <a href="/categories/"></a> --></span>
-	  </div>	  	  	
-      <p>
-		
-			<p>A couple of days ago Amazon Web Services (AWS) suffered a significant outage in their US-EAST-1 region. This has been the 5th major outage in that region in the past 18 months. The outage affected leading services such as Reddit, Netflix, Foursquare and Heroku. How should you architect your cloud-hosted...</p>
-			
-		<p class><a href="/2012/10/24/aws-outage-multi-availability-zone-multi-cloud.html">Read more...</a></p>	  	  
-	  </p>
-		<span>  Additional Tags: 		
-			
-				
-			     <a class="postTag" href="/tags/AWS">AWS (3)</a>
-			   	
-			
-				
-			     <a class="postTag" href="/tags/Multi Cloud">Multi Cloud (1)</a>
-			   	
-			
-				
-			     <a class="postTag" href="/tags/Cloud Deployment">Cloud Deployment (1)</a>
-			   	
-			
-					
-			
-		</span>
-	    
-  </div>
-  <div class="clear" ></div>    
-</div>  
-
-
-
+    /* * * DON'T EDIT BELOW THIS LINE * * */
+    (function() {
+        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+        dsq.src = 'http://' + disqus_shortname + '.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="http://disqus.com" class="dsq-brlink">blog comments powered by <span class="logo-disqus">Disqus</span></a>
 
                 </div>
+
                 <div class="clear"></div>
             </div>
         </div>
+
         <!--Start pagination -->
 
         <div class="clear"></div>
