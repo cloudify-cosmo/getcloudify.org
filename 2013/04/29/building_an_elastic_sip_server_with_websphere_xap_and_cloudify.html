@@ -4,10 +4,10 @@
 <head>
     
 	<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>	
-	<title>Cloudify - Tag: Multi Cloud</title>
+	<title>Cloudify - Building an Elastic SIP Server with WebSphere, XAP and Cloudify</title>
 	<script src="//cdn.optimizely.com/js/59503762.js"></script>
 	<link rel="stylesheet" href="/css/template.css" type="text/css"/>	
-	<link rel="canonical" href="http://www.cloudifysource.orgtags/Multi Cloud/index.html"/>	
+	<link rel="canonical" href="http://www.cloudifysource.org/2013/04/29/building_an_elastic_sip_server_with_websphere_xap_and_cloudify.html"/>	
 	<link rel="stylesheet" href="/css/jquery-ui-1.8.17.custom.css" type="text/css" media="all"/>
 	<link rel="stylesheet" type="text/css" href="/scripts/prettify/prettify.css">		
 	<link rel="stylesheet" type="text/css" href="/scripts/lightbox/jquery.lightbox-0.5.css" media="screen" />	
@@ -337,7 +337,7 @@ $("body").live('change', function(){
 </head>
 
 <body>
-<a class="fork-guide" target="_blank" href="https://github.com/CloudifySource/cloudify"></a>	
+<a class="fork-guide" target="_blank" href="https://github.com/CloudifySource/cloudify"></a>
 <div class="WrapperBg">    
     <div class="Wrapper">
         <div class="header">
@@ -413,7 +413,7 @@ $("body").live('change', function(){
 <div class="clear"></div>
 
         <div class="contentWrap">            
-			<div class="breadcrumbs">Home Page > Cloudify Blogs > Tag: Multi Cloud</div>
+			<div class="breadcrumbs">Home Page > Cloudify Blogs > Building an Elastic SIP Server with WebSphere, XAP and Cloudify</div>
             <div class="clear"></div>
 
             <!--Search-->
@@ -439,10 +439,9 @@ $("body").live('change', function(){
 
 
 
-
-
+			
             <div class="content">
-                <div class="left" id="alTag_LeftBlog">
+                <div id="alTag_LeftBlog" class="left">
                     
                     <!--Event groups-->
 
@@ -1257,67 +1256,87 @@ $("body").live('change', function(){
 
                 <div id="resultsDiv" class="DocumentsWrap"></div>
                 <div id="pageContent" class="DocumentsWrapRight">
-                    <h1 class="pageTitle">Tag: Multi Cloud</h1>					
+                    <h1 class="pageTitle">Building an Elastic SIP Server with WebSphere, XAP and Cloudify</h1>
+					 
+					  <span class="blogPostInfo">Posted By: <a href="#">Aharon Moll</a>  on April 29, 2013  
+					  </span>
+					  <br/><br/><br/>
+					 
+                    <p>WebSphere and <span class="caps">XAP</span> are sometimes considered competing products, when in reality, <span class="caps">XAP</span> can be fairly complementary to WebSphere in various areas.</p>
+<p>In this post I will share a specific customer use case which required the integration between the two products. I&#8217;ll start with the motivation and end with the technical details that describe the actual integration.</p>
+<p>There are basically two parts to the integration process<br />
+1. Integration with In Memory Computing based on <span class="caps">XAP</span><br />
+2. Integrating WebSphere with Cloudify to automate the deployment of both WebSphere and <span class="caps">XAP</span> on a bare-metal environment and on private or public cloud.</p>
+<p>I&#8217;ll start first with the motivation that led the customer in search of such an integration in the first place.</p>
+<p>WebSphere is considered one of the more widely adopted <span class="caps">JEE</span> containers in many enterprises. WebSphere has a rich set of applications and services that are bundled with the product.</p>
+<p>In this specific case, the product of interest was the <span class="caps">SIP</span> server, which is basically a web container that supports the <span class="caps">SIP</span> protocol. <span class="caps">SIP</span> (Session Initiation Protocol) is a signaling protocol used to create, manage and terminate sessions in an IP-based network. A session could be a simple two-way telephone call or it could be a collaborative multi-media conference session.<br />
+As the customer was interested in managing the state of the calls and storing the session information in a latency sensitive environment, they were interested in moving towards In Memory Computing.</p>
+<p><span class="caps">XAP</span> was able to fill the customer&#8217;s needs with transaction support, data persistency and event processing using features such as &#8211; event containers and remote services.<br />
+Putting the two together basically creates a more scalable and performant <span class="caps">SIP</span> server.</p>
+<p>Having said that one of the area&#8217;s of complexity associated with integrating any separate product is related to the number of moving parts and lack of consistent management.<br />
+This is where Cloudify comes in, making the deployment and installation of all system parts easy to control and maintain. Cloudify provides control over all parts of the system, enabling scalability and fail over capabilities.</p>
+<p>A by product of this integration (which proved to be valuable for future versions of this product) was the cloud support, provided by simply using Cloudify which can install any app on any cloud.</p>
+<p><img src="/images/aharoncloudify2.png" alt="" /></p>
+<p>And now to the technical side of how all this fits together:</p>
+<h3>Integrating <span class="caps">XAP</span> with WebSphere</h3>
+<ul>
+	<li><span class="caps">XAP</span> is packaged as processing units. Processing units are basically an extension of SpringContainer coupled with logic that makes the injection of <span class="caps">XAP</span> In Memory Data Grid simpler. In this case, we did not use the <span class="caps">XAP</span> extension of the Spring containers, but the out of the box Spring container. To do that we follow these steps:</li>
+</ul>
+<ol>
+	<li>Set up WebSphere to use Spring</li>
+	<li>Set up our Spring container in a way that it could inject and reference <span class="caps">XAP</span> In Memory Data Grid as part of its Beans.</li>
+</ol>
+<ul>
+	<li><span class="caps">XAP</span> runs as a separate cluster that may or may not share the same machines as the WebSphere servers. <span class="caps">XAP</span> consists of two main parts:</li>
+</ul>
+<ol>
+	<li>A Clustered Proxy &#8211; this is the client side library that maps the the calls from the WebSphere Sip server to the relevant <span class="caps">XAP</span> In Memory partition.</li>
+	<li><span class="caps">XAP</span> Cluster &#8211; the actual memory containers that manages our data.</li>
+</ol>
+<ul>
+	<li>Each WebSphere service becomes a stateless service as the entire session state is now stored in an external memory cluster managed by <span class="caps">XAP</span>. In this way, we can bring WebSphere instances up or down without losing our call session information.  <span class="caps">XAP</span> itself is set to be elastic; we can add more <span class="caps">XAP</span> nodes elastically and <span class="caps">XAP</span> will rebalance itself to make use of the readily available memory resources.</li>
+</ul>
+<ul>
+	<li>Cloudify automates the installation and scaling of applications on various environments. Cloudify uses a DevOps/Recipe &#8211; based model as the interface for managing each application. To integrate WebSphere with Cloudify, we needed to create a Websphere recipe. The minimal step for creating a WebSphere recipe involves wrapping our life-cycle scripts i.e. start, stop with a Cloudify Service Recipe :</li>
+</ul>
+<script src="https://gist.github.com/aharonmoll/5353990.js"></script><p>To view the full recipes click <a href="https://github.com/aharonmoll/cloudify-recipes/tree/master/services/wlp">here</a>.</p>
+<ul>
+	<li>For more advanced use of Cloudify, it is recommended to also add custom metrics. Custom metrics allows us to monitor some of the key performance indicators through the Cloudify management console. Beyond monitoring, we can use those metrics to take actions. For example, we can monitor the number of active calls and scale the number of WebSphere instances dynamically to meet the scaling demand.</li>
+</ul>
+<ul>
+	<li>In the same way, we can build a <a href="https://github.com/aharonmoll/cloudify-recipes/tree/master/services/apacheLB">LoadBalancer</a> or <span class="caps">XAP</span> recipe, as both <span class="caps">XAP</span> and Apache are already pre-integrated with Cloudify.</li>
+</ul>
+<p><br/>
+The benefits of this integration:</p>
+<ol>
+	<li>Performance</li>
+	<li>Scaling</li>
+	<li>Continuous availability</li>
+	<li>Full automation</li>
+	<li>Cloud ready</li>
+</ol>
+                    <div id="disqus_thread"></div>
+<script type="text/javascript">
+    /* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
+    var disqus_shortname = 'cloudifysource'; // required: replace example with your forum shortname
+    var disqus_identifier = '/2013/04/29/building_an_elastic_sip_server_with_websphere_xap_and_cloudify.html';
 
-
-
-
-
-
-
-
-
-														
-                    
-
-
-
-
-<div class="blogtPostBox">
-  <div class="blogInfoLeft">
-    <img title="Dotan Horovits" width="80" height="96" src="/images/dotan.jpg" />
-  </div>  
-  <div class="blogInfoRight">
-    <a href="/2012/10/24/aws-outage-multi-availability-zone-multi-cloud.html" class="title">AWS Outage - Moving from Multi-Availability-Zone to Multi-Cloud</a>
-	  <div class="blogPostInfo">
-	  <br/>	  	 
-	    <span>Posted By: <a href="#">Dotan Horovits</a>  on  October 24, 2012  <!--|  in <a href="/categories/"></a> --></span>
-	  </div>	  	  	
-      <p>
-		
-			<p>A couple of days ago Amazon Web Services (AWS) suffered a significant outage in their US-EAST-1 region. This has been the 5th major outage in that region in the past 18 months. The outage affected leading services such as Reddit, Netflix, Foursquare and Heroku. How should you architect your cloud-hosted...</p>
-			
-		<p class><a href="/2012/10/24/aws-outage-multi-availability-zone-multi-cloud.html">Read more...</a></p>	  	  
-	  </p>
-		<span>  Additional Tags: 		
-			
-				
-			     <a class="postTag" href="/tags/AWS">AWS (3)</a>
-			   	
-			
-					
-			
-				
-			     <a class="postTag" href="/tags/Cloud Deployment">Cloud Deployment (1)</a>
-			   	
-			
-				
-			     <a class="postTag" href="/tags/Disaster Recovery">Disaster Recovery (3)</a>
-			   	
-			
-		</span>
-	    
-  </div>
-  <div class="clear" ></div>    
-</div>  
-
-
-
+    /* * * DON'T EDIT BELOW THIS LINE * * */
+    (function() {
+        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+        dsq.src = 'http://' + disqus_shortname + '.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="http://disqus.com" class="dsq-brlink">blog comments powered by <span class="logo-disqus">Disqus</span></a>
 
                 </div>
+
                 <div class="clear"></div>
             </div>
         </div>
+
         <!--Start pagination -->
 
         <div class="clear"></div>
