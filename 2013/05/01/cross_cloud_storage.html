@@ -1281,21 +1281,21 @@ $("body").live('change', function(){
 					  <br/><br/><br/>
 					 
                     <h2>Preface</h2>
-<p>I am still amazed from time to time to find that even very intelligent people who know a lot about software development, but nothing about cloud computing, fail to know that in the cloud &#8220;world&#8221; : when a machine (VM) goes down, its data is gone forever, unless you take care of that in advance.</p>
+<p>I am still amazed from time to time to find that even very intelligent people who know a lot about software development, but nothing about cloud computing, don&#8217;t seem to know this truth about cloud &#8220;world&#8221; : when a machine (VM) goes down, its data is gone forever, unless you take precautions in advance.</p>
 <p>Clearly, no one would dare to go to production without using a backup/storage mechanism and in the cloud, it&#8217;s even more essential and critical.<br />
-Storing your data on a cloud, is much cheaper than in your offices, but regarless of the price, it will lead to a disaster if you don&#8217;t define and implement automated backup and storage procedures.</p>
-<p>Cloudify comes with <a href="http://www.cloudifysource.org/guide/2.5/developing/storage">Storage <span class="caps">API</span> support</a> which is currently only for the EC2 <span class="caps">EBS</span> and for &#8220;Openstack IaaS&#8221; storage.</p>
+Storing your data on a cloud, is much cheaper than in your offices, but regadrless of the price, it will lead to a disaster if you don&#8217;t define and implement automated backup and storage procedures.</p>
+<p>Cloudify comes with <a href="http://www.cloudifysource.org/guide/2.5/developing/storage">Storage <span class="caps">API</span> support</a> which is currently only available for the EC2 <span class="caps">EBS</span> and for &#8220;Openstack IaaS&#8221; storage.</p>
 <h4 class="info">In the future, we will add full abstractions for Blob, Elastic IP, Network and Elastic Load Balancer.</h4>
 <h2>Cross-Cloud Storage</h2>
 <p>In this post, I will show a slightly different approach to a storage solution.</p>
-<p>I&#8217;ve enhanced the Cloudify <a href="https://github.com/CloudifySource/cloudify-recipes/tree/master/services/mysql" class="newwindow">MySQL recipe</a> and it now enables users to install MySQL on any cloud and then create a snapshot (mysqldump) and store it on <a href="http://aws.amazon.com/s3" class="newwindow">Amazon S3</a>.</p>
+<p>I&#8217;ve enhanced the Cloudify <a href="https://github.com/CloudifySource/cloudify-recipes/tree/master/services/mysql" class="newwindow">MySQL recipe</a> to enable users to install MySQL on any cloud and then create a snapshot (mysqldump) and store it on <a href="http://aws.amazon.com/s3" class="newwindow">Amazon S3</a>.</p>
 <h4 class="info">Both the installation and the snapshot can be done from any cloud.</h4>
 <p>I&#8217;ve used <a href="http://s3tools.org/s3cmd" class="newwindow">s3cmd</a>, which is a command line tool for uploading, retrieving and managing data in Amazon S3.<br />
 Users can modify the recipe&#8217;s code and use any other command line tool or storage <span class="caps">API</span> access of any cloud provider, not just EC2&#8217;s.<br />
 For example: the recipe can be tweaked a bit to support HP cloud&#8217;s object storage service.</p>
 <p>You can easily enhance the recipe to create crontab tasks so that (for example) a snapshot will be created every two hours and stored on S3.</p>
 <p>This also makes the recovery of data very easy: Just download the gzip file from S3 and import it to wherever you want.</p>
-<p>The MySQL recipe itself is available  <a href="https://github.com/CloudifySource/cloudify-recipes/tree/master/services/mysql" class="newwindow">here</a></p>
+<p>The MySQL recipe itself is available in <a href="https://github.com/CloudifySource/cloudify-recipes/tree/master/services/mysql" class="newwindow">GitHub</a></p>
 <p>Here is a video I created which shows how to install MySQL on the HP cloud and store its dump on S3 (and how to enable and use it) : <br />
 <a href="http://www.youtube.com/watch?v=dD8XbBPb_Vg" rel="dD8XbBPb_Vg" class="video fancybox-media"><img src="/images/crosscloud.jpg" alt="pic is missing" /></a></p>
 <p><br/> <br />
