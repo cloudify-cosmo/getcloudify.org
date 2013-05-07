@@ -43,3 +43,10 @@ h3. To extend a recipe
 # In the service block, specify the @extend@ attribute using the path to the service recipe being extended as its value, as follows:
 <script src="https://gist.github.com/1821880.js?file=service.groovy"></script>
 <h4 class="warn">For the extension to work, the @extend@ attribute must be the first attribute in the service block.</h4>
+
+h2. A few rules of thumb 
+
+* Every lifecyle event handler file that exists in a child(or even descendent) recipe, overrides the base recipe.
+* Every lifecyle event handler which is specified in the service file of a child(or even descendent) recipe, overrides the base recipe.
+* Every property that exists in a properties file in a child(or even descendent) recipe, overrides the base recipe.
+
