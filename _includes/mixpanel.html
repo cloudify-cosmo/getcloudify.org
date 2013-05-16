@@ -20,10 +20,13 @@
 mixpanel.track('Cloudify Community Page Views', {'page name' : document.title, 'url' : window.location.pathname});  
 $(function(){ 
     // This sends us an event every time a user clicks the button
-	$("a.hp-btn-getCloudify,.getCloudifyBtn").click(function() {
+	$("a.hp-btn-getCloudify").click(function() {
 	    mixpanel.track("Get Cloudify Button Clicks",{'page name' : document.title, 'url' : window.location.pathname}); 
 	});
-	//Try It Now Click
+	
+	$("a.getCloudifyBtn").click(function() {
+	    mixpanel.track("Home Page Download Button Click",{'page name' : document.title, 'url' : window.location.pathname}); 
+	});	//Try It Now Click
 	$("a.hp-tryItNow").click(function() {
 	    mixpanel.track("Try it Now HP Button Clicks",{'page name' : document.title, 'url' : window.location.pathname}); 
 	});
