@@ -275,7 +275,11 @@ $(function(){
 	$("a.hp-btn-getCloudify").click(function() {
 	    mixpanel.track("Get Cloudify Button Clicks",{'page name' : document.title, 'url' : window.location.pathname}); 
 	});
-	//Try It Now Click
+	
+	$("a.getCloudifyBtn").click(function() {
+	    mixpanel.track("Home Page Download Button Clicks",{'page name' : document.title, 'url' : window.location.pathname}); 
+	    mixpanel.track("Get Cloudify Button Clicks",{'page name' : document.title, 'url' : window.location.pathname}); 
+	});	//Try It Now Click
 	$("a.hp-tryItNow").click(function() {
 	    mixpanel.track("Try it Now HP Button Clicks",{'page name' : document.title, 'url' : window.location.pathname}); 
 	});
