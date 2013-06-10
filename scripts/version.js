@@ -81,7 +81,7 @@ function addPageVersions() {
 		
 		debugWrite('options[version]: ' + options['version']);
 		
-		var versionShowing = versionTitle +	currVersion;
+		var versionShowing = versionTitle +	currVersion;		
 		
 		$('#todHdr').addClass('version');
 		injectToHtml('#todHdr', '<span id="versionSelectionToc">', '', 'after');

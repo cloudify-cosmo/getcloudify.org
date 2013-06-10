@@ -35,7 +35,19 @@
 								{% if currentVersion contains '2.5' %}					
 									{% include toc2.5.html %}								
 								{% else %}	
-									{% include toc2.5.html %}																
+									{% if currentVersion contains '2.6' %}					
+										{% include toc2.6.html %} 
+									{% else %}	
+										{% if currentVersion contains '2.7' %}					
+											{% include toc2.7.html %}								
+										{% else %}	
+											{% if currentVersion contains '2.8' %}					
+												{% include toc2.8.html %}	
+											{% else %}	
+												{% include toc3.0.html %}																
+											{% endif %}						
+										{% endif %}						
+									{% endif %}						
 								{% endif %}														
 							{% endif %}						
 						{% endif %}
