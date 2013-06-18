@@ -126,6 +126,54 @@ You can script inline or point to an uploaded script as shown in the following e
 <br/>
 
 
+h2(#prepost). Pre-Bootstrap and Post-Bootstrap scripts
+
+Users can add two uploaded scripts : One for Pre-Bootstrap and one for Post-Bootstrap. 
+The Pre-Bootstrap script will be executed before the bootstrap-management.sh script and the Post-Bootstrap will be executed after the bootstrap-management.sh script.
+These two scripts *must* be named pre-bootstrap.sh and post-bootstrap.sh respectively and they *should* be placed in the same folder as the bootstrap-management.sh - (usually the upload folder).
+
+<br/>
+
+
+h2(#ipfilter). Configuring Private and Public IPs filters
+
+A cloud node that has multiple NICs may return more than one IP address and in some cases, Cloudify has no way of knowing/deciding if the returned IP address is actually public or private.
+In other cases, users may decide to configure it themselves and not leave this descision to Cloudify. 
+Users can configure a range of private IPs and/or a range public IPs, according to a CIDR or regular expression filter.
+With this feature, users can explicitly define which IP addressess should be considered public and which should be private, by specifying a CIDR filter or a regular expression filter.
+Only an IP address that matches such a filter (if defined) will be used.
+Users can set one filter for public at most and one for private at most.
+These filters are optional.
+
+The available filters are 
+* org.cloudifysource.default-cloud-driver.public-ip-cidr
+* org.cloudifysource.default-cloud-driver.public-ip-regex
+* org.cloudifysource.default-cloud-driver.private-ip-cidr
+* org.cloudifysource.default-cloud-driver.private-ip-regex
+
+<br/>
+For public IP addresses, users can set either org.cloudifysource.default-cloud-driver.public-ip-cidr or org.cloudifysource.default-cloud-driver.public-ip-regex for public IPs, but not both.
+And the same goes to private : 
+Users can set org.cloudifysource.default-cloud-driver.private-ip-cidr or org.cloudifysource.default-cloud-driver.private-ip-regex for private IPs, but not both.
+
+The following snippet shows an example of usage :
+<script src="https://gist.github.com/tamirko/5804221.js"></script>
+
+The logic is as follows :
+# Scan jclouds public addresses, look for entry matching public cidr filter.
+# If not found, scan jclouds public addresses, look for entry matching public regex filter.
+# If not found, scan jclouds private addresses, look for entry matching public cidr filter.
+# If not found, scan jclouds private addresses, look for entry matching public regex cidr filter.
+# If not found, return first address in jclouds public addresses.
+# If jclouds public addresses is empty, public address is null.
+
+h4(impt). If in step 3, Cloudify finds a jclouds private address that matches a public CIDR filter, then this address will be considered a public address by Cloudify.
+
+The logic for a private address is similar. - Just first scan private addresses and match to a private cidr/regex filter.
+
+The implementation can be found available in the  "(newwindow)getAddress":https://github.com/CloudifySource/cloudify/blob/master/esc/src/main/java/org/cloudifysource/esc/driver/provisioning/jclouds/CloudAddressResolver.java method of CloudAddressResolver.
+
+
 h2(#addtmp). Adding templates 
 
 After the "bootstrapping process":../bootstrapping/bootstrapping_process is over, you may add more templates to the cloud.
