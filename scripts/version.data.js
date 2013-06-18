@@ -103,7 +103,8 @@ var guide = {
 			'bootstrapping_hp':true,
 			'bootstrapping_localcloud':true,
 			'bootstrapping_process':true,
-			'bootstrapping_rsopenstack':true
+			'bootstrapping_rsopenstack':true,
+			'bootstrapping_validations':true
 		},
 		'clouddrivers':{
 			'cloud_driver':true,
@@ -207,7 +208,8 @@ var guide = {
 			'bootstrapping_localcloud':true,
 			'bootstrapping_openstack':true,
 			'bootstrapping_process':true,
-			'bootstrapping_rsopenstack':true
+			'bootstrapping_rsopenstack':true,
+			'bootstrapping_validations':true
 		},
 		'clouddrivers':{
 			'cloud_driver':true,
@@ -320,7 +322,8 @@ var guide = {
 			'bootstrapping_localcloud':true,
 			'bootstrapping_openstack':true,
 			'bootstrapping_process':true,
-			'bootstrapping_rsopenstack':true
+			'bootstrapping_rsopenstack':true,
+			'bootstrapping_validations':true
 		},
 		'clouddrivers':{
 			'cloud_driver':true,
@@ -433,7 +436,8 @@ var guide = {
 			'bootstrapping_localcloud':true,
 			'bootstrapping_openstack':true,
 			'bootstrapping_process':true,
-			'bootstrapping_rsopenstack':true
+			'bootstrapping_rsopenstack':true,
+			'bootstrapping_validations':true
 		},
 		'clouddrivers':{
 			'cloud_driver':true,
