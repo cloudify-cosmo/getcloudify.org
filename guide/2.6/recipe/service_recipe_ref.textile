@@ -23,6 +23,7 @@ var messages = {
     scaleCooldownInSeconds:'The time (in seconds) that scaling rules are disabled after scale in or out',
     samplingPeriodInSeconds:'The time (in seconds) between two consecutive metric samples. Used together with scaling rules',
     url:'The URL to display in the web management console, for example, a link to your application',
+    retries:'Enables users to set the number of times a service instance will be installed until it is considered failed. The default value of "retries" is -1, which indicates there is no limit on retries (retry forever). Set this field to 0 to set a recipe to not retry installation after a failure, set it to 1 to retry once, etc. A service instance that has reached the limit of its retried will be set to the "ERROR" state (similar to the disableSelfHealing flag). Note that the disable self-healing flag overrides the retry limit and will prevent any retries, regardless of the retries field.',
     compute:'A block specifying the compute resources to use for this service',
     template:'An attribute specifying a template name in the Cloud Driver configuration file',
     lifecycle:'A block specifying the handlers for the different lifecycle events',
@@ -92,8 +93,9 @@ service {
     maxAllowedInstances 2
     scaleCooldownInSeconds 20
     samplingPeriodInSeconds 1
-    url "http://" + InetAddress.localHost.hostName + ":7777"
-    
+    url "http://" + InetAddress.localHost.hostName + ":7777"	
+    retries 1
+	
     compute {
         template "SMALL_LINUX_32"
     }
