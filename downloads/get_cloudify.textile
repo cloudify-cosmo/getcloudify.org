@@ -18,7 +18,7 @@ cat: User Guide
                 <p>Get the latest Cloudify GA release - version 2.5.1 !</p>
                 <!--<a href="/thank_you.htm" class="dwnGoBtn" onclick="trigger_download();"></a>-->
  		<!--<div class="dwnGoBtn"></div>-->		         
-                <a class="dwnGoBtn" id="downloadme"   target="_blank" href="http://repository.cloudifysource.org/org/cloudifysource/community/gigaspaces-cloudify-2.5.1-ga-b4200.zip" style="display: block;"></a>
+                <a class="dwnGoBtn" id="downloadme" href="http://repository.cloudifysource.org/org/cloudifysource/community/gigaspaces-cloudify-2.5.1-ga-b4200.zip" style="display: block;"></a>
 		<br/>
 		<p><a href="/guide/2.5/release_notes/release_notes" target="_blank" >View the <b>release notes</b></a>.</p>
             </div>
@@ -61,55 +61,42 @@ cat: User Guide
 
 
 $(function(){
-
+	mixpanel.track('get_cloudify page views');
 //	$("div.dwnGoBtn").click(function() {
 	  //	trigger_download();
 	  //     window.location = '';
 //	});
 
 	$("a#downloadme").click(function(e) {
-	       e.preventDefault();
-	       window.location = 'http://repository.cloudifysource.org/org/cloudifysource/community/gigaspaces-cloudify-2.5.1-ga-b4200.zip';
-	
+	    //e.preventDefault();
 	       
-                //track mixpanel
+        //track mixpanel
 		var verName="";
 		verName=$('a#downloadme').attr('href').split("/")[6]; 
-		mixpanel.track('Product Download F-clickFunction', {'Products':[verName]});
-
-	       //track google
-	       trigger_download();
-
-               setTimeout(function() {
-	 		 window.location.href = "/thank_you.htm";
-	       }, 5000);
+	    //track google and mixpanel 
+	    track_download();
+	    self.delay(500); 
+        setTimeout(function() {
+     		window.location.href = "/thank_you.htm";
+	    }, 5000);
+	    return true; 
 	});
 
 
 	
-	function trigger_download() {
-	var downloadme=$('a#downloadme').attr('href').split("cloudify-")[1];
-	downloadme="/downloads/cloudify-" + downloadme.split("\.zip")[0] + "/get_cloudify";
-	_gaq.push(['_trackPageview', downloadme]);
+	function track_download() {
+		var downloadme=$('a#downloadme').attr('href').split("cloudify-")[1];
+		downloadme="/downloads/cloudify-" + downloadme.split("\.zip")[0] + "/get_cloudify";
+		_gaq.push(['_trackPageview', downloadme]);
         
-       //track mixpanel
-	var verName="";
-	verName=$('a#downloadme').attr('href').split("/")[6]; 
-	mixpanel.track('Product Download F-triggerFunction', {'Products':[verName]});
-
+       	//track mixpanel
+		var verName="";
+		verName=$('a#downloadme').attr('href').split("/")[6]; 
+		mixpanel.track('GA Product Download', {'Products':[verName]});
 	}
-
 
 });
 
 
 
-</script>
-
-
-<script text="javascript">
-mixpanel.track('get_cloudify page views');
-var verName="";
-verName=$('a#downloadme').attr('href').split("/")[6]; 
-mixpanel.track_links('#downloadme', 'Product Download', {'Products':verName});
 </script>
