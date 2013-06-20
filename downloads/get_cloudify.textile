@@ -97,10 +97,9 @@ $(function(){
 		downloadme="/downloads/cloudify-" + downloadme.split("\.zip")[0] + "/get_cloudify";
 		_gaq.push(['_trackPageview', downloadme]);
        	//track mixpanel
-		var verName="";
-		verName=downloadHref.split("/")[6]; 
-		mixpanel.track('GA Product Download', {'Products':[verName]});
-		console.log("sent request to MixPanel"); 
+		var zipName="";
+		zipName=downloadHref.split("/")[6]; 
+		mixpanel.track('GA Product Download', {'Zip Name':zipName, 'Source':'cloudifysource.org'});
 	}
 
 });
