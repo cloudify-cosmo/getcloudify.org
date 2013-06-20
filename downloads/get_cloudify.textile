@@ -69,34 +69,38 @@ $(function(){
 
 	$("a#downloadme").click(function(e) {
 		try  {
-			//e.preventDefault();
+			e.preventDefault();
 					   
 			//track mixpanel
 			var verName="";
-			verName=$('a#downloadme').attr('href').split("/")[6]; 
+			var downloadHref = $('a#downloadme').attr('href');
+			verName=downloadHref.split("/")[6]; 
 			//track google and mixpanel 
-			track_download();
+			track_download(downloadHref);
 			//self.delay(500); 
 			setTimeout(function() {
-				window.location.href = "/thank_you.htm";
-			}, 5000);
+				window.location.href = window.location.href; 
+				setTimeout(function() {
+					window.location.href = "/thank_you.htm";
+				}, 4000);
+			}, 500);
 	    } catch(e) {
 	    	console.log(["Error while tracking download", e]);
 	    }
-	    return true; 
+	    return false; 
 	});
 
 
 	
-	function track_download() {
-		var downloadme=$('a#downloadme').attr('href').split("cloudify-")[1];
+	function track_download(downloadHref) {
+		var downloadme=downloadHref.split("cloudify-")[1];
 		downloadme="/downloads/cloudify-" + downloadme.split("\.zip")[0] + "/get_cloudify";
 		_gaq.push(['_trackPageview', downloadme]);
-        
        	//track mixpanel
 		var verName="";
-		verName=$('a#downloadme').attr('href').split("/")[6]; 
+		verName=downloadHref.split("/")[6]; 
 		mixpanel.track('GA Product Download', {'Products':[verName]});
+		console.log("sent request to MixPanel"); 
 	}
 
 });
