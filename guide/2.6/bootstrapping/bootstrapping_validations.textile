@@ -1,6 +1,6 @@
----
+IS ---
 layout: default
-title: Bootstrap Validations
+title: Bootstrapping Validations
 category: Bootstrapping
 publish: true
 abstract: Explains how to configure bootstrapping validations. 
@@ -11,7 +11,7 @@ Bootstrap validations are preliminary verifications and tests of the specified c
 
 h2. Scope
 
-Out-of-the-box validations are implemented for clouds that utilize the JClouds-based cloud driver (i.e. in the cloud groovy file the className is set to "org.cloudifysource.esc.driver.provisioning.jclouds.DefaultProvisioningDriver"). Some validations are currently supported for specific clouds, as detailed below. Implementing additional or custom validations for other cloud driver is supported, as explained in the "Adding validations for a custom cloud driver":#validcust section below.
+Out-of-the-box validations are implemented for clouds that utilize the JClouds-based cloud driver (i.e. in the cloud groovy file the className is set to "org.cloudifysource.esc.driver.provisioning.jclouds.DefaultProvisioningDriver"). Some validations are currently supported for specific clouds, as detailed below. Implementing additional or custom validations for other cloud drivers are supported, as explained in the "Adding validations for a custom cloud driver":#addvalid section below.
 Note: Validations are not performed when bootstrapping a localcloud.
 The performed validations are:
 
@@ -24,12 +24,12 @@ The performed validations are:
 
 * All = all cloud drivers that utilize the JClouds-based provisioning driver.
 
-h2(#validcust). Skip validations
+h2(#skipvalid). Skip validations
 
 Validation can take a while, depending on your configuration and connection to the cloud. If you wish to skip the validation step, use the "-skip-validation" option:
  *bootstrap-cloud -skip-validation  <cloud name>*
 
-h2. Adding validations for a custom cloud driver
+h2(#addvalid). Adding validations for a custom cloud driver
 
 Implementing validations for a custom cloud driver is easy.
 * If your Cloud driver extends the abstract class org.cloudifysource.esc.driver.provisioning.BaseProvisioningDriver, simply implement: void validateCloudConfiguration(ValidationContext validationContext) throws CloudProvisioningException
@@ -39,7 +39,7 @@ in order for validations to take place.
 h2. Flow
 
 Bootstrap starts -> The Provisioning driver is instantiated -> Cloudify URLs are validated -> The provisioning driver's validateCloudConfiguration(ValidationContext) is called.
-If validation were successful - The bootstrap process continues - new machines are created etc.
+If validation is successful - The bootstrap process continues - new machines are created etc.
 
 h2. Events
 
