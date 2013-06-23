@@ -51,7 +51,7 @@ In order to generate events, use the ValidationContext object passed to the meth
 
 h3. Event's timing - is the validation momentary or on-going?
 
-* "Momentary" validations - validations that complete quickly and does not require waiting for a result. In this case use the "validationEvent" method:
+* "Momentary" validations - validations that complete quickly and do not require waiting for a result. In this case use the "validationEvent" method:
 ** validationContext.validationEvent (ValidationMessageType, String message)	Example output: "Validating Cloudify URL"
 
 * Ongoing events - validations that take a long time and require the user to wait for their result. In this case use 2 events - 
