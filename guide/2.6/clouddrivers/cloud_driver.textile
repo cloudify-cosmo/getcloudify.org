@@ -135,18 +135,20 @@ These two scripts *must* be named pre-bootstrap.sh and post-bootstrap.sh respect
 <br/>
 
 
-h2(#ipfilter). Configuring Private and Public IPs filters
+h2(#ipfilter). Configuring Private and Public IP Addresses filters
 
 A cloud node that has multiple NICs may return more than one IP address and in some cases, Cloudify has no way of knowing/deciding if the returned IP address is actually public or private.
 In other cases, users may decide to configure it themselves and not leave this descision to Cloudify. 
 Users can configure a range of private IPs and/or a range public IPs, according to a CIDR or regular expression filter.
-With this feature, users can explicitly define which IP addressess should be considered public and which should be private, by specifying a CIDR filter or a regular expression filter.
+With this feature, users can explicitly define which IP addresses should be considered public and which should be private, by specifying a CIDR filter or a regular expression filter.
 Only an IP address that matches such a filter (if defined) will be used.
 These filters are optional.
 
-The available filters are 
+The available filters for public IP addresses are :
 * org.cloudifysource.default-cloud-driver.public-ip-cidr
 * org.cloudifysource.default-cloud-driver.public-ip-regex
+
+The available filters for private IP addresses are :
 * org.cloudifysource.default-cloud-driver.private-ip-cidr
 * org.cloudifysource.default-cloud-driver.private-ip-regex
 
@@ -156,20 +158,20 @@ The following snippet shows an example of usage :
 <script src="https://gist.github.com/tamirko/5804221.js"></script>
 
 The logic is as follows :
-# Scan jclouds public addresses, look for entry matching public cidr filter.
-# If not found, scan jclouds public addresses, look for entry matching public regex filter.
-# If not found, scan jclouds private addresses, look for entry matching public cidr filter.
-# If not found, scan jclouds private addresses, look for entry matching public regex cidr filter.
-# If not found, return first address in jclouds public addresses.
-# If jclouds public addresses is empty, public address is null.
+# Scan jclouds public addresses, look for an entry which matches a public cidr filter.
+# If not found, scan jclouds public addresses, look for an entry which matches a public regex filter.
+# If not found, scan jclouds private addresses, look for an entry which matches a public cidr filter.
+# If not found, scan jclouds private addresses, look for an entry which matches a public regex cidr filter.
+# If not found, return the first address in jclouds public addresses.
+# If jclouds public addresses is empty, the public address is null.
 
 h4(impt). If in step 3, Cloudify finds a jclouds private IP address that matches a public CIDR filter, then this private IP address will be considered a public IP address by Cloudify.
 
-The logic for a private address is similar. - Just first scan private addresses and match to a private cidr/regex filter.
+The logic for a private address is similar. - Just first scan private IP addresses and match to a private cidr/regex filter.
 
 h4(impt). These filters are only relevant to the default (jclouds) cloud driver.  - Byon/Azure do *not* use this and custom cloud drivers should implement this in their code.
 
-The implementation can be found available in the  "(newwindow)getAddress":https://github.com/CloudifySource/cloudify/blob/master/esc/src/main/java/org/cloudifysource/esc/driver/provisioning/jclouds/CloudAddressResolver.java method of CloudAddressResolver.
+The implementation is available in the  "(newwindow)getAddress":https://github.com/CloudifySource/cloudify/blob/master/esc/src/main/java/org/cloudifysource/esc/driver/provisioning/jclouds/CloudAddressResolver.java method of CloudAddressResolver.
 
 
 h2(#addtmp). Adding templates 
