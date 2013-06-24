@@ -2,9 +2,9 @@
 layout: default
 title: Configuring RackSpace
 category: Installation & Setup
-publish: false
+publish: true
 abstract: Explains how to configure RackSpace Cloud for Cloudify
-pageord: 999
+pageord: 650
 --- 
 
 This topic provides instructions for configuring RackSpace Cloud for Cloudify.
@@ -23,7 +23,7 @@ This section provides step-by-step instructions for the following configuration 
 
 h3(#driver). Configure the Cloudify cloud driver configuration file
 
-Edit the RackSpace cloud driver configuration file (@rsopenstack-cloud.groovy@) located in the @<cloudifyRoot>/clouds/rsopenstack/@ folder, and modify the following attributes:
+Edit the RackSpace cloud driver configuration file (@rackspace-cloud.groovy@) located in the @<cloudifyRoot>/clouds/rackspace/@ folder, and modify the following attributes:
 * In the *provider* section:
 ** *machineNamePrefix*--The value that you specify is used as the name prefix for each of your service instances.
 ** *managementOnlyFiles*--An array containing a list of files to copy to management machines and not agent machines. Use this list to specify files such as any credentials files required by the cloud driver.
@@ -44,25 +44,7 @@ For a list of Image Ids, at the ==*==nix shell prompt, run the following @rscurl
 For a list of Hardware Ids, at the ==*==nix shell prompt, run the following @rscurl@ command: 
 *@rscurl.sh@ -u YOUR_RACKSPACE_USERNAME -a YOUR_RACKSPACE_API_KEY -c list-flavors*
 
-For more information, see "(newwindow)rscurl: A Rackspace Cloud Server command line tool":http://jsquaredconsulting.com/blog/2010/11/rscurl-a-rackspace-cloud-server-command-line-tool/.
-
-The following is a list of RackSpace Image Ids:
-
-|_. ID |_. Image |	|_. ID |_. Image |
-|100 | Arch 2011.10 |_.	|92 | Windows Server 2008 R2 + SQL Server 2012 Web"ACTIVE |
-|126 | Fedora 17 |_.	|112 | Ubuntu 10.04 LTS |
-|108 | Gentoo 11.0 |_.	|31 | Windows Server 2008 SP2 x86 |
-|109 | openSUSE 12 |_.	|24 | Windows Server 2008 SP2 x64 |
-|89 | Windows Server 2008 R2 x64 - SQL2K8R2 Web"ACTIVE |_.	|57 | Windows Server 2008 SP2 x64 - MSSQL2K8R2"ACTIVE |
-|110 | Red Hat Enterprise Linux 5.5 |_.	|121 | CentOS 5.8 |
-|85 | Windows Server 2008 R2 x64 |_.	|111 | Red Hat Enterprise Linux 6 |
-|120 | Fedora 16 |_.	|116 | Fedora 15 |
-|119 | Ubuntu 11.10 |_.	|125 | Ubuntu 12.04 LTS |
-|122 | CentOS 6.2 |_.	|56 | Windows Server 2008 SP2 x86 - MSSQL2K8R2"ACTIVE |
-|104 | Debian 6 (Squeeze) |_.	|86 | Windows Server 2008 R2 x64 - MSSQL2K8R2"ACTIVE |
-|91 | Windows Server 2008 R2 + SQL Server 2012 Standard"ACTIVE |_.	|114 | CentOS 5.6 |
-|115 | Ubuntu 11.04 |_.	|103 | Debian 5 (Lenny) |
-|118 | CentOS 6.0 |_.	|
+For more information, see "(newwindow)rscurl: A Rackspace Cloud Server command line tool":http://www.lilbiker.com/2010/11/rscurl-rackspace-cloud-server-command.html.
 
 <br/>
 The following is a list of RackSpace Hardware Ids:
@@ -78,14 +60,14 @@ The following is a list of RackSpace Hardware Ids:
 |8 | 30720 |1200 |30GB server |
 
 <br/>
-<h4 class="impt">For setting the cloud driver, we reccomend that you use "parameterization of the cloud driver configuration":../clouddrivers/cloud_driver#gstr, but you can also set the cloud driver directly as shown in the following example (of a @rsopenstack-cloud.groovy@ file):</h4>
+<h4 class="impt">For setting the cloud driver, we reccomend that you use "parameterization of the cloud driver configuration":../clouddrivers/cloud_driver#gstr, but you can also set the cloud driver directly as shown in the following example (of a @rackspace-cloud.groovy@ file):</h4>
 
-<script src="https://gist.github.com/3273705.js?file=racksapce-driver2.2m2.groovy"></script>
+<script src="https://gist.github.com/tamirko/5849472.js"></script>
 
 h3(#log). Enabling Wire Logging [Optional]
 
 For development and debugging purposes, it can be usefull to view the actual messages sent to the RackSpace cloud controller.
-To configure logging, edit your @rsopenstack-cloud.groovy@, and then in the *custom* section, set the *openstack.wireLog* attribute to *true*.
+To configure logging, edit your @rackspace-cloud.groovy@, and then in the *custom* section, set the *openstack.wireLog* attribute to *true*.
 
 The following example shows the *rackspace.wireLog* attribute set to *true*.
 <script src="https://gist.github.com/3034554.js?file=rscustom-wireLog.groovy"></script>
@@ -94,4 +76,4 @@ h4(warn). Once you enable the wire logs, they appear in the Cloudify shell when 
 
 h2. What's Next?
 
-"Bootstrapping RackSpace":../bootstrapping/bootstrapping_rsopenstack
+"Bootstrapping RackSpace":../bootstrapping/bootstrapping_rackspace
