@@ -122,6 +122,7 @@ Create mappings to channel proxy paths (@webui-endpoint@ being the proxied path 
 	...
 	ProxyPass /webui-endpoint/ http://127.0.0.1:8099/ 
 	ProxyPassReverse /webui-endpoint/ http://127.0.0.1:8099/
+	RedirectMatch /login/index\.do /reverse-proxy-testing/login/index.do 
 	ProxyPreserveHost on
 </VirtualHost>
 </code>
