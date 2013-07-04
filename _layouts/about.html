@@ -11,9 +11,14 @@
         <div class="contentWrap">
             <div class="clear"></div>
            
+            {% include search.html %}
+			<div id="tipue_search_content"></div>
+			<div id="resultsDiv" class="DocumentsWrapRight"></div>
+			
             <div id="pageContent" class="contentNoRight">
                 {{content}}
             </div>
+			
         </div>
         <div class="clear"></div>
 
@@ -25,6 +30,45 @@
 
 
 </div>
+<script>
+$(document).ready(function() {
+     $('#tipue_search_input').tipuesearch({
+          'show': 4
+     });
+	 $("#tipue_search_button").click(function(){
+		var tempText = $('#tipue_search_input').val(); 
+		$('#search').val(tempText); 
+		$('#goBtn').click();
+	 
+	 	 if($("#tipue_search_warning_head").text()=="Nothing found")
+	 {
+		$('#tipue_search_warning_head').hide();
+		$('#resultsDiv').show();
+		//$(".tipueSearch").hide();
+		//$(".googleSearch").show();
+		//$('#search').val(tempText); 
+		//$('#goBtn').click();
+		 
+		//$(".tipueSearch").hide()
+		//$(".googleSearch").show()
+		
+		//googleSearch();
+        //return false;
+	 }
+
+	 });
+});
+
+$(window).bind("load",function(){
+if($("#tipue_search_warning_head").text()=="Nothing found"){
+		var tempText = $('#tipue_search_input').val(); 
+		$('#search').val(tempText); 
+		$('#goBtn').click();
+		$('#tipue_search_warning_head').hide();
+		$('#resultsDiv').show();
+}
+});
+</script>
 <!--End site bg top wrapper -->
 </body>
 </html>
