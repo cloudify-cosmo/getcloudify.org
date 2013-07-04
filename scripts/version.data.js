@@ -322,7 +322,6 @@ var guide = {
 			'bootstrapping_localcloud':true,
 			'bootstrapping_openstack':true,
 			'bootstrapping_process':true,
-			'bootstrapping_rackspace':true,
 			'bootstrapping_rsopenstack':true,
 			'bootstrapping_validations':true
 		},
@@ -408,7 +407,6 @@ var guide = {
 			'configuring_ec2':true,
 			'configuring_hp':true,
 			'configuring_openstack':true,
-			'configuring_rackspace':true,
 			'configuring_rsopenstack':true,
 			'configuring_security':true,
 			'installation_and_setup':true,
