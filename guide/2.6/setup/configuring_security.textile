@@ -142,6 +142,14 @@ The LDAP connection string should be set to the organization's LDAP server:  		l
 	Also required are the credentials of an existing LDAP user that has READ permissions.  
 <script src="https://gist.github.com/4411751.js"></script>
 
+<span id="ill"></span>
+
+h4(impt). The fllowing four(4) characters are illegal on LDAP, hence they cannot be used in the user name: 
+# *+&nbsp;&nbsp;&nbsp;( plus-sign )*
+# *;&nbsp;&nbsp;&nbsp;( semicolon )*
+# *,&nbsp;&nbsp;&nbsp;( comma )*
+# *"&nbsp;&nbsp;&nbsp;( quotaion mark )*
+
 
 * Roles' attribute
 In order to retrieve the security roles of the user (e.g. App Manager), it is required to specify the name of the attribute holding this information, according to your schema. In our example, we used the "description" attribute, but it is preferred to use a more intuitive attribute name, such as "Roles" or even "CloudifyRoles", to avoid ambiguity. The name of this attribute is required in two locations in the configuration: 
