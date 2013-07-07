@@ -459,50 +459,43 @@ $("body").live('change', function(){
      
 <script>
 $(document).ready(function() {
-	 $("#tipue_search_button").click(function(){
-		searchOption();
-	 });
-	 
-	$('#search , #tipue_search_input').keydown(function(e){
-	 //enter button in ASCII code
-		 if(e.keyCode == 13){
-		  searchOption();
-		  return false;
-		 }
-	});
-	
-});
-
- 
-
-$(window).bind("load",function(){
-	searchOption();
-});
-
-function searchOption(){
-	 $('#tipue_search_input').tipuesearch({
+     $('#tipue_search_input').tipuesearch({
           'show': 4
      });
-	 if($('.tipue_search_content_title').length>=3){
-		$('#resultsDiv').hide();
-	 }
-	 
-	 
-	 
- if($("#tipue_search_warning_head").text()=="Nothing found")
-	{	
+	 $("#tipue_search_button").click(function(){
 		var tempText = $('#tipue_search_input').val(); 
 		$('#search').val(tempText); 
+		
+	 
+	 	 if($("#tipue_search_warning_head").text()=="Nothing found")
+	 {	
 		$('#tipue_search_warning_head').hide();
 		$('#goBtn').click();
 		$('#resultsDiv').show();
+		//$(".tipueSearch").hide();
+		//$(".googleSearch").show();
+		//$('#search').val(tempText); 
+		//$('#goBtn').click();
+		 
+		//$(".tipueSearch").hide()
+		//$(".googleSearch").show()
+		
+		//googleSearch();
+        //return false;
+	 }
+
+	 });
+});
+
+$(window).bind("load",function(){
+if($("#tipue_search_warning_head").text()=="Nothing found"){
+		var tempText = $('#tipue_search_input').val(); 
+		$('#search').val(tempText); 
+		$('#goBtn').click();
 		$('#tipue_search_warning_head').hide();
-		return false;
-	}
+		$('#resultsDiv').show();
 }
-
-
-
+});
 </script>
 
 
@@ -519,6 +512,7 @@ function searchOption(){
 
 
 
+test2 ss
 
 
 
