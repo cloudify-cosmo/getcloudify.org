@@ -138,7 +138,7 @@ These two scripts *must* be named pre-bootstrap.sh and post-bootstrap.sh respect
 h2(#ipfilter). Configuring Private and Public IP Addresses filters
 
 A cloud node that has multiple NICs may return more than one IP address and in some cases, Cloudify has no way of knowing/deciding if the returned IP address is actually public or private.
-In other cases, users may decide to configure it themselves and not leave this descision to Cloudify. 
+In other cases, users may decide to configure it themselves and not leave this decision to Cloudify. 
 Users can configure a range of private IPs and/or a range public IPs, according to a CIDR or regular expression filter.
 With this feature, users can explicitly define which IP addresses should be considered public and which should be private, by specifying a CIDR filter or a regular expression filter.
 Only an IP address that matches such a filter (if defined) will be used.
