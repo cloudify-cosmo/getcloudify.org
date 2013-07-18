@@ -43,7 +43,7 @@
 	
 	
 	<!--<script type="text/javascript" src="/scripts/jquery-1.6.4.js"></script>-->
-	<script type="text/javascript" src="/scripts/search.js"></script>
+	<script type="text/javascript" src="/scripts/testSearch.js"></script>
 	<script type="text/javascript" src="/scripts/jquery-ui-1.8.17.custom.min.js"></script>
 	<!--<script type="text/javascript" src="/scripts/jquery.prettyPhoto.js"></script>-->
 	<script type="text/javascript" src="/scripts/prettify/prettify.js"></script>
@@ -444,7 +444,7 @@ $("body").live('change', function(){
 			</div>
 			<div class="tipueSearch" >
 				<input class="search" type="text" name="q" id="tipue_search_input" placeholder="Search..."/>
-				<input type="button" class="searchBtn" id="tipue_search_button" onclick="this.form.submit();"/>
+				<input type="button" class="searchBtn" id="tipue_search_button" />
 			</div>
 			
          </form>
@@ -465,7 +465,7 @@ $(document).ready(function() {
 	$('#search , #tipue_search_input').keydown(function(e){
 	 //enter button in ASCII code
 		 if(e.keyCode == 13){
-		  searchOption();
+		  //searchOption();
 		  return false;
 		 }
 	});
@@ -475,7 +475,7 @@ $(document).ready(function() {
  
 
 $(window).bind("load",function(){
-	searchOption();
+	//searchOption();
 });
 
 function searchOption(){

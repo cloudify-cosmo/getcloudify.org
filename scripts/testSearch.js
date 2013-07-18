@@ -1,4 +1,39 @@
 $(document).ready(function () {
+ $("#tipue_search_button").click(function(){
+		searchOption();
+});
+$('#search , #tipue_search_input').keydown(function(e){
+	 //enter button in ASCII code
+		 if(e.keyCode == 13){
+		 //$('#resultsDiv').hide();
+		  searchOption();
+		  return false;
+		 }
+});
+$('#goBtn').click(function () {
+	googleSearch();
+	return false;
+});
+
+function searchOption(){
+	 $('#tipue_search_input').tipuesearch({
+          'show': 4
+     });
+	 if($('.tipue_search_content_title').length>=3){
+		$('#resultsDiv').hide();
+	 }
+ 
+ if($("#tipue_search_warning_head").text()=="Nothing found")
+	{	
+		var tempText = $('#tipue_search_input').val(); 
+		$('#search').val(tempText); 
+		$('#tipue_search_warning_head').hide();
+		googleSearch();
+		$('#resultsDiv').show();
+		return false;
+	}
+}
+
 
     $("resultsDiv").hide();
     var pageTitle = $(".pageTitle").text();
@@ -10,73 +45,6 @@ $(document).ready(function () {
         page:0, // The start page
         pageTitle:pageTitle
     }
-
-   // $('#searchForm').submit(function () {
-       // googleSearch();
-       // return false;
-   // });
-    
-    
-   $('#goBtn').click(function () {
-        googleSearch();
-        return false;
-    });
-
-
-
-$('#search').keydown(function(e){
- //enter button in ASCII code
- if(e.keyCode == 13){
-  $("#goBtn").click();
-  return false;
- }
-});
-
-//TIPUE SEARCH
-	 $("#tipue_search_button").click(function(){
-		searchOption();
-	 });
-	 
-	$('#search , #tipue_search_input').keydown(function(e){
-	 //enter button in ASCII code
-		 if(e.keyCode == 13){
-		  searchOption();
-		  return false;
-		 }
-	});
-	
-});
-
- 
-
-$(window).bind("load",function(){
-	//searchOption();
-});
-
-function searchOption(){
-	 $('#tipue_search_input').tipuesearch({
-          'show': 4
-     });
-	 if($('.tipue_search_content_title').length>=3){
-		$('#resultsDiv').hide();
-	 }
-	 
-	 
-	 
- if($("#tipue_search_warning_head").text()=="Nothing found"||$("#tipue_search_warning_head").text()=="")
-	{	
-		var tempText = $('#tipue_search_input').val(); 
-		$('#search').val(tempText); 
-		$('#tipue_search_warning_head').hide();
-		googleSearch();
-		$('#resultsDiv').show();
-		$('#tipue_search_warning_head').hide();
-		return false;
-	}
-
-
-//END TIPUE SEARCH
-
 
     function successHandler(r) {
 
@@ -106,6 +74,7 @@ function searchOption(){
                     var results = data.items;
                     if (results) {
                         resultsDiv.text('');
+						$('#tipue_search_warning_head').hide();
                         $(".topicPagination").remove();
                         // If results were returned, add them to a pageContainer div,
                         // after which append them to the #resultsDiv:
@@ -147,17 +116,14 @@ function searchOption(){
                         resultsDiv.empty();
                         $('<p>', {className:'notFound', html:'<h3 class="searchNoResult">Oops, we can\'t find what you were looking for. Try rephrasing your search</h3>'}).hide().appendTo(resultsDiv).fadeIn();
                     }
-//            $(".breadcrumbs").click(function() {
-//                //$(".breadcrumbs").html('<a href="#">Cloudify Documentation Home</a>');
-//                resultsDiv.text('');
-//                $(".topicPagination").remove();
-//                $("#resultDiv").hide();
-//                $("#pageContent").fadeIn();
-//            });
+
                     $("#pageContent").hide(1, function () {
                         $(".pageTitle").text("Search Results");
                         $("#resultDiv").fadeIn();
                         $(".breadcrumb").html('<a href="#">Back to ' + settings.pageTitle + '</a>');
+						if($("#tipue_search_results_count").text()!=""){
+							$('#resultsDiv').hide();
+						}
                     });
 //
 
@@ -196,6 +162,5 @@ function searchOption(){
         }
     }
 
+});
 
-})
-;
