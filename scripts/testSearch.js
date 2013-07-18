@@ -5,7 +5,7 @@ $(document).ready(function () {
 $('#search , #tipue_search_input').keydown(function(e){
 	 //enter button in ASCII code
 		 if(e.keyCode == 13){
-		 //$('#resultsDiv').hide();
+		 //$('#resultsDiv').show();
 		  searchOption();
 		  return false;
 		 }
@@ -20,11 +20,11 @@ function searchOption(){
           'show': 4,
 		  'minimumLength': 1
      });
-	 if($('.tipue_search_content_title').length>=3){
-		$('#resultsDiv').hide();
-	 }
+	 //if($('.tipue_search_content_title').length>=3){
+		//$('#resultsDiv').hide();
+	// }
  
- //if tipue search has no results
+ //if($("#tipue_search_warning_head").text()=="Nothing found")
  if($('.tipue_search_content_title').length==0)
 	{	
 		var tempText = $('#tipue_search_input').val(); 
@@ -37,7 +37,7 @@ function searchOption(){
 }
 
 
-    $("resultsDiv").hide();
+    //$("resultsDiv").hide();
     var pageTitle = $(".pageTitle").text();
     var config = {
         apiURL:'https://www.googleapis.com/customsearch/v1',
@@ -117,6 +117,7 @@ function searchOption(){
                         // No results were found for this search.
                         resultsDiv.empty();
                         $('<p>', {className:'notFound', html:'<h3 class="searchNoResult">Oops, we can\'t find what you were looking for. Try rephrasing your search</h3>'}).hide().appendTo(resultsDiv).fadeIn();
+						$('#tipue_search_warning_head').hide();
                     }
 
                     $("#pageContent").hide(1, function () {
@@ -126,6 +127,7 @@ function searchOption(){
 						if($("#tipue_search_results_count").text()!=""){
 							$('#resultsDiv').hide();
 						}
+						
                     });
 //
 
