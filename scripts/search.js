@@ -32,50 +32,7 @@ $('#search').keydown(function(e){
  }
 });
 
-//TIPUE SEARCH
-	 $("#tipue_search_button").click(function(){
-		searchOption();
-	 });
-	 
-	$('#search , #tipue_search_input').keydown(function(e){
-	 //enter button in ASCII code
-		 if(e.keyCode == 13){
-		  searchOption();
-		  return false;
-		 }
-	});
-	
-});
 
- 
-
-$(window).bind("load",function(){
-	//searchOption();
-});
-
-function searchOption(){
-	 $('#tipue_search_input').tipuesearch({
-          'show': 4
-     });
-	 if($('.tipue_search_content_title').length>=3){
-		$('#resultsDiv').hide();
-	 }
-	 
-	 
-	 
- if($("#tipue_search_warning_head").text()=="Nothing found"||$("#tipue_search_warning_head").text()=="")
-	{	
-		var tempText = $('#tipue_search_input').val(); 
-		$('#search').val(tempText); 
-		$('#tipue_search_warning_head').hide();
-		googleSearch();
-		$('#resultsDiv').show();
-		$('#tipue_search_warning_head').hide();
-		return false;
-	}
-
-
-//END TIPUE SEARCH
 
 
     function successHandler(r) {
