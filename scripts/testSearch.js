@@ -17,13 +17,15 @@ $('#goBtn').click(function () {
 
 function searchOption(){
 	 $('#tipue_search_input').tipuesearch({
-          'show': 4
+          'show': 4,
+		  'minimumLength': 1
      });
 	 if($('.tipue_search_content_title').length>=3){
 		$('#resultsDiv').hide();
 	 }
  
- if($("#tipue_search_warning_head").text()=="Nothing found")
+ //if tipue search has no results
+ if($('.tipue_search_content_title').length==0)
 	{	
 		var tempText = $('#tipue_search_input').val(); 
 		$('#search').val(tempText); 
