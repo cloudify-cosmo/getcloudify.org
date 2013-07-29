@@ -1,0 +1,1645 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>	
+	<title>Cloudify - GigaSpaces And Storm Part 1 - Storm Clouds</title>
+	<script src="//cdn.optimizely.com/js/59503762.js"></script>
+	<link rel="stylesheet" href="/css/template.css" type="text/css"/>	
+	<link rel="canonical" href="http://www.cloudifysource.org/2013/03/07/gigaspaces_and_storm_part_1_storm_clouds.html"/>	
+	<link rel="stylesheet" href="/css/jquery-ui-1.8.17.custom.css" type="text/css" media="all"/>
+	<link rel="stylesheet" type="text/css" href="/scripts/prettify/prettify.css">		
+	<link rel="stylesheet" type="text/css" href="/scripts/lightbox/jquery.lightbox-0.5.css" media="screen" />	
+	<link rel="shortcut icon" href="/favicon.ico" type="image/x-icon" />
+	
+	    <script src="/scripts/jquery-1.7.1.js" type="text/javascript"></script>
+    <script src="/scripts/jquery.zrssfeed.min.js" type="text/javascript"></script>
+    <script src="/scripts/jquery.vticker.js" type="text/javascript"></script>
+	
+	
+	<!-- Add fancyBox -->
+	<link rel="stylesheet" href="/scripts/fancyBox/source/jquery.fancybox.css?v=2.1.3" type="text/css" media="screen" />
+	<script type="text/javascript" src="/scripts/fancyBox/source/jquery.fancybox.pack.js?v=2.1.3"></script>
+	
+	<!-- Optionally add helpers - button, thumbnail and/or media -->
+	<link rel="stylesheet" href="/scripts/fancyBox/source/helpers/jquery.fancybox-buttons.css?v=1.0.5" type="text/css" media="screen" />
+	<script type="text/javascript" src="/scripts/fancyBox/source/helpers/jquery.fancybox-buttons.js?v=1.0.5"></script>
+	<script type="text/javascript" src="/scripts/fancyBox/source/helpers/jquery.fancybox-media.js?v=1.0.5"></script>
+	
+	<link rel="stylesheet" href="/scripts/fancyBox/source/helpers/jquery.fancybox-thumbs.css?v=1.0.7" type="text/css" media="screen" />
+	<script type="text/javascript" src="/scripts/fancyBox/source/helpers/jquery.fancybox-thumbs.js?v=1.0.7"></script>
+	
+	
+		
+	
+	
+	
+	
+	<!--<script type="text/javascript" src="/scripts/jquery-1.6.4.js"></script>-->
+	<script type="text/javascript" src="/scripts/search.js"></script>
+	<script type="text/javascript" src="/scripts/jquery-ui-1.8.17.custom.min.js"></script>
+	<!--<script type="text/javascript" src="/scripts/jquery.prettyPhoto.js"></script>-->
+	<script type="text/javascript" src="/scripts/prettify/prettify.js"></script>
+	<script type="text/javascript" src="/scripts/easySlider1.7.js"></script>
+	<script type="text/javascript" src="/scripts/version.data.js"></script>
+	<script type="text/javascript" src="/scripts/version.js"></script>
+	<script type="text/javascript" src="/scripts/jquery.lightbox-0.5.js"></script>
+        <script src="http://ajax.aspnetcdn.com/ajax/jquery.validate/1.9/jquery.validate.min.js"></script>	
+
+
+<script type="text/javascript" >
+(function($,W,D)
+{
+    var JQUERY4U = {};
+
+    JQUERY4U.UTIL =
+    {
+        setupFormValidation: function()
+        {
+            //form validation rules
+	    	
+            $("#contactUs").validate({
+                rules: {
+                    last_name: "required",
+                    email: {
+                        required: true,
+                        email: true
+                    },
+                },
+                messages: {
+                    last_name: "Please enter your first name",
+                    email: "Please enter a valid email address",
+                },
+                submitHandler: function(form) {
+                    form.submit();
+                }
+            });
+        }
+    }
+
+    //when the dom has loaded setup form validation rules
+    $(D).ready(function($) {
+        JQUERY4U.UTIL.setupFormValidation();
+//start captcha Code
+	function randomgen()
+	{
+    var rannumber='';
+		for(ranNum=1; ranNum<=6; ranNum++){
+			rannumber+=Math.floor(Math.random()*10).toString();
+		}
+		$('#verifyNum').html(rannumber);
+		$('#verifyNumHidden').val(rannumber);
+	}
+	randomgen();
+//Verification number generate code Ends here
+  
+//Validation Starts Here    
+	$('#contactUs').submit(function() {
+		if($('#enterVerify').val() == $('#verifyNumHidden').val() ) {
+			//$('form').attr('action', 'https://example.com/MyForm');
+			return true;
+		}
+		else
+		{
+			alert("Please Enter Correct Verification Number");
+			randomgen();
+			$('#enterVerify').select();
+			$('#enterVerify').focus();
+			return false;
+		}
+	});
+//end captcha Code;        
+    });
+
+})(jQuery, window, document);
+</script>
+<script type="text/javascript">
+    $(window).bind("load", function () {
+        //rss feed slider						
+        $('.tumblrFeed').rssfeed('http://cloudifysource.tumblr.com/rss', {}, function (e) {
+            $(e).find('div.rssBody').vTicker({ showItems: 1 });
+        });
+    });                                
+</script>
+<script type="text/javascript">
+	window.onload = function () {
+		$('body').addClass("bodyClass");	
+ 	}
+	
+	$(function(){ 
+	//map lightbox on participate page
+	//$('a.showmap').click(function(){
+		
+	//});
+	
+	//for lightbox 
+	$('.fancybox-media').fancybox({
+	openEffect	: 'elastic',
+    	closeEffect	: 'elastic',
+
+    		helpers : {
+    		title : {type : 'inside'},
+		media : {}
+    	}
+	});
+
+	
+	$('a.lightbox').fancybox();
+	
+	
+	
+	$('.showmap').lightBox();
+	//popup contact form
+		$("li.contactUs,div.contactUsWrapper").mouseenter(function(){
+			$("div.contactUsWrapper").css("visibility","visible");
+			$("a.contactUsLink").css("visibility","hidden");
+		});
+		$("input.cuSend").click(function(){
+			$('.cuValid').hide();
+		});
+		$("input.cuSend").submit(function(){
+			$("div.contactUsWrapper").css("visibility","hidden")
+			$("a.contactUsLink").css("visibility","visible");
+	
+		});
+		$("a.contactUsWrapperClose").click(function(){
+				$("div.contactUsWrapper").css("visibility","hidden")
+				$("a.contactUsLink").css("visibility","visible");
+			});	
+	//end popup contact form
+		$("div.expand").hide();
+		
+		
+		$("li.expandBtn").click(function(){	
+			$(this).next("div.expand").slideToggle(500);
+			if($(this).html()=="More..."){
+				$(this).html("Less...");	
+			}else{
+				$(this).html("More...");
+			}
+		});
+		
+	   /* ------------- added by Yaron/modified by Shlomo ------------ */
+		$("#closeBut").parent().hide();
+		$("#values").hide();
+		$("span.pln, span.kwd").hover(function(eventObject){
+			var keys = {"name":true, "provider":true, "user":true, "value":true};
+			var currKey = $(eventObject.currentTarget).text().trim();
+			if (keys[currKey]) {
+				var prevKey = $(eventObject.currentTarget).prevUntil("span.pun:contains('{')").last().prev().prev("span.pln").text().trim() ? $(eventObject.currentTarget).prevUntil("span.pun:contains('{')").last().prev().prev("span.pln").text().trim() : $(eventObject.currentTarget).prev().prev("span.pln").text().trim();
+				currKey = prevKey + "_" + currKey;
+			}
+			if (messages[currKey]) {
+				var tooltip = $(".overlay"),
+					position = $(eventObject.currentTarget).offset();
+				$(this).css({"background-color":"#CECECE", "cursor" : "help"});
+				var message = messages[currKey].split("::"); console.log(message);
+				$("#desc",tooltip).text(message[0].trim());
+				if (message[1] && message[1].trim().toLowerCase() == "required") {
+					$("#required").prev().show();
+					$("#required").show();
+					$("#required").next().show();
+					$("#required").css("color", "red");
+					$("#required").text("Required");
+				} else {
+					$("#required").prev().hide();
+					$("#required").hide();
+					$("#required").next().hide();
+				}
+				tooltip.show().offset({ top: position.top + tooltip.scrollTop() - 50, left: position.left + 100});
+				$("#tipImg").position();
+			}}, function(){
+				$(".overlay").offset({top:0,left:0}).hide();
+				$(this).css("background-color","transparent");
+		});
+	});
+	
+	</script>
+	
+		
+	
+
+
+
+
+	<script type="text/javascript" src="/scripts/cloudify_default.js"></script>
+	<script type="text/javascript">
+
+   var _gaq = _gaq || [];
+   _gaq.push(['_setAccount', 'UA-31930048-1']);
+   _gaq.push(['_trackPageview']);
+
+   (function() {
+	   var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+	   ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+	   var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+   })();
+
+</script>
+	<script type="text/javascript">
+ var _gauges = _gauges || [];
+(function() {
+		var t   = document.createElement('script');
+		t.type  = 'text/javascript';
+		t.async = true;
+		t.id    = 'gauges-tracker';
+		t.setAttribute('data-site-id', '4fd5058b613f5d712200004f');
+		t.src = '//secure.gaug.es/track.js';
+		var s = document.getElementsByTagName('script')[0];
+		s.parentNode.insertBefore(t, s);
+})();
+</script> 
+	<!--start Mixpanel-->
+<script type="text/javascript">
+    (function(c,a){window.mixpanel=a;var b,d,h,e;b=c.createElement("script");
+    b.type="text/javascript";b.async=!0;b.src=("https:"===c.location.protocol?"https:":"http:")+
+    '//cdn.mxpnl.com/libs/mixpanel-2.1.min.js';d=c.getElementsByTagName("script")[0];
+    d.parentNode.insertBefore(b,d);a._i=[];a.init=function(b,c,f){function d(a,b){
+    var c=b.split(".");2==c.length&&(a=a[c[0]],b=c[1]);a[b]=function(){a.push([b].concat(
+    Array.prototype.slice.call(arguments,0)))}}var g=a;"undefined"!==typeof f?g=a[f]=[]:
+    f="mixpanel";g.people=g.people||[];h=['disable','track','track_pageview','track_links',
+    'track_forms','register','register_once','unregister','identify','name_tag',
+    'set_config','people.identify','people.set','people.increment'];for(e=0;e<h.length;e++)d(g,h[e]);
+    a._i.push([b,c,f])};a.__SV=1.1;})(document,window.mixpanel||[]);
+    mixpanel.init("96365f48f34c41c7b91e045b4f48d53d");
+
+
+
+
+//mixpanel global page tracking:
+//mixpanel.track_forms('#ki_form', 'Qualaroo');
+mixpanel.track('Cloudify Community Page Views', {'page name' : document.title, 'url' : window.location.pathname});  
+$(function(){ 
+    // This sends us an event every time a user clicks the button
+	$("a.hp-btn-getCloudify").click(function() {
+	    mixpanel.track("Get Cloudify Button Clicks",{'page name' : document.title, 'url' : window.location.pathname}); 
+	});
+	
+	$("a.getCloudifyBtn").click(function() {
+	    mixpanel.track("Home Page Download Button Clicks",{'page name' : document.title, 'url' : window.location.pathname}); 
+	    mixpanel.track("Get Cloudify Button Clicks",{'page name' : document.title, 'url' : window.location.pathname}); 
+	});	//Try It Now Click
+	$("a.hp-tryItNow").click(function() {
+	    mixpanel.track("Try it Now HP Button Clicks",{'page name' : document.title, 'url' : window.location.pathname}); 
+	});
+});
+
+
+mixpanel.track_forms("#searchForm", "Search",{'page name' : document.title, 'url' :  window.location.pathname});
+$(function(){ 
+	$("#goBtn").click(function() {
+		
+	var value = $('#search').val();
+	    mixpanel.track("Search",{"keyword": value}); 
+
+	});
+});
+
+//track Cloudify Early Access Builds
+//mixpanel.track_links("a.eaTitle", "Product Download - Early Access Builds", {'referrer': document.referrer });
+
+
+// mixpanel- trakc only if email requested
+var currEmail="";
+$("body").live('change', function(){
+ $("#ki_form").live('change', function(){
+  if($("#ki_question_99437").length != 0) {
+	currEmail =  $("input.ki_explain_small").val();	
+	mixpanel.track_links("#ki_submit_button", "Qualaroo", function(ele) {
+	 if($('input').hasClass('ki_explain_small')){
+	  var currEmail =  $("input.ki_explain_small").val();	
+	  mixpanel.name_tag(currEmail);
+	  mixpanel.people.identify(currEmail);
+	  mixpanel.people.set({
+	  $email: currEmail,
+	  $first_name: currEmail,
+	  $created: new Date(),
+	  $last_seen:new Date(),
+	  });
+	} return { type: $(ele).attr('type'),email: currEmail}
+	});
+  }
+});
+
+});
+
+//
+//$("#ki_submit_button").click(function() {
+
+//if($('input').hasClass('ki_explain_small')){
+ // var currEmail =  $("input.ki_explain_small").val();	
+ // mixpanel.name_tag(currEmail);
+ // mixpanel.people.identify(currEmail);
+ // mixpanel.people.set({
+ // $email: currEmail,
+ // $first_name: currEmail,
+//  });
+//}
+//});
+</script>
+	
+	<script type="text/javascript">var _kiq = _kiq || [];</script>
+<script type="text/javascript" src="//s3.amazonaws.com/ki.js/42111/87X.js" async="true"></script>
+	
+</head>
+
+<body>
+<a class="fork-guide" target="_blank" href="https://github.com/CloudifySource/cloudify"></a>
+<div class="WrapperBg">    
+    <div class="Wrapper">
+        <div class="header">
+    <div class="headersLinks">
+        <ul>
+           <li><img src="http://www.gigaspaces.com/sites/default/files/logo_jira_whitecopy.png" width="20"><a href="https://cloudifysource.atlassian.net" target="_blank">Report a Bug</a></li>
+           <li class="sep">|</li>
+            <li><a href="https://cloudifysource.zendesk.com/registration" target="_blank">Sign Up</a></li>
+            <li class="sep">|</li>
+            <li><a href="https://cloudifysource.zendesk.com/login" target="_blank" class="lock">Login</a></li>
+            <li class="sep">|</li>
+            <li class="contactUs"><a  class="contactUsLink" href="#" target="_blank">Contact Us</a></li>
+        </ul>
+        <div class="contactUsWrapper">
+            <form id="contactUs" action="https://www.salesforce.com/servlet/servlet.WebToLead?encoding=UTF-8" method="POST">
+            <input type=hidden name="oid" value="00D300000000KEt">
+            <input type=hidden name="retURL" value="http://www.cloudifysource.org/thank_you_contact.htm">
+            <input  id="first_name" name="first_name" type="hidden" />
+            <input  id="last_name" name="last_name" type="text" class="cuInput" placeholder="Your Name"/>
+            <span class="cuValid"></span>
+            <input  id="email" name="email"  type="text"  placeholder="Your Email"/><br>
+            <span class="cuValid"></span>
+            <textarea  id="00N80000003kH4I" name="00N80000003kH4I" type="text" wrap="soft" placeholder="Your Message"></textarea>
+ <input id="00N80000003kH2d" maxlength="50" name="00N80000003kH2d" size="20" type="text" value="CloudifySource Community Contact" style="display: none" />            
+	   <!--Captcha-->
+	    <div class="captcha">
+	    	    <label>Enter the below number: </label>
+		    <input type="hidden" value="701469" id="verifyNumHidden" name="verifyNumHidden" />
+		    <input type="text" id="enterVerify" name="enterVerify" />
+		    <div id="verifyNum"></div>
+	    </div>
+	    <!--Captcha-->
+<input type="submit" class="cuSend" name="submit" value="Contact" />
+            </form>
+            <a class="contactUsWrapperClose" href="#">Close</a>
+        </div>
+    </div>
+
+
+
+    <a class="logo" href="/"></a>
+    <div class="clear"></div>
+            <div class="topMenu">
+                <ul class="_topmenu">
+                    <li class="topmenuli"><a class="bgMenu1" href="http://forums.cloudifysource.org/forums"><span class="title1">Support Forums</span><span class="title2">Discuss & Suggest</span></a></li>
+                    <li class="sep"></li>
+                    <li class="topmenuli"><a class="bgMenu2" href="/guide/2.6/qsg/quick_start_guide_helloworld"><span class="title1">Documentation</span><span class="title2">Learn</span></a></li>
+                    <li class="sep"></li>
+                    <li class="topmenuli"><a class="bgMenu3" href="/participate"><span class="title1">Events</span><span class="title2">Participate</span></a></li>
+                    <li class="sep"></li>
+                    <li class="topmenuli"><a class="bgMenu4" href="/blog"><span class="title1">Blog & Updates</span><span class="title2">Read</span></a></li>
+                    <li class="sep"></li>
+                    <li class="topmenuli"><a class="bgMenu5" href="/cloudifysourcetv"><span class="title1">Videos</span><span class="title2">Watch & Learn</span></a></li>
+                    <li class="sep"></li>
+                    <li class="topmenuli"><a class="bgMenu6" href="/how"><span class="title1">How It Works</span><span class="title2">Cloudify Architecture</span></a></li>
+
+		</ul>
+		<div class="clear"></div>
+	</div>
+</div>
+
+<!-- Tooltip Container -->
+<div class="overlay">
+<div class="overlayFrame">
+<div style="width:100%;height:25px;align:left;"><img src="/images/close.png" id="closeBut"/></div>
+<div><span id="desc"></span><br/>
+ <span id="required"></span><br/>
+ <span id="values"></span>
+ </div>
+</div>
+<img src="/images/box_edge.png" id="tipImg"/>  
+</div>
+<div class="clear"></div>
+
+        <div class="contentWrap">            
+			<div class="breadcrumbs">Home Page > Cloudify Blogs > GigaSpaces And Storm Part 1 - Storm Clouds</div>
+            <div class="clear"></div>
+
+            <!--Search-->
+			
+            
+ 
+
+<div class="learnFrom">
+    <h2>Blog Posts and Updates</h2>
+
+    <div class="searchWrap">
+        <form id="searchForm" action="#" method="get">
+            <input id="search" class="searchTxt" type="text" placeholder="Search..."/>
+            <input id="goBtn" class="searchBtn" type="button" value="Go"/>
+        </form>
+    </div>
+</div>
+ 
+<div class="hp-right-col">
+ 		<a class="hp-btn-getCloudify" href="/downloads/get_cloudify">Get Cloudify!</a>
+</div>
+
+
+
+
+			
+            <div class="content">
+                <div id="alTag_LeftBlog" class="left">
+                    
+                    <!--Event groups-->
+
+
+
+<div class="leftContentBox blogLeft-topTitle">
+	<h3>Recent Posts</h3>
+</div>
+
+
+<div class="leftContentBox blogLeftBox"> 
+   
+	<a href="/2013/07/17/openstacks_third_birthday_a_recap_with_a_look_into_the_future.html">Openstack's Third Birthday - A Recap With A Look Into The Future 
+	 <img class="noMargin" src="/images/arrow-right-blue.png" /></a><br />
+	<span class="date">July 17, 2013</span>  
+	<br/><br/>
+  
+	<a href="/2013/07/16/how_to_install_heat_and_devstack_on_ec2.html">How to Install Heat and Devstack on EC2 
+	 <img class="noMargin" src="/images/arrow-right-blue.png" /></a><br />
+	<span class="date">July 16, 2013</span>  
+	<br/><br/>
+  
+	<a href="/2013/07/15/to_openstack_or_not_to_openstack_moving_enterprise_applications_onto_openstack_today.html">To Openstack or not to Openstack Moving Enterprise Applications onto Openstack Today 
+	 <img class="noMargin" src="/images/arrow-right-blue.png" /></a><br />
+	<span class="date">July 15, 2013</span>  
+	<br/><br/>
+		
+</div>
+
+               <!--start -->
+                 <div class="leftContentBox blogLeft-topTitle blog-left-title2 tumblr">
+                        <h3>CloudifySource on Tumblr</h3>
+                 </div>   
+                <div class="leftContentBox tumblrFeed">                     
+                
+                </div>
+<!--end-->
+
+
+<div class="leftContentBox blogLeft-topTitle">
+	<h3>Archived Posts</h3>
+</div>
+
+ <ul class="blog-archive-list">
+ 
+ 
+	
+	
+	
+	
+	
+	
+
+	
+<li><a href="/2013/07">July 2013</a> <span class="blue">(3)</span></li>
+
+	
+
+	
+		
+			
+		
+	
+
+	
+	
+	
+	
+	
+	
+
+	
+
+	
+		
+			
+		
+	
+
+	
+	
+	
+	
+	
+	
+
+	
+
+	
+		
+			
+<li><a href="/2013/06">June 2013</a> <span class="blue">(1)</span></li>
+
+			
+		
+	
+
+	
+	
+	
+	
+	
+	
+
+	
+
+	
+		
+			
+<li><a href="/2013/05">May 2013</a> <span class="blue">(4)</span></li>
+
+			
+		
+	
+
+	
+	
+	
+	
+	
+	
+
+	
+
+	
+		
+			
+		
+	
+
+	
+	
+	
+	
+	
+	
+
+	
+
+	
+		
+			
+		
+	
+
+	
+	
+	
+	
+	
+	
+
+	
+
+	
+		
+			
+		
+	
+
+	
+	
+	
+	
+	
+	
+
+	
+
+	
+		
+			
+<li><a href="/2013/04">April 2013</a> <span class="blue">(3)</span></li>
+
+			
+		
+	
+
+	
+	
+	
+	
+	
+	
+
+	
+
+	
+		
+			
+		
+	
+
+	
+	
+	
+	
+	
+	
+
+	
+
+	
+		
+			
+		
+	
+
+	
+	
+	
+	
+	
+	
+
+	
+
+	
+		
+			
+<li><a href="/2013/03">March 2013</a> <span class="blue">(4)</span></li>
+
+			
+		
+	
+
+	
+	
+	
+	
+	
+	
+
+	
+
+	
+		
+			
+		
+	
+
+	
+	
+	
+	
+	
+	
+
+	
+
+	
+		
+			
+		
+	
+
+	
+	
+	
+	
+	
+	
+
+	
+
+	
+		
+			
+		
+	
+
+	
+	
+	
+	
+	
+	
+
+	
+
+	
+		
+			
+<li><a href="/2013/02">February 2013</a> <span class="blue">(1)</span></li>
+
+			
+		
+	
+
+	
+	
+	
+	
+	
+	
+
+	
+
+	
+		
+			
+<li><a href="/2013/01">January 2013</a> <span class="blue">(1)</span></li>
+
+			
+		
+	
+
+	
+	
+	
+	
+	
+	
+
+	
+
+	
+		
+
+<li><a href="/2012/12">December 2012</a> <span class="blue">(3)</span></li>
+
+		
+	
+
+	
+	
+	
+	
+	
+	
+
+	
+
+	
+		
+			
+		
+	
+
+	
+	
+	
+	
+	
+	
+
+	
+
+	
+		
+			
+		
+	
+
+	
+	
+	
+	
+	
+	
+
+	
+
+	
+		
+			
+<li><a href="/2012/11">November 2012</a> <span class="blue">(2)</span></li>
+
+			
+		
+	
+
+	
+	
+	
+	
+	
+	
+
+	
+
+	
+		
+			
+		
+	
+
+	
+	
+	
+	
+	
+	
+
+	
+
+	
+		
+			
+<li><a href="/2012/10">October 2012</a> <span class="blue">(5)</span></li>
+
+			
+		
+	
+
+	
+	
+	
+	
+	
+	
+
+	
+
+	
+		
+			
+		
+	
+
+	
+	
+	
+	
+	
+	
+
+	
+
+	
+		
+			
+		
+	
+
+	
+	
+	
+	
+	
+	
+
+	
+
+	
+		
+			
+		
+	
+
+	
+	
+	
+	
+	
+	
+
+	
+
+	
+		
+			
+		
+	
+
+	
+	
+	
+	
+	
+	
+
+	
+
+	
+		
+			
+<li><a href="/2012/09">September 2012</a> <span class="blue">(2)</span></li>
+
+			
+		
+	
+
+	
+	
+	
+	
+	
+	
+
+	
+
+	
+		
+			
+		
+	
+
+	
+	
+	
+	
+	
+	
+
+	
+
+	
+		
+			
+<li><a href="/2012/08">August 2012</a> <span class="blue">(3)</span></li>
+
+			
+		
+	
+
+	
+	
+	
+	
+	
+	
+
+	
+
+	
+		
+			
+		
+	
+
+	
+	
+	
+	
+	
+	
+
+	
+
+	
+		
+			
+		
+	
+
+	
+	
+	
+	
+	
+	
+
+	
+
+	
+		
+			
+<li><a href="/2012/07">July 2012</a> <span class="blue">(5)</span></li>
+
+			
+		
+	
+
+	
+	
+	
+	
+	
+	
+
+	
+
+	
+		
+			
+		
+	
+
+	
+	
+	
+	
+	
+	
+
+	
+
+	
+		
+			
+		
+	
+
+	
+	
+	
+	
+	
+	
+
+	
+
+	
+		
+			
+		
+	
+
+	
+	
+	
+	
+	
+	
+
+	
+
+	
+		
+			
+		
+	
+
+	
+	
+	
+	
+	
+	
+
+	
+
+	
+		
+			
+<li><a href="/2012/06">June 2012</a> <span class="blue">(3)</span></li>
+
+			
+		
+	
+
+	
+	
+	
+	
+	
+	
+
+	
+
+	
+		
+			
+		
+	
+
+	
+	
+	
+	
+	
+	
+
+	
+
+	
+		
+			
+		
+	
+
+	
+	
+	
+	
+	
+	
+
+	
+
+	
+		
+			
+<li><a href="/2012/05">May 2012</a> <span class="blue">(6)</span></li>
+
+			
+		
+	
+
+	
+	
+	
+	
+	
+	
+
+	
+
+	
+		
+			
+		
+	
+
+	
+	
+	
+	
+	
+	
+
+	
+
+	
+		
+			
+		
+	
+
+	
+	
+	
+	
+	
+	
+
+	
+
+	
+		
+			
+		
+	
+
+	
+	
+	
+	
+	
+	
+
+	
+
+	
+		
+			
+		
+	
+
+	
+	
+	
+	
+	
+	
+
+	
+
+	
+		
+			
+		
+	
+
+	
+	
+	
+	
+	
+	
+
+	
+
+	
+		
+			
+<li><a href="/2012/03">March 2012</a> <span class="blue">(3)</span></li>
+
+			
+		
+	
+
+	
+	
+	
+	
+	
+	
+
+	
+
+	
+		
+			
+		
+	
+
+	
+	
+	
+	
+	
+	
+
+	
+
+	
+		
+			
+		
+	
+
+	
+	
+	
+	
+	
+	
+
+	
+
+	
+		
+			
+<li><a href="/2012/02">February 2012</a> <span class="blue">(1)</span></li>
+
+			
+		
+	
+
+	
+	
+	
+	
+	
+	
+
+	
+
+	
+		
+			
+<li><a href="/2012/01">January 2012</a> <span class="blue">(2)</span></li>
+
+			
+		
+	
+
+	
+	
+	
+	
+	
+	
+
+	
+
+	
+		
+			
+		
+	
+
+	
+	
+	
+	
+	
+	
+
+	
+
+	
+		
+
+<li><a href="/2011/11">November 2011</a> <span class="blue">(1)</span></li>
+
+		
+	
+
+	
+	
+	
+	
+	
+	
+
+	
+
+	
+		
+			
+<li><a href="/2011/10">October 2011</a> <span class="blue">(1)</span></li>
+
+			
+		
+	
+
+	
+	
+	
+	
+	
+	
+
+	
+
+	
+		
+			
+<li><a href="/2011/09">September 2011</a> <span class="blue">(1)</span></li>
+
+			
+		
+	
+
+	
+	
+	
+	
+	
+	
+
+	
+
+	
+
+	
+
+
+
+
+
+ 
+ </ul>
+
+                </div>
+
+                <!--Start left content -->
+
+                <div id="resultsDiv" class="DocumentsWrap"></div>
+                <div id="pageContent" class="DocumentsWrapRight">
+                    <h1 class="pageTitle">GigaSpaces And Storm Part 1 - Storm Clouds</h1>
+					 
+					  <span class="blogPostInfo">Posted By: <a href="#">DeWayne Filppi</a>  on March  7, 2013  
+					  </span>
+					  <br/><br/><br/>
+					 
+                    <div class="entry"><h3 style="color:blue"><strong>Introduction</strong></h3>
+<p>Real-time processing is becoming very popular, and Storm is a popular open source framework and runtime used by Twitter for processing real-time data streams. &nbsp;Storm addresses the complexity of running real time streams through a compute cluster by providing an elegant set of abstractions that make it easier to reason about your problem domain by letting you focus on data flows rather than on implementation details. &nbsp;The framework takes your abstract flow definition and optimizes the deployment characteristics in the cluster to optimize throughput.</p>
+<p>This post is part of a series about GigaSpaces and Storm. &nbsp;This series will span both GigaSpaces products, <span class="caps">XAP</span> and Cloudify. &nbsp;In this post I outline Storm itself for those that may be unfamiliar with it, and then the related Cloudify recipes I&#8217;ve created thus far. &nbsp;The net product is a highly available, elastic, cloud-portable Storm cluster with a single management dashboard. &nbsp; In a future post I&#8217;ll show how we can optimize Storm performance by interfacing it with our in-memory data grid (<span class="caps">XAP</span>). &nbsp;For now, first a brief introduction to Storm, and then a discussion of the recipes. This introduction is not meant be an exhaustive explanation of Storm&#8217;s features (which is found at <a href="http://storm-project.net">http://storm-project.net</a>.</p>
+<h3 style="color:blue"><strong>Storm in a Nutshell</strong></h3>
+<p>Storm is a real time, open source data streaming framework that functions entirely in memory. &nbsp;It constructs a processing graph that feeds data from an input source through processing nodes. &nbsp;The processing graph is called a &#8220;topology&#8221;. &nbsp;The input data sources are called &#8220;spouts&#8221;, and the processing nodes are called &#8220;bolts&#8221;. &nbsp;The data model consists of tuples. &nbsp;Tuples flow from Spouts to the bolts, which execute user code. Besides simply being locations where data is transformed or accumulated, bolts can also join streams and branch streams. &nbsp;Storm is designed to be run on several machines to provided parallelism. &nbsp;Storm topologies are deployed in a manner somewhat similar to a webapp or a <span class="caps">XAP</span> processing unit; a jar file is presented to a deployer which distributes it around the cluster where it is loaded and executed. &nbsp;A topology runs until it is killed.</p>
+<p style="text-align: center"><img height="235" width="333" src="http://blog.gigaspaces.com/wp-content/uploads/image/topology.png" alt=""></p>
+<p>Nodes in the diagram do not imply physical or even VM boundaries. &nbsp;Storm&#8217;s execution planning will avoid unnecessary network hops, combining operations in a single node where appropriate.<br />
+<h3 style="color:blue"><strong>Data Flow In Storm</strong></h3><br />
+<p>Storm processes streams of tuples. &nbsp;A stream is defined to be an unlimited ordered sequence of tuples, and tuples are one dimensional arrays of values. &nbsp;The values themselves can be any java primitive type, and can also extend to arbitrary types with the use of custom serializers.</p><br />
+<p><strong>A Super Simple Example Topology</strong></p><br />
+<p>To understand Storm, we&#8217;ll start from the simplest possible (meaningful) topology, and grow from there. Using the age old twitter example, imagine a stream of tweets, and a desire to count the number of words each user posts in real time. &nbsp;If you recall from above, topologies begin by reading tuples from a &#8220;spout&#8221;. &nbsp;The simplest kind of spout is an &#8220;unreliable&#8221; spout, so we&#8217;ll consider that here. &nbsp;An &#8220;unreliable&#8221; spout is one that can&#8217;t replay tuples: it is fire and forget. &nbsp;Since we&#8217;re predicting that our storm infrastructure is reliable (and failures rare), and we&#8217;re just counting for statistical reasons, we can tolerate an unreliable spout. &nbsp;So we implement an unreliable spout that can provide tuples to Storm. &nbsp;Our tuple will simply be two strings: { tweeter, tweet }. When our topology is deployed, the framework begins polling the Spout for tuples. &nbsp;Each tuple will be fully processed before the next is read.</p><br />
+<p>So now we have tweets streaming in. &nbsp;Storm operates by polling, so when it is ready for a new tuple, it calls our spout and asks for one. &nbsp;If we have no &#8220;bolt&#8221; defined, nothing else happens. &nbsp;Since we wanted to track word count per user, we need a bolt. &nbsp;Our bolt will be fed each tuple by the framework. &nbsp;The bolt will simply contain a data structure (Map) that stores the word count for each user in memory. &nbsp;These counts will be updated as tuples arrive. &nbsp;Then the next tuple is read by the framework and so on.</p><br />
+<p style="text-align: center"><img height="128" width="460" src="http://blog.gigaspaces.com/wp-content/uploads/image/wordcountflow.png" alt=""></p><br />
+<p>&nbsp;</p><br />
+<p><strong>An Improvement : Batching</strong></p><br />
+<p>What if I have a longer pipeline of stream processors/bolts? &nbsp;It&#8217;s rather inefficient to read and process only one tuple at a time. &nbsp;To overcome this, Storm supports the concept of &#8220;batch&#8221; spouts. &nbsp;Batch spouts read batches of tuples. &nbsp;The batch fails or succeeds as a group. &nbsp;If the spout can keep up, and failures are rare, the batching strategy will be far more performant than reading one tuple at a time. &nbsp;At the same time, having unreliable spouts, as we did in the first example, becomes more problematic: where dropping an occassional tuple on a failure is tolerable, maybe losing 1000 when a single one fails might not be. &nbsp;Thus the demand for reliable spouts grows. &nbsp;A reliable spout is one that can replay a tuple or batch when a error occurs.</p><br />
+<p><strong>Another Improvement : Persistent State</strong></p><br />
+Storm stores its operational state in Zookeeper, an in-memory cluster coordination service. This is operational state however, not the state of individual tuple batches, or topology specific state. &nbsp;When we revisit the bolt in the example topology above, it accumulates state in an embedded data structure in memory. &nbsp;Naturally, this is volatile and probably undesirable in the real world. &nbsp;Storm provides a capability for reliably using sources of state that are external to Storm itself. &nbsp;More details on this later. &nbsp;Typically, this is via a data store (NoSQL) or memory (memcached). &nbsp;In this way, state information can be queried by external observers of the stream processing.<br />
+<h3 style="color:blue"><span style="color: blue">The Cloudify recipes</span></h3><br />
+I&#8217;ve built 3 Cloudify recipes to Cloudify Storm. These recipes don&#8217;t address any services external to Storm itself (e.g. persistence). &nbsp;The services are:<br />
+<ul><br />
+<li>&nbsp;z<strong>ookeeper </strong>- Storm uses Zookeeper to communicate between the &#8220;Nimbus&#8221;(master) and the &#8217;Supervisors&quot; (workers), as well as to store its current state.</li></p>
+</ul>
+<ul>
+<li><strong>storm-nimbus</strong> &ndash; The topology execution coordinator for the cluster. &nbsp;The Nimbus is a singleton in the cluster (i.e. not elastic). &nbsp;It is stateless however (due to storing state in Zookeeper) and there for can fail and be restarted without consequence even to running jobs.</li>
+</ul>
+<ul>
+<li><strong>storm-supervisor</strong> &ndash; The supervisors actually run the topology code. &nbsp;There can/should be many of these (i.e. elastic). &nbsp;The parallelism attributes of a given topology are specified in the topology itself.</li>
+</ul>
+<p><strong>Zookeeper : Recipe Details</strong></p>
+<p>The source for this recipe can be found at github: <a href="https://github.com/CloudifySource/cloudify-recipes/tree/master/services/zookeeper" onclick="javascript:pageTracker._trackPageview('/outgoing/github.com/CloudifySource/cloudify-recipes/tree/master/services/zookeeper');">https://github.com/CloudifySource/cloudify-recipes/tree/master/services/zookeeper</a>. &nbsp;Zookeeper coodinates activity in the cluster, and provides operational state storage. &nbsp;An interesting note is that due it&#8217;s leader election algorithm, it needs to always have an odd number of instances. &nbsp;So if you want HA, the fewest you can have is 3. &nbsp;The recipe is only functional on *nix (only tested on Linux). &nbsp;It should also be noted that Zookeeper is not elastic by design: there is no way to add nodes at runtime. &nbsp;There are probably 3 interesting things about the Zookeeper recipe that make it standout: the install, templating, and the monitor.</p>
+<p><strong>The install<br>
+	</strong></p>
+<p>The Zookeeper install is interesting because Zookeeper requires, as a prerequisite to starting, a file listing all the other Zookeeper nodes in it. &nbsp;This is interesting, because on a Cloud we have no idea what the hosts/IPs are prior to starting the VM. &nbsp;The key is to wait for all the planned instances to be available by using the service context. &nbsp;The important thing to understand is that the context returns the instances as soon as the VM has started: it doesn&#8217;t mean that the instance has actually been through its &#8220;start&#8221; lifecycle phase. &nbsp;Another little gotcha is that each IP in the Zookeeper host list has to have a number attached, and that number-&gt;IP relationship must be the same on every node. &nbsp;The simple solution was to just sort the list prior to assigning the numbers (1..n).</p>
+<p><strong>Templating</strong></p>
+<p>This is a handy pattern for creating templates of script and configuration files used in a service. &nbsp;The Zookeeper service has a templates subdirectory that contains various configuration and script files that require modification prior to service startup. &nbsp;They use Groovy templating. &nbsp;The most interesting example is the zoo.cfg file, which contains the list of Zookeeper host IPs mentioned previously:</p>
+<p><code>&lt;% hosts.eachWithIndex { host,i -&gt; %&gt;server.${i+1}=${host}:2222:2223
+&lt;% } %&gt; </code><br />
+<p>If you&#8217;re familiar with <span class="caps">JSP</span> syntax (or <span class="caps">ASP</span> for that matter), the above will look familiar. &nbsp;Text inside &lt;% %&gt; pairs is interpreted as groovy code, and text inside <code>${} </code>is treated as groovy vars. &nbsp;Inside the recipe itself, the value of the variable &#8220;host&#8221; is provided and the template evaluated like so:</p><br />
+<script src="http://gist.github.com/5112172.js"></script><link rel="stylesheet" media="screen" href="https://gist.github.com/assets/embed-0af287a4b5c981db301049e56f06e5d3.css"><div class="gist" id="gist5112172"><br />
+      <div class="gist-file"><br />
+        <div class="gist-data gist-syntax"></p>
+<div class="file-data">
+<table cellspacing="0" cellpadding="0" class="lines highlight">
+      <tbody><tr><br />
+        <td class="line-numbers"><br />
+          <span rel="file-templating1-L1" id="file-templating1-L1" class="line-number">1</span><br />
+          <span rel="file-templating1-L2" id="file-templating1-L2" class="line-number">2</span><br />
+          <span rel="file-templating1-L3" id="file-templating1-L3" class="line-number">3</span><br />
+          <span rel="file-templating1-L4" id="file-templating1-L4" class="line-number">4</span>        </td>
+<td class="line-data">
+<pre class="line-pre"><div id="file-templating1-LC1" class="line">def binding=[<a href="ips">hosts</a>,&#8220;clientPort&#8221;:&#8220;${config.clientPort}&#8221;]</div><div id="file-templating1-LC2" class="line">def zoo = new File(&#8216;templates/zoo.cfg&#8217;)</div><div id="file-templating1-LC3" class="line">engine = new SimpleTemplateEngine()</div><div id="file-templating1-LC4" class="line">template = engine.createTemplate(zoo).make(binding)</div></pre>
+</td>
+</tr>
+</tbody></table>
+</div>
+</div>
+<div class="gist-meta">
+<a style="float:right" href="https://gist.github.com/dfilppi/5112172/raw/9a9fe8783d508d6fd3729eafee9527c906524948/templating1">view raw</a>
+<a style="float:right; margin-right:10px; color:#666;" href="https://gist.github.com/dfilppi/5112172#file-templating1">templating1</a>
+<a href="https://gist.github.com/dfilppi/5112172">This Gist</a> brought to you by <a href="http://github.com">GitHub</a>.
+</div>
+</div>
+</div>
+<p>The &#8220;clientPort&#8221; binding is ignored by the template, but that is irrelevant. &nbsp;The output of this template is a config file with a properly formatted list of IPs, something like:</p>
+<p><code>server.1=10.10.10.10</code></p>
+<p><code>server.2=10.10.10.11</code></p>
+<p><code>server.3 .....</code></p>
+<p><strong>The Monitor</strong></p>
+<p>The monitor is simple, but a nice example about how Cloudify monitoring should be thought of as simply returning a map of key/value pairs, and not in terms of <span class="caps">JMX</span> or any particular technology. &nbsp;This simplicity is a great strength. &nbsp;It turns out that Zookeeper will reveal it&#8217;s runtime status by opening a socket and writing a string to it.</p>
+<p>The output on the socket has interesting info about messaging traffic. &nbsp;The string that Zookeeper responds to is &#8220;stat&#8221;, and the monitor is a simple bash script:</p>
+<script src="http://gist.github.com/5112305.js"></script><link rel="stylesheet" media="screen" href="https://gist.github.com/assets/embed-0af287a4b5c981db301049e56f06e5d3.css"><div class="gist" id="gist5112305"><br />
+      <div class="gist-file"><br />
+        <div class="gist-data gist-syntax"><br />
+<br />
+<br />
+<br />
+  <div class="file-data"><br />
+    <table cellspacing="0" cellpadding="0" class="lines highlight"><br />
+      <tbody><tr><br />
+        <td class="line-numbers"><br />
+          <span rel="file-gistfile1-sh-L1" id="file-gistfile1-sh-L1" class="line-number">1</span>        </td>
+<td class="line-data">
+<pre class="line-pre"><div id="file-gistfile1-sh-LC1" class="line"><span class="nb">echo </span>stat |nc 127.0.0.1 <span class="nv">$<span class="caps">PORT</span></span> |awk -F : <span class="s1">&#8216;{gsub(/ */,&quot;&quot;);if ($1 == &#8220;Received&#8221; || $1 == &#8220;Sent&#8221; || $1 == &#8220;Outstanding&#8221;) print $2}&#8217;</span></div></pre>
+</td>
+</tr>
+</tbody></table>
+</div>
+</div>
+<div class="gist-meta">
+<a style="float:right" href="https://gist.github.com/dfilppi/5112305/raw/83f8e59876b8adab429a2901586386febdc2034b/gistfile1.sh">view raw</a>
+<a style="float:right; margin-right:10px; color:#666;" href="https://gist.github.com/dfilppi/5112305#file-gistfile1-sh">gistfile1.sh</a>
+<a href="https://gist.github.com/dfilppi/5112305">This Gist</a> brought to you by <a href="http://github.com">GitHub</a>.
+</div>
+</div>
+</div>
+<p>Basically, &#8220;stat&#8221; is echo&#8217;d to the Zookeeper port on the service instance. &nbsp;The resulting response string is fed to awk, where it is filtered. &nbsp;The resulting list of three numbers is returned to the recipe and a map is created from it:</p>
+<script src="http://gist.github.com/5112362.js"></script><link rel="stylesheet" media="screen" href="https://gist.github.com/assets/embed-0af287a4b5c981db301049e56f06e5d3.css"><div class="gist" id="gist5112362"><br />
+      <div class="gist-file"><br />
+        <div class="gist-data gist-syntax"><br />
+<br />
+<br />
+<br />
+  <div class="file-data"><br />
+    <table cellspacing="0" cellpadding="0" class="lines highlight"><br />
+      <tbody><tr><br />
+        <td class="line-numbers"><br />
+          <span rel="file-nimbus-monitor-L1" id="file-nimbus-monitor-L1" class="line-number">1</span><br />
+          <span rel="file-nimbus-monitor-L2" id="file-nimbus-monitor-L2" class="line-number">2</span><br />
+          <span rel="file-nimbus-monitor-L3" id="file-nimbus-monitor-L3" class="line-number">3</span><br />
+          <span rel="file-nimbus-monitor-L4" id="file-nimbus-monitor-L4" class="line-number">4</span><br />
+          <span rel="file-nimbus-monitor-L5" id="file-nimbus-monitor-L5" class="line-number">5</span><br />
+          <span rel="file-nimbus-monitor-L6" id="file-nimbus-monitor-L6" class="line-number">6</span><br />
+          <span rel="file-nimbus-monitor-L7" id="file-nimbus-monitor-L7" class="line-number">7</span><br />
+          <span rel="file-nimbus-monitor-L8" id="file-nimbus-monitor-L8" class="line-number">8</span>        </td>
+<td class="line-data">
+<pre class="line-pre"><div id="file-nimbus-monitor-LC1" class="line">def metrics=[]</div><div id="file-nimbus-monitor-LC2" class="line">&nbsp;</div><div id="file-nimbus-monitor-LC3" class="line">def process=&#8220;${context.serviceDirectory}/stat.sh ${clientPort}&#8221;.execute()</div><div id="file-nimbus-monitor-LC4" class="line">process.in.eachLine{line-&gt; </div><div id="file-nimbus-monitor-LC5" class="line">  metrics.add line</div><div id="file-nimbus-monitor-LC6" class="line">}</div><div id="file-nimbus-monitor-LC7" class="line">&nbsp;</div><div id="file-nimbus-monitor-LC8" class="line">[ <a href="metrics[0">Packets Received</a>],<a href="metrics[1">Packets Sent</a>],<a href="metrics[2">Outstanding Requests</a>]]</div></pre>
+</td>
+</tr>
+</tbody></table>
+</div>
+</div>
+<div class="gist-meta">
+<a style="float:right" href="https://gist.github.com/dfilppi/5112362/raw/a4470f5ab0f0d9a1fe8c90a7b81fef02049b2acb/nimbus-monitor">view raw</a>
+<a style="float:right; margin-right:10px; color:#666;" href="https://gist.github.com/dfilppi/5112362#file-nimbus-monitor">nimbus-monitor</a>
+<a href="https://gist.github.com/dfilppi/5112362">This Gist</a> brought to you by <a href="http://github.com">GitHub</a>.
+</div>
+</div>
+</div>
+<p><strong>Storm Nimbus &ndash; Recipe Details</strong></p>
+<p><span style="font-size: 12px">The source for this recipe can be found at github:&nbsp;<a href="https://github.com/CloudifySource/cloudify-recipes/tree/master/services/storm/storm-nimbus" onclick="javascript:pageTracker._trackPageview('/outgoing/github.com/CloudifySource/cloudify-recipes/tree/master/services/storm/storm-nimbus');">https://github.com/CloudifySource/cloudify-recipes/tree/master/services/storm/storm-nimbus</a>.&nbsp;</span>The Storm Nimbus is basically a superset of the Storm Supervisor recipe, so I&#8217;ll just go over a few interesting details of storm-nimbus.</p>
+<p><strong>The Install</strong></p>
+<p>Like the Zookeeper recipe above, the storm-nimbus uses Groovy templating to modify a configuration file supplied in the &#8220;templates&#8221; directory. &nbsp;At the beginning of the install, storm-nimbus (which depends on Zookeeper running) gets the Zookeeper services instances from the service context. &nbsp;This list is iterated over in the storm.yaml config file:</p>
+<script src="http://gist.github.com/5112418.js"></script><link rel="stylesheet" media="screen" href="https://gist.github.com/assets/embed-0af287a4b5c981db301049e56f06e5d3.css"><div class="gist" id="gist5112418"><br />
+      <div class="gist-file"><br />
+        <div class="gist-data gist-syntax"><br />
+<br />
+<br />
+<br />
+  <div class="file-data"><br />
+    <table cellspacing="0" cellpadding="0" class="lines highlight"><br />
+      <tbody><tr><br />
+        <td class="line-numbers"><br />
+          <span rel="file-templating-example-L1" id="file-templating-example-L1" class="line-number">1</span><br />
+          <span rel="file-templating-example-L2" id="file-templating-example-L2" class="line-number">2</span><br />
+          <span rel="file-templating-example-L3" id="file-templating-example-L3" class="line-number">3</span><br />
+          <span rel="file-templating-example-L4" id="file-templating-example-L4" class="line-number">4</span><br />
+          <span rel="file-templating-example-L5" id="file-templating-example-L5" class="line-number">5</span>        </td>
+<td class="line-data">
+<pre class="line-pre"><div id="file-templating-example-LC1" class="line">storm.zookeeper.servers:</div><div id="file-templating-example-LC2" class="line">&nbsp;</div><div id="file-templating-example-LC3" class="line">&lt;% zooks.each { zook -&gt;</div><div id="file-templating-example-LC4" class="line">  println &quot;  &#8211;  \&#8220;${zook.hostAddress}\&#8221;&quot;</div><div id="file-templating-example-LC5" class="line">} %&gt;</div></pre>
+</td>
+</tr>
+</tbody></table>
+</div>
+</div>
+<div class="gist-meta">
+<a style="float:right" href="https://gist.github.com/dfilppi/5112418/raw/de4adc508166eac98f8f66b0be503e00ea4fef22/templating+example">view raw</a>
+<a style="float:right; margin-right:10px; color:#666;" href="https://gist.github.com/dfilppi/5112418#file-templating-example">templating example</a>
+<a href="https://gist.github.com/dfilppi/5112418">This Gist</a> brought to you by <a href="http://github.com">GitHub</a>.
+</div>
+</div>
+</div>
+<p>But the biggest thing going on in the install is an actual build of a native library. Storm depends on the zeromq library for network communication, but it is a native library that requires a build. &nbsp;Both the storm-nimbus and storm-supervisor recipes perform this build. &nbsp;This was intended on a catch all approach for making a generic demo, <span class="caps">NOT</span> as a recommended approach. &nbsp;It slows down install greatly. &nbsp;In the &#8220;real&#8221; world, please have pre-built binaries in a blog store and download them.</p>
+<p>In any case, this build task causes the recipe to only run on Linux distros that support &#8220;yum&#8221;, which is used to pull down various dependencies such as python, gcc, make, etc.. &nbsp;It also pulls from github and builds jzmq. &nbsp;If you&#8217;re interested, check out the &#8220;initnode.sh&#8221; script in the recipe.</p>
+<p><strong>Monitoring</strong></p>
+<p><span style="font-size: 12px">To monitor the Nimbus, I wrote a java <a href="https://github.com/Gigaspaces/storm-integration/tree/master/cloudify/plugins/nimbus-thrift-plugin" onclick="javascript:pageTracker._trackPageview('/outgoing/github.com/Gigaspaces/storm-integration/tree/master/cloudify/plugins/nimbus-thrift-plugin');">plugin</a> for Cloudify.&nbsp; Why not&nbsp;</span><span style="font-size: 12px">Groovy? &nbsp;Personally, beyond a certain threshold of complexity, I find java development&nbsp;</span><span style="font-size: 12px">environments (i.e. Eclipse) to be more productive. &nbsp;Having said that, porting it to&nbsp;</span><span style="font-size: 12px">Groovy would clean things up greatly. &nbsp;As it is, the recipe requires several jar files&nbsp;</span><span style="font-size: 12px">in the usmlib directory to support it (thift, etc&#8230;). &nbsp; The plugin itself is&nbsp;</span><span style="font-size: 12px">unremarkable: it simply calls the Thrift interface and get the Nimbus configuration&nbsp;</span><span style="font-size: 12px">and extracts some key metrics. &nbsp;It is hard coded, and obviously should be configurable&nbsp;</span><span style="font-size: 12px">to select metrics of interest.</span></p>
+<p><strong><span style="font-size: 12px">Custom Commands</span></strong></p>
+<p><span style="font-size: 12px">There a few custom commands that can&#8217;t be explained until the <span class="caps">XAP</span> integration is </span><span style="font-size: 12px">discussed in future posts. &nbsp;These commands deal with running and kill topologies, and are tailored to the <span class="caps">XAP</span> integration. &nbsp;Generic topology management commands could be adapted from them however.</span></p>
+<h3 style="color:blue"><span style="font-size: 12px">Conclusion</span></h3>
+<p><span style="font-size: 12px">These recipes have been tested on EC2 and <span class="caps">HPCS</span>/Openstack. &nbsp;There is an application recipe under app/storm in the cloudify-recipes repo. &nbsp;When you run it, give a healthy timeout, since the install runs yum fetches and builds for the native libs. In my next post, I&#8217;ll discuss the rationale for combining GigaSpaces <span class="caps">XAP</span> with Storm,&nbsp;</span><span style="font-size: 12px">and share the implementation of components to support it.</span></p>
+<p></div><!--end entry--></p>
+<p></p>
+<p></p>
+<p></p>
+                    <div id="disqus_thread"></div>
+<script type="text/javascript">
+    /* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
+    var disqus_shortname = 'cloudifysource'; // required: replace example with your forum shortname
+    var disqus_identifier = '/2013/03/07/gigaspaces_and_storm_part_1_storm_clouds.html';
+
+    /* * * DON'T EDIT BELOW THIS LINE * * */
+    (function() {
+        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+        dsq.src = 'http://' + disqus_shortname + '.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="http://disqus.com" class="dsq-brlink">blog comments powered by <span class="logo-disqus">Disqus</span></a>
+
+                </div>
+
+                <div class="clear"></div>
+            </div>
+        </div>
+
+        <!--Start pagination -->
+
+        <div class="clear"></div>
+
+        <!--Start Footer -->
+
+        <div class="footer">
+    <!--<ul class="footerLeftMenu">
+        <li class="footerli"><a href="#">About GigaSpaces</a></li>
+        <li class="footerli"><a href="#">Contact Us</a></li>
+    </ul> -->
+    <ul class="footerRightMenu">
+        <li class="footerli">Copyright © 2012 GigaSpaces. All rights reserved.</li>
+        <li class="footerli"><a href="/about_us">About Us</a></li>
+        <li class="footerli">|</li>
+        <li class="footerli"><a href="/terms_of_use">Terms of Use</a></li>
+        <li class="footerli">|</li>
+        <li class="footerli"> <a href="/privacy_policy">Privacy Policy</a></li>
+        <li class="footerli">|</li>
+        <li class="footerli"> <a href="http://www.gigaspaces.com" target="_blank">GigaSpaces.com</a></li>
+        <li class="footerli">|</li>
+        <li class="footerli"> <a href="http://www.gigaspaces.com/cloudify-go-pro" target="_blank">PRO Support Packages</a></li>
+
+
+    </ul> 
+    <ul class="footerSocialMenu">
+        <li class="footerFb"><a href="https://www.facebook.com/GigaSpaces?sk=app_201742856511228" target="_blank"></a></li>
+        <li class="footerRss"><a href="/atom.xml" target="_blank"></a></li>
+        <li class="footerTwitt"><a href="http://www.twitter.com/cloudifysource" target="_blank"></a></li>
+        <li class="footerYt"><a href="http://www.youtube.com/cloudifysource" target="_blank"></a></li>
+        <li class="footerMell"><a alt="Contact-us" title="Contact-us" href="mailto:info@cloudifysource.org?Contact-us from cloudifysource website" target="_blank"></a></li>
+        <li class="footerTumblr"><a href="http://cloudifysource.tumblr.com" target="_blank"></a></li>
+    </ul>
+</div>
+
+<script type="text/javascript" language="javascript">llactid=12206</script>
+<script type="text/javascript" language="javascript" src="http://t6.trackalyzer.com/trackalyze.js"></script> 
+
+
+
+    </div>
+    <!--End site wrapper -->
+
+
+</div>
+<!--End site bg top wrapper -->
+</body>
+</html>

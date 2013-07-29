@@ -1,0 +1,1507 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>	
+	<title>Cloudify - Introducing The Cloudify Player</title>
+	<script src="//cdn.optimizely.com/js/59503762.js"></script>
+	<link rel="stylesheet" href="/css/template.css" type="text/css"/>	
+	<link rel="canonical" href="http://www.cloudifysource.org/2013/05/15/introducing_the_cloudify_player.html"/>	
+	<link rel="stylesheet" href="/css/jquery-ui-1.8.17.custom.css" type="text/css" media="all"/>
+	<link rel="stylesheet" type="text/css" href="/scripts/prettify/prettify.css">		
+	<link rel="stylesheet" type="text/css" href="/scripts/lightbox/jquery.lightbox-0.5.css" media="screen" />	
+	<link rel="shortcut icon" href="/favicon.ico" type="image/x-icon" />
+	
+	    <script src="/scripts/jquery-1.7.1.js" type="text/javascript"></script>
+    <script src="/scripts/jquery.zrssfeed.min.js" type="text/javascript"></script>
+    <script src="/scripts/jquery.vticker.js" type="text/javascript"></script>
+	
+	
+	<!-- Add fancyBox -->
+	<link rel="stylesheet" href="/scripts/fancyBox/source/jquery.fancybox.css?v=2.1.3" type="text/css" media="screen" />
+	<script type="text/javascript" src="/scripts/fancyBox/source/jquery.fancybox.pack.js?v=2.1.3"></script>
+	
+	<!-- Optionally add helpers - button, thumbnail and/or media -->
+	<link rel="stylesheet" href="/scripts/fancyBox/source/helpers/jquery.fancybox-buttons.css?v=1.0.5" type="text/css" media="screen" />
+	<script type="text/javascript" src="/scripts/fancyBox/source/helpers/jquery.fancybox-buttons.js?v=1.0.5"></script>
+	<script type="text/javascript" src="/scripts/fancyBox/source/helpers/jquery.fancybox-media.js?v=1.0.5"></script>
+	
+	<link rel="stylesheet" href="/scripts/fancyBox/source/helpers/jquery.fancybox-thumbs.css?v=1.0.7" type="text/css" media="screen" />
+	<script type="text/javascript" src="/scripts/fancyBox/source/helpers/jquery.fancybox-thumbs.js?v=1.0.7"></script>
+	
+	
+		
+	
+	
+	
+	
+	<!--<script type="text/javascript" src="/scripts/jquery-1.6.4.js"></script>-->
+	<script type="text/javascript" src="/scripts/search.js"></script>
+	<script type="text/javascript" src="/scripts/jquery-ui-1.8.17.custom.min.js"></script>
+	<!--<script type="text/javascript" src="/scripts/jquery.prettyPhoto.js"></script>-->
+	<script type="text/javascript" src="/scripts/prettify/prettify.js"></script>
+	<script type="text/javascript" src="/scripts/easySlider1.7.js"></script>
+	<script type="text/javascript" src="/scripts/version.data.js"></script>
+	<script type="text/javascript" src="/scripts/version.js"></script>
+	<script type="text/javascript" src="/scripts/jquery.lightbox-0.5.js"></script>
+        <script src="http://ajax.aspnetcdn.com/ajax/jquery.validate/1.9/jquery.validate.min.js"></script>	
+
+
+<script type="text/javascript" >
+(function($,W,D)
+{
+    var JQUERY4U = {};
+
+    JQUERY4U.UTIL =
+    {
+        setupFormValidation: function()
+        {
+            //form validation rules
+	    	
+            $("#contactUs").validate({
+                rules: {
+                    last_name: "required",
+                    email: {
+                        required: true,
+                        email: true
+                    },
+                },
+                messages: {
+                    last_name: "Please enter your first name",
+                    email: "Please enter a valid email address",
+                },
+                submitHandler: function(form) {
+                    form.submit();
+                }
+            });
+        }
+    }
+
+    //when the dom has loaded setup form validation rules
+    $(D).ready(function($) {
+        JQUERY4U.UTIL.setupFormValidation();
+//start captcha Code
+	function randomgen()
+	{
+    var rannumber='';
+		for(ranNum=1; ranNum<=6; ranNum++){
+			rannumber+=Math.floor(Math.random()*10).toString();
+		}
+		$('#verifyNum').html(rannumber);
+		$('#verifyNumHidden').val(rannumber);
+	}
+	randomgen();
+//Verification number generate code Ends here
+  
+//Validation Starts Here    
+	$('#contactUs').submit(function() {
+		if($('#enterVerify').val() == $('#verifyNumHidden').val() ) {
+			//$('form').attr('action', 'https://example.com/MyForm');
+			return true;
+		}
+		else
+		{
+			alert("Please Enter Correct Verification Number");
+			randomgen();
+			$('#enterVerify').select();
+			$('#enterVerify').focus();
+			return false;
+		}
+	});
+//end captcha Code;        
+    });
+
+})(jQuery, window, document);
+</script>
+<script type="text/javascript">
+    $(window).bind("load", function () {
+        //rss feed slider						
+        $('.tumblrFeed').rssfeed('http://cloudifysource.tumblr.com/rss', {}, function (e) {
+            $(e).find('div.rssBody').vTicker({ showItems: 1 });
+        });
+    });                                
+</script>
+<script type="text/javascript">
+	window.onload = function () {
+		$('body').addClass("bodyClass");	
+ 	}
+	
+	$(function(){ 
+	//map lightbox on participate page
+	//$('a.showmap').click(function(){
+		
+	//});
+	
+	//for lightbox 
+	$('.fancybox-media').fancybox({
+	openEffect	: 'elastic',
+    	closeEffect	: 'elastic',
+
+    		helpers : {
+    		title : {type : 'inside'},
+		media : {}
+    	}
+	});
+
+	
+	$('a.lightbox').fancybox();
+	
+	
+	
+	$('.showmap').lightBox();
+	//popup contact form
+		$("li.contactUs,div.contactUsWrapper").mouseenter(function(){
+			$("div.contactUsWrapper").css("visibility","visible");
+			$("a.contactUsLink").css("visibility","hidden");
+		});
+		$("input.cuSend").click(function(){
+			$('.cuValid').hide();
+		});
+		$("input.cuSend").submit(function(){
+			$("div.contactUsWrapper").css("visibility","hidden")
+			$("a.contactUsLink").css("visibility","visible");
+	
+		});
+		$("a.contactUsWrapperClose").click(function(){
+				$("div.contactUsWrapper").css("visibility","hidden")
+				$("a.contactUsLink").css("visibility","visible");
+			});	
+	//end popup contact form
+		$("div.expand").hide();
+		
+		
+		$("li.expandBtn").click(function(){	
+			$(this).next("div.expand").slideToggle(500);
+			if($(this).html()=="More..."){
+				$(this).html("Less...");	
+			}else{
+				$(this).html("More...");
+			}
+		});
+		
+	   /* ------------- added by Yaron/modified by Shlomo ------------ */
+		$("#closeBut").parent().hide();
+		$("#values").hide();
+		$("span.pln, span.kwd").hover(function(eventObject){
+			var keys = {"name":true, "provider":true, "user":true, "value":true};
+			var currKey = $(eventObject.currentTarget).text().trim();
+			if (keys[currKey]) {
+				var prevKey = $(eventObject.currentTarget).prevUntil("span.pun:contains('{')").last().prev().prev("span.pln").text().trim() ? $(eventObject.currentTarget).prevUntil("span.pun:contains('{')").last().prev().prev("span.pln").text().trim() : $(eventObject.currentTarget).prev().prev("span.pln").text().trim();
+				currKey = prevKey + "_" + currKey;
+			}
+			if (messages[currKey]) {
+				var tooltip = $(".overlay"),
+					position = $(eventObject.currentTarget).offset();
+				$(this).css({"background-color":"#CECECE", "cursor" : "help"});
+				var message = messages[currKey].split("::"); console.log(message);
+				$("#desc",tooltip).text(message[0].trim());
+				if (message[1] && message[1].trim().toLowerCase() == "required") {
+					$("#required").prev().show();
+					$("#required").show();
+					$("#required").next().show();
+					$("#required").css("color", "red");
+					$("#required").text("Required");
+				} else {
+					$("#required").prev().hide();
+					$("#required").hide();
+					$("#required").next().hide();
+				}
+				tooltip.show().offset({ top: position.top + tooltip.scrollTop() - 50, left: position.left + 100});
+				$("#tipImg").position();
+			}}, function(){
+				$(".overlay").offset({top:0,left:0}).hide();
+				$(this).css("background-color","transparent");
+		});
+	});
+	
+	</script>
+	
+		
+	
+
+
+
+
+	<script type="text/javascript" src="/scripts/cloudify_default.js"></script>
+	<script type="text/javascript">
+
+   var _gaq = _gaq || [];
+   _gaq.push(['_setAccount', 'UA-31930048-1']);
+   _gaq.push(['_trackPageview']);
+
+   (function() {
+	   var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+	   ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+	   var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+   })();
+
+</script>
+	<script type="text/javascript">
+ var _gauges = _gauges || [];
+(function() {
+		var t   = document.createElement('script');
+		t.type  = 'text/javascript';
+		t.async = true;
+		t.id    = 'gauges-tracker';
+		t.setAttribute('data-site-id', '4fd5058b613f5d712200004f');
+		t.src = '//secure.gaug.es/track.js';
+		var s = document.getElementsByTagName('script')[0];
+		s.parentNode.insertBefore(t, s);
+})();
+</script> 
+	<!--start Mixpanel-->
+<script type="text/javascript">
+    (function(c,a){window.mixpanel=a;var b,d,h,e;b=c.createElement("script");
+    b.type="text/javascript";b.async=!0;b.src=("https:"===c.location.protocol?"https:":"http:")+
+    '//cdn.mxpnl.com/libs/mixpanel-2.1.min.js';d=c.getElementsByTagName("script")[0];
+    d.parentNode.insertBefore(b,d);a._i=[];a.init=function(b,c,f){function d(a,b){
+    var c=b.split(".");2==c.length&&(a=a[c[0]],b=c[1]);a[b]=function(){a.push([b].concat(
+    Array.prototype.slice.call(arguments,0)))}}var g=a;"undefined"!==typeof f?g=a[f]=[]:
+    f="mixpanel";g.people=g.people||[];h=['disable','track','track_pageview','track_links',
+    'track_forms','register','register_once','unregister','identify','name_tag',
+    'set_config','people.identify','people.set','people.increment'];for(e=0;e<h.length;e++)d(g,h[e]);
+    a._i.push([b,c,f])};a.__SV=1.1;})(document,window.mixpanel||[]);
+    mixpanel.init("96365f48f34c41c7b91e045b4f48d53d");
+
+
+
+
+//mixpanel global page tracking:
+//mixpanel.track_forms('#ki_form', 'Qualaroo');
+mixpanel.track('Cloudify Community Page Views', {'page name' : document.title, 'url' : window.location.pathname});  
+$(function(){ 
+    // This sends us an event every time a user clicks the button
+	$("a.hp-btn-getCloudify").click(function() {
+	    mixpanel.track("Get Cloudify Button Clicks",{'page name' : document.title, 'url' : window.location.pathname}); 
+	});
+	
+	$("a.getCloudifyBtn").click(function() {
+	    mixpanel.track("Home Page Download Button Clicks",{'page name' : document.title, 'url' : window.location.pathname}); 
+	    mixpanel.track("Get Cloudify Button Clicks",{'page name' : document.title, 'url' : window.location.pathname}); 
+	});	//Try It Now Click
+	$("a.hp-tryItNow").click(function() {
+	    mixpanel.track("Try it Now HP Button Clicks",{'page name' : document.title, 'url' : window.location.pathname}); 
+	});
+});
+
+
+mixpanel.track_forms("#searchForm", "Search",{'page name' : document.title, 'url' :  window.location.pathname});
+$(function(){ 
+	$("#goBtn").click(function() {
+		
+	var value = $('#search').val();
+	    mixpanel.track("Search",{"keyword": value}); 
+
+	});
+});
+
+//track Cloudify Early Access Builds
+//mixpanel.track_links("a.eaTitle", "Product Download - Early Access Builds", {'referrer': document.referrer });
+
+
+// mixpanel- trakc only if email requested
+var currEmail="";
+$("body").live('change', function(){
+ $("#ki_form").live('change', function(){
+  if($("#ki_question_99437").length != 0) {
+	currEmail =  $("input.ki_explain_small").val();	
+	mixpanel.track_links("#ki_submit_button", "Qualaroo", function(ele) {
+	 if($('input').hasClass('ki_explain_small')){
+	  var currEmail =  $("input.ki_explain_small").val();	
+	  mixpanel.name_tag(currEmail);
+	  mixpanel.people.identify(currEmail);
+	  mixpanel.people.set({
+	  $email: currEmail,
+	  $first_name: currEmail,
+	  $created: new Date(),
+	  $last_seen:new Date(),
+	  });
+	} return { type: $(ele).attr('type'),email: currEmail}
+	});
+  }
+});
+
+});
+
+//
+//$("#ki_submit_button").click(function() {
+
+//if($('input').hasClass('ki_explain_small')){
+ // var currEmail =  $("input.ki_explain_small").val();	
+ // mixpanel.name_tag(currEmail);
+ // mixpanel.people.identify(currEmail);
+ // mixpanel.people.set({
+ // $email: currEmail,
+ // $first_name: currEmail,
+//  });
+//}
+//});
+</script>
+	
+	<script type="text/javascript">var _kiq = _kiq || [];</script>
+<script type="text/javascript" src="//s3.amazonaws.com/ki.js/42111/87X.js" async="true"></script>
+	
+</head>
+
+<body>
+<a class="fork-guide" target="_blank" href="https://github.com/CloudifySource/cloudify"></a>
+<div class="WrapperBg">    
+    <div class="Wrapper">
+        <div class="header">
+    <div class="headersLinks">
+        <ul>
+           <li><img src="http://www.gigaspaces.com/sites/default/files/logo_jira_whitecopy.png" width="20"><a href="https://cloudifysource.atlassian.net" target="_blank">Report a Bug</a></li>
+           <li class="sep">|</li>
+            <li><a href="https://cloudifysource.zendesk.com/registration" target="_blank">Sign Up</a></li>
+            <li class="sep">|</li>
+            <li><a href="https://cloudifysource.zendesk.com/login" target="_blank" class="lock">Login</a></li>
+            <li class="sep">|</li>
+            <li class="contactUs"><a  class="contactUsLink" href="#" target="_blank">Contact Us</a></li>
+        </ul>
+        <div class="contactUsWrapper">
+            <form id="contactUs" action="https://www.salesforce.com/servlet/servlet.WebToLead?encoding=UTF-8" method="POST">
+            <input type=hidden name="oid" value="00D300000000KEt">
+            <input type=hidden name="retURL" value="http://www.cloudifysource.org/thank_you_contact.htm">
+            <input  id="first_name" name="first_name" type="hidden" />
+            <input  id="last_name" name="last_name" type="text" class="cuInput" placeholder="Your Name"/>
+            <span class="cuValid"></span>
+            <input  id="email" name="email"  type="text"  placeholder="Your Email"/><br>
+            <span class="cuValid"></span>
+            <textarea  id="00N80000003kH4I" name="00N80000003kH4I" type="text" wrap="soft" placeholder="Your Message"></textarea>
+ <input id="00N80000003kH2d" maxlength="50" name="00N80000003kH2d" size="20" type="text" value="CloudifySource Community Contact" style="display: none" />            
+	   <!--Captcha-->
+	    <div class="captcha">
+	    	    <label>Enter the below number: </label>
+		    <input type="hidden" value="701469" id="verifyNumHidden" name="verifyNumHidden" />
+		    <input type="text" id="enterVerify" name="enterVerify" />
+		    <div id="verifyNum"></div>
+	    </div>
+	    <!--Captcha-->
+<input type="submit" class="cuSend" name="submit" value="Contact" />
+            </form>
+            <a class="contactUsWrapperClose" href="#">Close</a>
+        </div>
+    </div>
+
+
+
+    <a class="logo" href="/"></a>
+    <div class="clear"></div>
+            <div class="topMenu">
+                <ul class="_topmenu">
+                    <li class="topmenuli"><a class="bgMenu1" href="http://forums.cloudifysource.org/forums"><span class="title1">Support Forums</span><span class="title2">Discuss & Suggest</span></a></li>
+                    <li class="sep"></li>
+                    <li class="topmenuli"><a class="bgMenu2" href="/guide/2.6/qsg/quick_start_guide_helloworld"><span class="title1">Documentation</span><span class="title2">Learn</span></a></li>
+                    <li class="sep"></li>
+                    <li class="topmenuli"><a class="bgMenu3" href="/participate"><span class="title1">Events</span><span class="title2">Participate</span></a></li>
+                    <li class="sep"></li>
+                    <li class="topmenuli"><a class="bgMenu4" href="/blog"><span class="title1">Blog & Updates</span><span class="title2">Read</span></a></li>
+                    <li class="sep"></li>
+                    <li class="topmenuli"><a class="bgMenu5" href="/cloudifysourcetv"><span class="title1">Videos</span><span class="title2">Watch & Learn</span></a></li>
+                    <li class="sep"></li>
+                    <li class="topmenuli"><a class="bgMenu6" href="/how"><span class="title1">How It Works</span><span class="title2">Cloudify Architecture</span></a></li>
+
+		</ul>
+		<div class="clear"></div>
+	</div>
+</div>
+
+<!-- Tooltip Container -->
+<div class="overlay">
+<div class="overlayFrame">
+<div style="width:100%;height:25px;align:left;"><img src="/images/close.png" id="closeBut"/></div>
+<div><span id="desc"></span><br/>
+ <span id="required"></span><br/>
+ <span id="values"></span>
+ </div>
+</div>
+<img src="/images/box_edge.png" id="tipImg"/>  
+</div>
+<div class="clear"></div>
+
+        <div class="contentWrap">            
+			<div class="breadcrumbs">Home Page > Cloudify Blogs > Introducing The Cloudify Player</div>
+            <div class="clear"></div>
+
+            <!--Search-->
+			
+            
+ 
+
+<div class="learnFrom">
+    <h2>Blog Posts and Updates</h2>
+
+    <div class="searchWrap">
+        <form id="searchForm" action="#" method="get">
+            <input id="search" class="searchTxt" type="text" placeholder="Search..."/>
+            <input id="goBtn" class="searchBtn" type="button" value="Go"/>
+        </form>
+    </div>
+</div>
+ 
+<div class="hp-right-col">
+ 		<a class="hp-btn-getCloudify" href="/downloads/get_cloudify">Get Cloudify!</a>
+</div>
+
+
+
+
+			
+            <div class="content">
+                <div id="alTag_LeftBlog" class="left">
+                    
+                    <!--Event groups-->
+
+
+
+<div class="leftContentBox blogLeft-topTitle">
+	<h3>Recent Posts</h3>
+</div>
+
+
+<div class="leftContentBox blogLeftBox"> 
+   
+	<a href="/2013/07/17/openstacks_third_birthday_a_recap_with_a_look_into_the_future.html">Openstack's Third Birthday - A Recap With A Look Into The Future 
+	 <img class="noMargin" src="/images/arrow-right-blue.png" /></a><br />
+	<span class="date">July 17, 2013</span>  
+	<br/><br/>
+  
+	<a href="/2013/07/16/how_to_install_heat_and_devstack_on_ec2.html">How to Install Heat and Devstack on EC2 
+	 <img class="noMargin" src="/images/arrow-right-blue.png" /></a><br />
+	<span class="date">July 16, 2013</span>  
+	<br/><br/>
+  
+	<a href="/2013/07/15/to_openstack_or_not_to_openstack_moving_enterprise_applications_onto_openstack_today.html">To Openstack or not to Openstack Moving Enterprise Applications onto Openstack Today 
+	 <img class="noMargin" src="/images/arrow-right-blue.png" /></a><br />
+	<span class="date">July 15, 2013</span>  
+	<br/><br/>
+		
+</div>
+
+               <!--start -->
+                 <div class="leftContentBox blogLeft-topTitle blog-left-title2 tumblr">
+                        <h3>CloudifySource on Tumblr</h3>
+                 </div>   
+                <div class="leftContentBox tumblrFeed">                     
+                
+                </div>
+<!--end-->
+
+
+<div class="leftContentBox blogLeft-topTitle">
+	<h3>Archived Posts</h3>
+</div>
+
+ <ul class="blog-archive-list">
+ 
+ 
+	
+	
+	
+	
+	
+	
+
+	
+<li><a href="/2013/07">July 2013</a> <span class="blue">(3)</span></li>
+
+	
+
+	
+		
+			
+		
+	
+
+	
+	
+	
+	
+	
+	
+
+	
+
+	
+		
+			
+		
+	
+
+	
+	
+	
+	
+	
+	
+
+	
+
+	
+		
+			
+<li><a href="/2013/06">June 2013</a> <span class="blue">(1)</span></li>
+
+			
+		
+	
+
+	
+	
+	
+	
+	
+	
+
+	
+
+	
+		
+			
+<li><a href="/2013/05">May 2013</a> <span class="blue">(4)</span></li>
+
+			
+		
+	
+
+	
+	
+	
+	
+	
+	
+
+	
+
+	
+		
+			
+		
+	
+
+	
+	
+	
+	
+	
+	
+
+	
+
+	
+		
+			
+		
+	
+
+	
+	
+	
+	
+	
+	
+
+	
+
+	
+		
+			
+		
+	
+
+	
+	
+	
+	
+	
+	
+
+	
+
+	
+		
+			
+<li><a href="/2013/04">April 2013</a> <span class="blue">(3)</span></li>
+
+			
+		
+	
+
+	
+	
+	
+	
+	
+	
+
+	
+
+	
+		
+			
+		
+	
+
+	
+	
+	
+	
+	
+	
+
+	
+
+	
+		
+			
+		
+	
+
+	
+	
+	
+	
+	
+	
+
+	
+
+	
+		
+			
+<li><a href="/2013/03">March 2013</a> <span class="blue">(4)</span></li>
+
+			
+		
+	
+
+	
+	
+	
+	
+	
+	
+
+	
+
+	
+		
+			
+		
+	
+
+	
+	
+	
+	
+	
+	
+
+	
+
+	
+		
+			
+		
+	
+
+	
+	
+	
+	
+	
+	
+
+	
+
+	
+		
+			
+		
+	
+
+	
+	
+	
+	
+	
+	
+
+	
+
+	
+		
+			
+<li><a href="/2013/02">February 2013</a> <span class="blue">(1)</span></li>
+
+			
+		
+	
+
+	
+	
+	
+	
+	
+	
+
+	
+
+	
+		
+			
+<li><a href="/2013/01">January 2013</a> <span class="blue">(1)</span></li>
+
+			
+		
+	
+
+	
+	
+	
+	
+	
+	
+
+	
+
+	
+		
+
+<li><a href="/2012/12">December 2012</a> <span class="blue">(3)</span></li>
+
+		
+	
+
+	
+	
+	
+	
+	
+	
+
+	
+
+	
+		
+			
+		
+	
+
+	
+	
+	
+	
+	
+	
+
+	
+
+	
+		
+			
+		
+	
+
+	
+	
+	
+	
+	
+	
+
+	
+
+	
+		
+			
+<li><a href="/2012/11">November 2012</a> <span class="blue">(2)</span></li>
+
+			
+		
+	
+
+	
+	
+	
+	
+	
+	
+
+	
+
+	
+		
+			
+		
+	
+
+	
+	
+	
+	
+	
+	
+
+	
+
+	
+		
+			
+<li><a href="/2012/10">October 2012</a> <span class="blue">(5)</span></li>
+
+			
+		
+	
+
+	
+	
+	
+	
+	
+	
+
+	
+
+	
+		
+			
+		
+	
+
+	
+	
+	
+	
+	
+	
+
+	
+
+	
+		
+			
+		
+	
+
+	
+	
+	
+	
+	
+	
+
+	
+
+	
+		
+			
+		
+	
+
+	
+	
+	
+	
+	
+	
+
+	
+
+	
+		
+			
+		
+	
+
+	
+	
+	
+	
+	
+	
+
+	
+
+	
+		
+			
+<li><a href="/2012/09">September 2012</a> <span class="blue">(2)</span></li>
+
+			
+		
+	
+
+	
+	
+	
+	
+	
+	
+
+	
+
+	
+		
+			
+		
+	
+
+	
+	
+	
+	
+	
+	
+
+	
+
+	
+		
+			
+<li><a href="/2012/08">August 2012</a> <span class="blue">(3)</span></li>
+
+			
+		
+	
+
+	
+	
+	
+	
+	
+	
+
+	
+
+	
+		
+			
+		
+	
+
+	
+	
+	
+	
+	
+	
+
+	
+
+	
+		
+			
+		
+	
+
+	
+	
+	
+	
+	
+	
+
+	
+
+	
+		
+			
+<li><a href="/2012/07">July 2012</a> <span class="blue">(5)</span></li>
+
+			
+		
+	
+
+	
+	
+	
+	
+	
+	
+
+	
+
+	
+		
+			
+		
+	
+
+	
+	
+	
+	
+	
+	
+
+	
+
+	
+		
+			
+		
+	
+
+	
+	
+	
+	
+	
+	
+
+	
+
+	
+		
+			
+		
+	
+
+	
+	
+	
+	
+	
+	
+
+	
+
+	
+		
+			
+		
+	
+
+	
+	
+	
+	
+	
+	
+
+	
+
+	
+		
+			
+<li><a href="/2012/06">June 2012</a> <span class="blue">(3)</span></li>
+
+			
+		
+	
+
+	
+	
+	
+	
+	
+	
+
+	
+
+	
+		
+			
+		
+	
+
+	
+	
+	
+	
+	
+	
+
+	
+
+	
+		
+			
+		
+	
+
+	
+	
+	
+	
+	
+	
+
+	
+
+	
+		
+			
+<li><a href="/2012/05">May 2012</a> <span class="blue">(6)</span></li>
+
+			
+		
+	
+
+	
+	
+	
+	
+	
+	
+
+	
+
+	
+		
+			
+		
+	
+
+	
+	
+	
+	
+	
+	
+
+	
+
+	
+		
+			
+		
+	
+
+	
+	
+	
+	
+	
+	
+
+	
+
+	
+		
+			
+		
+	
+
+	
+	
+	
+	
+	
+	
+
+	
+
+	
+		
+			
+		
+	
+
+	
+	
+	
+	
+	
+	
+
+	
+
+	
+		
+			
+		
+	
+
+	
+	
+	
+	
+	
+	
+
+	
+
+	
+		
+			
+<li><a href="/2012/03">March 2012</a> <span class="blue">(3)</span></li>
+
+			
+		
+	
+
+	
+	
+	
+	
+	
+	
+
+	
+
+	
+		
+			
+		
+	
+
+	
+	
+	
+	
+	
+	
+
+	
+
+	
+		
+			
+		
+	
+
+	
+	
+	
+	
+	
+	
+
+	
+
+	
+		
+			
+<li><a href="/2012/02">February 2012</a> <span class="blue">(1)</span></li>
+
+			
+		
+	
+
+	
+	
+	
+	
+	
+	
+
+	
+
+	
+		
+			
+<li><a href="/2012/01">January 2012</a> <span class="blue">(2)</span></li>
+
+			
+		
+	
+
+	
+	
+	
+	
+	
+	
+
+	
+
+	
+		
+			
+		
+	
+
+	
+	
+	
+	
+	
+	
+
+	
+
+	
+		
+
+<li><a href="/2011/11">November 2011</a> <span class="blue">(1)</span></li>
+
+		
+	
+
+	
+	
+	
+	
+	
+	
+
+	
+
+	
+		
+			
+<li><a href="/2011/10">October 2011</a> <span class="blue">(1)</span></li>
+
+			
+		
+	
+
+	
+	
+	
+	
+	
+	
+
+	
+
+	
+		
+			
+<li><a href="/2011/09">September 2011</a> <span class="blue">(1)</span></li>
+
+			
+		
+	
+
+	
+	
+	
+	
+	
+	
+
+	
+
+	
+
+	
+
+
+
+
+
+ 
+ </ul>
+
+                </div>
+
+                <!--Start left content -->
+
+                <div id="resultsDiv" class="DocumentsWrap"></div>
+                <div id="pageContent" class="DocumentsWrapRight">
+                    <h1 class="pageTitle">Introducing The Cloudify Player</h1>
+					 
+					  <span class="blogPostInfo">Posted By: <a href="#">Uri Cohen</a>  on May 15, 2013  
+					  </span>
+					  <br/><br/><br/>
+					 
+                    <p>This Monday we&#8217;re launching the <a href="http://www.cloudifysource.org/cloudifyRecipeCatalog.html" class="newwindow">Cloudify online recipe catalog</a> and the Cloudify Player, an embeddable, simple to use JavaScript widget that allows users to launch any Cloudify recipe on the cloud from within any web page, with a single click.</p>
+<p>The idea behind it is simple: visit a web page, click the play button, and voila, you have an application or an open source framework up and running on the cloud, available for you to play and work with.</p>
+<p>The Cloudify Player mimics a  &#8220;YouTube-like&#8221;  user experience, in which applications or frameworks are &#8220;played&#8221; in a similar way to how you would play a video on YouTube.</p>
+<p>Users can browse applications from a public catalog, share them or embed the player itself in their own blog or website.</p>
+<p>By default, you&#8217;re not even required to use any cloud credentials. GigaSpaces, in cooperation with <a href="http://www.hpcloud.com" class="newwindow">HP Cloud Services</a>, will take care of allocating the resources for you, and give you a time limited trial to test drive the application or project you&#8217;ve chosen.</p>
+<p>If you want to deploy the application or project into your own account, and not constrain yourself to the time and capacity limits of the free-trial mode, just type in your own <span class="caps">HPCS</span> credentials and easily deploy to your account exactly the same way.</p>
+<h2>Why We Built It</h2>
+<p>So you&#8217;re probably asking what made us create it. You can read the detailed explanation in <a href="http://natishalom.typepad.com/nati_shaloms_blog/2013/05/using-the-cloudify-player-as-an-open-source-framework-for-building-your-own-cloud-application-marketplace-on-openstack.html" class="newwindow">Nati Shalom&#8217;s post</a>, but in short, our motivation for building the Cloudify Player is twofold:</p>
+<ol>
+	<li>Give open source project owners and framework developers an incentive to create Cloudify recipes and improve existing ones, by allowing them to let users try out their stuff without having to download, configure or install anything. This can be very useful since setting things is not very trivial in many cases. That&#8217;s why we made the player itself embeddable in any web page and &#8220;skinnable,&#8221; so that the project owners can use it in their own websites without having to send their users to other websites.</li>
+	<li>Let people interested in Cloudify give it a test drive on the cloud, again without installing or setting up anything. By providing as many recipes as possible available right out of the CloudifySource community website, we&#8217;re making sure that most users will actually be able to test drive frameworks that they use in their environment.</li>
+</ol>
+<h2>How it Works</h2>
+<p>The Cloudify Player is an open source project, which is implemented using the Play framework and uses Cloudify as a foundation. What happens under the hood is that the player communicates with a Play Framework application on the server side. This app manages a pool of VMs deployed on the cloud (in this case HPCloud) and &#8220;bootstrapped&#8221; with a running Cloudify manager. Whenever a user &#8220;plays&#8221; a recipe, the server borrows a VM from the free trial pool, connects to the manager running on it over <span class="caps">REST</span>, and issues the recipe installation command. After 30 &#8211; 60 seconds, you have a running app or framework, available for you to try out for limited time period.</p>
+<p>For users using their own cloud credentials, this mechanism is a bit different &#8211; they are allocated their own Cloudify management server, which then installs the recipes in production mode, with as many hosts and resources as needed (and obviously with no time limit).</p>
+<h2>Can I Set Up My Own Player?</h2>
+<p>If you would like to set up your own player and embed it in your website or blog, things are quite simple. All you have to do is follow the following steps:</p>
+<ol>
+	<li>Create a Cloudify recipe for your project / framework / application of choice (make sure to check our recipe repository first to see if doesn&#8217;t exist already). If you already have a Chef cookbook or Puppet manifest, you can also use the Cloudify integration for one of these frameworks and define the recipe to invoke one of these tools.</li>
+	<li>Register a new widget at <a href="http://launch.cloudifysource.org" class="newwindow">http://launch.cloudifysource.org</a>.</li>
+	<li>Copy the embed code and paste into your web page of choice.</li>
+</ol>
+<p>Click on the image below to see how this is done:<br />
+<a href="http://www.youtube.com/watch?v=Y9vEXPewzTw" rel="Y9vEXPewzTw" class="video fancybox-media"><img src="/images/widget201.png" alt="pic is missing" /></a></p>
+<p>That&#8217;s about it. Your users can now launch your recipe with a single click, using the machine pool provided by HPCloud and GigaSpaces or their own <span class="caps">HPCS</span> credentials!</p>
+<p>If you want your project included in our cloudifysource.org catalog, just drop us a note at info at cloudifysource.org and we&#8217;ll take it from there.</p>
+<h4>Can I Set Up My Own &#8220;Player Server&#8221; and Catalog?</h4>
+<p>If you&#8217;re into doing it on your own, you can grab the <a href="http://github.com/CloudifySource/cloudify-widget" class="newwindow">source code</a> from github, build the project and install it on your own environment. Check the <a href="https://github.com/CloudifySource/cloudify-widget/wiki" class="newwindow">project&#8217;s wiki pages</a> on github for more details.</p>
+<p>By setting up your own server, you will maintain full control over which frameworks and apps will be included in your catalog, how long users can trial the software, and even the look and feel for the web interface (we&#8217;ve made it as extensible as possible).</p>
+<h4>If I Have My Own Player Server Setup, Can I Track My Users?</h4>
+<p>Another nice side-benefit of having your own player is that you&#8217;re now able to get deeper insights into what your users prefer most and how they&#8217;re using the catalog and individual entries in it. The player itself contains a user tracking layer (completely anonymous, so your users don&#8217;t have to worry). We chose <a href="http://www.mixpanel.com" class="newwindow">MixPanel</a> to do the tracking for the current setup, but you can easily implement your own tracking layer using some hooks in the source code (read all about it in the <a href="https://github.com/CloudifySource/cloudify-widget/wiki" class="newwindow">project wiki</a>). If you&#8217;re deploying your server, this tracking module allows you to tell the activity of users, what catalog entries they find most popular, if they bother at all to stick till the end of the trial, and even what other actions they&#8217;re taking after the trial.</p>
+<p><img src="/images/trackusers.png" alt="" /></p>
+<h2>What About Other Clouds?</h2>
+<p>Currently, the server is implemented using <a href="http://www.jclouds.org" class="newwindow">jclouds</a> and uses the <a href="http://www.jclouds.org/documentation/quickstart/openstack/" class="newwindow">jclouds OpenStack <span class="caps">API</span></a> to deploy on HPCloud. However it&#8217;s quite easy to tweak it to use other clouds instead, since all it does is allocate and decommission VMs, which is quite straightforward in all IaaS APIs. If you&#8217;re intending to use an <a href="http://www.openstack.org" class="newwindow">OpenStack</a> based cloud (such as <a href="http://www.rackspace.com" class="newwindow">Rackspace</a> or <a href="http://www.ibm.com/cloud-computing/us/en/iaas.html" class="newwindow"><span class="caps">IBM</span> SmartCloud</a>), it&#8217;s a mere configuration change. For other cloud APIs, you&#8217;ll have to do some coding (we&#8217;ll soon release directions for that in the project wiki). In future releases of the server, we&#8217;ll have this integration baked right in so you don&#8217;t have to do anything but configure your cloud credentials for this.</p>
+<h2>Wrap Up</h2>
+<p>I hope I managed to give you a good overview about this exciting new project that we&#8217;re launching. Whether you&#8217;re an open source framework developer, an application developer who wants to test drive new tools and frameworks, or are just generally interested in Cloudify, the Cloudify Player is a quick and elegant way for you to test drive things with the smallest amount of effort.</p>
+                    <div id="disqus_thread"></div>
+<script type="text/javascript">
+    /* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
+    var disqus_shortname = 'cloudifysource'; // required: replace example with your forum shortname
+    var disqus_identifier = '/2013/05/15/introducing_the_cloudify_player.html';
+
+    /* * * DON'T EDIT BELOW THIS LINE * * */
+    (function() {
+        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+        dsq.src = 'http://' + disqus_shortname + '.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="http://disqus.com" class="dsq-brlink">blog comments powered by <span class="logo-disqus">Disqus</span></a>
+
+                </div>
+
+                <div class="clear"></div>
+            </div>
+        </div>
+
+        <!--Start pagination -->
+
+        <div class="clear"></div>
+
+        <!--Start Footer -->
+
+        <div class="footer">
+    <!--<ul class="footerLeftMenu">
+        <li class="footerli"><a href="#">About GigaSpaces</a></li>
+        <li class="footerli"><a href="#">Contact Us</a></li>
+    </ul> -->
+    <ul class="footerRightMenu">
+        <li class="footerli">Copyright © 2012 GigaSpaces. All rights reserved.</li>
+        <li class="footerli"><a href="/about_us">About Us</a></li>
+        <li class="footerli">|</li>
+        <li class="footerli"><a href="/terms_of_use">Terms of Use</a></li>
+        <li class="footerli">|</li>
+        <li class="footerli"> <a href="/privacy_policy">Privacy Policy</a></li>
+        <li class="footerli">|</li>
+        <li class="footerli"> <a href="http://www.gigaspaces.com" target="_blank">GigaSpaces.com</a></li>
+        <li class="footerli">|</li>
+        <li class="footerli"> <a href="http://www.gigaspaces.com/cloudify-go-pro" target="_blank">PRO Support Packages</a></li>
+
+
+    </ul> 
+    <ul class="footerSocialMenu">
+        <li class="footerFb"><a href="https://www.facebook.com/GigaSpaces?sk=app_201742856511228" target="_blank"></a></li>
+        <li class="footerRss"><a href="/atom.xml" target="_blank"></a></li>
+        <li class="footerTwitt"><a href="http://www.twitter.com/cloudifysource" target="_blank"></a></li>
+        <li class="footerYt"><a href="http://www.youtube.com/cloudifysource" target="_blank"></a></li>
+        <li class="footerMell"><a alt="Contact-us" title="Contact-us" href="mailto:info@cloudifysource.org?Contact-us from cloudifysource website" target="_blank"></a></li>
+        <li class="footerTumblr"><a href="http://cloudifysource.tumblr.com" target="_blank"></a></li>
+    </ul>
+</div>
+
+<script type="text/javascript" language="javascript">llactid=12206</script>
+<script type="text/javascript" language="javascript" src="http://t6.trackalyzer.com/trackalyze.js"></script> 
+
+
+
+    </div>
+    <!--End site wrapper -->
+
+
+</div>
+<!--End site bg top wrapper -->
+</body>
+</html>
