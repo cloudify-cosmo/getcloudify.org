@@ -1,0 +1,64 @@
+---
+layout: blogpost
+title: It's Time to Play with Cloudify
+image: tamir.jpg
+author: Tamir Korem
+tags: 
+ - Cloudify
+ - Play
+ - MySQL 
+---
+
+h2. The Play framework
+
+*Play framework* is an open source web application framework, written in Scala and Java, which follows the model-view-controller architectural pattern. 
+It aims to optimize developer productivity by using convention over configuration, hot code reloading and display of errors in the browser.
+
+The moto of "(newwindow)Play framework":http://www.playframework.org/ is :  *The Play framework makes it easier to build web applications with Java & Scala.*
+
+Play is based on a lightweight, stateless, web-friendly architecture and features predictable and minimal resource consumption (CPU, memory, threads) for highly-scalable applications - thanks to its reactive model, based on Iteratee IO. 
+
+h2. The Play Recipe.
+
+Well, we've just created a recipe that enables users to install the Play framework *on a cloud* with Cloudify and obviously deploy their applications on clouds' VM.
+
+In this recipe, we also enable users to connect their Play application to any DB, either with Cloudify, or by specifying an external DB URL.
+
+In our example recipe, we deploy a slighly modified Play Sample Application named: "(newwindow)computer-database":http://www.playframework.org/documentation/2.0.1/Samples.
+We use our built-in "(newwindow)MySQL recipe":https://github.com/CloudifySource/cloudify-recipes/tree/master/services/mysql (mysql) recipe and also our "(newwindow)Apache load balancer":https://github.com/CloudifySource/cloudify-recipes/tree/master/services/apacheLB (apacheLB) and the computer-database application connects to both of them and uses them almost seamlessly.
+
+We've also added several useful "(newwindow)custom commands":/guide/2.1/developing/custom_commands : 
+* *replace* - which enables users to replace a string in a file (relative to play home folder).
+ - Usage : @invoke play replace all|first origString newString relativePath@
+* *cmd* - which enables users to invoke *any* Play framework command line and up to 3 arguments. 
+ - Usage : @invoke play cmd nameOfTheCommand [arg1] [arg2] [arg3]@
+* *updateApp* - which enables users to update their application
+ - Usage : @invoke play updateApp http://www.mynewapplication.zip@
+
+ <br/>
+ 
+Cloudify enables you to develop, deploy, compile, package and monitor your application from your desktop even though your Play framework environment and your Play application are on a cloud.
+
+As usual with Cloudify - It works on *any cloud !!!* 
+
+Here's a screenshot of our Web UI on Amazon EC2 (it's also been tested on OpenStack)  : 
+<img src="/images/play203.jpg" />
+
+h2. Test the application under load
+
+In order to test your application under load, you can use the apacheLB "(newwindow)load":https://github.com/CloudifySource/cloudify-recipes/blob/master/services/apacheLB/README.md#load-testing custom command.
+The following will fire 45000 requests on http://LB_IP_ADDRESS:LB_PORT/computers with 300 concurrent requests each time:
+ *invoke apacheLB load 45000 300 computers*
+
+h2. One more thing for the "road"
+
+We've also added "(newwindow)scaling rules":/guide/2.1/developing/scaling_rules so that your Play application can scale out automatically.
+If the CPU usage is higher than a certain threshold, Cloudify allocates a new machine on the cloud and on it, Cloudify installs the Play framework and deploys the computer-database or any other Play application.
+Once the application is up and running on the new machine, Cloudify registers this new VM to the Apache load balancer.
+
+
+
+It all happens "out of the box" with Cloudify.
+
+
+Check out the "(newwindow)computers":https://github.com/CloudifySource/cloudify-recipes/tree/master/apps/computers recipe.
