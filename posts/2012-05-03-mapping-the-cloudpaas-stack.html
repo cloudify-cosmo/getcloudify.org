@@ -1,0 +1,41 @@
+---
+layout: blogpost
+title: Mapping the Cloud/PaaS Stack
+image: nati.png
+author: Nati Shalom
+tags: 
+ - Cloud
+ - PaaS Stack
+---
+
+<div xmlns="http://www.w3.org/1999/xhtml">
+                <p>Cloud is evolving at an incredible pace, changing almost every aspect of our industry. It&rsquo;s only natural then, that with this change also comes a continuous evolution of how we classify and categorize the various components of the cloud stack.</p>
+                <p>In earlier days, it was enough to draw the lines between IaaS, PaaS, and SaaS, and while this categorization is still very handy, we are beginning to see the lines between these categories start to blur. On the one hand, we see more IaaS providers starting to move up the stack, and on the other hand, we are seeing new categories such as DevOps gaining popularity and bridging the gaps between the IaaS and the PaaS layers.</p>
+                <p>&nbsp;</p>
+                <p><a href="http://www.saasblogs.com/images/uploads/2008/12/cloud_stack.gif"><img alt="" height="313" src="http://natishalom.typepad.com/cloud_stack-1.gif" style="margin: 5px;" width="420" /></a></p>
+                <p>I was recently asked to draw a map of how I see the current cloud stack. This ended up being an interesting exercise. To make things simpler I decided to focus on the IaaS/PaaS&nbsp;piece, both because&nbsp;this is my area of expertise,&nbsp;and also because IMO this is where many interesting developments are taking place. I ended up with the diagram below, which I thought would be worth sharing in order to get feedback and different perspectives.</p>
+                <p>It&rsquo;s important to note, that this diagram is not based on any scientific scoring of different products in the market. I&#39;ll leave that part to the analysts. The specific products I chose to use are only there to illustrate and support my analysis of the components in the stack and where they map to within each category.</p>
+                <p><strong>What&#39;s Driving the Cloud Stack?</strong></p>
+                <p>The two main (and often conflicting) driving forces behind the evolution of the cloud stack are <em>Productivity</em> and <em>Control</em>. As cloud started to emerge it was <strong>productivity</strong> that took center stage, often by giving up almost completely&nbsp;on the level of <strong>control</strong>. As the industry started to mature we started to see an evolution where we could have various degrees of tradeoffs between these two driving forces. A good indicator of this, is the rise of DevOps and Private Clouds. We could also see the new open source movement as yet another major step in that direction - the most notable one is OpenStack, and the recent Citrix announcement about the moving of Cloud Stack into the Apache Foundation.</p>
+                <p>We could also see similar movement happening on the PaaS layer, where VMware launched Cloud Foundry as both a self-service PaaS for development productivity, and as an open source project to provide users with more control.&nbsp;<a href="http://www.cloudifysource.org">Cloudify</a>&nbsp;takes similar yet more explicit moves in that direction by bringing DevOps and PaaS together, in addition to making it open source.</p>
+                <p>&nbsp;</p>
+                <p style="text-align: left;"><a href="http://natishalom.typepad.com/.a/6a00d835457b7453ef016765fadad2970b-pi" style="display: inline;"><img width="600" height="360" alt="Screen Shot 2012-05-01 at 12.27.40 PM" border="0" src="http://natishalom.typepad.com/.a/6a00d835457b7453ef016765fadad2970b-800wi" title="Screen Shot 2012-05-01 at 12.27.40 PM" /></a><br />
+                                &nbsp;</p>
+                <p><strong>Mapping the PaaS Stack</strong></p>
+                <p><a href="http://www.linkedin.com/in/gevaperry">Geva Perry</a>&nbsp;wrote a good summary mapping the current Java PaaS players in his post&nbsp;<a href="http://t.co/gB8n2Zo4">Listing the Java PaaS Public and Private Clouds</a>&nbsp;. Geva chose to classify the different players based on their private/public cloud position and language support (Java in this particular case). Obviously the correlation behind public/private cloud and productivity/control is fairly close, so I can see where he was coming from. While this makes a lot of sense, I believe that it&rsquo;s not accurate enough as there are still solutions that work on both private and public clouds and are not limited to just Java - Cloudify included. So is there a better way to classify the PaaS providers?</p>
+                <p>Here is my suggestion:</p>
+                <p>I would classify the PaaS providers based on those who focus on delivering PaaS through a self-service portal I&rsquo;ll refer to them as&nbsp;<strong>PaaS service providers,</strong>&nbsp;where they assume full control over the underlying infrastructure and own the entire operation of your application - this is where I would put GAE, Heroku etc. Next will be&nbsp; those who gives you the tools to build your own PaaS on private or public clouds, I&rsquo;ll refer to them as&nbsp;<strong>PaaS stack providers</strong>&nbsp;- this is where Cloudify and I believe, Cloud Foundry and Stackato also fit in.</p>
+                <p>The second sub-category of classification would be on the level of openness and control i.e. open source, language support, cloud environment support, DevOps support and such.</p>
+                <p>In any case, we can easily get into a complex matrix of features/mapping for even more fine-grained classification but this far beyond the scope of this post which is merely drawing a rough map rather than providing a complete competitive analysis.</p>
+                <p><strong>How would you categorize the Cloud/PaaS Stack?</strong></p>
+                <p>As I noted earlier, this is just my own personal view on the subject. I hope that this will spark an interesting debate in which we may either come out smarter, or possibly even more confused. :)</p>
+                <p><strong><br />
+                                </strong></p>
+</div>
+
+
+
+
+        
+
+
