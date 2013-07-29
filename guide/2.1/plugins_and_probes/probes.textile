@@ -1,0 +1,57 @@
+---
+layout: default
+title: Using Scripted Probes
+category: Plugins and Probes
+publish: true
+abstract: Describes the use of Scripted probes for monitoring service configuration, performance, and availability
+pageord: 100
+---
+
+This topic describes the use of *Scripted* probes for monitoring service configuration, performance, and availability.
+
+h2. Introduction
+
+Scripted probes are Groovy closures described in the "lifecycle":../developing/lifecycle_events section of a service descriptor file that enable you to monitor service configuration, performance, and availability. They are designed to provide a simple mechanism for creating probes using code snippets.
+
+h2. Monitoring using Configuration Probes
+
+Cloudify enables you to monitor service configuration metrics using different application and tier APIs such as JMX, JDBC, REST, CLI, etc. To implement them, simply add the relevant @details@ closure (a reserved closure name) returning a @Map@ of @String@ keys containing the metric attribute name and it's numeric value.
+
+The following example demonstrates how to monitor JBoss configuration attributes using a JMX probe.
+<script src="https://gist.github.com/1767179.js?file=details_probe.groovy"></script>
+
+h2. Monitoring using Performance Probes
+
+Cloudify enables you to monitor performance metrics using different application and tier APIs such as JMX, JDBC, REST, CLI, etc. To implement them, simply add the relevant @monitors@ closure (a reserved closure name) returning a @Map@ of @String@ keys containing the metric attribute name and it's numeric value.
+
+The following example demonstrates how to monitor Tomcat performance metrics using a JMX probe.
+<script src="https://gist.github.com/1767183.js?file=monitoring_probe.groovy"></script>
+
+h2. Monitoring using Availability Probes
+
+Before Cloudify starts a service that is dependent on other services, it checks the availability of these services by using start detection (@startDetection@) probes to determine whether they are running. Similarly, to ensure SLAs are adhered to, Cloudify uses stop detection (@stopDetection@) probes to monitor whether services have crashed or hung, thus triggering the appropriate action.
+
+You can customize these probes, either at the platform or at the application level, to detect unresponsive components of your application or infrastructure.
+
+h3(#start). The Start Detection Probe
+
+The @startDetection@ probe is a groovy closure that returns a boolean value, @true@ indicating that the service instance is running and hence deemed to be "started". The probe is invoked after the successful completion of the service's lifecycle @start@ event. If the probe fails to detect the running service instance, it periodically (@startDetectionIntervalSecs@, default: 1 second) retries until it times out (@startDetectionTimeoutSecs@, default: 90 seconds) as described in the service recipe. If all retries fail, the service instance is uninstalled.
+
+The following example demonstrates how to detect that a service instance is running by listening on ports 3667 and 3668.
+<script src="https://gist.github.com/1767188.js?file=start_probe.groovy"></script>
+
+The following example demonstrates how to detect that a MySQL service instance is running by checking that a specific table exists in the application schema.
+<script src="https://gist.github.com/2835820.js"> </script>
+
+h3(#stop). The Stop Detection Probe
+
+The @stopDetection@ probe is a groovy closure that returns a boolean value, @true@ indicating that the service instance is not running and hence deemed to be "stopped". The probe is invoked after the service instance is deemed to be "started". The probe is run periodically (every 5 seconds), and if it detects a stopped service instance, it attempts to restart it or to install a new instance.
+
+<h4 class="impt">When restarting a stopped service instance, Cloudify invokes the @stop@ event followed by the @start@ event as described in the service recipe.</h4>
+
+The following example demonstrates how to detect that a service instance is not running by listening on port 7777.
+<script src="https://gist.github.com/2836172.js"> </script>
+
+h2. See Also
+
+* "Using Plugin probes":../plugins_and_probes/develop_your_plugin
