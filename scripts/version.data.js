@@ -44,6 +44,10 @@ var guide = {
 		'faq':{
 			'faq':true
 		},
+		'integrations':{
+			'chef_tutorial':true,
+			'cloudify_chef_lifecycle_event_handlers':true
+		},
 		'monitoring':{
 			'monitoring_app_post_deploy':true,
 			'the_web_management_console':true
@@ -141,7 +145,9 @@ var guide = {
 			'faq':true
 		},
 		'integrations':{
-			'chef_documentation':true
+			'chef_documentation':true,
+			'chef_tutorial':true,
+			'cloudify_chef_lifecycle_event_handlers':true
 		},
 		'monitoring':{
 			'monitoring_app_post_deploy':true,
@@ -250,6 +256,8 @@ var guide = {
 		},
 		'integrations':{
 			'chef_documentation':true,
+			'chef_tutorial':true,
+			'cloudify_chef_lifecycle_event_handlers':true,
 			'puppet_documentation':true
 		},
 		'monitoring':{
@@ -365,6 +373,8 @@ var guide = {
 		},
 		'integrations':{
 			'chef_documentation':true,
+			'chef_tutorial':true,
+			'cloudify_chef_lifecycle_event_handlers':true,
 			'puppet_documentation':true
 		},
 		'monitoring':{
@@ -481,6 +491,8 @@ var guide = {
 		},
 		'integrations':{
 			'chef_documentation':true,
+			'chef_tutorial':true,
+			'cloudify_chef_lifecycle_event_handlers':true,
 			'puppet_documentation':true
 		},
 		'monitoring':{

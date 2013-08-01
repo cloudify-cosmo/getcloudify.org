@@ -11,7 +11,7 @@ pageord: 200
 
 Cloudify 2.2 (starting from milestone 2) supports the "Opscode Chef":http://wiki.opscode.com/display/chef/Recipes platform as an additional method of conveniently deploying and configuring application services.
 Chef provides a powerful multi-platform framework for configuring operating systems and services. It complements Cloudify recipes by handling the scope of intra-machine configurations. Using Chef, the lifecycle of services can be simplified as Chef takes care of keeping service configurations up-to-date with current specifications as defined by roles and cookbooks.
-Before you proceed, make sure you are familiar with the basic concepts of Chef. For information, see "Chef Basics":http://wiki.opscode.com/display/chef/Chef+Basics.
+Before you proceed, make sure you are familiar with the basic concepts of Chef. For information, see "(newwindow)Chef Basics":http://wiki.opscode.com/display/chef/Chef+Basics.
 In order to use Chef cookbooks for service installation, Cloudify provides a configurable base Chef recipe that does most of the Chef bootstrapping work. Typically you will only need to extend this recipe and take care of the pre and post deployment phases that Chef doesn't handle.
 
 Sections of the page:
@@ -43,15 +43,15 @@ h2(#using). Using Chef with Cloudify
 
 The next sections of this guide assume that you have Cloudify installed and that you have "bootstrapped a Cloudify environment":../bootstrapping/bootstrapping_process, ready to install an application. For a quick introduction to setting up a Cloudify cloud, see Cloudify's "Quick Start Guide":../qsg/quick_start_guide_helloworld.
 
-h4(info). If you'd like to use Cloudify for installing a Chef server, and using 2.2 miletone 4 or lower, please make sure to use a Ubuntu 11.10 or 12.04 Cloud Driver template, since the Chef server recipe has only been certified for Ubuntu at this point. You can find such a template for Amazon ec2 in the "Cloudify cloud drivers repo on Github":https://github.com/CloudifySource/cloudify-cloud-drivers
+h4(info). If you'd like to use Cloudify for installing a Chef server, and using 2.2 miletone 4 or lower, please make sure to use a Ubuntu 11.10 or 12.04 Cloud Driver template, since the Chef server recipe has only been certified for Ubuntu at this point.
 
 h3(#download). Downloading Cloudify Chef Recipes and Related Artifacts
 
 To obtain the basic Chef recipes provided by Cloudify, download the following files and save them under @<cloudifyRoot>/recipes/services@:
-* The base "@chef@" recipe:https://github.com/CloudifySource/cloudify-recipes/tree/master/services/chef
-* The "@chef-server@" recipe:https://github.com/CloudifySource/cloudify-recipes/tree/master/services/chef-server
+* The base "(newwindow)chef recipe":https://github.com/CloudifySource/cloudify-recipes/tree/master/services/chef
+* The "(newwindow)chef-server recipe":https://github.com/CloudifySource/cloudify-recipes/tree/master/services/chef-server
 
-In addition, download the "@simple mySQL example@":https://github.com/CloudifySource/cloudify-recipes/tree/master/services/chef-services/mysql-vanilla and save it to the same location.
+In addition, download the "(newwindow)simple mySQL example":https://github.com/CloudifySource/cloudify-recipes/tree/master/services/chef-services/mysql-vanilla and save it to the same location.
 
 h4(info). You can also clone the entire "CloudifySource recipes repository":https://github.com/CloudifySource/cloudify-recipes/ from Github using the command @git clone https://github.com/CloudifySource/cloudify-recipes.git@
 
