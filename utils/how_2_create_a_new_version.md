@@ -1,4 +1,3 @@
-
 # Creating A New Guide Version
 
 Here is all you need to know in order create a new guide version
@@ -53,6 +52,10 @@ So I had to do the following stuff manually...
 {% endif %}	              
 </pre></code>
 
+*Update scripts/search.js*
+--------------------------
+Make sure that the filtering regex (line 80 or so) filters all the versions except the latest GA. 
+
 *Generate*
 -----------------
 
@@ -62,4 +65,7 @@ So I had to do the following stuff manually...
 * Run copyGeneratedPosts.sh/bat (This script is in utils folder. It will take care of the blog posts/tags etc as well). 
 * Make sure that now _includes\contains toc2.2.html, toc2.3.html, toc2.4.html etc... . If these files do NOT exist, create them yourself...   
 * Push to GitHub. 
+* 
+
+
 
