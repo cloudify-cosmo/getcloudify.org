@@ -75,9 +75,13 @@ $('#search').keydown(function(e){
                             '</ul><div class="clear"></div>';
                         $(".documents").append(topicPaginationHtml);
                         var ul = $(".documents");
+                        //todo: update when version changes
                         for (var i = 0; i < results.length; i++) {
-                            // Creating a new result object and firing its toString method:
-                            ul.append(new result(results[i]) + '');
+                            if (!results[i].link.match(".*/guide/2\\.[2-5].*")) {
+                                // Creating a new result object and firing its toString method:
+                                ul.append(new result(results[i]) + '');
+                            }
+
                         }
                         ul.hide().appendTo(resultsDiv).fadeIn('slow');
                         resultsDiv.append('<div class="clear"></div>');
