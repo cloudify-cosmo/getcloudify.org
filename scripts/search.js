@@ -136,7 +136,7 @@ $('#search').keydown(function(e){
         var arr = [
             '<li class="reg">',
             '<a class="docTitle" href="',
-            r.link,
+            r.link.match(".*/guide/")?r.link.replace(".html", ""):r.link,
             '">'
             , r.title,
             '</a>',
