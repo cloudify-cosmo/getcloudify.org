@@ -1,0 +1,59 @@
+---
+layout: blogpost
+title: How to Install Heat and DevStack on Vagrant
+image: tamir.jpg
+author: Tamir Korem
+tags: 
+ - OpenStack
+ - Devstack
+ - Vagrant
+ - Cloud
+---		
+
+
+Here's a short post that explains how to install Heat and DevStack on Vagrant
+
+
+# Download and install "(newwindow)Vagrant":http://downloads.vagrantup.com (1.2.6).
+# Download an "(newwindow)Ubuntu box":http://files.vagrantup.com/precise64.box for the vagrant and place it in your Vagrant folder.
+# Download this Vagrantfile and place it in your Vagrant folder: 
+<script src="https://gist.github.com/tamirko/6182702.js"></script>
+# Start Vagrant and invoke the following commands:
+&nbsp;&nbsp;&nbsp;&nbsp;*vagrant box add heat precise64.box*
+&nbsp;&nbsp;&nbsp;&nbsp;*vagrant up*
+# Ssh to the newly created vm by invoking *vagrant ssh default* or via putty (login to 172.16.0.2. Use "vagrant" for both user and password).
+# In 172.16.0.2, invoke the following command to install Heat and DevStack on Vagrant:
+<script src="https://gist.github.com/tamirko/6182746.js"></script>
+In the following snippet, you can go over the script and see what it does: 
+<script src="https://gist.github.com/tamirko/6182732.js"></script>
+  
+h4(info). It's done, so let's have fun: 
+  
+h4. Get the nova flavor list
+
+<script src="https://gist.github.com/tamirko/6007677.js"></script>
+  
+h4. Get the nova image list
+
+<script src="https://gist.github.com/tamirko/6007700.js"></script>
+  
+h4. Create a private key for Heat 
+
+<script src="https://gist.github.com/tamirko/6007743.js"></script>  
+  
+h4. Create a new Heat stack
+
+<script src="https://gist.github.com/tamirko/6007769.js"></script>
+
+h4. Delete a Heat stack
+
+<script src="https://gist.github.com/tamirko/6007865.js"></script>
+
+Good luck !
+
+
+
+
+
+
+

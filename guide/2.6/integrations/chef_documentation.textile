@@ -9,7 +9,7 @@ pageord: 200
 
 
 
-Cloudify 2.2 (starting from milestone 2) supports the "Opscode Chef":http://wiki.opscode.com/display/chef/Recipes platform as an additional method of conveniently deploying and configuring application services.
+Cloudify supports the "Opscode Chef":http://wiki.opscode.com/display/chef/Recipes platform as an additional method of conveniently deploying and configuring application services.
 Chef provides a powerful multi-platform framework for configuring operating systems and services. It complements Cloudify recipes by handling the scope of intra-machine configurations. Using Chef, the lifecycle of services can be simplified as Chef takes care of keeping service configurations up-to-date with current specifications as defined by roles and cookbooks.
 Before you proceed, make sure you are familiar with the basic concepts of Chef. For information, see "(newwindow)Chef Basics":http://wiki.opscode.com/display/chef/Chef+Basics.
 In order to use Chef cookbooks for service installation, Cloudify provides a configurable base Chef recipe that does most of the Chef bootstrapping work. Typically you will only need to extend this recipe and take care of the pre and post deployment phases that Chef doesn't handle.
