@@ -901,7 +901,7 @@
 																<h2 id="REST_API-/service/applications/{applicationName}/services/{serviceName}/instances/{instanceId}/remove"><a class="permalink" title="Get a permanent link to this section" href="#REST_API-/service/applications/{applicationName}/services/{serviceName}/instances/{instanceId}/remove">/service/applications/{applicationName}/services/{serviceName}/instances/{instanceId}/remove</a></h2>				
 												<h3>HTTP Methods</h3>
 									<h4>DELETE</h4>
-											<p>Decrements the Processing unit instance number of the specified service.</p>
+											<p>Decrements the service instance number of the specified service.</p>
 																															<h3>Parameters</h3>
 						<table>
 							<tr>
@@ -1596,9 +1596,13 @@
 									Response to a GET on /service/controllers
 								</div>	
 								<div class="panelContent">
-										<pre class="code">Failed to generate the response body example out of the return value type.
-Return value type: java.util.Map.
-The exception caught was java.lang.IllegalArgumentException: Missing instantiation of class interface java.util.Map for generating response example.</pre>
+										<pre class="code">{
+  "status" : "Success",
+  "message" : "Operation completed successfully",
+  "messageId" : "operation_successfull",
+  "verbose" : null,
+  "response" : [ ]
+}</pre>
 								</div>
 							</div>
 																															<h4>DELETE</h4>
@@ -1618,9 +1622,13 @@ The exception caught was java.lang.IllegalArgumentException: Missing instantiati
 									Response to a DELETE on /service/controllers
 								</div>	
 								<div class="panelContent">
-										<pre class="code">Failed to generate the response body example out of the return value type.
-Return value type: java.util.Map.
-The exception caught was java.lang.IllegalArgumentException: Missing instantiation of class interface java.util.Map for generating response example.</pre>
+										<pre class="code">{
+  "status" : "Success",
+  "message" : "Operation completed successfully",
+  "messageId" : "operation_successfull",
+  "verbose" : null,
+  "response" : [ ]
+}</pre>
 								</div>
 							</div>
 																																	<h2 id="REST_API-/service/dump/machine/{ip}"><a class="permalink" title="Get a permanent link to this section" href="#REST_API-/service/dump/machine/{ip}">/service/dump/machine/{ip}</a></h2>				
@@ -1764,7 +1772,7 @@ The exception caught was java.lang.IllegalArgumentException: Missing instantiati
 																<h2 id="REST_API-/service/dump/processing-units"><a class="permalink" title="Get a permanent link to this section" href="#REST_API-/service/dump/processing-units">/service/dump/processing-units</a></h2>				
 												<h3>HTTP Methods</h3>
 									<h4>GET</h4>
-											<p>Get the dump of all the processing units.</p>
+											<p>Get the dump of all the services.</p>
 																															<h3>Parameters</h3>
 						<table>
 							<tr>
@@ -2437,16 +2445,14 @@ The exception caught was java.lang.IllegalArgumentException: Missing instantiati
 									<p>This controller is responsible for retrieving information about deployments. It is also the entry point for deploying
  services and application. <br>
  <br>
- The response body will always return in a JSON representation of the {@link Response} Object. 
- <br>
+ The response body will always return in a JSON representation of the {@link Response} Object. <br>
  A controller method may return the {@link Response} Object directly. in this case this return value will be used as
  the response body. Otherwise, an implicit wrapping will occur. the return value will be inserted into
  {@code Response#setResponse(Object)}. 
  other fields of the {@link Response} object will be filled with default values. <br>
  <h1>Important</h1> {@code @ResponseBody} annotations are not permitted. <br>
  <br>
- <h1>Possible return values</h1> 
- 200 - OK<br>
+ <h1>Possible return values</h1> 200 - OK<br>
  400 - controller throws an exception<br>
  500 - Unexpected exception<br>
  <br></p>
@@ -2498,6 +2504,97 @@ The exception caught was java.lang.IllegalArgumentException: Missing instantiati
 								</div>	
 								<div class="panelContent">
 										<pre class="code">response has no body</pre>
+								</div>
+							</div>
+																																	<h2 id="REST_API-/{version}/deployments/applications/{appName}/description"><a class="permalink" title="Get a permanent link to this section" href="#REST_API-/{version}/deployments/applications/{appName}/description">/{version}/deployments/applications/{appName}/description</a></h2>				
+												<h3>HTTP Methods</h3>
+									<h4>GET</h4>
+																															<h3>Parameters</h3>
+						<table>
+							<tr>
+								<th>Type</th>
+								<th>Name</th>
+								<th>Description</th>
+								<th>Mandatory</th>
+								<th>Parameter type</th>
+								<th>Default value</th>
+							</tr>
+															<tr>
+									<td>String</td>
+																			<td>appName</td>
+																												<td></td>
+																		<td>true</td>
+									<td>PathVariable</td>
+																			<td></td>
+																	</tr>
+													</table>
+																															<h3>Request</h3>
+							<div class="panel">
+								<div class="panelHeader">
+									Request body for a GET on /{version}/deployments/applications/{appName}/description
+								</div>
+								<div class="panelContent">
+									<pre class="code">request has no body</pre>
+								</div>
+							</div>
+																																											<h3>Response</h3>
+							<div class="panel">
+								<div class="panelHeader">
+									Response to a GET on /{version}/deployments/applications/{appName}/description
+								</div>	
+								<div class="panelContent">
+										<pre class="code">{
+  "status" : "Success",
+  "message" : "Operation completed successfully",
+  "messageId" : "operation_successfull",
+  "verbose" : null,
+  "response" : {
+    "servicesDescription" : [ {
+      "serviceName" : "service0",
+      "instanceCount" : 2,
+      "plannedInstances" : 2,
+      "instancesDescription" : [ {
+        "instanceName" : "petclinic.service0",
+        "instanceStatus" : "RUNNING",
+        "instanceId" : 0,
+        "hostName" : "build64A",
+        "hostAddress" : "192.168.9.18"
+      }, {
+        "instanceName" : "petclinic.service0",
+        "instanceStatus" : "RUNNING",
+        "instanceId" : 2,
+        "hostName" : "build64A",
+        "hostAddress" : "192.168.9.18"
+      } ],
+      "applicationName" : "petclinic",
+      "serviceState" : "STARTED",
+      "deploymentId" : null
+    }, {
+      "serviceName" : "service1",
+      "instanceCount" : 3,
+      "plannedInstances" : 3,
+      "instancesDescription" : [ {
+        "instanceName" : "petclinic.service1",
+        "instanceStatus" : "RUNNING",
+        "instanceId" : 1,
+        "hostName" : "build64A",
+        "hostAddress" : "192.168.9.18"
+      }, {
+        "instanceName" : "petclinic.service1",
+        "instanceStatus" : "RUNNING",
+        "instanceId" : 3,
+        "hostName" : "build64A",
+        "hostAddress" : "192.168.9.18"
+      } ],
+      "applicationName" : "petclinic",
+      "serviceState" : "STARTED",
+      "deploymentId" : null
+    } ],
+    "applicationName" : "petclinic",
+    "authGroups" : "myAuthGroup1,myAuthGroup2,myAuthGroup3",
+    "applicationState" : "STARTED"
+  }
+}</pre>
 								</div>
 							</div>
 																																	<h2 id="REST_API-/{version}/deployments/testrest"><a class="permalink" title="Get a permanent link to this section" href="#REST_API-/{version}/deployments/testrest">/{version}/deployments/testrest</a></h2>				
@@ -2559,15 +2656,15 @@ The exception caught was java.lang.IllegalArgumentException: Missing instantiati
 								</div>
 								<div class="panelContent">
 									<pre class="code">{
-  "applcationFileUploadKey" : "2d8a98b3-514b-4b14-9c89-a861a99a3d6e",
-  "applicationOverridesUploadKey" : "035b2e2e-78ed-43b8-8a45-dfa0c390a133",
-  "cloudOverridesUploadKey" : "0f974119-2e89-4ef7-ab0b-58878effa49b",
+  "applcationFileUploadKey" : "40e7c6fe-a367-4bc0-a111-9e0d6d2f6d78",
+  "applicationOverridesUploadKey" : "6207a65a-1d5f-49b2-ba4e-05684cf25be0",
+  "cloudOverridesUploadKey" : "413e10e7-9d85-45dc-82fb-9893cc812dea",
   "applicationName" : "petclinic",
   "authGroups" : "myAuthGroup",
   "debugMode" : "onError",
   "debugEvents" : "init,install",
   "timeoutInMillis" : 5,
-  "cloudConfigurationUploadKey" : "d1dbc533-56e2-4d6c-a019-5e00d099d9a7",
+  "cloudConfigurationUploadKey" : "a0fc1ebe-25c2-4cff-b9d6-0bf3617eaecf",
   "debugAll" : false,
   "selfHealing" : true
 }</pre>
@@ -2585,7 +2682,7 @@ The exception caught was java.lang.IllegalArgumentException: Missing instantiati
   "messageId" : "operation_successfull",
   "verbose" : null,
   "response" : {
-    "deploymentID" : "acf32dea-b1a7-4351-b1d3-0a7fd796d1e2"
+    "deploymentID" : "2e481202-e398-42e1-baa1-da74fc60784f"
   }
 }</pre>
 								</div>
@@ -2639,7 +2736,7 @@ The exception caught was java.lang.IllegalArgumentException: Missing instantiati
   "messageId" : "operation_successfull",
   "verbose" : null,
   "response" : {
-    "deploymentID" : "7728ff53-8aeb-400a-83f2-5920da8da5d2"
+    "deploymentID" : "6a4a3ad8-5e3d-47fb-9e20-4d154d85e186"
   }
 }</pre>
 								</div>
@@ -3172,6 +3269,100 @@ The exception caught was java.lang.IllegalArgumentException: Missing instantiati
 }</pre>
 								</div>
 							</div>
+																																	<h2 id="REST_API-/{version}/deployments/{appName}/service/{serviceName}/description"><a class="permalink" title="Get a permanent link to this section" href="#REST_API-/{version}/deployments/{appName}/service/{serviceName}/description">/{version}/deployments/{appName}/service/{serviceName}/description</a></h2>				
+												<h3>HTTP Methods</h3>
+									<h4>GET</h4>
+																															<h3>Parameters</h3>
+						<table>
+							<tr>
+								<th>Type</th>
+								<th>Name</th>
+								<th>Description</th>
+								<th>Mandatory</th>
+								<th>Parameter type</th>
+								<th>Default value</th>
+							</tr>
+															<tr>
+									<td>String</td>
+																			<td>appName</td>
+																												<td></td>
+																		<td>true</td>
+									<td>PathVariable</td>
+																			<td></td>
+																	</tr>
+															<tr>
+									<td>String</td>
+																			<td>serviceName</td>
+																												<td></td>
+																		<td>true</td>
+									<td>PathVariable</td>
+																			<td></td>
+																	</tr>
+													</table>
+																															<h3>Request</h3>
+							<div class="panel">
+								<div class="panelHeader">
+									Request body for a GET on /{version}/deployments/{appName}/service/{serviceName}/description
+								</div>
+								<div class="panelContent">
+									<pre class="code">request has no body</pre>
+								</div>
+							</div>
+																																											<h3>Response</h3>
+							<div class="panel">
+								<div class="panelHeader">
+									Response to a GET on /{version}/deployments/{appName}/service/{serviceName}/description
+								</div>	
+								<div class="panelContent">
+										<pre class="code">{
+  "status" : "Success",
+  "message" : "Operation completed successfully",
+  "messageId" : "operation_successfull",
+  "verbose" : null,
+  "response" : [ {
+    "serviceName" : "service3",
+    "instanceCount" : 3,
+    "plannedInstances" : 3,
+    "instancesDescription" : [ {
+      "instanceName" : "petclinic.service3",
+      "instanceStatus" : "RUNNING",
+      "instanceId" : 3,
+      "hostName" : "build64A",
+      "hostAddress" : "192.168.9.18"
+    }, {
+      "instanceName" : "petclinic.service3",
+      "instanceStatus" : "RUNNING",
+      "instanceId" : 5,
+      "hostName" : "build64A",
+      "hostAddress" : "192.168.9.18"
+    } ],
+    "applicationName" : "petclinic",
+    "serviceState" : "STARTED",
+    "deploymentId" : null
+  }, {
+    "serviceName" : "service4",
+    "instanceCount" : 3,
+    "plannedInstances" : 3,
+    "instancesDescription" : [ {
+      "instanceName" : "petclinic.service4",
+      "instanceStatus" : "RUNNING",
+      "instanceId" : 4,
+      "hostName" : "build64A",
+      "hostAddress" : "192.168.9.18"
+    }, {
+      "instanceName" : "petclinic.service4",
+      "instanceStatus" : "RUNNING",
+      "instanceId" : 6,
+      "hostName" : "build64A",
+      "hostAddress" : "192.168.9.18"
+    } ],
+    "applicationName" : "petclinic",
+    "serviceState" : "STARTED",
+    "deploymentId" : null
+  } ]
+}</pre>
+								</div>
+							</div>
 																																	<h2 id="REST_API-/{version}/deployments/{appName}/service/{serviceName}/instances/{instanceId}/attributes"><a class="permalink" title="Get a permanent link to this section" href="#REST_API-/{version}/deployments/{appName}/service/{serviceName}/instances/{instanceId}/attributes">/{version}/deployments/{appName}/service/{serviceName}/instances/{instanceId}/attributes</a></h2>				
 												<h3>HTTP Methods</h3>
 									<h4>GET</h4>
@@ -3497,7 +3688,7 @@ The exception caught was java.lang.IllegalArgumentException: Missing instantiati
   "messageId" : "operation_successfull",
   "verbose" : null,
   "response" : {
-    "instanceId" : 4,
+    "instanceId" : 2,
     "applicationName" : "petclinic",
     "serviceName" : "tomcat",
     "serviceInstanceName" : "petclinic.tomcat",
@@ -3514,9 +3705,9 @@ The exception caught was java.lang.IllegalArgumentException: Missing instantiati
       "Cloud Private IP" : "192.168.9.18",
       "GSC PID" : "4276",
       "Cloud Hardware ID" : "localcloud",
-      "Instance ID" : 4,
+      "Instance ID" : 2,
       "Machine ID" : "localcloud",
-      "Working Directory" : "D:\\gigaSpaces\\gigaspaces-cloudify\\work\\processing-units\\simpleApp_simple_4_1051025036\\ext",
+      "Working Directory" : "D:\\gigaSpaces\\gigaspaces-cloudify\\work\\processing-units\\simpleApp_simple_2_1051025036\\ext",
       "url" : null
     }
   }
@@ -3640,10 +3831,10 @@ The exception caught was java.lang.IllegalArgumentException: Missing instantiati
     "serviceName" : "tomcat",
     "appName" : "petclinic",
     "serviceInstanceMetricsData" : {
-      "instanceId" : 0,
+      "instanceId" : 4,
       "metrics" : {
-        "metric0" : "value0",
-        "metric1" : "value1"
+        "metric4" : "value4",
+        "metric5" : "value5"
       }
     }
   }
@@ -3704,7 +3895,7 @@ The exception caught was java.lang.IllegalArgumentException: Missing instantiati
   "response" : {
     "name" : "tomcat",
     "applicationName" : "petclinic",
-    "numberOfInstances" : 4,
+    "numberOfInstances" : 1,
     "instanceNames" : [ "petclinic.tomcat", "petclinic.tomcat", "petclinic.tomcat" ]
   }
 }</pre>
@@ -3857,16 +4048,16 @@ The exception caught was java.lang.IllegalArgumentException: Missing instantiati
     "serviceName" : "tomcat",
     "appName" : "petclinic",
     "serviceInstaceMetricsData" : [ {
-      "instanceId" : 0,
+      "instanceId" : 1,
       "metrics" : {
-        "metric0" : "value0",
+        "metric2" : "value2",
         "metric1" : "value1"
       }
     }, {
-      "instanceId" : 2,
+      "instanceId" : 1,
       "metrics" : {
         "metric2" : "value2",
-        "metric3" : "value3"
+        "metric1" : "value1"
       }
     } ]
   }
@@ -3876,8 +4067,8 @@ The exception caught was java.lang.IllegalArgumentException: Missing instantiati
 																																	<h2 id="REST_API-/{version}/deployments/{appName}/services/{serviceName}"><a class="permalink" title="Get a permanent link to this section" href="#REST_API-/{version}/deployments/{appName}/services/{serviceName}">/{version}/deployments/{appName}/services/{serviceName}</a></h2>				
 												<h3>HTTP Methods</h3>
 									<h4>POST</h4>
-											<p>Executes an install service request onto the grid.
- This method is not synchronous, it does not wait for the installation to complete.</p>
+											<p>Executes an install service request onto the grid. This method is not synchronous, it does not wait for the
+ installation to complete.</p>
 																															<h3>Parameters</h3>
 						<table>
 							<tr>
@@ -3920,10 +4111,10 @@ The exception caught was java.lang.IllegalArgumentException: Missing instantiati
 								</div>
 								<div class="panelContent">
 									<pre class="code">{
-  "serviceFolderUploadKey" : "8bf4a1f7-3253-4cad-b81f-ad897de44e5e",
-  "cloudConfigurationUploadKey" : "d082d2a4-5388-4069-a984-a9dc9a351dfa",
-  "cloudOverridesUploadKey" : "98b37ca7-27e4-45d5-8cb5-511cafd8e1c8",
-  "serviceOverridesUploadKey" : "7e0eecb2-015f-45b2-967e-6f689ba3328e",
+  "serviceFolderUploadKey" : "2093325a-7d93-439f-8eef-dfbecaa61b79",
+  "cloudConfigurationUploadKey" : "01c7c814-9bc4-431c-9bd1-0d9e33e33c3c",
+  "cloudOverridesUploadKey" : "e1328c42-d7a9-4539-8309-2bf7ff48005e",
+  "serviceOverridesUploadKey" : "8e38d978-533c-4a72-ad6f-501b578af319",
   "serviceFileName" : "myService.groovy",
   "authGroups" : "myAuthGroup",
   "selfHealing" : true,
@@ -3946,7 +4137,7 @@ The exception caught was java.lang.IllegalArgumentException: Missing instantiati
   "messageId" : "operation_successfull",
   "verbose" : null,
   "response" : {
-    "deploymentID" : "09997755-4a7d-46ad-8804-bf7fac22b1a5"
+    "deploymentID" : "64d1e2ee-86b4-4992-ace9-2ae9ffe710a3"
   }
 }</pre>
 								</div>
@@ -4009,7 +4200,7 @@ The exception caught was java.lang.IllegalArgumentException: Missing instantiati
   "messageId" : "operation_successfull",
   "verbose" : null,
   "response" : {
-    "deploymentID" : "9c87a47f-1f20-4b0a-890f-cd525f1c08d1"
+    "deploymentID" : "3a76c125-71fe-4e2c-a75a-66c4c072fe35"
   }
 }</pre>
 								</div>
@@ -4170,11 +4361,178 @@ The exception caught was java.lang.IllegalArgumentException: Missing instantiati
 										<pre class="code">response has no body</pre>
 								</div>
 							</div>
+																																	<h2 id="REST_API-/{version}/deployments/{deploymentId}/description"><a class="permalink" title="Get a permanent link to this section" href="#REST_API-/{version}/deployments/{deploymentId}/description">/{version}/deployments/{deploymentId}/description</a></h2>				
+												<h3>HTTP Methods</h3>
+									<h4>GET</h4>
+											<p>Retrieves a list of service descriptions belonging to a specific deployment.</p>
+																															<h3>Parameters</h3>
+						<table>
+							<tr>
+								<th>Type</th>
+								<th>Name</th>
+								<th>Description</th>
+								<th>Mandatory</th>
+								<th>Parameter type</th>
+								<th>Default value</th>
+							</tr>
+															<tr>
+									<td>String</td>
+																			<td>deploymentId</td>
+																												<td>The deployment id</td>
+																		<td>true</td>
+									<td>PathVariable</td>
+																			<td></td>
+																	</tr>
+													</table>
+																															<h3>Request</h3>
+							<div class="panel">
+								<div class="panelHeader">
+									Request body for a GET on /{version}/deployments/{deploymentId}/description
+								</div>
+								<div class="panelContent">
+									<pre class="code">request has no body</pre>
+								</div>
+							</div>
+																																											<h3>Response</h3>
+							<div class="panel">
+								<div class="panelHeader">
+									Response to a GET on /{version}/deployments/{deploymentId}/description
+								</div>	
+								<div class="panelContent">
+										<pre class="code">{
+  "status" : "Success",
+  "message" : "Operation completed successfully",
+  "messageId" : "operation_successfull",
+  "verbose" : null,
+  "response" : [ [ {
+    "serviceName" : "service2",
+    "instanceCount" : 1,
+    "plannedInstances" : 1,
+    "instancesDescription" : [ {
+      "instanceName" : "petclinic.service2",
+      "instanceStatus" : "RUNNING",
+      "instanceId" : 2,
+      "hostName" : "build64A",
+      "hostAddress" : "192.168.9.18"
+    }, {
+      "instanceName" : "petclinic.service2",
+      "instanceStatus" : "RUNNING",
+      "instanceId" : 4,
+      "hostName" : "build64A",
+      "hostAddress" : "192.168.9.18"
+    } ],
+    "applicationName" : "petclinic",
+    "serviceState" : "STARTED",
+    "deploymentId" : null
+  }, {
+    "serviceName" : "service3",
+    "instanceCount" : 2,
+    "plannedInstances" : 2,
+    "instancesDescription" : [ {
+      "instanceName" : "petclinic.service3",
+      "instanceStatus" : "RUNNING",
+      "instanceId" : 3,
+      "hostName" : "build64A",
+      "hostAddress" : "192.168.9.18"
+    }, {
+      "instanceName" : "petclinic.service3",
+      "instanceStatus" : "RUNNING",
+      "instanceId" : 5,
+      "hostName" : "build64A",
+      "hostAddress" : "192.168.9.18"
+    } ],
+    "applicationName" : "petclinic",
+    "serviceState" : "STARTED",
+    "deploymentId" : null
+  } ], [ {
+    "serviceName" : "service3",
+    "instanceCount" : 5,
+    "plannedInstances" : 5,
+    "instancesDescription" : [ {
+      "instanceName" : "petclinic.service3",
+      "instanceStatus" : "RUNNING",
+      "instanceId" : 3,
+      "hostName" : "build64A",
+      "hostAddress" : "192.168.9.18"
+    }, {
+      "instanceName" : "petclinic.service3",
+      "instanceStatus" : "RUNNING",
+      "instanceId" : 5,
+      "hostName" : "build64A",
+      "hostAddress" : "192.168.9.18"
+    } ],
+    "applicationName" : "petclinic",
+    "serviceState" : "STARTED",
+    "deploymentId" : null
+  }, {
+    "serviceName" : "service4",
+    "instanceCount" : 2,
+    "plannedInstances" : 2,
+    "instancesDescription" : [ {
+      "instanceName" : "petclinic.service4",
+      "instanceStatus" : "RUNNING",
+      "instanceId" : 4,
+      "hostName" : "build64A",
+      "hostAddress" : "192.168.9.18"
+    }, {
+      "instanceName" : "petclinic.service4",
+      "instanceStatus" : "RUNNING",
+      "instanceId" : 6,
+      "hostName" : "build64A",
+      "hostAddress" : "192.168.9.18"
+    } ],
+    "applicationName" : "petclinic",
+    "serviceState" : "STARTED",
+    "deploymentId" : null
+  } ], [ {
+    "serviceName" : "service0",
+    "instanceCount" : 3,
+    "plannedInstances" : 3,
+    "instancesDescription" : [ {
+      "instanceName" : "petclinic.service0",
+      "instanceStatus" : "RUNNING",
+      "instanceId" : 0,
+      "hostName" : "build64A",
+      "hostAddress" : "192.168.9.18"
+    }, {
+      "instanceName" : "petclinic.service0",
+      "instanceStatus" : "RUNNING",
+      "instanceId" : 2,
+      "hostName" : "build64A",
+      "hostAddress" : "192.168.9.18"
+    } ],
+    "applicationName" : "petclinic",
+    "serviceState" : "STARTED",
+    "deploymentId" : null
+  }, {
+    "serviceName" : "service1",
+    "instanceCount" : 4,
+    "plannedInstances" : 4,
+    "instancesDescription" : [ {
+      "instanceName" : "petclinic.service1",
+      "instanceStatus" : "RUNNING",
+      "instanceId" : 1,
+      "hostName" : "build64A",
+      "hostAddress" : "192.168.9.18"
+    }, {
+      "instanceName" : "petclinic.service1",
+      "instanceStatus" : "RUNNING",
+      "instanceId" : 3,
+      "hostName" : "build64A",
+      "hostAddress" : "192.168.9.18"
+    } ],
+    "applicationName" : "petclinic",
+    "serviceState" : "STARTED",
+    "deploymentId" : null
+  } ] ]
+}</pre>
+								</div>
+							</div>
 																																	<h2 id="REST_API-/{version}/deployments/{deploymentId}/events"><a class="permalink" title="Get a permanent link to this section" href="#REST_API-/{version}/deployments/{deploymentId}/events">/{version}/deployments/{deploymentId}/events</a></h2>				
 												<h3>HTTP Methods</h3>
 									<h4>GET</h4>
-											<p>Retrieves events based on deployment id. The deployment id may be of service or application.
- In the case of an application deployment id, all services events will be returned.</p>
+											<p>Retrieves events based on deployment id. The deployment id may be of service or application. In the case of an
+ application deployment id, all services events will be returned.</p>
 																															<h3>Parameters</h3>
 						<table>
 							<tr>
@@ -4242,6 +4600,61 @@ The exception caught was java.lang.IllegalArgumentException: Missing instantiati
 }</pre>
 								</div>
 							</div>
+																																	<h2 id="REST_API-/{version}/deployments/{operationId}/events/last"><a class="permalink" title="Get a permanent link to this section" href="#REST_API-/{version}/deployments/{operationId}/events/last">/{version}/deployments/{operationId}/events/last</a></h2>				
+												<h3>HTTP Methods</h3>
+									<h4>GET</h4>
+											<p>Returns the last event for a specific operation.</p>
+																															<h3>Parameters</h3>
+						<table>
+							<tr>
+								<th>Type</th>
+								<th>Name</th>
+								<th>Description</th>
+								<th>Mandatory</th>
+								<th>Parameter type</th>
+								<th>Default value</th>
+							</tr>
+															<tr>
+									<td>String</td>
+																			<td>operationId</td>
+																												<td>the operation ID</td>
+																		<td>true</td>
+									<td>PathVariable</td>
+																			<td></td>
+																	</tr>
+													</table>
+																															<h3>Request</h3>
+							<div class="panel">
+								<div class="panelHeader">
+									Request body for a GET on /{version}/deployments/{operationId}/events/last
+								</div>
+								<div class="panelContent">
+									<pre class="code">request has no body</pre>
+								</div>
+							</div>
+																																											<h3>Response</h3>
+							<div class="panel">
+								<div class="panelHeader">
+									Response to a GET on /{version}/deployments/{operationId}/events/last
+								</div>	
+								<div class="panelContent">
+										<pre class="code">{
+  "status" : "Success",
+  "message" : "Operation completed successfully",
+  "messageId" : "operation_successfull",
+  "verbose" : null,
+  "response" : {
+    "events" : [ {
+      "description" : "[127.0.0.1/127.0.0.1] - tomcat-1 INIT invoked",
+      "index" : 0
+    }, {
+      "description" : "[127.0.0.1/127.0.0.1] - tomcat-1 INIT completed, duration: 4.2 seconds",
+      "index" : 1
+    } ]
+  }
+}</pre>
+								</div>
+							</div>
 																																		<div class="header">
 				<h1>UploadController</h1>
 				<p class="excerpt">Mapping of URIs that begin with /{version}/upload</p>
@@ -4288,7 +4701,7 @@ The exception caught was java.lang.IllegalArgumentException: Missing instantiati
 									Request body for a POST on /{version}/upload/{fileName:.+}
 								</div>
 								<div class="panelContent">
-									<pre class="code">request has no body</pre>
+									<pre class="code">"file's content"</pre>
 								</div>
 							</div>
 																																											<h3>Response</h3>
@@ -4303,7 +4716,7 @@ The exception caught was java.lang.IllegalArgumentException: Missing instantiati
   "messageId" : "operation_successfull",
   "verbose" : null,
   "response" : {
-    "uploadKey" : "4ab56f8c-e348-4365-bb1e-28a71d78ac1d"
+    "uploadKey" : "16bf7d83-0e71-456f-92d9-ab19407f5da6"
   }
 }</pre>
 								</div>
