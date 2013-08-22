@@ -21,7 +21,8 @@ $(document).ready(function () {
             if (regexArray && regexArray.length > 1) {
                 return guideCxs[regexArray[1]];    
             }
-            if (href.match(".*/blog.*") || href.match(".*/20.*") || href.match(".*/page.*")) return cxBlog;
+            if (href.match(".*/blog.*") || href.match(".*/20.*") || href.match(".*/page.*") || href.match(".*/tags/.*")) 
+                return cxBlog;
             return cxEntireSite;
         }(),
         perPage:10, // A maximum of 10 is allowed by Google
