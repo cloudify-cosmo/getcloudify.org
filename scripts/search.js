@@ -9,7 +9,7 @@ $(document).ready(function () {
     }    
     var cxEntireSite = "005646302152591029507:wp1h0fve318";
 
-    $("#resultsDiv").hide();
+    $("resultsDiv").hide();
     var pageTitle = $(".pageTitle").text();
     var config = {
         apiURL:'https://www.googleapis.com/customsearch/v1',
