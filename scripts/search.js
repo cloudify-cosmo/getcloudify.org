@@ -1,11 +1,29 @@
 $(document).ready(function () {
+    var cxBlog = "005646302152591029507:ndo3tbbopl0";
+    var guideCxs = {
+        "2.2":"005646302152591029507:mb6a9za1aoa", 
+        "2.3":"005646302152591029507:zenlau0cpto", 
+        "2.5":"005646302152591029507:akzqpmzyauq", 
+        "2.6":"005646302152591029507:gsfwsaitfsa", 
+        "2.7":"005646302152591029507:eywmbetvnfu"
+    }    
+    var cxEntireSite = "005646302152591029507:wp1h0fve318";
 
-    $("resultsDiv").hide();
+    $("#resultsDiv").hide();
     var pageTitle = $(".pageTitle").text();
     var config = {
         apiURL:'https://www.googleapis.com/customsearch/v1',
         apiKey:'AIzaSyCR79snpFgr45ear_SBoqkjQaGa7FHYg4I', // Change this to your site
-        cx:'005646302152591029507:wp1h0fve318',
+        cx: function() {
+            href = window.location.href; 
+            var re = /.*\/guide\/(\d+\.\d+)\/.*/;
+            var regexArray = re.exec(href);
+            if (regexArray && regexArray.length > 1) {
+                return guideCxs[regexArray[1]];    
+            }
+            if (href.match(".*/blog.*") || href.match(".*/20.*") || href.match(".*/page.*")) return cxBlog;
+            return cxEntireSite;
+        }(),
         perPage:10, // A maximum of 10 is allowed by Google
         page:0, // The start page
         pageTitle:pageTitle
@@ -75,13 +93,8 @@ $('#search').keydown(function(e){
                             '</ul><div class="clear"></div>';
                         $(".documents").append(topicPaginationHtml);
                         var ul = $(".documents");
-                        //todo: update when version changes
                         for (var i = 0; i < results.length; i++) {
-                            if (!results[i].link.match(".*/guide/2\\.[2-5].*")) {
-                                // Creating a new result object and firing its toString method:
-                                ul.append(new result(results[i]) + '');
-                            }
-
+                            ul.append(new result(results[i]) + '');
                         }
                         ul.hide().appendTo(resultsDiv).fadeIn('slow');
                         resultsDiv.append('<div class="clear"></div>');
@@ -158,5 +171,4 @@ $('#search').keydown(function(e){
     }
 
 
-})
-;
+});
