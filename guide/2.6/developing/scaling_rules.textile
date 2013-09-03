@@ -48,10 +48,7 @@ h2(#ms). Manual Scaling
 
 Cloudify also enables you to set the number of service instances manually.
 To set the number of service instances manually, at the Cloudify shell prompt, type: *@set-instances@* @service-name number-of-required-instances@. 
-h4(impt). The value of @number-of-required-instances@ must be:
-<ol><li>greater than or equal to the value of *@minAllowedInstances@*, and</li>
-<li>less than or equal to the value of *@maxAllowedInstances@*</li></ol>
-described in the service descriptor file.
+<h4 class"impt">The value of @number-of-required-instances@ must be greater than or equal to the value of *@minAllowedInstances@* and also less than or equal to the value of *@maxAllowedInstances@* (both are described in the service descriptor file.</h4>
 
 h4(impt). To enable manual scaling, you must set the *@elastic@* attribute to @true@ in the service descriptor file.
 
