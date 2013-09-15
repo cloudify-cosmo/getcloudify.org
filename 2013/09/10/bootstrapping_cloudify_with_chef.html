@@ -4,10 +4,10 @@
 <head>
     
 	<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>	
-	<title>Cloudify - Tag: IaaS</title>
+	<title>Cloudify - Bootstrapping Cloudify With Chef</title>
 	<script src="//cdn.optimizely.com/js/59503762.js"></script>
 	<link rel="stylesheet" href="/css/template.css" type="text/css"/>	
-	<link rel="canonical" href="http://www.cloudifysource.orgtags/IaaS/index.html"/>	
+	<link rel="canonical" href="http://www.cloudifysource.org/2013/09/10/bootstrapping_cloudify_with_chef.html"/>	
 	<link rel="stylesheet" href="/css/jquery-ui-1.8.17.custom.css" type="text/css" media="all"/>
 	<link rel="stylesheet" type="text/css" href="/scripts/prettify/prettify.css">		
 	<link rel="stylesheet" type="text/css" href="/scripts/lightbox/jquery.lightbox-0.5.css" media="screen" />	
@@ -345,7 +345,7 @@ $("body").live('change', function(){
 </head>
 
 <body>
-<a class="fork-guide" target="_blank" href="https://github.com/CloudifySource/cloudify"></a>	
+<a class="fork-guide" target="_blank" href="https://github.com/CloudifySource/cloudify"></a>
 <div class="WrapperBg">    
     <div class="Wrapper">
         <div class="header">
@@ -421,7 +421,7 @@ $("body").live('change', function(){
 <div class="clear"></div>
 
         <div class="contentWrap">            
-			<div class="breadcrumbs">Home Page > Cloudify Blogs > Tag: IaaS</div>
+			<div class="breadcrumbs">Home Page > Cloudify Blogs > Bootstrapping Cloudify With Chef</div>
             <div class="clear"></div>
 
             <!--Search-->
@@ -447,10 +447,9 @@ $("body").live('change', function(){
 
 
 
-
-
+			
             <div class="content">
-                <div class="left" id="alTag_LeftBlog">
+                <div id="alTag_LeftBlog" class="left">
                     
                     <!--Event groups-->
 
@@ -1445,159 +1444,59 @@ $("body").live('change', function(){
 
                 <div id="resultsDiv" class="DocumentsWrap"></div>
                 <div id="pageContent" class="DocumentsWrapRight">
-                    <h1 class="pageTitle">Tag: IaaS</h1>					
+                    <h1 class="pageTitle">Bootstrapping Cloudify With Chef</h1>
+					 
+					  <span class="blogPostInfo">Posted By: <a href="#">DeWayne Filppi</a>  on September 10, 2013  
+					  </span>
+					  <br/><br/><br/>
+					 
+                    <div class="post_container"><div id="post-2646" class="post-2646 post type-post status-publish format-standard hentry category-gigaspaces">			<div class="entry">	<h3 style="color:blue">Overview</h3>
+<p>Cloudify and Opscode Chef work together to provide the greatest high qualify recipe/cookbook coverage for deployment that is possible. &nbsp;Cloudify works with Chef by delegating the installation (and potentially startup) phases of recipe lifecycle to Chef for individual services. &nbsp;Cloudify takes care of full application deployment and coordination, as well as monitoring as scaling.</p>
+<p style="text-align: center"><img width="444" height="252" src="http://blog.gigaspaces.com/wp-content/uploads/cloudify-chef.png" alt=""></p>
+<p>&nbsp;</p>
+<p>This is great as far as it goes, but some shops have standardized on Chef for deployment, which makes bootstrapping Cloudify itself a problem. &nbsp;To unravel this conundrum, I recently authored a Chef cookbook that bootstraps Cloudify on a specified host.</p>
+<h3 style="color:blue">The Cookbook</h3>
+<p>Creating the cookbook for Chef to deploy (and start) Cloudify management, for the most part, boils down to templating Cloudify&#8217;s &#8220;cloudify_env&#8221; script (a script not typically noticed by Cloudify users), and the individual cloud driver scripts for the various providers. &nbsp;The initial recipe was done for HP Cloud Services (<span class="caps">HPCS</span>), and uses it as the &#8220;default&#8221; recipe. &nbsp;The recipe (<a href="https://github.com/dfilppi/cloudify-chef/blob/master/cloudify/recipes/default.rb" onclick="javascript:pageTracker._trackPageview('/outgoing/github.com/dfilppi/cloudify-chef/blob/master/cloudify/recipes/default.rb');">recipes/default.rb</a>) assumes that the node is an <span class="caps">HPCS</span> Linux node (tested on Ubuntu 12). &nbsp;The recipe moves a few static files into a working directory and builds <a href="https://github.com/dfilppi/cloudify-chef/blob/master/cloudify/templates/default/cloudify_env.sh.erb" onclick="javascript:pageTracker._trackPageview('/outgoing/github.com/dfilppi/cloudify-chef/blob/master/cloudify/templates/default/cloudify_env.sh.erb');">cloudify_env.sh</a> and <a href="https://github.com/dfilppi/cloudify-chef/blob/master/cloudify/templates/default/hp-cloud.groovy" onclick="javascript:pageTracker._trackPageview('/outgoing/github.com/dfilppi/cloudify-chef/blob/master/cloudify/templates/default/hp-cloud.groovy');">hp-cloud.groovy</a> from their respective templates. &nbsp;All templates are driven by the default attributes file.</p>
+<script src="http://gist.github.com/6513699.js"></script><p>These attributes are equivalent to what is currently found in the hp-cloud.properties file in the hp-cloud cloud driver configuration, with a few additions to configure the operation of the Chef recipe itself (such as a working directory).</p>
+<p>As with the HP cloud driver config, there are some key properties that must be set for the recipe to work, and a private key file that must be configured. &nbsp;Key settings:</p>
+<ul>
+<li>link &ndash; The <span class="caps">URL</span> for the Cloudify distro</li>
+<li>clouduser &ndash; Your <span class="caps">API</span> key</li>
+<li>cloudtenant &ndash; Your tenant ID (an hpcloud email address)</li>
+<li>keyfile &ndash; The private key file. &nbsp;This file must be placed in the recipe &#8220;files/default/upload&#8221; directory.</li>
+<li>keypair &ndash; The name of your private key. &nbsp;Typically the file name with &#8220;.pem&#8221; stripped.</li>
+<li>securitygroup &ndash; The name of the security group to use.</li>
+</ul>
+<p>Once these are set properly, the recipe will start Cloudify management, including the <span class="caps">REST</span> <span class="caps">API</span> and the web UI.</p>
+<h3 style="color:blue">Conclusion</h3>
+<p>This cookbook &#8220;closes the loop&#8221; on standardized devops automation for Cloudify. &nbsp;Whereas before Cloudify delegated to Chef for deployment support, now Chef can bootstrap Cloudify, which can then use Chef to deploy recipes, potentially using the same Chef server that Cloudify&#8217;s bootstrap was defined in. &nbsp;This recipe has some limitations besides only being tried on <span class="caps">HPCS</span>. &nbsp;For example, it doesn&#8217;t include provisions for deploying a cluster of Cloudify management machines. &nbsp;The cookbook is available on<a href="https://github.com/dfilppi/cloudify-chef" onclick="javascript:pageTracker._trackPageview('/outgoing/github.com/dfilppi/cloudify-chef');"> github</a>.</p>
+<div style="clear:both;margin-bottom:20px" class="simplesocial-clear"></div>				<p></div><!--end entry-->				<br />
+			<div class="gplusone">	<br />
+			<div style="text-indent: 0px; margin: 0px; padding: 0px; background: none repeat scroll 0% 0% transparent; border-style: none; float: none; line-height: normal; font-size: 1px; vertical-align: baseline; display: inline-block; width: 106px; height: 24px;" id="___plusone_0"><iframe width="100%" scrolling="no" frameborder="0" hspace="0" marginheight="0" marginwidth="0" style="position: static; top: 0px; width: 106px; margin: 0px; border-style: none; left: 0px; visibility: visible; height: 24px;" tabindex="0" vspace="0" id="I0_1379232056649" name="I0_1379232056649" src="https://apis.google.com/u/0/_/+1/fastbutton?bsv=o&amp;usegapi=1&amp;count=true&amp;size=standard&amp;hl=en-US&amp;origin=http%3A%2F%2Fblog.gigaspaces.com&amp;url=http%3A%2F%2Fblog.gigaspaces.com%2Fbootstrapping-cloudify-with-chef%2F&amp;gsrc=3p&amp;ic=1&amp;jsh=m%3B%2F_%2Fscs%2Fapps-static%2F_%2Fjs%2Fk%3Doz.gapi.en.kUo-aHM7lU0.O%2Fm%3D__features__%2Fam%3DAQ%2Frt%3Dj%2Fd%3D1%2Frs%3DAItRSTP1_dAOlIR2gqx5HMrgIB_Gx4xmjg#_methods=onPlusOne%2C_ready%2C_close%2C_open%2C_resizeMe%2C_renderstart%2Concircled%2Cdrefresh%2Cerefresh&amp;id=I0_1379232056649&amp;parent=http%3A%2F%2Fblog.gigaspaces.com&amp;pfname=&amp;rpctoken=13879496" data-gapiattached="true" title="+1"></iframe></div></p>
+<p></div></div><!--end post_class--></p>
+</div>
+                    <div id="disqus_thread"></div>
+<script type="text/javascript">
+    /* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
+    var disqus_shortname = 'cloudifysource'; // required: replace example with your forum shortname
+    var disqus_identifier = '/2013/09/10/bootstrapping_cloudify_with_chef.html';
 
-
-
-
-
-
-
-
-
-														
-                    
-
-
-
-
-<div class="blogtPostBox">
-  <div class="blogInfoLeft">
-    <img title="Nati Shalom" width="80" height="96" src="/images/nati.png" />
-  </div>  
-  <div class="blogInfoRight">
-    <a href="/2013/03/18/devops_paas_and_everything_in_between.html" class="title">DevOps, PaaS and Everything in Between</a>
-	  <div class="blogPostInfo">
-	  <br/>	  	 
-	    <span>Posted By: <a href="#">Nati Shalom</a>  on  March 18, 2013  <!--|  in <a href="/categories/"></a> --></span>
-	  </div>	  	  	
-      <p>
-		
-			<p>This month Amazon&nbsp;announced AWS OpsWorks, which is the result of their acquisition of Peritor and the embedding of its Scalarium platform within AWS. OpsWorks is a new framework for simplifying the deployment of applications on the cloud. Given that Amazon already has a few frameworks automating application deployment, such as...</p>
-			
-		<p class><a href="/2013/03/18/devops_paas_and_everything_in_between.html">Read more...</a></p>	  	  
-	  </p>
-		<span>  Additional Tags: 		
-			
-				
-			     <a class="postTag" href="/tags/AWS">AWS (5)</a>
-			   	
-			
-				
-			     <a class="postTag" href="/tags/DevOps">DevOps (10)</a>
-			   	
-			
-				
-			     <a class="postTag" href="/tags/Cloud Computing">Cloud Computing (9)</a>
-			   	
-			
-				
-			     <a class="postTag" href="/tags/PaaS">PaaS (15)</a>
-			   	
-			
-					
-			
-		</span>
-	    
-  </div>
-  <div class="clear" ></div>    
-</div>  
-
-
-
-<div class="blogtPostBox">
-  <div class="blogInfoLeft">
-    <img title="Nati Shalom" width="80" height="96" src="/images/nati.png" />
-  </div>  
-  <div class="blogInfoRight">
-    <a href="/2012/10/18/paas_as_infrastructure.html" class="title">PaaS as Infrastructure</a>
-	  <div class="blogPostInfo">
-	  <br/>	  	 
-	    <span>Posted By: <a href="#">Nati Shalom</a>  on  October 18, 2012  <!--|  in <a href="/categories/"></a> --></span>
-	  </div>	  	  	
-      <p>
-		
-			<p>The blurring line between PaaS and IaaS&nbsp; The core of IaaS services is centered around &nbsp;Compute, Storage Network however over the past years the infrastructure moved up the stack and includes more application services such as Database as a Service, Hadoop Map/Reduce, and application lifecycle services.&nbsp; On the other hand,...</p>
-			
-		<p class><a href="/2012/10/18/paas_as_infrastructure.html">Read more...</a></p>	  	  
-	  </p>
-		<span>  Additional Tags: 		
-			
-				
-			     <a class="postTag" href="/tags/Cloudify">Cloudify (37)</a>
-			   	
-			
-				
-			     <a class="postTag" href="/tags/PaaS">PaaS (15)</a>
-			   	
-			
-					
-			
-				
-			     <a class="postTag" href="/tags/Chef">Chef (7)</a>
-			   	
-			
-				
-			     <a class="postTag" href="/tags/MySQL">MySQL (2)</a>
-			   	
-			
-		</span>
-	    
-  </div>
-  <div class="clear" ></div>    
-</div>  
-
-
-
-<div class="blogtPostBox">
-  <div class="blogInfoLeft">
-    <img title="Yaron Parasol" width="80" height="96" src="/images/yaron.jpg" />
-  </div>  
-  <div class="blogInfoRight">
-    <a href="/2012/05/28/paas_does_it_really_mean_no_ops.html" class="title">PaaS, Does It Really Mean No-Ops?</a>
-	  <div class="blogPostInfo">
-	  <br/>	  	 
-	    <span>Posted By: <a href="#">Yaron Parasol</a>  on  May 28, 2012  <!--|  in <a href="/categories/"></a> --></span>
-	  </div>	  	  	
-      <p>
-		
-			<p>PaaS, Does It Really Mean No-Ops? I&rsquo;d like to start with a brief overview of the evolution of the cloud &ndash; and why I think a new approach to PaaS solutions is needed &ndash; and the best scenarios for this to come into play. First there was IaaS. Cloud was...</p>
-			
-		<p class><a href="/2012/05/28/paas_does_it_really_mean_no_ops.html">Read more...</a></p>	  	  
-	  </p>
-		<span>  Additional Tags: 		
-			
-				
-			     <a class="postTag" href="/tags/Cloudify">Cloudify (37)</a>
-			   	
-			
-				
-			     <a class="postTag" href="/tags/DevOps">DevOps (10)</a>
-			   	
-			
-				
-			     <a class="postTag" href="/tags/NoOps">NoOps (1)</a>
-			   	
-			
-				
-			     <a class="postTag" href="/tags/PaaS">PaaS (15)</a>
-			   	
-			
-					
-			
-		</span>
-	    
-  </div>
-  <div class="clear" ></div>    
-</div>  
-
-
-
+    /* * * DON'T EDIT BELOW THIS LINE * * */
+    (function() {
+        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+        dsq.src = 'http://' + disqus_shortname + '.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="http://disqus.com" class="dsq-brlink">blog comments powered by <span class="logo-disqus">Disqus</span></a>
 
                 </div>
+
                 <div class="clear"></div>
             </div>
         </div>
+
         <!--Start pagination -->
 
         <div class="clear"></div>
