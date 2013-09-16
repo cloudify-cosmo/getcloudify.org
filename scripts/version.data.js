@@ -509,6 +509,7 @@ var guide = {
 			'probes':true
 		},
 		'qsg':{
+			'qsg':true,
 			'quick_start_guide':true,
 			'quick_start_guide_apache':true,
 			'quick_start_guide_ec2':true,
@@ -627,6 +628,7 @@ var guide = {
 			'probes':true
 		},
 		'qsg':{
+			'qsg':true,
 			'quick_start_guide':true,
 			'quick_start_guide_apache':true,
 			'quick_start_guide_ec2':true,
