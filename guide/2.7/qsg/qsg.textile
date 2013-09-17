@@ -17,14 +17,16 @@ h2. Setup
 h2. Bootstrap Local Cloud
 
 * *Start the cloudify shell*
-Invoke the following command :<pre class='prettyprint'>gigaspaces-cloudify-2.7/bin $ ./cloudify.sh</pre>
+Invoke the following command :
+<pre class='prettyprint'>gigaspaces-cloudify-2.7/bin $ ./cloudify.sh   </pre>
 
 * *Bootstrap the local cloud* 
 This will install Cloudify management,agent and UI on your machine.
-Invoke the following command : <pre class='prettyprint'>cloudify@default>bootstrap-localcloud</pre>
+Invoke the following command :
+<pre class='prettyprint'>cloudify@default> bootstrap-localcloud   </pre>
 
 * *You should get the following output:*
-<pre class='prettyprint'>cloudify@default> bootstrap-localcloud
+<pre class="prettyprint withoutpad">cloudify@default> bootstrap-localcloud
 Setting security profile to "nonsecure".
 Bootstrapping localcloud, this may take a few minutes
 STARTING CLOUDIFY MANAGEMENT
@@ -37,7 +39,7 @@ CLOUDIFY LOCAL-CLOUD STARTED
 LOCAL-CLOUD INFO :
                 CLOUDIFY MANAGEMENT     http://127.0.0.1:8099/
                 CLOUDIFY GATEWAY        http://127.0.0.1:8100/
-...Local-cloud started successfully. 
+...Local-cloud started successfully.
 Use the teardown-localcloud command to shutdown all processes.</pre>
 
 * *Go to the Web UI to see the cloud services* : "(newwindow)Cloudify web UI":http://127.0.0.1:8099
@@ -48,7 +50,9 @@ h2. Deploy Application
 The Hello World application presented in this guide is actually a @war@ file that's deployed on "(newwindow)Tomcat":http://tomcat.apache.org.
 
 Now that the cloud is ready, let's deploy the application. 
-Invoke the following command: <pre class='prettyprint'>cloudify@default>install-application helloworld</pre>
+Invoke the following command:
+
+<pre class='prettyprint'>cloudify@default> install-application helloworld   </pre>
 
 During the deployment, you can go again to the "(newwindow)Web UI":http://127.0.0.1:8099 and track the progress of your newborn application's deployment at *Applications->Select Application->helloworld*.
  
@@ -58,11 +62,15 @@ Once the application installation has successfully completed, you can access the
 
 h2. Uninstall the Application
 
-To uninstall the application, invoke the following command: <pre class='prettyprint'>cloudify@default>uninstall-application helloworld</pre>
+To uninstall the application, invoke the following command: 
+
+<pre class='prettyprint'>cloudify@default> uninstall-application helloworld   </pre>
 
 h2. Teardown the Local Cloud
 
-To teardown the local cloud installation, invoke the following command: <pre class='prettyprint'>cloudify@default>teardown-localcloud</pre>
+To teardown the local cloud installation, invoke the following command: 
+
+<span class='prettyprint'>cloudify@default> teardown-localcloud   </span>
 
 h2. What's Next?
 
