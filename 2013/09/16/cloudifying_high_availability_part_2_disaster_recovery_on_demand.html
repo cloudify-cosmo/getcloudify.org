@@ -4,10 +4,10 @@
 <head>
     
 	<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>	
-	<title>Cloudify - Tag: Apache</title>
+	<title>Cloudify - Disaster Recovery On Demand</title>
 	<script src="//cdn.optimizely.com/js/59503762.js"></script>
 	<link rel="stylesheet" href="/css/template.css" type="text/css"/>	
-	<link rel="canonical" href="http://www.cloudifysource.orgtags/Apache/index.html"/>	
+	<link rel="canonical" href="http://www.cloudifysource.org/2013/09/16/cloudifying_high_availability_part_2_disaster_recovery_on_demand.html"/>	
 	<link rel="stylesheet" href="/css/jquery-ui-1.8.17.custom.css" type="text/css" media="all"/>
 	<link rel="stylesheet" type="text/css" href="/scripts/prettify/prettify.css">		
 	<link rel="stylesheet" type="text/css" href="/scripts/lightbox/jquery.lightbox-0.5.css" media="screen" />	
@@ -345,7 +345,7 @@ $("body").live('change', function(){
 </head>
 
 <body>
-<a class="fork-guide" target="_blank" href="https://github.com/CloudifySource/cloudify"></a>	
+<a class="fork-guide" target="_blank" href="https://github.com/CloudifySource/cloudify"></a>
 <div class="WrapperBg">    
     <div class="Wrapper">
         <div class="header">
@@ -421,7 +421,7 @@ $("body").live('change', function(){
 <div class="clear"></div>
 
         <div class="contentWrap">            
-			<div class="breadcrumbs">Home Page > Cloudify Blogs > Tag: Apache</div>
+			<div class="breadcrumbs">Home Page > Cloudify Blogs > Disaster Recovery On Demand</div>
             <div class="clear"></div>
 
             <!--Search-->
@@ -447,10 +447,9 @@ $("body").live('change', function(){
 
 
 
-
-
+			
             <div class="content">
-                <div class="left" id="alTag_LeftBlog">
+                <div id="alTag_LeftBlog" class="left">
                     
                     <!--Event groups-->
 
@@ -1460,111 +1459,54 @@ $("body").live('change', function(){
 
                 <div id="resultsDiv" class="DocumentsWrap"></div>
                 <div id="pageContent" class="DocumentsWrapRight">
-                    <h1 class="pageTitle">Tag: Apache</h1>					
+                    <h1 class="pageTitle">Disaster Recovery On Demand</h1>
+					 
+					  <span class="blogPostInfo">Posted By: <a href="#">Ali Hodroj</a>  on September 16, 2013  
+					  </span>
+					  <br/><br/><br/>
+					 
+                    <p>In this post we outline a pattern for implementing the Warm Disaster Recovery pattern across two Amazon EC2 regions.</p>
+<h4>Disaster Recovery in the Cloud</h4>
+<p style="text-align: justify;" class="MsoNormal">Accomplishing a suitable disaster recovery strategy is crucial to many enterprises. However, the m<img width="250" height="175" align="right" src="http://blog.gigaspaces.com/wp-content/uploads/cloud_ha_2(1).png" alt="">eans to achieve an appropriate level of redundancy is challenging given the stark financial and technical tradeoffs it imposes. At the heart of every disaster recovery planning initiative, one is limited with financial constraints, optimizing infrastructure recovery, and achieving suitable data recovery without an adverse impact on latency. Thus, it boils down to a cost calculation trade-off: balancing recovery time/point against the cost of building it. In other words, at what point does the cost downtime become much more expensive than managing a fully operational disaster recovery environment or vice versa? As an antidote to these constraints, I&#8217;ll present a solution architecture that aims to optimally balance cost and recovery time via three core principles that are germane the cloud world:</p>
+<p style="text-align: justify;" class="MsoNormal"><strong>On-Demand: </strong>The disaster recovery cloud can be provisioned on any availability zone, region, or public/private cloud through Cloudify&#8217;s cloud-agnostic bootstrapping mechanism.</p>
+<p style="text-align: justify;" class="MsoNormal"><strong>Elastic: </strong>The ability to automatically provision resources in the recovery cloud in case of disaster while eliminating the need for idle resources in normal scenarios, thereby fully profiting from the pay-per-use pricing model of clouds.</p>
+<p style="text-align: justify;" class="MsoNormal"><strong>Flexible <span class="caps">RTO</span>/<span class="caps">RPO</span>: </strong>The architecture can be easily extended from a warm DR to a hot DR pattern through enabling/disabling application recipes. This allows us to exploit economies of scale that the cloud provides by matching the number of recipes/tiers to provision (in the recovery cloud) against the recovery time/point objective for our disaster recovery strategy.</p>
+<h4>Solution Architecture: Elastic On-Demand DR</h4>
+<p style="text-align: justify;" class="MsoNormal">Disaster recovery patterns come in many different types, depending on the desired recovery time (<span class="caps">RTO</span>) and recovery point (<span class="caps">RPO</span>). For instance, in a Warm DR approach, only the data is replicated to another data center, while stateless servers (typically application servers) are only started in the &#8220;failover&#8221; data center once a disaster occurs. While this deployment is resource effective, it increases recovery time. A Hot DR pattern on the other hand, deploys the entire stack on two separate data centers, and fails to the other during a disaster. In this case the recovery time is much shortened, however resources in the data center are mostly sitting idle. In this context, our implementation is based on warm disaster recovery architecture, yet with the ability to automatically provision resources in the recovery site in the event of a disaster. While this architecture is applicable across any public cloud (<a href="http://www.hpcloud.com/">HP Cloud</a>, <a href="http://www.rackspace.com/">Rackspace</a>, <a href="http://aws.amazon.com/"><span class="caps">AWS</span></a>), this is how it would look like on Amazon EC2:</p>
+<p align="center" style="text-align: center;" class="MsoNormal"><span style="mso-no-proof: yes;"><img width="400" height="284" src="http://blog.gigaspaces.com/wp-content/uploads/aws_dr.png" alt=""><br>
+	</span></p>
+<p style="text-align: justify;" class="MsoNormal">In the primary cloud (west region) all the application tiers are serving read-write operations. There are also one or more clouds serving as DR clouds, such that only PostgreSQL tiers are running. A mechanism for heartbeat polling between the master and recovery cloud is provided through Cloudify agents running on the instances in the recovery clouds. The polling code is implemented within Cloudify <a href="http://www.cloudifysource.org/guide/2.6/developing/lifecycle_events">lifecycle events</strong></a> in Groovy and can be easily changed to poll utilizing different protocols as well as at arbitrary time intervals. When the primary cloud fails, the system enters a failover mode, which causes the recovery cloud (DR site) to support the full application in read-write mode by spinning up instances hosting the remaining application tiers.</p>
+<h4>Design and Implementation</h4>
+<p style="text-align: justify;" class="MsoNormal">The application tier in our application contains transient data that can be easily recreated and doesn&#8217;t require any form of backup policy. Thus, all application tiers can be provisioned on demand through Cloudify service recipes on the DR cloud. The data tier however, utilizes streaming replication in PostgreSQL to ensure data consistency. Such an application architecture is a natural fit for a warm DR scenario, since only a partial set of resources are required to implement data replication without having to run the entire application in the DR cloud.</p>
+<h5>Cloudify Recipes</h5>
+<p style="text-align: justify;" class="MsoNormal">In our implementation, we provide two <a href="http://www.cloudifysource.org/guide/2.6/developing/application_recipe" onclick="javascript:pageTracker._trackPageview('/outgoing/www.cloudifysource.org/guide/2.6/developing/application_recipe');">application recipes</a>: the first recipe,<strong style="mso-bidi-font-weight: normal;"> petclinic-master</strong>, is responsible for implementing the onboarding of the application deployed on the primary cloud. The second application is an extension of the first one with additional disaster recovery requirements such as data replication and automatic failover.</p>
+<p style="text-align: justify;" class="MsoNormal">Since the cloud provider specifics are abstracted from us via Cloudify&#8217;s <a href="http://www.cloudifysource.org/guide/2.6/clouddrivers/cloud_driver" onclick="javascript:pageTracker._trackPageview('/outgoing/www.cloudifysource.org/guide/2.6/clouddrivers/cloud_driver');">cloud driver</a>, all we have to do is pass in a cloud overrides file that describes whether we want our cloud deployed on a specific availability zone, region, cloud providers, private cloud, or even a bare metal data center. In other words, switching between multi-region, zone, and cloud providers is simply a matter of supplying a different configuration file.</p>
+<h4>Demo</h4>
+<p style="text-align: justify;" class="MsoNormal">To show how all of this works in the real-world, the screen cast below should provide an illustration:</p>
+<p><iframe width="420" height="315" frameborder="0" src="//www.youtube.com/embed/U-PdZe1g_yw"></iframe></p>
+<div style="clear:both;margin-bottom:20px" class="simplesocial-clear"></div>				<p></div></div></p>
+                    <div id="disqus_thread"></div>
+<script type="text/javascript">
+    /* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
+    var disqus_shortname = 'cloudifysource'; // required: replace example with your forum shortname
+    var disqus_identifier = '/2013/09/16/cloudifying_high_availability_part_2_disaster_recovery_on_demand.html';
 
-
-
-
-
-
-
-
-
-														
-                    
-
-
-
-
-<div class="blogtPostBox">
-  <div class="blogInfoLeft">
-    <img title="Tamir Korem" width="80" height="96" src="/images/tamir.jpg" />
-  </div>  
-  <div class="blogInfoRight">
-    <a href="/2012/07/19/automate_your_legacy_application_on_the_cloud.html" class="title">Automate Your Application on the Cloud with Cloudify Custom Commands</a>
-	  <div class="blogPostInfo">
-	  <br/>	  	 
-	    <span>Posted By: <a href="#">Tamir Korem</a>  on  July 19, 2012  <!--|  in <a href="/categories/"></a> --></span>
-	  </div>	  	  	
-      <p>
-		
-			<p>Your Application is Installed on a Cloud. Now What ? Ok, so you installed an application on a cloud and now you want to update it, replace your .war file, modify the DB schema etc. I guess, some of the following thoughts may run in your head : &#8220;Now I...</p>
-			
-		<p class><a href="/2012/07/19/automate_your_legacy_application_on_the_cloud.html">Read more...</a></p>	  	  
-	  </p>
-		<span>  Additional Tags: 		
-			
-				
-			     <a class="postTag" href="/tags/Cloudify">Cloudify (37)</a>
-			   	
-			
-				
-			     <a class="postTag" href="/tags/GitHub">GitHub (2)</a>
-			   	
-			
-					
-			
-				
-			     <a class="postTag" href="/tags/Scale Rules">Scale Rules (2)</a>
-			   	
-			
-				
-			     <a class="postTag" href="/tags/Load Balancer">Load Balancer (1)</a>
-			   	
-			
-		</span>
-	    
-  </div>
-  <div class="clear" ></div>    
-</div>  
-
-
-
-<div class="blogtPostBox">
-  <div class="blogInfoLeft">
-    <img title="Yaron Parasol" width="80" height="96" src="/images/yaron.jpg" />
-  </div>  
-  <div class="blogInfoRight">
-    <a href="/2012/07/09/whats_cool_in_cloudify_2_1_1.html" class="title">What's Cool in Cloudify 2.1.1</a>
-	  <div class="blogPostInfo">
-	  <br/>	  	 
-	    <span>Posted By: <a href="#">Yaron Parasol</a>  on  July  9, 2012  <!--|  in <a href="/categories/"></a> --></span>
-	  </div>	  	  	
-      <p>
-		
-			<p>We are happy to announce a new Cloudify service pack (2.1.1) released yesterday that is now GA. This service pack provides many stability improvements thanks to input we received from our customers and community users who have reported issues and asked questions about their specific use cases. In addition, this...</p>
-			
-		<p class><a href="/2012/07/09/whats_cool_in_cloudify_2_1_1.html">Read more...</a></p>	  	  
-	  </p>
-		<span>  Additional Tags: 		
-			
-				
-			     <a class="postTag" href="/tags/Cloudify">Cloudify (37)</a>
-			   	
-			
-					
-			
-				
-			     <a class="postTag" href="/tags/Multiprocess">Multiprocess (1)</a>
-			   	
-			
-				
-			     <a class="postTag" href="/tags/Monitoring">Monitoring (1)</a>
-			   	
-			
-		</span>
-	    
-  </div>
-  <div class="clear" ></div>    
-</div>  
-
-
-
+    /* * * DON'T EDIT BELOW THIS LINE * * */
+    (function() {
+        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+        dsq.src = 'http://' + disqus_shortname + '.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="http://disqus.com" class="dsq-brlink">blog comments powered by <span class="logo-disqus">Disqus</span></a>
 
                 </div>
+
                 <div class="clear"></div>
             </div>
         </div>
+
         <!--Start pagination -->
 
         <div class="clear"></div>
