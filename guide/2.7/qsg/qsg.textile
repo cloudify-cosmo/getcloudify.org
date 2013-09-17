@@ -17,12 +17,12 @@ h2. Setup
 h2. Bootstrap Local Cloud
 
 * *Start the cloudify shell*
-Invoke the following command :
-<pre class='prettyprint'>gigaspaces-cloudify-2.7/bin $ ./cloudify.sh   </pre>
+On Linux:
+<pre class='prettyprint'>gigaspaces-cloudify-2.7/bin $ ./cloudify.sh   </pre>On Windows:
+<pre class='prettyprint'>gigaspaces-cloudify-2.7\bin $ cloudify.bat   </pre>
 
 * *Bootstrap the local cloud* 
 This will install Cloudify management,agent and UI on your machine.
-Invoke the following command :
 <pre class='prettyprint'>cloudify@default> bootstrap-localcloud   </pre>
 
 * *You should get the following output:*
@@ -49,26 +49,18 @@ h2. Deploy Application
 
 The Hello World application presented in this guide is actually a @war@ file that's deployed on "(newwindow)Tomcat":http://tomcat.apache.org.
 
-Now that the cloud is ready, let's deploy the application. 
-Invoke the following command:
-
+Now that the cloud is ready, let's deploy the application:
 <pre class='prettyprint'>cloudify@default> install-application helloworld   </pre>
 
 During the deployment, you can go again to the "(newwindow)Web UI":http://127.0.0.1:8099 and track the progress of your newborn application's deployment at *Applications->Select Application->helloworld*.
  
- *Ta dam!*
-
 Once the application installation has successfully completed, you can access the *helloworld* at the following URL:  "(newwindow)http://127.0.0.1:8082/helloworld":http://127.0.0.1:8082/helloworld.
 
 h2. Uninstall the Application
 
-To uninstall the application, invoke the following command: 
-
 <pre class='prettyprint'>cloudify@default> uninstall-application helloworld   </pre>
 
 h2. Teardown the Local Cloud
-
-To teardown the local cloud installation, invoke the following command: 
 
 <span class='prettyprint'>cloudify@default> teardown-localcloud   </span>
 
