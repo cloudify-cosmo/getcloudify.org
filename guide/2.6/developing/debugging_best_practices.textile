@@ -1,0 +1,63 @@
+---
+layout: default
+title: Debugging Best Practices
+category: Developing Recipes
+publish: true
+abstract: Describes the best practices for debugging Cloudify.
+pageord: 14
+---
+
+h2. Preface 
+
+h4(info). There are several techniques to debug Cloudify recipes and this document covers some of them.
+Each of the following techniques may be useful and/or feasible for you in some scenarios, but irrelevant in other scenarios.
+
+h2. Tail The Log Files
+
+
+There are two ways to use the *tail -f* : 
+# Invoke the following command in the logs folder on any of deployed service instances VMs. -Obviously, you need to ssh to that VM first... :
+  <pre class='prettyprint'>.../logs$ tail -f *.log</pre>
+# Use the Cloudify CLI *tail* command as described "here":http://www.cloudifysource.org/guide/recipe/command_line_reference#tail. - This will enable you to retrieve the last N lines of a specific service log.
+
+h2. Shell Scripts
+
+Prepare shell scripts and run them independently on the deployed VMs. Thus you will be able to get more information on the current status.
+Again, you need to ssh to that VM first.
+
+h2. Scripts as Lifecycle Event handlers 
+
+Use scripts as lifecycle event handlers and not closures, thus you can modify such a script and copy it the the deployed folder on the actual vm and in the next time that this life cycle event handler is invoked, Cloudify will use the newly copied script. 
+For example:
+
+h3. A Closure Lifecycle Event Handler
+
+<script src="https://gist.github.com/tamirko/6792118.js"></script>
+
+h3. A script as a Lifecycle Event Handler
+
+<script src="https://gist.github.com/tamirko/6792187.js"></script>
+
+In this case, you can copy the myservice_postStart.groovy to any of the VMs on which "myservice" is deployed and the next time postStart event will be fired for this service, your new code will run.
+If you work with a closure, this cannot be done, since a closure life cycle event handler is parsed once during the installation and can never be changed.
+
+h2. Vagrant
+
+Work with "(newwindow)Vagrant":http://downloads.vagrantup.com (1.2.6) and you will be able to use its cool features for debugging.
+With Vagrant you can reset your environment whenever you want and can even restore the environment by using snapshots or "milestones" in your installation.
+
+In order to use the snapshot feature(plugin), you need to do the following : 
+<script src="https://gist.github.com/tamirko/6792351.js"></script>
+
+
+h2. Disable self healing
+
+You can disable Clodify's self healing feature and that will enable you to do some research on what occurred.
+You can read more about self healing "here":http://www.cloudifysource.org/guide/deploying/deploying_srvs#dsbl
+
+h2. Use prinouts 
+
+Another old "trick" that always helps, is add printouts to your code and look for them in the log files in case you got errors/failures.
+
+
+
