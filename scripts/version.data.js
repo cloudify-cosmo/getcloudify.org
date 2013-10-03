@@ -471,6 +471,7 @@ var guide = {
 		'developing':{
 			'application_recipe':true,
 			'attributes_api':true,
+			'best_practices_for_debugging_and_developing_recipes':true,
 			'configuring_ui_section':true,
 			'custom_commands':true,
 			'debugger':true,
@@ -590,6 +591,7 @@ var guide = {
 		'developing':{
 			'application_recipe':true,
 			'attributes_api':true,
+			'best_practices_for_debugging_and_developing_recipes':true,
 			'configuring_ui_section':true,
 			'custom_commands':true,
 			'debugger':true,
