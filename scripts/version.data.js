@@ -466,6 +466,7 @@ var guide = {
 		'deploying':{
 			'deploying_apps':true,
 			'deploying_srvs':true,
+			'downtime_for_maintenance':true,
 			'troubleshoot_app':true
 		},
 		'developing':{
