@@ -3,14 +3,15 @@ layout: index
 title: Get Cloudify
 cat: User Guide
 ---
-
-
+<notextile>
 <div class="contentNoRight">
+<br />
+<br />
+<br />
+<h1 class="text-align: center">Welcome to the Cloudify Download Center </h1>
     <ul class="downloadList">
-		<!--<li><h4 class="impt">We have found that the latest Oracle JDK update causes a logging level error. Rolling back to a previous JDK will solve the issue. In our labs , we use "1.6.0_30" and 1.7.0_04 and they both work well. We are working on a fix now and we'll update ASAP.</h4> </li>  -->
-		
-        <li>
-            <div class="dwnListLeft">
+        <li>			
+           <div class="dwnListLeft">
                 <img src="/images/imgDwnTheLatest.png"  alt="Download the Latest GA Release"  width="145" height="164"/>
             </div>
             <div class="dwnListRight">
@@ -74,41 +75,86 @@ cat: User Guide
     <div class="clear"></div>
 </div>
 <script text="javascript">
-
-
 $(function(){
-	mixpanel.track('get_cloudify page views');
-//	$("div.dwnGoBtn").click(function() {
-	  //	trigger_download();
-	  //     window.location = '';
-//	});
 
-	$("a#downloadme").click(function(e) {
+//start captcha Code
+	function randomgen()
+	{
+    var rannumber='';
+		for(ranNum=1; ranNum<=6; ranNum++){
+			rannumber+=Math.floor(Math.random()*10).toString();
+		}
+		$('#verifyNumGat').html(rannumber);
+		$('#verifyNumHiddenGat').val(rannumber);
+	}
+	randomgen();
+		
+//end captcha Code; 
+
+
+//$("a.gattingWrapperClose").bind("click",function(){
+$('ul.downloadList li').on("click", "a.gattingWrapperClose", function() {
+		$("div.gattingWrapper").remove();
+		$(".blockBg").hide();
+		
+	});	
+	
+
+$("a#downloadme,a.eaTitle").click(function(e) {
+    downloadHref = $(this).attr('href'); 
+	//$(this).prev().css("visibility","visible");
+	$(this).before(strVar);
+	$(this).prev().css("visibility","visible");
+	$(".blockBg").show();
+	GrabOldMessages();
+
+downloadFile(e);
+});
+
+
+function downloadFile(e)
+	{
+	//$("a#downloadme").click(function(e) {
 		try  {
 			e.preventDefault();
-					   
-			//track mixpanel
-			var verName="";
-			var downloadHref = $('a#downloadme').attr('href');
-			verName=downloadHref.split("/")[6]; 
-			//track google and mixpanel 
-			track_download(downloadHref);
-			//self.delay(500); 
-			setTimeout(function() {
-				window.location.href = downloadHref; 
+			//Gating PopUp
+			
+			
+			if(gotName == false){
+				//var userName = prompt("Yo passenger! What's your name?");
+				//if ( confirm("Are you sure your name is " + userName + "?") ){
+				//alert("’Sup " + userName + "!");
+				randomgen();
+				//$(".gattingWrapper").css("visibility","visible");
+				if ($("#regiterToDownload").validate()==true){
+				gotName = true;
+				//track mixpanel
+				var verName="";
+				var downloadHref = $('a#downloadme').attr('href');
+				verName=downloadHref.split("/")[6]; 
+				//track google and mixpanel 
+				track_download(downloadHref);
+				//self.delay(500); 
 				setTimeout(function() {
-					window.location.href = "/thank_you.htm";
-				}, 4000);
-			}, 500);
+					window.location.href = downloadHref; 
+					setTimeout(function() {
+						window.location.href = "/thank_you.htm";
+					}, 4000);
+				}, 500);
+
+				
+				}
+						   
+			}
 	    } catch(e) {
 	    	console.log(["Error while tracking download", e]);
 	    }
 	    return false; 
-	});
-
+	//});
+}
 
 	
-	function track_download(downloadHref) {
+function track_download(downloadHref) {
 		var downloadme=downloadHref.split("cloudify-")[1];
 		downloadme="/downloads/cloudify-" + downloadme.split("\.zip")[0] + "/get_cloudify";
 		_gaq.push(['_trackPageview', downloadme]);
@@ -123,3 +169,4 @@ $(function(){
 
 
 </script>
+</notextile>

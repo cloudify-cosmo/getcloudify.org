@@ -4,7 +4,7 @@
 
 
 html{ background:url(../images/bgTopX.png) repeat-x top center;width:100%; }
-body{ font-family:"ProximaNova-Regular",Arial, Helvetica, sans-serif; color:#231f20; text-align:left;font-size:17px; margin:0px auto; width:100%;overflow: auto; }
+body{ font-family:"ProximaNova-Regular",Arial, Helvetica, sans-serif; color:#231f20; text-align:left;font-size:17px; margin:0px auto; width:100%;overflow: auto; height:100% }
 .bodyClass{background:url(../images/bgFooter.png) repeat-x bottom center;}
 p, pre, blockquote,a, ol, h1, h2, h3, h4, h5, h6, ul, li, select, input,textarea, table,td, tr, span, label, form { direction:ltr;font-family:font-family:"ProximaNova-Regular",Arial, Helvetica, sans-serif;}
 div, th{ text-align:left}	
@@ -1802,3 +1802,22 @@ pre.withoutpad {
 	line-height:14px !important;
 }
 
+.gattingWrapper{ width:227px; height:180px; background:url(../images/bgGatingContactHeader.png) no-repeat top left; position: absolute; z-index:1;right:0; left:0px; top:0px;bottom:0; padding:18px 23px 0; visibility:hidden;z-index:999999; margin:0 auto;}
+.gattingWrapper input[type="text"]{ width:177px; height:31px; padding:0 10px 0 42px; background:none; border:none;color:#bababa; font-size:16px;font-family:"ProximaNova-Regular",Arial,Helvetica,sans-serif;}
+.gattingWrapper .captcha{position:absolute;width:230px;top:123px; height:30px;}
+.gattingWrapper .captcha .capSmallText{position:absolute;right:0px;width:212px;font-size:12px;top:0}
+.gattingWrapper #enterVerifyGat{ position:absolute;right:0px; top:2px;padding:0px;margin:0px;width:74px;line-height:15px;color:#000;font-size:12px;height:14px;text-align:center;background:#fff;border-radius:4px;}
+.gattingWrapper #verifyNumGat{position:absolute;top:17px;width:55px;height:13px;right:10px;font-size:12px;text-align:center;}
+.gattingWrapper .cuValid{ color:red; font-size:10px; display:block; text-shadow:0 1px 0 #fff; line-height:12px;height:12px;}
+.gattingWrapper .cuSendGatting{ background:url(../images/btnContact.png) no-repeat top left; width:134px; height:39px;color:#fff; display:block; cursor:pointer; border:none; font-weight:bold; padding:0 5px 5px 0; margin:0px 0 0 0; text-indent:-10px; margin:14px 0 0 0; position:relative; z-index:999}
+a.gattingWrapperClose{position:absolute;bottom:19px;right:20px;color:#999;text-shadow:0 1px 0 #fff;font-size:12px;}
+.gattingWrapper label.error {display:inline-block !important;height:12px;color: red;position:relative;font-size: 10px;left:0px;text-shadow: 1px 0px 0 white;font-family:arial;top:-2px}
+.gattingWrapper .regTitle{ margin:0 0 4px 0;color:#38cbe6;text-shadow: 1px 0px 0 white}
+.blockBg{
+background-color: rgba(36,111,150,0.65);
+height: 100%;
+width: 100%;
+display: block;
+position: absolute;
+z-index: 99999;
+}

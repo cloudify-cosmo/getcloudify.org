@@ -3,6 +3,7 @@ layout: index
 title: Previous GA versions of Cloudify
 cat: User Guide
 ---
+<notextile>
 <div id="earlyAccess" class="contentNoRight">
 <br/><br/><br/><br/>	
     <h1>Previous GA versions of Cloudify</h1>
@@ -22,3 +23,101 @@ cat: User Guide
 	
     <div class="clear"></div>
 </div>
+
+<script text="javascript">
+
+
+$(function(){
+
+//start captcha Code
+	function randomgen()
+	{
+    var rannumber='';
+		for(ranNum=1; ranNum<=6; ranNum++){
+			rannumber+=Math.floor(Math.random()*10).toString();
+		}
+		$('#verifyNumGat').html(rannumber);
+		$('#verifyNumHiddenGat').val(rannumber);
+	}
+	randomgen();
+		
+//end captcha Code; 
+
+
+//$("a.gattingWrapperClose").bind("click",function(){
+$('li.download').on("click", "a.gattingWrapperClose", function() {
+		$("div.gattingWrapper").remove();
+		$(".blockBg").hide();
+	});	
+	
+
+$("a#downloadme,a.eaTitle").click(function(e) {
+    downloadHref = $(this).attr('href'); 
+	$(this).before(strVar);
+	$(this).prev().css("visibility","visible");
+	$(".blockBg").show();
+	GrabOldMessages();
+	
+
+downloadFile(e);
+});
+
+
+function downloadFile(e)
+	{
+	//$("a#downloadme").click(function(e) {
+		try  {
+			e.preventDefault();
+			//Gating PopUp
+			
+			
+			if(gotName == false){
+				//var userName = prompt("Yo passenger! What's your name?");
+				//if ( confirm("Are you sure your name is " + userName + "?") ){
+				//alert("’Sup " + userName + "!");
+				randomgen();
+				//$(".gattingWrapper").css("visibility","visible");
+				if ($("#regiterToDownload").validate()==true){
+				gotName = true;
+				//track mixpanel
+				var verName="";
+				var downloadHref = $('a#downloadme').attr('href');
+				verName=downloadHref.split("/")[6]; 
+				//track google and mixpanel 
+				track_download(downloadHref);
+				//self.delay(500); 
+				setTimeout(function() {
+					window.location.href = downloadHref; 
+					setTimeout(function() {
+						window.location.href = "/thank_you.htm";
+					}, 4000);
+				}, 500);
+
+				
+				}
+						   
+			}
+	    } catch(e) {
+	    	console.log(["Error while tracking download", e]);
+	    }
+	    return false; 
+	//});
+}
+
+	
+function track_download(downloadHref) {
+		var downloadme=downloadHref.split("cloudify-")[1];
+		downloadme="/downloads/cloudify-" + downloadme.split("\.zip")[0] + "/get_cloudify";
+		_gaq.push(['_trackPageview', downloadme]);
+       	//track mixpanel
+		var zipName="";
+		zipName=downloadHref.split("/")[6]; 
+		mixpanel.track('GA Product Download', {'Zip Name':zipName, 'Source':'cloudifysource.org'});
+	}
+
+});
+
+
+
+</script>
+</notextile>
