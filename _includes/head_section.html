@@ -42,8 +42,8 @@
 	<script type="text/javascript" src="/scripts/version.data.js"></script>
 	<script type="text/javascript" src="/scripts/version.js"></script>
 	<script type="text/javascript" src="/scripts/jquery.lightbox-0.5.js"></script>
-        <script src="http://ajax.aspnetcdn.com/ajax/jquery.validate/1.9/jquery.validate.min.js"></script>	
-
+    <script src="http://ajax.aspnetcdn.com/ajax/jquery.validate/1.9/jquery.validate.min.js"></script>	
+	<script src="/scripts/jquery.cookie.js"></script>
 
 <script type="text/javascript" >
 //Manage Downloads Gating;
@@ -52,6 +52,8 @@ var gotName = false;
 var gotValidCaptcha = false;
 var downloadHref="";
 var strVar="";
+var formEmail="";
+
 strVar += "<div class=\"gattingWrapper\">";
 strVar += "           <form id=\"regiterToDownload\" action=\"https:\/\/www.salesforce.com\/servlet\/servlet.WebToLead?encoding=UTF-8\" method=\"POST\">";
 strVar += "			<div class=\"regTitle\">Verify You're Human<\/div>";
@@ -167,6 +169,10 @@ function GrabOldMessages(){
 				verName=downloadHref.split("/")[6]; 
 				//track google and mixpanel 
 				track_download(downloadHref);
+				//Set cookie:
+				 var obj = { email:formEmail };
+				 $.cookie("cloudRegUser", $.param(obj), { expires: 10 });
+				 //
 				$('.gattingWrapper').remove();
 				$(".blockBg").hide();
 				setTimeout(function() {
@@ -186,7 +192,7 @@ function GrabOldMessages(){
 				zipName=downloadHref.split("/")[6]; 
 				mixpanel.track('GA Product Download', {'Zip Name':zipName, 'Source':'cloudifysource.org'});
 				
-				var formEmail =  $(".gattingWrapper #email").val();	
+				formEmail =  $(".gattingWrapper #email").val();	
 				mixpanel.people.identify(formEmail);
 				mixpanel.people.set({
                 "resource": zipName, // sets the property 'Resource' for this user to the boolean value true		

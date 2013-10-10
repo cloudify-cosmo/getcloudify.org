@@ -72,9 +72,33 @@ $("a#downloadme,a.eaTitle").click(function(e) {
 	$(this).prev().css("visibility","visible");
 	$(".blockBg").show();
 	GrabOldMessages();
-
-downloadFile(e);
+	if($.cookie('cloudRegUser')==null){
+		downloadFile(e);
+	}else{
+		directDownload(e);//works only when user already once sign in ;
+	}
 });
+
+function directDownload(e){
+e.preventDefault();
+$("div.gattingWrapper").remove();
+$(".blockBg").hide();
+var verName="";
+//var downloadHref = $('a#downloadme,a.eaTitle').attr('href');
+verName=downloadHref.split("/")[6]; 
+//track google and mixpanel 
+track_download(downloadHref);
+//self.delay(500); 
+setTimeout(function() {
+	window.location.href = downloadHref; 
+	setTimeout(function() {
+		window.location.href = "/thank_you.htm";
+	}, 4000);
+}, 500);
+
+//
+}
+
 
 
 function downloadFile(e)
@@ -127,6 +151,16 @@ function track_download(downloadHref) {
 		var zipName="";
 		zipName=downloadHref.split("/")[6]; 
 		mixpanel.track('GA Product Download', {'Zip Name':zipName, 'Source':'cloudifysource.org'});
+		formEmail = $.cookie('cloudRegUser').split('=')[1].replace('%40','@');
+		mixpanel.people.identify(formEmail);
+		mixpanel.people.set({
+		"resource": zipName, // sets the property 'Resource' for this user to the boolean value true		
+		$email: formEmail,
+		$first_name: formEmail,
+		$created: new Date(),
+		$last_seen:new Date(),
+		});
+		mixpanel.track('Resource', {'Zip Name':zipName, 'Source':'Download Page'});
 	}
 
 });
