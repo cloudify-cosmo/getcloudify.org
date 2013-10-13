@@ -4,10 +4,10 @@
 <head>
     
 	<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>	
-	<title>Cloudify - Tag: EC2</title>
+	<title>Cloudify - Tag: Ec2</title>
 	<script src="//cdn.optimizely.com/js/59503762.js"></script>
 	<link rel="stylesheet" href="/css/template.css" type="text/css"/>	
-	<link rel="canonical" href="http://www.cloudifysource.orgtags/EC2/index.html"/>	
+	<link rel="canonical" href="http://www.cloudifysource.orgtags/Ec2/index.html"/>	
 	<link rel="stylesheet" href="/css/jquery-ui-1.8.17.custom.css" type="text/css" media="all"/>
 	<link rel="stylesheet" type="text/css" href="/scripts/prettify/prettify.css">		
 	<link rel="stylesheet" type="text/css" href="/scripts/lightbox/jquery.lightbox-0.5.css" media="screen" />	
@@ -45,10 +45,83 @@
 	<script type="text/javascript" src="/scripts/version.data.js"></script>
 	<script type="text/javascript" src="/scripts/version.js"></script>
 	<script type="text/javascript" src="/scripts/jquery.lightbox-0.5.js"></script>
-        <script src="http://ajax.aspnetcdn.com/ajax/jquery.validate/1.9/jquery.validate.min.js"></script>	
-
+    <script src="http://ajax.aspnetcdn.com/ajax/jquery.validate/1.9/jquery.validate.min.js"></script>	
+	<script src="/scripts/jquery.cookie.js"></script>
 
 <script type="text/javascript" >
+//Manage Downloads Gating;
+//========================================//
+var gotName = false;
+var gotValidCaptcha = false;
+var downloadHref="";
+var strVar="";
+var formEmail="";
+
+strVar += "<div class=\"gattingWrapper\">";
+strVar += "           <form id=\"regiterToDownload\" action=\"https:\/\/www.salesforce.com\/servlet\/servlet.WebToLead?encoding=UTF-8\" method=\"POST\">";
+strVar += "			<div class=\"regTitle\">Verify You're Human<\/div>";
+strVar += "			<div style=\"position:relative\">";
+strVar += "				<input  id=\"last_name\" name=\"last_name\" type=\"text\" class=\"cuInput\" placeholder=\"Your Name\" \/>";
+strVar += "				<div class=\"cuValid\"><\/div>";
+strVar += "			<\/div>";
+strVar += "			<div style=\"position:relative\">";
+strVar += "				<input  id=\"email\" name=\"email\"  type=\"text\"  placeholder=\"Your Email\"\/>";
+strVar += "				<div class=\"cuValid\"><\/div>";
+strVar += "			<\/div>";
+strVar += "	   		 <div class=\"captcha\">";
+strVar += "	    	    <div class=\"capSmallText\">Enter the number below: <\/div>";
+strVar += "		    	<input type=\"hidden\" value=\"701469\" id=\"verifyNumHiddenGat\" name=\"verifyNumHidden\" \/>";
+strVar += "		    	<input type=\"text\" id=\"enterVerifyGat\" name=\"enterVerify\" \/>";
+strVar += "		    <div id=\"verifyNumGat\"><\/div>";
+strVar += "		    <\/div>";
+strVar += "			<input type=\"submit\" class=\"cuSendGatting\" name=\"submit\" value=\"Download\" \/>";
+strVar += "			<\/form>";
+strVar += "            <a class=\"gattingWrapperClose\" href=\"#\">Close<\/a>";
+strVar += "        <\/div>";
+
+//Global Function for use;
+function checkValidCaptcha(){
+		if($('#enterVerifyGat').val() == $('#verifyNumHiddenGat').val() ) {
+			//$('form').attr('action', 'https://example.com/MyForm');
+			gotValidCaptcha = true;
+			return true;
+		}
+		else
+		{
+			alert("Please Enter Correct Verification Number");
+			randomgenGat();
+			$('#enterVerifyGat').select();
+			$('#enterVerifyGat').focus();
+			return false;
+		}
+}
+
+// captcha Code
+	function randomgenGat(){
+    	var rannumber='';
+		for(ranNum=1; ranNum<=6; ranNum++){
+			rannumber+=Math.floor(Math.random()*10).toString();
+		}
+		$('#verifyNumGat').html(rannumber);
+		$('#verifyNumHiddenGat').val(rannumber);
+	}
+	
+ //Contact captcha Code
+	
+	function randomgen(){
+    	var rannumber='';
+		for(ranNum=1; ranNum<=6; ranNum++){
+			rannumber+=Math.floor(Math.random()*10).toString();
+		}
+		$('#verifyNum').html(rannumber);
+		$('#verifyNumHidden').val(rannumber);
+	}
+
+//============== Added By Yonatan (4hilton) at 10/2013  ==========================//
+</script>
+
+<script type="text/javascript" >
+function GrabOldMessages(){
 (function($,W,D)
 {
     var JQUERY4U = {};
@@ -58,8 +131,7 @@
         setupFormValidation: function()
         {
             //form validation rules
-	    	
-            $("#contactUs").validate({
+			    $("#contactUs").validate({
                 rules: {
                     last_name: "required",
                     email: {
@@ -75,25 +147,85 @@
                     form.submit();
                 }
             });
+			
+			//$('li.download').on("submit", "#regiterToDownload", function() {
+			   $("#regiterToDownload").validate({
+                rules: {
+                    last_name: "required",
+                    email: {
+                        required: true,
+                        email: true
+                    },
+                },
+                messages: {
+                    last_name: "Please enter your first name",
+                    email: "Please enter a valid email address",
+                },
+               submitHandler: function(form) {
+                    //form.submit();
+				    //downloadFile(e);
+					gotName = true;
+					checkValidCaptcha();
+				if (gotName==true && gotValidCaptcha==true ){
+				//track mixpanel
+				var verName="";
+				verName=downloadHref.split("/")[6]; 
+				//track google and mixpanel 
+				track_download(downloadHref);
+				//Set cookie:
+				 var obj = { email:formEmail };
+				 $.cookie("cloudRegUser", $.param(obj), { expires: 10 });
+				 //
+				$('.gattingWrapper').remove();
+				$(".blockBg").hide();
+				setTimeout(function() {
+					window.location.href = downloadHref; 
+					setTimeout(function() {
+						window.location.href = "/thank_you.htm";
+					}, 4000);
+				}, 500);
+				}
+
+				function track_download(downloadHref) {
+				var downloadme=downloadHref.split("cloudify-")[1];
+				downloadme="/downloads/cloudify-" + downloadme.split("\.zip")[0] + "/get_cloudify";
+				_gaq.push(['_trackPageview', downloadme]);
+				//track mixpanel
+				var zipName="";
+				zipName=downloadHref.split("/")[6]; 
+				mixpanel.track('GA Product Download', {'Zip Name':zipName, 'Source':'cloudifysource.org'});
+				
+				formEmail =  $(".gattingWrapper #email").val();	
+				mixpanel.people.identify(formEmail);
+				mixpanel.people.set({
+                "resource": zipName, // sets the property 'Resource' for this user to the boolean value true		
+				$email: formEmail,
+				$first_name: formEmail,
+				$created: new Date(),
+				$last_seen:new Date(),
+				});
+				mixpanel.track('Resource', {'Zip Name':zipName, 'Source':'Download Page'});
+				
+				
+				
+				
+				
+				}	
+					
+					
+					
+                }
+            });
         }
     }
 
     //when the dom has loaded setup form validation rules
     $(D).ready(function($) {
         JQUERY4U.UTIL.setupFormValidation();
-//start captcha Code
-	function randomgen()
-	{
-    var rannumber='';
-		for(ranNum=1; ranNum<=6; ranNum++){
-			rannumber+=Math.floor(Math.random()*10).toString();
-		}
-		$('#verifyNum').html(rannumber);
-		$('#verifyNumHidden').val(rannumber);
-	}
-	randomgen();
-//Verification number generate code Ends here
-  
+
+		randomgen();
+  //start captcha Code
+	
 //Validation Starts Here    
 	$('#contactUs').submit(function() {
 		if($('#enterVerify').val() == $('#verifyNumHidden').val() ) {
@@ -109,10 +241,24 @@
 			return false;
 		}
 	});
-//end captcha Code;        
+	$('#regiterToDownload').submit(function() {
+		checkValidCaptcha();
+	});
+	
+	
+	
+	
+	$("input.cuSend,input.cuSendGatting").click(function(){
+			$('.cuValid').hide();
+	});
+	
+	
+
+		       
     });
 
 })(jQuery, window, document);
+}
 </script>
 <script type="text/javascript">
     $(window).bind("load", function () {
@@ -128,6 +274,7 @@
  	}
 	
 	$(function(){ 
+	GrabOldMessages();
 	//map lightbox on participate page
 	//$('a.showmap').click(function(){
 		
@@ -155,7 +302,7 @@
 			$("div.contactUsWrapper").css("visibility","visible");
 			$("a.contactUsLink").css("visibility","hidden");
 		});
-		$("input.cuSend").click(function(){
+		$("input.cuSend,input.cuSendGatting").click(function(){
 			$('.cuValid').hide();
 		});
 		$("input.cuSend").submit(function(){
@@ -421,7 +568,7 @@ $("body").live('change', function(){
 <div class="clear"></div>
 
         <div class="contentWrap">            
-			<div class="breadcrumbs">Home Page > Cloudify Blogs > Tag: EC2</div>
+			<div class="breadcrumbs">Home Page > Cloudify Blogs > Tag: Ec2</div>
             <div class="clear"></div>
 
             <!--Search-->
@@ -463,17 +610,17 @@ $("body").live('change', function(){
 
 <div class="leftContentBox blogLeftBox"> 
    
+	<a href="/2013/10/11/xap_on_cloudify_part_1.html">XAP on Cloudify Part 1 
+	 <img class="noMargin" src="/images/arrow-right-blue.png" /></a><br />
+	<span class="date">October 11, 2013</span>  
+	<br/><br/>
+  
 	<a href="/2013/09/16/cloudifying_high_availability_part_2_disaster_recovery_on_demand.html">Disaster Recovery On Demand 
 	 <img class="noMargin" src="/images/arrow-right-blue.png" /></a><br />
 	<span class="date">September 16, 2013</span>  
 	<br/><br/>
   
 	<a href="/2013/09/10/four_case_studies_for_moving_mission_critical_apps_to_openstack.html">Four Case Studies for Moving Mission Critical Apps to OpenStack 
-	 <img class="noMargin" src="/images/arrow-right-blue.png" /></a><br />
-	<span class="date">September 10, 2013</span>  
-	<br/><br/>
-  
-	<a href="/2013/09/10/bootstrapping_cloudify_with_chef.html">Bootstrapping Cloudify With Chef 
 	 <img class="noMargin" src="/images/arrow-right-blue.png" /></a><br />
 	<span class="date">September 10, 2013</span>  
 	<br/><br/>
@@ -505,7 +652,25 @@ $("body").live('change', function(){
 	
 
 	
+<li><a href="/2013/10">October 2013</a> <span class="blue">(1)</span></li>
+
+	
+
+	
+		
+			
 <li><a href="/2013/09">September 2013</a> <span class="blue">(3)</span></li>
+
+			
+		
+	
+
+	
+	
+	
+	
+	
+	
 
 	
 
@@ -1460,7 +1625,7 @@ $("body").live('change', function(){
 
                 <div id="resultsDiv" class="DocumentsWrap"></div>
                 <div id="pageContent" class="DocumentsWrapRight">
-                    <h1 class="pageTitle">Tag: EC2</h1>					
+                    <h1 class="pageTitle">Tag: Ec2</h1>					
 
 
 
@@ -1478,158 +1643,34 @@ $("body").live('change', function(){
 
 <div class="blogtPostBox">
   <div class="blogInfoLeft">
-    <img title="Tamir Korem" width="80" height="96" src="/images/tamir.jpg" />
+    <img title="DeWayne Filppi" width="80" height="96" src="/images/dewayne.jpg" />
   </div>  
   <div class="blogInfoRight">
-    <a href="/2013/07/16/how_to_install_heat_and_devstack_on_ec2.html" class="title">How to Install Heat and Devstack on EC2</a>
+    <a href="/2013/10/11/xap_on_cloudify_part_1.html" class="title">XAP on Cloudify Part 1</a>
 	  <div class="blogPostInfo">
 	  <br/>	  	 
-	    <span>Posted By: <a href="#">Tamir Korem</a>  on  July 16, 2013  <!--|  in <a href="/categories/"></a> --></span>
+	    <span>Posted By: <a href="#">DeWayne Filppi</a>  on  October 11, 2013  <!--|  in <a href="/categories/"></a> --></span>
 	  </div>	  	  	
       <p>
 		
-			<p>Devstack is A great option to install and run an OpenStack cloud on your laptop or inside a VM on a cloud. Ideal for potential users who want to see what the Dashboard looks like from an admin or user perspective, and OpenStack contributors who wish to test their apps...</p>
+			<p>Introduction GigaSpaces XAP has lacked an official Cloudify recipe for some time now, and this series of posts will address my efforts to create one. The task of automating the deployment and management of the potentially complex suite of services that XAP represents is a challenge in and of itself,...</p>
 			
-		<p class><a href="/2013/07/16/how_to_install_heat_and_devstack_on_ec2.html">Read more...</a></p>	  	  
+		<p class><a href="/2013/10/11/xap_on_cloudify_part_1.html">Read more...</a></p>	  	  
 	  </p>
 		<span>  Additional Tags: 		
-			
-				
-			     <a class="postTag" href="/tags/OpenStack">OpenStack (11)</a>
-			   	
-			
-				
-			     <a class="postTag" href="/tags/Devstack">Devstack (2)</a>
-			   	
 			
 					
 			
 				
-			     <a class="postTag" href="/tags/Cloud">Cloud (26)</a>
-			   	
-			
-		</span>
-	    
-  </div>
-  <div class="clear" ></div>    
-</div>  
-
-
-
-<div class="blogtPostBox">
-  <div class="blogInfoLeft">
-    <img title="Tamir Korem" width="80" height="96" src="/images/tamir.jpg" />
-  </div>  
-  <div class="blogInfoRight">
-    <a href="/2013/05/01/cross_cloud_storage.html" class="title">Cross-Cloud Storage</a>
-	  <div class="blogPostInfo">
-	  <br/>	  	 
-	    <span>Posted By: <a href="#">Tamir Korem</a>  on  May  1, 2013  <!--|  in <a href="/categories/"></a> --></span>
-	  </div>	  	  	
-      <p>
-		
-			<p>Preface I am still amazed from time to time to find that even very intelligent people who know a lot about software development, but nothing about cloud computing, don&#8217;t seem to know this truth about the cloud &#8220;world&#8221;: when a machine (VM) goes down, its data is gone forever, unless...</p>
-			
-		<p class><a href="/2013/05/01/cross_cloud_storage.html">Read more...</a></p>	  	  
-	  </p>
-		<span>  Additional Tags: 		
-			
-				
-			     <a class="postTag" href="/tags/Storage">Storage (1)</a>
+			     <a class="postTag" href="/tags/OpenStack">OpenStack (12)</a>
 			   	
 			
 				
-			     <a class="postTag" href="/tags/s3cmd">s3cmd (1)</a>
-			   	
-			
-					
-			
-				
-			     <a class="postTag" href="/tags/HP">HP (1)</a>
+			     <a class="postTag" href="/tags/Xap">Xap (1)</a>
 			   	
 			
 				
-			     <a class="postTag" href="/tags/Cloud">Cloud (26)</a>
-			   	
-			
-		</span>
-	    
-  </div>
-  <div class="clear" ></div>    
-</div>  
-
-
-
-<div class="blogtPostBox">
-  <div class="blogInfoLeft">
-    <img title="Nati Shalom" width="80" height="96" src="/images/nati.png" />
-  </div>  
-  <div class="blogInfoRight">
-    <a href="/2012/06/18/lessons-from-heroku-amazon-outage.html" class="title">Lessons From The Heroku Amazon Outage</a>
-	  <div class="blogPostInfo">
-	  <br/>	  	 
-	    <span>Posted By: <a href="#">Nati Shalom</a>  on  June 18, 2012  <!--|  in <a href="/categories/"></a> --></span>
-	  </div>	  	  	
-      <p>
-		
-			<p>Earlier this week we experienced the third significant AWS outage in the past 14 months, as reported by Justin Lee in his report&nbsp;Heroku, Pinterest Among Sites Knocked Offline in Amazon Data Center Outage&nbsp;on theWhirr magazine: An&nbsp;Amazon&nbsp;data center in Ashburn, Virginia suffered a power outage at 9:45 p.m. PDT on Thursday,...</p>
-			
-		<p class><a href="/2012/06/18/lessons-from-heroku-amazon-outage.html">Read more...</a></p>	  	  
-	  </p>
-		<span>  Additional Tags: 		
-			
-				
-			     <a class="postTag" href="/tags/PaaS">PaaS (16)</a>
-			   	
-			
-				
-			     <a class="postTag" href="/tags/Open PaaS">Open PaaS (8)</a>
-			   	
-			
-				
-			     <a class="postTag" href="/tags/Heroku">Heroku (1)</a>
-			   	
-			
-				
-			     <a class="postTag" href="/tags/AWS">AWS (5)</a>
-			   	
-			
-					
-			
-		</span>
-	    
-  </div>
-  <div class="clear" ></div>    
-</div>  
-
-
-
-<div class="blogtPostBox">
-  <div class="blogInfoLeft">
-    <img title="Sean Kumar" width="80" height="96" src="/images/kumar.jpg" />
-  </div>  
-  <div class="blogInfoRight">
-    <a href="/2012/01/05/terabyte-elastic-cache-clusters-on-cisco-ucs-and-amazon-ec2.html" class="title">Terabyte Elastic Cache Clusters on Cisco UCS and Amazon EC2</a>
-	  <div class="blogPostInfo">
-	  <br/>	  	 
-	    <span>Posted By: <a href="#">Sean Kumar</a>  on  January  5, 2012  <!--|  in <a href="/categories/"></a> --></span>
-	  </div>	  	  	
-      <p>
-		
-			<p>Overview Last week I was working on a new opportunity. The prospect needs to store 1 Terabyte of data in memory to address scalability challenges and were interested in using GigaSpaces. I was tasked with creating a demonstration of this and want to share my experience as a blog post....</p>
-			
-		<p class><a href="/2012/01/05/terabyte-elastic-cache-clusters-on-cisco-ucs-and-amazon-ec2.html">Read more...</a></p>	  	  
-	  </p>
-		<span>  Additional Tags: 		
-			
-				
-			     <a class="postTag" href="/tags/Cloudify">Cloudify (37)</a>
-			   	
-			
-					
-			
-				
-			     <a class="postTag" href="/tags/Clusters">Clusters (1)</a>
+			     <a class="postTag" href="/tags/Web UI">Web UI (1)</a>
 			   	
 			
 		</span>

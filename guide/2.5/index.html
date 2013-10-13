@@ -45,10 +45,83 @@
 	<script type="text/javascript" src="/scripts/version.data.js"></script>
 	<script type="text/javascript" src="/scripts/version.js"></script>
 	<script type="text/javascript" src="/scripts/jquery.lightbox-0.5.js"></script>
-        <script src="http://ajax.aspnetcdn.com/ajax/jquery.validate/1.9/jquery.validate.min.js"></script>	
-
+    <script src="http://ajax.aspnetcdn.com/ajax/jquery.validate/1.9/jquery.validate.min.js"></script>	
+	<script src="/scripts/jquery.cookie.js"></script>
 
 <script type="text/javascript" >
+//Manage Downloads Gating;
+//========================================//
+var gotName = false;
+var gotValidCaptcha = false;
+var downloadHref="";
+var strVar="";
+var formEmail="";
+
+strVar += "<div class=\"gattingWrapper\">";
+strVar += "           <form id=\"regiterToDownload\" action=\"https:\/\/www.salesforce.com\/servlet\/servlet.WebToLead?encoding=UTF-8\" method=\"POST\">";
+strVar += "			<div class=\"regTitle\">Verify You're Human<\/div>";
+strVar += "			<div style=\"position:relative\">";
+strVar += "				<input  id=\"last_name\" name=\"last_name\" type=\"text\" class=\"cuInput\" placeholder=\"Your Name\" \/>";
+strVar += "				<div class=\"cuValid\"><\/div>";
+strVar += "			<\/div>";
+strVar += "			<div style=\"position:relative\">";
+strVar += "				<input  id=\"email\" name=\"email\"  type=\"text\"  placeholder=\"Your Email\"\/>";
+strVar += "				<div class=\"cuValid\"><\/div>";
+strVar += "			<\/div>";
+strVar += "	   		 <div class=\"captcha\">";
+strVar += "	    	    <div class=\"capSmallText\">Enter the number below: <\/div>";
+strVar += "		    	<input type=\"hidden\" value=\"701469\" id=\"verifyNumHiddenGat\" name=\"verifyNumHidden\" \/>";
+strVar += "		    	<input type=\"text\" id=\"enterVerifyGat\" name=\"enterVerify\" \/>";
+strVar += "		    <div id=\"verifyNumGat\"><\/div>";
+strVar += "		    <\/div>";
+strVar += "			<input type=\"submit\" class=\"cuSendGatting\" name=\"submit\" value=\"Download\" \/>";
+strVar += "			<\/form>";
+strVar += "            <a class=\"gattingWrapperClose\" href=\"#\">Close<\/a>";
+strVar += "        <\/div>";
+
+//Global Function for use;
+function checkValidCaptcha(){
+		if($('#enterVerifyGat').val() == $('#verifyNumHiddenGat').val() ) {
+			//$('form').attr('action', 'https://example.com/MyForm');
+			gotValidCaptcha = true;
+			return true;
+		}
+		else
+		{
+			alert("Please Enter Correct Verification Number");
+			randomgenGat();
+			$('#enterVerifyGat').select();
+			$('#enterVerifyGat').focus();
+			return false;
+		}
+}
+
+// captcha Code
+	function randomgenGat(){
+    	var rannumber='';
+		for(ranNum=1; ranNum<=6; ranNum++){
+			rannumber+=Math.floor(Math.random()*10).toString();
+		}
+		$('#verifyNumGat').html(rannumber);
+		$('#verifyNumHiddenGat').val(rannumber);
+	}
+	
+ //Contact captcha Code
+	
+	function randomgen(){
+    	var rannumber='';
+		for(ranNum=1; ranNum<=6; ranNum++){
+			rannumber+=Math.floor(Math.random()*10).toString();
+		}
+		$('#verifyNum').html(rannumber);
+		$('#verifyNumHidden').val(rannumber);
+	}
+
+//============== Added By Yonatan (4hilton) at 10/2013  ==========================//
+</script>
+
+<script type="text/javascript" >
+function GrabOldMessages(){
 (function($,W,D)
 {
     var JQUERY4U = {};
@@ -58,8 +131,7 @@
         setupFormValidation: function()
         {
             //form validation rules
-	    	
-            $("#contactUs").validate({
+			    $("#contactUs").validate({
                 rules: {
                     last_name: "required",
                     email: {
@@ -75,25 +147,85 @@
                     form.submit();
                 }
             });
+			
+			//$('li.download').on("submit", "#regiterToDownload", function() {
+			   $("#regiterToDownload").validate({
+                rules: {
+                    last_name: "required",
+                    email: {
+                        required: true,
+                        email: true
+                    },
+                },
+                messages: {
+                    last_name: "Please enter your first name",
+                    email: "Please enter a valid email address",
+                },
+               submitHandler: function(form) {
+                    //form.submit();
+				    //downloadFile(e);
+					gotName = true;
+					checkValidCaptcha();
+				if (gotName==true && gotValidCaptcha==true ){
+				//track mixpanel
+				var verName="";
+				verName=downloadHref.split("/")[6]; 
+				//track google and mixpanel 
+				track_download(downloadHref);
+				//Set cookie:
+				 var obj = { email:formEmail };
+				 $.cookie("cloudRegUser", $.param(obj), { expires: 10 });
+				 //
+				$('.gattingWrapper').remove();
+				$(".blockBg").hide();
+				setTimeout(function() {
+					window.location.href = downloadHref; 
+					setTimeout(function() {
+						window.location.href = "/thank_you.htm";
+					}, 4000);
+				}, 500);
+				}
+
+				function track_download(downloadHref) {
+				var downloadme=downloadHref.split("cloudify-")[1];
+				downloadme="/downloads/cloudify-" + downloadme.split("\.zip")[0] + "/get_cloudify";
+				_gaq.push(['_trackPageview', downloadme]);
+				//track mixpanel
+				var zipName="";
+				zipName=downloadHref.split("/")[6]; 
+				mixpanel.track('GA Product Download', {'Zip Name':zipName, 'Source':'cloudifysource.org'});
+				
+				formEmail =  $(".gattingWrapper #email").val();	
+				mixpanel.people.identify(formEmail);
+				mixpanel.people.set({
+                "resource": zipName, // sets the property 'Resource' for this user to the boolean value true		
+				$email: formEmail,
+				$first_name: formEmail,
+				$created: new Date(),
+				$last_seen:new Date(),
+				});
+				mixpanel.track('Resource', {'Zip Name':zipName, 'Source':'Download Page'});
+				
+				
+				
+				
+				
+				}	
+					
+					
+					
+                }
+            });
         }
     }
 
     //when the dom has loaded setup form validation rules
     $(D).ready(function($) {
         JQUERY4U.UTIL.setupFormValidation();
-//start captcha Code
-	function randomgen()
-	{
-    var rannumber='';
-		for(ranNum=1; ranNum<=6; ranNum++){
-			rannumber+=Math.floor(Math.random()*10).toString();
-		}
-		$('#verifyNum').html(rannumber);
-		$('#verifyNumHidden').val(rannumber);
-	}
-	randomgen();
-//Verification number generate code Ends here
-  
+
+		randomgen();
+  //start captcha Code
+	
 //Validation Starts Here    
 	$('#contactUs').submit(function() {
 		if($('#enterVerify').val() == $('#verifyNumHidden').val() ) {
@@ -109,10 +241,24 @@
 			return false;
 		}
 	});
-//end captcha Code;        
+	$('#regiterToDownload').submit(function() {
+		checkValidCaptcha();
+	});
+	
+	
+	
+	
+	$("input.cuSend,input.cuSendGatting").click(function(){
+			$('.cuValid').hide();
+	});
+	
+	
+
+		       
     });
 
 })(jQuery, window, document);
+}
 </script>
 <script type="text/javascript">
     $(window).bind("load", function () {
@@ -128,6 +274,7 @@
  	}
 	
 	$(function(){ 
+	GrabOldMessages();
 	//map lightbox on participate page
 	//$('a.showmap').click(function(){
 		
@@ -155,7 +302,7 @@
 			$("div.contactUsWrapper").css("visibility","visible");
 			$("a.contactUsLink").css("visibility","hidden");
 		});
-		$("input.cuSend").click(function(){
+		$("input.cuSend,input.cuSendGatting").click(function(){
 			$('.cuValid').hide();
 		});
 		$("input.cuSend").submit(function(){
@@ -347,6 +494,7 @@ $("body").live('change', function(){
 
 <body>
 <a class="fork-guide" target="_blank" href="https://github.com/CloudifySource/cloudify"></a> 
+<div class="blockBg" style="display:none"></div>
 <div class="WrapperBg">
            
     <div class="Wrapper">
@@ -859,19 +1007,7 @@ $("body").live('change', function(){
             
             
             
-                <li><a href="/guide/2.2/developing/recipes_overview">Anatomy of a Recipe </a> - An overview of the recipe framework and terminology.</li>
-                
-            
-            
                 <li><a href="/guide/2.3/developing/recipes_overview">Anatomy of a Recipe </a> - An overview of the recipe framework and terminology.</li>
-                
-            
-            
-                <li><a href="/guide/2.5/developing/recipes_overview">Anatomy of a Recipe </a> - An overview of the recipe framework and terminology.</li>
-                
-            
-            
-                <li><a href="/guide/2.7/developing/recipes_overview">Anatomy of a Recipe </a> - An overview of the recipe framework and terminology.</li>
                 
             
             
@@ -879,14 +1015,26 @@ $("body").live('change', function(){
                 
             
             
-            <li class="expandBtn">More...</li>
-            <div class="expand">
-                
                 <li><a href="/guide/2.1/developing/recipes_overview">Anatomy of a Recipe </a> - An overview of the recipe framework and terminology.</li>
                 
             
             
-                <li><a href="/guide/2.1/developing/application_recipe">The Application Recipe </a> - Describes the part of the recipe that describes which application services your application requires and their interdependencies.</li>
+                <li><a href="/guide/2.7/developing/recipes_overview">Anatomy of a Recipe </a> - An overview of the recipe framework and terminology.</li>
+                
+            
+            
+                <li><a href="/guide/2.2/developing/recipes_overview">Anatomy of a Recipe </a> - An overview of the recipe framework and terminology.</li>
+                
+            
+            
+            <li class="expandBtn">More...</li>
+            <div class="expand">
+                
+                <li><a href="/guide/2.5/developing/recipes_overview">Anatomy of a Recipe </a> - An overview of the recipe framework and terminology.</li>
+                
+            
+            
+                <li><a href="/guide/2.7/developing/application_recipe">The Application Recipe </a> - Describes the part of the recipe that describes which application services your application requires and their interdependencies.</li>
                 
             
             
@@ -906,11 +1054,7 @@ $("body").live('change', function(){
                 
             
             
-                <li><a href="/guide/2.7/developing/application_recipe">The Application Recipe </a> - Describes the part of the recipe that describes which application services your application requires and their interdependencies.</li>
-                
-            
-            
-                <li><a href="/guide/2.2/developing/service_recipe">Service Recipes </a> - Describes the part of the recipe that describes a specific application service including its configuration, lifecycle, and its management.</li>
+                <li><a href="/guide/2.1/developing/application_recipe">The Application Recipe </a> - Describes the part of the recipe that describes which application services your application requires and their interdependencies.</li>
                 
             
             
@@ -922,6 +1066,10 @@ $("body").live('change', function(){
                 
             
             
+                <li><a href="/guide/2.6/developing/service_recipe">Service Recipes </a> - Describes the part of the recipe that describes a specific application service including its configuration, lifecycle, and its management.</li>
+                
+            
+            
                 <li><a href="/guide/2.3/developing/service_recipe">Service Recipes </a> - Describes the part of the recipe that describes a specific application service including its configuration, lifecycle, and its management.</li>
                 
             
@@ -930,7 +1078,15 @@ $("body").live('change', function(){
                 
             
             
-                <li><a href="/guide/2.6/developing/service_recipe">Service Recipes </a> - Describes the part of the recipe that describes a specific application service including its configuration, lifecycle, and its management.</li>
+                <li><a href="/guide/2.2/developing/service_recipe">Service Recipes </a> - Describes the part of the recipe that describes a specific application service including its configuration, lifecycle, and its management.</li>
+                
+            
+            
+                <li><a href="/guide/2.7/developing/lifecycle_events">Lifecycle Events </a> - Describes the events in the Cloudify application and service lifecycles.</li>
+                
+            
+            
+                <li><a href="/guide/2.1/developing/lifecycle_events">Lifecycle Events </a> - Describes the events in the Cloudify application and service lifecycles.</li>
                 
             
             
@@ -942,10 +1098,6 @@ $("body").live('change', function(){
                 
             
             
-                <li><a href="/guide/2.7/developing/lifecycle_events">Lifecycle Events </a> - Describes the events in the Cloudify application and service lifecycles.</li>
-                
-            
-            
                 <li><a href="/guide/2.5/developing/lifecycle_events">Lifecycle Events </a> - Describes the events in the Cloudify application and service lifecycles.</li>
                 
             
@@ -954,11 +1106,7 @@ $("body").live('change', function(){
                 
             
             
-                <li><a href="/guide/2.1/developing/lifecycle_events">Lifecycle Events </a> - Describes the events in the Cloudify application and service lifecycles.</li>
-                
-            
-            
-                <li><a href="/guide/2.2/developing/recipe_parameters">Recipe Parameterization </a> - Describes how to use same recipe in different environments using parameters.</li>
+                <li><a href="/guide/2.5/developing/recipe_parameters">Recipe Parameterization </a> - Describes how to use same recipe in different environments using parameters.</li>
                 
             
             
@@ -966,15 +1114,11 @@ $("body").live('change', function(){
                 
             
             
+                <li><a href="/guide/2.2/developing/recipe_parameters">Recipe Parameterization </a> - Describes how to use same recipe in different environments using parameters.</li>
+                
+            
+            
                 <li><a href="/guide/2.3/developing/recipe_parameters">Recipe Parameterization </a> - Describes how to use same recipe in different environments using parameters.</li>
-                
-            
-            
-                <li><a href="/guide/2.6/developing/recipe_parameters">Recipe Parameterization </a> - Describes how to use same recipe in different environments using parameters.</li>
-                
-            
-            
-                <li><a href="/guide/2.5/developing/recipe_parameters">Recipe Parameterization </a> - Describes how to use same recipe in different environments using parameters.</li>
                 
             
             
@@ -982,11 +1126,7 @@ $("body").live('change', function(){
                 
             
             
-                <li><a href="/guide/2.6/developing/extending_recipes">Extending Service Recipes </a> - Explains how to create new recipe from existing one by overriding only the elements you wish modify.</li>
-                
-            
-            
-                <li><a href="/guide/2.3/developing/extending_recipes">Extending Service Recipes </a> - Explains how to create new recipe from existing one by overriding only the elements you wish modify.</li>
+                <li><a href="/guide/2.6/developing/recipe_parameters">Recipe Parameterization </a> - Describes how to use same recipe in different environments using parameters.</li>
                 
             
             
@@ -994,7 +1134,19 @@ $("body").live('change', function(){
                 
             
             
+                <li><a href="/guide/2.3/developing/extending_recipes">Extending Service Recipes </a> - Explains how to create new recipe from existing one by overriding only the elements you wish modify.</li>
+                
+            
+            
+                <li><a href="/guide/2.6/developing/extending_recipes">Extending Service Recipes </a> - Explains how to create new recipe from existing one by overriding only the elements you wish modify.</li>
+                
+            
+            
                 <li><a href="/guide/2.5/developing/extending_recipes">Extending Service Recipes </a> - Explains how to create new recipe from existing one by overriding only the elements you wish modify.</li>
+                
+            
+            
+                <li><a href="/guide/2.7/developing/extending_recipes">Extending Service Recipes </a> - Explains how to create new recipe from existing one by overriding only the elements you wish modify.</li>
                 
             
             
@@ -1002,7 +1154,19 @@ $("body").live('change', function(){
                 
             
             
-                <li><a href="/guide/2.7/developing/extending_recipes">Extending Service Recipes </a> - Explains how to create new recipe from existing one by overriding only the elements you wish modify.</li>
+                <li><a href="/guide/2.3/developing/the_service_context_api">The Service Context API </a> - Describes the Service Context API, which is Cloudify's API for interacting with an application service's runtime environment and context.</li>
+                
+            
+            
+                <li><a href="/guide/2.7/developing/the_service_context_api">The Service Context API </a> - Describes the Service Context API, which is Cloudify's API for interacting with an application service's runtime environment and context.</li>
+                
+            
+            
+                <li><a href="/guide/2.2/developing/the_service_context_api">The Service Context API </a> - Describes the Service Context API, which is Cloudify's API for interacting with an application service's runtime environment and context.</li>
+                
+            
+            
+                <li><a href="/guide/2.5/developing/the_service_context_api">The Service Context API </a> - Describes the Service Context API, which is Cloudify's API for interacting with an application service's runtime environment and context.</li>
                 
             
             
@@ -1014,35 +1178,11 @@ $("body").live('change', function(){
                 
             
             
-                <li><a href="/guide/2.2/developing/the_service_context_api">The Service Context API </a> - Describes the Service Context API, which is Cloudify's API for interacting with an application service's runtime environment and context.</li>
-                
-            
-            
-                <li><a href="/guide/2.3/developing/the_service_context_api">The Service Context API </a> - Describes the Service Context API, which is Cloudify's API for interacting with an application service's runtime environment and context.</li>
-                
-            
-            
-                <li><a href="/guide/2.5/developing/the_service_context_api">The Service Context API </a> - Describes the Service Context API, which is Cloudify's API for interacting with an application service's runtime environment and context.</li>
-                
-            
-            
-                <li><a href="/guide/2.7/developing/the_service_context_api">The Service Context API </a> - Describes the Service Context API, which is Cloudify's API for interacting with an application service's runtime environment and context.</li>
-                
-            
-            
                 <li><a href="/guide/2.3/developing/attributes_api">The Attributes API </a> - Describes the Attributes API, which is used for sharing information between services of the same application.</li>
                 
             
             
                 <li><a href="/guide/2.5/developing/attributes_api">The Attributes API </a> - Describes the Attributes API, which is used for sharing information between services of the same application.</li>
-                
-            
-            
-                <li><a href="/guide/2.1/developing/attributes_api">The Attributes API </a> - Describes the Attributes API, which is used for sharing information between services of the same application.</li>
-                
-            
-            
-                <li><a href="/guide/2.2/developing/attributes_api">The Attributes API </a> - Describes the Attributes API, which is used for sharing information between services of the same application.</li>
                 
             
             
@@ -1054,11 +1194,11 @@ $("body").live('change', function(){
                 
             
             
-                <li><a href="/guide/2.7/developing/custom_commands">Custom Commands </a> - Describes the custom commands mechanism and usage.</li>
+                <li><a href="/guide/2.2/developing/attributes_api">The Attributes API </a> - Describes the Attributes API, which is used for sharing information between services of the same application.</li>
                 
             
             
-                <li><a href="/guide/2.3/developing/custom_commands">Custom Commands </a> - Describes the custom commands mechanism and usage.</li>
+                <li><a href="/guide/2.1/developing/attributes_api">The Attributes API </a> - Describes the Attributes API, which is used for sharing information between services of the same application.</li>
                 
             
             
@@ -1070,6 +1210,14 @@ $("body").live('change', function(){
                 
             
             
+                <li><a href="/guide/2.3/developing/custom_commands">Custom Commands </a> - Describes the custom commands mechanism and usage.</li>
+                
+            
+            
+                <li><a href="/guide/2.7/developing/custom_commands">Custom Commands </a> - Describes the custom commands mechanism and usage.</li>
+                
+            
+            
                 <li><a href="/guide/2.1/developing/custom_commands">Custom Commands </a> - Describes the custom commands mechanism and usage.</li>
                 
             
@@ -1078,15 +1226,7 @@ $("body").live('change', function(){
                 
             
             
-                <li><a href="/guide/2.3/developing/plugins">Probes </a> - Describes the part of the recipe that defines probes.</li>
-                
-            
-            
-                <li><a href="/guide/2.2/developing/plugins">Probes </a> - Describes the part of the recipe that defines probes.</li>
-                
-            
-            
-                <li><a href="/guide/2.1/developing/plugins">Probes </a> - Describes the part of the recipe that defines probes.</li>
+                <li><a href="/guide/2.6/developing/plugins">Probes </a> - Describes the part of the recipe that defines probes.</li>
                 
             
             
@@ -1094,11 +1234,23 @@ $("body").live('change', function(){
                 
             
             
+                <li><a href="/guide/2.1/developing/plugins">Probes </a> - Describes the part of the recipe that defines probes.</li>
+                
+            
+            
+                <li><a href="/guide/2.2/developing/plugins">Probes </a> - Describes the part of the recipe that defines probes.</li>
+                
+            
+            
                 <li><a href="/guide/2.5/developing/plugins">Probes </a> - Describes the part of the recipe that defines probes.</li>
                 
             
             
-                <li><a href="/guide/2.6/developing/plugins">Probes </a> - Describes the part of the recipe that defines probes.</li>
+                <li><a href="/guide/2.3/developing/plugins">Probes </a> - Describes the part of the recipe that defines probes.</li>
+                
+            
+            
+                <li><a href="/guide/2.2/developing/configuring_ui_section">Configuring the Web Management Console </a> - Explains how to configure the web management console to present the information generated by probe and monitoring plugins.</li>
                 
             
             
@@ -1106,15 +1258,11 @@ $("body").live('change', function(){
                 
             
             
-                <li><a href="/guide/2.3/developing/configuring_ui_section">Configuring the Web Management Console </a> - Explains how to configure the web management console to present the information generated by probe and monitoring plugins.</li>
-                
-            
-            
                 <li><a href="/guide/2.7/developing/configuring_ui_section">Configuring the Web Management Console </a> - Explains how to configure the web management console to present the information generated by probe and monitoring plugins.</li>
                 
             
             
-                <li><a href="/guide/2.2/developing/configuring_ui_section">Configuring the Web Management Console </a> - Explains how to configure the web management console to present the information generated by probe and monitoring plugins.</li>
+                <li><a href="/guide/2.3/developing/configuring_ui_section">Configuring the Web Management Console </a> - Explains how to configure the web management console to present the information generated by probe and monitoring plugins.</li>
                 
             
             
@@ -1126,11 +1274,7 @@ $("body").live('change', function(){
                 
             
             
-                <li><a href="/guide/2.5/developing/sla_requirements">SLA Requirements </a> - Explains how to specify SLA elements per application service, e.g. initial number of instances.</li>
-                
-            
-            
-                <li><a href="/guide/2.5/developing/storage">The Storage API </a> - Explains how to use the Cloudify's storage API..</li>
+                <li><a href="/guide/2.6/developing/storage">The Storage API </a> - Explains how to use the Cloudify's storage API..</li>
                 
             
             
@@ -1138,23 +1282,7 @@ $("body").live('change', function(){
                 
             
             
-                <li><a href="/guide/2.3/developing/sla_requirements">SLA Requirements </a> - Explains how to specify SLA elements per application service, e.g. initial number of instances.</li>
-                
-            
-            
-                <li><a href="/guide/2.2/developing/sla_requirements">SLA Requirements </a> - Explains how to specify SLA elements per application service, e.g. initial number of instances.</li>
-                
-            
-            
-                <li><a href="/guide/2.6/developing/sla_requirements">SLA Requirements </a> - Explains how to specify SLA elements per application service, e.g. initial number of instances.</li>
-                
-            
-            
-                <li><a href="/guide/2.6/developing/storage">The Storage API </a> - Explains how to use the Cloudify's storage API..</li>
-                
-            
-            
-                <li><a href="/guide/2.7/developing/storage">The Storage API </a> - Explains how to use the Cloudify's storage API..</li>
+                <li><a href="/guide/2.5/developing/sla_requirements">SLA Requirements </a> - Explains how to specify SLA elements per application service, e.g. initial number of instances.</li>
                 
             
             
@@ -1162,27 +1290,27 @@ $("body").live('change', function(){
                 
             
             
+                <li><a href="/guide/2.3/developing/sla_requirements">SLA Requirements </a> - Explains how to specify SLA elements per application service, e.g. initial number of instances.</li>
+                
+            
+            
+                <li><a href="/guide/2.5/developing/storage">The Storage API </a> - Explains how to use the Cloudify's storage API..</li>
+                
+            
+            
+                <li><a href="/guide/2.6/developing/sla_requirements">SLA Requirements </a> - Explains how to specify SLA elements per application service, e.g. initial number of instances.</li>
+                
+            
+            
+                <li><a href="/guide/2.7/developing/storage">The Storage API </a> - Explains how to use the Cloudify's storage API..</li>
+                
+            
+            
+                <li><a href="/guide/2.2/developing/sla_requirements">SLA Requirements </a> - Explains how to specify SLA elements per application service, e.g. initial number of instances.</li>
+                
+            
+            
                 <li><a href="/guide/2.3/developing/storage">Storage </a> - Explains how to use Cloudify's storage API..</li>
-                
-            
-            
-                <li><a href="/guide/2.3/developing/debugger">The Recipe Debugger </a> - Explains how to use the Cloudify's recipe Debugger..</li>
-                
-            
-            
-                <li><a href="/guide/2.5/developing/how_storage_works">How the Storage API Works </a> - Explains how the Cloudify's storage API works.</li>
-                
-            
-            
-                <li><a href="/guide/2.7/developing/debugger">The Recipe Debugger </a> - Explains how to use the Cloudify's recipe Debugger..</li>
-                
-            
-            
-                <li><a href="/guide/2.6/developing/debugger">The Recipe Debugger </a> - Explains how to use the Cloudify's recipe Debugger..</li>
-                
-            
-            
-                <li><a href="/guide/2.7/developing/how_storage_works">How the Storage API Works </a> - Explains how the Cloudify's storage API works.</li>
                 
             
             
@@ -1190,7 +1318,11 @@ $("body").live('change', function(){
                 
             
             
-                <li><a href="/guide/2.5/developing/debugger">The Recipe Debugger </a> - Explains how to use the Cloudify's recipe Debugger..</li>
+                <li><a href="/guide/2.6/developing/debugger">The Recipe Debugger </a> - Explains how to use the Cloudify's recipe Debugger..</li>
+                
+            
+            
+                <li><a href="/guide/2.5/developing/how_storage_works">How the Storage API Works </a> - Explains how the Cloudify's storage API works.</li>
                 
             
             
@@ -1198,11 +1330,39 @@ $("body").live('change', function(){
                 
             
             
-                <li><a href="/guide/2.5/developing/scaling_rules">Scaling Rules </a> - Describes the Scaling Rules mechanism and usage.</li>
+                <li><a href="/guide/2.7/developing/debugger">The Recipe Debugger </a> - Explains how to use the Cloudify's recipe Debugger..</li>
+                
+            
+            
+                <li><a href="/guide/2.5/developing/debugger">The Recipe Debugger </a> - Explains how to use the Cloudify's recipe Debugger..</li>
+                
+            
+            
+                <li><a href="/guide/2.7/developing/how_storage_works">How the Storage API Works </a> - Explains how the Cloudify's storage API works.</li>
+                
+            
+            
+                <li><a href="/guide/2.3/developing/debugger">The Recipe Debugger </a> - Explains how to use the Cloudify's recipe Debugger..</li>
+                
+            
+            
+                <li><a href="/guide/2.7/developing/best_practices_for_debugging_and_developing_recipes">Best Practices for Developing and Debugging Recipes </a> - Describes the best practices for debugging Cloudify..</li>
+                
+            
+            
+                <li><a href="/guide/2.6/developing/best_practices_for_debugging_and_developing_recipes">Best Practices for Developing and Debugging Recipes </a> - Describes the best practices for debugging Cloudify..</li>
+                
+            
+            
+                <li><a href="/guide/2.6/developing/scaling_rules">Scaling Rules </a> - Describes the Scaling Rules mechanism and usage.</li>
                 
             
             
                 <li><a href="/guide/2.7/developing/scaling_rules">Scaling Rules </a> - Describes the Scaling Rules mechanism and usage.</li>
+                
+            
+            
+                <li><a href="/guide/2.1/developing/scaling_rules">Scaling Rules </a> - Describes the Scaling Rules mechanism and usage.</li>
                 
             
             
@@ -1214,11 +1374,7 @@ $("body").live('change', function(){
                 
             
             
-                <li><a href="/guide/2.1/developing/scaling_rules">Scaling Rules </a> - Describes the Scaling Rules mechanism and usage.</li>
-                
-            
-            
-                <li><a href="/guide/2.6/developing/scaling_rules">Scaling Rules </a> - Describes the Scaling Rules mechanism and usage.</li>
+                <li><a href="/guide/2.5/developing/scaling_rules">Scaling Rules </a> - Describes the Scaling Rules mechanism and usage.</li>
                 
             </div>
             

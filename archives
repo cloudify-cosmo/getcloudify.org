@@ -45,10 +45,83 @@
 	<script type="text/javascript" src="/scripts/version.data.js"></script>
 	<script type="text/javascript" src="/scripts/version.js"></script>
 	<script type="text/javascript" src="/scripts/jquery.lightbox-0.5.js"></script>
-        <script src="http://ajax.aspnetcdn.com/ajax/jquery.validate/1.9/jquery.validate.min.js"></script>	
-
+    <script src="http://ajax.aspnetcdn.com/ajax/jquery.validate/1.9/jquery.validate.min.js"></script>	
+	<script src="/scripts/jquery.cookie.js"></script>
 
 <script type="text/javascript" >
+//Manage Downloads Gating;
+//========================================//
+var gotName = false;
+var gotValidCaptcha = false;
+var downloadHref="";
+var strVar="";
+var formEmail="";
+
+strVar += "<div class=\"gattingWrapper\">";
+strVar += "           <form id=\"regiterToDownload\" action=\"https:\/\/www.salesforce.com\/servlet\/servlet.WebToLead?encoding=UTF-8\" method=\"POST\">";
+strVar += "			<div class=\"regTitle\">Verify You're Human<\/div>";
+strVar += "			<div style=\"position:relative\">";
+strVar += "				<input  id=\"last_name\" name=\"last_name\" type=\"text\" class=\"cuInput\" placeholder=\"Your Name\" \/>";
+strVar += "				<div class=\"cuValid\"><\/div>";
+strVar += "			<\/div>";
+strVar += "			<div style=\"position:relative\">";
+strVar += "				<input  id=\"email\" name=\"email\"  type=\"text\"  placeholder=\"Your Email\"\/>";
+strVar += "				<div class=\"cuValid\"><\/div>";
+strVar += "			<\/div>";
+strVar += "	   		 <div class=\"captcha\">";
+strVar += "	    	    <div class=\"capSmallText\">Enter the number below: <\/div>";
+strVar += "		    	<input type=\"hidden\" value=\"701469\" id=\"verifyNumHiddenGat\" name=\"verifyNumHidden\" \/>";
+strVar += "		    	<input type=\"text\" id=\"enterVerifyGat\" name=\"enterVerify\" \/>";
+strVar += "		    <div id=\"verifyNumGat\"><\/div>";
+strVar += "		    <\/div>";
+strVar += "			<input type=\"submit\" class=\"cuSendGatting\" name=\"submit\" value=\"Download\" \/>";
+strVar += "			<\/form>";
+strVar += "            <a class=\"gattingWrapperClose\" href=\"#\">Close<\/a>";
+strVar += "        <\/div>";
+
+//Global Function for use;
+function checkValidCaptcha(){
+		if($('#enterVerifyGat').val() == $('#verifyNumHiddenGat').val() ) {
+			//$('form').attr('action', 'https://example.com/MyForm');
+			gotValidCaptcha = true;
+			return true;
+		}
+		else
+		{
+			alert("Please Enter Correct Verification Number");
+			randomgenGat();
+			$('#enterVerifyGat').select();
+			$('#enterVerifyGat').focus();
+			return false;
+		}
+}
+
+// captcha Code
+	function randomgenGat(){
+    	var rannumber='';
+		for(ranNum=1; ranNum<=6; ranNum++){
+			rannumber+=Math.floor(Math.random()*10).toString();
+		}
+		$('#verifyNumGat').html(rannumber);
+		$('#verifyNumHiddenGat').val(rannumber);
+	}
+	
+ //Contact captcha Code
+	
+	function randomgen(){
+    	var rannumber='';
+		for(ranNum=1; ranNum<=6; ranNum++){
+			rannumber+=Math.floor(Math.random()*10).toString();
+		}
+		$('#verifyNum').html(rannumber);
+		$('#verifyNumHidden').val(rannumber);
+	}
+
+//============== Added By Yonatan (4hilton) at 10/2013  ==========================//
+</script>
+
+<script type="text/javascript" >
+function GrabOldMessages(){
 (function($,W,D)
 {
     var JQUERY4U = {};
@@ -58,8 +131,7 @@
         setupFormValidation: function()
         {
             //form validation rules
-	    	
-            $("#contactUs").validate({
+			    $("#contactUs").validate({
                 rules: {
                     last_name: "required",
                     email: {
@@ -75,25 +147,85 @@
                     form.submit();
                 }
             });
+			
+			//$('li.download').on("submit", "#regiterToDownload", function() {
+			   $("#regiterToDownload").validate({
+                rules: {
+                    last_name: "required",
+                    email: {
+                        required: true,
+                        email: true
+                    },
+                },
+                messages: {
+                    last_name: "Please enter your first name",
+                    email: "Please enter a valid email address",
+                },
+               submitHandler: function(form) {
+                    //form.submit();
+				    //downloadFile(e);
+					gotName = true;
+					checkValidCaptcha();
+				if (gotName==true && gotValidCaptcha==true ){
+				//track mixpanel
+				var verName="";
+				verName=downloadHref.split("/")[6]; 
+				//track google and mixpanel 
+				track_download(downloadHref);
+				//Set cookie:
+				 var obj = { email:formEmail };
+				 $.cookie("cloudRegUser", $.param(obj), { expires: 10 });
+				 //
+				$('.gattingWrapper').remove();
+				$(".blockBg").hide();
+				setTimeout(function() {
+					window.location.href = downloadHref; 
+					setTimeout(function() {
+						window.location.href = "/thank_you.htm";
+					}, 4000);
+				}, 500);
+				}
+
+				function track_download(downloadHref) {
+				var downloadme=downloadHref.split("cloudify-")[1];
+				downloadme="/downloads/cloudify-" + downloadme.split("\.zip")[0] + "/get_cloudify";
+				_gaq.push(['_trackPageview', downloadme]);
+				//track mixpanel
+				var zipName="";
+				zipName=downloadHref.split("/")[6]; 
+				mixpanel.track('GA Product Download', {'Zip Name':zipName, 'Source':'cloudifysource.org'});
+				
+				formEmail =  $(".gattingWrapper #email").val();	
+				mixpanel.people.identify(formEmail);
+				mixpanel.people.set({
+                "resource": zipName, // sets the property 'Resource' for this user to the boolean value true		
+				$email: formEmail,
+				$first_name: formEmail,
+				$created: new Date(),
+				$last_seen:new Date(),
+				});
+				mixpanel.track('Resource', {'Zip Name':zipName, 'Source':'Download Page'});
+				
+				
+				
+				
+				
+				}	
+					
+					
+					
+                }
+            });
         }
     }
 
     //when the dom has loaded setup form validation rules
     $(D).ready(function($) {
         JQUERY4U.UTIL.setupFormValidation();
-//start captcha Code
-	function randomgen()
-	{
-    var rannumber='';
-		for(ranNum=1; ranNum<=6; ranNum++){
-			rannumber+=Math.floor(Math.random()*10).toString();
-		}
-		$('#verifyNum').html(rannumber);
-		$('#verifyNumHidden').val(rannumber);
-	}
-	randomgen();
-//Verification number generate code Ends here
-  
+
+		randomgen();
+  //start captcha Code
+	
 //Validation Starts Here    
 	$('#contactUs').submit(function() {
 		if($('#enterVerify').val() == $('#verifyNumHidden').val() ) {
@@ -109,10 +241,24 @@
 			return false;
 		}
 	});
-//end captcha Code;        
+	$('#regiterToDownload').submit(function() {
+		checkValidCaptcha();
+	});
+	
+	
+	
+	
+	$("input.cuSend,input.cuSendGatting").click(function(){
+			$('.cuValid').hide();
+	});
+	
+	
+
+		       
     });
 
 })(jQuery, window, document);
+}
 </script>
 <script type="text/javascript">
     $(window).bind("load", function () {
@@ -128,6 +274,7 @@
  	}
 	
 	$(function(){ 
+	GrabOldMessages();
 	//map lightbox on participate page
 	//$('a.showmap').click(function(){
 		
@@ -155,7 +302,7 @@
 			$("div.contactUsWrapper").css("visibility","visible");
 			$("a.contactUsLink").css("visibility","hidden");
 		});
-		$("input.cuSend").click(function(){
+		$("input.cuSend,input.cuSendGatting").click(function(){
 			$('.cuValid').hide();
 		});
 		$("input.cuSend").submit(function(){
@@ -463,17 +610,17 @@ $("body").live('change', function(){
 
 <div class="leftContentBox blogLeftBox"> 
    
+	<a href="/2013/10/11/xap_on_cloudify_part_1.html">XAP on Cloudify Part 1 
+	 <img class="noMargin" src="/images/arrow-right-blue.png" /></a><br />
+	<span class="date">October 11, 2013</span>  
+	<br/><br/>
+  
 	<a href="/2013/09/16/cloudifying_high_availability_part_2_disaster_recovery_on_demand.html">Disaster Recovery On Demand 
 	 <img class="noMargin" src="/images/arrow-right-blue.png" /></a><br />
 	<span class="date">September 16, 2013</span>  
 	<br/><br/>
   
 	<a href="/2013/09/10/four_case_studies_for_moving_mission_critical_apps_to_openstack.html">Four Case Studies for Moving Mission Critical Apps to OpenStack 
-	 <img class="noMargin" src="/images/arrow-right-blue.png" /></a><br />
-	<span class="date">September 10, 2013</span>  
-	<br/><br/>
-  
-	<a href="/2013/09/10/bootstrapping_cloudify_with_chef.html">Bootstrapping Cloudify With Chef 
 	 <img class="noMargin" src="/images/arrow-right-blue.png" /></a><br />
 	<span class="date">September 10, 2013</span>  
 	<br/><br/>
@@ -505,7 +652,25 @@ $("body").live('change', function(){
 	
 
 	
+<li><a href="/2013/10">October 2013</a> <span class="blue">(1)</span></li>
+
+	
+
+	
+		
+			
 <li><a href="/2013/09">September 2013</a> <span class="blue">(3)</span></li>
+
+			
+		
+	
+
+	
+	
+	
+	
+	
+	
 
 	
 
@@ -1473,63 +1638,50 @@ $("body").live('change', function(){
 														
                     <p></p>
 <h2 class='archives'><a href="/2013">2013</a></h2>
+<h3><a href="/2013/10">October</a></h3>
+<ul>2013-10-11 &#8211; <a href="/2013/10/11/xap_on_cloudify_part_1.html"><span class="caps">XAP</span> on Cloudify Part 1</a><br/><br/><a class="postTag" href="/tags/Ec2">Ec2 (1)</a>&nbsp;&nbsp;<a class="postTag" href="/tags/OpenStack">OpenStack (12)</a>&nbsp;&nbsp;<a class="postTag" href="/tags/Xap">Xap (1)</a>&nbsp;&nbsp;<a class="postTag" href="/tags/Web UI">Web UI (1)</a>&nbsp;&nbsp;</ul>
 <h3><a href="/2013/09">September</a></h3>
-<ul>2013-09-16 &#8211; <a href="/2013/09/16/cloudifying_high_availability_part_2_disaster_recovery_on_demand.html">Disaster Recovery On Demand</a><br/><br/><a class="postTag" href="/tags/Disaster Recovery">Disaster Recovery (4)</a>&nbsp;&nbsp;<a class="postTag" href="/tags/Cloud">Cloud (26)</a>&nbsp;&nbsp;<a class="postTag" href="/tags/High Availability">High Availability (2)</a>&nbsp;&nbsp;<a class="postTag" href="/tags/PaaS">PaaS (16)</a>&nbsp;&nbsp;<br />
-<br />
-<br />
-	  <br />
-	  <br />
-      <br />
-	<br />
-<br />
-<br />
-<br />
-<br />
-<br />
-<br />
-	<br />
-	2013-09-10 &#8211; <a href="/2013/09/10/four_case_studies_for_moving_mission_critical_apps_to_openstack.html">Four Case Studies for Moving Mission Critical Apps to OpenStack</a><br/><br/><a class="postTag" href="/tags/OpenStack">OpenStack (11)</a>&nbsp;&nbsp;<a class="postTag" href="/tags/AWS"><span class="caps">AWS</span> (5)</a>&nbsp;&nbsp;<a class="postTag" href="/tags/Cloud Computing">Cloud Computing (9)</a>&nbsp;&nbsp;<a class="postTag" href="/tags/Cloud">Cloud (26)</a>&nbsp;&nbsp;<br />
-<br />
-<br />
-	  <br />
-	  <br />
-      <br />
-	<br />
-<br />
-<br />
-<br />
-<br />
-<br />
-<br />
-	<br />
-	2013-09-10 &#8211; <a href="/2013/09/10/bootstrapping_cloudify_with_chef.html">Bootstrapping Cloudify With Chef</a><br/><br/><a class="postTag" href="/tags/Chef">Chef (7)</a>&nbsp;&nbsp;<a class="postTag" href="/tags/Cloudify">Cloudify (37)</a>&nbsp;&nbsp;<a class="postTag" href="/tags/Cloud">Cloud (26)</a>&nbsp;&nbsp;</ul>
+<ul>
+
+<p></p>
+<p>2013-09-16 &#8211; <a href="/2013/09/16/cloudifying_high_availability_part_2_disaster_recovery_on_demand.html">Disaster Recovery On Demand</a><br/><br/><a class="postTag" href="/tags/Disaster Recovery">Disaster Recovery (4)</a>&nbsp;&nbsp;<a class="postTag" href="/tags/Cloud">Cloud (26)</a>&nbsp;&nbsp;<a class="postTag" href="/tags/High Availability">High Availability (2)</a>&nbsp;&nbsp;<a class="postTag" href="/tags/PaaS">PaaS (16)</a>&nbsp;&nbsp;</p>
+<p></p>
+
+<p></p>
+<p>2013-09-10 &#8211; <a href="/2013/09/10/four_case_studies_for_moving_mission_critical_apps_to_openstack.html">Four Case Studies for Moving Mission Critical Apps to OpenStack</a><br/><br/><a class="postTag" href="/tags/OpenStack">OpenStack (12)</a>&nbsp;&nbsp;<a class="postTag" href="/tags/AWS"><span class="caps">AWS</span> (5)</a>&nbsp;&nbsp;<a class="postTag" href="/tags/Cloud Computing">Cloud Computing (9)</a>&nbsp;&nbsp;<a class="postTag" href="/tags/Cloud">Cloud (26)</a>&nbsp;&nbsp;</p>
+<p></p>
+
+<p></p>
+<p>2013-09-10 &#8211; <a href="/2013/09/10/bootstrapping_cloudify_with_chef.html">Bootstrapping Cloudify With Chef</a><br/><br/><a class="postTag" href="/tags/Chef">Chef (7)</a>&nbsp;&nbsp;<a class="postTag" href="/tags/Cloudify">Cloudify (37)</a>&nbsp;&nbsp;<a class="postTag" href="/tags/Cloud">Cloud (26)</a>&nbsp;&nbsp;</p>
+<p></p>
+</ul>
 <h3><a href="/2013/08">August</a></h3>
 <ul>
 
 <p></p>
-<p>2013-08-08 &#8211; <a href="/2013/08/08/how_to_install_heat_and_devstack_on_vagrant.html">How to Install Heat and DevStack on Vagrant</a><br/><br/><a class="postTag" href="/tags/OpenStack">OpenStack (11)</a>&nbsp;&nbsp;<a class="postTag" href="/tags/Devstack">Devstack (2)</a>&nbsp;&nbsp;<a class="postTag" href="/tags/Vagrant">Vagrant (1)</a>&nbsp;&nbsp;<a class="postTag" href="/tags/Cloud">Cloud (26)</a>&nbsp;&nbsp;</p>
+<p>2013-08-08 &#8211; <a href="/2013/08/08/how_to_install_heat_and_devstack_on_vagrant.html">How to Install Heat and DevStack on Vagrant</a><br/><br/><a class="postTag" href="/tags/OpenStack">OpenStack (12)</a>&nbsp;&nbsp;<a class="postTag" href="/tags/Devstack">Devstack (2)</a>&nbsp;&nbsp;<a class="postTag" href="/tags/Vagrant">Vagrant (1)</a>&nbsp;&nbsp;<a class="postTag" href="/tags/Cloud">Cloud (26)</a>&nbsp;&nbsp;</p>
 <p></p>
 </ul>
 <h3><a href="/2013/07">July</a></h3>
 <ul>
 
 <p></p>
-<p>2013-07-17 &#8211; <a href="/2013/07/17/openstacks_third_birthday_a_recap_with_a_look_into_the_future.html">Openstack&#8217;s Third Birthday &#8211; A Recap With A Look Into The Future</a><br/><br/><a class="postTag" href="/tags/OpenStack">OpenStack (11)</a>&nbsp;&nbsp;<a class="postTag" href="/tags/Cloud Computing">Cloud Computing (9)</a>&nbsp;&nbsp;<a class="postTag" href="/tags/AWS"><span class="caps">AWS</span> (5)</a>&nbsp;&nbsp;<a class="postTag" href="/tags/Open Source">Open Source (1)</a>&nbsp;&nbsp;</p>
+<p>2013-07-17 &#8211; <a href="/2013/07/17/openstacks_third_birthday_a_recap_with_a_look_into_the_future.html">Openstack&#8217;s Third Birthday &#8211; A Recap With A Look Into The Future</a><br/><br/><a class="postTag" href="/tags/OpenStack">OpenStack (12)</a>&nbsp;&nbsp;<a class="postTag" href="/tags/Cloud Computing">Cloud Computing (9)</a>&nbsp;&nbsp;<a class="postTag" href="/tags/AWS"><span class="caps">AWS</span> (5)</a>&nbsp;&nbsp;<a class="postTag" href="/tags/Open Source">Open Source (1)</a>&nbsp;&nbsp;</p>
 <p></p>
 
 <p></p>
-<p>2013-07-16 &#8211; <a href="/2013/07/16/how_to_install_heat_and_devstack_on_ec2.html">How to Install Heat and Devstack on EC2</a><br/><br/><a class="postTag" href="/tags/OpenStack">OpenStack (11)</a>&nbsp;&nbsp;<a class="postTag" href="/tags/Devstack">Devstack (2)</a>&nbsp;&nbsp;<a class="postTag" href="/tags/EC2">EC2 (4)</a>&nbsp;&nbsp;<a class="postTag" href="/tags/Cloud">Cloud (26)</a>&nbsp;&nbsp;</p>
+<p>2013-07-16 &#8211; <a href="/2013/07/16/how_to_install_heat_and_devstack_on_ec2.html">How to Install Heat and Devstack on EC2</a><br/><br/><a class="postTag" href="/tags/OpenStack">OpenStack (12)</a>&nbsp;&nbsp;<a class="postTag" href="/tags/Devstack">Devstack (2)</a>&nbsp;&nbsp;<a class="postTag" href="/tags/EC2">EC2 (4)</a>&nbsp;&nbsp;<a class="postTag" href="/tags/Cloud">Cloud (26)</a>&nbsp;&nbsp;</p>
 <p></p>
 
 <p></p>
-<p>2013-07-15 &#8211; <a href="/2013/07/15/to_openstack_or_not_to_openstack_moving_enterprise_applications_onto_openstack_today.html">To Openstack or not to Openstack Moving Enterprise Applications onto Openstack Today</a><br/><br/><a class="postTag" href="/tags/OpenStack">OpenStack (11)</a>&nbsp;&nbsp;<a class="postTag" href="/tags/Cloud Computing">Cloud Computing (9)</a>&nbsp;&nbsp;<a class="postTag" href="/tags/Cloudify">Cloudify (37)</a>&nbsp;&nbsp;<a class="postTag" href="/tags/DevOps">DevOps (10)</a>&nbsp;&nbsp;</p>
+<p>2013-07-15 &#8211; <a href="/2013/07/15/to_openstack_or_not_to_openstack_moving_enterprise_applications_onto_openstack_today.html">To Openstack or not to Openstack Moving Enterprise Applications onto Openstack Today</a><br/><br/><a class="postTag" href="/tags/OpenStack">OpenStack (12)</a>&nbsp;&nbsp;<a class="postTag" href="/tags/Cloud Computing">Cloud Computing (9)</a>&nbsp;&nbsp;<a class="postTag" href="/tags/Cloudify">Cloudify (37)</a>&nbsp;&nbsp;<a class="postTag" href="/tags/DevOps">DevOps (10)</a>&nbsp;&nbsp;</p>
 <p></p>
 </ul>
 <h3><a href="/2013/06">June</a></h3>
 <ul>
 
 <p></p>
-<p>2013-06-10 &#8211; <a href="/2013/06/10/big_data_on_openstack.html">Big Data on OpenStack</a><br/><br/><a class="postTag" href="/tags/Cloudify">Cloudify (37)</a>&nbsp;&nbsp;<a class="postTag" href="/tags/OpenStack">OpenStack (11)</a>&nbsp;&nbsp;<a class="postTag" href="/tags/Big Data">Big Data (4)</a>&nbsp;&nbsp;<a class="postTag" href="/tags/Cloud Computing">Cloud Computing (9)</a>&nbsp;&nbsp;</p>
+<p>2013-06-10 &#8211; <a href="/2013/06/10/big_data_on_openstack.html">Big Data on OpenStack</a><br/><br/><a class="postTag" href="/tags/Cloudify">Cloudify (37)</a>&nbsp;&nbsp;<a class="postTag" href="/tags/OpenStack">OpenStack (12)</a>&nbsp;&nbsp;<a class="postTag" href="/tags/Big Data">Big Data (4)</a>&nbsp;&nbsp;<a class="postTag" href="/tags/Cloud Computing">Cloud Computing (9)</a>&nbsp;&nbsp;</p>
 <p></p>
 </ul>
 <h3><a href="/2013/05">May</a></h3>
@@ -1540,11 +1692,11 @@ $("body").live('change', function(){
 <p></p>
 
 <p></p>
-<p>2013-05-13 &#8211; <a href="/2013/05/13/using_the_cloudify_player_as_an_open_source_framework_for_building_your_own_cloud_application_marketplace_on_openstack.html">Using the Cloudify Player as an Open Source Framework for Building Your Own Cloud Application Marketplace on OpenStack</a><br/><br/><a class="postTag" href="/tags/Cloudify">Cloudify (37)</a>&nbsp;&nbsp;<a class="postTag" href="/tags/OpenStack">OpenStack (11)</a>&nbsp;&nbsp;<a class="postTag" href="/tags/Cloud Computing">Cloud Computing (9)</a>&nbsp;&nbsp;<a class="postTag" href="/tags/Open source">Open source (2)</a>&nbsp;&nbsp;</p>
+<p>2013-05-13 &#8211; <a href="/2013/05/13/using_the_cloudify_player_as_an_open_source_framework_for_building_your_own_cloud_application_marketplace_on_openstack.html">Using the Cloudify Player as an Open Source Framework for Building Your Own Cloud Application Marketplace on OpenStack</a><br/><br/><a class="postTag" href="/tags/Cloudify">Cloudify (37)</a>&nbsp;&nbsp;<a class="postTag" href="/tags/OpenStack">OpenStack (12)</a>&nbsp;&nbsp;<a class="postTag" href="/tags/Cloud Computing">Cloud Computing (9)</a>&nbsp;&nbsp;<a class="postTag" href="/tags/Open source">Open source (2)</a>&nbsp;&nbsp;</p>
 <p></p>
 
 <p></p>
-<p>2013-05-13 &#8211; <a href="/2013/05/13/amazon_marketplace_not_a_fair_play_thoughts_on_an_open_marketplace_alternative_with_openstack.html">Amazon Marketplace &#8211; Not a Fair Play, Thoughts on an Open Marketplace Alternative with OpenStack</a><br/><br/><a class="postTag" href="/tags/Amazon">Amazon (1)</a>&nbsp;&nbsp;<a class="postTag" href="/tags/Aws">Aws (1)</a>&nbsp;&nbsp;<a class="postTag" href="/tags/OpenStack">OpenStack (11)</a>&nbsp;&nbsp;<a class="postTag" href="/tags/Cloud Computing">Cloud Computing (9)</a>&nbsp;&nbsp;<a class="postTag" href="/tags/Open source">Open source (2)</a>&nbsp;&nbsp;</p>
+<p>2013-05-13 &#8211; <a href="/2013/05/13/amazon_marketplace_not_a_fair_play_thoughts_on_an_open_marketplace_alternative_with_openstack.html">Amazon Marketplace &#8211; Not a Fair Play, Thoughts on an Open Marketplace Alternative with OpenStack</a><br/><br/><a class="postTag" href="/tags/Amazon">Amazon (1)</a>&nbsp;&nbsp;<a class="postTag" href="/tags/Aws">Aws (1)</a>&nbsp;&nbsp;<a class="postTag" href="/tags/OpenStack">OpenStack (12)</a>&nbsp;&nbsp;<a class="postTag" href="/tags/Cloud Computing">Cloud Computing (9)</a>&nbsp;&nbsp;<a class="postTag" href="/tags/Open source">Open source (2)</a>&nbsp;&nbsp;</p>
 <p></p>
 
 <p></p>
@@ -1578,7 +1730,7 @@ $("body").live('change', function(){
 <p></p>
 
 <p></p>
-<p>2013-03-07 &#8211; <a href="/2013/03/07/carrier_grade_cloud_paas.html">Carrier Grade Cloud/PaaS</a><br/><br/><a class="postTag" href="/tags/Disaster Recovery">Disaster Recovery (4)</a>&nbsp;&nbsp;<a class="postTag" href="/tags/OpenStack">OpenStack (11)</a>&nbsp;&nbsp;<a class="postTag" href="/tags/Cloud Computing">Cloud Computing (9)</a>&nbsp;&nbsp;<a class="postTag" href="/tags/PaaS">PaaS (16)</a>&nbsp;&nbsp;</p>
+<p>2013-03-07 &#8211; <a href="/2013/03/07/carrier_grade_cloud_paas.html">Carrier Grade Cloud/PaaS</a><br/><br/><a class="postTag" href="/tags/Disaster Recovery">Disaster Recovery (4)</a>&nbsp;&nbsp;<a class="postTag" href="/tags/OpenStack">OpenStack (12)</a>&nbsp;&nbsp;<a class="postTag" href="/tags/Cloud Computing">Cloud Computing (9)</a>&nbsp;&nbsp;<a class="postTag" href="/tags/PaaS">PaaS (16)</a>&nbsp;&nbsp;</p>
 <p></p>
 
 <p></p>
@@ -1630,7 +1782,7 @@ $("body").live('change', function(){
 <ul>
 
 <p></p>
-<p>2012-10-30 &#8211; <a href="/2012/10/30/moving_enterprise_workloads_to_the_cloud_on_a_massive_scale.html">Moving Enterprise Workloads to the Cloud on a Massive Scale</a><br/><br/><a class="postTag" href="/tags/Devops">Devops (2)</a>&nbsp;&nbsp;<a class="postTag" href="/tags/PaaS">PaaS (16)</a>&nbsp;&nbsp;<a class="postTag" href="/tags/OpsCode">OpsCode (2)</a>&nbsp;&nbsp;<a class="postTag" href="/tags/OpenStack">OpenStack (11)</a>&nbsp;&nbsp;<a class="postTag" href="/tags/Virtualization">Virtualization (3)</a>&nbsp;&nbsp;</p>
+<p>2012-10-30 &#8211; <a href="/2012/10/30/moving_enterprise_workloads_to_the_cloud_on_a_massive_scale.html">Moving Enterprise Workloads to the Cloud on a Massive Scale</a><br/><br/><a class="postTag" href="/tags/Devops">Devops (2)</a>&nbsp;&nbsp;<a class="postTag" href="/tags/PaaS">PaaS (16)</a>&nbsp;&nbsp;<a class="postTag" href="/tags/OpsCode">OpsCode (2)</a>&nbsp;&nbsp;<a class="postTag" href="/tags/OpenStack">OpenStack (12)</a>&nbsp;&nbsp;<a class="postTag" href="/tags/Virtualization">Virtualization (3)</a>&nbsp;&nbsp;</p>
 <p></p>
 
 <p></p>
@@ -1702,7 +1854,7 @@ $("body").live('change', function(){
 <ul>
 
 <p></p>
-<p>2012-06-22 &#8211; <a href="/2012/06/22/gigaspaces-mirantis-big-data-on-openstack.html">Gigaspaces and Mirantis &#8211; Big Data On OpenStack</a><br/><br/><a class="postTag" href="/tags/OpenStack">OpenStack (11)</a>&nbsp;&nbsp;<a class="postTag" href="/tags/Big Data">Big Data (4)</a>&nbsp;&nbsp;<a class="postTag" href="/tags/Cloudify">Cloudify (37)</a>&nbsp;&nbsp;<a class="postTag" href="/tags/Open PaaS">Open PaaS (8)</a>&nbsp;&nbsp;</p>
+<p>2012-06-22 &#8211; <a href="/2012/06/22/gigaspaces-mirantis-big-data-on-openstack.html">Gigaspaces and Mirantis &#8211; Big Data On OpenStack</a><br/><br/><a class="postTag" href="/tags/OpenStack">OpenStack (12)</a>&nbsp;&nbsp;<a class="postTag" href="/tags/Big Data">Big Data (4)</a>&nbsp;&nbsp;<a class="postTag" href="/tags/Cloudify">Cloudify (37)</a>&nbsp;&nbsp;<a class="postTag" href="/tags/Open PaaS">Open PaaS (8)</a>&nbsp;&nbsp;</p>
 <p></p>
 
 <p></p>
