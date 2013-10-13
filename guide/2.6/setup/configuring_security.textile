@@ -11,8 +11,7 @@ This topic provides instructions for configuring Security for Cloudify.
 
 h2. Cloudify Security
 
-Cloudify introduces a new and exciting feature, security. 
-This provides a discrete work environment for different customers sharing the same Cloudify server, and supports role-based and resource-based authorization.  
+Cloudify security provides a discrete work environment for different customers sharing the same Cloudify server, and supports role-based and resource-based authorization.  
 Detailed below are some of the primary functions, and uses.
 
 Cloudify security relies on the "(newwindow)Spring Security framework":http://www.springsource.org/spring-security, version 3.0.7. 
@@ -20,7 +19,7 @@ Cloudify security relies on the "(newwindow)Spring Security framework":http://ww
 
 h2. Scope and Entry Points
 
-Security is applied to the management of the Cloudify objects, including applications and services, as well as to the setup of the entire cloud environment.
+Security is applied to the management of the Cloudify entities, including applications and services, as well as to the setup of the entire cloud environment.
 The web UI and the Rest server are the main entry points to Cloudify management and monitoring, and are therefore the security focal points. 
 Many customers use the CLI as their main management tool. 
 The CLI actually performs calls to the Rest server, so a secure Rest server essentially secures the CLI as well.
