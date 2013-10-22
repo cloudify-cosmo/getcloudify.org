@@ -43,6 +43,8 @@
 	<script type="text/javascript" src="/scripts/version.js"></script>
 	<script type="text/javascript" src="/scripts/jquery.lightbox-0.5.js"></script>
     <script src="http://ajax.aspnetcdn.com/ajax/jquery.validate/1.9/jquery.validate.min.js"></script>	
+	<script type="text/javascript" src="/scripts/mathCaptcha/jquery.ebcaptcha.js"></script>
+	
 
 <script type="text/javascript" >
 //Manage Downloads Gating;
@@ -65,12 +67,12 @@ strVar += "			<div style=\"position:relative\">";
 strVar += "				<input  id=\"email\" name=\"email\"  type=\"text\"  placeholder=\"Your Email\"\/>";
 strVar += "				<div class=\"cuValid\"><\/div>";
 strVar += "			<\/div>";
-strVar += "	   		 <div class=\"captcha\">";
-strVar += "	    	    <div class=\"capSmallText\">Enter the number below: <\/div>";
-strVar += "		    	<input type=\"hidden\" value=\"701469\" id=\"verifyNumHiddenGat\" name=\"verifyNumHidden\" \/>";
-strVar += "		    	<input type=\"text\" id=\"enterVerifyGat\" name=\"enterVerify\" \/>";
-strVar += "		    <div id=\"verifyNumGat\"><\/div>";
-strVar += "		    <\/div>";
+//strVar += "	   		 <div class=\"captcha\">";
+//strVar += "	    	    <div class=\"capSmallText\">Enter the number below: <\/div>";
+//strVar += "		    	<input type=\"hidden\" value=\"701469\" id=\"verifyNumHiddenGat\" name=\"verifyNumHidden\" \/>";
+//strVar += "		    	<input type=\"text\" id=\"enterVerifyGat\" name=\"enterVerify\" \/>";
+//strVar += "		    <div id=\"verifyNumGat\"><\/div>";
+//strVar += "		    <\/div>";
 strVar += "			<input type=\"submit\" class=\"cuSendGatting\" name=\"submit\" value=\"Download\" \/>";
 strVar += "			<\/form>";
 strVar += "            <a class=\"gattingWrapperClose\" href=\"#\">Close<\/a>";
@@ -78,17 +80,21 @@ strVar += "        <\/div>";
 
 //Global Function for use;
 function checkValidCaptcha(){
-		if($('#enterVerifyGat').val() == $('#verifyNumHiddenGat').val() ) {
+		
+		//if($('#enterVerifyGat').val() == $('#verifyNumHiddenGat').val() ) {
 			//$('form').attr('action', 'https://example.com/MyForm');
-			gotValidCaptcha = true;
+		//	gotValidCaptcha = true;
+		//	return true;
+		//}
+		if(gotValidCaptcha==true){
 			return true;
 		}
 		else
 		{
-			alert("Please Enter Correct Verification Number");
-			randomgenGat();
-			$('#enterVerifyGat').select();
-			$('#enterVerifyGat').focus();
+		//	alert("Please Enter Correct Verification Number");
+		//	randomgenGat();
+		//	$('#enterVerifyGat').select();
+		//	$('#enterVerifyGat').focus();
 			return false;
 		}
 }
@@ -217,10 +223,11 @@ function GrabOldMessages(){
     //when the dom has loaded setup form validation rules
     $(D).ready(function($) {
         JQUERY4U.UTIL.setupFormValidation();
-
 		randomgen();
+		
   //start captcha Code
-	
+  $('#regiterToDownload').ebcaptcha();
+
 //Validation Starts Here    
 	$('#contactUs').submit(function() {
 		if($('#enterVerify').val() == $('#verifyNumHidden').val() ) {
