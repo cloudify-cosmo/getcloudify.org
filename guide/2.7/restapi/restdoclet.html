@@ -2445,11 +2445,14 @@
 									<p>This controller is responsible for retrieving information about deployments. It is also the entry point for deploying
  services and application. <br>
  <br>
- The response body will always return in a JSON representation of the {@link Response} Object. <br>
- A controller method may return the {@link Response} Object directly. in this case this return value will be used as
- the response body. Otherwise, an implicit wrapping will occur. the return value will be inserted into
+ The response body will always return in a JSON representation of the 
+ {@link org.cloudifysource.dsl.rest.response.Response} Object. <br>
+ A controller method may return the {@link org.cloudifysource.dsl.rest.response.Response} Object directly. 
+ in this case this return value will be used as the response body. 
+ Otherwise, an implicit wrapping will occur. the return value will be inserted into
  {@code Response#setResponse(Object)}. 
- other fields of the {@link Response} object will be filled with default values. <br>
+ other fields of the {@link org.cloudifysource.dsl.rest.response.Response} 
+ object will be filled with default values. <br>
  <h1>Important</h1> {@code @ResponseBody} annotations are not permitted. <br>
  <br>
  <h1>Possible return values</h1> 200 - OK<br>
@@ -2550,19 +2553,19 @@
   "verbose" : null,
   "response" : {
     "servicesDescription" : [ {
-      "serviceName" : "service0",
-      "instanceCount" : 2,
-      "plannedInstances" : 2,
+      "serviceName" : "service2",
+      "instanceCount" : 3,
+      "plannedInstances" : 3,
       "instancesDescription" : [ {
-        "instanceName" : "petclinic.service0",
+        "instanceName" : "petclinic.service2",
         "instanceStatus" : "RUNNING",
-        "instanceId" : 0,
+        "instanceId" : 2,
         "hostName" : "build64A",
         "hostAddress" : "192.168.9.18"
       }, {
-        "instanceName" : "petclinic.service0",
+        "instanceName" : "petclinic.service2",
         "instanceStatus" : "RUNNING",
-        "instanceId" : 2,
+        "instanceId" : 4,
         "hostName" : "build64A",
         "hostAddress" : "192.168.9.18"
       } ],
@@ -2570,19 +2573,19 @@
       "serviceState" : "STARTED",
       "deploymentId" : null
     }, {
-      "serviceName" : "service1",
-      "instanceCount" : 3,
-      "plannedInstances" : 3,
+      "serviceName" : "service3",
+      "instanceCount" : 2,
+      "plannedInstances" : 2,
       "instancesDescription" : [ {
-        "instanceName" : "petclinic.service1",
+        "instanceName" : "petclinic.service3",
         "instanceStatus" : "RUNNING",
-        "instanceId" : 1,
+        "instanceId" : 3,
         "hostName" : "build64A",
         "hostAddress" : "192.168.9.18"
       }, {
-        "instanceName" : "petclinic.service1",
+        "instanceName" : "petclinic.service3",
         "instanceStatus" : "RUNNING",
-        "instanceId" : 3,
+        "instanceId" : 5,
         "hostName" : "build64A",
         "hostAddress" : "192.168.9.18"
       } ],
@@ -2656,15 +2659,15 @@
 								</div>
 								<div class="panelContent">
 									<pre class="code">{
-  "applcationFileUploadKey" : "40e7c6fe-a367-4bc0-a111-9e0d6d2f6d78",
-  "applicationOverridesUploadKey" : "6207a65a-1d5f-49b2-ba4e-05684cf25be0",
-  "cloudOverridesUploadKey" : "413e10e7-9d85-45dc-82fb-9893cc812dea",
+  "applcationFileUploadKey" : "f85b997c-8220-401a-9f59-9a33d75ccb32",
+  "applicationOverridesUploadKey" : "bf713fd0-0275-45bc-b2c2-705bf5fd3987",
+  "cloudOverridesUploadKey" : "a229883f-ede2-4160-9091-7a583b0bb756",
   "applicationName" : "petclinic",
   "authGroups" : "myAuthGroup",
   "debugMode" : "onError",
   "debugEvents" : "init,install",
   "timeoutInMillis" : 5,
-  "cloudConfigurationUploadKey" : "a0fc1ebe-25c2-4cff-b9d6-0bf3617eaecf",
+  "cloudConfigurationUploadKey" : "c2d3b1a1-1d08-4dd1-8407-fa9b917c0609",
   "debugAll" : false,
   "selfHealing" : true
 }</pre>
@@ -2682,7 +2685,7 @@
   "messageId" : "operation_successfull",
   "verbose" : null,
   "response" : {
-    "deploymentID" : "2e481202-e398-42e1-baa1-da74fc60784f"
+    "deploymentID" : "d9967f77-10f1-4cb8-9da9-bc1f83d9c343"
   }
 }</pre>
 								</div>
@@ -2736,7 +2739,7 @@
   "messageId" : "operation_successfull",
   "verbose" : null,
   "response" : {
-    "deploymentID" : "6a4a3ad8-5e3d-47fb-9e20-4d154d85e186"
+    "deploymentID" : "9cc0da1f-d172-4de3-b5e3-0d21d45bb1f0"
   }
 }</pre>
 								</div>
@@ -3320,19 +3323,19 @@
   "messageId" : "operation_successfull",
   "verbose" : null,
   "response" : [ {
-    "serviceName" : "service3",
-    "instanceCount" : 3,
-    "plannedInstances" : 3,
+    "serviceName" : "service0",
+    "instanceCount" : 1,
+    "plannedInstances" : 1,
     "instancesDescription" : [ {
-      "instanceName" : "petclinic.service3",
+      "instanceName" : "petclinic.service0",
       "instanceStatus" : "RUNNING",
-      "instanceId" : 3,
+      "instanceId" : 0,
       "hostName" : "build64A",
       "hostAddress" : "192.168.9.18"
     }, {
-      "instanceName" : "petclinic.service3",
+      "instanceName" : "petclinic.service0",
       "instanceStatus" : "RUNNING",
-      "instanceId" : 5,
+      "instanceId" : 2,
       "hostName" : "build64A",
       "hostAddress" : "192.168.9.18"
     } ],
@@ -3340,19 +3343,19 @@
     "serviceState" : "STARTED",
     "deploymentId" : null
   }, {
-    "serviceName" : "service4",
-    "instanceCount" : 3,
-    "plannedInstances" : 3,
+    "serviceName" : "service1",
+    "instanceCount" : 2,
+    "plannedInstances" : 2,
     "instancesDescription" : [ {
-      "instanceName" : "petclinic.service4",
+      "instanceName" : "petclinic.service1",
       "instanceStatus" : "RUNNING",
-      "instanceId" : 4,
+      "instanceId" : 1,
       "hostName" : "build64A",
       "hostAddress" : "192.168.9.18"
     }, {
-      "instanceName" : "petclinic.service4",
+      "instanceName" : "petclinic.service1",
       "instanceStatus" : "RUNNING",
-      "instanceId" : 6,
+      "instanceId" : 3,
       "hostName" : "build64A",
       "hostAddress" : "192.168.9.18"
     } ],
@@ -3688,13 +3691,13 @@
   "messageId" : "operation_successfull",
   "verbose" : null,
   "response" : {
-    "instanceId" : 2,
+    "instanceId" : 0,
     "applicationName" : "petclinic",
     "serviceName" : "tomcat",
     "serviceInstanceName" : "petclinic.tomcat",
     "privateIp" : "192.168.9.18",
-    "publicIp" : "192.168.9.18",
-    "templateName" : "SMALL_LINUX",
+    "publicIp" : "192.168.9.15",
+    "templateName" : "SMALL_UBUNTU",
     "imageId" : "localcloud",
     "hardwareId" : "localcloud",
     "machineId" : "localcloud",
@@ -3705,9 +3708,9 @@
       "Cloud Private IP" : "192.168.9.18",
       "GSC PID" : "4276",
       "Cloud Hardware ID" : "localcloud",
-      "Instance ID" : 2,
+      "Instance ID" : 0,
       "Machine ID" : "localcloud",
-      "Working Directory" : "D:\\gigaSpaces\\gigaspaces-cloudify\\work\\processing-units\\simpleApp_simple_2_1051025036\\ext",
+      "Working Directory" : "D:\\gigaSpaces\\gigaspaces-cloudify\\work\\processing-units\\simpleApp_simple_0_1051025036\\ext",
       "url" : null
     }
   }
@@ -3895,7 +3898,7 @@
   "response" : {
     "name" : "tomcat",
     "applicationName" : "petclinic",
-    "numberOfInstances" : 1,
+    "numberOfInstances" : 5,
     "instanceNames" : [ "petclinic.tomcat", "petclinic.tomcat", "petclinic.tomcat" ]
   }
 }</pre>
@@ -4054,10 +4057,10 @@
         "metric1" : "value1"
       }
     }, {
-      "instanceId" : 1,
+      "instanceId" : 4,
       "metrics" : {
-        "metric2" : "value2",
-        "metric1" : "value1"
+        "metric4" : "value4",
+        "metric5" : "value5"
       }
     } ]
   }
@@ -4111,10 +4114,10 @@
 								</div>
 								<div class="panelContent">
 									<pre class="code">{
-  "serviceFolderUploadKey" : "2093325a-7d93-439f-8eef-dfbecaa61b79",
-  "cloudConfigurationUploadKey" : "01c7c814-9bc4-431c-9bd1-0d9e33e33c3c",
-  "cloudOverridesUploadKey" : "e1328c42-d7a9-4539-8309-2bf7ff48005e",
-  "serviceOverridesUploadKey" : "8e38d978-533c-4a72-ad6f-501b578af319",
+  "serviceFolderUploadKey" : "981435ed-cf53-4bb0-b1cf-4ed78af6b0b1",
+  "cloudConfigurationUploadKey" : "f94f99f2-ce83-49af-8e65-26f88248f4c3",
+  "cloudOverridesUploadKey" : "b9d401ba-01c1-421c-92a8-85030c6ed166",
+  "serviceOverridesUploadKey" : "722ef4a8-3b61-40b1-b42e-41717a396be1",
   "serviceFileName" : "myService.groovy",
   "authGroups" : "myAuthGroup",
   "selfHealing" : true,
@@ -4137,7 +4140,7 @@
   "messageId" : "operation_successfull",
   "verbose" : null,
   "response" : {
-    "deploymentID" : "64d1e2ee-86b4-4992-ace9-2ae9ffe710a3"
+    "deploymentID" : "7895be71-c0f6-44b8-a037-2df8b1b38d78"
   }
 }</pre>
 								</div>
@@ -4200,7 +4203,7 @@
   "messageId" : "operation_successfull",
   "verbose" : null,
   "response" : {
-    "deploymentID" : "3a76c125-71fe-4e2c-a75a-66c4c072fe35"
+    "deploymentID" : "e5854baf-34e1-4c70-ae5a-2791304ab51c"
   }
 }</pre>
 								</div>
@@ -4405,89 +4408,9 @@
   "messageId" : "operation_successfull",
   "verbose" : null,
   "response" : [ [ {
-    "serviceName" : "service2",
-    "instanceCount" : 1,
-    "plannedInstances" : 1,
-    "instancesDescription" : [ {
-      "instanceName" : "petclinic.service2",
-      "instanceStatus" : "RUNNING",
-      "instanceId" : 2,
-      "hostName" : "build64A",
-      "hostAddress" : "192.168.9.18"
-    }, {
-      "instanceName" : "petclinic.service2",
-      "instanceStatus" : "RUNNING",
-      "instanceId" : 4,
-      "hostName" : "build64A",
-      "hostAddress" : "192.168.9.18"
-    } ],
-    "applicationName" : "petclinic",
-    "serviceState" : "STARTED",
-    "deploymentId" : null
-  }, {
-    "serviceName" : "service3",
-    "instanceCount" : 2,
-    "plannedInstances" : 2,
-    "instancesDescription" : [ {
-      "instanceName" : "petclinic.service3",
-      "instanceStatus" : "RUNNING",
-      "instanceId" : 3,
-      "hostName" : "build64A",
-      "hostAddress" : "192.168.9.18"
-    }, {
-      "instanceName" : "petclinic.service3",
-      "instanceStatus" : "RUNNING",
-      "instanceId" : 5,
-      "hostName" : "build64A",
-      "hostAddress" : "192.168.9.18"
-    } ],
-    "applicationName" : "petclinic",
-    "serviceState" : "STARTED",
-    "deploymentId" : null
-  } ], [ {
-    "serviceName" : "service3",
-    "instanceCount" : 5,
-    "plannedInstances" : 5,
-    "instancesDescription" : [ {
-      "instanceName" : "petclinic.service3",
-      "instanceStatus" : "RUNNING",
-      "instanceId" : 3,
-      "hostName" : "build64A",
-      "hostAddress" : "192.168.9.18"
-    }, {
-      "instanceName" : "petclinic.service3",
-      "instanceStatus" : "RUNNING",
-      "instanceId" : 5,
-      "hostName" : "build64A",
-      "hostAddress" : "192.168.9.18"
-    } ],
-    "applicationName" : "petclinic",
-    "serviceState" : "STARTED",
-    "deploymentId" : null
-  }, {
-    "serviceName" : "service4",
-    "instanceCount" : 2,
-    "plannedInstances" : 2,
-    "instancesDescription" : [ {
-      "instanceName" : "petclinic.service4",
-      "instanceStatus" : "RUNNING",
-      "instanceId" : 4,
-      "hostName" : "build64A",
-      "hostAddress" : "192.168.9.18"
-    }, {
-      "instanceName" : "petclinic.service4",
-      "instanceStatus" : "RUNNING",
-      "instanceId" : 6,
-      "hostName" : "build64A",
-      "hostAddress" : "192.168.9.18"
-    } ],
-    "applicationName" : "petclinic",
-    "serviceState" : "STARTED",
-    "deploymentId" : null
-  } ], [ {
     "serviceName" : "service0",
-    "instanceCount" : 3,
-    "plannedInstances" : 3,
+    "instanceCount" : 2,
+    "plannedInstances" : 2,
     "instancesDescription" : [ {
       "instanceName" : "petclinic.service0",
       "instanceStatus" : "RUNNING",
@@ -4518,6 +4441,86 @@
       "instanceName" : "petclinic.service1",
       "instanceStatus" : "RUNNING",
       "instanceId" : 3,
+      "hostName" : "build64A",
+      "hostAddress" : "192.168.9.18"
+    } ],
+    "applicationName" : "petclinic",
+    "serviceState" : "STARTED",
+    "deploymentId" : null
+  } ], [ {
+    "serviceName" : "service3",
+    "instanceCount" : 3,
+    "plannedInstances" : 3,
+    "instancesDescription" : [ {
+      "instanceName" : "petclinic.service3",
+      "instanceStatus" : "RUNNING",
+      "instanceId" : 3,
+      "hostName" : "build64A",
+      "hostAddress" : "192.168.9.18"
+    }, {
+      "instanceName" : "petclinic.service3",
+      "instanceStatus" : "RUNNING",
+      "instanceId" : 5,
+      "hostName" : "build64A",
+      "hostAddress" : "192.168.9.18"
+    } ],
+    "applicationName" : "petclinic",
+    "serviceState" : "STARTED",
+    "deploymentId" : null
+  }, {
+    "serviceName" : "service4",
+    "instanceCount" : 5,
+    "plannedInstances" : 5,
+    "instancesDescription" : [ {
+      "instanceName" : "petclinic.service4",
+      "instanceStatus" : "RUNNING",
+      "instanceId" : 4,
+      "hostName" : "build64A",
+      "hostAddress" : "192.168.9.18"
+    }, {
+      "instanceName" : "petclinic.service4",
+      "instanceStatus" : "RUNNING",
+      "instanceId" : 6,
+      "hostName" : "build64A",
+      "hostAddress" : "192.168.9.18"
+    } ],
+    "applicationName" : "petclinic",
+    "serviceState" : "STARTED",
+    "deploymentId" : null
+  } ], [ {
+    "serviceName" : "service3",
+    "instanceCount" : 4,
+    "plannedInstances" : 4,
+    "instancesDescription" : [ {
+      "instanceName" : "petclinic.service3",
+      "instanceStatus" : "RUNNING",
+      "instanceId" : 3,
+      "hostName" : "build64A",
+      "hostAddress" : "192.168.9.18"
+    }, {
+      "instanceName" : "petclinic.service3",
+      "instanceStatus" : "RUNNING",
+      "instanceId" : 5,
+      "hostName" : "build64A",
+      "hostAddress" : "192.168.9.18"
+    } ],
+    "applicationName" : "petclinic",
+    "serviceState" : "STARTED",
+    "deploymentId" : null
+  }, {
+    "serviceName" : "service4",
+    "instanceCount" : 5,
+    "plannedInstances" : 5,
+    "instancesDescription" : [ {
+      "instanceName" : "petclinic.service4",
+      "instanceStatus" : "RUNNING",
+      "instanceId" : 4,
+      "hostName" : "build64A",
+      "hostAddress" : "192.168.9.18"
+    }, {
+      "instanceName" : "petclinic.service4",
+      "instanceStatus" : "RUNNING",
+      "instanceId" : 6,
       "hostName" : "build64A",
       "hostAddress" : "192.168.9.18"
     } ],
@@ -4600,7 +4603,7 @@
 }</pre>
 								</div>
 							</div>
-																																	<h2 id="REST_API-/{version}/deployments/{operationId}/events/last"><a class="permalink" title="Get a permanent link to this section" href="#REST_API-/{version}/deployments/{operationId}/events/last">/{version}/deployments/{operationId}/events/last</a></h2>				
+																																	<h2 id="REST_API-/{version}/deployments/{deploymentId}/events/last"><a class="permalink" title="Get a permanent link to this section" href="#REST_API-/{version}/deployments/{deploymentId}/events/last">/{version}/deployments/{deploymentId}/events/last</a></h2>				
 												<h3>HTTP Methods</h3>
 									<h4>GET</h4>
 											<p>Returns the last event for a specific operation.</p>
@@ -4616,7 +4619,7 @@
 							</tr>
 															<tr>
 									<td>String</td>
-																			<td>operationId</td>
+																			<td>deploymentId</td>
 																												<td>the operation ID</td>
 																		<td>true</td>
 									<td>PathVariable</td>
@@ -4626,7 +4629,7 @@
 																															<h3>Request</h3>
 							<div class="panel">
 								<div class="panelHeader">
-									Request body for a GET on /{version}/deployments/{operationId}/events/last
+									Request body for a GET on /{version}/deployments/{deploymentId}/events/last
 								</div>
 								<div class="panelContent">
 									<pre class="code">request has no body</pre>
@@ -4635,7 +4638,7 @@
 																																											<h3>Response</h3>
 							<div class="panel">
 								<div class="panelHeader">
-									Response to a GET on /{version}/deployments/{operationId}/events/last
+									Response to a GET on /{version}/deployments/{deploymentId}/events/last
 								</div>	
 								<div class="panelContent">
 										<pre class="code">{
@@ -4653,6 +4656,274 @@
     } ]
   }
 }</pre>
+								</div>
+							</div>
+																																		<div class="header">
+				<h1>TemplatesController</h1>
+				<p class="excerpt">Mapping of URIs that begin with /{version}/templates</p>
+							</div>
+			<div class="separator"></div>
+																<h2 id="REST_API-/{version}/templates"><a class="permalink" title="Get a permanent link to this section" href="#REST_API-/{version}/templates">/{version}/templates</a></h2>				
+												<h3>HTTP Methods</h3>
+									<h4>POST</h4>
+											<p>Add templates from templates folder to the cloud. Returns a response in case of success or partial failure.</p>
+																															<h3>Parameters</h3>
+						<table>
+							<tr>
+								<th>Type</th>
+								<th>Name</th>
+								<th>Description</th>
+								<th>Mandatory</th>
+								<th>Parameter type</th>
+								<th>Default value</th>
+							</tr>
+															<tr>
+									<td>AddTemplatesRequest</td>
+																			<td>request</td>
+																												<td>{@link AddTemplatesRequest}</td>
+																		<td>true</td>
+									<td>RequestBody</td>
+																			<td></td>
+																	</tr>
+													</table>
+																															<h3>Request</h3>
+							<div class="panel">
+								<div class="panelHeader">
+									Request body for a POST on /{version}/templates
+								</div>
+								<div class="panelContent">
+									<pre class="code">{
+  "uploadKey" : "a0007db6-6cf0-4093-99d1-c8d7bf60d4cd"
+}</pre>
+								</div>
+							</div>
+																																											<h3>Response</h3>
+							<div class="panel">
+								<div class="panelHeader">
+									Response to a POST on /{version}/templates
+								</div>	
+								<div class="panelContent">
+										<pre class="code">{
+  "status" : "PartialFailure",
+  "message" : "partial failure - not all the expected templates were added to all REST instances.",
+  "messageId" : "partly_failed_to_add_templates",
+  "verbose" : {
+    "templates" : {
+      "SMALL_UBUNTU" : {
+        "failedToAddHosts" : {
+          "192.168.9.12" : "template already exists",
+          "192.168.9.16" : "template already exists"
+        },
+        "successfullyAddedHosts" : [ "192.168.9.15" ]
+      },
+      "SMALL_SUSE" : {
+        "failedToAddHosts" : { },
+        "successfullyAddedHosts" : [ "192.168.9.12", "192.168.9.16", "192.168.9.15" ]
+      },
+      "SMALL_LINUX" : {
+        "failedToAddHosts" : {
+          "192.168.9.12" : "template already exists",
+          "192.168.9.15" : "template already exists",
+          "192.168.9.16" : "template already exists"
+        },
+        "successfullyAddedHosts" : [ ]
+      }
+    },
+    "instances" : [ "192.168.9.12", "192.168.9.16", "192.168.9.15" ],
+    "status" : "PARTIAL_FAILURE"
+  },
+  "response" : null
+}</pre>
+								</div>
+							</div>
+																															<h4>GET</h4>
+											<p>Get the cloud's templates.</p>
+																																																			<h3>Request</h3>
+							<div class="panel">
+								<div class="panelHeader">
+									Request body for a GET on /{version}/templates
+								</div>
+								<div class="panelContent">
+									<pre class="code">request has no body</pre>
+								</div>
+							</div>
+																																											<h3>Response</h3>
+							<div class="panel">
+								<div class="panelHeader">
+									Response to a GET on /{version}/templates
+								</div>	
+								<div class="panelContent">
+										<pre class="code">{
+  "status" : "Success",
+  "message" : "Operation completed successfully",
+  "messageId" : "operation_successfull",
+  "verbose" : null,
+  "response" : {
+    "templates" : {
+      "MY_TEMPLATE_1" : {
+        "imageId" : "eu-west-1/ami-c1aaabb5",
+        "machineMemoryMB" : 1600,
+        "hardwareId" : "m1.small",
+        "locationId" : "eu-west-1",
+        "localDirectory" : "upload",
+        "keyFile" : "key-file.pem",
+        "numberOfCores" : 1,
+        "options" : {
+          "keyPair" : "key-pair-eu",
+          "securityGroups" : [ "default" ]
+        },
+        "overrides" : { },
+        "custom" : { },
+        "fileTransfer" : "SFTP",
+        "remoteExecution" : "SSH",
+        "scriptLanguage" : "LINUX_SHELL",
+        "username" : "my_template_1",
+        "password" : null,
+        "remoteDirectory" : "upload",
+        "privileged" : true,
+        "initializationCommand" : null,
+        "javaUrl" : null,
+        "absoluteUploadDir" : null,
+        "env" : { },
+        "installer" : {
+          "connectionTestRouteResolutionTimeoutMillis" : 120000,
+          "connectionTestIntervalMillis" : 5000,
+          "connectionTestConnectTimeoutMillis" : 10000,
+          "fileTransferConnectionTimeoutMillis" : 10000,
+          "fileTransferRetries" : 3,
+          "fileTransferPort" : -1,
+          "fileTransferConnectionRetryIntervalMillis" : 5000,
+          "remoteExecutionPort" : -1,
+          "remoteExecutionConnectionTimeoutMillis" : 10000
+        }
+      }
+    }
+  }
+}</pre>
+								</div>
+							</div>
+																																	<h2 id="REST_API-/{version}/templates/{templateName}"><a class="permalink" title="Get a permanent link to this section" href="#REST_API-/{version}/templates/{templateName}">/{version}/templates/{templateName}</a></h2>				
+												<h3>HTTP Methods</h3>
+									<h4>GET</h4>
+											<p>Get template from the cloud.</p>
+																															<h3>Parameters</h3>
+						<table>
+							<tr>
+								<th>Type</th>
+								<th>Name</th>
+								<th>Description</th>
+								<th>Mandatory</th>
+								<th>Parameter type</th>
+								<th>Default value</th>
+							</tr>
+															<tr>
+									<td>String</td>
+																			<td>templateName</td>
+																												<td>The name of the template to get</td>
+																		<td>true</td>
+									<td>PathVariable</td>
+																			<td></td>
+																	</tr>
+													</table>
+																															<h3>Request</h3>
+							<div class="panel">
+								<div class="panelHeader">
+									Request body for a GET on /{version}/templates/{templateName}
+								</div>
+								<div class="panelContent">
+									<pre class="code">request has no body</pre>
+								</div>
+							</div>
+																																											<h3>Response</h3>
+							<div class="panel">
+								<div class="panelHeader">
+									Response to a GET on /{version}/templates/{templateName}
+								</div>	
+								<div class="panelContent">
+										<pre class="code">{
+  "status" : "Success",
+  "message" : "Operation completed successfully",
+  "messageId" : "operation_successfull",
+  "verbose" : null,
+  "response" : {
+    "template" : {
+      "imageId" : "eu-west-1/ami-c1aaabb5",
+      "machineMemoryMB" : 1600,
+      "hardwareId" : "m1.small",
+      "locationId" : "eu-west-1",
+      "localDirectory" : "upload",
+      "keyFile" : "key-file.pem",
+      "numberOfCores" : 1,
+      "options" : {
+        "keyPair" : "key-pair-eu",
+        "securityGroups" : [ "default" ]
+      },
+      "overrides" : { },
+      "custom" : { },
+      "fileTransfer" : "SFTP",
+      "remoteExecution" : "SSH",
+      "scriptLanguage" : "LINUX_SHELL",
+      "username" : "my_template_2",
+      "password" : null,
+      "remoteDirectory" : "upload",
+      "privileged" : true,
+      "initializationCommand" : null,
+      "javaUrl" : null,
+      "absoluteUploadDir" : null,
+      "env" : { },
+      "installer" : {
+        "connectionTestRouteResolutionTimeoutMillis" : 120000,
+        "connectionTestIntervalMillis" : 5000,
+        "connectionTestConnectTimeoutMillis" : 10000,
+        "fileTransferConnectionTimeoutMillis" : 10000,
+        "fileTransferRetries" : 3,
+        "fileTransferPort" : -1,
+        "fileTransferConnectionRetryIntervalMillis" : 5000,
+        "remoteExecutionPort" : -1,
+        "remoteExecutionConnectionTimeoutMillis" : 10000
+      }
+    }
+  }
+}</pre>
+								</div>
+							</div>
+																															<h4>DELETE</h4>
+											<p>Removes a template from the cloud.</p>
+																															<h3>Parameters</h3>
+						<table>
+							<tr>
+								<th>Type</th>
+								<th>Name</th>
+								<th>Description</th>
+								<th>Mandatory</th>
+								<th>Parameter type</th>
+								<th>Default value</th>
+							</tr>
+															<tr>
+									<td>String</td>
+																			<td>templateName</td>
+																												<td>The name of the template to remove</td>
+																		<td>true</td>
+									<td>PathVariable</td>
+																			<td></td>
+																	</tr>
+													</table>
+																															<h3>Request</h3>
+							<div class="panel">
+								<div class="panelHeader">
+									Request body for a DELETE on /{version}/templates/{templateName}
+								</div>
+								<div class="panelContent">
+									<pre class="code">request has no body</pre>
+								</div>
+							</div>
+																																											<h3>Response</h3>
+							<div class="panel">
+								<div class="panelHeader">
+									Response to a DELETE on /{version}/templates/{templateName}
+								</div>	
+								<div class="panelContent">
+										<pre class="code">response has no body</pre>
 								</div>
 							</div>
 																																		<div class="header">
@@ -4716,7 +4987,7 @@
   "messageId" : "operation_successfull",
   "verbose" : null,
   "response" : {
-    "uploadKey" : "16bf7d83-0e71-456f-92d9-ab19407f5da6"
+    "uploadKey" : "aa39eb33-7d41-43e1-91ab-675dcfad3695"
   }
 }</pre>
 								</div>
