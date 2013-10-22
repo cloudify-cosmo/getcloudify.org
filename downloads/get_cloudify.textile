@@ -107,7 +107,8 @@ $("a#downloadme,a.eaTitle").click(function(e) {
 	$(this).prev().css("visibility","visible");
 	$(".blockBg").show();
 	GrabOldMessages();
-	if($.cookie('cloudRegUser')==null){
+	formEmail = mixpanel.cookie.props.$people_distinct_id;
+	if(formEmail==undefined){
 		downloadFile(e);
 	}else{
 		directDownload(e);//works only when user already once sign in ;
@@ -144,11 +145,7 @@ function downloadFile(e)
 			
 			
 			if(gotName == false){
-				//var userName = prompt("Yo passenger! What's your name?");
-				//if ( confirm("Are you sure your name is " + userName + "?") ){
-				//alert("’Sup " + userName + "!");
 				randomgen();
-				//$(".gattingWrapper").css("visibility","visible");
 				if ($("#regiterToDownload").validate()==true){
 				gotName = true;
 				//track mixpanel
@@ -185,12 +182,13 @@ function track_download(downloadHref) {
 		var zipName="";
 		zipName=downloadHref.split("/")[6]; 
 		mixpanel.track('GA Product Download', {'Zip Name':zipName, 'Source':'cloudifysource.org'});
-		formEmail = $.cookie('cloudRegUser').split('=')[1].replace('%40','@');
+		formEmail = mixpanel.cookie.props.$people_distinct_id;
+		formName=mixpanel.cookie.props.mp_name_tag;
 		mixpanel.people.identify(formEmail);
 		mixpanel.people.set({
 		"resource": zipName, // sets the property 'Resource' for this user to the boolean value true		
 		$email: formEmail,
-		$first_name: formEmail,
+		$first_name: formName,
 		$created: new Date(),
 		$last_seen:new Date(),
 		});
