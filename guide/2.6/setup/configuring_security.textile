@@ -181,11 +181,20 @@ h4. Install an application with implicit authorization groups
 &nbsp;&nbsp;&nbsp;&nbsp;<span class="snippet">install-application petclinic</span>
 The application will be set with the authorization groups of the installing user.
 
-h4. Install application with explicit authorization groups
+h4. Install an application with explicit authorization groups
 
 &nbsp;&nbsp;&nbsp;&nbsp;<span class="snippet">install-application -authGroups Finance  petclinic</span>
  *-authGroups*  - The name of the authorization groups to be set for this application. The installing user must be a member of the specified authorization groups.
 
+h4. Install an application with user credentials
+
+If you have disconnected from the management server or opened a new CLI, you need to connect to the managment server and provide Cloudify with credentials.
+For example
+
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="snippet">connect -user myUserName -password myPassword https://REST_SERVER_IP_ADDRESS</span>
+After connecting, any command that you'll invoke will use the user's credentials.
+
+ 
 h4(info). Multiple authorization groups need to be comma-separated. 
  
 <span id="autha"/>
