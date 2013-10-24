@@ -46,7 +46,8 @@
 	<script type="text/javascript" src="/scripts/version.js"></script>
 	<script type="text/javascript" src="/scripts/jquery.lightbox-0.5.js"></script>
     <script src="http://ajax.aspnetcdn.com/ajax/jquery.validate/1.9/jquery.validate.min.js"></script>	
-	<script src="/scripts/jquery.cookie.js"></script>
+	<script type="text/javascript" src="/scripts/mathCaptcha/jquery.ebcaptcha.js"></script>
+	
 
 <script type="text/javascript" >
 //Manage Downloads Gating;
@@ -56,6 +57,7 @@ var gotValidCaptcha = false;
 var downloadHref="";
 var strVar="";
 var formEmail="";
+var formName="";
 
 strVar += "<div class=\"gattingWrapper\">";
 strVar += "           <form id=\"regiterToDownload\" action=\"https:\/\/www.salesforce.com\/servlet\/servlet.WebToLead?encoding=UTF-8\" method=\"POST\">";
@@ -68,12 +70,12 @@ strVar += "			<div style=\"position:relative\">";
 strVar += "				<input  id=\"email\" name=\"email\"  type=\"text\"  placeholder=\"Your Email\"\/>";
 strVar += "				<div class=\"cuValid\"><\/div>";
 strVar += "			<\/div>";
-strVar += "	   		 <div class=\"captcha\">";
-strVar += "	    	    <div class=\"capSmallText\">Enter the number below: <\/div>";
-strVar += "		    	<input type=\"hidden\" value=\"701469\" id=\"verifyNumHiddenGat\" name=\"verifyNumHidden\" \/>";
-strVar += "		    	<input type=\"text\" id=\"enterVerifyGat\" name=\"enterVerify\" \/>";
-strVar += "		    <div id=\"verifyNumGat\"><\/div>";
-strVar += "		    <\/div>";
+//strVar += "	   		 <div class=\"captcha\">";
+//strVar += "	    	    <div class=\"capSmallText\">Enter the number below: <\/div>";
+//strVar += "		    	<input type=\"hidden\" value=\"701469\" id=\"verifyNumHiddenGat\" name=\"verifyNumHidden\" \/>";
+//strVar += "		    	<input type=\"text\" id=\"enterVerifyGat\" name=\"enterVerify\" \/>";
+//strVar += "		    <div id=\"verifyNumGat\"><\/div>";
+//strVar += "		    <\/div>";
 strVar += "			<input type=\"submit\" class=\"cuSendGatting\" name=\"submit\" value=\"Download\" \/>";
 strVar += "			<\/form>";
 strVar += "            <a class=\"gattingWrapperClose\" href=\"#\">Close<\/a>";
@@ -81,17 +83,21 @@ strVar += "        <\/div>";
 
 //Global Function for use;
 function checkValidCaptcha(){
-		if($('#enterVerifyGat').val() == $('#verifyNumHiddenGat').val() ) {
+		
+		//if($('#enterVerifyGat').val() == $('#verifyNumHiddenGat').val() ) {
 			//$('form').attr('action', 'https://example.com/MyForm');
-			gotValidCaptcha = true;
+		//	gotValidCaptcha = true;
+		//	return true;
+		//}
+		if(gotValidCaptcha==true){
 			return true;
 		}
 		else
 		{
-			alert("Please Enter Correct Verification Number");
-			randomgenGat();
-			$('#enterVerifyGat').select();
-			$('#enterVerifyGat').focus();
+		//	alert("Please Enter Correct Verification Number");
+		//	randomgenGat();
+		//	$('#enterVerifyGat').select();
+		//	$('#enterVerifyGat').focus();
 			return false;
 		}
 }
@@ -172,10 +178,6 @@ function GrabOldMessages(){
 				verName=downloadHref.split("/")[6]; 
 				//track google and mixpanel 
 				track_download(downloadHref);
-				//Set cookie:
-				 var obj = { email:formEmail };
-				 $.cookie("cloudRegUser", $.param(obj), { expires: 10 });
-				 //
 				$('.gattingWrapper').remove();
 				$(".blockBg").hide();
 				setTimeout(function() {
@@ -196,11 +198,13 @@ function GrabOldMessages(){
 				mixpanel.track('GA Product Download', {'Zip Name':zipName, 'Source':'cloudifysource.org'});
 				
 				formEmail =  $(".gattingWrapper #email").val();	
+				formName =  $(".gattingWrapper #last_name").val();	
+				mixpanel.name_tag(formName);
 				mixpanel.people.identify(formEmail);
 				mixpanel.people.set({
                 "resource": zipName, // sets the property 'Resource' for this user to the boolean value true		
 				$email: formEmail,
-				$first_name: formEmail,
+				$first_name: formName,
 				$created: new Date(),
 				$last_seen:new Date(),
 				});
@@ -222,10 +226,11 @@ function GrabOldMessages(){
     //when the dom has loaded setup form validation rules
     $(D).ready(function($) {
         JQUERY4U.UTIL.setupFormValidation();
-
 		randomgen();
+		
   //start captcha Code
-	
+  $('#regiterToDownload').ebcaptcha();
+
 //Validation Starts Here    
 	$('#contactUs').submit(function() {
 		if($('#enterVerify').val() == $('#verifyNumHidden').val() ) {
@@ -610,6 +615,11 @@ $("body").live('change', function(){
 
 <div class="leftContentBox blogLeftBox"> 
    
+	<a href="/2013/10/24/team_cloudify_heads_to_hong_kong.html">Team Cloudify Heads to Hong Kong 
+	 <img class="noMargin" src="/images/arrow-right-blue.png" /></a><br />
+	<span class="date">October 24, 2013</span>  
+	<br/><br/>
+  
 	<a href="/2013/10/11/xap_on_cloudify_part_1.html">XAP on Cloudify Part 1 
 	 <img class="noMargin" src="/images/arrow-right-blue.png" /></a><br />
 	<span class="date">October 11, 2013</span>  
@@ -618,11 +628,6 @@ $("body").live('change', function(){
 	<a href="/2013/09/16/cloudifying_high_availability_part_2_disaster_recovery_on_demand.html">Disaster Recovery On Demand 
 	 <img class="noMargin" src="/images/arrow-right-blue.png" /></a><br />
 	<span class="date">September 16, 2013</span>  
-	<br/><br/>
-  
-	<a href="/2013/09/10/four_case_studies_for_moving_mission_critical_apps_to_openstack.html">Four Case Studies for Moving Mission Critical Apps to OpenStack 
-	 <img class="noMargin" src="/images/arrow-right-blue.png" /></a><br />
-	<span class="date">September 10, 2013</span>  
 	<br/><br/>
 		
 </div>
@@ -652,7 +657,22 @@ $("body").live('change', function(){
 	
 
 	
-<li><a href="/2013/10">October 2013</a> <span class="blue">(1)</span></li>
+<li><a href="/2013/10">October 2013</a> <span class="blue">(2)</span></li>
+
+	
+
+	
+		
+			
+		
+	
+
+	
+	
+	
+	
+	
+	
 
 	
 
@@ -1630,6 +1650,34 @@ $("body").live('change', function(){
 
 <div class="blogtPostBox">
   <div class="blogInfoLeft">
+    <img title="Tamir Korem" width="80" height="96" src="/images/tamir.jpg" />
+  </div>  
+  <div class="blogInfoRight">
+    <a href="/2013/04/24/cloudify_management_rest_api_url.html" class="title">How to get the Cloudify Management REST API URL</a>
+	  <div class="blogPostInfo">
+	  <br/>	  	 
+	    <span>Posted By: <a href="#">Tamir Korem</a>  on  April 24, 2013  <!--|  in <a href="/categories/"></a> --></span>
+	  </div>	  	  	
+      <p>
+		
+			<p>The REST API URL In some cases when you develop a recipe, you may need access to the Cloudify management server/s. In a production environment, we recommend that you use two management servers. This access may be required for invoking REST API calls either on the management servers or on...</p>
+			
+		<p class><a href="/2013/04/24/cloudify_management_rest_api_url.html">Read more...</a></p>	  	  
+	  </p>
+		<span>  Tags:
+			
+			  <a class="postTag" href="/tags/Cloudify">Cloudify (38)</a>
+			
+			  <a class="postTag" href="/tags/REST API">REST API (1)</a>
+			
+		</span>
+	    
+  </div>
+  <div class="clear" ></div>    
+</div>
+
+<div class="blogtPostBox">
+  <div class="blogInfoLeft">
     <img title="Yaron Parasol" width="80" height="96" src="/images/yaron.jpg" />
   </div>  
   <div class="blogInfoRight">
@@ -1646,7 +1694,7 @@ $("body").live('change', function(){
 	  </p>
 		<span>  Tags:
 			
-			  <a class="postTag" href="/tags/Cloudify">Cloudify (37)</a>
+			  <a class="postTag" href="/tags/Cloudify">Cloudify (38)</a>
 			
 			  <a class="postTag" href="/tags/Chef">Chef (7)</a>
 			
@@ -1740,41 +1788,9 @@ $("body").live('change', function(){
 			
 			  <a class="postTag" href="/tags/Disaster Recovery">Disaster Recovery (4)</a>
 			
-			  <a class="postTag" href="/tags/OpenStack">OpenStack (12)</a>
+			  <a class="postTag" href="/tags/OpenStack">OpenStack (13)</a>
 			
 			  <a class="postTag" href="/tags/Cloud Computing">Cloud Computing (9)</a>
-			
-			  <a class="postTag" href="/tags/PaaS">PaaS (16)</a>
-			
-		</span>
-	    
-  </div>
-  <div class="clear" ></div>    
-</div>
-
-<div class="blogtPostBox">
-  <div class="blogInfoLeft">
-    <img title="Ali Hodroj" width="80" height="96" src="/images/ali.png" />
-  </div>  
-  <div class="blogInfoRight">
-    <a href="/2013/03/04/cloudifying_high_availability.html" class="title">Cloudifying High Availability</a>
-	  <div class="blogPostInfo">
-	  <br/>	  	 
-	    <span>Posted By: <a href="#">Ali Hodroj</a>  on  March  4, 2013  <!--|  in <a href="/categories/"></a> --></span>
-	  </div>	  	  	
-      <p>
-		
-			<p>The following is Part 1 of 2 on architecting highly available cloud applications using Cloudify. The first part introduces the concepts, challenges, and solutions to achieve highest levels of availability and disaster recovery in the cloud. The second part revisits the concept to provide a solution architecture and demo source...</p>
-			
-		<p class><a href="/2013/03/04/cloudifying_high_availability.html">Read more...</a></p>	  	  
-	  </p>
-		<span>  Tags:
-			
-			  <a class="postTag" href="/tags/Disaster Recovery">Disaster Recovery (4)</a>
-			
-			  <a class="postTag" href="/tags/Cloud">Cloud (26)</a>
-			
-			  <a class="postTag" href="/tags/High Availability">High Availability (2)</a>
 			
 			  <a class="postTag" href="/tags/PaaS">PaaS (16)</a>
 			
