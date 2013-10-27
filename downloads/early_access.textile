@@ -167,6 +167,10 @@ function track_download(downloadHref) {
 		$last_seen:new Date(),
 		});
 		mixpanel.track('Resource', {'Zip Name':zipName, 'Source':'Download Page'});
+		mixpanel.people.increment({
+			"Number Of Downloads": 1
+		}); 
+
 	}
 
 });
