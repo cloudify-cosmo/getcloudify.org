@@ -1,0 +1,91 @@
+---
+layout: blogpost
+title: An Application-Centric Approach to DevOps
+image: nati.png
+author: Nati Shalom
+tags: 
+ - Cloudify
+ - Continuous Delivery
+ - DevOps
+ - PaaS
+---		
+<div id="entry-6a00d835457b7453ef019b005e45a3970b" class="entry-category-cloudify entry-category-continuous_delivery entry-category-continuous_deployment entry-category-devops entry-category-gigaspaces entry-category-paas entry-author-nati_shalom entry-type-post entry"><div class="entry-content"><div class="entry-body"><p><a href="http://www.linkedin.com/in/mattjaynes">Matt Jaynes</a>, Founder of DevOps University, wrote a great post on Hacker News, <a href="http://cheeaun.github.io/hackerweb/#/item/6559714">What is Continuous Deployment</a>, in which he points out one of challenges that many people gloss over when they embark on their DevOps journey. In a nutshell, Matt was saying that, "You should get your house in order before aspiring to do automation or CD." In other words, if your testing is not fully automated or is taking too long to process, then having continuous deployment may not be right for you.</p>
+<p>The thing that gets me so interested in this entire DevOps movement is that it forces you to think holistically about software development, business cycles and organizational culture. Some refer to this transition as the industrialization of IT. Indeed, there are many parallels between the shift from making cars by hand into a fully automated manufacturing pipeline and the DevOps movement.</p>
+<p>With regards to Jaynes' post, even if you can build a car faster, lack of proper QA may lead to shipping defective parts, and you will still be shipping slowly. In both options, your fast pipeline would end up producing diminishing return, as you may end up paying more for the warehouse or for handling "recall" or fixing defects, let alone the potential loss of reputation or even the entire business.</p>
+<p>In short, you need to get your house in order before launching continuous deployment right into production.</p>
+<p>Another area of complexity in building continuous delivery and deployment is that it often involves fairly complex processes for handling updates. I noticed that in many cases, people need to write a lot of custom code to implement these processes. That custom code can be fairly hard to maintain and track.</p>
+<p>In this post, I would like to share a different approach to handling continuous delivery based on the experience of a Cloudify user - <a href="http://en.wikipedia.org/wiki/Paddy_Power">PaddyPower.</a></p>
+<p><img width="360" height="140" src="https://lh6.googleusercontent.com/IpU2DuhQjiqaISHy5KDNVv1Tz0_qNygbYpcoCQEIj2LuxofYcJRO3igpT6YCW5tFMyUAQcGB6JuBALsjYh7zgGbfUakSJTbwsmXA3HXMnf0L8bN1iHs-ixQdpA" alt=""></p>
+<p>PaddyPower is Ireland's largest telephone betting service and also offers many online betting applications. Like many organizations, they faced the need to speed up their development and deployment cycle. They went through a complete cycle of moving into agile development as well as transforming their infrastructure into a cloud-based infrastructure based on CloudStack.</p>
+<p>They use <a href="http://cloudifysource.org/">Cloudify</a> and <a href="http://en.wikipedia.org/wiki/Chef_(software)">Chef</a> to run their DevOps automation and continuous delivery.</p>
+<p>The way they approached DevOps in general, and continuous delivery in particular, is quite interesting because they took an application-centric approach to DevOps, as opposed to an infrastructure-centric approach as used in some other cases. Let me explain... </p>
+<p><strong>What is an Application-Centric Approach to DevOps?</strong></p>
+<p>In many DevOps discussions we often tend to jump into low level discussions about tools, and fairly quickly we start to lose sight of what we are actually trying to achieve.</p>
+<p>Quite naturally, many start with one of the first steps in automation, which is configuration management - i.e. our ability to consistently configure, setup and update machines with the right stack. In this model, the world looks like a bunch of machines at the core onto which we then tie our software parts. I would refer to that approach as an infrastructure-centric approach.</p>
+<p>An application-centric approach is looking at the same problem, but from a different perspective in which we start with a consistent definition of our application stack and blue-print (Load-Balancer, Web Container, Database, etc) and SLAs (failure detection, scaling rules, upgrade processes, etc). Configuration management comes as a natural complementary step for handling the installation and setup of our environment. </p>
+<p>In this model, there is a greater emphasis on the orchestration of our application and its associated processes. A good example of such a process is continuous delivery. The execution of a continuous delivery process involves many steps that go far beyond a one-time execution of a given script. We often need to determine in which environment the script is going to be executed, which pieces of our stack are going to be included in each particular deployment, which configuration change is going to be included as well as code updates, and if there will be a database update- then which part will be affected by the change. Another example is continuous availability, automating the recovery process of our application in the event of failure. Such processes can become quite complex as we start to handle multiple availability zones, regions, as well as multiple environments for dev, test and prod.</p>
+<p>With an infrastructure-centric approach, we often need to implement those processes into the code or scripts. Quite often, those scripts become very hard to maintain.</p>
+<p>With an application-centric approach, we use a set of rules and events to handle the automation of those processes in a more generic fashion. With this approach, many of the policies and processes are handled more implicitly. For example, we can have a policy that if we fail during an update, the process will roll-back, or we can have a policy for creating an exact clone of our system for QAT, and only when it passes the full test may we start rolling it out, gradually moving traffic into those new processes.</p>
+<p>Another difference between an application vs infrastructure-centric approach is in the level of abstraction that we expose to our developers. With an infrastructure-centric approach, each developer is often exposed to every part of our system. A continuous delivery model, where developers continuously interact with the system exposing the low level details of the infrastructure to every developer, can lead to complexity that is often unnecessary when all that is needed is to push code to an existing deployment. It can also lead to high vulnerability as a simple mistake can very easily bring an entire system down. </p>
+<p>I thought that the following slide by <a href="http://www.linkedin.com/in/thoughtforge">John Turner</a>, Software Development Manager at PaddyPower, does a good job of explaining how an application-driven approach through PaaS abstraction helps to address this challenge:</p>
+<p><img width="419" height="248" src="https://lh5.googleusercontent.com/WJ6rN4m7ngeLuStXP7xup4KKOWEWlSsjyqmrENVuELpJmWmFQYCyFPZjYaO8hG16cXRAqHCFxdbMuxbMqenS8a__uKs-v-EN9KeeAtkMWnS9e3U-YWf31OIQhQ" alt=""></p>
+<p>In summary, PaaS fits nicely into PaddyPower's DevOps and continuous delivery strategy in the following ways:</p>
+<ul>
+<li>
+<p>PaaS strives to abstract provisioning and deployment, thus reducing complexity.</p>
+</li>
+</ul>
+<ul>
+<li>
+<p>PaaS constraints applications to use features provided by the platform.</p>
+</li>
+</ul>
+<ul>
+<li>
+<p>PaaS is development focused.</p>
+</li>
+</ul>
+<p>In the case of Cloudify, the integration with Chef provides a great foundation for more open PaaS, one that fits nicely into DevOps environment. Chef cookbooks and recipes can be incorporated as part of the Cloudify definition of the application stack. It also fits well with the configuration and operational management of the platform.</p>
+<p>Join me in our <a href="https://plus.google.com/u/0/events/c1doqm585sohrrqndqi7j8hu1ak">upcoming podcast </a>with Ben Kepes of Clouderati and Diversity.Net, John Turner of PaddyPower and Andy Hawkins from Opscode as we discuss PaddyPower's journey to app-centric DevOps. <a href="https://plus.google.com/u/0/events/c1doqm585sohrrqndqi7j8hu1ak">Watch it live</a> via Google+ Hangout on Air | October 30th, 6:00 PM GMT, 10:00 AM PST. </p>
+<p><strong>What are the Specific Features in Cloudify that Makes it DevOps Oriented?</strong></p>
+<p>I will use <a href="http://www.linkedin.com/in/mattjaynes">Matt Jaynes</a>' definition from his book <a href="http://devopsu.com/books/taste-test-puppet-chef-salt-stack-ansible.html">Taste Test</a>:</p>
+<ul>
+<li>
+<p>Directive &amp; Directives Script -&nbsp; Cloudify currently uses Groovy-based <a href="http://www.cloudifysource.org/guide/2.7/developing/recipes_overview">recipes</a> with extended DSL as its directives. The Cloudify recipe allows you to combine <a href="http://www.cloudifysource.org/guide/2.7/integrations/chef_documentation">Chef</a> or <a href="http://www.cloudifysource.org/guide/2.7/integrations/puppet_documentation">Puppet</a> directives as part of the Cloudify recipie. Our future release will include support for <a href="http://en.wikipedia.org/wiki/YAML">Yaml</a>/<a href="https://www.oasis-open.org/committees/tosca/">TOSCA</a> directives and may also include support for Ansible.</p>
+</li>
+<li>
+<p>Master Node &amp; Children Nodes - Cloudify <a href="http://www.cloudifysource.org/guide/2.7/bootstrapping/bootstrapping_process">automatically bootstraps</a> Master and Child nodes. It has a cloud plug-in that will allow you to automate this entire process and avoid any manual host/IP configuration. The Cloudify integration with Chef takes care of provisioning of Chef Master and Child nodes as well.</p>
+</li>
+<li>
+<p>Remote Execution - Cloudify uses <a href="http://www.cloudifysource.org/guide/2.7/developing/custom_commands">custom-commands</a> as a way to route calls to a group of individual sets of service instances. The integration with Chef includes built-in custom commands for updating Chef Coookbooks as well as for executing Chef-Knife and other Chef commands as described <a href="http://www.cloudifysource.org/guide/2.7/integrations/chef_documentation.html#additional">here</a>.</p>
+</li>
+</ul>
+<p>In addition, Cloudify provides built-in services to query the state of the cluster through the <a href="http://www.cloudifysource.org/guide/2.7/developing/the_service_context_api">ServiceContext</a> API and share states across services in the cluster through the <a href="http://www.cloudifysource.org/guide/2.7/developing/attributes_api">Attribute Store</a> API.</p>
+<p><strong>Executing a Typical DevOps Task with Cloudify</strong></p>
+<p>1.<em> Cloning a service or a complete stack</em> - One of the features of Cloudify is the abstraction of its recipe (blue print) from the underlying infrastructure through a <a href="http://www.cloudifysource.org/guide/2.7/clouddrivers/cloud_driver">Cloud Driver</a>. A recipe can point to a type of compute or storage node. The actual binding to the physical compute or storage resources takes place at runtime during the deployment process, based on the target environment. That means that you can easily clone a complete or only part of a given application stack across DEV, QA, PROD in a consistent way that will ensure that you use the exact setup between environments. The CloudDriver abstraction allows you to also adapt the size of the resource in each stage without touching the actual recipe - so for example a SMALL-LINUX machine in QA may point to a machine with smaller size and SLA than a SMALL_LINUX in production.</p>
+<p><img width="624" height="340" src="https://lh3.googleusercontent.com/pdsAp1AGH7Ft7svVP0G6TZQ-hmW9pkrLBktlIP20i_Xjmn_-t5o9k4M5qMcwNtY1cADnFZ4suak_u_VO5y5mVPp8Zb4V6H-ZfKqOOq-_HmXofIRVGSH74yun3w" alt=""></p>
+<p>2. <em>Updating a service with a new version</em> - <a href="http://www.cloudifysource.org/guide/2.7/developing/custom_commands">Custom-commands</a> allow you to push updates to a particular instance or group of instances. Quite often, custom command calls will be triggered through a build system, such as Jenkins. Each command has access to the state of the cluster through the <a href="http://www.cloudifysource.org/guide/2.7/developing/attributes_api">Attribute Store</a> and <a href="http://www.cloudifysource.org/guide/2.7/developing/the_service_context_api">ServiceContext</a> and can, therefore, coordinate the update processes with the state of other services.</p>
+<p>3. <em>Orchestration flow</em> - You can use the Cloudify <a href="http://www.cloudifysource.org/guide/2.7/restapi/restdoclet.html">Rest-API</a> or <a href="http://www.cloudifysource.org/guide/2.7/recipe/command_line_reference">Command Line</a> to write custom flows. Certain flows, such as fail-over and auto-scaling, are built-in and in those cases you will only need to provide custom code to trigger for the flow.</p>
+<p><strong>Looking Into the Future</strong></p>
+<p>One of the things that we are working on right now is enhancing our orchestration capabilities, allowing users to choose more built-in flows or define their own custom flows that will be fully managed by the Cloudify orchestration engine.</p>
+<p>We hope you join us for our live <a href="https://plus.google.com/u/0/events/c1doqm585sohrrqndqi7j8hu1ak">podcast </a>on October 30th at 6:00 PM GMT / 10:00 AM PST on Google+ Hangout on Air.</p>
+<p><strong>References</strong></p>
+<ul>
+<li>
+<p><a href="http://natishalom.typepad.com/nati_shaloms_blog/2013/03/devops-paas-and-everything-in-between.html">DevOps PaaS and everything in between.</a></p>
+</li>
+<li>
+<p><a href="http://www.slideshare.net/uri1803/openstack-israel-summit-2013-its-the-app-stupid">Its the apps stupid</a></p>
+</li>
+<li>
+<p><a href="http://www.slideshare.net/giganati/">Application Centric Devops </a></p>
+</li>
+<li>
+<p><a href="http://natishalom.typepad.com/nati_shaloms_blog/2012/01/there-are-currently-two-main-approaches-for-developing-and-managing-application-in-the-cloudpaas-paas-takes-a-developer-ap.html#sthash.Nec9jvrM.dpuf%20">GigaSpaces Cloudify &amp; VMware Cloud Foundry the new PaaS Jailbreaker </a></p>
+</li>
+<li>
+<p><a href="http://www.slideshare.net/giganati/">Putting DevOps and PaaS together with Cloudify</a></p>
+</li>
+</ul>
+</div></div>	
+</div>

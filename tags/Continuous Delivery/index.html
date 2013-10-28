@@ -4,10 +4,10 @@
 <head>
     
 	<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>	
-	<title>Cloudify - Auto-scale and Auto-heal your state-full Apache or tomcat service on OpenStack</title>
+	<title>Cloudify - Tag: Continuous Delivery</title>
 	<script src="//cdn.optimizely.com/js/59503762.js"></script>
 	<link rel="stylesheet" href="/css/template.css" type="text/css"/>	
-	<link rel="canonical" href="http://www.cloudifysource.org/2013/08/24/auto_scale_and_auto_heal_your_service_on_openstack.html"/>	
+	<link rel="canonical" href="http://www.cloudifysource.orgtags/Continuous Delivery/index.html"/>	
 	<link rel="stylesheet" href="/css/jquery-ui-1.8.17.custom.css" type="text/css" media="all"/>
 	<link rel="stylesheet" type="text/css" href="/scripts/prettify/prettify.css">		
 	<link rel="stylesheet" type="text/css" href="/scripts/lightbox/jquery.lightbox-0.5.css" media="screen" />	
@@ -496,7 +496,7 @@ $("body").live('change', function(){
 </head>
 
 <body>
-<a class="fork-guide" target="_blank" href="https://github.com/CloudifySource/cloudify"></a>
+<a class="fork-guide" target="_blank" href="https://github.com/CloudifySource/cloudify"></a>	
 <div class="WrapperBg">    
     <div class="Wrapper">
         <div class="header">
@@ -572,7 +572,7 @@ $("body").live('change', function(){
 <div class="clear"></div>
 
         <div class="contentWrap">            
-			<div class="breadcrumbs">Home Page > Cloudify Blogs > Auto-scale and Auto-heal your state-full Apache or tomcat service on OpenStack</div>
+			<div class="breadcrumbs">Home Page > Cloudify Blogs > Tag: Continuous Delivery</div>
             <div class="clear"></div>
 
             <!--Search-->
@@ -598,9 +598,10 @@ $("body").live('change', function(){
 
 
 
-			
+
+
             <div class="content">
-                <div id="alTag_LeftBlog" class="left">
+                <div class="left" id="alTag_LeftBlog">
                     
                     <!--Event groups-->
 
@@ -1673,71 +1674,67 @@ $("body").live('change', function(){
 
                 <div id="resultsDiv" class="DocumentsWrap"></div>
                 <div id="pageContent" class="DocumentsWrapRight">
-                    <h1 class="pageTitle">Auto-scale and Auto-heal your state-full Apache or tomcat service on OpenStack</h1>
-					 
-					  <span class="blogPostInfo">Posted By: <a href="#">Yoram Weinreb</a>  on August 24, 2013  
-					  </span>
-					  <br/><br/><br/>
-					 
-                    <div class="post-83 post type-post status-publish format-standard hentry category-uncategorized" id="post-83">
-<div class="entry-content"><p>Architecting and building a web service in the cloud age is quite simple.<br>
-Options range from web site generators such as Wix, to Paas providers such as <span class="caps">GAE</span>, all the way to the traditional <span class="caps">LAMP</span> setup hosted on IaaS that gives you the maximum control and customization power.<br>
-Quoting Spider-man, &#8220;with great power comes with great responsibility&#8221;.<br />
-In our case, if you choose to <span class="caps">LAMP</span> or its variants on IaaS, you have the responsibility to ensure proper service level that in many cases require high availability configuration to minimize downtime as well as ability to scale the service as user traffic increases.<br>
-Such service level requirement typically translates to putting your front-end web servers behind a load-balancer and allowing the application to scale out to multiple web servers.<br>
-In case your web service is state-full, additional considerations typically results in ability to distribute the session context management and in some cases instruct the load-balancer to enforce sticky session load balancing algorithms.</p>
-<p>Cloudify, a DevOps automation tool which is basically equivalent of Amazon OpsWorks on <a href="http://www.openstack.org/" sl-processed="1">Openstack</a>, lets you get all this &#8220;great responsibility&#8221; with significantly less effort and help you abstract you architecture from the actual IaaS you will choose to work with to keep the flexibility to change vendor in the future or create a service that utilize more than one IaaS vendor.</p>
-<p>In this post, I will show you how to easily deploy web service based on tomcat web servers, <span class="caps">XAP</span> distribute session management and Apache that serves as a load-balancer as a service to the front end the tomcat servers.<br>
-<a href="http://yoramweinreb.files.wordpress.com/2013/08/tomcatwebservicedeploymentdiagram.png" sl-processed="1"><img width="300" height="173" src="http://yoramweinreb.files.wordpress.com/2013/08/tomcatwebservicedeploymentdiagram.png?w=300&amp;h=173" alt="TomcatWebServiceDeploymentDiagram" class="alignright size-medium wp-image-85" originalw="300" originalh="173" src-orig="http://yoramweinreb.files.wordpress.com/2013/08/tomcatwebservicedeploymentdiagram.png?w=300&amp;h=173" scale="1"></a></p>
-<p>The Apache load balancing allows us to keep a <span class="caps">VIP</span> the internet know about and hide behind it arbitrary number of web servers.</p>
-<p><span style="text-decoration:underline;">How do I actually use it?</span></p>
-<p>1. Download Cloudify from <a href="http://www.cloudifysource.org" sl-processed="1">www.cloudifysource.org</a><br>
-2. Download the HttpSession sample recipe from <a href="https://github.com/yoramw/cloudify-recipes/tree/master/apps/HttpSession" sl-processed="1">https://github.com/yoramw/cloudify-recipes/tree/master/apps/HttpSession</a> and its services from <a href="https://github.com/yoramw/cloudify-recipes/tree/master/services" sl-processed="1">https://github.com/yoramw/cloudify-recipes/tree/master/services</a> (both apps and services folders should be in the same folder hierarchy as it appears in the recipes folder)<br>
-3. Start the Cloudify <span class="caps">CLI</span> (bin/cloudify.sh (or bat for windows)<br>
-4. Run &gt; bootstrap-cloud<br>
-5. Start the WebUI from the <span class="caps">URL</span> that the <span class="caps">CLI</span> printed once the bootstrapping was done.<br>
-6. Install your recipe app &gt; install-application -timeout 30 /apps/HttpSession<br>
-7. Wait for Cloudify to deploy the servies (it should take 5 &ndash; 20 minutes depending on the cloud provider speed).<br>
-8. You can bring additional tomcats or shut them down using &gt; set-instances tomcat &lt;# of desired instances&gt;<br>
-9. You may run some load on your new web service and see how it behaves using: &gt; invoke apacheLB load 35000 100 (3500 requests by 100 concurrent requesters)</p>
-<p>As you can see, the deployment is very simple. Cloudify configures everything for you and connect the services together.<br>
-You can use the same recipe to deploy your testing/staging environment as well as the production environment.<br>
-Changing the deployment to a different provider just means bootstrapping a different cloud and installing the application recipe there exactly the same way.</p>
-<p><span style="text-decoration:underline;">Behind the scenes:</span></p>
-<p>Using <span class="caps">XAP</span> as the distributed session store requires Apache Shiro.<br>
-The tomcat recipe takes care of connecting Shiro to <span class="caps">XAP</span>.<br>
-If you want to dive into the details and adjust configurations, I recommend reading the Gigaspaces paper on global Http session sharing at <a rel="nofollow" href="http://wiki.gigaspaces.com/wiki/display/SBP/Global+Http+Session+Sharing" sl-processed="1">http://wiki.gigaspaces.com/wiki/display/<span class="caps">SBP</span>/Global+Http+Session+Sharing</a>.</p>
-<p>In order to enable Shiro in your own application, use the HttpSession example as a starting point. Place the shiro.ini from the HttpSession example in your app <span class="caps">WEB</span>-<span class="caps">INF</span>, add the shiro filter to the app web.xml and add the jars to the lib folder as shown in the example recipe.</p>
-<p>In the recipe, the ApacheLB recipe bring up an Apache that servers as the load balancer. It configures the service to either respect sticky sessions or not by setting the &#8220;useStickysession&#8221; property in the apacheLB properties file to true or false.</p>
-<p>When a tomcat service instance complete its installations, it will register itself with the ApacheLB which will automatically add it to its pool ready web server.<br>
-When a tomcat service it orderly brought down, the first step it does is to remove itself from the ApacheLB pool or ready servers.</p>
-<p>The ApacheLB recipe also let you generate load to test your setup by utilizing the Apache ab command line utility.</p>
-<p>&nbsp;</p>
-<p><strong>To sum things up</strong>, Cloudify takes the hassle, time and effort from deploying your highly available and scalable web app while letting you hold on to gains of having the most flexibility in designing and building your application the <span class="caps">LAMP</span> way&#8230;</p>
-<p></div><!-- .entry-content --><br />
-<!-- .entry-utility --></div></p>
-                    <div id="disqus_thread"></div>
-<script type="text/javascript">
-    /* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
-    var disqus_shortname = 'cloudifysource'; // required: replace example with your forum shortname
-    var disqus_identifier = '/2013/08/24/auto_scale_and_auto_heal_your_service_on_openstack.html';
+                    <h1 class="pageTitle">Tag: Continuous Delivery</h1>					
 
-    /* * * DON'T EDIT BELOW THIS LINE * * */
-    (function() {
-        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
-        dsq.src = 'http://' + disqus_shortname + '.disqus.com/embed.js';
-        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
-    })();
-</script>
-<noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
-<a href="http://disqus.com" class="dsq-brlink">blog comments powered by <span class="logo-disqus">Disqus</span></a>
+
+
+
+
+
+
+
+
+														
+                    
+
+
+
+
+<div class="blogtPostBox">
+  <div class="blogInfoLeft">
+    <img title="Nati Shalom" width="80" height="96" src="/images/nati.png" />
+  </div>  
+  <div class="blogInfoRight">
+    <a href="/2013/10/27/application_centric_approach_to_devops.html" class="title">An Application-Centric Approach to DevOps</a>
+	  <div class="blogPostInfo">
+	  <br/>	  	 
+	    <span>Posted By: <a href="#">Nati Shalom</a>  on  October 27, 2013  <!--|  in <a href="/categories/"></a> --></span>
+	  </div>	  	  	
+      <p>
+		
+			<p>Matt Jaynes, Founder of DevOps University, wrote a great post on Hacker News, What is Continuous Deployment, in which he points out one of challenges that many people gloss over when they embark on their DevOps journey. In a nutshell, Matt was saying that, &#8220;You should get your house in...</p>
+			
+		<p class><a href="/2013/10/27/application_centric_approach_to_devops.html">Read more...</a></p>	  	  
+	  </p>
+		<span>  Additional Tags: 		
+			
+				
+			     <a class="postTag" href="/tags/Cloudify">Cloudify (39)</a>
+			   	
+			
+					
+			
+				
+			     <a class="postTag" href="/tags/DevOps">DevOps (11)</a>
+			   	
+			
+				
+			     <a class="postTag" href="/tags/PaaS">PaaS (17)</a>
+			   	
+			
+		</span>
+	    
+  </div>
+  <div class="clear" ></div>    
+</div>  
+
+
+
 
                 </div>
-
                 <div class="clear"></div>
             </div>
         </div>
-
         <!--Start pagination -->
 
         <div class="clear"></div>
