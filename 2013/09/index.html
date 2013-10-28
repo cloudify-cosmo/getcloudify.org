@@ -209,10 +209,9 @@ function GrabOldMessages(){
 				$last_seen:new Date(),
 				});
 				mixpanel.track('Resource', {'Zip Name':zipName, 'Source':'Download Page'});
-				
-				
-				
-				
+				mixpanel.people.increment({
+					"Number Of Downloads": 1
+				}); 
 				
 				}	
 					
@@ -726,8 +725,23 @@ $("body").live('change', function(){
 	
 		
 			
-<li><a href="/2013/08">August 2013</a> <span class="blue">(1)</span></li>
+<li><a href="/2013/08">August 2013</a> <span class="blue">(2)</span></li>
 
+			
+		
+	
+
+	
+	
+	
+	
+	
+	
+
+	
+
+	
+		
 			
 		
 	
@@ -1747,7 +1761,7 @@ $("body").live('change', function(){
 			
 			  <a class="postTag" href="/tags/Chef">Chef (7)</a>
 			
-			  <a class="postTag" href="/tags/Cloudify">Cloudify (38)</a>
+			  <a class="postTag" href="/tags/Cloudify">Cloudify (39)</a>
 			
 			  <a class="postTag" href="/tags/Cloud">Cloud (26)</a>
 			
@@ -1775,7 +1789,7 @@ $("body").live('change', function(){
 	  </p>
 		<span>  Tags:
 			
-			  <a class="postTag" href="/tags/OpenStack">OpenStack (13)</a>
+			  <a class="postTag" href="/tags/OpenStack">OpenStack (14)</a>
 			
 			  <a class="postTag" href="/tags/AWS">AWS (5)</a>
 			

@@ -209,10 +209,9 @@ function GrabOldMessages(){
 				$last_seen:new Date(),
 				});
 				mixpanel.track('Resource', {'Zip Name':zipName, 'Source':'Download Page'});
-				
-				
-				
-				
+				mixpanel.people.increment({
+					"Number Of Downloads": 1
+				}); 
 				
 				}	
 					
@@ -726,8 +725,23 @@ $("body").live('change', function(){
 	
 		
 			
-<li><a href="/2013/08">August 2013</a> <span class="blue">(1)</span></li>
+<li><a href="/2013/08">August 2013</a> <span class="blue">(2)</span></li>
 
+			
+		
+	
+
+	
+	
+	
+	
+	
+	
+
+	
+
+	
+		
 			
 		
 	
@@ -1683,13 +1697,13 @@ $("body").live('change', function(){
 	  </p>
 		<span>  Tags:
 			
-			  <a class="postTag" href="/tags/OpenStack">OpenStack (13)</a>
+			  <a class="postTag" href="/tags/OpenStack">OpenStack (14)</a>
 			
-			  <a class="postTag" href="/tags/OpenStack Summit">OpenStack Summit (1)</a>
+			  <a class="postTag" href="/tags/OpenStack Summit">OpenStack Summit (2)</a>
 			
-			  <a class="postTag" href="/tags/Cloudify">Cloudify (38)</a>
+			  <a class="postTag" href="/tags/Cloudify">Cloudify (39)</a>
 			
-			  <a class="postTag" href="/tags/GigaSpaces">GigaSpaces (1)</a>
+			  <a class="postTag" href="/tags/GigaSpaces">GigaSpaces (2)</a>
 			
 		</span>
 	    
@@ -1745,7 +1759,7 @@ $("body").live('change', function(){
 			
 			  <a class="postTag" href="/tags/Ec2">Ec2 (1)</a>
 			
-			  <a class="postTag" href="/tags/OpenStack">OpenStack (13)</a>
+			  <a class="postTag" href="/tags/OpenStack">OpenStack (14)</a>
 			
 			  <a class="postTag" href="/tags/Xap">Xap (1)</a>
 			

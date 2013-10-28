@@ -209,10 +209,9 @@ function GrabOldMessages(){
 				$last_seen:new Date(),
 				});
 				mixpanel.track('Resource', {'Zip Name':zipName, 'Source':'Download Page'});
-				
-				
-				
-				
+				mixpanel.people.increment({
+					"Number Of Downloads": 1
+				}); 
 				
 				}	
 					
@@ -727,8 +726,23 @@ $("body").live('change', function(){
 	
 		
 			
-<li><a href="/2013/08">August 2013</a> <span class="blue">(1)</span></li>
+<li><a href="/2013/08">August 2013</a> <span class="blue">(2)</span></li>
 
+			
+		
+	
+
+	
+	
+	
+	
+	
+	
+
+	
+
+	
+		
 			
 		
 	
@@ -1650,6 +1664,40 @@ $("body").live('change', function(){
 
 <div class="blogtPostBox">
   <div class="blogInfoLeft">
+    <img title="Nati Shalom" width="80" height="96" src="/images/nati.png" />
+  </div>  
+  <div class="blogInfoRight">
+    <a href="/2012/06/18/lessons-from-heroku-amazon-outage.html" class="title">Lessons From The Heroku Amazon Outage</a>
+	  <div class="blogPostInfo">
+	  <br/>	  	 
+	    <span>Posted By: <a href="#">Nati Shalom</a>  on  June 18, 2012  <!--|  in <a href="/categories/"></a> --></span>
+	  </div>	  	  	
+      <p>
+		
+			<p>Earlier this week we experienced the third significant AWS outage in the past 14 months, as reported by Justin Lee in his report&nbsp;Heroku, Pinterest Among Sites Knocked Offline in Amazon Data Center Outage&nbsp;on theWhirr magazine: An&nbsp;Amazon&nbsp;data center in Ashburn, Virginia suffered a power outage at 9:45 p.m. PDT on Thursday,...</p>
+			
+		<p class><a href="/2012/06/18/lessons-from-heroku-amazon-outage.html">Read more...</a></p>	  	  
+	  </p>
+		<span>  Tags:
+			
+			  <a class="postTag" href="/tags/PaaS">PaaS (16)</a>
+			
+			  <a class="postTag" href="/tags/Open PaaS">Open PaaS (8)</a>
+			
+			  <a class="postTag" href="/tags/Heroku">Heroku (1)</a>
+			
+			  <a class="postTag" href="/tags/AWS">AWS (5)</a>
+			
+			  <a class="postTag" href="/tags/EC2">EC2 (4)</a>
+			
+		</span>
+	    
+  </div>
+  <div class="clear" ></div>    
+</div>
+
+<div class="blogtPostBox">
+  <div class="blogInfoLeft">
     <img title="Dotan Horovits" width="80" height="96" src="/images/dotan.jpg" />
   </div>  
   <div class="blogInfoRight">
@@ -1666,7 +1714,7 @@ $("body").live('change', function(){
 	  </p>
 		<span>  Tags:
 			
-			  <a class="postTag" href="/tags/Cloudify">Cloudify (38)</a>
+			  <a class="postTag" href="/tags/Cloudify">Cloudify (39)</a>
 			
 			  <a class="postTag" href="/tags/NoSQL">NoSQL (3)</a>
 			
@@ -1700,7 +1748,7 @@ $("body").live('change', function(){
 	  </p>
 		<span>  Tags:
 			
-			  <a class="postTag" href="/tags/Cloudify">Cloudify (38)</a>
+			  <a class="postTag" href="/tags/Cloudify">Cloudify (39)</a>
 			
 			  <a class="postTag" href="/tags/DevOps">DevOps (10)</a>
 			
@@ -1734,7 +1782,7 @@ $("body").live('change', function(){
 	  </p>
 		<span>  Tags:
 			
-			  <a class="postTag" href="/tags/Cloudify">Cloudify (38)</a>
+			  <a class="postTag" href="/tags/Cloudify">Cloudify (39)</a>
 			
 			  <a class="postTag" href="/tags/Cloud">Cloud (26)</a>
 			
@@ -1766,47 +1814,13 @@ $("body").live('change', function(){
 	  </p>
 		<span>  Tags:
 			
-			  <a class="postTag" href="/tags/Cloudify">Cloudify (38)</a>
+			  <a class="postTag" href="/tags/Cloudify">Cloudify (39)</a>
 			
 			  <a class="postTag" href="/tags/DevOps">DevOps (10)</a>
 			
 			  <a class="postTag" href="/tags/Cloud">Cloud (26)</a>
 			
 			  <a class="postTag" href="/tags/PaaS">PaaS (16)</a>
-			
-		</span>
-	    
-  </div>
-  <div class="clear" ></div>    
-</div>
-
-<div class="blogtPostBox">
-  <div class="blogInfoLeft">
-    <img title="Tamir Korem" width="80" height="96" src="/images/tamir.jpg" />
-  </div>  
-  <div class="blogInfoRight">
-    <a href="/2012/05/09/how_we_built_it.html" class="title">How We Built This site</a>
-	  <div class="blogPostInfo">
-	  <br/>	  	 
-	    <span>Posted By: <a href="#">Tamir Korem</a>  on  May  9, 2012  <!--|  in <a href="/categories/"></a> --></span>
-	  </div>	  	  	
-      <p>
-		
-			<p>A lot of people have asked us how we built this community web site and what technologies we used. So we decided to share our experience with others in a meetup. The following PPT outlines some of the requiremets and technologies we chose to use to build it &#8211; Github...</p>
-			
-		<p class><a href="/2012/05/09/how_we_built_it.html">Read more...</a></p>	  	  
-	  </p>
-		<span>  Tags:
-			
-			  <a class="postTag" href="/tags/Cloudify">Cloudify (38)</a>
-			
-			  <a class="postTag" href="/tags/GitHub">GitHub (2)</a>
-			
-			  <a class="postTag" href="/tags/Jekyll">Jekyll (1)</a>
-			
-			  <a class="postTag" href="/tags/Disqus">Disqus (1)</a>
-			
-			  <a class="postTag" href="/tags/ZenDesk">ZenDesk (1)</a>
 			
 		</span>
 	    

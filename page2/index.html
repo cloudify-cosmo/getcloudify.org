@@ -209,10 +209,9 @@ function GrabOldMessages(){
 				$last_seen:new Date(),
 				});
 				mixpanel.track('Resource', {'Zip Name':zipName, 'Source':'Download Page'});
-				
-				
-				
-				
+				mixpanel.people.increment({
+					"Number Of Downloads": 1
+				}); 
 				
 				}	
 					
@@ -727,8 +726,23 @@ $("body").live('change', function(){
 	
 		
 			
-<li><a href="/2013/08">August 2013</a> <span class="blue">(1)</span></li>
+<li><a href="/2013/08">August 2013</a> <span class="blue">(2)</span></li>
 
+			
+		
+	
+
+	
+	
+	
+	
+	
+	
+
+	
+
+	
+		
 			
 		
 	
@@ -1650,6 +1664,38 @@ $("body").live('change', function(){
 
 <div class="blogtPostBox">
   <div class="blogInfoLeft">
+    <img title="Yoram Weinreb" width="80" height="96" src="/images/yoram.jpeg" />
+  </div>  
+  <div class="blogInfoRight">
+    <a href="/2013/08/24/auto_scale_and_auto_heal_your_service_on_openstack.html" class="title">Auto-scale and Auto-heal your state-full Apache or tomcat service on OpenStack</a>
+	  <div class="blogPostInfo">
+	  <br/>	  	 
+	    <span>Posted By: <a href="#">Yoram Weinreb</a>  on  August 24, 2013  <!--|  in <a href="/categories/"></a> --></span>
+	  </div>	  	  	
+      <p>
+		
+			<p>Architecting and building a web service in the cloud age is quite simple. Options range from web site generators such as Wix, to Paas providers such as GAE, all the way to the traditional LAMP setup hosted on IaaS that gives you the maximum control and customization power. Quoting Spider-man,...</p>
+			
+		<p class><a href="/2013/08/24/auto_scale_and_auto_heal_your_service_on_openstack.html">Read more...</a></p>	  	  
+	  </p>
+		<span>  Tags:
+			
+			  <a class="postTag" href="/tags/OpenStack">OpenStack (14)</a>
+			
+			  <a class="postTag" href="/tags/OpenStack Summit">OpenStack Summit (2)</a>
+			
+			  <a class="postTag" href="/tags/Cloudify">Cloudify (39)</a>
+			
+			  <a class="postTag" href="/tags/GigaSpaces">GigaSpaces (2)</a>
+			
+		</span>
+	    
+  </div>
+  <div class="clear" ></div>    
+</div>
+
+<div class="blogtPostBox">
+  <div class="blogInfoLeft">
     <img title="Tamir Korem" width="80" height="96" src="/images/tamir.jpg" />
   </div>  
   <div class="blogInfoRight">
@@ -1666,7 +1712,7 @@ $("body").live('change', function(){
 	  </p>
 		<span>  Tags:
 			
-			  <a class="postTag" href="/tags/OpenStack">OpenStack (13)</a>
+			  <a class="postTag" href="/tags/OpenStack">OpenStack (14)</a>
 			
 			  <a class="postTag" href="/tags/Devstack">Devstack (2)</a>
 			
@@ -1698,7 +1744,7 @@ $("body").live('change', function(){
 	  </p>
 		<span>  Tags:
 			
-			  <a class="postTag" href="/tags/OpenStack">OpenStack (13)</a>
+			  <a class="postTag" href="/tags/OpenStack">OpenStack (14)</a>
 			
 			  <a class="postTag" href="/tags/Cloud Computing">Cloud Computing (9)</a>
 			
@@ -1730,7 +1776,7 @@ $("body").live('change', function(){
 	  </p>
 		<span>  Tags:
 			
-			  <a class="postTag" href="/tags/OpenStack">OpenStack (13)</a>
+			  <a class="postTag" href="/tags/OpenStack">OpenStack (14)</a>
 			
 			  <a class="postTag" href="/tags/Devstack">Devstack (2)</a>
 			
@@ -1762,45 +1808,13 @@ $("body").live('change', function(){
 	  </p>
 		<span>  Tags:
 			
-			  <a class="postTag" href="/tags/OpenStack">OpenStack (13)</a>
+			  <a class="postTag" href="/tags/OpenStack">OpenStack (14)</a>
 			
 			  <a class="postTag" href="/tags/Cloud Computing">Cloud Computing (9)</a>
 			
-			  <a class="postTag" href="/tags/Cloudify">Cloudify (38)</a>
+			  <a class="postTag" href="/tags/Cloudify">Cloudify (39)</a>
 			
 			  <a class="postTag" href="/tags/DevOps">DevOps (10)</a>
-			
-		</span>
-	    
-  </div>
-  <div class="clear" ></div>    
-</div>
-
-<div class="blogtPostBox">
-  <div class="blogInfoLeft">
-    <img title="Nati Shalom" width="80" height="96" src="/images/nati.png" />
-  </div>  
-  <div class="blogInfoRight">
-    <a href="/2013/06/10/big_data_on_openstack.html" class="title">Big Data on OpenStack</a>
-	  <div class="blogPostInfo">
-	  <br/>	  	 
-	    <span>Posted By: <a href="#">Nati Shalom</a>  on  June 10, 2013  <!--|  in <a href="/categories/"></a> --></span>
-	  </div>	  	  	
-      <p>
-		
-			<p>Big Data systems by their very nature tend to be&#8230;Big. Big in the amount of data, in the number and size of infrastructure behind it, etc. Cloud based infrastructure can be a good fit as a cost effecive instrastrucutre for running those Big Data systems. While this may sound obvious,...</p>
-			
-		<p class><a href="/2013/06/10/big_data_on_openstack.html">Read more...</a></p>	  	  
-	  </p>
-		<span>  Tags:
-			
-			  <a class="postTag" href="/tags/Cloudify">Cloudify (38)</a>
-			
-			  <a class="postTag" href="/tags/OpenStack">OpenStack (13)</a>
-			
-			  <a class="postTag" href="/tags/Big Data">Big Data (4)</a>
-			
-			  <a class="postTag" href="/tags/Cloud Computing">Cloud Computing (9)</a>
 			
 		</span>
 	    

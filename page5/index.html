@@ -209,10 +209,9 @@ function GrabOldMessages(){
 				$last_seen:new Date(),
 				});
 				mixpanel.track('Resource', {'Zip Name':zipName, 'Source':'Download Page'});
-				
-				
-				
-				
+				mixpanel.people.increment({
+					"Number Of Downloads": 1
+				}); 
 				
 				}	
 					
@@ -727,8 +726,23 @@ $("body").live('change', function(){
 	
 		
 			
-<li><a href="/2013/08">August 2013</a> <span class="blue">(1)</span></li>
+<li><a href="/2013/08">August 2013</a> <span class="blue">(2)</span></li>
 
+			
+		
+	
+
+	
+	
+	
+	
+	
+	
+
+	
+
+	
+		
 			
 		
 	
@@ -1650,6 +1664,38 @@ $("body").live('change', function(){
 
 <div class="blogtPostBox">
   <div class="blogInfoLeft">
+    <img title="Nati Shalom" width="80" height="96" src="/images/nati.png" />
+  </div>  
+  <div class="blogInfoRight">
+    <a href="/2013/03/07/carrier_grade_cloud_paas.html" class="title">Carrier Grade Cloud/PaaS</a>
+	  <div class="blogPostInfo">
+	  <br/>	  	 
+	    <span>Posted By: <a href="#">Nati Shalom</a>  on  March  7, 2013  <!--|  in <a href="/categories/"></a> --></span>
+	  </div>	  	  	
+      <p>
+		
+			<p>Cloud is becoming the next-generation backbone for running the web As the technology for building and running cloud infrastructure&nbsp;matures,&nbsp;it is starting to&nbsp;spread out into more industries and&nbsp;revolutionizing how even the most&nbsp;conservative&nbsp;organizations&nbsp;are running their entire operations. One of the&nbsp;areas&nbsp;undergoing a transformation&nbsp;is the carrier backbone services. For those who are not familiar,...</p>
+			
+		<p class><a href="/2013/03/07/carrier_grade_cloud_paas.html">Read more...</a></p>	  	  
+	  </p>
+		<span>  Tags:
+			
+			  <a class="postTag" href="/tags/Disaster Recovery">Disaster Recovery (4)</a>
+			
+			  <a class="postTag" href="/tags/OpenStack">OpenStack (14)</a>
+			
+			  <a class="postTag" href="/tags/Cloud Computing">Cloud Computing (9)</a>
+			
+			  <a class="postTag" href="/tags/PaaS">PaaS (16)</a>
+			
+		</span>
+	    
+  </div>
+  <div class="clear" ></div>    
+</div>
+
+<div class="blogtPostBox">
+  <div class="blogInfoLeft">
     <img title="Ali Hodroj" width="80" height="96" src="/images/ali.png" />
   </div>  
   <div class="blogInfoRight">
@@ -1758,41 +1804,9 @@ $("body").live('change', function(){
 	  </p>
 		<span>  Tags:
 			
-			  <a class="postTag" href="/tags/Cloudify">Cloudify (38)</a>
+			  <a class="postTag" href="/tags/Cloudify">Cloudify (39)</a>
 			
 			  <a class="postTag" href="/tags/Cloud">Cloud (26)</a>
-			
-		</span>
-	    
-  </div>
-  <div class="clear" ></div>    
-</div>
-
-<div class="blogtPostBox">
-  <div class="blogInfoLeft">
-    <img title="Dotan Horovits" width="80" height="96" src="/images/dotan.jpg" />
-  </div>  
-  <div class="blogInfoRight">
-    <a href="/2012/12/12/cloud_deployment_enterprise_paas.html" class="title">Enterprises Taking Off to the Cloud(s)</a>
-	  <div class="blogPostInfo">
-	  <br/>	  	 
-	    <span>Posted By: <a href="#">Dotan Horovits</a>  on  December 12, 2012  <!--|  in <a href="/categories/"></a> --></span>
-	  </div>	  	  	
-      <p>
-		
-			<p>Cloud Deployment: the enterprise angle The Cloud is no longer the exclusive realm of the young and small start up companies. Enterprises are now joining the game and examining how to migrate their application ecosystem to the cloud. A recent survey conducted by research firm MeriTalk showed that one-third of...</p>
-			
-		<p class><a href="/2012/12/12/cloud_deployment_enterprise_paas.html">Read more...</a></p>	  	  
-	  </p>
-		<span>  Tags:
-			
-			  <a class="postTag" href="/tags/PaaS">PaaS (16)</a>
-			
-			  <a class="postTag" href="/tags/Enterprise">Enterprise (2)</a>
-			
-			  <a class="postTag" href="/tags/SaaS">SaaS (1)</a>
-			
-			  <a class="postTag" href="/tags/Cloud migration">Cloud migration (1)</a>
 			
 		</span>
 	    

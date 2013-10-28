@@ -209,10 +209,9 @@ function GrabOldMessages(){
 				$last_seen:new Date(),
 				});
 				mixpanel.track('Resource', {'Zip Name':zipName, 'Source':'Download Page'});
-				
-				
-				
-				
+				mixpanel.people.increment({
+					"Number Of Downloads": 1
+				}); 
 				
 				}	
 					
@@ -727,8 +726,23 @@ $("body").live('change', function(){
 	
 		
 			
-<li><a href="/2013/08">August 2013</a> <span class="blue">(1)</span></li>
+<li><a href="/2013/08">August 2013</a> <span class="blue">(2)</span></li>
 
+			
+		
+	
+
+	
+	
+	
+	
+	
+	
+
+	
+
+	
+		
 			
 		
 	
@@ -1650,6 +1664,38 @@ $("body").live('change', function(){
 
 <div class="blogtPostBox">
   <div class="blogInfoLeft">
+    <img title="Dotan Horovits" width="80" height="96" src="/images/dotan.jpg" />
+  </div>  
+  <div class="blogInfoRight">
+    <a href="/2012/12/12/cloud_deployment_enterprise_paas.html" class="title">Enterprises Taking Off to the Cloud(s)</a>
+	  <div class="blogPostInfo">
+	  <br/>	  	 
+	    <span>Posted By: <a href="#">Dotan Horovits</a>  on  December 12, 2012  <!--|  in <a href="/categories/"></a> --></span>
+	  </div>	  	  	
+      <p>
+		
+			<p>Cloud Deployment: the enterprise angle The Cloud is no longer the exclusive realm of the young and small start up companies. Enterprises are now joining the game and examining how to migrate their application ecosystem to the cloud. A recent survey conducted by research firm MeriTalk showed that one-third of...</p>
+			
+		<p class><a href="/2012/12/12/cloud_deployment_enterprise_paas.html">Read more...</a></p>	  	  
+	  </p>
+		<span>  Tags:
+			
+			  <a class="postTag" href="/tags/PaaS">PaaS (16)</a>
+			
+			  <a class="postTag" href="/tags/Enterprise">Enterprise (2)</a>
+			
+			  <a class="postTag" href="/tags/SaaS">SaaS (1)</a>
+			
+			  <a class="postTag" href="/tags/Cloud migration">Cloud migration (1)</a>
+			
+		</span>
+	    
+  </div>
+  <div class="clear" ></div>    
+</div>
+
+<div class="blogtPostBox">
+  <div class="blogInfoLeft">
     <img title="Yaron Parasol" width="80" height="96" src="/images/yaron.jpg" />
   </div>  
   <div class="blogInfoRight">
@@ -1666,7 +1712,7 @@ $("body").live('change', function(){
 	  </p>
 		<span>  Tags:
 			
-			  <a class="postTag" href="/tags/Cloudify">Cloudify (38)</a>
+			  <a class="postTag" href="/tags/Cloudify">Cloudify (39)</a>
 			
 			  <a class="postTag" href="/tags/Chef">Chef (7)</a>
 			
@@ -1768,41 +1814,9 @@ $("body").live('change', function(){
 			
 			  <a class="postTag" href="/tags/OpsCode">OpsCode (2)</a>
 			
-			  <a class="postTag" href="/tags/OpenStack">OpenStack (13)</a>
+			  <a class="postTag" href="/tags/OpenStack">OpenStack (14)</a>
 			
 			  <a class="postTag" href="/tags/Virtualization">Virtualization (3)</a>
-			
-		</span>
-	    
-  </div>
-  <div class="clear" ></div>    
-</div>
-
-<div class="blogtPostBox">
-  <div class="blogInfoLeft">
-    <img title="Dotan Horovits" width="80" height="96" src="/images/dotan.jpg" />
-  </div>  
-  <div class="blogInfoRight">
-    <a href="/2012/10/24/aws-outage-multi-availability-zone-multi-cloud.html" class="title">AWS Outage - Moving from Multi-Availability-Zone to Multi-Cloud</a>
-	  <div class="blogPostInfo">
-	  <br/>	  	 
-	    <span>Posted By: <a href="#">Dotan Horovits</a>  on  October 24, 2012  <!--|  in <a href="/categories/"></a> --></span>
-	  </div>	  	  	
-      <p>
-		
-			<p>A couple of days ago Amazon Web Services (AWS) suffered a significant outage in their US-EAST-1 region. This has been the 5th major outage in that region in the past 18 months. The outage affected leading services such as Reddit, Netflix, Foursquare and Heroku. How should you architect your cloud-hosted...</p>
-			
-		<p class><a href="/2012/10/24/aws-outage-multi-availability-zone-multi-cloud.html">Read more...</a></p>	  	  
-	  </p>
-		<span>  Tags:
-			
-			  <a class="postTag" href="/tags/AWS">AWS (5)</a>
-			
-			  <a class="postTag" href="/tags/Multi Cloud">Multi Cloud (1)</a>
-			
-			  <a class="postTag" href="/tags/Cloud Deployment">Cloud Deployment (1)</a>
-			
-			  <a class="postTag" href="/tags/Disaster Recovery">Disaster Recovery (4)</a>
 			
 		</span>
 	    

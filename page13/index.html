@@ -209,10 +209,9 @@ function GrabOldMessages(){
 				$last_seen:new Date(),
 				});
 				mixpanel.track('Resource', {'Zip Name':zipName, 'Source':'Download Page'});
-				
-				
-				
-				
+				mixpanel.people.increment({
+					"Number Of Downloads": 1
+				}); 
 				
 				}	
 					
@@ -727,8 +726,23 @@ $("body").live('change', function(){
 	
 		
 			
-<li><a href="/2013/08">August 2013</a> <span class="blue">(1)</span></li>
+<li><a href="/2013/08">August 2013</a> <span class="blue">(2)</span></li>
 
+			
+		
+	
+
+	
+	
+	
+	
+	
+	
+
+	
+
+	
+		
 			
 		
 	
@@ -1653,6 +1667,34 @@ $("body").live('change', function(){
     <img title="Uri Cohen" width="80" height="96" src="/images/uric.jpeg" />
   </div>  
   <div class="blogInfoRight">
+    <a href="/2011/10/24/behind-the-curtains-of-cloudify-gigaspaces-new-product.html" class="title">Behind the Curtains of Cloudify, GigaSpaces' New Product</a>
+	  <div class="blogPostInfo">
+	  <br/>	  	 
+	    <span>Posted By: <a href="#">Uri Cohen</a>  on  October 24, 2011  <!--|  in <a href="/categories/"></a> --></span>
+	  </div>	  	  	
+      <p>
+		
+			<p>Announcing a new product is a major and exciting milestone in a company&#39;s lifecycle. Our last announcment was the launch of XAP&nbsp;a few years ago &#8211; the Xtreme Application Platform aimed to provide a complete end to end scalability solution through the entire application stack, meaning Data, Web, Messaging, everything....</p>
+			
+		<p class><a href="/2011/10/24/behind-the-curtains-of-cloudify-gigaspaces-new-product.html">Read more...</a></p>	  	  
+	  </p>
+		<span>  Tags:
+			
+			  <a class="postTag" href="/tags/Cloudify">Cloudify (39)</a>
+			
+			  <a class="postTag" href="/tags/Cloud">Cloud (26)</a>
+			
+		</span>
+	    
+  </div>
+  <div class="clear" ></div>    
+</div>
+
+<div class="blogtPostBox">
+  <div class="blogInfoLeft">
+    <img title="Uri Cohen" width="80" height="96" src="/images/uric.jpeg" />
+  </div>  
+  <div class="blogInfoRight">
     <a href="/2011/09/13/cloudify-for-azure.html" class="title">Cloudify for Azure</a>
 	  <div class="blogPostInfo">
 	  <br/>	  	 
@@ -1666,7 +1708,7 @@ $("body").live('change', function(){
 	  </p>
 		<span>  Tags:
 			
-			  <a class="postTag" href="/tags/Cloudify">Cloudify (38)</a>
+			  <a class="postTag" href="/tags/Cloudify">Cloudify (39)</a>
 			
 			  <a class="postTag" href="/tags/Azure">Azure (1)</a>
 			
