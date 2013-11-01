@@ -1694,111 +1694,41 @@ $("body").live('change', function(){
 					  </span>
 					  <br/><br/><br/>
 					 
-                    <div id="alpha"><div class="pkg" id="alpha-inner"><div id="entry-6a00d835457b7453ef019b00768592970d" class="entry-category-amazon_web_services entry-category-aws entry-category-cloudfoundry entry-category-continuous_delivery entry-category-continuous_deployment entry-category-devops entry-category-mirantis entry-category-openshift entry-category-openstack entry-author-nati_shalom entry-type-post entry"><br />
-<div class="entry-content">	<div class="entry-body"><p><a href="http://www.linkedin.com/pub/alex-freedland/0/12b/b42">Alex Freedland</a>, Co-Founder and Chairman at Mirantis, wrote a <a href="http://readwrite.com/2013/10/25/mirantis-to-paas-vendors-stop-fighting-openstack-gravity?utm_source=feedburner&amp;utm_medium=feed&amp;utm_campaign=Feed:+readwriteweb+(ReadWriteWeb)">controversial post</a> in which he basically marks the breakup between some existing PaaS frameworks and OpenStack &#8211; CloudFoundry specifically.</p>
-<p><img width="624" height="248" src="https://lh5.googleusercontent.com/RfuUWGu74OQ7XEMPdRnYNLVA57pWKoaB6C69NEYivx570dridtVEOfGmrz4WeHxFP2_LY7xYbJIr6kyrlJVd6YPdheKYw1NlsEG1hcHObys_InH6Few1W39s8g" alt=""></p>
-<p>Personally, I think that Freedland highlights a growing sentiment in the OpenStack community. The fact that OpenStack is open source should change the way we think of the PaaS and IaaS layers, as I noted in one of my earlier posts, <a href="http://natishalom.typepad.com/nati_shaloms_blog/2012/10/paas-as-an-infrastructure.html">The Blurring Line Between the IaaS and PaaS Layers</a>.</p>
-<p>In the case of CloudFoundry and OpenShift specifically, PaaS was built with the assumption that the IaaS layer provides basic compute, storage and network services and all the rest should be handled at the layers above. The reality, though, is that the IaaS layer is continuously moving up the stack in a very similar way to which Amazon has grown its stack. </p>
+                    <p><a href="http://www.google.com/url?q=http%3A%2F%2Fwww.linkedin.com%2Fpub%2Falex-freedland%2F0%2F12b%2Fb42&amp;sa=D&amp;sntz=1&amp;usg=AFQjCNF6zIu-mlHUq2cUHZK3GHIxC8NzxQ" class="newwindow">Alex Freedland</a>, Co-Founder and Chairman at Mirantis, wrote a <a href="http://www.google.com/url?q=http%3A%2F%2Freadwrite.com%2F2013%2F10%2F25%2Fmirantis-to-paas-vendors-stop-fighting-openstack-gravity%3Futm_source%3Dfeedburner%26utm_medium%3Dfeed%26utm_campaign%3DFeed%3A%2Breadwriteweb%2B(ReadWriteWeb)&amp;sa=D&amp;sntz=1&amp;usg=AFQjCNEI5tg5aaPxJxnIrmr3obJ_5kvRTw" class="newwindow">controversial post</a> in which he basically marks the breakout of some existing PaaS frameworks from OpenStack &#8211; CloudFoundry specifically.</p>
+<p><img src="/images/cloudcable1.png" /></p>
+<p>Personally, I think that Freedland highlights a growing sentiment in the OpenStack community. The fact that OpenStack is open source should change the way we think of the PaaS and IaaS layers, as I noted in one of my earlier posts, <a href="http://www.google.com/url?q=http%3A%2F%2Fnatishalom.typepad.com%2Fnati_shaloms_blog%2F2012%2F10%2Fpaas-as-an-infrastructure.html&amp;sa=D&amp;sntz=1&amp;usg=AFQjCNGmQYEoChrhwMG9rUteuJv8zISp-w" class="newwindow">The Blurring Line Between the IaaS and PaaS Layers</a>.</p>
+<p>In the case of CloudFoundry and OpenShift specifically, PaaS was built with the assumption that the IaaS layer provides basic compute, storage and network services and all the rest should be handled at the layers above. The reality, though, is that the IaaS layer is continuously moving up the stack in a very similar way to which Amazon has grown its stack.</p>
 <p>This shift up the stack changes many of the built-in design assumptions of many existing PaaS products, CloudFoundry and OpenShift specifically. For example, the way we handle user-security, metering and scheduling is often in a completely parallel stack that exists in both the IaaS and PaaS layers. This leads to a lot of unnecessary redundancy and therefore complexity and inconsistency. On top of that, the middleware stack (Ruby vs Python) also leads to another layer of redundancy and complexity, especially for organizations looking to deploy the end-to-end stack. For example, why would we need two different models to handle database availability? Why do we need different agent systems to monitor our instances? If we already have a model to detect and monitor device failure, why do we need to add another failure detection mechanism on top to detect the same failure? In many of these cases, we already built solutions at the IaaS layer and we only need to make the right use of them.</p>
 <p>Now there is nothing wrong with CloudFoundry or OpenShift; they do exactly what they were designed to do. That being said, on OpenStack we can do things differently than we can on other closed IaaSs, creating a great opportunity to not just simplify things, but do do things that are much harder otherwise. Let me explain.</p>
-<p><strong>The Need for a Native Open PaaS</strong></p>
-<p>A native open PaaS is a PaaS that comes with a much thinner stack and relies more heavily on a common set of services provided by the IaaS layer for user management, metering, etc.</p>
-<p>Its main focus is to provide a higher level abstraction that would simplify the deployment and management of applications on OpenStack. </p>
-<p>Another area that a native open PaaS differs from its existing predecessors is the native DevOps support. Many of the existing PaaS platforms were built with the assumption that developers only worry about their code. However, in real life, continuous delivery or deployment can expose changes at all layers, including the configuration of the application and PaaS stack, and should therefore be consistent with the way updates and configuration management takes place in the IaaS layer.</p>
-<p>A native open PaaS should leverage the same DevOps tools used by the IaaS layers to push updates to the application layer.</p>
-<p><strong>The Missing Piece in the Puzzle &#8211; Open DevOps Automation</strong></p>
+<p>The Need for a Native Open PaaS</p>
+<p>A Native Open PaaS is a PaaS that comes with a much thinner stack and relies more heavily on a common set of services provided by the IaaS layer for user management, metering, etc.</p>
+<p>Its main focus is to provide a higher level abstraction that would make the deployment and management of applications on OpenStack simpler.</p>
+<p>Another area that a Native Open PaaS differs from its existing predecessors is the native DevOps support. Many of the existing PaaS platforms were built with the assumption that developers only worry about their code. However, in real life, continuous delivery or deployment can expose changes at all layers, including the configuration of the application and PaaS stack, and should therefore be consistent with the way updates and configuration management takes place in the IaaS layer.</p>
+<p>A Native Open PaaS should leverage the same DevOps tools used by the IaaS layers to push updates to the application layer.</p>
+<p>The Missing Piece in the Puzzle &#8211; Open DevOps Automation</p>
 <p>Earlier this year, Amazon launched a new piece in their stack &#8211; OpsWorks, which basically filled a gap between their existing IaaS and PaaS layers. They refer to it as DevOps automation.</p>
-<p><img width="624" height="247" src="https://lh3.googleusercontent.com/Mj7_WJVa9jq_Wv6_UM4XU11HRX0TnUzkfWVvpFtkzk97h9PizzkDcBH6nwd6EXs5tBLUFJS5D53zGrql7ao7JomyaRZfkZCmCf7LgAWijUdCSIWonk-RLXws7Q" alt=""></p>
-<p><em><span class="caps">AWS</span> Stack</em></p>
-<p><em>&nbsp;</em></p>
-<p><span class="caps">AWS</span> OpsWorks provides an orchestration and workflow service that currently runs on top of Chef and provides users with the ability to build their own custom stacks on top of <span class="caps">AWS</span>, as I noted in my earlier post <a href="http://natishalom.typepad.com/nati_shaloms_blog/2013/03/devops-paas-and-everything-in-between.html">DevOps, PaaS and Everything in Between</a>.</p>
-<p>The <a href="https://wiki.openstack.org/wiki/Heat">OpenStack Heat </a>project fills the <span class="caps">AWS</span> CloudFormation box in the above image, providing a basic templating model for orchestrating and automating the deployment of software stacks on OpenStack.</p>
-<p>I believe that OpenStack also needs&nbsp; to fill in the OpsWorks box as higher level abstraction for application deployment. Given the open nature of OpenStack and the private cloud focus I think that this piece should be more open and support not just Chef, but also other configuration management frameworks such as Puppet, Ansible and Salt through Heat. There should also be a much stronger emphasis on the application orchestration piece to enable automation of complex application related processes, such as continuous delivery, deployment automation, recovery and scaling and for that we need a more advanced rule engine to support those advanced flows.</p>
-<p>If done right, tools like OpsWorks in conjunction with Heat can serve as a great foundation for PaaS. At the same time, I can see many cases in which users would simply use something like OpsWorks directly without needing another layer of abstraction on top of it, hence why it makes sense to keep those boxes also as independent services.</p>
-<p><strong>Consolidating the Efforts</strong> </p>
+<p><img src="/images/awsstack.jpg" /></p>
+<p><span class="caps">AWS</span> Stack</p>
+<p><span class="caps">AWS</span> OpsWorks provides an orchestration and workflow service that currently runs on top of Chef and provides users with the ability to build their own custom stacks on top of <span class="caps">AWS</span>, as I noted in my earlier post <a href="http://www.google.com/url?q=http%3A%2F%2Fnatishalom.typepad.com%2Fnati_shaloms_blog%2F2013%2F03%2Fdevops-paas-and-everything-in-between.html&amp;sa=D&amp;sntz=1&amp;usg=AFQjCNGF9k7rKDkcp8UDhIGcsijGl62KWw" class="newwindow">DevOps, PaaS and Everything in Between</a>.</p>
+<p>The <a href="https://www.google.com/url?q=https%3A%2F%2Fwiki.openstack.org%2Fwiki%2FHeat&amp;sa=D&amp;sntz=1&amp;usg=AFQjCNFnSfbChapDXHOGgm55M40WXWVDTQ" class="newwindow">OpenStack Heat</a> project fills the <span class="caps">AWS</span> CloudFormation box in the above image, providing a basic templating model for orchestrating and automating the deployment of software stacks on OpenStack.</p>
+<p>I believe that OpenStack also needs  to fill in the OpsWorks box as higher level abstraction for application deployment. Given the open nature of OpenStack and the private cloud focus I think that this piece should be more open and support not just Chef, but also other configuration management frameworks such as Puppet, Ansible and Salt through Heat. There should also be a much stronger emphasis on the application orchestration piece to enable automation of complex application related processes, such as continuous delivery, deployment automation, recovery and scaling and for that we need a more advanced rule engine to support those advanced flows.</p>
+<p>If done right, tools like OpsWorks in conjunction with Heat can serve as a great foundation for PaaS. At the same time, I can see many cases in which users would simply use something like OpsWorks directly without needing another layer of abstraction on top of it hence why it makes sense to keep those boxes also as independent services.</p>
+<p>Consolidating the Efforts</p>
 <p>There are currently many projects and initiatives in the OpenStack community, each trying to address different aspects of the application deployment and management complexity. Let me name a few:</p>
-<p><a href="http://www.linkedin.com/in/adrianjotto">Adrian Otto</a>, Principal Architect at Rackspace, announced <a href="http://www.mail-archive.com/openstack-dev@lists.openstack.org/msg06837.html">Project Solum</a> support from Rackspace, eBay, Red Hat, Ubuntu / Canonical, dotCloud as well as GigaSpaces.</p>
-<p>Some of the guys from my team at GigaSpaces are also going to give a talk during the OpenStack Hong Kong event about delivering the equivalent of Amazon OpsWorks on OpenStack &#8211; See the details <a href="http://openstacksummitnovember2013.sched.org/event/f72c2b2d69d0d5925d03e8b7dc4b20dd#">here</a>.</p>
+<p><a href="http://www.google.com/url?q=http%3A%2F%2Fwww.linkedin.com%2Fin%2Fadrianjotto&amp;sa=D&amp;sntz=1&amp;usg=AFQjCNHpuqtfdFcUbzmZa4l0Gq_zcLnhiQ" class="newwindow">Adrian Otto</a>, Principal Architect at Rackspace, announced <a href="http://www.google.com/url?q=http%3A%2F%2Fwww.mail-archive.com%2Fopenstack-dev%40lists.openstack.org%2Fmsg06837.html&amp;sa=D&amp;sntz=1&amp;usg=AFQjCNGjf-QCfPiT9xawgLIC95q7Mt_hxw" class="newwindow">Project Solum</a> support from Rackspace, eBay, Red Hat, Ubuntu / Canonical, dotCloud as well as GigaSpaces.</p>
+<p>Some of the guys from my team at GigaSpaces are also going to give a talk during the OpenStack Hong Kong event about delivering the equivalent of Amazon OpsWorks on OpenStack &#8211; See the details <a href="http://www.google.com/url?q=http%3A%2F%2Fopenstacksummitnovember2013.sched.org%2Fevent%2Ff72c2b2d69d0d5925d03e8b7dc4b20dd%23&amp;sa=D&amp;sntz=1&amp;usg=AFQjCNFuCr1AbaSYRuMza5CeXV-82G8iDg" class="newwindow">here</a>.</p>
 <p>There are many other related projects and initiatives that I haven&#8217;t listed here and many others that are probably being worked on as we speak &#8211; it is beyond the scope of this post to list them all.</p>
-<p><img width="624" height="263" src="https://lh4.googleusercontent.com/5T_jcv0eGM9SFZ9I0yrHAcY8hL7QjKrpp3vFFWqNMuoepvLa6dzLT77WydC65fYL58DvBX7gUglG53VLoP3RO6S_pPDztD8ecTwBKJFGE3P3kzaEjyWg_FCucQ" alt=""></p>
-<p><strong>Looking Into the Future</strong> </p>
+<p><img src="/images/cloudcable2.png" /></p>
+<p>Looking Into the Future</p>
 <p>I think that this is a great and an exciting opportunity for the OpenStack community to deliver on its promise and really push the open source cloud forward. It can do so by breaking the traditional barriers between IaaS and PaaS, and go above and beyond what we&#8217;ve seen normally in closed source clouds. There are many areas in which such an approach can lead to an even greater degree of innovation. For example, think about bringing the network and the application together, making multi-site deployment a breeze.</p>
 <p>I look forward to meeting everyone on the Solum team next week during OpenStack Hong Kong and to being a part of this next wave of the revolution.</p>
-<p><strong>References</strong></p>
-<ul>
-<li>
-<h5><a href="http://www.mail-archive.com/openstack-dev@lists.openstack.org/msg06837.html">Project Solum announcement</a></h5>
-</li>
-<li>
-<p><a href="http://openstacksummitnovember2013.sched.org/event/f72c2b2d69d0d5925d03e8b7dc4b20dd#">Deployment and Management of Your Application on OpenStack using an All Encompassing <span class="caps">DSL</span> based on <span class="caps">TOSCA</span> (OpenStack session in HK)</a></p>
-</li>
-<li>
-<h5><a href="http://www.mirantis.com/blog/openstack-havanas-stern-warning-open-source-or-die/%20">Mirantis To PaaS Vendors: Stop Fighting OpenStack Gravity</a></h5>
-</li>
-<li>
-<h5><a>Rackspace jumps on bandwagon with open source PaaS project</a></h5>
-</li>
-<li>
-<p><a href="http://natishalom.typepad.com/nati_shaloms_blog/2012/10/paas-as-an-infrastructure.html">The blurring Line between the IaaS and PaaS layers</a></p>
-</li>
-<li><a href="http://natishalom.typepad.com/nati_shaloms_blog/2013/03/devops-paas-and-everything-in-between.html">DevOps, PaaS and Everything in Between</a></li>
-</ul>
-</div>
-</div>
-</div>
-<div class="comments-content">
-        <div id="tpc_post_title" style="display:none;">The Breakup:  Why OpenStack Needs a Native Alternative to CloudFoundry and OpenShift</div>
-        <div id="tpc_post_message" style="display:none;"><p><strong>&nbsp;</strong>    </p>
-<p><a href="http://www.linkedin.com/pub/alex-freedland/0/12b/b42">Alex Freedland</a>, Co-Founder and Chairman at Mirantis, wrote a <a href="http://readwrite.com/2013/10/25/mirantis-to-paas-vendors-stop-fighting-openstack-gravity?utm_source=feedburner&amp;utm_medium=feed&amp;utm_campaign=Feed:+readwriteweb+(ReadWriteWeb)">controversial post</a> in which he basically marks the breakup between some existing PaaS frameworks and OpenStack &#8211; CloudFoundry specifically.</p>
-<p><img width="624" height="248" src="https://lh5.googleusercontent.com/RfuUWGu74OQ7XEMPdRnYNLVA57pWKoaB6C69NEYivx570dridtVEOfGmrz4WeHxFP2_LY7xYbJIr6kyrlJVd6YPdheKYw1NlsEG1hcHObys_InH6Few1W39s8g" alt=""></p>
-<p>Personally, I think that Freedland highlights a growing sentiment in the OpenStack community. The fact that OpenStack is open source should change the way we think of the PaaS and IaaS layers, as I noted in one of my earlier posts, <a href="http://natishalom.typepad.com/nati_shaloms_blog/2012/10/paas-as-an-infrastructure.html">The Blurring Line Between the IaaS and PaaS Layers</a>.</p>
-<p>In the case of CloudFoundry and OpenShift specifically, PaaS was built with the assumption that the IaaS layer provides basic compute, storage and network services and all the rest should be handled at the layers above. The reality, though, is that the IaaS layer is continuously moving up the stack in a very similar way to which Amazon has grown its stack. </p>
-<p>This shift up the stack changes many of the built-in design assumptions of many existing PaaS products, CloudFoundry and OpenShift specifically. For example, the way we handle user-security, metering and scheduling is often in a completely parallel stack that exists in both the IaaS and PaaS layers. This leads to a lot of unnecessary redundancy and therefore complexity and inconsistency. On top of that, the middleware stack (Ruby vs Python) also leads to another layer of redundancy and complexity, especially for organizations looking to deploy the end-to-end stack. For example, why would we need two different models to handle database availability? Why do we need different agent systems to monitor our instances? If we already have a model to detect and monitor device failure, why do we need to add another failure detection mechanism on top to detect the same failure? In many of these cases, we already built solutions at the IaaS layer and we only need to make the right use of them.</p>
-<p>Now there is nothing wrong with CloudFoundry or OpenShift; they do exactly what they were designed to do. That being said, on OpenStack we can do things differently than we can on other closed IaaSs, creating a great opportunity to not just simplify things, but do do things that are much harder otherwise. Let me explain.</p>
-<p><strong>The Need for a Native Open PaaS</strong></p>
-<p>A native open PaaS is a PaaS that comes with a much thinner stack and relies more heavily on a common set of services provided by the IaaS layer for user management, metering, etc.</p>
-<p>Its main focus is to provide a higher level abstraction that would simplify the deployment and management of applications on OpenStack. </p>
-<p>Another area that a native open PaaS differs from its existing predecessors is the native DevOps support. Many of the existing PaaS platforms were built with the assumption that developers only worry about their code. However, in real life, continuous delivery or deployment can expose changes at all layers, including the configuration of the application and PaaS stack, and should therefore be consistent with the way updates and configuration management takes place in the IaaS layer.</p>
-<p>A native open PaaS should leverage the same DevOps tools used by the IaaS layers to push updates to the application layer.</p>
-<p><strong>The Missing Piece in the Puzzle &#8211; Open DevOps Automation</strong></p>
-<p>Earlier this year, Amazon launched a new piece in their stack &#8211; OpsWorks, which basically filled a gap between their existing IaaS and PaaS layers. They refer to it as DevOps automation.</p>
-<p><img width="624" height="247" src="https://lh3.googleusercontent.com/Mj7_WJVa9jq_Wv6_UM4XU11HRX0TnUzkfWVvpFtkzk97h9PizzkDcBH6nwd6EXs5tBLUFJS5D53zGrql7ao7JomyaRZfkZCmCf7LgAWijUdCSIWonk-RLXws7Q" alt=""></p>
-<p><em><span class="caps">AWS</span> Stack</em></p>
-<p><em>&nbsp;</em></p>
-<p><span class="caps">AWS</span> OpsWorks provides an orchestration and workflow service that currently runs on top of Chef and provides users with the ability to build their own custom stacks on top of <span class="caps">AWS</span>, as I noted in my earlier post <a href="http://natishalom.typepad.com/nati_shaloms_blog/2013/03/devops-paas-and-everything-in-between.html">DevOps, PaaS and Everything in Between</a>.</p>
-<p>The <a href="https://wiki.openstack.org/wiki/Heat">OpenStack Heat </a>project fills the <span class="caps">AWS</span> CloudFormation box in the above image, providing a basic templating model for orchestrating and automating the deployment of software stacks on OpenStack.</p>
-<p>I believe that OpenStack also needs&nbsp; to fill in the OpsWorks box as higher level abstraction for application deployment. Given the open nature of OpenStack and the private cloud focus I think that this piece should be more open and support not just Chef, but also other configuration management frameworks such as Puppet, Ansible and Salt through Heat. There should also be a much stronger emphasis on the application orchestration piece to enable automation of complex application related processes, such as continuous delivery, deployment automation, recovery and scaling and for that we need a more advanced rule engine to support those advanced flows.</p>
-<p>If done right, tools like OpsWorks in conjunction with Heat can serve as a great foundation for PaaS. At the same time, I can see many cases in which users would simply use something like OpsWorks directly without needing another layer of abstraction on top of it, hence why it makes sense to keep those boxes also as independent services.</p>
-<p><strong>Consolidating the Efforts</strong> </p>
-<p>There are currently many projects and initiatives in the OpenStack community, each trying to address different aspects of the application deployment and management complexity. Let me name a few:</p>
-<p><a href="http://www.linkedin.com/in/adrianjotto">Adrian Otto</a>, Principal Architect at Rackspace, announced <a href="http://www.mail-archive.com/openstack-dev@lists.openstack.org/msg06837.html">Project Solum</a> support from Rackspace, eBay, Red Hat, Ubuntu / Canonical, dotCloud as well as GigaSpaces.</p>
-<p>Some of the guys from my team at GigaSpaces are also going to give a talk during the OpenStack Hong Kong event about delivering the equivalent of Amazon OpsWorks on OpenStack &#8211; See the details <a href="http://openstacksummitnovember2013.sched.org/event/f72c2b2d69d0d5925d03e8b7dc4b20dd#">here</a>.</p>
-<p>There are many other related projects and initiatives that I haven’t listed here and many others that are probably being worked on as we speak &#8211; it is beyond the scope of this post to list them all.</p>
-<p><img width="624" height="263" src="https://lh4.googleusercontent.com/5T_jcv0eGM9SFZ9I0yrHAcY8hL7QjKrpp3vFFWqNMuoepvLa6dzLT77WydC65fYL58DvBX7gUglG53VLoP3RO6S_pPDztD8ecTwBKJFGE3P3kzaEjyWg_FCucQ" alt=""></p>
-<p><strong>Looking Into the Future</strong> </p>
-<p>I think that this is a great and an exciting opportunity for the OpenStack community to deliver on its promise and really push the open source cloud forward. It can do so by breaking the traditional barriers between IaaS and PaaS, and go above and beyond what we&#8217;ve seen normally in closed source clouds. There are many areas in which such an approach can lead to an even greater degree of innovation. For example, think about bringing the network and the application together, making multi-site deployment a breeze.</p>
-<p>I look forward to meeting everyone on the Solum team next week during OpenStack Hong Kong and to being a part of this next wave of the revolution.</p>
-<p><strong>References</strong></p>
-<ul>
-<li>
-<h5><a href="http://www.mail-archive.com/openstack-dev@lists.openstack.org/msg06837.html">Project Solum announcement</a></h5>
-</li>
-<li>
-<p><a href="http://openstacksummitnovember2013.sched.org/event/f72c2b2d69d0d5925d03e8b7dc4b20dd#">Deployment and Management of Your Application on OpenStack using an All Encompassing <span class="caps">DSL</span> based on <span class="caps">TOSCA</span> (OpenStack session in HK)</a></p>
-</li>
-<li>
-<h5><a href="http://www.mirantis.com/blog/openstack-havanas-stern-warning-open-source-or-die/%20">Mirantis To PaaS Vendors: Stop Fighting OpenStack Gravity</a></h5>
-</li>
-<li>
-<h5><a>Rackspace jumps on bandwagon with open source PaaS project</a></h5>
-</li>
-<li>
-<p><a href="http://natishalom.typepad.com/nati_shaloms_blog/2012/10/paas-as-an-infrastructure.html">The blurring Line between the IaaS and PaaS layers</a></p>
-</li>
-<li><a href="http://natishalom.typepad.com/nati_shaloms_blog/2013/03/devops-paas-and-everything-in-between.html">DevOps, PaaS and Everything in Between</a></li>
-</ul>
-</div>
-<p></div></div></div></p>
+<h4>References</h4>
+<p><a href="http://www.google.com/url?q=http%3A%2F%2Fwww.mail-archive.com%2Fopenstack-dev%40lists.openstack.org%2Fmsg06837.html&amp;sa=D&amp;sntz=1&amp;usg=AFQjCNGjf-QCfPiT9xawgLIC95q7Mt_hxw" class="newwindow">Project Solum announcement</a><br />
+<a href="http://www.google.com/url?q=http%3A%2F%2Fopenstacksummitnovember2013.sched.org%2Fevent%2Ff72c2b2d69d0d5925d03e8b7dc4b20dd%23&amp;sa=D&amp;sntz=1&amp;usg=AFQjCNFuCr1AbaSYRuMza5CeXV-82G8iDg" class="newwindow" title="OpenStack session in HK">Deployment and Management of Your Application on OpenStack using an All Encompassing <span class="caps">DSL</span> based on <span class="caps">TOSCA</span></a><br />
+<a href="http://www.google.com/url?q=http%3A%2F%2Fwww.mirantis.com%2Fblog%2Fopenstack-havanas-stern-warning-open-source-or-die%2F%2520&amp;sa=D&amp;sntz=1&amp;usg=AFQjCNGV_9lA3GiFt73y190f3Ag4bL7sbQ" class="newwindow">Mirantis To PaaS Vendors: Stop Fighting OpenStack Gravity</a><br />
+<a href="http://www.cloudifysource.org" class="newwindow">Rackspace jumps on bandwagon with open source PaaS project</a><br />
+<a href="http://www.google.com/url?q=http%3A%2F%2Fnatishalom.typepad.com%2Fnati_shaloms_blog%2F2012%2F10%2Fpaas-as-an-infrastructure.html&amp;sa=D&amp;sntz=1&amp;usg=AFQjCNGmQYEoChrhwMG9rUteuJv8zISp-w" class="newwindow">The blurring Line between the IaaS and PaaS layers</a><br />
+<a href="http://www.google.com/url?q=http%3A%2F%2Fnatishalom.typepad.com%2Fnati_shaloms_blog%2F2013%2F03%2Fdevops-paas-and-everything-in-between.html&amp;sa=D&amp;sntz=1&amp;usg=AFQjCNGF9k7rKDkcp8UDhIGcsijGl62KWw" class="newwindow">DevOps, PaaS and Everything in Between</a></p>
                     <div id="disqus_thread"></div>
 <script type="text/javascript">
     /* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
