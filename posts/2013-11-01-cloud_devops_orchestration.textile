@@ -1,0 +1,79 @@
+---
+layout: blogpost
+title: Cloud DevOps Orchestration
+image: yaron.jpg
+author: Yaron Parasol
+tags: 
+ - Cloudify
+ - DevOps
+ - Cloud 
+---
+
+I'm pretty excited to take part in the OpenStack Summit in Hong Kong in a few days.
+Uri Cohen and I will give a talk about Cloud Application Orchestration.
+This is a great opportunity for us to share what we have learned during the last three years building Cloudify and engaging with many DevOps people, Cloudify community users and, of course, our enterprise and SaaS customers.
+Needless to say, we expect to meet many OpenStack users and contributors, get their valuable feedback and learn tons more as we always do at this kind of event.
+ 
+When we started designing Cloudify, we didn't spend so much time thinking about Orchestration; we followed what we figured out was the right way based on our experience with building a management layer for a distributed, virtualized grid middleware and applications. Coming from a monitoring background, it was natural for me to add in the KPI monitoring part. Scaling out was also natural for us, as this was our way to scale our In-Memory Data Grid.
+ 
+Coming from an application perspective, we have started with a simple yet powerful model for setting up and managing cloud applications, called a recipe. The recipe assumed an application made of services. A service was basically a symmetric cluster of several machines with the same middleware and the same application code in it.
+
+This recipe describes the dependencies between the services, and for each service it lists a set of hooks (we named them "lifecycle events"). These are hooks for installation, startup, post-installation configuration, shutdown and uninstall. Each service also declares the compute template Cloudify will use to provision VMs for this cluster. This way we ensure cloud portability.
+ 
+Then, we added the startup and stop detectors which are availability probes to ensure components indeed start and remain up and healthy. Monitoring KPI definitions and scale rules were added to allow for custom performance monitoring and remediation measures.
+Finally, we started to recognize a need for some other post-deployment actions (Continuous Delivery for example), so we added additional hooks, called custom commands.
+ 
+This model is simple, yet it has the profound understanding of a unified process that helps us drive our vision forward. Our assumption was quite different from what we saw as best practice adopted by others. Coming from an application perspective, we never drew a line between IaaS, Middleware and Application. For us, all of these are part of the application production fabric. They are all interdependent on one another in configurations, metadata and certainly in the flow of setting them up or fixing the application when it breaks or needs to change.
+ 
+The common approach that I call the 3 layer cake assumes you lay each layer separately using different tools. So following the 3 layers approach, one would:
+# Use some script directly vs. the IaaS API or via some cloud library abstracting the IaaS API to provision VM, volumes etc.
+# Use a CM tool like Chef, Puppet, Ansible or Salt to create the middle layer of the cake with the different middleware containers.
+# Use SSH, CM agent or a combination to install the application binaries over the environment and configure the environment for the application.
+ 
+The 3 layer approach preserves the siloed structure of IT and Apps, so in essence it's even anti- DevOps. In the worst case you have different teams running the different tools and in the better case you just have different tools.
+
+This siloed IT structure is something that doesn't fit the new reality of IT. IT organizations today are expected to be much more agile and deal with provisioning of applications in a matter of minutes, not hours, not days and certainly not weeks! Furthermore, they are expected to cater to growing number of users, but without ever growing the IT organization, all while keeping the overhead in a predictable and controlled level. 
+So, if 10 years ago nobody even dreamed about this level of automation - today it's not just a buzzword - it's a requirement.
+
+
+Think about the most simple web application deployment. Let's use LAMP stack for this example. You will need the following steps:
+# Create a network to host the application.
+# Create another network to be your DMZ.
+# Set a security group with rules of networking between the application hosts.
+# Create a floating IP to assign to your front-end host.
+# Create a VM for the MySQL database server. This VM depends on the network and the security group.
+# Create a VM for the application Apache (where PHP business logic is processed) - this VM is also dependent on the network and the security group.
+# Create a VM in the DMZ network to host your front-end apache. This VM is also dependent on the floating IP (for more security it needs 2 vNICs).
+# Install the MySQL DB on the backend VM.
+# Install the application Apache on the other VM.
+# Install the front end Apache on the DMZ VM.
+# Create a DB for the application on the MySQL DB. 
+# Install the PHP stack on the application Apache.
+# Install the application code onto the application Apache.
+# Configure the apache modules for authentication and proxy on the DMZ Apache (in real life, you will probably need to configure or even install the LDAP). To configure the proxy module you need to discover the application Apache IP.
+# Configure the PHP application to connect with the application DB (you need to discover the DB IP).
+# Start the application.
+
+<img src="/images/appnetwork.jpg" />
+
+This simple example demonstrates how different layers are interdependent and how much a successful installation requires the correct timing and validation of the different steps.
+
+Now just imagine what happens when one of your VMs crash or when you need to scale this application or upgrade its code. In all of these cases, all layers must be modified.
+
+The need for orchestration grows linear with the complexity of your application (number of tiers, number of connections, security arrangements, etc.) and with the level of agility you want to achieve (more automated processes that are even more complex in monitoring success as you move).
+  
+So no wonder Amazon and later OpenStack added IaaS orchestration ("(newwindow)Cloud Formation":http://aws.amazon.com/cloudformation/ and "(newwindow)Heat":https://wiki.openstack.org/wiki/Heat) to their set of services. Users wanted the cloud to provide them with IaaS orchestration (albeit somewhat rudimentary, defining a simple "wait for" type of orchestration) instead of the complicated scripts they had to write (think about scripting state and events).
+ 
+The middleware and application layer are equally complex. There are parts of configuration that can only be done dynamically in a cloud environment - for example configuring middleware connections. CM tools don't fit in here, as metadata sharing is not enough. You also need to time restarts in order to have the application components configured and started in the right order; this is something that CM tools were not built to do.
+ 
+Bottom line - All the layers in the cake are interdependent. For example: many CM recipes will need to modify both the host OS, its etc/host file, an external volume and the load balancer to set up an application web server or database server.
+ 
+Furthermore, setting up your application in the cloud is just one process out of several you need to automate. The next one in line is naturally auto-heal or you missed the whole point of agility. But let's not forget continuous deployment, and other maintenance and upgrade procedures.
+ 
+Learning these lessons, we rolled up our sleeves again and got back to our design board to find a better orchestration model.
+
+"(newwindow)Come hear us speak at the OpenStack Summit":http://openstacksummitnovember2013.sched.org/event/f72c2b2d69d0d5925d03e8b7dc4b20dd#.UmV7aflebnh in Hong Kong and read more about our model in my next post. Stay tuned!
+ 
+ 
+ 
+
