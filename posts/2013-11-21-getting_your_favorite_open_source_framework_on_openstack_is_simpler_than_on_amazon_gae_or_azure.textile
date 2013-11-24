@@ -1,0 +1,80 @@
+---
+layout: blogpost
+title: Getting your Favorite Open Source Framework on OpenStack is Now Simpler than on Amazon, GAE or Azure
+image: nati.png
+author: Nati Shalom
+tags: 
+ - OpenStack
+ - HP Public Cloud
+ - Cloudify
+---
+
+The number of open source frameworks that are available today is continuously growing at an enormous pace, with over 1 million unique open source projects today, as indicated in a "(newwindow)recent survey":http://www.slideshare.net/blackducksoftware/the-2013-future-of-open-source-survey-results by Black Duck. 
+
+<img src="/images/os_is_eating.png" />
+
+The availability of these frameworks has changed the way we build products and structure our IT infrastructure products are often built through integration of different open source frameworks rather than developing the entire stack.
+
+The speed of innovation is also an area that has changed as a result of this open source movement. Where previously innovation was mostly driven by the speed of development of new features, in the open source world innovation is greatly determined by how fast we can integrate and take advantage of new open source frameworks.
+
+Having said that, the process of trying out new open source frameworks can still be fairly tedious, especially if there isn't a well-funded company behind the project. Let me explain why.
+
+h2. Open Source Framework Integration Continuum
+
+The integration of a new open source framework often goes through an evolution cycle that I refer to as the integration continuum.
+A typical integration process often involves initial exploration where we continuously explore new frameworks, sometimes without any specific need in mind. At this stage, we want to be able to get a feel of the framework, but don't necessarily have the time to take a deep dive into the technology or deal with complex configurations. Once we find a framework that we like and see a potential use for it, we start to look closer and run a full POC.
+
+<img src="/images/os_frameworks_integration.png" />
+
+In this case, we already have a better idea of what the product does and how it can fit in our system, but we want to validate our assumptions. Once we are done with the POC and found what were looking for, we start the integration and development stage with our product. 
+This stage is where we are often interested in getting our hands on the API and the product features, and need a simple environment that will allow us to quickly test the integration of that API with our product. As we get closer to production, we get more interested in the operational aspects and need to deal with building the cluster for high availability, adding more monitoring capabilities and integrating it with our existing operational environment. 
+
+Each of those steps often involves downloading the framework, setting up the environment and tuning it to fit the need of the specific stage (i.e. trial, POC, dev, production). For obvious reasons, the requirements for each of those stages are fairly different, so we typically end up with a different setup process with various tools in each step, leading to a process in which we are continuously ripping and replacing the setup from the previous step as we move from one stage to the next.
+
+h2. The Friction Multiplier Effect
+
+The friction that I was referring to above refers to a process for a single framework. In reality, however, during the exploration and POC stages, we evaluate more than one framework in order to choose the one that best fits our needs.
+
+In addition, we often integrate with more than one product or framework at a time. So in reality, the overhead that I was referring to is multiplied by the number of frameworks that we are evaluating and using. The overhead in the initial stages of exploration and POC often ends in complete waste as we typically choose one framework out of several, meaning we spent a lot of time setting up frameworks that we are never going to use.
+
+h2. How can we make the process simpler?
+
+In a nutshell, we combined two main principles - SaaS as a means to carve out the infrastructure complexity and open source practices and tools to allow for full customization.
+
+We use a SaaS-based model to provide a self-service experience that will allow users to launch their framework of choice through a simple one click deployment. This is particularly useful for the initial exploration stages in which users want to get a preview of many products and don't have time to spend on setup and installation. The difference between our service and other SaaS services that are often done per product is that in this case, Cloudify  provides a single-click deployment for many different frameworks using a single service.  
+
+By relying on open source practices and tools, such as Github, we allow different degrees of customization at each stage to the point where a user can take the entire framework that we are using online on his own environment with full customization.
+
+h2. Launching a New Application Catalogue on HP's OpenStack-based Public Cloud
+
+This week we are launching a new application catalogue service on HP's OpenStack-based Public Cloud, with the aim to make the use of open source frameworks on OpenStack simpler than on any other cloud.
+
+The service includes the following main features:
+
+<img src="/images/os_solutions.png" />
+
+# Hassle-free preview - One click experience for trying out several open source services for 60 min.
+# Trial as a Service - Aimed for simple, 1 week POC. 
+# Frictionless transition to unlimited account - Allows you to use the exact same one-click experience, but in this case the service will be launched under your account and managed by you.
+# Built on Github - The catalogue service is built on Git - this means that you can use the Git experience to add new services, customize them as you would any other open source project.  
+# Fully open source - Having the catalogue (including the UI), the orchestration engine and the OpenStack-based cloud in open source means that you can also choose to clone this entire framework anywhere you like, including in your own private environment. In addition, leverage the investment that you built for the trial and POC stages for future phases, as you're going to use the exact same tools throughout the entire process.
+
+You With this tool, users can launch any app outside of the catalogue service through a unique embed model similar to the way someone would embed a video from YouTube.
+
+h2. How is that different that Amazon, GAE or Azure offerings?
+
+All other clouds limit their services to a particular set of pre-canned frameworks. In addition, the infrastructure and tools that most clouds offer are not open source. This means that you will not be able to use the same services under your own environment. It also introduces a higher degree of locking. 
+
+This flexibility is critical as the industry moves toward more advanced development and production scenarios. This could be a huge stop gap. If you get stuck with the out of the box offering, you have no way to escape, with your only way out to build the entire environment yourself, using other sets of tools to build the entire environment completely from scratch.
+
+The hassle-free preview model as well as the fact that you can run any of the services outside of the catalogue service makes the Cloudify Application Catalogue significantly simpler. This is especially true when comparing it with any of the existing alternatives on other clouds which often require registration and credit card as a way to get started.
+
+h2. Final Words
+
+In today's world, innovation is key to allowing organizations to keep up with the competition.
+The use of open source has enabled  everyone to accelerate the speed of innovation, however, the process of exploring and trying open source frameworks is still fairly tedious, with much friction in the transition from the initial exploration to full production.
+
+With this new service, we believe that we have changed the game, showing that we can now make the experience of deploying new open source services and applications on OpenStack simpler than on other clouds. By taking an open source approach, we guarantee not to hit a stop-gap as we advance through the process and avoid the risk of a complete re-write or lock-in. At the same time we allow hassle free one-click experience by providing an "as-a-service" offering for deploying any of our open source frameworks of choice. By the fact that we use the same underlying infrastructure and set of tools through all the cycles, we ensure that users can take their experience and investment from one stage to the other and thus avoid a complete re-write.
+
+With all this we now allow many users and organizations to increase their speed of innovation dramatically by simplifying the process of exploring and integrating new open source frameworks.
+
