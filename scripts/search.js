@@ -1,5 +1,6 @@
 $(document).ready(function () {
     var cxBlog = "005646302152591029507:ndo3tbbopl0";
+    //add new guides here when releasing a new version 
     var guideCxs = {
         "2.2":"005646302152591029507:mb6a9za1aoa", 
         "2.3":"005646302152591029507:zenlau0cpto", 
@@ -9,7 +10,6 @@ $(document).ready(function () {
     }    
     var cxEntireSite = "005646302152591029507:wp1h0fve318";
 
-    $("resultsDiv").hide();
     var pageTitle = $(".pageTitle").text();
     var config = {
         apiURL:'https://www.googleapis.com/customsearch/v1',
@@ -29,11 +29,6 @@ $(document).ready(function () {
         page:0, // The start page
         pageTitle:pageTitle
     }
-
-   // $('#searchForm').submit(function () {
-       // googleSearch();
-       // return false;
-   // });
     
     
    $('#goBtn').click(function () {
@@ -41,22 +36,14 @@ $(document).ready(function () {
         return false;
     });
 
+    $('#search').keydown(function(e){
+     //enter button in ASCII code
+     if(e.keyCode == 13){
+      $("#goBtn").click();
+      return false;
+     }
+    });
 
-
-$('#search').keydown(function(e){
- //enter button in ASCII code
- if(e.keyCode == 13){
-  $("#goBtn").click();
-  return false;
- }
-});
-
-
-
-
-    function successHandler(r) {
-
-    }
 
     function googleSearch(settings) {
 
@@ -140,7 +127,7 @@ $('#search').keydown(function(e){
             });
         }
         catch (e) {
-            alert(e + '');
+            console.log(e + '');
         }
 
 
