@@ -11,25 +11,28 @@ This topic provides instructions for configuring CloudStack Cloud for Cloudify.
 
 h2. Prerequisites
 
-* An "(newwindow)CloudStack Cloud":http://www.hpcloud.com/ account
+* An "(newwindow)CloudStack Cloud":http://www.citrix.com/products/cloudplatform/overview.html account
 * Cloudify shell (for information about installing the Cloudify shell, see "Installing the Cloudify Shell":../setup/installing_the_cloudify_client)
 
 h2. Configuring an CloudStack Cloud
 
 This section provides step-by-step instructions for the following configuration tasks:
 
-# "Generate a private key":#key
+# "Generate a API Key and Secret Key":#key
 # "Configure the Cloudify cloud driver configuration file":#driver
 # "Enabling Wire Logging [Optional]":#log
 
-h3(#key). Generate a private key
+h3(#key). Generate a API Key and Secret Key
 
-# In the CloudStack web console, under "Key Pairs":https://manage.hpcloud.com/compute/100/keypairs, click *Create Key Pair*, and then type a name for the key pair.
-!../../images/hp/compute_create_new_key_pair_hp_cloud_services.png!
-# Copy the key and save it as a @.pem@ private key file (e.g. @myKeyPair-name.pem@) in the @<cloudifyRoot>/clouds/CloudStack/upload@ folder.
-!../../images/hp/compute_create_new_key_pair_2_hp_cloud_services.png!
+# Login as administrator
+# Go to Accounts
+# Select the account which user belongs
+# Click on View Users
+# Select the user
+# Click on generate keys icon and you'll be able to see them in the detail View
+!../../images/cloudstack/create_api_key_and_secret_key.png!
 
-h4(info). The private key enables the Cloudify cloud driver to open SSH connections to the newly created instances.
+h4(info). The generated key pairs will be used later with your driver configuration to communicate with the CloudStack Rest API.
 
 h3(#driver). Configure the Cloudify cloud driver configuration file
 
