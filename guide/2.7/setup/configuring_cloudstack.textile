@@ -1,20 +1,20 @@
 ---
 layout: default
-title: Configuring OpenStack Cloud
+title: Configuring CloudStack Cloud
 category: Installation & Setup
 publish: true
-abstract: Explains how to configure OpenStack Cloud for Cloudify
+abstract: Explains how to configure CloudStack Cloud for Cloudify
 pageord: 600
 --- 
 
-This topic provides instructions for configuring OpenStack Cloud for Cloudify.
+This topic provides instructions for configuring CloudStack Cloud for Cloudify.
 
 h2. Prerequisites
 
-* An "(newwindow)OpenStack Cloud":http://www.hpcloud.com/ account
+* An "(newwindow)CloudStack Cloud":http://www.hpcloud.com/ account
 * Cloudify shell (for information about installing the Cloudify shell, see "Installing the Cloudify Shell":../setup/installing_the_cloudify_client)
 
-h2. Configuring an OpenStack Cloud
+h2. Configuring an CloudStack Cloud
 
 This section provides step-by-step instructions for the following configuration tasks:
 
@@ -24,16 +24,16 @@ This section provides step-by-step instructions for the following configuration 
 
 h3(#key). Generate a private key
 
-# In the OpenStack web console, under "Key Pairs":https://manage.hpcloud.com/compute/100/keypairs, click *Create Key Pair*, and then type a name for the key pair.
+# In the CloudStack web console, under "Key Pairs":https://manage.hpcloud.com/compute/100/keypairs, click *Create Key Pair*, and then type a name for the key pair.
 !../../images/hp/compute_create_new_key_pair_hp_cloud_services.png!
-# Copy the key and save it as a @.pem@ private key file (e.g. @myKeyPair-name.pem@) in the @<cloudifyRoot>/clouds/openstack/upload@ folder.
+# Copy the key and save it as a @.pem@ private key file (e.g. @myKeyPair-name.pem@) in the @<cloudifyRoot>/clouds/CloudStack/upload@ folder.
 !../../images/hp/compute_create_new_key_pair_2_hp_cloud_services.png!
 
 h4(info). The private key enables the Cloudify cloud driver to open SSH connections to the newly created instances.
 
 h3(#driver). Configure the Cloudify cloud driver configuration file
 
-Edit the OpenStack cloud driver configuration file (@openstack-cloud.groovy@) located in the @<cloudifyRoot>/clouds/openstack/@ folder, and modify the following attributes:
+Edit the CloudStack cloud driver configuration file (@openstack-cloud.groovy@) located in the @<cloudifyRoot>/clouds/openstack/@ folder, and modify the following attributes:
 * In the *provider* section: 
 ** *machineNamePrefix*--The value that you specify is used as the name prefix for each of your service instances.
 ** *managementOnlyFiles*--An array containing a list of files to copy to management machines and not agent machines. Use this list to specify files such as the private key file (e.g. @myKeyPair-name.pem@) required by the cloud driver..
@@ -41,7 +41,7 @@ Edit the OpenStack cloud driver configuration file (@openstack-cloud.groovy@) lo
 * In the *user* section:
 ** *user*--Specify your *Access Key*.
 ** *apiKey*--Specify your corresponding *Secret Access Key*.
-You can obtain your *Access Key* and *Secret Access Key* from the "(newwindow)API Keys":https://manage.hpcloud.com/account/api_keys section of the OpenStack web console, as follows:
+You can obtain your *Access Key* and *Secret Access Key* from the "(newwindow)API Keys":https://manage.hpcloud.com/account/api_keys section of the CloudStack web console, as follows:
 !../../images/hp/api_keys_hp_cloud_services.jpg!
 <h4 class="impt">Note that the *Secret Access Key* must correspond to the *Access Key* specified in the *user* attribute.</h4>
 ** *keyFile*--Specify the name of the private key file that you created (@myKeyPair-name.pem@ in our example).
@@ -53,7 +53,7 @@ You can obtain your *Access Key* and *Secret Access Key* from the "(newwindow)AP
 *** *keyPair*--Specify the name of the key pair that you created (whose content is in the .pem file in *keyFile* attribute in the user section).
 
 <br/>
-The following is a list of OpenStack Image Ids:
+The following is a list of CloudStack Image Ids:
 
 |_. ID |_. Image |	|_. ID |_. Image |
 |20006|BitNami WebPack 1.2-0-ubuntu-10.04.4 - Partner Image|_.	|20004|BitNami Drupal 7.14-0-ubuntu-10.04.4 - Partner Image|
@@ -72,7 +72,7 @@ The following is a list of OpenStack Image Ids:
 |219|CentOS 5.6 Server 64-bit 20111207 (Kernel)|
 
 <br/>
-The following is a list of OpenStack Hardware Ids:
+The following is a list of CloudStack Hardware Ids:
 
 |_. ID |_. Flavor Name |_. CPUs |_. RAM |_. Disk |
 |100|standard.xsmall| 1 | 1 GB | 30 GB |
@@ -89,7 +89,7 @@ The following is a list of OpenStack Hardware Ids:
 
 h3(#log). Enabling Wire Logging [Optional]
 
-For development and debugging purposes, it can be usefull to view the actual messages sent to the Openstack cloud controller.
+For development and debugging purposes, it can be usefull to view the actual messages sent to the CloudStack cloud controller.
 To configure logging, edit your @openstack-cloud.groovy@, and then in the *custom* section, set the *openstack.wireLog* attribute to *true*.
 
 The following example shows the *openstack.wireLog* attribute set to *true*.
