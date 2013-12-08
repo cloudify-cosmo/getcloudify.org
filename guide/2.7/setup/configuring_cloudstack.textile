@@ -39,15 +39,14 @@ h3(#driver). Configure the Cloudify cloud driver configuration file
 Edit the CloudStack cloud driver configuration file (@openstack-cloud.groovy@) located in the @<cloudifyRoot>/clouds/openstack/@ folder, and modify the following attributes:
 * In the *provider* section: 
 ** *machineNamePrefix*--The value that you specify is used as the name prefix for each of your service instances.
-** *managementOnlyFiles*--An array containing a list of files to copy to management machines and not agent machines. Use this list to specify files such as the private key file (e.g. @myKeyPair-name.pem@) required by the cloud driver..
 ** *managementGroup*--The value that you specify is used as the name prefix for each of your management instances.
 * In the *user* section:
-** *user*--Specify your *Access Key*.
-** *apiKey*--Specify your corresponding *Secret Access Key*.
-You can obtain your *Access Key* and *Secret Access Key* from the "(newwindow)API Keys":https://manage.hpcloud.com/account/api_keys section of the CloudStack web console, as follows:
-!../../images/hp/api_keys_hp_cloud_services.jpg!
-<h4 class="impt">Note that the *Secret Access Key* must correspond to the *Access Key* specified in the *user* attribute.</h4>
-** *keyFile*--Specify the name of the private key file that you created (@myKeyPair-name.pem@ in our example).
+** *user*--Specify your *API Key*.
+** *apiKey*--Specify your corresponding *Secret Key*.
+You can obtain your *API Key* and *Secret Key* from the Account section of the CloudStack web console, as follows:
+!../../images/cloudstack/api_keys_citrix_cloud_services.png!
+<h4 class="impt">Note that the *Secret Key* must correspond to the *API Key* specified in the *user* attribute.</h4>
+
 * In the *templates* section:  				 
 ** *imageId*--Specify the *HP Install Image ID*.
 ** *hardwareId*--Specify the HP *Machine Size*.
