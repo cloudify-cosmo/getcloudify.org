@@ -31,10 +31,8 @@ h3(#key). Generate a API Key and Secret Key
 # Select the user
 # Click on generate keys icon and you'll be able to see them in the detail View
 !../../images/cloudstack/create_api_key_and_secret_key.png!
-# Copy the key and save it as a @.pem@ private key file (e.g. @myKeyPair-name.pem@) in the @<cloudifyRoot>/clouds/CloudStack/upload@ folder.
-!../../images/hp/compute_create_new_key_pair_2_hp_cloud_services.png!
 
-h4(info). The private key enables the Cloudify cloud driver to open SSH connections to the newly created instances.
+h4(info). The generated key pairs will be used later with your driver configuration to communicate with the CloudStack Rest API.
 
 h3(#driver). Configure the Cloudify cloud driver configuration file
 
