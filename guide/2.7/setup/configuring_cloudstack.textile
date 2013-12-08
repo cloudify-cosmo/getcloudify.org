@@ -20,7 +20,7 @@ This section provides step-by-step instructions for the following configuration 
 
 # "Generate a API Key and Secret Key":#key
 # "Configure the Cloudify cloud driver configuration file":#driver
-# "Enabling Wire Logging [Optional]":#log
+# "NAT configuration in non flate IP network":#nat
 
 h3(#key). Generate a API Key and Secret Key
 
@@ -89,16 +89,10 @@ The following is a list of CloudStack Hardware Ids:
 
 <script src="https://gist.github.com/3273517.js?file=openstack-cloud2_2m2.groovy"></script>
 
-h3(#log). Enabling Wire Logging [Optional]
-
-For development and debugging purposes, it can be usefull to view the actual messages sent to the CloudStack cloud controller.
-To configure logging, edit your @openstack-cloud.groovy@, and then in the *custom* section, set the *openstack.wireLog* attribute to *true*.
-
-The following example shows the *openstack.wireLog* attribute set to *true*.
-<script src="https://gist.github.com/2035261.js?file=custom-wireLog.groovy"></script>
+h3(#nat). NAT configuration in non flate IP network
 
 h4(warn). Once you enable the wire logs, they appear in the Cloudify shell when you run the 'bootstrap-cloud' command (and the relevant log file in the logs folder), and in the ESM log when it starts or stops a machine for scale out/in.
 
 h2. What's Next?
 
-"Bootstrapping OpenStack":../bootstrapping/bootstrapping_openstack
+"Bootstrapping CloudStack":../bootstrapping/bootstrapping_cloudstack
