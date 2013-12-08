@@ -48,11 +48,11 @@ You can obtain your *API Key* and *Secret Key* from the Account section of the C
 <h4 class="impt">Note that the *Secret Key* must correspond to the *API Key* specified in the *user* attribute.</h4>
 
 * In the *templates* section:  				 
-** *imageId*--Specify the *HP Install Image ID*.
-** *hardwareId*--Specify the HP *Machine Size*.
+** *imageId*--Specify the *Citrix Install Image ID*.
+** *hardwareId*--Specify the Citrix *Machine Size*.
 ** *options* ("jclouds":http://www.jclouds.org/documentation)
 *** *securityGroups*--Specify security groups to determine whether network ports are opened or blocked on your instances.
-*** *keyPair*--Specify the name of the key pair that you created (whose content is in the .pem file in *keyFile* attribute in the user section).
+*** *jclouds.endpoint*--Specify the Rest API url e.g. @http://<server address>/client/api@
 
 <br/>
 The following is a list of CloudStack Image Ids:
@@ -87,7 +87,7 @@ The following is a list of CloudStack Hardware Ids:
 <br/>
 <h4 class="impt">For setting the cloud driver, we reccomend that you use "parameterization of the cloud driver configuration":../clouddrivers/cloud_driver#gstr, but you can also set the cloud driver directly as shown in the following example (of an @openstack-cloud.groovy@ file):</h4>
 
-<script src="https://gist.github.com/3273517.js?file=openstack-cloud2_2m2.groovy"></script>
+<script src="https://gist.github.com/shadim/7864590.js?file=cloudstack-cloud2_2m2.groovy"></script>
 
 h3(#nat). NAT configuration in non flate IP network
 
