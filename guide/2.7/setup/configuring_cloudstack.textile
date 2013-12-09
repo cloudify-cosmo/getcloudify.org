@@ -20,7 +20,7 @@ This section provides step-by-step instructions for the following configuration 
 
 # "Generate a API Key and Secret Key":#key
 # "Configure the Cloudify cloud driver configuration file":#driver
-# "NAT configuration in non flate IP network":#nat
+# "Configure NAT for non flat IP network":#nat
 
 h3(#key). Generate a API Key and Secret Key
 
@@ -75,7 +75,22 @@ The following is a list of CloudStack Hardware Ids:
 
 <script src="https://gist.github.com/shadim/7864590.js?file=cloudstack-cloud2_2m2.groovy"></script>
 
-h3(#nat). NAT configuration in non flate IP network
+h3(#nat). Configure NAT for non flat IP network
+1. Login as Administrator
+2. Go to network
+3. Select as network name
+4. Go to the Egress rules tab
+5. set cdir 0.0.0.0/0 to All and add it
+!../../images/cloudstack/configure_network_egress.png!
+6. Go to details tab and select View IP Addresses
+7. Click Aquire New IP for your virtual machine
+!../../images/cloudstack/aquire_new_ip.png!
+8. Click the IP you created and configure firewall and Port forwarding
+!../../images/cloudstack/configure_firewall_and_port_forwarding.png!
+9. configure the firewall port and cidr of vm
+!../../images/cloudstack/configure_firewall.png!
+10. configure port forwarding
+!../../images/cloudstack/configure_port_forwarding.png!
 
 h4(warn). Once you enable the wire logs, they appear in the Cloudify shell when you run the 'bootstrap-cloud' command (and the relevant log file in the logs folder), and in the ESM log when it starts or stops a machine for scale out/in.
 
