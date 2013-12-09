@@ -20,7 +20,7 @@ This section provides step-by-step instructions for the following configuration 
 
 # "Generate a API Key and Secret Key":#key
 # "Configure the Cloudify cloud driver configuration file":#driver
-# "NAT configuration in non flate IP network":#nat
+# "Configure NAT for non flat IP network":#nat
 
 h3(#key). Generate a API Key and Secret Key
 
@@ -75,9 +75,25 @@ The following is a list of CloudStack Hardware Ids:
 
 <script src="https://gist.github.com/shadim/7864590.js?file=cloudstack-cloud2_2m2.groovy"></script>
 
-h3(#nat). NAT configuration in non flate IP network
+h3(#nat). Configure NAT for non flat IP network
+# Login as Administrator
+# Go to network
+# Select as network name
+# Go to the Egress rules tab
+# set cdir 0.0.0.0/0 to All and add it
+!../../images/cloudstack/configure_network_egress.png!
+# Go to details tab and select View IP Addresses
+# Click Aquire New IP for your virtual machine
+!../../images/cloudstack/aquire_new_ip.png!
+# Click the IP you created and configure firewall and Port forwarding
+!../../images/cloudstack/configure_firewall_and_port_forwarding.png!
+## configure the firewall port and cidr of vm
+!../../images/cloudstack/configure_firewall.png!
+## configure port forwarding
+!../../images/cloudstack/configure_port_forwarding.png!
 
-h4(warn). Once you enable the wire logs, they appear in the Cloudify shell when you run the 'bootstrap-cloud' command (and the relevant log file in the logs folder), and in the ESM log when it starts or stops a machine for scale out/in.
+h4(warn). repeat step 6-8 for each vm would you like to access it from the internet.
+e.g. workstation to install cloudify agent should be opened SSH port and cloudify agent vm should be opened port 8099-8100 to access Rest API and web ui
 
 h2. What's Next?
 
