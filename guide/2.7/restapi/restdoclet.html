@@ -7,39 +7,155 @@
 	</head>
 	<body>
 											<div class="header">
-				<h1>ConfigController</h1>
-				<p class="excerpt">Mapping of URIs that begin with /{version}/config</p>
-									<p>ConfigRestController provides Rest implementation for Configuration.</p>
+				<h1>UploadController</h1>
+				<p class="excerpt">Mapping of URIs that begin with /{version}/upload</p>
+									<p>A controller for uploading files for future deployments.
+ Each uploaded file will be available for {@link CloudifyConstants#DEFAULT_UPLOAD_TIMEOUT_MILLIS} seconds.
+ The timeout can be edited via {@link UploadRepo#setCleanupTimeoutMillis(int)}.</p>
 							</div>
 			<div class="separator"></div>
-																<h2 id="REST_API-/{version}/config/compute"><a class="permalink" title="Get a permanent link to this section" href="#REST_API-/{version}/config/compute">/{version}/config/compute</a></h2>				
+																<h2 id="REST_API-/{version}/upload/{fileName:.+}"><a class="permalink" title="Get a permanent link to this section" href="#REST_API-/{version}/upload/{fileName:.+}">/{version}/upload/{fileName:.+}</a></h2>				
 												<h3>HTTP Methods</h3>
 									<h4>POST</h4>
-											<p>add compute template.</p>
-																																																			<h3>Request</h3>
+											<p>Uploading a file to be used in future deployments.
+ The file will be kept at least {@link UploadRepo#TIMEOUT_SECOND} seconds.</p>
+																															<h3>Parameters</h3>
+						<table>
+							<tr>
+								<th>Type</th>
+								<th>Name</th>
+								<th>Description</th>
+								<th>Mandatory</th>
+								<th>Parameter type</th>
+								<th>Default value</th>
+							</tr>
+															<tr>
+									<td>String</td>
+																			<td>fileName</td>
+																												<td>The name of the file to upload</td>
+																		<td>true</td>
+									<td>PathVariable</td>
+																			<td></td>
+																	</tr>
+															<tr>
+									<td>MultipartFile</td>
+																			<td>file</td>
+																												<td>The file to upload</td>
+																		<td>true</td>
+									<td>RequestParam</td>
+																			<td></td>
+																	</tr>
+													</table>
+																															<h3>Request</h3>
 							<div class="panel">
 								<div class="panelHeader">
-									Request body for a POST on /{version}/config/compute
+									Request body for a POST on /{version}/upload/{fileName:.+}
 								</div>
 								<div class="panelContent">
-									<pre class="code">request has no body</pre>
+									<pre class="code">"file's content"</pre>
 								</div>
 							</div>
 																																											<h3>Response</h3>
 							<div class="panel">
 								<div class="panelHeader">
-									Response to a POST on /{version}/config/compute
+									Response to a POST on /{version}/upload/{fileName:.+}
 								</div>	
 								<div class="panelContent">
-										<pre class="code">response has no body</pre>
+										<pre class="code">{
+  "status" : "Success",
+  "message" : "Operation completed successfully",
+  "messageId" : "operation_successfull",
+  "verbose" : null,
+  "response" : {
+    "uploadKey" : "8a5ae9c4-5a34-43b4-8952-54483455de8c"
+  }
+}</pre>
+								</div>
+							</div>
+																																		<div class="header">
+				<h1>TemplatesController</h1>
+				<p class="excerpt">Mapping of URIs that begin with /{version}/templates</p>
+							</div>
+			<div class="separator"></div>
+																<h2 id="REST_API-/{version}/templates"><a class="permalink" title="Get a permanent link to this section" href="#REST_API-/{version}/templates">/{version}/templates</a></h2>				
+												<h3>HTTP Methods</h3>
+									<h4>POST</h4>
+											<p>Add templates from templates folder to the cloud. Returns a response in case of success or partial failure.</p>
+																															<h3>Parameters</h3>
+						<table>
+							<tr>
+								<th>Type</th>
+								<th>Name</th>
+								<th>Description</th>
+								<th>Mandatory</th>
+								<th>Parameter type</th>
+								<th>Default value</th>
+							</tr>
+															<tr>
+									<td>AddTemplatesRequest</td>
+																			<td>request</td>
+																												<td>{@link AddTemplatesRequest}</td>
+																		<td>true</td>
+									<td>RequestBody</td>
+																			<td></td>
+																	</tr>
+													</table>
+																															<h3>Request</h3>
+							<div class="panel">
+								<div class="panelHeader">
+									Request body for a POST on /{version}/templates
+								</div>
+								<div class="panelContent">
+									<pre class="code">{
+  "uploadKey" : "48a82aa9-04dc-4304-b80a-a4175e759876"
+}</pre>
+								</div>
+							</div>
+																																											<h3>Response</h3>
+							<div class="panel">
+								<div class="panelHeader">
+									Response to a POST on /{version}/templates
+								</div>	
+								<div class="panelContent">
+										<pre class="code">{
+  "status" : "PartialFailure",
+  "message" : "partial failure - not all the expected templates were added to all REST instances.",
+  "messageId" : "partly_failed_to_add_templates",
+  "verbose" : {
+    "templates" : {
+      "SMALL_UBUNTU" : {
+        "failedToAddHosts" : {
+          "192.168.9.13" : "template already exists",
+          "192.168.9.11" : "template already exists"
+        },
+        "successfullyAddedHosts" : [ "192.168.9.15" ]
+      },
+      "SMALL_SUSE" : {
+        "failedToAddHosts" : { },
+        "successfullyAddedHosts" : [ "192.168.9.13", "192.168.9.11", "192.168.9.15" ]
+      },
+      "SMALL_LINUX" : {
+        "failedToAddHosts" : {
+          "192.168.9.13" : "template already exists",
+          "192.168.9.11" : "template already exists",
+          "192.168.9.15" : "template already exists"
+        },
+        "successfullyAddedHosts" : [ ]
+      }
+    },
+    "instances" : [ "192.168.9.13", "192.168.9.11", "192.168.9.15" ],
+    "status" : "PARTIAL_FAILURE"
+  },
+  "response" : null
+}</pre>
 								</div>
 							</div>
 																															<h4>GET</h4>
-											<p>get all compute template.</p>
+											<p>Get the cloud's templates.</p>
 																																																			<h3>Request</h3>
 							<div class="panel">
 								<div class="panelHeader">
-									Request body for a GET on /{version}/config/compute
+									Request body for a GET on /{version}/templates
 								</div>
 								<div class="panelContent">
 									<pre class="code">request has no body</pre>
@@ -48,120 +164,67 @@
 																																											<h3>Response</h3>
 							<div class="panel">
 								<div class="panelHeader">
-									Response to a GET on /{version}/config/compute
+									Response to a GET on /{version}/templates
 								</div>	
 								<div class="panelContent">
-										<pre class="code">response has no body</pre>
+										<pre class="code">{
+  "status" : "Success",
+  "message" : "Operation completed successfully",
+  "messageId" : "operation_successfull",
+  "verbose" : null,
+  "response" : {
+    "templates" : {
+      "MY_TEMPLATE_2" : {
+        "imageId" : "eu-west-1/ami-c1aaabb5",
+        "machineMemoryMB" : 1600,
+        "hardwareId" : "m1.small",
+        "locationId" : "eu-west-1",
+        "localDirectory" : "upload",
+        "keyFile" : "key-file.pem",
+        "autoRestartAgent" : true,
+        "numberOfCores" : 1,
+        "options" : {
+          "keyPair" : "key-pair-eu",
+          "securityGroups" : [ "default" ]
+        },
+        "overrides" : { },
+        "custom" : { },
+        "fileTransfer" : "SFTP",
+        "remoteExecution" : "SSH",
+        "scriptLanguage" : "LINUX_SHELL",
+        "username" : "my_template_2",
+        "password" : null,
+        "remoteDirectory" : "upload",
+        "privileged" : true,
+        "initializationCommand" : null,
+        "javaUrl" : null,
+        "absoluteUploadDir" : null,
+        "env" : { },
+        "installer" : {
+          "connectionTestRouteResolutionTimeoutMillis" : 120000,
+          "connectionTestIntervalMillis" : 5000,
+          "connectionTestConnectTimeoutMillis" : 10000,
+          "fileTransferConnectionTimeoutMillis" : 10000,
+          "fileTransferRetries" : 3,
+          "fileTransferPort" : -1,
+          "fileTransferConnectionRetryIntervalMillis" : 5000,
+          "remoteExecutionPort" : -1,
+          "remoteExecutionConnectionTimeoutMillis" : 10000
+        },
+        "openFilesLimit" : null,
+        "computeNetwork" : {
+          "networks" : [ ]
+        }
+      }
+    }
+  }
+}</pre>
 								</div>
 							</div>
-																															<h4>DELETE</h4>
-											<p>delete compute template.</p>
-																																																			<h3>Request</h3>
-							<div class="panel">
-								<div class="panelHeader">
-									Request body for a DELETE on /{version}/config/compute
-								</div>
-								<div class="panelContent">
-									<pre class="code">request has no body</pre>
-								</div>
-							</div>
-																																											<h3>Response</h3>
-							<div class="panel">
-								<div class="panelHeader">
-									Response to a DELETE on /{version}/config/compute
-								</div>	
-								<div class="panelContent">
-										<pre class="code">response has no body</pre>
-								</div>
-							</div>
-																																	<h2 id="REST_API-/{version}/config/loadbalancer"><a class="permalink" title="Get a permanent link to this section" href="#REST_API-/{version}/config/loadbalancer">/{version}/config/loadbalancer</a></h2>				
-												<h3>HTTP Methods</h3>
-									<h4>POST</h4>
-											<p>add load balancer template.</p>
-																																																			<h3>Request</h3>
-							<div class="panel">
-								<div class="panelHeader">
-									Request body for a POST on /{version}/config/loadbalancer
-								</div>
-								<div class="panelContent">
-									<pre class="code">request has no body</pre>
-								</div>
-							</div>
-																																											<h3>Response</h3>
-							<div class="panel">
-								<div class="panelHeader">
-									Response to a POST on /{version}/config/loadbalancer
-								</div>	
-								<div class="panelContent">
-										<pre class="code">response has no body</pre>
-								</div>
-							</div>
-																															<h4>GET</h4>
-											<p>get all load balancer templates.</p>
-																																																			<h3>Request</h3>
-							<div class="panel">
-								<div class="panelHeader">
-									Request body for a GET on /{version}/config/loadbalancer
-								</div>
-								<div class="panelContent">
-									<pre class="code">request has no body</pre>
-								</div>
-							</div>
-																																											<h3>Response</h3>
-							<div class="panel">
-								<div class="panelHeader">
-									Response to a GET on /{version}/config/loadbalancer
-								</div>	
-								<div class="panelContent">
-										<pre class="code">response has no body</pre>
-								</div>
-							</div>
-																															<h4>DELETE</h4>
-											<p>delete load balancer templates.</p>
-																																																			<h3>Request</h3>
-							<div class="panel">
-								<div class="panelHeader">
-									Request body for a DELETE on /{version}/config/loadbalancer
-								</div>
-								<div class="panelContent">
-									<pre class="code">request has no body</pre>
-								</div>
-							</div>
-																																											<h3>Response</h3>
-							<div class="panel">
-								<div class="panelHeader">
-									Response to a DELETE on /{version}/config/loadbalancer
-								</div>	
-								<div class="panelContent">
-										<pre class="code">response has no body</pre>
-								</div>
-							</div>
-																																	<h2 id="REST_API-/{version}/config/network"><a class="permalink" title="Get a permanent link to this section" href="#REST_API-/{version}/config/network">/{version}/config/network</a></h2>				
-												<h3>HTTP Methods</h3>
-									<h4>POST</h4>
-											<p>add network template.</p>
-																																																			<h3>Request</h3>
-							<div class="panel">
-								<div class="panelHeader">
-									Request body for a POST on /{version}/config/network
-								</div>
-								<div class="panelContent">
-									<pre class="code">request has no body</pre>
-								</div>
-							</div>
-																																											<h3>Response</h3>
-							<div class="panel">
-								<div class="panelHeader">
-									Response to a POST on /{version}/config/network
-								</div>	
-								<div class="panelContent">
-										<pre class="code">response has no body</pre>
-								</div>
-							</div>
-																																	<h2 id="REST_API-/{version}/config/network/{networkName}"><a class="permalink" title="Get a permanent link to this section" href="#REST_API-/{version}/config/network/{networkName}">/{version}/config/network/{networkName}</a></h2>				
+																																	<h2 id="REST_API-/{version}/templates/{templateName}"><a class="permalink" title="Get a permanent link to this section" href="#REST_API-/{version}/templates/{templateName}">/{version}/templates/{templateName}</a></h2>				
 												<h3>HTTP Methods</h3>
 									<h4>GET</h4>
-											<p>get all network template.</p>
+											<p>Get template from the cloud.</p>
 																															<h3>Parameters</h3>
 						<table>
 							<tr>
@@ -174,8 +237,8 @@
 							</tr>
 															<tr>
 									<td>String</td>
-																			<td>networkName</td>
-																												<td>the network name</td>
+																			<td>templateName</td>
+																												<td>The name of the template to get</td>
 																		<td>true</td>
 									<td>PathVariable</td>
 																			<td></td>
@@ -184,7 +247,7 @@
 																															<h3>Request</h3>
 							<div class="panel">
 								<div class="panelHeader">
-									Request body for a GET on /{version}/config/network/{networkName}
+									Request body for a GET on /{version}/templates/{templateName}
 								</div>
 								<div class="panelContent">
 									<pre class="code">request has no body</pre>
@@ -193,14 +256,63 @@
 																																											<h3>Response</h3>
 							<div class="panel">
 								<div class="panelHeader">
-									Response to a GET on /{version}/config/network/{networkName}
+									Response to a GET on /{version}/templates/{templateName}
 								</div>	
 								<div class="panelContent">
-										<pre class="code">response has no body</pre>
+										<pre class="code">{
+  "status" : "Success",
+  "message" : "Operation completed successfully",
+  "messageId" : "operation_successfull",
+  "verbose" : null,
+  "response" : {
+    "template" : {
+      "imageId" : "eu-west-1/ami-c1aaabb5",
+      "machineMemoryMB" : 1600,
+      "hardwareId" : "m1.small",
+      "locationId" : "eu-west-1",
+      "localDirectory" : "upload",
+      "keyFile" : "key-file.pem",
+      "autoRestartAgent" : true,
+      "numberOfCores" : 1,
+      "options" : {
+        "keyPair" : "key-pair-eu",
+        "securityGroups" : [ "default" ]
+      },
+      "overrides" : { },
+      "custom" : { },
+      "fileTransfer" : "SFTP",
+      "remoteExecution" : "SSH",
+      "scriptLanguage" : "LINUX_SHELL",
+      "username" : "my_template_0",
+      "password" : null,
+      "remoteDirectory" : "upload",
+      "privileged" : true,
+      "initializationCommand" : null,
+      "javaUrl" : null,
+      "absoluteUploadDir" : null,
+      "env" : { },
+      "installer" : {
+        "connectionTestRouteResolutionTimeoutMillis" : 120000,
+        "connectionTestIntervalMillis" : 5000,
+        "connectionTestConnectTimeoutMillis" : 10000,
+        "fileTransferConnectionTimeoutMillis" : 10000,
+        "fileTransferRetries" : 3,
+        "fileTransferPort" : -1,
+        "fileTransferConnectionRetryIntervalMillis" : 5000,
+        "remoteExecutionPort" : -1,
+        "remoteExecutionConnectionTimeoutMillis" : 10000
+      },
+      "openFilesLimit" : null,
+      "computeNetwork" : {
+        "networks" : [ ]
+      }
+    }
+  }
+}</pre>
 								</div>
 							</div>
 																															<h4>DELETE</h4>
-											<p>delete network template.</p>
+											<p>Removes a template from the cloud.</p>
 																															<h3>Parameters</h3>
 						<table>
 							<tr>
@@ -213,8 +325,8 @@
 							</tr>
 															<tr>
 									<td>String</td>
-																			<td>networkName</td>
-																												<td>the network name</td>
+																			<td>templateName</td>
+																												<td>The name of the template to remove</td>
 																		<td>true</td>
 									<td>PathVariable</td>
 																			<td></td>
@@ -223,7 +335,7 @@
 																															<h3>Request</h3>
 							<div class="panel">
 								<div class="panelHeader">
-									Request body for a DELETE on /{version}/config/network/{networkName}
+									Request body for a DELETE on /{version}/templates/{templateName}
 								</div>
 								<div class="panelContent">
 									<pre class="code">request has no body</pre>
@@ -232,91 +344,7 @@
 																																											<h3>Response</h3>
 							<div class="panel">
 								<div class="panelHeader">
-									Response to a DELETE on /{version}/config/network/{networkName}
-								</div>	
-								<div class="panelContent">
-										<pre class="code">response has no body</pre>
-								</div>
-							</div>
-																																	<h2 id="REST_API-/{version}/config/securitygroups"><a class="permalink" title="Get a permanent link to this section" href="#REST_API-/{version}/config/securitygroups">/{version}/config/securitygroups</a></h2>				
-												<h3>HTTP Methods</h3>
-									<h4>POST</h4>
-											<p>add security group template.</p>
-																																																			<h3>Request</h3>
-							<div class="panel">
-								<div class="panelHeader">
-									Request body for a POST on /{version}/config/securitygroups
-								</div>
-								<div class="panelContent">
-									<pre class="code">request has no body</pre>
-								</div>
-							</div>
-																																											<h3>Response</h3>
-							<div class="panel">
-								<div class="panelHeader">
-									Response to a POST on /{version}/config/securitygroups
-								</div>	
-								<div class="panelContent">
-										<pre class="code">response has no body</pre>
-								</div>
-							</div>
-																																	<h2 id="REST_API-/{version}/config/storage"><a class="permalink" title="Get a permanent link to this section" href="#REST_API-/{version}/config/storage">/{version}/config/storage</a></h2>				
-												<h3>HTTP Methods</h3>
-									<h4>POST</h4>
-											<p>add storage templates.</p>
-																																																			<h3>Request</h3>
-							<div class="panel">
-								<div class="panelHeader">
-									Request body for a POST on /{version}/config/storage
-								</div>
-								<div class="panelContent">
-									<pre class="code">request has no body</pre>
-								</div>
-							</div>
-																																											<h3>Response</h3>
-							<div class="panel">
-								<div class="panelHeader">
-									Response to a POST on /{version}/config/storage
-								</div>	
-								<div class="panelContent">
-										<pre class="code">response has no body</pre>
-								</div>
-							</div>
-																															<h4>GET</h4>
-											<p>get all storage templates.</p>
-																																																			<h3>Request</h3>
-							<div class="panel">
-								<div class="panelHeader">
-									Request body for a GET on /{version}/config/storage
-								</div>
-								<div class="panelContent">
-									<pre class="code">request has no body</pre>
-								</div>
-							</div>
-																																											<h3>Response</h3>
-							<div class="panel">
-								<div class="panelHeader">
-									Response to a GET on /{version}/config/storage
-								</div>	
-								<div class="panelContent">
-										<pre class="code">response has no body</pre>
-								</div>
-							</div>
-																															<h4>DELETE</h4>
-											<p>delete storage templates.</p>
-																																																			<h3>Request</h3>
-							<div class="panel">
-								<div class="panelHeader">
-									Request body for a DELETE on /{version}/config/storage
-								</div>
-								<div class="panelContent">
-									<pre class="code">request has no body</pre>
-								</div>
-							</div>
-																																											<h3>Response</h3>
-							<div class="panel">
-								<div class="panelHeader">
-									Response to a DELETE on /{version}/config/storage
+									Response to a DELETE on /{version}/templates/{templateName}
 								</div>	
 								<div class="panelContent">
 										<pre class="code">response has no body</pre>
@@ -1667,7 +1695,7 @@
 																												<td></td>
 																		<td>false</td>
 									<td>RequestParam</td>
-																			<td>5242880</td>
+																			<td>10485760</td>
 																	</tr>
 													</table>
 																															<h3>Request</h3>
@@ -1731,7 +1759,7 @@
 																												<td></td>
 																		<td>false</td>
 									<td>RequestParam</td>
-																			<td>5242880</td>
+																			<td>10485760</td>
 																	</tr>
 													</table>
 																															<h3>Request</h3>
@@ -1789,7 +1817,7 @@
 																												<td></td>
 																		<td>false</td>
 									<td>RequestParam</td>
-																			<td>5242880</td>
+																			<td>10485760</td>
 																	</tr>
 													</table>
 																															<h3>Request</h3>
@@ -2188,6 +2216,392 @@
 																												<li>Returns "500 Internal Server Error" - User is not a CloudAdmin.</li>
 																			</ul>
 																	<div class="header">
+				<h1>RepoController</h1>
+				<p class="excerpt">Mapping of URIs that begin with /{version}/repo</p>
+									<p>RepoController provides Rest implementation for The Recipes stored for users to use. <br></p>
+							</div>
+			<div class="separator"></div>
+																<h2 id="REST_API-/{version}/repo/apps"><a class="permalink" title="Get a permanent link to this section" href="#REST_API-/{version}/repo/apps">/{version}/repo/apps</a></h2>				
+												<h3>HTTP Methods</h3>
+									<h4>POST</h4>
+											<p>push application recipe .</p>
+																																																			<h3>Request</h3>
+							<div class="panel">
+								<div class="panelHeader">
+									Request body for a POST on /{version}/repo/apps
+								</div>
+								<div class="panelContent">
+									<pre class="code">request has no body</pre>
+								</div>
+							</div>
+																																											<h3>Response</h3>
+							<div class="panel">
+								<div class="panelHeader">
+									Response to a POST on /{version}/repo/apps
+								</div>	
+								<div class="panelContent">
+										<pre class="code">response has no body</pre>
+								</div>
+							</div>
+																																	<h2 id="REST_API-/{version}/repo/apps/{appName}"><a class="permalink" title="Get a permanent link to this section" href="#REST_API-/{version}/repo/apps/{appName}">/{version}/repo/apps/{appName}</a></h2>				
+												<h3>HTTP Methods</h3>
+									<h4>GET</h4>
+											<p>get application recipe given name.</p>
+																															<h3>Parameters</h3>
+						<table>
+							<tr>
+								<th>Type</th>
+								<th>Name</th>
+								<th>Description</th>
+								<th>Mandatory</th>
+								<th>Parameter type</th>
+								<th>Default value</th>
+							</tr>
+															<tr>
+									<td>String</td>
+																			<td>appName</td>
+																												<td>the application name</td>
+																		<td>true</td>
+									<td>PathVariable</td>
+																			<td></td>
+																	</tr>
+													</table>
+																															<h3>Request</h3>
+							<div class="panel">
+								<div class="panelHeader">
+									Request body for a GET on /{version}/repo/apps/{appName}
+								</div>
+								<div class="panelContent">
+									<pre class="code">request has no body</pre>
+								</div>
+							</div>
+																																											<h3>Response</h3>
+							<div class="panel">
+								<div class="panelHeader">
+									Response to a GET on /{version}/repo/apps/{appName}
+								</div>	
+								<div class="panelContent">
+										<pre class="code">response has no body</pre>
+								</div>
+							</div>
+																															<h4>PUT</h4>
+											<p>update application recipe given name.</p>
+																															<h3>Parameters</h3>
+						<table>
+							<tr>
+								<th>Type</th>
+								<th>Name</th>
+								<th>Description</th>
+								<th>Mandatory</th>
+								<th>Parameter type</th>
+								<th>Default value</th>
+							</tr>
+															<tr>
+									<td>String</td>
+																			<td>appName</td>
+																												<td>the application name</td>
+																		<td>true</td>
+									<td>PathVariable</td>
+																			<td></td>
+																	</tr>
+													</table>
+																															<h3>Request</h3>
+							<div class="panel">
+								<div class="panelHeader">
+									Request body for a PUT on /{version}/repo/apps/{appName}
+								</div>
+								<div class="panelContent">
+									<pre class="code">request has no body</pre>
+								</div>
+							</div>
+																																											<h3>Response</h3>
+							<div class="panel">
+								<div class="panelHeader">
+									Response to a PUT on /{version}/repo/apps/{appName}
+								</div>	
+								<div class="panelContent">
+										<pre class="code">response has no body</pre>
+								</div>
+							</div>
+																															<h4>DELETE</h4>
+											<p>delete application recipe given name.</p>
+																															<h3>Parameters</h3>
+						<table>
+							<tr>
+								<th>Type</th>
+								<th>Name</th>
+								<th>Description</th>
+								<th>Mandatory</th>
+								<th>Parameter type</th>
+								<th>Default value</th>
+							</tr>
+															<tr>
+									<td>String</td>
+																			<td>appName</td>
+																												<td>the application name</td>
+																		<td>true</td>
+									<td>PathVariable</td>
+																			<td></td>
+																	</tr>
+													</table>
+																															<h3>Request</h3>
+							<div class="panel">
+								<div class="panelHeader">
+									Request body for a DELETE on /{version}/repo/apps/{appName}
+								</div>
+								<div class="panelContent">
+									<pre class="code">request has no body</pre>
+								</div>
+							</div>
+																																											<h3>Response</h3>
+							<div class="panel">
+								<div class="panelHeader">
+									Response to a DELETE on /{version}/repo/apps/{appName}
+								</div>	
+								<div class="panelContent">
+										<pre class="code">response has no body</pre>
+								</div>
+							</div>
+																																		<div class="header">
+				<h1>ManagementController</h1>
+				<p class="excerpt">Mapping of URIs that begin with /{version}/management</p>
+									<p>This controller is responsible for retrieving information about management machines. It is also the entry point for
+ shutdown managers. <br>
+ <br>
+ The response body will always return in a JSON representation of the
+ {@link org.cloudifysource.dsl.rest.response.Response} Object. <br>
+ A controller method may return the {@link org.cloudifysource.dsl.rest.response.Response} Object directly. in this
+ case this return value will be used as the response body. Otherwise, an implicit wrapping will occur. the return
+ value will be inserted into {@code Response#setResponse(Object)}. other fields of the
+ {@link org.cloudifysource.dsl.rest.response.Response} object will be filled with default values. <br>
+ <h1>Important</h1> {@code @ResponseBody} annotations are not permitted. <br>
+ <br>
+ <h1>Possible return values</h1> 200 - OK<br>
+ 400 - controller throws an exception<br>
+ 500 - Unexpected exception<br>
+ <br></p>
+							</div>
+			<div class="separator"></div>
+																<h2 id="REST_API-/{version}/management/controllers"><a class="permalink" title="Get a permanent link to this section" href="#REST_API-/{version}/management/controllers">/{version}/management/controllers</a></h2>				
+												<h3>HTTP Methods</h3>
+									<h4>DELETE</h4>
+											<p>Schedules termination of all agents running the cloudify manager.</p>
+																																																			<h3>Request</h3>
+							<div class="panel">
+								<div class="panelHeader">
+									Request body for a DELETE on /{version}/management/controllers
+								</div>
+								<div class="panelContent">
+									<pre class="code">request has no body</pre>
+								</div>
+							</div>
+																																											<h3>Response</h3>
+							<div class="panel">
+								<div class="panelHeader">
+									Response to a DELETE on /{version}/management/controllers
+								</div>	
+								<div class="panelContent">
+										<pre class="code">{
+  "status" : "Success",
+  "message" : "Operation completed successfully",
+  "messageId" : "operation_successfull",
+  "verbose" : null,
+  "response" : {
+    "controllers" : null
+  }
+}</pre>
+								</div>
+							</div>
+																															<h4>GET</h4>
+																																																			<h3>Request</h3>
+							<div class="panel">
+								<div class="panelHeader">
+									Request body for a GET on /{version}/management/controllers
+								</div>
+								<div class="panelContent">
+									<pre class="code">request has no body</pre>
+								</div>
+							</div>
+																																											<h3>Response</h3>
+							<div class="panel">
+								<div class="panelHeader">
+									Response to a GET on /{version}/management/controllers
+								</div>	
+								<div class="panelContent">
+										<pre class="code">response has no body</pre>
+								</div>
+							</div>
+																																	<h2 id="REST_API-/{version}/management/dump/machine/{ip}"><a class="permalink" title="Get a permanent link to this section" href="#REST_API-/{version}/management/dump/machine/{ip}">/{version}/management/dump/machine/{ip}</a></h2>				
+												<h3>HTTP Methods</h3>
+									<h4>GET</h4>
+											<p>Get the dump of a given machine, by its IP.</p>
+																															<h3>Parameters</h3>
+						<table>
+							<tr>
+								<th>Type</th>
+								<th>Name</th>
+								<th>Description</th>
+								<th>Mandatory</th>
+								<th>Parameter type</th>
+								<th>Default value</th>
+							</tr>
+															<tr>
+									<td>String</td>
+																			<td>ip</td>
+																												<td>The machine IP</td>
+																		<td>true</td>
+									<td>PathVariable</td>
+																			<td></td>
+																	</tr>
+															<tr>
+									<td>String</td>
+																			<td>processors</td>
+																												<td>The list of processors to be used</td>
+																		<td>false</td>
+									<td>RequestParam</td>
+																			<td>summary,network,thread,log</td>
+																	</tr>
+															<tr>
+									<td>long</td>
+																			<td>fileSizeLimit</td>
+																												<td>The dump file size limit</td>
+																		<td>false</td>
+									<td>RequestParam</td>
+																			<td>10485760</td>
+																	</tr>
+													</table>
+																															<h3>Request</h3>
+							<div class="panel">
+								<div class="panelHeader">
+									Request body for a GET on /{version}/management/dump/machine/{ip}
+								</div>
+								<div class="panelContent">
+									<pre class="code">request has no body</pre>
+								</div>
+							</div>
+																																											<h3>Response</h3>
+							<div class="panel">
+								<div class="panelHeader">
+									Response to a GET on /{version}/management/dump/machine/{ip}
+								</div>	
+								<div class="panelContent">
+										<pre class="code">{
+  "status" : "Success",
+  "message" : "Operation completed successfully",
+  "messageId" : "operation_successfull",
+  "verbose" : null,
+  "response" : {
+    "dumpBytes" : null
+  }
+}</pre>
+								</div>
+							</div>
+																																	<h2 id="REST_API-/{version}/management/dump/machines"><a class="permalink" title="Get a permanent link to this section" href="#REST_API-/{version}/management/dump/machines">/{version}/management/dump/machines</a></h2>				
+												<h3>HTTP Methods</h3>
+									<h4>GET</h4>
+											<p>Get the dump of all machines.</p>
+																															<h3>Parameters</h3>
+						<table>
+							<tr>
+								<th>Type</th>
+								<th>Name</th>
+								<th>Description</th>
+								<th>Mandatory</th>
+								<th>Parameter type</th>
+								<th>Default value</th>
+							</tr>
+															<tr>
+									<td>String</td>
+																			<td>processors</td>
+																												<td>The list of processors to be used</td>
+																		<td>false</td>
+									<td>RequestParam</td>
+																			<td>summary,network,thread,log</td>
+																	</tr>
+															<tr>
+									<td>long</td>
+																			<td>fileSizeLimit</td>
+																												<td>The dump file size limit</td>
+																		<td>false</td>
+									<td>RequestParam</td>
+																			<td>10485760</td>
+																	</tr>
+													</table>
+																															<h3>Request</h3>
+							<div class="panel">
+								<div class="panelHeader">
+									Request body for a GET on /{version}/management/dump/machines
+								</div>
+								<div class="panelContent">
+									<pre class="code">request has no body</pre>
+								</div>
+							</div>
+																																											<h3>Response</h3>
+							<div class="panel">
+								<div class="panelHeader">
+									Response to a GET on /{version}/management/dump/machines
+								</div>	
+								<div class="panelContent">
+										<pre class="code">{
+  "status" : "Success",
+  "message" : "Operation completed successfully",
+  "messageId" : "operation_successfull",
+  "verbose" : null,
+  "response" : {
+    "dumpBytesPerIP" : null
+  }
+}</pre>
+								</div>
+							</div>
+																																	<h2 id="REST_API-/{version}/management/dump/processing-units"><a class="permalink" title="Get a permanent link to this section" href="#REST_API-/{version}/management/dump/processing-units">/{version}/management/dump/processing-units</a></h2>				
+												<h3>HTTP Methods</h3>
+									<h4>GET</h4>
+																															<h3>Parameters</h3>
+						<table>
+							<tr>
+								<th>Type</th>
+								<th>Name</th>
+								<th>Description</th>
+								<th>Mandatory</th>
+								<th>Parameter type</th>
+								<th>Default value</th>
+							</tr>
+															<tr>
+									<td>long</td>
+																			<td>fileSizeLimit</td>
+																												<td>the file size limit</td>
+																		<td>false</td>
+									<td>RequestParam</td>
+																			<td>10485760</td>
+																	</tr>
+													</table>
+																															<h3>Request</h3>
+							<div class="panel">
+								<div class="panelHeader">
+									Request body for a GET on /{version}/management/dump/processing-units
+								</div>
+								<div class="panelContent">
+									<pre class="code">request has no body</pre>
+								</div>
+							</div>
+																																											<h3>Response</h3>
+							<div class="panel">
+								<div class="panelHeader">
+									Response to a GET on /{version}/management/dump/processing-units
+								</div>	
+								<div class="panelContent">
+										<pre class="code">{
+  "status" : "Success",
+  "message" : "Operation completed successfully",
+  "messageId" : "operation_successfull",
+  "verbose" : null,
+  "response" : {
+    "dumpData" : null
+  }
+}</pre>
+								</div>
+							</div>
+																																		<div class="header">
 				<h1>InfraController</h1>
 				<p class="excerpt">Mapping of URIs that begin with /{version}/infra</p>
 									<p>InfraController provides Rest implementation for Infra. <br>
@@ -2445,14 +2859,12 @@
 									<p>This controller is responsible for retrieving information about deployments. It is also the entry point for deploying
  services and application. <br>
  <br>
- The response body will always return in a JSON representation of the 
+ The response body will always return in a JSON representation of the
  {@link org.cloudifysource.dsl.rest.response.Response} Object. <br>
- A controller method may return the {@link org.cloudifysource.dsl.rest.response.Response} Object directly. 
- in this case this return value will be used as the response body. 
- Otherwise, an implicit wrapping will occur. the return value will be inserted into
- {@code Response#setResponse(Object)}. 
- other fields of the {@link org.cloudifysource.dsl.rest.response.Response} 
- object will be filled with default values. <br>
+ A controller method may return the {@link org.cloudifysource.dsl.rest.response.Response} Object directly. in this
+ case this return value will be used as the response body. Otherwise, an implicit wrapping will occur. the return
+ value will be inserted into {@code Response#setResponse(Object)}. other fields of the
+ {@link org.cloudifysource.dsl.rest.response.Response} object will be filled with default values. <br>
  <h1>Important</h1> {@code @ResponseBody} annotations are not permitted. <br>
  <br>
  <h1>Possible return values</h1> 200 - OK<br>
@@ -2509,6 +2921,168 @@
 										<pre class="code">response has no body</pre>
 								</div>
 							</div>
+																																	<h2 id="REST_API-/{version}/deployments/applications/description"><a class="permalink" title="Get a permanent link to this section" href="#REST_API-/{version}/deployments/applications/description">/{version}/deployments/applications/description</a></h2>				
+												<h3>HTTP Methods</h3>
+									<h4>GET</h4>
+																																																			<h3>Request</h3>
+							<div class="panel">
+								<div class="panelHeader">
+									Request body for a GET on /{version}/deployments/applications/description
+								</div>
+								<div class="panelContent">
+									<pre class="code">request has no body</pre>
+								</div>
+							</div>
+																																											<h3>Response</h3>
+							<div class="panel">
+								<div class="panelHeader">
+									Response to a GET on /{version}/deployments/applications/description
+								</div>	
+								<div class="panelContent">
+										<pre class="code">{
+  "status" : "Success",
+  "message" : "Operation completed successfully",
+  "messageId" : "operation_successfull",
+  "verbose" : null,
+  "response" : [ {
+    "servicesDescription" : [ {
+      "serviceName" : "service1",
+      "instanceCount" : 1,
+      "plannedInstances" : 1,
+      "instancesDescription" : [ {
+        "instanceName" : "petclinic.service1",
+        "instanceStatus" : "RUNNING",
+        "instanceId" : 1,
+        "hostName" : "build64A",
+        "hostAddress" : "192.168.9.18"
+      }, {
+        "instanceName" : "petclinic.service1",
+        "instanceStatus" : "RUNNING",
+        "instanceId" : 3,
+        "hostName" : "build64A",
+        "hostAddress" : "192.168.9.18"
+      } ],
+      "applicationName" : "petclinic",
+      "serviceState" : "STARTED",
+      "deploymentId" : null
+    }, {
+      "serviceName" : "service2",
+      "instanceCount" : 5,
+      "plannedInstances" : 5,
+      "instancesDescription" : [ {
+        "instanceName" : "petclinic.service2",
+        "instanceStatus" : "RUNNING",
+        "instanceId" : 2,
+        "hostName" : "build64A",
+        "hostAddress" : "192.168.9.18"
+      }, {
+        "instanceName" : "petclinic.service2",
+        "instanceStatus" : "RUNNING",
+        "instanceId" : 4,
+        "hostName" : "build64A",
+        "hostAddress" : "192.168.9.18"
+      } ],
+      "applicationName" : "petclinic",
+      "serviceState" : "STARTED",
+      "deploymentId" : null
+    } ],
+    "applicationName" : "petclinic",
+    "authGroups" : "myAuthGroup1,myAuthGroup2,myAuthGroup3",
+    "applicationState" : "STARTED"
+  }, {
+    "servicesDescription" : [ {
+      "serviceName" : "service2",
+      "instanceCount" : 4,
+      "plannedInstances" : 4,
+      "instancesDescription" : [ {
+        "instanceName" : "petclinic.service2",
+        "instanceStatus" : "RUNNING",
+        "instanceId" : 2,
+        "hostName" : "build64A",
+        "hostAddress" : "192.168.9.18"
+      }, {
+        "instanceName" : "petclinic.service2",
+        "instanceStatus" : "RUNNING",
+        "instanceId" : 4,
+        "hostName" : "build64A",
+        "hostAddress" : "192.168.9.18"
+      } ],
+      "applicationName" : "petclinic",
+      "serviceState" : "STARTED",
+      "deploymentId" : null
+    }, {
+      "serviceName" : "service3",
+      "instanceCount" : 2,
+      "plannedInstances" : 2,
+      "instancesDescription" : [ {
+        "instanceName" : "petclinic.service3",
+        "instanceStatus" : "RUNNING",
+        "instanceId" : 3,
+        "hostName" : "build64A",
+        "hostAddress" : "192.168.9.18"
+      }, {
+        "instanceName" : "petclinic.service3",
+        "instanceStatus" : "RUNNING",
+        "instanceId" : 5,
+        "hostName" : "build64A",
+        "hostAddress" : "192.168.9.18"
+      } ],
+      "applicationName" : "petclinic",
+      "serviceState" : "STARTED",
+      "deploymentId" : null
+    } ],
+    "applicationName" : "petclinic",
+    "authGroups" : "myAuthGroup1,myAuthGroup2,myAuthGroup3",
+    "applicationState" : "STARTED"
+  }, {
+    "servicesDescription" : [ {
+      "serviceName" : "service2",
+      "instanceCount" : 1,
+      "plannedInstances" : 1,
+      "instancesDescription" : [ {
+        "instanceName" : "petclinic.service2",
+        "instanceStatus" : "RUNNING",
+        "instanceId" : 2,
+        "hostName" : "build64A",
+        "hostAddress" : "192.168.9.18"
+      }, {
+        "instanceName" : "petclinic.service2",
+        "instanceStatus" : "RUNNING",
+        "instanceId" : 4,
+        "hostName" : "build64A",
+        "hostAddress" : "192.168.9.18"
+      } ],
+      "applicationName" : "petclinic",
+      "serviceState" : "STARTED",
+      "deploymentId" : null
+    }, {
+      "serviceName" : "service3",
+      "instanceCount" : 3,
+      "plannedInstances" : 3,
+      "instancesDescription" : [ {
+        "instanceName" : "petclinic.service3",
+        "instanceStatus" : "RUNNING",
+        "instanceId" : 3,
+        "hostName" : "build64A",
+        "hostAddress" : "192.168.9.18"
+      }, {
+        "instanceName" : "petclinic.service3",
+        "instanceStatus" : "RUNNING",
+        "instanceId" : 5,
+        "hostName" : "build64A",
+        "hostAddress" : "192.168.9.18"
+      } ],
+      "applicationName" : "petclinic",
+      "serviceState" : "STARTED",
+      "deploymentId" : null
+    } ],
+    "applicationName" : "petclinic",
+    "authGroups" : "myAuthGroup1,myAuthGroup2,myAuthGroup3",
+    "applicationState" : "STARTED"
+  } ]
+}</pre>
+								</div>
+							</div>
 																																	<h2 id="REST_API-/{version}/deployments/applications/{appName}/description"><a class="permalink" title="Get a permanent link to this section" href="#REST_API-/{version}/deployments/applications/{appName}/description">/{version}/deployments/applications/{appName}/description</a></h2>				
 												<h3>HTTP Methods</h3>
 									<h4>GET</h4>
@@ -2553,9 +3127,29 @@
   "verbose" : null,
   "response" : {
     "servicesDescription" : [ {
+      "serviceName" : "service1",
+      "instanceCount" : 2,
+      "plannedInstances" : 2,
+      "instancesDescription" : [ {
+        "instanceName" : "petclinic.service1",
+        "instanceStatus" : "RUNNING",
+        "instanceId" : 1,
+        "hostName" : "build64A",
+        "hostAddress" : "192.168.9.18"
+      }, {
+        "instanceName" : "petclinic.service1",
+        "instanceStatus" : "RUNNING",
+        "instanceId" : 3,
+        "hostName" : "build64A",
+        "hostAddress" : "192.168.9.18"
+      } ],
+      "applicationName" : "petclinic",
+      "serviceState" : "STARTED",
+      "deploymentId" : null
+    }, {
       "serviceName" : "service2",
-      "instanceCount" : 3,
-      "plannedInstances" : 3,
+      "instanceCount" : 2,
+      "plannedInstances" : 2,
       "instancesDescription" : [ {
         "instanceName" : "petclinic.service2",
         "instanceStatus" : "RUNNING",
@@ -2572,30 +3166,156 @@
       "applicationName" : "petclinic",
       "serviceState" : "STARTED",
       "deploymentId" : null
-    }, {
-      "serviceName" : "service3",
-      "instanceCount" : 2,
-      "plannedInstances" : 2,
-      "instancesDescription" : [ {
-        "instanceName" : "petclinic.service3",
-        "instanceStatus" : "RUNNING",
-        "instanceId" : 3,
-        "hostName" : "build64A",
-        "hostAddress" : "192.168.9.18"
-      }, {
-        "instanceName" : "petclinic.service3",
-        "instanceStatus" : "RUNNING",
-        "instanceId" : 5,
-        "hostName" : "build64A",
-        "hostAddress" : "192.168.9.18"
-      } ],
-      "applicationName" : "petclinic",
-      "serviceState" : "STARTED",
-      "deploymentId" : null
     } ],
     "applicationName" : "petclinic",
     "authGroups" : "myAuthGroup1,myAuthGroup2,myAuthGroup3",
     "applicationState" : "STARTED"
+  }
+}</pre>
+								</div>
+							</div>
+																																	<h2 id="REST_API-/{version}/deployments/applications/{applicationName}/services/{serviceName}/instances/{instanceId}/invoke"><a class="permalink" title="Get a permanent link to this section" href="#REST_API-/{version}/deployments/applications/{applicationName}/services/{serviceName}/instances/{instanceId}/invoke">/{version}/deployments/applications/{applicationName}/services/{serviceName}/instances/{instanceId}/invoke</a></h2>				
+												<h3>HTTP Methods</h3>
+									<h4>POST</h4>
+											<p>Invokes a custom command on a specific service instance. Custom parameters are passed as a map using POST method
+ and contain the command name and parameter values for the specified command.</p>
+																															<h3>Parameters</h3>
+						<table>
+							<tr>
+								<th>Type</th>
+								<th>Name</th>
+								<th>Description</th>
+								<th>Mandatory</th>
+								<th>Parameter type</th>
+								<th>Default value</th>
+							</tr>
+															<tr>
+									<td>String</td>
+																			<td>applicationName</td>
+																												<td>The application name</td>
+																		<td>true</td>
+									<td>PathVariable</td>
+																			<td></td>
+																	</tr>
+															<tr>
+									<td>String</td>
+																			<td>serviceName</td>
+																												<td>The service name</td>
+																		<td>true</td>
+									<td>PathVariable</td>
+																			<td></td>
+																	</tr>
+															<tr>
+									<td>int</td>
+																			<td>instanceId</td>
+																												<td>The service instance number to be invoked</td>
+																		<td>true</td>
+									<td>PathVariable</td>
+																			<td></td>
+																	</tr>
+															<tr>
+									<td>InvokeCustomCommandRequest</td>
+																			<td>request</td>
+																												<td>InvokeCustomCommandRequest the request containing the relevant parameters</td>
+																		<td>true</td>
+									<td>RequestBody</td>
+																			<td></td>
+																	</tr>
+													</table>
+																															<h3>Request</h3>
+							<div class="panel">
+								<div class="panelHeader">
+									Request body for a POST on /{version}/deployments/applications/{applicationName}/services/{serviceName}/instances/{instanceId}/invoke
+								</div>
+								<div class="panelContent">
+									<pre class="code">{
+  "commandName" : null,
+  "parameters" : null
+}</pre>
+								</div>
+							</div>
+																																											<h3>Response</h3>
+							<div class="panel">
+								<div class="panelHeader">
+									Response to a POST on /{version}/deployments/applications/{applicationName}/services/{serviceName}/instances/{instanceId}/invoke
+								</div>	
+								<div class="panelContent">
+										<pre class="code">{
+  "status" : "Success",
+  "message" : "Operation completed successfully",
+  "messageId" : "operation_successfull",
+  "verbose" : null,
+  "response" : {
+    "invocationResult" : null
+  }
+}</pre>
+								</div>
+							</div>
+																																	<h2 id="REST_API-/{version}/deployments/applications/{applicationName}/services/{serviceName}/invoke"><a class="permalink" title="Get a permanent link to this section" href="#REST_API-/{version}/deployments/applications/{applicationName}/services/{serviceName}/invoke">/{version}/deployments/applications/{applicationName}/services/{serviceName}/invoke</a></h2>				
+												<h3>HTTP Methods</h3>
+									<h4>POST</h4>
+											<p>Invokes a custom command on all of the specified service instances. Custom parameters are passed as a map using
+ the POST method and contain the command name and parameter values for the specified command.</p>
+																															<h3>Parameters</h3>
+						<table>
+							<tr>
+								<th>Type</th>
+								<th>Name</th>
+								<th>Description</th>
+								<th>Mandatory</th>
+								<th>Parameter type</th>
+								<th>Default value</th>
+							</tr>
+															<tr>
+									<td>String</td>
+																			<td>applicationName</td>
+																												<td>The application name</td>
+																		<td>true</td>
+									<td>PathVariable</td>
+																			<td></td>
+																	</tr>
+															<tr>
+									<td>String</td>
+																			<td>serviceName</td>
+																												<td>The service name</td>
+																		<td>true</td>
+									<td>PathVariable</td>
+																			<td></td>
+																	</tr>
+															<tr>
+									<td>InvokeCustomCommandRequest</td>
+																			<td>request</td>
+																												<td>InvokeCustomCommandRequest the request containing the relevant parameters</td>
+																		<td>true</td>
+									<td>RequestBody</td>
+																			<td></td>
+																	</tr>
+													</table>
+																															<h3>Request</h3>
+							<div class="panel">
+								<div class="panelHeader">
+									Request body for a POST on /{version}/deployments/applications/{applicationName}/services/{serviceName}/invoke
+								</div>
+								<div class="panelContent">
+									<pre class="code">{
+  "commandName" : null,
+  "parameters" : null
+}</pre>
+								</div>
+							</div>
+																																											<h3>Response</h3>
+							<div class="panel">
+								<div class="panelHeader">
+									Response to a POST on /{version}/deployments/applications/{applicationName}/services/{serviceName}/invoke
+								</div>	
+								<div class="panelContent">
+										<pre class="code">{
+  "status" : "Success",
+  "message" : "Operation completed successfully",
+  "messageId" : "operation_successfull",
+  "verbose" : null,
+  "response" : {
+    "invocationResultPerInstance" : { }
   }
 }</pre>
 								</div>
@@ -2659,15 +3379,14 @@
 								</div>
 								<div class="panelContent">
 									<pre class="code">{
-  "applcationFileUploadKey" : "f85b997c-8220-401a-9f59-9a33d75ccb32",
-  "applicationOverridesUploadKey" : "bf713fd0-0275-45bc-b2c2-705bf5fd3987",
-  "cloudOverridesUploadKey" : "a229883f-ede2-4160-9091-7a583b0bb756",
+  "applcationFileUploadKey" : "e4a484c4-8564-447e-bda5-f71e00c409b0",
+  "applicationOverridesUploadKey" : "15bfca12-bbf4-4135-a26f-c81589afedd2",
+  "cloudOverridesUploadKey" : "1232d136-9547-42df-be1b-e8b04d3cb9bb",
   "applicationName" : "petclinic",
   "authGroups" : "myAuthGroup",
   "debugMode" : "onError",
   "debugEvents" : "init,install",
-  "timeoutInMillis" : 5,
-  "cloudConfigurationUploadKey" : "c2d3b1a1-1d08-4dd1-8407-fa9b917c0609",
+  "cloudConfigurationUploadKey" : "6726af4a-9237-4307-a9f9-f22e104cdb38",
   "debugAll" : false,
   "selfHealing" : true
 }</pre>
@@ -2685,7 +3404,7 @@
   "messageId" : "operation_successfull",
   "verbose" : null,
   "response" : {
-    "deploymentID" : "d9967f77-10f1-4cb8-9da9-bc1f83d9c343"
+    "deploymentID" : "d438ad3a-6c33-4f80-9083-58d5d88493cb"
   }
 }</pre>
 								</div>
@@ -2739,7 +3458,7 @@
   "messageId" : "operation_successfull",
   "verbose" : null,
   "response" : {
-    "deploymentID" : "9cc0da1f-d172-4de3-b5e3-0d21d45bb1f0"
+    "deploymentID" : "344a3172-3eb3-4e39-97a1-a65594025dbb"
   }
 }</pre>
 								</div>
@@ -3323,19 +4042,19 @@
   "messageId" : "operation_successfull",
   "verbose" : null,
   "response" : [ {
-    "serviceName" : "service0",
-    "instanceCount" : 1,
-    "plannedInstances" : 1,
+    "serviceName" : "service3",
+    "instanceCount" : 2,
+    "plannedInstances" : 2,
     "instancesDescription" : [ {
-      "instanceName" : "petclinic.service0",
+      "instanceName" : "petclinic.service3",
       "instanceStatus" : "RUNNING",
-      "instanceId" : 0,
+      "instanceId" : 3,
       "hostName" : "build64A",
       "hostAddress" : "192.168.9.18"
     }, {
-      "instanceName" : "petclinic.service0",
+      "instanceName" : "petclinic.service3",
       "instanceStatus" : "RUNNING",
-      "instanceId" : 2,
+      "instanceId" : 5,
       "hostName" : "build64A",
       "hostAddress" : "192.168.9.18"
     } ],
@@ -3343,19 +4062,19 @@
     "serviceState" : "STARTED",
     "deploymentId" : null
   }, {
-    "serviceName" : "service1",
-    "instanceCount" : 2,
-    "plannedInstances" : 2,
+    "serviceName" : "service4",
+    "instanceCount" : 1,
+    "plannedInstances" : 1,
     "instancesDescription" : [ {
-      "instanceName" : "petclinic.service1",
+      "instanceName" : "petclinic.service4",
       "instanceStatus" : "RUNNING",
-      "instanceId" : 1,
+      "instanceId" : 4,
       "hostName" : "build64A",
       "hostAddress" : "192.168.9.18"
     }, {
-      "instanceName" : "petclinic.service1",
+      "instanceName" : "petclinic.service4",
       "instanceStatus" : "RUNNING",
-      "instanceId" : 3,
+      "instanceId" : 6,
       "hostName" : "build64A",
       "hostAddress" : "192.168.9.18"
     } ],
@@ -3691,26 +4410,26 @@
   "messageId" : "operation_successfull",
   "verbose" : null,
   "response" : {
-    "instanceId" : 0,
+    "instanceId" : 1,
     "applicationName" : "petclinic",
     "serviceName" : "tomcat",
     "serviceInstanceName" : "petclinic.tomcat",
     "privateIp" : "192.168.9.18",
-    "publicIp" : "192.168.9.15",
+    "publicIp" : "192.168.9.17",
     "templateName" : "SMALL_UBUNTU",
     "imageId" : "localcloud",
     "hardwareId" : "localcloud",
     "machineId" : "localcloud",
     "processDetails" : {
-      "Cloud Public IP" : "192.168.9.18",
+      "Cloud Public IP" : "192.168.9.19",
       "icon" : "icon.png",
       "Cloud Image ID" : "localcloud",
       "Cloud Private IP" : "192.168.9.18",
       "GSC PID" : "4276",
       "Cloud Hardware ID" : "localcloud",
-      "Instance ID" : 0,
+      "Instance ID" : 1,
       "Machine ID" : "localcloud",
-      "Working Directory" : "D:\\gigaSpaces\\gigaspaces-cloudify\\work\\processing-units\\simpleApp_simple_0_1051025036\\ext",
+      "Working Directory" : "D:\\gigaSpaces\\gigaspaces-cloudify\\work\\processing-units\\simpleApp_simple_1_1051025036\\ext",
       "url" : null
     }
   }
@@ -3834,10 +4553,10 @@
     "serviceName" : "tomcat",
     "appName" : "petclinic",
     "serviceInstanceMetricsData" : {
-      "instanceId" : 4,
+      "instanceId" : 2,
       "metrics" : {
-        "metric4" : "value4",
-        "metric5" : "value5"
+        "metric2" : "value2",
+        "metric3" : "value3"
       }
     }
   }
@@ -4051,16 +4770,16 @@
     "serviceName" : "tomcat",
     "appName" : "petclinic",
     "serviceInstaceMetricsData" : [ {
-      "instanceId" : 1,
+      "instanceId" : 2,
       "metrics" : {
         "metric2" : "value2",
-        "metric1" : "value1"
+        "metric3" : "value3"
       }
     }, {
-      "instanceId" : 4,
+      "instanceId" : 0,
       "metrics" : {
-        "metric4" : "value4",
-        "metric5" : "value5"
+        "metric0" : "value0",
+        "metric1" : "value1"
       }
     } ]
   }
@@ -4114,14 +4833,13 @@
 								</div>
 								<div class="panelContent">
 									<pre class="code">{
-  "serviceFolderUploadKey" : "981435ed-cf53-4bb0-b1cf-4ed78af6b0b1",
-  "cloudConfigurationUploadKey" : "f94f99f2-ce83-49af-8e65-26f88248f4c3",
-  "cloudOverridesUploadKey" : "b9d401ba-01c1-421c-92a8-85030c6ed166",
-  "serviceOverridesUploadKey" : "722ef4a8-3b61-40b1-b42e-41717a396be1",
+  "serviceFolderUploadKey" : "982ef94e-0ad8-4cdb-9e53-c4b40364a0d8",
+  "cloudConfigurationUploadKey" : "d5573903-e4c4-4cfd-96a0-1f8fdc433d88",
+  "cloudOverridesUploadKey" : "4d5dce78-9937-45ee-95a7-251598da185d",
+  "serviceOverridesUploadKey" : "3bd04e83-15a4-41fc-80e6-26ee13e0dddd",
   "serviceFileName" : "myService.groovy",
   "authGroups" : "myAuthGroup",
   "selfHealing" : true,
-  "timeoutInMillis" : 300000,
   "debugAll" : false,
   "debugEvents" : "init,install",
   "debugMode" : "onError"
@@ -4140,7 +4858,7 @@
   "messageId" : "operation_successfull",
   "verbose" : null,
   "response" : {
-    "deploymentID" : "7895be71-c0f6-44b8-a037-2df8b1b38d78"
+    "deploymentID" : "dbbc0502-817b-48d7-ab89-118c9aa4fa9c"
   }
 }</pre>
 								</div>
@@ -4203,7 +4921,7 @@
   "messageId" : "operation_successfull",
   "verbose" : null,
   "response" : {
-    "deploymentID" : "e5854baf-34e1-4c70-ae5a-2791304ab51c"
+    "deploymentID" : "afcddc01-373f-4429-9fdd-10777be976fd"
   }
 }</pre>
 								</div>
@@ -4408,19 +5126,19 @@
   "messageId" : "operation_successfull",
   "verbose" : null,
   "response" : [ [ {
-    "serviceName" : "service0",
-    "instanceCount" : 2,
-    "plannedInstances" : 2,
+    "serviceName" : "service1",
+    "instanceCount" : 1,
+    "plannedInstances" : 1,
     "instancesDescription" : [ {
-      "instanceName" : "petclinic.service0",
+      "instanceName" : "petclinic.service1",
       "instanceStatus" : "RUNNING",
-      "instanceId" : 0,
+      "instanceId" : 1,
       "hostName" : "build64A",
       "hostAddress" : "192.168.9.18"
     }, {
-      "instanceName" : "petclinic.service0",
+      "instanceName" : "petclinic.service1",
       "instanceStatus" : "RUNNING",
-      "instanceId" : 2,
+      "instanceId" : 3,
       "hostName" : "build64A",
       "hostAddress" : "192.168.9.18"
     } ],
@@ -4428,6 +5146,26 @@
     "serviceState" : "STARTED",
     "deploymentId" : null
   }, {
+    "serviceName" : "service2",
+    "instanceCount" : 1,
+    "plannedInstances" : 1,
+    "instancesDescription" : [ {
+      "instanceName" : "petclinic.service2",
+      "instanceStatus" : "RUNNING",
+      "instanceId" : 2,
+      "hostName" : "build64A",
+      "hostAddress" : "192.168.9.18"
+    }, {
+      "instanceName" : "petclinic.service2",
+      "instanceStatus" : "RUNNING",
+      "instanceId" : 4,
+      "hostName" : "build64A",
+      "hostAddress" : "192.168.9.18"
+    } ],
+    "applicationName" : "petclinic",
+    "serviceState" : "STARTED",
+    "deploymentId" : null
+  } ], [ {
     "serviceName" : "service1",
     "instanceCount" : 4,
     "plannedInstances" : 4,
@@ -4447,20 +5185,40 @@
     "applicationName" : "petclinic",
     "serviceState" : "STARTED",
     "deploymentId" : null
-  } ], [ {
-    "serviceName" : "service3",
-    "instanceCount" : 3,
-    "plannedInstances" : 3,
+  }, {
+    "serviceName" : "service2",
+    "instanceCount" : 1,
+    "plannedInstances" : 1,
     "instancesDescription" : [ {
-      "instanceName" : "petclinic.service3",
+      "instanceName" : "petclinic.service2",
       "instanceStatus" : "RUNNING",
-      "instanceId" : 3,
+      "instanceId" : 2,
       "hostName" : "build64A",
       "hostAddress" : "192.168.9.18"
     }, {
-      "instanceName" : "petclinic.service3",
+      "instanceName" : "petclinic.service2",
       "instanceStatus" : "RUNNING",
-      "instanceId" : 5,
+      "instanceId" : 4,
+      "hostName" : "build64A",
+      "hostAddress" : "192.168.9.18"
+    } ],
+    "applicationName" : "petclinic",
+    "serviceState" : "STARTED",
+    "deploymentId" : null
+  } ], [ {
+    "serviceName" : "service2",
+    "instanceCount" : 1,
+    "plannedInstances" : 1,
+    "instancesDescription" : [ {
+      "instanceName" : "petclinic.service2",
+      "instanceStatus" : "RUNNING",
+      "instanceId" : 2,
+      "hostName" : "build64A",
+      "hostAddress" : "192.168.9.18"
+    }, {
+      "instanceName" : "petclinic.service2",
+      "instanceStatus" : "RUNNING",
+      "instanceId" : 4,
       "hostName" : "build64A",
       "hostAddress" : "192.168.9.18"
     } ],
@@ -4468,26 +5226,6 @@
     "serviceState" : "STARTED",
     "deploymentId" : null
   }, {
-    "serviceName" : "service4",
-    "instanceCount" : 5,
-    "plannedInstances" : 5,
-    "instancesDescription" : [ {
-      "instanceName" : "petclinic.service4",
-      "instanceStatus" : "RUNNING",
-      "instanceId" : 4,
-      "hostName" : "build64A",
-      "hostAddress" : "192.168.9.18"
-    }, {
-      "instanceName" : "petclinic.service4",
-      "instanceStatus" : "RUNNING",
-      "instanceId" : 6,
-      "hostName" : "build64A",
-      "hostAddress" : "192.168.9.18"
-    } ],
-    "applicationName" : "petclinic",
-    "serviceState" : "STARTED",
-    "deploymentId" : null
-  } ], [ {
     "serviceName" : "service3",
     "instanceCount" : 4,
     "plannedInstances" : 4,
@@ -4501,26 +5239,6 @@
       "instanceName" : "petclinic.service3",
       "instanceStatus" : "RUNNING",
       "instanceId" : 5,
-      "hostName" : "build64A",
-      "hostAddress" : "192.168.9.18"
-    } ],
-    "applicationName" : "petclinic",
-    "serviceState" : "STARTED",
-    "deploymentId" : null
-  }, {
-    "serviceName" : "service4",
-    "instanceCount" : 5,
-    "plannedInstances" : 5,
-    "instancesDescription" : [ {
-      "instanceName" : "petclinic.service4",
-      "instanceStatus" : "RUNNING",
-      "instanceId" : 4,
-      "hostName" : "build64A",
-      "hostAddress" : "192.168.9.18"
-    }, {
-      "instanceName" : "petclinic.service4",
-      "instanceStatus" : "RUNNING",
-      "instanceId" : 6,
       "hostName" : "build64A",
       "hostAddress" : "192.168.9.18"
     } ],
@@ -4560,7 +5278,7 @@
 																												<td>The starting index</td>
 																		<td>false</td>
 									<td>RequestParam</td>
-																			<td>0</td>
+																			<td>1</td>
 																	</tr>
 															<tr>
 									<td>int</td>
@@ -4647,101 +5365,46 @@
   "messageId" : "operation_successfull",
   "verbose" : null,
   "response" : {
-    "events" : [ {
-      "description" : "[127.0.0.1/127.0.0.1] - tomcat-1 INIT invoked",
-      "index" : 0
-    }, {
-      "description" : "[127.0.0.1/127.0.0.1] - tomcat-1 INIT completed, duration: 4.2 seconds",
-      "index" : 1
-    } ]
+    "description" : null,
+    "index" : 0
   }
 }</pre>
 								</div>
 							</div>
 																																		<div class="header">
-				<h1>TemplatesController</h1>
-				<p class="excerpt">Mapping of URIs that begin with /{version}/templates</p>
+				<h1>ConfigController</h1>
+				<p class="excerpt">Mapping of URIs that begin with /{version}/config</p>
+									<p>ConfigRestController provides Rest implementation for Configuration.</p>
 							</div>
 			<div class="separator"></div>
-																<h2 id="REST_API-/{version}/templates"><a class="permalink" title="Get a permanent link to this section" href="#REST_API-/{version}/templates">/{version}/templates</a></h2>				
+																<h2 id="REST_API-/{version}/config/compute"><a class="permalink" title="Get a permanent link to this section" href="#REST_API-/{version}/config/compute">/{version}/config/compute</a></h2>				
 												<h3>HTTP Methods</h3>
 									<h4>POST</h4>
-											<p>Add templates from templates folder to the cloud. Returns a response in case of success or partial failure.</p>
-																															<h3>Parameters</h3>
-						<table>
-							<tr>
-								<th>Type</th>
-								<th>Name</th>
-								<th>Description</th>
-								<th>Mandatory</th>
-								<th>Parameter type</th>
-								<th>Default value</th>
-							</tr>
-															<tr>
-									<td>AddTemplatesRequest</td>
-																			<td>request</td>
-																												<td>{@link AddTemplatesRequest}</td>
-																		<td>true</td>
-									<td>RequestBody</td>
-																			<td></td>
-																	</tr>
-													</table>
-																															<h3>Request</h3>
+											<p>add compute template.</p>
+																																																			<h3>Request</h3>
 							<div class="panel">
 								<div class="panelHeader">
-									Request body for a POST on /{version}/templates
+									Request body for a POST on /{version}/config/compute
 								</div>
 								<div class="panelContent">
-									<pre class="code">{
-  "uploadKey" : "a0007db6-6cf0-4093-99d1-c8d7bf60d4cd"
-}</pre>
+									<pre class="code">request has no body</pre>
 								</div>
 							</div>
 																																											<h3>Response</h3>
 							<div class="panel">
 								<div class="panelHeader">
-									Response to a POST on /{version}/templates
+									Response to a POST on /{version}/config/compute
 								</div>	
 								<div class="panelContent">
-										<pre class="code">{
-  "status" : "PartialFailure",
-  "message" : "partial failure - not all the expected templates were added to all REST instances.",
-  "messageId" : "partly_failed_to_add_templates",
-  "verbose" : {
-    "templates" : {
-      "SMALL_UBUNTU" : {
-        "failedToAddHosts" : {
-          "192.168.9.12" : "template already exists",
-          "192.168.9.16" : "template already exists"
-        },
-        "successfullyAddedHosts" : [ "192.168.9.15" ]
-      },
-      "SMALL_SUSE" : {
-        "failedToAddHosts" : { },
-        "successfullyAddedHosts" : [ "192.168.9.12", "192.168.9.16", "192.168.9.15" ]
-      },
-      "SMALL_LINUX" : {
-        "failedToAddHosts" : {
-          "192.168.9.12" : "template already exists",
-          "192.168.9.15" : "template already exists",
-          "192.168.9.16" : "template already exists"
-        },
-        "successfullyAddedHosts" : [ ]
-      }
-    },
-    "instances" : [ "192.168.9.12", "192.168.9.16", "192.168.9.15" ],
-    "status" : "PARTIAL_FAILURE"
-  },
-  "response" : null
-}</pre>
+										<pre class="code">response has no body</pre>
 								</div>
 							</div>
 																															<h4>GET</h4>
-											<p>Get the cloud's templates.</p>
+											<p>get all compute template.</p>
 																																																			<h3>Request</h3>
 							<div class="panel">
 								<div class="panelHeader">
-									Request body for a GET on /{version}/templates
+									Request body for a GET on /{version}/config/compute
 								</div>
 								<div class="panelContent">
 									<pre class="code">request has no body</pre>
@@ -4750,386 +5413,120 @@
 																																											<h3>Response</h3>
 							<div class="panel">
 								<div class="panelHeader">
-									Response to a GET on /{version}/templates
-								</div>	
-								<div class="panelContent">
-										<pre class="code">{
-  "status" : "Success",
-  "message" : "Operation completed successfully",
-  "messageId" : "operation_successfull",
-  "verbose" : null,
-  "response" : {
-    "templates" : {
-      "MY_TEMPLATE_1" : {
-        "imageId" : "eu-west-1/ami-c1aaabb5",
-        "machineMemoryMB" : 1600,
-        "hardwareId" : "m1.small",
-        "locationId" : "eu-west-1",
-        "localDirectory" : "upload",
-        "keyFile" : "key-file.pem",
-        "numberOfCores" : 1,
-        "options" : {
-          "keyPair" : "key-pair-eu",
-          "securityGroups" : [ "default" ]
-        },
-        "overrides" : { },
-        "custom" : { },
-        "fileTransfer" : "SFTP",
-        "remoteExecution" : "SSH",
-        "scriptLanguage" : "LINUX_SHELL",
-        "username" : "my_template_1",
-        "password" : null,
-        "remoteDirectory" : "upload",
-        "privileged" : true,
-        "initializationCommand" : null,
-        "javaUrl" : null,
-        "absoluteUploadDir" : null,
-        "env" : { },
-        "installer" : {
-          "connectionTestRouteResolutionTimeoutMillis" : 120000,
-          "connectionTestIntervalMillis" : 5000,
-          "connectionTestConnectTimeoutMillis" : 10000,
-          "fileTransferConnectionTimeoutMillis" : 10000,
-          "fileTransferRetries" : 3,
-          "fileTransferPort" : -1,
-          "fileTransferConnectionRetryIntervalMillis" : 5000,
-          "remoteExecutionPort" : -1,
-          "remoteExecutionConnectionTimeoutMillis" : 10000
-        }
-      }
-    }
-  }
-}</pre>
-								</div>
-							</div>
-																																	<h2 id="REST_API-/{version}/templates/{templateName}"><a class="permalink" title="Get a permanent link to this section" href="#REST_API-/{version}/templates/{templateName}">/{version}/templates/{templateName}</a></h2>				
-												<h3>HTTP Methods</h3>
-									<h4>GET</h4>
-											<p>Get template from the cloud.</p>
-																															<h3>Parameters</h3>
-						<table>
-							<tr>
-								<th>Type</th>
-								<th>Name</th>
-								<th>Description</th>
-								<th>Mandatory</th>
-								<th>Parameter type</th>
-								<th>Default value</th>
-							</tr>
-															<tr>
-									<td>String</td>
-																			<td>templateName</td>
-																												<td>The name of the template to get</td>
-																		<td>true</td>
-									<td>PathVariable</td>
-																			<td></td>
-																	</tr>
-													</table>
-																															<h3>Request</h3>
-							<div class="panel">
-								<div class="panelHeader">
-									Request body for a GET on /{version}/templates/{templateName}
-								</div>
-								<div class="panelContent">
-									<pre class="code">request has no body</pre>
-								</div>
-							</div>
-																																											<h3>Response</h3>
-							<div class="panel">
-								<div class="panelHeader">
-									Response to a GET on /{version}/templates/{templateName}
-								</div>	
-								<div class="panelContent">
-										<pre class="code">{
-  "status" : "Success",
-  "message" : "Operation completed successfully",
-  "messageId" : "operation_successfull",
-  "verbose" : null,
-  "response" : {
-    "template" : {
-      "imageId" : "eu-west-1/ami-c1aaabb5",
-      "machineMemoryMB" : 1600,
-      "hardwareId" : "m1.small",
-      "locationId" : "eu-west-1",
-      "localDirectory" : "upload",
-      "keyFile" : "key-file.pem",
-      "numberOfCores" : 1,
-      "options" : {
-        "keyPair" : "key-pair-eu",
-        "securityGroups" : [ "default" ]
-      },
-      "overrides" : { },
-      "custom" : { },
-      "fileTransfer" : "SFTP",
-      "remoteExecution" : "SSH",
-      "scriptLanguage" : "LINUX_SHELL",
-      "username" : "my_template_2",
-      "password" : null,
-      "remoteDirectory" : "upload",
-      "privileged" : true,
-      "initializationCommand" : null,
-      "javaUrl" : null,
-      "absoluteUploadDir" : null,
-      "env" : { },
-      "installer" : {
-        "connectionTestRouteResolutionTimeoutMillis" : 120000,
-        "connectionTestIntervalMillis" : 5000,
-        "connectionTestConnectTimeoutMillis" : 10000,
-        "fileTransferConnectionTimeoutMillis" : 10000,
-        "fileTransferRetries" : 3,
-        "fileTransferPort" : -1,
-        "fileTransferConnectionRetryIntervalMillis" : 5000,
-        "remoteExecutionPort" : -1,
-        "remoteExecutionConnectionTimeoutMillis" : 10000
-      }
-    }
-  }
-}</pre>
-								</div>
-							</div>
-																															<h4>DELETE</h4>
-											<p>Removes a template from the cloud.</p>
-																															<h3>Parameters</h3>
-						<table>
-							<tr>
-								<th>Type</th>
-								<th>Name</th>
-								<th>Description</th>
-								<th>Mandatory</th>
-								<th>Parameter type</th>
-								<th>Default value</th>
-							</tr>
-															<tr>
-									<td>String</td>
-																			<td>templateName</td>
-																												<td>The name of the template to remove</td>
-																		<td>true</td>
-									<td>PathVariable</td>
-																			<td></td>
-																	</tr>
-													</table>
-																															<h3>Request</h3>
-							<div class="panel">
-								<div class="panelHeader">
-									Request body for a DELETE on /{version}/templates/{templateName}
-								</div>
-								<div class="panelContent">
-									<pre class="code">request has no body</pre>
-								</div>
-							</div>
-																																											<h3>Response</h3>
-							<div class="panel">
-								<div class="panelHeader">
-									Response to a DELETE on /{version}/templates/{templateName}
-								</div>	
-								<div class="panelContent">
-										<pre class="code">response has no body</pre>
-								</div>
-							</div>
-																																		<div class="header">
-				<h1>UploadController</h1>
-				<p class="excerpt">Mapping of URIs that begin with /{version}/upload</p>
-									<p>A controller for uploading files for future deployments.
- Each uploaded file will be available for {@link CloudifyConstants#DEFAULT_UPLOAD_TIMEOUT_MILLIS} seconds.
- The timeout can be edited via {@link UploadRepo#setCleanupTimeoutMillis(int)}.</p>
-							</div>
-			<div class="separator"></div>
-																<h2 id="REST_API-/{version}/upload/{fileName:.+}"><a class="permalink" title="Get a permanent link to this section" href="#REST_API-/{version}/upload/{fileName:.+}">/{version}/upload/{fileName:.+}</a></h2>				
-												<h3>HTTP Methods</h3>
-									<h4>POST</h4>
-											<p>Uploading a file to be used in future deployments.
- The file will be kept at least {@link UploadRepo#TIMEOUT_SECOND} seconds.</p>
-																															<h3>Parameters</h3>
-						<table>
-							<tr>
-								<th>Type</th>
-								<th>Name</th>
-								<th>Description</th>
-								<th>Mandatory</th>
-								<th>Parameter type</th>
-								<th>Default value</th>
-							</tr>
-															<tr>
-									<td>String</td>
-																			<td>fileName</td>
-																												<td>the name of the file to upload</td>
-																		<td>true</td>
-									<td>PathVariable</td>
-																			<td></td>
-																	</tr>
-															<tr>
-									<td>MultipartFile</td>
-																			<td>file</td>
-																												<td>the file to upload</td>
-																		<td>true</td>
-									<td>RequestParam</td>
-																			<td></td>
-																	</tr>
-													</table>
-																															<h3>Request</h3>
-							<div class="panel">
-								<div class="panelHeader">
-									Request body for a POST on /{version}/upload/{fileName:.+}
-								</div>
-								<div class="panelContent">
-									<pre class="code">"file's content"</pre>
-								</div>
-							</div>
-																																											<h3>Response</h3>
-							<div class="panel">
-								<div class="panelHeader">
-									Response to a POST on /{version}/upload/{fileName:.+}
-								</div>	
-								<div class="panelContent">
-										<pre class="code">{
-  "status" : "Success",
-  "message" : "Operation completed successfully",
-  "messageId" : "operation_successfull",
-  "verbose" : null,
-  "response" : {
-    "uploadKey" : "aa39eb33-7d41-43e1-91ab-675dcfad3695"
-  }
-}</pre>
-								</div>
-							</div>
-																																		<div class="header">
-				<h1>AlertController</h1>
-				<p class="excerpt">Mapping of URIs that begin with /{version}/alerts</p>
-									<p>AlertsRestController provides Rest implementation for Alerts.</p>
-							</div>
-			<div class="separator"></div>
-																<h2 id="REST_API-/{version}/alerts/"><a class="permalink" title="Get a permanent link to this section" href="#REST_API-/{version}/alerts/">/{version}/alerts/</a></h2>				
-												<h3>HTTP Methods</h3>
-									<h4>GET</h4>
-											<p>get manager alerts.</p>
-																																																			<h3>Request</h3>
-							<div class="panel">
-								<div class="panelHeader">
-									Request body for a GET on /{version}/alerts/
-								</div>
-								<div class="panelContent">
-									<pre class="code">request has no body</pre>
-								</div>
-							</div>
-																																											<h3>Response</h3>
-							<div class="panel">
-								<div class="panelHeader">
-									Response to a GET on /{version}/alerts/
-								</div>	
-								<div class="panelContent">
-										<pre class="code">response has no body</pre>
-								</div>
-							</div>
-																																		<div class="header">
-				<h1>RepoController</h1>
-				<p class="excerpt">Mapping of URIs that begin with /{version}/repo</p>
-									<p>RepoController provides Rest implementation for The Recipes stored for users to use. <br></p>
-							</div>
-			<div class="separator"></div>
-																<h2 id="REST_API-/{version}/repo/apps"><a class="permalink" title="Get a permanent link to this section" href="#REST_API-/{version}/repo/apps">/{version}/repo/apps</a></h2>				
-												<h3>HTTP Methods</h3>
-									<h4>POST</h4>
-											<p>push application recipe .</p>
-																																																			<h3>Request</h3>
-							<div class="panel">
-								<div class="panelHeader">
-									Request body for a POST on /{version}/repo/apps
-								</div>
-								<div class="panelContent">
-									<pre class="code">request has no body</pre>
-								</div>
-							</div>
-																																											<h3>Response</h3>
-							<div class="panel">
-								<div class="panelHeader">
-									Response to a POST on /{version}/repo/apps
-								</div>	
-								<div class="panelContent">
-										<pre class="code">response has no body</pre>
-								</div>
-							</div>
-																																	<h2 id="REST_API-/{version}/repo/apps/{appName}"><a class="permalink" title="Get a permanent link to this section" href="#REST_API-/{version}/repo/apps/{appName}">/{version}/repo/apps/{appName}</a></h2>				
-												<h3>HTTP Methods</h3>
-									<h4>GET</h4>
-											<p>get application recipe given name.</p>
-																															<h3>Parameters</h3>
-						<table>
-							<tr>
-								<th>Type</th>
-								<th>Name</th>
-								<th>Description</th>
-								<th>Mandatory</th>
-								<th>Parameter type</th>
-								<th>Default value</th>
-							</tr>
-															<tr>
-									<td>String</td>
-																			<td>appName</td>
-																												<td>the application name</td>
-																		<td>true</td>
-									<td>PathVariable</td>
-																			<td></td>
-																	</tr>
-													</table>
-																															<h3>Request</h3>
-							<div class="panel">
-								<div class="panelHeader">
-									Request body for a GET on /{version}/repo/apps/{appName}
-								</div>
-								<div class="panelContent">
-									<pre class="code">request has no body</pre>
-								</div>
-							</div>
-																																											<h3>Response</h3>
-							<div class="panel">
-								<div class="panelHeader">
-									Response to a GET on /{version}/repo/apps/{appName}
-								</div>	
-								<div class="panelContent">
-										<pre class="code">response has no body</pre>
-								</div>
-							</div>
-																															<h4>PUT</h4>
-											<p>update application recipe given name.</p>
-																															<h3>Parameters</h3>
-						<table>
-							<tr>
-								<th>Type</th>
-								<th>Name</th>
-								<th>Description</th>
-								<th>Mandatory</th>
-								<th>Parameter type</th>
-								<th>Default value</th>
-							</tr>
-															<tr>
-									<td>String</td>
-																			<td>appName</td>
-																												<td>the application name</td>
-																		<td>true</td>
-									<td>PathVariable</td>
-																			<td></td>
-																	</tr>
-													</table>
-																															<h3>Request</h3>
-							<div class="panel">
-								<div class="panelHeader">
-									Request body for a PUT on /{version}/repo/apps/{appName}
-								</div>
-								<div class="panelContent">
-									<pre class="code">request has no body</pre>
-								</div>
-							</div>
-																																											<h3>Response</h3>
-							<div class="panel">
-								<div class="panelHeader">
-									Response to a PUT on /{version}/repo/apps/{appName}
+									Response to a GET on /{version}/config/compute
 								</div>	
 								<div class="panelContent">
 										<pre class="code">response has no body</pre>
 								</div>
 							</div>
 																															<h4>DELETE</h4>
-											<p>delete application recipe given name.</p>
+											<p>delete compute template.</p>
+																																																			<h3>Request</h3>
+							<div class="panel">
+								<div class="panelHeader">
+									Request body for a DELETE on /{version}/config/compute
+								</div>
+								<div class="panelContent">
+									<pre class="code">request has no body</pre>
+								</div>
+							</div>
+																																											<h3>Response</h3>
+							<div class="panel">
+								<div class="panelHeader">
+									Response to a DELETE on /{version}/config/compute
+								</div>	
+								<div class="panelContent">
+										<pre class="code">response has no body</pre>
+								</div>
+							</div>
+																																	<h2 id="REST_API-/{version}/config/loadbalancer"><a class="permalink" title="Get a permanent link to this section" href="#REST_API-/{version}/config/loadbalancer">/{version}/config/loadbalancer</a></h2>				
+												<h3>HTTP Methods</h3>
+									<h4>POST</h4>
+											<p>add load balancer template.</p>
+																																																			<h3>Request</h3>
+							<div class="panel">
+								<div class="panelHeader">
+									Request body for a POST on /{version}/config/loadbalancer
+								</div>
+								<div class="panelContent">
+									<pre class="code">request has no body</pre>
+								</div>
+							</div>
+																																											<h3>Response</h3>
+							<div class="panel">
+								<div class="panelHeader">
+									Response to a POST on /{version}/config/loadbalancer
+								</div>	
+								<div class="panelContent">
+										<pre class="code">response has no body</pre>
+								</div>
+							</div>
+																															<h4>GET</h4>
+											<p>get all load balancer templates.</p>
+																																																			<h3>Request</h3>
+							<div class="panel">
+								<div class="panelHeader">
+									Request body for a GET on /{version}/config/loadbalancer
+								</div>
+								<div class="panelContent">
+									<pre class="code">request has no body</pre>
+								</div>
+							</div>
+																																											<h3>Response</h3>
+							<div class="panel">
+								<div class="panelHeader">
+									Response to a GET on /{version}/config/loadbalancer
+								</div>	
+								<div class="panelContent">
+										<pre class="code">response has no body</pre>
+								</div>
+							</div>
+																															<h4>DELETE</h4>
+											<p>delete load balancer templates.</p>
+																																																			<h3>Request</h3>
+							<div class="panel">
+								<div class="panelHeader">
+									Request body for a DELETE on /{version}/config/loadbalancer
+								</div>
+								<div class="panelContent">
+									<pre class="code">request has no body</pre>
+								</div>
+							</div>
+																																											<h3>Response</h3>
+							<div class="panel">
+								<div class="panelHeader">
+									Response to a DELETE on /{version}/config/loadbalancer
+								</div>	
+								<div class="panelContent">
+										<pre class="code">response has no body</pre>
+								</div>
+							</div>
+																																	<h2 id="REST_API-/{version}/config/network"><a class="permalink" title="Get a permanent link to this section" href="#REST_API-/{version}/config/network">/{version}/config/network</a></h2>				
+												<h3>HTTP Methods</h3>
+									<h4>POST</h4>
+											<p>add network template.</p>
+																																																			<h3>Request</h3>
+							<div class="panel">
+								<div class="panelHeader">
+									Request body for a POST on /{version}/config/network
+								</div>
+								<div class="panelContent">
+									<pre class="code">request has no body</pre>
+								</div>
+							</div>
+																																											<h3>Response</h3>
+							<div class="panel">
+								<div class="panelHeader">
+									Response to a POST on /{version}/config/network
+								</div>	
+								<div class="panelContent">
+										<pre class="code">response has no body</pre>
+								</div>
+							</div>
+																																	<h2 id="REST_API-/{version}/config/network/{networkName}"><a class="permalink" title="Get a permanent link to this section" href="#REST_API-/{version}/config/network/{networkName}">/{version}/config/network/{networkName}</a></h2>				
+												<h3>HTTP Methods</h3>
+									<h4>GET</h4>
+											<p>get all network template.</p>
 																															<h3>Parameters</h3>
 						<table>
 							<tr>
@@ -5142,8 +5539,8 @@
 							</tr>
 															<tr>
 									<td>String</td>
-																			<td>appName</td>
-																												<td>the application name</td>
+																			<td>networkName</td>
+																												<td>the network name</td>
 																		<td>true</td>
 									<td>PathVariable</td>
 																			<td></td>
@@ -5152,7 +5549,7 @@
 																															<h3>Request</h3>
 							<div class="panel">
 								<div class="panelHeader">
-									Request body for a DELETE on /{version}/repo/apps/{appName}
+									Request body for a GET on /{version}/config/network/{networkName}
 								</div>
 								<div class="panelContent">
 									<pre class="code">request has no body</pre>
@@ -5161,7 +5558,130 @@
 																																											<h3>Response</h3>
 							<div class="panel">
 								<div class="panelHeader">
-									Response to a DELETE on /{version}/repo/apps/{appName}
+									Response to a GET on /{version}/config/network/{networkName}
+								</div>	
+								<div class="panelContent">
+										<pre class="code">response has no body</pre>
+								</div>
+							</div>
+																															<h4>DELETE</h4>
+											<p>delete network template.</p>
+																															<h3>Parameters</h3>
+						<table>
+							<tr>
+								<th>Type</th>
+								<th>Name</th>
+								<th>Description</th>
+								<th>Mandatory</th>
+								<th>Parameter type</th>
+								<th>Default value</th>
+							</tr>
+															<tr>
+									<td>String</td>
+																			<td>networkName</td>
+																												<td>the network name</td>
+																		<td>true</td>
+									<td>PathVariable</td>
+																			<td></td>
+																	</tr>
+													</table>
+																															<h3>Request</h3>
+							<div class="panel">
+								<div class="panelHeader">
+									Request body for a DELETE on /{version}/config/network/{networkName}
+								</div>
+								<div class="panelContent">
+									<pre class="code">request has no body</pre>
+								</div>
+							</div>
+																																											<h3>Response</h3>
+							<div class="panel">
+								<div class="panelHeader">
+									Response to a DELETE on /{version}/config/network/{networkName}
+								</div>	
+								<div class="panelContent">
+										<pre class="code">response has no body</pre>
+								</div>
+							</div>
+																																	<h2 id="REST_API-/{version}/config/securitygroups"><a class="permalink" title="Get a permanent link to this section" href="#REST_API-/{version}/config/securitygroups">/{version}/config/securitygroups</a></h2>				
+												<h3>HTTP Methods</h3>
+									<h4>POST</h4>
+											<p>add security group template.</p>
+																																																			<h3>Request</h3>
+							<div class="panel">
+								<div class="panelHeader">
+									Request body for a POST on /{version}/config/securitygroups
+								</div>
+								<div class="panelContent">
+									<pre class="code">request has no body</pre>
+								</div>
+							</div>
+																																											<h3>Response</h3>
+							<div class="panel">
+								<div class="panelHeader">
+									Response to a POST on /{version}/config/securitygroups
+								</div>	
+								<div class="panelContent">
+										<pre class="code">response has no body</pre>
+								</div>
+							</div>
+																																	<h2 id="REST_API-/{version}/config/storage"><a class="permalink" title="Get a permanent link to this section" href="#REST_API-/{version}/config/storage">/{version}/config/storage</a></h2>				
+												<h3>HTTP Methods</h3>
+									<h4>POST</h4>
+											<p>add storage templates.</p>
+																																																			<h3>Request</h3>
+							<div class="panel">
+								<div class="panelHeader">
+									Request body for a POST on /{version}/config/storage
+								</div>
+								<div class="panelContent">
+									<pre class="code">request has no body</pre>
+								</div>
+							</div>
+																																											<h3>Response</h3>
+							<div class="panel">
+								<div class="panelHeader">
+									Response to a POST on /{version}/config/storage
+								</div>	
+								<div class="panelContent">
+										<pre class="code">response has no body</pre>
+								</div>
+							</div>
+																															<h4>GET</h4>
+											<p>get all storage templates.</p>
+																																																			<h3>Request</h3>
+							<div class="panel">
+								<div class="panelHeader">
+									Request body for a GET on /{version}/config/storage
+								</div>
+								<div class="panelContent">
+									<pre class="code">request has no body</pre>
+								</div>
+							</div>
+																																											<h3>Response</h3>
+							<div class="panel">
+								<div class="panelHeader">
+									Response to a GET on /{version}/config/storage
+								</div>	
+								<div class="panelContent">
+										<pre class="code">response has no body</pre>
+								</div>
+							</div>
+																															<h4>DELETE</h4>
+											<p>delete storage templates.</p>
+																																																			<h3>Request</h3>
+							<div class="panel">
+								<div class="panelHeader">
+									Request body for a DELETE on /{version}/config/storage
+								</div>
+								<div class="panelContent">
+									<pre class="code">request has no body</pre>
+								</div>
+							</div>
+																																											<h3>Response</h3>
+							<div class="panel">
+								<div class="panelHeader">
+									Response to a DELETE on /{version}/config/storage
 								</div>	
 								<div class="panelContent">
 										<pre class="code">response has no body</pre>
@@ -6620,5 +7140,33 @@
 																													<ul>
 																					<li>Returns "200 OK" - success.</li>
 																			</ul>
-															</body>
+																	<div class="header">
+				<h1>AlertController</h1>
+				<p class="excerpt">Mapping of URIs that begin with /{version}/alerts</p>
+									<p>AlertsRestController provides Rest implementation for Alerts.</p>
+							</div>
+			<div class="separator"></div>
+																<h2 id="REST_API-/{version}/alerts/"><a class="permalink" title="Get a permanent link to this section" href="#REST_API-/{version}/alerts/">/{version}/alerts/</a></h2>				
+												<h3>HTTP Methods</h3>
+									<h4>GET</h4>
+											<p>get manager alerts.</p>
+																																																			<h3>Request</h3>
+							<div class="panel">
+								<div class="panelHeader">
+									Request body for a GET on /{version}/alerts/
+								</div>
+								<div class="panelContent">
+									<pre class="code">request has no body</pre>
+								</div>
+							</div>
+																																											<h3>Response</h3>
+							<div class="panel">
+								<div class="panelHeader">
+									Response to a GET on /{version}/alerts/
+								</div>	
+								<div class="panelContent">
+										<pre class="code">response has no body</pre>
+								</div>
+							</div>
+																																</body>
 </html>
