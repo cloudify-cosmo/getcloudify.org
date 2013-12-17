@@ -19,11 +19,11 @@ h2(#bootstrap). Bootstrapping a Cloud
 
 <img src="../../images/clouddrivers/bootstrapping.png"/>
 
-In this scenario, the cloud driver resides on the client machine as no management machines with the Cloudify controller exist. At the Cloudify shell prompt, the user runs the bootstrap command specifying a cloud driver implementation. The cloud driver is instantiated by the shell, and now the shell passes the *Driver Reference* to its configuration object (org.cloudifysource.dsl.cloud.Cloud) by calling the @setConfig@ method.
+In this scenario, the cloud driver resides on the client machine as no management machines with the Cloudify controller exist. At the Cloudify shell prompt, the user runs the bootstrap command specifying a cloud driver implementation. The cloud driver is instantiated by the shell, and now the shell passes the *Driver Configuration* (org.cloudifysource.dsl.cloud.Cloud) by calling the @setConfig@ method.
 
 <script src="https://gist.github.com/2043019.js?file=setConfig.java"></script>
 
-Next, the shell invokes the cloud driver's @startManagementMachines@ method, which in turn calls the cloud's IaaS API (using the API security settings) to get the required management machines. The cloud API returns an array of MachineDetails (org.cloudifysource.esc.driver.provisioning.MachineDetails) with connction details for each of the allocated management machines. The details are used by the shell to connect to the machines and install the Cloudify management components. Finally, Cloudify starts the following Cloudify controller components: ESM(Elastic Service Manager), GSM(General Service Manager), LUS(Lookup Service) and the Management Space. It will also start the web management container and the REST API container.
+Next, the shell invokes the cloud driver's @startManagementMachines@ method, which is responsible for allocating resources, for instance using a Cloud IaaS API (using the API security settings) to get the required management machines. The cloud API returns an array of MachineDetails (org.cloudifysource.esc.driver.provisioning.MachineDetails) with connction details for each of the allocated management machines. By default, the details are used by the shell to connect to the machines and install the Cloudify management components. A cloud driver may choose to override the default installation process and create a custom one. Finally, Cloudify starts the following Cloudify controller components: Orchestrator(ESM), Deployer(GSM), Discovery(LUS) and the Management Space. It will also start the web management container and the REST API container.
 
 <script src="https://gist.github.com/2043033.js?file=createServer.java"></script>
 
@@ -31,15 +31,15 @@ h2(#install). Installing an Application
 
 <img src="../../images/clouddrivers/installApplication.png"/>
 
-In this scenario, the cloud driver resides on the server machine. Once the controller is instructed to install an application, it instructs the cloud driver to start the number of application machines described in the recipe. To acheive this, the cloud driver first gets the Admin object so that it can report the public IP addresses of the allocated application machines and other details. This is achieved by the controller calling the setAdmin method.
+In this scenario, the cloud driver resides on the server machine. Once the controller is instructed to install an application, it instructs the cloud driver to start the number of application machines described in the recipe. The cloud driver running in the management machine is first passed an ‘Admin’ object, using setAdmin() which is useful for querying the current state of the Cloudify cluster. It is then passed the Cloud configuration using setCloud().
 Next, the controller invokes the cloud driver's @startMachine@ method, once for each machine that must be provisioned, until all the required machines are up and running with Cloudify agent registered with the LUS, or until the request times out.
 
 The @startMachine@ uses the following steps:
-# Calls the IaaS API
-# Polls the API for the machine details
-# Pings the machine to makes sure its accessible
-# Connects to the machine over SSH
-# Installs and starts the following Cloudify agent components: GSA and GSC
+# Call the IaaS API to create a new compute instance.
+# Poll the Cloud API until the compute instance becomes available.
+# Optionally, ‘Ping’ the compute instance until it becomes available on the network (this is typically done by attempting to connect to a well-known port like 22 (SSH) or 3389 (RDP).
+# Return the details required to connect to the new compute instance, including IP, credentials, etc.
+# At this point, the Cloudify controller will install the Cloudify components on the new node.
 
 The driver gets the machine information from the template attributes (corresponding to the requested template name) defined in the configuration object.
 
@@ -57,7 +57,7 @@ You can script inline or point to an uploaded script as shown in the following e
 
 h5(#ftr). File Transfer 
  
-You can specify how you want to transfer files to the remote machines :  SCP, SFTP or Windows protocol.
+You can specify how you want to transfer files to the remote machines :  SCP, SFTP or CIFS (Windows file sharing).
 
 <script src="https://gist.github.com/4167436.js?file=fileTransfer.groovy"></script>
 
@@ -83,7 +83,7 @@ h2(#uninstall). Uninstalling an Application
 
 <img src="../../images/clouddrivers/uninstallApplication.png"/>
 
-In this scenario, the cloud driver resides on the server machine. Once the controller is instructed to uninstall a deployed application, it stops the application's services and instructs the cloud driver to unininstall the machines used by the services. This is achieved by the controller calling the cloud driver's @stopMachine@ method, which in turn calls the cloud's IaaS API and instruct it to stop the relevant machines. 
+In this scenario, the cloud driver resides on the server machine. Once the controller is instructed to uninstall a deployed application, it stops the application's services and instructs the cloud driver to unininstall the machines used by the services. This is achieved by the controller calling the cloud driver's @stopMachine@ method, which is responsible for deallocating resources, for instance using Cloud IaaS API or a resource pool mechanism. 
 
 <script src="https://gist.github.com/2043076.js?file=stopMachine.java"></script>
 
