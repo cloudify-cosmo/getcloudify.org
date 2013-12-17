@@ -81,5 +81,5 @@ requires a new groovy file placed in the @<cloudifyRoot>/clouds/cloudProviderNam
 
 h2. Changing the startup script 
 
-Once a new machine is available, a startup script is executed on the remote machine over SSH. The script is responsible for downloading and installing Cloudify, and then starting the Cloudify agent. In some implementations, you may need to tweak this process to fit the requirements of specific environments (e.g., system proxies, mount points, and paths). You can use the default startup script (@<cloudifyRoot>/clouds/ec2/upload/bootstrap-management.sh@), which works with the built-in cloud driver as a reference. Simply place the modified script in the @<cloudifyRoot>/clouds/cloudProviderName/update@ folder.
+Once a new machine is available, a startup script is executed on the remote machine over SSH. The script is responsible for downloading and installing Cloudify, and then starting the Cloudify agent. In some implementations, you may need to tweak this process to fit the requirements of specific environments (e.g., system proxies, mount points, and paths). You can use the default startup script (@<cloudifyRoot>/clouds/ec2/upload/bootstrap-management.sh@), which works with the built-in cloud driver as a reference. Simply place the modified script in the @<cloudifyRoot>/clouds/cloudProviderName/upload@ folder.
 
