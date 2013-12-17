@@ -30,7 +30,7 @@ h3(#key). Generate a API Key and Secret Key
 # Click on View Users
 # Select the user
 # Click on generate keys icon and you'll be able to see them in the detail View
-!../../images/cloudstack/create_api_key_and_secret_key.png!
+!/images/cloudstack/create_api_key_and_secret_key.png!
 
 h4(info). The generated key pairs will be used later with your driver configuration to communicate with the CloudStack Rest API.
 
@@ -38,7 +38,8 @@ h3(#driver). Configure the Cloudify cloud driver configuration file
 
 First, download the [Cloudify CloudStcak driver files](https://github.com/CloudifySource/cloudify-cloud-drivers/tree/master/cloudstack) and place them in @<cloudifyRoot>/clouds/cloudstack/@
 Edit the CloudStack cloud driver configuration file (@cloudstack-cloud.properties@) and modify the following attributes:
-```
+
+<pre class='prettyprint'>
 //CloudStack API Key
 apiKey="API_KEY"
 //CloudStack Secret Key
@@ -68,10 +69,10 @@ linuxImageId="5"
 
 //The network ID 
 networkId="NETWORK_ID"
-```
+</pre>
 
 You can obtain your *API Key* and *Secret Key* from the Account section of the CloudStack web console, as follows:
-!../../images/cloudstack/api_keys_citrix_cloud_services.png!
+!/images/cloudstack/api_keys_citrix_cloud_services.png!
 <h4 class="impt">Note that the *Secret Key* must correspond to the *API Key* specified in the *user* attribute.</h4>
 
 <br/>
