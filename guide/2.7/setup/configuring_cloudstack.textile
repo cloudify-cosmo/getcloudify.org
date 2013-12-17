@@ -11,10 +11,10 @@ This topic provides instructions for configuring CloudStack Cloud for Cloudify.
 
 h2. Prerequisites
 
-* An "(newwindow)CloudStack Cloud":http://www.citrix.com/products/cloudplatform/overview.html account
+* A "(newwindow)CloudStack Cloud":http://www.citrix.com/products/cloudplatform/overview.html account
 * Cloudify shell (for information about installing the Cloudify shell, see "Installing the Cloudify Shell":../setup/installing_the_cloudify_client)
 
-h2. Configuring an CloudStack Cloud
+h2. Configuring a CloudStack Cloud
 
 This section provides step-by-step instructions for the following configuration tasks:
 
@@ -36,26 +36,48 @@ h4(info). The generated key pairs will be used later with your driver configurat
 
 h3(#driver). Configure the Cloudify cloud driver configuration file
 
-Edit the CloudStack cloud driver configuration file (@openstack-cloud.groovy@) located in the @<cloudifyRoot>/clouds/openstack/@ folder, and modify the following attributes:
-* In the *provider* section: 
-** *machineNamePrefix*--The value that you specify is used as the name prefix for each of your service instances.
-** *managementGroup*--The value that you specify is used as the name prefix for each of your management instances.
-* In the *user* section:
-** *user*--Specify your *API Key*.
-** *apiKey*--Specify your corresponding *Secret Key*.
+First, download the [Cloudify CloudStcak driver files](https://github.com/CloudifySource/cloudify-cloud-drivers/tree/master/cloudstack) and place them in @<cloudifyRoot>/clouds/cloudstack/@
+Edit the CloudStack cloud driver configuration file (@cloudstack-cloud.properties@) and modify the following attributes:
+```
+//CloudStack API Key
+apiKey="API_KEY"
+//CloudStack Secret Key
+secretKey="SECRET_KEY"
+
+persistencePath="/var/cloudifyManagerState"
+
+//The API Endpoint 
+jcloudsEndpoint="CLOUDSTACK_ENDPOINT"
+	
+defaultSecurityGroup="default"
+
+//The Hardware ID
+hardwareId="HARDWARE_ID"
+
+//The SSH user
+userName="SSH_USER"
+//The SSH password 
+password="SSH_PASSWORD"
+
+remoteUploadDirectory="/opt/cloudify"
+localUploadDirectory="upload"
+
+//The Image ID dest 
+linuxImageIdDestinationManagement="IMAGE_ID_DEST"
+linuxImageId="5"
+
+//The network ID 
+networkId="NETWORK_ID"
+```
+
 You can obtain your *API Key* and *Secret Key* from the Account section of the CloudStack web console, as follows:
 !../../images/cloudstack/api_keys_citrix_cloud_services.png!
 <h4 class="impt">Note that the *Secret Key* must correspond to the *API Key* specified in the *user* attribute.</h4>
 
-* In the *templates* section:  				 
-** *imageId*--Specify the *Citrix Install Image ID*.
-** *hardwareId*--Specify the Citrix *Machine Size*.
-** *options* ("jclouds":http://www.jclouds.org/documentation)
-*** *securityGroups*--Specify security groups to determine whether network ports are opened or blocked on your instances.
-*** *jclouds.endpoint*--Specify the Rest API url e.g. @http://<server address>/client/api@
-
 <br/>
-The following is a list of CloudStack Image Ids:
+The following is a sample list of CloudStack Image IDs. You can use CloudMonkey or [JClouds CLI](https://github.com/jclouds/jclouds-cli) to retreive the Hardware, network and image IDs. 
+
+Here's are a few samples for the values of these fields: 
 
 |_. ID |_. Image |	|_. ID |_. Image |
 |e72f32dd-b9bb-44c0-aba9-546592a3e09a|Windows 7 v01 Image|_.	|5|CentOS 5.6(64-bit) no GUI (XenServer) Image|
@@ -70,10 +92,6 @@ The following is a list of CloudStack Hardware Ids:
 |60bdc030-338c-446d-a316-adc30fdaced7|Medium| 1 | 1 GB | 2 GB |
 |9baa1a86-d9ab-4e58-ae67-269efa459a79|Large| 2 | 2 GB | 2 GB |
 
-<br/>
-<h4 class="impt">For setting the cloud driver, we reccomend that you use "parameterization of the cloud driver configuration":../clouddrivers/cloud_driver#gstr, but you can also set the cloud driver directly as shown in the following example (of an @cloudstack-cloud.groovy@ file):</h4>
-
-<script src="https://gist.github.com/shadim/7864590.js?file=cloudstack-cloud2_2m2.groovy"></script>
 
 h3(#nat). Configure NAT for non flat IP network architecture
 # Login as Administrator
@@ -81,20 +99,18 @@ h3(#nat). Configure NAT for non flat IP network architecture
 # Select a network name
 # Go to the Egress rules tab
 # set cidr 0.0.0.0/0 to All and add it
-!../../images/cloudstack/configure_network_egress.png!
+!/images/cloudstack/configure_network_egress.png!
 # Go to details tab and select View IP Addresses
 # Click Aquire New IP for your virtual machine
-!../../images/cloudstack/aquire_new_ip.png!
+!/images/cloudstack/aquire_new_ip.png!
 # Click the IP you created and configure firewall and Port forwarding
-!../../images/cloudstack/configure_firewall_and_port_forwarding.png!
+!/images/cloudstack/configure_firewall_and_port_forwarding.png!
 ## configure the firewall port and cidr of vm
-!../../images/cloudstack/configure_firewall.png!
+!/images/cloudstack/configure_firewall.png!
 ## configure port forwarding
-!../../images/cloudstack/configure_port_forwarding.png!
+!/images/cloudstack/configure_port_forwarding.png!
 
-h4(warn). repeat step 6-8 for each vm would you like to access it from the internet.
+h4(warn). Repeat step 6-8 for each vm would you like to access it from the internet.
 e.g. workstation to install cloudify agent should be opened SSH port and cloudify agent vm should be opened port 8099-8100 to access Rest API and web ui
-
-h2. What's Next?
 
 "Bootstrapping CloudStack":../bootstrapping/bootstrapping_cloudstack
