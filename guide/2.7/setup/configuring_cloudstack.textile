@@ -30,7 +30,7 @@ h3(#key). Generate a API Key and Secret Key
 # Click on View Users
 # Select the user
 # Click on generate keys icon and you'll be able to see them in the detail View
-!/images/cloudstack/create_api_key_and_secret_key.png!
+!/guide/images/cloudstack/create_api_key_and_secret_key.png!
 
 h4(info). The generated key pairs will be used later with your driver configuration to communicate with the CloudStack Rest API.
 
@@ -72,7 +72,7 @@ networkId="NETWORK_ID"
 </pre>
 
 You can obtain your *API Key* and *Secret Key* from the Account section of the CloudStack web console, as follows:
-!/images/cloudstack/api_keys_citrix_cloud_services.png!
+!/guide/images/cloudstack/api_keys_citrix_cloud_services.png!
 <h4 class="impt">Note that the *Secret Key* must correspond to the *API Key* specified in the *user* attribute.</h4>
 
 <br/>
@@ -100,16 +100,16 @@ h3(#nat). Configure NAT for non flat IP network architecture
 # Select a network name
 # Go to the Egress rules tab
 # set cidr 0.0.0.0/0 to All and add it
-!/images/cloudstack/configure_network_egress.png!
+!/guide/images/cloudstack/configure_network_egress.png!
 # Go to details tab and select View IP Addresses
 # Click Aquire New IP for your virtual machine
-!/images/cloudstack/aquire_new_ip.png!
+!/guide/images/cloudstack/aquire_new_ip.png!
 # Click the IP you created and configure firewall and Port forwarding
-!/images/cloudstack/configure_firewall_and_port_forwarding.png!
+!/guide/images/cloudstack/configure_firewall_and_port_forwarding.png!
 ## configure the firewall port and cidr of vm
-!/images/cloudstack/configure_firewall.png!
+!/guide/images/cloudstack/configure_firewall.png!
 ## configure port forwarding
-!/images/cloudstack/configure_port_forwarding.png!
+!/guide/images/cloudstack/configure_port_forwarding.png!
 
 h4(warn). Repeat step 6-8 for each vm would you like to access it from the internet.
 e.g. workstation to install cloudify agent should be opened SSH port and cloudify agent vm should be opened port 8099-8100 to access Rest API and web ui
