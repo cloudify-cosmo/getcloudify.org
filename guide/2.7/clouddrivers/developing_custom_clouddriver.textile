@@ -77,8 +77,7 @@ Use Case: You have a new cloud not supported by Cloudify, not supported by JClou
 
 h2. Tweaking an existing cloud driver 
 
-Sometimes, all we need is to extend an existing cloud driver. The quickest way is to place the new cloud driver class in a groovy file
- in the @<cloudifyRoot>/clouds/cloudProviderName/lib/@ folder.
+Sometimes, all we need is to extend an existing cloud driver. The quickest way is to place the new cloud driver class in a groovy file in the @<cloudifyRoot>/clouds/cloudProviderName/lib/@ folder.
 For example, this "test compute driver":https://github.com/CloudifySource/Cloudify-iTests/blob/master/src/main/resources/custom-cloud-drivers/CustomEc2NetworkSupportTest/ProvisioningDriverClass.groovy injects a new environment variable to the bootstrap script.
 It extends the default driver (based on JClouds) and most of the methods remain untouched.
 
