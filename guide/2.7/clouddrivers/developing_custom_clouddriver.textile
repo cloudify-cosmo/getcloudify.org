@@ -32,10 +32,8 @@ Use Case: You have a new cloud not supported by Cloudify, not supported by JClou
 ** If the method throws an exception the webui will issue an alert and the service would have to be uninstalled for the alert to be resolved. 
 ** Create singleton objects (shared between all instances) using super.provisioningContext (see "ByonProvisioningDriver#initDeployed()":https://github.com/CloudifySource/cloudify/blob/master/esc/src/main/java/org/cloudifysource/esc/driver/provisioning/byon/ByonProvisioningDriver.java#L90)
 ** The Cloudify Orchestrator process which hosts the cloud driver, can be restarted without notice. Store operational metadata using the cloud service.
-** The cloud groovy file (such as <cloudifyHome>/clouds/myCloud/myCloud-service.groovy) is available as the "Cloud POJO":https://github.com/CloudifySource/cloudify/blob/master/domain/src/main/java/org/cloudifysource/domain/cloud/Cloud.java
-    The same cloud POJO is stored as a member and is accesible with super.cloud (ussually needed when implementing the other methods).
-  
-  Store the cloud parameter (configuration) in a field member, since you may need it in the other e
+** The cloud groovy file (such as <cloudifyHome>/clouds/myCloud/myCloud-service.groovy) is available as the "Cloud POJO":https://github.com/CloudifySource/cloudify/blob/master/domain/src/main/java/org/cloudifysource/domain/cloud/Cloud.java .
+   The same cloud POJO is stored as a member and is accesible with super.cloud (ussually needed when implementing the other methods).
 
 * Use #onServiceUninstalled() to perform cleanup operations.
 ** This method is called only once.
