@@ -46,7 +46,7 @@ Use Case: You have a new cloud not supported by Cloudify, not supported by JClou
 ** The return value is a MachineDetails object which serves a few purposes:
 *** Allow the caller to SSH into the machine after it started (see "EMPCA#installAndStartAgent":https://github.com/CloudifySource/cloudify/blob/master/esc/src/main/java/org/cloudifysource/esc/driver/provisioning/ElasticMachineProvisioningCloudifyAdapter.java#L702)
 *** Allow the cloud driver to inject environment variables to the "bootstrap script":https://github.com/CloudifySource/cloudify/blob/master/esc/src/main/resources/general/bootstrap-management.sh
-*** Allow the cloud driver to control the open files limit on the linux machine (converted to a "ulimit -HSn $CLOUDIFY_OPEN_FILES_LIMIT" command in the "bootstrap script":https://github.com/CloudifySource/cloudify/blob/master/esc/src/main/resources/general/bootstrap-management.sh)
+*** Allow the cloud driver to control the open files limit on the linux machine (converted to a @ulimit -HSn $CLOUDIFY_OPEN_FILES_LIMIT@ command in the "bootstrap script":https://github.com/CloudifySource/cloudify/blob/master/esc/src/main/resources/general/bootstrap-management.sh)
 *** If startMachine is called as a response to a machine failure (and not as a response to scale out request), it can use context.getPreviousMachineDetails() to retrieve the MachineDetails of the recently failed machine.
     The MachineDetails returned by this method is passed to the next startMachine call in case it fails.
     The MachineDetails survives process restarts since it is backed up in the cloudifyManagementSpace.
