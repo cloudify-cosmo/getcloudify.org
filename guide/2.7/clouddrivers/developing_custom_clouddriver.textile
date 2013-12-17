@@ -19,67 +19,69 @@ There are three cloud driver base classes:
 * "BaseStorageDriver":https://github.com/CloudifySource/cloudify/blob/master/esc/src/main/java/org/cloudifysource/esc/driver/provisioning/storage/BaseStorageDriver.java - Create and attach Block Storage (storage)
 
 h2. Developing a new Compute Cloud Driver 
+
 Use Case: You have a new cloud not supported by Cloudify, not supported by JClouds.
-* Create a new Java class that extends
- "BaseProvisioningDriver":https://github.com/CloudifySource/cloudify/blob/master/esc/src/main/java/org/cloudifysource/esc/driver/provisioning/BaseProvisioningDriver.java
+* Create a new Java class that extends "BaseProvisioningDriver":https://github.com/CloudifySource/cloudify/blob/master/esc/src/main/java/org/cloudifysource/esc/driver/provisioning/BaseProvisioningDriver.java
 * maven dependency:
 <script src="https://gist.github.com/tamirko/6121329.js"></script>
 * maven repository:
 <script src="https://gist.github.com/2070752.js?file=repo.xml"></script>
 
 * Use #initDeployer() to initialization operations.
-  * Remember that the class is instantiated once for each installed service. So this method is called once per service, but not once globally.
-  * If the method throws an exception the webui will issue an alert and the service would have to be uninstalled for the alert to be resolved. 
-  * Create singleton objects (shared between all instances) using super.provisioningContext (see "ByonProvisioningDriver#initDeployed()":https://github.com/CloudifySource/cloudify/blob/master/esc/src/main/java/org/cloudifysource/esc/driver/provisioning/byon/ByonProvisioningDriver.java#L90)
-  * The Cloudify Orchestrator process which hosts the cloud driver, can be restarted without notice. Store operational metadata using the cloud service.
-  * The cloud groovy file (such as <cloudifyHome>/clouds/myCloud/myCloud-service.groovy) is available as the "Cloud POJO":https://github.com/CloudifySource/cloudify/blob/master/domain/src/main/java/org/cloudifysource/domain/cloud/Cloud.java
+** Remember that the class is instantiated once for each installed service. So this method is called once per service, but not once globally.
+** If the method throws an exception the webui will issue an alert and the service would have to be uninstalled for the alert to be resolved. 
+** Create singleton objects (shared between all instances) using super.provisioningContext (see "ByonProvisioningDriver#initDeployed()":https://github.com/CloudifySource/cloudify/blob/master/esc/src/main/java/org/cloudifysource/esc/driver/provisioning/byon/ByonProvisioningDriver.java#L90)
+** The Cloudify Orchestrator process which hosts the cloud driver, can be restarted without notice. Store operational metadata using the cloud service.
+** The cloud groovy file (such as <cloudifyHome>/clouds/myCloud/myCloud-service.groovy) is available as the "Cloud POJO":https://github.com/CloudifySource/cloudify/blob/master/domain/src/main/java/org/cloudifysource/domain/cloud/Cloud.java
     The same cloud POJO is stored as a member and is accesible with super.cloud (ussually needed when implementing the other methods).
   
   Store the cloud parameter (configuration) in a field member, since you may need it in the other e
 
 * Use #onServiceUninstalled() to perform cleanup operations.
-  * This method is called only once.
-  * If the method throws an exception the webui will issue an alert which will automatically resolve once the uninstallation process is complete.
+** This method is called only once.
+** If the method throws an exception the webui will issue an alert which will automatically resolve once the uninstallation process is complete.
   
 * Implement the code that starts a new machine in the #startMachine method.
-  * Respect the timeout parameter, by limiting blocking operations. If the timeout expired throw TimeoutException.
-  * Wrap any Exception with CloudProvisioningException before throwing.
-  * Any thrown (fatal) Error is unexpected and is logged with a SEVERE log entry in the esm*.log file.
-  * The return value is a MachineDetails object which serves a few purposes:
-    - Allow the caller to SSH into the machine after it started (see "EMPCA#installAndStartAgent":https://github.com/CloudifySource/cloudify/blob/master/esc/src/main/java/org/cloudifysource/esc/driver/provisioning/ElasticMachineProvisioningCloudifyAdapter.java#L702)
-    - Allow the cloud driver to inject environment variables to the "bootstrap script":https://github.com/CloudifySource/cloudify/blob/master/esc/src/main/resources/general/bootstrap-management.sh
-    - Allow the cloud driver to control the open files limit on the linux machine (converted to a "ulimit -HSn $CLOUDIFY_OPEN_FILES_LIMIT" command in the "bootstrap script":https://github.com/CloudifySource/cloudify/blob/master/esc/src/main/resources/general/bootstrap-management.sh)
-    - If startMachine is called as a response to a machine failure (and not as a response to scale out request), it can use context.getPreviousMachineDetails() to retrieve the MachineDetails of the recently failed machine.
-      The MachineDetails returned by this method is passed to the next startMachine call in case it fails.
-      The MachineDetails survives process restarts since it is backed up in the cloudifyManagementSpace.
+** Respect the timeout parameter, by limiting blocking operations. If the timeout expired throw TimeoutException.
+** Wrap any Exception with CloudProvisioningException before throwing.
+** Any thrown (fatal) Error is unexpected and is logged with a SEVERE log entry in the esm*.log file.
+** The return value is a MachineDetails object which serves a few purposes:
+*** Allow the caller to SSH into the machine after it started (see "EMPCA#installAndStartAgent":https://github.com/CloudifySource/cloudify/blob/master/esc/src/main/java/org/cloudifysource/esc/driver/provisioning/ElasticMachineProvisioningCloudifyAdapter.java#L702)
+*** Allow the cloud driver to inject environment variables to the "bootstrap script":https://github.com/CloudifySource/cloudify/blob/master/esc/src/main/resources/general/bootstrap-management.sh
+*** Allow the cloud driver to control the open files limit on the linux machine (converted to a "ulimit -HSn $CLOUDIFY_OPEN_FILES_LIMIT" command in the "bootstrap script":https://github.com/CloudifySource/cloudify/blob/master/esc/src/main/resources/general/bootstrap-management.sh)
+*** If startMachine is called as a response to a machine failure (and not as a response to scale out request), it can use context.getPreviousMachineDetails() to retrieve the MachineDetails of the recently failed machine.
+    The MachineDetails returned by this method is passed to the next startMachine call in case it fails.
+    The MachineDetails survives process restarts since it is backed up in the cloudifyManagementSpace.
 
 * Implement the code that stops an existing machine in the #stopMachine method.
-  * Respect the timeout parameter, by limiting blocking operations. If the timeout expired throw TimeoutException.
-  * Stop machine can be called in response to uninstall-service or in scalein use case, or to validate a machine is terminated as a response to an exception from startMachine.
-  * If the machine was already terminated when the stopMachine method was called - return false. 
-  * If the machine was not already terminated, and stopMachine took an action to terminate the machine - return true
-  * Wrap any Exception with CloudProvisioningException before throwing. The method would promptly called again for another retry.
-  * Any thrown (fatal) Error is unexpected and is logged with a SEVERE log entry in the esm*.log file.
+** Respect the timeout parameter, by limiting blocking operations. If the timeout expired throw TimeoutException.
+** Stop machine can be called in response to uninstall-service or in scalein use case, or to validate a machine is terminated as a response to an exception from startMachine.
+** If the machine was already terminated when the stopMachine method was called - return false. 
+** If the machine was not already terminated, and stopMachine took an action to terminate the machine - return true
+** Wrap any Exception with CloudProvisioningException before throwing. The method would promptly called again for another retry.
+** Any thrown (fatal) Error is unexpected and is logged with a SEVERE log entry in the esm*.log file.
 
 * Implement the code that starts the management machines in the #startManagementMachines method.
-  * Respect the timeout parameter, by limiting blocking operations. If the timeout expired throw TimeoutException.
-  * Read the configuration (such as number of management machines) from super.cloud.getConfiguration().getManagementMachineTemplate()
-  * Wrap any Exception with CloudProvisioningException before throwing.
-  * Any throwable aborts the bootstrap-management CLI command and the error is printed on screen.
-  * Make sure to tag these machines since the list of the management machines would not be available when stopManagementMachines is called.
+** Respect the timeout parameter, by limiting blocking operations. If the timeout expired throw TimeoutException.
+** Read the configuration (such as number of management machines) from super.cloud.getConfiguration().getManagementMachineTemplate()
+** Wrap any Exception with CloudProvisioningException before throwing.
+** Any throwable aborts the bootstrap-management CLI command and the error is printed on screen.
+** Make sure to tag these machines since the list of the management machines would not be available when stopManagementMachines is called.
   
 * Implement the code that stops all management machines in the #stopManagementMachines method.
-  * Respect the timeout parameter, by limiting blocking operations. If the timeout expired throw TimeoutException.
-  * Read the configuration (such as number of management machines) from super.cloud.getConfiguration().getManagementMachineTemplate()
-  * Wrap any Exception with CloudProvisioningException before throwing.
-  * Any throwable aborts the teardown-management CLI command and the error is printed on screen.
-  * Use machine tags to identify the management machines before stopping them.
+** Respect the timeout parameter, by limiting blocking operations. If the timeout expired throw TimeoutException.
+** Read the configuration (such as number of management machines) from super.cloud.getConfiguration().getManagementMachineTemplate()
+** Wrap any Exception with CloudProvisioningException before throwing.
+** Any throwable aborts the teardown-management CLI command and the error is printed on screen.
+** Use machine tags to identify the management machines before stopping them.
 
 * Package the class in a jar file and place the it in the @<cloudifyRoot>/clouds/cloudProviderName/lib/@ folder.
 
 h2. Tweaking an existing cloud driver 
+
 requires a new groovy file placed in the @<cloudifyRoot>/clouds/cloudProviderName/lib/@ folder.
 
 h2. Changing the startup script 
+
 Once a new machine is available, a startup script is executed on the remote machine over SSH. The script is responsible for downloading and installing Cloudify, and then starting the Cloudify agent. In some implementations, you may need to tweak this process to fit the requirements of specific environments (e.g., system proxies, mount points, and paths). You can use the default startup script (@<cloudifyRoot>/clouds/ec2/upload/bootstrap-management.sh@), which works with the built-in cloud driver as a reference. Simply place the modified script in the @<cloudifyRoot>/clouds/cloudProviderName/update@ folder.
 
