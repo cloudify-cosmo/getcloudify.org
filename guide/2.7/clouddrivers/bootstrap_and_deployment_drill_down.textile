@@ -26,3 +26,22 @@ In this scenario, the cloud driver resides on the client machine as no managemen
 Next, the shell invokes the cloud driver's @startManagementMachines@ method, which is responsible for allocating resources, for instance using a Cloud IaaS API (using the API security settings) to get the required management machines. The cloud API returns an array of MachineDetails (org.cloudifysource.esc.driver.provisioning.MachineDetails) with connction details for each of the allocated management machines. By default, the details are used by the shell to connect to the machines and install the Cloudify management components. A cloud driver may choose to override the default installation process and create a custom one. Finally, Cloudify starts the following Cloudify controller components: Orchestrator(ESM), Deployer(GSM), Discovery(LUS) and the Management Space. It will also start the web management container and the REST API container.
 
 <script src="https://gist.github.com/2043033.js?file=createServer.java"></script>
+
+h2(#install). Installing an Application
+
+<img src="../../images/clouddrivers/installApplication.png"/>
+
+In this scenario, the cloud driver resides on the server machine. Once the controller is instructed to install an application, it instructs the cloud driver to start the number of application machines described in the recipe. The cloud driver running in the management machine is first passed an 'Admin' object, using setAdmin() which is useful for querying the current state of the Cloudify cluster. It is then passed the Cloud configuration using setCloud().
+Next, the controller invokes the cloud driver's @startMachine@ method, once for each machine that must be provisioned, until all the required machines are up and running with Cloudify agent registered with the LUS, or until the request times out.
+
+The @startMachine@ uses the following steps:
+# Call the IaaS API to create a new compute instance.
+# Poll the Cloud API until the compute instance becomes available.
+# Optionally, 'Ping' the compute instance until it becomes available on the network (this is typically done by attempting to connect to a well-known port like 22 (SSH) or 3389 (RDP).
+# Return the details required to connect to the new compute instance, including IP, credentials, etc.
+# At this point, the Cloudify controller will install the Cloudify components on the new node.
+
+The driver gets the machine information from the template attributes (corresponding to the requested template name) defined in the configuration object.
+
+The same scenario will occur if the controller has to compensate for a crashed machine or to rebalance one of the services, as shown in the following diagram:
+<img src="../../images/clouddrivers/cluster-healing.png"/>
