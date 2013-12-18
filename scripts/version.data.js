@@ -578,6 +578,7 @@ var guide = {
 			'configuring_large_scale_deployments':true
 		},
 		'clouddrivers':{
+			'bootstrap_and_deployment_drill_down':true,
 			'cloud_driver':true,
 			'developing_custom_clouddriver':true,
 			'tutorial_maven':true
