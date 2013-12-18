@@ -14,3 +14,15 @@ in the context of the following scenarios:
 * *"Installing an Application":#install * --Allocates machines for application services and installs the application's services (including the Cloudify agent). In this scenario, the cloud driver resides on the management machine as part of the Cloudify controller.<h4 class="info">There is also a *Cluster healing* scenario which is treated by Cloudify as being the same as the *Installing an application* scenario.</h4>
 * *"Uninstalling an Application":#uninstall * --Stops the application's services and instructs the cloud driver to uninstall the machines used by the services.
 * *"Tearing Down a Cloud":#teardown * --Uninstalls all Cloudify machines and components. 
+
+h2(#bootstrap). Bootstrapping a Cloud
+
+<img src="../../images/clouddrivers/bootstrapping.png"/>
+
+In this scenario, the cloud driver resides on the client machine as no management machines with the Cloudify controller exist. At the Cloudify shell prompt, the user runs the bootstrap command specifying a cloud driver implementation. The cloud driver is instantiated by the shell, and now the shell passes the *Driver Configuration* (org.cloudifysource.dsl.cloud.Cloud) by calling the @setConfig@ method.
+
+<script src="https://gist.github.com/2043019.js?file=setConfig.java"></script>
+
+Next, the shell invokes the cloud driver's @startManagementMachines@ method, which is responsible for allocating resources, for instance using a Cloud IaaS API (using the API security settings) to get the required management machines. The cloud API returns an array of MachineDetails (org.cloudifysource.esc.driver.provisioning.MachineDetails) with connction details for each of the allocated management machines. By default, the details are used by the shell to connect to the machines and install the Cloudify management components. A cloud driver may choose to override the default installation process and create a custom one. Finally, Cloudify starts the following Cloudify controller components: Orchestrator(ESM), Deployer(GSM), Discovery(LUS) and the Management Space. It will also start the web management container and the REST API container.
+
+<script src="https://gist.github.com/2043033.js?file=createServer.java"></script>
