@@ -450,7 +450,8 @@ var guide = {
 			'bootstrapping_process':true,
 			'bootstrapping_rackspace':true,
 			'bootstrapping_rsopenstack':true,
-			'bootstrapping_validations':true
+			'bootstrapping_validations':true,
+			'configuring_large_scale_deployments':true
 		},
 		'clouddrivers':{
 			'cloud_driver':true,
@@ -573,7 +574,8 @@ var guide = {
 			'bootstrapping_process':true,
 			'bootstrapping_rackspace':true,
 			'bootstrapping_rsopenstack':true,
-			'bootstrapping_validations':true
+			'bootstrapping_validations':true,
+			'configuring_large_scale_deployments':true
 		},
 		'clouddrivers':{
 			'cloud_driver':true,
