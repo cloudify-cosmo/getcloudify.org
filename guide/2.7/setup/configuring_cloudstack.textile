@@ -110,7 +110,9 @@ sshUsername="SSH_USER"
 sshPassword="SSH_PASSWORD"
 
 //The SSH keypair name and file name for Cloudify to use when installing and configuring created VMs. 
-//The keypair file should be placed under the upload directory of the cloud driver configuration 
+//The keypair file should be placed under the upload directory of the cloud driver configuration. 
+//If you use that make sure to uncomment the keyFile and keyPair properties in the cloustack-cloud.groovy 
+//file, and comment out the username and password properties. 
 sshKeypairName="KEYPAIR_NAME"
 sshKeypairFile="KEYPAIR_FILE"
 
@@ -126,6 +128,7 @@ cloudstackImageId="IMAGE_ID"
 //When using non flat network, this specifies the network ID you want your VMs to attach to. Can be changed 
 //on a per template basis
 networkId="NETWORK_ID"
+
 </pre>
 
 h3(#nat). Configuring NAT for Non-Flat IP Network Architecture
