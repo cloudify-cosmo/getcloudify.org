@@ -37,6 +37,7 @@ h3(#key). Obtain the API Key and Secret Key
 h4(info). The API keys will be used later with your driver configuration to communicate with the CloudStack Rest API.
 
 h3(#ssh). Obtain SSH Credentials 
+
 If you're using simple username/password SSH authentication, these are simply the root / sudo user credentials to the created VM (you should know then in advance and they're usually specific for each image). If you're using SSH keypair authnationcation, you can generate the keypair from using the CloudStack API. Please refer to the "relevant section in the CloudStack documentation":http://cloudstack.apache.org/docs/en-US/Apache_CloudStack/4.0.2/html/Installation_Guide/using-sshkeys.html for directions on how to create a keypair. 
 
 After you've generated the keypair file, you should place it in the @upload@ directory in your CloudStack cloud driver folder, e.g. @<cloudify root>/clouds/cloudstack/upload@. 
@@ -132,23 +133,28 @@ networkId="NETWORK_ID"
 </pre>
 
 h3(#nat). Configuring NAT for Non-Flat IP Network Architecture
-# Login as Administrator
-# Go to network
-# Select a network name
-# Go to the Egress rules tab
-# set cidr 0.0.0.0/0 to All and add it
+
+If you're using a non-flat network setup, and want to enable access to the VMs from outside the private network you've installed your application on, you will need to follow the following steps for each VM you want to enable. At the minimum, you should enable access to the cloudify management VM and the main application entry point VM (e.g. the one that hosts your application's web server or load balancer): 
+
+* Login to the ClousStack dashboard as Administrator
+* Go to the Network section 
+* Select a network name
+* Go to the Egress rules tab
+* set cidr 0.0.0.0/0 to "All" and add it
 !/guide/images/cloudstack/configure_network_egress.png!
-# Go to details tab and select View IP Addresses
-# Click Aquire New IP for your virtual machine
+* Go to details tab and select "View IP Addresses"
+* Click "Aquire New IP" for your virtual machine
 !/guide/images/cloudstack/aquire_new_ip.png!
-# Click the IP you created and configure firewall and Port forwarding
+* Click the IP you created and configure firewall and port forwarding
 !/guide/images/cloudstack/configure_firewall_and_port_forwarding.png!
-## configure the firewall port and cidr of vm
+** Configure the firewall port and CIDR of your VM
 !/guide/images/cloudstack/configure_firewall.png!
-## configure port forwarding
+** Configure port forwarding
 !/guide/images/cloudstack/configure_port_forwarding.png!
 
 h4(warn). Repeat steps 6-8 for each vm would you like to access it from the internet.
 e.g. workstation to install cloudify agent should be opened SSH port and cloudify agent vm should be opened port 8099-8100 to access Rest API and web ui
 
+h4. What's Next
+You're ready to bootstrap Cloudify on your CloudStack environment. Follow the below link to learn how to do it. 
 "Bootstrap CloudStack":../bootstrapping/bootstrapping_cloudstack
