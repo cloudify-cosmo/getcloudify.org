@@ -7,112 +7,131 @@ abstract: An overview of how to develop custom cloud drivers
 pageord: 200
 ---
 
-This topic is an overview of how to develop custom cloud drivers. For general information about the Cloudify cloud driver, see "The Cloud Driver":../clouddrivers/cloud_driver.
+This topic explains how to develop custom cloud drivers. 
 
 h2. Introduction
 
-The cloud driver is an open interface enabling users to implement their own cloud drivers to support specific private cloud environments, or to create a more granular configuration of public cloud environments.
+The cloud driver is a pluggable component that allows extending Cloudify to support new cloud environments, or to tweak existing cloud drivers.
+There are three cloud driver base classes:
 
-There are several things to consider when creating your own cloud driver, or tweaking the configuration of an existing one:
-* *Loading custom class files*--The cloud driver implementation classes must be available to both the client that bootstraps the cloud, and to the Cloudify Orchestrator.
-Any jar file in the Cloudify unzipped distribution in @<cloudifyRoot>/lib/platform/esm@ ,will be available to the client.
-Any jar file in the Cloudify unzipped distribution in @<cloudifyRoot>/clouds/cloudProviderName/upload/cloudify-overrides/lib/platform/esm@ ,will be available to the Cloudify Orchestrator and thus to any deployed component.
-* *Loading custom startup scripts*--Once the bootstrap or scale-out process successfully provisions a new machine, a startup script is executed on the remote machine over SSH. The script is responsible for downloading and installing Cloudify, and then starting the Cloudify agent. In some implementations, you may need to tweak this process to fit the requirements of specific environments (e.g., system proxies, mount points, and paths). You can use the default startup script (@<cloudifyRoot>/clouds/ec2/upload/bootstrap-management.sh@), which works with the built-in cloud driver, as the basis for the startup script for your own cloud driver. Simply place the modified script in the @upload@ folder corresponding to your cloud of choice (e.g. For EC2, @<cloudifyRoot>/clouds/ec2/upload/@) and it will automatically be uploaded to every new machine.
+* "BaseProvisioningDriver":https://github.com/CloudifySource/cloudify/blob/master/esc/src/main/java/org/cloudifysource/esc/driver/provisioning/BaseProvisioningDriver.java - new virtual machine instances (compute).
+* "BaseNetworkDriver":https://github.com/CloudifySource/cloudify/blob/master/esc/src/main/java/org/cloudifysource/esc/driver/provisioning/network/BaseNetworkDriver.java - Allocate floating IP addresses (network)
+* "BaseStorageDriver":https://github.com/CloudifySource/cloudify/blob/master/esc/src/main/java/org/cloudifysource/esc/driver/provisioning/storage/BaseStorageDriver.java - Create and attach Block Storage (storage)
 
-h2. How does the Cloud Driver Work? (A Technical Overview)
+h2. Developing a new Compute Cloud Driver 
 
-To explain the main cloud driver scenarios, we will use the Openstack cloud driver (@OpenstackCloudDriver@) that extends the @CloudDriverSupport@ base class and implements the @ProvisioningDriver@ interface.
+Developing a new compute cloud driver is required when a new cloud is neither supported by Cloudify, nor supported by JClouds (which powers the default cloudify cloud driver).
 
-The Cloudify cloud driver (Interface Name: @ProvisioningDriver@) is a Java POJO that uses a configuration file to define cloud specific attributes, and has methods corresponding to the following main scenarios:
-* *"Bootstrapping a Cloud":#bootstrap*--Allocates machines and installs the Cloudify controller.
-* *"Installing an Application":#install*--Allocates machines for application services and installs the application's services (including the Cloudify agent). In this scenario, the cloud driver resides on the management machine as part of the Cloudify controller.<h4 class="info">There is also a *Cluster healing* scenario which is treated by Cloudify as being the same as the *Installing an application* scenario.</h4>
-* *"Uninstalling an Application":#uninstall*--Stops the application's services and instructs the cloud driver to uninstall the machines used by the services.
-* *"Tearing Down a Cloud":#teardown*--Uninstalls all Cloudify machines and components. 
+* Create a new Java class that extends "BaseProvisioningDriver":https://github.com/CloudifySource/cloudify/blob/master/esc/src/main/java/org/cloudifysource/esc/driver/provisioning/BaseProvisioningDriver.java
+* maven dependency:
+<script src="https://gist.github.com/tamirko/6121329.js"></script>
+* maven repository:
+<script src="https://gist.github.com/2070752.js?file=repo.xml"></script>
 
-h3(#bootstrap). Bootstrapping a Cloud
+* Implement initDeployer() with initialization code.
+** Remember that the class is instantiated once for each installed service. So this method is called once per service, but not once globally.
+** If the method throws an exception the webui will issue an alert and the service would have to be uninstalled for the alert to be resolved. 
+** Create singleton objects (shared between all instances) using super.provisioningContext (see "ByonProvisioningDriver#initDeployed()":https://github.com/CloudifySource/cloudify/blob/master/esc/src/main/java/org/cloudifysource/esc/driver/provisioning/byon/ByonProvisioningDriver.java#L90)
+** The Cloudify Orchestrator process which hosts the cloud driver, can be restarted without notice. Store operational metadata using the cloud service.
+** The cloud groovy file (such as <cloudifyHome>/clouds/myCloud/myCloud-service.groovy) is available as the "Cloud POJO":https://github.com/CloudifySource/cloudify/blob/master/domain/src/main/java/org/cloudifysource/domain/cloud/Cloud.java .
+   Access the cloud instance with @super.cloud@
 
-<img src="../../images/clouddrivers/bootstrapping.png"/>
+* Implement onServiceUninstalled() with cleanup operations.
+** This method is called only once.
+** If the method throws an exception the webui will issue an alert which will automatically resolve once the uninstallation process is complete.
+  
+* Implement the code that starts a new machine in the startMachine method.
+** Respect the timeout parameter, by limiting blocking operations. If the timeout expired throw TimeoutException.
+** Wrap any Exception with CloudProvisioningException before throwing.
+** Any thrown (fatal) Error is unexpected and is logged with a SEVERE log entry in the esm*.log file.
+** The return value is a MachineDetails object which serves a few purposes:
+*** Allow the caller to SSH into the machine after it started (see "EMPCA#installAndStartAgent":https://github.com/CloudifySource/cloudify/blob/master/esc/src/main/java/org/cloudifysource/esc/driver/provisioning/ElasticMachineProvisioningCloudifyAdapter.java#L702)
+*** Allow the cloud driver to inject environment variables to the "bootstrap script":https://github.com/CloudifySource/cloudify/blob/master/esc/src/main/resources/general/bootstrap-management.sh
+*** Allow the cloud driver to control the open files limit on the linux machine (converted to a @ulimit -HSn $CLOUDIFY_OPEN_FILES_LIMIT@ command in the "bootstrap script":https://github.com/CloudifySource/cloudify/blob/master/esc/src/main/resources/general/bootstrap-management.sh)
+*** If startMachine is called as a response to a machine failure (and not as a response to scale out request), it can use context.getPreviousMachineDetails() to retrieve the MachineDetails of the recently failed machine.
+    The MachineDetailr s returned by this method is passed to the next startMachine call in case it fails.
+    The MachineDetails survives process restarts since it is backed up in the cloudifyManagementSpace.
 
-In this scenario, the cloud driver resides on the client machine as no management machines with the Cloudify controller exist. At the Cloudify shell prompt, the user runs the bootstrap command specifying a cloud driver implementation. The cloud driver is instantiated by the shell, and now the shell passes the *Driver Reference* to its configuration object (org.cloudifysource.dsl.cloud.Cloud) by calling the @setConfig@ method.
+* Implement the code that stops an existing machine in the stopMachine method.
+** Respect the timeout parameter, by limiting blocking operations. If the timeout expired throw TimeoutException.
+** Stop machine can be called in response to uninstall-service or in scalein use case, or to validate a machine is terminated as a response to an exception from startMachine.
+** If the machine was already terminated when the stopMachine method was called - return false. 
+** If the machine was not already terminated, and stopMachine took an action to terminate the machine - return true
+** Wrap any Exception with CloudProvisioningException before throwing. The method would promptly called again for another retry.
+** Any thrown (fatal) Error is unexpected and is logged with a SEVERE log entry in the esm*.log file.
 
-<script src="https://gist.github.com/2043019.js?file=setConfig.java"></script>
+* Implement the code that starts the management machines in the startManagementMachines method.
+** Respect the timeout parameter, by limiting blocking operations. If the timeout expired throw TimeoutException.
+** Read the configuration (such as number of management machines) from super.cloud.getConfiguration().getManagementMachineTemplate()
+** Wrap any Exception with CloudProvisioningException before throwing.
+** Any throwable aborts the bootstrap-management CLI command and the error is printed on screen.
+** Make sure to tag these machines since the list of the management machines would not be available when stopManagementMachines is called.
+  
+* Implement the code that stops all management machines in the stopManagementMachines method.
+** Respect the timeout parameter, by limiting blocking operations. If the timeout expired throw TimeoutException.
+** Read the configuration (such as number of management machines) from super.cloud.getConfiguration().getManagementMachineTemplate()
+** Wrap any Exception with CloudProvisioningException before throwing.
+** Any throwable aborts the teardown-management CLI command and the error is printed on screen.
+** Implement machine tags to identify the management machines before stopping them.
 
-Next, the shell invokes the cloud driver's @startManagementMachines@ method, which in turn calls the cloud's IaaS API (using the API security settings) to get the required management machines. The cloud API returns an array of MachineDetails (org.cloudifysource.esc.driver.provisioning.MachineDetails) with connction details for each of the allocated management machines. The details are used by the shell to connect to the machines and install the Cloudify management components. Finally, Cloudify starts the following Cloudify controller components: ESM(Elastic Service Manager), GSM(General Service Manager), LUS(Lookup Service) and the Management Space. It will also start the web management container and the REST API container.
+* Package the class in a jar file and place the it in the @<cloudifyRoot>/clouds/cloudProviderName/lib/@ folder.
 
-<script src="https://gist.github.com/2043033.js?file=createServer.java"></script>
+h2. Tweaking an existing cloud driver 
 
-h3(#install). Installing an Application
+Sometimes, all we need is to extend an existing cloud driver. The quickest way is to place the new cloud driver class in a groovy file in the @<cloudifyRoot>/clouds/cloudProviderName/lib/@ folder.
+For example, this "test compute driver":https://github.com/CloudifySource/Cloudify-iTests/blob/master/src/main/resources/custom-cloud-drivers/CustomEc2NetworkSupportTest/ProvisioningDriverClass.groovy injects a new environment variable to the bootstrap script.
+It extends the default driver (based on JClouds) and most of the methods remain untouched.
 
-<img src="../../images/clouddrivers/installApplication.png"/>
+h2. Changing the startup script 
 
-In this scenario, the cloud driver resides on the server machine. Once the controller is instructed to install an application, it instructs the cloud driver to start the number of application machines described in the recipe. To acheive this, the cloud driver first gets the Admin object so that it can report the public IP addresses of the allocated application machines and other details. This is achieved by the controller calling the setAdmin method.
-Next, the controller invokes the cloud driver's @startMachine@ method, once for each machine that must be provisioned, until all the required machines are up and running with Cloudify agent registered with the LUS, or until the request times out.
-
-The @startMachine@ uses the following steps:
-# Calls the IaaS API
-# Polls the API for the machine details
-# Pings the machine to makes sure its accessible
-# Connects to the machine over SSH
-# Installs and starts the following Cloudify agent components: GSA and GSC
-
-The driver gets the machine information from the template attributes (corresponding to the requested template name) defined in the configuration object.
-
-The same scenario will occur if the controller has to compensate for a crashed machine or to rebalance one of the services, as shown in the following diagram:
-<img src="../../images/clouddrivers/cluster-healing.png"/>
-
-h4(#customag). Customizing the Agent Installation
-
-<img src="../../images/clouddrivers/agent_installation.png"/>
-
-h5(#cscr). Initialization Command 
-
-You can script inline or point to an uploaded script as shown in the following example:
-<script src="https://gist.github.com/3946829.js?file=inline.groovy"></script>
-
-h5(#ftr). File Transfer 
- 
-You can specify how you want to transfer files to the remote machines :  SCP, SFTP or Windows protocol.
-
-<script src="https://gist.github.com/4167436.js?file=fileTransfer.groovy"></script>
-
-h5(#rme). Remote Execution 
-
-You can specify how to execute the remote script: SSH or WinRM
-
-<script src="https://gist.github.com/4167440.js?file=remoteExec.groovy"></script>
-
-<br/>
-
-h4(#cloudConf). Parameterizing the Cloud Driver
-
-In order to pass configuration information to the Cloud Driver, at the Cloudify shell prompt, type: 
-
-*@install-application@* @-cloudConfiguration PATH_TO_CONF PATH_TO_APPLICATION@
-@cloudConfiguration@ contains a path (relative/absolute) to a file or a directory containing configuration information to be used by the cloud driver for this application as shown in the following code snippet:
-<script src="https://gist.github.com/3713008.js?file=setCustomDataFile.java"></script>
+Once a new machine is available, a startup script is executed on the remote machine over SSH. The script is responsible for downloading and installing Cloudify, and then starting the Cloudify agent. In some implementations, you may need to tweak this process to fit the requirements of specific environments (e.g., system proxies, mount points, and paths). You can use the default startup script (@<cloudifyRoot>/clouds/ec2/upload/bootstrap-management.sh@), which works with the built-in cloud driver as a reference. Simply place the modified script in the @<cloudifyRoot>/clouds/cloudProviderName/upload@ folder.
 
 
+h2. Developing a new Network Cloud Driver 
 
-h3(#uninstall). Uninstalling an Application
+Developing a new network cloud driver is required when the recipe allocates floating IPs (elastic IPs), but the existing cloud driver is missing network support for that cloud.
+* Create a new Java class that extends "BaseNetworkDriver":https://github.com/CloudifySource/cloudify/blob/master/esc/src/main/java/org/cloudifysource/esc/driver/provisioning/network/BaseNetworkDriver.java
+* maven dependency:
+<script src="https://gist.github.com/tamirko/6121329.js"></script>
+* maven repository:
+<script src="https://gist.github.com/2070752.js?file=repo.xml"></script>
 
-<img src="../../images/clouddrivers/uninstallApplication.png"/>
+* Implement setConfig() with initialization code.
+** Remember that the class is instantiated once for each installed service. So this method is called once per service, but not once globally.
+** If the method throws an exception the webui will issue an alert and the service would have to be uninstalled for the alert to be resolved. 
+** The cloud groovy file (such as <cloudifyHome>/clouds/myCloud/myCloud-service.groovy) is available as the "Cloud POJO":https://github.com/CloudifySource/cloudify/blob/master/domain/src/main/java/org/cloudifysource/domain/cloud/Cloud.java .
+   Access the network configuration within the cloud POJO with @config.getCloud().getCloudNetwork()@
 
-In this scenario, the cloud driver resides on the server machine. Once the controller is instructed to uninstall a deployed application, it stops the application's services and instructs the cloud driver to unininstall the machines used by the services. This is achieved by the controller calling the cloud driver's @stopMachine@ method, which in turn calls the cloud's IaaS API and instruct it to stop the relevant machines. 
+* Implement allocateFloatingIp(),releaseFloatingIp() to reserve/release floating ips from the specified ip pool.
+** Respect the timeout parameter, by limiting blocking operations. If the timeout expired throw TimeoutException.
+** allocateFloatingIp returns the ip address provided by the cloud given the specified ip pool name.
+** releaseFloatingIp is idempotent (silently ignore if floating ip already release back to pool)
+   
+* Implement assignFloatingIp(),unassignFloatingIp()  to assign/unassign an allocated floating ip to the specified machine instance
+** Respect the timeout parameter, by limiting blocking operations. If the timeout expired throw TimeoutException.
+** Both the instance and the floating ip parameters are IP-Addresses. Ussually the instance ip needs to be translated to the cloud instance-id, and the floating ip to its respective identifier (via a Cloud API call).
 
-<script src="https://gist.github.com/2043076.js?file=stopMachine.java"></script>
+* Package the class in a jar file and place the it in the @<cloudifyRoot>/clouds/cloudProviderName/lib/@ folder.
 
-The following snippet shows how to call the cloud's IaaS API:
 
-<script src="https://gist.github.com/2043089.js?file=terminateServerAPI.java"></script>
+h2. Developing a new Storage Cloud Driver 
 
-h3(#teardown). Tearing Down a Cloud
-
-<img src="../../images/clouddrivers/tearDown.png"/>
-
-In this scenario, the cloud driver resides on the client machine. At the Cloudify shell prompt, the user runs the tear down command specifying a cloud driver implementation to uninstall the management machines. This is achieved by the controller calling the cloud driver's @stopManagementMachines@ method, which in turn calls the cloud's IaaS API and instruct it to stop the relevant machines.
-
-<script src="https://gist.github.com/2043105.js?file=stopManagement.java"></script>
-
-h2. See Also
-
-* "Turorial - Developing a custom cloud driver using Maven":../clouddrivers/tutorial_maven
+Developing a new storage cloud driver is required when the recipe creates and attaches storage devices (EBS), but the existing cloud driver is missing storage support for that cloud.
+* Create a new Java class that extends "BaseStorageDriver":https://github.com/CloudifySource/cloudify/blob/master/esc/src/main/java/org/cloudifysource/esc/driver/provisioning/storage/BaseStorageDriver.java .
+  The base class implements "StorageProvisioningDriver":https://github.com/CloudifySource/cloudify/blob/master/esc/src/main/java/org/cloudifysource/esc/driver/provisioning/storage/StorageProvisioningDriver.java (which is deprecated in favor of the base class).
+* maven dependency:
+<script src="https://gist.github.com/tamirko/6121329.js"></script>
+* maven repository:
+<script src="https://gist.github.com/2070752.js?file=repo.xml"></script>
+* If the compute driver exposes its an internal object with BaseComputeDriver#getComputeContext(), it is injected to BaseStorageDriver#setComputeContext().
+  setComputeContext() is called before setConfig() is called.
+* Implement setConfig() with initialization code.
+** Store the cloud reference in a member field (used by the other methods)
+** Access the cloud credentials with @cloud.getUser()@
+* Implement createVolume(),deleteVolume() to create/delete drives.
+** When creating a new volume access the volume configuration with @cloud.getCloudStorage().getTemplates().get(templateName)@
+** When creating a new volume respect the location parameter, since in most clouds, block storage devices must be co-located with the machine instances.
+** When deleting an existing volume use the location and volumeId parameter to find the relevant volume.
+* Implement listAllVolumes() with code that describes all volumes
+* Implement listVolumes(machineIp) with code that describes volumes attached to the specified machine
+* Package the class in a jar file and place the it in the @<cloudifyRoot>/clouds/cloudProviderName/lib/@ folder.
