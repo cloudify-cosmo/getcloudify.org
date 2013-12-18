@@ -10,3 +10,7 @@ pageord: 200
 This topic is a drill down into the Openstack cloud driver ( "(newwindow)OpenstackCloudDriver":https://github.com/CloudifySource/cloudify/blob/master/esc/src/main/java/org/cloudifysource/esc/driver/provisioning/openstack/OpenStackCloudifyDriver.java ) 
 in the context of the following scenarios:
 
+* *"Bootstrapping a Cloud":#bootstrap * --Allocates machines and installs the Cloudify controller.
+* *"Installing an Application":#install * --Allocates machines for application services and installs the application's services (including the Cloudify agent). In this scenario, the cloud driver resides on the management machine as part of the Cloudify controller.<h4 class="info">There is also a *Cluster healing* scenario which is treated by Cloudify as being the same as the *Installing an application* scenario.</h4>
+* *"Uninstalling an Application":#uninstall * --Stops the application's services and instructs the cloud driver to uninstall the machines used by the services.
+* *"Tearing Down a Cloud":#teardown * --Uninstalls all Cloudify machines and components. 
