@@ -20,20 +20,21 @@ There are three cloud driver base classes:
 
 h2. Developing a new Compute Cloud Driver 
 
-Use Case: You have a new cloud not supported by Cloudify, not supported by JClouds.
+Developing a new compute cloud driver is required when a new cloud is neither supported by Cloudify, nor supported by JClouds (which powers the default cloudify cloud driver).
+
 * Create a new Java class that extends "BaseProvisioningDriver":https://github.com/CloudifySource/cloudify/blob/master/esc/src/main/java/org/cloudifysource/esc/driver/provisioning/BaseProvisioningDriver.java
 * maven dependency:
 <script src="https://gist.github.com/tamirko/6121329.js"></script>
 * maven repository:
 <script src="https://gist.github.com/2070752.js?file=repo.xml"></script>
 
-* Use #initDeployer() to initialization operations.
+* Use #initDeployer() for initialization operations.
 ** Remember that the class is instantiated once for each installed service. So this method is called once per service, but not once globally.
 ** If the method throws an exception the webui will issue an alert and the service would have to be uninstalled for the alert to be resolved. 
 ** Create singleton objects (shared between all instances) using super.provisioningContext (see "ByonProvisioningDriver#initDeployed()":https://github.com/CloudifySource/cloudify/blob/master/esc/src/main/java/org/cloudifysource/esc/driver/provisioning/byon/ByonProvisioningDriver.java#L90)
 ** The Cloudify Orchestrator process which hosts the cloud driver, can be restarted without notice. Store operational metadata using the cloud service.
 ** The cloud groovy file (such as <cloudifyHome>/clouds/myCloud/myCloud-service.groovy) is available as the "Cloud POJO":https://github.com/CloudifySource/cloudify/blob/master/domain/src/main/java/org/cloudifysource/domain/cloud/Cloud.java .
-   The same cloud POJO is stored as a member and is accesible with super.cloud (ussually needed when implementing the other methods).
+   Access the cloud instance with @super.cloud@
 
 * Use #onServiceUninstalled() to perform cleanup operations.
 ** This method is called only once.
@@ -48,7 +49,7 @@ Use Case: You have a new cloud not supported by Cloudify, not supported by JClou
 *** Allow the cloud driver to inject environment variables to the "bootstrap script":https://github.com/CloudifySource/cloudify/blob/master/esc/src/main/resources/general/bootstrap-management.sh
 *** Allow the cloud driver to control the open files limit on the linux machine (converted to a @ulimit -HSn $CLOUDIFY_OPEN_FILES_LIMIT@ command in the "bootstrap script":https://github.com/CloudifySource/cloudify/blob/master/esc/src/main/resources/general/bootstrap-management.sh)
 *** If startMachine is called as a response to a machine failure (and not as a response to scale out request), it can use context.getPreviousMachineDetails() to retrieve the MachineDetails of the recently failed machine.
-    The MachineDetails returned by this method is passed to the next startMachine call in case it fails.
+    The MachineDetailr s returned by this method is passed to the next startMachine call in case it fails.
     The MachineDetails survives process restarts since it is backed up in the cloudifyManagementSpace.
 
 * Implement the code that stops an existing machine in the #stopMachine method.
@@ -85,3 +86,29 @@ h2. Changing the startup script
 
 Once a new machine is available, a startup script is executed on the remote machine over SSH. The script is responsible for downloading and installing Cloudify, and then starting the Cloudify agent. In some implementations, you may need to tweak this process to fit the requirements of specific environments (e.g., system proxies, mount points, and paths). You can use the default startup script (@<cloudifyRoot>/clouds/ec2/upload/bootstrap-management.sh@), which works with the built-in cloud driver as a reference. Simply place the modified script in the @<cloudifyRoot>/clouds/cloudProviderName/upload@ folder.
 
+
+h2. Developing a new Network Cloud Driver 
+
+Developing a new network cloud driver is required when the recipe allocates floating IPs (elastic IPs), but the existing cloud driver is missing network support for that cloud.
+* Create a new Java class that extends "BaseNetworkDriver":https://github.com/CloudifySource/cloudify/blob/master/esc/src/main/java/org/cloudifysource/esc/driver/provisioning/network/BaseNetworkDriver.java
+* maven dependency:
+<script src="https://gist.github.com/tamirko/6121329.js"></script>
+* maven repository:
+<script src="https://gist.github.com/2070752.js?file=repo.xml"></script>
+
+* Use #setConfig() for initialization operations.
+** Remember that the class is instantiated once for each installed service. So this method is called once per service, but not once globally.
+** If the method throws an exception the webui will issue an alert and the service would have to be uninstalled for the alert to be resolved. 
+** The cloud groovy file (such as <cloudifyHome>/clouds/myCloud/myCloud-service.groovy) is available as the "Cloud POJO":https://github.com/CloudifySource/cloudify/blob/master/domain/src/main/java/org/cloudifysource/domain/cloud/Cloud.java .
+   Access the network configuration within the cloud POJO with @config.getCloud().getCloudNetwork()@
+
+* Use allocateFloatingIp,releaseFloatingIp to reserve/release floating ips from the specified ip pool.
+** Respect the timeout parameter, by limiting blocking operations. If the timeout expired throw TimeoutException.
+** allocateFloatingIp returns the ip address provided by the cloud given the specified ip pool name.
+** releaseFloatingIp is idempotent (silently ignore if floating ip already release back to pool)
+   
+* Use assignFloatingIp(),unassignFloatingIp()  to assign/unassign an allocated floating ip to the specified machine instance
+** Respect the timeout parameter, by limiting blocking operations. If the timeout expired throw TimeoutException.
+** Both the instance and the floating ip parameters are IP-Addresses. Ussually the instance ip needs to be translated to the cloud instance-id, and the floating ip to its respective identifier (via a Cloud API call).
+
+* Package the class in a jar file and place the it in the @<cloudifyRoot>/clouds/cloudProviderName/lib/@ folder.
