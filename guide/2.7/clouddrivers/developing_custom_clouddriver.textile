@@ -178,10 +178,14 @@ Developing a new storage cloud driver is required when the recipe creates and at
 * Implement setConfig() with initialization code.
 ** Store the cloud reference in a member field (used by the other methods)
 ** Access the cloud credentials with @cloud.getUser()@
+** Details about the destination machine that might be relevant to the storage provisioning such as location
+   will be provided by the compute template. The tmplate is accesible using @cloud.getCloudCompute().getTemplates().get(computeTemplateName)@
 * Implement createVolume(),deleteVolume() to create/delete drives.
 ** When creating a new volume access the volume configuration with @cloud.getCloudStorage().getTemplates().get(templateName)@
 ** When creating a new volume respect the location parameter, since in most clouds, block storage devices must be co-located with the machine instances.
 ** When deleting an existing volume use the location and volumeId parameter to find the relevant volume.
 * Implement listAllVolumes() with code that describes all volumes
 * Implement listVolumes(machineIp) with code that describes volumes attached to the specified machine
+* Implement the abstract getMachineVolumeIds() to retrieve all storage volumes related to the specific machine.
+  The non-persistent storage volumes may also be included in the returned list.
 * Package the class in a jar file and place the it in the @<cloudifyRoot>/clouds/cloudProviderName/lib/@ folder.
