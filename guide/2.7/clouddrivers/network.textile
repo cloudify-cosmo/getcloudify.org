@@ -3,13 +3,25 @@ layout: default
 title: Network
 category: Developing Cloud Drivers
 publish: true
-abstract: Network
+abstract: Cloudify Network Support
 pageord: 900
 ---
+h1. Overview
+Cloudify 2.7 provides network abstraction to allow applications to define and create their network topology as part
+of the application deployment.
 
-Cloudify will provide the following with 2.7 (Dec 2013)
-Network Abstraction in recipe and in Cloud driver
-Implementation for OpenStack Neutron
+Currently, Cloudify offers network implementation for OpenStack using the Neutron API and the
+corresponding attributes in Nova API.
+
+Users who wish to have custom implementations can refer to the custom Cloud Driver guide //link here
+
+Cloudify supported network use cases includes:
+
+- Creating a Cloudify management network to which the Cloudify Managers are bind as well as Cloudify agents (using a dedicated vNIC)
+this use case provides separation of management networking from application networking. In this use case the bootstrap
+process uses the network cloud driver to create a network and a router that binds the internal network to the external network
+in order to provide internet connectivity for the REST and GUI endpoints.
+
 Scope of support:
 Assign multiple virtual networks to VMs using multiple vNIC  - networks can be predefined or provisioned by Cloudify
 Security Group definitions in recipe: Create security groups and bind VMs to these groups
