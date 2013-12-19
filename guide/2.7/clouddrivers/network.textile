@@ -64,6 +64,22 @@ The Management Network Configuration is done in the Cloud Driver configuration f
 
 **snippet1**
 
+h3. Defining the Application Network Topology
+
+As mentioned above the cloud driver allows for networks creation and network binding to VMs vNICs (each VM can have several vNICs)
+
+There are 2 main scenarios:
+* Dynamic Scenario where the cloud driver create the networks based on configuration block in the Cloud Driver configuration.
+* Static Scenario where the cloud driver just binds existing networks to the application VMs using configurations specified in the compute tempaltes in the Cloud Driver configuration
+
+h5. Application Network Configuration
+
+The below snippet demonstrates how to configure application networks
+**snippet2**
+
+Once these network had been created or had been discovered by the driver, it will bind the application VMs using the extended compute template
+
+**snippet3**
 
 
 
