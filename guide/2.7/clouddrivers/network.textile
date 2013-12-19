@@ -65,6 +65,9 @@ The Management Network Configuration is done in the Cloud Driver configuration f
 **snippet1**
 <script src="https://gist.github.com/tamirko/8040601.js"></script>
 
+The following configuration options are availabel:
+
+
 h3. Defining the Application Network Topology
 
 As mentioned above the cloud driver allows for networks creation and network binding to VMs vNICs (each VM can have several vNICs)
@@ -75,6 +78,7 @@ There are 2 main scenarios:
 
 h5. Application Network Configuration
 
+
 The below snippet demonstrates how to configure application networks
 **snippet2**
 <script src="https://gist.github.com/tamirko/8040538.js"></script>
@@ -84,28 +88,21 @@ Once these network had been created or had been discovered by the driver, it wil
 **snippet3**
 <script src="https://gist.github.com/tamirko/8040538.js"></script>
 
+h3. Creating Service Security Rules
 
+In version 2.7 additional recipe DSL allows for Security Rules definitions
+Both inbound and outbound rules are supported.
 
+<script src="https://gist.github.com/tamirko/b5e044fe4e8e2b572c61.js"></script>
 
+The rules refer to the scope of the access list using the following scope types
 
-
-h3. Assigning networks to VMs
-
-<script src="https://gist.github.com/tamirko/8037800.js"></script>
-
-h3. Network Templates in Cloud Driver
-
-<script src="https://gist.github.com/tamirko/8036987.js"></script>
-
-h3. Security Group Rule Types
 
 There are the levels of rules (aka types):
 <script src="https://gist.github.com/tamirko/8037206.js"></script>
 
-h3. Security Group Definitions in Recipe
 
-Here's a snippet :
-<script src="https://gist.github.com/tamirko/b5e044fe4e8e2b572c61.js"></script>
+
 
 
 
