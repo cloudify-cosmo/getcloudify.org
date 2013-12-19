@@ -62,30 +62,10 @@ h5. Configuring the Management Network and Security Groups
 
 The Management Network Configuration is done in the Cloud Driver configuration file. The following snippets demonstrate the configuration options
 
+**snippet1**
 
 
-Scope of support:
-Assign multiple virtual networks to VMs using multiple vNIC  - networks can be predefined or provisioned by Cloudify
-Security Group definitions in recipe: Create security groups and bind VMs to these groups
-Network templates: create networks for applications and services using templates in the Cloud Driver configuration
-Create, terminate bind and unbind floating IPs using API from the recipe
 
-
-Bootstrapping Cloudify with Management network for managers and agent - Bootstrap process binds to
- management network and subnet predefined with a router to link the management subnet to the external network (REST & GUI endpoints).
-Installing application with networks, security groups and floating Ips.  Cloud Driver binds to:
-application networks and subnets predefined
- security groups which are predefined
-If floating IP API is to be used - user must have the network bind to an external network via router
-
-
-Bootstrapping Cloudify with Management network for managers and agent - Bootstrap process creates
-management network and subnet.
-A router to link the management subnet to the external network (REST & GUI endpoints).
-Installing application with networks, security groups and floating Ips.  Cloud Driver creates:
-application networks and subnets on based on user's configuration.
-Security groups as defined in the recipes
- ports are created when VMs are attached to a subnet.
 
 
 
