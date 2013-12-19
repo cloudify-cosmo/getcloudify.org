@@ -47,6 +47,16 @@ Cloudify Network Cloud Driver provides API for working with floating IPs. This m
 * Detach the Floating IP from the VM (for example in case of fail-over and auto-healing)
 * Terminate a Floating IP
 
+h3. Cloudify Management Network Topology
+
+The image below depicts the management network topology. It includes the following objects:
+* L2 Network with a single L3 Subnet to which all managers and agents bind via vNIC
+* vRouter that connects the external network to the management network to allow for access from / to the internet
+* Floating IP for each of the managers
+* Management security group that allows for manager to manager communications as well as for REST and GUI communications
+* Agents security group that allows for manager to agent and vice versa communication
+
+<img src="../../images/clouddrivers/mng_network_topology.jpg"/>
 
 Scope of support:
 Assign multiple virtual networks to VMs using multiple vNIC  - networks can be predefined or provisioned by Cloudify
@@ -92,6 +102,6 @@ h3. Security Group Definitions in Recipe
 Here's a snippet :
 <script src="https://gist.github.com/tamirko/b5e044fe4e8e2b572c61.js"></script>
 
-<img src="../../images/clouddrivers/mng_network_topology.jpg"/>
+
 
 
