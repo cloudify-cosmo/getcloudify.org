@@ -581,6 +581,7 @@ var guide = {
 			'bootstrap_and_deployment_drill_down':true,
 			'cloud_driver':true,
 			'developing_custom_clouddriver':true,
+			'network':true,
 			'tutorial_maven':true
 		},
 		'common_patterns':{

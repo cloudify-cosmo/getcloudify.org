@@ -1,0 +1,59 @@
+---
+layout: default
+title: Network
+category: Developing Cloud Drivers
+publish: true
+abstract: Network
+pageord: 900
+---
+
+Cloudify will provide the following with 2.7 (Dec 2013)
+Network Abstraction in recipe and in Cloud driver
+Implementation for OpenStack Neutron
+Scope of support:
+Assign multiple virtual networks to VMs using multiple vNIC  - networks can be predefined or provisioned by Cloudify
+Security Group definitions in recipe: Create security groups and bind VMs to these groups
+Network templates: create networks for applications and services using templates in the Cloud Driver configuration
+Create, terminate bind and unbind floating IPs using API from the recipe
+
+
+Bootstrapping Cloudify with Management network for managers and agent - Bootstrap process binds to
+ management network and subnet predefined with a router to link the management subnet to the external network (REST & GUI endpoints).
+Installing application with networks, security groups and floating Ips.  Cloud Driver binds to:
+application networks and subnets predefined
+ security groups which are predefined
+If floating IP API is to be used - user must have the network bind to an external network via router
+
+
+Bootstrapping Cloudify with Management network for managers and agent - Bootstrap process creates
+management network and subnet.
+A router to link the management subnet to the external network (REST & GUI endpoints).
+Installing application with networks, security groups and floating Ips.  Cloud Driver creates:
+application networks and subnets on based on user's configuration.
+Security groups as defined in the recipes
+ ports are created when VMs are attached to a subnet.
+
+
+
+
+h3. Assigning networks to VMs
+
+<script src="https://gist.github.com/tamirko/8037800.js"></script>
+
+h3. Network Templates in Cloud Driver
+
+<script src="https://gist.github.com/tamirko/8036987.js"></script>
+
+h3. Security Group Rule Types
+
+There are the levels of rules (aka types):
+<script src="https://gist.github.com/tamirko/8037206.js"></script>
+
+h3. Security Group Definitions in Recipe
+
+Here's a snippet :
+<script src="https://gist.github.com/tamirko/b5e044fe4e8e2b572c61.js"></script>
+
+<img src="../../images/clouddrivers/mng_network_topology.jpg"/>
+
+
