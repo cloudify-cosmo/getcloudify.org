@@ -58,6 +58,30 @@ The image below depicts the management network topology. It includes the followi
 
 <img src="../../images/clouddrivers/mng_network_topology.jpg"/>
 
+h5. Configuring a network
+A network can be configured as a management network or as an applicative network. Either way, networks are configured using the same
+configuration format:
+
+networkConfiguration {
+	name  "Foo-Network"
+	subnets {
+		subnet {
+			name "Foo-Subnet"
+			range "160.0.0.0/24"
+			options {
+				gateway null 
+				dnsNameServers null
+			}
+		}
+	}
+}
+
+* The network name is mandatory
+* A network must have at-least one subnet.
+* The subnet name and range are mandatory.
+* The subnet gateway and dnsNameServers are optional. Openstack default values will be used.
+
+
 h5. Configuring the Management Network and Security Groups
 
 The Cloudify management network is defined in the Cloud configuration file, in the cloudNetwork section. Here is a sample:
@@ -83,13 +107,11 @@ cloudNetwork {
 
 
 Note that like any network, the management network (if defined) must have at-least one subnet. 
-The Management Network Configuration is done in the Cloud Driver configuration file. The following snippets demonstrate the configuration options
 
+The following additional configuration options are available:
+* associateFloatingIpOnBootstrap - indicates if a floating IP should be attached to a management machine
 
-<script src="https://gist.github.com/tamirko/8040601.js"></script>
-
-The following configuration options are available
-
+All other configuration option are the same as those of applicative networks.
 
 h3. Defining the Application Network Topology
 
