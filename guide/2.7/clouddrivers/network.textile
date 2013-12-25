@@ -60,12 +60,35 @@ The image below depicts the management network topology. It includes the followi
 
 h5. Configuring the Management Network and Security Groups
 
+The Cloudify management network is defined in the Cloud configuration file, in the cloudNetwork section. Here is a sample:
+
+cloudNetwork {
+
+		// Details of the management network, which is shared among all instances of the Cloudify Cluster.
+		management {
+			networkConfiguration {
+				name  "Cloudify-Management-Network"
+				subnets ([
+					subnet {
+						name "Cloudify-Management-Subnet"
+						range "177.86.0.0/24"
+						options ([ "gateway" : "177.86.0.111" ])
+					}
+				])
+				custom ([ "associateFloatingIpOnBootstrap" : "true" ])
+			}
+		}
+...
+}
+
+
+Note that like any network, the management network (if defined) must have at-least one subnet. 
 The Management Network Configuration is done in the Cloud Driver configuration file. The following snippets demonstrate the configuration options
 
 
 <script src="https://gist.github.com/tamirko/8040601.js"></script>
 
-The following configuration options are availabel:
+The following configuration options are available
 
 
 h3. Defining the Application Network Topology
