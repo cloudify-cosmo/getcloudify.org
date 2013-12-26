@@ -456,6 +456,7 @@ var guide = {
 		'clouddrivers':{
 			'cloud_driver':true,
 			'developing_custom_clouddriver':true,
+			'network':true,
 			'tutorial_maven':true
 		},
 		'common_patterns':{

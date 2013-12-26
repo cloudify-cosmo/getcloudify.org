@@ -14,7 +14,7 @@ of the application deployment.
 Currently, Cloudify offers network implementation for OpenStack using the Neutron API and the
 corresponding attributes in Nova API.
 
-Users who wish to have custom implementations can refer to the custom Cloud Driver guide //link here
+Users who wish to have custom implementations can refer to the "custom Cloud Driver guide":developing_custom_clouddriver.
 
 h3. Use cases
 
@@ -61,20 +61,7 @@ The image below depicts the management network topology. It includes the followi
 h5. Configuring a network
 A network can be configured as a management network or as an applicative network. Either way, networks are configured using the same
 configuration format:
-
-networkConfiguration {
-	name  "Foo-Network"
-	subnets {
-		subnet {
-			name "Foo-Subnet"
-			range "160.0.0.0/24"
-			options {
-				gateway null 
-				dnsNameServers null
-			}
-		}
-	}
-}
+<script src="https://gist.github.com/tamirko/8132117.js"></script>
 
 * The network name is mandatory
 * A network must have at-least one subnet.
@@ -85,25 +72,7 @@ networkConfiguration {
 h5. Configuring the Management Network and Security Groups
 
 The Cloudify management network is defined in the Cloud configuration file, in the cloudNetwork section. Here is a sample:
-
-cloudNetwork {
-
-		// Details of the management network, which is shared among all instances of the Cloudify Cluster.
-		management {
-			networkConfiguration {
-				name  "Cloudify-Management-Network"
-				subnets ([
-					subnet {
-						name "Cloudify-Management-Subnet"
-						range "177.86.0.0/24"
-						options ([ "gateway" : "177.86.0.111" ])
-					}
-				])
-				custom ([ "associateFloatingIpOnBootstrap" : "true" ])
-			}
-		}
-...
-}
+<script src="https://gist.github.com/tamirko/8132125.js"></script>
 
 
 Note that like any network, the management network (if defined) must have at-least one subnet. 
