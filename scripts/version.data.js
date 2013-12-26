@@ -540,6 +540,7 @@ var guide = {
 			'configuring_byon':true,
 			'configuring_cloudstack':true,
 			'configuring_ec2':true,
+			'configuring_exoscale':true,
 			'configuring_hp':true,
 			'configuring_openstack':true,
 			'configuring_rackspace':true,
