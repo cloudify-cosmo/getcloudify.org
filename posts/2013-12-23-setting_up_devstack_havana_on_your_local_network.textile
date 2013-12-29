@@ -1,0 +1,109 @@
+---
+layout: blogpost
+title: Openstack in a Box - Setting Up Devstack Havana On Your Local Network
+image: barak.jpg
+author: Barak Merimovich
+tags: 
+ - Cloudify
+ - Devstack
+ - OpenStack
+---
+
+The Openstack project is hugely popular, gaining more and more ground with developers. It is also pretty damn complicated to set up.
+
+Fortunately, the good folks as Openstack have set up an 'all-in-one' configuration allowing you to install all of the Openstack components on one machine using a fairly straightforward script. This project is called Devstack, and you can read more about is "(newwindow)here":http://www.devstack.org.
+
+The thing to remember is that devstack is really a developer environment, letting Openstack developers quickly check new code on their machine. It is also useful for a quick demo. It is not a production Openstack environement, nor is it means to be one.
+Still, setting up devstack on a network machine and using it as a disposable Openstack environment is an appealing concept. For testing alone, this could be really useful.
+
+So I set off working on this. The general idea was to have a fully functional Openstack Havana, with Neutron networking, up and running on one dedicated hardware box and available on the local network. There are plenty of guides out there about setting up Devstack, but getting the whole thing working was actually a bit more complicated then I had initially expected. So here is one more guide - hopefully someone will find this useful.
+
+h3. Start with an Ubuntu box
+
+First, you will need a dedicated Ubuntu box - not a VM. Layering virtualization on top of a Virtual Machine has all kinds of annoying limitations. Just start with a bare server machine, running Ubuntu 12.04. Don't get funny with the distro or version - use Ubuntu 12.04, nothing else (Yes, the docs say they support other distros, but everyone uses Ubuntu - so should you). You will need a sudoer account on this machine.
+
+h3. Set up your Openstack user
+
+Run the following commands on the machine:
+<script src="https://gist.github.com/tamirko/8168811.js"></script>
+
+h3. Switch to stack user
+
+<script src="https://gist.github.com/tamirko/8168821.js"></script>
+
+h3. Install git
+
+<script src="https://gist.github.com/tamirko/8168825.js"></script>
+
+h3. Download the devstack project
+
+<script src="https://gist.github.com/tamirko/8168828.js"></script>
+
+h3. Get a dedicated IP range in your network
+
+For devstack VMs to work correctly on your network, you will need a range of IPs they can use. This may require you to actually go talk to your system administrator. Annoying, I know.
+You need the range in a CIDR notation - something like this: 192.168.15.0/24. If that doesn't mean much to you (it should, but nevermind that now), don't worry. The sysadmin will know what this means. If you manage your own network, just choose a block of IPs you are not using.
+
+h3. Set up your localrc file
+
+The localrc file is a configuration file that the devstack script uses. If one does not exit, devstack will use fairly reasonable defaults. That said, you should definitely create your own localrc file if you want to get the most use of your devstack. It also makes it easy ro re-install devstack later on. Don't forget to make a backup of this file.
+Here is the a sample localrc file:
+<script src="https://gist.github.com/tamirko/8168832.js"></script>
+
+Some things to note about this localrc file:
+
+Not exactly secure passwords - remember, this is not a production set up. You should not be making this environment available on the internet.
+The FLAT_INTERFACE value indicates the network interface card that devstack will use for network access. I am assuming eth0 here, but your environment may be a little different. Run 'ifconfig' on the Ubuntu machine to verify.
+Neutron is enabled and the older nova-network service is disabled.
+The Q_FLOATING_ALLOCATION_POOL lets you explicitly set the pool of IPs used for this devstack instance. If you plan on running multiple devstack instances, this field can be really useful.
+
+h3. Switch to the Havana branch
+
+<script src="https://gist.github.com/tamirko/8168873.js"></script>
+
+Devstack, like openstack, is a living breathing project and like most projects undergoing active development, it has bugs and issues. You can always run the latest and greatest devstack code (the 'master' branch) but you risk encountering whatever issues the Openstack developers just ran into. Running from a stable branch makes sense for most cases.
+
+h3. Set up the network environment
+
+<script src="https://gist.github.com/tamirko/8168877.js"></script>
+
+These command will make sure that network traffic will be correctly routed in and out of the devstack VMs.
+The ip_forward and proxy_arp changes will be reset when the machice reboots. You can make these changes permanent by editing /etc/sysctl.conf and adding the following lines:
+<script src="https://gist.github.com/tamirko/8168879.js"></script>
+
+h3. Run the devstack script
+
+<script src="https://gist.github.com/tamirko/8168880.js"></script>
+
+This script takes a while to run. It installs Mysql, RabbitMQ, compiles the openstack binaries and set up a whole bunch of stuff. It took me about 20 minutes to get through the entire script.
+When the script finishes (successfully, one hopes) devstack is up and running. Open a browser to the host's IP - the openstack dashboard (called Horizon) should be up and running and you can login using admin/password.
+
+Once you start a VM, it should have access to the network and hosts on the network should be able to reach the VMs using a floating IP.
+
+h3. Add an Ubuntu Image
+
+On the Horizon dashboard, go to Admin Tab -> Images -> Create Image.
+
+Name the image Ubuntu Precise (or whatever name you like), set the Image location to:
+
+    *http://uec-images.ubuntu.com/precise/current/precise-server-cloudimg-amd64-disk1.img*
+
+Finally, set the image format to QCOW2, and click 'Create Image'.
+
+Devstack will download the image, so it might take a while for the image to become available.
+
+h3. Troubleshooting
+
+If something goes wrong, you can run ./stack.sh again. It should run faster the second time, with most files already downloaded.
+To shutdown devstack, run:
+<script src="https://gist.github.com/tamirko/8168895.js"></script>
+
+If you want to clean up all the files that devstack installed, run:
+<script src="https://gist.github.com/tamirko/8168898.js"></script>
+
+and
+<script src="https://gist.github.com/tamirko/8168909.js"></script>
+
+VMs not connecting to the internet? First, make sure you ran all of the network commands described above. Second, the subnet your VM is connected to may not have a DNS server defined (this is the default). You can add DNS entries in the horizon dashboard and new VMs will get this setting.
+
+- See more at: "(newwindow)http://barakme.tumblr.com/post/70895539608/openstack-in-a-box-setting-up-devstack-havana-on-your#sthash.yRaL3WEs.dpuf":http://barakme.tumblr.com/post/70895539608/openstack-in-a-box-setting-up-devstack-havana-on-your#sthash.yRaL3WEs.dpuf

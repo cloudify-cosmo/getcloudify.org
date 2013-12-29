@@ -4,10 +4,10 @@
 <head>
     
 	<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>	
-	<title>Cloudify - Tag: Groovy</title>
+	<title>Cloudify - Openstack in a Box - Setting Up Devstack Havana On Your Local Network</title>
 	<script src="//cdn.optimizely.com/js/59503762.js"></script>
 	<link rel="stylesheet" href="/css/template.css" type="text/css"/>	
-	<link rel="canonical" href="http://www.cloudifysource.orgtags/Groovy/index.html"/>	
+	<link rel="canonical" href="http://www.cloudifysource.org/2013/12/23/setting_up_devstack_havana_on_your_local_network.html"/>	
 	<link rel="stylesheet" href="/css/jquery-ui-1.8.17.custom.css" type="text/css" media="all"/>
 	<link rel="stylesheet" type="text/css" href="/scripts/prettify/prettify.css">		
 	<link rel="stylesheet" type="text/css" href="/scripts/lightbox/jquery.lightbox-0.5.css" media="screen" />	
@@ -497,7 +497,7 @@ $("body").live('change', function(){
 </head>
 
 <body>
-<a class="fork-guide" target="_blank" href="https://github.com/CloudifySource/cloudify"></a>	
+<a class="fork-guide" target="_blank" href="https://github.com/CloudifySource/cloudify"></a>
 <div class="WrapperBg">    
     <div class="Wrapper">
         <div class="header">
@@ -573,7 +573,7 @@ $("body").live('change', function(){
 <div class="clear"></div>
 
         <div class="contentWrap">            
-			<div class="breadcrumbs">Home Page > Cloudify Blogs > Tag: Groovy</div>
+			<div class="breadcrumbs">Home Page > Cloudify Blogs > Openstack in a Box - Setting Up Devstack Havana On Your Local Network</div>
             <div class="clear"></div>
 
             <!--Search-->
@@ -599,10 +599,9 @@ $("body").live('change', function(){
 
 
 
-
-
+			
             <div class="content">
-                <div class="left" id="alTag_LeftBlog">
+                <div id="alTag_LeftBlog" class="left">
                     
                     <!--Event groups-->
 
@@ -1756,68 +1755,85 @@ $("body").live('change', function(){
 
                 <div id="resultsDiv" class="DocumentsWrap"></div>
                 <div id="pageContent" class="DocumentsWrapRight">
-                    <h1 class="pageTitle">Tag: Groovy</h1>					
+                    <h1 class="pageTitle">Openstack in a Box - Setting Up Devstack Havana On Your Local Network</h1>
+					 
+					  <span class="blogPostInfo">Posted By: <a href="#">Barak Merimovich</a>  on December 23, 2013  
+					  </span>
+					  <br/><br/><br/>
+					 
+                    <p>The Openstack project is hugely popular, gaining more and more ground with developers. It is also pretty damn complicated to set up.</p>
+<p>Fortunately, the good folks as Openstack have set up an &#8216;all-in-one&#8217; configuration allowing you to install all of the Openstack components on one machine using a fairly straightforward script. This project is called Devstack, and you can read more about is <a href="http://www.devstack.org" class="newwindow">here</a>.</p>
+<p>The thing to remember is that devstack is really a developer environment, letting Openstack developers quickly check new code on their machine. It is also useful for a quick demo. It is not a production Openstack environement, nor is it means to be one.<br />
+Still, setting up devstack on a network machine and using it as a disposable Openstack environment is an appealing concept. For testing alone, this could be really useful.</p>
+<p>So I set off working on this. The general idea was to have a fully functional Openstack Havana, with Neutron networking, up and running on one dedicated hardware box and available on the local network. There are plenty of guides out there about setting up Devstack, but getting the whole thing working was actually a bit more complicated then I had initially expected. So here is one more guide &#8211; hopefully someone will find this useful.</p>
+<h3>Start with an Ubuntu box</h3>
+<p>First, you will need a dedicated Ubuntu box &#8211; not a VM. Layering virtualization on top of a Virtual Machine has all kinds of annoying limitations. Just start with a bare server machine, running Ubuntu 12.04. Don&#8217;t get funny with the distro or version &#8211; use Ubuntu 12.04, nothing else (Yes, the docs say they support other distros, but everyone uses Ubuntu &#8211; so should you). You will need a sudoer account on this machine.</p>
+<h3>Set up your Openstack user</h3>
+<p>Run the following commands on the machine:<br />
+<script src="https://gist.github.com/tamirko/8168811.js"></script></p>
+<h3>Switch to stack user</h3>
+<script src="https://gist.github.com/tamirko/8168821.js"></script><h3>Install git</h3>
+<script src="https://gist.github.com/tamirko/8168825.js"></script><h3>Download the devstack project</h3>
+<script src="https://gist.github.com/tamirko/8168828.js"></script><h3>Get a dedicated IP range in your network</h3>
+<p>For devstack VMs to work correctly on your network, you will need a range of IPs they can use. This may require you to actually go talk to your system administrator. Annoying, I know.<br />
+You need the range in a <span class="caps">CIDR</span> notation &#8211; something like this: 192.168.15.0/24. If that doesn&#8217;t mean much to you (it should, but nevermind that now), don&#8217;t worry. The sysadmin will know what this means. If you manage your own network, just choose a block of IPs you are not using.</p>
+<h3>Set up your localrc file</h3>
+<p>The localrc file is a configuration file that the devstack script uses. If one does not exit, devstack will use fairly reasonable defaults. That said, you should definitely create your own localrc file if you want to get the most use of your devstack. It also makes it easy ro re-install devstack later on. Don&#8217;t forget to make a backup of this file.<br />
+Here is the a sample localrc file:<br />
+<script src="https://gist.github.com/tamirko/8168832.js"></script></p>
+<p>Some things to note about this localrc file:</p>
+<p>Not exactly secure passwords &#8211; remember, this is not a production set up. You should not be making this environment available on the internet.<br />
+The FLAT_INTERFACE value indicates the network interface card that devstack will use for network access. I am assuming eth0 here, but your environment may be a little different. Run &#8216;ifconfig&#8217; on the Ubuntu machine to verify.<br />
+Neutron is enabled and the older nova-network service is disabled.<br />
+The Q_FLOATING_ALLOCATION_POOL lets you explicitly set the pool of IPs used for this devstack instance. If you plan on running multiple devstack instances, this field can be really useful.</p>
+<h3>Switch to the Havana branch</h3>
+<script src="https://gist.github.com/tamirko/8168873.js"></script><p>Devstack, like openstack, is a living breathing project and like most projects undergoing active development, it has bugs and issues. You can always run the latest and greatest devstack code (the &#8216;master&#8217; branch) but you risk encountering whatever issues the Openstack developers just ran into. Running from a stable branch makes sense for most cases.</p>
+<h3>Set up the network environment</h3>
+<script src="https://gist.github.com/tamirko/8168877.js"></script><p>These command will make sure that network traffic will be correctly routed in and out of the devstack VMs.<br />
+The ip_forward and proxy_arp changes will be reset when the machice reboots. You can make these changes permanent by editing /etc/sysctl.conf and adding the following lines:<br />
+<script src="https://gist.github.com/tamirko/8168879.js"></script></p>
+<h3>Run the devstack script</h3>
+<script src="https://gist.github.com/tamirko/8168880.js"></script><p>This script takes a while to run. It installs Mysql, RabbitMQ, compiles the openstack binaries and set up a whole bunch of stuff. It took me about 20 minutes to get through the entire script.<br />
+When the script finishes (successfully, one hopes) devstack is up and running. Open a browser to the host&#8217;s IP &#8211; the openstack dashboard (called Horizon) should be up and running and you can login using admin/password.</p>
+<p>Once you start a VM, it should have access to the network and hosts on the network should be able to reach the VMs using a floating IP.</p>
+<h3>Add an Ubuntu Image</h3>
+<p>On the Horizon dashboard, go to Admin Tab &#8594; Images &#8594; Create Image.</p>
+<p>Name the image Ubuntu Precise (or whatever name you like), set the Image location to:</p>
+<strong>http://uec-images.ubuntu.com/precise/current/precise-server-cloudimg-amd64-disk1.img</strong>
+<p>Finally, set the image format to QCOW2, and click &#8216;Create Image&#8217;.</p>
+<p>Devstack will download the image, so it might take a while for the image to become available.</p>
+<h3>Troubleshooting</h3>
+<p>If something goes wrong, you can run ./stack.sh again. It should run faster the second time, with most files already downloaded.<br />
+To shutdown devstack, run:<br />
+<script src="https://gist.github.com/tamirko/8168895.js"></script></p>
+<p>If you want to clean up all the files that devstack installed, run:<br />
+<script src="https://gist.github.com/tamirko/8168898.js"></script></p>
+<p>and<br />
+<script src="https://gist.github.com/tamirko/8168909.js"></script></p>
+<p>VMs not connecting to the internet? First, make sure you ran all of the network commands described above. Second, the subnet your VM is connected to may not have a <span class="caps">DNS</span> server defined (this is the default). You can add <span class="caps">DNS</span> entries in the horizon dashboard and new VMs will get this setting.</p>
+<p>- See more at: <a href="http://barakme.tumblr.com/post/70895539608/openstack-in-a-box-setting-up-devstack-havana-on-your#sthash.yRaL3WEs.dpuf" class="newwindow">http://barakme.tumblr.com/post/70895539608/openstack-in-a-box-setting-up-devstack-havana-on-your#sthash.yRaL3WEs.dpuf</a></p>
+                    <div id="disqus_thread"></div>
+<script type="text/javascript">
+    /* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
+    var disqus_shortname = 'cloudifysource'; // required: replace example with your forum shortname
+    var disqus_identifier = '/2013/12/23/setting_up_devstack_havana_on_your_local_network.html';
 
-
-
-
-
-
-
-
-
-														
-                    
-
-
-
-
-<div class="blogtPostBox">
-  <div class="blogInfoLeft">
-    <img title="Sharone Revah Zitzman" width="80" height="96" src="/images/sharone.jpg" />
-  </div>  
-  <div class="blogInfoRight">
-    <a href="/2012/10/17/groovy_dsl_and_testing_with_spock.html" class="title">Groovy and Grails Israel Meetup - Groovy DSL and Testing with Spock</a>
-	  <div class="blogPostInfo">
-	  <br/>	  	 
-	    <span>Posted By: <a href="#">Sharone Revah Zitzman</a>  on  October 17, 2012  <!--|  in <a href="/categories/"></a> --></span>
-	  </div>	  	  	
-      <p>
-		
-			<p>For those who didn&#8217;t make it out to GigaSpaces HQ for the meetup below is the recording from the event. Hope to see you next time.
-</p>
-			
-		<p class><a href="/2012/10/17/groovy_dsl_and_testing_with_spock.html">Read more...</a></p>	  	  
-	  </p>
-		<span>  Additional Tags: 		
-			
-				
-			     <a class="postTag" href="/tags/Cloudify">Cloudify (42)</a>
-			   	
-			
-					
-			
-				
-			     <a class="postTag" href="/tags/Grails">Grails (1)</a>
-			   	
-			
-				
-			     <a class="postTag" href="/tags/Meetup">Meetup (2)</a>
-			   	
-			
-		</span>
-	    
-  </div>
-  <div class="clear" ></div>    
-</div>  
-
-
-
+    /* * * DON'T EDIT BELOW THIS LINE * * */
+    (function() {
+        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+        dsq.src = 'http://' + disqus_shortname + '.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="http://disqus.com" class="dsq-brlink">blog comments powered by <span class="logo-disqus">Disqus</span></a>
 
                 </div>
+
                 <div class="clear"></div>
             </div>
         </div>
+
         <!--Start pagination -->
 
         <div class="clear"></div>
