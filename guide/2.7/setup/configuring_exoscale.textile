@@ -48,14 +48,14 @@ After you've generated the keypair file, you should place it in the @upload@ dir
 
 h3(#get_ids). Obtain Compute Offering, Zone and Template IDs from Your CloudStack Environment
 
-Compute Offering, Zone and Template IDs determine the hardware profile and operating system image of the VMs Cloudify will create on Exoscale. Note that in the Cloudify/JClouds lingo, Compute offering IDs correspond to hardware IDs, template IDs correspond to image IDs, and zone IDs corresspond to location IDs. In this cotext we'll use the CloudStack / Exoscale terms. You can use the "JClouds CLI":https://github.com/jclouds/jclouds-cli to retreive them. To get the list of compute offering, template and zone IDs using this tool, follow the below steps: 
+Compute Offering, Zone and Template IDs determine the hardware profile and operating system image of the VMs Cloudify will create on Exoscale. Note that in the Cloudify/JClouds lingo, Compute offering IDs correspond to hardware IDs, template IDs correspond to image IDs, and zone IDs corresspond to location IDs. In this cotext we'll use the CloudStack / Exoscale terms. You can use the "(newwindow)JClouds CLI":https://github.com/jclouds/jclouds-cli to retreive them. To get the list of compute offering, template and zone IDs using this tool, follow the below steps: 
 
-* Download the "JClouds CLI":http://search.maven.org/#search%7Cga%7C1%7Cg%3A%22org.jclouds.cli%22%20AND%20a%3A%22jclouds-cli%22 (choose the tarball for *nix systems and zip for windowns based system) and extract it any where om your disk
+* Download the "(newwindow)JClouds CLI":http://search.maven.org/#search%7Cga%7C1%7Cg%3A%22org.jclouds.cli%22%20AND%20a%3A%22jclouds-cli%22 (choose the tarball for *nix systems and zip for windowns based system) and extract it any where om your disk
 * In the extracted directory, navigate to the @/bin@ directory and run the @jcloud-cli@ command.
 * Install the @cloudstack@ feature: @features:install jclouds-api-cloudstack@
-* Type the following command to get the template IDs list: @jclouds:image-list --api cloudstack --credential <secretKey> --identity <apiKey> endpoint http://<server address>/client/api@
-* Type the following command to get the zone IDs list: @jclouds:location-list --api cloudstack --credential <secretKey> --identity <apiKey> endpoint http://<server address>/client/api@
-* Type the following command to get the compute offering IDs list: @jclouds:hardware-list --api cloudstack --credential <secretKey> --identity <apiKey> endpoint http://<server address>/client/api@
+* Type the following command to get the template IDs list: @jclouds:image-list --api cloudstack --credential <secretKey> --identity <apiKey> --endpoint http://<server address>/client/api@
+* Type the following command to get the zone IDs list: @jclouds:location-list --api cloudstack --credential <secretKey> --identity <apiKey> --endpoint http://<server address>/client/api@
+* Type the following command to get the compute offering IDs list: @jclouds:hardware-list --api cloudstack --credential <secretKey> --identity <apiKey> --endpoint http://<server address>/client/api@
 The output should look like this:
 
 Templates list: 
