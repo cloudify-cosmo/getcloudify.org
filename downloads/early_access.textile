@@ -176,7 +176,7 @@ function track_download(downloadHref) {
 		$email: formEmail,
 		$first_name: formName,
 		$created: new Date(),
-		$last_seen:new Date(),
+		
 		});
 		mixpanel.track('Resource', {'Zip Name':zipName, 'Source':'Download Page'});
 		mixpanel.people.increment({

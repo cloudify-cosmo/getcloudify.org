@@ -206,7 +206,7 @@ function GrabOldMessages(){
 				$email: formEmail,
 				$first_name: formName,
 				$created: new Date(),
-				$last_seen:new Date(),
+				
 				});
 				mixpanel.track('Resource', {'Zip Name':zipName, 'Source':'Download Page'});
 				mixpanel.people.increment({
@@ -466,7 +466,7 @@ $("body").live('change', function(){
 	  $email: currEmail,
 	  $first_name: currEmail,
 	  $created: new Date(),
-	  $last_seen:new Date(),
+	  
 	  });
 	} return { type: $(ele).attr('type'),email: currEmail}
 	});
