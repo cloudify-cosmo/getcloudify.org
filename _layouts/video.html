@@ -255,16 +255,20 @@ $(document).on("click",".vidThumb a", function(event) {
 						var videoTitle= $(".clipTitle h3."+currentId).text();
 						var videoWatchDuration = player.getCurrentTime().toString();
 						
-						mixpanel.identify() ;
+						
+						mixpanel.track("Watched Video",{'page name' : document.title, 'url' : videoTitle });
 						mixpanel.people.set({
 							"Video Name": videoTitle,
 							"Video Watch Duration": videoWatchDuration
 						});
-						mixpanel.people.increment({
-							"Watched Video": 1
-						}); 
 						
-						 alert(videoTitle + videoWatchDuration);
+						
+						mixpanel.people.increment({
+							"Watched Video Counter": 1
+						}); 
+						mixpanel.identify() ;
+						
+						 //alert(videoTitle + videoWatchDuration);
 		            }
 		        } 
 		     
