@@ -40,8 +40,21 @@ $(function(){
 		
 	var value = $('#search').val();
 	    mixpanel.track("Search",{"keyword": value}); 
-
+		mixpanel.identify() ;
+		mixpanel.people.increment({
+			"Search": 1
+		}); 
 	});
+	
+	//Count Wiki visits
+	if (document.location.href.search("guide")!=-1){
+		mixpanel.identify() ;
+		//mixpanel.people.set();
+		//mixpanel.people.append('pages_visited', 'guide');
+		mixpanel.people.increment({
+			"Wiki page read": 1
+		}); 
+	}
 });
 
 //track Cloudify Early Access Builds
