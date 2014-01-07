@@ -20,6 +20,7 @@ jQuery.fn.ytplaylist = function(options) {
 	showInline: false,
 	autoPlay: true,
 	showRelated: true,
+	enablejsapi:true,
 	allowFullScreen: false
   },options);
   
@@ -32,6 +33,7 @@ jQuery.fn.ytplaylist = function(options) {
 		var showRelated = "&rel=0";
 		var fullScreen = "";
 		if(options.autoPlay) autoPlay = "&autoplay=1"; 
+		if(options.enablejsapi) enablejsapi = "?enablejsapi=1"; 
 		if(options.showRelated) showRelated = "&rel=1"; 
 		if(options.allowFullScreen) fullScreen = "&fs=1"; 
 		
@@ -41,12 +43,12 @@ jQuery.fn.ytplaylist = function(options) {
 		   var html  = '';
 	
 		   html += '<object height="'+options.playerHeight+'" width="'+options.playerWidth+'">';
-		   html += '<param name="movie" value="http://www.youtube.com/v/'+id+autoPlay+showRelated+fullScreen+'"> </param>';
+		   html += '<param name="movie" value="http://www.youtube.com/v/'+id+enablejsapi+autoPlay+showRelated+fullScreen+'"> </param>';
 		   html += '<param name="wmode" value="transparent"> </param>';
 		   if(options.allowFullScreen) { 
 		   		html += '<param name="allowfullscreen" value="true"> </param>'; 
 		   }
-		   html += '<embed src="http://www.youtube.com/v/'+id+autoPlay+showRelated+fullScreen+'"';
+		   html += '<embed src="http://www.youtube.com/v/'+id+enablejsapi+autoPlay+showRelated+fullScreen+'"';
 		   if(options.allowFullScreen) { 
 		   		html += ' allowfullscreen="true" '; 
 		   	}
