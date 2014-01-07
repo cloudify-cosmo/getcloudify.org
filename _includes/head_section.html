@@ -202,8 +202,7 @@ function GrabOldMessages(){
                 "resource": zipName, // sets the property 'Resource' for this user to the boolean value true		
 				$email: formEmail,
 				$first_name: formName,
-				$created: new Date(),
-				
+				$created: new Date(),		
 				});
 				mixpanel.track('Resource', {'Zip Name':zipName, 'Source':'Download Page'});
 				mixpanel.people.increment({
