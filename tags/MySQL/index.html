@@ -205,8 +205,7 @@ function GrabOldMessages(){
                 "resource": zipName, // sets the property 'Resource' for this user to the boolean value true		
 				$email: formEmail,
 				$first_name: formName,
-				$created: new Date(),
-				
+				$created: new Date(),		
 				});
 				mixpanel.track('Resource', {'Zip Name':zipName, 'Source':'Download Page'});
 				mixpanel.people.increment({
@@ -443,8 +442,21 @@ $(function(){
 		
 	var value = $('#search').val();
 	    mixpanel.track("Search",{"keyword": value}); 
-
+		mixpanel.identify() ;
+		mixpanel.people.increment({
+			"Search": 1
+		}); 
 	});
+	
+	//Count Wiki visits
+	if (document.location.href.search("guide")!=-1){
+		mixpanel.identify() ;
+		//mixpanel.people.set();
+		//mixpanel.people.append('pages_visited', 'guide');
+		mixpanel.people.increment({
+			"Wiki page read": 1
+		}); 
+	}
 });
 
 //track Cloudify Early Access Builds
@@ -466,7 +478,6 @@ $("body").live('change', function(){
 	  $email: currEmail,
 	  $first_name: currEmail,
 	  $created: new Date(),
-	  
 	  });
 	} return { type: $(ele).attr('type'),email: currEmail}
 	});

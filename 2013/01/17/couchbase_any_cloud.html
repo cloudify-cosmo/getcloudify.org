@@ -205,8 +205,7 @@ function GrabOldMessages(){
                 "resource": zipName, // sets the property 'Resource' for this user to the boolean value true		
 				$email: formEmail,
 				$first_name: formName,
-				$created: new Date(),
-				
+				$created: new Date(),		
 				});
 				mixpanel.track('Resource', {'Zip Name':zipName, 'Source':'Download Page'});
 				mixpanel.people.increment({
@@ -443,8 +442,21 @@ $(function(){
 		
 	var value = $('#search').val();
 	    mixpanel.track("Search",{"keyword": value}); 
-
+		mixpanel.identify() ;
+		mixpanel.people.increment({
+			"Search": 1
+		}); 
 	});
+	
+	//Count Wiki visits
+	if (document.location.href.search("guide")!=-1){
+		mixpanel.identify() ;
+		//mixpanel.people.set();
+		//mixpanel.people.append('pages_visited', 'guide');
+		mixpanel.people.increment({
+			"Wiki page read": 1
+		}); 
+	}
 });
 
 //track Cloudify Early Access Builds
@@ -466,7 +478,6 @@ $("body").live('change', function(){
 	  $email: currEmail,
 	  $first_name: currEmail,
 	  $created: new Date(),
-	  
 	  });
 	} return { type: $(ele).attr('type'),email: currEmail}
 	});
@@ -1799,7 +1810,7 @@ In a cloud environment, which is dynamic and volatile by nature, it&#8217;s also
   <p>Under the hood, the widget communicates with a server infrastructure that creates a dedicated Cloudify manager just for you, and uses the new Couchbase recipe to install and start the Couchbase server. </p>
   <p>So what are you waiting for, take a seat, and start playing.</p>
 
-<script type="text/javascript" id="cloudify-widget" data-api-key="2850beaa-9414-460c-b1e1-1e15b429c53a" data-title="Launch Couchbase 2.0.1" data-host="launch.cloudifysource.org" data-video_url="http://www.youtube.com/embed/VkQ3ppHeGX4" src="http://launch.cloudifysource.org/js/get_widget.js"></script>
+<script type="text/javascript" id="cloudify-widget" data-api-key="4d642b90-ee10-45aa-b02a-175daf49a32d" data-title="Launch Couchbase 2.0.1" data-host="launch.cloudifysource.org" data-video_url="http://www.youtube.com/embed/VkQ3ppHeGX4" src="http://launch.cloudifysource.org/js/get_widget.js"></script>
 <p>Note: To login to the Couchbase console, use the following credentials:<br/>
   Username: Administrator<br/>
   Password: password<br/>
