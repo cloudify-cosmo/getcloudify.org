@@ -8,7 +8,7 @@ pageord: 900
 ---
 h3. Overview
 
-Cloudify 2.7 provides network abstraction to allow applications to define and create their network topology as part of the application deployment.
+Cloudify provides network abstraction to allow applications to define and create their network topology as part of the application deployment.
 
 Currently, Cloudify offers network implementation for OpenStack using the Neutron API and the corresponding attributes in Nova API.
 
@@ -34,8 +34,7 @@ in order to provide internet connectivity for the REST and GUI endpoints.
 h5. Support for Security Groups
 
 In addition to the above the network Cloud Driver provides support for Neutron Security Groups.
-* Management Security Groups - The driver creates several security groups (see below) for the managers and for the agents-manager communications
-* Application Services Security Groups - The recipe DSL allows the user to define access rules per service. Cloudify Cloud Driver uses these rules to create security groups and bind the service VMs to these groups
+* Management Security Groups - The driver creates several security groups (see below) for the managers and for the agents-manager communications.
 
 h5. Support for Floating IPs
 
@@ -74,7 +73,7 @@ The Cloudify management network is defined in the Cloud configuration file, in t
 <script src="https://gist.github.com/tamirko/8132125.js"></script>
 
 
-Note that like any network, the management network (if defined) must have at-least one subnet. 
+h4(impt). Just like any network, the management network (if defined) must have at-least one subnet. 
 
 The following additional configuration options are available:
 * associateFloatingIpOnBootstrap - indicates if a floating IP should be attached to a management machine
