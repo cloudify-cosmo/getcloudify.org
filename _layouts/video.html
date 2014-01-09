@@ -254,7 +254,6 @@ $(document).on("click",".vidThumb a", function(event) {
 		               
 						var videoTitle= $(".clipTitle h3."+currentId).text();
 						var videoWatchDuration = player.getCurrentTime().toString();
-						var getEmail = mixpanel.cookie.props.$people_distinct_id;
 						var getDistinctId = mixpanel.get_distinct_id();
 						
 						mixpanel.people.set({
@@ -262,14 +261,12 @@ $(document).on("click",".vidThumb a", function(event) {
 							"Video Watch Duration": videoWatchDuration
 						});
 						
-						if(getEmail==undefined){
-							mixpanel.identify(getDistinctId) ;
-						}else{
-							mixpanel.identify(getEmail) ;
-						}
+						mixpanel.identify(getDistinctId) ;
+						
 						mixpanel.people.increment({
 							"Watched Video Counter": 1
 						}); 
+						
 						mixpanel.track("Watched Video",{'page name' : document.title, 'url' : videoTitle });
 		            }
 		        } 
