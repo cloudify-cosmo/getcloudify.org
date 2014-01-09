@@ -24,7 +24,7 @@ Before you start developing you cloud driver, make sure you have the following:
 * "Apache Maven":http://maven.apache.org/
 * "Cloudify":../setup/installing_the_cloudify_client
 * The security credentials for your cloud's API calls, for accessing your machines using SSH, and if required for accessing your cloud's storage.
-<h4 class="info">For example, to obtain security credetials for Openstack, perform the following steps:
+<h4 class="info">For example, to obtain security credentials for Openstack, perform the following steps:
 <ol><li>Request a login, and its corresponding access key and secret key, from your Openstack administrator. In the @user@ section of the cloud driver configuration file, the access key and secret key correspond to the @user@ and the @apiKey@ attributes respectively.</li>
 <li>Generate a SSL key pair file (required for bootstrapping machines) using "HybridFox":http://code.google.com/p/hybridfox/, and save it in the cloud driver's @upload@ folder. In the @user@ section of the cloud driver configuration file, the @keyFile@ attribute is set to the path of the SSL key pair file.
 <img src="../../images/clouddrivers/cloud_driver_plugin.png"/></li></ol></h4>
@@ -32,11 +32,11 @@ Before you start developing you cloud driver, make sure you have the following:
 
 h2. Developing a new Compute Cloud Driver 
 
-Developing a new compute cloud driver is required when a new cloud is neither supported by Cloudify, nor supported by JClouds (which powers the default cloudify cloud driver).
+Developing a new compute cloud driver is required when a new cloud is neither supported by Cloudify, nor supported by JClouds (which powers the default Cloudify cloud driver).
 
 * Create a new Java class that extends "BaseProvisioningDriver":https://github.com/CloudifySource/cloudify/blob/master/esc/src/main/java/org/cloudifysource/esc/driver/provisioning/BaseProvisioningDriver.java
 * maven dependency:
-<script src="https://gist.github.com/tamirko/6121329.js"></script>
+<script src="https://gist.github.com/noakup/8039851.js"></script>
 * maven repository:
 <script src="https://gist.github.com/2070752.js?file=repo.xml"></script>
 
@@ -61,12 +61,12 @@ Developing a new compute cloud driver is required when a new cloud is neither su
 *** Allow the cloud driver to inject environment variables to the "bootstrap script":https://github.com/CloudifySource/cloudify/blob/master/esc/src/main/resources/general/bootstrap-management.sh
 *** Allow the cloud driver to control the open files limit on the linux machine (converted to a @ulimit -HSn $CLOUDIFY_OPEN_FILES_LIMIT@ command in the "bootstrap script":https://github.com/CloudifySource/cloudify/blob/master/esc/src/main/resources/general/bootstrap-management.sh)
 *** If startMachine is called as a response to a machine failure (and not as a response to scale out request), it can use context.getPreviousMachineDetails() to retrieve the MachineDetails of the recently failed machine.
-    The MachineDetailr s returned by this method is passed to the next startMachine call in case it fails.
+    The MachineDetails returned by this method is passed to the next startMachine call in case it fails.
     The MachineDetails survives process restarts since it is backed up in the cloudifyManagementSpace.
 
 * Implement the code that stops an existing machine in the stopMachine method.
 ** Respect the timeout parameter, by limiting blocking operations. If the timeout expired throw TimeoutException.
-** Stop machine can be called in response to uninstall-service or in scalein use case, or to validate a machine is terminated as a response to an exception from startMachine.
+** Stop machine can be called in response to uninstall-service or in a scale-in use case, or to validate a machine is terminated as a response to an exception from startMachine.
 ** If the machine was already terminated when the stopMachine method was called - return false. 
 ** If the machine was not already terminated, and stopMachine took an action to terminate the machine - return true
 ** Wrap any Exception with CloudProvisioningException before throwing. The method would promptly called again for another retry.
@@ -104,7 +104,7 @@ h2. Developing a new Network Cloud Driver
 Developing a new network cloud driver is required when the recipe allocates floating IPs (elastic IPs), but the existing cloud driver is missing network support for that cloud.
 * Create a new Java class that extends "BaseNetworkDriver":https://github.com/CloudifySource/cloudify/blob/master/esc/src/main/java/org/cloudifysource/esc/driver/provisioning/network/BaseNetworkDriver.java
 * maven dependency:
-<script src="https://gist.github.com/tamirko/6121329.js"></script>
+<script src="https://gist.github.com/noakup/8039851.js"></script>
 * maven repository:
 <script src="https://gist.github.com/2070752.js?file=repo.xml"></script>
 
@@ -114,14 +114,14 @@ Developing a new network cloud driver is required when the recipe allocates floa
 ** The cloud groovy file (such as <cloudifyHome>/clouds/myCloud/myCloud-service.groovy) is available as the "Cloud POJO":https://github.com/CloudifySource/cloudify/blob/master/domain/src/main/java/org/cloudifysource/domain/cloud/Cloud.java .
    Access the network configuration within the cloud POJO with @config.getCloud().getCloudNetwork()@
 
-* Implement allocateFloatingIp(),releaseFloatingIp() to reserve/release floating ips from the specified ip pool.
+* Implement allocateFloatingIp(),releaseFloatingIp() to reserve/release floating ips from the specified IP pool.
 ** Respect the timeout parameter, by limiting blocking operations. If the timeout expired throw TimeoutException.
-** allocateFloatingIp returns the ip address provided by the cloud given the specified ip pool name.
-** releaseFloatingIp is idempotent (silently ignore if floating ip already release back to pool)
+** allocateFloatingIp returns the IP address provided by the cloud given the specified IP pool name.
+** releaseFloatingIp is idempotent (silently ignore if floating IP already release back to pool)
    
-* Implement assignFloatingIp(),unassignFloatingIp()  to assign/unassign an allocated floating ip to the specified machine instance
+* Implement assignFloatingIp(),unassignFloatingIp()  to assign/unassign an allocated floating IP to the specified machine instance
 ** Respect the timeout parameter, by limiting blocking operations. If the timeout expired throw TimeoutException.
-** Both the instance and the floating ip parameters are IP-Addresses. Ussually the instance ip needs to be translated to the cloud instance-id, and the floating ip to its respective identifier (via a Cloud API call).
+** Both the instance and the floating IP parameters are IP-Addresses. Ussually the instance IP needs to be translated to the cloud instance-id, and the floating  to its respective identifier (via a Cloud API call).
 
 * Package the class in a jar file and place the it in the @<cloudifyRoot>/clouds/cloudProviderName/lib/@ folder.
 
@@ -170,22 +170,22 @@ Developing a new storage cloud driver is required when the recipe creates and at
 * Create a new Java class that extends "BaseStorageDriver":https://github.com/CloudifySource/cloudify/blob/master/esc/src/main/java/org/cloudifysource/esc/driver/provisioning/storage/BaseStorageDriver.java .
   The base class implements "StorageProvisioningDriver":https://github.com/CloudifySource/cloudify/blob/master/esc/src/main/java/org/cloudifysource/esc/driver/provisioning/storage/StorageProvisioningDriver.java (which is deprecated in favor of the base class).
 * maven dependency:
-<script src="https://gist.github.com/tamirko/6121329.js"></script>
+<script src="https://gist.github.com/noakup/8039851.js"></script>
 * maven repository:
 <script src="https://gist.github.com/2070752.js?file=repo.xml"></script>
-* If the compute driver exposes its an internal object with BaseComputeDriver#getComputeContext(), it is injected to BaseStorageDriver#setComputeContext().
+* If the compute driver exposes its internal object with BaseComputeDriver#getComputeContext(), it is injected to BaseStorageDriver#setComputeContext().
   setComputeContext() is called before setConfig() is called.
 * Implement setConfig() with initialization code.
 ** Store the cloud reference in a member field (used by the other methods)
 ** Access the cloud credentials with @cloud.getUser()@
 ** Details about the destination machine that might be relevant to the storage provisioning such as location
-   will be provided by the compute template. The tmplate is accesible using @cloud.getCloudCompute().getTemplates().get(computeTemplateName)@
+   will be provided by the compute template. The template is accessible using @cloud.getCloudCompute().getTemplates().get(computeTemplateName)@
 * Implement createVolume(),deleteVolume() to create/delete drives.
 ** When creating a new volume access the volume configuration with @cloud.getCloudStorage().getTemplates().get(templateName)@
-** When creating a new volume respect the location parameter, since in most clouds, block storage devices must be co-located with the machine instances.
+** When creating a new volume pay attention to the location parameter - in most clouds, block storage devices must be co-located with the machine instances.
 ** When deleting an existing volume use the location and volumeId parameter to find the relevant volume.
 * Implement listAllVolumes() with code that describes all volumes
 * Implement listVolumes(machineIp) with code that describes volumes attached to the specified machine
 * Implement the abstract getMachineVolumeIds() to retrieve all storage volumes related to the specific machine.
   The non-persistent storage volumes may also be included in the returned list.
-* Package the class in a jar file and place the it in the @<cloudifyRoot>/clouds/cloudProviderName/lib/@ folder.
+* Package the class in a jar file and place it in the @<cloudifyRoot>/clouds/cloudProviderName/lib/@ folder.
