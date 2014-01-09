@@ -254,22 +254,23 @@ $(document).on("click",".vidThumb a", function(event) {
 		               
 						var videoTitle= $(".clipTitle h3."+currentId).text();
 						var videoWatchDuration = player.getCurrentTime().toString();
-						
-						//for later used
 						var getEmail = mixpanel.cookie.props.$people_distinct_id;
-						//var getName = mixpanel.cookie.props.mp_name_tag;
-
+						var getDistinctId = mixpanel.get_distinct_id();
+						
 						mixpanel.people.set({
 							"Video Name": videoTitle,
 							"Video Watch Duration": videoWatchDuration
 						});
-						mixpanel.identify(getEmail) ;
+						
+						if(getEmail.length>0){
+							mixpanel.identify(getEmail) ;
+						}else{
+							mixpanel.identify(getDistinctId) ;
+						}
 						mixpanel.people.increment({
 							"Watched Video Counter": 1
 						}); 
 						mixpanel.track("Watched Video",{'page name' : document.title, 'url' : videoTitle });
-						
-		
 		            }
 		        } 
 		     
