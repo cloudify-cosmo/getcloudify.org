@@ -215,8 +215,12 @@ $(document).on("click",".vidThumb a", function(event) {
 			// Load the YouTube API asynchronously
 	var tag = document.createElement('script');
 	tag.src = "/scripts/ytPlayerApi.js";
+	setTimeout(function (){
+
 	var firstScriptTag = document.getElementsByTagName('script')[0];
 	firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
+
+         }, 2000); 
 	
 	var player;			
 	window.onYouTubeIframeAPIReady = function () {
