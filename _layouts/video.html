@@ -262,10 +262,10 @@ $(document).on("click",".vidThumb a", function(event) {
 							"Video Watch Duration": videoWatchDuration
 						});
 						
-						if(getEmail.length>0){
-							mixpanel.identify(getEmail) ;
-						}else{
+						if(getEmail==undefined){
 							mixpanel.identify(getDistinctId) ;
+						}else{
+							mixpanel.identify(getEmail) ;
 						}
 						mixpanel.people.increment({
 							"Watched Video Counter": 1
