@@ -21,6 +21,7 @@ This section provides step-by-step instructions for the following configuration 
 * "Obtain the API Key and Secret Key":#key
 * "Create SSH Keypair":#ssh
 * "Obtain Image, Location and Hardware IDs from Your Exoscale CloudStack Environment":#get_ids
+* "Configure a Security Group":#sec
 * "Configure the Cloudify Cloud Driver Configuration Files":#driver
 * "Bootsrapping a Cloudify Manager on CloudStack":#bootstrap
 * "Tearing Down the Cloudify Environment":#tear
@@ -84,6 +85,13 @@ ebc56d93-2732-4265-9734-e0fdd52851b5   512  500.0     1.0
 0ef1c905-2daa-4da8-b444-04ed7fd6fda6   256 1000.0     1.0
 </pre>
 
+h3(#sec). Configure a Security Group 
+
+Next, you should configure a security group with the following rules: 
+* ingress, TCP port 22 and 8100 for the CLI machine and any client that you want to use to access the started VMs via SSH or the Cloudify CLI. You can simply open it for all sources (CIDR 0.0.0.0/0)
+* ingress for 8099 for any machine that should have access to the Web UI and REST API. You can also open it for all sources (CIDR 0.0.0.0/0). 
+* egress for 80 and 443 to all target (CIDR 0.0.0.0/0)
+
 h3(#driver). Configure the Cloudify Cloud Driver Configuration File
 
 First, download the "Cloudify Exoscale CloudStack driver files":https://github.com/CloudifySource/cloudify-cloud-drivers/tree/master/exoscale and place them in @<cloudifyRoot>/clouds/exoscale/@
@@ -101,10 +109,10 @@ persistencePath="/var/cloudifyManagerState"
 //The CloudStack API Endpoint URL
 cloudStackAPIEndpoint="CLOUDSTACK_API_ENDPOINT_URL"
 	
-//The name of the security group you want your VMs created with. 
+//The id of the security group you want your VMs created with. 
 //If you create more compute templates in the cloudstack-cloud.groovy files, this can be changed 
 //on a per template basis
-securityGroup="default"
+securityGroupId="SECURITY_GROUP_ID"
 
 //The CloudStack compute offiering ID you would like to use. This can be changed for each cloud driver template as well 
 computeOfferingId="COMPUTE_OFFERING_ID"
@@ -128,7 +136,10 @@ localUploadDirectory="upload"
 zoneId="ZONE_ID"
 
 //The cloudstack compute template ID for created VMs. This too can be overridden on a per compute template basis
-tamplateId="TEMPLATE_ID"
+templateId="TEMPLATE_ID"
+
+// Ubuntu image ID
+ubuntuTemplateId="UBUNTU_TEMPLATE_ID"
 </pre>
 
 h3(#bootstrap). Bootstrapping
