@@ -85,12 +85,15 @@ ebc56d93-2732-4265-9734-e0fdd52851b5   512  500.0     1.0
 0ef1c905-2daa-4da8-b444-04ed7fd6fda6   256 1000.0     1.0
 </pre>
 
-h3(#sec). Configure a Security Group 
+h3(#sec). Configure One or More Security Groups
 
 Next, you should configure a security group with the following rules: 
-* ingress, TCP port 22 and 8100 for the CLI machine and any client that you want to use to access the started VMs via SSH or the Cloudify CLI. You can simply open it for all sources (CIDR 0.0.0.0/0)
-* ingress for 8099 for any machine that should have access to the Web UI and REST API. You can also open it for all sources (CIDR 0.0.0.0/0). 
-* egress for 80 and 443 to all target (CIDR 0.0.0.0/0)
+To enable Cloudify to properly start and configure VMs for you, you will need to define the following rules in a security group (you can do this in more than group, as long as the )
+* Management VM: ingress, TCP port 22 and 8100 for the CLI machine and any client that you want to use to access the started VMs via SSH or the Cloudify CLI. You can simply open it for all sources (CIDR 0.0.0.0/0)
+* Management VM: ingress for 8099 for any machine that should have access to the Web UI and REST API. You can also open it for all sources (CIDR 0.0.0.0/0). 
+* Every VM started by Cloudify: egress for 80 and 443 to all targets (CIDR 0.0.0.0/0) to enable downloading binaries from the internet.
+* Every VM started by Cloudify: egress and ingress for TCP ports 0-32000 for communication between the manager and the agents. 
+* Application VMs, as needed: Any application specific ports that you would like to expose to the outside world (e.g. 80 and 443 for out-facing web servers). 
 
 h3(#driver). Configure the Cloudify Cloud Driver Configuration File
 
