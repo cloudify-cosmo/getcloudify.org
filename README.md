@@ -8,3 +8,5 @@ http://redcloth.org/hobix.com/textile/
 
 Cheat Sheet,
 http://warpedvisions.org/projects/textile-cheat-sheet/
+
+[![Bitdeli Badge](https://d2weczhvl823v0.cloudfront.net/CloudifySource/cloudifysource.github.com/trend.png)](https://bitdeli.com/free "Bitdeli Badge")
