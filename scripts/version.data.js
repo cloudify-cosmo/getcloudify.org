@@ -674,6 +674,7 @@ var guide = {
 			'configuring_hp':true,
 			'configuring_hp_folsom':true,
 			'configuring_hp_grizzly':true,
+			'configuring_hp_havana':true,
 			'configuring_openstack':true,
 			'configuring_openstack_folsom':true,
 			'configuring_openstack_grizzly':true,
