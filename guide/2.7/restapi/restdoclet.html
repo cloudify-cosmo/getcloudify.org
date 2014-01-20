@@ -67,7 +67,7 @@
   "messageId" : "operation_successfull",
   "verbose" : null,
   "response" : {
-    "uploadKey" : "13d0e725-33a8-4e03-aa5c-f0c4cddfa176"
+    "uploadKey" : "9c7ea509-a461-48d6-82ef-36653c0cb6f4"
   }
 }</pre>
 								</div>
@@ -107,7 +107,7 @@
 								</div>
 								<div class="panelContent">
 									<pre class="code">{
-  "uploadKey" : "0e96e616-9436-494b-a3c5-b8686c9abb4a"
+  "uploadKey" : "d5b8f201-f00d-428d-9ac6-98529e3bbd38"
 }</pre>
 								</div>
 							</div>
@@ -125,25 +125,25 @@
     "templates" : {
       "SMALL_UBUNTU" : {
         "failedToAddHosts" : {
-          "192.168.9.13" : "template already exists",
-          "192.168.9.18" : "template already exists"
+          "192.168.9.10" : "template already exists",
+          "192.168.9.13" : "template already exists"
         },
-        "successfullyAddedHosts" : [ "192.168.9.11" ]
+        "successfullyAddedHosts" : [ "192.168.9.17" ]
       },
       "SMALL_SUSE" : {
         "failedToAddHosts" : { },
-        "successfullyAddedHosts" : [ "192.168.9.18", "192.168.9.13", "192.168.9.11" ]
+        "successfullyAddedHosts" : [ "192.168.9.13", "192.168.9.10", "192.168.9.17" ]
       },
       "SMALL_LINUX" : {
         "failedToAddHosts" : {
+          "192.168.9.10" : "template already exists",
           "192.168.9.13" : "template already exists",
-          "192.168.9.11" : "template already exists",
-          "192.168.9.18" : "template already exists"
+          "192.168.9.17" : "template already exists"
         },
         "successfullyAddedHosts" : [ ]
       }
     },
-    "instances" : [ "192.168.9.18", "192.168.9.13", "192.168.9.11" ],
+    "instances" : [ "192.168.9.13", "192.168.9.10", "192.168.9.17" ],
     "status" : "PARTIAL_FAILURE"
   },
   "response" : null
@@ -174,7 +174,7 @@
   "verbose" : null,
   "response" : {
     "templates" : {
-      "MY_TEMPLATE_0" : {
+      "MY_TEMPLATE_4" : {
         "imageId" : "eu-west-1/ami-c1aaabb5",
         "machineMemoryMB" : 1600,
         "hardwareId" : "m1.small",
@@ -192,7 +192,7 @@
         "fileTransfer" : "SFTP",
         "remoteExecution" : "SSH",
         "scriptLanguage" : "LINUX_SHELL",
-        "username" : "my_template_0",
+        "username" : "my_template_4",
         "password" : null,
         "remoteDirectory" : "upload",
         "privileged" : true,
@@ -283,7 +283,7 @@
       "fileTransfer" : "SFTP",
       "remoteExecution" : "SSH",
       "scriptLanguage" : "LINUX_SHELL",
-      "username" : "my_template_2",
+      "username" : "my_template_0",
       "password" : null,
       "remoteDirectory" : "upload",
       "privileged" : true,
@@ -2946,99 +2946,9 @@
   "verbose" : null,
   "response" : [ {
     "servicesDescription" : [ {
-      "serviceName" : "service2",
-      "instanceCount" : 3,
-      "plannedInstances" : 3,
-      "instancesDescription" : [ {
-        "instanceName" : "petclinic.service2",
-        "instanceStatus" : "RUNNING",
-        "instanceId" : 2,
-        "hostName" : "build64A",
-        "hostAddress" : "192.168.9.18"
-      }, {
-        "instanceName" : "petclinic.service2",
-        "instanceStatus" : "RUNNING",
-        "instanceId" : 4,
-        "hostName" : "build64A",
-        "hostAddress" : "192.168.9.18"
-      } ],
-      "applicationName" : "petclinic",
-      "serviceState" : "STARTED",
-      "deploymentId" : null
-    }, {
-      "serviceName" : "service3",
-      "instanceCount" : 2,
-      "plannedInstances" : 2,
-      "instancesDescription" : [ {
-        "instanceName" : "petclinic.service3",
-        "instanceStatus" : "RUNNING",
-        "instanceId" : 3,
-        "hostName" : "build64A",
-        "hostAddress" : "192.168.9.18"
-      }, {
-        "instanceName" : "petclinic.service3",
-        "instanceStatus" : "RUNNING",
-        "instanceId" : 5,
-        "hostName" : "build64A",
-        "hostAddress" : "192.168.9.18"
-      } ],
-      "applicationName" : "petclinic",
-      "serviceState" : "STARTED",
-      "deploymentId" : null
-    } ],
-    "applicationName" : "petclinic",
-    "authGroups" : "myAuthGroup1,myAuthGroup2,myAuthGroup3",
-    "applicationState" : "STARTED"
-  }, {
-    "servicesDescription" : [ {
-      "serviceName" : "service2",
-      "instanceCount" : 3,
-      "plannedInstances" : 3,
-      "instancesDescription" : [ {
-        "instanceName" : "petclinic.service2",
-        "instanceStatus" : "RUNNING",
-        "instanceId" : 2,
-        "hostName" : "build64A",
-        "hostAddress" : "192.168.9.18"
-      }, {
-        "instanceName" : "petclinic.service2",
-        "instanceStatus" : "RUNNING",
-        "instanceId" : 4,
-        "hostName" : "build64A",
-        "hostAddress" : "192.168.9.18"
-      } ],
-      "applicationName" : "petclinic",
-      "serviceState" : "STARTED",
-      "deploymentId" : null
-    }, {
-      "serviceName" : "service3",
-      "instanceCount" : 2,
-      "plannedInstances" : 2,
-      "instancesDescription" : [ {
-        "instanceName" : "petclinic.service3",
-        "instanceStatus" : "RUNNING",
-        "instanceId" : 3,
-        "hostName" : "build64A",
-        "hostAddress" : "192.168.9.18"
-      }, {
-        "instanceName" : "petclinic.service3",
-        "instanceStatus" : "RUNNING",
-        "instanceId" : 5,
-        "hostName" : "build64A",
-        "hostAddress" : "192.168.9.18"
-      } ],
-      "applicationName" : "petclinic",
-      "serviceState" : "STARTED",
-      "deploymentId" : null
-    } ],
-    "applicationName" : "petclinic",
-    "authGroups" : "myAuthGroup1,myAuthGroup2,myAuthGroup3",
-    "applicationState" : "STARTED"
-  }, {
-    "servicesDescription" : [ {
       "serviceName" : "service0",
-      "instanceCount" : 5,
-      "plannedInstances" : 5,
+      "instanceCount" : 4,
+      "plannedInstances" : 4,
       "instancesDescription" : [ {
         "instanceName" : "petclinic.service0",
         "instanceStatus" : "RUNNING",
@@ -3057,8 +2967,8 @@
       "deploymentId" : null
     }, {
       "serviceName" : "service1",
-      "instanceCount" : 1,
-      "plannedInstances" : 1,
+      "instanceCount" : 2,
+      "plannedInstances" : 2,
       "instancesDescription" : [ {
         "instanceName" : "petclinic.service1",
         "instanceStatus" : "RUNNING",
@@ -3069,6 +2979,96 @@
         "instanceName" : "petclinic.service1",
         "instanceStatus" : "RUNNING",
         "instanceId" : 3,
+        "hostName" : "build64A",
+        "hostAddress" : "192.168.9.18"
+      } ],
+      "applicationName" : "petclinic",
+      "serviceState" : "STARTED",
+      "deploymentId" : null
+    } ],
+    "applicationName" : "petclinic",
+    "authGroups" : "myAuthGroup1,myAuthGroup2,myAuthGroup3",
+    "applicationState" : "STARTED"
+  }, {
+    "servicesDescription" : [ {
+      "serviceName" : "service2",
+      "instanceCount" : 2,
+      "plannedInstances" : 2,
+      "instancesDescription" : [ {
+        "instanceName" : "petclinic.service2",
+        "instanceStatus" : "RUNNING",
+        "instanceId" : 2,
+        "hostName" : "build64A",
+        "hostAddress" : "192.168.9.18"
+      }, {
+        "instanceName" : "petclinic.service2",
+        "instanceStatus" : "RUNNING",
+        "instanceId" : 4,
+        "hostName" : "build64A",
+        "hostAddress" : "192.168.9.18"
+      } ],
+      "applicationName" : "petclinic",
+      "serviceState" : "STARTED",
+      "deploymentId" : null
+    }, {
+      "serviceName" : "service3",
+      "instanceCount" : 5,
+      "plannedInstances" : 5,
+      "instancesDescription" : [ {
+        "instanceName" : "petclinic.service3",
+        "instanceStatus" : "RUNNING",
+        "instanceId" : 3,
+        "hostName" : "build64A",
+        "hostAddress" : "192.168.9.18"
+      }, {
+        "instanceName" : "petclinic.service3",
+        "instanceStatus" : "RUNNING",
+        "instanceId" : 5,
+        "hostName" : "build64A",
+        "hostAddress" : "192.168.9.18"
+      } ],
+      "applicationName" : "petclinic",
+      "serviceState" : "STARTED",
+      "deploymentId" : null
+    } ],
+    "applicationName" : "petclinic",
+    "authGroups" : "myAuthGroup1,myAuthGroup2,myAuthGroup3",
+    "applicationState" : "STARTED"
+  }, {
+    "servicesDescription" : [ {
+      "serviceName" : "service4",
+      "instanceCount" : 3,
+      "plannedInstances" : 3,
+      "instancesDescription" : [ {
+        "instanceName" : "petclinic.service4",
+        "instanceStatus" : "RUNNING",
+        "instanceId" : 4,
+        "hostName" : "build64A",
+        "hostAddress" : "192.168.9.18"
+      }, {
+        "instanceName" : "petclinic.service4",
+        "instanceStatus" : "RUNNING",
+        "instanceId" : 6,
+        "hostName" : "build64A",
+        "hostAddress" : "192.168.9.18"
+      } ],
+      "applicationName" : "petclinic",
+      "serviceState" : "STARTED",
+      "deploymentId" : null
+    }, {
+      "serviceName" : "service5",
+      "instanceCount" : 1,
+      "plannedInstances" : 1,
+      "instancesDescription" : [ {
+        "instanceName" : "petclinic.service5",
+        "instanceStatus" : "RUNNING",
+        "instanceId" : 5,
+        "hostName" : "build64A",
+        "hostAddress" : "192.168.9.18"
+      }, {
+        "instanceName" : "petclinic.service5",
+        "instanceStatus" : "RUNNING",
+        "instanceId" : 7,
         "hostName" : "build64A",
         "hostAddress" : "192.168.9.18"
       } ],
@@ -3128,8 +3128,8 @@
   "response" : {
     "servicesDescription" : [ {
       "serviceName" : "service0",
-      "instanceCount" : 3,
-      "plannedInstances" : 3,
+      "instanceCount" : 1,
+      "plannedInstances" : 1,
       "instancesDescription" : [ {
         "instanceName" : "petclinic.service0",
         "instanceStatus" : "RUNNING",
@@ -3379,14 +3379,14 @@
 								</div>
 								<div class="panelContent">
 									<pre class="code">{
-  "applcationFileUploadKey" : "08fcdf7f-a859-4909-bf3f-5a96e7cf1c6d",
-  "applicationOverridesUploadKey" : "d8356f4e-e7e7-48d1-baa1-7f97f8e6e1c9",
-  "cloudOverridesUploadKey" : "bb21f4ee-f236-4575-99bf-6f6be7cad627",
+  "applcationFileUploadKey" : "84eddf57-6282-4806-a2e1-002fedc36e2a",
+  "applicationOverridesUploadKey" : "de810fa7-c28b-408b-9fbd-6cfc8b309d25",
+  "cloudOverridesUploadKey" : "0ed0e547-879f-4e76-b3b3-21148ed9638b",
   "applicationName" : "petclinic",
   "authGroups" : "myAuthGroup",
   "debugMode" : "onError",
   "debugEvents" : "init,install",
-  "cloudConfigurationUploadKey" : "c77c227c-85e3-4d98-89aa-0de0c1886016",
+  "cloudConfigurationUploadKey" : "e30ccfa8-ad2b-468d-bdda-826d7ba55b3a",
   "debugAll" : false,
   "selfHealing" : true
 }</pre>
@@ -3404,7 +3404,7 @@
   "messageId" : "operation_successfull",
   "verbose" : null,
   "response" : {
-    "deploymentID" : "befb76d5-1c20-4a08-babf-093df8b7265a"
+    "deploymentID" : "62cd7e92-45d9-45d8-ab64-62382197e6a7"
   }
 }</pre>
 								</div>
@@ -3458,7 +3458,7 @@
   "messageId" : "operation_successfull",
   "verbose" : null,
   "response" : {
-    "deploymentID" : "6434be62-2f39-4a2b-ac02-6148039bff09"
+    "deploymentID" : "f1c364db-e15d-4ff1-b756-4d8597e99766"
   }
 }</pre>
 								</div>
@@ -4042,19 +4042,19 @@
   "messageId" : "operation_successfull",
   "verbose" : null,
   "response" : [ {
-    "serviceName" : "service0",
-    "instanceCount" : 2,
-    "plannedInstances" : 2,
+    "serviceName" : "service2",
+    "instanceCount" : 3,
+    "plannedInstances" : 3,
     "instancesDescription" : [ {
-      "instanceName" : "petclinic.service0",
+      "instanceName" : "petclinic.service2",
       "instanceStatus" : "RUNNING",
-      "instanceId" : 0,
+      "instanceId" : 2,
       "hostName" : "build64A",
       "hostAddress" : "192.168.9.18"
     }, {
-      "instanceName" : "petclinic.service0",
+      "instanceName" : "petclinic.service2",
       "instanceStatus" : "RUNNING",
-      "instanceId" : 2,
+      "instanceId" : 4,
       "hostName" : "build64A",
       "hostAddress" : "192.168.9.18"
     } ],
@@ -4062,19 +4062,19 @@
     "serviceState" : "STARTED",
     "deploymentId" : null
   }, {
-    "serviceName" : "service1",
-    "instanceCount" : 4,
-    "plannedInstances" : 4,
+    "serviceName" : "service3",
+    "instanceCount" : 1,
+    "plannedInstances" : 1,
     "instancesDescription" : [ {
-      "instanceName" : "petclinic.service1",
+      "instanceName" : "petclinic.service3",
       "instanceStatus" : "RUNNING",
-      "instanceId" : 1,
+      "instanceId" : 3,
       "hostName" : "build64A",
       "hostAddress" : "192.168.9.18"
     }, {
-      "instanceName" : "petclinic.service1",
+      "instanceName" : "petclinic.service3",
       "instanceStatus" : "RUNNING",
-      "instanceId" : 3,
+      "instanceId" : 5,
       "hostName" : "build64A",
       "hostAddress" : "192.168.9.18"
     } ],
@@ -4415,13 +4415,13 @@
     "serviceName" : "tomcat",
     "serviceInstanceName" : "petclinic.tomcat",
     "privateIp" : "192.168.9.18",
-    "publicIp" : "192.168.9.12",
+    "publicIp" : "192.168.9.18",
     "templateName" : "SMALL_UBUNTU",
     "imageId" : "localcloud",
     "hardwareId" : "localcloud",
     "machineId" : "localcloud",
     "processDetails" : {
-      "Cloud Public IP" : "192.168.9.15",
+      "Cloud Public IP" : "192.168.9.18",
       "icon" : "icon.png",
       "Cloud Image ID" : "localcloud",
       "Cloud Private IP" : "192.168.9.18",
@@ -4553,10 +4553,10 @@
     "serviceName" : "tomcat",
     "appName" : "petclinic",
     "serviceInstanceMetricsData" : {
-      "instanceId" : 1,
+      "instanceId" : 3,
       "metrics" : {
-        "metric2" : "value2",
-        "metric1" : "value1"
+        "metric3" : "value3",
+        "metric4" : "value4"
       }
     }
   }
@@ -4617,7 +4617,7 @@
   "response" : {
     "name" : "tomcat",
     "applicationName" : "petclinic",
-    "numberOfInstances" : 3,
+    "numberOfInstances" : 2,
     "instanceNames" : [ "petclinic.tomcat", "petclinic.tomcat", "petclinic.tomcat" ]
   }
 }</pre>
@@ -4770,15 +4770,15 @@
     "serviceName" : "tomcat",
     "appName" : "petclinic",
     "serviceInstaceMetricsData" : [ {
-      "instanceId" : 4,
+      "instanceId" : 2,
       "metrics" : {
-        "metric4" : "value4",
-        "metric5" : "value5"
+        "metric2" : "value2",
+        "metric3" : "value3"
       }
     }, {
-      "instanceId" : 0,
+      "instanceId" : 1,
       "metrics" : {
-        "metric0" : "value0",
+        "metric2" : "value2",
         "metric1" : "value1"
       }
     } ]
@@ -4833,10 +4833,10 @@
 								</div>
 								<div class="panelContent">
 									<pre class="code">{
-  "serviceFolderUploadKey" : "01eb26f5-779c-47b9-b52b-aa0fc805b6ff",
-  "cloudConfigurationUploadKey" : "60d98f39-b5de-495c-b059-d2cf1effe3af",
-  "cloudOverridesUploadKey" : "20024063-5b51-492f-be72-15224f17953a",
-  "serviceOverridesUploadKey" : "bc16f119-3a6c-46cc-8dcb-1e4d4ffb3c39",
+  "serviceFolderUploadKey" : "cd0e776c-ec1e-4850-9489-d57a7198b000",
+  "cloudConfigurationUploadKey" : "ca26cc4d-f7c1-4143-a7d8-c74ef51e4024",
+  "cloudOverridesUploadKey" : "6506c7db-757f-4219-8661-cac09d1867ed",
+  "serviceOverridesUploadKey" : "e975ec1b-30c0-4cab-aa4e-7e5ac22f1713",
   "serviceFileName" : "myService.groovy",
   "authGroups" : "myAuthGroup",
   "selfHealing" : true,
@@ -4858,7 +4858,7 @@
   "messageId" : "operation_successfull",
   "verbose" : null,
   "response" : {
-    "deploymentID" : "1e3e0b89-ec58-4993-a4e4-7338a1e189f4"
+    "deploymentID" : "c4b06f8a-b5cb-4b5d-9d97-16ec486ab5f8"
   }
 }</pre>
 								</div>
@@ -4921,7 +4921,7 @@
   "messageId" : "operation_successfull",
   "verbose" : null,
   "response" : {
-    "deploymentID" : "e2c4f189-078d-48f5-bc90-9dd529e04edb"
+    "deploymentID" : "ae62a0c9-70cd-4125-bc2d-feb6c99725d7"
   }
 }</pre>
 								</div>
@@ -5126,66 +5126,6 @@
   "messageId" : "operation_successfull",
   "verbose" : null,
   "response" : [ [ {
-    "serviceName" : "service2",
-    "instanceCount" : 5,
-    "plannedInstances" : 5,
-    "instancesDescription" : [ {
-      "instanceName" : "petclinic.service2",
-      "instanceStatus" : "RUNNING",
-      "instanceId" : 2,
-      "hostName" : "build64A",
-      "hostAddress" : "192.168.9.18"
-    }, {
-      "instanceName" : "petclinic.service2",
-      "instanceStatus" : "RUNNING",
-      "instanceId" : 4,
-      "hostName" : "build64A",
-      "hostAddress" : "192.168.9.18"
-    } ],
-    "applicationName" : "petclinic",
-    "serviceState" : "STARTED",
-    "deploymentId" : null
-  }, {
-    "serviceName" : "service3",
-    "instanceCount" : 4,
-    "plannedInstances" : 4,
-    "instancesDescription" : [ {
-      "instanceName" : "petclinic.service3",
-      "instanceStatus" : "RUNNING",
-      "instanceId" : 3,
-      "hostName" : "build64A",
-      "hostAddress" : "192.168.9.18"
-    }, {
-      "instanceName" : "petclinic.service3",
-      "instanceStatus" : "RUNNING",
-      "instanceId" : 5,
-      "hostName" : "build64A",
-      "hostAddress" : "192.168.9.18"
-    } ],
-    "applicationName" : "petclinic",
-    "serviceState" : "STARTED",
-    "deploymentId" : null
-  } ], [ {
-    "serviceName" : "service0",
-    "instanceCount" : 2,
-    "plannedInstances" : 2,
-    "instancesDescription" : [ {
-      "instanceName" : "petclinic.service0",
-      "instanceStatus" : "RUNNING",
-      "instanceId" : 0,
-      "hostName" : "build64A",
-      "hostAddress" : "192.168.9.18"
-    }, {
-      "instanceName" : "petclinic.service0",
-      "instanceStatus" : "RUNNING",
-      "instanceId" : 2,
-      "hostName" : "build64A",
-      "hostAddress" : "192.168.9.18"
-    } ],
-    "applicationName" : "petclinic",
-    "serviceState" : "STARTED",
-    "deploymentId" : null
-  }, {
     "serviceName" : "service1",
     "instanceCount" : 3,
     "plannedInstances" : 3,
@@ -5205,10 +5145,70 @@
     "applicationName" : "petclinic",
     "serviceState" : "STARTED",
     "deploymentId" : null
+  }, {
+    "serviceName" : "service2",
+    "instanceCount" : 4,
+    "plannedInstances" : 4,
+    "instancesDescription" : [ {
+      "instanceName" : "petclinic.service2",
+      "instanceStatus" : "RUNNING",
+      "instanceId" : 2,
+      "hostName" : "build64A",
+      "hostAddress" : "192.168.9.18"
+    }, {
+      "instanceName" : "petclinic.service2",
+      "instanceStatus" : "RUNNING",
+      "instanceId" : 4,
+      "hostName" : "build64A",
+      "hostAddress" : "192.168.9.18"
+    } ],
+    "applicationName" : "petclinic",
+    "serviceState" : "STARTED",
+    "deploymentId" : null
+  } ], [ {
+    "serviceName" : "service3",
+    "instanceCount" : 3,
+    "plannedInstances" : 3,
+    "instancesDescription" : [ {
+      "instanceName" : "petclinic.service3",
+      "instanceStatus" : "RUNNING",
+      "instanceId" : 3,
+      "hostName" : "build64A",
+      "hostAddress" : "192.168.9.18"
+    }, {
+      "instanceName" : "petclinic.service3",
+      "instanceStatus" : "RUNNING",
+      "instanceId" : 5,
+      "hostName" : "build64A",
+      "hostAddress" : "192.168.9.18"
+    } ],
+    "applicationName" : "petclinic",
+    "serviceState" : "STARTED",
+    "deploymentId" : null
+  }, {
+    "serviceName" : "service4",
+    "instanceCount" : 5,
+    "plannedInstances" : 5,
+    "instancesDescription" : [ {
+      "instanceName" : "petclinic.service4",
+      "instanceStatus" : "RUNNING",
+      "instanceId" : 4,
+      "hostName" : "build64A",
+      "hostAddress" : "192.168.9.18"
+    }, {
+      "instanceName" : "petclinic.service4",
+      "instanceStatus" : "RUNNING",
+      "instanceId" : 6,
+      "hostName" : "build64A",
+      "hostAddress" : "192.168.9.18"
+    } ],
+    "applicationName" : "petclinic",
+    "serviceState" : "STARTED",
+    "deploymentId" : null
   } ], [ {
     "serviceName" : "service2",
-    "instanceCount" : 2,
-    "plannedInstances" : 2,
+    "instanceCount" : 1,
+    "plannedInstances" : 1,
     "instancesDescription" : [ {
       "instanceName" : "petclinic.service2",
       "instanceStatus" : "RUNNING",
