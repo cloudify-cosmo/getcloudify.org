@@ -22,13 +22,15 @@ Here is a sample of a template with all values of the installer configuration bl
 	
 <span id="poc"></span>
 
-h3. Port Configuration
+h3. Port and Memory Configuration
 
-Cloudify's bootstrap process includes a file transfer step and a remote execution step. 
-By default, the port used for remote communications in each of these steps is determined by the protocol used. For example, SCP file transfer defaults to port 22 and CIFS file transfer defaults to port 445. 
+Cloudify management server is composed of different components, each using specific ports and memory allocation.
+Each of these components can be configured to use custom settings as displayed below.
+Another example refers to the file transfer step and the remote execution step in the bootstrap process.
+By default, the port used for remote communications in each of these steps is determined by the protocol used. For example, SCP file transfer defaults to port 22 and CIFS file transfer defaults to port 445.
 The "-1" value specified in the port fields of the installer section indicates that the installation should use the default port.
 
-h3. Windows Support
+h4. Windows Support
 
 h4(impt). Currently some of the installer configuration fields are not supported with Windows agent images. 
 
