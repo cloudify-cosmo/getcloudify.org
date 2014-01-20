@@ -440,6 +440,7 @@ var guide = {
 	},
 	'2.6':{
 		'bootstrapping':{
+			'advanced_cloud_driver_usage':true,
 			'bootstrapping_azure':true,
 			'bootstrapping_byon':true,
 			'bootstrapping_cloud':true,
