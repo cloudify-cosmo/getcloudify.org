@@ -180,6 +180,18 @@ h4(impt). The reservedMemoryCapacityPerMachineInMB is only relevant in a Multi T
 You can read about isolationSLA (Multi Tenant Deployment) "here":../developing/service_recipe#mtd.
 
 
+<span id="thrott"></span>
+
+h2. Start-Machine Request Throttling:
+
+Start-Machine requests for agent machines may fail for various reasons that can be related to the remote cloud or to the actual cloud driver implementation.  
+Start-Machine throttling is intended to limit the number of failed requests in a specific time frame. 
+By default, the request throttler will allow for 2 consecutive failures in 5 minutes. 
+These properties can be overridden in the cloud-driver inside the custom properties map as shown in the following snippet : 
+
+<script src="https://gist.github.com/tamirko/8520504.js"></script>
+
+
 h2. The Default Compute Cloud Driver
 
 Cloudify comes with a built-in cloud driver implementation that is based on the popular "jclouds":http://www.jclouds.org framework. This cloud driver enables you to deploy Cloudify services for many cloud providers and APIs. For a full listing of supported clouds, see "jclouds : Supported Providers":http://www.jclouds.org/documentation/reference/supported-providers.
