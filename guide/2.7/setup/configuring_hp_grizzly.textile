@@ -3,11 +3,11 @@ layout: default
 title: Configuring HP Cloud grizzly
 category: Installation & Setup
 publish: false
-abstract: Explains how to configure HP Cloud for Cloudify
+abstract: Explains how to configure HP Grizzly Cloud for Cloudify
 pageord: 625
 --- 
 
-This topic provides instructions for configuring HP Cloud for Cloudify.
+This topic provides instructions for configuring HP Grizzly Cloud for Cloudify.
 
 <span id="hpdriver"></span>
 Click on the following image to learn how to get the credentials and all the other details and how to use them:
@@ -18,7 +18,7 @@ h2. Prerequisites
 * An "(newwindow)HP Cloud":http://www.hpcloud.com/ account
 * Cloudify shell (for information about installing the Cloudify shell, see "Installing the Cloudify Shell":../setup/installing_the_cloudify_client)
 
-h2. Configuring an HP Cloud
+h2. Configuring an HP Grizzly Cloud
 
 This section provides step-by-step instructions for the following configuration tasks:
 
@@ -44,13 +44,12 @@ Edit the HP cloud driver configuration file (@hp-cloud.groovy@) located in the @
 * In the *user* section:
 ** *user* -- Specify your credentials *Tenant Name:User Name*. 
 *** Tenant Name is actually the project's name (listed on the top left corner in the horizon dashboard).
-*** The User name is the same value as used in the "(newwindow)HP console": https://horizon.hpcloud.com/auth/login
-*** Refer to the "(newwindow)HP console":https://horizon.hpcloud.com/account/api_keys for these details.
+*** The User name is the same value as used in the "(newwindow)HP console":https://horizon.hpcloud.com/auth/login
 ** *apiKey* -- Specify your corresponding *API Key*.
-*** This is the same as the password used in the "(newwindow)HP console": https://horizon.hpcloud.com/auth/login
+*** This is the same as the password used in the "(newwindow)HP console":https://horizon.hpcloud.com/auth/login
 ** *keyFile* -- Specify the name of the private key file that you created (@myKeyPair-name.pem@ in our example).
 * In the *templates* section:  				 
-** *imageId*--Specify the *HP Image ID* and *Availability Zone* (Availability Zone/imageId) . e.g. : region-b.geo-1/202e7659-f7c6-444a-8b32-872fe2ed080c
+** *imageId*--Specify the *HP Image ID* and *Region* (Region/imageId) . e.g. : region-b.geo-1/202e7659-f7c6-444a-8b32-872fe2ed080c
 There are doznes of image ids per region. Examples for CentOS and Ubuntu are provided with the default properties file.
 ** *hardwareId* -- Specify the HP *Machine Size ID* and *Region* (Region/hardwareId) . e.g. : region-b.geo-1/102
 <br/>
@@ -71,7 +70,6 @@ The following is a subset of HP OpenStack Hardware Ids:
 ** custom
 *** *availabilityZone*  -- This is the availability zone in which the machine will be created, e.g. "az1"
 *** This setting is mandatory in case the storage functionality is required.
-
 
 <h4 class="impt">For setting the cloud driver, we reccomend that you use "parameterization of the cloud driver configuration":../clouddrivers/cloud_driver#gstr, but you can also set the cloud driver directly as shown in the following example (of an @hp-grizzly-cloud.groovy@ file):</h4>
 <span id="cd"></span>
