@@ -22,6 +22,8 @@ Here is a sample of a template with all values of the installer configuration bl
 	
 <span id="poc"></span>
 
+<br/>
+
 h3. Port and Memory Configuration
 
 Cloudify management server is composed of different components, each using specific ports and memory allocation.
@@ -43,8 +45,9 @@ The unsupported fields are:
 The following example shows a sample configuration file:
 <script src="https://gist.github.com/tamirko/5056934.js"></script>
 
+<br/>
 
-h2(#jurl). Setting Java download path in the Cloud Driver Configuration.
+h3(#jurl). Setting Java download path in the Cloud Driver Configuration.
 
 By default, Cloudify download java from http://repository.cloudifysource.org/com/oracle/java/1.6.0_32/jdk-6u32-linux-i586.bin (32 bit) and from http://repository.cloudifysource.org/com/oracle/java/1.6.0_32/jdk-6u32-linux-x64.bin (64 bit).
 
@@ -55,15 +58,17 @@ If you want Cloudify to download java from a different location, you can set the
 
 <script src="https://gist.github.com/4537455.js"></script>
 
+<br/>
 
-h2(#sos). Setting OS variables in the Cloud Driver Configuration.
+h3(#sos). Setting OS variables in the Cloud Driver Configuration.
 
 You can set or override any OS variable, by specifying it in an @env@ section in a template, as shown in the following example:
 
 <script src="https://gist.github.com/3946055.js?file=setOsVar.groovy"></script>
 
+<br/>
 
-h2(#gstr). Parameterization of the Cloud Driver Configuration.
+h3(#gstr). Parameterization of the Cloud Driver Configuration.
 
 You can use Groovy GString expressions in the cloud driver DSL, thus you can easily set the values you need in the DSL using a simple properties file with a naming convention as shown in the following example:
 
@@ -76,10 +81,10 @@ And then you'll be able to use them in ec2-cloud.groovy:
 <script src="https://gist.github.com/tamirko/5057115.js"></script>
 
 <h4 class="impt">In order for this to work, you must maintain a naming convention: The cloud driver should be named *yourcloudprovider-cloud.groovy* and the  properites file must be named *yourcloudprovider-cloud.properties*</h4>
+
 <br/>
 
-
-h2(#cscr). Custom script or code in the Cloud Driver Configuration.
+h3(#cscr). Custom script or code in the Cloud Driver Configuration.
 
 You can script inline or point to an uploaded script as shown in the following example:
 
@@ -87,8 +92,7 @@ You can script inline or point to an uploaded script as shown in the following e
 
 <br/>
 
-
-h2(#prepost). Pre-Bootstrap and Post-Bootstrap scripts
+h3(#prepost). Pre-Bootstrap and Post-Bootstrap scripts
 
 Users can add two uploaded scripts : One for Pre-Bootstrap and one for Post-Bootstrap. 
 The Pre-Bootstrap script will be executed before the bootstrap-management.sh script and the Post-Bootstrap will be executed after the bootstrap-management.sh script.
@@ -96,8 +100,7 @@ These two scripts *must* be named pre-bootstrap.sh and post-bootstrap.sh respect
 
 <br/>
 
-
-h2(#ipfilter). Configuring Private and Public IP Addresses filters
+h3(#ipfilter). Configuring Private and Public IP Addresses filters
 
 A cloud node that has multiple NICs may return more than one IP address and in some cases, Cloudify has no way of knowing/deciding if the returned IP address is actually public or private.
 In other cases, users may decide to configure it themselves and not leave this decision to Cloudify. 
@@ -135,8 +138,9 @@ h4(impt). These filters are only relevant to the default (jclouds) cloud driver.
 
 The implementation is available in the  "(newwindow)getAddress":https://github.com/CloudifySource/cloudify/blob/master/esc/src/main/java/org/cloudifysource/esc/driver/provisioning/jclouds/CloudAddressResolver.java method of CloudAddressResolver.
 
+<br/>
 
-h2(#addtmp). Adding templates 
+h3(#addtmp). Adding templates 
 
 After the "bootstrapping process":../bootstrapping/bootstrapping_process is over, you may add more templates to the cloud.
 Simply use the "add-templates":../recipe/command_line_reference#add_templates CLI command as follows: <span class="snippet">add-templates [directory or file path] </span>
@@ -161,8 +165,9 @@ h4(info). Only one template per groovy file is allowed. - If a groovy file conta
 				
 h4(impt). Templates that already exist, will NOT be overridden.
 
+<br/>
 
-h2(#rsv). Setting Reserved Memory
+h3(#rsv). Setting Reserved Memory
 
 The @reservedMemoryCapacityPerMachineInMB@ attribue which is set in the provider section of the cloud driver, is the estimated amount of RAM used by the operating system and the Cloudify agent running on the machine and any other non-Cloudify application running on the machine (An example of non-Cloudify applications is if the VM comes with pre-installed applications, that are not a part of Cloudify and are not a part of the current recipe).
 
@@ -181,10 +186,11 @@ h4(impt). The reservedMemoryCapacityPerMachineInMB is only relevant in a Multi T
 <br/>
 You can read about isolationSLA (Multi Tenant Deployment) "here":../developing/service_recipe#mtd.
 
-
 <span id="thrott"></span>
 
-h2. Start-Machine Request Throttling:
+<br/>
+
+h3. Start-Machine Request Throttling:
 
 Start-Machine requests for agent machines may fail for various reasons that can be related to the remote cloud or to the actual cloud driver implementation.  
 Start-Machine throttling is intended to limit the number of failed requests in a specific time frame. 
@@ -193,23 +199,39 @@ These properties can be overridden in the cloud-driver inside the custom propert
 
 <script src="https://gist.github.com/tamirko/8520504.js"></script>
 
+<br/>
 
-h2. The Default Compute Cloud Driver
+h3. The Default Compute Cloud Driver
 
 Cloudify comes with a built-in cloud driver implementation that is based on the popular "jclouds":http://www.jclouds.org framework. This cloud driver enables you to deploy Cloudify services for many cloud providers and APIs. For a full listing of supported clouds, see "jclouds : Supported Providers":http://www.jclouds.org/documentation/reference/supported-providers.
 The default cloud driver can be used as-is, or as the basis for an extension that suits your requirements.
 
 h4(info). GigaSpaces regularly tests this cloud driver implementation on "Amazon EC2":http://aws.amazon.com and "Rackspace Cloud":http://www.rackspace.com.
 
+<br/>
 
-h2. Network Cloud Driver
+h3. Service Specific Security Group Rules
+Grizzly and Havana cloud drivers support the creation of service-specific security groups.
+This is useful, for example, when the installed service requires open communication with public clients, e.g. a web server service would like to open port 8080 for incoming requests.
+This is achieved by defining a security group rule in the *service* groovy file:
+
+<script src="https://gist.github.com/noakup/8541546.js"></script>
+
+Here an access rule (security group rule) is created to allow incoming requests from any client, through port 8080.
+The template name simply specifies the relevant network template defined in the cloud groovy file.
+
+<br/>
+
+h3. Network Cloud Driver
 
 The network cloud driver is the enabler for the recipe service context API that assigns floating ip addresses (also know as elastic IPs). 
 <script src="https://gist.github.com/7984834.js?file=floating_ip_recipe.groovy"></script>
 
 An openstack implementation is available: "OpenstackNetworkDriver":https://github.com/CloudifySource/cloudify/blob/master/esc/src/main/java/org/cloudifysource/esc/driver/provisioning/network/openstack/OpenstackNetworkDriver.java
-                
-h2. Storage Cloud Driver
+
+<br/>
+
+h3. Storage Cloud Driver
 
 The storage cloud driver is the enabler for the recipe service context API to create and attach volumes (also known as EBS). 
 <script src="https://gist.github.com/7984834.js?file=mount_strage_recipe_snippet.groovy"></script>
@@ -217,6 +239,8 @@ The storage cloud driver is the enabler for the recipe service context API to cr
 An openstack implementation is available: "OpenstackStorageDriver":https://github.com/CloudifySource/cloudify/blob/master/esc/src/main/java/org/cloudifysource/esc/driver/provisioning/storage/openstack/OpenstackStorageDriver.java
 An AWS implementation is available: "EbsStorageDriver":https://github.com/CloudifySource/cloudify/blob/master/esc/src/main/java/org/cloudifysource/esc/driver/provisioning/storage/aws/EbsStorageDriver.java
 
-h2. See Also
+<br/>
+
+h3. See Also
 
 * "Developing Custom Cloud Drivers":../clouddrivers/developing_custom_clouddriver
