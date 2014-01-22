@@ -44,7 +44,7 @@ h3(#ssh). Obtain SSH Credentials
 
 If you're using simple username/password SSH authentication, these are simply the root / sudo user credentials to the created VM (you should know them in advance and they're usually specific for each image). If you're using SSH keypair authentication, you can generate the keypair from using the CloudStack API. Please refer to the "relevant section in the CloudStack documentation":http://cloudstack.apache.org/docs/en-US/Apache_CloudStack/4.0.2/html/Installation_Guide/using-sshkeys.html for directions on how to create a keypair. 
 
-After you've generated the keypair file, you should place it in the @upload@ directory in your CloudStack cloud driver folder, e.g. @<cloudify root>/clouds/cloudstack/upload@. 
+After you've generated the keypair file, you should place it in the @upload@ directory in your CloudStack cloud driver folder, e.g. @<cloudify root>/clouds/cloudstack-3.x/upload@. 
 
 h3(#get_ids). Obtain Compute Offering, Zone and Template IDs from Your CloudStack Environment
 
@@ -96,7 +96,7 @@ To enable Cloudify to properly start and configure VMs for you, you will need to
 
 h3(#driver). Configure the Cloudify Cloud Driver Configuration File
 
-First, download the "Cloudify CloudStack driver files":https://github.com/CloudifySource/cloudify-cloud-drivers/tree/master/cloudstack and place them in @<cloudifyRoot>/clouds/cloudstack/@
+First, download the "Cloudify CloudStack driver files":https://github.com/CloudifySource/cloudify-cloud-drivers/tree/master/cloudstack and place them in @<cloudifyRoot>/clouds/cloudstack-3.x/@
 Edit the CloudStack cloud driver configuration file (@cloudstack-cloud.properties@) and modify the following attributes:
 
 <pre class='prettyprint'>
