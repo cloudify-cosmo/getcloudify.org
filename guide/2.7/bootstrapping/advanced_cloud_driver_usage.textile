@@ -211,14 +211,15 @@ h4(info). GigaSpaces regularly tests this cloud driver implementation on "Amazon
 <br/>
 
 h3. Service Specific Security Group Rules
-Grizzly and Havana cloud drivers support the creation of service-specific security groups.
-This is useful, for example, when the installed service requires open communication with public clients, e.g. a web server service would like to open port 8080 for incoming requests.
-This is achieved by defining a security group rule in the *service* groovy file:
+
+Grizzly and Havana cloud drivers support the creation of service-specific security groups rules.
+This is useful when a single service requires open communication with public clients, while the rest of the application should not be accessible. For example, a web server service would likely require an open port for incoming requests.
+Setting service specific access rules (security group rules) is done in the *service* groovy file:
 
 <script src="https://gist.github.com/noakup/8541546.js"></script>
 
-Here an access rule (security group rule) is created to allow incoming requests from any client, through port 8080.
-The template name simply specifies the relevant network template defined in the cloud groovy file.
+Here an access rule is created to allow incoming requests from any client, through port 8080.
+The template name simply specifies the relevant network template, as defined in the cloud groovy file.
 
 <br/>
 
