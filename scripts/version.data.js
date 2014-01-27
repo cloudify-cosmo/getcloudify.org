@@ -681,7 +681,6 @@ var guide = {
 			'configuring_openstack_folsom':true,
 			'configuring_openstack_grizzly':true,
 			'configuring_openstack_havana':true,
-			'configuring_openstack_jclouds':true,
 			'configuring_rackspace':true,
 			'configuring_rsopenstack':true,
 			'configuring_security':true,
