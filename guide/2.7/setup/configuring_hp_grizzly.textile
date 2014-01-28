@@ -4,14 +4,10 @@ title: Configuring HP Grizzly Cloud
 category: Installation & Setup
 publish: true
 abstract: Explains how to configure HP Grizzly Cloud for Cloudify
-pageord: 625
+pageord: 626
 --- 
 
 This topic provides instructions for configuring HP Grizzly Cloud for Cloudify.
-
-<span id="hpdriver"></span>
-Click on the following image to learn how to get the credentials and all the other details and how to use them:
-<a href="http://www.youtube.com/watch?v=lHtOBXpouyo" rel="lHtOBXpouyo" class="video fancybox-media"><img src="../../images/setup/hpcd_howto.jpg" width="323" height="200" alt="pic is missing" /></a>
 
 h2. Prerequisites
 
@@ -27,31 +23,38 @@ This section provides step-by-step instructions for the following configuration 
 
 h3(#key). Generate a private key
 
-# In the HP web console, under "Key Pairs":https://manage.hpcloud.com/compute/100/keypairs, click *Create Key Pair*, and then type a name for the key pair.
-!../../images/hp/compute_create_new_key_pair_hp_cloud_services.png!
-# Copy the key and save it as a @.pem@ private key file (e.g. @myKeyPair-name.pem@) in the @<cloudifyRoot>/clouds/hp/upload@ folder.
-!../../images/hp/compute_create_new_key_pair_2_hp_cloud_services.png!
+# In the HP web console, under "Keypairs":https://horizon.hpcloud.com/project/access_and_security/, click *Create Keypair*, and then type a name for the key pair.
+!../../images/hp/compute_create_new_key_pair_hp_grizzly_havana.png!
+# Copy the key and save it as a @.pem@ private key file (e.g. @myKeyPair-name.pem@) in the @<cloudifyRoot>/clouds/hp-grizzly/upload@ folder.
 
 h4(info). The private key enables the Cloudify cloud driver to open SSH connections to the newly created instances.
 
 h3(#driver). Configure the Cloudify cloud driver configuration file
 
-Edit the HP cloud driver configuration file (@hp-cloud.groovy@) located in the @<cloudifyRoot>/clouds/hp/@ folder, and modify the following attributes:
-* In the *provider* section: 
-** *machineNamePrefix* -- The value that you specify is used as the name prefix for each of your service instances.
-** *managementOnlyFiles* -- An array containing a list of files to copy to management machines and not agent machines. Use this list to specify files such as the private key file (e.g. @myKeyPair-name.pem@) required by the cloud driver..
-** *managementGroup* -- The value that you specify is used as the name prefix for each of your management instances.
-* In the *user* section:
-** *user* -- Specify your credentials *Tenant Name:User Name*. 
-*** Tenant Name is actually the project's name (listed on the top left corner in the horizon dashboard).
-*** The User name is the same value as used in the "(newwindow)HP console":https://horizon.hpcloud.com/auth/login
-** *apiKey* -- Specify your corresponding *API Key*.
-*** This is the same as the password used in the "(newwindow)HP console":https://horizon.hpcloud.com/auth/login
-** *keyFile* -- Specify the name of the private key file that you created (@myKeyPair-name.pem@ in our example).
-* In the *templates* section:  				 
-** *imageId*--Specify the *HP Image ID* and *Region* (Region/imageId) . e.g. : region-b.geo-1/202e7659-f7c6-444a-8b32-872fe2ed080c
-There are doznes of image ids per region. Examples for CentOS and Ubuntu are provided with the default properties file.
-** *hardwareId* -- Specify the HP *Machine Size ID* and *Region* (Region/hardwareId) . e.g. : region-b.geo-1/102
+Edit the HP cloud driver configuration file (@hp-grizzly-cloud.properties@) located in the @<cloudifyRoot>/clouds/hp-grizzly/@ folder, and modify the following properties:
+* *user* is actually the user name and is listed on the top right corner in the horizon dashboard.
+   The user is the same value which is used as 'User Name' when you login to the "(newwindow)HP console":https://horizon.hpcloud.com/auth/login/.
+* *tenant* is the project's name which is listed on the top left corner in the horizon dashboard.
+    
+!../../images/hp/hp_grzzly_havana_user_tenant.jpg!
+
+* *apiKey* is actually the password that you use when you login to the "(newwindow)HP console":https://horizon.hpcloud.com/auth/login/.
+* *keyFile* -- Specify the name of the private key file that you created (for example: @myKeyPair-name.pem@).
+* *keyPair* -- Specify the name of the Keypair that you created, whose content is in the .pem file (*keyFile* from above).
+* *openstackUrl* -- Specify the endpoint url. 
+  For example: *openstackUrl*="https://region-b.geo-1.identity.hpcloudsvc.com:35357/v2.0/"
+* *hardwareId* -- Specify the hardwareId and region. 
+  For example: *hardwareId*="region-b.geo-1/102"
+* *linuxImageId* -- Specify the linux image Id and region.
+  For example: *linuxImageId*="region-b.geo-1/202e7659-f7c6-444a-8b32-872fe2ed080c"
+* *ubuntuImageId* -- Specify the linux image Id and region.
+  For example: *ubuntuImageId*="region-b.geo-1/2624d751-e795-4130-9f3a-1759c89d6f41"
+* *availabilityZone* -- Specify the availability zone.
+  For example: *availabilityZone*="az1"
+  This setting is mandatory in case the storage functionality is required.
+  
+h4(info). There are doznes of image ids per region. Examples are provided with the default properties file(hp-grizzly-cloud.properties).
+
 <br/>
 The following is a subset of HP OpenStack Hardware Ids:
 
@@ -64,14 +67,23 @@ The following is a subset of HP OpenStack Hardware Ids:
 |105|standard.2xlarge| 8 | 30 GB | 30 GB |
 
 <br/>
-** *username* -- Specify a username to log in to newly the created machine. This user is created as part of the image you selected. e.g. root or ubuntu
-** *options* ("jclouds":http://www.jclouds.org/documentation)
-*** *keyPair* -- Specify the name of the key pair that you created (whose content is in the .pem file in *keyFile* attribute in the user section).
-** custom
-*** *availabilityZone*  -- This is the availability zone in which the machine will be created, e.g. "az1"
-*** This setting is mandatory in case the storage functionality is required.
 
-<h4 class="impt">For setting the cloud driver, we reccomend that you use "parameterization of the cloud driver configuration":../clouddrivers/cloud_driver#gstr, but you can also set the cloud driver directly as shown in the following example (of an @hp-grizzly-cloud.groovy@ file):</h4>
+If you need to use/set additional "(newwindow)jclouds":http://www.jclouds.org/documentation options, you can set it in @hp-grizzly-cloud.groovy@ which is located in the @<cloudifyRoot>/clouds/hp-grizzly/@ folder.
+In that case, you'll need to set the options section of the relevant compute template.
+
+You need to set the following attributes in @hp-grizzly-cloud.groovy@, In cloudCompute -> templates -> SMALL_LINUX : computeTemplate -> options
+and in cloudCompute -> templates -> SMALL_UBUNTU : computeTemplate -> options
+(and every other template that you'll create) : 
+
+*externalRouterName* - Specify the router that the vms should use. 
+ You can use a router that you've created, but by default, Cloudify creates one router for your.
+ If your tenant name is mytenant, then the router that Cloudify creates for you, is called *"mytenant-router"* and you should have the following in the cloud driver (@hp-grizzly-cloud.groovy@): 
+ "externalRouterName" : "mytenant-router".
+
+*securityGroups* - You need to create and specify the security groups that you want the vm to use.
+ So, if your security group is named "myGroup", then you should have the following in the cloud driver (@hp-grizzly-cloud.groovy@):  *"securityGroups" : ["default"] as String[]*
+
+<h4 class="impt">You can set the cloud driver directly as shown in the following example (of an @hp-grizzly-cloud.groovy@ file), but we reccomend that you use "parameterization of the cloud driver configuration":../clouddrivers/cloud_driver#gstr, </h4>
 <span id="cd"></span>
 <script src="https://gist.github.com/noakup/8507361.js"></script>
 
