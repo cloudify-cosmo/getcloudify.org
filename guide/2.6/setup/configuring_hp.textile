@@ -1,13 +1,13 @@
 ---
 layout: default
-title: Configuring HP Cloud
+title: Configuring HP Folsom Cloud
 category: Installation & Setup
 publish: true
-abstract: Explains how to configure HP Cloud for Cloudify
-pageord: 625
+abstract: Explains how to configure HP Folsom Cloud for Cloudify
+pageord: 600
 --- 
 
-This topic provides instructions for configuring HP Cloud for Cloudify.
+This topic provides instructions for configuring HP Folsom Cloud for Cloudify. 
 
 <span id="hpdriver"></span>
 Click on the following image to learn how to get the credentials and all the other details and how to use them:
@@ -18,7 +18,7 @@ h2. Prerequisites
 * An "(newwindow)HP Cloud":http://www.hpcloud.com/ account
 * Cloudify shell (for information about installing the Cloudify shell, see "Installing the Cloudify Shell":../setup/installing_the_cloudify_client)
 
-h2. Configuring an HP Cloud
+h2. Configuring an HP Folsom Cloud
 
 This section provides step-by-step instructions for the following configuration tasks:
 
@@ -54,46 +54,43 @@ You can obtain your *Access Key* and *Secret Access Key* from the "(newwindow)AP
 * In the *templates* section:  				 
 ** *imageId*--Specify the *HP Image ID* and *Availability Zone* (Availability Zone/imageId) . e.g. : az-2.region-a.geo-1/221
 ** *hardwareId*--Specify the HP *Machine Size ID* and *Availability Zone* (Availability Zone/hardwareId) . e.g. : az-2.region-a.geo-1/102
+<br/>
+The following is a list of HP OpenStack Hardware Ids:
+
+|_. ID |_. Flavor Name |_. Cores |_. RAM |_. Disk |
+|100|standard.xsmall| 1 | 1 GB | 10 GB |
+|101|standard.small| 2 | 2 GB | 30 GB |
+|102|standard.medium| 2 | 4 GB | 30 GB |
+|103|standard.large| 4 | 8 GB | 30 GB |
+|104|standard.xlarge| 4 | 15 GB | 30 GB |
+|105|standard.2xlarge| 8 | 30 GB | 30 GB |
+
+<br/>
 ** *options* ("jclouds":http://www.jclouds.org/documentation)
 *** *securityGroups*--Specify "(newwindow)security groups":https://console.hpcloud.com/compute/100/security_groups to determine whether network ports are opened or blocked on your instances.
 *** *keyPair*--Specify the name of the key pair that you created (whose content is in the .pem file in *keyFile* attribute in the user section).
 
-<br/>
-The following is a list of HP OpenStack Image Ids:
 
-|_. ID |_. Image |	|_. ID |_. Image |
-|20006|BitNami WebPack 1.2-0-ubuntu-10.04.4 - Partner Image|_.	|20004|BitNami Drupal 7.14-0-ubuntu-10.04.4 - Partner Image|
-|14075|Fedora 16 Server 64-bit 20120518|_.	|13047|ActiveState Stackato v1.2.6 - Partner Image|
-|10070|ActiveState Stackato v1.2.5 - Partner Image (deprecated)|_.	|9883|Ubuntu Precise 12.04 LTS Server 64-bit 20120424|
-|7461|BitNami WebPack 1.1-1 Ubuntu 10.04 64-bit - Partner Image (deprecated)|_.	|6645|Ubuntu Oneiric 11.10 Server 64-bit 20120311|
-|6640|Fedora 16 Server 64-bit 20120404 (deprecated)|_.	|4886|BitNami DevPack 1.0-0 Ubuntu 10.04 64-bit - Partner Image|
-|417|Debian Squeeze 6.0.3 Server 64-bit 20120123|_.	|416|Debian Squeeze 6.0.3 Server 64-bit 20120123 (Ramdisk)|
-|415|Debian Squeeze 6.0.3 Server 64-bit 20120123 (Kernel)|_.	|414|CentOS 6.2 Server 64-bit 20120125|
-|413|CentOS 6.2 Server 64-bit 20120125 (Ramdisk)|_.	|412|CentOS 6.2 Server 64-bit 20120125 (Kernel)|
-|229|Ubuntu Oneiric 11.10 Server 64-bit 20111212 (deprecated)|_.	|228|Ubuntu Oneiric 11.10 Server 64-bit 20111212 (Kernel) (deprecated)|
-|227|Ubuntu Natty 11.04 Server 64-bit 20111212|_.	|226|Ubuntu Natty 11.04 Server 64-bit 20111212 (Kernel)|
-|225|Ubuntu Maverick 10.10 Server 64-bit 20111212|_.	|224|Ubuntu Maverick 10.10 Server 64-bit 20111212 (Kernel)|
-|223|Ubuntu Lucid 10.04 LTS Server 64-bit 20111212|_.	|222|Ubuntu Lucid 10.04 LTS Server 64-bit 20111212 (Kernel)|
-|221|CentOS 5.6 Server 64-bit 20111207|_.	|220|CentOS 5.6 Server 64-bit 20111207 (Ramdisk)|
-|219|CentOS 5.6 Server 64-bit 20111207 (Kernel)|
-
-<br/>
-The following is a list of HP OpenStack Hardware Ids:
-
-|_. ID |_. Flavor Name |_. CPUs |_. RAM |_. Disk |
-|100|standard.xsmall| 1 | 1 GB | 30 GB |
-|101|standard.small| 2 | 2 GB | 60 GB |
-|102|standard.medium| 2 | 4 GB | 120 GB |
-|103|standard.large| 4 | 8 GB | 240 GB |
-|104|standard.xlarge| 4 | 16 GB | 480 GB |
-|105|standard.2xlarge| 8 | 32 GB | 960 GB |
-
-<br/>
 <h4 class="impt">For setting the cloud driver, we reccomend that you use "parameterization of the cloud driver configuration":../clouddrivers/cloud_driver#gstr, but you can also set the cloud driver directly as shown in the following example (of an @hp-cloud.groovy@ file):</h4>
 <span id="cd"></span>
 <script src="https://gist.github.com/4372623.js"></script>
 
 
-h2. What's Next?
+h2. Bootstrapping HP Folsom Cloud
 
-"Bootstrapping HP":../bootstrapping/bootstrapping_hp
+h3. Prerequisites
+
+Before you bootstrap your HP Folsom Cloud, make sure that your environment meets all the minimum requirements. For more information, see "Bootstrapping Prerequisites":../bootstrapping/bootstrapping_process#prereqs.
+
+h3. Bootstrapping
+
+Bootstrapping HP Folsom Cloud is extremely simple:
+# Start the Cloudify shell -- For information about running the Cloudify shell, see "Installing the Cloudify Shell":../setup/installing_the_cloudify_client.
+# Start the bootstrapping process for provisioning machines for Cloudify management -- At the Cloudify shell prompt, type: *@bootstrap-cloud@* *@hp-folsom@*
+  <h4 class="info">Once the command completes, the URL of the Cloudify web management console and the Cloudify contoller's REST endpoint are display in the shell. Also, the shell automatically connects to the controller as part of the bootstrap process, so you don't have to explicitly type the @connect@ command.</h4>
+
+h3(#tear). Teardown
+
+To shut down the HP Folsom Cloud environment, at the Cloudify shell prompt, type: *@teardown-cloud@* @hp-folsom@
+
+h4(info). This uninstalls applications and shuts down all the management and service instance machines.
