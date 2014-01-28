@@ -30,7 +30,7 @@ h2. Configure your Maven @pom@ File
 
 h2. Create your Cloud Driver
 
-You are now ready to develop your cloud driver. Create a new Java class that implements the _"org.cloudifysource.esc.driver.provisioning.ProvisioningDriver":https://github.com/CloudifySource/cloudify/blob/master/esc/src/main/java/org/cloudifysource/esc/driver/provisioning/ProvisioningDriver.java_ interface. For examples, see "Default Cloud Driver":https://github.com/CloudifySource/cloudify/blob/master/esc/src/main/java/org/cloudifysource/esc/driver/provisioning/jclouds/DefaultProvisioningDriver.java and "Openstack Cloud Driver":https://github.com/CloudifySource/cloudify/blob/master/esc/src/main/java/org/cloudifysource/esc/driver/provisioning/openstack/OpenstackCloudDriver.java.
+You are now ready to develop your cloud driver. Create a new Java class that extends the _"org.cloudifysource.esc.driver.provisioning.BaseProvisioningDriver":https://github.com/CloudifySource/cloudify/blob/master/esc/src/main/java/org/cloudifysource/esc/driver/provisioning/BaseProvisioningDriver.java_ abstract class. For example: See "Default Cloud Driver":https://github.com/CloudifySource/cloudify/blob/master/esc/src/main/java/org/cloudifysource/esc/driver/provisioning/jclouds/DefaultProvisioningDriver.java and "Openstack Cloud Driver":https://github.com/CloudifySource/cloudify/blob/master/esc/src/main/java/org/cloudifysource/esc/driver/provisioning/openstack/OpenStackCloudifyDriver.java.
 
 h2. Configure your Cloud Driver Configuration File
 
