@@ -692,7 +692,6 @@ var guide = {
 			'configuring_security':true,
 			'installation_and_setup':true,
 			'installing_the_cloudify_client':true,
-			'orig-configuring_hp_havana':true,
 			'post_installation_configuration':true,
 			'recipes_tab':true
 		},

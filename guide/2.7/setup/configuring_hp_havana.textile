@@ -68,20 +68,12 @@ The following is a subset of HP OpenStack Hardware Ids:
 
 <br/>
 
-If you need to use/set additional "(newwindow)jclouds":http://www.jclouds.org/documentation options, you can set it in @hp-havana-cloud.groovy@ which is located in the @<cloudifyRoot>/clouds/hp-havana/@ folder.
-In that case, you'll need to set the options section of the relevant compute template.
+*External Router*
 
-You need to set the following attributes in @hp-havana-cloud.groovy@, In cloudCompute -> templates -> SMALL_LINUX : computeTemplate -> options
-and in cloudCompute -> templates -> SMALL_UBUNTU : computeTemplate -> options
-(and every other template that you'll create) : 
+ By default, Cloudify creates one router for you and you don't need to add/set anything else. 
+ <br/>However, if you want to use another router that you've created, you should have the following in the cloud driver (@hp-havana-cloud.groovy@): <span class="snippet">*"externalRouterName" : "myOtherRouter-router".*</span><br/>
+ It can be set in @hp-havana-cloud.groovy@, In cloudCompute -> templates -> SMALL_LINUX : computeTemplate -> options and in cloudCompute -> templates -> SMALL_UBUNTU : computeTemplate -> options (and in every other template that you'll create)
 
-*externalRouterName* - Specify the router that the vms should use. 
- You can use a router that you've created, but by default, Cloudify creates one router for your.
- If your tenant name is mytenant, then the router that Cloudify creates for you, is called *"mytenant-router"* and you should have the following in the cloud driver (@hp-havana-cloud.groovy@): 
- "externalRouterName" : "mytenant-router".
-
-*securityGroups* - You need to create and specify the security groups that you want the vm to use.
- So, if your security group is named "myGroup", then you should have the following in the cloud driver (@hp-havana-cloud.groovy@):  *"securityGroups" : ["default"] as String[]*
 
 <h4 class="impt">You can set the cloud driver directly as shown in the following example (of an @hp-havana-cloud.groovy@ file), but we reccomend that you use "parameterization of the cloud driver configuration":../clouddrivers/cloud_driver#gstr, </h4>
 <span id="cd"></span>
