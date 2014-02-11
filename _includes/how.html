@@ -1,42 +1,52 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
-        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml">
+<!DOCTYPE html>
+<html lang="en">
 {% include head_section.html %}
 <body>
-<a class="fork-guide" target="_blank" href="https://github.com/CloudifySource/cloudify"></a>        
-<div class="WrapperBg">
-    <div class="Wrapper">
-        {% include header.html %}
-        <div class="contentWrap">
-            <div class="clear"></div>
-           <div class="breadcrumbs">Home Page > Architecture</div>            
-            <div class="clear"></div>
-			
-
-<!--Search-->			
-	    {% assign searchHdr="Architecture" %}
-            {% include search.html %}
-
-	    <div id="resultsDiv" class="DocumentsWrapRight"></div>
-            <div id="pageContent" class="contentNoRight">
-              
-                {{content}}
-				 {% include slidercontent.html %}
-            </div>
-        </div>
-        <div class="clear"></div>
-
-        <!--Start Footer -->
-        {% include footer.html %}
-
-    </div>
-    <!--End site wrapper -->
-
-
+<div id="wrapper">
+   {% include header.html %}
+    <div id="resultsDiv" class="DocumentsWrap"></div>
+	
+	<section id="inner-headline">
+	<div class="container" class="howHeadWrapper">
+		<div class="row">
+			<div class="span8">
+				<div class="inner-heading">
+					<h2><i class="icon-cogs"></i><strong>How</strong> its work</h2>
+				</div>
+			</div>
+			<div class="span4">
+				<ul class="breadcrumb">
+					<li><a href="/"><i class="icon-home"></i></a><i class="icon-angle-right"></i></li>
+					<li><a href="#">How</a><i class="icon-angle-right"></i></li>
+					<li class="active">How its works</li>
+				</ul>
+			</div>
+		</div>
+	</div>
+	</section>
+	
+	 <section id="content" class="howWrapper" >
+		 <div class="howItsWorkWrap">
+			{% include slidercontent.html %}
+		</div>	 
+	 </section>
+	 <div class="clear"></div>  
+   {% include footer.html %}   
 </div>
-<!--End site bg top wrapper -->
-
+<a href="#" class="scrollup"><i class="icon-chevron-up icon-square icon-32 active"></i></a>
+{% include footer_scripts.html %}	
 {% include sliderjs.html %}
-
 </body>
 </html>
+
+
+
+
+
+
+
+
+
+
+
+

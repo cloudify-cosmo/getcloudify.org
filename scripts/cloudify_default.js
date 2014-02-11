@@ -5,7 +5,9 @@ Requires: jQuery v1.3+
 Copyright (c) 2009 Adriana Palazova
 Dual licensed under the MIT (http://www.adipalaz.com/docs/mit-license.txt) and GPL (http://www.adipalaz.com/docs/gpl-license.txt) licenses
 ------------------------------------------------ */
+
 (function($) {
+
 
 
 

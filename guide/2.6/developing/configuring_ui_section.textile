@@ -1,5 +1,5 @@
 ---
-layout: default
+layout: bt_wiki
 title: Configuring the Web Management Console
 category: Developing Recipes
 publish: true
@@ -12,8 +12,8 @@ The Cloudify web management console provides a web-based gui for monitoring your
 h2. Built-In and Custom Metrics
 
 By default, Cloudify monitors generic metrics such as CPU usage and memory utilization. But it can also monitor any other, more specific, metrics using one of the following custom mechanisms:
-* "Monitoring Probes":../plugins_and_probes/probes Groovy closures that emit metrics and their current value.
-* "Monitoring Plugins":../plugins_and_probes/develop_your_plugin Java classes that emit metrics and their current value.
+* "Monitoring Probes":../plugins_and_probes/probes--Groovy closures that emit metrics and their current value.
+* "Monitoring Plugins":../plugins_and_probes/develop_your_plugin--Java classes that emit metrics and their current value.
 
 Cloudify invokes the probe or plugin every 5 seconds, and expects to receive a *Map* that contains the names of the metrics as keys and their respective values. Both the built-in and custom metrics can be displayed in the web management console.
 

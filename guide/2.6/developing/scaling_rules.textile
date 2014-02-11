@@ -1,5 +1,5 @@
 ---
-layout: default
+layout: bt_wiki
 title: Scaling Rules
 category: Developing Recipes
 publish: true
@@ -42,23 +42,7 @@ h3. Scaling rules syntax
 Here is a snippet from a recipe that adds one tomcat instance, if at least one tomcat instance has more than 1 request per second. Conversely, it removes one tomcat instance, if the tomcat cluster (all the tomcat instances) has less than 0.2 requests per second.
 
 <script src="https://gist.github.com/2566833.js?file=tomcat_auto_scaling.groovy"></script>
-
 h4(info). In the current version, you can only describe one scaling rule per service.
-
-h3. Statistics reference
-
-h4. Time Window Statistics
-@timeStatistics@ defines the per-instance metric aggregation over the specified time period. The time period is defined by @movingTimeRangeInSeconds@
-<script src="https://gist.github.com/7927479.js?file=time_window_statistics_reference.groovy"></script>
-
-h4. Instances Statistics
-@instancesStatistics@ defines the metric aggregation across all of the service instances.
-<script src="https://gist.github.com/7927479.js?file=instances_statistics_reference.groovy"></script>
-
-h4. Statistics
-@statistics@ is a shorthand of defining both @timeStatistics@ and @instancesStatistics@.
-<script src="https://gist.github.com/7927479.js?file=statistics_reference.groovy"></script>
-
 
 h2(#ms). Manual Scaling
 

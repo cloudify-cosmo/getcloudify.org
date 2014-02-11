@@ -1,24 +1,24 @@
 <div class="leftContentBox">
 {% capture currentVersion %}{{ page.url | remove: "/guide/" | split:"/" | first }}{% endcapture %}
-   <h2 id="todHdr">Cloudify {{currentVersion}}</h2>
+   <h5 class="widgetheading" id="todHdr">Cloudify {{currentVersion}}</h2>
    <div class="clear"></div>
-	<div class="TableOfContents" id="accordion">
-		{% for category in site.categories %}		
-		<h3><a href="#">{{ category }}</a></h3>
-		<div>
-			 <ul>			 				 			
-			  {% for page in site.page_categories[category] %}				  
-				  {% if page.url contains currentVersion %}			  
-				    <li><a href="{{page.url}}">{{page.title}}</a></li>							   
+   <div id="sidebar" class="list-group docMenu"> 
+	{% for category in site.categories %}		
+		<!--<h5 class="widgetheading">{{ category }}</h5>-->
+		 <a href="#{{ category | replace:' ','_' }}" class="list-group-item"  data-parent="#sidebar"><i class="icon-caret-right"></i>{{ category }}</a>
+		<div id="{{ category | replace:' ','_' }}" class="list-group subitem collapse" class="list-group-item"> 				 			
+			  {% for curPage in site.page_categories[category] %}				  
+				  {% if curPage.url contains currentVersion %}
+					<a class="list-group-item" href="{{curPage.url}}">{{curPage.title}}</a>							   
 				  {% endif %}			  
 			  {% endfor %}
 			  {% if category == "Reference" %}			  
-				  <li><a href="/guide/{{currentVersion}}/api">Cloudify API Reference</a></li>				 
-				  <li><a href="/guide/{{currentVersion}}/restapi/restdoclet.html">Rest API Reference</a></li>				 
+				  <a class="list-group-item" href="/guide/{{currentVersion}}/api">Cloudify API Reference</a></li>				 
+				  <a class="list-group-item" href="/guide/{{currentVersion}}/restapi/restdoclet.html">Rest API Reference</a>			 
              {% endif %}			  
-			 </ul>
 		</div>
        {% endfor %}		
-    </div>
 </div>
+</div>
+
 

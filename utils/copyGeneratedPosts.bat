@@ -6,7 +6,7 @@
 @rem The following folders will be copied:
 @rem tags page* 2011 2012 etc... (all the posts paging related folders.
 
-set CURRENT_VERSION=2.2
+set CURRENT_VERSION=2.7
 
 set EXCLUDED_DIRS="css downloads guide images scripts webfonts"
 

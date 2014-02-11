@@ -1,71 +1,102 @@
-<div class="header">
-    <div class="headersLinks">
-        <ul>
-           <li><a href="https://cloudifysource.atlassian.net" target="_blank"><img src="http://www.gigaspaces.com/sites/default/files/logo_jira_whitecopy.png" width="20">Report a Bug</a></li>
-           <li class="sep">|</li>
-            <li><a href="https://cloudifysource.zendesk.com/registration" target="_blank">Sign Up</a></li>
-            <li class="sep">|</li>
-            <li><a href="https://cloudifysource.zendesk.com/login" target="_blank" class="lock">Login</a></li>
-            <li class="sep">|</li>
-            <li class="contactUs"><a  class="contactUsLink" href="#" target="_blank">Contact Us</a></li>
-        </ul>
-        <div class="contactUsWrapper">
-            <form id="contactUs" action="https://www.salesforce.com/servlet/servlet.WebToLead?encoding=UTF-8" method="POST">
-            <input type=hidden name="oid" value="00D300000000KEt">
-            <input type=hidden name="retURL" value="http://www.cloudifysource.org/thank_you_contact.htm">
-            <input  id="first_name" name="first_name" type="hidden" />
-            <input  id="last_name" name="last_name" type="text" class="cuInput" placeholder="Your Name"/>
-            <span class="cuValid"></span>
-            <input  id="email" name="email"  type="text"  placeholder="Your Email"/><br>
-            <span class="cuValid"></span>
-            <textarea  id="00N80000003kH4I" name="00N80000003kH4I" type="text" wrap="soft" placeholder="Your Message"></textarea>
- <input id="00N80000003kH2d" maxlength="50" name="00N80000003kH2d" size="20" type="text" value="CloudifySource Community Contact" style="display: none" />            
-	   <!--Captcha-->
-	    <div class="captcha">
-	    	    <label>Enter the below number: </label>
-		    <input type="hidden" value="701469" id="verifyNumHidden" name="verifyNumHidden" />
-		    <input type="text" id="enterVerify" name="enterVerify" />
-		    <div id="verifyNum"></div>
-	    </div>
-	    <!--Captcha-->
-<input type="submit" class="cuSend" name="submit" value="Contact" />
-            </form>
-            <a class="contactUsWrapperClose" href="#">Close</a>
-        </div>
-    </div>
-
-
-
-    <a class="logo" href="/"></a>
-    <div class="clear"></div>
-            <div class="topMenu">
-                <ul class="_topmenu">
-                    <li class="topmenuli"><a class="bgMenu1" href="http://forums.cloudifysource.org/forums"><span class="title1">Support Forums</span><span class="title2">Discuss & Suggest</span></a></li>
-                    <li class="sep"></li>
-                    <li class="topmenuli"><a class="bgMenu2" href="/guide/{{latestGAversion}}/qsg/qsg"><span class="title1">Documentation</span><span class="title2">Learn</span></a></li>
-                    <li class="sep"></li>
-                    <li class="topmenuli"><a class="bgMenu3" href="/participate"><span class="title1">Events</span><span class="title2">Participate</span></a></li>
-                    <li class="sep"></li>
-                    <li class="topmenuli"><a class="bgMenu4" href="/blog"><span class="title1">Blog & Updates</span><span class="title2">Read</span></a></li>
-                    <li class="sep"></li>
-                    <li class="topmenuli"><a class="bgMenu5" href="/cloudifysourcetv"><span class="title1">Videos</span><span class="title2">Watch & Learn</span></a></li>
-                    <li class="sep"></li>
-                    <li class="topmenuli"><a class="bgMenu6" href="/how"><span class="title1">How It Works</span><span class="title2">Cloudify Architecture</span></a></li>
-
-		</ul>
-		<div class="clear"></div>
+<!-- toggle top area -->
+	<div class="hidden-top">
+		<div class="hidden-top-inner container">
+			<div class="row">
+				<div class="span12">
+					<ul>
+						<li><strong><i class="icon-briefcase"></i>Go Pro! Find out about</strong><a class="black" href="/goPro"> Enterprise Cloudify</a></li>
+						</ul>
+					</div>
+			</div>
+		</div>
 	</div>
+	
+	<!-- end toggle top area -->
+	<!-- start header -->
+	<header class=" grayGrediant ">
+	<div class="container ">
+	
+		<!-- hidden top area toggle link -->
+		<div id="header-hidden-link">
+			<a href="#" class="toggle-link" title="Go Pro with Enterprise Cloudify" data-target=".hidden-top">
+			<!--<i class="fa fa-plus"></i>-->Pro</a>
+			<a class="toggle-link dwnBtn" href="/downloads/early_access.html" data-toggle="tooltip" data-placement="bottom" title="Get the Latest Milestone Build"><i class="fa-cloud-download"></i></a>
+			<a class="toggle-link dwnBtn" href="/downloads/get_cloudify.html" data-toggle="tooltip" data-placement="bottom" title="Get Cloudify">
+				<i class="fa-download"></i></a>
+			<div class="widget cdsearch">
+			<form id="searchForm" class="form-search" action="#" method="get">
+				<input placeholder="Search..." type="text" class="input-medium search-query ">
+				<button id="goBtn" type="submit" class=" btn goBtn"><i class="iconsearch"></i></button>
+			</form>
+		</div>	
+		</div>
+		<!-- end toggle link -->
+		
+			
+				
+			
+				
+		
+		
+			
+				<div class="logo navbar-toggle">
+					<a href="/"><img src="/img/logo.png" alt="" class="logo" /></a>
+				</div>
+			
+			  <nav class="navbar navbar-default" role="navigation">
+                  <!-- Brand and toggle get grouped for better mobile display -->
+                  <div class="navbar-header">
+                    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                      <span class="sr-only">Toggle navigation</span>
+                      <span class="icon-bar"></span>
+                      <span class="icon-bar"></span>
+                      <span class="icon-bar"></span>
+                    </button>
+                    
+                    
+                  </div>		
+					<!--<<div class="cdnavbar navbar  navbar-default" role="navigation">
+							
+								<div class="navigation navigation-bottom">
+								nav>-->
+									<!-- <ul class="nav topnav bold">-->
+                    <div class="cdnavbar collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                                    <ul class="nav navbar-nav">
+                                        <li class="cloudifyLogo"><a href="/"><img src="/img/logoSmall.png" alt=""  /></a></li>
+										<li class="dropdown">
+										<a href="https://cloudifysource.zendesk.com/forums" target="_blank">Support Forums <i class="icon-angle-down"></i></a>
+										</li>
+										<li class="dropdown">
+										<a href="/guide/{{latestGAversion}}/qsg/qsg.html">Docs <i class="icon-angle-down"></i></a>
+										<ul class="dropdown-menu bold" style="display: none;">
+											<li><a href="/guide/2.3/qsg/quick_start_guide.html">2.3</a></li>
+											<li><a href="/guide/2.5/qsg/quick_start_guide.html">2.5</a></li>
+											<li><a href="/guide/2.6/qsg/qsg.html">2.6</a></li>
+											<li><a href="/guide/2.7/qsg/qsg.html">2.7</a></li>
+										</ul>
+										</li>
+										<li>
+											<a href="/how/index.html">How it Works <i class="icon-angle-down"></i></a>
+										</li>
+										<li class="dropdown">
+										<a href="#">Blog + Other Stuff <i class="icon-angle-down"></i></a>
+										<ul class="dropdown-menu bold">
+										<li><a href="/blog">Blog</a></li>
+										<li><a href="/cloudifyRecipeCatalog.html">The Cloudify Player</a></li>
+										<li><a href="/CloudifysourceTV.html">Videos & Tutorials</a></li>
+										<li><a href="/participate.htm">Events</a></li>
+										</ul>
+										</li>
+										
+										<li>
+											<a href="http://www.gigaspaces.com/cloudify" target="_blank"><strong>.Com<i class="icon-angle-down"></i></strong></a>
+										</li>
+										
+									</ul>
+				</div> 
+        <!-- /.navbar-collapse -->
+</nav>
 </div>
-
-<!-- Tooltip Container -->
-<div class="overlay">
-<div class="overlayFrame">
-<div style="width:100%;height:25px;align:left;"><img src="/images/close.png" id="closeBut"/></div>
-<div><span id="desc"></span><br/>
- <span id="required"></span><br/>
- <span id="values"></span>
- </div>
-</div>
-<img src="/images/box_edge.png" id="tipImg"/>  
-</div>
-<div class="clear"></div>
+		
+</header>	
+<!-- end header -->	

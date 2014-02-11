@@ -10,7 +10,7 @@
     <link rel="stylesheet" href="/css/template.css" type="text/css"/> 
     <link rel="stylesheet" href="/scripts/prettify/prettify.css" type="text/css"/> 
 	<link rel="stylesheet" type="text/css" href="/scripts/lightbox/jquery.lightbox-0.5.css" media="screen" />		
-	<link rel="canonical" href="http://www.cloudifysource.org/player/play-computers.html"/>	
+	<link rel="canonical" href="/player/play-computers.html"/>	
 	<link rel="shortcut icon" href="/favicon.ico" type="image/x-icon" />
 
 	<script src="scripts/jquery-1.7.1.js" type="text/javascript"></script> 
@@ -249,7 +249,7 @@ $("body").live('change', function(){
 	  $email: currEmail,
 	  $first_name: currEmail,
 	  $created: new Date(),
-	  
+	  $last_seen:new Date(),
 	  });
 	} return { type: $(ele).attr('type'),email: currEmail}
 	});
@@ -310,7 +310,7 @@ $("body").live('change', function(){
         <div class="contactUsWrapper">
             <form id="contactUs" action="https://www.salesforce.com/servlet/servlet.WebToLead?encoding=UTF-8" method="POST">
             <input type=hidden name="oid" value="00D300000000KEt">
-            <input type=hidden name="retURL" value="http://www.cloudifysource.org/thank_you_contact.htm">
+            <input type=hidden name="retURL" value="/thank_you_contact.htm">
             <input  id="first_name" name="first_name" type="hidden" />
             <input  id="last_name" name="last_name" type="text" class="cuInput" placeholder="Your Name"/>
             <span class="cuValid"></span>

@@ -1,0 +1,109 @@
+---
+layout: blogpost
+title: Automate Your Application on the Cloud with Cloudify Custom Commands
+image: tamir.jpg
+author: Tamir Korem
+tags: 
+ - Cloudify
+ - GitHub
+ - Apache
+ - Scale Rules
+ - Load Balancer 
+---
+
+h3. Your Application is Installed on a Cloud. Now What ?
+
+Ok, so you installed an application on a cloud and now you want to update it, replace your .war file, modify the DB schema etc.
+I guess, some of the following thoughts may run in your head : "Now I need to login to the VM on the cloud (via ssh)", "Where's my Key-Pair file? Was is pem or ppk?", "Do I have permissions to change files on the cloud?", "I wish there was a way I could automate this process".
+
+In this post, I will walk you through Cloudify's Custom Commands Mechanism.
+
+"(newwindow)Cloudify Custom Commands":/guide/2.1/developing/custom_commands enable admin users or third-party tools to remotely manage service instances, which is especially useful when remote service APIs aren't available.
+They can also come in handy in cross-service manipulations, where one service manipulates another service in the application, thus enabling static applications to become much more dynamic without replacing the stack.
+
+All you need to do is add a few lines to your recipe file and you're good to go.
+
+
+h3. How to Create Custom Commands
+
+Cloudify provides this mechanism by allowing you to describe Custom Commands using Groovy closures, external Groovy scripts, or external shell/batch scripts. 
+The commands can be parameterized, and they can be invoked by using the Cloudify shell or automatically by the lifecycle event handlers when certain conditions are met.
+
+You need to add a @customCommands@ section in the main section of the recipe's service file.
+The @customCommands@ section should contain an array of custom commands and their descriptions.
+Each custom command must be in the following format (syntax):
+ *@"customCommandName"@ : groovy closure code or a script to run*
+
+<br/>
+The following code snippet demonstrates several general examples:
+
+<script src="https://gist.github.com/3089320.js?file=customCommands.groovy"></script>
+
+
+h3. Custom Commands Use Cases
+
+In general, custom commands can be very useful in any of the following:
+# Continuous deployment (e.g. updating a war file)
+# Reconfiguration of services (e.g. changing a db schema, or apache load balancer configuration or re-running a chef-client)
+# Triggering an arbitrary operation on the service (e.g. invoke a load command on the apacheLB)
+
+h3. How to Use It 
+
+In order to invoke a custom command from the Cloudify shell, run the following command:
+  &nbsp;&nbsp;*@invoke serviceName customCommandName [param1] [param2] ... [paramN]@*
+
+Custom commands can also be invoked by another service as described in the following code snippet and in the examples below.
+
+<script src="https://gist.github.com/3135329.js?file=tomcatInvokingApacheLB.groovy"></script>
+  
+h3. Examples:
+
+Here are some helpful custom commands that we have already implemented in our sample recipes:
+
+h4. Example 1: Dynamically Updating Your Apache Load Balancer
+
+We added "(newwindow)two custom commands:":https://github.com/CloudifySource/cloudify-recipes/blob/master/services/apacheLB/README.md#registering-a-service-instance-to-the-apache-load-balancer to the "(newwindow)apacheLB":https://github.com/CloudifySource/cloudify-recipes/tree/master/services/apacheLB recipe: addNode and removeNode, which update the configuration of the apache load balancer module with new/removed nodes members.
+
+Here's the code snippet in the apacheLB-service.groovy : 
+
+<script src="https://gist.github.com/3069771.js?file=addRemoveNode.groovy"></script>
+
+As you can see, in apacheLB-service.groovy, there are two custom commands: addNode and removeNode. You need to add a postStart lifecycle event to each service whose instances you want add to the load balancer configuration. You need to add a postStop lifecycle event to each service whose instances you want removed from the load balancer configuration.
+For example, these commands are invoked during the @postStart@ and @postStop@ "(newwindow)lifecycle event handlers":/guide/2.1/developing/lifecycle_events
+,of the tomcat service in the "(newwindow)PetClinic Recipe":https://github.com/CloudifySource/cloudify-recipes/tree/master/apps/petclinic. 
+
+The following presentation illustrates how the Custom Commands Machanism works with Apache and tomcat, from the installation of the services to modifying the @apacheLB@ configuration by invoking custom commands:
+
+<div style="width:684px" id="__ss_13575384"> <strong style="display:block;margin:12px 0 4px"><a href="http://www.slideshare.net/tamirko/custom-commands211" title="Automate Your Application on the Cloud" target="_blank">Automate Your Application on the Cloud</a></strong> <iframe src="http://www.slideshare.net/slideshow/embed_code/13575384?rel=0" width="684" height="557" frameborder="0" marginwidth="0" marginheight="0" scrolling="no" style="border:1px solid #CCC;border-width:1px 1px 0" allowfullscreen></iframe> <div style="padding:5px 0 12px"> View more PowerPoint from <a href="http://www.slideshare.net/tamirko" target="_blank">tamirko</a> </div> </div>
+
+
+h4. Example 2: Testing Your Load Balancer Under Heavy Loads
+
+On every machine on which apache is installed, you will also find the "(newwindow)ab command":http://httpd.apache.org/docs/2.0/programs/ab.html which is a server benchmarking tool provided with the Apache HTTP distribution.
+In the @apacheLB@ recipe, you can find a @"load"@ custom command that uses @ab@, thus enabling you to test your application under load, by using the recipe's "(newwindow)load":https://github.com/CloudifySource/cloudify-recipes/blob/master/services/apacheLB/README.md#load-testing custom command.
+
+Here's the @"load"@ code snippet in apacheLB-service.groovy : 
+
+<script src="https://gist.github.com/3069774.js?file=loadApache.groovy"></script>
+
+
+h4. Example 3: Updating Your Application 
+
+Let's say, you installed a tomcat web server and deployed your war file on it (with Cloudify). 
+Now you have a newer version of the war file. 
+
+All you need to do is to run the following custom command:
+      &nbsp;&nbsp;*@invoke tomcat updateWar NEW_WARFILE_FULL_URL_PATH@*
+
+Here's the @"update_war"@ code snippet in @tomcat-service.groovy@ : 
+
+<script src="https://gist.github.com/3070817.js?file=update_war.groovy"></script>
+
+h3. Oh, And One More Thing
+
+As always with Cloudify, it works on every cloud and every OS: EC2, OpenStack, Rackspace you name it, Windows and Linux (Centos or Ubuntu).
+
+So don't hesitate to give a test drive and let us know what you think. 
+
+
+

@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+{% include head_section.html %}
+<body>
+<div id="wrapper">
+   {% include header.html %}
+    <div id="resultsDiv" class="DocumentsWrap"></div>
+		<section id="content">
+			<div class="container">
+				<div class="row marginbot30">
+					<div class="span12">
+						{{content}}  
+					</div>
+				</div>
+			</div>
+		</section>
+	 <div class="clear"></div>  
+   {% include footer.html %}   
+</div>
+<a href="#" class="scrollup"><i class="icon-chevron-up icon-square icon-32 active"></i></a>
+{% include footer_scripts.html %}	
+</body>
+</html>

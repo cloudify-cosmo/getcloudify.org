@@ -1,0 +1,75 @@
+<!-- javascript footer_scripts
+    ================================================== -->
+<!-- Placed at the end of the document so the pages load faster -->
+<script src="/js/jquery.easing.1.3.js"></script>
+<script src="/js/bootstrap.js"></script>
+<script src="/js/jcarousel/jquery.jcarousel.min.js"></script>
+<script src="/js/jquery.fancybox.pack.js"></script>
+<script src="/js/jquery.fancybox-media.js"></script>
+<script src="/js/google-code-prettify/prettify.js"></script>
+<script src="/js/portfolio/jquery.quicksand.js"></script>
+<script src="/js/portfolio/setting.js"></script>
+<script src="/js/tweet/jquery.tweet.js"></script>
+<script src="/js/jquery.flexslider.js"></script>
+<script src="/js/jquery.nivo.slider.js"></script>
+<script src="/js/modernizr.custom.79639.js"></script>
+<script src="/js/jquery.ba-cond.min.js"></script>
+<script src="/js/jquery.slitslider.js"></script>
+<script src="/js/jquery.cslider.js"></script>
+<script src="/js/animate.js"></script>
+<script src="/js/custom.js"></script>
+<script src="/js/jquery.simplePagination.js"></script>
+<script src="/js/jquery.validate.min.js"></script>
+
+<!-- custom -->
+<script type="text/javascript" src="/scripts/search.js"></script>
+<script type="text/javascript" src="/scripts/version.data.js"></script>
+<script type="text/javascript" src="/scripts/version.js"></script>
+<script type="text/javascript" language="javascript">llactid=12206</script>
+<script type="text/javascript" language="javascript" src="http://t6.trackalyzer.com/trackalyze.js"></script> 
+
+<script>
+	$(function() {
+		$('#da-slider').cslider();
+		
+		//for highlight current pages
+		//http://docs.shopify.com/support/configuration/store-customization/how-do-i-style-active-link-with-javascript-and-css
+		$('.nav li').each(function() {
+			var href = $(this).find('a').attr('href');
+			if (href === window.location.pathname) {
+				$(this).addClass('active');
+			}
+		});
+		
+		//highlight  docs menu links
+		$('a.list-group-item').each(function() {
+			if ($(this).attr('href')  ===  window.location.pathname) {
+				$(this).addClass('highlight');
+				$(this).parent().addClass("collapse");
+				$(this).parent().addClass("in");
+				var pathArray = window.location.pathname.split( '/' );
+				pathArray = pathArray[2];
+				
+				//highlight top menu when user click on docs menu links
+				$('.nav li').each(function() {
+					var href = $(this).find('a').attr('href');
+					var splitHref = href.split( '/' );
+					splitHref=splitHref[2];
+					if (splitHref === pathArray) {
+						$(this).addClass('active');
+						$(this).parent().parent().addClass('active');
+					}
+				});
+				
+				
+			}
+		});
+	});
+</script>
+
+
+
+<!-- includes -->
+{% include googleanalytics.html %}
+{% include mixpanel.html %}	
+{% include qualaroo.html %}	

@@ -440,7 +440,6 @@ var guide = {
 	},
 	'2.6':{
 		'bootstrapping':{
-			'advanced_cloud_driver_usage':true,
 			'bootstrapping_azure':true,
 			'bootstrapping_byon':true,
 			'bootstrapping_cloud':true,
@@ -451,13 +450,11 @@ var guide = {
 			'bootstrapping_process':true,
 			'bootstrapping_rackspace':true,
 			'bootstrapping_rsopenstack':true,
-			'bootstrapping_validations':true,
-			'configuring_large_scale_deployments':true
+			'bootstrapping_validations':true
 		},
 		'clouddrivers':{
 			'cloud_driver':true,
 			'developing_custom_clouddriver':true,
-			'network':true,
 			'tutorial_maven':true
 		},
 		'common_patterns':{
@@ -482,9 +479,7 @@ var guide = {
 			'extending_recipes':true,
 			'how_storage_works':true,
 			'lifecycle_events':true,
-			'maintenance_mode':true,
 			'plugins':true,
-			'recipes_and_networking':true,
 			'recipes_overview':true,
 			'recipe_parameters':true,
 			'scaling_rules':true,
@@ -541,18 +536,9 @@ var guide = {
 			'cloudify_without_shell':true,
 			'configuring_azure':true,
 			'configuring_byon':true,
-			'configuring_cloudstack':true,
 			'configuring_ec2':true,
-			'configuring_exoscale':true,
 			'configuring_hp':true,
-			'configuring_hp_folsom':true,
-			'configuring_hp_grizzly':true,
-			'configuring_hp_havana':true,
 			'configuring_openstack':true,
-			'configuring_openstack_folsom':true,
-			'configuring_openstack_grizzly':true,
-			'configuring_openstack_havana':true,
-			'configuring_openstack_jclouds':true,
 			'configuring_rackspace':true,
 			'configuring_rsopenstack':true,
 			'configuring_security':true,
@@ -575,7 +561,6 @@ var guide = {
 	},
 	'2.7':{
 		'bootstrapping':{
-			'advanced_cloud_driver_usage':true,
 			'bootstrapping_azure':true,
 			'bootstrapping_byon':true,
 			'bootstrapping_cloud':true,
@@ -586,14 +571,11 @@ var guide = {
 			'bootstrapping_process':true,
 			'bootstrapping_rackspace':true,
 			'bootstrapping_rsopenstack':true,
-			'bootstrapping_validations':true,
-			'configuring_large_scale_deployments':true
+			'bootstrapping_validations':true
 		},
 		'clouddrivers':{
-			'bootstrap_and_deployment_drill_down':true,
 			'cloud_driver':true,
 			'developing_custom_clouddriver':true,
-			'network':true,
 			'tutorial_maven':true
 		},
 		'common_patterns':{
@@ -617,9 +599,7 @@ var guide = {
 			'extending_recipes':true,
 			'how_storage_works':true,
 			'lifecycle_events':true,
-			'maintenance_mode':true,
 			'plugins':true,
-			'recipes_and_networking':true,
 			'recipes_overview':true,
 			'recipe_parameters':true,
 			'scaling_rules':true,
@@ -676,17 +656,9 @@ var guide = {
 			'cloudify_without_shell':true,
 			'configuring_azure':true,
 			'configuring_byon':true,
-			'configuring_cloudstack':true,
 			'configuring_ec2':true,
-			'configuring_exoscale':true,
 			'configuring_hp':true,
-			'configuring_hp_folsom':true,
-			'configuring_hp_grizzly':true,
-			'configuring_hp_havana':true,
 			'configuring_openstack':true,
-			'configuring_openstack_folsom':true,
-			'configuring_openstack_grizzly':true,
-			'configuring_openstack_havana':true,
 			'configuring_rackspace':true,
 			'configuring_rsopenstack':true,
 			'configuring_security':true,

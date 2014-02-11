@@ -1,5 +1,5 @@
 ---
-layout: default
+layout: bt_wiki
 title: Best Practices for Developing and Debugging Recipes 
 category: Developing Recipes
 publish: true
@@ -14,7 +14,7 @@ Each of the following techniques may be useful and/or feasible for you in some s
 
 h2. Local-Cloud
 
-If possible, develop your recipes using the Cloudify "localcloud":http://www.cloudifysource.org/guide/bootstrapping/bootstrapping_localcloud .
+If possible, develop your recipes using the Cloudify "localcloud":/guide/bootstrapping/bootstrapping_localcloud .
 Run it on an OS that is as close as possible to the one you intend to use in production. 
 If you can, use the same VM image as your cloud uses.
 
@@ -23,7 +23,7 @@ h2. Tail The Log Files
 There are two ways to use the *tail -f* : 
 # Invoke the following command in the logs folder on any of deployed service instances VMs. -Obviously, you need to ssh to that VM first... :
   <pre class='prettyprint'>.../logs$ tail -f *.log</pre>
-# Use the Cloudify CLI *tail* command as described "here":http://www.cloudifysource.org/guide/recipe/command_line_reference#tail. - This will enable you to retrieve the last N lines of a specific service log.
+# Use the Cloudify CLI *tail* command as described "here":/guide/recipe/command_line_reference#tail. - This will enable you to retrieve the last N lines of a specific service log.
 
 h2. Shell Scripts
 
@@ -67,7 +67,7 @@ In order to use the snapshot feature(plugin), you need to do the following :
 
 h2. Disable Self Healing
 
-Cloudify's self-healing feature restarts a failed service instance automatically. This can make debugging recipe issues problematic, so we reccomend that you use the "disable-self-healing":http://www.cloudifysource.org/guide/deploying/deploying_srvs#dsbl flag to prevent Cloudify from restarting a failed service instance.
+Cloudify's self-healing feature restarts a failed service instance automatically. This can make debugging recipe issues problematic, so we reccomend that you use the "disable-self-healing":/guide/deploying/deploying_srvs#dsbl flag to prevent Cloudify from restarting a failed service instance.
 When this flag is used, the failed service instance stops when a lifecycle event fails and you are able to take a closer look at what is going on.
 
 h2. Use prinouts 

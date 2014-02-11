@@ -22,7 +22,7 @@ layout: nil
 {% endfor %}
  
 {% for page in site.pages %}
-  {% if page.url contains '2.1' or page.url contains '2.2' or page.url contains '2.3' or page.url contains '2.5' %}
+  {% if page.url contains '2.1' %}
 	 {% else %}
        {% if page.url contains '_raw' %}
 <url>
@@ -36,7 +36,7 @@ layout: nil
 {% endif %}
 </url>
 	   {% else %}
-		 {% if page.url contains 'orig' or page.url contains 'test' or page.url contains 'hp.html' or page.url contains 'sharonetest' or page.url contains '2.1' or page.url contains '2.2' or page.url contains '2.3' or page.url contains '2.5' %}
+		 {% if page.url contains 'orig' or page.url contains 'test' or page.url contains 'hp.html' or page.url contains 'sharonetest' or page.url contains '2.1' %}
 		 {% else %}					
 			<url>
 				<loc>{{ siteUrl }}{{ page.url }}</loc>

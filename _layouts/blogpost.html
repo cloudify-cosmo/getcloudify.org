@@ -1,32 +1,39 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
-        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml">
+<!DOCTYPE html>
+<html lang="en">
 {% include head_section.html %}
 <body>
-<a class="fork-guide" target="_blank" href="https://github.com/CloudifySource/cloudify"></a>
 <div class="WrapperBg">    
     <div class="Wrapper">
         {% include header.html %}
-        <div class="contentWrap">            
-			<div class="breadcrumbs">Home Page > Cloudify Blogs > {{ page.title }}</div>
-            <div class="clear"></div>
-
-            <!--Search-->
-			{% assign searchHdr="Blog Posts and Updates" %}
-            {% include search.html %}
-			
-            <div class="content">
-                <div id="alTag_LeftBlog" class="left">
-                    
-                    {% include posts_toc.html %}
-
-                </div>
-
-                <!--Start left content -->
-
-                <div id="resultsDiv" class="DocumentsWrap"></div>
-                <div id="pageContent" class="DocumentsWrapRight">
-                    <h1 class="pageTitle">{{ page.title }}</h1>
+		
+			<section id="inner-headline">
+	<div class="container">
+		<div class="row">
+			<div class="span4">
+				<div class="inner-heading">
+					<h2><i class="icon-edit"></i>Cloudifysource<strong> Blogs</strong></h2>
+				</div>
+			</div>
+			<div class="span8">
+				<ul class="breadcrumb">
+					<li><a href="#"><i class="icon-home"></i></a><i class="icon-angle-right"></i></li>
+					<li><a href="#">Blog</a><i class="icon-angle-right"></i></li>
+					<li class="active">{{ page.title }}</li>
+				</ul>
+			</div>
+		</div>
+	</div>
+	</section>
+	{% assign searchHdr="Blog Posts and Updates" %}
+	<section id="content">
+	<div class="container">
+			<div class="row">
+				<!-- Blog Right side posts -->
+				<div class="span9">
+					<div id="resultsDiv" class="DocumentsWrap"></div>
+					<div id="pageContent" class="DocumentsWrapRight">
+					
+					<h1 class="pageTitle">{{ page.title }}</h1>
 					{% if page.title %} 
 					  <span class="blogPostInfo">Posted By: <a href="#">{{ page.author }}</a>  on {{ page.date | date: '%B' }} {{ page.date | date: '%e' }}, {{ page.date | date: '%Y' }}  
 					  </span>
@@ -34,27 +41,24 @@
 					 {% endif %}
                     {{content}}
                     {% include disqus.html %}
-                </div>
-
-                <div class="clear"></div>
-            </div>
-        </div>
-
-        <!--Start pagination -->
-
-        <div class="clear"></div>
-
-        <!--Start Footer -->
-
-        {% include footer.html %}
-
-    </div>
-    <!--End site wrapper -->
-
-
-</div>
-<!--End site bg top wrapper -->
-<!--leadlander tracking script -->
-{% include leadlander.html %}
+					
+					
+					</div>			
+				</div>	
+				
+				<!-- Blog Left side coll -->
+				<div class="span3">
+					<aside class="right-sidebar" >
+						{% include posts_toc.html %}
+					</aside>
+				</div>
+			</div>	
+	</div>	
+	</section>	
+	<div class="clear"></div>
+	<!--Start Footer -->
+	{% include footer.html %}
+			
+	</div>
 </body>
 </html>

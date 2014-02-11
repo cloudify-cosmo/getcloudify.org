@@ -1,0 +1,93 @@
+---
+layout: blogpost
+title: Intro to Puppet, Installing your First MySQL Service in 5 Minutes
+image: ronz.jpg
+author: Ron Zavner
+tags: 
+ - Cloud Orchestration
+ - Configuration Management
+ - Cloud Automation
+ - Puppet
+ - DevOps
+---
+<notextile>
+<p><a target="_blank" href="http://puppetlabs.com/">Puppet</a>, a popular configuration management tool is used by many IT companies to help facilitate and automate the setup of environments.</p>
+
+<p>We'll discuss Cloudify in this context from a <a href="/guide/2.7/overview/cloudify_intro.html">cloud orchestration</a> perspective - running between the application and the cloud you choose to work with and help in 3 different phases - pre-deployment, deployment, and post-deployment, including <a href="/guide/2.7/developing/scaling_rules.html#as">auto-scaling</a> and <a href="/guide/2.7/developing/maintenance_mode.html">auto-recovery</a>. While Cloudify does support configuration management out of the box too, it integrates seamless with all the popular CM tools in order to take advantage of in-house know-how of existing tools.</p>
+
+<p>Puppet enables sysadmins and DevOps teams to automate their daily repetitive tasks using code. These tasks include installing new software, upgrades, managing user accounts, and such.</p>
+
+<p>Usually, Puppet is used with a client server topology - the Puppet master server which contains the <a target="_blank" href="http://docs.puppetlabs.com/pe/latest/puppet_modules_manifests.html">modules and manifests</a> and then other machines with Puppet agents that interact with the Puppet server.</p>
+
+<p>Then if, for example, you have an application with Apache load balancer, a few Tomcat instances and a MySQL instance, you would probably have one VM for each instance with a Puppet agent installed. This agent will interact with the Puppet Master which can provide the required module to install the actual service.</p>
+
+<p>&#160;</p>
+
+<p><img src="http://www.slashroot.in/sites/default/files/Working%20of%20Puppet%20Configuration%20Mangement%20tool.png" /></p>
+
+<p><b></b></p>
+
+<p>The Puppet Agent first signs in to the Puppet Master and gets a certificate (you can either approve/reject this cert sign request in the Puppet Master or choose to autosign some or all of these requests). The Puppet Master then needs to provide the manifests for installation either based on the node information (host name for example) or an external classifier plugin.</p>
+
+<p><b></b></p>
+
+<p><b>Common Shell Scripts for Puppet Installation - A Step by Step Guide</b></p>
+
+<p>Installing and working with Puppet is made really easy using these scripts. Below are the steps to configure your Puppet installation:</p>
+
+<p>Install Puppet Master on machine one</p>
+
+<code>sudo apt-get install puppetmaster</code>
+
+<p>Install Puppet Agent on machine two</p>
+
+<code>sudo apt-get install puppet</code>
+
+<p>Configure the etc/hosts file on both machines so they will be able to communicate with each other. On the master:</p>
+
+<code>127.0.0.1 localhost.localdomain localhost puppet</code>
+
+<p>On the agent:</p>
+
+<code>192.168.1.8 puppetagent.example.com puppetagent puppet</code>
+
+<p>Connect to the Puppet Master machine and search for MySQL module:</p>
+
+<code>sudo puppet module search mysql</code>
+
+<p>Install the <a target="_blank" href="https://forge.puppetlabs.com/puppetlabs/mysql">MySQL module</a>:</p>
+
+<p>sudo puppet module install puppetlabs-mysql</p>
+
+<p><b>NOTE: Verify that a new MySQL directory was created under <u>/etc/puppet/modules</u> for this step.</b></p>
+
+<p>Create a site.pp file under <b><u>/etc/puppet/manifests</u></b> and add the following piece (replace the node name with the actual one - this will tell Puppet to install MySQL on that specific node):</p>
+
+<code>
+node 'ip-10-151-40-34.ec2.internal' {
+    include mysql::server
+}
+</code>
+
+<p>Start the Puppet Master process:</p>
+
+<code>sudo /etc/init.d/puppetmaster restart</code>
+
+<p>Connect to the Puppet Agent machine and start the Puppet Agent service:</p>
+
+<code>sudo /etc/init.d/puppet start</code>
+
+<p>Then go back to the Puppet Master and review the cert requests:</p>
+
+<code>sudo puppet cert list</code>
+
+<p>Now you can sign this agent request or all of them:</p>
+
+<code>sudo puppet cert sign --all</code>
+
+<p>&#160;</p>
+
+<p>That's it, your MySQL service should be up and running.&#160; If you type <strong><em>top</em></strong> you should be able to see it.</p>
+
+
+</notextile>

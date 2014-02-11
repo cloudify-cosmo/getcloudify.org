@@ -8,7 +8,7 @@ cat: 404
 if ( $(location).attr("href").match("^.*/guide/.*$") )  {
 	if ( !( $(location).attr("href").match("^.*/guide/\\d+\.\\d+.*$") ) ) {
 		var parts = $(location).attr("href").split("/guide/");
-		var newPage = parts[0] + "/guide/2.7/" + parts[1];
+		var newPage = parts[0] + "/guide/2.6/" + parts[1];
 		//alert("true3: " + newPage);
 		$(location).attr("href", newPage);
 	}
@@ -17,5 +17,5 @@ if ( $(location).attr("href").match("^.*/guide/.*$") )  {
 
 
 <p align="center">
- <a style="border:none !important;" href="http://www.cloudifysource.org"><img src="/images/404.jpg" /></a>
+ <a style="border:none !important;" href="/"><img src="/images/404.jpg" /></a>
 <p>
