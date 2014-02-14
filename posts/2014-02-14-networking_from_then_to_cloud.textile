@@ -1,0 +1,82 @@
+---
+layout: blogpost
+title: Networking from Then to Cloud
+image: nati.png
+author: Nati Shalom
+tags: 
+ - Networking
+ - OpenStack
+ - Cloud Orchestration
+ - Neutron
+ - AWS 
+---
+<notextile>
+
+<p><strong>What does networking actually mean?</strong></p>
+
+<p>Networking is a fairly abstract term, it means different things to different people. This is because, in contrast to compute and storage, networking is comprised of many components, and their different network functions including load balancers, routers, firewalls, switches and more. Each of these plays a different role, the load balancer has traditionally been the interface between the outside world and your network's internal world.&#160; The firewall configurations, are there to allow us to block pieces of the network, packets, and traffic over the network based on ports, source of the call, and IP address, to protect our network from the outside world. And routers basically bridge one network to another, such as interfacing through network cards that plug into a particular VM or machine into a specific network cloud.&#160; See the diagram below for basic network components.</p>
+
+<p>&#160;</p>
+
+<img src="/images/classical.jpg" />
+<p>&#160;</p>
+
+<p><strong>How do apps use networking today?</strong></p>
+
+<p>When speaking about networking, in many ways as app users, we really don't know much about these functions, we just plug in to them.&#160; Someone on the backend essentially created these for us, and this is usually done once for all our applications, and as a result this method needs to find the right configuration that caters to the lowest common denominator for all these functions.&#160; These are then statically provisioned, and serve all the different workloads of our applications, regardless of the type of application or the type of bandwidth the specific application requires.&#160; </p>
+
+<p>With commodity hardware, we used to have a static network setup, and pretty much the only flexibility was building multiple networks with different configurations, where the only choice was whether it was a public or private network via the network card.&#160; There wasn't any way to customize your network configurations, this needed to be manually configured before launching the app (for example considerations such as bandwidth, security), and the network was then a given, as is.&#160; You didn't want to mess with your network after your app is launched.&#160; </p>
+
+<p>&#160;</p>
+
+<p><strong>Where networking &amp; cloud should be</strong></p>
+
+<p>This static model simply doesn't fit into the dynamic cloud-based world we live in.&#160; Cloud providers were faced with the challenge of providing a dynamic network not just in the context of elasticity, but also flexibility to define capacity, and bandwidth, to redefine configurations, and re-tune them to your needs, agilely.</p>
+
+<p>In order for cloud providers to be able to provide a level of flexibility, there had to be a tradeoff of control.&#160; In this way, cloud providers, such as Amazon created a "flat network" with the addition of security groups that provide a way for users to configure firewalls, which strove to simplify network configurations, but this approach also pretty much caters to the lowest common denominator network. However, this, often times, results in no isolation between one workload to another. Therefore if you have multiple users or applications running on the same account environment, and they can potentially steal bandwidth from one another, and this poses flexibility challenges.</p>
+
+<p><strong></strong></p>
+
+<p><strong>The security challenge</strong></p>
+
+<p>Another challenge that plays a much more significant role from a network perspective, that is less critical from a storage and compute perspective, has been security.&#160; By changing configurations, you run the risk of giving malicious entities the keys to your kingdom. Which is why it's not surprising that a recent <a target="_blank" href="http://cloudtweaks.com/2012/12/cloud-infographic-security-and-the-cloud-2012/">451 Group study </a>shows that security is a primary challenge for enterprises looking to move to the cloud.</p>
+
+<p>&#160;</p>
+
+<img src="/images/concerns.png" />
+ 
+<p><a target="_blank" href="http://www.cloudtweaks.com/2012/12/cloud-infographic-security-and-the-cloud-2012/">Courtesy: The 451 Group</a></p>
+
+<p>&#160;</p>
+
+<p><strong>Network providers have conflicting agendas</strong></p>
+
+<p>On top of these issues, comes the network provider challenge. They have viewed these kinds of changes as commoditization of their business, and as a result have stalled such solutions, even though today, a lot of components are already available as software, including open source software.&#160; </p>
+
+<p>Why has the progress in virtualization of storage and compute been so much quicker than similar solutions for networking that are so late in the game?</p>
+
+<p>With the onset of the cloud, both storage and compute quickly underwent a process of virtualization for the same reasons that networking requires such a change, to improve flexibility in cloud environments.&#160; The reason the dynamic nature of networking is only now being addressed, in contrast to storage and compute, is due to the fact that the network is just one generic name that includes under its auspices a lot of mission-critical services, making it much more difficult to virtualize.&#160; </p>
+
+<p>&#160;</p>
+
+<p><strong>Driver for a change</strong></p>
+
+<p>The first move to revolutionize networking started with the large cloud providers, who by creating their own proprietary solutions, demonstrated how networking can be done better.&#160; However, the problem with this, was that the change stopped there.&#160; These changes still remained hidden to the end user, and therefore didn't penetrate the rest of the market and create an overall industry change.</p>
+
+<p>The next, and real driver of an industry-wide change was the arrival of OpenStack, the classic open source disruptive force that leaves no choice for network vendors to maintain the current status quo, which would drive change on all these levels.</p>
+
+<p>How OpenStack networking changes the way we use networking in a cloud-based environment</p>
+
+<p>It all starts with an API.&#160; In the same way that a human operator interacts with a UI - buttons and configuration files - software interacts with APIs. If we want to control the entire array of networking services through software, we first need to expose all of its component through APIs. This is basically what OpenStack Neutron is all about.</p>
+
+<p>With OpenStack Neutron (formerly Quantum) exposing the network components to the app user, while at the same time providing a strong&#160; ecosystem to point to and support this software, the network providers could suddenly build software with a network to point to.&#160; No more big brother, the network all at once became a software layer. Enabling the biggest market players to change their software and just plug in to OpenStack.&#160; While this provides the highest level of control, this comes at the expense of simplicity.&#160; This creates a lot of complexity to orchestrate these components.</p>
+
+<p>&#160;</p>
+
+<p><strong>To Sum it All Up</strong></p>
+
+<p>If in the past with commodity hardware, networking was static and catered to the lowest common denominator, which then in part carried over to the cloud, OpenStack Neutron exposed these aspects to the user and enabled dynamic customization as never before. OpenStack enables the virtualization of the interface, network, router, and generally breaking the network into the sum of its components, leaving just the software aspects.&#160; Where the large cloud providers attempted to create flexibility and simplicity at the expense of control, OpenStack turned the tables, and enabled maximum control at the expense of simplicity.</p>
+
+<p>In my next post, I'll take it to the next level, and will talk about how you can actually simplify your networking orchestration with Cloudify and OpenStack.</p>
+
+</notextile>
