@@ -1,0 +1,39 @@
+---
+layout: blogpost
+title: Cloud Automation with WinRM vs SSH
+image: barak.jpg
+author: Barak Merimovich
+tags: 
+ - Cloud Automation
+ - Virtualization
+ - WinRM
+ - SSH
+ - Deployment Automation
+---
+<notextile>
+<p><strong>Automation the Linux Way</strong></p>
+<p>In the Linux world SSH, secure shell, is the de facto standard for remote connectivity and automation for the purpose of logging into a remote machine to install tools and run commands.&#160; It's pretty much ubiquitous, runs across multiple Linux versions and distributions, and every Linux admin worth their salt knows SSH and how to configure it.&#160; What's more, it's even the default enabled port on most clouds - port 22.</p>
+<p>An important feature available with SSH is support for file transfer via its secure copy protocol - AKA SCP, and secure file transfer protocol - AKA SFTP.&#160; These are a built-in part of the tool or exist as add-ons to the protocol that are almost always available.&#160; Therefore, using SSH for file transfer and remote execution is basically a given with Linux, and there are even tools to support SSH clients available for virtually every major programming language and operating system.</p>
+<p><strong>WinRM in a Linux World</strong></p>
+<p>So what comes out-of-the-box with Linux, is less of a given with Windows.&#160; SSH, obviously, is not built in with Windows; over the years there have been different protocols attempting to achieve the same functionality, such as Secure Telnet and others, however to date, none have really caught on.&#160; From Windows Server 2003, a new tool called WinRM - windows remote management, was introduced.&#160; WinRM is a SOAP-based protocol built on web services that among other things, allows you to connect to a remote system, providing a shell, essentially offering similar functionality to SSH.&#160; </p>
+<p>WinRM is currently the Windows world alternative to SSH.&#160; </p>
+<p><strong>The Pros</strong></p>
+<p>The advantage with WinRM is that you can use a vanilla VM with nothing pre-configured on it, with the only prerequisite being that the WinRM service needs to be running. EC2, the largest cloud provider today, supports this out-of-the-box, so if you want to run a standard Amazon machine image (AMI) for Windows, WinRM is enabled by default.&#160; This makes it possible to quickly start working with a cloud, all that needs to be done is bring up a standard Windows VM, and then it's possible to remotely configure it - and start using it.</p>
+<p>This is very useful in cloud environments where you are sometimes unable to create a custom Windows image or are limited to a very small number of images and want to limit your resource usage.</p>
+<p><strong>The Challenges</strong></p>
+<p>Where SSH has become the de facto protocol with Linux, WinRM is far less known tool in the Windows world, although it does offer comparable features as far as security, as well as connecting and executing commands to a remote machine.</p>
+<p>The standard tool for using WinRM is usually PowerShell, the new Windows shell that is intended to supersede the standard command prompt.&#160; To date though, there are still relatively few programming languages with built-in support for WinRM, making automation and remote execution of tasks over WinRM much more complex.&#160; </p>
+<p>To achieve these tasks, Cloudify employs PowerShell itself, as an external process to act as a client library for accessing WinRM.&#160; The primary issue with this, however, is that the client-side also needs to be running Windows, as PowerShell cannot run on Linux.&#160; </p>
+<p>Another aspect where WinRM differs from SSH is that it does not really have built-in file transfer.&#160; There is no direct equivalent for secure copy in SSH for WinRM.&#160; That said, it is possible to implement file transfer through PowerShell scripts.</p>
+<p>There are currently several open source initiatives looking to build a WinRM client for Linux - or specifically for some programming languages, such as Java, however, these are in different levels of maturity, where none of them are fully featured yet.&#160; Hence, PowerShell remains the default tool for Cloudify, which essentially provides the same level of functionality you would expect for running remote commands on a Linux machine with Windows. </p>
+<p><strong>WinRM &amp; Security</strong></p>
+<p>Another interesting point to consider about WinRM is its support for encryption.&#160; WinRM supports three types of transfer protocols, HTTP, HTTPS, and encrypted HTTP.</p>
+<p>With HTTP, inevitably your wire protocol is unencrypted.&#160; It is only a good idea to use HTTP inside your own data center in the event that you are completely convinced that no one can monitor anything going over the wire.</p>
+<p>HTTPS is commonly used instead of HTTP, however with WinRM there's a chicken and egg issue.&#160; If you want to work with HTTPS you are required to set up an SSL certificate on the remote machine. The challenge here is when you're starting with a vanilla Windows VM that will not have the certificate installed, there is a need to automate the insertion of that certificate, however this often cannot be done, as WinRM is not running.</p>
+<p>Encrypted HTTP, which is also the default in EC2, basically uses your login credentials as your encryption key and it works.&#160; From a security perspective this is the recommended secure transfer protocol to use.&#160; It is worth noting that most attempts to create a WinRM client library tend to encounter problems around the encrypted HTTP protocol, as implementing MS' encrypted HTTP system - credSSP - is challenging.&#160; However, there are various projects working on achieving this, so it will hopefully be solved in the near future.</p>
+<p><strong>Where Cloudify Comes Into the Mix</strong></p>
+<p>Where WinRM comes into play with Cloudify, is during the cloud bootstrapping process.&#160; By using WinRM Cloudify is able to remotely connect to a vanilla VM provided by the cloud, and set up the Cloudify manager or agent to run on the machine.</p>
+<p>In addition to traditional cloud environments, WinRM also works on non-cloud and non-virtualized environments, such as a standard data center with multiple Windows servers running.&#160; All that needs to be done is provide Cloudify with the credentials, and it will use WinRM to connect and set up the machine remotely.&#160; Since WinRM is pre-packaged with Windows, there is no need to install anything.&#160; The only thing requirement, as mentioned above, is to have the WinRM service running,&#160; as not all Windows images will have this service running.&#160; </p>
+<p><strong>Conclusion</strong></p>
+<p>In short WinRM is the Window's world alternative to SSHD that allows you to remotely login securely and execute commands on Windows machines.&#160; From a <a href="http://www.cloudifysource.org/guide/2.7/bootstrapping/bootstrapping_process">cloud automation</a> perspective, it provides virtually all the necessary functionality requirements, and thus it is recommended to have WinRM running in your Windows environment.</p>
+</notextile>
