@@ -48,7 +48,7 @@ h3(#mtd). Isolation SLA (Multi Tenant Deployment)
 h4(impt). In the current version, this feature is *not* available for OpenStack Grizzly and Havana. It is available for OpenStack Folsom and for all the other supported cloud providers.
 
 Cloudify allows deployment of several services on the same host. 
-The purpose of this feature is to maximize utilization of phyiscal hosts when used as a cloud under BYON. 
+The purpose of this feature is to maximize utilization of phyiscal hosts. 
 There are four supported modes:
 # *dedicated* (default) - The host will be dedicated to this service instance only. No other services will be deployed on this host.
 # *global* - The host can be shared by all applications and tenants based on projected capacity as expressed in the Isolation SLA section
@@ -67,8 +67,6 @@ You can define one of the following in the -service.groovy file :
 <script src="https://gist.github.com/4244273.js?file=isolationSLA.groovy"></script>
 
 h4(info). If none are defined, then a dedicated isolation is used, which means that service instances may NOT share machines.
-
-h4(impt). Please note that this feature is currently tested for the BYON Cloud Driver only.
 
 h4(impt). Prior to using this, please read how to "set the reserved memory capacity":../clouddrivers/cloud_driver#rsv.
 
