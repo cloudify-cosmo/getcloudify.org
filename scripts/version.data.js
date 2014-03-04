@@ -678,6 +678,7 @@ var guide = {
 			'configuring_byon':true,
 			'configuring_cloudstack':true,
 			'configuring_ec2':true,
+			'configuring_ec2_new':true,
 			'configuring_exoscale':true,
 			'configuring_hp':true,
 			'configuring_hp_folsom':true,
