@@ -16,10 +16,21 @@ h2. Prerequisites
 
 h2. Configuring an HP Havana Cloud
 
+h3. Quota Limits
+
+h4(impt). Each account has quota limits of the following : Security groups, security group rules, memory (RAM), routers, networks and subnets per network.
+This means that you can create a limited number of each of the above, as shown in the following screenshot:
+!../../images/hp/quota_limits_hp_grizzly_havana.png!
+Only some of the limitations are exposed in the "(newwindow)Horizon console":https://horizon.hpcloud.com/project/.
+These limitations may fail the Cloudify bootstrapping, so you need to be aware of them and deal with them in advance (i.e.: prior to bootstrapping).
+You can also ask your cloud provider to increase the quota.
+This document relates to some of these limitations(see below).
+
 This section provides step-by-step instructions for the following configuration tasks:
 
 # "Generate a private key":#key
 # "Configure the Cloudify cloud driver configuration file":#driver
+
 
 h3(#key). Generate a private key
 
@@ -69,11 +80,38 @@ The following is a subset of HP OpenStack Hardware Ids:
 <br/>
 
 *External Router*
+ 
+By default, Cloudify creates one external router for you and you don't need to add/set anything else. <br/>
+The default external router name (that Cloudify creates for you), is a concatenation of your cloud driver's managementGroup attribute value and "-router".
+For example:<br/>
+If the value of managementGroup is *"mymanager"* (in the provider section of @hp-havana-cloud.groovy@), then Cloudify will create an external router named *mymanager-router*.
+<br/>However, if you want to use another router that you've created, you should have the following in the cloud driver (@hp-havana-cloud.groovy@): <span class="snippet">*"externalRouterName" : "myOtherRouterName".*</span><br/>
+It can be set in @hp-havana-cloud.groovy@, In cloudCompute -> templates -> SMALL_LINUX : computeTemplate -> options and in cloudCompute -> templates -> SMALL_UBUNTU : computeTemplate -> options (and in every other template that you'll create)
 
- By default, Cloudify creates one router for you and you don't need to add/set anything else. 
- <br/>However, if you want to use another router that you've created, you should have the following in the cloud driver (@hp-havana-cloud.groovy@): <span class="snippet">*"externalRouterName" : "myOtherRouter-router".*</span><br/>
- It can be set in @hp-havana-cloud.groovy@, In cloudCompute -> templates -> SMALL_LINUX : computeTemplate -> options and in cloudCompute -> templates -> SMALL_UBUNTU : computeTemplate -> options (and in every other template that you'll create)
+Many accounts are limited to creating one router and if you want to use an existing external router, then in addition to the above, you need to set the value of the skipExternalNetworking attribute to true in each compute template(computeTemplate) in @hp-havana-cloud.groovy@ : <span class="snippet">*"skipExternalNetworking": "true"*</span><br/>
 
+
+*Security Groups*
+
+Cloudify creates one security group for the management, another one for the agent, an additional one for the whole cluster and also one security group per service and one per application.
+If you create a security group and set it in the securityGroups array in the compute template in @hp-havana-cloud.groovy@, then your security group is added to vms of that compute template.
+I.E. : The security group that you create will *not* replace the ones Cloudify creates.
+
+ 
+*Networks*
+
+By default, Cloudify creates one management network which is defined in the cloudNetwork section in @hp-havana-cloud.groovy@ (located in cloudNetwork->management->networkConfiguration).
+The network's name is a concatenation of your cloud driver's managementGroup attribute value and the name of the network in the cloud driver (cloudNetwork->management->networkConfiguration->name).
+For example:
+If the value of managementGroup is *"mymanager"* (located in the provider section of @hp-havana-cloud.groovy@) and the network's name (in cloudNetwork->management->networkConfiguration->name) is *Cloudify-Management-Network*, then Cloudify will create a management network named *mymanager-Cloudify-Management-Network*.
+
+Many accounts are limited in the number of networks they are allowed to create and if you want to use an existing network, then in addition to the above, you need to:
+# Set the value of the skipExternalNetworking attribute to true in each compute template(computeTemplate) in @hp-havana-cloud.groovy@ : <span class="snippet">*"skipExternalNetworking": "true"*</span>
+# Comment/delete the network management section in @hp-havana-cloud.groovy@ (cloudNetwork->management), but do *not* comment/delete the networks templates array (cloudNetwork->templates)
+ 
+In addition, Cloudify creates application networks if (and only if) the following two conditions are met:
+# These networks are defined in the networks templates array (cloudNetwork->templates) in @hp-havana-cloud.groovy@.
+# Your application recipe uses these networks (i.e.: they are specified in the recipe). - By default, all recipes' vms are blocked to access from the external "world".  If one or more of your vms require external access, you need to add access rules in the service file as described "here":http://www.cloudifysource.org/guide/2.7/developing/recipes_and_networking.
 
 <h4 class="impt">You can set the cloud driver directly as shown in the following example (of an @hp-havana-cloud.groovy@ file), but we reccomend that you use "parameterization of the cloud driver configuration":../clouddrivers/cloud_driver#gstr, </h4>
 <span id="cd"></span>
@@ -97,3 +135,6 @@ h3(#tear). Teardown
 To shut down the HP Havana Cloud environment, at the Cloudify shell prompt, type: *@teardown-cloud@* @hp-havana@
 
 h4(info). This uninstalls applications and shuts down all the management and service instance machines.
+
+h4(impt). The teardown-cloud command deletes all the router/s network/s, subnet/s and security group/s it creates, but it doesn't delete those that were not created by Cloudify. 
+I.E: The teardown will not delete them if they existed prior to the bootstrapping.
