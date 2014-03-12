@@ -6,6 +6,7 @@
 {% capture currentVersion %}{{ page.url | remove: "/guide/" | split:"/" | first }}{% endcapture %}
 
 <body>
+<script src="/js/doc-layout.js"></script>
 <div id="wrapper">
 	<!-- start header -->
 	{% include header.html %}
@@ -50,6 +51,7 @@
 				</script>
 			</div>
 	<div class="span9" id="docsWrap">
+		<button id="edit-on-github" data-toggle="popover" type="button" class="btn btn-default" style="float: right;"><i class="icon-github-alt icon-large"></i>&nbsp;&nbsp;Edit</button>
 		{{content}}
 		</div>
 	</div>
