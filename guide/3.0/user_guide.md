@@ -46,6 +46,10 @@ Cloudify portable types will be the one you will use in the portable blueprints 
 * `Volume` - A block storage volume to which virtual machines can be connected in order to provide persistant storage
 * `middleware_server` - this type is the base type of all middleware level components
 * `application_module` - this type is the base type of all application level components.
+* `web_server` - dervied from `middleware_server`. Indicates this is a webserver
+* `db_server` - dervied from `middleware_server`. Indicates this is a database
+* `app_server` - dervied from `middleware_server`. Indicates this is an application server
+
 
 #### The Lifecycle Interface
 
