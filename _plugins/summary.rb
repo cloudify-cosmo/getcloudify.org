@@ -39,8 +39,8 @@ module Jekyll
           #output << "</div><div class='panel-body'><ul class='nav nav-pills' id='summarypanel'></ul></div></div>"
         #end        
         
-        output << "<ul class='nav nav-pills' id='summarypanel'></ul>"
-        output << "<hr style='margin-top:5px; margin-bottom:5px;'/>"        
+        output << "<ul class='nav nav-pills' style='margin-bottom: 0px;' id='summarypanel'></ul>"
+        output << "<hr style='margin-top:5px; margin-bottom:25px;'/>"        
       end
     end
   end
