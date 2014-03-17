@@ -1,11 +1,11 @@
 <div class="leftContentBox">
 {% capture currentVersion %}{{ page.url | remove: "/guide/" | split:"/" | first }}{% endcapture %}
-   <h5 class="widgetheading" id="todHdr">Cloudify {{currentVersion}}</h2>
+   <h2 class="widgetheading" id="todHdr">Cloudify {{currentVersion}}</h2>
    <div class="clear"></div>
    <div id="sidebar" class="list-group docMenu"> 
 	{% for category in site.categories %}		
 		<!--<h5 class="widgetheading">{{ category }}</h5>-->
-		 <a href="#{{ category | replace:' ','_' }}" class="list-group-item"  data-parent="#sidebar"><i class="icon-caret-right"></i>{{ category }}</a>
+		<a href="#{{ category | replace:' ','_' }}" class="list-group-item"  data-parent="#sidebar"><i class="icon-caret-right"></i>{{ category }}</a>
 		<div id="{{ category | replace:' ','_' }}" class="list-group subitem collapse" class="list-group-item"> 				 			
 			  {% for curPage in site.page_categories[category] %}				  
 				  {% if curPage.url contains currentVersion %}
