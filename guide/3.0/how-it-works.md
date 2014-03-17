@@ -6,8 +6,13 @@ publish: false
 abstract: Explains the architecture and flow of Cloudify 3.0 the DevOps Orchestrator
 pageord: 200
 --- 
+{%summary%} {{page.abstract}}{%endsummary%}
 
 # What is Cloudify?
+
+Cloudify is a Cloud Application Orchestrator. It automates any process you need with your applications over any cloud. Starting with environment setup and application installation, going forward to application upgrade, infrastructure upgrade, continuous deployments, auto-heal and auto-scale
+
+Cloudify can work on any environment: IaaS, virtualized or even non virtualized. Cloudify executes automation processes using any tool you choose from shell to chef, puppet etc. Cloudify monitors your application with any monitoring tool you choose; installing it for you if you like and interfacing with your monitoring tools to get events and metrics into Cloudify Policy Engine
 
 # What are Cloudify use cases?
 
@@ -24,14 +29,20 @@ In version 3.0 phase I, the orchestrator gets start detection events and stop de
 <!--The orchestrator works in 2 main flow:
 * User / API driven flow - in this flow a bluprint is uploaded to the Cloudify manager and a workflow is invoked. Alternatively a workflow can be invoked on an existing deployment using the API
 * Policy Driven - in this flow a Workflow is invoked by a policy without user intervention-->
-![Cloudify Components](images/architecture/manager_components.png)
+
+![Cloudify Manager Architecture](images/architecture/complete_flow.png)
+
+
+
 ### Workflow Execution
+
 Workflow execution requires the Workflow itslef and a [Topology](#topology)
 The Workflow engine runs the worflow algorithm and in each step process the selected Nodes. For each node it creates a task that typically implements a hook in the node set of lifecycle hooks, using the concrete implementation  ([see plugins](#plugins) ) 
 
 ![Task Execution Example](images/architecture/task_processing_example.png)
 
 ## <a name="REST API">REST API & Web GUI</a>
+
 Cloudify is controlled via REST API. The REST API covers all the Cloud Orchestration and Management functionality. See [Cloudify REST API Documentation](http://www.cloudifysource.org/cosmo-rest-docs/).
 You can use the REST API through Cloudify Non-interactive CLI or write your own REST client.
 
@@ -48,6 +59,7 @@ The GUI has the following screens:
 
 
 ## <a name="Workflow Engine">Workflow Engine</a>
+
 Cloudify uses a Workflow engine to allow for any automation process through built-in and custom workflows.
 The Workflow engine is responsible for timing and orchestrating tasks for creating / manipulating the application components. To achieve that the worflow engine interacts with the Blueprint and runtime data to get the properties and plugin information and writes tasks to the task broker.
 Cloudify wroflow engine uses workflows written in a mini language called [Radial](http://ruote.rubyforge.org/definitions.html#radial)
