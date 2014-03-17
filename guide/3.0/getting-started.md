@@ -52,6 +52,14 @@ Note: If the Cloudify working directory is also a git repository, it's recommend
 
 ## Configuring the provider
 
+The cloudify-configuration.yaml file, gives you the option to customize anything you want in your environment. However, in most cases you only need to edit the user credentials. Other settings are commented out, so you can see your options and default values. 
+
+The following snippet applies to the OpenStack provider. For other providers read [Cloudify Providers](#)
+```keystone:
+    username: [ENTER YOUR USERNAME HERE]
+    password: [ENTER YOUR PASSWORD HERE]
+    tenant_name: [ENTER YOUR PROJECT NAME HERE]
+
 
 ## Bootstrapping Cloudify 
 
