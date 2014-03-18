@@ -6,84 +6,71 @@ publish: false
 abstract: Explains how to install Cloudify manager and how to deploy your first application to the Cloud
 pageord: 100
 --- 
-# Before you start
-
-## Install Python on your laptop
-
-Cloudify CLI requires Python. If you don't have Python installed, [download python](http://www.python.org/getit/).
-Windows users might want to [read about using Python with Windows](http://docs.python.org/2/using/windows.html)
-
-ANother prerequisite is [PIP install - the Python package manager](http://www.pip-installer.org/en/latest/installing.html)
-
-Now you are ready to install the CLI
-
-## Meet Cloudify CLI 
-
-### Overview
+# Meet Cloudify CLI
 
 Cloudify CLI is a tool written in Python that allows the user to init configuration and bootstrap the Cloudify Management Server on different cloud environments (aka Providers). In addition the CLI serves as Cloudify API client providing commands for application deployments and management.
 
-### Providers
+## Providers
 
-A provider is any platform which allows for the creation and bootstrapping of a management server (e.g. Openstack). The CLI can work with any provider once the appropriate extension has been installed. A provider extension is provider-specific code which handles environment-related operations such as bootstrap and teardown.
+A provider is any platform which allows for the creation and bootstrapping of a management server (e.g. Openstack)The CLI can work with any provider. Most providers comes with the CLI package. Custom or additional providers can be installed later. 
 
-Note that the CLI can be used even without the installation of any providers - if you already possess a bootstrapped management server, you may simply direct the CLI to work with that server (`cfy use <management-ip> -a my-server`), and you can then issue any of the CLI commands to that server (with the exception of the "cfy teardown" command)
-#### Creating a new provider extension:
-Provider extensions are simply Python modules which adhere to certain conventions and implement a certain interface.  
+Note that the CLI can be used even without the installation / initialization of any providers - if you already possess a bootstrapped management server, you may simply direct the CLI to work with that server (`cfy use <management-ip> -a my-server`), and you can then issue any of the CLI commands to that server (with the exception of the "cfy teardown" command)
 
-By convention, the module name is called "cloudify_<provider-name>.py". While any name is viable in practice, the CLI **cfy init** command, which receives a '*provider*' parameter, is set to first search for a module named by the convention, and only search for the exact '*provider*' value given if such a module was not found.
+# Install Cloudify CLI
 
-Every provider extention is expected to implement the following interface:
+For your convinence Cloudify CLI is packaged a self contained executable for different operating systems, so there are no prerequisites or steps to take prior to installation
 
-  - **init**(*logger*, *target_directory*, *config_file_name*, *defaults_config_file_name*)  
-    this method is used to create the two configuration files with the supplied names at the given target directory, as well as make any other initializations required by the specific provider
-  
-  - **bootstrap**(*logger*, *config*)  
-    this method is used to bootstrap the management server as well as the environment (e.g. network) in which it resides. The method must then __return the IP of the bootstrapped management server__
-  
-  - **teardown**(*logger*, *management_ip*)  
-    this method is used to tear down the server at the address supplied, as well as any environment objects related to the server which will no longer be of use.
+## Download links
 
-#### Currently Supported Providers:
+## Install on Windows
 
-* [Openstack](https://github.com/CloudifySource/cloudify-openstack/tree/develop)
+## Install on Mac OS
 
-### Working-Directory Settings and Configurations
+## Install on Linux
+
+# Bootstrapping Your Cloudify Manager
+
+Once you have the CLI installed you can use any of its commands. All the commands start with the keyword **cfy**
+Try typing cfy and enter to see all available options.
+
+The next step is to bootstrap a cloudify manager on a cloud. In order to do so you need to take the following steps:
+
+* Initialize the provider
+* Edit the provider config file
+* Bootstrap the provider
+
+## Initializing a provider
 
 When running the CLI **cfy init** command, a ".cloudify" file will be created in the target directory. All local settings (such as the default management server and aliases) are stored in that file, and only take effect when using the CLI from the target directory.
 
-Additionally to creating the ".cloudify" file, the **cfy init** command will also create two provider-specific configuration files, "cloudify-config.yaml" and "cloudify-config.defaults.yaml". These files are only required for the **cfy bootstrap** command (which expects to find these files by their default names, but may also accept paths as parameters).
+Additionally to creating the ".cloudify" file, the **cfy init** command will also create a provider-specific configuration file named "cloudify-config.yaml". These files are only required for the **cfy bootstrap** command (which expects to find this file by their default names, but may also accept path as parameter).
 
-All initial configuration parameters in "cloudify-config.yaml" are mandatory fields that must be supplied by the user. "cloudify-config.defaults.yaml", on the other hand, stores more advanced configuration parameters.  
-The values of "cloudify-config.defaults.yaml" are only considered if missing from "cloudify-config.yaml", and therefore they can be modified either in-place or simply overridden by assigning different values to them in "cloudify-config.yaml".
+<!--All initial configuration parameters in "cloudify-config.yaml" are mandatory fields that must be supplied by the user. "cloudify-config.defaults.yaml", on the other hand, stores more advanced configuration parameters.  
+The values of "cloudify-config.defaults.yaml" are only considered if missing from "cloudify-config.yaml", and therefore they can be modified either in-place or simply overridden by assigning different values to them in "cloudify-config.yaml".-->
 
 Note: If the Cloudify working directory is also a git repository, it's recommended to add ".cloudify" to the .gitignore file.
 
-# Install Cloudify on your laptop using Vagrant
+## Configuring the provider
 
-# Install Cloudify on OpenStack or DevStack
+The cloudify-configuration.yaml file, gives you the option to customize anything you want in your environment. However, in most cases you only need to edit the user credentials. Other settings are commented out, so you can see your options and default values. 
 
-## Using the Cloudify CLI
+The following snippet applies to the OpenStack provider. For other providers read [Cloudify Providers](#)
 
-**1. Installing the CLI and a provider extension:**
-  - Install Cloudify CLI (temporary url, will be on PyPI soon):  
-  `pip install https://github.com/CloudifySource/cosmo-cli/archive/develop.zip`
+    keystone:
+        username: [ENTER YOUR USERNAME HERE]
+        password: [ENTER YOUR PASSWORD HERE]
+        tenant_name: [ENTER YOUR PROJECT NAME HERE]
 
-  - Install a Cloudify provider extension (Openstack is used in this example):  
-  `pip install https://github.com/CloudifySource/cloudify-openstack/archive/develop.zip`
 
-<br>
-**2. Initializing:**
-  - Cd into your favorite working directory and initialize Cloudify for some provider:  
-  `cfy init openstack`
 
-  - Edit the autogenerated provider-specific config file "cloudify-config.yaml" - update its mandatory settings as needed.  
-    You may also modify the more advanced default settings in "cloudify-config.defaults.yaml", or simply override them by assigning to them different values in "cloudify-config.yaml".  
-    (For more information about the configuration files parameters used in this example, view the [Cloudify-Openstack readme](https://github.com/CloudifySource/cloudify-openstack/blob/develop/README.md))
 
-  - Bootstrap cloudify on Openstack:  
-  `cfy bootstrap`  
-  Be patient, this task can take sometime based on the network speed between your laptop to the cloud and the cloud speed of provsioning network and hosts
+## Bootstrapping Cloudify 
+
+Now you are ready to bootstrap using the `cfy bootstrap` command
+
+You can use the `cfy bootstrap -h` for more options. 
+
+Be patient, this task can take sometime based on the network speed between your laptop to the cloud and the cloud speed of provsioning network and hosts
 
 
 
@@ -286,6 +273,24 @@ This will install your deployment - all you have left to do is sit back and watc
 - force: a flag indicating authorization to overwrite the alias provided if it's already in use (Optional)
 - management-ip: the management-server to use (Optional)
 
-**Example:** `cfy deployments alias my-deployment 38f8520f-809f-4162-ae96-75555d906faa`  
+**Example:** `cfy deployments alias my-deployment 38f8520f-809f-4162-ae96-75555d906faa` 
+
+
+# Creating a new provider extension:
+Provider extensions are simply Python modules which adhere to certain conventions and implement a certain interface.  
+
+By convention, the module name is called "cloudify_<provider-name>.py". While any name is viable in practice, the CLI **cfy init** command, which receives a '*provider*' parameter, is set to first search for a module named by the convention, and only search for the exact '*provider*' value given if such a module was not found.
+
+Every provider extention is expected to implement the following interface:
+
+  - **init**(*logger*, *target_directory*, *config_file_name*, *defaults_config_file_name*)  
+    this method is used to create the two configuration files with the supplied names at the given target directory, as well as make any other initializations required by the specific provider
+  
+  - **bootstrap**(*logger*, *config*)  
+    this method is used to bootstrap the management server as well as the environment (e.g. network) in which it resides. The method must then __return the IP of the bootstrapped management server__
+  
+  - **teardown**(*logger*, *management_ip*)  
+    this method is used to tear down the server at the address supplied, as well as any environment objects related to the server which will no longer be of use.
+
 
 
