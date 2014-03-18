@@ -122,17 +122,66 @@ The interface decalres the following operations (on source and on target separat
 
 # Workflows
 
-## What is a Workflow?
+Cloudify can orchestrate any process described in a `workflow`
+workflows can be explictly listed in the `workflows` section of the `blueprint`
 
+In many cases you will not see any `workflows` section in the `blueprint`. In this case Cloudify assumes you are allowd to run the built-in workflows on the topology `nodes` listed in this `blueprint`
+
+## What is a Workflow?
+A `workflow` is an orchestration algorithm written in a lnaguage that a workflow can execute.
+In the case of Cloudify it is a `radial` script. 
 
 ## Built-in Workflows
-
+Currently Cloudify comes with 2 built-in workflows:
+* install - a workflow that installs an application
+* uninstall - a workflow that gracefully uninstalls an application
 
 ## Custom Workflows
+In order to add a custom workflow you need to create a rdial script in the same folder of your `blueprint`
+Inside the blueprint add the following block:
+
+{% highlight YAML %}
+workflows:
+    install:
+        ref: "cloudify.workflows.install"
+    uninstall:
+        ref: "cloudify.workflows.uninstall"
+    my_workflow:
+        ref: my_workflow.radial
+
+
+{% endhighlight %}
+
 
 
 # Built-in Types and Interfaces
+Cloudify comes with most of the infrastrucutre types you will need for any supported provider. In addition there are built-in middleware and application level built-in types using popular configuration management and automation tools
+We constantly work to add more types so you will not need to code much in order to use Cloudify
+
 ## Portable Types
+Cloudify has the following portable types:
+
+* `cloudify.types.base` - The base type for all built-in types. declares the `lifecycle interface`
+* `cloudify.types.tier` - A marker for a future scale group
+* `cloudify.types.host` - A compute resource either a virtual or a physical host
+* `cloudify.types.container` - A logical partition in a host such as [linux container](http://en.wikipedia.org/wiki/LXC) or [docker](https://www.docker.io/)
+* `cloudify.types.network` - A virtual network
+* `clouydify.types.subnet` - A virtual segment of IP addresses in a network
+* `cloudify.types.router` - A virtual layer 3 router
+* `cloudify.types.port` - An entry in a virtual subnet. Can be used in some clouds to secure a static private IP
+* `cloudify.types.virtual_ip` - A virtual IP implemented as [NAT](http://en.wikipedia.org/wiki/Network_address_translation) or in another manner
+* `cloudify.types.security_group` - A security group 
+* `cloudify.types.load_balancer` -
+* `cloudify.types.volume` -
+* `cloudify.types.object_container`
+* `cloudify.types.middleware_server`
+* `cloudify.types.web_server`
+* `cloudify.types.app_server`
+* `cloudify.types.db_server`
+* `cloudify.types.message_bus_server`
+* `cloudify.types.app_module`
+
+
 ## Interfaces
 ## Relationship types
 ## Implemtation types
