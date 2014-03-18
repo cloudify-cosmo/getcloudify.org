@@ -170,20 +170,39 @@ Cloudify has the following portable types:
 * `cloudify.types.router` - A virtual layer 3 router
 * `cloudify.types.port` - An entry in a virtual subnet. Can be used in some clouds to secure a static private IP
 * `cloudify.types.virtual_ip` - A virtual IP implemented as [NAT](http://en.wikipedia.org/wiki/Network_address_translation) or in another manner
-* `cloudify.types.security_group` - A security group 
-* `cloudify.types.load_balancer` -
-* `cloudify.types.volume` -
-* `cloudify.types.object_container`
-* `cloudify.types.middleware_server`
-* `cloudify.types.web_server`
-* `cloudify.types.app_server`
-* `cloudify.types.db_server`
-* `cloudify.types.message_bus_server`
-* `cloudify.types.app_module`
+* `cloudify.types.security_group` - A cloud security group (VM network access rules) 
+* `cloudify.types.load_balancer` - A virtualized Load Balancer 
+* `cloudify.types.volume` - A persistent block storage volume
+* `cloudify.types.object_container` - A BLOB storage segment
+* `cloudify.types.middleware_server` - A base type for all middleware level types
+* `cloudify.types.web_server` - A web server
+* `cloudify.types.app_server` - An application server
+* `cloudify.types.db_server` - a Database
+* `cloudify.types.message_bus_server` - a message bus server
+* `cloudify.types.app_module` - a base type for any application module or artifact
+
+### OpenStack Built-in Types
+Cloudfiy has the following concrete OpenStack types:
+
+* `cloudify.openstack.server` - a [Nova Server](http://docs.openstack.org/api/openstack-compute/2/content/compute_servers.html)
+* `cloudify.openstack.subnet` - a [Neutron Subnet](http://docs.openstack.org/api/openstack-network/2.0/content/Overview-d1e71.html#Network)
+* `cloudfiy.openstack.security_group` - a [Neutron Security Group]()
+* `cloudify.openstack.router` - a [Neutron Router]()
+* `cloudify.openstack.port` - a [Neutron Port](http://docs.openstack.org/api/openstack-network/2.0/content/Overview-d1e71.html#Network)
+* `cloudify.openstack.network` - a [Neutron Network](http://docs.openstack.org/api/openstack-network/2.0/content/Overview-d1e71.html#Network)
+* `cloudify.openstack.floatingip` - a [Neutron Floating IP]()
+
+
 
 
 ## Interfaces
+
+Cloudify has the following built-in interfaces:
+
 ## Relationship types
+
+Cloudify has the following built-in relationships:
+
 ## Implemtation types
 
 # The runtime model
