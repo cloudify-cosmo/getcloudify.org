@@ -32,6 +32,19 @@ Cloudify (Following TOSCA) uses the following terminology for the Topology parts
 * Components are called `nodes`
 * Components relationships are called `relationships`
 
+The `blueprint` YAML document has a `nodes` section which is a YAML list.
+
+{% highlight yaml %}
+nodes:
+    - name: first_node
+      type: cloudify.types.host
+      ...
+    - name: second_node
+      type: clouydify.types.web_server
+      ...
+
+{% endhighlight %}
+
 # Nodes & Types
 
 Each `node` is an instance of a `type`. A `type` can be defined in the blueprint file, in another YAML file or imported from the product built-in types.
@@ -64,10 +77,22 @@ The `type implementation` which is specific for a particular environment or tool
 
 **Cloudify enforces the first level properties declared by types as a schema**
 
+## Node SLA
+A `node` in the `blueprint` is not neccessarily one instance of the component in the `deployment`.
+It can reperesent any number of runtime components. The way to do so is to specify the `instances` property.
+
+{% highlight yaml %}
+    - name: frontend_host
+        type: cloudify.types.host
+        instances:
+            deploy: 4
+{% endhighlight %}
+
+In this case Cloudify will deploy 4 instances of the frontend_host or in other words 4 virtual machines
 
 ## Relationships
 
-Relationshipd secribes the type of dependency between 2 nodes. There are 3 types of realtionships:
+Relationshipd secribes the type of dependency between 2 nodes. There are 3 types of abstract built-inrealtionships:
 
 * `contained_in` : when one node is installed on another node. for example an apache webserver is installed on a VM. A WAR file is deployed on a Tomcat server, etc. This `relationship` ensures that the `target node` will exist before attempting to create the `source node`
 
@@ -75,8 +100,13 @@ Relationshipd secribes the type of dependency between 2 nodes. There are 3 types
 
 * `depends_on`   : when one node must be started or created after another node already exist, but without any connection between them
 
-### Concrete relationship types
+![Relationsh types](images/blueprint/relationships.png)
 
+### Concrete relationship types
+The above abstract rerltionship types do not provide the implementations for a specific relationship configuration
+For example a connected_to can be a JDBC connection to Oracle or a connection to MongoDb or even a connection between subnet and a router on a specific cloud. There is a need for concrete repationship types that will use concrete plugins to configure specific types of relationships
+
+![Relationsh types](images/blueprint/relationships_types.png)
 
 ### Relationship Interface
 The realtionship interface is optional. In many cases you don't need to perform any special actions, you just expect the orchestrator to time right the creation and startup of components. However, in cases you do need to change configration in order to wire together two components, the relationship interface and the workflow mechnism for using it come-in handy.
