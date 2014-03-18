@@ -50,11 +50,16 @@ There is a manager side agent per application deployment and optional agent on e
 
 ![Cloudify Manager Architecture](images/architecture/manager_components.png)
 
+### Proxy and File Server
+
+Cloudify uses [`Ngnix`](http://nginx.org/) as its frontend reverse proxy and file server (In later versions in will be used also as a security proxy)
 
 ### REST API
 
 Cloudify is controlled via REST API. The REST API covers all the Cloud Orchestration and Management functionality. See [Cloudify REST API Documentation](http://www.cloudifysource.org/cosmo-rest-docs/).
 You can use the REST API through Cloudify Non-interactive CLI or write your own REST client.
+
+Cloudify REST controllers are written in python using the [`flask` framework](http://flask.pocoo.org/) and run on a [`GUnicorn` container](http://gunicorn.org/)
 
 
 
@@ -62,8 +67,12 @@ You can use the REST API through Cloudify Non-interactive CLI or write your own 
 Cloudify Web GUI works vs. the REST API but adds additional value and visibility.
 
 The GUI has the following screens:
-* Blueprints screen
-* Blueprint Topology Screen
+* Blueprints screen - a catalog of all uploaded blueprinrs
+* Blueprint Screen - a set of views for a particular blueprint including
+	* Blueprint Topology
+	* Blueprint Network Topology
+	* Blueprint Node list
+	* Blueprint Source
 * Deployments screen
 * Deployment Topology screen
 * Deployment Network Topology screen
@@ -117,7 +126,7 @@ In this documentation we refer to the former as a task and to the later as a plu
 
 ### Agents
 
-Cloudify agents are based on celery daemons & workers. an agent can be located remote to the Node it manipulates (by default on the Cloudify Manager VM) or collocated on the same host. Manager side agents are one (by default) or more per deployment.
+Cloudify agents are based on [`celery daemons & workers`](http://www.celeryproject.org/). an agent can be located remote to the Node it manipulates (by default on the Cloudify Manager VM) or collocated on the same host. Manager side agents are one (by default) or more per deployment.
 Cloudify manager side agents are used typically to execute IaaS API invocation tasks (such as host creation) and other remote tasks (such as agent installation using SSH on new application hosts).
 
 Cloudify agents perform the following functionality:
@@ -128,7 +137,9 @@ Cloudify agents perform the following functionality:
 ### Plugins
 Plugins are python facades for any third party tool you want to use with any Cloudify workflow execution. Notable examples are plugins for IaaS APIs, plugins for Configuration Management tools and even plugins for installation of monitoring agents
 
-The plugin has methods that correspondes to Node Interface Operations. These methods are decorated with `@operation` decorator and get the `context` argument that holds handlers to node runtime properties, the plugin logger, and in case of a relationship task to the other Node in the relationship. 
+The plugin has methods that correspondes to Node Interface Operations. These methods are decorated with `@operation` decorator and get the `context` argument that holds handlers to node runtime properties, the plugin logger, and in case of a relationship task to the other Node in the relationship.
+
+![Task Execution Example](images/architecture/task_processing_example.png) 
 
 ### Logs and Events
 Cloudify offers logs & events as the maintroubleshooting and tracing tools:
@@ -141,14 +152,34 @@ This mechanism is currently used for Cloudify logs but will be extended to suppo
 
 To enjoy the benefits of this mechanism, the REST API exposes some methods to run queries on Elastic Search and other methods for getting events and logs for a particular workflow execution.
 
-# Cloudify Flows
+# Cloudify Technical Scenarios
+
+Cloudify architecture supports the following main technical flows
+
+## Bootstrap
+Bootstrapping is when a user chooses to install the manager using the CLI. In this process the CLI sets up the environment needed for the manager (network, security groups and key-pairs and the manager VM). Once the manager VM is ready, the CLI uses the manager package to install the manager components inside the manager VM.
+
+## Blueprint Upload
+The first step for the user must take to install an application is to have the application orchestration plan (aka `blueprint`) uploaded to the manager and saved in its `file server`. This is done by using the GUI or the `cfy blueprints upload` command. The CLI then packs the blueprint YAML file folder to a `tar` file and uploads it through the Cloudify manager REST server. It is then stored in the Cloudify manager file server ([ngnix](ngnix.org))
+
+## Deploymeny Creation
+In order to deploy and manage an application you need to create a runtime data model in the manager. This is where the manager keeps the state of the application. To do so simply use the GUI or the CLI command: `cfy deployments create`
 
 ## Workflow Execution
 
-Workflow execution requires the Workflow itslef and a [Topology](#topology)
-The Workflow engine runs the worflow algorithm and in each step process the selected Nodes. For each node it creates a task that typically implements a hook in the node set of lifecycle hooks, using the concrete implementation  ([see plugins](#plugins) ) 
+Any automation process from initial setup to auto-scale is performed by running a workflow script.
+In order to execute a workflow use the GUI or the CLI command `add here`
 
-![Task Execution Example](images/architecture/task_processing_example.png)
+Workflow execution requires the Workflow itslef and a [Topology](#topology)
+The Workflow engine runs the worflow algorithm and in each step process the selected Nodes. For each node it creates a task for an agent to execute. The task has the implementation information for the agent:
+* Which pluign to use and how to get it (URL)
+* Which method in the plugin to invoke
+* A dictionary of the `node properties` taken from the `blueprint`. 
+* Runtime information about nodes on which the current node is dependent so relationships can be configured
+
+The designated agent (Manager Side or Application VM side depending on the task) gets the taks from the queue and starts executing it. It will usually install a plugin or use an installed plugin. It will execute the task by invoking the plugin method specified in the task. 
+
+
 
 # Supported Clouds & Tools
 
