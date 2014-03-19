@@ -192,7 +192,17 @@ Cloudfiy has the following concrete OpenStack types:
 * `cloudify.openstack.network` - a [Neutron Network](http://docs.openstack.org/api/openstack-network/2.0/content/networks.html)
 * `cloudify.openstack.floatingip` - a [Neutron Floating IP](http://docs.openstack.org/training-guides/content/module002-ch004-floating-ips.html)
 
+## Bash Built-In Types
+Cloudify has the followin built-in types that work with the bash plugin. The [bash plugin](https://github.com/CloudifySource/cloudify-bash-plugin/archive/develop.zip) let the user specify bash scripts for the different lifecycle events
 
+* `cloudify.types.bash.web_server` - a web server materialized using bash scripts
+* `cloudify.types.bash.app_server` - an app server materalized using bash scripts
+* `cloudify.types.bash.db_server` - a db server materalized using bash scripts
+* `cloudify.types.bash.message_bus_server` - a message bus server materalized using bash scripts
+* `cloudify.types.bash.app_module` -an app module materalized using bash scripts
+
+All of the above declare the `scripts` property which is a map, the key being the lifecycle hhok name and the key the name of the bash script.
+The scripts should be under scripts folder next to your blueprint YAML file. The CLI will pack them and upload them to the file server from where the plugin can take them.
 
 
 ## Interfaces
