@@ -185,12 +185,12 @@ Cloudify has the following portable types:
 Cloudfiy has the following concrete OpenStack types:
 
 * `cloudify.openstack.server` - a [Nova Server](http://docs.openstack.org/api/openstack-compute/2/content/compute_servers.html)
-* `cloudify.openstack.subnet` - a [Neutron Subnet](http://docs.openstack.org/api/openstack-network/2.0/content/Overview-d1e71.html#Network)
-* `cloudfiy.openstack.security_group` - a [Neutron Security Group]()
-* `cloudify.openstack.router` - a [Neutron Router]()
-* `cloudify.openstack.port` - a [Neutron Port](http://docs.openstack.org/api/openstack-network/2.0/content/Overview-d1e71.html#Network)
-* `cloudify.openstack.network` - a [Neutron Network](http://docs.openstack.org/api/openstack-network/2.0/content/Overview-d1e71.html#Network)
-* `cloudify.openstack.floatingip` - a [Neutron Floating IP]()
+* `cloudify.openstack.subnet` - a [Neutron Subnet](http://docs.openstack.org/api/openstack-network/2.0/content/subnets.html)
+* `cloudfiy.openstack.security_group` - a [Neutron Security Group](http://docs.openstack.org/training-guides/content/module002-ch004-security-in-neutron.html)
+* `cloudify.openstack.router` - a [Neutron Router](http://docs.openstack.org/api/openstack-network/2.0/content/router_ext.html)
+* `cloudify.openstack.port` - a [Neutron Port](http://docs.openstack.org/api/openstack-network/2.0/content/ports.html)
+* `cloudify.openstack.network` - a [Neutron Network](http://docs.openstack.org/api/openstack-network/2.0/content/networks.html)
+* `cloudify.openstack.floatingip` - a [Neutron Floating IP](http://docs.openstack.org/training-guides/content/module002-ch004-floating-ips.html)
 
 
 
@@ -199,10 +199,67 @@ Cloudfiy has the following concrete OpenStack types:
 
 Cloudify has the following built-in interfaces:
 
+* `cloudify.interfaces.lifecycle` - this is the basic interface declared by `cloudify.types.base`
+
+{% highlight YAML %}
+
+# base type for provided cloudify types
+    cloudify.types.base:
+        interfaces:
+            cloudify.interfaces.lifecycle:
+                - create
+                - configure
+                - start
+                - stop
+                - delete
+
+{% endhighlight %}
+
+* `cloudify.interfaces.worker_installer` - this interface has the hooks for agent lifecycle. Decalred by `cloudify.types.host`:
+
+{% highlight YAML %}
+cloudify.interfaces.worker_installer:
+    - install: worker_installer.tasks.install
+    - start: worker_installer.tasks.start
+    - restart: worker_installer.tasks.restart
+
+{% endhighlight %}
+`cloudify.interfaces.relationship_lifecycle` - this interface provides the hooks for configuring a relationship between nodes (typically a connection over some protocol). Decalred by `cloudify.relationships.depends_on`
+* `cloudify.interfaces.plugin_installer` - this interface manages plugin installations. Decalred by `cloudify.types.host`:
+
+{% highlight YAML %}
+cloudify.interfaces.plugin_installer:
+    - install: plugin_installer.tasks.install
+
+{% endhighlight %}
+
+
+
+* `cloudify.interfaces.host` - this interface provides a hook for reporting the state of the host to the policy engine (start detection)  . Declared by `cloudify.types.host`:
+
+{% highlight YAML %}
+cloudify.interfaces.host:
+                - get_state
+
+{% endhighlight %}
+
+* `cloudify.interfaces.relationship_lifecycle` - this interface provides the hooks for configuring a relationship between nodes (typically a connection over some protocol). Decalred by `cloudify.relationships.depends_on`
+
+{% highlight YAML %}
+ cloudify.interfaces.relationship_lifecycle:
+    - preconfigure
+    - postconfigure
+    - establish
+    - unlink
+
+{% endhighlight %}
+
 ## Relationship types
 
-Cloudify has the following built-in relationships:
+Cloudify has the following built-in concrete relationships:
 
-## Implemtation types
+* `cloudify.openstack.port_connected_to_security_group` - this relationship configures a `port` to be part of a `security group`
+* `cloudify.openstack.subnet_connected_to_router` - this relationship configures a `subnet` to be registered as internal interface in a `router`
 
-# The runtime model
+
+
