@@ -15,6 +15,22 @@ Cloudify `Blueprints` are cloud application orchestration plans. The main part o
 * **Topology** - the application topology (the `nodes` section in the `blueprint` YAML file)
 * **Worflows** - the different automation process for the application (the `workflows` section in the `blueprint` YAML file )
 
+{% highlight YAML %}
+blueprint:
+    name: hello_world
+    nodes:
+        - name: vm_node
+          type: cloudify.types.host
+        # ommitted for brevity
+    workflows:
+        install:
+            ref: "cloudify.workflows.install"
+        uninstall:
+            ref: "cloudify.workflows.uninstall"
+
+
+{% endhighlight %}
+
 
 # What's in a Topology?
 A Topology is a graph of application components and their relationships described in YAML. You can think about it as application components being the vertices of the graph and the relationships being the edges of the graph. Each component is described by a YAML object denoted as a YAML list entry. 
@@ -38,10 +54,10 @@ The `blueprint` YAML document has a `nodes` section which is a YAML list.
 nodes:
     - name: first_node
       type: cloudify.types.host
-      ...
+      # omitted for brevity
     - name: second_node
       type: clouydify.types.web_server
-      ...
+      # omitted for brevity
 
 {% endhighlight %}
 
