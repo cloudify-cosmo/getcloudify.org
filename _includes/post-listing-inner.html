@@ -1,2 +1,2 @@
-{{ post.date | date: "%Y-%m-%d" }} - {% if post.url %}<a href="{{post.url}}">{% endif %}{{ post.title }}{% if post.url %}</a>{% endif %}<br/>{% if post.tags %}<br/>{% endif %}{% for tag in post.tags %}<a class="postTag" href="/tags/{{ tag | slugize }}">{{ tag }} ({{site.tags[tag] | size }})</a>&nbsp;&nbsp;{% endfor %}
+{{ post.date | date: "%Y-%m-%d" }} - {% if post.url %}<a href="{{post.url}}">{% endif %}{{ post.title }}{% if post.url %}</a>{% endif %}<br/>{% if post.tags %}<br/>{% endif %}{% for tag in post.tags %}<a class="postTag" href="/tags/{{ tag | slugize }}"><span class="label label-default">{{ tag }} ({{site.tags[tag] | size }})</span></a>&nbsp;&nbsp;{% endfor %}
 
