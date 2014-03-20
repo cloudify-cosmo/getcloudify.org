@@ -67,7 +67,7 @@ Plugins are Cloudify integration with different tools. Whenever you need a new i
 Plugins are python modules packed as pip packages. You will need to have a `setup.py` file with all the dependencies of your module. 
 One dependency that all plugins have is [cloudify-celery-commons library](https://github.com/CloudifySource/cosmo-celery-common/archive/develop.zip) You will need to add it to your project dependencies.
 
-Other dependenies are typically the python API libraries you use. If you have non-python dependencies you should pack them in the zip or get have the plugin code install them from an accessible URL
+Other dependenies are typically the python API libraries you use. If you have non-python dependencies you should have the plugin code install them from an accessible URL
 
 ## Coding the Plugin
 A plugin has functions that can be invoked by the agent - the same functions you mapped to the interface in your type. These finctions are marked as operations using the `@operation` [python decorator](https://wiki.python.org/moin/PythonDecorators). In order to use this decorator and the related `context` object, add to your source the following statement: 
