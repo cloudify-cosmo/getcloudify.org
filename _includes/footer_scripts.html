@@ -25,7 +25,7 @@
 <script type="text/javascript" language="javascript" src="http://t6.trackalyzer.com/trackalyze.js"></script> 
 
 <script>
-	$(function() {
+	$(window).load(function() {
 		$('#da-slider').cslider();
 		
 		//for highlight current pages
@@ -58,6 +58,26 @@
 				});
 				
 				
+			}
+		});
+		
+		$( "#sidebar > a" ).click(function( event ) {
+			event.stopImmediatePropagation();
+			event.preventDefault();
+
+			if(!$(this).hasClass("active")){
+				var lastActive = $(this).closest("#sidebar").children(".active");
+				lastActive.removeClass("active");
+				lastActive.next('div').collapse('hide');
+				$(this).addClass("active");
+				$(this).next('div').collapse('show');
+
+			}else{
+				//$(this).removeClass("active");
+				$(this).closest("#sidebar").children(".in").css("height","0px");
+				$(this).closest("#sidebar").children(".in").removeClass("in");
+				$(this).removeClass("active");
+			
 			}
 		});
 	});

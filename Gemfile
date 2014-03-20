@@ -6,3 +6,4 @@ gem 'jekyll', "~> 1.3.0", require: nil
 gem 's3_website'
 gem 'redcarpet'
 gem 'travis'
+gem 'jekyll_ext'
