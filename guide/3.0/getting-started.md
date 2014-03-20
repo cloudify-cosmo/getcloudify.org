@@ -6,6 +6,8 @@ publish: false
 abstract: Explains how to install Cloudify manager and how to deploy your first application to the Cloud
 pageord: 100
 --- 
+{%summary%} {{page.abstract}}{%endsummary%}
+
 # Meet Cloudify CLI
 
 Cloudify CLI is a tool written in Python that allows the user to init configuration and bootstrap the Cloudify Management Server on different cloud environments (aka Providers). In addition the CLI serves as Cloudify API client providing commands for application deployments and management.
