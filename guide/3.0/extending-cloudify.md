@@ -138,6 +138,7 @@ sh = ctx.get_resource(scripts[operation_simple_name])
 
 ## Integrating with external CM tools 
 
+
 ## Integrating with additional IaaS providers 
 
 
