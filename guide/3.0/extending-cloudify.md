@@ -46,6 +46,7 @@ One dependency that all plugins have is [cloudify-celery-commons library](https:
 
 Other dependenies are typically the python API libraries you use. If you have non-python dependencies you should XXXX 
 
+## Coding the Plugin
 A plugin has functions that can be invoked by the agent - the same functions you mapped to the interface in your type. These finctions are marked as operations using the `@operation` [python decorator](https://wiki.python.org/moin/PythonDecorators). In order to use this decorator and the related `context` object, add to your source the following statement: 
 {% highlight python %}
 from cloudify.decorators import operation
@@ -85,6 +86,30 @@ The `ctx` argument is an instance of `CloudifyContext`. This class exposes sever
 * `operation` - The node operation name which is mapped to this task invocation.
         For example: cloudify.interfaces.lifecycle.start
         
+### Getting properties
+Use the `properties` to get access to node:
+
+{% highlight python %}
+if 'scripts' in ctx.properties:
+    scripts = ctx.properties['scripts']
+        
+{% endhighlight %}
+
+### Reporting Runtime Properties
+Use the context as a map to write runtime properties.
+In this example a property of ip is added to a host node.
+
+{% highlight python %}
+ctx['ip'] = manager_network_ip
+{% endhighlight %}
+
+### Getting access to files
+In case your blueprint included files that you need to access during plugin runtime use the following method:
+
+{% highlight python %}
+sh = ctx.get_resource(scripts[operation_simple_name])
+        
+{% endhighlight %}
 
 
 
