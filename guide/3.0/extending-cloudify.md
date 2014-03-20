@@ -138,6 +138,25 @@ sh = ctx.get_resource(scripts[operation_simple_name])
 In most cases a successful task execution of the `start` operation is considered node is up and running. However, there are cases where you can't use a blocking API call or you don't want to. Them most notable case is while creating a VM. This typically takes few minutes with most virtualized environments. For these cases there is an additional interface `cloudify.interfaces.host` with operation `get_state` to implement using a plugin. 
 
 
+## Using Your Plugin
+In order to use your plugin you need to decalre it with the types. Note that the plugin name refers to the module name and not to the project name
+
+{% highlight YAML %}
+lugins:
+    nova_plugin:
+        derived_from: cloudify.plugins.manager_plugin
+        properties:
+            url: https://github.com/CloudifySource/cloudify-openstack-plugin/archive/develop.zip
+
+{% endhighlight %}
+
+Note that there are two types of plugins:
+
+* `manager_plugin` - for plugins that are installed on the manager side agent
+* `agent_plugin` - for plugins that will be installed on application VM agents
+
+
+
 
 # Developing Agent Installer Plugin
 
