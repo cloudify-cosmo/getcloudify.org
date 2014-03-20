@@ -67,7 +67,7 @@ Plugins are Cloudify integration with different tools. Whenever you need a new i
 Plugins are python modules packed as pip packages. You will need to have a `setup.py` file with all the dependencies of your module. 
 One dependency that all plugins have is [cloudify-celery-commons library](https://github.com/CloudifySource/cosmo-celery-common/archive/develop.zip) You will need to add it to your project dependencies.
 
-Other dependenies are typically the python API libraries you use. If you have non-python dependencies you should XXXX 
+Other dependenies are typically the python API libraries you use. If you have non-python dependencies you should pack them in the zip or get have the plugin code install them from an accessible URL
 
 ## Coding the Plugin
 A plugin has functions that can be invoked by the agent - the same functions you mapped to the interface in your type. These finctions are marked as operations using the `@operation` [python decorator](https://wiki.python.org/moin/PythonDecorators). In order to use this decorator and the related `context` object, add to your source the following statement: 
@@ -134,12 +134,12 @@ sh = ctx.get_resource(scripts[operation_simple_name])
         
 {% endhighlight %}
 
+### Dealing with Start detection
+In most cases a successful task execution of the `start` operation is considered node is up and running. However, there are cases where you can't use a blocking API call or you don't want to. Them most notable case is while creating a VM. This typically takes few minutes with most virtualized environments. For these cases there is an additional interface `cloudify.interfaces.host` with operation `get_state` to implement using a plugin. 
 
 
-## Integrating with external CM tools 
 
-
-## Integrating with additional IaaS providers 
+# Developing Agent Installer Plugin
 
 
 <!--# Integrating External Monitoring Systems
