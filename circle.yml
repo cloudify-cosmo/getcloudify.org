@@ -1,0 +1,35 @@
+general:
+  branches:
+    ignore:
+      - master
+## Customize the test machine
+machine:
+  # Version of ruby to use
+  ruby:
+    version:
+      1.9.3
+
+checkout:
+  post:
+    - rm -rf ./_site
+
+## Customize dependencies
+dependencies:
+  override:
+    - bundle install: 
+        timeout: 3600 # fail if command has no output for 60 minutes
+    - bundle exec jekyll build:
+        timeout: 3600 # fail if command has no output for 60 minutes
+  cache_directories:
+    - /home/ubuntu/.rvm/gems/ruby-1.9.3-p448
+
+test:
+  override:
+    - echo "No tests are needed, this is a static website :)"
+
+## Customize deployment commands
+deployment:
+  production:
+    branch: new_design
+    commands:
+      - bundle exec s3_website push --headless
