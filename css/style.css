@@ -41,6 +41,35 @@
 /* ===================================
  4H style
 ==================================== */
+.bannerText{
+position: absolute;
+top: 51px;
+left: 0;
+right: 0;
+margin: auto;
+z-index:999;
+text-align: center;
+}
+.bannerTextImg{  position:absolute;bottom:0;z-index:1;}
+.none{display:none}
+.no-margin{margin:0 !important}
+.bannerText h1,.bannerText h2{color: white !important;}
+.bannerText h1{
+font-size: 43px;
+font-weight: normal;
+}
+.bannerText h2{
+font-size: 19px;
+left: 0px !important;
+right: 0px !important;
+margin:auto;
+text-align: center;
+white-space: normal;
+line-height: 24px;
+position:relative;
+top:0;
+}
+.bannerText a{ position:relative !important;left:0  !important;right:0  !important;margin:auto;top:0  !important;}
 .panel {
 margin-bottom: 20px;
 background-color: #fff;
@@ -73,7 +102,7 @@ font-size: 16px;
 padding: 15px;
 }
 
-.cdsearch{ /*position: absolute;right:102px;top: 25px;*/ position:relative ;margin-top:1px; float:right; z-index:999;top:15px}
+.cdsearch{ /*position: absolute;right:102px;top: 25px;*/ position:relative ;margin-top:1px; float:right; z-index:999;top:20px}
 .cdsearch input.search-query{
 -webkit-border-radius: 12px;
 -moz-border-radius: 12px;
@@ -84,7 +113,7 @@ padding:1px 42px 1px 10px;
 .cdsearch .btn,.cdsearch .btn.active,.cdsearch  .btn:active{ background:none; border:none; margin:0 0 0 -45px;box-shadow:none}
 .black:hover{color:#353535 !important; text-decoration:none;}
 
-.docMenu a{ display:block}
+.docMenu a{ display:block;  text-decoration:none}
 /*#content .cloudtv img{ max-height:154px}*/
 
 .tooltip.bottom .tooltip-arrow {
@@ -116,7 +145,8 @@ a:active {
 .clear {
 	clear:both;
 }
-
+.pr{ position:relative}
+.pa{ position:absolute}
 /* ===================================
 2. layout
 ==================================== */
@@ -141,7 +171,7 @@ a:active {
 }
 
 .row,.row-fluid {
-	margin-bottom:10px;
+	margin-bottom:30px;
 }
 
 .row .row,.row-fluid .row-fluid{
@@ -155,7 +185,7 @@ a:active {
 
 div.subitem a.list-group-item {
     padding-left: 20px;
-	border-bottom:#e9e9e9 1px solid;
+	border-bottom:none;
 }
 a.list-group-item {
 color: #555;
@@ -185,6 +215,17 @@ img.img-polaroid {
 }
 .img-box {
 	max-width:100%;
+}
+
+.videoDesc{ position:absolute;background-color: rgba(44, 193, 225,0.6);
+bottom: 0;
+padding: 5px;
+text-shadow: 0 1px 1px white;
+color: #000;
+font-size: 15px;
+line-height:18px;
+font-weight:600;
+width:100%;
 }
 /* ===================================
 4. Header
@@ -361,7 +402,7 @@ header ul.nav li {
 header ul.nav > li {
 	border:none;
 	margin: 0;
-    padding:10px 0 0 0;
+    padding:20px 0 0 0;
 }
 
 header ul.nav li a {	
@@ -381,7 +422,8 @@ header ul.nav li a {
 
 .navbar .nav > .active > a,.navbar .nav > .active > a:hover {
 	background:none;
-	font-weight:600;
+	font-weight:bold;
+	
 }
 
 .navbar .nav > .active > a:active,.navbar .nav > .active > a:focus {
@@ -436,12 +478,14 @@ ul.nav li.dropdown a {
 
 .cdnavbar{ position:relative;top:0px}
 .cloudifyLogo{ padding:0 !important; position:relative; z-index:999}
+.cloudifyLogo a { background:url(/img/logoSmall.png) no-repeat bottom left  !important; ; display:block; width:62px; height:28px; overflow:hidden}
+.cloudifyLogo:hover a{background-position: 0 10px  !important;}
 .dwnBtn{ /*padding:0px 15px !important; margin-top:10px  !important*/}
-.dwnBtn:hover{-webkit-transition: all 1s ease-in-out;
+/*.dwnBtn:hover{-webkit-transition: all 1s ease-in-out;
 -moz-transition: all 1s ease-in-out;
 -o-transition: all 1s ease-in-out;
 transition: all 1s ease-in-out;
-background:#8EC400 !important; border:none;color:#fff !important}
+background:#8EC400 !important; border:none;color:#fff !important}*/
 .cloudifyLogo a{ margin:0 !important ; padding-left:0 !important }
 /* ===================================
 5. Section: Featured
@@ -730,7 +774,7 @@ section.callaction {
 #content {
 	position:relative;
 	background:#fff;
-	/*padding:50px 0 0 0;*/
+	padding:50px 0 0 0;
 }
 
 #content img {
@@ -803,12 +847,13 @@ section.callaction {
 
 #inner-headline .inner-heading h2 {
 	color:#353535;
-	margin:0px 0 0 0;
+	margin:20px 0 0 0;
 }
 
 /* --- breadcrumbs --- */
 #inner-headline ul.breadcrumb {
-	margin-bottom:10px;
+	margin:30px 0 0;
+	float:right;
 }
 
 #inner-headline ul.breadcrumb li {
@@ -1164,8 +1209,7 @@ h4.heading strong {
 aside .widgetheading {
 	position: relative;
 	border-bottom: #e9e9e9 1px solid;
-    margin-bottom: 15px;
-    padding-bottom: 10px;
+	padding-bottom: 9px;
 }
 
 footer .widgetheading {
@@ -1500,7 +1544,7 @@ a.custom-carousel-nav:hover{
 /* ===============================
 14. Blog & article
 ================================ */
-
+a.postTag:hover{ text-decoration:none;}
 article{
 	float:left;
 	width:100%;
@@ -1956,7 +2000,7 @@ ul.time-post li.time{
 
 footer{
 	background:#111;
-	padding:50px 0 0 0;
+	padding:0px 0 0 0;
 	color:#bbb;
 }
 
@@ -1991,8 +2035,9 @@ ul.social-network li {
 	color:#5d5d5d;
 	padding:0;
 	padding-top:30px;
-	margin:20px 0 0 0;
+	margin:0px 0 0 0;
 }
+.footerlist{ margin:30px auto}
 
 #sub-footer p{
 	margin:0;
@@ -2366,8 +2411,17 @@ article img.pull-right, article .align-right{
 	  .navbar-static-top {
 		margin-right: 0;
 		margin-left: 0;
+		position:relative !important;
 	  }
 
+	    .fixed-top
+	  {
+		margin-right: 0;
+		margin-left: 0;
+		position:relative !important;
+	  }
+	  
+	  .fixedTopHeight{ height:0  !important}
     
 	.navbar .nav {
 		margin-top:40px;
@@ -2953,6 +3007,14 @@ display: block;
   margin-right: -15px;
   margin-left: -15px;
 }
+
+.fixed-top{
+  position: fixed;
+  right: 0;
+  left: 0;
+  z-index: 1030;
+}
+.fixedTopHeight{ height:62px;}
 
 @media (min-width: 768px) {
   .container > .navbar-header,

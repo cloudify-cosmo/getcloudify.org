@@ -123,6 +123,26 @@ jQuery(document).ready(function($) {
 				$('.scrollup').fadeIn();
 				} else {
 				$('.scrollup').fadeOut();
+				
+			}
+			
+			if ($(this).scrollTop() < 500) {
+			$('.footerlist').fadeOut();
+			}
+			
+			//for footer
+			//if ($(this).scrollTop() > 400) {
+			var totalHeight, currentScroll, visibleHeight; 
+			currentScroll = $(document).scrollTop();
+			// Height of page
+			totalHeight = document.body.offsetHeight;
+			// Height visible
+			visibleHeight = document.documentElement.clientHeight;
+			 
+			 if (visibleHeight + currentScroll >= totalHeight) {
+				$('.footerlist').fadeIn();
+				} else {
+				//$('.footerlist').fadeOut();
 			}
 		});
 		$('.scrollup').click(function(){
@@ -215,6 +235,68 @@ jQuery(document).ready(function($) {
 		ss.add($items);
 		*/
 
+
+
+});
+
+
+
+$(window).load(function() {
+
+		//for highlight current pages
+		//http://docs.shopify.com/support/configuration/store-customization/how-do-i-style-active-link-with-javascript-and-css
+		$('.nav li.topmenu').each(function() {
+			var href = $(this).find('a').attr('href');
+			if (href === window.location.pathname) {
+				$(this).addClass('active');
+			}
+		});
+		
+		//highlight  docs menu links
+		$('a.list-group-item').each(function() {
+			if ($(this).attr('href')  ===  window.location.pathname) {
+				$(this).addClass('highlight');
+				$(this).parent().show( "slow" );
+				$('.icon-caret-down').attr('class','icon-caret-right');
+				$(this).parent().prev().addClass("active");
+				$(this).parent().prev().children().attr('class','icon-caret-down')
+				var pathArray = window.location.pathname.split( '/' );
+				pathArray = pathArray[2];
+				
+				//highlight top menu when user click on docs menu links
+				$('.nav li.topmenu').each(function() {
+					var href = $(this).find('a').attr('href');
+					var splitHref = href.split( '/' );
+					splitHref=splitHref[2];
+					if (splitHref === pathArray) {
+						$(this).addClass('active');
+						$(this).parent().parent().addClass('active');
+					}
+				});
+				
+				
+			}
+		});
+
+		//Left docs menu control - open ,close and highlight.
+		$( ".titleHolder").click(function( event ) { 
+		  event.preventDefault();
+		  if($(this).hasClass('active')){
+					if($(this).next().is(':visible')){
+						 $('.icon-caret-down').attr('class','icon-caret-right');
+					}else{
+						$(this).children().attr('class','icon-caret-down');
+					}
+					$(this).next().toggle("slow");
+		  }else{
+			  $('.icon-caret-down').attr('class','icon-caret-right');
+			  $(".titleHolder.active").next().hide("slow");
+			  $(".titleHolder").removeClass('active');
+			  $(this).addClass("active");
+			  $(this).children().attr('class','icon-caret-down');
+			  $(this).next().show( "slow" );
+		  }
+		});
 
 
 });

@@ -13,11 +13,16 @@
 	<!-- end header -->
 	<section id="inner-headline">
 		<div class="container">
-			<ul class="breadcrumb">
-				<li><a href="#"><i class="icon-home"></i></a><i class="icon-angle-right"></i></li>
-				<li><a href="#">Docs</a><i class="icon-angle-right"></i></li>
-				<li><a href="#"> 2.7</a><i class="icon-angle-right"></i></li>
-				<li class="active">Bootstrapping OpenStack Cloud</li>
+			<ul class="breadcrumb">{% capture currentVersion %}{{ page.url | remove: "/guide/" | split:"/" | first }}{% endcapture %}
+				<li><a href="/"><i class="icon-home"></i></a><i class="icon-angle-right"></i></li>
+				<li>Docs<i class="icon-angle-right"></i></li>
+				<script>
+				var version = document.location.href.split("/guide/")[1].split("/")[0];
+				var strVar="";
+				strVar += "<li>"+version+"<i class=\"icon-angle-right\"><\/i><\/li>";
+				document.write(strVar)  ;			
+				</script>
+				<li class="active">{{ page.title }}</li>
 			</ul>
 		</div>
 	</section>

@@ -5,8 +5,8 @@
    <div id="sidebar" class="list-group docMenu"> 
 	{% for category in site.categories %}		
 		<!--<h5 class="widgetheading">{{ category }}</h5>-->
-		<a href="#{{ category | replace:' ','_' }}" class="list-group-item"  data-parent="#sidebar"><i class="icon-caret-right"></i>{{ category }}</a>
-		<div id="{{ category | replace:' ','_' }}" class="list-group subitem collapse" class="list-group-item"> 				 			
+		<a href="#{{ category | replace:' ','_' }}" class="list-group-item titleHolder"  data-parent="#sidebar"><i class="icon-caret-right"></i>{{ category }}</a>
+		<div id="{{ category | replace:' ','_' }}" class="list-group subitem none" class="list-group-item"> 				 			
 			  {% for curPage in site.page_categories[category] %}				  
 				  {% if curPage.url contains currentVersion %}
 					<a class="list-group-item" href="{{curPage.url}}">{{curPage.title}}</a>							   

@@ -1,5 +1,5 @@
 	<footer>
-	<div class="container">
+		<div class="container footerlist" >
 		<div class="row">
 			<div class="span3">
 				<div class="widget">
@@ -9,7 +9,7 @@
 						<li><a href="\goPro.html">Enterprise Cloudify</a></li>
 						<li><a href="\cloudifyRecipeCatalog.html">Cloudify Test Drive</a></li>
 						<li><a href="\how.html">How it Works</a></li>
-						<li><a href="#">Get in touch with us</a></li>
+						<li><a href="\contactus.html">Get in touch with us</a></li>
 					</ul>
 				</div>
 			</div>
@@ -39,18 +39,25 @@
 				<div class="widget">
 					<h5 class="widgetheading">Get in touch with us</h5>
 					<strong>Where to get support</strong><br>
-					 	<p>
+					 	<p style="color:white">
 						<i class="icon-comments-alt"></i><a href="https://cloudifysource.zendesk.com/home" target="_blank"> Support forums</a><br>
 						<i class="icon-envelope-alt"></i> info@cloudifysource.org<br>
 						<i class="fa fa-stack-overflow"></i><a href="http://stackoverflow.com/questions/tagged/cloudify"target="_blank"> Stack Overflow</a><br>
 						<i class="icon-user"></i><a href="https://cloudifysource.zendesk.com/login?return_to=https%3A//cloudifysource.zendesk.com/home" target="_blank">Login</a> / <a href="https://cloudifysource.zendesk.com/registration" target="_blank">Register</a>
-
+						<br/>
+						<i class="icon-envelope"></i> Subscribe for Community Updates<br/>
+						<div class="subscribeForm">
+							<form class="validate" name="mc-embedded-subscribe-form" id="mc-embedded-subscribe-form" method="post" action="http://cloudifysource.us4.list-manage.com/subscribe/post?u=5e963581396e0c0e43ed217f8&amp;id=b43defea9b">
+							<input type="email" title="Please enter a valid email address." placeholder="Enter your e-Mail" id="mce-EMAIL" class="required subscribeTxt email" name="EMAIL">
+							<input type="submit" class="btn btn-theme  pull-right " id="mc-embedded-subscribe" name="subscribe" value="Go">
+							</form>
+					</div>
 					</p>
 				</div>
 			</div>
 		</div>
 	</div>
-	<div id="sub-footer">
+		<div id="sub-footer">
 		<div class="container">
 			<div class="row">
 				<div class="span6">
@@ -71,8 +78,28 @@
 			</div>
 		</div>
 	</div>
+
+
 	<div class="clear"></div>
 	</footer>
+	<!--
+<script language="javascript">
+var check = 0 ; 
+$(document).scroll(function () 
+  {
+  //var position = $(this).scrollTop();
+  //if (position > 315) 
+  if($(window).scrollTop() + $(window).height() == $(document).height()) 
+     {
+     $('.footerlist').fadeIn();
+	 check =1 ;
+     } 
+  else{
+			$('.footerlist').fadeOut();
+    }
 
+  });    
 
+</script>
+-->
 

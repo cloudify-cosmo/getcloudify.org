@@ -64,7 +64,7 @@ $(function() {
     }
 
 
-    $('#sidebar > a').on('click', function (e) {
+    /*$('#sidebar > a').on('click', function (e) {
         e.preventDefault();
 
         if(!$(this).hasClass("active")){
@@ -82,7 +82,7 @@ $(function() {
         
         }
 
-    });
+    });*/
     
     //for lightbox 
     $('.fancybox-media').fancybox({
