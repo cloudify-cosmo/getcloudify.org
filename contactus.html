@@ -4,21 +4,21 @@ title: Contact us
 category: Contact us
 ---
 
-	<section id="content">
-		<div class="map">
-		<iframe src="https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d3377.3734855269704!2d34.811706099999995!3d32.1672019!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x151d488ebc7fe0a3%3A0x2cd17cda792e9fe9!2z157Xqdeb15nXqiA0!5e0!3m2!1siw!2sil!4v1395830239367" width="600" height="450" frameborder="0" style="border:0"></iframe>
-	</div>
+		<section id="content">
+	<div class="map">
+<iframe src="https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d25361.13637152391!2d-121.86301583196055!3d37.386472888609966!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x808fcbeb12e499e1%3A0xdd89c5ee736545e!2s1798+Technology+Dr+%23238!5e0!3m2!1siw!2s!4v1396331098078" width="600" height="450" frameborder="0" style="border:0"></iframe>	</div>
 	<div class="container">
 		<div class="row">
 			<div class="span12">
 				<h4>Get in touch with us by filling <strong>contact form below</strong></h4>
-				<form id="contactform" action="https://www.salesforce.com/servlet/servlet.WebToLead?encoding=UTF-8" method="post" class="validateform" name="send-contact"  novalidate="novalidate">
+				<form id="contactform" action="https://www.salesforce.com/servlet/servlet.WebToLead?encoding=UTF-8" method="post" class="validateform" name="send-contact" onsubmit="return checkform(this);">
+				<input type="hidden" name="oid" value="00D300000000KEt">
+				<input type="hidden" name="retURL" value="http://ec2-54-226-139-132.compute-1.amazonaws.com:8080/contactusThanks.html">
 					<div id="sendmessage">
 						 Your message has been sent. Thank you!
 					</div>
 					 <input type="hidden" name="oid" value="00D300000000KEt">
-					 <input type="hidden" name="retURL" value="http://ec2-54-226-139-132.compute-1.amazonaws.com:8080/contactusThanks.html">
-					<div class="row">
+						<div class="row">
 						<div class="span4 field">
 							<input type="text" id="first_name" name="first_name" placeholder="* Enter your full name" data-rule="maxlen:4" data-msg="Please enter at least 4 chars" />
 							<div class="validation">
@@ -38,16 +38,63 @@ category: Contact us
 							<textarea id="00N80000003kH4I" rows="12" name="00N80000003kH4I" class="input-block-level" placeholder="* Your message here..." data-rule="required" data-msg="Please write something"></textarea>
 							<div class="validation">
 							</div>
+						</div>
+						<div class="span4 field">
+						    <!--http://www.tothemoon.com/2013/01/simple-javascript-captcha-you-can-add-to-any-form/-->
+							<font color="#DD0000">Enter This Code >></font> <span id="txtCaptchaDiv" style="color:#000"></span><!--this is where the script will place the generated code-->
+							<input type="hidden" id="txtCaptcha"/></label><!-- this is where the script will place a copy of the code for validation: this is a hidden field -->
+							<input type="text" name="txtInput" id="txtInput" size="15"  placeholder="* Enter the code above "/>
 							<p>
 								<button class="btn btn-theme margintop10 pull-left" type="submit">Submit message</button>
-								<span class="pull-right margintop20">* Please fill all required form field, thanks!</span>
-							</p>
+							</p>						
 						</div>
+						<span class="pull-right margintop20">* Please fill all required form field, thanks!</span>
 					</div>
 				</form>
+				<script type="text/javascript">
+					function checkform(theform){
+					var why = "";
+					if(theform.txtInput.value == ""){
+					why += "- Security code should not be empty.\n";
+					}
+					if(theform.txtInput.value != ""){
+					if(ValidCaptcha(theform.txtInput.value) == false){
+					why += "- Security code did not match.\n";
+					}
+					}
+					if(why != ""){
+					alert(why);
+					document.getElementById("txtInput").focus();
+					return false;
+					}
+					}
+					//Generates the captcha function
+					var a = Math.ceil(Math.random() * 9);
+					var b = Math.ceil(Math.random() * 9);
+					var c = Math.ceil(Math.random() * 9);
+					var d = Math.ceil(Math.random() * 9);
+					var e = Math.ceil(Math.random() * 9);
+					var code = a + b + c + d + e;
+					document.getElementById("txtCaptcha").value = code;
+					document.getElementById("txtCaptchaDiv").innerHTML = code;
+					// Validate the Entered input aganist the generated security code function
+					function ValidCaptcha(){
+					var str1 = removeSpaces(document.getElementById("txtCaptcha").value);
+					var str2 = removeSpaces(document.getElementById("txtInput").value);
+					if (str1 == str2){
+					return true;
+					}else{
+					return false;
+					}
+					}
+					// Remove the spaces from the entered and generated code
+					function removeSpaces(string){
+					return string.split(" ").join("");
+					}
+				</script>
 			</div>
 		</div>
 	</div>
-	</section>
+</section>
 	 <div class="clear"></div>  
    

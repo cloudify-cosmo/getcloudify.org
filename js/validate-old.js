@@ -78,7 +78,29 @@ jQuery(document).ready(function($) {
 		    }
 		});
 		if( ferror ) return false; 
-			
+			else var str = $(this).serialize();
+		
+			   $.ajax({
+			   type: "POST",
+			   url: "contact/contact.php",
+			   data: str,
+			   success: function(msg){
+			$("#sendmessage").addClass("show");
+			$("#errormessage").ajaxComplete(function(event, request, settings){
+		
+			if(msg == 'OK')
+			{
+				$("#sendmessage").addClass("show");
+				
+			}
+			else
+			{
+				$("#sendmessage").removeClass("show");
+				result = msg;
+			}
+		
+			$(this).html(result);});}});
+				return false;
 	});
 
 });
