@@ -4,37 +4,90 @@ title: About Us
 category: About Us
 ---
 
-h1. Traditional PaaS limits your cloud portability, and choice of application stack, simply put.
+<br/>
+<br>
+h1. About GigaSpaces Technologies
 
-<p><strong>GigaSpaces Cloudify enables you to on-board and scale any app, on any cloud, with no code changes, while maintaining full visibility and control. </strong></p>
+<p><a href="http://www.gigaspaces.com">GigaSpaces Technologies</a> is a fast growing, innovative technology company, established in 2000, with its headquarters located in Israel, and offices around the globe – New York, San Jose, London and Hong Kong. Our company is growing significantly every year, serving the world’s largest organizations.</p>
 
-h2. How is this done?
-* Cloudify is external to your application stack, meaning no code change required <br />
-* Cloudify is not just for deployment; it manages and monitors your application <br />
-* Cloudify helps your IT organization become automated, elastic, and agile</p>
+h2. Products and Technology
+<p>GigaSpaces provides software middleware for deployment, management and scaling of mission-critical applications on cloud environments through two main product lines, XAP -- Extreme Application Platform -- and Cloudify.</p>
+<p>XAP is an in-memory computing platform that leverages fast event processing and data access to provide extreme scalability, enabling your application to process massive amounts of data in real time. XAP allows you to boost your application’s performance without changing the underlying hardware, achieve better availability and uptime, and minimize your license and hardware costs.</p>
+<p>Cloudify is an open source software platform that enables organizations to quickly deploy, manage and scale existing and new enterprise-grade applications on any cloud, with no changes to the code or architecture. Cloudify brings cloud orchestration and DevOps automation to any cloud and application stack.</p>
+
+h2. Satisfied Customers
+<p>GigaSpaces has a strong ecosystem of clients and partners serving over 500 of the world’s leading organizations. These companies cross market industries, from top financial firms, e-commerce companies, online gaming providers, healthcare organizations through telecom carriers, some of which include: Bank of America, Morgan Stanley, Goldman Sacks, Reuters, Bloomberg, Bank of China, American Airlines, Sears, Alcatel-Lucent, Cisco, IBM, HP, Deutsche Bank, GE ....and more.</p>
+
+h2. Awards and Recognition
+<p>GigaSpaces Technologies has been recognized by the top industry analysts as a leader in its field and wins major industry awards for its innovation – Frost & Sullivan 2013 Innovation Award, Deloitte Fast 50 2013, a VentureBeat CloudBeat Showdown finalist, the CRN 20 Coolest Cloud Platforms & Development Vendors 2012, the Red Herring Top 100 Europe 2012, as well as the 2012 SD Times 100.</p>
 
 
-h2. What does this actually mean? 
+<p>Cloudify is an open source TOSCA based cloud orchestration software platform (like Amazon’s OpsWorks).  It automates the process of installation, deployment and also post-deployment such as monitoring, remediation, and auto-scaling of your application stack.</p>
+
+h2. How it actually works
+<p>Cloudify acts as a "software operator" that follows similar steps to the way a human operator works, but in a fully automated fashion. To get to this level of automation Cloudify receives input that can be understood by software configuration files, known as blueprints that describe how the application interacts with the data center through APIs to execute the desired blueprint configurations.</p>
+<p>Below are the typical steps for deploying and managing an application with Cloudify.</p>
+
+* Describe your application in a TOSCA-based blueprint: The recipe describes your application blueprint which includes the details required to install and manage the application, such as the components of your applications and their dependencies, and the location of your binaries, installation and monitoring configuration.
+ <br />
+* Execute the plan:  Cloudify uses the blueprint as input that describes the deployment plan and is responsible for executing it on a variety of cloud environments just like a human operator works. 
+ <br />
+
+<p>A typical deployment includes the following steps:</p>
 
 
-<p>Any app, any stack: Your existing applications can easily move to the cloud, without any code or architecture changes: Cloudify supports any kind of application, using any application stack, with a relational or non-relational data store, or for use with other middleware components.</p>
+# Setup the infrastructure: Setup network configurations (routers, security groups, public IPs), setup the compute and storage resources, and assign them to the relevant network and storage device.
+# Assign roles to each machine and install the relevant application tiers on these machines through SSH or shell scripts, or even by calling configuration management tools such as Chef or Puppet.
+# Start the relevant services in the right order based on their dependencies.
+# Wire in the application monitoring and logging.
 
-<p>Any cloud: Run your app on any environment – public, private, or hybrid cloud, plain virtualization, or a combination of environments (for cloud bursting, e.g.). Cloudify completely isolates the application from the underlying cloud runtime. So you get the same flexibility you’re accustomed to, no matter which environment you choose.</p>
 
-<p>Full control: Losing control and visibility when moving to the cloud means nothing gained in terms of agility and productivity. Cloudify offers built-in monitoring and management services, but also facilitates using your existing tools on the cloud.</p>
+* Manage the application: Once the application is deployed, Cloudify will continuously monitor the application to see that it meets the expected SLA, and will take corrective actions in case of a breach in the SLA, whether in the case of failure or scaling events.<br/>
+
+h2. Typical Applications that Run on Cloudify
+
+
+
+<p>Cloudify best fits multi-tier applications deployments that are hard to manage through manual processes. Some such applications include:
+</p>
+
+* Multi-Tier JEE applications (WebLogic, WebSphere, Tomcat, JBoss)
+* Big Data applications
+* Network services (NFV)
+
+h2. Supported Cloud Platforms
+
+<p>Cloudify is tightly integrated with OpenStack, and at the same time, include support for other cloud platforms to allow interoperability with all cloud platforms. A selected list of popular cloud platforms that are supported by Cloudify is provided below:
+</p>
+
+* OpenStack 
+* AWS
+* CloudStack
+* Microsoft Azure
+* VMWare 
+
+h2. Support for Non-Cloud Platforms (Bare Metal)
+<p>Cloudify also supports non-cloud environments by plugging in to a predefined pool of machines and managing the application deployment within the boundaries of that pool.  This configuration is popular for organizations that don't have a cloud-based environment or are in a transition to the cloud. It is also popular for applications that are performance and I/O intensive such as big data applications and Network functions.</p>
+
+h2. Support for Configuration Management Frameworks
+<p>Many organizations today use configuration management tools such as Chef or Puppet to describe their application setup. Cloudify integrates with these frameworks and adds the orchestration capabilities on top of these frameworks. In this way, Chef or Puppet users can add dependency management, monitoring, auto-healing, and auto-scaling into their existing environment.</p>
+
+h2. How Cloudify Relates to Other Industry Standards and Technology Movements
+h3. TOSCA 
+<p>TOSCA (Topology and Orchestration Specification for Cloud Applications) by the Oasis Foundation is used by Cloudify as the standard specification for its blueprints.</p>
+
+h3. DevOps
+<p>DevOps is a model for automating the software release process from the development stage to production. 
+Orchestration engines such as Cloudify help to automate the continuous delivery or deployment process by orchestrating the steps required to package the new software, ship it to the right nodes, execute the relevant tests, and more.</p>
+
+h3. NFV
+<p>Network Function Virtualization is an initiative driven by Telco carriers to transform their existing appliance-based infrastructure into a cloud-based infrastructure. An orchestration engine such as Cloudify plays a critical role in this transition by automating the process provisioning of virtualized network functions into the carrier infrastructure and ensuring that those network services meet their desired SLA. Cloudify was specifically designed to manage network functions through the support of agentless deployment, bare metal support, built-in network orchestration, federated deployment and much more.</p>
+
 
 
 h2. To Learn a Bit More About Cloudify:
-* Read the <a href="/guide/overview/cloudify_intro.html">Introduction to Cloudify</a>, in the Cloudify Documentation.
-* Watch the Cloudify <a href="http://bit.ly/GUUntj">demo</a>.
-* Visit GigaSpaces.com to <a href="http://bit.ly/GQs9Sx">learn more</a>.
+* Read the <a href="/cloud_orchestration_cloud_automation">Cloudify Product Overview</a>.
+* Read about Cloudify on <a href="https://en.wikipedia.org/wiki/Cloudify">Wikipedia</a>.
 * Or just dive right in by <a href="http://bit.ly/GPxxpN">forking the code on GitHub</a>.
 
-
-
-h2. About GigaSpaces Technologies
-
-<p><a href="http://bit.ly/GLudJH">GigaSpaces Technologies</a> is the pioneer of a new generation of application virtualization platforms and a leading provider of end-to-end scaling solutions for distributed, mission-critical application environments, and cloud enabling technologies. GigaSpaces complementary solutions are <a href="http://bit.ly/GRgKiG">XAP Elastic Application Platform</a> and Cloudify - Easy Deployment of Mission Critical Applications to the Cloud.</p>
-<p>GigaSpaces is the only platform on the market that offers truly silo-free architecture, along with operational agility and openness, delivering enhanced efficiency, extreme performance and always-on availability. The GigaSpaces solutions are designed from the ground up to run on any cloud environment – private, public, or hybrid – and offer a pain-free, evolutionary path to meet tomorrow’s IT challenges.</p>
-<p>Hundreds of organizations worldwide are leveraging GigaSpaces’ technology to enhance IT efficiency and performance, among which are Fortune Global 500 companies, including top financial service enterprises, e-commerce companies, online gaming providers and telecom carriers.</p>
 
