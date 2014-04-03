@@ -10,8 +10,32 @@ category: cloudify player
 				<div class="row">
 					<div class="span5 no-margin">
 						<h1>Chef <strong>on the Cloud in a Click</strong></h1>
-						<h2><strong>Test drive Chef using the Cloudify Player </strong></h2>
-						<script type="text/javascript" id="cloudify-widget" data-api-key="ab8d9d70-13fd-4cec-bfd8-622c352cdaa7" data-title="Chef and Cloudify" data-host="launch.cloudifysource.org" data-video_url="https://www.youtube.com/watch?v=nqn5dgNvTIo" src="//launch.cloudifysource.org/js/get_widget.js"></script>
+					<h2><strong>Test drive Chef using the Cloudify Player </strong></h2>
+	
+            <p class="lead">Chef is a flexible and powerful open source</p>
+            <p>
+              <a class="btn btn-lg btn-default" id='launch' href="javascript:void(0)" data-launched="false">
+                <span class="glyphicon glyphicon-play"></span>
+                Launch Now
+              </a>
+            </p>
+             <div class="panel panel-default" style="display:none">
+            <div class="panel-heading">
+              <a href="#" id='manage' class='btn btn-lg btn-primary disabled' target='manage'>&raquo; Manage your app</a>
+              <a href="#" id='use' class='btn btn-lg btn-primary disabled' target='use'>&raquo; Use Chef</a>
+              <div class='pull-right'>
+                <p>
+                  Left: <strong id='time-left'>...</strong> minutes.
+                </p>
+              </div>
+            </div>
+            <div class="panel-body">
+              <pre id='log'>
+                <!-- Log goes here -->
+              </pre>
+            </div>
+            <div class="panel-footer">Powered by: HP Cloud, Cloudify (Patent Pending)</div>
+          </div>
 						<br/>
 						<br/>
 
@@ -151,3 +175,12 @@ category: cloudify player
 						</div>
 					</div>
 					</section>
+
+
+<script src="http://ricostacruz.com/nprogress/nprogress.js"></script>
+    <div id='hidden-iframe' style="display:none">&nbsp;</div>
+    <script type="text/javascript">
+      var WIDGET_ID = '233bf03a-3f41-46aa-ac64-4c5417c93fbc';
+    </script>
+    <script type="text/javascript" src='http://rantav.github.io/cloudify-widget-pages/scripts/script.js'></script>
+ <script type="text/javascript" src="//cdn.jsdelivr.net/jquery.postmessage/0.5/jquery.ba-postmessage.min.js"></script>
