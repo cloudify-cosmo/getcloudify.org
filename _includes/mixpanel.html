@@ -14,30 +14,58 @@ mixpanel.init("96365f48f34c41c7b91e045b4f48d53d");
 //mixpanel.track_forms('#ki_form', 'Qualaroo');
 mixpanel.track('Cloudify Community Page Views', {'page name' : document.title, 'url' : window.location.pathname});  
 $(function(){ 
-    // This sends us an event every time a user clicks the button
+////////////////////////////////////////
+//// MIXPANEL EVENTS////
+//////////////////////////////////////
+    // Home Page Download Button Clicks
 	$("a.hp-btn-getCloudify").click(function() {
-	    mixpanel.track("Get Cloudify Button Clicks",{'page name' : document.title, 'url' : window.location.pathname}); 
+	    	    mixpanel.track("Home Page Download Button Clicks",{'page name' : document.title, 'url' : window.location.pathname}); 
 	});
-	
-	$("a.getCloudifyBtn").click(function() {
-	    mixpanel.track("Home Page Download Button Clicks",{'page name' : document.title, 'url' : window.location.pathname}); 
+	// Download Button Clicks
+	$("a.dwnBtn").click(function() {
+	    	    mixpanel.track("Download Button Clicks",{'page name' : document.title, 'url' : window.location.pathname}); 
+	});	
+	//Get Cloudify Button Clicks - on download page
+	$("a.downloadme").click(function() {
 	    mixpanel.track("Get Cloudify Button Clicks",{'page name' : document.title, 'url' : window.location.pathname}); 
 	});	//Try It Now Click
 	$("a.hp-tryItNow").click(function() {
 	    mixpanel.track("Try it Now HP Button Clicks",{'page name' : document.title, 'url' : window.location.pathname}); 
 	});
-});
-
-
-mixpanel.track_forms("#searchForm", "Search",{'page name' : document.title, 'url' :  window.location.pathname});
-$(function(){ 
+	//Search
 	$("#goBtn").click(function() {
-		
 	var value = $('#search').val();
 	    mixpanel.track("Search",{"keyword": value}); 
-
 	});
+	//Social Button Clicks
+	$("a.socialbtn").click(function() {
+		var socialNetwork = $(this).attr("data-original-title");
+	    mixpanel.track("Social Button Clicks",{'page name' : document.title, 'url' : window.location.pathname, 'social-network': socialNetwork}); 
+	});
+	//Pro button nav bar clicks
+	$("a.goProBtn").click(function() {
+	    mixpanel.track("Pro button nav bar clicks",{'page name' : document.title, 'url' : window.location.pathname}); 
+	});
+	//Get Started button home page
+	$("a#getStartedBtn").click(function() {
+	    mixpanel.track("Get Started button home page",{'page name' : document.title, 'url' : window.location.pathname}); 
+	});
+	//Documentation Edit Button Clicks
+	$("button#edit-on-github").click(function() {
+	    mixpanel.track("Documentation Edit Button Clicks",{'page name' : document.title, 'url' : window.location.pathname}); 
+	});
+
+	
 });
+
+
+//TRACK FORMS
+/*-----------------------------------*/
+mixpanel.track_forms("#searchForm", "Search",{'page name' : document.title, 'url' :  window.location.pathname});
+//Track Subscribers
+mixpanel.track_forms('#mc-embedded-subscribe-form', 'Register for Event Button Clicks',{'page name' : document.title, 'url' : window.location.pathname});	
+mixpanel.track_forms('#ki_form', 'Qualaroo');
+
 
 //track Cloudify Early Access Builds
 //mixpanel.track_links("a.eaTitle", "Product Download - Early Access Builds", {'referrer': document.referrer });
@@ -53,7 +81,7 @@ $("body").live('change', function(){
 	 if($('input').hasClass('ki_explain_small')){
 	  var currEmail =  $("input.ki_explain_small").val();	
 	  mixpanel.name_tag(currEmail);
-	  mixpanel.people.identify(currEmail);
+	  mixpanel.identify(currEmail);
 	  mixpanel.people.set({
 	  $email: currEmail,
 	  $first_name: currEmail,

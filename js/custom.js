@@ -155,14 +155,14 @@ jQuery(document).ready(function($) {
 		
 	
 		//TWITTER
-		getTwitters('twitter', {
+		/*getTwitters('twitter', {
 			id: 'wrapbootstrap',
 			count: 1,
 			enableLinks: true,
 			ignoreReplies: false,
 			template: '<i class="icon-twitter icon-circled icon-48 active"></i><br /><span class="twitterPrefix"><span class="twitterStatus">%text%</span><br /><em class="twitterTime"><a href="http://twitter.com/%user_screen_name%/statuses/%id_str%">Date - %time%</a></em>',
 			newwindow: true
-		});
+		});*/
 
 	
 		//flexslider
@@ -238,6 +238,93 @@ jQuery(document).ready(function($) {
 
 
 });
+
+
+//////////////////////////Start YouTube Player  Data //////////////////////////////		
+//Current time   http://jsfiddle.net/M78zz/
+//var id = $.fancybox.inner.find('iframe').attr('id');
+//player = new YT.Player(id)
+//player.getCurrentTime()
+ var player ;
+ var videoTitle;
+ var videoWatchDuration;
+ var count=0;
+// Fires whenever a player has finished loading
+function onPlayerReady(event) {
+    event.target.playVideo();
+}
+
+// Fires when the player's state changes.
+function onPlayerStateChange(event) { 
+	videoWatchDuration = player.getCurrentTime();
+	//get title
+	var url=player.getVideoUrl();
+	var videoid = url.match(/(https?):\/\/(www.)?(youtube\.com\/watch\?v=|youtu\.be\/|youtube\.com\/watch\?feature=player_embedded&v=)([A-Za-z0-9_-]*)(\&\S+)?(\S)*/);
+	videoid=videoid[4];
+	
+	$.get('http://gdata.youtube.com/feeds/api/videos/'+videoid+'?v=2&alt=json',function(data) {
+		videoTitle=data.entry.title.$t;
+		if(videoTitle!=undefined){
+			mixpanel.identify() ;
+			mixpanel.people.set({
+				"Video Name": videoTitle,
+				"Video Watch Duration": videoWatchDuration
+			});
+			if(count==0){
+				mixpanel.people.increment({
+					"Watched Video": 1
+				}); 
+				mixpanel.track("Watched Video",{'page name' : document.title, 'url' :  window.location.pathname, 'video-name': videoTitle });
+				count+=1;
+			}
+		}
+	});
+	 if (event.data === 0) {
+	     // Go to the next video after the current one is finished playing
+	     $.fancybox.next();
+		 count=0;
+    }
+}
+
+
+   function onYouTubePlayerAPIReady() {
+    
+    // Initialise the fancyBox after the DOM is loaded
+    $(document).ready(function() {
+       
+		$(".fancybox")
+            .attr('rel', 'gallery')
+            .fancybox({
+                beforeShow  : function() {
+                    // Find the iframe ID
+                    var id = $.fancybox.inner.find('iframe').attr('id');
+					count=0;
+                    // Create video player object and add event listeners
+                    player = new YT.Player(id, {
+                        events: {
+                            'onReady': onPlayerReady,
+                            'onStateChange': onPlayerStateChange
+                        }
+                    });
+					
+					
+					
+                },
+				beforeClose: function() {
+				//alert(player.getCurrentTime())
+				//onPlayerStateChange() ;
+				videoWatchDuration = player.getCurrentTime();
+				mixpanel.people.set({
+				"Video Watch Duration": videoWatchDuration
+				});
+
+				}
+            });
+    });
+    
+}
+
+//////////////////////////End YouTube Player  Data //////////////////////////////
 
 
 

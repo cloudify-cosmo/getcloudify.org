@@ -31,10 +31,13 @@ category: video
 					<div class="span12">					    
 					    <p>Learn how to bootstrap, install, configure and play around with Cloudify with our video tutorials.</p>
 					</div>
+					<div class="span12 center" id="loading">
+						<i class="icon-spinner icon-spin icon-large"></i>loading content...
+					</div>
                     <!-- the input fields that will hold the variables we will use -->
                     <input type='hidden' id='current_page' />
                     <input type='hidden' id='show_per_page' />
-					<ul id="thumbs" class="portfolio cloudtv  ">
+					<ul id="thumbs" class="portfolio cloudtv   " style="display:none">
 					
 						<!-- Item Project and Filter Name -->
 						<li class="item-thumbs span3 design" data-id="id-0" data-type="web">
@@ -575,6 +578,12 @@ Vous pouvez t?l?charger Cloudify sur http://www.gigaspaces.com/cloudify">
 		</div>
 	</div>
 	</section>
+<script language="javascript" type="text/javascript">
+  $(window).load(function() {
+    $('#loading').hide();
+	$('.cloudtv').show();
+  });
+</script>
 <script type="text/javascript">
 //$(function() {    
  $(window).bind("load", function () {
