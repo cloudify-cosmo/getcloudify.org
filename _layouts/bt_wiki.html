@@ -11,6 +11,7 @@
 	<!-- start header -->
 	{% include header.html %}
 	<!-- end header -->
+
 	<section id="inner-headline">
 		<div class="container">
 			<ul class="breadcrumb">{% capture currentVersion %}{{ page.url | remove: "/guide/" | split:"/" | first }}{% endcapture %}
@@ -46,9 +47,12 @@
 				</script>
 			</div>
 	<div class="span9" id="docsWrap">
-		<button id="edit-on-github" data-toggle="popover" type="button" class="btn btn-default" style="float: right;"><i class="icon-github-alt icon-large"></i>&nbsp;&nbsp;Edit</button>
-		<h1 style="font-weight: bold;">{{ page.title }}</h1>		
-		{{content}}
+		<div id="resultsDiv" class="DocumentsWrap"></div>
+		<div id="pageContent">
+			<button id="edit-on-github" data-toggle="popover" type="button" class="btn btn-default" style="float: right;"><i class="icon-github-alt icon-large"></i>&nbsp;&nbsp;Edit</button>
+			<h1 style="font-weight: bold;">{{ page.title }}</h1>		
+			{{content}}
+		</div>
 		</div>
 	</div>
 </div>

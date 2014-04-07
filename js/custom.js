@@ -31,6 +31,8 @@ jQuery(document).ready(function($) {
 			window.location = $(this).val();
 		});
 		
+
+		
 	})();
 
 	
@@ -126,12 +128,13 @@ jQuery(document).ready(function($) {
 				
 			}
 			
-			if ($(this).scrollTop() < 500) {
-			$('.footerlist').fadeOut();
-			}
+			//if ($(this).scrollTop() < 500) {
+			//$('.footerlist').fadeOut();
+			//}
 			
 			//for footer
 			//if ($(this).scrollTop() > 400) {
+			/*
 			var totalHeight, currentScroll, visibleHeight; 
 			currentScroll = $(document).scrollTop();
 			// Height of page
@@ -143,7 +146,7 @@ jQuery(document).ready(function($) {
 				$('.footerlist').fadeIn();
 				} else {
 				//$('.footerlist').fadeOut();
-			}
+			}*/
 		});
 		$('.scrollup').click(function(){
 			$("html, body").animate({ scrollTop: 0 }, 1000);
