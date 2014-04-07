@@ -34,10 +34,10 @@ h2. How it actually works
 <p>A typical deployment includes the following steps:</p>
 
 
-# Setup the infrastructure: Setup network configurations (routers, security groups, public IPs), setup the compute and storage resources, and assign them to the relevant network and storage device.
-# Assign roles to each machine and install the relevant application tiers on these machines through SSH or shell scripts, or even by calling configuration management tools such as Chef or Puppet.
-# Start the relevant services in the right order based on their dependencies.
-# Wire in the application monitoring and logging.
+## Setup the infrastructure: Setup network configurations (routers, security groups, public IPs), setup the compute and storage resources, and assign them to the relevant network and storage device.
+## Assign roles to each machine and install the relevant application tiers on these machines through SSH or shell scripts, or even by calling configuration management tools such as Chef or Puppet.
+## Start the relevant services in the right order based on their dependencies.
+## Wire in the application monitoring and logging.
 
 
 * Manage the application: Once the application is deployed, Cloudify will continuously monitor the application to see that it meets the expected SLA, and will take corrective actions in case of a breach in the SLA, whether in the case of failure or scaling events.<br/>
