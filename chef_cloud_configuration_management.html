@@ -72,16 +72,66 @@ category: cloudify player
 				<div class="row colEven">
 
 					<div class=" span12"><div class="pr iconHolder"><img class="alignCenter" src="img/ChefDiagram.png"></div></div>
-				</div>
+					
 
-				<div class="row"><a name="applifecycle"></a></div>
+				<div class="row"><div class="span12" "aligncenter"><h2><strong>Cloudify features for Chef users</strong></h2></div></div>
 
 				<div class="row colOdd">
 
 					<div class=" span4"><div class="pr iconHolder"><img class="alignCenter" src="img/hpIcons/3.png"></div></div>
 					<div class=" span8"><div class="pad35">
-					<h2><strong>Fully Automated Application Lifecycle</strong></h2>
+					<h2><strong>Deployment features</strong></h2>
 					<p>Managing your applications on the cloud involves a lot of moving parts, and putting all the pieces together is often times error prone. Cloudify automates the entire application lifecycle, from deployment, to monitoring, scaling, failover, continuous delivery and infrastructure upgrades. Automating these processes significantly minimizes both the complexity and the margin of error when managing your app on the cloud.</p></div></div>
+				<div class="row">
+					<div class="span4">
+						<div class="box alignjustify">
+							<div class="aligncenter icon">
+								<i class=" icon-64">
+								<img src="img/chefcatalog.png" width="96"/>
+								</i>
+							</div>
+							<div class="text">
+								<br/>
+								<h4>Install Chef Server and Agent</h4>
+								<p>Cloudify takes the application topology as input and will provision a machine based on this specific application topology. Cloudify will allow you to install either a Chef Solo or Chef client per machine. It will also provision a Chef server or simply link all the services to an existing Chef server. Once the environment is set, it will allow you to invoke remote Chef commands directly from the Cloudify management console, enabling you to easily install new cookbooks, or manage your Chef deployment, as needed.</p>
+
+							</div>
+						</div>
+					</div>
+					<div class="span4">
+						<div class="box alignjustify">
+							<div class="aligncenter icon">
+								<i class="icon-64">
+									<img src="img/chefcatalog.png"  width="96"/>
+								</i>
+							</div>
+							<div class="text">
+							<br/>
+								<h4>Support Existing Chef Recipes & Cookbooks</h4>
+								<p>Many Chef users already have invested in creating Chef cookbooks and configuration. Cloudify was designed to be set as a service on top of your existing Chef environment, and therefore it will allow you to leverage your existing investment rather than re-configure the entire system.</p>
+
+							</div>
+						</div>
+					</div>
+							<div class="span4">
+						<div class="box alignjustify">
+							<div class="aligncenter icon">
+								<i class="icon-64">
+									<img src="img/Multi-CloudManager.png" width="151"/>
+								</i>
+							</div>
+							<div class="text">
+								<br/>
+								<h4>Application Lifecycle Management</h4>
+								<p>Deploying multi-tier applications include multiple services such as web container and data-base that are interdependent on one another. Cloudify will allow you to make sure that those services will start at the right order. It include specific hooks to monitor the life cycle of each application and inject the reference for each dependent service. In this example it will inject the reference to the database to each web container and it will inject each reference of the web container into the load-balancer service.
+</p>
+
+							</div>
+						</div>
+					</div>
+			
+			
+			
 				</div>
 
 				<div class="row"><a name="upgrades"></a></div>
