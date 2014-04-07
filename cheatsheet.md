@@ -6,7 +6,7 @@ weight:  700
 parent:  none
 ---
 
-{%summary%} Cheat sheet for Cloudify Documentation {%endsummary%}
+{%summary%} Lists the common macros for the Cloudify documentation and how to use them{%endsummary%}
 
 # Text
 
