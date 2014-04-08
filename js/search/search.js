@@ -153,7 +153,7 @@ $('#search').keydown(function(e){
 
         var arr = [
             '<li class="reg">',
-            '<a class="docTitle" href="',
+            '<div class="raw"><div class="span1"><i class="fa fa-file-text blue size70"></i></div><div class="span8"><a class="docTitle" href="',
             r.link.match(".*/guide/")?r.link.replace(".html", ""):r.link,
             '">'
             , r.title,
@@ -161,7 +161,7 @@ $('#search').keydown(function(e){
             '<br class="clear"/>',
             r.snippet,'&nbsp;&nbsp;',
             '<a class="rmore" href="', r.link, '" target="_blank">',
-            '<span>Read More</span></a></li>'
+            '<span>Read More</span></a></div><div class="clear"></div></div></li>'
         ];
 
 

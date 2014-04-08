@@ -1,0 +1,69 @@
+---
+layout: blogpost
+title: Why You SHOULD Want to Use OpenStack
+image: nati.png
+author: Nati Shalom
+tags: 
+ - Public Cloud
+ - Private Cloud
+ - Cloud Orchestration 
+ - OpenStack 
+---
+<notextile>
+<p>Over the past few weeks I came across various cases where people questioned the maturity of OpenStack and its fit to enterprise customers. The most recent one was a piece called "<a href="http://virtualizedgeek.com/2012/09/12/enterprises-should-just-ignore-openstack/?goback=.gde_3239106_member_5827095859459817474">Enterprises should just ignore OpenStack</a>", that basically suggested that OpenStack doesn't really answer any enterprise needs and that there are much more mature and viable options for enterprises today from a cloud perspective.&#160; </p>
+<p>Like many articles on this subject this one, in my opinion, was written to provoke a statement, and to gain the attention of the community.&#160; I think this article actually focused on issues that aren't necessarily specific to OpenStack per se.&#160; They're general gripes as I see them, focusing on two main points:</p>
+
+<ol>
+  <li>
+    <p>Why should enterprises use private vs. public cloud?</p>
+  </li>
+
+  <li>
+    <p>Why is a specific implementation of a private or public cloud important given that we can use an <a href="http://www.cloudifysource.org/guide/2.7/overview/cloudify_intro">abstraction layer</a> [such as Rightscale] to abstract the underlying details of the infrastructure?</p>
+  </li>
+</ol>
+
+<p>These points essentially aren't specific to OpenStack at all, they're general sentiments. In a similar way, these issues could apply to CloudStack or Azure, as well.&#160; In this context, the title should actually be "<strong><em>Why should I bother to use any cloud other than AWS</em></strong>?" </p>
+
+<p>Based on this assumption, my take on it is the following:</p>
+
+<ol>
+  <li>
+    <p>There are many organizations that don't want to lock themselves into a single vendor, regardless of how good or bad this vendor is. </p>
+  </li>
+
+  <li>
+    <p>There are still many cases in which controlling the infrastructure will give you a business advantage in controlling your product margins.&#160; That is, using specialized infrastructure that is more optimized for the kind of workload and customers that you are serving, than just general purpose infrastructure. </p>
+  </li>
+</ol>
+
+<p>Having said that, I think that the most important point is that OpenStack is not a product and shouldn't be measured as such. It's an ecosystem with strong foundations behind it. </p>
+
+<p>What does this mean and how does why does this make a difference to the end user? </p>
+
+<p>When there is a common baseline of infrastructure, it's much easier for an entire industry to plug into it and support it individually. This applies to all of the layers of the stack starting from storage, and network through more high level services such as big data services, and even analytics. </p>
+
+<p>In this context, the big cost saving is that all the major infrastructure providers have been adding support for OpenStack, which drives the cost down for three reasons:</p>
+
+<ol>
+  <li>
+    <p>The complexity of supporting a common infrastructure is lower by definition, than supporting diverse&#160; infrastructures that don't have any common ground.</p>
+  </li>
+
+  <li>
+    <p>OpenStack has become a marketplace for all the data center providers increasing the competition and in this way, driving down the cost of each provider.</p>
+  </li>
+
+  <li>
+    <p>This reduces the barrier of entry for more players, and as a result we're starting to see more startups providing new products and offering the ability to plug into OpenStack. </p>
+  </li>
+</ol>
+
+<p>This refers back to the the second point, on why abstraction isn't an alternative to OpenStack.&#160; In addition to the fact that you still need to make a conscious decision and know your underlying infrastructure, even if in the end your application may not be using it directly, but rather through an abstraction. The choice of infrastructure ties into many other aspects such as security regulations and cost. </p>
+
+<p>Having different infrastructure between your private and public cloud would almost, by definition, make the ability to have a consistent SLA and behavior much more complex to handle.&#160; On top of that, you'll need to cultivate a skill set for managing two different environments, which comes with its own risk and cost of labor, and adds to the general complexity of managing such infrastructure. </p>
+
+<p>OpenStack is currently in a better position to have a good public/private cloud story that uses the same underlying infrastructure. This ties into what I previously discussed, regarding the reason you have public/private cloud offering based on OpenStack more than on any other alternative in the first place.&#160; This is because it is open and has a strong and growing ecosystem behind it, which ultimately will result in more choices in the type of cloud, locations of data centers, cost and more. </p>
+
+<p>To summarize, if you measure OpenStack as a product, then it's likely that you'll reach the conclusion that at this point in time there are other products, including common public clouds, that are richer in features and more mature, and thus represent a more viable enterprise option, and a better fit. If you measure OpenStack as an ecosystem, then you need to take into consideration the longer term measurements that are by and large by far more important in an enterprise play.</p>
+</notextile>
