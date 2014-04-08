@@ -59,7 +59,7 @@ category: cloudify player
 					<p>Cloudify provides an application orchestration service with built-in monitoring and logging for deploying multi-tier applications through a single command.</p>
 				</div>
 			
-				<div class="row">
+				<div class="row colEven">
 					<div class="span4"><div class="pr iconHolder"><a class="hover-wrap fancybox fancybox.iframe" data-fancybox-group="gallery" title="Cloudify Your App on Chef" href="http://www.slideshare.net/slideshow/embed_code/33076919"> <img class="alignCenter" src="img/CloudifyChef.png" width="350"></a></div></div>
 					<div class="span8"><div class="pad35">	<h2>What does this actually mean for Chef users?</h2>
 					<p>Essentially, Chef users can easily import their existing Chef server and Chef cookbooks, and use Cloudify to manage the application deployment and monitoring.  All this, while using Chef for setting up the configuration and installation of those services, just like Chef users are used to.</p>
@@ -76,13 +76,10 @@ category: cloudify player
 				<div class="span2"><p></p></div>
 				<div class="span8">
 				<div class="aligncenter icon">
-				<p><strong>You are here</strong></p>
+				<p><strong>You are here <i class="icon-50 icon-circle-arrow-down"></i></strong></p>
 				<div class="aligncenter icon">
-				<p><i class="icon-50 icon-circle-arrow-down"></i></p>
-				</div>
-				<div class="aligncenter icon">
-				<img src="img/ChefDiagram.png" width="650"></p>
-					
+				<img src="img/ChefDiagram.png" width="650">
+				
 				</div>
 				<div class="span2"><p></p></div>
 
@@ -156,48 +153,51 @@ category: cloudify player
 
 				<div class="row colEven">
 
-					<div class=" span8"><div class="pad35">
+					<div class="span8"><div class="pad35">
 					<h2><strong>Post Deployment Features</strong></h2>
 					<p>Cloudify supports post-deployment infrastructure upgrades and fine-tuning via our blueprints or custom commands. These custom commands can be invoked manually or programmatically, through the Cloudify CLI or REST API, invoking the custom command describe in the blueprint. For example, a custom command can define how to acquire a new version of your code and deploy it onto your middleware.</p></div></div>
-					<div class=" span4"><div class="pr iconHolder"><img class="alignCenter" src="img/hpIcons/4.png"></div></div>
+					<div class=" span4"><div class="pr iconHolder"><img class="alignCenter" src="img/management.png"></div></div>
 				
 					
 					<div class="container">
-	<div class="row"><h2><strong>Additional Features</strong></h2>
-				</div>
+
+			
 		<div class="row">
 			<div class="span12">
 				<div class="row">
-					<div class="span4">
+					<div class="span6">
 						<div class="box alignjustify">
 							<div class="aligncenter icon">
 								<i class=" icon-64">
-								<img src="img/BlueprintCatalog.png" width="96"/>
+								<img src="img/MonitoringUI.png" width="450"/>
 								</i>
 							</div>
 							<div class="text">
 								<br/>
-								<h4>From Blueprint to Production</h4>
-								<p>Automate your move to the cloud with Cloudify’s simple blueprints. Blueprints treat your infrastructure as code, mapping out the details needed to run an application: what middleware services it needs to run and their dependencies, how to install them, where to find the application and service binaries, when to spin more instances or terminate existing ones, and even how to monitor the entire app lifecycle.</p>
+								<h4>Monitoring and Logging</h4>
+								<p>One of the challenges in any deployment is to keep the Chef configuration management and monitoring systems in sync.</p>
+								<p>Cloudify glues the two together by providing built-in monitoring that is automatically updated as part of the deployment process. In addition, Cloudify’s monitoring fills a void that other monitoring systems don’t cover well as they were designed to monitor applications only after they have been deployed, while the monitoring of the deployment and setup process is also needed.  Cloudify also provides built-in logging and alerting, as well as custom metrics to measure specific key performance indicators of each of the managed services.</p>
 
 							</div>
 						</div>
 					</div>
-					<div class="span4">
+					<div class="span6">
 						<div class="box alignjustify">
 							<div class="aligncenter icon">
 								<i class="icon-64">
-									<img src="img/openstack-one-color-alt.png"  width="121"/>
+									<img src="img/Remote Execution.png"  width="450"/>
 								</i>
 							</div>
 							<div class="text">
 							<br/>
-								<h4>Native to OpenStack</h4>
-								<p>With native OpenStack integration, Cloudify is designed to make your transition to OpenStack even more seamless, with full support for major OpenStack APIs and TOSCA-based topology blueprints.</p>
+								<h4>Remote Execution</h4>
+								<p>One of the key features for DevOps users is to be able to interact with their existing deployed services and push new updates. Cloudify adds a remote execution command that allow you invoke remote shell and Chef commands as part of a DevOps deployment process. The remote execution feature will allow you to simply set the invocation on a specific instance or for all of the the instances of a particular service.</p>
 
 							</div>
 						</div>
 					</div>
+					
+					<div class="row">
 							<div class="span4">
 						<div class="box alignjustify">
 							<div class="aligncenter icon">
@@ -207,9 +207,10 @@ category: cloudify player
 							</div>
 							<div class="text">
 								<br/>
+								<div class="span8">
 								<h4>Multi-Cloud Interoperability</h4>
 								<p>With no lock-in, you can maintain full interoperability with existing infrastructure and change clouds at any stage. Future-proof your apps to run on the cloud at a later stage and move when you are ready without additional investment.</p>
-
+							</div>
 							</div>
 						</div>
 					</div>
@@ -222,66 +223,10 @@ category: cloudify player
 				<br/><br/>
 				</div>
 				</div>
-		</section>
 	 <div class="clear"></div>  
 
 
-	 <section id="content">
-	<div class="container">
-	<div class="row"><h2><strong>Additional Features</strong></h2>
-				</div>
-		<div class="row">
-			<div class="span12">
-				<div class="row">
-					<div class="span4">
-						<div class="box alignjustify">
-							<div class="aligncenter icon">
-								<i class=" icon-64">
-								<img src="img/BlueprintCatalog.png" width="96"/>
-								</i>
-							</div>
-							<div class="text">
-								<br/>
-								<h4>From Blueprint to Production</h4>
-								<p>Automate your move to the cloud with Cloudify’s simple blueprints. Blueprints treat your infrastructure as code, mapping out the details needed to run an application: what middleware services it needs to run and their dependencies, how to install them, where to find the application and service binaries, when to spin more instances or terminate existing ones, and even how to monitor the entire app lifecycle.</p>
-
-							</div>
-						</div>
-					</div>
-					<div class="span4">
-						<div class="box alignjustify">
-							<div class="aligncenter icon">
-								<i class="icon-64">
-									<img src="img/openstack-one-color-alt.png"  width="121"/>
-								</i>
-							</div>
-							<div class="text">
-							<br/>
-								<h4>Native to OpenStack</h4>
-								<p>With native OpenStack integration, Cloudify is designed to make your transition to OpenStack even more seamless, with full support for major OpenStack APIs and TOSCA-based topology blueprints.</p>
-
-							</div>
-						</div>
-					</div>
-							<div class="span4">
-						<div class="box alignjustify">
-							<div class="aligncenter icon">
-								<i class="icon-64">
-									<img src="img/Multi-CloudManager.png" width="125"/>
-								</i>
-							</div>
-							<div class="text">
-								<br/>
-								<h4>Multi-Cloud Interoperability</h4>
-								<p>With no lock-in, you can maintain full interoperability with existing infrastructure and change clouds at any stage. Future-proof your apps to run on the cloud at a later stage and move when you are ready without additional investment.</p>
-
-							</div>
-						</div>
-					</div>
-
-				</div>
-			</div>
-		</div>
+	 
   						<div class="row">
 							<div class="span12">
 								<h2><strong>Learn more about Cloudify Premium<sup>TM</sup> or Download Now</sup></strong></h2>
