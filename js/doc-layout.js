@@ -28,7 +28,7 @@ $(function () {
   });
 
   summary_html = "";
-  $('#docsWrap').children('h1').slice(1).each(function(index, item) {
+  $('#pageContent').children('h1').slice(1).each(function(index, item) {
     summary_html += '<li><a href="#'+item.id+'">'+item.innerHTML+'</a></li>';
   });
 
