@@ -1,0 +1,63 @@
+---
+layout: blogpost
+title: Network Automation and Orchestration with Openstack and Cloudify
+image: nati.png
+author: Nati Shalom
+tags: 
+ - Network Automation
+ - NFV
+ - Neutron
+ - Cloud Orchestration 
+ - OpenStack 
+---
+<notextile>
+<p>In my previous post I discussed the <a href="http://www.cloudifysource.org/2014/02/14/networking_from_then_to_cloud.html">evolution of networking</a> in the cloud - from commodity hardware to the cloud, and the need for the virtualization of network functions, and the different drivers for change.&#160; In this post I will focus on orchestrating your networking through OpenStack's Neutron, its challenges and potential.</p>
+<h3>Bringing the Network and Applications Together</h3>
+<p>So, as I mentioned in my previous post, when OpenStack introduced its networking API, known as Neutron, this provided a new way to set up networking services and configurations such as routers, subnets, floating IPs, security groups, and more through a simple API.&#160; Until now we used to think of network configuration and application deployments as two separate things. This also goes back to the way most of our IT is structured.&#160; We have different groups for networking operations and for applications' operations and in most cases they have a fairly loose interface between one another.</p>
+<p>As with DevOps once we open our infrastructure layers through APIs we can break those traditional boundaries between networking and apps. In a networking context, this means being able to create and configure our network as part of the application deployment.&#160; To understand what this really means, let's examine what the typical steps that we need to follow to set up networking for our application.</p>
+<h3>Typical Network Configuration:</h3>
+
+<ol>
+  <li>Set up admin network for our application monitoring and control services </li>
+
+  <li>Set up application network to allow internet access to the relevant machines </li>
+
+  <li>Set up the security group per application tier (open only the ports and IPs relevant for that tier) </li>
+
+  <li>Set up floating IPs where needed </li>
+
+  <li>Set up a load balancer and configure it to route traffic to our web containers </li>
+</ol>
+
+<h3>Adding Continuous Availability</h3>
+
+<p>There are a set of additional network configuration steps that needs to be considered when we think of high availability.</p>
+
+<p>Such steps often include:</p>
+
+<ol>
+  <li>Partitioning our services into separate availability zones and regions </li>
+
+  <li>Setting up connectivity between the availability zones and regions (which often run on separate networks) </li>
+
+  <li>Switching back and forth between each availability zone in case of a failure </li>
+</ol>
+
+<h3>Orchestrating and Automating&#160; Network Configurations as a Part of Application Deployment</h3>
+
+<p>Today most of the steps required to set up our network are often done manually and externally to our applications. Now that we have API access, and our networking is basically software-driven, we can automate this entire process.&#160; As many of those steps tie in more directly to our application services, we need to include them with our application deployment. </p>
+
+<h3>Network Orchestration Through a Simple Blueprint</h3>
+
+<p>With an orchestrator, users can define their own gateways, routers, and security groups through simple software configuration files, or blueprints, that are written in a language that the orchestrator (software operator) can understand. </p>
+
+<p>With the latest <a href="http://www.cloudifysource.org/guide/2.7/developing/recipes_and_networking.html">Cloudify 2.7 release </a>we added the ability for users to set up their network configuration as part of their application deployment blueprint. This allows users to set up security groups, separate networks, isolate the management network from the application's network, define whether a certain piece of your application will run in the same availability zone or not, control if the storage will be close to the application geographically (i.e. the affinity rule).&#160; Read about <a href="http://www.cloudifysource.org/guide/2.7/developing/recipes_and_networking.html">Network Automation</a> to see how such a blueprint should look. </p>
+
+<h3>Final words</h3>
+
+<p>Bringing the application and networking together provides an easy way for users to capture the value of newly available network capabilities without having to become a network operator themselves. This significantly simplifies the complexities involved with exposing networking elements to the user by abstracting the networking piece of our deployment into an application blueprint. </p>
+
+<p>In addition, the fact that we can setup our network configuration as part of our application deployment allows us to harden our security to match our application topology exactly . For example, we can choose to open only the necessary nodes to internet access, setup security groups dynamically to match the ports and IP addresses that are allowed to access our service and other such customizations. In this way, setting up an application and its network configuration is infinitely simplified for an application developer. </p>
+
+
+</notextile>

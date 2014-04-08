@@ -1,0 +1,38 @@
+---
+layout: blogpost
+title: Cloud Orchestration with Bare Metal Machines
+image: anna.png
+author: Anna Bankirer
+tags: 
+ - Cloud Automation
+ - Virtualization
+ - Bare Metal Cloud
+ - Cloud Orchestration  
+---
+<notextile>
+
+<p>Enterprise companies tend to use bare metal machines extensively for their mission critical and data intensive applications, as bare metal provides superior performance and I/O over your average virtual machines.&#160; In addition, VMs also come with the added issue of noisy neighbors.&#160; This is also why many cloud providers have started supporting bare metal clouds.&#160; The need for <a href="http://www.cloudifysource.org/2012/05/20/bare_metal_paas.html">bare metal cloud</a> was discussed in a previous post.&#160;&#160; In this post I will dive into the orchestration of bare metal machines, which is very different in its approach from orchestration of typical VMs.</p>
+
+<p>When we're talking about VMs, usually there are a lot of things that are implied, especially with regards to orchestration.&#160; The first being that VMs are cheap, and that the allocation of machines is quick.&#160; So depending on the service provider, for the most part, you can bank on the fact that the allocation of VM resources is for the most part cheap and fast - and can be done usually in a matter of seconds or&#160; minutes at most.</p>
+
+<p>Bare metal on the other hand is considered much more expensive, no matter whether the payment plan is hourly or monthly. Another major difference is with the provisioning of resources and startup time.&#160; Because bare metal machines, as indicated by their name, are physical machines, these can take up to hours at times to allocate.&#160; As a result orchestration in such scenarios can be quite complex, and requires adjustment in the orchestration mechanism.&#160; This is especially true when considering that moving to the cloud is essentially supposed to provide the advantages of elasticity and pay per use.&#160; </p>
+
+<p>The process of orchestration of these machines provides much needed automation for bare metal, and provides easier management than what comes out of the box.&#160; However, this is easier said than done.&#160; Orchestration of bare metal machines presents several challenges. </p>
+
+<p>When discussing automatic processes it's hard to speak in terms of minutes if not hours. For example a user who wants to access your application can't, and simply will not, wait hours for you to provision a machine when it is needed.&#160; This needs to be done in increments of minutes not hours.&#160; What's more, on top of this, usually the app itself is also pretty heavy, and can take time to start, which too can even take hours which is unacceptable in many cases.</p>
+
+<p>Another challenge when it comes to bare metal machines is actually the cost considerations involved.&#160; Orchestration is very expensive.&#160; With VMs this is cheap and as a result you can scale easily by simply starting new machines on demand. Redundant and un-utilized bare metal resources are expensive to maintain, so it is not a simple matter to just start another machine. Orchestration with these types of machines is much more subtle, and scaling needs to much more tuned to cost, as opposed to response time.&#160; Therefore, when we discuss orchestration in the context of bare metal we need to differentiate, and can't just apply the same principles of orchestration to bare metal as we do with VMs.&#160; </p>
+
+<p>One solution is using pre-allocated machines, if you're willing to pay for them.&#160; This is basically the best solution from a response time and performance perspective.&#160;&#160; With this approach you can always pull the resource in advance, and this, of course provides the best user experience, as well.&#160; Basically instead of allocating a new machine, you manage your machines as a pool of resources.&#160; In this manner, you take a resource from the pool, and when you're done you have to return it. The downside, is that this is something you need to do yourself, either on the application level (through app logic) or manually.&#160; This is not functionality you can receive out of the box from cloud providers.&#160; </p>
+
+<p>If you want to provide the best possible performance, you have to be smart with everything that concerns scale out.&#160; Since you cannot just trigger scale out when you hit a certain load, or encounter a&#160; performance problem like with a regular VM, as provisioning takes time - you have to scale out intelligently.&#160; For example, if you'd like to scale out based on CPU, you can't just scale when you reach a load of 80%. You'll need to employ much more prudent algorithms, that would technically need to trigger scale out much earlier than the performance issue actually occurs, for instance as early as 50%. Another way is to apply smart prediction algorithms that take into consideration specific time frames, areas of loads, and historical data based on known trends.&#160; This is because reaching a 50% load doesn't necessarily mean you'll always reach the load of 80%, and as mentioned before one does not simply provision a bare metal machine that will be un-utilized.&#160; </p>
+
+<p><img src="https://lh4.googleusercontent.com/W2I4H3Ns6R8ZCxynbeST3aqIqERy5Kbq1JEhm7hfngZ5CK4uPIAcly2y2QfpNJYrozCrFpqfWDqtQIfn53oR_GbZLSR4YDfTsRCsqUfB7o7WuwcLMhUPyNurnzikGg" width="480" height="283" /></p>
+
+<p>There are plenty of posts that discuss intelligent and <a href="http://www.cloudifysource.org/2014/02/27/from_simple_automation_to_proactive_orchestration.html">proactive monitoring</a> in a Cloudify context.&#160; This can and should also be leveraged for the purpose of bare metal orchestration, as this allows you to analyze your data over time and trigger your events correctly.</p>
+
+<p>The most cost effective solution has a performance tradeoff, and that is using a hybrid approach of bare metal and VMs for peak loads.&#160; For example, when you know you need to allocate a machine, and you don't have time to wait for a bare metal machine.&#160; This is best for scenarios when you can't anticipate in advance an event that will require the triggering of a new machine, or you simply don't want to pay for an un-utilized machine.&#160; In this approach you start a VM when scale out is required, and in the interim a bare metal machine is provisioned in the background.&#160; This is a gradual scale out method and will ensure a return to the level of performance required for data intensive applications once the bare metal machine is up and running.</p>
+
+<p>So just to sum it up, when we discuss bare metal machines there are the cost and performance considerations that need to be taken into account when it comes to orchestration.&#160; There are tradeoffs with the solutions available.&#160; For companies who cannot afford to provision under-utilized bare metal machines, the hybrid scale out approach is best.&#160; For companies that cannot sacrifice performance, scale out needs to be based on intelligent monitoring and analysis of metric and threshold data to ensure scale out isn't performed unnecessarily. </p>
+
+</notextile>
