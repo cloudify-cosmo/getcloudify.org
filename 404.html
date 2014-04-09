@@ -3,6 +3,15 @@ layout: index
 title: Oops, Page Not Found. Cloudify - The Devops Automation Platform 
 cat: 404
 ---
+
+<script type="text/javascript">
+if ( !( $(location).attr("href").match("\.html$") ) ) {	
+	var newPage = $(location) + ".html";
+	//alert("404.html newPage: " + newPage);
+	$(location).attr("href", newPage);
+}
+</script>
+
 <div class="contentWrap">
     <section id="content"> 
             <p align="center">
