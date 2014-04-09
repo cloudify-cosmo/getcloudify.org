@@ -13,13 +13,13 @@ h2. Before You Start
 
 Before you start developing you cloud driver, make sure you have the following:
 * "Apache Maven":http://maven.apache.org/
-* "Cloudify":../setup/installing_the_cloudify_client
+* "Cloudify":../setup/installing_the_cloudify_client.html
 * The security credentials for your cloud's API calls, for accessing your machines using SSH, and if required for accessing your cloud's storage.
 <h4 class="info">For example, to obtain security credetials for Openstack, perform the following steps:
 <ol><li>Request a login, and its corresponding access key and secret key, from your Openstack administrator. In the @user@ section of the cloud driver configuration file, the access key and secret key correspond to the @user@ and the @apiKey@ attributes respectively.</li>
 <li>Generate a SSL key pair file (required for bootstrapping machines) using "HybridFox":http://code.google.com/p/hybridfox/, and save it in the cloud driver's @upload@ folder. In the @user@ section of the cloud driver configuration file, the @keyFile@ attribute is set to the path of the SSL key pair file.
 <img src="../../images/clouddrivers/cloud_driver_plugin.png"/></li></ol></h4>
-* "Create cloud images":../setup/post_installation_configuration#images
+* "Create cloud images":../setup/post_installation_configuration#images.html
 
 h2. Configure your Maven @pom@ File
 

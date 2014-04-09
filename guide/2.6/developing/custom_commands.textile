@@ -11,7 +11,7 @@ When a custom command is invoked using the Cloudify shell, it runs the correspon
 
 h2. Why use Custom Commands?
 
-In many scenarios, you may want to have greater control over your application service than is provided by the built-in "lifecycle events":../developing/lifecycle_events. For example, you may want to implement various application-level concerns, such as hot upgrades (e.g. replacing a @.war@ file, and then refreshing the web container), database schema updates, and more.
+In many scenarios, you may want to have greater control over your application service than is provided by the built-in "lifecycle events":../developing/lifecycle_events..html For example, you may want to implement various application-level concerns, such as hot upgrades (e.g. replacing a @.war@ file, and then refreshing the web container), database schema updates, and more.html
 
 Cloudify provides this mechanism by allowing you to describe *Custom Commands* using Groovy closures, external Groovy scripts, or external shell/batch scripts. The commands can be parameterized, and are invoked using the Cloudify shell. 
 
@@ -29,12 +29,12 @@ h4(warn). When using user-defined Java libraries in your Groovy closures or scri
 
 h4(warn). Any external script invoked by the custom command must be copied to the service folder.
 
-The @customCommands@ section must be located in the "@General@":../developing/service_recipe section of the relevant service descriptor file (@<service name>-service.groovy@). The following example shows the @customCommands@ section after the @lifecycle@ section, in the @General@ section of the service descriptor file.
+The @customCommands@ section must be located in the "@General@":../developing/service_recipe.html section of the relevant service descriptor file (@<service name>-service.groovy@). The following example shows the @customCommands@ section after the @lifecycle@ section, in the @General@ section of the service descriptor file.html
 <script src="https://gist.github.com/2267558.js?file=tomcat.groovy"></script>
 
 h2. Invoking Custom Commands
 
-During the "deployment":../deploying/deploying_apps of your application, the custom commands that you specified in the recipe are registered. Once your application is up and running, you can invoke custom commands at any time from the Cloudify shell.
+During the "deployment":../deploying/deploying_apps.html of your application, the custom commands that you specified in the recipe are registered. Once your application is up and running, you can invoke custom commands at any time from the Cloudify shell.html
 	
 To invoke a custom command that does have parameters, at the Cloudify shell prompt, type: *@invoke@* @ServiceName customCommandName@
 

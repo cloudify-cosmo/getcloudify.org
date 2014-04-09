@@ -12,8 +12,8 @@ The Cloudify web management console provides a web-based gui for monitoring your
 h2. Built-In and Custom Metrics
 
 By default, Cloudify monitors generic metrics such as CPU usage and memory utilization. But it can also monitor any other, more specific, metrics using one of the following custom mechanisms:
-* "Monitoring Probes":../plugins_and_probes/probes--Groovy closures that emit metrics and their current value.
-* "Monitoring Plugins":../plugins_and_probes/develop_your_plugin--Java classes that emit metrics and their current value.
+* "Monitoring Probes":../plugins_and_probes/probes--Groovy.html closures that emit metrics and their current value.html
+* "Monitoring Plugins":../plugins_and_probes/develop_your_plugin--Java.html classes that emit metrics and their current value.html
 
 Cloudify invokes the probe or plugin every 5 seconds, and expects to receive a *Map* that contains the names of the metrics as keys and their respective values. Both the built-in and custom metrics can be displayed in the web management console.
 
@@ -35,4 +35,4 @@ The following shows the manifestation of the example, the former showing the *Me
 
 h2. Built-In Recipes as an Example
 
-The best way to start with metrics configuraiton is to look at one of the built-in examples, e.g. the PetClinic recipe under @<cloudifyRoot>/examples/petclinic. The tomcat recipe (@<cloudifyRoot>/examples/petclinic/tomcat/tomcat-service.groovy) uses a the JMX plugin, whereas the MongoDB recipes (@<cloudifyRoot>/examples/petclinic/mongod) usea a "custom plugin":../plugins_and_probes/develop_your_plugin that connects to MongoDB using its Java API and fetches metrics using specific MongoDB API commands.
+The best way to start with metrics configuraiton is to look at one of the built-in examples, e.g. the PetClinic recipe under @<cloudifyRoot>/examples/petclinic. The tomcat recipe (@<cloudifyRoot>/examples/petclinic/tomcat/tomcat-service.groovy) uses a the JMX plugin, whereas the MongoDB recipes (@<cloudifyRoot>/examples/petclinic/mongod) usea a "custom plugin":../plugins_and_probes/develop_your_plugin.html that connects to MongoDB using its Java API and fetches metrics using specific MongoDB API commands.html

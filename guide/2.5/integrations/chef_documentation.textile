@@ -41,7 +41,7 @@ The @ChefBootstrap.getBootstrap@ method is a factory method pattern that selects
 
 h2(#using). Using Chef with Cloudify
 
-The next sections of this guide assume that you have Cloudify installed and that you have "bootstrapped a Cloudify environment":../bootstrapping/bootstrapping_process, ready to install an application. For a quick introduction to setting up a Cloudify cloud, see Cloudify's "Quick Start Guide":../qsg/quick_start_guide_helloworld.
+The next sections of this guide assume that you have Cloudify installed and that you have "bootstrapped a Cloudify environment":../bootstrapping/bootstrapping_process,.html ready to install an application. For a quick introduction to setting up a Cloudify cloud, see Cloudify's "Quick Start Guide":../qsg/quick_start_guide_helloworld.html
 
 h4(info). If you'd like to use Cloudify for installing a Chef server, and using 2.2 miletone 4 or lower, please make sure to use a Ubuntu 11.10 or 12.04 Cloud Driver template, since the Chef server recipe has only been certified for Ubuntu at this point. You can find such a template for Amazon ec2 in the "Cloudify cloud drivers repo on Github":https://github.com/CloudifySource/cloudify-cloud-drivers
 
@@ -65,13 +65,13 @@ To deploy the Chef Server:
 # Connect to the Cloudify Management machine: From the Cloudify shell prompt, type: *@connect <cloudify REST gateway URL>@*
 # Deploy the Chef Server: From the Cloudify shell prompt, type: *@install-service@* @<cloudifyRoot>/recipes/services/chef-server@ (the recipe location can be any location on your local disk to which you've downloaded the Cloudify Chef server recipe).
 
-Once the Chef server is deployed, its location is published as the "global attribute":..developing/attributes_api @chef_server_url@ in Cloudify's attributes store.
+Once the Chef server is deployed, its location is published as the "global attribute":..developing/attributes_api.html @chef_server_url@ in Cloudify's attributes store.html
 
 h4(info). Alternatively, you can configure Cloudify to use an existing Chef Server by setting this attribute manually using the Cloudify shell, as presented below. This can be a Chef server you installed separately or the "Hosted Chef":http://www.opscode.com/hosted-chef/ service. <br/><script src="https://gist.github.com/3705045.js?file=chef-set-attributes"></script>
 
 h3. Loading the mySQL Cookbook
 
-The Cloudify Chef Server recipe adds a "custom command":../developing/custom_commands to the Chef Server that allows users to upload cookbooks to the Chef server. You can point to a HTTP URL of a cookbooks tarball, a git or SVN repository URL (more on this below).
+The Cloudify Chef Server recipe adds a "custom command":../developing/custom_commands.html to the Chef Server that allows users to upload cookbooks to the Chef server. You can point to a HTTP URL of a cookbooks tarball, a git or SVN repository URL (more on this below).html
 
 This is done by invoking the @updateCookbooks@ custom command from the Cloudify shell.
 *@invoke@* @chef-server@ @updateCookbooks@ _@tar 'http://repository.cloudifysource.org/chef-cookbooks/mysql_cookbook_with_deps.tgz'@_
@@ -88,19 +88,19 @@ h2(#additional). Running Additional Cookbooks
 
 h3. Creating Recipes based on Chef Cookbooks
 
-If you are not familiar with Cloudify recipes, please read "Anatomy of a Recipe":/guide/2.1/developing/recipes_overview.html first.
+If you are not familiar with Cloudify recipes, please read "Anatomy of a Recipe":/guide/2.1/developing/recipes_overview first.
 
 To create a Cloudify Chef recipe:
 # Create an application recipe folder (e.g. "petclinic").
-# Add the "application level recipe file":../developing/application_recipe describing the service dependencies in your application.
+# Add the "application level recipe file":../developing/application_recipe.html describing the service dependencies in your application.html
 # Create a sub folder for each service (e.g. "tomcat" or "mysql")
 # For each service you'd like to install using Chef, create a service recipe (@<serviceName>-service.groovy@) file that extends the @chef@ recipe, specifying the service name, icon, number of instances, etc.
 <script src="https://gist.github.com/3656102.js"> </script>
 
 Optionally, you can specify the following sections in your recipe:
-* * "Monitoring":../plugins_and_probes/probes : Describes the custom performance indicators (metrics) to collect.
-* * "Scaling Rules":../developing/scaling_rules : Describes the performance indicators and thresholds to use to scale your service.
-* * "Custom Commands":../developing/custom_commands : Describes custom commands that add functionality. The commands can be invoked using the Cloudify shell at any time. They are usually used for various maintenance and application upgrade tasks.
+* * "Monitoring":../plugins_and_probes/probes.html : Describes the custom performance indicators (metrics) to collect.html
+* * "Scaling Rules":../developing/scaling_rules.html : Describes the performance indicators and thresholds to use to scale your service.html
+* * "Custom Commands":../developing/custom_commands.html : Describes custom commands that add functionality. The commands can be invoked using the Cloudify shell at any time. They are usually used for various maintenance and application upgrade tasks.html
 * In the same folder, create a service properties file (@<serviceName>-service.properties@), specifying a property called @runParams@. For example, you can assign a groovy structure that gives an array of the Chef recipes to use, the name of the cookbook, and the default attributes.
 <script src="https://gist.github.com/3656114.js"> </script>
 

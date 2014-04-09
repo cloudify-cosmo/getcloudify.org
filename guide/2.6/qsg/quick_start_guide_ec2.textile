@@ -7,7 +7,7 @@ abstract: This guide is to help you get started with Cloudify on EC2. Start here
 pageord: 200
 --- 
 
-The goal of this guide is to familiarize you with Cloudify in a few simple steps. For this purpose, we will use the PetClinic application (an example application that is included in the Cloudify distribution file) to demonstrate the steps required to deploy an application on an Amazon EC2 cloud. For a guide to deploying Cloudify on a local cloud, see "Deploy a Simple App Locally":../qsg/quick_start_guide.
+The goal of this guide is to familiarize you with Cloudify in a few simple steps. For this purpose, we will use the PetClinic application (an example application that is included in the Cloudify distribution file) to demonstrate the steps required to deploy an application on an Amazon EC2 cloud. For a guide to deploying Cloudify on a local cloud, see "Deploy a Simple App Locally":../qsg/quick_start_guide.html
 
 This guide teaches you how to:
 * "Install the Cloudify Shell":#step1
@@ -84,7 +84,7 @@ The installation progress is displayed for the following Cloudify components as 
 * *The REST gateway service*--The service that exposes a RESTful interface to the services provided by the management service.
 * *The Web management console service*--The service that provides a Web-based GUI to the Cloudify environment and allows you to easily monitor your applications.
 
-h4(info). To obtain a list of all the available commands, type @<tab>@, or to view help for a specific command, type @[cmd] --help@. Note that the Cloudify shell automatically connects to the REST service such that you do not have to run the *connect* command separately. For more information about Cloudify commands, see "(newwindow)Command Line Reference":../recipe/command_line_reference.
+h4(info). To obtain a list of all the available commands, type @<tab>@, or to view help for a specific command, type @[cmd] --help@. Note that the Cloudify shell automatically connects to the REST service such that you do not have to run the *connect* command separately. For more information about Cloudify commands, see "(newwindow)Command Line Reference":../recipe/command_line_reference.html
 
 <img src="../../images/setup/bootstrapp_ec2_1.jpg" width="714" height="495" />
 
@@ -116,8 +116,8 @@ The following diagram depicts the PetClinic application's recipe file and folder
 
 h4(info). All the services in this application extend a corresponding recipe in ../../../services/ folder.      
 
-For more information about recipes, see "(newwindow)Anatomy of a Recipe":../developing/recipes_overview.
-For more information about extending services, see "(newwindow)Extending Service Recipes":../developing/extending_recipes.
+For more information about recipes, see "(newwindow)Anatomy of a Recipe":../developing/recipes_overview.html
+For more information about extending services, see "(newwindow)Extending Service Recipes":../developing/extending_recipes.html
 </div>
 
 h2. <span class="inlineToggleExpandBtn">The Application Recipe</span>
@@ -140,13 +140,13 @@ From the application descriptor file, we can learn the following information:
 * The @mongos@ service depends on the @mongoConfig@ and @mongod@ services; hence the @mongos@ service will not start until these services have successfully started.
 * The @tomcat@ service depends on the @mongod@ service; hence the @tomcat@ service will not start until the @mongod@ service has successfully started.
 
-For more information, see "(newwindow)The Application Recipe":../developing/application_recipe.
+For more information, see "(newwindow)The Application Recipe":../developing/application_recipe.html
 </div>
 
 h2. <span class="inlineToggleExpandBtn">The Service Recipe</span>
 
 <div class="expand">
-Every service has its own mandatory service recipe based on a "(newwindow)recipe structure":../developing/recipes_overview that is common to all of them.
+Every service has its own mandatory service recipe based on a "(newwindow)recipe structure":../developing/recipes_overview.html that is common to all of them.html
 
 Each service folder contains all the information required by the service. The following is a list of the service recipe's files and folders:
 
@@ -156,20 +156,20 @@ Each service folder contains all the information required by the service. The fo
 For example, the @<service name>_install.groovy@ script will typically run during the installation of the service, if it's specified in the @lifecycle@ section of the service descriptor file.
 <h4 class="info">You can specify any preferred name for lifecycle handlers, as long as you specify their exact names in the corresponding service file.</h4>
 * An optional folder called @usmlib@ which must contain all the jar files of your custom probes.
-Cloudify is distributed with "(newwindow)Scripted Probes":../plugins_and_probes/probes that you can configure as required. However, you can also develop your own "(newwindow)Plugin Probes":../plugins_and_probes/develop_your_plugin and add them to the recipe in this folder. For example, in the PetClinic application we used our Cloudify Mongo Plugin Probe "(newwindow)cloudify-mongo-plugin.jar":http://www.gigaspaces.com/wiki/download/attachments/55935974/CloudifyMongoPlugins_sources2_0.zip to retrieve details from the @mongod@ service, and to detect port liveness.
+Cloudify is distributed with "(newwindow)Scripted Probes":../plugins_and_probes/probes that you can configure as required. However, you can also develop your own "(newwindow)Plugin Probes":../plugins_and_probes/develop_your_plugin.html and add them to the recipe in this folder. For example, in the PetClinic application we used our Cloudify Mongo Plugin Probe "(newwindow)cloudify-mongo-plugin.jar":http://www.gigaspaces.com/wiki/download/attachments/55935974/CloudifyMongoPlugins_sources2_0.zip to retrieve details from the @mongod@ service, and to detect port liveness.html
 
-For more information, see "(newwindow)The Service Recipe":../developing/service_recipe.
+For more information, see "(newwindow)The Service Recipe":../developing/service_recipe.html
 
 h3. <span class="inlineToggleExpandBtn">The Lifecycle Scripts</span>
 
 <div class="expand">
-If you view any of the Groovy scripts in the tomcat recipe folder, and you will notice that they are essentially regular groovy scripts in which you can write any Groovy or Java code. The only difference is the use of the Cloudify API ("(newwindow)ServiceContext API":../developing/the_service_context_api). This API exposes the service runtime details to the script, so that a service can locate and use the details of another service within the same application. For example, in our PetClinic application we use the API to expose the port of the @mongod@ service instance to the all the other services in the PetClinic application.
+If you view any of the Groovy scripts in the tomcat recipe folder, and you will notice that they are essentially regular groovy scripts in which you can write any Groovy or Java code. The only difference is the use of the Cloudify API ("(newwindow)ServiceContext API":../developing/the_service_context_api)..html This API exposes the service runtime details to the script, so that a service can locate and use the details of another service within the same application. For example, in our PetClinic application we use the API to expose the port of the @mongod@ service instance to the all the other services in the PetClinic application.html
 
 For more information, see the following topics:
-* "(newwindow)Lifecycle Events":../developing/lifecycle_events
-* "(newwindow)Custom Commands":../developing/custom_commands
-* "(newwindow)Probes":../developing/plugins
-* "(newwindow)Configuring the Web Management Console":../developing/configuring_ui_section
+* "(newwindow)Lifecycle Events":../developing/lifecycle_events.html
+* "(newwindow)Custom Commands":../developing/custom_commands.html
+* "(newwindow)Probes":../developing/plugins.html
+* "(newwindow)Configuring the Web Management Console":../developing/configuring_ui_section.html
 </div>
 
 h3. <span class="inlineToggleExpandBtn">Getting the Service Binaries</span>
@@ -299,8 +299,8 @@ To shut down your cloud installation, at the Cloudify shell prompt, type: *teard
 
 h1. What's Next?
 
-* Learn more about "recipe development":../developing/recipes_overview.
-* Learn more about cloud portability and "cloud drivers":../clouddrivers/cloud_driver.
-* Learn how to "develop a monitoring plugin":../plugins_and_probes/develop_your_plugin.
-* Learn more about monitoring your application with the "Cloudify Web Management Console":../monitoring/the_web_management_console.
+* Learn more about "recipe development":../developing/recipes_overview.html
+* Learn more about cloud portability and "cloud drivers":../clouddrivers/cloud_driver.html
+* Learn how to "develop a monitoring plugin":../plugins_and_probes/develop_your_plugin.html
+* Learn more about monitoring your application with the "Cloudify Web Management Console":../monitoring/the_web_management_console.html
 

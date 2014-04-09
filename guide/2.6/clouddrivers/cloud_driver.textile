@@ -13,7 +13,7 @@ h2. How Compute Resources are Provisioned
 
 Cloudify uses *agentless-installation* to install Cloudify, meaning that it does not require any Cloudify software (agent) to be preinstalled on newly allocated machines before starting the installation process. The Cloudify controller simply connects to to newly allocated machines over SSH, installs the required Cloudify components, and connects it to the Cloudify cluster. 
 
-As a result, other than meeting the "minimum requirements for images":../setup/post_installation_configuration#images, special machine images are not required. Any *nix or Windows image can be used, whether virtual or physical. Additionally, provisioning does not necessarily have to use a real "cloud", you can use an arbitrary set of non-virtualized hosts to create "BYON":../setup/configuring_byon or "local cloud":../bootstrapping/bootstrapping_localcloud environments.
+As a result, other than meeting the "minimum requirements for images":../setup/post_installation_configuration.html#images, special machine images are not required. Any *nix or Windows image can be used, whether virtual or physical. Additionally, provisioning does not necessarily have to use a real "cloud", you can use an arbitrary set of non-virtualized hosts to create "BYON":../setup/configuring_byon or "local cloud":../bootstrapping/bootstrapping_localcloud.html environments.html
 
 h2. When the Cloud Driver Is Used
 
@@ -23,7 +23,7 @@ The cloud driver is loaded and used by the following Cloudify components:
 ** *@install-application@*, *@uninstall-application@* (application machines)
 * The ESM(Elastic Service Manager) will load one instance of the cloud driver for each deployed service. Each instance is responsible for scaling out/in the specified service. At all times, there can only be one instance of the ESM in a cluster, running zero or more instances of the cloud driver.
 
-h4(warn). Modifying the cloud driver has an effect *only* before the "bootstrapping":../bootstrapping/bootstrapping_process.
+h4(warn). Modifying the cloud driver has an effect *only* before the "bootstrapping":../bootstrapping/bootstrapping_process.html
 
 h2. How It Works
 
@@ -176,8 +176,8 @@ The implementation is available in the  "(newwindow)getAddress":https://github.c
 
 h2(#addtmp). Adding templates 
 
-After the "bootstrapping process":../bootstrapping/bootstrapping_process is over, you may add more templates to the cloud.
-Simply use the "add-templates":../recipe/command_line_reference#add_templates CLI command as follows: <span class="snippet">add-templates [directory or file path] </span>
+After the "bootstrapping process":../bootstrapping/bootstrapping_process.html is over, you may add more templates to the cloud.html
+Simply use the "add-templates":../recipe/command_line_reference.html#add_templates CLI command as follows: <span class="snippet">add-templates [directory or file path] </span>
 
 * If the path is to a groovy file, then the file should be named *-template.groovy and it should be the only one with that suffix in its directory. 
   All the files in its directory will be copied to the management machine together with the groovy file itself.
@@ -217,7 +217,7 @@ h4(impt). The reservedMemoryCapacityPerMachineInMB is only relevant in a Multi T
 
 
 <br/>
-You can read about isolationSLA (Multi Tenant Deployment) "here":../developing/service_recipe#mtd.
+You can read about isolationSLA (Multi Tenant Deployment) "here":../developing/service_recipe.html#mtd.html
 
 
 h2. The Default Cloud Driver
@@ -230,4 +230,4 @@ h4(info). GigaSpaces regularly tests this cloud driver implementation on "Amazon
 
 h2. See Also
 
-* "Developing Custom Cloud Drivers":../clouddrivers/developing_custom_clouddriver
+* "Developing Custom Cloud Drivers":../clouddrivers/developing_custom_clouddriver.html
