@@ -6,7 +6,7 @@ cat: 404
 
 <script type="text/javascript">
 if ( !( $(location).attr("href").match("\.html$") ) ) {	
-	var newPage = $(location) + ".html";
+	var newPage = $(location).attr("href") + ".html";
 	//alert("404.html newPage: " + newPage);
 	$(location).attr("href", newPage);
 }
