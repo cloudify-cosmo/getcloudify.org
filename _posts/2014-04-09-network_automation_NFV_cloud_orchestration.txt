@@ -21,7 +21,7 @@ tags:
 
 <p><strong>The Challenge</strong></p>
 
-<p>Typically network components requires substantial code changes to turn them into an NFV service running on a cloud. The big challenge in NFV is how to take an existing network function and without code changes, put it on a cloud, e.g. OpenStack cloud.&#160; Each component was built to run in a legacy environment, while not taking into account virtualization and cloud requirements.&#160; Fore example, many components are monolithic and not built with right extensions to support cloud multi-tenant environments, and post-deployment needs – auto-scaling, self-healing, and actionable monitoring-based KPIs. Moreover, each cloud has its own requirements in terms of network, compute and storage definitions, which complicates this even further.&#160; And then add the fact that you’d like all of this to be cloud agnostic – have the freedom to run your app with its NFV components on any cloud you choose – and this becomes near impossible.</p>
+<p>Typically network components requires substantial code changes to turn them into an NFV service running on a cloud. The big challenge in NFV is how to take an existing network function and without code changes, put it on a cloud, e.g. OpenStack cloud.&#160; Each component was built to run in a legacy environment, while not taking into account virtualization and cloud requirements.&#160; Fore example, many components are monolithic and not built with right extensions to support cloud multi-tenant environments and post-deployment needs – auto-scaling, self-healing, and actionable monitoring-based KPIs. What's more, each cloud has its own requirements in terms of network, compute and storage definitions, which complicates this even further.&#160; And then add the fact that you’d like all of this to be cloud agnostic – have the freedom to run your app with its NFV components on any cloud you choose – and this becomes near impossible.</p>
 
 <p>Moreover a cloud requires additional capabilities like:</p>
 
@@ -45,6 +45,6 @@ tags:
 
 <p>In the auto-deployment phase I connected video streamer software and ran it in a Tomcat web container, along with a virtual load balancer for my network components.&#160; I then used an orchestrator to take care of all of the network definitions. Then came the metric definition for best monitoring results. And then in a chaos monkey fashion I tested to see how my system auto-scales on demand.</p>
 
-<p>In part II I’ll dive into the bits and bytes and how you can play around with this yourself.</p>
+<p>In part 2 I’ll dive into the bits and bytes and how you can play around with this yourself.</p>
 
 </notextile>
