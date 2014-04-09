@@ -11,21 +11,21 @@ This topic provides instructions for bootstrapping Cloudify on any cloud provide
 
 h2. Prerequisites
 
-Before you bootstrap your cloud, make sure that your environment meets all the minimum requirements. For more information, see "Bootstrapping Prerequisites":../bootstrapping/bootstrapping_process#prereqs.
+Before you bootstrap your cloud, make sure that your environment meets all the minimum requirements. For more information, see "Bootstrapping Prerequisites":../bootstrapping/bootstrapping_process.html#prereqs.
 
 The following is a list of supported cloud provider configurations :
 (The cloud provider name that will be used for each configuration is in parentheses below)
 
-* "Amazon EC2":../setup/configuring_ec2 (ec2)
-* "HP Cloud":../setup/configuring_hp (hp-folsom hp-grizzly hp-havana)
-* "OpenStack Cloud":../setup/configuring_openstack (openstack-folsom openstack-grizzly openstack-havana)
-* "Azure (IaaS)":../setup/configuring_azure (azure)
-* "RackSpace":../setup/configuring_rsopenstack (rsopenstack)
-* "Any traditional data center [BYON]":../setup/configuring_byon (always use byon in this case)
+* "Amazon EC2":../setup/configuring_ec2.html (ec2)
+* "HP Cloud":../setup/configuring_hp.html (hp-folsom hp-grizzly hp-havana)
+* "OpenStack Cloud":../setup/configuring_openstack.html (openstack-folsom openstack-grizzly openstack-havana)
+* "Azure (IaaS)":../setup/configuring_azure.html (azure)
+* "RackSpace":../setup/configuring_rsopenstack.html (rsopenstack)
+* "Any traditional data center [BYON]":../setup/configuring_byon.html (always use byon in this case)
 
 h2. Bootstrapping
 
-Bootstrapping a cloud is extremely simple. Just follow the "bootstrapping":../bootstrapping/bootstrapping_process#boot procedure and type the following command: <span class="snippet">bootstrap-cloud cloudProviderName</span>
+Bootstrapping a cloud is extremely simple. Just follow the "bootstrapping":../bootstrapping/bootstrapping_process.html#boot procedure and type the following command: <span class="snippet">bootstrap-cloud cloudProviderName</span>
 For example, for Amazon EC2, type : <span class="snippet">bootstrap-cloud ec2</span>
 
 The above will use the cloud driver properties which are located in the cloudProviderName folder @<cloudifyRoot>/clouds/cloudProviderName@, but you can override these properties during bootstrapping.
