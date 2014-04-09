@@ -1,0 +1,51 @@
+---
+layout: blogpost
+title: Network Automation with NFV on OpenStack
+image: shaynaeh.jpg
+author: Shay Naeh
+tags: 
+ - NFV
+ - Network Automation
+ - Networking 
+ - OpenStack 
+ - Cloud Orchestration 
+---
+<notextile>
+
+<p>As <a href="http://en.wikipedia.org/wiki/Network_Functions_Virtualization">NFV</a> (network function virtualization) becomes trendy more network vendors are working on a solution of how to take their existing investment in network products and make them NFV enabled. The target is that eventually everything will run as virtual software components on commoditized hardware.</p>
+
+<p>To this end, I actually decided to test this out with a real-world scenario.&#160; In this two-part series, I’d like to present a YouTube-like solution, basically an elastic scale out/scale in video streaming solution that is NFV enabled. </p>
+
+<p>The purpose of using a software LB in this experiment is to show a scenario where I take network components, a software load balancer in this example, and make them NFV enabled. Actually this is true for many network functions and in general to IT services, let’s call them virtual functions, VF.</p>
+
+<p>Moreover, I wanted to demonstrate elasticity, through auto scaling rules. More about this later. For the orchestration part, dependencies and auto-scaling I used <a href="http://www.cloudifysource.org/">Cloudify.</a></p>
+
+<p><strong>The Challenge</strong></p>
+
+<p>Typically network components requires substantial code changes to turn them into an NFV service running on a cloud. The big challenge in NFV is how to take an existing network function and without code changes, put it on a cloud, e.g. OpenStack cloud.&#160; Each component was built to run in a legacy environment, while not taking into account virtualization and cloud requirements.&#160; Fore example, many components are monolithic and not built with right extensions to support cloud multi-tenant environments, and post-deployment needs – auto-scaling, self-healing, and actionable monitoring-based KPIs. Moreover, each cloud has its own requirements in terms of network, compute and storage definitions, which complicates this even further.&#160; And then add the fact that you’d like all of this to be cloud agnostic – have the freedom to run your app with its NFV components on any cloud you choose – and this becomes near impossible.</p>
+
+<p>Moreover a cloud requires additional capabilities like:</p>
+
+<ol>
+  <li>Automatic deployment </li>
+
+  <li>Orchestration </li>
+
+  <li>Monitoring </li>
+
+  <li>Self healing </li>
+
+  <li>Auto scaling </li>
+</ol>
+
+<p><strong><em>Nowadays, if you don’t automate you don’t exist.</em></strong> Eventually everything will be automated and orchestrated, IT services, applications and network services. There are basic automation tools like Chef and Puppet. They mainly provide installation and configuration on a per node basis, but they don’t orchestrate dependencies between nodes, e.g. node A needs to start before node B, node B registers itself in Node A. In the example I’ll present in my next post, the Tomcat depends on the virtual load-balncer( vLB) service being available. </p>
+
+<p>Orchestration is mandatory and actually it covers points 2-5 above. In addition to dependencies, how do you monitor your system, application and NFV services? How do you know if a component fails and needs to be restarted? How do you gather all this information? How do you apply active rules to the collected information?</p>
+
+<p>Stay tuned for my next post where I’ll actually present how to do this in action, in the order of the challenges.</p>
+
+<p>In the auto-deployment phase I connected video streamer software and ran it in a Tomcat web container, along with a virtual load balancer for my network components.&#160; I then used an orchestrator to take care of all of the network definitions. Then came the metric definition for best monitoring results. And then in a chaos monkey fashion I tested to see how my system auto-scales on demand.</p>
+
+<p>In part II I’ll dive into the bits and bytes and how you can play around with this yourself.</p>
+
+</notextile>
