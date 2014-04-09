@@ -12,7 +12,7 @@ This topic provides instructions for configuring Openstack Grizzly Cloud for Clo
 h2. Prerequisites
 
 * An Openstack cloud account
-* Cloudify shell (for information about installing the Cloudify shell, see "Installing the Cloudify Shell":../setup/installing_the_cloudify_client)
+* Cloudify shell (for information about installing the Cloudify shell, see "Installing the Cloudify Shell":../setup/installing_the_cloudify_client.html)
 
 h2. Configuring an Openstack Grizzly Cloud
 
@@ -54,7 +54,7 @@ Edit the Openstack cloud driver configuration file (@openstack-grizzly-cloud.pro
 <br/>
 
 
-<h4 class="impt">You can set the cloud driver directly as shown in the following example (of an @openstack-grizzly-cloud.groovy@ file), but we reccomend that you use "parameterization of the cloud driver configuration":../clouddrivers/cloud_driver#gstr, </h4>
+<h4 class="impt">You can set the cloud driver directly as shown in the following example (of an @openstack-grizzly-cloud.groovy@ file), but we reccomend that you use "parameterization of the cloud driver configuration":../clouddrivers/cloud_driver.html#gstr, </h4>
 <span id="cd"></span>
 <script src="https://gist.github.com/tamirko/8912338.js"></script>
 
@@ -62,12 +62,12 @@ h2. Bootstrapping Openstack OpenStack Cloud
 
 h3. Prerequisites
 
-Before you bootstrap your Openstack Grizzly Cloud, make sure that your environment meets all the minimum requirements. For more information, see "Bootstrapping Prerequisites":../bootstrapping/bootstrapping_process#prereqs.
+Before you bootstrap your Openstack Grizzly Cloud, make sure that your environment meets all the minimum requirements. For more information, see "Bootstrapping Prerequisites":../bootstrapping/bootstrapping_process.html#prereqs.
 
 h3. Bootstrapping
 
 Bootstrapping Openstack Grizzly Cloud is extremely simple:
-# Start the Cloudify shell -- For information about running the Cloudify shell, see "Installing the Cloudify Shell":../setup/installing_the_cloudify_client.
+# Start the Cloudify shell -- For information about running the Cloudify shell, see "Installing the Cloudify Shell":../setup/installing_the_cloudify_client.html
 # Start the bootstrapping process for provisioning machines for Cloudify management -- At the Cloudify shell prompt, type: *@bootstrap-cloud@* *@Openstack-grizzly@*
   <h4 class="info">Once the command completes, the URL of the Cloudify web management console and the Cloudify contoller's REST endpoint are display in the shell. Also, the shell automatically connects to the controller as part of the bootstrap process, so you don't have to explicitly type the @connect@ command.</h4>
 

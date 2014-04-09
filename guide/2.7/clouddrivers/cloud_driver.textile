@@ -13,7 +13,7 @@ h2. How Compute Resources are Provisioned
 
 Cloudify uses *agentless-installation* to install Cloudify, meaning that it does not require any Cloudify software (agent) to be preinstalled on newly allocated machines before starting the installation process. The Cloudify controller simply connects to to newly allocated machines over SSH, installs the required Cloudify components, and connects it to the Cloudify cluster. 
 
-As a result, other than meeting the "minimum requirements for images":../setup/post_installation_configuration#images, special machine images are not required. Any *nix or Windows image can be used, whether virtual or physical. Additionally, provisioning does not necessarily have to use a real "cloud", you can use an arbitrary set of non-virtualized hosts to create "BYON":../setup/configuring_byon or "local cloud":../bootstrapping/bootstrapping_localcloud environments.
+As a result, other than meeting the "minimum requirements for images":../setup/post_installation_configuration.html#images, special machine images are not required. Any *nix or Windows image can be used, whether virtual or physical. Additionally, provisioning does not necessarily have to use a real "cloud", you can use an arbitrary set of non-virtualized hosts to create "BYON":../setup/configuring_byon.html or "local cloud":../bootstrapping/bootstrapping_localcloud.html environments.
 
 h2. When the Compute Cloud Driver Is Used
 
@@ -23,7 +23,7 @@ The compute cloud driver is loaded and used by the following Cloudify components
 ** *@install-application@*, *@uninstall-application@* (application machines)
 * The Cloudify Orchestrator (ESM) creates one instance of the cloud driver for each deployed service. Each instance is responsible for scaling out/in the specified service. At all times, there can only be one ESM in a cluster, running zero or more instances of the cloud driver.
 
-h4(warn). Modifying the cloud driver has an effect *only* before the "bootstrapping":../bootstrapping/bootstrapping_process.
+h4(warn). Modifying the cloud driver has an effect *only* before the "bootstrapping":../bootstrapping/bootstrapping_process.html
 
 h2. How It Works
 
@@ -52,5 +52,5 @@ The implementing class of the cloud driver, along with any required cloud config
 
 h2. See Also
 
-* "Developing Custom Cloud Drivers":../clouddrivers/developing_custom_clouddriver
-* "Advanced Cloud Driver Usage":../bootstrapping/advanced_cloud_driver_usage
+* "Developing Custom Cloud Drivers":../clouddrivers/developing_custom_clouddriver.html
+* "Advanced Cloud Driver Usage":../bootstrapping/advanced_cloud_driver_usage.html

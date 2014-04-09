@@ -16,7 +16,7 @@ Click on the following image to learn how to get the credentials and all the oth
 h2. Prerequisites
 
 * An "(newwindow)HP Cloud":http://www.hpcloud.com/ account
-* Cloudify shell (for information about installing the Cloudify shell, see "Installing the Cloudify Shell":../setup/installing_the_cloudify_client)
+* Cloudify shell (for information about installing the Cloudify shell, see "Installing the Cloudify Shell":../setup/installing_the_cloudify_client.html)
 
 h2. Configuring an HP Folsom Cloud
 
@@ -71,7 +71,7 @@ The following is a list of HP OpenStack Hardware Ids:
 *** *keyPair*--Specify the name of the key pair that you created (whose content is in the .pem file in *keyFile* attribute in the user section).
 
 
-<h4 class="impt">For setting the cloud driver, we reccomend that you use "parameterization of the cloud driver configuration":../clouddrivers/cloud_driver#gstr, but you can also set the cloud driver directly as shown in the following example (of an @hp-cloud.groovy@ file):</h4>
+<h4 class="impt">For setting the cloud driver, we reccomend that you use "parameterization of the cloud driver configuration":../clouddrivers/cloud_driver.html#gstr, but you can also set the cloud driver directly as shown in the following example (of an @hp-cloud.groovy@ file):</h4>
 <span id="cd"></span>
 <script src="https://gist.github.com/4372623.js"></script>
 
@@ -80,12 +80,12 @@ h2. Bootstrapping HP Folsom Cloud
 
 h3. Prerequisites
 
-Before you bootstrap your HP Folsom Cloud, make sure that your environment meets all the minimum requirements. For more information, see "Bootstrapping Prerequisites":../bootstrapping/bootstrapping_process#prereqs.
+Before you bootstrap your HP Folsom Cloud, make sure that your environment meets all the minimum requirements. For more information, see "Bootstrapping Prerequisites":../bootstrapping/bootstrapping_process.html#prereqs.
 
 h3. Bootstrapping
 
 Bootstrapping HP Folsom Cloud is extremely simple:
-# Start the Cloudify shell -- For information about running the Cloudify shell, see "Installing the Cloudify Shell":../setup/installing_the_cloudify_client.
+# Start the Cloudify shell -- For information about running the Cloudify shell, see "Installing the Cloudify Shell":../setup/installing_the_cloudify_client.html
 # Start the bootstrapping process for provisioning machines for Cloudify management -- At the Cloudify shell prompt, type: *@bootstrap-cloud@* *@hp-folsom@*
   <h4 class="info">Once the command completes, the URL of the Cloudify web management console and the Cloudify contoller's REST endpoint are display in the shell. Also, the shell automatically connects to the controller as part of the bootstrap process, so you don't have to explicitly type the @connect@ command.</h4>
 

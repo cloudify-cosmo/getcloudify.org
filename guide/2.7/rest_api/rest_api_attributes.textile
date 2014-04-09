@@ -17,8 +17,8 @@ Cloudify application and service attributes can be used to share information acr
 <br />
 For example, let's say you deploy the PetClinic application that includes a Mongod service and would like to add a new Person entry to the database immediately after it is installed. The problem is that since the Mongod port and home folder are calculated when the service is started, you can't specify these details in your script. You can achieve your goal using the following steps:
 # Write a script that adds a new Person to the database without specifying the database details.
-# In the @preInstall@ step of the service "lifecycle":../developing/lifecycle_events#handler, set attributes for sharing Mongod's port (@port@) and home folder (@home@).
-# In the @postStart@ step of the service "lifecycle":../developing/lifecycle_events#handler, call a batch file to retrieve Mongod's port and home folder, and then runs your script with the correct Mongod service details.
+# In the @preInstall@ step of the service "lifecycle":../developing/lifecycle_events.html#handler, set attributes for sharing Mongod's port (@port@) and home folder (@home@).
+# In the @postStart@ step of the service "lifecycle":../developing/lifecycle_events.html#handler, call a batch file to retrieve Mongod's port and home folder, and then runs your script with the correct Mongod service details.
 
 The following snippet shows how to implement the @postStart@ batch file using @curl@ for the REST query and batch commands to parse the results: 
 <script src="https://gist.github.com/3181273.js"> </script>
@@ -27,7 +27,7 @@ h4(info). Cloudify uses the *USM_INSTANCE_ID* environment variable to store the 
 
 h2. Accessing Attributes over REST
 
-The Accessing REST API can be accessed using any REST client, or the Cloudify shell using the *"list-attributes":../recipe/command_line_reference#list_attrs* and *"set-attributes":../recipe/command_line_reference#set_attrs* commands. The following table shows examples of how to access attributes.
+The Accessing REST API can be accessed using any REST client, or the Cloudify shell using the *"list-attributes":../recipe/command_line_reference#list_attrs* and *"set-attributes":../recipe/command_line_reference.html#set_attrs* commands. The following table shows examples of how to access attributes.
 
 <table class="alignTop">
 <tr><th>Method</th><th>Command</th><th>Description</th></tr>

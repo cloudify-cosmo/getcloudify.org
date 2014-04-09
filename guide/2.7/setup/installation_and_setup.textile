@@ -29,23 +29,23 @@ apiKey="ENTER_API_KEY_HERE"
 keyFile="ENTER_KEY_FILE_HERE"
 keyPair="ENTER_KEY_PAIR_HERE"
 
-You can find more info about parameterization of the cloud driver configuration "here":../clouddrivers/cloud_driver#gstr.
+You can find more info about parameterization of the cloud driver configuration "here":../clouddrivers/cloud_driver.html#gstr.
 
 The following is a list of supported cloud provider and their advanced configurations:
 
-* "Amazon EC2":../setup/configuring_ec2
-* "OpenStack Cloud":../setup/configuring_openstack
-* "HP Cloud":../setup/configuring_hp
-* "Azure (IaaS)":../setup/configuring_azure
-* "RackSpace":../setup/configuring_rsopenstack
-* "Any traditional data center [BYON]":../setup/configuring_byon
+* "Amazon EC2":../setup/configuring_ec2.html
+* "OpenStack Cloud":../setup/configuring_openstack.html
+* "HP Cloud":../setup/configuring_hp.html
+* "Azure (IaaS)":../setup/configuring_azure.html
+* "RackSpace":../setup/configuring_rsopenstack.html
+* "Any traditional data center [BYON]":../setup/configuring_byon.html
 
 
 h4(impt). This step is done only once per cloud provider account. 
             
 h3. Bootsrapping Cloudify on your cloud environment
 
-Cloudify uses a "boostrapping process":../bootstrapping/bootstrapping_process to provision machines for Cloudify management, and machines for services required to deploy applications.
+Cloudify uses a "boostrapping process":../bootstrapping/bootstrapping_process.html to provision machines for Cloudify management, and machines for services required to deploy applications.
 This step is often done once for all your applications' deployments.
 You need to use Cloudify interactive shell for bootstrapping, installing applications and controlling your Cloudify environment.
 
@@ -76,11 +76,10 @@ h3. Cloudify your custom application
 
 To deploy your custom application it's recommended to start with one of the existing recipes. You can choose a recipe from Cloudify github repository. If you already use "Chef":https://github.com/CloudifySource/cloudify-recipes/tree/master/apps/travel-chef or "Puppet":https://github.com/CloudifySource/cloudify-recipes/tree/master/apps/hello-puppet, you can use their cookbooks and configure it to run on Cloudify using the existing Chef or Puppet recipes.
 You can easily customise those recipes for your environment by extending the recipes and overriding the relevant parts.
- If your application doesn't matche any of the existing recipes, you can use the steps which are described "here":../developing/recipes_overview to write your own custom recipe.
- 
+ If your application doesn't matche any of the existing recipes, you can use the steps which are described "here":../developing/recipes_overview.html to write your own custom recipe.
 References 
 
-* Learn about "cloud driver advanced setup":../clouddrivers/cloud_driver
-* How to "write your own cloud driver":../clouddrivers/developing_custom_clouddriver
-* Learn how you can "extend and override existing recipes":../developing/extending_recipes
-* Write "a new recipe":../developing/recipes_overview
+* Learn about "cloud driver advanced setup":../clouddrivers/cloud_driver.html
+* How to "write your own cloud driver":../clouddrivers/developing_custom_clouddriver.html
+* Learn how you can "extend and override existing recipes":../developing/extending_recipes.html
+* Write "a new recipe":../developing/recipes_overview.html

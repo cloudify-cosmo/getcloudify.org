@@ -22,13 +22,13 @@ h2. Before You Start
 
 Before you start developing you cloud driver, make sure you have the following:
 * "Apache Maven":http://maven.apache.org/
-* "Cloudify":../setup/installing_the_cloudify_client
+* "Cloudify":../setup/installing_the_cloudify_client.html
 * The security credentials for your cloud's API calls, for accessing your machines using SSH, and if required for accessing your cloud's storage.
 <h4 class="info">For example, to obtain security credentials for Openstack, perform the following steps:
 <ol><li>Request a login, and its corresponding access key and secret key, from your Openstack administrator. In the @user@ section of the cloud driver configuration file, the access key and secret key correspond to the @user@ and the @apiKey@ attributes respectively.</li>
 <li>Generate a SSL key pair file (required for bootstrapping machines) using "HybridFox":http://code.google.com/p/hybridfox/, and save it in the cloud driver's @upload@ folder. In the @user@ section of the cloud driver configuration file, the @keyFile@ attribute is set to the path of the SSL key pair file.
 <img src="../../images/clouddrivers/cloud_driver_plugin.png"/></li></ol></h4>
-* "Create cloud images":../setup/post_installation_configuration#images
+* "Create cloud images":../setup/post_installation_configuration.html#images.
 
 h2. Developing a new Compute Cloud Driver 
 
@@ -45,7 +45,7 @@ Developing a new compute cloud driver is required when a new cloud is neither su
 ** If the method throws an exception the webui will issue an alert and the service would have to be uninstalled for the alert to be resolved. 
 ** Create singleton objects (shared between all instances) using super.provisioningContext (see "ByonProvisioningDriver#initDeployed()":https://github.com/CloudifySource/cloudify/blob/master/esc/src/main/java/org/cloudifysource/esc/driver/provisioning/byon/ByonProvisioningDriver.java#L90)
 ** The Cloudify Orchestrator process which hosts the cloud driver, can be restarted without notice. Store operational metadata using the cloud service.
-** The cloud groovy file (such as <cloudifyHome>/clouds/myCloud/myCloud-service.groovy) is available as the "Cloud POJO":https://github.com/CloudifySource/cloudify/blob/master/domain/src/main/java/org/cloudifysource/domain/cloud/Cloud.java .
+** The cloud groovy file (such as <cloudifyHome>/clouds/myCloud/myCloud-service.groovy) is available as the "Cloud POJO":https://github.com/CloudifySource/cloudify/blob/master/domain/src/main/java/org/cloudifysource/domain/cloud/Cloud.java.
    Access the cloud instance with @super.cloud@
 
 * Implement onServiceUninstalled() with cleanup operations.
@@ -111,7 +111,7 @@ Developing a new network cloud driver is required when the recipe allocates floa
 * Implement setConfig() with initialization code.
 ** Remember that the class is instantiated once for each installed service. So this method is called once per service, but not once globally.
 ** If the method throws an exception the webui will issue an alert and the service would have to be uninstalled for the alert to be resolved. 
-** The cloud groovy file (such as <cloudifyHome>/clouds/myCloud/myCloud-service.groovy) is available as the "Cloud POJO":https://github.com/CloudifySource/cloudify/blob/master/domain/src/main/java/org/cloudifysource/domain/cloud/Cloud.java .
+** The cloud groovy file (such as <cloudifyHome>/clouds/myCloud/myCloud-service.groovy) is available as the "Cloud POJO":https://github.com/CloudifySource/cloudify/blob/master/domain/src/main/java/org/cloudifysource/domain/cloud/Cloud.java.
    Access the network configuration within the cloud POJO with @config.getCloud().getCloudNetwork()@
 
 * Implement allocateFloatingIp(),releaseFloatingIp() to reserve/release floating ips from the specified IP pool.
@@ -167,7 +167,7 @@ So the usual and recommended flow for deleting a volume is:
 !../../images/developing/sd4.jpg!
 
 Developing a new storage cloud driver is required when the recipe creates and attaches storage devices (EBS), but the existing cloud driver is missing storage support for that cloud.
-* Create a new Java class that extends "BaseStorageDriver":https://github.com/CloudifySource/cloudify/blob/master/esc/src/main/java/org/cloudifysource/esc/driver/provisioning/storage/BaseStorageDriver.java .
+* Create a new Java class that extends "BaseStorageDriver":https://github.com/CloudifySource/cloudify/blob/master/esc/src/main/java/org/cloudifysource/esc/driver/provisioning/storage/BaseStorageDriver.java.
   The base class implements "StorageProvisioningDriver":https://github.com/CloudifySource/cloudify/blob/master/esc/src/main/java/org/cloudifysource/esc/driver/provisioning/storage/StorageProvisioningDriver.java (which is deprecated in favor of the base class).
 * maven dependency:
 <script src="https://gist.github.com/noakup/8039851.js"></script>
