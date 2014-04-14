@@ -13,11 +13,11 @@ h2. Basic Concepts
 
 * Cloudify is designed to onboard and manage *applications*
 * An *application* is a set of *services*
-* An *"application recipe":../developing/application_recipe*.html describes the application name, the services it requires and their interdependencies
+* An *"application recipe":../developing/application_recipe.html* describes the application name, the services it requires and their interdependencies
 * A *service* is a cluster of service instances that make-up an *application tier* (e.g. a web container, a database, or a cluster of Tomcats service instances)
 <h4 class="info">It is important to distinguish between a service and a service instance. A service can be defined as a cluster which is composed of at least one service instance. Every service instance resides on one host (typically this would be a VM), whereas a service is the aggregation of all service instances and as such can span multiple machines.</h4>
 * Each *service* is installed, managed, and monitored by a *service recipe*
-* A *"service recipe":../developing/service_recipe*.html describes the following information:
+* A *"service recipe":../developing/service_recipe.html* describes the following information:
 ** "General":../developing/service_recipe.html#general: The service name, service type, number of service instances, and the service icon filename
 ** Compute: Hardware and software requirements
 ** "Lifecycle events":../developing/lifecycle_events.html: Maps events to handling scripts or closures and, as such, is the most important part of the service recipe
