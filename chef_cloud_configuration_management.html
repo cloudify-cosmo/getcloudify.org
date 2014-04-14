@@ -4,7 +4,7 @@ title: Try Chef on the Cloud in a Click
 category: cloudify player
 ---
 
-    <div id="resultsDiv" class="DocumentsWrap"></div>
+		<div id="resultsDiv" class="DocumentsWrap"></div>
 		<section id="content">
 			<div class="container">
 				<div class="row">
@@ -13,44 +13,52 @@ category: cloudify player
 					<h2><strong>Test drive Chef using the Cloudify Player </strong></h2>
 	
             <p class="lead">Chef is a flexible and powerful open source automation platform that transforms infrastructure into code. </p>
-            <p>
-              <a class="btn btn-lg btn-default" id='launch' href="javascript:void(0)" data-launched="false">
+
+             <a class="btn btn-lg btn-default" id="launch" style="float:left"  href="javascript:void(0)" data-launched="false">
                 <span class="glyphicon glyphicon-play"></span>
                 Launch Now
               </a>
-            </p>
+			  <div class="container" style="width:400px;float:left;margin:5px 0 0 15px">
+			  
+				<div class="progress progress-striped active">
+					<div class="bar" style="width: 0%;"></div>
+				</div>
+			</div>
+
              <div class="panel panel-default" style="display:none">
             <div class="panel-heading">
-              <a href="#" id='manage' class='btn btn-lg btn-primary disabled' target='manage'>&raquo; Manage your app</a>
-              <a href="#" id='use' class='btn btn-lg btn-primary disabled' target='use'>&raquo; Use Chef</a>
-              <div class='pull-right'>
+              <a href="#" id="manage" class="btn btn-lg btn-primary disabled" target="manage">» Manage your app</a>
+              <a href="#" id="use" class="btn btn-lg btn-primary disabled" target="use">» Use Chef</a>
+              <div class="pull-right">
                 <p>
-                  Trial Time Left: <strong id='time-left'>...</strong> minutes.
+                  Left: <strong id="time-left">...</strong> minutes.
                 </p>
               </div>
             </div>
             <div class="panel-body">
-              <pre id='log'>
-                <!-- Log goes here -->
+              <pre id="log">                <!-- Log goes here -->
               </pre>
             </div>
             <div class="panel-footer">Powered by: HP Cloud, Cloudify (Patent Pending)</div>
           </div>
-						<br/>
-						<br/>
+						<br>
+						<br>
 
 				
-						<a class="btn btn-large btn-green btn-rounded" href="/goPro.html"><i class="icon-plus"></i>  Get Free Cloud Package!</a>
+						<a id="mixpanelSubscribe" class="btn btn-large btn-green btn-rounded" href="#"><i class="icon-plus"></i>  Subscribe here !!!</a>
 
 						</div> 
 
 					<div class="span6">
 					<h1>Try out <strong>the interactive shell</strong></h1>
 						<h2><i class="icon-50 icon-arrow-down"></i> Start Now</h2>
+						<div class="span12 center" id="loading" >
+							<i class="icon-spinner icon-spin icon-large blue"></i>Loading interactive shell...Until then feel free to watch this tutorial video. <a class="hover-wrap fancybox fancybox.iframe" data-fancybox-group="gallery" title="Cloudify Your App on Chef" href="https://www.youtube.com/watch?v=JQUADOKF2kM" rel="gallery"> <span class="btn-rounded btn-blue" ><i class="icon-play"></i> Watch</span></a>
+						</div>
 						<div id="butterfly-iframe"></div>
 					</div>
 				</div>
-				</section>
+				</div></section>
 				<section id="content">
 				<div class="container">
 				<div class="row">
@@ -60,7 +68,7 @@ category: cloudify player
 			</div>
 				<div class="row colEven">
 			<div class="row"><p></p></div>
-					<div class="span4"><div class="pr iconHolder"><a class="hover-wrap fancybox fancybox.iframe" data-fancybox-group="gallery" title="Cloudify Your App on Chef" href="https://www.slideshare.net/slideshow/embed_code/33076919"> <img class="alignCenter" src="img/CloudifyChef.png" width="350"></a></div></div>
+					<div class="span4"><div class="pr iconHolder"><a class="hover-wrap fancybox fancybox.iframe" data-fancybox-group="gallery" title="Cloudify Your App on Chef" href="https://www.slideshare.net/slideshow/embed_code/33076919" rel="gallery"> <img class="alignCenter" src="img/CloudifyChef.png" width="350"></a></div></div>
 					<div class="span8"><div class="pad35">	<h2>What does this actually mean for Chef users?</h2>
 					<p>Essentially, Chef users can easily import their existing Chef server and Chef cookbooks, and use Cloudify to manage the application deployment and monitoring.  All this, while using Chef for setting up the configuration and installation of those services, just like Chef users are used to.</p>
 						
@@ -87,13 +95,13 @@ category: cloudify player
 				</div>
 					
 </div>
-</section>
+</div></section>
 
 <section id="content">
 				<div class="container">
 				<div class="row colOdd">
-				<div class="row"><div class="span12" "aligncenter"><h2><strong>Cloudify features for Chef users</strong></h2>
-				<h2><span class="highlight"><strong>Deployment features</strong></h2>
+				<div class="row"><div class="span12" "aligncenter"=""><h2><strong>Cloudify features for Chef users</strong></h2>
+				<h2><span class="highlight"><strong>Deployment features</strong></span></h2>
 				</div></div>
 			
 				<div class="row">
@@ -101,11 +109,11 @@ category: cloudify player
 						<div class="box alignjustify">
 							<div class="aligncenter icon">
 								<i class=" icon-64">
-								<img src="img/hpIcons/2-blue.png" width="112"/>
+								<img src="img/hpIcons/2-blue.png" width="112">
 								</i>
 							</div>
 							<div class="text">
-								<br/>
+								<br>
 								<h4><strong>Install Chef Server and Agent</strong></h4>
 								<p>Cloudify takes the application topology as input and will provision a machine based on this specific application topology. Cloudify will allow you to install either a Chef Solo or Chef client per machine. It will also provision a Chef server or simply link all the services to an existing Chef server. Once the environment is set, it will allow you to invoke remote Chef commands directly from the Cloudify management console, enabling you to easily install new cookbooks, or manage your Chef deployment, as needed.</p>
 
@@ -116,12 +124,12 @@ category: cloudify player
 						<div class="box alignjustify">
 							<div class="aligncenter icon">
 								<i class="icon-64">
-									<img src="img/chefcatalog.png"  width="96"/>
+									<img src="img/chefcatalog.png" width="96">
 								</i>
 							</div>
 							<div class="text">
-							<br/>
-								<h4><strong>Support Existing Chef Recipes & Cookbooks</strong></h4>
+							<br>
+								<h4><strong>Support Existing Chef Recipes &amp; Cookbooks</strong></h4>
 								<p>Many Chef users already have invested in creating Chef cookbooks and configuration. Cloudify was designed to be set as a service on top of your existing Chef environment, and therefore it will allow you to leverage your existing investment rather than re-configure the entire system.</p>
 
 							</div>
@@ -131,11 +139,11 @@ category: cloudify player
 						<div class="box alignjustify">
 							<div class="aligncenter icon">
 								<i class="icon-64">
-									<img src="img/Lifecycle.png" width="151"/>
+									<img src="img/Lifecycle.png" width="151">
 								</i>
 							</div>
 							<div class="text">
-								<br/>
+								<br>
 								<h4><strong>Application Lifecycle Management</strong></h4>
 								<p>Deploying multi-tier applications includes multiple services such as web containers and databases that are inter-dependent on one another. Cloudify will allow you to make sure that these services will start in the right order. It includes specific hooks to monitor the lifecycle of each application and inject the reference for each dependent service. In this example, it will inject the reference to the database to each web container and it will inject each reference of the web container into the load balancer service.
 </p>
@@ -151,7 +159,7 @@ category: cloudify player
 				<div class="row colEven">
 
 					<div class="span12"><div class="pad35">
-					<h2><span class="highlight"><strong>Post Deployment Features</strong></h2></div></div>
+					<h2><span class="highlight"><strong>Post Deployment Features</strong></span></h2></div></div>
 
 					
 					<div class="container">
@@ -160,11 +168,11 @@ category: cloudify player
 						<div class="box alignjustify">
 							<div class="aligncenter icon">
 								<i class=" icon-64">
-								<img src="img/MonitoringUI.png" width="450"/>
+								<img src="img/MonitoringUI.png" width="450">
 								</i>
 							</div>
 							<div class="text">
-								<br/>
+								<br>
 								<h4><strong>Monitoring and Logging</strong></h4>
 								<p>One of the challenges in any deployment is to keep the Chef configuration management and monitoring systems in sync.</p>
 								<p>Cloudify glues the two together by providing built-in monitoring that is automatically updated as part of the deployment process. In addition, Cloudify’s monitoring fills a void that other monitoring systems don’t cover well as they were designed to monitor applications only after they have been deployed, while the monitoring of the deployment and setup process is also needed.  Cloudify also provides built-in logging and alerting, as well as custom metrics to measure specific key performance indicators of each of the managed services.</p>
@@ -176,11 +184,11 @@ category: cloudify player
 						<div class="box alignjustify">
 							<div class="aligncenter icon">
 								<i class="icon-64">
-									<img src="img/Remote Execution.png"  width="513"/>
+									<img src="img/Remote Execution.png" width="513">
 								</i>
 							</div>
 							<div class="text">
-							<br/>
+							<br>
 								<h4><strong>Remote Execution</strong></h4>
 								<p>One of the key features for DevOps users is to be able to interact with their existing deployed services and push new updates. Cloudify adds a remote execution command that allow you invoke remote shell and Chef commands as part of a DevOps deployment process. The remote execution feature will allow you to simply set the invocation on a specific instance or for all of the the instances of a particular service.</p>
 
@@ -191,7 +199,7 @@ category: cloudify player
 					<div class="row">
 							<div class="span4">
 							<div class="aligncenter icon">
-									<img src="img/anyCloud.png" width="200"/>
+									<img src="img/anyCloud.png" width="200">
 							</div>
 							</div>
 								<div class="span8">
@@ -203,7 +211,7 @@ category: cloudify player
 							<div class="row">
 							<div class="span4">
 							<div class="aligncenter icon">
-									<img src="img/CloudifyImage-2.png" width="200"/>
+									<img src="img/CloudifyImage-2.png" width="200">
 							</div>
 							</div>
 								<div class="span8">
@@ -228,7 +236,7 @@ category: cloudify player
 					<div class="container">
 	 						<div class="row">
 							<div class="span12">
-								<h2><strong>Learn more about Cloudify Premium<sup>TM</sup> or Download Now</sup></strong></h2>
+								<h2><strong>Learn more about Cloudify Premium<sup>TM</sup> or Download Now</strong></h2>
 							</div>
 						</div>
 						<div class="row">
@@ -246,9 +254,134 @@ category: cloudify player
 
 
 <script src="http://ricostacruz.com/nprogress/nprogress.js"></script>
-    <div id='hidden-iframe' style="display:none">&nbsp;</div>
+    <div id="hidden-iframe" style="display:none"><iframe id="iframe" src="http://launch.cloudifysource.org/widget/widget?apiKey=ab8d9d70-13fd-4cec-bfd8-622c352cdaa7&amp;title=Launch&amp;origin_page_url=http://ec2-54-226-139-132.compute-1.amazonaws.com:8080/chef_cloud_configuration_management.html" width="600" height="463"></iframe></div>
     <script type="text/javascript">
       var WIDGET_ID = 'ab8d9d70-13fd-4cec-bfd8-622c352cdaa7';
     </script>
-    <script type="text/javascript" src='http://s3.amazonaws.com/yoramw/script.js'></script>
+    <script type="text/javascript" src="http://s3.amazonaws.com/yoramw/script.js"></script>
  <script type="text/javascript" src="//cdn.jsdelivr.net/jquery.postmessage/0.5/jquery.ba-postmessage.min.js"></script>
+
+ <script>
+ $(function() {   
+
+//Manage Downloads Gating;
+//========================================//
+var gotName = false;
+var gotValidCaptcha = false;
+var downloadHref="";
+var strVar="";
+var formEmail="";
+var formName="";
+strVar += "<div class=\"modal fade\" id=\"myModal\" tabindex=\"-1\" role=\"dialog\" aria-labelledby=\"myModalLabel\" aria-hidden=\"true\">";
+strVar += "            <a  style=\"float:right \" class=\"gattingWrapperClose\" href=\"#\"><i class=\"fa fa-times\">&nbsp;&nbsp;<\/i> <\/a>";
+strVar += "<div class=\"gattingWrapper\">";
+strVar += "           <form class=\"regiterToMixpanel\" name=\"mc-embedded-subscribe-form\" id=\"mc-embedded-subscribe-form\" action=\"https:\/\/cloudifysource.us4.list-manage.com\/subscribe\/post?u=5e963581396e0c0e43ed217f8&id=b43defea9b\" method=\"POST\">";
+strVar += "			<div class=\"regTitle\">Subscribe here<\/div>";
+strVar += "			<div style=\"position:relative\">";
+strVar += "				<input  id=\"last_name\" name=\"last_name\" type=\"text\" class=\"cuInput\" placeholder=\"Your Name\" \/>";
+strVar += "				<div class=\"cuValid\"><\/div>";
+strVar += "			<\/div>";
+strVar += "			<div style=\"position:relative\">";
+strVar += "				<input  id=\"company\" name=\"company\" type=\"text\" class=\"cuInput\" placeholder=\"Your Company Name\" \/>";
+strVar += "				<div class=\"cuValid\"><\/div>";
+strVar += "			<\/div>";
+strVar += "			<div style=\"position:relative\">";
+strVar += "				<input  id=\"mce-EMAIL\" name=\"email\"  type=\"text\"  placeholder=\"Your Email\"\/>";
+strVar += "				<div class=\"cuValid\"><\/div>";
+strVar += "			<\/div>";
+strVar +="          <input id=\"website\" name=\"website\" type=\"text\" value=\"\"  \/>";
+strVar += "			<input type=\"submit\" class=\"cuSendGatting btn btn-info\" id=\"mc-embedded-subscribe\" =\"submit\" value=\"Subscribe\" \/>";
+strVar += "			<\/form>";
+strVar += "        <\/div>";
+strVar += "        <\/div>";
+
+
+
+
+
+$("#mixpanelSubscribe").click(function(e) {
+    
+	$(this).before(strVar);
+	downloadValid();
+	formEmail =  mixpanel.cookie.props.__alias;
+	if(formEmail==undefined){
+		$('#myModal').modal('toggle');
+	}else{
+		alert("you are already register")
+	}
+});
+	
+	$('#pageContent').on("click", "a.gattingWrapperClose", function() {
+		$('#myModal').modal('hide');	
+	});	
+
+function downloadValid(){
+  //Validation
+   $('.regiterToMixpanel').validate({ // initialize the plugin
+        errorLabelContainer: "#error-note",
+        rules: {
+            last_name: {
+                required: true
+            },
+			company: {
+                required: true
+            },
+			email: {
+                required: true,
+                email: true
+            }
+
+			},
+        messages: {
+            last_name: {
+                required: "Please enter your first name",
+            },
+			 company: {
+                required: "Please enter your company name",
+            },
+            email: {
+                required: "Please specify your email",
+                email: "Correct format is name@domain.com"
+            }
+
+        },
+        submitHandler: function (form,e) { // for demo
+            if ($('input#website').val().length != 0) {
+                return false;
+            } else{
+			var chefemail = $("#mce-EMAIL").val();
+			var chef_first_name = $("#last_name").val();
+			var company = $("#company").val();
+			mixpanel.identify() ;
+			mixpanel.people.set_once({
+					$email: chefemail,
+					$first_name: chef_first_name,
+					$company:  company,
+					$created: new Date(),
+					$last_seen:new Date(),
+		});
+					mixpanel.track('HP Chef Widget Campaign', {'page name' : document.title, 'url' : window.location.pathname});
+					$('#myModal .gattingWrapper form input').hide();
+					$('#myModal .regTitle').text("Thank you for subscribing to our community!!");
+					setTimeout(function() {
+						$('#myModal').modal('hide');		
+					}, 4000);
+            }
+            //return false; // for demo
+        }
+    });
+  //End Validation
+}
+
+
+
+//Blocking Spam http://blog.supermedia.com/honeypot-technique/
+$('#regiterToDownload').submit(function(){    
+        if ($('input#website').val().length != 0) {
+            return false;
+        } 
+});
+//End Blocking Spam
+
+});
+</script>
