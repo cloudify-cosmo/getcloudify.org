@@ -12,7 +12,8 @@ category: cloudify player
 						<h1>Chef <strong>on the Cloud in a Click</strong></h1>
 					<h2><strong>Test drive Chef using the Cloudify Player </strong></h2>
 	
-            <p class="lead">Chef is a flexible and powerful open source automation platform that transforms infrastructure into code. </p>
+            <p class="lead">This is a tutorial that will show you how to install a Chef server on demand using Cloudify, as well as a new Chef cookbook.  You will then be able to run and manage them through the Cloudify interactive shell.</p>
+		<p>NOTE: Installing Chef can take 6-9 minutes!</p>
 
              <a class="btn btn-lg btn-default" id="launch" style="float:left"  href="javascript:void(0)" data-launched="false">
                 <span class="glyphicon glyphicon-play"></span>
@@ -45,17 +46,26 @@ category: cloudify player
 						<br>
 
 				
-						<a id="mixpanelSubscribe" class="btn btn-large btn-green btn-rounded" href="#"><i class="icon-plus"></i>  Subscribe here !!!</a>
+						<a id="mixpanelSubscribe" class="btn btn-large btn-green btn-rounded" href="#"><i class="icon-plus"></i>  Get Free Cloud Package</a>
 
 						</div> 
 
 					<div class="span6">
 					<h1>Try out <strong>the interactive shell</strong></h1>
 						<h2><i class="icon-50 icon-arrow-down"></i> Start Now</h2>
-						<div class="span12 center" id="loading" >
-							<i class="icon-spinner icon-spin icon-large blue"></i>Loading interactive shell...Until then feel free to watch this tutorial video. <a class="hover-wrap fancybox fancybox.iframe" data-fancybox-group="gallery" title="Cloudify Your App on Chef" href="https://www.youtube.com/watch?v=JQUADOKF2kM" rel="gallery"> <span class="btn-rounded btn-blue" ><i class="icon-play"></i> Watch</span></a>
+						<div class="span12 center" id="loading"  style="display:none">
+							<i class="icon-spinner icon-spin icon-large blue"></i>Loading interactive shell...
+							<br/>
+							Until then feel free to watch this tutorial video.
+							
 						</div>
-						<div id="butterfly-iframe"></div>
+						<br/>
+							<br/>
+							
+						<div id="butterfly-iframe">
+						<iframe width="562" height="422" src="//www.youtube.com/embed/JQUADOKF2kM" frameborder="0" allowfullscreen></iframe>
+
+						</div>
 					</div>
 				</div>
 				</div></section>
@@ -307,7 +317,7 @@ $("#mixpanelSubscribe").click(function(e) {
 	if(formEmail==undefined){
 		$('#myModal').modal('toggle');
 	}else{
-		alert("you are already register")
+		alert("You have already registered.")
 	}
 });
 	
@@ -362,7 +372,7 @@ function downloadValid(){
 		});
 					mixpanel.track('HP Chef Widget Campaign', {'page name' : document.title, 'url' : window.location.pathname});
 					$('#myModal .gattingWrapper form input').hide();
-					$('#myModal .regTitle').text("Thank you for subscribing to our community!!");
+					$('#myModal .regTitle').text("Thank you for registering! We will be in touch with further details.");
 					setTimeout(function() {
 						$('#myModal').modal('hide');		
 					}, 4000);
