@@ -16,6 +16,8 @@ The following minimum requirements are for both Windows and *nix machines.
 * The @JAVA_HOME@ environment variable must point to the correct *JDK* (<span style="color:red;">not JRE</span>) directory. For example, @D:\Java\jdk1.6.0_32@.
 * @%JAVA_HOME%\bin@ must be added to the beginning of the @PATH@ environment variable. For example, @%JAVA_HOME%\bin;%SystemRoot%\System32;%SystemRoot%;@.
 
+h4(impt). JDK 7u51 & 6u30 do not work properly with JClouds, since those releases broke the compatibility with Google Guava. Therefore, Cloudify jclouds cloud drivers cannot run with it. You can use 7u45 or earlier versions.For more info, please read <a href="https://cloudifysource.atlassian.net/browse/CLOUDIFY-2378">this</a>.
+
 h2. See Also
 
 * "Installing the Cloudify Shell":../setup/installing_the_cloudify_client.html
