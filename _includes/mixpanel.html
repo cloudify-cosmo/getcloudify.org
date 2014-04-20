@@ -54,6 +54,19 @@ $(function(){
 	$("button#edit-on-github").click(function() {
 	    mixpanel.track("Documentation Edit Button Clicks",{'page name' : document.title, 'url' : window.location.pathname}); 
 	});
+	//Launch Button
+	$(".launchPlay").click(function() {
+	    mixpanel.track("Chef Campaign Widget Play",{'page name' : document.title, 'url' : window.location.pathname}); 
+	});
+	//Chef Campaign Widget Stop
+	$(".launchStop").click(function() {
+	    mixpanel.track("Chef Campaign Widget Stop",{'page name' : document.title, 'url' : window.location.pathname}); 
+	});
+	//Chef Campaign Button Clicks
+	$("#manage,#use").click(function() {
+	    mixpanel.track("Chef Campaign Button Clicks",{'page name' : document.title, 'url' : window.location.pathname}); 
+	});
+	
 
 	
 });
@@ -65,6 +78,8 @@ mixpanel.track_forms("#searchForm", "Search",{'page name' : document.title, 'url
 //Track Subscribers
 mixpanel.track_forms('#mc-embedded-subscribe-form', 'Register for Event Button Clicks',{'page name' : document.title, 'url' : window.location.pathname});	
 mixpanel.track_forms('#ki_form', 'Qualaroo');
+mixpanel.track_forms(".regiterToMixpanel", "Search",{'page name' : document.title, 'url' :  window.location.pathname});
+mixpanel.track_forms("#butterfly-iframe iframe", "Chef Campaign Interactive Shell",{'page name' : document.title, 'url' :  window.location.pathname});
 
 
 //track Cloudify Early Access Builds
