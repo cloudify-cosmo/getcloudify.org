@@ -251,19 +251,24 @@ jQuery(document).ready(function($) {
 		  var widthtoshow = 400 - ((timeleft * 400) / 1140000);
 		  $bar.width(widthtoshow.toFixed(0));
 		  $bar.text( lefttoshow.toFixed(0)+ "%");
-		  if($('#time-left').text()==0){
-		  lefttoshow = 100 - (100/19);
-		  widthtoshow = 400 - ( 400/1140000);
-		  $bar.width(widthtoshow.toFixed(0));
-		  $bar.text( lefttoshow.toFixed(0)+ "%");
-		  }
-		temptime = timeleft;
+		  temptime = timeleft;
 		}
 		//progressbar (timeleft) ;
 	});
 	
 	$('#butterfly-iframe').bind("DOMNodeInserted ",function(timeleft){
 		$('#loading').hide();
+	});
+	
+		//Launch Button
+	$(".launchPlay").click(function() {
+		$(this).removeClass("launchPlay");
+		$(this).addClass("launchStop");
+	});
+	//Chef Campaign Widget Stop
+	$(".launchStop").click(function() {
+		$(this).removeClass("launchStop");
+		$(this).addClass("launchPlay");
 	});
 
 
