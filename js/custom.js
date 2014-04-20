@@ -238,12 +238,39 @@ jQuery(document).ready(function($) {
 		ss.add($items);
 		*/
 
+	//Chef Progress-bar
+	var timeleft = 1140000;
+	var temptime=""; 
+	var $bar = $('.bar');
+
+	
+	$('#time-left').bind("DOMNodeInserted ",function(timeleft){
+		timeleft = $('#time-left').text()*60*1000;
+		 if (timeleft!=temptime){
+		 var lefttoshow = 100 - ((timeleft/1000/60)*100/19);
+		  var widthtoshow = 400 - ((timeleft * 400) / 1140000);
+		  $bar.width(widthtoshow.toFixed(0));
+		  $bar.text( lefttoshow.toFixed(0)+ "%");
+		  if($('#time-left').text()==0){
+		  lefttoshow = 100 - (100/19);
+		  widthtoshow = 400 - ( 400/1140000);
+		  $bar.width(widthtoshow.toFixed(0));
+		  $bar.text( lefttoshow.toFixed(0)+ "%");
+		  }
+		temptime = timeleft;
+		}
+		//progressbar (timeleft) ;
+	});
+	
+	$('#butterfly-iframe').bind("DOMNodeInserted ",function(timeleft){
+		$('#loading').hide();
+	});
 
 
 });
 
 
-//////////////////////////Start YouTube Player  Data //////////////////////////////		
+//////////////////////////Start YouTube Player  Data /////////////////////////////
 //Current time   http://jsfiddle.net/M78zz/
 //var id = $.fancybox.inner.find('iframe').attr('id');
 //player = new YT.Player(id)
@@ -316,10 +343,11 @@ function onPlayerStateChange(event) {
 				beforeClose: function() {
 				//alert(player.getCurrentTime())
 				//onPlayerStateChange() ;
+				if(player.u==true){
 				videoWatchDuration = player.getCurrentTime();
 				mixpanel.people.set({
 				"Video Watch Duration": videoWatchDuration
-				});
+				});}
 
 				}
             });
