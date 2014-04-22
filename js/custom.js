@@ -237,40 +237,7 @@ jQuery(document).ready(function($) {
 		// call the plugin's add method
 		ss.add($items);
 		*/
-
-	//Chef Progress-bar
-	var timeleft = 1140000;
-	var temptime=""; 
-	var $bar = $('.bar');
-
 	
-	$('#time-left').bind("DOMNodeInserted ",function(timeleft){
-		timeleft = $('#time-left').text()*60*1000;
-		 if (timeleft!=temptime){
-		 var lefttoshow = 100 - ((timeleft/1000/60)*100/19);
-		  var widthtoshow = 400 - ((timeleft * 400) / 1140000);
-		  $bar.width(widthtoshow.toFixed(0));
-		  $bar.text( lefttoshow.toFixed(0)+ "%");
-		  temptime = timeleft;
-		}
-		//progressbar (timeleft) ;
-	});
-	
-	$('#butterfly-iframe').bind("DOMNodeInserted ",function(timeleft){
-		$('#loading').hide();
-	});
-	
-		//Launch Button
-	$(".launchPlay").click(function() {
-		$(this).removeClass("launchPlay");
-		$(this).addClass("launchStop");
-	});
-	//Chef Campaign Widget Stop
-	$(".launchStop").click(function() {
-		$(this).removeClass("launchStop");
-		$(this).addClass("launchPlay");
-	});
-
 
 });
 
