@@ -3,29 +3,29 @@ layout: blogpost
 title: Never Had a Log Like This Before
 image: nircohen.jpg
 author: Nir Cohen
-tags: 
+tags:
  - Monitoring
- - Cloud Management 
- - Analytics 
- - DevOps 
- - Cloud Automation 
+ - Cloud Management
+ - Analytics
+ - DevOps
+ - Cloud Automation
 ---
 <notextile>
-<p>When it comes to logging and event handling, the large majority of companies today, only use these tools for post-analysis in the best case scenario.&#160; Many times, they don’t even do that, and logs just lie wasted without anyone doing anything with them ever. But logs and events, if written and configured correctly, are a gold mine of invaluable information.&#160; They can be leveraged not only to manually act upon events in real-time, but to even predict system behavior based on ongoing and known system trends, and automatically take action, almost like an artificial intelligence system.&#160; </p>
+<p>Today, the large majority of companies use logs and events to perform post analysis (in the best scenario).&#160; Many times, they don’t even do that, and logs just lie wasted without anyone doing anything with them. But a good logging and event handling infrastructure, if written and configured correctly, are a gold mine of invaluable information.&#160; They can be leveraged not only to manually act upon events in real-time, but to even predict system behavior based on ongoing and known system trends, and automatically take action, almost like an artificial intelligence system.&#160; </p>
 
-  <p>From an ops perspective, this means you can analyze logs to self-heal the system in the case of issues. From an executive perspective, this enables you to extract business performance data, and make educated business-critical decisions.</p>
+  <p>From an ops perspective, this means you can analyze logs to either manually or automatically heal the system in the case of issues. From an executive perspective, this enables you to extract business performance data, and make educated business-critical decisions.</p>
 
   <p>In my <a href="/2014/03/27/logging_event_handling_logstash_elasticsearch.html">previous post</a> I discussed the tools we use to achieve these goals, so if you need a refresher - feel free to reference this post for context.</p>
 
   <h2>Logging 101</h2>
 
-  <p>Before we get to the “how” - let’s just quickly give context to the terminology, and define the difference between events and logs, as is intended in this post.&#160; When we discuss events, we are referring to one-liners in your logs (or in an event aggregator service) that indicate that something meaningful (that is, defined by the user) happened in the system. In a Cloudify context, this means, instances that were started, for example. Logs, on the other hand, are the context for that event.&#160; </p>
+  <p>Before we get to the “how” - let’s just quickly give context to the terminology, and define the difference between events and logs, as is intended in this post.&#160; When we discuss events, we are referring to one-liners in your logs (or in an event aggregator service) that indicate that something meaningful (that is, defined by the user) happened in the system. In a Cloudify context, this means, instances that were started, for example. Logs, on the other hand, are the context for those events.&#160; </p>
 
   <p>Logs can contain any kind of application-related data, that doesn’t necessarily have to relate to a specific event. For example, it can be a log of the app currently opening a socket - and then sending something.&#160; This might not be considered an event.&#160; </p>
 
   <p>Uri’s post on <a href="http://getcloudify.org/2014/02/27/from_simple_automation_to_proactive_orchestration.html">proactive orchestration</a> focused on the monitoring and metrics you need to have in place in order to achieve proactive analytics and actions. To that end, I’d like to focus just on the ultimate event handling and logging structure to achieve optimal results.</p>
 
-  <h2>Logging - The DevOps Ways</h2>
+  <h2>Logging - The DevOps Way</h2>
 
   <p>If we're talking about the logical level, not the technical level, the first thing you will need to do is to correlate between your development and operations teams.&#160; Simply put, ops need devs to write logs that can be easily parsed and understood.&#160; </p>
 
@@ -39,6 +39,10 @@ tags:
 
   <li>
     <p>The information is relevant (don’t log useless information). </p>
+  </li>
+
+  <li>
+    <p>Correlate the logs with the desired analysis outcome. Make sure you know what you want to achieve and write logs for it. </p>
   </li>
 </ul>
 
@@ -68,27 +72,25 @@ tags:
 
 <h2>Extracting the Right Data</h2>
 
-<p>The problem begins when you want to understand what to do with the information, and define the algorithm you use for any given scenario.&#160; In order to achieve this, you have to develop a system that reads your logs, understands what your logs/events mean, and then applies tasks to that data.&#160; </p>
+<p>Another problem begins when you want to understand what to do with the information. Whether you intend to manually analyze the data and act upon it, review the data or develop a self sustaining system that read logs and understands what to do.. (oi, I want that!), you will have to define the algorithm you use for any given scenario.&#160; </p>
 
-<p>A good example for how to analyze and understand what’s going in your system is with a standard web server. Take event handling time, for example. From the context of the log, you can easily extract data that could help you solve the problem such as request time and response time. If you parse the application’s events as well, you can know exactly which event is producing the problem, and act upon that data.</p>
+<p>A good example for how to analyze and understand what’s going in your system is with a standard web server. Take event handling time, for example. From the context of the log, you can easily extract data that could help you solve a problem (data such as request time and response time). If you parse the application’s events as well, you can know exactly which event is producing the problem, and act upon that data.</p>
 
-<p>Let's assume that we're using a proprietary app - such as a web server, with Cloudify, this would be our REST manager server. The logs that the app sends, use a complex and informative format of events and logs that contain a lot of fields.&#160; These include, for instance, the deployment ID, and originating server to add context to the events, along with a message that is human readable, and the regular fields that logs normally contain - such as a timestamp and a log level.&#160; The event is also given an ID. We can then follow that ID across all of the logs, making it possible to understand where the event originated from.&#160;&#160; </p>
+<p>Let's assume that we're using that proprietary app, the web server, with Cloudify, this would be our REST manager server. The logs that the app sends, use a complex and informative format of events and logs that contain a lot of fields.&#160; These include, for instance, the deployment ID, and originating server to add context to the events, along with a message that is human readable, and the regular fields that logs normally contain - such as a timestamp and a log level (there's much more actually...)&#160; The event is also given an ID. We can then follow that ID across all of the logs, making it possible to understand where the event originated from.&#160;&#160; </p>
 
-<p>The logs also have original fields related to the application, such as message type, e.g. START or STOP, and the subtype would specify what was started and stopped.&#160; This helps us understand the current place in our code where that event originated from and helps debug the code later to solve problems.&#160; Many of the fields can then be automatically analyzed and an algorithm can be applied that acts upon that specific log or event received.</p>
+<p>The logs also have original fields related to the application, such as event type, e.g. START or STOP, and the subtype would specify what was started and stopped.&#160; This helps us understand the current place in our code where that event originated from and helps debug the code later to solve problems.&#160; Many of the fields can then be automatically analyzed and an algorithm can be applied that acts upon that specific log or event received. Obviously, unless very specific, you will not act upon one log line, but (for instance) by time based statistics.</p>
 
 <p>Before we reach the level of automating tasks based on log and event trends, there is the manual post-analysis and performing of tasks based on the data received - after reading and understanding the logs by correlating data from a number of fields.&#160; </p>
 
 <h2>Getting Your Logs to Work for You</h2>
 
-<p>In order to get your systems to work for you, you need to start by sending logs and events to a central system, parsing the data, understanding it, and acting upon it to heal or analyze the system as needed - you can easily do this with tools like logstash, elasticsearch, and Kibana that are tightly integrated. </p>
-
-<p>After writing your algorithm that correlates your data from all of the different fields and understands it, allowing you to then act upon this data manually; you can then take it to the next level by writing the proactive algorithm to automate this activity, by writing rules based on this data.&#160; For example, if the number of instances is smaller than X, and the number of users is greater than Y, and the latency is greater than Z - then do XYZ.&#160; </p>
-
-<p>Today,&#160; as far as I know, there is no system that can do this.&#160; However, in order to achieve this level of automation, this information needs to be readily available in elasticsearch, and each data point needs to be easily understandable.&#160; This can only be achieved by working closely with the developers beforehand to define the data needed, and it needs to be properly structured data when logged to give proper context. This can take multiple development cycles, to hone the information received, as is often the case, not enough information is logged to be able to automate these tasks.</p>
-
-<p>A simple example, we want to understand when requests in our system are going to start failing due to an application overload in a certain timeframe, say three days.&#160; With our request count and response time from the past three days stored in elasticsearch, we analyze this data, and visualize these trends in Kibana. Such as, if we see peaks every day at 12:00, we'd create rules to better manage such scenarios, and take preventative action on an ops level (and maybe on the dev level as well).</p>
+<p>A simple example: We want to understand when requests in our system are going to start failing due to an application overload in a certain timeframe, say three days.&#160; With our request count and response time from the past three days stored in elasticsearch, we can analyze the data (and visualize these trends in Kibana as w3ell) - such as, if we see peaks every day at 12:00, we'd create rules to better manage such scenarios, and take preventive action on an ops level (and maybe on the dev level as well).</p>
 
 <p>On a business level, if we analyze our data, and discover that registration from a certain region on a weekly basis is X, and then it suddenly drops, you can also create rules to act from a business-critical perspective.</p>
+
+<p>After writing your algorithm that correlates your data from the different fields and understands it, allowing you to then act upon this data manually; you can then take it to the next level by writing the proactive algorithm to automate this activity, by writing rules based on this data.&#160; For example, if the number of instances is smaller than X, and the number of users is greater than Y, and the latency is greater than Z - then do XYZ.&#160; </p>
+
+<p>Today,&#160; as far as I know, there is no common, large-community-supported system that can do this.&#160; However, in order to achieve this level of automation, this information needs to be readily available in elasticsearch (in our case), and each data point needs to be easily understandable.&#160; This can only be achieved by working closely with the developers beforehand to define the data needed, and it needs to be properly structured data when logged to give proper context. This can (and will) take multiple development cycles, to hone the information received, as is often the case, not enough information is logged to be able to automate these tasks.</p>
 
 <h2>Conclusion</h2>
 
