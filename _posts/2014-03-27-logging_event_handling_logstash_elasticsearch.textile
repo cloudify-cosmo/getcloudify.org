@@ -3,16 +3,16 @@ layout: blogpost
 title: Logging and Event Tools to Help You Understand and Heal Stacks
 image: nircohen.jpg
 author: Nir Cohen
-tags: 
+tags:
  - Monitoring
- - Cloud Management 
- - Analytics 
- - DevOps 
- - Cloud Automation 
+ - Cloud Management
+ - Analytics
+ - DevOps
+ - Cloud Automation
 ---
 <notextile>
 <p>This post is going to be a prologue to my next post on how to create logs with structured data to be able to extract and act upon the most relevant information, and eventually even automate these tasks. Building such systems is no trivial task, and to reach that promised land of automation requires finding the right tools for the job.&#160; Along the way there are plenty of tools for diverse jobs, so I thought I'd quickly dive into the tools we use to achieve this level of logging and event handling.</p>
-<p>Generally speaking the end goal of any logging system is to understand what's going on in your entire system.&#160; To that end you'll need a logging system that enables you to write and ship logs to a central system, where you can then parse the logs, change them (i.e. add/subtract/re-format info as needed), index the information within, query that information, and then visualize it in a graphical way.</p>
+<p>Generally speaking the end goal logging is to understand what's going on in your system.&#160; To that end you'll need a logging infrastructure that enables you to write and ship logs to a central aggregator, where you can then parse the logs, change them (i.e. add/subtract/re-format info as needed), index the information within, query it, and then visualize it.</p>
 <p>There are tons of tools out there, and everyone has their own preference - from Graylog2 and rsyslogd through FluentD, Splunk, and more.&#160; This post is going to dive into the tools Cloudify uses to enable you to understand and heal your stacks through log and event analysis.&#160; </p>
 <p>Let's start by describing our logging flow, and the tools we use for each purpose.</p>
 <ul>
@@ -29,7 +29,7 @@ tags:
   </li>
 </ul>
 
-<p>We chose to use these tools, as they are all tightly integrated, making it pretty seamless to work with them together.</p>
+<p>We chose to use these tools, as they are all tightly integrated, making it pretty seamless to work with. They're also widely supported and receive updated very often.</p>
 
 <h3>Getting Started With Logstash</h3>
 
@@ -45,7 +45,7 @@ tags:
   </li>
 
   <li>
-    <p>Filters are data handlers that can do almost anything with any given log line.</p>
+    <p>Filters are data handlers and manipulators that can do almost anything with any given log.</p>
   </li>
 
   <li>
@@ -53,39 +53,39 @@ tags:
   </li>
 </ul>
 
-<p>After installing logstash, elasticsearch, and Kibana (which with a simple architecture should take 15 minutes max for a simple stack), we then begin by writing the logstash configuration file that specifies the inputs, filters and outputs.&#160; </p>
+<p>After installing logstash, elasticsearch, and Kibana (which, with a simple architecture and assuming that we don't need data retention as optimization should take 15 minutes max for a simple stack), we then start writing the logstash configuration file that specifies the inputs, filters and outputs.&#160; </p>
 
 <p>Let's start with inputs. With these, we can specify how logstash receives its logs - this can be done in any number of ways - by listening to a UDP port, listening to a RabbitMQ queue and pulling the logs and events from there, reading from redis, collectd, graphite, lumberjack, or even querying Nagios. There's basically a very wide range of inputs, filters and outputs that can be used with logstash, and it is all well documented at <a href="http://logstash.net/">logstash.net</a>.&#160; </p>
 
-<p>After configuring the inputs, we define the filters; which essentially means defining the configurations for parsing and re-formatting the data. There are plenty of filters, and you can do much more than just parsing and formatting data, but for all intents and purposes, that's generally the most common usage of filters.</p>
+<p>After configuring the inputs, we define the filters; which essentially means defining the configuration for parsing and re-formatting the data. There are plenty of filters, and you can do much more than just parsing and formatting data, but for all intents and purposes, that's generally the most common usage of filters.</p>
 
 <p>Filter types range from date formatting, key/value parsing, string formatting and data extraction to more specific data handling (again, see the docs).</p>
 
-<p>Parsing means taking logs in (possibly) different formats and extracting the data within, essentially unstructured data - that is words, numbers and symbols. To do so, we use the GROK filter to extract data according to a specific format that we define in the configuration file.&#160; This filter knows how to parse that log line or event, and then store it in different fields. We then use those fields to build a new log line that makes more sense, or, in our case, to make a JSON out of it, so it can be easily indexed in elasticsearch.&#160; After we've done this, we can add or subtract from the logs, or drop some of the logs and events that we don't want to eventually index in elasticsearch.&#160; An example would be when a lot of logs that are extremely technical are received, in this case you would use a GREP filter to drop events that contain specific (predefined) content that is not relevant to what you want to query against.&#160; </p>
+<p>Parsing means taking logs in (possibly) different formats and extracting the data within, essentially unstructured data - that is words, numbers and symbols. To do so, we use the GROK filter to extract data according to a specific format that we define in the configuration file.&#160; This filter will now know how to parse that log line or event, and then store it in different fields. We then use those fields to build a new log line that makes more sense, or, in our case, to structure a JSON out of it, so it can be easily indexed in elasticsearch.&#160; After we've done this, we can add or subtract from the logs, or drop some of the logs and events that we don't want to eventually index in elasticsearch.&#160; An example would be when a lot of logs that are extremely technical are received and are unusable, you can use a GREP filter to drop events that contain specific (predefined) content that is not relevant to what you want to query against.&#160; </p>
 
-<p>{A quick side note about JSON and logging best practices. When your system receives logs that are not structured in a specific way, your logstash agent needs to work hard to parse them and because they're more complex.&#160; If you initially send JSON formatted logs to logstash's input, which is a simple structure of keys and values for different fields, this then enables the indexing of the logs as is in elasticsearch.&#160; This is because elasticsearch and Kibana know how to work with JSON very well.}</p>
+<p>{A quick side note about JSON and logging best practices. When your system receives logs that are not structured in a specific way, your logstash agent needs to work hard to parse them (since they're more complex).&#160; If you initially send JSON formatted logs to logstash's input, which is a simple structure of keys and values for different fields, this then enables the indexing of the logs as is in elasticsearch.&#160;}</p>
 
 <h3>From Logstash to Elasticsearch</h3>
 
-<p>After this stage, we can add an elasticsearch output (Again, there are many many types of outputs. In Cloudify, we use elasticsearch), specify the host that elasticsearch is installed on, the port, index name and additional configuration (if required), and then it get gets indexed automatically by logstash.&#160; Since, as I mentioned before, logstash elasticsearch and Kibana are tightly integrated, logstash knows how to automatically create daily indices and even rotate them in elasticsearch, as well as provide additional functionality.</p>
+<p>After this stage, we can add an elasticsearch output (Again, there are many many types of outputs. In Cloudify, we use the elasticsearch_http output), specify the host that elasticsearch is installed on, the port, index name and additional configuration (if required), and then it gets indexed automatically by logstash.&#160; Since, as I mentioned before, logstash elasticsearch and Kibana are tightly integrated, logstash knows how to automatically create daily indices and even rotate them in elasticsearch, as well as provide additional functionality.</p>
 
-<p>After everything is indexed in elasticsearch, we can start configuring our setup.&#160; For example, in which partition our data sits, where to store the elasticsearch logs - perhaps we'd like to store them in a different location to ensure backup upon failure, how much memory every elasticsearch node uses, and whether we want multiple nodes (which will enable us to index and search more quickly).&#160; There are hundreds of configuration options in <a href="http://www.elasticsearch.org/">elasticsearch </a>that has pretty good documentation.&#160; For the most part, to get started with multiple nodes,&#160; you can read their docs and have a pretty good grasp on how to get started.</p>
+<p>After everything is indexed, we can start configuring our elasticsearch setup (that would actually, technically, come before the indexing part.)&#160; For example, in which partition our data sits in, where to store the elasticsearch logs - perhaps we'd like to store them in a different locations to ensure data retention, how much memory every elasticsearch node uses, and whether we want multiple nodes (which will enable us to index and search more quickly).&#160; There are hundreds of configuration options in <a href="http://www.elasticsearch.org/">elasticsearch </a>that has pretty good documentation.&#160; For the most part, to get started with multiple nodes,&#160; you can read their docs and have a pretty good grasp on how to get started. By teh way, the default configuration is wonderful for testing purposes.</p>
 
 <h3>Visualizing Your Data</h3>
 
-<p>After everything is indexed, you'll want to visualize the important data. <a href="http://www.elasticsearch.org/overview/kibana/">Kibana </a>knows how to automatically read logstash created indices in elasticsearch to created dashboards of your data. In Kibana, you can query by any number of parameters as long as you have a field for that parameter (timestamp, message content, originating host, and so forth).&#160; For instance, if you have a field that includes numbers only - # of registrations to your website or request time, and you want to see the number of registrations written to the field in a pie chart, Kibana knows how to do this.</p>
+<p>After everything is indexed, you'll want to visualize the important data. <a href="http://www.elasticsearch.org/overview/kibana/">Kibana </a>knows how to automatically read logstash created indices in elasticsearch to create dashboards of your data (well, you'll have to create the dashboards.. but everything you need is already there.) In Kibana, you can query by any number of parameters as long as you have a field for that parameter (timestamp, message content, originating host, and so forth).&#160; For instance, if you have a field that includes numbers only - # of registrations to your website or request time for example, and you want to see the number of registrations written to the field in a pie chart, you can create one in Kibana.</p>
 
-<p>With Kibana you can create complex queries, and visualize them in many different ways, from maps, to pie charts, through graphs, and even histograms, enabling you to manipulate and visualize your data very flexibly.&#160; This, of course, depends on what type of logs and events are originated from your system, but this enables you to create dashboards for devs, ops and even the executive levels as long as you structure your data correctly and query the most relevant information in each dashboard.&#160; For example, create dashboards for the logs that are only related to things happening in the code, to see if the code is acting as it should.&#160; For ops you can have dashboards that show response times, latency and other things happening on the operative level.&#160; For, executives you would have dashboards for activity on a business level, such as the number of registrants and logins, purchases, and geographical distribution of different KPI's.&#160; All of this depends on amount of information you're willing to supply and how much you're willing to invest in raw power and storage for log handling.</p>
+<p>With Kibana you can create complex queries, and visualize them in many different ways. From maps, to pie charts, through graphs, and even histograms - enabling you to manipulate and visualize your data very flexibly.&#160; This, of course, depends on what type of logs and events originated from your system, but this enables you to create dashboards for devs, ops and even the executive levels as long as you structure your data correctly and query the most relevant information in each dashboard.&#160; For example, create dashboards for the data that is only related to things happening in the code, to see if the code is behaving as expected.&#160; For ops you can have a dashboard that shows response times on both the application and the network levels.&#160; For, executives you would have dashboards for activity on a business level, such as the number of registrants and logins, purchases, and geographical distribution of different KPI's.&#160; All of this depends on the amount of information you're willing to supply (that is, development time) and how much resources you're willing to invest in raw power and storage for log handling.</p>
 
 
 <h3>Data Reliability</h3>
 
-<p>The complexity of your logging system depends on how mission critical your log data is to the company.&#160; If the company is able to live with losing a certain percentage of the logs/events, the most standard method for shipping logs is using regular ol' UDP.&#160; With UDP you need to be comfortable with the fact that you will lose some data, however if your data is mostly statistical, then practically this doesn't really matter.</p>
+<p>The complexity of your logging system depends on how mission critical your log data is to the company.&#160; If the company is able to live with losing a certain percentage of the logs/events, the most standard method for shipping logs is using regular ol' UDP.&#160; With UDP you need to be comfortable with the fact that you will lose some data, however if your data is mostly statistical, this doesn't really matter.</p>
 
 <p>If you need a very persistent and reliable logging system where you can't sacrifice even the smallest amount of data (this is common in banks and other financial services institutions), this requires a more complex logging system, including queuing systems, high level replication (and much more) to ensure no data is lost.</p>
 
 <p>My next post will actually dive into how we use this system to understand our logs and take them to the next level.</p>
 
 <h3>About Nir</h3>
-<p>Nir Cohen is an Ops Architect at GigaSpaces. In his previous capacity he managed the Operations Team at fring who was recently purchased by GENBAND. Nir loves system architecture, likes to think of himself as an innovative, think-tank type of guy who adores challenges and has an extremely strong affinity to automation and system architecture. He's primarily driven by automation and by researching and deploying new systems and services. To Nir, the most important thing in life is ethics. Find Nir on <a href="https://github.com/nir0s">GitHub</a> or follow him on <a href="https://twitter.com/Opsimizer">Twitter</a>.</p>
+<p>Nir Cohen is an Ops Architect at GigaSpaces. In his previous capacity he managed the Operations Team at fring who was recently purchased by GENBAND. Nir loves system architecture, likes to think of himself as an innovative, think-tank type of guy who adores challenges and has an extremely strong affinity to automation and system architecture. He's primarily driven by researching and deploying new systems and services. To Nir, the most important thing in life is ethics. Find Nir on <a href="https://github.com/nir0s">GitHub</a> or follow him on <a href="https://twitter.com/Opsimizer">Twitter</a>.</p>
 </notextile>
