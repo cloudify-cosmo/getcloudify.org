@@ -1,0 +1,90 @@
+---
+layout: blogpost
+title: Automation of NFV Components on OpenStack - How-To
+image: shaynaeh.jpg
+author: Shay Naeh
+tags: 
+ - NFV
+ - Network Automation
+ - OpenStack 
+ - Cloud Orchestration 
+ - Cloud Automation
+---
+<notextile>
+
+<p>In my previous post I discussed the need for <a href="/2014/04/09/network_automation_NFV_cloud_orchestration.html" target="_blank">virtualization of network functions</a> on the cloud. In this post, I’m going to dive into a real world scenario, that CAN actually try at home.&#160; (Really we also support local cloud, remember?)</p>
+
+<p>So just to recap, the primary challenges of virtualizing network components on the cloud are usually around automation, whether in the deployment or post-deployment phase:</p>
+
+<ol>
+  <li>Automatic deployment </li>
+
+  <li>Orchestration </li>
+
+  <li>Monitoring </li>
+
+  <li>Self healing </li>
+
+  <li>Auto scaling </li>
+</ol>
+
+<p>Below is how I achieved this on OpenStack using Cloudify.</p>
+
+<p><strong>The Solution</strong></p>
+
+<p><strong>1. For automatic deployment</strong> and dependencies among tiers I used <a href="http://getcloudify.org/">Cloudify</a>. Cloudify provides a simple way to write recipes and dependencies between components. The experiment that I did, I took off the shelf software that creates video streamers and run it on a Tomcat Web container. I used Tomcat and a virtual software load-balancer to enable elasticity. Tomcat, in its turn registers itself with the virtual load-balancer that I created utilizing Apache. Here you can read more on Apache <a href="http://httpd.apache.org/docs/2.2/mod/mod_proxy_balancer.html" target="_blank">mod_proxy_balancer</a>. The Apache LB is a virtual network function that directs traffic to multiple video streamer based on a predefined policy. I used a simple policy of round-robin, to direct requests among the Tomcat servers evenly. </p>
+
+<p>I also used a Tomcat connector so whenever a new Tomcat starts it connects to the load-balancer announcing there is an additional video streamer and you can direct traffic to me, I am available.</p>
+
+<p>For the video streaming I used <a href="http://www.subsonic.org/pages/index.jsp" target="_blank">Subsonic</a>, which required minimal configuration. Then I uploaded various MP3 and MP4 files (audio and video) and was able to play them on a desktop browser and Android and iPhone mobile devices using a client application downloaded from Google Play and Apple App store respectively. </p>
+
+<p>Note that Tomcat video streamers cannot start until the LB is started so there is a dependency between Tomcat and the LB. This dependency is noted in the recipe below, services creation and the dependencies between them:</p>
+
+
+<p><script src="https://gist.github.com/shayn1234/9503883.js"></script></p>
+
+<p><font style="background-color: #ffff00"></font></p>
+
+<p><strong>2</strong>. <strong>Orchestration </strong>- Cloudify handles the network infrastructure orchestration which is an enabler for deploying NFV components. Cloudify defines networks, subnets, security groups, floating IPs, a management network and application network in OpenStack. Subnets in Openstack, depend on networks created first. Here a snippet of code from the Cloudify driver that defines the management network and provisions for the application network:</p>
+
+<p><script src="https://gist.github.com/shayn1234/9525858.js"></script></p>
+
+
+<p>Cloudify also orchestrates application services and dependencies as defined above. </p>
+
+</li>
+<p><strong><li> Monitoring </strong>is part of orchestration and it defines the metrics to be collected and act upon. Metrics could be for example number of requests, throughput which is actually number of requests in a given time unit, domain specific metrics like in Tomcat, threads busy, etc. Metrics are used to display the current status of the system, application and internal resources. It is also used for additional active tasks like self healing and auto scaling, more about it in further sections. Monitors could be applied to any data source using various collection methods like SNMP, CLI, JMX, etc. Below is an example of the monitors I’ve used to gather out metrics from Tomcat servers through JMX.</p>
+
+<p><script src="https://gist.github.com/shayn1234/9526025.js"></script></p>
+
+
+</li>
+<strong><li> Self healing</strong> - when a Tomcat server dies or the load-balncer dies Cloudify will launches a new one. Cloudify knows this from constant monitoring of the services it manages. When a service crashes it will be launched automatically as defined in the recipe.<strong> 
+    <br /></strong></p>
+</li>
+<strong><li> Auto Scaling </strong>- What do you do when more load, more users and additional transactions are fired at your system, how do you increase its capacity at high load times and decrease it back in normal times? You have to have an elastic automatic solution, an Auto Scaling solution.</p>
+
+<p>Below is an architecture diagram, you can see the traffic flow from the vLB to the vVideo streamers, as well as load generation to imitate requests coming from real clients. The load is generated to check the auto scaling rules. In the Tomcat recipe I’ve added the following rules:</p>
+
+<p><script src="https://gist.github.com/shayn1234/9526498.js"></script></p>
+
+
+<p>This tells Cloudify, which governs the automation story, to start with two Tomcat instances and based on a monitored metric called ”Current HTTP Threads Busy”, to increase the number of servers by two if the threshold crosses four (you can use higher numbers, its configurable). I used four in order to see results pretty immediately.&#160; Cloudify gets the number of busy threads from Tomcat using JMX and then compares it to the defined threshold.</p>
+
+<p><img src="/images/NFVPost-Cloudify.jpg"></p>
+
+<p>Here is the Subsonic screen as it looks on a desktop browser (this view is taken from Subsonic)</p>
+
+<p><img src="/images/NFVPost-Subsonic.jpg"></p>
+
+<p>Using some friends mobile phones we were able to connect many mobile phones, each listening its own music or viewing its own video.</p>
+
+</li>
+</ol>
+<p>Once the LB was running, and after tailoring cookies to keep directing a user’s session to the same video streamer the user started to work with, everything worked smoothly. Users were directed to video streamers running on Tomcat and when the video streamer or more accurately Tomcat threads crossed the defined threshold, additional Tomcats servers were brought in, automatically registered with the LB and were ready to accommodate additional users and requests.</p>
+
+<p>One more word on <strong>Auto Scaling</strong>, when the system was idle and less clients used it, it freed servers and decreased the number of available vVideo Streamers. In other words a 100% elastic system, growing and shrinking on demand.</p>
+
+<p>Now I can&#160; use the virtual LB component as a virtual NFV component for additional purposes, its an existing NVF component on my catalog.</p>
+
+</notextile>
