@@ -41,12 +41,12 @@ tags:
 <p>Note that Tomcat video streamers cannot start until the LB is started so there is a dependency between Tomcat and the LB. This dependency is noted in the recipe below, services creation and the dependencies between them:</p>
 
 
-<p><script src="https://gist.github.com/shayn1234/9503883.js"></script></p>
+<script src="https://gist.github.com/shayn1234/9503883.js"></script>
 
 </li>
 <p><strong><li>Orchestration </strong>- Cloudify handles the network infrastructure orchestration which is an enabler for deploying NFV components. Cloudify defines networks, subnets, security groups, floating IPs, a management network and application network in OpenStack. Subnets in Openstack, depend on networks created first. Here a snippet of code from the Cloudify driver that defines the management network and provisions for the application network:</p>
 
-<p><script src="https://gist.github.com/shayn1234/9525858.js"></script></p>
+<script src="https://gist.github.com/shayn1234/9525858.js"></script>
 
 
 <p>Cloudify also orchestrates application services and dependencies as defined above. </p>
@@ -54,7 +54,7 @@ tags:
 </li>
 <p><strong><li> Monitoring </strong>is part of orchestration and it defines the metrics to be collected and act upon. Metrics could be for example number of requests, throughput which is actually number of requests in a given time unit, domain specific metrics like in Tomcat, threads busy, etc. Metrics are used to display the current status of the system, application and internal resources. It is also used for additional active tasks like self healing and auto scaling, more about it in further sections. Monitors could be applied to any data source using various collection methods like SNMP, CLI, JMX, etc. Below is an example of the monitors I’ve used to gather out metrics from Tomcat servers through JMX.</p>
 
-<p><script src="https://gist.github.com/shayn1234/9526025.js"></script></p>
+<script src="https://gist.github.com/shayn1234/9526025.js"></script>
 
 
 </li>
@@ -65,7 +65,7 @@ tags:
 
 <p>Below is an architecture diagram, you can see the traffic flow from the vLB to the vVideo streamers, as well as load generation to imitate requests coming from real clients. The load is generated to check the auto scaling rules. In the Tomcat recipe I’ve added the following rules:</p>
 
-<p><script src="https://gist.github.com/shayn1234/9526498.js"></script></p>
+<script src="https://gist.github.com/shayn1234/9526498.js"></script>
 
 
 <p>This tells Cloudify, which governs the automation story, to start with two Tomcat instances and based on a monitored metric called ”Current HTTP Threads Busy”, to increase the number of servers by two if the threshold crosses four (you can use higher numbers, its configurable). I used four in order to see results pretty immediately.&#160; Cloudify gets the number of busy threads from Tomcat using JMX and then compares it to the defined threshold.</p>
