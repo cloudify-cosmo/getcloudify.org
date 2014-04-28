@@ -45,17 +45,14 @@ $(function(){
 	$("a.goProBtn").click(function() {
 	    mixpanel.track("Pro button nav bar clicks",{'page name' : document.title, 'url' : window.location.pathname}); 
 	});
-	
 	//Go Pro Button Inner Pages
 	$("#goProInner").click(function() {
 	    mixpanel.track("Go Pro Button Inner Pages",{'page name' : document.title, 'url' : window.location.pathname}); 
 	});
-	
 	//Download Button Inner Pages
 	$("#downloadBtnInner").click(function() {
 	    mixpanel.track("Download Button Inner Pages",{'page name' : document.title, 'url' : window.location.pathname}); 
 	});
-	
 	//Get Started button home page
 	$("a#getStartedBtn").click(function() {
 	    mixpanel.track("Get Started button home page",{'page name' : document.title, 'url' : window.location.pathname}); 
