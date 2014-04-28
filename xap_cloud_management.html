@@ -11,7 +11,7 @@ category: cloudify player
 					<div class="span6 no-margin">
 						<h1>Try out  <strong>XAP in one Click</strong></h1>
 					<h2><strong>Test drive XAP API and Management with Real Server on Demand </strong></h2>
-	
+
             <p class="lead">This is a tutorial that will setup a XAP Cluster on a real server on demand. The tutorial include an interactive shell that will allow you to execute the various XAP API for writing and reading data as well as open a groovy shell to write your own code and experience the full XAP API.  The tutorial also allows you explore the <a href="http://www.gigaspaces.com/xap-deployment-management-and-automation-solution" target="_blank">XAP orchestration and deployment automation</a> as well as the XAP Data management console. The tutorial is also available for download - see instructions <a href="#" target="_blank"></a>here.</p>
 		<p>NOTE: Installing XAP can take 2-3 minutes.</p>
 
@@ -20,7 +20,7 @@ category: cloudify player
                 Launch Now
               </a>
 			  <div class="container" style="width:400px;float:left;margin:5px 0 0 15px">
-			  
+
 				<div class="progress progress-striped active">
 					<div class="bar" style="width: 0%;"></div>
 				</div>
@@ -57,22 +57,39 @@ category: cloudify player
 							<i class="icon-spinner icon-spin icon-large blue"></i>Loading interactive shell...
 							<br/>
 							Until then feel free to watch this tutorial video.
-							
+
 						</div>
 						<br/>
 							<br/>
-							
-						<div id="butterfly-iframe">
-						<iframe width="500" height="400" src="//www.youtube.com/embed/P0rTANBRuWE" frameborder="0" allowfullscreen></iframe>
 
+						<div id="butterfly-iframe">
+						<iframe  id="ytIframe"  width="500" height="400" src="//www.youtube.com/embed/P0rTANBRuWE" frameborder="0" allowfullscreen></iframe>
+							<div id="butterflyWrapper" style="display:none">
+								<iframe id="butterfly" src="#" width="768px" height="400px" frameborder="1" scrolling="auto"></iframe>
+								<a id="watchVideoBtn" class="hover-wrap fancybox fancybox.iframe" data-fancybox-group="gallery" title="Cloudify Your App on Chef" href="#" rel="gallery"><span class="btn btn-rounded btn-default"><i class="icon-play"></i> Watch</span></a>
+								<h2>Type the following into the terminal window:</h2>
+									<ul>
+										<li>connect 127.0.0.1</li>
+										<li>list-applications</li>
+										<li>use-application chef-server</li>
+										<li>invoke chef-server listCookbooks</li>
+										<li>invoke chef-server updateCookbooks tar "http://s3.amazonaws.com/yoramw/apache.tgz" </li>
+										<li>invoke chef-server listCookbooks</li>
+										<li>install-service -overrides /tmp/apache.properties /tmp/base_chef</li>
+										<li>list-applications</li>
+										<li>invoke chef-server knife node list</li>
+										<li>invoke chef-server knife node show <node FQDN from previous list command></li>
+										<li>Click <a id="viewApachePage" href="#">here to view the Apache welcome page </a> you have just deploy</li>
+									</ul>
+						    </div>
 						</div>
 					</div>
 				</div>
 				</div></section>
-				
-				
-				
-				
+
+
+
+
 <script src="http://ricostacruz.com/nprogress/nprogress.js"></script>
     <div id="hidden-iframe" style="display:none"><iframe id="iframe" src="http://launch.cloudifysource.org/widget/widget?apiKey=5bb7150f-5636-4087-b78e-4132b686c227&amp;title=Launch&amp;origin_page_url=http://getcloudify.org/xap_cloud_management.html" width="600" height="463"></iframe></div><script type="text/javascript">var WIDGET_ID = '5bb7150f-5636-4087-b78e-4132b686c227';</script>
     <script type="text/javascript" src="/js/chef/script.js"></script>
@@ -127,7 +144,7 @@ $("#mixpanelSubscribe").click(function(e) {
 		alert("You have already registered.")
 	}
 });
-	
+
 	$('#pageContent').on("click", "a.gattingWrapperClose", function() {
 		$('#myModal').modal('hide');	
 	});	
