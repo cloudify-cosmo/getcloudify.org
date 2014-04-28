@@ -108,7 +108,7 @@ $(function() {
                 updateTimeLeft(msg.status.timeleft);
                 updateManageUrl('http://' + msg.status.publicIp + ':8099/');
                 if (msg.status.consoleLink) {
-                    updateTermUrl('http://' + msg.status.publicIp + ':8080/wd//tmp')
+                    updateTermUrl('http://' + msg.status.publicIp + ':8080')
                     updateUseUrl(msg.status.consoleLink.url, msg.status.consoleLink.title);
                     updateTtyUrl('http://' + msg.status.publicIp + ':8080/');
                     NProgres.done();
