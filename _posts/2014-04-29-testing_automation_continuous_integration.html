@@ -11,13 +11,13 @@ tags:
  - Multi-Cloud
 ---
 <notextile>
-<h3>How we built a testing-as-service infrastructure for our team of developers using Git, QuickBuild, JClouds, Cloudify, Logstash, TestNG, Tomcat, &amp; MySQL</h3>
+<p><h3><strong>How we built a testing-as-service infrastructure for our team of developers using Git, QuickBuild, JClouds, Cloudify, Logstash, TestNG, Tomcat, &amp; MySQL</strong></h3><p>
 
 <p>System testing is one of the most tedious, time consuming and error prone procedures in software development. More so when developing and testing distributed middleware products. All this, when achieving a robust continuous integration system is highly reliant on a completely automated testing environment.&#160; </p>
 
 <p>In this post I’m going to take a deep dive on the testing automation used by our developers to test even their most complicated code in fully distributed production like environment, running more than 10K tests a day. Using this framework, our developers can test their code at scale (in some cases up to hundreds of nodes) at the click of a button, across AWS, RackSpace, HP OpenStack and our-prem environment.</p>
 
-<h5>Testing Automation as Our Continuous Integration Enabler</h5>
+<h3><strong>Testing Automation as Our Continuous Integration Enabler</strong></h3>
 
 <p>One of the key factors that enable continuous integration is automatic testing. If you want to achieve very complicated testing you will need to build automatic tests that can run all the time in order to get quick feedback. This is eventually the main goal in continuous integration - a quick feedback loop. </p>
 
@@ -31,7 +31,7 @@ tags:
 
 <p>This parallel system allows us to run a few suites simultaneously. Each suite is a logical group that tests a different feature, or different set of features. Each suite is divided into a few service instances. This makes it possible to run a larger number of tests in parallel.&#160; This is our method for <a href="https://github.com/CloudifySource/Cloudify-iTests-Deployer" target="_blank"> testing automation</a>, and it’s all available in GitHub.</p>
 
-<h3>How We Do It</h3>
+<h3><strong>How We Do It</strong></h3>
 
 <p>Our build servers are on all the time and they build, compile and package our products. </p>
 
@@ -55,7 +55,7 @@ tags:
 
 <p>Just as an aside, apropos our previous post on <a href="http://getcloudify.org/2014/02/23/behavior_driven_development_and_user_experience.html" target="_blank">test driven development</a>, (AKA Behavior Driven Development) this level of testing differs, as it deals with the entire system.&#160; TDD deals with unit tests - and just for context, these unit tests run every half hour for each product/component.&#160; </p>
 
-<h3>Run: Success</h3>
+<h3><strong>Run: Success</strong></h3>
 
 <p>These testing processes have helped us greatly improve our developer’s code. In the last two years, we have rewritten our application from scratch - which is a very complicated undertaking. Since we work in agile scrum, we have a two week sprint. Each day the developer sees the dashboard and if its a regression result they fix it immediately and at the end of the sprint, everything new feature is considered beta, and every other bug is a “show stopper.” </p>
 
