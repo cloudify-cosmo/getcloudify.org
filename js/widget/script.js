@@ -39,15 +39,27 @@ function updateUseUrl(url, title) {
     var $use = $('#use');
     updateActionButton($use, url);
 }
+function updateYoutubeUrlBtn(){
+   var tempurl=$("#ytIframe").attr("src");
+   $("#watchVideoBtn").attr('href',tempurl);
+}
+
 function updateTermUrl(url) {
     if (!updatedTerm) {
-        var html = '<iframe id="butterfly" src="' + url + '" width="768px" height="400px" frameborder="1" scrolling="auto"></iframe>';
+        /* var html = '<iframe id="butterfly" src="' + url + '" width="768px" height="400px" frameborder="1" scrolling="auto"></iframe>';
         html = html + '<a class="hover-wrap fancybox fancybox.iframe" data-fancybox-group="gallery" title="Cloudify Your App on Chef" href="https://www.youtube.com/embed/JQUADOKF2kM" rel="gallery"><span class"btn btn-rounded btn-default"><i class="icon-play"></i> Watch</span></a>'
         html = html + '<h2>Type the following into the terminal window:</h2><ul><li>connect 127.0.0.1</li><li>list-applications</li><li>use-application chef-server</li><li>invoke chef-server listCookbooks</li><li>invoke chef-server updateCookbooks tar "http://s3.amazonaws.com/yoramw/apache.tgz" ""</li><li>invoke chef-server listCookbooks</li><li>install-service -overrides /tmp/customeatt.properties /tmp/base_chef</li><li>list-applications</li></ul>';
-        $('#butterfly-iframe').html(html);
+        $('#butterfly-iframe').html(html);*/
+		updateYoutubeUrlBtn();
+		$("#ytIframe").hide();
+		$("#loading").hide();
+		$("#butterflyWrapper").show();
+		$("#butterfly").attr("src",url);
         updatedTerm = true;
     }
 }
+
+
 function updateManageUrl(url) {
     updateActionButton($('#manage'), url);
 }
@@ -124,12 +136,12 @@ $(function() {
                 updateUseUrl();
                 updateTtyUrl();
                 updateManageUrl();
+				
+				// this section hide iframe and show youtube movie 
                 $("#loading").attr('style', 'display:none');
-                $('#butterfly-iframe').html('<iframe width="562" height="422" src="//www.youtube.com/embed/JQUADOKF2kM" frameborder="0" allowfullscreen></iframe>');
-                //        $(".panel-default").attr('style','display:none');
-                $('#launch').removeClass("launchStop");
-                $('#launch').addClass("launchPlay");
-                updateTimeLeft(19);
+				$("#butterflyWrapper").hide();
+				$("#ytIframe").show();
+				updateTimeLeft(19);
             }
         } catch (exception) {
             console.log(["problem receiving message... ", e, exception]);
@@ -137,14 +149,14 @@ $(function() {
     }, function(origin) {
         return true;
     });
-	
-	
+
+
 	//Chef Progress-bar
 	var timeleft = 1140000;
 	var temptime=""; 
 	var $bar = $('.bar');
 
-	
+
 	$('#time-left').bind("DOMNodeInserted ",function(timeleft){
 		timeleft = $('#time-left').text()*60*1000;
 		 if (timeleft!=temptime){
@@ -155,11 +167,11 @@ $(function() {
 		  temptime = timeleft;
 		}
 	});
-	
+
 	$('#butterfly-iframe').bind("DOMNodeInserted ",function(timeleft){
 		$('#loading').hide();
 	});
-	
+
 	//on page load btn status
 	if($('#launch').text()==" Stop"){
 		$('#launch').css({"background":"#CD0004 ","color":"white "});
@@ -167,8 +179,8 @@ $(function() {
 		$('#launch').css({"background":"#479c18 ","color":"white"});
 		$(".pbarWrap").hide();
 	}
-	
-	
-	
-	
+
+
+
+
 });

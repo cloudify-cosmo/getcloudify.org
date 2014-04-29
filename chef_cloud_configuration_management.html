@@ -48,6 +48,7 @@ category: cloudify player
 				<!--
 						<a id="mixpanelSubscribe" class="btn btn-large btn-green btn-rounded" href="#"><i class="icon-plus"></i>  Get Free Cloud Package</a> -->
 
+<a class="btn btn-large btn-theme btn-rounded" id="downloadBtnInner" href="/downloads/get_cloudify.html"><i class="icon-download-alt"></i>  Download Now</a>
 						</div> 
 
 					<div class="span6">
@@ -63,8 +64,25 @@ category: cloudify player
 							<br/>
 
 						<div id="butterfly-iframe">
-						<iframe width="562" height="422" src="//www.youtube.com/embed/S5YLj2q4KRg" frameborder="0" allowfullscreen></iframe>
-
+<iframe id="ytIframe" width="562" height="422" src="//www.youtube.com/embed/S5YLj2q4KRg" frameborder="0" allowfullscreen></iframe>
+							<div id="butterflyWrapper" style="display:none">
+								<iframe id="butterfly" src="#" width="768px" height="400px" frameborder="1" scrolling="auto"></iframe>
+								<a id="watchVideoBtn" class="hover-wrap fancybox fancybox.iframe" data-fancybox-group="gallery" title="Cloudify Your App on Chef" href="#" rel="gallery"><span class="btn btn-rounded btn-default"><i class="icon-play"></i> Watch</span></a>
+								<h2>Type the following into the terminal window:</h2>
+									<ul>
+										<li>connect 127.0.0.1</li>
+										<li>list-applications</li>
+										<li>use-application chef-server</li>
+										<li>invoke chef-server listCookbooks</li>
+										<li>invoke chef-server updateCookbooks tar "http://s3.amazonaws.com/yoramw/apache.tgz" </li>
+										<li>invoke chef-server listCookbooks</li>
+										<li>install-service -overrides /tmp/apache.properties /tmp/base_chef</li>
+										<li>list-applications</li>
+										<li>invoke chef-server knife node list</li>
+										<li>invoke chef-server knife node show <node FQDN from previous list command></li>
+										<li>Click <a id="viewApachePage" href="#">here to view the Apache welcome page </a> you have just deploy</li>
+									</ul>
+						    </div>
 						</div>
 					</div>
 				</div>
@@ -260,9 +278,9 @@ category: cloudify player
 							<div class="span6">
 							</div>
 							<div class="span6">
-							<a class="btn btn-medium btn-green btn-rounded" href="/goPro.html"><i class="icon-plus"></i>  Go Pro!</a>
+<a id="goProInner"  class="btn btn-medium btn-green btn-rounded" href="/goPro.html"><i class="icon-plus"></i>  Go Pro!</a>
 							&nbsp; &nbsp;
-							<a class="btn btn-medium btn-theme btn-rounded" href="/downloads/get_cloudify.html"><i class="icon-cloud-download"></i>  Download Now</a>
+							<a id="downloadBtnInner" class="btn btn-medium btn-theme btn-rounded" href="/downloads/get_cloudify.html"><i class="icon-cloud-download"></i>  Download Now</a>
 							</div>
 
 						</div>
@@ -275,7 +293,7 @@ category: cloudify player
     <script type="text/javascript">
       var WIDGET_ID = 'ab8d9d70-13fd-4cec-bfd8-622c352cdaa7';
     </script>
-    <script type="text/javascript" src="/js/chef/script.js"></script>
+    <script type="text/javascript" src="/js/widget/script.js"></script>
  <script type="text/javascript" src="//cdn.jsdelivr.net/jquery.postmessage/0.5/jquery.ba-postmessage.min.js"></script>
 
  <script>
