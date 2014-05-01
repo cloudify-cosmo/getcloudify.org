@@ -130,6 +130,11 @@ $(function() {
                 }
                 
                 updateLog(msg.status.output);
+				if(msg.status.state!="RUNNING"){
+					$("#loading").attr('style', 'display:none');
+					$("#butterflyWrapper").hide();
+					$("#ytIframe").show();
+				}
             } else if (msg.name == "stop_widget") {
                 updateButtonState('STOPPED');
                 appendLog('STOPPED');
@@ -143,6 +148,7 @@ $(function() {
 				$("#ytIframe").show();
 				updateTimeLeft(19);
             }
+			
         } catch (exception) {
             console.log(["problem receiving message... ", e, exception]);
         }
