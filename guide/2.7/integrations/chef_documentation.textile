@@ -8,20 +8,29 @@ pageord: 200
 ---
 
 
-
 Cloudify supports the "Opscode Chef":http://wiki.opscode.com/display/chef/Recipes platform as an additional method of conveniently deploying and configuring application services.
 Chef provides a powerful multi-platform framework for configuring operating systems and services. It complements Cloudify recipes by handling the scope of intra-machine configurations. Using Chef, the lifecycle of services can be simplified as Chef takes care of keeping service configurations up-to-date with current specifications as defined by roles and cookbooks.
 Before you proceed, make sure you are familiar with the basic concepts of Chef. For information, see "(newwindow)Chef Basics":http://wiki.opscode.com/display/chef/Chef+Basics.
 In order to use Chef cookbooks for service installation, Cloudify provides a configurable base Chef recipe that does most of the Chef bootstrapping work. Typically you will only need to extend this recipe and take care of the pre and post deployment phases that Chef doesn't handle.
 
 Sections of the page:
+
+* "Try Out Cloudify and Chef Online":#try
 * "How Does Cloudify Use Chef":#how
 * "Chef Installation":#install
 * "Using Chef with Cloudify":#using
 * "Running the MySQL Example":#example
 * "Running Additional Cookbooks":#additional
 
-h2(#how). How Does Cloudify Use Chef?
+
+h2(#try).Try Out Cloudify and Chef Online
+
+You can expereince the way the Cloudify and Chef integration works online without having to download Cloudify.
+The demo will allow you to setup a Chef Server, Install Cookbooks, and deploy a Clouidfy service that uses that Cookbook.
+You can also expereince the set of command line and web management tools that will allow you to monitor the deployment process and invoke the Chef comands through Cloudify.
+The online demo is available <a href="http://getcloudify.org/chef_cloud_configuration_management.html">here</a> 
+
+h2(#how).How Does Cloudify Use Chef?
 
 The following diagrams depict the Cloudify/Chef integration flow:
 # Cloudify provisions machines and installs Cloudify agents as part of the deployment.
