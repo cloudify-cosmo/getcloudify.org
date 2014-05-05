@@ -81,6 +81,7 @@ Plugins are Cloudify integration with different tools. Whenever you need a new i
 * Edit the requirements sections. Put in additional requirements using their pip package names. Make sure you leave the `cloudify-plugins-common` package
 
 {% highlight python %}
+
 install_requires=[
         # Necessary dependency for developing plugins, do not remove!
         "cloudify-plugins-common"
@@ -88,33 +89,45 @@ install_requires=[
     test_requires=[
         "nose"
     ],
-{% endhighlight %}
+
+{% endhighlight bash %}
 
 - Create a virtualenv for your project
 * install pip if you don't have it
 Ubuntu:
-{% highlight %}
-$sudo apt-get install python-pip
-$pip install --upgrade pip
-{% endhighlight %}
+
+{% highlight bash %}
+
+sudo apt-get install python-pip
+pip install --upgrade pip
+
+{% endhighlight bash %}
+
 * install virtualenv
-{% highlight %}
-$pip install virtualenv
+
+{% highlight bash %}
+pip install virtualenv
 {% endhighlight %}
+
 * create the virtualenv in a new folder
-{% highlight %}
-$virtualenv [path to env]
+
+{% highlight bash %}
+virtualenv [path to env]
 {% endhighlight %}
+
 * activate the env
-* create the virtualenv in a new folder
-{% highlight %}
-$source [path to env]/bin/activate
+
+
+{% highlight bash %}
+source [path to env]/bin/activate
 {% endhighlight %}
+
 * run pip to get all the requirements
 
-{% highlight %}
-$cd [path_to_project]
-$pip install --process-dependency-links .
+{% highlight bash %}
+cd [path_to_project]
+pip install --process-dependency-links .
+
 {% endhighlight %}
 
 - Code your project
@@ -127,6 +140,7 @@ Other dependenies are typically the python API libraries you use. If you have no
 
 ## Coding the Plugin
 A plugin has functions that can be invoked by the agent - the same functions you mapped to the interface in your type. These finctions are marked as operations using the `@operation` [python decorator](https://wiki.python.org/moin/PythonDecorators). In order to use this decorator and the related `context` object, add to your source the following statement: 
+
 {% highlight python %}
 from cloudify.decorators import operation
 
