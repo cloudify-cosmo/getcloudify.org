@@ -64,6 +64,62 @@ Plugins are Cloudify integration with different tools. Whenever you need a new i
 
 ## Project Dependencies & Structure
 
+- Get the plugin project template
+[Download the project template](https://github.com/cloudify-cosmo/cloudify-plugin-template/archive/develop.zip)
+
+- Unzip and rename
+* Rename the `cloudify-plugin-template` to the name you would like to use for your IDE project
+* Rename the `plugin` folder to the python package name you want to use
+* Add additional folders for additional packages if you need them
+
+- Edit `setup.py`
+* Replace `${PLUGIN_NAME}` with the name you want to give to the pip package
+* Replace `${VERSION}` with the version you want to give to your plugin. Typically you want to set it to something lower than 1.0 until it is tested with system tests and ready for release
+* Replace `${AUTHOR}` and `${AUTHOR_EMAIL}`
+* Fill in content instead of `'${DESCRIPTION}'`
+* Edit the packages array `packages=['plugin'],`. Replace plugin with the name of your python package(s)
+* Edit the requirements sections. Put in additional requirements using their pip package names. Make sure you leave the `cloudify-plugins-common` package
+
+{% highlight python %}
+install_requires=[
+        # Necessary dependency for developing plugins, do not remove!
+        "cloudify-plugins-common"
+    ],
+    test_requires=[
+        "nose"
+    ],
+{endhighlight}
+
+- Create a virtualenv for your project
+* install pip if you don't have it
+Ubuntu:
+{% highlight %}
+$sudo apt-get install python-pip
+$pip install --upgrade pip
+{% endhighlight %}
+* install virtualenv
+{% highlight %}
+$pip install virtualenv
+{% endhighlight %}
+* create the virtualenv in a new folder
+{% highlight %}
+$virtualenv [path to env]
+{% endhighlight %}
+* activate the env
+* create the virtualenv in a new folder
+{% highlight %}
+$source [path to env]/bin/activate
+{% endhighlight %}
+* run pip to get all the requirements
+
+{% highlight %}
+$cd [path_to_project]
+$pip install --process-dependency-links .
+{% endhighlight %}
+
+- Code your project
+
+
 Plugins are python modules packed as pip packages. You will need to have a `setup.py` file with all the dependencies of your module. 
 One dependency that all plugins have is [cloudify-celery-commons library](https://github.com/CloudifySource/cosmo-celery-common/archive/develop.zip) You will need to add it to your project dependencies.
 
