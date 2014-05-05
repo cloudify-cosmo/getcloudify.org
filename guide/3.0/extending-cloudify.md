@@ -88,7 +88,7 @@ install_requires=[
     test_requires=[
         "nose"
     ],
-{endhighlight}
+{% endhighlight %}
 
 - Create a virtualenv for your project
 * install pip if you don't have it
