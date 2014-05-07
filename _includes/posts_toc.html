@@ -7,6 +7,7 @@
 </div>
 
 <div class="leftContentBox blogLeftBox"> 
+{% for post in site.posts limit:3 %} 
 	<a href="/2013/12/23/setting_up_devstack_havana_on_your_local_network.html">Openstack in a Box - Setting Up Devstack Havana On Your Local Network
 	 <img class="noMargin" src="/images/arrow-right-blue.png" /></a><br />
 	<span class="date">{{ post.date | date: '%B' }} {{ post.date | date: '%e' }}, {{ post.date | date: '%Y' }}</span>  
@@ -27,7 +28,7 @@
 	<span class="date">{{ post.date | date: '%B' }} {{ post.date | date: '%e' }}, {{ post.date | date: '%Y' }}</span>  
 	<br/><br/>
 {% endfor %}		
-</div> -->
+</div> 
 
 <!--{% include tumblr.html %} -->
 
