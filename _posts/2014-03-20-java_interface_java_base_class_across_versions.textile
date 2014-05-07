@@ -15,9 +15,18 @@ tags:
 
 <p>So, just for those who are unfamiliar, in object design an interface is a contract that an object is required to fulfill.&#160; If an object declares that it implements an interface, then it is required to implement all of the methods defined in that interface. This essentially allows developers to separate between the definition (i.e. interface) of an object and its implementation.&#160; In layman's terms, separating the what from the how.</p>
 
-<p>For instance with Cloudify, at the core of the product we have the <a href="http://www.cloudifysource.org/guide/2.7/clouddrivers/cloud_driver">cloud driver</a>, which defines how Cloudify allocates resources from the cloud of choice.&#160; Obviously, each cloud has its own API, so there are multiple cloud driver interface implementations.&#160; There is one based on <a target="_blank" href="http://jclouds.apache.org/">JClouds</a>, the multi-cloud library, one for <a href="https://www.windowsazure.com/en-us/">Microsoft Azure</a>, in addition to several other implementations.&#160; On top of these, users are also able to create their own cloud driver implementations, using Java or Groovy.. </p>
+<p>For instance with Cloudify, at the core of the product we have the <a href="http://www.cloudifysource.org/guide/2.7/clouddrivers/cloud_driver">cloud driver</a>, which defines how Cloudify allocates resources from the cloud of choice.&#160; Obviously, each cloud has its own API, so there are multiple cloud driver interface implementations.&#160; There is one based on <a target="_blank" href="http://jclouds.apache.org/">JClouds</a>, the multi-cloud library, one for <a href="https://www.windowsazure.com/en-us/">Microsoft Azure</a>, in addition to several other implementations.&#160; On top of these, users are also able to create their own cloud driver implementations, using Java or Groovy. </p>
 
 <p>The thing with using a Java interface though, is that once you have defined it, and users have started using it, changing it is very difficult.&#160; It's difficult because if an interface is changed, all of its existing implementations must be changed as well, since this will result in them either breaking during compilation or during runtime.&#160; With Cloudify, where users can create their own cloud driver, and there are multiple versions of Cloudify currently in production, this can get very tricky.</p>
+
+<hr>
+
+<span class="pullquote-left">
+  <h2><font style="font-weight: bold" size="5" face="Baskerville Old Face"><em>Test drive Cloudify and transition your apps on the cloud from Java 7 to Java 8 seamlessly.</em></font>&nbsp; &nbsp; <a class="btn btn-large btn-theme btn-rounded" href="http://getcloudify.org/downloads/get_cloudify.html" target="_blank"><i class="icon-plus"></i> Go </a></h2></span>
+  
+  <hr>
+
+
 
 <p>Now add to this the fact that the cloud world is rapidly changing.&#160; It is a dynamic world with new features coming out all the time, from new cloud APIs, and new storage, network and compute implementations, through new features being added to existing services regularly.&#160; Being able to maintain these services and interfaces without changing them, has become a maintenance challenge in Cloudify.&#160; </p>
 
