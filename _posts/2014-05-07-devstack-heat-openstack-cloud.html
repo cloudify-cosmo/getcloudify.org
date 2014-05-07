@@ -103,18 +103,18 @@ tags:
 
 <li> Resources view that lists all of the resources that were deployed.</li>
 
-<li> Events log that shows us the progress of the stack’s deployment.</li>
+<li> Events log that shows us the progress of the stack's deployment.</li>
 
 <li>This was neat, in a few clicks we launched a ready to use WordPress server.</li>
 
 </ol>
 
-<p>However, in real life deployments, things can get a bit more complicated, so let’s add some typical deployment customizations into the mix:</p>
+<p>However, in real life deployments, things can get a bit more complicated, so let's add some typical deployment customizations into the mix:</p>
 
 <ol>
-<li> Let’s separate the MySQL and the Apache from each other.</li>
+<li> Let's separate the MySQL and the Apache from each other.</li>
 
-<li> Let’s build separate networks for the application data and the application’s public access.</li>
+<li> Let's build separate networks for the application data and the application's public access.</li>
 </ol>
 
 <p>These customizations make things more interesting on the Heat side. We need to define additional networks resources such as networks, subnets router and ports.</p>
