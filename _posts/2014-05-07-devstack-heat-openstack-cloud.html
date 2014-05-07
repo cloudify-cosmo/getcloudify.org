@@ -1,6 +1,6 @@
 ---
 layout: blogpost
-title: OpenStack Heat + DevStack on HP Cloud
+title: OpenStack Heat and DevStack on HP Cloud
 image: yoram.jpg
 author: Yoram Weinreb
 tags: 
@@ -53,7 +53,7 @@ tags:
 
 <p>Will attach to it</p>
 
-<p>Ctrl-A “</p>
+<p>Ctrl-A "</p>
 
 <p>Will let you switch between the different services windows.</p>
 
@@ -87,7 +87,7 @@ tags:
 
 <p>You can use the actual git URL to create the stack. </p>
 
-<p>The “Environment Source” can be used to initialize the parameters defined in the stack template. </p>
+<p>The "Environment Source" can be used to initialize the parameters defined in the stack template. </p>
 
 <p>If we leave it empty, Heat will ask us to fill in the parameters in the next dialog box.</p>
 
@@ -127,9 +127,9 @@ tags:
 
 <p>The dependency graph goes as follows:</p>
 
-<p>First we define the networks and the router. Then we define the subnets, tying them to the networks by the “network_id: { get_resource: network_id/name}.</p>
+<p>First we define the networks and the router. Then we define the subnets, tying them to the networks by the "network_id: { get_resource: network_id/name}.</p>
 
-<p>At the same time we can define the router_gateway tying it to the router “router_id: { get_resource: router }” and the pre-existing public network.</p>
+<p>At the same time we can define the router_gateway tying it to the router "router_id: { get_resource: router }" and the pre-existing public network.</p>
 
 <p>After the networks and the router are defined, we can define the router interface that does the same get_resource to reference both elements.</p>
 
