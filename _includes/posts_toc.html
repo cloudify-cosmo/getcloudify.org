@@ -2,26 +2,7 @@
 
 
 
-<div class="leftContentBox blogLeft-topTitle">
-	<h3>Popular Posts</h3>
-</div>
-
 <div class="leftContentBox blogLeftBox"> 
-{% for post in site.posts limit:3 %} 
-	<a href="/2013/12/23/setting_up_devstack_havana_on_your_local_network.html">Openstack in a Box - Setting Up Devstack Havana On Your Local Network
-	 <img class="noMargin" src="/images/arrow-right-blue.png" /></a><br />
-	<span class="date">{{ post.date | date: '%B' }} {{ post.date | date: '%e' }}, {{ post.date | date: '%Y' }}</span>  
-	<br/>
-	<a href="/2014/01/23/intro_to_puppet_installing_your_first_mysql_service_in_5_minutes.html">Intro to Puppet, Installing your First MySQL Service in 5 Minutes
-	 <img class="noMargin" src="/images/arrow-right-blue.png" /></a><br />
-	<span class="date">{{ post.date | date: '%B' }} {{ post.date | date: '%e' }}, {{ post.date | date: '%Y' }}</span>  
-	<br/>
-		<a href="/2014/04/29/testing_automation_continuous_integration.html">From 0 to 10000X - Testing Automation + Continuous Integration for Any Environment
-	 <img class="noMargin" src="/images/arrow-right-blue.png" /></a><br />
-	<span class="date">{{ post.date | date: '%B' }} {{ post.date | date: '%e' }}, {{ post.date | date: '%Y' }}</span>  
-	<br/>
-</div>
-<!--<div class="leftContentBox blogLeftBox"> 
  {% for post in site.posts limit:3 %}  
 	<a href="{{ post.url }}">{{ post.title }} 
 	 <img class="noMargin" src="/images/arrow-right-blue.png" /></a><br />
