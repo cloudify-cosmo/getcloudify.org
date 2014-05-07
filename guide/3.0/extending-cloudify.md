@@ -64,15 +64,15 @@ Plugins are Cloudify integration with different tools. Whenever you need a new i
 
 ## Project Dependencies & Structure
 
-- Get the plugin project template
+1. Get the plugin project template
 [Download the project template](https://github.com/cloudify-cosmo/cloudify-plugin-template/archive/develop.zip)
 
-- Unzip and rename
+2. Unzip and rename
 * Rename the `cloudify-plugin-template` to the name you would like to use for your IDE project
 * Rename the `plugin` folder to the python package name you want to use
 * Add additional folders for additional packages if you need them
 
-- Edit `setup.py`
+3. Edit `setup.py`
 * Replace `${PLUGIN_NAME}` with the name you want to give to the pip package
 * Replace `${VERSION}` with the version you want to give to your plugin. Typically you want to set it to something lower than 1.0 until it is tested with system tests and ready for release
 * Replace `${AUTHOR}` and `${AUTHOR_EMAIL}`
@@ -92,7 +92,7 @@ install_requires=[
 
 {% endhighlight bash %}
 
-- Create a virtualenv for your project
+4. Create a virtualenv for your project
 * install pip if you don't have it
 Ubuntu:
 
@@ -130,7 +130,7 @@ pip install --process-dependency-links .
 
 {% endhighlight %}
 
-- Code your project
+5. Code your project
 
 
 Plugins are python modules packed as pip packages. You will need to have a `setup.py` file with all the dependencies of your module. 
