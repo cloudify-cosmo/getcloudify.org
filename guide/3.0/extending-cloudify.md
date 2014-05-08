@@ -79,9 +79,7 @@ Plugins are Cloudify integration with different tools. Whenever you need a new i
 * Fill in content instead of `'${DESCRIPTION}'`
 * Edit the packages array `packages=['plugin'],`. Replace plugin with the name of your python package(s)
 * Edit the requirements sections. Put in additional requirements using their pip package names. Make sure you leave the `cloudify-plugins-common` package
-
 {% highlight python %}
-
 install_requires=[
         # Necessary dependency for developing plugins, do not remove!
         "cloudify-plugins-common"
@@ -89,71 +87,51 @@ install_requires=[
     test_requires=[
         "nose"
     ],
-
 {% endhighlight bash %}
-
 4. Create a virtualenv for your project
 * install pip if you don't have it
 Ubuntu:
-
 {% highlight bash %}
-
 sudo apt-get install python-pip
 pip install --upgrade pip
-
 {% endhighlight bash %}
-
 * install virtualenv
-
 {% highlight bash %}
 pip install virtualenv
 {% endhighlight %}
-
 * create the virtualenv in a new folder
-
 {% highlight bash %}
 virtualenv [path to env]
 {% endhighlight %}
-
 * activate the env
-
-
 {% highlight bash %}
 source [path to env]/bin/activate
 {% endhighlight %}
-
 * run pip to get all the requirements
-
 {% highlight bash %}
 cd [path_to_project]
 pip install --process-dependency-links .
-
 {% endhighlight %}
 
-5. Code your project
+## Coding The Plugin
+In this part of the tutorial we will code a plugin that loads python scripts and executes them.
 
-
-Plugins are python modules packed as pip packages. You will need to have a `setup.py` file with all the dependencies of your module. 
-One dependency that all plugins have is [cloudify-celery-commons library](https://github.com/CloudifySource/cosmo-celery-common/archive/develop.zip) You will need to add it to your project dependencies.
-
-Other dependenies are typically the python API libraries you use. If you have non-python dependencies you should have the plugin code install them from an accessible URL
-
-## Coding the Plugin
-A plugin has functions that can be invoked by the agent - the same functions you mapped to the interface in your type. These finctions are marked as operations using the `@operation` [python decorator](https://wiki.python.org/moin/PythonDecorators). In order to use this decorator and the related `context` object, add to your source the following statement: 
-
-{% highlight python %}
-from cloudify.decorators import operation
-
-{% endhighlight %}
-
-Any operation function has the following signature:
+1. Adding Operations:
+* Look at tasks.py you can see the following function
 {% highlight python %}
 @operation
-def myfunction(ctx, **kwargs):
-# function body
-
+def my_task(ctx, **kwargs):
+    pass
 {% endhighlight %}
 
+A plugin has functions that can be invoked by the agent - the same functions you mapped to the interface in your type. These finctions are marked as operations using the `@operation` [python decorator](https://wiki.python.org/moin/PythonDecorators). In order to use this decorator and the related `context` object, we import the `operation` function from `cloudify.decorators`
+{% highlight python %}
+from cloudify.decorators import operation
+{% endhighlight %}
+
+* Rename the `my_task` function to 
+
+* Implement the operation
 The `ctx` argument is an instance of `CloudifyContext`. This class exposes several key properties to the developer:
 
 * `node_id` - unique id for the currenrt node
@@ -212,7 +190,7 @@ In most cases a successful task execution of the `start` operation is considered
 In order to use your plugin you need to decalre it with the types. Note that the plugin name refers to the module name and not to the project name
 
 {% highlight YAML %}
-lugins:
+plugins:
     nova_plugin:
         derived_from: cloudify.plugins.manager_plugin
         properties:
