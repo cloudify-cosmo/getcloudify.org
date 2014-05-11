@@ -179,5 +179,44 @@ The following types implement infrastructure components such as hosts, networks,
 		  floating_network_name: Ext-Net
 	{% endhighlight %}
 
+## Openstack Relationship Types
+* `cloudify.openstack.port_connected_to_security_group` - Materializes connection between a Port and a Security Group
+	* Example:
+	{% highlight yaml %}
+	# TODO: add
+	{% endhighlight %}
+
+* `cloudify.openstack.subnet_connected_to_router` - Materializes connection between a Subnet and a Router
+	* Example:
+	{% highlight yaml %}
+	# TODO: add
+	{% endhighlight %}
+
+* `cloudify.openstack.server_connected_to_floating_ip` - Materializes connection between a Nova Server and a Floating IP
+	* Example:
+	{% highlight yaml %}
+	- name: nodejs_vm
+      type: cloudify.openstack.server
+      instances:
+          deploy: 1
+      relationships:
+        - target: floatingip
+          type: cloudify.openstack.server_connected_to_floating_ip
+        
+	{% endhighlight %}
+
+* `cloudify.openstack.server_connected_to_port` - Materializes connection between a Nova Server and a Port
+* Example:
+	{% highlight yaml %}
+	- name: mongod_vm
+      type: cloudify.openstack.server
+      instances:
+          deploy: 1
+      relationships:
+        - target: neutron_port1
+          type: cloudify.relationships.connected_to
+        
+	{% endhighlight %}
+
 
 # Software Types
