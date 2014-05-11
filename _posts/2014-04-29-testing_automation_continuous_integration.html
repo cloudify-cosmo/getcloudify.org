@@ -11,6 +11,10 @@ tags:
  - Multi-Cloud
 ---
 <notextile>
+<img src="/img/blog/testautomation.jpg" alt="Test Automation + Continuous Integration">
+<br/>
+<br/>
+
 <p><h3><strong>How we built a testing-as-service infrastructure for our team of developers using Git, QuickBuild, JClouds, Cloudify, Logstash, TestNG, Tomcat, &amp; MySQL</strong></h3><p>
 
 <p>System testing is one of the most tedious, time consuming and error prone procedures in software development. More so when developing and testing distributed middleware products. All this, when achieving a robust continuous integration system is highly reliant on a completely automated testing environment.&#160; </p>
@@ -26,6 +30,13 @@ tags:
 <p>Using Cloudify for the purpose of testing automation is really not very different from running any app in the cloud. To do this, we wrote a service which knows how to run our tests, and this service uses the testing framework, TestNG. We chose TestNG, because this is a testing framework our developers are very familiar with, as it is a unit test testing framework, which enables a lower barrier of entry.&#160; This all ties into our efforts of tool unification and developer portability.&#160; This also enables our developers to run and debug the tests within the IDE on their own laptop, further simplifying the complexity normally involved with system testing.</p>
 
 <p>Using Cloudify enables us to install many of the same service instances in parallel and in this way we can run our spectrum of tests in parallel, as well. So, for example, if we have 1000 tests to run - we can distribute them among&#160; our 100 service instances, where each service instance runs only 10 tests. </p>
+
+<hr>
+
+<span class="pullquote-left">
+  <h2><font style="font-weight: bold" size="5" face="Baskerville Old Face"><em>Test drive Cloudify and build your testing-as-a-service framework in minutes.</em></font>&nbsp; &nbsp; <a class="btn btn-large btn-theme btn-rounded" href="http://getcloudify.org/downloads/get_cloudify.html" target="_blank"><i class="icon-plus"></i> Go </a></h2></span>
+  
+  <hr>
 
 <p>Just as a side note, these are all system tests, not unit tests, where by default the system is distributed across a number of machines that contain the many different integrated software components - so each test actually tests all of these software components.</p>
 
