@@ -61,61 +61,64 @@ The following types implement infrastructure components such as hosts, networks,
 
 * `cloudify.openstack.server` - a [Nova Server](http://docs.openstack.org/api/openstack-compute/2/content/compute_servers.html)
 	* properties:
-		- server - Mandatory - A dictionary with the instances configurations such as image, flavor, host_name
-        - management_network_name - Mandatory - The name of the Cloudify Manager network, via which the agent communicates with the manager 
-        - nova_config: Optional - A dictionary with nova endpoint and credentials. By default takes values from the provider configuration
-        - neutron_config: Optional - Adictionary with neutron endopoint and credentials. By default takes values from the provider configuration
-    * example:
-    {% highlight yaml %}
-    -   name: vm
-            type: cloudify.openstack.server
-            instances:
-                deploy: 1
-            properties:
-                install_agent: true
-                worker_config:
-                    user: ubuntu
-                    key: ~/.ssh/cloudify-agents-kp.pem
-                management_network_name: cloudify-admin-network
-              
-                server:
-                	name: bash-web-server
-                	image:      8672f4c6-e33d-46f5-b6d8-ebbeba12fa02 ### IMAGE_NAME
-                    flavor:     101 ### FLAVOR_NAME
-                    key_name:   cloudify-agents-kp ### KEY_NAME
-                    security_groups: ['cloudify-sg-agents', 'node_cellar_security_group']
-    {% endhighlight %}
+		- `server` - Mandatory - A dictionary with the instances configurations such as image, flavor, host_name
+		- `management_network_name` - Mandatory - The name of the Cloudify Manager network, via which the agent communicates with the manager 
+		- `nova_config`: Optional - A dictionary with nova endpoint and credentials. By default takes values from the provider configuration
+		- `neutron_config`: Optional - Adictionary with neutron endpoint and credentials. By default takes values from the provider configuration
+	* example:
+	{% highlight yaml %}
+	-   name: vm
+			type: cloudify.openstack.server
+			instances:
+				deploy: 1
+			properties:
+				install_agent: true
+				worker_config:
+					user: ubuntu
+					key: ~/.ssh/cloudify-agents-kp.pem
+				management_network_name: cloudify-admin-network
+			  
+				server:
+					name: bash-web-server
+					image:      8672f4c6-e33d-46f5-b6d8-ebbeba12fa02 ### IMAGE_NAME
+					flavor:     101 ### FLAVOR_NAME
+					key_name:   cloudify-agents-kp ### KEY_NAME
+					security_groups: ['cloudify-sg-agents', 'node_cellar_security_group']
+	{% endhighlight %}
 * `cloudify.openstack.subnet` - a [Neutron Subnet](http://docs.openstack.org/api/openstack-network/2.0/content/subnets.html)
 	* properties:
-		- server - Mandatory - A dictionary with the instances configurations such as image, flavor, host_name
-        - management_network_name - Mandatory - The name of the Cloudify Manager network, via which the agent communicates with the manager 
-        - nova_config: Optional - A dictionary with nova endpoint and credentials. By default takes values from the provider configuration
-        - neutron_config: Optional - Adictionary with neutron endopoint and credentials. By default takes values from the provider configuration
-    * example:
-    {% highlight yaml %}
-    - name: neutron_subnet
-      type: cloudify.openstack.subnet
-      properties:
-        subnet: 
-          cidr: 10.10.10.0/24
-          ip_version: 4
-          name: app_subnet
-    {% endhighlight %}
+		- `neutron_config`: Optional - Adictionary with neutron endpoint and credentials. By default takes values from the provider configuration
+	* example:
+	{% highlight yaml %}
+	- name: neutron_subnet
+	  type: cloudify.openstack.subnet
+	  properties:
+		subnet: 
+		  cidr: 10.10.10.0/24
+		  ip_version: 4
+		  name: app_subnet
+	{% endhighlight %}
 
 * `cloudfiy.openstack.security_group` - a [Neutron Security Group](http://docs.openstack.org/training-guides/content/module002-ch004-security-in-neutron.html)
 	* properties:
-		- server - Mandatory - A dictionary with the instances configurations such as image, flavor, host_name
-        - management_network_name - Mandatory - The name of the Cloudify Manager network, via which the agent communicates with the manager 
-        - nova_config: Optional - A dictionary with nova endpoint and credentials. By default takes values from the provider configuration
-        - neutron_config: Optional - Adictionary with neutron endopoint and credentials. By default takes values from the provider configuration
-    * example:
-    {% highlight yaml %}
-    - name: node_cellar_security_group
-      type: cloudify.openstack.security_group
-      properties:
-        security_group:
-         	name: node_cellar_security_group
-        rules:
+		- `neutron_config`: Optional - Adictionary with neutron endpoint and credentials. By default takes values from the provider configuration
+		- `security_group`: Mandatory - A dictionary with the configuration of the security group object. The mandatory attribute in this map is `name`
+		- rules: Optional - A list of security group rules. Each rule has the following attributes:
+			- `direction` - Optional - Whether the rule is `ingress` (inbound) or `egress` (outbound). default is `ingress`
+			- `remote_ip_prefix` CIDR to which this rule apply.
+			- `port` - the port to which this rule apply
+			- `protocol` - Optional. By default `tcp`. Specifies the protocol to which this rule applies
+
+		- `disable_egress` - Optional. Boolean settings that defsaults to False. Setting to True blocks all outbound calls except for egress rules specified
+
+	* example:
+	{% highlight yaml %}
+	- name: node_cellar_security_group
+	  type: cloudify.openstack.security_group
+	  properties:
+		security_group:
+			name: node_cellar_security_group
+		rules:
 			- remote_ip_prefix: 0.0.0.0/0
 			port: 8080
 			- remote_ip_prefix: 0.0.0.0/0
@@ -123,68 +126,58 @@ The following types implement infrastructure components such as hosts, networks,
 			- remote_ip_prefix: 0.0.0.0/0
 			port: 28017
 
-    {% endhighlight %}
+	{% endhighlight %}
 
 * `cloudify.openstack.router` - a [Neutron Router](http://docs.openstack.org/api/openstack-network/2.0/content/router_ext.html)
 	* properties:
-		- server - Mandatory - A dictionary with the instances configurations such as image, flavor, host_name
-        - management_network_name - Mandatory - The name of the Cloudify Manager network, via which the agent communicates with the manager 
-        - nova_config: Optional - A dictionary with nova endpoint and credentials. By default takes values from the provider configuration
-        - neutron_config: Optional - Adictionary with neutron endopoint and credentials. By default takes values from the provider configuration
-    * example:
-    {% highlight yaml %}
-    - name: app_router
-      type: cloudify.openstack.router
-      properties:
-      	external_gateway_info:
-      		enable_snat: True
-      		network_name: Ext_Net
-    {% endhighlight %}
+		- `neutron_config`: Optional - Adictionary with neutron endpoint and credentials. By default takes values from the provider configuration
+		- `external_gateway_info`: Optional - the external network from which routing requests flow
+	* example:
+	{% highlight yaml %}
+	- name: app_router
+	  type: cloudify.openstack.router
+	  properties:
+		external_gateway_info:
+			enable_snat: True
+			network_name: Ext_Net
+	{% endhighlight %}
 
 * `cloudify.openstack.port` - a [Neutron Port](http://docs.openstack.org/api/openstack-network/2.0/content/ports.html)
 	* properties:
-		- server - Mandatory - A dictionary with the instances configurations such as image, flavor, host_name
-        - management_network_name - Mandatory - The name of the Cloudify Manager network, via which the agent communicates with the manager 
-        - nova_config: Optional - A dictionary with nova endpoint and credentials. By default takes values from the provider configuration
-        - neutron_config: Optional - Adictionary with neutron endopoint and credentials. By default takes values from the provider configuration
-    * example:
-    {% highlight yaml %}
-    - name: neutron_port1
-      type: cloudify.openstack.port
-      properties:
-        port: 
-          name: neutron_app_port1
-    {% endhighlight %}
+		- `neutron_config`: Optional - Adictionary with neutron endpoint and credentials. By default takes values from the provider configuration
+	* example:
+	{% highlight yaml %}
+	- name: neutron_port1
+	  type: cloudify.openstack.port
+	  properties:
+		port: 
+		  name: neutron_app_port1
+	{% endhighlight %}
 
 * `cloudify.openstack.network` - a [Neutron Network](http://docs.openstack.org/api/openstack-network/2.0/content/networks.html)
 	* properties:
-		- server - Mandatory - A dictionary with the instances configurations such as image, flavor, host_name
-        - management_network_name - Mandatory - The name of the Cloudify Manager network, via which the agent communicates with the manager 
-        - nova_config: Optional - A dictionary with nova endpoint and credentials. By default takes values from the provider configuration
-        - neutron_config: Optional - Adictionary with neutron endopoint and credentials. By default takes values from the provider configuration
-    * example:
-    {% highlight yaml %}
-    - name: neutron_network
-      type: cloudify.openstack.network
-      properties:
-        network: 
-          name: app_network
-    {% endhighlight %}
+		- `neutron_config`: Optional - Adictionary with neutron endpoint and credentials. By default takes values from the provider configuration
+	* example:
+	{% highlight yaml %}
+	- name: neutron_network
+	  type: cloudify.openstack.network
+	  properties:
+		network: 
+		  name: app_network
+	{% endhighlight %}
 
 * `cloudify.openstack.floatingip` - a [Neutron Floating IP](http://docs.openstack.org/training-guides/content/module002-ch004-floating-ips.html)
 	* properties:
-		- server - Mandatory - A dictionary with the instances configurations such as image, flavor, host_name
-        - management_network_name - Mandatory - The name of the Cloudify Manager network, via which the agent communicates with the manager 
-        - nova_config: Optional - A dictionary with nova endpoint and credentials. By default takes values from the provider configuration
-        - neutron_config: Optional - Adictionary with neutron endopoint and credentials. By default takes values from the provider configuration
-    * example:
-    {% highlight yaml %}
-    - name: floatingip
-      type: cloudify.openstack.floatingip    
-      properties:
-        floatingip:
-          floating_network_name: Ext-Net
-    {% endhighlight %}
+		- `neutron_config`: Optional - Adictionary with neutron endpoint and credentials. By default takes values from the provider configuration
+		- `floating_network_name`: Mandatory - name of the external network on which this floating ip is allocated
+	* example:
+	{% highlight yaml %}
+	- name: floatingip
+	  type: cloudify.openstack.floatingip    
+	  properties:
+		floatingip:
+		  floating_network_name: Ext-Net
+	{% endhighlight %}
 
 
 # Software Types
