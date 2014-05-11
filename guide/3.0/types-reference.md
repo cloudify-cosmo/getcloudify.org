@@ -272,7 +272,16 @@ The following are software types implemented using Chef cookbooks for the differ
     {% highlight yaml %}
     # TODO: add
     {% endhighlight %}
+
 ## Chef Relationships
+* `cloudify.chef.depends_on`, `cloudify.chef.connected_to` , `cloudify.chef.contained_in`
+	* Properties: They take their runlist form the source node properties
+	* Example:
+	{% highlight yaml %}
+    # TODO: add
+    {% endhighlight %}
+    
+
 
 
 
