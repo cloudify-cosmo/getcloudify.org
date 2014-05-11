@@ -206,7 +206,7 @@ The following types implement infrastructure components such as hosts, networks,
 	{% endhighlight %}
 
 * `cloudify.openstack.server_connected_to_port` - Materializes connection between a Nova Server and a Port
-* Example:
+	* Example:
 	{% highlight yaml %}
 	- name: mongod_vm
       type: cloudify.openstack.server
@@ -218,5 +218,62 @@ The following types implement infrastructure components such as hosts, networks,
         
 	{% endhighlight %}
 
+* `cloudify.openstack.floating_ip_connected_to_port` - Materializes connection between a Floating IP and a Port
+
+
 
 # Software Types
+
+## Bash Types
+The following are software types implemented using bash scripts for the different lifecycle hooks
+
+* `cloudify.types.bash.web_server` , `cloudify.bash.app_server`, `cloudify.bash.db_server`, `cloudify.bash.message_bus_server`
+	* Properties:
+		- scripts - Mandatory - a dictionary of scripts for the different lifecycle operations
+
+	* Example:
+	{% highlight yaml %}
+	- name: mongod
+      type: cloudify.bash.db_server
+      properties:
+            role: mongod
+            port: 27017
+            scripts:            
+                create: mongo-scripts/install-mongo.sh
+                start: mongo-scripts/start-mongo.sh
+                stop: mongo-scripts/stop-mongo.sh
+      relationships:
+        - target: mongod_vm
+          type: cloudify.relationships.contained_in
+        
+	{% endhighlight %}
+
+## Chef Types
+The following are software types implemented using Chef cookbooks for the different lifecycle hooks
+
+* `cloudify.types.bash.web_server`, `cloudify.types.bash.app_server`, `cloudify.types.bash.db_server`, `cloudify.types.bash.message_bus_server`
+	* Properties:
+		- chef_config - The chef configuration to use. There are 2 alternatives: Chef Solo and Chef client
+			- `cookbooks` - Mandatory for Solo mode - The `cookbooks` property can be either URL or a path relative
+                to the root of the cookbook (the "/" is the directory where the main blueprint YAML resides). `cookbooks`, in both cases should reference a `.tar.gz` file with `cookbooks` directory under which all the required cookbooks reside. This works as specified at [http://docs.opscode.com/config_rb_solo.html](http://docs.opscode.com/config_rb_solo.html)
+            - `environments` (optional for Solo)
+            - `data_bags` (optional for Solo)
+            - `roles` (optional for Solo)
+            - `chef_server_url`        (required for client)
+            - `environment`            (required for client)
+            - `validation_client_name` (required for client)
+            - `validation_key`         (required for client)
+            - `runlist` (optional for both Solo and client) - if not specified then `runlists` must be used
+            - `runlists` (optional for both Solo and client). If not specified then `runlist` must be used. A map of runlist strings per lifecycel operation (create, start, configure, stop, delete) or per relationship operation (preconfigure, postconfigure, establish, unlink)
+            - `attributes` are the attributes to pass to Chef. They are put in a JSON file. Chef is invoked with the file name as an argument.
+            - `version` (required) - version of chef to use
+    * Example:
+
+    {% highlight yaml %}
+    # TODO: add
+    {% endhighlight %}
+## Chef Relationships
+
+
+
+
