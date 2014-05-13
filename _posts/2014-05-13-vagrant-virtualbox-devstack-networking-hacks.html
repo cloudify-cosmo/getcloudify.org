@@ -30,7 +30,7 @@ tags:
 
 <p>You will need to download the right Linux distro and version number, I used Ubuntu 12.04.&#160; You will need to use the name you gave to the box (note that in the Gist I named in devstack5).&#160; You then need to provide an IP address for a private network.&#160; After you do so, you can allocate or create forwarding ports for all the OpenStack services’ API endpoints - Keystone, Neutron et al.</p>
 
-<p>Vagrant supports also configuration of the Vagrant VM that is brought up.&#160; You are able to configure its memory size, CPU, and other characteristics - for example look in the <strong><font face="Courier New">config VM provision</font></strong> section (towards the end of the file) where I created a machine 4 GB memory. </p>
+<p>Vagrant supports also configuration of the Vagrant VM that is brought up.&#160; You are able to configure its memory size, CPU, and other characteristics - for example look in the <strong><font face="Courier New" color="#000000">config VM provision</font></strong> section (towards the end of the file) where I created a machine 4 GB memory. </p>
 
 <p>Next,&#160; you supply your own script, which I’ll elaborate on later, that describes the initial configuration of the box, when it is brought up.</p>
 
@@ -44,7 +44,7 @@ tags:
 
 <p>In the localrc file you can provide passwords for your different services - RabbitMQ, Admin passwords, in addition to providing additional information you will need for the setup: floating IP ranges you’d like to use, the flat interface (e.g. ETH0), a location to store the log files,&#160; where the gateway is located, and services you‘d like to enable.&#160; For example, I enabled the Neutron service for networking purposes, (I’ll dive into networking hacks a bit later).&#160; In the Gists below you will also see how to access Devstack from the host machine, as well as how to access the instances launched inside DevStack from the outside world.</p>
 
-<p>After you create the configuration file, run <strong><font face="Courier New">stack.sh</font></strong> which will install MySQL and&#160; RabbitMQ, will compile and install all of the OpenStack components, and finally will bring the system up.</p>
+<p>After you create the configuration file, run <strong><font face="Courier New" color="#000000">stack.sh</font></strong> which will install MySQL and&#160; RabbitMQ, will compile and install all of the OpenStack components, and finally will bring the system up.</p>
 
 <p>After the system is up and running you will be able to access it through the Horizon dashboard.</p>
 
@@ -60,13 +60,13 @@ tags:
 <script src="https://gist.github.com/shar1z/c694afac8205543fa27f.js"></script>
 
 
-<p>When I did this, I had a problem running it in one script, since I discovered that it has to run under a specific user.&#160; Since I installed DevStack under the “<strong><font face="Courier New">stack</font></strong>” user, I had to switch automatically from the <font face="Courier New"><strong>vagrant</strong></font> user&#160; to the stack user before the&#160; script runs, as well as&#160; change the execution permissions to the file.&#160; To do so, I created a script called <strong><font face="Courier New">script.sh</font></strong> for the permission manipulation.</p>
+<p>When I did this, I had a problem running it in one script, since I discovered that it has to run under a specific user.&#160; Since I installed DevStack under the “<strong><font face="Courier New" color="#000000">stack</font></strong>” user, I had to switch automatically from the <font face="Courier New" color="#000000"><strong>vagrant</strong></font> user&#160; to the stack user before the&#160; script runs, as well as&#160; change the execution permissions to the file.&#160; To do so, I created a script called <strong><font face="Courier New" color="#000000">script.sh</font></strong> for the permission manipulation.</p>
 
-<p>Through the <strong><font face="Courier New">start.sh</font></strong> file you can actually access external images, which you will need to do, since DevStack comes with a very small number of pre-loaded images that are not necessarily suitable, for example Ubuntu is not one of them.&#160; To do so, you can provide a URL or HTTP, and by using<strong><font face="Courier New"> w-get</font></strong> you can download additional images.&#160; To bring DevStack up automatically, you’re also able to run the <strong><font face="Courier New">stack.sh</font></strong> from the script as well.</p>
+<p>Through the <strong><font face="Courier New" color="#000000">start.sh</font></strong> file you can actually access external images, which you will need to do, since DevStack comes with a very small number of pre-loaded images that are not necessarily suitable, for example Ubuntu is not one of them.&#160; To do so, you can provide a URL or HTTP, and by using<strong><font face="Courier New" color="#000000"> w-get</font></strong> you can download additional images.&#160; To bring DevStack up automatically, you’re also able to run the <strong><font face="Courier New" color="#000000">stack.sh</font></strong> from the script as well.</p>
 
 <p>Note, that to add images it is not enough to download them and just put them in the directory, you will also need to tell Glance (the OpenStack image repository) to create a new image ID from the downloaded image.</p>
 
-<p>Do this by calling <strong><font face="Courier New">glance image-create</font></strong> with the format, the container, and image reference.</p>
+<p>Do this by calling <strong><font face="Courier New" color="#000000">glance image-create</font></strong> with the format, the container, and image reference.</p>
 
 <h4>Networking Hacks</h4>
 
@@ -74,23 +74,23 @@ tags:
 
 <p>Another networking configuration is to create security groups. I did this to be able to ping the new launched instances, and be able to SSH into them, as well as be able to access the web apps installed on port 80.</p>
 
-<p>In order to be able to access the DevStack machine from the host machine, you have to use the <strong><font face="Courier New">route add</font></strong> command, as you can see in the example below. You will need to create a route using a gateway which tells the host machine if it receives a packet from a certain subnet to which interface it should be forwarded.&#160; </p>
+<p>In order to be able to access the DevStack machine from the host machine, you have to use the <strong><font face="Courier New" color="#000000">route add</font></strong> command, as you can see in the example below. You will need to create a route using a gateway which tells the host machine if it receives a packet from a certain subnet to which interface it should be forwarded.&#160; </p>
 
 <script src="https://gist.github.com/shar1z/1450510a4a9b60fa4dae.js"></script>
 
-<p>For this purpose I added two different routes.&#160; I did this before I ran the <strong><font face="Courier New">vagrant up</font></strong> command. In order to access the launch instances or ping them, you can use the name spaces.</p>
+<p>For this purpose I added two different routes.&#160; I did this before I ran the <strong><font face="Courier New" color="#000000">vagrant up</font></strong> command. In order to access the launch instances or ping them, you can use the name spaces.</p>
 
-<p>I used the <font face="Courier New"><strong>netns</strong></font> command to access the internal launched instances.&#160; OpenStack uses network namespaces to isolate networks where each virtual network gets its own space.&#160; A space means network interfaces, routing tables, IP tables separately for each tenant.</p>
+<p>I used the <font face="Courier New" color="#000000"><strong>netns</strong></font> command to access the internal launched instances.&#160; OpenStack uses network namespaces to isolate networks where each virtual network gets its own space.&#160; A space means network interfaces, routing tables, IP tables separately for each tenant.</p>
 
-<p>You can run <strong><font face="Courier New">IP netns</font></strong> <strong><font face="Courier New">list</font></strong> to receive the list of namespaces, and then choose the one you need.</p>
+<p>You can run <strong><font face="Courier New" color="#000000">IP netns</font></strong> <strong><font face="Courier New" color="#000000">list</font></strong> to receive the list of namespaces, and then choose the one you need.</p>
 
-<p>Run <font color="#000000" face="Courier New"><strong>exec</strong></font> with the namespace you defined, and define additional parameters such as IP tables, and routing information, for example:</p>
+<p>Run <font color="#000000" face="Courier New" color="#000000"><strong>exec</strong></font> with the namespace you defined, and define additional parameters such as IP tables, and routing information, for example:</p>
 
-<p><strong><font face="Courier New">sudo ip netns exec qrouter-1520casp2-f23c-497a-8578-3b2dcb7c2457 ping 10.0.0.7</font></strong></p>
+<p><strong><font face="Courier New" color="#000000">sudo ip netns exec qrouter-1520casp2-f23c-497a-8578-3b2dcb7c2457 ping 10.0.0.7</font></strong></p>
 
-<p><strong><font face="Courier New">sudo ip netns exec qrouter-152mnwd2-f54c-481a-8895-3b2dcb7c2624 ssh –i keyname </font></strong><a href="mailto:ubuntu@10.0.0.7"><strong><font face="Courier New">ubuntu@10.0.0.7</font></strong></a></p>
+<p><strong><font face="Courier New" color="#000000">sudo ip netns exec qrouter-152mnwd2-f54c-481a-8895-3b2dcb7c2624 ssh –i keyname </font></strong><a href="mailto:ubuntu@10.0.0.7"><strong><font face="Courier New" color="#000000">ubuntu@10.0.0.7</font></strong></a></p>
 
-<p>I ran into a few issues when attempting to debug, so I chose to use the screens method explained in the DevStack Heat post by Yoram. With the <strong><font face="Courier New">screen</font></strong> command you can see all of the DevStack terminals/consoles (about 15), e.g. Neutron, Nova, Horizon, APIs and others, and dive into their error messages.</p>
+<p>I ran into a few issues when attempting to debug, so I chose to use the screens method explained in the DevStack Heat post by Yoram. With the <strong><font face="Courier New" color="#000000">screen</font></strong> command you can see all of the DevStack terminals/consoles (about 15), e.g. Neutron, Nova, Horizon, APIs and others, and dive into their error messages.</p>
 
 <p>To check that everything worked as it should, I launched a few instances, and was able to access them from the network.</p>
 
@@ -102,7 +102,7 @@ tags:
   </li>
 
   <li>
-    <p>Anyone can have a local IaaS in a box (VBox) locally - where you can define instances, configure, etc.</p>
+    <p>Anyone can have an IaaS in a box (VBox) locally - where you can define instances, configure, etc.</p>
   </li>
 </ul>
 
