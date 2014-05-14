@@ -270,17 +270,74 @@ The following are software types implemented using Chef cookbooks for the differ
     * Example:
 
     {% highlight yaml %}
-    # TODO: add
+    - name: chef_node_one
+            type: cloudify.types.chef.db_server
+            properties:
+                chef_config:
+                    version: 11.10.4-1
+                    chef_server_url: https://chef.example.com:443
+                    validation_client_name: chef-validator
+                    validation_key: "-----BEGIN RSA PRIVATE KEY-----\n.......\n-----END RSA PRIVATE KEY-----\n"
+                    node_name_prefix: chef-node-
+                    node_name_suffix: .chef.example.com
+                    environment: _default
+                    attributes:
+                        test_attr_1: test_val_1
+                        create_file:
+                            file_name: /tmp/blueprint.txt
+                            file_contents: Great success!
+                    runlists:
+                        create: recipe[create-file]
+            relationships:
+                - type: cloudify.relationships.contained_in
+                    target: server
     {% endhighlight %}
+
 
 ## Chef Relationships
 * `cloudify.chef.depends_on`, `cloudify.chef.connected_to` , `cloudify.chef.contained_in`
 	* Properties: They take their runlist form the source node properties
 	* Example:
 	{% highlight yaml %}
-    # TODO: add
+    - name: chef_node_one
+            type: cloudify.types.chef.db_server
+            properties:
+                chef_config:
+                    version: 11.10.4-1
+                    cookbooks: cookbooks.tar.gz
+                    environment: _default
+                    attributes:
+                        test_attr_1: test_val_1
+                        create_file:
+                            file_name: /tmp/blueprint.txt
+                            file_contents: 'Great success number #2 !'
+                    runlists:
+                        create: recipe[create-file]
+            relationships:
+                - type: cloudify.relationships.contained_in
+                    target: server
+        - name: chef_node_two
+            type: cloudify.types.chef.app_server
+            properties:
+                chef_config:
+                    version: 11.10.4-1
+                    cookbooks: cookbooks.tar.gz
+                    environment: _default
+                    attributes:
+                        other_file_name: {related_chef_attribute: create_file.file_name}
+                        test_attr_2: test_val_2
+                        create_file:
+                            file_name: /tmp/blueprint2.txt
+                            file_contents: {related_chef_attribute: create_file.file_name}
+                    runlists:
+                        establish: recipe[create-file]
+            relationships:
+                - type: cloudify.chef.connected_to
+                    target: chef_node_one
+                - type: cloudify.relationships.contained_in
+                    target: server
     {% endhighlight %}
-    
+
 
 
 
