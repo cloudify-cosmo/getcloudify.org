@@ -51,6 +51,8 @@ tags:
 <p>VLANs offer a solution to the fully shared and non-secured structure described above by providing a good means of separation. It relies on using a physical switch that supports VLAN tagging to provide each tenant a separate virtual network, employing a dedicated subnet, with a separate IP range and a bridge for each tenant. This effectively creates private networks, accessible to the allowed tenant alone, via VPN. That separation of tenant environments makes VLAN the sensible choice for a multi-tenant environment, and indeed this is the default mode used by Nova-net.  </p>
 
 <p><img src="/img/blog/networking3.png" alt="Multi-Tenancy with VLAN - OpenStack"></p>
+<p>Figure 3: Multi-Tenancy</p>
+
 
 <p>It is also possible to create a mix of flat and private networks, where a VM can access the shared network in addition to a private tenant network. This basically allows the user to create a simple multi-tiered topology, separating different parts of the application according to their security limitations.</p>
 
@@ -64,11 +66,11 @@ tags:
 
 <p>Designing complex structures in not a simple matter, and Openstack has risen to the challenge and integrated the new Neutron networking options into Horizon, the Openstack dashboard. This makes network management visual and fairly easy, once you do things in the proper order…. (there is a slight learning curve). On the administrator’s end, Neutron is also backed up by new setup options, such as integrating third party network services. But let’s stay with the user.</p>
 
-<h6>Per Tenant Routers with Private Networks</h6>
+<p><img src="/img/blog/networking4.png" alt="Per Tenant Routers - OpenStack"></p>
+
+<p>Figure 4: Per Tenant Routers with Private Networks</p>
 
 <p>Users can now create detailed, specific network architectures, even making it possible to replicate their pre-cloud data center architecture. Each tenant can create one or more routers (up to the account quota limits), as well as create private tenant networks and subnets that connect to those routers. Eventually tenant routers typically connect to the Openstack external network, through which VMs have access to “the world” (VMs are never created directly on the external network).</p>
-
-<p><img src="/img/blog/networking4.png" alt="Per Tenant Routers - OpenStack"></p>
 
 <p>This configuration enables deployment of multi-tier applications per tenant, where each tier resides on a separate network, behind the tenant's router. Security wise, the tenant’s router provides good network-level separation. Furthermore, it allows network subnets ranges of different tenants to overlap.</p>
 
@@ -100,6 +102,6 @@ tags:
 
 <p><strong>About Noa:</strong></p>
 
-<p>Noa is a team leader at GigaSpaces, developing Cloudify.&#160; She’s experienced with provisioning automation on different clouds, and knows a thing or two about networking.&#160; In her spare time she manages meetups, and other community endeavors, just for the sake of altruism.&#160; Find her on <a href="http://www.linkedin.com/profile/view?id=98122065&amp;locale=en_US&amp;trk=tyah&amp;trkInfo=tarId%3A1400075769944%2Ctas%3Anoa%20kup%2Cidx%3A1-1-1">Linkedin</a>.&#160; </p>
+<p>Noa is a team leader at <a href="http://www.gigaspaces.com">GigaSpaces</a>, developing <a href="http://getcloudify.org">Cloudify</a>.&#160; She’s experienced with provisioning automation on different clouds, and knows a thing or two about networking.&#160; In her spare time she manages meetups, and other community endeavors, just for the sake of altruism.&#160; Find her on <a href="http://www.linkedin.com/profile/view?id=98122065&amp;locale=en_US&amp;trk=tyah&amp;trkInfo=tarId%3A1400075769944%2Ctas%3Anoa%20kup%2Cidx%3A1-1-1">Linkedin</a>.&#160; </p>
 
 </notextile>
