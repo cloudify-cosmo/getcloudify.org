@@ -1,0 +1,506 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />	
+	<title>Cloudify - Try XAP on the Cloud in a Click</title>
+	<script src="//cdn.optimizely.com/js/59503762.js"></script>
+	
+	<link rel="canonical" href="http://getcloudify.org/xap_cloud_management.html"/>	
+	<!-- custom -->
+	<!--<link rel="alternate" type="application/rss+xml" title="RSS 2.0" href="/atom.xml" />-->
+	
+	<link rel="shortcut icon" href="/ico/favicon.png" type="image/x-icon" />
+	<!-- css -->
+	<link href="/css/bootstrap.css" rel="stylesheet" />
+	<link href="/css/bootstrap-responsive.css" rel="stylesheet" />
+	<link href="/css/fancybox/jquery.fancybox.css" rel="stylesheet">
+	<link href="/css/jcarousel.css" rel="stylesheet" />
+	<link href="/css/flexslider.css" rel="stylesheet" />
+	<link href="/css/cslider.css" rel="stylesheet" />
+	<link href="/css/style.css" rel="stylesheet" />
+	<link href="/css/guide.css" rel="stylesheet" />
+	<link href="/css/syntax.css" rel="stylesheet" />
+
+	<link href="http://netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css" rel="stylesheet">
+	<!-- Theme skin -->
+	<link id="t-colors" href="/skins/blue.css" rel="stylesheet" />
+	<!-- boxed bg -->
+	<link id="bodybg" href="/bodybg/bg1.css" rel="stylesheet" type="text/css" />
+	<!-- HTML5 shim, for IE6-8 support of HTML5 elements -->
+	<!--[if lt IE 9]>
+		  <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+		<![endif]-->
+	<!-- Fav and touch icons -->
+	<link rel="apple-touch-icon-precomposed" sizes="144x144" href="ico/apple-touch-icon-144-precomposed.png" />
+	<link rel="apple-touch-icon-precomposed" sizes="114x114" href="ico/apple-touch-icon-114-precomposed.png" />
+	<link rel="apple-touch-icon-precomposed" sizes="72x72" href="ico/apple-touch-icon-72-precomposed.png" />
+	<link rel="apple-touch-icon-precomposed" href="ico/apple-touch-icon-57-precomposed.png" />
+	<link rel="shortcut icon" href="/ico/favicon.png" />
+	<link rel="shortcut icon" href="/favicon.ico" type="image/x-icon" />
+	<script src="/js/jquery.js"></script>
+	<script src="http://code.jquery.com/ui/1.10.3/jquery-ui.js"></script>
+   <!-- Google analytics Code-->
+	<script>
+	  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+	  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+	  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+	  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+	 
+	  ga('create', 'UA-49887672-1', 'getcloudify.org');
+	  ga('send', 'pageview');
+	 
+	</script>
+</head>
+
+<body>
+
+		
+<div class="fixedTopHeight"></div>
+<!-- end header -->	
+
+		<section id="inner-headline">
+			<div class="container">
+				<div class="row marginbot30">
+					<div class="span12">
+					    <div id="resultsDiv" class="DocumentsWrap"></div>
+						<div id="pageContent" >
+									<div id="resultsDiv" class="DocumentsWrap"></div>
+		<section id="content">
+			<div class="container">
+				<div class="row">
+					<div class="span6 no-margin">
+						<h1><font face="Proxima Nova" color="#066894" size="28px">Try out XAP in one Click</font></h1>
+					<h2><font face="Proxima Nova" color="#000000" size="24px">Test drive XAP API and Management with Real Server on Demand</font></h2>
+
+            <p class="lead"><font face="Proxima Nova" color="#000000" size="14px">This is a tutorial that will setup a XAP Cluster on a real server on demand. The tutorial include an interactive shell that will allow you to execute the various XAP API for writing and reading data as well as open a groovy shell to write your own code and experience the full XAP API.  The tutorial also allows you explore the <a href="http://www.gigaspaces.com/xap-deployment-management-and-automation-solution" target="_blank">XAP orchestration and deployment automation</a> as well as the XAP Data management console. The tutorial is also available for download - see instructions <a href="#" target="_blank"></a>here.</font></p>
+		<p>NOTE: Installing XAP can take 2-3 minutes.</p>
+
+             <a class="btn btn-lg btn-default launchPlay" id="launch" style="float:left"  href="javascript:void(0)" data-launched="false">
+                <span class="glyphicon glyphicon-play"></span>
+                Launch Now
+              </a>
+			  <div class="container" style="width:400px;float:left;margin:5px 0 0 15px">
+
+				<div class="progress progress-striped active">
+					<div class="bar" style="width: 0%;"></div>
+				</div>
+			</div>
+
+             <div class="panel panel-default" style="display:none">
+            <div class="panel-heading">
+              <a href="#" id="manage" class="btn btn-lg btn-primary disabled" target="manage">» Deployment Management</a>
+              <a href="#" id="use" class="btn btn-lg btn-primary disabled" target="use">» XAP Management</a>
+              <div class="pull-right">
+                <p>
+                  Time Left: <strong id="time-left">...</strong> minutes.
+                </p>
+              </div>
+            </div>
+            <div class="panel-body">
+              <pre id="log">                <!-- Log goes here -->
+              </pre>
+            </div>
+            <div class="panel-footer">Powered by: HP Cloud, Cloudify (Patent Pending)</div>
+          </div>
+						<br>
+						<br>
+<a class="btn btn-large btn-green btn-rounded" href="http://www.gigaspaces.com/xap-download" target="_blank"><i class="icon-plus"></i>  Test Drive XAP</a>
+				<!--
+						<a id="mixpanelSubscribe" class="btn btn-large btn-green btn-rounded" href="#"><i class="icon-plus"></i>  Get Free Cloud Package</a> -->
+
+						</div> 
+
+					<div class="span6">
+					<h1><font face="Proxima Nova" color="#066894" size="28px">Try out the interactive shell</font></h1>
+						<h2><i class="icon-50 icon-arrow-down"></i> Start Now</h2>
+						<div class="span12 center" id="loading"  style="display:none">
+							<i class="icon-spinner icon-spin icon-large blue"></i>Loading interactive shell...
+							<br/>
+							Until then feel free to watch this tutorial video.
+
+						</div>
+						<br/>
+							<br/>
+
+						<div id="butterfly-iframe">
+						<iframe  id="ytIframe"  width="500" height="400" src="//www.youtube.com/embed/P0rTANBRuWE?rel=0" frameborder="0" allowfullscreen></iframe>
+							<div id="butterflyWrapper" style="display:none">
+								<iframe id="butterfly" src="#" width="768px" height="400px" frameborder="1" scrolling="auto"></iframe>
+								<a id="watchVideoBtn" class="hover-wrap fancybox fancybox.iframe" data-fancybox-group="gallery" title="Cloudify Your App on Chef" href="#" rel="gallery"><span class="btn btn-rounded btn-default"><i class="icon-play"></i> Watch</span></a>
+								<h2>Follow the instructions in the terminal to get XAP up and running.</h2>
+								<!-- Add Text Here for Widget Instructions -->
+								<!--	<ul>
+										<li>connect 127.0.0.1</li>
+										<li>list-applications</li>
+										<li>use-application chef-server</li>
+										<li>invoke chef-server listCookbooks</li>
+										<li>invoke chef-server updateCookbooks tar "http://s3.amazonaws.com/yoramw/apache.tgz" </li>
+										<li>invoke chef-server listCookbooks</li>
+										<li>install-service -overrides /tmp/apache.properties /tmp/base_chef</li>
+										<li>list-applications</li>
+										<li>invoke chef-server knife node list</li>
+										<li>invoke chef-server knife node show <node FQDN from previous list command></li>
+										<li>Click <a id="viewApachePage" href="#">here to view the Apache welcome page </a> you have just deploy</li>
+									</ul> -->
+						    </div>
+						</div>
+					</div>
+				</div>
+				</div></section>
+
+
+
+
+<script src="http://ricostacruz.com/nprogress/nprogress.js"></script>
+    <div id="hidden-iframe" style="display:none"><iframe id="iframe" src="http://launch.cloudifysource.org/widget/widget?apiKey=5bb7150f-5636-4087-b78e-4132b686c227&amp;title=Launch&amp;origin_page_url=http://getcloudify.org/xap_cloud_management.html" width="600" height="463"></iframe></div><script type="text/javascript">var WIDGET_ID = '5bb7150f-5636-4087-b78e-4132b686c227';</script>
+    <script type="text/javascript" src="/js/widget/script.js"></script>
+ <script type="text/javascript" src="//cdn.jsdelivr.net/jquery.postmessage/0.5/jquery.ba-postmessage.min.js"></script>
+
+ <script>
+ $(function() {   
+
+//Manage Downloads Gating;
+//========================================//
+var gotName = false;
+var gotValidCaptcha = false;
+var downloadHref="";
+var strVar="";
+var formEmail="";
+var formName="";
+strVar += "<div class=\"modal fade\" id=\"myModal\" tabindex=\"-1\" role=\"dialog\" aria-labelledby=\"myModalLabel\" aria-hidden=\"true\">";
+strVar += "            <a  style=\"float:right \" class=\"gattingWrapperClose\" href=\"#\"><i class=\"fa fa-times\">&nbsp;&nbsp;<\/i> <\/a>";
+strVar += "<div class=\"gattingWrapper\">";
+strVar += "           <form class=\"regiterToMixpanel\" name=\"mc-embedded-subscribe-form\" id=\"mc-embedded-subscribe-form\" action=\"https:\/\/cloudifysource.us4.list-manage.com\/subscribe\/post?u=5e963581396e0c0e43ed217f8&id=b43defea9b\" method=\"POST\">";
+strVar += "			<div class=\"regTitle\">Subscribe here<\/div>";
+strVar += "			<div style=\"position:relative\">";
+strVar += "				<input  id=\"last_name\" name=\"last_name\" type=\"text\" class=\"cuInput\" placeholder=\"Your Name\" \/>";
+strVar += "				<div class=\"cuValid\"><\/div>";
+strVar += "			<\/div>";
+strVar += "			<div style=\"position:relative\">";
+strVar += "				<input  id=\"company\" name=\"company\" type=\"text\" class=\"cuInput\" placeholder=\"Your Company Name\" \/>";
+strVar += "				<div class=\"cuValid\"><\/div>";
+strVar += "			<\/div>";
+strVar += "			<div style=\"position:relative\">";
+strVar += "				<input  id=\"mce-EMAIL\" name=\"email\"  type=\"text\"  placeholder=\"Your Email\"\/>";
+strVar += "				<div class=\"cuValid\"><\/div>";
+strVar += "			<\/div>";
+strVar +="          <input id=\"website\" name=\"website\" type=\"text\" value=\"\"  \/>";
+strVar += "			<input type=\"submit\" class=\"cuSendGatting btn btn-info\" id=\"mc-embedded-subscribe\" =\"submit\" value=\"Subscribe\" \/>";
+strVar += "			<\/form>";
+strVar += "        <\/div>";
+strVar += "        <\/div>";
+
+
+
+
+
+$("#mixpanelSubscribe").click(function(e) {
+    
+	$(this).before(strVar);
+	downloadValid();
+	formEmail =  mixpanel.cookie.props.__alias;
+	if(formEmail==undefined){
+		$('#myModal').modal('toggle');
+	}else{
+		alert("You have already registered.")
+	}
+});
+
+	$('#pageContent').on("click", "a.gattingWrapperClose", function() {
+		$('#myModal').modal('hide');	
+	});	
+
+function downloadValid(){
+  //Validation
+   $('.regiterToMixpanel').validate({ // initialize the plugin
+        errorLabelContainer: "#error-note",
+        rules: {
+            last_name: {
+                required: true
+            },
+			company: {
+                required: true
+            },
+			email: {
+                required: true,
+                email: true
+            }
+
+			},
+        messages: {
+            last_name: {
+                required: "Please enter your first name",
+            },
+			 company: {
+                required: "Please enter your company name",
+            },
+            email: {
+                required: "Please specify your email",
+                email: "Correct format is name@domain.com"
+            }
+
+        },
+        submitHandler: function (form,e) { // for demo
+            if ($('input#website').val().length != 0) {
+                return false;
+            } else{
+			var chefemail = $("#mce-EMAIL").val();
+			var chef_first_name = $("#last_name").val();
+			var company = $("#company").val();
+			mixpanel.identify() ;
+			mixpanel.people.set_once({
+					$email: chefemail,
+					$first_name: chef_first_name,
+					$company:  company,
+					$created: new Date(),
+					$last_seen:new Date(),
+		});
+					mixpanel.track('HP Chef Widget Campaign', {'page name' : document.title, 'url' : window.location.pathname});
+					$('#myModal .gattingWrapper form input').hide();
+					$('#myModal .regTitle').text("Thank you for registering! We will be in touch with further details.");
+					setTimeout(function() {
+						$('#myModal').modal('hide');		
+					}, 4000);
+            }
+            //return false; // for demo
+        }
+    });
+  //End Validation
+}
+
+
+
+//Blocking Spam http://blog.supermedia.com/honeypot-technique/
+$('#regiterToDownload').submit(function(){    
+        if ($('input#website').val().length != 0) {
+            return false;
+        } 
+});
+//End Blocking Spam
+
+});
+</script>
+  
+						</div>
+					</div>
+				</div>
+			</div>
+		</section>
+	 <div class="clear"></div>  
+  
+
+
+   
+</div>
+<a href="#" class="scrollup"><i class="icon-chevron-up icon-square icon-32 active"></i></a>
+<!-- javascript footer_scripts
+    ================================================== -->
+<!-- Placed at the end of the document so the pages load faster -->
+<script src="/js/jquery.easing.1.3.js"></script>
+<script src="/js/bootstrap.js"></script>
+<script src="/js/jcarousel/jquery.jcarousel.min.js"></script>
+<script src="/js/jquery.fancybox.pack.js"></script>
+<script src="/js/jquery.fancybox-media.js"></script>
+<script src="/js/google-code-prettify/prettify.js"></script>
+<script src="/js/portfolio/jquery.quicksand.js"></script>
+<script src="/js/portfolio/setting.js"></script>
+<!--<script src="/js/tweet/jquery.tweet.js"></script>-->
+<script src="/js/jquery.flexslider.js"></script>
+<script src="/js/jquery.nivo.slider.js"></script>
+<script src="/js/modernizr.custom.79639.js"></script>
+<script src="/js/jquery.ba-cond.min.js"></script>
+<script src="/js/jquery.slitslider.js"></script>
+<script src="/js/jquery.cslider.js"></script>
+<script src="/js/animate.js"></script>
+<script src="/js/custom.js"></script>
+<script src="/js/jquery.simplePagination.js"></script>
+<script src="/js/jquery.validate.min.js"></script>
+<script src="/js/validate.js"></script>
+<script src="/js/search/search.js"></script>
+<script type="text/javascript" language="javascript">llactid=12206</script>
+<script type="text/javascript" language="javascript" src="http://t6.trackalyzer.com/trackalyze.js"></script> 
+<script src="http://www.youtube.com/player_api"></script>
+
+
+<script>
+	$(window).load(function() {
+		$('#da-slider').cslider();
+		
+
+		
+});
+</script>
+
+
+
+<!-- includes -->
+<script type="text/javascript">
+
+   var _gaq = _gaq || [];
+   _gaq.push(['_setAccount', 'UA-31930048-1']);
+   _gaq.push(['_trackPageview']);
+
+   (function() {
+	   var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+	   ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+	   var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+   })();
+
+</script>
+<script type="text/javascript">
+<!-- start Mixpanel -->
+(function(e,b){if(!b.__SV){var a,f,i,g;window.mixpanel=b;a=e.createElement("script");a.type="text/javascript";a.async=!0;a.src=("https:"===e.location.protocol?"https:":"http:")+'//cdn.mxpnl.com/libs/mixpanel-2.2.min.js';f=e.getElementsByTagName("script")[0];f.parentNode.insertBefore(a,f);b._i=[];b.init=function(a,e,d){function f(b,h){var a=h.split(".");2==a.length&&(b=b[a[0]],h=a[1]);b[h]=function(){b.push([h].concat(Array.prototype.slice.call(arguments,0)))}}var c=b;"undefined"!==
+typeof d?c=b[d]=[]:d="mixpanel";c.people=c.people||[];c.toString=function(b){var a="mixpanel";"mixpanel"!==d&&(a+="."+d);b||(a+=" (stub)");return a};c.people.toString=function(){return c.toString(1)+".people (stub)"};i="disable track track_pageview track_links track_forms register register_once alias unregister identify name_tag set_config people.set people.set_once people.increment people.append people.track_charge people.clear_charges people.delete_user".split(" ");for(g=0;g<i.length;g++)f(c,i[g]);
+b._i.push([a,e,d])};b.__SV=1.2}})(document,window.mixpanel||[]);
+mixpanel.init("96365f48f34c41c7b91e045b4f48d53d");
+<!-- end Mixpanel -->
+
+
+
+
+//mixpanel global page tracking:
+//mixpanel.track_forms('#ki_form', 'Qualaroo');
+mixpanel.track('Cloudify Community Page Views', {'page name' : document.title, 'url' : window.location.pathname});  
+$(function(){ 
+////////////////////////////////////////
+//// MIXPANEL EVENTS////
+//////////////////////////////////////
+    // Home Page Download Button Clicks
+	$("a.hp-btn-getCloudify").click(function() {
+	    	    mixpanel.track("Home Page Download Button Clicks",{'page name' : document.title, 'url' : window.location.pathname}); 
+	});
+	// Download Button Clicks
+	$("a.dwnBtn").click(function() {
+	    	    mixpanel.track("Download Button Clicks",{'page name' : document.title, 'url' : window.location.pathname}); 
+	});	
+	//Get Cloudify Button Clicks - on download page
+	$("a.downloadme").click(function() {
+	    mixpanel.track("Get Cloudify Button Clicks",{'page name' : document.title, 'url' : window.location.pathname}); 
+	});	//Try It Now Click
+	$("a.hp-tryItNow").click(function() {
+	    mixpanel.track("Try it Now HP Button Clicks",{'page name' : document.title, 'url' : window.location.pathname}); 
+	});
+	//Search
+	$("#goBtn").click(function() {
+	var value = $('#search').val();
+	    mixpanel.track("Search",{"keyword": value}); 
+	});
+	//Social Button Clicks
+	$("a.socialbtn").click(function() {
+		var socialNetwork = $(this).attr("data-original-title");
+	    mixpanel.track("Social Button Clicks",{'page name' : document.title, 'url' : window.location.pathname, 'social-network': socialNetwork}); 
+	});
+	//Pro button nav bar clicks
+	$("a.goProBtn").click(function() {
+	    mixpanel.track("Pro button nav bar clicks",{'page name' : document.title, 'url' : window.location.pathname}); 
+	});
+	//Go Pro Button Inner Pages
+	$("#goProInner").click(function() {
+	    mixpanel.track("Go Pro Button Inner Pages",{'page name' : document.title, 'url' : window.location.pathname}); 
+	});
+	//Download Button Inner Pages
+	$("#downloadBtnInner").click(function() {
+	    mixpanel.track("Download Button Inner Pages",{'page name' : document.title, 'url' : window.location.pathname}); 
+	});
+	//Get Started button home page
+	$("a#getStartedBtn").click(function() {
+	    mixpanel.track("Get Started button home page",{'page name' : document.title, 'url' : window.location.pathname}); 
+	});
+	//Documentation Edit Button Clicks
+	$("button#edit-on-github").click(function() {
+	    mixpanel.track("Documentation Edit Button Clicks",{'page name' : document.title, 'url' : window.location.pathname}); 
+	});
+	//Launch Button
+	$(".launchPlay").click(function() {
+	    mixpanel.track("Chef Campaign Widget Play",{'page name' : document.title, 'url' : window.location.pathname}); 
+	});
+	//Chef Campaign Widget Stop
+	$(".launchStop").click(function() {
+	    mixpanel.track("Chef Campaign Widget Stop",{'page name' : document.title, 'url' : window.location.pathname}); 
+	});
+	//Chef Campaign Button Clicks
+	$("#manage,#use").click(function() {
+	    mixpanel.track("Chef Campaign Button Clicks",{'page name' : document.title, 'url' : window.location.pathname}); 
+	});
+	
+
+	
+});
+
+
+//TRACK FORMS
+/*-----------------------------------*/
+mixpanel.track_forms("#searchForm", "Search",{'page name' : document.title, 'url' :  window.location.pathname});
+//Track Subscribers
+mixpanel.track_forms('#mc-embedded-subscribe-form', 'Register for Event Button Clicks',{'page name' : document.title, 'url' : window.location.pathname});	
+mixpanel.track_forms('#ki_form', 'Qualaroo');
+mixpanel.track_forms(".regiterToMixpanel", "Search",{'page name' : document.title, 'url' :  window.location.pathname});
+mixpanel.track_forms("#butterfly-iframe iframe", "Chef Campaign Interactive Shell",{'page name' : document.title, 'url' :  window.location.pathname});
+
+
+//track Cloudify Early Access Builds
+//mixpanel.track_links("a.eaTitle", "Product Download - Early Access Builds", {'referrer': document.referrer });
+
+
+// mixpanel- trakc only if email requested
+var currEmail="";
+$("body").live('change', function(){
+ $("#ki_form").live('change', function(){
+  if($("#ki_question_99437").length != 0) {
+	currEmail =  $("input.ki_explain_small").val();	
+	mixpanel.track_links("#ki_submit_button", "Qualaroo", function(ele) {
+	 if($('input').hasClass('ki_explain_small')){
+	  var currEmail =  $("input.ki_explain_small").val();	
+	  mixpanel.name_tag(currEmail);
+	  mixpanel.identify(currEmail);
+	  mixpanel.people.set({
+	  $email: currEmail,
+	  $first_name: currEmail,
+	  $created: new Date(),
+	  $last_seen:new Date(),
+	  });
+	} return { type: $(ele).attr('type'),email: currEmail}
+	});
+  }
+});
+
+});
+
+//
+//$("#ki_submit_button").click(function() {
+
+//if($('input').hasClass('ki_explain_small')){
+ // var currEmail =  $("input.ki_explain_small").val();	
+ // mixpanel.name_tag(currEmail);
+ // mixpanel.people.identify(currEmail);
+ // mixpanel.people.set({
+ // $email: currEmail,
+ // $first_name: currEmail,
+//  });
+//}
+//});
+</script>
+	
+<!--<script type="text/javascript">var _kiq = _kiq || [];</script>
+<script type="text/javascript" src="//s3.amazonaws.com/ki.js/42111/87X.js" async="true"></script> -->
+
+<!-- Qualaroo for getcloudify.org -->
+<!-- Paste this code right after the <body> tag on every page of your site. -->
+<script type="text/javascript">
+  var _kiq = _kiq || [];
+  (function(){
+    setTimeout(function(){
+    var d = document, f = d.getElementsByTagName('script')[0], s = d.createElement('script'); s.type = 'text/javascript';
+    s.async = true; s.src = '//s3.amazonaws.com/ki.js/42111/bsq.js'; f.parentNode.insertBefore(s, f);
+    }, 1);
+  })();
+</script>
+	
+<!-- Leadlander Global JS -->
+<script type="text/javascript" language="javascript">llactid=12206</script>
+<script type="text/javascript" language="javascript" src="http://t6.trackalyzer.com/trackalyze.js"></script> 
+	
+</body>
+</html>
