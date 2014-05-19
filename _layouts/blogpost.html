@@ -35,9 +35,26 @@
 					  <br/><br/><br/>
 					 {% endif %}
                     {{content}}
-					{% include disqus.html %}
 					
-					{% include addthis.html %}
+					
+					<!-- Pagination links -->
+					<div class="pagination">
+					{% if page.previous %} 
+							<span class="prev">&laquo;&nbsp;<a rel="prev" href="{{ page.previous.url }}">Previous Page</a></span>
+						{% endif %}
+						{% if page.next %} 
+							<span class="next" style="float:right;"><a rel="next" href="{{ page.next.url }}">Next Page</a>&nbsp;&raquo;</span>
+						{% endif %}
+					</div>	
+					<div class="clear"></div>
+
+
+
+					
+					
+					
+                    {% include disqus.html %}
+					
 					
 					</div>			
 				</div>	
@@ -46,10 +63,7 @@
 				<div class="span3">
 					<aside class="right-sidebar" >
 						{% include posts_toc.html %}
-					<br/>
-					<a href='http://cloud.feedly.com/#subscription%2Ffeed%2Fhttp%3A%2F%2Fgetcloudify.org%2Fatom.xml'  target='blank'><img id='feedlyFollow' src='http://s3.feedly.com/img/follows/feedly-follow-rectangle-flat-medium_2x.png' alt='follow us in feedly' width='71' height='28'></a>
 					</aside>
-
 				</div>
 			</div>	
 	</div>	
