@@ -215,11 +215,15 @@ The designated agent (Manager Side or Application VM side depending on the task)
 </tr>
 <tr>
 <td>Chef</td>
-<td>Chef client</td>
+<td>Chef client and solo</td>
 </tr>
 <tr>
 <td>Puppet</td>
-<td>Puppet Master &amp; Agent mode</td>
+<td>Puppet Master &amp; Agent mode and stand alone mode</td>
+</tr>
+<tr>
+<td>Bash</td>
+<td>Executing bash scripts</td>
 </tr>
 <tr>
 <td>Fabric</td>
