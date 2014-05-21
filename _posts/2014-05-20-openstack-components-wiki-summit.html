@@ -21,7 +21,7 @@ tags:
 
 <p>In this post i will give a short technical overview of a few interesting projects i think are worth mentioning. </p>
 
-<p><a href="https://wiki.openstack.org/Heat">Heat</a> (<a href="https://github.com/openstack/heat">openstack/heat</a>)</p>
+<h3><strong><a href="https://wiki.openstack.org/Heat">Heat</a> (<a href="https://github.com/openstack/heat">openstack/heat</a>)</strong></h3>
 
 <p>Heat is an orchestration engine designed to easily provision Openstack Infrastructure. It uses its own DSL called<a href="http://docs.openstack.org/developer/heat/template_guide/hot_guide.html"> HOT</a> (Heat Orchestration Template) that was inspired by Amazon CloudFormation. Here is a very basic example that simply provisions a Nova server with a custom name, image, flavor and key.</p>
 
@@ -41,13 +41,13 @@ tags:
 
 <p>I’d also recommend you check out this post, as well - <a href="https://etherpad.openstack.org/p/icehouse-summit-heat-hot">Juno Design summit : Heat - Software Orchestration.</a></p>
 
-<p><a href="https://wiki.openstack.org/wiki/Neutron">Neutron </a>(<a href="https://github.com/openstack/neutron">openstack/neutron</a>)</p>
+<h3><strong><a href="https://wiki.openstack.org/wiki/Neutron">Neutron </a>(<a href="https://github.com/openstack/neutron">openstack/neutron</a>)</strong></h3>
 
 <p>Although Neutron is much more flexible and feature-rich than its predecessor, Nova-network, there's recently been some controversy around its viability as far as large scale deployments go. (See: <a href="http://www.theregister.co.uk/2014/05/13/openstack_neutron_explainer">http://www.theregister.co.uk/2014/05/13/openstack_neutron_explainer</a>). This is mainly explained by the fact that Neutron was initially created by the folks from Nicira, and was therefore optimized for Nicira rather than the default Open vSwitch implementation.</p>
 
 <p>This is the reason that Nova-network is still not deprecated, and can be used as an alternative to Neutron in Icehouse as well.&#160; There were numerous sessions during the summit dedicated to Neutron deployment, scaling and operational aspects. Overall it seems that despite the current hardships, in the long run Neutron will become the primary networking infrastructure for OpenStack, and that the recent push from large vendors such as HP and RedHat will get to where it needs to be. If you want to get an overview about how Neutron compares to the older nova-network module read this post from our very own Noa Kuperberg (<a href="http://vmblog.com/archive/2014/05/15/navigating-through-openstack-networking-the-definitive-breakdown.aspx#.U3fGWXV53MZ">Navigating through Openstack Networking - The Definitive Breakdown</a>).</p>
 
-<p><a href="https://wiki.openstack.org/wiki/Mistral">Mistral</a> (<a href="https://github.com/stackforge/mistral">stackforge/mistral</a>)</p>
+<h3><strong><a href="https://wiki.openstack.org/wiki/Mistral">Mistral</a> (<a href="https://github.com/stackforge/mistral">stackforge/mistral</a>)</strong></h3>
 
 <p>Mistral is kind of the new kid on the block, and actually, its purpose is to provide something we haven’t seen before in the OpenStack community, Workflow-As-A-Service.</p>
 
@@ -79,7 +79,7 @@ tags:
 
 <p>See some more examples<a href="https://github.com/stackforge/mistral/tree/master/functionaltests/api/v1"> here</a>.</p>
 
-<p><a href="http://getcloudify.org/downloads/get_cloudify.html">Cloudify</a> (<a href="https://github.com/cloudify-cosmo/cloudify-cli">cloudify-cosmo/cloudify-cli</a>)</p>
+<h3><strong><a href="http://getcloudify.org/downloads/get_cloudify.html">Cloudify</a> (<a href="https://github.com/cloudify-cosmo/cloudify-cli">cloudify-cosmo/cloudify-cli</a>)</strong></h3>
 
 <p>As a developer on the Cloudify team, I can't help but really feel like we're on the right track to contributing significant tooling/code to the OpenStack ecosystem. What we're doing with Cloudify is something that can be likened to to a combination between Heat and Mistral. Basically, an orchestration tool designed and architected for the cloud.</p>
 
