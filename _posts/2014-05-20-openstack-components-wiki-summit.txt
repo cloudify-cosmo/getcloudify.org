@@ -25,13 +25,13 @@ tags:
 
 <p>Heat is an orchestration engine designed to easily provision Openstack Infrastructure. It uses its own DSL called<a href="http://docs.openstack.org/developer/heat/template_guide/hot_guide.html"> HOT</a> (Heat Orchestration Template) that was inspired by Amazon CloudFormation. Here is a very basic example that simply provisions a Nova server with a custom name, image, flavor and key.</p>
 
-<p><img src="https://lh5.googleusercontent.com/x8Jg7Zwz01-FJTPvXgb-LXX6tzJfspmI9DhOMMsxJmw4yKsk6vybj-eXaVV8czMU4CPYB5XIY3IH9Rr8UfKB8mI8D5Gdu8ohPO1d0WattWF-NEsp5hBAXsUtskhTngoFIg" width="146" height="93" /></p>
+<p><img src="https://lh5.googleusercontent.com/x8Jg7Zwz01-FJTPvXgb-LXX6tzJfspmI9DhOMMsxJmw4yKsk6vybj-eXaVV8czMU4CPYB5XIY3IH9Rr8UfKB8mI8D5Gdu8ohPO1d0WattWF-NEsp5hBAXsUtskhTngoFIg" width="350" /></p>
 
 <p>This is very easy to use, its completely declarative and contains exactly what is needed. nothing more.</p>
 
 <p>The Icehouse version of Heat was dedicated to software configuration and management. Lets take a look at how it works.</p>
 
-<p><img src="https://lh4.googleusercontent.com/tGfR_NGKCbQA4CBsCm4h_Bfoiyww_gHl9l95EkomXBGbWLlfIwg1HKVpS8rH032vxZTYb9vTnSYM1IVHsVNXvkK4IOA_ZZlmfL2gUJu2wWuYZparjioJV-JSmfXaRxB1gQ" width="336" height="163" /></p>
+<p><img src="https://lh4.googleusercontent.com/tGfR_NGKCbQA4CBsCm4h_Bfoiyww_gHl9l95EkomXBGbWLlfIwg1HKVpS8rH032vxZTYb9vTnSYM1IVHsVNXvkK4IOA_ZZlmfL2gUJu2wWuYZparjioJV-JSmfXaRxB1gQ" width="350"/></p>
 
 <p>This template defines a ‘wordpress’ component, of type OS::Heat::software_config::chef_solo, which states that this component is configured using a built in chef_solo implementation. Notice the ‘relationship’ part in the component, this is what wires the cookbook in to a specific curtain server. To learn more check out<a href="https://wiki.openstack.org/wiki/Heat/Blueprints/hot-software-config"> OS::Heat::SoftwareConfig</a>.</p>
 
@@ -59,7 +59,7 @@ tags:
 
 <p>Example:</p>
 
-<p><img src="https://lh3.googleusercontent.com/fPhBeQOFk-KucDg2brouHEJy3r-rC0gw6EdFnsNvUjpMIK0iwYkdmAwlx0MLcgFPTOg7RXG2NUnXlEjXjdonPOaz8WqYaao0pVNnb3B3Z19YNvS-jcTy8kc9spj1G_AWAA" width="229" height="156" /></p>
+<p><img src="https://lh3.googleusercontent.com/fPhBeQOFk-KucDg2brouHEJy3r-rC0gw6EdFnsNvUjpMIK0iwYkdmAwlx0MLcgFPTOg7RXG2NUnXlEjXjdonPOaz8WqYaao0pVNnb3B3Z19YNvS-jcTy8kc9spj1G_AWAA" width="350"/></p>
 
 <p>So, a workflow is in this case a list of tasks, executed as soon as it’s possible to do so. We can see here that that the ‘backup_user_data’ task requires the ‘put_service_on_hold’ task, this ensures the engine will execute the tasks in the correct order. In addition to dependency management, Mistral offers a lot of other features that can all be expressed in a simple declarative fashion. Some of which are:</p>
 
@@ -113,7 +113,7 @@ tags:
 
 <p>Let’s take a look at a sample blueprint.</p>
 
-<p><img src="https://lh6.googleusercontent.com/rf3wAy54ldnoDvCrkw-CCxYraeJObW7s0sXnXeFS3cVGnDEVHN8bV_RmCCKCPJ3wRYQ4ciu7aqat_vU5cRaPiBNCY3RGNJTtEbmzyXucOIwLdTE0VBXR6tymeU8l36aoew" width="361" height="224" /></p>
+<p><img src="https://lh6.googleusercontent.com/rf3wAy54ldnoDvCrkw-CCxYraeJObW7s0sXnXeFS3cVGnDEVHN8bV_RmCCKCPJ3wRYQ4ciu7aqat_vU5cRaPiBNCY3RGNJTtEbmzyXucOIwLdTE0VBXR6tymeU8l36aoew" width="350" /></p>
 
 <p>Again we see a YAML, TOSCA-based declarative DSL. This blueprint defines two Openstack IaaS elements:</p>
 
@@ -143,7 +143,7 @@ tags:
 
 <p>Lets see an example:</p>
 
-<p><img src="https://lh3.googleusercontent.com/2GWw8ba8s3EOzf2zMaak-z2TXfAFfFwg43tXsD4esN6bwtJn1MJhwBDWv6zrstEK7jjmmQ3Ye_744OdBjbRlKdYJD_CL46ODqyANoL_2krKt4Br5slKBZOkc3K0NMbQmqg" width="329" height="117" /></p>
+<p><img src="https://lh3.googleusercontent.com/2GWw8ba8s3EOzf2zMaak-z2TXfAFfFwg43tXsD4esN6bwtJn1MJhwBDWv6zrstEK7jjmmQ3Ye_744OdBjbRlKdYJD_CL46ODqyANoL_2krKt4Br5slKBZOkc3K0NMbQmqg" width="350" /></p>
 
 <p>This is a snippet taken from the Tomcat installation<a href="https://github.com/ansible/ansible-examples/blob/master/tomcat-standalone/roles/tomcat/tasks/main.yml"> PlayBook</a>.</p>
 
