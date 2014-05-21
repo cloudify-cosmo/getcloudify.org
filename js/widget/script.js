@@ -186,6 +186,11 @@ $(function() {
 		$(".pbarWrap").hide();
 	}
 
+//for xap
+ var $myDiv = $('#xapShell');
+    if ( $myDiv.length){
+        $('#xapShell').hide();
+    }
 
 
 
