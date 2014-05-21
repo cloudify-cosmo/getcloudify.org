@@ -1,0 +1,194 @@
+---
+layout: blogpost
+title: OpenStack Going Mainstream - Notes from the OpenStack Summit Atlanta 2014
+image: nati.png
+author: Nati Shalom & Sharone Zitzman
+tags: 
+ - OpenStack
+ - OpenStack Heat
+ - Development
+ - Cloud Orchestration
+ - OpenStack Orchestration
+---
+<notextile>
+
+<img src="/img/blog/OSNumbers.png" alt="OpenStack News - OpenStack Summit 2014">
+<br/>
+<br/>
+
+<p>I attended almost every OpenStack summit event over the past few years, including last year in Hong Kong and Portland, and even lead the OpenStack community in Israel...but somehow, this year the OpenStack Summit felt completely different than any of the previous events. I&#160; feel like OpenStack is coming into its own, and has reached a point of no return. There are now so many companies betting on its success that it simply cannot fail. But that wasn’t the only reason I got that impression, this year unlike previous years our booth was busy with real customers with budget and plans to execute on building OpenStack deployments.</p>
+
+<p>I heard similar things from many other people at the event. Having so many real customers under the same roof is very unique to conferences these days, and is clearly a sign that many customers are moving from the exploration phase to the execution stage. All this is not just my personal feeling, but is backed by real numbers from the recent OpenStack user survey that demonstrates a real maturity trend with the numbers of some serious deployments in production, see the <a href="http://getcloudify.org/2014/05/19/openstack-statistics.html">OpenStack statistics</a>.</p>
+
+<p>For us, this was an especially good year, as we also had our moment of glory when HP Print presented how they used Cloudify to help them manage their existing Chef-based DevOps operations with a peak of 1400 deployments a day into HP Hava using all the latest and greatest that OpenStack can offer - specifically the networking piece. Some of the numbers from this talk took even me by surprise, and serve as strong evidence on how organizations can run mission critical deployments with OpenStack. You can can see the live video of the case study <a href="http://youtu.be/z1ftqxMt2bc?t=13m13s">here</a>.</p>
+
+<p>&#160;</p>
+
+<h3><strong>HP Print by the Numbers</strong></h3>
+
+<p>A Screenshot of the HP Print networking </p>
+
+<table cellspacing="0" cellpadding="4" width="600" border="0"><tbody>
+    <tr>
+      <td valign="top" width="300"><img src="https://lh5.googleusercontent.com/H5gLbStd7j9Vh8rGArGWDrFgnWv-H1rmKqE0sH7SpX3NURFg7UJ5g1VrCc8K49aDRYPppbGil-UWsMSH2cyq7XMVi79UlnAUVd2VdSACmxcWCy6wGwwNqNZjkaYqjo1csA" width="297" height="193" /></td>
+
+      <td valign="top" width="300"><img src="https://lh5.googleusercontent.com/NWFCYgp2flnYkqD1Cay3Iyv-rT7sr6EyDD4j3IaxZ7PhN6Ihg0CTfJ_6kDzJj5qfXavjOZlcH3OfW8wmOX20xVBDOJNK-7UAuTAKyW-9vtJP522IbXgJ2QyS178VK9fXQA" width="297" height="268" /></td>
+    </tr>
+  </tbody></table>
+
+<p>&#160;</p>
+
+<p>Rather than sharing my takes, I thought that what would be more useful is sharing the specific references to stories from the summit that I found the most interesting, and demonstrate the real production readiness of OpenStack.</p>
+
+<h3><font style="font-weight: bold">Sound Bites from Interesting Case Studies </font></h3>
+
+<p><img src="/img/blog/wellsfargov2.jpg" width="100">
+<p><blockquote>
+  <p>“Your infrastructure has to keep speed with your software…Why wouldn’t you do infrastructure this way? It’s a better way of doing things.&#160; The agility, the speed, really allowing the developers to modify that software in lockstep with the infrastructure, speed to market. We have competitors, we’re a large bank, and we have targets on our back.&#160; There’s disruption happening everywhere.&#160; We’re doing our best to stay competitive on all levels, and technology is a key component of any business, certainly financial services.&#160; This [using OpenStack -S.Z.] is what we need to do to stay competitive and agile in this environment.”</p>
+</blockquote></p>
+
+<p> -Glen Ferguson, Head of Private Cloud Enablement, Wells Fargo Bank</p>
+
+<p><img src="/img/blog/WaltDisneyCo_logo.jpg" width="100"></p>
+
+<p><blockquote>
+  <p>“As an entire industry of technologists we have spent a long time empowering people much better when they go home, than when they come to work with their technology.&#160; And what I have been trying to do is change that, inside of Disney - outside of Disney. Like many others in the audience I have been trying to lead a revolution to help empower people when they come to work, with technology.”</p>
+</blockquote></p>
+
+<p> -Chris Launey, Director, Cloud Services &amp; Architecture at The Walt Disney Company</p>
+
+<p><img src="/img/blogATT_new_ai.png" width="100"></p>
+
+<p><blockquote>
+  <p>“AT&amp;T now has changed its thinking. Today it’s a much different place when it comes to thinking about open source, and it is now an integral part of our strategy.&#160; We are active participants not only in OpenStack but in other projects, and we are now even looking at expanding that - into a new area that I’ll talk about today.&#160; The NFV Open Platform is an example of this change in strategy that is the result of open source, and specifically the result of our work on OpenStack, and our contribution there.&#160; It has taught us how to share again.” </p>
+
+  <p>- Toby Ford, AVP, Cloud Technology, Strategy and Planning at AT&amp;T</p>
+</blockquote></p>
+
+<p><img src="/img/blog/sonylogo-14545.jpg" width="100"></p>
+
+<p><blockquote>“With OpenStack specifically we are hosting the software that connects players online for our first-party studios. This software does anything from player matchmaking, to stats, to leaderboards, and social media integration….There are a number [of benefits - S.Z.] right off the top - the virtualization in general, just the ability to use what we already have, we were able to take our existing bare metal footprint and run OpenStack there, which just optimized our data center. From a performance perspective - with the public cloud some of our studios were having issues with reliable performance.&#160; Bringing OpenStack in-house, our developers were really able to know what’s under the hood...so that the real time element of the game is always there for our users.”</blockquote></p>
+
+<p>- Joel Johnston, Platform Architect, Global Hosting, Sony Computer Entertainment</p>
+
+<p>&#160;</p>
+<img class="alwaysThinglink" style="max-width: 100%" src="//cdn.thinglink.me/api/image/525673840295018498/1024/10/scaletowidth#tl-525673840295018498;1043138249" /><script async charset="utf-8" src="//cdn.thinglink.me/jse/embed.js"></script> 
+
+<h3><strong>Announcements that Caught my Attention</strong></h3>
+
+<ul>
+  <li>
+    <p>The Newly Launched OpenStack Marketplace</p>
+  </li>
+</ul>
+
+<p>The announcement of the OpenStack Marketplace is a welcome initiative, and for me that which emphasizes the strength and vibrancy of the OpenStack ecosystem. <a href="http://www.openstack.org/marketplace/distros/distribution/mirantis/mirantis-openstack">http://www.openstack.org/marketplace/distros/distribution/mirantis/mirantis-openstack</a></p>
+
+<ul>
+  <li>
+    <p>Oracle Joins OpenStack</p>
+  <br/>
+  Oracle relents and joins HP, IBM, RedHat, Ubuntu, Cisco, EMC, and the many other enterprises backing OpenStack, which pretty much unites the entire list of enterprises companies behind OpenStack. <a href="http://www.oracle.com/technetwork/issue-archive/2014/14-mar/o24news-2147183.html">http://www.oracle.com/technetwork/issue-archive/2014/14-mar/o24news-2147183.html</a>
+</li>
+</ul>
+
+<ul>
+  <li>
+    <p>HP announced a billion dollar investment in Helion</p>
+  </li>
+</ul>
+
+<p>HP has long-been an OpenStack pioneer, but previously OpenStack, until now was proportionally only a small part of the business for HP. With this announcement it looks like HP is betting its entire cloud strategy on OpenStack, and has made some very aggressive moves to make its entire portfolio a pure open source play. <a href="http://guardianlv.com/2014/05/hp-betting-big-on-cloud-services-with-billion-dollar-investment/">http://guardianlv.com/2014/05/hp-betting-big-on-cloud-services-with-billion-dollar-investment/</a></p>
+
+<h3><font style="font-weight: bold">The Drama of the Day</font></h3>
+
+<p>Is Red Hat locking customers into its version of OpenStack? </p>
+
+<p>There has been a lot of speculation regarding a move by Red Hat to only support Red Hat Enterprise Linux (RHEL) deployed on their distro of OpenStack, as quoted by Paul Cormier, president of products and technologies at Red Hat, &quot;Red Hat Enterprise Linux and our OpenStack offerings are developed, built, integrated, and supported together to create Red Hat Enterprise Linux OpenStack Platform. This requires tight feature and fix alignment between the kernel, the hypervisor, and OpenStack services. We have run into this in actual customer support situations many times.&quot;&#160; You can read about what some see as a surprising move by this open source pioneer <a href="http://www.infoworld.com/t/openstack/red-hat-locking-customers-its-version-of-openstack-242535">here</a>.</p>
+
+<h3><font style="font-weight: bold">Heat is Hot </font></h3>
+
+<br /><img style="float: left; margin: 0px 8px 0px 0px; display: inline" src="https://lh4.googleusercontent.com/Zj2cb6PUxVV_AgrTJrum8zi87KsRXGAQk3Egz6UPUXyxe9735S96pvtIbickdqO92M-CruGguO6DmPJqUcWsbxjcmVqcbCh7en2SFzaN680oePziP0IEGOU51R9vaORSIA" width="195" align="left" height="141" /> 
+
+<p>On the technical side of things it wasn’t hard to notice that in comparison to last year the number of Heat sessions has grown from&#160; 58 sessions at the <a href="http://openstacksummitnovember2013.sched.org/?s=heat+">Hong Kong Summit</a>, to 77 at the <a href="http://openstacksummitmay2014atlanta.sched.org/?s=heat">Atlanta Summit</a>.</p>
+
+<p>Many sessions and discussions on the topic were for the most part fully packed and even the workshop occupied roughly 200 people coding Heat simultaneously.</p>
+
+<p>I also had two session on this topic, one titled <a href="http://www.slideshare.net/giganati/when-networks-meets-apps-open-stack-atlanta">When Network Meets Apps</a>, where I presented with Samuel Bercovici of Radware on the way deployment automation and software defined networking opens a new set of opportunities for automating the entire stack.&#160; This is especially true even for fairly complex stacks with different networks per tier, availability zones, auto-scaling, and other specifications. During this sessionsI presented a live demo demonstrating a modified Wordpress example, that required additional networking setup, using Heat, as well as a similar example running NodeJS and MongoDB using a TOSCA-like deployment using Cloudify.</p>
+
+<p>&#160;</p>
+
+<table cellspacing="0" cellpadding="4" width="600" border="0"><tbody>
+    <tr>
+      <td valign="top" width="300"><strong>WordPress Example using Heat
+          <br /></strong>
+
+        <br /><img src="https://lh3.googleusercontent.com/hYotDdFXSx8e3GWsPuCrC6JgdJVkkZ3tVGSOmDUuPxYm6_D_5i_lcab4DdqQggCUVzyB9bP8JA88i-U6OsWaNmHk5KIaFjxTtwxHPaZu8aNBXd3sYTsrH3gpRgC6DFAHrw" width="313" height="197" />
+
+        <br /><a href="http://getcloudify.org/2014/05/07/devstack-heat-openstack-cloud.html">Heat Step By Step Guide </a></td>
+
+      <td valign="top" width="300"><strong>TOSCA-like example using Cloudify
+          <br /></strong>
+
+        <br /><img src="https://lh4.googleusercontent.com/dX_XwwUPG2dHOEylhxcwPfpTTM5y6IFksZBtStnUILcK3yhgnZIgCjAvuug7SkkNs1Z_rFjgJAbRTunaa_qQSlNmUHiHiIhbzVTrWDWbKTrzl_ETnHjIC32Ifm3JP93HOQ" width="297" height="197" />
+
+        <br /><a href="https://github.com/cloudify-cosmo/cloudify-nodecellar-openstack">Cloudify TOSCA (like) Step by Step Guide</a></td>
+    </tr>
+  </tbody></table>
+
+<p>&#160;</p>
+
+<p>The good news is that it looks like the work that IBM, GigaSpaces and others are doing with the Heat team helps to bring the two models closer together. Based on follow up sessions on Thursday of that same week, it looks like the direction would be to decouple Heat from the DSL and use the foundation from the <a href="http://click.typepad.com/api/click?format=go&amp;jsonp=vglnk_jsonp_14005833068278&amp;key=7626aa89b5cdca8c8b5ad715622cd669&amp;libId=9cede1ea-7902-4722-be57-a02f698da958&amp;loc=http%3A%2F%2Fnatishalom.typepad.com%2F&amp;v=1&amp;out=https%3A%2F%2Fgithub.com%2Fstackforge%2Fheat-translator&amp;title=Nati%20Shalom%27s%20Blog&amp;txt=TOSCA%20translator%20project%20">TOSCA translator project</a> as a way to model various DSL types that could be supported by the underlying Heat engine. In addition, the next release of <a href="http://getcloudify.org">Cloudify</a> will include built-in support for Heat.</p>
+
+<p>I also moderated another session <a href="https://www.youtube.com/watch?v=RhkArGEIAz8">titled</a> <a href="https://www.youtube.com/watch?v=RhkArGEIAz8">Automation, Orchestration, Confusion? Taking the Discussion Up the Stack</a> together with <a href="http://openstacksummitmay2014atlanta.sched.org/speaker/stevebake">Steve Baker</a> from the Heat project, <a href="http://openstacksummitmay2014atlanta.sched.org/speaker/fghaas">Florian Haas </a>CEO, Principal Consultant at hastexo, <a href="http://openstacksummitmay2014atlanta.sched.org/speaker/gokrokvertskhov1">Georgy Okrokvertskhov </a>Platform Architect at Mirantis, and <a href="http://openstacksummitmay2014atlanta.sched.org/speaker/john.yi">John Yi </a>Cloud Solution Architect, Rackspace, in which we covered the various orchestration and deployment tools such as Heat, Chef, Puppet, Docker, and DevStack.&#160; The main conclusion was that there’s currently no one tool to cover them all, and the choice of tools should be driven by previous investment and skill sets (i.e. if an organization is already built on configuration management based on Puppet or Chef then it would only makes sense to use this as a basis).</p>
+
+<p>There’s also an interesting debate whether configuration management is something that should take place in runtime given the the dependency that it creates in many artifacts,thus exposing a high likelihood for fragility during the deployment process. Steve suggested that configuration management should be used to create pre-packed images and use images as the packaging model at runtime rather than configuration tools. Docker is a lightweight container that can a serve as a great packaging model in these kinds of use cases. Other than that, it looks like as we move up the stack and closer to the application, people tend to choose frameworks that are not purely tied to OpenStack. That is consistent also with the recent user survey.</p>
+
+<p><img src="https://lh6.googleusercontent.com/Po9gZScNQJbMaGYse837XecMyRL5xjGn0A3MU8eEcFydfw9B6u09gU-pFbSk667n9D5kTYHQ4i0dYQIyrUI86M7Mg-msr8WRx1RSxDzOB9Z1PeDR1rnPgGteZ9cAwZoLzQ" width="467" height="153" /></p>
+
+<p>&#160;</p>
+
+<h3><font style="font-weight: bold">What’s missing and where OpenStack should go</font></h3>
+
+<p>There are lots of exciting things taking place with the OpenStack community today.</p>
+
+<p>Having said that, I personally think that there’s a bit too much of a product thinking, and less of ecosystem thinking in the way the project is evolving. By product, I’m specifically referring to the fact that there is a great tendency to increase the scope and number of projects, at the expense of supporting the already existing ecosystem.</p>
+
+<p>I personally think that OpenStack will be more successful if it will allow more projects to be easily integrated. The current StackForge model is a bit heavyweight, and requires that an entire project be hosted in OpenStack in order for it to be considered part of its ecosystem.</p>
+
+<p>I believe that having projects like a certification framework, an “app-store” equivalent (not just a place to consume OpenStack projects like the marketplace recently created), but rather a hub that offers an API compatibility framework in which other non-OpenStack implementations can easily expose OpenStack compatible APIs, can be an excellent move for OpenStack. These type of projects are not tied to adding more functionality to the core, but rather making OpenStack more open for external clouds and projects. In my opinion, such projects would better serve the community than just having more functionality-oriented projects. </p>
+
+<p>Now don’t get me wrong, I don’t think that OpenStack shouldn't grow up the stack or add more functionality, but there needs to a good balance between projects that serve the ecosystem, and projects that add more features and functions.&#160; The way I see it, right now that balance doesn’t really exist.</p>
+
+<p>On a positive note, I think that projects like the new marketplace are certainly a step in the right direction, and we need more forces and projects of this nature to strengthen the peripheral community.</p>
+
+<h3><font style="font-weight: bold">What’s next?</font></h3>
+
+<p>There’s no question that OpenStack has become a global phenomenon at this point, and following a no less than incredible event at Atlanta, the exceptional OpenStack Foundation team will be heading on an OpenStack tour around the world, and will be attending a whopping five additional OpenStack events between now and June 4th (Budapest, Paris, Italy, Tel Aviv, and London).</p>
+
+<p>As one of the organizers of the <a href="http://www.openstack-israel.org/">OpenStack Israel event</a> June 2nd, and one of those who has been an avid stacker since its onset, it is quite exciting to see this technological revolution taking the world by storm, and the increased backing its seeing every day.&#160; If in the beginning we had tens of stackers show up at our events, these days we have hundreds, on top of internationally renowned OpenStack experts at our events and on our committee. From Mark Shuttleworth, CEO of Ubuntu who will be participating at this year’s event, Monty Taylor - Distinguished Engineer at HP - a regular at our events, and Florian Haas, international OpenStack and Linux expert who has even joined our committee this year.&#160; In addition to excellent local case studies from global companies of our own that we can contribute to the pool of great OpenStack stories, from the likes of Liveperson, Mellanox, Radware, Alcatel-Lucent and more.&#160; I think this is a testimony to the growth and maturity of OpenStack as a whole on a global level.</p>
+
+<p>Be sure to subscribe to the <a href="http://www.stitcher.com/podcast/openstack-israel-podcast-series">OpenStack Israel Podcast series</a> to hear these stories, and we’d love to see you <a href="http://www.meetup.com/IGTCloud/events/157265772/">at the event</a> itself.</p>
+
+<p>And just as an aside...</p>
+
+<p>A special thanks to Alex Freeland and Boris Rensky from Mirantis for hosting us on a great car racing event that was good fun all around!&#160; Looking forward to seeing you at upcoming events!</p>
+
+
+<!-- start flexslider -->
+				<div class="flexslider">
+					<ul class="slides">
+						<li>
+						<img src="img/blog/image-01-full.jpg" alt="" />
+						</li>
+						<li>
+						<img src="img/works/full/image-02-full.jpg" alt="" />
+						</li>
+						<li>
+						<img src="img/works/full/image-03-full.jpg" alt="" />
+						</li>
+					</ul>
+				</div>
+				<!-- end flexslider -->
+
+</notextile>
