@@ -69,7 +69,10 @@ There are two types of `type`: portable and concerete.
 
 A portable type that has no implementation details. For examply `cloudify.types.host` is an abstract type. It doesn't have any implementation details advising the orchestrator how to materialize an instance of it on a particular environment. A portable type will declare an `interface` a set of hooks named `operations` that can be implemented by concrete types using a `operation` mapping to `plugin` methods. For example `cloudify.openstack.server` is an `Openstack` implementation of `cloudify.types.host` using a `plugin` that uses the `Nova` compute API.
 
-![Application as a Graph](images/blueprint/types_and_nodes.png) 
+*  Abstract types are mainly used as marking interfaces for the user to know which type of compentent the concrete type represents
+*  Use concrete types with your blueprint to make them more easy to read. Use protable nodes ONLY if you plan to deploy the same blueprint on different clouds.
+*  
+
 
 ## Types and Type implementations
 
@@ -122,7 +125,7 @@ Relationshipd secribes the type of dependency between 2 nodes. There are 3 types
 The above abstract rerltionship types do not provide the implementations for a specific relationship configuration
 For example a connected_to can be a JDBC connection to Oracle or a connection to MongoDb or even a connection between subnet and a router on a specific cloud. There is a need for concrete repationship types that will use concrete plugins to configure specific types of relationships
 
-![Relationsh types](images/blueprint/relationships_types.png)
+
 
 ### Relationship Interface
 The realtionship interface is optional. In many cases you don't need to perform any special actions, you just expect the orchestrator to time right the creation and startup of components. However, in cases you do need to change configration in order to wire together two components, the relationship interface and the workflow mechnism for using it come-in handy.
@@ -145,7 +148,7 @@ In many cases you will not see any `workflows` section in the `blueprint`. In th
 
 ## What is a Workflow?
 A `workflow` is an orchestration algorithm written in a lnaguage that a workflow can execute.
-In the case of Cloudify it is a `radial` script. 
+In the case of Cloudify it is a `radial` script, but in 3.0 M2 it will be replaced with python scripts using Cloudify workflow API 
 
 ## Built-in Workflows
 Currently Cloudify comes with 2 built-in workflows:
@@ -171,121 +174,6 @@ workflows:
 
 
 # Built-in Types and Interfaces
-Cloudify comes with most of the infrastrucutre types you will need for any supported provider. In addition there are built-in middleware and application level built-in types using popular configuration management and automation tools
-We constantly work to add more types so you will not need to code much in order to use Cloudify
 
-## Portable Types
-Cloudify has the following portable types:
-
-* `cloudify.types.base` - The base type for all built-in types. declares the `lifecycle interface`
-* `cloudify.types.tier` - A marker for a future scale group
-* `cloudify.types.host` - A compute resource either a virtual or a physical host
-* `cloudify.types.container` - A logical partition in a host such as [linux container](http://en.wikipedia.org/wiki/LXC) or [docker](https://www.docker.io/)
-* `cloudify.types.network` - A virtual network
-* `clouydify.types.subnet` - A virtual segment of IP addresses in a network
-* `cloudify.types.router` - A virtual layer 3 router
-* `cloudify.types.port` - An entry in a virtual subnet. Can be used in some clouds to secure a static private IP
-* `cloudify.types.virtual_ip` - A virtual IP implemented as [NAT](http://en.wikipedia.org/wiki/Network_address_translation) or in another manner
-* `cloudify.types.security_group` - A cloud security group (VM network access rules) 
-* `cloudify.types.load_balancer` - A virtualized Load Balancer 
-* `cloudify.types.volume` - A persistent block storage volume
-* `cloudify.types.object_container` - A BLOB storage segment
-* `cloudify.types.middleware_server` - A base type for all middleware level types
-* `cloudify.types.web_server` - A web server
-* `cloudify.types.app_server` - An application server
-* `cloudify.types.db_server` - a Database
-* `cloudify.types.message_bus_server` - a message bus server
-* `cloudify.types.app_module` - a base type for any application module or artifact
-
-### OpenStack Built-in Types
-Cloudfiy has the following concrete OpenStack types:
-
-* `cloudify.openstack.server` - a [Nova Server](http://docs.openstack.org/api/openstack-compute/2/content/compute_servers.html)
-* `cloudify.openstack.subnet` - a [Neutron Subnet](http://docs.openstack.org/api/openstack-network/2.0/content/subnets.html)
-* `cloudfiy.openstack.security_group` - a [Neutron Security Group](http://docs.openstack.org/training-guides/content/module002-ch004-security-in-neutron.html)
-* `cloudify.openstack.router` - a [Neutron Router](http://docs.openstack.org/api/openstack-network/2.0/content/router_ext.html)
-* `cloudify.openstack.port` - a [Neutron Port](http://docs.openstack.org/api/openstack-network/2.0/content/ports.html)
-* `cloudify.openstack.network` - a [Neutron Network](http://docs.openstack.org/api/openstack-network/2.0/content/networks.html)
-* `cloudify.openstack.floatingip` - a [Neutron Floating IP](http://docs.openstack.org/training-guides/content/module002-ch004-floating-ips.html)
-
-## Bash Built-In Types
-Cloudify has the followin built-in types that work with the bash plugin. The [bash plugin](https://github.com/CloudifySource/cloudify-bash-plugin/archive/develop.zip) let the user specify bash scripts for the different lifecycle events
-
-* `cloudify.types.bash.web_server` - a web server materialized using bash scripts
-* `cloudify.types.bash.app_server` - an app server materalized using bash scripts
-* `cloudify.types.bash.db_server` - a db server materalized using bash scripts
-* `cloudify.types.bash.message_bus_server` - a message bus server materalized using bash scripts
-* `cloudify.types.bash.app_module` -an app module materalized using bash scripts
-
-All of the above declare the `scripts` property which is a map, the key being the lifecycle hhok name and the key the name of the bash script.
-The scripts should be under scripts folder next to your blueprint YAML file. The CLI will pack them and upload them to the file server from where the plugin can take them.
-
-
-## Interfaces
-
-Cloudify has the following built-in interfaces:
-
-* `cloudify.interfaces.lifecycle` - this is the basic interface declared by `cloudify.types.base`
-
-{% highlight YAML %}
-
-# base type for provided cloudify types
-    cloudify.types.base:
-        interfaces:
-            cloudify.interfaces.lifecycle:
-                - create
-                - configure
-                - start
-                - stop
-                - delete
-
-{% endhighlight %}
-
-* `cloudify.interfaces.worker_installer` - this interface has the hooks for agent lifecycle. Decalred by `cloudify.types.host`:
-
-{% highlight YAML %}
-cloudify.interfaces.worker_installer:
-    - install: worker_installer.tasks.install
-    - start: worker_installer.tasks.start
-    - restart: worker_installer.tasks.restart
-
-{% endhighlight %}
-`cloudify.interfaces.relationship_lifecycle` - this interface provides the hooks for configuring a relationship between nodes (typically a connection over some protocol). Decalred by `cloudify.relationships.depends_on`
-* `cloudify.interfaces.plugin_installer` - this interface manages plugin installations. Decalred by `cloudify.types.host`:
-
-{% highlight YAML %}
-cloudify.interfaces.plugin_installer:
-    - install: plugin_installer.tasks.install
-
-{% endhighlight %}
-
-
-
-* `cloudify.interfaces.host` - this interface provides a hook for reporting the state of the host to the policy engine (start detection)  . Declared by `cloudify.types.host`:
-
-{% highlight YAML %}
-cloudify.interfaces.host:
-                - get_state
-
-{% endhighlight %}
-
-* `cloudify.interfaces.relationship_lifecycle` - this interface provides the hooks for configuring a relationship between nodes (typically a connection over some protocol). Decalred by `cloudify.relationships.depends_on`
-
-{% highlight YAML %}
- cloudify.interfaces.relationship_lifecycle:
-    - preconfigure
-    - postconfigure
-    - establish
-    - unlink
-
-{% endhighlight %}
-
-## Relationship types
-
-Cloudify has the following built-in concrete relationships:
-
-* `cloudify.openstack.port_connected_to_security_group` - this relationship configures a `port` to be part of a `security group`
-* `cloudify.openstack.subnet_connected_to_router` - this relationship configures a `subnet` to be registered as internal interface in a `router`
-
-
+[Look here for all built-in types and interfaces](types-reference.html)
 
