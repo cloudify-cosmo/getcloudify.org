@@ -1,0 +1,197 @@
+---
+layout: blogpost
+title: OpenStack Going Mainstream - Notes from the OpenStack Summit Atlanta 2014
+image: natisharone.jpg
+author: Nati Shalom & Sharone Zitzman
+tags: 
+ - OpenStack
+ - OpenStack Heat
+ - Development
+ - Cloud Orchestration
+ - OpenStack Orchestration
+---
+<notextile>
+
+<img src="https://lh6.googleusercontent.com/Po9gZScNQJbMaGYse837XecMyRL5xjGn0A3MU8eEcFydfw9B6u09gU-pFbSk667n9D5kTYHQ4i0dYQIyrUI86M7Mg-msr8WRx1RSxDzOB9Z1PeDR1rnPgGteZ9cAwZoLzQ" alt="OpenStack News - OpenStack Summit 2014" width="700">
+<br/>
+<br/>
+
+<p>I attended almost every OpenStack summit event over the past few years, including last year in Hong Kong and Portland, and even lead the OpenStack community in Israel...but somehow, this year the OpenStack Summit felt completely different than any of the previous events. I&#160; feel like OpenStack is coming into its own, and has reached a point of no return. There are now so many companies betting on its success that it simply cannot fail. But that wasn’t the only reason I got that impression, this year unlike previous years our booth was busy with real customers with budget and plans to execute on building OpenStack deployments.</p>
+
+<p>I heard similar things from many other people at the event. Having so many real customers under the same roof is very unique to conferences these days, and is clearly a sign that many customers are moving from the exploration phase to the execution stage. All this is not just my personal feeling, but is backed by real numbers from the recent OpenStack user survey that demonstrates a real maturity trend with the numbers of some serious deployments in production, see the <a href="http://getcloudify.org/2014/05/19/openstack-statistics.html">OpenStack statistics</a>.</p>
+
+<p>For us, this was an especially good year, as we also had our moment of glory when HP Print presented how they used Cloudify to help them manage their existing Chef-based DevOps operations with a peak of 1400 deployments a day into HP Havana using all the latest and greatest that OpenStack can offer - specifically the networking piece. Some of the numbers from this talk took even me by surprise, and serve as strong evidence on how organizations can run mission critical deployments with OpenStack. You can can see the live video of the case study <a href="http://youtu.be/z1ftqxMt2bc?t=13m13s">here</a>.</p>
+
+<p>&#160;</p>
+
+<h3><strong>HP Print by the Numbers</strong></h3>
+
+<h3><strong>A Screenshot of the HP Print networking</strong> </h3>
+
+<table cellspacing="0" cellpadding="4" border="0" style="max-width: 100%"><tbody>
+    <tr>
+      <td valign="top" style="max-width: 50%"><img src="https://lh5.googleusercontent.com/H5gLbStd7j9Vh8rGArGWDrFgnWv-H1rmKqE0sH7SpX3NURFg7UJ5g1VrCc8K49aDRYPppbGil-UWsMSH2cyq7XMVi79UlnAUVd2VdSACmxcWCy6wGwwNqNZjkaYqjo1csA" width="350"  /></td>
+
+      <td valign="top" style="max-width: 50%"><img src="https://lh5.googleusercontent.com/NWFCYgp2flnYkqD1Cay3Iyv-rT7sr6EyDD4j3IaxZ7PhN6Ihg0CTfJ_6kDzJj5qfXavjOZlcH3OfW8wmOX20xVBDOJNK-7UAuTAKyW-9vtJP522IbXgJ2QyS178VK9fXQA" width="350"  /></td>
+    </tr>
+  </tbody></table>
+
+<p>&#160;</p>
+
+<p>Rather than sharing my takes, I thought that what would be more useful is sharing the specific references to stories from the summit that I found the most interesting, and demonstrate the real production readiness of OpenStack.</p>
+
+<h3><font style="font-weight: bold">Sound Bites from Interesting Case Studies </font></h3>
+
+<img style="float: left; margin: 0px 15px 0px 0px; display: inline" src="/img/blog/wellsfargov2.jpg" width="150">
+<p><blockquote>
+  <p>“Your infrastructure has to keep speed with your software…The agility, the speed, really allowing the developers to modify that software in lockstep with the infrastructure, speed to market. We have competitors, we’re a large bank, and we have targets on our back.&#160; There’s disruption happening everywhere.&#160; We’re doing our best to stay competitive on all levels, and technology is a key component of any business, certainly financial services.&#160; This [using OpenStack -S.Z.] is what we need to do to stay competitive and agile in this environment.”</p>
+</blockquote></p>
+
+<p> -Glen Ferguson, Head of Private Cloud Enablement, Wells Fargo Bank</p>
+
+<img style="float: left; margin: 0px 15px 0px 0px; display: inline" src="/img/blog/WaltDisneyCo_logo.jpg" width="150">
+
+<p><blockquote>
+  <p>“As an entire industry of technologists we have spent a long time empowering people much better when they go home, than when they come to work with their technology.&#160; And what I have been trying to do is change that, inside of Disney - outside of Disney. Like many others in the audience I have been trying to lead a revolution to help empower people when they come to work, with technology.”</p>
+</blockquote></p>
+
+<p> -Chris Launey, Director, Cloud Services &amp; Architecture at The Walt Disney Company</p>
+
+<img style="float: left; margin: 0px 15px 0px 0px; display: inline" src="/img/blog/ATT_new_ai.png" width="150">
+
+<p><blockquote>
+  <p>“AT&amp;T now has changed its thinking. Today it’s a much different place when it comes to thinking about open source, and it is now an integral part of our strategy.&#160; We are active participants not only in OpenStack but in other projects, and we are now even looking at expanding that - into a new area that I’ll talk about today.&#160; The NFV Open Platform is an example of this change in strategy that is the result of open source, and specifically the result of our work on OpenStack, and our contribution there.&#160; It has taught us how to share again.” </blockquote></p>
+
+  <p>- Toby Ford, AVP, Cloud Technology, Strategy and Planning at AT&amp;T</p>
+
+
+<img style="float: left; margin: 0px 15px 0px 0px; display: inline" src="/img/blog/sonylogo-14545.jpg" width="150">
+
+<p><blockquote>“With OpenStack specifically we are hosting the software that connects players online for our first-party studios. This software does anything from player matchmaking, to stats, to leaderboards, and social media integration….There are a number [of benefits - S.Z.] right off the top - the virtualization in general, just the ability to use what we already have, we were able to take our existing bare metal footprint and run OpenStack there, which just optimized our data center. From a performance perspective...bringing OpenStack in-house, our developers were really able to know what’s under the hood...so that the real time element of the game is always there for our users.”</blockquote></p>
+
+<p>- Joel Johnston, Platform Architect, Global Hosting, Sony Computer Entertainment</p>
+
+<p>&#160;</p>
+<img class="alwaysThinglink" style="max-width: 100%" src="//cdn.thinglink.me/api/image/525673840295018498/1024/10/scaletowidth#tl-525673840295018498;1043138249" /><script async charset="utf-8" src="//cdn.thinglink.me/jse/embed.js"></script> 
+<br/>
+
+<hr/>
+
+<h3><strong>Announcements that Caught my Attention</strong></h3>
+
+<ul>
+  <li>
+    <p>The Newly Launched OpenStack Marketplace
+	
+  </li>
+
+  <li>
+    <p>Oracle Joins OpenStack
+
+</li>
+
+  <li>
+    <p>HP announced a billion dollar investment in Helion
+	
+  </li>
+  <li><h3><font style="font-weight: bold">The Drama of the Day</font></h3>
+  Is Red Hat locking customers into its version of OpenStack? </p>
+</li>
+</ul>
+
+<h3><font style="font-weight: bold">Heat is Hot </font></h3>
+
+<img style="float: left; margin: 0px 8px 0px 0px; display: inline" src="https://lh4.googleusercontent.com/Zj2cb6PUxVV_AgrTJrum8zi87KsRXGAQk3Egz6UPUXyxe9735S96pvtIbickdqO92M-CruGguO6DmPJqUcWsbxjcmVqcbCh7en2SFzaN680oePziP0IEGOU51R9vaORSIA" width="195" align="left" height="141" /> 
+
+<p>On the technical side of things it wasn’t hard to notice that in comparison to last year the number of Heat sessions has grown from&#160; 58 sessions at the <a href="http://openstacksummitnovember2013.sched.org/?s=heat+">Hong Kong Summit</a>, to 77 at the <a href="http://openstacksummitmay2014atlanta.sched.org/?s=heat">Atlanta Summit</a>.</p>
+
+<p>Many sessions and discussions on the topic were for the most part fully packed and even the workshop occupied roughly 200 people coding Heat simultaneously.</p>
+
+<p>I also had two session on this topic, one titled <a href="http://www.slideshare.net/giganati/when-networks-meets-apps-open-stack-atlanta">When Network Meets Apps</a>, where I presented with Samuel Bercovici of Radware on the way deployment automation and software defined networking opens a new set of opportunities for automating the entire stack.&#160; This is especially true even for fairly complex stacks with different networks per tier, availability zones, auto-scaling, and other specifications. During this sessionsI presented a live demo demonstrating a modified Wordpress example, that required additional networking setup, using Heat, as well as a similar example running NodeJS and MongoDB using a TOSCA-like deployment using Cloudify.</p>
+
+<p>&#160;</p>
+
+<table cellspacing="0" cellpadding="4" border="0" style="max-width: 100%"><tbody>
+    <tr>
+      <td valign="top" style="max-width: 50%"><strong>WordPress Example using Heat
+          <br /></strong>
+
+        <br /><img src="https://lh3.googleusercontent.com/hYotDdFXSx8e3GWsPuCrC6JgdJVkkZ3tVGSOmDUuPxYm6_D_5i_lcab4DdqQggCUVzyB9bP8JA88i-U6OsWaNmHk5KIaFjxTtwxHPaZu8aNBXd3sYTsrH3gpRgC6DFAHrw" width="350"/>
+
+        <br /><a href="http://getcloudify.org/2014/05/07/devstack-heat-openstack-cloud.html">Heat Step By Step Guide </a></td>
+
+      <td valign="top" style="max-width: 50%"><strong>TOSCA-like example using Cloudify
+          <br /></strong>
+
+        <br /><img src="https://lh4.googleusercontent.com/dX_XwwUPG2dHOEylhxcwPfpTTM5y6IFksZBtStnUILcK3yhgnZIgCjAvuug7SkkNs1Z_rFjgJAbRTunaa_qQSlNmUHiHiIhbzVTrWDWbKTrzl_ETnHjIC32Ifm3JP93HOQ" width="350"/>
+
+        <br /><a href="https://github.com/cloudify-cosmo/cloudify-nodecellar-openstack">Cloudify TOSCA (like) Step by Step Guide</a></td>
+    </tr>
+  </tbody></table>
+
+<p>&#160;</p>
+
+<p>The good news is that it looks like the work that IBM, GigaSpaces and others are doing with the Heat team helps to bring the two models closer together. Based on follow up sessions on Thursday of that same week, it looks like the direction would be to decouple Heat from the DSL and use the foundation from the <a href="http://click.typepad.com/api/click?format=go&amp;jsonp=vglnk_jsonp_14005833068278&amp;key=7626aa89b5cdca8c8b5ad715622cd669&amp;libId=9cede1ea-7902-4722-be57-a02f698da958&amp;loc=http%3A%2F%2Fnatishalom.typepad.com%2F&amp;v=1&amp;out=https%3A%2F%2Fgithub.com%2Fstackforge%2Fheat-translator&amp;title=Nati%20Shalom%27s%20Blog&amp;txt=TOSCA%20translator%20project%20">TOSCA translator project</a> as a way to model various DSL types that could be supported by the underlying Heat engine. In addition, the next release of <a href="http://getcloudify.org">Cloudify</a> will include built-in support for Heat.</p>
+
+<p><img src="https://lh6.googleusercontent.com/Po9gZScNQJbMaGYse837XecMyRL5xjGn0A3MU8eEcFydfw9B6u09gU-pFbSk667n9D5kTYHQ4i0dYQIyrUI86M7Mg-msr8WRx1RSxDzOB9Z1PeDR1rnPgGteZ9cAwZoLzQ" width="650"/></p>
+
+<p>I also moderated another session <a href="https://www.youtube.com/watch?v=RhkArGEIAz8">titled</a> <a href="https://www.youtube.com/watch?v=RhkArGEIAz8">Automation, Orchestration, Confusion? Taking the Discussion Up the Stack</a> together with <a href="http://openstacksummitmay2014atlanta.sched.org/speaker/stevebake">Steve Baker</a> from the Heat project, <a href="http://openstacksummitmay2014atlanta.sched.org/speaker/fghaas">Florian Haas </a>CEO, Principal Consultant at hastexo, <a href="http://openstacksummitmay2014atlanta.sched.org/speaker/gokrokvertskhov1">Georgy Okrokvertskhov </a>Platform Architect at Mirantis, and <a href="http://openstacksummitmay2014atlanta.sched.org/speaker/john.yi">John Yi </a>Cloud Solution Architect, Rackspace, in which we covered the various orchestration and deployment tools such as Heat, Chef, Puppet, Docker, and DevStack.&#160; The main conclusion was that there’s currently no one tool to cover them all, and the choice of tools should be driven by previous investment and skill sets (i.e. if an organization is already built on configuration management based on Puppet or Chef then it would only makes sense to use this as a basis).</p>
+
+<p>There’s also an interesting debate whether configuration management is something that should take place in runtime given the the dependency that it creates in many artifacts,thus exposing a high likelihood for fragility during the deployment process. Steve suggested that configuration management should be used to create pre-packed images and use images as the packaging model at runtime rather than configuration tools. Docker is a lightweight container that can a serve as a great packaging model in these kinds of use cases. Other than that, it looks like as we move up the stack and closer to the application, people tend to choose frameworks that are not purely tied to OpenStack. That is consistent also with the recent user survey.</p>
+
+
+
+<h3><strong>Read the <a href="http://www.businesscloudnews.com/2014/05/23/notes-from-the-openstack-summit-open-source-cloud-hits-the-mainstream/" target="_blank">full post at Business Cloud News</a> including additional thoughts on:</strong></h3>
+
+<ul>
+<li>
+<font style="font-weight: bold">What’s missing and where OpenStack should go</font>
+	
+	
+</li>
+<li><font style="font-weight: bold">What’s next?</font></li>
+</ul>
+
+<i class="icon-external-link"></i><strong><a href="http://www.businesscloudnews.com/2014/05/23/notes-from-the-openstack-summit-open-source-cloud-hits-the-mainstream/" target="_blank"> Read Full Post</a></strong>
+
+<hr/>
+
+<p><strong>And just a quick shoutout...</strong></p>
+
+<p>A special thanks to Alex Freeland and Boris Rensky from Mirantis for hosting us at a  really fun car racing event - it was good fun all around!&#160; Looking forward to seeing you at upcoming events!</p>
+
+<br/>
+<h3><strong>Some Pics from the Event</strong></h3>
+<!-- start flexslider -->
+				<div class="flexslider">
+					<ul class="slides">
+						<li>
+						<img src="https://lh6.googleusercontent.com/sltV-0847p3zSnKMbu2m3_yyYY35xFbSl6TOVUn2odl8B0dv9pRh4VXJ9qRUvqTddOPG0bJcLYOHhV74f2MZtd9sBsjJ5Te_vQME8j1COdERGQXJocnAS1AZG6Sh8jD_wA" width="600" alt="" />
+						</li>
+						<li>
+						<img src="https://lh5.googleusercontent.com/F3liJiJi7hIbAx5eHShCOOMOQLLMmK4-SI8t02vxFJjnPfuwJoGE8Sb4W3sPvXXqexJg3daQM3eACu7IFc-CCjELOeZmtJFNamDIWBcWe5tvCRRczzQQ_R7YOEfbYYp8pQ" width="600" alt="" />
+						</li>
+						<li>
+						<img src="https://lh5.googleusercontent.com/DmJLyVMpscb8vrNIuDIPvvfgwp1hWoiCAKRk8NnrvOJI5-A5QuSyvG-gblJ8zrlGHJmpB2MzZQTNVfKCG2cF6TbAOgGU3aO-7VBq7Ei0X0WWeWxs3lCqKy1IqpMaijbuFg" width="600" alt="" />
+						</li>
+						<li>
+						<img src="https://lh3.googleusercontent.com/ZmGpw8UWO-eOGPt-wHgT_teI_1WmIqJG2cFDqXr3KzP6Qttm8QIMN0fDQnwy2QWkHwYpqZV_QnJwMb9D0HtyrmyazhrWvbx-6h5tVGW6-TOgG4IP4h3jno51ng9rWMk3Bw" width="600" alt="" />
+						</li>
+						<li>
+						<img src="/img/blog/OS14/image.jpeg" width="600" alt="Lego Man" />
+						</li>
+						<li>
+						<img src="https://lh3.googleusercontent.com/yqP_1WKV1OSrVY6LoTwQNOxynzks4A6iW_4WapePHZV9ZdmO9M3XXTX5XAdpz70RKvNXSLyr_QsDpkjIz479dUZI2RkNNOkzXavNh2PVmeqQZ5sIkUkD_bl68F7KB5TYCg"  width="600" alt="Biplane Winner" />
+						</li>
+						<li>
+						<img src="https://lh6.googleusercontent.com/t9M6a6pS5EUdU-SxW1QejIznQyNWA7oZb4HWQmnk5HhrneIp88MVspxlupv7Ei6mVv-HfRXE1VCdRx7g9zYXpndUg-mCNih5IkytZ4k5y0Hlncr7KmCEr4fW5tm4QWTCMw" width="600" alt="" />
+						</li>
+						<li>
+						<img src="https://lh3.googleusercontent.com/RSSuybfBozTDscVH89bauR1UxQLGpeFXsEZyN7_TyCqPw-Co7BgQvlNTCH7fPqvjxBkAPyEgWNKfAWOJtkNoDlnS1r1DnVv-gSzdxme4XSHW93x2UvmTLEoWFlTCiyLMPg" width="600" alt="" />
+						</li>
+						
+											</ul>
+				</div>
+				<!-- end flexslider -->
+
+</notextile>

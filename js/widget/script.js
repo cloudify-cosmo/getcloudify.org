@@ -6,6 +6,12 @@ function start() {
     var iframe = $("#iframe");
     var postObj = {name: 'play_widget'};
     $.postMessage(JSON.stringify(postObj), postUrl, iframe.get(0).contentWindow);
+	
+	//for xap
+ var $myDiv = $('#xapShell');
+    if ( $myDiv.length){
+        $('#xapShell').hide();
+    }
 }
 function stop() {
     var iframe = $("#iframe");
