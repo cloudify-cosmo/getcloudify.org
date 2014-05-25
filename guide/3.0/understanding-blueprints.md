@@ -119,7 +119,7 @@ Relationshipd secribes the type of dependency between 2 nodes. There are 3 types
 
 * `depends_on`   : when one node must be started or created after another node already exist, but without any connection between them
 
-![Relationsh types](images/blueprint/relationships.png)
+
 
 ### Concrete relationship types
 The above abstract rerltionship types do not provide the implementations for a specific relationship configuration
