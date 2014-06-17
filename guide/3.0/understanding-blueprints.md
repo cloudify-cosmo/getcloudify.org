@@ -38,7 +38,9 @@ A Topology is a graph of application components and their relationships describe
 Components can be of 3 levels:
 
 * **Infrastructrue** - Components provided by the IaaS layer (e.g. VM, virtual network, virtual load balancer or storage volume) or by non-cloud phyiscal or virtualized layer (e.g. Host and storage voluem)
+
 * **Platform / Middleware** - Components that serve as the application containers (such as webservers, application servers, message servers and database servers)
+
 * **Application modules** - The different application artifacts that needs to be deployed and configured on top of the middleware (such as application binaries, application configuration files, database schemas etc) 
 
 ![Application as a Graph](images/blueprint/topology_graph.png) 
@@ -70,15 +72,8 @@ There are two types of `type`: portable and concerete.
 A portable type that has no implementation details. For examply `cloudify.types.host` is an abstract type. It doesn't have any implementation details advising the orchestrator how to materialize an instance of it on a particular environment. A portable type will declare an `interface` a set of hooks named `operations` that can be implemented by concrete types using a `operation` mapping to `plugin` methods. For example `cloudify.openstack.server` is an `Openstack` implementation of `cloudify.types.host` using a `plugin` that uses the `Nova` compute API.
 
 *  Abstract types are mainly used as marking interfaces for the user to know which type of compentent the concrete type represents
+
 *  Use concrete types with your blueprint to make them more easy to read. Use protable nodes ONLY if you plan to deploy the same blueprint on different clouds.
-*  
-
-
-## Types and Type implementations
-
-While a node in the `blueprint` YAML file is often an instance of a portable abstract type, the user need to include another YAML file with concrete instances in the `blueprint` folder. This file will be used by the Orchestrator in a particular enviornment such as `OpenStack`. The concrete instances are called `type implementation` and they contain specific properties for the specific `node` in the blueprint they implement.
-
-So each `type implementation` block has a `type` property pointing to the concrete type it is an instance of (e.h. `cloudify.openstack.router`) and a `ref` property pointing to the `node id` it implements in the `blueprint`
 
 ## The lifecycle Interface
 The `cloudify.types.base_type` declares the `lifecycle` interface which all types inherit. This interface has the most essential installation and uninstallation hooks. The cloudify built-in `install` and `uninstall` workflows use these hooksto deploy and undeploy applications.
@@ -148,11 +143,13 @@ In many cases you will not see any `workflows` section in the `blueprint`. In th
 
 ## What is a Workflow?
 A `workflow` is an orchestration algorithm written in a lnaguage that a workflow can execute.
-In the case of Cloudify it is a `radial` script, but in 3.0 M2 it will be replaced with python scripts using Cloudify workflow API 
+In the case of Cloudify it is a Pyhton script using dedicated Cloudify APIs and DOM (Domain Object Model)
 
 ## Built-in Workflows
 Currently Cloudify comes with 2 built-in workflows:
+
 * install - a workflow that installs an application
+
 * uninstall - a workflow that gracefully uninstalls an application
 
 ## Custom Workflows
