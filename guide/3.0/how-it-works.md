@@ -4,7 +4,7 @@ title: How It Works
 category: How it works
 publish: false
 abstract: Explains the architecture and flow of Cloudify 3.0 the DevOps Orchestrator
-pageord: 200
+pageord: 800
 --- 
 {%summary%} {{page.abstract}}{%endsummary%}
 
