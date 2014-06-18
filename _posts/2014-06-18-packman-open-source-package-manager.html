@@ -1,7 +1,7 @@
 ---
 layout: blogpost
 title: Package Management. Packman Style.
-image: nircohen.jpeg
+image: nircohen.jpg
 author: Nir Cohen
 tags: 
  - cloud orchestration
@@ -58,21 +58,21 @@ tags:
 
 <p>And that's when we decided to write Packman.&#160; Packman, how should I put this...creates packages.&#160; I guess it's just that simple.&#160; Literally any kind of package.&#160; You can write a dict containing your package's configuration and Packman will retrieve the resources and create a package accordingly.</p>
 
-<h5>How Packman Works</h5>
+<h3><strong>How Packman Works</strong></h3>
 
 <p>Packman uses run of the mill JSON to configure your entire stack.&#160; It has a built-in,&#160; neat and easy to use CLI tool called &quot;PKM&quot;, which provides access to basic features like:</p>
 
 <ul>
   <li>
-    <p>sources retrieval (‘pkm get -c COMPONENT')</p>
+    <p>sources retrieval ('pkm get -c COMPONENT')</p>
   </li>
 
   <li>
-    <p>packaging (‘pkm pack -c COMPONENT')</p>
+    <p>packaging ('pkm pack -c COMPONENT')</p>
   </li>
 
   <li>
-    <p>(or both - ‘pkm make -c COMPONENT')</p>
+    <p>(or both - 'pkm make -c COMPONENT')</p>
   </li>
 
   <li>
@@ -80,7 +80,7 @@ tags:
   </li>
 </ul>
 
-<p>‘pkm get -c COMPONENT1,COMPONENT2 -x EXCLUDED_COMPONENT1,... -f COMPONENTS_FILE</p>
+<p>'pkm get -c COMPONENT1,COMPONENT2 -x EXCLUDED_COMPONENT1,... -f COMPONENTS_FILE</p>
 
 <p>Additionally, it provides a way to override the basic implementation of the retrieval and packaging methods by providing external Python methods to performs these actions, and even allows you to combine the basic one's and the added ones.</p>
 
