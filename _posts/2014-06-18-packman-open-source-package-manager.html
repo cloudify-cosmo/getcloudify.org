@@ -1,6 +1,6 @@
 ---
 layout: blogpost
-title: Package Management, Packman Style
+title: Package Management. Packman Style
 image: nircohen.jpeg
 author: Nir Cohen
 tags: 
@@ -13,11 +13,11 @@ tags:
 <notextile>
 
 
-<p>We’ve been speaking quite a bit about the soon to be released Cloudify 3.0 - which is really a complete rearchitecture&#160; and rewrite of Cloudify from scratch, which brings with it all kinds goodness, but with that...some interesting challenges, as well.&#160; As part of the move to our new, and much more complex application stack, which is comprised of diverse technologies {namely – <a href="http://openjdk.java.net/" target="_blank">OpenJDK</a>, <a href="http://logstash.net/" target="_blank">logstash</a>, <a href="http://www.elasticsearch.org/" target="_blank">elasticsearch</a>, <a href="http://www.rabbitmq.com/" target="_blank">RabbitMQ</a>, <a href="http://riemann.io/" target="_blank">Riemann</a>, <a href="http://gunicorn.org/" target="_blank">Gunicorn</a>, <a href="http://nginx.org/" target="_blank">NGinx</a>, <a href="http://graphite.wikidot.com/">Graphite</a>, <a href="http://nodejs.org/" target="_blank">NodeJS</a>, more than several Python modules... and more}, we found ourselves with automation requirements that weren’t quite standard.&#160; </p>
+<p>We've been speaking quite a bit about the soon to be released Cloudify 3.0 - which is really a complete rearchitecture&#160; and rewrite of Cloudify from scratch, which brings with it all kinds goodness, but with that...some interesting challenges, as well.&#160; As part of the move to our new, and much more complex application stack, which is comprised of diverse technologies {namely – <a href="http://openjdk.java.net/" target="_blank">OpenJDK</a>, <a href="http://logstash.net/" target="_blank">logstash</a>, <a href="http://www.elasticsearch.org/" target="_blank">elasticsearch</a>, <a href="http://www.rabbitmq.com/" target="_blank">RabbitMQ</a>, <a href="http://riemann.io/" target="_blank">Riemann</a>, <a href="http://gunicorn.org/" target="_blank">Gunicorn</a>, <a href="http://nginx.org/" target="_blank">NGinx</a>, <a href="http://graphite.wikidot.com/">Graphite</a>, <a href="http://nodejs.org/" target="_blank">NodeJS</a>, more than several Python modules... and more}, we found ourselves with automation requirements that weren't quite standard.&#160; </p>
 
-<p>To make the stack above available for offline installation, with integrated template-based installation scripts, template-generated configuration files and an easy to use package, to name the obvious, we realized we needed packaging software. We explored some of the existing packaging software and came up with a few options - <a href="http://docs.opscode.com/install_omnibus.html" target="_blank">OpsCode Omnibus</a>, and <a href="https://github.com/jordansissel/fpm" target="_blank">Jordan Sissel’s FPM</a>, are just a few - but our requirements weren’t exactly ordinary...so we got digging.</p>
+<p>To make the stack above available for offline installation, with integrated template-based installation scripts, template-generated configuration files and an easy to use package, to name the obvious, we realized we needed packaging software. We explored some of the existing packaging software and came up with a few options - <a href="http://docs.opscode.com/install_omnibus.html" target="_blank">OpsCode Omnibus</a>, and <a href="https://github.com/jordansissel/fpm" target="_blank">Jordan Sissel's FPM</a>, are just a few - but our requirements weren't exactly ordinary...so we got digging.</p>
 
-<p>Let’s start with Omnibus.&#160; OpsCode created a packaging framework in-house called Omnibus to package their Chef installations and expanded it further to support general packaging of applications. When we started playing around with it, hoping to leverage it for Cloudify, we found we needed something with some different qualities.</p>
+<p>Let's start with Omnibus.&#160; OpsCode created a packaging framework in-house called Omnibus to package their Chef installations and expanded it further to support general packaging of applications. When we started playing around with it, hoping to leverage it for Cloudify, we found we needed something with some different qualities.</p>
 
 <ul>
   <li>
@@ -57,7 +57,7 @@ tags:
   </li>
 </ul>
 
-<p>And that’s when we decided to write Packman.&#160; Packman, how should I put this...creates packages.&#160; I guess it’s just that simple.&#160; Literally any kind of package.&#160; You can write a dict containing your package's configuration and Packman will retrieve the resources and create a package accordingly.</p>
+<p>And that's when we decided to write Packman.&#160; Packman, how should I put this...creates packages.&#160; I guess it's just that simple.&#160; Literally any kind of package.&#160; You can write a dict containing your package's configuration and Packman will retrieve the resources and create a package accordingly.</p>
 
 <h5>How Packman Works</h5>
 
@@ -65,15 +65,15 @@ tags:
 
 <ul>
   <li>
-    <p>sources retrieval (‘pkm get -c COMPONENT’)</p>
+    <p>sources retrieval (‘pkm get -c COMPONENT')</p>
   </li>
 
   <li>
-    <p>packaging (‘pkm pack -c COMPONENT’)</p>
+    <p>packaging (‘pkm pack -c COMPONENT')</p>
   </li>
 
   <li>
-    <p>(or both - ‘pkm make -c COMPONENT’)</p>
+    <p>(or both - ‘pkm make -c COMPONENT')</p>
   </li>
 
   <li>
@@ -107,7 +107,7 @@ tags:
 
 <p>And definitely be sure to let us know what you think, and if you have any suggestions.</p>
 
-<p>On the same note, we’ll be heading to <a href="http://www.devopsdays.org/events/2014-amsterdam/" target="_blank">DevOps Days Amsterdam</a> this week - which we’re quite excited about, where we’ll be talking about packman and “log-aware-development”, and will be holding a Cloudify workshop – where we’ll show you all about <a href="http://getcloudify.org">cloud orchestration</a> in action.</p>
+<p>On the same note, we'll be heading to <a href="http://www.devopsdays.org/events/2014-amsterdam/" target="_blank">DevOps Days Amsterdam</a> this week - which we're quite excited about, where we'll be talking about packman and “log-aware-development”, and will be holding a Cloudify workshop – where we'll show you all about <a href="http://getcloudify.org">cloud orchestration</a> in action.</p>
 
 </notextile>
 
