@@ -28,6 +28,14 @@ tags:
 <p>This is very useful in cloud environments where you are sometimes unable to create a custom Windows image or are limited to a very small number of images and want to limit your resource usage.</p>
 <p><strong>The Challenges</strong></p>
 <p>Where SSH has become the de facto protocol with Linux, WinRM is far less known tool in the Windows world, although it does offer comparable features as far as security, as well as connecting and executing commands to a remote machine.</p>
+
+<hr>
+
+<span class="pullquote-left">
+  <h2><font style="font-weight: bold" size="5" face="Baskerville Old Face"><em>Beyond simple automation - Windows orchestration made easy.  Test drive Cloudify. </em></font>&nbsp; &nbsp; <a class="btn btn-large btn-theme btn-rounded" id="downloadBtnInner" href="http://getcloudify.org/downloads/get_cloudify.html" target="_blank"><i class="icon-plus"></i> Go </a></h2></span>
+  
+  <hr>
+
 <p>The standard tool for using WinRM is usually PowerShell, the new Windows shell that is intended to supersede the standard command prompt.&#160; To date though, there are still relatively few programming languages with built-in support for WinRM, making automation and remote execution of tasks over WinRM much more complex.&#160; </p>
 <p>To achieve these tasks, Cloudify employs PowerShell itself, as an external process to act as a client library for accessing WinRM.&#160; The primary issue with this, however, is that the client-side also needs to be running Windows, as PowerShell cannot run on Linux.&#160; </p>
 <p>Another aspect where WinRM differs from SSH is that it does not really have built-in file transfer.&#160; There is no direct equivalent for secure copy in SSH for WinRM.&#160; That said, it is possible to implement file transfer through PowerShell scripts.</p>

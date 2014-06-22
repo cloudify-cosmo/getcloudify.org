@@ -20,6 +20,13 @@ In the case of CloudFoundry and OpenShift specifically, PaaS was built with the 
 
 This shift up the stack changes many of the built-in design assumptions of many existing PaaS products, CloudFoundry and OpenShift specifically. For example, the way we handle user-security, metering and scheduling is often in a completely parallel stack that exists in both the IaaS and PaaS layers. This leads to a lot of unnecessary redundancy and therefore complexity and inconsistency. On top of that, the middleware stack (Ruby vs Python) also leads to another layer of redundancy and complexity, especially for organizations looking to deploy the end-to-end stack. For example, why would we need two different models to handle database availability? Why do we need different agent systems to monitor our instances? If we already have a model to detect and monitor device failure, why do we need to add another failure detection mechanism on top to detect the same failure? In many of these cases, we already built solutions at the IaaS layer and we only need to make the right use of them.
 
+<hr>
+
+<span class="pullquote-left">
+  <font style="font-weight: bold" size="5" face="Baskerville Old Face"><em>Cloudify natively integrates with OpenStack. Try it out.</em></font>&nbsp; <a class="btn btn-large btn-theme btn-rounded" id="downloadBtnInner" href="http://getcloudify.org/downloads/get_cloudify.html" target="_blank"><i class="icon-plus"></i> Go </a></span>
+  
+  <hr>
+
 Now there is nothing wrong with CloudFoundry or OpenShift; they do exactly what they were designed to do. That being said, on OpenStack we can do things differently than we can on other closed IaaSs, creating a great opportunity to not just simplify things, but do do things that are much harder otherwise. Let me explain.
 
 The Need for a Native Open PaaS
