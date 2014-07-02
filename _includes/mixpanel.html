@@ -53,6 +53,11 @@ $(function(){
 	$("#downloadBtnInner").click(function() {
 	    mixpanel.track("Download Button Inner Pages",{'page name' : document.title, 'url' : window.location.pathname}); 
 	});
+	//Download Button Blog TOC
+	$("#downloadBtnTOC").click(function() {
+	    mixpanel.track("Download Button Blog TOC",{'page name' : document.title, 'url' : window.location.pathname}); 
+		
+	});
 	//Get Started button home page
 	$("a#getStartedBtn").click(function() {
 	    mixpanel.track("Get Started button home page",{'page name' : document.title, 'url' : window.location.pathname}); 
