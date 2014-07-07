@@ -14,7 +14,7 @@ $(function() {
         } else {
             markdownFile = path.replace(".html", ".md");
         }
-        location.href=repo + "/edit/new_design" + markdownFile + "#";
+        location.href=repo + "/edit/master" + markdownFile + "#";
     });
 
 
