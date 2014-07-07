@@ -2,7 +2,7 @@ $(function() {
 
     $('#edit-on-github').click(function(e) { 
         var path = location.pathname;
-        var repo = "https://github.com/CloudifySource/cloudifysource.github.com";
+        var repo = "https://github.com/cloudify-cosmo/getcloudify.org";
         //handling directories 
 
         if (path.indexOf("/", path.length - 1) !== -1) path = path.slice(0,-1);
