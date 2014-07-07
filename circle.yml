@@ -1,7 +1,7 @@
-general:
-  branches:
-    ignore:
-      - master
+#general:
+#  branches:
+#    ignore:
+#      - master
 ## Customize the test machine
 machine:
   # Version of ruby to use
@@ -30,6 +30,6 @@ test:
 ## Customize deployment commands
 deployment:
   production:
-    branch: new_design
+    branch: master
     commands:
       - bundle exec s3_website push 
