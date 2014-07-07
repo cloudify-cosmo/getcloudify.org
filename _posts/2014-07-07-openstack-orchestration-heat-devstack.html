@@ -1,0 +1,85 @@
+---
+layout: blogpost
+title: OpenStack Orchestration with Heat + Devstack
+image: shaynaeh.jpg
+author: Shay Naeh
+tags: 
+ - OpenStack Heat
+ - OpenStack
+ - OpenStack Orchestration
+ - Cloud Orchestration 
+ - Devstack
+---
+<notextile>
+
+<img src="/img/blog/openstackheatcloudify.jpg" alt="OpenStack Heat + Cloudify + Devstack">
+<br/>
+<br/>
+
+<p>Today in order to bootstrap a Cloudify manager you have to take care of the OpenStack compute, networking and security services yourself.&#160; Each of these is comprised of a number of configurations.&#160; Just to name a few:</p>
+
+<ul>
+  <li>When we talk about compute services, these can include provisioning the right instance type, memory and CPU characteristics, image type, and more. </li>
+
+  <li>Networking services include networks, ports, subnets, association with floating IPs as well as an establishment of a router and binding its interfaces correctly.&#160; See this post to learn more about <a href="http://getcloudify.org/2014/05/14/openstack-neutron-networking-nova.html" target="_blank">OpenStack Networking</a>. </li>
+
+  <li>Security services include the creation of security groups to define which network ports are open and whom can access them, as well as the creation of security keys to SSH into the manager machine, and future instances machines. There is a different key for the manager machine and and a different key for the launched application instances. </li>
+</ul>
+
+<p>Below is an example of the bootstrapped Cloudify manager after all the above IaaS services are provisioned.</p>
+
+<p><img alt="image" src="https://31.media.tumblr.com/c3c1dffcbd920c8a0e6050bfc10ea79b/tumblr_inline_n7dwq9I2fP1sbbxfw.png" /></p>
+
+<h3><strong>The Heat Stack</strong></h3>
+
+<p>Moreover, when creating the Cloudify manager in the usual way you have to install a CLI (command line interface), which in turn connects to Openstack endpoints like the Identity endpoint and Neutron endpoint, and communicates with them over the network using JSON-based commands. This works fine, but since there are more components involved like installing a CLI, it may take more time and is at times more error prone. </p>
+
+<p>To simplify this, you can create an OpenStack Heat stack, and launch the stack which will create everything automatically. Later on I'll show a real example of how to launch the Cloudify manager as a Heat stack. </p>
+
+<hr>
+
+<span class="pullquote-left">
+  <h2><font style="font-weight: bold" size="5" face="Baskerville Old Face"><em>OpenStack orchestration made easy. Test drive Cloudify. </em></font>&nbsp; &nbsp; <a class="btn btn-large btn-theme btn-rounded" id="downloadBtnInner" href="http://getcloudify.org/downloads/get_cloudify.html" target="_blank"><i class="icon-plus"></i> Go </a></h2></span>
+  
+  <hr>
+
+<p>First let's talk about Heat. Heat is based on a HOT template – (which we first discussed in the post <a href="http://getcloudify.org/2014/05/08/openstack-orchestration-heat-icehouse-cloud.html">The Heat is on with OpenStack Icehouse</a> if you need a refresher),&#160; which resembles the TOSCA standard. The template is composed of three main sections:</p>
+
+<ul>
+  <li><strong>The parameters</strong>: Where you can define various parameters and constants to be referenced later when creation and accessing resources. </li>
+
+  <li><strong>The resources section</strong>: Where you define and provision resource like compute resources, network, subnets, etc. </li>
+
+  <li><strong>The output section</strong>: Where you can output variables like the web page URL, public IPs, etc. </li>
+</ul>
+
+<p>Heat stacks <em>can be</em> nested, and one stack can reference a second stack. This is what is called Template Composition with Amazon CloudFormation. </p>
+
+<p>As we shall see next, you can define IaaS services and dependencies between them, for example network creation comes before a port creation or a subnet creation.</p>
+
+<h3><strong>Cloudify Manager provisioned as a Heat Stack</strong></h3>
+
+<p><strong><script src=&quot;https://gist.github.com/shayn1234/d1192ad5c81a89d2bb9c.js></strong></p>
+
+<p>You can see above a real example of how to install the Cloudify manager as a Heat stack. In the parameters section we define several parameters, like the key to SSH to the manager machine, instance type, image ID, the manager network in CIDR notation, the gateway address, start/end network allocation pool, as well as the public network ID.</p>
+
+<p>In the resources section, we first create the network, then the subnet . You can see how we reference the parameters defined in the previous section like gateway_ip. We also reference the Google name servers as the DNS name servers to resolve names to IP addresses. Next, we provision the router and bind its interfaces. And now after all of the IaaS services are provisioned, and are in place, we can provision the Cloudify manager with the right image_id, flavor, and key_name. In the user data we create a bash script which installs the manager packages. First it downloads the right packages from the net, and then installs them.</p>
+
+<p>In the output section we retrieve and present the manager’s floating IP address. </p>
+
+<p>Below are two charts, the first shows how the heat stack looks graphically, with all of the connected nodes and dependencies.</p>
+
+<p>The second chart shows the provisioned resources:&#160;&#160; Networks, subnets, Floating IPs and Cloudify manager VM.</p>
+
+<p><img alt="image" src="https://31.media.tumblr.com/2ec02f3b2b9725748460a1cb83db34a3/tumblr_inline_n7erhwwEQm1sbbxfw.jpg" /></p>
+
+<p><img alt="image" src="https://31.media.tumblr.com/f90a8260ce703cc005ffb7966b850d00/tumblr_inline_n7ermoeZS81sbbxfw.jpg" /></p>
+
+<p>In order to access the Cloudify manager from an external browser I've created port forwarding on the Devstack machine, so that when you access port 8080 of the Devstack VM hosted on HP Cloud, you will be forwarded to port 80 on the Cloudify manager provisioned VM (this is specific to to this current example, but this can easily be provisioned on any Openstack cloud). The commands to create the port forwarding are listed below.</p>
+
+<p><img alt="image" src="https://31.media.tumblr.com/0b52a4b88271dda439b509726d92d710/tumblr_inline_n7l59oxzAn1sbbxfw.jpg" /></p>
+
+<p>In the chart below you can see a screenshot of how the bootstrapped Cloudify manager looks when it’s up and running.</p>
+
+<p><img alt="image" src="https://31.media.tumblr.com/da3fd550a45a0152fc3074448675deac/tumblr_inline_n7l524h72t1sbbxfw.jpg" /></p><P></P></script></strong>
+</notextile>
