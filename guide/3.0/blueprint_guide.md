@@ -75,11 +75,10 @@ types:
 
 {%endhighlight%}
 
-The vm_host type is dervied from the cloudify.types.host basic type. Therefore, we need to import the library of basic types:
+The vm_host type is dervied from the cloudify.types.host basic type. 
+The type has interfaces with operations (hooks) that are implemented using plugins functions. 
 
-[importing cloudify types snippet here]
-
-The type has interfaces with operations (hooks) that are implemented using plugins functions. Plugins are python facades for APIs and tools you would like to use (such as IaaS compute API or tools like Chef and Puppet).
+Plugins are python facades for APIs and tools you would like to use (such as IaaS compute API or tools like Chef and Puppet).
 
 
 
@@ -116,6 +115,7 @@ types:
 {%endhighlight%}
 
 now let's add the nodejs_vm node that uses the type:
+
 {%highlight yaml%}
 	-   name: nodejs_vm
 	    type: vm_host
@@ -146,9 +146,13 @@ The first node we will add is the mongod node that represents the Mongo database
 
 The reason why we have specific types for db_server, app_server etc. is that we want the user to be able to differentiate between nodes based on their role in the application. We therefore using marking types.
 
-We need to import the bash types and plugins to use this type
+We need to import the bash types and plugins to use this type. The below decalration is at the begining of the file
 
-[Import bash types and plugins here]
+{%highlight yaml%}
+imports:
+    - http://www.getcloudify.org/spec/bash-plugin/1.0/plugin.yaml
+
+{%endhighlight%}
 
 
 Now we can declare the mongod node:
@@ -176,7 +180,9 @@ a script uploaded with the blueprint under the subfolder of mongo-scripts. The p
 
 We have just declared a mongod node of type cloudify.bash.db_server. This type doesn’t enforce any properties except for scripts. In the case of mongo database we probably need to make sure the user give us configuration details such the role in the mongo cluster and the port to which it listens. We will therefore subtype cloudify.bash.db_server and add schema properties declarations
 
+
 {%highlight yaml%}
+
 
 mongo_database:
         derived_from: cloudify.types.bash.db_server
@@ -188,7 +194,9 @@ mongo_database:
 
 So now our mongod node will look like this:
 
+
 {%highlight yaml%}
+
 - name: mongod
       type: mongo_database
       properties:
@@ -250,7 +258,11 @@ We can refine this node as well by using a subtype in case we want specific prop
 {%highlight yaml%}
 nodejs_server:
         derived_from: cloudify.types.bash.app_server
+{%endhighlight%}
+
 as a result the final version of the nodejs node is:
+
+{%highlight yaml%}
 - name: nodejs
       type: nodejs_server
       properties:
@@ -263,16 +275,26 @@ as a result the final version of the nodejs node is:
 {%endhighlight%}
 
 
- 
-
-
-
-
 Now let’s try and deploy what we have created so far to get a fill of it
 
 
 #Step 7: Adding the application layer
-we can now add the application layer by adding the nodecellar_app node. it is of type nodejs_app
+we can now add the application layer by adding the nodecellar_app node. it is of type nodejs_app (which again we need to decalre inline)
+
+{%highlight yaml%}
+nodejs_app:
+    derived_from: cloudify.types.bash.app_module
+    properties:
+        -   app_name
+        -   startup_script
+        -   git_url
+        -   git_branch
+        -   base_port
+        -   num_instances
+        -   env_file_path
+{%endhighlight%}
+
+And now we can add the node in the nodes list
 
 {%highlight yaml%}
  - name: nodecellar_app
