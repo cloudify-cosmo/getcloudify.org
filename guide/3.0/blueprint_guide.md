@@ -60,48 +60,21 @@ Lets add the nodejs_host as the first node in the list of nodes. To do so we nee
 Types are like classes in an OO program. They represent a type of component in an application at any level: Infrastructure (hosts, networks etc), middleware (application servers, web servers etc) or application (application modules, database schemas etc.).
 
 Types can be imported from external files or declared inside the blueprint.yaml file. 
-In this case let’s create an inline type named vm_host. It is a mock host since we are not really going to spawn a VM. it only serves as a placeholder in the topology for real VM nodes that we can put in later when we take this application to a different environment.
+In this case we will use a type from external file that is located in a subfolder of our blueprint folder. It is a mock host since we are not really going to spawn a VM. it only serves as a placeholder in the topology for real VM nodes that we can put in later when we take this application to a different environment.
+
+In order to use this type we need to add the following yaml in our blueprint file
+
+{%highlight yaml%}
+imports:
+	 - plugins/mock-plugin/plugin.yaml
+	
+{%endhighlight%}
+
+This file contains the declaration of the type:
 
 {%highlight yaml%}
 types:
-    vm_host:
-        derived_from: cloudify.types.host
-        interfaces:
-            cloudify.interfaces.lifecycle:
-                - start: mock_host.tasks.start
-                - stop: mock_host.tasks.stop
-                - delete: mock_host.tasks.delete
-            cloudify.interfaces.host:
-                - get_state: mock_host.tasks.get_state
-
-
-{%endhighlight%}
-
-The vm_host type is dervied from the cloudify.types.host basic type. 
-The type has interfaces with operations (hooks) that are implemented using plugins functions. 
-
-Plugins are python facades for APIs and tools you would like to use (such as IaaS compute API or tools like Chef and Puppet).
-
-
-
-Since we are using a plugin, we need to decalre it as well:
-
-In this case we are using the mock_host plugin. Plugins can be downloaded from URLs or from a subfolder in the blueprint archive. In both cases they need to be declared. Let’s add the plugin declaration
-
-{%highlight yaml%}
-plugins:
-    mock_host:
-        derived_from: cloudify.plugins.manager_plugin
-        properties:
-            folder: mock-plugin
-
-{%endhighlight%}
-
-The type also declares configuration schema (properties that must have values). In this case it assigns a value for a mandatory property install_agent that it inherited from cloudify.types.host
-
-{%highlight yaml%}
-types:
-    vm_host:
+    mock_vm:
         derived_from: cloudify.types.host
         interfaces:
             cloudify.interfaces.lifecycle:
@@ -114,7 +87,28 @@ types:
         properties:
             -   install_agent: false
 
+
 {%endhighlight%}
+
+The mock_vm type is dervied from the cloudify.types.host basic type. 
+The type has interfaces with operations (hooks) that are implemented using plugins functions. 
+
+Plugins are python facades for APIs and tools you would like to use (such as IaaS compute API or tools like Chef and Puppet).
+
+Since we are using a plugin, we need to decalre it as well:
+
+In this case we are using the mock_host plugin. Plugins can be downloaded from URLs or from a subfolder in the blueprint archive. In both cases they need to be declared. The plugin is declared in the same yaml file we imported
+
+{%highlight yaml%}
+plugins:
+    mock_host:
+        derived_from: cloudify.plugins.manager_plugin
+        properties:
+            folder: mock-plugin
+
+{%endhighlight%}
+
+The type also declares configuration schema (properties that must have values). In this case it assigns a value for a mandatory property install_agent that it inherited from cloudify.types.host
 
 now let's add the nodejs_vm node that uses the type:
 
