@@ -30,6 +30,8 @@ It includes the following components:
 
 The topology would look like this:
 
+![nodecllar app](images/blueprint/nodecellar_app.png "The nodecellar application topology")
+
 ##Cloudify YAML DSL
 
 Cloudify Domain Specific Language (DSL) is written in YAML. If you are not familiar with yaml you may want to read the [yaml documentation](http://www.yaml.org/start.html) first
