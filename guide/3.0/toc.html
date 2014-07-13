@@ -17,7 +17,7 @@ pageord: 1
 	<div id="{{ category | replace:' ','_' }}" class="list-group subitem none" class="list-group-item"> 				 			
 	{% for curPage in site.page_categories[category] %}				  			  	  	
 	    {% if curPage.url contains currentVersion %}
-			<a class="list-group-item" href="{{curPage.url}}">{{curPage.title}}</a>							   
+			<a class="list-group-item" href="{{curPage.url}}" title="{{curPage.title}}">{{curPage.title | truncate:25}}</a>							   
 	    {% endif %}			  
 	{% endfor %}			  
 	</div>
