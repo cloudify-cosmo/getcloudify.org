@@ -249,6 +249,8 @@ This is similar to the mongod node. It uses a bash type (cloudify.bash.app_serve
 It uses the same type of relationship (cloudify.relationships.contained_in
 ) but it’s located in the other vm node.
 
+#Step 7: Refining the Node.JS type:
+
 We can refine this node as well by using a subtype in case we want specific properties in the future. The subtype will look like this:
 
 {%highlight yaml%}
@@ -274,7 +276,7 @@ as a result the final version of the nodejs node is:
 Now let’s try and deploy what we have created so far to get a fill of it
 
 
-#Step 7: Adding the application layer
+#Step 8: Adding the application layer
 we can now add the application layer by adding the nodecellar_app node. it is of type nodejs_app (which again we need to decalre inline)
 
 {%highlight yaml%}
@@ -316,7 +318,7 @@ And now we can add the node in the nodes list
 Again note the bash scripts used to install the application.  This node has a contained_in relationship to the nodejs node which means that it will be deployed inside the node.js server
 Lets deploy again and see the entire application stack but without the db connection yet
 
-#Step 8: Adding the Node.JS application to DB Connection
+#Step 9: Connecting the Node.JS application to the mongo DB 
 
 We need to connect the node.js application to the mongo database to make it fully functional. To do so we need a plugin that will get the runtime details of the mongod node and will configure the nodecellar_app node. The plugin API gets both nodes details in the context of a relationship from the workflow engine, so it is easy to code such a plugin. In this case we are going to use a custom plugin called nodecellar_config_plugin.
 
