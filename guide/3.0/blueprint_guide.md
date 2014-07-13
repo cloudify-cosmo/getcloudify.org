@@ -60,13 +60,14 @@ Lets add the nodejs_host as the first node in the list of nodes. To do so we nee
 Types are like classes in an OO program. They represent a type of component in an application at any level: Infrastructure (hosts, networks etc), middleware (application servers, web servers etc) or application (application modules, database schemas etc.).
 
 Types can be imported from external files or declared inside the blueprint.yaml file. 
-In this case we will use a type from external file that is located in a subfolder of our blueprint folder. It is a mock host since we are not really going to spawn a VM. it only serves as a placeholder in the topology for real VM nodes that we can put in later when we take this application to a different environment.
+
+In this case we will use a type from an external URL. Since we are not really going to spawn a VM, we will use the basic type of `cloudify.types.host` . This type can get an IP of an existing host (in our case it will be the manager IP) and install the Cloudify agent on it.  We will use this functionality to simulate the hosts in our application and in order to demonstrate how Cloudify uses application agent plugins such as the bash plugin.
 
 In order to use this type we need to add the following yaml in our blueprint file
 
 {%highlight yaml%}
 imports:
-	 - plugins/mock-plugin/plugin.yaml
+	 - http://www.getcloudify.org/spec/cloudify/3.0/types.yaml
 	
 {%endhighlight%}
 
@@ -74,47 +75,49 @@ This file contains the declaration of the type:
 
 {%highlight yaml%}
 types:
-    mock_vm:
-        derived_from: cloudify.types.host
+  cloudify.types.host:
+        derived_from: cloudify.types.base
         interfaces:
-            cloudify.interfaces.lifecycle:
-                - start: mock_host.tasks.start
-                - stop: mock_host.tasks.stop
-                - delete: mock_host.tasks.delete
+            cloudify.interfaces.worker_installer:
+                - install: worker_installer.tasks.install
+                - start: worker_installer.tasks.start
+                - stop: worker_installer.tasks.stop
+                - uninstall: worker_installer.tasks.uninstall
+                - restart: worker_installer.tasks.restart
+            cloudify.interfaces.plugin_installer:
+                - install: plugin_installer.tasks.install
             cloudify.interfaces.host:
-                - get_state: mock_host.tasks.get_state
-
+                - get_state
         properties:
-            -   install_agent: false
+            - install_agent: true
+            - cloudify_agent: {}
+            - ip: ''   
 
 
 {%endhighlight%}
 
-The mock_vm type is dervied from the cloudify.types.host basic type. 
+
 The type has interfaces with operations (hooks) that are implemented using plugins functions. 
 
 Plugins are python facades for APIs and tools you would like to use (such as IaaS compute API or tools like Chef and Puppet).
 
-Since we are using a plugin, we need to decalre it as well:
+In this case you see 2 plugins:
+- worker_installer: a manager side plugin that is responsible to SSH into the host and create the Cloudify agent
+- plugin_installer: an agent side pluign that installs the agent plugins used in this blueprint on the current agent
 
-In this case we are using the mock_host plugin. Plugins can be downloaded from URLs or from a subfolder in the blueprint archive. In both cases they need to be declared. The plugin is declared in the same yaml file we imported
+in order to use the agent_installer, we will need a private key file on our manager host (this happens as part of the manager creation process). 
 
-{%highlight yaml%}
-plugins:
-    mock_host:
-        derived_from: cloudify.plugins.manager_plugin
-        properties:
-            folder: mock-plugin
-
-{%endhighlight%}
-
-The type also declares configuration schema (properties that must have values). In this case it assigns a value for a mandatory property install_agent that it inherited from cloudify.types.host
+The `host` type also declares configuration schema (properties that must have values). In this case it decvalres the install_agent with default value of truth, the cloudify_agent map with default empty map and the ip propety with default value of empty string.
 
 now let's add the nodejs_vm node that uses the type:
 
 {%highlight yaml%}
 	-   name: nodejs_vm
-	    type: vm_host
+	    type: cloudify.types.host
+      properties:
+        ip: 127.0.0.1
+        cloudify_agent:
+          key:
 
 {%endhighlight%}
 
@@ -122,15 +125,24 @@ now let's add the nodejs_vm node that uses the type:
 
 The above yaml snippet specifies an anonymous yaml map with the following keys:
 name - the name of the node (in this case nodejs_host)
-type - the type of component this node is instance-of. 
+type - the type of component this node is instance-of.
+properties - the conbfiguration of this instance. 
+
+Under properties you can see 2 key-value pairs:
+ip - in this case is localhost as we are installing the agent on the local host only simulating another host
+cloudify_agent - is a sub map with the agent configuration. here we specify the private key path.
 
 
 #Step 3: Adding a host for the Mongo DB
-In similar manner we add should now add the mongod_vm node (it is a simple copy and paste with a different name and hostname)
+In similar manner we add should now add the mongod_vm node (it is a simple copy and paste with a different name)
 
 {%highlight yaml%}
 	-   name: mongod_vm
-	    type: vm_host
+	    type: cloudify.types.host
+      properties:
+        ip: 127.0.0.1
+        cloudify_agent:
+          key:
 
 {%endhighlight%}
 
