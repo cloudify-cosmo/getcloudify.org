@@ -1,10 +1,10 @@
 ---
 layout: bt_wiki
-title: Type Reference
-category: Cloudify Development
-publish: false
+title: Types Reference
+category: Reference 
+publish: true
 abstract: "Reference for Cloudify built in types"
-pageord: 600
+pageord: 100
 --- 
 {%summary%} {{page.abstract}}{%endsummary%}
 

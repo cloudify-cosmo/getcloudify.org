@@ -1,10 +1,10 @@
 ---
 layout: bt_wiki
-title: Cloudify Architecture
-category: How it works
-publish: false
+title: Cloudify 3.0 Architecture
+category: Product Overview 
+publish: true
 abstract: Explains the architecture and flow of Cloudify 3.0 the DevOps Orchestrator
-pageord: 200
+pageord: 100
 ---
 {%summary%} {{page.abstract}}{%endsummary%}
 

@@ -2,7 +2,7 @@
 layout: bt_wiki
 title: Cloudify Blueprint Guide
 category: Tutorials
-publish: false
+publish: true
 abstract: Blueprint authoring tutorial
 pageord: 200
 --- 
