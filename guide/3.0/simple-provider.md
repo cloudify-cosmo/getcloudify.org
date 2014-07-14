@@ -1,17 +1,16 @@
 ---
 layout: bt_wiki
-title: Simple Provider
-category: Reference
+title: Bootstrapping on an existing VM
+category: Tutorials
 publish: true
-abstract: "Reference for Cloudify simple provider"
+abstract: "Tutorial for bootstrapping on an existing VM"
 pageord: 100
 ---
 
-{%summary%} Bootstrap a manager on an existing VM. {%endsummary%}
+{%summary%} So, you already have a VM running somewhere and you want to use it to quickly bootstrap a manager on it and start playing around with Cloudify. Hold on tight, because this part if for **you**. {%endsummary%}
 
-So, you already have a VM running somewhere and you want to use it to quickly bootstrap a manager on it and start playing around with Cloudify. Hold on tight, because this part if for **you**.
 
-## Initialization
+# Initialization
 
 First off, in an empty directory, run this from within the shell:
 
@@ -19,9 +18,9 @@ First off, in an empty directory, run this from within the shell:
 cfy init simple_provider
 {%endhighlight%}
 
-## Configuration
+# Configuration
 
-You should now have a file named `cloudify-config.yaml` in this directory which is a configuration skelton. It should look something along the lines of:
+You should now have a file named `cloudify-config.yaml` in this directory which is a configuration skeleton. It should look something along the lines of:
 
 
 {% highlight yaml %}
@@ -71,9 +70,9 @@ context: {} # Optional provider context
   will be removed in upcoming versions.
 
 
-## Bootstrapping
+# Bootstrapping
 
-When your done filling in your proper configuration, run this from within the shell, in the same directory as before:
+When you're done filling in the proper configuration, run this from within the shell, in the same directory as before:
 
 
 {% highlight sh %}
