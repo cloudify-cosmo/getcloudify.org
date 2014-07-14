@@ -16,6 +16,7 @@ The [blueprint](https://github.com/cloudify-cosmo/cloudify-nodecellar-singlehost
 # Before You Begin 
 
 Before you can deploy this application using Cloudify, you'll need to have the following setup in your environment: 
+
 * [Oracle VirtualBox](https://www.virtualbox.org/) (this box has been tested with version 4.3 or higher, but earlier versions should work as well). 
 * [Vagrant](http://www.vagrantup.com)
 
