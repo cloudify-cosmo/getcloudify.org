@@ -36,7 +36,7 @@ The topology would look like this:
 
 Cloudify Domain Specific Language (DSL) is written in YAML. If you are not familiar with yaml you may want to read the [yaml documentation](http://www.yaml.org/start.html) first
 
-#Step 1: Creating the blueprint
+#Step 1: Creating the Blueprint
 
 First lets create a folder with the name of nodecellar and create a blueprint.yaml file within it. This file is the blueprint file
 
@@ -55,6 +55,8 @@ blueprint:
 {%endhighlight%}
 
 #Step 2: Creating a host for the Node.JS
+
+<a href="https://github.com/cloudify-cosmo/cloudify-nodecellar-singlehost/compare/step1...step2" class="btn btn-default" role="button"><i class="fa fa-search"></i>  Code Diff</a>
 
 Lets add the nodejs_host as the first node in the list of nodes. To do so we need first a type as each node is an instance of a type.
 Types are like classes in an OO program. They represent a type of component in an application at any level: Infrastructure (hosts, networks etc), middleware (application servers, web servers etc) or application (application modules, database schemas etc.).
@@ -135,6 +137,9 @@ cloudify_agent - is a sub map with the agent configuration. here we specify the 
 
 
 #Step 3: Adding a host for the Mongo DB
+
+<a href="https://github.com/cloudify-cosmo/cloudify-nodecellar-singlehost/compare/step2...step3" class="btn btn-default" role="button"><i class="fa fa-search"></i>  Code Diff</a>
+
 In similar manner we add should now add the mongod_vm node (it is a simple copy and paste with a different name)
 
 {%highlight yaml%}
@@ -148,6 +153,8 @@ In similar manner we add should now add the mongod_vm node (it is a simple copy 
 {%endhighlight%}
 
 #Step 4: Creating Mongo Database
+
+<a href="https://github.com/cloudify-cosmo/cloudify-nodecellar-singlehost/compare/step3...step4" class="btn btn-default" role="button"><i class="fa fa-search"></i>  Code Diff</a>
 
 Now let’s add the middleware nodes of the application. In this blueprint we are using the bash types, that uses the bash plugin to install and start the nodes.
 
@@ -186,6 +193,8 @@ a script uploaded with the blueprint under the subfolder of mongo-scripts. The p
 
 
 #Step 5: Refining the blueprint using mongo custom type
+
+<a href="https://github.com/cloudify-cosmo/cloudify-nodecellar-singlehost/compare/step4...step5" class="btn btn-default" role="button"><i class="fa fa-search"></i>  Code Diff</a>
 
 We have just declared a mongod node of type cloudify.bash.db_server. This type doesn’t enforce any properties except for scripts. In the case of mongo database we probably need to make sure the user give us configuration details such the role in the mongo cluster and the port to which it listens. We will therefore subtype cloudify.bash.db_server and add schema properties declarations
 
@@ -244,6 +253,8 @@ Finally we need to add the mongod relationships. This node has only one relation
 
 #Step 6: Creating the Node.JS Server
 
+<a href="https://github.com/cloudify-cosmo/cloudify-nodecellar-singlehost/compare/step5...step6" class="btn btn-default" role="button"><i class="fa fa-search"></i>  Code Diff</a>
+
 Now we can declare the nodejs node:
 
 {%highlight yaml%}
@@ -263,6 +274,8 @@ It uses the same type of relationship (cloudify.relationships.contained_in
 ) but it’s located in the other vm node.
 
 #Step 7: Refining the Node.JS type:
+
+<a href="https://github.com/cloudify-cosmo/cloudify-nodecellar-singlehost/compare/step6...step7" class="btn btn-default" role="button"><i class="fa fa-search"></i>  Code Diff</a>
 
 We can refine this node as well by using a subtype in case we want specific properties in the future. The subtype will look like this:
 
@@ -290,6 +303,9 @@ Now let’s try and deploy what we have created so far to get a fill of it
 
 
 #Step 8: Adding the application layer
+
+<a href="https://github.com/cloudify-cosmo/cloudify-nodecellar-singlehost/compare/step7...step8" class="btn btn-default" role="button"><i class="fa fa-search"></i>  Code Diff</a>
+
 we can now add the application layer by adding the nodecellar_app node. it is of type nodejs_app (which again we need to decalre inline)
 
 {%highlight yaml%}
@@ -332,6 +348,8 @@ Again note the bash scripts used to install the application.  This node has a co
 Lets deploy again and see the entire application stack but without the db connection yet
 
 #Step 9: Connecting the Node.JS application to the mongo DB 
+
+<a href="https://github.com/cloudify-cosmo/cloudify-nodecellar-singlehost/compare/step8...step9" class="btn btn-default" role="button"><i class="fa fa-search"></i>  Code Diff</a>
 
 We need to connect the node.js application to the mongo database to make it fully functional. To do so we need a plugin that will get the runtime details of the mongod node and will configure the nodecellar_app node. The plugin API gets both nodes details in the context of a relationship from the workflow engine, so it is easy to code such a plugin. In this case we are going to use a custom plugin called nodecellar_config_plugin.
 
