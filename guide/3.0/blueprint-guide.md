@@ -167,7 +167,7 @@ Now we can declare the mongod node:
 
 {%highlight yaml%}
 - name: mongod
-      type: mongo_database
+      type: cloudify.bash.db_server
       properties:
             role: mongod
             port: 27017
