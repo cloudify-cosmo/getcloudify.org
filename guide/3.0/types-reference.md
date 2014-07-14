@@ -1,11 +1,11 @@
 ---
 layout: bt_wiki
 title: Types Reference
-category: Reference 
+category: Reference
 publish: true
 abstract: "Reference for Cloudify built in types"
 pageord: 100
---- 
+---
 {%summary%} {{page.abstract}}{%endsummary%}
 
 # Abstract Types
@@ -30,9 +30,9 @@ The following types are basic types from which concrete types with specific plug
 
 * `cloudify.types.virtual_ip` - A virtual IP implemented as [NAT](http://en.wikipedia.org/wiki/Network_address_translation) or in another manner
 
-* `cloudify.types.security_group` - A cloud security group (VM network access rules) 
+* `cloudify.types.security_group` - A cloud security group (VM network access rules)
 
-* `cloudify.types.load_balancer` - A virtualized Load Balancer 
+* `cloudify.types.load_balancer` - A virtualized Load Balancer
 
 * `cloudify.types.volume` - A persistent block storage volume
 
@@ -62,7 +62,7 @@ The following types implement infrastructure components such as hosts, networks,
 * `cloudify.openstack.server` - a [Nova Server](http://docs.openstack.org/api/openstack-compute/2/content/compute_servers.html)
 	* properties:
 		- `server` - Mandatory - A dictionary with the instances configurations such as image, flavor, host_name
-		- `management_network_name` - Mandatory - The name of the Cloudify Manager network, via which the agent communicates with the manager 
+		- `management_network_name` - Mandatory - The name of the Cloudify Manager network, via which the agent communicates with the manager
 		- `nova_config`: Optional - A dictionary with nova endpoint and credentials. By default takes values from the provider configuration
 		- `neutron_config`: Optional - Adictionary with neutron endpoint and credentials. By default takes values from the provider configuration
 	* example:
@@ -77,7 +77,7 @@ The following types implement infrastructure components such as hosts, networks,
 					user: ubuntu
 					key: ~/.ssh/cloudify-agents-kp.pem
 				management_network_name: cloudify-admin-network
-			  
+
 				server:
 					name: bash-web-server
 					image:      8672f4c6-e33d-46f5-b6d8-ebbeba12fa02 ### IMAGE_NAME
@@ -93,7 +93,7 @@ The following types implement infrastructure components such as hosts, networks,
 	- name: neutron_subnet
 	  type: cloudify.openstack.subnet
 	  properties:
-		subnet: 
+		subnet:
 		  cidr: 10.10.10.0/24
 		  ip_version: 4
 		  name: app_subnet
@@ -150,7 +150,7 @@ The following types implement infrastructure components such as hosts, networks,
 	- name: neutron_port1
 	  type: cloudify.openstack.port
 	  properties:
-		port: 
+		port:
 		  name: neutron_app_port1
 	{% endhighlight %}
 
@@ -162,7 +162,7 @@ The following types implement infrastructure components such as hosts, networks,
 	- name: neutron_network
 	  type: cloudify.openstack.network
 	  properties:
-		network: 
+		network:
 		  name: app_network
 	{% endhighlight %}
 
@@ -173,7 +173,7 @@ The following types implement infrastructure components such as hosts, networks,
 	* example:
 	{% highlight yaml %}
 	- name: floatingip
-	  type: cloudify.openstack.floatingip    
+	  type: cloudify.openstack.floatingip
 	  properties:
 		floatingip:
 		  floating_network_name: Ext-Net
@@ -202,7 +202,7 @@ The following types implement infrastructure components such as hosts, networks,
       relationships:
         - target: floatingip
           type: cloudify.openstack.server_connected_to_floating_ip
-        
+
 	{% endhighlight %}
 
 * `cloudify.openstack.server_connected_to_port` - Materializes connection between a Nova Server and a Port
@@ -215,7 +215,7 @@ The following types implement infrastructure components such as hosts, networks,
       relationships:
         - target: neutron_port1
           type: cloudify.relationships.connected_to
-        
+
 	{% endhighlight %}
 
 * `cloudify.openstack.floating_ip_connected_to_port` - Materializes connection between a Floating IP and a Port
@@ -238,14 +238,14 @@ The following are software types implemented using bash scripts for the differen
       properties:
             role: mongod
             port: 27017
-            scripts:            
+            scripts:
                 create: mongo-scripts/install-mongo.sh
                 start: mongo-scripts/start-mongo.sh
                 stop: mongo-scripts/stop-mongo.sh
       relationships:
         - target: mongod_vm
           type: cloudify.relationships.contained_in
-        
+
 	{% endhighlight %}
 
 ## Chef Types

@@ -1,8 +1,10 @@
 ---
 layout: bt_wiki
 title: Simple Provider
-weight:  700
-parent:  none
+category: Reference
+publish: true
+abstract: "Reference for Cloudify simple provider"
+pageord: 100
 ---
 
 {%summary%} Bootstrap a manager on an existing VM. {%endsummary%}
