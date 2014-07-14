@@ -113,11 +113,12 @@ now let's add the nodejs_vm node that uses the type:
 
 {%highlight yaml%}
 	-   name: nodejs_vm
-	    type: cloudify.types.host
+      type: cloudify.types.host
       properties:
-        ip: 127.0.0.1
-        cloudify_agent:
-          key:
+          ip: 127.0.0.1
+          cloudify_agent:
+              key: /home/vagrant/.ssh/cloudify_private_key
+            
 
 {%endhighlight%}
 
@@ -140,10 +141,10 @@ In similar manner we add should now add the mongod_vm node (it is a simple copy 
 	-   name: mongod_vm
 	    type: cloudify.types.host
       properties:
-        ip: 127.0.0.1
-        cloudify_agent:
-          key:
-
+          ip: 127.0.0.1
+          cloudify_agent:
+              key: /home/vagrant/.ssh/cloudify_private_key
+              
 {%endhighlight%}
 
 #Step 4: Creating Mongo Database
