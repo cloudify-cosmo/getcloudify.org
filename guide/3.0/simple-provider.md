@@ -11,7 +11,7 @@ So, you already have a VM running somewhere and you want to use it to quickly bo
 
 ## Initialization
 
-First off, in your work directory, run this from within the shell:
+First off, in an empty directory, run this from within the shell:
 
 {% highlight sh %}
 cfy init simple_provider
