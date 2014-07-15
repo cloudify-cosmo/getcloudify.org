@@ -1,9 +1,9 @@
 ---
 layout: bt_wiki
 title: Installing Cloudify
-category: Installation
+category: Tutorials
 publish: true
-abstract: Installation Methods
+abstract: How do you go about installing Cloudify?
 pageord: 21
 ---
 {%summary%}{{page.abstract}}{%endsummary%}

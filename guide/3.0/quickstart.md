@@ -1,10 +1,10 @@
 ---
 layout: bt_wiki
 title: Getting Started with Cloudify
-category: Tutorials
+category: none
 publish: true
 abstract: A quick tutorial for getting started with Cloudify and deploying your first blueprint
-pageord: 100
+pageord: 11
 ---
 {%summary%}{{page.abstract}}{%endsummary%}
 
@@ -20,25 +20,26 @@ Before you can deploy this application using Cloudify, you'll need to have the f
 * [Oracle VirtualBox](https://www.virtualbox.org/) (this box has been tested with version 4.3 or higher, but earlier versions should work as well).
 * [Vagrant](http://www.vagrantup.com) (1.5+)
 
-# Step 1: Download and Start our Vagrant Box
+# Step 1: Download and Up your Vagrant Box
 
-The first thing you'll need to do is download the Vagrant box which contains the Cloudify manager and CLI.
+The first thing you'll need to do is download the Vagrant box which contains the Cloudify manager and CLI and the Vagrantfile to run it.
 
+First, download this [Vagrantfile](url) to your local directory. Then, run
 ```
 vagrant box add <url> --name=cloudify
 ```
-note that this downloads a full featured Ubuntu OS with Cloudify and its components installed so this may take some time to add.
+which will add the vagrant box to your local machine.
+
+Note that this downloads a full featured Ubuntu OS with Cloudify and its components installed so this may take some time to add.
 
 After the box is added, run:
 ```
-vagrant init cloudify
 vagrant up
 ```
 
 # Step 2: SSH to the Vagrant Box and Connect to the Running Manager
 
 Once you've started the Vagrant box, you now have to ssh to it. In your terminal, type:
-
 ```
 vagrant ssh
 ```

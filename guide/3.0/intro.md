@@ -1,12 +1,17 @@
 ---
 layout: bt_wiki
-title: What is Cloudify
-category: Intro
+title: Intro
+category: none
 publish: true
-abstract: Why Cloudify?
-pageord: 11
+abstract: What's this Cloudify thing anyway?
+pageord: 10
 ---
 {%summary%}{{page.abstract}}{%endsummary%}
+
+# What is Cloudify?
+Cloudify is a Cloud Application Orchestrator. It automates any process you need to perform with regard to your applications over any cloud. Starting with environment setup and application installation, going forward to application upgrade, infrastructure upgrade, continuous deployments, auto-healing and auto-scaling.
+
+Cloudify can work on any environment: IaaS, virtualized or even non-virtualized. Cloudify executes automation processes using any tool you choose. From shell to Chef, Puppet, etc. Cloudify monitors your application with any monitoring tool you choose; installing it for you if you like and interfacing with your monitoring tools to get events and metrics into Cloudify’s Policy Engine.
 
 # Why Cloudify?
 
@@ -31,3 +36,6 @@ Cloudify is backed by a strong team of developers and ops guys who're making sur
 
 ## Cloudify enables DevOps
 Cloudify brings the Operations and Development teams together by providing high levels of infrastructure and application automation, which allows them to focus on system architecture and product delivery rather than deployment and maintenance.
+
+# What's Next
+[Requirements](requirements.html)
