@@ -23,15 +23,19 @@ This plugin can only install agents on an image that meets the following set of 
 1. WinRM enabled
 
    To enable WinRM on the machine execute these commands:
-   
-    winrm quickconfig
-    winrm s winrm/config/service @{AllowUnencrypted="true";MaxConcurrentOperationsPerUser="4294967295"}
-    winrm s winrm/config/service/auth @{Basic="true"}
+
+{% highlight shell %}   
+
+    winrm quickconfig<br>
+    winrm s winrm/config/service @{AllowUnencrypted="true";MaxConcurrentOperationsPerUser="4294967295"}<br>
+    winrm s winrm/config/service/auth @{Basic="true"}<br>
     winrm s winrm/config/winrs @{MaxShellsPerUser="2147483647"}
+
+{%endhighlight%}
 
 2. Python
 
-   Python 2.7.6 32Bit Must be installed on the machine under the 'C:\Python27' path [Python]({{page.python_link}})
+   Python 2.7.6 32Bit Must be installed on the machine under 'C:\Python27' - [(Get Python)]({{page.python_link}})
 
 
 # Description
