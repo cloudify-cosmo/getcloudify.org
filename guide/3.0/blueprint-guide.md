@@ -36,6 +36,14 @@ The topology would look like this:
 
 Cloudify Domain Specific Language (DSL) is written in YAML. If you are not familiar with yaml you may want to read the [yaml documentation](http://www.yaml.org/start.html) first
 
+Each step of the tutorial is tagged on github. To clone it locally do the following:
+
+{%highlight bash%}
+git clone https://github.com/cloudify-cosmo/cloudify-nodecellar-singlehost.git
+git checkout tags/stepX #step1 to step9 (the latter is identical to master)
+{%endhighlight%}
+
+
 #Step 1: Creating the Blueprint
 
 First lets create a folder with the name of nodecellar and create a blueprint.yaml file within it. This file is the blueprint file
@@ -53,6 +61,8 @@ blueprint:
     name: nodecellar
     nodes:
 {%endhighlight%}
+
+
 
 #Step 2: Creating a host for the Node.JS
 
