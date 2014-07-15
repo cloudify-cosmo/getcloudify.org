@@ -41,12 +41,10 @@ There is a manager side agent per application deployment and optional agent on e
 
 **The application side agents** are optionally located on application VM's. The user can state in the `blueprint` which VM's will have an agent installed on them. The application side agents are installed by the manager side agent as part of the VM creation task. Once running, the application side agent can install plugins and execute tasks locally. Typical tasks will be middleware installaton and configuration and application modules deployment.
 
-![Cloudify Manager Architecture](images/architecture/complete_flow.png)
+![Cloudify Manager Architecture](images/architecture/cloudify_manager_flows.png)
 
 ## Cloudify Manager Components
 
-
-![Cloudify Manager Architecture](images/architecture/manager_components.png)
 
 ### Proxy and File Server
 
@@ -139,7 +137,7 @@ Plugins are python facades for any third party tool you want to use with any Clo
 
 The plugin has methods that correspond to Node Interface Operations. These methods are decorated with the `@operation` decorator and get the `context` argument that holds handlers to node runtime properties, the plugin logger, and in case of a relationship task, to the other Node in the relationship.
 
-![Task Execution Example](images/architecture/task_processing_example.png)
+
 
 ### Logs and Events
 Cloudify offers logs & events as the main troubleshooting and tracing tools:
@@ -171,67 +169,25 @@ In order to deploy and manage an application you need to create a runtime data m
 
 ## Workflow Execution
 Any automation process from initial setup to auto-scaling is performed by running a workflow script.
-In order to execute a workflow use the GUI or the CLI command `add here`
+In order to execute a workflow use the GUI or the CLI command [`add here`]
+
+![Task Execution Example](images/architecture/cloudify_workflow_processing.png)
+
 
 Workflow execution requires the Workflow itself and a [Topology](#topology)
-The Workflow engine runs the workflow algorithm and in each step processes the selected Nodes. For each node it creates a task for an agent to execute. The task has the implementation information for the agent:
+The Workflow engine runs the workflow algorithm and in each step processes the selected Nodes. 
+This means that:
+
+1. The Wrokflow reads the node information from the database
+2. The workflow sends a command through the task broker to the agent
+The command has the implementation information for the agent:
 
 * Which pluign to use and how to get it (URL).
-* Which method in the plugin to invoke.
+* Which function in the plugin to invoke.
 * A dictionary of the `node properties` taken from the `blueprint`.
 * Runtime information about nodes on which the current node is dependent so relationships can be configured.
 
-The designated agent (Manager Side or Application VM side depending on the task) gets the task from the queue and starts executing it. It will usually install a plugin or use an installed plugin. It will execute the task by invoking the plugin method specified in the task.
+3. The designated agent (Manager Side or Application VM side depending on the task) gets the command from the queue and starts executing it by invoking a plugin function.
 
-
-
-# Supported Clouds & Tools
-
-## Clouds and Virtualization
-
-<table>
-<tr>
-<th>Cloud</th>
-<th>Supported APIs</th>
-</tr>
-<tr>
-<td>OpenStack</td>
-<td>
-<ul>
-<li>Nova</li>
-<li>Neutron</li>
-<li>Cinder</li>
-</ul>
-</td>
-</tr>
-<tr>
-<td>Vagrant</td>
-<td>Virtual Box</td>
-</tr>
-</table>
-
-## DevOps Tools
-
-<table>
-<tr>
-<th>Tool</th>
-<th>Coverage</th>
-</tr>
-<tr>
-<td>Chef</td>
-<td>Chef client and solo</td>
-</tr>
-<tr>
-<td>Puppet</td>
-<td>Puppet Master &amp; Agent mode and stand alone mode</td>
-</tr>
-<tr>
-<td>Bash</td>
-<td>Executing bash scripts</td>
-</tr>
-<tr>
-<td>Fabric</td>
-<td> -- </td>
-</tr>
-</table>
+4. The plugin interfaces with third-party API or CLI to execute the task
 
