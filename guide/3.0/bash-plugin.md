@@ -52,6 +52,7 @@ blueprint:
 {%endhighlight%}
 
 In this example, it is assumed that the blueprint folder has a `scripts` folder in it.
+
 Here, we map the `create, configure, start, stop, delete` of the `cloudify.interfaces.lifecycle` node interface to a mactching script.
 
 The mapping itself is done under the `scripts` property of the node.
