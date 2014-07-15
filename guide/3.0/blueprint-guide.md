@@ -43,8 +43,9 @@ git clone https://github.com/cloudify-cosmo/cloudify-nodecellar-singlehost.git
 git checkout tags/stepX #step1 to step9 (the latter is identical to master)
 {%endhighlight%}
 
+# Step by Step Walkthrough 
 
-#Step 1: Creating the Blueprint
+## Step 1: Creating the Blueprint
 
 First lets create a folder with the name of nodecellar and create a blueprint.yaml file within it. This file is the blueprint file
 
@@ -64,7 +65,7 @@ blueprint:
 
 
 
-#Step 2: Creating a host for the Node.JS
+## Step 2: Adding a Host for nodejs
 
 <a href="https://github.com/cloudify-cosmo/cloudify-nodecellar-singlehost/compare/step1...step2" class="btn btn-default" role="button"><i class="fa fa-search"></i>  Code Diff</a>
 
@@ -146,7 +147,7 @@ ip - in this case is localhost as we are installing the agent on the local host 
 cloudify_agent - is a sub map with the agent configuration. here we specify the private key path.
 
 
-#Step 3: Adding a host for the Mongo DB
+## Step 3: Adding a Host for MongoDB
 
 <a href="https://github.com/cloudify-cosmo/cloudify-nodecellar-singlehost/compare/step2...step3" class="btn btn-default" role="button"><i class="fa fa-search"></i>  Code Diff</a>
 
@@ -162,7 +163,7 @@ In similar manner we add should now add the mongod_vm node (it is a simple copy 
 
 {%endhighlight%}
 
-#Step 4: Creating Mongo Database
+## Step 4: Adding MongoDB
 
 <a href="https://github.com/cloudify-cosmo/cloudify-nodecellar-singlehost/compare/step3...step4" class="btn btn-default" role="button"><i class="fa fa-search"></i>  Code Diff</a>
 
@@ -202,7 +203,7 @@ a script uploaded with the blueprint under the subfolder of mongo-scripts. The p
 
 
 
-#Step 5: Refining the blueprint using mongo custom type
+## Step 5: Refining the Blueprint with a Custom Type
 
 <a href="https://github.com/cloudify-cosmo/cloudify-nodecellar-singlehost/compare/step4...step5" class="btn btn-default" role="button"><i class="fa fa-search"></i>  Code Diff</a>
 
@@ -261,7 +262,7 @@ Finally we need to add the mongod relationships. This node has only one relation
 
 {%endhighlight%}
 
-#Step 6: Creating the Node.JS Server
+## Step 6: Adding nodejs
 
 <a href="https://github.com/cloudify-cosmo/cloudify-nodecellar-singlehost/compare/step5...step6" class="btn btn-default" role="button"><i class="fa fa-search"></i>  Code Diff</a>
 
@@ -283,7 +284,7 @@ This is similar to the mongod node. It uses a bash type (cloudify.bash.app_serve
 It uses the same type of relationship (cloudify.relationships.contained_in
 ) but it’s located in the other vm node.
 
-#Step 7: Refining the Node.JS type:
+## Step 7: Refining the nodejs Type
 
 <a href="https://github.com/cloudify-cosmo/cloudify-nodecellar-singlehost/compare/step6...step7" class="btn btn-default" role="button"><i class="fa fa-search"></i>  Code Diff</a>
 
@@ -312,7 +313,7 @@ as a result the final version of the nodejs node is:
 Now let’s try and [deploy](quickstart.html) what we have created so far to get a fill of it. 
 
 
-#Step 8: Adding the application layer
+## Step 8: Adding the nodejs Application Code 
 
 <a href="https://github.com/cloudify-cosmo/cloudify-nodecellar-singlehost/compare/step7...step8" class="btn btn-default" role="button"><i class="fa fa-search"></i>  Code Diff</a>
 
@@ -357,7 +358,7 @@ And now we can add the node in the nodes list
 Again note the bash scripts used to install the application.  This node has a contained_in relationship to the nodejs node which means that it will be deployed inside the node.js server
 Lets [deploy](quickstart.html) again and see the entire application stack but without the db connection yet
 
-#Step 9: Connecting the Node.JS application to the mongo DB
+## Step 9: Connecting the nodejs Application to MongoDB
 
 <a href="https://github.com/cloudify-cosmo/cloudify-nodecellar-singlehost/compare/step8...step9" class="btn btn-default" role="button"><i class="fa fa-search"></i>  Code Diff</a>
 
@@ -412,12 +413,10 @@ Now lets a use of this relationship to the nodecellar_app node.
 
 {%endhighlight%}
 
+# What's Next
 
-Read the plugins tutorial to gain a better understanding of plugin code
-
-Now let’s [deploy](quickstart.html) the full application
-
-
+* You can read the [plugins tutorial](#) to gain a better understanding of how plugins work. 
+* Follow the directions in the [Getting Started](quickstart.html) page to deploy this blueprint. 
 
 
 
