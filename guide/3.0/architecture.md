@@ -1,18 +1,12 @@
 ---
 layout: bt_wiki
 title: Cloudify 3.0 Architecture
-category: Product Overview 
+category: Product Overview
 publish: true
 abstract: Explains the architecture and flow of Cloudify 3.0 the DevOps Orchestrator
 pageord: 100
 ---
 {%summary%} {{page.abstract}}{%endsummary%}
-
-# What is Cloudify?
-
-Cloudify is a Cloud Application Orchestrator. It automates any process you need to perform with regard to your applications over any cloud. Starting with environment setup and application installation, going forward to application upgrade, infrastructure upgrade, continuous deployments, auto-healing and auto-scaling.
-
-Cloudify can work on any environment: IaaS, virtualized or even non-virtualized. Cloudify executes automation processes using any tool you choose. From shell to chef, puppet, etc. Cloudify monitors your application with any monitoring tool you choose; installing it for you if you like and interfacing with your monitoring tools to get events and metrics into Cloudify's Policy Engine
 
 # Architecture
 Cloudify 3.0 has a new architecture and a new code base. Cloudify 3.0 is composed of the following main parts:
