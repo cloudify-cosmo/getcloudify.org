@@ -1,16 +1,16 @@
 ---
 layout: bt_wiki
-title: Cloudify Agent Installer
+title: Cloudify Linux Agent Installer
 category: Plugins
 publish: true
-abstract: "Cloudify Agent Installer description and configuration"
+abstract: "Cloudify Linux Agent Installer description and configuration"
 pageord: 100
 
 celery_link: http://www.celeryproject.org/
 autoscale_link: http://docs.celeryproject.org/en/latest/userguide/workers.html#autoscaling
 ---
 
-{%summary%} The Cloudify Agent Installer plugin is used to install agents on host nodes.
+{%summary%} The Cloudify Linux Agent Installer plugin is used to install agents on host nodes.
 The installation process is done using SSH from the management machine into the agent machine.
 {%endsummary%}
 
