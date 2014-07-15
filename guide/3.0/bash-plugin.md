@@ -1,6 +1,6 @@
 ---
 layout: bt_wiki
-title: Bash
+title: Bash Plugin
 category: Plugins
 publish: true
 abstract: "Cloudify bash pluguin description and configuration"
