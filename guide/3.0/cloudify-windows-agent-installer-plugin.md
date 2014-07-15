@@ -9,10 +9,11 @@ pageord: 100
 celery_link: http://www.celeryproject.org/
 autoscale_link: http://docs.celeryproject.org/en/latest/userguide/workers.html#autoscaling
 python_link: https://www.python.org/ftp/python/2.7.6/python-2.7.6.msi
+winrm_link: http://msdn.microsoft.com/en-us/library/aa384426(v=vs.85).aspx
 ---
 
-{%summary%} The Cloudify Windows Agent Installer plugin is used to install agents on windows host nodes.
-The installation process is done using WinRM from the management machine into the agent machine.
+{%summary%} The Cloudify Windows Agent Installer plugin is used to install agents on Windows host nodes.
+The installation process is done using [WinRM]({{page.winrm_link}}) over HTTP from the management machine on the agent machine.
 The Agent is installed as a Windows Service under the name 'CloudifyAgent'.
 {%endsummary%}
 
@@ -20,19 +21,25 @@ The Agent is installed as a Windows Service under the name 'CloudifyAgent'.
 
 This plugin can only install agents on an image that meets the following set of requirements:
 
-1. WinRM enabled
+* WinRM enabled
 
-   To enable WinRM on the machine execute these commands:
-{% highlight bash %}   
-    winrm quickconfig
-    winrm s winrm/config/service @{AllowUnencrypted="true";MaxConcurrentOperationsPerUser="4294967295"}
-    winrm s winrm/config/service/auth @{Basic="true"}
-    winrm s winrm/config/winrs @{MaxShellsPerUser="2147483647"}
+To enable WinRM on the machine execute these commands:
+{% highlight bash %}
+winrm quickconfig
+winrm s winrm/config/service @{AllowUnencrypted="true";MaxConcurrentOperationsPerUser="4294967295"}
+winrm s winrm/config/service/auth @{Basic="true"}
+winrm s winrm/config/winrs @{MaxShellsPerUser="2147483647"}
 {%endhighlight%}
 
-2. Python
+NOTE: These settings provide unencrypted WinRM access to the machine. We're working on adding Kerberos support.
+
+From MSDN: AllowUnencrypted - Allows the client computer to request unencrypted traffic.
+
+* Python
 
    Python 2.7.6 32Bit Must be installed on the machine under 'C:\Python27' - [(Get Python)]({{page.python_link}})
+
+* A Windows image with a preconfigured, known user and password (to allow WinRM access).
 
 
 # Description
