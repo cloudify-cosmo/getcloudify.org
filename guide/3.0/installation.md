@@ -13,28 +13,45 @@ Cloudify can be installed by using different methods.
 Since it is based on a set of premade packages, it can be deployed using shell scripts, configuration management tools, cloud specific orchestration tools (CloudFormation, Heat, etc..) or Cloudify's CLI tool which provides a smooth experience for getting a fully working, cli manageable Cloudify Management server.
 
 # Prerequisites
+
+## Host Machine
+A Cloudify manager requires at the very least 2GB of RAM, 1 CPU and 5GB of free space.
+NOTE: these are the very basic requirements. You will have to provision larger machines for larger deployments.
+
+## OS Distributions
+
+### Server
+Cloudify's management server currently runs on Ubuntu 12.04 Precise but we're working on newer versions of Ubuntu and Centos.
+It might be able to run on Ubuntu 13.04 or 14.04, but they weren't tested. We're appreciate feedback if you tried any other distribution.
+
+### Agents
+Cloudify's agent packages can be installed on Ubuntu 12.04+, Centos 6.3+ and Windows 2008 Server+.
+
+## Packages
 Cloudify comes as a set of packages containing (almost) all dependencies within them.
 
-## The Components Package (Mandatory)
+### The Components Package (Mandatory)
 Contains all 3rd party components Cloudify uses.
 This is the largest package and should rarely change from version to version.
 You might want to host it in a local repository and only update it if something changes.
 
-## Core Package (Mandatory)
+### Core Package (Mandatory)
 Contains Cloudify's code.
 This is what makes everything tick.
 
-## UI Package (Optional)
+### UI Package (Optional)
 Contains Cloudify's Web UI.
 This is optional since Cloudify can be managed using the CLI.
 
-## Agent Packages (At least one is mandatory)
+### Agent Packages (At least one is mandatory)
 Contains Cloudify's agent code and is OS distribution specific.
 Cloudify supplies agent packages for both Linux (several distros) and Windows.
 You must at least have an agent that corresponds with your Manager's distribution.
 
-## Base Requirement
+## Python (Obviously)
 Cloudify does require that you have Python 2.7 and above to run.
+NOTE: Centos comes with Python 2.6.6 by default. If you want to use Centos with Cloudify, you'll have to provide an image with Python 2.7 at least.
+
 
 # Cloud specific Installations
 See the installation manuals for each cloud provisioner under the Installation section.
