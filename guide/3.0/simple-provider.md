@@ -1,7 +1,7 @@
 ---
 layout: bt_wiki
 title: Bootstrapping on an existing VM
-category: Tutorials
+category: Guides
 publish: true
 abstract: "Tutorial for bootstrapping on an existing VM"
 pageord: 600

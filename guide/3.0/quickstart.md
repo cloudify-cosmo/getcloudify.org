@@ -8,6 +8,11 @@ pageord: 11
 ---
 {%summary%}{{page.abstract}}{%endsummary%}
 
+# What is Cloudify?
+Cloudify is a Cloud Application Orchestrator. It automates any process you need to perform with regard to your applications over any cloud. Starting with environment setup and application installation, going forward to application upgrade, infrastructure upgrade, continuous deployments, auto-healing and auto-scaling.
+
+Cloudify can work on any environment: IaaS, virtualized or even non-virtualized. Cloudify executes automation processes using any tool you choose. From shell to Chef, Puppet, etc. Cloudify monitors your application with any monitoring tool you choose; installing it for you if you like and interfacing with your monitoring tools to get events and metrics into Cloudify’s Policy Engine.
+
 # Overview
 
 In this tutorial you will start a Cloudify manager within a Vagrant box on your laptop, and install a sample Cloudify 3.0 blueprint on it. Unlike a real cloud deployment, this example will use the Vagrant VM to install the application components. If you'd like to install an application on an actual cloud, please refer to the [deploying your first application on OpenStack](quickstart-openstack.html) tutorial.
