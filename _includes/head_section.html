@@ -4,6 +4,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />	
 	<title>Cloudify - {{ page.title }}</title>
 	
+
+<meta class="swiftype" name="body" data-type="float" content="{% pagescore %}" />
 	
 <meta content="Cloudify - {{ page.title }}" property="og:site_name">
 {% if page.title %}
@@ -40,7 +42,7 @@
 {% endif %}
 {% if page.tags %}
   {% for tag in page.tags %}
-  <meta content="{{ tag }}" property="article:tag">
+ <meta content="{{ tag }}" property="article:tag">
   {% endfor %}
 {% endif %}
 		
