@@ -309,7 +309,7 @@ as a result the final version of the nodejs node is:
 {%endhighlight%}
 
 
-Now let’s try and deploy what we have created so far to get a fill of it
+Now let’s try and [deploy](quickstart.html) what we have created so far to get a fill of it. 
 
 
 #Step 8: Adding the application layer
@@ -355,7 +355,7 @@ And now we can add the node in the nodes list
 {%endhighlight%}
 
 Again note the bash scripts used to install the application.  This node has a contained_in relationship to the nodejs node which means that it will be deployed inside the node.js server
-Lets deploy again and see the entire application stack but without the db connection yet
+Lets [deploy](quickstart.html) again and see the entire application stack but without the db connection yet
 
 #Step 9: Connecting the Node.JS application to the mongo DB 
 
@@ -415,7 +415,7 @@ Now lets a use of this relationship to the nodecellar_app node.
 
 Read the plugins tutorial to gain a better understanding of plugin code
 
-Now let’s deploy the full application
+Now let’s [deploy](quickstart.html) the full application
 
 
 
