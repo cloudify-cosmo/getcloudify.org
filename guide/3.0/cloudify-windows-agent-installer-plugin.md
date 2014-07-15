@@ -24,7 +24,7 @@ This plugin can only install agents on an image that meets the following set of 
 
    To enable WinRM on the machine execute these commands:
 
-{% highlight shell %}   
+{% highlight bash %}   
 
     winrm quickconfig<br>
     winrm s winrm/config/service @{AllowUnencrypted="true";MaxConcurrentOperationsPerUser="4294967295"}<br>
