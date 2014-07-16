@@ -17,7 +17,7 @@ It includes the following components:
 
 **Infrastructure:**
 
-- Two hosts (we will call them nodejs_host and mongodb_host) that contain the application. One contains the Node.JS and the other the MongoDB. In this tutorial we will use mock hosts (we make Cloudify report 2 hosts that are not really out there) as we want to install the entire application on our Vagrant VM.
+- Two hosts (we will call them nodejs_host and mongodb_host) that contain the application. One contains the Node.JS and the other the MongoDB. In this tutorial we will use localhost as both host nodes as we want to install the entire application on our Vagrant VM.
 
 
 **Middleware:**
