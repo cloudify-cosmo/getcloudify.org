@@ -1,13 +1,13 @@
 ---
 layout: bt_wiki
-title: Bootstrapping on an existing VM
-category: Tutorials
+title: Bootstrapping on an Existing VM
+category: Guides
 publish: true
 abstract: "Tutorial for bootstrapping on an existing VM"
 pageord: 600
 ---
 
-{%summary%} So, you already have a VM running somewhere and you want to use it to quickly bootstrap a manager on it and start playing around with Cloudify. Hold on tight, because this part if for **you**. {%endsummary%}
+{%summary%} So, you already have a VM running somewhere and you want to use it to quickly bootstrap a manager on it and start playing around with Cloudify. Hold on tight, because this part is for **you**. {%endsummary%}
 
 
 # Initialization
