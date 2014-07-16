@@ -33,9 +33,8 @@ winrm s winrm/config/winrs @{MaxShellsPerUser="2147483647"}
 
 {%note title=Note%}
 These settings provide unencrypted WinRM access to the machine. We're working on adding Kerberos support.
-{%endnote%}
-
 From MSDN: AllowUnencrypted - Allows the client computer to request unencrypted traffic.
+{%endnote%}
 
 * Python
 
