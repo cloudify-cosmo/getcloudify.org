@@ -1,7 +1,7 @@
 ---
 layout: bt_wiki
 title: Bootstrapping on Openstack
-category: Tutorials
+category: Guides
 publish: true
 abstract: "Tutorial for bootstrapping on Openstack"
 pageord: 700
