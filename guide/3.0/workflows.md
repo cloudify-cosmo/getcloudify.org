@@ -35,11 +35,11 @@ for each node
 {% endhighlight %}
 
 1. Only start processing this node instance when the node instances it depends on are started.
-2. Execute the task mapped to the node lifecycle operation. (do nothing if no task is defined).
+2. Execute the task mapped to the node's lifecycle operation. (do nothing if no task is defined).
 3. Execute all tasks mapped to this node's relationship lifecycle operation.
-4. A node is considered a host node if it's type is a subtype of `cloudify.types.host`
-5. Wait for `cloudify.interfaces.host.get_state` operation on the node instance to return `true` (if mapped, do nothing otherwise)
-6. Install the agent workers and the required plugins on this host
+4. A node is considered a host node if its type is a subtype of `cloudify.types.host`.
+5. Wait for `cloudify.interfaces.host.get_state` operation on the node instance to return `true` (if mapped, do nothing otherwise).
+6. Install the agent workers and the required plugins on this host.
 
 # Uninstall
 
@@ -55,9 +55,9 @@ for each node
 {% endhighlight %}
 
 1. Only start processing this node instance when the node instances dependent on it are stopped.
-2. A node is considered a host node if it's type is a subtype of `cloudify.types.host`
-3. Uninstall and stop the agent
-4. Execute the task mapped to the node lifecycle operation. (do nothing if no task is defined).
+2. A node is considered a host node if its type is a subtype of `cloudify.types.host`.
+3. Uninstall and stop the agent.
+4. Execute the task mapped to the node's lifecycle operation. (do nothing if no task is defined).
 5. Execute all tasks mapped to this node's relationship lifecycle operation.
 
 # Under The Hood
@@ -71,4 +71,4 @@ workflows:
     uninstall: workflows.default.uninstall
 {% endhighlight %}
 
-`workflows.default.install` and `workflows.default.uninstall` implementations can be found at [`workflows/default.py`]({{page.default_workflows_source_link}}). It is also possible defining custom workflows but documentation for doing so is not yet available.
+The `workflows.default.install` and `workflows.default.uninstall` implementations can be found at [`workflows/default.py`]({{page.default_workflows_source_link}}). Defining custom workflows is also possible but documentation for doing so is not yet available.
