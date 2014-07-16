@@ -36,7 +36,7 @@ The predefined types are:
 
 {% highlight yaml %}
 imports:
-    - http://getcloudify.org/spec/bash-plugin/1.0/plugin.yaml
+    - {{page.yaml_link}}
 
 blueprint:
   name: example
