@@ -221,7 +221,7 @@ Information on each individual configuration parameter is provided below, separa
   * `instance`
     * `name` The name of the management server (Default: `cloudify-management-server`)
     * `image` The image ID on the cloud. This is the image for the management server
-    * `flavor` The flavor ID on the cloud. This is the flavor for the management server (Default: `102`)
+    * `flavor` The flavor ID on the cloud. This is the flavor for the management server (Default: `102`) **Note:** Make sure the flavor used satisfies the minimum requirements for the management server as specified [here](installation.html#prerequisites)
   * `management_keypair`  
     * `create_if_missing` A flag for whether to create the management keypair or raise an error if it doesn't yet exist on Openstack (Default: `True`)
     * `name` The name of the management keypair. This keypair will be used to authenticate with the management server (Default: `cloudify-management-kp`)

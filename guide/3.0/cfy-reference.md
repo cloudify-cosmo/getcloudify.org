@@ -10,7 +10,7 @@ pageord: 100
 {%summary%} This page contains description and usage information for the Cloudify CLI (CFY) commands {%endsummary%}
 
 
-**Command:** status
+# status
 
 **Description:** queries the status of the management server
 
@@ -26,7 +26,7 @@ pageord: 100
 
 ------
 
-**Command:** use
+# use
 
 **Description:** defines a default management server to work with
 
@@ -46,7 +46,7 @@ pageord: 100
 
 ------
 
-**Command:** init
+# init
 
 **Description:** initializes a cloudify working directory for a given provider
 
@@ -66,7 +66,7 @@ pageord: 100
 
 ------
 
-**Command:** bootstrap
+# bootstrap
 
 **Description:** bootstraps cloudify on the current provider
 
@@ -82,7 +82,7 @@ pageord: 100
 
 ------
 
-**Command:** teardown
+# teardown
 
 **Description:** tears down the management-server, as well as any local aliases under its context
 
@@ -102,7 +102,7 @@ pageord: 100
 
 ------
 
-**Command:** blueprints upload
+# blueprints upload
 
 **Description:** uploads a blueprint to the management server
 
@@ -122,7 +122,7 @@ pageord: 100
 
 ------
 
-**Command:** blueprints list
+# blueprints list
 
 **Description:** lists the blueprint on the management server, as well as the blueprints local aliases
 
@@ -138,7 +138,7 @@ pageord: 100
 
 ------
 
-**Command:** blueprints delete
+# blueprints delete
 
 **Description:** deletes the blueprint from the management server
 
@@ -157,7 +157,7 @@ pageord: 100
 
 ------
 
-**Command:** deployments create
+# deployments create
 
 **Description:** creates a deployment of a blueprint
 
@@ -177,7 +177,7 @@ pageord: 100
 
 ------
 
-**Command:** deployments delete
+# deployments delete
 
 **Description:** deletes the deployment (and its resources) from the management server
 
@@ -197,7 +197,7 @@ pageord: 100
 
 ------
 
-**Command:** deployments execute
+# deployments execute
 
 **Description:** executes an operation on a deployment
 
@@ -236,7 +236,7 @@ pageord: 100
 
 ------
 
-**Command:** workflows get
+# workflows get
 
 **Description:** gets a workflow by its name and deployment id. This command will also show the workflow's parameters.
 
@@ -257,7 +257,7 @@ pageord: 100
 
 ------
 
-**Command:** workflows list
+# workflows list
 
 **Description:** lists the workflows of a deployment
 
@@ -277,7 +277,7 @@ pageord: 100
 
 ------
 
-**Command:** executions get
+# executions get
 
 **Description:** gets an execution by its id. This command will also show the execution's parameters.
 
@@ -297,7 +297,7 @@ pageord: 100
 
 ------
 
-**Command:** executions list
+# executions list
 
 **Description:** lists the executions of a deployment
 
@@ -316,7 +316,7 @@ pageord: 100
 
 ------
 
-**Command:** executions cancel
+# executions cancel
 
 **Description:** Cancels an execution by its id
 
@@ -336,7 +336,7 @@ pageord: 100
 
 ------
 
-**Command:** events
+# events
 
 **Description:** fetches events of an execution
 
