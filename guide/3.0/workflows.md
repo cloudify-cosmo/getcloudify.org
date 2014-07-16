@@ -47,18 +47,18 @@ for each node
 for each node
   for each node instance
     1) wait for dependent node instances to be deleted
-    2) execute 'cloudify.interfaces.lifecycle.stop' operation
-    3) if node instance is host node:
-    4)   stop and uninstall agent workers
+    2) if node instance is host node:
+    3)   stop and uninstall agent workers
+    4) execute 'cloudify.interfaces.lifecycle.stop' operation
     5) execute 'cloudify.interfaces.relationship_lifecycle.unlink' relationship operations
-    2) execute 'cloudify.interfaces.lifecycle.delete' operation
+    4) execute 'cloudify.interfaces.lifecycle.delete' operation
 {% endhighlight %}
 
-1. Only start processing this node instance when the node instances dependent on it are stopeed.
-2. Execute all tasks mapped to this node's relationship lifecycle operation.
-3. A node is considered a host node if it's type is a subtype of `cloudify.types.host`
-4. Uninstall and stop the agent
-5. Execute the task mapped to the node lifecycle operation. (do nothing if no task is defined).
+1. Only start processing this node instance when the node instances dependent on it are stopped.
+2. A node is considered a host node if it's type is a subtype of `cloudify.types.host`
+3. Uninstall and stop the agent
+4. Execute the task mapped to the node lifecycle operation. (do nothing if no task is defined).
+5. Execute all tasks mapped to this node's relationship lifecycle operation.
 
 # Under The Hood
 
