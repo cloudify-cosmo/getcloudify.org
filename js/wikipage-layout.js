@@ -18,7 +18,7 @@ $(function() {
     });
 
 
-    var githubPopupPresented = sessionStorage.getItem('githubPopupPresented');
+    var githubPopupPresented = localStorage.getItem('githubPopupPresented');
     var githubPopupTitle = 'Help Us Improve!';
     var githubPopupText = 'Found a mistake in this page? Click here to edit it in Github and propose your change!';
 
@@ -51,7 +51,7 @@ $(function() {
         if (githubPopupPresented == null) {
           setTimeout(function() {  
             $('#edit-on-github').popover('show');
-            sessionStorage.setItem('githubPopupPresented', 'true');
+            localStorage.setItem('githubPopupPresented', 'true');
 
             setTimeout(function() { 
               $('#edit-on-github').popover('hide');
