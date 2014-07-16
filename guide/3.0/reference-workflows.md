@@ -1,6 +1,6 @@
 ---
 layout: bt_wiki
-title: Workflows
+title: Workflows Reference
 category: Reference
 publish: true
 abstract: "Cloudify workflows short description and details on install and uninstall default workflows"

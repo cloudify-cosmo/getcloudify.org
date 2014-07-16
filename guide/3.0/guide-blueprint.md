@@ -1,6 +1,6 @@
 ---
 layout: bt_wiki
-title: Cloudify Blueprint Guide
+title: Blueprint Guide
 category: Guides
 publish: true
 abstract: Blueprint authoring tutorial
@@ -43,7 +43,7 @@ git clone https://github.com/cloudify-cosmo/cloudify-nodecellar-singlehost.git
 git checkout tags/stepX #step1 to step9 (the latter is identical to master)
 {%endhighlight%}
 
-# Step by Step Walkthrough 
+# Step by Step Walkthrough
 
 ## Step 1: Creating the Blueprint
 
@@ -310,10 +310,10 @@ as a result the final version of the nodejs node is:
 {%endhighlight%}
 
 
-Now let’s try and [deploy](quickstart.html) what we have created so far to get a fill of it. 
+Now let’s try and [deploy](quickstart.html) what we have created so far to get a fill of it.
 
 
-## Step 8: Adding the nodejs Application Code 
+## Step 8: Adding the nodejs Application Code
 
 <a href="https://github.com/cloudify-cosmo/cloudify-nodecellar-singlehost/compare/step7...step8" class="btn btn-default" role="button"><i class="fa fa-search"></i>  Code Diff</a>
 
@@ -415,8 +415,8 @@ Now lets a use of this relationship to the nodecellar_app node.
 
 # What's Next
 
-* You can read the [plugins tutorial](#) to gain a better understanding of how plugins work. 
-* Follow the directions in the [Getting Started](quickstart.html) page to deploy this blueprint. 
+* You can read the [plugins tutorial](#) to gain a better understanding of how plugins work.
+* Follow the directions in the [Getting Started](quickstart.html) page to deploy this blueprint.
 
 
 

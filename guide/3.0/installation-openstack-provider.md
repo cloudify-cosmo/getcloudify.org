@@ -1,7 +1,7 @@
 ---
 layout: bt_wiki
 title: Bootstrapping on Openstack
-category: Guides
+category: Installation
 publish: true
 abstract: "Tutorial for bootstrapping on Openstack"
 pageord: 700
@@ -222,7 +222,7 @@ Information on each individual configuration parameter is provided below, separa
     * `name` The name of the management server (Default: `cloudify-management-server`)
     * `image` The image ID on the cloud. This is the image for the management server
     * `flavor` The flavor ID on the cloud. This is the flavor for the management server (Default: `102`) **Note:** Make sure the flavor used satisfies the minimum requirements for the management server as specified [here](installation.html#prerequisites)
-  * `management_keypair`  
+  * `management_keypair`
     * `create_if_missing` A flag for whether to create the management keypair or raise an error if it doesn't yet exist on Openstack (Default: `True`)
     * `name` The name of the management keypair. This keypair will be used to authenticate with the management server (Default: `cloudify-management-kp`)
     * `private_key_path` The local path where the private key file is at or where it will be saved if automatically created. **Note:** If the key is to be created, this file path must not already exist (Default: `~/.ssh/cloudify-management-kp.pem`)
@@ -251,7 +251,7 @@ Information on each individual configuration parameter is provided below, separa
     * `config`
       * `min_workers` Celery autoscale parameter - the minimum number of workers on an agent machine. See [Autoscaling](http://docs.celeryproject.org/en/latest/userguide/workers.html#autoscaling) (Default: `2`)
       * `max_workers` Celery autoscale parameter - The maximum number of workers on an agent machine. See [Autoscaling](http://docs.celeryproject.org/en/latest/userguide/workers.html#autoscaling) (Default: `5`)
-      * `remote_execution_port` The default port that will be used to run commands on agents (Default: `22`) 
+      * `remote_execution_port` The default port that will be used to run commands on agents (Default: `22`)
       * `user` The default user that will be used to connect with agent machines. If not provided, then this will have to be specified in the blueprints in the agent node or type properties
   * `workflows`
     * `task_retries` Number of retries for a failing workflow task. -1 means infinite retries (Default: `-1`)

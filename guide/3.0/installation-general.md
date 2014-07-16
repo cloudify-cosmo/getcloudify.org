@@ -59,5 +59,5 @@ NOTE: Centos comes with Python 2.6.6 by default. If you want to use Centos with 
 
 
 # Cloud specific Installations
-You can install the management server [manually]({{page.manual_install}}).
-For Cloud specific installation see the installation manuals for each cloud provider under the Installation section.
+You can bootstrap the management server [manually]({{page.manual_install}}).
+For Cloud specific installation see the bootstrap manuals for each cloud provider under the Installation section.
