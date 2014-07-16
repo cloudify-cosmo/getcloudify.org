@@ -5,10 +5,13 @@ category: Reference
 publish: true
 abstract: Reference for CFY commands
 pageord: 100
---- 
+---
 
 {%summary%} This page contains description and usage information for the Cloudify CLI (CFY) commands {%endsummary%}
 
+{%note title=Note%}
+Verbose output can be applied to every action by supplying the --verbosity (or -v) flag.
+{%endnote%}
 
 # status
 
@@ -20,7 +23,6 @@ pageord: 100
 
 - **Optional:**
 	- *management-ip*: the management-server to use
-	- *verbosity*: a flag for setting verbose output
 
 **Example:** `cfy status`
 
@@ -40,7 +42,6 @@ pageord: 100
 - **Optional:**
 	- *alias*: a local alias for the given management server address
 	- *force*: a flag indicating authorization to overwrite the alias provided if it's already in use
-	- *verbosity*: a flag for setting verbose output
 
 **Example:** `cfy use 10.0.0.1 -a my-mgmt-server`
 
@@ -60,7 +61,6 @@ pageord: 100
 - **Optional:**
 	- *target-dir*: the directory that will be used as the cloudify working directory
 	- *reset-config*: a flag indicating overwriting existing configuration is allowed
-	- *verbosity*: a flag for setting verbose output
 
 **Example:** `cfy init openstack`
 
@@ -76,7 +76,6 @@ pageord: 100
 
 - **Optional:**
 	- *config-file*: path to the config file
-	- *verbosity*: a flag for setting verbose output
 
 **Example:** `cfy bootstrap`
 
@@ -84,7 +83,7 @@ pageord: 100
 
 # teardown
 
-**Description:** tears down the management-server, as well as any local aliases under its context
+**Description:** tears down the management-server, as well as any local resources under its context
 
 **Usage:** `cfy teardown [-c, --config-file] [-f, --force] [-fv, --force-validation] [-fd, --force-deployments] [-t, --management-ip <ip>] [-v, --verbosity]`
 
@@ -92,11 +91,10 @@ pageord: 100
 
 - **Optional:**
 	- *config-file*: path to the config file
-	- *force*: a flag indicating confirmation for this irreversable action
-	- *force-validation*: A flag indicating confirmation for the provider to continue with the teardown process even if there are conflicts detected, allowing whatever resources which there aren't any conflicts on to be removed
+	- *force*: a flag indicating confirmation for this irreversible action
+	- *force-validation*: A flag indicating confirmation for the provider to continue with the teardown process even if conflicts are detected, allowing whatever resources with which there aren't any conflicts to be removed
 	- *force-deployments*: A flag indicating confirmation to continue with the teardown process even if the management server currently has active deployments
 	- *management-ip*: the management-server to use
-	- *verbosity*: a flag for setting verbose output
 
 **Example:** `cfy teardown -f`
 
@@ -114,9 +112,8 @@ pageord: 100
 	- *blueprint_path*: path to the blueprint (yaml file) to upload
 
 - **Optional:**
-	- *blueprint_id*: a unique id for the uploaded blueprint (Plan name is used if this parameter isn't provided)
+	- *blueprint_id*: a unique id for the uploaded blueprint (Plan name is used if this parameter is omitted)
 	- *management-ip*: the management-server to use
-	- *verbosity*: a flag for setting verbose output
 
 **Example:** `cfy blueprints upload blueprint.yaml`
 
@@ -132,7 +129,6 @@ pageord: 100
 
 - **Optional:**
 	- *management-ip*: the management-server to use
-	- *verbosity*: a flag for setting verbose output
 
 **Example:** `cfy blueprints list`
 
@@ -151,7 +147,6 @@ pageord: 100
 
 - **Optional:**
 	- *management-ip*: the management-server to use
-	- *verbosity*: a flag for setting verbose output
 
 **Example:** `cfy blueprints delete -b my-blueprint`
 
@@ -159,7 +154,7 @@ pageord: 100
 
 # deployments create
 
-**Description:** creates a deployment of a blueprint
+**Description:** creates a deployment from a blueprint
 
 **Usage:** `cfy deployments create [-b, --blueprint-id <blueprint_id>] [-d, --deployment-id <deployment_id>] [-t, --management-ip <ip>] [-v, --verbosity]`
 
@@ -171,7 +166,6 @@ pageord: 100
 
 - **Optional:**
 	- *management-ip*: the management-server to use
-	- *verbosity*: a flag for setting verbose output
 
 **Example:** `cfy deployments create -b my-blueprint -d my-deployment`
 
@@ -191,7 +185,6 @@ pageord: 100
 - **Optional:**
 	- *ignore-live-nodes*: a flag determining whether to delete the deployment even if it still has live nodes
 	- *management-ip*: the management-server to use
-	- *verbosity*: a flag for setting verbose output
 
 **Example:** `cfy deployments delete -d my-deployment`
 
@@ -213,7 +206,6 @@ pageord: 100
 	- *parameters*: parameters for the workflow execution (in JSON format)
 	- *allow-custom-parameters*: A flag for allowing the passing of custom parameters (parameters which were not defined in the workflow's schema in the blueprint) to the execution
 	- *management-ip*: the management-server to use
-	- *verbosity*: a flag for setting verbose output
 	- *timeout*: operation timeout in seconds (The execution itself will keep going. It is the CLI that will stop waiting for it to terminate)
 	- *force*: A flag indicating the workflow should execute even if there is an ongoing execution for the provided deployment
 
@@ -232,7 +224,6 @@ pageord: 100
 - **Optional:**
 	- *blueprint-id*: the id of a blueprint, to list only deployments of that specific blueprint
 	- *management-ip*: the management-server to use
-	- *verbosity*: a flag for setting verbose output
 
 ------
 
@@ -250,7 +241,6 @@ pageord: 100
 
 - **Optional:**
 	- *management-ip*: the management-server to use
-	- *verbosity*: a flag for setting verbose output
 
 **Example:** `cfy workflows get -w my-workflow -d my-deployment`
 
@@ -266,11 +256,10 @@ pageord: 100
 **Parameters:**
 
 - **Mandatory:**
-	- *deployment_id*: the  id of the deployment whose workflows to list
+	- *deployment_id*: the id of the deployment whose workflows to list
 
 - **Optional:**
 	- *management-ip*: the management-server to use
-	- *verbosity*: a flag for setting verbose output
 
 **Example:** `cfy workflows list -d my-deployment`
 
@@ -290,7 +279,6 @@ pageord: 100
 
 - **Optional:**
 	- *management-ip*: the management-server to use
-	- *verbosity*: a flag for setting verbose output
 
 **Example:** `cfy executions get -e my-execution`
 
@@ -310,7 +298,6 @@ pageord: 100
 
 - **Optional:**
 	- *management-ip*: the management-server to use
-	- *verbosity*: a flag for setting verbose output
 
 **Example:** `cfy executions list -d my-deployment`
 
@@ -330,7 +317,6 @@ pageord: 100
 - **Optional:**
 	- *force*: A flag indicating authorization to terminate the execution abruptly rather than request an orderly termination
 	- *management-ip*: the management-server to use
-	- *verbosity*: a flag for setting verbose output
 
 **Example:** `cfy executions cancel -e some-execution-id -f`
 
@@ -350,6 +336,5 @@ pageord: 100
 - **Optional:**
 	- *include-logs*: determines whether to fetch logs in addition to events
 	- *management-ip*: the management-server to use
-	- *verbosity*: a flag for setting verbose output
 
 **Example:** `cfy events --execution-id 92515e66-5c8f-41e0-a361-2a1ad92706b2`
