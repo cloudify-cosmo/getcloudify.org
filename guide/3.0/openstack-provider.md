@@ -240,14 +240,14 @@ Information on each individual configuration parameter is provided below, separa
 
 * `server`
   * `packages`
-    * `components_package_url` The URL for the Cloudify components package
-    * `core_package_url` The URL for the Cloudify core package
-    * `ui_package_url` The URL for the Cloudify UI package
+    * `components_package_url` The URL for the Cloudify components package. Defaults to the URL for the version which matches the CLI's version
+    * `core_package_url` The URL for the Cloudify core package. Defaults to the URL for the version which matches the CLI's version
+    * `ui_package_url` The URL for the Cloudify UI package. If provided with an empty string, the UI won't be installed. Defaults to the URL for the version which matches the CLI's version
   * `agents`
     * `packages`
-      * `ubuntu_agent_url` The URL for the Ubuntu agent package
-      * `centos_agent_url`: The URL for the CentOS agent package
-      * `windows_agent_url` The URL for the Windows agent package
+      * `ubuntu_agent_url` The URL for the Ubuntu agent package. If provided with an empty string, no package will be downloaded. Defaults to the URL for the version which matches the CLI's version
+      * `centos_agent_url`: The URL for the CentOS agent package. If provided with an empty string, no package will be downloaded. Defaults to the URL for the version which matches the CLI's version
+      * `windows_agent_url` The URL for the Windows agent package. If provided with an empty string, no package will be downloaded. Defaults to the URL for the version which matches the CLI's version
     * `config`
       * `min_workers` Celery autoscale parameter - the minimum number of workers on an agent machine. See [Autoscaling](http://docs.celeryproject.org/en/latest/userguide/workers.html#autoscaling) (Default: `2`)
       * `max_workers` Celery autoscale parameter - The maximum number of workers on an agent machine. See [Autoscaling](http://docs.celeryproject.org/en/latest/userguide/workers.html#autoscaling) (Default: `5`)
