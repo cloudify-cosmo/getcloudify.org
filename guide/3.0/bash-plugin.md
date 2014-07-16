@@ -1,11 +1,12 @@
 ---
 layout: bt_wiki
-title: Bash
+title: Bash Plugin
 category: Plugins
 publish: true
 abstract: "Cloudify bash pluguin description and configuration"
 pageord: 100
 
+yaml_link: http://getcloudify.org/spec/bash-plugin/1.0/plugin.yaml
 ---
 
 {%summary%} The bash plugin can be used to map node life cycle operations to bash shell scripts that are included in your blueprint. {%endsummary%}
@@ -19,7 +20,7 @@ There are 2 modes for working with this plugin.
 
 The plugin definition and predefined types can be found at:
 
-[http://getcloudify.org/spec/bash-plugin/1.0/plugin.yaml](http://getcloudify.org/spec/bash-plugin/1.0/plugin.yaml)
+[{{page.yaml_link}}]({{page.yaml_link}})
 
 ## Types (Mode 1)
 
@@ -35,7 +36,7 @@ The predefined types are:
 
 {% highlight yaml %}
 imports:
-    - http://getcloudify.org/spec/bash-plugin/1.0/plugin.yaml
+    - {{page.yaml_link}}
 
 blueprint:
   name: example
@@ -53,12 +54,12 @@ blueprint:
 
 In this example, it is assumed that the blueprint folder has a `scripts` folder in it.
 
-Here, we map the `create, configure, start, stop, delete` of the `cloudify.interfaces.lifecycle` node interface to a mactching script.
+Here, we map the `create, configure, start, stop, delete` of the `cloudify.interfaces.lifecycle` node interface to a matching script.
 
 The mapping itself is done under the `scripts` property of the node.
 
 {%note title=Note%}
-It is not mandatory mapping all operations to scripts. It is perfectly valid, for example, to only map the `start` operation to a script.
+It is not mandatory to map all operations to scripts. It is perfectly valid, for example, to only map the `start` operation to a script.
 {%endnote%}
 
 ## Interface mapping (Mode 2)
@@ -69,7 +70,7 @@ If you have already have a node in your blueprint, and this node does not derive
 
 {% highlight yaml %}
 imports:
-    - http://getcloudify.org/spec/bash-plugin/1.0/plugin.yaml
+    - {{page.yaml_link}}
 
 types:
   my_custom_type:
@@ -90,7 +91,7 @@ blueprint:
           start: scripts/start.sh
 {%endhighlight%}
 
-In this example, we define a custom type `my_custom_type`, and map its `cloudify.interfaces.lifecycle.start` operation to the bash plugin's single operation: `bash_runner.tasks.run`.
+In this example, we define a custom type `my_custom_type` and map its `cloudify.interfaces.lifecycle.start` operation to the bash plugin's single operation: `bash_runner.tasks.run`.
 
 Next, we add the property `scripts` to the type schema so that script mapping can be configured by nodes using this type.
 
@@ -142,7 +143,7 @@ In addition, the following environment variables are also available:
 * `CLOUDIFY_BLUEPRINT_ID` The blueprint id
 * `CLOUDIFY_DEPLOYMENT_ID` The deployment id
 * `CLOUDIFY_MANAGER_IP` The manager management network ip address
-* `CLOUDIFY_EXECUTION_ID` The current workfow execution id
+* `CLOUDIFY_EXECUTION_ID` The current workflow execution id
 * `CLOUDIFY_LOGGING` Path to helper logging functions (see below)
 * `CLOUDIFY_FILE_SERVER` Path to helper blueprint resource access functions (see below)
 * `CLOUDIFY_FILE_SERVER_BLUEPRINT_ROOT` Base URI to the blueprint folder resources on the management file server
@@ -170,7 +171,7 @@ You can source the `CLOUDIFY_FILE_SERVER` environment variable in your script.
 source ${CLOUDIFY_FILE_SERVER}
 {%endhighlight%}
 
-This will put into scope the function `cfy_download_resource` that can be used to download resources that were included in the blueprint folder.
+This will put into scope the function `cfy_download_resource` which can be used to download resources that were included in the blueprint folder.
 
 Say we have a folder named `images` in our blueprint folder and in it, a file named `flower.png`.
 
