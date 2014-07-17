@@ -13,7 +13,7 @@ The plugin installer plugin is responsible for installing Cloudify plugins on Cl
 
 # Automatic Plugins Installation
 
-When installing a deployment, Cloudify automatically identifies which plugins need to be installed and where (Management/Application machine) and invokes the plugin insatller **install** operation which receives a list of plugins required to be installed.
+When installing a deployment, Cloudify automatically identifies which plugins need to be installed and where (Management/Application machine) and invokes the plugin installer's **install** operation which receives a list of plugins required to be installed.
 
 
 # Usage
