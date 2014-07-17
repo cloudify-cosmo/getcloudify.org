@@ -30,7 +30,7 @@ It includes the following components:
 
 The topology would look like this:
 
-![nodecllar app](images/blueprint/nodecellar_app.png "The nodecellar application topology")
+![nodecllar app](images/guide/nodecellar_topology.png "The nodecellar application topology")
 
 ##Cloudify YAML DSL
 
