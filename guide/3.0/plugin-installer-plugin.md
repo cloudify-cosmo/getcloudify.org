@@ -13,14 +13,14 @@ The plugin installer plugin is responsible for installing Cloudify plugins on Cl
 
 # Automatic Plugins Installation
 
-When installing a deployment, Cloudify automatically identifies which plugins needs to be installed and where (Management/Application machine) and invokes the plugin insatller **install** operation which receives a list of plugins required to be installed.
+When installing a deployment, Cloudify automatically identifies which plugins need to be installed and where (Management/Application machine) and invokes the plugin insatller **install** operation which receives a list of plugins required to be installed.
 
 
 # Usage
 
-User custom workflows which require plugin installations should invoke the plugin installer **install** operation - `plugin_installer.tasks.install`.
+User custom workflows which require plugin installations should invoke the plugin installer's **install** operation - `plugin_installer.tasks.install`.
 
-Plugin installer **install** operation receives a `plugins` argument which is a list of plugins to install.
+Plugin installer's **install** operation receives a `plugins` argument which is a list of plugins to install.
 
 Each item in the provided plugins list should be a dictionary containing the following keys:
 
