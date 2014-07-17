@@ -1,6 +1,6 @@
 ---
 layout: bt_wiki
-title: Cloudify 3.0 Architecture
+title: Architecture Overview
 category: Product Overview
 publish: true
 abstract: Explains the architecture and flow of Cloudify 3.0 the DevOps Orchestrator
@@ -169,7 +169,7 @@ In order to execute a workflow use the GUI or the CLI command [`add here`]
 
 
 Workflow execution requires the Workflow itself and a [Topology](#topology)
-The Workflow engine runs the workflow algorithm and in each step processes the selected Nodes. 
+The Workflow engine runs the workflow algorithm and in each step processes the selected Nodes.
 This means that:
 
 1. The Wrokflow reads the node information from the database
