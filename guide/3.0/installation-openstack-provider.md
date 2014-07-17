@@ -236,34 +236,7 @@ Information on each individual configuration parameter is provided below, separa
 
 {% togglecloak id=5 %}cloudify{% endtogglecloak %}
 {% gcloak 5 %}
-* `resources_prefix` An optional prefix to be added to all resources (and private key files) names. It is recommended for the prefix to end with an underscore or a dash. If not provided, no prefix will be added
-
-* `server`
-  * `packages`
-    * `components_package_url` The URL for the Cloudify components package. Defaults to the URL for the version which matches the CLI's version
-    * `core_package_url` The URL for the Cloudify core package. Defaults to the URL for the version which matches the CLI's version
-    * `ui_package_url` The URL for the Cloudify UI package. If provided with an empty string, the UI won't be installed. Defaults to the URL for the version which matches the CLI's version
-  * `agents`
-    * `packages`
-      * `ubuntu_agent_url` The URL for the Ubuntu agent package. If provided with an empty string, no package will be downloaded. Defaults to the URL for the version which matches the CLI's version
-      * `centos_agent_url`: The URL for the CentOS agent package. If provided with an empty string, no package will be downloaded. Defaults to the URL for the version which matches the CLI's version
-      * `windows_agent_url` The URL for the Windows agent package. If provided with an empty string, no package will be downloaded. Defaults to the URL for the version which matches the CLI's version
-    * `config`
-      * `min_workers` Celery autoscale parameter - the minimum number of workers on an agent machine. See [Autoscaling](http://docs.celeryproject.org/en/latest/userguide/workers.html#autoscaling) (Default: `2`)
-      * `max_workers` Celery autoscale parameter - The maximum number of workers on an agent machine. See [Autoscaling](http://docs.celeryproject.org/en/latest/userguide/workers.html#autoscaling) (Default: `5`)
-      * `remote_execution_port` The default port that will be used to run commands on agents (Default: `22`)
-      * `user` The default user that will be used to connect with agent machines. If not provided, then this will have to be specified in the blueprints in the agent node or type properties
-  * `workflows`
-    * `task_retries` Number of retries for a failing workflow task. -1 means infinite retries (Default: `-1`)
-    * `retry_interval` Minimum wait time (in seconds) in between workflow task retries (Default: `30`)
-  * `bootstrap`
-    * `ssh`
-      * `initial_connectivity_retries` Number of retries for the initial connectivity check with the management server (Default: `25`)
-      * `initial_connectivity_retries_interval` Wait time (in seconds) in between the initial connectivity retries (Default: `5`)
-      * `command_retries` Number of retries for bootstrap commands run via SSH (Default: `3`)
-      * `retries_interval` Wait time (in seconds) in between the command retries (Default: `3`)
-      * `connection_attempts` Number of SSH connection attempts (in a single retry) (Default: `1`)
-      * `socket_timeout` timeout (in seconds) for an SSH connection (Default: `10`)
+Since this section is for generic CLI parameters, documentation for these parameters can be found in the [CLI guide](guide-cli.html#configuration)
 {% endgcloak %}
 
 

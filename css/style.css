@@ -153,8 +153,8 @@ padding:1px 42px 1px 10px;
 
 body {
 	font-family:'Open Sans', Arial, sans-serif;
-	font-size:18px;
-	font-weight:300;
+	font-size:16px;
+	font-weight:350;
 	line-height:1.6em;
 	color:#242323;
 	background:#111111 !important;
@@ -220,7 +220,10 @@ div.subitem a.list-group-item {
 	border-bottom:none;
 }
 a.list-group-item {
-color: #555;
+	color: #555;
+	font-size: 15px;
+	line-height: 1.2em;
+	padding-bottom: 11px;
 }
 a.list-group-item.highlight{color:#00B4DA}
 /* ===================================
@@ -304,7 +307,7 @@ min-height:36px;
   float:right;
 }
 #header-hidden-link a.toggle-link,
-#header-hidden-link a.top-link {
+#header-hidden-link a.top-link{
 	outline:0;
   font-size: 14px;
   line-height: 19px;
@@ -316,7 +319,31 @@ min-height:36px;
   text-decoration: none;
   float:right;
   margin:0 0 0 10px;
+  border-radius:15px;
 }
+.topmenu a.toggle-link.dwnBtn{
+  outline:0;
+  font-size: 14px;
+  line-height: 19px;
+  padding: 5px 10px !important;
+  height: 20px;
+  display: block;
+  text-align: center;
+  text-decoration: none;
+  float:right;
+  margin:0 0 0 28px;
+  border-radius:15px;
+ text-transform:capitalize;
+ background: #00B4DA !important;
+ border:1px solid #00B4DA !important;
+ color: #fefefe !important;
+}
+.topmenu a.toggle-link.dwnBtn:hover,.topmenu a.toggle-link.dwnBtn:active{
+  background: #00a2c4 !important;
+  color: #fefefe !important;
+   border:1px solid #00a2c4 !important;
+}
+#header-hidden-link  a.toggle-link.goProBtn{ border-radius:0 0 15px 15px;}
 
 #header-hidden-link a.toggle-link:active,#header-hidden-link a.toggle-link:focus,#header-hidden-link a.toggle-link:hover {
 	outline:0;
@@ -1188,6 +1215,26 @@ blockquote cite a:visited 				{ color:#555; }
 	padding-right:20px;
 }
 
+.pullquote-top {
+	display:block;
+	color:#a2a2a2;
+	font-family:'Noto Serif', serif;
+	font-size:14px;
+	line-height:1.6em;
+	padding-top:20px;
+
+}
+
+.pullquote-bottom {
+	display:block;
+	color:#a2a2a2;
+	font-family:'Noto Serif', serif;
+	font-size:14px;
+	line-height:1.6em;
+	padding-bottom:20px;
+
+}
+	
 /* --- list style --- */
 
 ul.general {

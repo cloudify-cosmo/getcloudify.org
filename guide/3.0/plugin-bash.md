@@ -3,7 +3,7 @@ layout: bt_wiki
 title: Bash Plugin
 category: Plugins
 publish: true
-abstract: "Cloudify bash pluguin description and configuration"
+abstract: "Cloudify bash plugin description and configuration"
 pageord: 100
 
 yaml_link: http://getcloudify.org/spec/bash-plugin/1.0/plugin.yaml
