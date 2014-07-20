@@ -70,7 +70,7 @@ blueprint:
 {%endhighlight%}
 
 ## Specifying runlist(s)
-Unser `properties` > `chef_config` you must specify either `runlist` or `runlists`.
+Under `properties` > `chef_config` you must specify either `runlist` or `runlists`.
 
 If `runlist` is given, it is used for all lifecycle operations. Example.
 
