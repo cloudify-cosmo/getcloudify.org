@@ -141,7 +141,7 @@ This section applies to both Chef Client and Chef Solo.
 
 To allow integration of Chef, Cloudify supplies custom attributes to Chef. These contain Cloudify information such as properties of the Cloudify node.
 
-### Provided attributes
+### Blueprint provided attributes
 All attributes provided in the blueprint, under `properties` > `chef_config` > `attributes` are passed to Chef.
 
 {%note title=Note%}
