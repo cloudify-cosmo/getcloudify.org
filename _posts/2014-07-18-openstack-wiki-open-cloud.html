@@ -1,0 +1,146 @@
+---
+layout: blogpost
+title: OpenStack Wiki in Short – A Quick Guide to Open Cloud
+image: sharone.jpg
+author: Sharone Zitzman
+tags: 
+ - Open Cloud
+ - OpenStack
+ - OpenStack Neutron
+ - Cloud Orchestration 
+ - Open Source Cloud
+---
+<notextile>
+<img src="/img/blog/openstackdiagram.jpg" alt="OpenStack Wiki - Open Cloud">
+<br/>
+<br/>
+
+<p>In the previous post we had a quick OpenStack tutorial and intro to <a href="http://getcloudify.org/2014/07/10/what-is-openstack-tutorial.html" target="_blank">What is OpenStack</a>. In this post, we will be outlining in short the different OpenStack components, and how they work together.&#160; From OpenStack Cinder through OpenStack Heat, and Trove – this is your quick wiki for everything OpenStack compute, networking, and storage.</p>
+
+<h3><font style="font-weight: bold">Components of Openstack</font></h3>
+
+<p>There are basically eleven components of OpenStack (two of which were just included in the last Icehouse release), below is a quick breakdown of what they are called in OpenStack speak, and what they do.</p>
+
+
+<hr>
+
+<span class="pullquote-left">
+  <h2><font style="font-weight: bold" size="5" face="Baskerville Old Face"><em>Cloudify 3.0 is coming...taking OpenStack Native to a whole new level. Test drive Cloudify. </em></font>&nbsp; &nbsp; <a class="btn btn-large btn-theme btn-rounded" id="downloadBtnInner" href="http://getcloudify.org/downloads/get_cloudify.html" target="_blank"><i class="icon-plus"></i> Go </a></h2></span>
+  
+  <hr>
+
+<p>&#160;</p>
+
+<table cellspacing="0" cellpadding="4" width="600" border="0"><tbody>
+    <tr>
+      <td valign="top" width="300"><strong>Component Name</strong></td>
+
+      <td valign="top" width="300"><strong>Description</strong></td>
+    </tr>
+
+    <tr>
+      <td valign="top" width="300">OpenStack Compute (Nova)</td>
+
+      <td valign="top" width="300">OpenStack compute (codename: Nova) is the component which allows the user to create and manage virtual servers using the machine images. It is the brain of the Cloud. OpenStack compute provisions and manages large networks of virtual machines.</td>
+    </tr>
+
+    <tr>
+      <td valign="top" width="300">Block Storage (Cinder)</td>
+
+      <td valign="top" width="300">This component provides persistent block storage to running instances. The flexible architecture makes creating and managing block storage devices very easy.</td>
+    </tr>
+
+    <tr>
+      <td valign="top" width="300">Object Storage (Swift)</td>
+
+      <td valign="top" width="300">This component stores and retrieves unstructured data objects through the HTTP based APIs. Further, it is also fault tolerant due to its data replication and scale out architecture.</td>
+    </tr>
+
+    <tr>
+      <td valign="top" width="300">OpenStack Networking (Neutron)</td>
+
+      <td valign="top" width="300">It is a pluggable, scalable and API-driven system for managing networks. OpenStack networking is useful for VLAN management, management of IP addresses to different VMs and management of firewalls using these components.</td>
+    </tr>
+
+    <tr>
+      <td valign="top" width="300">Identity Service (Keystone)</td>
+
+      <td valign="top" width="300">This provides a central directory of users mapped to the OpenStack services. It is used to provide an authentication and authorization service for other OpenStack services.</td>
+    </tr>
+
+    <tr>
+      <td valign="top" width="300">OpenStack Image Service (Glance)</td>
+
+      <td valign="top" width="300">This provides the discovery, registration and delivery services for the disk and server images. It stores and retrieves the virtual machine disk image.</td>
+    </tr>
+
+    <tr>
+      <td valign="top" width="300">OpenStack Telemetry Service (Ceilometer)</td>
+
+      <td valign="top" width="300">It monitors the usage of the Cloud services and decides the billing accordingly. This component is also used to decide the scalability and obtain the statistics regarding the usage.</td>
+    </tr>
+
+    <tr>
+      <td valign="top" width="300">Dashboard (Horizon)</td>
+
+      <td valign="top" width="300">This component provides a web-based portal to interact with all the underlying OpenStack services, such as NOVA, Neutron, etc.</td>
+    </tr>
+
+    <tr>
+      <td valign="top" width="300">Orchestration Heat</td>
+
+      <td valign="top" width="300">This component manages multiple Cloud applications through an OpenStack-native REST API and a CloudFormation-compatible Query API.</td>
+    </tr>
+
+    <tr>
+      <td valign="top" width="300">Database as a Service (Trove)</td>
+
+      <td valign="top" width="300">Trove is Database as a Service for OpenStack. It's designed to run entirely on <a href="https://wiki.openstack.org/wiki/OpenStack">OpenStack</a>, with the goal of allowing users to quickly and easily utilize the features of a relational database without the burden of handling complex administrative tasks. Cloud users and database administrators can provision and manage multiple database instances as needed. Initially, the service will focus on providing resource isolation at high performance while automating complex administrative tasks including deployment, configuration, patching, backups, restores, and monitoring.</td>
+    </tr>
+
+    <tr>
+      <td valign="top" width="300">Messaging as a Service (Marconi)</td>
+
+      <td valign="top" width="300">Marconi is a cloud messaging and notification service for developers building applications on top of OpenStack. The service features a web-friendly HTTP API, which developers can use to send messages between the various components of their SaaS and mobile applications, using a variety of communication patterns. Underlying the API is an efficient messaging engine designed with scalability and security in mind.</td>
+    </tr>
+
+    <tr>
+      <td valign="top" width="300">&nbsp;</td>
+
+      <td valign="top" width="300">&nbsp;</td>
+    </tr>
+  </tbody></table>
+
+<p>&#160;</p>
+
+<p>&#160;</p>
+
+<p><strong>Process Workflow</strong></p>
+
+<p>Below is an example of a user who wants to host SUSE Linux. The workflow diagrams given below describe how the process flows in OpenStack.</p>
+
+<p><img src="https://lh4.googleusercontent.com/CLC-qlYnEcpfcQYLHfLMDJkzg2RLpUaHuZmaCTWQfYzY3aiuG7Zhuiirkl6VloTLzWrHvwntpMPqmhhGbdgdNumrx05KmoZr99Xl_eUkALPywYjk8AvqcD5yXUYifD1S7A" width="623" height="250" /><img src="https://lh3.googleusercontent.com/-c8xuAZOqfHDJHnSwxn-mTUZ7gGRuzIlikvqlzKEy96vXkzYkW7-L6Ta57PbXRGyK5aWSPUy3QqUglUfIFU2ibfQcBhOuU9YyQte7ej63sx6A-kF2_P5oWwaMxzv0qQCIA" width="624" height="256" /><img src="https://lh3.googleusercontent.com/8SwVyaH9nOzdAdeBCAnaw0aruFSR1co5fz8l5YLnoDkBa6-RmjNOVQ8Fmj_Po1fv1BCR7IQLJIWZRU2lDZ5xPFcexJFBHQb6_ZgJRHSiw-FfyMT-bQFjeywUH1KS9INqFA" width="624" height="374" /></p>
+
+<p><img src="https://lh6.googleusercontent.com/IfUHtJAuyqwjdVr_9qyxInXi16VL7mws5SojTa3RDkPAfLHf55tjqjm_IaLLaiJntDN-3KhtJ0IzbtjcTS5Tk4YvbTIZmqGfVaOPz43JtSB8YsApIJ_fZO3jbuypOKc-Rw" width="624" height="205" /></p>
+
+<p><img src="https://lh6.googleusercontent.com/G68Sn3ct72ePpBB7Z1tA65QqZmINl4fvSpsjXwt9gsJ_gAvYh7YskcfbvJR4unox_GYF8nwQ31k5-3ZjLHAZYKuBqPUEvpdcBzNqYNV9nqE6sSignsq-IX2Ito-D5B52Bg" width="624" height="151" /></p>
+
+<p>Finally after getting the image, Nova mounts it on a VM host. During the boot process of the VM, it requests Neutron (DHCP component) for an IP address.</p>
+
+<h4><font style="font-weight: bold">Summary Diagram</font></h4>
+
+<p>The diagram given below depicts the intercommunication between all the components of OpenStack.</p>
+
+<p><img src="https://lh5.googleusercontent.com/ooNAMqj2eIpt5mVdKBuzWlnYYoa6EX7O78aOmtT5Xig30wNB1pnakLN47l7Pg6e-039Kb0OvMWxINPnT9WrD0-TWXYlmQSQyBQuN5egWZTy7ChG_AGK80OHhMtTH6nbAqw" width="575" height="352" /></p>
+
+
+
+<p>&#160;</p>
+
+<p>We’ll be bring you more OpenStack 101 posts – so stay tuned.</p>
+
+<p>&#160;</p>
+
+<p>And get ready for <a href="http://getcloudify.org/guide/3.0/" target="_blank">Cloudify 3.0</a>, OpenStack Native, with scalable, multi-tenant workflows.&#160; Stay tuned…</p>
+
+</notextile>
