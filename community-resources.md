@@ -3,30 +3,25 @@ layout: bt_default
 title: Community Resources
 ---
 
-
-<section id="inner-headline" style="margin-bottom:-55px">
+<section id="inner-headline">
 	<div class="container">
 		<div class="row">
-			<div class="span8">
-				<div class="inner-heading">
-					<h1><i class="icon-thumbs-up"></i>&nbsp;&nbsp;<strong>Community Resources</strong></h1>									
-				</div>
-			</div>
-			<div class="span4">
+			<div class="span12">
 				<ul class="breadcrumb">
 					<li><a href="/"><i class="icon-home"></i></a><i class="icon-angle-right"></i></li>
 					<li class="active">Community Resources</li>
 				</ul>
 			</div>
-		</div>
+			<div class="span12">
+				<div class="inner-heading">
+					<h1><i class="icon-thumbs-up"></i>&nbsp;&nbsp;<strong>Community Resources</strong></h1>	
+				</div>
+			</div>
+		</div>			
 	</div>
-	<div class="clear">
-	</div>
-
-
 </section>
 
-<section id="content">
+<section id="content" style="padding-top:0px;">
 	<div class="container" style="min-height:500px;">
 		<div class="row">
 			<div class="span12">
