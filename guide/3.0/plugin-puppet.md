@@ -206,7 +206,7 @@ blueprint:
 {%endhighlight%}
 
 
-## Simple usage example with `cloudify.types.puppet.web_server`
+## Puppet agent simple usage example
 
 This is a minimal example of using Puppet agent to install a web server. The `node_name_prefix` is required in order for Puppet to match the node using `node /^myweb.*$/ { ... }`.
 
@@ -306,10 +306,10 @@ blueprint:
 There are three alternatives for providing manifests.
 
 * [Use Puppet code to fetch the manifests](#use-puppet-code-to-fetch-the-manifests)
-* Download Puppet manifests from a URL
-* Embed Puppet manifests in the blueprint
+* [Download Puppet manifests from a URL](#download-puppet-manifests-from-a-url)
+* [Embed Puppet manifests in the blueprint](#embed-puppet-manifests-in-the-blueprint)
 
-Details for the above options follow.
+Details for the above options follow. Note that you don't have to provide manifests, you can provide Puppet code directly in the manifest under `properties` > `puppet_config` > OPNAME > `execute`, see the example in [Per-operation Puppet manifests or code to execute](#per-operation-puppet-manifests-or-code-to-execute).
 
 ### Use Puppet code to fetch the manifests
 
@@ -335,6 +335,8 @@ blueprint:
       properties:
         puppet_config:
           download: http://manifests.example.com/
+          manifest:
+            start: manifests/site.pp
           ...
 
 {%endhighlight%}
@@ -359,6 +361,8 @@ blueprint:
       properties:
         puppet_config:
           download: /path/to/manifests.tgz
+          manifest:
+            start: manifests/site.pp
           ...
 {%endhighlight%}
 
