@@ -24,6 +24,9 @@ The CLI can run on Windows, Linux and Mac OS. The CLI provides 2 main functions:
 
 * **Managing Applications** - The CLI serves as a REST client versus the Cloudify manager REST interface. It provides the user with the full set of functions for deploying & managing applications including log/event browsing.
 
+![Cloudify components](images/architecture/Cloudify-Achitecture.png)
+
+
 ## The Manager (Orchestrator)
 The Cloudify Manager is a stateful orchestrator that deploys and manages applications decribed in orchestration plans called `blueprints`. The manager's main responsibility is to run automation processes described in workflow scripts and issue execution commands to the agents. The manager's flows and components are discussed in detail below.
 
