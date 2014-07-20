@@ -3,19 +3,63 @@ layout: bt_wiki
 title: Puppet Plugin
 category: Plugins
 publish: true
-abstract: "Cloudify Puppet pluguin description and configuration"
+abstract: "Puppet plugin description and configuration"
 pageord: 110
 
 yaml_link: http://getcloudify.org/spec/puppet-plugin/1.0/plugin.yaml
 ---
 
-{%summary%} The Puppet plugin can be used to map node life cycle operations to Puppet manifests runs. {%endsummary%}
+{%summary%} The Puppet plugin can be used to map node life cycle operations to Puppet manifest runs. {%endsummary%}
 
 # Puppet plugin usage options
 
 Puppet plugin allows you to run either Puppet agent or Puppet standalone.
 
 # Integration
+
+
+## Operation naming
+
+When defining a YAML node, there are several places that contain per-operation configuration. Most of the operations in Cloudify are named `cloudify.interfaces.lifecycle.*` and `cloudify.interfaces.relationship_lifecycle.*`. For convenience, when defining a node, the operation names are shortened so only the last part is used. Example:
+
+{% highlight yaml %}
+imports:
+    - {{page.yaml_link}}
+blueprint:
+  name: example
+  nodes:
+    - name: example_web_server
+      type: cloudify.types.puppet.web_server
+      properties:
+        puppet_config:
+          ...
+          operations_tags:
+            start: my_start_tag  # cloudify.interfaces.lifecycle.start
+            stop: my_stop_tag    # cloudify.interfaces.lifecycle.stop
+{%endhighlight%}
+
+## Puppet version to install
+
+You can specify which Puppet version to install (to use as agent or standalone) under `properties` > `puppet_config` > `version`. Defaults to `3.5.1-1puppetlabs1`. TODO: default version update policy.
+
+Example:
+{% highlight yaml %}
+imports:
+    - {{page.yaml_link}}
+blueprint:
+  name: example
+  nodes:
+    - name: example_web_server
+      type: cloudify.types.puppet.web_server
+      properties:
+        puppet_config:
+          version: 3.5.1-1puppetlabs1
+          server: puppet.example.com
+          environment: myenv
+          node_name_prefix: myweb-
+{%endhighlight%}
+
+
 
 ## Puppet node naming
 
@@ -96,7 +140,7 @@ blueprint:
 * `cloudify_deployment_id` -  The deployment id
 * `cloudify_properties_*` -  Properties of the node for which Puppet is run (see example below)
 * `cloudify_runtime_properties_*` -  Run-time properties of the node for which Puppet is run
-* `cloudify_capabilities_*` -  XXX
+* `cloudify_capabilities_*` -  TODO
 * `cloudify_host_ip` -  IP of the host containing the node for which Puppet is run
 
 ## Cloudify-specific facts for operations involving two nodes:
@@ -133,11 +177,16 @@ The following Puppet/facter facts will be available:
 
 # Puppet agent
 
+TODO: General description of puppet agent usage
+
 ## Requirements
 
-* Existing Puppet server, configured to auto-sign certificates.
+* Existing Puppet server
+  * Configured to [auto-sign certificates](http://docs.puppetlabs.com/puppet/latest/reference/ssl_autosign.html)
+  * Resolvable (DNS or hosts file)
+  * Loaded with appropriate manifests
 
-##  Usage example with `cloudify.types.puppet.web_server`
+## Usage example with `cloudify.types.puppet.web_server`
 
 This is minimal example of using Puppet agent to install a web server. The `node_name_prefix` is required in order for Puppet to match the node using `node /^myweb.*$/ { ... }`.
 
