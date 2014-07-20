@@ -44,7 +44,7 @@ After the box is added, run:
 vagrant up
 ```
 
-Once the cloudify image is up you can access the manager web console through your local browser by pointing the browser to the following url: http://11.0.0.7/
+Once the cloudify image is up you can access the manager web console through your local browser by pointing the browser to [http://11.0.0.7/](http://11.0.0.7/). 
 
 
 ## Step 2: SSH to the Vagrant Box and Connect to the Running Manager
