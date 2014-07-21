@@ -146,6 +146,15 @@ cfy teardown -f --ignore-deployments
 
 In a real cloud deployment, this will terminate the manager VM and delete the resources associated with it. In our case, since the manager is installed on the same machine the CLI is installed on, it will not teardown the machine.
 
-# What's Next
+You can destroy the box by running:
 
-TBD
+{%highlight bash%}
+vagrant destroy -f
+{%endhighlight bash%}
+
+If you want to start the same machine again, just "Up" it once more.
+If you want to completely remove the box from your machine, just run:
+
+{%highlight bash%}
+vagrant box remove cloudify
+{%endhighlight bash%}
