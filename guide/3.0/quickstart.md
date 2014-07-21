@@ -80,7 +80,7 @@ To upload the blueprint type the following command:
 
 {%highlight bash%}
 cfy use localhost
-cfy blueprints upload -b nodecellar1 blueprints/cloudify-nodecellar-singlehost-master/blueprint.yaml
+cfy blueprints upload -b nodecellar1 cloudify-nodecellar-singlehost/blueprint.yaml
 {%endhighlight%}
 
 The `-b` parameter is the unique name we've given to this blueprint on the Cloudify manager. A blueprint is a template of an application stack. Blueprints cannot be materialized on their own. For that you will need to create a deployment, which is essentially an instance of the blueprint (kind of like what an instance is to a class in an OO model). But first let's go back to the web UI and see what this blueprint looks like. Point your browser to the manager URL again, and refresh the screen. You will see the nodecellar blueprint listed there.
