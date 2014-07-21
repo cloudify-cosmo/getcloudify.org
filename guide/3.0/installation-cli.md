@@ -58,7 +58,11 @@ Coming soon, please follow the Python package installation below ([Installing fr
 Installation via PyPi is intended mostly for development purposes. We'll assume you
 have Python and PIP installed and configured on your system.
 
-To install run the following command: `pip install cloudify-cli`
+To install run the following command: 
+
+{% highlight %}
+`pip install cloudify-cli`
+{% endhighlight %}
 
 {%note title=Note%}
 It's recommended to create a [virtualenv]({{ page.venv_link }}) and install the CLI in it. To do so type the following commands (replace virtual-env-name with the name of your choice, e.g. cloudify: 
