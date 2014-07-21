@@ -62,13 +62,13 @@ have Python and PIP installed and configured on your system.
 To install run the following command: 
 
 {% highlight bash %}
-pip install https://github.com/cloudify-cosmo/cloudify-cli/archive/3.0.tar.gz
+pip install cloudify
 {% endhighlight %}
 
 After you've installed the CLI module iteself, you should install the providers you want to work with. Here's how you install the OpenStack provider for example:
 
 {% highlight bash %}
-pip install https://github.com/cloudify-cosmo/cloudify-openstack-provider/archive/1.0.tar.gz
+pip install cloudify-openstack 
 {% endhighlight %}
 
 {%note title=Note%}
