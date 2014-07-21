@@ -42,9 +42,10 @@ which will add the vagrant box to your local machine.
 Note that this downloads a full featured Ubuntu OS with Cloudify and its components installed so this may take some time to add.
 
 After the box is added, run:
+
 {%highlight bash%}
 vagrant up
-{%endhighlight}
+{%endhighlight%}
 
 Once the cloudify image is up you can access the manager web console through your local browser by pointing the browser to [http://11.0.0.7/](http://11.0.0.7/). 
 
@@ -52,9 +53,10 @@ Once the cloudify image is up you can access the manager web console through you
 ## Step 2: SSH to the Vagrant Box and Connect to the Running Manager
 
 Once you've started the Vagrant box, you now have to ssh to it. In your terminal, type:
-```
+
+{%highlight bash%}
 vagrant ssh
-```
+{%endhighlight%}
 
 Next, you can use the Cloudify CLI to connect and interact with the manager.
 
