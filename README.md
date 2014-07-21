@@ -56,7 +56,7 @@ This website is hosted on AWS S3. Every push to this reposiroty triggers a build
 
 ## Authoring Guidelines
 
-You can find these guidelines [here](TBD)
+You can find these guidelines [here](http://getcloudify.org/guide/3.0/cheatsheet.html)
 
 
 
