@@ -2,7 +2,6 @@
 
 This repository contains the markup files, html templates and javascript sources for the new [Cloudify documentation portal](http://getcloudify.org/).
 It's based on [Jekyll](http://jekyllrb.com/), a Ruby-based static site generator, and uses [Markdown]() as a markup language. 
-It was originally ported from Atlassian Confluence, and therefore multiple useful Jekyll [plugins](http://docs.gigaspaces.com/howto/plugin.html) were defined. The plugins mimic the behavior of original Confluene macros to allow for easy migration from Confulence and provide content editor with useful markup extensions that are relevant to online documentation portals.
 
 ## Help Us Improve! 
 
@@ -12,28 +11,21 @@ It's important for us to encourage your feedback and contribution. Contributing 
 
 To run and test the website locally, you should perform the following steps:
 
-* Make sure Ruby and RubyGems are installed.
-
- [Ruby](https://www.ruby-lang.org/en/downloads/)
- [RubyGems](http://getcloudify.org/)
-
+* Install [Ruby](https://www.ruby-lang.org/en/downloads/)
+* Install [RubyGems](https://rubygems.org/pages/download)
 * Install the [Bundler](http://bundler.io/).
 
 	sudo gem install bundler
 
-* If you intend to edit the docs, create a fork of this repo and clone it to your machine.
+* Create a fork of this repo and clone it to your machine.
 
         git clone https://github.com/&lt;your github username&gt;/getcloudify.org.git
 
-  If you just want to run it locally, you can clone this repository:
-
-        git clone https://github.com/Gigaspaces/gigaspaces-wiki-jekyll.git
-
-* cd to the clone directory: 
+* Go to the repository directory: 
 
         cd gigaspaces-wiki-jekyll
 
-* If you're using Windows, run `setup-win.bat` with administrative permissions (requires Windows Vista or later).
+- If you're using Windows, run `setup-win.bat` with administrative permissions (requires Windows Vista or later).
 This script is a workaround for a known issue in git which ignores symbolic links on windows. 
 
 * Make the required changes to the docs (if you need to).
