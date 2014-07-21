@@ -63,15 +63,15 @@ Next, you can use the Cloudify CLI to connect and interact with the manager.
 ## Step 3: Upload the Blueprint and Create a Deployment
 
 Next, we'll upload the sample blueprint and create a deployment based on it.
-
-You can find a directory called `cloudify-nodecellar-singlehost-master` under the `blueprints` folder in your current directory. cd to this directory. You can see the blueprint file (named `blueprint.yaml`) alongside other resources related to this blueprint.
+The blueprint is located under `blueprints/cloudify-nodecellar-singlehost-master/`.
+You can see the blueprint file (named `blueprint.yaml`) alongside other resources related to this blueprint.
 
 To upload the blueprint type the following command:
 
-```
+{%highlight bash%}
 cfy use localhost
-cfy blueprints upload -b nodecellar1 blueprint.yaml
-```
+cfy blueprints upload -b nodecellar1 blueprints/cloudify-nodecellar-singlehost-master/blueprint.yaml
+{%endhighlight%}
 
 The `-b` parameter is the unique name we've given to this blueprint on the Cloudify manager. A blueprint is a template of an application stack. Blueprints cannot be materialized on their own. For that you will need to create a deployment, which is essentially an instance of the blueprint (kind of like what an instance is to a class in an OO model). But first let's go back to the web UI and see what this blueprint looks like. Point your browser to the manager URL again, and refresh the screen. You will see the nodecellar blueprint listed there.
 
@@ -83,9 +83,9 @@ Click the row with the blueprint. You will now see the topology of this blueprin
 
 Next, we need to create a deployment so that we can create this topology in our local environment. To do so, type the following command:
 
-```
+{%highlight bash%}
 cfy deployments create -b nodecellar1 -d nodecellar1
-```
+{%endhighlight%}
 
 With this command we've created a deployment named `nodecellar1` from a blueprint with the same name. This deployment is not yet materialized, since we haven't issued any command to install it. If you click the "Deployments" icon in the left sidebar in the web UI, you will see that all nodes are labeled with 0/1, which means they weren't yet created.
 
@@ -95,9 +95,9 @@ In Cloudify, everything that is executed for a certain deployment is done in the
 In our context, no VM's are created but rather the stack is installed locally.
 To trigger the `install` workflow, type the following command in your terminal:
 
-```
+{%highlight bash%}
 cfy deployments execute -d nodecellar1 install
-```
+{%endhighlight%}
 
 These will take a couple of minutes, during which the resources will be created and configured. To track the progress of the installation, you can look at the events emitted to the terminal windows. Each event is labeled with its time, the deployment name and the node in our topology that it relates to, e.g.
 
@@ -119,9 +119,9 @@ To test the application, you will need to access it using its public IP address.
 
 Uninstalling the deployment is just a matter of running another workflow, which will teardown all the resources that were provisionined by the `install` workflow. To run the uninstallation workflow, type the following command:
 
-```
+{%highlight bash%}
 cfy deployments execute -d nodecellar1 uninstall
-```
+{%endhighlight%}
 
 Similarly to the `install` workflow, you can track the progress of the uninstallation in the CLI or the web UI using the events that are displayed in both. Once the workflow is completed, you can verify that the resources were indeed destroyed.
 In a real cloud deployment, each and every resource provisioned by the deployment will be destroyed. In our case, there aren't any external resources, only application related ones.
@@ -130,9 +130,9 @@ In a real cloud deployment, each and every resource provisioned by the deploymen
 
 Next, you can also teardown the manager if you have no use for it anymore. This can be done by issuing the following command:
 
-```
+{%highlight bash%}
 cfy teardown -f --ignore-deployments
-```
+{%endhighlight bash%}
 
 In a real cloud deployment, this will terminate the manager VM and delete the resources associated with it. In our case, since the manager is installed on the same machine the CLI is installed on, it will not teardown the machine.
 
