@@ -12,7 +12,9 @@ It's important for us to encourage your feedback and contribution. Contributing 
 To run and test the website locally, you should perform the following steps:
 
 * Install [Ruby](https://www.ruby-lang.org/en/downloads/).
+
 * Install [RubyGems](https://rubygems.org/pages/download).
+* 
 * Install [Bundler](http://bundler.io/).
 
         sudo gem install bundler
@@ -36,9 +38,9 @@ This script is a workaround for a known issue in git which ignores symbolic link
         
         
 You should see the following output if everything was ok:
-
+ 
         .....
-	Generating... 
+        Generating... 
                     done.
         Configuration file: ..../getcloudify.org/_config.yml
         Server address: http://0.0.0.0:4000/
