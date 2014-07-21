@@ -9,6 +9,7 @@ pageord: 22
 windows_link: http://gigaspaces-repository-eu.s3.amazonaws.com/org/cloudify3/3.0.0/nightly_6/cloudify-cli_3.0.0-ga-b6.exe
 linux32_link: http://gigaspaces-repository-eu.s3.amazonaws.com/org/cloudify3/3.0.0/nightly_6/cloudify-cli_3.0.0-ga-b6_i386.deb
 linux64_link: http://gigaspaces-repository-eu.s3.amazonaws.com/org/cloudify3/3.0.0/nightly_6/cloudify-cli_3.0.0-ga-b6_amd64.deb
+venv_link: http://virtualenv.readthedocs.org/en/latest/
 ---
 {%summary%}{{page.abstract}}{%endsummary%}
 
@@ -54,6 +55,10 @@ Installation via PyPi is intended mostly for development purposes. We'll assume 
 have Python and PIP installed and configured on your system.
 
 To install run the following command: `pip install cloudify-cli`
+
+{%note title=Note%}
+It's recommended to create a [virtualenv]({{ page.venv_link }}) and install the CLI in it.
+{%endnote%}
 
 ## Pre-requirements for compilation
 Cloudify CLI has dependencies that require compilation on your machine:
