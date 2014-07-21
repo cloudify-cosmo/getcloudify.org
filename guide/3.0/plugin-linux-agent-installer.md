@@ -1,6 +1,6 @@
 ---
 layout: bt_wiki
-title: Cloudify Linux Agent Installer
+title: Linux Agent Installer Plugin
 category: Plugins
 publish: true
 abstract: "Cloudify Linux Agent Installer description and configuration"

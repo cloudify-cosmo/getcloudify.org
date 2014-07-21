@@ -1,6 +1,6 @@
 ---
 layout: bt_wiki
-title: Cloudify 3.0 Architecture
+title: Architecture Overview
 category: Product Overview
 publish: true
 abstract: Explains the architecture and flow of Cloudify 3.0 the DevOps Orchestrator
@@ -23,6 +23,9 @@ The CLI can run on Windows, Linux and Mac OS. The CLI provides 2 main functions:
 * **Manager Bootstrapping**  - The CLI has components named "Providers" that are responsible for using a particular IaaS API in order to setup the networking, security and VM environment required for Cloudify's manager and installing the manager (using the manager packages). This is of course an optional functionality as you may install the manager with your preferred tool.
 
 * **Managing Applications** - The CLI serves as a REST client versus the Cloudify manager REST interface. It provides the user with the full set of functions for deploying & managing applications including log/event browsing.
+
+![Cloudify components](images/architecture/Cloudify-Achitecture.png)
+
 
 ## The Manager (Orchestrator)
 The Cloudify Manager is a stateful orchestrator that deploys and manages applications decribed in orchestration plans called `blueprints`. The manager's main responsibility is to run automation processes described in workflow scripts and issue execution commands to the agents. The manager's flows and components are discussed in detail below.
@@ -169,7 +172,7 @@ In order to execute a workflow use the GUI or the CLI command [`add here`]
 
 
 Workflow execution requires the Workflow itself and a [Topology](#topology)
-The Workflow engine runs the workflow algorithm and in each step processes the selected Nodes. 
+The Workflow engine runs the workflow algorithm and in each step processes the selected Nodes.
 This means that:
 
 1. The Wrokflow reads the node information from the database

@@ -5,6 +5,8 @@ category: Installation
 publish: true
 abstract: How do you go about installing Cloudify?
 pageord: 21
+
+manual_install: installation-manual.html
 ---
 {%summary%}{{page.abstract}}{%endsummary%}
 
@@ -16,7 +18,10 @@ Since it is based on a set of premade packages, it can be deployed using shell s
 
 ## Host Machine
 A Cloudify manager requires at the very least 2GB of RAM, 1 CPU and 5GB of free space.
-NOTE: these are the very basic requirements. You will have to provision larger machines for larger deployments.
+
+{%note title=Note%}
+these are the very basic requirements. You will have to provision larger machines for larger deployments.
+{%endnote%}
 
 ## OS Distributions
 
@@ -54,4 +59,5 @@ NOTE: Centos comes with Python 2.6.6 by default. If you want to use Centos with 
 
 
 # Cloud specific Installations
-See the installation manuals for each cloud provisioner under the Installation section.
+You can bootstrap the management server [manually]({{page.manual_install}}).
+For Cloud specific installation see the bootstrap manuals for each cloud provider under the Installation section.

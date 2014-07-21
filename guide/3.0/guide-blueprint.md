@@ -32,7 +32,7 @@ It includes the following components:
 
 The topology would look like this:
 
-![nodecllar app](images/blueprint/nodecellar_app.png "The nodecellar application topology")
+![nodecllar app](images/guide/nodecellar_topology.png "The nodecellar application topology")
 
 ## Cloudify YAML DSL
 
@@ -313,7 +313,6 @@ as a result the final version of the nodejs node is:
 
 
 Now let’s try and [deploy](quickstart.html) what we have created so far to get a feel of it.
-
 
 ## Step 8: Adding the nodejs Application Code
 
