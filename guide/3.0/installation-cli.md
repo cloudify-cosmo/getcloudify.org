@@ -67,11 +67,11 @@ pip install cloudify-cli
 {%note title=Note%}
 It's recommended to create a [virtualenv]({{ page.venv_link }}) and install the CLI in it. To do so type the following commands (replace virtual-env-name with the name of your choice, e.g. cloudify: 
 
-{% highlight bash %}
+```
 virtualenv virtual-env-name
 cd /virtual-env-name
 source bin/activate
-{% endhighlight %}
+```
 
 {%endnote%}
 
