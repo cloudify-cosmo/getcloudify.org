@@ -148,4 +148,6 @@ In a real cloud deployment, this will terminate the manager VM and delete the re
 
 # What's Next
 
-TBD
+* Try to install the same application on OpenStack by following the [OpenStack Tutorial](quickstart-openstack.html).
+* Learn more about blueprints by following the [Blueprints Tutorial](guide-blueprint.html)
+
