@@ -23,7 +23,7 @@ To run and test the website locally, you should perform the following steps:
 
 * Go to the repository directory: 
 
-        cd gigaspaces-wiki-jekyll
+        cd getcloudify.org
 
 - If you're using Windows, run `setup-win.bat` with administrative permissions (requires Windows Vista or later).
 This script is a workaround for a known issue in git which ignores symbolic links on windows. 
