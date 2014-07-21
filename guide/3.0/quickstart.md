@@ -121,7 +121,7 @@ You can also view the events in the deployment screen in the web UI.
 
 ## Step 6: Test Drive the Application
 
-To test the application, you will need to access it using its public IP address. Go to [11.0.0.7:8080](11.0.0.7:8080) to access it from your web browser. You should see the nodecellar application. Click the "Browse wines" button to verify that the application was installed suceesfully and can access the mongodb database to read the list of wines.
+To test the application, you will need to access it using its public IP address. Go to [http://11.0.0.7:8080](http://11.0.0.7:8080) to access it from your web browser. You should see the nodecellar application. Click the "Browse wines" button to verify that the application was installed suceesfully and can access the mongodb database to read the list of wines.
 
 ![Nodecellar](https://raw.githubusercontent.com/cloudify-cosmo/cloudify-nodecellar-openstack/master/nodecellar.png)
 
