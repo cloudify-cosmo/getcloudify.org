@@ -32,17 +32,20 @@ Before you can deploy this application using Cloudify, you'll need to have the f
 The first thing you'll need to do is download the Vagrant box which contains the Cloudify manager and CLI and the Vagrantfile to run it.
 
 First, download this [Vagrantfile](http://gigaspaces-repository-eu.s3.amazonaws.com/org/cloudify3/3.0.0/nightly_6/Vagrantfile) to your local directory. Then, run
-```
+
+{% highlight bash%}
 vagrant box add http://gigaspaces-repository-eu.s3.amazonaws.com/org/cloudify3/3.0.0/nightly_6/cloudify_3.0.0_virtualbox.box --name=cloudify
-```
+{% endhighlight %}
+
 which will add the vagrant box to your local machine.
 
 Note that this downloads a full featured Ubuntu OS with Cloudify and its components installed so this may take some time to add.
 
 After the box is added, run:
-```
+
+{%highlight bash%}
 vagrant up
-```
+{%endhighlight%}
 
 Once the cloudify image is up you can access the manager web console through your local browser by pointing the browser to [http://11.0.0.7/](http://11.0.0.7/).
 
@@ -50,9 +53,10 @@ Once the cloudify image is up you can access the manager web console through you
 ## Step 2: SSH to the Vagrant Box and Connect to the Running Manager
 
 Once you've started the Vagrant box, you now have to ssh to it. In your terminal, type:
-```
+
+{%highlight bash%}
 vagrant ssh
-```
+{%endhighlight%}
 
 Next, you can use the Cloudify CLI to connect and interact with the manager.
 
@@ -61,9 +65,10 @@ Next, you can use the Cloudify CLI to connect and interact with the manager.
 Now we'll clone the blueprint's repo.
 
 cd to ~/simple/blueprints (incase you weren't already there) and run:
-```
+
+{%highlight bash%}
 git clone https://github.com/cloudify-cosmo/cloudify-nodecellar-singlehost
-```
+{%endhighlight%}
 
 ## Step 4: Upload the Blueprint and Create a Deployment
 
@@ -73,9 +78,10 @@ In the `cloudify-nodecellar-singlehost` directory you just cloned, you can see t
 
 To upload the blueprint type the following command:
 
-```
-cfy blueprints upload -b nodecellar1 blueprint.yaml
-```
+{%highlight bash%}
+cfy use localhost
+cfy blueprints upload -b nodecellar1 blueprints/cloudify-nodecellar-singlehost-master/blueprint.yaml
+{%endhighlight%}
 
 The `-b` parameter is the unique name we've given to this blueprint on the Cloudify manager. A blueprint is a template of an application stack. Blueprints cannot be materialized on their own. For that you will need to create a deployment, which is essentially an instance of the blueprint (kind of like what an instance is to a class in an OO model). But first let's go back to the web UI and see what this blueprint looks like. Point your browser to the manager URL again, and refresh the screen. You will see the nodecellar blueprint listed there.
 
@@ -87,9 +93,9 @@ Click the row with the blueprint. You will now see the topology of this blueprin
 
 Next, we need to create a deployment so that we can create this topology in our local environment. To do so, type the following command:
 
-```
+{%highlight bash%}
 cfy deployments create -b nodecellar1 -d nodecellar1
-```
+{%endhighlight%}
 
 With this command we've created a deployment named `nodecellar1` from a blueprint with the same name. This deployment is not yet materialized, since we haven't issued any command to install it. If you click the "Deployments" icon in the left sidebar in the web UI, you will see that all nodes are labeled with 0/1, which means they weren't yet created.
 
@@ -99,9 +105,9 @@ In Cloudify, everything that is executed for a certain deployment is done in the
 In our context, no VM's are created but rather the stack is installed locally.
 To trigger the `install` workflow, type the following command in your terminal:
 
-```
+{%highlight bash%}
 cfy deployments execute -d nodecellar1 install
-```
+{%endhighlight%}
 
 These will take a couple of minutes, during which the resources will be created and configured. To track the progress of the installation, you can look at the events emitted to the terminal windows. Each event is labeled with its time, the deployment name and the node in our topology that it relates to, e.g.
 
@@ -123,9 +129,9 @@ To test the application, you will need to access it using its public IP address.
 
 Uninstalling the deployment is just a matter of running another workflow, which will teardown all the resources that were provisionined by the `install` workflow. To run the uninstallation workflow, type the following command:
 
-```
+{%highlight bash%}
 cfy deployments execute -d nodecellar1 uninstall
-```
+{%endhighlight%}
 
 Similarly to the `install` workflow, you can track the progress of the uninstallation in the CLI or the web UI using the events that are displayed in both. Once the workflow is completed, you can verify that the resources were indeed destroyed.
 In a real cloud deployment, each and every resource provisioned by the deployment will be destroyed. In our case, there aren't any external resources, only application related ones.
@@ -134,9 +140,9 @@ In a real cloud deployment, each and every resource provisioned by the deploymen
 
 Next, you can also teardown the manager if you have no use for it anymore. This can be done by issuing the following command:
 
-```
+{%highlight bash%}
 cfy teardown -f --ignore-deployments
-```
+{%endhighlight bash%}
 
 In a real cloud deployment, this will terminate the manager VM and delete the resources associated with it. In our case, since the manager is installed on the same machine the CLI is installed on, it will not teardown the machine.
 

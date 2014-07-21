@@ -24,6 +24,7 @@ any intent to use Cloudify CLI for development purpose.
 # Installing the binary package
 
 ## Windows
+
 1. Download the [Setup file]({{ page.windows_link }})
 1. Run the setup file by double clicking on it.
 1. Click 'Next'
@@ -38,6 +39,7 @@ variable for you. Click 'Next' again.
 an output describing how to use `cfy`.
 
 ## Ubuntu
+
 1. Download a deb package that matches your system:
 [32bit]({{ page.linux32_link }}) or
 [64bit]({{ page.linux64_link }})
@@ -48,22 +50,37 @@ an output describing how to use `cfy`.
 describing how to use `cfy`.
 
 ## OS X
-Coming soon
+
+Coming soon, please follow the Python package installation below ([Installing from PyPi](#installing-from-pypi)). 
 
 # Installing from PyPi
+
 Installation via PyPi is intended mostly for development purposes. We'll assume you
 have Python and PIP installed and configured on your system.
 
-To install run the following command: `pip install cloudify-cli`
+To install run the following command: 
+
+{% highlight bash %}
+pip install cloudify-cli
+{% endhighlight %}
 
 {%note title=Note%}
-It's recommended to create a [virtualenv]({{ page.venv_link }}) and install the CLI in it.
+It's recommended to create a [virtualenv]({{ page.venv_link }}) and install the CLI in it. To do so type the following commands (replace virtual-env-name with the name of your choice, e.g. cloudify: 
+
+```
+virtualenv virtual-env-name
+cd /virtual-env-name
+source bin/activate
+```
+
 {%endnote%}
 
-## Pre-requirements for compilation
+## Prerequisites for Compilation
+
 Cloudify CLI has dependencies that require compilation on your machine:
 
 ### Windows
+
 For Windows it's suggested to use [Unofficial Windows Binaries for Python](http://www.lfd.uci.edu/~gohlke/pythonlibs)
 and install the following packages:
 
@@ -71,7 +88,23 @@ and install the following packages:
 2. PyYaml
 
 ### Linux
+
 Under Ubuntu, you'll need to install the `python-dev` package.
 
 ### OS X
+
 You will need Apple's developers tools that are installed with Xcode.
+
+{% note title=Note for Mac users %} One of the libraries that's installed with the OpenStack provider (`pycrypto`) may fail to compile on certain variations of OS X. This seems to be a [known issue](http://stackoverflow.com/questions/19617686/trying-to-install-pycrypto-on-mac-osx-mavericks/22868650#22868650). To solve it, type the following command in your terminal windows and try the installation again: 
+
+{% highlight bash %}
+export CFLAGS=-Qunused-arguments
+export CPPFLAGS=-Qunused-arguments
+{% endhighlight %}
+
+{% endnote %}
+
+
+
+
+
