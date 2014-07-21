@@ -31,9 +31,9 @@ Before you can deploy this application using Cloudify, you'll need to have the f
 
 The first thing you'll need to do is download the Vagrant box which contains the Cloudify manager and CLI and the Vagrantfile to run it.
 
-First, download this [Vagrantfile](url) to your local directory. Then, run
+First, download this [Vagrantfile](http://gigaspaces-repository-eu.s3.amazonaws.com/org/cloudify3/3.0.0/nightly_6/Vagrantfile) to your local directory. Then, run
 ```
-vagrant box add <url> --name=cloudify
+vagrant box add http://gigaspaces-repository-eu.s3.amazonaws.com/org/cloudify3/3.0.0/nightly_6/cloudify_3.0.0_virtualbox.box --name=cloudify
 ```
 which will add the vagrant box to your local machine.
 
@@ -43,6 +43,9 @@ After the box is added, run:
 ```
 vagrant up
 ```
+
+Once the cloudify image is up you can access the manager web console through your local browser by pointing the browser to [http://11.0.0.7/](http://11.0.0.7/). 
+
 
 ## Step 2: SSH to the Vagrant Box and Connect to the Running Manager
 
