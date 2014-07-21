@@ -62,10 +62,10 @@ h2(#q01). *Q: So what is Cloudify anyway?*
  
 h2(#q02). *Q: How is Cloudify different from PaaS platforms like CloudFoundry & OpenShift?*
 
- *A:* Cloudify is not a traditional PaaS framework, although it can be used to build one. PaaS platforms such as Cloud Foundry and OpenShift focus primarily on common application stacks and architectures, and are designed to improve developer productivity by making it easy to develop and deploy new, simple applications. Cloudify, on the other hand, is designed to handle complex, non-trivial apps, that typically have multiple tiers which are not always the usual Ruby / Node / Java stack. By using recipes to model the application, Cloudify allows users to automate the deployment and management of any existing application stack. In addition, it gives the user a much higher degree of control over the application stack itself - you’re not restricted to a specific version of a web server of a specific load balancer implementation, as you are with the usual PaaS platforms. 
+ *A:* Cloudify is not a traditional PaaS framework, although it can be used to build one. PaaS platforms such as Cloud Foundry and OpenShift focus primarily on common application stacks and architectures, and are designed to improve developer productivity by making it easy to develop and deploy new, simple applications. Cloudify, on the other hand, is designed to handle complex, non-trivial apps, that typically have multiple tiers which are not always the usual Ruby, Node, Java stack. By using recipes to model the application, Cloudify allows users to automate the deployment and management of any existing application stack. In addition, it gives the user a much higher degree of control over the application stack itself - you’re not restricted to a specific version of a web server of a specific load balancer implementation, as you are with the usual PaaS platforms. 
 
 
-
+<br/>
 "Back to top":#top
 <hr/>
 
@@ -73,15 +73,15 @@ h2(#q03). *Q: Is Cloudify provided as a service?*
 
  *A:* No, Cloudify is not provided as a service. It’s provided as an open source framework that you can install and use on the cloud of your choice. There  however will be a trial service (coming soon) that lets you give it a test drive online without downloading and installing the software. 
 
-
+<br/>
 "Back to top":#top
 <hr/>
 
 h2(#q04). *Q: What’s the quickest way to try Cloudify out?*
 
- *A:* You will soon be able to point your browser to getcldoudify.org/tryitnow and follow the on screen instructions. This will enable you to test drive Cloudify for a period of 20 minutes without downloading or installing any software.*
+ *A:* Head over to the "Getting Started":http://getcloudify.org/guide/3.0/quickstart.html guide, and follow the instructions. 
  
-
+<br/>
 "Back to top":#top
 <hr/>
 
@@ -91,6 +91,7 @@ h2(#q05A). *Q: How is Cloudify different than configuration management tools lik
  
 Cloudify, on the other hand, looks at things from an application perspective - i.e. given a description of an application stack with all its tiers, their dependencies, and the details for each tier, Cloudify will take all the steps required to realize that application stack. This includes provisioning infrastructure resources on the cloud (compute, storage and network), assigning the right roles to each provisioned VM, configuring this CM (which is typically done by CM tools), injecting the right pieces of information to each tier, starting them up in the right order, and then continuously monitoring the instances of each tier, healing it on failure and scaling that tier when needed. Cloudify can indeed integrate with these CM tools as needed for configuring individual VMs, and in fact this a best practice we encourage our users to follow.
 
+
 "Back to top":#top
 
 <hr/>
@@ -99,6 +100,7 @@ h2(#q05B). *Q: Can I use my existing Chef recipes or Puppet manifests with Cloud
 
  *A:* Yes, Cloudify enables you to leverage any Chef cookbook or Puppet manifest.  So working with either tool is really intuitive with Cloudify.  We have a whole area dedicated to using "Chef":http://getcloudify.org/chef_cloud_configuration_management.html and Puppet with Cloudify, so be sure to check it out if you're using one of these tools.*
 
+ 
 "Back to top":#top
 <hr/>
 
@@ -124,6 +126,7 @@ h2(#q07). *Q: What are the prerequisites for Cloudify?*
 h2(#q08A). *Q: What clouds does Cloudify support anyway? And how does it do it?*
 
  *A:* Cloudify supports pretty much any cloud.  No wait it’s true - hear us out.  There are clouds that are supported out of the box with already available plugins - the most common clouds AWS, OpenStack, CloudStack, Softlayer, and a bunch of others, you can check out our documentation for the full list.
+ 
 If you’re looking to use a cloud that doesn’t have an existing provider - you can write the provider yourself (isn’t open source great?), or you can reach out to us for help.
   
 
@@ -136,6 +139,7 @@ h2(#q08B). *Q: Can Cloudify work within my data center or non-virtualized enviro
 
  *A:* You sure can. Cloudify supports a BYON (bring your own node) provider which basically means you can leverage your existing servers (virtualized or non-virtualized) for deploying and managing Cloudify services.  
 
+ 
  <br/>
 "Back to top":#top
 <hr/>
@@ -153,6 +157,7 @@ h2(#q10). *Q: What other technologies does Cloudify integrate with?*
 
  *A:* Cloudify was built out of the box to work with our favorite technologies - we’re not looking to replace great tools - we just want to work really well with them.  So pretty much any tool you’re used to working with, Cloudify likely supports it. There are the obvious configuration management tools like Chef and Puppet as well as bash (for *nix systems) And PowerShell (for Windows).
 
+ 
 <br/>
 "Back to top":#top
 <hr/>
@@ -174,10 +179,10 @@ h2(#q16). *Q: Can I write my own Cloudify blueprints? How hard is it?*
  From newbie to ninja – somewhere in the vicinity of green belt.  
 If there is a blueprint you need that doesn’t exist in our repo, you can copy the syntax from the existing blueprints and create your own.  Our blueprints are written in YAML so they’re pretty straightforward.  To learn how to get started check out these resources, you can also purchase pro support which offers custom blueprint support.*
 
+
 <br/>
 "Back to top":#top
 <hr/>
-
 
 
 
@@ -185,6 +190,7 @@ h2(#q12). *Q: Can I use Cloudify on a single desktop?*
 
  *A:* Yup.  Cloudify supports Vagrant based installation, which means for testing purposes or any other reason you may have, you can bootstrap Cloudify on your local environment and get started. Read how "here.":http://getcloudify.org/guide/3.0/quickstart.html
 
+ 
 <br/>
 "Back to top":#top
 <hr/>
@@ -199,6 +205,7 @@ h2(#q13). *Q: How does auto-scaling works?*
 <hr/>
 
 h2(#q14). *Q: What do you mean by OpenStack Native?*
+
 Cloudify was designed to be provide out of the box native integration with OpenStack, based on two main guiding principles:
 
 * Integration with OpenStack core and infrastructure services, which usually that includes this full "OpenStack component":http://getcloudify.org/2014/07/18/openstack-wiki-open-cloud.html list - as well as those that are continually being developed and added with every release. 
@@ -215,7 +222,7 @@ With Cloudify 3.0 we have strived to be as closely aligned with these principles
 
 h2(#q15). *Q: So Enterprise Cloudify vs. open source – what’s the deal?*
 
- *A:* Cloudify comes in the free for life open source version that you are able to fork : and customize to your needs, and a Premium edition that includes all of the open source edition's features, and some other goodies.  Learn more about the two versions "here,":http://www.gigaspaces.com/cloudify-cloud-automation/go-pro, and feel free to "get in touch":mailto:info@cloudifysource.org?subject:I'd like to hear more about Cloudify Premium. if you'd like to here more.
+ *A:* Cloudify comes in the free for life open source version that you are able to fork "here":https://github.com/cloudify-cosmo and customize to your needs, and a Premium edition that includes all of the open source edition's features, and some other goodies.  Learn more about the two versions "here":http://www.gigaspaces.com/cloudify-cloud-automation/go-pro, and feel free to "get in touch":mailto:info@cloudifysource.org?subject=I'd%20like%20to%20hear%20more%20about%20Cloudify%20Premium. if you'd like to here more.
 
 <br/>
 "Back to top":#top
@@ -225,14 +232,15 @@ h2(#q15). *Q: So Enterprise Cloudify vs. open source – what’s the deal?*
 h2(#q17). *Q: How about support?*
 
  *A:* Users can purchase support packages for Cloudify. If you choose the Cloudify Premium edition, support is included as part of the package.
-<br/>
+
+ <br/>
 "Back to top":#top
 <hr/>
 
 
 h2(#q18). *Q: Anything else I should know?*
 
- *A:* Can we be corny? We value each and every Cloudify user and community member, so if you have any ideas or feature requests, we love to keep innovating, so definitely reach out and let us know what you’re thinking.
+ *A:* Can we be cheese? We value each and every Cloudify user and community member, so if you have any ideas or feature requests, we love to keep innovating, so definitely reach out and let us know what you’re thinking.
 
  There’s no open source tool without an awesome community to back it.  We hope the site provides you with all the resources you’ll need - docs, blog, video tutorials and more.  And this is the link to our forum.  Be sure to join us and don’t be shy to reach out.
 
