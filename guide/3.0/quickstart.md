@@ -64,7 +64,7 @@ Next, you can use the Cloudify CLI to connect and interact with the manager.
 
 Next, we'll upload the sample blueprint and create a deployment based on it.
 
-You can find a directory called `cloudify-nodecellar-simple` under the `blueprints` folder in your current directory. cd to this directory. You can see the blueprint file (named `blueprint.yaml`) alongside other resources related to this blueprint.
+You can find a directory called `cloudify-nodecellar-singlehost-master` under the `blueprints` folder in your current directory. cd to this directory. You can see the blueprint file (named `blueprint.yaml`) alongside other resources related to this blueprint.
 
 To upload the blueprint type the following command:
 
