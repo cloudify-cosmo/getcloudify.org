@@ -13,7 +13,7 @@ To run and test the website locally, you should perform the following steps:
 
 * Install [Ruby](https://www.ruby-lang.org/en/downloads/)
 * Install [RubyGems](https://rubygems.org/pages/download)
-* Install the [Bundler](http://bundler.io/).
+* Install [Bundler](http://bundler.io/).
 
 	sudo gem install bundler
 
