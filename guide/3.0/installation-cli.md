@@ -60,14 +60,14 @@ have Python and PIP installed and configured on your system.
 
 To install run the following command: 
 
-{% highlight %}
-`pip install cloudify-cli`
+{% highlight bash %}
+pip install cloudify-cli
 {% endhighlight %}
 
 {%note title=Note%}
 It's recommended to create a [virtualenv]({{ page.venv_link }}) and install the CLI in it. To do so type the following commands (replace virtual-env-name with the name of your choice, e.g. cloudify: 
 
-{% highlight %}
+{% highlight bash %}
 virtualenv virtual-env-name
 cd /virtual-env-name
 source bin/activate
@@ -97,7 +97,7 @@ You will need Apple's developers tools that are installed with Xcode.
 
 {% note title=Note for Mac users %} One of the libraries that's installed with the OpenStack provider (`pycrypto`) may fail to compile on certain variations of OS X. This seems to be a [known issue](http://stackoverflow.com/questions/19617686/trying-to-install-pycrypto-on-mac-osx-mavericks/22868650#22868650). To solve it, type the following command in your terminal windows and try the installation again: 
 
-{% highlight %}
+{% highlight bash %}
 export CFLAGS=-Qunused-arguments
 export CPPFLAGS=-Qunused-arguments
 {% endhighlight %}
