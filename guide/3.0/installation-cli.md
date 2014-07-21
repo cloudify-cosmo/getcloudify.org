@@ -91,6 +91,15 @@ Under Ubuntu, you'll need to install the `python-dev` package.
 
 You will need Apple's developers tools that are installed with Xcode.
 
+{% note title=Note for Mac users %} One of the libraries that's installed with the OpenStack provider (`pycrypto`) may fail to compile on certain variations of OS X. This seems to be a [known issue](http://stackoverflow.com/questions/19617686/trying-to-install-pycrypto-on-mac-osx-mavericks/22868650#22868650). To solve it, type the following command in your terminal windows and try the installation again: 
+
+```
+export CFLAGS=-Qunused-arguments
+export CPPFLAGS=-Qunused-arguments
+```
+
+{% endnote %}
+
 
 
 
