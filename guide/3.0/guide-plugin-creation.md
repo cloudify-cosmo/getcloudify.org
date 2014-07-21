@@ -39,9 +39,14 @@ To understand how to map operations to scripts (or actions, depending on the plu
 
 The `ctx` context object contains contextual parameters mirrored from the blueprint along-side additional functionality:
 
+#### Properties
+
 * `ctx.id` - The unique ID of the node's intance.
 * `ctx.properties` - The properties of the node as declared under the `properties` sub-dict.
 * `ctx.runtime_properties` - The properties that are assigned to a **node's instance** at runtime (like ip, related node properties, etc..)
+
+#### Utilities
+
 * `ctx.logger` - a Cloudify specific logging mechanism which you can use to send logs back to the Cloudify manager environment.
 * `ctx.download_resource` - Downloads a given resource.
 * `ctx.get_resource` - Reads a resource's data.
@@ -81,10 +86,6 @@ all of the node's `properties` sub-dict keys are passed to the underlying functi
 In this case, we can put a script_path key with a value containing our script's path and it will be passed to the function.
 
 for now, we'll just pass and implement the logic later.
-
-{%note title=Note%}
-`kwargs` will allow us to use any additional parameters from `properties`.
-{%endnote%}
 
 ## Step 2: Retrieving the script to run
 
