@@ -33,7 +33,7 @@ The first thing you'll need to do is download the Vagrant box which contains the
 
 First, download this [Vagrantfile](http://gigaspaces-repository-eu.s3.amazonaws.com/org/cloudify3/3.0.0/nightly_6/Vagrantfile) to your local directory. Then, run
 
-{% highlight %}
+{% highlight bash%}
 vagrant box add http://gigaspaces-repository-eu.s3.amazonaws.com/org/cloudify3/3.0.0/nightly_6/cloudify_3.0.0_virtualbox.box --name=cloudify
 {% endhighlight %}
 
@@ -42,9 +42,9 @@ which will add the vagrant box to your local machine.
 Note that this downloads a full featured Ubuntu OS with Cloudify and its components installed so this may take some time to add.
 
 After the box is added, run:
-```
+{%highlight bash%}
 vagrant up
-```
+{%endhighlight}
 
 Once the cloudify image is up you can access the manager web console through your local browser by pointing the browser to [http://11.0.0.7/](http://11.0.0.7/). 
 
