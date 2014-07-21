@@ -15,7 +15,7 @@ To run and test the website locally, you should perform the following steps:
 * Install [RubyGems](https://rubygems.org/pages/download).
 * Install [Bundler](http://bundler.io/).
 
-	sudo gem install bundler
+        sudo gem install bundler
 
 * Create a fork of this repo and clone it to your machine.
 
@@ -33,8 +33,10 @@ This script is a workaround for a known issue in git which ignores symbolic link
 * Run Jekyll in server mode, and wait for the site generation to complete: 
 
         jekyll serve
+        
+        
+You should see the following output if everything was ok:
 
-  You should see the following output if everything was ok:
         .....
 	Generating... 
                     done.
