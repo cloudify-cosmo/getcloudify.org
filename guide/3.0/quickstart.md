@@ -69,6 +69,7 @@ You can find a directory called `cloudify-nodecellar-singlehost-master` under th
 To upload the blueprint type the following command:
 
 ```
+cfy use localhost
 cfy blueprints upload -b nodecellar1 blueprint.yaml
 ```
 
