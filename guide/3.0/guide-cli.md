@@ -28,6 +28,8 @@ The flow when bootstrapping is the same for all providers:
 Alternatively, it's also possible to work with an existing manager server, by issuing the command `cfy use {manager_server}`
 
 
+{%note title=Note%}It's highly recommended to initialize and work with the CLI from a designated folder{%endnote%}
+
 A complete command reference page is available [here](reference-cfy.html).
 
 
