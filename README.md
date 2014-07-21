@@ -11,8 +11,8 @@ It's important for us to encourage your feedback and contribution. Contributing 
 
 To run and test the website locally, you should perform the following steps:
 
-* Install [Ruby](https://www.ruby-lang.org/en/downloads/)
-* Install [RubyGems](https://rubygems.org/pages/download)
+* Install [Ruby](https://www.ruby-lang.org/en/downloads/).
+* Install [RubyGems](https://rubygems.org/pages/download).
 * Install [Bundler](http://bundler.io/).
 
 	sudo gem install bundler
