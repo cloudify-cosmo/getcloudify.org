@@ -236,3 +236,13 @@ def get_script_to_run(ctx, script_path=None):
 {%endhighlight%}
 
 That's it! You just wrote your first plugin! All you need now is to incorporate it within your blueprint. Go read the [Blueprint Guide]({{page.blueprint_guide_link}}) for additional info.
+
+
+# Testing your plugin
+
+Coming soon...
+
+
+# Packaging your plugin
+
+Coming soon...
