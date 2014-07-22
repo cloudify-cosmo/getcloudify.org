@@ -64,9 +64,8 @@ Next, you can use the Cloudify CLI to connect and interact with the manager.
 
 Now we'll clone the blueprint's repo.
 
-cd to ~/simple/blueprints (incase you weren't already there) and run:
-
 {%highlight bash%}
+cd ~/simple/blueprints
 git clone https://github.com/cloudify-cosmo/cloudify-nodecellar-singlehost
 {%endhighlight%}
 
@@ -76,11 +75,11 @@ Next, we'll upload the sample blueprint and create a deployment based on it.
 
 In the `cloudify-nodecellar-singlehost` directory you just cloned, you can see the blueprint file (named `blueprint.yaml`) alongside other resources related to this blueprint.
 
-To upload the blueprint type the following command:
+To upload the blueprint:
 
 {%highlight bash%}
-cfy use localhost
-cfy blueprints upload -b nodecellar1 cloudify-nodecellar-singlehost/blueprint.yaml
+cd ~/simple
+cfy blueprints upload -b nodecellar1 blueprints/cloudify-nodecellar-singlehost/blueprint.yaml
 {%endhighlight%}
 
 The `-b` parameter is the unique name we've given to this blueprint on the Cloudify manager. A blueprint is a template of an application stack. Blueprints cannot be materialized on their own. For that you will need to create a deployment, which is essentially an instance of the blueprint (kind of like what an instance is to a class in an OO model). But first let's go back to the web UI and see what this blueprint looks like. Point your browser to the manager URL again, and refresh the screen. You will see the nodecellar blueprint listed there.
@@ -111,9 +110,9 @@ cfy deployments execute -d nodecellar1 install
 
 These will take a couple of minutes, during which the resources will be created and configured. To track the progress of the installation, you can look at the events emitted to the terminal windows. Each event is labeled with its time, the deployment name and the node in our topology that it relates to, e.g.
 
-```
-2014-05-07T12:10:10 CFY <nodecellar1> [neutron_subnet_1100c] Creating node
-```
+{% highlight bash %}
+2014-07-21T15:37:31 CFY <nodecellar1> [mongod_vm_41765] Starting node
+{% endhighlight %}
 
 You can also view the events in the deployment screen in the web UI.
 
@@ -121,7 +120,7 @@ You can also view the events in the deployment screen in the web UI.
 
 ## Step 6: Test Drive the Application
 
-To test the application, you will need to access it using its public IP address. Go to [11.0.0.7:8080](11.0.0.7:8080) to access it from your web browser. You should see the nodecellar application. Click the "Browse wines" button to verify that the application was installed suceesfully and can access the mongodb database to read the list of wines.
+To test the application, you will need to access it using its public IP address. Go to [http://11.0.0.7:8080](http://11.0.0.7:8080) to access it from your web browser. You should see the nodecellar application. Click the "Browse wines" button to verify that the application was installed suceesfully and can access the mongodb database to read the list of wines.
 
 ![Nodecellar](https://raw.githubusercontent.com/cloudify-cosmo/cloudify-nodecellar-openstack/master/nodecellar.png)
 
