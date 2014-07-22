@@ -91,7 +91,7 @@ blueprint:
 If `runlists` is given, you can specify per-operation runlist. Operations with no runlist specified (under `runlists` > OPNAME) will not cause a Chef run.
 
 {%note title=Note%}
-Anywhere a runlist can be specified it can be a string (such as `recipe[my_super_recipe]`) or a list of such strings. See the following example.
+A runlist can be a string (such as `recipe[my_super_recipe]`) or a list of such strings. See the following example.
 {%endnote%}
 
 Example:
@@ -108,8 +108,8 @@ blueprint:
         chef_config:
           ...
           runlists:
-            start: 'recipe[my_org_webserver::start]'  # cloudify.interfaces.lifecycle.start
-            stop:                                     # cloudify.interfaces.lifecycle.stop
+            start: 'recipe[my_org_webserver::start],role[my-org-base]'  # cloudify.interfaces.lifecycle.start
+            stop:                                                       # cloudify.interfaces.lifecycle.stop
               - 'recipe[my_org_webserver::stop]'
               - 'recipe[my_org_webserver::cleanup]'
 {%endhighlight%}
@@ -189,18 +189,18 @@ The following Chef attributes will be available:
 
 ## Importing Chef attributes to runtime properties
 
-After each Chef run Cloudify will automatically store all Chef attributes (as they are seen at the end of Chef run) in runtime properties of the Cloudify node that cause the Chef run. The Chef attributes will be stored under runtime properties > `chef_attributes`.
+After each Chef run, Cloudify will automatically store all the Chef attributes (as they are seen at the end of Chef run) in the runtime properties of the Cloudify node instance that cause the Chef run. The Chef attributes will be stored under runtime properties > `chef_attributes`.
 
 {%note title=Info%}
 For the export purposes, the attributes are stored in a temporary file named `node['cloudify']['attributes_output_file']` (which must not be changed) by Cloudify's Chef handler.
 {%endnote%}
 
-## Using other node's Cloudify properties or Chef attributes 
+## Using other node's Cloudify properties or Chef attributes
 
 When specifying `properties` > `chef_config` > `attributes`, you can use references to runtime properties and/or Chef attributes of other Cloudify nodes.
 
 {%note title=Note%}
-Make sure that the runtime properties and the Chef attributes you are referencing reside in a Cloudify node which already done the required operation (for the properties/attributes to be there). I.e. make sure you have defined the correct relations between the referencing and the referenced nodes.
+Make sure that the runtime properties and the Chef attributes you are referencing reside in a Cloudify node instance which has already done the required operation (for the properties/attributes to be there). I.e. make sure you have defined the correct relations between the referencing and the referenced nodes.
 {%endnote%}
 
 The reference is done using specifically constructed hash in place where the value should be specified. The options are:
@@ -247,7 +247,7 @@ blueprint:
 # Chef Solo
 
 ## Configuration
-* `properties` > `chef_config` > `cookbooks` (required) - URL or relative path in blueprint to a .tar.gz file containing the cookbooks you wish to use. Usually, it's the "cookbooks" directory. For convenience, you can either archive "*" in the directory or "cookbooks/*" in the directory above and Cloudify will handle both cases correctly. Sample values: `http://chef.example.com/v1/cookbooks.tgz`, `/path/to/cookbooks.tgz` (`/` is the top level cookbook directory).
+* `properties` > `chef_config` > `cookbooks` (required) - URL or relative path in blueprint to a .tar.gz file containing the cookbooks you wish to use. Usually, it's the "cookbooks" directory. For convenience, you can use either archive "*" in the directory or "cookbooks/*" in the directory above and Cloudify will handle both cases correctly. Sample values: `http://chef.example.com/v1/cookbooks.tgz`, `/path/to/cookbooks.tgz` (`/` is the top level cookbook directory).
 * `properties` > `chef_config` > `environments`/`data_bags`/`roles` (optional) - same as cookbooks but for environments, data bags and roles.
 * `properties` > `chef_config` > `environment` (optional, Chef v11.8 and later) - Chef environment to use
 
