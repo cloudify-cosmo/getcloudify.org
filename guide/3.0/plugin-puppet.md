@@ -30,12 +30,47 @@ blueprint:
           ...
 {%endhighlight%}
 
+# Types
+
+Node types that can be used for Puppet nodes are listed below. All of them are derived from the corresponding [abstract types](reference-types.html#abstract-types).
+
+* `cloudify.types.puppet.app_module` -- derived from `cloudify.types.app_module`
+* `cloudify.types.puppet.app_server` -- derived from `cloudify.types.app_server`
+* `cloudify.types.puppet.db_server` -- derived from `cloudify.types.db_server`
+* `cloudify.types.puppet.message_bus_server` -- derived from `cloudify.types.message_bus_server`
+* `cloudify.types.puppet.web_server` -- derived from `cloudify.types.web_server`
+
+**Properties:**
+
+In addition to inherited properties all of the Puppet types have the following properties:
+
+* `puppet_config` contains all Puppet specific configuration
+	* `add_operation_tag` (optional) - whether to [add `cloudify_operation_OPNAME` tag](#operation-specific-cloudifyoperationopname-tag)
+	* `download` (only for Puppet standalone, optional) - [URL](#download-puppet-manifests-from-a-url) or [path in blueprint](#embed-puppet-manifests-in-the-blueprint) of a .tar.gz file with manifests.
+	* `environment` (required) - Puppet environment setting.
+	* `execute` (only for Puppet standalone, optional) - [per-operation Puppet code](#per-operation-puppet-manifests-or-code-to-execute).
+		* OPNAME - Puppet code to execute for the OPNAME lifecycle operation.
+	* `facts` (optional) - [Facts to pass to Puppet](#blueprint-specified-puppetfacter-facts)
+	* `manifests` (only for Puppet standalone, optional) - [per-operation manifests to execute](#per-operation-puppet-manifests-or-code-to-execute).
+		* OPNAME - Puppet manifest to execute for the OPNAME lifecycle operation.
+	* `modules` (optional, defaults to empty list) - List of [modules to install](#puppet-modules-installation) for Puppet standalone.
+	* `node_name_prefix` (optional, defaults to empty string) - [Puppet node name](#puppet-node-naming) prefix.
+	* `node_name_suffix` (optional, defaults to empty string) - [Puppet node name](#puppet-node-naming) suffix.
+	* `operations_tags` (optional) - [Per-operation tags](#per-operation-set-of-tags) to pass to Puppet.
+		* OPNAME - Tag or list of tags to pass to Puppet for the OPNAME lifecycle operation.
+	* `repos` (optional) - Custom packages that are used for adding Puppet repository.
+		* `deb` (optional, defaults to http://apt.puppetlabs.com/puppetlabs-release-RELEASENAME.deb)
+	* `tags` (optional) - List of [tags to pass](#pass-given-list-of-tags) to Puppet for all operations.
+	* `server` (only for for Puppet agent, required) - Puppet server to use.
+	* `version` (optional, defaults to `3.5.1-1puppetlabs1`) - [Puppet version to install](#puppet-version-to-install).
+
+
 # Integration
 
 This section describes integration aspects that are common to both Puppet agent and Puppet standalone. Also see [Puppet agent](#puppet-agent) and [Puppet standalone](#puppet-standalone) sections for additional integration details.
 
 
-## Operation naming
+## Lifecycle operations naming
 
 When defining a YAML node, there are several places that contain per-operation configuration. Most of the operations in Cloudify are named `cloudify.interfaces.lifecycle.*` and `cloudify.interfaces.relationship_lifecycle.*`. For convenience, when defining a node, the operation names are shortened so only the last part is used. Example:
 
@@ -398,12 +433,3 @@ blueprint:
 
 See the [examples repository](https://github.com/cloudify-cosmo/cloudify-examples)
 
-# Types
-
-Node types that can be used for Puppet nodes:
-
-* `cloudify.types.puppet.app_module`
-* `cloudify.types.puppet.app_server`
-* `cloudify.types.puppet.db_server`
-* `cloudify.types.puppet.message_bus_server`
-* `cloudify.types.puppet.web_server`
