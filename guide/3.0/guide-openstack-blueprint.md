@@ -8,17 +8,17 @@ pageord: 200
 --- 
 {%summary%} {{page.abstract}}{%endsummary%}
 
-#Adjusting the Nodecellar Blueprint to run on Openstack
+# Adjusting the Nodecellar Blueprint to Run on Openstack
 
 In this section of the tutorial we will learn how to adjust the nodecellar application to run on OpenStack.
-The main differences between the [mock version](quickstart.html) and the Openstack version are:
+The main differences between the [mock version](blueprint-guide.html) and the Openstack version are:
 
 * The OpenStack version creates real virtual machines using the `nova_plugin` that uses the Openstack compute API (Nova)
 * The OpenStack version creates the application security group and floating IP by uses the Openstack network API (Neutron)
 
 # Step by Step Walkthrough
 
-## Step 1: Creating the blueprint
+## Step 1: Creating the Blueprint
 
 Let's start by using the nodecellar blueprint we used in the [blueprint tutorial](blueprint-guide.html)
 
@@ -26,8 +26,8 @@ Let's start by using the nodecellar blueprint we used in the [blueprint tutorial
 git clone https://github.com/cloudify-cosmo/cloudify-nodecellar-singlehost.git
 {%endhighlight%}
 
-You can see the blueprint with the nodes from the nodecellar_local example.
-The first additionwe are going to make to this template is importing the openstack plugins and types
+You can see the blueprint with the nodes from the `nodecellar_local` example.
+The first addition we are going to make to this template is importing the openstack plugins and types
 
 {%highlight yaml%}
 imports:
@@ -35,13 +35,14 @@ imports:
 {%endhighlight%}
 
 
-## Step 2: Adding a security group
+## Step 2: Adding a Security Group
 
-Nowe can start adding the nodes we need.
+Now we can start adding the nodes we need.
 A security group must be added to allow for specific inbound ports to be opened between the application tiers
 The security group node uses the neutron_plugin to create the security group and its rules
 
 {%highlight yaml%}
+
 - name: node_cellar_security_group
       type: cloudify.openstack.security_group
       properties:
@@ -54,21 +55,22 @@ The security group node uses the neutron_plugin to create the security group and
             port: 27017
           - remote_ip_prefix: 0.0.0.0/0
             port: 28017
+
 {%endhighlight%}
 
 Rules can accept the following properties:
-- disable_egress: by default set to false. Set to true if you want only specific egress traffic to be allowed
-- direction: by default is ingress. You can use egress in case you disabled the default all open egress communication 
-- port_range_max: The max bound of the port range to open
-- port_range_min: The min bound of the port range to open
-- protocol: by default set to tcp. You can use udp as well
-- remote_group_id: sets another security group as the source of allowed communication
-- remote_ip_prefix: sets the range of IPs (using CIDR notation) to allow as communication source
+
+* `disable_egress`: by default set to false. Set to true if you want only specific egress traffic to be allowed
+* `direction`: by default is ingress. You can use egress in case you disabled the default all open egress communication 
+* `port_range_max`: The max bound of the port range to open
+* `port_range_min`: The min bound of the port range to open
+* `protocol`: by default set to tcp. You can use udp as well
+* `remote_group_id`: sets another security group as the source of allowed communication
+* `remote_ip_prefix`: sets the range of IPs (using CIDR notation) to allow as communication source
 
 
+## Step 3: Adding the Floating IP
 
-
-## Step 3: Adding the floating IP
 A floating IP provides a constant public IP for the application. we add it using the floatingip type that uses the neutron_plugin
 
 {%highlight yaml%}
@@ -83,7 +85,7 @@ The floating IP declares an external network (in Openstack a network that is con
 
 ## Step 4: Adding the Virtual Machines
 
-The cloudify.openstack.server type is using the nova_plugin to spawn virtual machines over Openstack.
+The `cloudify.openstack.server` type is using the nova_plugin to spawn virtual machines over Openstack.
 
 Adding an instance of this type requires knowledge of the nova API and the allowed arguments.
 
@@ -104,13 +106,15 @@ name: mongod_vm
                 security_groups: ['node_cellar_security_group']
 {%endhighlight%}
 
-some important points to note here:
-- We are using the image ID here but you may want to use the image name in some cases. ou can do this by using image_name
-- In similar manner flavor ID can be replaced with flavor name using flavor_name
+Some important points to note here:
+
+* We are using the image ID here but you may want to use the image name in some cases. ou can do this by using image_name
+* In similar manner flavor ID can be replaced with flavor name using flavor_name
 
 Note the `instances` property that has the `deploy` sub property. This is how we tell the orchestrator how many instances to initially deploy. 
 
 The node.js virtual machine will look the same:
+
 {%highlight yaml%}
 name: nodejs_vm
       type: cloudify.openstack.server
@@ -129,10 +133,9 @@ name: nodejs_vm
 {%endhighlight%}
 
 
-## Step 5: adding a relationsip between the VM and the security groups
+## Step 5: Adding a Relationsip between the VM and the Security Groups
 
-and we need to add a relationship of depwnds_on between the virtual machines and the security group. That is because the security group must be there when we request to spawn the VMs
-
+Now let's add a `depends_on` relationship between the virtual machines and the security group. That is because the security group must be there when we request to spawn the VMs is executed:
 
 {%highlight yaml%}
 name: mongod_vm
@@ -149,5 +152,6 @@ name: mongod_vm
 
 ## Step 6: Running the Application
 
-Now we are ready to run the blueprint. in order to do so we need a Cloudify manager on OpenStack. You may want to read [howto bootstrap Cloudify manager on OpenStack](readthis.html)
+Now we are ready to run the blueprint. Please refer to the [this tutorial](quickstart-openstack.html). 
+
 

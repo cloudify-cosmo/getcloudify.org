@@ -151,7 +151,7 @@ cfy deployments execute -d nodecellar1 install
 These will take a couple of minutes, during which the OpenStack resources and VMs will be create and configured. To track the progress of the installation, you can look at the events emitted to the terminal windows. Each event is labeled with its time, the deployment name and the node in our topology that it relates to, e.g.
 
 {% highlight bash %}
-2014-07-21T12:10:10 CFY <nodecellar1> [neutron_subnet_1100c] Creating node
+2014-07-21T15:37:31 CFY <nodecellar1> [mongod_vm_41765] Starting node
 {% endhighlight %}
 
 You can also view the events in the deployment screen in the web UI. 
