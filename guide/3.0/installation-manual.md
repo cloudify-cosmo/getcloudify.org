@@ -1,6 +1,6 @@
 ---
 layout: bt_wiki
-title: Bootstrap Manually
+title: Bootstrapping Manually
 category: Installation
 publish: true
 abstract: Intalling Cloudify on a local machine

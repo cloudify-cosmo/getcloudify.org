@@ -31,219 +31,218 @@ pageord: 1
 
 
 <span id="#top" />
-* "How do I get Cloudify?":#q01
-* "How do I install Cloudify":#q02
-* "Which clouds do you support?":#q03
-* "Can I remove a service after I deploy an application?":#q04
-* "Can I add a service after I deploy an application?":#q05
-* "I deployed a Tomcat service and now I have a new WAR file. Do I need to re-install the whole application?":#q06
-* "Where can I get updated about new releases?":#q07
-* "What is Cloudify's pricing?":#q08
-* "What application stacks can I use?":#q09
-* "Is Cloudify a service?":#q10
-* "Is Cloudify open source?":#q11
-* "How can I contribute to the Cloudify open source project?":#q16
-* "What does the test-recipe command do?":#q12
-* "Where will the serviceDirectory point to?":#q13
-* "Ant with proxy":#q14
-* "What should I have on my environment prior to using Cloudify?":#q15
-* "Where can I suggest a feature or report a bug?":#q17
-* "How can I set environment variables that will be known to any process of any service?":#q18
+* "So what is Cloudify anyway?":#q01
+* "How is Cloudify different from PaaS platforms like Cloud Foundry & OpenShift?":#q02
+* "Is Cloudify provided as a service?":#q03
+* "What’s the quickest way to try Cloudify out?":#q04
+* "How is Cloudify different than configuration management tools like Chef, Puppet, SaltStack, and Ansible? Can I use Cloudify with these tools?":#q05A
+* "Can I use my existing Chef recipes or Puppet manifests with Cloudify?":#q05B
+* "I’ve been hearing all kinds of buzz words lately – orchestration, automation, DevOps, continuous delivery…what does it all mean?":#q06
+* "What are the prerequisites for Cloudify?":#q07
+* "What clouds does Cloudify support anyway? And how does it do it?":#q08A
+* "Can Cloudify work within my data center or non-virtualized environment, or does it have to have an IaaS infrastructure?":#q08B
+* "I tried installing Cloudify and got an *obnoxious* error – where can I get help?":#q09
+* "What other technologies does Cloudify integrate with?":#q10
+* "How do I get started with Cloudify blueprints, and where do I find them?":#q11
+* "Can I write my own Cloudify blueprints? How hard is it?":#q16
+* "Can I use Cloudify on a single desktop?":#q12
+* "How does auto-scaling works?":#q13
+* "What do you mean by OpenStack Native?":#q14
+* "So Enterprise Cloudify vs. open source – what’s the deal?":#q15
+* "How about support?":#q17
+* "Anything else I should know?":#q18
 
 
-h2(#q01). *Q: How do I get cloudify?*
+h2(#q01). *Q: So what is Cloudify anyway?*
 
- *A:* You can download it "here":http://bit.ly/ztbg9u .
+ *A:* Cloudify is an open source framework that allows you to deploy, manage and scale your applications on the cloud, and we tried to make this as simple as possible. The idea is simple: you model your application using a blueprint, which describes the tiers that make up your application, along with how to install, start and monitor each of these tiers. The blueprint is a collection of text configuration files that contain all of the above. Each Cloudify deployment has one or more managers, which are used to deploy new applications (using the above blueprints), and continuously monitor, scale and heal existing applications. 
 
 <br/>
 <hr/> 
  
-h2(#q02). *Q: How do I install Cloudify?*
+h2(#q02). *Q: How is Cloudify different from PaaS platforms like CloudFoundry & OpenShift?*
 
- *A:* Feel free to check out our documentation -
-* "Installing the Cloudify client":../setup/installing_the_cloudify_client
-* "Command-line reference":../recipe/command_line_reference
+ *A:* Cloudify is not a traditional PaaS framework, although it can be used to build one. PaaS platforms such as Cloud Foundry and OpenShift focus primarily on common application stacks and architectures, and are designed to improve developer productivity by making it easy to develop and deploy new, simple applications. Cloudify, on the other hand, is designed to handle complex, non-trivial apps, that typically have multiple tiers which are not always the usual Ruby, Node, Java stack. By using recipes to model the application, Cloudify allows users to automate the deployment and management of any existing application stack. In addition, it gives the user a much higher degree of control over the application stack itself - you’re not restricted to a specific version of a web server of a specific load balancer implementation, as you are with the usual PaaS platforms. 
+
 
 <br/>
-If you need additional help, you can "contact us.":mailto:cloudifysource@gigaspaces.com
-
-
 "Back to top":#top
 <hr/>
 
-h2(#q03). *Q: Which clouds do you support?*
+h2(#q03). *Q: Is Cloudify provided as a service?*
 
- *A:* Our Cloud Driver has built-in implementations for the following:
-* Microsoft Azure
-* OpenStack
-* Citrix Cloud Stack (Previously Cloud.Com Product)
-* EC2
-* Rackspace
-* Terramark
+ *A:* No, Cloudify is not provided as a service. It’s provided as an open source framework that you can install and use on the cloud of your choice. There  however will be a trial service (coming soon) that lets you give it a test drive online without downloading and installing the software. 
 
 <br/>
-In general: Cloudify works with *any* cloud that supports the "(newwindow)JClouds":http://www.jclouds.org/ API.
-
 "Back to top":#top
 <hr/>
 
-h2(#q04). *Q: Can I remove a service after I deploy an application?*
+h2(#q04). *Q: What’s the quickest way to try Cloudify out?*
 
- *A:* Yes. 
- <br/>
-      Assuming that your service is called myServiceName:
-	  Run the following command from Cloudify CLI: *uninstall-service myServiceName*
- 
-
-"Back to top":#top
-<hr/>
-
-h2(#q05). *Q: Can I add a service after I deploy an application?*
-
- *A:* Yes. 
-      Assuming that your service is called myServiceName and is located in /user/myApps/currApp/:
-	  Run the following command from Cloudify CLI: *install-service /user/myApps/currApp/myServiceName*
-
-"Back to top":#top
-<hr/>
-
-h2(#q06). *Q: I deployed a Tomcat service and now I have a new WAR file.*
- *Do I need to re-install the whole application?*
-
- *A:* You don't need to re-install an application in order to update a WAR file.
-In order to do that, when you install an application, you must add an "updateWar" custom command (in your recipe's custom commands section) to your recipe.
-You can read more about custom commands "here":../developing/custom_commands .
-
-"Back to top":#top
-<hr/>
-
-h2(#q07). *Q: Where can I get updated about new releases?*
-
- *A:*  Our Release notes page is "here":../release_notes/release_notes .
-
- <br/>
-"Back to top":#top
-<hr/>
-
-h2(#q08). *Q: What is Cloudify's pricing?*
-
- *A:* Cloudify has a number of editions, one of which is completely free production usage, with no size limits. The other editions are paid editions, and differ from the free edition in that they include commercial support from GigaSpaces and premium features.  
- You can read about it "here":http://www.gigaspaces.com/cloudify-pricing
-
- <br/>
-"Back to top":#top
-<hr/>
-
-h2(#q09). *Q: What application stacks can I use?*
-
- *A:* Cloudify enables you to on-board any Application onto any Cloud.
- 	We wanted to provide a flexible yet simple mechanism to deploy and manage applications on the cloud. But we also wanted it to be flexible enough to support any kind of application. In other words, we decided that our platform would support your application no matter what application stack you use (Java/Spring, Java EE, PHP, .NET, Ruby on Rails or others), whether you are using a relational (such as MySQL) or non-relational (e.g., Apache Cassandra) data store, or if you choose to add other middleware components. Regardless of your application set-up, you can still use Cloudify to... Cloudify it.
+ *A:* Head over to the "Getting Started":http://getcloudify.org/guide/3.0/quickstart.html guide, and follow the instructions. 
  
 <br/>
 "Back to top":#top
 <hr/>
 
-h2(#q10). *Q: Is Cloudify a service?*
+h2(#q05A). *Q: How is Cloudify different than configuration management tools like Chef, Puppet, SaltStack, and Ansible? Can I use Cloudify with these tools?*
 
- *A:* No, cloudify is a downloadable software product that can run on your laptop, data center or any cloud environment. 
+ *A:* Configuration management (CM) tools are great for configuring individual servers and preparing them for service. Given a server and a desired state, they will make sure to take all the required steps to configure that server so that it ends up in the desired state.* 
+ 
+Cloudify, on the other hand, looks at things from an application perspective - i.e. given a description of an application stack with all its tiers, their dependencies, and the details for each tier, Cloudify will take all the steps required to realize that application stack. This includes provisioning infrastructure resources on the cloud (compute, storage and network), assigning the right roles to each provisioned VM, configuring this CM (which is typically done by CM tools), injecting the right pieces of information to each tier, starting them up in the right order, and then continuously monitoring the instances of each tier, healing it on failure and scaling that tier when needed. Cloudify can indeed integrate with these CM tools as needed for configuring individual VMs, and in fact this a best practice we encourage our users to follow.
 
-<br/>
+
+"Back to top":#top
+
+<hr/>
+
+h2(#q05B). *Q: Can I use my existing Chef recipes or Puppet manifests with Cloudify?*
+
+ *A:* Yes, Cloudify enables you to leverage any Chef cookbook or Puppet manifest.  So working with either tool is really intuitive with Cloudify.  We have a whole area dedicated to using "Chef":http://getcloudify.org/chef_cloud_configuration_management.html and Puppet with Cloudify, so be sure to check it out if you're using one of these tools.*
+
+ 
 "Back to top":#top
 <hr/>
 
+h2(#q06). *Q: I’ve been hearing all kinds of buzz words lately – orchestration, automation, DevOps, continuous delivery…what does it all mean?*
 
-h2(#q11). *Q: Is Cloudify open source?*
+ *A:* Automation usually focuses on specific tasks.  Orchestration is kind of like automation on steroids.  It’s the automation of your automation...what we mean by that, is that it’s the automation of workflows and processes, taking into considering the order in which tasks need to be performed as well.  (For example starting a database before the web server during server provisioning). 
 
- *A:* Most of Cloudify's components are open sourced. The sources can be found on "(newwindow)GitHub":https://github.com/CloudifySource/cloudify and are licensed under the "(newwindow)Apache2 license":http://www.apache.org/licenses/LICENSE-2.0 .
-Some parts of Cloudify are still not open sourced, but we plan to gradually open source most of them over the next few months. 
+To learn more about DevOps - read this post on what it isn’t (stay tuned for an excellent blog post on just this topic). But seriously, it’s in a way a state of mind that encourages the tearing down of silos and communication between dev and ops - and not be afraid to pick up tasks from dev or ops as needed, if its directly related to what you’re working on.
 
-<br/>
+
 "Back to top":#top
 <hr/>
 
-h2(#q16). *Q: How can I contribute to the Cloudify open source project?*
+h2(#q07). *Q: What are the prerequisites for Cloudify?*
 
- *A:* We are more than happy to get your controbutions. You can find all the details on how to become a contributor in "this page":../contribute/how_to.
-<br/>
-"Back to top":#top
-<hr/>
+ *A:*  For running the Cloudify CLI, you need to have JDK 1.6 or higher installed, and set the JAVA_HOME environment variable to point to the JDK installation home. When running on clouds such as OpenStack or Amazon, you need to have proper IaaS credentials and set them properly in Cloudify.
 
 
-
-
-h2(#q12). *Q: What does the test-recipe command do?*
-*What is the difference between test-recipe and install-application?*
-
- *A:* The test-recipe enables you to test one service recipe of yours. <br/> 
-      The test-recipe actually runs a service recipe (and all its lifecycle event handlers).<br/>
-      It does NOT require a bootsrap, nor does it perform one, so obviously, it does NOT create a management machine.
-<br/>
-      P.S. : 
-	   Currently Cloudify does NOT enable you test an application recipe, only a service recipe.
-
-<br/>
-"Back to top":#top
-<hr/>
-
-h2(#q13). *Q: Where will the serviceDirectory point to?*
-*If I have two service instances.*
-*Will the statement ${serviceContext.serviceDirectory} be identical for both them on localcloud?*
-
- *A:* No. 
  <br/>
-      The ${serviceContext.serviceDirectory} is actually the instance's working directory.
+"Back to top":#top
+<hr/>
 
-    <br/>  Each instance has its own working directory on every cloud (public, private and localcloud).
+h2(#q08A). *Q: What clouds does Cloudify support anyway? And how does it do it?*
 
-    <br/>  Assuming that your application is named myApp and your service is named myService:<br/>
-* *On localcloud:*
-** The 1st instance's working directory will be &lt;Cloudify Root&gt;/work/processing-units/myApp_myService_1/ext 
-** The second's will be &lt;Cloudify Root&gt;/work/processing-units/myApp_myService_2/ext.
-* *On a real cloud:* 
-** The 1st instance's working directory will be remoteDirectory/work/processing-units/myApp_myService_1/ext 
-** The second's will be remoteDirectory/work/processing-units/myApp_myService_2/ext.<br/>
+ *A:* Cloudify supports pretty much any cloud.  No wait it’s true - hear us out.  There are clouds that are supported out of the box with already available plugins - the most common clouds AWS, OpenStack, CloudStack, Softlayer, and a bunch of others, you can check out our documentation for the full list.
+ 
+If you’re looking to use a cloud that doesn’t have an existing provider - you can write the provider yourself (isn’t open source great?), or you can reach out to us for help.
+  
 
-<h4 class="info"> Note that remoteDirectory should be set in the provider section in &lt;Cloudify Root&gt;/clouds/YOUR_CLOUD_PROVIDER_NAME/YOUR_CLOUD_PROVIDER_NAME-cloud.groovy .</h4>
+ <br/>
+"Back to top":#top
+
+<hr/>
+
+h2(#q08B). *Q: Can Cloudify work within my data center or non-virtualized environment, or does it have to have an IaaS infrastructure?*
+
+ *A:* You sure can. Cloudify supports a BYON (bring your own node) provider which basically means you can leverage your existing servers (virtualized or non-virtualized) for deploying and managing Cloudify services.  
+
+ 
+ <br/>
+"Back to top":#top
+<hr/>
+
+h2(#q09). *Q: I tried installing Cloudify and got an obnoxious error – where can I get help?*
+
+ *A:* You can post a thread in our forum, or on Stack Exchange, or you can reach out to us directly - we’re always here to help troubleshoot.  We also have office hours every two weeks with open Q&A so you can have hands-on help with someone from our team.
+
  
 <br/>
 "Back to top":#top
 <hr/>
 
-h2(#q14). *Q: Ant with proxy:*
- I am using AntBuilder in my install lifecycle event handler script and I need to get a resource from a url.
- I need a proxy with my http connection.
- How do I make it work ?
+h2(#q10). *Q: What other technologies does Cloudify integrate with?*
 
- *A:* 
+ *A:* Cloudify was built out of the box to work with our favorite technologies - we’re not looking to replace great tools - we just want to work really well with them.  So pretty much any tool you’re used to working with, Cloudify likely supports it. There are the obvious configuration management tools like Chef and Puppet as well as bash (for *nix systems) And PowerShell (for Windows).
 
-    <script src="https://gist.github.com/2137649.js?file=antPorxy.groovy"></script>
+ 
+<br/>
+"Back to top":#top
+<hr/>
+
+
+h2(#q11). *Q: How do I get started with Cloudify blueprints, and where do I find them?*
+
+ *A:* You can find all of the available blueprints in "Github":https://github.com/cloudify-cosmo.  You can take a test drive with the Cloudify widget and interactive shell (coming soon), and see how the blueprints work in action before doing so.  You can also check out our video tutorials :for how to get started with Cloudify blueprints.
+To get started just follow our quick start guide.
+
+
+<br/>
+"Back to top":#top
+<hr/>
+
+h2(#q16). *Q: Can I write my own Cloudify blueprints? How hard is it?*
+
+ *A:*Of course you can. 
+ From newbie to ninja – somewhere in the vicinity of green belt.  
+If there is a blueprint you need that doesn’t exist in our repo, you can copy the syntax from the existing blueprints and create your own.  Our blueprints are written in YAML so they’re pretty straightforward.  To learn how to get started check out these resources, you can also purchase pro support which offers custom blueprint support.*
+
 
 <br/>
 "Back to top":#top
 <hr/>
 
 
-h2(#q15). *Q: What should I have on my environment prior to using Cloudify?*
 
- *A:* You can read about Cloudify's prerequisites "here.":../setup/cloudify_prerequisites
+h2(#q12). *Q: Can I use Cloudify on a single desktop?*
+
+ *A:* Yup.  Cloudify supports Vagrant based installation, which means for testing purposes or any other reason you may have, you can bootstrap Cloudify on your local environment and get started. Read how "here.":http://getcloudify.org/guide/3.0/quickstart.html
+
+ 
+<br/>
+"Back to top":#top
+<hr/>
+
+h2(#q13). *Q: How does auto-scaling works?*
+
+ *A:* Auto-scaling let's you define thresholds and rules to automatically add capacity to your deployment.  You can check out this blog post that discusses this in detail and our docs.*
+
+ 
+<br/>
+"Back to top":#top
+<hr/>
+
+h2(#q14). *Q: What do you mean by OpenStack Native?*
+
+Cloudify was designed to be provide out of the box native integration with OpenStack, based on two main guiding principles:
+
+* Integration with OpenStack core and infrastructure services, which usually that includes this full "OpenStack component":http://getcloudify.org/2014/07/18/openstack-wiki-open-cloud.html list - as well as those that are continually being developed and added with every release. 
+* Follow the OpenStack design principles - OpenStack is written in Python and uses a certain stack for messaging, database and such. To be OpenStack native you should align yourself with the OpenStack design principles as closely much as possible.
+
+With Cloudify 3.0 we have strived to be as closely aligned with these principles, have incorporated the TOSCA standard, and have developed built-in plugins to support all OpenStack components.
+
+
 
 <br/>
 "Back to top":#top
 <hr/>
 
 
-h2(#q17). *Q: Where can I suggest a feature or report a bug?*
+h2(#q15). *Q: So Enterprise Cloudify vs. open source – what’s the deal?*
 
- *A:* We track all our issues in our public "(newwindow)JIRA":https://cloudifysource.atlassian.net/browse/CLOUDIFY.
-"(newwindow image)!../../images/logoJIRAPNG.png!":https://cloudifysource.atlassian.net/browse/CLOUDIFY
+ *A:* Cloudify comes in the free for life open source version that you are able to fork "here":https://github.com/cloudify-cosmo and customize to your needs, and a Premium edition that includes all of the open source edition's features, and some other goodies.  Learn more about the two versions "here":http://www.gigaspaces.com/cloudify-cloud-automation/go-pro, and feel free to "get in touch":mailto:info@cloudifysource.org?subject=I'd%20like%20to%20hear%20more%20about%20Cloudify%20Premium. if you'd like to here more.
+
 <br/>
 "Back to top":#top
 <hr/>
 
 
-h2(#q18). *Q: How can I set environment variables that will be known to any process of any service?*
+h2(#q17). *Q: How about support?*
 
- *A:* You can read about Setting OS variables in the cloud Driver configuration "here.":../clouddrivers/cloud_driver#sos
+ *A:* Users can purchase support packages for Cloudify. If you choose the Cloudify Premium edition, support is included as part of the package.
+
+ <br/>
+"Back to top":#top
+<hr/>
+
+
+h2(#q18). *Q: Anything else I should know?*
+
+ *A:* Can we be cheese? We value each and every Cloudify user and community member, so if you have any ideas or feature requests, we love to keep innovating, so definitely reach out and let us know what you’re thinking.
+
+ There’s no open source tool without an awesome community to back it.  We hope the site provides you with all the resources you’ll need - docs, blog, video tutorials and more.  And this is the link to our forum.  Be sure to join us and don’t be shy to reach out.
 
 <br/>
 "Back to top":#top

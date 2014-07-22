@@ -1,7 +1,7 @@
 ---
 layout: bt_wiki
 title: Cheat Sheet
-category: internal 
+category: internal
 publish: false
 weight:  700
 parent:  none
