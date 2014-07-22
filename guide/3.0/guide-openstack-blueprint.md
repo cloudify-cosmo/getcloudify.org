@@ -59,6 +59,7 @@ The security group node uses the neutron_plugin to create the security group and
 {%endhighlight%}
 
 Rules can accept the following properties:
+
 * `disable_egress`: by default set to false. Set to true if you want only specific egress traffic to be allowed
 * `direction`: by default is ingress. You can use egress in case you disabled the default all open egress communication 
 * `port_range_max`: The max bound of the port range to open
