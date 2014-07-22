@@ -86,3 +86,16 @@ blueprint:
 * `service.successful_consecutive_status_queries_count` Number of status checks after which the status is considered stable (default: `3`)
 * `service.failure_reset_timeout` The period of time with no failures after which the failure count should be reset to 0 (default: `60` unit: seconds)
 * `service.failure_restart_delay` Time to wait before starting the service again after a failure (default: `5000` unit: milliseconds)
+
+# Pre-installed Plugins & Libraries
+
+Cloudify agents comes with the following pre-installed plugins and libraries:
+
+## Libraries
+
+* cloudify-plugins-common (required by every plugin)
+* cloudify-rest-client
+
+## Plugins
+
+* cloudify-windows-plugin-installer-plugin
