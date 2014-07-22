@@ -30,11 +30,29 @@ A deployment is the plan and the state of a single application environment and i
 # **Executions**
 An execution is a running instance of a workflow on a particular deployment. The execution has logs and events associated with it.
 
+# **Interfaces**
+Coming soon...
+
+# **Nodes**
+Coming soon...
+
+# **Packages**
+Coming soon...
+
 # **Plugins**
 Plugins are extensions to the agents that interface with an API or a CLI in order to execute lifecycle events of a component.
 
+# **Properties**
+Coming soon...
+
 # **Providers**
 Providers are python modules that augment the Cloudify CLI and implement the bootstrapping process for a specific cloud environment.
+
+# **Runtime Properties**
+Coming soon...
+
+# **Types**
+Coming soon...
 
 # **Workflows**
 A workflow is an automation process algorithm (described in Python) using dedicated APIs for setting state, reading configuration and state of the components and sending commands for execution. Workflows are executed on the Cloudify workflow engine.
