@@ -39,8 +39,10 @@ tags:
 
 <p>But how about a more elastic deployment where everything is created by automation tools or APIs (clouds as the most prominent example)?&#160; These can change as often as a virtual machine crashes and is replaced by another machine, and when a scale out process is triggered,&#160; whether automatically or manually.&#160; In such an environment (virtualized and elastic), application topology becomes an ever-changing creature, and so it becomes pretty much mission-critical to understand how the topology changes, where these changes have stemmed from, and how they apply to the application model.&#160; Basically, what each node’s function is in the topology model.</p>
 
+<br/>
 <p><img src="/img/cloudifynew3.png" alt="Cloudify 3.0"></p>
 
+<br/>
 
 <p>This is yet another reason why your application setup and automation need to be handled by an application-centric <a href="http://getcloudify.org/cloud_orchestration_cloud_automation.html" target="_blank">orchestration </a>tool, that comes from an application model standpoint.&#160; This is in order to actually create and automate the application, knowing what the application is, how the topology should look, as well as support monitoring of these installation or changed processes.</p>
 
@@ -50,8 +52,11 @@ tags:
 
 <p>On top of this, each automation process is modeled as a workflow that interacts with the topology model translating it into a series of commands to be executed.&#160; Coming from this kind of thinking and modeling it is very easy for Cloudify to give the user a full status of the application topology, whether it’s still in creation, in change or whether it’s just up and running.</p>
 
+<br/>
+
 <p><img src="/img/cloudify5.png" alt="Cloudify 3.0"></p>
 
+<br/>
 
 <p>Cloudify does this by plotting and reporting fine-grained events following each command that executes one of the component’s installation, startup, or manipulation, and even traces the success or failure of that command execution.&#160; The result is a graphical topology with statuses, as well as an events feed in the UI, along with a progress panel for each and every component.</p>
 
