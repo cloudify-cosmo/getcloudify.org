@@ -55,7 +55,10 @@ You must at least have an agent that corresponds with your Manager's distributio
 
 ## Python (Obviously)
 Cloudify does require that you have Python 2.7 and above to run.
-NOTE: Centos comes with Python 2.6.6 by default. If you want to use Centos with Cloudify, you'll have to provide an image with Python 2.7 at least.
+
+{%note title=Note%}
+Centos comes with Python 2.6.6 by default. If you want to use Centos with Cloudify, you'll have to provide an image with Python 2.7.
+{%endnote%}
 
 
 # Cloud specific Installations

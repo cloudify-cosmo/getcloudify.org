@@ -1,10 +1,10 @@
 ---
 layout: bt_wiki
-title: Bootstrap Manually
+title: Bootstrapping Manually
 category: Installation
 publish: true
 abstract: Intalling Cloudify on a local machine
-pageord: 22
+pageord: 29
 
 prereqs_link: installation-general.html
 components_link: http://gigaspaces-repository-eu.s3.amazonaws.com/org/cloudify3/3.0.0/nightly_5/cloudify-components_3.0.0-rc1-b5_amd64.deb
@@ -17,6 +17,8 @@ linux_cli_64_link: http://gigaspaces-repository-eu.s3.amazonaws.com/org/cloudify
 linux_cli_32_link: http://gigaspaces-repository-eu.s3.amazonaws.com/org/cloudify3/3.0.0/nightly_5/cloudify-cli_3.0.0-rc1-b5_i386.deb
 ---
 {%summary%}{{page.abstract}}{%endsummary%}
+
+{%warning title=Disclaimer%}This installation method is aimed at advanced users or if [bootstrapping on an existing VM](installation-simple-provider.html) isn't suitable.{%endwarning%}
 
 You can install Cloudify by directly downloading the packages and installing them on a machine of your choosing (just remember to checkout the [Prerequisites]({{page.prereqs_link}}#prerequisites) before installing.)
 We'll assume you're installing the manager on Ubuntu and using Centos hosts.
