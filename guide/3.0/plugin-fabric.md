@@ -10,7 +10,7 @@ yaml_link: http://getcloudify.org/spec/fabric-plugin/1.0/plugin.yaml
 fabric_link: http://docs.fabfile.org
 ---
 
-{%warning title=Disclaimer%}This plugin is in Alpha and has not been tested.{%endwarning%}
+{%warning title=Disclaimer%}This plugin is in Alpha and has not been thoroughly tested yet.{%endwarning%}
 
 {%summary%} The [Fabric]({{page.fabric_link}}) plugin can be used to map node life cycle operations to ssh commands or Fabric tasks that are included in your blueprint. {%endsummary%}
 The plugin provides an agent-less method for running operations on destination hosts.
@@ -26,7 +26,7 @@ There are 2 modes for working with this plugin.
 * Executing a list of `commands` explicitly specified in the blueprint.
 * Executing a Fabric task from a `tasks_file` which contains the commands to be executed for a specific lifecycle opreation.
 
-## Builtin Types
+## Built-In Types
 
 There are 5 types per execution method.
 

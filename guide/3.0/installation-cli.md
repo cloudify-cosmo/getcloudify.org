@@ -1,6 +1,6 @@
 ---
 layout: bt_wiki
-title: Installing Cloudify CLI
+title: Installing the Cloudify CLI
 category: Installation
 publish: true
 abstract: Installation instructions for Cloudify CLI under multiple platforms
@@ -18,8 +18,9 @@ Cloudify CLI is being distributed in two different methods:
 1. As a binary package
 1. As a Python package (via PyPi)
 
-Installation via a binary package is recommended for all users that do not have
-any intent to use Cloudify CLI for development purpose.
+{% tip title=Which distribution method should you choose? %}
+The binary package is currently bundled with only the OpenStack and simple providers. Providers are essintially modules that allow you to bootstrap a Cloudify manager on a specific cloud environment (e.g. OpenStack or CloudStack). 
+If you wish to use other providers, you should [install the CLI via PyPi](#installing-from-pypi) and then install the provider of your choice (which is also a Python module) in the same Python environment.{% endtip %} 
 
 # Installing the binary package
 
@@ -61,17 +62,23 @@ have Python and PIP installed and configured on your system.
 To install run the following command: 
 
 {% highlight bash %}
-pip install cloudify-cli
+pip install cloudify
+{% endhighlight %}
+
+After you've installed the CLI module iteself, you should install the providers you want to work with. Here's how you install the OpenStack provider for example:
+
+{% highlight bash %}
+pip install cloudify-openstack 
 {% endhighlight %}
 
 {%note title=Note%}
 It's recommended to create a [virtualenv]({{ page.venv_link }}) and install the CLI in it. To do so type the following commands (replace virtual-env-name with the name of your choice, e.g. cloudify: 
 
-```
+{% highlight bash %}
 virtualenv virtual-env-name
-cd /virtual-env-name
+cd virtual-env-name
 source bin/activate
-```
+{% endhighlight %}
 
 {%endnote%}
 
