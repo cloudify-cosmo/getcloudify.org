@@ -50,3 +50,18 @@ blueprint:
 * `wait_started_timeout` How many seconds should be waited for the agent to be started after installation before raising an error (default: `15`)
 * `wait_started_interval` How many seconds to wait between each probe of the current agent status (default: `1`. used in conjunction with `wait_started timeout`)
 * `disable_requiretty` Disables the `requiretty` setting in the sudoers file (default: `true`)
+
+# Pre-installed Plugins & Libraries
+
+Cloudify agents comes with the following pre-installed plugins and libraries:
+
+## Libraries
+
+* cloudify-plugins-common (required by every plugin)
+* cloudify-rest-client
+
+## Plugins
+
+* cloudify-agent-installer-plugin
+* cloudify-plugin-installer-plugin
+* cloudify-windows-agent-installer-plugin
