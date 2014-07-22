@@ -11,14 +11,15 @@ template_link: https://github.com/cloudify-cosmo/cloudify-plugin-template
 blueprint_guide_link: guide-blueprint.html
 plugins_common_link: https://github.com/cloudify-cosmo/cloudify-plugins-common
 plugins_common_ref_link: reference-plugins-common.html
+architecture_link: overview-architecture.html
 ---
 {%summary%} {{page.abstract}}{%endsummary%}
 
 # Overview
 
-In this tutorial we will create a plugin whose sole purpose is to run a python script (based on our home made [Python Plugin]({{page.plugin_link}}))
+To understand what a plugin represents, please refer to the plugins section in the [Architecture Overview]({{page.architecture_link}}).
 
-Cloudify uses plugins to perform different actions on destination machines (like run Chef recipes, execute bash scripts, install and configure components, etc..)
+In this tutorial we will create a plugin whose sole purpose is to run a python script. We will base the creation process on our home made [Python Plugin]({{page.plugin_link}}).
 
 
 # Requirements
@@ -27,8 +28,10 @@ To write the plugin, we will use 2 objects that allow us to interact with Cloudi
 Both objects are imported from [plugins-common]({{page.plugins_common_link}}), a Cloudify-specific python module which provides commonly used methods to use in different plugins. A reference to the plugins-common module can be found [here]({{page.plugins_common_link}}).
 
 {%note title=Note%}
-The plugins-common module is a MANDATORY module for writing a Cloudify plugin.
+The plugins-common module is a **mandantory** module for writing a Cloudify plugin and must be included in its dependencies.
 {%endnote%}
+
+The two objects are:
 
 ### Operation
 
@@ -39,18 +42,18 @@ To understand how to map operations to scripts (or actions, depending on the plu
 
 The `ctx` context object contains contextual parameters mirrored from the blueprint along-side additional functionality:
 
-#### Properties
+#### Properties context objects
 
 * `ctx.id` - The unique ID of the node's intance.
-* `ctx.properties` - The properties of the node as declared under the `properties` sub-dict.
-* `ctx.runtime_properties` - The properties that are assigned to a **node's instance** at runtime (like ip, related node properties, etc..)
+* `ctx.properties` - The properties of the node as declared under the `properties` dict.
+* `ctx.runtime_properties` - The properties that are assigned to a **node's instance** at runtime. These properties are either populated by the plugin itself (for instance, an automatically generated port that the plugin exposes when it's run), or are generated prior to the innvocation of the plugin (for instance, the ip of the machine the plugin is running on).
 
-#### Utilities
+#### Utility context objects
 
 * `ctx.logger` - a Cloudify specific logging mechanism which you can use to send logs back to the Cloudify manager environment.
 * `ctx.download_resource` - Downloads a given resource.
 * `ctx.get_resource` - Reads a resource's data.
-* `ctx.update` - Updates the node's runtime properties.
+* `ctx.update` - Updates the node's runtime properties. This is called each time an operation ends, thus it is only useful in the context of a single operation.
 
 We'll be using some of those in the implmenetation.
 
@@ -76,14 +79,13 @@ from cloudify.decorators import operation
 
 
 @operation
-def run(ctx, script_path=None, **kwargs):
+def run(ctx):
     pass
 {%endhighlight%}
 
 as you can see, you also get the aforementioned `ctx` object which you can now use.
-all of the node's `properties` sub-dict keys are passed to the underlying function when decorating a function using `operation`.
 
-In this case, we can put a script_path key with a value containing our script's path and it will be passed to the function.
+In this case, we can put a script_path key with a value containing our script's path and it will be passed in the `ctx` object.
 
 for now, we'll just pass and implement the logic later.
 
@@ -99,17 +101,17 @@ from cloudify.decorators import operation
 
 
 @operation
-def run(ctx, script_path=None, **kwargs):
+def run(ctx):
     pass
 
 
-def get_script_to_run(ctx, script_path=None, **kwargs):
-    if script_path:
-        return ctx.download_resource(script_path)
+def get_script_to_run(ctx):
+    if ctx.properties['script_path']:
+        return ctx.download_resource(ctx.properties['script_path'])
 {%endhighlight%}
 
 Explanation:
-If the `script_path` key was defined in the `properties` sub-dict, we will use the `download_resource` function to download the script and return its path.
+If the `script_path` key was defined in the `properties` dict, we will use the `download_resource` function to download the script and return its path.
 
 In the next step, if an explicit script_path was not specified in the blueprint, we will check if a script was assigned to a specific operation.
 
@@ -118,13 +120,13 @@ from cloudify.decorators import operation
 
 
 @operation
-def run(ctx, script_path=None, **kwargs):
+def run(ctx):
     pass
 
 
-def get_script_to_run(ctx, script_path=None):
-    if script_path:
-        return ctx.download_resource(script_path)
+def get_script_to_run(ctx):
+    if ctx.properties['script_path']:
+        return ctx.download_resource(ctx.properties['script_path'])
     if 'scripts' in ctx.properties:
         operation_simple_name = ctx.operation.split('.')[-1:].pop()
         scripts = ctx.properties['scripts']
@@ -137,34 +139,30 @@ def get_script_to_run(ctx, script_path=None):
 
 Explanation:
 
-* We check if a `scripts` key is found in the `properties` sub-dict.
-* `operation_simple_name` is our way of extracting the name of the operation we'd like to perform and use it in the context of the execution. A good example of that would be:
-
-{%highlight yaml%}
-properties:
-    scripts:
-        create: /path/to/create_script.py
-{%endhighlight%}
+* We check if a `scripts` key is found in the `properties` dict.
+* `operation_simple_name` is our way of extracting the name of the operation we'd like to perform and use it in the context of the execution. We won't get into its implementation now.
 
 * if we could not find a script assigned to the task, we will return `None` stating that a mapping of a script to that operation does not exist.
 * otherwise, we will download the relevant script and return its path to the calling function.
 
 {%note title=Note%}
-It is the plugin developer's responsibility to define the keys which will be used under the node's `properties`.
+It is the plugin developer's responsibility to define the keys which will be used under the node's `properties`. To better understand how to structure these properties, see the [Blueprint Guide]({{page.blueprint_guide_link}})
 {%endnote%}
+
+Next, we'll just raise an exception if the script was not found.
 
 {%highlight python%}
 from cloudify.decorators import operation
 
 
 @operation
-def run(ctx, script_path=None, **kwargs):
+def run(ctx):
     pass
 
 
-def get_script_to_run(ctx, script_path=None):
-    if script_path:
-        return ctx.download_resource(script_path)
+def get_script_to_run(ctx):
+    if ctx.properties['script_path']:
+        return ctx.download_resource(ctx.properties['script_path'])
     if 'scripts' in ctx.properties:
         operation_simple_name = ctx.operation.split('.')[-1:].pop()
         scripts = ctx.properties['scripts']
@@ -177,26 +175,25 @@ def get_script_to_run(ctx, script_path=None):
     raise RuntimeError('No script to run')
 {%endhighlight%}
 
-If a script was not found, we'll raise an exception.
 
 ## Step 3: Running the script
 
-Let's get back to our decorator function.
+Let's get back to our decorated function.
 
-Now, after we can retrieve the script we want to run, we can do the following:
+Now, we can get the script's path so that we can execute it:
 
 {%highlight python%}
 from cloudify.decorators import operation
 
 
 @operation
-def run(ctx, script_path=None, **kwargs):
-    script_to_run = get_script_to_run(ctx, script_path)
+def run(ctx):
+    script_to_run = get_script_to_run(ctx, ctx.properties['script_path'])
 
 
-def get_script_to_run(ctx, script_path=None):
-    if script_path:
-        return ctx.download_resource(script_path)
+def get_script_to_run(ctx):
+    if ctx.properties['script_path']:
+        return ctx.download_resource(ctx.properties['script_path'])
     if 'scripts' in ctx.properties:
         operation_simple_name = ctx.operation.split('.')[-1:].pop()
         scripts = ctx.properties['scripts']
@@ -209,7 +206,7 @@ def get_script_to_run(ctx, script_path=None):
     raise RuntimeError('No script to run')
 {%endhighlight%}
 
-afterwhich, if a script path exists, we want to execute the script, so we'll do:
+ afterwhich, if a script path exists, we would want to execute the script, so we'll execute the script:
 
 {%highlight python%}
 from cloudify.decorators import operation
@@ -238,4 +235,4 @@ def get_script_to_run(ctx, script_path=None):
     raise RuntimeError('No script to run')
 {%endhighlight%}
 
-That's it! You just wrote your first plugin! All you need now is to incorporate it within your blueprint. Go read the [Blueprint Guide]({{page.blueprint_guide_link}}) for additiona info.
+That's it! You just wrote your first plugin! All you need now is to incorporate it within your blueprint. Go read the [Blueprint Guide]({{page.blueprint_guide_link}}) for additional info.
