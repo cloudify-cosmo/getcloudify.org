@@ -26,11 +26,11 @@ The plugin definition and predefined types can be found at:
 
 The predefined types are:
 
-* `cloudify.types.bash.web_server`
+* `cloudify.types.bash.app_module`
 * `cloudify.types.bash.app_server`
 * `cloudify.types.bash.db_server`
 * `cloudify.types.bash.message_bus_server`
-* `cloudify.types.bash.app_module`
+* `cloudify.types.bash.web_server`
 
 ###  Usage example with `cloudify.types.bash.web_server`
 
