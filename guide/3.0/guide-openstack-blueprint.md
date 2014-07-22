@@ -11,13 +11,15 @@ pageord: 200
 #Adjusting the Nodecellar Blueprint to run on Openstack
 
 In this section of the tutorial we will learn how to adjust the nodecellar application to run on OpenStack.
-The main differences between the mock version and the Openstack version are:
-* Create real virtual machines using the nova_plugin that uses the Openstack compute API (Nova)
-* Create the application security group and floating IP that uses the Openstack network API (Neutron)
+The main differences between the [mock version](quickstart.html) and the Openstack version are:
 
-#Step by Step Walkthrough
+* The OpenStack version creates real virtual machines using the `nova_plugin` that uses the Openstack compute API (Nova)
+* The OpenStack version creates the application security group and floating IP by uses the Openstack network API (Neutron)
 
-##Step 1: Creating the blueprint
+# Step by Step Walkthrough
+
+## Step 1: Creating the blueprint
+
 Let's start by using the nodecellar blueprint we used in the [blueprint tutorial](blueprint-guide.html)
 
 {%highlight yaml%}
@@ -33,7 +35,8 @@ imports:
 {%endhighlight%}
 
 
-##Step 2: Adding a security group
+## Step 2: Adding a security group
+
 Nowe can start adding the nodes we need.
 A security group must be added to allow for specific inbound ports to be opened between the application tiers
 The security group node uses the neutron_plugin to create the security group and its rules
@@ -65,7 +68,7 @@ Rules can accept the following properties:
 
 
 
-##Step 3: Adding the floating IP
+## Step 3: Adding the floating IP
 A floating IP provides a constant public IP for the application. we add it using the floatingip type that uses the neutron_plugin
 
 {%highlight yaml%}
@@ -78,7 +81,7 @@ A floating IP provides a constant public IP for the application. we add it using
 
 The floating IP declares an external network (in Openstack a network that is connected to the internet) as a property
 
-##Step 4: Adding the Virtual Machines
+## Step 4: Adding the Virtual Machines
 
 The cloudify.openstack.server type is using the nova_plugin to spawn virtual machines over Openstack.
 
@@ -126,7 +129,7 @@ name: nodejs_vm
 {%endhighlight%}
 
 
-##Step 5: adding a relationsip between the VM and the security groups
+## Step 5: adding a relationsip between the VM and the security groups
 
 and we need to add a relationship of depwnds_on between the virtual machines and the security group. That is because the security group must be there when we request to spawn the VMs
 
@@ -144,6 +147,7 @@ name: mongod_vm
 {%endhighlight%}
 
 
-##Step 6: Running the Application
+## Step 6: Running the Application
+
 Now we are ready to run the blueprint. in order to do so we need a Cloudify manager on OpenStack. You may want to read [howto bootstrap Cloudify manager on OpenStack](readthis.html)
 
