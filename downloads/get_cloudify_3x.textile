@@ -4,30 +4,26 @@ title: Get Cloudify
 cat: User Guide
 ---
 
-
-<section id="inner-headline" style="margin-bottom:-55px">
+<section id="inner-headline">
 	<div class="container">
 		<div class="row">
-			<div class="span8">
-				<div class="inner-heading">
-					<h1><i class="icon-download"></i><strong>Cloudify 3.0 Downloads</strong></h1>									
-				</div>
-			</div>
-			<div class="span4">
+			<div class="span12">
 				<ul class="breadcrumb">
 					<li><a href="/"><i class="icon-home"></i></a><i class="icon-angle-right"></i></li>
 					<li><a href="/downloads/get_cloudify.html">Download</a><i class="icon-angle-right"></i></li>
-					<li class="active">Previous Releases</li>
+					<li class="active">3.0</li>
 				</ul>
 			</div>
-		</div>
+			<div class="span12">
+				<div class="inner-heading">
+					<h1><i class="icon-download"></i>&nbsp;&nbsp;<strong>Cloudify 3.0 Downloads</strong></h1>	
+				</div>
+			</div>
+		</div>			
 	</div>
-
-	<div class="clear"></div>
-
 </section>
 
-<section id="content">
+<section id="content" style="padding-top:0px;">
 	<div class="container" style="height:500px;">
 		<div class="row">
 			<div class="span12">
@@ -36,11 +32,11 @@ cat: User Guide
 					<td style="background-color:transparent;width:45%">
 						<h2><strong>Getting Started Vagrant Resources</strong></h2>						
 						<p>
-						The Vagarnt box and Vagrant file below contain a complete manager and CLI installation. For more details on how to get started with them please follow the Cloudify 3.0 <a href="/guide/3.0/quickstart.html">Getting Started Guide</a>.  
+						The Vagrant box and Vagrant file below contain a complete manager and CLI installation. For more details on how to get started with them please follow the Cloudify 3.0 <a href="/guide/3.0/quickstart.html">Getting Started Guide</a>.  
 						</p>
 						{% note %}The Vagrant resources below are only provided for getting started and demoing purposes and should not be used in production.{% endnote %}
-						<i class="icon-30 icon-download-alt"></i><a href="#">Vagrant Box (~1.5GB)</a></br>
-						<i class="icon-30 icon-download-alt"></i><a href="#">Vagrant File</a>
+						<a href="http://gigaspaces-repository-eu.s3.amazonaws.com/org/cloudify3/3.0.0/nightly_6/cloudify_3.0.0_virtualbox.box"><i class="icon-30 icon-download-alt"></i>&nbsp;Vagrant Box (~1.5GB)</a></br>
+						<a href="http://gigaspaces-repository-eu.s3.amazonaws.com/org/cloudify3/3.0.0/nightly_6/Vagrantfile"><i class="icon-30 icon-download-alt"></i>&nbsp;Vagrant File</a>
 					</td>
 					<td style="background-color:transparent;width:10%"></td>
 					<td style="background-color:transparent;">
@@ -48,11 +44,11 @@ cat: User Guide
 						<p>
 							The CLI installer installs the Cloudify CLI and enables you to boostrap a Cloudify manager, interact with it and manage blueprints and deployments. Refer to the <a href="/guide/3.0/guide-cli.html">CLI guide</a> for more details. For boostrapping directions refer to the boostrapping tutorials for the cloud of your choice. 
 						</p>
-						{% info %}To install the CLI on operating systems other than the ones listed below please refer to the [CLI installation guide](http://getcloudify.org/guide/3.0/guide-cli.html).{% endinfo %}
+						{% info %}To install the CLI on operating systems other than the ones listed below please refer to the [CLI installation guide](/guide/3.0/guide-cli.html).{% endinfo %}
 
-						<i class="icon-30 icon-download-alt"></i><a href="http://gigaspaces-repository-eu.s3.amazonaws.com/org/cloudify3/3.0.0/nightly_6/cloudify-cli_3.0.0-ga-b6_amd64.deb">Ubuntu/Debian 64</a></br>
-						<i class="icon-30 icon-download-alt"></i><a href="http://gigaspaces-repository-eu.s3.amazonaws.com/org/cloudify3/3.0.0/nightly_6/cloudify-cli_3.0.0-ga-b6_i386.deb">Ubuntu/Debian 32</a></br>
-						<i class="icon-30 icon-download-alt"></i><a href="http://gigaspaces-repository-eu.s3.amazonaws.com/org/cloudify3/3.0.0/nightly_6/cloudify-cli_3.0.0-ga-b6.exe">Windows</a></br>
+						<a href="http://gigaspaces-repository-eu.s3.amazonaws.com/org/cloudify3/3.0.0/nightly_6/cloudify-cli_3.0.0-ga-b6_amd64.deb"><i class="icon-30 icon-download-alt"></i>&nbsp;Ubuntu/Debian 64</a></br>
+						<a href="http://gigaspaces-repository-eu.s3.amazonaws.com/org/cloudify3/3.0.0/nightly_6/cloudify-cli_3.0.0-ga-b6_i386.deb"><i class="icon-30 icon-download-alt"></i>&nbsp;Ubuntu/Debian 32</a></br>
+						<a href="http://gigaspaces-repository-eu.s3.amazonaws.com/org/cloudify3/3.0.0/nightly_6/cloudify-cli_3.0.0-ga-b6.exe"><i class="icon-30 icon-download-alt"></i>&nbsp;Windows</a></br>
 
 					</td>
 				</tr>
@@ -60,17 +56,24 @@ cat: User Guide
 					<td style="width:45%;background-color:transparent;">
 						<h2><strong>Cloudify Manager Packages</strong></h2>
 						<p>
-							The resources below form the individual Cloudify 3 packages that are installed on the server and application VM side. All componets are installed in the manager VM, and the Cloudify agent is installed ny default (although this can be overridden) on every new VM that is created by the manager as part of the installation of a specific deployent. Please refere the <a href="/guide/3.0/installation-general.html">cloudify installation page</a> for more details about each of the packages.  
+							The resources below form the individual Cloudify 3 packages that are installed on the server and application VM side. All componets are installed in the manager VM, and the Cloudify agent is installed by default (although this can be overridden) on every new VM that is created by the manager as part of the installation of a specific deployment. Please refer to the <a href="/guide/3.0/installation-general.html">cloudify installation page</a> for more details about each of the packages.  
 						</p>
-						<i class="icon-30 icon-download-alt"></i><a href="http://gigaspaces-repository-eu.s3.amazonaws.com/org/cloudify3/3.0.0/nightly_6/cloudify-core_3.0.0-ga-b6_amd64.deb">Core</a></br>
-						<i class="icon-30 icon-download-alt"></i><a href="http://gigaspaces-repository-eu.s3.amazonaws.com/org/cloudify3/3.0.0/nightly_6/cloudify-components_3.0.0-ga-b6_amd64.deb">Components</a></br>
-						<i class="icon-30 icon-download-alt"></i><a href="http://gigaspaces-repository-eu.s3.amazonaws.com/org/cloudify3/3.0.0/nightly_6/cloudify-ubuntu-agent_3.0.0-ga-b6_amd64.deb">Ubuntu Agent</a></br>
-						<i class="icon-30 icon-download-alt"></i><a href="http://gigaspaces-repository-eu.s3.amazonaws.com/org/cloudify3/3.0.0/nightly_6/cloudify-centos-agent_3.0.0-ga-b6_amd64.deb">CentOS Agent</a></br>
-						<i class="icon-30 icon-download-alt"></i><a href="http://gigaspaces-repository-eu.s3.amazonaws.com/org/cloudify3/3.0.0/nightly_6/cloudify-windows-agent_3.0.0-ga-b6_amd64.deb">Windows Agent</a></br>
-						<i class="icon-30 icon-download-alt"></i><a href="http://gigaspaces-repository-eu.s3.amazonaws.com/org/cloudify3/3.0.0/nightly_6/cloudify-ui_3.0.0-ga-b6_amd64.deb">UI</a></br>
+						<a href="http://gigaspaces-repository-eu.s3.amazonaws.com/org/cloudify3/3.0.0/nightly_6/cloudify-core_3.0.0-ga-b6_amd64.deb"><i class="icon-30 icon-download-alt"></i>&nbsp;Core</a></br>
+						<a href="http://gigaspaces-repository-eu.s3.amazonaws.com/org/cloudify3/3.0.0/nightly_6/cloudify-components_3.0.0-ga-b6_amd64.deb"><i class="icon-30 icon-download-alt"></i>&nbsp;Components</a></br>
+						<a href="http://gigaspaces-repository-eu.s3.amazonaws.com/org/cloudify3/3.0.0/nightly_6/cloudify-ubuntu-agent_3.0.0-ga-b6_amd64.deb"><i class="icon-30 icon-download-alt"></i>&nbsp;Ubuntu Agent</a></br>
+						<a href="http://gigaspaces-repository-eu.s3.amazonaws.com/org/cloudify3/3.0.0/nightly_6/cloudify-centos-agent_3.0.0-ga-b6_amd64.deb"><i class="icon-30 icon-download-alt"></i>&nbsp;CentOS Agent</a></br>
+						<a href="http://gigaspaces-repository-eu.s3.amazonaws.com/org/cloudify3/3.0.0/nightly_6/cloudify-windows-agent_3.0.0-ga-b6_amd64.deb"><i class="icon-30 icon-download-alt"></i>&nbsp;Windows Agent</a></br>
+						<a href="http://gigaspaces-repository-eu.s3.amazonaws.com/org/cloudify3/3.0.0/nightly_6/cloudify-ui_3.0.0-ga-b6_amd64.deb"><i class="icon-30 icon-download-alt"></i>&nbsp;UI</a></br>
 					</td>
 					<td style="background-color:transparent;width:10%"></td>
-					<td style="background-color:transparent;"></td>
+					<td style="background-color:transparent;">
+						<h2><strong><i class="fa fa-github"></i> Github Repos</strong></h2>	
+						<p>
+							Most of the Cloudify 3.0 components (other than the UI which is a commercial component) are licensed under Apache 2.0 and are managed on Github under the code name Cosmo (we just love <a href="http://en.wikipedia.org/wiki/Cosmo_Kramer">Kramer</a>, what can you do). You're most welcome to clone the code, fork it and submit pull requests. 							
+						</p>
+						<a href="http://github.com/cloudify-cosmo">Cloudify on Github</a>
+
+					</td>
 				</tr>
 			</table>
 			</div>

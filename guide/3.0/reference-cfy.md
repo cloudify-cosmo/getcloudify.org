@@ -117,6 +117,10 @@ Verbose output can be applied to every action by supplying the --verbosity (or -
 
 **Example:** `cfy blueprints upload blueprint.yaml`
 
+{%warning title=Foo%}
+This command will in fact upload the entire folder of the given target file rather than just the target file itself (to support imports, plugins and so on..) - It is therefore recommended to have a designated folder for the blueprint, where there won't be any unrelated files.
+{%endwarning%}
+
 ------
 
 # blueprints list
