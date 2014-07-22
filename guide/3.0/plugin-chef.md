@@ -44,6 +44,49 @@ blueprint:
           ...
 {%endhighlight%}
 
+# Types
+
+Node types that can be used for Chef nodes are listed below. All of them are derived from the corresponding [abstract types](reference-types.html#abstract-types).
+
+* `cloudify.types.chef.app_module` -- derived from `cloudify.types.app_module`
+* `cloudify.types.chef.app_server` -- derived from `cloudify.types.app_server`
+* `cloudify.types.chef.db_server` -- derived from `cloudify.types.db_server`
+* `cloudify.types.chef.message_bus_server` -- derived from `cloudify.types.message_bus_server`
+* `cloudify.types.chef.web_server` -- derived from `cloudify.types.web_server`
+
+In addition to inherited properties all of the Chef types have the following properties:
+
+**Properties for Chef Client and Chef Solo:**
+
+* `chef_config` contains all Chef specific configuration.
+	* `attributes` (optional) - [attributes to pass to Chef](#blueprint-provided-attributes).
+	* `runlist` (optional) - [runlist for all operations](#specifying-runlists).
+	* `runlists` (optional) - [per-operation runlists](#specifying-runlists).
+		* OPNAME - runlist for the OPNAME lifecycle operation.
+	* `version` (required) - [Chef version to install](#chef-version-to-install).
+
+**Properties for Chef Client only:**
+
+* `chef_config` contains all Chef specific configuration
+	* `chef_server_url` (required)
+	* `environment`(required)
+	* `node_name_prefix` - [Chef node name](#chef-server-naming) prefix.
+	* `node_name_suffix` - [Chef node name](#chef-server-naming) suffix.
+	* `validation_client_name` (required)
+	* `validation_key` (required) - validation file contents.
+
+See [Chef Client Configuration](#chef-client-configuration) section for more information about Chef Client properties.
+
+**Properties for Chef Solo only:**
+
+* `chef_config` contains all Chef specific configuration
+	* `cookbooks` (Chef solo only, required) - URL or path in blueprint designating a .tar.gz file that contains cookbooks.
+	* `data_bags` (Chef solo only, required) - URL or path in blueprint designating a .tar.gz file that contains data bags' JSON files.
+	* `environments` (Chef solo only, required) - URL or path in blueprint designating a .tar.gz file that contains environments' JSON files.
+	* `roles` (Chef solo only, required) - URL or path in blueprint designating a .tar.gz file that contains roles' JSON files.
+
+See [Chef Solo Configuration](#chef-solo-configuration) section for more information about Chef Client properties.
+
 # Integration
 
 This section describes integration aspects that are common to both Chef Client and Chef Solo. Also see [Chef Solo](#chef-Solo) and [Chef Client](#chef-Client) sections for additional integration details.
@@ -246,7 +289,7 @@ blueprint:
 
 # Chef Solo
 
-## Configuration
+## Chef Solo Configuration
 * `properties` > `chef_config` > `cookbooks` (required) - URL or relative path in blueprint to a .tar.gz file containing the cookbooks you wish to use. Usually, it's the "cookbooks" directory. For convenience, you can either archive "*" in the directory or "cookbooks/*" in the directory above and Cloudify will handle both cases correctly. Sample values: `http://chef.example.com/v1/cookbooks.tgz`, `/path/to/cookbooks.tgz` (`/` is the top level cookbook directory).
 * `properties` > `chef_config` > `environments`/`data_bags`/`roles` (optional) - same as cookbooks but for environments, data bags and roles.
 * `properties` > `chef_config` > `environment` (optional, Chef v11.8 and later) - Chef environment to use
@@ -268,7 +311,7 @@ Chef node name is constructed by concatenation of `node_name_prefix`, node id an
   * `node_name_prefix`
   * `node_name_suffix`
 
-## Configuration
+## Chef Client Configuration
 
 Chef configuration properties correspond to [properties in client.rb](http://docs.opscode.com/config_rb_client.html) with the exceptions explained below:
 
@@ -315,17 +358,4 @@ Sample Chef YAML node:
             target: my_server
 {%endhighlight%}
 
-
-
 For full examples see [examples repository](https://github.com/cloudify-cosmo/cloudify-examples).
-
-# Types
-
-Node types that can be used for Chef nodes:
-
-* `cloudify.types.chef.app_module`
-* `cloudify.types.chef.app_server`
-* `cloudify.types.chef.db_server`
-* `cloudify.types.chef.message_bus_server`
-* `cloudify.types.chef.web_server`
-
