@@ -51,9 +51,9 @@ blueprint:
 * `wait_started_interval` How many seconds to wait between each probe of the current agent status (default: `1`. used in conjunction with `wait_started timeout`)
 * `disable_requiretty` Disables the `requiretty` setting in the sudoers file (default: `true`)
 
-# Pre-installed Plugins & Libraries
+# Bundled Plugins & Libraries
 
-Cloudify agents comes with the following pre-installed plugins and libraries:
+The following plugins and libraries are bundled within every Cloudify linux agent:
 
 ## Libraries
 
