@@ -26,7 +26,7 @@ There are 2 modes for working with this plugin.
 * Executing a list of `commands` explicitly specified in the blueprint.
 * Executing a Fabric task from a `tasks_file` which contains the commands to be executed for a specific lifecycle opreation.
 
-## Builtin Types
+## Built-In Types
 
 There are 5 types per execution method.
 
