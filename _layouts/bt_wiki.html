@@ -12,50 +12,50 @@
 	{% include header.html %}
 	<!-- end header -->
 
-	<section id="inner-headline">
+	<section id="inner-headline">		
 		<div class="container">
-			<ul class="breadcrumb">{% capture currentVersion %}{{ page.url | remove: "/guide/" | split:"/" | first }}{% endcapture %}
-				<li><a href="/"><i class="icon-home"></i></a><i class="icon-angle-right"></i></li>
-				<li>Docs<i class="icon-angle-right"></i></li>
-				<script>
-				var version = document.location.href.split("/guide/")[1].split("/")[0];
-				var strVar="";
-				strVar += "<li>"+version+"<i class=\"icon-angle-right\"><\/i><\/li>";
-				document.write(strVar)  ;			
-				</script>
-				<li class="active">{{ page.title }}</li>
-			</ul>
-		</div>
-	</section>
-	<section id="content">
-	<div class="container ">
-		<div class="row">
-			<div class="span3">				
-				<aside id="tocAside" class="left-sidebar"></aside>
-				<script>
-				if (location.href.indexOf('/guide/') != -1) {
-				  var version = document.location.href.split("/guide/")[1].split("/")[0];
-				  $.ajax({
-				      type:'GET',
-				      url:'/guide/' + version + '/toc.html',                                
-				      success:function (data) {
-				      	$("#tocAside").html(data.toString());
-				      }
-				  });
-				}
+			<div class="span12">
+				<div class="row">				
+					<ul class="breadcrumb">{% capture currentVersion %}{{ page.url | remove: "/guide/" | split:"/" | first }}{% endcapture %}
+						<li><a href="/"><i class="icon-home"></i></a><i class="icon-angle-right"></i></li>
+						<li>Docs<i class="icon-angle-right"></i></li>
+						<script>
+						var version = document.location.href.split("/guide/")[1].split("/")[0];
+						var strVar="";
+						strVar += "<li>"+version+"<i class=\"icon-angle-right\"><\/i><\/li>";
+						document.write(strVar)  ;			
+						</script>
+						<li class="active">{{ page.title }}</li>
+					</ul>
+				</div>
+				<div class="row">
+					<div class="span3">				
+					<aside id="tocAside" class="left-sidebar"></aside>
+					<script>
+					if (location.href.indexOf('/guide/') != -1) {
+					  var version = document.location.href.split("/guide/")[1].split("/")[0];
+					  $.ajax({
+					      type:'GET',
+					      url:'/guide/' + version + '/toc.html',                                
+					      success:function (data) {
+					      	$("#tocAside").html(data.toString());
+					      }
+					  });
+					}
 
-				</script>
+					</script>
+					</div>
+					<div class="span9" id="docsWrap">
+						<div id="resultsDiv" class="DocumentsWrap"></div>
+						<div id="pageContent">
+							<button id="edit-on-github" data-toggle="popover" type="button" class="btn btn-default" style="float: right;"><i class="icon-github-alt icon-large"></i>&nbsp;&nbsp;Edit</button>
+							<h1 style="font-weight: bold;padding-top:0px">{{ page.title }}</h1>		
+							{{content}}
+						</div>
+					</div>
+				</div>
 			</div>
-	<div class="span9" id="docsWrap">
-		<div id="resultsDiv" class="DocumentsWrap"></div>
-		<div id="pageContent">
-			<button id="edit-on-github" data-toggle="popover" type="button" class="btn btn-default" style="float: right;"><i class="icon-github-alt icon-large"></i>&nbsp;&nbsp;Edit</button>
-			<h1 style="font-weight: bold;padding-top:0px">{{ page.title }}</h1>		
-			{{content}}
 		</div>
-		</div>
-	</div>
-</div>
 	</section>
 	<!-- start footer-->
 	{% include footer.html %}
