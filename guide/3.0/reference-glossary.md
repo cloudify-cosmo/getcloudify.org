@@ -31,28 +31,28 @@ A deployment is the plan and the state of a single application environment and i
 An execution is a running instance of a workflow on a particular deployment. The execution has logs and events associated with it.
 
 # **Interfaces**
-Coming soon...
+Interfaces set the protocol between the Topology and the Workflow that uses it. An Interface is a set of hooks (dabbed **Operations**) that a Type (see below) must map to an implemnetation function in a plugin. Cloudify Typs following TOSCA implement at least the lifecycel interface with the operations: create, configure, start, stop and delete 
 
 # **Nodes**
-Coming soon...
+A Node is one type of component in a topology. It is an instance of a Type (see below) with particular configuration (properties) and dependencies on other components (relationships). For example, a node can be one type of VM with a particular image ID, HW flavor and bound to a specific security group. Each node can be materialized to any number of runtime components, depending on the number of instances to depoly sepcified in the node settings.
 
 # **Packages**
 Coming soon...
 
 # **Plugins**
-Plugins are extensions to the agents that interface with an API or a CLI in order to execute lifecycle events of a component.
+Plugins are extensions to the agents that interface with an API or a CLI in order to execute lifecycle events of a component. Plugins are written in Python
 
 # **Properties**
-Coming soon...
+Properties are Node design-time configuration details. They are expressed as YAML dictionary
 
 # **Providers**
 Providers are python modules that augment the Cloudify CLI and implement the bootstrapping process for a specific cloud environment.
 
 # **Runtime Properties**
-Coming soon...
+Runtime Properties are execution-time details of components saved to the database so they can be consumed by plugins or by users
 
 # **Types**
-Coming soon...
+A Type is a class of application components. For example a db_server type represents a database server. The basic types are abstract and only serve as markers. Derived types have their operations mapped to a particular plugin that allows their materialization using some API or tool. For example cloudify.types.openstack.server is using the nova_plugin to communicate with OpenStack Nova API (compute API) to spawn virtual machines on OpenStack clouds.
 
 # **Workflows**
 A workflow is an automation process algorithm (described in Python) using dedicated APIs for setting state, reading configuration and state of the components and sending commands for execution. Workflows are executed on the Cloudify workflow engine.
