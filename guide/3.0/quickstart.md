@@ -24,7 +24,7 @@ Before you can deploy this application using Cloudify, you'll need to have the f
 
 * [Oracle VirtualBox](https://www.virtualbox.org/) (this box has been tested with version 4.3 or higher, but earlier versions should work as well).
 * [Vagrant](http://www.vagrantup.com) (1.5+)
-* At least 2GB+ of free RAM
+* At least 2GB of free RAM
 
 # Step by Step Walkthrough
 
