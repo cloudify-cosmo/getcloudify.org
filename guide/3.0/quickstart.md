@@ -155,7 +155,7 @@ vagrant destroy -f
 If you want to start the same machine again, just "Up" it once more.
 If you want to completely remove the box from your machine, just run:
 
-## What's Next
+# What's Next
 
 * Try to install the same application on OpenStack by following the [OpenStack Tutorial](quickstart-openstack.html).
 * Learn more about blueprints by following the [Blueprints Tutorial](guide-blueprint.html)
