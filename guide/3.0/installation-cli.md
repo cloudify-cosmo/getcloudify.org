@@ -13,14 +13,14 @@ venv_link: http://virtualenv.readthedocs.org/en/latest/
 ---
 {%summary%}{{page.abstract}}{%endsummary%}
 
-Cloudify CLI is being distributed in two different methods:
+Cloudify CLI (AKA cfy) is being distributed in two different methods:
 
 1. As a binary package
 1. As a Python package (via PyPi)
 
 {% tip title=Which distribution method should you choose? %}
-The binary package is currently bundled with only the OpenStack and simple providers. Providers are essintially modules that allow you to bootstrap a Cloudify manager on a specific cloud environment (e.g. OpenStack or CloudStack). 
-If you wish to use other providers, you should [install the CLI via PyPi](#installing-from-pypi) and then install the provider of your choice (which is also a Python module) in the same Python environment.{% endtip %} 
+The binary package is currently bundled with only the OpenStack and simple providers. Providers are essintially modules that allow you to bootstrap a Cloudify manager on a specific cloud environment (e.g. OpenStack or CloudStack).
+If you wish to use other providers, you should [install the CLI via PyPi](#installing-from-pypi) and then install the provider of your choice (which is also a Python module) in the same Python environment.{% endtip %}
 
 # Installing the binary package
 
@@ -52,14 +52,14 @@ describing how to use `cfy`.
 
 ## OS X
 
-Coming soon, please follow the Python package installation below ([Installing from PyPi](#installing-from-pypi)). 
+Coming soon, please follow the Python package installation below ([Installing from PyPi](#installing-from-pypi)).
 
 # Installing from PyPi
 
 Installation via PyPi is intended mostly for development purposes. We'll assume you
 have Python and PIP installed and configured on your system.
 
-To install run the following command: 
+To install run the following command:
 
 {% highlight bash %}
 pip install cloudify
@@ -68,11 +68,11 @@ pip install cloudify
 After you've installed the CLI module iteself, you should install the providers you want to work with. Here's how you install the OpenStack provider for example:
 
 {% highlight bash %}
-pip install cloudify-openstack 
+pip install cloudify-openstack
 {% endhighlight %}
 
 {%note title=Note%}
-It's recommended to create a [virtualenv]({{ page.venv_link }}) and install the CLI in it. To do so type the following commands (replace virtual-env-name with the name of your choice, e.g. cloudify: 
+It's recommended to create a [virtualenv]({{ page.venv_link }}) and install the CLI in it. To do so type the following commands (replace virtual-env-name with the name of your choice, e.g. cloudify:
 
 {% highlight bash %}
 virtualenv virtual-env-name
@@ -102,7 +102,7 @@ Under Ubuntu, you'll need to install the `python-dev` package.
 
 You will need Apple's developers tools that are installed with Xcode.
 
-{% note title=Note for Mac users %} One of the libraries that's installed with the OpenStack provider (`pycrypto`) may fail to compile on certain variations of OS X. This seems to be a [known issue](http://stackoverflow.com/questions/19617686/trying-to-install-pycrypto-on-mac-osx-mavericks/22868650#22868650). To solve it, type the following command in your terminal windows and try the installation again: 
+{% note title=Note for Mac users %} One of the libraries that's installed with the OpenStack provider (`pycrypto`) may fail to compile on certain variations of OS X. This seems to be a [known issue](http://stackoverflow.com/questions/19617686/trying-to-install-pycrypto-on-mac-osx-mavericks/22868650#22868650). To solve it, type the following command in your terminal windows and try the installation again:
 
 {% highlight bash %}
 export CFLAGS=-Qunused-arguments

@@ -26,8 +26,8 @@ these are the very basic requirements. You will have to provision larger machine
 ## OS Distributions
 
 ### Server
-Cloudify's management server currently runs on Ubuntu 12.04 Precise but we're working on newer versions of Ubuntu and Centos.
-It might be able to run on Ubuntu 13.04 or 14.04, but they weren't tested. We're appreciate feedback if you tried any other distribution.
+Cloudify's management server currently runs on Ubuntu 12.04 Precise. We're working on newer versions of Ubuntu and Centos.
+It might be able to run on Ubuntu 13.04 or 14.04, but they weren't tested. We'll appreciate feedback if you tried any other distribution.
 
 ### Agents
 Cloudify's agent packages can be installed on Ubuntu 12.04+, Centos 6.3+ and Windows 2008 Server+.
