@@ -36,9 +36,6 @@ Interfaces set the protocol between the Topology and the Workflow that uses it. 
 # **Nodes**
 A Node is one type of component in a topology. It is an instance of a Type (see below) with particular configuration (properties) and dependencies on other components (relationships). For example, a node can be one type of VM with a particular image ID, HW flavor and bound to a specific security group. Each node can be materialized to any number of runtime components, depending on the number of instances to depoly sepcified in the node settings.
 
-# **Packages**
-Coming soon...
-
 # **Plugins**
 Plugins are extensions to the agents that interface with an API or a CLI in order to execute lifecycle events of a component. Plugins are written in Python
 
