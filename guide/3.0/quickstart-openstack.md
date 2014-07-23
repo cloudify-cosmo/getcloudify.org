@@ -186,6 +186,5 @@ cfy teardown -f --ignore-deployments
 
 This will terminate the manager VM and delete the resources associated with it. 
 
-## What's Next 
 
 
