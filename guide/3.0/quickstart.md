@@ -5,25 +5,32 @@ category: none
 publish: true
 abstract: A quick tutorial for getting started with Cloudify and deploying your first blueprint
 pageord: 11
+
+quickstart_openstack_link: quickstart-openstack.html
+blueprint_file_link: https://github.com/cloudify-cosmo/cloudify-nodecellar-singlehost/blob/master/blueprint.yaml
+virtualbox_link: https://www.virtualbox.org/
+vagrant_link: http://www.vagrantup.com
+vagrant_file_link: http://gigaspaces-repository-eu.s3.amazonaws.com/org/cloudify3/3.0.0/nightly_6/Vagrantfile
 ---
 {%summary%}{{page.abstract}}{%endsummary%}
 
 # What is Cloudify?
+
 Cloudify is a Cloud Application Orchestrator. It automates any process you need to perform with regard to your applications over any cloud. Starting with environment setup and application installation, going forward to application upgrade, infrastructure upgrade, continuous deployments, auto-healing and auto-scaling.
 
 Cloudify can work on any environment: IaaS, virtualized or even non-virtualized. Cloudify executes automation processes using any tool you choose. From shell to Chef, Puppet, etc. Cloudify monitors your application with any monitoring tool you choose; installing it for you if you like and interfacing with your monitoring tools to get events and metrics into Cloudify’s Policy Engine.
 
 # Overview
 
-In this tutorial you will start a Cloudify manager within a Vagrant box on your laptop, and install a sample Cloudify 3.0 blueprint on it. Unlike a real cloud deployment, this example will use the Vagrant VM to install the application components. If you'd like to install an application on an actual cloud, please refer to the [deploying your first application on OpenStack](quickstart-openstack.html) tutorial.
-The [blueprint](https://github.com/cloudify-cosmo/cloudify-nodecellar-singlehost/blob/master/blueprint.yaml) describes a nodejs application that connects to a MongoDB database and presents a wine catalog. To learn more about blueprint syntax and elements please refer to the [Blueprints Tutorial](blueprint-guide.html).
+In this tutorial you will start a Cloudify manager within a Vagrant box on your laptop, and install a sample Cloudify 3.0 blueprint on it. Unlike a real cloud deployment, this example will use the Vagrant VM to install the application components. If you'd like to install an application on an actual cloud, please refer to the [deploying your first application on OpenStack]({{page.quickstart_openstack_link}}) tutorial.
+The [blueprint]({{page.blueprint_file_link}}) describes a nodejs application that connects to a MongoDB database and presents a wine catalog. To learn more about blueprint syntax and elements please refer to the [Blueprints Tutorial](blueprint-guide.html).
 
 # Before You Begin
 
 Before you can deploy this application using Cloudify, you'll need to have the following setup in your environment:
 
-* [Oracle VirtualBox](https://www.virtualbox.org/) (this box has been tested with version 4.3 or higher, but earlier versions should work as well).
-* [Vagrant](http://www.vagrantup.com) (1.5+)
+* [Oracle VirtualBox]({{page.virtualbox_link}}) (this box has been tested with version 4.3 or higher, but earlier versions should work as well).
+* [Vagrant]({{page.vagrant_link}}) (1.5+)
 * At least 2GB of free RAM
 
 # Step by Step Walkthrough
@@ -32,7 +39,7 @@ Before you can deploy this application using Cloudify, you'll need to have the f
 
 The first thing you'll need to do is download the Vagrant box which contains the Cloudify manager and CLI and the Vagrantfile to run it.
 
-First, download this [Vagrantfile](http://gigaspaces-repository-eu.s3.amazonaws.com/org/cloudify3/3.0.0/nightly_6/Vagrantfile) to your local directory. Then, run
+First, download this [Vagrantfile]({{page.vagrant_file_link}}) to your local directory. Then, run
 
 {% highlight bash%}
 vagrant box add http://gigaspaces-repository-eu.s3.amazonaws.com/org/cloudify3/3.0.0/nightly_6/cloudify_3.0.0_virtualbox.box --name=cloudify
