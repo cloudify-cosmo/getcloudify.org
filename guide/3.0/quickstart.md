@@ -31,7 +31,7 @@ Unlike a real cloud deployment, this example will use the Vagrant VM to install 
 
 The [blueprint]({{page.blueprint_file_link}}) describes a nodejs application that connects to a MongoDB database and presents a wine catalog. To learn more about blueprint syntax and elements please refer to the [Blueprints Guide](blueprint-guide.html).
 
-{%tip title=Foo%}
+{%tip title=Tip%}
 The [Terminology Reference Page]({{page.glossary_link}}) will help you understand some of the terms stated in this guide. For your convenience, links are supplied throughout the guide to point you to the right term definition in the terminology page.
 {%endtip%}
 
