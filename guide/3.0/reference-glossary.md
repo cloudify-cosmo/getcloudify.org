@@ -6,7 +6,6 @@ publish: true
 abstract: Cloudify Terms and Concepts (In a nutshell)
 pageord: 11
 ---
-{%summary%}{{page.abstract}}{%endsummary%}
 
 Cloudify users will come across several concepts and terms that might have different meanings in other products or systems. For your benefit we define these below:
 
