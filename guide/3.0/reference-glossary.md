@@ -13,7 +13,7 @@ Cloudify users will come across several concepts and terms that might have diffe
 Agents are command executors that may be located on the application VM or on the manager (or elsewhere) depending on the tools and API’s they need to interface with (see plugins). The Agents are responsible for reading commands (tasks) from the task broker and delegating them to a worker subprocess as well as for reporting logs and events back to the manager.
 
 ### **Application**
-Coming soon...
+Application in Cloudify means a software based business service with all of its IT components at the infrastructure, middleware and business logic levels. 
 
 ### **Blueprint**
 The blueprint is the orchestration plan of an application. Cloudify blueprints are inspired by the OASIS TOSCA evolving standard. Essentially it is a YAML file that describes the following:
@@ -30,7 +30,7 @@ Bootstrapping is the process of installing and starting a Cloudify manager on a 
 A deployment is the plan and the state of a single application environment and is a direct derivative of a Blueprint. The deployment has a data representation for component instances of the application and their runtime state.
 
 ### **Event**
-Coming soon...
+Event is a user oriented data object that is reported by one of the Cloudify components to denote an event related to Workflow execution or any other Cloudify process.
 
 ### **Execution**
 An execution is a running instance of a workflow on a particular deployment. The execution has logs and events associated with it.
@@ -54,7 +54,7 @@ Providers are python modules that augment the Cloudify CLI and implement the boo
 Runtime Properties are execution-time details of components saved to the database so they can be consumed by plugins or by users
 
 ### **Topology**
-Coming soon...
+Topology is application graph of components and their relationships. The topology also describes the lifecycle events or other operations that each component and relationship exposes for the use in Workflows. The topology is denoted in YAML
 
 ### **Type**
 A Type is a class of application components. For example a db_server type represents a database server. The basic types are abstract and only serve as markers. Derived types have their operations mapped to a particular plugin that allows their materialization using some API or tool. For example cloudify.types.openstack.server is using the nova_plugin to communicate with OpenStack Nova API (compute API) to spawn virtual machines on OpenStack clouds.
