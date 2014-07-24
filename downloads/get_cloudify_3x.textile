@@ -176,7 +176,10 @@ strVar += "        <\/div>";
 strVar += "        <\/div>";
 
 
-
+$(".testimonial").on('click', '.gattingWrapperClose', function(){
+    $('#myModal').modal('hide');	
+  });
+  
 
 
 $("#downloadme,.eaTitle,.downloadme,.download").click(function(e) {
@@ -257,16 +260,16 @@ function track_download(downloadHref) {
 		zipName=downloadHref.split("/")[7]; 
 		mixpanel.track(dataBtnName, {'Zip Name':zipName, 'Source':'cloudifysource.org'});
 		if(mixpanel.cookie.props.__alias==undefined){
-            formEmail =  $(".testimonial #email").val();	
-            formName =  $(".testimonial #last_name").val();
+            formEmail =  $(".gattingWrapper #email").val();	
+            formName =  $(".gattingWrapper #last_name").val();
 			mixpanel.identify(formEmail);
-            mixpanel.alias(formEmail);
+            mixpanel.alias(formName, formEmail);
             mixpanel.name_tag(formName) ;
 						mixpanel.register();
 			
         }else{
-		formEmail = mixpanel.cookie.props.__alias;
-		formName= mixpanel.cookie.props.mp_name_tag;
+		//formEmail = mixpanel.cookie.props.__alias;
+		//formName= mixpanel.cookie.props.mp_name_tag;
         }
 
 		mixpanel.people.set({
@@ -282,9 +285,6 @@ function track_download(downloadHref) {
 		}); 
 	}
 
-$('.downloads').on("click", "a.gattingWrapperClose", function() {
-		$('#myModal').modal('hide');	
-	});	
 
 function downloadValid(){
 
@@ -338,6 +338,8 @@ $('#regiterToDownload').submit(function(){
         } 
 });
 //End Blocking Spam
+
+
 
 });
 </script>
