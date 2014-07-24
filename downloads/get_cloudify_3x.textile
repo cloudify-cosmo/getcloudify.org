@@ -257,8 +257,8 @@ function downloadFile(e)
 
 	
 function track_download(downloadHref) {
-		var downloadme=downloadHref.split("cloudify-")[1];
-		downloadme="/downloads/cloudify-" + downloadme.split("\.zip")[0] + "/get_cloudify";
+		var downloadme=downloadHref.split("/")[7]; 
+		//downloadme="/downloads/cloudify-" + downloadme.split("\.zip")[0] + "/get_cloudify";
 		_gaq.push(['_trackPageview', downloadme]);
        	//track mixpanel
 		var zipName="";
