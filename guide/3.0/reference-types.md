@@ -5,11 +5,13 @@ category: Reference
 publish: true
 abstract: "Reference for Cloudify built in types"
 pageord: 100
+
+glossary_link: reference-glossary.html
 ---
 {%summary%} {{page.abstract}}{%endsummary%}
 
 # Abstract Types
-The following types are basic types from which concrete types with specific plugin implementations are derived.
+The following [types]({{page.glossary_link}}#type) are basic types from which concrete types with specific plugin implementations are derived.
 
 * `cloudify.types.base` - The base type for all built-in types. declares the `lifecycle interface`
 
