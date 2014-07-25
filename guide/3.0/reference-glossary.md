@@ -16,13 +16,15 @@ Agents are [task](#task) executors.
 
 They may be located on either the application VM, on the manager, or elsewhere - depending on the tools and API’s they need to interface with (see [Plugins](#plugin)).
 
-The Agents read tasks from a tasks broker and delegate them to a worker subprocess (a Plugin based Python process).
+Agents read tasks from a tasks broker and delegate them to a worker subprocess (a Plugin based Python process).
 
 ### **Application**
 An Application in Cloudify means a software based business service with all of its IT components at the infrastructure, middleware and business logic levels.
 
 ### **Blueprint**
-The blueprint is the orchestration plan of an [Application](#application). Cloudify blueprints are inspired by the [OASIS TOSCA]({{page.tosca_link}}) evolving standard. Essentially it is a YAML file that describes the following:
+A Blueprint is an orchestration plan of an [Application](#application).
+
+Cloudify blueprints are inspired by the [OASIS TOSCA]({{page.tosca_link}}) evolving standard. Essentially it is a YAML file that describes the following:
 
 * Application topology as components and their relationships / dependencies.
 * Implementation of each lifecycle event of each component (the YAML holds a mapping to plugins that implement the events).
@@ -30,23 +32,29 @@ The blueprint is the orchestration plan of an [Application](#application). Cloud
 * [Optional] [Workflows](#workflow) that describe the automation of different processes like installation, upgrade etc. By default the blueprint will use the workflows provided with the product.
 
 ### **Bootstrapping**
-Bootstrapping is the process of installing and starting a Cloudify manager on a certain cloud provider. The bootstrapping process is initiated from the Cloudify CLI client. Typically, it uses the cloud provider's IaaS APIs to create VM’s, networks, and any other infrastructure resources that are required for the Cloudify manager to operate properly. It then installs the various packages and starts the services that form the manager.
+Bootstrapping is the process of installing and starting a Cloudify manager on a certain cloud provider.
+
+The bootstrapping process is initiated from Cloudify's CLI client. Typically, it uses the cloud provider's IaaS API's to create VM’s, networks, and any other infrastructure resources that are required for the Cloudify manager to operate properly. It then installs the various packages and starts the services that form the manager.
 
 ### **Deployment**
-A deployment is the plan and the state of a single [application](#application) environment and is a direct derivative of a [blueprint](#blueprint). The deployment is a model-representation of the component instances which from the application and their runtime state.
+A deployment is the plan and the state of a single [application](#application) environment and is a direct derivative of a [blueprint](#blueprint).
+
+Deployments are model-representations of component instances (which form applications) and their runtime state.
 
 ### **Event**
-An Event is a broad data representation of an occurance emitted from one of Cloudify's components.
-Events are generated as a result of an execution of a specific [workflow](#workflow) or any other Cloudify process.
+An Event is a JSON representation of an occurance in Cloudify's environment.
+
+Events are emitted from one of Cloudify's components and are generated as a result of an execution of a specific [workflow](#workflow) or any other Cloudify process.
 
 ### **Execution**
-An execution is a running instance of a [workflow](#workflow) based on a particular [deployment](#deployment).
-The execution has logs and [events](#event) associated with it.
+An Execution is a running instance of a [workflow](#workflow) and is based on a particular [deployment](#deployment).
+
+An Execution has logs and [events](#event) associated with it.
 
 ### **Interface**
 Interfaces set the protocol between the [Topology](#topology) and the [Workflow](#workflow) that uses it.
 
-An Interface is a set of hooks (dabbed **Operations**) that a [Type](#type) must map to an implementation function in a plugin. Cloudify Types following the aforementioned TOSCA standard, implement, at the very least, the lifecycle interface with the following operations:
+More elaborately, An Interface is a set of hooks (dabbed **Operations**) that a [Type](#type) must map to an implementation function in a [plugin](#plugin). Cloudify Types following the aforementioned TOSCA standard, implement, at the very least, the lifecycle interfaces with the following operations:
 
 * create
 * configure
@@ -55,12 +63,16 @@ An Interface is a set of hooks (dabbed **Operations**) that a [Type](#type) must
 * delete
 
 ### **Node**
-A Node is one type of component in a [topology](#topology). It is an instance of a [type](#type) with particular [properties](#properties) and dependencies on other components ([relationships](#relationship)).
+A Node is one type of component in a [topology](#topology).
+
+It is an instance of a [type](#type) with particular [properties](#properties) and dependencies on other components ([relationships](#relationship)).
 
 For example, a node can be one type of VM with a particular image ID, HW flavor and bound to a specific security group. Each node can be materialized to any number of runtime components, depending on the number of instances to depoly sepcified in the node settings.
 
 ### **Plugin**
-Plugins are extensions to the [agents](#agent) that interface with an API or a CLI in order to execute lifecycle events of a component. Plugins are written in Python.
+Plugins are extensions to the [agents](#agent).
+
+Plugins interface with an API or a CLI in order to execute lifecycle events of a component. Plugins are written in Python.
 
 ### **Properties**
 Properties are a [Node](#node)'s design-time configuration details.
@@ -77,6 +89,7 @@ Coming soon...
 Runtime Properties are execution-time details of components.
 
 Runtime Properties are saved to the database so that they can be consumed by plugins or by users.
+Unlike a node(#node)'s [properties](#properties), which are explicitly specified in the [blueprint](#blueprint), runtime properties are only set during runtime by Cloudify or its plugins.
 
 ### **Task**
 Coming soon...
@@ -96,7 +109,7 @@ For example a db_server type represents a database server.
 The basic types provided with Cloudify are abstract and only serve as markers.
 Derived types have their operations mapped to a particular [plugin](#plugin) that enables their materialization using some API or tool.
 
-For example cloudify.types.openstack.server is using the nova_plugin to communicate with OpenStack's Nova API (compute API) to spawn virtual machines on OpenStack clouds.
+For example, cloudify.types.openstack.server is using the nova_plugin to communicate with OpenStack's Nova API (compute API) to spawn virtual machines on OpenStack clouds.
 
 ### **Workflow**
 A workflow is an automation process algorithm.
