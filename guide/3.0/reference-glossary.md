@@ -5,59 +5,113 @@ category: Reference
 publish: true
 abstract: Cloudify Terms and Concepts (In a nutshell)
 pageord: 11
+
+tosca_link: https://www.oasis-open.org/committees/tc_home.php?wg_abbrev=tosca
 ---
 
 Cloudify users will come across several concepts and terms that might have different meanings in other products or systems. For your benefit we define these below:
 
 ### **Agent**
-Agents are command executors that may be located on the application VM or on the manager (or elsewhere) depending on the tools and API’s they need to interface with (see plugins). The Agents are responsible for reading commands (tasks) from the task broker and delegating them to a worker subprocess as well as for reporting logs and events back to the manager.
+Agents are [task](#task) executors.
+
+They may be located on either the application VM, on the manager, or elsewhere - depending on the tools and API’s they need to interface with (see [Plugins](#plugin)).
+
+Agents read tasks from a tasks broker and delegate them to a worker subprocess (a Plugin based Python process).
 
 ### **Application**
-Application in Cloudify means a software based business service with all of its IT components at the infrastructure, middleware and business logic levels. 
+An Application in Cloudify means a software based business service with all of its IT components at the infrastructure, middleware and business logic levels.
 
 ### **Blueprint**
-The blueprint is the orchestration plan of an application. Cloudify blueprints are inspired by the OASIS TOSCA evolving standard. Essentially it is a YAML file that describes the following:
+A Blueprint is an orchestration plan of an [Application](#application).
 
-* Application topology as components and their relationships / dependencies
-* Implementation of each lifecycle event of each component (the YAML holds mapping to plugins that implement the events)
-* Configuration for each of the component
-* [Optional] Workflows that describe the automation of different processes like installation, upgrade etc. By default the blueprint will use the workflows provided with the product
+Cloudify blueprints are inspired by the [OASIS TOSCA]({{page.tosca_link}}) evolving standard. Essentially it is a YAML file that describes the following:
+
+* Application topology as components and their relationships / dependencies.
+* Implementation of each lifecycle event of each component (the YAML holds a mapping to plugins that implement the events).
+* Configuration for each component.
+* [Optional] [Workflows](#workflow) that describe the automation of different processes like installation, upgrade etc. By default the blueprint will use the workflows provided with the product.
 
 ### **Bootstrapping**
-Bootstrapping is the process of installing and starting a Cloudify manager on a certain cloud provider. The bootstrapping process is initiated from the Cloudify CLI client. Typically, it uses the cloud provider's IaaS APIs to create VM’s, networks, and any other infrastructure resources that are required for the Cloudify manager to operate properly. It then installs the various packages and starts the services that form the Cloudify manager.
+Bootstrapping is the process of installing and starting a Cloudify manager on a certain cloud provider.
+
+The bootstrapping process is initiated from Cloudify's CLI client. Typically, it uses the cloud provider's IaaS API's to create VM’s, networks, and any other infrastructure resources that are required for the Cloudify manager to operate properly. It then installs the various packages and starts the services that form the manager.
 
 ### **Deployment**
-A deployment is the plan and the state of a single application environment and is a direct derivative of a Blueprint. The deployment has a data representation for component instances of the application and their runtime state.
+A deployment is the plan and the state of a single [application](#application) environment and is a direct derivative of a [blueprint](#blueprint).
+
+Deployments are model-representations of component instances (which form applications) and their runtime state.
 
 ### **Event**
-Event is a user oriented data object that is reported by one of the Cloudify components to denote an event related to Workflow execution or any other Cloudify process.
+An Event is a JSON representation of an occurance in Cloudify's environment.
+
+Events are emitted from one of Cloudify's components and are generated as a result of an execution of a specific [workflow](#workflow) or any other Cloudify process.
 
 ### **Execution**
-An execution is a running instance of a workflow on a particular deployment. The execution has logs and events associated with it.
+An Execution is a running instance of a [workflow](#workflow) and is based on a particular [deployment](#deployment).
+
+An Execution has logs and [events](#event) associated with it.
 
 ### **Interface**
-Interfaces set the protocol between the Topology and the Workflow that uses it. An Interface is a set of hooks (dabbed **Operations**) that a Type (see below) must map to an implemnetation function in a plugin. Cloudify Typs following TOSCA implement at least the lifecycel interface with the operations: create, configure, start, stop and delete
+Interfaces set the protocol between the [Topology](#topology) and the [Workflow](#workflow) that uses it.
+
+More elaborately, An Interface is a set of hooks (dabbed **Operations**) that a [Type](#type) must map to an implementation function in a [plugin](#plugin). Cloudify Types following the aforementioned TOSCA standard, implement, at the very least, the lifecycle interfaces with the following operations:
+
+* create
+* configure
+* start
+* stop
+* delete
 
 ### **Node**
-A Node is one type of component in a topology. It is an instance of a Type (see below) with particular configuration (properties) and dependencies on other components (relationships). For example, a node can be one type of VM with a particular image ID, HW flavor and bound to a specific security group. Each node can be materialized to any number of runtime components, depending on the number of instances to depoly sepcified in the node settings.
+A Node is one type of component in a [topology](#topology).
+
+It is an instance of a [type](#type) with particular [properties](#properties) and dependencies on other components ([relationships](#relationship)).
+
+For example, a node can be one type of VM with a particular image ID, HW flavor and bound to a specific security group. Each node can be materialized to any number of runtime components, depending on the number of instances to depoly sepcified in the node settings.
 
 ### **Plugin**
-Plugins are extensions to the agents that interface with an API or a CLI in order to execute lifecycle events of a component. Plugins are written in Python
+Plugins are extensions to the [agents](#agent).
+
+Plugins interface with an API or a CLI in order to execute lifecycle events of a component. Plugins are written in Python.
 
 ### **Properties**
-Properties are Node design-time configuration details. They are expressed as YAML dictionary
+Properties are a [Node](#node)'s design-time configuration details.
+
+Properties are expressed as a YAML dictionary in the [blueprint](#blueprint).
 
 ### **Provider**
-Providers are python modules that augment the Cloudify CLI and implement the bootstrapping process for a specific cloud environment.
+Providers are python modules that augment the Cloudify CLI and implement the [bootstrapping](#bootstrapping) process for a specific cloud environment.
+
+### **Relationship**
+Coming soon...
 
 ### **Runtime Properties**
-Runtime Properties are execution-time details of components saved to the database so they can be consumed by plugins or by users
+Runtime Properties are execution-time details of components.
+
+Runtime Properties are saved to the database so that they can be consumed by plugins or by users.
+Unlike a node(#node)'s [properties](#properties), which are explicitly specified in the [blueprint](#blueprint), runtime properties are only set during runtime by Cloudify or its plugins.
+
+### **Task**
+Coming soon...
 
 ### **Topology**
-Topology is application graph of components and their relationships. The topology also describes the lifecycle events or other operations that each component and relationship exposes for the use in Workflows. The topology is denoted in YAML
+A Topology is an [application](#application)'s graph of components and their [relationships](#relationship).
+
+A Topology also describes the lifecycle events or other operations that each component and relationship exposes for the use in [Workflows](#workflows).
+
+A Topology is denoted in YAML.
 
 ### **Type**
-A Type is a class of application components. For example a db_server type represents a database server. The basic types are abstract and only serve as markers. Derived types have their operations mapped to a particular plugin that allows their materialization using some API or tool. For example cloudify.types.openstack.server is using the nova_plugin to communicate with OpenStack Nova API (compute API) to spawn virtual machines on OpenStack clouds.
+A Type is a class of an [application](#application)'s component.
+
+For example a db_server type represents a database server.
+
+The basic types provided with Cloudify are abstract and only serve as markers.
+Derived types have their operations mapped to a particular [plugin](#plugin) that enables their materialization using some API or tool.
+
+For example, cloudify.types.openstack.server is using the nova_plugin to communicate with OpenStack's Nova API (compute API) to spawn virtual machines on OpenStack clouds.
 
 ### **Workflow**
-A workflow is an automation process algorithm (described in Python) using dedicated APIs for setting state, reading configuration and state of the components and sending commands for execution. Workflows are executed on the Cloudify workflow engine.
+A workflow is an automation process algorithm.
+
+Workflows are described in Python and use dedicated API's for reading and writing a component's state, reading a component's configuration and sending [tasks](#task) for execution. Workflows are executed via Cloudify's workflow engine.
