@@ -6,6 +6,7 @@ publish: true
 abstract: "Cloudify workflows short description and details on install and uninstall default workflows"
 pageord: 100
 
+glossary_link: reference-glossary.html
 types_yaml_link: http://getcloudify.org/spec/cloudify/3.0/types.yaml
 default_workflows_source_link: https://github.com/cloudify-cosmo/cloudify-manager/blob/3.0/workflows/workflows/default.py
 
@@ -13,7 +14,7 @@ default_workflows_source_link: https://github.com/cloudify-cosmo/cloudify-manage
 
 {%summary%} Install and Uninstall Workflows {%endsummary%}
 
-Cloudify comes with two built-in workflows: `install` and `uninstall`. These workflows are used to install and uninstall a deployment. What follows is a high level description of these workflows.
+Cloudify comes with two built-in [workflows]({{page.glossary_link}}#workflow): `install` and `uninstall`. These workflows are used to install and uninstall a [deployment]({{page.glossary_link}}#deployment). What follows is a high level description of these workflows.
 
 # Install
 
