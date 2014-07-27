@@ -69,6 +69,11 @@ It is an instance of a [type](#type) with particular [properties](#properties) a
 
 For example, a node can be one type of VM with a particular image ID, HW flavor and bound to a specific security group. Each node can be materialized to any number of runtime components, depending on the number of instances to depoly sepcified in the node settings.
 
+### **Node Instance**
+A Node Instance is one instance of a [node](#node).
+
+While a node is a logical description of a component, a node instance is its actual, technical interpretation.
+
 ### **Plugin**
 Plugins are extensions to the [agents](#agent).
 
@@ -83,16 +88,22 @@ Properties are expressed as a YAML dictionary in the [blueprint](#blueprint).
 Providers are python modules that augment the Cloudify CLI and implement the [bootstrapping](#bootstrapping) process for a specific cloud environment.
 
 ### **Relationship**
-Coming soon...
+Relationships are types that describe the nature of dependency between components and the logic, if required, to glue components together.
+
+For example, a relationship can be of [type](#type) `contained_in`. That means that component X is hosted within component Y and therefore can't be created until component Y is created and running.
+
+Another example is an Apache server that's connected to MySQL. In this case, Apache needs to be configured at runtime to connect to MySQL. Waiting for MySQL to be up and running won't suffice in this case. The relationship needs to map operations to [plugin](#plugin) functions that execute the connection's configuration.
 
 ### **Runtime Properties**
-Runtime Properties are execution-time details of components.
+Runtime Properties are execution-time details of [nodes](#node).
 
-Runtime Properties are saved to the database so that they can be consumed by plugins or by users.
+Runtime Properties are saved to the database so that they can be consumed by [plugins](#plugin) or by users.
 Unlike a node(#node)'s [properties](#properties), which are explicitly specified in the [blueprint](#blueprint), runtime properties are only set during runtime by Cloudify or its plugins.
 
 ### **Task**
-Coming soon...
+A Task is the execution of one function in a [plugin](#plugin) with a given set of arguments.
+
+The arguments describe the context of the execution including [node][#node] [properties](#properties) and [Runtime Properties](#runtime-properties).
 
 ### **Topology**
 A Topology is an [application](#application)'s graph of components and their [relationships](#relationship).
