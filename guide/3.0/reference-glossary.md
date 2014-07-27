@@ -83,7 +83,7 @@ Properties are expressed as a YAML dictionary in the [blueprint](#blueprint).
 Providers are python modules that augment the Cloudify CLI and implement the [bootstrapping](#bootstrapping) process for a specific cloud environment.
 
 ### **Relationship**
-Coming soon...
+A relationship is a type that doesn't describe a component in the application but rather the nature of dependency between components and the logic required to glue the components together in case some configuration is needed for that. For example, a relationship can be of type `contained_in` that means that component X is hosted within component Y and therefore can't be created until component Y is created and running. Another example is Apache connected to MySQL. In this case, Apache needs to be configured at runtime to connect to MySQL. Waiting for MySQL to be up and running won't suffice in this case. The relationship needs to map operations to plugin functions that executes the connection configuration. 
 
 ### **Runtime Properties**
 Runtime Properties are execution-time details of components.
@@ -92,7 +92,7 @@ Runtime Properties are saved to the database so that they can be consumed by plu
 Unlike a node(#node)'s [properties](#properties), which are explicitly specified in the [blueprint](#blueprint), runtime properties are only set during runtime by Cloudify or its plugins.
 
 ### **Task**
-Coming soon...
+A Task is the execution of one function in the plugin with a given set of arguments that describe the context of the execution including node properties and runtime properties
 
 ### **Topology**
 A Topology is an [application](#application)'s graph of components and their [relationships](#relationship).
