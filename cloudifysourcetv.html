@@ -72,7 +72,7 @@ $.getJSON(playListURL, function(data) {
         var videoID = fragments[fragments.length - 2];
         var url = videoURL + videoID + '?autoplay=1';
         var thumb = "http://img.youtube.com/vi/"+ videoID +"/0.jpg";
-        list_data += '<li class="item-thumbs span3 design" data-id="id-0" data-type="web"><div class="videoDesc">"'+ feedTitle +'"</div><a class="hover-wrap fancybox fancybox.iframe" data-fancybox-group="gallery" href="'+ url +'" title="'+ feedTitle +'"><span class="overlay-img"></span><span class="overlay-img-thumb font-icon-play"></span></a><img alt="'+ feedTitle+'" src="'+ thumb +'"></li>';
+        list_data += '<li class="item-thumbs span3 design" data-id="id-0" data-type="web"><div class="videoDesc">"'+ feedTitle +'"</div><a  id="'+ i +'"  class="hover-wrap fancybox fancybox.iframe" data-fancybox-group="gallery" href="'+ url +'" title="'+ feedTitle +'"><span class="overlay-img"></span><span class="overlay-img-thumb font-icon-play"></span></a><img alt="'+ feedTitle+'" src="'+ thumb +'"></li>';
     });
     $(list_data).appendTo("#thumbs");
 });
@@ -82,8 +82,7 @@ $.getJSON(playListURL, function(data) {
 
 
 </script>	
-	
-	
+
 	
 <script language="javascript" type="text/javascript">
   $(window).load(function() {
@@ -131,6 +130,17 @@ $.getJSON(playListURL, function(data) {
     
     //and show the first n (show_per_page) elements
     $('#thumbs').children().slice(0, show_per_page).css('display', 'block');
+	
+	
+	
+var thisHash = window.location.hash;
+ if(window.location.hash) {
+  //$(thisHash).fancybox().trigger('click');
+    //$(thisHash).data('fancyboxGroup','gallery').fancybox().trigger('click');
+	$.fancybox.open($('.fancybox'), {index : thisHash.substring(1)})
+ }
+ //$('.fancybox.iframe').fancybox();
+
     
 });
  
