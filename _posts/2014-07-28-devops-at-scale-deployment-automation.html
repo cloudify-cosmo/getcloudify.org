@@ -73,15 +73,15 @@ tags:
   </li>
 </ul>
 
-<p>Scaling out agents</p>
+<h3><strong>Scaling out agents</strong></h3>
 
 <p>It is interesting to note that the development of the client-oriented components (i.e. the agent software that is optionally installed on machines running client software), was also impacted by the core components upon which Cloudify 3.0 was built.&#160; By limiting the traffic from agent machines to the management servers to the use of RabbitMQ messages only, it was possible to use RabbitMQ’s many features to make sure the management servers do not get flooded by peaks of incoming data from agents. The ability to scale out RabbitMQ also ensures that we are able to handle a large number of agents without compromising the overall stability of management services.</p>
 
-<p>Scaling log and event collection</p>
+<h3><strong>Scaling log and event collection</strong></h3>
 
 <p>Using Elasticsearch and logstash for the processing of system logs and events also turned out to profit from the RabbitMQ integration, as logs and events from agent machines are also relayed over RabbitMQ, again preventing Elasticsearch and logstash from being flooded by using RabbitMQ’s messaging facilities.</p>
 
-<p>Scaling the provisioning process</p>
+<h3><strong>Scaling the provisioning process</strong></h3>
 
 <p>In many use cases, the process of provisioning a large number of compute instances can also be a challenge, depending on the cloud you’re using. Some cloud infrastructures do not support the batch allocation of compute instances. Others have ‘finicky’ APIs that may require some requests to be retried. As a result you often times have to send out separate API requests for each compute instance (or otherwise use very small batches).</p>
 
