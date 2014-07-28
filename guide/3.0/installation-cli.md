@@ -57,7 +57,7 @@ Coming soon, please follow the Python package installation below ([Installing fr
 # Installing from PyPi
 
 Installation via PyPi is intended mostly for development purposes. We'll assume you
-have Python and PIP installed and configured on your system.
+have Python 2.7.x and PIP installed and configured on your system.
 
 To install run the following command:
 
