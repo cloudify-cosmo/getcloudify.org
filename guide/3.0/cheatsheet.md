@@ -23,7 +23,7 @@ parent:  none
 | **Description** | **Markdown** | **Output** |
 | Link to external site | \[GigaSpaces\]\(http://www.gigaspaces.com\) | [GigaSpaces](http://www.gigaspaces.com) |
 | Link to page in same folder | \[Directory Structure\]\(file-structure.html\) | [Directory Structure](file-structure.html) |
-| Set anchor | { % anchor anchorname % } | {% anchor anchorname %}[A link to the anchor](#anchorname) |
+| Set anchor | { % anchor anchorname %} (no space between '{' and '%': had trouble escaping this..)| {% anchor anchorname %}[A link to the anchor](#anchorname) |
 
 
 # Images
