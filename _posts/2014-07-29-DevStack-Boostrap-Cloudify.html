@@ -1,7 +1,7 @@
 ---
 layout: blogpost
 title: Bootstrapping Cloudify on Devstack
-image: yoram.jpg
+image: yoram.jpeg
 author: Yoram Weinreb
 tags: 
  - Cloud Orchestration
@@ -25,7 +25,7 @@ tags:
 <li>Finally, there is an option to run Devstack and use it as your own private cloud for bootstrapping Cloudify 3.0.</li>
 </ul>
 
- <p>Setting up and running Devstack is pretty straight forward and you can use the official quick guide as your reference: <a href="http://devstack.org/">http://devstack.org/</a>.</p>
+ <p>Setting up and running Devstack is pretty straight forward and you can use the  <a href="http://devstack.org/" target="_blank">official quick guide</a> as your reference.</p>
 
 <p>You need to ensure that the computer running Devstack has enough resources for the Devstack + 3 additional VMs running inside it (16GB RAM is highly recommended, but 8 GB should work too).</p>
 
@@ -37,9 +37,9 @@ tags:
   
   <hr>
 
-<p>Add an Ubuntu image (12.04 LTS is recommended) from the Ubuntu official cloud images (<a href="http://cloud-images.ubuntu.com/precise/current/precise-server-cloudimg-amd64-disk1.img">http://cloud-images.ubuntu.com/precise/current/precise-server-cloudimg-amd64-disk1.img</a>) to your new DevStack environment. Once Devstack is installed, I recommend signing into its web UI and spawning a small Ubuntu instance as a validation that the installation was indeed successful.</p>
+<p>Add an Ubuntu image (12.04 LTS is recommended) from the <a href="http://cloud-images.ubuntu.com/precise/current/precise-server-cloudimg-amd64-disk1.img" target="_blank">Ubuntu official cloud images</a> to your new DevStack environment. Once Devstack is installed, I recommend signing into its web UI and spawning a small Ubuntu instance as a validation that the installation was indeed successful.</p>
 
-<p>Next, go to the Cloudify web site at: <a href="http://getcloudify.org/downloads/get_cloudify_3x.html">http://getcloudify.org/downloads/get_cloudify_3x.html</a> Choose the relevant Debian package (either 32 or 64 bit). Install the package: <code>dpkg –I ./ cloudify-cli_3.0.0-ga-b6_amd64.deb </code> Then we will need to configure Cloudify to use its Openstack plugin for bootstrapping. It is recommended to do it in a dedicated folder: <code>mkdir cloudify_work</code> cd Cloudify_work cfy init openstack Follow the steps on the Cloudify quickstart-openstack guide at <a href="http://getcloudify.org/guide/3.0/quickstart-openstack.html">http://getcloudify.org/guide/3.0/quickstart-openstack.html</a> Devstack defaults for the cloudify-config.yaml:</p>
+<p>Next, go to the <a href="http://getcloudify.org/downloads/get_cloudify_3x.html">Cloudify download page,</a> and choose the relevant Debian package (either 32 or 64 bit). Install the package: <code>dpkg –I ./ cloudify-cli_3.0.0-ga-b6_amd64.deb </code> Then we will need to configure Cloudify to use its Openstack plugin for bootstrapping. It is recommended to do it in a dedicated folder: <code>mkdir cloudify_work</code> cd Cloudify_work cfy init openstack Follow the steps on the Cloudify quickstart-openstack guide at <a href="http://getcloudify.org/guide/3.0/quickstart-openstack.html">http://getcloudify.org/guide/3.0/quickstart-openstack.html</a> Devstack defaults for the cloudify-config.yaml:</p>
 
 
 <p><script src="https://gist.github.com/yoramw/e923ec6a2a12402d1dc5"></script></p>
