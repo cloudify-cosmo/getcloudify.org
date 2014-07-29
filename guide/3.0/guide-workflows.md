@@ -13,19 +13,20 @@ types_yaml_link: http://getcloudify.org/spec/cloudify/3.0/types.yaml
 default_workflows_source_link: https://github.com/cloudify-cosmo/cloudify-manager/blob/develop/workflows/workflows/default.py
 ---
 
-{%summary%} This guide will explain what are workflows and how to use them {%endsummary%}
+{%summary%}This guide explains what workflows are and how to use them{%endsummary%}
 
 
 # Introduction to workflows
+
 Workflows are automation process algorithms. They describe the flow of the automation by determining which tasks will be executed and when. A task may be an operation (implemented by a plugin), but it may also be other actions, including arbitrary code. Workflows are written in Python, using dedicated APIs and framework.
 
-Workflows are per deployment. Every deployment has its own set of workflows (declared in the Blueprint), and executions of a workflow are in the context of that deployment.
+Workflows deployment specific. Every deployment has its own set of workflows (declared in the Blueprint), and executions of a workflow are in the context of that deployment.
 
-Controlling workflows (i.e. executing, cancelling, etc.) is done via REST calls to the management server. In this guide, the examples will be shown using Cloudify CLI commands.
+Controlling workflows (i.e. executing, cancelling, etc.) is done via REST calls to the management server. In this guide, the examples will be shown using Cloudify CLI commands which in turn call the above REST API calls.
 
+# Executing Workflows
 
-# Executing workflows
-Workflows are executed directly. Executing workflows from the CLI is done as so:
+Workflows are executed directly. Executing workflows from the CLI is done as follows:
 
 `cfy deployments execute my_workflow -d my_deployment`
 
@@ -33,9 +34,9 @@ this would execute the `my_workflow` workflow on the `my_deployment` deployment.
 
 Workflows run on deployment-dedicated workers on the management server, on top of the Cloudify workflow engine.
 
-When a workflow is executed, an Execution object is created for the deployment, containing both static and dynamic information about the workflow's execution run. One dynamic field in the Execution object is `status`, which conveys the state the execution is at.
+When a workflow is executed, an Execution object is created for the deployment, containing both static and dynamic information about the workflow's execution run. An important dynamic field in the Execution object is the `status` field, which conveys the current state of the execution.
 
-An execution is considered to be a *running execution* until it reaches one of the three final statuses: *terminated*, *failed* or *cancelled*. For more information, see the section on [workflow execution statuses](#workflow-execution-statuses).
+An execution is considered to be a *running execution* until it reaches one of the three final statuses: *terminated*, *failed* or *cancelled*. For more information, refer to the [workflow execution statuses](#workflow-execution-statuses) section in this page.
 
 
 {%note title=Note%}
@@ -44,22 +45,23 @@ It is recommended to only have one *running execution* per deployment at any poi
 
 
 
-# Workflow and execution parameters
-Workflows can have parameters. Workflow parameters are declared in the blueprint, where each parameter can be declared as either a mandatory parameter or an optional parameter with a default value. Since parameters declaration is only relevant for the workflow author, more information on the declaration of workflow parameters in the blueprint can be found in the [Workflows Authoring Guide](guide-authoring-workflows.html).
+# Workflow and Execution Parameters
+
+Workflows can have parameters. Workflow parameters are declared in the blueprint, and each parameter can be declared as either mandatory or optional with a default value. To learn more about parameter declaration please refer to the [Workflows Authoring Guide](guide-authoring-workflows.html).
 
 <br>
 Viewing a workflow's parameters can be done in the CLI using the following command:
 
 `cfy workflows get -d my_deployment -w my_workflow`
 
-this would show information on the `my_workflow` workflow of the `my_deployment` deployment, including the workflow's mandatory parameters as well as the optional parameters and their default values.
+This command shows information on the `my_workflow` workflow of the `my_deployment` deployment, including the workflow's mandatory parameters as well as the optional parameters and their default values.
 
 *Example: Retrieving a workflow's parameters*
 ![Workflows Get CLI screenshot](images/guide/workflows-get.png)
 *The workflow has a single mandatory parameter named* `mandatory_parameter`*, and two optional parameters, one named* `optional_parameter` *which has a default value of* `optional_parameter_default_value`*, and another named* `nested_parameter` *which has a complex default value.*
 
 <br>
-When executing a workflow, it's required to pass values for all mandatory parameters, and it's possible to override the default values for any of the optional parameters. Parameters are passed in the CLI with the `-p` flag, and in JSON form.
+When executing a workflow, it's required to specify values for all mandatory parameters, and it's possible to override the default values for any of the optional parameters. Parameters are passed in the CLI with the `-p` flag, and in JSON format.
 
 *Example: Executing a workflow with parameters*
 ![Execute with parameters CLI screenshot](images/guide/execute-with-parameters.png)
@@ -71,7 +73,7 @@ Execution parameters are the actual parameters the execution was run with. To vi
 `cfy executions get -e my_execution`
 
 {%note title=Note%}
-Both workflows and executions are in the context of a deployment - The reason that a deployment is not specified in the above command is that every execution has a unique ID (in UUID format), while workflows are referred to by name which might not be unique across deployments.
+Both workflows and executions live in the context of a deployment - The reason that a deployment is not specified in the above command is that every execution has a unique ID (in UUID format), while workflows are referred to by name which might not be unique across deployments.
 {%endnote%}
 
 
@@ -84,14 +86,15 @@ It is also possible to pass custom parameters that weren't declared for the work
 
 
 
-# Cancelling workflows executions
+# Cancelling Workflows Executions
+
 It is possible to cancel an execution whose [status](#workflow-execution-statuses) is either `pending` or `started`.
 
 There are two types of execution cancellations:
 
-* Standard cancellation - This type means a cancel request is posted for the execution. The execution's status will become `cancelling`. However, the actions to take upon such a request are up to the workflow that's being executed: It might try and stop, perform a full rollback, or even ignore the request completely and continue executing.
+* Standard cancellation - This type means that a cancel request is posted for the execution. The execution's status will become `cancelling`. However, the actions to take upon such a request are up to the workflow that's being executed: It might try and stop, perform a full rollback, or even ignore the request completely and continue executing.
 
-  Usually, this is the recommended way to cancel an execution, since while it doesn't make any guarantees, it allows for a workflow to cancel its execution gracefully - whether it be performing a rollback, cleaning up resources, or any other actions that it may wish to take before stopping. 
+  Usually, this is the recommended way to cancel an execution, since while it doesn't make any guarantees, it allows for a workflow to cancel its execution gracefully - whether by performing a rollback, cleaning up resources, or any other actions that it may take before stopping. 
 
 
 * Force cancellation - This type also means a cancel request is posted for the execution (with the execution's status becoming `force_cancelling`), yet in this case it is not up to the workflow to act on this request - instead, the Cloudify workflow engine will simply terminate the process running the workflow immediately.
@@ -100,7 +103,7 @@ There are two types of execution cancellations:
 
 
 {%warning title=Warning%}
-When the execution's status changes to `cancelled`, it means the workflow execution has completed, meaning no new tasks will be started; However, tasks that have already been started might still be executing on agents. This is true for both Standard and Force cancellations.
+When the execution's status changes to `cancelled`, it means the workflow execution has completed, meaning no new tasks will be started; However, tasks that have already been started might still be executing on agents. This is true for both Standard and Forced cancellations.
 {%endwarning%}
 
 <br>
@@ -115,8 +118,8 @@ When the CLI completes a cancel execution command, it does not mean the executio
 {%endnote%}
 
 
+# Workflow Error Handling
 
-# Workflows error-handling
 When an error is raised from the workflow itself, the workflow execution will fail - it will end with `failed` status, and should have an error message under its `error` field. There is no built-in retry mechanism for the entire workflow.
 
 However, there's a retry mechanism for task execution within a workflow.
@@ -138,7 +141,8 @@ In addition to the `task_retries` parameter, there's also the `retry_interval` p
 
 
 
-# Workflow execution statuses
+# Workflow Execution Statuses
+
 The workflow execution status is stored in the `status` field of the Execution object. These are the execution statuses which currently exist:
 
 * **pending** - The execution is waiting for a worker to start it.
@@ -150,8 +154,9 @@ The workflow execution status is stored in the `status` field of the Execution o
 * **failed** - The execution has failed. An execution with this status should have an error message available under the execution object's `error` field.
 
 
-# Built-in workflows
-Cloudify comes with a couple of built-in workflows - these are the workflows for application *install* and *uninstall*.
+# Built-in Workflows
+
+Cloudify comes with a number of built-in workflows - currently these are the workflows for application *install* and *uninstall*, but more are exepcted in future releases. 
 
 Built-in workflows are declared and mapped in the blueprint in [`types.yaml`]({{page.types_yaml_link}}), which is usually imported either directly or indirectly via other imports.
 
@@ -170,6 +175,7 @@ Built-in workflows are not special in any way - they use the same API and framew
 For more information and detailed description of the built-in workflows, visit the [Built-in workflows reference](reference-builtin-workflows.html).
 
 
-# Writing a custom workflow
+# Writing a Custom Workflow
+
 Advanced users may wish to write custom workflows. 
-To learn how to write a custom workflow, visit the [workflows authoring guide](guide-authoring-workflows.html).
+To learn how to write a custom workflow, refer to the [workflows authoring guide](guide-authoring-workflows.html).
