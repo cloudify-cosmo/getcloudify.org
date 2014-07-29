@@ -7,7 +7,7 @@ abstract: "A guide to authoring Cloudify Workflows"
 pageord: 100
 ---
 
-{%summary%} This guide will explain how to create your own workflows {%endsummary%}
+{%summary%}This guide explains how to create your own custom workflows{%endsummary%}
 
 
 {%note title=Note%}
@@ -15,12 +15,13 @@ This section is aimed at advanced users. Before reading it, make sure you have a
 {%endnote%}
 
 
-# Workflow implementation introduction
+# Introduction to Implementing Workflows
+
 Workflows implementation shares several similarities with plugins implementation:
 
-* Workflows are also implemented as Python methods.
+* Workflows are also implemented as Python functions.
 * A workflow method is decorated with `@workflow`, a decorator from the `cloudify.decorators` module of the `cloudify-plugins-common` package.
-* A workflow method receives a `ctx` parameter, which offers access to context data and various services. While sharing some resemblence, this `ctx` object is not of the same type as the one received by a plugin method.
+* A workflow method receives a `ctx` parameter, which offers access to context data and various system services. While sharing some resemblence, this `ctx` object is not of the same type as the one received by a plugin method.
 
 *Example: A typical workflow method's signature*
 {% highlight python %}
@@ -35,7 +36,7 @@ def my_workflow(ctx, **kwargs):
 Workflow parameters are received by the method as named parameters, and so if a workflow uses parameters they should usually appear in the method signature as well (or they'll end up under `kwargs`).
 
 {%tip title=Tip%}
-It's recommended not to have default values for parameters in the workflow method's signature. Instead, the default values should be provided in the workflow's parameters declaration in the blueprint - That way, the parameter and its default value are both visible to the user, both in the blueprint and via CLI commands, and the user is also able to override the default value with a different default value by simply editing the blueprint, without modifying code. For more information on workflow parameters declaration, see the [Blueprint mapping section](#blueprint-mapping).
+It's recommended not to have default values for parameters in the workflow method's signature. Instead, the default values should be provided in the workflow's parameters declaration in the blueprint - That way, the parameter and its default value are visible to the user both in the blueprint and via CLI commands, and the user is also able to override the default value by simply editing the blueprint, without modifying code. For more information on workflow parameters declaration, refer to the [Blueprint mapping section](#blueprint-mapping).
 {%endtip%}
 
 
@@ -46,16 +47,18 @@ There are two approaches to implementing workflows:
 
 
 # Tasks
+
 Work in progress
 
-## Task handlers
-Work in progress
+## Task Handlers
 
+Work in progress
 
 
 # APIs
+
 {%note title=Note%}
-This section is documented rather lightly since it is expected be replaced with auto-generated documentation soon. In the meanwhile, more documentation is available in the code over at the `cloudify.workflows.workflow_context` module.
+This section is documented rather lightly since it is expected be replaced with auto-generated documentation soon. In the meanwhile, more documentation is available within the code in the `cloudify.workflows.workflow_context` module.
 {%endnote%}
 
 The context object received by every workflow method is of type `CloudifyWorkflowContext`. It offers access to context data and various services. Additionally, any node, node instance, relationship or relationship instance objects returned by the context object (or from objects returned by the context object) will be wrapped in types which offer additional context data and services.
@@ -170,14 +173,16 @@ A relationship instance object wrapper.
 {% endgcloak %}
 
 
-# Graph framework
+# Graph Framework
+
 Work in progress
 
 
-# Blueprint mapping
-Similarly again to the case with plugins, it's the workflow author's responsilibity to write a yaml file (customly named `plugin.yaml`) which will contain both the workflow mapping as well as the workflow plugin declaration.
+# Blueprint Mapping
 
-Mapping workflows names to workflow implementations in the blueprint is done in a similar fashion to the way plugin operations are mapped, i.e. in one of two ways:
+As is the case with plugins, it's the workflow author's responsilibity to write a yaml file (named `plugin.yaml` by convention) which will contain both the workflow mapping as well as the workflow's plugin declaration.
+
+Mapping a workflow names to a workflow implementation in the blueprint is done in a similar fashion to the way plugin operations are mapped, i.e. in one of two ways:
 
 * Simple mapping - this should be used to map a workflow name to a workflow implementation which requires no parameters.
 
@@ -223,7 +228,8 @@ It's currently impossible to override a workflow mapping in the blueprint.
 {%endnote%}
 
 
-# Cancellation support
+# Cancellation Support
+
 A workflow should have support for graceful (AKA *Standard*) cancellation. It is up to the workflow author to decide the sematnics of *graceful* in this regard (and document them properly) - One workflow may merely stop the execution, while another may perform a rollback, and so on.
 
 *Standard workflows* which don't implement such support will simply ignore the cancellation request and continue executing the workflow. To implement cancellation support for *standard workflows*, some constructs from the `cloudify.workflows.workflows_api` module need to be used.
@@ -237,7 +243,7 @@ Then, `api.has_cancel_request()` can be used to determine whether the workflow e
 {%note title=Note%}
 Waiting for a task to end by calling the method `get` of a `WorkflowTaskResult` object will make the execution go into blocking mode which responds to cancel requests by raising an `api.ExecutionCancelled` error. This means that *standard workflows* which use this method will in fact respond to a cancel request, even if that request was sent before the `get` method was called.
 
-Further more - when a *standard workflow*'s code is finished running, the execution doesn't actually end until all tasks that have been launched are done running too. This is implemented by iterating over all tasks whose `get` method hasn't yet been called and calling `get` on each one, and therefore if a cancel request was issued and any task was used in the workflow, yet hadn't been called with `get` before the cancel request was received, then the workflow will respond to the cancel request at this final waiting phase by ending (no longer waiting for the rest of the tasks [if any] to end), and doing so with a `cancelled` status.
+Further more - when a *standard workflow*'s code has finished running, the execution doesn't actually end until all tasks that have been launched have completed as well. This is implemented by iterating over all tasks whose `get` method hasn't yet been called and calling `get` on each one, and therefore if a cancel request was issued and any task was used in the workflow, yet hadn't been called with `get` before the cancel request was received, then the workflow will respond to the cancel request at this final waiting phase by ending (no longer waiting for the rest of the tasks [if any] to end), and doing so with a `cancelled` status.
 {%endnote%}
 
 
@@ -255,10 +261,11 @@ Neither *standard workflows* nor *graph-based workflows* have any control over f
 
 
 
-# Tutorial
+# Step by Step Tutorial
+
 In this tutorial we will create from scratch a custom graph-based workflow whose purpose is to execute plugin operations.
 
-The tutorial will offer some guiding and reference as for how to use the following:
+The tutorial will offer some guidance and reference about the following:
 
 * [Graph framework](#graph-framework)
   * Adding tasks
@@ -274,9 +281,10 @@ The tutorial will offer some guiding and reference as for how to use the followi
 
 
 ## Requirements
+
 Similarly to plugins, workflows require the [cloudify-plugins-common](https://github.com/cloudify-cosmo/cloudify-plugins-common) package to be able to use the Cloudify workflows API and framework.
 
-## Implementing the workflow
+## Implementing the Workflow
 
 We'll be implementing the workflow one step at a time, where in each step we'll have a valid, working workflow, but with more features than the one in the previous step.
 
@@ -485,7 +493,7 @@ Step explanation:
 We could continue improving our workflow and extending its features, but in the scope of this tutorial, this last version of the workflow will be the one we'll be using throughout the remaining tutorial sections.
 
 
-## Blueprint mappings
+## Blueprint Mappings
 The workflow plugin declaration will look like this:
 {% highlight yaml %}
 plugins:
@@ -512,6 +520,7 @@ workflows:
 This will define a workflow named `my_workflow`, whose implementation is the `run_operation` workflow method we coded.
 
 The workflow has four parameters declared:
+
 * The mandatory `operation` parameter
 * The optional `type_name` parameter, which defaults to `cloudify.types.base` (meaning the operation will run on all nodes if this value isn't overridden)
 * The optional `operation_kwargs` parameter, which defaults to an empty dictionary.
@@ -519,9 +528,11 @@ The workflow has four parameters declared:
 
 
 
-## Testing the workflow
+## Testing the Workflow
+
 Coming soon...
 
 
-## Packaging the workflow
+## Packaging the Workflow
+
 Since workflows are joined to the blueprint the same way plugins do, they are also packaged the same way. Refer to the [Plugin creation guide](guide-plugin-creation.html#packaging-your-plugin) for more information.
