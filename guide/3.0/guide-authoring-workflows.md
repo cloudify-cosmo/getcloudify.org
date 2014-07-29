@@ -493,7 +493,7 @@ Step explanation:
 We could continue improving our workflow and extending its features, but in the scope of this tutorial, this last version of the workflow will be the one we'll be using throughout the remaining tutorial sections.
 
 
-## Blueprint mappings
+## Blueprint Mappings
 The workflow plugin declaration will look like this:
 {% highlight yaml %}
 plugins:
@@ -520,6 +520,7 @@ workflows:
 This will define a workflow named `my_workflow`, whose implementation is the `run_operation` workflow method we coded.
 
 The workflow has four parameters declared:
+
 * The mandatory `operation` parameter
 * The optional `type_name` parameter, which defaults to `cloudify.types.base` (meaning the operation will run on all nodes if this value isn't overridden)
 * The optional `operation_kwargs` parameter, which defaults to an empty dictionary.
