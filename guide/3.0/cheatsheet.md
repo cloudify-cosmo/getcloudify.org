@@ -23,7 +23,14 @@ parent:  none
 | **Description** | **Markdown** | **Output** |
 | Link to external site | \[GigaSpaces\]\(http://www.gigaspaces.com\) | [GigaSpaces](http://www.gigaspaces.com) |
 | Link to page in same folder | \[Directory Structure\]\(file-structure.html\) | [Directory Structure](file-structure.html) |
+| Set anchor | { % anchor anchorname % } | {% anchor anchorname %}[A link to the anchor](#anchorname) |
 
+
+# Images
+
+{: .table .table-bordered}
+| **Description** | **Markdown** |
+| Shows an image (the text will be the image's `alt`) | \!\[image-alt-description-here\]\(image-link-here\) |
 
 # Panels
 
