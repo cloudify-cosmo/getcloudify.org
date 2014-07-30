@@ -127,7 +127,7 @@ In our case, we have the following nodes:
 * A MongoDB instance
 * A nodejs application called nodecellar (which is a nice sample nodejs application backed by mongodb).
 
-![Nodecellar Blueprint](https://raw.githubusercontent.com/cloudify-cosmo/cloudify-nodecellar-openstack/master/blueprint.png)
+![Nodecellar Blueprint](images/guide/nodecellar_topology.png)
 
 Next, we need to create a deployment. To do so, type the following command:
 
