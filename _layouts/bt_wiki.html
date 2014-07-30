@@ -30,17 +30,25 @@
 				</div>
 				<div class="row bt_wiki-tocrow">
 					<div class="span3 bt_wiki-tocspan">				
-					<aside id="tocAside" class="left-sidebar"></aside>
+					<aside id="tocAside" class="left-sidebar" style="display:none;"></aside>
 					<script>
 					if (location.href.indexOf('/guide/') != -1) {
-					  var version = document.location.href.split("/guide/")[1].split("/")[0];
-					  $.ajax({
-					      type:'GET',
-					      url:'/guide/' + version + '/toc.html',                                
-					      success:function (data) {
-					      	$("#tocAside").html(data.toString());
-					      }
-					  });
+						var version = document.location.href.split("/guide/")[1].split("/")[0];
+						var tocUrl = '/guide/' + version + '/toc.html';
+						var tocHtml = sessionStorage.getItem(tocUrl);
+						if (tocHtml != null) {
+							$("#tocAside").html(tocHtml);	
+						} else {
+							$.ajax({
+							    type:'GET',
+							    url:'/guide/' + version + '/toc.html',                                
+							    success:function (data) {	
+							    	tocHtml = data.toString();				      	
+							    	sessionStorage.setItem(tocUrl, tocHtml);
+							    	$("#tocAside").html(tocHtml);
+							    }
+							});
+						}
 					}
 
 					</script>
@@ -70,7 +78,6 @@
 <script src="/js/wikipage-layout.js"></script>
 
 <!-- javascript footer_scripts-->
-
 
 </body>
 </html>
