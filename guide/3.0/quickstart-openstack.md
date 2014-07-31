@@ -176,7 +176,16 @@ cfy deployments execute -d nodecellar1 uninstall
 
 Similarly to the `install` workflow, you can track the progress of the uninstallation in the CLI or the web UI using the events that are displayed in both. Once the workflow complates, you can verify that the VMs were indeed destroyed and the other application related resources have been also removed. 
 
-## Step 9: Teardown the Manager 
+## Step 9: Delete the Deployment
+
+The next step is deleting the deployment. Assuming the uninstallation went fine, all of the application resources should have been removed. However, the deployment itself still has record on the manager. For example, all of its static and runtime properties are still stored in the manager's database. To clean up all the information related to the deployment on the manager, delete the deploymet as follows: 
+
+{%highlight bash%}
+cfy deployments delete -d nodecellar1
+{%endhighlight%}
+
+
+## Step 10: Teardown the Manager 
 
 Next, you can also teardown the manager if you have no use for it anymore. This can be done by issuing the following command:
 
