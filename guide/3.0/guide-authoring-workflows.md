@@ -4,7 +4,7 @@ title: Workflows Authoring Guide
 category: Guides
 publish: true
 abstract: "A guide to authoring Cloudify Workflows"
-pageord: 100
+pageord: 600
 ---
 
 {%summary%}This guide explains how to create your own custom workflows{%endsummary%}

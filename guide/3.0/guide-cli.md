@@ -4,7 +4,7 @@ title: CLI Guide
 category: Guides
 publish: true
 abstract: "Guide for Cloudify CLI"
-pageord: 500
+pageord: 300
 ---
 
 

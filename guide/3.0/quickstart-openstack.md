@@ -1,7 +1,7 @@
 ---
 layout: bt_wiki
-title: Deploying Your First Blueprint on OpenStack 
-category: Guides
+title: Getting Started with OpenStack 
+category: none
 publish: true
 abstract: A quick tutorial for getting started with Cloudify and deploying your first blueprint on OpenStack 
 pageord: 200

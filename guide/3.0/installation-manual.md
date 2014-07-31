@@ -4,7 +4,7 @@ title: Bootstrapping Manually
 category: Installation
 publish: true
 abstract: Intalling Cloudify on a local machine
-pageord: 29
+pageord: 500
 
 prereqs_link: installation-general.html
 downloads_link: http://getcloudify.org/downloads/get_cloudify_3x.html

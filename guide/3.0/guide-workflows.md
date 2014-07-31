@@ -4,7 +4,7 @@ title: Workflows Guide
 category: Guides
 publish: true
 abstract: "A guide to Cloudify Workflows"
-pageord: 100
+pageord: 500
 
 
 types_yaml_link: http://getcloudify.org/spec/cloudify/3.0/types.yaml

@@ -1,10 +1,10 @@
 ---
 layout: bt_wiki
-title: Installing Cloudify
+title: Prerequisites 
 category: Installation
 publish: true
 abstract: How do you go about installing Cloudify?
-pageord: 21
+pageord: 100
 
 manual_install: installation-manual.html
 ---
@@ -60,7 +60,9 @@ Cloudify does require that you have Python 2.7 and above to run.
 Centos comes with Python 2.6.6 by default. If you want to use Centos with Cloudify, you'll have to provide an image with Python 2.7.
 {%endnote%}
 
+# Next Steps 
 
-# Cloud specific Installations
-You can bootstrap the management server [manually]({{page.manual_install}}).
-For Cloud specific installation see the bootstrap manuals for each cloud provider under the Installation section.
+Next, you should [install the Cloudify CLI](installation-cli.html). Once you've installed it, you will be able to boostrap a Cloudify manager on the environment of your choice. 
+
+
+

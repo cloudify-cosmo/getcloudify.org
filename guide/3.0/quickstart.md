@@ -4,7 +4,7 @@ title: Getting Started
 category: none
 publish: true
 abstract: A quick tutorial for getting started with Cloudify and deploying your first blueprint
-pageord: 11
+pageord: 100
 
 quickstart_openstack_link: quickstart-openstack.html
 blueprint_file_link: https://github.com/cloudify-cosmo/cloudify-nodecellar-singlehost/blob/master/blueprint.yaml

@@ -4,7 +4,7 @@ title: Bootstrapping on Openstack
 category: Installation
 publish: true
 abstract: "Tutorial for bootstrapping on Openstack"
-pageord: 24
+pageord: 300
 ---
 
 {%summary%} Bootstrapping Cloudify on Openstack is done via Cloudify CLI in the same fashion as any other environment. This section will detail the various parameters appearing in the Openstack-specific configuration file. {%endsummary%}

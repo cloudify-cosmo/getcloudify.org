@@ -4,7 +4,7 @@ title: Installing the Cloudify CLI
 category: Installation
 publish: true
 abstract: Installation instructions for Cloudify CLI under multiple platforms
-pageord: 22
+pageord: 200
 
 windows_link: http://gigaspaces-repository-eu.s3.amazonaws.com/org/cloudify3/3.0.0/nightly_6/cloudify-cli_3.0.0-ga-b6.exe
 linux32_link: http://gigaspaces-repository-eu.s3.amazonaws.com/org/cloudify3/3.0.0/nightly_6/cloudify-cli_3.0.0-ga-b6_i386.deb
@@ -110,6 +110,10 @@ export CPPFLAGS=-Qunused-arguments
 {% endhighlight %}
 
 {% endnote %}
+
+# Next Steps 
+
+Now that you've installed the CLI, you are able to bootstrap a manager. This guide contains instructions for how to boostrap on [OpenStack](installation-openstack-provider.html), [on an existing vm](installation-simple-provider.html) or for the more advanced users, how to [install the Cloudify manager manually](installation-manual.html). 
 
 
 

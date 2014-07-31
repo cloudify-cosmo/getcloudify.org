@@ -4,7 +4,7 @@ title: Write-a-plugin Guide
 category: Guides
 publish: true
 abstract: Plugin creation guide
-pageord: 200
+pageord: 400
 
 plugin_link: https://github.com/cloudify-cosmo/cloudify-python-plugin
 template_link: https://github.com/cloudify-cosmo/cloudify-plugin-template
