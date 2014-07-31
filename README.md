@@ -21,11 +21,15 @@ To run and test the website locally, you should perform the following steps:
 
 * Create a fork of this repo and clone it to your machine.
 
-        git clone https://github.com/&lt;your github username&gt;/getcloudify.org.git
+        git clone https://github.com/your-github-username/getcloudify.org.git
 
 * Go to the repository directory: 
 
         cd getcloudify.org
+
+* Invoke Bundler to install all required Ruby gems
+
+        bundler install 
 
 - If you're using Windows, run `setup-win.bat` with administrative permissions (requires Windows Vista or later).
 This script is a workaround for a known issue in git which ignores symbolic links on windows. 
