@@ -176,7 +176,15 @@ Similarly to the `install` workflow, you can track the progress of the uninstall
 
 In a real cloud deployment, each and every resource provisioned by the deployment will be destroyed. In our case, there aren't any external resources, only application related ones.
 
-## Step 8: Teardown the Manager
+## Step 8: Delete the Deployment
+
+The next step is deleting the deployment. assuming the uninstallation went fine, all of the application resources should have been removed. However, the deployment itself still has record on the manager. For example, all of its static and runtime properties are still stored in the manager's database. To clean up all the information related to the deployment on the manager, delete the deploymet as follows: 
+
+{%highlight bash%}
+cfy deployments delete -d nodecellar1
+{%endhighlight%}
+
+## Step 9: Teardown the Manager
 
 Next, you can teardown the manager if you have no use for it. This can be done by issuing the following command:
 
