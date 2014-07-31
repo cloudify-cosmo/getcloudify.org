@@ -50,7 +50,7 @@ jQuery(document).ready(function($) {
 		
 		//highlight  docs menu links
 		$('a.list-group-item').each(function() {
-			if ($(this).attr('href')  ===  window.location.pathname) {
+			if ($(this).attr('href').indexOf(window.location.pathname) != -1)  {
 				$(this).addClass('highlight');
 				$(this).parent().show();
 				$('.icon-caret-down').attr('class','icon-caret-right');
