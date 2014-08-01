@@ -22,7 +22,7 @@ tags:
 
 <h4><strong>Now imagine we can have this goodness couple with an intelligent <a href="http://getcloudify.org/cloud_orchestration_cloud_automation.html" target="_blank">orchestration</a> framework for entire deployment?</strong></h4>
 
-<p>In this blog post I’d like to demonstrate how a cloud application orchestrator can complement already existing automation processes powered by <a href="http://getcloudify.org/chef_cloud_configuration_management.html" target="_blank">configuration management</a> tools, in this case we will demonstrate with Puppet.</p>
+<p>In this blog post I'd like to demonstrate how a cloud application orchestrator can complement already existing automation processes powered by <a href="http://getcloudify.org/chef_cloud_configuration_management.html" target="_blank">configuration management</a> tools, in this case we will demonstrate with Puppet.</p>
 
 <p>I will use the nodecellar application and the popular WordPress content management framework as examples. </p>
 
@@ -30,13 +30,13 @@ tags:
 
 <h3>Overview</h3>
 
-<p>So we've seen how Cloudify 3 allows us to easily orchestrate the “nodecellar” application</p>
+<p>So we've seen how Cloudify 3 allows us to easily orchestrate the "nodecellar" application</p>
 
 <p>Read about it more here:<a href="http://getcloudify.org/guide/3.0/blueprint_guide.html"> http://getcloudify.org/guide/3.0/blueprint_guide.html</a></p>
 
-<p>With the <a href="http://getcloudify.org/cloudifysourcetv.html#3" target="_blank">“nodecellar” example</a>, Cloudify deploys a complex application using workflows that map deployment lifecycle events to bash scripts using Cloudify’s bash runner plugin.</p>
+<p>With the <a href="http://getcloudify.org/cloudifysourcetv.html#3" target="_blank">"nodecellar" example</a>, Cloudify deploys a complex application using workflows that map deployment lifecycle events to bash scripts using Cloudify's bash runner plugin.</p>
 
-<p>Cloudify’s Puppet integration now makes this pretty easy.</p>
+<p>Cloudify's Puppet integration now makes this pretty easy.</p>
 
 <hr>
 
@@ -57,15 +57,15 @@ tags:
   </li>
 
   <li>
-    <p>Remote Execution and Updates: Other than the basic install/uninstall, Cloudify enables customized application workflows that allow you to execute tools like remote shell scripts on a group of instances that belong to a particular service, or to a specific instance in a group. This feature is useful to run maintenance operations, such as snapshots in the case of a database, or code pushes in a continuous deployment model. In addition,&#160; you can run “puppet apply” whenever you feel it’s right for your service.</p>
+    <p>Remote Execution and Updates: Other than the basic install/uninstall, Cloudify enables customized application workflows that allow you to execute tools like remote shell scripts on a group of instances that belong to a particular service, or to a specific instance in a group. This feature is useful to run maintenance operations, such as snapshots in the case of a database, or code pushes in a continuous deployment model. In addition,&#160; you can run "puppet apply" whenever you feel it's right for your service.</p>
   </li>
 
   <li>
-    <p>Post Deployment: Once your application is up, Cloudify will be able to glue your monitoring tool of choice, or you can choose to use the built-in one. A robust policy engine, enables auto-healing and even auto-scaling according to your service’s required SLA.</p>
+    <p>Post Deployment: Once your application is up, Cloudify will be able to glue your monitoring tool of choice, or you can choose to use the built-in one. A robust policy engine, enables auto-healing and even auto-scaling according to your service's required SLA.</p>
   </li>
 </ul>
 
-<p>I’m now going to take a deep dive on my experience with a WordPress example that I feel is a very good representation of how Puppet and Cloudify work in sync.</p>
+<p>I'm now going to take a deep dive on my experience with a WordPress example that I feel is a very good representation of how Puppet and Cloudify work in sync.</p>
 
 <p>Let's say we want to deploy the popular WordPress application stack on two VMs . </p>
 
@@ -94,7 +94,7 @@ tags:
 
 <p>As we can see, we have an Apache PHP application that will likely require a database connection string (IP, port, user and password).</p>
 
-<p>This is where Cloudify facilitates the “gluing” of all the pieces together, by allowing us to inject dynamic/static custom facts to the dependent node (Apache server).</p>
+<p>This is where Cloudify facilitates the "gluing" of all the pieces together, by allowing us to inject dynamic/static custom facts to the dependent node (Apache server).</p>
 
 <p>Cloudify supports both standalone agents and PuppetMaster environments.</p>
 
@@ -114,9 +114,9 @@ tags:
 <p><script src="https://gist.github.com/emptybay/af8da95d11e7d1e5c641.js"></script></p>
 
 
-<p>Let’s add some tags for finer control of manifest execution:</p>
+<p>Let's add some tags for finer control of manifest execution:</p>
 
-<p>The MySQL node will not require the application part to run on it, so I’ve excluded it using a Puppet “tag” (read more about <a href="http://docs.puppetlabs.com/puppet/latest/reference/lang_tags.html">Puppet tags</a>). </p>
+<p>The MySQL node will not require the application part to run on it, so I've excluded it using a Puppet "tag" (read more about <a href="http://docs.puppetlabs.com/puppet/latest/reference/lang_tags.html">Puppet tags</a>). </p>
 
 <p>Cloudify, of course, supports this and will provide the appropriate tags during agent invocation.</p>
 
@@ -126,9 +126,9 @@ tags:
 
 <h3><strong>Step 3: Creating the Blueprint</h3
 
-<p>In a similar way to the “nodecellar” blueprint, first lets create a folder with the name of “wp_puppet” and create a blueprint.yaml file within it. This file will then serve as the blueprint file.</p>
+<p>In a similar way to the "nodecellar" blueprint, first lets create a folder with the name of "wp_puppet" and create a blueprint.yaml file within it. This file will then serve as the blueprint file.</p>
 
-<p>Now let’s declare the name of this blueprint.</p>
+<p>Now let's declare the name of this blueprint.</p>
 
 
 <p><script src="https://gist.github.com/emptybay/0e5d92e004aa5d931da6.js"></script></p>
@@ -138,7 +138,7 @@ tags:
 
 <h3><strong>Step 4: Creating VM Nodes</strong></h3>
 
-<p>Since, in this case I use the OpenStack provider to create the nodes, let’s import the “OpenStack types” plugin.</p>
+<p>Since, in this case I use the OpenStack provider to create the nodes, let's import the "OpenStack types" plugin.</p>
 
 <p><script src="https://gist.github.com/emptybay/0bdff08ec4eeb49d7652.js"></script></p>
 
@@ -176,7 +176,7 @@ tags:
 
 <h3><strong>Step 6: Instantiating the Apache and MySQL nodes:</strong></h3>
 
-<p>Here we provide the Puppet configuration and tags and define the relationships between the nodes. Cloudify’s agent will use those relationships in order to decide the appropriate facts to inject.</p>
+<p>Here we provide the Puppet configuration and tags and define the relationships between the nodes. Cloudify's agent will use those relationships in order to decide the appropriate facts to inject.</p>
 
 
 <p><script src="https://gist.github.com/emptybay/930312444d6791032407.js"></script></p>
