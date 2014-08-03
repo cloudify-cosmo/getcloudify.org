@@ -3,10 +3,11 @@ layout: bt_wiki
 title: CLI Guide
 category: Guides
 publish: true
-abstract: "Guide for Cloudify CLI"
+abstract: "Installation and Configuration Guide for the Cloudify CLI"
 pageord: 300
 ---
 
+{%summary%}{{page.abstract}}{%endsummary%}
 
 # Overview
 
