@@ -25,28 +25,7 @@
 				</div>
 				<div class="row bt_wiki-tocrow">
 					<div class="span3 bt_wiki-tocspan">				
-					<aside id="tocAside" class="left-sidebar" style="display:none;"></aside>
-					<script>
-					if (location.href.indexOf('/guide/') != -1) {
-						var version = document.location.href.split("/guide/")[1].split("/")[0];
-						var tocUrl = '/guide/' + version + '/toc.html';
-						var tocHtml = sessionStorage.getItem(tocUrl);
-						if (tocHtml != null) {
-							$("#tocAside").html(tocHtml);	
-						} else {
-							$.ajax({
-							    type:'GET',
-							    url:'/guide/' + version + '/toc.html',                                
-							    success:function (data) {	
-							    	tocHtml = data.toString();				      	
-							    	sessionStorage.setItem(tocUrl, tocHtml);
-							    	$("#tocAside").html(tocHtml);
-							    }
-							});
-						}
-					}
-
-					</script>
+						<aside id="tocAside" class="left-sidebar" style="display:none;"></aside>
 					</div>
 					<div class="span9 bt_wiki-docswrap" id="docsWrap">
 						<div id="resultsDiv" class="DocumentsWrap"></div>
