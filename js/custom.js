@@ -58,10 +58,8 @@ $(document).ready(function() {
 		    	$("#tocAside").html(data.toString());
 		    	
 		    	//highlight  docs menu links
-				$('a.list-group-item').each(function() {
-					console.log(window.location.href.indexOf($(this).attr('href')) != -1);
-					if (window.location.href.indexOf($(this).attr('href')) != -1)  {
-						console.log($(this).attr('href'));
+				$('a.list-group-item').each(function() {					
+					if (window.location.href.indexOf($(this).attr('href')) != -1)  {						
 						$(this).addClass('highlight');
 						$(this).parent().show();
 						$('.icon-caret-down').attr('class','icon-caret-right');
