@@ -4,11 +4,13 @@ title: Terminology
 category: Reference
 publish: true
 abstract: Cloudify Terms and Concepts (In a nutshell)
-pageord: 11
+pageord: 100
 
 tosca_link: https://www.oasis-open.org/committees/tc_home.php?wg_abbrev=tosca
 arch_link: overview-architecture.html
 ---
+
+{% linklist h3 %}
 
 Cloudify users will come across several concepts and terms that might have different meanings in other products or systems. For your benefit we define these below:
 
@@ -18,6 +20,9 @@ Agents are [task](#task) executors.
 They may be located on either the application VM, on the manager, or elsewhere - depending on the tools and API’s they need to interface with (see [Plugins](#plugin)).
 
 Agents read tasks from a tasks broker and delegate them to a worker subprocess (a Plugin based Python process).
+
+Each `deployement` has a dedicated agent on the manager known as `Deployment Agent`
+
 
 ### **Application**
 An Application in Cloudify means a software based business service with all of its IT components at the infrastructure, middleware and business logic levels.
@@ -136,9 +141,9 @@ Coming soon...
 ### **Relationship**
 Relationships are types that describe the nature of dependency between components and the logic, if required, to glue components together.
 
-For example, a relationship can be of [type](#type) `contained_in`. That means that component X is hosted within component Y and therefore can't be created until component Y is created and running.
+For example, a relationship can be of [type](#type) `cloudify.types.contained_in`. That means that component `X` is hosted within component `Y` and therefore can't be created until component `Y` is created and running.
 
-Another example is an Apache server that's connected to MySQL. In this case, Apache needs to be configured at runtime to connect to MySQL. Waiting for MySQL to be up and running won't suffice in this case. The relationship needs to map operations to [plugin](#plugin) functions that execute the connection's configuration.
+Another example is an Apache server that's connected to MySQL. In this case, Apache needs to be configured at runtime to connect to MySQL. Waiting for MySQL to be up and running won't suffice in this case. The relationship needs to map relationship operations to [plugin](#plugin) functions that execute the connection's configuration.
 
 ### **Relationship implmenetation**
 Coming soon...
@@ -153,15 +158,15 @@ Coming soon...
 Coming soon...
 
 ### **Runtime Properties**
-Runtime Properties are execution-time details of [nodes](#node).
+Runtime Properties are execution-time details of [node instances](#node-instance).
 
 Runtime Properties are saved to the database so that they can be consumed by [plugins](#plugin) or by users.
-Unlike a node(#node)'s [properties](#properties), which are explicitly specified in the [blueprint](#blueprint), runtime properties are only set during runtime by Cloudify or its plugins.
+Unlike [node](#node)'s [properties](#properties), which are explicitly specified in the [blueprint](#blueprint), runtime properties are only set during runtime by Cloudify or its plugins.
 
 ### **Task**
 A Task is the execution of one function in a [plugin](#plugin) with a given set of arguments.
 
-The arguments describe the context of the execution including [node][#node] [properties](#properties) and [Runtime Properties](#runtime-properties).
+The arguments describe the context of the execution including [node](#node) [properties](#properties) and [node instance](#node-instance) [runtime properties](#runtime-properties).
 
 ### **Task Broker**
 See the definition [here]({{page.arch_link}}#task-broker).
@@ -176,12 +181,12 @@ A Topology is denoted in YAML.
 ### **Type**
 A Type is a class of an [application](#application)'s component.
 
-For example a db_server type represents a database server.
+For example a `db_server` type represents a database server.
 
 The basic types provided with Cloudify are abstract and only serve as markers.
 Derived types have their operations mapped to a particular [plugin](#plugin) that enables their materialization using some API or tool.
 
-For example, cloudify.types.openstack.server is using the nova_plugin to communicate with OpenStack's Nova API (compute API) to spawn virtual machines on OpenStack clouds.
+For example, `cloudify.types.openstack.server` is using the nova_plugin to communicate with OpenStack's Nova API (compute API) to spawn virtual machines on OpenStack clouds.
 
 ### **Type Hierarchy**
 Coming soon...

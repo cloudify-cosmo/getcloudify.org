@@ -47,7 +47,7 @@ There is a manager side agent per application[(?)]({{page.glossary_link}}#applic
 
 ### Proxy and File Server
 
-Cloudify uses [Ngnix](http://nginx.org/) as its frontend reverse proxy and file server (In later versions in will also be used for security related features.)
+Cloudify uses [Nginx](http://nginx.org/) as its frontend reverse proxy and file server (In later versions in will also be used for security related features.)
 
 ### REST API
 
@@ -162,7 +162,7 @@ Cloudify's architecture supports the following main technical flows:
 Bootstrapping is when a user chooses to install the manager using the CLI. In this process the CLI sets up the environment needed for the manager (network, security groups and key-pairs and the manager VM). Once the manager VM is ready, the CLI uses the manager packages to install the manager components inside the manager VM.
 
 ## Blueprint Upload
-The first step the user must take to install an application is to have the application orchestration plan (aka `blueprint`) uploaded to the manager and saved in its `file server`. This is done by using the GUI or the `cfy blueprints upload` command. The CLI then packs the blueprint YAML file folder to a `tar` file and uploads it through the Cloudify manager REST server. It is then stored in the Cloudify manager file server (hosted by [ngnix](ngnix.org)).
+The first step the user must take to install an application is to have the application orchestration plan (aka `blueprint`) uploaded to the manager and saved in its `file server`. This is done by using the GUI or the `cfy blueprints upload` command. The CLI then packs the blueprint YAML file folder to a `tar` file and uploads it through the Cloudify manager REST server. It is then stored in the Cloudify manager file server (hosted by [nginx](http://nginx.org)).
 
 ## Deployment Creation
 In order to deploy and manage an application you need to create a runtime data model in the manager. This is where the manager keeps the state of the application. To do so simply use the GUI or the CLI command: `cfy deployments create`.

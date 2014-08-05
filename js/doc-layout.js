@@ -2,6 +2,17 @@
 layout: nil
 ---
 
+
+function createLinkList(headingStr) {
+  var toc_html = "";
+  var links = "";
+  $('#pageContent').children(headingStr).slice(1).each(function(index, item) {
+    toc_html += '<li><a href="#'+item.id+'">'+item.innerHTML+'</a></li>';
+  });
+
+  $("#linksPanel").html(toc_html);
+}
+
 $(function () {
 
   $(".tabsection").each(function(index) {
@@ -33,32 +44,6 @@ $(function () {
   });
 
   $("#summarypanel").html(summary_html);
-
-  /*
-  if (!$.isEmptyObject(tocheaders)) {
-    $.each(tocheaders, function(tocindex, tocvalue) {
-      toc_url = "";
-      $("#" + tocindex).children(tocvalue).each(function(index, item) {
-        toc_url += '<li><a href="#'+item.id+'">'+item.innerHTML+'</a></li>';
-      });
-
-      $("#toczone-top" + tocindex +",#toczone-bot" + tocindex).html(toc_url);
-
-    });
-  }
-
-  if (!$.isEmptyObject(tocheadersz)) {
-    $.each(tocheadersz, function(tocindexz, tocvaluez) {
-      toc_urlz = "";
-      $(".col-md-9").children(tocvaluez).each(function(index, item) {
-        toc_urlz += '<li><a href="#'+item.id+'">'+item.innerHTML+'</a></li>';
-      });
-
-      $("#toczone-top" + tocindexz +",#toczone-bot" + tocindexz).html(toc_urlz);
-
-    });
-  }
-  */
 
   if ($("#childrentree").length !== 0) {
     var childrentreeid = $("a:contains('" + $("title").text() +"')");
