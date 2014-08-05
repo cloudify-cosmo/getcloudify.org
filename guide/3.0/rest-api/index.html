@@ -28,7 +28,6 @@
       url: "http://getcloudify.org/guide/3.0/rest-api/resources.json",
       dom_id: "swagger-ui-container",
       supportedSubmitMethods: ['get', 'post', 'put', 'delete'],
-      docExpansion: 'list',
       onComplete: function(swaggerApi, swaggerUi){
         log("Loaded SwaggerUI");
 
@@ -48,7 +47,7 @@
       onFailure: function(data) {
         log("Unable to Load SwaggerUI");
       },
-      docExpansion: "none",
+      docExpansion: "list",
       sorter : "alpha"
     });
 
@@ -61,6 +60,7 @@
       }
     })
     window.swaggerUi.load();
+    Docs.toggleEndpointListForResource('spec.json');
   });
   </script>
 </head>
