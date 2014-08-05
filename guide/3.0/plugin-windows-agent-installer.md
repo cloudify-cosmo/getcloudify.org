@@ -4,7 +4,7 @@ title: Windows Agent Installer Plugin
 category: Plugins
 publish: true
 abstract: "Cloudify Windows Agent Installer description and configuration"
-pageord: 100
+pageord: 800
 
 celery_link: http://www.celeryproject.org/
 autoscale_link: http://docs.celeryproject.org/en/latest/userguide/workers.html#autoscaling

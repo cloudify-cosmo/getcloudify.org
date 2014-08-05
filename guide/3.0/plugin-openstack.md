@@ -4,7 +4,7 @@ title: Openstack Plugin
 category: Plugins
 publish: true
 abstract: Cloudify Openstack plugin description and configuration
-pageord: 100
+pageord: 600
 ---
 
 
@@ -186,7 +186,7 @@ The following is an excerpt from the blueprint's `blueprint`.`nodes` section:
 
 {% highlight yaml %}
 - name: my_floating_ip
-  type: cloudify.openstack.floatingip    
+  type: cloudify.openstack.floatingip
   properties:
     floatingip:
       floating_network_name: Ext-Net
@@ -195,17 +195,17 @@ The following is an excerpt from the blueprint's `blueprint`.`nodes` section:
 - name: my_network
   type: cloudify.openstack.network
   properties:
-    network: 
+    network:
       name: my_network_openstack_name
 
 
 - name: my_subnet
   type: cloudify.openstack.subnet
   properties:
-    subnet: 
+    subnet:
       name: my_subnet_openstack_name
       cidr: 1.2.3.0/24
-      ip_version: 4      
+      ip_version: 4
   relationships:
     - target: my_network
       type: cloudify.relationships.contained_in
@@ -230,7 +230,7 @@ The following is an excerpt from the blueprint's `blueprint`.`nodes` section:
         flavor: 101
         security_groups: [my_security_group_openstack_name]
   relationships:
-    - target: my_network 
+    - target: my_network
       type: cloudify.relationships.connected_to
     - target: my_subnet
       type: cloudify.relationships.depends_on
@@ -254,7 +254,7 @@ Node by node explanation:
   - A relationship to the `my_network` node: Through this relationship, the server will be automatically placed on the `my_network_openstack_name` network.
   - A relationship to the `my_subnet` node: This relationship is strictly for ensuring the order of creation is correct, as the server requires the `my_subnet_openstack_name` subnet to exist before it can be created on it.
   - A relationship to the `my_floating_ip` node: This designated relationship type will take care of associating the server with the floating IP represented by the `my_floating_ip` node.
-  - A relationship with the `my_security_group` node: This relationship is strictly for ensuring the order of creation is correct, as the server requires the `my_security_group_openstack_name` security group to exist before it can be set with it. The actual link between the two is done via the `security_groups` key of the `server` property, 
+  - A relationship with the `my_security_group` node: This relationship is strictly for ensuring the order of creation is correct, as the server requires the `my_security_group_openstack_name` security group to exist before it can be set with it. The actual link between the two is done via the `security_groups` key of the `server` property,
 {% endgcloak %}
 
 
@@ -275,7 +275,7 @@ The following is an excerpt from the blueprint's `blueprint`.`nodes` section:
 - name: my_network
   type: cloudify.openstack.network
   properties:
-    network: 
+    network:
       name: my_network_openstack_name
 
 
@@ -292,7 +292,7 @@ The following is an excerpt from the blueprint's `blueprint`.`nodes` section:
 - name: my_subnet
   type: cloudify.openstack.subnet
   properties:
-    subnet: 
+    subnet:
       cidr: 1.2.3.0/24
       ip_version: 4
       name: my_subnet_openstack_name
@@ -306,7 +306,7 @@ The following is an excerpt from the blueprint's `blueprint`.`nodes` section:
 - name: my_port
   type: cloudify.openstack.port
   properties:
-    port: 
+    port:
       name: my_port_openstack_name
   relationships:
     - target: my_network

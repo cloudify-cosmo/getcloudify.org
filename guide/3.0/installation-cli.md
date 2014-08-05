@@ -111,11 +111,7 @@ export CPPFLAGS=-Qunused-arguments
 
 {% endnote %}
 
-# Next Steps 
+# What's Next
 
-Now that you've installed the CLI, you are able to bootstrap a manager. This guide contains instructions for how to boostrap on [OpenStack](installation-openstack-provider.html), [on an existing vm](installation-simple-provider.html) or for the more advanced users, how to [install the Cloudify manager manually](installation-manual.html). 
-
-
-
-
-
+* Now that you know the requirements and have the CLI installed, you can bootstrap your own manager [on an existing VM]({{page.simple_install_link}}).
+* For Cloud specific installation see the bootstrap manuals for each cloud provider under the Installation section.

@@ -1,12 +1,15 @@
 ---
 layout: bt_wiki
-title: Prerequisites 
+title: Prerequisites
 category: Installation
 publish: true
 abstract: How do you go about installing Cloudify?
 pageord: 100
 
-manual_install: installation-manual.html
+manual_install_link: installation-manual.html
+glossary_link: reference-glossary.html
+cli_install_link: installation-cli.html
+simple_install_link: installation-simple-provider.html
 ---
 {%summary%}{{page.abstract}}{%endsummary%}
 
@@ -16,12 +19,23 @@ Since it is based on a set of premade packages, it can be deployed using shell s
 
 # Prerequisites
 
-## Host Machine
+## Manager Environment
+
+### Host Machine
 A Cloudify manager requires at the very least 2GB of RAM, 1 CPU and 5GB of free space.
 
 {%note title=Note%}
 these are the very basic requirements. You will have to provision larger machines for larger deployments.
 {%endnote%}
+
+### Network
+The Manager must be available in the following ports:
+
+* Inbound - port 80 - For CLI and REST access.
+* Inbound - port 22 - If [Bootstrapping]({{page.glossary_link}}#bootstrapping) is done via the CLI.
+* Inbound - port 5672 - [Agent]({{page.glossary_link}}#agent) to Manager communication.
+* Outbound - port 22 - If running Linux based host machines and remote [agent]({{page.glossary_link}}#agent) installation is required.
+* Outbound - port 5985 - If running Windows based host machines and remote [agent]({{page.glossary_link}}#agent) installation is required.
 
 ## OS Distributions
 
@@ -60,9 +74,6 @@ Cloudify does require that you have Python 2.7 and above to run.
 Centos comes with Python 2.6.6 by default. If you want to use Centos with Cloudify, you'll have to provide an image with Python 2.7.
 {%endnote%}
 
-# Next Steps 
+# What's Next
 
-Next, you should [install the Cloudify CLI](installation-cli.html). Once you've installed it, you will be able to boostrap a Cloudify manager on the environment of your choice. 
-
-
-
+Next, you should [install the Cloudify CLI](installation-cli.html). Once you've installed it, you will be able to boostrap a Cloudify manager on the environment of your choice.

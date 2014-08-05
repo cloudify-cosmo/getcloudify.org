@@ -4,7 +4,7 @@ title: Plugin Installer Plugin
 category: Plugins
 publish: true
 abstract: "Cloudify plugin installer description"
-pageord: 100
+pageord: 650
 ---
 
 {%summary%}

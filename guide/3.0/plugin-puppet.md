@@ -4,7 +4,7 @@ title: Puppet Plugin
 category: Plugins
 publish: true
 abstract: "Puppet plugin description and configuration"
-pageord: 110
+pageord: 700
 
 yaml_link: http://getcloudify.org/spec/puppet-plugin/1.0/plugin.yaml
 ---
@@ -299,7 +299,7 @@ Puppet standalone will install Puppet, Puppet modules and will run per-operation
 
 ## Puppet manifests location
 
-If you are using manifests, they are placed in `$cloudify_local_repo` (Puppet/facter fact) directory, currently it's `~/cloudify/puppet` (the user is typically `ubuntu` and hence the home directory is usually /home/ubuntu). 
+If you are using manifests, they are placed in `$cloudify_local_repo` (Puppet/facter fact) directory, currently it's `~/cloudify/puppet` (the user is typically `ubuntu` and hence the home directory is usually /home/ubuntu).
 
 ## Puppet modules location
 
