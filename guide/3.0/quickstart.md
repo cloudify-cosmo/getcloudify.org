@@ -57,7 +57,7 @@ We'll need to have the following setup in your environment:
 * At least 2GB of free RAM
 
 {%note title=Notes for Windows users%}
-* Do not run the command prompt as Administrator (privaladge escalation).
+* Do not run the command prompt as Administrator (privilege escalation).
 * Hyper-V & Virtualbox [don't play nice together](https://docs.vagrantup.com/v2/hyperv/index.html). Disabling Hyper-V is
 possible by running `bcdedit /set hypervisorlaunchtype off` command (reboot is needed).
 {%endnote%}
