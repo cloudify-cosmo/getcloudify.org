@@ -18,6 +18,9 @@ They may be located on either the application VM, on the manager, or elsewhere -
 
 Agents read tasks from a tasks broker and delegate them to a worker subprocess (a Plugin based Python process).
 
+Each `deployement` has a dedicated agent on the manager known as `Deployment Agent`
+
+
 ### **Application**
 An Application in Cloudify means a software based business service with all of its IT components at the infrastructure, middleware and business logic levels.
 
