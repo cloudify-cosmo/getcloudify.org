@@ -56,6 +56,12 @@ We'll need to have the following setup in your environment:
 * [Vagrant]({{page.vagrant_link}}) (1.5+)
 * At least 2GB of free RAM
 
+{%note title=Notes for Windows users%}
+* Do not run the command prompt as Administrator (privaladge escalation).
+* Hyper-V & Virtualbox [don't play nice together](https://docs.vagrantup.com/v2/hyperv/index.html). Disabling Hyper-V is
+possible by running `bcdedit /set hypervisorlaunchtype off` command (reboot is needed).
+{%endnote%}
+
 # Step by Step Walkthrough
 
 ## Step 1: Download and "Up" your Vagrant Box
