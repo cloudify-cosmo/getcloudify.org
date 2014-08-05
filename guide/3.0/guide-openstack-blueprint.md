@@ -6,7 +6,7 @@ publish: True
 abstract: Openstack Blueprint authoring tutorial
 pageord: 300
 
-openstack_deploy_link: guide-openstack-deployment.html
+openstack_deploy_link: quickstart-openstack.html
 ---
 {%summary%} {{page.abstract}}{%endsummary%}
 
@@ -14,6 +14,7 @@ openstack_deploy_link: guide-openstack-deployment.html
 
 In this section of the tutorial we will learn how to adjust the nodecellar application to run on OpenStack.
 The main differences between the mock version and the Openstack version are:
+
 * Create real virtual machines using the nova_plugin that uses the Openstack compute API (Nova)
 * Create the application security group and floating IP that uses the Openstack network API (Neutron)
 
