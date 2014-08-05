@@ -172,7 +172,9 @@ There are 3 basic relationship types:
 * connected_to - the source node has a connection to configure to the target node
 
 ### **Runtime Data**
-Coming soon...
+The data model of the deployements stored in the Cloudify database
+
+Cloudify holds a data model per application deployment. This data model contains the node instacnes, with each instance storing the unique instance id as well as copy of the blueprint original configuration for this node and runtime properties for this node instance.
 
 ### **Runtime Properties**
 Runtime Properties are execution-time details of [node instances](#node-instance).
@@ -211,7 +213,8 @@ Derived types have their operations mapped to a particular [plugin](#plugin) tha
 For example, `cloudify.types.openstack.server` is using the nova_plugin to communicate with OpenStack's Nova API (compute API) to spawn virtual machines on OpenStack clouds.
 
 ### **Type Hierarchy**
-Coming soon...
+The inheritence chain of a Type or a Relationship. 
+Cloudify blueprints use Object Oriented methaphor of inheritence so any concrete Type or relationship is derived from more basic type either with implementation that needs to be refined or without any operation implmentation. 
 
 ### **Type Implementation**
 Coming soon...
