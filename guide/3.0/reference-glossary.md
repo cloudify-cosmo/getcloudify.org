@@ -78,7 +78,7 @@ An Execution is a running instance of a [workflow](#workflow) and is based on a 
 An Execution has logs and [events](#event) associated with it.
 
 ### **Host node**
-Coming soon...
+A node in the blueprint that represent a type of host whether it's a virtual or physical server.
 
 ### **Interface**
 Interfaces set the protocol between the [Topology](#topology) and the [Workflow](#workflow) that uses it.
