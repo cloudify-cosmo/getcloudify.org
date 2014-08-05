@@ -16,7 +16,7 @@ Cloudify users will come across several concepts and terms that might have diffe
 
 ### **Agent**
 Agents are [task](#task) executors.
-
+T
 They may be located on either the application VM, on the manager, or elsewhere - depending on the tools and API’s they need to interface with (see [Plugins](#plugin)).
 
 Agents read tasks from a tasks broker and delegate them to a worker subprocess (a Plugin based Python process).
@@ -48,7 +48,19 @@ The bootstrapping process is initiated from Cloudify's CLI client. Typically, it
 
 ### **Capabilities** (Coming soon...)
 
-### **Context Object** (Coming soon...)
+### **Context Object**
+The context object is an object passed to plugin operations as a `ctx` named argument and contains the context of the operation invocation.
+
+For example, the context contains the following information:
+
+- Node id.
+- Deployment id.
+- Plugin name.
+- Operation name.
+
+and more...
+
+In addition, the context object exposes an API for interacting with Cloudify, for example getting the node's in context properties.
 
 ### **Execution Cancellation**
 
@@ -101,7 +113,15 @@ A node instance is a runtime presentation of a [node](#node).
 Node instances carry [runtime properties](#runtime-properties) and a [state](#node-instance-state).
 The number of instances is derived from the property set in a node's configuration in the [blueprint](#blueprint).
 
-### **Node Instance State** (Coming soon...)
+### **Node Instance State**
+Every node instance can have one of the following states:
+
+- `uninitialized` - The node instance hasn't been initialized.
+- `created` - The node instance has been created.
+- `started` - The node instance has been started.
+- `stopped` - The node instance has been stopped.
+- `deleted` - The node instance has been deleted.
+
 
 ### **Operation**
 Operation is a component or a relationship lifecycle event that is triggered by the Workflow
