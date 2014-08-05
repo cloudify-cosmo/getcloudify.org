@@ -45,7 +45,7 @@ Bootstrapping is the process of installing and starting a Cloudify manager on a 
 
 The bootstrapping process is initiated from Cloudify's CLI client. Typically, it uses the cloud provider's IaaS API's to create VM’s, networks, and any other infrastructure resources that are required for the Cloudify manager to operate properly. It then installs the various packages and starts the services that form the manager. The bootstrap process is initiated by the CLI which uses [providers](#provider) to bootstrap on a specific cloud.
 
-### Bootstrap Context**
+### **Bootstrap Context**
 Coming soon...
 
 ### **Capabilities**
