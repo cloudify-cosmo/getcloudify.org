@@ -19,7 +19,7 @@ module Jekyll
         output << "<hr style='margin-top:5px; margin-bottom:5px;'/>"        
         output << "<ul class='nav nav-pills' style='margin-bottom: 0px;' id='summarypanel'></ul>"
         output << "<hr style='margin-top:5px; margin-bottom:25px;'/>"        
-        output << "<script>$(document).ready(function() {createLinkList('h1', 'summarypanel');});</script>"
+        output << "<script>$(document).ready(function() {createLinkList('h1[id]', 'summarypanel');});</script>"
       end
     end
   end
