@@ -1,12 +1,14 @@
 ---
 layout: bt_wiki
-title: CLI Guide
+title: CLI Guide (WIP)
 category: Guides
 publish: true
 abstract: "Guide for Cloudify CLI"
-pageord: 500
----
+pageord: 900
 
+cli_reference_link: reference-cfy.html
+---
+{%warning title=Note%}This guide is a work in progress. In the menawhile, you can refer to the [cli reference]({{page.cli_reference_link}}) for more information.{%endwarning%}
 
 # Overview
 

@@ -14,6 +14,8 @@ vagrant_file_link: http://gigaspaces-repository-eu.s3.amazonaws.com/org/cloudify
 vagrant_box_link: http://gigaspaces-repository-eu.s3.amazonaws.com/org/cloudify3/3.0.0/nightly_6/cloudify_3.0.0_virtualbox.box
 glossary_link: reference-glossary.html
 workflows_link: reference-workflows.html
+blueprint_guide_link: guide-blueprint.html
+installation_general_link: installation-general.html
 ---
 {%summary%}{{page.abstract}}{%endsummary%}
 
@@ -203,6 +205,7 @@ vagrant box remove cloudify
 
 # What's Next
 
-* Try to install the same application on OpenStack by following the [OpenStack Tutorial](quickstart-openstack.html).
-* Learn more about blueprints by following the [Blueprints Tutorial](guide-blueprint.html)
+* Understand the requirements for bootstrapping your very own Cloudify Manager by reading [this]({{page.installation_general_link}}).
+* Try to install the same application on OpenStack by following the [OpenStack Tutorial]({{page.quickstart_openstack_link}}).
+* Learn more about blueprints by following the [Blueprints Tutorial]({{page.blueprint_guide_link}})
 

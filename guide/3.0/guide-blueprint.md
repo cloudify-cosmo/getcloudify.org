@@ -1,23 +1,30 @@
 ---
 layout: bt_wiki
-title: Blueprint Guide
+title: Write-a-Blueprint Guide
 category: Guides
 publish: true
 abstract: Blueprint authoring tutorial
 pageord: 200
 
 yaml_link: http://www.getcloudify.org/spec/cloudify/3.0/types.yaml
+plugin_guide_link: guide-plugin-creation.html
+openstack_blueprint_link: guide-openstack-blueprint.html
+getting_started_link: quickstart.html
+glossary_link: reference-glossary.html
 ---
 {%summary%} {{page.abstract}}{%endsummary%}
 
-#Overview
-In this tutorial we will create a blueprint that will describe the topology of the Nodecellar application. The Nodecellar application is a Node.js web application of a wine catalog.
-It includes the following components:
+# Overview
 
+In this tutorial we will create a blueprint([?]({{page.glossary_link}}#blueprint)) that will describe the topology([?]({{page.glossary_link}}#topology)) of the Nodecellar application([?]({{page.glossary_link}}#application)). The Nodecellar application is a Node.js web application of a wine catalog.
+
+The blueprint we will be writing is an exact replica of the blueprint we deployed when we [got started]({{page.getting_started_link}}).
+
+It includes the following components:
 
 **Infrastructure:**
 
-- Two hosts (we will call them nodejs_host and mongodb_host) that contain the application. One contains the Node.JS and the other the MongoDB. In this tutorial we will use localhost as both host nodes as we want to install the entire application on our Vagrant VM.
+- Two hosts (we will call them nodejs_host and mongodb_host) that contain the application. One contains the Node.JS and the other the MongoDB. In this tutorial we will use localhost as both host nodes([?]({{page.glossary_link}}#node)) as we want to install the entire application on our Vagrant VM.
 
 
 **Middleware:**
@@ -416,8 +423,8 @@ Now lets make use of this relationship in the nodecellar_app node.
 
 # What's Next
 
-* You can read the [plugins tutorial](#) to gain a better understanding of how plugins work.
-* Follow the directions in the [Getting Started](quickstart.html) page to deploy this blueprint.
+* Now that you know how to write a basic blueprint, you can [write an Openstack blueprint]({{page.openstack_blueprint_link}}).
+* Or.. you can read the [Write-a-Plugin guide]({{page.plugin_guide_link}}) to gain a better understanding of how plugins work (and write your first plugin if you like).
 
 
 

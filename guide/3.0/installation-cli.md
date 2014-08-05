@@ -111,7 +111,7 @@ export CPPFLAGS=-Qunused-arguments
 
 {% endnote %}
 
+# What's Next
 
-
-
-
+* Now that you know the requirements and have the CLI installed, you can bootstrap your own manager [on an existing VM]({{page.simple_install_link}}).
+* For Cloud specific installation see the bootstrap manuals for each cloud provider under the Installation section.
