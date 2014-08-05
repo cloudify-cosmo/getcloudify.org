@@ -111,7 +111,9 @@ The number of instances is derived from the property set in a node's configurati
 Coming soon..
 
 ### **Operation**
-Coming soon...
+Operation is a component or a relationship lifecycle event that is triggered by the Workflow
+The operation names are defined by an Interface and a type that implements this interface maps these operations into plugin functions with the implementation logic
+
 
 ### **Plugin**
 Plugins are extensions to the [agents](#agent).
@@ -133,7 +135,14 @@ Properties are expressed as a YAML dictionary in the [blueprint](#blueprint).
 Providers are python modules that augment the Cloudify CLI and implement the [bootstrapping](#bootstrapping) process for a specific cloud environment.
 
 ### **Provider configuration file**
-Coming soon...
+A YAML file with the configurations for creating a Cloudify manager on a specific Cloud.
+The provider configuration file has configuration properties for the some of the following items:
+* Cloud credentials and API endpoint
+* Network settings
+* Manager virtual machine OS and hardware
+* SSH credentials for the manager VM
+* Cloudify packages to use in oreder to install the manager
+
 
 ### **Provider Context**
 Coming soon...
