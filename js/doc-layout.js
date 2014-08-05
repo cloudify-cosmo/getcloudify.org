@@ -5,7 +5,7 @@ layout: nil
 
 function createLinkList(headingStr, elementId) {
   var listItems = "";  
-  $('#pageContent').children(headingStr).slice(1).each(function() {
+  $('#pageContent').children(headingStr).each(function() {
     listItems += '<li><a href="#'+this.id+'">'+$(this).text()+'</a></li>';
   });
 

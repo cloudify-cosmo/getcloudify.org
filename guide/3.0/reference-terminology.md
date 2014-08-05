@@ -37,8 +37,7 @@ Cloudify blueprints are inspired by the [OASIS TOSCA]({{page.tosca_link}}) evolv
 * Configuration for each component.
 * [Optional] [Workflows](#workflow) that describe the automation of different processes like installation, upgrade etc. By default the blueprint will use the workflows provided with the product.
 
-### **Blueprint Resource**
-Coming soon...
+### **Blueprint Resource** (Coming soon...)
 
 ### **Bootstrapping**
 Bootstrapping is the process of installing and starting a Cloudify manager on a certain cloud provider.
@@ -47,7 +46,7 @@ The bootstrapping process is initiated from Cloudify's CLI client. Typically, it
 
 ### **Bootstrap Context** (Coming soon...)
 
-### **Capabilities**  (Coming soon...)
+### **Capabilities** (Coming soon...)
 
 ### **Context Object** (Coming soon...)
 
@@ -60,7 +59,7 @@ The bootstrapping process is initiated from Cloudify's CLI client. Typically, it
 ### **Deployment**
 A deployment is the plan and the state of a single [application](#application) environment and is a direct derivative of a [blueprint](#blueprint).
 
-Deployments are model-representations of component instances (which form applications) and their runtime state.
+Deployments are model-representations of component instances (which form applications) and their runtime [state](#node-instance-state).
 
 ### **Event**
 An Event is a JSON representation of an occurance in Cloudify's environment.
@@ -72,8 +71,8 @@ An Execution is a running instance of a [workflow](#workflow) and is based on a 
 
 An Execution has logs and [events](#event) associated with it.
 
-### **Host node** (Coming soon...)
-A node in the blueprint that represent a type of host whether it's a virtual or physical server.
+### **Host node**
+A node in the blueprint that represents a type of host whether it's a virtual or physical server.
 
 ### **Interface**
 Interfaces set the protocol between the [Topology](#topology) and the [Workflow](#workflow) that uses it.
@@ -104,7 +103,7 @@ The number of instances is derived from the property set in a node's configurati
 
 ### **Node Instance State** (Coming soon...)
 
-### **Operation** (Coming soon...)
+### **Operation**
 Operation is a component or a relationship lifecycle event that is triggered by the Workflow
 The operation names are defined by an Interface and a type that implements this interface maps these operations into plugin functions with the implementation logic
 
@@ -126,8 +125,9 @@ Properties are expressed as a YAML dictionary in the [blueprint](#blueprint).
 ### **Provider**
 Providers are python modules that augment the Cloudify CLI and implement the [bootstrapping](#bootstrapping) process for a specific cloud environment.
 
-### **Provider configuration file** (Coming soon...)
+### **Provider configuration file**
 A YAML file with the configurations for creating a Cloudify manager on a specific Cloud.
+
 The provider configuration file has configuration properties for the some of the following items:
 * Cloud credentials and API endpoint
 * Network settings
@@ -135,7 +135,10 @@ The provider configuration file has configuration properties for the some of the
 * SSH credentials for the manager VM
 * Cloudify packages to use in oreder to install the manager
 
-### **Provider Context** (Coming soon...)
+### **Provider Context**
+Details of the `provider` manager environment such as the name of the management network.
+
+The provider context is available in any plugin function in case the plugin code needs such information in order to perform tasks such as agent configuration or VM configuration (as Cloudify needs each VM to be connected also to the management network if it has an agent installed on it)
 
 ### **Relationship**
 Relationships are types that describe the nature of dependency between components and the logic, if required, to glue components together.
@@ -145,12 +148,6 @@ For example, a relationship can be of [type](#type) `cloudify.types.contained_in
 Another example is an Apache server that's connected to MySQL. In this case, Apache needs to be configured at runtime to connect to MySQL. Waiting for MySQL to be up and running won't suffice in this case. The relationship needs to map relationship operations to [plugin](#plugin) functions that execute the connection's configuration.
 
 ### **Relationship implmenetation** (Coming soon...)
-
-### **Relationship instance** (Coming soon...)
-
-### **Relationship types** (Coming soon...)
-
-### **Runtime Data** (Coming soon...)
 
 ### **Relationship instance**
 An instance of a relationship between 2 concerte node instances
@@ -171,7 +168,6 @@ The data model of the deployements stored in the Cloudify database
 
 Cloudify holds a data model per application deployment. This data model contains the node instacnes, with each instance storing the unique instance id as well as copy of the blueprint original configuration for this node and runtime properties for this node instance.
 
-
 ### **Runtime Properties**
 Runtime Properties are execution-time details of [node instances](#node-instance).
 
@@ -190,7 +186,6 @@ See the definition [here]({{page.arch_link}}#task-broker).
 A process for uninstalling the Cloudify manager and its network setup.
 The teardown is invoked by the user from the CLI. During teardown, the CLI uses the provider implementation to delete the manager VM and then delete the management network, subnet and security groups associated with the manager
 
-
 ### **Topology**
 A Topology is an [application](#application)'s graph of components and their [relationships](#relationship).
 
@@ -208,7 +203,7 @@ Derived types have their operations mapped to a particular [plugin](#plugin) tha
 
 For example, `cloudify.types.openstack.server` is using the nova_plugin to communicate with OpenStack's Nova API (compute API) to spawn virtual machines on OpenStack clouds.
 
-### **Type Hierarchy** (Coming soon...)
+### **Type Hierarchy**
 The inheritence chain of a Type or a Relationship.
 
 Cloudify blueprints use Object Oriented methaphor of inheritence so any concrete Type or relationship is derived from more basic type either with implementation that needs to be refined or without any operation implmentation.
