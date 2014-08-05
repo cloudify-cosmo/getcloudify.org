@@ -15,37 +15,19 @@
 	<section id="inner-headline">		
 		<div class="container">
 			<div class="span12">
-				<div class="row">				
+				<div class="row bt_wiki-breadcrumb">
 					<ul class="breadcrumb">{% capture currentVersion %}{{ page.url | remove: "/guide/" | split:"/" | first }}{% endcapture %}
 						<li><a href="/"><i class="icon-home"></i></a><i class="icon-angle-right"></i></li>
-						<li>Docs<i class="icon-angle-right"></i></li>
-						<script>
-						var version = document.location.href.split("/guide/")[1].split("/")[0];
-						var strVar="";
-						strVar += "<li>"+version+"<i class=\"icon-angle-right\"><\/i><\/li>";
-						document.write(strVar)  ;			
-						</script>
+						<li><a href="/guide">Docs</a><i class="icon-angle-right"></i></li>
+						<li><a href="/guide/{{currentVersion}}">{{currentVersion}}</a><i class="icon-angle-right"></i></li>						
 						<li class="active">{{ page.title }}</li>
 					</ul>
 				</div>
-				<div class="row">
-					<div class="span3">				
-					<aside id="tocAside" class="left-sidebar"></aside>
-					<script>
-					if (location.href.indexOf('/guide/') != -1) {
-					  var version = document.location.href.split("/guide/")[1].split("/")[0];
-					  $.ajax({
-					      type:'GET',
-					      url:'/guide/' + version + '/toc.html',                                
-					      success:function (data) {
-					      	$("#tocAside").html(data.toString());
-					      }
-					  });
-					}
-
-					</script>
+				<div class="row bt_wiki-tocrow">
+					<div class="span3 bt_wiki-tocspan">				
+						<aside id="tocAside" class="left-sidebar" style="display:none;"></aside>
 					</div>
-					<div class="span9" id="docsWrap">
+					<div class="span9 bt_wiki-docswrap" id="docsWrap">
 						<div id="resultsDiv" class="DocumentsWrap"></div>
 						<div id="pageContent">
 							<button id="edit-on-github" data-toggle="popover" type="button" class="btn btn-default" style="float: right;"><i class="icon-github-alt icon-large"></i>&nbsp;&nbsp;Edit</button>
@@ -70,7 +52,6 @@
 <script src="/js/wikipage-layout.js"></script>
 
 <!-- javascript footer_scripts-->
-
 
 </body>
 </html>

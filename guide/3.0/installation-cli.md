@@ -4,7 +4,7 @@ title: Installing the Cloudify CLI
 category: Installation
 publish: true
 abstract: Installation instructions for Cloudify CLI under multiple platforms
-pageord: 22
+pageord: 200
 
 windows_link: http://gigaspaces-repository-eu.s3.amazonaws.com/org/cloudify3/3.0.0/nightly_6/cloudify-cli_3.0.0-ga-b6.exe
 linux32_link: http://gigaspaces-repository-eu.s3.amazonaws.com/org/cloudify3/3.0.0/nightly_6/cloudify-cli_3.0.0-ga-b6_i386.deb
@@ -57,7 +57,7 @@ Coming soon, please follow the Python package installation below ([Installing fr
 # Installing from PyPi
 
 Installation via PyPi is intended mostly for development purposes. We'll assume you
-have Python and PIP installed and configured on your system.
+have Python 2.7.x and PIP installed and configured on your system.
 
 To install run the following command:
 

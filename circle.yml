@@ -7,7 +7,7 @@ machine:
   # Version of ruby to use
   ruby:
     version:
-      1.9.3
+      2.1.2
 
 checkout:
   post:
@@ -21,7 +21,7 @@ dependencies:
     - bundle exec jekyll build:
         timeout: 3600 # fail if command has no output for 60 minutes
   cache_directories:
-    - /home/ubuntu/.rvm/gems/ruby-1.9.3-p448
+    - /home/ubuntu/.rvm/gems/ruby-2.1.2
 
 test:
   override:

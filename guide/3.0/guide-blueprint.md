@@ -4,7 +4,7 @@ title: Write-a-Blueprint Guide
 category: Guides
 publish: true
 abstract: Blueprint authoring tutorial
-pageord: 200
+pageord: 100
 
 yaml_link: http://www.getcloudify.org/spec/cloudify/3.0/types.yaml
 plugin_guide_link: guide-plugin-creation.html

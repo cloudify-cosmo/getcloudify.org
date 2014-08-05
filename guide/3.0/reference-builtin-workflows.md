@@ -1,20 +1,14 @@
 ---
 layout: bt_wiki
-title: Workflows Reference
+title: Built-in Workflows Reference
 category: Reference
 publish: true
-abstract: "Cloudify workflows short description and details on install and uninstall default workflows"
+abstract: "description and details on the Cloudify built-in workflows"
 pageord: 100
-
-glossary_link: reference-glossary.html
-types_yaml_link: http://getcloudify.org/spec/cloudify/3.0/types.yaml
-default_workflows_source_link: https://github.com/cloudify-cosmo/cloudify-manager/blob/3.0/workflows/workflows/default.py
-
 ---
 
-{%summary%} Install and Uninstall Workflows {%endsummary%}
+{%summary%} Cloudify comes with two [built-in workflows](guide-workflows.html#built-in-workflows): `install` and `uninstall`. This page will give a high level description in pseudocode of these workflows. {%endsummary%}
 
-Cloudify comes with two built-in [workflows]({{page.glossary_link}}#workflow): `install` and `uninstall`. These workflows are used to install and uninstall a [deployment]({{page.glossary_link}}#deployment). What follows is a high level description of these workflows.
 
 # Install
 
@@ -51,16 +45,3 @@ For each node, for each node instance (in parallel):
 1. Execute the task mapped to the node's lifecycle operation. (do nothing if no task is defined).<br>
 2. Execute all tasks mapped to this node's relationship lifecycle operation.
 </sub>
-
-# Under The Hood
-
-When you execute the `install` and `uninstall` workflows, you are actually invoking the workflows defined in [`types.yaml`]({{page.types_yaml_link}}).
-
-{% highlight yaml %}
-# snippet from types.yaml
-workflows:
-    install: workflows.default.install
-    uninstall: workflows.default.uninstall
-{% endhighlight %}
-
-The `workflows.default.install` and `workflows.default.uninstall` implementations can be found at [`workflows/default.py`]({{page.default_workflows_source_link}}).

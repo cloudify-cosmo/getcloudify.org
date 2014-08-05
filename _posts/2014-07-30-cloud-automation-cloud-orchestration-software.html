@@ -1,0 +1,62 @@
+---
+layout: blogpost
+title: Cloud Automation...Cloud Orchestration. That's What It's All About.
+image: nati.png
+author: Nati Shalom
+tags: 
+ - DevOps
+ - Cloud Automation
+ - Cloud Orchestration
+ - TOSCA
+ - Workflow Automation
+---
+<notextile>
+
+<img src="/img/blog/orchestration.png" alt="Orchestration of Applications on the Cloud">
+<br/>
+<br/>
+
+<p>The cloud gives you the option to use as many resources as you want, essentially &quot;endless&quot; resources on demand, where you only pay for what you use. In a world where everything is dynamic and IT environments are constantly changing, this is becoming an ever-growing need.</p>
+
+<p>In order to take advantage of the promise of the cloud, you need to be able to migrate to the cloud in a manner that isn't too painful from a cost and resource perspective.</p>
+
+<p>Most of us have probably heard the terms DevOps and infrastructure automation more than once in the last year or two... But even today, <a href="http://puppetlabs.com/2013-state-of-devops-infographic">infrastructure automation</a> is mostly focused on setup and deployment of complex systems. </p>
+
+<p>A typical deployment is usually comprised of a number of artifacts that include configuration management, monitoring configuration, custom scripts to deal with availability, SLAs, and integration with third-party components, not to mention networking.&#160; This leads to a high degree of complexity.</p>
+
+<p>For example, if you'd like to deploy your application to the cloud, you would likely automate the steps of provisioning the cloud resources, installing the right components on top of these. This is important not only from a time and cost perspective, but also since it has also been proven time and again that the impact of human error on manual provisioning has been the result of 80% of outages of mission-critical services over the course of the last few years. And if we look at the numbers, just one hour of downtime for Amazon in January 2013 cost them $5 Million in revenue. </p>
+
+<hr>
+
+<span class="pullquote-left">
+  <font style="font-weight: bold" size="5" face="Baskerville Old Face"><em>Cloudify - New Intelligence in Orchestration.  Check it out.</em></font>&nbsp; <a class="btn btn-large btn-theme btn-rounded" id="downloadBtnInner" href="http://getcloudify.org/downloads/get_cloudify.html" target="_blank"><i class="icon-plus"></i> Go </a></span>
+  
+  <hr>
+
+<p>When thinking about automation and orchestration most people have tools like CloudFormation, <a href="http://getcloudify.org/chef_cloud_configuration_management.html" target="_blank">Chef</a> or <a href="http://docs.puppetlabs.com/" target="_blank">Puppet</a> in mind. These tools do a great job at allocating infrastructure resources and configuring them. But in reality, when deploying and managing complete application stacks, there’s much more to it. You need things to be done in a certain order; there are dependencies to consider and information to share between your application tiers, and then there’s everything related to post deployment - recovering from failures, scaling and continuously deploying your code, just to name a few.</p>
+
+<p>This is where the differentiation between <a href="http://getcloudify.org/2014/02/27/from_simple_automation_to_proactive_orchestration.html" target="_blank">cloud automation</a> and <a href="http://getcloudify.org/cloud_orchestration_cloud_automation.html" target="_blank">cloud orchestration</a> comes in. When we speak of automation, this mainly is discussed in the context of tasks; whereas, orchestration on the other hand, refers to the automation of processes and workflows. Essentially, orchestration comes to automate your automation…that is, the automated tasks in a specific order and across tiers and machines, especially where there are diverse dependencies involved.</p>
+
+<p>So, basically, after going through the steps of automating your infrastructure provisioning, you will then need to orchestrate the startup of your components. Take even the simplest application that has a web server and database. After installing and configuring everything, you'd first need to ensure that the database is started, and only then the web server. You'd also need to propagate specific runtime information from the database to the web server, such as the database's host and port. This stage, for the most part, is where most automation processes focus on today.</p>
+
+<p>At the most basic level, orchestration is a higher form of automation, which helps you setup all the pieces that are related to your application, starting from the infrastructure (VMs, networks, block storage volumes, security groups, etc.), to the platforms your app runs on (database, web server, etc.), and all the way up to the application modules and code. This entire setup is often referred to as a <a href="http://docs.oasis-open.org/tosca/TOSCA/v1.0/TOSCA-v1.0.html" target="_blank">topology</a>. </p>
+
+<p><a href="http://www.slideshare.net/cloudifysource/deployment-automation-on-openstack-with-tosca-and-cloudify" target="_blank">TOSCA</a>, (Topology and Orchestration Specification for Cloud Applications), an emerging standard for cloud orchestration which has been adopted by OpenStack no less for their cloud orchestration framework Heat, is a great reference in this regard. The role of an orchestration framework is to materialize a certain topology. More advanced orchestrators go beyond materializing the topology, and change it to meet the current workloads and needs of the application.</p>
+
+<p>At the end of the day, it’s not just a matter of deploying your application to the cloud, and forgetting about it. What happens after that? For example, if your deployment or environment is under heavy loads or having peaks. How can you maintain your SLAs for your clients? What happens if you have too many machines? How can you downsize your deployments without adversely affecting your customers and users in the process? Cloud orchestration tools help to manage post deployment through built-in management, logging and monitoring capabilities, as well as the built-in workflow for automating failover and auto-scaling processes.</p>
+
+<p>An example of the way this works, with <a href="https://github.com/CloudifySource/cloudify" target="_blank">Cloudify</a> - an open source cloud orchestration framework, by consolidating all of the different artifacts into a single blueprint, which then becomes the &quot;single-source of truth&quot; for the entire stack. Cloudify then parses that blueprint and executes the definitions defined therein through a single command to create a fully consistent environment - for example between staging and production.&#160; This includes the configuration, application binaries and all its dependencies, as well as post-deployment SLAs. This provides a single-source for updating changes to the application blueprints and the SLAs themselves, such as updating monitoring and management metrics, high availability policies, failure detection policies and configuration changes. </p>
+
+<p>As you probably gathered by now, monitoring and log gathering are an essential part of any running app, so they should be an integral part of the orchestrated application topology. Since the orchestration process is topology aware, it can wire and configure monitoring for your application components very easily, which is one of its greatest benefits. Going through these processes without a global view of the topology can often be time consuming and error prone. Moreover, as the topology changes, you need to reconfigure and rewire your monitoring tools.</p>
+
+<p>Having this single-source is that which facilitates continuous delivery and deployment processes from staging through production. It consolidates tooling across teams, and the build process can then be consolidated into a single build pipeline that is agnostic of the technology stack and language runtime, through custom commands. These custom commands enable continuous interaction with a live system, in the post-deployment phase, for upgrades and shipping of new code to production.</p>
+
+<p>Bottom line, when you are looking to deploy your applications to the cloud, it doesn’t end with the simple automation of configuration and provisioning. You need to know what’s going on with your app at all times to be able to maintain your SLAs, increase agility, and reduce costs. It’s not just about deployment automation, but cloud management as well. And that’s where a good orchestrator comes in.</p>
+
+<p>The real long-term benefit of using a cloud orchestration tool is to manage post deployment through built-in management, logging and monitoring capabilities, as well as the built-in workflows for automating failover and auto-scaling processes – which all eventually leads to faster rollouts and improved TCO.</p>
+
+
+
+
+
+</notextile>

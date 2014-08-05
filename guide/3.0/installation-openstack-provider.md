@@ -4,7 +4,7 @@ title: Bootstrapping on Openstack
 category: Installation
 publish: true
 abstract: "Tutorial for bootstrapping on Openstack"
-pageord: 24
+pageord: 300
 ---
 
 {%summary%} Bootstrapping Cloudify on Openstack is done via Cloudify CLI in the same fashion as any other environment. This section will detail the various parameters appearing in the Openstack-specific configuration file. {%endsummary%}
@@ -174,8 +174,8 @@ For example, if the `subnet` resource already exists, it'll be used as is even i
 
 Information on each individual configuration parameter is provided below, separated according to the configuration sections:
 
-{% togglecloak id=1 %}keystone{% endtogglecloak %}
-{% gcloak 1 %}
+{% togglecloak id=2 %}keystone{% endtogglecloak %}
+{% gcloak 2 %}
 * `username` The username to be used for authentication
 * `password` The password to be used for authentication
 * `tenant_name` The name of the tenant to use
