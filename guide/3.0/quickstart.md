@@ -13,7 +13,7 @@ vagrant_link: http://www.vagrantup.com
 vagrant_file_link: http://gigaspaces-repository-eu.s3.amazonaws.com/org/cloudify3/3.0.0/nightly_6/Vagrantfile
 vagrant_box_link: http://gigaspaces-repository-eu.s3.amazonaws.com/org/cloudify3/3.0.0/nightly_6/cloudify_3.0.0_virtualbox.box
 glossary_link: reference-glossary.html
-workflows_link: reference-workflows.html
+workflows_link: reference-builtin-workflows.html
 blueprint_guide_link: guide-blueprint.html
 installation_general_link: installation-general.html
 ---
