@@ -17,7 +17,7 @@ The [blueprint](https://github.com/cloudify-cosmo/cloudify-nodecellar-openstack/
 
 # Before You Begin
 
-It is recommended that you try the [standalone tutorial](quickstart.html) first to get yourself familiar with Cloudify and its concepts. Also, to complete this tutorial you'll need to have an OpenStack cloud environment and credentials. Cloudify defaults to [HP Cloud](http://www.hpcloud.com/) endpoint URLs, so the easiest would be to [setup an account with HP Helion Cloud](https://horizon.hpcloud.com/).
+It is recommended that you try the [standalone tutorial](quickstart.html) first to get yourself familiar with Cloudify and its concepts. Also, to complete this tutorial you'll need to have an OpenStack cloud environment and credentials. Cloudify defaults to [HP Cloud](http://www.hpcloud.com/) endpoint URLs, so the easiest would be to [setup an account on the HP Helion Cloud](https://horizon.hpcloud.com/).
 
 # Step by Step Walkthrough
 
@@ -36,7 +36,7 @@ cfy init openstack
 
 This will create a Cloudify configuration file named `cloudify-config.yaml` in the current directory (it will also create a file named `.cloudify` to save the current context for the Cloudify CLI, but you shouldn't care about that for now).
 
-Next, open the file `cloudify-cosmo-config.yaml` in your text editor of choice. If you're going to use HP Cloud, you will only need to change the following lines in this file and type in your account username, password and tenant name. The tenant name is the project in the HP Cloud consone (or your OpenStack Horizon dashboard).
+Next, open the file `cloudify-cosmo-config.yaml` in your text editor of choice. If you're going to use HP Cloud, you will only need to change the following lines in this file and type in your account username, password and tenant name. The tenant name is the project in the HP Cloud console (or your OpenStack Horizon dashboard).
 
 {% highlight yaml %}
 keystone:
@@ -127,15 +127,15 @@ cd -
 cfy blueprints upload -b nodecellar1 cloudify-nodecellar-openstack/blueprint.yaml
 {% endhighlight %}
 
-The `-b` parameter is the unique name we've given to this blueprint on the Cloudify manager. A blueprint is a template of an application stack. Blueprints cannot be materialize on their own. For that you will need to create a deployment, which is essintially an instance of this blueprint (kind of like what an instance is to a class in an OO model). But first let's go back to the web UI and see what this blueprint looks like. Point your browser to the manager URL again, and refresh the screen. You will see the nodecellar blueprint listed there.
+The `-b` parameter is the unique name we've given to this blueprint on the Cloudify manager. A blueprint is a template of an application stack. Blueprints cannot be materialized on their own. For that you will need to create a deployment, which is essentially an instance of this blueprint (kind of like what an instance is to a class in an OO model). But first let's go back to the web UI and see what this blueprint looks like. Point your browser to the manager URL again, and refresh the screen. You will see the nodecellar blueprint listed there.
 
 ![Blueprints table](https://raw.githubusercontent.com/cloudify-cosmo/cloudify-nodecellar-openstack/master/blueprints_table.png)
 
-Click the row with the blueprint. You will now see the topology of this blueprint. A topology is consisted of elements called nodes. In our case, we have the following nodes: a network, a subnet, a security group, two VMs, a nodejs server, a mongodb server, and a nodejs application called nodecellar (which is a nice sample nodejs application backed by mongodb).
+Click the row with the blueprint. You will now see the topology of this blueprint. A topology consists of elements called nodes. In our case, we have the following nodes: a network, a subnet, a security group, two VMs, a nodejs server, a mongodb server, and a nodejs application called nodecellar (which is a nice sample nodejs application backed by mongodb).
 
 ![Nodecellar Blueprint](https://raw.githubusercontent.com/cloudify-cosmo/cloudify-nodecellar-openstack/master/blueprint.png)
 
-Next, we need to cretae a deployment so we can create this topology in our OpenStack cloud. To do so, type the following command:
+Next, we need to create a deployment so we can create this topology in our OpenStack cloud. To do so, type the following command:
 
 {% highlight bash %}
 cfy deployments create -b nodecellar1 -d nodecellar1
@@ -145,14 +145,14 @@ With this command we've created a deployment named `nodecellar1` from a blueprin
 
 ## Step 5: Install the Deployment
 
-In Cloudify, every thing that is executed for a certain deployment is done in the context of a workflow. A workflow is essentially a set of steps, executed by Cloudify agents (which are essentially Celery workers). So whenever a workflow is triggered, it sends a set of tasks to the Cloudify agents, which then execute them and report back the results. For example, the `install` workflows which we're going to trigger, will send tasks to create the various OpenStack resources, and then install and start the application components on them. By default, the Cloudify manager will create one agent per deployment, on the management VM. When application VMs are created by the default `install` workflow (in our case there's two of them), this workflow also installs an agent on each of these VMs, and subsequent tasks to configure these VMs and install application componets are executed by these agents.
+In Cloudify, every thing that is executed for a certain deployment is done in the context of a workflow. A workflow is essentially a set of steps, executed by Cloudify agents (which are basically [Celery](http://www.celeryproject.org/) workers). So whenever a workflow is triggered, it sends a set of tasks to the Cloudify agents, which then execute them and report back the results. For example, the `install` workflows which we're going to trigger, will send tasks to create the various OpenStack resources, and then install and start the application components on them. By default, the Cloudify manager will create one agent per deployment, on the management VM. When application VMs are created by the default `install` workflow (in our case there's two of them), this workflow also installs an agent on each of these VMs, and subsequent tasks to configure these VMs and install application componets are executed by these agents.
 To trigger the `install` workflow, type the following command in your terminal:
 
 {% highlight bash %}
 cfy deployments execute -d nodecellar1 install
 {% endhighlight %}
 
-These will take a couple of minutes, during which the OpenStack resources and VMs will be create and configured. To track the progress of the installation, you can look at the events emitted to the terminal windows. Each event is labeled with its time, the deployment name and the node in our topology that it relates to, e.g.
+These will take a couple of minutes, during which the OpenStack resources and VMs will be created and configured. To track the progress of the installation, you can look at the events emitted to the terminal window. Each event is labeled with its time, the deployment name and the node in our topology that it relates to, e.g.
 
 {% highlight bash %}
 2014-07-21T15:37:31 CFY <nodecellar1> [mongod_vm_41765] Starting node
@@ -176,11 +176,11 @@ Uninstalling the deployment is just a matter of running another workflow, which 
 cfy deployments execute -d nodecellar1 uninstall
 {% endhighlight %}
 
-Similarly to the `install` workflow, you can track the progress of the uninstallation in the CLI or the web UI using the events that are displayed in both. Once the workflow complates, you can verify that the VMs were indeed destroyed and the other application related resources have been also removed.
+Similarly to the `install` workflow, you can track the progress of the uninstallation in the CLI or the web UI using the events that are displayed in both. Once the workflow completes, you can verify that the VMs were indeed destroyed and the other application related resources have also been removed.
 
 ## Step 9: Delete the Deployment
 
-The next step is deleting the deployment. Assuming the uninstallation went fine, all of the application resources should have been removed. However, the deployment itself still has record on the manager. For example, all of its static and runtime properties are still stored in the manager's database. To clean up all the information related to the deployment on the manager, delete the deploymet as follows:
+The next step is deleting the deployment. Assuming the uninstallation went fine, all of the application resources should have been removed. However, the deployment itself is still recorded on the manager. For example, all of its static and runtime properties are still stored in the manager's database. To clean up all the information related to the deployment on the manager, delete the deploymet as follows:
 
 {%highlight bash%}
 cfy deployments delete -d nodecellar1
