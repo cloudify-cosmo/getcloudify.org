@@ -3,14 +3,13 @@ layout: nil
 ---
 
 
-function createLinkList(headingStr) {
-  var toc_html = "";
-  var links = "";
-  $('#pageContent').children(headingStr).slice(1).each(function(index, item) {
-    toc_html += '<li><a href="#'+item.id+'">'+item.innerHTML+'</a></li>';
+function createLinkList(headingStr, elementId) {
+  var listItems = "";  
+  $('#pageContent').children(headingStr).slice(1).each(function() {
+    listItems += '<li><a href="#'+this.id+'">'+$(this).text()+'</a></li>';
   });
 
-  $("#linksPanel").html(toc_html);
+  $("#" + elementId).html(listItems);
 }
 
 $(function () {
@@ -38,12 +37,7 @@ $(function () {
     $(this).tab('show');
   });
 
-  summary_html = "";
-  $('#pageContent').children('h1').slice(1).each(function(index, item) {
-    summary_html += '<li><a href="#'+item.id+'">'+item.innerHTML+'</a></li>';
-  });
-
-  $("#summarypanel").html(summary_html);
+  
 
   if ($("#childrentree").length !== 0) {
     var childrentreeid = $("a:contains('" + $("title").text() +"')");
