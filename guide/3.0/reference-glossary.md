@@ -62,6 +62,9 @@ More elaborately, An Interface is a set of hooks (dabbed **Operations**) that a 
 * stop
 * delete
 
+### **Manager**
+Coming soon...
+
 ### **Node**
 A Node is one type of component in a [topology](#topology).
 

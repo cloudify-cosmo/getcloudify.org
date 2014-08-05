@@ -4,7 +4,7 @@ title: Chef Plugin
 category: Plugins
 publish: true
 abstract: "Chef plugin description and configuration"
-pageord: 110
+pageord: 200
 
 yaml_link: http://getcloudify.org/spec/chef-plugin/1.0/plugin.yaml
 ---
