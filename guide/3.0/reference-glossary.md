@@ -93,20 +93,20 @@ Providers are python modules that augment the Cloudify CLI and implement the [bo
 ### **Relationship**
 Relationships are types that describe the nature of dependency between components and the logic, if required, to glue components together.
 
-For example, a relationship can be of [type](#type) `contained_in`. That means that component X is hosted within component Y and therefore can't be created until component Y is created and running.
+For example, a relationship can be of [type](#type) `cloudify.types.contained_in`. That means that component `X` is hosted within component `Y` and therefore can't be created until component `Y` is created and running.
 
-Another example is an Apache server that's connected to MySQL. In this case, Apache needs to be configured at runtime to connect to MySQL. Waiting for MySQL to be up and running won't suffice in this case. The relationship needs to map operations to [plugin](#plugin) functions that execute the connection's configuration.
+Another example is an Apache server that's connected to MySQL. In this case, Apache needs to be configured at runtime to connect to MySQL. Waiting for MySQL to be up and running won't suffice in this case. The relationship needs to map relationship operations to [plugin](#plugin) functions that execute the connection's configuration.
 
 ### **Runtime Properties**
-Runtime Properties are execution-time details of [nodes](#node).
+Runtime Properties are execution-time details of [node instances](#node-instance).
 
 Runtime Properties are saved to the database so that they can be consumed by [plugins](#plugin) or by users.
-Unlike a node(#node)'s [properties](#properties), which are explicitly specified in the [blueprint](#blueprint), runtime properties are only set during runtime by Cloudify or its plugins.
+Unlike [node](#node)'s [properties](#properties), which are explicitly specified in the [blueprint](#blueprint), runtime properties are only set during runtime by Cloudify or its plugins.
 
 ### **Task**
 A Task is the execution of one function in a [plugin](#plugin) with a given set of arguments.
 
-The arguments describe the context of the execution including [node][#node] [properties](#properties) and [Runtime Properties](#runtime-properties).
+The arguments describe the context of the execution including [node](#node) [properties](#properties) and [node instance](#node-instance) [runtime properties](#runtime-properties).
 
 ### **Topology**
 A Topology is an [application](#application)'s graph of components and their [relationships](#relationship).
@@ -118,12 +118,12 @@ A Topology is denoted in YAML.
 ### **Type**
 A Type is a class of an [application](#application)'s component.
 
-For example a db_server type represents a database server.
+For example a `db_server` type represents a database server.
 
 The basic types provided with Cloudify are abstract and only serve as markers.
 Derived types have their operations mapped to a particular [plugin](#plugin) that enables their materialization using some API or tool.
 
-For example, cloudify.types.openstack.server is using the nova_plugin to communicate with OpenStack's Nova API (compute API) to spawn virtual machines on OpenStack clouds.
+For example, `cloudify.types.openstack.server` is using the nova_plugin to communicate with OpenStack's Nova API (compute API) to spawn virtual machines on OpenStack clouds.
 
 ### **Workflow**
 A workflow is an automation process algorithm.

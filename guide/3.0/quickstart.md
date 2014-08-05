@@ -40,7 +40,7 @@ Cloudify provides:
 
 In this tutorial you will start a Cloudify manager within a Vagrant box on your laptop, and install a sample Cloudify 3.0 blueprint on it.
 
-Unlike a real cloud deployment, this example will install the application's components on Vagrant VM. If you'd like to install an `application`([?]({{page.glossary_link}}#application)) on an actual cloud, please refer to the [deploying your first application on OpenStack]({{page.quickstart_openstack_link}}) guide.
+Unlike a real cloud deployment, this example will install the application's components on a Vagrant VM. If you'd like to install an `application`([?]({{page.glossary_link}}#application)) on an actual cloud, please refer to the [deploying your first application on OpenStack]({{page.quickstart_openstack_link}}) guide.
 
 The [blueprint]({{page.blueprint_file_link}}) you'll be deploying, describes a nodejs application that connects to a MongoDB database and presents a wine catalog. To learn more about blueprint syntax and elements please refer to the [Blueprints Guide]({{blueprint_guide_link}}).
 
@@ -89,7 +89,7 @@ To connect to the newly Up'd box, type:
 vagrant ssh
 {%endhighlight%}
 
-afterwhich Cloudify's CLI will be at your disposal.
+after which Cloudify's CLI will be at your disposal.
 
 ## Step 3: Download the blueprint
 
@@ -215,5 +215,5 @@ vagrant box remove cloudify
 
 * Understand the requirements for bootstrapping your very own Cloudify Manager by reading [this]({{page.installation_general_link}}).
 * Try to install the same application on OpenStack by following the [OpenStack Tutorial]({{page.quickstart_openstack_link}}).
-* Learn more about blueprints by following the [Blueprints Tutorial]({{page.blueprint_guide_link}})
+* Learn more about blueprints by following the [Blueprints Tutorial]({{page.blueprint_guide_link}}).
 
