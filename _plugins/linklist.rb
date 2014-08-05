@@ -6,13 +6,16 @@ module Jekyll
 
       def initialize(tag_name, markup, tokens)
         super
-        @headingNumber  = markup || ""
-        @headingNumber.strip!
+        @panelPrefix = 0
+        @headingStyle  = markup || ""
+        @headingStyle.strip!
       end
 
-      def render(context)        
-        output = "<div class=\"linksPanel\" id=\"linksPanel\">"
-        output << "<script>$(document).ready(function() {createLinkList('#{@headingNumber}');});</script>"
+      def render(context)      
+        ++@panelPrefix
+        divName = "linksPanel#{@panelPrefix}"   
+        output = "<div class=\"linksPanel\" id=\"#{divName}\">"
+        output << "<script>$(document).ready(function() {createLinkList('#{@headingStyle}', '#{divName}');});</script>"
         output << "</div>"        
       end
     end
