@@ -13,7 +13,7 @@ vagrant_link: http://www.vagrantup.com
 vagrant_file_link: http://gigaspaces-repository-eu.s3.amazonaws.com/org/cloudify3/3.0.0/nightly_6/Vagrantfile
 vagrant_box_link: http://gigaspaces-repository-eu.s3.amazonaws.com/org/cloudify3/3.0.0/nightly_6/cloudify_3.0.0_virtualbox.box
 glossary_link: reference-glossary.html
-workflows_link: reference-workflows.html
+workflows_link: reference-builtin-workflows.html
 blueprint_guide_link: guide-blueprint.html
 installation_general_link: installation-general.html
 ---
@@ -40,9 +40,9 @@ Cloudify provides:
 
 In this tutorial you will start a Cloudify manager within a Vagrant box on your laptop, and install a sample Cloudify 3.0 blueprint on it.
 
-Unlike a real cloud deployment, this example will install the application's components on Vagrant VM. If you'd like to install an `application`([?]({{page.glossary_link}}#application)) on an actual cloud, please refer to the [deploying your first application on OpenStack]({{page.quickstart_openstack_link}}) guide.
+Unlike a real cloud deployment, this example will install the application's components on a Vagrant VM. If you'd like to install an `application`([?]({{page.glossary_link}}#application)) on an actual cloud, please refer to the [deploying your first application on OpenStack]({{page.quickstart_openstack_link}}) guide.
 
-The [blueprint]({{page.blueprint_file_link}}) you'll be deploying, describes a nodejs application that connects to a MongoDB database and presents a wine catalog. To learn more about blueprint syntax and elements please refer to the [Blueprints Guide](blueprint-guide.html).
+The [blueprint]({{page.blueprint_file_link}}) you'll be deploying, describes a nodejs application that connects to a MongoDB database and presents a wine catalog. To learn more about blueprint syntax and elements please refer to the [Blueprints Guide]({{blueprint_guide_link}}).
 
 {%tip title=Tip%}
 The [Terminology Reference Page]({{page.glossary_link}}) will help you understand some of the terms stated in this guide. For your convenience, links are supplied throughout the guide to point you to the right term definition in the terminology page.
@@ -89,7 +89,7 @@ To connect to the newly Up'd box, type:
 vagrant ssh
 {%endhighlight%}
 
-afterwhich Cloudify's CLI will be at your disposal.
+after which Cloudify's CLI will be at your disposal.
 
 ## Step 3: Download the blueprint
 

@@ -4,7 +4,7 @@ title: Types Reference
 category: Reference
 publish: true
 abstract: "Reference for Cloudify built in types"
-pageord: 100
+pageord: 300
 
 glossary_link: reference-glossary.html
 ---

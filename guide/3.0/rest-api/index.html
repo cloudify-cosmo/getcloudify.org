@@ -25,9 +25,10 @@
   <script type="text/javascript">
     $(function () {
       window.swaggerUi = new SwaggerUi({
-      url: "/guide/3.0/rest-api/resources.json",
+      url: "http://getcloudify.org/guide/3.0/rest-api/resources.json",
       dom_id: "swagger-ui-container",
       supportedSubmitMethods: ['get', 'post', 'put', 'delete'],
+      docExpansion: 'list',
       onComplete: function(swaggerApi, swaggerUi){
         log("Loaded SwaggerUI");
 
