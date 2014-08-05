@@ -4,7 +4,7 @@ function start() {
     //  NProgress.start();
     $('#loading').attr('style', '');
     var iframe = $("#iframe");
-    var postObj = {name: 'play_widget'};
+    var postObj = {name: 'widget_play'};
     $.postMessage(JSON.stringify(postObj), postUrl, iframe.get(0).contentWindow);
 	
 	//for xap
@@ -15,16 +15,22 @@ function start() {
 }
 function stop() {
     var iframe = $("#iframe");
-    $.postMessage(JSON.stringify({name: 'stop_widget'}), postUrl, iframe.get(0).contentWindow);
+	 var postObj = {name: 'widget_stop'};
+    $.postMessage(JSON.stringify(postObj), postUrl, iframe.get(0).contentWindow);
+   // $.postMessage(JSON.stringify({name: 'widget_stopped'}), postUrl, iframe.get(0).contentWindow);
 }
 function updateButtonState(state) {
-    if (state == 'RUNNING') {
+
+    if (state.name == 'widget_played') {
         $('#launch').data('launched', true).
         html("<span class='glyphicon glyphicon-stop'></span> Stop");
 		$('#launch').css({"background":"#CD0004 ","color":"white"});
 		$(".pbarWrap").show();
         $('.panel').show(200);
-    } else if (state == 'STOPPED') {
+		$("#ytIframe").hide();
+		$("#loading").hide();
+		$("#butterflyWrapper").show();
+    } else if (state.name == 'widget_stopped') {
         //    NProgress.done();
         $('#launch').data('launched', false).
         html("<span class='glyphicon glyphicon-play'></span> Launch Now");
@@ -89,14 +95,28 @@ function updateTimeLeft(minutes) {
     $('#time-left').html(minutes);
 }
 
+function msToTime(duration) {
+        var milliseconds = parseInt((duration%1000)/100)
+            , seconds = parseInt((duration/1000)%60)
+            , minutes = parseInt((duration/(1000*60))%60)
+            , hours = parseInt((duration/(1000*60*60))%24);
+
+        hours = (hours < 10) ? "0" + hours : hours;
+        minutes = (minutes < 10) ? "0" + minutes : minutes;
+        seconds = (seconds < 10) ? "0" + seconds : seconds;
+
+        return hours + ":" + minutes + ":" + seconds + "." + milliseconds;
+    }
+
 $(function() {
-    var src = 'http://launch.cloudifysource.org/widget/widget?' + 
-    'apiKey=' + WIDGET_ID + 
-    '&title=Launch' + 
-    '&origin_page_url=' + document.location.href;
+  //  var src = 'http://launch.cloudifysource.org/widget/widget?' + 
+    var src = ' http://thewidget.staging.gsdev.info/#/widgets/53b525a32e427e332e32a3d9/view?timestamp=1404464' //1404464751615
+   // 'apiKey=' + WIDGET_ID + 
+  //  '&title=Launch' + 
+  //  '&origin_page_url=' + document.location.href;
     postUrl = src;
     var html = '<iframe id="iframe" src="' + src + '" width="600" height="463"></iframe>';
-    $('#hidden-iframe').html(html);
+	$('#hidden-iframe').html(html);
     
     $('#launch').click(function() {
         if ($('#launch').data('launched')) {
@@ -111,48 +131,57 @@ $(function() {
     });
     
     $.receiveMessage(function(e) {
-        try {
+    
+		try {
             console.log(["parent got the message", e]);
-            var msg = JSON.parse(e.data);
+             if ( typeof(e.data) === 'string' ){ 
+				var msg = JSON.parse(e.data)
+			 }else{
+				var msg = e.data ;
+				msToTime(e.timeStamp);
+			 }
             var $log = $("#log");
             
             if (msg.name == 'write_log') {
                 $log.append($("<li/>", {html: msg.html}).addClass(msg.className));
                 $log.scrollTop($log[0].scrollHeight);
             } else if (msg.name == "widget_status") {
-                updateButtonState(msg.status.state);
-                
-                console.log(msg.status);
-                updateTimeLeft(msg.status.timeleft);
-                updateManageUrl('http://' + msg.status.publicIp + ':8099/');
-                if (msg.status.consoleLink) {
-                    updateTermUrl('http://' + msg.status.publicIp + ':8080')
-                    updateUseUrl(msg.status.consoleLink.url, msg.status.consoleLink.title);
-                    updateTtyUrl('http://' + msg.status.publicIp + ':8080/');
-                    NProgres.done();
+               // console.log(msg.status);
+               // updateTimeLeft(msg.status.timeleft);
+			  
+ 			    //Update manage  url
+                updateManageUrl('http://' + msg.data.nodeModel.publicIp + ':8099/');
+                if (msg.data.widget.consoleLink) {
+                    updateTermUrl('http://' + msg.data.nodeModel.publicIp + ':8080')
+					//Update use url
+                    updateUseUrl(msg.data.widget.consoleLink.url.replace('$HOST',msg.data.nodeModel.publicIp), msg.data.widget.consoleLink.title);
+                    updateTtyUrl('http://' + msg.data.nodeModel.publicIp + ':8080/');
+                   // NProgres.done();
                 } else {
                     updateTtyUrl();
                     updateUseUrl();
                 }
                 
-                updateLog(msg.status.output);
-				if(msg.status.state!="RUNNING"){
+                updateLog(msg.data.output);
+				if(msg.name!="widget_played"){
+					//$("#loading").attr('style', 'display:none');
+					//$("#butterflyWrapper").hide();
+					//$("#ytIframe").show();
+				}
+				} else if (msg.name == "widget_played") {
+					updateButtonState(msg);
+				} else if (msg.name == "widget_stopped") {
+					updateButtonState(msg);
+					appendLog('STOPPED');
+					updateUseUrl();
+					updateTtyUrl();
+					updateManageUrl();
+					
+					// this section hide iframe and show youtube movie 
 					$("#loading").attr('style', 'display:none');
 					$("#butterflyWrapper").hide();
 					$("#ytIframe").show();
-				}
-            } else if (msg.name == "stop_widget") {
-                updateButtonState('STOPPED');
-                appendLog('STOPPED');
-                updateUseUrl();
-                updateTtyUrl();
-                updateManageUrl();
-				
-				// this section hide iframe and show youtube movie 
-                $("#loading").attr('style', 'display:none');
-				$("#butterflyWrapper").hide();
-				$("#ytIframe").show();
-				updateTimeLeft(19);
+					updateTimeLeft(19);
             }
 			
         } catch (exception) {
@@ -162,14 +191,14 @@ $(function() {
         return true;
     });
 
-
+function calcTime() {
 	//Chef Progress-bar
-	var timeleft = 1140000;
+	var timeleft = e.timeStamp;
 	var temptime=""; 
 	var $bar = $('.bar');
+}
 
-
-	$('#time-left').bind("DOMNodeInserted ",function(timeleft){
+	/*$('#time-left').bind("DOMNodeInserted ",function(timeleft){
 		timeleft = $('#time-left').text()*60*1000;
 		 if (timeleft!=temptime){
 		 var lefttoshow = 100 - ((timeleft/1000/60)*100/19);
@@ -182,7 +211,7 @@ $(function() {
 
 	$('#butterfly-iframe').bind("DOMNodeInserted ",function(timeleft){
 		$('#loading').hide();
-	});
+	});*/
 
 	//on page load btn status
 	if($('#launch').text()==" Stop"){

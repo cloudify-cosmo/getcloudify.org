@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -84,7 +85,79 @@ function callOtherDomain() {
 <section id="content">
 			<div class="container">
 				<div class="row">
-							<img src="/images/down.jpg" width="594" height="264" alt="Down for maintenance"/>
+					<div class="span12 no-margin">
+						<h1 style="font-family:ProximaNova-bold,Montserrat; color:#026da9; font-size:30px">Try out XAP in one Click</h1>
+					<h2 style="font-family:ProximaNova-bold,Montserrat; color:#231120;font-size:20px;line-height:27px">Test drive XAP API and Management with Real Server on Demand</h2>
+
+            <p class="lead" style="font-family:ProximaNova-Regular,Montserrat; color:#4c4c4c; font-size:18px">This is a tutorial that will setup a XAP Cluster on a real server on demand. The tutorial include an interactive shell that will allow you to execute the various XAP API for writing and reading data as well as open a groovy shell to write your own code and experience the full XAP API.  The tutorial also allows you explore the <a href="http://www.gigaspaces.com/xap-deployment-management-and-automation-solution" target="_blank">XAP orchestration and deployment automation</a> as well as the XAP Data management console. <!--The tutorial is also available for download - see instructions <a href="#" target="_blank"></a>here. --></p>
+
+
+				<!--
+						<a id="mixpanelSubscribe" class="btn btn-large btn-green btn-rounded" href="#"><i class="icon-plus"></i>  Get Free Cloud Package</a> -->
+
+						</div> 
+
+					<div class="span12 no-margin" style="background:#110F13">
+					<img src="/img/XAPshell.png" width="350" height="250" id="xapShell" style="padding:5px 0 5px 20px">
+							<div class="span12" id="loading"  style="display:none; margin:0;">
+								<div style="text-align:center; padding-top:10px;color:#fff;">
+									<i class="icon-spinner icon-spin icon-large blue"></i>Loading interactive shell...
+									<br/>
+									Until then feel free to watch this video.
+									<br/>
+									<br/>
+									<iframe  id="ytIframe"  width="515" height="352" src="//www.youtube.com/embed/BN3IBZkM1no?rel=0" frameborder="0" allowfullscreen></iframe>
+								</div>
+							</div>
+						
+
+						<div id="butterfly-iframe">
+							<div id="butterflyWrapper" style="display:none">
+							<h1 style="color:#026da9;font-family: ProximaNova-bold,Montserrat;font-size:30px;" > Try out the interactive shell</h1>
+								<iframe id="butterfly" src="#" width="768px" height="400px" frameborder="1" scrolling="auto"></iframe>
+								<a id="watchVideoBtn" class="hover-wrap fancybox fancybox.iframe" data-fancybox-group="gallery" href="#" rel="gallery"><span class="btn btn-rounded btn-default"><i class="icon-play"></i> Watch Video</span></a>
+								<h2>Follow the instructions in the terminal to get XAP up and running.</h2>
+						    </div>
+						</div>
+					</div>
+					
+			<div class="clear"></div>
+			<div style="display:block;margin:15px 0 0 0;"></div>
+			<p  style="font-family:ProximaNova-Regular,Montserrat; color:#99ADB5;font-size:15px;line-height:18px;margin:16px 0 0 0;float:left">NOTE: Installing XAP can take 2-3 minutes.</p>
+             <a class="btn btn-lg btn-default launchPlay" id="launch" style="float:left;border-radius:5px"  href="javascript:void(0)" data-launched="false">
+                <span class="glyphicon glyphicon-play"></span>
+                Launch Now
+              </a>
+			  <a class="btn btn-large btn-theme  fr" href="http://www.gigaspaces.com/xap-download" target="_blank" style="float:right !important;margin:5px 29px 0 0;
+			background: #b5d31a; /* Old browsers */
+background: -moz-linear-gradient(top, #b5d31a 0%, #86b610 100%); /* FF3.6+ */
+background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#b5d31a), color-stop(100%,#86b610)); /* Chrome,Safari4+ */
+background: -webkit-linear-gradient(top, #b5d31a 0%,#86b610 100%); /* Chrome10+,Safari5.1+ */
+background: -o-linear-gradient(top, #b5d31a 0%,#86b610 100%); /* Opera 11.10+ */
+background: -ms-linear-gradient(top, #b5d31a 0%,#86b610 100%); /* IE10+ */
+background: linear-gradient(to bottom, #b5d31a 0%,#86b610 100%); /* W3C */
+filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#b5d31a', endColorstr='#86b610',GradientType=0 ); /* IE6-9 */;border:none;border-radius:5px;text-transform:initial;font-size:20px;text-shadow:0 2px 7px #7e9e10;"><strong>Download XAP</strong></a>
+			  <div class="clear"></div>
+				  <div class="container" style="width:400px;float:left;margin:5px 0 0 0px;padding:0px"> 
+					<div class="progress progress-striped active">
+						<div class="bar" style="width: 0%;"></div>
+					</div>
+					 <div class="panel panel-default" style="display:none">
+							 <div class="pull-right" style="font-size:15px;margin-right:10px">
+									  Time Left: <strong id="time-left">...</strong> minutes.
+								  </div>
+							<div class="clear"></div>
+							<div class="panel-body">
+								  <pre id="log">                
+								  </pre>
+							</div>
+							<p style="padding-left:15px">
+								 <a href="#" id="manage" class="btn btn-lg btn-primary disabled" target="manage" style="border-radius:5px">Deployment Management</a>
+								  <a href="#" id="use" class="btn btn-lg btn-primary disabled" target="use" style="border-radius:5px">XAP Management</a>
+								  </p>
+							<div class="panel-footer" style="font-size:13px;margin:0 0 0 15px;color:#cbcbcc;">Powered by: HP Cloud, Cloudify (Patent Pending)</div>
+					 </div>
+				</div>
 				</div>
 				</div></section>
 
