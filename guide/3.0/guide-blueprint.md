@@ -1,6 +1,6 @@
 ---
 layout: bt_wiki
-title: Write-a-Blueprint Guide
+title: Blueprint Authoring Guide
 category: Guides
 publish: true
 abstract: Blueprint authoring tutorial

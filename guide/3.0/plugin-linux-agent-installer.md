@@ -4,7 +4,7 @@ title: Linux Agent Installer Plugin
 category: Plugins
 publish: true
 abstract: "Cloudify Linux Agent Installer description and configuration"
-pageord: 100
+pageord: 500
 
 celery_link: http://www.celeryproject.org/
 autoscale_link: http://docs.celeryproject.org/en/latest/userguide/workers.html#autoscaling

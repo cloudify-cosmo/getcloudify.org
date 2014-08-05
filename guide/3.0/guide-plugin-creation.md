@@ -1,9 +1,9 @@
 ---
 layout: bt_wiki
-title: Write-a-Plugin Guide
+title: Plugin Authoring Guide
 category: Guides
 publish: true
-abstract: Plugin creation guide
+abstract: This guides you through the steps necessary for writing a Cloudify plugin
 pageord: 500
 
 plugin_link: https://github.com/cloudify-cosmo/cloudify-python-plugin
