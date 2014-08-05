@@ -18,7 +18,7 @@ The main differences between the mock version and the Openstack version are:
 * Create the application security group and floating IP that uses the Openstack network API (Neutron)
 
 #Step 1: Creating the blueprint
-Let's start by using the nodecellar blueprint we used in the [blueprint tutorial](blueprint-guide.html)
+Let's start by using the nodecellar blueprint we used in the [blueprint tutorial](guide-blueprint.html)
 
 {%highlight yaml%}
 git clone https://github.com/cloudify-cosmo/cloudify-nodecellar-singlehost.git
