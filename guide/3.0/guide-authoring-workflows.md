@@ -11,7 +11,7 @@ pageord: 600
 
 
 {%note title=Note%}
-This section is aimed at advanced users. Before reading it, make sure you have a good understanding of [Cloudify terminology](reference-glossary.html), [Workflows](guide-workflows.html), [Blueprints](guide-blueprint.html), and [Plugin authoring](guide-plugin-creation.html).
+This section is aimed at advanced users. Before reading it, make sure you have a good understanding of [Cloudify terminology](reference-terminology.html), [Workflows](guide-workflows.html), [Blueprints](guide-blueprint.html), and [Plugin authoring](guide-plugin-creation.html).
 {%endnote%}
 
 
@@ -195,11 +195,11 @@ workflows:
 * Mapping with parameters - this should be used to map a workflow name to a workflow implementation which uses parameters.
 
   Workflow parameters declaration is done in a similar manner to the way type properties are declared: It's structured as a list, where each element is one of two:
-  
+
   * A string - representing a mandatory parameter.
   * An object containing a single key-value pair - representing an optional parameter, where the key and value are the parameter name and default value, respectively.
-  
-  *Example: Making the same mapping yet with parameters declaration - A single mandatory parameter named `mandatory_parameter`, and two optional parameters with default values (one of which is a complex value)* 
+
+  *Example: Making the same mapping yet with parameters declaration - A single mandatory parameter named `mandatory_parameter`, and two optional parameters with default values (one of which is a complex value)*
   {% highlight yaml %}
 workflows:
     my_workflow:
@@ -296,7 +296,7 @@ This is the basic implementation of the desired behavior as a graph-based workfl
 @workflow
 def run_operation(ctx, **kwargs):
     graph = ctx.graph_mode()
-    
+
     for node in ctx.nodes:
         for instance in node.instances:
             graph.add_task(instance.execute_operation('cloudify.interfaces.lifecycle.configure'))
@@ -322,7 +322,7 @@ Lets add some workflow parameters:
 @workflow
 def run_operation(ctx, operation, type_name, operation_kwargs, **kwargs):
     graph = ctx.graph_mode()
-    
+
     for node in ctx.nodes:
         if type_name in node.type_hierarchy:
             for instance in node.instances:
@@ -349,7 +349,7 @@ We'll make the workflow more visible by sending out events:
 @workflow
 def run_operation(ctx, operation, type_name, operation_kwargs, **kwargs):
     graph = ctx.graph_mode()
-    
+
     for node in ctx.nodes:
         if type_name in node.type_hierarchy:
             for instance in node.instances:
@@ -385,7 +385,7 @@ We'll achieve this behavior by adding task dependencies in the graph:
 @workflow
 def run_operation(ctx, operation, type_name, operation_kwargs, **kwargs):
     graph = ctx.graph_mode()
-    
+
     send_event_starting_tasks = {}
     send_event_done_tasks = {}
 
@@ -409,7 +409,7 @@ def run_operation(ctx, operation, type_name, operation_kwargs, **kwargs):
     for node in ctx.nodes:
         for instance in node.instances:
             for rel in instance.relationships:
-                
+
                 instance_starting_task = send_event_starting_tasks.get(instance.id)
                 target_done_task = send_event_done_tasks.get(rel.target_id)
 
@@ -438,7 +438,7 @@ Lets add support for those too:
 @workflow
 def run_operation(ctx, operation, type_name, operation_kwargs, is_node_operation, **kwargs):
     graph = ctx.graph_mode()
-    
+
     send_event_starting_tasks = {}
     send_event_done_tasks = {}
 
@@ -471,7 +471,7 @@ def run_operation(ctx, operation, type_name, operation_kwargs, is_node_operation
     for node in ctx.nodes:
         for instance in node.instances:
             for rel in instance.relationships:
-                
+
                 instance_starting_task = send_event_starting_tasks.get(instance.id)
                 target_done_task = send_event_done_tasks.get(rel.target_id)
 

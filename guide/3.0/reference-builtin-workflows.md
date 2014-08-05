@@ -4,10 +4,10 @@ title: Built-in Workflows Reference
 category: Reference
 publish: true
 abstract: "description and details on the Cloudify built-in workflows"
-pageord: 100
+pageord: 500
 ---
 
-{%summary%} Cloudify comes with two [built-in workflows](guide-workflows.html#built-in-workflows): `install` and `uninstall`. This page will give a high level description in pseudocode of these workflows. {%endsummary%}
+{%summary%} Cloudify comes with two [built-in workflows](guide-workflows.html#built-in-workflows): `install` and `uninstall`. This page will give a high level description of these workflows. {%endsummary%}
 
 
 # Install

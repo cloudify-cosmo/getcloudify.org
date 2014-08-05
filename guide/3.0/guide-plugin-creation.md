@@ -1,10 +1,10 @@
 ---
 layout: bt_wiki
-title: Write-a-plugin Guide
+title: Plugin Authoring Guide
 category: Guides
 publish: true
-abstract: Plugin creation guide
-pageord: 400
+abstract: This guides you through the steps necessary for writing a Cloudify plugin
+pageord: 500
 
 plugin_link: https://github.com/cloudify-cosmo/cloudify-python-plugin
 template_link: https://github.com/cloudify-cosmo/cloudify-plugin-template
@@ -267,6 +267,7 @@ class TestWebServer(unittest.TestCase):
         self.assertRaises(NonRecoverableError, operations.verify_http_server, 8080)        
 {%endhighlight%}
 
+<<<<<<< HEAD
 
 # The Context Object
 
@@ -288,8 +289,7 @@ The `ctx` context object contains contextual parameters mirrored from the bluepr
 We'll be using some of those in the implmenetation.
 
 
-
-That's it! You just wrote your first plugin! All you need now is to incorporate it within your blueprint. Go read the [Blueprint Guide]({{page.blueprint_guide_link}}) for additional info.
+That's it! You just wrote your first plugin! All you need now is to incorporate it within your blueprint. Go read the [Blueprint Guide]({{page.blueprint_guide_link}}) for additional info (if you haven't already done so).
 
 
 # Cloud Plugins

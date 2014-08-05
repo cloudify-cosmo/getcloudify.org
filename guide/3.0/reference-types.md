@@ -4,14 +4,14 @@ title: Types Reference
 category: Reference
 publish: true
 abstract: "Reference for Cloudify built in types"
-pageord: 100
+pageord: 300
 
-glossary_link: reference-glossary.html
+terminology_link: reference-terminology.html
 ---
 {%summary%} {{page.abstract}}{%endsummary%}
 
 # Abstract Types
-The following [types]({{page.glossary_link}}#type) are basic types from which concrete types with specific plugin implementations are derived.
+The following [types]({{page.terminology_link}}#type) are basic types from which concrete types with specific plugin implementations are derived.
 
 * `cloudify.types.base` - The base type for all built-in types. declares the `lifecycle interface`
 
@@ -53,4 +53,3 @@ The following [types]({{page.glossary_link}}#type) are basic types from which co
 * `cloudify.types.message_bus_server` - a message bus server
 
 * `cloudify.types.app_module` - a base type for any application module or artifact
-

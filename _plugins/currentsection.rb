@@ -7,12 +7,8 @@ module Jekyll
       @url = markup.strip
     end
 
-    def render(context)
-      sectionPath = @url.strip!
-      if !sectionPath || sectionPath != ""  
-        sectionPath = context.environments.first["page"]["url"].split("/")[1]
-      end 
-      DocUtils.get_current_section(sectionPath)
+    def render(context)      
+      DocUtils.get_current_section(context)
     end
   end
 end

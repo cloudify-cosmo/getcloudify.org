@@ -1,23 +1,30 @@
 ---
 layout: bt_wiki
-title: Blueprint Guide
+title: Blueprint Authoring Guide
 category: Guides
 publish: true
 abstract: Blueprint authoring tutorial
 pageord: 100
 
 yaml_link: http://www.getcloudify.org/spec/cloudify/3.0/types.yaml
+plugin_guide_link: guide-plugin-creation.html
+openstack_blueprint_link: guide-openstack-blueprint.html
+getting_started_link: quickstart.html
+terminology_link: reference-terminology.html
 ---
 {%summary%} {{page.abstract}}{%endsummary%}
 
-#Overview
-In this tutorial we will create a blueprint that will describe the topology of the Nodecellar application. The Nodecellar application is a Node.js web application of a wine catalog.
-It includes the following components:
+# Overview
 
+In this tutorial we will create a blueprint([?]({{page.terminology_link}}#blueprint)) that will describe the topology([?]({{page.terminology_link}}#topology)) of the Nodecellar application([?]({{page.terminology_link}}#application)). The Nodecellar application is a Node.js web application of a wine catalog.
+
+The blueprint we will be writing is an exact replica of the blueprint we deployed when we [got started]({{page.getting_started_link}}).
+
+It includes the following components:
 
 **Infrastructure:**
 
-- Two hosts (we will call them nodejs_host and mongodb_host) that contain the application. One contains the Node.JS and the other the MongoDB. In this tutorial we will use localhost as both host nodes as we want to install the entire application on our Vagrant VM.
+- Two hosts (we will call them nodejs_host and mongodb_host) that contain the application. One contains Node.JS and the other MongoDB. In this tutorial we will use localhost for both host nodes([?]({{page.terminology_link}}#node)) as we want to install the entire application on our Vagrant VM.
 
 
 **Middleware:**
@@ -28,15 +35,15 @@ It includes the following components:
 
 **Application:**
 
-- Nodecellar - This is the application business logic packed as a Node.JS application. It is hosted within the Node.JS server. It needs a connection to the MongoDB Database.
+- Nodecellar - This is the application business logic packed as a Node.JS application. It is hosted within the Node.JS server. It requires a connection to the MongoDB Database.
 
-The topology would look like this:
+The topology should look like this:
 
 ![nodecllar app](images/guide/nodecellar_topology.png "The nodecellar application topology")
 
 ## Cloudify YAML DSL
 
-Cloudify's Domain Specific Language (DSL) is written in YAML. If you are not familiar with yaml you may want to read the [yaml documentation](http://www.yaml.org/start.html) first
+Cloudify's Domain Specific Language (DSL) is written in YAML. If you are not familiar with yaml you may want to read the [yaml documentation](http://www.yaml.org/start.html) first.
 
 Each step of the tutorial is tagged on github. To clone it locally do the following:
 
@@ -76,7 +83,7 @@ Types are like classes in an OO program. They represent a type of component in a
 
 Types can be imported from external files or declared inside the blueprint.yaml file.
 
-In this case we will use a type from an external URL. Since we are not really going to spawn a VM, we will use the basic type of `cloudify.types.host` . This type can get an IP of an existing host (in our case it will be the manager IP) and install the Cloudify agent on it.  We will use this functionality to simulate the hosts in our application and in order to demonstrate how Cloudify uses application agent plugins such as the bash plugin.
+In this case we will use a type from an external URL. Since we are not really going to spawn a VM, we will use the basic type of `cloudify.types.host`. This type can get an IP of an existing host (in our case it will be the manager IP) and install the Cloudify agent on it.  We will use this functionality to simulate the hosts in our application and in order to demonstrate how Cloudify uses application agent plugins such as the bash plugin.
 
 In order to use this type we need to add the following yaml in our blueprint file:
 
@@ -145,15 +152,15 @@ type - the type of component this node is an instance-of.
 properties - the configuration of this instance.
 
 Under properties you can see 2 key-value pairs:
-ip - in this case is localhost as we are installing the agent on the local host - that is, only simulating another host.
-cloudify_agent - is a sub map with the agent configuration. here we specify the private key path.
+ip - in this case it is localhost as we are installing the agent on the local host - that is, only simulating another host.
+cloudify_agent - is a sub-map with the agent configuration. This is where we specify the private key path.
 
 
 ## Step 3: Adding a Host for MongoDB
 
 <a href="https://github.com/cloudify-cosmo/cloudify-nodecellar-singlehost/compare/step2...step3" class="btn btn-default" role="button"><i class="fa fa-search"></i>  Code Diff</a>
 
-In a similar manner we should now add the mongod_vm node (it is a simple copy and paste with a different name):
+In a similar manner we will now add the mongod_vm node (it is a simple copy and paste with a different name):
 
 {%highlight yaml%}
 	-   name: mongod_vm
@@ -175,7 +182,7 @@ The first node we will add is the mongod node that represents the Mongo database
 
 The reason why we have specific types for db_server, app_server, etc. is that we want the user to be able to differentiate between nodes based on their role in the application. We therefore use marking types.
 
-We need to import the bash types and plugins to use this type. The below declaration is at the begining of the file:
+We need to import the bash types and plugins to use this type. The below declaration is added at the begining of the file:
 
 {%highlight yaml%}
 imports:
@@ -199,9 +206,9 @@ Now we can declare the mongod node:
 
 {%endhighlight%}
 
-What we see here is the scripts property which is a map of scripts mapped to lifecycle events. In this case we see the create event mapped to mongo-scripts/install-mongo.sh
+What we see here is the scripts property which is a map of scripts mapped to lifecycle events. In this case we see that the create event is mapped to mongo-scripts/install-mongo.sh.
 
-a script uploaded with the blueprint under the subfolder of mongo-scripts. The plugin has an API to fetch this file from the manager's fileserver and use it. The bash plugin knows which lifecycle event was assigned to the agent by the workflow engine and searches the scripts dictionary for the right script name and path.
+The scripts are uploaded with the blueprint under the subfolder mongo-scripts. The plugin has an API to fetch this file from the manager's fileserver and use it. The bash plugin knows which lifecycle event was assigned to the agent by the workflow engine and searches the scripts dictionary for the right script name and path.
 
 
 
@@ -209,7 +216,7 @@ a script uploaded with the blueprint under the subfolder of mongo-scripts. The p
 
 <a href="https://github.com/cloudify-cosmo/cloudify-nodecellar-singlehost/compare/step4...step5" class="btn btn-default" role="button"><i class="fa fa-search"></i>  Code Diff</a>
 
-We have just declared a mongod node of type cloudify.bash.db_server. This type doesn’t enforce any properties except for scripts. In the case of a mongo database we probably need to make sure the user gives us configuration details such as the role in the mongo cluster and the port to which it listens. We will therefore subtype cloudify.bash.db_server and add schema property declarations
+We have just declared a mongod node of type cloudify.bash.db_server. This type doesn’t enforce any properties except for scripts. In the case of a mongo database we probably need to make sure the user gives us configuration details such as the role in the mongo cluster and the port on which it listens. We will therefore subtype cloudify.bash.db_server and add schema property declarations:
 
 
 {%highlight yaml%}
@@ -416,22 +423,5 @@ Now lets make use of this relationship in the nodecellar_app node.
 
 # What's Next
 
-* You can read the [plugins tutorial](#) to gain a better understanding of how plugins work.
-* Follow the directions in the [Getting Started](quickstart.html) page to deploy this blueprint.
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+* Now that you know how to write a basic blueprint, you can [write an Openstack blueprint]({{page.openstack_blueprint_link}}).
+* Or.. you can read the [Write-a-Plugin guide]({{page.plugin_guide_link}}) to gain a better understanding of how plugins work (and write your first plugin if you like).
