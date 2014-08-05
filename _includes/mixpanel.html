@@ -78,18 +78,6 @@ $(function(){
 	$("#manage,#use").click(function() {
 	    mixpanel.track("Chef Campaign Button Clicks",{'page name' : document.title, 'url' : window.location.pathname}); 
 	});
-   // Fork Button Clicks
-	$(".fork").click(function() {
-	    var forkBtnName = $(this).attr("data-fork-btn");
-	    mixpanel.track("Fork Button Clicks",{'page name' : document.title, 'url' : window.location.pathname, 'Fork Button Name': forkBtnName}); 
-	});
-	 // Recipe Button Clicks
-	$(".recipeName").click(function() {
-	    var recipeBtnName = $(this).children().attr("alt");
-		_gaq.push(['_trackEvent',  'Recipe Button Name', recipeBtnName]);
-	    mixpanel.track("Recipe Button Clicks",{'page name' : document.title, 'url' : window.location.pathname, 'Recipe Button Name': recipeBtnName}); 
-	});
-	
 	
 
 	
