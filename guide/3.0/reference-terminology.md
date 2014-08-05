@@ -145,7 +145,8 @@ The provider configuration file has configuration properties for the some of the
 
 
 ### **Provider Context**
-Coming soon...
+Details of the `provider` manager environment such as the name of the management network.
+The provider context is available in any plugin function in case the plugin code needs such information in order to perform tasks such as agent configuration or VM configuration (as Cloudify needs each VM to be connected also to the management network if it has an agent installed on it)   
 
 ### **Relationship**
 Relationships are types that describe the nature of dependency between components and the logic, if required, to glue components together.
