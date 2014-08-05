@@ -7,6 +7,7 @@ abstract: Cloudify Terms and Concepts (In a nutshell)
 pageord: 11
 
 tosca_link: https://www.oasis-open.org/committees/tc_home.php?wg_abbrev=tosca
+arch_link: overview-architecture.html
 ---
 
 Cloudify users will come across several concepts and terms that might have different meanings in other products or systems. For your benefit we define these below:
@@ -31,10 +32,30 @@ Cloudify blueprints are inspired by the [OASIS TOSCA]({{page.tosca_link}}) evolv
 * Configuration for each component.
 * [Optional] [Workflows](#workflow) that describe the automation of different processes like installation, upgrade etc. By default the blueprint will use the workflows provided with the product.
 
+### **Blueprint Resource**
+Coming soon...
+
 ### **Bootstrapping**
 Bootstrapping is the process of installing and starting a Cloudify manager on a certain cloud provider.
 
-The bootstrapping process is initiated from Cloudify's CLI client. Typically, it uses the cloud provider's IaaS API's to create VM’s, networks, and any other infrastructure resources that are required for the Cloudify manager to operate properly. It then installs the various packages and starts the services that form the manager.
+The bootstrapping process is initiated from Cloudify's CLI client. Typically, it uses the cloud provider's IaaS API's to create VM’s, networks, and any other infrastructure resources that are required for the Cloudify manager to operate properly. It then installs the various packages and starts the services that form the manager. The bootstrap process is initiated by the CLI which uses [providers](#provider) to bootstrap on a specific cloud.
+
+### Bootstrap Context**
+Coming soon...
+
+### **Capabilities**
+Coming soon...
+
+### **Context Object**
+Coming soon...
+
+### **Execution Cancellation**
+
+#### **Standard Cancellation**
+Coming soon...
+
+#### **Forced Cacncellation**
+Coming soon...
 
 ### **Deployment**
 A deployment is the plan and the state of a single [application](#application) environment and is a direct derivative of a [blueprint](#blueprint).
@@ -51,6 +72,9 @@ An Execution is a running instance of a [workflow](#workflow) and is based on a 
 
 An Execution has logs and [events](#event) associated with it.
 
+### **Host node**
+Coming soon...
+
 ### **Interface**
 Interfaces set the protocol between the [Topology](#topology) and the [Workflow](#workflow) that uses it.
 
@@ -63,7 +87,7 @@ More elaborately, An Interface is a set of hooks (dabbed **Operations**) that a 
 * delete
 
 ### **Manager**
-Coming soon...
+See the definition [here]({{page.arch_link}}#manager).
 
 ### **Node**
 A Node is one type of component in a [topology](#topology).
@@ -73,14 +97,27 @@ It is an instance of a [type](#type) with particular [properties](#properties) a
 For example, a node can be one type of VM with a particular image ID, HW flavor and bound to a specific security group. Each node can be materialized to any number of runtime components, depending on the number of instances to depoly sepcified in the node settings.
 
 ### **Node Instance**
-A Node Instance is one instance of a [node](#node).
+A node instance is a runtime presentation of a [node](#node).
 
-While a node is a logical description of a component, a node instance is its actual, technical interpretation.
+Node instances carry [runtime properties](#runtime-properties) and a [state](#node-instance-state).
+The number of instances is derived from the property set in a node's configuration in the [blueprint](#blueprint).
+
+### **Node Instance State**
+Coming soon..
+
+### **Operation**
+Coming soon...
 
 ### **Plugin**
 Plugins are extensions to the [agents](#agent).
 
 Plugins interface with an API or a CLI in order to execute lifecycle events of a component. Plugins are written in Python.
+
+### **Policy**
+Coming soon...
+
+### **Policy Engine**
+See the definition [here]({{page.arch_link}}#policy-engine).
 
 ### **Properties**
 Properties are a [Node](#node)'s design-time configuration details.
@@ -90,12 +127,30 @@ Properties are expressed as a YAML dictionary in the [blueprint](#blueprint).
 ### **Provider**
 Providers are python modules that augment the Cloudify CLI and implement the [bootstrapping](#bootstrapping) process for a specific cloud environment.
 
+### **Provider configuration file**
+Coming soon...
+
+### **Provider Context**
+Coming soon...
+
 ### **Relationship**
 Relationships are types that describe the nature of dependency between components and the logic, if required, to glue components together.
 
 For example, a relationship can be of [type](#type) `contained_in`. That means that component X is hosted within component Y and therefore can't be created until component Y is created and running.
 
 Another example is an Apache server that's connected to MySQL. In this case, Apache needs to be configured at runtime to connect to MySQL. Waiting for MySQL to be up and running won't suffice in this case. The relationship needs to map operations to [plugin](#plugin) functions that execute the connection's configuration.
+
+### **Relationship implmenetation**
+Coming soon...
+
+### **Relationship instance**
+Coming soon...
+
+### **Relationship types**
+Coming soon...
+
+### **Runtime Data**
+Coming soon...
 
 ### **Runtime Properties**
 Runtime Properties are execution-time details of [nodes](#node).
@@ -107,6 +162,9 @@ Unlike a node(#node)'s [properties](#properties), which are explicitly specified
 A Task is the execution of one function in a [plugin](#plugin) with a given set of arguments.
 
 The arguments describe the context of the execution including [node][#node] [properties](#properties) and [Runtime Properties](#runtime-properties).
+
+### **Task Broker**
+See the definition [here]({{page.arch_link}}#task-broker).
 
 ### **Topology**
 A Topology is an [application](#application)'s graph of components and their [relationships](#relationship).
@@ -125,7 +183,16 @@ Derived types have their operations mapped to a particular [plugin](#plugin) tha
 
 For example, cloudify.types.openstack.server is using the nova_plugin to communicate with OpenStack's Nova API (compute API) to spawn virtual machines on OpenStack clouds.
 
+### **Type Hierarchy**
+Coming soon...
+
+### **Type Implementation**
+Coming soon...
+
 ### **Workflow**
 A workflow is an automation process algorithm.
 
 Workflows are described in Python and use dedicated API's for reading and writing a component's state, reading a component's configuration and sending [tasks](#task) for execution. Workflows are executed via Cloudify's workflow engine.
+
+### **Workflow Engine**
+See the definition [here]({{page.arch_link}}#workflow-engine).
