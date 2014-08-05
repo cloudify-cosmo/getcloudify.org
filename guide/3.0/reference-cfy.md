@@ -4,7 +4,7 @@ title: CFY CLI Command Reference
 category: Reference
 publish: true
 abstract: Reference for CFY commands
-pageord: 100
+pageord: 200
 ---
 
 {%summary%} This page contains description and usage information for the Cloudify CLI (CFY) commands {%endsummary%}

@@ -4,7 +4,7 @@ title: Terminology
 category: Reference
 publish: true
 abstract: Cloudify Terms and Concepts (In a nutshell)
-pageord: 11
+pageord: 100
 
 tosca_link: https://www.oasis-open.org/committees/tc_home.php?wg_abbrev=tosca
 ---
