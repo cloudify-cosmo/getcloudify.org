@@ -6,7 +6,7 @@ publish: true
 abstract: Explains the architecture and flow of Cloudify 3.0 the DevOps Orchestrator
 pageord: 100
 
-glossary_link: reference-glossary.html
+terminology_link: reference-terminology.html
 ---
 {%summary%} {{page.abstract}}{%endsummary%}
 
@@ -22,23 +22,23 @@ Cloudify 3.0 has a new architecture and a new code base. Cloudify 3.0 is compose
 The CLI client is an executable (written in Python and packaged with python and any relevant dependencies in an executable).
 The CLI can run on Windows, Linux and Mac OS. The CLI provides 2 main functions:
 
-* **Manager Bootstrapping[(?)]({{page.glossary_link}}#bootstrapping)**  - This is of course an optional functionality as you may install the manager with your preferred tool.
+* **Manager Bootstrapping[(?)]({{page.terminology_link}}#bootstrapping)**  - This is of course an optional functionality as you may install the manager with your preferred tool.
 
-* **Managing Applications[(?)]({{page.glossary_link}}#application)** - The CLI serves as a REST client versus the Cloudify manager REST interface. It provides the user with the full set of functions for deploying & managing applications including log/event browsing.
+* **Managing Applications[(?)]({{page.terminology_link}}#application)** - The CLI serves as a REST client versus the Cloudify manager REST interface. It provides the user with the full set of functions for deploying & managing applications including log/event browsing.
 
 ![Cloudify components](images/architecture/Cloudify-Achitecture.png)
 
 
 ## The Manager (Orchestrator)
-The Cloudify Manager is a stateful orchestrator that deploys and manages applications decribed in orchestration plans called [blueprints](#blueprint). The manager's main responsibility is to run automation processes described in workflow[(?)]({{page.glossary_link}}#workflow) scripts and issue execution commands to the agents[(?)]({{page.glossary_link}}#agent). The manager's flows and components are discussed in detail below.
+The Cloudify Manager is a stateful orchestrator that deploys and manages applications decribed in orchestration plans called [blueprints](#blueprint). The manager's main responsibility is to run automation processes described in workflow[(?)]({{page.terminology_link}}#workflow) scripts and issue execution commands to the agents[(?)]({{page.terminology_link}}#agent). The manager's flows and components are discussed in detail below.
 
 ## The Agents
-The Cloudify Agents[(?)]({{page.glossary_link}}#agent) are responsible for managing the manager's command execution using a set of plugins[(?)]({{page.glossary_link}}#plugin).
-There is a manager side agent per application[(?)]({{page.glossary_link}}#application) deployment[(?)]({{page.glossary_link}}#deployment) and optional agent on each application VM.
+The Cloudify Agents[(?)]({{page.terminology_link}}#agent) are responsible for managing the manager's command execution using a set of plugins[(?)]({{page.terminology_link}}#plugin).
+There is a manager side agent per application[(?)]({{page.terminology_link}}#application) deployment[(?)]({{page.terminology_link}}#deployment) and optional agent on each application VM.
 
-**The manager side agents** handle IaaS related tasks[(?)]({{page.glossary_link}}#task) (e.g. creating a VM or a Network, binding a floating IP to a VM). Manager side agents can also be used with other tools such as [Fabric](http://www.fabfile.org/) or REST to remotely execute tasks.
+**The manager side agents** handle IaaS related tasks[(?)]({{page.terminology_link}}#task) (e.g. creating a VM or a Network, binding a floating IP to a VM). Manager side agents can also be used with other tools such as [Fabric](http://www.fabfile.org/) or REST to remotely execute tasks.
 
-**The application side agents** are optionally located on application VM's. The user can state in the blueprint[(?)]({{page.glossary_link}}#blueprint) which VM's will have an agent installed on them. The application side agents are installed by the manager side agent as part of the VM creation task. Once running, the application side agent can install plugins and execute tasks locally. Typical tasks will be middleware installaton and configuration and application modules deployment.
+**The application side agents** are optionally located on application VM's. The user can state in the blueprint[(?)]({{page.terminology_link}}#blueprint) which VM's will have an agent installed on them. The application side agents are installed by the manager side agent as part of the VM creation task. Once running, the application side agent can install plugins and execute tasks locally. Typical tasks will be middleware installaton and configuration and application modules deployment.
 
 ![Cloudify Manager Architecture](images/architecture/cloudify_manager_flows.png)
 
@@ -63,28 +63,28 @@ Cloudify's Web GUI works vs. the REST API but adds additional value and visibili
 
 The GUI has the following screens:
 
-* Blueprints[(?)]({{page.glossary_link}}#blueprint) screen - a catalog of all uploaded blueprints
+* Blueprints[(?)]({{page.terminology_link}}#blueprint) screen - a catalog of all uploaded blueprints
 * Blueprint Specific Screen - a set of views for a particular blueprint including:
-    * Blueprint Topology[(?)]({{page.glossary_link}}#topology)
+    * Blueprint Topology[(?)]({{page.terminology_link}}#topology)
     * Blueprint Network Topology
     * Blueprint Node list
     * Blueprint Source
 * Deployments screen
 * Deployment Topology screen
 * Deployment Network Topology screen
-* Deployment Events[(?)]({{page.glossary_link}}#event) screen
+* Deployment Events[(?)]({{page.terminology_link}}#event) screen
 * Deployment Performance Metrics screen
 
 
 ### Workflow Engine
 
-Cloudify uses a Workflow engine to allow for any automation process through built-in and custom workflows[(?)]({{page.glossary_link}}#workflow).
-The Workflow engine is responsible for timing and orchestrating tasks for creating / manipulating the application[(?)]({{page.glossary_link}}#application) components. To achieve that the worflow engine interacts with the Blueprint and runtime data to get the properties[(?)]({{page.glossary_link}}#properties) and plugin[(?)]({{page.glossary_link}}#plugin) information and writes tasks[(?)]({{page.glossary_link}}#task) to the task broker.
-Cloudify's workflow engine is build on top of [Celery tasks broker](http://www.celeryproject.org/). The user can write the custom workflow in Python using API's that provide access to the topology[(?)]({{page.glossary_link}}#topology) components and allow for steps execution and state[(?)]({{page.glossary_link}}#node-instance-state) reporting.
+Cloudify uses a Workflow engine to allow for any automation process through built-in and custom workflows[(?)]({{page.terminology_link}}#workflow).
+The Workflow engine is responsible for timing and orchestrating tasks for creating / manipulating the application[(?)]({{page.terminology_link}}#application) components. To achieve that the worflow engine interacts with the Blueprint and runtime data to get the properties[(?)]({{page.terminology_link}}#properties) and plugin[(?)]({{page.terminology_link}}#plugin) information and writes tasks[(?)]({{page.terminology_link}}#task) to the task broker.
+Cloudify's workflow engine is build on top of [Celery tasks broker](http://www.celeryproject.org/). The user can write the custom workflow in Python using API's that provide access to the topology[(?)]({{page.terminology_link}}#topology) components and allow for steps execution and state[(?)]({{page.terminology_link}}#node-instance-state) reporting.
 
 ### Runtime Model
 
-Cloudify uses [Elasticsearch](http://http://www.elasticsearch.org/) as its data store for deployment[(?)]({{page.glossary_link}}#deployment) state. The deployment model and runtime data[(?)]({{page.glossary_link}}#runtime-data) are stored as JSON documents.
+Cloudify uses [Elasticsearch](http://http://www.elasticsearch.org/) as its data store for deployment[(?)]({{page.terminology_link}}#deployment) state. The deployment model and runtime data[(?)]({{page.terminology_link}}#runtime-data) are stored as JSON documents.
 
 
 <!-- ## <a name="Metrics Database">Metrics Database</a> -->
@@ -97,7 +97,7 @@ Cloudify uses [InfluxDB](http://influxdb.com/) as the monitoring metrics reposit
 
 ## Policy Engine
 
-Cloudify offers a policy engine[(?)]({{page.glossary_link}}#policy-engine) that runs custom policies[(?)]({{page.glossary_link}}#policy) in order to make runtime decisions about availability, SLA, etc. For example, during installation, the policy engine consumes streams of events coming from monitoring probes or tools. The policy engine analyzes these streams to decide if a specific node[(?)]({{page.glossary_link}}#node) is up and running and provides the required functionality. The results of such "start detection" policies are fed into the runtime model.
+Cloudify offers a policy engine[(?)]({{page.terminology_link}}#policy-engine) that runs custom policies[(?)]({{page.terminology_link}}#policy) in order to make runtime decisions about availability, SLA, etc. For example, during installation, the policy engine consumes streams of events coming from monitoring probes or tools. The policy engine analyzes these streams to decide if a specific node[(?)]({{page.terminology_link}}#node) is up and running and provides the required functionality. The results of such "start detection" policies are fed into the runtime model.
 
 Cloudify uses [Riemann.IO CEP](http://riemann.io/) as the core of the policy engine component. A Cloudify user doesn't need to access or config Riemann directly. The Policies are registered, activated, deactivated and deleted by the Workflow Engine as part of the orchestration process.
 
@@ -109,8 +109,8 @@ Cloudify offers policy examples for the common use cases.-->
 
 ### Task Broker
 
-Cloudify uses [Celery](http://www.celeryproject.org/) with a [RabbitMQ](http://www.rabbitmq.com/) message bus to manage task[(?)]({{page.glossary_link}}#task) distribution and execution.
-Cloudify tasks contain the blueprint[(?)]({{page.glossary_link}}#blueprint) and runtime properties[(?)]({{page.arch_link}}#runtime-properties). (if applicable) of the relevant node[(?)]({{page.arch_link}}#node). the plugin[(?)]({{page.arch_link}}#plugin). (name and URL) that will execute the task and the operation name the plugin needs to execute.
+Cloudify uses [Celery](http://www.celeryproject.org/) with a [RabbitMQ](http://www.rabbitmq.com/) message bus to manage task[(?)]({{page.terminology_link}}#task) distribution and execution.
+Cloudify tasks contain the blueprint[(?)]({{page.terminology_link}}#blueprint) and runtime properties[(?)]({{page.arch_link}}#runtime-properties). (if applicable) of the relevant node[(?)]({{page.arch_link}}#node). the plugin[(?)]({{page.arch_link}}#plugin). (name and URL) that will execute the task and the operation name the plugin needs to execute.
 
 Cloudify agents[(?)]({{page.arch_link}}#agent) that are based on Celery workers listen to the RabbitMQ queues to obtain tasks they need to execute (see more information below). Once a message arrives, they invoke the task and report back.
 
@@ -190,4 +190,3 @@ The command has the implementation information for the agent:
 3. The designated agent (Manager Side or Application VM side depending on the task) gets the command from the queue and starts executing it by invoking a plugin function.
 
 4. The plugin interfaces with third-party API or CLI to execute the task
-

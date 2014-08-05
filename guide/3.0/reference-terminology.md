@@ -78,7 +78,7 @@ An Execution is a running instance of a [workflow](#workflow) and is based on a 
 An Execution has logs and [events](#event) associated with it.
 
 ### **Host node**
-Coming soon...
+A node in the blueprint that represent a type of host whether it's a virtual or physical server.
 
 ### **Interface**
 Interfaces set the protocol between the [Topology](#topology) and the [Workflow](#workflow) that uses it.
@@ -145,7 +145,8 @@ The provider configuration file has configuration properties for the some of the
 
 
 ### **Provider Context**
-Coming soon...
+Details of the `provider` manager environment such as the name of the management network.
+The provider context is available in any plugin function in case the plugin code needs such information in order to perform tasks such as agent configuration or VM configuration (as Cloudify needs each VM to be connected also to the management network if it has an agent installed on it)   
 
 ### **Relationship**
 Relationships are types that describe the nature of dependency between components and the logic, if required, to glue components together.
@@ -158,13 +159,23 @@ Another example is an Apache server that's connected to MySQL. In this case, Apa
 Coming soon...
 
 ### **Relationship instance**
-Coming soon...
+An instance of a relationship between 2 concerte node instances
 
 ### **Relationship types**
-Coming soon...
+A relationship type describes the nature of dependency between 2 components (nodes) and the logic to materialize it (through operations mapping to implementation)
+
+A relationship is always between a source node and a target node and do it can have implementation logic to run on either or both.
+
+There are 3 basic relationship types:
+
+* depends_on - a base type for all relationships. It means the orchestrator must wait for the target node
+* contained_in - the source node is installed within the target node
+* connected_to - the source node has a connection to configure to the target node
 
 ### **Runtime Data**
-Coming soon...
+The data model of the deployements stored in the Cloudify database
+
+Cloudify holds a data model per application deployment. This data model contains the node instacnes, with each instance storing the unique instance id as well as copy of the blueprint original configuration for this node and runtime properties for this node instance.
 
 ### **Runtime Properties**
 Runtime Properties are execution-time details of [node instances](#node-instance).
@@ -179,6 +190,11 @@ The arguments describe the context of the execution including [node](#node) [pro
 
 ### **Task Broker**
 See the definition [here]({{page.arch_link}}#task-broker).
+
+### **Teardown**
+A process for uninstalling the Cloudify manager and its network setup.
+The teardown is invoked by the user from the CLI. During teardown, the CLI uses the provider implementation to delete the manager VM and then delete the management network, subnet and security groups associated with the manager
+
 
 ### **Topology**
 A Topology is an [application](#application)'s graph of components and their [relationships](#relationship).
@@ -198,7 +214,8 @@ Derived types have their operations mapped to a particular [plugin](#plugin) tha
 For example, `cloudify.types.openstack.server` is using the nova_plugin to communicate with OpenStack's Nova API (compute API) to spawn virtual machines on OpenStack clouds.
 
 ### **Type Hierarchy**
-Coming soon...
+The inheritence chain of a Type or a Relationship. 
+Cloudify blueprints use Object Oriented methaphor of inheritence so any concrete Type or relationship is derived from more basic type either with implementation that needs to be refined or without any operation implmentation. 
 
 ### **Type Implementation**
 Coming soon...

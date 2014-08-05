@@ -7,13 +7,13 @@ abstract: Reference for CFY commands
 pageord: 200
 ---
 
-{%summary%} This page contains description and usage information for the Cloudify CLI (CFY) commands {%endsummary%}
+{% linklist h3 %}
 
 {%note title=Note%}
 Verbose output can be applied to every action by supplying the --verbosity (or -v) flag.
 {%endnote%}
 
-# status
+### **status**
 
 **Description:** queries the status of the management server
 
@@ -28,7 +28,7 @@ Verbose output can be applied to every action by supplying the --verbosity (or -
 
 ------
 
-# use
+###  **use**
 
 **Description:** defines a default management server to work with
 
@@ -47,7 +47,7 @@ Verbose output can be applied to every action by supplying the --verbosity (or -
 
 ------
 
-# init
+###  **init**
 
 **Description:** initializes a cloudify working directory for a given provider
 
@@ -66,7 +66,7 @@ Verbose output can be applied to every action by supplying the --verbosity (or -
 
 ------
 
-# bootstrap
+###  **bootstrap**
 
 **Description:** bootstraps cloudify on the current provider
 
@@ -81,7 +81,7 @@ Verbose output can be applied to every action by supplying the --verbosity (or -
 
 ------
 
-# teardown
+###  **teardown**
 
 **Description:** tears down the management-server, as well as any local resources under its context
 
@@ -100,7 +100,7 @@ Verbose output can be applied to every action by supplying the --verbosity (or -
 
 ------
 
-# blueprints upload
+###  **blueprints upload**
 
 **Description:** uploads a blueprint to the management server
 
@@ -123,7 +123,7 @@ This command will in fact upload the entire folder of the given target file rath
 
 ------
 
-# blueprints list
+###  **blueprints list**
 
 **Description:** lists the blueprint on the management server, as well as the blueprints local aliases
 
@@ -138,7 +138,7 @@ This command will in fact upload the entire folder of the given target file rath
 
 ------
 
-# blueprints delete
+###  **blueprints delete**
 
 **Description:** deletes the blueprint from the management server
 
@@ -156,7 +156,7 @@ This command will in fact upload the entire folder of the given target file rath
 
 ------
 
-# deployments create
+###  **deployments create**
 
 **Description:** creates a deployment from a blueprint
 
@@ -175,7 +175,7 @@ This command will in fact upload the entire folder of the given target file rath
 
 ------
 
-# deployments delete
+###  **deployments delete**
 
 **Description:** deletes the deployment (and its resources) from the management server
 
@@ -194,7 +194,7 @@ This command will in fact upload the entire folder of the given target file rath
 
 ------
 
-# deployments execute
+###  **deployments execute**
 
 **Description:** executes an operation on a deployment
 
@@ -231,7 +231,7 @@ This command will in fact upload the entire folder of the given target file rath
 
 ------
 
-# workflows get
+###  **workflows get**
 
 **Description:** gets a workflow by its name and deployment id. This command will also show the workflow's parameters.
 
@@ -251,7 +251,7 @@ This command will in fact upload the entire folder of the given target file rath
 
 ------
 
-# workflows list
+###  **workflows list**
 
 **Description:** lists the workflows of a deployment
 
@@ -270,7 +270,7 @@ This command will in fact upload the entire folder of the given target file rath
 
 ------
 
-# executions get
+###  **executions get**
 
 **Description:** gets an execution by its id. This command will also show the execution's parameters.
 
@@ -289,7 +289,7 @@ This command will in fact upload the entire folder of the given target file rath
 
 ------
 
-# executions list
+###  **executions list**
 
 **Description:** lists the executions of a deployment
 
@@ -307,7 +307,7 @@ This command will in fact upload the entire folder of the given target file rath
 
 ------
 
-# executions cancel
+###  **executions cancel**
 
 **Description:** Cancels an execution by its id
 
@@ -326,7 +326,7 @@ This command will in fact upload the entire folder of the given target file rath
 
 ------
 
-# events
+###  **events**
 
 **Description:** fetches events of an execution
 

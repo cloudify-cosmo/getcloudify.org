@@ -7,7 +7,7 @@ abstract: How do you go about installing Cloudify?
 pageord: 100
 
 manual_install_link: installation-manual.html
-glossary_link: reference-glossary.html
+terminology_link: reference-terminology.html
 cli_install_link: installation-cli.html
 simple_install_link: installation-simple-provider.html
 ---
@@ -32,10 +32,10 @@ these are the very basic requirements. You will have to provision larger machine
 The Manager must be available in the following ports:
 
 * Inbound - port 80 - For CLI and REST access.
-* Inbound - port 22 - If [Bootstrapping]({{page.glossary_link}}#bootstrapping) is done via the CLI.
-* Inbound - port 5672 - [Agent]({{page.glossary_link}}#agent) to Manager communication.
-* Outbound - port 22 - If running Linux based host machines and remote [agent]({{page.glossary_link}}#agent) installation is required.
-* Outbound - port 5985 - If running Windows based host machines and remote [agent]({{page.glossary_link}}#agent) installation is required.
+* Inbound - port 22 - If [Bootstrapping]({{page.terminology_link}}#bootstrapping) is done via the CLI.
+* Inbound - port 5672 - [Agent]({{page.terminology_link}}#agent) to Manager communication.
+* Outbound - port 22 - If running Linux based host machines and remote [agent]({{page.terminology_link}}#agent) installation is required.
+* Outbound - port 5985 - If running Windows based host machines and remote [agent]({{page.terminology_link}}#agent) installation is required.
 
 ## OS Distributions
 
