@@ -168,7 +168,7 @@ For example, a relationship can be of [type](#type) `cloudify.types.contained_in
 
 Another example is an Apache server that's connected to MySQL. In this case, Apache needs to be configured at runtime to connect to MySQL. Waiting for MySQL to be up and running won't suffice in this case. The relationship needs to map relationship operations to [plugin](#plugin) functions that execute the connection's configuration.
 
-### **Relationship implmenetation** (Coming soon...)
+### **Relationship implementation** (Coming soon...)
 
 ### **Relationship instance**
 An instance of a relationship between 2 concerte node instances
