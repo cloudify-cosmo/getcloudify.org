@@ -12,6 +12,8 @@ blueprint_guide_link: guide-blueprint.html
 plugins_common_link: https://github.com/cloudify-cosmo/cloudify-plugins-common
 plugins_common_ref_link: reference-plugins-common.html
 architecture_link: overview-architecture.html
+openstack_plugin_link: https://github.com/cloudify-cosmo/cloudify-openstack-plugin/blob/1.0/nova_plugin/server.py#L306
+plugins_common_docs_link: http://cloudify-plugins-common.readthedocs.org/
 ---
 {%summary%} {{page.abstract}}{%endsummary%}
 
@@ -19,36 +21,265 @@ architecture_link: overview-architecture.html
 
 To understand what a plugin represents, please refer to the plugins section in the [Architecture Overview]({{page.architecture_link}}).
 
-In this tutorial we will create a plugin whose sole purpose is to run a python script. We will base the creation process on our home made [Python Plugin]({{page.plugin_link}}).
+In this tutorial we will create a plugin whose purpose is to start a simple HTTP web server using Python.
 
 
-# Requirements
+# Creating A Plugin Project
 
-To write the plugin, we will use 2 objects that allow us to interact with Cloudify.
-Both objects are imported from [plugins-common]({{page.plugins_common_link}}), a Cloudify-specific python module which provides commonly used methods to use in different plugins. A reference to the plugins-common module can be found [here]({{page.plugins_common_link}}).
+Cloudify plugin projects are actually standard Python projects.
 
-{%note title=Note%}
-The plugins-common module is a **mandantory** module for writing a Cloudify plugin and must be included in its dependencies.
-{%endnote%}
+Each Cloudify plugin should have `cloudify-plugins-common` as a dependency as it contains the necessary APIs for interacting with Cloudify.
 
-The two objects are:
+`cloudify-plugins-common` documentation can be found [here]({{page.plugins_common_docs_link}}).
 
-### Operation
+{%tip title=Tip%}
+You can use the [Plugin Template]({{page.template_link}}) to setup the repo for your plugin.
+{%endtip%}
 
-The `Operation` decorator is used to allow a plugin to assign a logical operation (used in a blueprint) to a function.
-To understand how to map operations to scripts (or actions, depending on the plugin), please see the [Blueprint Guide]({{page.blueprint_guide_link}}).
+For example:
 
-### Context
+
+{%highlight python%}
+from setuptools import setup
+
+setup(
+    name='python-http-webserver-plugin',
+    version='1.0',
+    author='Cloudify',
+    packages=['python_webserver'],
+    install_requires=['cloudify-plugins-common==3.0'],
+)
+{%endhighlight%}
+
+
+
+# Writing Plugin Operations
+
+Plugin operations are standard Python methods which are decorated with Cloudify's `operation` decorator so that Cloudify can identify them as plugin operations.
+
+For our Python HTTP webserver plugin, we'll create two operations: start & stop.
+
+The start operation would create an `index.html` file and then start a webserver using the following shell command: `python -m SimpleHTTPServer` which starts an HTTP server listening on port 8000.
+
+We'll put the start & stop operations in an `operations.py` module within the `python_webserver` package in our project.
+
+In the following example, we'll use Cloudify's logger which is accessible using `ctx.logger`.
+
+More information about the `ctx` object can be found [here](#the-context-object).
+
+
+
+### python_webserver/operations.py
+{%highlight python%}
+import os
+
+from cloudify.decorators import operation
+
+
+@operation
+def start(ctx, **kwargs):
+    with open('/tmp/index.html', 'w') as f:
+        f.write('<p>Hello Cloudify!</p>')
+
+    command = 'cd /tmp; nohup python -m SimpleHTTPServer > /dev/null 2>&1' \
+              ' & echo $! > /tmp/python-webserver.pid'
+
+    ctx.logger.info('Starting HTTP server using: {0}'.format(command))
+    os.system(command)
+
+
+@operation
+def stop(ctx, **kwargs):
+    try:
+        with open('/tmp/python-webserver.pid', 'r') as f:
+            pid = f.read()
+        ctx.logger.info('Stopping HTTP server [pid={0}]'.format(pid))
+        os.system('kill -9 {0}'.format(pid))
+    except IOError:
+        ctx.logger.info('HTTP server is not running!')
+{%endhighlight%}
+
+
+# Getting Node Properties
+
+In the previous step, the started HTTP webserver is listening on port 8000.
+What if the port was specified in our blueprint and we'd like to use that port?
+
+Not a problem, the `ctx` object which represents the context of the invocation exposes the node properties if the plugin's operation was invoked in the context of a node.
+
+We can get the port property using the following code:
+{%highlight python%}
+webserver_port = ctx.properties['port']
+{%endhighlight%}
+
+The updated start operations looks like this:
+
+{%highlight python%}
+@operation
+def start(ctx, **kwargs):
+    webserver_port = ctx.properties['port']
+
+    with open('/tmp/index.html', 'w') as f:
+        f.write('<p>Hello Cloudify!</p>')
+
+    command = 'cd /tmp; nohup python -m SimpleHTTPServer {0}> /dev/null 2>&1' \
+              ' & echo $! > /tmp/python-webserver.pid'.format(webserver_port)
+
+    ctx.logger.info('Starting HTTP server using: {0}'.format(command))
+    os.system(command)
+{%endhighlight%}
+
+# Updating & Retrieving Runtime Properties
+
+Runtime properties are properties which are set during runtime and are relevant for node instances.
+In our example, instead of having the webserver root set to `/tmp` we'll create a temporary folder and store its path as a runtime property so that the stop operation would read it when stopping the webserver.
+
+{%highlight python%}
+import os
+import tempfile
+
+from cloudify.decorators import operation
+
+
+@operation
+def start(ctx, **kwargs):
+    webserver_root = tempfile.gettempdir()
+    ctx.runtime_properties['webserver_root'] = webserver_root
+
+    webserver_port = ctx.properties['port']
+
+    with open(os.path.join(webserver_root, 'index.html'), 'w') as f:
+        f.write('<p>Hello Cloudify!</p>')
+
+    command = 'cd {0}; nohup python -m SimpleHTTPServer {1}> /dev/null 2>&1' \
+              ' & echo $! > /tmp/python-webserver.pid'.format(webserver_root, webserver_port)
+
+    ctx.logger.info('Starting HTTP server using: {0}'.format(command))
+    os.system(command)
+
+
+@operation
+def stop(ctx, **kwargs):
+    webserver_root = ctx.runtime_properties['webserver_root']
+    try:
+        with open(os.path.join(webserver_root, 'python-webserver.pid'), 'r') as f:
+            pid = f.read()
+        ctx.logger.info('Stopping HTTP server [pid={0}]'.format(pid))
+        os.system('kill -9 {0}'.format(pid))
+    except IOError:
+        ctx.logger.info('HTTP server is not running!')
+{%endhighlight%}
+
+Runtime properties are saved in Cloudify's storage once the plugin's operation invocation is complete (The @operation decorator is responsible for that).
+
+In any case where it is important to immediately save runtime properties to Cloudify's storage the `ctx.update` method should be called.
+
+For example:
+
+{%highlight python%}
+ctx.runtime_properties['prop1'] = 'This should be updated immediately!'
+ctx.update()
+{%endhighlight%}
+
+# Error Handling
+
+Cloudify's workflows framework distinguishes between two kinds of errors:
+
+- Recoverable errors - Cloudify's workflows will retry operations which raised such errors where all Python errors are treated as recoverable errors.
+- Non-recoverable errors - Errors which should not be retried and its up to the workflow to decide how to handle them.
+
+In our current start operation, we don't verifiy that the webserver was actually started and listening on the specified port.
+In this step we'll implement a `verify_server_is_up` method which will raise a non recoverable error if the server was not started in a reasonable time:
+
+{%highlight python%}
+import os
+import tempfile
+import urllib2
+import time
+
+from cloudify.decorators import operation
+from cloudify.exceptions import NonRecoverableError
+
+
+def verify_server_is_up(port):
+    for attempt in range(15):
+        try:
+            response = urllib2.urlopen("http://localhost:{0}".format(port))
+            response.read()
+            break
+        except BaseException:
+            time.sleep(1)
+    else:
+        raise NonRecoverableError("Failed to start HTTP webserver")
+
+
+@operation
+def start(ctx, **kwargs):
+    webserver_root = tempfile.gettempdir()
+    ctx.runtime_properties['webserver_root'] = webserver_root
+
+    webserver_port = ctx.properties['port']
+
+    with open(os.path.join(webserver_root, 'index.html'), 'w') as f:
+        f.write('<p>Hello Cloudify!</p>')
+
+    command = 'cd {0}; nohup python -m SimpleHTTPServer {1}> /dev/null 2>&1' \
+              ' & echo $! > /tmp/python-webserver.pid'.format(webserver_root, webserver_port)
+
+    ctx.logger.info('Starting HTTP server using: {0}'.format(command))
+    os.system(command)
+
+    verify_server_is_up(webserver_port)
+{%endhighlight%}
+
+{%warning title=Warning%}
+Raising an error which extends the NonRecoverableError class is currently not supported.
+{%endwarning%}
+
+
+# Testing Your Plugin
+
+In most cases the recommendation is to test your plugin's logic using unit tests and only then run them when used in a Cloudify deployment.
+
+`cloudify-plugins-common` provides a mock for `ctx` object which can somewhat simulate a real Cloudify invocation of your plugin operations in unit tests.
+
+Lets test our great Python HTTP webserver plugin:
+
+## python-webserver/tests.py
+
+{%highlight python%}
+from python_webserver import operations
+from cloudify.exceptions import NonRecoverableError
+from cloudify.mocks import MockCloudifyContext
+
+
+class TestWebServer(unittest.TestCase):
+
+    def test_http_webserver(self):
+        ctx = MockCloudifyContext(
+            node_id='id',
+            properties={
+                'port': 8080
+            })
+        operations.start(ctx)
+        operations.verify_http_server(8080)
+        operations.stop(ctx)
+        self.assertRaises(NonRecoverableError, operations.verify_http_server, 8080)        
+{%endhighlight%}
+
+<<<<<<< HEAD
+
+# The Context Object
 
 The `ctx` context object contains contextual parameters mirrored from the blueprint along-side additional functionality:
 
-#### Properties context objects
+### Properties context objects
 
 * `ctx.id` - The unique ID of the node's intance.
 * `ctx.properties` - The properties of the node as declared under the `properties` dict.
 * `ctx.runtime_properties` - The properties that are assigned to a **node's instance** at runtime. These properties are either populated by the plugin itself (for instance, an automatically generated port that the plugin exposes when it's run), or are generated prior to the innvocation of the plugin (for instance, the ip of the machine the plugin is running on).
 
-#### Utility context objects
+### Utility context objects
 
 * `ctx.logger` - a Cloudify specific logging mechanism which you can use to send logs back to the Cloudify manager environment.
 * `ctx.download_resource` - Downloads a given resource.
@@ -58,191 +289,18 @@ The `ctx` context object contains contextual parameters mirrored from the bluepr
 We'll be using some of those in the implmenetation.
 
 
-# Step by Step Walkthrough
-
-## Step 1: Setting up the template for your plugin
-
-{%tip title=Tip%}
-You can use the [Plugin Template]({{page.template_link}}) to setup the repo for your plugin.
-{%endtip%}
-
-We'll start by importing the `operation` decorator mentioned above (which will also supply the `ctx` object).
-
-{%highlight python%}
-from cloudify.decorators import operation
-{%endhighlight%}
-
-next we'll add the function that we want to execute and assign the `operation` decorator to it.
-
-{%highlight python%}
-from cloudify.decorators import operation
-
-
-@operation
-def run(ctx):
-    pass
-{%endhighlight%}
-
-as you can see, you also get the aforementioned `ctx` object which you can now use.
-
-In this case, we can put a script_path key with a value containing our script's path and it will be passed in the `ctx` object.
-
-for now, we'll just pass and implement the logic later.
-
-## Step 2: Retrieving the script to run
-
-Next, we'll add the functionality we want to the plugin.
-
-Let's define a `get_script_to_run` function.
-This function will receive the `ctx` object and `script_path` to see if a path to the script was specified.
-
-{%highlight python%}
-from cloudify.decorators import operation
-
-
-@operation
-def run(ctx):
-    pass
-
-
-def get_script_to_run(ctx):
-    if ctx.properties['script_path']:
-        return ctx.download_resource(ctx.properties['script_path'])
-{%endhighlight%}
-
-Explanation:
-If the `script_path` key was defined in the `properties` dict, we will use the `download_resource` function to download the script and return its path.
-
-In the next step, if an explicit script_path was not specified in the blueprint, we will check if a script was assigned to a specific operation.
-
-{%highlight python%}
-from cloudify.decorators import operation
-
-
-@operation
-def run(ctx):
-    pass
-
-
-def get_script_to_run(ctx):
-    if ctx.properties['script_path']:
-        return ctx.download_resource(ctx.properties['script_path'])
-    if 'scripts' in ctx.properties:
-        operation_simple_name = ctx.operation.split('.')[-1:].pop()
-        scripts = ctx.properties['scripts']
-        if operation_simple_name not in scripts:
-            ctx.logger.info("No script mapping found for operation {0}. "
-                            "Nothing to do.".format(operation_simple_name))
-            return None
-        return ctx.download_resource(scripts[operation_simple_name])
-{%endhighlight%}
-
-Explanation:
-
-* We check if a `scripts` key is found in the `properties` dict.
-* `operation_simple_name` is our way of extracting the name of the operation we'd like to perform and use it in the context of the execution. We won't get into its implementation now.
-
-* if we could not find a script assigned to the task, we will return `None` stating that a mapping of a script to that operation does not exist.
-* otherwise, we will download the relevant script and return its path to the calling function.
-
-{%note title=Note%}
-It is the plugin developer's responsibility to define the keys which will be used under the node's `properties`. To better understand how to structure these properties, see the [Blueprint Guide]({{page.blueprint_guide_link}})
-{%endnote%}
-
-Next, we'll just raise an exception if the script was not found.
-
-{%highlight python%}
-from cloudify.decorators import operation
-
-
-@operation
-def run(ctx):
-    pass
-
-
-def get_script_to_run(ctx):
-    if ctx.properties['script_path']:
-        return ctx.download_resource(ctx.properties['script_path'])
-    if 'scripts' in ctx.properties:
-        operation_simple_name = ctx.operation.split('.')[-1:].pop()
-        scripts = ctx.properties['scripts']
-        if operation_simple_name not in scripts:
-            ctx.logger.info("No script mapping found for operation {0}. "
-                            "Nothing to do.".format(operation_simple_name))
-            return None
-        return ctx.download_resource(scripts[operation_simple_name])
-
-    raise RuntimeError('No script to run')
-{%endhighlight%}
-
-
-## Step 3: Running the script
-
-Let's get back to our decorated function.
-
-Now, we can get the script's path so that we can execute it:
-
-{%highlight python%}
-from cloudify.decorators import operation
-
-
-@operation
-def run(ctx):
-    script_to_run = get_script_to_run(ctx, ctx.properties['script_path'])
-
-
-def get_script_to_run(ctx):
-    if ctx.properties['script_path']:
-        return ctx.download_resource(ctx.properties['script_path'])
-    if 'scripts' in ctx.properties:
-        operation_simple_name = ctx.operation.split('.')[-1:].pop()
-        scripts = ctx.properties['scripts']
-        if operation_simple_name not in scripts:
-            ctx.logger.info("No script mapping found for operation {0}. "
-                            "Nothing to do.".format(operation_simple_name))
-            return None
-        return ctx.download_resource(scripts[operation_simple_name])
-
-    raise RuntimeError('No script to run')
-{%endhighlight%}
-
- afterwhich, if a script path exists, we would want to execute the script, so we'll execute the script:
-
-{%highlight python%}
-from cloudify.decorators import operation
-
-
-@operation
-def run(ctx, script_path=None, **kwargs):
-    script_to_run = get_script_to_run(ctx, script_path)
-
-    if script_to_run:
-        execfile(script_to_run)
-
-
-def get_script_to_run(ctx, script_path=None):
-    if script_path:
-        return ctx.download_resource(script_path)
-    if 'scripts' in ctx.properties:
-        operation_simple_name = ctx.operation.split('.')[-1:].pop()
-        scripts = ctx.properties['scripts']
-        if operation_simple_name not in scripts:
-            ctx.logger.info("No script mapping found for operation {0}. "
-                            "Nothing to do.".format(operation_simple_name))
-            return None
-        return ctx.download_resource(scripts[operation_simple_name])
-
-    raise RuntimeError('No script to run')
-{%endhighlight%}
-
 That's it! You just wrote your first plugin! All you need now is to incorporate it within your blueprint. Go read the [Blueprint Guide]({{page.blueprint_guide_link}}) for additional info (if you haven't already done so).
 
 
-# Testing your plugin
+# Cloud Plugins
 
-Coming soon...
+When writing a cloud plugin it needs to contain an operation for getting the VMs state after the start operation was invoked.
+This is because most cloud VM creation APIs are asynchronous so by default Cloudify calls the start operation and afterwards performs polling on the get_state operation until it returns `True` which indicates the VM was started.
 
+The get_state operation should also store the following runtime properties for the VM node instance:
 
-# Packaging your plugin
+- `ip` - The VM's ip address reachable by Cloudify's manager.
+- `networks` - A dictionary containing network names as keys and list of ip addresses as values.
 
-Coming soon...
+See Cloudify's [OpenStack plugin]({{page.openstack_plugin_link}}) for reference.
+

@@ -16,7 +16,7 @@ Cloudify users will come across several concepts and terms that might have diffe
 
 ### **Agent**
 Agents are [task](#task) executors.
-
+T
 They may be located on either the application VM, on the manager, or elsewhere - depending on the tools and API’s they need to interface with (see [Plugins](#plugin)).
 
 Agents read tasks from a tasks broker and delegate them to a worker subprocess (a Plugin based Python process).
@@ -37,35 +37,41 @@ Cloudify blueprints are inspired by the [OASIS TOSCA]({{page.tosca_link}}) evolv
 * Configuration for each component.
 * [Optional] [Workflows](#workflow) that describe the automation of different processes like installation, upgrade etc. By default the blueprint will use the workflows provided with the product.
 
-### **Blueprint Resource**
-Coming soon...
+### **Blueprint Resource** (Coming soon...)
 
 ### **Bootstrapping**
 Bootstrapping is the process of installing and starting a Cloudify manager on a certain cloud provider.
 
 The bootstrapping process is initiated from Cloudify's CLI client. Typically, it uses the cloud provider's IaaS API's to create VM’s, networks, and any other infrastructure resources that are required for the Cloudify manager to operate properly. It then installs the various packages and starts the services that form the manager. The bootstrap process is initiated by the CLI which uses [providers](#provider) to bootstrap on a specific cloud.
 
-### **Bootstrap Context**
-Coming soon...
+### **Bootstrap Context** (Coming soon...)
 
-### **Capabilities**
-Coming soon...
+### **Capabilities** (Coming soon...)
 
 ### **Context Object**
-Coming soon...
+The context object is an object passed to plugin operations as a `ctx` named argument and contains the context of the operation invocation.
+
+For example, the context contains the following information:
+
+- Node id.
+- Deployment id.
+- Plugin name.
+- Operation name.
+
+and more...
+
+In addition, the context object exposes an API for interacting with Cloudify, for example getting the node's in context properties.
 
 ### **Execution Cancellation**
 
-#### **Standard Cancellation**
-Coming soon...
+#### **Standard Cancellation** (Coming soon...)
 
-#### **Forced Cacncellation**
-Coming soon...
+#### **Forced Cacncellation** (Coming soon...)
 
 ### **Deployment**
 A deployment is the plan and the state of a single [application](#application) environment and is a direct derivative of a [blueprint](#blueprint).
 
-Deployments are model-representations of component instances (which form applications) and their runtime state.
+Deployments are model-representations of component instances (which form applications) and their runtime [state](#node-instance-state).
 
 ### **Event**
 An Event is a JSON representation of an occurance in Cloudify's environment.
@@ -78,7 +84,7 @@ An Execution is a running instance of a [workflow](#workflow) and is based on a 
 An Execution has logs and [events](#event) associated with it.
 
 ### **Host node**
-A node in the blueprint that represent a type of host whether it's a virtual or physical server.
+A node in the blueprint that represents a type of host whether it's a virtual or physical server.
 
 ### **Interface**
 Interfaces set the protocol between the [Topology](#topology) and the [Workflow](#workflow) that uses it.
@@ -108,20 +114,25 @@ Node instances carry [runtime properties](#runtime-properties) and a [state](#no
 The number of instances is derived from the property set in a node's configuration in the [blueprint](#blueprint).
 
 ### **Node Instance State**
-Coming soon..
+Every node instance can have one of the following states:
+
+- `uninitialized` - The node instance hasn't been initialized.
+- `created` - The node instance has been created.
+- `started` - The node instance has been started.
+- `stopped` - The node instance has been stopped.
+- `deleted` - The node instance has been deleted.
+
 
 ### **Operation**
 Operation is a component or a relationship lifecycle event that is triggered by the Workflow
 The operation names are defined by an Interface and a type that implements this interface maps these operations into plugin functions with the implementation logic
-
 
 ### **Plugin**
 Plugins are extensions to the [agents](#agent).
 
 Plugins interface with an API or a CLI in order to execute lifecycle events of a component. Plugins are written in Python.
 
-### **Policy**
-Coming soon...
+### **Policy** (Coming soon...)
 
 ### **Policy Engine**
 See the definition [here]({{page.arch_link}}#policy-engine).
@@ -136,6 +147,7 @@ Providers are python modules that augment the Cloudify CLI and implement the [bo
 
 ### **Provider configuration file**
 A YAML file with the configurations for creating a Cloudify manager on a specific Cloud.
+
 The provider configuration file has configuration properties for the some of the following items:
 * Cloud credentials and API endpoint
 * Network settings
@@ -143,10 +155,10 @@ The provider configuration file has configuration properties for the some of the
 * SSH credentials for the manager VM
 * Cloudify packages to use in oreder to install the manager
 
-
 ### **Provider Context**
 Details of the `provider` manager environment such as the name of the management network.
-The provider context is available in any plugin function in case the plugin code needs such information in order to perform tasks such as agent configuration or VM configuration (as Cloudify needs each VM to be connected also to the management network if it has an agent installed on it)   
+
+The provider context is available in any plugin function in case the plugin code needs such information in order to perform tasks such as agent configuration or VM configuration (as Cloudify needs each VM to be connected also to the management network if it has an agent installed on it)
 
 ### **Relationship**
 Relationships are types that describe the nature of dependency between components and the logic, if required, to glue components together.
@@ -155,8 +167,7 @@ For example, a relationship can be of [type](#type) `cloudify.types.contained_in
 
 Another example is an Apache server that's connected to MySQL. In this case, Apache needs to be configured at runtime to connect to MySQL. Waiting for MySQL to be up and running won't suffice in this case. The relationship needs to map relationship operations to [plugin](#plugin) functions that execute the connection's configuration.
 
-### **Relationship implmenetation**
-Coming soon...
+### **Relationship implmenetation** (Coming soon...)
 
 ### **Relationship instance**
 An instance of a relationship between 2 concerte node instances
@@ -195,7 +206,6 @@ See the definition [here]({{page.arch_link}}#task-broker).
 A process for uninstalling the Cloudify manager and its network setup.
 The teardown is invoked by the user from the CLI. During teardown, the CLI uses the provider implementation to delete the manager VM and then delete the management network, subnet and security groups associated with the manager
 
-
 ### **Topology**
 A Topology is an [application](#application)'s graph of components and their [relationships](#relationship).
 
@@ -214,11 +224,11 @@ Derived types have their operations mapped to a particular [plugin](#plugin) tha
 For example, `cloudify.types.openstack.server` is using the nova_plugin to communicate with OpenStack's Nova API (compute API) to spawn virtual machines on OpenStack clouds.
 
 ### **Type Hierarchy**
-The inheritence chain of a Type or a Relationship. 
-Cloudify blueprints use Object Oriented methaphor of inheritence so any concrete Type or relationship is derived from more basic type either with implementation that needs to be refined or without any operation implmentation. 
+The inheritence chain of a Type or a Relationship.
 
-### **Type Implementation**
-Coming soon...
+Cloudify blueprints use Object Oriented methaphor of inheritence so any concrete Type or relationship is derived from more basic type either with implementation that needs to be refined or without any operation implmentation.
+
+### **Type Implementation** (Coming soon...)
 
 ### **Workflow**
 A workflow is an automation process algorithm.
