@@ -17,7 +17,7 @@ The [blueprint](https://github.com/cloudify-cosmo/cloudify-nodecellar-openstack/
 
 # Before You Begin
 
-It is recommended that you try the [standalone tutorial](quickstart.html) first to get yourself familiar with Cloudify and its concepts. Also, to complete this tutorial you'll need to have an OpenStack cloud environment and credentials. Cloudify defaults to [HP Cloud](http://www.hpcloud.com/) endpoint URLs, so the easiest would be to [setup an account on the HP Helion Cloud](https://horizon.hpcloud.com/).
+It is recommended that you try the [standalone tutorial](quickstart.html) first to get yourself familiar with Cloudify and its concepts. Also, to complete this tutorial you'll need to have an OpenStack cloud environment and credentials. 
 
 # Step by Step Walkthrough
 
@@ -36,67 +36,100 @@ cfy init openstack
 
 This will create a Cloudify configuration file named `cloudify-config.yaml` in the current directory (it will also create a file named `.cloudify` to save the current context for the Cloudify CLI, but you shouldn't care about that for now).
 
-Next, open the file `cloudify-cosmo-config.yaml` in your text editor of choice. If you're going to use HP Cloud, you will only need to change the following lines in this file and type in your account username, password and tenant name. The tenant name is the project in the HP Cloud console (or your OpenStack Horizon dashboard).
+Next, open the file `cloudify-config.yaml` in your text editor of choice. 
+
+Uncomment the `keystone`, `networking` and `compute` elements and their respective sub elements (as listed below) in the file and change the following elements so that they match your own OpenStack environment (note that this will leave a few elements still commented out, leave them as is): `auth_url`, `neutron_url`, `region`, `image` and `flavor`. 
+Bellow are sepcific examples for setting up cloudify on DevStac and HP Cloud. In both cases we only highlighted the configuration elements that you need to modify. The rest of the elements should be left commented.
+
+## Default Cloudify setup for DevStack
+[DevStack] (http://devstack.org/) is a popular development environment for OpenStack.
+Bellow is the default values that you could use to configure cloudify for DevStack
 
 {% highlight yaml %}
-keystone:
-    username: Enter-Openstack-Username-Here
-    password: Enter-Openstack-Password-Here
-    tenant_name: Enter-Openstack-Tenant-Name-Here
-{% endhighlight %}
 
-If you're using another OpenStack cloud, there's a bit more work for you. Uncomment the `networking` and `compute` elements and their respective sub elements (as listed below) in the file and change the following elements so that they match your own OpenStack environment (note that this will leave a few elements still commented out, leave them as is): `auth_url`, `neutron_url`, `region`, `image` and `flavor`. This is what your file should look like after uncommenting:
-
-{% highlight yaml %}
-
-keystone:
-    username: Enter-Openstack-Username-Here
-    password: Enter-Openstack-Password-Here
-    tenant_name: Enter-Openstack-Tenant-Name-Here
-    auth_url: Enter-Openstack-Auth-Url-Here
+    keystone:
+        username: admin
+        password: password
+        tenant_name: password
+        auth_url: http:://[YOUR-DEVSTACK-IP]:5000/v2.0
 
 
-# # Network configuration
-#######################
-#
-networking:
-#    # Indicates if neutron networking is used in the region to be used. Defaults to true
-#    neutron_supported_region: true
-#    # URL of the neutron service. If not specified or left empty, the first neutron service available in keystone will be used.
-    neutron_url:
-#
-#   ...
-#
+    # # Network configuration
+    #######################
+
+    networking:
+    subnet:
+    #Choose here an IP of a DNS server accessiable from your devstack machine.
+    dns_nameservers: [‘8.8.8.8’]
+
     ext_network:
-#        create_if_missing: false # this must be set to false
-        name: Ext-Net
-#   ...
-#
-# # Compute Configuration
-########################
-compute:
-#    # The region where resources will be provisioned. Defaults to RegionOne.
-    region: [Enter-Region-Name]
-#
-#   ...
-#
-        instance:
-#            create_if_missing: true
-#            name: cloudify-management-server
-#            # Mandatory. Set the image ID to be used for the management machine.
-#            # An openstack Image ID is usually a hexadecimal string like this one: 8c096c29-a666-4b82-99c4-c77dc70cfb40
-            image: [Enter-Image-ID]
-#            # The flavor used for the management machine. Defaults to 102.
-            flavor: 102
-#   ...
+    #choose your Openstack public network name. The DevStack default is “public”
+    name: public
+
+    ##Compute section:
+    compute:
+    management_server:
+
+    instance:
+    # flavor and image ids are also environment specific and will have to be overridden. Image id is the image id that you     generated when you added the Ubuntu image to Devstack.
+    flavor: 2
+    image: ####-####-####-####
 
 {% endhighlight %}
+
+
+## Default setup for HP OpenStack
+
+[HP Cloud](http://www.hpcloud.com/) is a public OpenStack cloud. As such it is fairly easy way get a fully operated OpenStack environment.
+To use HP Cloud you need [setup an account on the HP Helion Cloud](https://horizon.hpcloud.com/).
+If you're going to use HP Cloud, you will only need to change the following configuration elements in this file and type in your account username, password and tenant name. The tenant name is the project in the HP Cloud console (or your OpenStack Horizon dashboard).
+
+{% highlight yaml %}
+
+    keystone:
+        username: Enter-HP-Openstack-Username-Here
+        password: Enter-HP-Openstack-Password-Here
+        tenant_name: Enter-HP-Openstack-Tenant-Name-Here
+        auth_url: Enter-HP-Openstack-Auth-Url-Here
+
+{% endhighlight %}
+
+You can find information on how to setup the HP authentiation URL [here] (https://docs.hpcloud.com/api/v13/identity/#2.Account-levelView)
+
+You can choose the follwoing auth_url value to connect to HP east region authentication service.
+
+{% highlight yaml %}
+
+   auth_url: "https://region-b.geo-1.identity.hpcloudsvc.com:35357/v2.0/"
+
+{% endhighlight %}
+
+You will also need to set the region and image id elements under the compute section.
+The region value can be  US-West(region-a.geo-1), US-East(region-b.geo-1). You can use the HP image commands to list to possible options for image id's. In our case we use image id: 75d47d10-fef8-473b-9dd1-fe2f7649cb41 which is Ubuntu Server 12.04 LTS (amd64 20140606) image.
+
+{% highlight yaml %}
+
+    region: region-b.geo-1
+    image: 75d47d10-fef8-473b-9dd1-fe2f7649cb41
+
+{% endhighlight %}
+
+If your running multiple users under the same tenant you may need to add prefix to each resource in the default configuration file.
+
+{% highlight yaml %}
+
+    #cloudify:
+    #  # You would probably want a prefix that ends with underscore or dash
+        resources_prefix:<user name>
+        
+{% endhighlight %}
+
 
 ## Step 3: Boostrap the Cloudify Manager
 Now you're ready to bootstrap your cloudify manager. To do so type the following command in the terminal windows:
 
 {% highlight bash %}
-cfy bootstrap
+    cfy bootstrap
 {% endhighlight %}
 
 This should take a few minutes to complete. After validating the configuration, `cfy` will list all of the resources created, create the management VM and related networks and security groups (the latter two will not be created if they already exist), download the relevant Cloudify manager packages from the internet and install all of the components. At the end of this process you should see the following message:
