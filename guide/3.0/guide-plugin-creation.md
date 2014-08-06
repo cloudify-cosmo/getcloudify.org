@@ -170,7 +170,7 @@ def stop(ctx, **kwargs):
         ctx.logger.info('HTTP server is not running!')
 {%endhighlight%}
 
-Runtime properties are saved in Cloudify's storage once the plugin's operation invocation is complete (The @operation decorator is responsible for that).
+Runtime properties are saved in Cloudify's storage once the plugin's operation invocation is complete (The `@operation` decorator is responsible for that).
 
 In any case where it is important to immediately save runtime properties to Cloudify's storage the `ctx.update` method should be called.
 
@@ -188,7 +188,7 @@ Cloudify's workflows framework distinguishes between two kinds of errors:
 - Recoverable errors - Cloudify's workflows will retry operations which raised such errors where all Python errors are treated as recoverable errors.
 - Non-recoverable errors - Errors which should not be retried and its up to the workflow to decide how to handle them.
 
-In our current start operation, we don't verifiy that the webserver was actually started and listening on the specified port.
+In our current start operation, we don't verify that the webserver was actually started and listening on the specified port.
 In this step we'll implement a `verify_server_is_up` method which will raise a non recoverable error if the server was not started in a reasonable time:
 
 {%highlight python%}
@@ -232,9 +232,9 @@ def start(ctx, **kwargs):
     verify_server_is_up(webserver_port)
 {%endhighlight%}
 
-{%warning title=Warning%}
+{%note title=Extending NonRecoverableError%}
 Raising an error which extends the NonRecoverableError class is currently not supported.
-{%endwarning%}
+{%endnote%}
 
 
 # Testing Your Plugin
@@ -264,10 +264,11 @@ class TestWebServer(unittest.TestCase):
         operations.start(ctx)
         operations.verify_http_server(8080)
         operations.stop(ctx)
-        self.assertRaises(NonRecoverableError, operations.verify_http_server, 8080)        
+        self.assertRaises(NonRecoverableError, operations.verify_http_server, 8080)
 {%endhighlight%}
 
-<<<<<<< HEAD
+That's it! You just wrote your first plugin! All you need now is to incorporate it within your blueprint.
+For additional info read the [Blueprint Guide]({{page.blueprint_guide_link}}).
 
 # The Context Object
 
@@ -275,9 +276,11 @@ The `ctx` context object contains contextual parameters mirrored from the bluepr
 
 ### Properties context objects
 
-* `ctx.id` - The unique ID of the node's intance.
+* `ctx.id` - Node's instance unique ID.
 * `ctx.properties` - The properties of the node as declared under the `properties` dict.
-* `ctx.runtime_properties` - The properties that are assigned to a **node's instance** at runtime. These properties are either populated by the plugin itself (for instance, an automatically generated port that the plugin exposes when it's run), or are generated prior to the innvocation of the plugin (for instance, the ip of the machine the plugin is running on).
+* `ctx.runtime_properties` - The properties that are assigned to a **node's instance** at runtime.
+These properties are either populated by the plugin itself (for instance, an automatically generated port that the plugin exposes when it's run),
+or generated prior to the invocation of the plugin (for instance, the ip of the machine the plugin is running on).
 
 ### Utility context objects
 
@@ -285,12 +288,6 @@ The `ctx` context object contains contextual parameters mirrored from the bluepr
 * `ctx.download_resource` - Downloads a given resource.
 * `ctx.get_resource` - Reads a resource's data.
 * `ctx.update` - Updates the node's runtime properties. This is called each time an operation ends, thus it is only useful in the context of a single operation.
-
-We'll be using some of those in the implmenetation.
-
-
-That's it! You just wrote your first plugin! All you need now is to incorporate it within your blueprint. Go read the [Blueprint Guide]({{page.blueprint_guide_link}}) for additional info (if you haven't already done so).
-
 
 # Cloud Plugins
 
@@ -303,4 +300,3 @@ The get_state operation should also store the following runtime properties for t
 - `networks` - A dictionary containing network names as keys and list of ip addresses as values.
 
 See Cloudify's [OpenStack plugin]({{page.openstack_plugin_link}}) for reference.
-
