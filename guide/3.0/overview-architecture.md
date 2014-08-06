@@ -183,7 +183,6 @@ The Workflow engine runs the workflow algorithm and in each step processes the s
 1. The workflow reads the node information from the database.
 
 2. The workflow sends a command through the task broker to the agent. The command has the implementation information for the agent:
-
   * Which plugin to use and where to find it (URL).
   * Which function in the plugin to invoke.
   * The node's [properties](reference-terminology.html#properties).
@@ -196,10 +195,12 @@ The Workflow engine runs the workflow algorithm and in each step processes the s
 5. The plugin interfaces with third-party API or CLI to execute the task.
 
 ## [Deployment](reference-terminology.html#deployment) Deletion
-To delete a deployment and free its resources on the manager, use the GUI or the CLI [command](reference-cfy.html#deployments-delete) `cfy deployments delete`. This will delete all of the deployment's data which is stored on the manager, including its [execution](reference-terminology.html#execution), [nodes](reference-terminology.html#node) and [node-instances](reference-terminology.html#node-instance) data. Additionally, deleting a deployment will execute the `workers_installation.uninstall` [workflow](reference-terminology.html#workflow), which will uninstall the deployment-specific Cloudify agents from the manager. Unlike the agent installation process during [Deployment Creation](#deployment-creation), The agents uninstallation process doesn't happen in the background, and it'll block until the agents have been successfully uninstalled.
+To delete a deployment and free its resources on the manager, use the GUI or the CLI [command](reference-cfy.html#deployments-delete) `cfy deployments delete`. This will delete all of the deployment's data which is stored on the manager, including its [execution](reference-terminology.html#execution), [nodes](reference-terminology.html#node) and [node-instances](reference-terminology.html#node-instance) data.
+
+Additionally, deleting a deployment will execute the `workers_installation.uninstall` [workflow](reference-terminology.html#workflow), which will uninstall the deployment-specific Cloudify agents from the manager. Unlike the agent installation process during Deployment Creation, The agents uninstallation process doesn't happen in the background, and it'll block until the agents have been successfully uninstalled.
 
 {%note title=Note%}
-Deployment Deletion is merely the reversed process of [Deployment Creation](#deployment-creation), and as such it won't delete application VMs and/or other resources which were created by executing workflows. Deleting such resources is only possible by executing another workflow. For example, deleting resources created by the [built-in install workflow](reference-builtin-workflows.html#install) may be possible by executing the [built-in uninstall workflow](reference-builtin-workflows.html#uninstall).
+Deployment Deletion is merely the reversed process of Deployment Creation, and as such it won't delete application VMs and/or other resources which were created by executing workflows. Deleting such resources is only possible by executing another workflow. For example, deleting resources created by the [built-in install workflow](reference-builtin-workflows.html#install) may be possible by executing the [built-in uninstall workflow](reference-builtin-workflows.html#uninstall).
 
 Attempting to delete a deployment which has [live nodes](reference-terminology.html#live-node) will issue a warning regarding this very matter. However, it is possible to force deletion of a deployment with live nodes from both the UI and CLI.
 {%endnote%}
