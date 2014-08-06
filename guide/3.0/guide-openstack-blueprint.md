@@ -1,9 +1,9 @@
 ---
 layout: bt_wiki
-title: Writing an Openstack Blueprint
-category: Guide
-publish: True
-abstract: Openstack Blueprint authoring tutorial
+title: OpenStack Blueprint Authoring Guide
+category: Guides
+publish: true
+abstract: Openstack blueprint authoring tutorial
 pageord: 300
 
 openstack_deploy_link: quickstart-openstack.html
