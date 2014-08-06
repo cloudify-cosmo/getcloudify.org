@@ -31,7 +31,6 @@ Cloudify provides:
 * Continuous Deployments
 * Auto-healing
 * Auto-scaling
-
 * Cloudify can work on any environment: IaaS, virtualized or even non-virtualized.
 * Cloudify executes automation processes using any tool you choose. From shell to Chef, Puppet, etc.
 * Cloudify monitors your application with any monitoring tool you choose; installing it for you if you like and interfacing with your monitoring tools to get events and metrics into Cloudify’s Policy Engine.

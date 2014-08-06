@@ -184,7 +184,7 @@ def stop(ctx, **kwargs):
         ctx.logger.info('HTTP server is not running!')
 {%endhighlight%}
 
-Runtime properties are saved in Cloudify's storage once the plugin's operation invocation is complete (The @operation decorator is responsible for that).
+Runtime properties are saved in Cloudify's storage once the plugin's operation invocation is complete (The `@operation` decorator is responsible for that).
 
 In any case where it is important to immediately save runtime properties to Cloudify's storage the `ctx.update` method should be called.
 
@@ -249,9 +249,9 @@ def start(ctx, **kwargs):
     verify_server_is_up(webserver_port)
 {%endhighlight%}
 
-{%warning title=Warning%}
+{%note title=Extending NonRecoverableError%}
 Raising an error which extends the NonRecoverableError class is currently not supported.
-{%endwarning%}
+{%endnote%}
 
 
 # Testing Your Plugin
@@ -284,6 +284,9 @@ class TestWebServer(unittest.TestCase):
         self.assertRaises(NonRecoverableError, operations.verify_http_server, 8080)
 {%endhighlight%}
 
+That's it! You just wrote your first plugin! All you need now is to incorporate it within your blueprint.
+For additional info read the [Blueprint Guide]({{page.blueprint_guide_link}}).
+
 # The Context Object
 
 The `ctx` context object contains contextual parameters mirrored from the blueprint along-side additional functionality:
@@ -301,12 +304,6 @@ The `ctx` context object contains contextual parameters mirrored from the bluepr
 * `ctx.get_resource` - Reads a resource's data.
 * `ctx.update` - Updates the node's runtime properties. This is automatically called each time an operation ends, thus it is only useful in the context of a single operation.
 
-We'll be using some of those in the implmenetation.
-
-
-That's it! You just wrote your first plugin! All you need now is to incorporate it within your blueprint. Go read the [Blueprint Guide]({{page.blueprint_guide_link}}) for additional info (if you haven't already done so).
-
-
 # Cloud Plugins
 
 When writing a cloud plugin it needs to contain an operation for getting the VM's state after the start operation was invoked.
@@ -318,4 +315,3 @@ The get_state operation should also store the following runtime properties for t
 - `networks` - A dictionary containing network names as keys and list of ip addresses as values.
 
 See Cloudify's [OpenStack plugin]({{page.openstack_plugin_link}}) for reference.
-
