@@ -39,10 +39,8 @@ Cloudify blueprints are inspired by the [OASIS TOSCA]({{page.tosca_link}}) evolv
 
 ### **Blueprint Resource** (Coming soon...)
 
-### **Bootstrapping**
-Bootstrapping is the process of installing and starting a Cloudify manager on a certain cloud provider.
-
-The bootstrapping process is initiated from Cloudify's CLI client. Typically, it uses the cloud provider's IaaS API's to create VM’s, networks, and any other infrastructure resources that are required for the Cloudify manager to operate properly. It then installs the various packages and starts the services that form the manager. The bootstrap process is initiated by the CLI which uses [providers](#provider) to bootstrap on a specific cloud.
+### **Bootstrap**
+See the definition [here]({{page.arch_link}}#bootstrap).
 
 ### **Bootstrap Context** (Coming soon...)
 
@@ -97,8 +95,11 @@ More elaborately, An Interface is a set of hooks (dabbed **Operations**) that a 
 * stop
 * delete
 
+### **Live node**
+A node instance which is not in either the `uninitialized` or `deleted` states. See [Node Instance State](#node-instance-state) for more on node instance state.
+
 ### **Manager**
-See the definition [here]({{page.arch_link}}#manager).
+See the definition [here]({{page.arch_link}}#the-manager-orchestrator).
 
 ### **Node**
 A Node is one type of component in a [topology](#topology).
@@ -203,8 +204,7 @@ The arguments describe the context of the execution including [node](#node) [pro
 See the definition [here]({{page.arch_link}}#task-broker).
 
 ### **Teardown**
-A process for uninstalling the Cloudify manager and its network setup.
-The teardown is invoked by the user from the CLI. During teardown, the CLI uses the provider implementation to delete the manager VM and then delete the management network, subnet and security groups associated with the manager
+See the definition [here]({{page.arch_link}}#teardown).
 
 ### **Topology**
 A Topology is an [application](#application)'s graph of components and their [relationships](#relationship).

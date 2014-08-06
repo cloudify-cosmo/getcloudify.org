@@ -159,34 +159,53 @@ To enjoy the benefits of this mechanism, the REST API exposes some methods to ru
 Cloudify's architecture supports the following main technical flows:
 
 ## Bootstrap
-Bootstrapping is when a user chooses to install the manager using the CLI. In this process the CLI sets up the environment needed for the manager (network, security groups and key-pairs and the manager VM). Once the manager VM is ready, the CLI uses the manager packages to install the manager components inside the manager VM.
+Bootstrapping is the process of installing the Cloudify [manager](#the-manager-orchestrator). It is executed via the CLI using the [command](reference-cfy.html#bootstrap) `cfy bootstrap`. This command uses the help of components called [Providers](reference-terminology.html#provider). Some providers may also be responsible for instantiating the VM for the manager, as well as possibly provisioning additional infrastructure resources (e.g. network, security groups, key-pairs, etc.) which are required for the manager in a given environment.
 
-## Blueprint Upload
-The first step the user must take to install an application is to have the application orchestration plan (aka `blueprint`) uploaded to the manager and saved in its `file server`. This is done by using the GUI or the `cfy blueprints upload` command. The CLI then packs the blueprint YAML file folder to a `tar` file and uploads it through the Cloudify manager REST server. It is then stored in the Cloudify manager file server (hosted by [nginx](http://nginx.org)).
+## [Blueprint](reference-terminology.html#blueprint) Upload
+The first step the user must take to install an application is to have the application orchestration plan (aka `blueprint`) and its related resources uploaded to the manager. This is done by using the GUI or the CLI [command](reference-cfy.html#blueprints-upload) `cfy blueprints upload`. When using the CLI, This command will pack the blueprint YAML file folder to a `tar.gz` file and upload it to the Cloudify manager REST server. Once the blueprint has been validated, it will be stored in the Cloudify manager file server (hosted by [nginx](http://nginx.org)).
 
-## Deployment Creation
-In order to deploy and manage an application you need to create a runtime data model in the manager. This is where the manager keeps the state of the application. To do so simply use the GUI or the CLI command: `cfy deployments create`.
+## [Deployment](reference-terminology.html#deployment) Creation
+In order to deploy and manage an application you need to create a runtime data model in the manager. This is where the manager keeps the state of the application. Multiple deployments can be created out of a single blueprint, but once a deployment is created it is independent of other deplyoments of the same blueprint.
 
-## Workflow Execution
+To create a deployment, use the GUI or the CLI (command)[reference-cfy.html#deployments-create] `cfy deployments create`.
+This will create the deployment data in the manager, including the deployment's [nodes](reference-terminology.html#node) and [node-instances](reference-terminology.html#node-instance) data. Additionally, creating a deployment will execute the `workers_installation.install` [workflow](reference-terminology.html#workflow), which will install the deployment-specific Cloudify agents on the manager and their relevant plugins. The agents installation happens in the background, but it is required to finish before other workflows may be executed for the given deployment.
+
+## [Workflow](reference-terminology.html#workflow) Execution
 Any automation process from initial setup to auto-scaling is performed by running a workflow script.
-In order to execute a workflow use the GUI or the CLI command [`add here`]
+In order to execute a workflow use the GUI or the CLI [command](reference-cfy.html#deployments-execute) `cfy deployments execute`. This will create an [execution](reference-terminology.html#execution) object for the deployment in the manager and run the script.
+
+A general diagram of a workflow's execution:
 
 ![Task Execution Example](images/architecture/cloudify_workflow_processing.png)
 
+The Workflow engine runs the workflow algorithm and in each step processes the selected nodes:
 
-Workflow execution requires the Workflow itself and a [Topology](#topology)
-The Workflow engine runs the workflow algorithm and in each step processes the selected Nodes.
-This means that:
+1. The workflow reads the node information from the database.
 
-1. The workflow reads the node information from the database
-2. The workflow sends a command through the task broker to the agent
-The command has the implementation information for the agent:
+2. The workflow sends a command through the task broker to the agent. The command has the implementation information for the agent:
 
-* Which pluign to use and how to get it (URL).
-* Which function in the plugin to invoke.
-* A dictionary of the `node properties` taken from the `blueprint`.
-* Runtime information about nodes on which the current node is dependent so relationships can be configured.
+  * Which plugin to use and where to find it (URL).
+  * Which function in the plugin to invoke.
+  * The node's [properties](reference-terminology.html#properties).
+  * The node's [runtime properties](reference-terminology.html#runtime-properties).
 
-3. The designated agent (Manager Side or Application VM side depending on the task) gets the command from the queue and starts executing it by invoking a plugin function.
+3. The designated agent (Manager side or Application VM side, depending on the task) gets the command from the queue
 
-4. The plugin interfaces with third-party API or CLI to execute the task
+4. The agent starts executing the task by invoking a plugin function.
+
+5. The plugin interfaces with third-party API or CLI to execute the task.
+
+## [Deployment](reference-terminology.html#deployment) Deletion
+To delete a deployment and free its resources on the manager, use the GUI or the CLI [command](reference-cfy.html#deployments-delete) `cfy deployments delete`. This will delete all of the deployment's data which is stored on the manager, including its [execution](reference-terminology.html#execution), [nodes](reference-terminology.html#node) and [node-instances](reference-terminology.html#node-instance) data. Additionally, deleting a deployment will execute the `workers_installation.uninstall` [workflow](reference-terminology.html#workflow), which will uninstall the deployment-specific Cloudify agents from the manager. Unlike the agent installation process during [Deployment Creation](#deployment-creation), The agents uninstallation process doesn't happen in the background, and it'll block until the agents have been successfully uninstalled.
+
+{%note title=Note%}
+Deployment Deletion is merely the reversed process of [Deployment Creation](#deployment-creation), and as such it won't delete application VMs and/or other resources which were created by executing workflows. Deleting such resources is only possible by executing another workflow. For example, deleting resources created by the [built-in install workflow](reference-builtin-workflows.html#install) may be possible by executing the [built-in uninstall workflow](reference-builtin-workflows.html#uninstall).
+
+Attempting to delete a deployment which has [live nodes](reference-terminology.html#live-node) will issue a warning regarding this very matter. However, it is possible to force deletion of a deployment with live nodes from both the UI and CLI.
+{%endnote%}
+
+## [Blueprint](reference-terminology.html#blueprint) Deletion
+Once all deployments of a blueprint have been deleted, it's also possible to delete the blueprint itself from the manager using the UI or the CLI [command](reference-cfy.html#blueprints-delete) `cfy blueprints delete`.
+
+## Teardown
+Teardown is the reversed process for the (Bootstrap)[#bootstrap] process. It is executed via the CLI using the [command](reference-cfy.html#teardown) `cfy teardown`. This command also uses the help of [Providers](reference-terminology.html#provider), and is meant to clear any resources provisioned and installations made by the bootstrap process (e.g. delete networks, security groups, the manager VM, etc.).
