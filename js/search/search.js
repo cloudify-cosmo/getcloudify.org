@@ -14,27 +14,11 @@
         }
         return out;
     }
+    
 
-    var autocompleteResultRenderFunction = function(ctx, results) {
-        var $list = ctx.list, config = ctx.config;
-        
-        var currentSection = getSection(window.location.href);
-
-        $.each(results, function(document_type, items) {
-          $.each(items, function(idx, item) {
-            if (shouldIncludeInResults(currentSection, getSection(item["url"]))) {
-                ctx.registerResult($('<li>' + config.renderFunction(document_type, item) + '</li>').appendTo($list), item);
-            }
-          });
-        });
-    }
-
-    var resultRenderFunction = function(document_type, item) {
-        
-        var section = getSection(item["url"]);    
-        
+    var resultRenderFunction = function(document_type, item) {        
+        var section = getSection(item["url"]);            
         var sectionText = section.section != "gen"? "[" + section.desc + "] " : ""; 
-
         var out = '<a href="' + item['url'] + '" class="st-search-result-link">' + sectionText + item['title'] + '</a>';
         return out.concat('<p class="genre">' + item['genre'] + '</p>');
     }
@@ -47,9 +31,19 @@
             "page": {"score": "exponential"}
         };
 
-        Swiftype.autocompleteRenderFunction = autocompleteRenderFunction; 
-        Swiftype.autocompleteResultRenderFunction = autocompleteResultRenderFunction;
-        //Swiftype.renderFunction = autocompleteRenderFunction;
+        var sections = getSectionsForSearch();
+        Swiftype.searchFilters = function() {
+            return { 'page' : { 'section' : sections}};
+        };
+
+        Swiftype.autocompleteFilters = function() {
+            return { 'page' : { 'section' : sections}};
+        };
+
+
+        //Swiftype.autocompleteRenderFunction = autocompleteRenderFunction; 
+        //Swiftype.autocompleteResultRenderFunction = autocompleteResultRenderFunction;
+        
 
         /** DO NOT EDIT BELOW THIS LINE **/
         var script = document.createElement('script'); script.type = 'text/javascript'; script.async = true;
@@ -57,14 +51,7 @@
         var entry = document.getElementsByTagName('script')[0];
         entry.parentNode.insertBefore(script, entry);
     }());
-
-    function shouldIncludeInResults(currentSection, section) {
-        if (section.section != "guide") return true; 
-        if (currentSection.section != "guide") {
-            return section.section != "guide" || section.version == "3.0";
-        }
-        return currentSection.version == section.version;         
-    }
+    
 
     function endsWith(str, suffix) {
         return str.indexOf(suffix, str.length - suffix.length) !== -1;
@@ -74,13 +61,19 @@
         return str.indexOf(prefix) == 0;
     }
 
+    function getSectionsForSearch() {
+        var section = getSection(window.location.href).section;
+        if (startsWith(section, "guide")) return section; 
+        return ["guide3.0", "gen", "blog"];
+    }
+
     function getSection(url) {
         if (url) {
             var urlSections = url.split("/");
             if (urlSections.length > 3) {
                 if (urlSections[3] == "guide") {
                     var version = urlSections.length > 4? urlSections[4]:null; 
-                    return {desc: version + " Docs", version:version, section:"guide"};
+                    return {desc: version + " Docs", section:"guide" + version};
                 } else if (urlSections[3] == "blog" || urlSections[3] == "tags" || $.isNumeric(urlSections[3])) {
                     return {desc: "Blog", section:"blog"};
                 } 
