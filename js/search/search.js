@@ -41,7 +41,7 @@
         };
 
 
-        //Swiftype.autocompleteRenderFunction = autocompleteRenderFunction; 
+        //  Swiftype.autocompleteRenderFunction = autocompleteRenderFunction; 
         //Swiftype.autocompleteResultRenderFunction = autocompleteResultRenderFunction;
         
 
