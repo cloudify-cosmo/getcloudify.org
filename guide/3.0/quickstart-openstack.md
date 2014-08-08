@@ -41,8 +41,8 @@ Next, open the file `cloudify-config.yaml` in your text editor of choice.
 Uncomment the `keystone`, `networking` and `compute` elements and their respective sub elements (as listed below) in the file and change the following elements so that they match your own OpenStack environment (note that this will leave a few elements still commented out, leave them as is): `auth_url`, `neutron_url`, `region`, `image` and `flavor`. 
 Bellow are sepcific examples for setting up cloudify on DevStac and HP Cloud. In both cases we only highlighted the configuration elements that you need to modify. The rest of the elements should be left commented.
 
-## Default Cloudify setup for DevStack
-[DevStack] (http://devstack.org/) is a popular development environment for OpenStack.
+### Default Cloudify setup for DevStack
+[DevStack](http://devstack.org/) is a popular development environment for OpenStack.
 Bellow is the default values that you could use to configure cloudify for DevStack
 
 {% highlight yaml %}
@@ -71,18 +71,19 @@ Bellow is the default values that you could use to configure cloudify for DevSta
     management_server:
 
     instance:
-    # flavor and image ids are also environment specific and will have to be overridden. Image id is the image id that you     generated when you added the Ubuntu image to Devstack.
+    # flavor and image ids are also environment specific and will have to be overridden. 
+    # Image id is the image id that you generated when you added the Ubuntu image to Devstack.
     flavor: 2
     image: ####-####-####-####
 
 {% endhighlight %}
 
 
-## Default setup for HP OpenStack
+### Default setup for HP OpenStack
 
-[HP Cloud](http://www.hpcloud.com/) is a public OpenStack cloud. As such it is fairly easy way get a fully operated OpenStack environment.
+[HP Cloud](http://www.hpcloud.com/) is a public OpenStack cloud. As such it is a fairly easy way get a hold of a fully operational OpenStack environment.
 To use HP Cloud you need [setup an account on the HP Helion Cloud](https://horizon.hpcloud.com/).
-If you're going to use HP Cloud, you will only need to change the following configuration elements in this file and type in your account username, password and tenant name. The tenant name is the project in the HP Cloud console (or your OpenStack Horizon dashboard).
+If you're going to use HP Cloud, you will only need to change the following configuration elements in the `cloudify-config.yaml` and type in your account username, password and tenant name. The tenant name is the project in the HP Cloud console (or your OpenStack Horizon dashboard).
 
 {% highlight yaml %}
 
@@ -94,9 +95,9 @@ If you're going to use HP Cloud, you will only need to change the following conf
 
 {% endhighlight %}
 
-You can find information on how to setup the HP authentiation URL [here] (https://docs.hpcloud.com/api/v13/identity/#2.Account-levelView)
+You can find information on how to setup the HP authentiation URL [here](https://docs.hpcloud.com/api/v13/identity/#2.Account-levelView).
 
-You can choose the follwoing auth_url value to connect to HP east region authentication service.
+You can choose the follwoing `auth_url` value to connect to HP Cloud's east region authentication service.
 
 {% highlight yaml %}
 
@@ -105,7 +106,7 @@ You can choose the follwoing auth_url value to connect to HP east region authent
 {% endhighlight %}
 
 You will also need to set the region and image id elements under the compute section.
-The region value can be  US-West(region-a.geo-1), US-East(region-b.geo-1). You can use the HP image commands to list to possible options for image id's. In our case we use image id: 75d47d10-fef8-473b-9dd1-fe2f7649cb41 which is Ubuntu Server 12.04 LTS (amd64 20140606) image.
+The region value can be US-West (region-a.geo-1) or US-East (region-b.geo-1). You can use the HP image commands to list to possible options for image IDs. In our case we use image id `75d47d10-fef8-473b-9dd1-fe2f7649cb41` which is an Ubuntu Server 12.04 LTS (amd64 20140606) image.
 
 {% highlight yaml %}
 
@@ -120,7 +121,7 @@ If your running multiple users under the same tenant you may need to add prefix 
 
     #cloudify:
     #  # You would probably want a prefix that ends with underscore or dash
-        resources_prefix:<user name>
+        resources_prefix: <user specific prefix>
         
 {% endhighlight %}
 
@@ -166,7 +167,7 @@ The `-b` parameter is the unique name we've given to this blueprint on the Cloud
 
 Click the row with the blueprint. You will now see the topology of this blueprint. A topology consists of elements called nodes. In our case, we have the following nodes: a network, a subnet, a security group, two VMs, a nodejs server, a mongodb server, and a nodejs application called nodecellar (which is a nice sample nodejs application backed by mongodb).
 
-![Nodecellar Blueprint](https://raw.githubusercontent.com/cloudify-cosmo/cloudify-nodecellar-openstack/master/blueprint.png)
+![Nodecellar Blueprint](images/guide/nodecellar_topology.png)
 
 Next, we need to create a deployment so we can create this topology in our OpenStack cloud. To do so, type the following command:
 
