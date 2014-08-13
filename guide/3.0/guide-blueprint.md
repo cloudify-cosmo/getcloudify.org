@@ -49,7 +49,7 @@ Each step of the tutorial is tagged on github. To clone it locally do the follow
 
 {%highlight bash%}
 git clone https://github.com/cloudify-cosmo/cloudify-nodecellar-singlehost.git
-git checkout tags/stepX #step1 to step9 (the latter is identical to master)
+git checkout tags/stepX #step1 to step9 (the latter is identical to the 3.0 version tag)
 {%endhighlight%}
 
 # Step by Step Walkthrough

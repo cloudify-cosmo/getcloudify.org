@@ -102,7 +102,7 @@ Now you'll have to clone a sample blueprint repo. (Git is already supplied with 
 
 {%highlight bash%}
 cd ~/simple/blueprints
-git clone https://github.com/cloudify-cosmo/cloudify-nodecellar-singlehost
+git clone git clone -b 3.0 https://github.com/cloudify-cosmo/cloudify-nodecellar-singlehost.git
 {%endhighlight%}
 
 ## Step 4: Upload the Blueprint and Create a Deployment
