@@ -10,6 +10,7 @@ windows_link: http://gigaspaces-repository-eu.s3.amazonaws.com/org/cloudify3/3.0
 linux32_link: http://gigaspaces-repository-eu.s3.amazonaws.com/org/cloudify3/3.0.0/nightly_6/cloudify-cli_3.0.0-ga-b6_i386.deb
 linux64_link: http://gigaspaces-repository-eu.s3.amazonaws.com/org/cloudify3/3.0.0/nightly_6/cloudify-cli_3.0.0-ga-b6_amd64.deb
 venv_link: http://virtualenv.readthedocs.org/en/latest/
+simple_install_link: installation-simple-provider.html
 ---
 {%summary%}{{page.abstract}}{%endsummary%}
 
