@@ -198,7 +198,7 @@ All attributes provided in the blueprint, under `properties` > `chef_config` > `
 * `node['cloudify']['deployment_id']` -  The deployment id
 * `node['cloudify']['properties']` -  Properties of the node for which Chef is run (see example below)
 * `node['cloudify']['runtime_properties']` -  Run-time properties of the node for which Chef is run
-* `node['cloudify']['capabilities'][OTHER_NODE_NAME][OTHER_NODE_RUNTIME_PROP]` -  Run-time properties of related nodes.
+* `node['cloudify']['capabilities'][OTHER_NODE_ID][OTHER_NODE_RUNTIME_PROP]` -  Run-time properties of related nodes.
 
 ### Cloudify-specific attributes for operations involving two nodes:
 
