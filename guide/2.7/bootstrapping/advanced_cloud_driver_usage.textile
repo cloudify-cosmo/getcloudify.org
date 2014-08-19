@@ -194,7 +194,7 @@ h3. Start-Machine Request Throttling:
 
 Start-Machine requests for agent machines may fail for various reasons that can be related to the remote cloud or to the actual cloud driver implementation.  
 Start-Machine throttling is intended to limit the number of failed requests in a specific time frame. 
-By default, the request throttler will allow for 2 consecutive failures in 5 minutes. 
+By default, the request throttler will allow for 5 consecutive failures in 5 minutes. 
 These properties can be overridden in the cloud-driver inside the custom properties map as shown in the following snippet : 
 
 <script src="https://gist.github.com/tamirko/8520504.js"></script>
