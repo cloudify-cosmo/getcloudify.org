@@ -43,10 +43,12 @@ tags:
 <p>We will need to open two ports - 3389 for Remote Desktop access to the client machine, and 5985 for WinRM access to the server machine.</p>
 
 <blockquote>
+<code>
   <p>ec2-create-group -d &quot;WinRM Group&quot; WinRM-Group 
     <br />ec2-authorize -P TCP -p 3389 -s 0.0.0.0/0 WinRM-Group 
 
     <br />ec2-authorize -P TCP -p 5985 -s 0.0.0.0/0 WinRM-Group</p>
+</code>
 </blockquote>
 
 <ul>
