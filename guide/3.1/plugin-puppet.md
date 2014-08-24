@@ -46,6 +46,7 @@ In addition to inherited properties all of the Puppet types have the following p
 
 * `puppet_config` contains all Puppet specific configuration
 	* `add_operation_tag` (optional) - whether to [add `cloudify_operation_OPNAME` tag](#operation-specific-cloudifyoperationopname-tag)
+	* `certname` (optional, defaults to `strftime('%Y%m%d%H%M-') + NODE_NAME`) - `certname` in `puppet.conf`. See example under [User specified Puppet node name](#user-specified-puppet-node-name)
 	* `download` (only for Puppet standalone, optional) - [URL](#download-puppet-manifests-from-a-url) or [path in blueprint](#embed-puppet-manifests-in-the-blueprint) of a .tar.gz file with manifests.
 	* `environment` (required) - Puppet environment setting.
 	* `execute` (only for Puppet standalone, optional) - [per-operation Puppet code](#per-operation-puppet-manifests-or-code-to-execute).
@@ -56,6 +57,7 @@ In addition to inherited properties all of the Puppet types have the following p
 	* `modules` (optional, defaults to empty list) - List of [modules to install](#puppet-modules-installation) for Puppet standalone.
 	* `node_name_prefix` (optional, defaults to empty string) - [Puppet node name](#puppet-node-naming) prefix.
 	* `node_name_suffix` (optional, defaults to empty string) - [Puppet node name](#puppet-node-naming) suffix.
+	* `node_name_value` (optional) - [Puppet node name](#puppet-node-naming). Specifies `node_name_value` in `puppet.conf`.
 	* `operations_tags` (optional) - [Per-operation tags](#per-operation-set-of-tags) to pass to Puppet.
 		* OPNAME - Tag or list of tags to pass to Puppet for the OPNAME lifecycle operation.
 	* `repos` (optional) - Custom packages that are used for adding Puppet repository.
@@ -246,7 +248,13 @@ Runs puppet agent for lifecycle operations. The Puppet agent is run for the `sta
 
 ## Puppet node naming
 
-Puppet node name is used in [nodes' definitions](http://docs.puppetlabs.com/puppet/latest/reference/lang_node_definitions.html).
+Puppet node name is used in [nodes' definitions](http://docs.puppetlabs.com/puppet/latest/reference/lang_node_definitions.html). Node name can be either generated or specified by the user. Description of both alternatives follows:
+
+{%note title=Note%}
+[Generated Puppet node name](#generated-puppet-node-name) is the default alternate. It's used unless `node_name_value` is specified.
+{%endnote%}
+
+### Generated Puppet node name
 
 Puppet node name is constructed by concatenation of `node_name_prefix`, node id and `node_name_suffix`. Both `node_name_prefix` and `node_name_suffix` are optional and default to empty strings. Since node id is not guaranteed to follow a convention, you should use `node_name_prefix` and/or `node_name_suffix` for node definitions.
 
@@ -266,6 +274,28 @@ blueprint:
           environment: myenv
           node_name_prefix: myweb-
           node_name_suffix: .example.com
+{%endhighlight%}
+
+### User specified Puppet node name
+
+Puppet node name is specified in `node_name_value`.
+
+Sample usage:
+
+{% highlight yaml %}
+imports:
+    - {{page.yaml_link}}
+blueprint:
+  name: example
+  nodes:
+    - name: example_web_server
+      type: cloudify.types.puppet.web_server
+      properties:
+        puppet_config:
+          server: puppet.example.com
+          environment: myenv
+          node_name_value: web1.my.example.com
+          certname: web1.my.example.com
 {%endhighlight%}
 
 
