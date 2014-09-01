@@ -100,10 +100,11 @@ Currently, this is the only implementation for running the agent as a service (w
 ## Step 6
 
 Run a fabric task that deploys the agent in the bootstrapped manager.
+The task must run in the context of the `cfy` command (That is, under the virtual environment Cloudify's CLI is installed).
 
-clone the cloudify-cli-fabric-tasks [repo](git@github.com:cloudify-cosmo/cloudify-cli-fabric-tasks.git).
+Clone the cloudify-cli-fabric-tasks [repo](git@github.com:cloudify-cosmo/cloudify-cli-fabric-tasks.git).
 
 {% highlight sh %}
 git clone git@github.com:cloudify-cosmo/cloudify-cli-fabric-tasks.git
-
+cfy dev --tasks-file cloudify-cli-fabric-tasks/tasks/tasks.py upload_agent_to_manager
 {%endhighlight%}
