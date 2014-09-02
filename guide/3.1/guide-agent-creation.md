@@ -113,3 +113,5 @@ The task can be found in the cloudify-cli-fabric-tasks repo which you should clo
 {% highlight sh %}
 cfy dev --tasks-file cloudify-cli-fabric-tasks/tasks/tasks.py upload_agent_to_manager
 {%endhighlight%}
+
+In your blueprint, under your vm node's configuration, under agent_config, add a key called `distro` and supply it with the `centos` value.
