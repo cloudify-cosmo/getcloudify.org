@@ -15,6 +15,16 @@ cli_guide_link: guide-cli.html
 ---
 {%summary%} {{page.abstract}}{%endsummary%}
 
+{%warning title=Note%}
+Currently, Cloudify will not allow you to install its agent on distributions other than Ubuntu, debian or CentOS.
+
+Since the "Ubuntu-agent" is also used in your manager, as a workaround, until this is solved, we will create a replacement "centos" agent.
+{%endwarning%}
+
+{%warning title=Note%}
+This procedure will NOT work in an environment containing hosts with both centos hosts AND hosts comprising of another distribution other than Ubuntu.
+{%endwarning%}
+
 # Overview
 
 Cloudify is currently supplied with a set of default agents for CentOS, Ubuntu and Windows. These agents are all based on Python2.7.
@@ -41,16 +51,6 @@ Create a virtualenv using python 2.7 and cd into it.
 {% highlight sh %}
 sudo virtualenv /centos-agent/env && cd /centos-agent/env
 {%endhighlight%}
-
-{%note title=Note%}
-Currently, Cloudify will not allow you to install its agent on distributions other than Ubuntu, debian or CentOS.
-
-Since the "Ubuntu-agent" is also used in your manager, as a workaround, until this is solved, we will refer to your agent as a "centos-agent" and provide the names to correspond with that.
-{%endnote%}
-
-{%warning title=Note%}
-This procedure will NOT work in an environment containing hosts with both centos hosts AND hosts comprising of another distribution other than Ubuntu.
-{%endwarning%}
 
 ## Step 2
 
@@ -90,9 +90,9 @@ cd /cloudify-agent && sudo tar -czvf centos-agent.tar.gz /centos-agent/env
 Download the celery configuration files:
 
 {% highlight sh %}
-sudo wget https://github.com/cloudify-cosmo/cloudify-packager-centos/blob/master/package-configuration/centos-agent/centos-celeryd-cloudify.conf.template -P /cloudify-agent
-sudo wget https://github.com/cloudify-cosmo/cloudify-packager-centos/blob/master/package-configuration/centos-agent/centos-celeryd-cloudify.init.template -P /cloudify-agent
-sudo wget https://github.com/cloudify-cosmo/cloudify-packager-centos/blob/master/package-configuration/centos-agent/centos-agent-disable-requiretty.sh -P /cloudify-agent
+sudo wget https://github.com/cloudify-cosmo/cloudify-packager-centos/raw/master/package-configuration/centos-agent/centos-celeryd-cloudify.conf.template -P /cloudify-agent/centos-celeryd-cloudify.conf.template
+sudo wget https://github.com/cloudify-cosmo/cloudify-packager-centos/raw/master/package-configuration/centos-agent/centos-celeryd-cloudify.init.template -P /cloudify-agent/centos-celeryd-cloudify.init.template
+sudo wget https://github.com/cloudify-cosmo/cloudify-packager-centos/raw/master/package-configuration/centos-agent/centos-agent-disable-requiretty.sh -P /cloudify-agent/centos-agent-disable-requiretty.sh
 {%endhighlight%}
 
 {%note title=Note%}
@@ -116,6 +116,6 @@ cfy dev --tasks-file cloudify-cli-fabric-tasks/tasks/tasks.py upload_agent_to_ma
 
 ## Step 7
 
-Force the blueprint to think you're running on centos
+Configure the blueprint to install your agent on a "centos" distribution
 
-In your blueprint, under your vm node's configuration, under agent_config, add a key called `distro` and supply it with the `centos` value.
+In your blueprint, under your vm node's configuration, under agent_config, add a key called `distro` and supply it with the `custom` value.
