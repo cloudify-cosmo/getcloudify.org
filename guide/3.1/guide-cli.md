@@ -99,12 +99,13 @@ The tasks don't have to be decorated with the `@task` decorator as they're direc
 ## Usage
 
 ```shell
-cfy dev --tasks-file my_tasks.py -v my_task arg1 arg2 ...
+cfy dev --tasks-file my_tasks.py -v my_task --arg1=something --arg2=otherthing ...
+cfy dev -v my_task arg1_value arg2_value ...
 ```
 
 `--tasks-file my_tasks.py` can be omitted if a `tasks.py` file exists in your current working directory.
 
-So for instance, if you want to echo something in your currently running manager, all you have to do is supply a tasks.py file with the following:
+So for instance, if you want to echo `something` in your currently running manager, all you have to do is supply a tasks.py file with the following:
 
 ```python
 from fabric.api import run
