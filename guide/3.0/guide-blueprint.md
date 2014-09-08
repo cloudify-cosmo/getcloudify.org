@@ -221,12 +221,12 @@ We have just declared a mongod node of type cloudify.bash.db_server. This type d
 
 {%highlight yaml%}
 
-
-mongo_database:
-        derived_from: cloudify.types.bash.db_server
-        properties:
-            -   role
-            -   port
+types:
+	mongo_database:
+	        derived_from: cloudify.types.bash.db_server
+	        properties:
+	            -   role
+	            -   port
 
 {%endhighlight%}
 
