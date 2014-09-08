@@ -78,7 +78,7 @@ blueprint:
 
 <a href="https://github.com/cloudify-cosmo/cloudify-nodecellar-singlehost/compare/step1...step2" class="btn btn-default" role="button"><i class="fa fa-search"></i>  Code Diff</a>
 
-Lets add the nodejs_host as the first node in the list of nodes. To do so we need a `type` as each node is an instance of a type.
+Lets add the nodejs_host as the first node in the list of nodes. To do so we need a `type`([?]({{page.terminology_link}}#type)) as each node is an instance of a type.
 Types are like classes in an OO program. They represent a type of component in an application at any level: Infrastructure (hosts, networks etc), middleware (application servers, web servers, etc) or application (application modules, database schemas, etc).
 
 Types can be imported from external files or declared inside the blueprint.yaml file.
