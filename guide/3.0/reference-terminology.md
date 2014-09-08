@@ -174,7 +174,7 @@ Another example is an Apache server that's connected to MySQL. In this case, Apa
 ### **Relationship implementation** (Coming soon...)
 
 ### **Relationship instance**
-An instance of a [relationship](#relationship) between 2 concerte [node instances](#node-instance).
+An instance of a [relationship](#relationship) between 2 concrete [node instances](#node-instance).
 
 ### **Relationship type**
 A [relationship](#relationship) [type](#type) describes the nature of dependency between 2 [nodes](#node) and the logic to materialize it (through [operations](#operation) mapping to implementation).
