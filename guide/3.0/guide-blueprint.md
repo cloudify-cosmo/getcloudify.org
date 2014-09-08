@@ -279,7 +279,7 @@ Now we can declare the nodejs node:
 
 {%highlight yaml%}
 - name: nodejs
-      type: cloudify.bash.app_server
+      type: cloudify.types.bash.app_server
       properties:
             scripts:
                 create: nodejs-scripts/install-nodejs.sh
