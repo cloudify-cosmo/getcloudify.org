@@ -4,9 +4,11 @@ title: Cloud DevOps Orchestration
 image: yaron.jpg
 author: Yaron Parasol
 tags: 
- - Cloudify
  - DevOps
- - Cloud 
+ - Cloud Orchestration
+ - Cloud Automation
+ - Deployment Automation
+ - OpenStack
 ---
 
 I'm pretty excited to take part in the OpenStack Summit in Hong Kong in a few days.
@@ -22,7 +24,14 @@ This recipe describes the dependencies between the services, and for each servic
  
 Then, we added the startup and stop detectors which are availability probes to ensure components indeed start and remain up and healthy. Monitoring KPI definitions and scale rules were added to allow for custom performance monitoring and remediation measures.
 Finally, we started to recognize a need for some other post-deployment actions (Continuous Delivery for example), so we added additional hooks, called custom commands.
- 
+
+<hr>
+
+<span class="pullquote-left">
+  <h2><font style="font-weight: bold" size="5" face="Baskerville Old Face"><em>DevOps - fusing any of YOUR automation tools right into the process. </em></font>&nbsp; &nbsp; <a class="btn btn-large btn-theme btn-rounded" id="downloadBtnInner" href="http://getcloudify.org/downloads/get_cloudify_3x.html" target="_blank"><i class="icon-plus"></i> Go </a></h2></span>
+  
+  <hr>
+
 This model is simple, yet it has the profound understanding of a unified process that helps us drive our vision forward. Our assumption was quite different from what we saw as best practice adopted by others. Coming from an application perspective, we never drew a line between IaaS, Middleware and Application. For us, all of these are part of the application production fabric. They are all interdependent on one another in configurations, metadata and certainly in the flow of setting them up or fixing the application when it breaks or needs to change.
  
 The common approach that I call the 3 layer cake assumes you lay each layer separately using different tools. So following the 3 layers approach, one would:

@@ -26,6 +26,13 @@ tags:
 
 <p>The involvement of the nova-network service in the process of VM provisioning might come as a surprise to a lot of users. This is because once upon a time, before the introduction of Neutron, networking was actually quite seamless even to users consuming the Nova API. From the user’s point of view there was no need, or possibility, to bother with the network setup. Behind the scenes, Nova Compute used the nova-network service to automatically connect VMs to an existing network, defined by the Openstack administrator.</p>
 
+<hr>
+
+<span class="pullquote-left">
+  <font style="font-weight: bold" size="5" face="Baskerville Old Face"><em>OpenStack network automation - out of the box. Test it out.</em></font>&nbsp; <a class="btn btn-large btn-theme btn-rounded" id="downloadBtnInner" href="http://getcloudify.org/downloads/get_cloudify_3x.html" target="_blank"><i class="icon-plus"></i> Go </a></span>
+  
+  <hr>
+  
 <p>Even today, Openstack users can keep on using the basic services provided by nova-network if, for example, they have an existing cloud or don’t need to support complex network topologies. Supporting two different network provisioning services was not the original Openstack plan and the nova-network service was expected to be deprecated, but as it stands, both options are still supported and nova-network will not be deprecated in the upcoming Icehouse release as well. So… let’s take a look at what it has to offer.</p>
 
 <h3><font style="font-weight: bold">Topologies</font></h3>

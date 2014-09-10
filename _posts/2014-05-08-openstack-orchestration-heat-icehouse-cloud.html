@@ -36,6 +36,13 @@ tags:
 
 <p>The Heat project started as a clone of Amazon CloudFormation which is basically a declarative approach to automate the infrastructure set up on Amazon environments.&#160; The Icehouse release marks an evolution of the project up the stack. If in previous releases Heat was mainly used to orchestrate the OpenStack infrastructure, with Icehouse it has added many more capabilities to handle orchestration of the software stack as part of the application boot process. </p>
 
+<hr>
+
+<span class="pullquote-left">
+  <font style="font-weight: bold" size="5" face="Baskerville Old Face"><em>Cloudify + OpenStack = Nirvana. Seeing is believing.</em></font>&nbsp; <a class="btn btn-large btn-theme btn-rounded" id="downloadBtnInner" href="http://getcloudify.org/downloads/get_cloudify_3x.html" target="_blank"><i class="icon-plus"></i> Go </a></span>
+  
+  <hr>
+  
 <p>This shift is reflected in the new <a href="http://docs.openstack.org/developer/heat/template_guide/hot_spec.html">HOT template format</a>&#160; which allows you to describe a broader aspect of an application configuration including the new <a href="http://docs.openstack.org/developer/heat/template_guide/openstack.html#OS::Heat::ScalingPolicy">OS::Heat::ScalingPolicy</a>. With the Icehouse release these HOT Templates have become the recommended approach. In addition, there is an ongoing effort to introduce <a href="https://www.oasis-open.org/committees/tc_home.php?wg_abbrev=tosca">TOSCA</a> (Topology and Orchestration for Cloud Applications) into Heat, which is an OASIS-led standard. A new <a href="https://github.com/stackforge/heat-translator">TOSCA translator project </a>for Heat is now part of StackForge. A preview of the TOSCA simple profile can be found <a href="https://www.oasis-open.org/committees/download.php/52571/TOSCA-Simple-Profile-YAML-v1.0-wd01-Rev-38.pdf">here</a> supported by IBM, GigaSpaces, Huawei, Vnomic a preview version of a TOSCA-based Orchestration project for OpenStack is available with the new Cloudify 3.0 project.</p>
 
 <p>Other updates include new the Trust-based security model that will allow the delegation of user roles and permissions without passing Keystone tokens or credentials. For more information on the new Heat Trust Model see the Steve Hardy post <b><a href="http://hardysteven.blogspot.co.uk/2014/04/heat-auth-model-updates-part-1-trusts.html">Heat auth model updates - part 1 Trust</a></b>. In addition, the Icehouse release includes improvements to scalability by allowing the distribution of Heat deployments tasks between multiple Heat engines.&#160; <b></b></p>
