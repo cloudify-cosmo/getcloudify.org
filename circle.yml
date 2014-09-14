@@ -4,6 +4,11 @@
 #      - master
 ## Customize the test machine
 machine:
+  hosts:
+    getcloudify.org: 127.0.0.1
+  python:
+    version:
+      2.7.8
   # Version of ruby to use
   ruby:
     version:
@@ -20,16 +25,19 @@ dependencies:
         timeout: 3600 # fail if command has no output for 60 minutes
     - bundle exec jekyll build:
         timeout: 3600 # fail if command has no output for 60 minutes
+    - pip install LinkChecker
   cache_directories:
     - /home/ubuntu/.rvm/gems/ruby-2.1.2
 
 test:
   override:
-    - echo "No tests are needed, this is a static website :)"
+    - cd _site ; sudo -E python -mSimpleHTTPServer 80:
+       background: true
+    - linkchecker http://localhost/guide/ --anchors --check-extern --timeout=5 --ignore-url=guide/2.7 --ignore-url=^mailto
 
 ## Customize deployment commands
-deployment:
-  production:
-    branch: master
-    commands:
-      - bundle exec s3_website push 
+#deployment:
+#  production:
+#    branch: master
+#    commands:
+#      - bundle exec s3_website push 
