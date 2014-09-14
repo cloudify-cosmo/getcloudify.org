@@ -51,7 +51,7 @@ Cloudify uses [Nginx](http://nginx.org/) as its frontend reverse proxy and file 
 
 ### REST API
 
-Cloudify is controlled via a REST API. The REST API covers all the Cloud Orchestration and Management functions. See [Cloudify REST API Documentation](http://www.cloudifysource.org/cosmo-rest-docs/).
+Cloudify is controlled via a REST API. The REST API covers all the Cloud Orchestration and Management functions. See [Cloudify REST API Documentation](http://getcloudify.org/guide/3.1/rest-api/index.html).
 You can use the REST API through Cloudify's Non-interactive CLI or write your own REST client.
 
 Cloudify REST controllers are written in python using the [flask framework](http://flask.pocoo.org/) and run behind a [gUnicorn container](http://gunicorn.org/)
@@ -84,7 +84,7 @@ Cloudify's workflow engine is build on top of [Celery tasks broker](http://www.c
 
 ### Runtime Model
 
-Cloudify uses [Elasticsearch](http://http://www.elasticsearch.org/) as its data store for deployment[(?)]({{page.terminology_link}}#deployment) state. The deployment model and runtime data[(?)]({{page.terminology_link}}#runtime-data) are stored as JSON documents.
+Cloudify uses [Elasticsearch](http://www.elasticsearch.org/) as its data store for deployment[(?)]({{page.terminology_link}}#deployment) state. The deployment model and runtime data[(?)]({{page.terminology_link}}#runtime-data) are stored as JSON documents.
 
 
 <!-- ## <a name="Metrics Database">Metrics Database</a> -->

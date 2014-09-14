@@ -84,7 +84,7 @@ Cloudify's workflow engine is build on top of [Celery tasks broker](http://www.c
 
 ### Runtime Model
 
-Cloudify uses [Elasticsearch](http://http://www.elasticsearch.org/) as its data store for deployment[(?)]({{page.terminology_link}}#deployment) state. The deployment model and runtime data[(?)]({{page.terminology_link}}#runtime-data) are stored as JSON documents.
+Cloudify uses [Elasticsearch](http://www.elasticsearch.org/) as its data store for deployment[(?)]({{page.terminology_link}}#deployment) state. The deployment model and runtime data[(?)]({{page.terminology_link}}#runtime-data) are stored as JSON documents.
 
 
 <!-- ## <a name="Metrics Database">Metrics Database</a> -->
