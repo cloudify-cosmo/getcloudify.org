@@ -33,7 +33,7 @@ test:
   override:
     - cd _site ; sudo -E python -mSimpleHTTPServer 80:
        background: true
-    - linkchecker http://localhost/guide/ --anchors --check-extern --timeout=5 --ignore-url=guide/2.7 --ignore-url=^mailto
+    - linkchecker http://localhost/guide/ --anchors --no-status --ignore-url=guide/2.7 --ignore-url=^mailto
 
 ## Customize deployment commands
 #deployment:
