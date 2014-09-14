@@ -36,8 +36,8 @@ test:
     - linkchecker http://localhost/guide/ --anchors --no-status --ignore-url=guide/2.7 --ignore-url=^mailto
 
 ## Customize deployment commands
-#deployment:
-#  production:
-#    branch: master
-#    commands:
-#      - bundle exec s3_website push 
+deployment:
+  production:
+    branch: master
+    commands:
+      - bundle exec s3_website push 
