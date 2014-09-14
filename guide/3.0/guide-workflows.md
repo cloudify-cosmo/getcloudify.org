@@ -7,7 +7,7 @@ abstract: "A guide to Cloudify Workflows"
 pageord: 500
 
 
-types_yaml_link: http://getcloudify.org/spec/cloudify/3.0/types.yaml
+types_yaml_link: reference-types.html
 
 # TODO: change develop --> 3.0 right before the release, it is currently develop because there is no 3.0 tag yet
 default_workflows_source_link: https://github.com/cloudify-cosmo/cloudify-manager/blob/develop/workflows/workflows/default.py
