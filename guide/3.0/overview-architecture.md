@@ -51,7 +51,7 @@ Cloudify uses [Nginx](http://nginx.org/) as its frontend reverse proxy and file 
 
 ### REST API
 
-Cloudify is controlled via a REST API. The REST API covers all the Cloud Orchestration and Management functions. See [Cloudify REST API Documentation](http://www.cloudifysource.org/cosmo-rest-docs/).
+Cloudify is controlled via a REST API. The REST API covers all the Cloud Orchestration and Management functions. See [Cloudify REST API Documentation](reference-rest-api.html).
 You can use the REST API through Cloudify's Non-interactive CLI or write your own REST client.
 
 Cloudify REST controllers are written in python using the [flask framework](http://flask.pocoo.org/) and run behind a [gUnicorn container](http://gunicorn.org/)
