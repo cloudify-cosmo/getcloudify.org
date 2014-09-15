@@ -1,0 +1,116 @@
+---
+layout: bt_about
+title: Getting Involved. How to Contribute to Cloudify.
+category: Contributing
+---
+
+h1. *Cloudify Roadmap | Version 3.1* 
+
+h2. Target Date: November 2014
+
+h1. Features
+
+h2. <i class="icon-star"></i> *Features*
+
+h2. *Customized monitoring of infrastructure and application components* 
+
+Cloudify will allow users to install monitoring agents, such as diamond or collectd, configure them and collect metrics for all application components. This metrics will be sent to a built-in metrics database (InfluxDB by default) and provide insight about application availability and performance. 
+
+Cloudify GUI will embed Grafana with a pre-configured yet customizable monitoring screen to allow users to view and correlate metrics of the same node or compare them across nodes.
+
+h2. *Customized policies for scaling, auto-healing and much more*
+
+Cloudify will allow users to define and push policies for application components to the policy engine. 
+
+These policies will process large streams of events and metrics and apply actions to them in real-time. The rules can be based on monitoring metrics values as as statutes of components and free text fields. The applied actions can be the triggering of a specific workflow or an invocation of a webhook, which means that the user can customize this to trigger any kind of action. 
+
+
+h2. *Docker Support*
+
+Cloudify 3.1 will have a built in Docker plugin and matching types, which will allow users to user Docker containers as part of any topology. This provide full blown orchestration and automation for large scale Docker based systems. 
+
+
+h2. *TOSCA YAML support*
+
+Cloudify is a TOSCA inspired project. When we have started designing and coding Cloudify, TOSCA's simple YAML profile was not yet  created or approved. . Now we are taking active part at the  TOSCA TC to finalize the definition of the simple profile. 
+
+Side by side with that, as as part of our on going commitment to TOSCA, we are aligning our TOSCA inspired blueprints with the TOSCA simple YAML profile.. This transition is going to happen in few phases of which the main one will happen in 3.1.
+
+Cloudify will support the TOSCA naming convention and in addition we are adding support for blueprint inputs, blueprint outputs and intrinsic functions
+
+h2. *Manager Blueprint (also known as TOSCA lightweight engine)*
+
+Cloudify CLI will serve as a lightweight blueprints executor. The main purpose of this feature is to allow for easy manager environments bootstrap using the same plugins as other applications and facilitating the deployment of the server with various topologies and different levels of distribution and sizing. So instead of having one monolithic server containing all of the manager components, users will be able to divide the server into multiple hosts as they see fit using the same blueprints used for describing applications deployed with Cloudify. 
+
+h2. *Language Agnostic Executor Plugin*
+
+This plugin allows for easy access to the node context from any programming or scripting language that will be executed as subprocess of the plugin. You can develop your logic for Windows or Linux in any scripting language and gain access to any context list or map using simple client calls. This is done using zeromq [Dan to comment on this]
+
+h2. *GUI Enhancements*
+
+h2. *Cloud object pages*
+
+h2. *Executions history*
+
+h2. *Better progress tracing*
+
+h1. <i class="icon-bug"></i> *Bug Fixes*
+
+* Support for Nova networks (Will be released as 3.0.2)
+* Support for Proxy (will be released as 3.0.2)
+
+
+   <hr/>                   
+             <section id="content">
+					<div class="container">
+                    <div class="row">
+                                <div class="span12">
+                                    <h4>How to Get  <strong>Support</strong></h4></div>
+
+				<div class="row">
+					<div class="span4">
+						<div class="box aligncenter">
+								<font color="#00B4DA"><i class="icon icon-4x icon-comments-alt"></i></font>
+							
+							<div class="text">
+								<h3>Mailing Lists</h3>
+								</div>
+									</div>
+								<p>
+									Join our <a href="https://groups.google.com/forum/#!forum/cloudify-users" target="_blank">cloudify-users</a> or <a href="https://groups.google.com/forum/#!forum/cloudify-developers" target="_blank">cloudify-developers</a> mailing list, and get support from the community.
+								</p>
+								
+						
+						</div>
+							<div class="span4">
+						<div class="box aligncenter">
+								<font color="#00B4DA"><i class="fa fa-stack-overflow icon-4x"></i></font>
+							
+							<div class="text">
+								<h3>Stack Overflow</h3>
+								</div>
+								</div>
+								<p>
+									 Subscribe to the <a href="http://stackoverflow.com/questions/tagged/cloudify" target="_blank">Cloudify tag</a> on Stack Overflow, and feel free to ask your questions amongst cloud pros.
+								</p>
+															</div>
+					<div class="span4">
+						<div class="box aligncenter">
+								<font color="#00B4DA"><i class="icon icon-4x icon-envelope-alt"></i></font>
+						
+							<div class="text">
+								<h3>Shoot us an Email</h3>
+									</div>
+									</div>
+								<p>
+									 Feel free to reach out by <a href="mailto:info@cloudifysource.org">email</a> with any question you may have - we're always happy to help.
+								</p>
+							
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>	   
+</div>
+</section>
