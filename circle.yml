@@ -33,7 +33,8 @@ test:
   override:
     - cd _site ; sudo -E python -mSimpleHTTPServer 80:
        background: true
-    - linkchecker http://localhost/guide/ --anchors --no-status --ignore-url=guide/2.7 --ignore-url=^mailto
+    - sleep 3
+    - linkchecker http://getcloudify.org/guide/ --anchors --no-status --ignore-url=guide/2.7 --ignore-url=^mailto
 
 ## Customize deployment commands
 deployment:
