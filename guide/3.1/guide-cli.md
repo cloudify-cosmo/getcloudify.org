@@ -86,10 +86,10 @@ Information on each individual configuration parameter is provided below:
 
 Cloudify's CLI provides an interface to running premade [fabric](http://www.fabfile.org/) tasks on the management server.
 
-This supplies an easy way to run personalized, complex ssh scripts on the manager without having to connect to it.
+This supplies an easy way to run personalized, complex ssh scripts on the manager without having to manually connect to it.
 
 {%note title=Note%}
-The tasks must run in the context of the `cfy` command (That is, under the virtualenv Cloudify's CLI is installed) and in the directory .cloudify is in or in one of its subdirectories.
+The tasks must run in the context of the `cfy` command (That is, under the virtualenv Cloudify's CLI is installed) and in the directory .cloudify is in.
 {%endnote%}
 
 {%note title=Note%}

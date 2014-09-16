@@ -25,6 +25,10 @@ Since the "Ubuntu-agent" is also used in your manager, as a workaround, until th
 This procedure will NOT work in an environment containing hosts with both centos hosts AND hosts comprising of another distribution other than Ubuntu.
 {%endwarning%}
 
+{%warning title=Note%}
+This procedure is only relevant to Cloudify 3.0. Cloudify 3.1 will contain a braoder support for different distributions and different python versions.
+{%endwarning%}
+
 # Overview
 
 Cloudify is currently supplied with a set of default agents for CentOS, Ubuntu and Windows. These agents are all based on Python2.7.
@@ -36,7 +40,7 @@ This guide proposes a generic way to create an agent for your **linux** distribu
 
 # Requirements
 
-- You will have to create the agent on the distribution you're going to use the agent in (e.g. if your hosts are running CentOS)
+- You will have to create the agent on the distribution you're going to use the agent in.
 - sudo permissions
 - Python 2.7 - currently, we only support Python 2.7. In the near future, you will be able to create agents on different versions of python.
 - [pip]({{ page.pip_link }}) > 1.5 (it might work on other versions, but they haven't been tested)
@@ -118,4 +122,4 @@ cfy dev --tasks-file cloudify-cli-fabric-tasks/tasks/tasks.py upload_agent_to_ma
 
 Configure the blueprint to install your agent on a "centos" distribution
 
-In your blueprint, under your vm node's configuration, under agent_config, add a key called `distro` and supply it with the `custom` value.
+In your blueprint, under your vm node's configuration, under cloudify_agent, add a key called `distro` and supply it with the `centos` value.
