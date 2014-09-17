@@ -42,7 +42,7 @@ The Cloudify CLI will serve as a lightweight blueprints executor.
 
 The main purpose of this feature is to allow users to easily bootstrap (complex) manager environments, using the same plugins as other applications. This will facilitate the deployment of the management environment with various topologies and different levels of distribution and sizing. So instead of having one monolithic server containing all of the manager's components, users will be able to divide the server into multiple hosts, as they see fit, using the same blueprints used for describing applications deployed using Cloudify.
 
-h2. <i class="icon-star-empty"></i> *Language Agnostic Executor Plugin*
+h2. <i class="icon-star-empty"></i> *Script plugin*
 
 This plugin enables easy access to the node's context from any programming or scripting language as long as it is executed as a sub-process of the plugin.
 
@@ -75,18 +75,34 @@ Alongside those agents, a tool will be provided which will allow users to create
 
 
 
+h2. <i class="icon-star-empty"></i> *Fabric plugin*
+
+This plugin allows the user to execute Fabric commands either remotely or locally.  Using Fabric is recommended in such as cases as when the user prefers agentless deployment, for example.
+
+h2. <i class="icon-star-empty"></i> *Cinder support*
+
+Cloudify 3.1 will support the OpenStack Cinder API with Volume type. This will allow users to create and attach external disks to VMs, as well as detach and delete these volumes.
+
 h2. <i class="icon-star-empty"></i> *GUI Enhancements*
 
 h2. <i class="icon-star-empty"></i> *Cloud object pages*
 
+These pages give the user reports on cloud resources consumed across different deployments. The added value of using this versus a Cloud IaaS portal is the application context reported per resource. Cloudify will have such reports for VMs, networks, floating IPs, routers and more.
+
 h2. <i class="icon-star-empty"></i> *Executions history*
 
+This view gives a history of workflow executions per deployment and easy access to relevant logs.
+
 h2. <i class="icon-star-empty"></i> *Better progress tracing*
+
+Improving the workflow execution trace UX with an event console that has a more CLI-style of tracing.
 
 h1. <i class="icon-bug"></i> *Bug Fixes*
 
 * <i class="icon-bug"></i> Support for Nova networks (Will be released in 3.0.2)
-* <i class="icon-bug"></i> Support for Proxy (will be released in 3.0.2)
+* <i class="icon-bug"></i> Support for Proxy (Will be released in 3.0.2) - and will allow users to use Cloudify in an environment where internet access is only available for the agents and manager via proxy.
+
+
 
 <br/>
 
