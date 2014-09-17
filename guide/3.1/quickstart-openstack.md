@@ -183,7 +183,7 @@ In Cloudify, every thing that is executed for a certain deployment is done in th
 To trigger the `install` workflow, type the following command in your terminal:
 
 {% highlight bash %}
-cfy deployments execute -d nodecellar1 install
+cfy executions start -d nodecellar1 -w install
 {% endhighlight %}
 
 These will take a couple of minutes, during which the OpenStack resources and VMs will be created and configured. To track the progress of the installation, you can look at the events emitted to the terminal window. Each event is labeled with its time, the deployment name and the node in our topology that it relates to, e.g.
@@ -207,7 +207,7 @@ To test the application, you will need to access it using its public IP address.
 Uninstalling the deployment is just a matter of running another workflow, which will teardown all the resources that were provisionined by the `install` workflow. To run the uninstallation workflow, type the following command:
 
 {% highlight bash %}
-cfy deployments execute -d nodecellar1 uninstall
+cfy executions start -d nodecellar1 -w uninstall
 {% endhighlight %}
 
 Similarly to the `install` workflow, you can track the progress of the uninstallation in the CLI or the web UI using the events that are displayed in both. Once the workflow completes, you can verify that the VMs were indeed destroyed and the other application related resources have also been removed.

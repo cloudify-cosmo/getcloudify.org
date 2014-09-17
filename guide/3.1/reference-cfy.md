@@ -194,28 +194,6 @@ This command will in fact upload the entire folder of the given target file rath
 
 ------
 
-###  **deployments execute**
-
-**Description:** executes an operation on a deployment
-
-**Usage:** `cfy deployments execute <operation> [-d, --deployment-id <deployment_id>] [-p, --parameters <parameters>] [--allow-custom-parameters] [-t, --management-ip <ip>] [-v, --verbosity] [--timeout <timeout>] [--force]`
-
-**Parameters:**
-
-- **Mandatory:**
-	- *operation*: the name of the operation to execute
-	- *deployment_id*: the deployment id on which the operation should be executed
-
-- **Optional:**
-	- *parameters*: parameters for the workflow execution (in JSON format)
-	- *allow-custom-parameters*: A flag for allowing the passing of custom parameters (parameters which were not defined in the workflow's schema in the blueprint) to the execution
-	- *management-ip*: the management-server to use
-	- *timeout*: operation timeout in seconds (The execution itself will keep going. It is the CLI that will stop waiting for it to terminate)
-	- *force*: A flag indicating the workflow should execute even if there is an ongoing execution for the provided deployment
-
-**Example:** `cfy deployments execute install -d my-deployment`
-
-------
 
 **Command** deployments list
 
@@ -269,6 +247,30 @@ This command will in fact upload the entire folder of the given target file rath
 
 
 ------
+
+###  **executions start**
+
+**Description:** executes a workflow on a deployment
+
+**Usage:** `cfy executions start [-w, --workflow <workflow-id>] [-d, --deployment-id <deployment_id>] [-p, --parameters <parameters>] [--allow-custom-parameters] [-t, --management-ip <ip>] [-v, --verbosity] [--timeout <timeout>] [--force]`
+
+**Parameters:**
+
+- **Mandatory:**
+	- *operation*: the name of the operation to execute
+	- *deployment_id*: the deployment id on which the operation should be executed
+
+- **Optional:**
+	- *parameters*: parameters for the workflow execution (in JSON format)
+	- *allow-custom-parameters*: A flag for allowing the passing of custom parameters (parameters which were not defined in the workflow's schema in the blueprint) to the execution
+	- *management-ip*: the management-server to use
+	- *timeout*: operation timeout in seconds (The execution itself will keep going. It is the CLI that will stop waiting for it to terminate)
+	- *force*: A flag indicating the workflow should execute even if there is an ongoing execution for the provided deployment
+
+**Example:** `cfy executions start -w install -d my-deployment`
+
+------
+
 
 ###  **executions get**
 

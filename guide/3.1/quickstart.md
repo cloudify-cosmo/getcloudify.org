@@ -152,7 +152,7 @@ In Cloudify, everything that is executed in a context of a certain `deployment` 
 To trigger the `install`([?]({{page.workflows_link}}#install)) workflow, type the following command in your terminal:
 
 {%highlight bash%}
-cfy deployments execute -d nodecellar1 install
+cfy executions start -d nodecellar1 -w install
 {%endhighlight%}
 
 This will take a couple of minutes, during which the resources will be created and configured.
@@ -178,7 +178,7 @@ To test the application, you will need to access it using its public IP address.
 Uninstalling the deployment is just a matter of running another workflow, which will teardown all the resources provisionined by the `install` workflow. To run the `uninstall`([?]({{page.workflows_link}}#uninstall)) workflow, type the following command:
 
 {%highlight bash%}
-cfy deployments execute -d nodecellar1 uninstall
+cfy executions -d nodecellar1 -w uninstall
 {%endhighlight%}
 
 Similarly to the `install` workflow, you can track the progress of the uninstall process in the CLI or the web UI using the events that are displayed in both. Once the workflow is completed, you can verify that the resources were indeed destroyed.
