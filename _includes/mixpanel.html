@@ -79,8 +79,16 @@ $(function(){
 	    mixpanel.track("Chef Campaign Button Clicks",{'page name' : document.title, 'url' : window.location.pathname}); 
 	});
 	
+	if (document.location.href.search("guide")!=-1){
+  mixpanel.identify() ;
+  mixpanel.people.increment({
+   "Wiki page read": 1
+  }); 
+  mixpanel.people.set({
+   "Wiki page Name": document.title
+  });
+ }
 
-	
 });
 
 
