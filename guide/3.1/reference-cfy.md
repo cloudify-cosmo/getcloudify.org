@@ -293,16 +293,14 @@ This command will in fact upload the entire folder of the given target file rath
 
 ###  **executions list**
 
-**Description:** lists the executions of a deployment
+**Description:** list executions
 
 **Usage:** `cfy executions list [-d, --deployment-id <deployment_id>] [-t, --management-ip <ip>] [-v, --verbosity]`
 
 **Parameters:**
 
-- **Mandatory:**
-	- *deployment_id*: the id of the deployment whose executions to list
-
 - **Optional:**
+	- *deployment_id*: the id of the deployment whose executions to list
 	- *management-ip*: the management-server to use
 
 **Example:** `cfy executions list -d my-deployment`
