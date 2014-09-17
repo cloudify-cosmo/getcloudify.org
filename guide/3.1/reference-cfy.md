@@ -257,7 +257,7 @@ This command will in fact upload the entire folder of the given target file rath
 **Parameters:**
 
 - **Mandatory:**
-	- *operation*: the name of the operation to execute
+	- *workflow*: the id of the workflow to execute
 	- *deployment_id*: the deployment id on which the operation should be executed
 
 - **Optional:**
