@@ -31,7 +31,7 @@ To do so follow the steps described in the [CLI installation guide](installation
 Next, you need to create an OpenStack congifuration and save your credentials into it. To create the configuration, type the following command:
 
 {% highlight bash %}
-cfy init openstack
+cfy init -p openstack
 {% endhighlight %}
 
 This will create a Cloudify configuration file named `cloudify-config.yaml` in the current directory (it will also create a file named `.cloudify` to save the current context for the Cloudify CLI, but you shouldn't care about that for now).
