@@ -15,7 +15,7 @@ pageord: 400
 First off, in an empty directory, run this from within the shell:
 
 {% highlight sh %}
-cfy init simple_provider
+cfy init -p simple_provider
 {%endhighlight%}
 
 # Configuration

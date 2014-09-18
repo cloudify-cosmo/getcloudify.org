@@ -14,7 +14,7 @@ pageord: 300
 Run this in a shell from an empty directory:
 
 {% highlight sh %}
-cfy init openstack
+cfy init -p openstack
 {%endhighlight%}
 
 This command will initialize the Cloudify CLI for the current directory, as well as create a Openstack-specific configuration file named `cloudify-config.yaml`.
