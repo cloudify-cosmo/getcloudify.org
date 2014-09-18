@@ -178,7 +178,7 @@ To test the application, you will need to access it using its public IP address.
 Uninstalling the deployment is just a matter of running another workflow, which will teardown all the resources provisionined by the `install` workflow. To run the `uninstall`([?]({{page.workflows_link}}#uninstall)) workflow, type the following command:
 
 {%highlight bash%}
-cfy executions -d nodecellar1 -w uninstall
+cfy executions start -d nodecellar1 -w uninstall
 {%endhighlight%}
 
 Similarly to the `install` workflow, you can track the progress of the uninstall process in the CLI or the web UI using the events that are displayed in both. Once the workflow is completed, you can verify that the resources were indeed destroyed.
