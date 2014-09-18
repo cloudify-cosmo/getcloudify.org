@@ -24,12 +24,21 @@ Plugin installer's **install** operation receives a `plugins` argument which is 
 
 Each item in the provided plugins list should be a dictionary containing the following keys:
 
-* `name` - the plugin's name (name in plugin's setup.py file).
-* `folder` - the plugin's folder if bundled within a blueprint's plugins folder (optional).
-* `url` - the plugin's archive url which will be used by Python pip for installing the plugin (optional).
+* `name` - the name of the plugin (as defined in the setup.py file).
+* `source` - Can be one of: 
+    
+    - URL (http, https) to the plugin archive.
+    - relative path to a folder inside <blueprint_root>/plugins
+    
+* `install` - true to install, false to ignore. (Default to true)
+* `executor` - Can be one of:
+
+    - host_agent - Indicates this plugin will be executed by a blueprint host type
+    - central_deployment_agent - Indicates this plugin will be executed by the central deployment agent created  <br>
+                                 after running 'deployments create...'
 
 {%note title=Note%}
-Plugin definition should contain one of folder/url keys.
+Plugin definition must contain the 'executor' key
 {%endnote%}
 
 
@@ -44,7 +53,7 @@ from setuptools import setup
 
 setup(
     name='cloudify-bash-plugin',
-    version='1.0',
+    version='1.1',
     ...
 )
 {% endhighlight %}
@@ -55,8 +64,10 @@ The following `plugins` argument should be provided:
 
 plugins = [
   {
-    'name': 'cloudify-bash-plugin',
-    'url': 'https://github.com/cloudify-cosmo/cloudify-bash-plugin/archive/1.0.zip'
+    'name': cloudify-bash-plugin,
+    'source': https://github.com/cloudify-cosmo/cloudify-bash-plugin/archive/1.1.zip,
+    'install': true,
+    'executor': host_agent
   }
 ]
 

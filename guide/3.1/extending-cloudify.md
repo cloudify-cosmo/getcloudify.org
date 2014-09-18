@@ -74,7 +74,7 @@ Plugins are Cloudify integration with different tools. Whenever you need a new i
 
 3. Edit `setup.py`
 * Replace `${PLUGIN_NAME}` with the name you want to give to the pip package
-* Replace `${VERSION}` with the version you want to give to your plugin. Typically you want to set it to something lower than 1.0 until it is tested with system tests and ready for release
+* Replace `${VERSION}` with the version you want to give to your plugin. Typically you want to set it to something lower than 1.1 until it is tested with system tests and ready for release
 * Replace `${AUTHOR}` and `${AUTHOR_EMAIL}`
 * Fill in content instead of `'${DESCRIPTION}'`
 * Edit the packages array `packages=['plugin'],`. Replace plugin with the name of your python package(s)

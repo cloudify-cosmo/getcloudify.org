@@ -186,7 +186,7 @@ We need to import the bash types and plugins to use this type. The below declara
 
 {%highlight yaml%}
 imports:
-    - http://www.getcloudify.org/spec/bash-plugin/1.0/plugin.yaml
+    - http://www.getcloudify.org/spec/bash-plugin/1.1/plugin.yaml
 
 {%endhighlight%}
 

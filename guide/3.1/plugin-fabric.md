@@ -6,7 +6,7 @@ publish: true
 abstract: "Cloudify Fabric plugin description and configuration"
 pageord: 300
 
-yaml_link: http://getcloudify.org/spec/fabric-plugin/1.0/plugin.yaml
+yaml_link: http://getcloudify.org/spec/fabric-plugin/1.1/plugin.yaml
 fabric_link: http://docs.fabfile.org
 ---
 

@@ -12,7 +12,7 @@ blueprint_guide_link: guide-blueprint.html
 plugins_common_link: https://github.com/cloudify-cosmo/cloudify-plugins-common
 plugins_common_ref_link: reference-plugins-common.html
 architecture_link: overview-architecture.html
-openstack_plugin_link: https://github.com/cloudify-cosmo/cloudify-openstack-plugin/blob/1.0/nova_plugin/server.py#L306
+openstack_plugin_link: https://github.com/cloudify-cosmo/cloudify-openstack-plugin/blob/1.1/nova_plugin/server.py#L306
 plugins_common_docs_link: http://cloudify-plugins-common.readthedocs.org/
 terminology_link: reference-terminology.html
 ---
