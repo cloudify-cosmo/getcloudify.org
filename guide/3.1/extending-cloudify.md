@@ -110,7 +110,7 @@ source [path to env]/bin/activate
 * run pip to get all the requirements
 {% highlight bash %}
 cd [path_to_project]
-pip install --process-dependency-links .
+pip install .
 {% endhighlight %}
 
 ## Coding The Plugin
