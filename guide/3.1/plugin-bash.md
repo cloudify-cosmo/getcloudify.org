@@ -6,7 +6,7 @@ publish: true
 abstract: "Cloudify bash plugin description and configuration"
 pageord: 100
 
-yaml_link: http://getcloudify.org/spec/bash-plugin/1.0/plugin.yaml
+yaml_link: http://getcloudify.org/spec/bash-plugin/1.1/plugin.yaml
 ---
 
 {%summary%} The bash plugin can be used to map node life cycle operations to bash shell scripts that are included in your blueprint. {%endsummary%}

@@ -6,7 +6,7 @@ publish: true
 abstract: "Chef plugin description and configuration"
 pageord: 200
 
-yaml_link: http://getcloudify.org/spec/chef-plugin/1.0/plugin.yaml
+yaml_link: http://getcloudify.org/spec/chef-plugin/1.1/plugin.yaml
 ---
 
 {%summary%} The Chef plugin can be used to map node life cycle operations to Chef runs. {%endsummary%}
