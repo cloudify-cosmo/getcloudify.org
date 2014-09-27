@@ -40,6 +40,7 @@ blueprint:
           wait_started_timeout: 15  # default value
           wait_started_interval: 1  # default value
           disable_requiretty: true  # default value
+          distro:                   # no default value (automatically resolved in run time)
 {%endhighlight%}
 
 * `user` SSH username
@@ -50,6 +51,8 @@ blueprint:
 * `wait_started_timeout` How many seconds should be waited for the agent to be started after installation before raising an error (default: `15`)
 * `wait_started_interval` How many seconds to wait between each probe of the current agent status (default: `1`. used in conjunction with `wait_started timeout`)
 * `disable_requiretty` Disables the `requiretty` setting in the sudoers file (default: `true`)
+* `distro` The linux distribution the agent is intended to be installed on. By default this parameter is automatically set in run time but it is possible to specify one of the following values: "Ubuntu", "debian", "centos".
+
 
 # Bundled Plugins & Libraries
 
