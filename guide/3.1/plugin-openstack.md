@@ -17,11 +17,11 @@ For more information about OpenStack, please refer to: [https://www.openstack.or
 # Types
 
 {%tip title=Tip%}
-Each type has one or both of the properties `nova_config` and `neutron_config`. These can be used to pass parameters for authenticating with the requested Openstack services. However, if the Cloudify bootstrap was done using Openstack Provider in the current region, there's no need to override these properties, and the authentication will take place with the same credentials that were used for the Cloudify bootstrap process. For more information, see the [Misc section - Openstack authentication](#openstack-authentication).
+Each type (with the exception of `cloudify.openstack.volume`) has one or both of the properties `nova_config` and `neutron_config`. These can be used to pass parameters for authenticating with the requested Openstack services. However, if the Cloudify bootstrap was done using Openstack Provider in the current region, there's no need to override these properties, and the authentication will take place with the same credentials that were used for the Cloudify bootstrap process. For more information, see the [Misc section - Openstack authentication](#openstack-authentication).
 {%endtip%}
 
 {%info title=Information%}
-Each object of any type (with the exception of Floating IP) has a name on Openstack. This name can be set using the `name` key under the relevant object property (e.g. `server` for `cloudify.openstack.server`, `subnet` for `cloudify.openstack.subnet`, etc.). If it isn't set, the Cloudify node ID will be used as the name.
+Each object of any type (with the exception of Floating IP) has a name on Openstack. This name can be set using the `name` (`display_name` for `volume`) key under the relevant object property (e.g. `server` for `cloudify.openstack.server`, `subnet` for `cloudify.openstack.subnet`, etc.). If it isn't set, the Cloudify node ID will be used as the name.
 {%endinfo%}
 
 {%warning title=Warning%}
@@ -141,6 +141,15 @@ This type has the same properties as the type above (as it derives from it). Use
 * `neutron_config` see [Misc section - Openstack authentication](#openstack-authentication)
 
 
+## cloudify.openstack.volume
+
+**Derived From:** [cloudify.types.volume](reference-types.html)
+
+**Properties:**
+
+* `volume` key-value volume configuration as described in [OpenStack Cinder create volume API](http://developer.openstack.org/api-ref-blockstorage-v1.html#volumes-v1)
+
+
 # Relationships
 
 ## cloudify.openstack.port_connected_to_security_group
@@ -167,6 +176,10 @@ This type has the same properties as the type above (as it derives from it). Use
 
 **Description:** A relationship for associating a floating ip with a port. *Note*: This is a marker relationship, and has no operations associated with it. A floating ip will automatically be associated with any port whose node is connected to the floating ip's node with any relationship.
 
+
+## cloudify.openstack.volume_attached_to_server
+
+**Description:** A relationship for attaching a volume to a server
 
 
 # Examples
@@ -353,6 +366,46 @@ Node by node explanation:
 5. Creates a router, whose node name is `my_router`, and whose name on Openstack is `my_router_openstack_name`. The router will automatically have an interface in the external network.
 
 6. Creates a server, whose node name is `my_server`, and whose name on Openstack is *the node's ID* (since no `name` parameter was supplied under the `server` property). The server is set with an image and flavor IDs. It also overrides the `cloudify_agent` property of its parent type to set the username that will be used to connect to the server for installing the Cloudify agent on it. Finally, it is set with a relationship to the `my_port` node: This designated relationship type will take care of connecting the server to `my_port_openstack_name`.
+{% endgcloak %}
+
+
+## Example III
+
+This example will show how to use the `volume` type, as well as 'volume_attached_to_server' relationship.
+
+{% togglecloak id=3 %}
+Example III
+{% endtogglecloak %}
+
+{% gcloak 3 %}
+The following is an excerpt from the blueprint's `blueprint`.`nodes` section:
+
+{% highlight yaml %}
+- name: my_server
+  type: cloudify.openstack.server
+  properties:
+    - server:
+        image: 8672f4c6-e33d-46f5-b6d8-ebbeba12fa02
+        flavor: 101
+    - cloudify_agent:
+        user: ubuntu
+
+
+- name: my_volume
+  type: cloudify.openstack.volume
+  properties:
+    volume:
+      name: my_openstack_volume_name
+      size: 1
+  relationships:
+    - target: my_server
+      type: cloudify.openstack.volume_attached_to_server
+{%endhighlight%}
+
+Node by node explanation:
+
+1. Creates a server, with name `my_server`, and with name on Openstack *the node's ID* (since no `name` parameter was supplied under the `server` property). The server is set with an image and flavor IDs.
+2. Creates a volume. It is set with a relationship to the `my_server` node: This designated relationship type will take care of attaching the volume to Openstack server node.
 {% endgcloak %}
 
 
