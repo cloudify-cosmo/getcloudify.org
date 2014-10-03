@@ -8,6 +8,7 @@ pageord: 100
 
 types_yaml_link: http://www.getcloudify.org/spec/cloudify/3.1/types.yaml
 repo_link: https://github.com/cloudify-cosmo/cloudify-script-plugin
+client_reference_link: https://github.com/cloudify-cosmo/cloudify-script-plugin/blob/master/script_runner/ctx_proxy.py#L331
 ---
 
 {%summary%} The script plugin can be used to map node life cycle operations and workflows to scripts that are included in your blueprint. {%endsummary%}
@@ -410,6 +411,45 @@ Before the script plugins starts the proxy server it checks the following:
   - If running on windows a tcp socket is used as the transport layer
 * If ZeroMQ is not installed an http based transport layer is used
 
-This behavior can be overriden by setting `proxy_ctx_type` of the process config to be one of `unix`, `tcp`, `http` or `none`. If `none` is set, no proxy server will be started.
+This behavior can be overridden by setting `proxy_ctx_type` of the process configuration to be one of `unix`, `tcp`, `http` or `none`. If `none` is set, no proxy server will be started.
 
 The `ctx` cli client implements a simple protocol on top of the above transport layers that can be implemented in other languages to provide a more streamlined access to the context.
+
+When the script plugin executes the script, it updates the script process with `CTX_SOCKET_URL` environment variable.
+
+* If a unix domain socket based proxy was started, its value will look like: `ipc:///tmp/ctx-f3j22f.socket`
+* If a tcp socket based proxy was started, its value will look like: `tcp://127.0.0.1:53213`
+* If an http socket based proxy was started, its value will look like: `http://localhost:35321`
+
+The first two are valid ZeroMQ socket urls and should be passed as is to the ZeroMQ client. The last one is the http endpoint that should be using when making REST calls.
+
+If a ZeroMQ client is implemented, it should start a `request` based socket (as the proxy server starts the matching `response` socket)
+
+In all the protocols, the format of the request body is a json with this structure:
+{% highlight json %}
+{
+    "args": [...]
+}
+{%endhighlight%}
+Where args is the list of arguments. so the arguments for `ctx.properties['port']` will be `["properties", "port"]`
+
+The format of the response body is a json with this structure:
+{% highlight json %}
+{
+   "type": "result",
+   "payload": RESULT_BODY
+}
+{%endhighlight%}
+in case of a successful execution, and otherwise:
+{% highlight json %}
+{
+   "type": "error",
+   "payload": {
+      "type": ERROR_TYPE,
+      "message": ERROR_MESSAGE,
+      "traceback": ERROR_TRACEBACK
+   }
+}
+{%endhighlight%}
+
+You can look at the [cli implementation]({{page.client_reference_link}}) for reference.
