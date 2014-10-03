@@ -7,14 +7,15 @@ abstract: "Cloudify script plugin description and configuration"
 pageord: 100
 
 types_yaml_link: http://www.getcloudify.org/spec/cloudify/3.1/types.yaml
-
+repo_link: https://github.com/cloudify-cosmo/cloudify-script-plugin
 ---
 
 {%summary%} The script plugin can be used to map node life cycle operations and workflows to scripts that are included in your blueprint. {%endsummary%}
 
-# Usage
-
 The script plugin comes pre-installed with the default agent packages and is defined in `types.yaml`.
+Its source code can be found at [{{page.repo_link}}]({{page.repo_link}})
+
+# Usage
 
 ##  Hello World
 
@@ -212,6 +213,16 @@ node_templates:
 
 This will execute the script using the `powershell` binary.
 
+
+# Process configuration options
+* `cwd` Set the working directory for the script
+* `env` Update environment variables of the script process
+* `args` Arguments to pass to the scripts
+* `command_prefix` Prefix to add before the script path. This could be used instead of `#!`
+* `eval_python` Boolean denoting whether the script should be evaluated as python code or executed as an external process
+* `ctx_proxy_type` The context proxy type. (none, unix, tcp or http)
+
+
 # Workflow scripts
 You can use the script plugin to execute workflow scripts.
 
@@ -282,16 +293,6 @@ After which, all the node instances will have their `touched` runtime property s
 {%note title=Note%}
 Workflow scripts are always evaluated as python code. At the moment it is not possible writing workflow scripts in other languages.
 {%endnote%}
-
-
-# Process configuration options
-* `cwd` Set the working directory for the script
-* `env` Update environment variables of the script process
-* `args` Arguments to pass to the scripts
-* `command_prefix` Prefix to add before the script path. This could be used instead of `#!`
-* `eval_python` Boolean denoting whether the script should be evaluated as python code or executed as an external process
-* `ctx_proxy_type` The context proxy type. (none, unix, tcp or http)
-
 
 # Context Proxy
 
@@ -392,3 +393,23 @@ It should be noted that this call will not make the script terminate but it is p
 * `-j, --json-output` Outputs the call result as valid json instead of its string value (Default: `False`)
 * `--json-arg-prefix=PREFIX` Prefix for arguments that should be processed as json (Default: `@`)
 * `--socket-url=SOCKET_URL` The ctx socket url (Default: the environment variable `CTX_SOCKET_URL`). Normally the environment variable `CTX_SOCKET_URL` will be injected by the script plugin so this option should probably only be used in conjunction with `ctx-server` during script debugging.
+
+# Debugging scripts
+
+TODO
+
+# Context Proxy Protocol
+
+When you call the `ctx` executable you are actually invoking a cli client that comes pre-installed with the plugin.
+Under the hood, when the script plugin executes your script, it also starts a ctx proxy server that delegates calls to the actual `ctx` object instance.
+
+Before the script plugins starts the proxy server it checks the following:
+
+* If ZeroMQ is installed (which it does if using the default agent packages)
+  - If running on linux a unix domain socket is used as the transport layer
+  - If running on windows a tcp socket is used as the transport layer
+* If ZeroMQ is not installed an http based transport layer is used
+
+This behavior can be overriden by setting `proxy_ctx_type` of the process config to be one of `unix`, `tcp`, `http` or `none`. If `none` is set, no proxy server will be started.
+
+The `ctx` cli client implements a simple protocol on top of the above transport layers that can be implemented in other languages to provide a more streamlined access to the context.
