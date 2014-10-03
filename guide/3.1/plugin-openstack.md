@@ -148,6 +148,7 @@ This type has the same properties as the type above (as it derives from it). Use
 **Properties:**
 
 * `volume` key-value volume configuration as described in [OpenStack Cinder create volume API](http://developer.openstack.org/api-ref-blockstorage-v1.html#volumes-v1)
+* `device_name` name under which volume will appear in /dev file system when volume is attached to vm
 
 
 # Relationships
@@ -371,7 +372,7 @@ Node by node explanation:
 
 ## Example III
 
-This example will show how to use the `volume` type, as well as 'volume_attached_to_server' relationship.
+This example will show how to use the `volume` type, as well as `volume_attached_to_server` relationship.
 
 {% togglecloak id=3 %}
 Example III
@@ -397,6 +398,7 @@ The following is an excerpt from the blueprint's `blueprint`.`nodes` section:
     volume:
       name: my_openstack_volume_name
       size: 1
+    device_name: /dev/vdb
   relationships:
     - target: my_server
       type: cloudify.openstack.volume_attached_to_server
