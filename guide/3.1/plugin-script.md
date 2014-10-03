@@ -278,7 +278,7 @@ from cloudify.workflows import parameters as p
 for node in ctx.nodes:
   for instance in node.instances:
     instance.execute_operation('custom.touch', kwargs={
-      'touched_value': p.touch_value
+      'touched_value': p.touched_value
     })
 
 {%endhighlight%}
