@@ -284,10 +284,6 @@ Workflow scripts are always evaluated as python code. At the momement it is not 
 {%endnote%}
 
 
-# Context Proxy
-
-TODO
-
 # Process configuration options
 * `cwd` Set the working directory for the script
 * `env` Update environment variables of the script process
@@ -295,4 +291,98 @@ TODO
 * `command_prefix` Prefix to add before the script path. This could be used instead of `#!`
 * `eval_python` Boolean denoting whether the script should be evaluated as python code or executed as an external process
 * `ctx_proxy_type` The context proxy type. (none, unix, tcp or http)
+
+
+# Context Proxy
+
+In the previous examples, `ctx` was referenced from within the scripts several times. This mechanishm provides means for accessing the `ctx` object that is usually accessed when [writing plugins](guide-plugin-creation.html).
+
+What follows is a description of how calls to the `ctx` executable, translate to the `ctx` object access.
+
+## Attibute access
+{% highlight bash %}
+#! /bin/bash
+ctx bootstrap-context cloudify-agent agent-key-path
+{%endhighlight%}
+Translates to
+{% highlight python %}
+ctx.bootstrap_context.cloudify_agent.agent_key_path
+{%endhighlight%}
+
+Another thing to note in this example is that attributes with `-` in their name (as an argument) will be translated to `_`.
+
+## Simple method invocation
+{% highlight bash %}
+#! /bin/bash
+ctx logger info "Some logging"
+{%endhighlight%}
+Translates to
+{% highlight python %}
+ctx.logger.info('Some logging')
+{%endhighlight%}
+
+In this example, a `logger` attribute is searched on the `ctx` object, once found, an `info` attribute is searched on the `logger` result. Once found it discoveres that `info` is callable so it invokes it with the remaining arguments.
+
+## Method invocation with kwargs
+{% highlight bash %}
+#! /bin/bash
+ctx download-resource images/hello.png '@{"target_path": "/tmp/hello.png"}'
+{%endhighlight%}
+Translates to
+{% highlight python %}
+ctx.download_resource('images/hello.png', **{'target_path': '/tmp/hello.png'})
+{%endhighlight%}
+
+In this example, notice how the last argument starts with `@`, this will be further explained later on but for now, it is enough to say this means the argument will be parsed as json.
+
+Now that we know that the last argument is a dict, as the above demonstrates, if the last argument of a method invocation is a dict, it will be treated as `kwargs` to the method invocation.
+
+## Dict access
+{% highlight bash %}
+#! /bin/bash
+# read access
+ctx properties application_name
+ctx related runtime-properties username
+ctx runtime-properties endpoint.port
+ctx runtime-properties endpoint.urls[2]
+
+# write access
+ctx runtime-properties my_property my_value
+ctx runtime-properties my_properties.my_nested_property nested_value
+{%endhighlight%}
+Translates to
+{% highlight python %}
+ctx.properties['application_name']
+ctx.related.runtime_properties['username']
+ctx.runtime_properties['endpoint']['port']
+ctx.runtime_properties['endpoint']['urls'][2]
+
+ctx.runtime_properties['my_property'] = 'my_value'
+ctx runtime_properties['my_properties']['my_nested_property'] = 'nested_value'
+{%endhighlight%}
+
+Once dict attribute is discovered during the attribute search the following logic applies:
+
+* If there is a single argument left, the call is considered to be a read access and the key path is calculated
+  as the above demonstrate
+* If there are 2 arguments left, the call is considered to be a write access and the key path is set to the value
+  of the second argument left. If a dict does not exist in the intermediate path, it is created on the fly.
+
+## Non string arguments
+Sometimes you want to pass arguments that are not strings, for example setting a runtime property to a number. In this case you can prefix an argument with `@` and it will be json parsed before being evaluated
+
+{% highlight bash %}
+#! /bin/bash
+ctx runtime-properties number_of_clients @14
+{%endhighlight%}
+Translates to
+{% highlight python %}
+ctx runtime-properties['number_of_clients'] = 14  # instead of = '14'
+{%endhighlight%}
+
+## Returning a value
+If you want the operation to return a value you can use `ctx returns some_value`
+This invocation will set `some_value` on the current `ctx` and the script plugin will return this value when the script terminates.
+
+It should be noted that this call will not make the script terminate but it is probably best practice to make this call at the end of the script.
 
