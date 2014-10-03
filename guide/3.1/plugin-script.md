@@ -14,9 +14,11 @@ client_reference_link: https://github.com/cloudify-cosmo/cloudify-script-plugin/
 {%summary%} The script plugin can be used to map node life cycle operations and workflows to scripts that are included in your blueprint. {%endsummary%}
 
 The script plugin comes pre-installed with the default agent packages and is defined in `types.yaml`.
-Its source code can be found at [{{page.repo_link}}]({{page.repo_link}})
+The source code can be found at [{{page.repo_link}}]({{page.repo_link}})
 
 # Usage
+
+Following are usage examples demonstrating different configuration options.
 
 ##  Hello World
 
@@ -26,13 +28,13 @@ imports:
     - {{page.types_yaml_link}}
 
 node_templates:
-  example_web_server
-    # Web server types is only used for this example. The actual type
-    # could be any valid cloudify type
-    type: cloudify.types.web_server
-    interfaces:
-      cloudify.interfaces.lifecycle:
-        - start: scripts/start.sh
+    example_web_server
+        # The web server type is only used for this example. The type used
+        # could be any valid cloudify type.
+        type: cloudify.types.web_server
+        interfaces:
+            cloudify.interfaces.lifecycle:
+                - start: scripts/start.sh
 {%endhighlight%}
 
 `scripts/start.sh`
@@ -44,14 +46,14 @@ ctx logger info "Hello to this world"
 Let's walk through this example and explain what's going on.
 
 
-First, notice how the `cloudify.interface.lifecycle.start` operation is mapped directly to a script. When an opeartion is mapped, if the mapping points to a resource that is included in the blueprint directory, it is considered to be a script and the script plugin is used. So in fact, the above mapping is equivalent to:
+First, notice how the `cloudify.interface.lifecycle.start` operation is mapped directly to a script. When an operation is mapped, if the mapping points to a resource that is included in the blueprint directory, it is considered to be a script and the script plugin is used. So in fact, the above mapping is equivalent to:
 {% highlight yaml %}
 interfaces:
-  cloudify.interfaces.lifecycle:
-    start:
-      mapping: script.script_runner.tasks.run
-      properties:
-        script_path: scripts/start.sh
+    cloudify.interfaces.lifecycle:
+        start:
+            mapping: script.script_runner.tasks.run
+            properties:
+                script_path: scripts/start.sh
 {%endhighlight%}
 
 
@@ -95,20 +97,19 @@ imports:
     - {{page.types_yaml_link}}
 
 node_templates:
-  example_web_server
-    type: cloudify.types.web_server
-    interfaces:
-      cloudify.interfaces.lifecycle:
-        - start:
-            mapping: scripts/start.sh
-            properties:
-              process:
-                # this directory should already exist
-                cwd: /tmp/workdir
-                args: [arg1_value, arg2_value]
-                env:
-                  MY_ENV_VARIABLE: MY_ENV_VARIABLE_VALUE
-
+    example_web_server
+        type: cloudify.types.web_server
+        interfaces:
+            cloudify.interfaces.lifecycle:
+                - start:
+                    mapping: scripts/start.sh
+                    properties:
+                        process:
+                            # this directory should already exist
+                            cwd: /tmp/workdir
+                            args: [arg1_value, arg2_value]
+                            env:
+                                MY_ENV_VARIABLE: MY_ENV_VARIABLE_VALUE
 {%endhighlight%}
 
 `scripts/start.sh`
@@ -136,14 +137,13 @@ imports:
     - {{page.types_yaml_link}}
 
 node_templates:
-  example_web_server
-    type: cloudify.types.web_server
-    properties:
-      port: 8080
-    interfaces:
-      cloudify.interfaces.lifecycle:
-        - start: scripts/start.py
-
+    example_web_server
+        type: cloudify.types.web_server
+            properties:
+                port: 8080
+            interfaces:
+                cloudify.interfaces.lifecycle:
+                    - start: scripts/start.py
 {%endhighlight%}
 
 `scripts/start.py`
@@ -158,12 +158,12 @@ If you a want a script to get evaluated as python and it does not have a `.py` e
 
 {% highlight yaml %}
 interfaces:
-  cloudify.interfaces.lifecycle:
-    - start:
-      mapping: script/my_python_script
-      properties:
-        process:
-          eval_python: true
+    cloudify.interfaces.lifecycle:
+        - start:
+            mapping: script/my_python_script
+            properties:
+                process:
+                    eval_python: true
 {%endhighlight%}
 
 If on the other hand a script does have a `.py` extension and you want it to get executed in an external process, simply pass `false` to the `eval_python` process configuration. Do note however, that accessing the operation context in this case will be done through the context proxy as with any other none python script.
@@ -178,21 +178,20 @@ imports:
     - {{page.types_yaml_link}}
 
 node_templates:
-  example_web_server
-    type: cloudify.types.web_server
-    interfaces:
-      cloudify.interfaces.lifecycle:
-        - start:
-            mapping: scripts/start.rb
-            properties:
-              process:
-                command_prefix: /opt/ruby/bin/ruby
-
+      example_web_server
+          type: cloudify.types.web_server
+          interfaces:
+              cloudify.interfaces.lifecycle:
+                  - start:
+                      mapping: scripts/start.rb
+                      properties:
+                          process:
+                              command_prefix: /opt/ruby/bin/ruby
 {%endhighlight%}
 
 This will execute `start.rb` with the ruby binary in `/opt/ruby/bin/ruby`
 
-Another use case for this would be to run powershell script for example on windows, this can be achieved like this:
+Another use case for this would be to run a powershell script on windows. This can be achieved like this:
 
 `blueprint.yaml`
 {% highlight yaml %}
@@ -200,16 +199,15 @@ imports:
     - {{page.types_yaml_link}}
 
 node_templates:
-  example_web_server
-    type: cloudify.types.web_server
-    interfaces:
-      cloudify.interfaces.lifecycle:
-        - start:
-            mapping: scripts/start.ps1
-            properties:
-              process:
-                command_prefix: powershell
-
+    example_web_server
+        type: cloudify.types.web_server
+        interfaces:
+            cloudify.interfaces.lifecycle:
+                - start:
+                    mapping: scripts/start.ps1
+                    properties:
+                        process:
+                            command_prefix: powershell
 {%endhighlight%}
 
 This will execute the script using the `powershell` binary.
@@ -235,24 +233,23 @@ imports:
     - {{page.types_yaml_link}}
 
 node_templates:
-  node1
-    type: cloudify.types.base
-    interfaces:
-      - custom:
-          touch: scripts/touch.py
-  node2
-    type: cloudify.types.base
-    interfaces:
-      - custom:
-          touch: scripts/touch.py
+    node1
+        type: cloudify.types.base
+        interfaces:
+            - custom:
+                touch: scripts/touch.py
+    node2
+        type: cloudify.types.base
+        interfaces:
+            - custom:
+                touch: scripts/touch.py
 
 workflows:
-  touch_all:
-    mapping: workflows/touch_all.py
-    parameters:
-      touched_value:
-        description: the value to touch the instance with
-
+    touch_all:
+        mapping: workflows/touch_all.py
+        parameters:
+            touched_value:
+                description: the value to touch the instance with
 {%endhighlight%}
 
 Next, let's write the `touch.py` script. Notice that this script ends with a `.py` extension so it will get evaluated as python code.
@@ -276,11 +273,10 @@ from cloudify.workflows import ctx
 from cloudify.workflows import parameters as p
 
 for node in ctx.nodes:
-  for instance in node.instances:
-    instance.execute_operation('custom.touch', kwargs={
-      'touched_value': p.touched_value
-    })
-
+    for instance in node.instances:
+        instance.execute_operation('custom.touch', kwargs={
+            'touched_value': p.touched_value
+        })
 {%endhighlight%}
 
 
@@ -297,7 +293,7 @@ Workflow scripts are always evaluated as python code. At the moment it is not po
 
 # Context Proxy
 
-In the previous examples, `ctx` was referenced from within the scripts several times. This mechanism provides means for accessing the `ctx` object that is usually accessed when [writing plugins](guide-plugin-creation.html).
+In the previous examples, `ctx` was referenced from within the scripts several times. This mechanism provides means for accessing the `ctx` object the way it is usually accessed when [writing plugins](guide-plugin-creation.html).
 
 What follows is a description of how calls to the `ctx` executable, translate to the `ctx` object access.
 
@@ -311,7 +307,7 @@ Translates to
 ctx.bootstrap_context.cloudify_agent.agent_key_path
 {%endhighlight%}
 
-Another thing to note in this example is that attributes with `-` in their name (as an argument) will be translated to `_`.
+Another thing to note in this example is that `-` in attributes (as an argument) will be replaced to `_`.
 
 ## Simple method invocation
 {% highlight bash %}
@@ -363,7 +359,7 @@ ctx.runtime_properties['my_property'] = 'my_value'
 ctx runtime_properties['my_properties']['my_nested_property'] = 'nested_value'
 {%endhighlight%}
 
-Once dict attribute is discovered during the attribute search the following logic applies:
+Once a dict attribute is discovered during the attribute search the following logic applies:
 
 * If there is a single argument left, the call is considered to be a read access and the key path is calculated
   as the above demonstrate
@@ -383,12 +379,13 @@ ctx runtime-properties['number_of_clients'] = 14  # instead of = '14'
 {%endhighlight%}
 
 ## Returning a value
-If you want the operation to return a value you can use `ctx returns some_value`
+If you want the operation to return a value you can use `ctx returns some_value`.
 This invocation will set `some_value` on the current `ctx` and the script plugin will return this value when the script terminates.
 
 It should be noted that this call will not make the script terminate but it is probably best practice to make this call at the end of the script.
 
 ## Command line optional arguments of `ctx`
+These following flags should appear before the positional arguments.
 
 * `-t, --timeout=TIMEOUT` Request timeout in seconds (Default: `5`)
 * `-j, --json-output` Outputs the call result as valid json instead of its string value (Default: `False`)
@@ -407,8 +404,8 @@ Under the hood, when the script plugin executes your script, it also starts a ct
 Before the script plugins starts the proxy server it checks the following:
 
 * If ZeroMQ is installed (which it does if using the default agent packages)
-  - If running on linux a unix domain socket is used as the transport layer
-  - If running on windows a tcp socket is used as the transport layer
+  - If running on linux, a unix domain socket is used as the transport layer
+  - If running on windows, a tcp socket is used as the transport layer
 * If ZeroMQ is not installed an http based transport layer is used
 
 This behavior can be overridden by setting `proxy_ctx_type` of the process configuration to be one of `unix`, `tcp`, `http` or `none`. If `none` is set, no proxy server will be started.
@@ -431,7 +428,7 @@ In all the protocols, the format of the request body is a json with this structu
     "args": [...]
 }
 {%endhighlight%}
-Where args is the list of arguments. so the arguments for `ctx.properties['port']` will be `["properties", "port"]`
+Where args is the list of arguments. So, for example, the arguments for `ctx.properties['port']` will be `["properties", "port"]`
 
 The format of the response body is a json with this structure:
 {% highlight json %}
