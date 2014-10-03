@@ -14,7 +14,7 @@ types_yaml_link: http://www.getcloudify.org/spec/cloudify/3.1/types.yaml
 
 # Usage
 
-The script plugin comes preinstalled with the default agent packages and is defined in `types.yaml`.
+The script plugin comes pre-installed with the default agent packages and is defined in `types.yaml`.
 
 ##  Hello World
 
@@ -243,7 +243,7 @@ workflows:
 
 {%endhighlight%}
 
-Next, let's write the `touch.py` script. Notice that this script ends with a `.py` extension so it will get evalutated as python code.
+Next, let's write the `touch.py` script. Notice that this script ends with a `.py` extension so it will get evaluated as python code.
 
 `scripts/touch.py`
 {% highlight python %}
@@ -280,7 +280,7 @@ cfy executions start -w touch_all -d my_deployment --parameters '{"touch_value":
 After which, all the node instances will have their `touched` runtime property set to `my_value`.
 
 {%note title=Note%}
-Workflow scripts are always evaluated as python code. At the momement it is not possible writing workflow scripts in other languages.
+Workflow scripts are always evaluated as python code. At the moment it is not possible writing workflow scripts in other languages.
 {%endnote%}
 
 
@@ -295,11 +295,11 @@ Workflow scripts are always evaluated as python code. At the momement it is not 
 
 # Context Proxy
 
-In the previous examples, `ctx` was referenced from within the scripts several times. This mechanishm provides means for accessing the `ctx` object that is usually accessed when [writing plugins](guide-plugin-creation.html).
+In the previous examples, `ctx` was referenced from within the scripts several times. This mechanism provides means for accessing the `ctx` object that is usually accessed when [writing plugins](guide-plugin-creation.html).
 
 What follows is a description of how calls to the `ctx` executable, translate to the `ctx` object access.
 
-## Attibute access
+## Attribute access
 {% highlight bash %}
 #! /bin/bash
 ctx bootstrap-context cloudify-agent agent-key-path
@@ -321,7 +321,7 @@ Translates to
 ctx.logger.info('Some logging')
 {%endhighlight%}
 
-In this example, a `logger` attribute is searched on the `ctx` object, once found, an `info` attribute is searched on the `logger` result. Once found it discoveres that `info` is callable so it invokes it with the remaining arguments.
+In this example, a `logger` attribute is searched on the `ctx` object, once found, an `info` attribute is searched on the `logger` result. Once found it discovers that `info` is callable so it invokes it with the remaining arguments.
 
 ## Method invocation with kwargs
 {% highlight bash %}
@@ -386,3 +386,9 @@ This invocation will set `some_value` on the current `ctx` and the script plugin
 
 It should be noted that this call will not make the script terminate but it is probably best practice to make this call at the end of the script.
 
+## Command line optional arguments of `ctx`
+
+* `-t, --timeout=TIMEOUT` Request timeout in seconds (Default: `5`)
+* `-j, --json-output` Outputs the call result as valid json instead of its string value (Default: `False`)
+* `--json-arg-prefix=PREFIX` Prefix for arguments that should be processed as json (Default: `@`)
+* `--socket-url=SOCKET_URL` The ctx socket url (Default: the environment variable `CTX_SOCKET_URL`). Normally the environment variable `CTX_SOCKET_URL` will be injected by the script plugin so this option should probably only be used in conjunction with `ctx-server` during script debugging.
