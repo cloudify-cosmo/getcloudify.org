@@ -73,6 +73,9 @@ Install the relevant modules in the virtualenv and delete tmp data.
 sudo /centos-agent/env/bin/pip install {{ page.plugins_common_repo_tar }}
 sudo /centos-agent/env/bin/pip install {{ page.rest_client_repo_tar }}
 sudo /centos-agent/env/bin/pip install cloudify-manager-3.0/plugins/plugin-installer/
+sudo /centos-agent/env/bin/pip install cloudify-manager-3.0/plugins/agent-installer/
+sudo /centos-agent/env/bin/pip install cloudify-manager-3.0/plugins/windows-plugin-installer/
+sudo /centos-agent/env/bin/pip install cloudify-manager-3.0/plugins/windows-agent-installer/
 sudo rm -rf cloudify-manager-3.0
 {%endhighlight%}
 
