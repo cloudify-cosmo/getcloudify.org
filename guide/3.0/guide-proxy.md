@@ -11,7 +11,7 @@ pageord: 800
 
 # Overview
 
-This guide will quickly explain how to bootstrap and install a simple blueprint using proxy machine in Openstack.
+This guide will quickly explain how to bootstrap and install a simple blueprint using a proxy machine on Openstack.
 
 All http requests from the manager and the agents will pass through the proxy machine.
 
