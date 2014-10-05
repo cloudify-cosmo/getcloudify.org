@@ -28,7 +28,7 @@ h2. Monitoring Performance with Metrics Probes
 
 Cloudify enables you to monitor metrics using different application and tier APIs such as JMX, JDBC, REST, CLI, or whatever monitoring methods you have available.
 
-All you need to do is implement the monitors closure returning a @Map@ of @String@ keys with the metric name and a numeric value.
+All you need to do is implement the monitors closure as part of your lifecycle closure, returning a @Map@ of @String@ keys with the metric name and a numeric value.
 
 The following example demonstrates how to monitor Tomcat metrics using a JMX probe:
 <script src="https://gist.github.com/1767183.js?file=monitoring_probe.groovy"></script>
