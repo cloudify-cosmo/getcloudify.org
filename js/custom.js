@@ -31,7 +31,6 @@ $(document).ready(function() {
 			window.location = $(this).val();
 		});
 		
-
 		
 	})();
 
@@ -104,32 +103,32 @@ $(document).ready(function() {
 
 
 
-				$('.toggle-link').each(function() {
-					$(this).click(function() {
-					  var state = 'open'; //assume target is closed & needs opening
-					  var target = $(this).attr('data-target');
-					  var targetState = $(this).attr('data-target-state');
-					  
-					  //allows trigger link to say target is open & should be closed
-					  if (typeof targetState !== 'undefined' && targetState !== false) {
-					  	state = targetState;
-					  }
-					  
-					  if (state == 'undefined') {
-					  	state = 'open';
-					  }
-					  
-					  $(target).toggleClass('toggle-link-'+ state);
-					  $(this).toggleClass(state);      
-					});
-				});
+
 
 		    }
 		});						
 	}
 	
 
-	
+	$('.toggle-link').each(function() {
+	$(this).click(function() {
+	  var state = 'open'; //assume target is closed & needs opening
+	  var target = $(this).attr('data-target');
+	  var targetState = $(this).attr('data-target-state');
+	  
+	  //allows trigger link to say target is open & should be closed
+	  if (typeof targetState !== 'undefined' && targetState !== false) {
+		state = targetState;
+	  }
+	  
+	  if (state == 'undefined') {
+		state = 'open';
+	  }
+	  
+	  $(target).toggleClass('toggle-link-'+ state);
+	  $(this).toggleClass(state);      
+	});
+});
 
 	//add some elements with animate effect
 
@@ -400,4 +399,124 @@ $(document).ready(function() {
 
 
 //////////////////////////End YouTube Player  Data //////////////////////////////
+
+
+//EventsPage - This code parsing google calendar data using json//
+if (location.href.indexOf('/participate') != -1) {
+		var strVar='';
+		var registerLink='';
+		var twitterLink='';
+		var mapLink='';
+		var startdate = '';
+		var enddate = '';
+		var futureeventsData = 'https://www.google.com/calendar/feeds/cloudifysource@gmail.com/public/full?orderby=starttime&sortorder=ascending&max-results=5&futureevents=true&alt=json';
+		$.getJSON(futureeventsData,function(data){
+		  if(data.feed.entry!=undefined){
+		  for(var i = 0; i < data.feed.entry.length; i++){
+			 if(data.feed.entry[i].gd$where[0].valueString.split("~~").length>0){
+				startdate = new Date(data.feed.entry[i].gd$when[0].startTime); // some mock date
+				//startdate=startdate.toLocaleFormat();
+				var curr_date = startdate.getDate();
+				var curr_month = startdate.getMonth() + 1; //Months are zero based
+				var curr_year = startdate.getFullYear();
+				var curr_time = startdate.toLocaleTimeString()
+				var startdatetext =  curr_date + "-" + curr_month + "-" + curr_year;
+				
+				
+				
+				
+				registerLink = data.feed.entry[i].gd$where[0].valueString.split("~~")[1];
+				mapLink  = data.feed.entry[i].gd$where[0].valueString.split("~~")[2];
+				twitterLink = data.feed.entry[i].gd$where[0].valueString.split("~~")[3];
+			 }
+
+strVar += "<article>";
+strVar += "				<div class=\"row\">";
+strVar += "					<div class=\"span8\">";
+strVar += "						<div class=\"wrapper\">";
+strVar += "							<div class=\"testimonial\">";
+strVar += "								<div class=\"author\">";
+strVar += "									<i class=\"icon-50 icon-calendar\"><\/i>";
+strVar += "									<p class=\"name\">";
+strVar += 									data.feed.entry[i].title.$t;
+strVar += "										<br\/>";
+strVar += "									<strong><span class=\"highlight\">"+startdatetext+"<\/span><\/strong> ";
+strVar += "									<\/p>";
+strVar += "								<\/div>";
+strVar += "								<p>";
+strVar += 								data.feed.entry[i].content.$t;
+strVar += "								<\/p>";
+strVar += "";
+strVar += "                                 <p class=\"text-left\">";
+strVar += "                                 <a href=\"\"  target=\"_blank\" class=\"btn btn-default \">Register &raquo;<\/a>";
+if (twitterLink!=undefined){
+strVar += "                                  <a  href="+twitterLink+" target=\"_blank\" class=\"btn btn-theme btn-sm hover-wrap\"><i class=\"icon-twitter\" ><\/i>&nbsp;Tweet<\/a> ";
+}
+if (mapLink!=undefined){
+strVar += '                                 <a data-fancybox-group=\"map\" title=\"Get location!\"  href="'+mapLink+'" class=\"btn btn-info btn-sm fancybox fancybox.iframe\">';
+strVar += "								 <i class=\"icon-map-marker\"><\/i>&nbsp;Map<\/a>";
+}
+strVar += "								 <\/p>  ";
+strVar += "							<\/div>";
+strVar += "						<\/div>";
+strVar += "					<\/div>";
+strVar += "				<\/div>";
+strVar += "				<\/article>";
+			 
+			 
+ }
+  $('#eventsWrapper').append(strVar);
+  }
+});
+ 
+ 
+var strVarPast='';
+var  ytnum = '';
+var yutubeLink='';
+var d = new Date();
+var n = d.toJSON();
+var pasteventsData = 'https://www.google.com/calendar/feeds/cloudifysource@gmail.com/public/full?orderby=endtime&sortorder=descending&max-results=3&futureevents=false&start-max='+n+'&alt=json';
+$.getJSON(pasteventsData,function(data){
+ if(data.feed.entry!=undefined){
+  for(var i = 0; i < data.feed.entry.length; i++){
+  if(data.feed.entry[i].gd$where[0].valueString.split("/")[4]!=undefined){
+			ytnum = data.feed.entry[i].gd$where[0].valueString.split("/")[4].split("?")[0];
+			yutubeLink = data.feed.entry[i].gd$where[0].valueString.split("~~")[0];
+  }else{
+	ytnum = "";
+  }
+  
+strVarPast += "<li class=\"widget\">	";
+strVarPast += "<h5 class=\"widgetheading\">";
+strVarPast += data.feed.entry[i].title.$t;
+strVarPast +="<\/h5>";
+strVarPast += "<!-- Fancybox - Gallery Enabled - Title - Full Image -->";
+strVarPast += "<a class=\"hover-wrap fancybox fancybox.iframe\" data-fancybox-group=\"gallery\" title=\"";
+strVarPast += data.feed.entry[i].title.$t;
+strVarPast += '"href=\"';
+strVarPast += yutubeLink;
+strVarPast += "\">";
+strVarPast += "";
+strVarPast += "<!-- Thumb Image and Description -->";
+if (ytnum!=""){
+strVarPast += '<img src="http://img.youtube.com/vi/'+ytnum+'/0.jpg" alt="'+data.feed.entry[i].content.$t+'">'; 
+strVarPast += "<p><\/p>";
+strVarPast += "<p class=\"text-right\">"; 
+strVarPast += "	<span class=\"btn btn-blue\" ><i class=\"icon-play\"><\/i> watch<\/span>";
+strVarPast += "<\/p>";
+}
+strVarPast += "<\/a>";
+strVarPast += "<!-- End Item Project -->";
+strVarPast += "<\/li>";
+  }	
+	  	   
+  
+		  
+		  $('.watchWrapper').append(strVarPast);
+		  }
+		});
+
+// Ende Event Page code // 
+}
+
 });

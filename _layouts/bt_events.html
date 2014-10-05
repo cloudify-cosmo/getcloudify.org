@@ -22,14 +22,13 @@
         </div>
     </section>
    	<section id="content">
-	
 		<div class="container">
 			<div class="row">
 				<div class="span8">
 					<div id="resultsDiv" class="DocumentsWrap"></div>
 					<div id="pageContent">
 					<div id="eventsWrapper">
-					{{content}} 
+				
 					</div>
 					<div class="pagination"> 
 						<ul class="pager" id='page_navigation'></ul>
@@ -40,8 +39,13 @@
 					<aside class="right-sidebar">
 						<div class="widget">
 							<h5 class="widgetheading">Previous Events</h5>
-							{% include webinar_toc.html %}
-							<ul class="pagination" id="myPager"></ul>
+							<ul class="watchWrapper"> 
+							</ul>
+							</div>	
+							<div class="pagination">
+								<ul class="pager" id="myPager"></ul>
+							</div>
+							
 						</div>
 					</aside>
 				</div>
