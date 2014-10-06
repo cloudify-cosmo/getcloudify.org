@@ -449,12 +449,12 @@ strVar += 								data.feed.entry[i].content.$t;
 strVar += "								<\/p>";
 strVar += "";
 strVar += "                                 <p class=\"text-left\">";
-strVar += "                                 <a href=\"\"  target=\"_blank\" class=\"btn btn-default \">Register &raquo;<\/a>";
+strVar += "                                 <a href=\"\"  target=\"_blank\" class=\"btn btn-rounded btn-default \">Register &raquo;<\/a>";
 if (twitterLink!=undefined){
-strVar += "                                  <a  href="+twitterLink+" target=\"_blank\" class=\"btn btn-theme btn-sm hover-wrap\"><i class=\"icon-twitter\" ><\/i>&nbsp;Tweet<\/a> ";
+strVar += "                                  <a  href="+twitterLink+" target=\"_blank\" class=\"btn btn-rounded btn-theme btn-sm hover-wrap\"><i class=\"icon-twitter\" ><\/i>&nbsp;Tweet<\/a> ";
 }
 if (mapLink!=undefined){
-strVar += '                                 <a data-fancybox-group=\"map\" title=\"Get location!\"  href="'+mapLink+'" class=\"btn btn-info btn-sm fancybox fancybox.iframe\">';
+strVar += '                                 <a data-fancybox-group=\"map\" title=\"Get location!\"  href="'+mapLink+'" class=\"btn btn-rounded btn-info btn-sm fancybox fancybox.iframe\">';
 strVar += "								 <i class=\"icon-map-marker\"><\/i>&nbsp;Map<\/a>";
 }
 strVar += "								 <\/p>  ";
