@@ -217,6 +217,15 @@ This will execute the script using the `powershell` binary.
 ## Hello World Example
 For a more complete usage example, check out our [Hello World]({{page.hello_world_example_link}}) example.
 
+{%note title=Note%}
+When you use `nohup` in your scripts, don't forget to redirect the output and stderr to `/dev/null`
+and to run the operation in the background using `&`.
+For example:
+{% highlight bash %}
+nohup python -m SimpleHTTPServer > /dev/null 2>&1 &
+{%endhighlight%}
+{%endnote%}
+
 
 # Process configuration options
 * `cwd` Set the working directory for the script.
