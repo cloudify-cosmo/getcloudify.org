@@ -449,7 +449,7 @@ strVar += 								data.feed.entry[i].content.$t;
 strVar += "								<\/p>";
 strVar += "";
 strVar += "                                 <p class=\"text-left\">";
-strVar += "                                 <a href=\"\"  target=\"_blank\" class=\"btn btn-rounded btn-default \">Register &raquo;<\/a>";
+strVar += "                                 <a href="+registerLink+" target=\"_blank\" class=\"btn btn-rounded\">Register &raquo;<\/a>";
 if (twitterLink!=undefined){
 strVar += "                                  <a  href="+twitterLink+" target=\"_blank\" class=\"btn btn-rounded btn-theme btn-sm hover-wrap\"><i class=\"icon-twitter\" ><\/i>&nbsp;Tweet<\/a> ";
 }
