@@ -418,10 +418,11 @@ if (location.href.indexOf('/participate') != -1) {
 				//startdate=startdate.toLocaleFormat();
 				var curr_date = startdate.getDate();
 				var curr_month = startdate.getMonth() + 1; //Months are zero based
+				var months = [ "January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December" ];
+				curr_month = months[parseInt(curr_month,10)];
 				var curr_year = startdate.getFullYear();
-				var curr_time = startdate.toLocaleTimeString()
-				var startdatetext =  curr_date + "-" + curr_month + "-" + curr_year;
-				
+				var curr_time = startdate.toLocaleTimeString();
+				var startdatetext =   curr_month  + " " + curr_date+ ", " + curr_year;
 				
 				
 				
