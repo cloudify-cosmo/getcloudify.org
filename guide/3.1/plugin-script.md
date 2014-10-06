@@ -381,7 +381,7 @@ Once a dict attribute is discovered during the attribute search the following lo
   of the second argument left. If a dict does not exist in the intermediate path, it is created on the fly.
 
 ## Non string arguments
-Sometimes you want to pass arguments that are not strings - for example setting a runtime property to a number. In this case you can prefix an argument with `@` and it will be json parsed before being evaluated.
+Sometimes you want to pass arguments that are not strings - for example setting a runtime property to a number. In this case, you can prefix an argument with `@` and it will be json parsed before being evaluated.
 
 {% highlight bash %}
 #! /bin/bash
@@ -389,7 +389,7 @@ ctx runtime-properties number_of_clients @14
 {%endhighlight%}
 Translates to
 {% highlight python %}
-ctx runtime-properties['number_of_clients'] = 14  # instead of = '14'
+ctx.runtime_properties['number_of_clients'] = 14  # instead of = '14'
 {%endhighlight%}
 
 ## Returning a value
