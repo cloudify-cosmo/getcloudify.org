@@ -9,6 +9,7 @@ pageord: 100
 types_yaml_link: http://www.getcloudify.org/spec/cloudify/3.1/types.yaml
 repo_link: https://github.com/cloudify-cosmo/cloudify-script-plugin
 client_reference_link: https://github.com/cloudify-cosmo/cloudify-script-plugin/blob/master/script_runner/ctx_proxy.py#L331
+hello_world_example_link: https://github.com/cloudify-cosmo/cloudify-hello-world-example
 ---
 
 {%summary%} The script plugin can be used to map node life cycle operations and workflows to scripts that are included in your blueprint. Scripts can be written in python, bash, ruby, you name it.{%endsummary%}
@@ -20,7 +21,7 @@ The source code can be found at [{{page.repo_link}}]({{page.repo_link}})
 
 Following are usage examples demonstrating different configuration options.
 
-##  Hello World
+##  Basic Usage
 
 `blueprint.yaml`
 {% highlight yaml %}
@@ -211,6 +212,10 @@ node_templates:
 {%endhighlight%}
 
 This will execute the script using the `powershell` binary.
+
+
+## Hello World Example
+For a more complete usage example, check out our [Hello World]({{page.hello_world_example_link}}) example.
 
 
 # Process configuration options
