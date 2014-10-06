@@ -11,7 +11,7 @@ repo_link: https://github.com/cloudify-cosmo/cloudify-script-plugin
 client_reference_link: https://github.com/cloudify-cosmo/cloudify-script-plugin/blob/master/script_runner/ctx_proxy.py#L331
 ---
 
-{%summary%} The script plugin can be used to map node life cycle operations and workflows to scripts that are included in your blueprint. {%endsummary%}
+{%summary%} The script plugin can be used to map node life cycle operations and workflows to scripts that are included in your blueprint. Scripts can be written in python, bash, ruby, you name it.{%endsummary%}
 
 The script plugin comes pre-installed with the default agent packages and is defined in `types.yaml`.
 The source code can be found at [{{page.repo_link}}]({{page.repo_link}})
@@ -166,7 +166,7 @@ interfaces:
                     eval_python: true
 {%endhighlight%}
 
-If on the other hand a script does have a `.py` extension and you want it to get executed in an external process, simply pass `false` to the `eval_python` process configuration. Do note however, that accessing the operation context in this case will be done through the context proxy as with any other none python script.
+If on the other hand a script does have a `.py` extension and you want it to get executed in an external process, simply pass `false` to the `eval_python` process configuration. Do note however, that accessing the operation context in this case will be done through the [context proxy](#context-proxy) as with any other none python script.
 
 ## Command Prefix
 
@@ -214,12 +214,12 @@ This will execute the script using the `powershell` binary.
 
 
 # Process configuration options
-* `cwd` Set the working directory for the script
-* `env` Update environment variables of the script process
-* `args` Arguments to pass to the scripts
-* `command_prefix` Prefix to add before the script path. This could be used instead of `#!`
-* `eval_python` Boolean denoting whether the script should be evaluated as python code or executed as an external process
-* `ctx_proxy_type` The context proxy type. (none, unix, tcp or http)
+* `cwd` Set the working directory for the script.
+* `env` Update environment variables of the script process.
+* `args` Arguments to pass to the scripts.
+* `command_prefix` Prefix to add before the script path. This could be used instead of `#!`.
+* `eval_python` Boolean denoting whether the script should be evaluated as python code or executed as an external process.
+* `ctx_proxy_type` The [context proxy](#context-proxy-protocol) type. (none, unix, tcp or http).
 
 
 # Workflow scripts
@@ -307,7 +307,7 @@ Translates to
 ctx.bootstrap_context.cloudify_agent.agent_key_path
 {%endhighlight%}
 
-Another thing to note in this example is that `-` in attributes (as an argument) will be replaced to `_`.
+Another thing to note in this example is that `-` in attributes (as an argument) will be replaced with `_`.
 
 ## Simple method invocation
 {% highlight bash %}
@@ -319,7 +319,7 @@ Translates to
 ctx.logger.info('Some logging')
 {%endhighlight%}
 
-In this example, a `logger` attribute is searched on the `ctx` object, once found, an `info` attribute is searched on the `logger` result. Once found it discovers that `info` is callable so it invokes it with the remaining arguments.
+In this example, a `logger` attribute is searched on the `ctx` object. Once found, an `info` attribute is searched on the `logger` result. Once found it discovers that `info` is callable so it invokes it with the remaining arguments.
 
 ## Method invocation with kwargs
 {% highlight bash %}
@@ -331,7 +331,7 @@ Translates to
 ctx.download_resource('images/hello.png', **{'target_path': '/tmp/hello.png'})
 {%endhighlight%}
 
-In this example, notice how the last argument starts with `@`, this will be further explained later on but for now, it is enough to say this means the argument will be parsed as json.
+In this example, notice how the last argument starts with `@`. This will be further explained later on but for now, suffice to say this means the argument will be parsed as json.
 
 Now that we know that the last argument is a dict, as the above demonstrates, if the last argument of a method invocation is a dict, it will be treated as `kwargs` to the method invocation.
 
@@ -356,18 +356,18 @@ ctx.runtime_properties['endpoint']['port']
 ctx.runtime_properties['endpoint']['urls'][2]
 
 ctx.runtime_properties['my_property'] = 'my_value'
-ctx runtime_properties['my_properties']['my_nested_property'] = 'nested_value'
+ctx.runtime_properties['my_properties']['my_nested_property'] = 'nested_value'
 {%endhighlight%}
 
 Once a dict attribute is discovered during the attribute search the following logic applies:
 
 * If there is a single argument left, the call is considered to be a read access and the key path is calculated
-  as the above demonstrate
+  as the above demonstrates.
 * If there are 2 arguments left, the call is considered to be a write access and the key path is set to the value
   of the second argument left. If a dict does not exist in the intermediate path, it is created on the fly.
 
 ## Non string arguments
-Sometimes you want to pass arguments that are not strings, for example setting a runtime property to a number. In this case you can prefix an argument with `@` and it will be json parsed before being evaluated
+Sometimes you want to pass arguments that are not strings - for example setting a runtime property to a number. In this case you can prefix an argument with `@` and it will be json parsed before being evaluated.
 
 {% highlight bash %}
 #! /bin/bash
@@ -412,13 +412,13 @@ This behavior can be overridden by setting `proxy_ctx_type` of the process confi
 
 The `ctx` cli client implements a simple protocol on top of the above transport layers that can be implemented in other languages to provide a more streamlined access to the context.
 
-When the script plugin executes the script, it updates the script process with `CTX_SOCKET_URL` environment variable.
+When the script plugin executes the script, it updates the script process with the `CTX_SOCKET_URL` environment variable.
 
 * If a unix domain socket based proxy was started, its value will look like: `ipc:///tmp/ctx-f3j22f.socket`
 * If a tcp socket based proxy was started, its value will look like: `tcp://127.0.0.1:53213`
 * If an http socket based proxy was started, its value will look like: `http://localhost:35321`
 
-The first two are valid ZeroMQ socket urls and should be passed as is to the ZeroMQ client. The last one is the http endpoint that should be using when making REST calls.
+The first two are valid ZeroMQ socket urls and should be passed as is to the ZeroMQ client. The last one is the http endpoint that should be used when making REST calls.
 
 If a ZeroMQ client is implemented, it should start a `request` based socket (as the proxy server starts the matching `response` socket)
 
@@ -430,14 +430,16 @@ In all the protocols, the format of the request body is a json with this structu
 {%endhighlight%}
 Where args is the list of arguments. So, for example, the arguments for `ctx.properties['port']` will be `["properties", "port"]`
 
-The format of the response body is a json with this structure:
+The format of the response body is a json with the following structure.
+
+In case of a successful execution:
 {% highlight json %}
 {
    "type": "result",
    "payload": RESULT_BODY
 }
 {%endhighlight%}
-in case of a successful execution, and otherwise:
+In case of a failed execution:
 {% highlight json %}
 {
    "type": "error",
