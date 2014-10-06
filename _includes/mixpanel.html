@@ -88,6 +88,8 @@ $(function(){
    "Wiki page Name": document.title
   });
  }
+  // create Page-view property
+  mixpanel.identify() ;
   mixpanel.people.set({
    "Page Views": document.title
   });
