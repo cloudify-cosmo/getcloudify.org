@@ -30,7 +30,7 @@ The CLI can run on Windows, Linux and Mac OS. The CLI provides 2 main functions:
 
 
 ## The Manager (Orchestrator)
-The Cloudify Manager is a stateful orchestrator that deploys and manages applications decribed in orchestration plans called [blueprints](#blueprint). The manager's main responsibility is to run automation processes described in workflow[(?)]({{page.terminology_link}}#workflow) scripts and issue execution commands to the agents[(?)]({{page.terminology_link}}#agent). The manager's flows and components are discussed in detail below.
+The Cloudify Manager is a stateful orchestrator that deploys and manages applications described in orchestration plans called [blueprints](#blueprint). The manager's main responsibility is to run automation processes described in workflow[(?)]({{page.terminology_link}}#workflow) scripts and issue execution commands to the agents[(?)]({{page.terminology_link}}#agent). The manager's flows and components are discussed in detail below.
 
 ## The Agents
 The Cloudify Agents[(?)]({{page.terminology_link}}#agent) are responsible for managing the manager's command execution using a set of plugins[(?)]({{page.terminology_link}}#plugin).
