@@ -1,0 +1,113 @@
+---
+layout: blogpost
+title: Our Open Source Cloud (Re) Architecture with OpenStack + TOSCA
+image: nati.png
+author: Nati Shalom
+tags: 
+ - OpenStack
+ - TOSCA
+ - OpenStack Neutron
+ - Open Source Cloud
+ - OpenStack Heat
+---
+<notextile>
+
+<img src="/img/blog/opensourcecloudarchitecture.png" alt="Open Source Cloud Architecture - TOSCA | OpenStack">
+<br/>
+<br/>
+
+
+  <h3><strong>Cloudify OpenStack Native approach - The Story behind the Scenes </strong> </h3>
+
+  <p>In the previous post I outlined what I mean by native-approach to the <a href="http://getcloudify.org/2014/09/02/Open-Cloud-OpenStack-Cloud.html" target="_blank">OpenStack cloud</a>. In a nutshell, a native approach represents out of the box tighter integration with OpenStack, all without being limited only to OpenStack. </p>
+
+  <p>In this post I want to share some of the stories behind the design of Cloudify 3.0 and the approach that we have taken to make Cloudify *native* to <a href="http://getcloudify.org/openstack-architecture-cloudify.html" target="_blank">OpenStack</a>.&#160; I would first start by outlining our motivation behind this approach.</p>
+
+<hr>
+
+<span class="pullquote-left">
+  <font style="font-weight: bold" size="5" face="Baskerville Old Face"><em>TOSCA - smart orchestration for OpenStack with Cloudify.</em></font>&nbsp; <a class="btn btn-medium btn-theme btn-rounded" id="downloadBtnInner" href="http://getcloudify.org/downloads/get_cloudify_3x.html" target="_blank"><i class="icon-plus"></i> Go </a></span>
+  
+  <hr>
+
+  <h3><strong>OpenStack-only or Not-only-OpenStack?</strong></h3>
+
+  <p>It is our core belief that for the foreseeable future supporting <a href="http://getcloudify.org/2014/09/11/hybrid-cloud-openstack-multi-cloud.html" target="_blank">hybrid cloud</a> is going to be important for many of the OpenStack users for the following reasons:</p>
+
+  <ol>
+    <li>
+      <p>Transitioning to OpenStack is a long journey - Many enterprises have VMware-based stacks as their core infrastructure. Where many of these organizations have often started their journey toward OpenStack by creating a dev environment, and then gradually moving more workloads into their OpenStack environment as they get more comfortable with it. This process usually spans over months and possibly even years. It became apparent to us, that during this time these customers would still be using VSphere and VCloud in parallel to OpenStack. For such users, having a common platform to manage their app deployment across two environments can smoothen the transition and also reduce the risk of getting stacked if one of the environments doesn’t meet their needs.</p>
+    </li>
+  </ol>
+
+  <ol start="start">
+    <li>
+      <p>The public cloud market is going to be dominated by non-OpenStack clouds - while OpenStack is on a trajectory to dominate the private cloud market, the public cloud market looks quite different with AWS as a strong and long-standing leader and other major clouds emerging such as GCE and Azure - hoping to close in. Many organizations wouldn’t want to host their entire data center on a private cloud, and would therefore need to take a hybrid cloud approach. In order to support hybrid cloud, we had to include an abstraction layer that will allow us to integrate with clouds other than OpenStack.</p>
+    </li>
+  </ol>
+
+  <p>At the same time we wanted to have a more intimate integration with OpenStack in order to leverage the fact that it is <a href="http://getcloudify.org/2014/07/10/what-is-openstack-tutorial.html" target="_blank">open source</a> and allows for a deeper integration with its core services. Through that we were able to enable smooth and simple integration of Cloudify into OpenStack.</p>
+
+  <h3><strong>Extending or Rewriting?</strong></h3>
+
+  <p>Cloudify 2.x already took a step toward deeper integration with OpenStack and we were one of the first to announce our support for OpenStack. Recently, we also added support for <a href="http://getcloudify.org/2014/05/14/openstack-neutron-networking-nova.html" target="_blank">OpenStack Neutron</a>. </p>
+
+  <p>We realized that if we want to make Cloudify fit natively into the OpenStack infrastructure it is not enough to have integration with the <a href="http://getcloudify.org/2014/07/18/openstack-wiki-open-cloud.html" target="_blank">OpenStack components</a>.&#160; We also need to ensure that the design behind Cloudify will be consistent with the way other projects and services of OpenStack are implemented. This led us to the conclusion that we wouldn’t be able to be a first class citizen with OpenStack unless we underwent a major redesign of Cloudify. </p>
+
+  <h3><strong>Going Python?</strong></h3>
+
+  <p>Our first step in this direction was to move from Java to Python. Moving to Python wasn’t as painful as you would think for us, because many of our developers already knew the language. This decision quickly proved itself, as it became much simpler not just to develop the new version of Cloudify faster, but it also enabled us to join other OpenStack projects as well as reuse some of the same components and frameworks that are already used by OpenStack.</p>
+
+  <h3><strong>Integrating with Core OpenStack Services</strong></h3>
+
+  <p>Many of the products that declare support for OpenStack mostly integrate with the compute API (Nova), and quite often come with their own security, messaging, configuration, and other such considerations. We felt that this is not enough, and doesn’t fit in with the way other services are built within OpenStack. Hence, we decided to deepen our integration with other services such as Keystone, Neutron, Heat and later with Ceilometer, Mistral and others.</p>
+
+  <h3><strong>Going TOSCA?</strong></h3>
+
+  <p>Cloudify 2.x was designed around a proprietary Groovy-based domain specific language (DSL) for defining application topology and configuration. It became apparent that the DSL had become a central piece of Cloudify architecture. As a result, maintaining a proprietary DSL would only serve as a barrier going forward. <a href="http://getcloudify.org/openstack-architecture-cloudify.html#TOSCA" target="_blank">TOSCA</a> (Topology Orchestration Specification for Cloud Applications led by the Oasis Foundation) defines a standard templating language. TOSCA was similar and richer in concept to our previous 2.x specification. Because of this, using TOSCA seemed like a natural evolution. </p>
+
+  <p>At the time when we decided to use TOSCA, the specification was provided in a fairly complex XML. Our first step for adopting TOSCA was to come with a simplified YAML based version which better fits into the spirit of OpenStack. After the OpenStack summit in Hong Kong, when we first introduced the idea, it became apparent that members from the Oasis group were already thinking along this line.We decided to join forces and join the Oasis organization. We started working with the team to incorporate TOSCA as an official part of OpenStack. During the Atlanta summit, it was decided to integrate the TOSCA project into the Heat project and now there is an official definition of the TOSCA 2.0 specification based on YAML. Our goal is to use the TOSCA 2.0 specification as the official templating language for Cloudify instead of our current TOSCA like DSL. </p>
+
+  <h3><strong>Integrating with OpenStack Heat</strong></h3>
+
+  <p>OpenStack is growing, and with this the services that are included as part of the core OpenStack project continue to grow up the stack. One of these services is OpenStack Heat, which started as the equivalent of Amazon Cloud Formation, and is becoming more of a general purpose infrastructure orchestration these days.</p>
+
+  <p>We realized that since Heat is closely integrated with OpenStack it will follow the OpenStack release cycles and API, and therefore would provide a useful tool for setting up the OpenStack infrastructure. The approach that we have taken with Heat is an "overlay approach". This means that users can use Heat as they do today to set up their infrastructure. Then, Cloudify integrates with Heat in a way that will allow it to discover any resource that was provisioned through Heat, and ultimately add the monitoring, logging and software stack on top of that environment.&#160; </p>
+
+  <h3><strong>Integrating with Neutron - Network Orchestration</strong></h3>
+
+  <p>Networking becomes a core service in any cloud deployment. Networking refers to an element such as security-group, private IP, floating IP as well as routers, DNS, vLans, load balancers, and such. </p>
+
+  <p>Cloudify 2.7 included basic integration with Neutron that allows users to attach floating IPs and set the availability zone configuration. </p>
+
+  <p>With Cloduify 3.0, we included support for all the networking elements and can now create vLans, security groups and more, as part of the application deployment.</p>
+
+  <h3><strong>Design for Scale<strong></h3>
+
+  <p>Application orchestration often requires intimate and continuous integration with the application so that it can detect failure in sub-seconds and take corrective actions as needed. This often imposes a more complex scalability challenge.</p>
+
+  <p>Cloudify 2.x uses a hierarchy of managers, where each manager controls 100+ nodes as a scaling architecture. One of the things that we have experienced over the last year is that there is a growing class of services such as&#160; Big Data and NFV. With these services, a single service can be comprised out of more than 100s and potentially even 1000s of instances. This is why the manager of managers approach didn’t fit well to these use cases.</p>
+
+  <p>To enable scaling of 1000s of nodes per manager, we decided to use a message broker approach based on AMQP as well as to separate the provisioning, logging and real-time monitoring tasks into separate services that can scale independently. This allows us to also control the level of intimacy between the Cloudify manager and the application services. As an example, we can tune Cloudify to handle the provisioning and logging only, and use the real-time information that has already been gathered by the infrastructure. This is especially important in the context of OpenStack, as we expect that a large part of the metrics can be gathered through the infrastructure itself.</p>
+
+  <h3><strong>Integrating your DevOps toolchain of choice </strong></h3>
+
+  <p>One thing that has become clear through the various <a href="http://getcloudify.org/2014/05/19/openstack-statistics.html">OpenStack statistics</a> based on their annual survey, is that many of the OpenStack users are using a toolchain that is comprised of tools available through OpenStack infrastructure, as well as tools that are not specific to OpenStack such as Docker, Chef, Puppet, Ansible, JClouds and others. </p>
+
+  <p>Integrating all these tools as part of a deployment system becomes a fairly complex task that can takes weeks and even months. </p>
+
+  <p>We realized that if we want to provide a full lifecycle management of the application, it wouldn’t be right to force a particular stack or toolchain on a user, but rather provide an open pluggable architecture that could enable you to easily integrate your choice of tools into the same deployment.</p>
+
+  <p>With Cloudify 2.x we included support for Chef, Puppet and also had a cloud driver that allows us to integrate with various cloud infrastructures, as well as with tools like JClouds.</p>
+
+  <p>With Cloudify 3.x we created a more generic plugin architecture that allows users to plug in almost any element of their application, starting from the cloud plugin to configuration management, orchestration, monitoring etc.</p>
+
+  <p>To make this simple we included a Bash plugin that provides a simple framework for integration with external tools, just by pointing the plugin to the relevant Bash script.</p>
+
+  <h3><strong>Final Notes</strong></h3>
+
+  <p>In this post I thought sharing the story behind the scenes that we went through to make Cloudify OpenStack native, and the rationale and decision process behind them, would be relevant to other users that are considering their OpenStack strategy.&#160; Especially for those still deciding how deep they should integrate with OpenStack. </p>
+
+  <p>The good news is that, it is quite possible to integrate natively with OpenStack without limiting yourself only to OpenStack. Having said that, the initial investment required to get there is quite big. I hope that this lesson from our own experience will save others time.</p></p>
+
+</notextile>
