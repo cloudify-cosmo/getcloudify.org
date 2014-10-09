@@ -156,19 +156,33 @@ The workflow execution status is stored in the `status` field of the Execution o
 
 # Built-in Workflows
 
-Cloudify comes with a number of built-in workflows - currently these are the workflows for application *install* and *uninstall*, but more are exepcted in future releases. 
+Cloudify comes with a number of built-in workflows - currently these are the workflows for application *install* and *uninstall*, as well as a generic workflow for executing operations called *execute_operation*.
 
 Built-in workflows are declared and mapped in the blueprint in [`types.yaml`]({{page.types_yaml_link}}), which is usually imported either directly or indirectly via other imports.
 
 {% highlight yaml %}
 # snippet from types.yaml
 workflows:
-    install: workflows.default.install
-    uninstall: workflows.default.uninstall
+    install: default_workflows.cloudify.plugins.workflows.install
+    uninstall: default_workflows.cloudify.plugins.workflows.uninstall
+    execute_operation:
+        mapping: default_workflows.cloudify.plugins.workflows.execute_operation
+        parameters:
+            operation: {}
+            operation_kwargs:
+                default: {}
+            run_by_dependency_order:
+                default: false
+            type_names:
+                default: []
+            node_ids:
+                default: []
+            node_instance_ids:
+                default: []
 {% endhighlight %}
 
 
-The `workflows.default.install` and `workflows.default.uninstall` implementations can be found at [`workflows/default.py`]({{page.default_workflows_source_link}}).
+The implementations for these workflows can be found at [`workflows/default.py`]({{page.default_workflows_source_link}}).
 
 Built-in workflows are not special in any way - they use the same API and framework as any custom workflow is able to use, and one may replace them with different workflows with the same names.
 
