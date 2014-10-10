@@ -103,6 +103,9 @@ A node instance(#node-instance) which is not in either the `uninitialized` or `d
 ### **Manager**
 See the definition [here]({{page.arch_link}}#the-manager-orchestrator).
 
+### **Manager Blueprints**
+Standard Cloudify blueprints which are used to bootstrap a Cloudify manager on various providers and/or scenarios.
+
 ### **Node**
 A Node is one type of component in a [topology](#topology).
 
