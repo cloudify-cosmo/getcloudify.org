@@ -6,7 +6,7 @@ publish: true
 abstract: A quick tutorial for getting started with Cloudify and deploying your first blueprint on OpenStack
 pageord: 200
 
-installation_openstack_link: installation-openstack-provider.html
+reference_openstack_manager_link: reference-openstack-manager.html
 ---
 {%summary%}{{page.abstract}}{%endsummary%}
 
@@ -233,4 +233,4 @@ This will terminate the manager VM and delete the resources associated with it.
 
 # What's Next
 
-For a more elaborate installation tutorial, please refer to the [Openstack Installation Guide]({{page.installation_openstack_link}}).
+For a more elaborate installation tutorial, please refer to the [Openstack Installation Guide]({{page.reference_openstack_manager_link}}).

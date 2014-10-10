@@ -10,7 +10,7 @@ windows_link: http://gigaspaces-repository-eu.s3.amazonaws.com/org/cloudify3/3.0
 linux32_link: http://gigaspaces-repository-eu.s3.amazonaws.com/org/cloudify3/3.0.0/nightly_6/cloudify-cli_3.0.0-ga-b6_i386.deb
 linux64_link: http://gigaspaces-repository-eu.s3.amazonaws.com/org/cloudify3/3.0.0/nightly_6/cloudify-cli_3.0.0-ga-b6_amd64.deb
 venv_link: http://virtualenv.readthedocs.org/en/latest/
-simple_install_link: installation-simple-provider.html
+installation_bootstrapping_link: installation-bootstrapping.html
 ---
 {%summary%}{{page.abstract}}{%endsummary%}
 
@@ -114,5 +114,4 @@ export CPPFLAGS=-Qunused-arguments
 
 # What's Next
 
-* Now that you know the requirements and have the CLI installed, you can bootstrap your own manager [on an existing VM]({{page.simple_install_link}}).
-* For Cloud specific installation see the bootstrap manuals for each cloud provider under the Installation section.
+* Now that you know the requirements and have the CLI installed, you can [bootstrap your own manager]({{ page.installation_bootstrapping_link }})
