@@ -68,7 +68,7 @@ For each node, for each node instance (in parallel):
 
   - *operation*: The name of the operation to execute (**Mandatory**).
   - *operation_kwargs*: A dictionary of keyword arguments that will be passed to the operation invocation (Default: `{}`).
-  - *run_by_dependency_order*: A boolean describing whether the operation should execute on the relevant nodes according to the order of their relationships dependencies or rather execute on all relevant nodes in parallel (Default: `False`).
+  - *run_by_dependency_order*: A boolean describing whether the operation should execute on the relevant nodes according to the order of their relationships dependencies or rather execute on all relevant nodes in parallel (Default: `false`).
   - *type_names*: A list of type names. The opreation will be executed only on node instances which are of these types or of types which (recursively) derive from them. An empty list means no filtering will take place and all type names are valid (Default: `[]`).
   - *node_ids*: A list of node ids. The operation will be executed only on node instances which are instances of these nodes. An empty list means no filtering will take place and all nodes are valid (Default: `[]`).
   - *node_instance_ids*: A list of node instance ids. The operation will be executed only on the node instances specified. An empty list means no filtering will take place and all node instances are valid (Default: `[]`).
@@ -90,7 +90,7 @@ For each node, for each node instance:
   2. Filter out instances whose id is not in the *node_instance_ids* list (unless its empty).
   3. Filter out instances whose node type is not in or a descendant of a type which is in the type_names list (unless its empty).
 
-If *run_by_dependency_order* is set to True:
+If *run_by_dependency_order* is set to `true`:
 	create a task dependency between the following section's (1) task for a given instance and the (3) task for all instances it depends on.<sup>1</sup>
 
 For each of the remaining node instances:
