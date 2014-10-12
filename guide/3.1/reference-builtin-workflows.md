@@ -78,7 +78,7 @@ The various filtering fields - *type_names*, *node_ids*, *node_instance_ids* - w
 {%endnote%}
 
 {%warning title=Warning%}
-Executing an operation on a node which has that interface operation but has not mapped it to any concrete implementation will simply do nothing. However, attempting to executing an operation on a node which doesn't have the relevant interface operation will result in a workflow execution error.
+Executing an operation on a node which has that interface operation but has not mapped it to any concrete implementation will simply do nothing. However, attempting to execute an operation on a node which doesn't have the relevant interface operation will result in a workflow execution error.
 Use the filtering fields to ensure the operation is only executed on nodes which the operation might be relevant to.
 {%endwarning%}
 
