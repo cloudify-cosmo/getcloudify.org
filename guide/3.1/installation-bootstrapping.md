@@ -15,7 +15,7 @@ pageord: 400
 Navigate to a directory of your choosing, and initialize it as a Cloudify CLI working directory using this command:
 
 {% highlight sh %}
-`cfy init`
+cfy init
 {%endhighlight%}
 
 
@@ -28,7 +28,7 @@ First, clone the [Cloudify-Manager-Blueprints](https://github.com/cloudify-cosmo
 Second, if the selected manager blueprint has a *requirements.txt* file, install any requirements the selected manager blueprint has in the following manner:
 
 {% highlight sh %}
-`pip install -r /path/to/requirements.txt`
+pip install -r /path/to/requirements.txt
 {%endhighlight%}
 
 
@@ -37,7 +37,7 @@ Next, create an inputs JSON file. This file will serve as the configuration for 
 Finally, run the `cfy bootstrap` command, pointing it to the manager blueprint file and the inputs JSON file, like so:
 
 {% highlight sh %}
-`cfy bootstrap -p /path/to/manager/blueprint/file -i /path/to/inputs/json/file`
+cfy bootstrap -p /path/to/manager/blueprint/file -i /path/to/inputs/json/file
 {%endhighlight%}
 
 
