@@ -124,7 +124,9 @@ The type has interfaces with operations (hooks) that are implemented using plugi
 Plugins are python facades for API's and tools you would like to use (such as IaaS compute API or tools like Chef and Puppet).
 
 In this case you see 2 plugins:
+
 - worker_installer: a manager side plugin that is responsible for SSH-ing into the host and deploying the Cloudify agent.
+
 - plugin_installer: an agent side plugin that installs the agent plugins used in this blueprint on the current agent.
 
 in order to use the worker_installer, we will need a private key file on our manager host (this happens as part of the manager creation process).
@@ -134,12 +136,12 @@ The `host` type also declares a configuration schema (properties that must have 
 now let's add the nodejs_vm node that uses the type:
 
 {%highlight yaml%}
-	-   name: nodejs_vm
-      type: cloudify.types.host
-      properties:
-          ip: 127.0.0.1
-          cloudify_agent:
-              key: /home/vagrant/.ssh/cloudify_private_key
+    -   name: nodejs_vm
+        type: cloudify.types.host
+        properties:
+            ip: 127.0.0.1
+            cloudify_agent:
+                key: /home/vagrant/.ssh/cloudify_private_key
 
 
 {%endhighlight%}
@@ -147,13 +149,18 @@ now let's add the nodejs_vm node that uses the type:
 
 
 The above yaml snippet specifies an anonymous yaml map with the following keys:
-name - the name of the node (in this case nodejs_host)
-type - the type of component this node is an instance-of.
-properties - the configuration of this instance.
+
+- name - the name of the node (in this case nodejs_host)
+
+- type - the type of component this node is an instance-of.
+
+- properties - the configuration of this instance.
 
 Under properties you can see 2 key-value pairs:
-ip - in this case it is localhost as we are installing the agent on the local host - that is, only simulating another host.
-cloudify_agent - is a sub-map with the agent configuration. This is where we specify the private key path.
+
+- ip - in this case it is localhost as we are installing the agent on the local host - that is, only simulating another host.
+
+- cloudify_agent - is a sub-map with the agent configuration. This is where we specify the private key path.
 
 
 ## Step 3: Adding a Host for MongoDB
@@ -163,12 +170,12 @@ cloudify_agent - is a sub-map with the agent configuration. This is where we spe
 In a similar manner we will now add the mongod_vm node (it is a simple copy and paste with a different name):
 
 {%highlight yaml%}
-	-   name: mongod_vm
-	    type: cloudify.types.host
-      properties:
-          ip: 127.0.0.1
-          cloudify_agent:
-              key: /home/vagrant/.ssh/cloudify_private_key
+    -   name: mongod_vm
+        type: cloudify.types.host
+        properties:
+            ip: 127.0.0.1
+            cloudify_agent:
+                key: /home/vagrant/.ssh/cloudify_private_key
 
 {%endhighlight%}
 
@@ -194,9 +201,9 @@ imports:
 Now we can declare the mongod node:
 
 {%highlight yaml%}
-- name: mongod
-      type: cloudify.bash.db_server
-      properties:
+    -   name: mongod
+        type: cloudify.bash.db_server
+        properties:
             role: mongod
             port: 27017
             scripts:
@@ -222,11 +229,11 @@ We have just declared a mongod node of type cloudify.bash.db_server. This type d
 {%highlight yaml%}
 
 types:
-	mongo_database:
-	        derived_from: cloudify.types.bash.db_server
-	        properties:
-	            -   role
-	            -   port
+    mongo_database:
+        derived_from: cloudify.types.bash.db_server
+        properties:
+            -   role
+            -   port
 
 {%endhighlight%}
 
@@ -234,10 +241,9 @@ So now our mongod node will look like this:
 
 
 {%highlight yaml%}
-
-- name: mongod
-      type: mongo_database
-      properties:
+    -   name: mongod
+        type: mongo_database
+        properties:
             role: mongod
             port: 27017
             scripts:
@@ -247,27 +253,21 @@ So now our mongod node will look like this:
 
 {%endhighlight%}
 
-
-
-
-
-
-
 Finally we need to add the mongod relationships. This node has only one relationship - it is contained in the mongod_host node (In reality it is not in this deployment as the host is a mock)
 
 {%highlight yaml%}
-- name: mongod
-      type: mongo_database
-      properties:
+    -   name: mongod
+        type: mongo_database
+        properties:
             role: mongod
             port: 27017
             scripts:
                 create: mongo-scripts/install-mongo.sh
                 start: mongo-scripts/start-mongo.sh
                 stop: mongo-scripts/stop-mongo.sh
-      relationships:
-        - target: mongod_vm
-          type: cloudify.relationships.contained_in
+        relationships:
+            -   target: mongod_vm
+                type: cloudify.relationships.contained_in
 
 {%endhighlight%}
 
@@ -278,14 +278,14 @@ Finally we need to add the mongod relationships. This node has only one relation
 Now we can declare the nodejs node:
 
 {%highlight yaml%}
-- name: nodejs
-      type: cloudify.types.bash.app_server
-      properties:
+    -   name: nodejs
+        type: cloudify.types.bash.app_server
+        properties:
             scripts:
                 create: nodejs-scripts/install-nodejs.sh
-      relationships:
-        - type: cloudify.relationships.contained_in
-          target: nodejs_vm
+        relationships:
+            -   type: cloudify.relationships.contained_in
+                target: nodejs_vm
 
 {%endhighlight%}
 
@@ -300,21 +300,21 @@ It uses the same type of relationship (cloudify.relationships.contained_in
 We can refine this node as well by using a subtype in case we want specific properties in the future. The subtype will look like this:
 
 {%highlight yaml%}
-nodejs_server:
+    nodejs_server:
         derived_from: cloudify.types.bash.app_server
 {%endhighlight%}
 
 as a result the final version of the nodejs node is:
 
 {%highlight yaml%}
-- name: nodejs
-      type: nodejs_server
-      properties:
+    -   name: nodejs
+        type: nodejs_server
+        properties:
             scripts:
                 create: nodejs-scripts/install-nodejs.sh
-      relationships:
-        - type: cloudify.relationships.contained_in
-          target: nodejs_vm
+        relationships:
+            -   type: cloudify.relationships.contained_in
+                target: nodejs_vm
 
 {%endhighlight%}
 
@@ -343,9 +343,9 @@ nodejs_app:
 And now we can add the node in the nodes list
 
 {%highlight yaml%}
- - name: nodecellar_app
-      type: nodejs_app
-      properties:
+    -   name: nodecellar_app
+        type: nodejs_app
+        properties:
             app_name: nodecellar
             startup_script: server.js
             git_url: https://github.com/uric/nodecellar.git
@@ -357,9 +357,9 @@ And now we can add the node in the nodes list
                 create: nodejs-scripts/install-app.sh
                 start: nodejs-scripts/start-app.sh
                 stop: nodejs-scripts/stop-app.sh
-      relationships:
-        - type: cloudify.relationships.contained_in
-          target: nodejs
+        relationships:
+            -   type: cloudify.relationships.contained_in
+                target: nodejs
 
 {%endhighlight%}
 
@@ -399,9 +399,9 @@ relationships:
 Now lets make use of this relationship in the nodecellar_app node.
 
 {%highlight yaml%}
-- name: nodecellar_app
-      type: nodejs_app
-      properties:
+    -   name: nodecellar_app
+        type: nodejs_app
+        properties:
             app_name: nodecellar
             startup_script: server.js
             git_url: https://github.com/uric/nodecellar.git
@@ -413,11 +413,11 @@ Now lets make use of this relationship in the nodecellar_app node.
                 create: nodejs-scripts/install-app.sh
                 start: nodejs-scripts/start-app.sh
                 stop: nodejs-scripts/stop-app.sh
-      relationships:
-        - type: cloudify.relationships.contained_in
-          target: nodejs
-        - type: nodecellar_connected_to_mongo
-          target: mongod
+        relationships:
+            -   type: cloudify.relationships.contained_in
+                target: nodejs
+            -   type: nodecellar_connected_to_mongo
+                target: mongod
 
 {%endhighlight%}
 
