@@ -35,7 +35,7 @@ node_templates:
         type: cloudify.types.web_server
         interfaces:
             cloudify.interfaces.lifecycle:
-                - start: scripts/start.sh
+                start: scripts/start.sh
 {%endhighlight%}
 
 `scripts/start.sh`
@@ -52,8 +52,8 @@ First, notice how the `cloudify.interface.lifecycle.start` operation is mapped d
 interfaces:
     cloudify.interfaces.lifecycle:
         start:
-            mapping: script.script_runner.tasks.run
-            properties:
+            implementation: script.script_runner.tasks.run
+            inputs:
                 script_path: scripts/start.sh
 {%endhighlight%}
 
@@ -102,9 +102,9 @@ node_templates:
         type: cloudify.types.web_server
         interfaces:
             cloudify.interfaces.lifecycle:
-                - start:
-                    mapping: scripts/start.sh
-                    properties:
+                start:
+                    implementation: scripts/start.sh
+                    inputs:
                         process:
                             # this directory should already exist
                             cwd: /tmp/workdir
@@ -144,7 +144,7 @@ node_templates:
                 port: 8080
             interfaces:
                 cloudify.interfaces.lifecycle:
-                    - start: scripts/start.py
+                    start: scripts/start.py
 {%endhighlight%}
 
 `scripts/start.py`
@@ -160,9 +160,9 @@ If you a want a script to get evaluated as python and it does not have a `.py` e
 {% highlight yaml %}
 interfaces:
     cloudify.interfaces.lifecycle:
-        - start:
-            mapping: script/my_python_script
-            properties:
+        start:
+            implementation: script/my_python_script
+            inputs:
                 process:
                     eval_python: true
 {%endhighlight%}
@@ -183,9 +183,9 @@ node_templates:
           type: cloudify.types.web_server
           interfaces:
               cloudify.interfaces.lifecycle:
-                  - start:
-                      mapping: scripts/start.rb
-                      properties:
+                  start:
+                      implementation: scripts/start.rb
+                      inputs:
                           process:
                               command_prefix: /opt/ruby/bin/ruby
 {%endhighlight%}
@@ -204,9 +204,9 @@ node_templates:
         type: cloudify.types.web_server
         interfaces:
             cloudify.interfaces.lifecycle:
-                - start:
-                    mapping: scripts/start.ps1
-                    properties:
+                start:
+                    implementation: scripts/start.ps1
+                    inputs:
                         process:
                             command_prefix: powershell
 {%endhighlight%}
@@ -250,12 +250,12 @@ node_templates:
     node1
         type: cloudify.types.base
         interfaces:
-            - custom:
+            custom:
                 touch: scripts/touch.py
     node2
         type: cloudify.types.base
         interfaces:
-            - custom:
+            custom:
                 touch: scripts/touch.py
 
 workflows:

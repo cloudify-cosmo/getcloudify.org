@@ -77,7 +77,9 @@ types:
     derived_from: cloudify.types.web_server
     interfaces:
       cloudify.interfaces.lifecycle:
-        - start: bash_runner.tasks.run
+        start: 
+            implementation: bash_runner.tasks.run
+            inputs: {}
     properties:
         - scripts
 
