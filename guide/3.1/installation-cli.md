@@ -112,6 +112,20 @@ export CPPFLAGS=-Qunused-arguments
 
 {% endnote %}
 
+# Installing a Milestone Release
+
+In order to install a Cloudify milestone release the CLI needs to be installed with its requirements manually from the requested version tag.
+
+For example, the following commands install Cloudify 3.1m4 milestone release:
+
+{% highlight bash %}
+pip install https://github.com/cloudify-cosmo/cloudify-dsl-parser/archive/3.1m4.zip
+pip install https://github.com/cloudify-cosmo/cloudify-rest-client/archive/3.1m4.zip
+pip install https://github.com/cloudify-cosmo/cloudify-plugins-common/archive/3.1m4.zip
+pip install https://github.com/cloudify-cosmo/cloudify-cli/archive/3.1m4.zip
+{% endhighlight %}
+
+
 # What's Next
 
 * Now that you know the requirements and have the CLI installed, you can [bootstrap your own manager]({{ page.installation_bootstrapping_link }})
