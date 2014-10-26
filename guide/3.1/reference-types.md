@@ -13,7 +13,12 @@ terminology_link: reference-terminology.html
 # Abstract Types
 The following [types]({{page.terminology_link}}#type) are basic types from which concrete types with specific plugin implementations are derived.
 
-* `cloudify.types.base` - The base type for all built-in types. declares the `lifecycle interface`
+* `cloudify.types.base` - The base type for all built-in types. declares the following interfaces:
+
+  - `cloudify.interfaces.lifecycle`: An interface for standard life cycle operations (e.g. create, start, stop, etc.). Operations of this interface are called from the [built-in](reference-builtin-workflows.html) `install` and `uninstall` workflows.
+  - `cloudify.interfaces.validation`: An interface for pre-creation and pre-deletion validation operations. These may be called by using the `execute_operation` built-in workflow or by a custom workflow. The Cloudify CLI calls these operations before the bootstrap and teardown of the Cloudify manager.
+  - `cloudify-interfaces.monitoring`: An interface for monitoring. Operations of this interface are called from the [built-in](reference-builtin-workflows.html) `install` and `uninstall` workflows.
+
 
 * `cloudify.types.tier` - A marker for a future scale group
 
