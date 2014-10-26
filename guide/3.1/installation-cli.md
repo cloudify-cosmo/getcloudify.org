@@ -119,6 +119,8 @@ In order to install a Cloudify milestone release the CLI needs to be installed w
 For example, the following commands install Cloudify 3.1m4 milestone release:
 
 {% highlight bash %}
+# From within a Python virtualenv, run:
+
 pip install https://github.com/cloudify-cosmo/cloudify-dsl-parser/archive/3.1m4.zip
 pip install https://github.com/cloudify-cosmo/cloudify-rest-client/archive/3.1m4.zip
 pip install https://github.com/cloudify-cosmo/cloudify-plugins-common/archive/3.1m4.zip
