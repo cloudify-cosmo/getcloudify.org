@@ -27,7 +27,7 @@ types:
 
 In the above example the `cloudify.openstack.server` is refined in order to not have Cloudify install an agent on each instance.
 
-Note: you can decalre first level properties schema in a type. This will ensure that type implementation will have to include this property
+Note: you can declare first level properties schema in a type. This will ensure that type implementation will have to include this property
 for example, the `cloudify.openstack.server` type declares the `server` property that any instance must have. this property is a map where all instance properties should be decalred by the instance (type implementation)
 
 
@@ -41,11 +41,19 @@ cloudify.openstack.server:
             - neutron_config: {}
         interfaces:
             cloudify.interfaces.lifecycle:
-                - start: nova_plugin.server.start
-                - stop: nova_plugin.server.stop
-                - delete: nova_plugin.server.delete
+                start: 
+                    implementation: nova_plugin.server.start
+                    inputs: {}
+                stop: 
+                    implementation: nova_plugin.server.stop
+                    inputs: {}
+                delete: 
+                    implementation: nova_plugin.server.delete
+                    inputs: {}
             cloudify.interfaces.host:
-                - get_state: nova_plugin.server.get_state
+                get_state: 
+                    implementation: nova_plugin.server.get_state
+                    inputs: {}
 
 {% endhighlight %}
 

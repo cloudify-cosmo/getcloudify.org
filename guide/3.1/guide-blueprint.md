@@ -101,15 +101,27 @@ types:
         derived_from: cloudify.types.base
         interfaces:
             cloudify.interfaces.worker_installer:
-                - install: worker_installer.tasks.install
-                - start: worker_installer.tasks.start
-                - stop: worker_installer.tasks.stop
-                - uninstall: worker_installer.tasks.uninstall
-                - restart: worker_installer.tasks.restart
+                install: 
+                    implementation: worker_installer.tasks.install
+                    inputs: {}
+                start: 
+                    implementation: worker_installer.tasks.start
+                    inputs: {}
+                stop: 
+                    implementation: worker_installer.tasks.stop
+                    inputs: {}
+                uninstall: 
+                    implementation: worker_installer.tasks.uninstall
+                    inputs: {}
+                restart: 
+                    implementation: worker_installer.tasks.restart
+                    inputs: {}
             cloudify.interfaces.plugin_installer:
-                - install: plugin_installer.tasks.install
+                install: 
+                    implementation: plugin_installer.tasks.install
+                    inputs: {}
             cloudify.interfaces.host:
-                - get_state
+                get_state
         properties:
             - install_agent: true
             - cloudify_agent: {}
@@ -391,7 +403,9 @@ relationships:
         derived_from: cloudify.relationships.connected_to
         source_interfaces:
             cloudify.interfaces.relationship_lifecycle:
-                - postconfigure: nodecellar_config_plugin.tasks.get_mongo_host_and_port
+                postconfigure: 
+                    implementation: nodecellar_config_plugin.tasks.get_mongo_host_and_port
+                    inputs: {}
 
 {%endhighlight%}
 
