@@ -117,7 +117,7 @@ Not a problem, the `ctx` object[(?)]({{page.terminology_link}}#context-object) w
 
 We can get the port property using the following code:
 {%highlight python%}
-webserver_port = ctx.properties['port']
+webserver_port = ctx.node.properties['port']
 {%endhighlight%}
 
 The updated start operation looks like this:
@@ -126,7 +126,7 @@ The updated start operation looks like this:
 @operation
 def start(ctx, **kwargs):
     # retrieve the port from the node's properties
-    webserver_port = ctx.properties['port']
+    webserver_port = ctx.node.properties['port']
 
     with open('/tmp/index.html', 'w') as f:
         f.write('<p>Hello Cloudify!</p>')
@@ -156,9 +156,9 @@ def start(ctx, **kwargs):
     webserver_root = tempfile.gettempdir()
     # we're adding a property which is set during runtime to the runtime
     # properties of that specific node instance
-    ctx.runtime_properties['webserver_root'] = webserver_root
+    ctx.instance.runtime_properties['webserver_root'] = webserver_root
 
-    webserver_port = ctx.properties['port']
+    webserver_port = ctx.node.properties['port']
 
     with open(os.path.join(webserver_root, 'index.html'), 'w') as f:
         f.write('<p>Hello Cloudify!</p>')
@@ -174,7 +174,7 @@ def start(ctx, **kwargs):
 def stop(ctx, **kwargs):
     # setting this runtime property allowed us to refer to properties which
     # are set during runtime from different time in the node instance's lifecycle
-    webserver_root = ctx.runtime_properties['webserver_root']
+    webserver_root = ctx.instance.runtime_properties['webserver_root']
     try:
         with open(os.path.join(webserver_root, 'python-webserver.pid'), 'r') as f:
             pid = f.read()
@@ -191,7 +191,7 @@ In any case where it is important to immediately save runtime properties to Clou
 For example:
 
 {%highlight python%}
-ctx.runtime_properties['prop1'] = 'This should be updated immediately!'
+ctx.instance.runtime_properties['prop1'] = 'This should be updated immediately!'
 ctx.update()
 {%endhighlight%}
 
@@ -232,9 +232,9 @@ def verify_server_is_up(port):
 @operation
 def start(ctx, **kwargs):
     webserver_root = tempfile.gettempdir()
-    ctx.runtime_properties['webserver_root'] = webserver_root
+    ctx.instance.runtime_properties['webserver_root'] = webserver_root
 
-    webserver_port = ctx.properties['port']
+    webserver_port = ctx.node.properties['port']
 
     with open(os.path.join(webserver_root, 'index.html'), 'w') as f:
         f.write('<p>Hello Cloudify!</p>')
@@ -293,9 +293,9 @@ The `ctx` context object contains contextual parameters mirrored from the bluepr
 
 ### Properties context objects
 
-* `ctx.id` - The unique ID of the node's intance[(?)]({{page.terminology_link}}#node-instance).
-* `ctx.properties` - The properties[(?)]({{page.terminology_link}}#properties) of the node as declared under the `properties` dict.
-* `ctx.runtime_properties` - The properties[(?)]({{page.terminology_link}}#runtime-properties) that are assigned to a **node's instance** at runtime. These properties are either populated by the plugin itself (for instance, an automatically generated port that the plugin exposes when it's run), or are generated prior to the invocation of the plugin (for instance, the ip of the machine the plugin is running on).
+* `ctx.instance.id` - The unique ID of the node's intance[(?)]({{page.terminology_link}}#node-instance).
+* `ctx.node.properties` - The properties[(?)]({{page.terminology_link}}#properties) of the node as declared under the `properties` dict.
+* `ctx.instance.runtime_properties` - The properties[(?)]({{page.terminology_link}}#runtime-properties) that are assigned to a **node's instance** at runtime. These properties are either populated by the plugin itself (for instance, an automatically generated port that the plugin exposes when it's run), or are generated prior to the invocation of the plugin (for instance, the ip of the machine the plugin is running on).
 
 ### Utility context objects
 

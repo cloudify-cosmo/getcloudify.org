@@ -142,17 +142,16 @@ from cloudify.decorators import operation
 * Implement the operation
 The `ctx` argument is an instance of `CloudifyContext`. This class exposes several key properties to the developer:
 
-* `node_id` - unique id for the currenrt node
-* `node_name` - node name in the blueprint
-* `properties` - the node properties as specified in the blueprint YAML files (Read only)
-* `runtime_properties` - runtime properties map for retrieving runtime information to the manager and share with other nodes (read only)
+* `instance.id` - unique id for the currenrt node instance
+* `node.name` - node name in the blueprint
+* `node.properties` - the node properties as specified in the blueprint YAML files (Read only)
+* `instance.runtime_properties` - runtime properties map for retrieving runtime information to the manager and share with other nodes (read only)
 
 * `capabilities` -  dependency nodes runtime properties for example db connection string if the current node has relationship to a db
 
-* `related` - The related node (targer node) in a relationship.
 * `logger` - the logger to use (enriches log entires with relevant context and writes to RabbitMQ)
-* `blueprint_id` - The blueprint id the plugin invocation belongs to.
-* `deployment_id` - The deployment id the plugin invocation belongs to
+* `blueprint.id` - The blueprint id the plugin invocation belongs to.
+* `deployment.id` - The deployment id the plugin invocation belongs to
 * `execution_id` -  The workflow execution id the plugin invocation was requested from.
   This is a unique value which identifies a specific workflow execution.
  * `workflow_id` - The workflow id the plugin invocation was requested from.
@@ -169,8 +168,8 @@ The `ctx` argument is an instance of `CloudifyContext`. This class exposes sever
 Use the `properties` to get access to node:
 
 {% highlight python %}
-if 'scripts' in ctx.properties:
-    scripts = ctx.properties['scripts']
+if 'scripts' in ctx.node.properties:
+    scripts = ctx.node.properties['scripts']
         
 {% endhighlight %}
 
@@ -179,7 +178,7 @@ Use the context as a map to write runtime properties.
 In this example a property of ip is added to a host node.
 
 {% highlight python %}
-ctx['ip'] = manager_network_ip
+ctx.instance.runtime_properties['ip'] = manager_network_ip
 {% endhighlight %}
 
 ### Getting access to files

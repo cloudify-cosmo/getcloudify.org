@@ -152,7 +152,7 @@ node_templates:
 from cloudify import ctx
 
 ctx.logger.info('Just logging the web server port: {0}'
-                .format(ctx.properties['port']))
+                .format(ctx.node.properties['port']))
 {%endhighlight%}
 
 If you a want a script to get evaluated as python and it does not have a `.py` extension, you can specify this explicity with the `eval_python` process configuration.
@@ -273,7 +273,7 @@ Next, let's write the `touch.py` script. Notice that this script ends with a `.p
 from cloudify import ctx
 from cloudify.state import ctx_parameters as p
 
-ctx.runtime_properties['touched'] = p.touched_value
+ctx.instance.runtime_properties['touched'] = p.touched_value
 {%endhighlight%}
 
 This script will update the `touched` runtime property of the current node instance with an expected property `touched_value` that will be injected by the workflow executing this operation.
@@ -353,24 +353,24 @@ Now that we know that the last argument is a dict, as the above demonstrates, if
 {% highlight bash %}
 #! /bin/bash
 # read access
-ctx properties application_name
-ctx related runtime-properties username
-ctx runtime-properties endpoint.port
-ctx runtime-properties endpoint.urls[2]
+ctx node properties application_name
+ctx target instance runtime-properties username
+ctx instance runtime-properties endpoint.port
+ctx instance runtime-properties endpoint.urls[2]
 
 # write access
-ctx runtime-properties my_property my_value
-ctx runtime-properties my_properties.my_nested_property nested_value
+ctx instance runtime-properties my_property my_value
+ctx instance runtime-properties my_properties.my_nested_property nested_value
 {%endhighlight%}
 Translates to
 {% highlight python %}
-ctx.properties['application_name']
-ctx.related.runtime_properties['username']
-ctx.runtime_properties['endpoint']['port']
-ctx.runtime_properties['endpoint']['urls'][2]
+ctx.node.properties['application_name']
+ctx.target.instance.runtime_properties['username']
+ctx.instance.runtime_properties['endpoint']['port']
+ctx.instance.runtime_properties['endpoint']['urls'][2]
 
-ctx.runtime_properties['my_property'] = 'my_value'
-ctx.runtime_properties['my_properties']['my_nested_property'] = 'nested_value'
+ctx.instance.runtime_properties['my_property'] = 'my_value'
+ctx.instance.runtime_properties['my_properties']['my_nested_property'] = 'nested_value'
 {%endhighlight%}
 
 Once a dict attribute is discovered during the attribute search the following logic applies:
@@ -385,11 +385,11 @@ Sometimes you want to pass arguments that are not strings - for example setting 
 
 {% highlight bash %}
 #! /bin/bash
-ctx runtime-properties number_of_clients @14
+ctx instance runtime-properties number_of_clients @14
 {%endhighlight%}
 Translates to
 {% highlight python %}
-ctx.runtime_properties['number_of_clients'] = 14  # instead of = '14'
+ctx.instance.runtime_properties['number_of_clients'] = 14  # instead of = '14'
 {%endhighlight%}
 
 ## Returning a value
