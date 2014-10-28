@@ -13,48 +13,48 @@ terminology_link: reference-terminology.html
 # Abstract Types
 The following [types]({{page.terminology_link}}#type) are basic types from which concrete types with specific plugin implementations are derived.
 
-* `cloudify.types.base` - The base type for all built-in types. declares the following interfaces:
+* `cloudify.nodes.Root` - The base type for all built-in types. declares the following interfaces:
 
   - `cloudify.interfaces.lifecycle`: An interface for standard life cycle operations (e.g. create, start, stop, etc.). Operations of this interface are called from the [built-in](guide-workflows.html#built-in-workflows) [*install*](reference-builtin-workflows.html#install) and [*uninstall*](reference-builtin-workflows.html#uninstall) workflows.
   - `cloudify.interfaces.validation`: An interface for pre-creation and pre-deletion validation operations. These may be called by using the [*execute_operation*](reference-builtin-workflows.html#execute-operation) built-in workflow or by a [custom workflow](guide-workflows.html#writing-a-custom-workflow). The Cloudify CLI calls these operations before the bootstrap and teardown of the Cloudify manager.
   - `cloudify-interfaces.monitoring`: An interface for monitoring. Operations of this interface are called from the [built-in](guide-workflows.html#built-in-workflows) [*install*](reference-builtin-workflows.html#install) and [*uninstall*](reference-builtin-workflows.html#uninstall) workflows.
 
 
-* `cloudify.types.tier` - A marker for a future scale group
+* `cloudify.nodes.Tier` - A marker for a future scale group
 
-* `cloudify.types.host` - A compute resource either a virtual or a physical host
+* `cloudify.nodes.Compute` - A compute resource either a virtual or a physical host
 
 
-* `cloudify.types.container` - A logical partition in a host such as [linux container](http://en.wikipedia.org/wiki/LXC) or [docker](https://www.docker.io/)
+* `cloudify.nodes.Container` - A logical partition in a host such as [linux container](http://en.wikipedia.org/wiki/LXC) or [docker](https://www.docker.io/)
 
-* `cloudify.types.network` - A virtual network
+* `cloudify.nodes.Network` - A virtual network
 
-* `clouydify.types.subnet` - A virtual segment of IP addresses in a network
+* `clouydify.nodes.Subnet` - A virtual segment of IP addresses in a network
 
-* `cloudify.types.router` - A virtual layer 3 router
+* `cloudify.nodes.Router` - A virtual layer 3 router
 
-* `cloudify.types.port` - An entry in a virtual subnet. Can be used in some clouds to secure a static private IP
+* `cloudify.nodes.Port` - An entry in a virtual subnet. Can be used in some clouds to secure a static private IP
 
-* `cloudify.types.virtual_ip` - A virtual IP implemented as [NAT](http://en.wikipedia.org/wiki/Network_address_translation) or in another manner
+* `cloudify.nodes.VirtualIP` - A virtual IP implemented as [NAT](http://en.wikipedia.org/wiki/Network_address_translation) or in another manner
 
-* `cloudify.types.security_group` - A cloud security group (VM network access rules)
+* `cloudify.nodes.SecurityGroup` - A cloud security group (VM network access rules)
 
-* `cloudify.types.load_balancer` - A virtualized Load Balancer
+* `cloudify.nodes.LoadBalancer` - A virtualized Load Balancer
 
-* `cloudify.types.volume` - A persistent block storage volume
+* `cloudify.nodes.Volume` - A persistent block storage volume
 
-* `cloudify.types.object_container` - A BLOB storage segment
+* `cloudify.nodes.ObjectStorage` - A BLOB storage segment
 
-* `cloudify.types.middleware_server` - A base type for all middleware level types
+* `cloudify.nodes.SoftwareComponent` - A base type for all middleware level types
 
-* `cloudify.types.web_server` - A web server
+* `cloudify.nodes.WebServer` - A web server
 	* properties:
 		* `port` - the webserver port
 
-* `cloudify.types.app_server` - An application server
+* `cloudify.nodes.ApplicationServer` - An application server
 
-* `cloudify.types.db_server` - a Database
+* `cloudify.nodes.DBMS` - a Database
 
-* `cloudify.types.message_bus_server` - a message bus server
+* `cloudify.nodes.MessageBugServer` - a message bus server
 
-* `cloudify.types.app_module` - a base type for any application module or artifact
+* `cloudify.nodes.ApplicationModule` - a base type for any application module or artifact

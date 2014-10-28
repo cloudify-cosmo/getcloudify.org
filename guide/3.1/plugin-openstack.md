@@ -28,16 +28,16 @@ Each object of any type (with the exception of Floating IP) has a name on Openst
 It is important to **ensure that Openstack names are unique** (for a given type): While Openstack technically allows for same name objects for any type except Server, having identical names for objects of the same type will lead to ambiguities and errors.
 {%endwarning%}
 
-## cloudify.openstack.server
+## cloudify.openstack.nodes.Server
 
-**Derived From:** [cloudify.types.host](reference-types.html)
+**Derived From:** [cloudify.nodes.Compute](reference-types.html)
 
 **Properties:**
 
 * `server` key-value server configuration as described in [OpenStack compute create server API](http://docs.openstack.org/api/openstack-compute/2/content/POST_createServer__v2__tenant_id__servers_CreateServers.html).
   * **Notes:**
     * The `nics` key must not be used. To connect the server to networks, the Server node should be connected to Network nodes and/or Port nodes via relationships. These will then be translated into the appropriate `nics` definitions automatically.
-    * The `key_name` key needs to match the private key file whose path is set at `cloudify_agent`'s `key` property (see [cloudify.types.host's properties](reference-types.html)). This should be the *agents-keypair* that was used in the bootstrap process. If the Cloudify bootstrap was done using Openstack Provider, there's no need to override this property, and it will be set automatically.
+    * The `key_name` key needs to match the private key file whose path is set at `cloudify_agent`'s `key` property (see [cloudify.nodes.Compute's properties](reference-types.html)). This should be the *agents-keypair* that was used in the bootstrap process. If the Cloudify bootstrap was done using Openstack Provider, there's no need to override this property, and it will be set automatically.
     * The server should use the agents security group. If Cloudify bootstrap wasn't done using the Openstack Provider, this group should be set by using the `security_groups` key. Otherwise, this group will be set for the server automatically, whether passed as part of the `security_groups` value or not (including the case where the `security_groups` key isn't passed at all).
   * **Sugaring:**
     * `image_name` will automatically resolve the Openstack name of an image into an `image_id`
@@ -55,16 +55,16 @@ This type has the property `neutron_config` as it requires communication with th
 {%endnote%}
 
 
-## cloudify.openstack.windows_server
+## cloudify.openstack.nodes.WindowsServer
 
-**Derived From:** [cloudify.openstack.server](#cloudifyopenstackserver)
+**Derived From:** [cloudify.openstack.nodes.Server](#cloudifyopenstackserver)
 
 This type has the same properties as the type above (as it derives from it). Use this type when working with a Windows server.
 
 
-## cloudify.openstack.subnet
+## cloudify.openstack.nodes.Subnet
 
-**Derived From:** [cloudify.types.subnet](reference-types.html)
+**Derived From:** [cloudify.nodes.Subnet](reference-types.html)
 
 **Properties:**
 
@@ -74,9 +74,9 @@ This type has the same properties as the type above (as it derives from it). Use
 * `neutron_config` see [Misc section - Openstack authentication](#openstack-authentication)
 
 
-## cloudify.openstack.security_group
+## cloudify.openstack.nodes.SecurityGroup
 
-**Derived From:** [cloudify.types.base](reference-types.html)
+**Derived From:** [cloudify.nodes.Root](reference-types.html)
 
 **Properties:**
 
@@ -90,9 +90,9 @@ This type has the same properties as the type above (as it derives from it). Use
 * `neutron_config` see [Misc section - Openstack authentication](#openstack-authentication)
 
 
-## cloudify.openstack.router
+## cloudify.openstack.nodes.Router
 
-**Derived From:** [cloudify.types.router](reference-types.html)
+**Derived From:** [cloudify.nodes.Router](reference-types.html)
 
 **Properties:**
 
@@ -104,9 +104,9 @@ This type has the same properties as the type above (as it derives from it). Use
 * `neutron_config` see [Misc section - Openstack authentication](#openstack-authentication)
 
 
-## cloudify.openstack.port
+## cloudify.openstack.nodes.Port
 
-**Derived From:** [cloudify.types.base](reference-types.html)
+**Derived From:** [cloudify.nodes.Root](reference-types.html)
 
 **Properties:**
 
@@ -116,9 +116,9 @@ This type has the same properties as the type above (as it derives from it). Use
 * `neutron_config` see [Misc section - Openstack authentication](#openstack-authentication)
 
 
-## cloudify.openstack.network
+## cloudify.openstack.nodes.Network
 
-**Derived From:** [cloudify.types.network](reference-types.html)
+**Derived From:** [cloudify.nodes.Network](reference-types.html)
 
 **Properties:**
 
@@ -126,9 +126,9 @@ This type has the same properties as the type above (as it derives from it). Use
 * `neutron_config` see [Misc section - Openstack authentication](#openstack-authentication)
 
 
-## cloudify.openstack.floatingip
+## cloudify.openstack.nodes.FloatingIP
 
-**Derived From:** [cloudify.types.base](reference-types.html)
+**Derived From:** [cloudify.nodes.Root](reference-types.html)
 
 **Properties:**
 
@@ -141,9 +141,9 @@ This type has the same properties as the type above (as it derives from it). Use
 * `neutron_config` see [Misc section - Openstack authentication](#openstack-authentication)
 
 
-## cloudify.openstack.volume
+## cloudify.openstack.nodes.Volume
 
-**Derived From:** [cloudify.types.volume](reference-types.html)
+**Derived From:** [cloudify.nodes.Volume](reference-types.html)
 
 **Properties:**
 
@@ -199,22 +199,22 @@ Example I
 The following is an excerpt from the blueprint's `blueprint`.`nodes` section:
 
 {% highlight yaml %}
-- name: my_floating_ip
-  type: cloudify.openstack.floatingip
+my_floating_ip:
+  type: cloudify.openstack.nodes.FloatingIP
   properties:
     floatingip:
       floating_network_name: Ext-Net
 
 
-- name: my_network
-  type: cloudify.openstack.network
+my_network:
+  type: cloudify.openstack.nodes.Network
   properties:
     network:
       name: my_network_openstack_name
 
 
-- name: my_subnet
-  type: cloudify.openstack.subnet
+my_subnet:
+  type: cloudify.openstack.nodes.Subnet
   properties:
     subnet:
       name: my_subnet_openstack_name
@@ -225,8 +225,8 @@ The following is an excerpt from the blueprint's `blueprint`.`nodes` section:
       type: cloudify.relationships.contained_in
 
 
-- name: my_security_group
-  type: cloudify.openstack.security_group
+my_security_group:
+  type: cloudify.openstack.nodes.SecurityGroup
   properties:
     security_group:
       name: my_security_group_openstack_name
@@ -235,8 +235,8 @@ The following is an excerpt from the blueprint's `blueprint`.`nodes` section:
         port: 8080
 
 
-- name: my_server
-  type: cloudify.openstack.server
+my_server:
+  type: cloudify.openstack.nodes.Server
   properties:
     - server:
         name: my_server_openstack_name
@@ -283,18 +283,18 @@ Example II
 {% endtogglecloak %}
 
 {% gcloak 2 %}
-The following is an excerpt from the blueprint's `blueprint`.`nodes` section:
+The following is an excerpt from the blueprint's `blueprint`.`node_templates` section:
 
 {% highlight yaml %}
-- name: my_network
-  type: cloudify.openstack.network
+my_network:
+  type: cloudify.openstack.nodes.Network
   properties:
     network:
       name: my_network_openstack_name
 
 
-- name: my_security_group
-  type: cloudify.openstack.security_group
+my_security_group:
+  type: cloudify.openstack.nodes.SecurityGroup
   properties:
     security_group:
       name: my_security_group_openstack_name
@@ -303,8 +303,8 @@ The following is an excerpt from the blueprint's `blueprint`.`nodes` section:
         port: 8080
 
 
-- name: my_subnet
-  type: cloudify.openstack.subnet
+my_subnet:
+  type: cloudify.openstack.nodes.Subnet
   properties:
     subnet:
       cidr: 1.2.3.0/24
@@ -317,8 +317,8 @@ The following is an excerpt from the blueprint's `blueprint`.`nodes` section:
       type: cloudify.openstack.subnet_connected_to_router
 
 
-- name: my_port
-  type: cloudify.openstack.port
+my_port:
+  type: cloudify.openstack.nodes.Port
   properties:
     port:
       name: my_port_openstack_name
@@ -331,15 +331,15 @@ The following is an excerpt from the blueprint's `blueprint`.`nodes` section:
       type: cloudify.openstack.port_connected_to_security_group
 
 
-- name: my_router
-  type: cloudify.openstack.router
+my_router:
+  type: cloudify.openstack.nodes.Router
   properties:
     router:
       name: my_router_openstack_Name
 
 
-- name: my_server
-  type: cloudify.openstack.server
+my_server:
+  type: cloudify.openstack.nodes.Server
   properties:
     - server:
         image: 8672f4c6-e33d-46f5-b6d8-ebbeba12fa02
@@ -379,21 +379,20 @@ Example III
 {% endtogglecloak %}
 
 {% gcloak 3 %}
-The following is an excerpt from the blueprint's `blueprint`.`nodes` section:
+The following is an excerpt from the blueprint's `blueprint`.`node_templates` section:
 
 {% highlight yaml %}
-- name: my_server
-  type: cloudify.openstack.server
+my_server:
+  type: cloudify.openstack.nodes.Server
   properties:
-    - server:
-        image: 8672f4c6-e33d-46f5-b6d8-ebbeba12fa02
-        flavor: 101
-    - cloudify_agent:
-        user: ubuntu
+    server:
+      image: 8672f4c6-e33d-46f5-b6d8-ebbeba12fa02
+      flavor: 101
+    cloudify_agent:
+      user: ubuntu
 
-
-- name: my_volume
-  type: cloudify.openstack.volume
+my_volume:
+  type: cloudify.openstack.nodes.Volume
   properties:
     volume:
       name: my_openstack_volume_name

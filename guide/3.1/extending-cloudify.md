@@ -13,14 +13,14 @@ Custom `node` & `relationship` types are needed in one of the following cases:
 * User wats to add a new implementation (meaning the new type will use a new plugin)
 * User wants to refine an existing type and use it with many type implementations instead of overriding a property in any type implementation (less error prone)
 
-Adding a type is easy! you just need to import a yaml file with a map named `types` where each type is a key-value entry. for example:
+Adding a type is easy! you just need to import a yaml file with a map named `node_types` where each type is a key-value entry. for example:
 
 {% highlight YAML %}
-types:
+node_types:
     my_type:
-        derived_from: cloudify.openstack.server
+        derived_from: cloudify.openstack.nodes.Server
         properties:
-            install_agent:false
+            install_agent: false
         # omitted for brevity
 
 {% endhighlight %}
@@ -28,17 +28,17 @@ types:
 In the above example the `cloudify.openstack.server` is refined in order to not have Cloudify install an agent on each instance.
 
 Note: you can declare first level properties schema in a type. This will ensure that type implementation will have to include this property
-for example, the `cloudify.openstack.server` type declares the `server` property that any instance must have. this property is a map where all instance properties should be decalred by the instance (type implementation)
+for example, the `cloudify.openstack.nodes.Server` type declares the `server` property that any instance must have. this property is a map where all instance properties should be decalred by the instance (type implementation)
 
 
 {% highlight YAML %}
-cloudify.openstack.server:
+cloudify.openstack.nodes.Server:
         derived_from: cloudify.types.host
         properties:
-            - server
-            - management_network_name: ''
-            - nova_config: {}
-            - neutron_config: {}
+            server: {}
+            management_network_name: ''
+            nova_config: {}
+            neutron_config: {}
         interfaces:
             cloudify.interfaces.lifecycle:
                 start: 

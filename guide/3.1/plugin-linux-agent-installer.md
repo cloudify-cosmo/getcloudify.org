@@ -28,26 +28,24 @@ on the agent machine, installing plugins required on this host and starting a ce
 The agent configuration is located under the `cloudify_agent` property of a host node.
 
 {% highlight yaml %}
-blueprint:
-  name: example
-  nodes:
-    - name: example_host
-      type: cloudify.types.host
-      properties:
-        cloudify_agent:
-          user:                             # no default value (globally configurable in bootstrap configuration)
-          key:                              # no default value (globally configurable in bootstrap configuration)
-          port: 22                          # default value (from bootstrap configuration)
-          min_workers: 2                    # default value (from bootstrap configuration)
-          max_workers: 5                    # default value (from bootstrap configuration)
-          wait_started_timeout: 15          # default value
-          wait_started_interval: 1          # default value
-          disable_requiretty: true          # default value
-          distro:                           # no default value (automatically resolved in run time)
-          celery_config_path:               # a resource provided with the manager by default
-          celery_init_path:                 # a resource provided with the manager by default
-          disable_requiretty_script_path:   # a resource provided with the manager by default
-          agent_package_path:               # a resource provided with the manager by default
+node_templates:
+  example_host:
+    type: cloudify.nodes.Compute
+    properties:
+      cloudify_agent:
+        user:                             # no default value (globally configurable in bootstrap configuration)
+        key:                              # no default value (globally configurable in bootstrap configuration)
+        port: 22                          # default value (from bootstrap configuration)
+        min_workers: 2                    # default value (from bootstrap configuration)
+        max_workers: 5                    # default value (from bootstrap configuration)
+        wait_started_timeout: 15          # default value
+        wait_started_interval: 1          # default value
+        disable_requiretty: true          # default value
+        distro:                           # no default value (automatically resolved in run time)
+        celery_config_path:               # a resource provided with the manager by default
+        celery_init_path:                 # a resource provided with the manager by default
+        disable_requiretty_script_path:   # a resource provided with the manager by default
+        agent_package_path:               # a resource provided with the manager by default
 {%endhighlight%}
 
 Agent Configuration:

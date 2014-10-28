@@ -26,7 +26,7 @@ For each node, for each node instance (in parallel):
 4. Execute `cloudify.interfaces.lifecycle.configure` operation.<sup>1</sup>
 5. Execute `cloudify.interfaces.relationship_lifecycle.postconfigure` relationship operations.<sup>2</sup>
 6. Execute `cloudify.interfaces.lifecycle.start` operation.<sup>1</sup>
-7. If the node instance is a host node (its type is a subtype of `cloudify.types.host`):
+7. If the node instance is a host node (its type is a subtype of `cloudify.nodes.Compute`):
     * Wait for host to be started. (Wait for `cloudify.interfaces.host.get_state` operation on the node instance to return `true`, if mapped, do nothing otherwise).
     * Install agent workers and required plugins on this host.
     * Execute `cloudify.interfaces.monitoring_agent` interface `install` and `start` operations. <sup>1</sup>
@@ -50,7 +50,7 @@ For each node, for each node instance (in parallel):
 
 1. Wait for dependent node instances to be deleted. Only start processing this node instance when the node instances dependent on it are stopped).
 2. Execute `cloudify.interfaces.monitoring.stop` operation. <sup>1</sup>
-3. If node instance is host node (its type is a subtype of `cloudify.types.host`):
+3. If node instance is host node (its type is a subtype of `cloudify.nodes.Compute`):
     * Execute `cloudify.interfaces.monitoring_agent` interface `stop` and `uninstall` operations. <sup>1</sup>
     * Stop and uninstall agent workers.
 4. Execute `cloudify.interfaces.lifecycle.stop` operation.<sup>1</sup>
