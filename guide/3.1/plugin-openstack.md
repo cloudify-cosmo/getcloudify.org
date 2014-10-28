@@ -17,11 +17,11 @@ For more information about OpenStack, please refer to: [https://www.openstack.or
 # Types
 
 {%tip title=Tip%}
-Each type (with the exception of `cloudify.openstack.volume`) has one or both of the properties `nova_config` and `neutron_config`. These can be used to pass parameters for authenticating with the requested Openstack services. However, if the Cloudify bootstrap was done using Openstack Provider in the current region, there's no need to override these properties, and the authentication will take place with the same credentials that were used for the Cloudify bootstrap process. For more information, see the [Misc section - Openstack authentication](#openstack-authentication).
+Each type (with the exception of `cloudify.openstack.nodes.Volume`) has one or both of the properties `nova_config` and `neutron_config`. These can be used to pass parameters for authenticating with the requested Openstack services. However, if the Cloudify bootstrap was done using Openstack Provider in the current region, there's no need to override these properties, and the authentication will take place with the same credentials that were used for the Cloudify bootstrap process. For more information, see the [Misc section - Openstack authentication](#openstack-authentication).
 {%endtip%}
 
 {%info title=Information%}
-Each object of any type (with the exception of Floating IP) has a name on Openstack. This name can be set using the `name` (`display_name` for `volume`) key under the relevant object property (e.g. `server` for `cloudify.openstack.server`, `subnet` for `cloudify.openstack.subnet`, etc.). If it isn't set, the Cloudify node ID will be used as the name.
+Each object of any type (with the exception of Floating IP) has a name on Openstack. This name can be set using the `name` (`display_name` for `volume`) key under the relevant object property (e.g. `server` for `cloudify.openstack.nodes.Server`, `subnet` for `cloudify.openstack.nodes.Subnet`, etc.). If it isn't set, the Cloudify node ID will be used as the name.
 {%endinfo%}
 
 {%warning title=Warning%}
