@@ -11,6 +11,7 @@ linux32_link: http://gigaspaces-repository-eu.s3.amazonaws.com/org/cloudify3/3.0
 linux64_link: http://gigaspaces-repository-eu.s3.amazonaws.com/org/cloudify3/3.0.0/nightly_6/cloudify-cli_3.0.0-ga-b6_amd64.deb
 venv_link: http://virtualenv.readthedocs.org/en/latest/
 installation_bootstrapping_link: installation-bootstrapping.html
+current_milestone: 3.1m5
 ---
 {%summary%}{{page.abstract}}{%endsummary%}
 
@@ -116,15 +117,15 @@ export CPPFLAGS=-Qunused-arguments
 
 In order to install a Cloudify milestone release the CLI needs to be installed with its requirements manually from the requested version tag.
 
-For example, the following commands install Cloudify 3.1m4 milestone release:
+For example, the following commands install Cloudify {{ page.current_milestone }} milestone release:
 
 {% highlight bash %}
 # From within a Python virtualenv, run:
 
-pip install https://github.com/cloudify-cosmo/cloudify-dsl-parser/archive/3.1m4.zip
-pip install https://github.com/cloudify-cosmo/cloudify-rest-client/archive/3.1m4.zip
-pip install https://github.com/cloudify-cosmo/cloudify-plugins-common/archive/3.1m4.zip
-pip install https://github.com/cloudify-cosmo/cloudify-cli/archive/3.1m4.zip
+pip install https://github.com/cloudify-cosmo/cloudify-dsl-parser/archive/{{ page.current_milestone }}.zip
+pip install https://github.com/cloudify-cosmo/cloudify-rest-client/archive{{ page.current_milestone }}.zip
+pip install https://github.com/cloudify-cosmo/cloudify-plugins-common/archive/{{ page.current_milestone }}.zip
+pip install https://github.com/cloudify-cosmo/cloudify-cli/archive/{{ page.current_milestone }}.zip
 {% endhighlight %}
 
 
