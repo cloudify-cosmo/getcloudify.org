@@ -1,7 +1,7 @@
 ---
 layout: blogpost
 title: How Docker is Changing Configuration Management
-image: uri.png
+image: uric.png
 author: Uri Cohen
 tags: 
 - DevOps
@@ -50,9 +50,9 @@ tags:
  
   <p>With bake, if a system is compromised, you wipe the existing running server and start with a clean state from scratch with your golden image. See this <a href="http://techblog.netflix.com/2011/08/building-with-legos.html">very interesting article</a> on this.</p>
  
-  <h3><font style="font-weight: bold">So why doesn’t everyone use baked images?</font></h3>
+  <h3><font style="font-weight: bold">So why Doesn’t Everyone Use Baked Images?</font></h3>
  
-  <p>Until now, before the <a href="http://getcloudify.org/cloudify-roadmap.html">Docker container</a> revolution, you needed cloud or VMs to take the baking approach, otherwise you couldn’t really bake your images reliably.</p>
+  <p>Until now, before the <a href="http://getcloudify.org/cloudify-roadmap.html">Docker container</a> revolution, you needed cloud or VMs to take the baking approach, since you can't install a full OS on bare metal on every deployment (at least that's the case for most organizations). </p>
  
   <p>In order to bake images in a reliable way, you need to capture all the changes made to a certain system - OS level, file system etc. etc.., and the only reliable way of doing that, was through VM images.&#160; So those able to do so were only those who used VMs or cloud.&#160; Another reason, is that even when using VMs or cloud, when you bake an image, the artifact is very large.&#160;&#160; It can range from a few GBs to a few tens of GBs, making the process very cumbersome.</p>
  
