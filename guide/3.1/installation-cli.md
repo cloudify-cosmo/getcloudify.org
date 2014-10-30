@@ -123,7 +123,7 @@ For example, the following commands install Cloudify {{ page.current_milestone }
 # From within a Python virtualenv, run:
 
 pip install https://github.com/cloudify-cosmo/cloudify-dsl-parser/archive/{{ page.current_milestone }}.zip
-pip install https://github.com/cloudify-cosmo/cloudify-rest-client/archive{{ page.current_milestone }}.zip
+pip install https://github.com/cloudify-cosmo/cloudify-rest-client/archive/{{ page.current_milestone }}.zip
 pip install https://github.com/cloudify-cosmo/cloudify-plugins-common/archive/{{ page.current_milestone }}.zip
 pip install https://github.com/cloudify-cosmo/cloudify-cli/archive/{{ page.current_milestone }}.zip
 {% endhighlight %}
