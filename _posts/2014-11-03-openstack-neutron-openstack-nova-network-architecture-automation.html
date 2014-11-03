@@ -1,0 +1,258 @@
+---
+layout: blogpost
+title: Advanced OpenStack Networking - Configuring an OpenStack VM with Multiple Network Cards
+image: barak.jpg
+author: Barak Merimovich
+tags: 
+ - OpenStack
+ - OpenStack Neutron
+ - Network Automation
+ - IaaS
+ - Cloud Orchestration
+---
+
+<notextile>
+
+<img src="http://www.coreitpro.com/presentations/openstack-theory-and-practice/img/ha-net.jpg" alt="OpenStack Neutron - Networking | Network Automation | Network Orchestration">
+<br/>
+<br/>
+
+   <p>We have discussed <a href="http://getcloudify.org/2014/05/14/openstack-neutron-networking-nova.html" target="_blank">OpenStack networking</a> extensively in previous posts.&#160; In this post, I’d like to dive into a more advanced OpenStack networking scenario.</p>
+
+<p>Many cloud images are not configured to automatically bring up all network cards that are available. They will usually only have a single network card configured. To correctly set up a host in the cloud with multiple network cards, log on to the machine and bring up the additional interfaces.</p>
+
+<p>On an Ubuntu Image, this usually looks like this:
+  <br /><code>echo $'auto eth1\niface eth1 inet dhcp' | sudo tee /etc/network/interfaces.d/eth1.cfg &gt; /dev/null
+    <br />sudo ifup eth1</code></p>
+
+<p><strong>Networks in the cloud</strong></p>
+
+<p>A complex <a href="http://getcloudify.org/2014/02/14/networking_from_then_to_cloud.html" target="_blank">network architecture</a> is a mainstay of modern IaaS clouds. Understanding how to configure your cloud-based networks, and hosts, is critical to getting your application working in the cloud. This is especially true with Cloudify, the <a href="http://www.getcloudify.org/" target="_blank">open source cloud</a> orchestration platform I work on.</p>
+
+<hr>
+
+<span class="pullquote-left">
+  <font style="font-weight: bold" size="5" face="Baskerville Old Face"><em>Network orchestration for any cloud with Cloudify. Get Started.</em></font>&nbsp; <a class="btn btn-medium btn-theme btn-rounded" id="downloadBtnInner" href="http://getcloudify.org/downloads/get_cloudify_3x.html" target="_blank"><i class="icon-plus"></i> Go </a></span>
+  
+  <hr>
+
+
+<p><strong>The cloud, like the world, used to be flat</strong></p>
+
+<p>It was not that long a time ago that most IaaS providers only supported flat networks – all of your hosts were in one large network. Separation between services running in the cloud was enforced in software or with firewalls/security-groups. But technically, all of the hosts were connected to the same network and visible to each other.</p>
+
+<p>The flat network model is simple, and therefore easy to reason and understand. It was a good choice for the early days of the IaaS cloud and no doubt helped with getting applications into the cloud in the first place. It was one of the things that made <a href="http://aws.amazon.com/ec2">EC2</a> so easy to use for anyone just starting out with the ‘cloud’. This model is in fact still available on Amazon Web Services under the title ‘EC2-Classic’. And for many applications, a flat network is good enough.</p>
+
+<p>But as cloud adoption increases, more complex applications are moving into the clouds, and issues like network separation, security, SLA and broadcast domains make more complex networks models a must. Software Defined Networks (SDN) fill that gap. They are now a staple of most major IaaS clouds. AWS has <a href="http://aws.amazon.com/vpc/">AWS-VPC</a>, <a href="http://getcloudify.org/openstack-architecture-cloudify.html" target="_blank">OpenStack</a> has the <a href="https://wiki.openstack.org/wiki/Neutron">Neutron</a> project and there are many other implementations.</p>
+
+<p>Working with SDN requires knowing a bit more about how information moves around between your cloud resources. In this post I am going to discuss how to set up a host in the cloud so it will play nice with complex networks. I’ll be using OpenStack, but the concepts are similar for other cloud infrastructures.</p>
+
+<p><strong>Openstack configuration</strong>
+
+  <br />I am going to start with an empty tenant, only the public network is available.</p>
+
+<p>
+  <br /><strong>First, lets set up out networks and router:</strong>
+
+  <br /><code>neutron router-create demo-router
+    <br />neutron net-create demo-network-1
+
+    <br />neutron net-create demo-network-2
+
+    <br />neutron subnet-create --name demo-subnet-1 demo-network-1 10.0.0.0/24
+
+    <br />neutron subnet-create --name demo-subnet-2 demo-network-2 10.0.1.0/24
+
+    <br />neutron router-interface-add demo-router demo-subnet-1
+
+    <br />neutron router-interface-add demo-router demo-subnet-2
+
+    <br />neutron router-gateway-set demo-router public</code></p>
+
+<p><code></code>
+
+  <br /><strong>Note the network IDs:
+    <br /></strong><code>neutron net-list
+    <br />| id | name | subnets |
+
+    <br />| <strong>2c33efe2-6204-4125-9716-3bc525630016</strong> | demo-network-1 | 928dafa0-83ef-459c-b20d-71d8ea596fa2 10.0.0.0/24 |
+
+    <br />| <strong>aa30627e-c181-4a4b-89bf-5dd7c26c244e</strong> | demo-network-2 | 26d573f7-7953-4a54-825b-ed7bbc0661c7 10.0.1.0/24 |
+
+    <br />| e502de8d-929a-4ee0-bd18-efa297875cf6 | public | d40dab51-a729-452c-9ee6-b9ad08d10808 |</code></p>
+
+<p><strong>We’ll start with a standard Ubuntu cloud image:
+    <br /></strong><code>glance image-create --name “Ubuntu 12.04 Standard” --location “http://uec-images.ubuntu.com/precise/current/precise-server-cloudimg-amd64-disk1.img” --disk-format qcow2 --container-format bare</code></p>
+
+<p><strong>Create the keypair and security group:</strong>
+
+  <br /><code>nova keypair-add demo-keypair &gt; demo-keypair.pem</code></p>
+
+<p>chmod 400 demo-keypair.pem</p>
+
+<p>nova secgroup-create demo-security-group “Security group for demo”
+  <br />nova secgroup-add-rule demo-security-group tcp 22 22 0.0.0.0/0</p>
+
+<p><strong>Let’s spin up an instance connected to both our networks:</strong>
+
+  <br /><code>nova boot —flavor m1.small --image “Ubuntu 12.04 Standard” --nic net-id=2c33efe2-6204-4125-9716-3bc525630016 --nic net-id=aa30627e-c181-4a4b-89bf-5dd7c26c244e --security-groups demo-security-group --key-name demo-keypair demo-vm</code></p>
+
+<p><strong>And set up floating IPs for the first network:</strong>
+
+  <br /><code>nova list
+    <br />| ID | Name | Status | Task State | Power State | Networks | 2b17588b-8980-4489-9a04-6539a159dc3c | demo-vm | ACTIVE | None | Running | demo-network-1=<strong>10.0.0.2</strong>; demo-network-2=10.0.1.2 |</code></p>
+
+<p>neutron floatingip-create public</p>
+
+<p>neutron floatingip-list</p>
+
+<p>| id | fixed_ip_address | floating_ip_address | port_id |
+  <br />| <strong>49c8b05e-bb8f-4b07-80ed-3155ab6ffc09</strong> |&#160; | 192.168.15.42 |&#160; |</p>
+
+<p>neutron port-list</p>
+
+<p>| id | name | mac_address | fixed_ips |
+  <br />| 1ccfd334-7328-4b22-b93e-24a0888276ab | | fa:16:3e:14:39:39 | {“subnet_id”: “94598487-c1fc-4f55-ac1f-ef2545d5cfeb”, “ip_address”: “10.0.1.3”} |
+
+  <br />| a482c4f6-fa74-476e-b1ce-cd8dd0c70815 | | fa:16:3e:18:92:79 | {“subnet_id”: “94598487-c1fc-4f55-ac1f-ef2545d5cfeb”, “ip_address”: “10.0.1.2”} |
+
+  <br />| b23d7836-30c5-4bff-b873-15c87ba051f6 | | fa:16:3e:3a:28:40 | {“subnet_id”: “dec6ec74-cfa9-4a08-8792-54900631b98e”, “ip_address”: “10.0.0.3”} |
+
+  <br />| <strong>d421b447-2adf-406f-876b-142238683344</strong> | | fa:16:3e:9d:fc:7f | {“subnet_id”: “dec6ec74-cfa9-4a08-8792-54900631b98e”, “ip_address”: “<strong>10.0.0.2</strong>”} |
+
+  <br />| dcf8696b-cc80-4b48-b09c-61c0f8ab02ac | | fa:16:3e:5b:39:fb | {“subnet_id”: “94598487-c1fc-4f55-ac1f-ef2545d5cfeb”, “ip_address”: “10.0.1.1”} |
+
+  <br />| f6a1666e-495a-4d3f-afa3-754b3cb3cfc0 | | fa:16:3e:8a:1b:fb | {“subnet_id”: “dec6ec74-cfa9-4a08-8792-54900631b98e”, “ip_address”: “10.0.0.1”} |</p>
+
+<p>neutron floatingip-associate 49c8b05e-bb8f-4b07-80ed-3155ab6ffc09 d421b447-2adf-406f-876b-142238683344</p>
+
+<p>Note how we matched the VM’s IP to its port, and associated the floating IP to the port. I wish there was an easier way to do this from the CLI…</p>
+
+<p>If everything worked correctly, you should have the following setup:</p>
+
+<p><img alt="image" src="https://barakme.files.wordpress.com/2014/10/network_topology2.png?w=700" /></p>
+
+<p><strong>Let’s make sure ssh works correctly:</strong>
+
+  <br /><code>ssh -i demo-keypair.pem ubuntu@192.168.15.31 hostname
+    <br />demo-vm</code></p>
+
+<p>Cool, ssh works. Now, we should have two network cards, right?
+  <br /><code>ssh -i demo-keypair.pem ubuntu@192.168.15.31 ifconfig
+    <br />eth0 Link encap:Ethernet HWaddr fa:16:3e:5f:a2:5f
+
+    <br />inet addr:10.0.0.4 Bcast:10.0.0.255 Mask:255.255.255.0
+
+    <br />inet6 addr: fe80::f816:3eff:fe5f:a25f/64 Scope:Link
+
+    <br />UP BROADCAST RUNNING MULTICAST MTU:1500 Metric:1
+
+    <br />RX packets:230 errors:0 dropped:0 overruns:0 frame:0
+
+    <br />TX packets:224 errors:0 dropped:0 overruns:0 carrier:0
+
+    <br />collisions:0 txqueuelen:1000
+
+    <br />RX bytes:46297 (46.2 KB) TX bytes:31130 (31.1 KB)</code></p>
+
+<p>lo Link encap:Local Loopback
+  <br />inet addr:127.0.0.1 Mask:255.0.0.0
+
+  <br />inet6 addr: ::1/128 Scope:Host
+
+  <br />UP LOOPBACK RUNNING MTU:16436 Metric:1
+
+  <br />RX packets:0 errors:0 dropped:0 overruns:0 frame:0
+
+  <br />TX packets:0 errors:0 dropped:0 overruns:0 carrier:0
+
+  <br />collisions:0 txqueuelen:0
+
+  <br />RX bytes:0 (0.0 B) TX bytes:0 (0.0 B)</p>
+
+<p>Huh?! The VM only has one working network interface! Where is my second NIC? Was there a configuration problem with the OpenStack network setup? The answer is here:
+  <br /><code>ssh -i demo-keypair.pem ubuntu@192.168.15.31 ifconfig -a
+    <br />eth0 Link encap:Ethernet HWaddr fa:16:3e:5f:a2:5f
+
+    <br />inet addr:10.0.0.4 Bcast:10.0.0.255 Mask:255.255.255.0
+
+    <br />inet6 addr: fe80::f816:3eff:fe5f:a25f/64 Scope:Link
+
+    <br /><strong>UP BROADCAST RUNNING</strong> MULTICAST MTU:1500 Metric:1
+
+    <br />RX packets:324 errors:0 dropped:0 overruns:0 frame:0
+
+    <br />TX packets:332 errors:0 dropped:0 overruns:0 carrier:0
+
+    <br />collisions:0 txqueuelen:1000
+
+    <br />RX bytes:69973 (69.9 KB) TX bytes:47218 (47.2 KB)</code></p>
+
+<p>eth1 Link encap:Ethernet HWaddr fa:16:3e:29:6d:22
+  <br /><strong>BROADCAST</strong> MULTICAST MTU:1500 Metric:1
+
+  <br />RX packets:0 errors:0 dropped:0 overruns:0 frame:0
+
+  <br />TX packets:0 errors:0 dropped:0 overruns:0 carrier:0
+
+  <br />collisions:0 txqueuelen:1000
+
+  <br />RX bytes:0 (0.0 B) TX bytes:0 (0.0 B)</p>
+
+<p>lo Link encap:Local Loopback
+  <br />inet addr:127.0.0.1 Mask:255.0.0.0
+
+  <br />inet6 addr: ::1/128 Scope:Host
+
+  <br />UP LOOPBACK RUNNING MTU:16436 Metric:1
+
+  <br />RX packets:0 errors:0 dropped:0 overruns:0 frame:0
+
+  <br />TX packets:0 errors:0 dropped:0 overruns:0 carrier:0
+
+  <br />collisions:0 txqueuelen:0
+
+  <br />RX bytes:0 (0.0 B) TX bytes:0 (0.0 B)</p>
+
+<p>The second NIC exists, but is not running.</p>
+
+<p>The issue is not with the OpenStack network configuration – it’s with the image. The image itself should be configured to work correctly with multiple NICs. All we have to do is bring up the NIC. So we ssh into the instance:
+  <br /><code>ssh -i demo-keypair.pem ubuntu@192.168.15.31</code></p>
+
+<p><strong>And run the following commands:</strong>
+
+  <br /><code>echo $'auto eth1\niface eth1 inet dhcp' | sudo tee /etc/network/interfaces.d/eth1.cfg &gt; /dev/null
+    <br />sudo ifup eth1</code></p>
+
+<p><strong>The second NIC should now be running:</strong>
+
+  <br /><code>ifconfig eth1</code></p>
+
+<p>eth1 Link encap:Ethernet HWaddr fa:16:3e:18:92:79
+  <br />inet addr:<strong>10.0.1.2</strong> Bcast:10.0.1.255 Mask:255.255.255.0
+
+  <br />inet6 addr: fe80::f816:3eff:fe18:9279/64 Scope:Link
+
+  <br /><strong>UP BROADCAST RUNNING</strong> MULTICAST MTU:1500 Metric:1
+
+  <br />RX packets:81 errors:0 dropped:0 overruns:0 frame:0
+
+  <br />TX packets:45 errors:0 dropped:0 overruns:0 carrier:0
+
+  <br />collisions:0 txqueuelen:1000
+
+  <br />RX bytes:15376 (15.3 KB) TX bytes:3960 (3.9 KB)</p>
+
+<p>And there you go – your VM can access both networks.</p>
+
+<p>This issue can make life complicated when setting up a complex, or even a not very complex, application. When will this issue hurt you? Well, imagine a scenario where you have a web server and a database server. The web server is connected to both Network1 and Network2, and the database server is only connected to Network2. Network1 is connected to the external world over a router, and Network 2 is completely internal, adding another layer of security to the critical database server. So what happens if the web server only has one network card? If only the NIC for Network1 is up, the web server can’t access the database. If only the NIC for Network2 is up, the web server can’t be reached from the external world. Even worse, if this web server is accessed via a floating IP, this IP will also not work, so you won’t be able to access the web server and fix the issue. Tricky.</p>
+
+<p><strong>In conclusion</strong></p>
+
+<p>The above commands will bring up your additional network card. You will of-course need to repeat this process for each additional network card, and for each VM. You can use a start-up script (a.k.a. user-data script) or system service to run these commands, but there are better ways. I’ll discuss how to automate the network setup in a follow-up post.</p>
+
+
+<h3><strong>This was originally posted at Barak's blog <a href="http://barakme.wordpress.com/" target="_blank"><em>Head in the Clouds</em></a>, find it <a href="http://barakme.wordpress.com/2014/08/19/configuring-an-openstack-vm-with-multiple-network-cards/" target="_blank">here</a>.</strong></h3>
+
+
+</notextile>
