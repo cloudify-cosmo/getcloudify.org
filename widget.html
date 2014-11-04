@@ -4,26 +4,51 @@ title: Widget
 category: Widget
 ---
 
-	<section id="content">
-		<div class="container">
+	<section id="content" >
+		<div class="container" ng-app="widgetApp" >
 			<div id="resultsDiv" class="DocumentsWrap"></div>
-			<div id="pageContent">
+			<div id="pageContent" ng-controller="widgetController">
 				<div class="row">
-					<div class="span5">
+					<div class="span4">
 						<div class="inner-heading">
 							<h1><i class="icon-picture"></i>Cloudify Widget</h1>
 						</div>
-<!-- 
-						<h2>Widget title</h2>
-						<p> some text</p>
-						<br/> -->
+
+                        <p>Click the 'Try It Now button' below, we'll set up a dedicated Cloudify manager instance for you to play with for the next 30 minutes. If you're new to Cloudify, we recommend that you watch the short introductory video on the left before launching the actual instance. </p>
+
+                        <form name="tryNowForm" ng-disabled="!widgetController.loadingMachine" disabled="disabled" ng-show="!widgetController.machineStarted">
+                            <fieldset>
+                                <legend></legend>
+                                <label class="span1">Name</label>
+                                <input class="span3" name="nameInput" type="text" placeholder="Name" ng-model="widgetController.name" required/>
+                                <label class="span1">Email</label>
+                                <input class="span3" name="emailInput" type="email" placeholder="Email" ng-model="widgetController.email" required/>
+                                <br/>
+                                <button id="tryNowBtn" disabled="disabled" ng-disabled="!widgetController.widgetLoaded " type="submit" class="btn btn-primary span4" ng-click="tryItNowBtn()" ng-bind="widgetController.buttonText">Loading...</button>
+                            </fieldset>
+                        </form>
+                        <div class="text-warning" ng-bind="widgetController.widgetOutput"></div>
+
+                        <div class="text-success ng-hide" ng-show="widgetController.machineStarted">
+                            Machine started on ip: <a ng-href="http://[[widgetController.machineIp]]" ng-bind="widgetController.machineIp"></a> expires on
+                            <span ng-bind="widgetController.expires | date:'dd-MM-yyyy HH:mm:ss'"></span>
+
+                            <button class="btn btn-primary span4" ng-click="stopWidget()" ng-bind="widgetController.stopButtonText" ng-disabled="!widgetController.machineStarted">Stop Widget</button>
+                        </div>
+
 					</div>
-					<div class="span7">
-							<iframe width="600px" height="463px" scrolling="no" src="http://thewidget.staging.gsdev.info/#/widgets/54523f3e777c57802e36c03c/view?timestamp=1414676989238" class="ng-scope"
-							style="margin: 20px;">
-							</iframe>						
+					<div class="span7 offset1">
+                        <div class="videoContainer">
+                            Here comes the video
+                        </div>
 					</div>
 				</div>
 			</div>
 		</div>
-	</div>
+        <iframe width="600px" height="463px" scrolling="no"
+                src="http://thewidget.staging.gsdev.info/#/widgets/54523f3e777c57802e36c03c/blank?timestamp=1414676989238&"
+                class="ng-scope"
+                style="margin: 20px;display:none;">
+        </iframe>
+
+    </section>
