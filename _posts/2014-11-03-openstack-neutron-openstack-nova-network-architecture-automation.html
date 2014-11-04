@@ -82,7 +82,9 @@ tags:
     <br />| e502de8d-929a-4ee0-bd18-efa297875cf6 | public | d40dab51-a729-452c-9ee6-b9ad08d10808 |</code></p>
 
 <p><strong>We’ll start with a standard Ubuntu cloud image:
-    <br /></strong><code>glance image-create --name “Ubuntu 12.04 Standard” --location “http://uec-images.ubuntu.com/precise/current/precise-server-cloudimg-amd64-disk1.img” --disk-format qcow2 --container-format bare</code></p>
+    <br /></strong><code>glance image-create --name “Ubuntu 12.04 Standard”  
+    <br />--location “http://uec-images.ubuntu.com/precise/current/precise-server-cloudimg-amd64-disk1.img” 
+    <br />--disk-format qcow2 --container-format bare</code></p>
 
 <p><strong>Create the keypair and security group:</strong>
 
@@ -95,7 +97,9 @@ tags:
 
 <p><strong>Let’s spin up an instance connected to both our networks:</strong>
 
-  <br /><code>nova boot —flavor m1.small --image “Ubuntu 12.04 Standard” --nic net-id=2c33efe2-6204-4125-9716-3bc525630016 --nic net-id=aa30627e-c181-4a4b-89bf-5dd7c26c244e --security-groups demo-security-group --key-name demo-keypair demo-vm</code></p>
+  <br /><code>nova boot —flavor m1.small --image “Ubuntu 12.04 Standard”
+  <br /> --nic net-id=2c33efe2-6204-4125-9716-3bc525630016 --nic net-id=aa30627e-c181-4a4b-89bf-5dd7c26c244e 
+  <br />--security-groups demo-security-group --key-name demo-keypair demo-vm</code></p>
 
 <p><strong>And set up floating IPs for the first network:</strong>
 
