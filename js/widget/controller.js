@@ -16,7 +16,8 @@ widgetModule.controller('widgetController', function( $scope, $controller ,$log,
         name: null,
         email: null,
         buttonText: 'loading...',
-        stopButtonText: 'Stop Widget'
+        stopButtonText: 'I\'m done, thanks',
+        alreadyRegistered: false
     };
 
     var postTryWidgetData = function() {
@@ -34,25 +35,44 @@ widgetModule.controller('widgetController', function( $scope, $controller ,$log,
             $last_seen:new Date()
         });
 
-        mixpanel.track('StartWidget');
+        mixpanel.track('Start Widget (Try now) Clicked');
         mixpanel.people.increment({
             "Number Of Widget Started": 1
         });
     }
 
+    $scope.stopTrial = function() {
+        mixpanel.track('stop Widget (end trial) Clicked');
+
+        $scope.stopWidget();
+
+        $scope.widgetController.stopButtonText = "Ending Trial...";
+        $scope.widgetController.machineStarted = false;
+    }
+
     $scope.tryItNowBtn = function() {
-        if ($scope.tryNowForm.$valid && $scope.widgetController.widgetLoaded) {
-            $log.info("name: "+$scope.widgetController.name+" email: "+$scope.widgetController.email);
+        if ($scope.widgetController.widgetLoaded) {
+            if ($scope.widgetController.alreadyRegistered) {
+                // Start the machine
+                $scope.playWidget();
 
-            // Post data to wufoo
-            postTryWidgetData();
+                $scope.widgetController.loadingMachine = true;
+                $scope.widgetController.buttonText = "Loading your machine...";
 
-            // Start the machine
-            $scope.playWidget();
+            } else if ($scope.tryNowForm.$valid) {
+                $log.info("name: "+$scope.widgetController.name+" email: "+$scope.widgetController.email);
 
-            $scope.widgetController.loadingMachine = true;
-            $scope.widgetController.buttonText = "Loading your machine...";
+                // Post data to wufoo
+                postTryWidgetData();
+
+                // Start the machine
+                $scope.playWidget();
+
+                $scope.widgetController.loadingMachine = true;
+                $scope.widgetController.buttonText = "Loading your machine...";
+            }
         }
+
     }
 
     var checkIfLoaded = function() {
@@ -71,18 +91,22 @@ widgetModule.controller('widgetController', function( $scope, $controller ,$log,
             // Check if its the first time (and you didnt refresh your page - loadingMachine is set to false unless you click the button)
             if (!$scope.widgetController.widgetStarted && $scope.widgetController.loadingMachine) {
                 window.open("http://"+status.nodeModel.publicIp, '_blank');
-                mixpanel.track('MachineStarted');
+                mixpanel.track('Widget Machine Started');
             }
             $scope.widgetController.widgetStarted = true;
             $scope.widgetController.machineStarted = true;
             $scope.widgetController.machineIp = status.nodeModel.publicIp;
             $scope.widgetController.expires = new Date(status.nodeModel.expires);
+            $scope.widgetController.timeLeft = new Date(status.nodeModel.expires -  new Date().getTime()) ;
+
+            // Setting env for next time...
+            $scope.widgetController.buttonText = "Try it now!";
 
         } else {
             // Got some error
             if (status.output) {
                 var output = status.output[0];
-                mixpanel.track('MachineStartError',{message: output});
+                mixpanel.track('Widget Machine Start Error',{message: output});
 
                 $log.warn("Got error state. Message :  "+ output);
                 $scope.widgetController.widgetOutput = output;
@@ -100,5 +124,7 @@ widgetModule.controller('widgetController', function( $scope, $controller ,$log,
     $scope.$watch( 'genericWidgetModel.loaded', checkIfLoaded);
     $scope.$watch( 'genericWidgetModel.widgetStatus' , checkStatus);
 
-
+    if (mixpanel.cookie && mixpanel.cookie.props.distinct_id) {
+        $scope.widgetController.alreadyRegistered = true;
+    }
 } )
