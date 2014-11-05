@@ -25,11 +25,9 @@ Bootstrapping a Cloudify manager is done by using [Manager Blueprints](reference
 
 First, clone the [Cloudify-Manager-Blueprints](https://github.com/cloudify-cosmo/cloudify-manager-blueprints) repository from github, or copy your desired blueprint folder from there.
 
-Second, if the selected manager blueprint has a *requirements.txt* file, install any requirements the selected manager blueprint has in the following manner:
-
-{% highlight sh %}
-pip install -r /path/to/requirements.txt
-{%endhighlight%}
+Second, install the blueprint dependencies by running:
+ 
+ `cfy local install-plugins -p /path/to/manager/blueprint/file`
 
 
 Next, create an inputs JSON file. This file will serve as the configuration for the manager blueprint inputs. Note that the various manager blueprints folders offer a *inputs.json.template* file, which can be copied and edited with the desired values.
@@ -49,20 +47,20 @@ $ cfy status
 Getting management services status... [ip=1.2.3.4]
 
 Services:
-+--------------------------------+---------+
-|            service             |  status |
-+--------------------------------+---------+
-| RabbitMQ                       | running |
-| Cloudify Manager               | running |
-| Elasticsearch                  | running |
-| Riemann                        | running |
-| Syslog                         | running |
-| Celery Managment               | running |
-| Cloudify UI                    | running |
-| Webserver                      | running |
-| Logstash                       | running |
-| SSH                            | running |
-+--------------------------------+---------+
++---------------------------------+---------+
+|            service              |  status |
++---------------------------------+---------+
+| RabbitMQ                        | running |
+| Cloudify Manager                | running |
+| Elasticsearch                   | running |
+| Riemann                         | running |
+| Syslog                          | running |
+| Celery Management               | running |
+| Cloudify UI                     | running |
+| Webserver                       | running |
+| Logstash                        | running |
+| SSH                             | running |
++---------------------------------+---------+
 {%endhighlight%}
 
 
