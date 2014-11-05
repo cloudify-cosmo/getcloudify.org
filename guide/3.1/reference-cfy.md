@@ -46,11 +46,9 @@ Verbose output can be applied to every action by supplying the --verbosity (or -
 
 **Parameters:**
 
-- **Mandatory:**
-	- *-p, --provider*: the cloudify provider to use for initialization
-
 - **Optional:**
 	- *-r, --reset-config*: a flag indicating that overwriting existing configuration is allowed
+	- *-p, --provider*: the cloudify provider to use for initialization
 
 **Example:** `cfy init -p openstack`
 
@@ -58,14 +56,15 @@ Verbose output can be applied to every action by supplying the --verbosity (or -
 
 ###  **bootstrap**
 
-**Description:** bootstraps cloudify on the current provider
+**Description:** bootstraps cloudify
 
-**Usage:** `cfy bootstrap [-c, --config-file <file>] [-v, --verbosity]`
+**Usage:** `cfy bootstrap [--install-plugins] [-c, --config-file <file>] [-v, --verbosity]`
 
 **Parameters:**
 
 - **Optional:**
 	- *-c, --config-file*: path to the config file
+	- *--install-plugins*: Install necessary plugins of the given blueprint
 
 **Example:** `cfy bootstrap`
 
@@ -302,3 +301,96 @@ This command will in fact upload the entire folder of the given target file rath
 	- *include-logs*: determines whether to fetch logs in addition to events
 
 **Example:** `cfy events list --execution-id 92515e66-5c8f-41e0-a361-2a1ad92706b2`
+
+
+###  **local init**
+
+**Description:** Init a local workflow execution environment in the current working directory
+
+**Usage:** `cfy local init [-p, --blueprint-path <blueprint_path>] [-i, --inputs <inputs>] [--install-plugins] [-v, --verbosity]`
+
+**Parameters:**
+
+- **Mandatory:**
+	- *-p, --blueprint-path*: Path to a blueprint
+
+- **Optional:**
+	- *-i, --inputs*: Inputs file/string for the local workflow creation (in JSON format)
+	- *--install-plugins*: Install necessary plugins of the given blueprint
+
+**Example:** `cfy local init --install-plugins -p blueprint.yaml -i inputs.json`
+
+
+###  **local install-plugins**
+
+**Description:** Installs the necessary plugins for a given blueprint
+
+**Usage:** `cfy local install-plugins [-p, --blueprint-path <blueprint_path>] [-v, --verbosity]`
+
+**Parameters:**
+
+- **Mandatory:**
+	- *-p, --blueprint-path*: Path to a blueprint
+
+**Example:** `cfy local install-plugins -p blueprint.yaml`
+
+
+###  **local create-requirements**
+
+**Description:** Creates a PIP compliant requirements file for the given blueprint
+
+**Usage:** `cfy local create-requirements [-p, --blueprint-path <blueprint_path>] [-o, --output <output_file_path>] [-v, --verbosity]`
+
+**Parameters:**
+
+- **Mandatory:**
+	- *-p, --blueprint-path*: Path to a blueprint
+	
+- **Optional:**
+	- *-o, --output*: Path to a file that will hold the requirements of the blueprint'
+
+**Example:** `cfy local create-requirements -p blueprint.yaml -o requirements.txt`
+
+
+###  **local execute**
+
+**Description:** Execute a workflow locally
+
+**Usage:** `cfy local execute [-w, --workflow <workflow-id>] [-p, --parameters <parameters>] [--allow-custom-parameters] [--task-retries <task_retries] [--task-retry-interval <task_retry_interval>] [--task-thread-pool-size <task_thread_pool_size>] [-v, --verbosity]`
+
+**Parameters:**
+
+- **Mandatory:**
+	- *-w, --workflow*: The workflow to execute locally
+	
+- **Optional:**
+	- *-p, --parameters*: Parameters for the workflow execution (in JSON format)
+	- *--allow-custom-parameters*: A flag for allowing the passing of custom parameters (parameters which were not defined in the workflow's schema in the blueprint) to the execution
+	- *--task-retries*: How many times should a task be retried in case it fails
+	- *--task-retry-interval*: How many seconds to wait before each task is retried
+	- *--task-thread-pool-size*: The size of the thread pool size to execute tasks in
+
+**Example:** `cfy local execute -w install`
+
+
+###  **local outputs**
+
+**Description:** Display outputs
+
+**Usage:** `cfy local outputs [-v, --verbosity]`
+
+**Example:** `cfy local outputs`
+
+
+###  **local instances**
+
+**Description:** Display node instances
+
+**Usage:** `cfy local instances [--node-id]`
+
+**Parameters:**
+	
+- **Optional:**
+	- *--node-id*: Only display node instances of this node id
+
+**Example:** `cfy local outputs`
