@@ -29,9 +29,12 @@ You can see the blueprint with the nodes from the nodecellar_local example.
 The first additionwe are going to make to this template is importing the openstack plugins and types
 
 {%highlight yaml%}
+# Note: if you're using a milestone build 1.1 below should be prefixed with the milestone name, e.g. 
+# http://www.getcloudify.org/spec/openstack-plugin/1.1m5/plugin.yaml
 imports:
-    - http://www.getcloudify.org/spec/3.0/cloudify/openstack.yaml
+    - http://www.getcloudify.org/spec/openstack-plugin/1.1/plugin.yaml
 {%endhighlight%}
+
 
 
 #Step 2: Adding a security group
