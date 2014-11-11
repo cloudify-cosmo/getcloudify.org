@@ -11,7 +11,7 @@ linux32_link: http://gigaspaces-repository-eu.s3.amazonaws.com/org/cloudify3/3.0
 linux64_link: http://gigaspaces-repository-eu.s3.amazonaws.com/org/cloudify3/3.0.0/nightly_6/cloudify-cli_3.0.0-ga-b6_amd64.deb
 venv_link: http://virtualenv.readthedocs.org/en/latest/
 installation_bootstrapping_link: installation-bootstrapping.html
-current_milestone: 3.1m5
+current_milestone: 3.1rc1
 ---
 {%summary%}{{page.abstract}}{%endsummary%}
 
