@@ -13,7 +13,7 @@ This section describes how to use vSphere based infrastructure in your services 
 {%endsummary%}
 
 {% note %}
-This page realtes to a commercial add on to Cloudify which is not open source. If you'd like to give it a test drive contact us using the feedback button on the right. 
+This page relates to a commercial add on to Cloudify which is not open source. If you'd like to give it a test drive contact us using the feedback button on the right. 
 {% endnote %}
 
 # Types
