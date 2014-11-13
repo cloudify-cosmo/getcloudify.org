@@ -119,9 +119,12 @@ outputs:
 
 Notice how nested properties can be either a key name in case of a map or an index in case of a list. Also note from `partial_spec` that `get_attribute` can be used in complex data structures and not only in a flat key/value manner.
 
-### Notes, restrictions and limitiations
+### Notes, restrictions and limitations
 
-* If an attribute is not found in the inspected node instance runtime properties, the scan will fall back to the macthing node properties. If the attribute is not found in the node properties as well, `null` is returned.
-* When using `get_attribute` with explicit reference (i.e. the node name and not `SELF`, `SOURCE` or `TARGET`), if more than one node instance exists during evaluation, an error is raised.
+* If an attribute is not found in the inspected node instance runtime properties, the scan will fall back to the matching node properties. If the attribute is not found in the node properties as well, `null` is returned.
 * `SELF` can only be used in interface operation inputs.
 * `SOURCE` and `TARGET` can only be used in relationship interface operation inputs.
+
+{%warning title=Note%}
+When using `get_attribute` with explicit reference, that is, a node name `{ get_attribute: [ web_server, webserver_spec ] }` and not implicit reference such as `{ get_attribute: [ SELF, webserver_spec ] }`, if, at the time of evaluation, more than one node instance exists, an error is raised. This has significant implication when using `get_attribute` in node/relationship operation inputs, as it means the operation can not be executed.
+{%endwarning%}
