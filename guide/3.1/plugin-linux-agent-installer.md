@@ -58,7 +58,8 @@ Agent Configuration:
 * `wait_started_timeout` - How many seconds should be waited for the agent to be started after installation before raising an error (default: `15`)
 * `wait_started_interval` - How many seconds to wait between each probe of the current agent status (default: `1`. used in conjunction with `wait_started timeout`)
 * `disable_requiretty` - Disables the `requiretty` setting in the sudoers file (default: `true`)
-* `distro` - The linux distribution the agent is intended to be installed on. By default this parameter is automatically set in run time but it is possible to override it to set any other distribution. Note that when creating an agent for your distribution, for the agent installer to be able to install it, it must be called `YOUR_DISTRIBUTION_NAME-agent.tar.gz` (e.g. Ubuntu-agent.tar.gz).
+* `distro` - The linux distribution the agent is intended to be installed on. By default this parameter is automatically set in run time but it is possible to override it to set any other distribution. Note that when creating an agent for your distribution, for the agent installer to be able to install it, it must be called `DISTRIBUTION_RELEASE-agent.tar.gz` (e.g. Ubuntu-agent.tar.gz).
+* `release` - The linux distribution's release the agent is intended to be installed on. This is retrieved the same way `distribution` is retrieved.
 
 Agent Resources:
 
@@ -68,3 +69,28 @@ The following are resources that are primarily provided with Cloudify's agents b
 * `celery_init_path` - A path relative to the blueprint that contains the celery init file. see [reference]({{page.celery_init_link}}).
 * `disable_requiretty_script_path` - A path relative to the blueprint that contains the script that disables `requiretty`. see [reference]({{page.disable_requiretty_link}}).
 * `agent_package_path` - A path relative to the blueprint that contains the agent package (tar.gz file). This allows you to override the agent you're using on a per node basis.
+
+## Identifying the distribution and release of the hosting OS
+
+The plugin will try to identify the distribution and its release and deploy the correct type of agent for them.
+The identification process is based on a remote fabric run where `python -c` is executed and returns the `platform.dist()` output.
+
+To overcome a problem where additional output is added to each execution of a command (e.g. something is added in .bashrc), the process will append a prefix and suffix to the execution so that it can identify only the relevant output.
+
+For instance, if the execution outputs the following to stdout:
+
+```sh
+This is my shell
+OUTPUT_OF_EXECUTED_COMMAND
+Bye Bye
+```
+
+The output of the distro identification will be as follows:
+
+```sh
+This is my shell
+DISTROOPEN('Ubuntu', '14.04', 'trusty')DISTROCLOSE
+Bye Bye
+```
+
+Then, the identification will be based on the returned string between the prefix and suffix.
