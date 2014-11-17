@@ -7,7 +7,7 @@ widgetModule.config(function($interpolateProvider) {
 
 widgetModule.controller('widgetController', function( $scope, $controller ,$log, $http) {
     $controller('GsGenericWidgetCtrl', {$scope:$scope} );
-    $scope.genericWidgetModel.element = $('iframe')[0];
+    $scope.genericWidgetModel.element = $('#widgetFrame')[0];
 
     $scope.widgetController = {
         widgetLoaded: false,
@@ -111,12 +111,15 @@ widgetModule.controller('widgetController', function( $scope, $controller ,$log,
                 $scope.widgetController.expires = new Date(status.nodeModel.expires);
                 $scope.widgetController.timeLeft = new Date(status.nodeModel.expires -  new Date().getTime()) ;
 
+                $scope.widgetController.widgetOutput = "";
+
                 // Setting env for next time...
                 $scope.widgetController.buttonText = "Try it now!";
             } else if (state == "STOPPED") {
                 mixpanel.track('Widget Machine stopped');
 
                 $scope.widgetController.loadingMachine = false;
+                $scope.widgetController.machineStarted = false;
                 $scope.widgetController.buttonText = "Try it now!";
             }
         } else {
@@ -135,6 +138,7 @@ widgetModule.controller('widgetController', function( $scope, $controller ,$log,
         }
     }
 
+    $('#widgetFrame').attr('src','http://thewidget.staging.gsdev.info/#/widgets/54523f3e777c57802e36c03c/blank?timestamp='+(new Date().getTime())+'&');
     $scope.$watch( 'genericWidgetModel.loaded', checkIfLoaded);
     $scope.$watch( 'genericWidgetModel.widgetStatus' , checkStatus);
 

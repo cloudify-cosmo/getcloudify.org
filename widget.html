@@ -33,7 +33,7 @@ category: Widget
                         <div class="text-warning" ng-bind="widgetController.widgetOutput"></div>
 
                         <div  class="well text-success ng-hide" ng-show="widgetController.machineStarted">
-                            We've started a Cloudify manager just for you at: <a ng-href="http://[[widgetController.machineIp]]" ng-bind="widgetController.machineIp"></a>
+                            We've started a Cloudify manager just for you at: <a ng-href="http://[[widgetController.machineIp]]/" ng-bind="widgetController.machineIp"></a>
                             You have <span ng-bind="widgetController.timeLeft | date:'mm'"></span> minutes left for your trial.
                             <button style="display: block;width: 100%;margin-top: 10px;" class="btn btn-primary" ng-click="stopTrial()" ng-bind="widgetController.stopButtonText" ng-disabled="!widgetController.machineStarted">I'm done, thanks</button>
                         </div>
@@ -47,8 +47,7 @@ category: Widget
 				</div>
 			</div>
 		</div>
-        <iframe width="600px" height="463px" scrolling="no"
-                src="http://thewidget.staging.gsdev.info/#/widgets/54523f3e777c57802e36c03c/blank?timestamp=1414676989238&"
+        <iframe id="widgetFrame"
                 class="ng-scope"
                 style="margin: 20px;display:none;">
         </iframe>
