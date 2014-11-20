@@ -26,16 +26,16 @@ Following are usage examples demonstrating different configuration options.
 `blueprint.yaml`
 {% highlight yaml %}
 imports:
-    - {{page.types_yaml_link}}
+  - {{page.types_yaml_link}}
 
 node_templates:
-    example_web_server
-        # The web server type is only used for this example. The type used
-        # could be any valid cloudify type.
-        type: cloudify.types.web_server
-        interfaces:
-            cloudify.interfaces.lifecycle:
-                start: scripts/start.sh
+  example_web_server
+    # The web server type is only used for this example. The type used
+    # could be any valid cloudify type.
+    type: cloudify.nodes.WebServer
+    interfaces:
+      cloudify.interfaces.lifecycle:
+        start: scripts/start.sh
 {%endhighlight%}
 
 `scripts/start.sh`
@@ -50,11 +50,11 @@ Let's walk through this example and explain what's going on.
 First, notice how the `cloudify.interface.lifecycle.start` operation is mapped directly to a script. When an operation is mapped, if the mapping points to a resource that is included in the blueprint directory, it is considered to be a script and the script plugin is used. So in fact, the above mapping is equivalent to:
 {% highlight yaml %}
 interfaces:
-    cloudify.interfaces.lifecycle:
-        start:
-            implementation: script.script_runner.tasks.run
-            inputs:
-                script_path: scripts/start.sh
+  cloudify.interfaces.lifecycle:
+    start:
+      implementation: script.script_runner.tasks.run
+      inputs:
+        script_path: scripts/start.sh
 {%endhighlight%}
 
 
@@ -78,10 +78,8 @@ ctx logger info "Hello to this world"
 {%endhighlight%}
 
 demonstrates how scripts can access the operation context. This line is equivalent to writing
-{% highlight bash %}
-@operation
-def start(**kwargs):
-  ctx.logger.info('Hello to this world')
+{% highlight python %}
+ctx.logger.info('Hello to this world')
 {%endhighlight%}
 
 within a python plugin operation.
@@ -95,22 +93,22 @@ The following example shows how you could configure the working directory the sc
 `blueprint.yaml`
 {% highlight yaml %}
 imports:
-    - {{page.types_yaml_link}}
+  - {{page.types_yaml_link}}
 
 node_templates:
-    example_web_server
-        type: cloudify.types.web_server
-        interfaces:
-            cloudify.interfaces.lifecycle:
-                start:
-                    implementation: scripts/start.sh
-                    inputs:
-                        process:
-                            # this directory should already exist
-                            cwd: /tmp/workdir
-                            args: [arg1_value, arg2_value]
-                            env:
-                                MY_ENV_VARIABLE: MY_ENV_VARIABLE_VALUE
+  example_web_server
+    type: cloudify.nodes.WebServer
+    interfaces:
+      cloudify.interfaces.lifecycle:
+        start:
+          implementation: scripts/start.sh
+          inputs:
+            process:
+              # this directory should already exist
+              cwd: /tmp/workdir
+              args: [arg1_value, arg2_value]
+              env:
+                MY_ENV_VARIABLE: MY_ENV_VARIABLE_VALUE
 {%endhighlight%}
 
 `scripts/start.sh`
@@ -135,16 +133,16 @@ Python scripts get special treatment in the script plugin. If the script path en
 `blueprint.yaml`
 {% highlight yaml %}
 imports:
-    - {{page.types_yaml_link}}
+  - {{page.types_yaml_link}}
 
 node_templates:
-    example_web_server
-        type: cloudify.types.web_server
-            properties:
-                port: 8080
-            interfaces:
-                cloudify.interfaces.lifecycle:
-                    start: scripts/start.py
+  example_web_server
+    type: cloudify.nodes.WebServer
+    properties:
+      port: 8080
+    interfaces:
+      cloudify.interfaces.lifecycle:
+        start: scripts/start.py
 {%endhighlight%}
 
 `scripts/start.py`
@@ -159,12 +157,12 @@ If you a want a script to get evaluated as python and it does not have a `.py` e
 
 {% highlight yaml %}
 interfaces:
-    cloudify.interfaces.lifecycle:
-        start:
-            implementation: script/my_python_script
-            inputs:
-                process:
-                    eval_python: true
+  cloudify.interfaces.lifecycle:
+    start:
+      implementation: script/my_python_script
+      inputs:
+        process:
+          eval_python: true
 {%endhighlight%}
 
 If on the other hand a script does have a `.py` extension and you want it to get executed in an external process, simply pass `false` to the `eval_python` process configuration. Do note however, that accessing the operation context in this case will be done through the [context proxy](#context-proxy) as with any other none python script.
@@ -176,18 +174,18 @@ In some cases, you do not want to use `#!` to specify how to execute the script 
 `blueprint.yaml`
 {% highlight yaml %}
 imports:
-    - {{page.types_yaml_link}}
+  - {{page.types_yaml_link}}
 
 node_templates:
-      example_web_server
-          type: cloudify.types.web_server
-          interfaces:
-              cloudify.interfaces.lifecycle:
-                  start:
-                      implementation: scripts/start.rb
-                      inputs:
-                          process:
-                              command_prefix: /opt/ruby/bin/ruby
+  example_web_server
+    type: cloudify.nodes.WebServer
+    interfaces:
+      cloudify.interfaces.lifecycle:
+        start:
+          implementation: scripts/start.rb
+          inputs:
+            process:
+              command_prefix: /opt/ruby/bin/ruby
 {%endhighlight%}
 
 This will execute `start.rb` with the ruby binary in `/opt/ruby/bin/ruby`
@@ -197,18 +195,18 @@ Another use case for this would be to run a powershell script on windows. This c
 `blueprint.yaml`
 {% highlight yaml %}
 imports:
-    - {{page.types_yaml_link}}
+  - {{page.types_yaml_link}}
 
 node_templates:
-    example_web_server
-        type: cloudify.types.web_server
-        interfaces:
-            cloudify.interfaces.lifecycle:
-                start:
-                    implementation: scripts/start.ps1
-                    inputs:
-                        process:
-                            command_prefix: powershell
+  example_web_server
+    type: cloudify.nodes.WebServer
+    interfaces:
+      cloudify.interfaces.lifecycle:
+        start:
+          implementation: scripts/start.ps1
+          inputs:
+            process:
+              command_prefix: powershell
 {%endhighlight%}
 
 This will execute the script using the `powershell` binary.
@@ -244,26 +242,26 @@ Say you want to add a custom workflow that runs a custom operation on each node.
 `blueprint.yaml`
 {% highlight yaml %}
 imports:
-    - {{page.types_yaml_link}}
+  - {{page.types_yaml_link}}
 
 node_templates:
-    node1
-        type: cloudify.types.base
-        interfaces:
-            custom:
-                touch: scripts/touch.py
-    node2
-        type: cloudify.types.base
-        interfaces:
-            custom:
-                touch: scripts/touch.py
+  node1:
+    type: cloudify.types.base
+    interfaces:
+      custom:
+        touch: scripts/touch.py
+  node2:
+    type: cloudify.types.base
+    interfaces:
+      custom:
+        touch: scripts/touch.py
 
 workflows:
-    touch_all:
-        mapping: workflows/touch_all.py
-        parameters:
-            touched_value:
-                description: the value to touch the instance with
+  touch_all:
+    mapping: workflows/touch_all.py
+    parameters:
+      touched_value:
+        description: the value to touch the instance with
 {%endhighlight%}
 
 Next, let's write the `touch.py` script. Notice that this script ends with a `.py` extension so it will get evaluated as python code.
