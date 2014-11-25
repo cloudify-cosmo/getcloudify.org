@@ -58,7 +58,7 @@ Agent Configuration:
 * `wait_started_timeout` - How many seconds should be waited for the agent to be started after installation before raising an error (default: `15`)
 * `wait_started_interval` - How many seconds to wait between each probe of the current agent status (default: `1`. used in conjunction with `wait_started timeout`)
 * `disable_requiretty` - Disables the `requiretty` setting in the sudoers file (default: `true`)
-* `distro` - The linux distribution the agent is intended to be installed on. By default this parameter is automatically set in run time but it is possible to override it to set any other distribution. Note that when creating an agent for your distribution, for the agent installer to be able to install it, it must be called `DISTRIBUTION-RELEASE-agent.tar.gz` (e.g. Ubuntu-trusty-agent.tar.gz).
+* `distro` - The linux distribution the agent is intended to be installed on. By default this parameter is automatically set in runtime but it is possible to override it to set any other distribution. Note that when creating an agent for your distribution, for the agent installer to be able to install it, it must be called `DISTRIBUTION-RELEASE-agent.tar.gz` (e.g. Ubuntu-trusty-agent.tar.gz) unless `distro` and `release` are explicitly provided in the blueprint.
 * `release` - The linux distribution's release the agent is intended to be installed on. This is retrieved the same way `distribution` is retrieved.
 
 Agent Resources:
