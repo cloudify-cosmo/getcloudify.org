@@ -10,6 +10,7 @@ manual_install_link: installation-manual.html
 terminology_link: reference-terminology.html
 cli_install_link: installation-cli.html
 simple_install_link: installation-simple-provider.html
+agent_packager_link: https://github.com/cloudify-cosmo/cloudify-agent-packager
 ---
 {%summary%}{{page.abstract}}{%endsummary%}
 
@@ -25,7 +26,7 @@ Since it is based on a set of premade packages, it can be deployed using shell s
 A Cloudify manager requires at the very least 2GB of RAM, 1 CPU and 5GB of free space.
 
 {%note title=Note%}
-these are the very basic requirements. You will have to provision larger machines for larger deployments.
+These are the very basic requirements. You will have to provision larger machines for larger deployments.
 {%endnote%}
 
 ### Network
@@ -40,39 +41,51 @@ The Manager must be available in the following ports:
 ## OS Distributions
 
 ### Server
-Cloudify's management server currently runs on Ubuntu 12.04 Precise. We're working on newer versions of Ubuntu and Centos.
-It might be able to run on Ubuntu 13.04 or 14.04, but they weren't tested. We'll appreciate feedback if you tried any other distribution.
+
+#### If bootstrapping using packages
+Cloudify's management server currently runs on Ubuntu 12.04 Precise. To install on Centos or other distributions, you must use the [Docker]() [implementation]().
+
+#### If bootstrapping using Docker Image
+Cloudify's Docker implementation was tested on Ubuntu 12.04 and Centos 6.5 and is based on the Phussion Docker Image (Ubuntu 14.04).
 
 ### Agents
-Cloudify's agent packages can be installed on Ubuntu 12.04+, Centos 6.3+ and Windows 2008 Server+.
+Cloudify's agent packages can be installed on Ubuntu 12.04, 14.04 (with Python 2.7.x), Centos 6.3+ (with Python 2.6.x) and Windows 2008 Server+ (with Python 2.7.x).
+Agents are provided for these OS distributions, but using the [Cloudify Agent Packager]({{page.agent_packager_link}}), you can create you own agents for your distribution.
 
-## Packages
+## Distributables
+
+### Packages
 Cloudify comes as a set of packages containing (almost) all dependencies within them.
 
-### The Components Package (Mandatory)
+#### The Components Package (Mandatory)
 Contains all 3rd party components Cloudify uses.
 This is the largest package and should rarely change from version to version.
 You might want to host it in a local repository and only update it if something changes.
 
-### Core Package (Mandatory)
+#### Core Package (Mandatory)
 Contains Cloudify's code.
 This is what makes everything tick.
 
-### UI Package (Optional)
+#### UI Package (Optional)
 Contains Cloudify's Web UI.
 This is optional since Cloudify can be managed using the CLI.
 
-### Agent Packages (At least one is mandatory)
+#### Agent Packages (At least one is mandatory)
 Contains Cloudify's agent code and is OS distribution specific.
 Cloudify supplies agent packages for both Linux (several distros) and Windows.
 You must at least have an agent that corresponds with your Manager's distribution.
 
-## Python (Obviously)
-Cloudify does require that you have Python 2.7 and above to run.
+### Docker Images
+When using Docker, Cloudify is provided as 2 separate images.
+* Application Image containing all services which will run on the container.
+* Data Image containing basic data which will be loaded and used for data persistency.
 
 {%note title=Note%}
-Centos comes with Python 2.6.6 by default. If you want to use Centos with Cloudify, you'll have to provide an image with Python 2.7.
+Cloudify only temporarily runs on one container for its applications. We're working on separating the images to a set of small images to run a container per service.
 {%endnote%}
+
+## Python (Obviously)
+Cloudify does require that you have Python 2.7 and above to run.
 
 # What's Next
 
