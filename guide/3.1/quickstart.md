@@ -7,7 +7,7 @@ abstract: A quick tutorial for getting started with Cloudify and deploying your 
 pageord: 100
 
 quickstart_openstack_link: quickstart-openstack.html
-blueprint_file_link: https://github.com/cloudify-cosmo/cloudify-nodecellar-singlehost/blob/master/blueprint.yaml
+blueprint_file_link: https://github.com/cloudify-cosmo/cloudify-nodecellar-example/raw/master/singlehost-blueprint.yaml
 virtualbox_link: https://www.virtualbox.org/
 vagrant_link: http://www.vagrantup.com
 vagrant_file_link: http://gigaspaces-repository-eu.s3.amazonaws.com/org/cloudify3/3.0.0/nightly_6/Vagrantfile
@@ -137,14 +137,23 @@ In our case, we have the following nodes:
 
 ![Nodecellar Blueprint](/guide/images3/guide/nodecellar_topology.png)
 
-Now we can create the input parameters file that will be used by the blueprint:
+Now we can create the input parameters file that will be used by the blueprint.
 
-We've already done that for you actually. You can look at the ~/cloudify/blueprints/inputs.json file to get an idea of what an input file looks like.
+<!-- We've already done that for you actually. You can look at the ~/cloudify/blueprints/inputs.json file to get an idea of what an input file looks like. -->
+Create a file in the local directory called inputs.json with the following content:
+
+{%highlight json%}
+{
+  "host_ip": "localhost",
+  "agent_user": "vagrant",
+  "agent_private_key_path": "/home/vagrant/.ssh/id_rsa"
+}
+{%endhighlight%}
 
 Next, we need to create a deployment. To do so, type the following command:
 
 {%highlight bash%}
-cfy deployments create -b nodecellar1 -d nodecellar1
+cfy deployments create -b nodecellar1 -d nodecellar1 --inputs inputs.json
 {%endhighlight%}
 
 We've now created a deployment named `nodecellar1` based on a blueprint with the same name. This deployment is not yet materialized, since we haven't issued an installation command. If you click the "Deployments" icon in the left sidebar in the web UI, you will see that all nodes are labeled with 0/1, which means they're pending creation.
