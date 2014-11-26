@@ -12,7 +12,7 @@ blueprint_guide_link: guide-blueprint.html
 plugins_common_link: https://github.com/cloudify-cosmo/cloudify-plugins-common
 plugins_common_ref_link: reference-plugins-common.html
 architecture_link: overview-architecture.html
-openstack_plugin_link: https://github.com/cloudify-cosmo/cloudify-openstack-plugin/blob/1.1/nova_plugin/server.py#L306
+openstack_plugin_link: https://github.com/cloudify-cosmo/cloudify-openstack-plugin/blob/1.1/nova_plugin/server.py#L379
 plugins_common_docs_link: http://cloudify-plugins-common.readthedocs.org/
 terminology_link: reference-terminology.html
 ---
@@ -49,7 +49,7 @@ setup(
     version='1.0',
     author='Cloudify',
     packages=['python_webserver'],
-    install_requires=['cloudify-plugins-common==3.0'],
+    install_requires=['cloudify-plugins-common==3.1'],
 )
 {%endhighlight%}
 
@@ -67,7 +67,7 @@ We'll put the start & stop operations in an `operations.py` module within the `p
 
 In the following example, we'll use Cloudify's logger which is accessible using the `ctx.logger` object.
 
-More information about the `ctx` object can be found [here]({{page.terminology_link}}##the-context-object).
+More information about the `ctx` object can be found [here]({{page.terminology_link}}#context-object).
 
 
 
@@ -75,12 +75,14 @@ More information about the `ctx` object can be found [here]({{page.terminology_l
 {%highlight python%}
 import os
 
+# import the ctx object
+from cloudify import ctx
+
 # import the operation decorator
 from cloudify.decorators import operation
 
-# the operation decorator allows us to access the ctx object
 @operation
-def start(ctx, **kwargs):
+def start(**kwargs):
     with open('/tmp/index.html', 'w') as f:
         f.write('<p>Hello Cloudify!</p>')
 
@@ -97,7 +99,7 @@ def start(ctx, **kwargs):
 # we're defining multiple operations to which we can refer to afterwards
 # in our blueprint
 @operation
-def stop(ctx, **kwargs):
+def stop(**kwargs):
     try:
         with open('/tmp/python-webserver.pid', 'r') as f:
             pid = f.read()
@@ -123,8 +125,10 @@ webserver_port = ctx.node.properties['port']
 The updated start operation looks like this:
 
 {%highlight python%}
+from cloudify import ctx
+
 @operation
-def start(ctx, **kwargs):
+def start(**kwargs):
     # retrieve the port from the node's properties
     webserver_port = ctx.node.properties['port']
 
@@ -148,12 +152,13 @@ In our example, instead of having the webserver root set to `/tmp` we'll create 
 import os
 import tempfile
 
+from cloudify import ctx
 from cloudify.decorators import operation
 
 
 @operation
-def start(ctx, **kwargs):
-    webserver_root = tempfile.gettempdir()
+def start(**kwargs):
+    webserver_root = tempfile.mkdtemp()
     # we're adding a property which is set during runtime to the runtime
     # properties of that specific node instance
     ctx.instance.runtime_properties['webserver_root'] = webserver_root
@@ -171,7 +176,7 @@ def start(ctx, **kwargs):
 
 
 @operation
-def stop(ctx, **kwargs):
+def stop(**kwargs):
     # setting this runtime property allowed us to refer to properties which
     # are set during runtime from different time in the node instance's lifecycle
     webserver_root = ctx.instance.runtime_properties['webserver_root']
@@ -192,7 +197,7 @@ For example:
 
 {%highlight python%}
 ctx.instance.runtime_properties['prop1'] = 'This should be updated immediately!'
-ctx.update()
+ctx.instance.update()
 {%endhighlight%}
 
 # Error Handling
@@ -200,7 +205,7 @@ ctx.update()
 Cloudify's workflows[(?)]({{page.terminology_link}}#workflow) framework distinguishes between two kinds of errors:
 
 - Recoverable errors - Cloudify's workflows will retry operations which raised such errors where all Python errors are treated as recoverable errors.
-- Non-recoverable errors - Errors which should not be retried and its up to the workflow to decide how to handle them.
+- Non-recoverable errors - Errors which should not be retried and it's up to the workflow to decide how to handle them.
 
 In our current start operation, we don't verify that the webserver was actually started and listening on the specified port.
 
@@ -212,6 +217,7 @@ import tempfile
 import urllib2
 import time
 
+from cloudify import ctx
 from cloudify.decorators import operation
 # import the NonRecoverableError class
 from cloudify.exceptions import NonRecoverableError
@@ -230,8 +236,8 @@ def verify_server_is_up(port):
 
 
 @operation
-def start(ctx, **kwargs):
-    webserver_root = tempfile.gettempdir()
+def start(**kwargs):
+    webserver_root = tempfile.mkdtemp()
     ctx.instance.runtime_properties['webserver_root'] = webserver_root
 
     webserver_port = ctx.node.properties['port']
@@ -249,40 +255,14 @@ def start(ctx, **kwargs):
     verify_server_is_up(webserver_port)
 {%endhighlight%}
 
-{%note title=Extending NonRecoverableError%}
-Raising an error which extends the NonRecoverableError class is currently not supported.
-{%endnote%}
-
 
 # Testing Your Plugin
 
-In most cases the recommendation is to test your plugin's logic using unit tests and only then run them as a part of a Cloudify deployment[(?)]({{page.terminology_link}}#deployment).
+In most cases, the recommendation is to test your plugin's logic using local workflows and only then, run them as part of a Cloudify deployment[(?)]({{page.terminology_link}}#deployment). The [Plugin Template]({{page.template_link}}/blob/master/plugin/tests/test_plugin.py) has an example of doing just that.
 
-The `cloudify-plugins-common` module provides a mock for the `ctx` object which can somewhat simulate a real Cloudify invocation of your plugin operations in unit tests.
+If you want to unit test specific function that needs a `ctx` object, you can use `cloudify.mocks.MockCloudifyContext` which is provided by `cloudify-plugins-common`.
 
-Lets test our great Python HTTP webserver plugin:
-
-## python-webserver/tests.py
-
-{%highlight python%}
-from python_webserver import operations
-from cloudify.exceptions import NonRecoverableError
-from cloudify.mocks import MockCloudifyContext
-
-
-class TestWebServer(unittest.TestCase):
-
-    def test_http_webserver(self):
-        ctx = MockCloudifyContext(
-            node_id='id',
-            properties={
-                'port': 8080
-            })
-        operations.start(ctx)
-        operations.verify_http_server(8080)
-        operations.stop(ctx)
-        self.assertRaises(NonRecoverableError, operations.verify_http_server, 8080)
-{%endhighlight%}
+# The end (Sort of)
 
 That's it! You just wrote your first plugin! All you need now is to incorporate it within your blueprint.
 For additional info read the [Blueprint Guide]({{page.blueprint_guide_link}}).
@@ -302,14 +282,14 @@ The `ctx` context object contains contextual parameters mirrored from the bluepr
 * `ctx.logger` - a Cloudify specific logging mechanism which you can use to send logs back to the Cloudify manager environment.
 * `ctx.download_resource` - Downloads a given resource.
 * `ctx.get_resource` - Reads a resource's data.
-* `ctx.update` - Updates the node's runtime properties. This is automatically called each time an operation ends, thus it is only useful in the context of a single operation.
+* `ctx.instance.update` - Updates the node's runtime properties. This is automatically called each time an operation ends, thus it is only useful in the context of a single operation.
 
 # Cloud Plugins
 
 When writing a cloud plugin it needs to contain an operation for getting the VM's state after the start operation was invoked.
-This is because most cloud VM creation API's are asynchronous. Therefore, by default, Cloudify calls the start operation and afterwards performs polling on the get_state operation until it returns `True`, which indicates the VM was started.
+This is because most cloud VM creation API's are asynchronous. Therefore, by default, Cloudify calls the `start` operation and afterwards performs polling on the `get_state` operation until it returns `True`, which indicates the VM was started.
 
-The get_state operation should also store the following runtime properties for the VM node instance:
+The `get_state` operation should also store the following runtime properties for the VM node instance:
 
 - `ip` - The VM's ip address reachable by Cloudify's manager.
 - `networks` - A dictionary containing network names as keys and list of ip addresses as values.
