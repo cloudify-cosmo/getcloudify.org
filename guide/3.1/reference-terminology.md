@@ -170,7 +170,7 @@ The provider context is available in any [plugin](#plugin) function in case the 
 ### **Relationship**
 Relationships are [types](#type) that describe the nature of dependency between [nodes](#node) and the logic, if required, to glue nodes together.
 
-For example, a relationship can be of type `cloudify.types.contained_in`. That means that node `X` is hosted within node `Y` and therefore can't be created until node `Y` is created and running.
+For example, a relationship can be of type `cloudify.relationship.contained_in`. That means that node `X` is hosted within node `Y` and therefore can't be created until node `Y` is created and running.
 
 Another example is an Apache server that's connected to MySQL. In this case, Apache needs to be configured at runtime to connect to MySQL. Waiting for MySQL to be up and running won't suffice in this case. The relationship needs to map relationship [operations](#operation) to [plugin](#plugin) functions that execute the connection's configuration.
 
@@ -182,13 +182,13 @@ An instance of a [relationship](#relationship) between 2 concerte [node instance
 ### **Relationship type**
 A [relationship](#relationship) [type](#type) describes the nature of dependency between 2 [nodes](#node) and the logic to materialize it (through [operations](#operation) mapping to implementation).
 
-A relationship is always between a source node and a target node and do it can have implementation logic to run on either or both.
+A relationship is always between a source node and a target node and it can have implementation logic to run on either or both.
 
 There are 3 basic relationship types:
 
-* depends_on - a base type for all relationships. It means the orchestrator must wait for the target node
-* contained_in - the source node is installed within the target node
-* connected_to - the source node has a connection to configure to the target node
+* `cloudify.relationship.depends_on` - a base type for all relationships. It means the orchestrator must wait for the target node
+* `cloudify.relationship.contained_in` - the source node is installed within the target node
+* `cloudify.relationship.connected_to` - the source node has a connection to configure to the target node
 
 ### **Runtime Data**
 The data model of the [deployements](#deployment) stored in Cloudify's database.
