@@ -27,14 +27,17 @@ Verbose output can be applied to every action by supplying the --verbosity (or -
 
 **Description:** defines a default management server to work with
 
-**Usage:** `cfy use [-t, --management-ip <management_ip>] [-v, --verbosity]`
+**Usage:** `cfy use [-t, --management-ip <management_ip>] [-p, --port <port>] [-v, --verbosity]`
 
 **Parameters:**
 
 - **Mandatory:**
   - *-t, --management-ip*: the management-server to define as the default management server
 
-**Example:** `cfy use -t 10.0.0.1`
+- **Optional:**
+	- *-p, --port*: The rest server port. defaults to 80
+
+**Example:** `cfy use -t 10.0.0.1 -p 8100`
 
 ------
 
