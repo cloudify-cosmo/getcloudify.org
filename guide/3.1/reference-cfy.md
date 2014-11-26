@@ -345,7 +345,7 @@ This command will in fact upload the entire folder of the given target file rath
 
 - **Mandatory:**
 	- *-p, --blueprint-path*: Path to a blueprint
-	
+
 - **Optional:**
 	- *-o, --output*: Path to a file that will hold the requirements of the blueprint'
 
@@ -362,7 +362,7 @@ This command will in fact upload the entire folder of the given target file rath
 
 - **Mandatory:**
 	- *-w, --workflow*: The workflow to execute locally
-	
+
 - **Optional:**
 	- *-p, --parameters*: Parameters for the workflow execution (in JSON format)
 	- *--allow-custom-parameters*: A flag for allowing the passing of custom parameters (parameters which were not defined in the workflow's schema in the blueprint) to the execution
@@ -389,8 +389,8 @@ This command will in fact upload the entire folder of the given target file rath
 **Usage:** `cfy local instances [--node-id]`
 
 **Parameters:**
-	
+
 - **Optional:**
 	- *--node-id*: Only display node instances of this node id
 
-**Example:** `cfy local outputs`
+**Example:** `cfy local instances --node-id webserver`
