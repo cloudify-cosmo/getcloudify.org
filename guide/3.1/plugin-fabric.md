@@ -19,7 +19,7 @@ The plugin provides an agent-less method for running operations on destination h
 There are 3 modes for working with this plugin.
 
 * Executing a list of `commands`.
-* Executing a Fabric task from a `tasks_file` included in the blueprint directory.
+* Executing a Fabric task from a `tasks_file` included in the blueprint's directory.
 * Executing a Fabric task by specifying its path in the current python environment.
 
 # Running commands
@@ -66,7 +66,7 @@ node_templates:
               important_prop2: 300
 {%endhighlight%}
 
-Here, we specify the tasks file paht relative to the blueprint directory, the task name in that file and (optional) task properties
+Here, we specify the tasks file path relative to the blueprint's directory, the task's name in that file and (optional) task properties
 that will be used when actually calling the task.
 
 an example of a tasks file would be:
@@ -116,7 +116,7 @@ node_templates:
 This example is very similar to the previous one with the following difference. If the fabric task you want to execute is already installed in the python environment in which the operation will run, you can specify the python path to this function.
 
 # SSH configuration
-The fabric plugin will extract the correct host IP address based on the node's host. It will also use the username and key file path if they were set globally during the bootstrap process. However, it is possible overriding these values and additional SSH configuration by passing `fabric_env` to operation inputs. This applies to `run_commands`, `run_task` and `run_module_task`. The `fabric_env` input is passed as is to the underlying [Fabric]({{page.fabric_link}}/en/latest/usage/env.html) library, so check their documentation for additional details.
+The fabric plugin will extract the correct host IP address based on the node's host. It will also use the username and key file path if they were set globally during the bootstrap process. However, it is possible to override these values and additional SSH configuration by passing `fabric_env` to operation inputs. This applies to `run_commands`, `run_task` and `run_module_task`. The `fabric_env` input is passed as is to the underlying [Fabric]({{page.fabric_link}}/en/latest/usage/env.html) library, so check their documentation for additional details.
 
 
 An example that uses `fabric_env`:
