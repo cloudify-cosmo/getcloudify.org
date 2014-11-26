@@ -174,8 +174,6 @@ For example, a relationship can be of type `cloudify.relationship.contained_in`.
 
 Another example is an Apache server that's connected to MySQL. In this case, Apache needs to be configured at runtime to connect to MySQL. Waiting for MySQL to be up and running won't suffice in this case. The relationship needs to map relationship [operations](#operation) to [plugin](#plugin) functions that execute the connection's configuration.
 
-### **Relationship implementation** (Coming soon...)
-
 ### **Relationship instance**
 An instance of a [relationship](#relationship) between 2 concerte [node instances](#node-instance).
 
@@ -233,8 +231,6 @@ For example, `cloudify.types.openstack.server` is using the nova_plugin to commu
 The inheritence chain of a [type](#type) or a [relationship](#relationship).
 
 Cloudify [blueprints](#blueprint) use Object Oriented methaphore of inheritence so any concrete Type or relationship is derived from more basic type either with implementation that needs to be refined or without any operation implmentation.
-
-### **Type Implementation** (Coming soon...)
 
 ### **Workflow**
 A workflow is an automation process algorithm.
