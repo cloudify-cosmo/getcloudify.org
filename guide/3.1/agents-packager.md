@@ -4,12 +4,12 @@ title: Agent Packager
 category: Agents
 publish: true
 abstract: Using the agent packager to create an agent for your distribution
-pageord: 200
+pageord: 220
 
 ---
 {%summary%}{{page.abstract}}{%endsummary%}
 
-## Overview
+# Overview
 
 Cloudify's Agent is basically a virtualenv with a series of modules installed in it and a few configuration files attached.
 
@@ -22,6 +22,7 @@ Cloudify comes with a set of premade agents:
 To use Cloudify with other distributions, we're providing a tool that will assist you in creating an agent for your distribution.
 
 This tool aims to:
+
 - Solve the problem of compiling module requirements on different distributions, thus bridging the gap of user compiled images, unfamiliar/minor distros and so on.
 - Allow users to create their own, personalized Cloudify agents with custom plugins of their choosing.
 - Make the agent creation process seamless. One config file. One liner cmd.
@@ -34,7 +35,7 @@ You can use Cloudify's agent-packager to create an agent on the distribution you
 Cloudify's code currently only supports Python 2.7.x or Python 2.6.x so you will have to run one of those to create an agent.
 {%endnote%}
 
-## Creation Process
+# Creation Process
 
 During the creation process, the agent-packager performs the following:
 
@@ -42,7 +43,7 @@ During the creation process, the agent-packager performs the following:
 * Installs the required modules into the virtualenv.
 * Creates a tar file from the virtualenv.
 
-The tool will create a tar file to be used with Cloudify's [agent installer plugin](https://github.com/cloudify-cosmo/cloudify-manager/tree/master/plugins/agent-installer). For other agent installer implementations, a different type of agent might be required.
+The tool will create a tar file to be used with Cloudify's [agent installer plugin](plugin-linux-agent-installer.html). For other agent installer implementations, a different type of agent might be required.
 
 Cloudify's agent is originally supplied with 3 additional files:
 
@@ -59,7 +60,7 @@ After creating the tool and obtaining the files, you can use the fabric task `up
 Note: If you'd like to create deb files from your agents which include the files and are installable via a manager blueprint, you can use [packman](https://github.com/cloudify-cosmo/packman) to create the deb ([THAT'S WHAT WE CURRENTLY DO](https://github.com/cloudify-cosmo/cloudify-packager/tree/master/vagrant)!)
 
 
-## Installation
+# Installation
 
 NOTE: soon, you'll be able to install this via pypi like this:
 
@@ -73,13 +74,13 @@ Until then, use this:
 pip install https://github.com/cloudify-cosmo/cloudify-agent-packager/archive/master.tar.gz
 {%endhighlight%}
 
-## Usage
+# Usage
 
 IMPORTANT NOTES:
 
 - You must use this tool on the specific version of the distribution you're intending for your agent to run in as it might require compilation.
 - You must have the desired version of python installed on your chosen image.
-- You must have the `tar` binary in your distribution.
+- You must have the `tar` binary in your distribution (just run `which tar` to verify that you have tar installed).
 
 {% highlight bash %}
 cfy-ap -h
@@ -114,9 +115,9 @@ config = {}  # dict containing the configuration as given in the yaml file.
 cfyap.create(config=config, config_file=None, force=False, verbose=True)
 {%endhighlight%}
 
-## Configuration
+# Configuration
 
-### The YAML config file
+## The YAML config file
 
 Here's an example configuration file.
 
@@ -140,7 +141,7 @@ output_tar: /home/nir0s/Ubuntu-trusty-agent.tar.gz
 keep_venv: true
 {%endhighlight%}
 
-#### Config YAML Explained
+### Config YAML Explained
 
 - `distribution` - Which distribution is the agent intended for. If this is omitted, the tool will try to retrieve the distribution by itself. The distribution is then used to name the virtualenv (if not explicitly specified in `venv`) and to name the output file (if not explicitly specified in `output_tar`).
 - `release` - Which release (e.g. precise, trusty) of the `distribution` is the agent intended for. If this is omitted, the tool will try to retrieve the release by itself. The release is then used to name the virtualenv (if not explicitly specified in `venv`) and to name the output file (if not explicitly specified in `output_tar').
@@ -153,33 +154,33 @@ keep_venv: true
 - `output_tar` - Path to the tar file you'd like to create.
 - `keep_venv` - Whether to keep the virtualenv after creating the tar file or not. Defaults to false.
 
-## Modules
+# Modules
 
 Some modules are mandatory for the agent to be effective, others, are optional.
 
 With the exception of the External Modules, all other modules can be overriden in the config file.
 
-### External Modules:
-- Celery
+## External Modules:
+- [Celery](http://www.celeryproject.org/)
 
-### Base Modules:
+## Base Modules:
 
 Currently, these are the base modules required for the agent:
 
-- [Cloudify Rest Client]() (Mandatory)
-- [Cloudify Plugins Common]() (Mandatory)
-- [Cloudify Script Plugin]() (Optional)
-- [Cloudify Diamond Plugin]() (Optional)
+- [Cloudify Rest Client](https://github.com/cloudify-cosmo/cloudify-rest-client) (Mandatory)
+- [Cloudify Plugins Common](https://github.com/cloudify-cosmo/cloudify-plugins-common) (Mandatory)
+- [Cloudify Script Plugin](https://github.com/cloudify-cosmo/cloudify-script-plugin) (Optional)
+- [Cloudify Diamond Plugin](https://github.com/cloudify-cosmo/cloudify-diamond-plugin) (Optional)
 
-### Management Modules:
+## Management Modules:
 
 Currently, these are the base management modules required for the agent:
 
-- [Cloudify Linux Agent Installer]() (Temporarily Mandatory)
-- [Cloudify Linux Plugin Installer]() (Temporarily Mandatory)
-- [Cloudify Windows Agent Installer]() (Temporarily Mandatory)
-- [Cloudify Windows Plugin Installer]() (Temporarily Mandatory)
+- [Cloudify Linux Agent Installer](plugin-linux-agent-installer.html) (Temporarily Mandatory)
+- [Cloudify Linux Plugin Installer](plugin-installer-plugin.html) (Temporarily Mandatory)
+- [Cloudify Windows Agent Installer](plugin-windows-agent-installer.html) (Temporarily Mandatory)
+- [Cloudify Windows Plugin Installer](plugin-installer-plugin.html) (Temporarily Mandatory)
 
-### Additional modules:
+## Additional modules:
 
-Note that if you want to use ZeroMQ in the [script plugin](https://github.com/cloudify-cosmo/cloudify-script-plugin/) and wish to use the ZeroMQ Proxy, you'll have to explicitly configure it in the `additional_modules` section as shown above.
+Note that if you want to use the [ZeroMQ](https://github.com/zeromq/pyzmq) proxy in the [script plugin](plugin-script.html) you'll have to explicitly configure it in the `additional_modules` section as shown above.
