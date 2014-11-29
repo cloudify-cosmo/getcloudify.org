@@ -25,7 +25,7 @@ An example node specification:
 
 db_server:
 
-    type: cloudify.types.db_server
+    type: cloudify.nodes.DBMS
 
     interfaces:
         cloudify.interfaces.lifecycle:
