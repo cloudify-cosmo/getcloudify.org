@@ -82,9 +82,7 @@ Cloudify supplies agent packages for both Linux (several distros) and Windows.
 You must at least have an agent that corresponds with your Manager's distribution.
 
 ### Docker Images
-When using Docker, Cloudify is provided as 2 separate images.
-* Application Image containing all services which will run on the container.
-* Data Image containing basic data which will be loaded and used for data persistency.
+Please refer to the [Bootstrap using Docker](installation-bootstrapping.html#bootstrapping-using-docker) documentation for more information.
 
 {%note title=Note%}
 Cloudify only temporarily runs on one container for its applications. We're working on separating the images to a set of small images to run a container per service.
