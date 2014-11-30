@@ -21,8 +21,20 @@ They may be located on either the application VM, on the manager, or elsewhere -
 
 Agents read tasks from a tasks broker and delegate them to a worker subprocess (a Plugin based Python process).
 
-Each `deployement` has a dedicated agent on the manager known as `Deployment Agent`
+There are currently 3 types of agents. They're listed below.
 
+#### **Agent - Deployment**
+An agent dedicated to a specific [Deployment](#deployment).
+
+This agent installs other agents on the hosts of a specific deployment.
+
+#### **Agent - Workflow**
+An agent dedicated to a specific [Deployment](#deployment) which is in charge of executing workflows.
+
+#### **Agent - Host**
+An agent dedicated to a specific [Host](#host).
+
+This agent executes plugin tasks on the host machine.
 
 ### **Application**
 An Application in Cloudify means a software based business service with all of its IT components at the infrastructure, middleware and business logic levels.
@@ -60,12 +72,6 @@ and more...
 
 In addition, the context object exposes an API for interacting with Cloudify. For example, getting a [node's](#node) [properties](#properties).
 
-### **Execution Cancellation**
-
-#### **Standard Cancellation** (Coming soon...)
-
-#### **Forced Cacncellation** (Coming soon...)
-
 ### **Deployment**
 A deployment is the plan and the state of a single [application](#application) environment and is a direct derivative of a [blueprint](#blueprint).
 
@@ -83,8 +89,17 @@ An Execution is a running instance of a [workflow](#workflow) and is based on a 
 
 An Execution (unlike a [deployment](#deployment) or a [blueprint](#blueprint) has logs and [events](#event) associated with it.
 
+### **Execution Cancellation**
+
+#### **Standard Cancellation** (Coming soon...)
+
+#### **Forced Cacncellation** (Coming soon...)
+
+### **Host**
+A single instance of a Virtual Machine, Physical Machine or a Linux Container.
+
 ### **Host node**
-A node in the blueprint that represents a type of host whether it's a virtual or physical server.
+A node in the blueprint that represents a type of [host](#host) whether it's a virtual or physical server.
 
 ### **Interface**
 Interfaces set the protocol between the [Topology](#topology) and the [Workflow](#workflow) that uses it.
