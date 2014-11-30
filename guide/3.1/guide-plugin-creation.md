@@ -304,7 +304,7 @@ Since a Cloudify plugin is merely a python module, a module's structure applies 
 
 ## A Plugin's Structure
 
-We won't delve too deeply into the configuration of a python module. Instead, we'll supply a general perspective into the niceties provided with the plugin-template which will aid you in delivering a plugin pretty quickly.
+We won't delve too deeply into the configuration of a python module. Instead, we'll supply a general view of the niceties provided with the plugin-template which will aid you in delivering a plugin pretty quickly.
 
 ## .gitignore
 
@@ -362,7 +362,7 @@ The [testenv:flake8] env will run a flake8 validation against the `plugin` direc
 
 In the `plugin` folder you can see a `tests` folder and a `tasks.py` file.
 
-While this isn't binding, we use the tests folder for our tests and the tasks.py file for the basic tasks the plugin is going to include (as seen [here](#writing-plugin-operations)).
+While this isn't binding, we use the tests folder for our tests and the tasks.py file for the operations the plugin is going to include (as seen [here](#writing-plugin-operations)).
 
 Any additional functions and classes can be put in different files.
 
@@ -373,7 +373,7 @@ You should note the following:
 * The test_plugin.py file imports the `local` attribute from the cloudify.workflows module (a part of the `cloudify-plugins-common` module). This will allow you to run your operations locally.
 * The `blueprint_path` variable is already supplied so that you can run your operations against a given blueprint (will get to that later)
 * the `inputs` dictionary will allow you to supply [inputs]() for your blueprint.
-* The `self.env` attribute will assist you in executing the operations locally in the context of your blueprints.
+* The `self.env` object will assist you in executing the operations locally and in the context of your blueprints.
 
-In the `blueprint` folder you will find 2 yaml files. One is a blueprint for you to use in your tests.
+In the `blueprint` folder you will find 2 yaml files. One is a blueprint you can use in your tests.
 In the plugin.yaml file, note that `install` is set to `false` as you're only running tests.
