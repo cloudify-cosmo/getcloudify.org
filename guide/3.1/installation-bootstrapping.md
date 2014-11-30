@@ -87,14 +87,14 @@ Beginning with version 3.1, Cloudify's Management Environment can be bootstapped
 Bootstrapping using Docker provides several advantages:
 
 * Users can bootstrap on distributions other than Ubuntu 12.04.
-* Users can upgrade containers specific to the service they want to upgrade (Currently, there's only one Application container. In the future, each service will contain one service (e.g. Logstash, Elasticsearch, etc..))
+* Users can upgrade containers specific to the service they want to upgrade (Currently, there's only one Application container. In the future, each container will host one service (e.g. Logstash, Elasticsearch, etc..))
 * Cloudify's bootstrap process will be much simpler and much faster.
 
 The Manager Blueprints provided [here](https://github.com/cloudify-cosmo/cloudify-manager-blueprints) contain the configuration for bootstrapping using Docker, though, by default, the configuration for Docker is commented out.
 
 To bootstrap using Docker, you will have to do the following:
 
-In the Manager Blueprint:
+## In the Manager Blueprint
 
 Comment the default bootstrap method:
 
@@ -121,13 +121,15 @@ task_properties:
 cloudify_packages:
     docker:
         # The Application image
-        docker_url: http://s3.amazonaws.com/your/application/image
+        docker_url: http://gigaspaces-repository-eu.s3.amazonaws.com/org/cloudify3/3.1.0/ga-RELEASE/cloudify_docker_3.1.0-ga-b85_amd64.tar
         # The Data image
-        docker_data_url: http://s3.amazonaws.com/your/data/image
+        docker_data_url: http://gigaspaces-repository-eu.s3.amazonaws.com/org/cloudify3/3.1.0/ga-RELEASE/cloudify_docker_data_3.1.0-ga-b85_amd64.tar
 {%endhighlight%}
 
 
-Configure your application's blueprint to contain the following property for each VM node:
+## In the Application Blueprint
+
+configure each VM node to contain the home_dir property as follows:
 
 {% highlight yaml %}
 cloudify_agent:
