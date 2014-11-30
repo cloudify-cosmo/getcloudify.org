@@ -3,7 +3,7 @@ layout: bt_wiki
 title: Intrinsic Functions
 category: DSL Specification
 publish: true
-abstract: "Intrinsic Functions"
+abstract: "Intrinsic Functions are functions that can be used within Cloudify's DSL. Depending on the function, evaluation occurs on deployment creation or in runtime."
 pageord: 300
 
 ---
@@ -11,10 +11,10 @@ pageord: 300
 
 # *get_input*
 
-`get_input` is used for referencing `inputs` described in the inputs section of the blueprint.
-It can be used in node properties, outputs, and node/relationship operation inputs.
+`get_input` is used for referencing `inputs` described in the inputs section of the blueprint. get_input can be used in node properties, outputs, and node/relationship operation inputs. The function is evaluated on deployment creation.
 
-For example:
+
+Example:
 
 {%highlight yaml%}
 inputs:
@@ -50,11 +50,116 @@ outputs:
 {%endhighlight%}
 
 
+In the previous example, get_input is used for filling the http_web_server node's port property. If on deployment creation the webserver_port input is not specified, get_input will return the default value of the webserver_port input.
+
+
+
 # *get_property*
 
-`get_property` is used for referencing node properties within the blueprint.
+`get_property` is used for referencing node properties within the blueprint. get_property can be used in node properties, outputs, and node/relationship operation inputs. The function is evaluated on deployment creation.
 
-TBD...
+
+## *get_property* in node properties and interface operation inputs
+
+{% highlight yaml %}
+node_templates:
+  security_group:
+    type: cloudify.openstack.nodes.SecurityGroup
+    properties:
+      rules:
+        - remote_ip_prefix: 0.0.0.0/0
+          port: { get_property: [http_web_server, port] }
+
+  web_server:
+    type: cloudify.nodes.WebServer
+    properties:
+      port: 80
+    interfaces:
+      cloudify.interfaces.lifecycle
+        create:
+          ...
+        configure:
+          implementation: some_plugin.tasks.configure
+          inputs:
+            port: { get_property: [SELF, port] }
+{%endhighlight%}
+
+In the previous example, get_property is used for specifying security group's rule port as the web_server's node port. In addition, get_property is used for passing the web_server's port property as an input to the configure operation. The keyword `SELF` is used for specifying that the referenced property belongs to the current node. In this case, using `web_server` instead of `SELF` will have the same outcome.
+
+## *get_property* in relationship interface operation inputs
+
+{% highlight yaml %}
+node_templates:
+  db_server:
+    type: cloudify.nodes.DBMS
+    properties:
+      endpoint: 10.0.0.1:3376
+
+  web_server:
+    type: cloudify.nodes.WebServer
+    properties:
+      port: 8080
+    relationships:
+      - target: db_server
+        type: cloudify.relationships.connected_to
+        source_interfaces:
+          cloudify.interfaces.relationship_lifecycle:
+            preconfigure:
+              implementation: some_plugin.tasks.my_preconfigure
+              inputs:
+                db_endpoint: { get_property: [TARGET, endpoint] }
+                webserver_port: { get_property: [SOURCE, port] }
+{%endhighlight%}
+
+In the previous example, get_property is used for referencing source and target nodes properties. The `SOURCE` and `TARGET` keywords can only be used in a relationship interface.
+
+
+## *get_property* in *outputs*
+
+{% highlight yaml %}
+node_templates:
+  web_server
+    type: cloudify.nodes.WebServer
+    properties:
+      port: 80
+
+outputs:
+  web_server_id:
+    description: Web server port
+    value: { get_property: [web_server, port] }
+{%endhighlight%}
+
+
+## *get_property* nested properties and complex structures
+
+It is possible to reference nested properties within dictionaries/hashes and lists in any nesting level. For accessing a property within a list, the index of the item should be specified and for accessing values in a dictionary/hash a key should be specified.
+
+{% highlight yaml %}
+node_templates:
+  vm:
+    type: cloudify.nodes.Compute
+    properties:
+      ip_addresses:
+        - 192.168.0.7
+        - 15.67.45.29
+
+  web_server:
+    type: cloudify.nodes.WebServer
+    properties:
+      endpoint:
+        type: http
+        port: 80
+    relationships:
+      - target: vm
+        type: cloudify.relationships.contained_in
+        source_interfaces:
+          cloudify.interfaces.relationship_lifecycle:
+            preconfigure:
+              implementation: some_plugin.tasks.my_preconfigure
+              inputs:
+                public_ip: { get_property: [TARGET, ip_addresses, 1] }
+                endpoint_type: { get_property: [SOURCE, endpoint, type] }
+{%endhighlight%}
 
 
 # *get_attribute*
@@ -86,7 +191,7 @@ For this example, assume a `connection_url` runtime property has been set on the
 node_templates:
   db_server:
     type: cloudify.nodes.DBMS
-  web_server
+  web_server:
     type: cloudify.nodes.WebServer
     interfaces:
       cloudify.interfaces.lifecycle
@@ -109,7 +214,7 @@ For this example, assume a `connection_url` runtime property has been set on the
 node_templates:
   db_server:
     type: cloudify.nodes.DBMS
-  web_server
+  web_server:
     type: cloudify.nodes.WebServer
     relationships:
       - target: db_server
@@ -151,13 +256,13 @@ With this value in place, nested properties can be accessed as follows:
 outputs:
   alt_version1:
     # will evaluate to "12.0"
-    value: { get_attribute: [ web_server, webserver_spec, alternative_version, 1 ] }
+    value: { get_attribute: [web_server, webserver_spec, alternative_version, 1] }
   enpoint_2_url:
     # will evaluate to "/endpoint2"
-    value: { get_attribute: [ web_server, webserver_spec, endpoints, endpoint_2, url ] }
+    value: { get_attribute: [web_server, webserver_spec, endpoints, endpoint_2, url] }
   partial_spec:
     value:
-      version: { get_attribute: [ web_server, webserver_spec, requested_version ] }
+      version: { get_attribute: [web_server, webserver_spec, requested_version] }
       alt_versions:
         version1: { get_attribute: [web_server, webserver_spec, alternative_versions, 0] }
         version2: { get_attribute: [web_server, webserver_spec, alternative_versions, 1] }
