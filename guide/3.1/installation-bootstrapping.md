@@ -106,23 +106,24 @@ and uncomment the following:
 
 {% highlight yaml %}
 ...
+Under interfaces, cloudify.interfaces.lifecycle, start, inputs,
 # Set the task mapping to use the following task:
 task_mapping: cloudify_cli.bootstrap.tasks.bootstrap_docker
+# Additional non-mandatory properties are:
+task_properties:
+    # Use to override the path of Docker's executable.
+    docker_path: /usr/bin/docker
+    # Use sudo to start the container. Default is set to true.
+    use_sudo: true
 ...
 
 # Use these Docker images
 cloudify_packages:
     docker:
         # The Application image
-        docker_url: http://s3.amazonaws.com/adaml_docker/cfy_rc2
+        docker_url: http://s3.amazonaws.com/your/application/image
         # The Data image
-        docker_data_url: http://s3.amazonaws.com/adaml_docker/data_image
-{%endhighlight%}
-
-{% highlight yaml %}
-# Additional non-mandatory properties are:
-'docker_path' - Use when running on a machine that already has Docker installed.
-'use_sudo' - Use sudo to start the container. Default is set to true.
+        docker_data_url: http://s3.amazonaws.com/your/data/image
 {%endhighlight%}
 
 
