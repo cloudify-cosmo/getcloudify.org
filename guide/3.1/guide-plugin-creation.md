@@ -260,7 +260,7 @@ def start(**kwargs):
 
 In most cases, the recommendation is to test your plugin's logic using local workflows and only then, run them as part of a Cloudify [deployment]({{page.terminology_link}}#deployment). The [Plugin Template]({{page.template_link}}/blob/master/plugin/tests/test_plugin.py) has an example of doing just that.
 
-If you want to unit test specific function that needs a `ctx` object, you can use `cloudify.mocks.MockCloudifyContext` which is provided by `cloudify-plugins-common`.
+If you want to unit test a specific function that needs a `ctx` object, you can use `cloudify.mocks.MockCloudifyContext` which is provided by `cloudify-plugins-common`.
 
 # The end (Sort of)
 
