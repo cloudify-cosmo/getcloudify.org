@@ -88,14 +88,14 @@ pip install cloudify
 The following commands will install the latest Cloudify milestone:
 
 {% highlight bash %}
-pip install Cloudify --pre
+pip install cloudify --pre
 {% endhighlight %}
 
 ## installing a specific Milestone Release
 Now let's say you want to install the 3.1m5 release specifically. You should run:
 
 {% highlight bash %}
-pip install Cloudify==3.1rc2
+pip install cloudify==3.1rc2
 {% endhighlight %}
 
 ## installing from Github
@@ -107,6 +107,7 @@ Let's say you want to install from the `master` branch. run:
 pip install https://github.com/cloudify-cosmo/cloudify-dsl-parser/archive/master.zip
 pip install https://github.com/cloudify-cosmo/cloudify-rest-client/archive/master.zip
 pip install https://github.com/cloudify-cosmo/cloudify-plugins-common/archive/master.zip
+pip install https://github.com/cloudify-cosmo/cloudify-script-plugin/archive/master.zip
 pip install https://github.com/cloudify-cosmo/cloudify-cli/archive/master.zip
 {% endhighlight %}
 
