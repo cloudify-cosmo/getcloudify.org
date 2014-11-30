@@ -11,7 +11,7 @@ pageord: 220
 
 # Overview
 
-To use Cloudify with distributions other than the ones stated [here](agents-description.html#), we're providing an [Agent-Packager tool](agnet-packager.html) that will assist you in creating an agent for your distribution.
+To use Cloudify with distributions other than the [officially supported ones](agents-description.html#provided-agent-packages), we're providing an [Agent-Packager tool](agents-packager.html) that will assist you in creating an agent for your distribution.
 
 This tool aims to:
 
@@ -148,4 +148,4 @@ keep_venv: true
 
 # Modules
 
-To learn more about the agent's modules, see [here](#agents-description.html#modules).
+To learn more about the agent's modules, click [here](agents-description.html#agent-modules).

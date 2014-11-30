@@ -4,7 +4,7 @@ title: Agents Overview
 category: Agents
 publish: true
 abstract: General description of Cloudify Agents
-pageord: 230
+pageord: 200
 
 terminology_link: reference-terminology.html
 ---
@@ -40,7 +40,7 @@ Cloudify's agent is originally supplied with 3 additional files:
 
 Please refer to the [Agent-Packager tool](agnet-packager.html) documentation.
 
-# Modules
+# Agent Modules
 
 Some modules are mandatory for the agent to funciton, others, are optional.
 
