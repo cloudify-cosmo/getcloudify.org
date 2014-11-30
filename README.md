@@ -20,6 +20,8 @@ To run and test the website locally, you should perform the following steps:
 * Install [Bundler](http://bundler.io/).
 
         sudo gem install bundler
+        
+* Install [python](https://www.python.org/), if not already installed. You will need python2, not python 3. (Both python 2.6 and 2.7 will work)
 
 * Create a fork of this repo and clone it to your machine.
 
