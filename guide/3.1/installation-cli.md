@@ -11,7 +11,7 @@ linux32_link: http://gigaspaces-repository-eu.s3.amazonaws.com/org/cloudify3/3.0
 linux64_link: http://gigaspaces-repository-eu.s3.amazonaws.com/org/cloudify3/3.0.0/nightly_6/cloudify-cli_3.0.0-ga-b6_amd64.deb
 venv_link: http://virtualenv.readthedocs.org/en/latest/
 installation_bootstrapping_link: installation-bootstrapping.html
-current_milestone: 3.1rc1
+current_milestone: 3.1rc2
 ---
 {%summary%}{{page.abstract}}{%endsummary%}
 
@@ -21,7 +21,7 @@ Cloudify CLI (AKA cfy) is being distributed in two different methods:
 1. As a Python package (via PyPi)
 
 {% tip title=Which distribution method should you choose? %}
-The binary package is currently bundled with only the OpenStack and simple providers. Providers are essintially modules that allow you to bootstrap a Cloudify manager on a specific cloud environment (e.g. OpenStack or CloudStack).
+The binary package is currently bundled with only the OpenStack and simple providers. Providers are essentially modules that allow you to bootstrap a Cloudify manager on a specific cloud environment (e.g. OpenStack or CloudStack).
 If you wish to use other providers, you should [install the CLI via PyPi](#installing-from-pypi) and then install the provider of your choice (which is also a Python module) in the same Python environment.{% endtip %}
 
 # Installing the binary package
@@ -56,35 +56,7 @@ describing how to use `cfy`.
 
 Coming soon, please follow the Python package installation below ([Installing from PyPi](#installing-from-pypi)).
 
-# Installing from PyPi
-
-Installation via PyPi is intended mostly for development purposes. We'll assume you
-have Python 2.7.x and PIP installed and configured on your system.
-
-To install run the following command:
-
-{% highlight bash %}
-pip install cloudify
-{% endhighlight %}
-
-After you've installed the CLI module iteself, you should install the providers you want to work with. Here's how you install the OpenStack provider for example:
-
-{% highlight bash %}
-pip install cloudify-openstack
-{% endhighlight %}
-
-{%note title=Note%}
-It's recommended to create a [virtualenv]({{ page.venv_link }}) and install the CLI in it. To do so type the following commands (replace virtual-env-name with the name of your choice, e.g. cloudify:
-
-{% highlight bash %}
-virtualenv virtual-env-name
-cd virtual-env-name
-source bin/activate
-{% endhighlight %}
-
-{%endnote%}
-
-## Prerequisites for Compilation
+## Prerequisites for Compilation when installing from Pypi
 
 Cloudify CLI has dependencies that require compilation on your machine:
 
@@ -113,21 +85,53 @@ export CPPFLAGS=-Qunused-arguments
 
 {% endnote %}
 
+# Installing from PyPi
+
+Installation via PyPi is intended mostly for development purposes. We'll assume you
+have Python 2.7.x and PIP installed and configured on your system.
+
+To install run the following command:
+
+{% highlight bash %}
+pip install cloudify
+{% endhighlight %}
+
+After you've installed the CLI module iteself, you should install the providers you want to work with. Here's how you install the OpenStack provider for example:
+
+{% highlight bash %}
+pip install cloudify-openstack
+{% endhighlight %}
+
+{%note title=Note%}
+It's recommended to create a [virtualenv]({{ page.venv_link }}) and install the CLI in it. To do so type the following commands (replace virtual-env-name with the name of your choice, e.g. cloudify:
+
+{% highlight bash %}
+virtualenv virtual-env-name
+cd virtual-env-name
+source bin/activate
+{% endhighlight %}
+
+{%endnote%}
+
 # Installing a Milestone Release
 
 In order to install a Cloudify milestone release the CLI needs to be installed with its requirements manually from the requested version tag.
 
-For example, the following commands install Cloudify {{ page.current_milestone }} milestone release:
+For example, the following commands will install the latest Cloudify milestone:
+
+From within a Python virtualenv, run:
 
 {% highlight bash %}
-# From within a Python virtualenv, run:
-
-pip install https://github.com/cloudify-cosmo/cloudify-dsl-parser/archive/{{ page.current_milestone }}.zip
-pip install https://github.com/cloudify-cosmo/cloudify-rest-client/archive/{{ page.current_milestone }}.zip
-pip install https://github.com/cloudify-cosmo/cloudify-plugins-common/archive/{{ page.current_milestone }}.zip
-pip install https://github.com/cloudify-cosmo/cloudify-cli/archive/{{ page.current_milestone }}.zip
+pip install Cloudify --pre
 {% endhighlight %}
 
+# installing a specific version
+
+To install Cloudify 3.1rc2, run (from within a Python virtualenv):
+
+{% highlight bash %}
+pip install Cloudify==3.1rc2
+{% endhighlight %}
 
 # What's Next
 
