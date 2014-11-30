@@ -366,4 +366,14 @@ While this isn't binding, we use the tests folder for our tests and the tasks.py
 
 Any additional functions and classes can be put in different files.
 
-Inside the tests folder you can find the `test_plugin.py` file in which you can put your tests.
+Inside the tests folder you can find the `test_plugin.py` file in which you can write your tests.
+
+You should note the following:
+
+* The test_plugin.py file imports the `local` attribute from the cloudify.workflows module (a part of the `cloudify-plugins-common` module). This will allow you to run your operations locally.
+* The `blueprint_path` variable is already supplied so that you can run your operations against a given blueprint (will get to that later)
+* the `inputs` dictionary will allow you to supply [inputs]() for your blueprint.
+* The `self.env` attribute will assist you in executing the operations locally in the context of your blueprints.
+
+In the `blueprint` folder you will find 2 yaml files. One is a blueprint for you to use in your tests.
+In the plugin.yaml file, note that `install` is set to `false` as you're only running tests.
