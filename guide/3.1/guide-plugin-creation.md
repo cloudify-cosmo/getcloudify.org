@@ -63,7 +63,7 @@ For our Python HTTP webserver plugin, we'll create two operations: start & stop.
 
 The start operation will create an `index.html` file and then start a webserver using the following shell command: `python -m SimpleHTTPServer` which starts an HTTP server listening on port 8000.
 
-We'll put the start & stop operations in an `tasks.py` module within the `python_webserver` package in our project.
+We'll put the start & stop operations in a `tasks.py` module within the `python_webserver` package in our project.
 
 In the following example, we'll use Cloudify's logger which is accessible using the `ctx.logger` object.
 
@@ -258,7 +258,7 @@ def start(**kwargs):
 
 # Testing Your Plugin
 
-In most cases, the recommendation is to test your plugin's logic using local workflows and only then, run them as part of a Cloudify [deployment]({{page.terminology_link}}#deployment). The [Plugin Template]({{page.template_link}}/blob/master/plugin/tests/test_plugin.py) has an example of doing just that.
+In most cases, the recommendation is to test your plugin's logic using local workflows and only then, run them as part of a Cloudify [deployment]({{page.terminology_link}}#deployment). The [Plugin Template]({{page.template_link}}/blob/3.1/plugin/tests/test_plugin.py) has an example of doing just that.
 
 If you want to unit test a specific function that needs a `ctx` object, you can use `cloudify.mocks.MockCloudifyContext` which is provided by `cloudify-plugins-common`.
 
@@ -267,7 +267,9 @@ If you want to unit test a specific function that needs a `ctx` object, you can 
 That's it! You just wrote your first plugin! All you need now is to incorporate it within your blueprint.
 For additional info read the [Blueprint Guide]({{page.blueprint_guide_link}}).
 
-# The Context Object
+# Additional Info
+
+## The Context Object
 
 The `ctx` context object contains contextual parameters mirrored from the blueprint along-side additional functionality:
 
@@ -284,7 +286,7 @@ The `ctx` context object contains contextual parameters mirrored from the bluepr
 * `ctx.get_resource` - Reads a resource's data.
 * `ctx.instance.update` - Updates the node's runtime properties. This is automatically called each time an operation ends, thus it is only useful in the context of a single operation.
 
-# Cloud Plugins
+## Cloud Plugins
 
 When writing a cloud plugin it needs to contain an operation for getting the VM's state after the start operation was invoked.
 This is because most cloud VM creation API's are asynchronous. Therefore, by default, Cloudify calls the `start` operation and afterwards performs polling on the `get_state` operation until it returns `True`, which indicates the VM was started.
@@ -304,7 +306,7 @@ Since a Cloudify plugin is merely a python module, a module's structure applies 
 
 ## A Plugin's Structure
 
-We won't delve too deeply into the configuration of a python module. Instead, we'll supply a general view of the niceties provided with the plugin-template which will aid you in delivering a plugin pretty quickly.
+We won't delve too deeply into the configuration of a python module. Instead, we'll supply a general view of the niceties provided with the plugin template which will aid you in delivering a plugin pretty quickly.
 
 ## .gitignore
 
@@ -334,7 +336,9 @@ In addition, we install [nose](https://nose.readthedocs.org/en/latest/) which is
 
 The setup.py file is the most basic requirement for writing a python module. It is used to state basic information for delivering and installing your module.
 
-We won't go into the bits and pieces of writing a setup.py file but it is important to notice one thing. the `install_requires` variables must ALWAYS contain the `cloudify-plugins-common` module as it's the most basic requirements for writing Cloudify plugins.
+We won't go into the bits and pieces of writing a setup.py file but it is important to notice one thing. the `install_requires` variable must ALWAYS contain the `cloudify-plugins-common` module as it's the most basic requirements for writing Cloudify plugins.
+
+Additionally, the `name` variable must not include underscores.
 
 More info on the module can be found [here]({{page.plugins_common_docs_link}}).
 See "Setting up the setup.py file for your plugin" above for a setup.py file matching the guide provided here.
@@ -370,10 +374,16 @@ Inside the tests folder you can find the `test_plugin.py` file in which you can 
 
 You should note the following:
 
-* The test_plugin.py file imports the `local` attribute from the cloudify.workflows module (a part of the `cloudify-plugins-common` module). This will allow you to run your operations locally.
+* The test_plugin.py file imports the `local` attribute from the cloudify.workflows module (a part of the `cloudify-plugins-common` module). This will allow you to run your operations locally using the local workflows API.
 * The `blueprint_path` variable is already supplied so that you can run your operations against a given blueprint (will get to that later)
-* the `inputs` dictionary will allow you to supply [inputs]() for your blueprint.
+* the `inputs` dictionary will allow you to supply [inputs]({{page.terminology_link}}#inputs) for your blueprint.
 * The `self.env` object will assist you in executing the operations locally and in the context of your blueprints.
+* The test `test_my_task` shows an example of instantiating a local workflow execution environment and executing an arbitrary workflow with it (install in the case of this test).
 
 In the `blueprint` folder you will find 2 yaml files. One is a blueprint you can use in your tests.
+
+Generally, when you use the local workflows API you also have to supply a blueprint to process. The blueprint.yaml file provided in the test already maps the operation in tasks.py to a `cloudify.interface.lifecycle` operation.
+
 In the plugin.yaml file, note that `install` is set to `false` as you're only running tests.
+
+So... clone the plugin template's repository and enjoy writing your first Cloudify plugin.
