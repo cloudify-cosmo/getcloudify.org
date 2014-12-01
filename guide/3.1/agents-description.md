@@ -12,7 +12,7 @@ terminology_link: reference-terminology.html
 
 # Overview
 
-Cloudify's Agent is basically a virtualenv with a series of modules installed in it and a few configuration files attached. The agent provides a way to interact with hosts via plugins, run workflows, install other agents and deploy applications.
+Cloudify's Agent is basically a [virtualenv](http://virtualenv.readthedocs.org/en/latest/virtualenv.html) with a series of modules installed in it and a few configuration files attached. The agent provides a way to interact with [hosts]({{page.terminology_link}}#host) via [plugins]({{page.terminology_link}}#plugin), run [workflows]({{page.terminology_link}}#workflow), install other agents and deploy [applications]({{page.terminology_link}}#application).
 
 There are currently 3 types of agents:
 
@@ -38,11 +38,11 @@ Cloudify's agent is originally supplied with 3 additional files:
 
 # Creating your own agent
 
-Please refer to the [Agent-Packager tool](agnet-packager.html) documentation.
+Please refer to the [Agent-Packager tool](https://github.com/cloudify-cosmo/cloudify-agent-packager) [documentation](agents-packager.html).
 
 # Agent Modules
 
-Some modules are mandatory for the agent to funciton, others, are optional.
+Some modules are mandatory for the agent to function, others, are optional.
 
 ## Core External Modules:
 
