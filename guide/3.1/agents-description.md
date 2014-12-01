@@ -7,12 +7,22 @@ abstract: General description of Cloudify Agents
 pageord: 200
 
 terminology_link: reference-terminology.html
+virtualenv_link: http://virtualenv.readthedocs.org/en/latest/virtualenv.html
+agent_packager_link: agents-packager.html
+celery_link: http://www.celeryproject.org/
+rest_client_api_link: reference-rest-client-api.html
+plugins_common_api_link: reference-plugins-common-api.html
+diamond_plugin_link: plugin-diamond.html
+script_plugin_link: plugin-script.html
+linux_agent_installer_link: plugin-linux-agent-installer.html
+windows_agent_installer_link: plugin-windows-agent-installer.html
+plugin_installer_link: plugin-installer-plugin.html
 ---
 {%summary%}{{page.abstract}}{%endsummary%}
 
 # Overview
 
-Cloudify's Agent is basically a virtualenv with a series of modules installed in it and a few configuration files attached. The agent provides a way to interact with hosts via plugins, run workflows, install other agents and deploy applications.
+Cloudify's Agent is basically a [virtualenv]({{page.virtualenv_link}}) with a series of modules installed in it and a few configuration files attached. The agent provides a way to interact with [hosts]({{page.terminology_link}}#host) via [plugins]({{page.terminology_link}}#plugin), run [workflows]({{page.terminology_link}}#workflow), install other agents and deploy [applications]({{page.terminology_link}}#application).
 
 There are currently 3 types of agents:
 
@@ -20,15 +30,16 @@ There are currently 3 types of agents:
 * Workflow Agents
 * Host Agents
 
-See the [Terminology page](reference-terminology.html#agent) for a more elaborate explanation on each type of agent.
+See the [Terminology page]({{page.terminology_link}}#agent) for a more elaborate explanation on each type of agent.
 
 # Provided Agent Packages
 
-Cloudify comes with a set of premade agents:
+Cloudify comes with a set of premade agent packages:
 
-* Centos/REHL with Python 2.6 (Tested on Centos 6.3+ and REHL 7.0)
-* Ubuntu with Python 2.7 (Might work on debian, but not tested)
-* Windows 2008+ with Python 2.7
+* Centos Agent - Centos/REHL with Python 2.6.x (Tested on Centos 6.4/5, and REHL 7.0)
+* Ubuntu Precise Agent - Ubuntu 12.04 with Python 2.7.x (Might work on Debian, but untested)
+* Ubuntu Trusty Agent - Ubuntu 14.04 with Python 2.7.x (Might work on Debian, but untested)
+* Windows Agent - Windows 2008+ with Python 2.7.x
 
 Cloudify's agent is originally supplied with 3 additional files:
 
@@ -38,39 +49,39 @@ Cloudify's agent is originally supplied with 3 additional files:
 
 # Creating your own agent
 
-Please refer to the [Agent-Packager tool](agnet-packager.html) documentation.
+Please refer to the Agent-Packager tool [documentation]({{page.agent_packager_link}}).
 
 # Agent Modules
 
-Some modules are mandatory for the agent to funciton, others, are optional.
+Some modules are mandatory for the agent to function, others, are optional.
 
 ## Core External Modules:
 
 These are modules not developed by Cloudify that are used by the agent.
 
-- [Celery](http://www.celeryproject.org/) (Mandatory)
+- [Celery]({{page.celery_link}}) (Mandatory)
 
 ## Core Modules:
 
 These modules are developed by Cloudify and provide core functionality for the agent - thus, the default agents provided with Cloudify come with these preinstalled.
 
-- [Cloudify Rest Client](https://github.com/cloudify-cosmo/cloudify-rest-client) (Mandatory)
-- [Cloudify Plugins Common](https://github.com/cloudify-cosmo/cloudify-plugins-common) (Mandatory)
-- [Cloudify Script Plugin](https://github.com/cloudify-cosmo/cloudify-script-plugin) (Optional)
-- [Cloudify Diamond Plugin](https://github.com/cloudify-cosmo/cloudify-diamond-plugin) (Optional)
+- [Cloudify Rest Client]({{page.rest_client_api_link}}) (Mandatory)
+- [Cloudify Plugins Common]({{page.plugins_common_api_link}}) (Mandatory)
+- [Cloudify Script Plugin]({{page.script_plugin_link}}) (Optional)
+- [Cloudify Diamond Plugin]({{page.diamond_plugin_link}}) (Optional)
 
 ## Management Modules:
 
 Currently, these are the base management modules required for the agent:
 (In the future, some of them will be optional.)
 
-- [Cloudify Linux Agent Installer](plugin-linux-agent-installer.html) (Temporarily Mandatory)
-- [Cloudify Linux Plugin Installer](plugin-installer-plugin.html) (Temporarily Mandatory)
-- [Cloudify Windows Agent Installer](plugin-windows-agent-installer.html) (Temporarily Mandatory)
-- [Cloudify Windows Plugin Installer](plugin-installer-plugin.html) (Temporarily Mandatory)
+- [Cloudify Linux Agent Installer]({{page.linux_agent_installer_link}}) (Temporarily Mandatory)
+- [Cloudify Linux Plugin Installer]({{page.plugin_installer_link}}) (Temporarily Mandatory)
+- [Cloudify Windows Agent Installer]({{page.windows_agent_installer_link}}) (Temporarily Mandatory)
+- [Cloudify Windows Plugin Installer]({{page.plugin_installer_link}}) (Temporarily Mandatory)
 
 ## Additional modules:
 
-Additional modules are any other modules that are added to the agent during runtime or when an agent is created via the [Agent-Packager tool](agnet-packager.html) (e.g. [Cloudify's Fabric Plugin](plugin-fabric.html)).
+Additional modules are any other modules that are added to the agent during runtime or when an agent is created via the [Agent-Packager tool]({{page.agent_packager_link}}) (e.g. [Cloudify's Fabric Plugin](plugin-fabric.html)).
 
-Note that if you want to use the [ZeroMQ](https://github.com/zeromq/pyzmq) proxy in the [script plugin](plugin-script.html) you'll have to explicitly configure it in the `additional_modules` section as shown above.
+Note that if you want to use the [ZeroMQ](https://github.com/zeromq/pyzmq) proxy in the [script plugin]({{page.script_plugin_link}}) you'll have to explicitly configure it in the `additional_modules` section as shown above.

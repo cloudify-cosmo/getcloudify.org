@@ -6,9 +6,9 @@ publish: true
 abstract: Installation instructions for Cloudify CLI under multiple platforms
 pageord: 200
 
-windows_link: http://gigaspaces-repository-eu.s3.amazonaws.com/org/cloudify3/3.0.0/nightly_6/cloudify-cli_3.0.0-ga-b6.exe
-linux32_link: http://gigaspaces-repository-eu.s3.amazonaws.com/org/cloudify3/3.0.0/nightly_6/cloudify-cli_3.0.0-ga-b6_i386.deb
-linux64_link: http://gigaspaces-repository-eu.s3.amazonaws.com/org/cloudify3/3.0.0/nightly_6/cloudify-cli_3.0.0-ga-b6_amd64.deb
+windows_link: http://gigaspaces-repository-eu.s3.amazonaws.com/org/cloudify3/3.1.0/rc2-RELEASE/cloudify-windows-cli_3.1.0-rc2-b84.exe
+linux32_link: http://gigaspaces-repository-eu.s3.amazonaws.com/org/cloudify3/3.1.0/rc2-RELEASE/cloudify-linux32-cli_3.1.0-rc2-b84_i386.deb
+linux64_link: http://gigaspaces-repository-eu.s3.amazonaws.com/org/cloudify3/3.1.0/rc2-RELEASE/cloudify-linux64-cli_3.1.0-rc2-b84_amd64.deb
 venv_link: http://virtualenv.readthedocs.org/en/latest/
 installation_bootstrapping_link: installation-bootstrapping.html
 ---
@@ -20,8 +20,12 @@ Cloudify CLI (AKA cfy) is being distributed in two different methods:
 1. As a Python package (via PyPi)
 
 {% tip title=Which distribution method should you choose? %}
-The binary package is currently bundled with only the OpenStack and simple providers. Providers are essentially modules that allow you to bootstrap a Cloudify manager on a specific cloud environment (e.g. OpenStack or CloudStack).
-If you wish to use other providers, you should [install the CLI via PyPi](#installing-from-pypi) and then install the provider of your choice (which is also a Python module) in the same Python environment.{% endtip %}
+The binary package is only able to bootstrap Openstack manager. If you wish to bootstrap other environments,
+you should [install the CLI via PyPi](#installing-from-pypi).{% endtip %}
+
+{%note title=OpenStack provider%}
+The binary package is bundled with Openstack provider as well. Providers mechanism is deprecated and won't be available in next release.
+{%endnote%}
 
 # Installing the binary package
 
@@ -55,49 +59,23 @@ describing how to use `cfy`.
 
 Coming soon, please follow the Python package installation below ([Installing from PyPi](#installing-from-pypi)).
 
-## Prerequisites for Compilation when installing from Pypi
-
-Cloudify CLI has dependencies that require compilation on your machine:
-
-### Windows
-
-For Windows it's suggested to use [Unofficial Windows Binaries for Python](http://www.lfd.uci.edu/~gohlke/pythonlibs)
-and install the following packages:
-
-1. PyCrypto
-2. PyYaml
-
-### Linux
-
-Under Ubuntu, you'll need to install the `python-dev` package.
-
-### OS X
-
-You will need Apple's developers tools that are installed with Xcode.
-
-{% note title=Note for Mac users %} One of the libraries that's installed with the OpenStack provider (`pycrypto`) may fail to compile on certain variations of OS X. This seems to be a [known issue](http://stackoverflow.com/questions/19617686/trying-to-install-pycrypto-on-mac-osx-mavericks/22868650#22868650). To solve it, type the following command in your terminal windows and try the installation again:
-
-{% highlight bash %}
-export CFLAGS=-Qunused-arguments
-export CPPFLAGS=-Qunused-arguments
-{% endhighlight %}
-
-{% endnote %}
+{%note title=Bootstraping with binary package%}
+When using the binary package, there is no need to install blueprint dependencies since binary package already contains these.
+{%endnote%}
 
 # Installing Cloudify's CLI from PyPi
 
 You must have Python 2.7.x and PIP installed and configured on your system.
 
-{%note title=Note%}
+{%tip title=Using virtualenv%}
 It's recommended to create a [virtualenv]({{ page.venv_link }}) and install the CLI in it. To do so type the following commands (replace virtual-env-name with the name of your choice, e.g. cloudify:
 
 {% highlight bash %}
 virtualenv virtual-env-name
-cd virtual-env-name
-source bin/activate
+source virtual-env-name/bin/activate
 {% endhighlight %}
 
-{%endnote%}
+{%endtip%}
 
 ## Installing the latest Stable Release
 To install the CLI run the following command:
@@ -110,14 +88,14 @@ pip install cloudify
 The following commands will install the latest Cloudify milestone:
 
 {% highlight bash %}
-pip install Cloudify --pre
+pip install cloudify --pre
 {% endhighlight %}
 
 ## installing a specific Milestone Release
 Now let's say you want to install the 3.1m5 release specifically. You should run:
 
 {% highlight bash %}
-pip install Cloudify==3.1rc2
+pip install cloudify==3.1rc2
 {% endhighlight %}
 
 ## installing from Github
@@ -129,9 +107,26 @@ Let's say you want to install from the `master` branch. run:
 pip install https://github.com/cloudify-cosmo/cloudify-dsl-parser/archive/master.zip
 pip install https://github.com/cloudify-cosmo/cloudify-rest-client/archive/master.zip
 pip install https://github.com/cloudify-cosmo/cloudify-plugins-common/archive/master.zip
+pip install https://github.com/cloudify-cosmo/cloudify-script-plugin/archive/master.zip
 pip install https://github.com/cloudify-cosmo/cloudify-cli/archive/master.zip
 {% endhighlight %}
 
-# What's Next
+## Prerequisites for Compilation when installing from Pypi
+Cloudify CLI has dependencies that require compilation on your machine:
 
+### Windows
+For Windows it's suggested to use [Unofficial Windows Binaries for Python](http://www.lfd.uci.edu/~gohlke/pythonlibs)
+and install the following packages:
+
+1. PyCrypto
+2. PyYaml
+
+### Linux
+Under Ubuntu, you'll need to install the `python-dev` package.
+
+### OS X
+You will need Apple's developers tools that are installed with Xcode.
+
+# What's Next
 * Now that you know the requirements and have the CLI installed, you can [bootstrap your own manager]({{ page.installation_bootstrapping_link }})
+
