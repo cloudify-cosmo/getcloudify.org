@@ -50,7 +50,7 @@ outputs:
 {%endhighlight%}
 
 
-In the previous example, get_input is used for filling in the http_web_server node's port property. If on deployment creation the webserver_port input is not specified, get_input will return the default value of the webserver_port input.
+In the previous example, get_input was used for filling in the http_web_server node's port property. If on deployment creation the webserver_port input is not specified, get_input will return the default value of the webserver_port input.
 
 
 
@@ -68,7 +68,7 @@ node_templates:
     properties:
       rules:
         - remote_ip_prefix: 0.0.0.0/0
-          port: { get_property: [http_web_server, port] }
+          port: { get_property: [web_server, port] }
 
   web_server:
     type: cloudify.nodes.WebServer
@@ -84,7 +84,7 @@ node_templates:
             port: { get_property: [SELF, port] }
 {%endhighlight%}
 
-In the previous example, get_property is used for specifying security group's rule port as the web_server's node port. In addition, get_property is used for passing the web_server's port property as an input to the configure operation. The keyword `SELF` is used for specifying that the referenced property belongs to the current node. In this case, using `web_server` instead of `SELF` will have the same outcome.
+In the previous example, get_property was used for specifying security group's rule port as the web_server node's port. In addition, get_property was used for passing the web_server's port property as an input to the configure operation. The keyword `SELF` is used for specifying that the referenced property belongs to the current node. In this case, using `web_server` instead of `SELF` will provide the same outcome.
 
 ## *get_property* in relationship interface operation inputs
 
@@ -111,7 +111,7 @@ node_templates:
                 webserver_port: { get_property: [SOURCE, port] }
 {%endhighlight%}
 
-In the previous example, get_property is used for referencing source and target nodes properties. The `SOURCE` and `TARGET` keywords can only be used in a relationship interface.
+In the previous example, get_property was used for referencing source and target nodes' properties. The `SOURCE` and `TARGET` keywords can only be used in a relationship interface.
 
 
 ## *get_property* in *outputs*
@@ -277,5 +277,5 @@ Notice how nested properties can be either a key name in case of a map or an ind
 * `SOURCE` and `TARGET` can only be used in relationship interface operation inputs.
 
 {%warning title=Note%}
-When using `get_attribute` with explicit reference, that is, a node name `{ get_attribute: [ web_server, webserver_spec ] }` and not implicit reference such as `{ get_attribute: [ SELF, webserver_spec ] }`, if, at the time of evaluation, more than one node instance exists, an error is raised. This has significant implication when using `get_attribute` in node/relationship operation inputs, as it means the operation can not be executed.
+When using `get_attribute` with an explicit reference, that is, a node's name `{ get_attribute: [ web_server, webserver_spec ] }` and not an implicit reference such as `{ get_attribute: [ SELF, webserver_spec ] }`, if, at the time of evaluation, more than one node instance exists, an error is raised. This has significant implications when using `get_attribute` in node/relationship operation inputs, as it means the operation can not be executed.
 {%endwarning%}
