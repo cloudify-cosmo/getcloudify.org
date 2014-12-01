@@ -9,6 +9,9 @@ pageord: 400
 
 {%summary%} This page explains how to bootstrap a Cloudify manager using the Cloudify CLI {%endsummary%}
 
+{%note title=NEW!%}
+You can now bootstrap Cloudify using Docker. See [Bootstrapping Using Docker](#bootstrapping-using-docker) for more information.
+{%endnote%}
 
 # Initialization
 
@@ -82,6 +85,7 @@ If you wish to write a custom manager blueprint (whether it be for a custom beha
 
 ## Bootstrapping using Docker
 
+
 Beginning with version 3.1, Cloudify's Management Environment can be bootstapped using the [provided]() Docker images.
 
 Bootstrapping using Docker provides several advantages:
@@ -90,7 +94,11 @@ Bootstrapping using Docker provides several advantages:
 * Users can upgrade containers specific to the service they want to upgrade (Currently, there's only one Application container. In the future, each container will host one service (e.g. Logstash, Elasticsearch, etc..))
 * Cloudify's bootstrap process will be much simpler and much faster.
 
-The Manager Blueprints provided [here](https://github.com/cloudify-cosmo/cloudify-manager-blueprints) contain the configuration for bootstrapping using Docker, though, by default, the configuration for Docker is commented out.
+The Manager Blueprints provided [here](https://github.com/cloudify-cosmo/cloudify-manager-blueprints) contain the configuration for bootstrapping using Docker, though, by default, the configuration for Docker is commented out. In Cloudify 3.2, Docker will be the default method for bootstrapping.
+
+{%note title=Note%}
+Please verify the [prerequisites](installation-general.html#bootstrapping-using-docker) before bootstrapping using Docker.
+{%endnote%}
 
 To bootstrap using Docker, you will have to do the following:
 
@@ -98,6 +106,8 @@ To bootstrap using Docker, you will have to do the following:
 
 Comment the default bootstrap method:
 
+# Under interfaces, cloudify.interfaces.lifecycle, start, inputs,
+# comment this:
 {% highlight yaml %}
 task_mapping: cloudify_cli.bootstrap.tasks.bootstrap
 {%endhighlight%}
@@ -106,8 +116,8 @@ and uncomment the following:
 
 {% highlight yaml %}
 ...
-Under interfaces, cloudify.interfaces.lifecycle, start, inputs,
-# Set the task mapping to use the following task:
+# Under interfaces, cloudify.interfaces.lifecycle, start, inputs,
+# set the task mapping to use the following task:
 task_mapping: cloudify_cli.bootstrap.tasks.bootstrap_docker
 # Additional non-mandatory properties are:
 task_properties:
