@@ -11,7 +11,7 @@ pageord: 300
 
 # *get_input*
 
-`get_input` is used for referencing `inputs` described in the inputs section of the [blueprint](reference-terminology.html#blueprint). get_input can be used in [node properties](reference-terminology.html#properties), outputs, and node/relationship operation inputs. The function is evaluated on [deployment](reference-terminology.html#deployment) creation.
+`get_input` is used for referencing `inputs` described in the [inputs](dsl-spec-inputs.html) section of the [blueprint](reference-terminology.html#blueprint). get_input can be used in [node properties](reference-terminology.html#properties), [outputs](dsl-spec-outputs.html), and node/relationship operation inputs. The function is evaluated on [deployment](reference-terminology.html#deployment) creation.
 
 
 Example:
