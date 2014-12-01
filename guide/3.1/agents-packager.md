@@ -139,6 +139,17 @@ keep_venv: true
 
 ### Config YAML Explained
 
+{%note title=Note%}
+The `distribution` and `release` variables are case sensitive and must correspond with the output generated when running:
+
+{% highlight bash %}
+python -c "import platform; print platform.dist()"
+# e.g. ('Ubuntu', '14.04', 'trusty')
+{%endhighlight%}
+
+Beginning with Cloudify 3.2, they will not be case sensitive.
+{%endnote%}
+
 - `distribution` - Which distribution is the agent intended for. If this is omitted, the tool will try to retrieve the distribution by itself. The distribution is then used to name the virtualenv (if not explicitly specified in `venv`) and to name the output file (if not explicitly specified in `output_tar`).
 - `release` - Which release (e.g. precise, trusty) of the `distribution` is the agent intended for. If this is omitted, the tool will try to retrieve the release by itself. The release is then used to name the virtualenv (if not explicitly specified in `venv`) and to name the output file (if not explicitly specified in `output_tar').
 - `venv` - Path to the virtualenv you'd like to create. Leave this empty iNf you want to use the built in agent installer, which requires sudo privileges (Defaults to /cloudify/DISTRO-VERSION-agent/env).
