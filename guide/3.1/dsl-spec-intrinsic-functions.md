@@ -56,7 +56,7 @@ In the previous example, get_input was used for filling in the http_web_server n
 
 # *get_property*
 
-`get_property` is used for referencing [node properties](reference-terminology.html#properties) within the [blueprint](reference-terminology.html#blueprint). get_property can be used in node properties, outputs, and node/relationship operation inputs. The function is evaluated on [deployment](reference-terminology.html#deployment) creation.
+`get_property` is used for referencing node properties within the blueprint. get_property can be used in node properties, outputs, and node/relationship operation inputs. The function is evaluated on deployment creation.
 
 
 ## *get_property* in node properties and interface operation inputs
@@ -164,7 +164,7 @@ node_templates:
 
 # *get_attribute*
 
-`get_attribute` is used to reference [runtime properties](reference-terminology.html#runtime-properties) of different [node instances](reference-terminology.html#node-instance) from within the [blueprint](reference-terminology.html#blueprint).
+`get_attribute` is used to reference [runtime properties](reference-terminology.html#runtime-properties) of different [node instances](reference-terminology.html#node-instance) from within the blueprint.
 
 ## *get_attribute* in *outputs*
 
