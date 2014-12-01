@@ -9,6 +9,9 @@ pageord: 400
 
 {%summary%} This page explains how to bootstrap a Cloudify manager using the Cloudify CLI {%endsummary%}
 
+{%note title=NEW!%}
+You can now bootstrap Cloudify using Docker. See [Bootstrapping Using Docker](#bootstrapping-using-docker) for more information.
+{%endnote%}
 
 # Initialization
 
@@ -90,7 +93,7 @@ Bootstrapping using Docker provides several advantages:
 * Users can upgrade containers specific to the service they want to upgrade (Currently, there's only one Application container. In the future, each container will host one service (e.g. Logstash, Elasticsearch, etc..))
 * Cloudify's bootstrap process will be much simpler and much faster.
 
-The Manager Blueprints provided [here](https://github.com/cloudify-cosmo/cloudify-manager-blueprints) contain the configuration for bootstrapping using Docker, though, by default, the configuration for Docker is commented out.
+The Manager Blueprints provided [here](https://github.com/cloudify-cosmo/cloudify-manager-blueprints) contain the configuration for bootstrapping using Docker, though, by default, the configuration for Docker is commented out. In Cloudify 3.2, Docker will be the default method for bootstrapping.
 
 To bootstrap using Docker, you will have to do the following:
 
