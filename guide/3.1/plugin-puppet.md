@@ -18,27 +18,25 @@ The Puppet plugin allows you to run either Puppet agent or Puppet standalone. Th
 Example:
 {% highlight yaml %}
 imports:
-    - {{page.yaml_link}}
-blueprint:
-  name: example
-  nodes:
-    - name: example_web_server
-      type: cloudify.types.puppet.web_server
-      properties:
-        puppet_config:
-          server: puppet.example.com  # Agent
-          ...
+  - {{page.yaml_link}}
+node_templates:
+  example_web_server:
+    type: cloudify.puppet.nodes.WebServer
+    properties:
+      puppet_config:
+        server: puppet.example.com  # Agent
+        ...
 {%endhighlight%}
 
 # Types
 
 Node types that can be used for Puppet nodes are listed below. All of them are derived from the corresponding [abstract types](reference-types.html#abstract-types).
 
-* `cloudify.types.puppet.app_module` -- derived from `cloudify.types.app_module`
-* `cloudify.types.puppet.app_server` -- derived from `cloudify.types.app_server`
-* `cloudify.types.puppet.db_server` -- derived from `cloudify.types.db_server`
-* `cloudify.types.puppet.message_bus_server` -- derived from `cloudify.types.message_bus_server`
-* `cloudify.types.puppet.web_server` -- derived from `cloudify.types.web_server`
+* `cloudify.puppet.nodes.ApplicationModule` -- derived from `cloudify.nodes.ApplicationModule`
+* `cloudify.puppet.nodes.ApplicationServer` -- derived from `cloudify.nodes.ApplicationServer`
+* `cloudify.puppet.nodes.DBMS` -- derived from `cloudify.nodes.DBMS`
+* `cloudify.puppet.nodes.SoftwareComponent` -- derived from `cloudify.nodes.SoftwareComponent`
+* `cloudify.puppet.nodes.WebServer` -- derived from `cloudify.nodes.WebServer`
 
 **Properties:**
 
@@ -78,18 +76,16 @@ When defining a YAML node, there are several places that contain per-operation c
 
 {% highlight yaml %}
 imports:
-    - {{page.yaml_link}}
-blueprint:
-  name: example
-  nodes:
-    - name: example_web_server
-      type: cloudify.types.puppet.web_server
-      properties:
-        puppet_config:
-          ...
-          operations_tags:
-            start: my_start_tag  # cloudify.interfaces.lifecycle.start
-            stop: my_stop_tag    # cloudify.interfaces.lifecycle.stop
+  - {{page.yaml_link}}
+node_templates:
+  example_web_server:
+    type: cloudify.puppet.nodes.WebServer
+    properties:
+      puppet_config:
+        ...
+        operations_tags:
+          start: my_start_tag  # cloudify.interfaces.lifecycle.start
+          stop: my_stop_tag    # cloudify.interfaces.lifecycle.stop
 {%endhighlight%}
 
 ## Puppet version to install
@@ -99,18 +95,16 @@ You can specify which Puppet version to install (to use as agent or standalone) 
 Example:
 {% highlight yaml %}
 imports:
-    - {{page.yaml_link}}
-blueprint:
-  name: example
-  nodes:
-    - name: example_web_server
-      type: cloudify.types.puppet.web_server
-      properties:
-        puppet_config:
-          version: 3.5.1-1puppetlabs1
-          server: puppet.example.com
-          environment: myenv
-          node_name_prefix: myweb-
+  - {{page.yaml_link}}
+node_templates:
+  example_web_server:
+    type: cloudify.puppet.nodes.WebServer
+    properties:
+      puppet_config:
+        version: 3.5.1-1puppetlabs1
+        server: puppet.example.com
+        environment: myenv
+        node_name_prefix: myweb-
 {%endhighlight%}
 
 
@@ -125,19 +119,17 @@ You can specify custom facts to pass to Puppet under `properties` > `puppet_conf
 Example:
 {% highlight yaml %}
 imports:
-    - {{page.yaml_link}}
-blueprint:
-  name: example
-  nodes:
-    - name: example_web_server
-      type: cloudify.types.puppet.web_server
-      properties:
-        puppet_config:
-          ...
-          facts:
-            level1:
-              level2:
-                level3: myval
+  - {{page.yaml_link}}
+node_templates:
+  example_web_server:
+    type: cloudify.puppet.nodes.WebServer
+    properties:
+      puppet_config:
+        ...
+        facts:
+          level1:
+            level2:
+              level3: myval
 {%endhighlight%}
 
 This will make available a fact named `level1_level2_level3` with the value `myval`.
@@ -168,25 +160,23 @@ If `properties` > `puppet_config` > `operations_tags` hash is specified, it is b
 ### Tags passing example
 {% highlight yaml %}
 imports:
-    - {{page.yaml_link}}
-blueprint:
-  name: example
-  nodes:
-    - name: example_web_server
-      type: cloudify.types.puppet.web_server
-      properties:
-        puppet_config:
-          server: puppet.example.com
-          environment: myenv
-          tags:
-            - tag1
-            - tag2
-          add_operation_tag: true
-          operations_tags:
-            start: my_start_tag
-            stop:
-              - my_stop_tag1
-              - my_stop_tag2
+  - {{page.yaml_link}}
+node_templates:
+  example_web_server:
+    type: cloudify.puppet.nodes.WebServer
+    properties:
+      puppet_config:
+        server: puppet.example.com
+        environment: myenv
+        tags:
+          - tag1
+          - tag2
+        add_operation_tag: true
+        operations_tags:
+          start: my_start_tag
+          stop:
+            - my_stop_tag1
+            - my_stop_tag2
 {%endhighlight%}
 
 
@@ -214,16 +204,14 @@ blueprint:
 
 Say the node properties are:
 {% highlight yaml %}
-blueprint:
-  name: example
-  nodes:
-    - name: some node
-      type: some_type
-      properties:
-        some_prop: some_value
-        some_map:
-            prop1: value1
-            prop2: value2
+node_templates:
+  some node:
+    type: some_type
+    properties:
+      some_prop: some_value
+      some_map:
+        prop1: value1
+        prop2: value2
 {%endhighlight%}
 
 The following Puppet/facter facts will be available:
@@ -262,18 +250,16 @@ Sample usage:
 
 {% highlight yaml %}
 imports:
-    - {{page.yaml_link}}
-blueprint:
-  name: example
-  nodes:
-    - name: example_web_server
-      type: cloudify.types.puppet.web_server
-      properties:
-        puppet_config:
-          server: puppet.example.com
-          environment: myenv
-          node_name_prefix: myweb-
-          node_name_suffix: .example.com
+  - {{page.yaml_link}}
+node_templates:
+  example_web_server:
+    type: cloudify.puppet.nodes.WebServer
+    properties:
+      puppet_config:
+        server: puppet.example.com
+        environment: myenv
+        node_name_prefix: myweb-
+        node_name_suffix: .example.com
 {%endhighlight%}
 
 ### User specified Puppet node name
@@ -284,18 +270,16 @@ Sample usage:
 
 {% highlight yaml %}
 imports:
-    - {{page.yaml_link}}
-blueprint:
-  name: example
-  nodes:
-    - name: example_web_server
-      type: cloudify.types.puppet.web_server
-      properties:
-        puppet_config:
-          server: puppet.example.com
-          environment: myenv
-          node_name_value: web1.my.example.com
-          certname: web1.my.example.com
+  - {{page.yaml_link}}
+node_templates:
+  example_web_server:
+    type: cloudify.puppet.nodes.WebServer
+    properties:
+      puppet_config:
+        server: puppet.example.com
+        environment: myenv
+        node_name_value: web1.my.example.com
+        certname: web1.my.example.com
 {%endhighlight%}
 
 
@@ -307,18 +291,16 @@ In absence of per-operation tags, Puppet agent will run only for the `start` ope
 
 {% highlight yaml %}
 imports:
-    - {{page.yaml_link}}
+  - {{page.yaml_link}}
 
-blueprint:
-  name: example
-  nodes:
-    - name: example_web_server
-      type: cloudify.types.puppet.web_server
-      properties:
-        puppet_config:
-          server: puppet.example.com
-          environment: myenv
-          node_name_prefix: myweb
+node_templates:
+  example_web_server:
+    type: cloudify.puppet.nodes.WebServer
+    properties:
+      puppet_config:
+        server: puppet.example.com
+        environment: myenv
+        node_name_prefix: myweb
 {%endhighlight%}
 
 
@@ -341,21 +323,19 @@ Puppet standalone will install all Puppet modules given under `properties` > `pu
 Example:
 {% highlight yaml %}
 imports:
-    - {{page.yaml_link}}
+  - {{page.yaml_link}}
 
-blueprint:
-  name: example
-  nodes:
-    - name: example_web_server
-      type: cloudify.types.puppet.web_server
-      properties:
-        puppet_config:
-          ...
-          modules:
-              - puppetlabs-apache
-              - puppetlabs-concat
-              - puppetlabs-stdlib
-              - puppetlabs-vcsrepo
+node_templates:
+  example_web_server:
+    type: cloudify.puppet.nodes.WebServer
+    properties:
+      puppet_config:
+        ...
+        modules:
+          - puppetlabs-apache
+          - puppetlabs-concat
+          - puppetlabs-stdlib
+          - puppetlabs-vcsrepo
 {%endhighlight%}
 
 ## Per-operation Puppet manifests or code to execute
@@ -367,30 +347,28 @@ Below is example showing the usage of per-operation Puppet code. `configure` ope
 Per-operation Puppet code example:
 {% highlight yaml %}
 imports:
-    - {{page.yaml_link}}
+  - {{page.yaml_link}}
 
-blueprint:
-  name: example
-  nodes:
-    - name: example_web_server
-      type: cloudify.types.puppet.web_server
-      properties:
-        puppet_config:
-          modules:
-              ...
-              - puppetlabs-vcsrepo
-          execute:
-              configure: |
-                  package{'git':}
-                  ->
-                  vcsrepo{$cloudify_local_repo:
-                    ensure => present,
-                    provider => git,
-                    source   => 'https://github.com/example-com/our-manifests.git',
-                  }
-              start: |
-                  class{'my_hello_world':
-                  }
+node_templates:
+  example_web_server:
+    type: cloudify.puppet.nodes.WebServer
+    properties:
+      puppet_config:
+        modules:
+          ...
+          - puppetlabs-vcsrepo
+        execute:
+          configure: |
+            package{'git':}
+            ->
+            vcsrepo{$cloudify_local_repo:
+              ensure => present,
+              provider => git,
+              source   => 'https://github.com/example-com/our-manifests.git',
+            }
+          start: |
+            class{'my_hello_world':
+            }
 
 {%endhighlight%}
 
@@ -418,19 +396,17 @@ Example:
 
 {% highlight yaml %}
 imports:
-    - {{page.yaml_link}}
+  - {{page.yaml_link}}
 
-blueprint:
-  name: example
-  nodes:
-    - name: example_web_server
-      type: cloudify.types.puppet.web_server
-      properties:
-        puppet_config:
-          download: http://manifests.example.com/
-          manifest:
-            start: manifests/site.pp
-          ...
+node_templates:
+  example_web_server:
+    type: cloudify.puppet.nodes.WebServer
+    properties:
+      puppet_config:
+        download: http://manifests.example.com/
+        manifest:
+          start: manifests/site.pp
+        ...
 
 {%endhighlight%}
 
@@ -444,22 +420,15 @@ Example:
 
 {% highlight yaml %}
 imports:
-    - {{page.yaml_link}}
+  - {{page.yaml_link}}
 
-blueprint:
-  name: example
-  nodes:
-    - name: example_web_server
-      type: cloudify.types.puppet.web_server
-      properties:
-        puppet_config:
-          download: /path/to/manifests.tgz
-          manifest:
-            start: manifests/site.pp
-          ...
+node_templates:
+  example_web_server:
+    type: cloudify.types.puppet.web_server
+    properties:
+      puppet_config:
+        download: /path/to/manifests.tgz
+        manifest:
+          start: manifests/site.pp
+        ...
 {%endhighlight%}
-
-# Full examples
-
-See the [examples repository](https://github.com/cloudify-cosmo/cloudify-examples)
-
