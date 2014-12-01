@@ -9,7 +9,7 @@ pageord: 200
 ---
 
 {%summary%}Diamond plugin is used to install & configure a [Diamond](https://github.com/BrightcoveOS/Diamond) monitoring agent (version 3.5) on hosts{%endsummary%}
-Diamond is a python daemon that collects system metrics and publishes them to multiple destinations. It is capable of collecting cpu, memory, network, i/o, load and disk metrics.
+Diamond is a python daemon that collects system metrics and publishes them to multiple destinations. It is capable of collecting cpu, memory, network, i/o, load and disk metrics as well as many other metrics as specified in the (docs)[https://github.com/BrightcoveOS/Diamond/wiki/Collectors].
 Additionally, it features an API for implementing custom collectors for gathering metrics from almost any source.
 
 # Example
