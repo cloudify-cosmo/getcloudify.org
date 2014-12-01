@@ -10,6 +10,7 @@ manual_install_link: installation-manual.html
 terminology_link: reference-terminology.html
 cli_install_link: installation-cli.html
 simple_install_link: installation-simple-provider.html
+agent_packager_link: https://github.com/cloudify-cosmo/cloudify-agent-packager
 ---
 {%summary%}{{page.abstract}}{%endsummary%}
 
@@ -25,7 +26,7 @@ Since it is based on a set of premade packages, it can be deployed using shell s
 A Cloudify manager requires at the very least 2GB of RAM, 1 CPU and 5GB of free space.
 
 {%note title=Note%}
-these are the very basic requirements. You will have to provision larger machines for larger deployments.
+These are the very basic requirements. You will have to provision larger machines for larger deployments.
 {%endnote%}
 
 ### Network
@@ -40,39 +41,51 @@ The Manager must be available in the following ports:
 ## OS Distributions
 
 ### Server
-Cloudify's management server currently runs on Ubuntu 12.04 Precise. We're working on newer versions of Ubuntu and Centos.
-It might be able to run on Ubuntu 13.04 or 14.04, but they weren't tested. We'll appreciate feedback if you tried any other distribution.
+
+#### If bootstrapping using packages
+Cloudify's management server currently runs on Ubuntu 12.04 Precise. To install on Centos or other distributions, you must use the [Docker](https://www.docker.com/) [implementation](installation-bootstrapping.html#bootstrapping-using-docker).
+
+#### If bootstrapping using Docker Image
+Cloudify's Docker implementation was tested on Ubuntu 12.04 and Centos 7.0 and is based on the [phusion/baseimage](https://github.com/phusion/baseimage-docker) Docker Image (Ubuntu 14.04).
+
+{%note title=Note%}
+If the host machine Docker is running on is based on Ubuntu 14.04, we will attempt to install Docker for you (if it isn't already installed). For any other distribution (and release), you'll have to verify that Docker is installed prior to bootstrapping.
+{%endnote%}
 
 ### Agents
-Cloudify's agent packages can be installed on Ubuntu 12.04+, Centos 6.3+ and Windows 2008 Server+.
+Cloudify's agent packages can be installed on Ubuntu 12.04, 14.04 (with Python 2.7.x), Centos 6.3+/RHEL7.0 (with Python 2.6.x. Earlier versions of REHL might work but have not been tested) and Windows 2008 Server+ (with Python 2.7.x).
+Agents are provided for these OS distributions, but using the [Cloudify Agent Packager]({{page.agent_packager_link}}), you can create you own agents for your distribution.
 
-## Packages
+## Distributables
+
+There are 2 ways to bootstrap Cloudify. One is using the premade packages. The other is using Docker images.
+
+### Packages
 Cloudify comes as a set of packages containing (almost) all dependencies within them.
 
-### The Components Package (Mandatory)
+#### The Components Package (Mandatory)
 Contains all 3rd party components Cloudify uses.
 This is the largest package and should rarely change from version to version.
 You might want to host it in a local repository and only update it if something changes.
 
-### Core Package (Mandatory)
+#### Core Package (Mandatory)
 Contains Cloudify's code.
 This is what makes everything tick.
 
-### UI Package (Optional)
+#### UI Package (Optional)
 Contains Cloudify's Web UI.
 This is optional since Cloudify can be managed using the CLI.
 
-### Agent Packages (At least one is mandatory)
+#### Agent Packages (At least one is mandatory)
 Contains Cloudify's agent code and is OS distribution specific.
 Cloudify supplies agent packages for both Linux (several distros) and Windows.
 You must at least have an agent that corresponds with your Manager's distribution.
 
+### Docker Images
+Please refer to the [Bootstrap using Docker](installation-bootstrapping.html#bootstrapping-using-docker) documentation for more information.
+
 ## Python (Obviously)
 Cloudify does require that you have Python 2.7 and above to run.
-
-{%note title=Note%}
-Centos comes with Python 2.6.6 by default. If you want to use Centos with Cloudify, you'll have to provide an image with Python 2.7.
-{%endnote%}
 
 # What's Next
 
