@@ -32,7 +32,7 @@ widgetModule.controller('widgetController', function( $scope, $controller ,$log,
             $email: $scope.widgetController.email,
             $first_name: $scope.widgetController.name,
             $created: new Date(),
-            $last_seen:new Date()
+            resource: "widget Trial"
         });
 
         mixpanel.track('Start Widget (Try now) Clicked');
@@ -48,6 +48,7 @@ widgetModule.controller('widgetController', function( $scope, $controller ,$log,
 
         $scope.widgetController.stopButtonText = "Ending Trial...";
         $scope.widgetController.machineStarted = false;
+
     }
 
     $scope.tryItNowBtn = function() {
@@ -88,7 +89,11 @@ widgetModule.controller('widgetController', function( $scope, $controller ,$log,
 
         var status = $scope.genericWidgetModel.widgetStatus;
         if (status.error) {
-            mixpanel.track('Widget Machine Start Error',{message: status.error});
+            var endTime = (new Date()).getTime();
+            var duration = $scope.startTime ? (endTime - $scope.startTime) : 0;
+            $scope.startTime = undefined; // Clear start time
+
+            mixpanel.track('Widget Machine Start Error',{message: status.error, duration: duration});
 
             $log.warn("Got error state. Message :  "+ status.error);
             $scope.widgetController.widgetOutput = status.error;
@@ -104,7 +109,10 @@ widgetModule.controller('widgetController', function( $scope, $controller ,$log,
                 if (!$scope.widgetController.widgetStarted && $scope.widgetController.loadingMachine) {
                     window.open("http://"+status.nodeModel.publicIp, '_blank');
                     mixpanel.track('Widget Machine Started');
+
+                    $scope.startTime = (new Date()).getTime();
                 }
+
                 $scope.widgetController.widgetStarted = true;
                 $scope.widgetController.machineStarted = true;
                 $scope.widgetController.machineIp = status.nodeModel.publicIp;
@@ -116,7 +124,11 @@ widgetModule.controller('widgetController', function( $scope, $controller ,$log,
                 // Setting env for next time...
                 $scope.widgetController.buttonText = "Try it now!";
             } else if (state == "STOPPED") {
-                mixpanel.track('Widget Machine stopped');
+                var endTime = (new Date()).getTime();
+                var duration = $scope.startTime ? (endTime - $scope.startTime) : 0;
+                $scope.startTime = undefined; // Clear start time
+
+                mixpanel.track('Widget Machine stopped',{duration: duration});
 
                 $scope.widgetController.loadingMachine = false;
                 $scope.widgetController.machineStarted = false;
@@ -126,7 +138,13 @@ widgetModule.controller('widgetController', function( $scope, $controller ,$log,
             // Got some other error
             if (status.output) {
                 var output = status.output[0];
-                mixpanel.track('Widget Machine Start Error',{message: output});
+                var endTime = (new Date()).getTime();
+                var duration = $scope.startTime ? (endTime - $scope.startTime) : 0;
+                $scope.startTime = undefined; // Clear start time
+
+
+                mixpanel.track('Widget Machine Start Error',{message: output, duration: duration});
+
 
                 $log.warn("Got error state. Message :  "+ output);
                 $scope.widgetController.widgetOutput = output;
