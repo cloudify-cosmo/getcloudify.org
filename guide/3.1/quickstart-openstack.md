@@ -12,33 +12,34 @@ reference_openstack_manager_link: reference-openstack-manager.html
 
 # Overview
 
-In this tutorial you will start a Cloudify manager on your OpenStack environment, and install a sample Cloudify 3.0 blueprint on it.
-The [blueprint](https://github.com/cloudify-cosmo/cloudify-nodecellar-openstack/blob/master/blueprint.yaml) describes a nodejs application that connects to a MongoDB database and presents a wine catalog. To learn more about blueprint syntax and elements please refer to the [Blueprints Tutorial](guide-blueprint.html).
+In this tutorial you will start a Cloudify manager on your OpenStack environment, and install a sample Cloudify blueprint on it.
+The [blueprint](https://github.com/cloudify-cosmo/cloudify-nodecellar-example/blob/master/openstack-blueprint.yaml) describes a nodejs application that connects to a MongoDB database and presents a wine catalog. To learn more about blueprint syntax and elements please refer to the [Blueprints Tutorial](guide-blueprint.html).
 
 # Before You Begin
 
-It is recommended that you try the [standalone tutorial](quickstart.html) first to get yourself familiar with Cloudify and its concepts. Also, to complete this tutorial you'll need to have an OpenStack cloud environment and credentials. 
+It is recommended that you try the [standalone tutorial](quickstart.html) first to get yourself familiar with Cloudify and its concepts. Also, to complete this tutorial you'll need to have an OpenStack cloud environment and credentials.
 
 # Step by Step Walkthrough
 
 ## Step 1: Install the Cloudify CLI
 
 The first thing you'll need to do is install the Cloudify CLI, which will let you upload blueprints, create deployments from them and execute workflows on these deployments.
-To do so follow the steps described in the [CLI installation guide](installation-cli.html). If you installed the CLI using PyPi, make sure to also install the OpenStack provider.
+To do so follow the steps described in the [CLI installation guide](installation-cli.html).
 
-## Step 2: Initialize the OpenStack Configuration
+## Step 2: Download the Manager Blueprint for OpenStack
 
-Next, you need to create an OpenStack congifuration and save your credentials into it. To create the configuration, type the following command:
+Next, you need to download the OpenStack Manager Blueprint.
+Please see [here]() on how to retrieve the blueprint
 
 {% highlight bash %}
-cfy init -p openstack
+cfy init
 {% endhighlight %}
 
 This will create a Cloudify configuration file named `cloudify-config.yaml` in the current directory (it will also create a file named `.cloudify` to save the current context for the Cloudify CLI, but you shouldn't care about that for now).
 
-Next, open the file `cloudify-config.yaml` in your text editor of choice. 
+Next, open the file `cloudify-config.yaml` in your text editor of choice.
 
-Uncomment the `keystone`, `networking` and `compute` elements and their respective sub elements (as listed below) in the file and change the following elements so that they match your own OpenStack environment (note that this will leave a few elements still commented out, leave them as is): `auth_url`, `neutron_url`, `region`, `image` and `flavor`. 
+Uncomment the `keystone`, `networking` and `compute` elements and their respective sub elements (as listed below) in the file and change the following elements so that they match your own OpenStack environment (note that this will leave a few elements still commented out, leave them as is): `auth_url`, `neutron_url`, `region`, `image` and `flavor`.
 Bellow are sepcific examples for setting up cloudify on DevStac and HP Cloud. In both cases we only highlighted the configuration elements that you need to modify. The rest of the elements should be left commented.
 
 ### Default Cloudify setup for DevStack
@@ -71,7 +72,7 @@ Bellow is the default values that you could use to configure cloudify for DevSta
     management_server:
 
     instance:
-    # flavor and image ids are also environment specific and will have to be overridden. 
+    # flavor and image ids are also environment specific and will have to be overridden.
     # Image id is the image id that you generated when you added the Ubuntu image to Devstack.
     flavor: 2
     image: ####-####-####-####
@@ -122,7 +123,7 @@ If your running multiple users under the same tenant you may need to add prefix 
     #cloudify:
     #  # You would probably want a prefix that ends with underscore or dash
         resources_prefix: <user specific prefix>
-        
+
 {% endhighlight %}
 
 
@@ -148,18 +149,17 @@ To validate this installation, point your web browser to the manager IP address 
 Next, we'll upload the sample blueprint and create a deployment based on it. You will first need to clone this repository into your local file system. To do so type the following command:
 
 {% highlight bash %}
-git clone https://github.com/cloudify-cosmo/cloudify-nodecellar-openstack.git
-cd cloudify-nodecellar-openstack/
-git checkout tags/3.0
+git clone https://github.com/cloudify-cosmo/cloudify-nodecellar-example
+cd cloudify-nodecellar-example/
+git checkout tags/3.1
 {% endhighlight %}
 
-This will create a directory called `cloudify-nodecellar-openstack` in your current directory. You can see the blueprint file (named `blueprint.yaml`) alongside other resources related to this blueprint.
-To upload the blueprint, cd back to your cfy folder and type the following command:
+This will create a directory called `cloudify-nodecellar-example` in your current directory. You can see the blueprint file (named `openstack-blueprint.yaml`) alongside other resources related to this blueprint.
+To upload the blueprint, type the following command:
 
-{% highlight bash %}
-cd -
-cfy blueprints upload -b nodecellar1 cloudify-nodecellar-openstack/blueprint.yaml
-{% endhighlight %}
+{%highlight bash%}
+cfy blueprints upload -b nodecellar1 -p openstack-blueprint.yaml​
+{%endhighlight%}
 
 The `-b` parameter is the unique name we've given to this blueprint on the Cloudify manager. A blueprint is a template of an application stack. Blueprints cannot be materialized on their own. For that you will need to create a deployment, which is essentially an instance of this blueprint (kind of like what an instance is to a class in an OO model). But first let's go back to the web UI and see what this blueprint looks like. Point your browser to the manager URL again, and refresh the screen. You will see the nodecellar blueprint listed there.
 
@@ -169,11 +169,16 @@ Click the row with the blueprint. You will now see the topology of this blueprin
 
 ![Nodecellar Blueprint](/guide/images3/guide/nodecellar_topology.png)
 
-Next, we need to create a deployment so we can create this topology in our OpenStack cloud. To do so, type the following command:
+Next, we need to create a deployment so we can create this topology in our OpenStack cloud.
+Before creating the deployment itself, we'll have to fill in the inputs.json.template found in the blueprint's folder.
 
-{% highlight bash %}
-cfy deployments create -b nodecellar1 -d nodecellar1
-{% endhighlight %}
+FILL IN HERE!!!
+
+Now that the inputs file is ready, we can create the deployment:
+
+{%highlight bash%}
+cfy deployments create -b nodecellar1 -d nodecellar1 --inputs inputs.json
+{%endhighlight%}
 
 With this command we've created a deployment named `nodecellar1` from a blueprint with the same name. This deployment is not yet materialized, since we haven't issued any command to install it. If you click the "Deployments" icon in the left sidebar in the web UI, you will see that all nodes are labeled with 0/1, which means they weren't yet created.
 
@@ -182,11 +187,11 @@ With this command we've created a deployment named `nodecellar1` from a blueprin
 In Cloudify, every thing that is executed for a certain deployment is done in the context of a workflow. A workflow is essentially a set of steps, executed by Cloudify agents (which are basically [Celery](http://www.celeryproject.org/) workers). So whenever a workflow is triggered, it sends a set of tasks to the Cloudify agents, which then execute them and report back the results. For example, the `install` workflows which we're going to trigger, will send tasks to create the various OpenStack resources, and then install and start the application components on them. By default, the Cloudify manager will create one agent per deployment, on the management VM. When application VMs are created by the default `install` workflow (in our case there's two of them), this workflow also installs an agent on each of these VMs, and subsequent tasks to configure these VMs and install application componets are executed by these agents.
 To trigger the `install` workflow, type the following command in your terminal:
 
-{% highlight bash %}
+{%highlight bash%}
 cfy executions start -d nodecellar1 -w install
-{% endhighlight %}
+{%endhighlight%}
 
-These will take a couple of minutes, during which the OpenStack resources and VMs will be created and configured. To track the progress of the installation, you can look at the events emitted to the terminal window. Each event is labeled with its time, the deployment name and the node in our topology that it relates to, e.g.
+These will take a couple of minutes, during which the OpenStack resources and VM's will be created and configured. To track the progress of the installation, you can look at the events emitted to the terminal window. Each event is labeled with its time, the deployment name and the node in our topology that it relates to, e.g.
 
 {% highlight bash %}
 2014-07-21T15:37:31 CFY <nodecellar1> [mongod_vm_41765] Starting node
