@@ -41,7 +41,7 @@ module Jekyll
         end
 
 		payload["categories"]=["Getting Started", "Agents", "Release Notes","Installation & Setup","Bootstrapping","Developing Recipes","Common Patterns","Deploying Services & Applications","Monitoring Your Applications","Developing Cloud Drivers", "Plugins and Probes","Integration","REST API","Reference","Contributing"]
-        payload["categories_3"]=["Installation", "Agents", "Guides", "Product Overview", "Reference", "Plugins"]
+        payload["categories_3"]=["Installation", "Agents", "Guides", "Product Overview", "Reference", "Plugins", "DSL Specification"]
 
         h["site"] = payload
         h
