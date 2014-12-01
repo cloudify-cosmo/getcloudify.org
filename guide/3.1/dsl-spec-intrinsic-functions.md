@@ -50,7 +50,7 @@ outputs:
 {%endhighlight%}
 
 
-In the previous example, get_input is used for filling the http_web_server node's port property. If on deployment creation the webserver_port input is not specified, get_input will return the default value of the webserver_port input.
+In the previous example, get_input is used for filling in the http_web_server node's port property. If on deployment creation the webserver_port input is not specified, get_input will return the default value of the webserver_port input.
 
 
 
