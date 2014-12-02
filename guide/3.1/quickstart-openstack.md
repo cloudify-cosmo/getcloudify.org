@@ -29,70 +29,38 @@ To do so follow the steps described in the [CLI installation guide](installation
 ## Step 2: Download the Manager Blueprint for OpenStack
 
 Next, you need to download the OpenStack Manager Blueprint.
-Please see [here]() on how to retrieve the blueprint
+Please see [here](FILL IN HERE) on how to retrieve the blueprint
 
 {% highlight bash %}
 cfy init
 {% endhighlight %}
 
-This will create a Cloudify configuration file named `cloudify-config.yaml` in the current directory (it will also create a file named `.cloudify` to save the current context for the Cloudify CLI, but you shouldn't care about that for now).
+This will initialize a local Cloudify environment in the current directory (it will also create a folder named `.cloudify` to save the current context for the Cloudify CLI, but you shouldn't care about that for now).
 
-Next, open the file `cloudify-config.yaml` in your text editor of choice.
+Now let's move on to bootstrap configuration.
 
-Uncomment the `keystone`, `networking` and `compute` elements and their respective sub elements (as listed below) in the file and change the following elements so that they match your own OpenStack environment (note that this will leave a few elements still commented out, leave them as is): `auth_url`, `neutron_url`, `region`, `image` and `flavor`.
-Bellow are sepcific examples for setting up cloudify on DevStac and HP Cloud. In both cases we only highlighted the configuration elements that you need to modify. The rest of the elements should be left commented.
-
-### Default Cloudify setup for DevStack
+### Configuring your Manager Blueprint for DevStack
 [DevStack](http://devstack.org/) is a popular development environment for OpenStack.
-Bellow is the default values that you could use to configure cloudify for DevStack
+
+The configuration:
 
 {% highlight yaml %}
 
-    keystone:
-        username: admin
-        password: password
-        tenant_name: password
-        auth_url: http:://[YOUR-DEVSTACK-IP]:5000/v2.0
-
-
-    # # Network configuration
-    #######################
-
-    networking:
-    subnet:
-    #Choose here an IP of a DNS server accessiable from your devstack machine.
-    dns_nameservers: [‘8.8.8.8’]
-
-    ext_network:
-    #choose your Openstack public network name. The DevStack default is “public”
-    name: public
-
-    ##Compute section:
-    compute:
-    management_server:
-
-    instance:
-    # flavor and image ids are also environment specific and will have to be overridden.
-    # Image id is the image id that you generated when you added the Ubuntu image to Devstack.
-    flavor: 2
-    image: ####-####-####-####
+FILL IN HERE!!!
 
 {% endhighlight %}
 
 
-### Default setup for HP OpenStack
+### Configuring your Manager Blueprint for HP OpenStack
 
-[HP Cloud](http://www.hpcloud.com/) is a public OpenStack cloud. As such it is a fairly easy way get a hold of a fully operational OpenStack environment.
-To use HP Cloud you need [setup an account on the HP Helion Cloud](https://horizon.hpcloud.com/).
-If you're going to use HP Cloud, you will only need to change the following configuration elements in the `cloudify-config.yaml` and type in your account username, password and tenant name. The tenant name is the project in the HP Cloud console (or your OpenStack Horizon dashboard).
+[HP Cloud](http://www.hpcloud.com/) is a public OpenStack cloud. As such it provides a fairly easy starting point for experiencing a fully operational OpenStack environment.
+To use HP Cloud you need to [setup an account on the HP Helion Cloud](https://horizon.hpcloud.com/).
+
+The configuration:
 
 {% highlight yaml %}
 
-    keystone:
-        username: Enter-HP-Openstack-Username-Here
-        password: Enter-HP-Openstack-Password-Here
-        tenant_name: Enter-HP-Openstack-Tenant-Name-Here
-        auth_url: Enter-HP-Openstack-Auth-Url-Here
+FILL IN HERE!!!
 
 {% endhighlight %}
 
@@ -131,7 +99,7 @@ If your running multiple users under the same tenant you may need to add prefix 
 Now you're ready to bootstrap your cloudify manager. To do so type the following command in the terminal windows:
 
 {% highlight bash %}
-    cfy bootstrap
+cfy bootstrap -v -p cloudify-manager-blueprints/simple/simple.yaml -i inputs.json --install-plugins
 {% endhighlight %}
 
 This should take a few minutes to complete. After validating the configuration, `cfy` will list all of the resources created, create the management VM and related networks and security groups (the latter two will not be created if they already exist), download the relevant Cloudify manager packages from the internet and install all of the components. At the end of this process you should see the following message:
@@ -141,7 +109,7 @@ bootstrapping complete
 management server is up at <YOUR MANAGER IP ADDRESS> (is now set as the default management server)
 {% endhighlight %}
 
-To validate this installation, point your web browser to the manager IP address (port 80). You should see the Cloudify web UI. At this point there's nothing much to see since you haven't yet uploaded any blueprint.
+To validate this installation, point your web browser to the manager IP address (port 80). You should see the Cloudify web UI. At this point there's nothing much to see since you haven't uploaded any blueprints yet.
 
 
 ## Step 4: Upload the Blueprint and Create a Deployment
