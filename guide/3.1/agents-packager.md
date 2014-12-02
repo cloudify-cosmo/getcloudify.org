@@ -6,12 +6,19 @@ publish: true
 abstract: Using the agent packager to create an agent for your distribution
 pageord: 220
 
+virtualenv_link: http://virtualenv.readthedocs.org/en/latest/virtualenv.html
 ---
 {%summary%}{{page.abstract}}{%endsummary%}
 
 # Overview
 
+Cloudify's Agent is basically a [virtualenv]({{page.virtualenv_link}}) with a series of modules installed in it and a few configuration files attached
+
 To use Cloudify with distributions other than the [officially supported ones](agents-description.html#provided-agent-packages), we're providing an [Agent-Packager tool](agents-packager.html) that will assist you in creating an agent for your distribution.
+
+{%note title=Note%}
+As this is the first time we're releasing this tool, you may (and probably will) stumble upon some bugs. Please let us know so that we can improve it and provide a convenient way for your to easily create agents.
+{%endnote%}
 
 This tool aims to:
 
@@ -134,6 +141,17 @@ keep_venv: true
 {%endhighlight%}
 
 ### Config YAML Explained
+
+{%note title=Note%}
+The `distribution` and `release` variables are case sensitive and must correspond with the output generated when running:
+
+{% highlight bash %}
+python -c "import platform; print platform.dist()"
+# e.g. ('Ubuntu', '14.04', 'trusty')
+{%endhighlight%}
+
+Beginning with Cloudify 3.2, they will not be case sensitive.
+{%endnote%}
 
 - `distribution` - Which distribution is the agent intended for. If this is omitted, the tool will try to retrieve the distribution by itself. The distribution is then used to name the virtualenv (if not explicitly specified in `venv`) and to name the output file (if not explicitly specified in `output_tar`).
 - `release` - Which release (e.g. precise, trusty) of the `distribution` is the agent intended for. If this is omitted, the tool will try to retrieve the release by itself. The release is then used to name the virtualenv (if not explicitly specified in `venv`) and to name the output file (if not explicitly specified in `output_tar').
