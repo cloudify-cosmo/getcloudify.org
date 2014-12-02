@@ -12,7 +12,7 @@ reference_openstack_manager_link: reference-openstack-manager.html
 
 # Overview
 
-In this tutorial you will start a Cloudify manager on your OpenStack environment, and install a sample Cloudify blueprint on it.
+In this tutorial you will bootstrap a Cloudify manager in your OpenStack environment and install a sample Cloudify blueprint on it.
 The [blueprint](https://github.com/cloudify-cosmo/cloudify-nodecellar-example/blob/master/openstack-blueprint.yaml) describes a nodejs application that connects to a MongoDB database and presents a wine catalog. To learn more about blueprint syntax and elements please refer to the [Blueprints Tutorial](guide-blueprint.html).
 
 # Before You Begin
@@ -26,41 +26,74 @@ It is recommended that you try the [standalone tutorial](quickstart.html) first 
 The first thing you'll need to do is install the Cloudify CLI, which will let you upload blueprints, create deployments from them and execute workflows on these deployments.
 To do so follow the steps described in the [CLI installation guide](installation-cli.html).
 
+The easiest way to install cloudify would be to create a [virtualenv](http://virtualenv.readthedocs.org/en/latest/):
+
+{% highlight bash %}
+pip install virtualenv # might require sudo
+virtualenv cloudify
+source cloudify/bin/activate
+{% endhighlight %}
+
+and then install Cloudify using [pip]():
+
+{% highlight bash %}
+pip install cloudify
+{% endhighlight %}
+
 ## Step 2: Download the Manager Blueprint for OpenStack
 
-Next, you need to download the OpenStack Manager Blueprint.
-Please see [here](FILL IN HERE) on how to retrieve the blueprint
+Next, let's create a cloudify dir and download the OpenStack Manager Blueprint.
+
+{% highlight bash %}
+mkdir -p ~/cloudify
+cd ~/cloudify
+git clone https://github.com/cloudify-cosmo/cloudify-manager-blueprints
+{% endhighlight %}
 
 {% highlight bash %}
 cfy init
 {% endhighlight %}
 
-This will initialize a local Cloudify environment in the current directory (it will also create a folder named `.cloudify` to save the current context for the Cloudify CLI, but you shouldn't care about that for now).
+This will initialize a local Cloudify environment in the current directory (by creating a folder named `.cloudify` to save the current context for the Cloudify CLI, but you shouldn't care about that for now).
 
 Now let's move on to bootstrap configuration.
-
-### Configuring your Manager Blueprint for DevStack
-[DevStack](http://devstack.org/) is a popular development environment for OpenStack.
-
-The configuration:
-
-{% highlight yaml %}
-
-FILL IN HERE!!!
-
-{% endhighlight %}
-
 
 ### Configuring your Manager Blueprint for HP OpenStack
 
 [HP Cloud](http://www.hpcloud.com/) is a public OpenStack cloud. As such it provides a fairly easy starting point for experiencing a fully operational OpenStack environment.
 To use HP Cloud you need to [setup an account on the HP Helion Cloud](https://horizon.hpcloud.com/).
 
-The configuration:
+The inputs.json file allows us to provide inputs to a blueprint from outside the yaml file.
+In this instance, we need to configure our OpenStack environment's configuration for the manager blueprint to know where and how to bootstrap Cloudify.
 
-{% highlight yaml %}
+The inputs.json file for the OpenStack Manager Blueprint looks somewhat like this:
 
-FILL IN HERE!!!
+{% highlight json %}
+
+{
+    "keystone_username": "",
+    "keystone_password": "",
+    "keystone_tenant_name": "",
+    "keystone_url": "",
+    "region": "",
+    "manager_public_key_name": "",
+    "agent_public_key_name": "",
+    "image_id": "",
+    "flavor_id": "",
+    "external_network_name": "",
+
+    "use_existing_manager_keypair": false,
+    "use_existing_agent_keypair": false,
+    "manager_server_name": "cloudify-management-server",
+    "manager_server_user": "ubuntu",
+    "manager_server_user_home": "/home/ubuntu",
+    "manager_private_key_path": "~/.ssh/cloudify-manager-kp.pem",
+    "agent_private_key_path": "~/.ssh/cloudify-agent-kp.pem",
+    "agents_user": "ubuntu",
+    "nova_url": "",
+    "neutron_url": "",
+    "resources_prefix": ""
+}
 
 {% endhighlight %}
 
@@ -95,8 +128,8 @@ If your running multiple users under the same tenant you may need to add prefix 
 {% endhighlight %}
 
 
-## Step 3: Boostrap the Cloudify Manager
-Now you're ready to bootstrap your cloudify manager. To do so type the following command in the terminal windows:
+## Step 3: Boostrap the Cloudify Management Environment
+Now you're ready to bootstrap your Cloudify manager. To do so type the following command in your shell:
 
 {% highlight bash %}
 cfy bootstrap -v -p cloudify-manager-blueprints/simple/simple.yaml -i inputs.json --install-plugins
