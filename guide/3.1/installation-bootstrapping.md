@@ -28,9 +28,11 @@ Bootstrapping a Cloudify manager is done by using [Manager Blueprints](reference
 
 First, clone the [Cloudify-Manager-Blueprints](https://github.com/cloudify-cosmo/cloudify-manager-blueprints) repository from github, or copy your desired blueprint folder from there.
 
-Second, install the blueprint dependencies by running:
+Second, install the blueprint-specific dependencies by running:
 
  `cfy local install-plugins -p /path/to/manager/blueprint/file`
+
+(Alternatively, you may pass the `--install-plugins` flag to the `cfy bootstrap` command which follows soon)
 
 
 Next, create an inputs JSON file. This file will serve as the configuration for the manager blueprint inputs. Note that the various manager blueprints folders offer a *inputs.json.template* file, which can be copied and edited with the desired values.

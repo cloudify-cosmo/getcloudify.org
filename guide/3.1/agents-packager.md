@@ -6,10 +6,13 @@ publish: true
 abstract: Using the agent packager to create an agent for your distribution
 pageord: 220
 
+virtualenv_link: http://virtualenv.readthedocs.org/en/latest/virtualenv.html
 ---
 {%summary%}{{page.abstract}}{%endsummary%}
 
 # Overview
+
+Cloudify's Agent is basically a [virtualenv]({{page.virtualenv_link}}) with a series of modules installed in it and a few configuration files attached
 
 To use Cloudify with distributions other than the [officially supported ones](agents-description.html#provided-agent-packages), we're providing an [Agent-Packager tool](agents-packager.html) that will assist you in creating an agent for your distribution.
 

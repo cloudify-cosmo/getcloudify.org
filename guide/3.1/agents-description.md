@@ -7,7 +7,6 @@ abstract: General description of Cloudify Agents
 pageord: 200
 
 terminology_link: reference-terminology.html
-virtualenv_link: http://virtualenv.readthedocs.org/en/latest/virtualenv.html
 agent_packager_link: agents-packager.html
 celery_link: http://www.celeryproject.org/
 rest_client_api_link: reference-rest-client-api.html
@@ -22,7 +21,12 @@ plugin_installer_link: plugin-installer-plugin.html
 
 # Overview
 
-Cloudify's Agent is basically a [virtualenv]({{page.virtualenv_link}}) with a series of modules installed in it and a few configuration files attached. The agent provides a way to interact with [hosts]({{page.terminology_link}}#host) via [plugins]({{page.terminology_link}}#plugin), run [workflows]({{page.terminology_link}}#workflow), install other agents and deploy [applications]({{page.terminology_link}}#application).
+Cloudify's agent provides a way to:
+
+* Interact with [hosts]({{page.terminology_link}}#host) via [plugins]({{page.terminology_link}}#plugin)
+* Install other Cloudify agents
+* Install Cloudify plugins
+* Execute [workflows]({{page.terminology_link}}#workflow) on [deployments]({{page.terminology_link}}#deployment)
 
 There are currently 3 types of agents:
 
@@ -40,12 +44,6 @@ Cloudify comes with a set of premade agent packages:
 * Ubuntu Precise Agent - Ubuntu 12.04 with Python 2.7.x (Might work on Debian, but untested)
 * Ubuntu Trusty Agent - Ubuntu 14.04 with Python 2.7.x (Might work on Debian, but untested)
 * Windows Agent - Windows 2008+ with Python 2.7.x
-
-Cloudify's agent is originally supplied with 3 additional files:
-
-- a disable requiretty script - a script which disables the requiretty option in the shell.
-- a template for celery's config file.
-- a template for celery's init file.
 
 # Creating your own agent
 

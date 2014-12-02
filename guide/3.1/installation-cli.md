@@ -24,7 +24,7 @@ The binary package is only able to bootstrap Openstack manager. If you wish to b
 you should [install the CLI via PyPi](#installing-from-pypi).{% endtip %}
 
 {%note title=OpenStack provider%}
-The binary package is bundled with Openstack provider as well. Providers mechanism is deprecated and won't be available in next release.
+The binary package is bundled with the [Openstack provider](https://github.com/cloudify-cosmo/cloudify-openstack-provider) as well. The Providers mechanism is deprecated and will not be available in the next release.
 {%endnote%}
 
 # Installing the binary package
@@ -92,7 +92,7 @@ pip install cloudify --pre
 {% endhighlight %}
 
 ## installing a specific Milestone Release
-Now let's say you want to install the 3.1m5 release specifically. You should run:
+Now let's say you want to install the 3.1rc2 release specifically. You should run:
 
 {% highlight bash %}
 pip install cloudify==3.1rc2
