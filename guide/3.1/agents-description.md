@@ -24,8 +24,9 @@ plugin_installer_link: plugin-installer-plugin.html
 Cloudify's agent provides a way to:
 
 * Interact with [hosts]({{page.terminology_link}}#host) via [plugins]({{page.terminology_link}}#plugin)
+* Install other Cloudify agents
+* Install Cloudify plugins
 * Execute [workflows]({{page.terminology_link}}#workflow) on [deployments]({{page.terminology_link}}#deployment)
-* Install other agents
 
 There are currently 3 types of agents:
 
