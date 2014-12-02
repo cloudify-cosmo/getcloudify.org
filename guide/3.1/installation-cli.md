@@ -92,7 +92,7 @@ pip install cloudify --pre
 {% endhighlight %}
 
 ## installing a specific Milestone Release
-Now let's say you want to install the 3.1m5 release specifically. You should run:
+Now let's say you want to install the 3.1rc2 release specifically. You should run:
 
 {% highlight bash %}
 pip install cloudify==3.1rc2
