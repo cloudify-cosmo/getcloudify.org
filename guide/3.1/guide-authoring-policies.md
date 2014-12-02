@@ -41,7 +41,7 @@ Policy types are defined under the `policy_types` section of the blueprint.
 * The `properties` attribute of a policy type defines the policy's properties schema. These properties are configured when instantiating policies within the `groups` section. In the following section we will describe how these properties can be used by a policy implementation.
 
 # Policy Type Implementation
-The implementation of policy types is written in [Clojure](http://clojure.org/) and more specifically using [Riemann](http://riemann.io/) API's with a thin layer provided by Cloudify.
+The implementation of policy types is written in [Clojure](http://clojure.org/) and more specifically using [Riemann's](http://riemann.io/) API with a thin layer provided by Cloudify.
 
 An example: `my_policy/my_policy_type.clj`
 {% highlight clj %}
@@ -56,4 +56,4 @@ First notice how `prop2` and `prop1` are being referenced in double curly braces
 
 For each event who's metric value is equal to the value of `prop2`, the event's `state` field is set to the value of `prop1` and this event is delegated to the `process-policy-triggers` stream. In terms of Riemann, though, this is a very simple stream definition.
 
-The `process-policy-triggers` stream executes, in a deployment dedicated thread pool, all the triggers that were specified for the policy that was instantiated. Executing the triggers in a different thread pool is important, as the policies themselves should be non-blocking. If policies perform blocking operations, the entire deployment event stream will be blocked by each policy that performs them.
+The `process-policy-triggers` stream executes, in a deployment dedicated thread pool, all triggers specified for the instantiated policy. Executing the triggers in a different thread pool is important, as the policies themselves should be non-blocking. If policies perform blocking operations, the entire deployment event stream will be blocked by each policy that performs them.
