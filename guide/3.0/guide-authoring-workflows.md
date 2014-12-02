@@ -511,7 +511,7 @@ workflows:
     my_workflow:
         mapping: my_workflow_plugin_name.my_workflow_module_name.run_operation
         parameters:
-            - opreation
+            - operation
             - type_name: cloudify.types.base
             - operation_kwargs: {}
             - is_node_operation: True
