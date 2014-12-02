@@ -127,10 +127,7 @@ Click the blueprint, and you can see its topology. A `topology`([?]({{page.termi
 
 In our case, we have the following nodes:
 
-* A Network
-* A Subnet
-* A Security Group
-* Two VM's
+* One VM
 * A nodejs server
 * A MongoDB instance
 * A nodejs application called nodecellar (which is a nice sample nodejs application backed by mongodb).
