@@ -101,39 +101,31 @@ The inputs.json file for the OpenStack Manager Blueprint should look somewhat li
     "agents_user": "ubuntu",
     "nova_url": "",
     "neutron_url": "",
-    "resources_prefix": ""
+    "resources_prefix": "cloudify"
 }
 
 {% endhighlight %}
 
-You will have to provide
+You will, at the very least, have to provide the following:
+
+* `keystone_username`
+* `keystone_password`
+* `keystone_tenant_name`
+
+Configuring the rest of the parameters are beyond the scope of this guide.
+
 You can find information on how to setup the HP authentiation URL [here](https://docs.hpcloud.com/api/v13/identity/#2.Account-levelView).
-You will also need to set the region and image id elements under the compute section.
-The region value can be US-West (region-a.geo-1) or US-East (region-b.geo-1). You can use the HP image commands to list to possible options for image IDs. In our case we use image id `75d47d10-fef8-473b-9dd1-fe2f7649cb41` which is an Ubuntu Server 12.04 LTS (amd64 20140606) image.
 
-{% highlight yaml %}
+The region value can be US-West (region-a.geo-1) or US-East (region-b.geo-1). You can use the HP image commands to list to possible options for image IDs. In our case we use image id `8c096c29-a666-4b82-99c4-c77dc70cfb40` which is an Ubuntu Server 12.04 LTS image.
 
-    region: region-b.geo-1
-    image: 75d47d10-fef8-473b-9dd1-fe2f7649cb41
+Notice that the `resources_prefix` parameter is set to "cloudify" so that all resources provisioned during this guide are prefixed for easy identification.
 
-{% endhighlight %}
+## Step 3: Bootstrap the Cloudify Management Environment
 
-If your running multiple users under the same tenant you may need to add prefix to each resource in the default configuration file.
-
-{% highlight yaml %}
-
-    #cloudify:
-    #  # You would probably want a prefix that ends with underscore or dash
-        resources_prefix: <user specific prefix>
-
-{% endhighlight %}
-
-
-## Step 3: Boostrap the Cloudify Management Environment
 Now you're ready to bootstrap your Cloudify manager. To do so type the following command in your shell:
 
 {% highlight bash %}
-cfy bootstrap -v -p cloudify-manager-blueprints/simple/simple.yaml -i inputs.json --install-plugins
+cfy bootstrap -v -p openstack.yaml -i inputs.json --install-plugins
 {% endhighlight %}
 
 This should take a few minutes to complete. After validating the configuration, `cfy` will list all of the resources created, create the management VM and related networks and security groups (the latter two will not be created if they already exist), download the relevant Cloudify manager packages from the internet and install all of the components. At the end of this process you should see the following message:
@@ -143,8 +135,7 @@ bootstrapping complete
 management server is up at <YOUR MANAGER IP ADDRESS> (is now set as the default management server)
 {% endhighlight %}
 
-To validate this installation, point your web browser to the manager IP address (port 80). You should see the Cloudify web UI. At this point there's nothing much to see since you haven't uploaded any blueprints yet.
-
+To validate this installation, point your web browser to the manager IP address (port 80). You should see Cloudify's Web UI. At this point there's nothing much to see since you haven't uploaded any blueprints yet.
 
 ## Step 4: Upload the Blueprint and Create a Deployment
 
