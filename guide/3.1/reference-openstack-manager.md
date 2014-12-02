@@ -37,7 +37,7 @@ This reference only explains the structure and various values in the blueprint. 
 * `manager_server_user_home` The path to the home directory on the Cloudify manager of the user that will be used to access it (Default: `/home/ubuntu`).
 * `manager_private_key_path` The path on the local machine to the private key file that will be used with the Cloudify manager. This key should match the public key that is set for the `manager_public_key_name` input (Default: `~/.ssh/cloudify-manager-kp.pem`).
 * `agent_private_key_path` The path on the local machine to the private key file that will be used with Cloudify agents. This key should match the public key that is set for the `agent_public_key_name` input (Default: `~/.ssh/cloudify-agent-kp.pem`).
-* `agents_user` The default username to be used when connecting into applications agent VMs (for agent installtion).
+* `agents_user` The default username to be used when connecting into applications' agent VMs (for agent installtion).
 * `nova_url` Explicit URL for Openstack Nova (compute) service endpoint.
 * `neutron_url` Explicit URL for Openstack Neutron (networking) service endpoint.
 * `resources_prefix` Resource prefix to be attached to cloud resources' names.
@@ -55,7 +55,7 @@ These settings are available in the Openstack Horizon dashboard (Look for API cr
 
 Note that in order to enable this, these inputs technically have an empty (`""`) default value. This, however, does not mean they're not mandatory.
 
-Additionally, the following two optional inputs may also be set by using standard Openstack environment variables:
+Additionally, the following optional inputs may also be set by using standard Openstack environment variables:
 
   - *NOVACLIENT_BYPASS_URL* (sets `nova_url`)
   - *OS_URL* (sets `neutron_url`)
@@ -71,8 +71,8 @@ The blueprint builds the following topology on Openstack:
   - A router which connects the internal network to the external network, for connectivity between the Cloudify manager and the outside world.
   - A floating IP for the Cloudify manager machine.
   - A server which will host the Cloudify manager.
-  - Two security groups, one for the Cloudify manager machine, and another for Cloudify agent machines.
-  - Two keypairs, one for the Cloudify manager machine, and another for Cloudify agent machines.
+  - Two security groups, one for the Cloudify manager machine and another for Cloudify agent machines.
+  - Two keypairs, one for the Cloudify manager machine and another for Cloudify agent machines.
 
 
 # Nodes

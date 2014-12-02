@@ -13,12 +13,12 @@ pageord: 1010
 
 The Nova-net Openstack manager has much in common with the Openstack manager, whose reference may be found [here](reference-openstack-manager.html).
 
-Therefore, this reference only contains the differences between the two, while the main bulk of reference information is available on there.
+Therefore, this reference only contains the differences between the two, while the main bulk of reference information is available there.
 
 
 # Inputs
 
-While most of the inputs are the same there are a few differences:
+While most of the inputs are the same, there are a few differences:
 
 * the required `external_network_name` and optional `neutron_url` inputs don't appear as they aren't applicable in Nova-net Openstack.
 

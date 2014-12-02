@@ -63,7 +63,7 @@ The following [types]({{page.terminology_link}}#type) are basic types from which
 
 # CloudifyManager Type
 
-`cloudify.nodes.CloudifyManager` is a type for a Cloudify Manager, meant for use in manager blueprints.
+`cloudify.nodes.CloudifyManager` is a type for a Cloudify Manager, meant for use in [manager blueprints](reference-terminology.html#manager-blueprints).
 
 It currently has two configuration properties: `cloudify` and `cloudify_packages`:
 
@@ -89,12 +89,12 @@ cloudify:
 {%endhighlight%}        
 
 ### parameters details
-* `resources_prefix` An optional prefix to be added to all resources (and private key files) names. It is recommended for the prefix to end with an underscore or a dash. If not provided, no prefix will be added (Default: `""`)
+* `resources_prefix` An optional prefix to be added to all resources' names. It is recommended for the prefix to end with an underscore or a dash. If omitted, no prefix will be added (Default: `""`)
 * cloudify_agent
   * `min_workers` Celery autoscale parameter - the minimum number of workers on an agent machine. See [Autoscaling](http://docs.celeryproject.org/en/latest/userguide/workers.html#autoscaling) (Default: `2`).
   * `max_workers` Celery autoscale parameter - the maximum number of workers on an agent machine. See [Autoscaling](http://docs.celeryproject.org/en/latest/userguide/workers.html#autoscaling) (Default: `5`).
   * `remote_execution_port` The default port that will be used to run commands on agents (Default: `22`).
-  * `user` The default user that will be used to connect with agent machines. If not provided, then this will have to be specified in the blueprints in the agent node or type properties (Default: `ubuntu`)
+  * `user` The default user that will be used to connect with agent machines. If omitted, then this will have to be specified in the blueprints in the agent node or type properties (Default: `ubuntu`)
 * workflows
   * `task_retries` Number of retries for a failing workflow task. -1 means infinite retries (Default: `-1`).
   * `task_retry_interval` Minimum wait time (in seconds) in between workflow task retries (Default: `30`).

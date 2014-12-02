@@ -21,7 +21,7 @@ pageord: 1000
 
 ## Optional inputs
 
-* `agents_user` The default username to be used when connecting into applications agent VMs (for agent installtion).
+* `agents_user` The default username to be used when connecting into applications' agent VMs (for agent installtion).
 * `resources_prefix` Resource prefix to be attached to cloud resources' names.
 
 
