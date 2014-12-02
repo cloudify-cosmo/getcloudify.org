@@ -50,11 +50,13 @@ cd ~/cloudify
 git clone https://github.com/cloudify-cosmo/cloudify-manager-blueprints
 {% endhighlight %}
 
+Now let's initialize a local Cloudify working environment:
+
 {% highlight bash %}
 cfy init
 {% endhighlight %}
 
-This will initialize a local Cloudify environment in the current directory (by creating a folder named `.cloudify` to save the current context for the Cloudify CLI, but you shouldn't care about that for now).
+This will create a folder named `.cloudify` to save the current context for the Cloudify CLI, but you shouldn't care about that for now.
 
 Now let's move on to bootstrap configuration.
 
@@ -66,21 +68,28 @@ To use HP Cloud you need to [setup an account on the HP Helion Cloud](https://ho
 The inputs.json file allows us to provide inputs to a blueprint from outside the yaml file.
 In this instance, we need to configure our OpenStack environment's configuration for the manager blueprint to know where and how to bootstrap Cloudify.
 
-The inputs.json file for the OpenStack Manager Blueprint looks somewhat like this:
+Let's make a copy of the inputs template already provided and edit it:
+
+{% highlight bash %}
+cd cloudify-manager-blueprints/openstack
+cp inputs.json.template inputs.json
+{% endhighlight %}
+
+The inputs.json file for the OpenStack Manager Blueprint should look somewhat like this:
 
 {% highlight json %}
 
 {
-    "keystone_username": "",
-    "keystone_password": "",
-    "keystone_tenant_name": "",
-    "keystone_url": "",
-    "region": "",
-    "manager_public_key_name": "",
-    "agent_public_key_name": "",
-    "image_id": "",
-    "flavor_id": "",
-    "external_network_name": "",
+    "keystone_username": "your_openstack_username",
+    "keystone_password": "your_openstack_password",
+    "keystone_tenant_name": "your_openstack_tenant",
+    "keystone_url": "https://region-b.geo-1.identity.hpcloudsvc.com:35357/v2.0/",
+    "region": "region-b.geo-1",
+    "manager_public_key_name": "manager-kp",
+    "agent_public_key_name": "agent-kp",
+    "image_id": "8c096c29-a666-4b82-99c4-c77dc70cfb40",
+    "flavor_id": "102",
+    "external_network_name": "public",
 
     "use_existing_manager_keypair": false,
     "use_existing_agent_keypair": false,
@@ -97,16 +106,8 @@ The inputs.json file for the OpenStack Manager Blueprint looks somewhat like thi
 
 {% endhighlight %}
 
+You will have to provide
 You can find information on how to setup the HP authentiation URL [here](https://docs.hpcloud.com/api/v13/identity/#2.Account-levelView).
-
-You can choose the follwoing `auth_url` value to connect to HP Cloud's east region authentication service.
-
-{% highlight yaml %}
-
-   auth_url: "https://region-b.geo-1.identity.hpcloudsvc.com:35357/v2.0/"
-
-{% endhighlight %}
-
 You will also need to set the region and image id elements under the compute section.
 The region value can be US-West (region-a.geo-1) or US-East (region-b.geo-1). You can use the HP image commands to list to possible options for image IDs. In our case we use image id `75d47d10-fef8-473b-9dd1-fe2f7649cb41` which is an Ubuntu Server 12.04 LTS (amd64 20140606) image.
 
