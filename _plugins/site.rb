@@ -36,12 +36,11 @@ module Jekyll
                 page_category = payload["page_categories"][page.category] += [liquid_map]
 			end
         end
-        payload["page_categories"].each_pair do |category, pages|
+            payload["page_categories"].each_pair do |category, pages|
             payload["page_categories"][category] = pages.sort {|p1, p2| p1["pageord"] <=> p2["pageord"]}
         end
-
-		payload["categories"]=["Getting Started", "Agents", "Release Notes","Installation & Setup","Bootstrapping","Developing Recipes","Common Patterns","Deploying Services & Applications","Monitoring Your Applications","Developing Cloud Drivers", "Plugins and Probes","Integration","REST API","Reference","Contributing"]
-        payload["categories_3"]=["Installation", "Agents", "Guides", "Product Overview", "Reference", "Plugins", "DSL Specification"]
+		    payload["categories"]=["Getting Started", "Agents", "Release Notes","Installation & Setup","Bootstrapping","Developing Recipes","Common Patterns","Deploying Services & Applications","Monitoring Your Applications","Developing Cloud Drivers", "Plugins and Probes","Integration","REST API","Reference","Contributing", "User Interface"]
+        payload["categories_3"]=["Installation", "Agents", "Guides", "Product Overview", "Reference", "Plugins", "DSL Specification", "User Interface"]
 
         h["site"] = payload
         h
