@@ -8,7 +8,6 @@ pageord: 200
 
 terminology_link: reference-terminology.html
 agent_packager_link: agents-packager.html
-cloudify_manager_link: cloudify-manager.html
 
 ---
 {%summary%}{{page.abstract}}{%endsummary%}
@@ -25,7 +24,7 @@ with these agents.
 {%endnote%}
 
 
-Agents are basically a piece of software used for communicating with the [Cloudify Manager]({{page.cloudify_manager_link}})
+Agents are basically a piece of software used for communicating with the Cloudify Manager.
 
 Cloudify's agent provide a way to:
 

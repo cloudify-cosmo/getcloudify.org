@@ -16,7 +16,6 @@ script_plugin_link: plugin-script.html
 linux_agent_installer_link: plugin-linux-agent-installer.html
 windows_agent_installer_link: plugin-windows-agent-installer.html
 plugin_installer_link: plugin-installer-plugin.html
-cloudify_manager_link: cloudify-manager.html
 
 ---
 {%summary%}{{page.abstract}}{%endsummary%}
@@ -73,7 +72,7 @@ These plugins are developed by Cloudify and provide core functionality for the a
 
 ## Management Plugins:
 
-The [Cloudify Manager]({{page.cloudify_manager_link}}) actually also runs an instance of an agent, this is called the `cloudify_management_agent`.
+The Cloudify Manager actually also runs an instance of an agent, this is called the `cloudify_management_agent`.
 This agent is responsible for starting all other agents, and thus requires all of the following plugins.
 
 (In the future, some of them will be optional.)
