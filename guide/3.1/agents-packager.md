@@ -6,10 +6,23 @@ publish: true
 abstract: Using the agent packager to create an agent for your distribution
 pageord: 220
 
+virtualenv_link: http://virtualenv.readthedocs.org/en/latest/virtualenv.html
+terminology_link: reference-terminology.html
+celery_link: http://www.celeryproject.org/
+rest_client_api_link: reference-rest-client-api.html
+plugins_common_api_link: reference-plugins-common-api.html
+diamond_plugin_link: plugin-diamond.html
+script_plugin_link: plugin-script.html
+linux_agent_installer_link: plugin-linux-agent-installer.html
+windows_agent_installer_link: plugin-windows-agent-installer.html
+plugin_installer_link: plugin-installer-plugin.html
+
 ---
 {%summary%}{{page.abstract}}{%endsummary%}
 
 # Overview
+
+Cloudify's Agent is basically a [virtualenv]({{page.virtualenv_link}}) with a series of modules installed in it and a few configuration files attached
 
 To use Cloudify with distributions other than the [officially supported ones](agents-description.html#provided-agent-packages), we're providing an [Agent-Packager tool](agents-packager.html) that will assist you in creating an agent for your distribution.
 
@@ -30,6 +43,45 @@ You can use Cloudify's agent-packager to create an agent on the distribution you
 {%note title=Note%}
 As Cloudify's code currently only supports Python 2.7.x or Python 2.6.x so you will have to run one of those to create an agent.
 {%endnote%}
+
+
+# Agent Modules
+
+Each agent contains a set of modules, which are just python packages.
+These modules can be a either simple python libraries, or they can be [plugins]({{page.terminology_link}}#plugin).
+
+## Core External Modules:
+
+These are modules not developed by Cloudify that are used by the agent.
+
+- [Celery]({{page.celery_link}}) (Mandatory)
+
+## Core Modules:
+
+These modules are developed by Cloudify and provide core functionality for the agent - thus, the default agents provided with Cloudify come with these pre-installed.
+
+- [Cloudify Rest Client]({{page.rest_client_api_link}}) (Mandatory)
+- [Cloudify Plugins Common]({{page.plugins_common_api_link}}) (Mandatory)
+
+## Core Plugins:
+
+These plugins are developed by Cloudify and provide core functionality for the agent - thus, the default agents provided with Cloudify come with these pre-installed.
+
+- [Cloudify Script Plugin]({{page.script_plugin_link}}) (Optional)
+- [Cloudify Diamond Plugin]({{page.diamond_plugin_link}}) (Optional)
+
+## Management Plugins:
+
+The Cloudify Manager actually also runs an instance of an agent, this is called the `cloudify_management_agent`.
+This agent is responsible for starting all other agents, and thus requires all of the following plugins.
+
+(In the future, some of them will be optional.)
+
+- [Cloudify Linux Agent Installer]({{page.linux_agent_installer_link}}) (Temporarily Mandatory)
+- [Cloudify Linux Plugin Installer]({{page.plugin_installer_link}}) (Temporarily Mandatory)
+- [Cloudify Windows Agent Installer]({{page.windows_agent_installer_link}}) (Temporarily Mandatory)
+- [Cloudify Windows Plugin Installer]({{page.plugin_installer_link}}) (Temporarily Mandatory)
+
 
 # Creation Process
 
@@ -137,6 +189,12 @@ output_tar: /home/nir0s/Ubuntu-trusty-agent.tar.gz
 keep_venv: true
 {%endhighlight%}
 
+{%note title=Note%}
+Note that if you want to use the [ZeroMQ](https://github.com/zeromq/pyzmq) proxy in 
+the [script plugin]({{page.script_plugin_link}}) you'll have to explicitly configure it in the `additional_modules` 
+section as shown above.
+{%endnote%}
+
 ### Config YAML Explained
 
 {%note title=Note%}
@@ -160,7 +218,3 @@ Beginning with Cloudify 3.2, they will not be case sensitive.
 - `additional_modules` - a `list` of additional modules to install into the package. This is where you can add your plugins.
 - `output_tar` - Path to the tar file you'd like to create.
 - `keep_venv` - Whether to keep the virtualenv after creating the tar file or not. Defaults to false.
-
-# Modules
-
-To learn more about the agent's modules, click [here](agents-description.html#agent-modules).
