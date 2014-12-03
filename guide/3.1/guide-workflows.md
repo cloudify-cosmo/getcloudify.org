@@ -9,8 +9,7 @@ pageord: 500
 
 types_yaml_link: reference-types.html
 
-# TODO: change develop --> 3.0 right before the release, it is currently develop because there is no 3.0 tag yet
-default_workflows_source_link: https://github.com/cloudify-cosmo/cloudify-manager/blob/develop/workflows/workflows/default.py
+default_workflows_source_link: https://github.com/cloudify-cosmo/cloudify-plugins-common/blob/3.1/cloudify/plugins/workflows.py
 ---
 
 {%summary%}This guide explains what workflows are and how to use them{%endsummary%}
@@ -20,7 +19,7 @@ default_workflows_source_link: https://github.com/cloudify-cosmo/cloudify-manage
 
 Workflows are automation process algorithms. They describe the flow of the automation by determining which tasks will be executed and when. A task may be an operation (implemented by a plugin), but it may also be other actions, including arbitrary code. Workflows are written in Python, using dedicated APIs and framework.
 
-Workflows deployment specific. Every deployment has its own set of workflows (declared in the Blueprint), and executions of a workflow are in the context of that deployment.
+Workflows are deployment specific. Every deployment has its own set of workflows (declared in the Blueprint), and executions of a workflow are in the context of that deployment.
 
 Controlling workflows (i.e. executing, cancelling, etc.) is done via REST calls to the management server. In this guide, the examples will be shown using Cloudify CLI commands which in turn call the above REST API calls.
 
@@ -40,7 +39,7 @@ An execution is considered to be a *running execution* until it reaches one of t
 
 
 {%note title=Note%}
-It is recommended to only have one *running execution* per deployment at any point in time. By default, an attempt to execute a workflow while another execution is running for the same deployment will raise an error. To override this behavior and allow for multiple executions to run in parallel, use the `force` flag for each execute command. For a syntax reference, see the [CFY CLI commands reference](reference-cfy.html#deployments-execute).
+It is recommended to only have one *running execution* per deployment at any point in time. By default, an attempt to execute a workflow while another execution is running for the same deployment will raise an error. To override this behavior and allow for multiple executions to run in parallel, use the `force` flag for each execute command. For a syntax reference, see the [CFY CLI commands reference](reference-cfy.html).
 {%endnote%}
 
 
@@ -61,7 +60,7 @@ This command shows information on the `my_workflow` workflow of the `my_deployme
 *The workflow has a single mandatory parameter named* `mandatory_parameter`*, and two optional parameters, one named* `optional_parameter` *which has a default value of* `optional_parameter_default_value`*, and another named* `nested_parameter` *which has a complex default value.*
 
 <br>
-When executing a workflow, it's required to specify values for all mandatory parameters, and it's possible to override the default values for any of the optional parameters. Parameters are passed in the CLI with the `-p` flag, and in JSON format.
+When executing a workflow, it's required to specify values for all mandatory parameters, and it's possible to override the default values for any of the optional parameters. Parameters are passed in the CLI with the `-p` flag, and in JSON format. (Could be either inline JSON or a path to a JSON file).
 
 *Example: Executing a workflow with parameters*
 ![Execute with parameters CLI screenshot](../images3/guide/execute-with-parameters.png)
@@ -82,7 +81,7 @@ Both workflows and executions live in the context of a deployment - The reason t
 *The workflow was executed with three parameters with the presented values. It can be seen that the* `optional parameter` *parameter was assigned with its default value, while the* `nested_parameter` *parameter's value was overridden with the new complex value.*
 
 <br>
-It is also possible to pass custom parameters that weren't declared for the workflow in the blueprint. By default, providing such parameters will raise an error, to help avoid mistakes - but if the need for such parameters arises, they can be allowed on a per-execution basis by enabling the `allow-custom-parameters` flag. For a syntax reference, see the [CFY CLI commands reference](reference-cfy.html#deployments-execute).
+It is also possible to pass custom parameters that weren't declared for the workflow in the blueprint. By default, providing such parameters will raise an error, to help avoid mistakes - but if the need for such parameters arises, they can be allowed on a per-execution basis by enabling the `allow-custom-parameters` flag. For a syntax reference, see the [CFY CLI commands reference](reference-cfy.html).
 
 
 
@@ -94,11 +93,11 @@ There are two types of execution cancellations:
 
 * Standard cancellation - This type means that a cancel request is posted for the execution. The execution's status will become `cancelling`. However, the actions to take upon such a request are up to the workflow that's being executed: It might try and stop, perform a full rollback, or even ignore the request completely and continue executing.
 
-  Usually, this is the recommended way to cancel an execution, since while it doesn't make any guarantees, it allows for a workflow to cancel its execution gracefully - whether by performing a rollback, cleaning up resources, or any other actions that it may take before stopping. 
+  Usually, this is the recommended way to cancel an execution, since while it doesn't make any guarantees, it allows for a workflow to cancel its execution gracefully - whether by performing a rollback, cleaning up resources, or any other actions that it may take before stopping.
 
 
 * Force cancellation - This type also means a cancel request is posted for the execution (with the execution's status becoming `force_cancelling`), yet in this case it is not up to the workflow to act on this request - instead, the Cloudify workflow engine will simply terminate the process running the workflow immediately.
-  
+
   This type of cancellation may be used over an execution which is already in `cancelling` status, and indeed, its main purpose is to be used for workflows which don't support Standard cancellation or when the Standard cancellation is stuck or is taking too long. It may also be used when it's needed to simply stop an execution immediately.
 
 
@@ -107,11 +106,11 @@ When the execution's status changes to `cancelled`, it means the workflow execut
 {%endwarning%}
 
 <br>
-Cancelling an execution whose ID is `my_execution` from the CLI can be done using the following command:
+Cancelling an execution whose ID is `SOME_EXECUTION_ID` from the CLI can be done using the following command:
 
-`cfy executions cancel -e my_execution`
+`cfy executions cancel -e SOME_EXECUTION_ID`
 
-To use force-cancellation instead, simply add the `force` flag. For a syntax reference, see the [CFY CLI commands reference](reference-cfy.html#executions-cancel).
+To use force-cancellation instead, simply add the `force` flag. For a syntax reference, see the [CFY CLI commands reference](reference-cfy.html).
 
 {%note title=Note%}
 When the CLI completes a cancel execution command, it does not mean the execution has finished cancelling, even if force cancellation was used. The execution will be in either a `cancelling` or `force_cancelling` status (depending on the cancellation type that was used) until the cancellation has finished, at which time its status will change to `cancelled`, and the execution will be over (with the Warning above still applying).
@@ -123,15 +122,15 @@ When the CLI completes a cancel execution command, it does not mean the executio
 When an error is raised from the workflow itself, the workflow execution will fail - it will end with `failed` status, and should have an error message under its `error` field. There is no built-in retry mechanism for the entire workflow.
 
 However, there's a retry mechanism for task execution within a workflow.
-Two types of errors can occur during task execution: *Recoverable* and *Nonrecoverable*. **By default, all errors originating from tasks are *Recoverable***.
+Two types of errors can occur during task execution: *Recoverable* and *NonRecoverable*. **By default, all errors originating from tasks are *Recoverable***.
 
-If a *Nonrecoverable* error occurs, the workflow execution will fail, similarly to the way described for when an error is raised from the workflow itself.
+If a *NonRecoverable* error occurs, the workflow execution will fail, similarly to the way described for when an error is raised from the workflow itself.
 
 If a *Recoverable* error occurs, the task execution might be attempted again from its start. This depends on the configuration of the `task_retries` parameter, which determines how many retry attempts will be given by default to any failed task execution.
 
 The `task_retries` parameter can be set in one of the following manners:
 
-* When bootstrapping using the [Cloudify CLI and a Provider](guide-cli.html), the `task_retries` parameter is a configuration parameter under `cloudify`.`workflows`.
+* When bootstrapping using the [Cloudify CLI](installation-bootstrapping.html), the `task_retries` parameter is a configuration parameter under `cloudify`.`workflows`.
 
 * If Cloudify was [bootstrapped manually](installation-manual.html), the `task_retries` parameter may be set via a REST call to the management server that creates a provider context object, but this call is not yet documented.
 
@@ -182,7 +181,7 @@ workflows:
 {% endhighlight %}
 
 
-The implementations for these workflows can be found at [`workflows/default.py`]({{page.default_workflows_source_link}}).
+The implementations for these workflows can be found at [`cloudify-plugins-common`]({{page.default_workflows_source_link}}).
 
 Built-in workflows are not special in any way - they use the same API and framework as any custom workflow is able to use, and one may replace them with different workflows with the same names.
 
@@ -191,5 +190,5 @@ For more information and detailed description of the built-in workflows, visit t
 
 # Writing a Custom Workflow
 
-Advanced users may wish to write custom workflows. 
+Advanced users may wish to write custom workflows.
 To learn how to write a custom workflow, refer to the [workflows authoring guide](guide-authoring-workflows.html).
