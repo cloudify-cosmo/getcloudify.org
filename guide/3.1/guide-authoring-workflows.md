@@ -344,7 +344,7 @@ from cloudify.workflows import ctx
 from cloudify.workflows.tasks_graph import forkjoin
 
 @workflow
-def run_operation(ctx, operation, type_name, operation_kwargs, is_node_operation, **kwargs):
+def run_operation(operation, type_name, operation_kwargs, is_node_operation, **kwargs):
     graph = ctx.graph_mode()
 
     send_event_starting_tasks = {}
