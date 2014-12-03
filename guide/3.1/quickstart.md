@@ -143,7 +143,7 @@ This blueprint defines some input parameters:
 
 ![Nodecellar Inputs](/guide/images3/guide/quickstart/nodecellar_singlehost_inputs.png)
 
-The inputs values are located at ~/blueprints/inputs/nodecellar-singlehost.json.
+The inputs values are located at ~/cloudify/blueprints/inputs/nodecellar-singlehost.json.
 These are the values relevant for our example: 
 
 {%highlight json%}
