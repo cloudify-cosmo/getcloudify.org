@@ -143,7 +143,8 @@ This blueprint defines some input parameters:
 
 ![Nodecellar Inputs](/guide/images3/guide/quickstart/nodecellar_singlehost_inputs.png)
 
-The inputs values are located at ~/blueprints/cloudify-nodecellar-example/inputs/singlehost.json.
+The inputs values are located at ~/blueprints/inputs/nodecellar-singlehost.json.
+These are the values relevant for our example: 
 
 {%highlight json%}
 {
@@ -161,7 +162,7 @@ and are presented here only for the sake of clarity.
 Next, we need to create a deployment. To do so, type the following command:
 
 {%highlight bash%}
-cfy deployments create -b nodecellar -d nodecellar --inputs inputs/singlehost.json
+cfy deployments create -b nodecellar -d nodecellar --inputs inputs/nodecellar-singlehost.json
 {%endhighlight%}
 
 We've now created a deployment named `nodecellar` based on a blueprint with the same name. This deployment is not yet materialized, since we haven't issued an installation command. If you click the "Deployments" icon in the left sidebar in the web UI, you will see that all nodes are labeled with 0/1, which means they're pending creation.
