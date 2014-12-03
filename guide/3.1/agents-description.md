@@ -17,7 +17,7 @@ agent_packager_link: agents-packager.html
 Cloudify Agents are entities installed on hosts that are part of your [blueprint]({{page.terminology_link}}#blueprint).
 
 {%note title=Note%}
-Some agents are actually also installed outside the scope of a specific host, but usually you wont to bother
+Some agents are actually also installed outside the scope of a specific host, but usually you wont need to bother
 with these agents.
 **See the [Terminology page]({{page.terminology_link}}#agent) for a more elaborate explanation on each type of agent.**
 

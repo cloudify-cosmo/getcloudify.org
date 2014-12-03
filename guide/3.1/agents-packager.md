@@ -48,7 +48,7 @@ As Cloudify's code currently only supports Python 2.7.x or Python 2.6.x so you w
 # Agent Modules
 
 Each agent contains a set of modules, which are just python packages.
-These modules can be a either simple python library, or they can be [plugins]({{page.terminology_link}}#plugin).
+These modules can be a either simple python libraries, or they can be [plugins]({{page.terminology_link}}#plugin).
 
 ## Core External Modules:
 
