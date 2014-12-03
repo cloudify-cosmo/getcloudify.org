@@ -108,14 +108,13 @@ You will, at the very least, have to provide the following:
 * `keystone_password`
 * `keystone_tenant_name`
 
-{%note title=Note%}
-In case you are using a different openstack environment, you should also change the
-following values:
-* image_id
-* flavor_id
-* external_network_name
+In case you are using a different openstack environment, you should also change the following values:
+
+* `image_id`
+* `flavor_id`
+* `external_network_name`
+
 to fit your specific openstack installation.
-{%endnote%}
 
 Notice that the `resources_prefix` parameter is set to "cloudify" so that all resources provisioned during 
 this guide are prefixed for easy identification.
@@ -137,7 +136,7 @@ At the end of this process you should see the following message:
 
 {% highlight bash %}
 bootstrapping complete
-management server is up at <YOUR MANAGER IP ADDRESS> (is now set as the default management server)
+management server is up at <YOUR MANAGER IP ADDRESS>
 {% endhighlight %}
 
 To validate this installation, point your web browser to the manager IP address (port 80). 
