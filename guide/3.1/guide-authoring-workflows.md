@@ -84,10 +84,7 @@ workflows:
 
 * Mapping with parameters - this should be used to map a workflow name to a workflow implementation which uses parameters.
 
-  Workflow parameters declaration is done in a similar manner to the way type properties are declared: It's structured as a map, where each entry is a map in itself, which specifies the parameter schema. It has the following optional keys:
-
-  * default: Specify default value for parameter (Optional)
-  * description: Give a short description to this parameter (Optional)
+  Workflow parameters declaration is done in a similar manner to the way type properties are declared: It's structured as a schema map, where each entry specifies the parameter schema.
 
   Example: Making the same mapping yet with parameters declaration - A single mandatory parameter named `mandatory_parameter`, and two optional parameters with default values (one of which is a complex value)*
   {% highlight yaml %}
