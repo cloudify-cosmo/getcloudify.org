@@ -167,7 +167,7 @@ The first step the user must take to install an application is to have the appli
 ## [Deployment](reference-terminology.html#deployment) Creation
 In order to deploy and manage an application you need to create a runtime data model in the manager. This is where the manager keeps the state of the application. Multiple deployments can be created out of a single blueprint, but once a deployment is created it is independent of other deplyoments of the same blueprint.
 
-To create a deployment, use the GUI or the CLI (command)[reference-cfy.html#deployments-create] `cfy deployments create`.
+To create a deployment, use the GUI or the CLI [command](reference-cfy.html#deployments-create) `cfy deployments create`.
 This will create the deployment data in the manager, including the deployment's [nodes](reference-terminology.html#node) and [node-instances](reference-terminology.html#node-instance) data. Additionally, creating a deployment will execute the `workers_installation.install` [workflow](reference-terminology.html#workflow), which will install the deployment-specific Cloudify agents on the manager and their relevant plugins. The agents installation happens in the background, but it is required to finish before other workflows may be executed for the given deployment.
 
 ## [Workflow](reference-terminology.html#workflow) Execution
