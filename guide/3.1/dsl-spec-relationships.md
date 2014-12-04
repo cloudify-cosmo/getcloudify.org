@@ -11,11 +11,14 @@ pageord: 300
 
 
 # *Relationships*
+
 Relationships let you define how [nodes]() relate to one another. By default, nodes can be related using the 3 relationship types described below. You may also [declare your own](#declaring-relationship-types) relationship types of course.
 
 The 3 built in types are:
 
+
 ## *depends_on*
+
 A node depends on another node. For example, the creation of a new subnet depends on the creation of a new network.
 
 {%warning title=Note%}
@@ -24,7 +27,9 @@ The `depends_on` relationship type is meant to be used as a logical representati
 
 The other two relationship types inherit from the `depends_on` relationship type. The implementation of the `connected_to` relationship type is the same, therefore, usage reference should be dictated by `connected_to` which is described below.
 
+
 ## *contained_in*
+
 A node is contained in another node. For example, an `http_web_server` is contained within a `vm`.
 
 Example:
@@ -89,7 +94,9 @@ For instance, a counter-example to the `http_web_server` in a `vm` would be an `
 4) ​lastly, there's some workflow-related API which also touches on the 'contained_in' type, e.g. "contained_instances" property of the CloudifyWorkflowNodeInstance class - basically these are used to form subgraphs to execute operations on specific nodes etc.
  -->
 
+
 ## *connected_to*
+
 A node is connected to another node. For example, an `application` is `connected_to` a `database` and both of them are `contained_in` a `vm`.
 
 Example:
@@ -127,7 +134,9 @@ Note that since we deployed two `vm` node instances, two `application` node inst
 
 This actually means that we will have four `application` node instances (two on each `vm` node instance) and one `database` node instance (one on each `vm` node instance). All `application` node instances will be `connected_to` each of the two databases residing on the two vm's.
 
+
 ## Multi-instance `connected_to` semantics
+
 A specific feature in `connected_to` allows you to connect a node to an arbitrary instance of another node.
 
 Example:
@@ -149,7 +158,6 @@ node_templates:
     type: database
     instances:
       deploy: 2
-
 {%endhighlight%}
 
 In the above example we have two `application` node instances connecting to *one* of the two `database` node instances arbitrarily.
@@ -157,14 +165,18 @@ The default configuration for `connection_type` is `all_to_all`.
 
 The same `connection_type` configuration can be applied to a `contained_in` relationship type, thought it will virtually do nothing.
 
+
 # Relationship Instances
+
 Let's assume you have a node with 2 instances and 2 relationships configured for them.
 
 When a deployment is created, node instances are instantiated in the model.
 Just like node instances are instantiated for each node, relationship instances are instantiated for each relationship.
 This allows to write [runtime properties]() not only to the node instance itself but also to the relationship instance that accompanies it.
 
+
 # Declaring relationship types
+
 You can declare your own relationship types in the relationships section in the blueprint.
 
 Example:
@@ -193,7 +205,9 @@ node_templates:
 
 In the above example, we create a relationship type called `app_connected_to_db` which inherits from the base `connected_to` relationship type and implements a specific configuration (by running scripts/configure_my_connection.py) for the type.
 
+
 # Relationship interfaces
+
 Each relationship type has a `source_interface` and `target_interface`.
 
 For a given node:
@@ -204,7 +218,6 @@ For a given node:
 Example:
 
 {%highlight yaml%}
-
 relationships:
   source_connected_to_target:
     derived_from: cloudify.relationships.connected_to
@@ -221,7 +234,6 @@ node_templates:
     relationships:
       - type: source_connected_to_target
         target: target_node
-
 {%endhighlight%}
 
 In the above example we can see that the postconfigure lifecycle operation in the `source_connected_to_target` relationship type is configured once in its `source_interfaces`section and `target_interfaces` section. As such, the configure_source_node.py script will be executed in `source_node` instances and the configure_target_node.py will be executed in `target_node` instances.
