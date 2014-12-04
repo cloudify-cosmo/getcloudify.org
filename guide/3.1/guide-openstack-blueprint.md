@@ -26,7 +26,7 @@ git clone https://github.com/cloudify-cosmo/cloudify-nodecellar-singlehost.git
 {%endhighlight%}
 
 You can see the blueprint with the nodes from the nodecellar_local example.
-The first additionwe are going to make to this template is importing the openstack plugins and types
+The first addition we are going to make to this template is importing the openstack plugins and types
 
 {%highlight yaml%}
 # Note: if you're using a milestone build 1.1 below should be prefixed with the milestone name, e.g. 
@@ -38,7 +38,7 @@ imports:
 
 
 #Step 2: Adding a security group
-Nowe can start adding the nodes we need.
+Now we can start adding the nodes we need.
 A security group must be added to allow for specific inbound ports to be opened between the application tiers
 The security group node uses the neutron_plugin to create the security group and its rules
 
