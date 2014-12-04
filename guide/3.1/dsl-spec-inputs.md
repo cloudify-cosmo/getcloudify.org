@@ -7,12 +7,12 @@ pageord: 200
 
 ---
 {%summary%}
-Inputs are parameters injected to the blueprint on deployment creation. These parameters can be referenced using the [get_input](dsl-spec-intrinsic-functions.html#get_input) intrinsic fucntion
+Inputs are parameters injected into the [blueprint](reference-terminology.html#blueprint) upon [deployment](reference-terminology.html#deployment) creation. These parameters can be referenced by using the [get_input](dsl-spec-intrinsic-functions.html#get_input) intrinsic function.
 {%endsummary%}
 
 Blueprint authors can declare input parameters in the `inputs` section of the blueprint. This is useful when there's a need to inject parameters to the blueprint which were unknown when the blueprint was created and can be used for distinction between different deployments of the same blueprint.
 
-## Inputs Definition
+## Inputs Declaration
 
 The inputs section is a hash where each item in the hash represents an input.
 
@@ -59,8 +59,4 @@ node_templates:
       server:
         image_name: { get_input: image_name }
 {%endhighlight%}
-
-
-
-
 
