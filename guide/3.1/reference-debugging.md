@@ -21,7 +21,7 @@ The Flask logger, using which the REST service writes custom logs, additionally 
 
 The main log file sits at `/var/log/cloudify/cloudify-rest-service.log`.
 
-This file will grow up to a maximum size of 100MB, after which older logs will be moved to `cloudify-rest-service.log.1`, `cloudify-rest-service.log.2`, and so on, with new logs being written to the main log file.
+This file will grow up to a maximum size of 100MB, after which older logs will be renamed to `cloudify-rest-service.log.1`, `cloudify-rest-service.log.2`, and so on, with new logs being written to the main log file.
 After a maximum of 20 files, older files will get deleted when new logs arrive.
 
 {% togglecloak id=1 %} Example output {% endtogglecloak %}
