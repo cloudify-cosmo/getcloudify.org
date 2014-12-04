@@ -25,7 +25,7 @@ Since it is based on a set of premade packages, it can be deployed using shell s
 ### Host Machine
 
 #### Minimal Requirements
-A Cloudify manager requires at the very least 2GB of RAM, 1 CPU and 5GB of free space.
+A Cloudify manager must run on a 64-bit machine and requires at the very least 2GB of RAM, 1 CPU and 5GB of free space.
 
 {%note title=Note%}
 These are the minimal requirements for Cloudify to run. You will have to provision larger machines to actually utilize Cloudify.
