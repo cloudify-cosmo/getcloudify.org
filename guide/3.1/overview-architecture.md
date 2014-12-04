@@ -47,7 +47,7 @@ There is a manager side agent per application[(?)]({{page.terminology_link}}#app
 
 ### Proxy and File Server
 
-Cloudify uses [Nginx](http://nginx.org/) as its frontend reverse proxy and file server (In later versions in will also be used for security related features.)
+Cloudify uses [Nginx](http://nginx.org/) as its frontend reverse proxy and file server (In later versions it will also be used for security related features.)
 
 ### REST API
 
@@ -79,8 +79,8 @@ The GUI has the following screens:
 ### Workflow Engine
 
 Cloudify uses a Workflow engine to allow for any automation process through built-in and custom workflows[(?)]({{page.terminology_link}}#workflow).
-The Workflow engine is responsible for timing and orchestrating tasks for creating / manipulating the application[(?)]({{page.terminology_link}}#application) components. To achieve that the worflow engine interacts with the Blueprint and runtime data to get the properties[(?)]({{page.terminology_link}}#properties) and plugin[(?)]({{page.terminology_link}}#plugin) information and writes tasks[(?)]({{page.terminology_link}}#task) to the task broker.
-Cloudify's workflow engine is build on top of [Celery tasks broker](http://www.celeryproject.org/). The user can write the custom workflow in Python using API's that provide access to the topology[(?)]({{page.terminology_link}}#topology) components and allow for steps execution and state[(?)]({{page.terminology_link}}#node-instance-state) reporting.
+The Workflow engine is responsible for timing and orchestrating tasks for creating / manipulating the application[(?)]({{page.terminology_link}}#application) components. To achieve that the workflow engine interacts with the Blueprint and runtime data to get the properties[(?)]({{page.terminology_link}}#properties) and plugin[(?)]({{page.terminology_link}}#plugin) information and writes tasks[(?)]({{page.terminology_link}}#task) to the task broker.
+Cloudify's workflow engine is built on top of [Celery tasks broker](http://www.celeryproject.org/). The user can write custom workflows in Python using API's that provide access to the topology[(?)]({{page.terminology_link}}#topology) components and allow for steps execution and state[(?)]({{page.terminology_link}}#node-instance-state) reporting.
 
 ### Runtime Model
 
