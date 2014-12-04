@@ -71,7 +71,7 @@ Workflow Parameters:
     Mandatory Parameters:
         mandatory_parameter (this parameter is mandatory)
     Optional Parameters:
-        optional_parameter:     optional_parameter_default_value        (this paramters is optional)
+        optional_parameter:     optional_parameter_default_value        (this parameter is optional)
         nested_parameter:       {'key2': 'value2', 'key1': 'value1'}    (this parameter is also optional)
 
 {% endhighlight %}
