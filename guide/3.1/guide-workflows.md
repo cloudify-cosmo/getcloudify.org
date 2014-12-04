@@ -56,14 +56,48 @@ Viewing a workflow's parameters can be done in the CLI using the following comma
 This command shows information on the `my_workflow` workflow of the `my_deployment` deployment, including the workflow's mandatory parameters as well as the optional parameters and their default values.
 
 *Example: Retrieving a workflow's parameters*
-![Workflows Get CLI screenshot](../images3/guide/workflows-get.png)
+{% highlight bash %}
+$ cfy workflows get -d my_deployment -w my_workflow
+Getting workflow 'my_workflow' of deployment 'my_deployment' [manager=11.0.0.7]
+
+Workflows:
++--------------+---------------+-------------+------------+
+| blueprint_id | deployment_id |     name    | created_at |
++--------------+---------------+-------------+------------+
+| my_blueprint | my_deployment | my_workflow |    None    |
++--------------+---------------+-------------+------------+
+
+Workflow Parameters:
+    Mandatory Parameters:
+        mandatory_parameter (this parameter is mandatory)
+    Optional Parameters:
+        optional_parameter:     optional_parameter_default_value        (this paramters is optional)
+        nested_parameter:       {'key2': 'value2', 'key1': 'value1'}    (this parameter is also optional)
+
+{% endhighlight %}
 *The workflow has a single mandatory parameter named* `mandatory_parameter`*, and two optional parameters, one named* `optional_parameter` *which has a default value of* `optional_parameter_default_value`*, and another named* `nested_parameter` *which has a complex default value.*
 
 <br>
 When executing a workflow, it's required to specify values for all mandatory parameters, and it's possible to override the default values for any of the optional parameters. Parameters are passed in the CLI with the `-p` flag, and in JSON format. (Could be either inline JSON or a path to a JSON file).
 
 *Example: Executing a workflow with parameters*
-![Execute with parameters CLI screenshot](../images3/guide/execute-with-parameters.png)
+{% highlight bash %}
+$ cfy executions start -d my_deployment -w my_workflow -p my_parameters.json
+Executing workflow 'my_workflow' on deployment 'my_deployment' at management server 11.0.0.7 [timeout=900 seconds]
+2014-12-04T10:02:47 CFY <my_deployment> Starting 'my_workflow' workflow execution
+2014-12-04T10:02:47 CFY <my_deployment> 'my_workflow' workflow execution succeeded
+Finished executing workflow 'my_workflow' on deployment'my_deployment'
+* Run 'cfy events list --include-logs --execution-id 7cfd8b9c-dcd6-41bc-bc88-6aa0b00ffa62' for retrieving the execution's events/logs
+{% endhighlight %}
+`my_parameters.json`
+{% highlight json %}
+{
+    "mandatory_parameter": "mandatory_parameter_value",
+    "nested_parameter": {
+        "key1": "overridden_value"
+    }
+}
+{% endhighlight %}
 *Executing the workflow and passing the value* `mandatory_parameter_value` *for the* `mandatory_parameter` *parameter, and overriding the value of the* `nested_parameter` *parameter with a new complex value (though it could have been overridden with a non-complex value as well).*
 
 <br>
@@ -77,7 +111,23 @@ Both workflows and executions live in the context of a deployment - The reason t
 
 
 *Example: Retrieving an execution's parameters*
-![Executions Get CLI screenshot](../images3/guide/executions-get.png)
+{% highlight bash %}
+$ cfy executions get -e 7cfd8b9c-dcd6-41bc-bc88-6aa0b00ffa62
+Getting execution: '7cfd8b9c-dcd6-41bc-bc88-6aa0b00ffa62' [manager=11.0.0.7]
+
+Executions:
++--------------------------------------+-------------+------------+----------------------------+-------+
+|                  id                  | workflow_id |   status   |         created_at         | error |
++--------------------------------------+-------------+------------+----------------------------+-------+
+| 7cfd8b9c-dcd6-41bc-bc88-6aa0b00ffa62 | my_workflow | terminated | 2014-12-04 10:02:22.728372 |       |
++--------------------------------------+-------------+------------+----------------------------+-------+
+
+Execution Parameters:
+    nested_parameter:       {'key1': 'overridden_value'}
+    optional_parameter:     optional_parameter_default_value
+    mandatory_parameter:    mandatory_parameter_value
+{% endhighlight %}
+
 *The workflow was executed with three parameters with the presented values. It can be seen that the* `optional parameter` *parameter was assigned with its default value, while the* `nested_parameter` *parameter's value was overridden with the new complex value.*
 
 <br>
