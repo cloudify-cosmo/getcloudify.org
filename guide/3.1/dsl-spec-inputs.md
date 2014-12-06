@@ -30,7 +30,7 @@ inputs:
 Keyname     | Required | Type        | Description
 ----------- | -------- | ----        | -----------
 description | no       | description | An optional description for the input.
-type        | no       | string      | Represents the required data type of the input. If not specifying a data type means the type can be anything. Valid types: string, integer, boolean
+type        | no       | string      | Represents the required data type of the input. Not specifying a data type means the type can be anything. Valid types: string, integer, boolean
 default     | no       | \<any\>     | An optional default value for the input.
 
 
