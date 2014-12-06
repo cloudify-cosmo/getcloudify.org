@@ -67,6 +67,12 @@ Please see [here](agents-description.html#provided-agent-packages) for the suppo
 
 Agents are provided for these OS distributions, but using the [Cloudify Agent Packager]({{page.agent_packager_link}}), you can create you own agents for your distribution.
 
+## Docker
+If you bootstrap using the Docker images, you must have Docker 1.3+ installed.
+
+Cloudify will attempt to install Docker on Ubuntu 14.04 (Trusty) ONLY as other images may require kernel upgrades and additional package installations.
+
+
 # What's Next
 
 Next, you should [install the Cloudify CLI](installation-cli.html). Once you've installed it, you will be able to boostrap a Cloudify manager on the environment of your choice.
