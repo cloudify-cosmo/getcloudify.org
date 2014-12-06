@@ -204,7 +204,7 @@ This allows to write runtime properties not only to the node instance itself but
 You can declare your own relationship types in the relationships section in the blueprint.
 This is useful when you want to change the default implementation of how nodes interact.
 
-## Relationship Declaration
+## Relationship Type Declaration
 
 Declaring relationship types is done like so:
 
@@ -216,7 +216,7 @@ relationships:
     ...
 {%endhighlight%}
 
-## Relationship Definition
+## Relationship Type Definition
 
 Keyname           | Required | Type        | Description
 -----------       | -------- | ----        | -----------
@@ -249,7 +249,7 @@ node_templates:
 In the above example, we create a relationship type called app_connected_to_db which inherits from the base connected_to relationship type and implements a specific configuration (by running scripts/configure_my_connection.py) for the type.
 
 
-# Relationship interfaces
+# Relationship Interfaces
 
 Each relationship type has a source_interface and target_interface.
 
@@ -266,10 +266,16 @@ relationships:
     derived_from: cloudify.relationships.connected_to
     source_interfaces:
       cloudify.interfaces.relationship_lifecycle:
+        preconfigure:
         postconfigure: scripts/configure_source_node.py
+        establish:
+        unlink:
     target_interfaces:
       cloudify.interfaces.relationship_lifecycle:
+        preconfigure:
         postconfigure: scripts/configure_target_node.py
+        establish:
+        unlink:
 
 node_templates:
   source_node:
@@ -280,3 +286,11 @@ node_templates:
 {%endhighlight%}
 
 In the above example we can see that the postconfigure lifecycle operation in the source_connected_to_target relationship type is configured once in its source_interfacessection and target_interfaces section. As such, the configure_source_node.py script will be executed in source_node instances and the configure_target_node.py will be executed in target_node instances.
+
+## How Relationships Affect Node Creation
+
+Declaring relationships inherently affects the node creation flow (in the sense that there is no need to configure the flow).
+
+When declaring a relationship, the first lifecycle operation of the source node will only be executed once the entire set of lifecycle operations of the target node were executed and completed.
+
+So, for instance, in the previous example the preconfigure, postconfigure, establish and unlink operations for target_node will be executed BEFORE the first operation for source_node is executed. This removes any uncertainties about whether a node was ready to have another node connect to it due to it not being available. Of course, it's up to the user to define what "ready" means.
