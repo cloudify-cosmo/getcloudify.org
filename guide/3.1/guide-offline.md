@@ -53,7 +53,7 @@ In our `bandersnatch.conf` file we have configured the following:
     }
 
 This means that nginx will serve the files located under `/srv/cloudify` on `<server-ip>:<server-port>/cloudify`. So we need to make every file that is used in our blueprint available under /srv/cloudify.  
-For example have a look at the [Hello-world example](https://github.com/cloudify-cosmo/cloudify-hello-world-example). In `blueprint.yaml` we import `http://www.getcloudify.org/spec/openstack-plugin/1.1/plugin.yaml`, but you can see that [plugin.yaml](plugin.yaml) is using `https://github.com/cloudify-cosmo/cloudify-openstack-plugin/archive/1.1.zip`. So we must make [plugin.yaml](plugin.yaml) as well as [1.1.zip](https://github.com/cloudify-cosmo/cloudify-openstack-plugin/archive/1.1.zip) available on our HTTP server.
+For example have a look at the [Hello-World example](https://github.com/cloudify-cosmo/cloudify-hello-world-example). In `blueprint.yaml` we import `http://www.getcloudify.org/spec/openstack-plugin/1.1/plugin.yaml`, but you can see that [plugin.yaml](plugin.yaml) is using `https://github.com/cloudify-cosmo/cloudify-openstack-plugin/archive/1.1.zip`. So we must make [plugin.yaml](plugin.yaml) as well as [1.1.zip](https://github.com/cloudify-cosmo/cloudify-openstack-plugin/archive/1.1.zip) available on our HTTP server.
 
 ### Step 4 - Creating a template image for Cloudify
 In order to configure pip and Easy-install to use our PyPi mirror instead of the PyPi central repository by default we will have to create a template image with configuration files for pip and Easy-install.  
@@ -69,7 +69,7 @@ Create a Snapshot from this image and call it `cfy-template`.
 
 # Test drive your offline configuration
 
-We will be using our configuration to bootstrap Cloudify manager and install the Hello-world Blueprint.
+We will be using our configuration to bootstrap Cloudify manager and install the Hello-World Blueprint.
 
 ### Step 1 - Launch a client instance
 
@@ -79,10 +79,10 @@ Launch an instance in OpenStack, connect it to the same network as the HTTP serv
 
 Install the CLI package as described in the [installation guide](installation-cli.html) on the client instance that you have just started.
 
-### Step 3 - Download the Hello-world example
+### Step 3 - Download the Hello-World example
 
-Download the Hello-world example to the client instance.
-You can either download the zip file from the [hello-world repo](https://github.com/cloudify-cosmo/cloudify-hello-world-example)
+Download the Hello-World example to the client instance.
+You can either download the zip file from the [hello-World repo](https://github.com/cloudify-cosmo/cloudify-hello-world-example)
 or `git clone https://github.com/cloudify-cosmo/cloudify-hello-world-example.git`
 
 ### Step 4 - Upload the relevant files to the HTTP Server
@@ -121,8 +121,12 @@ in order to upload the blueprint to the management server.
 {%endhighlight%}
 In order to create a deployment.
 
+{%note title=Note%}
+You might want to consult the [inputs reference](dsl-spec-inputs.html), as the Hello-World blueprint requires using inputs.
+{%endnote%}
+
 {% highlight bash %} cfy executions start -d hello-offline -w install
 {%endhighlight%}
 In order to install the deployment.
 
-When the installation of the deployment is finished, you'll have an installed Hello-world app in an offline environment.
+When the installation of the deployment is finished, you'll have an installed Hello-World app in an offline environment.
