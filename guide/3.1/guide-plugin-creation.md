@@ -389,17 +389,3 @@ Generally, when you use the local workflows API you also have to supply a bluepr
 In the plugin.yaml file, note that `install` is set to `false` as you're only running tests.
 
 So... clone the plugin template's repository and enjoy writing your first Cloudify plugin.
-
-
-
-
-
-
-
--* The test_plugin.py file imports the `local` attribute from the cloudify.workflows module (a part of the `cloudify-plugins-common` module). This will allow you to run your operations locally using the local workflows API.
-+* The test_plugin.py file imports the `local` attribute from the cloudify.workflows module (a part of the `cloudify-plugins-common` module). This will allow you to run your operations locally using the [local workflows API]({{page.local_workflows_api_link#local}}).
- * The `blueprint_path` variable is already supplied so that you can run your operations against a given blueprint (will get to that later)
--* the `inputs` dictionary will allow you to supply [inputs]({{page.terminology_link}}#inputs) for your blueprint.
-+* the `inputs` dictionary will allow you to supply [inputs]({{page.dsl_inputs_link}}) for your blueprint.
- * The `self.env` object will assist you in executing the operations locally and in the context of your blueprints.
- * The test `test_my_task` shows an example of instantiating a local workflow execution environment and executing an arbitrary workflow with it (install in the case of this test).
