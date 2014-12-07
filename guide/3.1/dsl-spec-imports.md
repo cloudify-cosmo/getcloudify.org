@@ -7,6 +7,7 @@ abstract: "Importing YAML Files"
 pageord: 300
 
 ---
+{%summary%}{{page.abstract}}{%endsummary%}
 {%summary%}
 Imports provides a way of reusing blueprint yaml files [blueprint](reference-terminology.html#blueprint).
 {%endsummary%}
