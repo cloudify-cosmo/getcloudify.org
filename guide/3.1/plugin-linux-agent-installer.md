@@ -41,7 +41,8 @@ node_templates:
         wait_started_timeout: 15          # default value
         wait_started_interval: 1          # default value
         disable_requiretty: true          # default value
-        distro:                           # no default value (automatically resolved in run time)
+        distro:                           # no default value (automatically resolved at runtime)
+        release:                          # no default value (automatically resolved at runtime)
         celery_config_path:               # a resource provided with the manager by default
         celery_init_path:                 # a resource provided with the manager by default
         disable_requiretty_script_path:   # a resource provided with the manager by default
