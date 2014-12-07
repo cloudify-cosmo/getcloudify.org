@@ -77,6 +77,9 @@ A deployment is the plan and the state of a single [application](#application) e
 
 Deployments are model-representations of [node](#node) instances (which form applications) and their runtime [state](#node-instance-state).
 
+### **DSL Version**
+See [DSL Versioning](dsl-spec-versioning.html).
+
 ### **Event**
 An Event is a JSON representation of an occurance in Cloudify's environment.
 
