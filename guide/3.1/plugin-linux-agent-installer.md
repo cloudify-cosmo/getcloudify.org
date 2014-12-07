@@ -49,7 +49,7 @@ node_templates:
         agent_package_path:               # a resource provided with the manager by default
 {%endhighlight%}
 
-Agent Configuration:
+## Agent Configuration
 
 * `user` - SSH username
 * `key`  - Path to SSH key file on the management machine
@@ -62,7 +62,7 @@ Agent Configuration:
 * `distro` - The linux distribution the agent is intended to be installed on. By default this parameter is automatically set in runtime but it is possible to override it to set any other distribution. Note that when creating an agent for your distribution, for the agent installer to be able to install it, it must be called `DISTRIBUTION-RELEASE-agent.tar.gz` (e.g. Ubuntu-trusty-agent.tar.gz) unless `distro` and `release` are explicitly provided in the blueprint.
 * `release` - The linux distribution's release the agent is intended to be installed on. This is retrieved the same way `distribution` is retrieved.
 
-Agent Resources:
+## Agent Resources
 
 The following are resources that are primarily provided with Cloudify's agents by default. Overriding these, will allow you to provide different implementations for handling how agents are installed, configured and ran and to provide a different agent package, potentially containing different plugins or based on different python environments.
 
