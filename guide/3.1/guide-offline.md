@@ -45,7 +45,7 @@ This instance will serve as our PyPi mirror and HTTP server.
 After this process has finished we have a PyPi mirror and an HTTP server up and running.
 
 ### Step 3 - Adding relevant files to our HTTP server
-Now we need to add to the HTTP server **recursively** all the files that will be used by our Blueprint, in order to make them available to Cloudify.  
+Now we need to **recursively** add to the HTTP server all the files that will be used by our Blueprint, in order to make them available to Cloudify.  
 In our `bandersnatch.conf` file we have configured the following:
 
     location /cloudify/ {
@@ -53,23 +53,23 @@ In our `bandersnatch.conf` file we have configured the following:
     }
 
 This means that nginx will serve the files located under `/srv/cloudify` on `<server-ip>:<server-port>/cloudify`. So we need to make every file that is used in our blueprint available under /srv/cloudify.  
-For example have a look at the [Hello-world example](https://github.com/cloudify-cosmo/cloudify-hello-world-example). In `blueprint.yaml` we import `http://www.getcloudify.org/spec/openstack-plugin/1.1/plugin.yaml`, but you can see that [pluging.yaml](http://www.getcloudify.org/spec/openstack-plugin/1.1/plugin.yaml) is using `https://github.com/cloudify-cosmo/cloudify-openstack-plugin/archive/1.1.zip`. So we must make [pluging.yaml](http://www.getcloudify.org/spec/openstack-plugin/1.1/plugin.yaml) as well as [1.1.zip](https://github.com/cloudify-cosmo/cloudify-openstack-plugin/archive/1.1.zip) available on our HTTP server.
+For example have a look at the [Hello-world example](https://github.com/cloudify-cosmo/cloudify-hello-world-example). In `blueprint.yaml` we import `http://www.getcloudify.org/spec/openstack-plugin/1.1/plugin.yaml`, but you can see that [plugin.yaml](plugin.yaml) is using `https://github.com/cloudify-cosmo/cloudify-openstack-plugin/archive/1.1.zip`. So we must make [plugin.yaml](plugin.yaml) as well as [1.1.zip](https://github.com/cloudify-cosmo/cloudify-openstack-plugin/archive/1.1.zip) available on our HTTP server.
 
-### Step 4 - Creating a template image for cloudify
-In order to configure PIP and Easy-install to use our PyPi mirror instead of the PyPi central repository by default we will have to create a template image with configuration files for PIP and Easy-install.  
+### Step 4 - Creating a template image for Cloudify
+In order to configure pip and Easy-install to use our PyPi mirror instead of the PyPi central repository by default we will have to create a template image with configuration files for pip and Easy-install.  
 In order to do so we will launch an instance and pre-configure it.  
-You can choose any base image that matches the required manager image as described in the [prerequisites](http://getcloudify.org/guide/3.1/installation-general.html#prerequisites) section. We will use ubuntu precise.  
-After launcing an instance you will have to
+You can choose any base image that matches the required manager image as described in the [prerequisites](installation-general.html#prerequisites) section. We will use ubuntu precise.  
+After launcing an instance you will have to:
 
-- Download [pip.conf](https://gist.githubusercontent.com/hagaiGS/bec4fbe248433c72f102/raw/b512e364b0c3247df889ff620e08a33d890102b5/pip.conf) and save it under `$HOME/.pip`. Configure `<PyPi-mirror-ip>` to point at the IP of your PyPi mirror / HTTP server
-- Download [.pydistutils](https://gist.githubusercontent.com/hagaiGS/bec4fbe248433c72f102/raw/886935f7694f83a6b72bf978ada2e563ece40974/.pydistutils) and save it under `$HOME`. Configure `<PyPi-mirror-ip>` to point at the IP of your PyPi mirror / HTTP server
+- Download [pip.conf](https://gist.githubusercontent.com/hagaiGS/bec4fbe248433c72f102/raw/b512e364b0c3247df889ff620e08a33d890102b5/pip.conf) and save it under `$HOME/.pip`. Configure `<PyPi-mirror-ip>` to point at the IP of your PyPi mirror / HTTP server.
+- Download [.pydistutils](https://gist.githubusercontent.com/hagaiGS/bec4fbe248433c72f102/raw/886935f7694f83a6b72bf978ada2e563ece40974/.pydistutils) and save it under `$HOME`. Configure `<PyPi-mirror-ip>` to point at the IP of your PyPi mirror / HTTP server.
 - Remove your public key from `~/.ssh` in order to allow other users to connect to this image. 
 
-Create a Snapshot from this image and call it `cfy-template`
+Create a Snapshot from this image and call it `cfy-template`.
 
 # Test drive your offline configuration
 
-We will use our configuration to bootstrap Cloudify manager and install the Hello-world Blueprint
+We will use our configuration to bootstrap Cloudify manager and install the Hello-world Blueprint.
 
 ### Step 1 - Launch a client instance
 
@@ -77,7 +77,7 @@ Launch an instance in OpenStack, connect it to the same network as the HTTP serv
 
 ### Step 2 - Install Cloudify CLI
 
-Install the CLI package as described in the [installation guide](http://getcloudify.org/guide/3.1/installation-cli.html) on the client instance that you have just started.
+Install the CLI package as described in the [installation guide](installation-cli.html) on the client instance that you have just started.
 
 ### Step 3 - Download the Hello-world example
 
@@ -90,8 +90,8 @@ or `git clone https://github.com/cloudify-cosmo/cloudify-hello-world-example.git
 We need to make all the files required by the Blueprint available in our HTTP server, to do this we will check **recursively** `blueprint.yaml` for external files.  
 `blueprint.yaml` is using the following external files:
 
-- [types.yaml](http://www.getcloudify.org/spec/cloudify/3.1/types.yaml)
-- [plugin.yaml](http://www.getcloudify.org/spec/openstack-plugin/1.1/plugin.yaml)
+- [types.yaml](types.yaml)
+- [plugin.yaml](plugin.yaml)
 
 `types.yaml` is using the following external files:
 
