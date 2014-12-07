@@ -38,8 +38,8 @@ Keyname          | Required | Type        | Description
 type             | yes      | string      | Either a newly declared relationship type or one of the relationship types provided by default when importing the [types.yaml](https://github.com/cloudify-cosmo/cloudify-manager/blob/master/resources/rest-service/cloudify/types/types.yaml) file.
 target           | yes      | string      | The node's name to relate the current node to.
 connection_type  | no       | string      | valid values: `all_to_all` and `all_to_one` (explained below)
-source_interfaces| no       | dict        | A dict of cloudify.interfaces.relationship_lifecycle operations
-target_interfaces| no       | dict        | A dict of cloudify.interfaces.relationship_lifecycle operations
+source_interfaces| no       | dict        | A dict of interfaces. Can contain either declared or built in interface operations (e.g. `cloudify.interfaces.relationship_lifecycle` operations or "my_interface" operations).
+target_interfaces| no       | dict        | A dict of interfaces. Can contain either declared or built in interface operations (e.g. `cloudify.interfaces.relationship_lifecycle` operations or "my_interface" operations).
 
 <br>
 
@@ -66,7 +66,7 @@ Example:
 node_templates:
 
   vm:
-    type: cloudify.nodes.Server
+    type: cloudify.nodes.Compute
     instances:
       deploy: 2
 
@@ -97,7 +97,7 @@ Practically, this means that:
 * The `vm`'s [node instances]({{page.terminology_link}}#node-instance) will be created before the `http_web_server`'s node instances.
 * Two instances of the `http_web_server` node will be created within each of the two node instances of the `vm` node. This means that we will have 4 node instances of the `http_web_server` node.
 
-The last bullet is a bit tricky. The number of node instances for each node that is contained within another node will be determined by multiplying the number of instances requested for the contained node and the number of instances requested for the node it is contained in.
+The last bullet is a bit tricky. The number of node instances for each node that is contained within another node will be determined by multiplying the number of instances requested for the contained node and the actual number of instances of the node it is contained in.
 
 Let's break this down:
 
@@ -146,7 +146,7 @@ node_templates:
         target: vm
 
   vm:
-    type: cloudify.nodes.Server
+    type: cloudify.nodes.Compute
     instances:
       deploy: 2
 {%endhighlight%}
@@ -187,7 +187,7 @@ In the above example we have two `application` node instances connecting to **on
 
 The default configuration for `connection_type` is `all_to_all`.
 
-The same `connection_type` configuration can be applied to a `cloudify.relationships.contained_in` relationship type, thought it will virtually have no effect.
+The same `connection_type` configuration can be applied to a `cloudify.relationships.contained_in` relationship type, though it will virtually have no effect.
 
 
 # Relationship Instances
