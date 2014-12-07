@@ -64,7 +64,7 @@ You can view the outputs either by using the [cfy](reference-cfy.html) CLI
 {% highlight bash %}
 cfy deployments outputs -d DEPLOYMENT_ID
 {% endhighlight %}
-Or by making a REST call
+or by making a REST call
 {% highlight bash %}
 curl -XGET http://MANAGER_IP/deployments/<DEPLOYMENT_ID>/outputs
 {% endhighlight %}
