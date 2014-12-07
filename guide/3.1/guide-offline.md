@@ -58,7 +58,7 @@ For example have a look at the [Hello-world example](https://github.com/cloudify
 ### Step 4 - Creating a template image for Cloudify
 In order to configure pip and Easy-install to use our PyPi mirror instead of the PyPi central repository by default we will have to create a template image with configuration files for pip and Easy-install.  
 In order to do so we will launch an instance and pre-configure it.  
-You can choose any base image that matches the required manager image as described in the [prerequisites](installation-general.html#prerequisites) section. We will use ubuntu precise.  
+You can choose any base image that matches the required manager image as described in the [prerequisites](installation-general.html#prerequisites) section. We will be using ubuntu precise.  
 After launcing an instance you will have to:
 
 - Download [pip.conf](https://gist.githubusercontent.com/hagaiGS/bec4fbe248433c72f102/raw/b512e364b0c3247df889ff620e08a33d890102b5/pip.conf) and save it under `$HOME/.pip`. Configure `<PyPi-mirror-ip>` to point at the IP of your PyPi mirror / HTTP server.
@@ -69,7 +69,7 @@ Create a Snapshot from this image and call it `cfy-template`.
 
 # Test drive your offline configuration
 
-We will use our configuration to bootstrap Cloudify manager and install the Hello-world Blueprint.
+We will be using our configuration to bootstrap Cloudify manager and install the Hello-world Blueprint.
 
 ### Step 1 - Launch a client instance
 
@@ -85,9 +85,9 @@ Download the Hello-world example to the client instance.
 You can either download the zip file from the [hello-world repo](https://github.com/cloudify-cosmo/cloudify-hello-world-example)
 or `git clone https://github.com/cloudify-cosmo/cloudify-hello-world-example.git`
 
-### Step 4 - Fill the HTTP server with the relevant files
+### Step 4 - Upload the relevant files to the HTTP Server
 
-We need to make all the files required by the Blueprint available in our HTTP server, to do this we will check **recursively** `blueprint.yaml` for external files.  
+We need to make all the files required by the Blueprint available in our HTTP server. To do this we will check `blueprint.yaml` for external files **recursively**.  
 `blueprint.yaml` is using the following external files:
 
 - [types.yaml](types.yaml)
@@ -103,15 +103,15 @@ We need to make all the files required by the Blueprint available in our HTTP se
 
 - [1.1.zip](https://github.com/cloudify-cosmo/cloudify-openstack-plugin/archive/1.1.zip)
 
-We need to make all of these files available under `/srv/cloudify` in our HTTP server. A best practice would be to make each file avaiable under it's full path, for example store `http://www.getcloudify.org/spec/cloudify/3.1/types.yaml` under `/srv/cloudify/spec/cloudify/3.1/types.yaml` etc.  
+We need to make all of these files available under `/srv/cloudify` in our HTTP server. A best practice would be to make each file available under its full path. For example store `http://www.getcloudify.org/spec/cloudify/3.1/types.yaml` under `/srv/cloudify/spec/cloudify/3.1/types.yaml` etc.  
 
 Also note that the location of `types.yaml` has just changed to `<HTTP-server-IP>:<HTTP-server-port>/cloudify/spec/cloudify/3.1/types.yaml` so we will have to change it in our `blueprint.yaml` file as well.  
 We need to repeat this process for each of the files that are used by our `blueprint.yaml`, **recursively**.
 
-### Step 5 - Bootstrap, upload blueprint, create a deployment and install it
+### Step 5 - Bootstrap, upload a blueprint, create a deployment and install it
 Everything is ready for the final step:  
 
-Follow the instruction under the [bootstrapping guide](http://localhost:8080/guide/3.1/installation-bootstrapping.html) section. Use the `cfy-template` snapshot that you have created before as the image for the Cloudify management machine.  
+Follow the instructions under the [bootstrapping guide](http://localhost:8080/guide/3.1/installation-bootstrapping.html). Use the `cfy-template` snapshot that you have created before as the image for the Cloudify management machine.  
 Then
 {% highlight bash %} cfy blueprints upload -p <PATH-TO-BLUEPRINT> -b hello-offline
 {%endhighlight%}
