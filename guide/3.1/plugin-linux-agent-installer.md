@@ -94,3 +94,29 @@ Bye Bye
 ```
 
 Then, the identification will be based on the returned string between the prefix and suffix.
+
+* The `distro` variable will be set to the first index in the tuple (e.g. Ubuntu).
+* The `release` variable will be set to the 3rd index in the typle (e.g. trusty).
+* The `celery_config_path`, `celery_init_path` and `disable_requiretty_script_path` variables will be affected by the `distro` variable. For instance, a celery_init_path value could be "Ubuntu-celeryd-cloudify..." if not specified explicitly in the blueprint.
+* The `agent_package_path` is affected by both the distro and the release variables. For instance an agent_package_path value could be "Ubuntu-trusty-agent.tar.gz" if not specified explicitly in the blueprint.
+
+Example:
+
+{% highlight yaml %}
+node_templates:
+  vm:
+    type: cloudify.nodes.Server
+    properties:
+        cloudify_agent:
+            distro: Centos
+            release: Final
+            celery_config_path: templates/celery-config.conf.template
+            celery_init_path: templates/celery-init.conf.template
+            ...
+{%endhighlight%}
+
+In the above example:
+
+* The celery configuration file are explicitly looked up in the corresponding paths relative to the blueprint's root directory.
+* The disable-requiretty script file will be looked up in the default directory where Cloudify script files reside. Since `distro` is set, the file name looked for will be "Centos-agent-disable-requiretty.sh"
+* The agent package isn't specified so it will be looked up in the default directory where Cloudify agents reside. Since `distro` and `release` are set, the agent name looked up will be "Centos-Final-agent.tar.gz".
