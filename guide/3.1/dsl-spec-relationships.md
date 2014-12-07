@@ -110,12 +110,9 @@ Note that the implementation of contained_in doesn't necessarily dictate that a 
 For instance, a counter-example to the http_web_server in a vm would be an ip node that is contained in a network node. While the ip isn't really contained within the network itself, if two instances of the ip node will be contained_in the network node, you will have 2 ip node instances in each instance of the network node.
 
 <!--
+host_id and host_ip: host_id is a node's attribute (set in deployment creation) and host_ip is a plugin context method which retrieves the ip of the host node by looking at its properties/runtime-props dynamically. They are affected by the contained_in as obviously this is how we determine the host node for a given node. These in turn lead to other semantic differences, e.g. an agent plugin must be used on a node which has a host node (i.e. IS a host node or is connected to one via contained_in relationships) - however these are byproducts and are not directly part of the contained_in semantics.
 
-2) it has different multi-instance semantics (i've heard Dan already went over this with you)
-
-3) host_id and host_ip: host_id is a node's attribute (set in deployment creation) and host_ip is a plugin context method which retrieves the ip of the host node by looking at its properties/runtime-props dynamically. They are affected by the contained_in as obviously this is how we determine the host node for a given node. These in turn lead to other semantic differences, e.g. an agent plugin must be used on a node which has a host node (i.e. IS a host node or is connected to one via contained_in relationships) - however these are byproducts and are not directly part of the contained_in semantics.
-
-4) ​lastly, there's some workflow-related API which also touches on the 'contained_in' type, e.g. "contained_instances" property of the CloudifyWorkflowNodeInstance class - basically these are used to form subgraphs to execute operations on specific nodes etc.
+there's some workflow-related API which also touches on the 'contained_in' type, e.g. "contained_instances" property of the CloudifyWorkflowNodeInstance class - basically these are used to form subgraphs to execute operations on specific nodes etc.
  -->
 
 
@@ -293,4 +290,4 @@ Declaring relationships inherently affects the node creation flow (in the sense 
 
 When declaring a relationship, the first lifecycle operation of the source node will only be executed once the entire set of lifecycle operations of the target node were executed and completed.
 
-So, for instance, in the previous example the preconfigure, postconfigure, establish and unlink operations for target_node will be executed BEFORE the first operation for source_node is executed. This removes any uncertainties about whether a node was ready to have another node connect to it due to it not being available. Of course, it's up to the user to define what "ready" means.
+So, for instance, in the previous example, the preconfigure, postconfigure, establish and unlink operations for target_node will be executed BEFORE the first operation for source_node is executed. This removes any uncertainties about whether a node was ready to have another node connect to or be contained in it due to it not being available. Of course, it's up to the user to define what "ready" means.
