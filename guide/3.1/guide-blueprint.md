@@ -11,12 +11,15 @@ plugin_guide_link: guide-plugin-creation.html
 openstack_blueprint_link: guide-openstack-blueprint.html
 getting_started_link: quickstart.html
 terminology_link: reference-terminology.html
+
 ---
 {%summary%} {{page.abstract}}{%endsummary%}
 
 # Overview
 
-In this tutorial we will create a blueprint([?]({{page.terminology_link}}#blueprint)) that will describe the topology([?]({{page.terminology_link}}#topology)) of the Nodecellar application([?]({{page.terminology_link}}#application)). The Nodecellar application is a Node.js web application of a wine catalog.
+In this tutorial we will create a [blueprint]({{page.terminology_link}}#blueprint) that will describe 
+the [topology]({{page.terminology_link}}#topology) of the Nodecellar [application]({{page.terminology_link}}#application)). 
+The Nodecellar application is a Node.js web application of a wine catalog.
 
 The blueprint we will be writing is an exact replica of the blueprint we deployed when we [got started]({{page.getting_started_link}}).
 
@@ -24,14 +27,15 @@ It includes the following components:
 
 **Infrastructure:**
 
-- Two hosts (we will call them nodejs_host and mongodb_host) that contain the application. One contains Node.JS and the other MongoDB. In this tutorial we will use localhost for both host nodes([?]({{page.terminology_link}}#node)) as we want to install the entire application on our Vagrant VM.
+- One host that will contain both MongoDB and NodeJS. 
+In this tutorial we will use localhost as our host as we want to install the entire application on our Vagrant Cloudify Manager VM.
 
 
 **Middleware:**
 
-- [Node.JS](http://nodejs.org/) - This is a javascript based application server that serves this web application - It is contained within the nodejs_host.
+- [Node.JS](http://nodejs.org/) - This is a javascript based application server that serves this web application - It is contained within our host.
 
-- [MongoDB](http://www.mongodb.org/) - This is a JSON document store that serves as the application database - It is contained within the mongodb_host.
+- [MongoDB](http://www.mongodb.org/) - This is a JSON document store that serves as the application database - It is contained within our host.
 
 **Application:**
 
@@ -39,18 +43,11 @@ It includes the following components:
 
 The topology should look like this:
 
-![nodecllar app](/guide/images3/guide/nodecellar_topology.png "The nodecellar application topology")
+![nodecllar app](/guide/images3/guide/quickstart/nodecellar_singlehost_topology.png)
 
 ## Cloudify YAML DSL
 
 Cloudify's Domain Specific Language (DSL) is written in YAML. If you are not familiar with yaml you may want to read the [yaml documentation](http://www.yaml.org/start.html) first.
-
-Each step of the tutorial is tagged on github. To clone it locally do the following:
-
-{%highlight bash%}
-git clone https://github.com/cloudify-cosmo/cloudify-nodecellar-singlehost.git
-git checkout tags/stepX #step1 to step9 (the latter is identical to the 3.0 version tag)
-{%endhighlight%}
 
 # Step by Step Walkthrough
 
@@ -58,32 +55,22 @@ git checkout tags/stepX #step1 to step9 (the latter is identical to the 3.0 vers
 
 First lets create a folder with the name `nodecellar` and create a blueprint.yaml file within it. This file is the blueprint file.
 
-Now lets declare the name of this blueprint
-{%highlight yaml%}
-blueprint:
-    name: nodecellar
-{%endhighlight%}
+## Step 2: Adding our Host
 
 
-Now we can start the topology. The topology is a yaml object called nodes. Its value is a yaml list.
-{%highlight yaml%}
-blueprint:
-    name: nodecellar
-    nodes:
-{%endhighlight%}
-
-
-
-## Step 2: Adding a Host for nodejs
-
-<a href="https://github.com/cloudify-cosmo/cloudify-nodecellar-singlehost/compare/step1...step2" class="btn btn-default" role="button"><i class="fa fa-search"></i>  Code Diff</a>
-
-Lets add the nodejs_host as the first node in the list of nodes. To do so we need a `type` as each node is an instance of a type.
-Types are like classes in an OO program. They represent a type of component in an application at any level: Infrastructure (hosts, networks etc), middleware (application servers, web servers, etc) or application (application modules, database schemas, etc).
+Lets add our host as the first node template. To do so we need a `type` as each node template is of a specific node type.
+Types are like classes in an Object Oriented program. 
+They represent a type of component in an application at any level: 
+Infrastructure (hosts, networks etc), middleware (application servers, web servers, etc) 
+or application (application modules, database schemas, etc).
 
 Types can be imported from external files or declared inside the blueprint.yaml file.
 
-In this case we will use a type from an external URL. Since we are not really going to spawn a VM, we will use the basic type of `cloudify.nodes.Compute`. This type can get an IP of an existing host (in our case it will be the manager IP) and install the Cloudify agent on it.  We will use this functionality to simulate the hosts in our application and in order to demonstrate how Cloudify uses application agent plugins such as the bash plugin.
+In this case we will use a type from an external URL. 
+Since we are not really going to spawn a VM, 
+we will use the basic type of `cloudify.nodes.Compute`. 
+This type can get an IP of an existing host (in our case it will be the manager IP) and install the Cloudify agent on it.  
+We will use this functionality to simulate the hosts in our application and in order to demonstrate how Cloudify uses application agent plugins such as the script plugin.
 
 
 In order to use this type we need to add the following yaml in our blueprint file:
@@ -103,23 +90,23 @@ node_types:
         interfaces:
             cloudify.interfaces.worker_installer:
                 install: 
-                    implementation: worker_installer.tasks.install
+                    implementation: agent_installer.worker_installer.tasks.install
                     inputs: {}
                 start: 
-                    implementation: worker_installer.tasks.start
+                    implementation: agent_installer.worker_installer.tasks.start
                     inputs: {}
                 stop: 
-                    implementation: worker_installer.tasks.stop
+                    implementation: agent_installer.worker_installer.tasks.stop
                     inputs: {}
                 uninstall: 
-                    implementation: worker_installer.tasks.uninstall
+                    implementation: agent_installer.worker_installer.tasks.uninstall
                     inputs: {}
                 restart: 
-                    implementation: worker_installer.tasks.restart
+                    implementation: agent_installer.worker_installer.tasks.restart
                     inputs: {}
             cloudify.interfaces.plugin_installer:
                 install: 
-                    implementation: plugin_installer.tasks.install
+                    implementation: plugin_installer.plugin_installer.tasks.install
                     inputs: {}
             cloudify.interfaces.host:
                 get_state
@@ -134,34 +121,36 @@ node_types:
 
 
 The type has interfaces with operations (hooks) that are implemented using plugin functions.
-
 Plugins are python facades for API's and tools you would like to use (such as IaaS compute API or tools like Chef and Puppet).
 
 In this case you see 2 plugins:
-- worker_installer: a manager side plugin that is responsible for SSH-ing into the host and deploying the Cloudify agent.
+- agent_installer: a manager side plugin that is responsible for SSH-ing into the host and deploying the Cloudify agent.
 - plugin_installer: an agent side plugin that installs the agent plugins used in this blueprint on the current agent.
 
 in order to use the worker_installer, we will need a private key file on our manager host (this happens as part of the manager creation process).
 
-The `host` type also declares a configuration schema (properties that must have values). In this case it declares the install_agent with a default value of `true`, the cloudify_agent map with a default empty map and the ip propety with a default value of an empty string.
+The `cloudify.nodes.Compute` type also declares a configuration schema (properties that must have values). 
+In this case it declares the install_agent with a default value of `true`, the cloudify_agent map with a default empty map and the ip propety with a default value of an empty string.
 
-now let's add the nodejs_vm node that uses the type:
+Now we can start describing the topology. 
+The topology is a yaml object called node_templates. Its value is a yaml dictionary.
+
+now let's add the hosting_vm node that uses the type:
 
 {%highlight yaml%}
-nodejs_vm
-  type: cloudify.nodes.Compute
-  properties:
-    ip: 127.0.0.1
-    cloudify_agent:
-      key: /home/vagrant/.ssh/cloudify_private_key
-
+node_templates:
+  hosting_vm:
+    type: cloudify.nodes.Compute
+    properties:
+      ip: { get_input: host_ip }
+      cloudify_agent:
+        user: { get_input: agent_user }
+        key: { get_input: agent_private_key_path }
 
 {%endhighlight%}
 
 
-
-The above yaml snippet specifies an anonymous yaml map with the following keys:
-name - the name of the node (in this case nodejs_host)
+The above yaml snippet specifies a yaml map with the following keys:
 type - the type of component this node is an instance-of.
 properties - the configuration of this instance.
 
@@ -169,66 +158,65 @@ Under properties you can see 2 key-value pairs:
 ip - in this case it is localhost as we are installing the agent on the local host - that is, only simulating another host.
 cloudify_agent - is a sub-map with the agent configuration. This is where we specify the private key path.
 
-
-## Step 3: Adding a Host for MongoDB
-
-<a href="https://github.com/cloudify-cosmo/cloudify-nodecellar-singlehost/compare/step2...step3" class="btn btn-default" role="button"><i class="fa fa-search"></i>  Code Diff</a>
-
-In a similar manner we will now add the mongod_vm node (it is a simple copy and paste with a different name):
+Notice the `{ get_input: ... }` statements. This means we want the user using this blueprint to specify these values.
+For this work we have to add an `inputs` section to our blueprint like so:
 
 {%highlight yaml%}
-mongod_vm
-  type: cloudify.nodes.Compute
-  properties:
-    ip: 127.0.0.1
-    cloudify_agent:
-      key: /home/vagrant/.ssh/cloudify_private_key
+inputs:
 
+  host_ip:
+      description: >
+        The ip of the host the application will be deployed on
+  agent_user:
+      description: >
+        User name used when SSH-ing into the started machine
+  agent_private_key_path:
+      description: >
+        Path to a private key that resided on the management machine.
+        SSH-ing into agent machines will be done with this key.
 {%endhighlight%}
 
-## Step 4: Adding MongoDB
+We will get to how we pass these inputs later on in this tutorial.
 
-<a href="https://github.com/cloudify-cosmo/cloudify-nodecellar-singlehost/compare/step3...step4" class="btn btn-default" role="button"><i class="fa fa-search"></i>  Code Diff</a>
+## Step 3: Adding MongoDB
 
-Now let’s add the middleware nodes of the application. In this blueprint we are using bash types which in turn use the bash plugin to install and start the nodes.
+Now let’s add the middleware nodes of the application. 
 
-The first node we will add is the mongod node that represents the Mongo database server. The type we will use here is cloudify.bash.db_server. This type is imported from the bash plugin types and use the bash plugin to execute scripts listed in the node configuration (under the mandatory property `scripts`).
 
-The reason why we have specific types for db_server, app_server, etc. is that we want the user to be able to differentiate between nodes based on their role in the application. We therefore use marking types.
-
-We need to import the bash types and plugins to use this type. The below declaration is added at the begining of the file:
-
-{%highlight yaml%}
-imports:
-    - http://www.getcloudify.org/spec/bash-plugin/1.1/plugin.yaml
-
-{%endhighlight%}
-
+The first node we will add is the `mongod` node that represents the Mongo database server. 
+The type we will use here is `cloudify.nodes.DBMS`, which is provided by the default types. 
 
 Now we can declare the mongod node:
 
 {%highlight yaml%}
-- name: mongod
-      type: cloudify.bash.db_server
-      properties:
-            role: mongod
-            port: 27017
-            scripts:
-                create: mongo-scripts/install-mongo.sh
-                start: mongo-scripts/start-mongo.sh
-                stop: mongo-scripts/stop-mongo.sh
-
+node_templates:
+  hosting_vm:
+    type: cloudify.nodes.Compute
+    properties:
+      ip: { get_input: host_ip }
+      cloudify_agent:
+        user: { get_input: agent_user }
+        key: { get_input: agent_private_key_path }
+  mongod:
+    type: cloudify.nodes.DBMS
+    properties:
+      port: 27017
+    interfaces:
+      cloudify.interfaces.lifecycle:
+        create: scripts/mongo/install-mongo.sh
+        start: scripts/mongo/start-mongo.sh
+        stop: scripts/mongo/stop-mongo.sh
+        
 {%endhighlight%}
 
-What we see here is the scripts property which is a map of scripts mapped to lifecycle events. In this case we see that the create event is mapped to mongo-scripts/install-mongo.sh.
+What we see here that lifecycle operations are mapped to bash scripts, that are executed via the script plugin, which is built-in plugin. 
 
-The scripts are uploaded with the blueprint under the subfolder mongo-scripts. The plugin has an API to fetch this file from the manager's fileserver and use it. The bash plugin knows which lifecycle event was assigned to the agent by the workflow engine and searches the scripts dictionary for the right script name and path.
-
+The scripts are uploaded with the blueprint under the sub folder scripts/mongo. 
+The plugin has an API to fetch this file from the manager's fileserver and use it. 
 
 
 ## Step 5: Refining the Blueprint with a Custom Type
 
-<a href="https://github.com/cloudify-cosmo/cloudify-nodecellar-singlehost/compare/step4...step5" class="btn btn-default" role="button"><i class="fa fa-search"></i>  Code Diff</a>
 
 We have just declared a mongod node of type cloudify.bash.db_server. This type doesn’t enforce any properties except for scripts. In the case of a mongo database we probably need to make sure the user gives us configuration details such as the role in the mongo cluster and the port on which it listens. We will therefore subtype cloudify.bash.db_server and add schema property declarations:
 
@@ -262,12 +250,8 @@ So now our mongod node will look like this:
 {%endhighlight%}
 
 
-
-
-
-
-
-Finally we need to add the mongod relationships. This node has only one relationship - it is contained in the mongod_host node (In reality it is not in this deployment as the host is a mock)
+Finally we need to add the mongod relationships. 
+This node has only one relationship - it is contained in the hosting_vm node
 
 {%highlight yaml%}
 - name: mongod
