@@ -12,11 +12,11 @@ pageord: 800
 
 # Overview
 
-This guide will quickly explain how to bootstrap and install a simple blueprint using an Offline openstack environment.
+This guide will quickly explain how to bootstrap and install a simple blueprint using an Offline OpenStack environment.
 
 We will create a PyPi mirror and an HTTP server with relevant files, that will serve our Cloudify manager and agents.
 
-We will use [Bandersnatch](https://pypi.python.org/pypi/bandersnatch) as a PyPi mirror and [NGINX](http://nginx.org/) as an HTTP server for Cloudify and proxy to Bandersnatch.
+We will be using [Bandersnatch](https://pypi.python.org/pypi/bandersnatch) as a PyPi mirror and [NGINX](http://nginx.org/) as an HTTP server for Cloudify and proxy to Bandersnatch.
 
 {%note title=Note%}
 For initial setup of our PyPi mirror / HTTP server we will need an internet connection.
@@ -28,20 +28,21 @@ For initial setup of our PyPi mirror / HTTP server we will need an internet conn
 
 ### Step 1 - Launch an instance
 
-Launch an Ubuntu instance in Openstack on a particular network (should be connected to the external network for now) and attach a floating ip to it.
-This instance will be used as our PyPi mirror and HTTP server.
+Launch an Ubuntu instance in OpenStack on a particular network (should be connected to the external network for now) and attach a floating ip to it.
+This instance will serve as our PyPi mirror and HTTP server.
 
 ### Step 2 - Install and configure Bandersnatch and NGINX
 
-Copy the following files to the instance that you have just created:  
+- Copy the following files to the instance that you have just created:  
 
-- [provision.sh](https://gist.githubusercontent.com/hagaiGS/bec4fbe248433c72f102/raw/a6ccd24014b4b40556c882c889edac23b9d5b14a/provision.sh)
-- [nginx.conf](https://gist.githubusercontent.com/hagaiGS/bec4fbe248433c72f102/raw/255b766047b3be2960073b52b74062740ddfd6f9/nginx.conf)
-- [bandersnatch.conf](https://gist.githubusercontent.com/hagaiGS/bec4fbe248433c72f102/raw/b762a10cebccf1a55a85f69906388e02b2cab92a/bandersnatch.conf)
+    - [provision.sh](https://gist.githubusercontent.com/hagaiGS/bec4fbe248433c72f102/raw/a6ccd24014b4b40556c882c889edac23b9d5b14a/provision.sh)
+    - [nginx.conf](https://gist.githubusercontent.com/hagaiGS/bec4fbe248433c72f102/raw/255b766047b3be2960073b52b74062740ddfd6f9/nginx.conf)
+    - [bandersnatch.conf](https://gist.githubusercontent.com/hagaiGS/bec4fbe248433c72f102/raw/b762a10cebccf1a55a85f69906388e02b2cab92a/bandersnatch.conf)
 
-Configure the `HOME_FOLDER` and `FILES_DIR` variables in `provision.sh` to point at the user’s home folder and to a folder that stores these files, accordingly.  
-run `provision.sh` , note that this script starts a `nohup` process that clones PyPi (50 GB+), so this process might take some time, depending on your network connection and PyPi.  
-After this process has finished we have a PyPi mirror and and HTTP server up and running.
+- Configure the `HOME_FOLDER` and `FILES_DIR` variables in `provision.sh` to point at the user’s home folder and to a folder that stores these files, accordingly.
+- Run `provision.sh` , note that this script starts a `nohup` process that clones PyPi (50 GB+), so this process might take some time, depending on your network connection and PyPi.  
+
+After this process has finished we have a PyPi mirror and an HTTP server up and running.
 
 ### Step 3 - Adding relevant files to our HTTP server
 Now we need to add to the HTTP server **recursively** all the files that will be used by our Blueprint, in order to make them available to Cloudify.  
@@ -72,7 +73,7 @@ We will use our configuration to bootstrap Cloudify manager and install the Hell
 
 ### Step 1 - Launch a client instance
 
-Launch an instance in Openstack, connect it to the same network as the HTTP server.
+Launch an instance in OpenStack, connect it to the same network as the HTTP server.
 
 ### Step 2 - Install Cloudify CLI
 
