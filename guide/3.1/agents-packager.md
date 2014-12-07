@@ -201,12 +201,6 @@ output_tar: /home/nir0s/Ubuntu-trusty-agent.tar.gz
 keep_venv: true
 {%endhighlight%}
 
-{%note title=Note%}
-Note that if you want to use the [ZeroMQ](https://github.com/zeromq/pyzmq) proxy in
-the [script plugin]({{page.script_plugin_link}}) you'll have to explicitly configure it in the `additional_modules`
-section as shown above.
-{%endnote%}
-
 ### Config YAML Explained
 
 {%note title=Note%}
@@ -268,3 +262,9 @@ This agent is responsible for starting all other agents, and thus requires all o
 - [Cloudify Linux Plugin Installer]({{page.plugin_installer_link}}) (Temporarily Mandatory)
 - [Cloudify Windows Agent Installer]({{page.windows_agent_installer_link}}) (Temporarily Mandatory)
 - [Cloudify Windows Plugin Installer]({{page.plugin_installer_link}}) (Temporarily Mandatory)
+
+{%note title=Note%}
+Note that if you want to use the [ZeroMQ](https://github.com/zeromq/pyzmq) proxy in
+the [script plugin]({{page.script_plugin_link}}) you'll have to explicitly configure it in the `additional_modules`
+section as shown above.
+{%endnote%}
