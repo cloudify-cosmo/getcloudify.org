@@ -109,7 +109,6 @@ node_templates:
     properties:
         cloudify_agent:
             distro: Centos
-            release: Final
             celery_config_path: templates/celery-config.conf.template
             celery_init_path: templates/celery-init.conf.template
             ...
@@ -117,6 +116,6 @@ node_templates:
 
 In the above example:
 
-* The celery configuration file are explicitly looked up in the corresponding paths relative to the blueprint's root directory.
+* The celery configuration files are explicitly looked up in the corresponding paths relative to the blueprint's root directory.
 * The disable-requiretty script file will be looked up in the default directory where Cloudify script files reside. Since `distro` is set, the file name looked for will be "Centos-agent-disable-requiretty.sh"
-* The agent package isn't specified so it will be looked up in the default directory where Cloudify agents reside. Since `distro` and `release` are set, the agent name looked up will be "Centos-Final-agent.tar.gz".
+* The agent package isn't specified so it will be looked up in the default directory where Cloudify agents reside. Since `distro` is specified and `release` isn't, the agent name looked up will be "Centos-Final-agent.tar.gz". (Since Centos always outputs "Final" as its release name).
