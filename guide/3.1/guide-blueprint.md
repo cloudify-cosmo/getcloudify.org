@@ -6,7 +6,7 @@ publish: true
 abstract: Blueprint authoring tutorial
 pageord: 100
 
-yaml_link: http://www.getcloudify.org/spec/cloudify/3.0/types.yaml
+yaml_link: http://www.getcloudify.org/spec/cloudify/3.1/types.yaml
 plugin_guide_link: guide-plugin-creation.html
 openstack_blueprint_link: guide-openstack-blueprint.html
 getting_started_link: quickstart.html
@@ -83,7 +83,8 @@ Types are like classes in an OO program. They represent a type of component in a
 
 Types can be imported from external files or declared inside the blueprint.yaml file.
 
-In this case we will use a type from an external URL. Since we are not really going to spawn a VM, we will use the basic type of `cloudify.types.host`. This type can get an IP of an existing host (in our case it will be the manager IP) and install the Cloudify agent on it.  We will use this functionality to simulate the hosts in our application and in order to demonstrate how Cloudify uses application agent plugins such as the bash plugin.
+In this case we will use a type from an external URL. Since we are not really going to spawn a VM, we will use the basic type of `cloudify.nodes.Compute`. This type can get an IP of an existing host (in our case it will be the manager IP) and install the Cloudify agent on it.  We will use this functionality to simulate the hosts in our application and in order to demonstrate how Cloudify uses application agent plugins such as the bash plugin.
+
 
 In order to use this type we need to add the following yaml in our blueprint file:
 
@@ -96,24 +97,37 @@ imports:
 This file contains the declaration of the type:
 
 {%highlight yaml%}
-types:
-  cloudify.types.host:
-        derived_from: cloudify.types.base
+node_types:
+  cloudify.nodes.Compute:
+        derived_from: cloudify.nodes.Root
         interfaces:
             cloudify.interfaces.worker_installer:
-                - install: worker_installer.tasks.install
-                - start: worker_installer.tasks.start
-                - stop: worker_installer.tasks.stop
-                - uninstall: worker_installer.tasks.uninstall
-                - restart: worker_installer.tasks.restart
+                install: 
+                    implementation: worker_installer.tasks.install
+                    inputs: {}
+                start: 
+                    implementation: worker_installer.tasks.start
+                    inputs: {}
+                stop: 
+                    implementation: worker_installer.tasks.stop
+                    inputs: {}
+                uninstall: 
+                    implementation: worker_installer.tasks.uninstall
+                    inputs: {}
+                restart: 
+                    implementation: worker_installer.tasks.restart
+                    inputs: {}
             cloudify.interfaces.plugin_installer:
-                - install: plugin_installer.tasks.install
+                install: 
+                    implementation: plugin_installer.tasks.install
+                    inputs: {}
             cloudify.interfaces.host:
-                - get_state
+                get_state
         properties:
-            - install_agent: true
-            - cloudify_agent: {}
-            - ip: ''
+            install_agent:
+                default: true
+            cloudify_agent: {}
+            ip: ''
 
 
 {%endhighlight%}
@@ -134,12 +148,12 @@ The `host` type also declares a configuration schema (properties that must have 
 now let's add the nodejs_vm node that uses the type:
 
 {%highlight yaml%}
-	-   name: nodejs_vm
-      type: cloudify.types.host
-      properties:
-          ip: 127.0.0.1
-          cloudify_agent:
-              key: /home/vagrant/.ssh/cloudify_private_key
+nodejs_vm
+  type: cloudify.nodes.Compute
+  properties:
+    ip: 127.0.0.1
+    cloudify_agent:
+      key: /home/vagrant/.ssh/cloudify_private_key
 
 
 {%endhighlight%}
@@ -163,12 +177,12 @@ cloudify_agent - is a sub-map with the agent configuration. This is where we spe
 In a similar manner we will now add the mongod_vm node (it is a simple copy and paste with a different name):
 
 {%highlight yaml%}
-	-   name: mongod_vm
-	    type: cloudify.types.host
-      properties:
-          ip: 127.0.0.1
-          cloudify_agent:
-              key: /home/vagrant/.ssh/cloudify_private_key
+mongod_vm
+  type: cloudify.nodes.Compute
+  properties:
+    ip: 127.0.0.1
+    cloudify_agent:
+      key: /home/vagrant/.ssh/cloudify_private_key
 
 {%endhighlight%}
 
@@ -186,7 +200,7 @@ We need to import the bash types and plugins to use this type. The below declara
 
 {%highlight yaml%}
 imports:
-    - http://www.getcloudify.org/spec/bash-plugin/1.0/plugin.yaml
+    - http://www.getcloudify.org/spec/bash-plugin/1.1/plugin.yaml
 
 {%endhighlight%}
 
@@ -391,7 +405,9 @@ relationships:
         derived_from: cloudify.relationships.connected_to
         source_interfaces:
             cloudify.interfaces.relationship_lifecycle:
-                - postconfigure: nodecellar_config_plugin.tasks.get_mongo_host_and_port
+                postconfigure: 
+                    implementation: nodecellar_config_plugin.tasks.get_mongo_host_and_port
+                    inputs: {}
 
 {%endhighlight%}
 

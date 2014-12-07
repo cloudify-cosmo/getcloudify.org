@@ -1,7 +1,9 @@
+[![Circle CI](https://circleci.com/gh/cloudify-cosmo/getcloudify.org/tree/master.png?style=badge)](https://circleci.com/gh/cloudify-cosmo/getcloudify.org/tree/master)
+
 # Cloudify Documentation
 
 This repository contains the markup files, html templates and javascript sources for the new [Cloudify documentation portal](http://getcloudify.org/).
-It's based on [Jekyll](http://jekyllrb.com/), a Ruby-based static site generator, and uses [Markdown](http://whatismarkdown.com/) as a markup language. 
+It's based on [Jekyll](http://jekyllrb.com/), a Ruby-based static site generator, and uses [Markdown](http://whatismarkdown.com/) as a markup language for the most part. It also uses a number of custom Jekyll plugins for formatting and styling, please refer to the [cheatsheet](http://getcloudify.org/guide/3.0/cheatsheet.html) for details about this plugins and how to use them. 
 
 ## Help Us Improve! 
 

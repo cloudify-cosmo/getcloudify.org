@@ -1,0 +1,81 @@
+---
+layout: blogpost
+title: How Docker is Changing Configuration Management
+image: uric.jpeg
+author: Uri Cohen
+tags: 
+- DevOps
+- Docker
+- Configuration Management
+- Docker Orchestration
+- Orchestration
+---
+<img src="/img/docker.png" style="height: 300px;" alt="Docker | Configuration Management | Docker Orchestration">
+<br/>
+<br/>
+ 
+<p><b></b>
+ 
+  <p>With <a href="http://getcloudify.org/cloud_orchestration_cloud_automation.html#HPLink">configuration management</a>, there have always been two camps: Bake or Fry?</p>
+ 
+  <p>When it comes to what are traditionally considered configuration management tools, Chef, Puppet and others, these usually fall into the fry camp.&#160; This approach involves dynamic configuration at deployment time.&#160; Meaning, you have a server and need to configure it for the first time,&#160; including permissions, installing packages, etc.&#160; This is where the common CM tools excel.</p>
+ 
+  <p>Bake involves taking a base image, and configuring that base image at build time, which essentially outputs a fresh “golden” image with which you reconfigure all of your servers.&#160; To initially create the golden image you would configure it using Chef/Puppet/Bash/Shell scripts, you then take a snapshot of that specific configuration.&#160; Then when you need to provision new servers, you use that one single golden preconfigured image.&#160; In this scenario nothing is dynamic.</p>
+ 
+ 
+<hr>
+ 
+<span class="pullquote-left">
+  <font style="font-weight: bold" size="5" face="Baskerville Old Face"><em>Docker orchestration out of the box – just shake and bake with Cloudify.</em></font>&nbsp; <a class="btn btn-medium btn-theme btn-rounded" id="downloadBtnInner" href="http://getcloudify.org/downloads/get_cloudify_3x.html" target="_blank"><i class="icon-plus"></i> Go </a></span>
+ 
+  <hr>
+ 
+  <p>Up until recently the fry method has been the most common for two main reasons.</p>
+ 
+  <ol>
+    <li>
+      <p>Before cloud and dynamic environments, most people used physical servers that are a mutable living thing.&#160; Which means they would change regularly, and more often than not, things would break.&#160; The ability to do wipe and start over from scratch was non-existent. </p>
+    </li>
+ 
+    <li>
+      <p>To help overcome this common pain point,&#160; you needed to tool&#160; to help you restore states or “converge” when things went wrong, e.g. roll back a bad update, and misconfigurations and such.&#160; CM tools were developed for just this purpose, and aside from the basic provisioning, one primary feature is the ability to converge and restore states.</p>
+    </li>
+  </ol>
+ 
+  <p>The bake methodology started to gain momentum following the onset of cloud.&#160; Where, in the absence of cloud - or rather a reliable, simple way of packaging the state of a configured system, people used to fry their images.&#160; </p>
+ 
+  <p>However, the problems with frying images are much bigger than with baking, since you can’t really restore states and return to base images very easily.&#160; So what you wind up doing is continually converging and restoring previous states, once the state of certain server is compromised.</p>
+ 
+  <p>That’s why the typical use case of CM is configuring the system at the start, and then the tool’s client usually wakes up every 15 minutes or so and checks if the state has been compromised.&#160; If so, it will then go ahead and restore it.</p>
+ 
+  <p>With bake, if a system is compromised, you wipe the existing running server and start with a clean state from scratch with your golden image. See this <a href="http://techblog.netflix.com/2011/08/building-with-legos.html">very interesting article</a> on this.</p>
+ 
+  <h3><font style="font-weight: bold">So why Doesn’t Everyone Use Baked Images?</font></h3>
+ 
+  <p>Until now, before the <a href="http://getcloudify.org/cloudify-roadmap.html">Docker container</a> revolution, you needed cloud or VMs to take the baking approach, since you can't install a full OS on bare metal on every deployment (at least that's the case for most organizations). </p>
+ 
+  <p>In order to bake images in a reliable way, you need to capture all the changes made to a certain system - OS level, file system etc. etc.., and the only reliable way of doing that, was through VM images.&#160; So those able to do so were only those who used VMs or cloud.&#160; Another reason, is that even when using VMs or cloud, when you bake an image, the artifact is very large.&#160;&#160; It can range from a few GBs to a few tens of GBs, making the process very cumbersome.</p>
+ 
+  <p>Until Docker.</p>
+ 
+  <p>When speaking about Docker people tend to focus on the containerization aspect - which in itself is an incredible breakthrough - but this creates a huge glaring blind spot to another and possibly even more exciting aspect of Docker.&#160; Docker has the ability to capture changes made to all levels: OS, file system etc. and create a portable image that can then be deployed on any Docker-compliant system, which includes most Linux flavors.&#160; </p>
+ 
+  <h3><strong>So What’s Changed for the Baker?</strong></h3>
+ 
+  <p>Docker images are much more lightweight, are easier to create and automate the creation of,&#160; than VM images.&#160; Docker also has a change management mechanism, so that every change you make to the image is captured.&#160; This makes it possible to easily roll back changes, and update the most recent changes (i.e. just the delta to your build), instead of having to build the entire image from scratch every time.&#160; It functions very similar to git, where every commit has a unique identifier and you can actually revert last commits individually, so you don’t have to revert all changes. What’s more, they’re not limited to VMs, and can run on physical servers, as well making all of this available to a much wider audience of users.</p>
+ 
+  <p>This ability to do incremental work on images, are going to change the configuration management game. </p>
+ 
+  <p>So...how does this ALL apply to bake vs. fry?&#160; When Docker created their version of bake it was suddenly much more accessible to the average user.&#160; </p>
+ 
+  <h3><strong>Where Is It All Going?&#160; </strong></h3>
+ 
+  <p>The ability of tools like Chef and Puppet to do convergence is becoming less exclusive, when you don’t really have to converge anymore, and you can essentially just settle for a simple script that bakes your Docker images right up for you, and can even roll back changes on demand.</p>
+ 
+  <h3><strong>What’s Next?</strong></h3>
+ 
+  <p>Leveraging Docker for complex deployments will kick Docker up a notch.&#160; That said, to do so, you will still need orchestration on top to tie it all together - as Docker is purposely built in such a way to hold self-contained parts of apps - and these often times need to communicate.</p>
+ 
+  <p>In our next post we’ll discuss <a href="http://getcloudify.org/docker-orchestration-docker-container-deployment-cloud.html">Docker orchestration</a>, and our new and nifty plugin to make this easy as pie.</p></p>
+ 
+

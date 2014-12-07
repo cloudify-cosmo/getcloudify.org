@@ -16,18 +16,15 @@ Cloudify `Blueprints` are cloud application orchestration plans. The main part o
 * **Worflows** - the different automation process for the application (the `workflows` section in the `blueprint` YAML file )
 
 {% highlight YAML %}
-blueprint:
-    name: hello_world
-    nodes:
-        - name: vm_node
-          type: cloudify.types.host
-        # ommitted for brevity
+node_templates:
+  vm_node
+    type: cloudify.nodes.Compute
+    # ommitted for brevity
     workflows:
-        install:
-            ref: "cloudify.workflows.install"
-        uninstall:
-            ref: "cloudify.workflows.uninstall"
-
+      install:
+        ref: "cloudify.workflows.install"
+      uninstall:
+        ref: "cloudify.workflows.uninstall"
 
 {% endhighlight %}
 
@@ -54,13 +51,13 @@ Cloudify (Following TOSCA) uses the following terminology for the Topology parts
 The `blueprint` YAML document has a `nodes` section which is a YAML list.
 
 {% highlight yaml %}
-nodes:
-    - name: first_node
-      type: cloudify.types.host
-      # omitted for brevity
-    - name: second_node
-      type: clouydify.types.web_server
-      # omitted for brevity
+node_templates:
+  first_node
+    type: cloudify.types.host
+    # omitted for brevity
+  second_node
+    type: clouydify.types.web_server
+    # omitted for brevity
 
 {% endhighlight %}
 
@@ -70,14 +67,14 @@ Each `node` is an instance of a `type`. A `type` can be defined in the blueprint
 
 There are two types of `type`: portable and concerete.
 
-A portable type that has no implementation details. For examply `cloudify.types.host` is an abstract type. It doesn't have any implementation details advising the orchestrator how to materialize an instance of it on a particular environment. A portable type will declare an `interface` a set of hooks named `operations` that can be implemented by concrete types using a `operation` mapping to `plugin` methods. For example `cloudify.openstack.server` is an `Openstack` implementation of `cloudify.types.host` using a `plugin` that uses the `Nova` compute API.
+A portable type that has no implementation details. For examply `cloudify.nodes.Compute` is an abstract type. It doesn't have any implementation details advising the orchestrator how to materialize an instance of it on a particular environment. A portable type will declare an `interface` a set of hooks named `operations` that can be implemented by concrete types using a `operation` mapping to `plugin` methods. For example `cloudify.openstack.nodes.Server` is an `Openstack` implementation of `cloudify.nodes.Compute` using a `plugin` that uses the `Nova` compute API.
 
 *  Abstract types are mainly used as marking interfaces for the user to know which type of compentent the concrete type represents
 
 *  Use concrete types with your blueprint to make them more easy to read. Use protable nodes ONLY if you plan to deploy the same blueprint on different clouds.
 
 ## The lifecycle Interface
-The `cloudify.types.base_type` declares the `lifecycle` interface which all types inherit. This interface has the most essential installation and uninstallation hooks. The cloudify built-in `install` and `uninstall` workflows use these hooksto deploy and undeploy applications.
+The `cloudify.nodes.Root` declares the `lifecycle` interface which all types inherit. This interface has the most essential installation and uninstallation hooks. The cloudify built-in `install` and `uninstall` workflows use these hooksto deploy and undeploy applications.
 The operations for this interface are:
 * `create` - component installation
 * `configure` - component configuration changes post installation
@@ -97,10 +94,10 @@ A `node` in the `blueprint` is not neccessarily one instance of the component in
 It can reperesent any number of runtime components. The way to do so is to specify the `instances` property.
 
 {% highlight yaml %}
-    - name: frontend_host
-        type: cloudify.types.host
-        instances:
-            deploy: 4
+frontend_host
+  type: cloudify.nodes.Compute
+  instances:
+    deploy: 4
 {% endhighlight %}
 
 In this case Cloudify will deploy 4 instances of the frontend_host or in other words 4 virtual machines

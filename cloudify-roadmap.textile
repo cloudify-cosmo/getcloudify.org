@@ -1,0 +1,162 @@
+---
+layout: bt_about
+title: Cloudify Roadmap - Features & Bug Fixes
+category: Roadmap
+---
+
+h1. *Cloudify Roadmap | Version 3.1*
+
+h2. Target Date: November 2014
+
+h1. <i class="icon-star"></i> *Features*
+
+h2. <i class="icon-star-empty"></i> *Customized monitoring of infrastructure and application components*
+
+Cloudify will allow users to install monitoring agents, such as Diamond or collectd, configure them and collect metrics for all application components. These metrics will be sent to a built-in metrics database (InfluxDB by default), and provide insight about application availability and performance.
+
+The Cloudify GUI will embed Grafana with a pre-configured, yet customizable, monitoring screen to allow users to view and correlate metrics of the same node or compare them across nodes.
+
+h2. <i class="icon-star-empty"></i> *Customized policies for scaling, auto-healing and much more*
+
+Cloudify will allow users to define and push policies for application components to the policy engine.
+
+These policies will process large streams of events and metrics and apply actions to them in real-time. The rules can be based on metrics values as statutes of components and free text fields. The applied actions can be the triggering of a specific workflow or an invocation of a webhook, which means that the user can customize this to trigger any kind of action.
+
+
+h2. <i class="icon-star-empty"></i> *Docker support*
+
+Cloudify 3.1 will have a built-in Docker plugin and matching types, which will allow users to use Docker containers as part of any topology. This provides a full-blown orchestration and automation method for large-scale Docker-based systems.
+
+
+h2. <i class="icon-star-empty"></i> *TOSCA YAML support*
+
+Cloudify is a TOSCA-inspired project. When we started designing and coding Cloudify, TOSCA's simple YAML profile was not yet created or approved. We are now taking an active part in the TOSCA TC to finalize the definition of the simple profile.
+
+Alongside this, and as a part of our ongoing commitment to TOSCA, we are aligning our TOSCA-inspired blueprints with the TOSCA simple YAML profile. This transition is going to happen in a few phases, while the main one will happen in 3.1.
+
+Cloudify will support the TOSCA naming convention, and in addition, we are adding support for blueprint inputs, blueprint outputs, and intrinsic functions.
+
+h2. <i class="icon-star-empty"></i> *Manager blueprint (AKA - TOSCA lightweight engine)*
+
+The Cloudify CLI will serve as a lightweight blueprints executor.
+
+The main purpose of this feature is to allow users to easily bootstrap (complex) manager environments, using the same plugins as other applications. This will facilitate the deployment of the management environment with various topologies and different levels of distribution and sizing. So instead of having one monolithic server containing all of the manager's components, users will be able to divide the server into multiple hosts, as they see fit, using the same blueprints used for describing applications deployed using Cloudify.
+
+h2. <i class="icon-star-empty"></i> *Script plugin*
+
+This plugin enables easy access to the node's context from any programming or scripting language as long as it is executed as a sub-process of the plugin.
+
+You can develop your logic for Windows or Linux in any scripting language and gain access to any context list or map using simple client calls. This is done using ZeroMQ.
+
+h2. <i class="icon-star-empty"></i> *Remote Execution plugin (Fabric based)*
+
+An officially supported Fabric plugin will be provided which will allow users to remotely execute commands/tasks and remove the agent installation requirement.
+
+A user will be able to provide a set of shell commands hardcoded into the blueprint or, alternatively, a file with tasks. The tasks can then be mapped to the different nodes. This will expose an agentless manner of provisioning applications.
+
+h2. <i class="icon-star-empty"></i> *Docker based Management Environment*
+
+Premade Docker images will replace the current package-based method for deploying a management environment.
+
+This will provide:
+<ul>
+<li>An out-of-the-box cross distribution support while also bridging dependency tree gaps between different user provided images.</li>
+<li>A singleton approach - using only one distribution for the Docker images - will provide a more robust experience.</li>
+<li>Easier, faster upgrades for your management environments.</li>
+<li>A faster bootstrap process.</li>
+</ul>
+
+This will nicely mesh with the Manager Blueprint approach and the Docker and Fabric plugins for a seamless management environment provisioning experience.
+
+h2. <i class="icon-star-empty"></i> *Agents support for any distribution on both Python 2.6.x and 2.7.x*
+
+Cloudify will provide a basic matrix of agents supporting the default python version on the major distributions.
+Alongside those agents, a tool will be provided which will allow users to create agents for their specific distribution with either of the supported python versions.
+
+
+
+h2. <i class="icon-star-empty"></i> *Fabric plugin*
+
+This plugin allows the user to execute Fabric commands either remotely or locally.  Using Fabric is recommended in such as cases as when the user prefers agentless deployment, for example.
+
+h2. <i class="icon-star-empty"></i> *Cinder support*
+
+Cloudify 3.1 will support the OpenStack Cinder API with Volume type. This will allow users to create and attach external disks to VMs, as well as detach and delete these volumes.
+
+h2. <i class="icon-star-empty"></i> *GUI Enhancements*
+
+h2. <i class="icon-star-empty"></i> *Cloud object pages*
+
+These pages give the user reports on cloud resources consumed across different deployments. The added value of using this versus a Cloud IaaS portal is the application context reported per resource. Cloudify will have such reports for VMs, networks, floating IPs, routers and more.
+
+h2. <i class="icon-star-empty"></i> *Executions history*
+
+This view gives a history of workflow executions per deployment and easy access to relevant logs.
+
+h2. <i class="icon-star-empty"></i> *Better progress tracing*
+
+Improving the workflow execution trace UX with an event console that has a more CLI-style of tracing.
+
+h1. <i class="icon-bug"></i> *Bug Fixes*
+
+* <i class="icon-bug"></i> Support for Nova networks (Will be released in 3.0.2)
+* <i class="icon-bug"></i> Support for Proxy (Will be released in 3.0.2) - and will allow users to use Cloudify in an environment where internet access is only available for the agents and manager via proxy.
+
+
+
+<br/>
+
+   <hr/>
+             <section id="content">
+					<div class="container">
+                    <div class="row">
+                                <div class="span12">
+                                    <h2>How to Get  <strong>Support</strong></h4></div>
+
+				<div class="row">
+					<div class="span4">
+						<div class="box aligncenter">
+								<font color="#00B4DA"><i class="icon icon-4x icon-comments-alt"></i></font>
+
+							<div class="text">
+								<h3>Mailing Lists</h3>
+								</div>
+									</div>
+								<p>
+									Join our <a href="https://groups.google.com/forum/#!forum/cloudify-users" target="_blank">cloudify-users</a> or <a href="https://groups.google.com/forum/#!forum/cloudify-developers" target="_blank">cloudify-developers</a> mailing list, and get support from the community.
+								</p>
+
+
+						</div>
+							<div class="span4">
+						<div class="box aligncenter">
+								<font color="#00B4DA"><i class="fa fa-stack-overflow icon-4x"></i></font>
+
+							<div class="text">
+								<h3>Stack Overflow</h3>
+								</div>
+								</div>
+								<p>
+									 Subscribe to the <a href="http://stackoverflow.com/questions/tagged/cloudify" target="_blank">Cloudify tag</a> on Stack Overflow, and feel free to ask your questions amongst cloud pros.
+								</p>
+															</div>
+					<div class="span4">
+						<div class="box aligncenter">
+								<font color="#00B4DA"><i class="icon icon-4x icon-envelope-alt"></i></font>
+
+							<div class="text">
+								<h3>Shoot us an Email</h3>
+									</div>
+									</div>
+								<p>
+									 Feel free to reach out by <a href="mailto:hello@getcloudify.org">email</a> with any question you may have - we're always happy to help.
+								</p>
+
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+</div>
+</section>

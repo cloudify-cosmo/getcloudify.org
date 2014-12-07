@@ -16,6 +16,14 @@ tags:
 <h3><strong>DevOps: Stage Two</strong></h3>
 <p>Automation, however, can do much more for you.  Let's imagine, following your initial automation of the setup and deployment of our your application, that you want to make changes to your infrastructure or application.  For example if you have a patch you'd like to install to the database or operating system, or if you want to update a piece of your code on your cluster of web servers. Both of these concerns involve pretty complex processes that you need to automate. </p>
 <p>For an infrastructure upgrade, you would typically roll out the upgrade server by server, take down one server at a time, update it, then restart it. Even though it doesn't happen very often, there's still a lot of benefit in automating this process and minimizing the chances of human errors.  </p>
+
+<hr>
+
+<span class="pullquote-left">
+  <font style="font-weight: bold" size="5" face="Baskerville Old Face"><em>Cloudify - monitoring like a boss of your entire app lifecycle. Try it out.</em></font>&nbsp; <a class="btn btn-large btn-theme btn-rounded" id="downloadBtnInner" href="http://getcloudify.org/downloads/get_cloudify_3x.html" target="_blank"><i class="icon-plus"></i> Go </a></span>
+  
+  <hr>
+
 <p>Pushing new code is a bit different. For starters, you do it much more often, even a few times a day. Also, (no offence), it is likely that the stability and quality of your code is lower than that of an approved patch to the OS or database. So the risk of something going wrong if you don't automate is even higher with this process. </p>
 <p>That's why there are common automation strategies that help you deal with this risk. Two such strategies are the <a href="http://refcardz.dzone.com/refcardz/preparing-continuous-delivery">Canary Instance</a> strategy and the <a href="http://martinfowler.com/bliki/BlueGreenDeployment.html">blue/green</a> strategy. </p>
 <p>The former derives its name from the mining days, when a canary bird was sent out into the mine before the miners, to check if the air was toxic or not. So in this fashion, a "canary instance" is chosen, the new code is pushed to that instance alone, and then a number of sanity tests are performed. If these pass, the code is then pushed to a few more instances. If all goes well again, the code is then sent to the rest of the infrastructure.</p>

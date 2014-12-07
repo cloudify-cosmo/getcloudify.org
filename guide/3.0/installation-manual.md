@@ -3,7 +3,7 @@ layout: bt_wiki
 title: Bootstrapping Manually
 category: Installation
 publish: false
-abstract: Intalling Cloudify on a local machine
+abstract: Installing Cloudify on a local machine
 pageord: 500
 
 prereqs_link: installation-general.html

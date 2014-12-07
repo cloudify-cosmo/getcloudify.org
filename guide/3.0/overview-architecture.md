@@ -30,7 +30,7 @@ The CLI can run on Windows, Linux and Mac OS. The CLI provides 2 main functions:
 
 
 ## The Manager (Orchestrator)
-The Cloudify Manager is a stateful orchestrator that deploys and manages applications decribed in orchestration plans called [blueprints](#blueprint). The manager's main responsibility is to run automation processes described in workflow[(?)]({{page.terminology_link}}#workflow) scripts and issue execution commands to the agents[(?)]({{page.terminology_link}}#agent). The manager's flows and components are discussed in detail below.
+The Cloudify Manager is a stateful orchestrator that deploys and manages applications described in orchestration plans called [blueprints](#blueprint). The manager's main responsibility is to run automation processes described in workflow[(?)]({{page.terminology_link}}#workflow) scripts and issue execution commands to the agents[(?)]({{page.terminology_link}}#agent). The manager's flows and components are discussed in detail below.
 
 ## The Agents
 The Cloudify Agents[(?)]({{page.terminology_link}}#agent) are responsible for managing the manager's command execution using a set of plugins[(?)]({{page.terminology_link}}#plugin).
@@ -51,7 +51,7 @@ Cloudify uses [Nginx](http://nginx.org/) as its frontend reverse proxy and file 
 
 ### REST API
 
-Cloudify is controlled via a REST API. The REST API covers all the Cloud Orchestration and Management functions. See [Cloudify REST API Documentation](http://www.cloudifysource.org/cosmo-rest-docs/).
+Cloudify is controlled via a REST API. The REST API covers all the Cloud Orchestration and Management functions. See [Cloudify REST API Documentation](reference-rest-api.html).
 You can use the REST API through Cloudify's Non-interactive CLI or write your own REST client.
 
 Cloudify REST controllers are written in python using the [flask framework](http://flask.pocoo.org/) and run behind a [gUnicorn container](http://gunicorn.org/)
@@ -84,7 +84,7 @@ Cloudify's workflow engine is build on top of [Celery tasks broker](http://www.c
 
 ### Runtime Model
 
-Cloudify uses [Elasticsearch](http://http://www.elasticsearch.org/) as its data store for deployment[(?)]({{page.terminology_link}}#deployment) state. The deployment model and runtime data[(?)]({{page.terminology_link}}#runtime-data) are stored as JSON documents.
+Cloudify uses [Elasticsearch](http://www.elasticsearch.org/) as its data store for deployment[(?)]({{page.terminology_link}}#deployment) state. The deployment model and runtime data[(?)]({{page.terminology_link}}#runtime-data) are stored as JSON documents.
 
 
 <!-- ## <a name="Metrics Database">Metrics Database</a> -->

@@ -194,7 +194,7 @@ These will take a couple of minutes, during which the OpenStack resources and VM
 
 You can also view the events in the deployment screen in the web UI.
 
-![Events](https://raw.githubusercontent.com/cloudify-cosmo/cloudify-nodecellar-openstack/master/https://raw.githubusercontent.com/cloudify-cosmo/cloudify-nodecellar-openstack/master/events.png)
+![Events](https://raw.githubusercontent.com/cloudify-cosmo/cloudify-nodecellar-openstack/master/events.png)
 
 ## Step 7: Test Drive the Application
 

@@ -21,7 +21,7 @@ They may be located on either the application VM, on the manager, or elsewhere -
 
 Agents read tasks from a tasks broker and delegate them to a worker subprocess (a Plugin based Python process).
 
-Each `deployement` has a dedicated agent on the manager known as `Deployment Agent`
+Each `deployment` has a dedicated agent on the manager known as `Deployment Agent`
 
 
 ### **Application**
@@ -174,7 +174,7 @@ Another example is an Apache server that's connected to MySQL. In this case, Apa
 ### **Relationship implementation** (Coming soon...)
 
 ### **Relationship instance**
-An instance of a [relationship](#relationship) between 2 concerte [node instances](#node-instance).
+An instance of a [relationship](#relationship) between 2 concrete [node instances](#node-instance).
 
 ### **Relationship type**
 A [relationship](#relationship) [type](#type) describes the nature of dependency between 2 [nodes](#node) and the logic to materialize it (through [operations](#operation) mapping to implementation).
@@ -188,7 +188,7 @@ There are 3 basic relationship types:
 * connected_to - the source node has a connection to configure to the target node
 
 ### **Runtime Data**
-The data model of the [deployements](#deployment) stored in Cloudify's database.
+The data model of the [deployments](#deployment) stored in Cloudify's database.
 
 Cloudify holds a data model per [application](#application) deployment. This data model contains the [node instances](#node-instance), with each instance storing its unique instance id as well as copy of the [blueprint's](#blueprint) original configuration for this node and [runtime properties](#runtime-properties) for this node instance.
 

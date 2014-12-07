@@ -13,39 +13,47 @@ Custom `node` & `relationship` types are needed in one of the following cases:
 * User wats to add a new implementation (meaning the new type will use a new plugin)
 * User wants to refine an existing type and use it with many type implementations instead of overriding a property in any type implementation (less error prone)
 
-Adding a type is easy! you just need to import a yaml file with a map named `types` where each type is a key-value entry. for example:
+Adding a type is easy! you just need to import a yaml file with a map named `node_types` where each type is a key-value entry. for example:
 
 {% highlight YAML %}
-types:
+node_types:
     my_type:
-        derived_from: cloudify.openstack.server
+        derived_from: cloudify.openstack.nodes.Server
         properties:
-            install_agent:false
+            install_agent: false
         # omitted for brevity
 
 {% endhighlight %}
 
 In the above example the `cloudify.openstack.server` is refined in order to not have Cloudify install an agent on each instance.
 
-Note: you can decalre first level properties schema in a type. This will ensure that type implementation will have to include this property
-for example, the `cloudify.openstack.server` type declares the `server` property that any instance must have. this property is a map where all instance properties should be decalred by the instance (type implementation)
+Note: you can declare first level properties schema in a type. This will ensure that type implementation will have to include this property
+for example, the `cloudify.openstack.nodes.Server` type declares the `server` property that any instance must have. this property is a map where all instance properties should be decalred by the instance (type implementation)
 
 
 {% highlight YAML %}
-cloudify.openstack.server:
+cloudify.openstack.nodes.Server:
         derived_from: cloudify.types.host
         properties:
-            - server
-            - management_network_name: ''
-            - nova_config: {}
-            - neutron_config: {}
+            server: {}
+            management_network_name: ''
+            nova_config: {}
+            neutron_config: {}
         interfaces:
             cloudify.interfaces.lifecycle:
-                - start: nova_plugin.server.start
-                - stop: nova_plugin.server.stop
-                - delete: nova_plugin.server.delete
+                start: 
+                    implementation: nova_plugin.server.start
+                    inputs: {}
+                stop: 
+                    implementation: nova_plugin.server.stop
+                    inputs: {}
+                delete: 
+                    implementation: nova_plugin.server.delete
+                    inputs: {}
             cloudify.interfaces.host:
-                - get_state: nova_plugin.server.get_state
+                get_state: 
+                    implementation: nova_plugin.server.get_state
+                    inputs: {}
 
 {% endhighlight %}
 
@@ -74,7 +82,7 @@ Plugins are Cloudify integration with different tools. Whenever you need a new i
 
 3. Edit `setup.py`
 * Replace `${PLUGIN_NAME}` with the name you want to give to the pip package
-* Replace `${VERSION}` with the version you want to give to your plugin. Typically you want to set it to something lower than 1.0 until it is tested with system tests and ready for release
+* Replace `${VERSION}` with the version you want to give to your plugin. Typically you want to set it to something lower than 1.1 until it is tested with system tests and ready for release
 * Replace `${AUTHOR}` and `${AUTHOR_EMAIL}`
 * Fill in content instead of `'${DESCRIPTION}'`
 * Edit the packages array `packages=['plugin'],`. Replace plugin with the name of your python package(s)
@@ -110,7 +118,7 @@ source [path to env]/bin/activate
 * run pip to get all the requirements
 {% highlight bash %}
 cd [path_to_project]
-pip install --process-dependency-links .
+pip install .
 {% endhighlight %}
 
 ## Coding The Plugin
@@ -134,17 +142,16 @@ from cloudify.decorators import operation
 * Implement the operation
 The `ctx` argument is an instance of `CloudifyContext`. This class exposes several key properties to the developer:
 
-* `node_id` - unique id for the currenrt node
-* `node_name` - node name in the blueprint
-* `properties` - the node properties as specified in the blueprint YAML files (Read only)
-* `runtime_properties` - runtime properties map for retrieving runtime information to the manager and share with other nodes (read only)
+* `instance.id` - unique id for the currenrt node instance
+* `node.name` - node name in the blueprint
+* `node.properties` - the node properties as specified in the blueprint YAML files (Read only)
+* `instance.runtime_properties` - runtime properties map for retrieving runtime information to the manager and share with other nodes (read only)
 
 * `capabilities` -  dependency nodes runtime properties for example db connection string if the current node has relationship to a db
 
-* `related` - The related node (targer node) in a relationship.
 * `logger` - the logger to use (enriches log entires with relevant context and writes to RabbitMQ)
-* `blueprint_id` - The blueprint id the plugin invocation belongs to.
-* `deployment_id` - The deployment id the plugin invocation belongs to
+* `blueprint.id` - The blueprint id the plugin invocation belongs to.
+* `deployment.id` - The deployment id the plugin invocation belongs to
 * `execution_id` -  The workflow execution id the plugin invocation was requested from.
   This is a unique value which identifies a specific workflow execution.
  * `workflow_id` - The workflow id the plugin invocation was requested from.
@@ -161,8 +168,8 @@ The `ctx` argument is an instance of `CloudifyContext`. This class exposes sever
 Use the `properties` to get access to node:
 
 {% highlight python %}
-if 'scripts' in ctx.properties:
-    scripts = ctx.properties['scripts']
+if 'scripts' in ctx.node.properties:
+    scripts = ctx.node.properties['scripts']
         
 {% endhighlight %}
 
@@ -171,7 +178,7 @@ Use the context as a map to write runtime properties.
 In this example a property of ip is added to a host node.
 
 {% highlight python %}
-ctx['ip'] = manager_network_ip
+ctx.instance.runtime_properties['ip'] = manager_network_ip
 {% endhighlight %}
 
 ### Getting access to files

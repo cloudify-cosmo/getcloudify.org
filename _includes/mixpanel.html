@@ -79,8 +79,21 @@ $(function(){
 	    mixpanel.track("Chef Campaign Button Clicks",{'page name' : document.title, 'url' : window.location.pathname}); 
 	});
 	
+	if (document.location.href.search("guide")!=-1){
+  mixpanel.identify() ;
+  mixpanel.people.increment({
+   "Wiki page read": 1
+  }); 
+  mixpanel.people.set({
+   "Wiki page Name": document.title
+  });
+ }
+  // create Page-view property
+  mixpanel.identify() ;
+  mixpanel.people.set({
+   "Page Views": document.title
+  });
 
-	
 });
 
 
@@ -113,7 +126,6 @@ $("body").live('change', function(){
 	  $email: currEmail,
 	  $first_name: currEmail,
 	  $created: new Date(),
-	  $last_seen:new Date(),
 	  });
 	} return { type: $(ele).attr('type'),email: currEmail}
 	});

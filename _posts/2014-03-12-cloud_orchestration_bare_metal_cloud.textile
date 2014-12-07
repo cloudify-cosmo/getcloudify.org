@@ -21,6 +21,14 @@ tags:
 
 <p>When discussing automatic processes it's hard to speak in terms of minutes if not hours. For example a user who wants to access your application can't, and simply will not, wait hours for you to provision a machine when it is needed.&#160; This needs to be done in increments of minutes not hours.&#160; What's more, on top of this, usually the app itself is also pretty heavy, and can take time to start, which too can even take hours which is unacceptable in many cases.</p>
 
+<hr>
+
+<span class="pullquote-left">
+  <h2><font style="font-weight: bold" size="5" face="Baskerville Old Face"><em>Beyond simple automation - orchestration of any cloud made easy.</em></font>&nbsp; &nbsp; <a class="btn btn-large btn-theme btn-rounded" id="downloadBtnInner" href="http://getcloudify.org/downloads/get_cloudify_3x.html" target="_blank"><i class="icon-plus"></i> Go </a></h2></span>
+  
+  <hr>
+
+
 <p>Another challenge when it comes to bare metal machines is actually the cost considerations involved.&#160; Orchestration is very expensive.&#160; With VMs this is cheap and as a result you can scale easily by simply starting new machines on demand. Redundant and un-utilized bare metal resources are expensive to maintain, so it is not a simple matter to just start another machine. Orchestration with these types of machines is much more subtle, and scaling needs to much more tuned to cost, as opposed to response time.&#160; Therefore, when we discuss orchestration in the context of bare metal we need to differentiate, and can't just apply the same principles of orchestration to bare metal as we do with VMs.&#160; </p>
 
 <p>One solution is using pre-allocated machines, if you're willing to pay for them.&#160; This is basically the best solution from a response time and performance perspective.&#160;&#160; With this approach you can always pull the resource in advance, and this, of course provides the best user experience, as well.&#160; Basically instead of allocating a new machine, you manage your machines as a pool of resources.&#160; In this manner, you take a resource from the pool, and when you're done you have to return it. The downside, is that this is something you need to do yourself, either on the application level (through app logic) or manually.&#160; This is not functionality you can receive out of the box from cloud providers.&#160; </p>

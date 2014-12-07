@@ -12,7 +12,7 @@ installation_link: installation-general.html
 ---
 {%summary%}{{page.abstract}}{%endsummary%}
 
-{%warning title=Disclaimer%}This installation method is aimed at advanced users or if [bootstrapping on an existing VM](installation-simple-provider.html) isn't suitable.{%endwarning%}
+{%warning title=Disclaimer%}This installation method is aimed at advanced users or if [bootstrapping on an existing VM](reference-simple-manager.html) isn't suitable.{%endwarning%}
 
 You can install Cloudify by directly downloading the packages and installing them on a machine of your choosing (just remember to checkout the [Prerequisites]({{page.prereqs_link}}#prerequisites) before installing.)
 We'll assume you're installing the manager on Ubuntu and using Centos hosts.

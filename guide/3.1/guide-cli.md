@@ -26,12 +26,12 @@ Bootstrapping a manager machine is done with the help of components called *Prov
 
 The flow when bootstrapping is the same for all providers:
 
-  * First, one has to run the `cfy init {Provider_name}` command, which will initialize Cloudify for the specific Provider on the current directory. This will create a file named `.cloudify` (where context data is stored) as well as Provider-specific configuration files in the current directory.
+  * First, one has to run the `cfy init -p <provide>` command, which will initialize Cloudify for the specific Provider on the current directory. This will create a file named `.cloudify` (where context data is stored) as well as Provider-specific configuration files in the current directory.
   * Editing the configuation file
   * Running the command `cfy bootstrap`
 
 
-Alternatively, it's possible to work with an existing management server, by issuing the command `cfy use {manager_server}`.
+Alternatively, it's possible to work with an existing management server, by issuing the command `cfy use -t <management_ip>`.
 
 
 {%note title=Note%}It's highly recommended to initialize and work with the CLI from a designated folder{%endnote%}

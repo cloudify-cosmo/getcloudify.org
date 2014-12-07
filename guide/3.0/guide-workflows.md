@@ -7,7 +7,7 @@ abstract: "A guide to Cloudify Workflows"
 pageord: 500
 
 
-types_yaml_link: http://getcloudify.org/spec/cloudify/3.0/types.yaml
+types_yaml_link: reference-types.html
 
 # TODO: change develop --> 3.0 right before the release, it is currently develop because there is no 3.0 tag yet
 default_workflows_source_link: https://github.com/cloudify-cosmo/cloudify-manager/blob/develop/workflows/workflows/default.py
@@ -20,7 +20,7 @@ default_workflows_source_link: https://github.com/cloudify-cosmo/cloudify-manage
 
 Workflows are automation process algorithms. They describe the flow of the automation by determining which tasks will be executed and when. A task may be an operation (implemented by a plugin), but it may also be other actions, including arbitrary code. Workflows are written in Python, using dedicated APIs and framework.
 
-Workflows deployment specific. Every deployment has its own set of workflows (declared in the Blueprint), and executions of a workflow are in the context of that deployment.
+Workflows are deployment specific. Every deployment has its own set of workflows (declared in the Blueprint), and executions of a workflow are in the context of that deployment.
 
 Controlling workflows (i.e. executing, cancelling, etc.) is done via REST calls to the management server. In this guide, the examples will be shown using Cloudify CLI commands which in turn call the above REST API calls.
 

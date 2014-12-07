@@ -36,6 +36,13 @@ tags:
 
 <p>I also used a Tomcat connector so whenever a new Tomcat starts it connects to the load-balancer announcing there is an additional video streamer and you can direct traffic to me, I am available.</p>
 
+<hr>
+
+<span class="pullquote-left">
+  <font style="font-weight: bold" size="5" face="Baskerville Old Face"><em>Cloudify + NFV = not just a buzzword anymore. Try it out.</em></font>&nbsp; <a class="btn btn-large btn-theme btn-rounded" id="downloadBtnInner" href="http://getcloudify.org/downloads/get_cloudify_3x.html" target="_blank"><i class="icon-plus"></i> Go </a></span>
+  
+  <hr>
+
 <p>For the video streaming I used <a href="http://www.subsonic.org/pages/index.jsp" target="_blank">Subsonic</a>, which required minimal configuration. Then I uploaded various MP3 and MP4 files (audio and video) and was able to play them on a desktop browser and Android and iPhone mobile devices using a client application downloaded from Google Play and Apple App store respectively. </p>
 
 <p>Note that Tomcat video streamers cannot start until the LB is started so there is a dependency between Tomcat and the LB. This dependency is noted in the recipe below, services creation and the dependencies between them:</p>
