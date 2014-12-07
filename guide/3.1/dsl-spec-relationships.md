@@ -226,9 +226,12 @@ relationships:
 Keyname           | Required | Type        | Description
 -----------       | -------- | ----        | -----------
 derived_from      | no       | string      | The relationship type from which the new relationship is derived.
-source_interfaces | no       | dict        | The lifecycle operations used to configure the current node.
-target_interfaces | no       | dict        | The lifecycle operations used to configure the related node.
+source_interfaces | no       | dict        | A dict of interfaces.
+target_interfaces | no       | dict        | A dict of interfaces.
 connection_type   | no       | string      | valid values: `all_to_all` and `all_to_one`
+
+<br>
+
 
 Example:
 
@@ -291,8 +294,11 @@ As such, the configure_source_node.py script will be executed on host instances 
 
 ## How Relationships Affect Node Creation
 
-Declaring relationships inherently affects the node creation flow (in the sense that there is no need to configure the flow).
+Declaring relationships might inherently affect the node creation flow (in the sense that there is no need to explicitly configure the flow in the blueprint).
 
-When declaring a relationship, the first lifecycle operation of the source node will only be executed once the entire set of lifecycle operations of the target node were executed and completed.
+When declaring a relationship and using the built in `install` workflow, for example, the first lifecycle operation of the source node will only be executed once the entire set of lifecycle operations of the target node were executed and completed.
+When using the `uninstall` workflow, the opposite will be true.
+
+You could write workflows that would implement the flows is different manners.
 
 So, for instance, in the previous example, all source operations (`node_instance` operations, `source_interfaces` relationships operations and `target_interfaces` relationship operations) for `source_node` will be executed AFTER all `target_node` operations have been completed. This removes any uncertainties about whether a node was ready to have another node connect to or be contained in it due to it not being available. Of course, it's up to the user to define what "ready" means.
