@@ -38,8 +38,8 @@ Keyname          | Required | Type        | Description
 type             | yes      | string      | Either a newly declared relationship type or one of the relationship types provided by default when importing the [types.yaml](https://github.com/cloudify-cosmo/cloudify-manager/blob/master/resources/rest-service/cloudify/types/types.yaml) file.
 target           | yes      | string      | The node's name to relate the current node to.
 connection_type  | no       | string      | valid values: `all_to_all` and `all_to_one` (explained below)
-source_interfaces| no       | dict        | A dict of interfaces. Can contain either declared or built in interface operations (e.g. `cloudify.interfaces.relationship_lifecycle` operations or "my_interface" operations).
-target_interfaces| no       | dict        | A dict of interfaces. Can contain either declared or built in interface operations (e.g. `cloudify.interfaces.relationship_lifecycle` operations or "my_interface" operations).
+source_interfaces| no       | dict        | A dict of interfaces.
+target_interfaces| no       | dict        | A dict of interfaces.
 
 <br>
 
@@ -260,12 +260,12 @@ In the above example, we create a relationship type called `app_connected_to_db`
 
 # Relationship Interfaces
 
-Each relationship type (and instance) has a `source_interfaces` and `target_interfaces` (could be more than one of each).
+Each relationship type (and instance) has `source_interfaces` and `target_interfaces`.
 
 For a given node:
 
-* `source_interfaces` defines the lifecycle operations that will be executed on the node in which the relationship is declared.
-* `target_interfaces` defines the lifecycle operations that will be executed on the node its relationship targets.
+* `source_interfaces` defines interfaces of operations that will be executed on the node in which the relationship is declared.
+* `target_interfaces` defines interfaces of operations that will be executed on the node its relationship targets.
 
 {%note title=Note%}
 Having the interfaces defined under `source_interfaces` and `target_interfaces` does not necessarily mean that their operations will be executed. That is, operations defined in `cloudify.interfaces.relationship_lifecycle` will be executed when running `install`/`uninstall` workflows. We can also add a custom relationship interface and write a custom workflow that will execute operations from the new interface.
@@ -298,11 +298,9 @@ As such, the configure_source_node.py script will be executed on host instances 
 
 ## How Relationships Affect Node Creation
 
-Declaring relationships might inherently affect the node creation flow (in the sense that there is no need to explicitly configure the flow in the blueprint).
+Declaring relationships affects the node creation/teardown flow in respect to the `install`/`uninstall` workflows respectively.
 
-When declaring a relationship and using the built in `install` workflow, for example, the first lifecycle operation of the source node will only be executed once the entire set of lifecycle operations of the target node were executed and completed.
+When declaring a relationship and using the built in `install` workflow, the first lifecycle operation of the source node will only be executed once the entire set of lifecycle operations of the target node were executed and completed.
 When using the `uninstall` workflow, the opposite will be true.
 
-You could write workflows that would implement the flows is different manners.
-
-So, for instance, in the previous example, all source operations (`node_instance` operations, `source_interfaces` relationships operations and `target_interfaces` relationship operations) for `source_node` will be executed AFTER all `target_node` operations have been completed. This removes any uncertainties about whether a node was ready to have another node connect to or be contained in it due to it not being available. Of course, it's up to the user to define what "ready" means.
+So, for instance, in the previous example, all source operations (`node_instance` operations, `source_interfaces` relationships operations and `target_interfaces` relationship operations) for `source_node` will be executed AFTER ALL `target_node` operations have been completed. This removes any uncertainties about whether a node was ready to have another node connect to or be contained in it due to it not being available. Of course, it's up to the user to define what "ready" means.
