@@ -10,6 +10,7 @@ openstack_plugin_link: https://github.com/cloudify-cosmo/cloudify-openstack-plug
 openstack_plugin_yaml_link: http://www.getcloudify.org/spec/openstack-plugin/1.1/plugin.yaml
 terminology_link: reference-terminology.html
 agent_packager_link: agents-packager.html
+plugin_authoring_link: guide-plugin-creation.html
 ---
 {%summary%}{{page.abstract}}{%endsummary%}
 {%summary%}
@@ -18,7 +19,7 @@ By declaring plugins we can install python modules and use the installed or prei
 
 # Plugins Declaration
 
-The `plugins` section is a hash where each item in the hash represents a plugin to use in the [blueprint]({{page.terminology_link}}#blueprint).
+The `plugins` section is a dictionary where each item in the dictionary represents a plugin to use in the [blueprint]({{page.terminology_link}}#blueprint).
 
 {%highlight yaml%}
 plugins:
@@ -33,7 +34,7 @@ plugins:
 Keyname     | Required    | Type        | Description
 ----------- | --------    | ----        | -----------
 executor    | yes         | string      | Where to execute the plugin's operations. Valid Values: `central_deployment_agent`, `host_agent`.
-source      | conditional | string      | Where to retrieve the plugin from. Could be either a path relative to the blueprint's root dir or a url. If `install` is `false`, `source` is redundant. If `install` is true, `source` is mandatory.
+source      | conditional | string      | Where to retrieve the plugin from. Could be either a path relative to the `plugins` dir inside the blueprint's root dir or a url. If `install` is `false`, `source` is redundant. If `install` is true, `source` is mandatory.
 install     | no          | boolean     | Whether to install the plugin or not as it might already be installed as part of the agent. Defaults to `true`.
 
 <br>
@@ -51,25 +52,25 @@ plugins:
     source: {{page.openstack_plugin_link}}
   puppet:
     executor: host_agent
-    source: plugins/puppet_plugin.zip
+    source: my_cloudify_plugins/puppet-plugin
   ruby:
     executor: host_agent
     install: false
 
 node_templates:
   vm:
-      type: openstack.nodes.Server
-      interfaces:
-        my_interface:
-          create: openstack.nove_plugin.server.create
-          preconfigure: ruby.script_executor.tasks.run
-          configure: puppet.application_server.configure
+    type: openstack.nodes.Server
+    interfaces:
+      my_interface:
+        create: openstack.nove_plugin.server.create
+        preconfigure: ruby.script_executor.tasks.run
+        configure: puppet.application_server.configure
 {%endhighlight%}
 
 In the above example, we configure 3 plugins:
 
 * The official Cloudify OpenStack plugin.
-* A custom Cloudify puppet plugin provided with the blueprint.
+* A custom Cloudify puppet plugin provided with the blueprint where `my_cloudify_plugins/puppet-plugin should contain the plugin's sources (see the [Plugin Template]({{page.plugin_authoring_link#the-plugin-template}}) documentation for more info on how plugins should be constructed.)
 * A custom Cloudify ruby scripts executor plugin that is provided with a custom Cloudify agent that we're using.
 
 We then configure a `vm` node of type `openstack.nodes.Server` which uses a custom `my_interface` interface to run its operations.
