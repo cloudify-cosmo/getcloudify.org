@@ -62,3 +62,6 @@ policy_types:
 
 {%endhighlight%}
 
+## Usage
+This page describes how to define a policy type. To actually use policy types,
+refer to the [Groups](dsl-spec-groups.html) specification.
