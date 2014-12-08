@@ -55,7 +55,7 @@ A few important things to know about importing YAML files:
 
 * Imported files can be either relative to the blueprint's root directory or be a URL (as seen above).
 * YAML files are imported recursively. You can nest as many imports as you like.
-* An error will be raised if there's a cyclic imports (i.e. a file is importing itself or importing a file which is importing the file that imported it, etc..)
+* An error will be raised if there are cyclic imports (i.e. a file is importing itself or importing a file which is importing the file that imported it, etc..)
 * The following parts of the DSL cannot be imported and can only be defined in the [main blueprint file]({{page.terminology_link}}#main-blueprint-file):
     * [groups]({{page.dsl_groups_link}})
     * [inputs]({{page.dsl_inputs_link}})
