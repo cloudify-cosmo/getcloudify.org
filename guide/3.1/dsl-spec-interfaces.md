@@ -6,25 +6,22 @@ publish: true
 abstract: Declaring and using Interfaces
 pageord: 300
 
-types_yaml_link: http://www.getcloudify.org/spec/cloudify/3.1/types.yaml
 terminology_link: reference-terminology.html
-dsl_node_types_link: dsl-spec-node-types.html
-dsl_groups_link: dsl-spec-groups.html
 dsl_inputs_link: dsl-spec-inputs.html
-dsl_outputs_link: dsl-spec-outputs.html
 dsl_node_templates_link: dsl-spec-node-templates.html
 dsl_plugins_link: dsl-spec-plugins.html
+dsl_relationships_link: dsl-spec-relationships.html
 ---
 {%summary%}{{page.abstract}}{%endsummary%}
 {%summary%}
 Interfaces provide a way to map logical tasks to executable [operations]({{page.terminology_link}}#operation).
 {%endsummary%}
 
-Blueprint authors can declare interfaces in the `interfaces` section of the blueprint.
+[Blueprint]({{page.terminology_link}}#blueprint) authors can declare interfaces in the `interfaces` section of the blueprint.
 
 # Interfaces Declaration
 
-The `interfaces` section is a list where each item in the list represents a YAML file to import.
+The `interfaces` section is a hash where each item in the hash represents an interface. In turn, each interface contains a hash of operations within it.
 
 {%highlight yaml%}
 interfaces:
@@ -76,12 +73,13 @@ node_templates:
     type: cloudify.nodes.WebServer
     interfaces:
       my_deployment_interface:
-        configure: my_deployment_interface.configure
+        configure:
+          implementation: my_deployment_interface.configure
 {%endhighlight%}
 
 In this example, we've:
-- Declared a plugin called `deployer` which, [by default](#overriding-the-executor), should execute its operations on the Cloudify manager.
-- Declared an interface `my_deployment_interface` with a `configure` operation which should execute the `deployer.config_in_master.configure` task. We also provided it with some inputs.
+- Declared a `deployer` plugin which, [by default](#overriding-the-executor), should execute its operations on the Cloudify manager.
+- Declared an `my_deployment_interface` interface with a `configure` operation which should execute the `deployer.config_in_master.configure` task. We also provided it with some inputs.
 - Declared a `nodejs_app` node which uses our declared interface and executes the `configure` operation.
 
 
@@ -103,10 +101,6 @@ interfaces:
       ...
     deploy:
       implementation: deployer.deploy_framework.deploy
-      inputs:
-        source:
-          type: string
-          default: git
       executor: host_agent
 
 node_templates:
@@ -116,18 +110,20 @@ node_templates:
     type: cloudify.nodes.WebServer
     interfaces:
       my_deployment_interface:
-        configure: my_deployment_interface.configure
-        deploy: my_deployment_interface.deploy
+        configure:
+          implementation: my_deployment_interface.configure
+        deploy:
+          implementation: my_deployment_interface.deploy
 {%endhighlight%}
 
 Here we added a `deploy` operation to our interface. Note that its `executor` attribute is configured to `host_agent` which means that even though the `deployer` plugin is configured to execute operations on the `central_deployment_agent`, the `deploy` operation will be executed on hosts of the `nodejs_app` rather than the Cloudify manager.
 
 
-# Mapping an operation to a script
+# Mapping an operation directly
 
-Cloudify provides an easy way to map operations to script executions using the [Script Plugin]({{page.script_plugin_link}}).
+Cloudify provides an easy way to map operations to script executions (using the [Script Plugin]({{page.script_plugin_link}}) or module tasks directly.
 
-This is done by providing a script path directly to the operation rather than providing the `implementation` attribute thus working around the default method of declaring operation mappings.
+This is done by providing a path directly to the operation rather than providing the `implementation` attribute thus working around the default method of declaring operation mappings.
 
 Example:
 
@@ -158,10 +154,12 @@ node_templates:
 
 Here we've added a `verify` operation to our interface which maps directly to a script afterwhich we've configured the `nodejs_app` node to use that operation.
 
+We also mapped the `configure`, `deploy` and `verify` operations in the [node template]({{page.dsl_node_templates_link}}) directly.
+
 
 # Declaring an operation implementation within the node
 
-You can specify the entire set of attributes for a specific operation within the node's interface under the note template itself.
+You can specify the entire set of attributes for a specific operation within the node's interface under the node template itself.
 
 Example:
 
@@ -189,7 +187,7 @@ node_templates:
         start: scripts/start_app.sh
 {%endhighlight%}
 
-Let's say that we use our `my_deployment_interface` on more than the `nodejs_app` node. And while on all other nodes the last operation to be executed is the `verify` operation, we'd like to have a `start` operation for the `nodejs_app` node specifically which will run our application after it is deployed.
+Let's say that we use our `my_deployment_interface` on more than the `nodejs_app` node. While on all other nodes the last operation to be executed is the `verify` operation, we'd like to have a `start` operation for the `nodejs_app` node specifically which will run our application after it is deployed.
 
 Here, we've declared the `start` operation and mapped it to execute a script specifically on the `nodejs_app` node.
 
@@ -210,7 +208,12 @@ interfaces:
     configure:
       ...
     deploy:
-      ...
+      implementation: deployer.deploy_framework.deploy
+      executor: host_agent
+      inputs:
+        source:
+          type: string
+          default: git
     verify: scripts/deployment_verifier.py
 
 node_templates:
@@ -232,8 +235,10 @@ node_templates:
               default: true
 {%endhighlight%}
 
+Here we added an input to the `deploy` operation under the `my_deployment_interface` interface and two inputs to the `start` operation in the `nodejs_app` node's interface.
+
+This allows us to declare inputs which should be used with an interface across the blueprint and inputs specific to a node.
+
 # Relationship Interfaces
 
-## Source Interfaces
-
-## Target interfaces
+For information on relationship interfaces see the [relationships spec]({{page.dsl_relationships_link}}#relationship-interfaces).
