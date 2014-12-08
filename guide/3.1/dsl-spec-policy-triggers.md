@@ -6,9 +6,10 @@ publish: true
 pageord: 291
 
 types_yaml_link: https://github.com/cloudify-cosmo/cloudify-manager/blob/3.1/resources/rest-service/cloudify/types/types.yaml
+execute_workflow_trigger_link: https://github.com/cloudify-cosmo/cloudify-manager/blob/3.1/resources/rest-service/cloudify/triggers/execute_workflow.clj
 ---
 {%summary%}
-Policy Triggers provide a way of declaring actions the can be invoked by policies.
+Policy Triggers provide a way of declaring actions the can be invoked by [policies](dsl-spec-policy-types.html).
 {%endsummary%}
 
 Policy Trigger specify the implementation of actions invoked by policies and declare the properties that define the trigger's behavior.
@@ -73,6 +74,8 @@ The following policy triggers are defined in [`types.yaml`]({{page.types_yaml_li
 * `allow_custom_parameters` Should parameters not defined in the workflow parameters schema be accepted. (Optional, Default: `false`)
 * `socket_timeout` Socket timeout when making request to manager REST in ms. (Optional, Default: `1000`)
 * `conn_timeout` Connection timeout when making request to manager REST in ms. (Optional, Default: `1000`)
+
+You can find the implementation for this trigger on [github]({{page.execute_workflow_trigger_link}}). It builds the HTTP request to the manager REST service and makes the actual REST call using the `clj-http` clojure library.
 
 ## Usage
 This page describes how to define a policy trigger. To actually use policy triggers with policies,
