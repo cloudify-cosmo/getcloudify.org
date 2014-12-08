@@ -53,13 +53,11 @@ category: cloud orchestration cloud automation
 					<div class="aligncenter">
 					<img src="img/Orchestration-2.png" width="400">
 					</div>
-					<h1><strong>Intelligent Docker Orchestration</strong> - Gluing All the Pieces Together</h1>
-					<ul>
-					<li>Docker containers were created to help enable the fast, and reliable deployment of application components or tiers, by creating a container that holds a self-contained ready to deploy parts of applications, with the middleware and the app business logic needed to run them successfully.  By design, Docker is purposely an isolated self-contained part of the application, typically one tier or even one node in a tier.</li>
-					<li>However, an application is typically multi-tier in its architecture and that means you have tiers with dependencies between them, where the nature of the dependencies can be anything from network connections and remote API invocations, to exchange of messages between application tiers.  And hence an app is a set of different containers with specific configurations.  This is why you need a way to glue the pieces of your app together.</li>
-					<li>This is where Cloudify comes in - with Cloudify's Docker orchestration, we will take care of the timing of container creation by order of dependency, as well as all of the necessary configurations to allow the containers to communicate and pass the required runtime properties to one another.</li>
-					<li>Based on TOSCA, with Cloudify's YAML-based blueprints, you are able to describe even the most complex topologies, including: the infrastructure, as well as, the middleware tier, and app layers on top of these.  Cloudify basically takes this TOSCA orchestration plan and materializes these using workflows that traverse the graph of components, or this plan of components and issues commands to agents.  These then create the app components and glue all this together. </li>
-					</ul>
+					<h1><strong>Orchestration</strong> of all Clouds with a </h1>
+					<p>With VMware, there are the traditional vSphere virtualization integrations alongside vCloud integration, as well as other clouds - including OpenStack, or any other cloud of choice.
+
+					Using common management and orchestration as an abstraction for both VMware and additinal clouds provides a common management and deployment infrastructure.  The application is kept aware of which infrastructure it is running on, however, since the calls to each of the infrastructure components are now centralized into one driver per environment, it is managed once for all the applications. </p>
+
 
 				<hr/>
 
@@ -68,62 +66,41 @@ category: cloud orchestration cloud automation
 				</div>
 			</section>	
 				
-	 <section id="content">
-	<div class="container">
-			
-				<div class="row">
-				<div class="span3"></div>
-
-					<div class="span6">
-						<div class="box alignjustify">
-								<div class="text">
-								<br/>
-								<p><strong><font color="#00B4DA" style="font-size:16px;"> Docker-based Cloudify Manager Setup</font></strong></p>
-								<p>Premade Docker images will replace the current package-based method for deploying a Cloudify management environment.</p>
-								<p>This will provide:</p>
-								<ul>
-								<li>An out-of-the-box cross distribution support while also bridging dependency tree gaps between different user provided images.</li>
-								<li>Easier, faster upgrades for your management environments.</li>
-								<li>A faster bootstrap process.</li>
-								</ul>
-								<p>This will nicely mesh with the Manager Blueprint approach and the <a href="https://github.com/cloudify-cosmo/cloudify-docker-plugin" target="_blank">Docker</a> and <a href="http://getcloudify.org/guide/3.0/plugin-fabric.html" target="_blank"> Fabric plugins</a> for a seamless management environment provisioning experience.</p>
-								
-							</div>
-						</div>
-					</div>
-					
-					<div class="span3"></div>
-
-				</div>
-			</div>
-		</div>
-				
-				</section>
-	 <div class="clear"></div>  
+	
 	 
 	
 	
 
-		<section id="bottom">
+			<section id="bottom">
 			<div class="container">
 
-		<div class="row">
+				<div class="row">
+				<div class="span12">
+						<h1><strong>Getting Started</strong></h1>
+						<hr/>
+					<ul>
+								<li><a href="http://getcloudify.org/guide/3.1/plugin-vsphere.html" target="_blank">Getting Started with Cloudify and vSphere</a></li>
+								<li><a href="http://getcloudify.org/2014/11/12/vmware-vsphere-vcloud-openstack-hybrid-cloud.html" target="_blank">From VMWare Virtualization to Public Cloud. Now Hybrid Cloud.</a></li>
+								<li><a href="http://getcloudify.org/2014/11/07/openstack-vmware-hybrid-cloud.html" target="_blank">The VMware OpenStack Cloud Conundrum</a></li>
+								</ul>
+				<hr/>
+				<div class="row">
 		<div class="span2"></div>
 		<div class="span8">
-		<div class="aligncenter">
-			
-				<h2><strong>Download Cloudify or Fork the Plugin Now</sup></strong></h2>
+				<div class="aligncenter">
+				<h2><strong>Learn more about Cloudify Premium<sup>TM</sup> or Download Now</sup></strong></h2>
 						<br/>
-							<a class="btn btn-large btn-theme btn-rounded" id="downloadBtnInner" href="/downloads/get_cloudify_3x.html"><i class="icon-download"></i>  Download Now</a>
+							<a class="btn btn-large btn-green btn-rounded" id="goProInner" href="/goPro.html"><i class="icon-plus"></i>  Go Pro!</a>
 							&nbsp; &nbsp;
-							<a class="btn btn-green btn-large btn-rounded" id="goProInner" href="https://github.com/cloudify-cosmo/cloudify-docker-plugin"><i class="fa fa-code-fork"></i>  Docker Plugin</a>
+							<a class="btn btn-large btn-theme btn-rounded" id="downloadBtnInner" href="/downloads/get_cloudify_3x.html"><i class="icon-download"></i>  Download Now</a>
 							<br/>
 							</br>
 							</div>
-						
+						</div>
 						</div>
 						<div class="span2"></div>
 					</div>
 					</div>
 					</section>
 					<div class="clear"></div>
+</section>
