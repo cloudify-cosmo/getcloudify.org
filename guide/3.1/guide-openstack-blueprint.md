@@ -7,40 +7,33 @@ abstract: Openstack blueprint authoring tutorial
 pageord: 300
 
 openstack_deploy_link: quickstart-openstack.html
+
 ---
 {%summary%} {{page.abstract}}{%endsummary%}
 
-#Adjusting the Nodecellar Blueprint to run on Openstack
+# Adjusting the Nodecellar Blueprint to run on Openstack
 
-In this section of the tutorial we will learn how to adjust the nodecellar application to run on OpenStack.
-The main differences between the mock version and the Openstack version are:
+In this section of the tutorial we will learn how to adjust the *nodecellar* application to run on OpenStack.
+The main differences between the single host version and the Openstack version are:
 
-* Create real virtual machines using the nova_plugin that uses the Openstack compute API (Nova)
+* Create real virtual machines using the openstack plugin that uses the Openstack compute API (Nova)
 * Create the application security group and floating IP that uses the Openstack network API (Neutron)
 
-#Step 1: Creating the blueprint
-Let's start by using the nodecellar blueprint we used in the [blueprint tutorial](guide-blueprint.html)
+# Step 1: Creating the blueprint
+
+Let's start by using the *nodecellar* blueprint we used in the [blueprint tutorial](guide-blueprint.html)
+
+The first addition we are going to make to this blueprint is importing the openstack plugin YAML file. <br>
+This file contains the openstack plugin and types definitions.
 
 {%highlight yaml%}
-git clone https://github.com/cloudify-cosmo/cloudify-nodecellar-singlehost.git
-{%endhighlight%}
-
-You can see the blueprint with the nodes from the nodecellar_local example.
-The first additionwe are going to make to this template is importing the openstack plugins and types
-
-{%highlight yaml%}
-# Note: if you're using a milestone build 1.1 below should be prefixed with the milestone name, e.g. 
-# http://www.getcloudify.org/spec/openstack-plugin/1.1m5/plugin.yaml
 imports:
-    - http://www.getcloudify.org/spec/openstack-plugin/1.1/plugin.yaml
+  - http://www.getcloudify.org/spec/openstack-plugin/1.1/plugin.yaml
 {%endhighlight%}
 
-
-
-#Step 2: Adding a security group
-Nowe can start adding the nodes we need.
-A security group must be added to allow for specific inbound ports to be opened between the application tiers
-The security group node uses the neutron_plugin to create the security group and its rules
+# Step 2: Adding a security group
+A security group must be added to allow for specific inbound ports to be opened between the application tiers.
+The security group node uses the Neutron API to create the security group and its rules.
 
 {%highlight yaml%}
 - name: node_cellar_security_group
@@ -67,9 +60,7 @@ Rules can accept the following properties:
 - remote_ip_prefix: sets the range of IPs (using CIDR notation) to allow as communication source
 
 
-
-
-#Step 3: Adding the floating IP
+# Step 3: Adding the floating IP
 A floating IP provides a constant public IP for the application. we add it using the floatingip type that uses the neutron_plugin
 
 {%highlight yaml%}

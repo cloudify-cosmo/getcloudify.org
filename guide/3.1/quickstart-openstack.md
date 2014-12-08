@@ -227,6 +227,17 @@ In the Web UI, you can checkout the Logs/Events page for an overview of all Logs
 
 ![Events](/guide/images3/guide/quickstart-openstack/events.png)
 
+<br>
+
+You can also have a look at the Monitoring tab and see some default metrics:
+
+![Metrics](/guide/images3/guide/default_dashboard.png)
+
+{%note title=Note%}
+The blueprint we installed actually defines a custom collector for the Mongo database.
+To add mongo related graphs to the dashboard, have a look at [Adding Custom Graphs]().
+{%endnote%}
+
 ## Step 6: Test Drive the Application
 
 To test the application, you will need to access it using its public IP address.
