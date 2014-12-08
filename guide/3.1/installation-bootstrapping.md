@@ -178,5 +178,5 @@ If you are using a different distro image, you'll have to make sure that Docker 
 
 {%note title=Note%}
 This architecture allows us to migrate Cloudify's Management Environment with ease. All we need is to export the data container
-and start a new Cloudify Application container that uses the data from the exported container.
+and start a new Cloudify Application container that uses the data from the exported container. To do so, checkout the relevant docker documentation [here](https://docs.docker.com/userguide/dockervolumes)
 {%endnote%}
