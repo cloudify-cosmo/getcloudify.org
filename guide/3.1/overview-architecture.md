@@ -87,15 +87,13 @@ Cloudify's workflow engine is built on top of [Celery tasks broker](http://www.c
 Cloudify uses [Elasticsearch](http://www.elasticsearch.org/) as its data store for deployment[(?)]({{page.terminology_link}}#deployment) state. The deployment model and runtime data[(?)]({{page.terminology_link}}#runtime-data) are stored as JSON documents.
 
 
-<!-- ## <a name="Metrics Database">Metrics Database</a> -->
+### Metrics Database
 
-<!--
+
 Cloudify uses [InfluxDB](http://influxdb.com/) as the monitoring metrics repository. Influx provides flexible schema for metrics and metrics metadata as well as a query language. Cloudify stores every metric reported by a monitoring tool into influxdb and define time based aggregations as well as statistic calculations.
 
--->
 
-
-## Policy Engine
+### Policy Engine
 
 Cloudify offers a policy engine[(?)]({{page.terminology_link}}#policy-engine) that runs custom policies[(?)]({{page.terminology_link}}#policy) in order to make runtime decisions about availability, SLA, etc. For example, during installation, the policy engine consumes streams of events coming from monitoring probes or tools. The policy engine analyzes these streams to decide if a specific node[(?)]({{page.terminology_link}}#node) is up and running and provides the required functionality. The results of such "start detection" policies are fed into the runtime model.
 
@@ -103,8 +101,8 @@ Cloudify uses [Riemann.IO CEP](http://riemann.io/) as the core of the policy eng
 
 
 
-<!--The policies are written in [Clojure](http://clojure.org/). Riemann offers many [built it functions for analyazing monitoring information](http://riemann.io/api.html).
-Cloudify offers policy examples for the common use cases.-->
+The policies are written in [Clojure](http://clojure.org/). Riemann offers many [built it functions for analyazing monitoring information](http://riemann.io/api.html).
+Cloudify offers policy examples for the common use cases.
 
 
 ### Task Broker
@@ -159,7 +157,7 @@ To enjoy the benefits of this mechanism, the REST API exposes some methods to ru
 Cloudify's architecture supports the following main technical flows:
 
 ## Bootstrap
-Bootstrapping is the process of installing the Cloudify [manager](#the-manager-orchestrator). It is executed via the CLI using the [command](reference-cfy.html#bootstrap) `cfy bootstrap`. This command uses the help of components called [Providers](reference-terminology.html#provider). Some providers may also be responsible for instantiating the VM for the manager, as well as possibly provisioning additional infrastructure resources (e.g. network, security groups, key-pairs, etc.) which are required for the manager in a given environment.
+Bootstrapping is the process of installing the Cloudify [manager](#the-manager-orchestrator). It is executed via the CLI using a blueprint (called manager blueprint). This blueprint, describes the cloud resources to provision including the manager VM. The blueprint also describes the manager installation using either Deb packages or a Docker container.
 
 ## [Blueprint](reference-terminology.html#blueprint) Upload
 The first step the user must take to install an application is to have the application orchestration plan (aka `blueprint`) and its related resources uploaded to the manager. This is done by using the GUI or the CLI [command](reference-cfy.html#blueprints-upload) `cfy blueprints upload`. When using the CLI, This command will pack the blueprint YAML file folder to a `tar.gz` file and upload it to the Cloudify manager REST server. Once the blueprint has been validated, it will be stored in the Cloudify manager file server (hosted by [nginx](http://nginx.org)).
