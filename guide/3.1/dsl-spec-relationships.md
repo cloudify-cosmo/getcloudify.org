@@ -267,6 +267,10 @@ For a given node:
 * `source_interfaces` defines the lifecycle operations that will be executed on the node in which the relationship is declared.
 * `target_interfaces` defines the lifecycle operations that will be executed on the node its relationship targets.
 
+{%note title=Note%}
+Having the interfaces defined under `source_interfaces` and `target_interfaces` does not necessarily mean that their operations will be executed. That is, operations defined in `cloudify.interfaces.relationship_lifecycle` will be executed when running `install`/`uninstall` workflows. We can also add a custom relationship interface and write a custom workflow that will execute operations from the new interface.
+{%endnote%}
+
 Example:
 
 {%highlight yaml%}
