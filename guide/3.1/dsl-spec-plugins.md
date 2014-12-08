@@ -3,11 +3,13 @@ layout: bt_wiki
 title: Plugins
 category: DSL Specification
 publish: true
-abstract: "Plugins Declerations"
+abstract: "Specifying plugins to use with the blueprint"
 pageord: 300
 
 openstack_plugin_link: https://github.com/cloudify-cosmo/cloudify-openstack-plugin/archive/1.1.zip
+openstack_plugin_yaml_link: http://www.getcloudify.org/spec/openstack-plugin/1.1/plugin.yaml
 terminology_link: reference-terminology.html
+agent_packager_link: agents-packager.html
 ---
 {%summary%}{{page.abstract}}{%endsummary%}
 {%summary%}
@@ -30,8 +32,8 @@ plugins:
 
 Keyname     | Required    | Type        | Description
 ----------- | --------    | ----        | -----------
-executor    | yes         | string      | Where should the plugin execute its operations? Valid Values: `central_deployment_agent`, `host_agent`.
-source      | conditional | string      | Where should the plugin be retrieved from? Could be either a path relative to the blueprint's root dir or a url. If `install` is `false`, `source` is redundant. If `install` is true, `source` is mandatory.
+executor    | yes         | string      | Where to execute the plugin's operations. Valid Values: `central_deployment_agent`, `host_agent`.
+source      | conditional | string      | Where to retrieve the plugin from. Could be either a path relative to the blueprint's root dir or a url. If `install` is `false`, `source` is redundant. If `install` is true, `source` is mandatory.
 install     | no          | boolean     | Whether to install the plugin or not as it might already be installed as part of the agent. Defaults to `true`.
 
 <br>
@@ -39,6 +41,10 @@ install     | no          | boolean     | Whether to install the plugin or not a
 Example:
 
 {%highlight yaml%}
+
+imports:
+    - {{page.openstack_plugin_yaml_link}}
+
 plugins:
   openstack:
     executor: central_deployment_agent
@@ -63,12 +69,16 @@ node_templates:
 In the above example, we configure 3 plugins:
 
 * The official Cloudify OpenStack plugin.
-* A custom Cloudify Puppet plugin provided with the blueprint.
-* A ruby scripts executor that is provided with a custom Cloudify agent that we're using.
+* A custom Cloudify puppet plugin provided with the blueprint.
+* A custom Cloudify ruby scripts executor plugin that is provided with a custom Cloudify agent that we're using.
 
 We then configure a `vm` node of type `openstack.nodes.Server` which uses a custom `my_interface` interface to run its operations.
 
 The `openstack` plugin's operations will be executed on the `central_deployment_agent` (i.e the [deployment agent]({{page.terminology_link}}#deployment-agent) running in the manager) and the `puppet` and `ruby` plugins' operations will be executed on the `host_agent`s (i.e. the [host agent]({{page.terminology_link}}#host-agent) running in the `vm`'s node instances).
+
+{%note title=Note%}
+We declared the `install` variables to be `false` when declaring the ruby scripts executor plugin. This was done since we're using a custom Cloudify agent we created using the [agent-packager]({{page.agent_packager_link}}) which is already provided with this plugin so no installation is necessary.
+{%endnote%}
 
 Essentially:
 
