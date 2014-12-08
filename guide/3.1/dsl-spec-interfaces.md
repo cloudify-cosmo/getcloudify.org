@@ -52,6 +52,15 @@ executor         | no       | string      | Valid values: `central_deployment_ag
 
 Example:
 
+Here we will declare an interface which will allow us to:
+
+* Configure a master deployment server using a plugin.
+* Deploy code on the hosts using a plugin.
+* Verify that the deployment succeeded using a shell script.
+* Start the application after the deployment ended.
+
+Configuring the master server:
+
 {%highlight yaml%}
 plugins:
   deployer:
@@ -71,15 +80,15 @@ node_templates:
 {%endhighlight%}
 
 In this example, we've:
-- Declared a plugin called `deployer` which, by default, should execute its operations on the Cloudify manager.
+- Declared a plugin called `deployer` which, [by default](#overriding-the-executor), should execute its operations on the Cloudify manager.
 - Declared an interface `my_deployment_interface` with a `configure` operation which should execute the `deployer.config_in_master.configure` task. We also provided it with some inputs.
 - Declared a `nodejs_app` node which uses our declared interface and executes the `configure` operation.
 
 
+# Overriding the executor
 
-# Overriding the executor for a specific operation
-
-Cloudify enables declaring an `executor` for a single operation thus overriding the previous declaration in under the `plugins` section.
+In the above example we've declared an `executor` for our `deployer` plugin.
+Cloudify enables declaring an `executor` for a single operation thus overriding the previous declaration.
 
 Example:
 
@@ -111,14 +120,14 @@ node_templates:
         deploy: my_deployment_interface.deploy
 {%endhighlight%}
 
-Let's add a `deploy` operation to the previous example and override the `executor` to execute the operation on `host_agent` instead of the previously declared `central_deployment_agent`.
+Here we added a `deploy` operation to our interface. Note that its `executor` attribute is configured to `host_agent` which means that even though the `deployer` plugin is configured to execute operations on the `central_deployment_agent`, the `deploy` operation will be executed on hosts of the `nodejs_app` rather than the Cloudify manager.
 
 
-# Mapping operations to a script
+# Mapping an operation to a script
 
 Cloudify provides an easy way to map operations to script executions using the [Script Plugin]({{page.script_plugin_link}}).
 
-This is done by providing a script path directly to the operation rather than providing the `implementation` variable thus working around the default method of declaring operation mappings.
+This is done by providing a script path directly to the operation rather than providing the `implementation` attribute thus working around the default method of declaring operation mappings.
 
 Example:
 
@@ -133,7 +142,7 @@ interfaces:
       ...
     deploy:
       ...
-    verify: scripts/verifier.py
+    verify: scripts/deployment_verifier.py
 
 node_templates:
   vm:
@@ -147,7 +156,7 @@ node_templates:
         verify: my_deployment_interface.verify
 {%endhighlight%}
 
-Let's add a deployment verification script execution to the previous example.
+Here we've added a `verify` operation to our interface which maps directly to a script afterwhich we've configured the `nodejs_app` node to use that operation.
 
 
 # Declaring an operation implementation within the node
@@ -167,7 +176,42 @@ interfaces:
       ...
     deploy:
       ...
-    verify: scripts/verifier.py
+    verify: scripts/deployment_verifier.py
+
+node_templates:
+  vm:
+    type: cloudify.openstack.nodes.Server
+  nodejs_app:
+    type: cloudify.nodes.WebServer
+    interfaces:
+      my_deployment_interface:
+        ...
+        start: scripts/start_app.sh
+{%endhighlight%}
+
+Let's say that we use our `my_deployment_interface` on more than the `nodejs_app` node. And while on all other nodes the last operation to be executed is the `verify` operation, we'd like to have a `start` operation for the `nodejs_app` node specifically which will run our application after it is deployed.
+
+Here, we've declared the `start` operation and mapped it to execute a script specifically on the `nodejs_app` node.
+
+
+# Adding inputs to an interface's operation
+
+You can add [inputs]({{page.dsl_inputs_link}}) to an interface's operation.
+
+Example:
+
+{%highlight yaml%}
+plugins:
+  deployer:
+    executor: central_deployment_agent
+
+interfaces:
+  my_deployment_interface:
+    configure:
+      ...
+    deploy:
+      ...
+    verify: scripts/deployment_verifier.py
 
 node_templates:
   vm:
@@ -178,7 +222,7 @@ node_templates:
       my_deployment_interface:
         ...
         start:
-          implementation: scripts/start.sh
+          implementation: scripts/start_app.sh
           inputs:
             app:
               type: string
@@ -187,7 +231,6 @@ node_templates:
               type: bolean
               default: true
 {%endhighlight%}
-
 
 # Relationship Interfaces
 
