@@ -14,6 +14,12 @@ installation_bootstrapping_link: installation-bootstrapping.html
 ---
 {%summary%}{{page.abstract}}{%endsummary%}
 
+
+{%note title=Known Issue (!)%}
+If you have already installed a previous version of the CLI,
+Make sure to delete any *.cloudify* folders inside the destination directory you are about to install into (or any of its parent directories).
+{%endnote%}
+
 Cloudify CLI (AKA cfy) is being distributed in two different methods:
 
 1. As a binary package
@@ -126,6 +132,12 @@ Under Ubuntu, you'll need to install the `python-dev` package.
 
 ### OS X
 You will need Apple's developers tools that are installed with Xcode.
+
+{% tip title=Tip%}
+By default, cloudify will place the CLI log file under this path: '{tmp_folder}/cloudify-{username}/cloudify-cli.log'
+You can change this by editing the 'config.yaml' file found at '{cli_installation_folder}/.cloudify'
+{% endtip %}
+
 
 # What's Next
 * Now that you know the requirements and have the CLI installed, you can [bootstrap your own manager]({{ page.installation_bootstrapping_link }})
