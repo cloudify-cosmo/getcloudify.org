@@ -22,8 +22,8 @@ The value represents the full path to the method that implements this workflow
 
 {%highlight yaml%}
 workflows:
-  workflow1: ...
-  workflow2: ...
+  workflow_1: my_workflow_plugin_name.my_workflow_module_name.my_first_workflow_method
+  workflow_2: my_workflow_plugin_name.my_workflow_module_name.my_seconde_workflow_method
 {%endhighlight%}
 
 * Mapping with parameters - maps a workflow name to a workflow implementation that uses parameters. Workflow parameters are structured as a schema map, where each entry specifies the parameter schema.
@@ -31,12 +31,12 @@ workflows:
 {%highlight yaml%}
 workflows:
   workflow_1:
-    mapping: my_workflow_plugin_name.my_workflow_module_name.my_workflow_method_name
+    mapping: my_workflow_plugin_name.my_workflow_module_name.my_workflow_method
     parameters:
-      mandatory_parameter:
-        description: this parameter is mandatory
-      optional_parameter:
-        description: this parameters is optional, if not set, will take the default
+      my_mandatory_parameter:
+        description: this parameter is mandatory, it has no default value
+      my_optional_parameter:
+        description: this parameters is optional, if not set it will take the default value
         default: optional_parameter_default_value
 
 {%endhighlight%}
@@ -45,11 +45,11 @@ workflows:
 
 Keyname     | Required | Type        | Description
 ----------- | -------- | ----        | -----------
-mapping     | yes      | string      | A mapping to the method implementing this workflow. In the “Simple mapping” format this value is set without explicitly using the “mapping” key
-parameters  | no       | map         | parameters to be passed to the workflow implementation
+mapping     | yes      | string      | A path to the method implementing this workflow (In the “Simple mapping” format this value is set without explicitly using the “mapping” key)
+parameters  | no       | dict        | A map of parameters to be passed to the workflow implementation
 
 {%note title=Note%}
-It is currently not allowed to set the “mapping” key without setting “parameters” as well. If your workflow method doesn’t accept parameters use the “simple mapping” format described above.
+It is currently not allowed to set the “mapping” key without setting “parameters” as well. If your workflow method doesn’t accept parameters - use the “simple mapping” format (described above).
 {%endnote%}
 
 ### Parameter Definition
@@ -57,6 +57,7 @@ It is currently not allowed to set the “mapping” key without setting “para
 Keyname     | Required | Type        | Description
 ----------- | -------- | ----        | -----------
 description | no       | string      | An optional description for the input.
+type        | no       | string      | Represents the required data type of the input. Not specifying a data type means the type can be anything. Valid types: string, integer, boolean
 default     | no       | \<any\>     | An optional default value for the input.
 
 
@@ -80,11 +81,13 @@ plugins:
     source: http://example.com/url/to/plugin.zip
 
 workflows:
+  general_test_connection_workflow: maintenance_workflows_plugin.maintenance_workflows.validate_all_connections
   test_connection_workflow:
     mapping: maintenance_workflows_plugin.maintenance_workflows.validate_connection
     parameters:
       protocol:
         description: the protocol to use for connection
+        type: string
       port:
         description: the port to use for connection
         default: 8080
