@@ -39,6 +39,11 @@ workflows:
 
 {%endhighlight%}
 
+{%note title=Note%}
+It is currently not allowed to set the “mapping” key without setting “parameters” as well. If your workflow method doesn’t accept parameters - use the “simple mapping” format (described above).
+{%endnote%}
+
+
 ### Workflow Definition
 
 Keyname     | Required | Type        | Description
@@ -46,9 +51,6 @@ Keyname     | Required | Type        | Description
 mapping     | yes      | string      | A path to the method implementing this workflow (In the “Simple mapping” format this value is set without explicitly using the “mapping” key)
 parameters  | no       | dict        | A map of parameters to be passed to the workflow implementation
 
-{%note title=Note%}
-It is currently not allowed to set the “mapping” key without setting “parameters” as well. If your workflow method doesn’t accept parameters - use the “simple mapping” format (described above).
-{%endnote%}
 
 ### Parameter Definition
 
