@@ -63,9 +63,16 @@ default     | no       | \<any\>     | An optional default value for the input.
 
 <br>
 Example:
-In the following example, a workflow plugin named “maintenance_workflows_plugin” is defined. A workflow named “test_connection_workflow” is then declared, pointing to an implementation in module “maintenance_workflows”, method “validate_connection”. 
-The first parameter is “protocol”. This parameter is mandatory.
-The second parameter is “port”. This parameter is optional, if not passed upon workflow execution, the default value 8080 will be used.
+
+In the following example, a workflow plugin named “maintenance_workflows_plugin” is defined, and two workflows refer to it.
+
+The first workflow is named "general_test_connection_workflow", it does not accept parameters and so it just maps the relevant implementation in module “maintenance_workflows”, method “validate_all_connections”.
+
+The second workflow is named “test_connection_workflow”, it is mapped to the method "validate_connection" in module “maintenance_workflows”, and accpets three parameters.
+
+The first parameter is “protocol”. This parameter is mandatory, and its type indicated it takes a string value.
+
+The second parameter is “port”. This parameter is optional, meaning that if not passed upon workflow execution, the default value 8080 will be used.
 The third parameter is “connection_properties”. It’s default value is a map consisting of 2 entries - “timeout_seconds” set to 60, and “retry_attempts” set to 3.
 
 {%highlight yaml%}
