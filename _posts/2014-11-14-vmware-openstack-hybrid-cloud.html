@@ -13,7 +13,8 @@ tags:
 
 <notextile>
 
-<img src="img/vmware4.png" width="600" alt="VMWare Orchestration | TOSCA Orchestration | VMware Cloud Orchestration ">
+<div class="aligncenter">
+<img src="/img/vmware4.png" width="600" alt="VMWare Orchestration | TOSCA Orchestration | VMware Cloud Orchestration "></div>
 <br/>
 <br/>
 
@@ -35,7 +36,7 @@ tags:
 
 <p>In this option the Nova scheduler can spawn VMware ESX VM’s through an ESX enabled node (as opposed to KVM which runs directly from the Nova compute node).</p>
 <div class="aligncenter">
-<p><img src="img/vmware3.png" alt="" width="600" /></p></div>
+<p><img src="/img/vmware3.png" alt="" width="600" /></p></div>
 
 <p>Pros:</p>
 
@@ -48,10 +49,10 @@ tags:
 <p>In this approach we utilize the compute resources using vSphere. This will allow us to take advantage of all the VMware features that come with vSphere and overcome the limitations mentioned above.</p>
 <p>In this case, the entire vCenter ESX cluster appears as a one big hypervisor. The actual allocation of the ESX hosts is done through VMware vCenter and is not exposed to the Nova Controller, as outlined in the diagram below:</p>
 <div class="aligncenter">
-<p><img src="img/vmware2.png" alt="" width="600" /></p></div>
+<p><img src="/img/vmware2.png" alt="" width="600" /></p></div>
 <p>Similarly, we will plug-in the VMware Storage and Network services to allow for even more complete integration across the compute, network and storage stack as outlined in the diagram below:</p>
 <div class="aligncenter">
-<p><img src="img/vmware1.png" alt="" width="600" /></p></div>
+<p><img src="/img/vmware1.png" alt="" width="600" /></p></div>
 <p>You can learn more about how this integration works in the <a href="http://docs.openstack.org/trunk/config-reference/content/vmware.html">OpenStack reference guide</a>.</p>
 <p>Pros:</p>
 <p>The main advantage of this approach is that it enables users of VMware to benefit from both worlds; on one hand, they can use OpenStack as an open API and on the other hand they can utilize their existing VMware infrastructure.</p>
@@ -64,7 +65,7 @@ tags:
 <p>In the third option we will not use any of the OpenStack VMware plug-ins, but instead we will use an orchestration layer as higher level abstraction between OpenStack and our VMware environment.</p>
 <p>The orchestration layer provides a common management and deployment infrastructure. In this approach we will not be trying to force the VMware infrastructure to fit into the OpenStack API, but instead we will just map the different calls to either OpenStack or VMware into the appropriate type. In this way, the application is kept aware of whether it is running on OpenStack or VMware. However, since the calls to each of the infrastructure components are now centralized into one driver per environment, it is managed once for all the applications. Additionally, there is a default implementation for the built-in types, so in most cases the user will need to deal with the details of implementations of each element type only for specific customization.</p>
 <div class="aligncenter">
-<p><img src="img/vmware4.png" alt="" width="600" /></p></div>
+<p><img src="/img/vmware4.png" alt="" width="600" /></p></div>
 <p>Pros:</p>
 <ol>
 <li>We are able to utilize all of the features and capabilities of each infrastructure with no limits.</li>
