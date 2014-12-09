@@ -21,19 +21,19 @@ terminology_link: reference-terminology.html
 {%summary%} {{page.abstract}}{%endsummary%}
 
 # Monitoring
-The Cloudify's monitoring using [Grafana]({{page.grafana}}) dashboard to help you track your VM's.  
-The monitoring can be found on each deployment page in the user interface:  
+Cloudify's Monitoring Implementation uses [Grafana]({{page.grafana}}) for tracking system metrics.
+The monitoring section can be found on each deployment's page in the user interface:
 ![The monitoring section button](/guide/images/ui/ui-monitoring-tab.jpg)
 
-Once you open the monitoring section you can found a default dashboard with six graphs.  
-You can also custom your dashboard however you wish for and save it on a JSON file or on your browser local-storage.
+Once you open the monitoring section you can find a default dashboard with six graphs.
+You can also customize your dashboard however you want and save it on a JSON file or in your browser's local storage.
 
 ![The monitoring](/guide/images/ui/ui_monitoring.jpg)
 
 ### Default Dashboard:
-The default dashboard is a set of graphs that Cloudify will initialize if dashboard is not already exist.  
-the present common system metrics and our good start from which you can customize your dashboard.  
-the default dashboard includes the following metrics:
+The default dashboard is a set of graphs that Cloudify will initialize if a dashboard doesn't already exist.
+The presented common system metrics are a good start from which you can further customize your dashboard.
+The default dashboard includes the following metrics:
 
 * CPU Utilization - System
 * CPU Utilization - User
@@ -43,14 +43,14 @@ the default dashboard includes the following metrics:
 * Network IO - TX
 
 # Setting up your blueprint for monitoring
-The Default dashboard will be filled only if the blueprint is configured to deliver data of the default metrics.  
-For example of configured blueprint, go to [cloudify-nodecellar-example]({{page.cloudify_nodecellar_example}}).
+The Default dashboard will display metrics only if the blueprint is configured to deliver metrics corresponding with the default dashboard's configured view.
+For an example of an already configured blueprint, go to [cloudify-nodecellar-example]({{page.cloudify_nodecellar_example}}).
 
 # Example - Customize your dashboard
-To start customize your graph, click on the panel's title and then 'Edit' to open a panel in edit mode:  
+To start customizing your graph, click on the panel's title and then 'Edit' to open a panel in edit mode:
 ![The monitoring panel edit mode](/guide/images/ui/ui-monitoring-title-edit.jpg)
 
-Once you in edit mode, you can edit or add new metrics under 'metrics' section:  
+Under the edit mode, you can edit or add new metrics under 'metrics' section:
 ![The monitoring panel edit mode of metrics](/guide/images/ui/ui-monitoring-edit-metrics.jpg)
 
 To change the title / span / height of the panel click on 'General' in edit mode:  
@@ -62,7 +62,7 @@ To change the axes and grid of the panel click on 'Axes & Grid' in edit mode:
 To change colors and styles of the panel click on 'Display Styles' in edit mode:  
 ![The monitoring panel edit mode of styles](/guide/images/ui/ui-monitoring-edit-styles.jpg)
 
-# Grafana Feature Guides
+# Features Guide
 The [Grafana]({{page.grafana}}) guide will help you get started and acquainted with the monitoring user interface:
 
 * [Getting started]({{page.grafana_getting_started}})
@@ -79,9 +79,9 @@ The [Grafana]({{page.grafana}}) guide will help you get started and acquainted w
 * Ctrl+S Saves the current dashboard
 * Ctrl+F Opens the dashboard finder / search
 * Ctrl+H Hides all controls (good for tv displays)
-* Hit Escape to exit graph when in fullscreen or edit mode
-* Click the colored icon in the legend to select series color
-* Click series name in the legend to hide series
-* Ctrl/Shift/Meta + Click legend name to hide other series
+* Hit Escape to exit the graph when in fullscreen or edit mode
+* Click the colored icon in the legend to select a series color
+* Click the series name in the legend to hide the series
+* Ctrl/Shift/Meta + Click the legend name to hide other series
 * Click the Save icon in the menu to save the dashboard with a new name
 * Click the Save icon in the menu and then advanced to export the dashboard to json file, or set it as your default dashboard.
