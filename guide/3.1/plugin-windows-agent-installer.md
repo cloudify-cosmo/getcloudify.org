@@ -54,25 +54,23 @@ on the agent machine, installing plugins required on this host and starting a ce
 The agent configuration is located under the `cloudify_agent` property of a host node.
 
 {% highlight yaml %}
-blueprint:
-  name: example
-  nodes:
-    - name: example_windows_host
-      type: cloudify.openstack.windows_server
-      properties:
-        cloudify_agent:
-          user:                     # no default value (globally configurable in bootstrap configuration)
-          password:                 # no default value
-          port: 5985                # default value (from bootstrap configuration)
-          min_workers: 2            # default value (from bootstrap configuration)
-          max_workers: 5            # default value (from bootstrap configuration)
-          service:
-              start_timeout: 30
-              stop_timeout: 30
-              status_transition_sleep_interval: 5
-              successful_consecutive_status_queries_count: 3
-              failure_reset_timeout: 60
-              failure_restart_delay: 5000
+nodes_templates:
+  example_windows_host:
+    type: cloudify.openstack.nodes.WindowsServer
+    properties:
+      cloudify_agent:
+        user:                     # no default value (globally configurable in bootstrap configuration)
+        password:                 # no default value
+        port: 5985                # default value (from bootstrap configuration)
+        min_workers: 2            # default value (from bootstrap configuration)
+        max_workers: 5            # default value (from bootstrap configuration)
+        service:
+          start_timeout: 30
+          stop_timeout: 30
+          status_transition_sleep_interval: 5
+          successful_consecutive_status_queries_count: 3
+          failure_reset_timeout: 60
+          failure_restart_delay: 5000
 {%endhighlight%}
 
 * `user` username for establishing a WinRM connection
@@ -95,6 +93,7 @@ The following plugins and libraries are bundled within every Cloudify windows ag
 
 * cloudify-plugins-common (required by every plugin)
 * cloudify-rest-client
+* cloudify-script-plugin
 
 ## Plugins
 

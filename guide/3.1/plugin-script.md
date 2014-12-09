@@ -26,16 +26,16 @@ Following are usage examples demonstrating different configuration options.
 `blueprint.yaml`
 {% highlight yaml %}
 imports:
-    - {{page.types_yaml_link}}
+  - {{page.types_yaml_link}}
 
 node_templates:
-    example_web_server
-        # The web server type is only used for this example. The type used
-        # could be any valid cloudify type.
-        type: cloudify.types.web_server
-        interfaces:
-            cloudify.interfaces.lifecycle:
-                start: scripts/start.sh
+  example_web_server:
+    # The web server type is only used for this example. The type used
+    # could be any valid cloudify type.
+    type: cloudify.nodes.WebServer
+    interfaces:
+      cloudify.interfaces.lifecycle:
+        start: scripts/start.sh
 {%endhighlight%}
 
 `scripts/start.sh`
@@ -50,11 +50,11 @@ Let's walk through this example and explain what's going on.
 First, notice how the `cloudify.interface.lifecycle.start` operation is mapped directly to a script. When an operation is mapped, if the mapping points to a resource that is included in the blueprint directory, it is considered to be a script and the script plugin is used. So in fact, the above mapping is equivalent to:
 {% highlight yaml %}
 interfaces:
-    cloudify.interfaces.lifecycle:
-        start:
-            implementation: script.script_runner.tasks.run
-            inputs:
-                script_path: scripts/start.sh
+  cloudify.interfaces.lifecycle:
+    start:
+      implementation: script.script_runner.tasks.run
+      inputs:
+        script_path: scripts/start.sh
 {%endhighlight%}
 
 
@@ -78,10 +78,8 @@ ctx logger info "Hello to this world"
 {%endhighlight%}
 
 demonstrates how scripts can access the operation context. This line is equivalent to writing
-{% highlight bash %}
-@operation
-def start(**kwargs):
-  ctx.logger.info('Hello to this world')
+{% highlight python %}
+ctx.logger.info('Hello to this world')
 {%endhighlight%}
 
 within a python plugin operation.
@@ -95,22 +93,22 @@ The following example shows how you could configure the working directory the sc
 `blueprint.yaml`
 {% highlight yaml %}
 imports:
-    - {{page.types_yaml_link}}
+  - {{page.types_yaml_link}}
 
 node_templates:
-    example_web_server
-        type: cloudify.types.web_server
-        interfaces:
-            cloudify.interfaces.lifecycle:
-                start:
-                    implementation: scripts/start.sh
-                    inputs:
-                        process:
-                            # this directory should already exist
-                            cwd: /tmp/workdir
-                            args: [arg1_value, arg2_value]
-                            env:
-                                MY_ENV_VARIABLE: MY_ENV_VARIABLE_VALUE
+  example_web_server:
+    type: cloudify.nodes.WebServer
+    interfaces:
+      cloudify.interfaces.lifecycle:
+        start:
+          implementation: scripts/start.sh
+          inputs:
+            process:
+              # this directory should already exist
+              cwd: /tmp/workdir
+              args: [arg1_value, arg2_value]
+              env:
+                MY_ENV_VARIABLE: MY_ENV_VARIABLE_VALUE
 {%endhighlight%}
 
 `scripts/start.sh`
@@ -135,16 +133,16 @@ Python scripts get special treatment in the script plugin. If the script path en
 `blueprint.yaml`
 {% highlight yaml %}
 imports:
-    - {{page.types_yaml_link}}
+  - {{page.types_yaml_link}}
 
 node_templates:
-    example_web_server
-        type: cloudify.types.web_server
-            properties:
-                port: 8080
-            interfaces:
-                cloudify.interfaces.lifecycle:
-                    start: scripts/start.py
+  example_web_server:
+    type: cloudify.nodes.WebServer
+    properties:
+      port: 8080
+    interfaces:
+      cloudify.interfaces.lifecycle:
+        start: scripts/start.py
 {%endhighlight%}
 
 `scripts/start.py`
@@ -159,12 +157,12 @@ If you a want a script to get evaluated as python and it does not have a `.py` e
 
 {% highlight yaml %}
 interfaces:
-    cloudify.interfaces.lifecycle:
-        start:
-            implementation: script/my_python_script
-            inputs:
-                process:
-                    eval_python: true
+  cloudify.interfaces.lifecycle:
+    start:
+      implementation: script/my_python_script
+      inputs:
+        process:
+          eval_python: true
 {%endhighlight%}
 
 If on the other hand a script does have a `.py` extension and you want it to get executed in an external process, simply pass `false` to the `eval_python` process configuration. Do note however, that accessing the operation context in this case will be done through the [context proxy](#context-proxy) as with any other none python script.
@@ -176,18 +174,18 @@ In some cases, you do not want to use `#!` to specify how to execute the script 
 `blueprint.yaml`
 {% highlight yaml %}
 imports:
-    - {{page.types_yaml_link}}
+  - {{page.types_yaml_link}}
 
 node_templates:
-      example_web_server
-          type: cloudify.types.web_server
-          interfaces:
-              cloudify.interfaces.lifecycle:
-                  start:
-                      implementation: scripts/start.rb
-                      inputs:
-                          process:
-                              command_prefix: /opt/ruby/bin/ruby
+  example_web_server:
+    type: cloudify.nodes.WebServer
+    interfaces:
+      cloudify.interfaces.lifecycle:
+        start:
+          implementation: scripts/start.rb
+          inputs:
+            process:
+              command_prefix: /opt/ruby/bin/ruby
 {%endhighlight%}
 
 This will execute `start.rb` with the ruby binary in `/opt/ruby/bin/ruby`
@@ -197,18 +195,18 @@ Another use case for this would be to run a powershell script on windows. This c
 `blueprint.yaml`
 {% highlight yaml %}
 imports:
-    - {{page.types_yaml_link}}
+  - {{page.types_yaml_link}}
 
 node_templates:
-    example_web_server
-        type: cloudify.types.web_server
-        interfaces:
-            cloudify.interfaces.lifecycle:
-                start:
-                    implementation: scripts/start.ps1
-                    inputs:
-                        process:
-                            command_prefix: powershell
+  example_web_server:
+    type: cloudify.nodes.WebServer
+    interfaces:
+      cloudify.interfaces.lifecycle:
+        start:
+          implementation: scripts/start.ps1
+          inputs:
+            process:
+              command_prefix: powershell
 {%endhighlight%}
 
 This will execute the script using the `powershell` binary.
@@ -244,26 +242,26 @@ Say you want to add a custom workflow that runs a custom operation on each node.
 `blueprint.yaml`
 {% highlight yaml %}
 imports:
-    - {{page.types_yaml_link}}
+  - {{page.types_yaml_link}}
 
 node_templates:
-    node1
-        type: cloudify.types.base
-        interfaces:
-            custom:
-                touch: scripts/touch.py
-    node2
-        type: cloudify.types.base
-        interfaces:
-            custom:
-                touch: scripts/touch.py
+  node1:
+    type: cloudify.nodes.Root
+    interfaces:
+      custom:
+        touch: scripts/touch.py
+  node2:
+    type: cloudify.nodes.Root
+    interfaces:
+      custom:
+        touch: scripts/touch.py
 
 workflows:
-    touch_all:
-        mapping: workflows/touch_all.py
-        parameters:
-            touched_value:
-                description: the value to touch the instance with
+  touch_all:
+    mapping: workflows/touch_all.py
+    parameters:
+      touched_value:
+        description: the value to touch the instance with
 {%endhighlight%}
 
 Next, let's write the `touch.py` script. Notice that this script ends with a `.py` extension so it will get evaluated as python code.
@@ -333,7 +331,7 @@ Translates to
 ctx.logger.info('Some logging')
 {%endhighlight%}
 
-In this example, a `logger` attribute is searched on the `ctx` object. Once found, an `info` attribute is searched on the `logger` result. Once found it discovers that `info` is callable so it invokes it with the remaining arguments.
+In this example, a `logger` attribute is searched on the `ctx` object. Once found, an `info` attribute is searched on the `logger` result. Once found, it discovers that `info` is callable so it invokes it with the remaining arguments.
 
 ## Method invocation with kwargs
 {% highlight bash %}
@@ -396,7 +394,7 @@ ctx.instance.runtime_properties['number_of_clients'] = 14  # instead of = '14'
 If you want the operation to return a value you can use `ctx returns some_value`.
 This invocation will set `some_value` on the current `ctx` and the script plugin will return this value when the script terminates.
 
-It should be noted that this call will not make the script terminate but it is probably best practice to make this call at the end of the script.
+It should be noted that this call will not make the script terminate, but it is probably best practice to make this call at the end of the script.
 
 ## Command line optional arguments of `ctx`
 These following flags should appear before the positional arguments.
@@ -412,19 +410,19 @@ TODO
 
 # Context Proxy Protocol
 
-When you call the `ctx` executable you are actually invoking a cli client that comes pre-installed with the plugin.
+When you call the `ctx` executable you are actually invoking a CLI client that comes pre-installed with the plugin.
 Under the hood, when the script plugin executes your script, it also starts a ctx proxy server that delegates calls to the actual `ctx` object instance.
 
 Before the script plugins starts the proxy server it checks the following:
 
-* If ZeroMQ is installed (which it does if using the default agent packages)
+* If ZeroMQ is installed (which applies if using the default agent packages)
   - If running on linux, a unix domain socket is used as the transport layer
   - If running on windows, a tcp socket is used as the transport layer
 * If ZeroMQ is not installed an http based transport layer is used
 
 This behavior can be overridden by setting `proxy_ctx_type` of the process configuration to be one of `unix`, `tcp`, `http` or `none`. If `none` is set, no proxy server will be started.
 
-The `ctx` cli client implements a simple protocol on top of the above transport layers that can be implemented in other languages to provide a more streamlined access to the context.
+The `ctx` CLI client implements a simple protocol on top of the above transport layers that can be implemented in other languages to provide a more streamlined access to the context.
 
 When the script plugin executes the script, it updates the script process with the `CTX_SOCKET_URL` environment variable.
 
@@ -432,7 +430,7 @@ When the script plugin executes the script, it updates the script process with t
 * If a tcp socket based proxy was started, its value will look like: `tcp://127.0.0.1:53213`
 * If an http socket based proxy was started, its value will look like: `http://localhost:35321`
 
-The first two are valid ZeroMQ socket urls and should be passed as is to the ZeroMQ client. The last one is the http endpoint that should be used when making REST calls.
+The first two are valid ZeroMQ socket URLs and should be passed as is to the ZeroMQ client. The last one is the HTTP endpoint that should be used when making REST calls.
 
 If a ZeroMQ client is implemented, it should start a `request` based socket (as the proxy server starts the matching `response` socket)
 
@@ -465,4 +463,4 @@ In case of a failed execution:
 }
 {%endhighlight%}
 
-You can look at the [cli implementation]({{page.client_reference_link}}) for reference.
+You can look at the [CLI implementation]({{page.client_reference_link}}) for reference.

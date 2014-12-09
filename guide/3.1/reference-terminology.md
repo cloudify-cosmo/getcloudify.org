@@ -21,8 +21,20 @@ They may be located on either the application VM, on the manager, or elsewhere -
 
 Agents read tasks from a tasks broker and delegate them to a worker subprocess (a Plugin based Python process).
 
-Each `deployement` has a dedicated agent on the manager known as `Deployment Agent`
+There are currently 3 types of agents. They're listed below.
 
+#### **Deployment-Agent**
+An agent dedicated to a specific [Deployment](#deployment).
+
+This agent installs other agents on the hosts of a specific deployment.
+
+#### **Workflow-Agent**
+An agent dedicated to a specific [Deployment](#deployment) which is in charge of executing workflows.
+
+#### **Host-Agent**
+An agent dedicated to a specific [Host](#host).
+
+This agent executes plugin tasks on the host machine.
 
 ### **Application**
 An Application in Cloudify means a software based business service with all of its IT components at the infrastructure, middleware and business logic levels.
@@ -60,16 +72,13 @@ and more...
 
 In addition, the context object exposes an API for interacting with Cloudify. For example, getting a [node's](#node) [properties](#properties).
 
-### **Execution Cancellation**
-
-#### **Standard Cancellation** (Coming soon...)
-
-#### **Forced Cacncellation** (Coming soon...)
-
 ### **Deployment**
 A deployment is the plan and the state of a single [application](#application) environment and is a direct derivative of a [blueprint](#blueprint).
 
 Deployments are model-representations of [node](#node) instances (which form applications) and their runtime [state](#node-instance-state).
+
+### **DSL Version**
+See [DSL Versioning](dsl-spec-versioning.html).
 
 ### **Event**
 An Event is a JSON representation of an occurance in Cloudify's environment.
@@ -83,8 +92,17 @@ An Execution is a running instance of a [workflow](#workflow) and is based on a 
 
 An Execution (unlike a [deployment](#deployment) or a [blueprint](#blueprint) has logs and [events](#event) associated with it.
 
+### **Execution Cancellation**
+
+#### **Standard Cancellation** (Coming soon...)
+
+#### **Forced Cacncellation** (Coming soon...)
+
+### **Host**
+A single instance of a Virtual Machine, Physical Machine or a Linux Container.
+
 ### **Host node**
-A node in the blueprint that represents a type of host whether it's a virtual or physical server.
+A node in the blueprint that represents a type of [host](#host) whether it's a virtual or physical server.
 
 ### **Interface**
 Interfaces set the protocol between the [Topology](#topology) and the [Workflow](#workflow) that uses it.
@@ -99,6 +117,9 @@ More elaborately, An Interface is a set of hooks (dabbed **Operations**) that a 
 
 ### **Live node**
 A node instance(#node-instance) which is not in either the `uninitialized` or `deleted` states(#node-instance-state).
+
+### **Main Blueprint File**
+When a blueprint is uploaded to the [manager](#manager), this is the name specified. The entire directory containing the main blueprint file will be uploaded. After that, the main blueprint file will be parsed. Additional YAML files may imported by this blueprint file.
 
 ### **Manager**
 See the definition [here]({{page.arch_link}}#the-manager-orchestrator).
@@ -170,11 +191,9 @@ The provider context is available in any [plugin](#plugin) function in case the 
 ### **Relationship**
 Relationships are [types](#type) that describe the nature of dependency between [nodes](#node) and the logic, if required, to glue nodes together.
 
-For example, a relationship can be of type `cloudify.types.contained_in`. That means that node `X` is hosted within node `Y` and therefore can't be created until node `Y` is created and running.
+For example, a relationship can be of type `cloudify.relationship.contained_in`. That means that node `X` is hosted within node `Y` and therefore can't be created until node `Y` is created and running.
 
 Another example is an Apache server that's connected to MySQL. In this case, Apache needs to be configured at runtime to connect to MySQL. Waiting for MySQL to be up and running won't suffice in this case. The relationship needs to map relationship [operations](#operation) to [plugin](#plugin) functions that execute the connection's configuration.
-
-### **Relationship implementation** (Coming soon...)
 
 ### **Relationship instance**
 An instance of a [relationship](#relationship) between 2 concerte [node instances](#node-instance).
@@ -182,13 +201,13 @@ An instance of a [relationship](#relationship) between 2 concerte [node instance
 ### **Relationship type**
 A [relationship](#relationship) [type](#type) describes the nature of dependency between 2 [nodes](#node) and the logic to materialize it (through [operations](#operation) mapping to implementation).
 
-A relationship is always between a source node and a target node and do it can have implementation logic to run on either or both.
+A relationship is always between a source node and a target node and it can have implementation logic to run on either or both.
 
 There are 3 basic relationship types:
 
-* depends_on - a base type for all relationships. It means the orchestrator must wait for the target node
-* contained_in - the source node is installed within the target node
-* connected_to - the source node has a connection to configure to the target node
+* `cloudify.relationship.depends_on` - a base type for all relationships. It means the orchestrator must wait for the target node
+* `cloudify.relationship.contained_in` - the source node is installed within the target node
+* `cloudify.relationship.connected_to` - the source node has a connection to configure to the target node
 
 ### **Runtime Data**
 The data model of the [deployements](#deployment) stored in Cloudify's database.
@@ -233,8 +252,6 @@ For example, `cloudify.types.openstack.server` is using the nova_plugin to commu
 The inheritence chain of a [type](#type) or a [relationship](#relationship).
 
 Cloudify [blueprints](#blueprint) use Object Oriented methaphore of inheritence so any concrete Type or relationship is derived from more basic type either with implementation that needs to be refined or without any operation implmentation.
-
-### **Type Implementation** (Coming soon...)
 
 ### **Workflow**
 A workflow is an automation process algorithm.

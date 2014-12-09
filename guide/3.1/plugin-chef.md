@@ -32,15 +32,13 @@ It's an error if neither of the two sets appear. You will see "Failed to find ap
 Example:
 {% highlight yaml %}
 imports:
-    - {{page.yaml_link}}
-blueprint:
-  name: example
-  nodes:
-    - name: example_web_server
-      type: cloudify.types.chef.web_server
-      properties:
-        chef_config:
-          cookbooks: http://chef.example.com/v1/cookbooks.tgz  # Solo
+  - {{page.yaml_link}}
+node_templates:
+  example_web_server:
+    type: cloudify.chef.nodes.WebServer
+    properties:
+      chef_config:
+        cookbooks: http://chef.example.com/v1/cookbooks.tgz  # Solo
           ...
 {%endhighlight%}
 
@@ -48,11 +46,11 @@ blueprint:
 
 Node types that can be used for Chef nodes are listed below. All of them are derived from the corresponding [abstract types](reference-types.html#abstract-types).
 
-* `cloudify.types.chef.app_module` -- derived from `cloudify.types.app_module`
-* `cloudify.types.chef.app_server` -- derived from `cloudify.types.app_server`
-* `cloudify.types.chef.db_server` -- derived from `cloudify.types.db_server`
-* `cloudify.types.chef.message_bus_server` -- derived from `cloudify.types.message_bus_server`
-* `cloudify.types.chef.web_server` -- derived from `cloudify.types.web_server`
+* `cloudify.chef.nodes.SoftwareComponent` -- derived from `cloudify.nodes.SoftwareComponent`
+* `cloudify.chef.nodes.ApplicationServer` -- derived from `cloudify.nodes.ApplicationServer`
+* `cloudify.chef.nodes.DBMS` -- derived from `cloudify.nodes.DBMS`
+* `cloudify.chef.nodes.ApplicationModule` -- derived from `cloudify.nodes.ApplicationModule`
+* `cloudify.chef.nodes.WebServer` -- derived from `cloudify.nodes.WebServer`
 
 In addition to inherited properties all of the Chef types have the following properties:
 
@@ -98,18 +96,16 @@ When defining a YAML node, there are several places that contain per-operation c
 
 {% highlight yaml %}
 imports:
-    - {{page.yaml_link}}
-blueprint:
-  name: example
-  nodes:
-    - name: example_web_server
-      type: cloudify.types.chef.web_server
-      properties:
-        chef_config:
-          ...
-          runlists:
-            start: 'recipe[my_org_webserver::start]'  # cloudify.interfaces.lifecycle.start
-            stop:  'recipe[my_org_webserver::stop]'   # cloudify.interfaces.lifecycle.stop
+  - {{page.yaml_link}}
+node_templates:
+  example_web_server:
+    type: cloudify.chef.nodes.WebServer
+    properties:
+      chef_config:
+        ...
+        runlists:
+          start: 'recipe[my_org_webserver::start]'  # cloudify.interfaces.lifecycle.start
+          stop:  'recipe[my_org_webserver::stop]'   # cloudify.interfaces.lifecycle.stop
 {%endhighlight%}
 
 ## Specifying runlist(s)
@@ -119,16 +115,14 @@ If `runlist` is given, it is used for all lifecycle operations. Example.
 
 {% highlight yaml %}
 imports:
-    - {{page.yaml_link}}
-blueprint:
-  name: example
-  nodes:
-    - name: example_web_server
-      type: cloudify.types.chef.web_server
-      properties:
-        chef_config:
-          ...
-          runlist: 'recipe[my_org_webserver::start]'  # cloudify.interfaces.lifecycle.*
+  - {{page.yaml_link}}
+node_templates:
+  example_web_server:
+    type: cloudify.chef.nodes.WebServer
+    properties:
+      chef_config:
+        ...
+        runlist: 'recipe[my_org_webserver::start]'  # cloudify.interfaces.lifecycle.*
 {%endhighlight%}
 
 If `runlists` is given, you can specify per-operation runlist. Operations with no runlist specified (under `runlists` > OPNAME) will not cause a Chef run.
@@ -141,18 +135,16 @@ Example:
 
 {% highlight yaml %}
 imports:
-    - {{page.yaml_link}}
-blueprint:
-  name: example
-  nodes:
-    - name: example_web_server
-      type: cloudify.types.chef.web_server
-      properties:
-        chef_config:
-          ...
-          runlists:
-            start: 'recipe[my_org_webserver::start],role[my-org-base]'  # cloudify.interfaces.lifecycle.start
-            stop:                                                       # cloudify.interfaces.lifecycle.stop
+  - {{page.yaml_link}}
+node_templates:
+  example_web_server:
+    type: cloudify.chef.nodes.WebServer
+    properties:
+      chef_config:
+        ...
+        runlists:
+          start: 'recipe[my_org_webserver::start],role[my-org-base]'  # cloudify.interfaces.lifecycle.start
+          stop:                                                       # cloudify.interfaces.lifecycle.stop
               - 'recipe[my_org_webserver::stop]'
               - 'recipe[my_org_webserver::cleanup]'
 {%endhighlight%}
@@ -164,18 +156,15 @@ You must specify which Chef version to install (to use as Client or Solo) under 
 Example:
 {% highlight yaml %}
 imports:
-    - {{page.yaml_link}}
-blueprint:
-  name: example
-  nodes:
-    - name: example_web_server
-      type: cloudify.types.chef.web_server
-      properties:
-        chef_config:
-          version: 11.10.4-1
-          ...
+  - {{page.yaml_link}}
+node_templates:
+  example_web_server:
+    type: cloudify.chef.nodes.WebServer
+    properties:
+      chef_config:
+        version: 11.10.4-1
+        ...
 {%endhighlight%}
-
 
 
 ## Automatic Chef attributes
@@ -212,16 +201,14 @@ All attributes provided in the blueprint, under `properties` > `chef_config` > `
 
 Say the node properties are:
 {% highlight yaml %}
-blueprint:
-  name: example
-  nodes:
-    - name: some node
-      type: some_type
-      properties:
-        some_prop: some_value
-        some_map:
-            prop1: value1
-            prop2: value2
+node_templates:
+  some node:
+    type: some_type
+    properties:
+      some_prop: some_value
+      some_map:
+        prop1: value1
+        prop2: value2
 {%endhighlight%}
 
 The following Chef attributes will be available:
@@ -254,30 +241,27 @@ The reference is done using specifically constructed hash in place where the val
 Example:
 {% highlight yaml %}
 imports:
-    - {{page.yaml_link}}
-blueprint:
-  name: example
-  nodes:
+  - {{page.yaml_link}}
+node_templates:
+  example_web_server:
+    type: cloudify.chef.nodes.WebServer
+    ...
+    properties:
+      chef_config:
+        ...
+        attributes:
+          db:
+            host: {related_chef_attribute: ipaddress}
+            port: {related_chef_attribute: db.port} # node['db']['port'] of example_db_server
+            user: {related_chef_attribute: db.user}
+            pass: {related_chef_attribute: db.pass}
+            some_val: {related_runtime_property: some.other.prop}
+    relationships:
+      - type: cloudify.relationships.connected_to
+        target: example_db_server
 
-    - name: example_web_server
-      type: cloudify.types.chef.web_server
-      ...
-      properties:
-        chef_config:
-          ...
-          attributes:
-            db:
-              host: {related_chef_attribute: ipaddress}
-              port: {related_chef_attribute: db.port} # node['db']['port'] of example_db_server
-              user: {related_chef_attribute: db.user}
-              pass: {related_chef_attribute: db.pass}
-              some_val: {related_runtime_property: some.other.prop}
-      relationships:
-        -   type: cloudify.relationships.connected_to
-            target: example_db_server
-
-    - name: example_db_server
-      type: cloudify.types.chef.db_server
+    example_db_server:
+      type: cloudify.chef.nodes.DBMS
       ...
       properties:
         chef_config:
@@ -327,35 +311,35 @@ Chef configuration properties correspond to [properties in client.rb](http://doc
 
 Sample Chef YAML node:
 {% highlight yaml %}
--
-    name: chef_node_one
-    type: cloudify.types.chef.db_server
+node_temlates:
+  chef_node_one:
+    type: cloudify.chef.nodes.DBMS
     properties:
-        chef_config:
-            version: 11.10.4-1
+      chef_config:
+        version: 11.10.4-1
 
-            # ALT 1: server
-            chef_server_url: https://10.20.30.40:443
-            validation_client_name: chef-validator
-            validation_key: "-----BEGIN RSA PRIVATE KEY-----\n...\n-----END RSA PRIVATE KEY-----\n"
-            node_name_prefix: chef-node-
-            node_name_suffix: .cloudify.example.com
+        # ALT 1: server
+        chef_server_url: https://10.20.30.40:443
+        validation_client_name: chef-validator
+        validation_key: |
+          -----BEGIN RSA PRIVATE KEY-----
+          ...
+          -----END RSA PRIVATE KEY-----
+        node_name_prefix: chef-node-
+        node_name_suffix: .cloudify.example.com
 
-            ### # ALT 2: solo
-            ### cookbooks: http://10.20.30.41:50000/cookbooks.tar.gz
+        ### # ALT 2: solo
+        ### cookbooks: http://10.20.30.41:50000/cookbooks.tar.gz
 
-            environment: _default
-            attributes:
-                test_attr_1: test_val_1
-                create_file:
-                    file_name: /tmp/blueprint.txt
-                    file_contents: Great success!
-            runlists:
-                create:    recipe[create-file]
+        environment: _default
+        attributes:
+          test_attr_1: test_val_1
+          create_file:
+            file_name: /tmp/blueprint.txt
+            file_contents: Great success!
+        runlists:
+          create: recipe[create-file]
     relationships:
-        -
-            type: cloudify.relationships.contained_in
-            target: my_server
+      - type: cloudify.relationships.contained_in
+        target: my_server
 {%endhighlight%}
-
-For full examples see [examples repository](https://github.com/cloudify-cosmo/cloudify-examples).

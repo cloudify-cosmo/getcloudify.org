@@ -30,7 +30,7 @@ The first additionwe are going to make to this template is importing the opensta
 
 {%highlight yaml%}
 imports:
-    - http://www.getcloudify.org/spec/3.0/cloudify/openstack.yaml
+    - http://www.getcloudify.org/spec/openstack-plugin/1.0/plugin.yaml
 {%endhighlight%}
 
 
