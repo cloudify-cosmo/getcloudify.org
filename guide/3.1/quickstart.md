@@ -83,7 +83,7 @@ After the box is added, run this command (from the same directory the Vagrantfil
 vagrant up
 {%endhighlight%}
 
-Once the cloudify box is up you can access the manager web console through your local browser by pointing the browser to http://11.0.0.7/.
+Once the cloudify box is up you can access the manager web console through your local browser by pointing the browser to [http://11.0.0.7/]({{http://11.0.0.7/}}).
 
 ## Step 2: SSH to the Vagrant Box and Connect to the Running Manager
 
@@ -187,7 +187,7 @@ Alternatively, click on a specific deployment in the deployment tab. A list cont
 
 ## Step 6: Test Drive the Application
 
-To test the application, go to http://11.0.0.7:8080 in your web browser. The marvelous nodecellar application should be up on your screen. Click the "Browse wines" button to verify that the application was installed successfully and that it can access the mongodb database to read the list of wines.
+To test the application, you will need to access it using its public IP address. Go to [http://11.0.0.7:8080]({{http://11.0.0.7:8080}}) to access it from your web browser. The marvelous nodecellar application should be up on your screen. Click the "Browse wines" button to verify that the application was installed suceesfully and can access the mongodb database to read the list of wines.
 
 ![Nodecellar](https://raw.githubusercontent.com/cloudify-cosmo/cloudify-nodecellar-openstack/master/nodecellar.png)
 

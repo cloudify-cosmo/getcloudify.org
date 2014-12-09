@@ -7,17 +7,27 @@ abstract: Using the agent packager to create an agent for your distribution
 pageord: 220
 
 virtualenv_link: http://virtualenv.readthedocs.org/en/latest/virtualenv.html
+terminology_link: reference-terminology.html
+celery_link: http://www.celeryproject.org/
+rest_client_api_link: reference-rest-client-api.html
+plugins_common_api_link: reference-plugins-common-api.html
+diamond_plugin_link: plugin-diamond.html
+script_plugin_link: plugin-script.html
+linux_agent_installer_link: plugin-linux-agent-installer.html
+windows_agent_installer_link: plugin-windows-agent-installer.html
+plugin_installer_link: plugin-installer-plugin.html
+
 ---
 {%summary%}{{page.abstract}}{%endsummary%}
 
 # Overview
 
-Cloudify's Agent is basically a [virtualenv]({{page.virtualenv_link}}) with a series of modules installed in it and a few configuration files attached
+Cloudify's Agent is basically a [virtualenv]({{page.virtualenv_link}}) with a series of modules installed in it and a few configuration files attached.
 
 To use Cloudify with distributions other than the [officially supported ones](agents-description.html#provided-agent-packages), we're providing an [Agent-Packager tool](agents-packager.html) that will assist you in creating an agent for your distribution.
 
 {%note title=Note%}
-As this is the first time we're releasing this tool, you may (and probably will) stumble upon some bugs. Please let us know so that we can improve it and provide a convenient way for your to easily create agents.
+As this is the first time we're releasing this tool, you may (and probably will) stumble upon some bugs. Please let us know so that we can improve it and provide a convenient way for you to easily create agents.
 {%endnote%}
 
 This tool aims to:
@@ -26,13 +36,14 @@ This tool aims to:
 - Allow users to create their own, personalized Cloudify agents with custom plugins of their choosing.
 - Make the agent creation process seamless. One config file. One liner cmd.
 - Allow users to override the `agent-installer` and `plugin-installer` modules so that they can implement their own.
-- Allow users to decide whether they want to have the `diamond-plugin` built into the agent.
+- Allow users to decide whether they want to have the `diamond-plugin` built into the agent (which is included in our distributed agents).
 
 You can use Cloudify's agent-packager to create an agent on the distribution you're running so that modules that require compilation will use your distribution and compilers to do so.
 
 {%note title=Note%}
-As Cloudify's code currently only supports Python 2.7.x or Python 2.6.x so you will have to run one of those to create an agent.
+As Cloudify's code currently only supports Python 2.7.x or Python 2.6.x, you will have to run one of those to create an agent.
 {%endnote%}
+
 
 # Creation Process
 
@@ -42,7 +53,11 @@ During the creation process, the agent-packager performs the following:
 * Installs the required modules into the virtualenv.
 * Creates a tar file from the virtualenv.
 
+{%note title=Note%}
 The tool will create a tar file to be used with Cloudify's [agent installer plugin](plugin-linux-agent-installer.html). For other agent installer implementations, a different type of agent might be required.
+{%endnote%}
+
+## Agent Configuration Files
 
 Cloudify's agent is originally supplied with 3 additional files:
 
@@ -51,12 +66,8 @@ Cloudify's agent is originally supplied with 3 additional files:
 - a template for celery's init file.
 
 This tool does not provide these files - as different distributions might require different init files or require a different method for disabling requiretty.
-You can obtain the files from [here](https://github.com/cloudify-cosmo/cloudify-packager/tree/master/package-configuration/ubuntu-agent).
-You must change the names of the files to match the distribution you're using as the distribution is automatically identified upon installation (or, alternatively, you can specify the distro and release names in your blueprint under `cloudify_agent` in the `distro` property.)
 
-After creating the tool and obtaining the files, you can use the fabric task `upload_agent_to_manager` to upload your agent to the manager. You can read about running the task [here](https://github.com/cloudify-cosmo/cloudify-cli-fabric-tasks).
-
-Note: If you'd like to create deb files from your agents which include the files and are installable via a manager blueprint, you can use [packman](https://github.com/cloudify-cosmo/packman) to create the deb ([THAT'S WHAT WE CURRENTLY DO](https://github.com/cloudify-cosmo/cloudify-packager/tree/master/vagrant)!)
+More info below.
 
 
 # Installation
@@ -73,6 +84,7 @@ Until then, use this:
 pip install https://github.com/cloudify-cosmo/cloudify-agent-packager/archive/master.tar.gz
 {%endhighlight%}
 
+
 # Usage
 
 IMPORTANT NOTES:
@@ -80,6 +92,8 @@ IMPORTANT NOTES:
 - You must use this tool on the specific version of the distribution you're intending for your agent to run in as it might require compilation.
 - You must have the desired version of python installed on your chosen image.
 - You must have the `tar` binary in your distribution (just run `which tar` to verify that you have tar installed).
+
+## Using from the CLI
 
 {% highlight bash %}
 cfy-ap -h
@@ -104,6 +118,8 @@ example:
 cfy-ap -f -c my_config.yaml -v
 {%endhighlight%}
 
+## Using from python
+
 To use this from python, do the following:
 
 {% highlight python %}
@@ -114,7 +130,52 @@ config = {}  # dict containing the configuration as given in the yaml file.
 cfyap.create(config=config, config_file=None, force=False, verbose=True)
 {%endhighlight%}
 
-# Configuration
+{%note title=Note%}
+Using the tool from python allows you to pass the configuration dictionary directly to the creation method which allows for automating the agent creation process.
+{%endnote%}
+
+## The Agent Configuration Files
+
+You can obtain the [files](#agent-configuration-files) from [here](https://github.com/cloudify-cosmo/cloudify-packager/tree/master/package-configuration/ubuntu-agent).
+
+{%note title=Note%}
+These files will not necessarily work on all distributions/releases and you might provide your own.
+{%endnote%}
+
+You must change the names of the files to match the distribution you're using as the distribution is automatically identified upon installation.
+
+Alternatively, you can specify the distro in your blueprint under `cloudify_agent` in the `distro` property.
+
+{%warning title=Note%}
+Stating the `distro` variable affects the way the agent is identified, not only the configuration files.
+For more information on how configuration files and agent tar files are identified, see the agent-installer's [documentation]({{page.linux_agent_installer_link#configuration#identifying-the-distribution-and-release-of-the-hosting-os}}).
+{%endwarning%}
+
+## Using your agent
+
+After creating the agent and obtaining the files, you can do one of the following to use your newly created agent:
+
+### Using your agent on a per-node basis
+
+You can define the paths to the agent tar file and the 3 configuration files in the blueprint on a per-node basis.
+See the agent-installer [documentation]({{page.linux_agent_installer_link#configuration}}) for more information.
+
+### Uploading your agent to the manager
+
+You can use the CLI's `dev` command and the supplied `upload_agent_to_manager` fabric task to upload the agent and its configuration files to the manager.
+
+You can read about running the task [here](https://github.com/cloudify-cosmo/cloudify-cli-fabric-tasks).
+
+### Install agents in the manager during bootstrap
+
+You can create a deb file containing the tar and configuration files and deploy it in the manager during bootstrap.
+
+{%note title=Note%}
+If you'd like to create deb files from your agents which include the files and are installable via a manager blueprint, you can use [packman](https://github.com/cloudify-cosmo/packman) to create the deb ([THAT'S WHAT WE CURRENTLY DO](https://github.com/cloudify-cosmo/cloudify-packager/tree/master/vagrant) :))
+{%endnote%}
+
+
+# Configuring the Tool
 
 ## The YAML config file
 
@@ -164,6 +225,46 @@ Beginning with Cloudify 3.2, they will not be case sensitive.
 - `output_tar` - Path to the tar file you'd like to create.
 - `keep_venv` - Whether to keep the virtualenv after creating the tar file or not. Defaults to false.
 
-# Modules
 
-To learn more about the agent's modules, click [here](agents-description.html#agent-modules).
+# Agent Modules
+
+Each agent contains a set of modules, which are just python packages.
+These modules can be either simple python libraries or they can be [plugins]({{page.terminology_link}}#plugin).
+
+## Core External Modules:
+
+These are modules not developed by Cloudify that are used by the agent.
+
+- [Celery]({{page.celery_link}}) (Mandatory)
+
+## Core Modules:
+
+These modules are developed by Cloudify and provide core functionality for the agent - thus, the default agents provided with Cloudify come with these pre-installed.
+
+- [Cloudify Rest Client]({{page.rest_client_api_link}}) (Mandatory)
+- [Cloudify Plugins Common]({{page.plugins_common_api_link}}) (Mandatory)
+
+## Core Plugins:
+
+These plugins are developed by Cloudify and provide core functionality for the agent - thus, the default agents provided with Cloudify come with these pre-installed.
+
+- [Cloudify Script Plugin]({{page.script_plugin_link}}) (Optional)
+- [Cloudify Diamond Plugin]({{page.diamond_plugin_link}}) (Optional)
+
+## Management Plugins:
+
+The Cloudify Manager actually also runs an instance of an agent, this is called the `cloudify_management_agent`.
+This agent is responsible for starting all other agents, and thus requires all of the following plugins.
+
+(In the future, some of them will be optional.)
+
+- [Cloudify Linux Agent Installer]({{page.linux_agent_installer_link}}) (Temporarily Mandatory)
+- [Cloudify Linux Plugin Installer]({{page.plugin_installer_link}}) (Temporarily Mandatory)
+- [Cloudify Windows Agent Installer]({{page.windows_agent_installer_link}}) (Temporarily Mandatory)
+- [Cloudify Windows Plugin Installer]({{page.plugin_installer_link}}) (Temporarily Mandatory)
+
+{%note title=Note%}
+Note that if you want to use the [ZeroMQ](https://github.com/zeromq/pyzmq) proxy in
+the [script plugin]({{page.script_plugin_link}}) you'll have to explicitly configure it in the `additional_modules`
+section as shown above.
+{%endnote%}

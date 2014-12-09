@@ -21,14 +21,15 @@ Workflows implementation shares several similarities with plugins implementation
 
 * Workflows are also implemented as Python functions.
 * A workflow method is decorated with `@workflow`, a decorator from the `cloudify.decorators` module of the `cloudify-plugins-common` package.
-* A workflow method receives a `ctx` parameter, which offers access to context data and various system services. While sharing some resemblence, this `ctx` object is not of the same type as the one received by a plugin method.
+* Workflow methods should import `ctx` from `cloudify.workflows`, which offers access to context data and various system services. While sharing some resemblence, this `ctx` object is not of the same type as the one used by a plugin method.
 
 *Example: A typical workflow method's signature*
 {% highlight python %}
 from cloudify.decorators import workflow
+from cloudify.workflows import ctx
 
 @workflow
-def my_workflow(ctx, **kwargs):
+def my_workflow(**kwargs):
     pass
 {%endhighlight%}
 
@@ -57,120 +58,9 @@ Work in progress
 
 # APIs
 
-{%note title=Note%}
-This section is documented rather lightly since it is expected be replaced with auto-generated documentation soon. In the meanwhile, more documentation is available within the code in the `cloudify.workflows.workflow_context` module.
-{%endnote%}
+The `ctx` object used by workflow methods is of type `CloudifyWorkflowContext`. It offers access to context data and various services. Additionally, any node, node instance, relationship or relationship instance objects returned by the context object (or from objects returned by the context object) will be wrapped in types which offer additional context data and services.
 
-The context object received by every workflow method is of type `CloudifyWorkflowContext`. It offers access to context data and various services. Additionally, any node, node instance, relationship or relationship instance objects returned by the context object (or from objects returned by the context object) will be wrapped in types which offer additional context data and services.
-
-More specific information of the API offered by each type is available below:
-
-{% togglecloak id=11 %} CloudifyWorkflowContext {% endtogglecloak %}
-{% gcloak 11 %}
-The context object received by every workflow method is of this type.
-
-{% inittab %}
-{% tabcontent Properties %}
-* **nodes**: iterator over the nodes
-* **deployment_id**: the deployment ID
-* **blueprint_id**: the blueprint ID
-* **execution_id**: the execution ID
-* **workflow_id**: the workflow ID
-* **logger**: A logger for the workflow
-{% endtabcontent %}
-{% tabcontent Methods %}
-* **graph_mode**: switches the workflow context into graph mode
-* **send_event**: sends a workflow event
-* **execute_task**: executes a task
-* **local_task**: creates a LocalTask
-* **remote_task**: creates a RemoteTask
-{% endtabcontent %}
-{% endinittab %}
-
-{% endgcloak %}
-
-{% togglecloak id=12 %} CloudifyWorkflowNode {% endtogglecloak %}
-{% gcloak 12 %}
-A node object wrapper.
-
-{% inittab %}
-{% tabcontent Properties %}
-* **id**: the node ID
-* **type**: the node type
-* **type_hirarchy**: the node type hierarchy
-* **properties**: the node properties
-* **plugins_to_install**: the plugins to install in this node (Only relevant for host nodes)
-* **relationships**: the node relationships
-* **operations**: the node operations
-* **instances**: the node instances
-{% endtabcontent %}
-{% tabcontent Methods %}
-* **get_relationship**: get a relationship by its target ID
-{% endtabcontent %}
-{% endinittab %}
-
-{% endgcloak %}
-
-
-{% togglecloak id=13 %} CloudifyWorkflowNodeInstance {% endtogglecloak %}
-{% gcloak 13 %}
-A node instance object wrapper.
-
-{% inittab %}
-{% tabcontent Properties %}
-* **id**: the node instance ID
-* **node_id**: the node id
-* **relationships**: the node instance relationship instances
-* **node**: the instance's node object
-* **logger**: a logger for this workflow node
-{% endtabcontent %}
-{% tabcontent Methods %}
-* **set_state**: set the node state (and optionally its runtime properties as well)
-* **get_state**: get the node state
-* **send_event**: Send a workflow node event
-* **execute_operation**: Execute a node operation
-{% endtabcontent %}
-{% endinittab %}
-
-{% endgcloak %}
-
-
-{% togglecloak id=14 %} CloudifyWorkflowRelationship {% endtogglecloak %}
-{% gcloak 14 %}
-A relationship object wrapper.
-
-{% inittab %}
-{% tabcontent Properties %}
-* **target_id**: the relationship target node ID
-* **target_node**: the relationship target node
-* **source_operations**: the relationship source operations
-* **target_operations**: the relationship target operations
-{% endtabcontent %}
-{% tabcontent Methods %}
-None available
-{% endtabcontent %}
-{% endinittab %}
-
-{% endgcloak %}
-
-
-{% togglecloak id=15 %} CloudifyWorkflowRelationshipInstance {% endtogglecloak %}
-{% gcloak 15 %}
-A relationship instance object wrapper.
-
-{% inittab %}
-{% tabcontent Properties %}
-* **target_id**: the relationship target node ID
-* **target_node_instance**: the relationship target node instance
-* **relationship**: the instance's relationship
-{% endtabcontent %}
-{% tabcontent Methods %}
-* **execute_source_operation**: execute a node relationship source operation
-* **execute_target_operation**: execute a node relationship target operation
-{% endtabcontent %}
-{% endinittab %}
-
-{% endgcloak %}
+For full API reference, refer to the documentation over at [cloudify-plugins-common.readthedocs.org](http://cloudify-plugins-common.readthedocs.org/en/3.1/workflows.html).
 
 
 # Graph Framework
@@ -182,44 +72,47 @@ Work in progress
 
 As is the case with plugins, it's the workflow author's responsilibity to write a yaml file (named `plugin.yaml` by convention) which will contain both the workflow mapping as well as the workflow's plugin declaration.
 
-Mapping a workflow names to a workflow implementation in the blueprint is done in a similar fashion to the way plugin operations are mapped, i.e. in one of two ways:
+Mapping a workflow name to a workflow implementation in the blueprint is done in a similar fashion to the way plugin operations are mapped, i.e. in one of two ways:
 
 * Simple mapping - this should be used to map a workflow name to a workflow implementation which requires no parameters.
 
   *Example: Mapping `my_workflow` to be implemented by the `my_workflow_method_name` method in the `my_workflow_module_name` module in the `my_workflow_plugin_name` plugin*
   {% highlight yaml %}
 workflows:
-    my_workflow: my_workflow_plugin_name.my_workflow_module_name.my_workflow_method_name
+  my_workflow: my_workflow_plugin_name.my_workflow_module_name.my_workflow_method_name
   {%endhighlight%}
 
 * Mapping with parameters - this should be used to map a workflow name to a workflow implementation which uses parameters.
 
-  Workflow parameters declaration is done in a similar manner to the way type properties are declared: It's structured as a list, where each element is one of two:
+  Workflow parameters declaration is done in a similar manner to the way type properties are declared: It's structured as a schema map, where each entry specifies the parameter schema.
 
-  * A string - representing a mandatory parameter.
-  * An object containing a single key-value pair - representing an optional parameter, where the key and value are the parameter name and default value, respectively.
-
-  *Example: Making the same mapping yet with parameters declaration - A single mandatory parameter named `mandatory_parameter`, and two optional parameters with default values (one of which is a complex value)*
+  Example: Making the same mapping yet with parameters declaration - A single mandatory parameter named `mandatory_parameter`, and two optional parameters with default values (one of which is a complex value)*
   {% highlight yaml %}
 workflows:
-    my_workflow:
-	    mapping: my_workflow_plugin_name.my_workflow_module_name.my_workflow_method_name
-	    parameters:
-	        - optional_parameter: optional_parameter_default_value
-	        - mandatory_parameter
-	        - nested_parameter:
-	              key1: value1
-	              key2: value2
+  my_workflow:
+    mapping: my_workflow_plugin_name.my_workflow_module_name.my_workflow_method_name
+    parameters:
+      mandatory_parameter:
+        description: this parameter is mandatory
+      optional_parameter:
+        description: this paramters is optional
+        default: optional_parameter_default_value
+      nested_parameter:
+        description: >
+          this parameter is also optional,
+          it's default value has nested values.
+        default:
+          key1: value1
+          key2: value2
   {%endhighlight%}
 
 <br>
 The workflows implementations are considered as *workflows plugins*. As such, they are joined to the blueprint using the exact same mapping that's used to join regular plugins, e.g.:
 {% highlight yaml %}
 plugins:
-    my_workflow_plugin_name:
-        derived_from: "cloudify.plugins.manager_plugin"
-        properties:
-            url: "ENTER-PLUGIN-URL-HERE"
+  my_workflow_plugin_name:
+    executor: central_deployment_agent
+    source: http://example.com/url/to/plugin.zip
 {%endhighlight%}
 
 
@@ -293,8 +186,11 @@ We'll be implementing the workflow one step at a time, where in each step we'll 
 This is the basic implementation of the desired behavior as a graph-based workflow:
 
 {% highlight python linenos%}
+from cloudify.decorators import workflow
+from cloudify.workflows import ctx
+
 @workflow
-def run_operation(ctx, **kwargs):
+def run_operation(**kwargs):
     graph = ctx.graph_mode()
 
     for node in ctx.nodes:
@@ -306,9 +202,9 @@ def run_operation(ctx, **kwargs):
 
 Step explanation:
 
-* The first thing we do is to set the workflow to be in graph mode, indicating we'll be using the graph framework (line 3).
-* Then, we iterate over all node instances, and add an execute operation task for each instance to the graph (lines 5-7).
-* Finally, we tell the graph framework we're done building our tasks graph and that execution may commence (line 9).
+* The first thing we do is to set the workflow to be in graph mode, indicating we'll be using the graph framework (line 6).
+* Then, we iterate over all node instances, and add an execute operation task for each instance to the graph (lines 8-10).
+* Finally, we tell the graph framework we're done building our tasks graph and that execution may commence (line 12).
 {% endgcloak %}
 
 
@@ -319,8 +215,11 @@ The basic workflow is great, if we always want to execute the exact same operati
 Lets add some workflow parameters:
 
 {% highlight python linenos%}
+from cloudify.decorators import workflow
+from cloudify.workflows import ctx
+
 @workflow
-def run_operation(ctx, operation, type_name, operation_kwargs, **kwargs):
+def run_operation(operation, type_name, operation_kwargs, **kwargs):
     graph = ctx.graph_mode()
 
     for node in ctx.nodes:
@@ -333,9 +232,9 @@ def run_operation(ctx, operation, type_name, operation_kwargs, **kwargs):
 
 Step explanation:
 
-* The workflow method now receives three additional parameters: `operation`, `type_name` and `operation_kwargs` (line 2).
-* The `operation` parameter is used to make the workflow able to execute operations dynamically, rather than hardcoded ones; The `operation_kwargs` parameter is used to pass parameters to the operation itself (line 8).
-* Since the `operation` parameter value might be an operation which only exists for certain types, the `type_name` parameter is used to determine if the node at hand is of that type or from one derived from it (line 6).
+* The workflow method now receives three additional parameters: `operation`, `type_name` and `operation_kwargs` (line 5).
+* The `operation` parameter is used to make the workflow able to execute operations dynamically, rather than hardcoded ones; The `operation_kwargs` parameter is used to pass parameters to the operation itself (line 11).
+* Since the `operation` parameter value might be an operation which only exists for certain types, the `type_name` parameter is used to determine if the node at hand is of that type or from one derived from it (line 9).
 {% endgcloak %}
 
 
@@ -346,8 +245,11 @@ The workflow's much more functional now, but we're pretty much in the dark when 
 We'll make the workflow more visible by sending out events:
 
 {% highlight python linenos%}
+from cloudify.decorators import workflow
+from cloudify.workflows import ctx
+
 @workflow
-def run_operation(ctx, operation, type_name, operation_kwargs, **kwargs):
+def run_operation(operation, type_name, operation_kwargs, **kwargs):
     graph = ctx.graph_mode()
 
     for node in ctx.nodes:
@@ -366,8 +268,8 @@ def run_operation(ctx, operation, type_name, operation_kwargs, **kwargs):
 
 Step explanation:
 
-* We create a `TaskSequence` object (named `sequence`) in the graph. We'll be using it to control the tasks' dependencies, ensuring the events are only sent when they should. Note that since this is done for each node instance separately, the sequences for the various node instances don't depend on one another, and will be able to run in parallel (line 9).
-* Three tasks are inserted into the sequence - the original `execute_operation` task, wrapped by two `send_event` tasks. We used the `send_event` method of the instance (of type `CloudifyWorkflowNodeInstance`) rather than the `send_event` method of the ctx object (of type `CloudifyWorkflowContext`) since this way the event will contain node context information (lines 11-14).
+* We create a `TaskSequence` object (named `sequence`) in the graph. We'll be using it to control the tasks' dependencies, ensuring the events are only sent when they should. Note that since this is done for each node instance separately, the sequences for the various node instances don't depend on one another, and will be able to run in parallel (line 12).
+* Three tasks are inserted into the sequence - the original `execute_operation` task, wrapped by two `send_event` tasks. We used the `send_event` method of the instance (of type `CloudifyWorkflowNodeInstance`) rather than the `send_event` method of the ctx object (of type `CloudifyWorkflowContext`) since this way the event will contain node context information (lines 14-17).
 {% endgcloak %}
 
 
@@ -375,15 +277,14 @@ Step explanation:
 {% gcloak 4 %}
 Lets assume we wish for nodes to execute the operation in order, according to their relationships - each node should only execute the operation once all the nodes which it has relationships to are done executing the operations themselves.
 
-{%note title=Note%}
-This step's requirement, by its nature, might lead to deadlocks. To keep things simple, this example won't contain code for checking and handling such cases.
-{%endnote%}
-
 We'll achieve this behavior by adding task dependencies in the graph:
 
 {% highlight python linenos%}
+from cloudify.decorators import workflow
+from cloudify.workflows import ctx
+
 @workflow
-def run_operation(ctx, operation, type_name, operation_kwargs, **kwargs):
+def run_operation(operation, type_name, operation_kwargs, **kwargs):
     graph = ctx.graph_mode()
 
     send_event_starting_tasks = {}
@@ -422,9 +323,9 @@ def run_operation(ctx, operation, type_name, operation_kwargs, **kwargs):
 Step explanation:
 
 * We aim to create task dependency between each node's first task (the `send_event` about starting the operation) and the last task (the `send_event` about finishing the operation) of each node it has a relationship to.
-* First, we had to somewhat refactor the existing code - we need references for those tasks for creating the dependencies, and so we first created the tasks and stored them in two simple dictionaries which map each instance ID to that instance's relevant tasks(lines 5-12).
-* When adding the tasks to the sequence, we add the tasks we've already created (lines 21 + 23)
-* Finally, we have a new section in the code, in which we go over all instances' relationships, retrieve the source instance's first task and the target instance's last task, and if both exist (might not exist since the source and/or target node might not be be of type `type_name` or of a type which is derived from it) then a dependency is created between them (lines 25-33).
+* First, we had to somewhat refactor the existing code - we need references for those tasks for creating the dependencies, and so we first created the tasks and stored them in two simple dictionaries which map each instance ID to that instance's relevant tasks(lines 8-15).
+* When adding the tasks to the sequence, we add the tasks we've already created (lines 24 + 26)
+* Finally, we have a new section in the code, in which we go over all instances' relationships, retrieve the source instance's first task and the target instance's last task, and if both exist (might not exist since the source and/or target node might not be be of type `type_name` or of a type which is derived from it) then a dependency is created between them (lines 28-36).
 {% endgcloak %}
 
 
@@ -435,8 +336,12 @@ The workflow we've created thus far seems great for running node opeartions, but
 Lets add support for those too:
 
 {% highlight python linenos%}
+from cloudify.decorators import workflow
+from cloudify.workflows import ctx
+from cloudify.workflows.tasks_graph import forkjoin
+
 @workflow
-def run_operation(ctx, operation, type_name, operation_kwargs, is_node_operation, **kwargs):
+def run_operation(operation, type_name, operation_kwargs, is_node_operation, **kwargs):
     graph = ctx.graph_mode()
 
     send_event_starting_tasks = {}
@@ -483,11 +388,10 @@ def run_operation(ctx, operation, type_name, operation_kwargs, is_node_operation
 
 Step explanation:
 
-* The workflow now has a new parameter - `is_node_operation` - a boolean which represents whether the operation to execute is a node operation or a relationship operation (line 2).
-* We had a tiny bit of refactoring done: If the operation is a node operation, we create the task somewhat earlier and store it in a variable named `operation_task`, which is later inserted into the graph in the sequence as before (lines 20-21 + 31)
-* If the operation is a relationship operation, we first collect all tasks related to the current instance that should be executed, by going over all of the instance relationships and creating tasks for both source and target operations (lines 22-26)
-* Finally, We create a single `forkjoin` task which contains all of the tasks we've collected, and store it in the `operation_task` variable so it'll later be inserted into the sequence. This will allow all of the relationship operations we've collected to run in parallel, while making sure none of them will run before the first sequence task (the `send_event` about starting the operation) completes and also ensuring they'll all complete before the last sequence task (the `send_event` about finishing the operation) is started (line 27).
-* Note that in order to use the `forkjoin` construct we used in line 27, it's required to import it, which can be done like so: `from cloudify.workflows.tasks_graph import forkjoin`.
+* The workflow now has a new parameter - `is_node_operation` - a boolean which represents whether the operation to execute is a node operation or a relationship operation (line 5).
+* We had a tiny bit of refactoring done: If the operation is a node operation, we create the task somewhat earlier and store it in a variable named `operation_task`, which is later inserted into the graph in the sequence as before (lines 24-25 + 35)
+* If the operation is a relationship operation, we first collect all tasks related to the current instance that should be executed, by going over all of the instance relationships and creating tasks for both source and target operations (lines 26-30)
+* Finally, We create a single `forkjoin` task which contains all of the tasks we've collected, and store it in the `operation_task` variable so it'll later be inserted into the sequence. This will allow all of the relationship operations we've collected to run in parallel, while making sure none of them will run before the first sequence task (the `send_event` about starting the operation) completes and also ensuring they'll all complete before the last sequence task (the `send_event` about finishing the operation) is started (line 31).
 {% endgcloak %}
 
 We could continue improving our workflow and extending its features, but in the scope of this tutorial, this last version of the workflow will be the one we'll be using throughout the remaining tutorial sections.
@@ -497,24 +401,31 @@ We could continue improving our workflow and extending its features, but in the 
 The workflow plugin declaration will look like this:
 {% highlight yaml %}
 plugins:
-    my_workflow_plugin_name:
-        derived_from: "cloudify.plugins.manager_plugin"
-        properties:
-            url: "ENTER-PLUGIN-URL-HERE"
+  my_workflow_plugin_name:
+    executor: central_deployment_agent
+    source: http://example.com/url/to/plugin.zip
 {%endhighlight%}
-the `url` field should be filled with the url of wherever the plugin will be hosted at. If the plugin is used locally, the `folder` property may be used instead of `url`.
 
 
 The workflow mapping may look like so:
 {% highlight yaml %}
 workflows:
-    my_workflow:
-        mapping: my_workflow_plugin_name.my_workflow_module_name.run_operation
-        parameters:
-            - opreation
-            - type_name: cloudify.types.base
-            - operation_kwargs: {}
-            - is_node_operation: True
+  my_workflow:
+    mapping: my_workflow_plugin_name.my_workflow_module_name.run_operation
+    parameters:
+      operation:
+        description: the operation to execute
+      type_name:
+        description: the base type for filtering nodes
+        default: cloudify.nodes.Root
+      operation_kwargs:
+        description: the operation kwargs
+        default: {}
+      is_node_operation:
+        description: >
+          is the operation a node operation or
+          a relationship operation otherwise
+        default: true
 {%endhighlight%}
 
 This will define a workflow named `my_workflow`, whose implementation is the `run_operation` workflow method we coded.
@@ -522,9 +433,9 @@ This will define a workflow named `my_workflow`, whose implementation is the `ru
 The workflow has four parameters declared:
 
 * The mandatory `operation` parameter
-* The optional `type_name` parameter, which defaults to `cloudify.types.base` (meaning the operation will run on all nodes if this value isn't overridden)
+* The optional `type_name` parameter, which defaults to `cloudify.nodes.Root` (meaning the operation will run on all nodes if this value isn't overridden)
 * The optional `operation_kwargs` parameter, which defaults to an empty dictionary.
-* The optional `is_node_operation` parameter, which defaults to True.
+* The optional `is_node_operation` parameter, which defaults to `true`.
 
 
 
@@ -535,4 +446,4 @@ Coming soon...
 
 ## Packaging the Workflow
 
-Since workflows are joined to the blueprint the same way plugins do, they are also packaged the same way. Refer to the [Plugin creation guide](guide-plugin-creation.html#packaging-your-plugin) for more information.
+Since workflows are joined to the blueprint the same way plugins do, they are also packaged the same way. Refer to the [Plugin creation guide](guide-plugin-creation.html#the-plugin-template) for more information.
