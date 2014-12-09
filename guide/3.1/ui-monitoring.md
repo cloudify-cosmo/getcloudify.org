@@ -75,7 +75,7 @@ The [Grafana]({{page.grafana}}) guide will help you get started and acquainted w
 * [Export and Import]({{page.grafana_export_and_import}})
 
 ### Tips and shortcuts (from the [Grafana]({{page.grafana}}) documentation)
-* Click the graph title and in the dropdown menu quickly change span or duplicate the panel.
+* Click the graph's title and in the dropdown menu quickly change the span or duplicate the panel.
 * Ctrl+S Saves the current dashboard
 * Ctrl+F Opens the dashboard finder / search
 * Ctrl+H Hides all controls (good for tv displays)
