@@ -77,6 +77,9 @@ A deployment is the plan and the state of a single [application](#application) e
 
 Deployments are model-representations of [node](#node) instances (which form applications) and their runtime [state](#node-instance-state).
 
+### **DSL Version**
+See [DSL Versioning](dsl-spec-versioning.html).
+
 ### **Event**
 An Event is a JSON representation of an occurance in Cloudify's environment.
 
@@ -114,6 +117,9 @@ More elaborately, An Interface is a set of hooks (dabbed **Operations**) that a 
 
 ### **Live node**
 A node instance(#node-instance) which is not in either the `uninitialized` or `deleted` states(#node-instance-state).
+
+### **Main Blueprint File**
+When a blueprint is uploaded to the [manager](#manager), this is the name specified. The entire directory containing the main blueprint file will be uploaded. After that, the main blueprint file will be parsed. Additional YAML files may imported by this blueprint file.
 
 ### **Manager**
 See the definition [here]({{page.arch_link}}#the-manager-orchestrator).

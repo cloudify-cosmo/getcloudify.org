@@ -76,6 +76,7 @@ At the moment, the following official manager blueprints are available in the [m
 
 - [Simple](reference-simple-manager.html) (for bootstrapping Cloudify on an existing machine)
 - [Openstack](reference-openstack-manager.html)
+- [Nova-net Openstack](reference-nova-net-openstack-manager.html)
 
 {%note title=Note%}
 The manager blueprints are comprised not only by the *.yaml* file, but rather the entire directory in which the *.yaml* file resides. Make sure to copy the full directory for when using or editing manager blueprints.
@@ -85,8 +86,7 @@ The manager blueprints are comprised not only by the *.yaml* file, but rather th
 ## Authoring manager blueprints
 If you wish to write a custom manager blueprint (whether it be for a custom behavior or a different provider) or learn more on how manager blueprints work, refer to the [Manager Blueprints Authoring guide](guide-authoring-manager-blueprints.html).
 
-## Bootstrapping using Docker
-
+# Bootstrapping using Docker
 
 Beginning with version 3.1, Cloudify's Management Environment can be bootstapped using the [provided]() Docker images.
 
@@ -108,9 +108,10 @@ To bootstrap using Docker, you will have to do the following:
 
 Comment the default bootstrap method:
 
-# Under interfaces, cloudify.interfaces.lifecycle, start, inputs,
-# comment this:
+comment this:
+
 {% highlight yaml %}
+# Under interfaces, cloudify.interfaces.lifecycle, start, inputs,
 task_mapping: cloudify_cli.bootstrap.tasks.bootstrap
 {%endhighlight%}
 

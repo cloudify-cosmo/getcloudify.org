@@ -15,59 +15,55 @@ yaml_link: http://getcloudify.org/spec/docker-plugin/1.1/plugin.yaml
 
 A Cloudify plugin enabling it to create and manipulate Docker containers.
 
-```Please note this plugin is under development and not yet officially supported.```
-
 # Blueprints
 
-An example node specification:
+## An example node specification
 
-```
+{% highlight yaml %}
 
 db_server:
 
-    type: cloudify.nodes.DBMS
+  type: cloudify.nodes.DBMS
 
-    interfaces:
-        cloudify.interfaces.lifecycle:
-            create:
-                implementation: docker.docker_plugin.tasks.create
-                inputs:
-                    daemon_client: {}
-                    image_import:
-                        src: http://insert/url/to/image/here
-                    # could also be image_build, see below
-                    # image_build: {}
+  interfaces:
+    cloudify.interfaces.lifecycle:
+      create:
+        implementation: docker.docker_plugin.tasks.create
+        inputs:
+          daemon_client: {}
+          image_import:
+            src: http://insert/url/to/image/here
+          # could also be image_build, see below
+          # image_build: {}
+      configure:
+        implementation: docker.docker_plugin.tasks.configure
+        inputs:
+          daemon_client:    {}
+          container_config:
+            command: /bin/echo hello
+      start:
+        implementation: docker.docker_plugin.tasks.run
+        inputs:
+          daemon_client:   {}
+          container_start: {}
+      stop:
+        implementation: docker.docker_plugin.tasks.stop
+        inputs:
+          daemon_client:  {}
+          container_stop: {}
+      delete:
+        implementation: docker.docker_plugin.tasks.delete
+        inputs:
+          daemon_client:    {}
+          # required in case container to remove is currently running
+          container_stop:   {}
+          container_remove: {}
+{% endhighlight %}
 
-            configure:
-                implementation: docker.docker_plugin.tasks.configure
-                inputs:
-                    daemon_client:    {}
-                    container_config:
-                        command: /bin/echo hello
+# Operation Properties
 
-            start:
-                implementation: docker.docker_plugin.tasks.run
-                inputs:
-                    daemon_client:   {}
-                    container_start: {}
-            stop:
-                implementation: docker.docker_plugin.tasks.stop
-                inputs:
-                    daemon_client:  {}
-                    container_stop: {}
-            delete:
-                implementation: docker.docker_plugin.tasks.delete
-                inputs:
-                    daemon_client:    {}
-                    # required in case container to remove is currently running
-                    container_stop:   {}
-                    container_remove: {}
-```
-
-# Operation Properties:
-
-The different dictionaries correspond to parameters used in
-[an api client for docker.](https://github.com/docker/docker-py)
+The different dictionaries correspond to parameters used in the
+[docker python client.](https://github.com/docker/docker-py)
 
 If there is a lack of description of certain parameters,
 more details can be found in
@@ -161,7 +157,7 @@ Docker is installed during plugin installation on the host agent if it isn't
 already installed. When installing the plugin locally, docker is not installed,
 and should be installed manually
 
-Create task:
+## Create task
 
 * Imports or builds image:
 
@@ -173,7 +169,7 @@ Create task:
     must be specified.
 
 
-Configure task:
+## Configure task
 
 * Adds `docker_env_var` from context runtime properties with
   `container_config.environment` as environment variables of the container.
@@ -181,18 +177,18 @@ Configure task:
 * Creates container using the image from `runtime_properties` and options from
   `container_config`. `command` in `container_config` must be specified.
 
-Run task:
+## Run task
 
 * Starts conatiner with `container_start` dictionary as options.
 
 * Logs containers id, list of network interfaces with IPs, ports,
   and top information.
 
-Stop task:
+## Stop task
 
 * Stops container with `container_stop` dictionary as options.
 
-Delete task:
+## Delete task
 
 * If `remove_image` in `container_remove` dictionary is True then image of
   this container is deleted. If the image is used by another container

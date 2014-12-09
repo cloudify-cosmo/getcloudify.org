@@ -447,4 +447,4 @@ The same will be applied for the second file, but with the environment variable 
 
 ## Resources prefix support
 
-This plugin supports transformation of resource names according to the resources prefix feature. For more information on this feature, visit the [CLI guide](guide-cli.html).
+This plugin supports transformation of resource names according to the resources prefix feature. For more information on this feature, read the [*CloudifyManager* type's documentation](reference-types.html#parameters-details).

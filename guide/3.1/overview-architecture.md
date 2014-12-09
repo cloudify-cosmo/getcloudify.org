@@ -47,7 +47,7 @@ There is a manager side agent per application[(?)]({{page.terminology_link}}#app
 
 ### Proxy and File Server
 
-Cloudify uses [Nginx](http://nginx.org/) as its frontend reverse proxy and file server (In later versions in will also be used for security related features.)
+Cloudify uses [Nginx](http://nginx.org/) as its frontend reverse proxy and file server (In later versions it will also be used for security related features.)
 
 ### REST API
 
@@ -79,8 +79,8 @@ The GUI has the following screens:
 ### Workflow Engine
 
 Cloudify uses a Workflow engine to allow for any automation process through built-in and custom workflows[(?)]({{page.terminology_link}}#workflow).
-The Workflow engine is responsible for timing and orchestrating tasks for creating / manipulating the application[(?)]({{page.terminology_link}}#application) components. To achieve that the worflow engine interacts with the Blueprint and runtime data to get the properties[(?)]({{page.terminology_link}}#properties) and plugin[(?)]({{page.terminology_link}}#plugin) information and writes tasks[(?)]({{page.terminology_link}}#task) to the task broker.
-Cloudify's workflow engine is build on top of [Celery tasks broker](http://www.celeryproject.org/). The user can write the custom workflow in Python using API's that provide access to the topology[(?)]({{page.terminology_link}}#topology) components and allow for steps execution and state[(?)]({{page.terminology_link}}#node-instance-state) reporting.
+The Workflow engine is responsible for timing and orchestrating tasks for creating / manipulating the application[(?)]({{page.terminology_link}}#application) components. To achieve that the workflow engine interacts with the Blueprint and runtime data to get the properties[(?)]({{page.terminology_link}}#properties) and plugin[(?)]({{page.terminology_link}}#plugin) information and writes tasks[(?)]({{page.terminology_link}}#task) to the task broker.
+Cloudify's workflow engine is built on top of [Celery tasks broker](http://www.celeryproject.org/). The user can write custom workflows in Python using API's that provide access to the topology[(?)]({{page.terminology_link}}#topology) components and allow for steps execution and state[(?)]({{page.terminology_link}}#node-instance-state) reporting.
 
 ### Runtime Model
 
@@ -118,7 +118,7 @@ Cloudify agents[(?)]({{page.arch_link}}#agent) that are based on Celery workers 
 ### Tasks
 A Task is the execution of one function in a [plugin](#plugin) with a given set of arguments.
 
-The arguments describe the context of the execution including [node][#node] [properties](#properties) and [Runtime Properties](#runtime-properties).
+The arguments describe the context of the execution including [node](#node) [properties](#properties) and [Runtime Properties](#runtime-properties).
 
 ### Agents
 
@@ -167,7 +167,7 @@ The first step the user must take to install an application is to have the appli
 ## [Deployment](reference-terminology.html#deployment) Creation
 In order to deploy and manage an application you need to create a runtime data model in the manager. This is where the manager keeps the state of the application. Multiple deployments can be created out of a single blueprint, but once a deployment is created it is independent of other deplyoments of the same blueprint.
 
-To create a deployment, use the GUI or the CLI (command)[reference-cfy.html#deployments-create] `cfy deployments create`.
+To create a deployment, use the GUI or the CLI [command](reference-cfy.html#deployments-create) `cfy deployments create`.
 This will create the deployment data in the manager, including the deployment's [nodes](reference-terminology.html#node) and [node-instances](reference-terminology.html#node-instance) data. Additionally, creating a deployment will execute the `workers_installation.install` [workflow](reference-terminology.html#workflow), which will install the deployment-specific Cloudify agents on the manager and their relevant plugins. The agents installation happens in the background, but it is required to finish before other workflows may be executed for the given deployment.
 
 ## [Workflow](reference-terminology.html#workflow) Execution
@@ -209,4 +209,4 @@ Attempting to delete a deployment which has [live nodes](reference-terminology.h
 Once all deployments of a blueprint have been deleted, it's also possible to delete the blueprint itself from the manager using the UI or the CLI [command](reference-cfy.html#blueprints-delete) `cfy blueprints delete`.
 
 ## Teardown
-Teardown is the reversed process for the (Bootstrap)[#bootstrap] process. It is executed via the CLI using the [command](reference-cfy.html#teardown) `cfy teardown`. This command also uses the help of [Providers](reference-terminology.html#provider), and is meant to clear any resources provisioned and installations made by the bootstrap process (e.g. delete networks, security groups, the manager VM, etc.).
+Teardown is the reversed process for the [Bootstrap](#bootstrap) process. It is executed via the CLI using the [command](reference-cfy.html#teardown) `cfy teardown`. This command also uses the help of [Providers](reference-terminology.html#provider), and is meant to clear any resources provisioned and installations made by the bootstrap process (e.g. delete networks, security groups, the manager VM, etc.).
