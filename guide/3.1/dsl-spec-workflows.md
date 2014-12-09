@@ -15,6 +15,7 @@ Workflows can be defined in a “workflows” section in the blueprint. This all
 
 ## Workflows Declaration
 The workflows section is a hash where each item represents a workflow. Mapping a workflow name workflow implementation in the blueprint is done in one of two ways:
+
 * Simple mapping - maps a workflow name to a workflow implementation which requires no parameters.
 The key represents the workflow name.
 The value represents the full path to the method that implements this workflow
