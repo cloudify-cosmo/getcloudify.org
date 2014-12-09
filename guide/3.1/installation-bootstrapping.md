@@ -176,7 +176,6 @@ Cloudify will attempt to install Docker on Ubuntu 14.04 (Trusty) ONLY as other i
 If you are using a different distro image, you'll have to make sure that Docker is installed on it prior to bootstrapping.
 {%endnote%}
 
-{%note title=Note%}
-This architecture allows us to migrate Cloudify's Management Environment with ease. All we need is to export the data container
-and start a new Cloudify Application container that uses the data from the exported container. To do so, checkout the relevant docker documentation [here](https://docs.docker.com/userguide/dockervolumes)
+{%note title=Note%} 
+This architecture allows us to migrate Cloudify's Management Environment with ease. All we need is to export the data container and start a new Cloudify Application container that uses the data from the exported container. 
 {%endnote%}
