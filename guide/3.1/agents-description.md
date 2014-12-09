@@ -28,9 +28,9 @@ Agents are basically a piece of software used for communicating with the Cloudif
 
 Cloudify's agent provide a way to:
 
-* Execute general [operations]({{page.terminology_link}}#operation). (Deployment Agents)
-* Execute [operations]({{page.terminology_link}}#operation) on specific hosts. (Host Agents)
-* Execute [workflows]({{page.terminology_link}}#workflow) on [deployments]({{page.terminology_link}}#deployment) (Workflow Agents)
+* Execute general [operations]({{page.terminology_link}}#operation). ([Deployment Agents]({{page.terminology_link}}#deployment-agent))
+* Execute [operations]({{page.terminology_link}}#operation) on specific hosts. ([Host Agents]({{page.terminology_link}}#host-agent))
+* Execute [workflows]({{page.terminology_link}}#workflow) on [deployments]({{page.terminology_link}}#deployment) ([Workflow Agents]({{page.terminology_link}}#workflow-agent))
 
 
 # Provided Agent Packages

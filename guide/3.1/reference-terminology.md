@@ -23,15 +23,15 @@ Agents read tasks from a tasks broker and delegate them to a worker subprocess (
 
 There are currently 3 types of agents. They're listed below.
 
-#### **Agent - Deployment**
+#### **Deployment-Agent**
 An agent dedicated to a specific [Deployment](#deployment).
 
 This agent installs other agents on the hosts of a specific deployment.
 
-#### **Agent - Workflow**
+#### **Workflow-Agent**
 An agent dedicated to a specific [Deployment](#deployment) which is in charge of executing workflows.
 
-#### **Agent - Host**
+#### **Host-Agent**
 An agent dedicated to a specific [Host](#host).
 
 This agent executes plugin tasks on the host machine.
