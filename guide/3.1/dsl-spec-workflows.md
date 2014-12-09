@@ -92,4 +92,4 @@ workflows:
         default:
           timeout_seconds: 60
           retry_attempts: 3
-{%endnote%}
+{%endhighlight%}
