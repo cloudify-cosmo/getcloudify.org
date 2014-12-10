@@ -17,23 +17,46 @@ dsl_relationships_link: dsl-spec-relationships.html
 Interfaces provide a way to map logical tasks to executable [operations]({{page.terminology_link}}#operation).
 {%endsummary%}
 
-[Blueprint]({{page.terminology_link}}#blueprint) authors can declare interfaces in the `interfaces` section of the blueprint.
+[Blueprint]({{page.terminology_link}}#blueprint) authors can declare operations within `interfaces`.
 
 # Interfaces Declaration
 
 The `interfaces` section is a hash where each item in the hash represents an interface. In turn, each interface contains a hash of operations within it.
 
 {%highlight yaml%}
-interfaces:
+node_types:
   interface1:
-    operation1:
-      ...
-    operation2:
-      ...
+    ...
   interface2:
-    operation1:
+    ...
+
+node_templates:
+  interface1:
+    ...
+  interface2:
+    ...
+  relationships:
+    source_interfaces:
+      interface1:
+        ...
+      interface2:
+        ...
+    target_interfaces:
+      interface1:
+        ...
+      interface2:
+        ...
+
+relationships:
+  source_interfaces:
+    interface1:
       ...
-    operation2:
+    interface2:
+      ...
+  target_interfaces:
+    interface1:
+      ...
+    interface2:
       ...
 {%endhighlight%}
 
@@ -42,7 +65,7 @@ interfaces:
 Keyname          | Required | Type        | Description
 -----------      | -------- | ----        | -----------
 implementation   | yes      | string      | The script or plugin task name to execute.
-inputs           | no       | dict        | A dict of [inputs]({{page.dsl_inputs_link}}).
+inputs           | no       | dict        | A dict of [inputs]({{page.dsl_inputs_link}}) to be fed as **kwargs to the operation.
 executor         | no       | string      | Valid values: `central_deployment_agent`, `host_agent`. See the [plugins spec]({{page.dsl_plugins_link}}) for more info.
 
 <br>
@@ -63,24 +86,19 @@ plugins:
   deployer:
     executor: central_deployment_agent
 
-interfaces:
-  my_deployment_interface:
-    configure:
-      implementation: deployer.config_in_master.configure
-
 node_templates:
   nodejs_app:
     type: cloudify.nodes.WebServer
     interfaces:
       my_deployment_interface:
         configure:
-          implementation: my_deployment_interface.configure
+          implementation: deployer.config_in_master.configure
 {%endhighlight%}
 
 In this example, we've:
-- Declared a `deployer` plugin which, [by default](#overriding-the-executor), should execute its operations on the Cloudify manager.
-- Declared an `my_deployment_interface` interface with a `configure` operation which should execute the `deployer.config_in_master.configure` task. We also provided it with some inputs.
-- Declared a `nodejs_app` node which uses our declared interface and executes the `configure` operation.
+* Declared a `deployer` plugin which, [by default](#overriding-the-executor), should execute its operations on the Cloudify manager.
+* Declared an `my_deployment_interface` interface with a `configure` operation which should execute the `deployer.config_in_master.configure` task. We also provided it with some inputs.
+* Declared a `nodejs_app` node which uses our declared interface and executes the `configure` operation.
 
 
 # Overriding the executor
@@ -95,14 +113,6 @@ plugins:
   deployer:
     executor: central_deployment_agent
 
-interfaces:
-  my_deployment_interface:
-    configure:
-      ...
-    deploy:
-      implementation: deployer.deploy_framework.deploy
-      executor: host_agent
-
 node_templates:
   vm:
     type: cloudify.openstack.nodes.Server
@@ -111,9 +121,10 @@ node_templates:
     interfaces:
       my_deployment_interface:
         configure:
-          implementation: my_deployment_interface.configure
+          implementation: deployer.deploy_framework.configure
         deploy:
-          implementation: my_deployment_interface.deploy
+          implementation: deployer.deploy_framework.deploy
+          executor: host_agent
 {%endhighlight%}
 
 Here we added a `deploy` operation to our interface. Note that its `executor` attribute is configured to `host_agent` which means that even though the `deployer` plugin is configured to execute operations on the `central_deployment_agent`, the `deploy` operation will be executed on hosts of the `nodejs_app` rather than the Cloudify manager.
