@@ -188,7 +188,7 @@ So what do we have here? <br>
 This means that every node template who's type is `nodecellar.nodes.MongoDatabase` will have to specify a value for this property.
 - It also maps its lifecycle operations to bash scripts. Remember, these operations are invoked when running the
 `install` workflow. These scripts are responsible for taking the properties and actually doing something with them. <br>
-In this case, the *start-mongo.sh* script uses the *port* property to configure the data base port.
+In this case, the *start-mongo.sh* script uses the *port* property to configure the database port.
 
 In the same manner, we define our additional types, to eventually get this blueprint:
 
@@ -558,7 +558,7 @@ node_templates:
 
 {%endhighlight%}
 
-Now we can start adding our application `node_templates`, we start by adding the Mongo data base:
+Now we can start adding our application `node_templates`, we start by adding the Mongo database:
 
 {%highlight yaml%}
 mongod:
