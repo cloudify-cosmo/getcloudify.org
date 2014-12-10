@@ -83,7 +83,7 @@ For a complete reference of these constructs refer to the DSL Specification sect
 In our case, the first thing we need to do is import the built-in cloudify node types. These types serve several purposes:
 
 1. Define base [interfaces]({{page.terminology_link}}#interface) for our nodes.
-2. Define some properties for curtain node types.
+2. Define some properties for certain node types.
 3. Differentiate between different types.
 
 **This will become clearer as we go along, don't worry :)**
@@ -266,7 +266,7 @@ To learn more about this, have a look at the full blown [Nodecellar example]({{p
 
 ## Step 5: Adding relationships
 
-The `relationships` section if where (as the name suggests) we define relationships to be later used by `node_templates`.
+The `relationships` section is where (as the name suggests) we define relationships to be later used by `node_templates`.
 In this application we can think of 2 relationships, both of which are related to the `nodecellar.nodes.NodecellarApplicationModule` type: <br>
 
 - For the application to work properly, it must be aware of the location of its database, i.e, the URL of `nodecellar.nodes.MongoDatabase`.
