@@ -6,438 +6,870 @@ publish: true
 abstract: Blueprint authoring tutorial
 pageord: 100
 
-yaml_link: http://www.getcloudify.org/spec/cloudify/3.1/types.yaml
+types_yaml_link: http://www.getcloudify.org/spec/cloudify/3.1/types.yaml
 plugin_guide_link: guide-plugin-creation.html
 openstack_blueprint_link: guide-openstack-blueprint.html
 getting_started_link: quickstart.html
 terminology_link: reference-terminology.html
+singlehost_nodecellar_url: https://github.com/cloudify-cosmo/cloudify-nodecellar-example/blob/master/singlehost-blueprint.yaml
+nodecellar_url: https://github.com/cloudify-cosmo/cloudify-nodecellar-example
+nodecellar_scripts_url: https://github.com/cloudify-cosmo/cloudify-nodecellar-example/tree/master/scripts
+nodecellar_link: http://coenraets.org/blog/2012/10/nodecellar-sample-application-with-backbone-js-twitter-bootstrap-node-js-express-and-mongodb/
+agent_overview_link: agents-description.html
+
 ---
 {%summary%} {{page.abstract}}{%endsummary%}
 
 # Overview
 
-In this tutorial we will create a blueprint([?]({{page.terminology_link}}#blueprint)) that will describe the topology([?]({{page.terminology_link}}#topology)) of the Nodecellar application([?]({{page.terminology_link}}#application)). The Nodecellar application is a Node.js web application of a wine catalog.
+In this tutorial we will create a [blueprint]({{page.terminology_link}}#blueprint) that describes
+the [topology]({{page.terminology_link}}#topology) of the Nodecellar [application]({{page.terminology_link}}#application).
+We will write, step by step, a simplified version of the [Single Host Nodecellar]({{page.singlehost_nodecellar_url}}) blueprint. <br>
 
-The blueprint we will be writing is an exact replica of the blueprint we deployed when we [got started]({{page.getting_started_link}}).
+{%tip title=Tip%}
+The [Terminology Reference Page]({{page.terminology_link}}) will help you understand some of the terms stated in this guide.
+For your convenience, links are supplied throughout the guide to point you to the right term definition in the terminology page.
+{%endtip%}
+
 
 It includes the following components:
 
 **Infrastructure:**
 
-- Two hosts (we will call them nodejs_host and mongodb_host) that contain the application. One contains Node.JS and the other MongoDB. In this tutorial we will use localhost for both host nodes([?]({{page.terminology_link}}#node)) as we want to install the entire application on our Vagrant VM.
-
+- One host that will contain both MongoDB and NodeJS.
 
 **Middleware:**
 
-- [Node.JS](http://nodejs.org/) - This is a javascript based application server that serves this web application - It is contained within the nodejs_host.
+- [Node.JS](http://nodejs.org/) - This is a javascript based application server that serves this web application - It is contained within our host.
 
-- [MongoDB](http://www.mongodb.org/) - This is a JSON document store that serves as the application database - It is contained within the mongodb_host.
+- [MongoDB](http://www.mongodb.org/) - This is a JSON document store that serves as the application database - It is contained within our host.
 
 **Application:**
 
-- Nodecellar - This is the application business logic packed as a Node.JS application. It is hosted within the Node.JS server. It requires a connection to the MongoDB Database.
+- [Nodecellar]({{page.nodecellar_link}}) - This is the application business logic packed as a Node.JS application.
 
 The topology should look like this:
 
-![nodecllar app](/guide/images3/guide/nodecellar_topology.png "The nodecellar application topology")
+![nodecllar app](/guide/images3/guide/quickstart/nodecellar_singlehost_topology.png)
 
 ## Cloudify YAML DSL
 
-Cloudify's Domain Specific Language (DSL) is written in YAML. If you are not familiar with yaml you may want to read the [yaml documentation](http://www.yaml.org/start.html) first.
+Cloudify's Domain Specific Language (DSL) is written in YAML. If you are not familiar with yaml you may want to read the [YAML Documentation](http://www.yaml.org/start.html) first.
 
-Each step of the tutorial is tagged on github. To clone it locally do the following:
-
-{%highlight bash%}
-git clone https://github.com/cloudify-cosmo/cloudify-nodecellar-singlehost.git
-git checkout tags/stepX #step1 to step9 (the latter is identical to the 3.0 version tag)
-{%endhighlight%}
-
-# Step by Step Walkthrough
+# Step by Step Walk-through
 
 ## Step 1: Creating the Blueprint
 
 First lets create a folder with the name `nodecellar` and create a blueprint.yaml file within it. This file is the blueprint file.
+Lets also give our blueprint a version:
 
-Now lets declare the name of this blueprint
 {%highlight yaml%}
-blueprint:
-    name: nodecellar
+tosca_definitions_version: cloudify_dsl_1_0
 {%endhighlight%}
 
+To learn more about blueprint versioning, refer to [Versions](dsl-spec-versioning.html)
 
-Now we can start the topology. The topology is a yaml object called nodes. Its value is a yaml list.
-{%highlight yaml%}
-blueprint:
-    name: nodecellar
-    nodes:
-{%endhighlight%}
+## Step 2: Adding imports
 
+The `imports` section is usually the first statement in our blueprint.
+It defines references to external YAML files that may hold definitions of various constructs:
 
+- [plugins]({{page.terminology_link}}#plugin)
+- [node_types]({{page.terminology_link}}#type)
+- [relationships]({{page.terminology_link}}#relationship-type)
 
-## Step 2: Adding a Host for nodejs
+For a complete reference of these constructs refer to the DSL Specification section.
 
-<a href="https://github.com/cloudify-cosmo/cloudify-nodecellar-singlehost/compare/step1...step2" class="btn btn-default" role="button"><i class="fa fa-search"></i>  Code Diff</a>
+In our case, the first thing we need to do is import the built-in cloudify node types. These types serve several purposes:
 
-Lets add the nodejs_host as the first node in the list of nodes. To do so we need a `type` as each node is an instance of a type.
-Types are like classes in an OO program. They represent a type of component in an application at any level: Infrastructure (hosts, networks etc), middleware (application servers, web servers, etc) or application (application modules, database schemas, etc).
+1. Define base [interfaces]({{page.terminology_link}}#interface) for our nodes.
+2. Define some properties for curtain node types.
+3. Differentiate between different types.
 
-Types can be imported from external files or declared inside the blueprint.yaml file.
+**This will become clearer as we go along, don't worry :)**
 
-In this case we will use a type from an external URL. Since we are not really going to spawn a VM, we will use the basic type of `cloudify.nodes.Compute`. This type can get an IP of an existing host (in our case it will be the manager IP) and install the Cloudify agent on it.  We will use this functionality to simulate the hosts in our application and in order to demonstrate how Cloudify uses application agent plugins such as the bash plugin.
+To learn more about `imports`, please refer to [Imports Specification](dsl-spec-imports.html).
 
-
-In order to use this type we need to add the following yaml in our blueprint file:
+So, basically, our blueprint file now looks like:
 
 {%highlight yaml%}
 imports:
-	 - {{page.yaml_link}}
-
+  - {{page.types_yaml_link}}
 {%endhighlight%}
 
-This file contains the declaration of the type:
+## Step 3: Adding blueprint inputs
+
+The `inputs` section is where you define what parameters of the blueprints will be configurable without the need to edit the blueprint file. <br>
+To learn more about `inputs`, please refer to [Inputs Specification](dsl-spec-inputs.html).
+
+In our case, we declare the connection details to our host as inputs, Like so:
 
 {%highlight yaml%}
+inputs:
+  host_ip:
+    description: >
+      The ip of the host the application will be deployed on
+  agent_user:
+    description: >
+      User name used when SSH-ing into the started machine
+  agent_private_key_path:
+    description: >
+      Path to a private key that resides on the management machine.
+      SSH-ing into agent machines will be done with this key.
+{%endhighlight%}
+
+{%note title=Note%}
+We do not supply any default values for these inputs, this means that users will be obliged to enter values when deploying this blueprint.
+If you do want to supply default values, you can do:
+
+
+{%highlight yaml%}
+inputs:
+  host_ip:
+    description: >
+      The ip of the host the application will be deployed on
+    default: localhost
+{%endhighlight%}
+{%endnote%}
+
+Our blueprint now looks like:
+
+{%highlight yaml%}
+imports:
+  - {{page.types_yaml_link}}
+
+inputs:
+  host_ip:
+    description: >
+      The ip of the host the application will be deployed on
+  agent_user:
+    description: >
+      User name used when SSH-ing into the started machine
+  agent_private_key_path:
+    description: >
+      Path to a private key that resided on the management machine.
+      SSH-ing into agent machines will be done with this key.
+{%endhighlight%}
+
+## Step 4: Adding node_types
+
+Next up is adding the application specific types. We will have 3 new types: <br>
+
+- `nodecellar.nodes.MongoDatabase`
+- `nodecellar.nodes.NodeJSServer`
+- `nodecellar.nodes.NodecellarApplicationModule`
+
+`node_types` usage is two-fold:
+
+1. Define a *properties schema* that *node_templates* must ad-here to.
+2. Define interface operation mappings.
+
+To learn more about `node_types`, please refer to [Node Types Specification](dsl-spec-node-types.html).
+
+Lets see an example and things will make more sense. <br>
+
+{%highlight yaml%}
+nodecellar.nodes.MongoDatabase:
+  derived_from: cloudify.nodes.DBMS
+  properties:
+    port:
+      description: MongoDB port
+      type: integer
+  interfaces:
+    cloudify.interfaces.lifecycle:
+      create: scripts/mongo/install-mongo.sh
+      start: scripts/mongo/start-mongo.sh
+      stop: scripts/mongo/stop-mongo.sh
+{%endhighlight%}
+
+So what do we have here? <br>
+
+- This node type defines a *port* property, which makes sense because we want this property to be configurable. <br>
+This means that every node template who's type is `nodecellar.nodes.MongoDatabase` will have to specify a value for this property.
+- It also maps its lifecycle operations to bash scripts. Remember, these operations are invoked when running the
+`install` workflow. These scripts are responsible for taking the properties and actually doing something with them. <br>
+In this case, the *start-mongo.sh* script uses the *port* property to configure the data base port.
+
+In the same manner, we define our additional types, to eventually get this blueprint:
+
+{%highlight yaml%}
+imports:
+  - {{page.types_yaml_link}}
+
+inputs:
+  host_ip:
+    description: >
+      The ip of the host the application will be deployed on
+  agent_user:
+    description: >
+      User name used when SSH-ing into the started machine
+  agent_private_key_path:
+    description: >
+      Path to a private key that resided on the management machine.
+      SSH-ing into agent machines will be done with this key.
+
 node_types:
-  cloudify.nodes.Compute:
-        derived_from: cloudify.nodes.Root
-        interfaces:
-            cloudify.interfaces.worker_installer:
-                install: 
-                    implementation: worker_installer.tasks.install
-                    inputs: {}
-                start: 
-                    implementation: worker_installer.tasks.start
-                    inputs: {}
-                stop: 
-                    implementation: worker_installer.tasks.stop
-                    inputs: {}
-                uninstall: 
-                    implementation: worker_installer.tasks.uninstall
-                    inputs: {}
-                restart: 
-                    implementation: worker_installer.tasks.restart
-                    inputs: {}
-            cloudify.interfaces.plugin_installer:
-                install: 
-                    implementation: plugin_installer.tasks.install
-                    inputs: {}
-            cloudify.interfaces.host:
-                get_state
-        properties:
-            install_agent:
-                default: true
-            cloudify_agent: {}
-            ip: ''
 
+  nodecellar.nodes.MongoDatabase:
+    derived_from: cloudify.nodes.DBMS
+    properties:
+      port:
+        description: MongoDB port
+        type: integer
+    interfaces:
+      cloudify.interfaces.lifecycle:
+        create: scripts/mongo/install-mongo.sh
+        start: scripts/mongo/start-mongo.sh
+        stop: scripts/mongo/stop-mongo.sh
+
+  nodecellar.nodes.NodeJSServer:
+    derived_from: cloudify.nodes.ApplicationServer
+    interfaces:
+      cloudify.interfaces.lifecycle:
+        create: scripts/nodejs/install-nodejs.sh
+
+  nodecellar.nodes.NodecellarApplicationModule:
+    derived_from: cloudify.nodes.ApplicationModule
+    properties:
+      port:
+        description: Web application port
+        type: integer
+      application_url:
+        description: >
+          URL to an archive containing the application source.
+          The archive must contain one top level directory.
+        default: https://github.com/cloudify-cosmo/nodecellar/archive/master.tar.gz
+      startup_script:
+        description: >
+          This script will be used to start the nodejs application.
+          The path is relative to the top level single directory inside
+          the archive
+        type: string
+        default: server.js
+    interfaces:
+      cloudify.interfaces.lifecycle:
+        configure: scripts/nodecellar/install-nodecellar-app.sh
+        start: scripts/nodecellar/start-nodecellar-app.sh
+        stop: scripts/nodecellar/stop-nodecellar-app.sh
 
 {%endhighlight%}
 
+**All of the paths specified are relative to the blueprint file directory. You can find the scripts [here]({{page.nodecellar_scripts_url}})**
 
-The type has interfaces with operations (hooks) that are implemented using plugin functions.
+{%tip title=Tip%}
+Think of `node_types` as a location to place shared interface implementations and properties. <br>
+When your blueprint contains only one node template of a node type, it may not make much sense in defining these types, because all of this can be defined in the node template as well. <br>
+However, `node_types`, as opposed to `node_templates`, are **importable**. <br>
+This means that you can place `node_types` in a different file, and have various blueprints import that file and use them. <br>
+To learn more about this, have a look at the full blown [Nodecellar example]({{page.nodecellar_url}})
+{%endtip%}
 
-Plugins are python facades for API's and tools you would like to use (such as IaaS compute API or tools like Chef and Puppet).
+## Step 5: Adding relationships
 
-In this case you see 2 plugins:
-- worker_installer: a manager side plugin that is responsible for SSH-ing into the host and deploying the Cloudify agent.
-- plugin_installer: an agent side plugin that installs the agent plugins used in this blueprint on the current agent.
+The `relationships` section if where (as the name suggests) we define relationships to be later used by `node_templates`.
+In this application we can think of 2 relationships, both of which are related to the `nodecellar.nodes.NodecellarApplicationModule` type: <br>
 
-in order to use the worker_installer, we will need a private key file on our manager host (this happens as part of the manager creation process).
+- For the application to work properly, it must be aware of the location of its database, i.e, the URL of `nodecellar.nodes.MongoDatabase`.
 
-The `host` type also declares a configuration schema (properties that must have values). In this case it declares the install_agent with a default value of `true`, the cloudify_agent map with a default empty map and the ip propety with a default value of an empty string.
+Cloudify's [built-in types definitions]({{page.types_yaml_link}}) comes with a relationship of type `cloudify.relationships.connected_to`, which seems to fit into our case.
 
-now let's add the nodejs_vm node that uses the type:
+- The application also needs to know where `nodecellar.nodes.NodeJSServer` is installed, because at the end of the day, this is the server who will be hosting our app.
+
+Cloudify's [built-in types definitions]({{page.types_yaml_link}}) comes with a relationship of type `cloudify.relationships.contained_in`, which also seems appropriate.
+
+Note that these relationships do not define any implementation of the relationship, since this is of course application dependent. What it does is define the basic operations one can implement.
+Similar to the lifecycle operation, relationship operations will also be invoked as part of the `install` workflow execution.
+
+To learn more about relationships, please refer to [Relationships Specification](dsl-spec-relationships.html).
+
+So, lets see how we use these relationships. First off, we will define our custom `cloudify.relationships.connected_to` relationship type:
 
 {%highlight yaml%}
-nodejs_vm
-  type: cloudify.nodes.Compute
-  properties:
-    ip: 127.0.0.1
-    cloudify_agent:
-      key: /home/vagrant/.ssh/cloudify_private_key
-
-
+node_connected_to_mongo:
+  derived_from: cloudify.relationships.connected_to
+  target_interfaces:
+    cloudify.interfaces.relationship_lifecycle:
+      postconfigure: scripts/mongo/set-mongo-url.sh
 {%endhighlight%}
 
+In this example, we have created a new relationship type called *node_connected_to_mongo*.
+Notice it is derived from the base relationship type we talked about, the `cloudify.relationships.connected_to` type.
+We also map its target interface *postconfigure* operation to, you guessed it, a bash script. <br>
+Each relationship has two edges, a *source* node and a *target* node, The definition we used here answers two questions:
 
+ 1. When will the *set-mongo-url.sh* script be executed?
 
-The above yaml snippet specifies an anonymous yaml map with the following keys:
-name - the name of the node (in this case nodejs_host)
-type - the type of component this node is an instance-of.
-properties - the configuration of this instance.
+Immediately after the *target* node's `configure` lifecycle operation.
 
-Under properties you can see 2 key-value pairs:
-ip - in this case it is localhost as we are installing the agent on the local host - that is, only simulating another host.
-cloudify_agent - is a sub-map with the agent configuration. This is where we specify the private key path.
+ 2. Where will the *set-mongo-url.sh* script be executed?
 
+On the VM hosting that *target* node.
 
-## Step 3: Adding a Host for MongoDB
+This [script]({{page.nodecellar_scripts_url}}/mongo/set-mongo-url.sh) uses the [Context API]({{page.terminology_link}}#context-object)
+to set [runtime properties]({{page.terminology_link}}#runtime-properties) that determine the MongoDB URL on the *source* node of this relationship.
 
-<a href="https://github.com/cloudify-cosmo/cloudify-nodecellar-singlehost/compare/step2...step3" class="btn btn-default" role="button"><i class="fa fa-search"></i>  Code Diff</a>
-
-In a similar manner we will now add the mongod_vm node (it is a simple copy and paste with a different name):
+In the same manner, we define the second relationship, this should now be rather clear:
 
 {%highlight yaml%}
-mongod_vm
-  type: cloudify.nodes.Compute
-  properties:
-    ip: 127.0.0.1
-    cloudify_agent:
-      key: /home/vagrant/.ssh/cloudify_private_key
-
+node_contained_in_nodejs:
+  derived_from: cloudify.relationships.contained_in
+  target_interfaces:
+    cloudify.interfaces.relationship_lifecycle:
+      preconfigure: scripts/nodejs/set-nodejs-root.sh
 {%endhighlight%}
 
-## Step 4: Adding MongoDB
-
-<a href="https://github.com/cloudify-cosmo/cloudify-nodecellar-singlehost/compare/step3...step4" class="btn btn-default" role="button"><i class="fa fa-search"></i>  Code Diff</a>
-
-Now let’s add the middleware nodes of the application. In this blueprint we are using bash types which in turn use the bash plugin to install and start the nodes.
-
-The first node we will add is the mongod node that represents the Mongo database server. The type we will use here is cloudify.bash.db_server. This type is imported from the bash plugin types and use the bash plugin to execute scripts listed in the node configuration (under the mandatory property `scripts`).
-
-The reason why we have specific types for db_server, app_server, etc. is that we want the user to be able to differentiate between nodes based on their role in the application. We therefore use marking types.
-
-We need to import the bash types and plugins to use this type. The below declaration is added at the begining of the file:
+Our full blueprint now looks like:
 
 {%highlight yaml%}
 imports:
-    - http://www.getcloudify.org/spec/bash-plugin/1.1/plugin.yaml
+  - {{page.types_yaml_link}}
 
-{%endhighlight%}
+inputs:
+  host_ip:
+    description: >
+      The ip of the host the application will be deployed on
+  agent_user:
+    description: >
+      User name used when SSH-ing into the started machine
+  agent_private_key_path:
+    description: >
+      Path to a private key that resided on the management machine.
+      SSH-ing into agent machines will be done with this key.
 
+node_types:
 
-Now we can declare the mongod node:
-
-{%highlight yaml%}
-- name: mongod
-      type: cloudify.bash.db_server
-      properties:
-            role: mongod
-            port: 27017
-            scripts:
-                create: mongo-scripts/install-mongo.sh
-                start: mongo-scripts/start-mongo.sh
-                stop: mongo-scripts/stop-mongo.sh
-
-{%endhighlight%}
-
-What we see here is the scripts property which is a map of scripts mapped to lifecycle events. In this case we see that the create event is mapped to mongo-scripts/install-mongo.sh.
-
-The scripts are uploaded with the blueprint under the subfolder mongo-scripts. The plugin has an API to fetch this file from the manager's fileserver and use it. The bash plugin knows which lifecycle event was assigned to the agent by the workflow engine and searches the scripts dictionary for the right script name and path.
-
-
-
-## Step 5: Refining the Blueprint with a Custom Type
-
-<a href="https://github.com/cloudify-cosmo/cloudify-nodecellar-singlehost/compare/step4...step5" class="btn btn-default" role="button"><i class="fa fa-search"></i>  Code Diff</a>
-
-We have just declared a mongod node of type cloudify.bash.db_server. This type doesn’t enforce any properties except for scripts. In the case of a mongo database we probably need to make sure the user gives us configuration details such as the role in the mongo cluster and the port on which it listens. We will therefore subtype cloudify.bash.db_server and add schema property declarations:
-
-
-{%highlight yaml%}
-
-
-mongo_database:
-        derived_from: cloudify.types.bash.db_server
-        properties:
-            -   role
-            -   port
-
-{%endhighlight%}
-
-So now our mongod node will look like this:
-
-
-{%highlight yaml%}
-
-- name: mongod
-      type: mongo_database
-      properties:
-            role: mongod
-            port: 27017
-            scripts:
-                create: mongo-scripts/install-mongo.sh
-                start: mongo-scripts/start-mongo.sh
-                stop: mongo-scripts/stop-mongo.sh
-
-{%endhighlight%}
-
-
-
-
-
-
-
-Finally we need to add the mongod relationships. This node has only one relationship - it is contained in the mongod_host node (In reality it is not in this deployment as the host is a mock)
-
-{%highlight yaml%}
-- name: mongod
-      type: mongo_database
-      properties:
-            role: mongod
-            port: 27017
-            scripts:
-                create: mongo-scripts/install-mongo.sh
-                start: mongo-scripts/start-mongo.sh
-                stop: mongo-scripts/stop-mongo.sh
-      relationships:
-        - target: mongod_vm
-          type: cloudify.relationships.contained_in
-
-{%endhighlight%}
-
-## Step 6: Adding nodejs
-
-<a href="https://github.com/cloudify-cosmo/cloudify-nodecellar-singlehost/compare/step5...step6" class="btn btn-default" role="button"><i class="fa fa-search"></i>  Code Diff</a>
-
-Now we can declare the nodejs node:
-
-{%highlight yaml%}
-- name: nodejs
-      type: cloudify.bash.app_server
-      properties:
-            scripts:
-                create: nodejs-scripts/install-nodejs.sh
-      relationships:
-        - type: cloudify.relationships.contained_in
-          target: nodejs_vm
-
-{%endhighlight%}
-
-This is similar to the mongod node. It uses a bash type (cloudify.bash.app_server).
-It uses the same type of relationship (cloudify.relationships.contained_in
-) but it’s located in the other vm node.
-
-## Step 7: Refining the nodejs Type
-
-<a href="https://github.com/cloudify-cosmo/cloudify-nodecellar-singlehost/compare/step6...step7" class="btn btn-default" role="button"><i class="fa fa-search"></i>  Code Diff</a>
-
-We can refine this node as well by using a subtype in case we want specific properties in the future. The subtype will look like this:
-
-{%highlight yaml%}
-nodejs_server:
-        derived_from: cloudify.types.bash.app_server
-{%endhighlight%}
-
-as a result the final version of the nodejs node is:
-
-{%highlight yaml%}
-- name: nodejs
-      type: nodejs_server
-      properties:
-            scripts:
-                create: nodejs-scripts/install-nodejs.sh
-      relationships:
-        - type: cloudify.relationships.contained_in
-          target: nodejs_vm
-
-{%endhighlight%}
-
-
-Now let’s try and [deploy](quickstart.html) what we have created so far to get a feel of it.
-
-## Step 8: Adding the nodejs Application Code
-
-<a href="https://github.com/cloudify-cosmo/cloudify-nodecellar-singlehost/compare/step7...step8" class="btn btn-default" role="button"><i class="fa fa-search"></i>  Code Diff</a>
-
-we can now add the application layer by adding the nodecellar_app node. it is of type nodejs_app (which again we need to decalre inline).
-
-{%highlight yaml%}
-nodejs_app:
-    derived_from: cloudify.types.bash.app_module
+  nodecellar.nodes.MongoDatabase:
+    derived_from: cloudify.nodes.DBMS
     properties:
-        -   app_name
-        -   startup_script
-        -   git_url
-        -   git_branch
-        -   base_port
-        -   num_instances
-        -   env_file_path
-{%endhighlight%}
+      port:
+        description: MongoDB port
+        type: integer
+    interfaces:
+      cloudify.interfaces.lifecycle:
+        create: scripts/mongo/install-mongo.sh
+        start: scripts/mongo/start-mongo.sh
+        stop: scripts/mongo/stop-mongo.sh
 
-And now we can add the node in the nodes list
+  nodecellar.nodes.NodeJSServer:
+    derived_from: cloudify.nodes.ApplicationServer
+    interfaces:
+      cloudify.interfaces.lifecycle:
+        create: scripts/nodejs/install-nodejs.sh
 
-{%highlight yaml%}
- - name: nodecellar_app
-      type: nodejs_app
-      properties:
-            app_name: nodecellar
-            startup_script: server.js
-            git_url: https://github.com/uric/nodecellar.git
-            git_branch: master
-            base_port: 8080
-            num_instances: 1
-            env_file_path: /tmp/mongo_host_and_port.sh
-            scripts:
-                create: nodejs-scripts/install-app.sh
-                start: nodejs-scripts/start-app.sh
-                stop: nodejs-scripts/stop-app.sh
-      relationships:
-        - type: cloudify.relationships.contained_in
-          target: nodejs
+  nodecellar.nodes.NodecellarApplicationModule:
+    derived_from: cloudify.nodes.ApplicationModule
+    properties:
+      port:
+        description: Web application port
+        type: integer
+      application_url:
+        description: >
+          URL to an archive containing the application source.
+          The archive must contain one top level directory.
+        default: https://github.com/cloudify-cosmo/nodecellar/archive/master.tar.gz
+      startup_script:
+        description: >
+          This script will be used to start the nodejs application.
+          The path is relative to the top level single directory inside
+          the archive
+        type: string
+        default: server.js
+    interfaces:
+      cloudify.interfaces.lifecycle:
+        configure: scripts/nodecellar/install-nodecellar-app.sh
+        start: scripts/nodecellar/start-nodecellar-app.sh
+        stop: scripts/nodecellar/stop-nodecellar-app.sh
 
-{%endhighlight%}
-
-Again note the bash scripts used to install the application. This node has a contained_in relationship to the nodejs node which means that it will be deployed inside the node.js server
-Lets [deploy](quickstart.html) again and see the entire application stack but without the db connection yet.
-
-## Step 9: Connecting the nodejs Application to MongoDB
-
-<a href="https://github.com/cloudify-cosmo/cloudify-nodecellar-singlehost/compare/step8...step9" class="btn btn-default" role="button"><i class="fa fa-search"></i>  Code Diff</a>
-
-We need to connect the node.js application to the mongo database to make it fully functional. To do so we need a plugin that will get the runtime details of the mongod node and will configure the nodecellar_app node. The plugin API gets both nodes details in the context of a relationship from the workflow engine, so it is easy to code such a plugin. In this case we are going to use a custom plugin called nodecellar_config_plugin.
-
-This plugin is declared in the following manner:
-
-{%highlight yaml%}
-plugins:
-    nodecellar_config_plugin:
-        derived_from: cloudify.plugins.agent_plugin
-        properties:
-            folder: nodecellar-config-plugin
-
-{%endhighlight%}
-
-We need to add now a custom relationship that will inherit from the connected_to abstract relationship type and will use the plugin.
-
-{%highlight yaml%}
 relationships:
-    nodecellar_connected_to_mongo:
-        derived_from: cloudify.relationships.connected_to
-        source_interfaces:
-            cloudify.interfaces.relationship_lifecycle:
-                postconfigure: 
-                    implementation: nodecellar_config_plugin.tasks.get_mongo_host_and_port
-                    inputs: {}
+
+  node_connected_to_mongo:
+    derived_from: cloudify.relationships.connected_to
+    target_interfaces:
+      cloudify.interfaces.relationship_lifecycle:
+        postconfigure: scripts/mongo/set-mongo-url.sh
+
+  node_contained_in_nodejs:
+    derived_from: cloudify.relationships.contained_in
+    target_interfaces:
+      cloudify.interfaces.relationship_lifecycle:
+        preconfigure: scripts/nodejs/set-nodejs-root.sh
 
 {%endhighlight%}
 
 
-Now lets make use of this relationship in the nodecellar_app node.
+## Step 6: Adding node_templates
+
+So far, all we have mainly done is define *types*, be it `node_types` or `relationship` types. Types themselves do not constitute a valid blueprint,
+they are meant to be used by `node_templates`, which are basically just occurrences of specific `node_types`. <br>
+
+To learn more about `node_templates`, please refer to [Node Templates Specification](dsl-spec-node-templates.html).
+
+Lets define our first node template.
+Until now we have only dealt with the **Middleware** and **Application** parts of the topology, but what about the **Infrastructure**? <br>
+Remember that our infrastructure consists of just a single, pre-existing host. So we start by defining it.
 
 {%highlight yaml%}
-- name: nodecellar_app
-      type: nodejs_app
-      properties:
-            app_name: nodecellar
-            startup_script: server.js
-            git_url: https://github.com/uric/nodecellar.git
-            git_branch: master
-            base_port: 8080
-            num_instances: 1
-            env_file_path: /tmp/mongo_host_and_port.sh
-            scripts:
-                create: nodejs-scripts/install-app.sh
-                start: nodejs-scripts/start-app.sh
-                stop: nodejs-scripts/stop-app.sh
-      relationships:
-        - type: cloudify.relationships.contained_in
-          target: nodejs
-        - type: nodecellar_connected_to_mongo
-          target: mongod
+host:
+  type: cloudify.nodes.Compute
+{%endhighlight%}
+
+We now defined a node template called *host*, and specified that its type is `cloudify.nodes.Compute`.
+This type is one that is provided by Cloudify's [built-in types definitions]({{page.types_yaml_link}}).
+We talked about `node_types` and the fact that they can define a *properties schema*. This is exactly what the `cloudify.nodes.Compute` does. Lets have a look:
+
+{%highlight yaml%}
+cloudify.nodes.Compute:
+  properties:
+    install_agent:
+      default: true
+    cloudify_agent:
+      default: {}
+    ip:
+      default: ''
+{%endhighlight%}
+
+so we have 3 properties defined here:
+
+- *install_agent* - This tells cloudify whether or not to install an [Agent]({{page.agent_overview_link}}) on this host.
+This default to true and you shouldn't worry about this in this example.
+- *cloudify_agent* - This is a dictionary that will contain agent configuration, among other things, its most important keys will be connection details to the host.
+This defaults to an empty dictionary because its auto-populated when running in a **Cloud Environment**, however, since we run this application on an existing vm, we will have to populate these values.
+- *ip* - The host ip.
+Again, this defaults to an empty string because it is auto-populated when running in a **Cloud Environment**, but we will have to enter a value here as well. <br>
+
+This is how we populate specific values for these properties:
+
+{%highlight yaml%}
+host:
+  type: cloudify.nodes.Compute
+  properties:
+    ip: localhost
+    cloudify_agent:
+      user: ubuntu
+      key: /home/ubuntu/.ssh/agent_key.pem
+{%endhighlight%}
+
+{%note title=Note%}
+We said earlier that properties defined in the node type, must be populated by the node template of this type, this is what makes the node type properties a *properties schema*.
+However, this is only true for properties **without** default values, in our case we see that actually every property has a default value, which means we are in fact disabling the *properties schema* validation.
+The consequence is that if the node template **did not** specify a certain property, the default 'empty' values will be passed, and in a non cloud environment, this will cause failures.
+{%endnote%}
+
+However, at the beginning of this tutorial we talked about the `inputs` section, and said that we want these connection details to be configurable by outside users.
+We did so by adding several inputs, that map exactly to these details. But how do we use them?
+
+This is where [Intrinsic Functions](dsl-spec-intrinsic-functions.html) come in to play.
+We use the `get_input` function to retrieve `inputs` defined in the blueprint.
+
+{%highlight yaml%}
+host:
+  type: cloudify.nodes.Compute
+  properties:
+    ip: { get_input: host_ip }
+    cloudify_agent:
+      user: { get_input: agent_user }
+      key: { get_input: agent_private_key_path }
+{%endhighlight%}
+
+So, lets have a look at our blueprint so far:
+
+{%highlight yaml%}
+imports:
+  - {{page.types_yaml_link}}
+
+inputs:
+  host_ip:
+    description: >
+      The ip of the host the application will be deployed on
+  agent_user:
+    description: >
+      User name used when SSH-ing into the started machine
+  agent_private_key_path:
+    description: >
+      Path to a private key that resided on the management machine.
+      SSH-ing into agent machines will be done with this key.
+
+node_types:
+
+  nodecellar.nodes.MongoDatabase:
+    derived_from: cloudify.nodes.DBMS
+    properties:
+      port:
+        description: MongoDB port
+        type: integer
+    interfaces:
+      cloudify.interfaces.lifecycle:
+        create: scripts/mongo/install-mongo.sh
+        start: scripts/mongo/start-mongo.sh
+        stop: scripts/mongo/stop-mongo.sh
+
+  nodecellar.nodes.NodeJSServer:
+    derived_from: cloudify.nodes.ApplicationServer
+    interfaces:
+      cloudify.interfaces.lifecycle:
+        create: scripts/nodejs/install-nodejs.sh
+
+  nodecellar.nodes.NodecellarApplicationModule:
+    derived_from: cloudify.nodes.ApplicationModule
+    properties:
+      port:
+        description: Web application port
+        type: integer
+      application_url:
+        description: >
+          URL to an archive containing the application source.
+          The archive must contain one top level directory.
+        default: https://github.com/cloudify-cosmo/nodecellar/archive/master.tar.gz
+      startup_script:
+        description: >
+          This script will be used to start the nodejs application.
+          The path is relative to the top level single directory inside
+          the archive
+        type: string
+        default: server.js
+    interfaces:
+      cloudify.interfaces.lifecycle:
+        configure: scripts/nodecellar/install-nodecellar-app.sh
+        start: scripts/nodecellar/start-nodecellar-app.sh
+        stop: scripts/nodecellar/stop-nodecellar-app.sh
+
+relationships:
+
+  node_connected_to_mongo:
+    derived_from: cloudify.relationships.connected_to
+    target_interfaces:
+      cloudify.interfaces.relationship_lifecycle:
+        postconfigure: scripts/mongo/set-mongo-url.sh
+
+  node_contained_in_nodejs:
+    derived_from: cloudify.relationships.contained_in
+    target_interfaces:
+      cloudify.interfaces.relationship_lifecycle:
+        preconfigure: scripts/nodejs/set-nodejs-root.sh
+
+node_templates:
+  host:
+    type: cloudify.nodes.Compute
+    properties:
+      ip: { get_input: host_ip }
+      cloudify_agent:
+        user: { get_input: agent_user }
+        key: { get_input: agent_private_key_path }
 
 {%endhighlight%}
+
+Now we can start adding our application `node_templates`, we start by adding the Mongo data base:
+
+{%highlight yaml%}
+mongod:
+  type: nodecellar.nodes.MongoDatabase
+  properties:
+    port: 27017
+  relationships:
+    - type: cloudify.relationships.contained_in
+      target: host
+{%endhighlight%}
+
+Notice that we defined a relationship of type `cloudify.relationships.contained_in` and declare that this node template is *contained* inside our host.
+This relationship will ensure that the host node will be provisioned **before** the mongod node starts.
+Also, this is where we use our `node_types` that we defined earlier. We can see that the *mongod* node is of type `nodecellar.nodes.MongoDatabase`. <br>
+The NodeJS node is very similar, and is actually even simpler:
+
+{%highlight yaml%}
+nodejs:
+  type: nodecellar.nodes.NodeJSServer
+  relationships:
+    - type: cloudify.relationships.contained_in
+      target: host
+{%endhighlight%}
+
+The last node template we will define is our nodecellar application module:
+
+{%highlight yaml%}
+nodecellar:
+  type: nodecellar.nodes.NodecellarApplicationModule
+  properties:
+    port: 8080
+  relationships:
+    - type: node_connected_to_mongo
+      target: mongod
+    - type: node_contained_in_nodejs
+      target: nodejs
+{%endhighlight%}
+
+The interesting part here is the `relationships` key. Notice we define two relationships, each one uses a relationship type we defined earlier, and stitches it to a **specific** node template.
+
+So, we now have an almost complete blueprint:
+
+{%highlight yaml%}
+imports:
+  - {{page.types_yaml_link}}
+
+inputs:
+  host_ip:
+    description: >
+      The ip of the host the application will be deployed on
+  agent_user:
+    description: >
+      User name used when SSH-ing into the started machine
+  agent_private_key_path:
+    description: >
+      Path to a private key that resided on the management machine.
+      SSH-ing into agent machines will be done with this key.
+
+node_types:
+
+  nodecellar.nodes.MongoDatabase:
+    derived_from: cloudify.nodes.DBMS
+    properties:
+      port:
+        description: MongoDB port
+        type: integer
+    interfaces:
+      cloudify.interfaces.lifecycle:
+        create: scripts/mongo/install-mongo.sh
+        start: scripts/mongo/start-mongo.sh
+        stop: scripts/mongo/stop-mongo.sh
+
+  nodecellar.nodes.NodeJSServer:
+    derived_from: cloudify.nodes.ApplicationServer
+    interfaces:
+      cloudify.interfaces.lifecycle:
+        create: scripts/nodejs/install-nodejs.sh
+
+  nodecellar.nodes.NodecellarApplicationModule:
+    derived_from: cloudify.nodes.ApplicationModule
+    properties:
+      port:
+        description: Web application port
+        type: integer
+      application_url:
+        description: >
+          URL to an archive containing the application source.
+          The archive must contain one top level directory.
+        default: https://github.com/cloudify-cosmo/nodecellar/archive/master.tar.gz
+      startup_script:
+        description: >
+          This script will be used to start the nodejs application.
+          The path is relative to the top level single directory inside
+          the archive
+        type: string
+        default: server.js
+    interfaces:
+      cloudify.interfaces.lifecycle:
+        configure: scripts/nodecellar/install-nodecellar-app.sh
+        start: scripts/nodecellar/start-nodecellar-app.sh
+        stop: scripts/nodecellar/stop-nodecellar-app.sh
+
+relationships:
+
+  node_connected_to_mongo:
+    derived_from: cloudify.relationships.connected_to
+    target_interfaces:
+      cloudify.interfaces.relationship_lifecycle:
+        postconfigure: scripts/mongo/set-mongo-url.sh
+
+  node_contained_in_nodejs:
+    derived_from: cloudify.relationships.contained_in
+    target_interfaces:
+      cloudify.interfaces.relationship_lifecycle:
+        preconfigure: scripts/nodejs/set-nodejs-root.sh
+
+node_templates:
+
+  host:
+    type: cloudify.nodes.Compute
+    properties:
+      ip: { get_input: host_ip }
+      cloudify_agent:
+        user: { get_input: agent_user }
+        key: { get_input: agent_private_key_path }
+
+  mongod:
+    type: nodecellar.nodes.MongoDatabase
+    properties:
+      port: 27017
+    relationships:
+      - type: cloudify.relationships.contained_in
+        target: host
+
+  nodejs:
+    type: nodecellar.nodes.NodeJSServer
+    relationships:
+      - type: cloudify.relationships.contained_in
+        target: host
+
+  nodecellar:
+    type: nodecellar.nodes.NodecellarApplicationModule
+    properties:
+      port: 8080
+    relationships:
+      - type: node_connected_to_mongo
+        target: mongod
+      - type: node_contained_in_nodejs
+        target: nodejs
+
+{%endhighlight%}
+
+
+## Step 7: Adding outputs
+
+the `outputs` part of the blueprint is optional, but we recommend adding this section because it might prove useful.
+`outputs` allow the blueprint to expose application characteristics via the [REST](rest-api/index.html) or the [CLI](reference-cfy.html). <br>
+In this blueprint we will use `outputs` to expose the application url endpoint, like so:
+
+{%highlight yaml%}
+outputs:
+  endpoint:
+    description: Web application endpoint
+    value:
+      ip_address: { get_property: [host, ip] }
+      port: { get_property: [nodecellar, port] }
+{%endhighlight%}
+
+We see that the `outputs` section defines one output called *endpoint*, this output in turn defines two keys:
+
+- *ip_address*
+- *port*
+
+Both of these values are retrieved by using another *intrinsic function* called `get_property`, which can extract properties from different nodes in the blueprint.
+After the `install` workflow has finished executing, we can run:
+
+{%highlight bash%}
+cfy deployments outputs -d <deployment_id>
+{%endhighlight%}
+
+
+{%highlight bash%}
+ - "endpoint":
+     Description: Web application endpoint
+     Value: {u'ip_address': u'192.168.40.156', u'port': 8080}
+{%endhighlight%}
+
+# Final Result
+
+Lets take a look at our full blueprint:
+
+{%highlight yaml%}
+imports:
+  - {{page.types_yaml_link}}
+
+inputs:
+  host_ip:
+    description: >
+      The ip of the host the application will be deployed on
+  agent_user:
+    description: >
+      User name used when SSH-ing into the started machine
+  agent_private_key_path:
+    description: >
+      Path to a private key that resided on the management machine.
+      SSH-ing into agent machines will be done with this key.
+
+node_types:
+
+  nodecellar.nodes.MongoDatabase:
+    derived_from: cloudify.nodes.DBMS
+    properties:
+      port:
+        description: MongoDB port
+        type: integer
+    interfaces:
+      cloudify.interfaces.lifecycle:
+        create: scripts/mongo/install-mongo.sh
+        start: scripts/mongo/start-mongo.sh
+        stop: scripts/mongo/stop-mongo.sh
+
+  nodecellar.nodes.NodeJSServer:
+    derived_from: cloudify.nodes.ApplicationServer
+    interfaces:
+      cloudify.interfaces.lifecycle:
+        create: scripts/nodejs/install-nodejs.sh
+
+  nodecellar.nodes.NodecellarApplicationModule:
+    derived_from: cloudify.nodes.ApplicationModule
+    properties:
+      port:
+        description: Web application port
+        type: integer
+      application_url:
+        description: >
+          URL to an archive containing the application source.
+          The archive must contain one top level directory.
+        default: https://github.com/cloudify-cosmo/nodecellar/archive/master.tar.gz
+      startup_script:
+        description: >
+          This script will be used to start the nodejs application.
+          The path is relative to the top level single directory inside
+          the archive
+        type: string
+        default: server.js
+    interfaces:
+      cloudify.interfaces.lifecycle:
+        configure: scripts/nodecellar/install-nodecellar-app.sh
+        start: scripts/nodecellar/start-nodecellar-app.sh
+        stop: scripts/nodecellar/stop-nodecellar-app.sh
+
+relationships:
+
+  node_connected_to_mongo:
+    derived_from: cloudify.relationships.connected_to
+    target_interfaces:
+      cloudify.interfaces.relationship_lifecycle:
+        postconfigure: scripts/mongo/set-mongo-url.sh
+
+  node_contained_in_nodejs:
+    derived_from: cloudify.relationships.contained_in
+    target_interfaces:
+      cloudify.interfaces.relationship_lifecycle:
+        preconfigure: scripts/nodejs/set-nodejs-root.sh
+
+node_templates:
+
+  host:
+    type: cloudify.nodes.Compute
+    properties:
+      ip: { get_input: host_ip }
+      cloudify_agent:
+        user: { get_input: agent_user }
+        key: { get_input: agent_private_key_path }
+
+  mongod:
+    type: nodecellar.nodes.MongoDatabase
+    properties:
+      port: 27017
+    relationships:
+      - type: cloudify.relationships.contained_in
+        target: host
+
+  nodejs:
+    type: nodecellar.nodes.NodeJSServer
+    relationships:
+      - type: cloudify.relationships.contained_in
+        target: host
+
+  nodecellar:
+    type: nodecellar.nodes.NodecellarApplicationModule
+    properties:
+      port: 8080
+    relationships:
+      - type: node_connected_to_mongo
+        target: mongod
+      - type: node_contained_in_nodejs
+        target: nodejs
+
+outputs:
+  endpoint:
+    description: Web application endpoint
+    value:
+      ip_address: { get_property: [host, ip] }
+      port: { get_property: [nodecellar, port] }
+
+{%endhighlight%}
+
+That's it, this a fully functioning blueprint that can be used with a Cloudify Manager to install the nodecellar application on an existing host.
 
 # What's Next
 
-* Now that you know how to write a basic blueprint, you can [write an Openstack blueprint]({{page.openstack_blueprint_link}}).
+* Now that you know how to write a basic blueprint, you can [Write an Openstack blueprint]({{page.openstack_blueprint_link}}).
 * Or.. you can read the [Write-a-Plugin guide]({{page.plugin_guide_link}}) to gain a better understanding of how plugins work (and write your first plugin if you like).
