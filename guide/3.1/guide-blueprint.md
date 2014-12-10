@@ -61,6 +61,13 @@ Cloudify's Domain Specific Language (DSL) is written in YAML. If you are not fam
 ## Step 1: Creating the Blueprint
 
 First lets create a folder with the name `nodecellar` and create a blueprint.yaml file within it. This file is the blueprint file.
+Lets also give our blueprint a version:
+
+{%highlight yaml%}
+tosca_definitions_version: cloudify_dsl_1_0
+{%endhighlight%}
+
+To learn more about blueprint versioning, refer to [Versions](dsl-spec-versioning.html)
 
 ## Step 2: Adding imports
 
