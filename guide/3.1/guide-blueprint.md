@@ -78,11 +78,11 @@ It defines references to external YAML files that may hold definitions of variou
 - [node_types]({{page.terminology_link}}#type)
 - [relationships]({{page.terminology_link}}#relationship-type)
 
-For a complete reference of these constructs refer to [DSL Specification](http://getcloudify.org/guide/3.1/quickstart.html#DSL_Specification).
+For a complete reference of these constructs refer to the DSL Specification section.
 
 In our case, the first thing we need to do is import the built-in cloudify node types. These types serve several purposes:
 
-1. Define base [`interfaces`]({{page.terminology_link}}#interface) for our nodes.
+1. Define base [interfaces]({{page.terminology_link}}#interface) for our nodes.
 2. Define some properties for curtain node types.
 3. Differentiate between different types.
 
@@ -114,12 +114,12 @@ inputs:
       User name used when SSH-ing into the started machine
   agent_private_key_path:
     description: >
-      Path to a private key that resided on the management machine.
+      Path to a private key that resides on the management machine.
       SSH-ing into agent machines will be done with this key.
 {%endhighlight%}
 
 {%note title=Note%}
-We do not supply any default values for these inputs, this means users will be obliged to enter values when deploying this blueprint.
+We do not supply any default values for these inputs, this means that users will be obliged to enter values when deploying this blueprint.
 If you do want to supply default values, you can do:
 
 
@@ -186,7 +186,7 @@ So what do we have here? <br>
 
 - This node type defines a *port* property, which makes sense because we want this property to be configurable. <br>
 This means that every node template who's type is `nodecellar.nodes.MongoDatabase` will have to specify a value for this property.
-- It also maps it's lifecycle operations to bash scripts. Remember, these operations are invoked when running the
+- It also maps its lifecycle operations to bash scripts. Remember, these operations are invoked when running the
 `install` workflow. These scripts are responsible for taking the properties and actually doing something with them. <br>
 In this case, the *start-mongo.sh* script uses the *port* property to configure the data base port.
 
@@ -259,8 +259,8 @@ node_types:
 {%tip title=Tip%}
 Think of `node_types` as a location to place shared interface implementations and properties. <br>
 When your blueprint contains only one node template of a node type, it may not make much sense in defining these types, because all of this can be defined in the node template as well. <br>
-However, `node_types`, as opposed to `node_templates`, are **improtable**. <br>
-This means that you can place types in a different file, and have various blueprints import that file and use these types. <br>
+However, `node_types`, as opposed to `node_templates`, are **importable**. <br>
+This means that you can place `node_types` in a different file, and have various blueprints import that file and use them. <br>
 To learn more about this, have a look at the full blown [Nodecellar example]({{page.nodecellar_url}})
 {%endtip%}
 
@@ -269,13 +269,13 @@ To learn more about this, have a look at the full blown [Nodecellar example]({{p
 The `relationships` section if where (as the name suggests) we define relationships to be later used by `node_templates`.
 In this application we can think of 2 relationships, both of which are related to the `nodecellar.nodes.NodecellarApplicationModule` type: <br>
 
-- For the application to work properly, it must be aware of the location of its data base, i.e, the URL of `nodecellar.nodes.MongoDatabase`.
+- For the application to work properly, it must be aware of the location of its database, i.e, the URL of `nodecellar.nodes.MongoDatabase`.
 
-cloudify's [built-in types definitions]({{page.types_yaml_link}}) comes with a relationship of type `cloudify.relationships.connected_to`, this seems to fit into our case.
+Cloudify's [built-in types definitions]({{page.types_yaml_link}}) comes with a relationship of type `cloudify.relationships.connected_to`, which seems to fit into our case.
 
 - The application also needs to know where `nodecellar.nodes.NodeJSServer` is installed, because at the end of the day, this is the server who will be hosting our app.
 
-cloudify's [built-in types definitions]({{page.types_yaml_link}}) comes with a relationship of type `cloudify.relationships.contained_in`, which also seems appropriate.
+Cloudify's [built-in types definitions]({{page.types_yaml_link}}) comes with a relationship of type `cloudify.relationships.contained_in`, which also seems appropriate.
 
 Note that these relationships do not define any implementation of the relationship, since this is of course application dependent. What it does is define the basic operations one can implement.
 Similar to the lifecycle operation, relationship operations will also be invoked as part of the `install` workflow execution.
@@ -303,10 +303,10 @@ Immediately after the *target* node's `configure` lifecycle operation.
 
  2. Where will the *set-mongo-url.sh* script be executed?
 
-On the agent hosting that *target* node.
+On the VM hosting that *target* node.
 
 This [script]({{page.nodecellar_scripts_url}}/mongo/set-mongo-url.sh) uses the [Context API]({{page.terminology_link}}#context-object)
-to set *runtime properties* that determine the MongoDB URL on the *source* node of this relationship.
+to set [runtime properties]({{page.terminology_link}}#runtime-properties) that determine the MongoDB URL on the *source* node of this relationship.
 
 In the same manner, we define the second relationship, this should now be rather clear:
 
@@ -400,12 +400,12 @@ relationships:
 ## Step 6: Adding node_templates
 
 So far, all we have mainly done is define *types*, be it `node_types` or `relationship` types. Types themselves do not constitute a valid blueprint,
-they are meant to be used by `node_templates`, which are basically just occurrences of specific `node_types` types. <br>
+they are meant to be used by `node_templates`, which are basically just occurrences of specific `node_types`. <br>
 
 To learn more about `node_templates`, please refer to [Node Templates Specification](dsl-spec-node-templates.html).
 
 Lets define our first node template.
-Until now we have only dealt with the **Middleware** and **Application** part of the topology, but what about the **Infrastructure**? <br>
+Until now we have only dealt with the **Middleware** and **Application** parts of the topology, but what about the **Infrastructure**? <br>
 Remember that our infrastructure consists of just a single, pre-existing host. So we start by defining it.
 
 {%highlight yaml%}
@@ -414,8 +414,8 @@ host:
 {%endhighlight%}
 
 We now defined a node template called *host*, and specified that its type is `cloudify.nodes.Compute`.
-This type is one that is provided by cloudify's [built-in types definitions]({{page.types_yaml_link}}).
-We talked about `node_types` and the fact that they can define a *properties schema*, this is exactly what the `cloudify.nodes.Compute` does. Lets have a look:
+This type is one that is provided by Cloudify's [built-in types definitions]({{page.types_yaml_link}}).
+We talked about `node_types` and the fact that they can define a *properties schema*. This is exactly what the `cloudify.nodes.Compute` does. Lets have a look:
 
 {%highlight yaml%}
 cloudify.nodes.Compute:
@@ -452,7 +452,7 @@ host:
 {%note title=Note%}
 We said earlier that properties defined in the node type, must be populated by the node template of this type, this is what makes the node type properties a *properties schema*.
 However, this is only true for properties **without** default values, in our case we see that actually every property has a default value, which means we are in fact disabling the *properties schema* validation.
-The consequence is that if the node template **did not** specify a curtain property, the default 'empty' values will be passed, and in a non cloud environment, this will cause failures.
+The consequence is that if the node template **did not** specify a certain property, the default 'empty' values will be passed, and in a non cloud environment, this will cause failures.
 {%endnote%}
 
 However, at the beginning of this tutorial we talked about the `inputs` section, and said that we want these connection details to be configurable by outside users.
@@ -723,7 +723,7 @@ outputs:
   endpoint:
     description: Web application endpoint
     value:
-      ip_address: { get_property: [ host, ip ] }
+      ip_address: { get_property: [host, ip] }
       port: { get_property: [nodecellar, port] }
 {%endhighlight%}
 
@@ -862,7 +862,7 @@ outputs:
   endpoint:
     description: Web application endpoint
     value:
-      ip_address: { get_property: [ host, ip ] }
+      ip_address: { get_property: [host, ip] }
       port: { get_property: [nodecellar, port] }
 
 {%endhighlight%}

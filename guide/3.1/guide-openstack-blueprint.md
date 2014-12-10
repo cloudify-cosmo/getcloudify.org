@@ -85,7 +85,7 @@ mongod_security_group:
       name: mongod_security_group
     rules:
       - remote_ip_prefix: 0.0.0.0/0
-        port: { get_property: [ mongod, port ] }
+        port: { get_property: [mongod, port] }
       - remote_ip_prefix: 0.0.0.0/0
         port: 28017
 {%endhighlight%}
@@ -100,7 +100,7 @@ nodecellar_security_group:
       name: nodecellar_security_group
     rules:
       - remote_ip_prefix: 0.0.0.0/0
-        port: { get_property: [ nodecellar, port ] }
+        port: { get_property: [nodecellar, port] }
 {%endhighlight%}
 
 ## Step 4: Adding the floating IP
@@ -161,7 +161,7 @@ outputs:
   endpoint:
     description: Web application endpoint
     value:
-      ip_address: { get_property: [ host, ip ] }
+      ip_address: { get_property: [host, ip] }
       port: { get_property: [nodecellar, port] }
 {%endhighlight%}
 
@@ -176,7 +176,7 @@ outputs:
   endpoint:
     description: Web application endpoint
     value:
-      ip_address: { get_attribute: [ nodecellar_floatingip, floating_ip_address ] }
+      ip_address: { get_attribute: [nodecellar_floatingip, floating_ip_address ] }
       port: { get_property: [nodecellar, port] }
 {%endhighlight%}
 
@@ -319,7 +319,7 @@ node_templates:
         name: mongod_security_group
       rules:
         - remote_ip_prefix: 0.0.0.0/0
-          port: { get_property: [ mongod, port ] }
+          port: { get_property: [mongod, port] }
         - remote_ip_prefix: 0.0.0.0/0
           port: 28017
 
@@ -330,13 +330,13 @@ node_templates:
         name: nodecellar_security_group
       rules:
         - remote_ip_prefix: 0.0.0.0/0
-          port: { get_property: [ nodecellar, port ] }
+          port: { get_property: [nodecellar, port] }
 
 outputs:
   endpoint:
     description: Web application endpoint
     value:
-      ip_address: { get_attribute: [ nodecellar_floatingip, floating_ip_address ] }
+      ip_address: { get_attribute: [nodecellar_floatingip, floating_ip_address] }
       port: { get_property: [nodecellar, port] }
 
 {%endhighlight%}
