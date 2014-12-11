@@ -10,7 +10,7 @@ quickstart_openstack_link: quickstart-openstack.html
 blueprint_file_link: https://raw.githubusercontent.com/cloudify-cosmo/cloudify-nodecellar-example/3.1/singlehost-blueprint.yaml
 virtualbox_link: https://www.virtualbox.org/
 vagrant_link: http://www.vagrantup.com
-vagrant_file_link: https://github.com/cloudify-cosmo/cloudify-packager/blob/3.1/packer/cloudify-quickstart/Vagrantfile
+vagrant_file_link: http://gigaspaces-repository-eu.s3.amazonaws.com/org/cloudify3/3.1.0/ga-RELEASE/Vagrantfile
 vagrant_box_link: http://gigaspaces-repository-eu.s3.amazonaws.com/org/cloudify3/3.1.0/ga-RELEASE/cloudify-virtualbox_3.1.0-ga-b85.box
 terminology_link: reference-terminology.html
 workflows_link: reference-builtin-workflows.html
