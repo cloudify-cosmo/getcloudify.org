@@ -294,7 +294,7 @@ for node in ctx.nodes:
 
 Now we can execute this workflow
 {% highlight bash %}
-cfy executions start -w touch_all -d my_deployment --parameters '{"touch_value": "my_value"}'
+cfy executions start -w touch_all -d my_deployment --parameters '{"touched_value": "my_value"}'
 {%endhighlight%}
 
 After which, all the node instances will have their `touched` runtime property set to `my_value`.
