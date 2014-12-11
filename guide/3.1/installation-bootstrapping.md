@@ -177,15 +177,15 @@ If you are using a different distro image, you'll have to make sure that Docker 
 {%endnote%}
 
 ## Docker implementation architecture
-The cloudify docker implementation uses two docker container to run:
-'cfy' - Contains the entire cloudify manager service stack.
+The Cloudify docker implementation uses two docker containers to run:
+'cfy' - Contains the entire Cloudify manager service stack.
 'data' - Contains mount points that are to be used for persistence purposes. (elasticsearch, influxdb etc)
 
- * Docker persistence - Docker containers do not persist their files. For this reason, the cloudify docker implementation uses a Docker data container. The docker data container's sole purpose is to hold data written to it by the main cloudify container. The data container itself does not have to be running and acts as an external mountable device. By defining the mount point paths on the data container we allow sharing of the data between the containers using the '--volumes-from data' flag. You can read more about docker data container architecture [here](https://docs.docker.com/userguide/dockervolumes/)
+ * Docker persistence - Docker containers do not persist their files. For this reason, the cloudify docker implementation uses a Docker data container. The docker data container's sole purpose is to hold data written to it by the main cloudify container. The data container itself does not have to be running and acts as an external mountable device. By defining the mount point paths on the data container we allow sharing of the data between the containers using the '--volumes-from' flag. You can read more about docker data container architecture [here](https://docs.docker.com/userguide/dockervolumes/)
 
-* Container management - Since the docker implementation is meant to run on any Linux distribution, we let docker manage the container's lifecycle. To do so, we start the management container using the '--restart=always' flag. 
+* Container management - Since the docker implementation is meant to run on any linux distribution supported by docker, we let docker manage the container's lifecycle. To do so, we start the management container using the '--restart=always' flag. 
 
-* File management - To allow file sharing between the hosting VM and the cloudify container, mount points are being set to '/vm/home/:/container/home/' and '/opt/manager/resources/packages:/opt/manager/resources/packages'. This allows the bootstreap process to pass files such as external agent packages and 'agent-keypairs' onto the container pre-bootstrap.
+* File management - To allow file sharing between the hosting VM and the cloudify container, mount points are being set to '/vm/home/:/container/home/' and '/opt/manager/resources/packages:/opt/manager/resources/packages'. This allows the bootstreap process to pass files such as external agent packages and 'agent-keypairs' onto the container.
 
 * port mapping and linking - Since for now, all of the cloudify services reside in the same container, no container linking is made. The current implementation exposes all of cloudify's service ports and maps them to the their equivalent port on the localhost.
 
