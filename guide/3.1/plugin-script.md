@@ -434,6 +434,8 @@ The first two are valid ZeroMQ socket URLs and should be passed as is to the Zer
 
 If a ZeroMQ client is implemented, it should start a `request` based socket (as the proxy server starts the matching `response` socket)
 
+If an HTTP client is implemented, it should make `POST` requests to the socket URL endpoint.
+
 In all the protocols, the format of the request body is a json with this structure:
 {% highlight json %}
 {
