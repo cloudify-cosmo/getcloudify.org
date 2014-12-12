@@ -11,61 +11,52 @@ dsl_inputs_link: dsl-spec-inputs.html
 dsl_node_templates_link: dsl-spec-node-templates.html
 dsl_plugins_link: dsl-spec-plugins.html
 dsl_relationships_link: dsl-spec-relationships.html
+dsl_node_types_link: dsl-spec-node-types.html
+script_plugin_link: plugin-script.html
 ---
 {%summary%}{{page.abstract}}{%endsummary%}
 {%summary%}
 Interfaces provide a way to map logical tasks to executable [operations]({{page.terminology_link}}#operation).
 {%endsummary%}
 
-[Blueprint]({{page.terminology_link}}#blueprint) authors can declare operations within `interfaces`.
-
 # Interfaces Declaration
 
-The `interfaces` section is a hash where each item in the hash represents an interface. In turn, each interface contains a hash of operations within it.
+[Blueprint]({{page.terminology_link}}#blueprint) authors can declare operations within `interfaces`:
 
 {%highlight yaml%}
 node_types:
-  interface1:
-    ...
-  interface2:
-    ...
-
+  some_type:
+      interfaces:
+          interface1:
+            ...
+          interface2:
+            ...
 node_templates:
-  interface1:
-    ...
-  interface2:
-    ...
-  relationships:
-    source_interfaces:
-      interface1:
-        ...
-      interface2:
-        ...
-    target_interfaces:
-      interface1:
-        ...
-      interface2:
-        ...
+   some_node:
+      interfaces:
+         ...
+      relationships:
+         - type: ...
+           target: ...
+           source_interfaces:
+             ...
+           target_interfaces:
+             ...
 
 relationships:
-  source_interfaces:
-    interface1:
-      ...
-    interface2:
-      ...
-  target_interfaces:
-    interface1:
-      ...
-    interface2:
-      ...
+   some_relationship:
+       source_interfaces:
+         ...
+       target_interfaces:
+        ...
 {%endhighlight%}
 
-## Interface Definition
+## Operation Definition within an Interface
 
 Keyname          | Required | Type        | Description
 -----------      | -------- | ----        | -----------
 implementation   | yes      | string      | The script or plugin task name to execute.
-inputs           | no       | dict        | A dict of [inputs]({{page.dsl_inputs_link}}) to be fed as **kwargs to the operation.
+inputs           | no       | dict        | A dict of to be fed as **kwargs to the operation.
 executor         | no       | string      | Valid values: `central_deployment_agent`, `host_agent`. See the [plugins spec]({{page.dsl_plugins_link}}) for more info.
 
 <br>
@@ -79,6 +70,10 @@ Here we will declare an interface which will allow us to:
 * Verify that the deployment succeeded using a shell script.
 * Start the application after the deployment ended.
 
+For the sake of simplicity, we will not refer to [relationships]({{page.dsl_relationships_link}}) in this example.
+
+# Configuring Interfaces in `node_types`
+
 Configuring the master server:
 
 {%highlight yaml%}
@@ -86,19 +81,25 @@ plugins:
   deployer:
     executor: central_deployment_agent
 
-node_templates:
+node_types:
   nodejs_app:
-    type: cloudify.nodes.WebServer
+    derived_from: cloudify.nodes.ApplicationModule
+    properties:
+      ...
     interfaces:
       my_deployment_interface:
         configure:
           implementation: deployer.config_in_master.configure
+
+node_templates:
+  nodejs:
+    type: nodejs_app
 {%endhighlight%}
 
 In this example, we've:
 * Declared a `deployer` plugin which, [by default](#overriding-the-executor), should execute its operations on the Cloudify manager.
-* Declared an `my_deployment_interface` interface with a `configure` operation which should execute the `deployer.config_in_master.configure` task. We also provided it with some inputs.
-* Declared a `nodejs_app` node which uses our declared interface and executes the `configure` operation.
+* Declared a [node type]({{page.dsl_node_types_link}}) with a `my_deployment_interface` interface with a `configure` operation which should execute the `deployer.config_in_master.configure` task.
+* Declared a `nodejs` node of type `nodejs_app`.
 
 
 # Overriding the executor
@@ -113,21 +114,27 @@ plugins:
   deployer:
     executor: central_deployment_agent
 
-node_templates:
-  vm:
-    type: cloudify.openstack.nodes.Server
+node_types:
   nodejs_app:
-    type: cloudify.nodes.WebServer
+    derived_from: cloudify.nodes.ApplicationModule
+    properties:
+      ...
     interfaces:
       my_deployment_interface:
         configure:
-          implementation: deployer.deploy_framework.configure
+          implementation: deployer.config_in_master.configure
         deploy:
           implementation: deployer.deploy_framework.deploy
           executor: host_agent
+
+node_templates:
+  vm:
+    type: cloudify.openstack.nodes.Server
+  nodejs:
+    type: nodejs_app
 {%endhighlight%}
 
-Here we added a `deploy` operation to our interface. Note that its `executor` attribute is configured to `host_agent` which means that even though the `deployer` plugin is configured to execute operations on the `central_deployment_agent`, the `deploy` operation will be executed on hosts of the `nodejs_app` rather than the Cloudify manager.
+Here we added a `deploy` operation to our `my_deployment_interface` interface. Note that its `executor` attribute is configured to `host_agent` which means that even though the `deployer` plugin is configured to execute operations on the `central_deployment_agent`, the `deploy` operation will be executed on hosts of the `nodejs_app` rather than the Cloudify manager.
 
 
 # Mapping an operation directly
@@ -143,29 +150,26 @@ plugins:
   deployer:
     executor: central_deployment_agent
 
-interfaces:
-  my_deployment_interface:
-    configure:
+node_types:
+  nodejs_app:
+    derived_from: cloudify.nodes.ApplicationModule
+    properties:
       ...
-    deploy:
-      ...
-    verify: scripts/deployment_verifier.py
+    interfaces:
+      my_deployment_interface:
+        configure: deployer.config_in_master.configure
+        deploy:
+          ...
+        verify: scripts/deployment_verifier.py
 
 node_templates:
   vm:
     type: cloudify.openstack.nodes.Server
-  nodejs_app:
-    type: cloudify.nodes.WebServer
-    interfaces:
-      my_deployment_interface:
-        configure: my_deployment_interface.configure
-        deploy: my_deployment_interface.deploy
-        verify: my_deployment_interface.verify
+  nodejs:
+    type: nodejs_app
 {%endhighlight%}
 
-Here we've added a `verify` operation to our interface which maps directly to a script afterwhich we've configured the `nodejs_app` node to use that operation.
-
-We also mapped the `configure`, `deploy` and `verify` operations in the [node template]({{page.dsl_node_templates_link}}) directly.
+Here we've directly added a `verify` operation to our interface which maps directly to a script. We also mapped the `configure` operations directly to an operation in our `deployer` module.
 
 
 # Declaring an operation implementation within the node
@@ -179,28 +183,31 @@ plugins:
   deployer:
     executor: central_deployment_agent
 
-interfaces:
-  my_deployment_interface:
-    configure:
+node_types:
+  nodejs_app:
+    derived_from: cloudify.nodes.ApplicationModule
+    properties:
       ...
-    deploy:
-      ...
-    verify: scripts/deployment_verifier.py
+    interfaces:
+      my_deployment_interface:
+        ...
 
 node_templates:
   vm:
     type: cloudify.openstack.nodes.Server
-  nodejs_app:
-    type: cloudify.nodes.WebServer
+  nodejs:
+    type: nodejs_app
     interfaces:
       my_deployment_interface:
         ...
         start: scripts/start_app.sh
 {%endhighlight%}
 
-Let's say that we use our `my_deployment_interface` on more than the `nodejs_app` node. While on all other nodes the last operation to be executed is the `verify` operation, we'd like to have a `start` operation for the `nodejs_app` node specifically which will run our application after it is deployed.
+Let's say that we use our `my_deployment_interface` on more than the `nodejs` node. While on all other nodes the start operation is not mapped to anything, we'd like to have a `start` operation for the `nodejs` node specifically which will run our application after it is deployed.
 
-Here, we've declared the `start` operation and mapped it to execute a script specifically on the `nodejs_app` node.
+Here, we've declared the `start` operation and mapped it to execute a script specifically on the `nodejs` node.
+
+This comes to show that you can define your interfaces either in `node_types` or in `node_templates` depending on whether you want to reuse the declared interfaces in diffrent nodes or declare them in specific nodes.
 
 
 # Adding inputs to an interface's operation
@@ -214,18 +221,23 @@ plugins:
   deployer:
     executor: central_deployment_agent
 
-interfaces:
-  my_deployment_interface:
-    configure:
+node_types:
+  nodejs_app:
+    derived_from: cloudify.nodes.ApplicationModule
+    properties:
       ...
-    deploy:
-      implementation: deployer.deploy_framework.deploy
-      executor: host_agent
-      inputs:
-        source:
-          type: string
-          default: git
-    verify: scripts/deployment_verifier.py
+    interfaces:
+      my_deployment_interface:
+        configure:
+          ...
+        deploy:
+          implementation: deployer.deploy_framework.deploy
+          executor: host_agent
+          inputs:
+            source:
+              type: string
+              default: git
+        verify: scripts/deployment_verifier.py
 
 node_templates:
   vm:
@@ -246,9 +258,10 @@ node_templates:
               default: true
 {%endhighlight%}
 
-Here we added an input to the `deploy` operation under the `my_deployment_interface` interface and two inputs to the `start` operation in the `nodejs_app` node's interface.
+Here we added an input to the `deploy` operation under the `my_deployment_interface` interface in our `nodejs_app` node type and two inputs to the `start` operation in the `nodejs` node's interface.
 
-This allows us to declare inputs which should be used with an interface across the blueprint and inputs specific to a node.
+Note that interface inputs are NOT the same type of objects as the inputs defined in the `inputs` section of the blueprint.
+Interface inputs are passed directly to a plugin's operation (as **kwargs to our `deploy` operation in the `deployer` plugin) or, in the case of the `start` operations, to the [Script Plugin]({{page.script_plugin_link}}).
 
 # Relationship Interfaces
 
