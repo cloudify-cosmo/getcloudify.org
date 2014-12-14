@@ -60,7 +60,6 @@ description | no       | string      | An optional description for the input.
 type        | no       | string      | Represents the required data type of the input. Not specifying a data type means the type can be anything. Valid types: string, integer, boolean
 default     | no       | \<any\>     | An optional default value for the input.
 
-<br>
 
 ## Example
 
