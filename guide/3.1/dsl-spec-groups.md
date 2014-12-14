@@ -7,7 +7,7 @@ pageord: 220
 
 ---
 {%summary%}
-Groups provide a way of configuring shared behavior for different sets of node templates.
+Groups provide a way of configuring shared behavior for different sets of [node templates](reference-terminology.html#node).
 {%endsummary%}
 
 
