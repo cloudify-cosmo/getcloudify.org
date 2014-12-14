@@ -68,7 +68,7 @@ In the following example, a workflow plugin named `maintenance_workflows_plugin`
 
 The first workflow is named `test_all_connections_workflow`. It does't accept parameters and so it just maps the relevant implementation - method `validate_all_connections` in module `maintenance_workflows`.
 
-The second workflow is named `test_connection_workflow`. It is mapped to the method `validate_connection` in module `maintenance_workflows`, and accpets three parameters - `protocol` (a mandatory parameter), `port` (an optional parameter, defaulting to `8080`) and `connection_properties`. The last parameter has a default value of a map, consisting of 2 entries - `timeout_seconds` and `retry_attempts`.
+The second workflow is named `test_connection_workflow`. It is mapped to the method `validate_connection` in module `maintenance_workflows`, and accpets three parameters - `protocol` (a mandatory parameter), `port` (an optional parameter, defaulting to 8080) and `connection_properties`. The last parameter has a default value of a map, consisting of 2 entries - `timeout_seconds` and `retry_attempts`.
 
 {%highlight yaml%}
 tosca_definitions_version: cloudify_dsl_1_0
