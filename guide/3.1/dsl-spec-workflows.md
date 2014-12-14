@@ -8,15 +8,15 @@ pageord: 300
 
 ---
 {%summary%}
-Workflows define a set of tasks that can be executed on a node or a group of nodes, and the execution order this tasks, serially or in parallel. A task may be an operation (implemented by a plugin), but it may also be other actions, including arbitrary code.
+Workflows define a set of tasks that can be executed on a node or a group of nodes, and the execution order of these tasks, serially or in parallel. A task may be an operation (implemented by a plugin), but it may also be other actions, including arbitrary code.
 {%endsummary%}
 
-Workflows can be defined in a “workflows” section in the blueprint. This allows the user to execute different tasks on blueprint nodes, which can be very simple, e.g. performing a single operation on specific nodes, or more complex, such as coordinate the provisioning of different resources while handling their dependencies. For further reading please refer to the [Workflow Guide] (#http://getcloudify.org/guide/3.1/guide-workflows.html)
+Workflows can be defined in a `workflows` section in the blueprint. This allows the user to execute different tasks on blueprint nodes, which can be very simple, e.g. performing a single operation on specific nodes, or more complex, such as coordinate the provisioning of different resources while handling their dependencies. For further reading please refer to the [Workflow Guide] (guide-workflows.html)
 
 ## Workflows Declaration
-The workflows section is a hash where each item represents a workflow. Mapping a workflow name workflow implementation in the blueprint is done in one of two ways:
+The workflows section is a dictionary in which each item represents a workflow. Mapping a workflow name to a workflow implementation in the blueprint is done in one of two ways:
 
-* Simple mapping - maps a workflow name to a it's implementating method, which doesn't accept parameters.
+* Simple mapping - maps a workflow name to its implementating method, which doesn't accept parameters.
 
 {%highlight yaml%}
 workflows:
@@ -34,7 +34,7 @@ workflows:
       my_mandatory_parameter:
         description: this parameter is mandatory, it has no default value
       my_optional_parameter:
-        description: this parameters is optional, if not set it will take the default value
+        description: this parameters is optional, if omitted it will take the default value
         default: optional_parameter_default_value
 
 {%endhighlight%}
@@ -62,13 +62,13 @@ default     | no       | \<any\>     | An optional default value for the input.
 
 
 <br>
-Example:
+##Example:
 
-In the following example, a workflow plugin named “maintenance_workflows_plugin” is defined, and two workflows refer to it.
+In the following example, a workflow plugin named `maintenance_workflows_plugin` is defined, and two workflows refer to it.
 
-The first workflow is named "general_test_connection_workflow", it does not accept parameters and so it just maps the relevant implementation in module “maintenance_workflows”, method “validate_all_connections”.
+The first workflow is named `test_all_connections_workflow`. It does't accept parameters and so it just maps the relevant implementation - method `validate_all_connections` in module `maintenance_workflows`.
 
-The second workflow is named “test_connection_workflow”, it is mapped to the method "validate_connection" in module “maintenance_workflows”, and accpets three parameters - “protocol” (a mandatory parameter), “port” (an optional parameter, defaulting to "8080") and “connection_properties”. The last parameter has a default value of a map, consisting of 2 entries - “timeout_seconds” and “retry_attempts”.
+The second workflow is named `test_connection_workflow`. It is mapped to the method `validate_connection` in module `maintenance_workflows`, and accpets three parameters - `protocol` (a mandatory parameter), `port` (an optional parameter, defaulting to `8080`) and `connection_properties`. The last parameter has a default value of a map, consisting of 2 entries - `timeout_seconds` and `retry_attempts`.
 
 {%highlight yaml%}
 tosca_definitions_version: cloudify_dsl_1_0
@@ -83,7 +83,7 @@ plugins:
     source: http://example.com/url/to/plugin.zip
 
 workflows:
-  general_test_connection_workflow: maintenance_workflows_plugin.maintenance_workflows.validate_all_connections
+  test_all_connections_workflow: maintenance_workflows_plugin.maintenance_workflows.validate_all_connections
   test_connection_workflow:
     mapping: maintenance_workflows_plugin.maintenance_workflows.validate_connection
     parameters:
