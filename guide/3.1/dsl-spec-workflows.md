@@ -11,7 +11,7 @@ pageord: 300
 Workflows define a set of tasks that can be executed on a node or a group of nodes, and the execution order of these tasks, serially or in parallel. A task may be an operation (implemented by a plugin), but it may also be other actions, including arbitrary code.
 {%endsummary%}
 
-Workflows can be defined in a `workflows` section in the blueprint. This allows the user to execute different tasks on blueprint nodes, which can be very simple, e.g. performing a single operation on specific nodes, or more complex, such as coordinate the provisioning of different resources while handling their dependencies. For further reading please refer to the [Workflow Guide](guide-workflows.html).
+Workflows can be defined in a `workflows` section in the blueprint. This allows the user to execute different tasks on blueprint nodes, which can be very simple, e.g. performing a single operation on specific nodes, or more complex, such as coordinate the provisioning of different resources while handling their dependencies. For further reading please refer to the [Workflows Guide](guide-workflows.html).
 
 ## Workflows Declaration
 The workflows section is a dictionary in which each item represents a workflow. Mapping a workflow name to a workflow implementation in the blueprint is done in one of two ways:
@@ -60,7 +60,7 @@ description | no       | string      | An optional description for the input.
 type        | no       | string      | Represents the required data type of the input. Not specifying a data type means the type can be anything. Valid types: string, integer, boolean
 default     | no       | \<any\>     | An optional default value for the input.
 
-
+<br>
 
 ## Example
 
