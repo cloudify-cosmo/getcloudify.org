@@ -26,13 +26,13 @@ For more information about OpenStack, please refer to: [https://www.openstack.or
     * **Notes:**
       * Usage of the `nics` key should be avoided. To connect the server to networks, the Server node should be connected to Network nodes and/or Port nodes via relationships. These will then be translated into the appropriate `nics` definitions automatically.
       * The public key which is set for the server needs to match the private key file whose path is set for the `cloudify_agent`'s `key` property (see [cloudify.nodes.Compute's properties](reference-types.html)). The public key may be set in a number of ways:
-        * By connecting a keypair node to the server node using the `cloudify.openstack.server_connected_to_keypair` relationship.
+        * By connecting the server node to a keypair node using the `cloudify.openstack.server_connected_to_keypair` relationship.
         * By setting it explicitly in the `key_name` key under the `server` property (*note*: in this case, the value will get attached with the resource prefix. See [Misc section](#misc)).
         * If the agent's keypair information is set in the [Provider Context](reference-terminology.html#provider-context), the agents' keypair will serve as the default public key to be used if it was not specified otherwise. See the [Misc section](#misc) for more information on the Openstack Provider Context.
       * If the server is to have an agent installed on it, it should use the agents security group. If the agents security group information isn't set in the [Provider Context](reference-terminology.html#provider-context), this group should be set by using the `security_groups` key. See the [Misc section](#misc) for more information on the Openstack Provider Context.
     * **Sugaring:**
-      * `image_name` will automatically resolve the Openstack name of an image into an `image_id`
-      * `flavor_name` will automatically resolve the Openstack name of a flavor into a `flavor_id`
+      * `image_name` will automatically resolve the Openstack name of an image into its matching image id.
+      * `flavor_name` will automatically resolve the Openstack name of a flavor into its matching flavor id.
       * the `userdata` key may receive either a string (passed as-is to Nova in the create server request), or a dictionary containing:
         * a field `type` whose value is `http`
         * a field `url` whose value is a url to a `userdata` script/value.
@@ -76,7 +76,7 @@ This type has the same properties and operations-mapping as the type above (as i
 **Properties:**
 
   * `private_key_path` *Required*. The path (on the machine the plugin is running on) where the private key should be stored. If `use_external_resource` is set to `true`, the existing private key is expected to be at this path.
-  * `keypair` key-value port configuration as described in [OpenStack network create port API](http://docs.openstack.org/api/openstack-network/2.0/content/Create_Port.html). Defaults to `{}`. 
+  * `keypair` key-value keypair configuration as described in [OpenStack network create keypair API](http://docs.openstack.org/api/openstack-network/2.0/content/Create_Port.html). Defaults to `{}`. 
   * `use_external_resource` a boolean for setting whether to create the resource or use an existing one. See the [using existing resources section](#using-existing-resources). Defaults to `false`.
   * `resource_id` name to give to the new resource or the name or ID of an existing resource when the `use_external_resource` property is set to `true` (see the [using existing resources section](#using-existing-resources)). Defaults to `''` (empty string).
   * `openstack_config` see the [Openstack Configuration](#openstack-configuration).
@@ -250,6 +250,7 @@ See the [common Runtime Properties section](#runtime-properties).
 
 See the [common Runtime Properties section](#runtime-properties).
 
+Note that the actual IP is available via the `floating_ip_address` runtime-property.
 
 
 ## cloudify.openstack.nodes.Volume
@@ -300,6 +301,8 @@ This is a Nova-net specific type. See more in the [Nova-net Support section](#no
 **Attributes:**
 
 See the [common Runtime Properties section](#runtime-properties).
+
+Note that the actual IP is available via the `floating_ip_address` runtime-property.
 
 
 ## cloudify.openstack.nova_net.nodes.SecurityGroup
@@ -442,7 +445,7 @@ Yet without setting the `resource_id` property, then the server's name on Openst
 
 It is possible to use existing resources on Openstack - whether these have been created by a different Cloudify deployment or not via Cloudify at all.
 
-All Cloudify Openstack types have a property named `use_external_resource`, whose default value is `false`. When set to `true`, the plugin will enact different semantics for each of the operations executed on the relevant node's instances. Specifically, in the case of the `cloudify.interfaces.lifecycle.create` operation, rather than creating a new resource on Openstack of the given type, the plugin will behave as follows:
+All Cloudify Openstack types have a property named `use_external_resource`, whose default value is `false`. When set to `true`, the plugin will apply different semantics for each of the operations executed on the relevant node's instances. Specifically, in the case of the `cloudify.interfaces.lifecycle.create` operation, rather than creating a new resource on Openstack of the given type, the plugin will behave as follows:
 
 1. Try to find an existing resource on Openstack whose name (or IP, in the case of one of the *floating-ip* types) is the value specified for the `resource_id` property. If more than one is found, an error is raised.
 
@@ -468,7 +471,7 @@ The semantics of other operations are affected as well:
 
 * Unlike when creating a new resource, the resource prefix (see the [Misc section](#misc)) will not get appended to the `resource_id` value when attempting to use an existing resource. Make sure the name or ID supplied are the exact resource's values as they are on Openstack.
 
-* As mentioned in the (Relationships section)[#relationships], some relationships take effect in non-relationship operations. When `use_external_resource` is set to `true`, the existence of such connections is validated as well.
+* As mentioned in the [Relationships section](#relationships), some relationships take effect in non-relationship operations. When `use_external_resource` is set to `true`, the existence of such connections is validated as well.
 
 * Using an existing resource only makes sense for single-instance nodes.
 
@@ -483,7 +486,7 @@ This information will be gathered by the plugin from the following sources, each
 
   1. environment variables for each of the configuration parameters.
   2. JSON file at `~/openstack_config.json` or at a path specified by the value of an environment variable named `OPENSTACK_CONFIG_PATH`
-  3. values specified in the `openstack_config` property for the node whose operation is currently getting executed (in the case of relationship operations, the `openstack_config` property of either the *source or *target* nodes will be used if available, with the *source*'s one taking precedence).
+  3. values specified in the `openstack_config` property for the node whose operation is currently getting executed (in the case of relationship operations, the `openstack_config` property of either the *source* or *target* nodes will be used if available, with the *source*'s one taking precedence).
 
 The structure of the JSON file in section (2), as well as of the `openstack_config` property in section (3), is as follows:
 
