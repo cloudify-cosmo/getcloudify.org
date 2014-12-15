@@ -241,7 +241,8 @@ relationships:
     derived_from: cloudify.relationships.connected_to
     source_interfaces:
       cloudify.interfaces.relationship_lifecycle:
-        postconfigure: scripts/configure_my_connection.py
+        postconfigure:
+          implementation: scripts/configure_my_connection.py
 
 node_templates:
   application:
@@ -279,10 +280,12 @@ relationships:
     derived_from: cloudify.relationships.connected_to
     source_interfaces:
       cloudify.interfaces.relationship_lifecycle:
-        postconfigure: scripts/configure_source_node.py
+        postconfigure:
+          implementation: scripts/configure_source_node.py
     target_interfaces:
       cloudify.interfaces.relationship_lifecycle:
-        postconfigure: scripts/configure_target_node.py
+        postconfigure:
+          implementation: scripts/configure_target_node.py
 
 node_templates:
   source_node:
