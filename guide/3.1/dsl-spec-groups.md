@@ -15,9 +15,9 @@ Groups provide a way of configuring shared behavior for different sets of [node 
 
 The `groups` section is a hash where each item in the hash represents a group.
 
-Within each group, the `policies` section is a hash where each item in the hash represents a policy.
+Within each group, the `policies` section is a hash where each item in the hash represents a [policy](dsl-spec-policy-types.html).
 
-Within each policy, the `triggers` section is a hash where each item in the hash represents a trigger.
+Within each policy, the `triggers` section is a hash where each item in the hash represents a [trigger](dsl-spec-policy-triggers.html).
 
 {%highlight yaml%}
 groups:
