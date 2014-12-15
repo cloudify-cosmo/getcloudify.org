@@ -162,8 +162,8 @@ There are a few things to consider regarding inputs in node templates interfaces
 
 * As opposed to inputs in node types and relationships interfaces operations, inputs in node templates interfaces are not part of a schema. As such, values are set directly on the input.
 * When an operation in a node templates interface is inherited from a node type
-  * All inputs that where declared in the operation defined in the node type or relationship interface must be provided when an operation is used in a node template interface.
-  * Additional inputs, that were not specified in the inherited operation inputs schema, may be passed as well.
+  * All inputs that were declared in the operation defined in the node type or relationship interface must be provided when an operation is used in a node template interface.
+  * Additional inputs, which were not specified in the inherited operation inputs schema, may be passed as well.
 
 # Examples
 
