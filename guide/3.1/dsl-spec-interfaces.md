@@ -30,7 +30,10 @@ node_types:
   some_type:
     interfaces:
       interface1:
-        ...
+        op1:
+          ...
+        op2:
+          ...
       interface2:
         ...
 relationships:
@@ -158,12 +161,11 @@ node_templates:
           input3: some_additional_input
 {%endhighlight%}
 
-There are a few things to consider regarding inputs in node templates interfaces.
+When an operation in a node template interface is inherited from a node type or a relationship interface:
 
-* As opposed to inputs in node types and relationships interfaces operations, inputs in node templates interfaces are not part of a schema. As such, values are set directly on the input.
-* When an operation in a node templates interface is inherited from a node type
-  * All inputs that were declared in the operation defined in the node type or relationship interface must be provided when an operation is used in a node template interface.
-  * Additional inputs, which were not specified in the inherited operation inputs schema, may be passed as well.
+* All inputs that were declared in the operation inputs schema must be provided.
+* Additional inputs, which were not specified in the operation inputs schema, may be passed as well.
+
 
 # Examples
 
@@ -242,7 +244,7 @@ Here we added a `deploy` operation to our `my_deployment_interface` interface. N
 
 ## Declaring an operation implementation within the node
 
-You can specify the entire set of attributes for a specific operation within the node's interface under the node template itself.
+You can specify a full operation definition within the node's interface under the node template itself.
 
 {%highlight yaml%}
 plugins:
@@ -330,3 +332,7 @@ Interface inputs are passed directly to a plugin's operation (as **kwargs to our
 # Relationship Interfaces
 
 For information on relationship interfaces see [Relationships Specification]({{page.dsl_relationships_link}}#relationship-interfaces).
+
+# Built-in Interfaces
+
+See [Built-in Interfaces](reference-builtin-interfaces.html)
