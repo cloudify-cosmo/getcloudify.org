@@ -4,7 +4,7 @@ title: The Blueprints Page
 category: User Interface
 publish: true
 abstract: Blueprint Page Reference
-pageord: 100
+pageord: 110
 
 terminology_topology: http://getcloudify.org/guide/3.1/reference-terminology.html#sts=Topology
 terminology_execution: http://getcloudify.org/guide/3.1/reference-terminology.html#sts=Execution

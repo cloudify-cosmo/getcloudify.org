@@ -4,7 +4,7 @@ title: Monitoring
 category: User Interface
 publish: true
 abstract: Monitoring guide page
-pageord: 100
+pageord: 190
 
 grafana: http://grafana.org
 grafana_getting_started: http://grafana.org/docs/features/intro/
