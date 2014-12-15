@@ -260,8 +260,14 @@ node_templates:
 
 Here we added an input to the `deploy` operation under the `my_deployment_interface` interface in our `nodejs_app` node type and two inputs to the `start` operation in the `nodejs` node's interface.
 
+{%note title=Note%}
+While `properties` defined in a `node_type` are a part of a schema and restrict from adding additional properties in a `node_template` based on that `node_type`, in interface inputs, the situation is different. You can add inputs both in the `node_type`'s interface AND in the `node_template`'s interface independently.
+{%endnote%}
+
+{%note title=Note%}
 Note that interface inputs are NOT the same type of objects as the inputs defined in the `inputs` section of the blueprint.
 Interface inputs are passed directly to a plugin's operation (as **kwargs to our `deploy` operation in the `deployer` plugin) or, in the case of the `start` operations, to the [Script Plugin]({{page.script_plugin_link}}).
+{%endnote%}
 
 # Relationship Interfaces
 
