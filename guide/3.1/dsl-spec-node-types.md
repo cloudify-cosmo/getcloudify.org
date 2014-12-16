@@ -42,12 +42,12 @@ properties  | no       | dictionary  | A dictionary of node properties.
 
 ### derived_from
 
-The derived_from property may be used to build over and extend an existing type. This is useful for further extracting common properties and behaviors, this time in between *types*.
+The `derived_from` property may be used to build over and extend an existing type. This is useful for further extracting common properties and behaviors, this time in between *types*.
 
 Using this mechanism, one can build various [type hierarchies](reference-terminology.html#type-hierarchy) which can be reused over different application blueprints.
 
 
-When a type derives from another type, its interfaces and properties sections get merged with the parent type's interfaces and properties sections. The merge is on the property/operation level: A property defined on parent type will be overridden by a property with the same name defined on the deriving type. The same is true for an interface operation mapping - however, it is important to note that it's possible to add in the deriving type additional operation mappings to an interface defined in the parent type. See the [examples section](#examples) for more on this.
+When a type derives from another type, its `interfaces` and `properties` keys get merged with the parent type's `interfaces` and `properties` keys. The merge is on the property/operation level: A property defined on the parent type will be overridden by a property with the same name defined on the deriving type. The same is true for an interface operation mapping - however, it is important to note that it's possible to add in the deriving type additional operation mappings to an interface defined in the parent type. See the [examples section](#examples) for more on this.
 
 {%note title=Note%}
 When not deriving from any other type, it's good practice to derive from the `cloudify.types.Root` type defined in the [Cloudify built-in types](reference-types.html).
@@ -58,7 +58,7 @@ Not doing so will require either [writing custom workflows](guide-authoring-work
 
 ### interfaces
 
-The `interfaces` property may be used to define common behaviors for node templates. See more over at the [Interfaces documentation](#dsl-spec-interfaces.html).
+The `interfaces` property may be used to define common behaviors for node templates. See more over at the [Interfaces documentation](dsl-spec-interfaces.html).
 
 
 ### properties
