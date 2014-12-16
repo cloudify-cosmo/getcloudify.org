@@ -75,7 +75,7 @@ The first thing you'll need to do is download the Vagrant box which contains the
 Download this [Vagrantfile]({{page.vagrant_file_link}}) to your local directory. Then, run this command:
 
 {% highlight bash%}
-vagrant box add {{page.vagrant_box_link}} --name=cloudify
+vagrant box add {{page.vagrant_box_link}} --name=cloudify-box
 {% endhighlight %}
 
 This adds the Vagrant box to your local machine.
@@ -264,7 +264,7 @@ If you want to start the same machine again, just "Up" it.
 If you want to completely remove the box from your machine, run:
 
 {%highlight bash%}
-vagrant box remove cloudify
+vagrant box remove cloudify-box
 {%endhighlight%}
 
 # What's Next
