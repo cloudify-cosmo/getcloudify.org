@@ -59,7 +59,7 @@ function startsWith(str, prefix) {
 function getSectionsForSearch() {
     var section = getSection(window.location.href).section;
     if (startsWith(section, "guide")) return section; 
-    return ["guide3.0", "gen", "blog"];
+    return ["guide3.1", "gen", "blog"];
 }
 
 function getSection(url) {
