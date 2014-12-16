@@ -11,6 +11,9 @@ repo_link: https://github.com/cloudify-cosmo/cloudify-script-plugin
 client_reference_link: https://github.com/cloudify-cosmo/cloudify-script-plugin/blob/master/script_runner/ctx_proxy.py#L331
 hello_world_example_link: https://github.com/cloudify-cosmo/cloudify-hello-world-example
 ---
+{%summary%}
+{%endsummary%}
+
 
 # Description
 

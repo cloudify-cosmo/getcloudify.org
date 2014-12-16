@@ -8,6 +8,8 @@ pageord: 700
 
 yaml_link: http://getcloudify.org/spec/puppet-plugin/1.1/plugin.yaml
 ---
+{%summary%}
+{%endsummary%}
 
 
 # Description
