@@ -20,7 +20,7 @@ Cloudify CLI (AKA cfy) is being distributed in two different methods:
 1. As a Python package (via PyPi)
 
 {% tip title=Which distribution method should you choose? %}
-The binary package is currently bundled with only the OpenStack and simple providers. Providers are essintially modules that allow you to bootstrap a Cloudify manager on a specific cloud environment (e.g. OpenStack or CloudStack).
+The binary package is currently bundled with only the OpenStack and simple providers. Providers are essentially modules that allow you to bootstrap a Cloudify manager on a specific cloud environment (e.g. OpenStack or CloudStack).
 If you wish to use other providers, you should [install the CLI via PyPi](#installing-from-pypi) and then install the provider of your choice (which is also a Python module) in the same Python environment.{% endtip %}
 
 # Installing the binary package

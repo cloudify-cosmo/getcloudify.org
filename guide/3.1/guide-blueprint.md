@@ -289,7 +289,7 @@ To learn more about this, have a look at the full blown [Nodecellar example]({{p
 
 ## Step 5: Adding relationships
 
-The `relationships` section if where (as the name suggests) we define relationships to be later used by `node_templates`.
+The `relationships` section is where (as the name suggests) we define relationships to be later used by `node_templates`.
 In this application we can think of 2 relationships, both of which are related to the `nodecellar.nodes.NodecellarApplicationModule` type: <br>
 
 - For the application to work properly, it must be aware of the location of its database, i.e, the URL of `nodecellar.nodes.MongoDatabase`.
@@ -581,7 +581,7 @@ node_templates:
 
 {%endhighlight%}
 
-Now we can start adding our application `node_templates`, we start by adding the Mongo data base:
+Now we can start adding our application `node_templates`, we start by adding the Mongo database:
 
 {%highlight yaml%}
 mongod:

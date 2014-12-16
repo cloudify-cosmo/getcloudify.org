@@ -24,7 +24,7 @@ tar czf blueprint-name.tar.gz blueprint-folder/
 
 The output file of the tar command above will be `blueprint-name.tar.gz`.
 
-### Uploading the Blueprint
+# Uploading the Blueprint
 The Cloudify's Web UI allows the user to upload a packaged blueprint TAR file to the Cloudify Manager.
 The upload blueprint button can be found in the "Blueprints" section in the user interface:
 

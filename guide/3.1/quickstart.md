@@ -10,8 +10,8 @@ quickstart_openstack_link: quickstart-openstack.html
 blueprint_file_link: https://raw.githubusercontent.com/cloudify-cosmo/cloudify-nodecellar-example/3.1/singlehost-blueprint.yaml
 virtualbox_link: https://www.virtualbox.org/
 vagrant_link: http://www.vagrantup.com
-vagrant_file_link: http://gigaspaces-repository-eu.s3.amazonaws.com/org/cloudify3/3.1.0/nightly_6/Vagrantfile
-vagrant_box_link: https://s3-eu-west-1.amazonaws.com/cloudify-nightly-vagrant/cloudify_3.1.0-ga_virtualbox.box
+vagrant_file_link: http://gigaspaces-repository-eu.s3.amazonaws.com/org/cloudify3/3.1.0/ga-RELEASE/Vagrantfile
+vagrant_box_link: https://s3-eu-west-1.amazonaws.com/cloudify-nightly-vagrant/cloudify_3.1.0_virtualbox.box
 terminology_link: reference-terminology.html
 workflows_link: reference-builtin-workflows.html
 blueprint_guide_link: guide-blueprint.html
@@ -88,7 +88,7 @@ After the box is added, run this command (from the same directory the Vagrantfil
 vagrant up
 {%endhighlight%}
 
-Once the cloudify box is up you can access the manager web console through your local browser by pointing the browser to [http://11.0.0.7/]({{http://11.0.0.7/}}).
+Once the cloudify box is up you can access the manager web console through your local browser by pointing the browser to [http://11.0.0.7/](http://11.0.0.7/).
 
 ## Step 2: SSH to the Vagrant Box and Connect to the Running Manager
 
@@ -165,7 +165,7 @@ and are presented here only for the sake of clarity.
 Now, we need to create a deployment. To do so, type the following command:
 
 {%highlight bash%}
-cfy deployments create -b nodecellar -d nodecellar --inputs inputs/nodecellar-singlehost.json
+cfy deployments create -b nodecellar -d nodecellar --inputs ../inputs/nodecellar-singlehost.json
 {%endhighlight%}
 
 We've now created a deployment named `nodecellar` based on a blueprint with the same name. This deployment is not yet materialized, since we haven't issued an installation command. If you click the "Deployments" icon in the left sidebar in the web UI, you will see that all nodes are labeled with 0/1, which means they're pending creation.
@@ -211,7 +211,7 @@ To add mongo related graphs to the dashboard, have a look at [Adding Custom Grap
 
 ## Step 6: Test Drive the Application
 
-To test the application, you will need to access it using its public IP address. Go to [http://11.0.0.7:8080]({{http://11.0.0.7:8080}}) to access it from your web browser. The marvelous nodecellar application should be up on your screen. Click the "Browse wines" button to verify that the application was installed suceesfully and can access the mongodb database to read the list of wines.
+To test the application, you will need to access it using its public IP address. Go to [http://11.0.0.7:8080](http://11.0.0.7:8080) to access it from your web browser. The marvelous nodecellar application should be up on your screen. Click the "Browse wines" button to verify that the application was installed suceesfully and can access the mongodb database to read the list of wines.
 
 ![Nodecellar](/guide/images3/guide/quickstart/nodecellar.png)
 

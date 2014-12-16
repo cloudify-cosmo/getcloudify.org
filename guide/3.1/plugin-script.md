@@ -294,7 +294,7 @@ for node in ctx.nodes:
 
 Now we can execute this workflow
 {% highlight bash %}
-cfy executions start -w touch_all -d my_deployment --parameters '{"touch_value": "my_value"}'
+cfy executions start -w touch_all -d my_deployment --parameters '{"touched_value": "my_value"}'
 {%endhighlight%}
 
 After which, all the node instances will have their `touched` runtime property set to `my_value`.
@@ -433,6 +433,8 @@ When the script plugin executes the script, it updates the script process with t
 The first two are valid ZeroMQ socket URLs and should be passed as is to the ZeroMQ client. The last one is the HTTP endpoint that should be used when making REST calls.
 
 If a ZeroMQ client is implemented, it should start a `request` based socket (as the proxy server starts the matching `response` socket)
+
+If an HTTP client is implemented, it should make `POST` requests to the socket URL endpoint.
 
 In all the protocols, the format of the request body is a json with this structure:
 {% highlight json %}
