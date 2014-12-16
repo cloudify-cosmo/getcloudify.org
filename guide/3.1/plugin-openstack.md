@@ -14,7 +14,7 @@ The OpenStack plugin allows users to use an OpenStack based cloud infrastructure
 For more information about OpenStack, please refer to: [https://www.openstack.org/](https://www.openstack.org/).
 
 
-# Plugin Requirements:
+# Plugin Requirements
 
 * Python Versions:
   * 2.7.x
