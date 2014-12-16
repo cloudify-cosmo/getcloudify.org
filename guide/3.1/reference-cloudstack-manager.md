@@ -73,7 +73,7 @@ The "Cloudstack manager" blueprint contains the following nodes:
   - *management_keypair* - A keypair for connecting to the Cloudify Manager machine.
   - *agent_keypair* - A keypair for connecting to Cloudify agent machines.
   - *management_network* - An internal network for communication between the Cloudify manager and agent machines.
-    - A firewall/security group is defined in the network node enableing the following ports:
+    - A firewall/security group is defined in the network node enabling the following ports:
       - 22 (SSH)
       - 5555(riemann)
       - 5672(rabbitMQ)
