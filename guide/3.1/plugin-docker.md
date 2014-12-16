@@ -8,6 +8,9 @@ pageord: 210
 
 yaml_link: http://getcloudify.org/spec/docker-plugin/1.1/plugin.yaml
 ---
+{%summary%}
+{%endsummary%}
+
 
 {%warning title=Disclaimer%}This plugin is in Alpha and has not been thoroughly tested yet.{%endwarning%}
 

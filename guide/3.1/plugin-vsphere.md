@@ -8,6 +8,8 @@ pageord: 600
 
 plugin_link: http://getcloudify.org.s3.amazonaws.com/spec/vsphere-plugin/1.1/plugin.yaml
 ---
+{%summary%}
+{%endsummary%}
 
 
 # Description

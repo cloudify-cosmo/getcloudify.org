@@ -11,6 +11,8 @@ autoscale_link: http://docs.celeryproject.org/en/latest/userguide/workers.html#a
 python_link: https://www.python.org/ftp/python/2.7.6/python-2.7.6.msi
 winrm_link: http://msdn.microsoft.com/en-us/library/aa384426(v=vs.85).aspx
 ---
+{%summary%}
+{%endsummary%}
 
 
 # Description
