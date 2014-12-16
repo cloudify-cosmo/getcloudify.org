@@ -8,21 +8,16 @@ pageord: 600
 ---
 
 
-{%summary%}
-This section describes how to use OpenStack based cloud infrastructure in your services and applications.
+# Description
+
+The OpenStack plugin allows users to use an OpenStack based cloud infrastructure for deploying services and applications.
 For more information about OpenStack, please refer to: [https://www.openstack.org/](https://www.openstack.org/).
-{%endsummary%}
 
 
 # Plugin Requirements:
 
 * Python Versions:
   * 2.7.x
-
-
-{%note title=Note%}
-As the OpenStack plugin is, by default, only executed for Cloudify's Manager, it should not make much difference if it supports a Python version other than version Cloudify's Manager is running on.
-{%endnote%}
 
 
 # Types

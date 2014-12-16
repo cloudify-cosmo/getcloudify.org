@@ -9,7 +9,10 @@ pageord: 700
 yaml_link: http://getcloudify.org/spec/puppet-plugin/1.1/plugin.yaml
 ---
 
-{%summary%} The Puppet plugin can be used to map node life cycle operations to Puppet manifest runs. {%endsummary%}
+
+# Description
+
+The Puppet plugin can be used to map node life cycle operations to Puppet manifest runs.
 
 
 # Plugin Requirements:

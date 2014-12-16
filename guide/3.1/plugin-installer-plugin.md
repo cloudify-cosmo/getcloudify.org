@@ -7,9 +7,10 @@ abstract: "Cloudify plugin installer description"
 pageord: 650
 ---
 
-{%summary%}
+
+# Description
+
 The plugin installer plugin is responsible for installing Cloudify plugins on Cloudify agents and is pre-installed on every Cloudify agent installed using Cloudify's Linux/Windows agent installer.
-{%endsummary%}
 
 
 # Automatic Plugins Installation

@@ -12,10 +12,13 @@ client_reference_link: https://github.com/cloudify-cosmo/cloudify-script-plugin/
 hello_world_example_link: https://github.com/cloudify-cosmo/cloudify-hello-world-example
 ---
 
-{%summary%} The script plugin can be used to map node life cycle operations and workflows to scripts that are included in your blueprint. Scripts can be written in python, bash, ruby, you name it.{%endsummary%}
+# Description
+
+The script plugin can be used to map node life cycle operations and workflows to scripts that are included in your blueprint. Scripts can be written in python, bash, ruby, you name it
 
 The script plugin comes pre-installed with the default agent packages and is defined in `types.yaml`.
 The source code can be found at [{{page.repo_link}}]({{page.repo_link}})
+
 
 # Plugin Requirements:
 

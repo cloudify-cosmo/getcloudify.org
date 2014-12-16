@@ -13,11 +13,11 @@ celery_init_link: https://github.com/cloudify-cosmo/cloudify-packager/blob/maste
 disable_requiretty_link: https://github.com/cloudify-cosmo/cloudify-packager/blob/master/package-configuration/ubuntu-agent/Ubuntu-agent-disable-requiretty.sh
 ---
 
-{%summary%} The Cloudify Linux Agent Installer plugin is used to install agents on host nodes.
-The installation process is done using SSH from the management machine into the agent machine.
-{%endsummary%}
 
 # Description
+
+The Cloudify Linux Agent Installer plugin is used to install agents on host nodes.
+The installation process is done using SSH from the management machine into the agent machine.
 
 The agent installation process includes installing [Celery]({{page.celery_link}})
 on the agent machine, installing plugins required on this host and starting a celery worker.
@@ -27,11 +27,6 @@ on the agent machine, installing plugins required on this host and starting a ce
 
 * Python Versions:
   * 2.7.x
-
-
-{%note title=Note%}
-As the agent installer plugin is, by default, only executed for Cloudify's Manager, it should not make much difference if it supports a Python version other than version Cloudify's Manager is running on. Note, however, that the machine the agent is installed on must be running a Python version corresponding with the agent you're going to use.
-{%endnote%}
 
 
 # Configuration
