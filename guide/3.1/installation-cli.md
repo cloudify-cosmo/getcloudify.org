@@ -6,13 +6,19 @@ publish: true
 abstract: Installation instructions for Cloudify CLI under multiple platforms
 pageord: 200
 
-windows_link: http://gigaspaces-repository-eu.s3.amazonaws.com/org/cloudify3/3.1.0/rc2-RELEASE/cloudify-windows-cli_3.1.0-rc2-b84.exe
-linux32_link: http://gigaspaces-repository-eu.s3.amazonaws.com/org/cloudify3/3.1.0/rc2-RELEASE/cloudify-linux32-cli_3.1.0-rc2-b84_i386.deb
-linux64_link: http://gigaspaces-repository-eu.s3.amazonaws.com/org/cloudify3/3.1.0/rc2-RELEASE/cloudify-linux64-cli_3.1.0-rc2-b84_amd64.deb
+windows_link: http://gigaspaces-repository-eu.s3.amazonaws.com/org/cloudify3/3.1.0/ga-RELEASE/cloudify-windows-cli_3.1.0-ga-b85.exe
+linux32_link: http://gigaspaces-repository-eu.s3.amazonaws.com/org/cloudify3/3.1.0/ga-RELEASE/cloudify-linux32-cli_3.1.0-ga-b85_i386.deb
+linux64_link: http://gigaspaces-repository-eu.s3.amazonaws.com/org/cloudify3/3.1.0/ga-RELEASE/cloudify-linux64-cli_3.1.0-ga-b85_amd64.deb
 venv_link: http://virtualenv.readthedocs.org/en/latest/
 installation_bootstrapping_link: installation-bootstrapping.html
 ---
 {%summary%}{{page.abstract}}{%endsummary%}
+
+
+{%note title=Known Issue (!)%}
+If you have already installed a previous version of the CLI,
+Make sure to delete any *.cloudify* folders inside the destination directory you are about to install into (or any of its parent directories).
+{%endnote%}
 
 Cloudify CLI (AKA cfy) is being distributed in two different methods:
 
@@ -126,6 +132,12 @@ Under Ubuntu, you'll need to install the `python-dev` package.
 
 ### OS X
 You will need Apple's developers tools that are installed with Xcode.
+
+{% tip title=Tip%}
+By default, cloudify will place the CLI log file under this path: '{tmp_folder}/cloudify-{username}/cloudify-cli.log'
+You can change this by editing the 'config.yaml' file found at '{cli_installation_folder}/.cloudify'
+{% endtip %}
+
 
 # What's Next
 * Now that you know the requirements and have the CLI installed, you can [bootstrap your own manager]({{ page.installation_bootstrapping_link }})

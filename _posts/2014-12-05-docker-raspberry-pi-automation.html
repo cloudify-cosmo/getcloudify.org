@@ -1,0 +1,85 @@
+---
+layout: blogpost
+title: Raspberry Pi Automation, Docker, and Other Inanities
+image: yoram.jpeg
+author: Yoram Weinreb
+tags:
+ - DevOps
+ - Raspberry Pi
+ - Docker Automation
+ - Docker
+ - Fun
+---
+
+<notextile>
+
+<div class="aligncenter">
+<img src="https://lh3.googleusercontent.com/UP-7YBFGLuAnU0bVz4XHh7m8se0phIw77Lrp4Lw0Y90ReNZVU8YV6R9gJ52HyC41phABC2tYNq4eIlXeF5N1GgiKsf6foMPnFgSB6aUI8TXe-xpSOLASt1yyCchSwgtW9w" width="450" alt="Raspberry Pi | Raspberry Pi Automation | Raspberry Pi Docker"></div>
+<br/>
+<br/>
+
+<p><b></b></p>
+
+<p><b></b>
+
+  <p>This post is going to be a little off-topic, but since we love all things open source, hacking and automation, we thought it would be a fun change of pace.&#160; It was recently discovered in the office that I’ve been using Raspberry Pis to automate my life and generally mundane stuff around the house, so I decided to share my projects. I would love to hear what you guys are doing too.&#160; (Feel free to comment).</p>
+
+  <p>So, for those who aren’t familiar, Raspberry Pi&#160; is a miniature computer originally designed for every kid in the universe.&#160; It was designed to be cheap, under $100, and in fact initially cost a mere $25 (nowadays it’s more around $35).&#160; The idea behind it was to provide kids with everything they need to have from a hardware perspective to be able to function as a computer besides the peripherals, i.e. screen, keyboard, mouse.</p>
+
+  <p>So basically what you get is HDMI for video, USB to connect peripherals, and network connectivity, and you also have an SD card slot, so you can connect memory. The SD becomes the hard drive of the computer, and that was the general idea in a nutshell.</p>
+
+  <hr>
+
+<span class="pullquote-left">
+  <font style="font-weight: bold" size="5" face="Baskerville Old Face"><em>We like Raspberry Pi with whipped cream. Since we're already off-topic - check out Cloudify, eh?</em></font>&nbsp; <a class="btn btn-medium btn-theme btn-rounded" id="downloadBtnInner" href="http://getcloudify.org/downloads/get_cloudify_3x.html" target="_blank"><i class="icon-plus"></i> Go </a></span>
+  
+  <hr>
+
+  <p>Because it’s original use case was to provide all students and kids a cheap alternative to expensive computers, some nifty features were added from the get-go, for example the ability to show full HD videos by this relatively inexpensive hardware.&#160; At the time it was launched in 2011, being able to play full HD videos on a low budget computer was not trivial.&#160; What’s more, they also made it possible to be able to connect the Raspberry Pi to the physical world via GPIOs.&#160; This is an interface that provides physical pins that enable you to connect to electronic devices, and receive input output from them.</p>
+
+  <p>So not surprisingly, because of the cost factor and the openness of the projects that have sprung up around Raspberry Pi, the appeal extended quickly outside of the circle of kids and students.</p>
+
+
+<div class="aligncenter">
+  <p><img src="https://lh6.googleusercontent.com/XE9goPP4KXKHghmzR0VmEcl8I_z6Ol427Gf6qpE8ct_FTTwvEvMpBnTqo0Q-mDAv3cEmoxtqGypuXPshv8K5JKlCemiwe9YgldSLayY3LDz-NQqwvJQGB1LgVHAf2MNH6A" width="600" /></p></div>
+
+  <p>These days it’s often used in its most generic and non-hacky use case as a multi-media streamer - where alternate streamers in 2011 cost ~200 USD, this was a really attractive alternate solution to play real HD video.&#160; With Raspberry Pi, you can use XBMC to stream and upload media - everything from streaming live videocasts over the internet through connecting to DTV service channels, not to mention of course, downloading media, and playing it with your device.</p>
+
+  <p>Raspberry Pi comes with some distros that give you a pre-made image that you can just put on the SD card, and can run off the device very easily.</p>
+
+  <p>I, personally, have a more sophisticated distro at home so I can use the Pi for some more advanced scenarios.&#160; Here are a few examples.&#160; </p>
+
+  <p>A simple hack:</p>
+
+  <p>With my distro, I have one Raspberry Pi that functions as a “server” that is basically a manager server, that runs the rest of the nodes (overall 4 Raspberry Pis connected) where each of these &quot;nodes&quot; is connected to a TV.&#160; The management server serves the purpose of synchronizing the different nodes, so for example, if you pause one TV, you can continue in another room at the exact same place.&#160; </p>
+
+  <p>Some more stuff I’ve been doing.</p>
+
+  <ul>
+    <li>
+      <p>Home automation server, a la IoT.&#160; With this system I use the Raspberry Pis to to control my home garden lights, electric garage door, and gate.&#160; How it works:&#160; I connected the GPIOs to relays, that are easily accessible via the internet and cost ~$5 for 4 relays.&#160; Each of these relays can control a set of lights, and then you simply connect these one by one via the GPIO pins that are connected directly to the relay board. The relay board has been built to electronically fit the Raspberry Pi, and then you just need software to turn it off an on.&#160; </p>
+    </li>
+  </ul>
+
+  <p>This is what that looks like:</p>
+
+  <div class="aligncenter">
+  <p><img alt="Raspberry Pi Automation" src="https://lh6.googleusercontent.com/URzVagYzPwYmcL9R1oye9DoV5yUQXyWLJq5GgdRX-beamuZeRD0a_qJZq5LYkNC6dftdDxbYB8YJoKaOWu5NADhx0yV0uUJam4qhZpZ1re4mcv_Lj1yJd6sFWakon8GUtw" width="400" /></p></div>
+
+  <p>This is all powered by Raspberry Pi as an end device, with a Docker container running <a href="https://www.openhub.net/">OpenHub</a>, and the automation management operating system, kind of like the brain of the system. It’s so easy, my kids use it.</p>
+  
+  <p>OpenHub is an open source home automation controller/brain that allows you via a rule engine, to specify rules, to control the different things around your house. Anything from a button to a light sensor of any sort, is considered a thing, and can be triggered.&#160; OpenHub is kind of like IFTTT or Tasker for home automation for the enablement of DIY IoT.&#160; It’s open source so it’s easily extendable, if you want to add to it.&#160; There are tons of plugins - e.g. like a plugin for Google Calendar that will trigger actions according to an appointment.&#160; e.g. turn on lights when I’m not home, or that will check weather forecasts based on a weather channel or Yahoo weather plugin to turn off your sprinklers if rain is expected.&#160; There are so many things you can do and it’s all easily customizable being open source.</p>
+
+<div class="aligncenter">
+  <p><img src="https://lh3.googleusercontent.com/UP-7YBFGLuAnU0bVz4XHh7m8se0phIw77Lrp4Lw0Y90ReNZVU8YV6R9gJ52HyC41phABC2tYNq4eIlXeF5N1GgiKsf6foMPnFgSB6aUI8TXe-xpSOLASt1yyCchSwgtW9w" width="600" /></p></div>
+
+  <p>Another hack:</p>
+
+  <ul>
+    <li>
+      <p>Home alarm system.&#160; With my Raspberry Pi alternative home alarm systen, I was able to replace an over-priced commercial grade alarm system, all with one Raspberry Pi and two Arduinos.&#160; An Arduino is a very cheap microcontroller that people are doing tons of cool stuff with (just google it - there are some <a href="http://playground.arduino.cc/Projects/Ideas">awesome projects</a> out there).&#160; Arduinos give you GPIOs and a microcontroller you can load code into, I guess you can consider a more electronically oriented Raspberry Pi.&#160; How it works: one Raspberry Pi is the brain of alarm system, and two Arduinos are used in order to monitor all of the sensors. There are 20 sensors that come from an infrared movement detection system I have installed which is used as window, magnetic, door sensors etc.&#160; What’s more, with my previous hack, I can also control the lights according to movements.&#160; This alarm system works fabulously, and has a lot of potential for plenty more add-ons, and costs a fraction of the price.</p>
+    </li>
+  </ul>
+
+  <p>Like I said above, these are only a few small examples of the awesome things you can do with open source technology.&#160; Not only is it easily customizable, there’s an excellent community backing it, so you can find and discover more and more useful projects, all at a fraction of the price of more expensive hardware and software.&#160; Feel free to share with me what you’re doing - and maybe more things I haven’t thought of. I’ve only just tipped the iceberg.</p></p>
+  </notextile>

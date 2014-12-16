@@ -7,15 +7,16 @@ abstract: A quick tutorial for getting started with Cloudify and deploying your 
 pageord: 100
 
 quickstart_openstack_link: quickstart-openstack.html
-blueprint_file_link: https://github.com/cloudify-cosmo/cloudify-nodecellar-example/raw/master/singlehost-blueprint.yaml
+blueprint_file_link: https://raw.githubusercontent.com/cloudify-cosmo/cloudify-nodecellar-example/3.1/singlehost-blueprint.yaml
 virtualbox_link: https://www.virtualbox.org/
 vagrant_link: http://www.vagrantup.com
-vagrant_file_link: http://gigaspaces-repository-eu.s3.amazonaws.com/org/cloudify3/3.0.0/nightly_6/Vagrantfile
-vagrant_box_link: https://s3-eu-west-1.amazonaws.com/cloudify-nightly-vagrant/cloudify_3.1.0-rc1_virtualbox.box
+vagrant_file_link: http://gigaspaces-repository-eu.s3.amazonaws.com/org/cloudify3/3.1.0/ga-RELEASE/Vagrantfile
+vagrant_box_link: https://s3-eu-west-1.amazonaws.com/cloudify-nightly-vagrant/cloudify_3.1.0_virtualbox.box
 terminology_link: reference-terminology.html
 workflows_link: reference-builtin-workflows.html
 blueprint_guide_link: guide-blueprint.html
 installation_general_link: installation-general.html
+
 ---
 {%summary%}{{page.abstract}}{%endsummary%}
 
@@ -39,9 +40,13 @@ Cloudify provides:
 
 In this tutorial you will start a Cloudify manager within a Vagrant box on your laptop, and install a sample blueprint on it.
 
-Unlike a real cloud deployment, this example will install the application's components on a single Vagrant VM. If you'd like to install an `application`([?]({{page.terminology_link}}#application)) on an actual cloud, please refer to the [deploying your first application on OpenStack]({{page.quickstart_openstack_link}}) guide.
+Unlike a real cloud deployment, this example will install the application's components on a single Vagrant VM.
+If you'd like to install an `application`([?]({{page.terminology_link}}#application)) on an actual cloud,
+please refer to the [Getting started with Openstack]({{page.quickstart_openstack_link}}) guide.
 
-The [blueprint]({{page.blueprint_file_link}}) you'll be deploying, describes a nodejs application that connects to a MongoDB database and presents a wine catalog. To learn more about blueprint syntax and elements please refer to the [Blueprints Guide]({{blueprint_guide_link}}).
+The [blueprint]({{page.blueprint_file_link}}) you'll be deploying, 
+describes a nodejs application that connects to a MongoDB database and presents a wine catalog. 
+To learn more about blueprint syntax and elements please refer to the [Blueprints Guide]({{blueprint_guide_link}}).
 
 {%tip title=Tip%}
 The [Terminology Reference Page]({{page.terminology_link}}) will help you understand some of the terms stated in this guide. For your convenience, links are supplied throughout the guide to point you to the right term definition in the terminology page.
@@ -83,7 +88,7 @@ After the box is added, run this command (from the same directory the Vagrantfil
 vagrant up
 {%endhighlight%}
 
-Once the cloudify box is up you can access the manager web console through your local browser by pointing the browser to [http://11.0.0.7/]({{http://11.0.0.7/}}).
+Once the cloudify box is up you can access the manager web console through your local browser by pointing the browser to [http://11.0.0.7/](http://11.0.0.7/).
 
 ## Step 2: SSH to the Vagrant Box and Connect to the Running Manager
 
@@ -117,102 +122,122 @@ In the `cloudify-nodecellar-example` directory that you just cloned, you can see
 To upload the blueprint run:
 
 {%highlight bash%}
-cfy blueprints upload -b nodecellar1 -p singlehost-blueprint.yaml​
+cfy blueprints upload -b nodecellar -p singlehost-blueprint.yaml​
 {%endhighlight%}
 
 The `-b` flag specifies the unique name we've assigned to this blueprint on the Cloudify manager.
+Before creating a deployment, let's see what this blueprint looks like.
+Point your browser at the manager's URL again and refresh the screen. You will see the nodecellar blueprint listed there.
 
-Before creating a deployment, let's see what this blueprint looks like. Point your browser at the manager's URL again and refresh the screen. You will see the nodecellar blueprint listed there.
+![Blueprints table](/guide/images3/guide/quickstart/blueprints_table.png)
 
-![Blueprints table](https://raw.githubusercontent.com/cloudify-cosmo/cloudify-nodecellar-openstack/master/blueprints_table.png)
-
-Click the blueprint. You can see its topology. A `topology`([?]({{page.terminology_link}}#topology)) consists of elements called `nodes`([?]({{page.terminology_link}}#node)). 
+Click the blueprint. You can see its topology. A `topology`([?]({{page.terminology_link}}#topology)) consists of elements called `nodes`([?]({{page.terminology_link}}#node)).
 
 In our case, we have the following nodes:
 
 * One VM
 * A nodejs server
-* A MongoDB instance
+* A MongoDB database
 * A nodejs application called nodecellar (which is a nice sample nodejs application backed by mongodb).
 
-![Nodecellar Blueprint](/guide/images3/guide/nodecellar_topology.png)
+![Nodecellar Blueprint](/guide/images3/guide/quickstart/nodecellar_singlehost_topology.png)
 
-Now we can create an input parameters file that will be used by the blueprint to create a deployment. A `deployment`([?]({{page.terminology_link}}#deployment)) is like an instance of a blueprint.
+This blueprint defines some input parameters:
 
-<!-- We've already done that for you actually. You can look at the ~/cloudify/blueprints/inputs.json file to get an idea of what an input file looks like. -->
+![Nodecellar Inputs](/guide/images3/guide/quickstart/nodecellar_singlehost_inputs.png)
 
-Create a file in the local directory called inputs.json with the following content:
+The inputs values are located at ~/cloudify/blueprints/inputs/nodecellar-singlehost.json.
+These are the values relevant for our example: 
 
 {%highlight json%}
 {
   "host_ip": "localhost",
   "agent_user": "vagrant",
-  "agent_private_key_path": "/home/vagrant/.ssh/id_rsa"
+  "agent_private_key_path": "/home/vagrant/.ssh/id_rsa"    
 }
 {%endhighlight%}
 
-Now, create the deployment by typing the following command:
+{%note title=Limitations%}
+Currently, these values cannot be changed, 
+and are presented here only for the sake of clarity.
+{%endnote%}
+
+Now, we need to create a deployment. To do so, type the following command:
 
 {%highlight bash%}
-cfy deployments create -b nodecellar1 -d nodecellar1 --inputs inputs.json
+cfy deployments create -b nodecellar -d nodecellar --inputs ../inputs/nodecellar-singlehost.json
 {%endhighlight%}
 
-We've now created a deployment named `nodecellar1` based on a blueprint with the same name.
+We've now created a deployment named `nodecellar` based on a blueprint with the same name. This deployment is not yet materialized, since we haven't issued an installation command. If you click the "Deployments" icon in the left sidebar in the web UI, you will see that all nodes are labeled with 0/1, which means they're pending creation.
 
-This deployment is not yet materialized, since we haven't issued an installation command. If you click the "Deployments" icon in the left sidebar in the web UI, you will see that all nodes are labeled with 0/1, which means they're pending creation.
+![Nodecellar Deployment](/guide/images3/guide/quickstart/nodecellar_deployment.png)
 
 ## Step 5: Install the Deployment
 
-In Cloudify, everything that is executed in a context of a certain `deployment` is done via a `workflow`([?]({{page.terminology_link}}#workflow)).
-To trigger the `install`([?]({{page.workflows_link}}#install)) workflow, type the following command in your terminal:
+In Cloudify, installing a certain `deployment` is done by executing 
+the a [install]({{page.workflows_link}}#install) [workflow]({{page.terminology_link}}#workflow).
+type the following command in your terminal:
 
 {%highlight bash%}
-cfy executions start -d nodecellar1 -w install
+cfy executions start -w install -d nodecellar
 {%endhighlight%}
 
 This will take a couple of minutes, during which the resources will be created and configured.
 
 You can track the installation progress in the web console or in your terminal application.
-
-In your terminal, you will see that each `event`([?]({{page.terminology_link}}#event)) is labeled with its time, the deployment name, and the node in our topology that it relates to, e.g.
+In your terminal, you will see that each `event`([?]({{page.terminology_link}}#event)) is labeled with its time, the deployment name,
+and the node in our topology that it relates to, e.g.
 
 {% highlight bash %}
-2014-07-21T15:37:31 CFY <nodecellar1> [mongod_vm_41765] Starting node
+2014-12-02T09:46:05 CFY <nodecellar> [nodejs_d36c8] Creating node
 {% endhighlight %}
 
 In the Web UI, you can checkout the Logs/Events page for an overview of all Logs and Events in a specific Manager. 
+
+![Events](/guide/images3/guide/quickstart/events.png)
+
+<br>
+
 Alternatively, click on a specific deployment in the deployment tab. A list containing events and logs for the deployment will be shown.
 
-![Events](https://raw.githubusercontent.com/cloudify-cosmo/cloudify-nodecellar-openstack/master/events.png)
+You can also have a look at the Monitoring tab and see some default metrics:
+
+![Metrics](/guide/images3/guide/default_dashboard.png)
+
+{%note title=Note%}
+The blueprint we installed actually defines a custom collector for the Mongo database.
+To add mongo related graphs to the dashboard, have a look at [Adding Custom Graphs]().
+{%endnote%}
 
 ## Step 6: Test Drive the Application
 
-To test the application, you will need to access it using its public IP address. Go to [http://11.0.0.7:8080]({{http://11.0.0.7:8080}}) to access it from your web browser. The marvelous nodecellar application should be up on your screen. Click the "Browse wines" button to verify that the application was installed suceesfully and can access the mongodb database to read the list of wines.
+To test the application, you will need to access it using its public IP address. Go to [http://11.0.0.7:8080](http://11.0.0.7:8080) to access it from your web browser. The marvelous nodecellar application should be up on your screen. Click the "Browse wines" button to verify that the application was installed suceesfully and can access the mongodb database to read the list of wines.
 
-![Nodecellar](https://raw.githubusercontent.com/cloudify-cosmo/cloudify-nodecellar-openstack/master/nodecellar.png)
+![Nodecellar](/guide/images3/guide/quickstart/nodecellar.png)
 
 ## Step 7: Uninstall the Deployment
 
-Uninstalling the deployment is just a matter of running another workflow, which will teardown all the resources provisionined by the `install` workflow.
-
-To run the `uninstall`([?]({{page.workflows_link}}#uninstall)) workflow, type the following command:
+Uninstalling the deployment is just a matter of running another workflow,
+which will teardown all the resources provisioned by the `install` workflow. 
+To run the [uninstall]({{page.workflows_link}}#uninstall) workflow, type the following command:
 
 {%highlight bash%}
-cfy executions start -d nodecellar1 -w uninstall
+cfy executions start -w uninstall -d nodecellar
 {%endhighlight%}
 
-Like with the `install` workflow, you can track the progress of the uninstall process in the CLI or the web UI using the events that are displayed in both. Once the workflow is completed, you can verify that the resources were indeed destroyed.
+Like with the `install` workflow, you can track the progress of the uninstall process in the CLI or the web UI using the events that are displayed in both.
+Once the workflow is completed, you can verify that the resources were indeed destroyed.
 
-In a real cloud deployment, each and every resource provisioned by the deployment will be destroyed. Since this is a single-host example, there aren't any external resources, only application related ones.
+In a real cloud deployment, each and every resource provisioned by the deployment will be destroyed.
+Since this is a single-host example, there aren't any external resources, only application related ones.
 
 ## Step 8: Delete the Deployment
 
-The next step is deleting the deployment. Assuming the uninstallation went fine, all of the application resources will have been removed.
-
+The next step is deleting the deployment. Assuming the un-installation went fine, all of the application resources will have been removed.
 The deployment itself still has record on the manager. All of its static and runtime properties are still stored in the manager's database. To clean up the deployment's information on the manager, delete the deployment by running this command.
 
 {%highlight bash%}
-cfy deployments delete -d nodecellar1
+cfy deployments delete -d nodecellar
 {%endhighlight%}
 
 ## Step 9: Tear down the Manager
@@ -220,10 +245,12 @@ cfy deployments delete -d nodecellar1
 If you have no use for it, you can tear down the manager. This can be done by issuing the following command:
 
 {%highlight bash%}
-cfy teardown -f --ignore-deployments
+cfy teardown -f
 {%endhighlight%}
 
-In a real cloud deployment, this will terminate the Manager VM and delete the resources associated with it. In our case, since the manager is installed on the same machine the CLI is installed on, it will not teardown the machine.
+In a real cloud deployment, this will terminate the Manager VM and delete the resources associated with it. 
+In our case, since the manager is installed on the same machine the CLI is installed on, 
+it will not teardown the machine.
 
 Once you're done, you can exit the ssh session.
 

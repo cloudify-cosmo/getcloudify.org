@@ -1,0 +1,113 @@
+---
+layout: blogpost
+title: Do I need OpenStack if I use Docker?
+image: nati.png
+author: Nati Shalom
+tags:
+ - OpenStack
+ - Docker
+ - OpenStack Orchestration
+ - Cloud Orchestration
+ - Docker Orchestration
+---
+
+<notextile>
+
+<div class="aligncenter">
+<img src="https://lh3.googleusercontent.com/qpgb3DSAq3VFqZs8TcLxsfBXej2QIbQTTagfKpaE8e8JlotnKz3VTOKR45evKeGKVPoOSPtEjGTy9G5qSyYx3tV-eVxHOImDGrUa7KeWyOotmTxUqeTKXz8x1w2e2FMdig" width="600" alt="OpenStack Orchestration | Docker Orchestration | Cloud Orchestration "></div>
+<br/>
+<br/>
+
+<p>&#0160;</p>
+<p><a href="http://en.wikipedia.org/wiki/Docker_(software)">Docker</a> has broken a record in the speed in which it moved from being a disruptive technology to a commodity. The speed of adoption and popularity of Docker brings with it lots of confusion.</p>
+<p>In this post I wanted to focus on a trend of commentary that has been gaining popularity, that I’ve started to hear more often recently from users who just started using <a href="http://getcloudify.org/2014/10/30/Docker-cloud-orchestration-configuration-management.html" target="_blank">Docker</a>.&#0160; Whether it makes sense to use OpenStack if they’ve already chosen to use Docker.</p>
+<p>Before I give my take on this, I wanted to start with a short background for the rationale behind this question.</p>
+<h3><strong>Background</strong></h3>
+<p>In its simplest form, Docker provides a container for managing software workloads on shared infrastructure, all while keeping them isolated from one another. Virtual machines such as KVM do a similar job by creating a complete operating system stack of all the OS devices (through a Hypervisor). However, unlike the virtual machine approach, Docker relies on a built-in feature of the Linux operating system named LXC (Linux Containers). LXC utilizes the built-in operating system features of process isolation for memory, and to a lesser degree, CPU and networking resources. Docker images do not require a complete boot of a new operating system, and as a result, provide a much lighter alternative for packaging and running applications on shared compute resources. In addition, it allows direct access to the device drivers which makes I/O operations faster than with a hypervisor approach. The latter makes it possible to use Docker directly on bare metal which, often times causes people to ask whether the use of a cloud such as OpenStack is really necessary if they’re already using Docker.</p>
+<p>This performance difference between Docker and a hypervisor such as KVM is backed by a recent benchmark done by <a href="https://www.linkedin.com/pub/boden-russell/9/2b4/711">Boden Russell</a> and presented during the recent <a href="http://blog.docker.com/2014/06/dockercon-video-performance-characteristics-of-vms-vs-docker-containers-by-boden-russel-ibm/">DockerCon</a> event.</p>
+
+
+
+<hr>
+
+<span class="pullquote-left">
+  <font style="font-weight: bold" size="5" face="Baskerville Old Face"><em>Docker + OpenStack orchestration - whatever your preference - with Cloudify.  Check it out.</em></font>&nbsp; <a class="btn btn-medium btn-theme btn-rounded" id="downloadBtnInner" href="http://getcloudify.org/downloads/get_cloudify_3x.html" target="_blank"><i class="icon-plus"></i> Go </a></span>
+  
+  <hr>
+
+<p><a href="http://ht.ly/C9msO">The benchmark</a> is fairly detailed, and as expected, it shows a significant difference between the time it takes to boot a KVM hypervisor to a Docker container. It also indicates a fairly big difference in the memory and CPU utilization between the two, as can be seen in the diagram below.</p>
+<p><img alt="" height="377" src="https://lh3.googleusercontent.com/3K7yHA3aOQC75ANGP-9V6Yyo_qI3aTY0Wtmv0q9_DT1eyK8dOMQhrotaDsdCw3lJDDhCn54q7A9CV4H-Pau5s7olsaiIWJociutBBFzMRhwxyw_SIjGHRzZ3H_LTTgROvg" width="598" /></p>
+<p>This difference in performance can map to a difference in density and overall utilization difference between the two in similar proportion. This difference can easily map into a big difference in cost that is directly affected by the number of resources needed to run a given workload.</p>
+<h3><strong>My Take:</strong></h3>
+<ul>
+<li>
+<p>This question has nothing specific to do with OpenStack and can be applied similarly to any other cloud infrastructure. The reason it is often brought up in the context of OpenStack, in my opinion, is due to the fact that OpenStack is fairly popular in private cloud environments which is the only environment in which we can even consider a pure Docker alternative.</p>
+</li>
+<li>
+<p>It&#39;s about the hypervisor stupid:</p>
+</li>
+</ul>
+<p>Many of the performance benchmarks compare Docker versus KVM, and have little to do with OpenStack. In fact, this specific benchmark of both KVM images and Docker containers was running through OpenStack which shows that the two technologies works nicely together. In that context, most of the utilization&#0160; arguments become irrelevant when I choose to run OpenStack on top of a Docker based Nova stack as illustrated in the diagram below taken from the <a href="https://wiki.openstack.org/wiki/Docker">OpenStack documentation</a>.</p>
+<p><img alt="" height="301" src="https://lh3.googleusercontent.com/qpgb3DSAq3VFqZs8TcLxsfBXej2QIbQTTagfKpaE8e8JlotnKz3VTOKR45evKeGKVPoOSPtEjGTy9G5qSyYx3tV-eVxHOImDGrUa7KeWyOotmTxUqeTKXz8x1w2e2FMdig" width="500" /></p>
+<ul>
+<li>
+<p>Cloud infrastructure provides a complete data center management solution in which containers or hypervisors, for that matter, are only part of a much bigger system.&#0160; Cloud infrastructure such as OpenStack includes multi-tenant security and isolation, management and monitoring, storage and networking and more. All of those services are needed for any cloud / data center management and have little dependency on whether Docker or KVM are being used.</p>
+</li>
+<li>
+<p>Docker isn&#39;t (yet) a full-featured VM and has some serious limitations like security, Windows support (as indicated in the following <a href="https://www.redhat.com/archives/rdo-list/2014-February/msg00061.html">email thread </a>in the Red Hat mailing list), and therefore cannot be considered a complete alternative to KVM just yet. While there’s <a href="http://www.infoq.com/news/2014/03/docker_0_9">ongoing work</a> to bridge those gaps, it is safe to assume that adding the missing functionality may come at an additional&#0160; performance cost.</p>
+</li>
+</ul>
+<ul>
+<li>
+<p>There’s a big difference between raw hypervisor performance/containerization and application performance, as indicated in the following graphs from the benchmark results. A possible explanation for that is that applications often use the caching technique to reduce the I/O overhead.</p>
+</li>
+</ul>
+<p><img alt="" height="468" src="https://lh4.googleusercontent.com/4F407ELuqe7Gh0H6lqUGdzw3UktqcYvay8qbdj_2HRdG8j483YXWozNnGE54GD4jXA4GkIZp6xhGQooJGOfCaAsLlUMfB--SCL0A6Gdcnj5_K654qajF-G3jP_ex08gVuw" width="624" /></p>
+<p><img alt="" height="412" src="https://lh6.googleusercontent.com/MS70EO4UzPsWiKDpzHxhJfEV4BYT6SLmEWMPEjh8BrJ4MGBV5ndLeAPr04wwDYA9rMWOHyIqmLDmpNwBVEcBde_VYy56H6ul5yl9Qh95y0AUpXN7hDA78jyoKods1Jf7tQ" width="624" /></p>
+<ul>
+<li>
+<p>If we package Docker containers within a KVM image the difference can become negligible. This architecture often uses hypervisors for managing the cloud compute resources, and an orchestration layer such as Heat, Cloudify, or Kubernetes on top to manage containers within the hypervisor resources.</p>
+</li>
+</ul>
+<h3><strong>Conclusion</strong></h3>
+<p>This brings me to the conclusion that the right way to look at OpenStack, KVM and Docker, is as a complementary stack in which OpenStack plays the role of the overall data center management. KVM as the multi-tenant compute resource management, and Docker containers as the application deployment package.&#0160;</p>
+<p>In this context a common model would be to use Docker for the following roles:</p>
+<ul>
+<li>
+<p>Docker provides deterministic software packaging and fits nicely with the immutable infrastructure model.</p>
+</li>
+<li>
+<p>Docker for excellent great containerization of microservices pods</p>
+</li>
+<li>
+<p>Using Docker on top of OpenStack as well as a bare metal environment</p>
+</li>
+</ul>
+<p>Having said all of the above, I do see cases mostly for well defined workloads, where the use of cloud infrastructure isn&#39;t mandatory. For example, if I were to consider the automation of a small shop development and testing environment for DevOps purposes, I would consider using Docker directly on a bare metal environment.</p>
+<p>Orchestration can be a great abstraction tool between the two environments</p>
+<p>One of the benefits of using an orchestration framework with Docker, is that it can allow us to switch between OpenStack or bare metal environments at any given point in time. In this way, we can choose either options just by pointing our orchestration engine to the target environment of choice. OpenStack Orchestration (Heat) declared support for orchestrating <a href="http://techs.enovance.com/7104/multi-tenant-docker-with-openstack-heat">Docker</a> starting from the Icehouse release. <a href="http://getcloudify.org/">Cloudify</a> is an open source <a href="http://getcloudify.org/openstack-architecture-cloudify.html#TOSCA">TOSCA </a>based orchestration that works on OpenStack and other clouds such <a href="http://getcloudify.org/cloud_orchestration_cloud_automation.html#HPLink">VMware</a>, AWS and bare metal, and recently included <a href="http://getcloudify.org/docker-orchestration-docker-container-deployment-cloud.html">Docker orchestration</a> .&#0160; <a href="https://github.com/GoogleCloudPlatform/kubernetes">Google Kubernetes</a> is associated mostly with GCE but could be customized to work with other cloud or environments.</p>
+<p>References:</p>
+<ul>
+<li>
+<p><a href="https://wiki.openstack.org/wiki/Docker">Using Docker as and OpenStack compute resource (Nova)</a></p>
+</li>
+<li>
+<p><a href="http://techs.enovance.com/7104/multi-tenant-docker-with-openstack-heat">Orchestrating Docker containers through OpenStack Heat</a></p>
+</li>
+<li>
+<p><a href="https://github.com/cloudify-cosmo/cloudify-docker-plugin">Orchestrating Docker containers on OpenStack, VMware, AWS, bare metal and Other clouds through TOSCA/Cloudify</a></p>
+</li>
+<li>
+<p><a href="https://www.redhat.com/archives/rdo-list/2014-February/msg00061.html">Docker limitations as indicated in Red Hat mailing list</a></p>
+</li>
+<li>
+<p><a href="http://rwmj.wordpress.com/2013/06/19/the-boring-truth-full-virtualization-and-containerization-both-have-their-place/">The boring truth: full virtualization and containerization both have their place</a></p>
+</li>
+<li>
+<p><a href="http://eir.dell.com/docker-containerization-boon-web-software-startups/?utm_content=buffer14cee&amp;utm_medium=social&amp;utm_source=twitter.com&amp;utm_campaign=buffer">Using Docker as immutable infrastructure</a></p>
+</li>
+<li>
+<p><a href="http://www.infoq.com/news/2014/03/docker_0_9">Docker drops LXC as default execution environment</a></p>
+</li>
+</ul>
+</notextile>
