@@ -37,6 +37,7 @@ sudo apt-get install libxml2-dev
 
 ### Step 3 - Enable Apache mods
 
+{% highlight bash %}
 sudo a2enmod proxy
 sudo a2enmod proxy_http
 sudo a2enmod proxy_ajp
@@ -46,17 +47,19 @@ sudo a2enmod headers
 sudo a2enmod proxy_connect
 sudo a2enmod proxy_html
 sudo a2enmod ssl
+{%endhighlight%}
+
 
 ### Step 4 - Configure the Proxy
 
-Add to /etc/apache2/mods-available/proxy.conf:
+Add to `/etc/apache2/mods-available/proxy.conf`:
 
     AllowCONNECT 443 563 21 22 35357 9696 <PORT1> <PORT2> <PORT3> ...
     ProxyRequests On
     ProxyVia On
     SSLProxyEngine On
 
-Uncomment the <Proxy *> element as this example:
+Uncomment the `<Proxy *>` element as this example:
 
     <Proxy *>
         AddDefaultCharset off
@@ -79,7 +82,7 @@ Launch an instance in Openstack, connect it to the same network as the proxy mac
 
 ### Step 2 - Configure Environment Variables
 
-in /etc/environment, add the following:
+in `/etc/environment`, add the following:
 
     http_proxy="http://<PROXY_IP>:<PROXY_PORT>/"
     https_proxy="http://<PROXY_IP>:<PROXY_PORT>/"
