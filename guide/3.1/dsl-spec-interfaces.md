@@ -46,7 +46,7 @@ relationships:
         ...
 {%endhighlight%}
 
-Each interface declaration under the different `interfaces`/`source_interfaces`/`target_interfaces` sections is a dictionay of operations.
+Each interface declaration under the different `interfaces`/`source_interfaces`/`target_interfaces` sections is a dictionary of operations.
 
 ## Operation Definition in Node Types and Relationships Interfaces
 
@@ -67,6 +67,18 @@ Keyname          | Required | Type        | Description
 implementation   | yes      | string      | The script or plugin task name to execute.
 inputs           | no       | dict        | Schema of inputs that will be passed to the implementation as kwargs.
 executor         | no       | string      | Valid values: `central_deployment_agent`, `host_agent`. See the [Plugins Specification]({{page.dsl_plugins_link}}) for more info.
+
+### Simple Mapping
+{%highlight yaml%}
+node_types:
+  some_type:
+    interfaces:
+      interface1:
+        op1: plugin_name.path.to.module.task
+{%endhighlight%}
+
+When mapping an operation to an implementation, if there is no need to pass inputs or override the executor, the full mapping structure can be avoided and the implementation can be written directly.
+
 
 ## Operation Input Schema Definition
 
@@ -108,57 +120,31 @@ node_templates:
           ...
 {%endhighlight%}
 
-## Operation Definition in Node Templates
-
-### Simple Mapping
-
-{%highlight yaml%}
-node_templates:
-  some_node:
-    interfaces:
-      op1: plugin_name.path.to.module.task
-{%endhighlight%}
-
-When mapping operations to implementations in node templates, if there is no need to pass inputs or override the executor, the full mapping structure can be avoided and the implementation can be written directly.
-
-### Full Mapping
-
-{%highlight yaml%}
-node_templates:
-  some_node:
-    interfaces:
-      op1:
-        implementation: plugin_name.path.to.module.task
-        inputs:
-          ...
-        executor: ...
-{%endhighlight%}
-
-The full mapping structure is identical to the one in node types and relationships interfaces with the exception that the inputs are not a schema.
-
 ## Operation Inputs in Node Templates Interfaces
 
 {%highlight yaml%}
 node_types:
   some_type:
     interfaces:
-      op1:
-        implementation: plugin_name.path.to.module.task
-        inputs:
-          input1:
-            description: some mandatory input
-          input2:
-            description: some optional input with default
-            default: 1000
-        executor: ...
+      interface1:
+        op1:
+          implementation: plugin_name.path.to.module.task
+          inputs:
+            input1:
+              description: some mandatory input
+            input2:
+              description: some optional input with default
+              default: 1000
+          executor: ...
 
 node_templates:
   some_node:
     interfaces:
-      op1:
-        inputs:
-          input1: mandatory_input_value
-          input3: some_additional_input
+      interface1:
+        op1:
+          inputs:
+            input1: mandatory_input_value
+            input3: some_additional_input
 {%endhighlight%}
 
 When an operation in a node template interface is inherited from a node type or a relationship interface:
