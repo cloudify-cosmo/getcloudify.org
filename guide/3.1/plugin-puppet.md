@@ -11,6 +11,13 @@ yaml_link: http://getcloudify.org/spec/puppet-plugin/1.1/plugin.yaml
 
 {%summary%} The Puppet plugin can be used to map node life cycle operations to Puppet manifest runs. {%endsummary%}
 
+
+# Plugin Requirements:
+
+* Python Versions:
+  * 2.7.x
+
+
 # Puppet plugin usage options
 
 The Puppet plugin allows you to run either Puppet agent or Puppet standalone. The usage option is chosen based on presence or absence of `server` property under node's `properties` > `puppet_config`. If `server` is present, Puppet agent is used. If `server` is not present, Puppet standalone is used.

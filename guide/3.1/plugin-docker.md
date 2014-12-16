@@ -15,6 +15,12 @@ yaml_link: http://getcloudify.org/spec/docker-plugin/1.1/plugin.yaml
 
 A Cloudify plugin enabling it to create and manipulate Docker containers.
 
+
+# Plugin Requirements:
+
+* Python Versions:
+  * 2.7.x
+
 # Blueprints
 
 ## An example node specification

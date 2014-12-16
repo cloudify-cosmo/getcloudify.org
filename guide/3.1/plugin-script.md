@@ -17,6 +17,13 @@ hello_world_example_link: https://github.com/cloudify-cosmo/cloudify-hello-world
 The script plugin comes pre-installed with the default agent packages and is defined in `types.yaml`.
 The source code can be found at [{{page.repo_link}}]({{page.repo_link}})
 
+# Plugin Requirements:
+
+* Python Versions:
+  * 2.6.x
+  * 2.7.x
+
+
 # Usage
 
 Following are usage examples demonstrating different configuration options.

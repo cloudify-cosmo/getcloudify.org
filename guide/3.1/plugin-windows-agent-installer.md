@@ -17,6 +17,18 @@ The installation process is done using [WinRM]({{page.winrm_link}}) over HTTP fr
 The Agent is installed as a Windows Service under the name 'CloudifyAgent'.
 {%endsummary%}
 
+
+# Plugin Requirements:
+
+* Python Versions:
+  * 2.7.x
+
+
+{%note title=Note%}
+As the windows agent installer plugin is, by default, only executed for Cloudify's Manager, it should not make much difference if it supports a Python version other than version Cloudify's Manager is running on.
+{%endnote%}
+
+
 # Pre-requisites
 
 This plugin can only install agents on an image that meets the following set of requirements:

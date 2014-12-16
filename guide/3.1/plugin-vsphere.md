@@ -16,8 +16,20 @@ This section describes how to use vSphere based infrastructure in your services 
 
 {% note %}
 This page relates to a commercial add-on to Cloudify which is not open source. If you'd like to give it a test drive contact us using the feedback button on the right.
-The vSphere plugin.yaml configuration file can be found in this [link.]({{page.plugin_link}}) 
+The vSphere plugin.yaml configuration file can be found in this [link.]({{page.plugin_link}})
 {% endnote %}
+
+
+# Plugin Requirements:
+
+* Python Versions:
+  * 2.7.x
+
+
+{%note title=Note%}
+As the vSphere plugin is, by default, only executed for Cloudify's Manager, it should not make much difference if it supports a Python version other than version Cloudify's Manager is running on.
+{%endnote%}
+
 
 # Types
 
@@ -168,7 +180,7 @@ Template should have:
 
 Template should not have:
 
-* any network interfaces connected. 
+* any network interfaces connected.
 
 
 ## Resources prefix support

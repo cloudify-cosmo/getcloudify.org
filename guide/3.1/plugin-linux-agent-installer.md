@@ -23,6 +23,17 @@ The agent installation process includes installing [Celery]({{page.celery_link}}
 on the agent machine, installing plugins required on this host and starting a celery worker.
 
 
+# Plugin Requirements:
+
+* Python Versions:
+  * 2.7.x
+
+
+{%note title=Note%}
+As the agent installer plugin is, by default, only executed for Cloudify's Manager, it should not make much difference if it supports a Python version other than version Cloudify's Manager is running on. Note, however, that the machine the agent is installed on must be running a Python version corresponding with the agent you're going to use.
+{%endnote%}
+
+
 # Configuration
 
 The agent configuration is located under the `cloudify_agent` property of a host node.
