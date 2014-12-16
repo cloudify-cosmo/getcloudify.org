@@ -1,7 +1,7 @@
 ---
 layout: bt_wiki
 title: DSL Overview
-category: DSL Specification
+category: DSL Specification root
 publish: true
 abstract: Explains about Cloudify DSL and TOSCA
 pageord: 100

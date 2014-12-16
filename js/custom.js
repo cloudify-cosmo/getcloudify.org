@@ -49,66 +49,172 @@ $(document).ready(function() {
 
 	if (location.href.indexOf('/guide/') != -1) {
 		var version = document.location.href.split("/guide/")[1].split("/")[0];
-		var tocUrl = '/guide/' + version + '/toc.html';						
+		var tocUrl = '/guide/' + version + '/toc.html';
+
+		// Grab the menu data
 		$.ajax({
 		    type:'GET',
 		    url:'/guide/' + version + '/toc.html',                                
-		    success:function (data) {	
+		    success:function (data) {
+				// Once we have the menu in place, process it
+
 		    	$("#tocAside").html(data.toString());
 		    	
-		    	//highlight  docs menu links
-				$('a.list-group-item').each(function() {					
-					if (window.location.href.indexOf($(this).attr('href')) != -1)  {						
-						$(this).addClass('highlight');
-						$(this).parent().show();
-						$('.icon-caret-down').attr('class','icon-caret-right');
-						$(this).parent().prev().addClass("active");
-						$(this).parent().prev().children().attr('class','icon-caret-down')
-						var pathArray = window.location.pathname.split( '/' );
-						pathArray = pathArray[2];
-						
-						//highlight top menu when user click on docs menu links
-						$('.nav li.topmenu').each(function() {
-							var href = $(this).find('a').attr('href');
-							var splitHref = href.split( '/' );
-							splitHref=splitHref[2];
-							if (splitHref === pathArray) {
-								$(this).addClass('active');
-								$(this).parent().parent().addClass('active');
-							}
-						});	
-					}
-				});
+		    	//highlight  docs menu links according to the page url
+				fixMenuAccordingToUrl();
+
 				$("#tocAside").css("display", "block");
 
-				//Left docs menu control - open ,close and highlight.
-				$( ".titleHolder").click(function( event ) { 
+				// Listen to menu click events
+				$("a.list-group-item").click(function(event){
 					event.preventDefault();
-					if($(this).hasClass('active')){
-						if($(this).next().is(':visible')){
-							$('.icon-caret-down').attr('class','icon-caret-right');
-						} else{
-							$(this).children().attr('class','icon-caret-down');
+
+					// If the href is not empty
+					if ($.trim($(this).attr('href'))) {
+						// Dont actually navigate, we'll do this here.
+						event.preventDefault();
+
+						// Change highlighting if needed (title holder click does it on its own)
+						if (!$(this).hasClass('titleHolder')) {
+							$('a.list-group-item').removeClass('active');
+							$(this).addClass('active');
 						}
-						$(this).next().toggle("fast");
-					} else{
-						$('.icon-caret-down').attr('class','icon-caret-right');
-						$(".titleHolder.active").next().hide("fast");
-						$(".titleHolder").removeClass('active');
+
+						// Grab the navigation data
+						var newPageUrl = $(this).attr('href');
+						var pageTitle = $(this).text();
+
+						// Save state in history (so it will show in the url and we can navigate back)
+						window.history.pushState( { url: newPageUrl, title: pageTitle } , pageTitle , newPageUrl);
+
+						// Load the new page
+						loadNewPage(newPageUrl,pageTitle);
+					}
+				});
+
+				//Left docs menu control - open ,close and highlight.
+				$( ".titleHolder").click(function( event ) {
+					event.preventDefault();
+
+					var isActive = $(this).hasClass('active');
+
+					// Clear any previous selection
+					$('.icon-caret-down').attr('class','icon-caret-right');
+					$(".titleHolder.active").next().hide("fast");
+					$("a.list-group-item").removeClass('active');
+					$('.titleHolder').removeClass("active");
+
+					if (!isActive) {
 						$(this).addClass("active");
 						$(this).children().attr('class','icon-caret-down');
 						$(this).next().show("fast");
 					}
 				});
 
-
-
-
-
 		    }
 		});						
 	}
-	
+
+	/**
+	 * Highlite and "opens" the right node according to the selected URL
+	 */
+	function fixMenuAccordingToUrl() {
+		// Clear all active selection
+		$('.titleHolder').removeClass("active");
+		$('a.list-group-item').removeClass('active');
+
+		$('a.list-group-item').each(function() {
+			if ($.trim($(this).attr('href')) && window.location.href.indexOf($(this).attr('href')) != -1)  {
+				// Add the active class
+				$(this).addClass('active');
+
+				if ($(this).hasClass('titleHolder')) {
+					$(this).children().attr('class','icon-caret-down');
+//					$(this).addClass("active");
+					$(this).next().show("fast");
+				} else {
+					// If this is not title holder, it means its a leaf. In this case, show the entire box (open the parent), and mark as active
+					$(this).parent().show();
+//					$(this).parent().prev().addClass("active");
+					$(this).parent().prev().children().attr('class','icon-caret-down')
+				}
+
+				var pathArray = window.location.pathname.split( '/' );
+				pathArray = pathArray[2];
+
+				//highlight top menu when user click on docs menu links
+				$('.nav li.topmenu').each(function() {
+					var href = $(this).find('a').attr('href');
+					var splitHref = href.split( '/' );
+					splitHref=splitHref[2];
+					if (splitHref === pathArray) {
+						$(this).addClass('active');
+						$(this).parent().parent().addClass('active');
+					}
+				});
+			}
+		});
+	}
+
+	/**
+	 * Load a page into "pageContent". Runs its attached "createLinkList" scripts.
+	 * @param newPageUrl
+	 * @param pageTitle
+	 */
+	function loadNewPage(newPageUrl,pageTitle) {
+		// Create a temporary div to store the page content (if we put it directly into pageContent we'll have 2 pageContent divs one inside the other)
+		var page = $('<div></div>');
+		$(page).load( newPageUrl +" #pageContent" , function(fullPageData) {
+			// check if need to refresh the entire page- navigate to another page. If so we will have a 'http-equiv=refresh' header to the loaded html.
+			// If so just place it in, and the browser will do the rest.
+			if (fullPageData.indexOf('http-equiv="refresh"') >= 0 ){
+				$( "#pageContent").html(fullPageData);
+			} else {
+
+				// If not, add all of the loaded "PageContent" children to our page's pageContent.
+				$( "#pageContent").html($(page).find('#pageContent').children());
+
+				// Make sure we scroll to the top
+				$(window).scrollTop(0);
+
+				// Change the breadcrumb according to the title
+				$('.bt_wiki-breadcrumb .breadcrumb li').last().html(pageTitle);
+
+				// Find scripts that are attached to the loaded html (we only want to run the "createLinkList" which is the script that
+				// Is related to the jekyll plugins that we are using)
+				var scriptIndex=fullPageData.indexOf('createLinkList');
+				while (scriptIndex >= 0) {
+					// Grab the script itself
+					var script = fullPageData.substring(scriptIndex);
+					var fullPageData = script.substring(20); // Jump over the createLinkList
+					var scriptEnd = script.indexOf(');');
+					script = script.substring(0,scriptEnd) + ");";
+
+					// Run the script
+					try {
+						eval(script);
+					} catch (e) {console.log(e);}
+
+					// Move to the next script (in most cases we will only have one
+					scriptIndex=fullPageData.indexOf('createLinkList');
+				}
+			}
+
+		});
+	}
+
+	/**
+	 * Listen to onpopstate event. We used pushstate to save the navigation in the url. So now we have to make sure we listen to the "back" action and reverse it
+	 * @param event
+	 */
+	window.onpopstate = function(event) {
+		// If we found a state, and a url inside the state (means its the data we saved) then load the wanted page, and highlight the menu accordingly
+		if (event.state && event.state.url) {
+			loadNewPage(event.state.url,event.state.title);
+			fixMenuAccordingToUrl();
+		}
+	};
+
 
 	$('.toggle-link').each(function() {
 	$(this).click(function() {
