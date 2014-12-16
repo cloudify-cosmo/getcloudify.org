@@ -12,7 +12,7 @@ Node templates represent the actual instances of node types which would eventual
 
 # Decleration
 
-The `node_templates` section in the DSL is a hash where each key is a node template.
+The `node_templates` section in the DSL is a dictionary where each key is a node template.
 
 {%highlight yaml%}
 tosca_definitions_version: cloudify_dsl_1_0
@@ -40,8 +40,8 @@ outputs:
 Keyname       | Required | Type          | Description
 -----------   | -------- | ----          | -----------
 type          | yes      | string        | The type of the node template.
-properties    | no       | hash          | The properties of the node template matching its node type properties schema.
-instances     | no       | hash          | Instances configuration.
+properties    | no       | dict          | The properties of the node template matching its node type properties schema.
+instances     | no       | dict          | Instances configuration.
 interfaces    | no       | interfaces    | Used for mapping plugins to [interfaces](dsl-spec-interfaces.html) operation or for specifying inputs for already mapped node type operations.
 relationships | no       | relationships | Used for specifying the [relationships](relationships) this node template has with other node templates.
 
