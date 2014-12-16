@@ -22,15 +22,14 @@ agent_overview_link: agents-description.html
 
 # Overview
 
-In this tutorial we will create a [blueprint]({{page.terminology_link}}#blueprint) that describes
-the [topology]({{page.terminology_link}}#topology) of the Nodecellar [application]({{page.terminology_link}}#application).
-We will write, step by step, a simplified version of the [Single Host Nodecellar]({{page.singlehost_nodecellar_url}}) blueprint. <br>
-
 {%tip title=Tip%}
 The [Terminology Reference Page]({{page.terminology_link}}) will help you understand some of the terms stated in this guide.
 For your convenience, links are supplied throughout the guide to point you to the right term definition in the terminology page.
 {%endtip%}
 
+In this tutorial we will create a [blueprint]({{page.terminology_link}}#blueprint) that describes
+the [topology]({{page.terminology_link}}#topology) of the Nodecellar [application]({{page.terminology_link}}#application).
+We will write, step by step, a simplified version of the [Single Host Nodecellar]({{page.singlehost_nodecellar_url}}) blueprint. <br>
 
 It includes the following components:
 
@@ -48,7 +47,7 @@ It includes the following components:
 
 - [Nodecellar]({{page.nodecellar_link}}) - This is the application business logic packed as a Node.JS application.
 
-The topology should look like this:
+The topology looks like this:
 
 ![nodecllar app](/guide/images3/guide/quickstart/nodecellar_singlehost_topology.png)
 
@@ -80,11 +79,7 @@ It defines references to external YAML files that may hold definitions of variou
 
 For a complete reference of these constructs refer to the DSL Specification section.
 
-In our case, the first thing we need to do is import the built-in cloudify node types. These types serve several purposes:
-
-1. Define base [interfaces]({{page.terminology_link}}#interface) for our nodes.
-2. Define some properties for certain node types.
-3. Differentiate between different types.
+In our case, we need to import Cloudify's [built-in types definitions]({{page.types_yaml_link}}) since our custom `node_types` will *derive from* some of these types.
 
 **This will become clearer as we go along, don't worry :)**
 
@@ -99,7 +94,7 @@ imports:
 
 ## Step 3: Adding blueprint inputs
 
-The `inputs` section is where you define what parameters of the blueprints will be configurable without the need to edit the blueprint file. <br>
+The `inputs` section is where you define which blueprint parameters will be configurable without the need to edit the blueprint file. <br>
 To learn more about `inputs`, please refer to [Inputs Specification](dsl-spec-inputs.html).
 
 In our case, we declare the connection details to our host as inputs, Like so:
@@ -184,12 +179,19 @@ nodecellar.nodes.MongoDatabase:
 
 So what do we have here? <br>
 
+- This node type derives from `cloudify.nodes.DBMS`, which is a built-in cloudify type. **This is why we needed the** `imports` **section discussed above.**
 - This node type defines a *port* property, which makes sense because we want this property to be configurable. <br>
 This means that every node template who's type is `nodecellar.nodes.MongoDatabase` will have to specify a value for this property.
 - It also maps its lifecycle operations to bash scripts. Remember, these operations are invoked when running the
-`install` workflow. These scripts are responsible for taking the properties and actually doing something with them. <br>
-In this case, the *start-mongo.sh* script uses the *port* property to configure the database port.
+`install` workflow. The node properties are accessible in the bash scripts via the *ctx* utility. For example, to retrieve the *port* property you can do:
 
+{%highlight bash%}
+port=$(ctx node properties port)
+{%endhighlight%}
+
+For more examples of using the *ctx* utility refer to [Context Proxy Utility](plugin-script.html#context-proxy). <br>
+
+In this case, the *start-mongo.sh* script uses the *port* property to configure the data base port. <br>
 In the same manner, we define our additional types, to eventually get this blueprint:
 
 {%highlight yaml%}
@@ -254,12 +256,33 @@ node_types:
 
 {%endhighlight%}
 
+{%note title=Note%}
 **All of the paths specified are relative to the blueprint file directory. You can find the scripts [here]({{page.nodecellar_scripts_url}})**
+
+Also, two points are worth mentioning regarding the scripts:
+
+ 1. Should be written in an idempotent manner. As is it possible they will be executed several times per execution, on account of retires due to failures.
+ 2. Should be synchronous and wait for processes to start before existing. For example in the *start-mongo.sh* script we wait for mongo to run:
+
+{%highlight yaml%}
+COMMAND="${MONGO_BINARIES_PATH}/bin/mongod --port ${PORT} --dbpath ${MONGO_DATA_PATH} --rest --journal --shardsvr"
+
+ctx logger info "${COMMAND}"
+nohup ${COMMAND} > /dev/null 2>&1 &
+PID=$!
+
+MONGO_REST_PORT=`expr ${PORT} + 1000`
+wait_for_server ${MONGO_REST_PORT} 'MongoDB'
+{%endhighlight%}
+
+
+{%endnote%}
+
 
 {%tip title=Tip%}
 Think of `node_types` as a location to place shared interface implementations and properties. <br>
 When your blueprint contains only one node template of a node type, it may not make much sense in defining these types, because all of this can be defined in the node template as well. <br>
-However, `node_types`, as opposed to `node_templates`, are **importable**. <br>
+However, `node_types`, as opposed to `node_templates` (see step 6), are **importable**. <br>
 This means that you can place `node_types` in a different file, and have various blueprints import that file and use them. <br>
 To learn more about this, have a look at the full blown [Nodecellar example]({{page.nodecellar_url}})
 {%endtip%}
