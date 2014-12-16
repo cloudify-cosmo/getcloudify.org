@@ -8,10 +8,16 @@ pageord: 600
 ---
 
 
-{%summary%}
-This section describes how to use OpenStack based cloud infrastructure in your services and applications.
+# Description
+
+The OpenStack plugin allows users to use an OpenStack based cloud infrastructure for deploying services and applications.
 For more information about OpenStack, please refer to: [https://www.openstack.org/](https://www.openstack.org/).
-{%endsummary%}
+
+
+# Plugin Requirements:
+
+* Python Versions:
+  * 2.7.x
 
 
 # Types
@@ -76,7 +82,7 @@ This type has the same properties and operations-mapping as the type above (as i
 **Properties:**
 
   * `private_key_path` *Required*. The path (on the machine the plugin is running on) where the private key should be stored. If `use_external_resource` is set to `true`, the existing private key is expected to be at this path.
-  * `keypair` key-value keypair configuration as described in [OpenStack network create keypair API](http://docs.openstack.org/api/openstack-network/2.0/content/Create_Port.html). Defaults to `{}`. 
+  * `keypair` key-value keypair configuration as described in [OpenStack network create keypair API](http://docs.openstack.org/api/openstack-network/2.0/content/Create_Port.html). Defaults to `{}`.
   * `use_external_resource` a boolean for setting whether to create the resource or use an existing one. See the [using existing resources section](#using-existing-resources). Defaults to `false`.
   * `resource_id` name to give to the new resource or the name or ID of an existing resource when the `use_external_resource` property is set to `true` (see the [using existing resources section](#using-existing-resources)). Defaults to `''` (empty string).
   * `openstack_config` see the [Openstack Configuration](#openstack-configuration).
@@ -464,7 +470,7 @@ The semantics of other operations are affected as well:
 
 * The `cloudify.interfaces.validation.creation` operation will verify that a resource with the given name or ID indeed exists, or otherwise print a list of all available resources of the given type.
 
-* The `cloudify.interfaces.relationship_lifecycle.establish` operation will behave as normal if the related node is not set with `use_external_resource` as `true`; However if both nodes have this property set to `true`, the operation will only attempt to verify that they're indeed "connected" on Openstack as well ("connected" in this case also refers to a security-group imposed on a server, floating-ip associated with a server, etc.). 
+* The `cloudify.interfaces.relationship_lifecycle.establish` operation will behave as normal if the related node is not set with `use_external_resource` as `true`; However if both nodes have this property set to `true`, the operation will only attempt to verify that they're indeed "connected" on Openstack as well ("connected" in this case also refers to a security-group imposed on a server, floating-ip associated with a server, etc.).
 
 
 ## Notes
@@ -578,7 +584,7 @@ my_subnet:
   type: cloudify.openstack.nodes.Subnet
   properties:
     resource_id: my_subnet_openstack_name
-    subnet:      
+    subnet:
       cidr: 1.2.3.0/24
       ip_version: 4
   relationships:
@@ -601,7 +607,7 @@ my_server:
     resource_id: my_server_openstack_name
     server:
       image: 8672f4c6-e33d-46f5-b6d8-ebbeba12fa02
-      flavor: 101        
+      flavor: 101
   relationships:
     - target: my_network
       type: cloudify.relationships.connected_to
@@ -666,7 +672,7 @@ my_subnet:
     resource_id: my_subnet_openstack_name
     subnet:
       cidr: 1.2.3.0/24
-      ip_version: 4      
+      ip_version: 4
   relationships:
     - target: my_network
       type: cloudify.relationships.contained_in
@@ -750,7 +756,7 @@ my_volume:
   type: cloudify.openstack.nodes.Volume
   properties:
     resource_id: my_openstack_volume_name
-    volume:      
+    volume:
       size: 1
     device_name: /dev/vdb
   relationships:
@@ -786,5 +792,5 @@ my_subnet_node:
 * The plugin's operations are each *transactional* (and therefore also retryable on failures), yet not *idempotent*. Attempting to execute the same operation twice is likely to fail.
 
 * Over this documentation, it's been mentioned multiple times that some configuration-saving information may be available in the [Provider Context](reference-terminology.html#provider-context). The [Openstack manager blueprint](reference-openstack-manager.html) and Openstack provider both create this relevant information, and therefore if either was used for bootstrapping, the Provider Context will be available for the Openstack plugin to use.
-  
+
   The exact details of the structure of the Openstack Provider Context are not documented since this feature is going through deprecation and will be replaced with a more advanced one.

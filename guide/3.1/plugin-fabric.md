@@ -12,7 +12,23 @@ fabric_link: http://docs.fabfile.org
 ---
 
 {%summary%} The [Fabric]({{page.fabric_link}}) plugin can be used to map operations to ssh commands or Fabric tasks that are included in your blueprint. {%endsummary%}
+
+
+# Description
+
 The plugin provides an agent-less method for running operations on destination hosts. The source code for this plugin can be found at [github]({{page.repo_link}}).
+
+
+# Plugin Requirements:
+
+* Python Versions:
+  * 2.7.x
+
+
+{%note title=Note%}
+As the fabric plugin is used for remote execution, the fact that it doesn't support versions of Python other than 2.7.x doesn't really mean much.
+{%endnote%}
+
 
 ## Execution Methods
 

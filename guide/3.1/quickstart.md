@@ -11,7 +11,7 @@ blueprint_file_link: https://raw.githubusercontent.com/cloudify-cosmo/cloudify-n
 virtualbox_link: https://www.virtualbox.org/
 vagrant_link: http://www.vagrantup.com
 vagrant_file_link: http://gigaspaces-repository-eu.s3.amazonaws.com/org/cloudify3/3.1.0/ga-RELEASE/Vagrantfile
-vagrant_box_link: https://s3-eu-west-1.amazonaws.com/cloudify-nightly-vagrant/cloudify_3.1.0_virtualbox.box
+vagrant_box_link: http://gigaspaces-repository-eu.s3.amazonaws.com/org/cloudify3/3.1.0/ga-RELEASE/cloudify-virtualbox_3.1.0-ga-b85.box
 terminology_link: reference-terminology.html
 workflows_link: reference-builtin-workflows.html
 blueprint_guide_link: guide-blueprint.html
@@ -44,20 +44,20 @@ Unlike a real cloud deployment, this example will install the application's comp
 If you'd like to install an `application`([?]({{page.terminology_link}}#application)) on an actual cloud,
 please refer to the [Getting started with Openstack]({{page.quickstart_openstack_link}}) guide.
 
-The [blueprint]({{page.blueprint_file_link}}) you'll be deploying, 
-describes a nodejs application that connects to a MongoDB database and presents a wine catalog. 
+The [blueprint]({{page.blueprint_file_link}}) you'll be deploying,
+describes a nodejs application that connects to a MongoDB database and presents a wine catalog.
 To learn more about blueprint syntax and elements please refer to the [Blueprints Guide]({{blueprint_guide_link}}).
 
 {%tip title=Tip%}
 The [Terminology Reference Page]({{page.terminology_link}}) will help you understand some of the terms stated in this guide. For your convenience, links are supplied throughout the guide to point you to the right term definition in the terminology page.
 {%endtip%}
 
-# Before You Begin
+# IMPORTANT: Before You Begin
 
-We'll need to have the following setup in your environment:
+You'll need to have the following setup in your environment:
 
 * [Oracle VirtualBox]({{page.virtualbox_link}}) (this box has been tested with version 4.3 or higher, but earlier versions should work as well).
-* [Vagrant]({{page.vagrant_link}}) (Make sure that you are using version 1.5 or above).
+* [Vagrant]({{page.vagrant_link}}) (Make sure that you are using version 1.5 or above!).
 * At least 2GB of free RAM
 
 {%note title=Notes for Windows users%}
@@ -75,7 +75,7 @@ The first thing you'll need to do is download the Vagrant box which contains the
 Download this [Vagrantfile]({{page.vagrant_file_link}}) to your local directory. Then, run this command:
 
 {% highlight bash%}
-vagrant box add {{page.vagrant_box_link}} --name=cloudify
+vagrant box add {{page.vagrant_box_link}} --name=cloudify-box
 {% endhighlight %}
 
 This adds the Vagrant box to your local machine.
@@ -147,18 +147,18 @@ This blueprint defines some input parameters:
 ![Nodecellar Inputs](/guide/images3/guide/quickstart/nodecellar_singlehost_inputs.png)
 
 The inputs values are located at ~/cloudify/blueprints/inputs/nodecellar-singlehost.json.
-These are the values relevant for our example: 
+These are the values relevant for our example:
 
 {%highlight json%}
 {
   "host_ip": "localhost",
   "agent_user": "vagrant",
-  "agent_private_key_path": "/home/vagrant/.ssh/id_rsa"    
+  "agent_private_key_path": "/home/vagrant/.ssh/id_rsa"
 }
 {%endhighlight%}
 
 {%note title=Limitations%}
-Currently, these values cannot be changed, 
+Currently, these values cannot be changed,
 and are presented here only for the sake of clarity.
 {%endnote%}
 
@@ -174,7 +174,7 @@ We've now created a deployment named `nodecellar` based on a blueprint with the 
 
 ## Step 5: Install the Deployment
 
-In Cloudify, installing a certain `deployment` is done by executing 
+In Cloudify, installing a certain `deployment` is done by executing
 the a [install]({{page.workflows_link}}#install) [workflow]({{page.terminology_link}}#workflow).
 type the following command in your terminal:
 
@@ -192,7 +192,7 @@ and the node in our topology that it relates to, e.g.
 2014-12-02T09:46:05 CFY <nodecellar> [nodejs_d36c8] Creating node
 {% endhighlight %}
 
-In the Web UI, you can checkout the Logs/Events page for an overview of all Logs and Events in a specific Manager. 
+In the Web UI, you can checkout the Logs/Events page for an overview of all Logs and Events in a specific Manager.
 
 ![Events](/guide/images3/guide/quickstart/events.png)
 
@@ -218,7 +218,7 @@ To test the application, you will need to access it using its public IP address.
 ## Step 7: Uninstall the Deployment
 
 Uninstalling the deployment is just a matter of running another workflow,
-which will teardown all the resources provisioned by the `install` workflow. 
+which will teardown all the resources provisioned by the `install` workflow.
 To run the [uninstall]({{page.workflows_link}}#uninstall) workflow, type the following command:
 
 {%highlight bash%}
@@ -248,8 +248,8 @@ If you have no use for it, you can tear down the manager. This can be done by is
 cfy teardown -f
 {%endhighlight%}
 
-In a real cloud deployment, this will terminate the Manager VM and delete the resources associated with it. 
-In our case, since the manager is installed on the same machine the CLI is installed on, 
+In a real cloud deployment, this will terminate the Manager VM and delete the resources associated with it.
+In our case, since the manager is installed on the same machine the CLI is installed on,
 it will not teardown the machine.
 
 Once you're done, you can exit the ssh session.
@@ -264,7 +264,7 @@ If you want to start the same machine again, just "Up" it.
 If you want to completely remove the box from your machine, run:
 
 {%highlight bash%}
-vagrant box remove cloudify
+vagrant box remove cloudify-box
 {%endhighlight%}
 
 # What's Next

@@ -12,12 +12,21 @@ python_link: https://www.python.org/ftp/python/2.7.6/python-2.7.6.msi
 winrm_link: http://msdn.microsoft.com/en-us/library/aa384426(v=vs.85).aspx
 ---
 
-{%summary%} The Cloudify Windows Agent Installer plugin is used to install agents on Windows host nodes.
+
+# Description
+
+The Cloudify Windows Agent Installer plugin is used to install agents on Windows host nodes.
 The installation process is done using [WinRM]({{page.winrm_link}}) over HTTP from the management machine on the agent machine.
 The Agent is installed as a Windows Service under the name 'CloudifyAgent'.
-{%endsummary%}
 
-# Pre-requisites
+
+# Plugin Requirements:
+
+* Python Versions:
+  * 2.7.x
+
+
+# Pre-requisites for Windows
 
 This plugin can only install agents on an image that meets the following set of requirements:
 

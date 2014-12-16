@@ -7,13 +7,22 @@ abstract: "Cloudify plugin installer description"
 pageord: 650
 ---
 
-{%summary%}
+
+# Description
+
 The plugin installer plugin is responsible for installing Cloudify plugins on Cloudify agents and is pre-installed on every Cloudify agent installed using Cloudify's Linux/Windows agent installer.
-{%endsummary%}
+
 
 # Automatic Plugins Installation
 
 When installing a deployment, Cloudify automatically identifies which plugins need to be installed and where (Management/Application machine) and invokes the plugin installer's **install** operation which receives a list of plugins required to be installed.
+
+
+# Plugin Requirements:
+
+* Python Versions:
+  * 2.6.x
+  * 2.7.x
 
 
 # Usage
@@ -25,11 +34,11 @@ Plugin installer's **install** operation receives a `plugins` argument which is 
 Each item in the provided plugins list should be a dictionary containing the following keys:
 
 * `name` - the name of the plugin (as defined in the setup.py file).
-* `source` - Can be one of: 
-    
+* `source` - Can be one of:
+
     - URL (http, https) to the plugin archive.
     - relative path to a folder inside <blueprint_root>/plugins
-    
+
 * `install` - true to install, false to ignore. (Default to true)
 * `executor` - Can be one of:
 

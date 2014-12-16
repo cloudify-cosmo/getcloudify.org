@@ -55,5 +55,48 @@ $(function () {
   }
 
 
+    var screenBigEnough = function() {
+        // Check if matchMedia exists
+        if (window.matchMedia) {
+            return window.matchMedia('(min-width: 768px)').matches;
+        } else {
+            return $(window).width() > 768;
+        }
+    }
 
+    var autoFitSidebar = function(){
+        if (screenBigEnough()) {
+            // Find the offset top of the bottom of the screen
+            var windowTop = $(window).scrollTop();
+            var footerTop = $('footer').offset().top;
+            var windowBottom = windowTop + $(window).height();
+
+            // Check if footer is in view
+            var isInView = (windowBottom >= footerTop);
+            var toolbar = $('.bt_wiki-tocspan');
+            if (isInView) {
+                var maxHeight = footerTop - windowTop - 139;
+                toolbar.css({
+                    'height' : maxHeight+'px'
+                });
+            } else {
+                toolbar.css({
+                    'height' : 'auto'
+                });
+
+            }
+        } else {
+            // Reset it all
+            var toolbar = $('.bt_wiki-tocspan');
+            toolbar.css({
+                'height' : 'auto'
+            });
+        }
+    }
+
+    $(window).scroll(function(){
+        autoFitSidebar();
+    });
+
+    autoFitSidebar();
 })
