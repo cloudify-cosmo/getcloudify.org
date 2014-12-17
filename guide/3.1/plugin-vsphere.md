@@ -8,16 +8,25 @@ pageord: 600
 
 plugin_link: http://getcloudify.org.s3.amazonaws.com/spec/vsphere-plugin/1.1/plugin.yaml
 ---
-
-
 {%summary%}
-This section describes how to use vSphere based infrastructure in your services and applications.
 {%endsummary%}
+
+
+# Description
+
+The vSphere plugin allows users to use a vSphere based infrastructure for deploying services and applications.
 
 {% note %}
 This page relates to a commercial add-on to Cloudify which is not open source. If you'd like to give it a test drive contact us using the feedback button on the right.
-The vSphere plugin.yaml configuration file can be found in this [link.]({{page.plugin_link}}) 
+The vSphere plugin.yaml configuration file can be found in this [link.]({{page.plugin_link}})
 {% endnote %}
+
+
+# Plugin Requirements:
+
+* Python Versions:
+  * 2.7.x
+
 
 # Types
 
@@ -168,7 +177,7 @@ Template should have:
 
 Template should not have:
 
-* any network interfaces connected. 
+* any network interfaces connected.
 
 
 ## Resources prefix support

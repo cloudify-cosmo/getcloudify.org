@@ -8,12 +8,23 @@ pageord: 210
 
 yaml_link: http://getcloudify.org/spec/docker-plugin/1.1/plugin.yaml
 ---
+{%summary%}
+{%endsummary%}
 
-{%summary%} The Docker plugin can be used to map node life cycle operations to manage Docker Containers. {%endsummary%}
 
 {%warning title=Disclaimer%}This plugin is in Alpha and has not been thoroughly tested yet.{%endwarning%}
 
-A Cloudify plugin enabling it to create and manipulate Docker containers.
+
+# Description
+
+The Docker plugin can be used to map node life cycle operations to manage Docker Containers
+
+
+# Plugin Requirements:
+
+* Python Versions:
+  * 2.7.x
+
 
 # Blueprints
 

@@ -24,7 +24,7 @@ plugin_installer_link: plugin-installer-plugin.html
 
 Cloudify's Agent is basically a [virtualenv]({{page.virtualenv_link}}) with a series of modules installed in it and a few configuration files attached.
 
-To use Cloudify with distributions other than the [officially supported ones](agents-description.html#provided-agent-packages), we're providing an [Agent-Packager tool](agents-packager.html) that will assist you in creating an agent for your distribution.
+To use Cloudify with distributions other than the [officially supported ones](agents-description.html#provided-agent-packages), we're providing an [Agent-Packager tool](https://github.com/cloudify-cosmo/cloudify-agent-packager) that will assist you in creating an agent for your distribution.
 
 {%note title=Note%}
 As this is the first time we're releasing this tool, you may (and probably will) stumble upon some bugs. Please let us know so that we can improve it and provide a convenient way for you to easily create agents.
@@ -40,10 +40,13 @@ This tool aims to:
 
 You can use Cloudify's agent-packager to create an agent on the distribution you're running so that modules that require compilation will use your distribution and compilers to do so.
 
-{%note title=Note%}
+{%warning title=Note%}
 As Cloudify's code currently only supports Python 2.7.x or Python 2.6.x, you will have to run one of those to create an agent.
-{%endnote%}
+{%endwarning%}
 
+{%warning title=Note%}
+Currently, not all of Cloudify's Plugins can run on Python 2.6.x. Only basic modules and plugins are currently fitted to run on Python 2.6.x. To see whether a plugin supports your Python version, please see the documentation for the plugin you're looking to use.
+{%endwarning%}
 
 # Creation Process
 

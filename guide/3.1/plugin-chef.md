@@ -8,12 +8,25 @@ pageord: 200
 
 yaml_link: http://getcloudify.org/spec/chef-plugin/1.1/plugin.yaml
 ---
+{%summary%}
+{%endsummary%}
 
-{%summary%} The Chef plugin can be used to map node life cycle operations to Chef runs. {%endsummary%}
+
+# Description
+
+The Chef plugin can be used to map node life cycle operations to Chef runs.
+You can use the plugin to run either Chef Client or Chef Solo.
+
+
+# Plugin Requirements:
+
+* Python Versions:
+  * 2.7.x
+
 
 # Chef plugin usage options
 
-The Chef plugin allows you to run either Chef Client or Chef Solo. The usage option is chosen based on presence or absence of specific properties under node's `properties` > `chef_config`. Chef is installed on demand, if there is no lifecycle operation that needs Chef run - it is not installed.
+The usage option is chosen based on presence or absence of specific properties under node's `properties` > `chef_config`. Chef is installed on demand, if there is no lifecycle operation that needs Chef run - it is not installed.
 
 * Chef Client requires the following properties:
   * `chef_server_url`

@@ -24,9 +24,9 @@ with these agents.
 {%endnote%}
 
 
-Agents are basically a piece of software used for communicating with the Cloudify Manager.
+Agents are basically a piece of software used for communicating with Cloudify's Manager.
 
-Cloudify's agent provide a way to:
+Cloudify's agents provide a way to:
 
 * Execute general [operations]({{page.terminology_link}}#operation). ([Deployment Agents]({{page.terminology_link}}#deployment-agent))
 * Execute [operations]({{page.terminology_link}}#operation) on specific hosts. ([Host Agents]({{page.terminology_link}}#host-agent))
