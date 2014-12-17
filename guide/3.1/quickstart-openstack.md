@@ -130,11 +130,11 @@ cfy bootstrap --install-plugins -p openstack.yaml -i inputs.json
 
 {%note title=Note%}
 
-Ths *install-plugins* functionality only works if you running from within a virtualenv.
-If this is not the case, installing plugin will require sudo permissions and can be done like so:
+Ths *install-plugins* functionality only works if you are running from within a virtualenv.
+If this is not the case, installing plugins will require sudo permissions and can be done like so:
 
 {% highlight sh %}
-cfy local create-requirements -o requirements.txt -p openstack.yaml
+cfy local create-requirements -o requirements.txt -p /path/to/manager/blueprint/file
 sudo pip install -r requirements.txt
 {%endhighlight%}
 
