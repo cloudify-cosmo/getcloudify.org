@@ -14,24 +14,24 @@ reference_openstack_manager_link: reference-openstack-manager.html
 
 # Overview
 
-In this tutorial you will bootstrap a Cloudify manager in your OpenStack environment 
+In this tutorial you will bootstrap a Cloudify manager in your OpenStack environment
 and install a sample Cloudify blueprint on it.
 
-The [blueprint]({{page.blueprint_file_link}}) you'll be deploying, 
-describes a nodejs application that connects to a MongoDB database and presents a wine catalog. 
+The [blueprint]({{page.blueprint_file_link}}) you'll be deploying,
+describes a nodejs application that connects to a MongoDB database and presents a wine catalog.
 To learn more about blueprint syntax and elements please refer to the [Blueprints Guide]({{blueprint_guide_link}}).
 
 # Before You Begin
 
-It is recommended that you try the [Getting started](quickstart.html) first familiarize 
-yourself with Cloudify and its concepts. 
+It is recommended that you try the [Getting started](quickstart.html) first familiarize
+yourself with Cloudify and its concepts.
 Also, to complete this tutorial you'll need to have an OpenStack cloud environment and credentials.
 
 # Step by Step Walkthrough
 
 ## Step 1: Install the Cloudify CLI
 
-The first thing you'll need to do is install the Cloudify CLI, 
+The first thing you'll need to do is install the Cloudify CLI,
 which will let you upload blueprints, create deployments, and execute workflows.
 To do so follow the steps described in the [CLI installation guide](installation-cli.html).
 
@@ -51,14 +51,14 @@ Now let's initialize a local Cloudify working environment:
 cfy init
 {% endhighlight %}
 
-This will create a folder named `.cloudify` to save the current context for the Cloudify CLI, 
+This will create a folder named `.cloudify` to save the current context for the Cloudify CLI,
 but you shouldn't care about that for now.
 
 Now let's move on to bootstrap configuration.
 
 ### Configuring your Manager Blueprint for HP OpenStack
 
-[HP Cloud](http://www.hpcloud.com/) is a public OpenStack cloud. 
+[HP Cloud](http://www.hpcloud.com/) is a public OpenStack cloud.
 As such it provides a fairly easy starting point for experiencing a fully operational OpenStack environment.
 To use HP Cloud you need to [Setup an account on the HP Helion Cloud](https://horizon.hpcloud.com/).
 
@@ -86,7 +86,7 @@ The inputs.json file should look somewhat like this:
     "image_id": "8c096c29-a666-4b82-99c4-c77dc70cfb40",
     "flavor_id": "102",
     "external_network_name": "Ext-Net",
-    
+
     "use_existing_manager_keypair": false,
     "use_existing_agent_keypair": false,
     "manager_server_name": "cloudify-management-server",
@@ -116,12 +116,12 @@ In case you are using a different openstack environment, you should also change 
 
 to fit your specific openstack installation.
 
-Notice that the `resources_prefix` parameter is set to "cloudify" so that all resources provisioned during 
+Notice that the `resources_prefix` parameter is set to "cloudify" so that all resources provisioned during
 this guide are prefixed for easy identification.
 
 ## Step 3: Bootstrap the Cloudify Management Environment
 
-Now you're ready to bootstrap your Cloudify manager. 
+Now you're ready to bootstrap your Cloudify manager.
 To do so type the following command in your shell:
 
 {% highlight bash %}
@@ -141,10 +141,10 @@ sudo pip install -r requirements.txt
 {%endnote%}
 
 
-This should take a few minutes to complete. 
-After validating the configuration, `cfy` will create the management VM, related 
-networks and security groups (the latter two will not be created if they already exist), 
-download the relevant Cloudify manager packages from the internet and install all of the components. 
+This should take a few minutes to complete.
+After validating the configuration, `cfy` will create the management VM, related
+networks and security groups (the latter two will not be created if they already exist),
+download the relevant Cloudify manager packages from the internet and install all of the components.
 At the end of this process you should see the following message:
 
 {% highlight bash %}
@@ -152,8 +152,8 @@ bootstrapping complete
 management server is up at <YOUR MANAGER IP ADDRESS>
 {% endhighlight %}
 
-To validate this installation, point your web browser to the manager IP address (port 80). 
-You should see Cloudify's Web UI. 
+To validate this installation, point your web browser to the manager IP address (port 80).
+You should see Cloudify's Web UI.
 At this point there's nothing much to see since you haven't uploaded any blueprints yet.
 
 ## Step 4: Upload the Blueprint and Create a Deployment
@@ -168,8 +168,8 @@ To upload the blueprint run:
 cfy blueprints upload -b nodecellar -p openstack-blueprint.yaml​
 {%endhighlight%}
 
-The `-b` flag assigns a unique name to this blueprint on the Cloudify manager. 
-Before creating a deployment though, let's see what this blueprint looks like. 
+The `-b` flag assigns a unique name to this blueprint on the Cloudify manager.
+Before creating a deployment though, let's see what this blueprint looks like.
 Point your browser at the manager's URL again and refresh the screen. You will see the nodecellar blueprint listed there.
 
 ![Blueprints table](/guide/images3/guide/quickstart/blueprints_table.png)
@@ -218,7 +218,7 @@ We've now created a deployment named `nodecellar` based on a blueprint with the 
 
 ## Step 5: Install the Deployment
 
-In Cloudify, installing a certain `deployment` is done by executing 
+In Cloudify, installing a certain `deployment` is done by executing
 the a [install]({{page.workflows_link}}#install) [workflow]({{page.terminology_link}}#workflow).
 type the following command in your terminal:
 
@@ -228,15 +228,15 @@ cfy executions start -w install -d nodecellar
 
 This will take a couple of minutes, during which the resources will be created and configured.
 
-To track the progress of the installation, you can look at the events emitted to the terminal window. 
-Each [event]({{page.terminology_link}}#event) is labeled with its time, 
+To track the progress of the installation, you can look at the events emitted to the terminal window.
+Each [event]({{page.terminology_link}}#event) is labeled with its time,
 the deployment name and the node in our topology that it relates to, e.g.
 
 {% highlight bash %}
 2014-12-02T09:46:05 CFY <nodecellar> [nodejs_d36c8] Creating node
 {% endhighlight %}
 
-In the Web UI, you can checkout the Logs/Events page for an overview of all Logs and Events in a specific Manager. 
+In the Web UI, you can checkout the Logs/Events page for an overview of all Logs and Events in a specific Manager.
 
 ![Events](/guide/images3/guide/quickstart-openstack/events.png)
 
@@ -248,44 +248,44 @@ You can also have a look at the Monitoring tab and see some default metrics:
 
 {%note title=Note%}
 The blueprint we installed actually defines a custom collector for the Mongo database.
-To add mongo related graphs to the dashboard, have a look at [Adding Custom Graphs]().
+To add mongo related graphs to the dashboard, have a look at [Adding Custom Graphs](/guide/3.1/ui-monitoring.html#example---customize-your-dashboard).
 {%endnote%}
 
 ## Step 6: Test Drive the Application
 
 To test the application, you will need to access it using its public IP address.
-Because we deploying directly on the vagrant box, 
-you can just go to [http://11.0.0.7:8080](http://11.0.0.7:8080) to access it from your web browser. 
-The marvelous nodecellar application should be up on your screen. 
-Click the "Browse wines" button to verify that the application was installed successfully 
+Because we deploying directly on the vagrant box,
+you can just go to [http://11.0.0.7:8080](http://11.0.0.7:8080) to access it from your web browser.
+The marvelous nodecellar application should be up on your screen.
+Click the "Browse wines" button to verify that the application was installed successfully
 and can access the mongodb database to read the list of wines.
 
 ![Nodecellar](/guide/images3/guide/quickstart-openstack/nodecellar.png)
 
 ## Step 7: Uninstall the Deployment
 
-Uninstalling the deployment is just a matter of running another workflow, 
-which will teardown all the resources provisioned by the `install` workflow. 
+Uninstalling the deployment is just a matter of running another workflow,
+which will teardown all the resources provisioned by the `install` workflow.
 To run the [uninstall]({{page.workflows_link}}#uninstall) workflow, type the following command:
 
 {%highlight bash%}
 cfy executions start -w uninstall -d nodecellar
 {%endhighlight%}
 
-Similarly to the `install` workflow, you can track the progress of the 
-uninstall process in the CLI or the web UI using the events that are displayed in both. 
+Similarly to the `install` workflow, you can track the progress of the
+uninstall process in the CLI or the web UI using the events that are displayed in both.
 Once the workflow is completed, you can verify that the resources were indeed destroyed.
 
-In a real cloud deployment, each and every resource provisioned by the deployment will be destroyed. 
+In a real cloud deployment, each and every resource provisioned by the deployment will be destroyed.
 In our case, there aren't any external resources, only application related ones.
 
 ## Step 8: Delete the Deployment
 
-The next step is deleting the deployment. 
-Assuming the un-installation went fine, 
-all of the application resources should have been removed. 
-However, the deployment itself still has record on the manager. 
-For example, all of its static and runtime properties are still stored in the manager's database. 
+The next step is deleting the deployment.
+Assuming the un-installation went fine,
+all of the application resources should have been removed.
+However, the deployment itself still has record on the manager.
+For example, all of its static and runtime properties are still stored in the manager's database.
 To clean up all the information related to the deployment on the manager, delete the deployment as follows:
 
 {%highlight bash%}

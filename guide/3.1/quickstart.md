@@ -206,7 +206,7 @@ You can also have a look at the Monitoring tab and see some default metrics:
 
 {%note title=Note%}
 The blueprint we installed actually defines a custom collector for the Mongo database.
-To add mongo related graphs to the dashboard, have a look at [Adding Custom Graphs]().
+To add mongo related graphs to the dashboard, have a look at [Adding Custom Graphs](/guide/3.1/ui-monitoring.html#example---customize-your-dashboard).
 {%endnote%}
 
 ## Step 6: Test Drive the Application
