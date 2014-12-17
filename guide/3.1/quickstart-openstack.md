@@ -128,6 +128,19 @@ To do so type the following command in your shell:
 cfy bootstrap --install-plugins -p openstack.yaml -i inputs.json
 {% endhighlight %}
 
+{%note title=Note%}
+
+Ths *install-plugins* functionality only works if you running from within a virtualenv.
+If this is not the case, installing plugin will require sudo permissions and can be done like so:
+
+{% highlight sh %}
+cfy local create-requirements -o requirements.txt -p openstack.yaml
+sudo pip install -r requirements.txt
+{%endhighlight%}
+
+{%endnote%}
+
+
 This should take a few minutes to complete. 
 After validating the configuration, `cfy` will create the management VM, related 
 networks and security groups (the latter two will not be created if they already exist), 
