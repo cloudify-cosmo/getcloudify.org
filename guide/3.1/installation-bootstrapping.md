@@ -35,6 +35,19 @@ Second, install the blueprint-specific dependencies by running:
 (Alternatively, you may pass the `--install-plugins` flag to the `cfy bootstrap` command which follows soon)
 
 
+{%note title=Note%}
+
+Ths *install-plugins* functionality only works if you are running from within a virtualenv.
+If this is not the case, installing plugins will require sudo permissions and can be done like so:
+
+{% highlight sh %}
+cfy local create-requirements -o requirements.txt -p /path/to/manager/blueprint/file
+sudo pip install -r requirements.txt
+{%endhighlight%}
+
+{%endnote%}
+
+
 Next, create an inputs JSON file. This file will serve as the configuration for the manager blueprint inputs. Note that the various manager blueprints folders offer a *inputs.json.template* file, which can be copied and edited with the desired values.
 
 Finally, run the `cfy bootstrap` command, pointing it to the manager blueprint file and the inputs JSON file, like so:
