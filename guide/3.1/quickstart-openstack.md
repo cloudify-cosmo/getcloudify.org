@@ -134,7 +134,7 @@ Ths *install-plugins* functionality only works if you are running from within a 
 If this is not the case, installing plugins will require sudo permissions and can be done like so:
 
 {% highlight sh %}
-cfy local create-requirements -o requirements.txt -p /path/to/manager/blueprint/file
+cfy local create-requirements -o requirements.txt -p openstack.yaml
 sudo pip install -r requirements.txt
 {%endhighlight%}
 
