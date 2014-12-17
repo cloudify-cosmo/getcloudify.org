@@ -114,7 +114,6 @@ node_types:
 
 node_templates:
   vm:
-    # We specify that this node template is of the node type we defined in the node types section
     type: cloudify.nodes.Compute
     instances:
       deploy: 2
@@ -122,6 +121,7 @@ node_templates:
       ip: 192.168.0.11
 
   nginx:
+    # We specify that this node template is of the node type we defined in the node types section
     type: nodes.Nginx
     # properties should match nodes.Nginx type properties schema
     properties:
