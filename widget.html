@@ -34,7 +34,7 @@ category: Widget
 
                         <div  class="well text-success ng-hide" ng-show="widgetController.machineStarted">
                             We've started a Cloudify manager just for you at: <a ng-href="http://[[widgetController.machineIp]]/" target="_blank" ng-bind="widgetController.machineIp"></a>
-                            You have <span ng-bind="widgetController.timeLeft | date:'mm'"></span> minutes left for your trial.
+                            You have <span ng-bind="widgetController.timeLeft | date:'m'"></span> minutes left for your trial.
                             <button style="display: block;width: 100%;margin-top: 10px;" class="btn btn-primary" ng-click="stopTrial()" ng-bind="widgetController.stopButtonText" ng-disabled="!widgetController.machineStarted">I'm done, thanks</button>
                         </div>
 
