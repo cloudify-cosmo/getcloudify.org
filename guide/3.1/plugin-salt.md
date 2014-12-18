@@ -12,9 +12,9 @@ repo_link: https://github.com/cloudify-cosmo/cloudify-saltstack-plugin
 {% endsummary %}
 
 
-A plugin that adds [*salt*][salt] layer to a Cloudify agent.
+A plugin that adds a [*salt*][salt] layer to a Cloudify agent.
 
-This plugin can be found on [{{page.repo_link}}][plugin github].
+This plugin can be found at [{{page.repo_link}}][plugin github].
 
 The plugin is currently **under development**.
 
@@ -23,7 +23,7 @@ The plugin is currently **under development**.
 
 The plugin:
 
-1.  installs *salt minion* on specified host,
+1.  installs a *salt minion* on specified host,
 2.  configures the minion with provided parameters,
     *   most importantly - to work with a specific *master*,
 3.  ensures the minion's key is accepted by the master,
