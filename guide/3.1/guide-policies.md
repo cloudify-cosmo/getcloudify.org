@@ -8,6 +8,8 @@ pageord: 500
 
 types_yaml_link: http://www.getcloudify.org/spec/cloudify/3.1/types.yaml
 diamond_plugin_ref: plugin-diamond.html
+dsl_groups_spec: dsl-spec-groups.html
+workflows_dsl_spec: dsl-spec-workflows.html
 diamond_package_ref: https://github.com/BrightcoveOS/Diamond
 ---
 
@@ -120,7 +122,7 @@ In short, the process involves:
 
 Add monitoring to compute nodes that require auto healing.
 
-At the moment, due to a limitation of existing policies, it is required that exactly one monitor will be added to the monitored nodes.
+At the moment, due to a limitation of existing policies, it is required that exactly one metric will be published by the monitored nodes.
 
 Another limitation requires that only compute nodes will have auto heal configured for them. Otherwise, when a certain compute node instance fails, node instances that are contained in it are also likely to fail, which in turn will cause the auto heal workflow to be triggered multiple times.
 
@@ -147,7 +149,7 @@ Notice how we use the `ExampleCollector` that comes with Diamond. We do this bec
 
 Future versions of Cloudify will address this limitation by allowing a specific metric regex to be specified when configuring the policy.
 
-## Workflow Configuration
+## [Workflow]({{page.workflows_dsl_spec}}) Configuration
 
 The auto heal workflow will execute a process of tasks that is similar in nature to calling the `uninstall` workflow and then the `install` workflow. The main difference, is that this process is only executed on the subgraph of node instances that are contained in the failing compute node instance and the relationships these node instances have with other node instances.
 
@@ -162,7 +164,7 @@ workflows:
       diagnose_value: {}
 {% endhighlight %}
 
-## Groups Configuration
+## [Groups]({{page.dsl_groups_spec}}) Configuration
 
 After we have monitoring set up, and the autoheal workflow configured, it's time to plug things together.
 
@@ -209,12 +211,14 @@ We then configured a single `host_failure` policy for this group. The `host_fail
 The policy in the example has one `execute_workflow` policy trigger configured, which is mapped to execute the `autoheal` workflow.
 
 ## Limitations
-{%warning title=Limitations%}
-Currently, there are several limitations to using auto healing.
 
+Currently, there are several limitations to using auto healing. They are all desribed below and throughout the auto healing section above.
+
+It should be noted that these limitations are something we are currently in the process of ironing out. Most of them (perhaps all) will be fixed by the time the next version of Cloudify is released.
+
+{%warning title=Limitations%}
 * Only compute nodes can have auto healing configured for them.
 * Monitoring on these compute nodes can only generate a single metric type.
 * Each compute node must be specified in its own group in the `groups.members` section
 * Monitoring is set up when the deployment is created. As such, after the `uninstall` workflow has been called on a deployment, the `autoheal` workflow will probably be triggered after a while. At the moment, this is resolved by having the auto heal workflow check the state of the faling node host. If its state is different than `started` the workflow will end its execution without actually doing anything. This means that when the deployment executions are listed, you may find unexpected `autoheal` workflow executions in `terminated` state.
-
 {%endwarning%}
