@@ -1,0 +1,152 @@
+---
+layout: blogpost
+title: The TOSCA State of the Union 
+image: idan.jpeg
+author: Idan Moyal
+tags:
+ - OpenStack
+ - Cloud Orchestration
+ - TOSCA
+ - YAML
+ - OpenStack Heat
+---
+
+<notextile>
+
+<div class="aligncenter">
+<img src="/img/blog/deploymentsatscale.png" width="650" alt="Cloudify 3.1 | TOSCA | Oasis TOSCA | TOSCA Cloud | TOSCA Orchestration | Cloud Orchestration"></div>
+<br/>
+<br/>
+
+
+  <p><b></b></p>
+
+<p>As a core committer in the <a href="https://github.com/openstack/heat-translator">Heat Translator project</a> - I have had the opportunity to learn quite a bit over the course of the last year about <a href="https://www.oasis-open.org/committees/tosca/">TOSCA</a>.</p>
+
+<p>When we started developing Cloudify 3.0 (about a year and a half ago) we knew we needed an improved syntax for describing cloud applications and services from what we had&#160; been using in our 2x versions.&#160; We initially thought to invent a new language based on the YAML syntax for describing cloud app services, but thought we likely ought to look for existing standards - instead reinventing the wheel.&#160; </p>
+
+<p>And that’s when we found <a href="http://getcloudify.org/openstack-architecture-cloudify.html#TOSCA">TOSCA </a>which we thought had great potential.</p>
+
+<p>OpenStack Heat was initially launched as an alternative to AWS CloudFormation, that is a closed source project. <a href="http://getcloudify.org/openstack-architecture-cloudify.html#Heat">OpenStack Heat</a>, one of the largest projects to adopt TOSCA as one of the main templating languages, chose TOSCA as it provided the benefit of standardization of templating for cloud orchestration projects, and this, in fact was a major driving force behind TOSCA being adopted by larger projects.&#160; </p>
+
+
+  <hr>
+
+<span class="pullquote-left">
+  <font style="font-weight: bold" size="5" face="Baskerville Old Face"><em>Cloudify 3.1 is with TOSCA out of the box. Give it a whirl..</em></font>&nbsp; <a class="btn btn-medium btn-theme btn-rounded" id="downloadBtnInner" href="http://getcloudify.org/downloads/get_cloudify_3x.html" target="_blank"><i class="icon-plus"></i> Go </a></span>
+  
+  <hr>
+
+<p>TOSCA has been gaining momentum, as a result of the need to create an alternative and agnostic syntax that is freely available that enables you to&#160; describe more advanced functionality scenarios specifically around complex topologies and applications, in a standardized way.</p>
+
+<p>The only catch for us with adopting TOSCA initially was that it was written in XML, which was a bit too cumbersome for what we were looking to do.&#160; </p>
+
+<p>Aside from this, we found the TOSCA specification to be very much aligned with what we were looking to achieve, and decided to set to work on transforming it to YAML, as our team agreed that that would be the language that would best help us get the job done.&#160; To keep a long story short, at the OpenStack Hong Kong Summit in 2013 we met those who were the active contributors in the TOSCA committee and they told us about their intentions and initial work on converting TOSCA to YAML. It seemed like we shared the same ideas and decided to meet after the summit, and that was when joined the TOSCA committee.&#160; </p>
+
+<p>At the same time we also started contributing code to the OpenStack <a href="https://github.com/openstack/heat-translator">heat-translator project</a>. The heat-translator project's main goal is to take a TOSCA template and translate it to an OpenStack Heat template, which was very aligned with the CloudFormation syntax in its early stages.&#160; However, when TOSCA was converted to YAML it was quickly adopted into this project.&#160; Heat was primarily infrastructure focused early on, however as the project grew and evolved and started moving up the stack, it needed a syntax that would take into account more complex scenarios and topologies for cloud apps.</p>
+
+<p>An interesting fact is that the Heat project agreed to have the heat translator project integrated within it, which de facto, established TOSCA as their primary templating language.&#160; The moment it was integrated into the official project, this was an indication by the OpenStack Foundation was moving towards TOSCA standardization for the entire project.</p>
+
+<p>Cloudify 3.1 supports most of the <a href="http://getcloudify.org/guide/3.1/dsl-spec-general.html">TOSCA spec</a>, and we intend to cover more areas in the spec in our next versions.&#160; One of the coolest features introduced in Cloudify 3.1 is the ability to run a TOSCA template locally (that is on your own laptop or PC) without the need of a cloud of any kind. This makes it very easy for people who want to play around with the spec, and learn about it as well as learn about Cloudify.</p>
+
+<p>The basic gist is that ordinarily what the nodecellar app does is install a NodeJS app with a Mongo backend. However, this is example is usually run when you have a Cloudify Manager installed, and for the most part in a cloud environment.</p>
+
+<p>This ability to run the TOSCA spec locally basically enables you to test your blueprints and plugins locally, for the developers among you, and simply use Cloudify almost like a configuration management tool.&#160; We have also taken to using this local workflows feature to bootstrap the Cloudify Manager - as it simplifies everything immensely.</p>
+
+<p>You can check out how this would look in action below.</p>
+
+<h3><strong># Install Cloudify</strong></h3>
+
+<ol>
+  <li>
+    <p>Use an Ubuntu machine.</p>
+  </li>
+
+  <li>
+    <p>Make sure you have gcc and python-dev installed.</p>
+  </li>
+
+  <li>
+    <p>Run: <code>pip install cloudify</code></p>
+  </li>
+</ol>
+
+<p>​</p>
+
+<h3><strong># Download The Example</strong></h3>
+
+<p>Download Cloudify's NodeCellar example from:</p>
+
+<p><a href="https://github.com/cloudify-cosmo/cloudify-nodecellar-example/archive/3.1.zip">https://github.com/cloudify-cosmo/cloudify-nodecellar-example/archive/3.1.zip</a></p>
+
+<h3><strong># Unpack...</strong></h3>
+
+<code>cd cloudify-nodecellar-example</code>
+
+<h3><strong># Initialize</strong></h3>
+
+<code>`cfy local init -p local-blueprint.yaml` </code>
+
+<p>The cfy local init command initializes the current working directory to work with the given blueprint.</p>
+
+<p>After this stage, you can run any workflow the blueprint contains.</p>
+
+<h3><strong># Install NodeCellar</strong></h3>
+
+<p>In order to install NodeCellar, lets execute the <code>`install`</code> workflow:</p>
+
+<code>`cfy local execute -w install`</code>
+
+<p>This command will install all the application components on you local machine.</p>
+
+<p>(don't worry, its all installed under the `tmp` directory)</p>
+
+<p>Once its done, you should be able to browse to [http://localhost:8080](<a href="http://localhost:8080">http://localhost:8080</a>) and see the NodeCellar application.</p>
+
+<p>The output would look similar to this:</p>
+
+<p>...</p>
+
+<p><font face="Courier New"><strong>2014-12-18 10:02:41 CFY &lt;local&gt; [nodecellar_31177] Starting node</strong></font></p>
+
+<p><font face="Courier New"><strong>2014-12-18 10:02:41 CFY &lt;local&gt; [nodecellar_31177.start] Sending task 'script_runner.tasks.run'</strong></font></p>
+
+<p><font face="Courier New"><strong>2014-12-18 10:02:41 CFY &lt;local&gt; [nodecellar_31177.start] Task started 'script_runner.tasks.run'</strong></font></p>
+
+<p><font face="Courier New"><strong>2014-12-18 10:02:42 LOG &lt;local&gt; [nodecellar_31177.start] INFO: Executing: /tmp/tmp1hAdu3-start-nodecellar-app.sh</strong></font></p>
+
+<p><font face="Courier New"><strong>2014-12-18 10:02:43 LOG &lt;local&gt; [nodecellar_31177.start] INFO: MongoDB is located at localhost:27017</strong></font></p>
+
+<p><font face="Courier New"><strong>2014-12-18 10:02:43 LOG &lt;local&gt; [nodecellar_31177.start] INFO: Starting nodecellar application on port 8080</strong></font></p>
+
+<p><font face="Courier New"><strong>2014-12-18 10:02:43 LOG &lt;local&gt; [nodecellar_31177.start] INFO: /tmp/d5c3b8d3-bc14-43b1-8408-4a5f7216641b/nodejs/nodejs-binaries/bin/node /tmp/d5c3b8d3-bc14-43b1-8408-4a5f7216641b/nodecellar/nodecellar-source/server.js</strong></font></p>
+
+<p><font face="Courier New"><strong>2014-12-18 10:02:43 LOG &lt;local&gt; [nodecellar_31177.start] INFO: Running Nodecellar liveness detection on port 8080</strong></font></p>
+
+<p><font face="Courier New"><strong>2014-12-18 10:02:43 LOG &lt;local&gt; [nodecellar_31177.start] INFO: [GET]</strong></font><a href="http://localhost:8080"><font face="Courier New"><strong> http://localhost:8080</strong></font></a><font face="Courier New"><strong> 000</strong></font></p>
+
+<p><font face="Courier New"><strong>2014-12-18 10:02:43 LOG &lt;local&gt; [nodecellar_31177.start] INFO: Nodecellar has not started. waiting...</strong></font></p>
+
+<p><font face="Courier New"><strong>2014-12-18 10:02:45 LOG &lt;local&gt; [nodecellar_31177.start] INFO: [GET]</strong></font><a href="http://localhost:8080"><font face="Courier New"><strong> http://localhost:8080</strong></font></a><font face="Courier New"><strong> 200</strong></font></p>
+
+<p><font face="Courier New"><strong>2014-12-18 10:02:45 LOG &lt;local&gt; [nodecellar_31177.start] INFO: Sucessfully started Nodecellar (22584)</strong></font></p>
+
+<p><font face="Courier New"><strong>2014-12-18 10:02:45 LOG &lt;local&gt; [nodecellar_31177.start] INFO: Execution done (return_code=0): /tmp/tmp1hAdu3-start-nodecellar-app.sh</strong></font></p>
+
+<p><font face="Courier New"><strong>2014-12-18 10:02:45 CFY &lt;local&gt; [nodecellar_31177.start] Task succeeded 'script_runner.tasks.run'</strong></font></p>
+
+<p><font face="Courier New"><strong>2014-12-18 10:02:45 CFY &lt;local&gt; 'install' workflow execution succeeded</strong></font></p>
+
+<p>...</p>
+
+<h3><strong>### Step 3: Uninstall</strong></h3>
+
+<p>To uninstall the application we run the <code>`uninstall`</code> workflow: </p>
+
+<code>`cfy local execute -w uninstall`</code>
+
+<p>As of now 3.1 supports these leading aspects of the TOSCA spec - <a href="http://getcloudify.org/guide/3.1/dsl-spec-inputs.html">inputs</a>, <a href="http://getcloudify.org/guide/3.1/dsl-spec-outputs.html">outputs</a>, <a href="http://getcloudify.org/guide/3.1/dsl-spec-intrinsic-functions.html">intrinsic functions</a>, the <a href="http://getcloudify.org/guide/3.1/dsl-spec-relationships.html">relationships between nodes</a>, <a href="http://getcloudify.org/guide/3.1/dsl-spec-versioning.html">versioning</a>, <a href="http://getcloudify.org/guide/3.1/dsl-spec-workflows.html">workflows </a>and more.&#160; In our next versions we’ll be adding support for requirements and capabilities, nested templates, and policies that include: placement (affinity and anti-affinity), stack governance, etc.</p>
+
+<p>At the end of the day, this TOSCA engine partnered with Cloudify is what gives you free hand to decide with which cloud you want to work, since Cloudify actually makes the pluggability of any cloud possible.&#160; This ultimately enables you to run TOSCA templates on any cloud, and the same of course also goes for any configuration management or other tools you’re working with (which Cloudify also integrates with via plugins that are written in the same syntax).&#160; Although TOSCA doesn’t refer to CM tools very much, the integration with Cloudify is what makes this possible.&#160; If in the past you would need to script your own code, or use more tools that are more limited to the deployment aspects, rather than orchestration and such.</p>
+
+  </notextile>
