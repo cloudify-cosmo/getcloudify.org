@@ -144,7 +144,7 @@ tags:
 <p>To uninstall the application we run the <code>`uninstall`</code> workflow: </p>
 
 <code>`cfy local execute -w uninstall`</code>
-
+<br/>
 <p>As of now 3.1 supports these leading aspects of the TOSCA spec - <a href="http://getcloudify.org/guide/3.1/dsl-spec-inputs.html">inputs</a>, <a href="http://getcloudify.org/guide/3.1/dsl-spec-outputs.html">outputs</a>, <a href="http://getcloudify.org/guide/3.1/dsl-spec-intrinsic-functions.html">intrinsic functions</a>, the <a href="http://getcloudify.org/guide/3.1/dsl-spec-relationships.html">relationships between nodes</a>, <a href="http://getcloudify.org/guide/3.1/dsl-spec-versioning.html">versioning</a>, <a href="http://getcloudify.org/guide/3.1/dsl-spec-workflows.html">workflows </a>and more.&#160; In our next versions we’ll be adding support for requirements and capabilities, nested templates, and policies that include: placement (affinity and anti-affinity), stack governance, etc.</p>
 
 <p>At the end of the day, this TOSCA engine partnered with Cloudify is what gives you free hand to decide with which cloud you want to work, since Cloudify actually makes the pluggability of any cloud possible.&#160; This ultimately enables you to run TOSCA templates on any cloud, and the same of course also goes for any configuration management or other tools you’re working with (which Cloudify also integrates with via plugins that are written in the same syntax).&#160; Although TOSCA doesn’t refer to CM tools very much, the integration with Cloudify is what makes this possible.&#160; If in the past you would need to script your own code, or use more tools that are more limited to the deployment aspects, rather than orchestration and such.</p>
