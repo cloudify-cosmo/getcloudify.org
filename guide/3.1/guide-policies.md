@@ -108,6 +108,8 @@ To learn how to write a custom policy, refer to the [policies authoring guide](g
 
 # Auto Healing
 
+Auto healing is the process of automatically identifying when a certain component of your system is failing and fixing the system state without any user intervention.
+
 Cloudify comes with built-in support for auto healing different components.
 
 There are several things that need to be configured to work with auto healing. This guide will walk you through them, and explain the limitations the mechanism currently has.
@@ -117,6 +119,10 @@ In short, the process involves:
 * Configuring monitoring on compute nodes that should have auto healing.
 * Adding the `autoheal` workflow to the blueprint.
 * Configuring the `groups` section with appropriate policy types and triggers.
+
+{%warning title=Limitations%}
+Make sure you don't miss the [Limitations](#limitations) section.
+{%endwarning%}
 
 ## Monitoring
 
