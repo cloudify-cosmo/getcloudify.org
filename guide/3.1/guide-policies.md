@@ -58,7 +58,8 @@ groups:
 
         # policy specific configuration
         properties:
-          service: cpu
+          # Not really a host_failure property, only serves as an example.
+          some_prop: some_value
 
         # This section specifies what should be
         # triggered when the policy is "triggered"
@@ -101,3 +102,100 @@ Built-in policies are not special in any way - they use the same API any other c
 
 Advanced users may wish to write custom policies.
 To learn how to write a custom policy, refer to the [policies authoring guide](guide-authoring-policies.html).
+
+# Auto Heal
+
+Cloudify comes with built-in support for auto healing different components.
+
+There are several things that need to be configured to work with auto heal. This guide will walk you through them, and explain the limitations the mechanism currently has.
+
+In short, the process involves:
+
+* configuring [monitoring](TODO) on compute nodes that should have auto heal.
+* adding the autoheal workflow to the blueprint.
+* configuring the `groups` section with appropriate policies and triggers.
+
+## Monitoring
+
+Add monitoring to host nodes, that require auto healing.
+
+At the moment, due to a limitation of existing policies, it is required that exactly one monitor will be added to the monitored nodes.
+
+Another limitation requires that only compute nodes will have auto heal configured for them. Otherwise, when a certain compute node fails, nodes that are contained in it are also likely to fail which in turn will cause the auto heal workflow to be triggered multiple times.
+
+We will show an example using the built-in [Diamond](TODO) support that comes with Cloudify. Please refer to the [Diamond Plugin](plugin-diamond.html) documentation for further details on configuring diamond based monitoring.
+
+{% highlight yaml %}
+node_templates:
+  some_vm:
+    interfaces:
+      cloudify.interfaces.monitoring:
+        start:
+          implementation: diamond.diamond_agent.tasks.add_collectors
+          inputs:
+            collectors_config:
+              ExampleCollector: {}
+        stop:
+          implementation: diamond.diamond_agent.tasks.del_collectors
+          inputs:
+            collectors_config:
+              ExampleCollector: {}
+{% endhighlight %}
+
+Notice how we use the `ExampleCollector` that comes with Diamond. We do this because of the policy limitation described above. Most built-in collectors in Diamond, generate more than one metric, which may cause the auto heal workflow to be triggered more than once. The `ExampleCollector` generates a single metric whose value is consistently `42`. We will use this collector as a keep alive collector combined with the `host_failure` policy that will be described below.
+
+Future versions of Cloudify will address this limitation by allowing a specific metric regex to be specified when configuring the policy.
+
+## Workflow Configuration
+
+At the moment, the auto heal workflow that comes with Cloudify is not configured in our `types.yaml`. This is mostly because its API is likely to change some.
+
+Until this workflow is added to the built-in workflows, add the following to the blueprint:
+
+{% highlight yaml %}
+workflows:
+  autoheal:
+    mapping: default_workflows.cloudify.plugins.workflows.auto_heal_reinstall_node_subgraph
+    parameters:
+      node_id: {}
+      diagnose_value: {}
+{% endhighlight %}
+
+## Groups Configuration
+
+After we have monitoring set up, and the autoheal workflow configured, it's time to plug things together.
+
+This example contains several inline comments, so make sure you read them to have better understanding of
+how things work.
+
+{% highlight yaml %}
+groups:
+  some_vm_group:
+    # adding the some_vm node template that was previously configured
+    members: [some_vm]
+    policies:
+      host_failure_policy:
+        # using the 'host_failure' policy type
+        type: cloudify.policies.host_failure
+        triggers:
+          # using the 'execute_workflow' policy trigger
+          type: cloudify.policies.triggers.execute_workflow
+          parameters:
+            # configuring this trigger to execute the autoheal workflow
+            # that was previously configured
+            workflow: autoheal
+
+            # The autoheal workflow will get
+            # its parameters from the event that triggered
+            # its execution
+            workflow_parameters:
+              # The host_failure policy adds 'failing_node' to
+              # the event before processing its triggers.
+              # the 'faling_node' will be the node instance id
+              # of the node that failed. In our case, it will be
+              # something like 'some_vm_afd34'
+              node_id: { get_property: [SELF, failing_node] }
+
+              # Contextual information added by the triggering policy
+              diagnose_value: { get_property: [SELF, diagnose] }
+{% endhighlight %}
