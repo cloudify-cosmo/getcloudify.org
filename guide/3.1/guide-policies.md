@@ -106,6 +106,7 @@ Built-in policies are not special in any way - they use the same API any other c
 Advanced users may wish to write custom policies.
 To learn how to write a custom policy, refer to the [policies authoring guide](guide-authoring-policies.html).
 
+<!---
 # Auto Healing
 
 Auto healing is the process of automatically identifying when a certain component of your system is failing and fixing the system state without any user intervention.
@@ -228,3 +229,4 @@ It should be noted that these limitations are something we are currently in the 
 * Each compute node must be specified in its own group in the `groups.members` section
 * Monitoring is set up when the deployment is created. As such, after the `uninstall` workflow has been called on a deployment, the `autoheal` workflow will probably be triggered after a while. At the moment, this is resolved by having the auto heal workflow check the state of the faling node host. If its state is different than `started` the workflow will end its execution without actually doing anything. This means that when the deployment executions are listed, you may find unexpected `autoheal` workflow executions in `terminated` state.
 {%endwarning%}
+-->
