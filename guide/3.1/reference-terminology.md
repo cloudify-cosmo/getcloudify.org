@@ -234,7 +234,7 @@ See the definition [here]({{page.arch_link}}#teardown).
 ### **Topology**
 A Topology is an [application](#application)'s graph of [nodes](#node) and their [relationships](#relationship).
 
-A Topology also describes the lifecycle events or other [operations](#operation) that each node and relationship exposes for the use in [workflows](#workflows).
+A Topology also describes the lifecycle events or other [operations](#operation) that each node and relationship exposes for use in [workflows](#workflows).
 
 A Topology is denoted in YAML.
 
