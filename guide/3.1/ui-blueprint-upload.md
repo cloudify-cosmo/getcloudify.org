@@ -1,6 +1,6 @@
 ---
 layout: bt_wiki
-title: Uploading Blueprint
+title: Uploading a Blueprint
 category: User Interface
 publish: true
 abstract: Blueprint packing & uploading guide
@@ -10,23 +10,28 @@ terminology_link: reference-terminology.html
 ---
 {%summary%} {{page.abstract}}{%endsummary%}
 
-# Blueprint Packing
-The Cloudify user interface allows the user to upload a packaged TAR blueprint file to the manager.
-The TAR file must include a folder holding the bluperint files, with a main file named `blueprint.yaml`.
+
+# Packaging a Blueprint
+
+Cloudify's UI allows the user to upload a packaged TAR blueprint file to the manager.
+The TAR file must include a folder containing the bluperint's resources along with a main blueprint file named `blueprint.yaml`.
 Once the user has the blueprint folder ready with the main blueprint inside it, the user can create a blueprint TAR file by using the command line:
+
 {% highlight bash %}
 export COPYFILE_DISABLE=true
 tar czf blueprint-name.tar.gz blueprint-folder/
 {% endhighlight %}
 
-* the `export` command will prevent unwanted hidden files from being packed inside the TAR file (i.e .DS_Store on OSX environment)
+* The `export` command will prevent unwanted hidden files from being packaged inside the TAR file (i.e .DS_Store on OSX environment)
 * The file and folder names are customizable.
 
 The output file of the tar command above will be `blueprint-name.tar.gz`.
 
-# Uploading the Blueprint
-The Cloudify's Web UI allows the user to upload a packaged blueprint TAR file to the Cloudify Manager.
-The upload blueprint button can be found in the "Blueprints" section in the user interface:
+
+# Uploading a Blueprint
+
+Cloudify's UI allows the user to upload a packaged blueprint TAR file to the Cloudify Manager.
+The upload blueprint button can be found in the "Blueprints" section in the UI:
 
 ![The blueprint upload button](/guide/images/ui/ui_upload_blueprint_button.png)
 
