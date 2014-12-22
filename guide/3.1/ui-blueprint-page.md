@@ -17,7 +17,7 @@ The Blueprint screen shows you the details of a single blueprint. The details ar
 
 # Topology
 A graphical view of the blueprint [topology]({{page.terminology_topology}}).<br/>
-![Blueprint topology](/guide/images/ui/ui-blueprint-topology.jpg)
+![Blueprint topology](/guide/images/ui/ui-blueprint-topology.png)
 
 # Network
 A graphical view of the network elements contained in the blueprint. Typical elements shown here are internal and external networks, hosts, routers and ports.<br/>
