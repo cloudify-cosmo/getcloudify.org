@@ -72,14 +72,14 @@ imports:
     - http://www.getcloudify.org/spec/cloudify/3.1rc1/types.yaml
     - http://127.0.0.1:8001/plugin.yaml
 node_templates:
-    my_localhost:
+    my_host:
         type: cloudify.nodes.Compute
         properties:
             ip: 127.0.0.1
             cloudify_agent:
                 user: cloudify_user
                 key: /home/cloudify_user/.ssh/id_rsa
-    my_salted_localhost:
+    my_salted_host:
         type: saltification
         properties:
             minion_config:
@@ -91,14 +91,14 @@ node_templates:
                 password: my secret password
         relationships:
             -   type: cloudify.relationships.contained_in
-                target: my localhost
+                target: my host
 {% endhighlight %}
 
 
 ## Assumptions for the above example
 
 *   Both `plugin.yaml` and `plugin.zip` are served on `localhost:8001`.
-*   Salt master is up and running on *localhost*.
+*   Salt master is up and running on `localhost`.
 *   Salt API is available on `localhost:8000`.
 *   Salt API is configured to work **without _SSL_**.
 *   User `cloudify_user` exists and can be accessed with
@@ -118,7 +118,7 @@ rest_cherrypy:
 external_auth:
     pam:
         cloudify_user:
-            - 'my salted localhost*'
+            - 'my salted host*'
             - '@wheel'
 {% endhighlight %}
 
