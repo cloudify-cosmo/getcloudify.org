@@ -195,14 +195,22 @@ What happens inside during the plugin's lifecycle.
 
 ## Minion installation
 
-Minion installation takes place **only if** minion package has not already been
-installed. The actual check is whether `salt-minion` executable is visible
-in *PATH*.
-
 If provided in properties, `minion_installation_script` will be called
-to do the actual installation. There is a default (and recommended)
+to do the actual installation. Otherwise there is a default (and recommended)
 installation procedure that works on both Debian- and RedHat-derived systems
 (it has been tested on RHEL6 and Ubuntu 14.04).
+
+{% note title=Note 1 %}
+Minion installation takes place **only if** minion package has not already been
+installed.
+
+The actual check is whether `salt-minion` executable is visible in *PATH*.
+{% endnote %}
+
+{% note title=Note 2 %}
+Remember that the default installation procedure utilises `apt-get` or `yum`
+which in turn require **Internet access**.
+{% endnote %}
 
 When deciding to provide a custom installation script, bear in mind that:
 
