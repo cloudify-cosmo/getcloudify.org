@@ -14,6 +14,9 @@ repo_link: https://github.com/cloudify-cosmo/cloudify-saltstack-plugin
 
 A plugin that adds a [*salt*][salt] layer to a Cloudify agent.
 
+*Salt* is a software infrastucture used for **computer orchestration**,
+**remote execution**, **configuration management**, etc.
+
 This plugin can be found at [{{page.repo_link}}][plugin github].
 
 The plugin is currently **under development**.
@@ -21,18 +24,18 @@ The plugin is currently **under development**.
 
 # What it does
 
-The plugin:
+1.  Installs a *salt minion* on specified host.
+2.  Configures the minion with provided parameters; most importantly - to work
+    with a specific *master*.
+3.  Ensures the minion's key is accepted by the master.
+4.  Starts the minion service.
+5.  Configures minion's [*grains*][grains].
+6.  Executes [*highstate*][highstate] on the minion.
 
-1.  installs a *salt minion* on specified host,
-2.  configures the minion with provided parameters,
-    *   most importantly - to work with a specific *master*,
-3.  ensures the minion's key is accepted by the master,
-4.  starts the minion service,
-5.  configures minion's [*grains*][grains],
-6.  executes [*highstate*][highstate] on the minion.
-
-**NOTE**: this is a one-time operation. Further management of minion state
-is left to the master.
+{% note title=Note %}
+This is a one-time operation. Further management of minion state is left
+to the master.
+{% endnote %}
 
 
 # Basic how-to
@@ -69,14 +72,14 @@ imports:
     - http://www.getcloudify.org/spec/cloudify/3.1rc1/types.yaml
     - http://127.0.0.1:8001/plugin.yaml
 node_templates:
-    my localhost:
+    my_localhost:
         type: cloudify.nodes.Compute
         properties:
             ip: 127.0.0.1
             cloudify_agent:
                 user: cloudify_user
                 key: /home/cloudify_user/.ssh/id_rsa
-    my salted localhost:
+    my_salted_localhost:
         type: saltification
         properties:
             minion_config:
