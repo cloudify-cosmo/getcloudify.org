@@ -180,27 +180,41 @@ $(document).ready(function() {
 				// Change the breadcrumb according to the title
 				$('.bt_wiki-breadcrumb .breadcrumb li').last().html(pageTitle);
 
-				// Find scripts that are attached to the loaded html (we only want to run the "createLinkList" which is the script that
-				// Is related to the jekyll plugins that we are using)
-				var scriptIndex=fullPageData.indexOf('createLinkList');
-				while (scriptIndex >= 0) {
-					// Grab the script itself
-					var script = fullPageData.substring(scriptIndex);
-					var fullPageData = script.substring(20); // Jump over the createLinkList
-					var scriptEnd = script.indexOf(');');
-					script = script.substring(0,scriptEnd) + ");";
-
-					// Run the script
-					try {
-						eval(script);
-					} catch (e) {console.log(e);}
-
-					// Move to the next script (in most cases we will only have one
-					scriptIndex=fullPageData.indexOf('createLinkList');
-				}
+				runPageScripts(fullPageData);
 			}
 
 		});
+	}
+
+	/**
+	 * Run the relevant scripts on the loaded page
+	 * @param fullPageData
+	 */
+	function runPageScripts(fullPageData) {
+		// Find scripts that are attached to the loaded html (we only want to run the "createLinkList" which is the script that
+		// Is related to the jekyll plugins that we are using)
+		var scriptIndex=fullPageData.indexOf('createLinkList');
+		while (scriptIndex >= 0) {
+			// Grab the script itself
+			var script = fullPageData.substring(scriptIndex);
+			var fullPageData = script.substring(20); // Jump over the createLinkList
+			var scriptEnd = script.indexOf(');');
+			script = script.substring(0,scriptEnd) + ");";
+
+			// Run the script
+			try {
+				eval(script);
+			} catch (e) {console.log(e);}
+
+			// Move to the next script (in most cases we will only have one
+			scriptIndex=fullPageData.indexOf('createLinkList');
+		}
+
+		initWikiPageLayout();
+
+		trackPage();
+
+		initMixpanelTracking();
 	}
 
 	/**
