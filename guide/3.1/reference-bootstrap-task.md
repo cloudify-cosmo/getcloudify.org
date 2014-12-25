@@ -43,6 +43,13 @@ The bootstrap task takes several parameters:
 
   * ***provider_context*** - Optional parameter. *Provider context* is a deprecated feature that allows for setting Manager-level context information with data created during the bootstrap process, used primarily to improve accessibility in plugins. Note that whether this parameter is supplied or not, a *provider context* object will be uploaded to the server, as additional information is automatically appended to it by the bootstrap task.
 
+When bootstrapping using docker, the following parameters are also avilable:
+
+  * ***docker_path*** - Optional parameter. Sets the docker executable file path to be used on the host VM. If this parameter is omitted, `docker` command will be used instead having the docker executable be determined by the paths defined in the ***path*** environment variable.
+
+  * ***use_sudo*** - Optional parameter. This flag is used to set run permissions on the host VM during bootstrap. If this parameter is omitted, sudo permissions will be used by default.  
+
+
 {%note title=Note%}
 While not explicitly a part of the signature of the bootstrap task, the Manager's public IP is somewhat of a parameter to the task as well: If it isn't set explicitly for the Fabric plugin (using the `host_string` parameter), then the Fabric plugin will attempt to use the *manager*'s node instance's `host_ip` instead, and try and connect to it.
 {%endnote%}
