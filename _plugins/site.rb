@@ -32,7 +32,7 @@ module Jekyll
             end
 
             if (page.publish != nil and page.publish == true)
-                liquid_map = {"url" => page.url, "title" => page.title, "abstract" => page.abstract, "pageord" => page.pageord}
+                liquid_map = {"url" => page.url, "title" => page.title, "abstract" => page.abstract, "pageord" => page.pageord }
                 page_category = payload["page_categories"][page.category] += [liquid_map]
 			end
         end
@@ -41,7 +41,7 @@ module Jekyll
         end
 		    payload["categories"]=["Getting Started", "Agents", "Release Notes","Installation & Setup","Bootstrapping","Developing Recipes","Common Patterns","Deploying Services & Applications","Monitoring Your Applications","Developing Cloud Drivers", "Plugins and Probes","Integration","REST API","Reference","Contributing", "User Interface"]
         payload["categories_3"]=["Installation", "Agents", "Guides", "Product Overview", "Reference", "Plugins", "DSL Specification", "User Interface"]
-
+        payload["categories_3_root"] = ['','','','','','','/guide/3.1/dsl-spec-general.html',''];
         h["site"] = payload
         h
     end

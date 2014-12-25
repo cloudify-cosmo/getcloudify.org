@@ -24,7 +24,7 @@ plugin_installer_link: plugin-installer-plugin.html
 
 Cloudify's Agent is basically a [virtualenv]({{page.virtualenv_link}}) with a series of modules installed in it and a few configuration files attached.
 
-To use Cloudify with distributions other than the [officially supported ones](agents-description.html#provided-agent-packages), we're providing an [Agent-Packager tool](agents-packager.html) that will assist you in creating an agent for your distribution.
+To use Cloudify with distributions other than the [officially supported ones](agents-description.html#provided-agent-packages), we're providing an [Agent-Packager tool](https://github.com/cloudify-cosmo/cloudify-agent-packager) that will assist you in creating an agent for your distribution.
 
 {%note title=Note%}
 As this is the first time we're releasing this tool, you may (and probably will) stumble upon some bugs. Please let us know so that we can improve it and provide a convenient way for you to easily create agents.
@@ -40,10 +40,13 @@ This tool aims to:
 
 You can use Cloudify's agent-packager to create an agent on the distribution you're running so that modules that require compilation will use your distribution and compilers to do so.
 
-{%note title=Note%}
+{%warning title=Note%}
 As Cloudify's code currently only supports Python 2.7.x or Python 2.6.x, you will have to run one of those to create an agent.
-{%endnote%}
+{%endwarning%}
 
+{%warning title=Note%}
+Currently, not all of Cloudify's Plugins can run on Python 2.6.x. Only basic modules and plugins are currently fitted to run on Python 2.6.x. To see whether a plugin supports your Python version, please see the documentation for the plugin you're looking to use.
+{%endwarning%}
 
 # Creation Process
 
@@ -215,8 +218,8 @@ Beginning with Cloudify 3.2, they will not be case sensitive.
 {%endnote%}
 
 - `distribution` - Which distribution is the agent intended for. If this is omitted, the tool will try to retrieve the distribution by itself. The distribution is then used to name the virtualenv (if not explicitly specified in `venv`) and to name the output file (if not explicitly specified in `output_tar`).
-- `release` - Which release (e.g. precise, trusty) of the `distribution` is the agent intended for. If this is omitted, the tool will try to retrieve the release by itself. The release is then used to name the virtualenv (if not explicitly specified in `venv`) and to name the output file (if not explicitly specified in `output_tar').
-- `venv` - Path to the virtualenv you'd like to create. Leave this empty iNf you want to use the built in agent installer, which requires sudo privileges (Defaults to /cloudify/DISTRO-VERSION-agent/env).
+- `release` - Which release (e.g. precise, trusty) of the `distribution` is the agent intended for. If this is omitted, the tool will try to retrieve the release by itself. The release is then used to name the virtualenv (if not explicitly specified in `venv`) and to name the output file (if not explicitly specified in `output_tar`).
+- `venv` - Path to the virtualenv you'd like to create. Cloudify's built-in agent-installer requires that the format will be "/FOLDER/FOLDER/env/" where FOLDER can be any folder. The tar should include 2 parent folders and an `env` folder within them (If omitted, defaults to /cloudify/DISTRO-VERSION-agent/env).
 - `python_path` - Allows you to set the python binary to be used when creating `venv`. (Defaults to `/usr/bin/python`).
 - `base_modules` - a `dict` of base modules to install into the package. (All modules default to `master`). See below for a list of current base modules. If `none` is set (per module), it will not be installed. Set `none` with extra care!
 - `management_modules_version` - States which version of the `cloudify-manager` code to download from which the management_modules will be installed. This is required only if not all management modules are explicitly specified in `management_modules`. (Defaults to `master`).
