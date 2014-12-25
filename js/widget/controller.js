@@ -5,7 +5,7 @@ widgetModule.config(function($interpolateProvider) {
     $interpolateProvider.endSymbol(']]');
 });
 
-widgetModule.controller('widgetController', function( $scope, $controller ,$log, $http) {
+widgetModule.controller('widgetController', function( $scope, $controller ,$log, $http, $sce) {
     $controller('GsGenericWidgetCtrl', {$scope:$scope} );
     $scope.genericWidgetModel.element = $('#widgetFrame')[0];
 
