@@ -83,8 +83,13 @@ Install the CLI package as described in the [installation guide](installation-cl
 ### Step 3 - Download the Hello-World example
 
 Download the Hello-World example to the client instance.
-You can either download the zip file from the [hello-World repo](https://github.com/cloudify-cosmo/cloudify-hello-world-example)
-or `git clone https://github.com/cloudify-cosmo/cloudify-hello-world-example.git`
+You can either download the zip file from the [hello-World repo](https://github.com/cloudify-cosmo/cloudify-hello-world-example) (use the `3.1` tag)
+or 
+{%highlight bash%}
+git clone https://github.com/cloudify-cosmo/cloudify-hello-world-example.git
+cd cloudify-hello-world-example
+git checkout tags/3.1
+{%endhighlight%}
 
 ### Step 4 - Upload the relevant files to the HTTP Server
 
