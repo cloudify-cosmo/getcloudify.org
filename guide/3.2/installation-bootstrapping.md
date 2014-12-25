@@ -109,9 +109,9 @@ Bootstrapping using Docker provides several advantages:
 * The Cloudify Manager is now available on Linux distributions other than Ubuntu 12.04.
 * Users can upgrade containers specific to the service they want to upgrade (Currently, there's only one Application container. In the future, each container will host one service [e.g. Logstash, Elasticsearch, etc..])
 * Using Docker simplifies Cloudify's bootstrap process, and will help in making it much faster in future versions.
-* In future versions, using docker would allow to migrate your entire manager onto an entirely different machine in.
+* In future versions, using docker would allow to migrate your entire manager onto an entirely different machine.
 
-The [provided Docker Manager Blueprints](https://github.com/cloudify-cosmo/cloudify-manager-blueprints) contain the configuration for bootstrapping using Docker, though, by default, the configuration for Docker is commented out. In Cloudify 3.2, Docker will be the default method for bootstrapping.
+The [provided Docker Manager Blueprints](https://github.com/cloudify-cosmo/cloudify-manager-blueprints) contain the configuration for bootstrapping using Docker, though, by default, the configuration for Docker is commented out. As of Cloudify 3.2, Docker will be the default method for bootstrapping.
 
 {%note title=Note%}
 Please verify the [prerequisites](installation-general.html#bootstrapping-using-docker) before bootstrapping using Docker.
@@ -175,7 +175,7 @@ agents:
   ubuntu_agent_url: http://gigaspaces-repository-eu.s3.amazonaws.com/org/cloudify3/3.1.0/ga-RELEASE/cloudify-ubuntu-agent_3.1.0-ga-b85_amd64.deb
   centos_agent_url: http://gigaspaces-repository-eu.s3.amazonaws.com/org/cloudify3/3.1.0/ga-RELEASE/cloudify-centos-final-agent_3.1.0-ga-b85_amd64.deb
   windows_agent_url: http://gigaspaces-repository-eu.s3.amazonaws.com/org/cloudify3/3.1.0/ga-RELEASE/cloudify-windows-agent_3.1.0-ga-b85_amd64.deb
-# For bootstrapping the manager on a Docker container, comment out the above server package config and uncomment the docker config.
+# For bootstrapping the manager on a docker container, comment out the above server package config and uncomment the docker config.
 # In addition, change the manager bootstrap task mapping below.
 # docker:
 #   docker_url: http://gigaspaces-repository-eu.s3.amazonaws.com/org/cloudify3/3.1.0/ga-RELEASE/cloudify-docker_3.1.0-ga-b85.tar
@@ -193,7 +193,7 @@ agents:
   ubuntu_agent_url: http://gigaspaces-repository-eu.s3.amazonaws.com/org/cloudify3/3.1.0/ga-RELEASE/cloudify-ubuntu-agent_3.1.0-ga-b85_amd64.deb
   centos_agent_url: http://gigaspaces-repository-eu.s3.amazonaws.com/org/cloudify3/3.1.0/ga-RELEASE/cloudify-centos-final-agent_3.1.0-ga-b85_amd64.deb
   windows_agent_url: http://gigaspaces-repository-eu.s3.amazonaws.com/org/cloudify3/3.1.0/ga-RELEASE/cloudify-windows-agent_3.1.0-ga-b85_amd64.deb
-# For bootstrapping the manager on a Docker container, comment out the above server package config and uncomment the docker config.
+# For bootstrapping the manager on a docker container, comment out the above server package config and uncomment the docker config.
 # In addition, change the manager bootstrap task mapping below.
 docker:
   docker_url: http://gigaspaces-repository-eu.s3.amazonaws.com/org/cloudify3/3.1.0/ga-RELEASE/cloudify-docker_3.1.0-ga-b85.tar
@@ -214,10 +214,10 @@ cloudify_agent:
 {%endhighlight%}
 
 {%note title=Note%}
-In Cloudify 3.2, this modification will no longer be necessary.
+As of Cloudify 3.2, this modification will no longer be necessary.
 {%endnote%}
 
-Cloudify's Docker implementation consists of two docker images:
+Cloudify's docker implementation consists of two docker images:
 
 * Cloudify Application Image - an image running Cloudify's Application Stack.
 * Cloudify Data Image - a "data-only" image containing persistent volume paths.
@@ -246,7 +246,7 @@ If you are using an image of a different distribution, you'll have to make sure 
     * `cfy` - Contains the entire Cloudify manager service stack.
     * `data` - Contains mount points that are to be used for persistence purposes (ElasticSearch, InfluxDB, etc.).
 
-  * Docker persistence - Docker containers do not persist their files. For this reason, the Cloudify Docker implementation uses a Docker data container. The Docker data container's sole purpose is to hold data written to it by the main cloudify container. The data container itself does not have to be running and acts as an external mountable device. By defining the mount point paths on the data container, it's possible to share the data between the containers using the `--volumes-from` flag. You can read more about the Docker data container architecture [here](https://docs.docker.com/userguide/dockervolumes/).
+  * Docker persistence - Docker containers do not persist their files. For this reason, the Cloudify docker implementation uses a Docker data container. The docker data container's sole purpose is to hold data written to it by the main cloudify container. The data container itself does not have to be running and acts as an external mountable device. By defining the mount point paths on the data container, it's possible to share the data between the containers using the `--volumes-from` flag. You can read more about the docker data container architecture [here](https://docs.docker.com/userguide/dockervolumes/).
 
   * Container management - Since the docker implementation is meant to run on any Linux distribution supported by docker, Cloudify lets docker manage the container's lifecycle. To do so, it starts the management container using the `--restart=always` flag. 
 
