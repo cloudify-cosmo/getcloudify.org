@@ -5,7 +5,7 @@ category: Widget
 ---
 
 <section id="content">
-    <div class="container" ng-app="widgetApp">
+    <div class="container" id="widgetPage" ng-app="widgetApp">
         <div id="resultsDiv" class="DocumentsWrap"></div>
         <div id="pageContent" ng-controller="widgetController">
             <div class="row">
@@ -54,12 +54,24 @@ category: Widget
 
                 </div>
                 <div class="span7 offset1">
-                    <a class="hover-wrap fancybox fancybox.iframe" data-fancybox-group="gallery"
-                       title="Cloudify Intelligent Orchestration on Any Cloud"
-                       href="http://www.youtube.com/embed/1OFTneg_WKE?enablejsapi=1&wmode=opaque">
+                    <div id="youtube-iframe" ng-show="!widgetController.machineStarted"><a
+                            class="hover-wrap fancybox fancybox.iframe" data-fancybox-group="gallery"
+                            title="Cloudify Intelligent Orchestration on Any Cloud"
+                            href="http://www.youtube.com/embed/1OFTneg_WKE?enablejsapi=1&wmode=opaque">
                         <img class="bannerWidgetTextImg" src="img/hpBanner21.png"
-                             alt="Cloudify - New Intelligence in Cloud Orchestration and Cloud Automation"/></a>
+                             alt="Cloudify - New Intelligence in Cloud Orchestration and Cloud Automation"/></a></div>
 
+                    <div id="butterfly-iframe" ng-show="!!widgetController.machineStarted">
+
+                        <div id="butterflyWrapper" class="widgetButterfly">
+                            Try out the interactive shell
+                            <iframe id="butterfly" class="video-container" src="http://15.125.111.196:8080/">
+
+                            </iframe>
+
+                        </div>
+
+                    </div>
                 </div>
             </div>
         </div>
