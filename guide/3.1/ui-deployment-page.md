@@ -3,34 +3,37 @@ layout: bt_wiki
 title: The Deployments Page
 category: User Interface
 publish: true
-abstract: Deployment Page Reference
+abstract: Using the Deployment Details Page 
 pageord: 130
 
 terminology_topology: http://getcloudify.org/guide/3.1/reference-terminology.html#sts=Topology
 terminology_execution: http://getcloudify.org/guide/3.1/reference-terminology.html#sts=Execution
 ui_monitoring: http://getcloudify.org/guide/3.1/ui-monitoring.html
 terminology_link: reference-terminology.html
+terminology_deployment: http://getcloudify.org/guide/3.1/reference-terminology.html#deployment
 ---
 {%summary%} {{page.abstract}}{%endsummary%}
-{%summary%}This is a view of a single blueprint in Cloudify's User Interface{%endsummary%}.
 
-When clicking on the `Deployments` tab and choosing a deployment you will be able to choose one of the following:
+The Deployment page shows you the details of a single Cloudify [deployment]({{page.terminology_deployment}}) 
+The page is split into several tabs, each showing a different part of the deployment.
 
 # Topology
-See the definition [here]({{page.terminology_topology}}).<br/>
+A graphical view of the deployment [topology]({{page.terminology_topology}}).<br/>
 ![Deployment topology](/guide/images/ui/ui-deployment-ready.jpg)
 
 # Network
-A map of networks according to the blueprint's topology containing internal and external networks, hosts, routers and ports.<br/>
+A graphical view of the network elements contained in the blueprint. Typical elements shown here are internal and external networks, hosts, routers and ports.<br/>
 ![Deployment networks](/guide/images/ui/ui-deployment-networks.jpg)
 
 # Nodes
-A list of nodes according to the blueprint's topology.<br/>
+The list of nodes defined in this deployment.<br/>
 ![Deployment nodes](/guide/images/ui/ui-deployment-nodes.jpg)
 
 # Executions
-Running instances of a workflow. See the definition [here]({{page.terminology_execution}}).<br/>
+List of [executions]({{page.terminology_execution}}) performed by this deployment.<br/>
 ![Deployment execution](/guide/images/ui/ui-deployment-execution.jpg)
 
 # Monitoring
-See the definition [here]({{page.ui_monitoring}}).
+[Monitoring]({{page.ui_monitoring}}) information collected for this deployment.
+![Deployment monitorin](/guide/images/ui/ui_monitoring.jpg)
+
