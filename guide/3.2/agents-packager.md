@@ -16,6 +16,7 @@ script_plugin_link: plugin-script.html
 linux_agent_installer_link: plugin-linux-agent-installer.html
 windows_agent_installer_link: plugin-windows-agent-installer.html
 plugin_installer_link: plugin-installer-plugin.html
+cloudify_agent_link: agents-cloudify-agent-module.html
 
 ---
 {%summary%}{{page.abstract}}{%endsummary%}
@@ -52,25 +53,16 @@ Currently, not all of Cloudify's Plugins can run on Python 2.6.x. Only basic mod
 During the creation process, the agent-packager performs the following:
 
 * Creates a virtualenv using the python binary of your choice.
-* Installs the required modules into the virtualenv.
-* Validates that all required modules were installed.
+* Installs mandatory external modules into the virtualenv.
+* Installs mandatory and optional Cloudify Plugins and modules into the virtualenv.
+* Installs the `cloudify-agent` module into the virtualenv.
+* Installs any additional user chosen Cloudify Plugins or python modules into the virtualenv.
+* Validates that all specified modules were installed.
 * Creates a tar file containing the virtualenv.
 
 {%note title=Note%}
 The tool will create a tar file to be used with Cloudify's [agent installer plugin](plugin-linux-agent-installer.html). For other agent installer implementations, a different type of agent might be required.
 {%endnote%}
-
-## Agent Configuration Files
-
-Cloudify's agent is originally supplied with 3 additional files:
-
-- a disable requiretty script.
-- a template for celery's config file.
-- a template for celery's init file.
-
-This tool does not provide these files - as different distributions might require different init files or require a different method for disabling requiretty.
-
-More info below.
 
 
 # Installation
@@ -137,26 +129,13 @@ cfyap.create(config=config, config_file=None, force=False, dry=False, no_validat
 Using the tool from python allows you to pass the configuration dictionary directly to the creation method which allows for automating the agent creation process.
 {%endnote%}
 
-## The Agent Configuration Files
+## The `cloudify-agent` module
 
-You can obtain the [files](#agent-configuration-files) from [here](https://github.com/cloudify-cosmo/cloudify-packager/tree/master/package-configuration/ubuntu-agent).
-
-{%note title=Note%}
-These files will not necessarily work on all distributions/releases and you might provide your own.
-{%endnote%}
-
-You must change the names of the files to match the distribution you're using as the distribution is automatically identified upon installation.
-
-Alternatively, you can specify the distro in your blueprint under `cloudify_agent` in the `distro` property.
-
-{%warning title=Note%}
-Stating the `distro` variable affects the way the agent is identified, not only the configuration files.
-For more information on how configuration files and agent tar files are identified, see the agent-installer's [documentation]({{page.linux_agent_installer_link#configuration#identifying-the-distribution-and-release-of-the-hosting-os}}).
-{%endwarning%}
+See [here]({{page.cloudify_agent_link}}).
 
 ## Using your agent
 
-After creating the agent and obtaining the files, you can do one of the following to use your newly created agent:
+After creating the agent you can do one of the following to use your newly created agent:
 
 ### Using your agent on a per-node basis
 
