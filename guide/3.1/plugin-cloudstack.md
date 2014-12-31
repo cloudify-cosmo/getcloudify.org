@@ -7,7 +7,7 @@ abstract: Cloudify CloudStack plugin description and configuration
 pageord: 650
 ---
 {%summary%}The CloudStack plugin allows users to use a CloudStack based cloud infrastructure for deploying services and applications.
-For more information about CloudStack, please refer to: [cloudstack.apache.org/](http://cloudstack.apache.org/).{%endsummary%}
+For more information about CloudStack, please refer to [cloudstack.apache.org](http://cloudstack.apache.org/).{%endsummary%}
 
 
 # Plugin Requirements
@@ -240,7 +240,7 @@ Some relationships take effect in non-relationship operations, e.g. a subnet whi
   * `cloudify.interfaces.relationship_lifecycle.unlink`: disassociates the keypair from the VM.
 
 
-# Types' Common Behaviors
+# Common Behaviors of Types
 
 ## Validations
 
