@@ -142,11 +142,22 @@ Further more - when a *standard workflow*'s code has finished running, the execu
 
 *Graph-based workflows* have inherent support for graceful cancellation. Upon receiving such a request once the graph's `execute` method has been called, the defined behavior is for the workflow execution to simply end - yet any tasks related to the execution which might have been running at the moment of cancellation will continue to run until they're over.
 
-Once the graph execution ends, the `tasks_graph`'s method `execute` will return the `api.EXECUTION_CANCELLED_RESULT` VALUE (equivalent to raising the `api.ExecutionCancelled` error), which is why *graph-based workflows* must return the value returned from the `execute` method.
-
+Once the graph execution ends, the `tasks_graph`'s method `execute` will raise the `api.ExecutionCancelled` error.
 
 For both types of workflows, it's of course possible to catch `api.ExecutionCancelled` errors that may have been raised, thus allowing to perform any sort of cleanup or custom behavior before re-raising the error.
 
+
+{%warning title=Deprecation Notice%}
+The `api.EXECUTION_CANCELLED_RESULT` value, which may have been returned from a workflow to signal that it has cancelled sucessfully, is now deprecated. Raise the `api.ExecutionCancelled` error instead to indicate such an event.
+
+See more information in the [migration guide](Migrating_from_3_1.html).
+{%endwarning%}
+
+{%warning title=Backwards Compatibility Notice%}
+The Graph API will now raise an `api.ExecutionCancelled` error instead of returning the deprecated `api.EXECUTION_CANCELLED_RESULT` in the event of an execution cancellation. This means that any workflows which made any additional operations beyond the call to the graph's `execute` method, should now use a *try-finally* clause to be able to perform these additional operations and still raise the approriate error once they're done.
+
+See more information in the [migration guide](Migrating_from_3_1.html).
+{%endwarning%}
 
 {%note title=Note%}
 Neither *standard workflows* nor *graph-based workflows* have any control over force-cancellation requests. Any workflow execution which was issued with such a request will be terminated immediately, while any tasks related to the execution which might have been running at the moment of termination will continue to run until they're over.
