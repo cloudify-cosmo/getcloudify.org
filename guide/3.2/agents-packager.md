@@ -54,9 +54,9 @@ During the creation process, the agent-packager performs the following:
 
 * Creates a virtualenv using the python binary of your choice.
 * Installs mandatory external modules into the virtualenv.
-* Installs mandatory and optional Cloudify Plugins and modules into the virtualenv.
+* Installs mandatory and optional Cloudify plugins and modules into the virtualenv.
 * Installs the `cloudify-agent` module into the virtualenv.
-* Installs any additional user chosen Cloudify Plugins or python modules into the virtualenv.
+* Installs any additional user chosen Cloudify plugins and Python modules into the virtualenv.
 * Validates that all specified modules were installed.
 * Creates a tar file containing the virtualenv.
 
@@ -169,12 +169,15 @@ cloudify_agent_module: http://github.com/cloudify-cosmo/cloudify-agent/archive/m
 core_modules:
     cloudify_plugins_common: http://github.com/cloudify-cosmo/cloudify-plugins-common/archive/master.tar.gz
     cloudify_rest_client: http://github.com/cloudify-cosmo/cloudify-rest-client/archive/master.tar.gz
+core_plugins:
     cloudify_script_plugin: http://github.com/cloudify-cosmo/cloudify-script-plugin/archive/master.tar.gz
     cloudify_diamond_plugin: http://github.com/cloudify-cosmo/cloudify-diamond-plugin/archive/master.tar.gz
     cloudify_agent_installer_plugin: http://github.com/cloudify-cosmo/cloudify-agent-installer-plugin/archive/master.tar.gz
     cloudify_plugin_installer_plugin: http://github.com/cloudify-cosmo/cloudify-plugin-installer-plugin/archive/master.tar.gz
     cloudify_windows_agent_installer_plugin: http://github.com/cloudify-cosmo/cloudify-windows-agent-installer-plugin/archive/master.tar.gz
     cloudify_windows_plugin_installer_plugin: http://github.com/cloudify-cosmo/cloudify-windows-plugin-installer-plugin/archive/master.tar.gz
+additional_plugins:
+    - http://github.com/cloudify-cosmo/cloudify-fabric-plugin/archive/master.tar.gz
 additional_modules:
     - pyyaml==3.10
 output_tar: Ubuntu-trusty-agent.tar.gz
@@ -200,10 +203,16 @@ Beginning with Cloudify 3.2, they will not be case sensitive.
 - `python_path` - Allows you to set the python binary to be used when creating `venv`. (Defaults to `/usr/bin/python`).
 - `cloudify_agent_version` - States which version of the `cloudify-agent` module to install (Is not required if `cloudify_agent_module` is specified). Note that this can be used to create an agent for a specific Cloudify version.
 - `cloudify_agent_module` - States the url from which the `cloudify-agent` module should be installed. (Will ignore `cloudify_agent_version` if specified).
-- `core_modules` - a `dict` of core modules to install into the virtualenv. (If omitted or with a value of `false`, the module will be installed as a part of the `cloudify-agent` dependencies.) See below for a list of current core modules. If `exclude` is set (per module), it will not be installed. Set `exclude` with extra care!
-- `additional_modules` - a `list` of additional modules to install into the virtualenv. This is where you can add your plugins.
+- `core_modules` - a `dict` of core modules to install into the virtualenv. (If omitted or with a value of `false`, the module will be installed as a part of the `cloudify-agent` dependencies.) See below for a list of current core modules.
+- `core_plugins` - a `dict` of core plugins to install into the virtualenv. (If omitted or with a value of `false`, the module will be installed as a part of the `cloudify-agent` dependencies.) See below for a list of current core plugins. If `exclude` is set (per module), it will not be installed. Set `exclude` with extra care!
+- `additional_modules` - a `list` of additional modules to install into the virtualenv. This is where you can add any additional modules that are not Cloudify plugins.
+- `additional_plugins` - a `list` of additional Cloudify plugins to install into the virtualenv.
 - `output_tar` - Path to the tar file you'd like to create.
 - `keep_venv` - Whether to keep the virtualenv after creating the tar file or not. Defaults to false.
+
+{%note title=Note%}
+`additional_modules` and `additional_plugins` will NOT be validated. In the future, a more robust implementation of the validation process will be added.
+{%endnote%}
 
 
 # Agent Modules
