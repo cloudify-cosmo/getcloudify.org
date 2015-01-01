@@ -59,6 +59,7 @@ During the creation process, the agent-packager performs the following:
 * Installs any additional user chosen Cloudify plugins and Python modules into the virtualenv.
 * Validates that all specified modules were installed.
 * Creates a tar file containing the virtualenv.
+* Generates an `included_plugins.py` file. This will be used by the `cloudify-agent` module to automatically load all plugins specified in the file.
 
 {%note title=Note%}
 The tool will create a tar file to be used with Cloudify's [agent installer plugin](plugin-linux-agent-installer.html). For other agent installer implementations, a different type of agent might be required.
@@ -157,6 +158,12 @@ You can provide urls for agents you'd like to provide during manager bootstrap.
 
 ## The YAML config file
 
+{%note warning=Note%}
+It is very important that all modules under `core_modules`, `core_plugins` and `additional_plugins` are written with their real module names(!) while replacing dashes with underscores (e.g. the fabric plugin under additional plugins must be called `cloudify_fabric_plugin`.)
+
+If not done so, `cloudify-agent` will not be able to recognize the plugin and load it.
+{%endnote%}
+
 Here's an example configuration file.
 
 {% highlight yaml %}
@@ -176,10 +183,10 @@ core_plugins:
     cloudify_plugin_installer_plugin: http://github.com/cloudify-cosmo/cloudify-plugin-installer-plugin/archive/master.tar.gz
     cloudify_windows_agent_installer_plugin: http://github.com/cloudify-cosmo/cloudify-windows-agent-installer-plugin/archive/master.tar.gz
     cloudify_windows_plugin_installer_plugin: http://github.com/cloudify-cosmo/cloudify-windows-plugin-installer-plugin/archive/master.tar.gz
-additional_plugins:
-    - http://github.com/cloudify-cosmo/cloudify-fabric-plugin/archive/master.tar.gz
 additional_modules:
     - pyyaml==3.10
+additional_plugins:
+    cloudify_fabric_plugin: http://github.com/cloudify-cosmo/cloudify-fabric-plugin/archive/master.tar.gz
 output_tar: Ubuntu-trusty-agent.tar.gz
 keep_venv: true
 {%endhighlight%}
@@ -211,7 +218,7 @@ Beginning with Cloudify 3.2, they will not be case sensitive.
 - `keep_venv` - Whether to keep the virtualenv after creating the tar file or not. Defaults to false.
 
 {%note title=Note%}
-`additional_modules` and `additional_plugins` will NOT be validated. In the future, a more robust implementation of the validation process will be added.
+All modules and plugins aside from `additional_modules` will be validated. In the future, a more robust implementation of the validation process will be added.
 {%endnote%}
 
 
