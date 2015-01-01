@@ -283,7 +283,7 @@ Note that the actual IP is available via the `floating_ip_address` runtime-prope
 **Properties:**
 
   * `volume` *Required*. key-value volume configuration as described in [OpenStack Cinder create volume API](http://developer.openstack.org/api-ref-blockstorage-v1.html#volumes-v1).
-  * `device_name` name under which volume will appear in /dev file system when volume is attached to vm. Defaults to `''` (empty string).
+  * `device_name` The device name this volume will be attached to. Default value is *auto*, which means openstack will auto-assign a device. Note that if you do explicitly set a value, this value may not be the actual device name assigned. Sometimes the device requested will not be available and openstack will assign it to a different device, this is why we recommend using *auto*.
   * `use_external_resource` a boolean for setting whether to create the resource or use an existing one. See the [using existing resources section](#using-existing-resources). Defaults to `false`.
   * `resource_id` name to give to the new resource or the name or ID of an existing resource when the `use_external_resource` property is set to `true` (see the [using existing resources section](#using-existing-resources)). Defaults to `''` (empty string).
   * `openstack_config` see the [Openstack Configuration](#openstack-configuration).
