@@ -78,25 +78,22 @@ Workflow Parameters:
 *The workflow has a single mandatory parameter named* `mandatory_parameter`*, and two optional parameters, one named* `optional_parameter` *which has a default value of* `optional_parameter_default_value`*, and another named* `nested_parameter` *which has a complex default value.*
 
 <br>
-When executing a workflow, it's required to specify values for all mandatory parameters, and it's possible to override the default values for any of the optional parameters. Parameters are passed in the CLI with the `-p` flag, and in JSON format. (Could be either inline JSON or a path to a JSON file).
+When executing a workflow, it's required to specify values for all mandatory parameters, and it's possible to override the default values for any of the optional parameters. Parameters are passed in the CLI with the `-p` flag, and in YAML format. (Could be either a path to a YAML file or inline YAML [JSON is a subset of YAML, so inlining could also be in JSON format]).
 
 *Example: Executing a workflow with parameters*
 {% highlight bash %}
-$ cfy executions start -d my_deployment -w my_workflow -p my_parameters.json
+$ cfy executions start -d my_deployment -w my_workflow -p my_parameters.yaml
 Executing workflow 'my_workflow' on deployment 'my_deployment' at management server 11.0.0.7 [timeout=900 seconds]
 2014-12-04T10:02:47 CFY <my_deployment> Starting 'my_workflow' workflow execution
 2014-12-04T10:02:47 CFY <my_deployment> 'my_workflow' workflow execution succeeded
 Finished executing workflow 'my_workflow' on deployment'my_deployment'
 * Run 'cfy events list --include-logs --execution-id 7cfd8b9c-dcd6-41bc-bc88-6aa0b00ffa62' for retrieving the execution's events/logs
 {% endhighlight %}
-`my_parameters.json`
-{% highlight json %}
-{
-    "mandatory_parameter": "mandatory_parameter_value",
-    "nested_parameter": {
-        "key1": "overridden_value"
-    }
-}
+`my_parameters.yaml`
+{% highlight yaml %}
+mandatory_parameter: mandatory_parameter_value
+nested_parameter:
+  key1: overridden_value
 {% endhighlight %}
 *Executing the workflow and passing the value* `mandatory_parameter_value` *for the* `mandatory_parameter` *parameter, and overriding the value of the* `nested_parameter` *parameter with a new complex value (though it could have been overridden with a non-complex value as well).*
 

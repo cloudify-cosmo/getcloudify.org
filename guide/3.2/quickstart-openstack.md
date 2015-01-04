@@ -68,38 +68,34 @@ Let's make a copy of the inputs template already provided and edit it:
 
 {% highlight bash %}
 cd cloudify-manager-blueprints/openstack
-cp inputs.json.template inputs.json
+cp inputs.yaml.template inputs.yaml
 {% endhighlight %}
 
-The inputs.json file should look somewhat like this:
+The inputs.yaml file should look somewhat like this:
 
-{% highlight json %}
+{% highlight yaml %}
+keystone_username: your_openstack_username
+keystone_password: your_openstack_password
+keystone_tenant_name: your_openstack_tenant
+keystone_url: https://region-b.geo-1.identity.hpcloudsvc.com:35357/v2.0/
+region: region-b.geo-1
+manager_public_key_name: manager-kp
+agent_public_key_name: agent-kp
+image_id: 8c096c29-a666-4b82-99c4-c77dc70cfb40
+flavor_id: 102
+external_network_name: Ext-Net
 
-{
-    "keystone_username": "your_openstack_username",
-    "keystone_password": "your_openstack_password",
-    "keystone_tenant_name": "your_openstack_tenant",
-    "keystone_url": "https://region-b.geo-1.identity.hpcloudsvc.com:35357/v2.0/",
-    "region": "region-b.geo-1",
-    "manager_public_key_name": "manager-kp",
-    "agent_public_key_name": "agent-kp",
-    "image_id": "8c096c29-a666-4b82-99c4-c77dc70cfb40",
-    "flavor_id": "102",
-    "external_network_name": "Ext-Net",
-
-    "use_existing_manager_keypair": false,
-    "use_existing_agent_keypair": false,
-    "manager_server_name": "cloudify-management-server",
-    "manager_server_user": "ubuntu",
-    "manager_server_user_home": "/home/ubuntu",
-    "manager_private_key_path": "~/.ssh/cloudify-manager-kp.pem",
-    "agent_private_key_path": "~/.ssh/cloudify-agent-kp.pem",
-    "agents_user": "ubuntu",
-    "nova_url": "",
-    "neutron_url": "",
-    "resources_prefix": "cloudify"
-}
-
+use_existing_manager_keypair: false
+use_existing_agent_keypair: false
+manager_server_name: cloudify-management-server
+manager_server_user: ubuntu
+manager_server_user_home: /home/ubuntu
+manager_private_key_path: ~/.ssh/cloudify-manager-kp.pem
+agent_private_key_path: ~/.ssh/cloudify-agent-kp.pem
+agents_user: ubuntu
+nova_url: ''
+neutron_url: ''
+resources_prefix: cloudify
 {% endhighlight %}
 
 You will, at the very least, have to provide the following:
@@ -125,7 +121,7 @@ Now you're ready to bootstrap your Cloudify manager.
 To do so type the following command in your shell:
 
 {% highlight bash %}
-cfy bootstrap --install-plugins -p openstack.yaml -i inputs.json
+cfy bootstrap --install-plugins -p openstack.yaml -i inputs.yaml
 {% endhighlight %}
 
 {%note title=Note%}
@@ -192,24 +188,22 @@ This blueprint defines some input parameters:
 Let's make a copy of the inputs template already provided and edit it:
 
 {% highlight bash %}
-cd cloudify-nodecellar-example/inputs/openstack.json.template
-cp openstack.json.template inputs.json
+cd cloudify-nodecellar-example/inputs/openstack.yaml.template
+cp openstack.yaml.template inputs.yaml
 {% endhighlight %}
 
-The inputs.json file should look somewhat like this:
+The inputs.yaml file should look somewhat like this:
 
-{%highlight json%}
-{
-    "image": "8c096c29-a666-4b82-99c4-c77dc70cfb40",
-    "flavor": "102",
-    "agent_user": "ubuntu"
-}
+{%highlight yaml%}
+image: 8c096c29-a666-4b82-99c4-c77dc70cfb40
+flavor: 102
+agent_user: ubuntu
 {%endhighlight%}
 
 Next, we need to create a deployment. To do so, type the following command:
 
 {%highlight bash%}
-cfy deployments create -b nodecellar -d nodecellar --inputs inputs.json
+cfy deployments create -b nodecellar -d nodecellar --inputs inputs.yaml
 {%endhighlight%}
 
 We've now created a deployment named `nodecellar` based on a blueprint with the same name. This deployment is not yet materialized, since we haven't issued an installation command. If you click the "Deployments" icon in the left sidebar in the web UI, you will see that all nodes are labeled with 0/1, which means they're pending creation.

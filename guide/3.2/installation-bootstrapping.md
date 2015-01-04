@@ -48,12 +48,12 @@ sudo pip install -r requirements.txt
 {%endnote%}
 
 
-Next, create an inputs JSON file. This file will serve as the configuration for the manager blueprint inputs. Note that the various manager blueprints folders offer a *inputs.json.template* file, which can be copied and edited with the desired values.
+Next, create an inputs YAML file. This file will serve as the configuration for the manager blueprint inputs. Note that the various manager blueprints folders offer a *inputs.yaml.template* file, which can be copied and edited with the desired values.
 
-Finally, run the `cfy bootstrap` command, pointing it to the manager blueprint file and the inputs JSON file, like so:
+Finally, run the `cfy bootstrap` command, pointing it to the manager blueprint file and the inputs YAML file, like so:
 
 {% highlight sh %}
-cfy bootstrap -p /path/to/manager/blueprint/file -i /path/to/inputs/json/file
+cfy bootstrap -p /path/to/manager/blueprint/file -i /path/to/inputs/yaml/file
 {%endhighlight%}
 
 
@@ -142,14 +142,14 @@ If you are using an image of a different distribution, you'll have to make sure 
 
 ## Docker Implementation Architecture
 
-  * The Cloudify docker implementation makes use of two docker containers:  
-    
+  * The Cloudify docker implementation makes use of two docker containers:
+
     * `cfy` - Contains the entire Cloudify manager service stack.
     * `data` - Contains mount points that are to be used for persistence purposes (ElasticSearch, InfluxDB, etc.).
 
   * Docker persistence - Docker containers do not persist their files. For this reason, the Cloudify docker implementation uses a Docker data container. The docker data container's sole purpose is to hold data written to it by the main cloudify container. The data container itself does not have to be running and acts as an external mountable device. By defining the mount point paths on the data container, it's possible to share the data between the containers using the `--volumes-from` flag. You can read more about the docker data container architecture [here](https://docs.docker.com/userguide/dockervolumes/).
 
-  * Container management - Since the docker implementation is meant to run on any Linux distribution supported by docker, Cloudify lets docker manage the container's lifecycle. To do so, it starts the management container using the `--restart=always` flag. 
+  * Container management - Since the docker implementation is meant to run on any Linux distribution supported by docker, Cloudify lets docker manage the container's lifecycle. To do so, it starts the management container using the `--restart=always` flag.
 
   * File management - To allow file sharing between the hosting VM and the cloudify container, mount points are being set to `/vm/home/:/container/home/` and `/opt/manager/resources/packages:/opt/manager/resources/packages`. This allows the bootstreap process to pass files such as external agent packages and agent keypairs onto the container.
 
