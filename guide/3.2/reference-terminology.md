@@ -58,6 +58,15 @@ See the definition [here]({{page.arch_link}}#bootstrap).
 
 ### **Capabilities** (Coming soon...)
 
+### **CLI Inputs**
+When passing inputs/parameters with the `--inputs/--parameters` flags to different CLI commands, mutiple forms are supported.
+
+* Simple Key/Value format (e.g. `--inputs my_key1=my_value;my_key2=my_value2`)
+* Path to YAML file (e.g. `--inputs path/to/inputs.yaml`)
+* Inline YAML (e.g. `--inputs '{"my_key1": "my_value", "my_key2": "my_value"}'`. JSON is a subset of YAML so the previous example
+is completely valid).
+
+
 ### **Context Object**
 The context object is an object passed to [plugin](#plugin) [operations](#operation) as an argument named `ctx` which contains the context of the operation invocation.
 
