@@ -24,10 +24,23 @@ For more information about CloudStack, please refer to [cloudstack.apache.org](h
 
 **Properties:**
 
-  * `server` *Required*. key-value server configuration as described in ...
+  * `server` *Required*. key-value server configuration.
+   * `image_id` *Required* the UUID of the Cloudstack vm image to use
+   * `size` *Required* The name of the service offering for the VM.
+   * `zone` *Required* The name of the zone where the VM will be deployed.
+   * `expunge` Boolean (True/False) option to specify if the VM needs to be expunged on deletion, normally VM's will only be expunged on intervals by cloudstack, not expunging VM's on removal might result in failing uninstall workflows. e.g. cloudstack cannot delete a network if it contains VM's
   * `management_network_name` Cloudify's management network name. Every server should be connected to the management network. If the management network's name information   * `use_external_resource` a boolean for setting whether to create the resource or use an existing one. See the [using existing resources section](#using-existing-resources). Defaults to `false`.
   * `resource_id` name to give to the new resource or the name or ID of an existing resource when the `use_external_resource` property is set to `true` (see the [using existing resources section](#using-existing-resources)). Defaults to `''` (empty string).
   * `cloudstack_config` see the [CloudStack Configuration](#cloudstack-configuration).
+  * `portmaps` List of portmaps to create for this VM, these portmaps will only be created if there is a relationship with a floating ip.
+   * `protocol` *Required*. either UDP or TCP
+   * `private_port` *Required* TCP/UDP port on vm side
+   * `public_port` *Required* TCP/UDP port to use on the public side (floating ip)
+   * `private_end_port` End private port if you want to create a port range for mapping
+   * `public_end_port` End public port if you want to create a port range for mapping
+  * `network` network configuration
+   * `default_network` Name of the default network which will be configured with a default gateway only applicable if the vm is multihomed.
+   * `ip_address` Optional, normally the vm get's assigned a random ip address from within the network range, use this option to specify a specific address instead of random.
 
 **Mapped Operations:**
 
@@ -44,8 +57,8 @@ See the [common Runtime Properties section](#runtime-properties).
 
 Two additional runtime-properties are available on node instances of this type once the `cloudify.interfaces.host.get_state` operation succeeds:
 
-  * `networks` server's networks' information, as retrieved from the Nova service.
   * `ip` the private IP (ip on the internal network) of the server.
+  * `networking_type` the type of networking used by this VM, either network or security_group
 
 
 
@@ -119,6 +132,17 @@ See the [common Runtime Properties section](#runtime-properties).
   * `use_external_resource` a boolean for setting whether to create the resource or use an existing one. See the [using existing resources section](#using-existing-resources). Defaults to `false`.
   * `resource_id` name to give to the new resource or the name or ID of an existing resource when the `use_external_resource` property is set to `true` (see the [using existing resources section](#using-existing-resources)). Defaults to `''` (empty string).
   * `cloudstack_config` see the [CloudStack Configuration](#cloudstack-configuration).
+   * `network` name-value pairs of configuration items for this network
+   * `vpc` If this network is part of a VPC then specify the VPC name here.
+   * `service_offering` *Required*. The name of the service offering for this network
+   * `zone` *Required* the zone where this network will be deployed.
+   * `gateway` the IP address to use as gateway for this network
+   * `netmask` the netmask to use for this network
+  * `firewall` List of firewall rules
+   * `type` either ingress or egress, where egress is traffic to the public network/internet and ingress is traffic flowing from the public network / internet.
+   * `protocol` either TCP or UDP
+   * `cidr` the [CIDR] (http://en.wikipedia.org/wiki/Classless_Inter-Domain_Routing#CIDR_blocks) in 192.168.0/24 notation for this firewall rule
+   * `ports` a list of ports e.g.: ports:[80,443]
 
 **Mapped Operations:**
 
@@ -135,14 +159,11 @@ See the [common Runtime Properties section](#runtime-properties).
 
 **Derived From:** [cloudify.nodes.Root](reference-types.html)
 
+In cloudstack lingo this is better known as a public ip.
+
 **Properties:**
 
-  * `floatingip` key-value floatingip configuration as described in [TBD](#). Defaults to `{}`.
-    * **Notes:**
-      * a `floating_ip_address` key can be passed for using an existing allocated floating IP. The value is the existing floating IP address.
-    * **Sugaring:**
-      * `floating_network_name` will automatically resolve the CloudStack name of a network into the `floating_network_id`
-      * `ip` equivalent of the `floating_ip_address` key
+  * `floatingip` There are no additional configuration parameters available yet. Assignment is handled by relationships Defaults to `{}`.
   * `use_external_resource` a boolean for setting whether to create the resource or use an existing one. See the [using existing resources section](#using-existing-resources). Defaults to `false`.
   * `resource_id` the IP or ID of an existing floating IP when the `use_external_resource` property is set to `true` (see the [using existing resources section](#using-existing-resources)). Defaults to `''` (empty string).
   * `cloudstack_config` see the [CloudStack Configuration](#cloudstack-configuration).
@@ -167,8 +188,10 @@ Note that the actual IP is available via the `floating_ip_address` runtime-prope
 
 **Properties:**
 
-  * `network` *Required*. TBD
-  * `firewall` TBD
+  * `network` *Required*. The network configuration for this VPC
+   * `service_offering` *Required* The network service offering to use for this VPC
+   * `zone` *Required* The zone where this VPC will be created
+   * `cidr` *Required* The [CIDR] (http://en.wikipedia.org/wiki/Classless_Inter-Domain_Routing#CIDR_blocks) in 192.168.0/24 notation to use as supernet for this VPC, all networks within this VPC need to be inside this supernet.
   * `use_external_resource` a boolean for setting whether to create the resource or use an existing one. See the [using existing resources section](#using-existing-resources). Defaults to `false`.
   * `resource_id` name to give to the new resource or the name or ID of an existing resource when the `use_external_resource` property is set to `true` (see the [using existing resources section](#using-existing-resources)). Defaults to `''` (empty string).
   * `cloudstack_config` see the [CloudStack Configuration](#cloudstack-configuration).
@@ -205,7 +228,7 @@ Some relationships take effect in non-relationship operations, e.g. a subnet whi
 
 ## cloudify.cloudstack.floating_ip_connected_to_network
 
-**Description:** A relationship connecting a floating IP with a network.
+**Description:** A relationship connecting a floating IP to a network.
 
 **Mapped Operations:**
 
