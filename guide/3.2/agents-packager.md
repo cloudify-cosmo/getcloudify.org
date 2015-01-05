@@ -58,8 +58,8 @@ During the creation process, the agent-packager performs the following:
 * Installs the `cloudify-agent` module into the virtualenv.
 * Installs any additional user chosen Cloudify plugins and Python modules into the virtualenv.
 * Validates that all specified modules were installed.
-* Creates a tar file containing the virtualenv.
 * Generates an `included_plugins.py` file. This will be used by the `cloudify-agent` module to automatically load all plugins specified in the file.
+* Creates a tar file containing the virtualenv.
 
 {%note title=Note%}
 The tool will create a tar file to be used with Cloudify's [agent installer plugin](plugin-linux-agent-installer.html). For other agent installer implementations, a different type of agent might be required.
@@ -123,7 +123,7 @@ import agent_packager.packager as cfyap
 
 config = {}  # dict containing the configuration as given in the yaml file.
 
-cfyap.create(config=config, config_file=None, force=False, dry=False, no_validate=False, verbose=True)
+cfyap.create(config=config, config_file=None, force=False, dryrun=False, no_validate=False, verbose=True)
 {%endhighlight%}
 
 {%note title=Note%}

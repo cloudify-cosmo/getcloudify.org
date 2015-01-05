@@ -17,6 +17,7 @@ linux_agent_installer_link: plugin-linux-agent-installer.html
 windows_agent_installer_link: plugin-windows-agent-installer.html
 plugin_installer_link: plugin-installer-plugin.html
 cloudify_agent_link: agents-cloudify-agent-module.html
+agent_packager_link: agents-packager.html
 
 ---
 {%summary%}{{page.abstract}}{%endsummary%}
@@ -27,11 +28,11 @@ This is currently relevant to Linux based agents only!
 
 # Overview
 
-Cloudify's agent is based upon a module called `cloudify-agent`.
+Cloudify's agent is based upon a Python module called `cloudify-agent`.
 
 This module provides the functionality and configuration files required to run Cloudify's agent:
 
-* A CLI tool called `cloudify-agent` allowing you to run the agent with different parameters.
+* A CLI tool called `cfy-agent` allowing you to run the agent with different parameters.
 * The logic for installing the agent as a service on the machine you're running in.
 
 # Agent Installation
@@ -41,10 +42,10 @@ The flow Cloudify implements for installing an agent using the [agent-installer]
 * The agent's tarfile will be copied to the destination host.
 * The agent installer will:
     * Extract the tar on the destination host.
-    * Execute the `cloudify-agent` CLI tool with the relevant parameters.
-* The `cloudify-agent` CLI tool will then install itself as a service by:
-    * Creating the celery configuration file.
-    * Copying the required files for the relevant process manager.
+    * Execute the `cfy-agent` CLI tool with the relevant parameters.
+* The `cfy-agent` CLI tool will then install itself as a service by:
+    * Generating the necessary celery configuration file.
+    * Copying the required files for the relevant process manager to install itself as a service.
 
 # Agent Configuration Files
 
@@ -58,5 +59,5 @@ Additional process managers might be added in the future (e.g. Upstart, Runit, S
 {%endnote%}
 
 {%note title=Note%}
-These files will not necessarily work on all distributions/releases and you might provide your own when creating an agent.
+These files will not necessarily work on all distributions/releases and you might provide your own when creating an agent using our [agent-packager]({{page.agent_packager_link}}).
 {%endnote%}
