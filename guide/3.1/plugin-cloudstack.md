@@ -355,6 +355,7 @@ The [CloudStack manager blueprint](reference-cloudstack-manager.html) and the Cl
 # Example
 
 For a detailed example please refer to the two nodecellar blueprints:
+
 * [The default nodecellar CloudStack blueprint](https://github.com/cloudify-cosmo/cloudify-nodecellar-example/blob/3.1/cloudstack-blueprint.yaml), which defines a network for the application, two VMs, one of which attached to a floating IP, and the application components (a Mongo database and a nodejs server)
 * [The nodecellar CloudStack VPC blueprint](https://github.com/cloudify-cosmo/cloudify-nodecellar-example/blob/3.1/cloudstack-vpc-blueprint.yaml), which defines a VPC, two networks which are attached to it (one for the web tier and one for the database tier), two VMs (one in each network), a floating IP and the application components. 
 
