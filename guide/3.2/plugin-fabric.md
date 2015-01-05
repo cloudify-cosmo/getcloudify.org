@@ -131,7 +131,76 @@ node_templates:
               important_prop2: 300
 {%endhighlight%}
 
-This example is very similar to the previous one with the following difference. If the fabric task you want to execute is already installed in the python environment in which the operation will run, you can specify the python path to this function.
+This example is very similar to the previous one with the following difference. If the fabric task you want to execute is already installed in the python environment in which the operation will run, you can 
+specify the python path to this function.
+
+
+# Running scripts
+
+The fabric plugin can execute scripts remotely and provides access to the `ctx` API for interacting with Cloudify in the same manner as the [script plugin](plugin-script.html) does.
+
+Example:
+
+{% highlight yaml %}
+node_templates:
+  example_node:
+    type: cloudify.nodes.WebServer
+    interfaces:
+      cloudify.interfaces.lifecycle:
+        start:
+          implementation: fabric.fabric_plugin.tasks.run_script
+          inputs:
+            # Path to the script relative to the blueprint directory
+            script_path: scripts/start.sh
+            MY_ENV_VAR: some-value
+{%endhighlight%}
+
+{%note title=Note%}
+The fabric plugin doesn't support evaluating Python scripts as the script plugin does and therefore the `ctx` object cannot be used in Python scripts as the script plugin allows.
+Accessing the `ctx` API should be done by calling the `ctx` process. For example: ```os.system('ctx logger info "hello"')```.
+{%endnote%}
+
+
+## Operation Inputs
+
+Operation inputs passed to the `run_script` task will be available as environment variables in the script's execution environment.
+Complex data structures such as dictionaries and lists will be JSON encoded when exported as environment variables.
+
+{%note title=Note%}
+`fabric_env`, `script_path` and `fabric_env` are reserved operation inputs used by the `run_script` task and therefore won't be available as environment variables.
+{%endnote%}
+
+
+## Process Configuration
+
+The `run_script` task accepts a `process` input which allows configuring the process which runs the script:
+
+* `cwd` - The working directory to use when running the script.
+* `args` - List of arguments to pass to the script.
+* `command_prefix` - The command prefix to use when running the script. This is not necessary if the script contains the `#!` line.
+
+Example:
+
+{% highlight yaml %}
+node_templates:
+  example_node:
+    type: cloudify.nodes.WebServer
+    interfaces:
+      cloudify.interfaces.lifecycle:
+        start:
+          implementation: fabric.fabric_plugin.tasks.run_script
+          inputs:
+            script_path: scripts/start.sh
+            # Optional
+            process:
+              # Optional
+              cwd: /home/ubuntu
+              # Optional
+              command_prefix: 
+              # Optional
+              args: [--arg1, --arg2, arg3]                
+{%endhighlight%}
+
 
 # SSH configuration
 The fabric plugin will extract the correct host IP address based on the node's host. It will also use the username and key file path if they were set globally during the bootstrap process. However, it is possible to override these values and additional SSH configuration by passing `fabric_env` to operation inputs. This applies to `run_commands`, `run_task` and `run_module_task`. The `fabric_env` input is passed as is to the underlying [Fabric]({{page.fabric_link}}/en/latest/usage/env.html) library, so check their documentation for additional details.
