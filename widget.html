@@ -5,7 +5,7 @@ category: Widget
 ---
 
 <section id="content">
-    <div class="container" ng-app="widgetApp">
+    <div class="container" id="widgetPage" ng-app="widgetApp">
         <div id="resultsDiv" class="DocumentsWrap"></div>
         <div id="pageContent" ng-controller="widgetController">
             <div class="row">
@@ -53,13 +53,26 @@ category: Widget
                     </div>
 
                 </div>
-                <div class="span7 offset1">
-                    <a class="hover-wrap fancybox fancybox.iframe" data-fancybox-group="gallery"
-                       title="Cloudify Intelligent Orchestration on Any Cloud"
-                       href="http://www.youtube.com/embed/1OFTneg_WKE?enablejsapi=1&wmode=opaque">
+                <div class="span8 media-section">
+                    <div class="youtube-iframe" ng-show="!widgetController.machineStarted">
+                        <a
+                            class="hover-wrap fancybox fancybox.iframe" data-fancybox-group="gallery"
+                            title="Cloudify Intelligent Orchestration on Any Cloud"
+                            href="http://www.youtube.com/embed/1OFTneg_WKE?enablejsapi=1&wmode=opaque">
                         <img class="bannerWidgetTextImg" src="img/hpBanner21.png"
-                             alt="Cloudify - New Intelligence in Cloud Orchestration and Cloud Automation"/></a>
+                             alt="Cloudify - New Intelligence in Cloud Orchestration and Cloud Automation"/></a></div>
 
+                    <div class="butterfly-iframe" ng-show="!!widgetController.machineStarted">
+
+                        <div id="butterflyWrapper" class="widgetButterfly">
+                            <div class="butterfly-iframe-title"> Try out the <a href="[[widgetController.butterflySource]]" target="_blank" >interactive shell</a></div>
+                            <iframe class="span8 video-container" src="[[widgetController.butterflySource]]">
+
+                            </iframe>
+
+                        </div>
+
+                    </div>
                 </div>
             </div>
         </div>

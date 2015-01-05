@@ -52,6 +52,8 @@
 	<!-- custom -->
 	<!--<link rel="alternate" type="application/rss+xml" title="RSS 2.0" href="/atom.xml" />-->
 	<!-- css -->
+
+    <!-- build:css({.tmp,_site}) styles/main.css -->
 	<link href="/css/bootstrap.css" rel="stylesheet" />
 	<link href="/css/bootstrap-responsive.css" rel="stylesheet" />		
 	<link href="/css/guide.css" rel="stylesheet" />
@@ -61,6 +63,9 @@
 	<link href="/css/cslider.css" rel="stylesheet" />
 	<link href="/css/style.css" rel="stylesheet" />	
 	<link href="/css/syntax.css" rel="stylesheet" />
+    <!-- endbuild -->
+
+    <link href="/css/main.css" rel="stylesheet" /> <!-- this is a sass file, search for main.scss instead -->
 
 	<link href="http://netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css" rel="stylesheet">
 	<!-- Theme skin -->
@@ -77,11 +82,13 @@
 	<link rel="apple-touch-icon-precomposed" sizes="72x72" href="/ico/apple-touch-icon-72-precomposed.png" />
 	<link rel="apple-touch-icon-precomposed" href="/ico/apple-touch-icon-57-precomposed.png" />
 	<link rel="shortcut icon" href="/favicon.ico" type="image/x-icon" />
+    <!-- build:js({.tmp,app,_site}) scripts/headsection.js -->
 	<script src="/js/jquery.js"></script>
 	<script src="http://code.jquery.com/ui/1.10.3/jquery-ui.js"></script>
     <script src="/bower_components/angular/angular.min.js"></script>
     <script src="/bower_components/cloudify-widget-angular-controller/index.js"></script>
     <script src="/js/widget/controller.js"></script>
+    <!-- endbuild -->
 
    <!-- Google analytics Code-->
 	<script>

@@ -23,7 +23,7 @@ dependencies:
   override:
     - bundle install: 
         timeout: 3600 # fail if command has no output for 60 minutes
-    - bundle exec jekyll build:
+    - bundle exec jekyll build --trace:
         timeout: 3600 # fail if command has no output for 60 minutes
     - pip install LinkChecker
   cache_directories:

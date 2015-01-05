@@ -38,13 +38,13 @@ A manager blueprint consists of the following:
             inputs:
               task_mapping: cloudify_cli.bootstrap.tasks.bootstrap
               task_properties:
-                cloudify_packages: { get_property: [manager, cloudify_packages] }         
+                cloudify_packages: { get_property: [manager, cloudify_packages] }
               fabric_env:
                 user: { get_input: ssh_user }
                 key_filename: { get_input: ssh_key_filename }
       ...
   {%endhighlight%}
-  
+
 
 The bootstrap task takes several parameters which are passed via the `task_properties` input. You can find their documentation in the [bootstrap task API reference](reference-bootstrap-task.html#api).
 
@@ -56,7 +56,7 @@ There are a few conventions for writing Manager blueprints which, while not bein
 
 * A Manager blueprint should have a single output named `manager_ip`, with its value being the Manager's host *public* IP address.
 
-* If a Manager blueprint has inputs, the blueprint should be provided alongside a file named `inputs.json.template`, which contains the required and optional inputs, where the optional inputs' default values are pre-written in the file. This allows for users of the blueprint to use it without having to even peek inside the blueprint itself.
+* If a Manager blueprint has inputs, the blueprint should be provided alongside a file named `inputs.yaml.template`, which contains the required and optional inputs, where the optional inputs' default values are pre-written in the file. This allows for users of the blueprint to use it without having to even peek inside the blueprint itself.
 
 * The bootstrap task should be mapped to the `cloudify.interfaces.lifecycle.start` operation of the *manager* node.
 

@@ -66,7 +66,9 @@ This website is hosted on AWS S3. Every push to this reposiroty triggers a build
 
 You can find these guidelines [here](http://getcloudify.org/guide/3.0/cheatsheet.html)
 
+## Adding CSS
 
+This project uses sass. All css rules go into partials ( _file.scss ) which can be found under _sass folder.
 
 
 

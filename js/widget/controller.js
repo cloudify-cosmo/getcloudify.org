@@ -5,7 +5,7 @@ widgetModule.config(function($interpolateProvider) {
     $interpolateProvider.endSymbol(']]');
 });
 
-widgetModule.controller('widgetController', function( $scope, $controller ,$log, $http) {
+widgetModule.controller('widgetController', function( $scope, $controller ,$log, $http, $sce) {
     $controller('GsGenericWidgetCtrl', {$scope:$scope} );
     $scope.genericWidgetModel.element = $('#widgetFrame')[0];
 
@@ -116,6 +116,7 @@ widgetModule.controller('widgetController', function( $scope, $controller ,$log,
                 $scope.widgetController.widgetStarted = true;
                 $scope.widgetController.machineStarted = true;
                 $scope.widgetController.machineIp = status.nodeModel.publicIp;
+                $scope.widgetController.butterflySource = $sce.trustAsResourceUrl('http://' + $scope.widgetController.machineIp + ':8080/');
                 $scope.widgetController.expires = new Date(status.nodeModel.expires);
                 $scope.widgetController.timeLeft = new Date(status.nodeModel.expires -  new Date().getTime()) ;
 

@@ -48,12 +48,12 @@ sudo pip install -r requirements.txt
 {%endnote%}
 
 
-Next, create an inputs JSON file. This file will serve as the configuration for the manager blueprint inputs. Note that the various manager blueprints folders offer a *inputs.json.template* file, which can be copied and edited with the desired values.
+Next, create an inputs YAML file. This file will serve as the configuration for the manager blueprint inputs. Note that the various manager blueprints folders offer a *inputs.yaml.template* file, which can be copied and edited with the desired values.
 
-Finally, run the `cfy bootstrap` command, pointing it to the manager blueprint file and the inputs JSON file, like so:
+Finally, run the `cfy bootstrap` command, pointing it to the manager blueprint file and the inputs YAML file, like so:
 
 {% highlight sh %}
-cfy bootstrap -p /path/to/manager/blueprint/file -i /path/to/inputs/json/file
+cfy bootstrap -p /path/to/manager/blueprint/file -i /path/to/inputs/yaml/file
 {%endhighlight%}
 
 
@@ -102,120 +102,21 @@ If you wish to write a custom manager blueprint (whether it be for a custom beha
 
 # Bootstrapping using Docker
 
-Beginning with version 3.1, Cloudify's Management Environment can be bootstapped using the provided Docker images.
+Alternatively, it is possible to bootstrap a Cloudify Manager on top of Docker.
 
 Bootstrapping using Docker provides several advantages:
 
-* The Cloudify Manager is now available on Linux distributions other than Ubuntu 12.04.
+* The Cloudify Manager becomes available on Linux distributions other than Ubuntu 12.04.
 * Users can upgrade containers specific to the service they want to upgrade (Currently, there's only one Application container. In the future, each container will host one service [e.g. Logstash, Elasticsearch, etc..])
 * Using Docker simplifies Cloudify's bootstrap process, and will help in making it much faster in future versions.
 * In future versions, using docker would allow to migrate your entire manager onto an entirely different machine.
 
-The [provided Docker Manager Blueprints](https://github.com/cloudify-cosmo/cloudify-manager-blueprints) contain the configuration for bootstrapping using Docker, though, by default, the configuration for Docker is commented out. As of Cloudify 3.2, Docker will be the default method for bootstrapping.
+To bootstrap with docker, use the appropriate manager blueprint, available in the [cloudify-manager-blueprints repository](https://github.com/cloudify-cosmo/cloudify-manager-blueprints).
 
 {%note title=Note%}
 Please verify the [prerequisites](installation-general.html#bootstrapping-using-docker) before bootstrapping using Docker.
 {%endnote%}
 
-
-## Modifications required to bootstrap with Docker
-
-To bootstrap using Docker, you will need to do the following:
-
-### Manager Blueprint Modifications
-
-1) Comment the default bootstrap task and uncomment the docker bootstrap task. To do so, look in the manager blueprint under node_templates, manager, interfaces, cloudify.interfaces.lifecycle, start, inputs. Alternatively, see [here](https://github.com/cloudify-cosmo/cloudify-manager-blueprints/blob/3.1/openstack/openstack.yaml#L272-L280) for an example from the Openstack manager blueprint.
-
-This is how this section looks before the modification:
-
-{% highlight yaml %}
-# task_mapping: cloudify_cli.bootstrap.tasks.bootstrap_docker
-task_mapping: cloudify_cli.bootstrap.tasks.bootstrap
-task_properties:
-    cloudify_packages: { get_property: [manager, cloudify_packages] }
-    agent_local_key_path: { get_property: [agent_keypair, private_key_path] }
-    provider_context: { get_attribute: [manager, provider_context] }
-    # Optional Docker related properties
-    # docker_path: docker
-    # use_sudo: true
-
-    ...
-{%endhighlight%}
-
-After the modification, it should look like so:
-
-{% highlight yaml %}
-task_mapping: cloudify_cli.bootstrap.tasks.bootstrap_docker
-# task_mapping: cloudify_cli.bootstrap.tasks.bootstrap
-task_properties:
-    cloudify_packages: { get_property: [manager, cloudify_packages] }
-    agent_local_key_path: { get_property: [agent_keypair, private_key_path] }
-    provider_context: { get_attribute: [manager, provider_context] }
-    # Optional Docker related properties
-    # docker_path: docker
-    # use_sudo: true
-
-    ...
-{%endhighlight%}
-
-  You may optionally uncomment and set the related properties `docker_path` and `use_sudo` (seen [here](https://github.com/cloudify-cosmo/cloudify-manager-blueprints/blob/3.1/openstack/openstack.yaml#L279-L280)). See more information about these properties in the [bootstrap task API reference](reference-bootstrap-task.html#api).
-
-
-
-2) Comment the server packages and uncomment the docker packages. To do so, look in the manager blueprint under node_templates, manager, properties, cloudify_packages. See [here](https://github.com/cloudify-cosmo/cloudify-manager-blueprints/blob/3.1/openstack/openstack.yaml#L220-L232) for an example from the Openstack manager blueprint.
-
-This is how this section looks before the modification:
-
-{% highlight yaml %}
-server:
-  components_package_url: http://gigaspaces-repository-eu.s3.amazonaws.com/org/cloudify3/3.1.0/ga-RELEASE/cloudify-components_3.1.0-ga-b85_amd64.deb
-  core_package_url: http://gigaspaces-repository-eu.s3.amazonaws.com/org/cloudify3/3.1.0/ga-RELEASE/cloudify-core_3.1.0-ga-b85_amd64.deb
-  ui_package_url: http://gigaspaces-repository-eu.s3.amazonaws.com/org/cloudify3/3.1.0/ga-RELEASE/cloudify-ui_3.1.0-ga-b85_amd64.deb
-agents:
-  ubuntu_agent_url: http://gigaspaces-repository-eu.s3.amazonaws.com/org/cloudify3/3.1.0/ga-RELEASE/cloudify-ubuntu-agent_3.1.0-ga-b85_amd64.deb
-  centos_agent_url: http://gigaspaces-repository-eu.s3.amazonaws.com/org/cloudify3/3.1.0/ga-RELEASE/cloudify-centos-final-agent_3.1.0-ga-b85_amd64.deb
-  windows_agent_url: http://gigaspaces-repository-eu.s3.amazonaws.com/org/cloudify3/3.1.0/ga-RELEASE/cloudify-windows-agent_3.1.0-ga-b85_amd64.deb
-# For bootstrapping the manager on a docker container, comment out the above server package config and uncomment the docker config.
-# In addition, change the manager bootstrap task mapping below.
-# docker:
-#   docker_url: http://gigaspaces-repository-eu.s3.amazonaws.com/org/cloudify3/3.1.0/ga-RELEASE/cloudify-docker_3.1.0-ga-b85.tar
-#   docker_data_url: http://gigaspaces-repository-eu.s3.amazonaws.com/org/cloudify3/3.1.0/ga-RELEASE/cloudify-docker-data_3.1.0-ga-b85.tar
-{%endhighlight%}
-
-After the modification, it should look like so:
-
-{% highlight yaml %}
-# server:
-  # components_package_url: http://gigaspaces-repository-eu.s3.amazonaws.com/org/cloudify3/3.1.0/ga-RELEASE/cloudify-components_3.1.0-ga-b85_amd64.deb
-  # core_package_url: http://gigaspaces-repository-eu.s3.amazonaws.com/org/cloudify3/3.1.0/ga-RELEASE/cloudify-core_3.1.0-ga-b85_amd64.deb
-  # ui_package_url: http://gigaspaces-repository-eu.s3.amazonaws.com/org/cloudify3/3.1.0/ga-RELEASE/cloudify-ui_3.1.0-ga-b85_amd64.deb
-agents:
-  ubuntu_agent_url: http://gigaspaces-repository-eu.s3.amazonaws.com/org/cloudify3/3.1.0/ga-RELEASE/cloudify-ubuntu-agent_3.1.0-ga-b85_amd64.deb
-  centos_agent_url: http://gigaspaces-repository-eu.s3.amazonaws.com/org/cloudify3/3.1.0/ga-RELEASE/cloudify-centos-final-agent_3.1.0-ga-b85_amd64.deb
-  windows_agent_url: http://gigaspaces-repository-eu.s3.amazonaws.com/org/cloudify3/3.1.0/ga-RELEASE/cloudify-windows-agent_3.1.0-ga-b85_amd64.deb
-# For bootstrapping the manager on a docker container, comment out the above server package config and uncomment the docker config.
-# In addition, change the manager bootstrap task mapping below.
-docker:
-  docker_url: http://gigaspaces-repository-eu.s3.amazonaws.com/org/cloudify3/3.1.0/ga-RELEASE/cloudify-docker_3.1.0-ga-b85.tar
-  docker_data_url: http://gigaspaces-repository-eu.s3.amazonaws.com/org/cloudify3/3.1.0/ga-RELEASE/cloudify-docker-data_3.1.0-ga-b85.tar
-{%endhighlight%}
-
-
-
-## Application Blueprint Modification
-
-Configure each VM node to contain the home_dir property as follows:
-
-{% highlight yaml %}
-cloudify_agent:
-    default:
-        # This should be the home directory of the host's user (e.g. /home/ubuntu, /root, /home/my_user...)
-        home_dir: /home/ubuntu
-{%endhighlight%}
-
-{%note title=Note%}
-As of Cloudify 3.2, this modification will no longer be necessary.
-{%endnote%}
 
 Cloudify's docker implementation consists of two docker images:
 
@@ -241,14 +142,14 @@ If you are using an image of a different distribution, you'll have to make sure 
 
 ## Docker Implementation Architecture
 
-  * The Cloudify docker implementation makes use of two docker containers:  
-    
+  * The Cloudify docker implementation makes use of two docker containers:
+
     * `cfy` - Contains the entire Cloudify manager service stack.
     * `data` - Contains mount points that are to be used for persistence purposes (ElasticSearch, InfluxDB, etc.).
 
   * Docker persistence - Docker containers do not persist their files. For this reason, the Cloudify docker implementation uses a Docker data container. The docker data container's sole purpose is to hold data written to it by the main cloudify container. The data container itself does not have to be running and acts as an external mountable device. By defining the mount point paths on the data container, it's possible to share the data between the containers using the `--volumes-from` flag. You can read more about the docker data container architecture [here](https://docs.docker.com/userguide/dockervolumes/).
 
-  * Container management - Since the docker implementation is meant to run on any Linux distribution supported by docker, Cloudify lets docker manage the container's lifecycle. To do so, it starts the management container using the `--restart=always` flag. 
+  * Container management - Since the docker implementation is meant to run on any Linux distribution supported by docker, Cloudify lets docker manage the container's lifecycle. To do so, it starts the management container using the `--restart=always` flag.
 
   * File management - To allow file sharing between the hosting VM and the cloudify container, mount points are being set to `/vm/home/:/container/home/` and `/opt/manager/resources/packages:/opt/manager/resources/packages`. This allows the bootstreap process to pass files such as external agent packages and agent keypairs onto the container.
 
