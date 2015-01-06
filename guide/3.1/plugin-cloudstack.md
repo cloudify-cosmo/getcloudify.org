@@ -141,7 +141,7 @@ See the [common Runtime Properties section](#runtime-properties).
   * `firewall` List of firewall rules
    * `type` either ingress or egress, where egress is traffic to the public network/internet and ingress is traffic flowing from the public network / internet.
    * `protocol` either TCP or UDP
-   * `cidr` the [CIDR] (http://en.wikipedia.org/wiki/Classless_Inter-Domain_Routing#CIDR_blocks) in 192.168.0/24 notation for this firewall rule
+   * `cidr` the [CIDR] (http://en.wikipedia.org/wiki/Classless_Inter-Domain_Routing#CIDR_blocks) in 192.168.1.0/24 notation for this firewall rule
    * `ports` a list of ports e.g.: ports:[80,443]
 
 **Mapped Operations:**
@@ -191,7 +191,7 @@ Note that the actual IP is available via the `floating_ip_address` runtime-prope
   * `network` *Required*. The network configuration for this VPC
    * `service_offering` *Required* The network service offering to use for this VPC
    * `zone` *Required* The zone where this VPC will be created
-   * `cidr` *Required* The [CIDR] (http://en.wikipedia.org/wiki/Classless_Inter-Domain_Routing#CIDR_blocks) in 192.168.0/24 notation to use as supernet for this VPC, all networks within this VPC need to be inside this supernet.
+   * `cidr` *Required* The [CIDR] (http://en.wikipedia.org/wiki/Classless_Inter-Domain_Routing#CIDR_blocks) in 192.168.1.0/24 notation to use as supernet for this VPC, all networks within this VPC need to be inside this supernet.
   * `use_external_resource` a boolean for setting whether to create the resource or use an existing one. See the [using existing resources section](#using-existing-resources). Defaults to `false`.
   * `resource_id` name to give to the new resource or the name or ID of an existing resource when the `use_external_resource` property is set to `true` (see the [using existing resources section](#using-existing-resources)). Defaults to `''` (empty string).
   * `cloudstack_config` see the [CloudStack Configuration](#cloudstack-configuration).
