@@ -51,7 +51,7 @@ The following [types]({{page.terminology_link}}#type) are basic types from which
         * `fs_mount_path` - The path of the mount point.
     * relationships:
         * `cloudify.relationships.file_system_depends_on_volume` - Used to create the file system on top of a volume.
-        * `cloudify.relationships.file_system_contained_in_compute` - - Used to create a mount point on a Compute instance to make the volume available.
+        * `cloudify.relationships.file_system_contained_in_compute` - Used to create a mount point on a Compute instance to make the volume available.
     * Example Usage:
 
           volume_fs:
