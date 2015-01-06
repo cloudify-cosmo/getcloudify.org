@@ -530,7 +530,7 @@ if (location.href.indexOf('/participate') != -1) {
 		var startdate = '';
 		var enddate = '';
 		//var futureeventsData = 'https://www.google.com/calendar/feeds/cloudifysource@gmail.com/public/full?orderby=starttime&sortorder=ascending&max-results=5&futureevents=true&alt=json';
-		var futureeventData = 'https://www.google.com/calendar/feeds/cloudifysource%40gmail.com/public/basic?orderby=starttime&sortorder=ascending&max-results=5&futureevents=true&alt=json';
+		var futureeventsData = 'https://www.google.com/calendar/feeds/cloudifysource%40gmail.com/public/basic?orderby=starttime&sortorder=ascending&max-results=5&futureevents=true&alt=json';
 		$.getJSON(futureeventsData,function(data){
 		  if(data.feed.entry!=undefined){
 		  for(var i = 0; i < data.feed.entry.length; i++){
