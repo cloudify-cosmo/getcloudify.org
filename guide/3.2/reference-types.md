@@ -43,6 +43,28 @@ The following [types]({{page.terminology_link}}#type) are basic types from which
 
 * `cloudify.nodes.Volume` - A persistent block storage volume
 
+* `cloudify.nodes.FileSystem` - A Writable File System
+    * properties:
+        * `use_external_resource` - Enables the use of already formatted volumes. (Boolean)
+        * `partition_type` - The partition type. Defaults to 83 which is a Linux Native Partition. (Integer)
+        * `fs_type` - The type of the File System. Supported types are [ext2, ext3, ext4, fat, ntfs, swap]
+        * `fs_mount_path` - The path of the mount point.
+    * relationships:
+        * `cloudify.relationships.file_system_depends_on_volume` - Used to create the file system on top of a volume.
+        * `cloudify.relationships.file_system_contained_in_compute` - - Used to create a mount point on a Compute instance to make the volume available.
+    * Example Usage:
+
+          volume_fs:
+            type: cloudify.nodes.FileSystem
+            properties:
+              fs_type: ext4
+              fs_mount_path: /mount-path
+            relationships:
+              - type: cloudify.relationships.file_system_depends_on_volume
+                target: volume
+              - type: cloudify.relationships.file_system_contained_in_compute
+                target: vm
+
 * `cloudify.nodes.ObjectStorage` - A BLOB storage segment
 
 * `cloudify.nodes.SoftwareComponent` - A base type for all middleware level types
