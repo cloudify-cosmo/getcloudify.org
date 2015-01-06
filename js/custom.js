@@ -597,7 +597,7 @@ var  ytnum = '';
 var yutubeLink='';
 var d = new Date();
 var n = d.toJSON();
-var pasteventsData = 'https://www.google.com/calendar/feeds/cloudifysource@gmail.com/public/full?orderby=endtime&sortorder=descending&max-results=3&futureevents=false&start-max='+n+'&alt=json';
+var pasteventsData = 'https://www.google.com/calendar/feeds/cloudifysource@gmail.com/public/basic?orderby=endtime&sortorder=descending&max-results=3&futureevents=false&start-max='+n+'&alt=json';
 $.getJSON(pasteventsData,function(data){
  if(data.feed.entry!=undefined){
   for(var i = 0; i < data.feed.entry.length; i++){
