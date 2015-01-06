@@ -9,6 +9,8 @@ pageord: 650
 {%summary%}The CloudStack plugin allows users to use a CloudStack based cloud infrastructure for deploying services and applications.
 For more information about CloudStack, please refer to [cloudstack.apache.org](http://cloudstack.apache.org/).{%endsummary%}
 
+{%note title=Disclaimer%}This plugin is has been manually tested with Cloudify 3.1, and is not yet tested automatically and regularly.{%endnote%}
+
 
 # Plugin Requirements
 
@@ -100,7 +102,7 @@ See the [common Runtime Properties section](#runtime-properties).
 
 **Properties:**
 
-  * `security_group` key-value security_group configuration as described in [TBD](#). Defaults to `{}`.
+  * `security_group` key-value security_group configuration. Defaults to `{}`.
     * **Sugaring:**
       * `port` key may be used instead of the `port_range_max` and `port_range_min` keys to limit the rule to a single port.
       * `remote_group_node` can be used instead of `remote_group_id` to specify a remote group, by supplying this key with a value which is the name of the remote security group node. The target node must be a node the current security-group node has a relationship (of any type) to. Note that like the `remote_group_id` key, this shouldn't be provided if `remote_ip_prefix` was provided.
