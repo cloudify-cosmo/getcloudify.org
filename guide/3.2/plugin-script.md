@@ -124,6 +124,10 @@ node_templates:
                 MY_ENV_VARIABLE: MY_ENV_VARIABLE_VALUE
 {%endhighlight%}
 
+{%note title=Note%}
+The recommended way for setting environment variables is by using operation inputs as described in the [Operation Inputs](plugin-script.html#operation-inputs) section.
+{%endnote%}
+
 `scripts/start.sh`
 {% highlight bash %}
 #! /bin/bash -e
@@ -236,6 +240,44 @@ For example:
 nohup python -m SimpleHTTPServer > /dev/null 2>&1 &
 {%endhighlight%}
 {%endnote%}
+
+
+# Operation Inputs
+
+The script plugin supports passing node template operation inputs as environment variables which will be available in the script's execution environment.
+Complex data structures such as dictionaries and lists will be JSON encoded when exported as environment variables.
+
+In the following example, the `port` input set for the `start` operation will be available as a `port` environment variable within the `start.sh` script:
+
+`blueprint.yaml`
+{% highlight yaml %}
+imports:
+  - {{page.types_yaml_link}}
+
+node_templates:
+  example_web_server:
+    type: cloudify.nodes.WebServer
+    interfaces:
+      cloudify.interfaces.lifecycle:
+        start:
+          implementation: scripts/start.sh
+          # start operation inputs
+          inputs:
+            port: 8080
+{%endhighlight%}
+
+`scripts/start.sh`
+{% highlight sh %}
+echo "Starting web server..."
+nohup python -m SimpleHTTPServer ${port} > /dev/null 2>&1 &
+{%endhighlight%}
+
+
+{%note title=Note%}
+* Since `process` and `script_path` are script-plugin reserved operation inputs, these won't be available as environment variables in the script's execution environment.
+* Inputs are not set for Python scripts running by evaluating Python code. More information about Python scripts evaluation can be found in [Process configuration options](plugin-script.html#process-configuration-options).
+{%endnote%}
+
 
 
 # Process configuration options
