@@ -7,6 +7,8 @@ abstract: "Guide for Cloudify CLI"
 pageord: 900
 
 cli_reference_link: reference-cfy.html
+cli_fabric_tasks_repo: git@github.com:cloudify-cosmo/cloudify-cli-fabric-tasks.git
+cli_installation_link: installation-cli.html
 ---
 {%summary%}{{page.abstract}}{%endsummary%}
 
@@ -40,7 +42,7 @@ A complete command reference page is available [here](reference-cfy.html).
 
 # Installation
 
-**TODO** (Pypi + package installations)
+See the [cli installation manual]({{ page.cli_installation_link }})
 
 
 # Configuration
@@ -79,3 +81,46 @@ Information on each individual configuration parameter is provided below:
 	      * `retries_interval` Wait time (in seconds) in between the command retries (Default: `3`).
 	      * `connection_attempts` Number of SSH connection attempts (in a single retry) (Default: `1`).
 	      * `socket_timeout` timeout (in seconds) for an SSH connection (Default: `10`).
+
+# Running Remote Tasks
+
+Cloudify's CLI provides an interface to running premade [fabric](http://www.fabfile.org/) tasks on the management server.
+
+This supplies an easy way to run personalized, complex ssh scripts on the manager without having to manually connect to it.
+
+{%note title=Note%}
+The tasks must run in the context of the `cfy` command (That is, under the virtualenv Cloudify's CLI is installed) and in the directory .cloudify is in.
+{%endnote%}
+
+{%note title=Note%}
+The tasks don't have to be decorated with the `@task` decorator as they're directly called from the cli's code just like any other python function. Also, as fabric is one of the cli's dependencies, you don't have to install it separately unless you're using the cli as a binary in which case you'll have to install fabric yourself.
+{%endnote%}
+
+## Usage
+
+```shell
+cfy dev --tasks-file my_tasks.py -v my_task --arg1=something --arg2=otherthing ...
+cfy dev -v my_task arg1_value arg2_value ...
+```
+
+`--tasks-file my_tasks.py` can be omitted if a `tasks.py` file exists in your current working directory.
+
+So for instance, if you want to echo `something` in your currently running manager, all you have to do is supply a tasks.py file with the following:
+
+```python
+from fabric.api import run
+
+def echo(text):
+    run('echo {0}'.format(text))
+```
+
+and then run:
+```shell
+cfy dev echo something!
+```
+
+Note that the `dev` command doesn't appear in cfy by default when running `cfy -h`.
+You can run `cfy dev -h` for a command reference.
+
+Cloudify provides a tasks [repo]({{ page.cli_fabric_tasks_repo }}) from which users can obtain tasks and to which developers should contribute for the benefit of all.
+
