@@ -1,0 +1,10 @@
+sudo: false
+language: ruby
+rvm:
+  - 2.1
+cache: bundler
+before_install: pip install --user LinkChecker
+install: bundle install
+script:
+  - bundle exec jekyll serve --detach
+  - /home/travis/.local/bin/linkchecker http://127.0.0.1:4000/guide/ --anchors --ignore-url=guide/2.7 --ignore-url=^mailto
