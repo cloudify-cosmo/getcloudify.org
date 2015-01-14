@@ -2,6 +2,10 @@ sudo: false
 language: ruby
 rvm:
   - 2.1
+env:
+  global:
+    - secure: "QbtRjOPzyNQG7wvjFcYm+XnJj87NpTFRuLCndGb0E3R6rAxCnwRGWB4V1dWMwCPiiju5xGEGPhOkGBkMLw+rfykUB6FPn6W0HdAnTVuXUxtZ0dKSSl7fvNcbVg7ThpeQidDq/70okH8Np4Az4cJlhY4VgLsjg+j2hgj2QWO4Ujo="
+    - secure: "dCSTfoyxau2SqOAFThlXe0kSR3wmXF1B+lhCpbWNfYWR2x98fWMmCt01HziS9I5Or2rHuWb6ILsJgEy1q+kCBNKpAH68RQEphR1lrAd9fwnI+G56/l0yVHk58OcVPS34iZEZ6o654U8pDfn5jmkckU1qhlQ/NTwTmNSasCzY52c="
 cache: bundler
 before_install: pip install --user LinkChecker
 install: bundle install
