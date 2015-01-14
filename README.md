@@ -1,5 +1,3 @@
-[![Circle CI](https://circleci.com/gh/cloudify-cosmo/getcloudify.org/tree/master.png?style=badge)](https://circleci.com/gh/cloudify-cosmo/getcloudify.org/tree/master)
-
 # Cloudify Documentation
 
 This repository contains the markup files, html templates and javascript sources for the new [Cloudify documentation portal](http://getcloudify.org/).
