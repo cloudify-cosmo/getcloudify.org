@@ -6,7 +6,7 @@ publish: true
 abstract: "Cloudify script plugin description and configuration"
 pageord: 100
 
-types_yaml_link: http://www.getcloudify.org/spec/cloudify/3.1/types.yaml
+types_yaml_link: http://www.getcloudify.org/spec/cloudify/3.2/types.yaml
 repo_link: https://github.com/cloudify-cosmo/cloudify-script-plugin
 client_reference_link: https://github.com/cloudify-cosmo/cloudify-script-plugin/blob/master/script_runner/ctx_proxy.py#L331
 hello_world_example_link: https://github.com/cloudify-cosmo/cloudify-hello-world-example
