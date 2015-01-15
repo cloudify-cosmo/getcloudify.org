@@ -7,7 +7,7 @@ abstract: "Cloudify Fabric plugin description and configuration"
 pageord: 300
 
 repo_link: https://github.com/cloudify-cosmo/cloudify-fabric-plugin
-yaml_link: http://www.getcloudify.org/spec/fabric-plugin/1.1/plugin.yaml
+yaml_link: http://www.getcloudify.org/spec/fabric-plugin/1.2/plugin.yaml
 fabric_link: http://docs.fabfile.org
 ---
 {%summary%}
@@ -34,11 +34,12 @@ As the fabric plugin is used for remote execution, the fact that it doesn't supp
 
 ## Execution Methods
 
-There are 3 modes for working with this plugin.
+There are 4 modes for working with this plugin.
 
 * Executing a list of `commands`.
 * Executing a Fabric task from a `tasks_file` included in the blueprint's directory.
 * Executing a Fabric task by specifying its path in the current python environment.
+* Executing a script by specifying the script's path or URL.
 
 # Running commands
 
