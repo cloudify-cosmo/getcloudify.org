@@ -17,13 +17,17 @@ This section is aimed at advanced users. Before reading it, make sure you have a
 
 # Writing a Manager Blueprint
 
-Manager blueprints are standard Cloudify [blueprints](reference-terminology.html#blueprint), that simply use a built-in node type and task to bootstrap a Cloudify Manager. While they are standard blueprints and may be used like any other blueprint, Manager blueprints are the only ones that can be run using the CLI's `cfy bootstrap` command.
+Manager blueprints are standard Cloudify [blueprints](reference-terminology.html#blueprint), that simply use a built-in node type and task to bootstrap a Cloudify Manager.
+While they are standard blueprints and may be used like any other blueprint, Manager blueprints are the only ones that can be run using the CLI's `cfy bootstrap` and `cfy teardown` command.
+Which run the `install` and `uninstall` workflow respectively.
 
 A manager blueprint consists of the following:
 
-* A **single** node whose type is `cloudify.nodes.CloudifyManager` (which is defined in the [built-in types](reference-types.html#cloudifymanager-type)). Note that this node represents the Cloudify Manager middleware, but not a host in which it resides.
+* A **single** node whose type is `cloudify.nodes.CloudifyManager` (which is defined in the [built-in types](reference-types.html#cloudifymanager-type)).
+Note that this node represents the Cloudify Manager middleware, but not a host in which it resides.
 
-* A task mapping of one of the `cloudify.interfaces.lifecycle` operations to the built-in [bootstrap task](reference-bootstrap-task.html) using the Fabric plugin. This task will SSH into the Manager's host and install the Cloudify Manager.
+* A task mapping of the `cloudify.interfaces.lifecycle` operations to the built-in [CLI Tasks](reference-cli-tasks.html) using the Fabric plugin.
+This task will SSH into the Manager's host and install the Cloudify Manager docker container.
   For example, this mapping may look like this:
 
   {% highlight yaml %}
@@ -36,17 +40,40 @@ A manager blueprint consists of the following:
           start:
             implementation: fabric.fabric_plugin.tasks.run_module_task
             inputs:
-              task_mapping: cloudify_cli.bootstrap.tasks.bootstrap
+              task_mapping: cloudify_cli.bootstrap.tasks.bootstrap_docker
               task_properties:
                 cloudify_packages: { get_property: [manager, cloudify_packages] }
+                agent_local_key_path: { get_property: [agent_keypair, private_key_path] }
+                provider_context: { get_attribute: [manager, provider_context] }
               fabric_env:
-                user: { get_input: ssh_user }
-                key_filename: { get_input: ssh_key_filename }
+                user: { get_input: manager_server_user }
+                key_filename: { get_property: [management_keypair, private_key_path] }
+                host_string: { get_attribute: [manager_server_ip, floating_ip_address] }
+          stop:
+            implementation: fabric.fabric_plugin.tasks.run_module_task
+            inputs:
+              task_mapping: cloudify_cli.bootstrap.tasks.stop_manager_container
+              fabric_env:
+                user: { get_input: manager_server_user }
+                key_filename: { get_property: [management_keypair, private_key_path] }
+                host_string: { get_attribute: [manager_server_ip, floating_ip_address] }
+          delete:
+            implementation: fabric.fabric_plugin.tasks.run_module_task
+            inputs:
+              task_mapping: cloudify_cli.bootstrap.tasks.stop_docker_service
+              fabric_env:
+                user: { get_input: manager_server_user }
+                key_filename: { get_property: [management_keypair, private_key_path] }
+                host_string: { get_attribute: [manager_server_ip, floating_ip_address] }
       ...
   {%endhighlight%}
 
 
-The bootstrap task takes several parameters which are passed via the `task_properties` input. You can find their documentation in the [bootstrap task API reference](reference-bootstrap-task.html#api).
+{%note title=Note%}
+It is still possible to bootstrap using the old *cloudify_cli.bootstrap.tasks.bootstrap* task that installs cloudify from packages.
+{%endnote%}
+
+The bootstrap task takes several parameters which are passed via the `task_properties` input. You can find their documentation in the [Bootstrap Docker Task API reference](reference-cli-task.html#bootstrap_docker).
 
 
 
@@ -66,13 +93,14 @@ There are a few conventions for writing Manager blueprints which, while not bein
 
 * Use the [Simple Manager reference](reference-simple-manager.html) as a reference. This blueprint contains very little beyond what's completely necessary for any Manager blueprint, and thus it serves as a good example to learn from as to what a basic Manager blueprint should look like.
 
-* In many cases, there might be a need to set up the Manager environment in one way or another before the bootstrap task is executed, e.g. uploading files to the Manager machine. This is often done by simply mapping an additional task before the bootstrap task on the *manager* node, so for example if the bootstrap task is mapped to the *manager* node's `cloudify.interfaces.lifecycle.start` operation, the configuring task can be mapped to the `cloudify.interfaces.lifecycle.configure` operation.
+* In many cases, there might be a need to set up the Manager environment in one way or another before the bootstrap task is executed, e.g. uploading files to the Manager machine. This is often done by simply mapping an additional task before the bootstrap task on the *manager* node,
+so for example if the bootstrap task is mapped to the *manager* node's `cloudify.interfaces.lifecycle.start` operation, the configuring task can be mapped to the `cloudify.interfaces.lifecycle.configure` operation.
 
 
 
 # Pitfalls
 
-* As the note in the [bootstrap task API reference](reference-bootstrap-task.html#api) mentions, the Manager's public IP is also somewhat of a parameter to the task. Avoid the potential problems mentioned there by explicitly setting the target host using the `host_string` parameter. See more information [here](plugin-fabric.html#ssh-configuration).
+* As the note in the [bootstrap task API reference](reference-cli-tasks.html#bootstrap) mentions, the Manager's private IP is also somewhat of a parameter to the task. Avoid the potential problems mentioned there by explicitly setting the target host using the `host_string` parameter. See more information [here](plugin-fabric.html#ssh-configuration).
 
 * In all likelyhood, you'll set the *manager* node in your Manager blueprint as a node which is contained in a [host node](reference-terminology.html#host-node). Since the default for host nodes is to get installed along with a Cloudify agent, it is important to remember to turn this off by setting the `install_agent` property of the host node to `false`.
 
@@ -80,4 +108,7 @@ There are a few conventions for writing Manager blueprints which, while not bein
 
 * Since the bootstrap task requires the Fabric plugin, this plugin has to be imported by the blueprint. Make sure you have it in your imports section.
 
-* The bootstrap task, [among other things](reference-bootstrap-task.html#overview), pushes the [*provider context*](reference-terminology.html#provider-context) to the newly-formed Manager, as well as sets several runtime properties on the *manager* node instance for the CLI to later extract data from (for configuration of the local working environment). This means that while the bootstrap task is often the last task to take place in a Manager blueprint execution, if you do happen to map additional tasks which come after it, make sure not to update the *provider context* any further, and be wary of overriding [existing runtime properties of the *manager* node instance](reference-bootstrap-task.html#internals).
+* The bootstrap task, [among other things](reference-cli-tasks.html#overview), pushes the [*provider context*](reference-terminology.html#provider-context) to the newly-formed Manager, as well as sets several runtime properties on the *manager* node instance
+for the CLI to later extract data from (for configuration of the local working environment).
+This means that while the bootstrap task is often the last task to take place in a Manager blueprint execution, if you do happen to map additional tasks which come after it,
+make sure not to update the *provider context* any further, and be wary of overriding [existing runtime properties of the *manager* node instance](reference-cli-tasks.html#internals).
