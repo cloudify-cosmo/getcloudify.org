@@ -7,7 +7,7 @@ to install run
 make sure you include the JS file in your index.html
 
 ```html
-<script src="bower_components/cloudify-widget-angular-controller/index.js"></script>
+<script src="bower_components/cloudify-widget-angular-controller/GsGenericCtrl.js"></script>
 ```
 
 then add the module in your angular app dependencies
@@ -21,7 +21,7 @@ then use it from within a controller
 
 ```javascript
 angular('my module name').controller('MyCtrl', function( $scope, $controller ) {
-   $controller('GsGenericWidgetCtrl', {$scope:$scope} );
+   $controller('GsGenericCtrl', {$scope:$scope} );
    $scope.genericWidgetModel.element = $('iframe')[0];
 
 } )
@@ -39,8 +39,6 @@ $scope.genericWidgetModel = {
             loaded : false,
             element : null, // the dom element to post message to
             widgetStatus : {},
-            advancedData : {},
-            leadDetails : {},
             recipeProperties : []
         }; // initialized;
 ```        
@@ -56,26 +54,6 @@ $scope.genericWidgetModel = {
 
 <dt>widgetStatus</dt>
 <dd>will be filled once the widget runs</dd>
-
-<dt>advancedData</dt>
-<dd>has one of the following structures</dd>
-
-</dl>
-
-
-```javascript
-
-{ 'type' : 'aws_ec2' , 'params' : { 'key' : null, 'secretKey' : null } };
-{ 'type' : 'softlayer' , 'params' : { 'username' : null, 'apiKey' : null } };
-
-```
-<dl>
-<dd>
-depends on your cloud of choice
-</dd>
-
-<dt>leadDetails</dt>
-<dd>can contain whatever you want.</dd>
 
 <dt>recipeProperties</dt>
 <dd>has the following structure
