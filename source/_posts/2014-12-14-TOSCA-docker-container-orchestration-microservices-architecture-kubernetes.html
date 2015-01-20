@@ -1,0 +1,94 @@
+---
+layout: blogpost
+title: Docker...Containers, Microservices and Orchestrating the Whole Symphony
+image: uric.jpg
+author: Uri Cohen
+tags:
+ - TOSCA
+ - Docker Orchestration
+ - Docker
+ - Cloudify
+ - Microservices
+---
+
+<notextile>
+
+<div class="aligncenter">
+<img src="https://lh3.googleusercontent.com/uj7R8RRsw6IlA3rg8P3VhqFv76Xo3wZa46I4oHYEOdi7ixz6VQkWHTnglgrr9v_Yiikxt_qkyiKMdWKjX1ioZw0LnbFDD1MTIvIY37bB4r3QZcz4rDmsUJVEXB5P8-nXrg" width="650" alt="Cloudify 3.1 | Container Orchestration | Microservices | Kubernetes| TOSCA | Docker Orchestration"></div>
+<br/>
+<br/>
+
+
+<hr />
+
+<h2><font style="font-weight: bold">Originally posted at <a href="http://opensource.com/business/14/12/containers-microservices-and-orchestrating-whole-symphony" target="_blank">opensource.com</a></font></h2>
+
+<p>
+  <hr /></p>
+
+<p>The microservices architecture is far from a new trend, it’s generally accepted as a better way to build apps these days. The common way to build apps was, until a few years ago, the monolithic approach - which was, if you look at it from a functional perspective, basically one deployment unit that does everything. Monolithic apps are good for small scale teams and projects, but when you need something that has a larger scale and involves many teams, it starts to become problematic. It’s much harder to make changes, as the code base becomes bigger and more people make changes to it. </p>
+
+<p>This is basically the exact opposite of all things continuous delivery, because it’s more tightly coupled and requires an exponentially growing amount of coordination to make continuous updates. Therefore updates become more painful and less frequent, contributing further to fragility of the application. </p>
+
+  <hr>
+
+<span class="pullquote-left">
+  <font style="font-weight: bold" size="5" face="Baskerville Old Face"><em>Cloudify 3.1 - everything pure-play orchestration based on TOSCA. Try it.</em></font>&nbsp; <a class="btn btn-medium btn-theme btn-rounded" id="downloadBtnInner" href="http://getcloudify.org/downloads/get_cloudify_3x.html" target="_blank"><i class="icon-plus"></i> Go </a></span>
+  
+  <hr>
+
+
+<h3><font style="font-weight: bold">So what are microservices really and how does this architecture improve delivery cycles?</font></h3>
+
+<p>Microservices were developed as a way to divide and conquer.</p>
+
+<p>Basically, the microservices approach in a nutshell dictates that instead of having one giant code base that all developers touch, that often times becomes perilous to manage, that there are numerous smaller code bases managed by small and agile teams. The only dependency these code bases have on one another is their APIs. This means that as long as you maintain backwards and forward compatibility (which albeit is not that trivial), each team can work in release cycles that are decoupled from other teams. There are some scenarios where these release cycles are coupled, where one service depends on another or depends on a new feature in another service, but this is not the usual case.</p>
+
+<p>Leading the pack on this at the time were companies like <a href="http://www.slideshare.net/adrianco/netflix-nosql-search">Netflix</a> or Amazon for example. They decided that instead of building one monolithic application to handle all aspects of their service, they would build small services that handle discrete business functions. The boundaries between these units are functional APIs that expose the core capabilities of each service. For Amazon.com, this would be the different aspects of their website - recommendations, shopping cart, invoicing, inventory management, and so forth. Instead of all of them being part of one ginormous deployment unit, Amazon implemented each function as a self-contained service with a well-defined interface. The advantage of this is that you can have disparate teams, each responsible for all aspects of their service from A to Z. So if there’s a team responsible for billing, they are responsible for everything from writing the code, testing it, pushing to production, handling failures and anything else that may happen with that service.</p>
+
+<p>Needless to say, this is better for continuous delivery as small units are easier to manage, test and deploy.</p>
+
+<h3><font style="font-weight: bold">Ok, so what’s the open source connection?</font></h3>
+
+<p>Just one example is with Netflix. As leaders of this architectural trend, Netflix also built their many tools that facilitate their distributed and complex architecture as <a href="http://netflix.github.io/#repo">OSS projects</a> that anyone can fork and customize, and this in a way influenced a long line of technologies that came in their wake as well. One such technology is Kubernetes that was specifically designed for microservices by extending Docker’s capabilities. This enables companies to choose the right tooling for the job, and quickly adopt them without complex licensing cycles, as well as adapt them and extend them for their specific architectural and business needs. </p>
+
+<h3><font style="font-weight: bold">Sounds too good to be true?</font></h3>
+
+<p>Of course, with the good, there is always the bad. This creates a whole ‘nother set of problems like understanding system as a whole, what’s dependent on what, and when one service fails, there is much higher possibility that it will cause a cascading failure which is far harder to trace. For more information on the tradeoffs that come with a microservices architecture, read <a href="http://martinfowler.com/articles/microservices.html">this excellent piece</a> from ThoughtWorks. </p>
+
+<p>&quot;Using services like this does have downsides. Remote calls are more expensive than in-process calls, and thus remote APIs need to be coarser-grained, which is often more awkward to use. If you need to change the allocation of responsibilities between components, such movements of behavior are harder to do when you're crossing process boundaries.&quot; </p>
+
+<h3><font style="font-weight: bold">Why Docker is Such a Good Fit for Microservices?</font></h3>
+
+<p>If we dive into technology, Docker is excellent for microservices, as it isolates containers to one process or service. This intentional containerization of single services or processes makes it very simple to manage and update these services. Therefore, it’s not surprising that the next wave on top of Docker has led to the emergence of frameworks for the sole purpose of managing more complex scenarios, such as: how to manage single services in a cluster, or multiple instances in a service across hosts, or how to coordinate between multiple services on a deployment and management level.</p>
+
+<p>To this end, we’ve seen open source projects like <a href="https://github.com/googlecloudplatform/kubernetes">Kubernetes</a>, <a href="https://github.com/signalfuse/maestro-ng">Maestro-ng</a>, <a href="http://mesos.apache.org/">Mesos </a>and <a href="https://coreos.com/docs/launching-containers/launching/launching-containers-fleet/">Fleet</a> spring up to answer this growing need. If we take a look at Kubernetes for instance, which is really gaining traction right now, it is backed by Google and is now seeing leading players like Microsoft and RedHat join in; this project was built for microservices, by providing a few key functionalities.</p>
+
+<p>With Kubernetes you can easily deploy and manage multiple Docker containers of the same type through an intelligent tagging system. You basically describe the characteristics of the image you'd like to deploy - e.g. number of instances, CPU, RAM - and Kubernetes will allocate it for you based on what is physically available on the set of hosts you're deploying too. You don't need to care where these are located physically, since the tagging system enables you to uniquely identify your images. On top of the tagging, you can create another level of grouping called &quot;pods&quot; that are essentially a continuous query for containers that have one or more tags. Kubernetes constantly updates the set of containers that satisfy the query and implements load balancing across these containers so that there's a single endpoint for anyone accessing them from the outside.</p>
+
+<p><b><img alt="Kub.png" src="https://lh4.googleusercontent.com/HEqVAm7Yl0UUVNmFqxmIupSKzSJmDIOdzznItL0_eY1OZVbbnexG-c5HKlFivblmPj3vKZNZ6qiFIgp6AwkY8iV9c45fvL3Q9hCyTggY8vJUIdkRDEN7dc3H2nM7cAXjgg" width="624" height="336" /></b></p>
+
+<p>(Courtesy of Codemotion on Slideshare: <a href="http://slidesha.re/12lEhb9">http://slidesha.re/12lEhb9</a>) </p>
+
+<p>This format works very well with microservices and Docker, as it caters for the exact traits that are so important for the microservices architecture - easily deploy new services (that's where Docker packaging comes into the picture), scale each microservice independently, make the failure of a single mircoservice instance transparent to clients that access it, and enable simple, ad-hoc name-based discovery of service endpoints. </p>
+
+<h3><font style="font-weight: bold">So What’s Missing?</font></h3>
+
+<p>This is all very useful when it comes to simple, stateless services that you can load balance across, and where all instances are completely identical. A good example for such a service would be web service of some sort or a stateless web application. </p>
+
+<p>Things get a bit more complicated when you have stateful services, or when the microservice itself is composed of multiple pieces - such as a database or a messaging queue. Kubernetes has an implicit assumption that all the state that is shared between service instances (e.g. a Mongo cluster that stores user profiles) is managed outside of Kubernetes. </p>
+
+<p>However, in many cases, what you want to manage is composed of multiple tiers (web, database, messaging, etc) that are dependent on one another. And as such, often times, this will be tough if not impossible to do with Kubernetes. Kubernetes is designed for a situation where each container is literally self-contained, and replicable; many times this isn’t necessarily the case. This is also true if you want to automate the deployment and management of application tiers that are not microservices - like a central data repository, e.g. a Hadoop or Cassandra. The latter two cannot be deployed on top of Kubernetes (although something simpler such a <a href="https://github.com/GoogleCloudPlatform/kubernetes/tree/master/examples/guestbook">Redis</a> can be). </p>
+
+<p><b><img alt="Microservices.png" src="https://lh3.googleusercontent.com/uj7R8RRsw6IlA3rg8P3VhqFv76Xo3wZa46I4oHYEOdi7ixz6VQkWHTnglgrr9v_Yiikxt_qkyiKMdWKjX1ioZw0LnbFDD1MTIvIY37bB4r3QZcz4rDmsUJVEXB5P8-nXrg" width="624" height="375" /></b></p>
+
+<p>Courtesy of: <a href="http://martinfowler.com/articles/microservices.html">http://martinfowler.com/articles/microservices.html</a></p>
+
+<p>In such a case you’d need an orchestrator capable of describing more complex topologies and deployments - and this is where TOSCA comes into the mix.</p>
+
+<p>The idea with TOSCA is to deploy each piece in the most ideal approach for it. If it’s a simple stateless microservice, then the best method is to use Docker and Kubernetes (or the likes of it). When you're dealing with more complex topologies that require intricate orchestration (e.g. a fully replicated and sharded mongo cluster, or a more complex microservice), this would be the scenario to use a TOSCA blueprint. Naturally, a TOSCA blueprint can also be used for the former case (i.e. spawn a few instances of a Docker image) if you want to stick with a single way of doing things.</p>
+
+<p>An example of this kind of implementation is with the Cloudify <a href="http://getcloudify.org/docker-orchestration-docker-container-deployment-cloud.html">Docker orchestration</a> plugin that leverages TOSCA for simple microservices deployment (using <a href="http://getcloudify.org/guide/3.1/dsl-spec-outputs.html">TOSCA</a> output parameters as means to expose a specific service's endpoint) and more complex topologies through support for the orchestration of complex application stacks. Based on this approach, you also get the side benefit of support for post-deployment concerns, e.g. auto scaling, monitoring and auto-healing, that are made possible through Cloudify’s TOSCA-based blueprints.</p>
+
+
+  </notextile>
