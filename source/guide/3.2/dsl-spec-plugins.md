@@ -72,7 +72,7 @@ node_templates:
 In the above example, we configure 3 plugins:
 
 * The official Cloudify OpenStack plugin.
-* A custom Cloudify puppet plugin provided with the blueprint where `my_cloudify_plugins/puppet-plugin should contain the plugin's sources (see the [Plugin Template]({{page.plugin_authoring_link#the-plugin-template}}) documentation for more info on how plugins should be constructed.) The `-r requirements.txt` setting means that  requirements set in the "requirements.txt" file (expected to be part of the plugin source) will be installed by pip as well.
+* A custom Cloudify puppet plugin provided with the blueprint where `my_cloudify_plugins/puppet-plugin` should contain the plugin's sources (see the [Plugin Template]({{page.plugin_authoring_link#the-plugin-template}}) documentation for more info on how plugins should be constructed.) The `-r requirements.txt` setting means that  requirements set in the "requirements.txt" file (expected to be part of the plugin source) will be installed by pip as well.
 * A custom Cloudify ruby scripts executor plugin that is provided with a custom Cloudify agent that we're using.
 
 We then configure a `vm` node of type `openstack.nodes.Server` which uses a custom `my_interface` interface to run its operations.
