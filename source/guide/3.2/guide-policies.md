@@ -94,10 +94,87 @@ Built-in policies are declared in [`types.yaml`]({{page.types_yaml_link}}), whic
 
 {% highlight yaml %}
 # snippet from types.yaml
-policy_types: {}
-    # TODO
+policy_types:
+    cloudify.policies.types.host_failure:
+        properties: &BASIC_AH_POLICY_PROPERTIES
+            policy_operates_on_group:
+                description: |
+                    If the policy should maintain it's state for for the whole group
+                    or each node instance individually.
+                default: false
+            is_node_started_before_workflow:
+                description: Before triggering workflow, check if the node state is started
+                default: true
+            interval_between_workflows:
+                description: |
+                    Trigger workflow only if the last workflow was triggered earlier than interval-between-workflows seconds ago.
+                    if < 0  workflows can run concurrently.
+                default: 300
+            service:
+                description: Service names whose events should be taken into consideration
+                default:
+                    - service
+        source: https://raw.githubusercontent.com/cloudify-cosmo/cloudify-manager/master/resources/rest-service/cloudify/policies/host_failure.clj
+
+    cloudify.policies.types.threshold:
+        properties: &THRESHOLD_BASED_POLICY_PROPERTIES
+            <<: *BASIC_AH_POLICY_PROPERTIES
+            service:
+                description: The service name
+                default: service
+            threshold:
+                description: The metric threshold value
+            upper_bound:
+                description: |
+                    boolean value for describing the semantics of the threshold.
+                    if 'true': metrics whose value is bigger than the threshold will cause the triggers to be processed.
+                    if 'false': metrics with values lower than the threshold will do so.
+                default: true
+            stability_time:
+                description: How long a threshold must be breached before the triggers will be processed
+                default: 0
+        source: https://raw.githubusercontent.com/cloudify-cosmo/cloudify-manager/master/resources/rest-service/cloudify/policies/threshold.clj
+
+    cloudify.policies.types.ewma_stabilized:
+        properties:
+            <<: *THRESHOLD_BASED_POLICY_PROPERTIES
+            ewma_timeless_r:
+                description: |
+                    r is the ratio between successive events. The smaller it is, the smaller impact on the computed value the most recent event has.
+                default: 0.5
+        source: https://raw.githubusercontent.com/cloudify-cosmo/cloudify-manager/master/resources/rest-service/cloudify/policies/ewma_stabilized.clj
 
 {% endhighlight %}
+
+* Host failure policy
+
+    The policy is based on intercepting expired events. The first monitoring event sent by a certain node instance will add this event type to the policy engine index (Riemann's index mechanism). Later, if this type of event does not get sent for a period of 60 seconds for this particular node instance, it gets expired.
+
+    When event has expired and has been sent by service defined in the list of services in blueprint the host failure policy passes the event to restraints check and then launches the trigger. It adds to the event diagnose field with value "heart-beat-failure", failing_node field with id of the failed node and the event's state gets changed to "triggering_state".
+
+    Created using [expired? Riemann function](http://riemann.io/api/riemann.streams.html#var-expired.3F).
+
+    You can fin implementation of this policy on [github](https://github.com/cloudify-cosmo/cloudify-manager/blob/master/resources/rest-service/cloudify/policies/host_failure.clj).
+
+* Threshold policy
+
+    When for "stability_time" seconds all not expired events have metric that breaches "threshold", the policy passes the last event to restraints check and then launches the trigger.
+
+    The event's state gets changed to "triggering_state".
+
+    Created using [stable Riemann function](http://riemann.io/api/riemann.streams.html#var-stable).
+
+    You can find implementation of this policy on [github](https://github.com/cloudify-cosmo/cloudify-manager/blob/master/resources/rest-service/cloudify/policies/threshold.clj).
+
+* Ewma Policy
+
+    This It calculates weighted average of events metrics over time. When the average breaches "threshold", the policy passes the last event to restraints check and then launches the trigger.
+
+    The event's state gets changed to "triggering_state".
+
+    Created using [ewma-timeless Riemann function](http://riemann.io/api/riemann.streams.html#var-ewma-timeless).
+
+    You can find implementation of this policy on [github](https://github.com/cloudify-cosmo/cloudify-manager/blob/master/resources/rest-service/cloudify/policies/ewma_stabilized.clj).
 
 Built-in policies are not special in any way - they use the same API any other custom policy is able to use.
 
@@ -209,7 +286,7 @@ groups:
 
 In this example, we have configured a group consisting of the `some_vm` node specified before.
 
-Afterwards, we configured a single `host_failure` policy for this group. The `host_failure` policy is based on intercepting expired events. The first monitoring event sent by a certain node instance will add this event type to the policy engine index (Riemann's index mechanism). Later, if this type of event does not get sent for a period of 60 seconds for this particular node instance, it's considered a failed node instance and the policy triggers are executed.
+Afterwards, we configured a single `host_failure` policy for this group.
 
 The policy in the example has one `execute_workflow` policy trigger configured, which is mapped to execute the `autoheal` workflow.
 
