@@ -106,3 +106,31 @@ For each of the remaining node instances:
 <sub>
 1. Note that the dependency may be indirect, e.g. in a case where instance A is dependent on instance B, which is in turn dependent on instance C, and only B was filtered out, instance A's operation execution will still only happen after instance C's operation execution.
 </sub>
+
+# Auto-heal
+
+**Workflow name:** *autoheal*
+
+**Workflow description:** The workflow for re-installing a sub graph of the blueprint.
+
+**Workflow parameters:**
+
+  - *node_id*: The id of the failed node instance.
+
+**Workflow high-level pseudo-code:**
+
+  1. Retrieve the host id of the failing node instance.
+  2. Construct a sub-graph who's root node is the host.
+  3. Uninstall the sub-graph:
+
+      - Execute uninstall lifecycle operations (`stop`, `delete`) on the host and all it's contained nodes.
+      - Execute uninstall relationship lifecycle operations (`unlink`) for all affected relationships.
+
+  4. Install the sub-graph:
+
+      - Execute install lifecycle operations (`create`, `configure`, `start`) on the host and all it's contained nodes.
+      - Execute install relationship lifecycle operations (`preconfigure`, `postconfigure`, `establish`) for all affected relationships.
+
+<sub>
+1. Note that effectively, all nodes that are contained inside the host of the failing node, are considered failed as well and will be re-installed.
+</sub>
