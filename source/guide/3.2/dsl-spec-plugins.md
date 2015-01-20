@@ -34,8 +34,7 @@ plugins:
 Keyname           | Required    | Type        | Description
 -----------       | --------    | ----        | -----------
 executor          | yes         | string      | Where to execute the plugin's operations. Valid Values: `central_deployment_agent`, `host_agent`.
-source            | conditional | string      | Where to retrieve the plugin from. Could be either a path relative to the `plugins` dir inside the blueprint's root dir or a url. If `install` is `false`, `source` is redundant. If
-`install` is true, `source` is mandatory.
+source            | conditional | string      | Where to retrieve the plugin from. Could be either a path relative to the `plugins` dir inside the blueprint's root dir or a url. If `install` is `false`, `source` is redundant. If `install` is true, `source` is mandatory.
 install_arguments | no          | string      | Optional arguments passed to the 'pip install' command created for the plugin installation
 install           | no          | boolean     | Whether to install the plugin or not as it might already be installed as part of the agent. Defaults to `true`.
 
