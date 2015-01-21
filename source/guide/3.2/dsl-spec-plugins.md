@@ -31,11 +31,12 @@ plugins:
 
 ## Plugin Definition
 
-Keyname     | Required    | Type        | Description
------------ | --------    | ----        | -----------
-executor    | yes         | string      | Where to execute the plugin's operations. Valid Values: `central_deployment_agent`, `host_agent`.
-source      | conditional | string      | Where to retrieve the plugin from. Could be either a path relative to the `plugins` dir inside the blueprint's root dir or a url. If `install` is `false`, `source` is redundant. If `install` is true, `source` is mandatory.
-install     | no          | boolean     | Whether to install the plugin or not as it might already be installed as part of the agent. Defaults to `true`.
+Keyname           | Required    | Type        | Description
+-----------       | --------    | ----        | -----------
+executor          | yes         | string      | Where to execute the plugin's operations. Valid Values: `central_deployment_agent`, `host_agent`.
+source            | conditional | string      | Where to retrieve the plugin from. Could be either a path relative to the `plugins` dir inside the blueprint's root dir or a url. If `install` is `false`, `source` is redundant. If `install` is true, `source` is mandatory.
+install_arguments | no          | string      | Optional arguments passed to the 'pip install' command created for the plugin installation
+install           | no          | boolean     | Whether to install the plugin or not as it might already be installed as part of the agent. Defaults to `true`.
 
 <br>
 
@@ -53,6 +54,7 @@ plugins:
   puppet:
     executor: host_agent
     source: my_cloudify_plugins/puppet-plugin
+    install_arguments: -r requirements.txt
   ruby:
     executor: host_agent
     install: false
@@ -70,7 +72,7 @@ node_templates:
 In the above example, we configure 3 plugins:
 
 * The official Cloudify OpenStack plugin.
-* A custom Cloudify puppet plugin provided with the blueprint where `my_cloudify_plugins/puppet-plugin should contain the plugin's sources (see the [Plugin Template]({{page.plugin_authoring_link#the-plugin-template}}) documentation for more info on how plugins should be constructed.)
+* A custom Cloudify puppet plugin provided with the blueprint where `my_cloudify_plugins/puppet-plugin` should contain the plugin's sources (see the [Plugin Template]({{page.plugin_authoring_link#the-plugin-template}}) documentation for more info on how plugins should be constructed.) The `-r requirements.txt` setting means that  requirements set in the "requirements.txt" file (expected to be part of the plugin source) will be installed by pip as well.
 * A custom Cloudify ruby scripts executor plugin that is provided with a custom Cloudify agent that we're using.
 
 We then configure a `vm` node of type `openstack.nodes.Server` which uses a custom `my_interface` interface to run its operations.
