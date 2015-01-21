@@ -106,3 +106,14 @@ For each of the remaining node instances:
 <sub>
 1. Note that the dependency may be indirect, e.g. in a case where instance A is dependent on instance B, which is in turn dependent on instance C, and only B was filtered out, instance A's operation execution will still only happen after instance C's operation execution.
 </sub>
+
+# Heal
+
+**Workflow name:** *heal*
+
+**Workflow description:** Reinstalls the whole subgraph of the system topology applying the `uninstall` and `install` workflows' logic respectively. The subgraph consists of all the nodes that are hosted in a compute containing the failing node and/or the compute itself. Additionally, this workflow handles unlinking and establishing all affected relationships in an appropriate order.
+
+**Workflow parameters:**
+
+  - *node_id*: The ID of the failing node that needs healing. The whole compute containing (or being) this node will be reinstalled.
+
