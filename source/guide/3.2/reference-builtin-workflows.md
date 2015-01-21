@@ -111,11 +111,11 @@ For each of the remaining node instances:
 
 **Workflow name:** *heal*
 
-**Workflow description:** The workflow for re-installing specific blueprint nodes.
+**Workflow description:** Reinstalls the whole subgraph of the system topology applying the `uninstall` and `install` workflows' logic respectively. The subgraph consists of all the nodes that are hosted in a compute containing the failing node and/or the compute itself. Additionally, this workflow handles unlinking and establishing all affected relationships in an appropriate order.
 
 **Workflow parameters:**
 
-  - *node_id*: The id of the failed node instance.
+  - *node_id*: The ID of the failing node that needs healing. The whole compute containing (or being) this node wil    l be reinstalled.
 
 **Workflow high-level pseudo-code:**
 
@@ -209,6 +209,5 @@ node_templates:
 
 Notice that the `floating_ip`, `database` and `database_host` nodes are not part of the blueprint. **However**, they are still specified as relationship target nodes for the remaining nodes.
 For this reason, its not a valid blueprint, and the term *graph* is more appropriate.
-
 
 {%endnote%}
