@@ -40,7 +40,7 @@ The bootstrap task takes several parameters:
 
   * ***agent_local_key_path*** - Optional parameter. Sets the agent private key local file path. This file will be uploaded to the Manager machine and be used by default for setting up and connecting to Cloudify agent hosts. If omitted, no agent key file will be uploaded to the Manager machine.
 
-  * ***agent_remote_key_path*** - Optional parameter. Sets the agent private key remote file path. This is the path on the manager to which the agent private key file will be uploaded. If this parameter is omitted, the file will sit at `~/.ssh/agent_key.pem`.
+  * ***agent_remote_key_path*** - Optional parameter. Sets the agent private key remote file path. This is the path on the manager to which the agent private key file will be uploaded. If this parameter is omitted, the file will placed in `~/.ssh/agent_key.pem`.
 
   * ***manager_private_ip*** - Optional parameter. This is the IP that will be used by agent hosts to communicate with the Manager machine (it should be the private IP since they communicate via an internal network). If this parameter is omitted, the *manager*'s node instance's `host_ip` will be used instead.
 
@@ -58,7 +58,7 @@ the *manager*'s node instance's `host_ip` instead, and try and connect to it.
 
 ## Overview
 
-This bootstrap_docker task uses the Fabric plugin to bootstrap a Cloudify Manager docker container.
+This bootstrap_docker task uses the Fabric plugin to bootstrap a Cloudify Manager docker containers.
 
 It's currently a part of the CLI code, and can be found at / mapped to: `cloudify_cli.bootstrap.tasks.bootstrap_docker`.
 
@@ -85,7 +85,7 @@ The bootstrap task takes several parameters:
 
   * ***agent_local_key_path*** - Optional parameter. Sets the agent private key local file path. This file will be uploaded to the Manager machine and be used by default for setting up and connecting to Cloudify agent hosts. If omitted, no agent key file will be uploaded to the Manager machine.
 
-  * ***agent_remote_key_path*** - Optional parameter. Sets the agent private key remote file path. This is the path on the manager to which the agent private key file will be uploaded. If this parameter is omitted, the file will sit at `~/.ssh/agent_key.pem`.
+  * ***agent_remote_key_path*** - Optional parameter. Sets the agent private key remote file path. This is the path on the manager to which the agent private key file will be uploaded. If this parameter is omitted, the file will placed in `~/.ssh/agent_key.pem`.
 
   * ***manager_private_ip*** - Optional parameter. This is the IP that will be used by agent hosts to communicate with the Manager machine (it should be the private IP since they communicate via an internal network). If this parameter is omitted, the *manager*'s node instance's `host_ip` will be used instead.
 

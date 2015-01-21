@@ -27,7 +27,7 @@ A manager blueprint consists of the following:
 Note that this node represents the Cloudify Manager middleware, but not a host in which it resides.
 
 * A task mapping of the `cloudify.interfaces.lifecycle` operations to the built-in [CLI Tasks](reference-cli-tasks.html) using the Fabric plugin.
-This task will SSH into the Manager's host and install the Cloudify Manager docker container.
+This task will SSH into the Manager's host and install the Cloudify Manager docker containers.
   For example, this mapping may look like this:
 
   {% highlight yaml %}
