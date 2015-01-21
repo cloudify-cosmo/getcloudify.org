@@ -107,11 +107,11 @@ For each of the remaining node instances:
 1. Note that the dependency may be indirect, e.g. in a case where instance A is dependent on instance B, which is in turn dependent on instance C, and only B was filtered out, instance A's operation execution will still only happen after instance C's operation execution.
 </sub>
 
-# Auto-heal
+# Heal
 
-**Workflow name:** *autoheal*
+**Workflow name:** *heal*
 
-**Workflow description:** The workflow for re-installing a sub graph of the blueprint.
+**Workflow description:** The workflow for re-installing specific blueprint nodes.
 
 **Workflow parameters:**
 
@@ -119,11 +119,11 @@ For each of the remaining node instances:
 
 **Workflow high-level pseudo-code:**
 
-  1. Retrieve the host id of the failing node instance.
-  2. Construct a sub-graph who's root node is the host.
+  1. Retrieve the host of the failed node.
+  2. Construct a host sub-graph (see note below).
   3. Uninstall the sub-graph:
 
-      - Execute uninstall lifecycle operations (`stop`, `delete`) on the host and all it's contained nodes.
+      - Execute uninstall lifecycle operations (`stop`, `delete`) on the host and all it's contained nodes. (1)
       - Execute uninstall relationship lifecycle operations (`unlink`) for all affected relationships.
 
   4. Install the sub-graph:
@@ -132,5 +132,83 @@ For each of the remaining node instances:
       - Execute install relationship lifecycle operations (`preconfigure`, `postconfigure`, `establish`) for all affected relationships.
 
 <sub>
-1. Note that effectively, all nodes that are contained inside the host of the failing node, are considered failed as well and will be re-installed.
+1. Effectively, all nodes that are contained inside the host of the failing node, are considered failed as well and will be re-installed.
 </sub>
+
+{%note title=Note%}
+A host sub-graph can be though of as a blueprint that defines only nodes that are contained inside a host.
+For example, if the full blueprint looks something like this:
+{%highlight yaml%}
+...
+
+node_templates:
+
+  webserver_host:
+    type: cloudify.nodes.Compute
+    relationships:
+      - target: floating_ip
+        type: cloudify.relationships.connected_to
+
+  webserver:
+    type: cloudify.nodes.WebServer
+    relationships:
+      - target: webserver_host
+        type: cloudify.relationships.contained_in
+
+  war:
+    type: cloudify.nodes.ApplicationModule
+    relationships:
+      - target: webserver
+        type: cloudify.relationships.contained_in
+      - target: database
+        type: cloudify.relationships.connected_to
+
+  database_host:
+    type: cloudify.nodes.Compute
+
+  database:
+    type: cloudify.nodes.Database
+    relationships:
+      - target: database_host
+        type: cloudify.relationships.contained_in
+
+  floating_ip:
+    type: cloudify.nodes.VirtualIP
+
+...
+{%endhighlight%}
+
+Than a host sub-graph for the **`webserver_host`** will look like:
+
+{%highlight yaml%}
+node_templates:
+
+  webserver_host:
+    type: cloudify.nodes.Compute
+    relationships:
+      - target: floating_ip
+        type: cloudify.relationships.connected_to
+
+  webserver:
+    type: cloudify.nodes.WebServer
+    relationships:
+      - target: webserver_host
+        type: cloudify.relationships.contained_in
+
+  war:
+    type: cloudify.nodes.ApplicationModule
+    relationships:
+      - target: webserver
+        type: cloudify.relationships.contained_in
+      - target: database
+        type: cloudify.relationships.connected_to
+
+...
+
+{%endhighlight%}
+
+Notice that the `floating_ip`, `database` and `database_host` nodes are not part of the blueprint. **However**, they are still specified as relationship target nodes for the remaining nodes.
+For this reason, its not a valid blueprint, and the term *graph* is more appropriate.
+
+
+{%endnote%}
