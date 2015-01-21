@@ -21,7 +21,7 @@ This bootstrap task uses the Fabric plugin to bootstrap a Cloudify Manager.
 
 It's currently a part of the CLI code, and can be found at / mapped to: `cloudify_cli.bootstrap.tasks.bootstrap`.
 
-The task does more or less the following:
+The task does the following:
 
 1) It connects to the Manager machine, downloads the various Cloudify packages and installs them.
 
@@ -62,7 +62,7 @@ This bootstrap_docker task uses the Fabric plugin to bootstrap a Cloudify Manage
 
 It's currently a part of the CLI code, and can be found at / mapped to: `cloudify_cli.bootstrap.tasks.bootstrap_docker`.
 
-The task does more or less the following:
+The task does the following:
 
 1) It connects to the Manager machine.
 
@@ -113,7 +113,7 @@ The stop_manager_container task uses the Fabric plugin to stop the cloudify mana
 
 It's currently a part of the CLI code, and can be found at / mapped to: `cloudify_cli.bootstrap.tasks.stop_manager_container`.
 
-The task does more or less the following:
+The task does the following:
 
 1) It connects to the Manager machine and run the command that stops the container (usually `sudo docker stop cfy`)
 
@@ -133,7 +133,7 @@ The stop_docker_service task uses the Fabric plugin to stop the docker service.
 
 It's currently a part of the CLI code, and can be found at / mapped to: `cloudify_cli.bootstrap.tasks.stop_docker_service`.
 
-The task does more or less the following:
+The task does the following:
 
 1) It connects to the Manager machine and run the command that stops the docker service.
 
