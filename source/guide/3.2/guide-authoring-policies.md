@@ -46,7 +46,7 @@ Policy types are defined under the `policy_types` section of the blueprint.
         Should the policy maintain it's state for for the whole group of nodes
         or each node instance individually (false by default).
     * `is_node_started_before_workflow`:
-        Before triggering workflow, check if the node state is started (true by default)
+        Before triggering workflow, check if the node state is started (true by default). This is a **very important check** - it prevents the `heal` workflow from getting executed after the built-in `uninstall` workflow takes place.
     * `interval_between_workflows`:
         Trigger workflow only if the last workflow was triggered earlier than interval-between-workflows seconds ago.
         if the specified value is less than 0, workflows can run concurrently. The default value is 300 seconds.
