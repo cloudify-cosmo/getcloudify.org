@@ -202,6 +202,44 @@ ctx.instance.runtime_properties['prop1'] = 'This should be updated immediately!'
 ctx.instance.update()
 {%endhighlight%}
 
+# Asynchronous Operations
+
+In many cases, such as creating resources in a Cloud environment, an operation may be waiting for an asynchronous activity to end (e.g. wait for VM to start). Instead of implementing a wait-for mechanism in the operation which will wait until the asynchronous activity is over (which blocks the worker who executed the operation from executing other operations in the mean time), operations can request to be retried after some time and check whether the asynchronous activity is over.
+
+## Requesting A Retry
+
+{%highlight python%}
+from cloudify.decorators import operation
+from cloudify import exceptions
+
+@operation
+def start(**kwargs):
+    # start is executed for the first time, start the resource
+    if ctx.operation.retry_number == 0:
+        iaas.start_vm()
+        
+        # It will take some time until the VM will be running..
+        # Request a retry after 30 seconds
+        return ctx.operation.retry(message='Waiting for the VM to start..',
+                                   retry_after=30)
+
+    # This is a retried operation, check if the resource is running
+    # and if not, request another retry
+    if iaas.get_vm_state(...) != 'running':
+
+        # Request a retry after 5 seconds
+        return ctx.operation.retry(message='Still waiting for the VM to start..',
+                                   retry_after=5) 
+
+    # Resource is up and running
+    ctx.logger.info('VM started successfully!')
+{%endhighlight%}
+
+{%tip title=Tip%}
+`ctx.operation.max_retries` can be configured in Cloudify's manager blueprint. More information can be found in the [Workflows guide](guide-workflows.html#workflow-error-handling).
+{%endtip%}
+
+
 # Error Handling
 
 Cloudify's [workflows]({{page.terminology_link}}#workflow) framework distinguishes between two kinds of errors:
@@ -290,15 +328,13 @@ The `ctx` context object contains contextual parameters mirrored from the bluepr
 
 ## Cloud Plugins
 
-When writing a cloud plugin it needs to contain an operation for getting the VM's state after the start operation was invoked.
-This is because most cloud VM creation API's are asynchronous. Therefore, by default, Cloudify calls the `start` operation and afterwards performs polling on the `get_state` operation until it returns `True`, which indicates the VM was started.
-
-The `get_state` operation should also store the following runtime properties for the VM node instance:
+The lifecycle `start` operation should store the following runtime properties for the `Compute` node instance:
 
 - `ip` - The VM's ip address reachable by Cloudify's manager.
 - `networks` - A dictionary containing network names as keys and list of ip addresses as values.
 
 See Cloudify's [OpenStack plugin]({{page.openstack_plugin_link}}) for reference.
+
 
 # The Plugin Template
 

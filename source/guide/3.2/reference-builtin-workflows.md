@@ -27,7 +27,6 @@ For each node, for each node instance (in parallel):
 5. Execute `cloudify.interfaces.relationship_lifecycle.postconfigure` relationship operations.<sup>2</sup>
 6. Execute `cloudify.interfaces.lifecycle.start` operation.<sup>1</sup>
 7. If the node instance is a host node (its type is a subtype of `cloudify.nodes.Compute`):
-    * Wait for host to be started. (Wait for `cloudify.interfaces.host.get_state` operation on the node instance to return `true`, if mapped, do nothing otherwise).
     * Install agent workers and required plugins on this host.
     * Execute `cloudify.interfaces.monitoring_agent` interface `install` and `start` operations. <sup>1</sup>
 8. Execute `cloudify.interfaces.relationship_lifecycle.establish` relationship operations.<sup>2</sup>
