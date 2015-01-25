@@ -5,8 +5,6 @@ category: User Interface
 publish: true
 abstract: Modifying the UI CSS
 pageord: 100
-
-terminology_link: reference-terminology.html
 ---
 {%summary%} {{page.abstract}}{%endsummary%}
 
