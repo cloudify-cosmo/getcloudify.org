@@ -71,9 +71,32 @@ This task will SSH into the Manager's host and install the Cloudify Manager dock
 
 {%note title=Note%}
 It is still possible to bootstrap using the old *cloudify_cli.bootstrap.tasks.bootstrap* task that installs cloudify from packages.
+In this case, the only relevant mapping should be the *start* operation, and it would look like so:
+  {% highlight yaml %}
+  node_templates:
+    manager:
+      type: cloudify.nodes.CloudifyManager
+      ...
+      interfaces:
+        cloudify.interfaces.lifecycle:
+          start:
+            implementation: fabric.fabric_plugin.tasks.run_module_task
+            inputs:
+              task_mapping: cloudify_cli.bootstrap.tasks.bootstrap
+              task_properties:
+                cloudify_packages: { get_property: [manager, cloudify_packages] }
+                agent_local_key_path: { get_property: [agent_keypair, private_key_path] }
+                provider_context: { get_attribute: [manager, provider_context] }
+              fabric_env:
+                user: { get_input: manager_server_user }
+                key_filename: { get_property: [management_keypair, private_key_path] }
+                host_string: { get_attribute: [manager_server_ip, floating_ip_address] }
+      ...
+  {%endhighlight%}
 {%endnote%}
 
-The bootstrap task takes several parameters which are passed via the `task_properties` input. You can find their documentation in the [Bootstrap Docker Task API reference](reference-cli-task.html#bootstrap_docker).
+The bootstrap task takes several parameters which are passed via the `task_properties` input.
+You can find their documentation in the [Bootstrap Docker Task API reference](reference-cli-task.html#bootstrap_docker).
 
 
 
