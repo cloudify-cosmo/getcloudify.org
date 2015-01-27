@@ -69,14 +69,14 @@ groups:
         # (more than one trigger can be specified)
         triggers:
           # arbitrary trigger name
-          execute_autoheal_workflow:
+          execute_heal_workflow:
 
             # using the built-in 'execute_workflow' trigger
             type: cloudify.policies.triggers.execute_workflow
 
             # trigger specific configuration
             parameters:
-              workflow: auto_heal
+              workflow: heal
               workflow_parameters:
                 # the failing node instance id is exposed by the
                 # host_failure policy on the event that triggered the
@@ -150,31 +150,31 @@ policy_types:
 
     This policy is based on intercepting expired events. The first monitoring event sent by a certain node instance will add this event type (determined by the event's service and host properties) to the policy engine index (Riemann's index mechanism). Later, if this type of event does not get sent for a period of 60 seconds for this particular node instance, it gets expired.
 
-    When an event expires and has been sent by a service contained in the list of services (policy's property) specified in the blueprint, the host failure policy passes this event to the restraints check and eventually processes triggers. It adds the `diagnose` field with value "heart-beat-failure" and the `failing_node` field with an id of the failing node to the event. Additionally, the event's state gets changed to "triggering_state".
+    When an event expires and has been sent by a service contained in the list of services (policy's property) specified in the blueprint, the host failure policy passes this event to the restraints check and eventually processes the policy's triggers. It adds the `diagnose` field with value "heart-beat-failure" and the `failing_node` field with an id of the failing node instance to the event. Additionally, the event's state gets changed to "triggering_state".
 
-    This policy's implementation is based on [expired? Riemann function](http://riemann.io/api/riemann.streams.html#var-expired.3F).
+    This policy's implementation can be found at [github](https://github.com/cloudify-cosmo/cloudify-manager/blob/master/resources/rest-service/cloudify/policies/host_failure.clj).
 
-    You can find it on [github](https://github.com/cloudify-cosmo/cloudify-manager/blob/master/resources/rest-service/cloudify/policies/host_failure.clj).
+    It is based on Riemann's [expired?](http://riemann.io/api/riemann.streams.html#var-expired.3F) function.
 
 * Threshold policy
 
-    When for `stability_time` seconds all not expired events have metric that breach the `threshold`, the policy passes the last event to the restraints check and eventually processes triggers.
+    When for `stability_time` seconds all non-expired events have metric values that breach the `threshold`, the policy passes the last event to the restraints check and eventually processes the policy's triggers.
 
     The event's state gets changed to "triggering_state".
 
-    This policy's implementation is based on [stable Riemann function](http://riemann.io/api/riemann.streams.html#var-stable).
+    This policy's implementation can be found at [github](https://github.com/cloudify-cosmo/cloudify-manager/blob/master/resources/rest-service/cloudify/policies/threshold.clj).
 
-    You can find it on [github](https://github.com/cloudify-cosmo/cloudify-manager/blob/master/resources/rest-service/cloudify/policies/threshold.clj).
+    It is based on Riemann's [stable](http://riemann.io/api/riemann.streams.html#var-stable) function.
 
 * Ewma Policy
 
-    It calculates weighted average of events metrics over time. When the average breaches the `threshold`, the policy passes the last event to the restraints check and eventually processes triggers.
+    It calculates weighted average of events metrics over time. When the average breaches the `threshold`, the policy passes the last event to the restraints check and eventually processes the policy's triggers.
 
     The event's state gets changed to "triggering_state".
 
-    This policy's implementation is based on [ewma-timeless Riemann function](http://riemann.io/api/riemann.streams.html#var-ewma-timeless).
+    This policy's implementation can be found at [github](https://github.com/cloudify-cosmo/cloudify-manager/blob/master/resources/rest-service/cloudify/policies/ewma_stabilized.clj).
 
-    You can find it on [github](https://github.com/cloudify-cosmo/cloudify-manager/blob/master/resources/rest-service/cloudify/policies/ewma_stabilized.clj).
+    It is based on Riemann's [ewma-timeless](http://riemann.io/api/riemann.streams.html#var-ewma-timeless) function.
 
 Built-in policies are not special in any way - they use the same API any other custom policy is able to use.
 
@@ -193,13 +193,14 @@ There are several things that need to be configured for auto healing to work. Th
 
 In short, the process involves:
 
-* Configuring monitoring on compute nodes that will be subject to autohealing.
-* Adding the `autoheal` workflow to the blueprint.
+* Configuring monitoring on compute nodes that will be subject to auto healing.
 * Configuring the `groups` section with appropriate policy types and triggers.
 
 ## Monitoring
 
 Add monitoring to compute nodes that require auto healing.
+
+For the time being, there is a limitation requiring that only compute nodes can have auto heal configured for them. Otherwise, when a certain compute node instance fails, node instances that are contained in it are also likely to fail, which in turn can cause the heal workflow to be triggered multiple times.
 
 We will show an example using the built-in [Diamond]({{page.diamond_package_ref}}) support that comes with Cloudify. Please refer to the [Diamond Plugin]({{page.diamond_plugin_ref}}) documentation for further details on configuring diamond based monitoring.
 
@@ -224,23 +225,11 @@ The `ExampleCollector` generates a single metric whose value is consistently `42
 
 ## [Workflow]({{page.workflows_dsl_spec}}) Configuration
 
-The auto heal workflow will execute a process of tasks that is similar in nature to calling the `uninstall` workflow and the `install` workflow thereafter. The main difference, is that this process is only executed on the subgraph of node instances that are contained in the failing compute node instance and the relationships these node instances have with other node instances.
-
-At the moment, the auto heal workflow that comes with Cloudify is not configured in our `types.yaml`. Until this workflow is added to the built-in workflows, add the following to the blueprint:
-
-{% highlight yaml %}
-workflows:
-  autoheal:
-    mapping: default_workflows.cloudify.plugins.workflows.auto_heal_reinstall_node_subgraph
-    parameters:
-      node_id: {}
-      <!--TODO Default value -->
-      diagnose_value: {}
-{% endhighlight %}
+The heal workflow will execute a sequence of tasks that is similar in nature to calling the `uninstall` workflow and the `install` workflow thereafter. The main difference is that this workflow operates on a subset of node instances that are contained within the failing node instance's compute and on relationships these node instances have with any other node instances. In other words, this workflow reinstalls the whole compute that contains the failing node and handles all appropriate relationships between the nodes inside this compute and any other nodes.
 
 ## [Groups]({{page.dsl_groups_spec}}) Configuration
 
-After we have monitoring set up and the autoheal workflow configured, it's time to plug things together.
+After we have monitoring set up, it's time to plug things together.
 
 This example contains several inline comments, so make sure you read them to have better understanding of
 how things work.
@@ -254,22 +243,22 @@ groups:
       host_failure_policy:
         # using the 'host_failure' policy type
         type: cloudify.policies.host_failure
+
+        # Name of the service we want to shortlist (using regular expressions) and
+        # watch - every Diamond event has the service field set to some value.
+        # In our case, the ExampleCollector sends events with this value set to "example".
+        service:
+           - example
+
         triggers:
-          autoheal_trigger:
+          heal_trigger:
             # using the 'execute_workflow' policy trigger
             type: cloudify.policies.triggers.execute_workflow
             parameters:
-              # configuring this trigger to execute the autoheal workflow
-              # that was previously configured
-              workflow: autoheal
+              # configuring this trigger to execute the heal workflow
+              workflow: heal
 
-              # Name of the service we want to short list (using regular expressions) and
-              # watch - every Diamond event has the service field set to some value.
-              # In our case, the ExampleCollector sends events with this value set to "example".
-              service:
-                  - example
-
-              # The autoheal workflow will get
+              # The heal workflow will get
               # its parameters from the event that triggered
               # its execution
               workflow_parameters:
@@ -288,10 +277,10 @@ In this example, we have configured a group consisting of the `some_vm` node spe
 
 Afterwards, we configured a single `host_failure` policy for this group.
 
-The policy in the example has one `execute_workflow` policy trigger configured, which is mapped to execute the `autoheal` workflow.
+The policy in the example has one `execute_workflow` policy trigger configured, which is mapped to execute the `heal` workflow.
 
 ## Limitations
 
 {%warning title=Limitations%}
-* At the moment, this is resolved by having the auto heal workflow check the state of the faling node host. If its state is different than `started` the workflow will end its execution without actually doing anything. <!-- TODO -->
+* Only compute nodes can have auto healing configured for them
 {%endwarning%}

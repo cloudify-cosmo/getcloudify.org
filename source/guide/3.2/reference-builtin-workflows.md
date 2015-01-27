@@ -115,7 +115,7 @@ For each of the remaining node instances:
 
 **Workflow parameters:**
 
-  - *node_id*: The ID of the failing node that needs healing. The whole compute containing (or being) this node wil    l be reinstalled.
+  - *node_id*: The ID of the failing node that needs healing. The whole compute containing (or being) this node will be reinstalled.
 
 **Workflow high-level pseudo-code:**
 

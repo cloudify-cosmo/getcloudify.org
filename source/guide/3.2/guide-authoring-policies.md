@@ -43,13 +43,13 @@ Policy types are defined under the `policy_types` section of the blueprint.
     The following properties are built-in and common for all policies:
 
     * `policy_operates_on_group`:
-        Should the policy maintain it's state for for the whole group of nodes
+        Should the policy maintain its state for the whole group of nodes
         or each node instance individually (false by default).
     * `is_node_started_before_workflow`:
-        Before triggering workflow, check if the node state is started (true by default). This is a **very important check** - it prevents the `heal` workflow from getting executed after the built-in `uninstall` workflow takes place.
+        Before triggering a workflow, check if the node's state is started. This is a **very important check** - it prevents the `heal` workflow from getting executed after the built-in `uninstall` workflow takes place. The default value is true.
     * `interval_between_workflows`:
-        Trigger workflow only if the last workflow was triggered earlier than interval-between-workflows seconds ago.
-        if the specified value is less than 0, workflows can run concurrently. The default value is 300 seconds.
+        Trigger workflow only if the last workflow had been triggered earlier than interval-between-workflows seconds ago.
+        If the specified value is less than 0, workflows can run concurrently. The default value is 300 seconds.
 
 # Policy Type Implementation
 The implementation of policy types is written in [Clojure](http://clojure.org/) and more specifically using [Riemann's](http://riemann.io/) API with a thin layer provided by Cloudify.
