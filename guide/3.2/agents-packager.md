@@ -54,6 +54,7 @@ During the creation process, the agent-packager performs the following:
 
 * Creates a virtualenv using the python binary of your choice.
 * Installs mandatory external modules into the virtualenv.
+* * Installs modules from a provided requirements.txt file.
 * Installs mandatory and optional Cloudify plugins and modules into the virtualenv.
 * Installs the `cloudify-agent` module into the virtualenv.
 * Installs any additional user chosen Cloudify plugins and Python modules into the virtualenv.
@@ -127,7 +128,7 @@ cfyap.create(config=config, config_file=None, force=False, dryrun=False, no_vali
 {%endhighlight%}
 
 {%note title=Note%}
-Using the tool from python allows you to pass the configuration dictionary directly to the creation method which allows for automating the agent creation process.
+Using the tool from Python allows you to pass the configuration dictionary directly to the creation method which allows for automating the agent creation process.
 {%endnote%}
 
 ## The `cloudify-agent` module
@@ -169,8 +170,8 @@ Here's an example configuration file.
 {% highlight yaml %}
 distribution: Ubuntu
 release: trusty
-venv: 'cloudify/agent/env'
 python_path: '/usr/bin/python'
+requirements_file: path/to/my/requirements/file.txt
 cloudify_agent_version: master
 cloudify_agent_module: http://github.com/cloudify-cosmo/cloudify-agent/archive/master.tar.gz
 core_modules:
@@ -188,7 +189,7 @@ additional_modules:
 additional_plugins:
     cloudify_fabric_plugin: http://github.com/cloudify-cosmo/cloudify-fabric-plugin/archive/master.tar.gz
 output_tar: Ubuntu-trusty-agent.tar.gz
-keep_venv: true
+keep_virtualenv: true
 {%endhighlight%}
 
 ### Config YAML Explained
@@ -206,8 +207,8 @@ Beginning with Cloudify 3.2, they will not be case sensitive.
 
 - `distribution` - Which distribution is the agent intended for. If this is omitted, the tool will try to retrieve the distribution by itself. The distribution is then used to name the virtualenv (if not explicitly specified in `venv`) and to name the output file (if not explicitly specified in `output_tar`).
 - `release` - Which release (e.g. precise, trusty) of the `distribution` is the agent intended for. If this is omitted, the tool will try to retrieve the release by itself. The release is then used to name the virtualenv (if not explicitly specified in `venv`) and to name the output file (if not explicitly specified in `output_tar').
-- `venv` - Path to the virtualenv you'd like to create. Cloudify's built-in agent-installer requires that the format will be "/FOLDER/FOLDER/env/" where FOLDER can be any folder. The tar should include 2 parent folders and an `env` folder within them (If omitted, defaults to /cloudify/DISTRO-VERSION-agent/env).
 - `python_path` - Allows you to set the python binary to be used when creating `venv`. (Defaults to `/usr/bin/python`).
+- `requirements_file` - a path to a requirements.txt file containing modules you want installed in the agent.
 - `cloudify_agent_version` - States which version of the `cloudify-agent` module to install (Is not required if `cloudify_agent_module` is specified). Note that this can be used to create an agent for a specific Cloudify version.
 - `cloudify_agent_module` - States the url from which the `cloudify-agent` module should be installed. (Will ignore `cloudify_agent_version` if specified).
 - `core_modules` - a `dict` of core modules to install into the virtualenv. (If omitted or with a value of `false`, the module will be installed as a part of the `cloudify-agent` dependencies.) See below for a list of current core modules.
@@ -215,16 +216,16 @@ Beginning with Cloudify 3.2, they will not be case sensitive.
 - `additional_modules` - a `list` of additional modules to install into the virtualenv. This is where you can add any additional modules that are not Cloudify plugins.
 - `additional_plugins` - a `list` of additional Cloudify plugins to install into the virtualenv.
 - `output_tar` - Path to the tar file you'd like to create.
-- `keep_venv` - Whether to keep the virtualenv after creating the tar file or not. Defaults to false.
+- `keep_virtualenv` - Whether to keep the virtualenv after creating the tar file or not. Defaults to false.
 
 {%note title=Note%}
-All modules and plugins aside from `additional_modules` will be validated. In the future, a more robust implementation of the validation process will be added.
+All modules and plugins aside from `additional_modules` and modules inside the `requirements_file` will be validated. In the future, a more robust implementation of the validation process will be added.
 {%endnote%}
 
 
 # Agent Modules
 
-Each agent contains a set of modules, which are just python packages.
+Each agent contains a set of modules, which are just Python packages.
 These modules can be either simple python libraries or they can be [plugins]({{page.terminology_link}}#plugin).
 
 ## Core External Modules:
