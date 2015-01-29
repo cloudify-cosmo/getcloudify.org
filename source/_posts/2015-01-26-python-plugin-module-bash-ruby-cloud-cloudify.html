@@ -47,7 +47,7 @@ tags:
 
   <p>As an example, let’s say you are implementing a relationship operation and you want to read the port runtime property of the target node instance.&#160; Without this functionality, you would have to make a REST call to the manager REST service, parse the JSON response and extract the runtime property you are interested in (a lot of boilerplate). Using the CTX executable, it’s as simple as:</p>
 
-  <p>port=$(ctx target instance runtime-properties port)</p>
+  <p><code>port=$(ctx target instance runtime-properties port)</code></p>
 
   <p>Our <a href="http://getcloudify.org/guide/3.1/dsl-spec-general.html" target="_blank">DSL parser</a> was also extended to make mapping operations to scripts much simpler. Without the extension to the DSL parser, in order to map an operation to a script, you would have to do something like this:</p>
 
