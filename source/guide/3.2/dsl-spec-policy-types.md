@@ -49,56 +49,22 @@ policy_types:
     source: policies/host_failure.clj
 
     properties:
-        # The policy will maintain its state for each node instance individually.
-        policy_operates_on_group: false
+      policy_operates_on_group:
+        description: The policy will maintain its state for each node instance individually.
+        default: false
 
-        # The trigger will be processed even if node is not in the started state
-        is_node_started_before_workflow: false
+      is_node_started_before_workflow:
+        description: The trigger will be processed even if node is not in the started state
+        default: false
 
-        # Don't check the last workflow's trigger time before launching workflow
-        interval_between_workflows: -1
+      interval_between_workflows:
+        description: Don't check the last workflow's trigger time before launching workflow
+        default: -1
 
-        # Operate on events with an "example" being a substring of their service field
-        service:
-            - example
-
-  my_threshold_policy:
-
-    source: policies/threshold.clj
-
-    properties:
-        # Operate on events with a "cpu.total.system" being a substring of their service field value
-        service: cpu.total.system
-
-        # Activate policy triggers when an event's metric exceeds this threshold
-        threshold: 90
-
-        # Metrics whose value is bigger than the threshold will cause the triggers to be processed.
-        upper_bound: true
-
-        # How long the threshold must be breached before the triggers will be processed
-        stability_time: 10
-
-  my_ewma_policy:
-
-    source: policies/ewma_stabilized.clj
-
-    properties:
-        # Operate on events with a "cpu.total.system" being a substring of their service field value
-        service: cpu.total.system
-
-        # Activate policy triggers when an event's metric exceeds this threshold
-        threshold: 90
-
-        # The policy will maintain its state for the whole group
-        policy_operates_on_group: true
-
-        # Process triggers only when last workflow was launched more than 600 seconds ago
-        interval_between_workflows: 600
-
-        # r is the ratio between successive events. The smaller it is,
-        # the smaller impact on the computed value the most recent event has.
-        ewma_timeless_r: 0.75
+      service:
+        description: Operate on events with an "example" being a substring of their service field
+        default:
+          - example
 
 {%endhighlight%}
 
