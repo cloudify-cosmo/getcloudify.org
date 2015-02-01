@@ -27,7 +27,6 @@ For each node, for each node instance (in parallel):
 5. Execute `cloudify.interfaces.relationship_lifecycle.postconfigure` relationship operations.<sup>2</sup>
 6. Execute `cloudify.interfaces.lifecycle.start` operation.<sup>1</sup>
 7. If the node instance is a host node (its type is a subtype of `cloudify.nodes.Compute`):
-    * Wait for host to be started. (Wait for `cloudify.interfaces.host.get_state` operation on the node instance to return `true`, if mapped, do nothing otherwise).
     * Install agent workers and required plugins on this host.
     * Execute `cloudify.interfaces.monitoring_agent` interface `install` and `start` operations. <sup>1</sup>
 8. Execute `cloudify.interfaces.relationship_lifecycle.establish` relationship operations.<sup>2</sup>
@@ -72,6 +71,7 @@ For each node, for each node instance (in parallel):
 
   - *operation*: The name of the operation to execute (**Mandatory**).
   - *operation_kwargs*: A dictionary of keyword arguments that will be passed to the operation invocation (Default: `{}`).
+  - *allow_kwargs_override*: A boolean describing whether overriding operations inputs defined in the blueprint by using inputs of the same name in the `operation_kwargs` parameter is allowed or not (Default: `null` [means that the default behavior, as defined by the workflows infrastructure, will be used]).
   - *run_by_dependency_order*: A boolean describing whether the operation should execute on the relevant nodes according to the order of their relationships dependencies or rather execute on all relevant nodes in parallel (Default: `false`).
   - *type_names*: A list of type names. The opreation will be executed only on node instances which are of these types or of types which (recursively) derive from them. An empty list means no filtering will take place and all type names are valid (Default: `[]`).
   - *node_ids*: A list of node ids. The operation will be executed only on node instances which are instances of these nodes. An empty list means no filtering will take place and all nodes are valid (Default: `[]`).

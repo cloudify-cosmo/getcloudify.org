@@ -41,6 +41,7 @@ Each item in the provided plugins list should be a dictionary containing the fol
     - URL (http, https) to the plugin archive.
     - relative path to a folder inside <blueprint_root>/plugins
 
+* `install_arguments` - Optional arguments passed to the 'pip install' command created for the plugin installation
 * `install` - true to install, false to ignore. (Default to true)
 * `executor` - Can be one of:
 

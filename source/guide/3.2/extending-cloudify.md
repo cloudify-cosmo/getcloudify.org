@@ -50,11 +50,6 @@ cloudify.openstack.nodes.Server:
                 delete: 
                     implementation: nova_plugin.server.delete
                     inputs: {}
-            cloudify.interfaces.host:
-                get_state: 
-                    implementation: nova_plugin.server.get_state
-                    inputs: {}
-
 {% endhighlight %}
 
 
@@ -189,8 +184,8 @@ sh = ctx.get_resource(scripts[operation_simple_name])
         
 {% endhighlight %}
 
-### Dealing with Start detection
-In most cases a successful task execution of the `start` operation is considered node is up and running. However, there are cases where you can't use a blocking API call or you don't want to. Them most notable case is while creating a VM. This typically takes few minutes with most virtualized environments. For these cases there is an additional interface `cloudify.interfaces.host` with operation `get_state` to implement using a plugin. 
+### Asynchronous Operations
+In many cases, an operation is expected to do some work which takes time. In order to free the worker which executes the operation to handle other operations in the meantime, one can specify that the operation should be retried after some time and continue from the point where the asyncronous activity is over. An example for this behavior is usually relevant in `IaaS` plugins where it may take a resource some time to be available after a request for its creation has been made.
 
 
 ## Using Your Plugin
