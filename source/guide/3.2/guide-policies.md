@@ -88,67 +88,9 @@ groups:
 
 # Built-in Policies
 
-Cloudify comes with a number of built-in policies.
+Cloudify comes with a number of built-in policies, which are declared in [`types.yaml`]({{page.types_yaml_link}}) (which is usually imported either directly or indirectly via other imports).
 
-Built-in policies are declared in [`types.yaml`]({{page.types_yaml_link}}), which is usually imported either directly or indirectly via other imports.
-
-{% highlight yaml %}
-# snippet from types.yaml
-policy_types:
-    cloudify.policies.types.host_failure:
-        properties: &BASIC_AH_POLICY_PROPERTIES
-            policy_operates_on_group:
-                description: |
-                    If the policy should maintain it's state for for the whole group
-                    or each node instance individually.
-                default: false
-            is_node_started_before_workflow:
-                description: Before triggering workflow, check if the node state is started
-                default: true
-            interval_between_workflows:
-                description: |
-                    Trigger workflow only if the last workflow was triggered earlier than interval-between-workflows seconds ago.
-                    if < 0  workflows can run concurrently.
-                default: 300
-            service:
-                description: Service names whose events should be taken into consideration
-                default:
-                    - service
-        source: https://raw.githubusercontent.com/cloudify-cosmo/cloudify-manager/master/resources/rest-service/cloudify/policies/host_failure.clj
-
-    cloudify.policies.types.threshold:
-        properties: &THRESHOLD_BASED_POLICY_PROPERTIES
-            <<: *BASIC_AH_POLICY_PROPERTIES
-            service:
-                description: The service name
-                default: service
-            threshold:
-                description: The metric threshold value
-            upper_bound:
-                description: |
-                    boolean value for describing the semantics of the threshold.
-                    if 'true': metrics whose value is bigger than the threshold will cause the triggers to be processed.
-                    if 'false': metrics with values lower than the threshold will do so.
-                default: true
-            stability_time:
-                description: How long a threshold must be breached before the triggers will be processed
-                default: 0
-        source: https://raw.githubusercontent.com/cloudify-cosmo/cloudify-manager/master/resources/rest-service/cloudify/policies/threshold.clj
-
-    cloudify.policies.types.ewma_stabilized:
-        properties:
-            <<: *THRESHOLD_BASED_POLICY_PROPERTIES
-            ewma_timeless_r:
-                description: |
-                    r is the ratio between successive events. The smaller it is, the smaller impact on the computed value the most recent event has.
-                default: 0.5
-        source: https://raw.githubusercontent.com/cloudify-cosmo/cloudify-manager/master/resources/rest-service/cloudify/policies/ewma_stabilized.clj
-
-{% endhighlight %}
-
-Built-in policies are not special in any way - they use the same API any other custom policy is able to use.
-
-For more information and detailed description of the built-in policies, visit the [Built-in policies reference](reference-builtin-policies.html).
+Refer to [Built-in policies reference](reference-builtin-policies.html) for more details.
 
 # Writing a Custom Policy
 
@@ -197,7 +139,7 @@ The `ExampleCollector` generates a single metric whose value is consistently `42
 
 ## [Workflow]({{page.workflows_dsl_spec}}) Configuration
 
-The heal workflow will execute a sequence of tasks that is similar in nature to calling the `uninstall` workflow and the `install` workflow thereafter. The main difference is that this workflow operates on a subset of node instances that are contained within the failing node instance's compute and on relationships these node instances have with any other node instances. In other words, this workflow reinstalls the whole compute that contains the failing node and handles all appropriate relationships between the nodes inside this compute and any other nodes.
+The `heal` workflow will execute a sequence of tasks that is similar in nature to calling the `uninstall` workflow and the `install` workflow thereafter. The main difference is that this workflow operates on a subset of node instances that are contained within the failing node instance's compute and on relationships these node instances have with any other node instances. In other words, this workflow reinstalls the whole compute that contains the failing node and handles all appropriate relationships between the node instances inside this compute and any other node instances.
 
 ## [Groups]({{page.dsl_groups_spec}}) Configuration
 
@@ -254,5 +196,5 @@ The policy in the example has one `execute_workflow` policy trigger configured, 
 ## Limitations
 
 {%warning title=Limitations%}
-* Only compute nodes can have auto healing configured for them
+* At the moment, only compute nodes can have auto healing configured for them. Otherwise, when a certain compute node instance fails, node instances that are contained in it are also likely to fail, which in turn can cause the heal workflow to be triggered multiple times.
 {%endwarning%}
