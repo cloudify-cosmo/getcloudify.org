@@ -56,13 +56,12 @@ For more information about OpenStack, please refer to: [https://www.openstack.or
   * `cloudify.interfaces.lifecycle.stop` stops the server, if it's not already stopped.
   * `cloudify.interfaces.lifecycle.delete` deletes the server and waits for termination.
   * `cloudify.interfaces.validation.creation` see [common validations section](#Validations). Additionally, the image and flavor supplied are checked for existence.
-  * `cloudify.interfaces.host.get_state` checks whether the server is in started state.
 
 **Attributes:**
 
 See the [common Runtime Properties section](#runtime-properties).
 
-Two additional runtime-properties are available on node instances of this type once the `cloudify.interfaces.host.get_state` operation succeeds:
+Two additional runtime-properties are available on node instances of this type once the `cloudify.interfaces.lifecycle.start` operation succeeds:
 
   * `networks` server's networks' information, as retrieved from the Nova service.
   * `ip` the private IP (ip on the internal network) of the server.

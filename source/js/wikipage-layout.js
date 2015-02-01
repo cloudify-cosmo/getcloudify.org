@@ -17,7 +17,7 @@ function initWikiPageLayout() {
         } else {
             markdownFile = path.replace(".html", ".md");
         }
-        location.href = repo + "/edit/master" + markdownFile + "#";
+        location.href = repo + "/edit/master/source" + markdownFile + "#";
     });
 
 
