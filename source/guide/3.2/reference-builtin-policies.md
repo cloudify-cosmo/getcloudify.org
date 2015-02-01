@@ -14,15 +14,15 @@ pageord: 900
 
 **Type:** `cloudify.policies.types.host_failure`
 
-**Properties:**
+**Properties**
 
 Property | Required | Type | Description
 ---------| -------- | ---- | -----------
-service  | yes      | list | A list of service name regular expressions.
+service  | yes      | list | A list of regular expressions matching service names.
 
 <br>
 
-**Description:**
+**Description**
 
 This policy is based on intercepting expired events.
 
@@ -59,11 +59,11 @@ This policy's implementation can be found at [github](https://github.com/cloudif
 
 It is based on Riemann's [stable](http://riemann.io/api/riemann.streams.html#var-stable) function.
 
-# Exponential weighted moving average
+# Exponential Weighted Moving Average
 
 **Type:** `cloudify.policies.types.ewma_stabilized`
 
-**Properties:**
+**Properties**
 
 Property        | Required | Type      | Description
 ---------       | -------- | ----      | -----------
@@ -74,7 +74,7 @@ ewma_timeless_r | no       | float     | The ratio between successive events. Th
 
 <br>
 
-**Description:**
+**Description**
 
 This policy calculates the weighted average of events metrics over time.
 
