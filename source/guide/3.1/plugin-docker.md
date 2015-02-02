@@ -8,6 +8,8 @@ pageord: 210
 
 yaml_link: http://getcloudify.org/spec/docker-plugin/1.1/plugin.yaml
 fabric_link: http://getcloudify.org/guide/3.1/plugin-fabric.html
+cloudify_version: 3.1
+plugin_version: 1.1
 ---
 {%summary%}The Docker plugin enables you to run Docker containers from a Cloudify Blueprint.{%endsummary%}
 
@@ -189,3 +191,132 @@ Here are the operations that this plugin currently supports:
 ### Delete task
 
 * Deletes the container and its runtime_properties.
+
+
+# Nodecellar Example
+
+Nodecellar is a nodejs frontend that uses a mongo database as its backend. In this example each software component of the application is run inside of its own Docker contianer.
+
+Lets start out by installing Cloudify on your local machine. You can install Cloudify on Windows, Mac, or Linux. Visit the instructions [here.](http://getcloudify.org/guide/{{page.cloudify_version}}/installation-cli.html) In these instructions, we just install from pip:
+
+`pip install cloudify`
+
+Now we need to pull the git repository:
+
+`git clone git@github.com:cloudify-cosmo/cloudify-nodecellar-docker-example.git`
+
+Next checkout the correct version:
+
+`git checkout {{page.cloudify_version}}`
+
+The blueprint for the example is in the blueprint directory: docker-singlehost-blueprint.yaml. There is also an Openstack example for you to try there as well.
+
+First notice the files that we import:
+
+{% highlight yaml %}
+
+imports:
+  - http://www.getcloudify.org/spec/cloudify/{{page.cloudify_version}}/types.yaml
+  - https://raw.githubusercontent.com/cloudify-cosmo/cloudify-docker-plugin/{{page.plugin_version}}/plugin.yaml
+
+{% endhighlight %}
+
+
+The nodes in the blueprint derive their base properties from these two files. They should match in the minor version. (3.1 and 1.1, or 3.0 and 1.0.)
+
+Notice the first node_template: host. This describes the host machine that the Docker containers will run on. In this case it will be your local computer. However, this could be adjusted to be a vagrant box or something else. 
+
+If you decide to run the containers somewhere else, you will need to adjust the values in the inputs section or use an external inputs file.
+
+{% highlight yaml %}
+
+  host:
+    type: cloudify.nodes.Compute
+    properties:
+      install_agent: { get_input: install_agent }
+      ip: { get_input: host_ip }
+      cloudify_agent:
+        user: { get_input: agent_user }
+        key: { get_input: agent_private_key_path }
+
+{% endhighlight %}
+
+
+Now let's look at the Nodecellar Container.
+
+In this example, we are going to have a container that runs the nodejs nodecellar application. The Docker plugin will pull the uric/nodecellar container from Docker Hub.
+
+{% highlight yaml %}
+
+  nodecellar_container:
+    type: cloudify.docker.Container
+    properties:
+      name: nodecellar
+      image:
+        repository: uric/nodecellar
+      ports:
+        8080: 8080
+      params:
+        stdin_open: true
+        tty: true
+        command: nodejs server.js
+        environment:
+          NODECELLAR_PORT: 8080
+          MONGO_PORT: 27017
+
+{% endhighlight %}
+
+
+The plugin configures the container to expose port 8080, with a pseudo TTY, and two environment variables NODECELLAR_PORT, and MONGO_PORT.
+
+Notice that port 8080 is mapped to port 8080. You could change this to map port 80 to 8080 or any other combination.
+
+
+Next is the MongoDB container. The plugin will pull the dockerfile/mongodb image from Dockerhub, and create a container that exposes ports 27017 and 28017.
+
+{% highlight yaml %}
+
+  mongod_container:
+    type: cloudify.docker.Container
+    properties:
+      name: mongod
+      image:
+        repository: dockerfile/mongodb
+      ports:
+        27017: 27017
+        28017: 28017
+      params:
+        stdin_open: true
+        tty: true
+        command: mongod --rest --httpinterface --smallfiles
+
+{% endhighlight %}
+
+
+The plugin then starts the container with a pseudo TTY and runs the command `mondod --rest --httpinterface --smallfiles`. Again the ports 27017 and 28017 are mapped to themselves, but you could change them to different mappings if you configured MongoDB to other ports.
+
+This is a really straight-forward example that shows you some of what you can do with this plugin. 
+
+Now, let's get Cloudify setup so you can run the plugin.
+
+Start by initializing the environment:
+
+`cfy local init`
+
+This creates a special environment for running blueprints locally.
+
+Next, we will install the plugins:
+
+`cfy local install-plugins -p docker-singlehost-blueprint.yaml`
+
+That installs the Cloudify Docker Plugin in your local environment.
+
+Now you are ready to run the blueprint:
+
+`cfy local execute -w install`
+
+This might take a while to execute. It needs to install download the Docker images and then it will create the containers.
+
+When it is finished, you can open a browser to 127.0.0.1 and you will see the Nodecellar application.
+
+If you'd like a deeper look at the plugin, visit the project page in [Github.](https://github.com/cloudify-cosmo/cloudify-docker-plugin/tree/{{page.plugin_version}})
