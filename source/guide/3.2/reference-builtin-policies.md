@@ -28,7 +28,7 @@ This policy is based on intercepting expired events.
 
 The first monitoring event sent by a certain node instance will add this event type (determined by the event's service and host properties) to the policy engine index (Riemann's index mechanism). Later, if this type of event does not get sent for a period of 60 seconds for this particular node instance, it gets expired.
 
-When an event expires and has been sent by a service that matches one of the `service` property regular expressions of the policy specified in the blueprint, the host failure policy passes this event to the restraints check and eventually processes the policy's triggers. It adds the `diagnose` field with value "heart-beat-failure" and the `failing_node` field with an id of the failing node instance to the event. Additionally, the event's state gets changed to "triggering_state".
+When an event expires and has been sent by a service that matches one of the `service` property regular expressions of the policy specified in the blueprint, the host failure policy passes this event to the restraints check and eventually processes the policy's triggers. It adds the `diagnose` field with value "heart-beat-failure" to the event. Additionally, the event's state gets changed to "triggering_state".
 
 This policy's implementation can be found at [github](https://github.com/cloudify-cosmo/cloudify-manager/blob/master/resources/rest-service/cloudify/policies/host_failure.clj).
 
