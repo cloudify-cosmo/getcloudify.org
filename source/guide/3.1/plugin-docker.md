@@ -9,17 +9,10 @@ pageord: 210
 yaml_link: http://getcloudify.org/spec/docker-plugin/1.1/plugin.yaml
 fabric_link: http://getcloudify.org/guide/3.1/plugin-fabric.html
 ---
-{%summary%}
-{%endsummary%}
+{%summary%}The Docker plugin enables you to run Docker containers from a Cloudify Blueprint.{%endsummary%}
 
 
 {%warning title=Disclaimer%}This plugin is in Alpha and has not been thoroughly tested yet.{%endwarning%}
-
-
-# Description
-
-The Docker plugin enables you to run Docker containers from a Cloudify Blueprint.
-
 
 # Plugin Requirements:
 
@@ -66,8 +59,7 @@ The container node type allows you to describe the properties and lifecycle oper
 
 The properties are: name, image, ports, and params.
 
-
-* name:
+### name:
 
 The `name` property is the name of the container. If this is a new container, name it anything you like. If it is an external container, give it the existing name.
 
@@ -83,8 +75,7 @@ For example:
 
 {% endhighlight %}
 
-
-* image:
+### image:
 
 The `image` property is a dictionary. It must have the `repository` key or the `src` key, or both. It may additionally have the `tag` key.
 
@@ -111,9 +102,9 @@ Here is an example of importing from an URL.
 {% endhighlight %}
 
 
-* ports:
+### ports:
 
-Use `ports` describe the control the port mappings of the container.
+Use `ports` to control the port mappings of the container.
 
 {% highlight yaml %}
 
@@ -132,7 +123,7 @@ Use `ports` describe the control the port mappings of the container.
 {% endhighlight %}
 
 
-* params:
+### params:
 
 Additional parameters are allowed in the `params` dictionary. For example, the options for `std_open`, `tty`, and `environment` variables.
 
@@ -170,7 +161,7 @@ The plugin is designed to follow the Docker Py Docker Python API library and not
 
 Here are the operations that this plugin currently supports:
 
-## Create task
+### Create task
 
 * Creates a container that can be started.
 
@@ -183,18 +174,18 @@ Here are the operations that this plugin currently supports:
 * This operations adds the container_id to the instance runtime_properties.
 
 
-## Start task
+### Start task
 
 * This starts the container.
 
 * It also logs containers' network settings with IPs, ports, and top information.
 
 
-## Stop task
+### Stop task
 
 * Stops the container.
 
 
-## Delete task
+### Delete task
 
 * Deletes the container and its runtime_properties.
