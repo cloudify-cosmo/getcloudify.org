@@ -207,6 +207,8 @@ Now we need to pull the git repository:
 
 Next checkout the correct version:
 
+`cd cloudify-nodecellar-docker-example`
+
 `git checkout {{page.cloudify_version}}`
 
 The blueprint for the example is in the blueprint directory: docker-singlehost-blueprint.yaml. There is also an Openstack example for you to try there as well.
@@ -301,13 +303,13 @@ Now, let's get Cloudify setup so you can run the plugin.
 
 Start by initializing the environment:
 
-`cfy local init`
+`cfy local install-plugins -p docker-singlehost-blueprint.yaml`
 
 This creates a special environment for running blueprints locally.
 
 Next, we will install the plugins:
 
-`cfy local install-plugins -p docker-singlehost-blueprint.yaml`
+`cfy init -p docker-singlehost-blueprint.yaml`
 
 That installs the Cloudify Docker Plugin in your local environment.
 
