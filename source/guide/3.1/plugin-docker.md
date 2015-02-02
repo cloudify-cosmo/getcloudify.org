@@ -26,6 +26,8 @@ The Docker plugin enables you to run Docker containers from a Cloudify Blueprint
 * Python Versions:
   * 2.7.x
 
+* Ubuntu Precise
+  * The Docker plugin has an installation script that installs Docker on Ubuntu Precise.
 
 # Blueprints
 
@@ -102,9 +104,9 @@ Here is an example of importing from an URL.
     properties:
       name: cloudify-manager
       image:
-        src: http://gigaspaces-repository-eu.s3.amazonaws.com/org/cloudify3/3.2.0/m4-RELEASE/cloudify-docker_3.2.0-m4-b173.tar
+        src: http://gigaspaces-repository-eu.s3.amazonaws.com/org/cloudify3/3.1.0/ga-RELEASE/cloudify-docker_3.1.0-ga-b85.tar
         repository: cloudify-manager-packages
-        tag: 3.2.0
+        tag: 3.1.0
 
 {% endhighlight %}
 
