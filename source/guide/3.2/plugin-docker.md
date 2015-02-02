@@ -6,7 +6,8 @@ publish: true
 abstract: "Docker plugin description and configuration"
 pageord: 210
 
-yaml_link: http://getcloudify.org/spec/docker-plugin/1.1/plugin.yaml
+yaml_link: http://getcloudify.org/spec/docker-plugin/1.2/plugin.yaml
+fabric_link: http://getcloudify.org/guide/3.2/plugin-fabric.html
 ---
 {%summary%}
 {%endsummary%}
@@ -17,7 +18,7 @@ yaml_link: http://getcloudify.org/spec/docker-plugin/1.1/plugin.yaml
 
 # Description
 
-The Docker plugin can be used to map node life cycle operations to manage Docker Containers
+The Docker plugin enables you to run Docker containers from a Cloudify Blueprint.
 
 
 # Plugin Requirements:
@@ -32,180 +33,166 @@ The Docker plugin can be used to map node life cycle operations to manage Docker
 
 {% highlight yaml %}
 
-db_server:
+  my_nginx:
+    type: cloudify.docker.Container
+    properties:
+      name: nginx
+      image:
+        repository: nginx
+        tag: 1.7.9
+      ports:
+        8080:80
+      params:
+        stdin_open: true
+        tty: true
+        command: some-content-nginx
+        environment:
+          ENV_VAR: some-var-value
+          ENV_VAR2: another-var-value
+        volumes_from:
+          boring_babbage
+          sleepy_brattain
+    relationships:
+      - type: cloudify.relationships.contained_in
+        target: some_vm
 
-  type: cloudify.nodes.DBMS
-
-  interfaces:
-    cloudify.interfaces.lifecycle:
-      create:
-        implementation: docker.docker_plugin.tasks.create
-        inputs:
-          daemon_client: {}
-          image_import:
-            src: http://insert/url/to/image/here
-          # could also be image_build, see below
-          # image_build: {}
-      configure:
-        implementation: docker.docker_plugin.tasks.configure
-        inputs:
-          daemon_client:    {}
-          container_config:
-            command: /bin/echo hello
-      start:
-        implementation: docker.docker_plugin.tasks.run
-        inputs:
-          daemon_client:   {}
-          container_start: {}
-      stop:
-        implementation: docker.docker_plugin.tasks.stop
-        inputs:
-          daemon_client:  {}
-          container_stop: {}
-      delete:
-        implementation: docker.docker_plugin.tasks.delete
-        inputs:
-          daemon_client:    {}
-          # required in case container to remove is currently running
-          container_stop:   {}
-          container_remove: {}
 {% endhighlight %}
 
-# Operation Properties
+## Container Properties
 
-The different dictionaries correspond to parameters used in the
+The container node type allows you to describe the properties and lifecycle operations of a Docker container.
+
+The properties are: name, image, ports, and params.
+
+
+* name:
+
+The `name` property is the name of the container. If this is a new container, name it anything you like. If it is an external container, give it the existing name.
+
+For example:
+
+{% highlight yaml %}
+
+  existing_container:
+    type: cloudify.docker.Container
+    properties:
+      name: boring_babbage
+      use_external_resource: true
+
+{% endhighlight %}
+
+
+* image:
+
+The `image` property is a dictionary. It must have the `repository` key or the `src` key, or both. It may additionally have the `tag` key.
+
+The `src` key is used when you want to import an image. It must point to a file or URL where there is a tarball, which Docker can use to import an image. For more information on importing images, see [docker import command.](https://docs.docker.com/reference/commandline/cli/#import)
+
+If you pull an image from a Docker hub, `repository` is required. If you are importing an image, you leave it blank. The plugin will name the 
+repository by the Cloudify [instance ID.](http://getcloudify.org/guide/3.2/reference-terminology.html#node-instance)
+
+The `tag` key is also optional. If you want to specify a version of a repository, you can put that in the tag.
+
+Here is an example of importing from an URL.
+
+{% highlight yaml %}
+
+  cloudify_manager:
+    type: cloudify.docker.Container
+    properties:
+      name: cloudify-manager
+      image:
+        src: http://gigaspaces-repository-eu.s3.amazonaws.com/org/cloudify3/3.2.0/m4-RELEASE/cloudify-docker_3.2.0-m4-b173.tar
+        repository: cloudify-manager-packages
+        tag: 3.2.0
+
+{% endhighlight %}
+
+
+* ports:
+
+Use `ports` describe the control the port mappings of the container.
+
+{% highlight yaml %}
+
+  web_application:
+    type: cloudify.docker.Container
+    properties:
+      name: web-app
+      image:
+        src: local-file.tar
+        repository: my-application-container
+      ports:
+        22: 22
+        80: 80
+        3306, 127.0.0.1: 3306, 10.79.46.23
+
+{% endhighlight %}
+
+
+* params:
+
+Additional parameters are allowed in the `params` dictionary. For example, the options for `std_open`, `tty`, and `environment` variables.
+
+{% highlight yaml %}
+
+  nodecellar_container:
+    type: cloudify.docker.Container
+    properties:
+      name: nodecellar
+      image:
+        repository: uric/nodecellar
+      ports:
+        8080: 8080
+      params:
+        stdin_open: true
+        tty: true
+        command: nodejs server.js
+        environment:
+          NODECELLAR_PORT: 8080
+          MONGO_PORT: 27017
+
+{% endhighlight %}
+
+Many of the options exposed in the Docker-Py Python Docker API are available through the Cloudify Docker Plugin. That documentation can suppliment this feature:
 [docker python client.](https://github.com/docker/docker-py)
 
 If there is a lack of description of certain parameters,
 more details can be found in
 [docker command line documentation.](https://docs.docker.com/reference/commandline/cli/)
 
-Here are listed all dictionaries and some of the keys:
 
-* `daemon_client`
+## Using the plugin
 
-    Similar to the parameters of `Client` function in Docker API client.
+The plugin is designed to follow the Docker Py Docker Python API library and not the Docker CLI. And so, it also differs from the Docker CLI in some respects. For example, `docker run` is split into `create` and `start`.
 
-* `image_import`:
-
-    Similar to the parameters of `import_image` function in Docker API client.
-
-    - `src`(string): an URL to the image.
-
-* `image_build`:
-
-    Similar to the parameters of `build` function in Docker API client.
-
-    - `path`(string): a path to a directory containing a Dockerfile.
-
-    - `fileobj` is not supported.
-
-    - `rm`(bool): Are the intermediate containers to be deleted.
-
-Either `src` in `image_import` dictionary or `path` in `image_build`
-must be specified.
-
-* `container_config`:
-
-    Similar to the parameters of `create_container` function in
-    Docker API client.
-
-    - Do not provide `image`, it is automatically added to context runtime
-      properties during task create.
-
-    - `command`(string): is mandatory. Specifies command that will be executed
-      in container.
-
-    - `environment`(dictionary of strings): Specifies environmental variables
-      that will be available in container.
-
-    - `ports`(list of integers): a list of ports to open inside the container.
-
-    - `volumes`(list of strings) a list of mountpoints.
-
-* `container_start`:
-
-    Similar to the parameters of `start` function in Docker API client.
-
-    - Do not provide `container`, it is automatically added to context runtime
-      properties during task create.
-
-    - `port_bindings`(dictionary of integers): declaration of port bindings.
-
-    - `network_mode`(string)
-
-    - `binds`(dictionary of dictionaries of strings): volume mappings
-
-* `container_stop`:
-
-    Similar to the parameters of `stop` function in Docker API client.
-
-    - Do not provide `container`, it is automatically added to context runtime
-      properties during task create.
-
-    - `timeout`(integer): number of seconds to wait for the container to stop
-      before killing it.
-
-* `container_remove`:
-
-    Similar to the parameters of `remove_container` function in
-    Docker API client.
-
-    - Do not provide `container`, it is automatically added to context runtime
-      properties during task create.
-
-    - `remove_image`(bool): additional key, specifies weather or not to
-      remove image when removing container.
-
-Description of the rest of the keys can be found in desctiption
-of methods in
-[an api client for docker.](https://github.com/docker/docker-py)
-
-
-# Using the plugin
-
-Docker is installed during plugin installation on the host agent if it isn't
-already installed. When installing the plugin locally, docker is not installed,
-and should be installed manually
+Here are the operations that this plugin currently supports:
 
 ## Create task
 
-* Imports or builds image:
+* Creates a container that can be started.
 
-    If `image_import` is passed, it imports an image using this dictionary as options.
+* Here, the plugin pulls images from the Docker Hub Registry, a private registry, or it may import an image from a tarball.
 
-    If `image_build` is passed, it builds an image using this dictionary as options.
+* In the blueprint, you pass ports as a dictionary. The key of each dictionary is a port that you will open on this container.
+  * In the create operation, only Docker Py only needs to know the keys of the dict.
+  * In the start operation, the entire dict is passed as the port_binding parameter.
 
-    Either `src` in `image_import` dictionary or `path` in `image_build`
-    must be specified.
+* This operations adds the container_id to the instance runtime_properties.
 
 
-## Configure task
+## Start task
 
-* Adds `docker_env_var` from context runtime properties with
-  `container_config.environment` as environment variables of the container.
+* This starts the container.
 
-* Creates container using the image from `runtime_properties` and options from
-  `container_config`. `command` in `container_config` must be specified.
+* It also logs containers' network settings with IPs, ports, and top information.
 
-## Run task
-
-* Starts conatiner with `container_start` dictionary as options.
-
-* Logs containers id, list of network interfaces with IPs, ports,
-  and top information.
 
 ## Stop task
 
-* Stops container with `container_stop` dictionary as options.
+* Stops the container.
+
 
 ## Delete task
 
-* If `remove_image` in `container_remove` dictionary is True then image of
-  this container is deleted. If the image is used by another container
-  error is raised.
-
-* Deletes container with `container_remove` dictionary as options.
-
-* If container is running, uses `container_stop` configuration to stop the
-  container
+* Deletes the container and its runtime_properties.
