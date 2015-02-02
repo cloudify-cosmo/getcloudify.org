@@ -135,7 +135,6 @@ For each of the remaining node instances:
 1. Effectively, all node instances that are contained inside the compute node instance of the failing node instance, are considered failed as well and will be re-installed.
 </sub>
 
-{%note title=Note%}
 A compute sub-graph can be though of as a blueprint that defines only nodes that are contained inside a compute node.
 For example, if the full blueprint looks something like this:
 {%highlight yaml%}
@@ -178,36 +177,16 @@ node_templates:
 ...
 {%endhighlight%}
 
-Then a compute sub-graph for the **`webserver_host`** will look like:
+Then the corresponding graph will look like so:
 
-{%highlight yaml%}
-node_templates:
+![Blueprint as Graph](/guide/images3/blueprint/blueprint-as-graph.png)
 
-  webserver_host:
-    type: cloudify.nodes.Compute
-    relationships:
-      - target: floating_ip
-        type: cloudify.relationships.connected_to
+And a compute sub-graph for the **`webserver_host`** will look like:
 
-  webserver:
-    type: cloudify.nodes.WebServer
-    relationships:
-      - target: webserver_host
-        type: cloudify.relationships.contained_in
+![Blueprint as Graph](/guide/images3/blueprint/sub-blueprint-as-graph.png)
 
-  war:
-    type: cloudify.nodes.ApplicationModule
-    relationships:
-      - target: webserver
-        type: cloudify.relationships.contained_in
-      - target: database
-        type: cloudify.relationships.connected_to
-
-...
-
-{%endhighlight%}
-
-Notice that the `floating_ip`, `database` and `database_host` nodes are not part of the blueprint. **However**, they are still specified as relationship target nodes for the remaining nodes.
-For this reason, its not a valid blueprint, and the term *graph* is more appropriate.
-
+{%note title=Note%}
+This sub-graph determines the operations that will be executed during the workflow execution. In this example:
+* The following node instances will be re-installed: `war_1`, `webserver_1` and `webserver_host_1`.
+* The following relationships will be re-established: `war_1` **connected to** `database_1` and `webserver_host_1` **connected to** `floating_ip_1`.
 {%endnote%}
