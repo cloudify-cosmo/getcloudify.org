@@ -111,32 +111,32 @@ For each of the remaining node instances:
 
 **Workflow name:** *heal*
 
-**Workflow description:** The workflow for re-installing specific blueprint nodes.
+**Workflow description:** Reinstalls the whole subgraph of the system topology applying the `uninstall` and `install` workflows' logic respectively. The subgraph consists of all the node instances that are contained in the compute node instance which contains the failing node instance and/or the compute node instance itself. Additionally, this workflow handles unlinking and establishing all affected relationships in an appropriate order.
 
 **Workflow parameters:**
 
-  - *node_id*: The id of the failed node instance.
+  - *node_id*: The ID of the failing node instance that needs healing. The whole compute node instance containing (or being) this node instance will be reinstalled.
 
 **Workflow high-level pseudo-code:**
 
-  1. Retrieve the host of the failed node.
-  2. Construct a host sub-graph (see note below).
+  1. Retrieve the compute node instance of the failed node instance.
+  2. Construct a compute sub-graph (see note below).
   3. Uninstall the sub-graph:
 
-      - Execute uninstall lifecycle operations (`stop`, `delete`) on the host and all it's contained nodes. (1)
+      - Execute uninstall lifecycle operations (`stop`, `delete`) on the compute node instance and all it's contained node instances. (1)
       - Execute uninstall relationship lifecycle operations (`unlink`) for all affected relationships.
 
   4. Install the sub-graph:
 
-      - Execute install lifecycle operations (`create`, `configure`, `start`) on the host and all it's contained nodes.
+      - Execute install lifecycle operations (`create`, `configure`, `start`) on the compute node instance and all it's contained nodes instances.
       - Execute install relationship lifecycle operations (`preconfigure`, `postconfigure`, `establish`) for all affected relationships.
 
 <sub>
-1. Effectively, all nodes that are contained inside the host of the failing node, are considered failed as well and will be re-installed.
+1. Effectively, all node instances that are contained inside the compute node instance of the failing node instance, are considered failed as well and will be re-installed.
 </sub>
 
 {%note title=Note%}
-A host sub-graph can be though of as a blueprint that defines only nodes that are contained inside a host.
+A compute sub-graph can be though of as a blueprint that defines only nodes that are contained inside a compute node.
 For example, if the full blueprint looks something like this:
 {%highlight yaml%}
 ...
@@ -178,7 +178,7 @@ node_templates:
 ...
 {%endhighlight%}
 
-Than a host sub-graph for the **`webserver_host`** will look like:
+Then a compute sub-graph for the **`webserver_host`** will look like:
 
 {%highlight yaml%}
 node_templates:
@@ -209,6 +209,5 @@ node_templates:
 
 Notice that the `floating_ip`, `database` and `database_host` nodes are not part of the blueprint. **However**, they are still specified as relationship target nodes for the remaining nodes.
 For this reason, its not a valid blueprint, and the term *graph* is more appropriate.
-
 
 {%endnote%}

@@ -44,21 +44,27 @@ Example:
 {%highlight yaml%}
 policy_types:
 
-  my_threshold_policy:
+  my_host_failure_policy:
 
-    source: policies/threshold.clj
+    source: policies/host_failure.clj
 
     properties:
-      service_regex:
-        description: >
-          Operate on events who's
-          service matches this regual expression
-        default: .*?
-      metric_threshold:
-        description: >
-          Activate policy triggers when an event's
-          metric exeeds this threshold
+      policy_operates_on_group:
+        description: The policy will maintain its state for each node instance individually.
+        default: false
 
+      is_node_started_before_workflow:
+        description: The trigger will be processed even if node is not in the started state
+        default: false
+
+      interval_between_workflows:
+        description: Don't check the last workflow's trigger time before launching workflow
+        default: -1
+
+      service:
+        description: Operate on events with an "example" being a substring of their service field
+        default:
+          - example
 
 {%endhighlight%}
 
