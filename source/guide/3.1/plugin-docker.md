@@ -301,17 +301,13 @@ This is a really straight-forward example that shows you some of what you can do
 
 Now, let's get Cloudify setup so you can run the plugin.
 
-Start by initializing the environment:
+Start by installing the plugins that the blueprint needs:
 
 `cfy local install-plugins -p docker-singlehost-blueprint.yaml`
 
-This creates a special environment for running blueprints locally.
-
-Next, we will install the plugins:
+Next, we will initialize the environment:
 
 `cfy init -p docker-singlehost-blueprint.yaml`
-
-That installs the Cloudify Docker Plugin in your local environment.
 
 Now you are ready to run the blueprint:
 
@@ -320,5 +316,28 @@ Now you are ready to run the blueprint:
 This might take a while to execute. It needs to install download the Docker images and then it will create the containers.
 
 When it is finished, you can open a browser to 127.0.0.1 and you will see the Nodecellar application.
+
+{% tip title=Using boot2docker %}
+If you are using Mac OSX, you might be using boot2docker instead of the regular Docker daemon. If that is the case, you might need to make some changes to the above process.
+
+First of all, the URL will not be 127.0.0.1 as for the Linux example. It will likely be be 192.168.59.103. (However, even this can change.)
+
+Now also once you install the plugin locally, you need to change the client file. Find the docker_client.py file in your python library. Add the following:
+
+    from docker.utils import kwargs_from_env
+
+    kwargs = kwargs_from_env()
+    kwargs['tls'].assert_hostname = False
+
+And the change this line:
+
+        return docker.Client(**daemon_client)
+
+To:
+
+        return docker.Client(**kwargs)
+
+{% endtip %}
+
 
 If you'd like a deeper look at the plugin, visit the project page in [Github.](https://github.com/cloudify-cosmo/cloudify-docker-plugin/tree/{{page.plugin_version}})
