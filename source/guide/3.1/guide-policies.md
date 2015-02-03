@@ -202,7 +202,7 @@ groups:
               workflow_parameters:
                 # The host_failure policy adds 'failing_node' to
                 # the event before processing its triggers.
-                # the 'faling_node' will be the node instance id
+                # the 'failing_node' will be the node instance id
                 # of the node that failed. In our case, it will be
                 # something like 'some_vm_afd34'
                 node_id: { get_property: [SELF, failing_node] }
