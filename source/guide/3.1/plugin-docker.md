@@ -8,7 +8,6 @@ pageord: 210
 
 yaml_link: http://getcloudify.org/spec/docker-plugin/1.1/plugin.yaml
 fabric_link: http://getcloudify.org/guide/3.1/plugin-fabric.html
-cloudify_version: 3.1
 plugin_version: 1.1
 ---
 {%summary%}The Docker plugin enables you to run Docker containers from a Cloudify Blueprint.{%endsummary%}
@@ -194,4 +193,4 @@ Here are the operations that this plugin currently supports:
 
 # Complete Example
 
-For a complete working example, please see the [ReadMe](https://github.com/cloudify-cosmo/cloudify-nodecellar-docker-example/tree/3.1) for the Docker Nodecellar Example.
+For a complete working example, please see the [ReadMe](https://github.com/cloudify-cosmo/cloudify-nodecellar-docker-example/tree/{{site.latest_cloudify_version}}) for the Docker Nodecellar Example.
