@@ -192,4 +192,6 @@ Here are the operations that this plugin currently supports:
 
 * Deletes the container and its runtime_properties.
 
+# Complete Example
+
 For a complete working example, please see the [ReadMe](https://github.com/cloudify-cosmo/cloudify-nodecellar-docker-example/tree/3.1) for the Docker Nodecellar Example.
