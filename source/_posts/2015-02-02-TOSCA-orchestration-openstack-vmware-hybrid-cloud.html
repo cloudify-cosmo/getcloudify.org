@@ -1,0 +1,155 @@
+---
+layout: blogpost
+title: TOSCA Orchestration for VMware - Hybrid Cloud Made Simple
+image: yoram.jpeg
+author: Yoram Weinreb
+tags:
+ - TOSCA
+ - Cloud Orchestration
+ - VMware
+ - Cloudify
+ - Hybrid Cloud
+---
+
+<notextile>
+
+<div class="aligncenter">
+<img src="/img/nodecellar_create_deployment_crop.png" width="650" alt="Cloudify VMware | TOSCA  Orchestration | VMware/OpenStack | OpenStack/VMware| VMware Hybrid Cloud | Hybrid Cloud | TOSCA "></div>
+<br/>
+<br/>
+
+<p>
+  <hr /></p>
+
+<p>The microservices architecture is far from a new trend, it’s generally accepted as a better way to build apps these days. The common way to build apps was, until a few years ago, the monolithic approach - which was, if you look at it from a functional perspective, basically one deployment unit that does everything. Monolithic apps are good for small scale teams and projects, but when you need something that has a larger scale and involves many teams, it starts to become problematic. It’s much harder to make changes, as the code base becomes bigger and more people make changes to it. </p>
+
+<p>This is basically the exact opposite of all things continuous delivery, because it’s more tightly coupled and requires an exponentially growing amount of coordination to make continuous updates. Therefore updates become more painful and less frequent, contributing further to fragility of the application. </p>
+
+ 
+
+
+<p>We've recently been working closely with VMware to make hybrid cloud a reality.&#160; Most enterprise organizations choose a multi-cloud strategy for numerous reasons. They start with VMware and OpenStack for their private cloud environment and a combination of public cloud for dev/test or access capacity scenario. What's more, many large Telcos are also transitioning from costly hardware appliances into a virtualized data center (Network Functions Virtualization) based on a stack similar to that used by enterprises.</p>
+
+<p>That's why it was an important target for Cloudify to be able to expand its already broad support of cross-cloud orchestration, to support VMware's virtualization and cloud offerings. </p>
+
+ <hr>
+
+<span class="pullquote-left">
+  <font style="font-weight: bold" size="5" face="Baskerville Old Face"><em>Pure-play orchestration for VMware platforms with Cloudify - now possible.</em></font>&nbsp; <a class="btn btn-medium btn-theme btn-rounded" id="downloadBtnInner" href="http://getcloudify.org/downloads/get_cloudify_3x.html" target="_blank"><i class="icon-plus"></i> Go </a></span>
+  
+  <hr>
+
+<p>Cloudify's <a href="http://getcloudify.org/vmware-hybrid-cloud.html" target="_blank">TOSCA orchestration</a> for VMware allows you to transition and migrate workloads easily between your VMware infrastructure and any cloud - and back again, all with the same blueprint.</p>
+
+<p>In this post, I will explain how you can run your first application orchestration on vCloud Air - VMware's public cloud offering -&#160; using Cloudify to automate the workflows on nodes modeled using the <a href="http://getcloudify.org/guide/3.1/dsl-spec-general.html" target="_blank">TOSCA spec</a>.</p>
+
+<p>We will start by installing the Cloudify CLI locally, then bootstrap a Cloudify manager, and finally upload and deploy our web application blueprint to the vCloud Air cloud using this manager.</p>
+
+<p>You can watch this video that demonstrates the implementation of this process step by step below.</p>
+
+<a class="hover-wrap fancybox fancybox.iframe" data-fancybox-group="gallery" title="Cloudify TOSCA Orchestration for vCloud Air" href="http://www.youtube.com/embed/8r91sv0jseg?enablejsapi=1&wmode=opaque">
+                <img src="img/vmwarethumbnail.png" alt="VMware Orchestration | TOSCA | TOSCA Orchestration | VMware Cloud | VMware vSphere | VMware vCloud Air" /></a>
+
+<p>To get started, you will need to have vCloud Air account credentials through a subscription account (on demand support will come soon).</p>
+
+<p>In addition, you need to create an Ubuntu template that can support Docker (version 14.04 or older with kernel upgrade).&#160; You will need to add to this template the ability for &quot;passwordless SSH&quot; by generating an SSH key, and then adding the SSH public key to the user <strong><font color="#0000ff" face="Courier New">.ssh/authorized_keys</font></strong> file.</p>
+
+<p>We will start by installing the Cloudify command line tool (CLI):</p>
+
+<ol>
+  <li>Make sure you have Python 2.7 and pip package manager installed (if pip is not installed, please do so using <a href="https://pip.pypa.io/en/latest/installing.html" target="_blank">these instructions</a>). </li>
+
+  <li>Install python virtualenv 
+    <br /><code>pip install virtualenv</code> </li>
+
+  <li><code></code>Create a new virtual environment 
+
+    <br /><code>virtualenv yournewcfyenv</code> </li>
+
+  <li><font color="#0000ff" face="Courier New"><strong>CD</strong></font> into this new folder (“yournewcfyenv”) </li>
+
+  <li>Activate the virtual environment 
+    <br /><code>source ./bin/activate</code> </li>
+
+  <li>Install the Cloudify CLI 
+
+    <br /><code>pip install cloudify</code> </li>
+
+  <li>Run <code>cfy –version</code> to ensure the cli tool was successfully installed </li>
+</ol>
+
+<p>After we have Cloudfy CLI installed, we want to deploy a Cloudify manager to our vCloud Air cloud. Cloudify is built using a pluggable architecture, where support for clouds is provided by a cloud-specific plugin, which contains the manager blueprint.&#160; This is the blueprint that installs the Cloudify manager application in the same way we will later install our application blueprint.</p>
+
+<ol>
+  <li>Get the vCloud Air cloud plugin from github 
+    <br /><code>wget <a href="https://github.com/cloudify-cosmo/tosca-vcloud-plugin/archive/1.0m2.zip" rel="nofollow">https://github.com/cloudify-cosmo/tosca-vcloud-plugin/archive/1.0m2.zip</a> 
+
+      <br />unzip 1.0m2.zip</code> </li>
+
+  <li>Go into the <strong><font color="#0000ff" face="Courier New">tosca-vcloud-plugin</font></strong> folder. </li>
+
+  <li>Under the <strong><font color="#0000ff" face="Courier New">manager_blueprint</font></strong> folder, edit the <strong><font color="#0000ff" face="Courier New">inputs.json .template</font></strong> file and complete all of the empty properties. 
+
+    <br />
+    <script src="https://gist.github.com/shar1z/4f81f30dde7acacfecca.js"></script> 
+  </li>
+
+  <li>Save it under the same name without the template suffix </li>
+
+  <li>To start the actual bootstrap run the following commands: 
+    <br /><code>cfy init </code>
+      <br /><code>cfy local install-plugins –p ./manager_blueprint/vcloud.yaml</code>
+
+      <br /><code>cfy bootstrap –p ./manager_blueprint/vcloud.yaml –i ./manager_blueprint/inputs.json</code></li>
+
+  <li> You should see quite a long console output that should finish with an IP address of your newly created Cloudify manager. </li>
+</ol>
+
+<p>Once the Cloudify manager is up, it is time to upload our blueprint...but first, we need to actually get it.</p>
+
+<p><a href="/vmware-hybrid-cloud.html" target="_blank"><img class="alignright size-medium wp-image-130" style="float: left; display: inline" alt="nodecellar_create_deployment" src="/img/nodecellar_create_deployment.png" width="300" align="left" /></a></p>
+
+<br/>
+<p><a href="/vmware-hybrid-cloud.html" target="_blank"><img class="alignright size-medium wp-image-131" style="float: left; display: inline" alt="nodecellar_deployment_completed" src="/img/nodecellar_deployment_completed.png" width="300" align="left" /></a></p>
+
+<div class="well">
+<p>&#160;</p>
+
+<ol>
+  <li>Download the sample blueprint 
+    <br /><code>wget <a href="https://github.com/cloudify-cosmo/cloudify-nodecellar-docker-example/archive/vcloud-plugin.zip" rel="nofollow">https://github.com/cloudify-cosmo/cloudify-nodecellar-docker-example/archive/vcloud-plugin.zip</a></code> 
+
+    <br />unzip<strong><font color="#0000ff" face="Courier New"> vcloud-demo.zip</font></strong> </li>
+
+  <li>Upload the blueprint to the manager 
+    <br /><code>cfy blueprints upload –b myblueprint –p cloudify-nodecellar-docker-example/blueprint/docker-vcloud-blueprint.yaml</code></li>
+
+  <li>Open the manager IP in a web browser (the IP can be obtained by running <code>cfy status</code>)</li>
+
+  <li>Select “<strong><font color="#0000ff" face="Courier New">myblueprint</font></strong>” blueprint and a topology view that describes the deployment is shown</li>
+
+  <li>Click the “<strong><font color="#0000ff" face="Courier New">create deployment</font></strong>” button</li>
+
+  <li>In the popup dialog fill in all the fields, and name the deployment.</li>
+
+  <li>Click deploy, and the deployment will then start its initialization process.</li>
+
+  <li>Once this is completed, select <strong><font color="#0000ff" face="Courier New">install workflow</font></strong> inside the deployment view, and the workflow will begin installing.</li>
+
+  <li>When all nodes become green, your application is ready for viewing in the UI.</li>
+</ol>
+
+</div>
+
+<p>In this post we went over a simple scenario of deploying a Cloudify manager on vCloud Air and afterwards, uploading a TOSCA-based blueprint, and finally deploying it to the cloud.</p>
+
+<p>This allows you to model your DevOps processes in a humanly readable format, maintain documents that can be executed using Cloudify on vCloud Air, vSphere, as well as hybrid cloud environments.</p>
+
+<h3>** Quick Note:**</h3>
+
+<h6><font style="font-weight: bold"></font> The Cloudify vCloud Air plugin is currenly under development, and this preview is considered in Alpha. In this version, each VM was assigned a floating IP (DNAT rule) to exclusively hold this public IP. Therefore, to have a manager and the blueprint VM running as explained above, you will need at least two public IPs that do not have any NAT rules defined. For the plugin release, we will remove this limitation and allow you to define port level NAT rules.</h6>
+
+
+
+
+  </notextile>
