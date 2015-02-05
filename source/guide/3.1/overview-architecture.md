@@ -108,7 +108,10 @@ Cloudify offers policy examples for the common use cases.
 ### Task Broker
 
 Cloudify uses [Celery](http://www.celeryproject.org/) with a [RabbitMQ](http://www.rabbitmq.com/) message bus to manage task[(?)]({{page.terminology_link}}#task) distribution and execution.
-Cloudify tasks contain the blueprint[(?)]({{page.terminology_link}}#blueprint) and runtime properties[(?)]({{page.arch_link}}#runtime-properties). (if applicable) of the relevant node[(?)]({{page.arch_link}}#node). the plugin[(?)]({{page.arch_link}}#plugin). (name and URL) that will execute the task and the operation name the plugin needs to execute.
+Cloudify tasks contain:
+* the blueprint[(?)]({{page.terminology_link}}#blueprint) and runtime properties[(?)]({{page.arch_link}}#runtime-properties) (if applicable) of the relevant node[(?)]({{page.arch_link}}#node);
+* the plugin[(?)]({{page.arch_link}}#plugin) (name and URL) that will execute the task;
+* the operation name the plugin needs to execute.
 
 Cloudify agents[(?)]({{page.arch_link}}#agent) that are based on Celery workers listen to the RabbitMQ queues to obtain tasks they need to execute (see more information below). Once a message arrives, they invoke the task and report back.
 
