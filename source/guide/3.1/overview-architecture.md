@@ -120,7 +120,7 @@ The arguments describe the context of the execution including [node](#node) [pro
 
 ### Agents
 
-Cloudify agents are based on [Celery](http://www.celeryproject.org/) daemons & workers. an agent can be located remote to the Node it manipulates (by default on the Cloudify Manager VM) or collocated on the same host. Manager side agents are one (by default) or more per deployment.
+Cloudify agents are based on [Celery](http://www.celeryproject.org/) daemons & workers. An agent can be located remote to the Node it manipulates (by default on the Cloudify Manager VM) or collocated on the same host. Manager side agents are one (by default) or more per deployment.
 Cloudify manager side agents are used typically to execute IaaS API invocation tasks (such as host creation) and other remote tasks (such as agent installation using SSH on new application hosts).
 
 Cloudify agents perform the following:
