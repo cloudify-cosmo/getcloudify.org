@@ -31,6 +31,8 @@ First, clone the [Cloudify-Manager-Blueprints](https://github.com/cloudify-cosmo
 Second, install the blueprint-specific dependencies by running:
 
  `cfy local install-plugins -p /path/to/manager/blueprint/file`
+ 
+ Example of /path/to/manager/blueprint/file is <Cloudify-Manager-Blueprints_HOME>/openstack/openstack.yaml
 
 (Alternatively, you may pass the `--install-plugins` flag to the `cfy bootstrap` command which follows soon)
 
