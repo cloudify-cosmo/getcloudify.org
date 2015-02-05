@@ -28,6 +28,8 @@ The CLI can run on Windows, Linux and Mac OS. The CLI provides 2 main functions:
 
 ![Cloudify components](/guide/images3/architecture/Cloudify_Stack.png)
 
+Fig.1 - Cloudify Stack (CLI, Manager, Agents)
+
 
 ## The Manager (Orchestrator)
 The Cloudify Manager is a stateful orchestrator that deploys and manages applications decribed in orchestration plans called [blueprints](#blueprint). The manager's main responsibility is to run automation processes described in workflow[(?)]({{page.terminology_link}}#workflow) scripts and issue execution commands to the agents[(?)]({{page.terminology_link}}#agent). The manager's flows and components are discussed in detail below.
@@ -41,6 +43,8 @@ There is a manager side agent per application[(?)]({{page.terminology_link}}#app
 **The application side agents** are optionally located on application VM's. The user can state in the blueprint[(?)]({{page.terminology_link}}#blueprint) which VM's will have an agent installed on them. The application side agents are installed by the manager side agent as part of the VM creation task. Once running, the application side agent can install plugins and execute tasks locally. Typical tasks will be middleware installaton and configuration and application modules deployment.
 
 ![Cloudify Manager Architecture](/guide/images3/architecture/cloudify_flows.png)
+
+Fig.2 - Cloudify Flows
 
 ## Cloudify Manager Components
 
@@ -175,6 +179,8 @@ In order to execute a workflow use the GUI or the CLI [command](reference-cfy.ht
 A general diagram of a workflow's execution:
 
 ![Task Execution Example](/guide/images3/architecture/cloudify_workflow_processing.png)
+
+Fig.3 - Cloudify Workflow Processing
 
 The Workflow engine runs the workflow algorithm and in each step processes the selected nodes:
 
