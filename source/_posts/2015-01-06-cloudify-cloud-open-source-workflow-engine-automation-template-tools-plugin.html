@@ -70,7 +70,7 @@ tags:
 
 <p>Essentially, it’s a Python package. This Python package contains operations that you want to run at certain times in a Cloudify deployment.</p>
 
-<p>Cloudify has a <a href="http://getcloudify.org/guide/3.0/reference-builtin-workflows.html">workflow engine</a> that executes workflows (as its name implies), which determine when such operations run.</p>
+<p>Cloudify has a <a href="http://getcloudify.org/guide/3.1/reference-builtin-workflows.html">workflow engine</a> that executes workflows (as its name implies), which determine when such operations run.</p>
 
 <p>Currently, there are three types of built-in workflows: install, uninstall, and execute operation.&#160; The example here uses install.</p>
 
@@ -82,14 +82,14 @@ tags:
 <p>Just for the sake of the learning process, let’s create a plugin that has one operation, ‘write_to_file’, which as the name suggests, just writes to a file. So, the first part is a bit of Python code that just writes to a temp file (adjust the path to your operating system):</p>
 
 
-<script src="https://gist.github.com/EarthmanT/1b5924e3f75215bc6e2b.js"></script>
+<script src="https://gist.github.com/EarthmanT/df7fb2d0c155f8de632a.js"></script>
 
 
 <p>Save that in a file called '<font face="Courier New">tasks.py</font>' in a folder called <font face="Courier New">cloudify_plugin</font>. (I give the sample directory structure you should use below).</p>
 
 <p>This script can run on any machine with Python installed.</p>
 
-<p>Open the file back up, because you need to add something to the top of the file.</p>
+<p>Reopen that file, because you need to add some stuff that is specific to Cloudify.</p>
 
 <p>First, import the Cloudify Decorators, which allow Cloudify to manage tasks:</p>
 
@@ -101,7 +101,7 @@ tags:
 
 <br/>def write_to_file(**kwargs):</code></p>
 
-<p>This lets Cloudify know that the function is part of an operation that one of its agents will need to execute.</p>
+<p>This lets Cloudify know that the function an operation that one of its agents will need to execute.</p>
 
 <p>During a Cloudify deployment process, one of two agents will execute the operation - the central deployment agent will run the script on the manager machine, or a host agent will run the script on an agent machine.</p>
 
@@ -150,7 +150,7 @@ tags:
 <p>This is the minimal information you would need to have in your <font face="Courier New">setup.py</font> file, based on what we’re looking to do:</p>
 
 
-<script src="https://gist.github.com/shar1z/72851dd92500ae6260db.js"></script>
+<script src="https://gist.github.com/EarthmanT/04fdaf7d43ead7e8be8f.js"></script>
 
 
 <p>Last thing that you need is to create a blueprint, because there’s no using Cloudify without blueprints.</p>
@@ -207,11 +207,13 @@ tags:
 
 <p>If you watch the logs you should see the executions succeed!</p>
 
+<p> Here is a link to a zip file that contains everything (the blueprint, the plugin.yaml, and the plugin_package).
+
 <p>For more information on running deployments, see the quickstart guide: <a href="http://getcloudify.org/guide/3.1/quickstart.html" target="_blank">http://getcloudify.org/guide/3.1/quickstart.html</a>.</p>
 
 <p>There is a lot of documentation online that can help you find all you can do with plugins. Try starting out here:</p>
 
-<p><a href="https://github.com/EarthmanT/plugin_authoring/wiki/Plugin%20Authoring%20Guide" target="_blank">http://getcloudify.org/guide/3.1/guide-plugin-creation.html</a></p>
+<p><a href="http://getcloudify.org/guide/3.1/guide-plugin-creation.html" target="_blank">http://getcloudify.org/guide/3.1/guide-plugin-creation.html</a></p>
 
 <p><a href="https://github.com/EarthmanT/plugin_authoring/wiki/A%20Cloudify%20Plugin%20Template" target="_blank">https://github.com/cloudify-cosmo/cloudify-plugin-template</a></p>
 
@@ -219,7 +221,7 @@ tags:
 
 <p><a href="https://github.com/EarthmanT/plugin_authoring/wiki/Script%20Plugin%20Documentation" target="_blank">http://getcloudify.org/guide/3.1/plugin-script.html</a></p>
 
-<p><a href="https://github.com/EarthmanT/plugin_authoring/wiki/Script%20Plugin" target="_blank">https://github.com/cloudify-cosmo/cloudify-script-plugin</a></p>
+<p><a href="http://getcloudify.org/guide/3.1/plugin-script.html" target="_blank">https://github.com/cloudify-cosmo/cloudify-script-plugin</a></p>
 
 <p>You can also reach out to the<a href="https://groups.google.com/d/forum/cloudify-users"> Cloudify users</a> and<a href="https://groups.google.com/d/forum/cloudify-developers"> Cloudify developers</a> Google groups for any questions you have about what information you can get from Cloudify plugins common or the contexts for properties or anything else really about getting started with your first plugin.</p>
 
