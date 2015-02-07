@@ -82,13 +82,7 @@ tags:
 <p>Just for the sake of the learning process, let’s create a plugin that has one operation, ‘write_to_file’, which as the name suggests, just writes to a file. So, the first part is a bit of Python code that just writes to a temp file (adjust the path to your operating system):</p>
 
 
-  <p><code>def write_to_file(**kwargs):
-
-  <br/> with open(‘/tmp/cloudify-plugin’, ‘w’) as f:
-
-   <br/>    f.write(‘This simple example gives you the power to do amazing things.’)
-
-       <br/> f.close()</code></p>
+<script src="https://gist.github.com/EarthmanT/1b5924e3f75215bc6e2b.js"></script>
 
 
 <p>Save that in a file called '<font face="Courier New">tasks.py</font>' in a folder called <font face="Courier New">cloudify_plugin</font>. (I give the sample directory structure you should use below).</p>
@@ -116,13 +110,16 @@ tags:
 <p>You can create a <a href="http://getcloudify.org/guide/3.1/reference-terminology.html#node" target="_blank">node</a> type, and this node type will then be able to be reused by multiple node definitions in a blueprint.</p>
 
 
-<script src="https://gist.github.com/shar1z/be048b99b96e34cdac0d.js"></script>
+<script src="https://gist.github.com/EarthmanT/ba1c5c56330d09ca02d0.js"></script>
+
 
 <p>Essentially all that says is, “Cloudify can deploy and execute this script during the start phase of the install workflow.”</p>
 
 <p>Then, in order for Cloudify to be able to use that blueprint, you need to declare the plugins that you’re going to use within it.</p>
 
-<script src="https://gist.github.com/shar1z/38a100681c96880ec9ff.js"></script>
+
+<script src="https://gist.github.com/EarthmanT/245fe36a712eae8b1e7e.js"></script>
+
 
 <p>Save the file as '<font face="Courier New">plugin.yaml</font>'.</p>
 
@@ -155,6 +152,7 @@ tags:
 
 <script src="https://gist.github.com/shar1z/72851dd92500ae6260db.js"></script>
 
+
 <p>Last thing that you need is to create a blueprint, because there’s no using Cloudify without blueprints.</p>
 
 <p><a href="http://getcloudify.org/guide/3.1/guide-blueprint.html" target="_blank">Blueprints</a> are documents that describe what Cloudify will deploy and which workflows it will use. Everything is described in terms of nodes. </p>
@@ -165,18 +163,15 @@ tags:
 
 <p>- <a href="http://www.getcloudify.org/spec/cloudify/3.1/types.yaml" target="_blank">http://www.getcloudify.org/spec/cloudify/3.1/types.yaml</a> </p>
 
-<p>- <a href="https://raw.githubusercontent.com/your-github-user/cloudify_plugin/master/plugin.yaml" target="_blank">https://raw.githubusercontent.com/your-github-user/cloudify_plugin/master/plugin.yaml</a> </p>
+<p>- <a href="https://raw.githubusercontent.com/EarthmanT/cloudify-plugin-example/master/plugin.yaml" target="_blank">https://raw.githubusercontent.com/EarthmanT/cloudify-plugin-example/master/plugin.yaml</a> </p>
 
 <p>Next, you need a template that describes the node you want to create.</p>
 
-<script src="https://gist.github.com/shar1z/de7c2041e6c21df743c0.js"></script>
 
-<p>Above, we created a template and named the node “test_the_plugin”, and it is of the node type:  <code>cloudify.cloudify_plugin.instance</code>.</p>
-
-<p>After this, you just redeclare the Cloudify interfaces lifecycle that you want the operation to be part of. </p>
+<script src="https://gist.github.com/EarthmanT/db71e5eaaf0944a0e063.js"></script>
 
 
-<script src="https://gist.github.com/shar1z/b6ebec81ad3b2015808e.js"></script>
+<p>Above, we created a template and named the node “test_the_plugin”, and it is of the node type:  <code>cloudify.cloudify.example.Example</code>.</p>
 
 <p>Cloudify works with the <a href="http://getcloudify.org/guide/3.1/dsl-spec-general.html" target="_blank">TOSCA</a> standard for cloud applications. Import the TOSCA definitions by adding this to the top of that document:</p>
 
