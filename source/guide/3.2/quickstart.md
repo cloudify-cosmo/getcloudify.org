@@ -11,7 +11,6 @@ blueprint_file_link: https://raw.githubusercontent.com/cloudify-cosmo/cloudify-n
 virtualbox_link: https://www.virtualbox.org/
 vagrant_link: http://www.vagrantup.com
 vagrant_file_link: http://gigaspaces-repository-eu.s3.amazonaws.com/org/cloudify3/3.1.0/ga-RELEASE/Vagrantfile
-vagrant_box_link: http://gigaspaces-repository-eu.s3.amazonaws.com/org/cloudify3/3.1.0/ga-RELEASE/cloudify-virtualbox_3.1.0-ga-b85.box
 terminology_link: reference-terminology.html
 workflows_link: reference-builtin-workflows.html
 blueprint_guide_link: guide-blueprint.html
@@ -68,21 +67,11 @@ possible by running the `bcdedit /set hypervisorlaunchtype off` command (reboot 
 
 # Step by Step Walkthrough
 
-## Step 1: Download and "Up" your Vagrant Box
+## Step 1: Download Vagrantfile and run VM
 
-The first thing you'll need to do is download the Vagrant box which contains the Cloudify manager and CLI, and the Vagrantfile to run it.
+The first thing you'll need to do is download the Vagrantfile which creates the Cloudify manager and CLI.
 
 Download this [Vagrantfile]({{page.vagrant_file_link}}) to your local directory. Then, run this command:
-
-{% highlight bash%}
-vagrant box add {{page.vagrant_box_link}} --name=cloudify-box
-{% endhighlight %}
-
-This adds the Vagrant box to your local machine.
-
-Note that this downloads a fully featured Ubuntu OS with Cloudify and its components installed, so it may take some time.
-
-After the box is added, run this command (from the same directory the Vagrantfile is in):
 
 {%highlight bash%}
 vagrant up
