@@ -69,7 +69,7 @@ possible by running the `bcdedit /set hypervisorlaunchtype off` command (reboot 
 
 ## Step 1: Download Vagrantfile and run VM
 
-The first thing you'll need to do is download the Vagrantfile which creates the Cloudify manager and CLI.
+The first thing you'll need to do is download the Vagrantfile which Vagrant will use to create a virtual machine with the Cloudify manager and CLI pre installed.
 
 Download this [Vagrantfile]({{page.vagrant_file_link}}) to your local directory. Then, run this command:
 
