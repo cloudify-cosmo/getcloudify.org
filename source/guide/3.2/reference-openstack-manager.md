@@ -41,6 +41,7 @@ This reference only explains the structure and various values in the blueprint. 
 * `nova_url` Explicit URL for Openstack Nova (compute) service endpoint.
 * `neutron_url` Explicit URL for Openstack Neutron (networking) service endpoint.
 * `resources_prefix` Resource prefix to be attached to cloud resources' names.
+* `use_external_resource` If true, it will be used theexternal network to which the router connects for access to the outer world
 
 {%tip title=Tip%}
 Some of the required inputs may actually be left empty when appropriate, standard Openstack environment variables are set in place before calling the `cfy bootstrap` command. These variables are:
@@ -63,7 +64,7 @@ Additionally, the following optional inputs may also be set by using standard Op
 {%endtip%}
 
 
-# Toplogy
+# Topology
 
 The blueprint builds the following topology on Openstack:
   
