@@ -39,6 +39,10 @@ Second, install the blueprint-specific dependencies by running:
 
  `cfy local install-plugins -p /path/to/manager/blueprint/file`
 
+For example,
+
+    `cfy local install-plugins -p cloudify-manager-blueprints/openstack/openstack.yaml`
+
 (Alternatively, you may pass the `--install-plugins` flag to the `cfy bootstrap` command which follows soon)
 
 
