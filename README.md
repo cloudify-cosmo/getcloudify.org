@@ -32,7 +32,7 @@ To run and test the website locally, you should perform the following steps:
 
 * Invoke Bundler to install all required Ruby gems
 
-        bundler install 
+        bundle install 
 
 - If you're using Windows, run `setup-win.bat` with administrative permissions (requires Windows Vista or later).
 This script is a workaround for a known issue in git which ignores symbolic links on windows. 
