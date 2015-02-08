@@ -41,6 +41,13 @@ This reference only explains the structure and various values in the blueprint. 
 * `nova_url` Explicit URL for Openstack Nova (compute) service endpoint.
 * `neutron_url` Explicit URL for Openstack Neutron (networking) service endpoint.
 * `resources_prefix` Resource prefix to be attached to cloud resources' names.
+ 
+* management_network_name: cloudify-management-network
+* management_subnet_name: cloudify-management-network-subnet
+* management_router: cloudify-management-router
+* manager_security_group_name: cloudify-sg-manager
+* agents_security_group_name: cloudify-sg-agents
+
 
 {%tip title=Tip%}
 Some of the required inputs may actually be left empty when appropriate, standard Openstack environment variables are set in place before calling the `cfy bootstrap` command. These variables are:
