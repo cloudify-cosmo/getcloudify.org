@@ -19,7 +19,7 @@ vcloud_deploy_link: quickstart-vcloud.html
 
 In this section of the tutorial we will learn how to adjust the *nodecellar* application to run on vCloud.
 We will show what necessary `node_templates` should be added, all of which relate to vCloud.
-To learn more about how to configure each and every node, refer to [Openstack Plugin](plugin-openstack.html).
+To learn more about how to configure each and every node, refer to [vCloud Plugin](plugin-vcloud.html).
 
 # Step by Step Walk-through
 
@@ -28,7 +28,7 @@ To learn more about how to configure each and every node, refer to [Openstack Pl
 Let's start by using the *nodecellar* blueprint we used in the [Blueprint Authoring Guide](guide-blueprint.html).
 
 The first addition we are going to make to this blueprint is importing the vCloud plugin YAML file. <br>
-This file contains the openstack plugin and types definitions.
+This file contains the vcloud plugin and types definitions.
 
 {%highlight yaml%}
 imports:
