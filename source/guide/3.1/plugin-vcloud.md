@@ -116,7 +116,7 @@ Two additional runtime-properties are available on node instances of this type o
 **Properties:**
 
 * `floatingip` key-value floating ip configuration.
-    * `gateway` vCloud gateway name
+    * `edge_gateway` vCloud gateway name
     * `public_ip` public ip. If not specified public ip will be allocated from the pool of free public ips.
 * `vcloud_config` see the [vCloud Configuration](#vcloud-configuration).
 
@@ -180,7 +180,7 @@ manager_floating_ip:
     type: cloudify.vcloud.nodes.FloatingIP
     properties:
         floatingip:
-            gateway: M000000000-1111
+            edge_gateway: M000000000-1111
             public_ip: 24.44.244.44
         vcloud_config: { get_property: [vcloud_configuration, vcloud_config] }
 
@@ -221,6 +221,7 @@ example_network2:
     type: cloudify.vcloud.nodes.Network
     properties:
         network:
+            edge_gateway: M000000000-1111
             name: new-network
             static_range: 10.10.0.2-10.10.0.64
             netmask: 255.255.255.0
