@@ -28,6 +28,8 @@ The CLI can run on Windows, Linux and Mac OS. The CLI provides 2 main functions:
 
 ![Cloudify components](/guide/images3/architecture/Cloudify_Stack.png)
 
+Fig.1 - Cloudify Stack (CLI, Manager, Agents)
+
 
 ## The Manager (Orchestrator)
 The Cloudify Manager is a stateful orchestrator that deploys and manages applications decribed in orchestration plans called [blueprints](#blueprint). The manager's main responsibility is to run automation processes described in workflow[(?)]({{page.terminology_link}}#workflow) scripts and issue execution commands to the agents[(?)]({{page.terminology_link}}#agent). The manager's flows and components are discussed in detail below.
@@ -41,6 +43,8 @@ There is a manager side agent per application[(?)]({{page.terminology_link}}#app
 **The application side agents** are optionally located on application VM's. The user can state in the blueprint[(?)]({{page.terminology_link}}#blueprint) which VM's will have an agent installed on them. The application side agents are installed by the manager side agent as part of the VM creation task. Once running, the application side agent can install plugins and execute tasks locally. Typical tasks will be middleware installaton and configuration and application modules deployment.
 
 ![Cloudify Manager Architecture](/guide/images3/architecture/cloudify_flows.png)
+
+Fig.2 - Cloudify Flows
 
 ## Cloudify Manager Components
 
@@ -108,7 +112,10 @@ Cloudify offers policy examples for the common use cases.
 ### Task Broker
 
 Cloudify uses [Celery](http://www.celeryproject.org/) with a [RabbitMQ](http://www.rabbitmq.com/) message bus to manage task[(?)]({{page.terminology_link}}#task) distribution and execution.
-Cloudify tasks contain the blueprint[(?)]({{page.terminology_link}}#blueprint) and runtime properties[(?)]({{page.arch_link}}#runtime-properties). (if applicable) of the relevant node[(?)]({{page.arch_link}}#node). the plugin[(?)]({{page.arch_link}}#plugin). (name and URL) that will execute the task and the operation name the plugin needs to execute.
+Cloudify tasks contain:
+* the blueprint[(?)]({{page.terminology_link}}#blueprint) and runtime properties[(?)]({{page.arch_link}}#runtime-properties) (if applicable) of the relevant node[(?)]({{page.arch_link}}#node);
+* the plugin[(?)]({{page.arch_link}}#plugin) (name and URL) that will execute the task;
+* the operation name the plugin needs to execute.
 
 Cloudify agents[(?)]({{page.arch_link}}#agent) that are based on Celery workers listen to the RabbitMQ queues to obtain tasks they need to execute (see more information below). Once a message arrives, they invoke the task and report back.
 
@@ -120,7 +127,7 @@ The arguments describe the context of the execution including [node](#node) [pro
 
 ### Agents
 
-Cloudify agents are based on [Celery](http://www.celeryproject.org/) daemons & workers. an agent can be located remote to the Node it manipulates (by default on the Cloudify Manager VM) or collocated on the same host. Manager side agents are one (by default) or more per deployment.
+Cloudify agents are based on [Celery](http://www.celeryproject.org/) daemons & workers. An agent can be located remote to the Node it manipulates (by default on the Cloudify Manager VM) or collocated on the same host. Manager side agents are one (by default) or more per deployment.
 Cloudify manager side agents are used typically to execute IaaS API invocation tasks (such as host creation) and other remote tasks (such as agent installation using SSH on new application hosts).
 
 Cloudify agents perform the following:
@@ -175,6 +182,8 @@ In order to execute a workflow use the GUI or the CLI [command](reference-cfy.ht
 A general diagram of a workflow's execution:
 
 ![Task Execution Example](/guide/images3/architecture/cloudify_workflow_processing.png)
+
+Fig.3 - Cloudify Workflow Processing
 
 The Workflow engine runs the workflow algorithm and in each step processes the selected nodes:
 

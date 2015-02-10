@@ -28,9 +28,20 @@ Bootstrapping a Cloudify manager is done by using [Manager Blueprints](reference
 
 First, clone the [Cloudify-Manager-Blueprints](https://github.com/cloudify-cosmo/cloudify-manager-blueprints) repository from github, or copy your desired blueprint folder from there.
 
+{%note title=Note%}
+
+The correct Cloudify-Manager-Blueprints for the CFY 3.1 is downlodable from [Cloudify-Manager-Blueprints-3.1](https://github.com/cloudify-cosmo/cloudify-manager-blueprints/archive/3.1.zip)
+
+
+{%endnote%}
+
 Second, install the blueprint-specific dependencies by running:
 
  `cfy local install-plugins -p /path/to/manager/blueprint/file`
+ 
+For example,
+
+    `cfy local install-plugins -p cloudify-manager-blueprints/openstack/openstack.yaml`
 
 (Alternatively, you may pass the `--install-plugins` flag to the `cfy bootstrap` command which follows soon)
 
