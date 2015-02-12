@@ -1,0 +1,246 @@
+---
+layout: blogpost
+title: Load Balancing HAProxy on the Cloud
+image: trammell.jpg
+author: Luther Trammell
+tags:
+ - Cloudify
+ - Cloud Orchestration
+ - Blueprints
+ - Tutorials
+ - Open Source
+---
+
+<notextile>
+
+<div class="aligncenter">
+<img src="/img/blog/haproxy.png"  alt="HAProxy | Load Balancing | Open Source | Cloud Orchestration"></div>
+<br/>
+<br/>
+
+
+<p><b></b></p>
+
+<p><b></b>
+
+  <p>The interwebs is basically our fantasy world. Here we can develop, program, automate, and hard-code all of the things, in a way that we’re not really able to with real stuff. I may not be able to juggle 6 bowling pins, but I can load balance nodes in a web application. <img style="float: left; margin: 0px 8px 0px 0px; display: inline" alt="Load Balancing" src="/img/loadbalance.jpg" width="320" align="left" height="240" /></p>
+
+  <p><a href="http://www.haproxy.org/" target="_blank">HAProxy</a> is one of many popular applications out there that can distribute load across a few servers.</p>
+
+  <p>“But I hate configuring”, you say, “and sometimes things need tweaking, small things, like IP addresses and hostnames. Why isn’t there something that can just do it for me?”</p>
+
+  <p>Cloudify made it easier to set up load balanced environments with minimal hard labor. And it actually helps you get a better idea of the big picture, because you can put your entire application in a single blueprint - the networks, the security groups, the web servers, the application, the databases, AND - the load balancer.</p>
+
+   <hr>
+
+<span class="pullquote-left">
+  <font style="font-weight: bold" size="5" face="Baskerville Old Face"><em>Cloudify your most complex environments at scale.</em></font>&nbsp; <a class="btn btn-medium btn-theme btn-rounded" id="downloadBtnInner" href="http://getcloudify.org/downloads/get_cloudify_3x.html" target="_blank"><i class="icon-plus"></i> Go </a></span>
+  
+  <hr>
+
+  <p>No hopping between servers, just one <a href="https://github.com/EarthmanT/cloudify-haproxy-blueprint" target="_blank">HAProxy blueprint</a>. So this can be you:</p>
+
+  <p>&#160;</p>
+
+  <p><img alt="Cloudify - Life is Good" src="/img/chillout.jpg" width="400" height="224" /></p>
+
+  <p>&#160;</p>
+
+  <p>Let’s use the Nodecellar application as a basic example. It uses a NodeJS application server and a Mongo backend NoSQL DB.&#160; It’s a great example, because these two technologies are designed to scale. Adding a load balancer, puts them to work.</p>
+
+  <p>Maybe in the real world, you would not have a single HAProxy load balancer and a single MongoDB. You might have multiple shards, a pair of HAProxy servers, and an additional service tracking their availability. But for the sake of an example, I think this keeps things simple.</p>
+
+  <p>This example uses OpenStack as the deployment environment. We’ll update the repo soon with other cloud providers. Let’s look at what resources are needed for OpenStack:</p>
+
+  <p>First our orchestration topology:</p>
+
+  <p><img alt="Orchestration Topology" src="/img/lb-topology.png" width="624" height="207" /></p>
+
+  <p>There are four virtual machines (three nodes, from right to left):</p>
+
+  <ul>
+    <li>
+      <p>Two virtual machines that host the Node.js apps (nodejs_host) .</p>
+    </li>
+
+    <li>
+      <p>The virtual machine that hosts the MongoDB (mongod_host).</p>
+    </li>
+
+    <li>
+      <p>A virtual machine that hosts the HAProxy load balancer (haproxy_frontend_host).</p>
+    </li>
+  </ul>
+
+  <p>On the application layer, we have:</p>
+
+  <ul>
+    <li>
+      <p>Two nodejs server nodes, each installed on its own nodejs_host virtual machine.</p>
+    </li>
+
+    <li>
+      <p>One mongodb database server, hosted on mongod_host.</p>
+    </li>
+
+    <li>
+      <p>One http_in haproxy load balancer hosted on haproxy_frontend_host.</p>
+    </li>
+  </ul>
+
+  <p>Suppose you want three nodejs servers instead of two. Or seven. You just need to set instances-deploy on the nodejs_host to the desired number in the blueprint:</p>
+
+ <script src="https://gist.github.com/shar1z/8cff13c7db8b707f9472.js"></script>
+
+ <br/>
+
+  <p>There are also three security groups, a floating public IP address for the load balancer. All of these components are needed to make this application load balance. It’s not a lot but try keeping it all in your head. The <a href="/guide/guide-blueprint.html" target="_blank">Cloudify blueprint</a> let’s you document it somewhere in documents that are standardized using the <a href="/guide/dsl-spec-general.html" target="_blank">TOSCA</a> guidelines.</p>
+
+  <p>Let’s take a look at the node_template for the http_in load balancer. First, notice that it inherits from the haproxy.nodes.Proxy node type. This node type is defined the types/haproxy.yaml file. (That’s included in the repository that you will download.)</p>
+
+  <script src="https://gist.github.com/shar1z/6584e2684a240098c6e9.js"></script>
+
+  <br/>
+
+  <p>Let’s review the definitions of these properties:</p>
+
+  <ul>
+    <li>
+      <p><a href="http://cbonte.github.io/haproxy-dconv/configuration-1.5.html#4.2-default_backend">default_backend</a>: This is the name of the backends that you declare in your haproxy.cfg template.</p>
+    </li>
+
+    <li>
+      <p><a href="http://cbonte.github.io/haproxy-dconv/configuration-1.5.html#4-mode">mode</a>: The protocol of the server.</p>
+    </li>
+
+    <li>
+      <p>port: The port that the load balancer should listen on.</p>
+    </li>
+
+    <li>
+      <p><a href="http://cbonte.github.io/haproxy-dconv/configuration-1.5.html#4-timeout%20connect">timeout_connect</a>: The maximum time to wait for a server connection to succeed.</p>
+    </li>
+
+    <li>
+      <p><a href="http://cbonte.github.io/haproxy-dconv/configuration-1.5.html#4-timeout%20client">timeout_client</a>: The maximum timeout on the client side.</p>
+    </li>
+
+    <li>
+      <p><a href="http://cbonte.github.io/haproxy-dconv/configuration-1.5.html#4-timeout%20server">timeout_server</a>: The maximum timeout on the server side.</p>
+    </li>
+  </ul>
+
+  <p>These are the essential configurations that are required in the configuration file (haproxy.cfg.template). Since this is open source, you are free to modify the code to set any environment you want to build.</p>
+
+  <p>You’ll notice that there’s a bit more to the node type below. This describes monitoring, which we’ll discuss below.</p>
+
+  <p>First, let’s get this blueprint running.</p>
+
+  <p><font style="font-weight: bold">I assume here that you have installed Cloudify in a virtual environment and have a manager running in OpenStack. If not, get started with </font><a href="http://getcloudify.org/guide/3.1/quickstart-openstack.html"><font style="font-weight: bold">Openstack</font></a><font style="font-weight: bold">.</font></p>
+
+  <p>First verify that you are using the <a href="http://getcloudify.org/downloads/get_cloudify_3x.html">right version of Cloudify</a>. Both the CLI and your manager should be running the same version.</p>
+
+  <code>​(3.1)$ cfy --version</code>
+
+  <p><font face="Courier New">Cloudify CLI 3.1.0&#160;&#160;&#160;&#160; (build: 85, date: )</font></p>
+
+  <p><font face="Courier New">Cloudify Manager 3.1.0 (build: 85, date: ) [ip=the-ip-address-of-your-cloudify-manager]</font></p>
+
+  <p>Initialize the environment if you haven’t already:</p>
+
+  <code>(3.1)$ cfy init </code>
+
+  <code>(3.1)$ cfy use -t [the-ip-address-of-your-cloudify-manager]</code>
+
+  <p>Now, clone the Github repo or download it: </p>
+
+ <code>(3.1)$ git clone<a href="https://github.com/EarthmanT/cloudify-haproxy-blueprint.git"> https://github.com/EarthmanT/cloudify-haproxy-blueprint.git</a></code>
+
+  <code>(3.1)$ wget <a href="https://github.com/EarthmanT/cloudify-haproxy-blueprint/archive/3.1.zip">https://github.com/EarthmanT/cloudify-haproxy-blueprint/archive/3.1.zip</a></code>
+
+  <p>Change into the right directory and upload the blueprint:</p>
+
+  <code>(3.1)$ cd cloudify-haproxy-blueprint-3.1</code>
+
+ <code>(3.1)$ cfy blueprints upload -p openstack-nodecellar-example-blueprint.yaml -b haproxy</code>
+
+  <p>Copy the inputs.json.template file and, if desired, customize it:</p>
+
+  <code>(3.1)$ cp inputs.json.template inputs.json</code>
+
+  <p>Create the deployment:</p>
+
+  <code>(3.1)$ cfy deployments create -b haproxy -d haproxy -i inputs.json </code>
+
+  <code>(3.1)$ cfy executions start -w install -d haproxy</code>
+
+  <p>While that runs, let’s reopen the blueprint and look at the rest of the http_in node_template:</p>
+
+ <script src="https://gist.github.com/shar1z/8e835e478289da3986f7.js"></script>
+
+ <br/>
+
+  <p>An interface is a way to map operations in our blueprints to tasks in our plugins. In this example, we’ve included the diamond_plugin, which can be used to log monitoring metrics to Cloudify’s internal messaging. </p>
+
+  <p>Using a special HAProxy Collector that is provided by BrightcoveOS, we can track the performance of our HAProxy server. The only required parameters are:</p>
+
+  <ul>
+    <li>
+      <p>enabled: Enable collecting these metrics</p>
+    </li>
+
+    <li>
+      <p>url: Url to stats in csv format. The url is configured in the haproxy.cfg.template file.</p>
+    </li>
+  </ul>
+
+  <p>Run a stress test. There’re a lot of options on the web.</p>
+
+  <p>Open up your manager, and go to the deployment. Cloudify’s manager UI has a dashboard that you can configure. Enter the monitor request for the HAProxy front end, and the monitor requests for the NodeJS backend. Now use a stress test tool to actually send traffic to this application, and you can actually visualize and watch how HAProxy load balances between these two servers.&#160; Nifty.</p>
+
+  <p>&#160;</p>
+
+  <p><img alt="Monitoring" src="/img/haproxy-monitoring.png" width="624" height="223" /></p>
+
+  <p>&#160;</p>
+
+  <p>Some of the interesting ones are bout (bytes out) and req_tot (total requests). Make sure to select both the frontend HAProxy and the backend Nodejs servers.</p>
+
+  <p>Now, watch your monitoring in action:</p>
+
+  <p>&#160;</p>
+
+  <p><img alt="HAProxy Monitoring" src="/haproxygraph.png" width="555" height="341" /></p>
+
+  <p>&#160;</p>
+
+  <p>&#160;</p>
+
+  <p>You can see various graphs that display your application’s performance data.</p>
+
+  <p>Maybe you want to do your part of the stress test now:</p>
+
+  <p>&#160;</p>
+
+  <p><img alt="Nodecellar.png" src="/img/nodecellar.png" width="624" height="427" /></p>
+
+  <p>With minimal effort, you just created a load balanced environment, and now you have metrics to that you can use to benchmark performance!</p>
+
+  <p>&#160;</p>
+
+  <p><img style="float: left; margin: 0px 10px 0px 0px; display: inline" alt="image.png" src="/img/excited.png" width="343" align="left" height="193" /></p>
+
+  <p>Are you so excited?</p>
+
+  <p>So now what you’ve just done in five minutes was create a load balanced environment with Cloudify and HAProxy. You even monitored it to see that it’s actually performing as it should be.</p>
+
+  <p>In five minutes.</p>
+
+  <p>So excited.</p>
+
+  <p>&#160;</p>
+
+  <p>Play around with the example <a href="https://github.com/EarthmanT/cloudify-haproxy-blueprint" target="_blank">here</a> - and be sure to give us feedback through the comments.</p></p>
+
+
+  </notextile>
