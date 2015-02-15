@@ -72,6 +72,8 @@ tags:
     </li>
   </ul>
 
+ <br/>
+
   <p>On the application layer, we have:</p>
 
   <ul>
@@ -90,7 +92,8 @@ tags:
 
   <p>Suppose you want three nodejs servers instead of two. Or seven. You just need to set instances-deploy on the nodejs_host to the desired number in the blueprint:</p>
 
-<script src="https://gist.github.com/EarthmanT/26ab497d81eaeb9046ca.js"></script>
+
+<script src="https://gist.github.com/EarthmanT/0dc6869340dec6885aec.js"></script>
 
  <br/>
 
@@ -98,7 +101,8 @@ tags:
 
   <p>Let’s take a look at the node_template for the http_in load balancer. First, notice that it inherits from the haproxy.nodes.Proxy node type. This node type is defined the types/haproxy.yaml file. (That’s included in the repository that you will download.)</p>
 
-<script src="https://gist.github.com/EarthmanT/0dc6869340dec6885aec.js"></script>
+
+<script src="https://gist.github.com/EarthmanT/26ab497d81eaeb9046ca.js"></script>
 
   <br/>
 
@@ -140,41 +144,77 @@ tags:
 
   <p>First verify that you are using the <a href="http://getcloudify.org/downloads/get_cloudify_3x.html">right version of Cloudify</a>. Both the CLI and your manager should be running the same version.</p>
 
+ <br/>
+
   <code>​(3.1)$ cfy --version</code>
+
+ <br/>
 
   <p><font face="Courier New">Cloudify CLI 3.1.0&#160;&#160;&#160;&#160; (build: 85, date: )</font></p>
 
   <p><font face="Courier New">Cloudify Manager 3.1.0 (build: 85, date: ) [ip=the-ip-address-of-your-cloudify-manager]</font></p>
 
+ <br/>
+
   <p>Initialize the environment if you haven’t already:</p>
+
+ <br/>
 
   <code>(3.1)$ cfy init </code>
 
+ <br/>
+
   <code>(3.1)$ cfy use -t [the-ip-address-of-your-cloudify-manager]</code>
+
+ <br/>
 
   <p>Now, clone the Github repo or download it: </p>
 
+ <br/>
+
  <code>(3.1)$ git clone<a href="https://github.com/EarthmanT/cloudify-haproxy-blueprint.git"> https://github.com/EarthmanT/cloudify-haproxy-blueprint.git</a></code>
+
+ <br/>
 
   <code>(3.1)$ wget <a href="https://github.com/EarthmanT/cloudify-haproxy-blueprint/archive/3.1.zip">https://github.com/EarthmanT/cloudify-haproxy-blueprint/archive/3.1.zip</a></code>
 
+ <br/>
+
   <p>Change into the right directory and upload the blueprint:</p>
+
+ <br/>
 
   <code>(3.1)$ cd cloudify-haproxy-blueprint-3.1</code>
 
+ <br/>
+
  <code>(3.1)$ cfy blueprints upload -p openstack-nodecellar-example-blueprint.yaml -b haproxy</code>
+
+ <br/>
 
   <p>Copy the inputs.json.template file and, if desired, customize it:</p>
 
+ <br/>
+
   <code>(3.1)$ cp inputs.json.template inputs.json</code>
+
+ <br/>
 
   <p>Create the deployment:</p>
 
+ <br/>
+
   <code>(3.1)$ cfy deployments create -b haproxy -d haproxy -i inputs.json </code>
+
+ <br/>
 
   <code>(3.1)$ cfy executions start -w install -d haproxy</code>
 
+ <br/>
+
   <p>While that runs, let’s reopen the blueprint and look at the rest of the http_in node_template:</p>
+
+ <br/>
 
 <script src="https://gist.github.com/EarthmanT/d5e6fa87973be89a697b.js"></script> 
 
