@@ -77,7 +77,7 @@ Download this [Vagrantfile]({{page.vagrant_file_link}}) to your local directory.
 vagrant up
 {%endhighlight%}
 
-Once the cloudify box is up you can access the manager web console through your local browser by pointing the browser to [http://10.10.0.1/](http://10.10.0.1/).
+Once the cloudify box is up you can access the manager web console through your local browser by pointing the browser to [http://10.10.0.10/](http://10.10.0.10/).
 
 ## Step 2: SSH to the Vagrant Box and Connect to the Running Manager
 
