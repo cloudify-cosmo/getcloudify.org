@@ -186,7 +186,9 @@ And a compute sub-graph for the **`webserver_host`** will look like:
 ![Blueprint as Graph](/guide/images3/blueprint/sub-blueprint-as-graph.png)
 
 {%note title=Note%}
+
 This sub-graph determines the operations that will be executed during the workflow execution. In this example:
+
 * The following node instances will be re-installed: `war_1`, `webserver_1` and `webserver_host_1`.
 * The following relationships will be re-established: `war_1` **connected to** `database_1` and `webserver_host_1` **connected to** `floating_ip_1`.
 {%endnote%}
