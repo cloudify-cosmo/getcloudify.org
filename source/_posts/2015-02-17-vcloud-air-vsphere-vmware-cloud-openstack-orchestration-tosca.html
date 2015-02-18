@@ -19,6 +19,7 @@ tags:
 <br/>
 
 
+
 <p><b></b></p>
 
 <p>In my previous post, I discussed how to achieve <a href="http://getcloudify.org/2015/02/13/hybrid-cloud-tosca-vmware-orchestration-vcloud-vsphere.html" target="_blank">hybrid cloud</a> in the real world for VMware and OpenStack - which was previously an involved undertaking and today, can be done fairly simply.</p>
@@ -61,10 +62,13 @@ tags:
 <p>The live demo walks you through this step by step process. To demonstrate that this service actually works, we conducted a real video chat that uses an open source SIP client named Jitsi.</p>
 
 <a class="hover-wrap fancybox fancybox.iframe" data-fancybox-group="gallery" title="NFV Orchestration - Live IMS Example with Cloudify & Clearwater" href="http://www.youtube.com/embed/p0uLz30XKm8?enablejsapi=1&wmode=opaque">
-                <img src="/img/vcloudnfvdemo.png" alt="NFV | NFV Orchestration | Network Orchestration | VMware Orchestration | TOSCA | TOSCA Orchestration | VMware Cloud | VMware vSphere | VMware vCloud Air" /></a>
+                <img src="img/vcloudnfvdemo.png" alt="NFV | NFV Orchestration | Network Orchestration | VMware Orchestration | TOSCA | TOSCA Orchestration | VMware Cloud | VMware vSphere | VMware vCloud Air" /></a>
 
 <p>&#160;</p>
 
+<p>The live demo walks you through this step by step process. To demonstrate that this service actually works, we conducted a real video chat that uses an open source SIP client named Jitsi.</p>
+
+<p>Now lets take a closer look at the the actual TOSCA blueprint:</p>
 
 <p>The blueprint is broken into five main parts. </p>
 
@@ -97,7 +101,7 @@ tags:
     <p>Setting up the VMs</p>
   </li>
 
-<p>In this first part we defined a new type of host and named it clearwater.nodes.Server. This type of host is derived from <font face="Courier New">cloudify.vcloud.nodes.Server</font> which is a specific type that is implemented as part of the Cloudify vCloud Air plugin.</p>
+<p>In this first part we defined a new type of host and named it clearwater.nodes.Server. This type of host is derived from <code>cloudify.vcloud.nodes.Server</code> which is a specific type that is implemented as part of the Cloudify vCloud Air plugin.</p>
 
 <p>vCloud Air VM definition:</p>
 <script src="https://gist.github.com/shar1z/8a74ae1b6dd906691df5.js"></script>
@@ -122,12 +126,12 @@ type: clearwater.nodes.Server </code>
 
 <p>In a vCloud Air environment it is custom to use a common gateway service with a single floating IP for the application (vApp), and then use ports that point to all the instances from that common gateway.</p>
 
-<p>We will start by defining the port. Since we will need a port for each of the services we will define a generic type that will set default values for our application and name it <font face="Courier New">clearwater.nodes.Port.</font></p>
+<p>We will start by defining the port. Since we will need a port for each of the services we will define a generic type that will set default values for our application and name it <code>clearwater.nodes.Port.</code></p>
 <script src="https://gist.github.com/shar1z/a4f4f81f928ef5685ad4.js"></script>
 <p>&#160;</p>
 
 
-<p>We will use the <font face="Courier New">clearwater.nodes.Port</font> definition to create a specific port instance per service. Here is how the port definition for the homestead service looks:</p>
+<p>We will use the <code>clearwater.nodes.Port</code> definition to create a specific port instance per service. Here is how the port definition for the homestead service looks:</p>
 <script src="https://gist.github.com/shar1z/4301ab346a2856de5524.js"></script>
 <p>&#160;</p>
 
@@ -136,7 +140,7 @@ type: clearwater.nodes.Server </code>
 <p>&#160;</p>
 
 
-<p>In TOSCA it is common to use the relationships model to connect a definition of one element to the other. There are various types of possible relationships. In this case we used the <font face="Courier New">cloudify.vcloud.server_connected_to_port</font> to set connect between the VM and the port.</p>
+<p>In TOSCA it is common to use the relationships model to connect a definition of one element to the other. There are various types of possible relationships. In this case we used the cloudify.vcloud.server_connected_to_port to set connect between the VM and the port.</p>
 
 <p>In the Clearwater application the the Ellis service is the user management service. Since the Ellis service is a customer facing service, we want to expose it through a public IP. Since the floating IP is assigned to a single service (Ellis) only, it doesn’t make sense to create an application-specific type as we did previously with the VMs and ports. Here’s how we create a floating IP:</p>
 
@@ -152,7 +156,7 @@ type: clearwater.nodes.Server </code>
 
 <p>Now that we created the VM instances, and connected them to the network, the next step is to install the software services in each of those VMs. </p>
 
-<p>There are many ways in which we can install and configure software components, and Cloudify comes with a rich set of plugins that support <a href="http://getcloudify.org/guide/3.1/plugin-chef.html" target="_blank">Chef</a>, <a href="http://getcloudify.org/guide/3.1/plugin-puppet.html" target="_blank">Puppet</a>, <a href="http://getcloudify.org/guide/3.1/plugin-docker.html" target="_blank">Docker</a>, <a href="http://getcloudify.org/guide/3.1/plugin-salt.html" target="_blank">SaltStack</a> or even a simple script model.</p>
+<p>There are many ways in which we can install and configure software components, and Cloudify comes with a rich set of plugins that support Chef, Puppet, Docker, SaltStack or even a simple script model.</p>
 
 <p>The Clearwater application happens to be configured using Chef, so in this specific case we will use the Cloudify Chef plugin. Using this plugin, we will call the Chef client and provide the Chef Cookbook and runlist configuration per service.</p>
 
@@ -161,7 +165,7 @@ type: clearwater.nodes.Server </code>
 
 <p>&#160;</p>
 
-<p>To assign the Ellis software to the corresponding <font face="Courier New">ellis_vm</font> that we created in the previous step, we will use the contained-in relationship. This relationship tells Cloudify to run the Ellis Chef command as defined above in the ellis_vm.</p>
+<p>To assign the Ellis software to the corresponding ellis_vm that we created in the previous step, we will use the contained-in relationship. This relationship tells Cloudify to run the Ellis Chef command as defined above in the ellis_vm.</p>
 
 <code>relationships:
 
@@ -192,7 +196,6 @@ type: clearwater.nodes.Server </code>
     <p>Add Policies and Workflows </p>
   </li>
 
-</ol>
 
 <p>Now that we created the VMs and defined the network, installed our services, and added monitoring and logging we’re ready to take all this to the next step of automation, and that’s where we add the policies and workflows to the mix.</p>
 
