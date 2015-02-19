@@ -45,6 +45,7 @@ For more information about OpenStack, please refer to: [https://www.openstack.or
         * a field `type` whose value is `http`
         * a field `url` whose value is a url to a `userdata` script/value.
   * `management_network_name` Cloudify's management network name. Every server should be connected to the management network. If the management network's name information is available in the [Provider Context](reference-terminology.html#provider-context), this connection is made automatically and there's no need to override this property (See the [Misc section](#misc) for more information on the Openstack Provider Context). Otherwise, it is required to set the value of this property to the management network name as it was set in the bootstrap process. *Note*: When using Nova-net Openstack (see the [Nova-net Support section](#nova-net-support)), don't set this property. Defaults to `''` (empty string).
+  * `use_password` A boolean describing whether this server image supports user-password authentication. Images that do should post the administrator user's password to the Openstack metadata service (e.g. via [cloudbase](http://www.cloudbase.it/cloud-init-for-windows-instances/)); The password would then be retrieved by the plugin, decrypted using the server's keypair and then saved in the server's runtime properties.  Defaults to `false`.
   * `use_external_resource` a boolean for setting whether to create the resource or use an existing one. See the [using existing resources section](#using-existing-resources). Defaults to `false`.
   * `resource_id` name to give to the new resource or the name or ID of an existing resource when the `use_external_resource` property is set to `true` (see the [using existing resources section](#using-existing-resources)). Defaults to `''` (empty string).
   * `openstack_config` see the [Openstack Configuration](#openstack-configuration).
@@ -53,6 +54,9 @@ For more information about OpenStack, please refer to: [https://www.openstack.or
 
   * `cloudify.interfaces.lifecycle.create` creates the server.
   * `cloudify.interfaces.lifecycle.start` starts the server, if it's not already started.
+    * **Inputs:**
+      * `start_retry_interval` Polling interval until the server becomes active (in seconds) (Default: `30`)
+      * `private_key_path` Path to private key which matches the server's public key. Will be used to decrypt password in case the `use_password` property is set to `true`. If not set, the plugin will attempt to find a keypair node connected to the server and use that, or use the default agent keypair which is set during bootstrap (Default: `''`).
   * `cloudify.interfaces.lifecycle.stop` stops the server, if it's not already stopped.
   * `cloudify.interfaces.lifecycle.delete` deletes the server and waits for termination.
   * `cloudify.interfaces.validation.creation` see [common validations section](#Validations). Additionally, the image and flavor supplied are checked for existence.
@@ -65,6 +69,7 @@ Two additional runtime-properties are available on node instances of this type o
 
   * `networks` server's networks' information, as retrieved from the Nova service.
   * `ip` the private IP (ip on the internal network) of the server.
+  * `password` the password for the administrator user. This runtime property is only available if the `use_password` property is set to `true`.
 
 
 
@@ -73,6 +78,8 @@ Two additional runtime-properties are available on node instances of this type o
 **Derived From:** [cloudify.openstack.nodes.Server](#cloudifyopenstackserver)
 
 This type has the same properties and operations-mapping as the type above (as it derives from it), yet it overrides some of the agent and plugin installations operations-mapping derived from the [built-in cloudify.nodes.Compute type](reference-types.html). Use this type when working with a Windows server.
+
+Additionally, the default value for the `use_password` property is overridden for this type, and is set to `true`. When using an image with a preset password, it should be modified to `false`.
 
 
 
@@ -139,6 +146,16 @@ See the [common Runtime Properties section](#runtime-properties).
       * `remote_group_node` can be used instead of `remote_group_id` to specify a remote group, by supplying this key with a value which is the name of the remote security group node. The target node must be a node the current security-group node has a relationship (of any type) to. Note that like the `remote_group_id` key, this shouldn't be provided if `remote_ip_prefix` was provided.
       * `remote_group_name` will automatically resolve the Openstack name of a security group into a `remote_group_id`. Note that like the `remote_group_id` key, this shouldn't be provided if `remote_ip_prefix` was provided.
   * `rules` key-value security_group_rule configuration as described in [OpenStack network create security group rule](http://docs.openstack.org/api/openstack-network/2.0/content/POST_createSecGroupRule__security-group-rules_.html). Defaults to `[]`.
+    * Note: Each rule will be parsed with default values, which will take effect unless overridden. The default values are:
+      * `direction`: `ingress`
+      * `ethertype`: `IPv4`
+      * `port_range_min`: 1
+      * `port_range_max`: 65535
+      * `protocol`: `tcp`
+      * `remote_group_id`: `None`
+      * `remote_ip_prefix`: `0.0.0.0/0`
+    * If `remote_group_id`, `remote_group_node` or `remote_group_name` are used, `remote_ip_prefix` is replaced with value `None`
+
   * `disable_default_egress_rules` a flag for removing the default rules which [allow all egress traffic](https://wiki.openstack.org/wiki/Neutron/SecurityGroups#Behavior). If not set to `true`, these rules will remain, and exist alongside any additional rules passed using the `rules` property. Defaults to `false`.
   * `use_external_resource` a boolean for setting whether to create the resource or use an existing one. See the [using existing resources section](#using-existing-resources). Defaults to `false`.
   * `resource_id` name to give to the new resource or the name or ID of an existing resource when the `use_external_resource` property is set to `true` (see the [using existing resources section](#using-existing-resources)). Defaults to `''` (empty string).
@@ -342,6 +359,11 @@ This is a Nova-net specific type. See more in the [Nova-net Support section](#no
     * **Notes:**
       * this property supports the same sugaring described for the equivalent property in the [Neutron security-group type](#cloudifyopenstacknodessecuritygroup).
   * `rules` key-value security group rule configuration as described in [OpenStack Nova security group API](http://docs.openstack.org/openstack-ops/content/security_groups.html). Defaults to `[]`.
+    * Note: Each rule will be parsed with default values, which will take effect unless overridden. The default values are:
+      * `from_port`: 1
+      * `to_port`: 65535
+      * `ip_protocol`: `tcp`
+      * `cidr`: `0.0.0.0/0`
   * `use_external_resource` a boolean for setting whether to create the resource or use an existing one. See the [using existing resources section](#using-existing-resources). Defaults to `false`.
   * `resource_id` name to give to the new resource or the name or ID of an existing resource when the `use_external_resource` property is set to `true` (see the [using existing resources section](#using-existing-resources)). Defaults to `''` (empty string).
   * `openstack_config` see the [Openstack Configuration](#openstack-configuration).
@@ -788,6 +810,63 @@ Node by node explanation:
 
 
 
+## Example IV
+
+This example will show how to use a Windows server with a Cloudify agent on it.
+
+{% togglecloak id=4 %}
+Example IV
+{% endtogglecloak %}
+
+{% gcloak 4 %}
+The following is an excerpt from the blueprint's `blueprint`.`node_templates` section:
+
+{% highlight yaml %}
+my_keypair:
+  type: cloudify.openstack.nodes.KeyPair
+  properties:
+    private_key_path: /tmp/windows-test.pem
+
+my_server:
+  type: cloudify.openstack.nodes.WindowsServer
+  properties:
+    server:
+      image: 8672f4c6-e33d-46f5-b6d8-ebbeba12fa02
+      flavor: 101
+      name: my-server
+      userdata: |
+        #ps1_sysnative
+        winrm quickconfig -q
+        winrm set winrm/config/winrs '@{MaxMemoryPerShellMB="300"}'
+        winrm set winrm/config '@{MaxTimeoutms="1800000"}'
+        winrm set winrm/config/service '@{AllowUnencrypted="true"}'
+        winrm set winrm/config/service/auth '@{Basic="true"}'
+        &netsh advfirewall firewall add rule name="WinRM 5985" protocol=TCP dir=in localport=5985 action=allow
+        &netsh advfirewall firewall add rule name="WinRM 5986" protocol=TCP dir=in localport=5986 action=allow
+
+        msiexec /i https://www.python.org/ftp/python/2.7.6/python-2.7.6.msi TARGETDIR=C:\Python27 ALLUSERS=1 /qn
+  relationships:
+    - type: cloudify.openstack.server_connected_to_keypair
+      target: keypair
+  interfaces:
+    cloudify.interfaces.worker_installer:
+      install:
+        inputs:
+          cloudify_agent:
+            user: Admin
+            password: { get_attribute: [SELF, password] }
+{%endhighlight%}
+
+Node by node explanation:
+
+1. Creates a keypair. the private key will be saved under `/tmp/windows-test.pem`.
+2. Creates a Windows server:
+  * It is set with a relationship to the `my_keypair` node, which will make the server use the it as a public key for authentication, and also use this public key to encrypt its password before posting it to the Openstack metadata service.
+  * The worker-installer interface operations are given values for the user and password for the `cloudify_agent` input - the password uses the [get_attribute](dsl-spec-intrinsic-functions.html#getattribute) feature to retrieve the decrypted password from the Server's runtime properties (Note that in this example, only the `install` operation was given with this input, but all of the worker installer operations as well as the plugin installer operations should be given with it).
+  * We define custom userdata which configures WinRM and installs Python on the machine (Windows Server 2012 in this example) once it's up. This is required for the Cloudify agent to be installed on the machine.
+{% endgcloak %}
+
+
 # Tips
 
 * It is highly recommended to **ensure that Openstack names are unique** (for a given type): While Openstack allows for same name objects, having identical names for objects of the same type might lead to ambiguities and errors.
@@ -799,6 +878,17 @@ my_subnet_node:
     dns_nameservers: [1.2.3.4]
 {%endhighlight%}
   This will set up `1.2.3.4` as the DNS server for all servers on this subnet.
+
+* Public keys, unlike the rest of the Openstack resources, are user-based rather than tenant-based. When errors indicate a missing keypair, make sure you're using the correct user rather than tenant.
+
+* To control the order in which networks are attached to a server (and thereby control which interface is connected to which network), it's possible to override the `nics` key of the `server` property of the `cloudify.openstack.nodes.Server` type.
+
+* ICMP rules show up on Horizon (Openstack GUI) as ones defined using `type` and `code` fields, rather than a port range. However, in the actual Neutron (and Nova, in case of Nova-net security groups) service, these fields are represented using the standard port range fields (i.e., `type` and `code` correspond to `port_range_min` and `port_range_max` (respectively) on Neutron security groups, and to `from_port` and `to_port` (respectively) on Nova-net security groups).
+  * For example, to set a security group rule which allows *ping* from anywhere, the following setting may be declared in the blueprint:
+    * `protocol`: `icmp`
+    * `port_range_min`: `0` (type)
+    * `port_range_max`: `0` (code)
+    * `remote_ip_prefix`: `0.0.0.0/0`
 
 
 # Misc

@@ -18,6 +18,8 @@ For those upgrading from 3.1, the following items are most relevant.
 
 * The workflow's Graph framework will now raise an `api.ExecutionCancelled` error on execution cancellation, instead of returning the now-deprecated `api.EXECUTION_CANCELLED_RESULT`. This means that any workflow that used to perform additional operations after the `graph.execute()` call should now use a *try-finally* clause to handle the possible scenario of a cancelled execution.
 
+* The Openstack plugin's `WindowsServer` type will now use the Openstack `get-password` feature by default - meaning it requires either using an image which posts the server's password to Openstack's metadata service, or disabling this behavior by setting the `use_password` property to `false`. See more information in the [Openstack plugin documentation](plugin-openstack.html#cloudifyopenstacknodeswindowsserver)
+
 
 # Something that was deprecated
 

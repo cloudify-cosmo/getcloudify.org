@@ -786,6 +786,20 @@ my_subnet_node:
 {%endhighlight%}
   This will set up `1.2.3.4` as the DNS server for all servers on this subnet.
 
+* Public keys, unlike the rest of the Openstack resources, are user-based rather than tenant-based. When errors indicate a missing keypair, make sure you're using the correct user rather than tenant.
+
+* To control the order in which networks are attached to a server (and thereby control which interface is connected to which network), it's possible to override the `nics` key of the `server` property of the `cloudify.openstack.nodes.Server` type.
+
+* ICMP rules show up on Horizon (Openstack GUI) as ones defined using `type` and `code` fields, rather than a port range. However, in the actual Neutron (and Nova, in case of Nova-net security groups) service, these fields are represented using the standard port range fields (i.e., `type` and `code` correspond to `port_range_min` and `port_range_max` (respectively) on Neutron security groups, and to `from_port` and `to_port` (respectively) on Nova-net security groups).
+  * For example, to set a security group rule which allows *ping* from anywhere, the following setting may be declared in the blueprint:
+    * `protocol`: `icmp`
+    * `port_range_min`: `0` (type)
+    * `port_range_max`: `0` (code)
+    * `remote_ip_prefix`: `0.0.0.0/0`
+
+* When multiple security groups are connected to a single Server, one or more of the security groups might not get connected/disconnected from the Server properly due to a bug in Openstack. As a workaround, it's possible to either declare the security groups directly in the server's properties under the `server`.`security_groups` property, or by connecting relationships in between the multiple security groups (making them connect to the server one by one rather than in parallel).
+  * In Cloudify version 3.2, the Openstack plugin has been upgraded to handle this bug gracefully and attempt retries until all of the relevant security groups connect/disconnect properly.
+
 
 # Misc
 
