@@ -77,7 +77,7 @@ Download this [Vagrantfile]({{page.vagrant_file_link}}) to your local directory.
 vagrant up
 {%endhighlight%}
 
-Once the cloudify box is up you can access the manager web console through your local browser by pointing the browser to [http://10.10.0.1/](http://10.10.0.1/).
+Once the cloudify box is up you can access the manager web console through your local browser by pointing the browser to [http://10.10.1.10/](http://10.10.1.10/).
 
 ## Step 2: SSH to the Vagrant Box and Connect to the Running Manager
 
@@ -111,7 +111,7 @@ In the `cloudify-nodecellar-example` directory that you just cloned, you can see
 To upload the blueprint run:
 
 {%highlight bash%}
-cfy blueprints upload -b nodecellar -p singlehost-blueprint.yaml​
+cfy blueprints upload -b nodecellar -p singlehost-blueprint.yaml
 {%endhighlight%}
 
 The `-b` flag specifies the unique name we've assigned to this blueprint on the Cloudify manager.
@@ -139,9 +139,9 @@ The inputs values are located at ~/cloudify/blueprints/inputs/nodecellar-singleh
 These are the values relevant for our example:
 
 {%highlight yaml%}
-host_ip: localhost
+host_ip: 10.10.1.10
 agent_user: vagrant
-agent_private_key_path: /home/vagrant/.ssh/id_rsa
+agent_private_key_path: /root/.ssh/id_rsa
 {%endhighlight%}
 
 {%note title=Limitations%}
@@ -198,7 +198,7 @@ To add mongo related graphs to the dashboard, have a look at [Adding Custom Grap
 
 ## Step 6: Test Drive the Application
 
-To test the application, you will need to access it using its public IP address. Go to [http://10.10.0.1:8080](http://10.10.0.1:8080) to access it from your web browser. The marvelous nodecellar application should be up on your screen. Click the "Browse wines" button to verify that the application was installed suceesfully and can access the mongodb database to read the list of wines.
+To test the application, you will need to access it using its public IP address. Go to [http://10.10.1.10:8080](http://10.10.1.10:8080) to access it from your web browser. The marvelous nodecellar application should be up on your screen. Click the "Browse wines" button to verify that the application was installed suceesfully and can access the mongodb database to read the list of wines.
 
 ![Nodecellar](/guide/images3/guide/quickstart/nodecellar.png)
 
