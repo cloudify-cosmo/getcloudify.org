@@ -41,7 +41,7 @@ This script is a workaround for a known issue in git which ignores symbolic link
 
 * Run Jekyll in server mode, and wait for the site generation to complete: 
 
-        jekyll serve
+        jekyll serve --watch --limit_posts 1
         
         
 You should see the following output if everything was ok:
