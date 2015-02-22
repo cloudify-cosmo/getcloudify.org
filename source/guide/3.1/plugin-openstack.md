@@ -797,7 +797,7 @@ my_subnet_node:
     * `port_range_max`: `0` (code)
     * `remote_ip_prefix`: `0.0.0.0/0`
 
-* When multiple security groups are connected to a single Server, one or more of the security groups might not get connected/disconnected from the Server properly due to a bug in Openstack. As a workaround, it's possible to either declare the security groups directly in the server's properties under the `server`.`security_groups` property, or by connecting relationships in between the multiple security groups (making them connect to the server one by one rather than in parallel).
+* When multiple security groups are connected to a single Server, one or more of the security groups might not get connected/disconnected from the Server properly due to a bug in Openstack. As a workaround, it's possible to declare the security groups directly in the server's properties under the `server`.`security_groups` property.
   * In Cloudify version 3.2, the Openstack plugin has been upgraded to handle this bug gracefully and attempt retries until all of the relevant security groups connect/disconnect properly.
 
 
