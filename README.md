@@ -1,4 +1,4 @@
-I# Cloudify Documentation
+# Cloudify Documentation
 [![Build Status](https://travis-ci.org/cloudify-cosmo/getcloudify.org.svg?branch=master)](https://travis-ci.org/cloudify-cosmo/getcloudify.org)
 
 This repository contains the markup files, html templates and javascript sources for the new [Cloudify documentation portal](http://getcloudify.org/).
