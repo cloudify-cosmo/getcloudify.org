@@ -12,4 +12,4 @@ script:
   - bundle exec jekyll serve --detach
   - /home/travis/.local/bin/linkchecker http://127.0.0.1:4000/ --anchors --no-status --ignore-url=guide/2.7 --ignore-url=guide/2.6 --ignore-url=blog/ --ignore-url=^mailto --ignore-url=bower_components --ignore-url=/downloads/get_cloudify_2x.html --ignore-url=guide/[a-z]
 after_success:
-  - if [ $TRAVIS_BRANCH == "master" ]; then bundle exec s3_website push; fi
+  - if [ $TRAVIS_BRANCH == "master" ] && [ $TRAVIS_PULL_REQUEST = "false" ]; then bundle exec s3_website push; fi
