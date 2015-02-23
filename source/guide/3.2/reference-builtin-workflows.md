@@ -205,13 +205,13 @@ If the node denoted by `node_id` is contained in a compute node (or is a compute
 the node graph will consist of all nodes that are contained in the compute node which contains `node_id` and the compute node itself.
 Otherwise, the subgraph will consist of all nodes that are contained in the node denoted by `node_id` and the node itself.
 
-In addition, node that are connected to node that are part of the contained subgraph will have their `establish` relationship operations executed during scale out
+In addition, nodes that are connected to nodes that are part of the contained subgraph will have their `establish` relationship operations executed during scale out
 and their `unlink` relationship operations executed during scale in.
 
 
 **Workflow parameters:**
 
-  - *node_id*: The ID of the node to apply the scaling logic on.
+  - *node_id*: The ID of the node to apply the scaling logic to.
   - *delta*: The scale factor. (Default: `1`)
     - For `delta > 0`: If the current number of instances is `N`, scale out to `N + delta`.
     - For `delta < 0`: If the current number of instances is `N`, scale in to `N - |delta|`.
