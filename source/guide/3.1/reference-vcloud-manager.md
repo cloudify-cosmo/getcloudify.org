@@ -10,6 +10,9 @@ pageord: 1000
 {%summary%} This page serves as a reference to the vCloud manager blueprint, which is used for bootstrapping Cloudify on vCloud {%endsummary%}
 
 
+{%warning title=Disclaimer%}vCloud plugin is under development.{%endwarning%}
+
+
 {%note title=Note%}
 This reference only explains the structure and various values in the blueprint. For better understanding of it, make yourself familiar with [Cloudify blueprints DSL](guide-blueprint.html), the [Cloudify vCloud plugin](plugin-vcloud.html), and the [Manager Blueprints Authoring guide](guide-authoring-manager-blueprints.html).
 {%endnote%}
