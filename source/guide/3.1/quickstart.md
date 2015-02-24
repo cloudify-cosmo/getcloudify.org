@@ -122,7 +122,7 @@ In the `cloudify-nodecellar-example` directory that you just cloned, you can see
 To upload the blueprint run:
 
 {%highlight bash%}
-cfy blueprints upload -b nodecellar -p singlehost-blueprint.yaml​
+cfy blueprints upload -b nodecellar -p singlehost-blueprint.yaml
 {%endhighlight%}
 
 The `-b` flag specifies the unique name we've assigned to this blueprint on the Cloudify manager.
