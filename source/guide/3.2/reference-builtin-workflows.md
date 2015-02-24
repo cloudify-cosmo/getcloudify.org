@@ -192,3 +192,49 @@ This sub-graph determines the operations that will be executed during the workfl
 * The following node instances will be re-installed: `war_1`, `webserver_1` and `webserver_host_1`.
 * The following relationships will be re-established: `war_1` **connected to** `database_1` and `webserver_host_1` **connected to** `floating_ip_1`.
 {%endnote%}
+
+# Scale
+
+**Workflow name:** *scale*
+
+**Workflow description:**
+
+Scales out/in the node subgraph of the system topology applying the `install`/`uninstall` workflows' logic respectively.
+
+If the node denoted by `node_id` is contained in a compute node (or is a compute node itself) and `scale_compute` is `true` (which is the default),
+the node graph will consist of all nodes that are contained in the compute node which contains `node_id` and the compute node itself.
+Otherwise, the subgraph will consist of all nodes that are contained in the node denoted by `node_id` and the node itself.
+
+In addition, nodes that are connected to nodes that are part of the contained subgraph will have their `establish` relationship operations executed during scale out
+and their `unlink` relationship operations executed during scale in.
+
+
+**Workflow parameters:**
+
+  - *node_id*: The ID of the node to apply the scaling logic to.
+  - *delta*: The scale factor. (Default: `1`)
+    - For `delta > 0`: If the current number of instances is `N`, scale out to `N + delta`.
+    - For `delta < 0`: If the current number of instances is `N`, scale in to `N - |delta|`.
+    - For `delta == 0`, leave things as they are.
+  - *scale_compute*: should `scale` apply on the compute compute node containing the node denoted by `node_id`. (Default: `true`)
+    - If `scale_compute` is set to `false`, the subgraph will consist of all the nodes that
+      are contained in the node denoted by `node_id` and the node denoted by `node_id` itself.
+    - Otherwise, the subgraph will consist of all nodes that are contained in the compute node that contains the node denoted by `node_id`
+      and the compute node itself.
+    - If the node denoted by `node_id` is not contained in a compute node, it is as if this parameters was set
+      to `false`.
+
+**Workflow high-level pseudo-code:**
+
+  1. Retrieve the scaled node, based on `node_id` and `scale_compute` parameters.
+  2. Start deployment modification, adding or removing node instances and relationship instances.
+  3. If `delta > 0`:
+      - Execute install lifecycle operations (`create`, `configure`, `start`) on added node instances.
+      - Execute the `establish` relationship lifecycle operation for all affected relationships.
+  4. If `delta < 0`:
+      - Execute the `unlink` relationship lifecycle operation for all affected relationships.
+      - Execute uninstall lifecycle operations (`stop`, `delete`) on removed node instances.
+
+{%note title=Note%}
+Detailed description of the terms *graph* and *sub-graph* that are used in this section, can be found in the [Heal](#heal) workflow section.
+{%endnote%}
