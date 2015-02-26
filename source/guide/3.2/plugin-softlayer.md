@@ -35,17 +35,12 @@ For more information about SoftLayer, please refer to: [http://www.softlayer.com
   * **Optional Properties:**
     * `api_config` 
       * A dictionary containing the authentication information for connecting to the SoftLayer API:
-        - a SoftLayer username 
-        - a user-specific API Key
-        - a softLayer endpoint URL of choice
-      * for more information see [SoftLayer-API-Overview](http://sldn.softlayer.com/article/SoftLayer-API-Overview)
-      * for example:
-          {
-              "username":     "username",
-              "password":     "api-key",
-              "endpoint_url": "https://api.softlayer.com/xmlrpc/v3.1/"
-          }
-      * An empty dictionary by default - will be taken from other resources if not specified - see [SoftLayer authentication](#softlayer-authentication))
+        - username: a SoftLayer username 
+        - api-key: a user-specific API Key
+        - endpoint_url: a softLayer endpoint URL of choice
+        
+        for more information see [SoftLayer-API-Overview](http://sldn.softlayer.com/article/SoftLayer-API-Overview)
+      * An empty dictionary by default - will be taken from other resources if not specified - see [SoftLayer authentication](#softlayer-authentication))  
     * `hostname` The hostname to use for the new server, e.g. 'my-hostname'
       * An empty string by default - will be generated automatically, see [Resource Naming Convention](#resource-naming-convention)
     * `os` The item id of the operating system to use, e.g. item id 1857 for Windows Server 2008 R2 Standard Edition (64bit)
@@ -91,7 +86,6 @@ For more information about SoftLayer, please refer to: [http://www.softlayer.com
     * If `private_network_only` is set to true, the `port_speed` item id should describe a private only port speed, otherwise, it will be changed to a private only port speed.
     * Another way to declare a private only server is to set the port speed property with an item id that describes a private only port speed, e.g. item id 498 for 1 Gbps Private Network Uplink. 
     <br>In that case, the `public_vlan` property cannot be specified.
-
 
 **Mapped Operations:**
 
