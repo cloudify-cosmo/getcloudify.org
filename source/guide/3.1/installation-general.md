@@ -60,7 +60,7 @@ Cloudify's management server currently runs on Ubuntu 12.04 Precise. To install 
 Cloudify's Docker implementation was tested on Ubuntu 14.04 and Centos 6.5 and is based on the [phusion/baseimage](https://github.com/phusion/baseimage-docker) Docker Image (Ubuntu 14.04).
 
 {%note title=Note%}
-If the host machine Docker is running on is based on Ubuntu 14.04, we will attempt to install Docker for you, if it hasn't already been installed.(Requires an internet connection). For any other distribution (and release), you'll have to verify that Docker is installed prior to bootstrapping.
+If the host machine Docker is running on is based on Ubuntu 14.04, we will attempt to install Docker for you, if it wasn't previously installed.(Requires an internet connection). For any other distribution (and release), you'll have to verify that Docker is installed prior to bootstrapping.
 {%endnote%}
 
 ### Hosts
