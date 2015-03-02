@@ -38,7 +38,7 @@ The recommended requirements can vary based on the following:
 * Amount of concurrent logs and events you're going to send from your [hosts]({{page.terminology_link}}#host).
 * Amount of concurrent metrics you're going to send from your hosts.
 
-As a general recommendation for the average system, Cloudify would require at least 4GB of RAM and 4 CPU Cores. Disk space requirement varies according to the amount of logs, events and metrics sent as Cloudify doesn't currently clean them.
+As a general recommendation for the average system, Cloudify would require at least 4GB of RAM and 4 CPU Cores. Disk space requirement vary according to the amount of logs, events and metrics sent as Cloudify doesn't currently clean them.
 
 ### Network
 The Manager must be available in the following ports:
