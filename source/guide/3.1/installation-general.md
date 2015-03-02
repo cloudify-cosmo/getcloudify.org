@@ -77,4 +77,3 @@ Cloudify will attempt to install Docker on Ubuntu 14.04 (Trusty) ONLY as other i
 # What's Next
 
 Next, you should [install the Cloudify CLI](installation-cli.html). Once you've installed it, you will be able to boostrap a Cloudify manager on the environment of your choice.
-n
