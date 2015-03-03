@@ -297,7 +297,7 @@ node_templates:
     properties:
       port: 8080
       # This will evaluate to 'http://localhost:8080' during deployment creation
-      local_endpoint: { concat: [ 'http://localhost:', { get_property: [ SELF, port ] } ] }
+      local_endpoint: { concat: ['http://localhost:', { get_property: [SELF, port] }] }
     interfaces:
       cloudify.interfaces.lifecycle:
         configure: scripts/configure.sh
@@ -309,8 +309,8 @@ node_templates:
                 port: { get_input: webserver_port }
                 # This will evaluate to 'http://192.168.12.12:8080' before the 'start'
                 # operation execution, assuming `the_vm` private ip address is 192.168.12.12
-                internal_endpoint: { concat: [ 'http://', { get_attribute: [ the_vm, ip ] },
-                                              ':', { get_property: [ SELF, port ] } ] }
+                internal_endpoint: { concat: ['http://', { get_attribute: [the_vm, ip] },
+                                              ':', { get_property: [SELF, port] }] }
         stop: scripts/stop.sh
 
 outputs:
@@ -318,6 +318,6 @@ outputs:
     description: Web server external endpoint
     # This will evaluate to 'http://15.16.17.18:8080' every time outputs are evaluated
     # assuming `the_floating_ip` address is 15.16.17.18
-    value: { concat: [ 'http://', { get_attribute: [ the_foating_ip, floating_ip_address ] },
-                      ':', { get_property: [ http_web_server, port ] } ] }
+    value: { concat: ['http://', { get_attribute: [the_foating_ip, floating_ip_address] },
+                      ':', { get_property: [http_web_server, port] }] }
 {%endhighlight%}
