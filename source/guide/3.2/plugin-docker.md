@@ -8,23 +8,45 @@ pageord: 210
 
 yaml_link: http://getcloudify.org/spec/docker-plugin/1.2/plugin.yaml
 fabric_link: http://getcloudify.org/guide/3.2/plugin-fabric.html
+plugin_version: 1.2
 ---
-{%summary%}
-{%endsummary%}
+{%summary%}The Docker plugin enables you to run Docker containers from a Cloudify Blueprint.{%endsummary%}
 
 
 {%warning title=Disclaimer%}This plugin is in Alpha and has not been thoroughly tested yet.{%endwarning%}
-
-
-# Description
-
-The Docker plugin enables you to run Docker containers from a Cloudify Blueprint.
-
 
 # Plugin Requirements:
 
 * Python Versions:
   * 2.7.x
+
+* No Install
+  * The Docker plugin will not install Docker on your host. You need to either use a host with Docker already installed, or you need to install Docker on it. Below is an example of how one might do that in Openstack:
+
+{% highlight yaml %}
+
+  vm_with_docker:
+    derived_from: cloudify.openstack.nodes.Server
+    properties:
+      cloudify_agent:
+        default:
+          user: { get_input: agent_user }
+          home_dir: /home/ubuntu
+      server:
+        default:
+          image: { get_input: image }
+          flavor: { get_input: flavor }
+          userdata: |
+            #!/bin/bash
+            sudo service ssh stop
+            curl -o install.sh -sSL https://get.docker.com/
+            sudo sh install.sh
+            sudo groupadd docker
+            sudo gpasswd -a ubuntu docker
+            sudo service docker restart
+            sudo service ssh start
+
+{% endhighlight %}
 
 
 # Blueprints
@@ -33,56 +55,41 @@ The Docker plugin enables you to run Docker containers from a Cloudify Blueprint
 
 {% highlight yaml %}
 
-  my_nginx:
+  some_container:
     type: cloudify.docker.Container
     properties:
-      name: nginx
+      name: some_name
       image:
-        repository: nginx
-        tag: 1.7.9
-      ports:
-        8080:80
-      params:
-        stdin_open: true
-        tty: true
-        command: some-content-nginx
-        environment:
-          ENV_VAR: some-var-value
-          ENV_VAR2: another-var-value
-        volumes_from:
-          boring_babbage
-          sleepy_brattain
-    relationships:
-      - type: cloudify.relationships.contained_in
-        target: some_vm
+        repository: dockeruser/dockerrepo
+    interfaces:
+      cloudify.interfaces.lifecycle:
+        create:
+          implementation: docker.docker_plugin.tasks.create_container
+          inputs:
+            params:
+              ports:
+                - 8080
+              stdin_open: true
+              tty: true
+              command: /bin/sleep 20
+        start:
+          implementation: docker.docker_plugin.tasks.start
+          inputs:
+            params:
+              port_bindings:
+                8080: 8080
 
 {% endhighlight %}
 
 ## Container Properties
 
-The container node type allows you to describe the properties and lifecycle operations of a Docker container.
+The properties are: name, image.
 
-The properties are: name, image, ports, and params.
+### name:
 
+The `name` property is the name of the container.
 
-* name:
-
-The `name` property is the name of the container. If this is a new container, name it anything you like. If it is an external container, give it the existing name.
-
-For example:
-
-{% highlight yaml %}
-
-  existing_container:
-    type: cloudify.docker.Container
-    properties:
-      name: boring_babbage
-      use_external_resource: true
-
-{% endhighlight %}
-
-
-* image:
+### image:
 
 The `image` property is a dictionary. It must have the `repository` key or the `src` key, or both. It may additionally have the `tag` key.
 
@@ -102,57 +109,79 @@ Here is an example of importing from an URL.
     properties:
       name: cloudify-manager
       image:
-        src: http://gigaspaces-repository-eu.s3.amazonaws.com/org/cloudify3/3.2.0/m4-RELEASE/cloudify-docker_3.2.0-m4-b173.tar
+        src: http://gigaspaces-repository-eu.s3.amazonaws.com/org/cloudify3/3.2.0/m6-RELEASE/cloudify-docker_3.2.0-m6-b176.tar
         repository: cloudify-manager-packages
         tag: 3.2.0
 
 {% endhighlight %}
 
+### Defining Parameters
 
-* ports:
+Since this plugin is based on the Docker-Py python library, you can pass the parameters as inputs to the supported functions.
 
-Use `ports` describe the control the port mappings of the container.
+## Create
 
-{% highlight yaml %}
-
-  web_application:
-    type: cloudify.docker.Container
-    properties:
-      name: web-app
-      image:
-        src: local-file.tar
-        repository: my-application-container
-      ports:
-        22: 22
-        80: 80
-        3306, 127.0.0.1: 3306, 10.79.46.23
-
-{% endhighlight %}
-
-
-* params:
-
-Additional parameters are allowed in the `params` dictionary. For example, the options for `std_open`, `tty`, and `environment` variables.
+Maps to the create_container function. You can add any of the parameters available to the create_container function in Docker-Py
 
 {% highlight yaml %}
 
-  nodecellar_container:
-    type: cloudify.docker.Container
-    properties:
-      name: nodecellar
-      image:
-        repository: uric/nodecellar
-      ports:
-        8080: 8080
+  create:
+    implementation: docker.docker_plugin.tasks.create_container
+    inputs:
       params:
+        ports:
+          - 27017
+          - 28017
         stdin_open: true
         tty: true
-        command: nodejs server.js
-        environment:
-          NODECELLAR_PORT: 8080
-          MONGO_PORT: 27017
+        command: mongod --rest --httpinterface --smallfiles
 
 {% endhighlight %}
+
+## Start
+
+Maps to the start function. You can add any of the parameters available to the start function in Docker-Py
+
+{% highlight yaml %}
+
+  start:
+    implementation: docker.docker_plugin.tasks.start
+    inputs:
+      params:
+        port_bindings:
+          27017: 27017
+          28017: 28017
+
+{% endhighlight %}
+
+## Stop
+
+Maps to the stop function. You can add any of the parameters available to the stop function in Docker-Py
+
+{% highlight yaml %}
+
+  stop:
+    implementation: docker.docker_plugin.tasks.stop
+    inputs:
+      params:
+        timeout: 30
+
+{% endhighlight %}
+
+## remove_container
+
+Maps to the remove_container function. You can add any of the parameters available to the remove_container function in Docker-Py
+
+{% highlight yaml %}
+
+  delete:
+    implementation: docker.docker_plugin.tasks.remove_container
+    inputs:
+      params:
+        force: true
+
+{% endhighlight %}
+
 
 Many of the options exposed in the Docker-Py Python Docker API are available through the Cloudify Docker Plugin. That documentation can suppliment this feature:
 [docker python client.](https://github.com/docker/docker-py)
@@ -168,31 +197,47 @@ The plugin is designed to follow the Docker Py Docker Python API library and not
 
 Here are the operations that this plugin currently supports:
 
-## Create task
+### Create task
 
 * Creates a container that can be started.
 
 * Here, the plugin pulls images from the Docker Hub Registry, a private registry, or it may import an image from a tarball.
 
-* In the blueprint, you pass ports as a dictionary. The key of each dictionary is a port that you will open on this container.
-  * In the create operation, only Docker Py only needs to know the keys of the dict.
-  * In the start operation, the entire dict is passed as the port_binding parameter.
-
 * This operations adds the container_id to the instance runtime_properties.
 
 
-## Start task
+### Start task
 
 * This starts the container.
 
 * It also logs containers' network settings with IPs, ports, and top information.
 
+* You can pass a list of process names that you want to make sure are running on the container, before the start operation succeeds:
 
-## Stop task
+{% highlight yaml %}
+
+  start:
+    implementation: docker.docker_plugin.tasks.start
+    inputs:
+      params:
+        port_bindings:
+          27017: 27017
+          28017: 28017
+        processes_to_wait_for:
+          - /bin/sh
+
+{% endhighlight %}
+
+
+### Stop task
 
 * Stops the container.
 
 
-## Delete task
+### Delete task
 
 * Deletes the container and its runtime_properties.
+
+# Complete Example
+
+For a complete working example, please see the [ReadMe](https://github.com/cloudify-cosmo/cloudify-nodecellar-docker-example/tree/{{site.latest_cloudify_version}}) for the Docker Nodecellar Example.
