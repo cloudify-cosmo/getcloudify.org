@@ -6,26 +6,47 @@ publish: true
 abstract: A quick tutorial for getting started with Cloudify and deploying your first blueprint on OpenStack
 pageord: 200
 
-blueprint_file_link: https://raw.githubusercontent.com/cloudify-cosmo/cloudify-nodecellar-example/3.1/openstack-blueprint.yaml
-reference_openstack_manager_link: reference-openstack-manager.html
+openstack_blueprint_file_link: https://raw.githubusercontent.com/cloudify-cosmo/cloudify-nodecellar-example/3.1/openstack-blueprint.yaml
+softlayer_blueprint_file_link: https://raw.githubusercontent.com/cloudify-cosmo/cloudify-nodecellar-example/master/softlayer-blueprint.yaml
 
 ---
+
 {%summary%}{{page.abstract}}{%endsummary%}
 
 # Overview
 
-In this tutorial you will bootstrap a Cloudify manager in your OpenStack environment
+In this tutorial you will bootstrap a Cloudify manager in your environment
 and install a sample Cloudify blueprint on it.
 
-The [blueprint]({{page.blueprint_file_link}}) you'll be deploying,
-describes a nodejs application that connects to a MongoDB database and presents a wine catalog.
+This tutorial shows how to bootstrap a Cloudify manager on:
+ 
+ - [OpenStack](plugin-openstack.html)
+ - [Softlayer](softlayer-openstack.html)
+
+The blueprint you'll be deploying, describes a nodejs application that connects to a MongoDB database and presents a wine catalog.
+
+{% inittab %}
+
+{% tabcontent OpenStack%}
+
+[openstack nodecellar blueprint]({{page.openstack_blueprint_file_link}})
+
+{% endtabcontent %}
+
+{% tabcontent SoftLayer%}
+
+[softlayer nodecellar blueprint]({{page.softlayer_blueprint_file_link}})
+
+{% endtabcontent %}
+
+{% endinittab %}
 To learn more about blueprint syntax and elements please refer to the [Blueprints Guide]({{blueprint_guide_link}}).
 
 # Before You Begin
 
 It is recommended that you try the [Getting started](quickstart.html) first familiarize
 yourself with Cloudify and its concepts.
-Also, to complete this tutorial you'll need to have an OpenStack cloud environment and credentials.
+Also, to complete this tutorial you'll need to have a cloud environment of yout choice and credentials.
 
 # Step by Step Walkthrough
 
@@ -35,9 +56,9 @@ The first thing you'll need to do is install the Cloudify CLI,
 which will let you upload blueprints, create deployments, and execute workflows.
 To do so follow the steps described in the [CLI installation guide](installation-cli.html).
 
-## Step 2: Download the Manager Blueprint for OpenStack
+## Step 2: Download the Manager Blueprint
 
-Next, let's create a cloudify-manager dir and download the OpenStack Manager Blueprint.
+Next, let's create a cloudify-manager dir and download the Manager Blueprint.
 
 {% highlight bash %}
 mkdir -p ~/cloudify-manager
@@ -56,8 +77,14 @@ but you shouldn't care about that for now.
 
 Now let's move on to bootstrap configuration.
 
-### Configuring your Manager Blueprint for HP OpenStack
+### Configuring your Manager Blueprint
 
+{% inittab %}
+{% tabcontent OpenStack %}
+{% togglecloak id=1 %}
+Configuring your Manager Blueprint for HP OpenStack
+{% endtogglecloak %}
+{% gcloak 1 %}
 [HP Cloud](http://www.hpcloud.com/) is a public OpenStack cloud.
 As such it provides a fairly easy starting point for experiencing a fully operational OpenStack environment.
 To use HP Cloud you need to [Setup an account on the HP Helion Cloud](https://horizon.hpcloud.com/).
@@ -114,25 +141,105 @@ to fit your specific openstack installation.
 
 Notice that the `resources_prefix` parameter is set to "cloudify" so that all resources provisioned during
 this guide are prefixed for easy identification.
+{% endgcloak %}
+
+{% endtabcontent %}
+
+{% tabcontent SoftLayer %}
+{% togglecloak id=2 %}
+Configuring your Manager Blueprint for SoftLayer
+{% endtogglecloak %}
+{% gcloak 2 %}
+
+
+This blueprint defines quite a few input parameters we need to fill out.
+
+Let's make a copy of the inputs template already provided and edit it:
+
+{% highlight bash %}
+cd cloudify-manager-blueprints/softlayer
+cp inputs.yaml.template inputs.yaml
+{% endhighlight %}
+
+The inputs.yaml file should look somewhat like this:
+
+{% highlight yaml %}
+username: ''
+api_key: ''
+endpoint_url: ''
+location: ''
+domain: ''
+ram: ''
+cpu: ''
+disk: ''
+os: ''
+ssh_keys: []
+ssh_key_filename: ''
+
+hostname: ''
+image_template_global_id: ''
+image_template_id: ''
+private_network_only: false
+port_speed: 187
+private_vlan: ''
+public_vlan: ''
+provision_scripts: []
+agents_user: root
+resources_prefix: ''
+{% endhighlight %}
+
+You will, at the very least, have to provide the following:
+{% highlight yaml %}
+username: ''
+api_key: ''
+{% endhighlight %}
+
+{% endgcloak %}
+
+{% endtabcontent %}
+{% endinittab %}
 
 ## Step 3: Bootstrap the Cloudify Management Environment
 
 Now you're ready to bootstrap your Cloudify manager.
+
 To do so type the following command in your shell:
 
+{% inittab %}
+{% tabcontent OpenStack%}
 {% highlight bash %}
 cfy bootstrap --install-plugins -p openstack.yaml -i inputs.yaml
 {% endhighlight %}
+{% endtabcontent %}
+{% tabcontent SoftLayer%}
+{% highlight bash %}
+cfy bootstrap --install-plugins -p softlayer.yaml -i inputs.yaml
+{% endhighlight %}
+{% endtabcontent %}
+{% endinittab %}
+
 
 {%note title=Note%}
-
 Ths *install-plugins* functionality only works if you are running from within a virtualenv.
 If this is not the case, installing plugins will require sudo permissions and can be done like so:
 
+{% inittab %}
+
+{% tabcontent OpenStack%}
 {% highlight sh %}
 cfy local create-requirements -o requirements.txt -p openstack.yaml
 sudo pip install -r requirements.txt
 {%endhighlight%}
+{% endtabcontent %}
+
+{% tabcontent SoftLayer%}
+{% highlight sh %}
+cfy local create-requirements -o requirements.txt -p softlayer.yaml
+sudo pip install -r requirements.txt
+{%endhighlight%}
+{% endtabcontent %}
+
+{% endinittab %}
 
 {%endnote%}
 
@@ -160,9 +267,21 @@ In the `cloudify-nodecellar-example` directory you just cloned, you can see a bl
 
 To upload the blueprint run:
 
+{% inittab %}
+
+{% tabcontent OpenStack%}
 {%highlight bash%}
 cfy blueprints upload -b nodecellar -p openstack-blueprint.yaml​
 {%endhighlight%}
+{% endtabcontent %}
+
+{% tabcontent SoftLayer%}
+{%highlight bash%}
+cfy blueprints upload -b nodecellar -p softlayer-blueprint.yaml​
+{%endhighlight%}
+{% endtabcontent %}
+
+{% endinittab %}
 
 The `-b` flag assigns a unique name to this blueprint on the Cloudify manager.
 Before creating a deployment though, let's see what this blueprint looks like.
@@ -183,22 +302,75 @@ In our case, we have the following nodes:
 
 This blueprint defines some input parameters:
 
+{% inittab %}
+
+{% tabcontent OpenStack%}
+
 ![Nodecellar Inputs](/guide/images3/guide/quickstart-openstack/nodecellar_openstack_inputs.png)
 
 Let's make a copy of the inputs template already provided and edit it:
-
 {% highlight bash %}
 cd cloudify-nodecellar-example/inputs/openstack.yaml.template
 cp openstack.yaml.template inputs.yaml
 {% endhighlight %}
-
 The inputs.yaml file should look somewhat like this:
-
 {%highlight yaml%}
 image: 8c096c29-a666-4b82-99c4-c77dc70cfb40
 flavor: 102
 agent_user: ubuntu
 {%endhighlight%}
+
+{% endtabcontent %}
+
+{% tabcontent SoftLayer%}
+
+{% highlight yaml %}
+inputs:
+  location: 
+    description: >
+      Location of the data center
+      Default value is the location id of Hong kong 2
+    default: 352494
+  domain: 
+    description: The domain
+    default: nodecellar.cloudify.org
+  ram: 
+    description: >
+      Item id of the ram
+      Default value is the item id of 16 GB
+    default: 1017
+  cpu: 
+    description: >
+      Item id of the cpu
+      Default value is the item id of 4 x 2.0 GHz Cores
+    default: 859
+  disk: 
+    description: >
+      Item id of the disk
+      Default value is the item id of 25 GB (SAN)
+    default: 1178
+  os: 
+    description: >
+      Item id of the operating system
+      Default value is the item id of Ubuntu Linux 12.04 
+    default: 4174
+{%endhighlight%}
+
+All inputs have default values so no input file is needed.
+To specify differnet values for one or more inputs, create inputs.yaml file with the wanted inputs, for example:
+{% highlight bash %}
+echo -e "domain: 'my_domain.org'\nlocation: '168642'" > inputs.yaml
+{% endhighlight %}
+The inputs.yaml file will look like this:
+{% highlight yaml %}
+domain: 'my_domain.org'
+location: '168642'
+{% endhighlight %}
+
+{% endtabcontent %}
+
+{% endinittab %}
+
 
 Next, we need to create a deployment. To do so, type the following command:
 
@@ -214,7 +386,8 @@ We've now created a deployment named `nodecellar` based on a blueprint with the 
 
 In Cloudify, installing a certain `deployment` is done by executing
 the a [install]({{page.workflows_link}}#install) [workflow]({{page.terminology_link}}#workflow).
-type the following command in your terminal:
+
+Type the following command in your terminal:
 
 {%highlight bash%}
 cfy executions start -w install -d nodecellar
@@ -299,4 +472,16 @@ This will terminate the manager VM and delete the resources associated with it.
 
 # What's Next
 
-For a more elaborate installation tutorial, please refer to the [Openstack Installation Guide]({{page.reference_openstack_manager_link}}).
+For a more elaborate installation tutorial, please refer to 
+
+{% inittab %}
+
+{% tabcontent OpenStack%}
+the [Openstack Manager Reference](reference-openstack-manager.html).
+{% endtabcontent %}
+
+{% tabcontent SoftLayer%}
+the [SoftLyaer Manager Reference](reference-softlayer-manager.html).
+{% endtabcontent %}
+
+{% endinittab %}
