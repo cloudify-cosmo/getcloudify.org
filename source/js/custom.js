@@ -520,7 +520,7 @@ $(document).ready(function() {
 
 //////////////////////////End YouTube Player  Data //////////////////////////////
 
-
+/*
 //EventsPage - This code parsing google calendar data using json//
 if (location.href.indexOf('/participate') != -1) {
 		var strVar='';
@@ -639,6 +639,7 @@ strVarPast += "<\/li>";
 		});
 
 // Ende Event Page code // 
-}
 
+}
+*/
 });
