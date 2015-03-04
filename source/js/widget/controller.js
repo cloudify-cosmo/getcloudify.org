@@ -5,7 +5,7 @@ widgetModule.config(function($interpolateProvider) {
     $interpolateProvider.endSymbol(']]');
 });
 
-widgetModule.controller('widgetController', function( $scope, $controller ,$log, $http, $sce) {
+widgetModule.controller('widgetController', function( $scope, $timeout, $controller ,$log, $http, $sce) {
     $controller('GsGenericWidgetCtrl', {$scope:$scope} );
     $scope.genericWidgetModel.element = $('#widgetFrame')[0];
 
@@ -119,6 +119,11 @@ widgetModule.controller('widgetController', function( $scope, $controller ,$log,
                 $scope.widgetController.butterflySource = $sce.trustAsResourceUrl('http://' + $scope.widgetController.machineIp + ':8011/');
                 $scope.widgetController.expires = new Date(status.nodeModel.expires);
                 $scope.widgetController.timeLeft = new Date(status.nodeModel.expires -  new Date().getTime()) ;
+
+                $timeout(function(){ // focus on butterfly iframe. https://cloudifysource.atlassian.net/browse/CW-316
+                    // this is ugly, but quick
+                    $('.butterfly-iframe iframe').focus();
+                },100);
 
                 $scope.widgetController.widgetOutput = "";
 
