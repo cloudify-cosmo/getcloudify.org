@@ -38,9 +38,21 @@ plugin_version: 1.1
 **Mapped Operations:**
 
   * `cloudify.interfaces.lifecycle.create` creates the container.
+    * **Inputs:**
+      * `params` Any parameters exposed by the Docker Py library to the create_container operation.
   * `cloudify.interfaces.lifecycle.start` starts the container.
-  * `cloudify.interfaces.lifecycle.stop` stops the container.
+    * **Inputs:**
+      * `params` Any parameters exposed by the Docker Py library to the start operation.
+      * `processes_to_wait_for` A list of processes to wait for before finishing the start operation.
+      * `retry_interval` Before the start operation finishes, Cloudify confirms that the container is started. This is the number of seconds between checking. Defaults to 1.
+ * `cloudify.interfaces.lifecycle.stop` stops the container.
+    * **Inputs:**
+      * `params` Any parameters exposed by the Docker Py library to the stop operation.
+      * `retry_interval` Before the stop operation finishes, Cloudify confirms that the container is stopped. This is the number of seconds between checking. Defaults to 10.
   * `cloudify.interfaces.lifecycle.delete` deletes the container.
+    * **Inputs:**
+      * `params` Any parameters exposed by the Docker Py library to the remove_container operation.
+      * `retry_interval` Before the delete operation finishes, Cloudify confirms that the container is removed. This is the number of seconds between checking. Defaults to 10.
 
 **Attributes:**
 
