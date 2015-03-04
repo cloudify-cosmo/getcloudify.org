@@ -168,7 +168,7 @@ Now, we need to create a deployment. To do so, type the following command:
 cfy deployments create -b nodecellar -d nodecellar --inputs ../inputs/nodecellar-singlehost.json
 {%endhighlight%}
 
-We've now created a deployment named `nodecellar` based on a blueprint with the same name. This deployment is not yet materialized, since we haven't issued an installation command. If you click the "Deployments" icon in the left sidebar in the web UI, you will see that all nodes are labeled with 0/1, which means they're pending creation.
+We've now created a deployment named `nodecellar` based on a blueprint with the same name. This deployment is not yet materialized, since we haven't issued an installation command. If you click the "Deployments" icon in the left sidebar in the web UI and then click on a certain node from the list, you will see, in the Topology tab, that all nodes are labeled with 0/1, which means they're pending creation, once it's done the status will change to 1/1.
 
 ![Nodecellar Deployment](/guide/images3/guide/quickstart/nodecellar_deployment.png)
 
@@ -176,7 +176,7 @@ We've now created a deployment named `nodecellar` based on a blueprint with the 
 
 In Cloudify, installing a certain `deployment` is done by executing
 the a [install]({{page.workflows_link}}#install) [workflow]({{page.terminology_link}}#workflow).
-type the following command in your terminal:
+Type the following command in your terminal:
 
 {%highlight bash%}
 cfy executions start -w install -d nodecellar
@@ -211,14 +211,14 @@ To add mongo related graphs to the dashboard, have a look at [Adding Custom Grap
 
 ## Step 6: Test Drive the Application
 
-To test the application, you will need to access it using its public IP address. Go to [http://11.0.0.7:8080](http://11.0.0.7:8080) to access it from your web browser. The marvelous nodecellar application should be up on your screen. Click the "Browse wines" button to verify that the application was installed suceesfully and can access the mongodb database to read the list of wines.
+To test the application, you will need to access it using its public IP address. Go to [http://11.0.0.7:8080](http://11.0.0.7:8080) to access it from your web browser. The marvelous nodecellar application should be up on your screen. Click the "Browse wines" button, on the top left side, to verify that the application was installed suceesfully and can access the mongodb database to read the list of wines.
 
 ![Nodecellar](/guide/images3/guide/quickstart/nodecellar.png)
 
 ## Step 7: Uninstall the Deployment
 
 Uninstalling the deployment is just a matter of running another workflow,
-which will teardown all the resources provisioned by the `install` workflow.
+which will tear down all the resources provisioned by the `install` workflow.
 To run the [uninstall]({{page.workflows_link}}#uninstall) workflow, type the following command:
 
 {%highlight bash%}

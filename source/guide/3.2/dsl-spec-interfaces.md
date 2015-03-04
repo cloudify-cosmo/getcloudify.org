@@ -60,6 +60,8 @@ node_types:
           inputs:
             ...
           executor: ...
+          max_retries: ...
+          retry_interval: ...
 {%endhighlight%}
 
 Keyname          | Required | Type        | Description
@@ -67,6 +69,8 @@ Keyname          | Required | Type        | Description
 implementation   | yes      | string      | The script or plugin task name to execute.
 inputs           | no       | dict        | Schema of inputs that will be passed to the implementation as kwargs.
 executor         | no       | string      | Valid values: `central_deployment_agent`, `host_agent`. See the [Plugins Specification]({{page.dsl_plugins_link}}) for more info.
+max_retries      | no       | number      | Maximum number of retries for a task. `-1` means infinite retries (Default: `task_retries` in manager blueprint [Cloudify Manager Type](reference-types.html#cloudifymanager-type) for remote workflows and `task_retries` workflow configuration for local workflows).
+retry_interval   | no       | number      | Minimum wait time (in seconds) in between task retries (Default: `task_retry_interval` in manager blueprint [Cloudify Manager Type](reference-types.html#cloudifymanager-type) for remote workflows and `task_retry_interval` workflow configuration for local workflows).
 
 ### Simple Mapping
 {%highlight yaml%}

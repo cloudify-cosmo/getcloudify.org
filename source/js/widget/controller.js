@@ -162,6 +162,10 @@ widgetModule.controller('widgetController', function( $scope, $timeout, $control
         }
     }
 
+    $scope.getTimeLeft = function(){
+        return Math.round($scope.widgetController.timeLeft.getTime() / 60000);
+    };
+
     $('#widgetFrame').attr('src','http://thewidget.staging.gsdev.info/#/widgets/54523f3e777c57802e36c03c/blank?timestamp='+(new Date().getTime())+'&');
     $scope.$watch( 'genericWidgetModel.loaded', checkIfLoaded);
     $scope.$watch( 'genericWidgetModel.widgetStatus' , checkStatus);
