@@ -17,31 +17,18 @@ workflows_link: reference-builtin-workflows.html
 
 # Overview
 
-In this tutorial you will bootstrap a Cloudify manager in your environment
-and install a sample Cloudify blueprint on it.
+In this tutorial you will bootstrap a Cloudify manager on a cloud environment and install a sample Cloudify blueprint on it.
 
 This tutorial shows how to bootstrap a Cloudify manager on:
  
- - [OpenStack](plugin-openstack.html)
- - [Softlayer](softlayer-openstack.html)
+  - [OpenStack](plugin-openstack.html)
+  - [Softlayer](softlayer-openstack.html)
 
 The blueprint you'll be deploying, describes a nodejs application that connects to a MongoDB database and presents a wine catalog.
 
-{% inittab %}
+  - [openstack nodecellar blueprint]({{page.openstack_blueprint_file_link}})
+  - [softlayer nodecellar blueprint]({{page.softlayer_blueprint_file_link}})
 
-{% tabcontent OpenStack%}
-
-[openstack nodecellar blueprint]({{page.openstack_blueprint_file_link}})
-
-{% endtabcontent %}
-
-{% tabcontent SoftLayer%}
-
-[softlayer nodecellar blueprint]({{page.softlayer_blueprint_file_link}})
-
-{% endtabcontent %}
-
-{% endinittab %}
 To learn more about blueprint syntax and elements please refer to the [Blueprint Authoring Guide](guide-blueprint.html).
 
 # Before You Begin
@@ -79,14 +66,14 @@ but you shouldn't care about that for now.
 
 Now let's move on to bootstrap configuration.
 
-### Configuring your Manager Blueprint
+{% togglecloak id=1 %}**Configuring your Manager Blueprint**{% endtogglecloak %}
+
+{% gcloak 1 %}
 
 {% inittab %}
+
 {% tabcontent OpenStack %}
-{% togglecloak id=1 %}
-Configuring your Manager Blueprint for HP OpenStack
-{% endtogglecloak %}
-{% gcloak 1 %}
+
 [HP Cloud](http://www.hpcloud.com/) is a public OpenStack cloud.
 As such it provides a fairly easy starting point for experiencing a fully operational OpenStack environment.
 To use HP Cloud you need to [Setup an account on the HP Helion Cloud](https://horizon.hpcloud.com/).
@@ -143,16 +130,10 @@ to fit your specific openstack installation.
 
 Notice that the `resources_prefix` parameter is set to "cloudify" so that all resources provisioned during
 this guide are prefixed for easy identification.
-{% endgcloak %}
 
 {% endtabcontent %}
 
 {% tabcontent SoftLayer %}
-{% togglecloak id=2 %}
-Configuring your Manager Blueprint for SoftLayer
-{% endtogglecloak %}
-{% gcloak 2 %}
-
 
 This blueprint defines quite a few input parameters we need to fill out.
 
@@ -166,6 +147,7 @@ cp inputs.yaml.template inputs.yaml
 The inputs.yaml file should look somewhat like this:
 
 {% highlight yaml %}
+# mandatory
 username: ''
 api_key: ''
 endpoint_url: ''
@@ -178,6 +160,7 @@ os: ''
 ssh_keys: []
 ssh_key_filename: ''
 
+# optional
 hostname: ''
 image_template_global_id: ''
 image_template_id: ''
@@ -190,16 +173,24 @@ agents_user: root
 resources_prefix: ''
 {% endhighlight %}
 
-You will, at the very least, have to provide the following:
-{% highlight yaml %}
-username: ''
-api_key: ''
-{% endhighlight %}
+You will, at the very least, have to provide the mandatory inputs.
 
-{% endgcloak %}
+{%info%}
+This tutorial uses softlayer manager blueprint on Docker and it requires:
+  
+  * The `os` input should be *4668* - the item id of *Ubuntu Linux 14.04 LTS Trusty Tahr - Minimal Install (64 bit)* 
+  * A link to a script that installs curl must be specified (needed for the Docket installation) in the `provision_scripts` input.
+	* for example: [a script that installs curl](https://raw.githubusercontent.com/cloudify-cosmo/cloudify-softlayer-plugin/master/softlayer_plugin/scripts/postprov.sh)
+	* Alternatively, create an image id of a server on SoftLayer that have curl or docker installed on it, and specify the `image_template_id` instead of the `os` input. 
+{%endinfo%}
+
+For more information see the [SoftLyaer Manager Reference](reference-softlayer-manager.html).
 
 {% endtabcontent %}
+
 {% endinittab %}
+
+{% endgcloak %}
 
 ## Step 3: Bootstrap the Cloudify Management Environment
 
@@ -215,7 +206,7 @@ cfy bootstrap --install-plugins -p openstack.yaml -i inputs.yaml
 {% endtabcontent %}
 {% tabcontent SoftLayer%}
 {% highlight bash %}
-cfy bootstrap --install-plugins -p softlayer.yaml -i inputs.yaml
+cfy bootstrap --install-plugins -p softlayer.yaml -i inputs.yaml --task-retries 25
 {% endhighlight %}
 {% endtabcontent %}
 {% endinittab %}
@@ -265,7 +256,14 @@ At this point there's nothing much to see since you haven't uploaded any bluepri
 
 Next, you'll upload a sample [blueprint]({{page.terminology_link}}#blueprint) and create a [deployment]({{page.terminology_link}}#deployment) based on it.
 
-In the `cloudify-nodecellar-example` directory you just cloned, you can see a blueprint file (named `singlehost-blueprint.yaml`) alongside other resources related to this blueprint.
+{% highlight bash %}
+cd ~/cloudify-manager
+git clone https://github.com/cloudify-cosmo/cloudify-nodecellar-example.git
+cd cloudify-nodecellar-example
+use -t <YOUR MANAGER IP ADDRESS>
+{% endhighlight %}
+
+In the `cloudify-nodecellar-example` directory you just cloned, you can see blueprint files alongside other resources related to this blueprint.
 
 To upload the blueprint run:
 
@@ -287,11 +285,14 @@ cfy blueprints upload -b nodecellar -p softlayer-blueprint.yaml​
 
 The `-b` flag assigns a unique name to this blueprint on the Cloudify manager.
 Before creating a deployment though, let's see what this blueprint looks like.
-Point your browser at the manager's URL again and refresh the screen. You will see the nodecellar blueprint listed there.
+
+Point your browser at the manager's URL again and refresh the screen, you will see the nodecellar blueprint listed there.
 
 ![Blueprints table](/guide/images3/guide/quickstart/blueprints_table.png)
 
-Click the blueprint, and you can see its topology. A [topology]({{page.terminology_link}}#topology) consists of elements called [nodes]({{page.terminology_link}}#node).
+Click the blueprint, and you can see its topology. 
+
+A [topology]({{page.terminology_link}}#topology) consists of elements called [nodes]({{page.terminology_link}}#node).
 
 In our case, we have the following nodes:
 
@@ -302,13 +303,30 @@ In our case, we have the following nodes:
 
 ![Nodecellar Blueprint](/guide/images3/guide/quickstart-openstack/nodecellar_openstack_topology.png)
 
-This blueprint defines some input parameters:
+
+{% togglecloak id=2 %}
+**Define inputs for this blueprint**
+{% endtogglecloak %}
+
+{% gcloak 2 %}
 
 {% inittab %}
 
 {% tabcontent OpenStack%}
 
-![Nodecellar Inputs](/guide/images3/guide/quickstart-openstack/nodecellar_openstack_inputs.png)
+{%highlight yaml%}
+inputs:
+
+  image:
+    description: >
+      Image to be used when launching agent VM's
+  flavor:
+    description: >
+      Flavor of the agent VM's
+  agent_user:
+    description: >
+      User for connecting to agent VM's
+{%endhighlight%}
 
 Let's make a copy of the inputs template already provided and edit it:
 {% highlight bash %}
@@ -328,6 +346,7 @@ agent_user: ubuntu
 
 {% highlight yaml %}
 inputs:
+
   location: 
     description: >
       Location of the data center
@@ -359,6 +378,7 @@ inputs:
 {%endhighlight%}
 
 All inputs have default values so no input file is needed.
+
 To specify differnet values for one or more inputs, create inputs.yaml file with the wanted inputs, for example:
 {% highlight bash %}
 echo -e "domain: 'my_domain.org'\nlocation: '168642'" > inputs.yaml
@@ -373,14 +393,21 @@ location: '168642'
 
 {% endinittab %}
 
+{% endgcloak %}
 
-Next, we need to create a deployment. To do so, type the following command:
+Next, we need to create a deployment. 
+
+To do so, type the following command:
 
 {%highlight bash%}
 cfy deployments create -b nodecellar -d nodecellar --inputs inputs.yaml
 {%endhighlight%}
 
-We've now created a deployment named `nodecellar` based on a blueprint with the same name. This deployment is not yet materialized, since we haven't issued an installation command. If you click the "Deployments" icon in the left sidebar in the web UI, you will see that all nodes are labeled with 0/1, which means they're pending creation.
+We've now created a deployment named `nodecellar` based on a blueprint with the same name. 
+
+This deployment is not yet materialized, since we haven't issued an installation command.
+
+If you click the "Deployments" icon in the left sidebar in the web UI, you will see that all nodes are labeled with 0/1, which means they're pending creation.
 
 ![Nodecellar Deployment](/guide/images3/guide/quickstart-openstack/nodecellar_deployment.png)
 
@@ -398,6 +425,7 @@ cfy executions start -w install -d nodecellar
 This will take a couple of minutes, during which the resources will be created and configured.
 
 To track the progress of the installation, you can look at the events emitted to the terminal window.
+
 Each [event]({{page.terminology_link}}#event) is labeled with its time,
 the deployment name and the node in our topology that it relates to, e.g.
 
@@ -422,10 +450,14 @@ To add mongo related graphs to the dashboard, have a look at [Adding Custom Grap
 
 ## Step 6: Test Drive the Application
 
-To test the application, you will need to access it using its public IP address.
-Because we deploying directly on the vagrant box,
-you can just go to [http://11.0.0.7:8080](http://11.0.0.7:8080) to access it from your web browser.
-The marvelous nodecellar application should be up on your screen.
+Once the workflow execution is complete, we can view the application endpoint by running: 
+{%highlight bash%}
+cfy deployments outputs -d nodecellar
+{%endhighlight%}
+Hit that URL to see the application running.
+
+The nodecellar application should be up on your screen.
+
 Click the "Browse wines" button to verify that the application was installed successfully
 and can access the mongodb database to read the list of wines.
 
@@ -445,16 +477,17 @@ Similarly to the `install` workflow, you can track the progress of the
 uninstall process in the CLI or the web UI using the events that are displayed in both.
 Once the workflow is completed, you can verify that the resources were indeed destroyed.
 
-In a real cloud deployment, each and every resource provisioned by the deployment will be destroyed.
-In our case, there aren't any external resources, only application related ones.
-
 ## Step 8: Delete the Deployment
 
 The next step is deleting the deployment.
+
 Assuming the un-installation went fine,
 all of the application resources should have been removed.
+
 However, the deployment itself still has record on the manager.
+
 For example, all of its static and runtime properties are still stored in the manager's database.
+
 To clean up all the information related to the deployment on the manager, delete the deployment as follows:
 
 {%highlight bash%}
@@ -464,7 +497,9 @@ cfy deployments delete -d nodecellar
 
 ## Step 10: Teardown the Manager
 
-Next, you can also teardown the manager if you have no use for it anymore. This can be done by issuing the following command:
+Next, you can also teardown the manager if you have no use for it anymore. 
+
+This can be done by issuing the following command:
 
 {% highlight bash %}
 cfy teardown -f
@@ -472,18 +507,10 @@ cfy teardown -f
 
 This will terminate the manager VM and delete the resources associated with it.
 
+
 # What's Next
 
 For a more elaborate installation tutorial, please refer to 
-
-{% inittab %}
-
-{% tabcontent OpenStack%}
-the [Openstack Manager Reference](reference-openstack-manager.html).
-{% endtabcontent %}
-
-{% tabcontent SoftLayer%}
-the [SoftLyaer Manager Reference](reference-softlayer-manager.html).
-{% endtabcontent %}
-
-{% endinittab %}
+	
+- the [Openstack Manager Reference](reference-openstack-manager.html).
+- the [SoftLyaer Manager Reference](reference-softlayer-manager.html).

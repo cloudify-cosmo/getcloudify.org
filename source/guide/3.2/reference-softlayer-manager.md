@@ -18,14 +18,14 @@ This reference only explains the structure and various values in the blueprint. 
 
 ## Required inputs
   
-  * `username` A SoftLayer username
-  * `api_key` A user-specific API Key
-  * `location`  The short name or id of the data center in which the VS should reside, e.g. 352494 for Hong Kong 2.
-  * `domain` The domain to use for the new server, e.g. cloudify.org.
-  * `ram` The item id of the RAM to order, e.g. item id 864 for 8 GB.
-  * `cpu` The item id of the desired server's CPU, e.g. item id 859 for 4 X 2.0 GHz Cores.
-  * `disk` The item id of the first disk to add, e.g. item id 1178 for 25 GB (SAN).
-  * `os` The item id of the operating system to use, e.g. item id 1857 for Windows Server 2008 R2 Standard Edition (64bit).
+  * `username` A SoftLayer username.
+  * `api_key` A user-specific API Key.
+  * `location` The name or id of the data center in which the VS should reside, e.g. *352494* the id of Hong Kong 2.
+  * `domain` The domain to use for the new server, e.g. *cloudify.org*.
+  * `ram` The item id of the RAM to order, e.g. *864* - the item id for 8 GB.
+  * `cpu` The item id of the desired server's CPU, e.g. *859* - the item id for 4 X 2.0 GHz Cores.
+  * `disk` The item id of the first disk to add, e.g. *1178* - the item id for 25 GB (SAN).
+  * `os` The item id of the operating system to use, e.g. *4668* - the item id for Ubuntu Linux 14.04 LTS Trusty Tahr - Minimal Install (64 bit).
   * `ssh_keys` A list of the SSH keys to add to the root user.
   * `ssh_key_filename` The path on the local machine to the private key file that will be used with Cloudify manager and agents. 
     * This key should correspond with the public key on SoftLayer that matches an id that appears in the `ssh_keys` input.
@@ -37,7 +37,7 @@ This reference only explains the structure and various values in the blueprint. 
   * `hostname` The hostname to use for the new server
   * `image_template_global_id` An image template global id to load the server with.
   * `image_template_id` An image template id to load the server with.
-  * `private_network_only` Flag to indicate whether the computing instance only has access to the private network
+  * `private_network_only` Flag to indicate whether the computing instance only has access to the private network, default to False.
   * `port_speed` The item id of the port speed
   * `private_vlan` The internal identifier of the private VLAN.
   * `public_vlan` The internal identifier of the public VLAN.
