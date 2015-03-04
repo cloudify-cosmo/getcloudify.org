@@ -57,6 +57,7 @@ Some of the required inputs may actually be left empty when appropriate:
 
 Note that in order to enable this, these inputs technically have an empty (`""`) default value. This, however, does not mean they're not mandatory.
 
+For more information see [SoftLayer plugin](plugin-softlayer.html)
 {%endtip%}
 
 
@@ -73,7 +74,7 @@ The "SoftLayer manager" blueprint contains the following nodes:
 
   - *manager_host* - The server on which the Cloudify manager will be installed.
   - *softlayer_configuration* - A node which represents configuration settings for connecting with SoftLayer.
-  - *manager* - The node which represents the manager. You may find more information about this node in the [Types Reference](#reference-types.html#cloudifymanager-type) section as well as in the [Manager Blueprints Authoring guide](guide-authoring-manager-blueprints.html).
+  - *manager* - The node which represents the manager. You may find more information about this node in the [Types Reference](reference-types.html#cloudifymanager-type) section as well as in the [Manager Blueprints Authoring guide](guide-authoring-manager-blueprints.html).
 
 
 # Configuration Operations
