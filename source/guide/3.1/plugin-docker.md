@@ -23,6 +23,32 @@ plugin_version: 1.1
 * No Install
   * The Docker plugin will not install Docker on your host. You need to either use a host with Docker already installed, or you need to install Docker on it. Below is an example of how one might do that in Openstack:
 
+# Types
+
+## cloudify.docker.Container
+
+**Derived From:** [cloudify.nodes.Root](reference-types.html)
+
+**Properties:**
+
+  * `image` *Required*. 
+  * `name` *Required*. 
+  * `use_external_resource` a boolean for setting whether to create the resource or use an existing one.
+
+**Mapped Operations:**
+
+  * `cloudify.interfaces.lifecycle.create` creates the container.
+  * `cloudify.interfaces.lifecycle.start` starts the container.
+  * `cloudify.interfaces.lifecycle.stop` stops the container.
+  * `cloudify.interfaces.lifecycle.delete` deletes the container.
+
+**Attributes:**
+
+  * `container_id` The ID of the container in the Docker Server.
+  * `ports` The ports as shown in the container inspect output.
+  * `network_settings` The network_settings dict in the inspect output.
+  * `image_id` The ID of the repository/tag pulled or imported.
+
 {% highlight yaml %}
 
   vm_with_docker:
