@@ -1,0 +1,194 @@
+---
+layout: blogpost
+title: Repex – Regex Management Simplified
+image: nircohen.jpg
+author: Nir Cohen
+tags:
+ - Ops
+ - Cloud Orchestration
+ - Open Source
+ - Cloudify
+ - Workflow Automation
+---
+
+<notextile>
+
+<div class="aligncenter">
+<img src="http://devops.com/wp-content/uploads/2015/02/repex-770x300.jpg" alt="Cloudify | Open Source | Cloud | Open Cloud | TOSCA | Repex | Regex | Workflow Automation "></div>
+<br/>
+<br/>
+
+<hr><p>This post was originally published on <a href="http://devops.com/blogs/repex-versioning-complexity/" target="_blank">DevOps.com.</a></p><hr>
+
+
+<p><b></b></p>
+
+<h2><font style="font-weight: bold">Our Versioning Complexity</font></h2>
+
+<p><a href="http://getcloudify.org/" target="_blank">Cloudify</a> is a Python shop.</p>
+
+<p>Our REST service is Python.</p>
+
+<p>Our <a href="http://getcloudify.org/guide/3.1/guide-workflows.html" target="_blank">Workflow Engine</a> is Python.</p>
+
+<p>Our <a href="http://getcloudify.org/guide/3.1/guide-plugin-creation.html" target="_blank">Plugins</a> are Python.</p>
+
+<p>We have different version formats and different dependencies across different types of files which need to be changed when a version is updated.</p>
+
+<p>This is complex, to say the least. We didn't want to manage this manually having more than 60 repos to take care of when handling version updates.</p>
+
+
+<hr>
+
+<span class="pullquote-left">
+  <font style="font-weight: bold" size="5" face="Baskerville Old Face"><em>Cloudify - open source tools & plugins, by the community, for the community.  Try it.</em></font>&nbsp; <a class="btn btn-medium btn-theme btn-rounded" id="downloadBtnInner" href="http://getcloudify.org/downloads/get_cloudify_3x.html" target="_blank"><i class="icon-plus"></i> Go </a></span>
+  
+  <hr>
+
+
+
+<h2><font style="font-weight: bold">Why not sed?</font></h2>
+
+<ul>
+  <li>
+    <p>Well.. sed is a bitch, isn't it? It's unmaintainable and unmanageable. While this is solely my opinion, handling hundreds of files, each change in a different context without any safety net, makes sed something you should walk away from.</p>
+  </li>
+</ul>
+
+<ul>
+  <li>
+    <p>sed isn't configurable.</p>
+  </li>
+</ul>
+
+<h2><font style="font-weight: bold">Why not Jinja?</font></h2>
+
+<p>Using Jinja templates, while safe, was out the windows pretty much instantly as we needed the repos to be usable out of the box or we'd be forcing users to change templates so that they can use our product.</p>
+
+<h2><font style="font-weight: bold">The Solution</font></h2>
+
+<p>We turned to Regex. Yes, there is the <a href="http://regex.info/blog/2006-09-15/247" target="_blank">regex problem</a>. You're probably familiar with the famous quote: </p>
+
+<p>--Some people, when confronted with a problem, think &quot;I know, I'll use regular expressions.&quot; Now they have two problems.</p>
+
+<p>While this can be true, it also <a href="http://blog.codinghorror.com/regular-expressions-now-you-have-two-problems/" target="_blank">depends on how you use regex</a>.</p>
+
+<p>I believe we've done this well.</p>
+
+<h3><font style="font-weight: bold">Repex</font></h3>
+
+<p>We developed <a href="http://github.com/cloudify-cosmo/repex" target="_blank">repex</a>.</p>
+
+<p>repex allows you to specify the structure of changes you need to perform in YAML format:</p>
+
+<p>variables:</p>
+
+<p><script src="https://gist.github.com/shar1z/cbe8a5c348be0a938f2e.js"></script></p>
+
+<p>You define a list of paths you'd like to iterate over, provide it with what you'd like to search for, what you'd like to replace, what you'd like to replace with, and some more parameters and off you go.</p>
+
+<p>For example, the first object in the above configuration will:</p>
+
+<ul>
+  <li>
+    <p>Look for a file in the path <font face="Courier New"> repex/tests/resources/mock_VERSION</font> (regex)</p>
+  </li>
+</ul>
+
+<ul>
+  <li>
+    <p>In the file, look for <font face="Courier New">`&quot;version&quot;: &quot;3.1.0-m2&quot;` </font>(regex)</p>
+  </li>
+</ul>
+
+<ul>
+  <li>
+    <p>Attempt to replace <font face="Courier New">3.1.0-m2 </font> with <font face="Courier New">3.1.0-m3 </font>only if the string was found during the matching stage and if the strings <font face="Courier New">`date` </font>, <font face="Courier New">`commit`</font> and <font face="Courier New">`version`</font> were found in the file.</p>
+  </li>
+</ul>
+
+<ul>
+  <li>
+    <p>Write to the output file <font face="Courier New">repex/tests/resources/mock_VERSION.test</font></p>
+  </li>
+</ul>
+
+<p>The second object will:</p>
+
+<ul>
+  <li>
+    <p>Look for <font face="Courier New">`setup.py`</font>(regex) files under <font face="Courier New">`cloudify-.*`</font> (regex) and not under <font face="Courier New">`my/excluded/path`</font>.</p>
+  </li>
+</ul>
+
+<ul>
+  <li>
+    <p>Look for <code>`version=('|&quot;)(\d+)(\.\d+){1,2}(dev|(\w+\d+)?)('|&quot;)`</code>(regex) in the files found.</p>
+  </li>
+</ul>
+
+<ul>
+  <li>
+    <p>Replace <code>`('|&quot;)(\d+)(\.\d+){1,2}(dev|(\w+\d+)?)('|&quot;)`</code>(regex) with a variable which is not harcoded and therefore must be provided using the API.</p>
+  </li>
+</ul>
+
+<h2><font style="font-weight: bold">Layers of protection</font></h2>
+
+<p>repex attempts to provide layers of protection and comfort:</p>
+
+<h3><font style="font-weight: bold">Safe!</font></h3>
+
+<ul>
+  <li>
+    <p>You can first <font face="Courier New">`match`</font> whatever you want to match so that you're sure you're only replacing something in the exact context you wish to address. If <font face="Courier New">`validate_before`</font> is true, replacement will only occur if one or more matches were found.</p>
+  </li>
+</ul>
+
+<ul>
+  <li>
+    <p>You can verify that only files containing very specific strings will be addressed by listing them under <font face="Courier New">`must_include`</font>.</p>
+  </li>
+</ul>
+
+<ul>
+  <li>
+    <p>You can exclude files or directories you don't want to search in by listing them under <font face="Courier New">`excluded`</font>.</p>
+  </li>
+</ul>
+
+<p>Don't take this the wrong way though - regex is regex. You make a mistake, you pay for it. All repex grants you is the ability to have everything organized in one place, with some layers of protection to keep you from making some trivial mistakes.</p>
+
+<h3><font style="font-weight: bold">Comfortable</font></h3>
+
+<p>You can declare every single directory or file you'd like to address in one manageable YAML.</p>
+
+<p>Of course, we needed to create some kind of naming convention so that we don't have to configure each and every file separately.</p>
+
+<h3><font style="font-weight: bold">Accepts Variables, both hardcoded and via an API.</font></h3>
+
+<p>One of repex's strongest features is that it supports using variables for string replacement. The above example contains a <code>`{{ .version }}`</code> variable.</p>
+
+<p>The API allows you to provide a dict of variables which will be placed in placeholders. You can either hardcode a variable in the <font face="Courier New">`variables`</font> section or use the API to send a dict of variables to be used. If a variable is hardcoded in the YAML and you use the API to send a variable with the same name, it will overwrite the hardcoded one. In addition, validation will occur upon variable replacement to make sure it was replaced.</p>
+
+<h3><font style="font-weight: bold">Functional API</font></h3>
+
+<p>The API provides three basic functions. I'd rather not rewrite repex's documentation.. so just refer to <a href="https://github.com/cloudify-cosmo/repex#basic-functions" target="_blank">this</a>.</p>
+
+<p>Basically, the three functions allow you to decide which granularity you'd like to handle the changes. It will allow you to perform actions in different stages of the replacement process.</p>
+
+<p>For example, we're don’t really use the highest level of the API which just iterates over all objects in the YAML. We wrote a <a href="http://github.com/cloudify-cosmo/version-tool" target="_blank">Cloudify specific wrapper</a> which can be used as a reference implementation. It enables validation after every replacement. So, for instance, after every blueprint specific replacement, we run a validation that the blueprint is valid vs. our DSL-parser.</p>
+
+<p>Repex is available on <a href="https://pypi.python.org/" target="_blank">PyPI</a>. You can install it by running:</p>
+
+<p><code>pip install repex</code></p>
+
+<p>We might, at some point, provide a CLI for repex. Also a logging feature might be implemented to allow for JSON formatted log messages to be generated so that they can be transported for analysis.</p>
+
+<p>After using repex throughout our entire build process for the last five months or so, it has proven to be extremely useful. We can now follow our entire version update process and easily identify problems by looking at one YAML file and one execution log file. We're planning on using repex to replace additional types of data (not only versions).</p>
+
+<p>We would appreciate feedback and, even better, pull requests.</p>
+
+<p>Hope you find this useful.</p>
+
+  </notextile>
