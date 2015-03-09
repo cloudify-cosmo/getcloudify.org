@@ -67,7 +67,7 @@ For more information about SoftLayer, please refer to: [http://www.softlayer.com
       * default: 439 – the item id of 0 GB bandwidth
     * `pri_ip_addresses` The item id of Primary IP Addresses
       * default: 15 – the item id of 1 IP Address
-    * `monitoring` The item id of the monitoring
+    * `monitoring` The item id of the softlayer monitoring implementation
       * default: 49 - the item id of Host Ping
     * `notification` The item id of the notification
       * default: 51 – the item id of Email and Ticket
@@ -147,14 +147,14 @@ When creating a virtual server, its name on SoftLayer will be `<hostname>.<domai
 In case the `hostname` property is not provided, the value of the server's hostname will default to its node-instance-id, which was generated in the deployment creation process. 
 
 {%note%}
-In case this server is created as part of a deployment on a manager, and the `resource_prefix` property is provided on the manager blueprint, the server's full name on SoftLayer will be `<prefix>-<hostname/node-instance-id>.<domain>`.
+In case this server is created as part of a deployment that is running on a manager, and the `resource_prefix` property is provided in the manager blueprint, the server's full name on SoftLayer will be `<prefix>-<hostname/node-instance-id>.<domain>`.
 {%endnote%}
 
 Following the SoftLayer naming convention (see below), some changes may be made to the hostname part of the server's name:
 
-  - The hostname part (`<prefix>-<hostname/node-instance-id>`) will be chopped to 15 chars (out of 15 characters, at most 5 characters will be taken in favor of the prefix and the rest will be chopped from the beginning of the hostname/node-instnace-id)
+  - The hostname part (`<prefix>-<hostname/node-instance-id>`) will be truncated to 15 chars (out of 15 characters, at most 5 characters will be taken in favor of the prefix and the rest will be truncated from the beginning of the hostname/node-instnace-id)
   - Every '_' will be replace by a '-'
-  - If the chopping mentioned above has created two consecutive dashes, then they will be replaced with a single dash.
+  - If the truncating mentioned above has created two consecutive dashes, then they will be replaced with a single dash.
 
 Examples:
   
@@ -221,7 +221,7 @@ The plugin does this by using configuration files created for it by the manager 
 
 ## Example I
 
-This example will show how to use linux virtual server type in this plugin, declare all needed properties and use ssh_keys
+This example will show how to use the linux virtual server type in this plugin, declare all needed properties and use ssh_keys
 
 {% togglecloak id=1 %}
 Example I
@@ -310,7 +310,7 @@ node_templates:
 
 ## Example II
 
-This example will show how to use windows virtual server type in this plugin, declare all needed properties and use post provision script
+This example will show how to use the windows virtual server type in this plugin, declare all needed properties and use the post provision script
 
 
 {% togglecloak id=2 %}
@@ -403,7 +403,7 @@ node_templates:
 
 This example will show how to launch a Flex image on SoftLayer with a local workflow
 
-It will also show how to use the outputs section to get the public ip, username and password of a server, in the same way all the runtime_properties can be achieved (see [Blueprint Authoring Guide - adding-outputs](http://getcloudify.org/guide/3.2/guide-blueprint.html#step-7-adding-outputs))
+It will also show how to use the outputs section to get the public ip, username and password of a server, in the same way that all runtime_properties can be accessed (see [Blueprint Authoring Guide - adding-outputs](http://getcloudify.org/guide/3.2/guide-blueprint.html#step-7-adding-outputs))
 
 {% togglecloak id=3 %}
 Example III
