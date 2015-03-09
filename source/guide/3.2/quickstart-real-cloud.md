@@ -24,7 +24,7 @@ This tutorial shows how to bootstrap a Cloudify manager on:
   - [OpenStack](plugin-openstack.html)
   - [Softlayer](softlayer-openstack.html)
 
-The blueprint you'll be deploying, describes a nodejs application that connects to a MongoDB database and presents a wine catalog.
+The blueprint you'll be deploying describes a nodejs application that connects to a MongoDB database and presents a wine catalog.
 
   - [openstack nodecellar blueprint]({{page.openstack_blueprint_file_link}})
   - [softlayer nodecellar blueprint]({{page.softlayer_blueprint_file_link}})
@@ -33,7 +33,7 @@ To learn more about blueprint syntax and elements please refer to the [Blueprint
 
 # Before You Begin
 
-It is recommended that you try the [Getting started](quickstart.html) first familiarize
+It is recommended that you try the [Getting started guide](quickstart.html) first familiarize
 yourself with Cloudify and its concepts.
 Also, to complete this tutorial you'll need to have a cloud environment of yout choice and credentials.
 
