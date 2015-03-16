@@ -114,7 +114,7 @@ In case you are using a different (non-HPCloud) openstack environment, you'll ne
 
 to fit your specific openstack installation.
 
-Please refer to the [Openstack Manager Reference] for detailed explanation of each parameter.
+Please refer to the [Openstack Manager Reference]({{page.reference#Openstack_Manager_Reference}}) for detailed explanation of each parameter.
 
 Notice that the `resources_prefix` parameter is set to "cloudify" so that all resources provisioned during
 this guide are prefixed for easy identification.
