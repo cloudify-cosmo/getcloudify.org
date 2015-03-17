@@ -30,7 +30,7 @@ For more information about OpenStack, please refer to: [https://www.openstack.or
 
 **Properties:**
 
-  * `server` *Required*. key-value server configuration as described in [OpenStack compute create server API](http://docs.openstack.org/api/openstack-compute/2/content/POST_createServer__v2__tenant_id__servers_CreateServers.html).
+  * `server` key-value server configuration as described in [OpenStack compute create server API](http://docs.openstack.org/api/openstack-compute/2/content/POST_createServer__v2__tenant_id__servers_CreateServers.html).
     * **Notes:**
       * Usage of the `nics` key should be avoided. To connect the server to networks, the Server node should be connected to Network nodes and/or Port nodes via relationships. These will then be translated into the appropriate `nics` definitions automatically.
       * The public key which is set for the server needs to match the private key file whose path is set for the `cloudify_agent`'s `key` property (see [cloudify.nodes.Compute's properties](reference-types.html)). The public key may be set in a number of ways:
@@ -39,11 +39,13 @@ For more information about OpenStack, please refer to: [https://www.openstack.or
         * If the agent's keypair information is set in the [Provider Context](reference-terminology.html#provider-context), the agents' keypair will serve as the default public key to be used if it was not specified otherwise. See the [Misc section](#misc) for more information on the Openstack Provider Context.
       * If the server is to have an agent installed on it, it should use the agents security group. If the agents security group information isn't set in the [Provider Context](reference-terminology.html#provider-context), this group should be set by using the `security_groups` key. See the [Misc section](#misc) for more information on the Openstack Provider Context.
     * **Sugaring:**
-      * `image_name` will automatically resolve the Openstack name of an image into its matching image id.
-      * `flavor_name` will automatically resolve the Openstack name of a flavor into its matching flavor id.
+      * `image_name` (**DEPRECATED - Use the `image` *property* instead**) will automatically resolve the Openstack name of an image into its matching image id.
+      * `flavor_name` (**DEPRECATED - Use the `flavor` *property* instead**) will automatically resolve the Openstack name of a flavor into its matching flavor id.
       * the `userdata` key may receive either a string (passed as-is to Nova in the create server request), or a dictionary containing:
         * a field `type` whose value is `http`
         * a field `url` whose value is a url to a `userdata` script/value.
+  * `image` The image for the server. May receive either the ID or the name of the image. *note*: This property is currently optional for backwards compatibility, but will be modified to become a required property in future versions (Default: `''`).
+  * `flavor` The flavor for the server. May receive either the ID or the name of the flavor. *note*: This property is currently optional for backwards compatibility, but will be modified to become a required property in future versions (Default: `''`).
   * `management_network_name` Cloudify's management network name. Every server should be connected to the management network. If the management network's name information is available in the [Provider Context](reference-terminology.html#provider-context), this connection is made automatically and there's no need to override this property (See the [Misc section](#misc) for more information on the Openstack Provider Context). Otherwise, it is required to set the value of this property to the management network name as it was set in the bootstrap process. *Note*: When using Nova-net Openstack (see the [Nova-net Support section](#nova-net-support)), don't set this property. Defaults to `''` (empty string).
   * `use_password` A boolean describing whether this server image supports user-password authentication. Images that do should post the administrator user's password to the Openstack metadata service (e.g. via [cloudbase](http://www.cloudbase.it/cloud-init-for-windows-instances/)); The password would then be retrieved by the plugin, decrypted using the server's keypair and then saved in the server's runtime properties.  Defaults to `false`.
   * `use_external_resource` a boolean for setting whether to create the resource or use an existing one. See the [using existing resources section](#using-existing-resources). Defaults to `false`.
@@ -149,8 +151,8 @@ See the [common Runtime Properties section](#runtime-properties).
     * Note: Each rule will be parsed with default values, which will take effect unless overridden. The default values are:
       * `direction`: `ingress`
       * `ethertype`: `IPv4`
-      * `port_range_min`: 1
-      * `port_range_max`: 65535
+      * `port_range_min`: `1`
+      * `port_range_max`: `65535`
       * `protocol`: `tcp`
       * `remote_group_id`: `None`
       * `remote_ip_prefix`: `0.0.0.0/0`
@@ -224,6 +226,7 @@ See the [common Runtime Properties section](#runtime-properties).
   * `port` key-value port configuration as described in [OpenStack network create port API](http://docs.openstack.org/api/openstack-network/2.0/content/Create_Port.html). Defaults to `{}`.
     * **Notes:**
       * The `network_id` key should not be used. Instead, the Port node should be connected to a *single* Network node via a relationship. It will then be placed on that network automatically.
+  * `fixed_ip` may be used to request a specific fixed IP for the port. If the IP is unavailable (either already taken or does not belong to a subnet the port is on) an error will be raised. Defaults to `''`.
   * `use_external_resource` a boolean for setting whether to create the resource or use an existing one. See the [using existing resources section](#using-existing-resources). Defaults to `false`.
   * `resource_id` name to give to the new resource or the name or ID of an existing resource when the `use_external_resource` property is set to `true` (see the [using existing resources section](#using-existing-resources)). Defaults to `''` (empty string).
   * `openstack_config` see the [Openstack Configuration](#openstack-configuration).
@@ -237,6 +240,8 @@ See the [common Runtime Properties section](#runtime-properties).
 **Attributes:**
 
 See the [common Runtime Properties section](#runtime-properties).
+
+Additionally, the Port's fixed-IP is available via the `fixed_ip_address` runtime property.
 
 
 
@@ -360,8 +365,8 @@ This is a Nova-net specific type. See more in the [Nova-net Support section](#no
       * this property supports the same sugaring described for the equivalent property in the [Neutron security-group type](#cloudifyopenstacknodessecuritygroup).
   * `rules` key-value security group rule configuration as described in [OpenStack Nova security group API](http://docs.openstack.org/openstack-ops/content/security_groups.html). Defaults to `[]`.
     * Note: Each rule will be parsed with default values, which will take effect unless overridden. The default values are:
-      * `from_port`: 1
-      * `to_port`: 65535
+      * `from_port`: `1`
+      * `to_port`: `65535`
       * `ip_protocol`: `tcp`
       * `cidr`: `0.0.0.0/0`
   * `use_external_resource` a boolean for setting whether to create the resource or use an existing one. See the [using existing resources section](#using-existing-resources). Defaults to `false`.
@@ -414,6 +419,8 @@ Some relationships take effect in non-relationship operations, e.g. a subnet whi
 **Mapped Operations:**
 
   * `cloudify.interfaces.relationship_lifecycle.establish`: associates the floating IP with the server.
+    * **Inputs:**
+      * `fixed_ip` a specific fixed-IP of the server to be associated with the floating IP. If omitted, a fixed-IP (or "port") will be chosen by Openstack (Default: `''`).
   * `cloudify.interfaces.relationship_lifecycle.unlink`: disassociates the floating IP from the server.
 
 
@@ -441,6 +448,24 @@ Some relationships take effect in non-relationship operations, e.g. a subnet whi
 
 **Description:** A relationship for connecting a server to a port. *Note*: This relationship has no operations associated with it; The server will use this relationship to automatically connect to the port upon server creation.
 
+
+## cloudify.openstack.port_connected_to_subnet
+
+**Description:** A relationship for connecting a port to a subnet. This is useful when a network has multiple subnets, and a port should belong to a specific subnet on that network. The port will then receive some IP from that given subnet.
+
+Note that when using this relationship in combination with the port type's property `fixed_ip`, the IP given should be on the CIDR of the subnet connected to the port.
+
+*Note*: This relationship has no operations associated with it; The port will use this relationship to automatically connect to the subnet upon port creation.
+
+
+## cloudify.openstack.port_connected_to_floating_ip
+
+**Description:** A relationship for associating a floating ip with a port. If that port is later connected to a server, the server will be accessible via the floating IP.
+
+**Mapped Operations:**
+
+  * `cloudify.interfaces.relationship_lifecycle.establish`: associates the floating IP with the port.
+  * `cloudify.interfaces.relationship_lifecycle.unlink`: disassociates the floating IP from the port.
 
 
 # Types' Common Behaviors
@@ -542,7 +567,8 @@ The structure of the JSON file in section (2), as well as of the `openstack_conf
     "auth_url": "",
     "region": "",
     "nova_url": "",
-    "neutron_url": ""
+    "neutron_url": "",
+    "custom_configuration": ""
 }
 {%endhighlight%}
 
@@ -551,8 +577,24 @@ The structure of the JSON file in section (2), as well as of the `openstack_conf
 * `tenant_name` name of the tenant to be used.
 * `auth_url` URL of the Openstack Keystone service.
 * `region` Openstack region to be used. This may be optional when there's but a single region.
-* `nova_url` explicit URL for the Openstack Nova service. This may be used to override the URL for the Nova service that is listed in the Keystone service.
-* `neutron_url` explicit URL for the Openstack Neutron service. This may be used to override the URL for the Neutron service that is listed in the Keystone service.
+* `nova_url` (**DEPRECATED - instead, use `custom_configuration` to pass `bypass_url` directly to the Nova client**) explicit URL for the Openstack Nova service. This may be used to override the URL for the Nova service that is listed in the Keystone service.
+* `neutron_url` (**DEPRECATED - instead, use `custom_configuration` to pass `endpoint_url` directly to the Neutron client**) explicit URL for the Openstack Neutron service. This may be used to override the URL for the Neutron service that is listed in the Keystone service.
+* `custom_configuration` a dictionary which allows overriding or directly passing custom configuration parameter to each of the Openstack clients, by using any of the relevant keys: `keystone_client`, `nova_client`, `neutron_client` or `cinder_client`.
+  * Parameters passed directly to Openstack clients using the `custom_configuration` mechanism will override other definitions (e.g. any of the common Openstack configuration parameters listed above, such as `username` and `tenant_name`)
+  * The following is an example for the usage of the `custom_configuration` section in a blueprint:
+{% highlight yaml %}
+custom_configuration:
+  nova_client:
+    bypass_url: nova-endpoint-url
+    nova_specific_key_1: value_1
+    nova_specific_key_2: value_2
+  neutron_client:
+    endpoint_url: neutron-endpoint-url
+  keystone_client:
+    ..
+  cinder_client:
+    ..
+{%endhighlight%}
 
 
 The environment variables mentioned in (1) are the standard Openstack environment variables equivalent to the ones in the JSON file or `openstack_config` property. In their respective order, they are:
@@ -564,6 +606,8 @@ The environment variables mentioned in (1) are the standard Openstack environmen
 * `OS_REGION_NAME`
 * `NOVACLIENT_BYPASS_URL`
 * `OS_URL`
+
+*Note*: `custom_configuration` doesn't have an equivalent standard Openstack environment variable.
 
 
 {%tip title=Tip%}

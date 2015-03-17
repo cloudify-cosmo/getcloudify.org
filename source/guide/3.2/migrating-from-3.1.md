@@ -30,3 +30,7 @@ For those upgrading from 3.1, the following items are most relevant.
 * The `cloudify.interfaces.host` interface exposed by the `cloudify.nodes.Compute` type is deprecated. This means that the interface's `get_state` operation which was used for node instances of type `cloudify.nodes.Compute` start detection by polling will be removed. An alternative for using `get_state` is described in the [Asynchronous Operations](guide-plugin-creation.html#asynchronous-operations) section of the plugin authoring guide.
 
 * Cloudify operation context `ctx.operation` API has changed and instead of returning the current operation's name it returns an object with more information about the operation. The operation's name should be retrieved by referencing the `name` property of the operation's context object as follows: `ctx.operation.name`.
+
+* [Openstack plugin's Server type](plugin-openstack.html#cloudifyopenstacknodesserver) sugaring for `image_name` and `flavor_name` under the `server` property is now deprecated. Instead, the new `image` and `flavor` *properties* should be used, as they can receive either names or IDs. Note that while these new properties are currently optional, they'll become required properties in future versions.
+
+* [Openstack plugin's Openstack configuration's](plugin-openstack.html#openstack-configuration) `nova_url` and `neutron_url` are now deprecated. Instead, they should be provided by using `custom_configuration`, as described in the link.
