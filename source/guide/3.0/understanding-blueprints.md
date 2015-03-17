@@ -13,7 +13,7 @@ Cloudify `Blueprints` are cloud application orchestration plans. The main part o
 `Blueprints` has 2 main sections:
 
 * **Topology** - the application topology (the `nodes` section in the `blueprint` YAML file)
-* **Worflows** - the different automation process for the application (the `workflows` section in the `blueprint` YAML file )
+* **Workflows** - the different automation process for the application (the `workflows` section in the `blueprint` YAML file )
 
 {% highlight YAML %}
 blueprint:
