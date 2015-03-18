@@ -1,0 +1,184 @@
+---
+layout: blogpost
+title: Continuous Delivery: From Theory to Practice
+image: yaron.jpg
+author: Yaron Parasol
+tags:
+ - Continuous Delivery
+ - Continuous Integration
+ - DevOps
+ - Docker
+ - Deployment Automation
+---
+
+<notextile>
+
+<div class="aligncenter">
+<img src="http://continuousdelivery.com/wp-content/uploads/2014/02/01_CD_the_idea_low-res.jpg" width="750" alt="Continuous Delivery | Deployment Automation | Continuous Integration | Continuous Deployment | DevOps"></div>
+<br/>
+<br/>
+
+<p><b></b></p>
+
+<hr />
+
+<h2><a href="http://www.dzone.com/articles/continuous-delivery-theory"><font style="font-weight: bold">View the full article</font></a><font style="font-weight: bold"> with its original diagrams on DZone in the </font><a href="http://dzone.com/mz/devops"><font style="font-weight: bold">DevOps Zone</font></a><font style="font-weight: bold"> or download the <a href="http://library.dzone.com/assets/request/whitepaper/188181?oid=researchlp" target="_blank">DZone 2015 Guide to Continuous Delivery</a>.</font></h2>
+
+<hr />
+
+<p>When we discuss continuous delivery (CD), the starting point would need to be the motivation that has driven this IT evolution.&#160; The demand for continuous delivery was brought on by businesses’ need for more agility and faster time to market, where time to market is the primary motivation, and agility is the means to achieving that.&#160; If manual delivery processes used to involve running a compiler by hand, then creating a binary, then copying it manually to a server, and then restarting that server; clearly the time to market in such scenarios was long and complex, but even more so, was error prone due to the manual involvement.&#160; </p>
+
+<p>Another two important driving factors are the need for tighter and faster feedback loops, as well as the reduction of work in progress or process (WIP).&#160; WIP is a term from the inventory world, which is concept that refers to a company's partially finished goods waiting for completion and eventual sale or their subsequent value, where in the interim these goods that are unable to reach the market just eat up company resources such as storage and bound capital.</p>
+
+<p>This is why the whole agile methodology, with sprints and scrum, was even started in the first place.&#160; This then led to the development of continuous integration (CI), to automate build processes to speed up delivery, and minimize human involvement, to prevent error.&#160; However, even with CI, most deployments still remained manual. At best, parts of the deployment process were automated, but only in the context of really small closed environments, that are basically non-configurable environments.</p>
+
+
+<hr>
+
+<span class="pullquote-left">
+  <font style="font-weight: bold" size="5" face="Baskerville Old Face"><em>Cloudify - build a robust continuous delivery pipeline with a simple blueprint.</em></font>&nbsp; <a class="btn btn-medium btn-theme btn-rounded" id="downloadBtnInner" href="http://getcloudify.org/downloads/get_cloudify_3x.html" target="_blank"><i class="icon-plus"></i> Go </a></span>
+  
+  <hr>
+
+<p>However, if the ultimate goal, is to get the new feature that the developer writes to production, in a matter of hours rather than months or half a year, there was still a need to fill the gap between agile development and CI, and actually pushing frequent, small updates to production.</p>
+
+<p>Getting the code to production is where continuous delivery comes to complete the entire cycle from development to market.&#160; To do that you want to be able to push a minimal scope of new code in a way that is easily testable and with limited exposure, to monitor it closely, and roll it back if it’s not good.&#160; </p>
+
+<h4>Continuous Integration in the Real World</h4>
+
+<p>While the motivation and methodology is generally clear, the actual execution is another story entirely.&#160; With CI/CD we’re talking about a streamlined process that’s quite complex. This means we don't want human intervention, or at the very least to minimize it significantly, and we want to extend the automation all the way to production, all while combining this with testing and intelligent monitoring.</p>
+
+<p>So CI was essentially the starting point, let’s take a look at CI, and then where we need to get to - and the ideal way to bridge such a gap.</p>
+
+<p><strong>Diagram 1 - Typical CI Process</strong></p>
+
+
+<p><img src="/img/CDGuideCI1.png" alt="continuous integration | continuous delivery | devops"></p>
+
+<p>[It’s very important to note that there's a lot of unit and integration testing involved between steps #3 &amp; #4, before anything gets published or pushed to production, to ensure nothing breaks and everything is functioning as it should.]</p>
+
+<h2><strong>IaaS and Containers in the CI Process</strong></h2>
+
+<p>After you’ve built a working automated build process, there is another important challenge to overcome before being able to push to production, and this is the matter of controlled environments.&#160; This is basically the primary reason IaaS and containers have become very popular in the world of CI. The three leading challenges with controlling environments have been working in clean environments, ensuring proper utilization of resources, and parallelization of processes.&#160; This is due to a number of reasons: </p>
+
+<ul>
+  <li>
+    <p>“Dirty” machines (those with packages already installed on them, with unclean configuration and files spread around) are bound to cause inconsistencies with running tests and building binaries.</p>
+  </li>
+
+  <li>
+    <p>To ensure more efficient utilization of resources i.e. so environments aren’t manually set up and occupied unnecessarily for extended periods of time, resulting in others not being able to use them.&#160; This then leads to the need to buy added hardware and software to accommodate this lack of resources. </p>
+  </li>
+
+  <li>
+    <p>To enable parallelization of the process by spawning up a set of VMs/containers and the running of different test suites/builds on each. </p>
+  </li>
+</ul>
+
+<p>For these reasons, with typical integration and testing, it has become popular to use IaaS.&#160; With IaaS you can build the on demand resources you need (compute, storage, and network resources) within just a few minutes, and if something goes wrong you can easily wipe the entire environment, and do this all over again.</p>
+
+<p>Of course, the most ideal way to do this, is to automate these processes.&#160; You can either choose the do it yourself method of using scripts, and install the application stack using configuration management tools, or even more scripts. This means starting the application components, cloning a git repo, and running the build process, which then yields a binary or package with the updated code.&#160; Then you have your binary (which is really only half the process).&#160; Then you need to install the binaries on the environment you just created and run the integration tests.</p>
+
+<p>The benefit of this, is a more robust process that is less error prone (due to the minimization of human involvement). </p>
+
+<p>This solves the issue of clean environments, and enables parallelization as resources are on demand, the disadvantage of using IaaS is again the under-utilization of resources.&#160; That’s where containers come into the mix.</p>
+
+<p>The use of containers basically provides the same as VMs, but more lightweight, so if a VM takes minutes to load - a container can be spawned pretty much instantaneously. It’s a fresh environment, utilizes minimal resources, and enables parallelization, what’s more since it’s so lightweight the binaries are also released much more quickly.</p>
+
+<p>This is where CI processes become interesting, a new form of CI that is a combination of application CI and automation CI. </p>
+
+<p><strong>Diagram 2 - Combined CI Process</strong></p>
+
+<p><img src="/img/CDGuideCI2.png" alt="continuous integration | continuous delivery | devops"></p>
+
+<p>Now let’s take a look at CI in the yet another flavor - containerization flavor..</p>
+
+<p><strong>Diagram 3 - Containerized CI Process</strong></p>
+
+<p><img src="/img/CDGuideCI3.png" alt="continuous integration | continuous delivery | devops"></p>
+
+<p>There is also the need for container orchestration - to time the creation of the containers, and tie the different application components together, however that is a whole post unto itself, so I can just suggest further reading on container / <a href="http://getcloudify.org/2014/11/23/docker-containers-docker-cloud-management.html">Docker orchestration</a>.</p>
+
+<h2><strong>Continuous Delivery...From Theory to Practice</strong></h2>
+
+<p>After we’ve taken a look at typical CI, and then focused on CI in an IaaS environment or with a&#160; containerization flavor, we can segue into CD.</p>
+
+<p>So you would assume that after you have the application packaged and tested, it should be pretty easy to deploy to production, right? Well the answer is actually, no.&#160; Unfortunately, this has proven quite difficult in real production environments.</p>
+
+<p>There are several obstacles when it comes to zero time deployments.</p>
+
+<p>After you’ve automated your build process, it’s not just a matter of automatically deploying your code to production.&#160; For starters, the build process is not done in production, so ultimately it has no business risk.&#160; Therefore, when deploying your code, more than anything the process is actually more important than the actual pressing of the button at the end of the day -- or a thousand times a day for that matter. Before you can achieve this level of continuous delivery, you need to make sure that you aren’t jeopardizing your system, users, and ultimately your business, in the process.</p>
+
+<p>This means that you need to know what makes the entire system work, where the potential problems are, and make sure that your deployment stack and new package take all this into consideration in advance.&#160; To do so, you need to ensure you properly test your code prior to deploying to production, and then after your code is deployed that you are actually monitoring the right things.&#160; The “right things” mean that you are aware of the changes that are being made, and how they can affect the system as a whole - e.g. if the deployment process contains a change in my database schema, you'd need to make sure that there is a process in place that ensures that when you deploy that the database schema stays intact (and that’s just one small example).</p>
+
+<p>Monitoring deployments is a whole bible unto itself, and so it would be too lengthy to discuss this in detail. However the focus on this is probably the most important factor, since the ability to deploy 1000 times a day is worthless if you are unable to monitor how these changes affect your system.&#160; Since, let’s be honest, you’re not looking to deploy new features a thousand times a day, deploying a thousand times a day gives you the ability to fix things really fast and make small changes quickly.</p>
+
+<p>That’s why you need to have the entire process set up in such a way that enables you to quickly understand exactly what’s going on in your system - and only then will you have the ability to deploy as many times as you want.&#160; This means monitoring the right places, the right KPIs and metrics - CPU/load/memory, seeing if there is any performance lapse - and when you reach the level of numerous deployments a day - to note whether there is also gradual performance lapse, which is often overlooked.&#160; This is just the tip of the iceberg.&#160; </p>
+
+<p>This has become exponentially more difficult these days with autoscaling capabilities, frequent changes to servers, locations of servers.&#160; Where once upon a time you had two servers and everything was simple - these days you have thousands of servers distributed around the world, and multiple processes to deploy all the time. </p>
+
+<p>Reaching the Continuous Delivery Promised Land</p>
+
+<p>When you’re ready to deploy your code to production, you would need to write a process to ensure you take all aspects of the deployment into account, this would typically include:</p>
+
+<ul>
+  <li>
+    <p>Choosing the right tool for the job (as an aside, generally speaking, the tool isn’t really the problem with deployment, the process just needs to be ironclad.&#160; That said, there are tools that are less deployment oriented like common CM tools, where scripting tools may do a better job e.g. Fabric or Ansible that are more deployment oriented.)</p>
+  </li>
+
+  <li>
+    <p>Automating the process of pulling your server list (taking Amazon as an example, you can use tags to tag the different server types and then deploy to the right servers based on their type.)</p>
+  </li>
+
+  <li>
+    <p>Choosing the type of deployment process. (There are a few common controlled <a href="http://getcloudify.org/2014/02/27/from_simple_automation_to_proactive_orchestration.html">deployment methods</a> - Canary, Blue-Green (AKA A/B) and there is much to be said about these - the most important aspect of each lies in the next bullet).</p>
+  </li>
+
+  <li>
+    <p>Monitoring the right things - so you can know when and what to rollback.</p>
+  </li>
+</ul>
+
+<p>And while we can use these methods to deploy code - if we want to continuously deploy applications as a whole, including the infrastructure (not just the code) - AKA infrastructure as code, that’s where orchestration would come in.&#160; We would still need to perform the same initial steps:</p>
+
+<ul>
+  <li>
+    <p>Understanding the process and how it affects our system,</p>
+  </li>
+
+  <li>
+    <p>How to create the binaries/ logical containers in a clean environment</p>
+  </li>
+
+  <li>
+    <p>Testing</p>
+  </li>
+
+  <li>
+    <p>Monitoring</p>
+  </li>
+</ul>
+
+<p>However, on top of all of this, we could add code that creates infrastructure, including:</p>
+
+<ul>
+  <li>
+    <p>Loading the resources</p>
+  </li>
+
+  <li>
+    <p>Keeping the infrastructure in source control, and</p>
+  </li>
+
+  <li>
+    <p>Taking the binaries created and deploying them with the infrastructure when the deployment is run.</p>
+  </li>
+</ul>
+
+<p>So whether you choose to do a canary or blue-green deployment, an orchestrator will come in very handy in either scenario to manage business continuity and data integrity.&#160; With the complexity involved with pushing code to live systems in production, the orchestrator should be built in a manner that enables you to address the entire application lifecycle - a good example for this is TOSCA (Topology and Orchestration Specification for Cloud Applications).&#160; TOSCA is an open cloud standard language from the Oasis organization (the same organization that brought us XML) that is based on YAML. </p>
+
+<p><a href="http://getcloudify.org/tags/TOSCA/">TOSCA </a>has the combination of declarative descriptions of the application topology with all its components - including the load balancer, network, the compute resources, software and everything else, along with an imperative set of workflows to describe the logic of any process we need to automate. What this means from a continuous delivery perspective, is that with TOSCA topology each application component has lifecycle hooks, that enable the adding of more hooks to cope with new processes, such as the invocation of A/B testing of deployments, testing, and monitoring. </p>
+
+<p>With these new CI/CD capabilities, a line of business that once upon a time had to go through the process of requesting a feature from engineering based on business-level requirements, and then spend another year waiting for these to actually reach the market, organizations can now expect a new feature to be shipped to production within just a few weeks.&#160; Needless to say the business impact of such processes is driving an unprecedented evolution in IT, that will only progress and gain momentum in the near future, however, with all new technology - continuous delivery needs to be implemented with safe measures while taking all of the complexities into account - as the negative business impact of CD gone wrong can by far out-weigh the positive aspects.</p>
+
+  </notextile>
