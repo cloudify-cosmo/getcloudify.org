@@ -146,11 +146,10 @@ nodejs_vm:
 
 {%endhighlight%}
 
-some important points to note here:
-- We are using the image ID here but you may want to use the image name in some cases. you can do this by using *image_name* as the key.
-- In similar manner flavor ID can be replaced with flavor name using *flavor_name*.
+Some important points to note here:
+- We are using the image ID here but you may want to use the image name in some cases. you can do this by using *image_name* as the key. In a similar manner flavor ID can be replaced with flavor name using *flavor_name*.
 - We have used a built-in openstack `relationship` type, `server_connected_to_security_group`, to attach the previously defined security groups to the servers.
-- In the *nodejs_host* we also used the `server_connected_to_floating_ip` `relationship` type to attach a floating ip to this vm.
+- In the *nodejs_host* we also used the `server_connected_to_floating_ip` `relationship` type to attach a floating ip to this VM.
 
 ## Step 6: Refining our outputs
 
