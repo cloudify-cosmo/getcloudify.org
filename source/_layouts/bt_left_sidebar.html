@@ -5,17 +5,24 @@
 <div id="wrapper">
    {% include header.html %}
    	
-   	<section id="content">
-	
-		<div class="container">
-			<div class="row">
 
+        <section id="inner-headline">
+			<div class="container">
+			<div class="row">
+            <div class="span12">
+                    <div class="inner-heading">
+                    </div>
+                </div>
+</div>
+</div>
+</section>
+
+    <section id="content">
+    <div class="container">
+            <div class="row">
                 <div class="span4">
                     <aside class="left-sidebar">
                         <div class="widget">                        
-                        <div id="resultsDiv" class="DocumentsWrap"></div>
-                        <div id="pageContent" class="DocumentsWrapLeft">
-
                             <h5 class="widgetheading">Resources</h5>
                             {% include menu_side_toc.html %}
                             <!-- <ul class="pagination" id="myPager"></ul> -->
@@ -24,18 +31,17 @@
                 </div>
 
 				<div class="span8">
+                <div id="resultsDiv" class="DocumentsWrap"></div>
 					<div id="pageContent">
 					{{content}} 
 
-				<!--	<div class="pagination"> 
-						<ul class="pager" id='page_navigation'></ul>
-					</div> -->
-					</div>
+									</div>
 				</div>
 				
 			</div>
-		</div>
-	</section>
+            </div>
+            </section>
+
 	 <div class="clear"></div>  
    {% include footer.html %}   
 </div>
