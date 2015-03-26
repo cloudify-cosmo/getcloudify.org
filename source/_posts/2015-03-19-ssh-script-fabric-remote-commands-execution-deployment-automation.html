@@ -1,0 +1,196 @@
+---
+layout: blogpost
+title: Remote Commands, Deployment Automation & SSH with Fabric & Cloudify
+image: nircohen.jpg
+author: Nir Cohen
+tags:
+ - Cloud Automation
+ - SSH
+ - Cloud Orchestration
+ - Python
+ - Deployment Automation
+---
+
+<notextile>
+
+<div class="aligncenter">
+<img src="/remoteexec.png" width="750" alt="Remote Commands | SSH | Remote Execution | Script Fabric | Deployment Automation"></div>
+<br/>
+<br/>
+
+
+<p>&#160;</p>
+
+<p><b></b>
+
+  <p>I have recently been involved in an interesting project that was added in the latest version of <a href="http://getcloudify.org/guide">Cloudify</a> -&#160; the Fabric plugin.&#160; This got me thinking about taking a deeper dive on r<a href="http://getcloudify.org/guide/3.1/plugin-fabric.html">emote execution</a> in general -- i.e. the tools, why it’s needed, and how to actually make the best use of it, and where the Fabric plugin comes into play.</p>
+
+  <p>Ok, So What is Remote Execution?</p>
+
+  <p>Remote execution enables you to invoke commands on a remote server without having to depend on agents. It assumes that basic connectivity to a server is provided (e.g. SSH servers on Linux or WinRM on Windows).</p>
+
+  <hr>
+
+<span class="pullquote-left">
+  <font style="font-weight: bold" size="5" face="Baskerville Old Face"><em>Cloudify - from deployment to post-deployment with the tool of your choice. Check it out. </em></font>&nbsp; <a class="btn btn-medium btn-theme btn-rounded" id="downloadBtnInner" href="http://getcloudify.org/downloads/get_cloudify_3x.html" target="_blank"><i class="icon-plus"></i> Go </a></span>
+  
+  <hr>
+
+  <p>In this post, I focus for the most part on Fabric for <a href="http://en.wikipedia.org/wiki/Secure_Shell">SSH</a> remote execution and some example of usage, however obviously this is not the only tool available for this task. Therefore, I’m going to start with a quick roundup of the different options you have for remote execution over Linux or Windows.</p>
+
+  <p>In the context of remote execution above SSH, there are a few leading tools (There are many more, but these are some of the most common ones):</p>
+
+  <ul>
+    <li>
+      <p>For Linux:</p>
+
+      <ul>
+        <li>
+          <p><a href="http://docs.fabfile.org/en/1.10/index.html">Fabric</a> - written in Python.</p>
+        </li>
+
+        <li>
+          <p><a href="http://capistranorb.com/">Capistrano</a>, the Ruby equivalent</p>
+        </li>
+
+        <li>
+          <p><a href="http://www.ansible.com/home">Ansible</a> - (which is also in Python, but has more complex abstraction than Fabric including plugins and other niceties and provides some level of idempotency)</p>
+        </li>
+
+        <li>
+          <p><a href="http://saltstack.com/">SaltStack</a>.</p>
+        </li>
+
+        <li>
+          <p><a href="http://www.pyinvoke.org/">Pyinvoke</a> - Looks like a promising future alternative to Fabric.</p>
+        </li>
+
+        <li>
+          <p><a href="https://puppetlabs.com/mcollective">mCollective</a></p>
+        </li>
+      </ul>
+    </li>
+
+    <li>
+      <p>For Windows:</p>
+
+      <ul>
+        <li>
+          <p><a href="https://github.com/diyan/pywinrm">pyWinRM</a> (which is what we use - being a Python shop), a WinRM-based module for Python that knows how to execute WinRM commands in Python, whether in Windows or Linux.&#160; </p>
+        </li>
+
+        <li>
+          <p>You can also install SSH server on Windows and then connect via SSH, however WinRM has become the more common way to do this.</p>
+        </li>
+
+        <li>
+          <p>There is also a rather old (and no longer maintained) yet oft-overlooked project called <a href="http://sourceforge.net/projects/winexe/">WinEXE</a> that allows you to run commands directly from Linux to Windows over RPC. </p>
+        </li>
+
+        <li>
+          <p>Ansible -&#160; They provide an abstraction above pywinrm.</p>
+        </li>
+      </ul>
+    </li>
+  </ul>
+
+  <p>[You are also welcome to read this post on <a href="http://getcloudify.org/2014/02/24/cloud_automation_with_winrm_vs_ssh.html">WinRM vs. SSH</a> that can help give some context.]</p>
+
+  <p>Fabric and Capistrano are usually referred to in the context of code deployment while Ansible is referred to in the context of code deployment and configuration management.</p>
+
+  <p>As an aside, while not directly related to the subject at hand, I feel obliged to mention that there is an informal, hotly debated boundary between remote executors and configuration management tools (Puppet, Chef, etc..) when it comes to CM and code deployment, but that is a topic for a whole ‘nother post.</p>
+
+  <p>Since there are highly differing opinions on remote execution, I’d like to address these first and foremost, and discuss some of the pros and cons for remote execution.&#160; Like with every technology remote execution comes with its upsides and downsides. This can highly influence the choice for whether to use this method for configuring &amp; maintaining servers, or deploying code; where the alternative involves two methods -- manual involvement along with configuration management tools, obviously based on the use case.&#160; My personal opinion is that configuration management tools are not the best fit for deploying code, but are a very good fit for maintaining configurations.</p>
+
+  <h4>Why You’d Want to Use Remote Execution</h4>
+
+  <p>There’s no need to install agents.</p>
+
+  <p>This is important, as agent installation, by definition, provides the overhead of managing the agent’s lifecycle, its installation, and its state from both a maintenance and monitoring perspective.&#160; </p>
+
+  <p>Security</p>
+
+  <p>On top of the overhead involved with installing agents, they also require the deployment of files and running processes on your server, and not all companies will be willing or able to allow this.</p>
+
+  <p>Rapid Changes</p>
+
+  <p>If you have a completely new server, and you don’t want to have to deal with the tasks of configuring servers and everything that’s involved with this undertaking, you can just write a Fabric task and run it on server. (This, of course, does not take into account the method of baking images, which we won’t get into here.)</p>
+
+  <p>It Does Not (Necessarily) Depend on External Resources </p>
+
+  <p>When using an agent (for instance, a Salt minion), you would have to install the minion and configure it on the server and verify that it is running. Of course, you can bake it into an image or completely automate the installation and configuration process, but in general, it provides more moving parts to handle and external resources to download that are not prerequisites of your application.</p>
+
+  <p>Single Point of Failure</p>
+
+  <p>When using a Master - Agent based system, you will have to work pretty hard to prevent a single point of failure. Taking Puppet Master or Chef Server in relation to Masterless Puppet and Chef Solo is a good example. With remote execution you minimize this risk substantially because there are no dependencies on the master server to perform operations.</p>
+
+  <p>No Server Utilization Overhead</p>
+
+  <p>Agents, depending on their implementation of course, might incur some overhead, e.g. CPU, memory, I/O.</p>
+
+  <h4>Where Remote Execution Falls Short</h4>
+
+  <p>Security</p>
+
+  <p>Remote execution on Linux, for instance, requires an open SSH port, and not all organizations are willing to have this port exposed.</p>
+
+  <p>Idempotency</p>
+
+  <p>Your execution environment in not necessarily built for idempotency. Ansible, for instance, provides a level of idempotency. Using Fabric or Capistrano requires managing the idempotency process within the tasks themselves (I.e. you would have to make sure that running the same task again, whether upon success or failure, will not affect the state of the servers). That is, obviously, not a simple problem to overcome.</p>
+
+  <p>Connectivity</p>
+
+  <p>Your server can only be managed if a connection from the management server to your hosts is available. That means that upon connection failure you can’t control the state of your servers.</p>
+
+  <p>You Don’t Have Any Agents</p>
+
+  <p>It may seem funny that this is mentioned under cons as well, based on the pros above, however, agents aren’t all bad.&#160; While, agents do come with overhead, maintenance and utilization issues that have their negative aspects, they also do have many benefits that are worth mentioning such as monitoring, logging, and other functionality that you might be missing out on without them.</p>
+
+  <p>In particular, note that two major aspects often debated in the context of remote execution are security and agent functionality. However, these both can be viewed as a double-edged sword. </p>
+
+  <p>With security this is because, on the one hand, some claim that security is compromised when you remotely execute commands due to SSH port exposure. That being said, the other camp asserts that anything that requires installation comes with a security tradeoff as well - since you’re only as secure as the software you’re installing, and its access to your server. </p>
+
+  <p>In terms of agents, take Cloudify for example or Puppet, with Cloudify’s agent you receive metrics, and with Puppet reporting. If you choose the agentless method, you are of course missing out on these options. Therefore, both sides of the coin have their considerations to take into account, and you need to weigh the benefits vs. the tradeoffs.</p>
+
+  <h4>How it Works</h4>
+
+  <p>Now that we’ve listed why you may or may not want to use remote execution, I’d like to do a high level overview of how it is generally used, and some sample operations you can perform with remote execution.</p>
+
+  <p><a href="http://www.fabfile.org/">Fabric</a> is a Python module aimed at executing remote SSH commands on servers. The primary usage of Fabric is deployment of applications (code, middleware, etc..) but it is also used for general purpose server administration.</p>
+
+  <p>Fabric provides an abstraction above managing the lists of servers to execute commands on; configuring the SSH connection parameters (agent forwarding, timeouts, retries, users, passwords, ssh keys, disabling known hosts, and <a href="http://docs.fabfile.org/en/latest/usage/env.html">much more</a>); configuring server specific-roles and more.</p>
+
+  <p>A Fabric task looks somewhat like this:</p>
+
+  <script src="https://gist.github.com/shar1z/c252f690a625f797ad59.js"></script>
+
+  <p>The above will list all servers defined under the aforementioned roles, and will execute (either serially or in parallel, depending on the configuration provided to Fabric) the above commands on them.</p>
+
+  <p>In this example, the servers for each role are statically set.</p>
+
+  <p>An example with a bit more complexity than Fabric’s default implementation, is a Python module called <a href="https://github.com/EverythingMe/fabric-aws">fabric-aws</a> written by the folks at EverythingMe, which is an extension for Fabric. It enables you to configure auto-scaling groups (even from CloudFormation), specific instances, or instances based on filters for execution.&#160; See the code snippet below for how we use this for deploying Hubot, our ChatOps bot.</p>
+
+  <p>Fabric also allows you to return the output of the execution so that it can be parsed and then, hopefully, analyzed.It also lets you copy files to and from the server, as well as generate files from templates so that you can create files with different configurations on the fly when deploying these to servers.</p>
+
+  <p>In the context of Cloudify, our Fabric plugin allows us to remotely execute commands on hosts without having to install our agent on them. </p>
+
+  <p>The way you can run commands with this plugin are: </p>
+
+  <ol>
+    <li>
+      <p>Writing commands directly in your <a href="http://getcloudify.org/guide/3.0/guide-blueprint.html" target="_blank">TOSCA</a> blueprint</p>
+    </li>
+
+    <li>
+      <p>Providing a file with Fabric tasks that you will be able to then execute</p>
+    </li>
+
+    <li>
+      <p>Providing a <a href="http://getcloudify.org/guide/3.1/guide-plugin-creation.html" target="_blank">Python module</a> installed somewhere on your manager that contains the required task, that will then execute it</p>
+    </li>
+  </ol>
+
+  <p>This is useful because you can manage your entire infrastructure using only the <a href="http://getcloudify.org/guide/">Cloudify manager</a>. This way, companies with stricter policies for installing agents no longer have to deal with that decision., and can take advantage of all of the benefits of remote execution.</p></p>
+  
+
+  </notextile>
