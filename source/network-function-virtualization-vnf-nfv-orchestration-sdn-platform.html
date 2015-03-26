@@ -78,13 +78,15 @@ category: NFV
 
 					</div>
 					</div>
-					<p></p>
-					<div class="row">
+
+						<div class="row">
 					<div class="span9">
 					<a name="nfvusecase"></a>
 					<p></p>
 					</div>
 					</div>
+					<p></p>
+				
 					<div class="row">
 					<div class="span9">
 					<p></p>
@@ -108,7 +110,10 @@ category: NFV
 
 					<div class="aligncenter">
 					<img src="/img/nfvint-arch.png">
+					<p></p>
 					<p><strong>Figure 1: Reference Architecture</strong></p></div>
+					<hr/>
+
 					
 
 					<p> This was how the overall architecture looks, it is comprised of two main parts:</p>
@@ -122,8 +127,11 @@ category: NFV
 					<p>This was achieved through the following workflow:</p>
 					<div class="aligncenter">
 					<img src="/img/nfvworkflow.png">
+					<p></p>
 					<p><strong>Figure 2: NFV Workflow</strong></p>
 					</div>
+					<hr/>
+
 
 					<p>The resulting blueprint and topology are as seen below.</p>
 
@@ -154,14 +162,24 @@ category: NFV
 			<p><strong>MANO based on TOSCA</strong></p>
 			<p>MANO is the layer defined by ETSI that manages and orchestrates the cloud infrastructure and resources, and it is comprised of the following elements:</p>
 			<ul>
-			<li>The VIM - Virtual infrastructure manager, essentially controls the interaction of the VNF with the compute, networking and storage resources of the chosen NFVI (i.e. cloud or virtualization layer).</li>
-			<li>The VNFM, is responsible for the VNFs lifecycle management -  e.g. it takes action on instantiation, termination, failover, scaling in and out, and more.</li>
-			<li>The NFV orchestrator - basically serves the purposes of orchestrating and managing the software and infrastructure resources of the VIM, and ensuring the running of the NFVI’s network services.</li>
+			<li>The VIM (Virtual Infrastructure Manager), essentially controls the interaction of the VNF with the compute, networking and storage resources of the chosen NFVI (i.e. cloud or virtualization layer).</li>
+			<li>The VNFM (Virtual Network Function Manager), is responsible for the VNF lifecycle management -  e.g. it takes action on instantiation, termination, failover, scaling in and out, and more.</li>
+			<li>The NFV Orchestrator (Cloudify), as its name implies, basically serves the purposes of orchestrating and managing the software and infrastructure resources of the VIM, and realizing the NFVI’s network services.</li>
 			</ul>
-			<p>ETSI's MANO intended to provide the full end-to-end lifecycle of NFV orchestration and management – from installation and deployment through post-deployment, or in the telco industry terminology - Day 0 through Day 2 support.
+			<p>ETSI's MANO is intended to provide the full end-to-end lifecycle of NFV orchestration and management – from installation and deployment through post-deployment, or in the telco industry terminology - Day 0 through Day 2 support.
 			</p>
 
 			<p>As MANO is currently just a guideline all implementations of MANO are proprietary, aside from the TOSCA-based agnostic implementation that also enables the plugging in of additional standards like YANG/Netconf for service chaining. </p> 
+
+			<p>The telco industry is known to be very standard driven, therefore, the alignment with MANO is an important element for NFV adoption, where many Telcos and Enterprises these days are searching for modeling languages to help achieve the goal of application and network orchestration, and are betting on OpenStack and the nature of standards-driven open source cloud to help deliver this in the real world. This is where the importance and adoption of a standard like TOSCA becoming an important criterion in the choice of an orchestration platform.</p>
+
+			<p>TOSCA has the combination of declarative descriptions of the application topology with all its components - including the load balancer, network, the compute resources, software and everything else, along with an imperative set of workflows to describe the logic of any process we need to automate. What this means from an NFV perspective, is that TOSCA is very good when it comes to defining virtual application topologies, VNF dependencies and relationships, actions to be performed as part of a lifecycle. This significantly simplifies the complexities involved with exposing networking elements and  end-to-end lifecycle management for NFV, by abstracting the networking piece of our deployment into an application blueprint.</p>
+
+			<p>You can learn more about the <a href="http://getcloudify.org/guide/3.1/dsl-spec-general.html" target="_blank">TOSCA spec</a> in our docs.</p>
+
+
+
+
 
 
 								<hr/>
@@ -171,6 +189,7 @@ category: NFV
 						<ul>
 								<li><a href="/guide/" target="_blank">Getting Started with Cloudify</a></li>
 								<li><a href="/tags/NFV/" target="_blank">NFV Posts on the Cloudify Blog</a></li>
+								<li><a href="/tags/TOSCA/" target="_blank">TOSCA Posts on the Cloudify Blog</a></li>
 								</ul>
 								<br/>
 			
