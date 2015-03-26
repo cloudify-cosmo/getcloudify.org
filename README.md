@@ -1,6 +1,5 @@
-[![Circle CI](https://circleci.com/gh/cloudify-cosmo/getcloudify.org/tree/master.png?style=badge)](https://circleci.com/gh/cloudify-cosmo/getcloudify.org/tree/master)
-
 # Cloudify Documentation
+[![Build Status](https://travis-ci.org/cloudify-cosmo/getcloudify.org.svg?branch=master)](https://travis-ci.org/cloudify-cosmo/getcloudify.org)
 
 This repository contains the markup files, html templates and javascript sources for the new [Cloudify documentation portal](http://getcloudify.org/).
 It's based on [Jekyll](http://jekyllrb.com/), a Ruby-based static site generator, and uses [Markdown](http://whatismarkdown.com/) as a markup language for the most part. It also uses a number of custom Jekyll plugins for formatting and styling, please refer to the [cheatsheet](http://getcloudify.org/guide/3.0/cheatsheet.html) for details about this plugins and how to use them. 
@@ -33,7 +32,7 @@ To run and test the website locally, you should perform the following steps:
 
 * Invoke Bundler to install all required Ruby gems
 
-        bundler install 
+        bundle install 
 
 - If you're using Windows, run `setup-win.bat` with administrative permissions (requires Windows Vista or later).
 This script is a workaround for a known issue in git which ignores symbolic links on windows. 
@@ -42,7 +41,7 @@ This script is a workaround for a known issue in git which ignores symbolic link
 
 * Run Jekyll in server mode, and wait for the site generation to complete: 
 
-        jekyll serve
+        jekyll serve --watch --limit_posts 1
         
         
 You should see the following output if everything was ok:
@@ -66,7 +65,9 @@ This website is hosted on AWS S3. Every push to this reposiroty triggers a build
 
 You can find these guidelines [here](http://getcloudify.org/guide/3.0/cheatsheet.html)
 
+## Adding CSS
 
+This project uses sass. All css rules go into partials ( _file.scss ) which can be found under _sass folder.
 
 
 

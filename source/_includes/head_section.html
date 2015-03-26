@@ -1,0 +1,104 @@
+<head>
+    {% include latestGAversion.html %}
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />	
+	<title>{{ page.title }} | Cloudify</title>
+	
+
+<meta class="swiftype" name="score" data-type="float" content="{% pagescore %}" />
+<meta class="swiftype" name="section" data-type="string" content="{% currentsection %}" />
+<meta content="Cloudify - {{ page.title }}" property="og:site_name">
+{% if page.title %}
+  <meta content="{{ page.title }}" property="og:title">
+{% else %}
+  <meta content="{{ site.title }}" property="og:title">
+{% endif %}
+{% if page.title %}
+  <meta content="article" property="og:type">
+{% else %}
+  <meta content="website" property="og:type">
+{% endif %}
+{% if page.description %}
+  <meta content="{{ page.description }}" property="og:description">
+{% else %}
+  <meta content="{{ site.description }}" property="og:description">
+{% endif %}
+{% if page.url %}
+  <meta content="http://getcloudify.org/{{page.url}}" property="og:url">
+{% endif %}
+{% if page.date %}
+  <meta content="{{ page.date | date_to_xmlschema }}" property="article:published_time">
+  <meta content="http://getcloudify.org/about/" property="article:author">
+{% endif %}
+{% if page.image %}
+ <meta content="http://getcloudify.org/assets/img/posts/{{ page.image }}" property="og:image">
+{% else %}
+  <meta content="http://getcloudify.org/assets/img/logo-high-resolution.png" property="og:image">
+{% endif %}
+{% if page.categories %}
+  {% for category in page.categories limit:1 %}
+  <meta content="{{ category }}" property="article:section">
+  {% endfor %}
+{% endif %}
+{% if page.tags %}
+  {% for tag in page.tags %}
+ <meta content="{{ tag }}" property="article:tag">
+  {% endfor %}
+{% endif %}
+		
+	<script src="//cdn.optimizely.com/js/59503762.js"></script>
+	
+	<link rel="canonical" href="http://getcloudify.org{{page.url}}"/>	
+	<!-- custom -->
+	<!--<link rel="alternate" type="application/rss+xml" title="RSS 2.0" href="/atom.xml" />-->
+	<!-- css -->
+
+    <!-- build:css({.tmp,_site}) styles/main.css -->
+	<link href="/css/bootstrap.css" rel="stylesheet" />
+	<link href="/css/bootstrap-responsive.css" rel="stylesheet" />		
+	<link href="/css/guide.css" rel="stylesheet" />
+	<link href="/css/fancybox/jquery.fancybox.css" rel="stylesheet">
+	<link href="/css/jcarousel.css" rel="stylesheet" />
+	<link href="/css/flexslider.css" rel="stylesheet" />
+	<link href="/css/cslider.css" rel="stylesheet" />
+	<link href="/css/style.css" rel="stylesheet" />	
+	<link href="/css/syntax.css" rel="stylesheet" />
+    <!-- endbuild -->
+
+    <link href="/css/main.css" rel="stylesheet" /> <!-- this is a sass file, search for main.scss instead -->
+
+	<link href="http://netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css" rel="stylesheet">
+	<!-- Theme skin -->
+	<link id="t-colors" href="/skins/blue.css" rel="stylesheet" />
+	<!-- boxed bg -->
+	<link id="bodybg" href="/bodybg/bg1.css" rel="stylesheet" type="text/css" />
+	<!-- HTML5 shim, for IE6-8 support of HTML5 elements -->
+	<!--[if lt IE 9]>
+		  <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+		<![endif]-->
+	<!-- Fav and touch icons -->
+	<link rel="apple-touch-icon-precomposed" sizes="144x144" href="/ico/apple-touch-icon-144-precomposed.png" />
+	<link rel="apple-touch-icon-precomposed" sizes="114x114" href="/ico/apple-touch-icon-114-precomposed.png" />
+	<link rel="apple-touch-icon-precomposed" sizes="72x72" href="/ico/apple-touch-icon-72-precomposed.png" />
+	<link rel="apple-touch-icon-precomposed" href="/ico/apple-touch-icon-57-precomposed.png" />
+	<link rel="shortcut icon" href="/favicon.ico" type="image/x-icon" />
+    <!-- build:js({.tmp,app,_site}) scripts/headsection.js -->
+	<script src="/js/jquery.js"></script>
+	<script src="http://code.jquery.com/ui/1.10.3/jquery-ui.js"></script>
+    <script src="/bower_components/angular/angular.min.js"></script>
+    <script src="/bower_components/cloudify-widget-angular-controller/index.js"></script>
+    <script src="/js/widget/controller.js"></script>
+    <!-- endbuild -->
+
+   <!-- Google analytics Code-->
+	<script>
+	  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+	  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+	  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+	  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+	 
+	  ga('create', 'UA-49887672-1', 'getcloudify.org');
+	  ga('send', 'pageview');
+	 
+	</script>
+</head>

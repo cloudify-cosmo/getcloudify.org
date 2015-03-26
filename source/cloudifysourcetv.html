@@ -1,0 +1,210 @@
+---
+layout: bt_default
+title: Cloudifysource TV
+category: video
+---
+
+<section id="inner-headline">
+    <div class="container">
+        <div class="row">
+            <div class="span12">
+                <ul class="breadcrumb">
+                    <li><a href="/"><i class="icon-home"></i></a><i class="icon-angle-right"></i></li>
+                    <li class="active">Videos</li>
+                </ul>
+            </div>
+            <div class="span12">
+                <div class="inner-heading">
+                    <h1><i class="icon-film"></i>Videos</h1>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section id="content">
+    <div class="container">
+        <div id="resultsDiv" class="DocumentsWrap"></div>
+        <div id="pageContent">
+            <div class="row">
+                <div class="span12">
+                    <div class="clearfix">
+                    </div>
+                    <div class="row">
+                        <section id="projects">
+                            <div class="span12">
+                                <p>Learn how to bootstrap, install, configure and play around with Cloudify with our video tutorials.</p>
+                            </div>
+                            <div class="span12 center" id="loading">
+                                <i class="icon-spinner icon-spin icon-large"></i>loading content...
+                            </div>
+                            <!-- the input fields that will hold the variables we will use -->
+                            <input type='hidden' id='current_page' />
+                            <input type='hidden' id='show_per_page' />
+                            <ul id="thumbs" class="portfolio cloudtv   " style="display:none">
+
+
+
+                            </ul>
+                            <div class="span12">
+                                <div class="pagination">
+                                    <ul class="pager" id='page_navigation'></ul>
+                                </div>
+                            </div>
+
+
+                        </section>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<script>
+    var playListURL = 'http://gdata.youtube.com/feeds/api/playlists/PLD470957921551B9A?v=2&alt=json&max-results=50';
+    var videoURL= 'http://www.youtube.com/embed/';
+    $.getJSON(playListURL, function(data) {
+        var list_data="";
+        $.each(data.feed.entry, function(i, item) {
+            var feedTitle = item.title.$t;
+            var feedURL = item.link[1].href;
+            var fragments = feedURL.split("/");
+            var videoID = fragments[fragments.length - 2];
+            var url = videoURL + videoID + '?autoplay=1';
+            var thumb = "http://img.youtube.com/vi/"+ videoID +"/0.jpg";
+            list_data += '<li class="item-thumbs span3 design" data-id="id-0" data-type="web"><div class="videoDesc">"'+ feedTitle +'"</div><a  id="'+ i +'"  class="hover-wrap fancybox fancybox.iframe" data-fancybox-group="gallery" href="'+ url +'" title="'+ feedTitle +'"><span class="overlay-img"></span><span class="overlay-img-thumb font-icon-play"></span></a><img alt="'+ feedTitle+'" src="'+ thumb +'"></li>';
+        });
+        $(list_data).appendTo("#thumbs");
+    });
+
+
+
+
+
+</script>
+
+
+<script language="javascript" type="text/javascript">
+    $(window).load(function() {
+        $('#loading').hide();
+        $('.cloudtv').show();
+    });
+</script>
+<script type="text/javascript">
+    //$(function() {
+    $(window).bind("load", function () {
+        //how much items per page to show
+        var show_per_page = 8;
+        //getting the amount of elements inside content div
+        var number_of_items = $('#thumbs').children().size();
+        //calculate the number of pages we are going to have
+        var number_of_pages = Math.ceil(number_of_items/show_per_page);
+
+        //set the value of our hidden input fields
+        $('#current_page').val(0);
+        $('#show_per_page').val(show_per_page);
+
+        //now when we got all we need for the navigation let's make it '
+
+        /*
+         what are we going to have in the navigation?
+         - link to previous page
+         - links to specific pages
+         - link to next page
+         */
+        var navigation_html = '<li><a class="previous_link" href="javascript:previous();">Prev</a></li>';
+        var current_link = 0;
+        while(number_of_pages > current_link){
+            navigation_html += '<li><a class="page_link" href="javascript:go_to_page(' + current_link +')" longdesc="' + current_link +'">'+ (current_link + 1) +'</a></li>';
+            current_link++;
+        }
+        navigation_html += '<li><a class="next_link" href="javascript:next();">Next</a></li>';
+
+        $('#page_navigation').html(navigation_html);
+
+        //add active_page class to the first page link
+        $('#page_navigation .page_link:first').addClass('active_page');
+
+        //hide all the elements inside content div
+        $('#thumbs').children().css('display', 'none');
+
+        //and show the first n (show_per_page) elements
+        $('#thumbs').children().slice(0, show_per_page).css('display', 'block');
+
+
+
+        var thisHash = window.location.hash;
+        if(window.location.hash) {
+            //$(thisHash).fancybox().trigger('click');
+            //$(thisHash).data('fancyboxGroup','gallery').fancybox().trigger('click');
+            $.fancybox.open($('.fancybox'), {index : thisHash.substring(1)})
+        }
+        //$('.fancybox.iframe').fancybox();
+
+
+    });
+
+    function previous(){
+
+        new_page = parseInt($('#current_page').val()) - 1;
+        //if there is an item before the current active link run the function
+        if($('.active_page').parent().prev().children('.page_link').length==true){
+            go_to_page(new_page);
+        }
+
+    }
+
+    function next(){
+        new_page = parseInt($('#current_page').val()) + 1;
+        //if there is an item after the current active link run the function
+        if($('.active_page').parent().next().children('.page_link').length==true){
+            go_to_page(new_page);
+        }
+
+    }
+    function go_to_page(page_num){
+        //get the number of items shown per page
+        var show_per_page = parseInt($('#show_per_page').val());
+
+        //get the element number where to start the slice from
+        start_from = page_num * show_per_page;
+
+        //get the element number where to end the slice
+        end_on = start_from + show_per_page;
+
+        //hide all children elements of content div, get specific items and show them
+        $('#thumbs').children().css('display', 'none').slice(start_from, end_on).css('display', 'block');
+
+        /*get the page link that has longdesc attribute of the current page and add active_page class to it
+         and remove that class from previously active page link*/
+        $('.active_page').removeClass('active_page');
+        $('.page_link[longdesc=' + page_num +']').addClass('active_page active');
+
+        //update the current page input field
+        $('#current_page').val(page_num);
+    }
+
+
+
+    function addMore() {
+
+        var playListURL = 'http://gdata.youtube.com/feeds/api/playlists/PLD470957921551B9A?v=2&alt=json&max-results=50&start-index=30';
+        var videoURL= 'http://www.youtube.com/embed/';
+        $.getJSON(playListURL, function(data) {
+            var list_data="";
+            $.each(data.feed.entry, function(i, item) {
+                var feedTitle = item.title.$t;
+                var feedURL = item.link[1].href;
+                var fragments = feedURL.split("/");
+                var videoID = fragments[fragments.length - 2];
+                var url = videoURL + videoID + '?autoplay=1';
+                var thumb = "http://img.youtube.com/vi/"+ videoID +"/0.jpg";
+                list_data += '<li class="item-thumbs span3 design" data-id="id-0" data-type="web"><div class="videoDesc">"'+ feedTitle +'"</div><a class="hover-wrap fancybox fancybox.iframe" data-fancybox-group="gallery" href="'+ url +'" title="'+ feedTitle +'"><span class="overlay-img"></span><span class="overlay-img-thumb font-icon-play"></span></a><img alt="'+ feedTitle+'" src="'+ thumb +'"></li>';
+            });
+            $(list_data).appendTo("#thumbs");
+        });
+
+    }
+
+</script>

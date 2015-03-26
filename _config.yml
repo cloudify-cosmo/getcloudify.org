@@ -1,21 +1,12 @@
+source: ./source
+destination: ./_site
 markdown: kramdown
 redcarpet:
   extensions: ["no_intra_emphasis", "fenced_code_blocks", "autolink", "tables", "with_toc_data"]
 highlighter: true
 encoding: UTF-8
-# exclude: ["guide"]
-
-# Change the dir the individual category files are output to
-# category_dir: categories # Default is categories
-# Title to be used when generating the individual category html files prefixed to category name
-# category_title_prefix: "Topics &raquo; "
-
-# Delimeter to be used to seperate whole post from its preview
-# content_delimeter: "<!-- -**-END-**- -->" # Default is <!-- -**-END-**- -->
-
+exclude: ["node_modules"]
 paginate: 5
 paginate_path: "blog/page:num"
 
-latest_cloudify_version: 3.0
-
-#tag_title_prefix: "Tags &raquo; "
+latest_cloudify_version: 3.1

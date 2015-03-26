@@ -1,0 +1,183 @@
+---
+layout: bt_left_sidebar
+title: Network Function Virtualization | VNF | NFV Orchestration | SDN Platform 
+category: NFV
+---
+
+
+		<section id="content">
+			<div class="container">
+				<div class="row">
+					<div class="span8 no-margin">
+						<h1><strong>NFV Orchestration</strong> with TOSCA</h1>
+						<p>NFV, (network function virtualization, AKA VNFs), is the growing need by Telcos and enterprises to deploy, manage and scale their network functions and services on standardized hardware.  Cloudify,  provides the full end-to-end lifecycle of NFV orchestration – from installation and deployment through monitoring of KPIs, with automatic action taking such as auto-healing and auto-scaling based on metrics -- i.e. Day 0 through Day 2 support -- all through a simple TOSCA-based YAML blueprint.  This significantly simplifies the complexities involved with exposing networking elements to the user by abstracting the networking piece of our deployment into an application blueprint, all while enabling the hardening of security to match the application topology exactly.</p>
+
+						
+						<br/>
+						
+						<a class="btn btn-theme btn-large btn-rounded" id="downloadBtnInner" href="/downloads/get_cloudify_3x.html"><i class="icon-download"></i>  Download Now</a>
+						&nbsp; &nbsp;
+						<a class="btn btn-green btn-large btn-rounded" id="goProInner" href="/goPro.html"><i class="icon icon-plus"></i>  Go Pro</a>
+
+					
+						</div>
+				
+				</div>
+				</div>
+
+				
+				<!-- end flexslider -->
+				
+				</section>
+				<section class="content">
+				<div class="row">
+				<div class="span8">
+				<a name="nfvorchestration"></a>
+				<p></p>
+				</div>
+				<div class="container" style="background:#f9f9f9;">
+				<div class="row">
+					
+					<h2><strong>Pure-Play Standard-Driven NFV Made Easy</strong></h2>
+					<p>Many big Telcos have chosen and are evaluating Cloudify in large part due to it being open source, as well as modular in nature, enabling pluggability with existing and new toolsets and environments.  On top of this, Cloudify provides many plugins to interface with peripheral network databases, such as DNS and LDAP, and has already demonstrated its capabilities to orchestrate large subsystems like IMS, internet activation and provisioning per tenant out of the box .  With the ability to have one manager that supports multiple clouds (from VMware to OpenStack) as well as multiple data centers and availability zones, Cloudify, is very attractive to mid to large Telcos, ISPs, and enterprises with a hybrid cloud model.  </p>
+
+						<p>VMware is just one such company that has selected Cloudify as their orchestration platform of choice to launch applications and VNFs on vCloud Air.  To watch the recent webinar on this, as well as a live demo visit: <a href="/vmware-hybrid-cloud.html" target="_blank">Cloudify for VMware</a>.</p>
+				
+
+
+
+										<br/>
+					<div class="aligncenter">
+					<img src="/img/TOSCAYANG.png" width="550"></div>
+
+					<br/>
+					<!-- <p>VMware vCloud Air adds a unique solution for the integration of public cloud resources into a private cloud environment as a native extension of the existing data center.</p> -->
+
+					</div>
+				</div>
+					<div class="row">
+					<div class="span4">
+					<h3><b>Key Solution Benefits</b></h3>
+					<p>Cloudify is the only pure-play orchestration framework uniquely positioned to fit into heterogeneous enterprise and Telco environments, and also includes:</p>
+
+					<ul>
+					  <li>TOSCA-based, pure-play standard-driven orchestration </li>
+
+					  <li>Topology-driven and application-centric management and monitoring of the entire NFV lifecycle </li>
+
+					  <li>Integration with any tool chain </li>
+										
+					  <li>Support for any application stack, with native OpenStack, bare metal, and virtual appliance support (enabling portability to any cloud and hybrid cloud models)</li>
+
+					  <li>Support for containerized and non-containerized workloads </li>
+
+					  <li>Designed for federated deployment </li>
+
+					  <li>Support legacy network functions </li>
+
+					  <li>Built in auto-healing and auto-scaling policies for deployed applications </li>
+
+					  <li>Embeddable (OEM)</li>
+					</ul>
+					</div>
+					<div class="span4">
+
+					<div class="well">
+						
+					<h3><b>Use Case: NFV in a Week with Open Source Tooling</b></h3>
+
+					<p>A major Telco was looking to  expand its offering to provide on-demand internet connectivity for small to medium-sized offices.  This would include a web portal that provides a simple experience to choose an internet provider, as well as infrastructure considerations -- speed, security, and VPN - and any other additional services required, instantaneously, and get connected.  Much like on-demand cloud resources.</p>
+					<p>To be able to truly be able to offer such an added value service, this entire process would need to be automated, be able to support the connection to many devices that are software driven, with consistent management and orchestration.</p>
+					<p>To do so, they realized they would need an NFV architecture, coupled with a standard-driven orchestration engine to provide the backbone for this virtualized networking environment. </p>
+
+					<p>Through the Cloudify orchestrator the Telco was able to define a TOSCA blueprint that brings up all of the pieces in the architecture, and places them in the right service chain.</p>
+
+					<button type="button" data-toggle="collapse" data-target="#collapsiblenfv" class="btn btn-medium btn-inverse btn-toggle"><i class="icon-plus"></i> Under the Hood</button></div>
+					<div class="collapse" id="collapsiblenfv"> 
+					<div class="aligncenter">
+					<h2><strong>The Bits & Bytes</strong></h2></div>
+
+					<p>Through the Cloudify orchestrator the Telco was able to define a TOSCA blueprint that brings up all of the pieces in the architecture, and places them in the right service chain.</p>
+					<p>The overall architecture looks like this and includes two main parts:</p>
+
+					<img src="/img/nfvblueprint.png" width="400"> &nbsp; &nbsp; <img src="/img/nfvtopology.png" width="400">
+
+
+					<ul>
+					<li>Shared services which are part of the carrier backend.</li>
+					<li>A set of services that are created per tenant/customer as part of the internet activiation process – that includes services like vfirewalls, vDPI, vRouter and VPN connectivity.</li>
+					</ul>
+					<p>In some cases Tail-F was also used to configure the network devices after they have been established.</p>
+
+					
+
+
+					</div>
+
+				</div>
+				</div>
+				</div>
+				</section>	
+			<section id="content">
+			<div class="row">
+				<a name="nfvarchitecture"></a>
+				<p></p>
+				</div>
+
+			<div class="container">
+				<div class="row">
+				<div class="span8">
+
+			<h2><b>Cloudify & ETSI's MANO</b></h2>
+			<img style="float: left; display: inline" src="/img/autoscale2.png" width="450" align="left" /> 
+			<p>ETSI, the European Telecommunications Standards Institute, defined a standard reference architecture to achieve NFV, where an integral part of this architecture is the MANO - the NFV management and orchestration layer.</p>  
+
+			<p><strong>MANO based on TOSCA</strong></p>
+			MANO is the layer defined by ETSI that manages and orchestrates the cloud infrastructure and resources, and it is comprised of the following elements:
+			<ul>
+			<li>The VIM - Virtual infrastructure manager, essentially controls the interaction of the VNF with the compute, networking and storage resources of the chosen NFVI (i.e. cloud or virtualization layer).</li>
+			<li>The VNFM, is responsible for the VNFs lifecycle management -  e.g. it takes action on instantiation, termination, failover, scaling in and out, and more.</li>
+			<li>The NFV orchestrator - basically serves the purposes of orchestrating and managing the software and infrastructure resources of the VIM, and ensuring the running of the NFVI’s network services.</li>
+			</ul>
+			<p>ETSI's MANO intended to provide the full end-to-end lifecycle of NFV orchestration and management – from installation and deployment through post-deployment, or in the telco industry terminology - Day 0 through Day 2 support.
+			</p>
+
+			<p>As MANO is currently just a guideline all implementations of MANO are proprietary, aside from the TOSCA-based agnostic implementation that also enables the plugging in of additional standards like YANG/Netconf for service chaining. </p> 
+
+
+								<hr/>
+
+						<h2><strong>Getting Started</strong></h2>
+						<br/>
+						<ul>
+								<li><a href="/guide/3.1/plugin-vsphere.html" target="_blank">Getting Started with Cloudify and vSphere</a></li>
+								<li><a href="http://getcloudify.org/2014/11/12/vmware-vsphere-vcloud-openstack-hybrid-cloud.html" target="_blank">From VMWare Virtualization to Public Cloud. Now Hybrid Cloud.</a></li>
+								<li><a href="http://getcloudify.org/2014/11/07/openstack-vmware-hybrid-cloud.html" target="_blank">The VMware OpenStack Cloud Conundrum</a></li>
+								</ul>
+								<br/>
+				<div class="aligncenter">
+				<img src="img/vmware-screen.png" width="700">
+				</div>
+				<br/>
+
+					
+				<div class="row">
+		<div class="span2"></div>
+		<div class="span8">
+				<div class="aligncenter">
+				<p>To learn more about Cloudify with vCloud Air visit the vCloud Air Marketplace at <a href="https://solutionexchange.vmware.com/store/products/tosca-based-orchestration-for-vmware-vcloud-air-public-cloud#.VM-ttGjF82Y" target="_blank">solutionexchange.vmware.com</a> or try Cloudify today.</p>
+						<br/>
+							<a class="btn btn-large btn-green btn-rounded" id="goProInner" href="/goPro.html"><i class="icon-plus"></i>  Go Pro!</a>
+							&nbsp; &nbsp;
+							<a class="btn btn-large btn-theme btn-rounded" id="downloadBtnInner" href="/downloads/get_cloudify_3x.html"><i class="icon-download"></i>  Download Now</a>
+							<br/>
+							</br>
+							</div>
+						</div>
+						</div>
+						<div class="span2"></div>
+					</div>
+					</div>
+					</section>
+					<div class="clear"></div>
+</section>

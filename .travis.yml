@@ -1,0 +1,15 @@
+sudo: false
+language: ruby
+rvm:
+  - 2.1
+env:
+  global:
+    - secure: "QbtRjOPzyNQG7wvjFcYm+XnJj87NpTFRuLCndGb0E3R6rAxCnwRGWB4V1dWMwCPiiju5xGEGPhOkGBkMLw+rfykUB6FPn6W0HdAnTVuXUxtZ0dKSSl7fvNcbVg7ThpeQidDq/70okH8Np4Az4cJlhY4VgLsjg+j2hgj2QWO4Ujo="
+    - secure: "dCSTfoyxau2SqOAFThlXe0kSR3wmXF1B+lhCpbWNfYWR2x98fWMmCt01HziS9I5Or2rHuWb6ILsJgEy1q+kCBNKpAH68RQEphR1lrAd9fwnI+G56/l0yVHk58OcVPS34iZEZ6o654U8pDfn5jmkckU1qhlQ/NTwTmNSasCzY52c="
+cache: bundler
+before_install: pip install --user LinkChecker
+script:
+  - bundle exec jekyll serve --detach
+  - /home/travis/.local/bin/linkchecker http://127.0.0.1:4000/ --anchors --no-status --ignore-url=guide/2.7 --ignore-url=guide/2.6 --ignore-url=blog/ --ignore-url=^mailto --ignore-url=bower_components --ignore-url=/downloads/get_cloudify_2x.html --ignore-url=guide/[a-z]
+after_success:
+  - if [ $TRAVIS_BRANCH == "master" ] && [ $TRAVIS_PULL_REQUEST = "false" ]; then bundle exec s3_website push; fi
