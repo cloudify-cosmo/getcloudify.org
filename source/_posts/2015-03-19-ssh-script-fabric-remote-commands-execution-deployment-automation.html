@@ -14,7 +14,7 @@ tags:
 <notextile>
 
 <div class="aligncenter">
-<img src="/remoteexec.png" width="750" alt="Remote Commands | SSH | Remote Execution | Script Fabric | Deployment Automation"></div>
+<img src="/img/remoteexec.png" width="750" alt="Remote Commands | SSH | Remote Execution | Script Fabric | Deployment Automation"></div>
 <br/>
 <br/>
 
@@ -23,9 +23,9 @@ tags:
 
 <p><b></b>
 
-  <p>I have recently been involved in an interesting project that was added in the latest version of <a href="http://getcloudify.org/guide">Cloudify</a> -&#160; the Fabric plugin.&#160; This got me thinking about taking a deeper dive on r<a href="http://getcloudify.org/guide/3.1/plugin-fabric.html">emote execution</a> in general -- i.e. the tools, why it’s needed, and how to actually make the best use of it, and where the Fabric plugin comes into play.</p>
+  <p>I have recently been involved in an interesting project that was added in the latest version of <a href="http://getcloudify.org/guide">Cloudify</a> -&#160; the Fabric plugin.&#160; This got me thinking about taking a deeper dive on <a href="http://getcloudify.org/guide/3.1/plugin-fabric.html">remote execution</a> in general -- i.e. the tools, why it’s needed, and how to actually make the best use of it, and where the Fabric plugin comes into play.</p>
 
-  <p>Ok, So What is Remote Execution?</p>
+  <h2><strong>Ok, So What is Remote Execution?</strong></h2>
 
   <p>Remote execution enables you to invoke commands on a remote server without having to depend on agents. It assumes that basic connectivity to a server is provided (e.g. SSH servers on Linux or WinRM on Windows).</p>
 
@@ -102,7 +102,7 @@ tags:
 
   <p>Since there are highly differing opinions on remote execution, I’d like to address these first and foremost, and discuss some of the pros and cons for remote execution.&#160; Like with every technology remote execution comes with its upsides and downsides. This can highly influence the choice for whether to use this method for configuring &amp; maintaining servers, or deploying code; where the alternative involves two methods -- manual involvement along with configuration management tools, obviously based on the use case.&#160; My personal opinion is that configuration management tools are not the best fit for deploying code, but are a very good fit for maintaining configurations.</p>
 
-  <h4>Why You’d Want to Use Remote Execution</h4>
+  <h2><strong>Why You’d Want to Use Remote Execution</strong></h2>
 
   <p>There’s no need to install agents.</p>
 
@@ -128,7 +128,7 @@ tags:
 
   <p>Agents, depending on their implementation of course, might incur some overhead, e.g. CPU, memory, I/O.</p>
 
-  <h4>Where Remote Execution Falls Short</h4>
+  <h2><strong>Where Remote Execution Falls Short</strong></h2>
 
   <p>Security</p>
 
@@ -152,7 +152,7 @@ tags:
 
   <p>In terms of agents, take Cloudify for example or Puppet, with Cloudify’s agent you receive metrics, and with Puppet reporting. If you choose the agentless method, you are of course missing out on these options. Therefore, both sides of the coin have their considerations to take into account, and you need to weigh the benefits vs. the tradeoffs.</p>
 
-  <h4>How it Works</h4>
+  <h2><strong>How it Works</strong></h2>
 
   <p>Now that we’ve listed why you may or may not want to use remote execution, I’d like to do a high level overview of how it is generally used, and some sample operations you can perform with remote execution.</p>
 
