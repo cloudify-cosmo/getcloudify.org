@@ -92,7 +92,7 @@ Additionally, the default value for the `use_password` property is overridden fo
 **Properties:**
 
   * `private_key_path` *Required*. The path (on the machine the plugin is running on) where the private key should be stored. If `use_external_resource` is set to `true`, the existing private key is expected to be at this path.
-  * `keypair` key-value keypair configuration as described in [OpenStack network create keypair API](http://docs.openstack.org/api/openstack-network/2.0/content/Create_Port.html). Defaults to `{}`.
+  * `keypair` key-value keypair configuration as described in [OpenStack network create keypair API](http://developer.openstack.org/api-ref-compute-v2-ext.html#ext-os-keypairs). Defaults to `{}`.
   * `use_external_resource` a boolean for setting whether to create the resource or use an existing one. See the [using existing resources section](#using-existing-resources). Defaults to `false`.
   * `resource_id` name to give to the new resource or the name or ID of an existing resource when the `use_external_resource` property is set to `true` (see the [using existing resources section](#using-existing-resources)). Defaults to `''` (empty string).
   * `openstack_config` see the [Openstack Configuration](#openstack-configuration).
