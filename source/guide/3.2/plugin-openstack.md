@@ -182,15 +182,6 @@ See the [common Runtime Properties section](#runtime-properties).
 **Properties:**
 
   * `router` key-value router configuration as described in [OpenStack network create router API](http://developer.openstack.org/api-ref-networking-v2.html#layer3). Defaults to `{}`.
-    * **Notes:**
-      * There are several ways to connect a router to an external network: 
-        * The most direct way is to use the `external_network` property, which allows providing either the name or ID of the external network to connect to. 
-        * Another option which may be preferred, especially if there's already a node representing the external network in the blueprint, is to connect the router to the external network using a relationship.  
-        * It's possible to pass the external network ID via the standard Neutron API by using the nested `network_id` key under the `external_gateway_info` key of the `router` property. This will override the value given under the `external_network` property.
-        * If none of the above is provided, and the external-network used by the Cloudify Manager is available in the [Provider-context](#misc), it may be automatically used as the gateway for the router, depending on the value of the `default_to_managers_external_network` property.
-
-      * Don't provide an external network by both an ID/name *and* by relationship - this will result in an error.
-
 
 {%warning title=Deprecation Notice%}
 The `network_name` sugaring under the `external_gateway_info` key is now deprecated; Use the `external_netowrk` property to connect the router to an external network by giving either the external network's name or ID.
@@ -204,6 +195,14 @@ See more information in the [migration guide](Migrating_from_3_1.html).
   * `resource_id` name to give to the new resource or the name or ID of an existing resource when the `use_external_resource` property is set to `true` (see the [using existing resources section](#using-existing-resources)). Defaults to `''` (empty string).
   * `openstack_config` see the [Openstack Configuration](#openstack-configuration).
 
+**Notes:**
+
+  * There are several ways to connect a router to an external network: 
+    * The most direct way is to use the `external_network` property, which allows providing either the name or ID of the external network to connect to. 
+    * Another option which may be preferred, especially if there's already a node representing the external network in the blueprint, is to connect the router to the external network using a relationship.  
+    * It's possible to pass the external network ID via the standard Neutron API by using the nested `network_id` key under the `external_gateway_info` key of the `router` property. This will override the value given under the `external_network` property.
+    * If none of the above is provided, and the external-network used by the Cloudify Manager is available in the [Provider-context](#misc), it may be automatically used as the gateway for the router, depending on the value of the `default_to_managers_external_network` property.
+  * Don't provide an external network by both an ID/name *and* by relationship - this will result in an error.
 
 **Mapped Operations:**
 
