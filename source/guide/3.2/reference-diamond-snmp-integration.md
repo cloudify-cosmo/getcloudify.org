@@ -39,13 +39,13 @@ To define the SNMP polling create a relationship for each device you want to pol
 [An example blueprint](https://github.com/cloudify-cosmo/cloudify-diamond-snmp-extension/blob/CFY-2305-snmp_diamond_integration/proxy_on_manager.yaml)
 
 
-Create a node of snmp_manager_proxy type. Next add relationships as described in snmp_proxy and snmp_manager_proxy paragraphs.
+Create a node of snmp_manager_proxy type. Next add relationships as described in [snmp_proxy and snmp_manager_proxy paragraph](reference-diamond-snmp-integration.html#snmpproxy-and-snmpmanagerproxy).
 
 # SNMP Proxy on seperate VMs
 [An example blueprint](https://github.com/cloudify-cosmo/cloudify-diamond-snmp-extension/blob/CFY-2305-snmp_diamond_integration/separate_proxy.yaml)
 
 To use a separate node you will need a Compute node with Diamond as a monitoring agent. In our example, it is the ProxyServer.
-Next, create a ProxyNode contained in ProxyServer. It should be of the snmp_proxy type. Finally, add relationships as described in snmp_proxy and snmp_manager_proxy paragraphs.
+Next, create a ProxyNode contained in ProxyServer. It should be of the snmp_proxy type. Finally, add relationships as described in [snmp_proxy and snmp_manager_proxy paragraph](reference-diamond-snmp-integration.html#snmpproxy-and-snmpmanagerproxy).
 
 # Collector changes
 
