@@ -107,7 +107,7 @@ widgetModule.controller('widgetController', function( $scope, $timeout, $control
             if (state == 'RUNNING') {
                 // Check if its the first time (and you didnt refresh your page - loadingMachine is set to false unless you click the button)
                 if (!$scope.widgetController.widgetStarted && $scope.widgetController.loadingMachine) {
-                    window.open("http://"+status.nodeModel.publicIp, '_blank');
+                    // window.open("http://"+status.nodeModel.publicIp, '_blank'); // DO NOT OPEN MANAGER AUTOMATICALLY.. 
                     mixpanel.track('Widget Machine Started');
 
                     $scope.startTime = (new Date()).getTime();
