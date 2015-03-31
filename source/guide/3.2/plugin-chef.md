@@ -273,14 +273,14 @@ node_templates:
       - type: cloudify.relationships.connected_to
         target: example_db_server
 
-    example_db_server:
-      type: cloudify.chef.nodes.DBMS
-      ...
-      properties:
-        chef_config:
-          ...
-          attributes:
-            db_port: {related_chef_attribute: db.port}
+  example_db_server:
+    type: cloudify.chef.nodes.DBMS
+    ...
+    properties:
+      chef_config:
+        ...
+        attributes:
+          db_port: {related_chef_attribute: db.port}
 {%endhighlight%}
 
 
