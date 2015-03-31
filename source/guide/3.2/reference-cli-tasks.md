@@ -13,47 +13,6 @@ This page will give a high level description of them.
 {%endsummary%}
 
 
-# bootstrap
-
-## Overview
-
-This bootstrap task uses the Fabric plugin to bootstrap a Cloudify Manager.
-
-It's currently a part of the CLI code, and can be found at / mapped to: `cloudify_cli.bootstrap.tasks.bootstrap`.
-
-The task does the following:
-
-1) It connects to the Manager machine, downloads the various Cloudify packages and installs them.
-
-2) If supplied with one, it uploads an agent private key file to the Manager machine.
-
-3) It sets various runtime-properties on the *manager* node instance - this will later be used by the CLI to extract data in order to set the configuration for the local environment.
-
-4) It uploads the [*provider context*](reference-terminology.html#provider-context) object to the Manager via the Manager's REST service.
-
-
-## API
-
-The bootstrap task takes several parameters:
-
-  * ***cloudify_packages*** - This is the only required parameter. It points at links of Cloudify packages to be installed on the Manager, and it should be in the same schema as the *manager*'s node `cloudify_packages` property. See the reference for the [CloudifyManager type](reference-types.html#cloudifymanager-type) for more information.
-
-  * ***agent_local_key_path*** - Optional parameter. Sets the agent private key local file path. This file will be uploaded to the Manager machine and be used by default for setting up and connecting to Cloudify agent hosts. If omitted, no agent key file will be uploaded to the Manager machine.
-
-  * ***agent_remote_key_path*** - Optional parameter. Sets the agent private key remote file path. This is the path on the manager to which the agent private key file will be uploaded. If this parameter is omitted, the file will placed in `~/.ssh/agent_key.pem`.
-
-  * ***manager_private_ip*** - Optional parameter. This is the IP that will be used by agent hosts to communicate with the Manager machine (it should be the private IP since they communicate via an internal network). If this parameter is omitted, the *manager*'s node instance's `host_ip` will be used instead.
-
-  * ***provider_context*** - Optional parameter. *Provider context* is a deprecated feature that allows for setting Manager-level context information with data created during the bootstrap process, used primarily to improve accessibility in plugins. Note that whether this parameter is supplied or not, a *provider context* object will be uploaded to the server, as additional information is automatically appended to it by the bootstrap task.
-
-
-{%note title=Note%}
-While not explicitly a part of the signature of the bootstrap task,
-the Manager's private IP is somewhat of a parameter to the task as well: If it isn't set explicitly for
-the Fabric plugin (using the `host_string` parameter), then the Fabric plugin will attempt to use
-the *manager*'s node instance's `host_ip` instead, and try and connect to it.
-{%endnote%}
-
 # bootstrap_docker
 
 ## Overview
