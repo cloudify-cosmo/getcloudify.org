@@ -11,7 +11,7 @@ category: Widget
                     <div class="row">
                         <div class="span4">
                             <div class="inner-heading">
-                                <h1><i class="icon-picture"></i>Cloudify Online Trial</h1>
+                                <h1><i class="icon-dashboard"></i>Cloudify Online Trial</h1>
                             </div>
 
                             <p>Click the 'Try It Now button' below, we'll set up a dedicated Cloudify manager instance for you
@@ -32,7 +32,7 @@ category: Widget
                                     </div>
                                     <br/>
                                     <button id="tryNowBtn" disabled="disabled" ng-disabled="!widgetController.widgetLoaded "
-                                            type="submit" class="btn btn-primary span4" ng-click="tryItNowBtn()"
+                                            type="submit" class="btn btn-inverse span4" ng-click="tryItNowBtn()"
                                             ng-bind="widgetController.buttonText">Loading...
                                     </button>
                                 </fieldset>
@@ -46,11 +46,15 @@ category: Widget
                                     ng-bind="widgetController.machineIp"></a>
                                 You have <span ng-bind="getTimeLeft()"></span> minutes left for your
                                 trial.
-                                <button style="display: block;width: 100%;margin-top: 10px;" class="btn btn-primary"
+                                <button style="display: block;width: 100%;margin-top: 10px;" class="btn btn-inverse"
                                         ng-click="stopTrial()" ng-bind="widgetController.stopButtonText"
                                         ng-disabled="!widgetController.machineStarted">I'm done, thanks
                                 </button>
                             </div>
+                            <br/>
+                             <a class="btn btn-green btn-large btn-rounded" href="/guide/3.1/quickstart.html"><i class="icon icon-book"></i> Get Started Now</a>
+                        &nbsp; &nbsp;
+                        <a class="btn btn-theme btn-large btn-rounded" id="downloadBtnInner" href="/downloads/get_cloudify_3x.html"><i class="icon-download"></i>  Download Now</a>
 
                         </div>
                         <div class="span8 media-section">
@@ -59,7 +63,7 @@ category: Widget
                                     class="hover-wrap fancybox fancybox.iframe" data-fancybox-group="gallery"
                                     title="Cloudify Intelligent Orchestration on Any Cloud"
                                     href="https://www.youtube.com/embed/HuSHVElk7to?enablejsapi=1&wmode=opaque">
-                                <img class="bannerWidgetTextImg" src="img/hpBanner21.png"
+                                <img class="bannerWidgetTextImg" src="img/AboutThumbnail.png"
                                      alt="Cloudify - How to use the Cloudify Widget"/></a></div>
 
                             <div class="butterfly-iframe" ng-show="!!widgetController.machineStarted">
@@ -76,9 +80,7 @@ category: Widget
                         </div>
                     </div>
                 </div>
-                        <a style="margin: 0 0 0 28px;border-radius: 15px;font-size: 14px; line-height: 19px; padding: 5px 10px !important; height: 20px;" class="btn btn-green btn-large btn-rounded" id="goProInner" href="/guide/3.1/quickstart.html"><i class="icon icon-book"></i> Get Started Now</a>
-                        &nbsp;
-                        <a style="margin: 0 0 0 28px;border-radius: 15px;font-size: 14px; line-height: 19px; padding: 5px 10px !important; height: 20px;" class="btn btn-theme btn-large btn-rounded" id="downloadBtnInner" href="/downloads/get_cloudify_3x.html"><i class="icon-download"></i>  Download Now</a>
+                       
             </div>
             <iframe id="widgetFrame"
                     class="ng-scope"
