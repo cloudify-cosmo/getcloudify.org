@@ -280,7 +280,7 @@ node_templates:
       chef_config:
         ...
         attributes:
-          db_port: {related_chef_attribute: db.port}
+          db_port: 27017
 {%endhighlight%}
 
 
