@@ -60,7 +60,7 @@ Each type has property `vcloud_config`. It can be used to pass parameters for au
   * `cloudify.interfaces.lifecycle.start` starts the VApp, if it's not already started.
   * `cloudify.interfaces.lifecycle.stop` stops the VApp, if it's not already stopped.
   * `cloudify.interfaces.lifecycle.delete` deletes the VApp and waits for termination.
-  * `cloudify.interfaces.host.get_state` checks whether the VM is in started state.
+  * `cloudify.interfaces.lifecycle.creation_validation` validates Server node parameters before creation.
 
 **Attributes:**
 
@@ -98,7 +98,7 @@ Two additional runtime-properties are available on node instances of this type o
 
   * `cloudify.interfaces.lifecycle.create` creates the network
   * `cloudify.interfaces.lifecycle.delete` deletes the network
-  * `cloudify.interfaces.lifecycle.creation_validation` validates network node parameters before creation
+  * `cloudify.interfaces.lifecycle.creation_validation` validates Network node parameters before creation
 
 **Attributes:**
 
@@ -121,7 +121,7 @@ Two additional runtime-properties are available on node instances of this type o
 
 **Mapped Operations:**
 
-  * `cloudify.interfaces.lifecycle.creation_validation` validates port node parameters
+  * `cloudify.interfaces.lifecycle.creation_validation` validates Port node parameters
 
 
 ## cloudify.vcloud.nodes.FloatingIP
@@ -157,7 +157,7 @@ Two additional runtime-properties are available on node instances of this type o
     * `protocol` network protocol. Can be 'tcp', 'udp' or 'any'. Applies only for 'DNAT'.
     * `original_port` original port. Applies only for 'DNAT'.
     * `translated_port` translated port. Applies only for 'DNAT'.
-    * `type` list of strings containing NAT types. Can be 'SNAT', 'DNAT' or both.
+    * `type` list of NAT types. Can be 'SNAT', 'DNAT' or both.
 * `vcloud_config` see the [vCloud Configuration](#vcloud-configuration).
 
 **Mapped Operations:**
@@ -183,6 +183,30 @@ Two additional runtime-properties are available on node instances of this type o
 **Mapped Operations:**
 
   * `cloudify.interfaces.lifecycle.creation_validation` validates KeyPair node parameters
+
+
+## cloudify.vcloud.nodes.SecurityGroup
+
+**Derived From:** [cloudify.nodes.SecurityGroup](reference-types.html)
+
+**Properties:**
+
+* `security_group` key-value SecurityGroup configuration
+    * `edge_gateway` vCloud gateway name
+* `rules` security group rules; list of key-value configurations
+    * `protocol` 'tcp', 'udp', 'icmp' or 'any'
+    * `source` source of traffic to apply firewall rule on. Can be 'internal', 'external', 'host', 'any', ip address or ip range.
+    * `source_port` port number or 'any'
+    * `destination` destination of traffic to apply firewall rule on. Can be 'internal', 'external', 'host', 'any', ip address or ip range.
+    * `destination_port` port number or 'any'
+    * `action` 'allow' or 'deny'
+    * `log_traffic` capture traffic, 'true' or 'false'
+    * `description` rule description
+* `vcloud_config` see the [vCloud Configuration](#vcloud-configuration).
+
+**Mapped Operations:**
+
+  * `cloudify.interfaces.lifecycle.creation_validation` validates SecurityGroup node parameters
 
 
 # Relationships
@@ -216,7 +240,15 @@ Two additional runtime-properties are available on node instances of this type o
 **Mapped Operations:**
 
   * `cloudify.interfaces.relationship_lifecycle.establish`: associates PublicNAT with Server.
-  * `cloudify.interfaces.relationship_lifecycle.unlink`: dissociates PublicNAT from Server
+  * `cloudify.interfaces.relationship_lifecycle.unlink`: dissociates PublicNAT from Server.
+
+## cloudify.vcloud.server_connected_to_security_group
+**Description:** A relationship for associating SecurityGroup and Server.
+
+**Mapped Operations:**
+
+  * `cloudify.interfaces.relationship_lifecycle.establish`: associates SecurityGroup with Server.
+  * `cloudify.interfaces.relationship_lifecycle.unlink`: dissociates SecurityGroup from Server.
 
 ## cloudify.vcloud.net_connected_to_public_nat
 **Description:** A relationship for associating PublicNAT and Network.
@@ -224,7 +256,7 @@ Two additional runtime-properties are available on node instances of this type o
 **Mapped Operations:**
 
   * `cloudify.interfaces.relationship_lifecycle.establish`: associates PublicNAT with Network.
-  * `cloudify.interfaces.relationship_lifecycle.unlink`: dissociates PublicNAT from Network
+  * `cloudify.interfaces.relationship_lifecycle.unlink`: dissociates PublicNAT from Network.
 
 
 # Examples
@@ -354,6 +386,7 @@ The structure of the JSON file in section (1), as well as of the `vcloud_config`
     "username": "",
     "password": "",
     "url": "",
+    "org": "",
     "vdc": "",
     "service": "",
     "service_type": "",
@@ -366,11 +399,14 @@ The structure of the JSON file in section (1), as well as of the `vcloud_config`
 * `username` vCloud account username.
 * `password` vCloud account password.
 * `url` vCloud url.
+* `org` Organization name.
 * `vdc` Virtual Datacenter name.
 * `service` vCloud Service name.
 * `service_type` service type. Can be `subscription`, `ondemand` or `private`. Defaults to `subscription`.
 * `api_version` vCloud API version. For Subscription defaults to `5.6`, for OnDemand - to `5.7`.
 * `region` region name. Applies for OnDemand.
+* `org_url` organization url. Required only for `private` service type.
+* `edge_gateway` edge gateway name.
 
 
 {%tip title=Tip%}

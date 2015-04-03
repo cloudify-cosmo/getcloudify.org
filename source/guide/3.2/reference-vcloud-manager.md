@@ -22,6 +22,7 @@ This reference only explains the structure and various values in the blueprint. 
 * `vcloud_password` Password on vCloud.
 * `vcloud_url` vCloud URL.
 * `vcloud_service` vCloud service name
+* `vcloud_org` vCloud organization name
 * `vcloud_vdc` vCloud Virtual Datacenter name
 * `manager_server_name` Manager name
 * `manager_server_catalog` VApp templates catalog
