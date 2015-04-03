@@ -186,7 +186,7 @@ See the [common Runtime Properties section](#runtime-properties).
 {%warning title=Deprecation Notice%}
 The `network_name` sugaring under the `external_gateway_info` key is now deprecated; Use the `external_netowrk` property to connect the router to an external network by giving either the external network's name or ID.
 
-See more information in the [migration guide](Migrating_from_3_1.html).
+See more information in the [migration guide](migrating-from-3.1.html).
 {%endwarning%}
 
   * `external_network` An external network name or ID. If given, the router will use this external network as a gateway. Defaults to `''` (empty string).
