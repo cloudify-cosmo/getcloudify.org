@@ -150,13 +150,13 @@ For both types of workflows, it's of course possible to catch `api.ExecutionCanc
 {%warning title=Deprecation Notice%}
 The `api.EXECUTION_CANCELLED_RESULT` value, which may have been returned from a workflow to signal that it has cancelled sucessfully, is now deprecated. Raise the `api.ExecutionCancelled` error instead to indicate such an event.
 
-See more information in the [migration guide](Migrating_from_3_1.html).
+See more information in the [migration guide](migrating-from-3.1.html).
 {%endwarning%}
 
 {%warning title=Backwards Compatibility Notice%}
 The Graph API will now raise an `api.ExecutionCancelled` error instead of returning the deprecated `api.EXECUTION_CANCELLED_RESULT` in the event of an execution cancellation. This means that any workflows which made any additional operations beyond the call to the graph's `execute` method, should now use a *try-finally* clause to be able to perform these additional operations and still raise the approriate error once they're done.
 
-See more information in the [migration guide](Migrating_from_3_1.html).
+See more information in the [migration guide](migrating-from-3.1.html).
 {%endwarning%}
 
 {%note title=Note%}

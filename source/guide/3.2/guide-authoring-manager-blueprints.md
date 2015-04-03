@@ -96,7 +96,7 @@ In this case, the only relevant mapping should be the *start* operation, and it 
 {%endnote%}
 
 The bootstrap task takes several parameters which are passed via the `task_properties` input.
-You can find their documentation in the [Bootstrap Docker Task API reference](reference-cli-task.html#bootstrap_docker).
+You can find their documentation in the [Bootstrap Docker Task API reference](reference-cli-tasks.html#bootstrapdocker).
 
 
 
