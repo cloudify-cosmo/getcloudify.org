@@ -13,7 +13,7 @@ reference_openstack_manager_link: reference-openstack-manager.html
 {%summary%}{{page.abstract}}{%endsummary%}
 
 {%tip title=Try Instantly%}
-You can take Cloudify for an instant test drive with an [online trial](http://getcloudify.org/widget.html)
+You can take Cloudify for an instant test drive with an [online trial.](http://getcloudify.org/widget.html)
 {%endtip%}
 
 # Overview
