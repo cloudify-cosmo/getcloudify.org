@@ -20,7 +20,7 @@ workflows_link: reference-builtin-workflows.html
 In this tutorial you will bootstrap a Cloudify manager on a cloud environment and install a sample Cloudify blueprint on it.
 
 This tutorial shows how to bootstrap a Cloudify manager on:
- 
+
   - [OpenStack](plugin-openstack.html)
   - [Softlayer](softlayer-openstack.html)
 
@@ -177,11 +177,11 @@ You will, at the very least, have to provide the mandatory inputs.
 
 {%info%}
 This tutorial uses softlayer manager blueprint on Docker and it requires:
-  
-  * The `os` input should be *4668* - the item id of *Ubuntu Linux 14.04 LTS Trusty Tahr - Minimal Install (64 bit)* 
+
+  * The `os` input should be *4668* - the item id of *Ubuntu Linux 14.04 LTS Trusty Tahr - Minimal Install (64 bit)*
   * A link to a script that installs curl must be specified (needed for the Docket installation) in the `provision_scripts` input.
 	* for example: [a script that installs curl](https://raw.githubusercontent.com/cloudify-cosmo/cloudify-softlayer-plugin/master/softlayer_plugin/scripts/postprov.sh)
-	* Alternatively, create an image id of a server on SoftLayer that have curl or docker installed on it, and specify the `image_template_id` instead of the `os` input. 
+	* Alternatively, create an image id of a server on SoftLayer that have curl or docker installed on it, and specify the `image_template_id` instead of the `os` input.
 {%endinfo%}
 
 For more information see the [SoftLyaer Manager Reference](reference-softlayer-manager.html).
@@ -237,10 +237,10 @@ sudo pip install -r requirements.txt
 {%endnote%}
 
 
-This should take a few minutes to complete.
+This should take a few minutes to complete (depending on how responsive your Cloud environment is).
 After validating the configuration, `cfy` will create the management VM, related
 networks and security groups (the latter two will not be created if they already exist),
-download the relevant Cloudify manager packages from the internet and install all of the components.
+download the relevant Cloudify manager packages and install all of the components.
 At the end of this process you should see the following message:
 
 {% highlight bash %}
@@ -249,7 +249,7 @@ management server is up at <YOUR MANAGER IP ADDRESS>
 {% endhighlight %}
 
 To validate this installation, point your web browser to the manager IP address (port 80).
-You should see Cloudify's Web UI.
+You should see Cloudify's Web UI (if you're using the commercial version).
 At this point there's nothing much to see since you haven't uploaded any blueprints yet.
 
 ## Step 4: Upload the Blueprint and Create a Deployment
@@ -290,7 +290,7 @@ Point your browser at the manager's URL again and refresh the screen, you will s
 
 ![Blueprints table](/guide/images3/guide/quickstart/blueprints_table.png)
 
-Click the blueprint, and you can see its topology. 
+Click the blueprint, and you can see its topology.
 
 A [topology]({{page.terminology_link}}#topology) consists of elements called [nodes]({{page.terminology_link}}#node).
 
@@ -347,33 +347,33 @@ agent_user: ubuntu
 {% highlight yaml %}
 inputs:
 
-  location: 
+  location:
     description: >
       Location of the data center
       Default value is the location id of Hong kong 2
     default: 352494
-  domain: 
+  domain:
     description: The domain
     default: nodecellar.cloudify.org
-  ram: 
+  ram:
     description: >
       Item id of the ram
       Default value is the item id of 16 GB
     default: 1017
-  cpu: 
+  cpu:
     description: >
       Item id of the cpu
       Default value is the item id of 4 x 2.0 GHz Cores
     default: 859
-  disk: 
+  disk:
     description: >
       Item id of the disk
       Default value is the item id of 25 GB (SAN)
     default: 1178
-  os: 
+  os:
     description: >
       Item id of the operating system
-      Default value is the item id of Ubuntu Linux 12.04 
+      Default value is the item id of Ubuntu Linux 12.04
     default: 4174
 {%endhighlight%}
 
@@ -395,7 +395,7 @@ location: '168642'
 
 {% endgcloak %}
 
-Next, we need to create a deployment. 
+Next, we need to create a deployment.
 
 To do so, type the following command:
 
@@ -403,7 +403,7 @@ To do so, type the following command:
 cfy deployments create -b nodecellar -d nodecellar --inputs inputs.yaml
 {%endhighlight%}
 
-We've now created a deployment named `nodecellar` based on a blueprint with the same name. 
+We've now created a deployment named `nodecellar` based on a blueprint with the same name.
 
 This deployment is not yet materialized, since we haven't issued an installation command.
 
@@ -450,7 +450,7 @@ To add mongo related graphs to the dashboard, have a look at [Adding Custom Grap
 
 ## Step 6: Test Drive the Application
 
-Once the workflow execution is complete, we can view the application endpoint by running: 
+Once the workflow execution is complete, we can view the application endpoint by running:
 {%highlight bash%}
 cfy deployments outputs -d nodecellar
 {%endhighlight%}
@@ -497,7 +497,7 @@ cfy deployments delete -d nodecellar
 
 ## Step 10: Teardown the Manager
 
-Next, you can also teardown the manager if you have no use for it anymore. 
+Next, you can also teardown the manager if you have no use for it anymore.
 
 This can be done by issuing the following command:
 
@@ -510,7 +510,7 @@ This will terminate the manager VM and delete the resources associated with it.
 
 # What's Next
 
-For a more elaborate installation tutorial, please refer to 
-	
+For a more elaborate installation tutorial, please refer to
+
 - the [Openstack Manager Reference](reference-openstack-manager.html).
 - the [SoftLyaer Manager Reference](reference-softlayer-manager.html).
