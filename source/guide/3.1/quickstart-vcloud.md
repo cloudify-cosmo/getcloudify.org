@@ -12,6 +12,9 @@ reference_vcloud_manager_link: reference-vcloud-manager.html
 ---
 {%summary%}{{page.abstract}}{%endsummary%}
 
+{%tip title=Try Instantly%}
+You can take Cloudify for an instant test drive with [the Cloudify Widget](http://getcloudify.org/widget.html)
+{%endtip%}
 
 {%warning title=Disclaimer%}vCloud plugin is under development.{%endwarning%}
 
