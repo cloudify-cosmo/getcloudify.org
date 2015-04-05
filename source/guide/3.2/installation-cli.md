@@ -29,10 +29,6 @@ Cloudify CLI (AKA cfy) is being distributed in two different methods:
 The binary package is only able to bootstrap Openstack manager. If you wish to bootstrap other environments,
 you should [install the CLI via PyPi](#installing-from-pypi).{% endtip %}
 
-{%note title=OpenStack provider%}
-The binary package is bundled with the [Openstack provider](https://github.com/cloudify-cosmo/cloudify-openstack-provider) as well. The Providers mechanism is deprecated and will not be available in the next release.
-{%endnote%}
-
 # Installing the binary package
 
 ## Windows
