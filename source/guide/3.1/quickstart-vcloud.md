@@ -16,9 +16,11 @@ reference_vcloud_manager_link: reference-vcloud-manager.html
 You can take Cloudify for an instant test drive with an [online trial.](http://getcloudify.org/widget.html)
 {%endtip%}
 
+<br>
 
-
-{%warning title=Disclaimer%}vCloud plugin is under development.{%endwarning%}
+{%warning title=Disclaimer%}
+vCloud plugin is under development.
+{%endwarning%}
 
 
 # Overview
