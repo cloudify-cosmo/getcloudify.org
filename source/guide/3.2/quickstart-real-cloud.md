@@ -17,7 +17,7 @@ workflows_link: reference-builtin-workflows.html
 
 # Overview
 
-In this tutorial you will bootstrap a Cloudify manager on a cloud environment and install a sample Cloudify blueprint on it.
+In this tutorial you will bootstrap cloudify-manager dir a Cloudify manager on a cloud environment and install a sample Cloudify blueprint on it.
 
 This tutorial shows how to bootstrap a Cloudify manager on:
 
@@ -26,14 +26,14 @@ This tutorial shows how to bootstrap a Cloudify manager on:
 
 The blueprint you'll be deploying describes a nodejs application that connects to a MongoDB database and presents a wine catalog.
 
-  - [openstack nodecellar blueprint]({{page.openstack_blueprint_file_link}})
-  - [softlayer nodecellar blueprint]({{page.softlayer_blueprint_file_link}})
+  - [OpenStack nodecellar blueprint]({{page.openstack_blueprint_file_link}})
+  - [SoftLayer nodecellar blueprint]({{page.softlayer_blueprint_file_link}})
 
 To learn more about blueprint syntax and elements please refer to the [Blueprint Authoring Guide](guide-blueprint.html).
 
 # Before You Begin
 
-It is recommended that you try the [Getting started guide](quickstart.html) first familiarize
+It is recommended that you try the [Getting started guide](quickstart.html) first to familiarize
 yourself with Cloudify and its concepts.
 Also, to complete this tutorial you'll need to have a cloud environment of yout choice and credentials.
 
@@ -47,7 +47,7 @@ To do so follow the steps described in the [CLI installation guide](installation
 
 ## Step 2: Download the Manager Blueprint
 
-Next, let's create a cloudify-manager dir and download the Manager Blueprint.
+Next, let's create a cloudify-manager directory and download the Manager Blueprint.
 
 {% highlight bash %}
 mkdir -p ~/cloudify-manager
