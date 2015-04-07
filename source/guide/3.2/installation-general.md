@@ -54,7 +54,7 @@ The Manager must be available in the following ports:
 
 ### Management Server
 
-Cloudify's Docker implementation was tested on Ubuntu 14.04 and Centos 6.5 and is based on the [phusion/baseimage](https://github.com/phusion/baseimage-docker) Docker Image (Ubuntu 14.04).
+Cloudify's Docker implementation was tested on Ubuntu 14.04 and Centos 7.0 and is based on the [phusion/baseimage](https://github.com/phusion/baseimage-docker) Docker Image (Ubuntu 14.04).
 
 {%note title=Note%}
 If the host machine Docker is running on is based on Ubuntu 14.04, we will attempt to install Docker for you (if it isn't already installed. Requires an internet connection). For any other distribution (and release), you'll have to verify that Docker is installed prior to bootstrapping.
