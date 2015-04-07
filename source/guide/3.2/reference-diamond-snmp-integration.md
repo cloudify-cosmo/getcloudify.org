@@ -20,13 +20,13 @@ Here you can find [Diamond plugin guide](plugin-diamond.html)
 All node types you will need are defined in [snmp-types.yaml](https://github.com/cloudify-cosmo/cloudify-diamond-snmp-extension/blob/CFY-2305-snmp_diamond_integration/snmp-types.yaml). The security group necessary for OpenStack is defined in [openstack-snmp-types.yaml](https://github.com/cloudify-cosmo/cloudify-diamond-snmp-extension/blob/CFY-2305-snmp_diamond_integration/openstack-snmp-types.yaml). SNMP proxy is a node responsible for gathering the requested metrics from SNMP devices and sending them to RabbitMQ on behalf of those devices as if they were reporting those metrics by themselves (the proxy should be transparent).
 
 ## snmp_monitored_host
-snmp_monitored_host exists in the blueprints only as a simulation of a monitored device. We assume that SNMP works on the device and that the SNMP proxy can access it. In our example the snmp_monitored_host is a virtual machine with Ubuntu. The snmpd_configuring_node installs SNMP daemon and changes its configuration so it can be polled from anywhere.
+snmp_monitored_host exists in the sample blueprints only as a simulation of a monitored device. We assume that the device runs some SNMP agent (snmpd in our examples) and that the SNMP proxy can access it. In our examples the snmp_monitored_host is a virtual machine with Ubuntu installed on it. The snmpd_configuring_node (see blueprints) installs the SNMP daemon (snmpd) and modifies its configuration so that it can be polled for metrics from anywhere.
 
 ## snmp_proxy and snmp_manager_proxy
 The nodes that poll the SNMP devices.
-snmp_proxy is located  on a separate compute node and snmp_manager_proxy on the Manager.
+snmp_proxy is located on a separate compute node and snmp_manager_proxy on the Manager.
 
-To define the SNMP polling create a relationship for each device you want to poll. You need to add a preconfigure operation that will change the SNMPProxyCollectors configuration. In the inputs you need to specify:
+To setup SNMP polling create a relationship for each device you want to poll. You need to add a preconfigure operation that will change the SNMPProxyCollector's configuration. In this operation's inputs you need to specify the following properties:
 
 * `port` (default: 161)
 * `community` (default: public)
@@ -39,7 +39,7 @@ To define the SNMP polling create a relationship for each device you want to pol
 [An example blueprint](https://github.com/cloudify-cosmo/cloudify-diamond-snmp-extension/blob/CFY-2305-snmp_diamond_integration/proxy_on_manager.yaml)
 
 
-Create a node of snmp_manager_proxy type. Next add relationships as described in [snmp_proxy and snmp_manager_proxy paragraph](reference-diamond-snmp-integration.html#snmpproxy-and-snmpmanagerproxy).
+Create a node of the snmp_manager_proxy type. Next add relationships as described in [snmp_proxy and snmp_manager_proxy paragraph](reference-diamond-snmp-integration.html#snmpproxy-and-snmpmanagerproxy).
 
 # SNMP Proxy on seperate VMs
 [An example blueprint](https://github.com/cloudify-cosmo/cloudify-diamond-snmp-extension/blob/CFY-2305-snmp_diamond_integration/separate_proxy.yaml)
@@ -52,4 +52,4 @@ Next, create a ProxyNode contained in ProxyServer. It should be of the snmp_prox
 [snmpproxy.py](https://github.com/cloudify-cosmo/cloudify-diamond-snmp-extension/blob/CFY-2305-snmp_diamond_integration/collectors/snmpproxy.py)
 
 
-SNMPProxyCollector that inherits from SNMPRawCollector. The only difference is the path used to publish metric. In our implementation, it is adjusted to [cloudify-diamond-plugin](https://github.com/cloudify-cosmo/cloudify-diamond-plugin).
+SNMPProxyCollector that inherits from SNMPRawCollector. The only difference is the path used to publish metrics. In our implementation, it is designed to be compatible with [cloudify-diamond-plugin](https://github.com/cloudify-cosmo/cloudify-diamond-plugin).
