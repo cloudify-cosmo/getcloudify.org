@@ -1,0 +1,152 @@
+---
+layout: blogpost
+title: What is a Workflow?! Working with Workflows - Part I of III
+image: trammell.jpg
+author: Luther Trammell
+tags:
+ - Workflow Automation
+ - Cloud Orchestration
+ - Workflow Engine
+ - Tutorials
+ - Open Source
+---
+
+<notextile>
+
+<div class="aligncenter">
+<img src="/img/blog/cloudifyarchitecture.png"  alt="What is a Workflow | What is Workflow | Workflow Automation | Workflow Engine| Open Source | Cloud Orchestration"></div>
+<br/>
+<br/>
+
+
+<p><b></b></p>
+
+<p><b></b>
+
+    
+<p><b></b>
+
+  <p>As part of my Cloudify discovery - I’ve encountered another topic which I think needs slight backtracking, and a bit more of an introduction, to get to the more deeper dive of the documentation.&#160; So in this series of posts I’m going to dive into what is a <a href="http://getcloudify.org/guide/3.0/guide-workflows.html" target="_blank">workflow</a>?! And then how to install them, and then ultimately how to scale them.</p>
+
+  <p>So, I’m going to start from the very beginning, and you’re welcome to start your reading wherever you are in the story.</p>
+
+  <p>Cloudify uses blueprints to describe the orchestration of cloud architectures, where each component in the blueprint is either a <a href="http://getcloudify.org/guide/3.1/dsl-spec-node-types.html" target="_blank">node</a> or a <a href="http://getcloudify.org/guide/3.1/dsl-spec-relationships.html" target="_blank">relationship</a>.</p>
+
+   <hr>
+
+<span class="pullquote-left">
+  <font style="font-weight: bold" size="5" face="Baskerville Old Face"><em>Cloudify workflows out of the box - at any scale.</em></font>&nbsp; <a class="btn btn-medium btn-theme btn-rounded" id="downloadBtnInner" href="http://getcloudify.org/downloads/get_cloudify_3x.html" target="_blank"><i class="icon-plus"></i> Go </a></span>
+  
+  <hr>
+
+  <p>So for example, a node, can be a virtual host, a security group, an application, you get the idea.</p>
+
+  <p>Two nodes may be connected through a relationship, such as a virtual host that is contained_in a security group, or an IP address that is connected_to an interface.</p>
+
+  <p>While, this description makes architecture look static, orchestration implies dynamism - and this is where workflows come into the mix. Cloudify’s workflows allow otherwise static nodes, and relationships, to have programmable behaviors.</p>
+
+  <p>In an earlier blogpost, I referred to Cloudify’s built-in workflows, which provide the framework for how to make infrastructure flexible, mutable, “<a href="http://getcloudify.org/2015/01/06/cloudify-cloud-open-source-workflow-engine-automation-template-tools-plugin.html" target="_blank">orchestrate-able</a>”. </p>
+
+  <p>Take, for example, the <a href="http://getcloudify.org/guide/3.1/installation-bootstrapping.html" target="_blank">Cloudify Manager Bootstrap process</a>.</p>
+
+  <p>In this scenario, we have many nodes - security groups, key pairs, virtual hosts, etc.</p>
+
+  <p>But, the central component, the raison d'être (fancy wording for basic premise) - of the entire thing, is the Cloudify Manager, which is the hub of all our orchestration efforts.</p>
+
+  <p>This manager application is a node and it is contained_in and connected_to, either explicitly, or through inheritance, to various other nodes.</p>
+
+  <p>Workflows do the connecting and determine when each operation is performed.</p>
+
+  <p>When we bootstrap a manager, the install workflow makes sure the manager is installed on the right server and that it happens at the right time.</p>
+
+  <p>This workflow contains a specific order of operations. Here are a few:</p>
+
+  <ol>
+    <li>
+      <p>Create operations for each of the nodes in the blueprint</p>
+    </li>
+
+    <li>
+      <p>Pre-configure operations for each of the relationships in the blueprint</p>
+    </li>
+
+    <li>
+      <p>Configure operations for each of the nodes</p>
+    </li>
+
+    <li>
+      <p>Post-configure operations for each of the relationships</p>
+    </li>
+
+    <li>
+      <p>Start operation for each of the nodes</p>
+    </li>
+  </ol>
+
+  <p>When you are writing a blueprint, you need to decide when you want certain operations to execute. Truthfully, this can be an intellectual exercise if you want it to be. You might consider combining certain tasks. You might have dependency loops. And so on.</p>
+
+  <p>Here are some basic rules:</p>
+
+  <p>First, make a list of the broad steps that you would need to set up your infrastructure.</p>
+
+  <p>For example, when we bootstrap a manager, we need to:</p>
+
+  <ol>
+    <li>
+      <p>Create the manager security groups and key pair,</p>
+    </li>
+
+    <li>
+      <p>Create the virtual host,</p>
+    </li>
+
+    <li>
+      <p>Install the manager software on the virtual host,</p>
+    </li>
+
+    <li>
+      <p>And, finally, attach the IP address.</p>
+    </li>
+  </ol>
+
+  <p>For now, let’s assume we have the security groups and key pairs.</p>
+
+  <p>When we bootstrap the manager, we need to make sure that two things happen in a particular order:</p>
+
+  <ol>
+    <li>
+      <p>The virtual host must be up and running.</p>
+    </li>
+
+    <li>
+      <p>The manager must be installed on the virtual host.</p>
+    </li>
+  </ol>
+
+  <p>The contained_in relationship illustrates the correct relationships of this scenario.</p>
+
+  <p>Notice the manager definition in the manager bootstrap blueprint, which I’ve abridged (for conciseness):</p>
+
+  <p> <script src="https://gist.github.com/shar1z/6cb85477cd7cd54082b9.js"></script></p>
+
+
+  <p>See: Simple Manager Blueprint in the Cloudify Manager Blueprint <a href="https://github.com/cloudify-cosmo/cloudify-manager-blueprints/blob/master/simple/simple-manager-blueprint.yaml" target="_blank">repository</a>.</p>
+
+  <p>The contained_in relationship will make sure the manager_host node is up and running before anything else happens. </p>
+
+  <p>The contained_in relationship, and the start operation illustrate the power of the workflows.</p>
+
+  <p>Remember earlier we discussed the order of operations in the install workflow. The create happens on the node before the pre-configure on the relationship.</p>
+
+  <p>If the bootstrap operation was mapped to the create or configure operation, the install workflow would perform operations related to the contained_in relationship after the manager bootstrap took place.</p>
+
+  <p>In other words, the relationship wouldn’t be ready, the manager wouldn’t know where to install, and our workflow would end in an error.&#160; So that is why the bootstrap operation is mapped to the start operation.</p>
+
+  <p>This is a simple illustration of using workflows.</p>
+
+  <p>So before this becomes overload - I’ll stop here, and let you process how the operations works, and the order of dependencies through this example.</p>
+
+  <p>In my next post, I’ll dive into a more complex scenario and demonstrate how to install Docker on multiple nodes - and in the final post of the series I’ll dive into how to scale both the simple and&#160; more complex workflow.</p></p>
+
+
+  </notextile>
