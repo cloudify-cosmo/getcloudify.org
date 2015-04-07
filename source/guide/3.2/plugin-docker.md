@@ -7,8 +7,8 @@ abstract: "Docker plugin description and configuration"
 pageord: 210
 
 yaml_link: http://getcloudify.org/spec/docker-plugin/1.1/plugin.yaml
-fabric_link: http://getcloudify.org/guide/3.1/plugin-fabric.html
-plugin_version: 1.1
+fabric_link: http://getcloudify.org/guide/3.2/plugin-fabric.html
+plugin_version: 1.2
 ---
 {%summary%}The Docker plugin enables you to run Docker containers from a Cloudify Blueprint.{%endsummary%}
 
@@ -136,7 +136,7 @@ The `image` property is a dictionary. It must have the `repository` key or the `
 The `src` key is used when you want to import an image. It must point to a file or URL where there is a tarball, which Docker can use to import an image. For more information on importing images, see [docker import command.](https://docs.docker.com/reference/commandline/cli/#import)
 
 If you pull an image from a Docker hub, `repository` is required. If you are importing an image, you leave it blank. The plugin will name the 
-repository by the Cloudify [instance ID.](http://getcloudify.org/guide/3.1/reference-terminology.html#node-instance)
+repository by the Cloudify [instance ID.](http://getcloudify.org/guide/3.2/reference-terminology.html#node-instance)
 
 The `tag` key is also optional. If you want to specify a version of a repository, you can put that in the tag.
 
@@ -149,9 +149,9 @@ Here is an example of importing from an URL.
     properties:
       name: cloudify-manager
       image:
-        src: http://gigaspaces-repository-eu.s3.amazonaws.com/org/cloudify3/3.1.0/ga-RELEASE/cloudify-docker_3.1.0-ga-b85.tar
+        src: http://gigaspaces-repository-eu.s3.amazonaws.com/org/cloudify3/3.2.0/ga-RELEASE/cloudify-docker_3.2.0-ga-b85.tar
         repository: cloudify-manager-packages
-        tag: 3.1.0
+        tag: 3.2.0
 
 {% endhighlight %}
 
