@@ -9,15 +9,15 @@ pageord: 1020
 
 {%summary%}
 An extension to the diamond plugin that adds support for monitoring SNMP metrics on remote machines.
-The examples usage and necessary types are in [cloudify-diamond-snmp-extension](https://github.com/cloudify-cosmo/cloudify-diamond-snmp-extension)
+The example usage and necessary types are located in [cloudify-diamond-snmp-extension](https://github.com/cloudify-cosmo/cloudify-diamond-snmp-extension).
 {%endsummary%}
 
 {%note title=Note%}
-Here you can find [Diamond plugin guide](plugin-diamond.html)
+See [Diamond plugin](plugin-diamond.html) for general Diamond plugin usage.
 {%endnote%}
 
 # SNMP types
-All node types you will need are defined in [snmp-types.yaml](https://github.com/cloudify-cosmo/cloudify-diamond-snmp-extension/blob/CFY-2305-snmp_diamond_integration/snmp-types.yaml). The security group necessary for OpenStack is defined in [openstack-snmp-types.yaml](https://github.com/cloudify-cosmo/cloudify-diamond-snmp-extension/blob/CFY-2305-snmp_diamond_integration/openstack-snmp-types.yaml). SNMP proxy is a node responsible for gathering the requested metrics from SNMP devices and sending them to RabbitMQ on behalf of those devices as if they were reporting those metrics by themselves (the proxy should be transparent).
+All node types you will need are defined in [snmp-types.yaml](https://github.com/cloudify-cosmo/cloudify-diamond-snmp-extension/blob/CFY-2305-snmp_diamond_integration/snmp-types.yaml). Our example utilizes OpenStack, please see [openstack-snmp-types.yaml](https://github.com/cloudify-cosmo/cloudify-diamond-snmp-extension/blob/CFY-2305-snmp_diamond_integration/openstack-snmp-types.yaml) for reference. It contains a security group allowing UDP communication on port 161 (default for SNMP). SNMP proxy is a node responsible for gathering the requested metrics from SNMP devices and sending them to RabbitMQ on behalf of those devices as if they were reporting those metrics by themselves (the proxy should be transparent).
 
 ## snmp_monitored_host
 snmp_monitored_host exists in the sample blueprints only as a simulation of a monitored device. We assume that the device runs some SNMP agent (snmpd in our examples) and that the SNMP proxy can access it. In our examples the snmp_monitored_host is a virtual machine with Ubuntu installed on it. The snmpd_configuring_node (see blueprints) installs the SNMP daemon (snmpd) and modifies its configuration so that it can be polled for metrics from anywhere.
@@ -26,7 +26,7 @@ snmp_monitored_host exists in the sample blueprints only as a simulation of a mo
 The nodes that poll the SNMP devices.
 snmp_proxy is located on a separate compute node and snmp_manager_proxy on the Manager.
 
-To setup SNMP polling create a relationship for each device you want to poll. You need to add a preconfigure operation that will change the SNMPProxyCollector's configuration. In this operation's inputs you need to specify the following properties:
+To setup SNMP polling, create a relationship for each device you want to poll. You need to add a preconfigure operation that will change the SNMPProxyCollector's configuration. In this operation's inputs you need to specify the following properties:
 
 * `port` (default: 161)
 * `community` (default: public)
