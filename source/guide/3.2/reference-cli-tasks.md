@@ -17,7 +17,7 @@ This page will give a high level description of them.
 
 ## Overview
 
-This bootstrap_docker task uses the Fabric plugin to bootstrap a Cloudify Manager docker containers.
+This `bootstrap_docker` task uses the Fabric plugin to bootstrap a Cloudify Manager using Docker containers.
 
 It's currently a part of the CLI code, and can be found at / mapped to: `cloudify_cli.bootstrap.tasks.bootstrap_docker`.
 
@@ -25,12 +25,12 @@ The task does the following:
 
 1) It connects to the Manager machine.
 
-  - if the machine is an Ubuntu 14.04 without docker installed, it installs docker.
-  - otherwise, docker must be installed on the machine.
+  - If the machine is an Ubuntu 14.04 without docker installed, it attempts to install Docker (online).
+  - otherwise, Docker must be provided with the machine's image.
 
-2) It download the cloudify manager docker container and starts it.
+2) It download Cloudify's Docker image and starts it.
 
-3) If supplied with one, it uploads an agent private key file to the Manager machine.
+3) If supplied with one, it uploads an agent's private key file to the Manager machine.
 
 4) It sets various runtime-properties on the *manager* node instance - this will later be used by the CLI to extract data in order to set the configuration for the local environment.
 
@@ -111,7 +111,7 @@ The bootstrap task takes several parameters:
 * Before being uploaded to the Manager, the *provider context* that was passed to the bootstrap method via the *provider_context* parameter is transformed: it is augmented with a new field named `cloudify` (if no *provider_context* was passed at all, this will be the only field). This field is then filled with the data from the *manager* node's `cloudify` property. Additionally, the `cloudify`.`cloudify_agent`.`agent_key_path` property is reassigned with the path of the agent private key remote file path.
 
 * The runtime properties set by the bootstrap task on the *manager* node instance are:
-  
+
   * *provider* - holds the actual *provider context* object that was uploaded to the Manager.
   * *manager_ip* - holds the Manager machine's public IP.
   * *manager_user* - holds the user that is used to connect to the Manager machine.
