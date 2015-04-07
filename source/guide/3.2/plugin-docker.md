@@ -149,8 +149,7 @@ Here is an example of importing from an URL.
     properties:
       name: cloudify-manager
       image:
-        src: http://gigaspaces-repository-eu.s3.amazonaws.com/org/cloudify3/3.2.0/ga-RELEASE/cloudify-docker_3.2.0-ga-b85.tar
-        repository: cloudify-manager-packages
+        src: http://gigaspaces-repository-eu.s3.amazonaws.com/org/cloudify3/3.2.0/m6-RELEASE/cloudify-docker_3.2.0-m6-b176.tar
         tag: 3.2.0
 
 {% endhighlight %}
