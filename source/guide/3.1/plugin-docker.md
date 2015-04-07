@@ -20,8 +20,10 @@ plugin_version: 1.1
 * Python Versions:
   * 2.7.x
 
-* No Install
-  * The Docker plugin will not install Docker on your host. You need to either use a host with Docker already installed, or you need to install Docker on it. Below is an example of how one might do that in Openstack:
+{%note title=Notes on Docker installation%}
+  * The Docker plugin will not install Docker on your host. You need to either use a host with Docker already installed, or you need to install Docker on it.
+  * As part of the Docker installation, you should make sure that the user agent, such as ubuntu, is added to the docker group.
+{%endnote%}
 
 # Types
 
