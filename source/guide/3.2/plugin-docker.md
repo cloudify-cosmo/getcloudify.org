@@ -6,7 +6,7 @@ publish: true
 abstract: "Docker plugin description and configuration"
 pageord: 210
 
-yaml_link: http://getcloudify.org/spec/docker-plugin/1.2/plugin.yaml
+yaml_link: http://getcloudify.org/spec/docker-plugin/1.1/plugin.yaml
 fabric_link: http://getcloudify.org/guide/3.2/plugin-fabric.html
 plugin_version: 1.2
 ---
@@ -20,8 +20,10 @@ plugin_version: 1.2
 * Python Versions:
   * 2.7.x
 
-* No Install
-  * The Docker plugin will not install Docker on your host. You need to either use a host with Docker already installed, or you need to install Docker on it. Below is an example of how one might do that in Openstack:
+{%note title=Notes on Docker installation%}
+  * The Docker plugin will not install Docker on your host. You need to either use a host with Docker already installed, or you need to install Docker on it.
+  * As part of the Docker installation, you should make sure that the user agent, such as ubuntu, is added to the docker group.
+{%endnote%}
 
 # Types
 
@@ -148,7 +150,6 @@ Here is an example of importing from an URL.
       name: cloudify-manager
       image:
         src: http://gigaspaces-repository-eu.s3.amazonaws.com/org/cloudify3/3.2.0/m6-RELEASE/cloudify-docker_3.2.0-m6-b176.tar
-        repository: cloudify-manager-packages
         tag: 3.2.0
 
 {% endhighlight %}
