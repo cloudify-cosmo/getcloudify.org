@@ -126,7 +126,7 @@ Now you're ready to bootstrap your Cloudify manager.
 To do so type the following command in your shell:
 
 {% highlight bash %}
-cfy bootstrap --install-plugins -p openstack.yaml -i inputs.yaml
+cfy bootstrap --install-plugins -p openstack-manager-blueprint.yaml -i inputs.yaml
 {% endhighlight %}
 
 {%note title=Note%}
@@ -135,7 +135,7 @@ Ths *install-plugins* functionality only works if you are running from within a 
 If this is not the case, installing plugins will require sudo permissions and can be done like so:
 
 {% highlight sh %}
-cfy local create-requirements -o requirements.txt -p openstack.yaml
+cfy local create-requirements -o requirements.txt -p openstack-manager-blueprint.yaml
 sudo pip install -r requirements.txt
 {%endhighlight%}
 
