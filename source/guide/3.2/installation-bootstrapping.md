@@ -9,10 +9,6 @@ pageord: 400
 
 {%summary%} This page explains how to bootstrap a Cloudify manager using the Cloudify CLI {%endsummary%}
 
-{%note title=NEW!%}
-You can now bootstrap Cloudify using Docker. See [Bootstrapping Using Docker](#bootstrapping-using-docker) for more information.
-{%endnote%}
-
 # Initialization
 
 Navigate to a directory of your choosing, and initialize it as a Cloudify CLI working directory using this command:
@@ -111,13 +107,13 @@ The manager blueprints are comprised not only by the *.yaml* file, but rather th
 ## Authoring manager blueprints
 If you wish to write a custom manager blueprint (whether it be for a custom behavior or a different provider) or learn more on how manager blueprints work, refer to the [Manager Blueprints Authoring guide](guide-authoring-manager-blueprints.html).
 
-# Bootstrapping using Docker
+# Bootstrapping
 
-Alternatively, it is possible to bootstrap a Cloudify Manager on top of Docker.
+The Cloudify Manager is bootstrapped on top of Docker.
 
 Bootstrapping using Docker provides several advantages:
 
-* The Cloudify Manager becomes available on Linux distributions other than Ubuntu 12.04.
+* The Cloudify Manager is available on varius Linux distributions running Docker.
 * Users can upgrade containers specific to the service they want to upgrade (Currently, there's only one Application container. In the future, each container will host one service [e.g. Logstash, Elasticsearch, etc..])
 * Using Docker simplifies Cloudify's bootstrap process, and will help in making it much faster in future versions.
 * In future versions, using docker would allow to migrate your entire manager onto an entirely different machine.
@@ -125,7 +121,7 @@ Bootstrapping using Docker provides several advantages:
 To bootstrap with docker, use the appropriate manager blueprint, available in the [cloudify-manager-blueprints repository](https://github.com/cloudify-cosmo/cloudify-manager-blueprints).
 
 {%note title=Note%}
-Please verify the [prerequisites](installation-general.html#bootstrapping-using-docker) before bootstrapping using Docker.
+Please verify the [prerequisites](installation-general.html#bootstrapping-using-docker) before bootstrapping.
 {%endnote%}
 
 
@@ -140,8 +136,7 @@ To prevent losing data in case of a container failure, Cloudify uses a separate 
 Additionally, using volumes will increase performance as all data is written directly to the disk instead of using Copy-On-Write.
 
 {%note title=Note%}
-Stating agent packages under 'cloudify_packages' will ***override the existing agent packages*** packed inside the docker image.
-By default, the docker image contains Ubuntu 14.04 (Trusty), Ubuntu 12.04 (Precise), Centos and Windows agent packages.
+Agent packages should be stated under 'cloudify_packages' and will be installed upon bootstrap, inside the Docker container.
 {%endnote%}
 
 {%note title=Note%}
