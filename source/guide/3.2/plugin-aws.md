@@ -107,7 +107,7 @@ See the [common Runtime Properties section](#runtime-properties).
 **Properties:**
 
   * `description` a description of the security group.
-  * `rules` key-value security_group_rule configuration as described in [http://boto.readthedocs.org/en/latest/ref/ec2.html#boto.ec2.securitygroup.SecurityGroup.authorize](http://boto.readthedocs.org/en/latest/ref/ec2.html#boto.ec2.securitygroup.SecurityGroup.authorize). Defaults to `[]`.
+  * `rules` key-value security group rule configuration as described in [http://boto.readthedocs.org/en/latest/ref/ec2.html#boto.ec2.securitygroup.SecurityGroup.authorize](http://boto.readthedocs.org/en/latest/ref/ec2.html#boto.ec2.securitygroup.SecurityGroup.authorize). Defaults to `[]`.
       * `ip_protocol`
       * `from_port`
       * `to_port`
