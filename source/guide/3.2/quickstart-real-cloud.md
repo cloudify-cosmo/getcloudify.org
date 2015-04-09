@@ -8,6 +8,7 @@ pageord: 200
 
 openstack_blueprint_file_link: https://raw.githubusercontent.com/cloudify-cosmo/cloudify-nodecellar-example/3.1/openstack-blueprint.yaml
 softlayer_blueprint_file_link: https://raw.githubusercontent.com/cloudify-cosmo/cloudify-nodecellar-example/master/softlayer-blueprint.yaml
+aws_ec2_blueprint_file_link: https://raw.githubusercontent.com/cloudify-cosmo/cloudify-nodecellar-example/master/aws-ec2-blueprint.yaml
 terminology_link: reference-terminology.html
 workflows_link: reference-builtin-workflows.html
 
@@ -28,11 +29,13 @@ This tutorial shows how to bootstrap a Cloudify manager on:
 
   - [OpenStack](plugin-openstack.html)
   - [Softlayer](softlayer-openstack.html)
+  - [AWS EC2](plugin-aws.html)
 
 The blueprint you'll be deploying describes a nodejs application that connects to a MongoDB database and presents a wine catalog.
 
   - [OpenStack nodecellar blueprint]({{page.openstack_blueprint_file_link}})
   - [SoftLayer nodecellar blueprint]({{page.softlayer_blueprint_file_link}})
+  - [AWS EC2 nodecellar blueprint]({{page.aws_ec2_blueprint_file_link}})
 
 To learn more about blueprint syntax and elements please refer to the [Blueprint Authoring Guide](guide-blueprint.html).
 
@@ -189,7 +192,63 @@ This tutorial uses softlayer manager blueprint on Docker and it requires:
 	* Alternatively, create an image id of a server on SoftLayer that have curl or docker installed on it, and specify the `image_template_id` instead of the `os` input.
 {%endinfo%}
 
-For more information see the [SoftLyaer Manager Reference](reference-softlayer-manager.html).
+For more information see the [Softlayer Manager Reference](reference-softlayer-manager.html).
+
+{% endtabcontent %}
+
+{% tabcontent AWS EC2 %}
+
+[EC2 Compute Classic](http://aws.amazon.com/ec2/) is a public cloud.
+To use AWS you need to [Setup an account on AWS](https://portal.aws.amazon.com/gp/aws/developer/registration/index.html).
+
+This blueprint defines quite a few input parameters we need to fill out.
+
+Let's make a copy of the inputs template already provided and edit it:
+
+{% highlight bash %}
+cd cloudify-manager-blueprints/aws-ec2
+cp inputs.yaml.template inputs.yaml
+{% endhighlight %}
+
+The inputs.yaml file should look somewhat like this:
+
+{% highlight yaml %}
+# mandatory
+aws_access_key_id: ''
+aws_secret_access_key: ''
+image_id: ''
+instance_type: ''
+manager_keypair_name: ''
+agent_keypair_name: ''
+
+# optional
+use_existing_manager_group: false
+use_existing_agent_group: false
+use_existing_manager_keypair: false
+use_existing_agent_keypair: false
+manager_key_pair_file_path: ~/.ssh/cloudify-manager-kp.pem
+agent_key_pair_file_path: ~/.ssh/cloudify-agent-kp.pem
+mananger_security_group_name: cloudify-manager-security-group
+agent_security_group_name: cloudify-agent-security-group
+manager_server_name: cloudify-manager-server
+manager_server_user: ubuntu
+agents_user: ubuntu
+{% endhighlight %}
+
+You will, at the very least, have to provide the mandatory inputs.
+
+{%info%}
+This tutorial uses AWS EC2 manager blueprint on Docker and it requires:
+ * The `image_id` input should be a 64 bit Ubuntu Trusty 14.04 image. Because this plugin currently only supports EC2 Classic, and not VPC, it is most likely that you will be required to use an EBS-backed instance.
+ * The `instance_type` input should probably be larger than the `t*.micro` instances.
+
+You will, at the very least, have to provide the following:
+* `aws_access_key_id`
+* `aws_secret_access_key`
+
+{%endinfo%}
+
+For more information see the [AWS EC2 Manager Reference](reference-aws-ec2-manager.html).
 
 {% endtabcontent %}
 
@@ -214,6 +273,11 @@ cfy bootstrap --install-plugins -p openstack-manager-blueprint.yaml -i inputs.ya
 cfy bootstrap --install-plugins -p softlayer.yaml -i inputs.yaml --task-retries 25
 {% endhighlight %}
 {% endtabcontent %}
+{% tabcontent AWS EC2%}
+{% highlight bash %}
+cfy bootstrap --install-plugins -p aws-ec2-manager-blueprint.yaml -i inputs.yaml --task-retries 10
+{% endhighlight %}
+{% endtabcontent %}
 {% endinittab %}
 
 
@@ -233,6 +297,13 @@ sudo pip install -r requirements.txt
 {% tabcontent SoftLayer%}
 {% highlight sh %}
 cfy local create-requirements -o requirements.txt -p softlayer.yaml
+sudo pip install -r requirements.txt
+{%endhighlight%}
+{% endtabcontent %}
+
+{% tabcontent AWS EC2%}
+{% highlight sh %}
+cfy local create-requirements -o requirements.txt -p aws-ec2-manager-blueprint.yaml
 sudo pip install -r requirements.txt
 {%endhighlight%}
 {% endtabcontent %}
@@ -286,6 +357,12 @@ cfy blueprints upload -b nodecellar -p softlayer-blueprint.yaml​
 {%endhighlight%}
 {% endtabcontent %}
 
+{% tabcontent AWS EC2%}
+{%highlight bash%}
+cfy blueprints upload -b nodecellar -p aws-ec2-blueprint.yaml​
+{%endhighlight%}
+{% endtabcontent %}
+
 {% endinittab %}
 
 The `-b` flag assigns a unique name to this blueprint on the Cloudify manager.
@@ -334,6 +411,7 @@ inputs:
 {%endhighlight%}
 
 Let's make a copy of the inputs template already provided and edit it:
+
 {% highlight bash %}
 cd cloudify-nodecellar-example/inputs/openstack.yaml.template
 cp openstack.yaml.template inputs.yaml
@@ -393,6 +471,39 @@ The inputs.yaml file will look like this:
 domain: 'my_domain.org'
 location: '168642'
 {% endhighlight %}
+
+{% endtabcontent %}
+
+{% tabcontent AWS EC2%}
+
+{%highlight yaml%}
+inputs:
+
+  image:
+    description: >
+      Image to be used when launching agent VM's
+  flavor:
+    description: >
+      Flavor of the agent VM's
+  agent_user:
+    description: >
+      User for connecting to agent VM's
+{%endhighlight%}
+
+Let's make a copy of the inputs template already provided and edit it:
+
+{% highlight bash %}
+cd cloudify-nodecellar-example/inputs
+cp aws-ec2.yaml.template inputs.yaml
+{% endhighlight %}
+The inputs.yaml file should look somewhat like this:
+{%highlight yaml%}
+  image: ''
+  size: ''
+  agent_user: ''
+{%endhighlight%}
+
+The image is again the AMI image ID. The size is the instance_type, and the agent user is the default user agent on the image type.
 
 {% endtabcontent %}
 
@@ -518,4 +629,5 @@ This will terminate the manager VM and delete the resources associated with it.
 For a more elaborate installation tutorial, please refer to
 
 - the [Openstack Manager Reference](reference-openstack-manager.html).
-- the [SoftLyaer Manager Reference](reference-softlayer-manager.html).
+- the [Softlayer Manager Reference](reference-softlayer-manager.html).
+- the [AWS EC2 Reference](reference-aws-ec2-manager.html).
