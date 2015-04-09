@@ -91,7 +91,7 @@ Services:
 # Manager blueprints
 
 ## Available manager blueprints
-See The References section in the documentation for a reference of all currently available Manager Blueprints.
+See The Reference section in the documentation for a reference of all currently available Manager Blueprints.
 
 {%note title=Note%}
 The manager blueprints are comprised not only by the *.yaml* file, but rather the entire directory in which the *.yaml* file resides. Make sure to copy the full directory for when using or editing manager blueprints.
