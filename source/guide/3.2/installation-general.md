@@ -34,6 +34,7 @@ We do not recommend running Cloudify with even one deployment on a minimally pro
 
 #### Recommended Requirements
 The recommended requirements can vary based on the following:
+
 * Number of [deployments]({{page.terminology_link}}#deployment) you're going to run.
 * Amount of concurrent logs and events you're going to send from your [hosts]({{page.terminology_link}}#host).
 * Amount of concurrent metrics you're going to send from your hosts.
