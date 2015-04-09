@@ -29,7 +29,7 @@ This file contains the vcloud plugin and types definitions.
 
 {%highlight yaml%}
 imports:
-  - https://raw.githubusercontent.com/cloudify-cosmo/tosca-vcloud-plugin/1.1/plugin.yaml
+  - https://raw.githubusercontent.com/cloudify-cosmo/tosca-vcloud-plugin/master/plugin.yaml
 {%endhighlight%}
 
 ## Step 2: Changing our inputs
@@ -194,8 +194,8 @@ Lets take a look at our full blueprint:
 
 {%highlight yaml%}
 imports:
-  - http://www.getcloudify.org/spec/cloudify/3.1/types.yaml
-  - https://raw.githubusercontent.com/cloudify-cosmo/tosca-vcloud-plugin/1.1/plugin.yaml
+  - http://www.getcloudify.org/spec/cloudify/3.2/types.yaml
+  - https://raw.githubusercontent.com/cloudify-cosmo/tosca-vcloud-plugin/master/plugin.yaml
 
 inputs:
   vcloud_username:
