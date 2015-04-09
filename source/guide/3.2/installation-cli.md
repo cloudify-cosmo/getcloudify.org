@@ -62,9 +62,9 @@ an output describing how to use `cfy`.
 
 1. Download the deb package from the [Downloads page](downloads/get_cloudify_3x.html).
 1. Open a Terminal at the directory where you downloaded the file.
-1. Run
+1. Run (replacing `<pkg.deb>` with the name of file you downloaded):
 {% highlight bash %}
-sudo dpkg -i <pkg.deb>  # replacing `<pkg.deb>` with the name of file you downloaded.
+sudo dpkg -i <pkg.deb>
 source /cfy/env/bin/activate
 {% endhighlight %}
 
@@ -74,9 +74,9 @@ Now try running `cfy -h` in your Terminal. You should get an output describing h
 
 1. Download the rpm package from the [Downloads page](downloads/get_cloudify_3x.html).
 1. Open a Terminal at the directory where you downloaded the file.
-1. Run
+1. Run (replacing `<pkg.rpm>` with the name of file you downloaded):
 {% highlight bash %}
-sudo rpm -i <pkg.rpm>  # replacing `<pkg.rpm>` with the name of file you downloaded.
+sudo rpm -i <pkg.rpm>
 source /cfy/env/bin/activate
 {% endhighlight %}
 
@@ -96,12 +96,12 @@ source /cfy/env/bin/activate
 
 Now try running `cfy -h` in your Terminal. You should get an output describing how to use `cfy`.
 
-For more info on the installation script, see [here]((#installing_using_the_script)).
+For more info on the installation script, see [here](#installing-using-the-script).
 
 
 ## OS X
 
-Currently, to install Cloudify on OS X, you must use the `get-cloudify.py` [script](#installing_using_the_script).
+Currently, to install Cloudify on OS X, you must use the `get-cloudify.py` [script](#installing-using-the-script).
 In following versions, we'll be supplying a package compiled for OS X.
 
 
@@ -123,7 +123,7 @@ By default, this script will not install any prerequisites. You can supply it wi
 {%note title=Script's help%}
 Please consider running `python get-cloudify.py -h` before installing to get familiarized with what this script provides.
 
-Example output:
+<!-- Example output:
 {% highlight bash %}
 usage: get-cloudify.py [-h] [-v | -q] [-f] [--virtualenv VIRTUALENV]
                        [--version VERSION | --pre]
@@ -170,7 +170,7 @@ optional arguments:
   --installpip          Attempt to install pip
   --installvirtualenv   Attempt to install Virtualenv
   --installpythondev    Attempt to install Python Developers Package
-{% endhighlight %}
+{% endhighlight %} -->
 {%endnote%}
 
 
@@ -204,7 +204,9 @@ python get-cloudify.py --version 3.2a4
 {% endhighlight %}
 
 
-# Installing Cloudify's CLI from PyPi
+# Installing from PyPi
+
+Cloudify's CLI is also distributed to PyPI. You can install Cloudify from PyPI though we recommend using the script as installing from PyPI does not handle prerequisites and does not provide some other comforts the script is designed to provide.
 
 You must have Python 2.7.x and PIP installed and configured on your system.
 
