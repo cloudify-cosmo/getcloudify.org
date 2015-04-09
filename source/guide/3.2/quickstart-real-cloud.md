@@ -31,7 +31,7 @@ This tutorial shows how to bootstrap a Cloudify manager on:
   - [OpenStack](plugin-openstack.html)
   - [Softlayer](softlayer-openstack.html)
   - [AWS EC2](plugin-aws.html)
-  - [vCloud](plugin-vsphere)
+  - [vCloud](plugin-vsphere.html)
 
 The blueprint you'll be deploying describes a nodejs application that connects to a MongoDB database and presents a wine catalog.
 
