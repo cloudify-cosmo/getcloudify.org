@@ -275,7 +275,7 @@ cfy bootstrap --install-plugins -p softlayer.yaml -i inputs.yaml --task-retries 
 {% endtabcontent %}
 {% tabcontent AWS EC2%}
 {% highlight bash %}
-cfy bootstrap --install-plugins -p aws-ec2-manager-blueprint.yaml -i inputs.yaml --task-retries 25
+cfy bootstrap --install-plugins -p aws-ec2-manager-blueprint.yaml -i inputs.yaml --task-retries 10
 {% endhighlight %}
 {% endtabcontent %}
 {% endinittab %}
