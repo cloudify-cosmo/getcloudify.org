@@ -8,6 +8,7 @@ pageord: 200
 
 openstack_blueprint_file_link: https://raw.githubusercontent.com/cloudify-cosmo/cloudify-nodecellar-example/3.1/openstack-blueprint.yaml
 softlayer_blueprint_file_link: https://raw.githubusercontent.com/cloudify-cosmo/cloudify-nodecellar-example/master/softlayer-blueprint.yaml
+aws_ec2_blueprint_file_link: https://github.com/cloudify-cosmo/cloudify-manager-blueprints/blob/master/aws-ec2/aws-ec2-manager-blueprint.yaml
 terminology_link: reference-terminology.html
 workflows_link: reference-builtin-workflows.html
 
