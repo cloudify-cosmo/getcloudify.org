@@ -16,7 +16,7 @@ agent_packager_link: agents-packager.html
 
 Cloudify can be installed by using different methods.
 
-Since it is based on a set of premade packages, it can be deployed using shell scripts, configuration management tools, cloud specific orchestration tools (CloudFormation, Heat, etc..) or Cloudify's CLI tool which provides a smooth experience for getting a fully working, cli manageable Cloudify Management server.
+Since it is based on a set of premade packages, it can be deployed using shell scripts, configuration management tools, cloud specific orchestration tools (CloudFormation, Heat, etc..) or Cloudify's CLI tool which provides a smooth experience for getting a fully working, cli manageable Cloudify Management Environment.
 
 # Prerequisites
 
@@ -29,20 +29,23 @@ A Cloudify manager must run on a 64-bit machine and requires at the very least 2
 
 {%note title=Note%}
 These are the minimal requirements for Cloudify to run. You will have to provision larger machines to actually utilize Cloudify.
+We do not recommend running Cloudify with even one deployment on a minimally provisioned machine.
 {%endnote%}
 
 #### Recommended Requirements
 The recommended requirements can vary based on the following:
+
 * Number of [deployments]({{page.terminology_link}}#deployment) you're going to run.
 * Amount of concurrent logs and events you're going to send from your [hosts]({{page.terminology_link}}#host).
 * Amount of concurrent metrics you're going to send from your hosts.
 
-As a general recommendation for the average system, Cloudify would require at least 4GB of RAM and 4 CPU Cores. Disk space requirements varies according to the amount of logs, events and metrics sent as Cloudify doesn't currently clean them.
+As a general recommendation for the average system, Cloudify would require at least 4GB of RAM and 4 CPU Cores. Disk space requirements varies according to the amount of logs, events and metrics sent as Cloudify doesn't currently clean or rotate them.
 
 ### Network
 The Manager must be available in the following ports:
 
-* Inbound - port 80 - For CLI and REST access.
+* Inbound - port 80 - For REST API and UI access.
+* Inbound - port 443 - For REST API and UI access (when using SSL).
 * Inbound - port 22 - If [Bootstrapping]({{page.terminology_link}}#bootstrapping) is done via the CLI.
 * Inbound - port 5672 - [Agent]({{page.terminology_link}}#agent) to Manager communication.
 * Outbound - port 22 - If running Linux based host machines and remote agent installation is required.
@@ -52,11 +55,7 @@ The Manager must be available in the following ports:
 
 ### Management Server
 
-#### If bootstrapping using packages
-Cloudify's management server currently runs on Ubuntu 12.04 Precise. To install on Centos or other distributions, you must use the [Docker](https://www.docker.com/) [implementation](installation-bootstrapping.html#bootstrapping-using-docker).
-
-#### If bootstrapping using Docker Image
-Cloudify's Docker implementation was tested on Ubuntu 14.04 and Centos 6.5 and is based on the [phusion/baseimage](https://github.com/phusion/baseimage-docker) Docker Image (Ubuntu 14.04).
+Cloudify's Docker implementation was tested on Ubuntu 14.04 and Centos 7.0 and is based on the [phusion/baseimage](https://github.com/phusion/baseimage-docker) Docker Image (Ubuntu 14.04).
 
 {%note title=Note%}
 If the host machine Docker is running on is based on Ubuntu 14.04, we will attempt to install Docker for you (if it isn't already installed. Requires an internet connection). For any other distribution (and release), you'll have to verify that Docker is installed prior to bootstrapping.

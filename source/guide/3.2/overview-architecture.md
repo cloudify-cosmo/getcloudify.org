@@ -207,4 +207,4 @@ Attempting to delete a deployment which has [live nodes](reference-terminology.h
 Once all deployments of a blueprint have been deleted, it's also possible to delete the blueprint itself from the manager using the UI or the CLI [command](reference-cfy.html#blueprints-delete) `cfy blueprints delete`.
 
 ## Teardown
-Teardown is the reversed process for the [Bootstrap](#bootstrap) process. It is executed via the CLI using the [command](reference-cfy.html#teardown) `cfy teardown`. This command also uses the help of [Providers](reference-terminology.html#provider), and is meant to clear any resources provisioned and installations made by the bootstrap process (e.g. delete networks, security groups, the manager VM, etc.).
+Teardown is the reversed process for the [Bootstrap](#bootstrap) process. It is executed via the CLI using the [command](reference-cfy.html#teardown) `cfy teardown`. This command also is meant to clear any resources provisioned and installations made by the bootstrap process (e.g. delete networks, security groups, the manager VM, etc.).
