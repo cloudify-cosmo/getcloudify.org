@@ -54,7 +54,7 @@ sudo pip install -r requirements.txt
 {%endnote%}
 
 
-Next, create an inputs YAML file. This file will serve as the configuration for the manager blueprint inputs. Note that the various manager blueprints folders offer a *inputs.yaml.template* file, which can be copied and edited with the desired values.
+Next, create an inputs YAML file. This file will serve as the configuration for the manager blueprint inputs. Note that the various manager blueprints folders offer an *inputs.yaml.template* file, which can be copied and edited with the desired values.
 
 Finally, run the `cfy bootstrap` command, pointing it to the manager blueprint file and the inputs YAML file, like so:
 
