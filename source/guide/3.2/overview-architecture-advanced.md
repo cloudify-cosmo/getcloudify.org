@@ -39,7 +39,7 @@ Some remarks:
 * Cloudify aims to have only 2 entry points to its Management Environment:
     * Ports 80/443 for user rest-service/UI access via Nginx.
     * Port 5672 for application access via RabbitMQ.
-Currently, our agents (both Application Host agents and Deployment specific agents) update the application's model via Nginx directly rather than through RabbitMQ. This will be changed in future versions to reflect security requirements.
+    * Currently, our agents (both Application Host agents and Deployment specific agents) update the application's model via Nginx directly rather than through RabbitMQ. This will be changed in future versions to reflect security requirements.
 * Elasticsearch contains different indices for storing the data model and the logs.
 * Both in-management-environment agents drawn in the diagram are deployment specific. For every deployment created, 2 of these agents are spawned.
 * In addition to these agents, an entity removed from the diagram is a management agent containing several Cloudify plugins able to spawn the deployment specific agents.
