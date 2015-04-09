@@ -30,7 +30,7 @@ You can download the correct Cloudify-Manager-Blueprints for the CFY version you
 
 {%endnote%}
 
-Second, install the blueprint-specific dependencies by running:
+Now you can install the blueprint-specific dependencies by running:
 
  `cfy local install-plugins -p /path/to/manager/blueprint/file`
 
@@ -112,7 +112,7 @@ The Cloudify Manager is bootstrapped on top of Docker.
 
 Bootstrapping using Docker provides several advantages:
 
-* The Cloudify Manager is available on varius Linux distributions running Docker.
+* The Cloudify Manager is available on varius Linux distributions running Docker. Note that some distributions require minimal adjustments
 * Users can upgrade containers specific to the service they want to upgrade (Currently, there's only one Application container. In the future, each container will host one service [e.g. Logstash, Elasticsearch, etc..])
 * Using Docker simplifies Cloudify's bootstrap process, and will help in making it much faster in future versions.
 * In future versions, using docker would allow to migrate your entire manager onto an entirely different machine.
