@@ -4,82 +4,85 @@ title: Widget
 category: Widget
 ---
 
-<section id="content">
-    <div class="container" id="widgetPage" ng-app="widgetApp">
-        <div id="resultsDiv" class="DocumentsWrap"></div>
-        <div id="pageContent" ng-controller="widgetController">
-            <div class="row">
-                <div class="span4">
-                    <div class="inner-heading">
-                        <h1><i class="icon-picture"></i>Cloudify Online Trial</h1>
-                    </div>
+        <section id="content">
+            <div class="container" id="widgetPage" ng-app="widgetApp">
+                <div id="resultsDiv" class="DocumentsWrap"></div>
+                <div id="pageContent" ng-controller="widgetController">
+                    <div class="row">
+                        <div class="span4">
+                            <div class="inner-heading">
+                                <h1><i class="icon-dashboard"></i>Cloudify Online Trial</h1>
+                            </div>
 
-                    <p>Click the 'Try It Now button' below, we'll set up a dedicated Cloudify manager instance for you
-                        to play with for the next 30 minutes. If you're new to Cloudify, we recommend that you watch the
-                        short introductory video on the right before launching the actual instance. </p>
+                            <p>Click the 'Try It Now button' below, we'll set up a dedicated Cloudify manager instance for you
+                                to play with for the next 120 minutes. If you're new to Cloudify, we recommend that you watch the
+                                short introductory video on the right before launching the actual instance. </p>
 
-                    <form name="tryNowForm" ng-disabled="!widgetController.loadingMachine" disabled="disabled"
-                          ng-show="!widgetController.machineStarted">
-                        <fieldset>
-                            <legend></legend>
-                            <div ng-show="!widgetController.alreadyRegistered">
-                                <label class="span1">Name</label>
-                                <input class="span3" name="nameInput" type="text" placeholder="Name"
-                                       ng-model="widgetController.name" required/>
-                                <label class="span1">Email</label>
-                                <input class="span3" name="emailInput" type="email" placeholder="Email"
-                                       ng-model="widgetController.email" required/>
+                            <form name="tryNowForm" ng-disabled="!widgetController.loadingMachine" disabled="disabled"
+                                  ng-show="!widgetController.machineStarted">
+                                <fieldset>
+                                    <legend></legend>
+                                    <div ng-show="!widgetController.alreadyRegistered">
+                                        <label class="span1">Name</label>
+                                        <input class="span3" name="nameInput" type="text" placeholder="Name"
+                                               ng-model="widgetController.name" required/>
+                                        <label class="span1">Email</label>
+                                        <input class="span3" name="emailInput" type="email" placeholder="Email"
+                                               ng-model="widgetController.email" required/>
+                                    </div>
+                                    <br/>
+                                    <button id="tryNowBtn" disabled="disabled" ng-disabled="!widgetController.widgetLoaded "
+                                            type="submit" class="btn btn-inverse span4" ng-click="tryItNowBtn()"
+                                            ng-bind="widgetController.buttonText">Loading...
+                                    </button>
+                                </fieldset>
+                            </form>
+
+                            <div class="text-warning" ng-bind="widgetController.widgetOutput"></div>
+
+                            <div class="well text-success ng-hide" ng-show="widgetController.machineStarted">
+                                We've started a Cloudify manager just for you at: <a
+                                    ng-href="http://[[widgetController.machineIp]]/" target="_blank"
+                                    ng-bind="widgetController.machineIp"></a>
+                                You have <span ng-bind="getTimeLeft()"></span> minutes left for your
+                                trial.
+                                <button style="display: block;width: 100%;margin-top: 10px;" class="btn btn-inverse"
+                                        ng-click="stopTrial()" ng-bind="widgetController.stopButtonText"
+                                        ng-disabled="!widgetController.machineStarted">I'm done, thanks
+                                </button>
                             </div>
                             <br/>
-                            <button id="tryNowBtn" disabled="disabled" ng-disabled="!widgetController.widgetLoaded "
-                                    type="submit" class="btn btn-primary span4" ng-click="tryItNowBtn()"
-                                    ng-bind="widgetController.buttonText">Loading...
-                            </button>
-                        </fieldset>
-                    </form>
-
-                    <div class="text-warning" ng-bind="widgetController.widgetOutput"></div>
-
-                    <div class="well text-success ng-hide" ng-show="widgetController.machineStarted">
-                        We've started a Cloudify manager just for you at: <a
-                            ng-href="http://[[widgetController.machineIp]]/" target="_blank"
-                            ng-bind="widgetController.machineIp"></a>
-                        You have <span ng-bind="widgetController.timeLeft | date:'m'"></span> minutes left for your
-                        trial.
-                        <button style="display: block;width: 100%;margin-top: 10px;" class="btn btn-primary"
-                                ng-click="stopTrial()" ng-bind="widgetController.stopButtonText"
-                                ng-disabled="!widgetController.machineStarted">I'm done, thanks
-                        </button>
-                    </div>
-
-                </div>
-                <div class="span8 media-section">
-                    <div class="youtube-iframe" ng-show="!widgetController.machineStarted">
-                        <a
-                            class="hover-wrap fancybox fancybox.iframe" data-fancybox-group="gallery"
-                            title="Cloudify Intelligent Orchestration on Any Cloud"
-                            href="http://www.youtube.com/embed/1OFTneg_WKE?enablejsapi=1&wmode=opaque">
-                        <img class="bannerWidgetTextImg" src="img/hpBanner21.png"
-                             alt="Cloudify - New Intelligence in Cloud Orchestration and Cloud Automation"/></a></div>
-
-                    <div class="butterfly-iframe" ng-show="!!widgetController.machineStarted">
-
-                        <div id="butterflyWrapper" class="widgetButterfly">
-                            <div class="butterfly-iframe-title"> Try out the <a href="[[widgetController.butterflySource]]" target="_blank" >interactive shell</a></div>
-                            <iframe class="span8 video-container" src="[[widgetController.butterflySource]]">
-
-                            </iframe>
+                             <a class="btn btn-green btn-medium btn-rounded" href="/guide/3.1/quickstart.html"><i class="icon icon-book"></i> Get Started Now</a>&nbsp; &nbsp;
+                        <a class="btn btn-theme btn-medium btn-rounded" id="downloadBtnInner" href="/downloads/get_cloudify_3x.html"><i class="icon-download"></i>  Download Now</a>
 
                         </div>
+                        <div class="span8 media-section">
+                            <div class="youtube-iframe" ng-show="!widgetController.machineStarted">
+                                <a
+                                    class="hover-wrap fancybox fancybox.iframe" data-fancybox-group="gallery"
+                                    title="Cloudify Intelligent Orchestration on Any Cloud"
+                                    href="https://www.youtube.com/embed/HuSHVElk7to?enablejsapi=1&wmode=opaque">
+                                <img class="bannerWidgetTextImg" src="img/AboutThumbnail310.png"
+                                     alt="Cloudify - How to use the Cloudify Widget"/></a></div>
 
+                            <div class="butterfly-iframe" ng-show="!!widgetController.machineStarted">
+
+                                <div id="butterflyWrapper" class="widgetButterfly">
+                                    <div class="butterfly-iframe-title"> Try out the <a href="[[widgetController.butterflySource]]" target="_blank" >interactive shell</a></div>
+                                    <iframe class="span8 video-container" src="[[widgetController.butterflySource]]">
+
+                                    </iframe>
+
+                                </div>
+
+                            </div>
+                        </div>
                     </div>
                 </div>
+                       
             </div>
-        </div>
-    </div>
-    <iframe id="widgetFrame"
-            class="ng-scope"
-            style="margin: 20px;display:none;">
-    </iframe>
-
-</section>
+            <iframe id="widgetFrame"
+                    class="ng-scope"
+                    style="margin: 20px;display:none;">
+            </iframe>
+        </section>

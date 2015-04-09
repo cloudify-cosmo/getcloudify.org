@@ -19,6 +19,11 @@ installation_general_link: installation-general.html
 ---
 {%summary%}{{page.abstract}}{%endsummary%}
 
+{%tip title=Try Instantly%}
+You can take Cloudify for an instant test drive with an [online trial.](http://getcloudify.org/widget.html)
+{%endtip%}
+
+
 # What is Cloudify?
 
 Cloudify is a Cloud Application Orchestrator. It automates any process you need to perform regarding your applications over any cloud.

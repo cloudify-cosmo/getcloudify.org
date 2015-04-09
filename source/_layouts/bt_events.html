@@ -22,30 +22,26 @@
         </div>
     </section>
    	<section id="content">
+	
 		<div class="container">
 			<div class="row">
 				<div class="span8">
 					<div id="resultsDiv" class="DocumentsWrap"></div>
 					<div id="pageContent">
 					<div id="eventsWrapper">
-				
+					{{content}} 
 					</div>
-					<div class="pagination"> 
+				<!--	<div class="pagination"> 
 						<ul class="pager" id='page_navigation'></ul>
-					</div>
+					</div> -->
 					</div>
 				</div>
 				<div class="span4">
 					<aside class="right-sidebar">
 						<div class="widget">
 							<h5 class="widgetheading">Previous Events</h5>
-							<ul class="watchWrapper"> 
-							</ul>
-							</div>	
-							<div class="pagination">
-								<ul class="pager" id="myPager"></ul>
-							</div>
-							
+							{% include webinar_toc.html %}
+							<!-- <ul class="pagination" id="myPager"></ul> -->
 						</div>
 					</aside>
 				</div>
@@ -63,7 +59,9 @@
 <input type='hidden' id='show_event_per_page' />
 <!--for pagination-->
 
+<!--
 <script>
+/*
 $(function() {    
 //how much items per page to show
     var show_event_per_page = 3; 
@@ -83,7 +81,7 @@ $(function() {
         - link to previous page
         - links to specific pages
         - link to next page
-    */
+  
     var navigation_html = '<li><a class="previous_link" href="javascript:previous();">Prev</a></li>';
     var current_link = 0;
     while(number_of_pages > current_link){
@@ -147,7 +145,7 @@ function go_to_page(page_num){
     $('#eventsWrapper').children().css('display', 'none').slice(start_from, end_on).css('display', 'block');
     
     /*get the page link that has longdesc attribute of the current page and add active_page class to it
-    and remove that class from previously active page link*/
+    and remove that class from previously active page link
     $('.active_page').removeClass('active_page');
     $('.page_link[longdesc=' + page_num +']').addClass('active_page active');
     
@@ -166,8 +164,9 @@ function go_to_page(page_num){
 	}else{
 	$('.span8 .next_link').show();
 	}
+
 }
-   
+   */  
 </script> 
 <script> 
 /*var listElement = $('.watchWrapper');
@@ -223,6 +222,7 @@ function goTo(page){
   listElement.children().css('display','none').slice(startAt, endOn).css('display','block');
   $('.pager').attr("curr",page);
 }*/
+/*
 $.fn.pageMe = function(opts){
     var $this = this,
         defaults = {
@@ -342,7 +342,8 @@ $(document).ready(function(){
   $('.watchWrapper').pageMe({pagerSelector:'#myPager',showPrevNext:true,hidePageNumbers:false,perPage:3});
     
 });
-</script>
+*/
+</script> -->
 
 </body>
 </html>

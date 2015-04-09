@@ -15,6 +15,11 @@ workflows_link: reference-builtin-workflows.html
 
 {%summary%}{{page.abstract}}{%endsummary%}
 
+{%tip title=Try Instantly%}
+You can take Cloudify for an instant test drive with an [online trial.](http://getcloudify.org/widget.html)
+{%endtip%}
+
+
 # Overview
 
 In this tutorial you will bootstrap a Cloudify manager on a cloud environment and install a sample Cloudify blueprint on it.
@@ -201,7 +206,7 @@ To do so type the following command in your shell:
 {% inittab %}
 {% tabcontent OpenStack%}
 {% highlight bash %}
-cfy bootstrap --install-plugins -p openstack.yaml -i inputs.yaml
+cfy bootstrap --install-plugins -p openstack-manager-blueprint.yaml -i inputs.yaml
 {% endhighlight %}
 {% endtabcontent %}
 {% tabcontent SoftLayer%}
@@ -220,7 +225,7 @@ If this is not the case, installing plugins will require sudo permissions and ca
 
 {% tabcontent OpenStack%}
 {% highlight sh %}
-cfy local create-requirements -o requirements.txt -p openstack.yaml
+cfy local create-requirements -o requirements.txt -p openstack-manager-blueprint.yaml
 sudo pip install -r requirements.txt
 {%endhighlight%}
 {% endtabcontent %}

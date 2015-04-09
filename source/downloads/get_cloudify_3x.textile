@@ -304,7 +304,7 @@ function track_download(downloadHref) {
        	//track mixpanel
 		var zipName="";
 		zipName=downloadHref.split("/")[7]; 
-		mixpanel.track(dataBtnName, {'Zip Name':zipName, 'Source':'cloudifysource.org'});
+		mixpanel.track(dataBtnName, {'Zip Name':zipName, 'Source':'getcloudify.org'});
 		if(mixpanel.cookie.props.__alias==undefined){
             formEmail =  $(".gattingWrapper #email").val();	
             formName =  $(".gattingWrapper #last_name").val();

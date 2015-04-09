@@ -5,7 +5,7 @@ widgetModule.config(function($interpolateProvider) {
     $interpolateProvider.endSymbol(']]');
 });
 
-widgetModule.controller('widgetController', function( $scope, $controller ,$log, $http, $sce) {
+widgetModule.controller('widgetController', function( $scope, $timeout, $controller ,$log, $http, $sce) {
     $controller('GsGenericWidgetCtrl', {$scope:$scope} );
     $scope.genericWidgetModel.element = $('#widgetFrame')[0];
 
@@ -107,7 +107,7 @@ widgetModule.controller('widgetController', function( $scope, $controller ,$log,
             if (state == 'RUNNING') {
                 // Check if its the first time (and you didnt refresh your page - loadingMachine is set to false unless you click the button)
                 if (!$scope.widgetController.widgetStarted && $scope.widgetController.loadingMachine) {
-                    window.open("http://"+status.nodeModel.publicIp, '_blank');
+                    // window.open("http://"+status.nodeModel.publicIp, '_blank'); // DO NOT OPEN MANAGER AUTOMATICALLY.. 
                     mixpanel.track('Widget Machine Started');
 
                     $scope.startTime = (new Date()).getTime();
@@ -119,6 +119,11 @@ widgetModule.controller('widgetController', function( $scope, $controller ,$log,
                 $scope.widgetController.butterflySource = $sce.trustAsResourceUrl('http://' + $scope.widgetController.machineIp + ':8011/');
                 $scope.widgetController.expires = new Date(status.nodeModel.expires);
                 $scope.widgetController.timeLeft = new Date(status.nodeModel.expires -  new Date().getTime()) ;
+
+                $timeout(function(){ // focus on butterfly iframe. https://cloudifysource.atlassian.net/browse/CW-316
+                    // this is ugly, but quick
+                    $('.butterfly-iframe iframe').focus();
+                },100);
 
                 $scope.widgetController.widgetOutput = "";
 
@@ -156,6 +161,12 @@ widgetModule.controller('widgetController', function( $scope, $controller ,$log,
             }
         }
     }
+
+    $scope.getTimeLeft = function(){
+        if ( !!$scope.widgetController && !!$scope.widgetController.timeLeft ) {
+            return Math.round($scope.widgetController.timeLeft.getTime() / 60000);
+        }
+    };
 
     $('#widgetFrame').attr('src','http://thewidget.staging.gsdev.info/#/widgets/54523f3e777c57802e36c03c/blank?timestamp='+(new Date().getTime())+'&');
     $scope.$watch( 'genericWidgetModel.loaded', checkIfLoaded);
