@@ -20,16 +20,22 @@ If you have already installed a previous version of the CLI,
 Make sure to delete any *.cloudify* folders inside the destination directory you are about to install into (or any of its parent directories).
 {%endnote%}
 
-Cloudify CLI (AKA cfy) is being distributed in two different methods:
+Cloudify's CLI (AKA cfy) is being distributed in two different methods:
 
-1. As a binary package
-1. As a Python package (via PyPi)
+### As downloadable packages
 
-{% tip title=Which distribution method should you choose? %}
-The binary package is only able to bootstrap Openstack manager. If you wish to bootstrap other environments,
-you should [install the CLI via PyPi](#installing-from-pypi).{% endtip %}
+The downloadable packages allow for an offline installation of the cli and are distributed as rpm, deb and tar.gz packages for Linux and OS X.
 
-# Installing the binary package
+For Windows, there's currently a limited distributable. Read below for Windows support.
+
+
+###  As a downloadable installation script
+
+The downloadable `get-cloudify.py` script allows you to install the cli from the internet with many different configuration options.
+The script can install the cli on different distributions of Linux, OSx (Darwin) and Windows.
+
+
+# Installing using premade packages
 
 ## Windows
 
@@ -46,24 +52,157 @@ variable for you. Click 'Next' again.
 1. Open a new Command Prompt and check if you can run `cfy -h`. You should get
 an output describing how to use `cfy`.
 
-## Ubuntu
+## Linux
 
-1. Download a deb package that matches your system:
-[32bit]({{ page.linux32_link }}) or
-[64bit]({{ page.linux64_link }})
-1. Open a Terminal at the directory where you downloaded the file and run
-`sudo dpkg -i <pkg.deb>` replacing `<pkg.deb>` with the name of file you downloaded.
-1. After a few seconds installation should finish.
-1. Try running `cfy -h` command in your Terminal. You should get an output
-describing how to use `cfy`.
+* To install via deb/rpm/tar.gz packages, you must have Python2.7.x and pip 1.5+ installed and Python2.7.x must be executable as `python` from the path.
+* Using the tar.gz package allows you to specify another `python` executable path as you're actually running the `get-cloudify.py` script which provides this feature.
+
+
+### Ubuntu/Debian
+
+1. Download the deb package from the [Downloads page](downloads/get_cloudify_3x.html).
+1. Open a Terminal at the directory where you downloaded the file.
+1. Run
+{% highlight bash %}
+sudo dpkg -i <pkg.deb>  # replacing `<pkg.deb>` with the name of file you downloaded.
+source /cfy/env/bin/activate
+{% endhighlight %}
+
+Now try running `cfy -h` in your Terminal. You should get an output describing how to use `cfy`.
+
+### Centos/RHEL
+
+1. Download the rpm package from the [Downloads page](downloads/get_cloudify_3x.html).
+1. Open a Terminal at the directory where you downloaded the file.
+1. Run
+{% highlight bash %}
+sudo rpm -i <pkg.rpm>  # replacing `<pkg.rpm>` with the name of file you downloaded.
+source /cfy/env/bin/activate
+{% endhighlight %}
+
+Now try running `cfy -h` in your Terminal. You should get an output describing how to use `cfy`.
+
+### Installing using the tar.gz package
+
+1. Download the tar.gz package from the [Downloads page](downloads/get_cloudify_3x.html).
+1. Open a Terminal at the directory where you downloaded the file.
+1. Run
+{% highlight bash %}
+tar -xzvf <pkg.tar.gz>  # replacing `<pkg.tar.gz>` with the name of the file you downloaded.
+cd cfy
+python get-cloudify.py
+source /cfy/env/bin/activate
+{% endhighlight %}
+
+Now try running `cfy -h` in your Terminal. You should get an output describing how to use `cfy`.
+
+For more info on the installation script, see [here]((#installing_using_the_script)).
+
 
 ## OS X
 
-Coming soon, please follow the Python package installation below ([Installing from PyPi](#installing-from-pypi)).
+Currently, to install Cloudify on OS X, you must use the `get-cloudify.py` [script](#installing_using_the_script).
+In following versions, we'll be supplying a package compiled for OS X.
 
-{%note title=Bootstraping with binary package%}
-When using the binary package, there is no need to install blueprint dependencies since binary package already contains these.
+
+# Installing using the script
+
+A script is supplied for you to install Cloudify on different OS distributions.
+
+{%warning title=Prerequisites Installation%}
+By default, this script will not install any prerequisites. You can supply it with the `--force` flag which will install all prerequisites without prompting you for anything other than a sudoer password (if required). The prerequisites are:
+
+* pip - for Linux, Windows and OS X
+* virtualenv - for Linux, Windows and OS X
+* python-dev and gcc - for Ubuntu/Debian to be able to compile Fabric.
+* python-devel and gcc - for CentOS/RHEL to be able to compile Fabric.
+* gcc - for Arch-Linux to be able to compile Fabric.
+* PyCrypto - for Windows as it's not automatically compiled when installin Cloudify's CLI.
+{%endwarning%}
+
+{%note title=Script's help%}
+Please consider running `python get-cloudify.py -h` before installing to get familiarized with what this script provides.
+
+Example output:
+{% highlight bash %}
+usage: get-cloudify.py [-h] [-v | -q] [-f] [--virtualenv VIRTUALENV]
+                       [--version VERSION | --pre]
+                       [--forceonline | --wheelspath WHEELSPATH] [--nosudo]
+                       [--pythonpath PYTHONPATH] [--installpip]
+                       [--installvirtualenv] [--installpythondev]
+
+This script attempts(!) to install Cloudify's CLI on Linux, Windows (with
+Python32 AND 64), and OS X (Darwin). On the linux front, it supports
+Debian/Ubuntu, CentOS/RHEL and Arch. Installations are supported for both
+system python and virtualenv (using the --virtualenv flag). If you're already
+running the script from within a virtualenv and you're not providing a
+--virtualenv path, Cloudify will be installed within the virtualenv you're in.
+Passing the --wheelspath allows for an offline installation of Cloudify from
+predownloaded Cloudify dependency wheels. Note that if wheels are found within
+the default wheels directory or within --wheelspath, they will (unless the
+--forceonline flag is set) be used instead of performing an online
+installation. A --nosudo flag can be supplied (If not on Windows) so that
+prerequisites can be installed on machines/containers without the sudo
+execuable (must be run by root user). Sudo for relevant prerequisites is on by
+default. By default, the script assumes that the Python executable is in the
+path and is called 'Python' on Linux and 'c:\python27\python.exe on Windows.
+The Python path can be overriden by using the --pythonpath flag. The script
+will attempt to install all necessary requirements including python-dev and
+gcc (for Fabric on Linux), pycrypto (for Fabric on Windows), pip and
+virtualenv depending on the OS and Distro you're running on. Please refer to
+Cloudify's documentation at http://getcloudify.org for additional information.
+
+optional arguments:
+  -h, --help            show this help message and exit
+  -v, --verbose         Verbose level logging to shell.
+  -q, --quiet           Only print errors.
+  -f, --force           Force install any requirements (USE WITH CARE!).
+  --virtualenv VIRTUALENV
+                        Path to a Virtualenv to install Cloudify in
+  --version VERSION     Attempt to install a specific version of Cloudify
+  --pre                 Attempt to install the latest Cloudify Milestone
+  --forceonline         Even if wheels are found locally, install from PyPI.
+  --wheelspath WHEELSPATH
+                        Path to wheels (defaults to "<cwd>/wheelhouse").
+  --nosudo              Do not use sudo for prerequisites.
+  --pythonpath PYTHONPATH
+                        Python path to use (defaults to "python").
+  --installpip          Attempt to install pip
+  --installvirtualenv   Attempt to install Virtualenv
+  --installpythondev    Attempt to install Python Developers Package
+{% endhighlight %}
 {%endnote%}
+
+
+To install Cloudify's latest stable release using the default flags:
+
+1. Download the [script](PROVIDE_LINK_HERE!)
+1. Run
+{% highlight bash %}
+python get-cloudify.py
+{% endhighlight %}
+
+{%note title=Installing within a virtualenv%}
+If you're already within a virtualenv when running the script and have not supplied the --virtualenv flag, the script will install Cloudify within the currently active virtualenv.
+{%endnote%}
+
+
+## Installing the latest Milestone Release
+
+The following commands will install the latest Cloudify milestone:
+
+{% highlight bash %}
+python get-cloudify.py --pre
+{% endhighlight %}
+
+## Installing a specific Milestone Release
+
+Now let's say you want to install the 3.2a4 release specifically. You should run:
+
+{% highlight bash %}
+python get-cloudify.py --version 3.2a4
+{% endhighlight %}
+
 
 # Installing Cloudify's CLI from PyPi
 
@@ -93,12 +232,13 @@ The following commands will install the latest Cloudify milestone:
 pip install cloudify --pre
 {% endhighlight %}
 
-## installing a specific Milestone Release
+## Installing a specific Milestone Release
 Now let's say you want to install the 3.1rc2 release specifically. You should run:
 
 {% highlight bash %}
 pip install cloudify==3.1rc2
 {% endhighlight %}
+
 
 ## installing from Github
 To install the CLI from Github you must install several modules in the correct order.
@@ -113,7 +253,7 @@ pip install https://github.com/cloudify-cosmo/cloudify-script-plugin/archive/mas
 pip install https://github.com/cloudify-cosmo/cloudify-cli/archive/master.zip
 {% endhighlight %}
 
-## Prerequisites for Compilation when installing from Pypi
+## Prerequisites for Compilation when installing from PyPI
 Cloudify CLI has dependencies that require compilation on your machine:
 
 ### Windows
