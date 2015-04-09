@@ -198,6 +198,9 @@ For more information see the [Softlayer Manager Reference](reference-softlayer-m
 
 {% tabcontent AWS EC2 %}
 
+[EC2 Compute Classic](http://aws.amazon.com/ec2/) is a public cloud.
+To use AWS you need to [Setup an account on AWS](https://portal.aws.amazon.com/gp/aws/developer/registration/index.html).
+
 This blueprint defines quite a few input parameters we need to fill out.
 
 Let's make a copy of the inputs template already provided and edit it:
@@ -238,6 +241,11 @@ You will, at the very least, have to provide the mandatory inputs.
 This tutorial uses AWS EC2 manager blueprint on Docker and it requires:
  * The `image_id` input should be a 64 bit Ubuntu Trusty 14.04 image. Because this plugin currently only supports EC2 Classic, and not VPC, it is most likely that you will be required to use an EBS-backed instance.
  * The `instance_type` input should probably be larger than the `t*.micro` instances.
+
+You will, at the very least, have to provide the following:
+* `aws_access_key_id`
+* `aws_secret_access_key`
+
 {%endinfo%}
 
 For more information see the [AWS EC2 Manager Reference](reference-aws-ec2-manager.html).
