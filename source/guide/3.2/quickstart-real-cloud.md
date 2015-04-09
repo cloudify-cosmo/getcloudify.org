@@ -9,6 +9,7 @@ pageord: 200
 openstack_blueprint_file_link: https://raw.githubusercontent.com/cloudify-cosmo/cloudify-nodecellar-example/3.1/openstack-blueprint.yaml
 softlayer_blueprint_file_link: https://raw.githubusercontent.com/cloudify-cosmo/cloudify-nodecellar-example/master/softlayer-blueprint.yaml
 aws_ec2_blueprint_file_link: https://raw.githubusercontent.com/cloudify-cosmo/cloudify-nodecellar-example/master/aws-ec2-blueprint.yaml
+vcloud_blueprint_file_link: https://raw.githubusercontent.com/achirko/cloudify-nodecellar-example/vcloud-plugin/vcloud-blueprint.yaml
 terminology_link: reference-terminology.html
 workflows_link: reference-builtin-workflows.html
 
@@ -30,12 +31,14 @@ This tutorial shows how to bootstrap a Cloudify manager on:
   - [OpenStack](plugin-openstack.html)
   - [Softlayer](softlayer-openstack.html)
   - [AWS EC2](plugin-aws.html)
+  - [vCloud](plugin-vsphere)
 
 The blueprint you'll be deploying describes a nodejs application that connects to a MongoDB database and presents a wine catalog.
 
   - [OpenStack nodecellar blueprint]({{page.openstack_blueprint_file_link}})
   - [SoftLayer nodecellar blueprint]({{page.softlayer_blueprint_file_link}})
   - [AWS EC2 nodecellar blueprint]({{page.aws_ec2_blueprint_file_link}})
+  - [vCloud nodecellar blueprint]({{page.vcloud_blueprint_file_link}})
 
 To learn more about blueprint syntax and elements please refer to the [Blueprint Authoring Guide](guide-blueprint.html).
 
@@ -252,6 +255,41 @@ For more information see the [AWS EC2 Manager Reference](reference-aws-ec2-manag
 
 {% endtabcontent %}
 
+{% tabcontent vCloud %}
+
+This blueprint defines quite a few input parameters we need to fill out.
+
+Let's make a copy of the inputs template already provided and edit it:
+
+{% highlight bash %}
+cd cloudify-manager-blueprints/vcloud-air
+cp inputs.yaml.template inputs.yaml
+{% endhighlight %}
+
+The inputs.yaml file should look somewhat like this:
+
+{% highlight yaml %}
+vcloud_username: ''
+vcloud_password: ''
+vcloud_url: ''
+vcloud_service: ''
+vcloud_vdc: ''
+manager_server_name: ''
+manager_server_catalog: ''
+manager_server_template: ''
+management_network_use_existing: true
+management_network_name: ''
+edge_gateway: ''
+floating_ip_public_ip: ''
+manager_private_key_path: '~/.ssh/manager.pem'
+agent_private_key_path: '~/.ssh/agent.pem'
+manager_public_key: ''
+agent_public_key: ''{% endhighlight %}
+
+For more information see the [vCloud Manager Reference](reference-vcloud-manager.html).
+
+{% endtabcontent %}
+
 {% endinittab %}
 
 {% endgcloak %}
@@ -276,6 +314,11 @@ cfy bootstrap --install-plugins -p softlayer.yaml -i inputs.yaml --task-retries 
 {% tabcontent AWS EC2%}
 {% highlight bash %}
 cfy bootstrap --install-plugins -p aws-ec2-manager-blueprint.yaml -i inputs.yaml --task-retries 10
+{% endhighlight %}
+{% endtabcontent %}
+{% tabcontent vCloud%}
+{% highlight bash %}
+cfy bootstrap --install-plugins -p vcloud.yaml -i inputs.yaml --task-retries 10
 {% endhighlight %}
 {% endtabcontent %}
 {% endinittab %}
@@ -304,6 +347,13 @@ sudo pip install -r requirements.txt
 {% tabcontent AWS EC2%}
 {% highlight sh %}
 cfy local create-requirements -o requirements.txt -p aws-ec2-manager-blueprint.yaml
+sudo pip install -r requirements.txt
+{%endhighlight%}
+{% endtabcontent %}
+
+{% tabcontent vCloud%}
+{% highlight sh %}
+cfy local create-requirements -o requirements.txt -p vcloud.yaml
 sudo pip install -r requirements.txt
 {%endhighlight%}
 {% endtabcontent %}
@@ -360,6 +410,12 @@ cfy blueprints upload -b nodecellar -p softlayer-blueprint.yaml​
 {% tabcontent AWS EC2%}
 {%highlight bash%}
 cfy blueprints upload -b nodecellar -p aws-ec2-blueprint.yaml​
+{%endhighlight%}
+{% endtabcontent %}
+
+{% tabcontent vCloud %}
+{%highlight bash%}
+cfy blueprints upload -b nodecellar -p vcloud-blueprint.yaml​
 {%endhighlight%}
 {% endtabcontent %}
 
@@ -507,6 +563,74 @@ The image is again the AMI image ID. The size is the instance_type, and the agen
 
 {% endtabcontent %}
 
+{% tabcontent vCloud %}
+
+{%highlight yaml%}
+inputs:
+
+  vcloud_username:
+      type: string
+
+  vcloud_password:
+      type: string
+
+  vcloud_url:
+      type: string
+
+  vcloud_service:
+      type: string
+
+  vcloud_vcd:
+      type: string
+
+  catalog:
+    type: string
+
+  template:
+    type: string
+
+  agent_user:
+    type: string
+    default: ubuntu
+
+  management_network_name:
+    type: string
+
+  floating_ip_gateway:
+    type: string
+
+  nodecellar_public_ip:
+    type: string
+
+{%endhighlight%}
+
+Let's make a copy of the inputs template already provided and edit it:
+
+{% highlight bash %}
+cd cloudify-nodecellar-example/inputs
+cp vcloud.yaml.template inputs.yaml
+{% endhighlight %}
+The inputs.yaml file should look somewhat like this:
+{%highlight yaml%}
+{
+    "vcloud_username": "your_vcloud_username",
+    "vcloud_password": "your_vcloud_password",
+    "vcloud_url": "https://vchs.vmware.com",
+    "vcloud_service": "service_name",
+    "vcloud_vdc": "virtual_datacenter_name",
+    "manager_server_name": "your_manager",
+    "manager_server_catalog": "templates_catalog",
+    "manager_server_template": "template",
+    "edge_gateway": "gateway_name",
+    "floating_ip_public_ip": "",
+    "management_network_name": "management",
+    "manager_private_key_path": "~/.ssh/vcloud_template.pem",
+    "agent_private_key_path": "~/.ssh/vcloud_template.pem"
+}
+{%endhighlight%}
+
+{% endtabcontent %}
+
 {% endinittab %}
 
 {% endgcloak %}
@@ -631,3 +755,4 @@ For a more elaborate installation tutorial, please refer to
 - the [Openstack Manager Reference](reference-openstack-manager.html).
 - the [Softlayer Manager Reference](reference-softlayer-manager.html).
 - the [AWS EC2 Reference](reference-aws-ec2-manager.html).
+- the [vCloud Reference](reference-vcloud-manager.html).
