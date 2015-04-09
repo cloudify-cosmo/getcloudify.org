@@ -26,8 +26,7 @@ First, clone the [Cloudify-Manager-Blueprints](https://github.com/cloudify-cosmo
 
 {%note title=Note%}
 
-The correct Cloudify-Manager-Blueprints for the CFY 3.2 is downlodable from [Cloudify-Manager-Blueprints-3.2](https://github.com/cloudify-cosmo/cloudify-manager-blueprints/archive/3.2.zip)
-
+You can download the correct Cloudify-Manager-Blueprints for the CFY version you're using from [Cloudify-Manager-Blueprints](https://github.com/cloudify-cosmo/cloudify-manager-blueprints/releases)
 
 {%endnote%}
 
@@ -37,7 +36,7 @@ Second, install the blueprint-specific dependencies by running:
 
 For example,
 
-    `cfy local install-plugins -p cloudify-manager-blueprints/openstack/openstack.yaml`
+    `cfy local install-plugins -p cloudify-manager-blueprints/openstack/openstack-manager-blueprint.yaml`
 
 (Alternatively, you may pass the `--install-plugins` flag to the `cfy bootstrap` command which follows soon)
 
@@ -118,8 +117,6 @@ Bootstrapping using Docker provides several advantages:
 * Using Docker simplifies Cloudify's bootstrap process, and will help in making it much faster in future versions.
 * In future versions, using docker would allow to migrate your entire manager onto an entirely different machine.
 
-To bootstrap with docker, use the appropriate manager blueprint, available in the [cloudify-manager-blueprints repository](https://github.com/cloudify-cosmo/cloudify-manager-blueprints).
-
 {%note title=Note%}
 Please verify the [prerequisites](installation-general.html#bootstrapping-using-docker) before bootstrapping.
 {%endnote%}
@@ -136,11 +133,11 @@ To prevent losing data in case of a container failure, Cloudify uses a separate 
 Additionally, using volumes will increase performance as all data is written directly to the disk instead of using Copy-On-Write.
 
 {%note title=Note%}
-Agent packages should be stated under 'cloudify_packages' and will be installed upon bootstrap, inside the Docker container.
+Agent packages should be stated under `cloudify_packages` and will be installed upon bootstrap, inside the Docker container.
 {%endnote%}
 
 {%note title=Note%}
-Cloudify will attempt to install Docker ***only on Ubuntu 14.04 (Trusty)***, as other images may require kernel upgrades and additional package installations.
+Cloudify will attempt to perform an online installation of Docker ***only on Ubuntu 14.04 (Trusty)***, as other images may require kernel upgrades and additional package installations.
 
 If you are using an image of a different distribution, you'll have to make sure that Docker is installed on it prior to bootstrapping.
 {%endnote%}
