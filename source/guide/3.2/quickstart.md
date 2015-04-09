@@ -45,7 +45,7 @@ Cloudify provides:
 In this tutorial you will start a Cloudify manager within a Vagrant box on your laptop, and install a sample blueprint on it.
 
 Unlike a real cloud deployment, this example will install the application's components on a single Vagrant VM.
-If you'd like to install an `application`([?]({{page.terminology_link}}#application)) on an actual cloud,
+If you'd like to install an [application]({{page.terminology_link}}#application) on an actual cloud,
 please refer to the [Getting started with Openstack]({{page.quickstart_openstack_link}}) guide.
 
 The [blueprint]({{page.blueprint_file_link}}) you'll be deploying,
@@ -63,6 +63,10 @@ You'll need to have the following setup in your environment:
 * [Oracle VirtualBox]({{page.virtualbox_link}}) (this box has been tested with version 4.3 or higher, but earlier versions should work as well).
 * [Vagrant]({{page.vagrant_link}}) (Make sure that you are using version 1.5 or above!).
 * At least 2GB of free RAM
+
+{%note title=Running inside a VM%}
+Your Hypervisor must support nested virtualization in order to run Virtualbox inside a VM. Unless you know you can run a VM inside a VM, please run the box from either your laptop or on a bare metal server.
+{%endnote%}
 
 {%note title=Notes for Windows users%}
 * Do not run the command prompt as Administrator (privilege escalation).
@@ -96,7 +100,7 @@ after which Cloudify's CLI will be at your disposal.
 
 ## Step 3: Download the blueprint
 
-Cloudify uses `blueprints`([?]({{page.terminology_link}}#blueprint)) to describe the overall application orchestration, including the application nodes, workflows, and relationships.
+Cloudify uses [blueprints]({{page.terminology_link}}#blueprint) to describe the overall application orchestration, including the application nodes, workflows, and relationships.
 
 You'll have to clone a sample blueprint from our Github repository.
 
@@ -109,7 +113,7 @@ git checkout tags/3.1
 
 ## Step 4: Upload the Blueprint and Create a Deployment
 
-Now, we upload a sample `blueprint`([?]({{page.terminology_link}}#blueprint)) to the Cloudify manager and create a `deployment`([?]({{page.terminology_link}}#deployment)) based on it.
+Now, we upload a sample [blueprint]({{page.terminology_link}}#blueprint) to the Cloudify manager and create a [deployment]({{page.terminology_link}}#deployment) based on it.
 
 In the `cloudify-nodecellar-example` directory that you just cloned, you can see a blueprint file (named `singlehost-blueprint.yaml`) alongside other resources related to this blueprint.
 
@@ -125,7 +129,7 @@ Point your browser at the manager's URL again and refresh the screen. You will s
 
 ![Blueprints table](/guide/images3/guide/quickstart/blueprints_table.png)
 
-Click the blueprint. You can see its topology. A `topology`([?]({{page.terminology_link}}#topology)) consists of elements called `nodes`([?]({{page.terminology_link}}#node)).
+Click the blueprint. You can see its topology. A [topology]({{page.terminology_link}}#topology) consists of elements called [nodes]({{page.terminology_link}}#node).
 
 In our case, we have the following nodes:
 
@@ -177,7 +181,7 @@ cfy executions start -w install -d nodecellar
 This will take a couple of minutes, during which the resources will be created and configured.
 
 You can track the installation progress in the web console or in your terminal application.
-In your terminal, you will see that each `event`([?]({{page.terminology_link}}#event)) is labeled with its time, the deployment name,
+In your terminal, you will see that each [event]({{page.terminology_link}}#event) is labeled with its time, the deployment name,
 and the node in our topology that it relates to, e.g.
 
 {% highlight bash %}
