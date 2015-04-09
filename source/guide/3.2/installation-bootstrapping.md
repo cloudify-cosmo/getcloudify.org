@@ -91,12 +91,7 @@ Services:
 # Manager blueprints
 
 ## Available manager blueprints
-At the moment, the following official manager blueprints are available in the [manager blueprints repository](https://github.com/cloudify-cosmo/cloudify-manager-blueprints):
-
-- [Simple](reference-simple-manager.html) (for bootstrapping Cloudify on an existing machine)
-- [Openstack](reference-openstack-manager.html)
-- [Nova-net Openstack](reference-nova-net-openstack-manager.html)
-- [Cloudstack](reference-cloudstack-manager.html)
+See The References section in the documentation for a reference of all currently available Manager Blueprints.
 
 {%note title=Note%}
 The manager blueprints are comprised not only by the *.yaml* file, but rather the entire directory in which the *.yaml* file resides. Make sure to copy the full directory for when using or editing manager blueprints.
