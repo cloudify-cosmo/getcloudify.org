@@ -109,8 +109,14 @@ In following versions, we'll be supplying a package compiled for OS X.
 
 A script is supplied for you to install Cloudify on different OS distributions.
 
+{%note title=Script's help%}
+Please consider running `python get-cloudify.py -h` before installing to get familiarized with what this script provides.
+{%endnote%}
+
 {%warning title=Prerequisites Installation%}
-By default, this script will not install any prerequisites. You can supply it with the `--force` flag which will install all prerequisites without prompting you for anything other than a sudoer password (if required). The prerequisites are:
+By default, this script will not install any prerequisites. You can supply it with the `--force` flag which will install all prerequisites without prompting you for anything other than a sudoer password (if required).
+
+The prerequisites are:
 
 * pip - for Linux, Windows and OS X
 * virtualenv - for Linux, Windows and OS X
@@ -120,61 +126,8 @@ By default, this script will not install any prerequisites. You can supply it wi
 * PyCrypto - for Windows as it's not automatically compiled when installin Cloudify's CLI.
 {%endwarning%}
 
-{%note title=Script's help%}
-Please consider running `python get-cloudify.py -h` before installing to get familiarized with what this script provides.
 
-<!-- Example output:
-{% highlight bash %}
-usage: get-cloudify.py [-h] [-v | -q] [-f] [--virtualenv VIRTUALENV]
-                       [--version VERSION | --pre]
-                       [--forceonline | --wheelspath WHEELSPATH] [--nosudo]
-                       [--pythonpath PYTHONPATH] [--installpip]
-                       [--installvirtualenv] [--installpythondev]
-
-This script attempts(!) to install Cloudify's CLI on Linux, Windows (with
-Python32 AND 64), and OS X (Darwin). On the linux front, it supports
-Debian/Ubuntu, CentOS/RHEL and Arch. Installations are supported for both
-system python and virtualenv (using the --virtualenv flag). If you're already
-running the script from within a virtualenv and you're not providing a
---virtualenv path, Cloudify will be installed within the virtualenv you're in.
-Passing the --wheelspath allows for an offline installation of Cloudify from
-predownloaded Cloudify dependency wheels. Note that if wheels are found within
-the default wheels directory or within --wheelspath, they will (unless the
---forceonline flag is set) be used instead of performing an online
-installation. A --nosudo flag can be supplied (If not on Windows) so that
-prerequisites can be installed on machines/containers without the sudo
-execuable (must be run by root user). Sudo for relevant prerequisites is on by
-default. By default, the script assumes that the Python executable is in the
-path and is called 'Python' on Linux and 'c:\python27\python.exe on Windows.
-The Python path can be overriden by using the --pythonpath flag. The script
-will attempt to install all necessary requirements including python-dev and
-gcc (for Fabric on Linux), pycrypto (for Fabric on Windows), pip and
-virtualenv depending on the OS and Distro you're running on. Please refer to
-Cloudify's documentation at http://getcloudify.org for additional information.
-
-optional arguments:
-  -h, --help            show this help message and exit
-  -v, --verbose         Verbose level logging to shell.
-  -q, --quiet           Only print errors.
-  -f, --force           Force install any requirements (USE WITH CARE!).
-  --virtualenv VIRTUALENV
-                        Path to a Virtualenv to install Cloudify in
-  --version VERSION     Attempt to install a specific version of Cloudify
-  --pre                 Attempt to install the latest Cloudify Milestone
-  --forceonline         Even if wheels are found locally, install from PyPI.
-  --wheelspath WHEELSPATH
-                        Path to wheels (defaults to "<cwd>/wheelhouse").
-  --nosudo              Do not use sudo for prerequisites.
-  --pythonpath PYTHONPATH
-                        Python path to use (defaults to "python").
-  --installpip          Attempt to install pip
-  --installvirtualenv   Attempt to install Virtualenv
-  --installpythondev    Attempt to install Python Developers Package
-{% endhighlight %} -->
-{%endnote%}
-
-
-To install Cloudify's latest stable release using the default flags:
+## Installing the latest Stable Release using the default flags
 
 1. Download the [script](PROVIDE_LINK_HERE!)
 1. Run
@@ -256,7 +209,7 @@ pip install https://github.com/cloudify-cosmo/cloudify-cli/archive/master.zip
 {% endhighlight %}
 
 ## Prerequisites for Compilation when installing from PyPI
-Cloudify CLI has dependencies that require compilation on your machine:
+Cloudify's CLI has dependencies that require compilation on your machine:
 
 ### Windows
 For Windows it's suggested to use [Unofficial Windows Binaries for Python](http://www.lfd.uci.edu/~gohlke/pythonlibs)
@@ -266,7 +219,9 @@ and install the following packages:
 2. PyYaml
 
 ### Linux
-Under Ubuntu, you'll need to install the `python-dev` package.
+
+* Under Ubuntu/Debian, you'll need to install the `python-dev` package.
+* Under CentOS/RHEL, you'll need to install the `python-devel` package.
 
 ### OS X
 You will need Apple's developers tools that are installed with Xcode.
