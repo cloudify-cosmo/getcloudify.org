@@ -9,10 +9,6 @@ pageord: 400
 
 {%summary%} This page explains how to bootstrap a Cloudify manager using the Cloudify CLI {%endsummary%}
 
-{%note title=NEW!%}
-You can now bootstrap Cloudify using Docker. See [Bootstrapping Using Docker](#bootstrapping-using-docker) for more information.
-{%endnote%}
-
 # Initialization
 
 Navigate to a directory of your choosing, and initialize it as a Cloudify CLI working directory using this command:
@@ -30,18 +26,17 @@ First, clone the [Cloudify-Manager-Blueprints](https://github.com/cloudify-cosmo
 
 {%note title=Note%}
 
-The correct Cloudify-Manager-Blueprints for the CFY 3.2 is downlodable from [Cloudify-Manager-Blueprints-3.2](https://github.com/cloudify-cosmo/cloudify-manager-blueprints/archive/3.2.zip)
-
+You can download the correct Cloudify-Manager-Blueprints for the CFY version you're using from [Cloudify-Manager-Blueprints](https://github.com/cloudify-cosmo/cloudify-manager-blueprints/releases)
 
 {%endnote%}
 
-Second, install the blueprint-specific dependencies by running:
+Now you can install the blueprint-specific dependencies by running:
 
  `cfy local install-plugins -p /path/to/manager/blueprint/file`
 
 For example,
 
-    `cfy local install-plugins -p cloudify-manager-blueprints/openstack/openstack.yaml`
+    `cfy local install-plugins -p cloudify-manager-blueprints/openstack/openstack-manager-blueprint.yaml`
 
 (Alternatively, you may pass the `--install-plugins` flag to the `cfy bootstrap` command which follows soon)
 
@@ -59,7 +54,7 @@ sudo pip install -r requirements.txt
 {%endnote%}
 
 
-Next, create an inputs YAML file. This file will serve as the configuration for the manager blueprint inputs. Note that the various manager blueprints folders offer a *inputs.yaml.template* file, which can be copied and edited with the desired values.
+Next, create an inputs YAML file. This file will serve as the configuration for the manager blueprint inputs. Note that the various manager blueprints folders offer an *inputs.yaml.template* file, which can be copied and edited with the desired values.
 
 Finally, run the `cfy bootstrap` command, pointing it to the manager blueprint file and the inputs YAML file, like so:
 
@@ -96,12 +91,7 @@ Services:
 # Manager blueprints
 
 ## Available manager blueprints
-At the moment, the following official manager blueprints are available in the [manager blueprints repository](https://github.com/cloudify-cosmo/cloudify-manager-blueprints):
-
-- [Simple](reference-simple-manager.html) (for bootstrapping Cloudify on an existing machine)
-- [Openstack](reference-openstack-manager.html)
-- [Nova-net Openstack](reference-nova-net-openstack-manager.html)
-- [Cloudstack](reference-cloudstack-manager.html)
+See The Reference section in the documentation for a reference of all currently available Manager Blueprints.
 
 {%note title=Note%}
 The manager blueprints are comprised not only by the *.yaml* file, but rather the entire directory in which the *.yaml* file resides. Make sure to copy the full directory for when using or editing manager blueprints.
@@ -111,21 +101,19 @@ The manager blueprints are comprised not only by the *.yaml* file, but rather th
 ## Authoring manager blueprints
 If you wish to write a custom manager blueprint (whether it be for a custom behavior or a different provider) or learn more on how manager blueprints work, refer to the [Manager Blueprints Authoring guide](guide-authoring-manager-blueprints.html).
 
-# Bootstrapping using Docker
+# Bootstrapping
 
-Alternatively, it is possible to bootstrap a Cloudify Manager on top of Docker.
+The Cloudify Manager is bootstrapped on top of Docker.
 
 Bootstrapping using Docker provides several advantages:
 
-* The Cloudify Manager becomes available on Linux distributions other than Ubuntu 12.04.
+* The Cloudify Manager is available on varius Linux distributions running Docker. Note that some distributions require minimal adjustments
 * Users can upgrade containers specific to the service they want to upgrade (Currently, there's only one Application container. In the future, each container will host one service [e.g. Logstash, Elasticsearch, etc..])
 * Using Docker simplifies Cloudify's bootstrap process, and will help in making it much faster in future versions.
 * In future versions, using docker would allow to migrate your entire manager onto an entirely different machine.
 
-To bootstrap with docker, use the appropriate manager blueprint, available in the [cloudify-manager-blueprints repository](https://github.com/cloudify-cosmo/cloudify-manager-blueprints).
-
 {%note title=Note%}
-Please verify the [prerequisites](installation-general.html#bootstrapping-using-docker) before bootstrapping using Docker.
+Please verify the [prerequisites](installation-general.html#bootstrapping-using-docker) before bootstrapping.
 {%endnote%}
 
 
@@ -140,12 +128,11 @@ To prevent losing data in case of a container failure, Cloudify uses a separate 
 Additionally, using volumes will increase performance as all data is written directly to the disk instead of using Copy-On-Write.
 
 {%note title=Note%}
-Stating agent packages under 'cloudify_packages' will ***override the existing agent packages*** packed inside the docker image.
-By default, the docker image contains Ubuntu 14.04 (Trusty), Ubuntu 12.04 (Precise), Centos and Windows agent packages.
+Agent packages should be stated under `cloudify_packages` and will be installed upon bootstrap, inside the Docker container.
 {%endnote%}
 
 {%note title=Note%}
-Cloudify will attempt to install Docker ***only on Ubuntu 14.04 (Trusty)***, as other images may require kernel upgrades and additional package installations.
+Cloudify will attempt to perform an online installation of Docker ***only on Ubuntu 14.04 (Trusty)***, as other images may require kernel upgrades and additional package installations.
 
 If you are using an image of a different distribution, you'll have to make sure that Docker is installed on it prior to bootstrapping.
 {%endnote%}
