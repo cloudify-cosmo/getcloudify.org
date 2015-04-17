@@ -12,9 +12,6 @@ vcloud_deploy_link: quickstart-vcloud.html
 {%summary%} {{page.abstract}}{%endsummary%}
 
 
-{%warning title=Disclaimer%}vCloud plugin is under development.{%endwarning%}
-
-
 # vCloud Adjustments
 
 In this section of the tutorial we will learn how to adjust the *nodecellar* application to run on vCloud.
@@ -32,7 +29,7 @@ This file contains the vcloud plugin and types definitions.
 
 {%highlight yaml%}
 imports:
-  - https://raw.githubusercontent.com/cloudify-cosmo/tosca-vcloud-plugin/develop/plugin.yaml
+  - https://raw.githubusercontent.com/cloudify-cosmo/tosca-vcloud-plugin/master/plugin.yaml
 {%endhighlight%}
 
 ## Step 2: Changing our inputs
@@ -82,6 +79,9 @@ inputs:
     type: string
     default: ubuntu
 
+  agent_public_key:
+    type: string
+
   management_network_name:
     type: string
 
@@ -100,6 +100,9 @@ A floating IP provides a constant public IP for the application.
 {%highlight yaml%}
   nodecellar_floatingip:
     type: cloudify.vcloud.nodes.FloatingIP
+    properties:
+        floatingip:
+            edge_gateway: { get_input: floating_ip_gateway }
 {%endhighlight%}
 
 ## Step 4: Adding management network ports
@@ -107,15 +110,7 @@ A floating IP provides a constant public IP for the application.
 A port allows to specify VM's network interface parameters.
 
 {%highlight yaml%}
-  nodejs_management_port:
-    type: cloudify.vcloud.nodes.Port
-    properties:
-        port:
-            network: { get_input: management_network_name }
-            ip_allocation_mode: dhcp
-            primary_interface: true
-
-  mongod_management_port:
+  management_port:
     type: cloudify.vcloud.nodes.Port
     properties:
         port:
@@ -138,8 +133,12 @@ We will need two VM's, one for mongod and one for nodejs.
         server:
            catalog: { get_input: catalog }
            template: { get_input: template }
+           guest_customization:
+             public_keys:
+               - key:  { get_input: agent_public_key }
+                 user: { get_input: agent_user }
     relationships:
-        - target: mongod_management_port
+        - target: management_port
           type: cloudify.vcloud.server_connected_to_port
 
   nodejs_host:
@@ -150,8 +149,12 @@ We will need two VM's, one for mongod and one for nodejs.
         server:
            catalog: { get_input: catalog }
            template: { get_input: template }
+           guest_customization:
+             public_keys:
+               - key:  { get_input: agent_public_key }
+                 user: { get_input: agent_user }
     relationships:
-        - target: nodejs_management_port
+        - target: management_port
           type: cloudify.vcloud.server_connected_to_port
         - target: nodecellar_floatingip
           type: cloudify.vcloud.server_connected_to_floating_ip
@@ -192,7 +195,7 @@ Lets take a look at our full blueprint:
 {%highlight yaml%}
 imports:
   - http://www.getcloudify.org/spec/cloudify/3.2/types.yaml
-  - https://raw.githubusercontent.com/cloudify-cosmo/tosca-vcloud-plugin/develop/plugin.yaml
+  - https://raw.githubusercontent.com/cloudify-cosmo/tosca-vcloud-plugin/master/plugin.yaml
 
 inputs:
   vcloud_username:
@@ -219,6 +222,9 @@ inputs:
   agent_user:
     type: string
     default: ubuntu
+
+  agent_public_key:
+    type: string
 
   management_network_name:
     type: string
@@ -289,6 +295,14 @@ relationships:
 
 node_templates:
 
+  management_port:
+    type: cloudify.vcloud.nodes.Port
+    properties:
+        port:
+            network: { get_input: management_network_name }
+            ip_allocation_mode: dhcp
+            primary_interface: true
+
   mongod_vm:
     type: cloudify.vcloud.nodes.Server
     properties:
@@ -297,8 +311,13 @@ node_templates:
       server:
         catalog: { get_input: catalog }
         template: { get_input: template }
+        guest_customization:
+          public_keys:
+            - key:  { get_input: agent_public_key }
+              user: { get_input: agent_user }
+      management_network: { get_input: management_network_name }
     relationships:
-      - target: mongod_management_port
+      - target: management_port
         type: cloudify.vcloud.server_connected_to_port
 
   nodejs_vm:
@@ -309,8 +328,13 @@ node_templates:
       server:
         catalog: { get_input: catalog }
         template: { get_input: template }
+        guest_customization:
+          public_keys:
+            - key:  { get_input: agent_public_key }
+              user: { get_input: agent_user }
+      management_network: { get_input: management_network_name }
     relationships:
-      - target: nodejs_management_port
+      - target: management_port
         type: cloudify.vcloud.server_connected_to_port
       - target: nodecellar_floatingip
         type: cloudify.vcloud.server_connected_to_floating_ip
