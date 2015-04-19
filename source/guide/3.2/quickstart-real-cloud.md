@@ -397,25 +397,25 @@ To upload the blueprint run:
 
 {% tabcontent OpenStack%}
 {%highlight bash%}
-cfy blueprints upload -b nodecellar -p openstack-blueprint.yaml​
+cfy blueprints upload -b nodecellar -p openstack-blueprint.yaml
 {%endhighlight%}
 {% endtabcontent %}
 
 {% tabcontent SoftLayer%}
 {%highlight bash%}
-cfy blueprints upload -b nodecellar -p softlayer-blueprint.yaml​
+cfy blueprints upload -b nodecellar -p softlayer-blueprint.yaml
 {%endhighlight%}
 {% endtabcontent %}
 
 {% tabcontent AWS EC2%}
 {%highlight bash%}
-cfy blueprints upload -b nodecellar -p aws-ec2-blueprint.yaml​
+cfy blueprints upload -b nodecellar -p aws-ec2-blueprint.yaml
 {%endhighlight%}
 {% endtabcontent %}
 
 {% tabcontent vCloud %}
 {%highlight bash%}
-cfy blueprints upload -b nodecellar -p vcloud-blueprint.yaml​
+cfy blueprints upload -b nodecellar -p vcloud-blueprint.yaml
 {%endhighlight%}
 {% endtabcontent %}
 
