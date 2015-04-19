@@ -40,10 +40,10 @@ A deployment with a workflow execution completed successfully
 A deployment with a workflow execution partially completed successfully with some alerts
 ![Deployment Topology Execution Completed Partially Alerts](/guide/images/ui/ui-deployment-topology-5.png)
 
-A deployment with a workflow execution partially completed successfully with some failures
+A deployment with a workflow execution that partially failed
 ![Deployment Topology Execution Completed Partially Errors](/guide/images/ui/ui-deployment-topology-6.png)
 
-A deployment with a workflow execution completed with failures
+A deployment with a workflow execution that failed
 ![Deployment Topology Execution Completed Errors](/guide/images/ui/ui-deployment-topology-7.png)
 
 
