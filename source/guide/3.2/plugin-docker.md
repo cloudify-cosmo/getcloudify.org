@@ -1,7 +1,7 @@
 ---
 layout: bt_wiki
 title: Docker Plugin (Alpha)
-category: Plugins
+category: Official Plugins
 publish: true
 abstract: "Docker plugin description and configuration"
 pageord: 210
@@ -33,8 +33,8 @@ plugin_version: 1.2
 
 **Properties:**
 
-  * `image` *Required*. 
-  * `name` *Required*. 
+  * `image` *Required*.
+  * `name` *Required*.
   * `use_external_resource` a boolean for setting whether to create the resource or use an existing one.
 
 **Mapped Operations:**
@@ -135,7 +135,7 @@ The `image` property is a dictionary. It must have the `repository` key or the `
 
 The `src` key is used when you want to import an image. It must point to a file or URL where there is a tarball, which Docker can use to import an image. For more information on importing images, see [docker import command.](https://docs.docker.com/reference/commandline/cli/#import)
 
-If you pull an image from a Docker hub, `repository` is required. If you are importing an image, you leave it blank. The plugin will name the 
+If you pull an image from a Docker hub, `repository` is required. If you are importing an image, you leave it blank. The plugin will name the
 repository by the Cloudify [instance ID.](http://getcloudify.org/guide/3.2/reference-terminology.html#node-instance)
 
 The `tag` key is also optional. If you want to specify a version of a repository, you can put that in the tag.

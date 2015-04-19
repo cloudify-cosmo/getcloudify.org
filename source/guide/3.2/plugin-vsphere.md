@@ -1,7 +1,7 @@
 ---
 layout: bt_wiki
 title: vSphere Plugin
-category: Plugins
+category: Official Plugins
 publish: true
 abstract: Cloudify vSphere plugin description and configuration
 pageord: 600

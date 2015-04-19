@@ -1,7 +1,7 @@
 ---
 layout: bt_wiki
 title: Fabric (SSH) Plugin
-category: Plugins
+category: Official Plugins
 publish: true
 abstract: "Cloudify Fabric plugin description and configuration"
 pageord: 300
@@ -132,7 +132,7 @@ node_templates:
               important_prop2: 300
 {%endhighlight%}
 
-This example is very similar to the previous one with the following difference. If the fabric task you want to execute is already installed in the python environment in which the operation will run, you can 
+This example is very similar to the previous one with the following difference. If the fabric task you want to execute is already installed in the python environment in which the operation will run, you can
 specify the python path to this function.
 
 
@@ -197,9 +197,9 @@ node_templates:
               # Optional
               cwd: /home/ubuntu
               # Optional
-              command_prefix: 
+              command_prefix:
               # Optional
-              args: [--arg1, --arg2, arg3]                
+              args: [--arg1, --arg2, arg3]
 {%endhighlight%}
 
 
