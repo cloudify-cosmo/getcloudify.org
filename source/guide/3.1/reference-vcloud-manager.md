@@ -10,9 +10,6 @@ pageord: 1000
 {%summary%} This page serves as a reference to the vCloud manager blueprint, which is used for bootstrapping Cloudify on vCloud {%endsummary%}
 
 
-{%warning title=Disclaimer%}vCloud plugin is under development.{%endwarning%}
-
-
 {%note title=Note%}
 This reference only explains the structure and various values in the blueprint. For better understanding of it, make yourself familiar with [Cloudify blueprints DSL](guide-blueprint.html), the [Cloudify vCloud plugin](plugin-vcloud.html), and the [Manager Blueprints Authoring guide](guide-authoring-manager-blueprints.html).
 {%endnote%}
@@ -31,8 +28,15 @@ This reference only explains the structure and various values in the blueprint. 
 * `manager_server_template` VApp template from which server will be spawned
 * `management_network_name` management network name
 * `edge_gateway` Edge Gateway name
+* `manager_public_key` manager public ssh key
+* `agent_public_key` agent public ssh key
 
 ## Optional inputs
+* `vcloud_service_type` vCloud service type. Default is 'subscription'.
+* `vcloud_region` OnDemand region name.
+* `vcloud_org_url` Only required if using token based login on a private vcloud director. This can be obtained by following the vcloud API example docs.
+* `manager_server_cpus` manager VM cpu count. Default is 2.
+* `manager_server_memory` manager VM memory size. Default is 4096.
 * `management_port_ip_allocation_mode` IP allocation mode for manager Port (Default: `dhcp`).
 * `management_port_ip_address` If IP allocation mode was set to `manual` this will be used as Port ip address (Default: `''`).
 * `floating_ip_public_ip` Manager public ip. If empty string is specified, then public will be allocated from a pool of free public ips (Default: `''`).
@@ -43,7 +47,7 @@ This reference only explains the structure and various values in the blueprint. 
 * `resources_prefix` Resource prefix to be attached to cloud resources' names.
 
 
-# Toplogy
+# Topology
 
 The blueprint builds the following topology on vCloud:
   

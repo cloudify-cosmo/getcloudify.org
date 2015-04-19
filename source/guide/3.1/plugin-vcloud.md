@@ -1,6 +1,6 @@
 ---
 layout: bt_wiki
-title: vCloud Plugin (WIP)
+title: vCloud Plugin
 category: Plugins
 publish: true
 abstract: Cloudify vCloud plugin description and configuration
@@ -9,9 +9,6 @@ pageord: 600
 ---
 {%summary%}
 {%endsummary%}
-
-
-{%warning title=Disclaimer%}This plugin is under development.{%endwarning%}
 
 
 # Description
@@ -42,6 +39,18 @@ Each type has property `vcloud_config`. It can be used to pass parameters for au
     * `name` server name.
     * `template` VApp template from which server will be spawned. For more information, see the [Misc section - VApp template](#vapp-template).
     * `catalog` VApp templates catalog.
+    * `guest_customization` guest customization section
+        * `public_keys` public keys to inject; list of key-value configurations
+            * `key` public ssh key
+            * `user` user name
+        * `computer_name` vm hostname
+        * `admin_password` root password
+        * `pre_script` pre-customization script
+        * `post_script` post-customization script
+        * `script_executor` script executor, '/bin/bash' by default
+    * `hardware` hardware customization section
+        * `cpu` vm cpu count
+        * `memory` vm memory size, in MB
 * `management_network` management network name
 * `vcloud_config` see the [vCloud Configuration](#vcloud-configuration).
 
@@ -59,7 +68,7 @@ Each type has property `vcloud_config`. It can be used to pass parameters for au
 
 Two additional runtime-properties are available on node instances of this type once the `cloudify.interfaces.host.get_state` operation succeeds:
 
-  * `networks` server's networks' information.
+  * `networks` server networks information.
   * `ip` the private IP (ip on the internal network) of the server.
 
 
@@ -70,6 +79,7 @@ Two additional runtime-properties are available on node instances of this type o
 **Properties:**
 
 * `network` key-value network configuration.
+    * `edge_gateway` edge gateway name
     * `name` network name
     * `static_range` static ip allocation pool range
     * `netmask` network netmask
@@ -88,6 +98,7 @@ Two additional runtime-properties are available on node instances of this type o
 
   * `cloudify.interfaces.lifecycle.create` creates the network
   * `cloudify.interfaces.lifecycle.delete` deletes the network
+  * `cloudify.interfaces.lifecycle.creation_validation` validates network node parameters before creation
 
 **Attributes:**
 
@@ -108,6 +119,10 @@ Two additional runtime-properties are available on node instances of this type o
     * `primary_interface` is interface primary (true or false).
 * `vcloud_config` see the [vCloud Configuration](#vcloud-configuration).
 
+**Mapped Operations:**
+
+  * `cloudify.interfaces.lifecycle.creation_validation` validates port node parameters
+
 
 ## cloudify.vcloud.nodes.FloatingIP
 
@@ -120,36 +135,103 @@ Two additional runtime-properties are available on node instances of this type o
     * `public_ip` public ip. If not specified public ip will be allocated from the pool of free public ips.
 * `vcloud_config` see the [vCloud Configuration](#vcloud-configuration).
 
+**Mapped Operations:**
+
+  * `cloudify.interfaces.lifecycle.creation_validation` validates FloatingIP node parameters
+
 **Attributes:**
 
   * `public_ip` public ip address
+
+
+## cloudify.vcloud.nodes.PublicNAT
+
+**Derived From:** [cloudify.nodes.VirtualIP](reference-types.html)
+
+**Properties:**
+
+* `nat` key-value NAT configuration.
+    * `edge_gateway` vCloud gateway name
+    * `public_ip` public ip. If not specified public ip will be allocated from the pool of free public ips.
+* `rules` key-value NAT rules configuration.
+    * `protocol` network protocol. Can be 'tcp', 'udp' or 'any'. Applies only for 'DNAT'.
+    * `original_port` original port. Applies only for 'DNAT'.
+    * `translated_port` translated port. Applies only for 'DNAT'.
+    * `type` list of strings containing NAT types. Can be 'SNAT', 'DNAT' or both.
+* `vcloud_config` see the [vCloud Configuration](#vcloud-configuration).
+
+**Mapped Operations:**
+
+  * `cloudify.interfaces.lifecycle.creation_validation` validates PublicNAT node parameters
+
+**Attributes:**
+
+  * `public_ip` public ip address
+
+
+## cloudify.vcloud.nodes.KeyPair
+
+**Derived From:** [cloudify.nodes.Root](reference-types.html)
+
+**Properties:**
+
+* `private_key_path` path to private ssh key file.
+* `public_key` key-value public key configuration
+    * `key` ssh public key
+    * `user` user name
+
+**Mapped Operations:**
+
+  * `cloudify.interfaces.lifecycle.creation_validation` validates KeyPair node parameters
 
 
 # Relationships
 
 ## cloudify.vcloud.server_connected_to_floating_ip
 
-**Description:** A relationship for associating a floating ip with a server.
+**Description:** A relationship for associating FloatingIP node with Server node.
 
 **Mapped Operations:**
 
-  * `cloudify.interfaces.relationship_lifecycle.establish`: associates the floating IP with the server.
-  * `cloudify.interfaces.relationship_lifecycle.unlink`: disassociates the floating IP from the server.
+  * `cloudify.interfaces.relationship_lifecycle.establish`: associates FloatingIP with Server.
+  * `cloudify.interfaces.relationship_lifecycle.unlink`: dissociates FloatingIP from Server.
 
 ## cloudify.vcloud.server_connected_to_port
 
-**Description:** A relationship for connecting a server to a port. *Note*: This relationship has no operations associated with it; The server will use this relationship to connect to the port upon server creation.
+**Description:** A relationship for connecting Server to Port.
+*Note*: This relationship has no operations associated with it; The server will use this relationship to connect to the port upon server creation.
 
 ## cloudify.vcloud.port_connected_to_network
 
-**Description:** A relationship for connecting a port to a network. *Note*: This relationship has no operations associated with it.
+**Description:** A relationship for connecting Port to Network.
+*Note*: This relationship has no operations associated with it.
+
+## cloudify.vcloud.server_connected_to_network
+**Description:** A relationship for connecting Server to Network.
+*Note*: This relationship has no operations associated with it; The server will use this relationship to connect to the network upon server creation. It will use DHCP for ip allocation.
+
+## cloudify.vcloud.server_connected_to_public_nat
+**Description:** A relationship for associating PublicNAT and Server.
+
+**Mapped Operations:**
+
+  * `cloudify.interfaces.relationship_lifecycle.establish`: associates PublicNAT with Server.
+  * `cloudify.interfaces.relationship_lifecycle.unlink`: dissociates PublicNAT from Server
+
+## cloudify.vcloud.net_connected_to_public_nat
+**Description:** A relationship for associating PublicNAT and Network.
+
+**Mapped Operations:**
+
+  * `cloudify.interfaces.relationship_lifecycle.establish`: associates PublicNAT with Network.
+  * `cloudify.interfaces.relationship_lifecycle.unlink`: dissociates PublicNAT from Network
 
 
 # Examples
 
 ## Example I
 
-This example will show how to use all of the types in this plugin.
+This example will show how to use some of the types of this plugin.
 
 {% togglecloak id=1 %}
 Example I
@@ -166,6 +248,14 @@ example_server:
             name: example-server
             catalog: example-catalog
             template: example-vapp-template
+            hardware:
+                cpu: 2
+                memory: 4096
+            guest_customization:
+                public_keys:
+                    - key: ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQCi64cS8ZLXP9xgzscr+m7bKBDdnhTxXaarJ8hIVgG5C7FHkF1Yj9Za+JIMqGjlwsOugFt09ZTvR1kQcIXdZQhs5HWhnG8UY7RkuUwO4FOFpL2VtMAleP/ZNXSZIGwwy4Sm/wtYOo8V5GPrJNbQnVtsW2NJNt6mB1geJzlshbl9wpshHlFSOz6jV2L8k2kOq32nt/Wa3qpDk20IbKnO9wJYWHVzvyJ4bTOyHowStAABFEj8O7XmoQp8jdUuTj+qAOgCROTAQh93XbS3PJjaQYBhxLOOreYYeqjKG/8IUlFxtRdUn7MLS6Rd15AP2HnjhjKad2KqnOuFZqiTLBu+CGWf
+                      user: ubuntu
+                computer_name: { get_input: manager_server_name }
         management_network: existing-network
         vcloud_config: { get_property: [vcloud_configuration, vcloud_config] }
     relationships:
@@ -245,8 +335,6 @@ vcloud_configuration:
             vdc: M000000000-1111
 {%endhighlight%}
 
-Node by node explanation:
-
 {% endgcloak %}
 
 
@@ -267,15 +355,22 @@ The structure of the JSON file in section (1), as well as of the `vcloud_config`
     "password": "",
     "url": "",
     "vdc": "",
-    "service": ""
+    "service": "",
+    "service_type": "",
+    "api_version": "",
+    "region": "",
+    "org_url": ""
 }
 {%endhighlight%}
 
-* `username` vCloud username.
-* `password` vCloud password.
+* `username` vCloud account username.
+* `password` vCloud account password.
 * `url` vCloud url.
-* `vdc` vCloud Virtual Datacenter name.
+* `vdc` Virtual Datacenter name.
 * `service` vCloud Service name.
+* `service_type` service type. Can be `subscription`, `ondemand` or `private`. Defaults to `subscription`.
+* `api_version` vCloud API version. For Subscription defaults to `5.6`, for OnDemand - to `5.7`.
+* `region` region name. Applies for OnDemand.
 
 
 {%tip title=Tip%}
@@ -288,9 +383,7 @@ The [vCloud manager blueprint](reference-vcloud-manager.html) store the vCloud c
 ## VApp template
 Template should have:
 
-* one VM with:
-    * root disk with OS, SSH server and VMware Tools installed.
-    * user account, with manager and agent SSH keys in authorized_hosts.
+* one VM with root disk with OS, SSH server and VMware Tools installed.
 
 Template should not have:
 
