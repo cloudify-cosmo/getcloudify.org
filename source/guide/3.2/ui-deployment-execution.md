@@ -1,6 +1,6 @@
 ---
 layout: bt_wiki
-title: Deployments Execution
+title: Deployments Executions
 category: User Interface
 publish: true
 abstract: Deployment Executions Topology Badge Reference
