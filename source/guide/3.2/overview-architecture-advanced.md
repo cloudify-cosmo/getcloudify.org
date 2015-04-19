@@ -66,7 +66,13 @@ This flow is pretty self explanatory and corresponds with the same principles th
 
 # Blueprint Upload Flow
 
+![Cloudify components](/guide/images3/architecture/cloudify_flow_upload_blueprint.png)
+
 # Deployment Creation Flow
+
+![Cloudify components](/guide/images3/architecture/cloudify_flow_create_deployment.png)
+
+* The REST service will retrieve the blueprint document from Elasticsearch and create a "phyical" manifestation of it by expanding nodes to node-instances, attaching node-instance ID's to them, and so forth.
 
 # Deployment Execution (Install workflow)
 
