@@ -40,8 +40,8 @@ module Jekyll
             payload["page_categories"][category] = pages.sort {|p1, p2| p1["pageord"] <=> p2["pageord"]}
         end
 		    payload["categories"]=["Getting Started", "Agents", "Release Notes","Installation & Setup","Bootstrapping","Developing Recipes","Common Patterns","Deploying Services & Applications","Monitoring Your Applications","Developing Cloud Drivers", "Plugins and Probes","Integration","REST API","Reference","Contributing", "User Interface"]
-        payload["categories_3"]=["Installation", "Agents", "Guides", "Product Overview", "Reference", "OfficialPlugins", "Contributed Plugins", "DSL Specification", "User Interface", "Troubleshooting"]
-        payload["categories_3_root"] = ['','','','','','/guide/3.2/plugin-official-general.html','','/guide/3.2/plugin-contrib-general.html','', ''];
+        payload["categories_3"]=["Installation", "Agents", "Guides", "Product Overview", "Reference", "Official Plugins", "Contributed Plugins", "DSL Specification", "User Interface", "Troubleshooting"]
+        payload["categories_3_root"] = ['','','','','','/guide/3.2/plugin-official-general.html','/guide/3.2/plugin-contrib-general.html','/guide/3.2/dsl-spec-general.html','',''];
         h["site"] = payload
         h
     end
