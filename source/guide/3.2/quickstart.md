@@ -26,19 +26,7 @@ You can take Cloudify for an instant test drive with an [online trial.](http://g
 
 # What is Cloudify?
 
-Cloudify is a Cloud Application Orchestrator. It automates any process you need to perform regarding your applications over any cloud.
-Cloudify provides:
-
-* Infrastructure Setup
-* Application Installation
-* Application Upgrades
-* Infrastructure Upgrades
-* Continuous Deployments
-* Auto-healing (soon)
-* Auto-scaling (soon)
-* Cloudify can work on any environment: IaaS, virtualized or even non-virtualized.
-* Cloudify executes automation processes using any tool you choose. From shell to Chef, Puppet, Docker, etc.
-* Cloudify monitors your application with any monitoring tool you choose; installing it for you if you like and interfacing with your monitoring tools to get events and metrics into Cloudify’s Policy Engine.
+Cloudify is a Cloud Application Orchestrator. It automates common processes you need to perform to manage your applications in a cloud environment or a traditional data center. 
 
 # Overview
 
