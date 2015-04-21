@@ -153,11 +153,11 @@ Two additional runtime-properties are available on node instances of this type o
 * `nat` key-value NAT configuration.
     * `edge_gateway` vCloud gateway name
     * `public_ip` public ip. If not specified public ip will be allocated from the pool of free public ips.
-* `rules` key-value NAT rules configuration.
+* `rules` list of NAT rules configurations.
+    * `type` NAT types. Can be 'SNAT' or 'DNAT'.
     * `protocol` network protocol. Can be 'tcp', 'udp' or 'any'. Applies only for 'DNAT'.
     * `original_port` original port. Applies only for 'DNAT'.
     * `translated_port` translated port. Applies only for 'DNAT'.
-    * `type` list of NAT types. Can be 'SNAT', 'DNAT' or both.
 * `use_external_resource` a boolean for setting whether to create the resource or use an existing one. Defaults to `false`.
 * `vcloud_config` see the [vCloud Configuration](#vcloud-configuration).
 
