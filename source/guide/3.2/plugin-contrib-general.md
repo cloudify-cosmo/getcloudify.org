@@ -7,4 +7,9 @@ abstract: "Cloudify Plugins contributed by the community"
 pageord: 100
 
 ---
-{%summary%}{{page.abstract}}{%endsummary%}
+
+The section contains documentation related to Cloudify plugins contributed by the community.
+
+* The quality of plugins contributed by the community is NOT bound by an SLA.
+* The plugins may, but are not necessarily automatically tested as a part of Cloudify's delivery pipeline.
+* The plugins may, but are not necessarily developed by the Cloudify team.
