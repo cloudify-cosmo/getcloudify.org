@@ -407,7 +407,7 @@ The structure of the JSON file in section (1), as well as of the `vcloud_config`
 * `service` vCloud Service name.
 * `service_type` service type. Can be `subscription`, `ondemand` or `private`. Defaults to `subscription`.
 * `api_version` vCloud API version. For Subscription defaults to `5.6`, for OnDemand - to `5.7`.
-* `region` region name. Applies for OnDemand.
+* `instance` instance ID. Applies for OnDemand. For obtaining `instance` use vca_cli utility.
 * `org_url` organization url. Required only for `private` service type.
 * `edge_gateway` edge gateway name.
 
@@ -416,6 +416,10 @@ The structure of the JSON file in section (1), as well as of the `vcloud_config`
 The [vCloud manager blueprint](reference-vcloud-manager.html) store the vCloud configuration used for the bootstrap process in a JSON file as described in (1) at `~/vcloud_config.json`. Therefore, if they've been used for bootstrap, the vCloud configuration for applications isn't mandatory as the plugin will default to these same settings.
 {%endtip%}
 
+{%tip title=vca_cli%}
+vca-cli utility you can find on the github
+[vca_cli](https://github.com/vmware/vca-cli)
+{%endtip%}
 
 # Misc
 
