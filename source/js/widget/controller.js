@@ -35,15 +35,16 @@ widgetModule.controller('widgetController', function( $scope, $timeout, $control
             resource: "widget Trial"
         });
 
-        mixpanel.track('Start Widget (Try now) Clicked');
+        //mixpanel.track('Start Widget (Try now) Clicked');
+	    mixpanel.track("Widget Tracking", {'status': 'Start Widget (Try now) Clicked'});
         mixpanel.people.increment({
             "Number Of Widget Started": 1
         });
     }
 
     $scope.stopTrial = function() {
-        mixpanel.track('stop Widget (end trial) Clicked');
-
+        //mixpanel.track('stop Widget (end trial) Clicked');
+		mixpanel.track("Widget Tracking", {'status': 'stop Widget (end trial) Clicked'});
         $scope.stopWidget();
 
         $scope.widgetController.stopButtonText = "Ending Trial...";
@@ -93,8 +94,8 @@ widgetModule.controller('widgetController', function( $scope, $timeout, $control
             var duration = $scope.startTime ? (endTime - $scope.startTime) : 0;
             $scope.startTime = undefined; // Clear start time
 
-            mixpanel.track('Widget Machine Start Error',{message: status.error, duration: duration});
-
+            //mixpanel.track('Widget Machine Start Error',{message: status.error, duration: duration});
+			mixpanel.track("Widget Tracking", {'status': 'Widget Machine Start Error','message': status.error,'duration': duration});
             $log.warn("Got error state. Message :  "+ status.error);
             $scope.widgetController.widgetOutput = status.error;
 
@@ -108,7 +109,8 @@ widgetModule.controller('widgetController', function( $scope, $timeout, $control
                 // Check if its the first time (and you didnt refresh your page - loadingMachine is set to false unless you click the button)
                 if (!$scope.widgetController.widgetStarted && $scope.widgetController.loadingMachine) {
                     // window.open("http://"+status.nodeModel.publicIp, '_blank'); // DO NOT OPEN MANAGER AUTOMATICALLY.. 
-                    mixpanel.track('Widget Machine Started');
+                   // mixpanel.track('Widget Machine Started');
+				   mixpanel.track("Widget Tracking", {'status': 'Widget Machine Started'});
 
                     $scope.startTime = (new Date()).getTime();
                 }
@@ -134,8 +136,8 @@ widgetModule.controller('widgetController', function( $scope, $timeout, $control
                 var duration = $scope.startTime ? (endTime - $scope.startTime) : 0;
                 $scope.startTime = undefined; // Clear start time
 
-                mixpanel.track('Widget Machine stopped',{duration: duration});
-
+                //mixpanel.track('Widget Machine stopped',{duration: duration});
+			    mixpanel.track("Widget Tracking", {'status': 'Widget Machine stopped'});
                 $scope.widgetController.loadingMachine = false;
                 $scope.widgetController.machineStarted = false;
                 $scope.widgetController.buttonText = "Try it now!";
@@ -149,8 +151,8 @@ widgetModule.controller('widgetController', function( $scope, $timeout, $control
                 $scope.startTime = undefined; // Clear start time
 
 
-                mixpanel.track('Widget Machine Start Error',{message: output, duration: duration});
-
+                //mixpanel.track('Widget Machine Start Error',{message: output, duration: duration});
+				mixpanel.track("Widget Tracking", {'status': 'Widget Machine Start Error','message': status.error,'duration': duration});
 
                 $log.warn("Got error state. Message :  "+ output);
                 $scope.widgetController.widgetOutput = output;
