@@ -243,14 +243,6 @@ Two additional runtime-properties are available on node instances of this type o
   * `cloudify.interfaces.relationship_lifecycle.establish`: associates PublicNAT with Server.
   * `cloudify.interfaces.relationship_lifecycle.unlink`: dissociates PublicNAT from Server.
 
-## cloudify.vcloud.server_connected_to_security_group
-**Description:** A relationship for associating SecurityGroup and Server.
-
-**Mapped Operations:**
-
-  * `cloudify.interfaces.relationship_lifecycle.establish`: associates SecurityGroup with Server.
-  * `cloudify.interfaces.relationship_lifecycle.unlink`: dissociates SecurityGroup from Server.
-
 ## cloudify.vcloud.net_connected_to_public_nat
 **Description:** A relationship for associating PublicNAT and Network.
 
@@ -259,6 +251,13 @@ Two additional runtime-properties are available on node instances of this type o
   * `cloudify.interfaces.relationship_lifecycle.establish`: associates PublicNAT with Network.
   * `cloudify.interfaces.relationship_lifecycle.unlink`: dissociates PublicNAT from Network.
 
+## cloudify.vcloud.server_connected_to_security_group
+**Description:** A relationship for associating SecurityGroup and Server.
+
+**Mapped Operations:**
+
+  * `cloudify.interfaces.relationship_lifecycle.establish`: associates SecurityGroup with Server.
+  * `cloudify.interfaces.relationship_lifecycle.unlink`: dissociates SecurityGroup from Server.
 
 # Examples
 
@@ -319,13 +318,6 @@ example_port:
         - target: example_network
           type: cloudify.vcloud.port_connected_to_network
 
-example_network:
-    type: cloudify.vcloud.nodes.Network
-    properties:
-        use_external_resource: true
-        resource_id: existing-network
-        vcloud_config: { get_property: [vcloud_configuration, vcloud_config] }
-
 example_port2:
     type: cloudify.vcloud.nodes.Port
     properties:
@@ -339,6 +331,13 @@ example_port2:
     relationships:
         - target: example_network2
           type: cloudify.vcloud.port_connected_to_network
+
+example_network:
+    type: cloudify.vcloud.nodes.Network
+    properties:
+        use_external_resource: true
+        resource_id: existing-network
+        vcloud_config: { get_property: [vcloud_configuration, vcloud_config] }
 
 example_network2:
     type: cloudify.vcloud.nodes.Network
@@ -394,8 +393,9 @@ The structure of the JSON file in section (1), as well as of the `vcloud_config`
     "service": "",
     "service_type": "",
     "api_version": "",
-    "region": "",
-    "org_url": ""
+    "instance": "",
+    "org_url": "",
+    "edge_gateway": ""
 }
 {%endhighlight%}
 
@@ -406,19 +406,14 @@ The structure of the JSON file in section (1), as well as of the `vcloud_config`
 * `vdc` Virtual Datacenter name.
 * `service` vCloud Service name.
 * `service_type` service type. Can be `subscription`, `ondemand` or `private`. Defaults to `subscription`.
-* `api_version` vCloud API version. For Subscription defaults to `5.6`, for OnDemand - to `5.7`.
-* `instance` instance ID. Applies for OnDemand. For obtaining `instance` use vca_cli utility.
+* `api_version` vCloud API version. For Subscription defaults to `5.6`, for OnDemand to `5.7`.
+* `instance` instance ID. Applies for OnDemand. For obtaining `instance` use [vca_cli](https://github.com/vmware/vca-cli) utility.
 * `org_url` organization url. Required only for `private` service type.
 * `edge_gateway` edge gateway name.
 
 
 {%tip title=Tip%}
 The [vCloud manager blueprint](reference-vcloud-manager.html) store the vCloud configuration used for the bootstrap process in a JSON file as described in (1) at `~/vcloud_config.json`. Therefore, if they've been used for bootstrap, the vCloud configuration for applications isn't mandatory as the plugin will default to these same settings.
-{%endtip%}
-
-{%tip title=vca_cli%}
-vca-cli utility you can find on the github
-[vca_cli](https://github.com/vmware/vca-cli)
 {%endtip%}
 
 # Misc
