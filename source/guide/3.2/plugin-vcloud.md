@@ -124,26 +124,6 @@ Two additional runtime-properties are available on node instances of this type o
   * `cloudify.interfaces.lifecycle.creation_validation` validates Port node parameters
 
 
-## cloudify.vcloud.nodes.FloatingIP
-
-**Derived From:** [cloudify.nodes.VirtualIP](reference-types.html)
-
-**Properties:**
-
-* `floatingip` key-value floating ip configuration.
-    * `edge_gateway` vCloud gateway name
-    * `public_ip` public ip. If not specified public ip will be allocated from the pool of free public ips.
-* `vcloud_config` see the [vCloud Configuration](#vcloud-configuration).
-
-**Mapped Operations:**
-
-  * `cloudify.interfaces.lifecycle.creation_validation` validates FloatingIP node parameters
-
-**Attributes:**
-
-  * `public_ip` public ip address
-
-
 ## cloudify.vcloud.nodes.PublicNAT
 
 **Derived From:** [cloudify.nodes.VirtualIP](reference-types.html)
@@ -164,6 +144,28 @@ Two additional runtime-properties are available on node instances of this type o
 **Mapped Operations:**
 
   * `cloudify.interfaces.lifecycle.creation_validation` validates PublicNAT node parameters
+
+**Attributes:**
+
+  * `public_ip` public ip address
+
+## cloudify.vcloud.nodes.FloatingIP
+
+**Derived From:** [cloudify.nodes.VirtualIP](reference-types.html)
+
+This type is simplifyed version of cloudify.vcloud.nodes.PublicNAT node.
+It's apply DNAT and SNAT rules for `any` protocol and `any` original and translated ports.
+
+**Properties:**
+
+* `floatingip` key-value floating ip configuration.
+    * `edge_gateway` vCloud gateway name
+    * `public_ip` public ip. If not specified public ip will be allocated from the pool of free public ips.
+* `vcloud_config` see the [vCloud Configuration](#vcloud-configuration).
+
+**Mapped Operations:**
+
+  * `cloudify.interfaces.lifecycle.creation_validation` validates FloatingIP node parameters
 
 **Attributes:**
 
@@ -233,7 +235,7 @@ Two additional runtime-properties are available on node instances of this type o
 
 ## cloudify.vcloud.server_connected_to_network
 **Description:** A relationship for connecting Server to Network.
-*Note*: This relationship has no operations associated with it; The server will use this relationship to connect to the network upon server creation. It will use DHCP for ip allocation.
+*Note*: This relationship has no operations associated with it; The server will use this relationship to connect to the network upon server creation. It will use POOL for ip allocation.
 
 ## cloudify.vcloud.server_connected_to_public_nat
 **Description:** A relationship for associating PublicNAT and Server.

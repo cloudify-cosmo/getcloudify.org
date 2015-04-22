@@ -39,7 +39,7 @@ This reference only explains the structure and various values in the blueprint. 
 * `manager_server_cpus` manager VM cpu count. Default is 2.
 * `manager_server_memory` manager VM memory size. Default is 4096.
 * `management_network_use_existing` Default is false.
-* `management_port_ip_allocation_mode` IP allocation mode for manager Port (Default: `dhcp`).
+* `management_port_ip_allocation_mode` IP allocation mode for manager Port (Default: `POOL`).
 * `management_port_ip_address` If IP allocation mode was set to `manual` this will be used as Port ip address (Default: `''`).
 * `management_network_public_ip` Management network public ip to allow internet access from the network. If empty string is specified, then public will be allocated from a pool of free public ips (Default: `''`).
 * `management_network_public_nat_use_existing` Default is false.
