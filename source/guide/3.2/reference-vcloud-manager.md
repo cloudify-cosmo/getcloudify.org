@@ -34,7 +34,7 @@ This reference only explains the structure and various values in the blueprint. 
 
 ## Optional inputs
 * `vcloud_service_type` vCloud service type. Default is 'subscription'.
-* `vcloud_region` OnDemand region name.
+* `vcloud_instance` OnDemand instance ID. Only required if using 'ondemand' service type. For obtaining `instance` use [vca_cli](https://github.com/vmware/vca-cli) utility.
 * `vcloud_org_url` Only required if using token based login on a private vcloud director. This can be obtained by following the vcloud API example docs.
 * `manager_server_cpus` manager VM cpu count. Default is 2.
 * `manager_server_memory` manager VM memory size. Default is 4096.
@@ -54,7 +54,7 @@ This reference only explains the structure and various values in the blueprint. 
 # Topology
 
 The blueprint builds the following topology on vCloud:
-  
+
   - vCloud routed network for communication between the Cloudify manager and Cloudify agent machines.
   - A floating IP for the Cloudify manager machine.
   - A port to connect Cloudify Manager to management network.
