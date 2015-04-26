@@ -141,9 +141,9 @@ cloudify/logstash  latest   cc20af189412   52 seconds ago   802.7 MB</code>
 
 <p><strong>Use the smallest base image possible.</strong></p>
 
-<p>Golang is statically linked. This allows us to use images like scratch or BusyBox which take several MBs only. If we're running Go, we might use those images to end up with an image a few tens of MBs in size.</p>>
+<p>Golang is statically linked. This allows us to use images like scratch or BusyBox which take several MBs only. If we're running Go, we might use those images to end up with an image a few tens of MBs in size.</p>
 
-<p>In our case, we require java to run. We could try and use either scratch or BusyBox, install apt and the rest of the dependencies on them to build the image and reduce its size substantially.>/pUse the smallest base image possible.</p>
+<p>In our case, we require java to run. We could try and use either scratch or BusyBox, install apt and the rest of the dependencies on them to build the image and reduce its size substantially.</p>
 
 <p>By any means, go ahead and use BusyBox with only the dependencies required for your application to run.</p>
 
