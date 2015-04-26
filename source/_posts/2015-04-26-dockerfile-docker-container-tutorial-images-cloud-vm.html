@@ -20,11 +20,11 @@ tags:
 
 <hr><h2>This post was originally published on <strong><a href="http://www.developer.com/design/a-guide-to-docker-image-optimization.html" target="_blank">Developer.com.</a></strong></h2><hr>
 
-<p>Docker is everything. Some have even claimed that it can prevent crime and famine. (I probably don't need to ask you to note the sarcastic tone).</p>
+<p>Docker is <a href="http://benincosa.com/?p=2691" target="_blank">everything</a>. Some have even claimed that it can prevent crime and famine. (I probably don't need to ask you to note the sarcastic tone).</p>
 
-<p>But seriously, for the disruption it has brought on in the industry, and the true market gap it has filled for many, it deserves respect. However, like with all tools, Docker has its upsides and downsides. One common pain point we constantly encountered when using Docker was image size. In order to be able to truly leverage Docker to its utmost potential in our daily work, we needed to find a way to optimize the output image significantly, for the most part, since the majority of our clients require offline installations rendering DockerHub unusable to us.</p>
+<p>But seriously, for the disruption it has brought on in the industry, and the true market gap it has filled for many, it deserves respect. However, like with all tools, <a href="http://getcloudify.org/docker-orchestration-docker-container-deployment-cloud.html" target="_blank">Docker</a> has its upsides and downsides. One common pain point we constantly encountered when using Docker was image size. In order to be able to truly leverage Docker to its utmost potential in our daily work, we needed to find a way to optimize the output image significantly, for the most part, since the majority of our clients require offline installations rendering DockerHub unusable to us.</p>
 
-<p>This post is going to dive into a hands-on guide for the process we went through to cut our Dockerfiles down to half in size (using a single example), with the final real working example complete with documentation and all.</p>
+<p>This post is going to dive into a hands-on guide for the process we went through to cut our <a href="http://getcloudify.org/2014/10/30/Docker-cloud-orchestration-configuration-management.html" target="_blank">Dockerfiles</a> down to half in size (using a single example), with the final real working example complete with documentation and all.</p>
 
 <p>So let's start from the top…</p>
 
@@ -37,7 +37,7 @@ tags:
 
 <h2><b>Docker? Why?</b></h2>
 
-<p>Working on Cloudify has eventually brought us to work with containers. Why, you ask? Well, containers for us provided the following:</p>
+<p>Working on <a href="http://getcloudify.org/" target="_blank">Cloudify</a> has eventually brought us to work with <a href="http://getcloudify.org/2014/12/14/TOSCA-docker-container-orchestration-microservices-architecture-kubernetes.html" target="_blank">containers</a>. Why, you ask? Well, containers for us provided the following:</p>
 
 <ul>
   <li><strong>Multi-distro support:</strong> We're able to run our stack on different distros with very minimal adjustments.</li>
@@ -63,42 +63,17 @@ Using containers will allow us to substantially reduce the number of moving part
 
 <h2><b>Orange you glad I didn't say Dockerfile?</b></h2>
 
-<p>A lot of articles on the web suggest different methods for optimizing Docker images.</p>
+<p>A lot of articles on the web suggest different methods for <a href="http://getcloudify.org/2014/10/30/Docker-cloud-orchestration-configuration-management.html" target="_blank">optimizing Docker images</a>.</p>
 
 <p>As Docker images are made out of writable layers, and each layer is added on top of the previous layer rather than replaces it, it's important to understand the bits and bytes of building consolidated Dockerfiles.</p>
 
-<p>Let's take an example Dockerfile and see how we can optimize it. We'll use a logstash Dockerfile as an example.</p>
+<p>Let's take an example Dockerfile and see how we can optimize it. We'll use a <a href="http://getcloudify.org/2014/03/27/logging_event_handling_logstash_elasticsearch.html#sts=Getting Started With Logstash" target="_blank">logstash</a> Dockerfile as an example.</p>
 
 <p>We won't be spending time on learning how to write Dockerfiles though. To learn about the Dockerfile syntax, see Docker's <a href="https://docs.docker.com/reference/builder/" target="_blank">documentation</a>.</p>
 
 <p>Our Dockerfile:</p>
 
-<code>FROM ubuntu:trusty
-MAINTAINER Gigaspaces, cosmo-admin@gigaspaces.com
-
-ADD LOGSTASH_NOTICE.txt /root/LOGSTASH_NOTICE.txt
-ENV LOGSTASH_SERVICE_DIR /etc/service/logstash
-ENV LOGSTASH_CONF_FILE ${LOGSTASH_SERVICE_DIR}/logstash.conf
-
-RUN mkdir -p ${LOGSTASH_SERVICE_DIR}
-ADD logstash.conf ${LOGSTASH_SERVICE_DIR}/
-
-RUN apt-get update
-RUN apt-get install -y curl
-RUN apt-get install -y openjdk-7-jdk
-RUN curl
-   https://download.elasticsearch.org/logstash/logstash/logstash-1.4.2.tar.gz
-   --create-dirs -o /opt/tmp/logstash.tar.gz
-RUN tar -C ${LOGSTASH_SERVICE_DIR}/ -xzvf /opt/tmp/logstash.tar.gz
-   --strip-components=1
-RUN mkdir -p ${LOGSTASH_SERVICE_DIR}/logs
-
-VOLUME /etc/service/logstash/logs
-EXPOSE 9999
-EXPOSE 19219
-
-CMD ${LOGSTASH_SERVICE_DIR}/bin/logstash -f ${LOGSTASH_CONF_FILE}
-   -l ${LOGSTASH_SERVICE_DIR}/logs/logstash.log --verbose</code>
+<script src="https://gist.github.com/yeshess/a7cf2f64d020dd710a69.js"></script>
 
 <p>Now let's build this image.</p>
 
@@ -106,8 +81,7 @@ CMD ${LOGSTASH_SERVICE_DIR}/bin/logstash -f ${LOGSTASH_CONF_FILE}
 
 <p>will produce this:</p>
 
-<code>REPOSITORY         TAG      IMAGE ID       CREATED          VIRTUAL SIZE
-cloudify/logstash  latest   cc20af189412   52 seconds ago   802.7 MB</code>
+<script src="https://gist.github.com/yeshess/eea8f487121adbe80f97.js"></script>
 
 <p>802.7 MB just for logstash? I don't think so. Will this work? Yes. Will it scale? No.</p>
 
@@ -155,8 +129,7 @@ cloudify/logstash  latest   cc20af189412   52 seconds ago   802.7 MB</code>
 
 <p>And get:</p>
 
-<code>REPOSITORY          TAG      IMAGE ID       CREATED            VIRTUAL SIZE
-cloudify/logstash   latest   ebfb98409931   About an hour ago  741.3 MB</code>
+<script src="https://gist.github.com/yeshess/f08654c41a6e55069fcb.js"></script>
 
 <p>While this isn't necessarily a must, it just makes good sense. Why cram all kinds of junk you don't need into your image?</p>
 
