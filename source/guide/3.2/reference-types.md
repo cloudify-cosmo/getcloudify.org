@@ -128,7 +128,7 @@ cloudify:
   * `task_retry_interval` Minimum wait time (in seconds) in between workflow task retries (Default: `30`).
 * policy_engine
   * `start_timeout` Timeout (in seconds) for waiting for the policy engine to come up (Default: `30`).
-* plugins: a dict of python packages to install on the management server
+* plugins: a dict of python packages to install on the management server.
   * `source` URL of package archive or path to package directory relative to the manager blueprint root directory.
   * `install_args` Optional arguments that should be passed to the `pip install` command used to install the package.
 
