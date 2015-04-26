@@ -12,7 +12,7 @@ pageord: 900
 # Description
 
 The [Host Pool plugin](https://github.com/cloudify-cosmo/cloudify-host-pool-plugin) allows for the use of multiple existing hosts to be allocated for a deployment.
-It interacts with Cloudify's [Host-Pool Service](https://github.com/cloudify-cosmo/cloudify-host-pool-plugin), which performs the book-keeping as to which hosts are allocated, free, or un-reachable.
+It interacts with Cloudify's [Host-Pool Service](https://github.com/cloudify-cosmo/cloudify-host-pool-service), which performs the book-keeping as to which hosts are allocated, free, or un-reachable.
 
 # Host-Pool Service
 
