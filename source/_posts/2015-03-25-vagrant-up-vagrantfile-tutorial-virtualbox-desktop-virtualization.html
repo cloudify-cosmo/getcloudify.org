@@ -38,7 +38,7 @@ You should have at least <strong>2GB of RAM to spare</strong> to run the manager
 <h3><strong>Get And Start The Cloudify Manager Box</strong></h3>
 
 Download this <a href="http://gigaspaces-repository-eu.s3.amazonaws.com/org/cloudify3/3.1.0/ga-RELEASE/Vagrantfile" target="_blank">Vagrantfile</a> to your local directory. Then, run the command:
-<code>vagrant box add http://gigaspaces-repository-eu.s3.amazonaws.com/org/cloudify3/3.1.0/ga-RELEASE/cloudify-virtualbox_3.1.0-ga-b85.box --name=cloudify-box</code>
+<code>vagrant box add http://gigaspaces-repository-eu.s3.amazonaws.com/org/cloudify3/3.1.0/ga-RELEASE/cloudify-virtualbox_3.1.0-ga-b85.box <br/>--name=cloudify-box</code>
 Be patient as the download is large and will take awhile.  Now type:
 <code>vagrant up</code>
 Once Vagrant completes, you have a running Cloudify manager sufficient in size to run the <a href="https://github.com/cloudify-cosmo/cloudify-nodecellar-example" target="_blank">Nodecellar</a> example.  If you have more memory to spare, and want to experiment with larger deployments, you can edit the Vagrantfile and increase the value in the "--memory" line.  You can access your new Cloudify manager either via the web <a href="http://11.0.0.7/#/blueprints">UI</a>, or via command line: "vagrant ssh".
