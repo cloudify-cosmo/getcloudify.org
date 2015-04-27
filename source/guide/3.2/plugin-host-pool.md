@@ -11,7 +11,7 @@ pageord: 900
 
 # Description
 
-The plugin is an infrastrcture provisioning plugin that is used in conjunction with Cloudify's [Host-Pool Service](https://github.com/cloudify-cosmo/cloudify-host-pool-service) to install blueprints on hosts from a pool of existing hosts. 
+The plugin is an infrastrcture provisioning plugin that is used in conjunction with Cloudify's [Host-Pool Service](https://github.com/cloudify-cosmo/cloudify-host-pool-service) to use hosts from a pool of existing hosts. 
 When the plugin is requested to provision a host, it will make a request to the Host-Pool-Service, which will in turn look for available hosts inside the pool, and assign the first one to that request. 
 The same flow is executed when the plugin is requested to release that host.
 The pool of available hosts will be determined at the time of the Host-Pool-Service installation, as explained below.
@@ -19,8 +19,12 @@ The pool of available hosts will be determined at the time of the Host-Pool-Serv
 # Host-Pool Service
 
 The Host-Pool Service is a web service designed for managing a large pool of hosts to be used by cloudify deployments. 
-It allows for the use of multiple existing hosts to be allocated for a deployment. Supports defining hosts by name, ip address, and ip ranges for easily 
-specifying a large amount of identical hosts.
+It allows for the use of multiple existing hosts to be allocated for a deployment. Supports defining hosts by:
+
+  * name
+  * ip address
+  * ip ranges (for easily specifying a large amount of identical hosts).
+
 The Host-Pool-Plugin will make calls to this service each time a new host
 needs to be provisioned/terminated.
 
@@ -165,7 +169,7 @@ node_templates:
       cloudify.interfaces.lifecycle:
         create:
           inputs:
-            service_url: http://{host-pool-service-ip}:{host-pool-service-port}              
+            service_url: http://{host-pool-service-ip}:{host-pool-service-port}
 
 {%endhighlight%}
 
@@ -176,5 +180,5 @@ Nodecellar
 {% endtogglecloak %}
 
 {% gcloak 4 %}
-A full example that installs the nodecellar application using this plugin is available [Here](https://github.com/cloudify-cosmo/cloudify-host-pool-plugin/blob/CFY-2209-add-nodecellar-system-test/examples/nodecellar/host-pool-blueprint.yaml)
+A full example that installs the nodecellar application using this plugin is available [Here](https://github.com/cloudify-cosmo/cloudify-host-pool-plugin/blob/master/examples/nodecellar/host-pool-blueprint.yaml)
 {% endgcloak %}
