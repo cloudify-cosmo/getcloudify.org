@@ -11,12 +11,16 @@ pageord: 900
 
 # Description
 
-The [Host Pool plugin](https://github.com/cloudify-cosmo/cloudify-host-pool-plugin) allows for the use of multiple existing hosts to be allocated for a deployment.
-It interacts with Cloudify's [Host-Pool Service](https://github.com/cloudify-cosmo/cloudify-host-pool-service), which performs the book-keeping as to which hosts are allocated, free, or un-reachable.
+The plugin is an infrastrcture provisioning plugin that is used in conjunction with Cloudify's [Host-Pool Service](https://github.com/cloudify-cosmo/cloudify-host-pool-service) to install blueprints on hosts from a pool of existing hosts. 
+When the plugin is requested to provision a host, it will make a request to the Host-Pool-Service, which will in turn look for available hosts inside the pool, and assign the first one to that request. 
+The same flow is executed when the plugin is requested to release that host.
+The pool of available hosts will be determined at the time of the Host-Pool-Service installation, as explained below.
 
 # Host-Pool Service
 
-The Host-Pool Service is a web service designed for managing a large pool of hosts to be used by cloudify deployments.
+The Host-Pool Service is a web service designed for managing a large pool of hosts to be used by cloudify deployments. 
+It allows for the use of multiple existing hosts to be allocated for a deployment. Supports defining hosts by name, ip address, and ip ranges for easily 
+specifying a large amount of identical hosts.
 The Host-Pool-Plugin will make calls to this service each time a new host
 needs to be provisioned/terminated.
 
@@ -29,7 +33,7 @@ To make the installation of this service easy, we have made it available as a re
 **Properties:**
 
   * `pool` relative path to a pool configuration file. This is where you define all the hosts participating in the pool.
-  * `directory` the directory to run the service from inside the host. Defaults to `/tmp/cloudify-host-pool-service`
+  * `working_directory` the directory to run the service from inside the host. Defaults to `/tmp/cloudify-host-pool-service`
   * `port` the port to run the service on. Defaults to `8080`
   * `source` the source code of the service. Defaults to `https://github.com/cloudify-cosmo/cloudify-host-pool-service/archive/master.zip`
 
@@ -43,7 +47,9 @@ To make the installation of this service easy, we have made it available as a re
 
 **Attributes:**
 
-  * `private_endpoint` the url of the service. this URL is only accessible from within the same network as the host itself.
+  * `endpoint` the url of the service. This URL is determined by combining the `port` property of the type, with the ip of the host the service is contained within. 
+  The ip is either the `ip` attribute of the containing host node, or, in case it is absent, the `ip` property of the node. 
+  You can effectively think of this endpoint like the cloud endpoints you are probably used to.
 
 {%info title=Information%}
 Complete definition of this type can be found [Here](https://github.com/cloudify-cosmo/cloudify-host-pool-service/blob/master/host-pool-service.yaml)
@@ -124,7 +130,7 @@ This [example](https://github.com/cloudify-cosmo/cloudify-host-pool-service/blob
   * `key` the content of the keyfile used to login to the host.
 
 {%note title=Note%}
-All of the above attributes are actually the host details as passed to
+All of the above attributes are actually the host configuration as passed to
  the Host-Pool Service in the pool configuration file.
 {%endnote%}
 
@@ -136,10 +142,10 @@ All of the above attributes are actually the host details as passed to
 
 This type has the same properties and operations-mapping as the type above (as it derives from it), yet it overrides some of the agent and plugin installations operations-mapping derived from the [built-in cloudify.nodes.Compute type](reference-types.html). Use this type when working with a Windows server.
 
-# Example
+# Examples
 
 {% togglecloak id=3 %}
-Example
+Basic
 {% endtogglecloak %}
 
 {% gcloak 3 %}
@@ -163,4 +169,12 @@ node_templates:
 
 {%endhighlight%}
 
+{% endgcloak %}
+
+{% togglecloak id=4 %}
+Nodecellar
+{% endtogglecloak %}
+
+{% gcloak 4 %}
+A full example that installs the nodecellar application using this plugin is available [Here](https://github.com/cloudify-cosmo/cloudify-host-pool-plugin/blob/CFY-2209-add-nodecellar-system-test/examples/nodecellar/host-pool-blueprint.yaml)
 {% endgcloak %}
