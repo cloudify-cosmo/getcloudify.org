@@ -51,9 +51,9 @@ In order to use custom implementations of userstores, authentication providers a
 
 To do this, the manager blueprint should be updated as follows.
 
-Say you write a custom authentication provider. The code itself should be packaged in a similar way to how [operations/workflows](guide-plugin-creation.html#creating-a-plugin-project) plugins are packaged, that is to say, it should be packaged as a valid python package.
+Say you write a custom authentication provider. The code itself should be structured in a similar way to how [operations/workflows](guide-plugin-creation.html#creating-a-plugin-project) plugins are structured, that is to say, it should be structured as a valid python package.
 
-You specify the package location under the `cloudify.plugins` property in the `manager` node of the manager blueprint like this:
+You specify the package location under the `plugins` section in the `cloudify` property of the `manager` node in the manager blueprint like this:
 {% highlight yaml %}
 node_templates:
   ...
@@ -93,5 +93,5 @@ The keys of this dict are arbitrary names. In the previous example we used `my_a
 {%note title=Note%}
 When the term *plugin* is used in this section, it should not be confused with operation and workflow plugins (except when explicitly mentioned otherwise).
 
-When we use this term here, we simply mean: custom code that gets installed in the manager environment.
+When we use this term here, we simply mean: custom code that gets installed in the manager environment. In other words, plugins here cannot be used as operations and workflows plugins.
 {%endnote%}
