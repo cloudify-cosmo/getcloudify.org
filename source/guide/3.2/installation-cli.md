@@ -24,9 +24,11 @@ Cloudify's CLI (AKA cfy) is being distributed in two different methods:
 
 ### As downloadable packages
 
-The downloadable packages allow for an offline installation of the cli and are distributed as rpm, deb and tar.gz packages for Linux and OS X.
+The downloadable packages allow for an offline installation of the cli and are distributed as rpm, deb and tar.gz packages for Linux.
 
 For Windows, there's currently a limited distributable. Read below for Windows support.
+
+For OS X, an online installation script is available. Read below for OS X support.
 
 
 ###  As a downloadable installation script
