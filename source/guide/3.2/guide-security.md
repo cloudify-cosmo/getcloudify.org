@@ -40,6 +40,16 @@ Availbale in the Commercial version only
 
 # Behind the Scenes / Advanced
 ## request-response flow
+
+## Internal communication between the Cloudify manager and other Cloudify components
+
+Currently, communication between the Cloudify agents and the Cloudify manager does not go through authentication and authorization - instead, REST calls from the agents to the manager are done to port 8101, which has the same general behavior as port 80, yet the REST service lets requests made to this port through without having them go through any of the security mechanisms.
+
+The usage of this port, however, is restricted to components on the same subnet as the Cloudify manager alone. This is done using specific security group rules, which are set up during bootstrap (for example, see [this rule in the Openstack manager blueprint](https://github.com/cloudify-cosmo/cloudify-manager-blueprints/blob/master/openstack/openstack-manager-blueprint.yaml#L206)). It is therefore impossible to bypass the security mechanisms from outside the manager's internal network by making REST calls directly to the 8101 port.
+
+In future versions, all communications from and to the Cloudify manager will utilize the security mechanisms, including communication with any of Cloudify's internal components, at which time, the bypass port 8101 will be removed.
+
+
 ## Advanced configuration (logs, token timeout, password hashing, nginx)
 
 # Writing your own userstore and authentication providers
