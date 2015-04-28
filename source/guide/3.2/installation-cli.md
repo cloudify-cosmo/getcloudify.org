@@ -63,31 +63,31 @@ an output describing how to use `cfy`.
 ### Ubuntu/Debian
 
 1. Download the deb package from the [Downloads page](downloads/get_cloudify_3x.html).
-1. Open a Terminal at the directory where you downloaded the file.
+1. Open a terminal at the directory where you downloaded the file.
 1. Run (replacing `<pkg.deb>` with the name of file you downloaded):
 {% highlight bash %}
 sudo dpkg -i <pkg.deb>
 source /cfy/env/bin/activate
 {% endhighlight %}
 
-Now try running `cfy -h` in your Terminal. You should get an output describing how to use `cfy`.
+Now try running `cfy -h` in your terminal. You should get an output describing how to use `cfy`.
 
 ### Centos/RHEL
 
 1. Download the rpm package from the [Downloads page](downloads/get_cloudify_3x.html).
-1. Open a Terminal at the directory where you downloaded the file.
+1. Open a terminal at the directory where you downloaded the file.
 1. Run (replacing `<pkg.rpm>` with the name of file you downloaded):
 {% highlight bash %}
 sudo rpm -i <pkg.rpm>
 source /cfy/env/bin/activate
 {% endhighlight %}
 
-Now try running `cfy -h` in your Terminal. You should get an output describing how to use `cfy`.
+Now try running `cfy -h` in your terminal. You should get an output describing how to use `cfy`.
 
 ### Installing using the tar.gz package
 
 1. Download the tar.gz package from the [Downloads page](downloads/get_cloudify_3x.html).
-1. Open a Terminal at the directory where you downloaded the file.
+1. Open a terminal at the directory where you downloaded the file.
 1. Run
 {% highlight bash %}
 tar -xzvf <pkg.tar.gz>  # replacing `<pkg.tar.gz>` with the name of the file you downloaded.
@@ -96,7 +96,7 @@ python get-cloudify.py
 source /cfy/env/bin/activate
 {% endhighlight %}
 
-Now try running `cfy -h` in your Terminal. You should get an output describing how to use `cfy`.
+Now try running `cfy -h` in your terminal. You should get an output describing how to use `cfy`.
 
 For more info on the installation script, see [here](#installing-using-the-script).
 
