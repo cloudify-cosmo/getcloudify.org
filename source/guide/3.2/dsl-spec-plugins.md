@@ -43,6 +43,7 @@ install           | no          | boolean     | Whether to install the plugin or
 Example:
 
 {%highlight yaml%}
+tosca_definitions_version: cloudify_dsl_1_1
 
 imports:
     - {{page.openstack_plugin_yaml_link}}

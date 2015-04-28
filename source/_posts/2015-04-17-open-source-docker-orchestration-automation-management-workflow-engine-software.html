@@ -1,0 +1,173 @@
+---
+layout: blogpost
+title: Workflow Automation PT II - Docker Orchestration and Management
+image: trammell.jpg
+author: Luther Trammell
+tags:
+ - Workflow Automation
+ - Cloud Orchestration
+ - Workflow Engine
+ - Docker
+ - Open Source
+---
+
+<notextile>
+
+<div class="aligncenter">
+<img src="/img/dockercrop.png"  alt="Docker Orchestration | What is Workflow | Workflow Automation | Workflow Engine| Open Source | Docker Automation | Docker Management | Cloud Orchestration"></div>
+<br/>
+<br/>
+
+
+<p><b></b>
+
+ 
+
+  <p><b></b>
+
+  <p>When we design the blueprint, it’s important to think about when certain data is available. Inputs to the blueprint can be used at any time, but some data is only available at runtime.</p>
+
+  <p>In my previous post <strong><em><a href="http://getcloudify.org/2015/04/02/what-is-workflow-software-automation-engine-open-source.html" target="_blank">What is a Workflow?</a></em></strong> I described the basic premise behind workflows, how these flows work, and what they’re comprised of. I used a simple example, and the order of operations required in order for them install correctly.&#160; </p>
+
+
+   <hr>
+
+<span class="pullquote-left">
+  <font style="font-weight: bold" size="5" face="Baskerville Old Face"><em>Cloudify workflows out of the box - at any scale.</em></font>&nbsp; <a class="btn btn-medium btn-theme btn-rounded" id="downloadBtnInner" href="http://getcloudify.org/downloads/get_cloudify_3x.html" target="_blank"><i class="icon-plus"></i> Go </a></span>
+  
+  <hr>
+
+  <p>In this post, I’d like to dive into a slightly more complex scenario for installing workflows, so let’s look at another scenario: running a Docker application across multiple nodes.</p>
+
+  <p>Let’s say we have an application like the Nodecellar application, that consists of a NodeJS app and a MongoDB backend. (And not just because this is the example from our documentation, it really does the job of demonstrating this well. Really.)</p>
+
+  <p>The requirements here are:</p>
+
+  <ul>
+    <li>
+      <p>Two virtual hosts.</p>
+    </li>
+
+    <li>
+      <p>Each virtual host must have a Docker server installed and running.</p>
+    </li>
+
+    <li>
+      <p>One of our virtual hosts must have a MongoDB container running.</p>
+    </li>
+
+    <li>
+      <p>The other must have NodeJS/Nodecellar app container.</p>
+    </li>
+
+    <li>
+      <p>The Nodecellar/NodeJS container must be created after the MongoDB container. (Otherwise, when the NodeJS app starts it will not be able to connect to the database.)</p>
+    </li>
+  </ul>
+
+  <p>In this scenario there are four nodes and three relationships.</p>
+
+  <p>The Nodes:</p>
+
+  <ol>
+    <li>
+      <p>Virtual Host 1</p>
+    </li>
+
+    <li>
+      <p>Virtual Host 2</p>
+    </li>
+
+    <li>
+      <p>Node JS/Nodecellar app container</p>
+    </li>
+
+    <li>
+      <p>MongoDB container</p>
+    </li>
+  </ol>
+
+  <p>The Relationships:</p>
+
+  <ol>
+    <li>
+      <p>MongoDB container contained_in Virtual Host 2</p>
+    </li>
+
+    <li>
+      <p>NodeJS/Nodecellar container contained_in Virtual Host 1</p>
+    </li>
+
+    <li>
+      <p>Nodecellar container connected_to MongoDB container</p>
+    </li>
+  </ol>
+
+  <p>It doesn’t really matter when the virtual hosts are created, as long as they’re created before the containers.</p>
+
+  <p>The MongoDB container must be created before the NodeJS/Nodecellar container, and it must be started before the NodeJS/Nodecellar container is started.</p>
+
+  <p>The complicated part is the installation and starting of the Docker server.</p>
+
+  <p>Docker needs to run as root. However, the Cloudify host agent does not run as root, but the host agent needs to install the Cloudify Docker plugin and run the related plugin operations.</p>
+
+  <p>This poses a problem, because cloud images with Docker installed by default are uncommon in public clouds. Furthermore, it is necessary to add the user agent on your Cloudify agent VM to the Docker group on your system.</p>
+
+  <p>Having Cloudify install Docker for you is problematic for two reasons:</p>
+
+  <ul>
+    <li>
+      <p>The Docker installation is a bit time-consuming, especially for a production environment.</p>
+    </li>
+
+    <li>
+      <p>Once the Cloudify Agent is installed on the target host, it’s permissions cannot be reloaded.</p>
+    </li>
+  </ul>
+
+  <p>(There is currently no way to log the Cloudify host agent out, or reload its permissions through plugin operations.)</p>
+
+  <p>Therefore, in general the user needs to make sure to bring an image with Docker pre-installed and the correct group membership already established.</p>
+
+  <p>There is another approach that involves using userdata in the Cloudify Nodecellar Docker Example repo.</p>
+
+  <p>Let’s consider this excerpt from the Nodecellar container definition in the Docker example blueprint:</p>
+
+  <p> nodecellar_container:</p>
+
+ <script src="https://gist.github.com/shar1z/30e838d4d6b172c6a358.js"></script>
+
+  <p>See the Cloudify Nodecellar <a href="https://github.com/cloudify-cosmo/cloudify-nodecellar-docker-example/blob/3.2m8/simple-blueprint.yaml#L93">Docker Example</a> Simple Blueprint.</p>
+
+  <p>Notice that the relationship type that defines the relationship between the nodecellar_container and the mongod_container is depends_on.</p>
+
+  <p>This satisfies the requirement that the MongoDB container is running before the NodeJS Container is started.</p>
+
+  <p>During the workflow, runtime properties of the nodes will be assigned.</p>
+
+  <p>In order to access such properties in a blueprint, you need to use get_attribute. This is an intrinsic function of the Cloudify <a href="http://getcloudify.org/guide/3.1/dsl-spec-intrinsic-functions.html#getattribute">TOSCA </a>DSL. </p>
+
+  <p>Hint: Remember that you can only use this function in an input to an <a href="http://getcloudify.org/guide/3.1/reference-terminology.html#operation">operation</a>, or in a blueprint output. </p>
+
+  <p>When a blueprint requires Docker containers running on separate hosts, we require runtime properties of some of the nodes.</p>
+
+  <p>Specifically, the IP of the Mongo Host, so that we can tell the Nodecellar container where to look for MongoDB.</p>
+
+  <script src="https://gist.github.com/shar1z/9359e6fdb948df41f7e5.js"></script>
+
+  <p>See: Cloudify Nodecellar Docker Example <a href="https://github.com/cloudify-cosmo/cloudify-nodecellar-docker-example/blob/3.2m8/openstack-blueprint.yaml#L191" target="_blank">Openstack Blueprint</a>.</p>
+
+  <p>Here we are not only dependent on the fact that the container is running, but also that the IP runtime property of its virtual host has been set.</p>
+
+  <p>--- Is this too abrupt?</p>
+
+  <p>When creating blueprints and working with workflows, it’s important to consider the implications of using particular elements in certain places.</p>
+
+  <p>You can find the differences between the different node types and relationship types in our <a href="http://getcloudify.org/guide/3.2/reference-builtin-workflows.html" target="_blank">documentation</a>, and where and when to use each.</p>
+
+  <p>The different operations that are available in the install workflow ensure that you are able to gracefully and flexibly design your orchestration blueprint.</p>
+
+  <p>In the final post of this series I will demonstrate how to take these flexible workflows and scale them across large-scale deployments.</p></p>
+
+
+  </notextile>

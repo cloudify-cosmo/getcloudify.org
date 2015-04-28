@@ -1,0 +1,138 @@
+---
+layout: blogpost
+title:  Docker Image Optimization
+image: nircohen.jpg
+author: Nir Cohen
+tags:
+ - Docker
+ - DevOps
+ - Docker Orchestration
+ - Open Source
+ - DockerFile
+---
+
+<notextile>
+
+<div class="aligncenter">
+<img src="/img/DockerOptimization.jpg" alt="DockerFile | Docker | Open Source | Docker Tutorial | Docker Images | Docker VM | Docker Container | Docker Cloud"></div>
+<br/>
+<br/>
+
+<hr><h2>This post was originally published on <strong><a href="http://www.developer.com/design/a-guide-to-docker-image-optimization.html" target="_blank">Developer.com.</a></strong></h2><hr>
+
+<p>Docker is <a href="http://benincosa.com/?p=2691" target="_blank">everything</a>. Some have even claimed that it can prevent crime and famine. (I probably don't need to ask you to note the sarcastic tone).</p>
+
+<p>But seriously, for the disruption it has brought on in the industry, and the true market gap it has filled for many, it deserves respect. However, like with all tools, <a href="http://getcloudify.org/docker-orchestration-docker-container-deployment-cloud.html" target="_blank">Docker</a> has its upsides and downsides. One common pain point we constantly encountered when using Docker was image size. In order to be able to truly leverage Docker to its utmost potential in our daily work, we needed to find a way to optimize the output image significantly, for the most part, since the majority of our clients require offline installations rendering DockerHub unusable to us.</p>
+
+<p>This post is going to dive into a hands-on guide for the process we went through to cut our Dockerfiles down to half in size (using a single example), with the final real working example complete with documentation and all.</p>
+
+<p>So let's start from the top…</p>
+
+<hr>
+
+<span class="pullquote-left">
+  <font style="font-weight: bold" size="5" face="Baskerville Old Face"><em>Cloudify + Docker = Awesomeness! Try it today.</em></font>&nbsp; <a class="btn btn-medium btn-theme btn-rounded" id="downloadBtnInner" href="http://getcloudify.org/downloads/get_cloudify_3x.html" target="_blank"><i class="icon-plus"></i> Go </a></span>
+  
+  <hr>
+
+<h2><b>Docker? Why?</b></h2>
+
+<p>Working on <a href="http://getcloudify.org/" target="_blank">Cloudify</a> has eventually brought us to work with <a href="http://getcloudify.org/2014/12/14/TOSCA-docker-container-orchestration-microservices-architecture-kubernetes.html" target="_blank">containers</a>. Why, you ask? Well, containers for us provided the following:</p>
+
+<ul>
+  <li><strong>Multi-distro support:</strong> We're able to run our stack on different distros with very minimal adjustments.</li>
+  <li><strong>Easier and more robust upgrades:</strong> We're not there yet, but we're trying to provide an environment where you could easily upgrade different components.
+Using containers will allow us to substantially reduce the number of moving parts to a minimum so that we can have more confidence in our upgrade process. Less unknowns. Using containers will also allow us to generate a more unified upgrade flow.</li>
+  <li><strong>Modularity and Composability:</strong> Users will be able to build a different Cloudify topology by replacing or adding services. We're aiming at having our stack completely composable. That means you'll be able to deploy our containers on multiple hosts and clustering them easily by using very defined deployment methods. Using containers will allow us to do just that.</li>
+</ul>
+
+<h2><b>New Problems</b></h2>
+
+<p>However, as we started journeying into using Docker, we stumbled onto several problems:</p>
+
+<ul>
+  <li>Most of our customers require offline installations. Thus, we can't use DockerHub. In turn, this means that we must export or save the images and allow customers to download them and import or load them on Cloudify's Management machine(s).</li>
+  <li>Due to the above, the images should be as small as possible. It's very easy to create very large Docker images (just install openjdk) and as our stack is an extremely large one (As of the time this post is being written, the stack comprises of Nginx, InfluxDB, Java, Riemann, logstash, Elasticsearch, Erlang, RabbitMQ, Python and NodeJS), we can't allow our images to grow substantially.</li>
+  <li>The stack has to be maintainable. Managing a stack of this complexity on every build is cumbersome. We have to make everything as organized as possible.</li>
+  <li>As Cloudify is open source, we would like to provide a way for users/customers to build their own Cloudify stack. This requires that our Dockerfiles are tidy and that the environment's setup is simplified as much as possible.</li>
+</ul>
+
+<h2><b>So what to do?</b></h2>
+
+<p>Naturally, we need to perform several steps to get to the holy grail of optimized Docker images and Dockerfiles. This is still a work in progress, but we're getting there.  Let's review how we can optimize our Dockerfiles and take all above considerations into account to achieve our goal.</p>
+
+<h2><b>Orange you glad I didn't say Dockerfile?</b></h2>
+
+<p>A lot of articles on the web suggest different methods for <a href="http://getcloudify.org/2014/10/30/Docker-cloud-orchestration-configuration-management.html" target="_blank">optimizing Docker images</a>.</p>
+
+<p>As Docker images are made out of writable layers, and each layer is added on top of the previous layer rather than replaces it, it's important to understand the bits and bytes of building consolidated Dockerfiles.</p>
+
+<p>Let's take an example Dockerfile and see how we can optimize it. We'll use a <a href="http://getcloudify.org/2014/03/27/logging_event_handling_logstash_elasticsearch.html#sts=Getting Started With Logstash" target="_blank">logstash</a> Dockerfile as an example.</p>
+
+<p>We won't be spending time on learning how to write Dockerfiles though. To learn about the Dockerfile syntax, see Docker's <a href="https://docs.docker.com/reference/builder/" target="_blank">documentation</a>.</p>
+
+<p>Our Dockerfile:</p>
+
+<script src="https://gist.github.com/yeshess/a7cf2f64d020dd710a69.js"></script>
+
+<p>Now let's build this image.</p>
+
+<code>docker build.</code>
+
+<p>will produce this:</p>
+
+<script src="https://gist.github.com/yeshess/eea8f487121adbe80f97.js"></script>
+
+<p>802.7 MB just for logstash? I don't think so. Will this work? Yes. Will it scale? No.</p>
+
+<p>Let's summarize what we did there:</p>
+
+<ul>
+  <li>We declared the base image we'll be using.</li>
+  <li>We copied a NOTICE file into the container.</li>
+  <li>We set some environment variables.</li>
+  <li>We created the logstash service directory.</li>
+  <li>We copied a logstash configuration file.</li>
+  <li>We downloaded and extracted logstash.</li>
+  <li>We declared a volume for logstash's logs so that we can mount it into the host or a data container to keep the logs persistent.</li>
+  <li>We exposed ports to the underlying host.</li>
+  <li>We declared the command which will be executed when the container is started.</li>
+</ul>
+
+<h2><b>Let's Optimize</b></h2>
+
+<p>We have several problems here.</p>
+
+<p>Our image is bulky for no good reason and our Dockerfile - disorganized, on top of not having any in-file documentation. Additionally, we would like the development process to be as short as possible to waste little time waiting for images to be created.</p>
+
+<p>Please note that I'm not declaring any of the following as best practices but rather potential practices.</p>
+
+<p>These depend on the specific case you're trying to solve. What is true for one, is not necessarily true for the other. Think for yourselves.</p>
+
+<p><i>Unnecessary base image</i></p>
+
+<p>Do we really need to use the ubuntu:trusty image? This image is 188MB while debian:jessie is 122. debian:wheezy is even smaller at 85MB.</p>
+
+<p><strong>Use the smallest base image possible.</strong></p>
+
+<p>Golang is statically linked. This allows us to use images like scratch or BusyBox which take several MBs only. If we're running Go, we might use those images to end up with an image a few tens of MBs in size.</p>
+
+<p>In our case, we require java to run. We could try and use either scratch or BusyBox, install apt and the rest of the dependencies on them to build the image and reduce its size substantially.</p>
+
+<p>By any means, go ahead and use BusyBox with only the dependencies required for your application to run.</p>
+
+<p>For this example, we'll use debian:jessie instead.</p>
+
+<p>So we would do something like this:</p>
+
+<code>FROM debian:jessie</code>
+
+<p>And get:</p>
+
+<script src="https://gist.github.com/yeshess/f08654c41a6e55069fcb.js"></script>
+
+<p>While this isn't necessarily a must, it just makes good sense. Why cram all kinds of junk you don't need into your image?</p>
+
+<hr><h2>>>> Read the full post with the step-by-step walkthrough at<strong><a href="http://www.developer.com/design/a-guide-to-docker-image-optimization.html" target="_blank"> Developer.com.</a></strong></h2><hr>
+
+  </notextile>
