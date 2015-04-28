@@ -2,7 +2,7 @@
 layout: bt_wiki
 title: Security Guide
 category: Guides
-publish: true
+publish: false
 abstract: Cloudify's Management security configuration and client usage
 pageord: 500
 
@@ -68,7 +68,9 @@ In order to authenticate requests sent with a token the user must first receive 
 many systems, and they will work as long as they can be processed by one of the registered authentication providers.
 To make things easier, Cloudify can also generate tokens through the REST service endpoint "/tokens".
 To enable this feature a token generator must be configured.
-Note: The request to "MANAGER_IP/tokens" must itself be authenticated (using a username-password set, for example).
+{%note title=Note%}
+The request to "MANAGER_IP/tokens" must itself be authenticated (using a username-password set, for example).
+{%endnote%}
 
 
 # Setting up a secured server
@@ -108,14 +110,18 @@ authentication_providers:
 
 The above configuration will cause the security framework to instantiate two classes:
 * Flask-secuREST's "PasswordAuthenticator", with the password_hash arguement set to "plaintext".
-Note: Preferably, password_hash should not remain plaintext, as in most userstores passwords are hashed. Set the hash
-to should match the hash scheme used in the relevant datastoe.
+{%note title=Note%}
+Preferably, password_hash should not remain plaintext, as in most userstores passwords are hashed. Set the hash
+to match the hash scheme used in the relevant datastoe.
+{%endnote%}
 Possible values are: 'bcrypt', 'des_crypt', 'pbkdf2_sha256', pbkdf2_sha512', 'sha256_crypt' and 'sha512_crypt'.
 This authentication check will be performed first for each request sent to the REST service.
 * Flask-secuREST's "TokenAuthenticator", with the secret_key arguement set to "my_secret".
 If (and only if) the password-based authentication failed, this authentication method will be executed as well.
 The secret key is used to decrypt the token sent with the request, if a token was sent.
-Note: In this implementation the secrey key used to authenticate a token must be the same as the key used to generate it.
+{%note title=Note%}
+In this implementation the secrey key used to authenticate a token must be the same as the key used to generate it.
+{%endnote%}
 
 It is possible to implement many other authentication providers, including providers that do not require accessing a
 userstore directly (e.g. oAuth). This is explained later in this document.
@@ -170,26 +176,35 @@ This configuration uses (as it must) the same secret key for token generation an
 This configuration however includes the additional argument "expires_in_seconds" which limits the lifetime of a token
 to 10 minutes. A token older than 10 minutes will therefore be "expired" and fail the request.
 
+
 ### SSL
 
 # Clients
+
 ## Web UI
 {%note title=Note%}
 Availbale in the Commercial version only
 {%endnote%}
+
 ## Cloudify CLI
-## CURL
+
+## cURL
 
 # Examples
+
 ## Simple - Using the default userstore driver and password authentication, no SSL
+
 ## Advanced - Using the default userstore driver and token authentication, with SSL
 
 
 # Behind the Scenes / Advanced
+
 ## request-response flow
+
 ## Advanced configuration (logs, token timeout, password hashing, nginx)
 
 # Writing your own userstore and authentication providers
+
 ## how to write
 
 ## Packaging/Configuring/Installing custom implementations
