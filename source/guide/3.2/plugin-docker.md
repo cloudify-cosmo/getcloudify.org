@@ -1,6 +1,6 @@
 ---
 layout: bt_wiki
-title: Docker Plugin (Alpha)
+title: Docker Plugin
 category: Plugins
 publish: true
 abstract: "Docker plugin description and configuration"
@@ -12,8 +12,6 @@ plugin_version: 1.2
 ---
 {%summary%}The Docker plugin enables you to run Docker containers from a Cloudify Blueprint.{%endsummary%}
 
-
-{%warning title=Disclaimer%}This plugin is in Alpha and has not been thoroughly tested yet.{%endwarning%}
 
 # Plugin Requirements:
 
