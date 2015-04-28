@@ -81,8 +81,12 @@ node_templates --> manager --> properties --> cloudify --> security
 Each setting is described in detail in the following sections.
 
 ### Setting Security On / Off
-The first setting in the "security" path is
+The first setting in the "security" path is:
+
+{% highlight yaml %}
 enabled: false
+{% endhighlight %}
+
 In order to activate the security framework set "enabled" to "true"; Otherwise, all other security configuration will
 be ignored.
 
@@ -91,13 +95,15 @@ Under "authentication_providers" is a list all the authenticators *In the order 
 At least one authentication provider must be configured.
 
 Each authentication provider must include these properties:
-* name - a unique name describing this authenticator. This name will appear in logs so it should be clear.
-* implementation - the fully qualified name of a module implementing an authentication provider, followed by ":" and
+  * name - a unique name describing this authenticator. This name will appear in logs so it should be clear.
+  * implementation - the fully qualified name of a module implementing an authentication provider, followed by ":" and
 the class name.
-* properties - a dictionary of arguments required to instnatiate the authenticator class. The arguements will be passed
+  * properties - a dictionary of arguments required to instnatiate the authenticator class. The arguements will be passed
 as kwargs to the class' "__init__" method.
 
 The default configuration lists two authenticators - password and token:
+
+{% highlight yaml %}
 authentication_providers:
   - name: password
     implementation: flask_securest.authentication_providers.password:PasswordAuthenticator
@@ -107,16 +113,17 @@ authentication_providers:
     implementation: flask_securest.authentication_providers.token:TokenAuthenticator
     properties:
       secret_key: my_secret
+{% endhighlight %}
 
 The above configuration will cause the security framework to instantiate two classes:
-* Flask-secuREST's "PasswordAuthenticator", with the password_hash arguement set to "plaintext".
+  * Flask-secuREST's "PasswordAuthenticator", with the password_hash arguement set to "plaintext".
 {%note title=Note%}
 Preferably, password_hash should not remain plaintext, as in most userstores passwords are hashed. Set the hash
 to match the hash scheme used in the relevant datastoe.
 {%endnote%}
 Possible values are: 'bcrypt', 'des_crypt', 'pbkdf2_sha256', pbkdf2_sha512', 'sha256_crypt' and 'sha512_crypt'.
 This authentication check will be performed first for each request sent to the REST service.
-* Flask-secuREST's "TokenAuthenticator", with the secret_key arguement set to "my_secret".
+  * Flask-secuREST's "TokenAuthenticator", with the secret_key arguement set to "my_secret".
 If (and only if) the password-based authentication failed, this authentication method will be executed as well.
 The secret key is used to decrypt the token sent with the request, if a token was sent.
 {%note title=Note%}
@@ -128,12 +135,14 @@ userstore directly (e.g. oAuth). This is explained later in this document.
 
 ### Configuring a Userstore
 Under "userstore_driver" a single userstore is set:
-* implementation - the fully qualified name of the module implementing a userstore integration, followed by ":" and the
+  * implementation - the fully qualified name of the module implementing a userstore integration, followed by ":" and the
 class name.
-* properties - a dictionary of arguments required to instnatiate the implementing class. The arguements will be passed as
+  * properties - a dictionary of arguments required to instnatiate the implementing class. The arguements will be passed as
 kwargs to the class' "__init__" method.
 
 The default configuration uses Flask-secuREST's simple userstore, with a list of users inline:
+
+{% highlight yaml %}
 userstore_driver:
   implementation: flask_securest.userstores.simple:SimpleUserstore
   properties:
@@ -151,6 +160,7 @@ userstore_driver:
         password: example_password3
         email: example_user3@your_domain.dom
     identifying_attribute: username
+{% endhighlight %}
 
 In the default configuration a userstore is created on the fly, containing the 3 listed users. The identifying
 attribute (by which a user will be found) is set to "username".
@@ -160,17 +170,20 @@ details a different implementation can be created and installed, as explained la
 
 ### Configuring a Token Generator
 In order to enable token generation through the REST service "/tokens" endpoint a token generator must be configured:
-* implementation - the fully qualified name of the module implementation token generation, followed by ":" and the
+  * implementation - the fully qualified name of the module implementation token generation, followed by ":" and the
 class name.
-* properties - a dictionary of arguments required to instnatiate the implementing class. The arguements will be passed as
+  * properties - a dictionary of arguments required to instnatiate the implementing class. The arguements will be passed as
 kwargs to the class' "__init__" method.
 
 The default configuration uses Flask-secuREST's token module to generate tokens:
+
+{% highlight yaml %}
 auth_token_generator:
   implementation: flask_securest.authentication_providers.token:TokenAuthenticator
   properties:
     secret_key: my_secret
     expires_in_seconds: 600
+{% endhighlight %}
 
 This configuration uses (as it must) the same secret key for token generation and for token authentication.
 This configuration however includes the additional argument "expires_in_seconds" which limits the lifetime of a token
