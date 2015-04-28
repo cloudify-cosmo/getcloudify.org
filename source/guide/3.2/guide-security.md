@@ -84,7 +84,9 @@ Each setting is described in detail in the following sections.
 The first setting in the "security" path is:
 
 {% highlight yaml %}
+
 enabled: false
+
 {% endhighlight %}
 
 In order to activate the security framework set "enabled" to "true"; Otherwise, all other security configuration will
