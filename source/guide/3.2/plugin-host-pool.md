@@ -180,5 +180,5 @@ Nodecellar
 {% endtogglecloak %}
 
 {% gcloak 4 %}
-A full example that installs the nodecellar application using this plugin is available [Here](https://github.com/cloudify-cosmo/cloudify-host-pool-plugin/blob/master/examples/nodecellar/host-pool-blueprint.yaml)
+A full example that installs the nodecellar application using this plugin is available [Here](https://github.com/cloudify-cosmo/cloudify-nodecellar-example/blob/master/host-pool-blueprint.yaml)
 {% endgcloak %}
