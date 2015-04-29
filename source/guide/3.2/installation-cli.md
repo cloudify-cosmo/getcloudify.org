@@ -129,7 +129,7 @@ The prerequisites are:
 {%endwarning%}
 
 {%note title=Update Your Package Manager%}
-If you are using Linux, and you choose to install prerequisites or python-dev, you must first update your package manager:
+If you are using Linux, and you choose to use either the --force flag or the --installpythondev flag, you must first update your package manager:
     sudo apt-get update
     or
     sudo yum update
