@@ -2,7 +2,7 @@
 layout: bt_wiki
 title: Security Guide
 category: Guides
-publish: false
+publish: true
 abstract: Cloudify's Management security configuration and client usage
 pageord: 500
 
@@ -11,61 +11,71 @@ pageord: 500
 
 # Overview
 
-This guide will explain how to bootstrap a secured manager and use if from the cli and web UI.
+This guide will explain how to bootstrap a secured manager and use it from the cli and web UI. <br/>
 Securing the manager focuses on the REST service, which is the access point of all clients to the management server.
-When security is enabled, all requests to the REST service, are authenticated before they can reach their endpoint.
+
+Cloudify's security framework uses the [Flask-secuREST](https://github.com/cloudify-cosmo/flask-securest/tree/0.6)
+package, which integrates with [Flask-RESTful](https://flask-restful.readthedocs.org/en/0.3.2/) to secure REST services.
+
+When security is enabled, all requests to the REST service are authenticated before they can reach their endpoint.
 For example, when a user of the Web-UI attempts to see the all blueprints, a request is sent to the REST service
-"blueprints" endpoint, but it will only reach it if the user is logged in with valid credentials.
-In a similar way, a user attempting to run the command "cfy deployments create" will only be successful if valid
+"blueprints" endpoint, but it will only reach it if the user is logged in with valid credentials. <br/>
+Similarly, the CLI command "cfy deployments create" will only be successful if valid
 username and password are sent with the REST call to the endpoint "deployments".
-Of course, direct requests sent using other clients (e.g. curl) must also include correct credentials, or they will
+Of course, direct requests made using other clients (e.g. curl) must also include correct credentials, or they will
 fail with an "Unauthorized User" error.
 
 
 # Main Concepts
 
+## Userstore
+Generally, a userstores is simply a class that enables loading of user details and returns them as a user object.
+
+Typically (but not always) user details are stored as records in a database or objects in a directory. Each user can
+be identified by a unique attribute, such as a username or id, or by a unique combination of attributes.<br/>
+In order to authenticate a user (for example by a set of username and password) it might be required to load the user's
+details and verify the given credentials indeed match.<br/>
+To support a variety of user-store systems and configurations Cloudify security framework can accept different
+userstore implementations. It's possible to use the default Flask-secuREST simple userstore or to specify a new
+implementation that supports a specific userstore system.
+
+A valid userstore implementation can be any Python class that inherits from
+[abstract_userstore.py](https://github.com/cloudify-cosmo/flask-securest/blob/master/flask_securest/userstores/
+abstract_userstore.py) and implements a `get_user` method.
+The object returned by `get_user` must adhere to Flask-secuREST's UserModel, specifying these 3 methods:
+
+- is_active()
+- is_anonymous()
+- get_roles()
+
+
 ## Authentication Provider
-An Authentication Provider is a class that performs authentication. Multiple authentication providers can be configured,
-to support different authentication methods (e.g. password, token, Kerberos). When a REST call is received on the REST
-service, the security framework will attempt to authenticate it using each authentication provider in the order of
-configuration, until authentication succeeds.
-The authentication provider has access to the userstore (if configured) and it can use it to get user details and use
-them to perform authentication.
-For example, it can compare the given password to the one found on the userstore (explained below) or verify the user
-is still active (in many environments users are marked as "inactive", instead of deleting the account entirely).
+An Authentication Provider is a class that performs authentication. Multiple authentication providers can be configured
+in order to support different authentication methods (e.g. password, token, Kerberos).<br/>
+When a REST call is received by the REST service, the security framework will attempt to authenticate it using each
+authentication provider in the order of configuration, until authentication succeeds.
+The authentication provider has access to the userstore instance (if configured) and can use it to get user details and
+use them to perform authentication.<br/>
+For example, it can compare the given password to the one found on the userstore or verify the user is still active
+(in many environments users are marked as "inactive", instead of deleting the account entirely).
+
+
 Once an authenticator can successfully authenticate the request's user - it should return the user object and allow the
 request to be completed. Other authenticators will not be called until the next request is processed.
 If non of the authenticators authenticates the request - the request will not reach its endpoint and the client will
 receive an "Unauthorized User" error.
 
 A valid authentication provider implementation can be any Python class that inherits from
-https://github.com/cloudify-cosmo/flask-securest/blob/master/flask_securest/authentication_providers/abstract_authentication_provider.py
-and implements an "authenticate" method.
-
-
-## Userstore
-Generally, a Userstores is simply a class that enables loading of user details and return tham as a user object.
-
-Typically (but not always) user details are stored as records in a database or a objects in a directory. Eash user can
-be identified by a unique attribute, such as a username or id, or by a unique combination of attributes.
-In order to authenticate a user (for example by a set of username and password) it might be required to load the user's
-details and verify the given credentials indeed match.
-To support a variety of user-store systems and configurations Cloudify security framework can accept different
-userstore implementation. It's possible to use the default Flask-secuREST simple userstore or to specify a custom
-implementation, specifically matching the relevant system.
-
-A valid Userstore implementation can be any Python class that inherits from
-https://github.com/cloudify-cosmo/flask-securest/blob/master/flask_securest/userstores/abstract_userstore.py and
-implements a "get_user" method.
-The object returned by "get_user" must adhere tp Flask-secuREST's UserModel, specifying these 3 methods:
-  * is_active(self)
-  * is_anonymous(self)
-  * get_roles(self)
+[abstract_authentication_provider.py](https://github.com/cloudify-cosmo/flask-securest/blob/master/flask_securest/
+authentication_providers/abstract_authentication_provider.py) and implements an `authenticate` method.
 
 
 ## Token Generator
-In order to authenticate requests sent with a token the user must first receive a token. Tokens can be generated by
-many systems, and they will work as long as they can be processed by one of the registered authentication providers.
+We mentioned Token as an authentication method. But in order to send a token with each request, the user must first
+receive a token. Tokens can be generated by many systems, and they will work as long as the token can be processed by
+one of the registered authentication providers.
+
+
 To make things easier, Cloudify can also generate tokens through the REST service endpoint "/tokens".
 To enable this feature a token generator must be configured.
 {%note title=Note%}
@@ -84,24 +94,23 @@ Each setting is described in detail in the following sections.
 The first setting in the "security" path is:
 
 {% highlight yaml %}
-
 enabled: false
-
 {% endhighlight %}
 
-In order to activate the security framework set "enabled" to "true"; Otherwise, all other security configuration will
-be ignored.
+This means security is turned off. In order to activate the security framework set {% highlight yaml %}enabled: true{% endhighlight %}
+Otherwise, all other security configuration will be ignored.
 
 ### Configuring Authentication Providers
-Under "authentication_providers" is a list all the authenticators *In the order they should be executed*.
+In the manager blueprint, under `authentication_providers` is a list all the authenticators *In the order they should be executed*.<br/>
 At least one authentication provider must be configured.
 
 Each authentication provider must include these properties:
-  * name - a unique name describing this authenticator. This name will appear in logs so it should be clear.
-  * implementation - the fully qualified name of a module implementing an authentication provider, followed by ":" and
+
+- name - a unique name describing this authenticator. This name will appear in logs so it should be clear.
+- implementation - the fully qualified name of a module implementing an authentication provider, followed by ":" and
 the class name.
-  * properties - a dictionary of arguments required to instnatiate the authenticator class. The arguements will be passed
-as kwargs to the class' "__init__" method.
+- properties - a dictionary of arguments required to instnatiate the authentication provider class. The arguements will
+be passed as kwargs to the class' `__init__` method.
 
 The default configuration lists two authenticators - password and token:
 
@@ -118,18 +127,21 @@ authentication_providers:
 {% endhighlight %}
 
 The above configuration will cause the security framework to instantiate two classes:
-  * Flask-secuREST's "PasswordAuthenticator", with the password_hash arguement set to "plaintext".
+
+- Flask-secuREST's "PasswordAuthenticator", with the password_hash arguement set to "plaintext".
 {%note title=Note%}
-Preferably, password_hash should not remain plaintext, as in most userstores passwords are hashed. Set the hash
-to match the hash scheme used in the relevant datastoe.
-{%endnote%}
+Passwords are usually not store as plaintext. Set the passowrd_hash to match the hash scheme used
+in the selected datastore.
 Possible values are: 'bcrypt', 'des_crypt', 'pbkdf2_sha256', pbkdf2_sha512', 'sha256_crypt' and 'sha512_crypt'.
-This authentication check will be performed first for each request sent to the REST service.
-  * Flask-secuREST's "TokenAuthenticator", with the secret_key arguement set to "my_secret".
+{%endnote%}
+This authentication check will be performed first for each request sent to the REST service. If it fails, the next
+authenticator will be used.
+
+- Flask-secuREST's "TokenAuthenticator", with the secret_key arguement set to "my_secret".
 If (and only if) the password-based authentication failed, this authentication method will be executed as well.
 The secret key is used to decrypt the token sent with the request, if a token was sent.
 {%note title=Note%}
-In this implementation the secrey key used to authenticate a token must be the same as the key used to generate it.
+In the default configuration, the key used to authenticate a token must be the same as the key used to generate it.
 {%endnote%}
 
 It is possible to implement many other authentication providers, including providers that do not require accessing a
@@ -137,10 +149,11 @@ userstore directly (e.g. oAuth). This is explained later in this document.
 
 ### Configuring a Userstore
 Under "userstore_driver" a single userstore is set:
-  * implementation - the fully qualified name of the module implementing a userstore integration, followed by ":" and the
+
+- implementation - the fully qualified name of the module implementing a userstore integration, followed by ":" and the
 class name.
-  * properties - a dictionary of arguments required to instnatiate the implementing class. The arguements will be passed as
-kwargs to the class' "__init__" method.
+- properties - a dictionary of arguments required to instnatiate the implementing class. The arguements will be passed as
+kwargs to the class' `__init__` method.
 
 The default configuration uses Flask-secuREST's simple userstore, with a list of users inline:
 
@@ -165,17 +178,18 @@ userstore_driver:
 {% endhighlight %}
 
 In the default configuration a userstore is created on the fly, containing the 3 listed users. The identifying
-attribute (by which a user will be found) is set to "username".
-This is a very simple implementation useful for demonstration. To integrate with a "real" userstore to load user
-details a different implementation can be created and installed, as explained later.
+attribute (by which a user can be identified) is set to "username".
+This is a very simple implementation useful for demonstration. To integrate with a "real" userstore a different
+implementation can be created and installed, as explained later.
 
 
 ### Configuring a Token Generator
-In order to enable token generation through the REST service "/tokens" endpoint a token generator must be configured:
-  * implementation - the fully qualified name of the module implementation token generation, followed by ":" and the
+In order to enable token generation through the REST "/tokens" endpoint a token generator must be configured:
+
+- implementation - the fully qualified name of the module implementation token generation, followed by ":" and the
 class name.
-  * properties - a dictionary of arguments required to instnatiate the implementing class. The arguements will be passed as
-kwargs to the class' "__init__" method.
+- properties - a dictionary of arguments required to instnatiate the implementing class. The arguements will be passed as
+kwargs to the class' `__init__` method.
 
 The default configuration uses Flask-secuREST's token module to generate tokens:
 
