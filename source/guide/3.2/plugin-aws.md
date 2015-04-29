@@ -1,7 +1,7 @@
 ---
 layout: bt_wiki
 title: AWS Plugin
-category: Plugins
+category: Official Plugins
 publish: true
 abstract: Cloudify AWS plugin description and configuration
 pageord: 600

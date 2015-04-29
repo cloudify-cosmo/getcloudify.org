@@ -1,7 +1,7 @@
 ---
 layout: bt_wiki
 title: SoftLayer Plugin
-category: Plugins
+category: Official Plugins
 publish: true
 abstract: Cloudify SoftLayer plugin description and configuration
 pageord: 600
