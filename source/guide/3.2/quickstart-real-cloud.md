@@ -29,7 +29,7 @@ In this tutorial you will bootstrap cloudify-manager dir a Cloudify manager on a
 This tutorial shows how to bootstrap a Cloudify manager on:
 
   - [OpenStack](plugin-openstack.html)
-  - [Softlayer](softlayer-openstack.html)
+  - [Softlayer](plugin-softlayer.html)
   - [AWS EC2](plugin-aws.html)
   - [vCloud](plugin-vsphere.html)
 
