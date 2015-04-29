@@ -126,6 +126,11 @@ The prerequisites are:
 * python-devel and gcc - for CentOS/RHEL to be able to compile Fabric.
 * gcc - for Arch-Linux to be able to compile Fabric.
 * PyCrypto - for Windows as it's not automatically compiled when installin Cloudify's CLI.
+
+If you choose to pass the `--force` or `-f` flag, you must first update your package manager:
+    sudo apt-get update
+    or
+    sudo yum update
 {%endwarning%}
 
 
