@@ -115,4 +115,3 @@ The *manager's* node *configure* lifecycle operation is mapped to a method in th
 
   - It sets the *provider context*, which will be used by the Openstack plugin when installing applications at later stages.
   - It creates a file on the Cloudify manager server, which holds the configuration settings for connecting with Openstack. This file will be used by the Openstack plugin when installing applications at later stages.
-  - It creates a file on the Cloudify manager server, which holds the configuration settings for connecting with Openstack. This file will be used by the Openstack plugin when installing applications at later stages.
