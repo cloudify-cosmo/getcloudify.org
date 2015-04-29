@@ -70,7 +70,7 @@ This manager blueprint provides support for recovering from manager failures.
 
 Well, think of a scenario where you have already uploaded some blueprints
 and created deployment using this manager. If at a certain point, for some
-reason, the VM hosting the manager crashes, of maybe even the docker
+reason, the VM hosting the manager crashes, or maybe even the docker
 container inside the VM is no longer available, it would be nice to have the
 ability to spin up another VM and use it as our management server.
 
@@ -121,9 +121,8 @@ For example, if we have a manager on ip 192.168.11.66:
 cfy use -t 192.168.11.66
 {% endhighlight %}
 
-From this point onwards, you can execute the *recover* command if the
-manager is
-malfunctioning.
+From this point onwards, you can execute the *recover* command if the manager
+is malfunctioning.
 
 {%note title=Note%}
 This command is somewhat destructive, since it will stop and delete
@@ -167,5 +166,3 @@ properly and is not supported:
 * In case the management server VM was terminated using the Openstack API, the associated port will also be deleted. This means we wont have any way of ensuring the new server will have the same private ip as before, which is necessary for agents to communicate with the manager.
 * In case the *cfy* container was explicitly removed from the manager VM by executing *docker rm -f cfy*. This command will cause the docker daemon to remove this container from its internal state, and thus wont be started on the new VM.
 {%endwarning%}
-
-

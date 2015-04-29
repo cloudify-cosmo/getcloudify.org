@@ -10,7 +10,7 @@ pageord: 300
 Node templates represent the actual instances of [node types](dsl-spec-node-types.html) which would eventually represent a running application/service as described in the blueprint.
 {%endsummary%}
 
-# Decleration
+# Declaration
 
 The `node_templates` section in the DSL is a dictionary where each key is a node template.
 
