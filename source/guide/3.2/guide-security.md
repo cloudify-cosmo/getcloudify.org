@@ -11,7 +11,7 @@ pageord: 500
 
 # Overview
 
-This guide will explain how to bootstrap a secured manager and use it from the cli and web UI. <br/>
+This guide will explain how to bootstrap a secured manager and use it from the CLI and web UI. <br/>
 Securing the manager focuses on the REST service, which is the access point of all clients to the management server.
 
 Cloudify's security framework uses the [Flask-secuREST](https://github.com/cloudify-cosmo/flask-securest/tree/0.6)
@@ -29,7 +29,7 @@ fail with an "Unauthorized User" error.
 # Main Concepts
 
 ## Userstore
-Generally, a userstores is simply a class that enables loading of user details and returns them as a user object.
+Generally, a userstore is simply a class that enables loading of user details and returns them as a user object.
 
 Typically (but not always) user details are stored as records in a database or objects in a directory. Each user can
 be identified by a unique attribute, such as a username or id, or by a unique combination of attributes.<br/>
@@ -42,7 +42,7 @@ implementation that supports a specific userstore system.
 A valid userstore implementation can be any Python class that inherits from
 [abstract_userstore.py](https://github.com/cloudify-cosmo/flask-securest/blob/master/flask_securest/userstores/
 abstract_userstore.py) and implements a `get_user` method.
-The object returned by `get_user` must adhere to Flask-secuREST's UserModel, specifying these 3 methods:
+The object returned by `get_user` must adhere to Flask-secuREST's User Model, specifying these 3 methods:
 
 - is_active()
 - is_anonymous()
@@ -109,7 +109,7 @@ Each authentication provider must include these properties:
 - name - a unique name describing this authenticator. This name will appear in logs so it should be clear.
 - implementation - the fully qualified name of a module implementing an authentication provider, followed by ":" and
 the class name.
-- properties - a dictionary of arguments required to instnatiate the authentication provider class. The arguements will
+- properties - a dictionary of arguments required to instantiate the authentication provider class. The arguments will
 be passed as kwargs to the class' `__init__` method.
 
 The default configuration lists two authenticators - password and token:
@@ -131,7 +131,7 @@ The above configuration will cause the security framework to instantiate two cla
 - Flask-secuREST's "PasswordAuthenticator", with the password_hash arguement set to "plaintext".
 {%note title=Note%}
 Passwords are usually not store as plaintext. Set the passowrd_hash to match the hash scheme used
-in the selected datastore.
+in the selected userstore.
 Possible values are: 'bcrypt', 'des_crypt', 'pbkdf2_sha256', pbkdf2_sha512', 'sha256_crypt' and 'sha512_crypt'.
 {%endnote%}
 This authentication check will be performed first for each request sent to the REST service. If it fails, the next
@@ -152,10 +152,10 @@ Under "userstore_driver" a single userstore is set:
 
 - implementation - the fully qualified name of the module implementing a userstore integration, followed by ":" and the
 class name.
-- properties - a dictionary of arguments required to instnatiate the implementing class. The arguements will be passed as
+- properties - a dictionary of arguments required to instantiate the implementing class. The arguments will be passed as
 kwargs to the class' `__init__` method.
 
-The default configuration uses Flask-secuREST's simple userstore, with a list of users inline:
+The default configuration uses Flask-secuREST's simple userstore, with a list of users in-line:
 
 {% highlight yaml %}
 userstore_driver:
@@ -188,7 +188,7 @@ In order to enable token generation through the REST "/tokens" endpoint a token 
 
 - implementation - the fully qualified name of the module implementation token generation, followed by ":" and the
 class name.
-- properties - a dictionary of arguments required to instnatiate the implementing class. The arguements will be passed as
+- properties - a dictionary of arguments required to instantiate the implementing class. The arguments will be passed as
 kwargs to the class' `__init__` method.
 
 The default configuration uses Flask-secuREST's token module to generate tokens:
@@ -208,11 +208,33 @@ to 10 minutes. A token older than 10 minutes will therefore be "expired" and fai
 
 ### SSL
 
+
+### Logging
+Security operations, such as authentication success or failure and user details, are logged to a dedicated log file on the management container.
+The default log configuration is:
+
+{% highlight yaml %}
+log_file: /var/log/cloudify/rest-security-audit.log
+log_level: INFO
+{% endhighlight %}
+
+Setting the log file location is pretty strait-forward.<br/>
+Modifying the log level will produce less or more elaborate security auditing; The acceptable values are:
+CRITICAL, ERROR, WARNING, INFO or DEBUG.
+
+Other settings not included in the default configuration are:
+
+- log_file_size_MB - limits the log file size. By default, the file is limited to 100 MB. When the file reaches that
+size, it will be renamed with the extension ".1" and a new log file will be created.
+- log_files_backup_count - sets the maximum number of old log files to keep. By default this value is set to 20. That
+means that up to 20 old log files can be created, after which the oldest file will be removed.
+
+
 # Clients
 
 ## Web UI
 {%note title=Note%}
-Availbale in the Commercial version only
+Available in the Commercial version only
 {%endnote%}
 
 ## Cloudify CLI
@@ -232,7 +254,7 @@ Availbale in the Commercial version only
 
 ## Internal communication between the Cloudify manager and other Cloudify components
 
-Currently, communication between the Cloudify agents and the Cloudify manager does not go through authentication and authorization - instead, REST calls from the agents to the manager are done to port 8101, which has the same general behavior as port 80, yet the REST service lets requests made to this port through without having them go through any of the security mechanisms.
+Currently, communication between the Cloudify agents and the Cloudify manager does not go through authentication - instead, REST calls from the agents to the manager are done to port 8101, which has the same general behavior as port 80, yet the REST service lets requests made to this port through without having them go through any of the security mechanisms.
 
 The usage of this port, however, is restricted to components on the same subnet as the Cloudify manager alone. This is done using specific security group rules, which are set up during bootstrap (for example, see [this rule in the Openstack manager blueprint](https://github.com/cloudify-cosmo/cloudify-manager-blueprints/blob/master/openstack/openstack-manager-blueprint.yaml#L206)). It is therefore impossible to bypass the security mechanisms from outside the manager's internal network by making REST calls directly to the 8101 port.
 
