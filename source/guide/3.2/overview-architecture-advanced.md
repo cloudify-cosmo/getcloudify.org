@@ -90,6 +90,30 @@ The fileserver served by Nginx, while tied to Nginx by default, is not logically
 Another entity not drawn in the diagram is a propriatary poller we use to consume metrics from RabbitMQ and feed them into InfluxDB.
 
 
+# Management Environment Bootstrap Flow
+
+![Cloudify Bootstrap](/guide/images3/architecture/cloudify_flow_bootstrap.png)
+
+* This diagram depicts the default (and naive) implementation of the bootstrap method. Since Cloudify's Management Environment is expressed as a blueprint, it can be constructed differently be the user.
+* IaaS is a specific case of an environment. A user can decide to bootstrap, for instance, on bare metal server(s).
+* Very advanced users can even change the structure of Cloudify itself (not only the infrastructure laid during bootstrap). This will be covered in the future as Cloudify becomes more and more modular.
+
+
+# Blueprint Upload Flow
+
+![Cloudify Upload Blueprint](/guide/images3/architecture/cloudify_flow_upload_blueprint.png)
+
+# Deployment Creation Flow
+
+![Cloudify Create Deployment](/guide/images3/architecture/cloudify_flow_create_deployment.png)
+
+* The REST service will retrieve the blueprint document from Elasticsearch and create a "phyical" manifestation of it by expanding nodes to node-instances, attaching node-instance ID's to them, and so forth.
+
+# Execute Workflow Flow
+
+![Cloudify Execute Workflow](/guide/images3/architecture/cloudify_flow_execute_workflow.png)
+
+
 # Metrics Flow
 
 ![Cloudify Metrics Flow](/guide/images3/architecture/cloudify_flow_metrics.png)
@@ -132,20 +156,5 @@ This flow is pretty self explanatory and corresponds with the same principles th
 
 * RabbitMQ holds messages within dedicated, durable, non-exclusive topic exchange. Log messages and events have separate queues.
 * Currently, logs and events are stored in Elasticsearch in the same index. While no abstraction is provided for this, it is possible to use logstash to parse messages and store them in different indices if a user wishes to do so but they will not show in Cloudify's UI.
-
-
-# Blueprint Upload Flow
-
-![Cloudify Upload Blueprint](/guide/images3/architecture/cloudify_flow_upload_blueprint.png)
-
-# Deployment Creation Flow
-
-![Cloudify Create Deployment](/guide/images3/architecture/cloudify_flow_create_deployment.png)
-
-* The REST service will retrieve the blueprint document from Elasticsearch and create a "phyical" manifestation of it by expanding nodes to node-instances, attaching node-instance ID's to them, and so forth.
-
-# Execute Workflow Flow
-
-![Cloudify Execute Workflow](/guide/images3/architecture/cloudify_flow_execute_workflow.png)
 
 # Example of AI Analysis flow
