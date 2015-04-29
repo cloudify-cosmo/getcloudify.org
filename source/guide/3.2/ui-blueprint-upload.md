@@ -13,8 +13,10 @@ terminology_link: reference-terminology.html
 
 # Packaging a Blueprint
 
-Cloudify's UI allows the user to upload a packaged TAR blueprint file to the manager.
-The TAR file must include a folder containing the bluperint's resources along with a main blueprint file named `blueprint.yaml`.
+Cloudify's UI allows the user to upload a packaged blueprint file to the manager.
+
+The packaged blueprint file must include a folder containing the blueprint's resources along with a main blueprint YAML file (defaults to `blueprint.yaml`).
+
 Once the user has the blueprint folder ready with the main blueprint inside it, the user can create a blueprint TAR file by using the command line:
 
 {% highlight bash %}
@@ -27,6 +29,11 @@ tar czf blueprint-name.tar.gz blueprint-folder/
 
 The output file of the tar command above will be `blueprint-name.tar.gz`.
 
+Supported file extension are:
+
+* tar
+* tar.gz
+* archive
 
 # Uploading a Blueprint
 
@@ -35,16 +42,18 @@ The upload blueprint button can be found in the "Blueprints" section in the UI:
 
 ![The blueprint upload button](/guide/images/ui/ui_upload_blueprint_button.png)
 
+Clicking on it will cause the blueprint upload dialog to appear.
 
-Clicking on it will cause the blueprint upload dialog to appear. <br>
-The user can either type in the path to the blueprint TAR file, or select it from the filesystem by pressing the `+` button:
+The user can either type in the path to the blueprint file, or select it from the filesystem by pressing the `+` button:
 
 ![The blueprint upload dialog](/guide/images/ui/ui-upload-blueprint.png)
 
-The blueprint name is a required field. The user can also provide a custom blueprint YAML file name. If none is provided, the default `blueprint.yaml` file will be used.<br>
-Once the user provides the blueprint TAR file and the blueprint name, the `Save` button becomes available.
+The `Blueprint ID` field is required.
+
+The `Blueprint filename` field is optional. If left blank, the default `blueprint.yaml` file will be used. To override, The user should fill out the name of the YAML file to be used.
+
+Once all the required fields are filled, the `Save` button becomes available.
 
 ![The user can enter a custom blueprint name](/guide/images/ui/ui-upload-blueprint-with-input.png)
 
-
-Once the `Save` button is clicked, the button will be grayed out until the blueprint file is fully uploaded to Cloudify. After the upload is done, the user will be redirected to the blueprint's page.
+Clicking the `Save` button will cause it to be grayed out until the blueprint file is fully uploaded to Cloudify. After the upload is done, the user will be redirected to the blueprint's page.

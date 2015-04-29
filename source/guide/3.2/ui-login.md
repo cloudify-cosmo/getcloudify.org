@@ -21,7 +21,7 @@ The standard `Username` and `Password` are required as well as the option to che
 ![The Login Screen](/guide/images/ui/ui-login-screen.png)
 
 # Logout
-Once logged in, the user name is displayed on the top right of the screen, right next to the `Log out` button. <br>
-The user can opt to logout anytime by simply clicking on the `Log out`. <br>
+Once logged in, the user name is displayed on the top right of the screen, right next to the `Log Out` button. <br>
+The user can opt to logout anytime by simply clicking on the `Log Out` (as shown below). <br>
 
 ![The Logout Button](/guide/images/ui/ui-logout-button.png)
