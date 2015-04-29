@@ -361,7 +361,7 @@ inputs:
     type: integer
     default: ''
   provision_scripts:
-    default: ['https://raw.githubusercontent.com/cloudify-cosmo/cloudify-softlayer-plugin/master/softlayer_plugin/scripts/postprov.cmd']
+    default: ['https://raw.githubusercontent.com/cloudify-cosmo/cloudify-system-tests/master/cosmo_tester/resources/scripts/python_and_winrm_config.cmd']
   additional_ids:
     default: []
   install_agent:
