@@ -267,7 +267,7 @@ In future versions, all communications from and to the Cloudify manager will uti
 
 ## how to write
 
-## Packaging/Configuring/Installing custom implementations
+## Packaging, Configuring and Installing Custom Implementations
 
 In order to use custom implementations of userstores, authentication providers and token generators; the implementations themselves should be installed on the manager.
 
