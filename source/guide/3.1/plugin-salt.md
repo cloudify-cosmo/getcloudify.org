@@ -1,7 +1,7 @@
 ---
 layout: bt_wiki
 title: Salt plugin
-category: Plugins
+category: Official Plugins
 publish: true
 abstract: "Salt plugin description"
 pageord: 215
