@@ -3,7 +3,7 @@ layout: bt_wiki
 title: Architecture Overview (Advanced)
 category: Product Overview
 publish: true
-abstract: Explains Advanced Flows and structure in Cloudify's Architecture
+abstract: Explains advanced flows and structure in Cloudify's architecture
 pageord: 200
 
 terminology_link: reference-terminology.html
@@ -12,7 +12,7 @@ diamond_plugin_link: plugin-diamond.html
 {%summary%} {{page.abstract}}{%endsummary%}
 
 {%note title=Note%}
-This is aimed at very advanced users to understand Cloudify's architecture and provides no user-functional information whatsoever. It does, however, provide information for understanding how Cloudify's architecture supports currently implemented and even potential future flows. Operational knowledge assumed.
+This is aimed at very advanced users to understand Cloudify's architecture. It provides no user-functional information whatsoever. It does, however, provide information for understanding how Cloudify's architecture supports currently implemented and even potential future flows. Operational knowledge assumed.
 {%endnote%}
 
 # Components Overview
@@ -40,7 +40,7 @@ Cloudify's code and the components' configuration is what makes Cloudify.. well.
 
 By default, there are two external networks from which Cloudify's Management Environment is accessed:
 
-* The network where the CLI resides - potentially a user's management network.
+* The network where the CLI resides - potentially a user's `management network`.
 * The network where the application resides - potentially a user's application network.
 
 Therefore, Cloudify aims to have only two entry points to its Management Environment:
@@ -79,7 +79,7 @@ Both the `deployment workflow agent` and the `deployment agent` drawn in the dia
 
 In addition to these agents, an entity removed from the diagram is a management agent containing a Cloudify plugin able to spawn the deployment specific agents. This agent is provided within the Docker image and is run during the bootstrap process.
 
-Note that all agents (Management, Deployment Specific, Host) are actually the same physical entity (A Virtualenv with Python modules - Cloudify Plugins installed in them).
+Note that all agents (Management, Deployment Specific, Host) are actually the same physical entity (a virtualenv with Python modules - Cloudify plugins installed in them).
 
 ## File Server
 
