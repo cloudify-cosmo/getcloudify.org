@@ -31,8 +31,8 @@ plugin_version: 1.2
 
 **Properties:**
 
-  * `image` *Required*. 
-  * `name` *Required*. 
+  * `image` *Required*.
+  * `name` *Required*.
   * `use_external_resource` a boolean for setting whether to create the resource or use an existing one.
 
 **Mapped Operations:**
@@ -136,7 +136,8 @@ The `image` property is a dictionary. It must have the `repository` key or the `
   * Otherwise, the plugin will name the repository after the Cloudify [instance ID](http://getcloudify.org/guide/3.2/reference-terminology.html#node-instance).
 * Otherwise, `repository` must be provided, and contain the name of the Docker image to pull.
 
-The `tag` key is optional. If provided, it specifies the version of the repository that is pulled (if `src` is not provided) or created (if `src` is provided).
+If you pull an image from a Docker hub, `repository` is required. If you are importing an image, you leave it blank. The plugin will name the
+repository by the Cloudify [instance ID.](http://getcloudify.org/guide/3.2/reference-terminology.html#node-instance)
 
 For more information on importing images, see [docker import command](https://docs.docker.com/reference/commandline/cli/#import).
 For more information on pulling images, see [docker pull command](https://docs.docker.com/reference/commandline/cli/#pull).
