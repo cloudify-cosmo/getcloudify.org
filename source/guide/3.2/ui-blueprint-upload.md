@@ -13,11 +13,11 @@ terminology_link: reference-terminology.html
 
 # Packaging a Blueprint
 
-Cloudify's UI allows the user to upload a packaged blueprint file to the manager.
+Cloudify's UI allows the user to upload a packaged blueprint file to the manager. Currently, the only supported file extension is tar.gz.
 
 The packaged blueprint file must include a folder containing the blueprint's resources along with a main blueprint YAML file (defaults to `blueprint.yaml`).
 
-Once the user has the blueprint folder ready with the main blueprint inside it, the user can create a blueprint TAR file by using the command line:
+Once the user has the blueprint folder ready with the main blueprint inside it, the user can create a packaged blueprint file by using the command line:
 
 {% highlight bash %}
 export COPYFILE_DISABLE=true
@@ -29,15 +29,8 @@ tar czf blueprint-name.tar.gz blueprint-folder/
 
 The output file of the tar command above will be `blueprint-name.tar.gz`.
 
-Supported file extension are:
-
-* tar
-* tar.gz
-* archive
-
 # Uploading a Blueprint
 
-Cloudify's UI allows the user to upload a packaged blueprint TAR file to the Cloudify Manager.
 The upload blueprint button can be found in the "Blueprints" section in the UI:
 
 ![The blueprint upload button](/guide/images/ui/ui_upload_blueprint_button.png)
