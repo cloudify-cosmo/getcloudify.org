@@ -1,10 +1,10 @@
 ---
 layout: bt_wiki
 title: Uploading a Blueprint
-category: User Interface
+category: Getting Started
 publish: true
-abstract: Blueprint packing & uploading guide
-pageord: 100
+abstract: How to upload a blueprint to Cloudify's Management Environment
+pageord: 200
 
 terminology_link: reference-terminology.html
 ---
@@ -30,6 +30,17 @@ tar czf blueprint-name.tar.gz blueprint-folder/
 The output file of the tar command above will be `blueprint-name.tar.gz`.
 
 # Uploading a Blueprint
+
+## CLI
+
+To create a deployment using Cloudify's CLI execute:
+
+{%highlight bash%}
+cfy deployments create -b <BLUEPRINT_NAME> -d <DEPLOYMENT_NAME> --inputs </path/to/your/inputs.yaml​>
+{%endhighlight%}
+
+
+## UI
 
 The upload blueprint button can be found in the "Blueprints" section in the UI:
 

@@ -1,7 +1,7 @@
 ---
 layout: bt_wiki
-title: Blueprint Authoring Guide
-category: Guides
+title: Writing a Blueprint
+category: Getting Started
 publish: true
 abstract: Blueprint authoring tutorial
 pageord: 100

@@ -1,8 +1,8 @@
 ---
 layout: bt_wiki
 title: Agents Overview
-category: Agents
-publish: true
+category: none
+publish: false
 abstract: General description of Cloudify Agents
 pageord: 200
 

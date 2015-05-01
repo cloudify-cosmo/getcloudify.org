@@ -1,6 +1,6 @@
 ---
 layout: bt_wiki
-title: Getting Started
+title: Tutorial
 category: none
 publish: true
 abstract: A quick tutorial for getting started with Cloudify and deploying your first blueprint
@@ -26,7 +26,7 @@ You can take Cloudify for an instant test drive with an [online trial.](http://g
 
 # What is Cloudify?
 
-Cloudify is a Cloud Application Orchestrator. It automates common processes you need to perform to manage your applications in a cloud environment or a traditional data center. 
+Cloudify is a Cloud Application Orchestrator. It automates common processes you need to perform to manage your applications in a cloud environment or a traditional data center.
 
 # Overview
 

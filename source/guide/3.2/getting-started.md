@@ -1,8 +1,8 @@
 ---
 layout: bt_wiki
-title: Getting Started On A Real Cloud
+title: Getting Started
 category: none
-publish: true
+publish: false
 abstract: A quick tutorial for getting started with Cloudify and deploying your first blueprint
 pageord: 200
 

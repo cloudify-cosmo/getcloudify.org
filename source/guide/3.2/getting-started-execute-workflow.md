@@ -1,17 +1,27 @@
 ---
 layout: bt_wiki
 title: Deployments Executions
-category: User Interface
+category: Getting Started
 publish: true
 abstract: Deployment Executions Topology Badge Reference
-pageord: 140
+pageord: 400
 
 terminology_topology: http://getcloudify.org/guide/3.1/reference-terminology.html#sts=Topology
 ---
 {%summary%} {{page.abstract}}{%endsummary%}
 {%summary%}This is an overview of a single blueprint topology view badge states in Cloudify's User Interface{%endsummary%}.
 
-# Overview
+# Executing a Workflow
+
+## CLI
+
+{%highlight bash%}
+cfy executions start -w <WORKFLOW_NAME> -d <DEPLOYMENT_NAME>
+{%endhighlight%}
+
+
+## UI
+
 When executing a `Workflow` for a `Deployment`, the topology nodes show badges that reflect the workflow execution state.
 
 # Badges

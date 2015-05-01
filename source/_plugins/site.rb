@@ -42,8 +42,8 @@ module Jekyll
 		    payload["categories"]=["Getting Started", "Agents", "Release Notes","Installation & Setup","Bootstrapping","Developing Recipes","Common Patterns","Deploying Services & Applications","Monitoring Your Applications","Developing Cloud Drivers", "Plugins and Probes","Integration","REST API","Reference","Contributing", "User Interface"]
         payload["categories_3_1"]=["Installation", "Agents", "Guides", "Product Overview", "Reference", "Official Plugins", "Contributed Plugins", "DSL Specification", "User Interface", "Troubleshooting"]
         payload["categories_3_1_root"] = ['','','','','','/guide/3.1/plugin-official-general.html','/guide/3.1/plugin-contrib-general.html','/guide/3.1/dsl-spec-general.html','',''];
-        payload["categories_3_2"]=["Installation", "Agents", "Guides", "Product Overview", "Reference", "Official Plugins", "Contributed Plugins", "DSL Specification", "User Interface", "Troubleshooting"]
-        payload["categories_3_2_root"] = ['','','','','','/guide/3.2/plugin-official-general.html','/guide/3.2/plugin-contrib-general.html','/guide/3.2/dsl-spec-general.html','',''];
+        payload["categories_3_2"]=["Installation", "Getting Started", "Agents", "Guides", "Product Overview", "Reference", "Official Plugins", "Contributed Plugins", "DSL Specification", "User Interface", "Troubleshooting"]
+        payload["categories_3_2_root"] = ['', '/guide/3.2/getting-started.html', '/guide/3.2/agents-general.html','','','','/guide/3.2/plugin-official-general.html','/guide/3.2/plugin-contrib-general.html','/guide/3.2/dsl-spec-general.html','',''];
         h["site"] = payload
         h
     end
