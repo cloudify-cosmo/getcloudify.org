@@ -4,7 +4,7 @@ title: Creating a Deployment
 category: Getting Started
 publish: true
 abstract: Creating a deployment from an uploaded blueprint
-pageord: 300
+pageord: 400
 
 terminology_deployment: http://getcloudify.org/guide/3.1/reference-terminology.html#deployment
 terminology_workflow: http://getcloudify.org/guide/3.1/reference-terminology.html#workflow
