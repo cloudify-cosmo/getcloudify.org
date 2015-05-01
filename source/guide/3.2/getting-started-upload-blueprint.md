@@ -13,10 +13,10 @@ pageord: 300
 
 ## CLI
 
-To create a deployment using Cloudify's CLI execute:
+To upload a blueprint using Cloudify's CLI execute:
 
 {%highlight bash%}
-cfy deployments create -b <BLUEPRINT_NAME> -d <DEPLOYMENT_NAME> --inputs </path/to/your/inputs.yaml​>
+cfy blueprints upload -b <BLUEPRINT_NAME> -p </path/to/your/blueprint.yaml​>
 {%endhighlight%}
 
 

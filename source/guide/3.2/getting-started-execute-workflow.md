@@ -15,6 +15,10 @@ terminology_topology: http://getcloudify.org/guide/3.1/reference-terminology.htm
 
 ## CLI
 
+<PLACE HOLDER FOR WORKFLOW DESCRIPTION>
+
+To execute a workflow using Cloudify's CLI execute:
+
 {%highlight bash%}
 cfy executions start -w <WORKFLOW_NAME> -d <DEPLOYMENT_NAME>
 {%endhighlight%}
