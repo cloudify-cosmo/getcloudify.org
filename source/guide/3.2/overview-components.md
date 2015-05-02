@@ -1,9 +1,9 @@
 ---
 layout: bt_wiki
-title: Architecture Overview (Advanced)
-category: Product Overview
+title: Components Overview
+category: Product Architecture and Flows
 publish: true
-abstract: Explains advanced flows and structure in Cloudify's architecture
+abstract: Overview of the different components Cloudify is comprised of
 pageord: 200
 
 terminology_link: reference-terminology.html
@@ -88,73 +88,3 @@ The fileserver served by Nginx, while tied to Nginx by default, is not logically
 ## Metrics Consumer
 
 Another entity not drawn in the diagram is a propriatary poller we use to consume metrics from RabbitMQ and feed them into InfluxDB.
-
-
-# Management Environment Bootstrap Flow
-
-![Cloudify Bootstrap](/guide/images3/architecture/cloudify_flow_bootstrap.png)
-
-* This diagram depicts the default (and naive) implementation of the bootstrap method. Since Cloudify's Management Environment is expressed as a blueprint, it can be constructed differently be the user.
-* IaaS is a specific case of an environment. A user can decide to bootstrap, for instance, on bare metal server(s).
-* Very advanced users can even change the structure of Cloudify itself (not only the infrastructure laid during bootstrap). This will be covered in the future as Cloudify becomes more and more modular.
-
-
-# Blueprint Upload Flow
-
-![Cloudify Upload Blueprint](/guide/images3/architecture/cloudify_flow_upload_blueprint.png)
-
-# Deployment Creation Flow
-
-![Cloudify Create Deployment](/guide/images3/architecture/cloudify_flow_create_deployment.png)
-
-* The REST service will retrieve the blueprint document from Elasticsearch and create a "phyical" manifestation of it by expanding nodes to node-instances, attaching node-instance ID's to them, and so forth.
-
-# Execute Workflow Flow
-
-![Cloudify Execute Workflow](/guide/images3/architecture/cloudify_flow_execute_workflow.png)
-
-
-# Metrics Flow
-
-![Cloudify Metrics Flow](/guide/images3/architecture/cloudify_flow_metrics.png)
-
-## Monitoring Agent
-
-Diamond is our default agent for sending metrics back to Cloudify's Management Environment.
-
-A user can send back metrics via any transport (agent) as long as it emits metrics comprised of the same structure Cloudify currently handles. See the [Diamond plugin]({{page.diamond_plugin_link}}) documentation for more information.
-
-## Metrics Exchange (Broker)
-
-RabbitMQ holds metrics within a metrics dedicated, non-durable, non-exclusive topic exchange.
-
-Currently, once a metric is consumed it will be removed from the queue. In principle, users can consume metrics directly from RabbitMQ for processing in external (to Cloudify) systems. While we don't yet provide any implementation to officially support this, the architecture enables this and by removing our propriatary consumer, users can consume directly from RabbitMQ.
-
-## Stream Processor
-
-Riemann is currently experimental as an event stream processor and does not perform actions by default.
-
-We aim to have riemann process streams of information (metrics, logs, etc..) on the fly to provide live analysis of service/system states and execute workflows accordingly.
-
-## Metrics Database
-
-Our propriatary consumer polls metrics from RabbitMQ, reformats them to a Cloudify specific structure and submits them to InfluxDB.
-
-Even though InfluxDB supports JSON structured metrics by default, we're currently structuring our metric names in Graphite format due to InfluxDB performance issues. While metric names are still provided in the form of `x.y.z`, the entire metric structure (name + value + ...) is JSON formatted.
-As InfluxDB grows, we will be working towards matching our metrics structure to meet the [Metrics2.0](http://metrics20.org/) standard.
-
-## UI
-
-Grafana is used to view the time-series within InfluxDB. While Grafana usually interacts with InfluxDB directly, we're passing all queries through our UI's backend to enable query throttling and security. While query throttling and security are not yet implemented, this enables us to develop towards these goals.
-
-
-# Events/Logs Flow
-
-![Cloudify Logs Flow](/guide/images3/architecture/cloudify_flow_logs.png)
-
-This flow is pretty self explanatory and corresponds with the same principles the metrics flow is based upon.
-
-* RabbitMQ holds messages within dedicated, durable, non-exclusive topic exchange. Log messages and events have separate queues.
-* Currently, logs and events are stored in Elasticsearch in the same index. While no abstraction is provided for this, it is possible to use logstash to parse messages and store them in different indices if a user wishes to do so but they will not show in Cloudify's UI.
-
-# Example of AI Analysis flow
