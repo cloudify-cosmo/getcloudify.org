@@ -1,6 +1,6 @@
 ---
 layout: bt_wiki
-title: Workflow Execution
+title: Executing a Workflow
 category: Getting Started
 publish: true
 abstract: Deployment Executions Topology Badge Reference

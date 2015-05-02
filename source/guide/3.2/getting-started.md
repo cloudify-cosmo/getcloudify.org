@@ -24,9 +24,15 @@ You can take Cloudify for an instant test drive with an [online trial.](http://g
 
 # Overview
 
-In this tutorial you will bootstrap a Cloudify manager in an IaaS environment and install a sample Cloudify blueprint on it.
+Cloudify is mainly comprised of three main entities:
 
-This tutorial shows how to bootstrap a Cloudify manager on:
+* A Command-Line Interface (The client)
+* A Management Environment (The brain)
+* Agent(s) (The workers)
+
+This Getting Started section will walk you through bootstrapping a Cloudify Management Environment in an IaaS environment using Cloudify's CLI and installing a sample Cloudify blueprint on it. Agents will be installed on the provisioned machines.
+
+You can choose to bootstrap on one of the following IaaS providers:
 
   - [OpenStack](plugin-openstack.html)
   - [Softlayer](plugin-softlayer.html)
@@ -44,17 +50,13 @@ To learn more about blueprint syntax and elements please refer to the [Blueprint
 
 # Before You Begin
 
-It is recommended that you try the [Getting started guide](quickstart.html) first to familiarize
+It is recommended that you try the [Demo Tutorial](quickstart.html) first to familiarize
 yourself with Cloudify and its concepts.
-Also, to complete this tutorial you'll need to have a cloud environment of yout choice and credentials.
+To complete this tutorial you'll need to have a cloud environment of your choice and credentials on top of verifying that the [prerequisites for bootstrapping](getting-started-prerequisites.html) are met.
 
-# Step by Step Walkthrough
-
-## Step 1: Install the Cloudify CLI
-
-The first thing you'll need to do is install the Cloudify CLI,
-which will let you upload blueprints, create deployments, and execute workflows.
-To do so follow the steps described in the [CLI installation guide](installation-cli.html).
+If you hadn't already installed Cloudify's CLI, now would be the time to do so.
+The CLI will let you upload blueprints, create deployments, and execute workflows.
+To install the CLI follow the steps described in the [CLI installation guide](installation.html).
 
 ## Step 2: Download the Manager Blueprint
 
