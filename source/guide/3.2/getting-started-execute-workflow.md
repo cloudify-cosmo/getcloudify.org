@@ -1,6 +1,6 @@
 ---
 layout: bt_wiki
-title: Deployments Executions
+title: Workflow Execution
 category: Getting Started
 publish: true
 abstract: Deployment Executions Topology Badge Reference
@@ -26,7 +26,7 @@ cfy executions start -w <WORKFLOW_NAME> -d <DEPLOYMENT_NAME>
 
 ## UI
 
-When executing a `Workflow` for a `Deployment`, the topology nodes show badges that reflect the workflow execution state.
+When executing a `Workflow` for a `Deployment` (e.g. the `install` workflow), the topology nodes show badges that reflect the workflow execution state.
 
 # Badges
 See the `Topology` terminology definition [here]({{page.terminology_topology}}).<br/>
