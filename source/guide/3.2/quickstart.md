@@ -1,10 +1,10 @@
 ---
 layout: bt_wiki
-title: Tutorial
+title: Demo Tutorial
 category: none
 publish: true
 abstract: A quick tutorial for getting started with Cloudify and deploying your first blueprint
-pageord: 100
+pageord: 200
 
 quickstart_openstack_link: quickstart-openstack.html
 blueprint_file_link: https://raw.githubusercontent.com/cloudify-cosmo/cloudify-nodecellar-example/3.1/singlehost-blueprint.yaml

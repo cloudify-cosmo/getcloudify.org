@@ -3,7 +3,7 @@ layout: bt_wiki
 title: Getting Started
 category: none
 publish: false
-abstract: A quick tutorial for getting started with Cloudify and deploying your first blueprint
+abstract: How to get started
 pageord: 200
 
 openstack_blueprint_file_link: https://raw.githubusercontent.com/cloudify-cosmo/cloudify-nodecellar-example/3.1/openstack-blueprint.yaml
@@ -24,7 +24,7 @@ You can take Cloudify for an instant test drive with an [online trial.](http://g
 
 # Overview
 
-In this tutorial you will bootstrap cloudify-manager dir a Cloudify manager on a cloud environment and install a sample Cloudify blueprint on it.
+In this tutorial you will bootstrap a Cloudify manager in an IaaS environment and install a sample Cloudify blueprint on it.
 
 This tutorial shows how to bootstrap a Cloudify manager on:
 
