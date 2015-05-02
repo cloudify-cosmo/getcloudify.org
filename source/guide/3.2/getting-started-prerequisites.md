@@ -1,10 +1,10 @@
 ---
 layout: bt_wiki
-title: Prerequisites
-category: Installation
+title: Prerequisites for Bootstrapping
+category: Getting Started
 publish: true
 abstract: How do you go about installing Cloudify?
-pageord: 100
+pageord: 40
 
 manual_install_link: installation-manual.html
 terminology_link: reference-terminology.html

@@ -1,10 +1,10 @@
 ---
 layout: bt_wiki
 title: Bootstrapping
-category: Installation
+category: Getting Started
 publish: true
-abstract: "Instructions on how to bootstrap a Cloudify manager"
-pageord: 400
+abstract: Instructions on how to bootstrap a Cloudify manager
+pageord: 50
 ---
 
 {%summary%} This page explains how to bootstrap a Cloudify manager using the Cloudify CLI {%endsummary%}

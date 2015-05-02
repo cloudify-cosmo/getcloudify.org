@@ -8,7 +8,6 @@ pageord: 300
 ---
 {%summary%} {{page.abstract}}{%endsummary%}
 
-
 # Uploading a Blueprint
 
 ## CLI

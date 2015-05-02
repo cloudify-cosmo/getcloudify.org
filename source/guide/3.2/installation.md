@@ -1,10 +1,10 @@
 ---
 layout: bt_wiki
-title: Installing the Cloudify CLI
-category: Installation
+title: Installation
+category: none
 publish: true
 abstract: Installation instructions for Cloudify CLI under multiple platforms
-pageord: 200
+pageord: 300
 
 windows_link: http://gigaspaces-repository-eu.s3.amazonaws.com/org/cloudify3/3.1.0/ga-RELEASE/cloudify-windows-cli_3.1.0-ga-b85.exe
 linux32_link: http://gigaspaces-repository-eu.s3.amazonaws.com/org/cloudify3/3.1.0/ga-RELEASE/cloudify-linux32-cli_3.1.0-ga-b85_i386.deb
