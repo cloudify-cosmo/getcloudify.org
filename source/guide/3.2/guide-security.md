@@ -327,24 +327,6 @@ that size, it will be renamed with the extension ".1" and a new log file will be
 That means that up to 20 old log files can be created, after which the oldest file will be removed.
 
 
-# Clients
-
-## Web UI
-{%note title=Note%}
-Available in the Commercial version only
-{%endnote%}
-
-## Cloudify CLI
-
-## cURL
-
-# Examples
-
-## Simple - Using the default userstore driver and password authentication, no SSL
-
-## Advanced - Using the default userstore driver and token authentication, with SSL
-
-
 # Behind the Scenes / Advanced
 
 ## request-response flow
