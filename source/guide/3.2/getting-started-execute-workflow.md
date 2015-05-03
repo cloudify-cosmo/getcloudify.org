@@ -15,7 +15,7 @@ terminology_topology: http://getcloudify.org/guide/3.1/reference-terminology.htm
 
 ## CLI
 
-<PLACE HOLDER FOR WORKFLOW DESCRIPTION>
+PLACE HOLDER FOR WORKFLOW DESCRIPTION
 
 To execute a workflow using Cloudify's CLI execute:
 

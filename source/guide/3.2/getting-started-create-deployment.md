@@ -17,7 +17,7 @@ terminology_link: reference-terminology.html
 
 ## CLI
 
-<PLACE HOLDER FOR DEPLOYMENT DESCRIPTION>
+PLACE HOLDER FOR DEPLOYMENT DESCRIPTION
 
 To create a deployment using Cloudify's CLI execute:
 
