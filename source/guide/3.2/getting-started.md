@@ -46,7 +46,7 @@ The blueprint you'll be deploying describes a nodejs application that connects t
   - [AWS EC2 nodecellar blueprint]({{page.aws_ec2_blueprint_file_link}})
   - [vCloud nodecellar blueprint]({{page.vcloud_blueprint_file_link}})
 
-To learn more about blueprint syntax and elements please refer to the [Blueprint Authoring Guide](guide-blueprint.html).
+To learn more about blueprint syntax and elements please refer to the [DSL Specification](dsl-spec-general.html).
 
 # Before You Begin
 
@@ -55,8 +55,10 @@ yourself with Cloudify and its concepts.
 To complete this tutorial you'll need to have a cloud environment of your choice and credentials on top of verifying that the [prerequisites for bootstrapping](getting-started-prerequisites.html) are met.
 
 If you hadn't already installed Cloudify's CLI, now would be the time to do so.
-The CLI will let you upload blueprints, create deployments, and execute workflows.
-To install the CLI follow the steps described in the [CLI installation guide](installation.html).
+To install the CLI follow the steps described in the [CLI Installation guide](installation.html).
+
+The CLI allows you to upload blueprints, create deployments, and execute workflows between many other useful functions.
+For more information on the CLI's functions check the [CLI Reference](cfy-reference.html).
 
 ## Step 2: Download the Manager Blueprint
 
