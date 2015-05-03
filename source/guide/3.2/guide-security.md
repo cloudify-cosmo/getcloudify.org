@@ -11,17 +11,18 @@ pageord: 500
 
 # Overview
 
-This guide will explain how to bootstrap a secured manager and use it from the CLI and web UI. <br/>
+This guide will explain how to bootstrap a secured manager and use it from the CLI and web UI. <br>
 Securing the manager focuses on the REST service, which is the access point of all clients to the management server.
 
 Cloudify's security framework uses the [Flask-secuREST](https://github.com/cloudify-cosmo/flask-securest/tree/0.6)
 package, which integrates with [Flask-RESTful](https://flask-restful.readthedocs.org/en/0.3.2/) to secure REST services.
 
-When security is enabled, all requests to the REST service are authenticated before they can reach their endpoint.
+When security is enabled, all requests to the REST service are authenticated before they can reach their endpoint
+(except internal requests, as explained in the Advanced section below).<br>
 For example, when a user of the Web-UI attempts to see the all blueprints, a request is sent to the REST service
-"blueprints" endpoint, but it will only reach it if the user is logged in with valid credentials. <br/>
+"blueprints" endpoint, but it will only reach it if the user is logged in with valid credentials. <br>
 Similarly, the CLI command "cfy deployments create" will only be successful if valid
-username and password are sent with the REST call to the endpoint "deployments".
+credentials are sent with the REST call to the endpoint "deployments".
 Of course, direct requests made using other clients (e.g. curl) must also include correct credentials, or they will
 fail with an "Unauthorized User" error.
 
@@ -32,9 +33,9 @@ fail with an "Unauthorized User" error.
 Generally, a userstore is simply a class that enables loading of user details and returns them as a user object.
 
 Typically (but not always) user details are stored as records in a database or objects in a directory. Each user can
-be identified by a unique attribute, such as a username or id, or by a unique combination of attributes.<br/>
+be identified by a unique attribute, such as a username or id, or by a unique combination of attributes.<br>
 In order to authenticate a user (for example by a set of username and password) it might be required to load the user's
-details and verify the given credentials indeed match.<br/>
+details and verify the given credentials indeed match.<br>
 To support a variety of user-store systems and configurations Cloudify security framework can accept different
 userstore implementations. It's possible to use the default Flask-secuREST simple userstore or to specify a new
 implementation that supports a specific userstore system.
@@ -51,19 +52,19 @@ The object returned by `get_user` must adhere to Flask-secuREST's User Model, sp
 
 ## Authentication Provider
 An Authentication Provider is a class that performs authentication. Multiple authentication providers can be configured
-in order to support different authentication methods (e.g. password, token, Kerberos).<br/>
-When a REST call is received by the REST service, the security framework will attempt to authenticate it using each
-authentication provider in the order of configuration, until authentication succeeds.
+in order to support multiple authentication methods (e.g. password, token, Kerberos).<br>
+When a REST call is received by the REST service, the security framework will attempt to authenticate it using the
+configured authentication providers. If the first authenticator fails the second one will be attempted, and so on.
 The authentication provider has access to the userstore instance (if configured) and can use it to get user details and
-use them to perform authentication.<br/>
+use them to perform authentication.<br>
 For example, it can compare the given password to the one found on the userstore or verify the user is still active
 (in many environments users are marked as "inactive", instead of deleting the account entirely).
 
 
 Once an authenticator can successfully authenticate the request's user - it should return the user object and allow the
 request to be completed. Other authenticators will not be called until the next request is processed.
-If non of the authenticators authenticates the request - the request will not reach its endpoint and the client will
-receive an "Unauthorized User" error.
+If none of the authenticators can successfully authenticate the request - the request does not reach its endpoint and
+the client receives an "Unauthorized User" error.
 
 A valid authentication provider implementation can be any Python class that inherits from
 [abstract_authentication_provider.py](https://github.com/cloudify-cosmo/flask-securest/blob/master/flask_securest/
@@ -79,7 +80,7 @@ one of the registered authentication providers.
 To make things easier, Cloudify can also generate tokens through the REST service endpoint "/tokens".
 To enable this feature a token generator must be configured.
 {%note title=Note%}
-The request to "MANAGER_IP/tokens" must itself be authenticated (using a username-password set, for example).
+The request to "/tokens" must itself be authenticated (using a username-password set, for example).
 {%endnote%}
 
 
@@ -87,7 +88,17 @@ The request to "MANAGER_IP/tokens" must itself be authenticated (using a usernam
 
 ## Manager Blueprint Configuration
 The security configuration is located in the manager blueprint, in this path:
-node_templates --> manager --> properties --> cloudify --> security
+{% highlight yaml %}
+node_templates
+  ...
+  manager
+    ...
+    properties
+      ...
+      cloudify
+        ...
+        security
+{% endhighlight %}
 Each setting is described in detail in the following sections.
 
 ### Setting Security On / Off
@@ -101,7 +112,7 @@ This means security is turned off. In order to activate the security framework s
 Otherwise, all other security configuration will be ignored.
 
 ### Configuring Authentication Providers
-In the manager blueprint, under `authentication_providers` is a list all the authenticators *In the order they should be executed*.<br/>
+Under `authentication_providers` is a list all the authenticators *In the order they should be executed*.<br>
 At least one authentication provider must be configured.
 
 Each authentication provider must include these properties:
@@ -112,7 +123,7 @@ the class name.
 - properties - a dictionary of arguments required to instantiate the authentication provider class. The arguments will
 be passed as kwargs to the class' `__init__` method.
 
-The default configuration lists two authenticators - password and token:
+The default configuration uses two authentication methods - password and token:
 
 {% highlight yaml %}
 authentication_providers:
@@ -128,20 +139,20 @@ authentication_providers:
 
 The above configuration will cause the security framework to instantiate two classes:
 
-- Flask-secuREST's "PasswordAuthenticator", with the password_hash arguement set to "plaintext".
+- Flask-secuREST's "PasswordAuthenticator", with the `password_hash` argument set to "plaintext".
 {%note title=Note%}
-Passwords are usually not store as plaintext. Set the passowrd_hash to match the hash scheme used
+Passwords are usually not stored as plaintext. Set `passowrd_hash` to match the hash scheme used
 in the selected userstore.
-Possible values are: 'bcrypt', 'des_crypt', 'pbkdf2_sha256', pbkdf2_sha512', 'sha256_crypt' and 'sha512_crypt'.
+Possible values are: 'bcrypt', 'des_crypt', 'pbkdf2_sha256', 'pbkdf2_sha512', 'sha256_crypt' and 'sha512_crypt'.
 {%endnote%}
 This authentication check will be performed first for each request sent to the REST service. If it fails, the next
 authenticator will be used.
 
-- Flask-secuREST's "TokenAuthenticator", with the secret_key arguement set to "my_secret".
-If (and only if) the password-based authentication failed, this authentication method will be executed as well.
+- Flask-secuREST's "TokenAuthenticator", with the `secret_key` argument set to "my_secret".
 The secret key is used to decrypt the token sent with the request, if a token was sent.
 {%note title=Note%}
-In the default configuration, the key used to authenticate a token must be the same as the key used to generate it.
+When selecting a token authenticator, it is required to verify it supports the tokens generated by your token generator
+(which might be implmeneted elsewhere entirely).
 {%endnote%}
 
 It is possible to implement many other authentication providers, including providers that do not require accessing a
@@ -155,7 +166,7 @@ class name.
 - properties - a dictionary of arguments required to instantiate the implementing class. The arguments will be passed as
 kwargs to the class' `__init__` method.
 
-The default configuration uses Flask-secuREST's simple userstore, with a list of users in-line:
+The default configuration uses Flask-secuREST's simple userstore, with an in-line list of users:
 
 {% highlight yaml %}
 userstore_driver:
@@ -201,33 +212,37 @@ auth_token_generator:
     expires_in_seconds: 600
 {% endhighlight %}
 
-This configuration uses (as it must) the same secret key for token generation and for token authentication.
-This configuration however includes the additional argument "expires_in_seconds" which limits the lifetime of a token
-to 10 minutes. A token older than 10 minutes will therefore be "expired" and fail the request.
+{%note title=Note%}
+In the default TokenAuthenticator implementation, the key used for token authentication is the same as the key used to
+generate it. This means you should set the same `secret_key` here and in `authentication_providers`.
+{%endnote%}
+
+The configuration includes the additional argument `expires_in_seconds` which limits the lifetime of a token
+to 10 minutes. A token older than 10 minutes will therefore be expired and fail the request (a feature of the default
+token generator implementation).
 
 
 ### SSL
 
 
 ### Logging
-Security operations, such as authentication success or failure and user details, are logged to a dedicated log file on the management container.
-The default log configuration is:
+Security operations, such as authentication success or failure and user details, are audited in dedicated log file on
+the management container.
+The default configuration is:
 
 {% highlight yaml %}
-log_file: /var/log/cloudify/rest-security-audit.log
-log_level: INFO
+audit_log_file: /var/log/cloudify/rest-security-audit.log
+audit_log_level: INFO
+log_file_size_MB: 100
+log_files_backup_count: 20
 {% endhighlight %}
 
-Setting the log file location is pretty strait-forward.<br/>
-Modifying the log level will produce less or more elaborate security auditing; The acceptable values are:
+- Modifying the log level will produce less or more elaborate security auditing; The acceptable values are:
 CRITICAL, ERROR, WARNING, INFO or DEBUG.
-
-Other settings not included in the default configuration are:
-
-- log_file_size_MB - limits the log file size. By default, the file is limited to 100 MB. When the file reaches that
-size, it will be renamed with the extension ".1" and a new log file will be created.
-- log_files_backup_count - sets the maximum number of old log files to keep. By default this value is set to 20. That
-means that up to 20 old log files can be created, after which the oldest file will be removed.
+- audit_log_file_size_MB - limits the log file size. By default, the file is limited to 100 MB. When the file reaches
+that size, it will be renamed with the extension ".1" and a new log file will be created.
+- audit_log_files_backup_count - sets the maximum number of old log files to keep. By default this value is set to 20.
+That means that up to 20 old log files can be created, after which the oldest file will be removed.
 
 
 # Clients
