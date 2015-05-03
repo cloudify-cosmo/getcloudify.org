@@ -70,11 +70,11 @@ Save will operate two actions:
 
 ### Download
 
-Use for download the last saved blueprint.yaml.
+Downloads the last saved blueprint.yaml.
 
 ### Validate
 
-Use for validating the displayed blueprint.
+Validates the displayed blueprint.
 
 ### Logout
 
