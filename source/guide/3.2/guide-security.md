@@ -327,9 +327,51 @@ that size, it will be renamed with the extension ".1" and a new log file will be
 That means that up to 20 old log files can be created, after which the oldest file will be removed.
 
 
+# Clients
+
+Different clients can be used to send requests to the REST service, and all go through an authentication process.
+Here we review what each client requires in order to send a secured request.
+
+
+## Web UI
+Login - with username and password
+
+{%note title=Note%}
+This client only supports authentication with username-password.
+{%endnote%}
+
+{%note title=Note%}
+Available in the Commercial version only
+{%endnote%}
+
+## Cloudify CLI: cfy commands
+cfy commands that connect to the REST service (e.g. "deployments create") send username and password in a header on each
+request. Setting these values is done once, via these environment variables:
+
+ - CLOUDIFY_USERNAME
+ - CLOUDIFY_PASSWORD
+
+{%note title=Note%}
+This client only supports authentication with username-password - TBD
+{%endnote%}
+
+## Other REST clients
+other REST clients (e.g. cURL) must explicitly add credentials to each request.<br>
+For example:
+
+ - Get the server status, authenticate with username and password:<br>
+curl -u 'MY_USERNAME':'MY_PASSWORD' MANAGER_IP/status
+ - Get a token, authenticate with username and password:<br>
+curl -u 'MY_USERNAME':'MY_PASSWORD' MANAGER_IP/tokens
+ - Get all the blueprints, authenticate with a token:<br>
+curl -H 'Authentication-Token:MY_TOKEN' MANAGER_IP/blueprints
+
+
 # Behind the Scenes / Advanced
 
-## request-response flow
+## Secured Request Flow
+
+![request-flow](/guide/images3/guide/request_flow.png)
 
 ## Internal communication between the Cloudify manager and other Cloudify components
 
