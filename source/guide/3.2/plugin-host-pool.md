@@ -1,7 +1,7 @@
 ---
 layout: bt_wiki
 title: Host-Pool Plugin
-category: Plugins
+category: Official Plugins
 publish: true
 abstract: "Cloudify Host-Pool plugin description and configuration"
 pageord: 900
