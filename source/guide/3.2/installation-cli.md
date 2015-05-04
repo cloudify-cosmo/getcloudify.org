@@ -24,11 +24,11 @@ Cloudify's CLI (AKA cfy) is being distributed in two different methods:
 
 ### As downloadable packages
 
-The downloadable packages allow for an offline installation of the cli and are distributed as rpm, deb and tar.gz packages for Linux.
+The downloadable packages allow for an offline installation of the cli and are distributed as:
 
-For Windows, there's currently a limited distributable. Read below for Windows support.
-
-For OS X, an online installation script is available. Read below for OS X support.
+* rpms for Centos 6.5 and 7 (in the future, tar.gz and deb packages will be added.)
+* Executable for Windows.
+* An OS X dmg will be added in the future (currently, to install on OS X, the below online installation script method is provided.)
 
 
 ###  As a downloadable installation script
@@ -41,36 +41,11 @@ The script can install the cli on different distributions of Linux, OSx (Darwin)
 
 ## Windows
 
-1. Download the [Setup file]({{ page.windows_link }})
-1. Run the setup file by double clicking on it.
-1. Click 'Next'
-1. Choose the path you would like the CLI to be installed at and click 'Next'.
-Default path is `C:\Program Files (x86)\cfy`
-1. To use the CLI you need the folder to be in your PATH environment variable. If
-you leave the checkbox checked, the installer will modify the PATH environment
-variable for you. Click 'Next' again.
-1. Click 'Install' to proceed with file extraction.
-1. After a few seconds, installation should be finished, and you can click 'Finish'.
-1. Open a new Command Prompt and check if you can run `cfy -h`. You should get
-an output describing how to use `cfy`.
+PLACEHOLDER FOR WINDOWS INSTALLATION METHOD
 
 ## Linux
 
-* To install via deb/rpm/tar.gz packages, you must have Python2.7.x and pip 1.5+ installed and Python2.7.x must be executable as `python` from the path.
-* Using the tar.gz package allows you to specify another `python` executable path as you're actually running the `get-cloudify.py` script which provides this feature.
-
-
-### Ubuntu/Debian
-
-1. Download the deb package from the [Downloads page](downloads/get_cloudify_3x.html).
-1. Open a terminal at the directory where you downloaded the file.
-1. Run (replacing `<pkg.deb>` with the name of file you downloaded):
-{% highlight bash %}
-sudo dpkg -i <pkg.deb>
-source /cfy/env/bin/activate
-{% endhighlight %}
-
-Now try running `cfy -h` in your terminal. You should get an output describing how to use `cfy`.
+* To install via rpm packages, you must have Python2.7.x and pip 1.5+ installed and Python2.7.x must be executable as `python` from the path.
 
 ### Centos/RHEL
 
@@ -79,20 +54,6 @@ Now try running `cfy -h` in your terminal. You should get an output describing h
 1. Run (replacing `<pkg.rpm>` with the name of file you downloaded):
 {% highlight bash %}
 sudo rpm -i <pkg.rpm>
-source /cfy/env/bin/activate
-{% endhighlight %}
-
-Now try running `cfy -h` in your terminal. You should get an output describing how to use `cfy`.
-
-### Installing using the tar.gz package
-
-1. Download the tar.gz package from the [Downloads page](downloads/get_cloudify_3x.html).
-1. Open a terminal at the directory where you downloaded the file.
-1. Run
-{% highlight bash %}
-tar -xzvf <pkg.tar.gz>  # replacing `<pkg.tar.gz>` with the name of the file you downloaded.
-cd cfy
-python get-cloudify.py
 source /cfy/env/bin/activate
 {% endhighlight %}
 
@@ -111,6 +72,8 @@ In following versions, we'll be supplying a package compiled for OS X.
 
 A script is supplied for you to install Cloudify on different OS distributions.
 
+You can download the script from [here](http://gigaspaces-repository-eu.s3.amazonaws.com/org/cloudify3/get-cloudify.py)
+
 {%note title=Script's help%}
 Please consider running `python get-cloudify.py -h` before installing to get familiarized with what this script provides.
 {%endnote%}
@@ -125,11 +88,11 @@ The prerequisites are:
 * python-dev and gcc - for Ubuntu/Debian to be able to compile Fabric.
 * python-devel and gcc - for CentOS/RHEL to be able to compile Fabric.
 * gcc - for Arch-Linux to be able to compile Fabric.
-* PyCrypto - for Windows as it's not automatically compiled when installin Cloudify's CLI.
+* PyCrypto - for Windows as it's not automatically compiled when installing Cloudify's CLI.
 {%endwarning%}
 
 {%note title=Update Your Package Manager%}
-If you are using Linux, and you choose to use either the --force flag or the --installpythondev flag, you must first update your package manager:
+If you are using Linux, and you choose to use either the `--force` flag or the `--installpythondev` flag, you must first update your package manager:
     sudo apt-get update
     or
     sudo yum update
@@ -138,14 +101,14 @@ If you are using Linux, and you choose to use either the --force flag or the --i
 
 ## Installing the latest Stable Release using the default flags
 
-1. Download the [script](PROVIDE_LINK_HERE!)
+1. Download the [script](http://gigaspaces-repository-eu.s3.amazonaws.com/org/cloudify3/get-cloudify.py)
 1. Run
 {% highlight bash %}
 python get-cloudify.py
 {% endhighlight %}
 
 {%note title=Installing within a virtualenv%}
-If you're already within a virtualenv when running the script and have not supplied the --virtualenv flag, the script will install Cloudify within the currently active virtualenv.
+If you're already within a virtualenv when running the script and have not supplied the `--virtualenv` flag, the script will install Cloudify within the currently active virtualenv.
 {%endnote%}
 
 
@@ -166,11 +129,11 @@ python get-cloudify.py --version 3.2a4
 {% endhighlight %}
 
 
-# Installing from PyPi
+# Installing from PyPI
 
 Cloudify's CLI is also distributed to PyPI. You can install Cloudify from PyPI though we recommend using the script as installing from PyPI does not handle prerequisites and does not provide some other comforts the script is designed to provide.
 
-You must have Python 2.7.x and PIP installed and configured on your system.
+You must have Python 2.7.x and pip installed and configured on your system.
 
 {%tip title=Using virtualenv%}
 It's recommended to create a [virtualenv]({{ page.venv_link }}) and install the CLI in it. To do so type the following commands (replace virtual-env-name with the name of your choice, e.g. cloudify:
@@ -225,7 +188,7 @@ For Windows it's suggested to use [Unofficial Windows Binaries for Python](http:
 and install the following packages:
 
 1. PyCrypto
-2. PyYaml
+2. PyYAML (by default, if no compiler is found, PyYAML's installation will fall-through to a non-compiled version.)
 
 ### Linux
 
