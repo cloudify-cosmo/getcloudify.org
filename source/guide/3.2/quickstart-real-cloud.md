@@ -191,8 +191,14 @@ This tutorial uses softlayer manager blueprint on Docker and it requires:
 
   * The `os` input should be *4668* - the item id of *Ubuntu Linux 14.04 LTS Trusty Tahr - Minimal Install (64 bit)*
   * A link to a script that installs curl must be specified (needed for the Docket installation) in the `provision_scripts` input.
-	* for example: [a script that installs curl](https://raw.githubusercontent.com/cloudify-cosmo/cloudify-softlayer-plugin/master/softlayer_plugin/scripts/postprov.sh)
-	* Alternatively, create an image id of a server on SoftLayer that have curl or docker installed on it, and specify the `image_template_id` instead of the `os` input.
+	 <br>e.g. create a script with the following command:
+    
+    {% highlight bash %}
+      apt-get -q -y install curl
+    {% endhighlight %}
+	
+  * Alternatively, create an image id of a server on SoftLayer that have curl or docker installed on it, and specify the `image_template_id` instead of the `os` input.
+}
 {%endinfo%}
 
 For more information see the [Softlayer Manager Reference](reference-softlayer-manager.html).
