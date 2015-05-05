@@ -7,6 +7,8 @@ abstract:
 pageord: 800
 
 
+terminology_link: reference-terminology.html
+
 ---
 {%summary%} {{page.abstract}}{%endsummary%}
 
