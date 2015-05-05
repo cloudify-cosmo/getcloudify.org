@@ -22,6 +22,11 @@ agent_overview_link: agents-description.html
 
 # Overview
 
+An application is described in YAML format in a structure (one or multiple files) we call a Blueprint. In a Blueprint you will provide the application's components, how they relate to eachother, how they are installed and configured and how they're monitored and maintained. A blueprint is a logical representation of your application.
+
+Other than the YAML itself, a Blueprint can comprise of multiple resources such as configuration and installation scripts (or Puppet Manifests, or Chef Recipes, etc..), code, random application related data, and basically any other resource you require for running your application.
+
+
 {%tip title=Tip%}
 The [Terminology Reference Page]({{page.terminology_link}}) will help you understand some of the terms stated in this guide.
 For your convenience, links are supplied throughout the guide to point you to the right term definition in the terminology page.

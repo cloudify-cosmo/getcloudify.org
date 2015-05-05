@@ -13,11 +13,14 @@ terminology_link: reference-terminology.html
 ---
 {%summary%} {{page.abstract}}{%endsummary%}
 
+# Overview
+
+For Cloudify to be able to deploy your application it parses the uploaded blueprint YAML (the logical representation) and manifests a structure we call a Deployment. A deployment is a "Technical" drilled down representation of your application. For instance, if a blueprint describes a Server node with multiple instances, the deployment will be comprised of only the instances themselves provided with their unique identifiers. A deployment's structure is not exposed to the user.
+
+
 # Creating a Deployment
 
 ## CLI
-
-PLACE HOLDER FOR DEPLOYMENT DESCRIPTION
 
 To create a deployment using Cloudify's CLI execute:
 

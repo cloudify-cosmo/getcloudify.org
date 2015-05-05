@@ -8,6 +8,11 @@ pageord: 300
 ---
 {%summary%} {{page.abstract}}{%endsummary%}
 
+# Overview
+
+For Cloudify to be able to deploy your application's blueprint, you need to upload the blueprint to Cloudify's Management Environment where it, and its resources will be available for deployment. You can upload a blueprint via the CLI or the WEB UI.
+
+
 # Uploading a Blueprint
 
 ## CLI

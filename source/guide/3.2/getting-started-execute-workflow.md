@@ -11,11 +11,22 @@ terminology_topology: http://getcloudify.org/guide/3.1/reference-terminology.htm
 {%summary%} {{page.abstract}}{%endsummary%}
 {%summary%}This is an overview of a single blueprint topology view badge states in Cloudify's User Interface{%endsummary%}.
 
+
+# Overview
+
+Once a Deployment is created, a process is required to perform the actual application's manifestation in your chosen environment.
+This process is called a Workflow.
+
+A Workflow is a Python code which describes the flow of performing differnet actions on your deployment.
+
+The first workflow a user will stumble upon is called the Install Workflow and is the default workflow provided by Cloudify for deploying your application.
+
+A user can create workflows for different types of action such as deploying code, changing infrastructure state and so forth.
+
+
 # Executing a Workflow
 
 ## CLI
-
-PLACE HOLDER FOR WORKFLOW DESCRIPTION
 
 To execute a workflow using Cloudify's CLI execute:
 

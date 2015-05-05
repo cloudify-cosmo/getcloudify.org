@@ -9,6 +9,10 @@ pageord: 50
 
 {%summary%} This page explains how to bootstrap a Cloudify manager using the Cloudify CLI {%endsummary%}
 
+# Overview
+
+While Cloudify's CLI provides a basic implementation for deploying an application, to be able to fully utilize Cloudify to deploy your application using the different Cloudify plugins, you'll have to bootstrap a Cloudify Management Environment.
+
 # Initialization
 
 Navigate to a directory of your choosing, and initialize it as a Cloudify CLI working directory using this command:

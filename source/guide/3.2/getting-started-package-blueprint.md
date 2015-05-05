@@ -8,6 +8,10 @@ pageord: 200
 ---
 {%summary%} {{page.abstract}}{%endsummary%}
 
+# Overview
+
+As we've [previously seen](getting-started-write-blueprint.html#overview), a Blueprint can contain multiple files. These files can reside under a single directory with subdirectories or an archive. While Cloudify's CLI can take care of archiving process for you during the [upload process](getting-started-upload-blueprint.html), you might want to create archives prior to uploading the blueprint so that you can keep them in a fileserver, upload them via Cloudify's WEB UI or send them to others.
+
 
 # Packaging a Blueprint
 
