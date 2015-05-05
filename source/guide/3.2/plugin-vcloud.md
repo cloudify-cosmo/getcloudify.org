@@ -135,7 +135,7 @@ Two additional runtime-properties are available on node instances of this type o
     * `public_ip` public ip. If not specified public ip will be allocated from the pool of free public ips.
 * `rules` list of NAT rules configurations.
     * `type` NAT types. Can be 'SNAT' or 'DNAT'.
-    * `protocol` network protocol. Can be 'tcp', 'udp' or 'any'. Applies only for 'DNAT'.
+    * `protocol` network protocol. Can be 'tcp', 'udp', 'tcpudp' or 'any'. Applies only for 'DNAT'.
     * `original_port` original port. Applies only for 'DNAT'.
     * `translated_port` translated port. Applies only for 'DNAT'.
 * `use_external_resource` a boolean for setting whether to create the resource or use an existing one. Defaults to `false`.
@@ -197,7 +197,7 @@ It's apply DNAT and SNAT rules for `any` protocol and `any` original and transla
 * `security_group` key-value SecurityGroup configuration
     * `edge_gateway` vCloud gateway name
 * `rules` security group rules; list of key-value configurations
-    * `protocol` 'tcp', 'udp', 'icmp' or 'any'
+    * `protocol` 'tcp', 'udp', 'icmp', 'tcpudp' or 'any'
     * `source` source of traffic to apply firewall rule on. Can be 'internal', 'external', 'host', 'any', ip address or ip range.
     * `source_port` port number or 'any'
     * `destination` destination of traffic to apply firewall rule on. Can be 'internal', 'external', 'host', 'any', ip address or ip range.
