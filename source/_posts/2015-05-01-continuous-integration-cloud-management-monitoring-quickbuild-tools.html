@@ -1,0 +1,132 @@
+---
+layout: blogpost
+title: Cloud Management & Usage Monitoring Through Continuous Integration with Quickbuild and Mist.io
+image: barak.jpg
+author: Barak Merimovich
+tags: 
+ - Continuous Integration
+ - Open Source
+ - Monitoring
+ - Cloud Management
+ - Cloud Orchestration
+---
+
+<notextile>
+
+<img src="http://presence.youseemii.fr/sites/all/themes/basic/images/home/home-ysm-monitoring.png" alt="Cloud Management | Cloud Monitoring | Cloud Usage | Open Source | Dashboard | Continuous Integration">
+<br/>
+<br/>
+ 
+
+<p>I'm taking a break from blogging about my various Openstack related shenanigans. This time I want to talk about monitoring cloud usage.</p>
+<p>I work with IaaS clouds &#8211; lots of them. The list includes several different <a href="http://getcloudify.org/guide/3.2/plugin-aws.html" target="_blank">AWS</a> accounts and several HP cloud accounts. It also includes occasional &#8216;guest&#8217; accounts on Softlayer as well as private <a href="http://getcloudify.org/guide/3.1/plugin-openstack.html" target="_blank">Openstack</a> and <a href="http://getcloudify.org/guide/3.1/plugin-cloudstack.html" target="_blank">Cloudstack</a> accounts. With so many resources, and so many projects, stuff gets dropped once in a while. VMs are left running, forgotten by the developer that was using them or missed by the automation that was supposed to shut them down. And in the cloud, if you forget something, you pay for it. Literally. VMs are billed for the time they are active, whether or not you were actually doing something useful with them. And before you know it, the bills start mounting, and the people from accounting show up at my desk.</p>
+<p>So I need some way to monitor my cloud usage across multiple clouds and accounts. I spent a while looking online for a good cloud monitoring solution that would give me a quick overview of my current cloud usage. I love dashboards, by the way. Being able to see everything that interests me in one place makes things so much easier.</p>
+
+ 
+<hr>
+
+<span class="pullquote-left">
+  <font style="font-weight: bold" size="5" face="Baskerville Old Face"><em>Network orchestration for any cloud with Cloudify. Get Started.</em></font>&nbsp; <a class="btn btn-medium btn-theme btn-rounded" id="downloadBtnInner" href="http://getcloudify.org/downloads/get_cloudify_3x.html" target="_blank"><i class="icon-plus"></i> Go </a></span>
+  
+  <hr>
+
+<p>After looking around at a bunch of cloud monitoring options, I finally found mist.io. It had just the right features I needed, and all that was left was to plug it in to my existing dashboard system.</p>
+<p>So let&#8217;s start by reviewing the pieces.</p>
+<p><strong>Mist.io</strong></p>
+<p><a href="http://www.mist.io">Mist.io</a> is a cool open-source project that monitors VM usage<br />
+across multiple clouds. The list of supported cloud providers is pretty extensive (see the up to date list <a href="http://mistansible.readthedocs.org/en/latest/mist_backends_module.html">here</a>, that at this time includes:<br />
+EC2, Rackspace, Openstack, Linode, Google Compute Engine, SoftLayer, Digital Ocean, Nephoscale, HP Cloud, Bare metal servers, Docker containers and KVM hypervisors.</p>
+<p>There is also a mist.io website, which basically offers the same product with some additional premium additions. I'll be using this service for my purposes, though you can always install the open source version locally. Mist.io also offers a <a href="http://mistclient.readthedocs.org/en/latest/">Python SDK</a> which makes it a very scriptable system &#8211; I&#8217;ll be using the client SDK shortly.</p>
+<p>Mist.io includes a console for your current cloud usage which is pretty useful by itself:</p>
+<p><a href="https://barakme.files.wordpress.com/2015/04/mist_io_console_redacted.png"><img class="alignnone  wp-image-57" src="https://barakme.files.wordpress.com/2015/04/mist_io_console_redacted.png?w=695&#038;h=213" alt="mist_io_console_redacted" width="695" height="213" /></a></p>
+<p>But for my project I also need to maintain history and statistics about my usage.</p>
+<p><strong>Quickbuild</strong></p>
+<p>The CI system we use for Cloudify is Quickbuild (<a href="http://www.pmease.com/">http://www.pmease.com/</a>). We&#8217;ve been using it for a very long time and it has proven to be a rock-solid system. Quickbuild also has a flexible dashboard system, where I can plug in my own custom data sources.</p>
+<p>While this post deals a lot with the specifics of Quickbuild, the principles should be pretty much the same for any CI/Automation system.</p>
+<p><strong>The glue</strong></p>
+<p>The general idea is to define a configuration in Quickbuild that will poll the mist.io API for running VMs, collect historical data and display the latest results on a Quickbuild dashboard.</p>
+<p><span style="text-decoration:underline;"><strong>So let&#8217;s get to work!</strong></span></p>
+<p><strong>Mist.io account</strong></p>
+<p>First up, you&#8217;ll need to set up your account on <a href="http://mist.io" rel="nofollow">http://mist.io</a> . It&#8217;s free.</p>
+<p><strong>Cloud credentials</strong></p>
+<p>For each cloud account that you want to monitor, create a dedicated user and give it the minimal permissions required to view the currently running instances. This is a good best practice for all integrations &#8211; use a dedicated account for each integration, using something like Openstack keystone or AWS IAM, and give it only the permissions it MUST have.</p>
+<p><strong>Configure mist.io backends</strong></p>
+<p>In mist.io, a backend is a monitorable target that can host compute instances. These can be Openstack tenants and AWS regions, for instance. You will need to set up a backend for each one of these. If, like me, you work across a lot of AWS regions and Openstack tenants, this part can get a bit tedious. So I wrote a couple of scripts using the mist client SDK to speed things up a bit.</p>
+<p><span style="text-decoration:underline;">Set up HP Cloud Backends:</span></p>
+<p><script src="https://gist.github.com/barakm/3233e79d7200c50f7e7d.js"></script></p>
+<p><span style="text-decoration:underline;">Set up AWS Backends:</span></p>
+<p><script src="https://gist.github.com/barakm/c27a51f64c2d5038ac74.js"></script></p>
+<p>Just grab the scripts and tweak the credentials and tenants to match what you need.</p>
+<p>BTW: I do wish mist.io would make this bit a little easier. There really should be an easier way to just give them the credentials say &#8216;Monitor everything&#8217;</p>
+<p><strong>Create a script to collect the current compute instance details</strong><br />
+I wrote another quick script using the mist SDK to do this. The whole thing is on github:<br />
+<a href="https://github.com/barakm/mist-monitor">https://github.com/barakm/mist-monitor</a></p>
+<p>This is the interesting bit:</p>
+<p><a href="https://github.com/barakm/mist-monitor/blob/master/mist_monitor/mist_monitor.py">https://github.com/barakm/mist-monitor/blob/master/mist_monitor/mist_monitor.py</a></p>
+<p>Note how the python script generates an XML file with the details of the compute instances. Quickbuild likes XML files as input.</p>
+<p><strong>Configure Quickbuild</strong></p>
+<p>First thing we need to do is set up Quickbuild to accept the XML file format our script generates. This is a one-time operation, but you need to be an administrator of the Quickbuild server to be able to do this.</p>
+<ul>
+<li>As a Quickbuild administrator, go to Administration -&gt; Plugin Management -&gt; Custom Statistics Report -&gt; Configure</li>
+<li>Click &#8220;Add New Category&#8221;</li>
+<li>Give your category a name, like &#8220;Running Cloud Instances&#8221; and an appropriate description</li>
+<li>Add two &#8216;indicators&#8217; (fields in the report)
+<ul>
+<li>running &#8211; This gives us the total number of running machines, and is usually the most interesting value. Set the XPath expression to &#8211; count(//machine[@state=&#8217;running&#8217;]).</li>
+<li>all &#8211; This gives us the total number of machines, so it includes machines that are shut-down or deleted. Not as interesting, but can be useful. Set the XPath expression to &#8211; count(//machine)</li>
+</ul>
+</li>
+</ul>
+<p>It should look something like this:</p>
+<p><a href="https://barakme.files.wordpress.com/2015/04/quickbuild_category_config1.png"><img class="alignnone  wp-image-52" src="https://barakme.files.wordpress.com/2015/04/quickbuild_category_config1.png?w=693&#038;h=277" alt="quickbuild_category_config" width="693" height="277" /></a></p>
+<p><strong>Set up the recurring task</strong></p>
+<p>With the custom Quickbuild category all set up, we can create the task that actually polls the mist.io API. This can and should be done with a regular Quickbuild user, not an administrator.</p>
+<p>I have made the configuration available as a gist. You can import it from: <a href="https://gist.github.com/barakm/3927cc0e8930b259c69e">https://gist.github.com/barakm/3927cc0e8930b259c69e</a></p>
+<p>Or you can create it manually using the following instructions:</p>
+<ul>
+<li>Create a new Quickbuild configuration somewhere in the build tree. I called mine &#8216;CloudNodeMonitor&#8217;</li>
+<li>In the configuration definitions screen, go to Settings-&gt;Repositories</li>
+<li>Click the &#8216;+&#8217; icon to add a new repository and choose a git repo</li>
+<li>Set the git repository URL to<br />
+<a href="https://github.com/barakm/mist-monitor.git" rel="nofollow">https://github.com/barakm/mist-monitor.git</a><br />
+(you can always fork this repo if you want to add something). Make sure to give your Quickbuild repository a name you will remember.</li>
+<li>In the Quickbuild configuration screen, go to settings-&gt;steps</li>
+<li>Add a new step (it&#8217;s the &#8216;+&#8217; icon) and choose repository-&gt;checkout.</li>
+<li>In the step editing screen, make sure to choose the repository you created previously</li>
+<li>Add a new step, and choose build-&gt;shell/batch command</li>
+<li>Set the command field to:<br />
+./mist_monitor_runner.sh ${vars.getValue(&#8220;mistUsername&#8221;)} ${vars.getValue(&#8220;mistPassword&#8221;)}<br />
+Note how we are passing the mist.io credentials as Quickbuild variables &#8211; we will configure them later.</li>
+<li>Set the Working Directory field to: mist_monitor</li>
+<li>Add a new step, and choose Publish -&gt; Custom Statistics Report</li>
+<li>Set the Statistics Category to the name of the custom statistics category you created previously (something like &#8220;Running Cloud Instances&#8221;)</li>
+<li>Set the Files to Process field to:<br />
+mist_monitor/output.xml</li>
+<li>Set the Report Set Name to: All_Machines</li>
+<li>In the Configuration editing screen, go to Settings-&gt;Variables</li>
+<li>Add a new variable. Call it mistUsername, and set its value to the username of your mist.io account.</li>
+<li>Add a new variable. Name it mistPassword (you may want to set the value to be displayed as a secret value, not a cleartext one) and set its value to the password of your mist.io account.</li>
+<li>Set the task execution schedule. Go to: Settings-&gt;General Settings-&gt;Edit and schedule the periodic execution of the task. Once an hour works out fine for me.</li>
+</ul>
+<p>Your new Quickbuild configuration should look something like this:</p>
+<p><a href="https://barakme.files.wordpress.com/2015/04/quickbuild_task_steps.png"><img class="alignnone  wp-image-46" src="https://barakme.files.wordpress.com/2015/04/quickbuild_task_steps.png?w=753&#038;h=206" alt="quickbuild_task_steps" width="753" height="206" /></a></p>
+<p>Run the task a couple of times from the Quickbuild console to make sure it works as expected. Have a look at the &#8216;Latest Build&#8217; tab to see the results.</p>
+<p><strong>Set up the dashboard widget</strong><br />
+Quickbuild has a built-in dashboard system that is pretty straightforward.<br />
+Choose the dashboard you want to use (or create a new one)<br />
+Select Add Gadget -&gt; Others -&gt; Custom Statistics<br />
+Choose a relevant title and set the configuration to the task you created<br />
+Set the Build field to: Latest Successful Build<br />
+Set the Category Name field to the Custom Category you created (&#8220;Running Cloud Instances&#8221;)<br />
+Select the &#8220;All_Machines&#8221; Report set and click Save.<br />
+You should see the latest results from your cloud monitor show up on the dashboard.</p>
+<p><a href="https://barakme.files.wordpress.com/2015/04/running_instances_widget.png"><img class="alignnone  wp-image-47" src="https://barakme.files.wordpress.com/2015/04/running_instances_widget.png?w=507&#038;h=92" alt="Running_Instances_Widget" width="507" height="92" /></a><br />
+Click &#8216;View Report&#8217; and choose the &#8216;Statistics&#8217; tab, and you can see statistics on your cloud usage:</p>
+<p><a href="https://barakme.files.wordpress.com/2015/04/instances_graph.png"><img class="alignnone  wp-image-51" src="https://barakme.files.wordpress.com/2015/04/instances_graph.png?w=742&#038;h=138" alt="Instances_Graph" width="742" height="138" /></a><br />
+Now you have yourself a Quickbuild dashboard showing you the number of compute instances running on all of your clouds, courtesy of mist.io, plus some nice historical data as well.</p>
+
+
+<h3><strong>This was originally posted at Barak's blog <a href="http://barakme.wordpress.com/" target="_blank"><em>Head in the Clouds</em></a>, find it <a href="https://barakme.wordpress.com/2015/04/28/a-multi-cloud-console-with-mist-io-and-quickbuild/" target="_blank">here</a>.</strong></h3>
+
+
+</notextile>
