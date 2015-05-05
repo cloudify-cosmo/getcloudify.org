@@ -26,12 +26,12 @@ tags:
 <hr>
 
 <span class="pullquote-left">
-  <font style="font-weight: bold" size="5" face="Baskerville Old Face"><em>Network orchestration for any cloud with Cloudify. Get Started.</em></font>&nbsp; <a class="btn btn-medium btn-theme btn-rounded" id="downloadBtnInner" href="http://getcloudify.org/downloads/get_cloudify_3x.html" target="_blank"><i class="icon-plus"></i> Go </a></span>
+  <font style="font-weight: bold" size="5" face="Baskerville Old Face"><em>Cloud management & monitoring on any cloud with Cloudify.</em></font>&nbsp; <a class="btn btn-medium btn-theme btn-rounded" id="downloadBtnInner" href="http://getcloudify.org/downloads/get_cloudify_3x.html" target="_blank"><i class="icon-plus"></i> Go </a></span>
   
   <hr>
 
 <p>After looking around at a bunch of cloud monitoring options, I finally found mist.io. It had just the right features I needed, and all that was left was to plug it in to my existing dashboard system.</p>
-<p>So let&#8217;s start by reviewing the pieces.</p>
+<p>So let's start by reviewing the pieces.</p>
 <p><strong>Mist.io</strong></p>
 <p><a href="http://www.mist.io">Mist.io</a> is a cool open-source project that monitors VM usage<br />
 across multiple clouds. The list of supported cloud providers is pretty extensive (see the up to date list <a href="http://mistansible.readthedocs.org/en/latest/mist_backends_module.html">here</a>, that at this time includes:<br />
@@ -41,7 +41,7 @@ EC2, Rackspace, Openstack, Linode, Google Compute Engine, SoftLayer, Digital Oce
 <p><a href="https://barakme.files.wordpress.com/2015/04/mist_io_console_redacted.png"><img class="alignnone  wp-image-57" src="https://barakme.files.wordpress.com/2015/04/mist_io_console_redacted.png?w=695&#038;h=213" alt="mist_io_console_redacted" width="695" height="213" /></a></p>
 <p>But for my project I also need to maintain history and statistics about my usage.</p>
 <p><strong>Quickbuild</strong></p>
-<p>The CI system we use for Cloudify is Quickbuild (<a href="http://www.pmease.com/">http://www.pmease.com/</a>). We&#8217;ve been using it for a very long time and it has proven to be a rock-solid system. Quickbuild also has a flexible dashboard system, where I can plug in my own custom data sources.</p>
+<p>The <a href="http://getcloudify.org/2014/04/29/testing_automation_continuous_integration.html" target="_blank">continuous integration</a> (CI) system we use for Cloudify is <a href="http://www.pmease.com/" target="_blank">Quickbuild</a>. We've been using it for a very long time and it has proven to be a rock-solid system. Quickbuild also has a flexible dashboard system, where I can plug in my own custom data sources.</p>
 <p>While this post deals a lot with the specifics of Quickbuild, the principles should be pretty much the same for any CI/Automation system.</p>
 <p><strong>The glue</strong></p>
 <p>The general idea is to define a configuration in Quickbuild that will poll the mist.io API for running VMs, collect historical data and display the latest results on a Quickbuild dashboard.</p>
