@@ -9,7 +9,7 @@ pageord: 200
 openstack_blueprint_file_link: https://raw.githubusercontent.com/cloudify-cosmo/cloudify-nodecellar-example/3.1/openstack-blueprint.yaml
 softlayer_blueprint_file_link: https://raw.githubusercontent.com/cloudify-cosmo/cloudify-nodecellar-example/master/softlayer-blueprint.yaml
 aws_ec2_blueprint_file_link: https://raw.githubusercontent.com/cloudify-cosmo/cloudify-nodecellar-example/master/aws-ec2-blueprint.yaml
-vcloud_blueprint_file_link: https://raw.githubusercontent.com/achirko/cloudify-nodecellar-example/vcloud-plugin/vcloud-blueprint.yaml
+vcloud_blueprint_file_link: https://raw.githubusercontent.com/cloudify-cosmo/cloudify-nodecellar-example/master/vcloud-blueprint.yaml
 terminology_link: reference-terminology.html
 workflows_link: reference-builtin-workflows.html
 
@@ -31,7 +31,12 @@ This tutorial shows how to bootstrap a Cloudify manager on:
   - [OpenStack](plugin-openstack.html)
   - [Softlayer](softlayer-openstack.html)
   - [AWS EC2](plugin-aws.html)
-  - [vCloud](plugin-vsphere.html)
+  - [vCloud](plugin-vcloud.html)
+  - [vSphere](plugin-vsphere.html)
+
+{%note title=vSphere cloud%}
+Contact sales for access vSphere plugin, manager blueprint and nodecellar example.
+{%endnote%}
 
 The blueprint you'll be deploying describes a nodejs application that connects to a MongoDB database and presents a wine catalog.
 
@@ -39,6 +44,8 @@ The blueprint you'll be deploying describes a nodejs application that connects t
   - [SoftLayer nodecellar blueprint]({{page.softlayer_blueprint_file_link}})
   - [AWS EC2 nodecellar blueprint]({{page.aws_ec2_blueprint_file_link}})
   - [vCloud nodecellar blueprint]({{page.vcloud_blueprint_file_link}})
+  - vSphere nodecellar blueprint
+
 
 To learn more about blueprint syntax and elements please refer to the [Blueprint Authoring Guide](guide-blueprint.html).
 
@@ -60,11 +67,32 @@ To do so follow the steps described in the [CLI installation guide](installation
 
 Next, let's create a cloudify-manager directory and download the Manager Blueprint.
 
+{% inittab %}
+
+{% tabcontent OpenStack, SoftLayer, AWS EC2%}
 {% highlight bash %}
 mkdir -p ~/cloudify-manager
 cd ~/cloudify-manager
 git clone https://github.com/cloudify-cosmo/cloudify-manager-blueprints
 {% endhighlight %}
+{% endtabcontent %}
+
+{% tabcontent vCloud%}
+{% highlight bash %}
+cd ~
+git clone https://github.com/cloudify-cosmo/tosca-vcloud-plugin
+{% endhighlight %}
+{% endtabcontent %}
+
+{% tabcontent vSphere%}
+Obtain vSphere plugin and unpack archive.
+{% highlight bash %}
+cd ~
+unzip cloudify-vsphere-plugin.zip
+{% endhighlight %}
+{% endtabcontent %}
+
+{% endinittab %}
 
 Now let's initialize a local Cloudify working environment:
 
@@ -262,7 +290,7 @@ This blueprint defines quite a few input parameters we need to fill out.
 Let's make a copy of the inputs template already provided and edit it:
 
 {% highlight bash %}
-cd cloudify-manager-blueprints/vcloud-air
+cd tosca-vcloud-plugin/manager-blueprint
 cp inputs.yaml.template inputs.yaml
 {% endhighlight %}
 
@@ -287,6 +315,44 @@ manager_public_key: ''
 agent_public_key: ''{% endhighlight %}
 
 For more information see the [vCloud Manager Reference](reference-vcloud-manager.html).
+
+{% endtabcontent %}
+
+
+{% tabcontent vSphere %}
+
+This blueprint defines quite a few input parameters we need to fill out.
+
+Let's make a copy of the inputs template already provided and edit it:
+
+{% highlight bash %}
+cd cloudify-vsphere-plugin/manager-blueprint
+cp inputs.yaml.template inputs.yaml
+{% endhighlight %}
+
+The inputs.yaml file should look somewhat like this:
+
+{% highlight yaml %}
+vsphere_username: ''
+vsphere_password: ''
+vsphere_host: ''
+vsphere_datacenter_name: ''
+manager_server_template: ''
+manager_server_cpus: ''
+manager_server_memory: ''
+manager_server_user: ''
+manager_server_user_home: ''
+management_network_name: ''
+management_network_switch_distributed: true
+external_network_name: ''
+external_network_switch_distributed: true
+manager_private_key_path: ''
+agent_private_key_path: ''
+agents_user: ''
+resources_prefix: ''
+{% endhighlight %}
+
+For more information see the [vSphere Manager Reference](reference-vsphere-manager.html).
 
 {% endtabcontent %}
 
@@ -318,10 +384,15 @@ cfy bootstrap --install-plugins -p aws-ec2-manager-blueprint.yaml -i inputs.yaml
 {% endtabcontent %}
 {% tabcontent vCloud%}
 {% highlight bash %}
-cfy bootstrap --install-plugins -p vcloud.yaml -i inputs.yaml --task-retries 10
+cfy bootstrap --install-plugins -p vcloud-manager-blueprint.yaml -i inputs.yaml --task-retries 10
 {% endhighlight %}
 {% endtabcontent %}
 {% endinittab %}
+{% tabcontent vSphere%}
+{% highlight sh %}
+cfy bootstrap --install-plugins -p vsphere-manager-blueprint.yaml -i inputs.yaml --task-retries 10
+{%endhighlight%}
+{% endtabcontent %}
 
 
 {%note title=Note%}
@@ -353,7 +424,14 @@ sudo pip install -r requirements.txt
 
 {% tabcontent vCloud%}
 {% highlight sh %}
-cfy local create-requirements -o requirements.txt -p vcloud.yaml
+cfy local create-requirements -o requirements.txt -p vcloud-manager-blueprint.yaml
+sudo pip install -r requirements.txt
+{%endhighlight%}
+{% endtabcontent %}
+
+{% tabcontent vSphere%}
+{% highlight sh %}
+cfy local create-requirements -o requirements.txt -p vsphere-manager-blueprint.yaml
 sudo pip install -r requirements.txt
 {%endhighlight%}
 {% endtabcontent %}
@@ -382,6 +460,9 @@ At this point there's nothing much to see since you haven't uploaded any bluepri
 
 Next, you'll upload a sample [blueprint]({{page.terminology_link}}#blueprint) and create a [deployment]({{page.terminology_link}}#deployment) based on it.
 
+{% inittab %}
+
+{% tabcontent OpenStack, SoftLayer, AWS EC2%}
 {% highlight bash %}
 cd ~/cloudify-manager
 git clone https://github.com/cloudify-cosmo/cloudify-nodecellar-example.git
@@ -390,6 +471,29 @@ use -t <YOUR MANAGER IP ADDRESS>
 {% endhighlight %}
 
 In the `cloudify-nodecellar-example` directory you just cloned, you can see blueprint files alongside other resources related to this blueprint.
+{% endtabcontent %}
+
+{% tabcontent vCloud%}
+{% highlight bash %}
+cd ~/tosca-vcloud-plugin
+git clone https://github.com/cloudify-cosmo/cloudify-nodecellar-example.git
+cd cloudify-nodecellar-example
+use -t <YOUR MANAGER IP ADDRESS>
+{% endhighlight %}
+
+In the `cloudify-nodecellar-example` directory you just cloned, you can see blueprint files alongside other resources related to this blueprint.
+{% endtabcontent %}
+
+
+{% tabcontent vSphere%}
+{% highlight bash %}
+cd ~/cloudify-vsphere-plugin/nodecellar-example
+use -t <YOUR MANAGER IP ADDRESS>
+{% endhighlight %}
+{% endtabcontent %}
+
+{% endinittab %}
+
 
 To upload the blueprint run:
 
@@ -397,25 +501,31 @@ To upload the blueprint run:
 
 {% tabcontent OpenStack%}
 {%highlight bash%}
-cfy blueprints upload -b nodecellar -p openstack-blueprint.yaml​
+cfy blueprints upload -b nodecellar -p openstack-blueprint.yaml
 {%endhighlight%}
 {% endtabcontent %}
 
 {% tabcontent SoftLayer%}
 {%highlight bash%}
-cfy blueprints upload -b nodecellar -p softlayer-blueprint.yaml​
+cfy blueprints upload -b nodecellar -p softlayer-blueprint.yaml
 {%endhighlight%}
 {% endtabcontent %}
 
 {% tabcontent AWS EC2%}
 {%highlight bash%}
-cfy blueprints upload -b nodecellar -p aws-ec2-blueprint.yaml​
+cfy blueprints upload -b nodecellar -p aws-ec2-blueprint.yaml
 {%endhighlight%}
 {% endtabcontent %}
 
 {% tabcontent vCloud %}
 {%highlight bash%}
-cfy blueprints upload -b nodecellar -p vcloud-blueprint.yaml​
+cfy blueprints upload -b nodecellar -p vcloud-blueprint.yaml
+{%endhighlight%}
+{% endtabcontent %}
+
+{% tabcontent vSphere %}
+{%highlight bash%}
+cfy blueprints upload -b nodecellar -p vsphere-blueprint.yaml
 {%endhighlight%}
 {% endtabcontent %}
 
@@ -567,39 +677,36 @@ The image is again the AMI image ID. The size is the instance_type, and the agen
 
 {%highlight yaml%}
 inputs:
-
-  vcloud_username:
-      type: string
-
-  vcloud_password:
-      type: string
-
-  vcloud_url:
-      type: string
-
-  vcloud_service:
-      type: string
-
-  vcloud_vcd:
-      type: string
-
   catalog:
     type: string
 
   template:
     type: string
 
-  agent_user:
+  agent_public_key:
     type: string
-    default: ubuntu
+{%endhighlight%}
 
-  management_network_name:
-    type: string
+Let's make a copy of the inputs template already provided and edit it:
 
-  floating_ip_gateway:
-    type: string
+{% highlight bash %}
+cp inputs/vcloud.yaml.template inputs.yaml
+{% endhighlight %}
 
-  nodecellar_public_ip:
+The inputs.yaml file should look somewhat like this:
+{%highlight yaml%}
+catalog: Public Catalog
+template: Ubuntu Server 12.04 LTS (amd64 20150127)
+agent_public_key: string_with_agent_ssh_key
+{%endhighlight%}
+
+{% endtabcontent %}
+
+{% tabcontent vSphere %}
+
+{%highlight yaml%}
+inputs:
+  template:
     type: string
 
 {%endhighlight%}
@@ -607,26 +714,11 @@ inputs:
 Let's make a copy of the inputs template already provided and edit it:
 
 {% highlight bash %}
-cd cloudify-nodecellar-example/inputs
-cp vcloud.yaml.template inputs.yaml
+cp inputs/vsphere.yaml.template inputs.yaml
 {% endhighlight %}
 The inputs.yaml file should look somewhat like this:
 {%highlight yaml%}
-{
-    "vcloud_username": "your_vcloud_username",
-    "vcloud_password": "your_vcloud_password",
-    "vcloud_url": "https://vchs.vmware.com",
-    "vcloud_service": "service_name",
-    "vcloud_vdc": "virtual_datacenter_name",
-    "manager_server_name": "your_manager",
-    "manager_server_catalog": "templates_catalog",
-    "manager_server_template": "template",
-    "edge_gateway": "gateway_name",
-    "floating_ip_public_ip": "",
-    "management_network_name": "management",
-    "manager_private_key_path": "~/.ssh/vcloud_template.pem",
-    "agent_private_key_path": "~/.ssh/vcloud_template.pem"
-}
+template: ubuntu-configured-template
 {%endhighlight%}
 
 {% endtabcontent %}
@@ -756,3 +848,4 @@ For a more elaborate installation tutorial, please refer to
 - the [Softlayer Manager Reference](reference-softlayer-manager.html).
 - the [AWS EC2 Reference](reference-aws-ec2-manager.html).
 - the [vCloud Reference](reference-vcloud-manager.html).
+- the [vSphere Reference](reference-vsphere-manager.html).
