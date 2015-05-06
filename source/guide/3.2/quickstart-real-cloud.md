@@ -88,7 +88,7 @@ git clone https://github.com/cloudify-cosmo/tosca-vcloud-plugin
 Obtain vSphere plugin and unpack archive.
 {% highlight bash %}
 cd ~
-unzip cloudify-vsphere-plugin.zip
+tar zxvf cloudify-vsphere-plugin.tar.gz
 {% endhighlight %}
 {% endtabcontent %}
 
