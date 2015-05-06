@@ -153,8 +153,8 @@ Two additional runtime-properties are available on node instances of this type o
 
 **Derived From:** [cloudify.nodes.VirtualIP](reference-types.html)
 
-This type is simplifyed version of cloudify.vcloud.nodes.PublicNAT node.
-It's apply DNAT and SNAT rules for `any` protocol and `any` original and translated ports.
+This type is simplified version of cloudify.vcloud.nodes.PublicNAT node.
+It applies DNAT and SNAT rules for `any` protocol and `any` original and translated ports.
 
 **Properties:**
 
