@@ -57,7 +57,7 @@ EC2, Rackspace, Openstack, Linode, Google Compute Engine, SoftLayer, Digital Oce
 <p><span style="text-decoration:underline;">Set up AWS Backends:</span></p>
 <p><script src="https://gist.github.com/barakm/c27a51f64c2d5038ac74.js"></script></p>
 <p>Just grab the scripts and tweak the credentials and tenants to match what you need.</p>
-<p>BTW: I do wish mist.io would make this bit a little easier. There really should be an easier way to just give them the credentials say &#8216;Monitor everything&#8217;</p>
+<p>BTW: I do wish mist.io would make this bit a little easier. There really should be an easier way to just give them the credentials and say &#8216;Monitor everything&#8217;</p>
 <p><strong>Create a script to collect the current compute instance details</strong><br />
 I wrote another quick script using the mist SDK to do this. The whole thing is on github:<br />
 <a href="https://github.com/barakm/mist-monitor">https://github.com/barakm/mist-monitor</a></p>
@@ -112,14 +112,16 @@ mist_monitor/output.xml</li>
 <p><a href="https://barakme.files.wordpress.com/2015/04/quickbuild_task_steps.png"><img class="alignnone  wp-image-46" src="https://barakme.files.wordpress.com/2015/04/quickbuild_task_steps.png?w=753&#038;h=206" alt="quickbuild_task_steps" width="753" height="206" /></a></p>
 <p>Run the task a couple of times from the Quickbuild console to make sure it works as expected. Have a look at the &#8216;Latest Build&#8217; tab to see the results.</p>
 <p><strong>Set up the dashboard widget</strong><br />
-Quickbuild has a built-in dashboard system that is pretty straightforward.<br />
-Choose the dashboard you want to use (or create a new one)<br />
-Select Add Gadget -&gt; Others -&gt; Custom Statistics<br />
-Choose a relevant title and set the configuration to the task you created<br />
-Set the Build field to: Latest Successful Build<br />
-Set the Category Name field to the Custom Category you created (&#8220;Running Cloud Instances&#8221;)<br />
-Select the &#8220;All_Machines&#8221; Report set and click Save.<br />
-You should see the latest results from your cloud monitor show up on the dashboard.</p>
+<ul>
+<li>Quickbuild has a built-in dashboard system that is pretty straightforward.</li>
+<li>Choose the dashboard you want to use (or create a new one)</li>
+<li>Select Add Gadget -&gt; Others -&gt; Custom Statistics</li>
+<li>Choose a relevant title and set the configuration to the task you created</li>
+<li>Set the Build field to: Latest Successful Build</li>
+<li>Set the Category Name field to the Custom Category you created (&#8220;Running Cloud Instances&#8221;)</li>
+<li>Select the &#8220;All_Machines&#8221; Report set and click Save.
+You should see the latest results from your cloud monitor show up on the dashboard.</li>
+</ul>
 <p><a href="https://barakme.files.wordpress.com/2015/04/running_instances_widget.png"><img class="alignnone  wp-image-47" src="https://barakme.files.wordpress.com/2015/04/running_instances_widget.png?w=507&#038;h=92" alt="Running_Instances_Widget" width="507" height="92" /></a><br />
 Click &#8216;View Report&#8217; and choose the &#8216;Statistics&#8217; tab, and you can see statistics on your cloud usage:</p>
 <p><a href="https://barakme.files.wordpress.com/2015/04/instances_graph.png"><img class="alignnone  wp-image-51" src="https://barakme.files.wordpress.com/2015/04/instances_graph.png?w=742&#038;h=138" alt="Instances_Graph" width="742" height="138" /></a><br />
