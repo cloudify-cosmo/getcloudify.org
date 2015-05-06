@@ -41,11 +41,38 @@ The script can install the cli on different distributions of Linux, OSx (Darwin)
 
 ## Windows
 
-PLACEHOLDER FOR WINDOWS INSTALLATION METHOD
+The Windows installer is a single executable which performs the following (offline) installation:
+
+* Installs Python 2.7.x
+* Installs pip
+* Installs Virtualenv
+* Installs cfy
+
+{%note title=Installing Prerequisites%}
+If Python is not already installed, the executable will attempt to install it. During Python's installation you will be able to choose different installation options such as installing pip, adding the python executable to the path, and so on. If you choose, for instance, to not install pip and continue with the installation, you will be notified that you must install pip and it will be installed for you. The same goes for virtualenv.
+{%endnote%}
+
+{%note title=Installation Environment%}
+Note that a virtualenv will be automatically created during installation and Cloudify's CLI will be installed within it.
+{%endnote%}
+
+To install cfy on Windows:
+
+* Download the executable from the [Downloads page](downloads/get_cloudify_3x.html)
+* Run the executable
+* Follow the installation instructions.
+* When the installation is finished, double click the new Cloudify icon on your desktop. This will open a terminal with the virtualenv already activated.
+
+Now try running `cfy -h` in your terminal. You should get an output describing how to use `cfy`.
+
+{%note title=Uninstall%}
+Note that uninstalling the package will not remove Python, pip and Virtualenv whether they were or were not installed during the installation process.
+{%endnote%}
+
 
 ## Linux
 
-* To install via rpm packages, you must have Python2.7.x and pip 1.5+ installed and Python2.7.x must be executable as `python` from the path.
+To install via rpm packages, you must have Python2.7.x and pip 1.5+ installed and Python2.7.x must be executable as `python` from the path.
 
 ### Centos/RHEL
 
