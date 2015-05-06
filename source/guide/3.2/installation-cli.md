@@ -58,7 +58,7 @@ Note that a virtualenv will be automatically created during installation and Clo
 
 To install cfy on Windows:
 
-* Download the executable from the [Downloads page](downloads/get_cloudify_3x.html)
+* Download the installer from the [Downloads page](downloads/get_cloudify_3x.html) corresponding with the version you would like to install.
 * Run the executable
 * Follow the installation instructions.
 * When the installation is finished, double click the new Cloudify icon on your desktop. This will open a terminal with the virtualenv already activated.
@@ -76,9 +76,10 @@ To install via rpm packages, you must have Python2.7.x and pip 1.5+ installed an
 
 ### Centos/RHEL
 
-1. Download the rpm package from the [Downloads page](downloads/get_cloudify_3x.html).
-1. Open a terminal at the directory where you downloaded the file.
-1. Run (replacing `<pkg.rpm>` with the name of file you downloaded):
+* Download the installer from the [Downloads page](downloads/get_cloudify_3x.html) corresponding with the version you would like to install.
+* Open a terminal at the directory where you downloaded the file.
+* Run (replacing `<pkg.rpm>` with the name of file you downloaded):
+
 {% highlight bash %}
 sudo rpm -i <pkg.rpm>
 source /cfy/env/bin/activate
