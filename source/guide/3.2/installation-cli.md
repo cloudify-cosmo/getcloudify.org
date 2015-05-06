@@ -33,7 +33,7 @@ The downloadable packages allow for an offline installation of the cli and are d
 
 ###  As a downloadable installation script
 
-The downloadable `get-cloudify.py` script allows you to install the cli from the internet with many different configuration options.
+The downloadable `get-cloudify.py` script allows for an online installation of the cli with many different configuration options.
 The script can install the cli on different distributions of Linux, OSx (Darwin) and Windows.
 
 
@@ -58,7 +58,7 @@ Note that a virtualenv will be automatically created during installation and Clo
 
 To install cfy on Windows:
 
-* Download the installer from the [Downloads page](downloads/get_cloudify_3x.html) corresponding with the version you would like to install.
+* Download the installer from the [Downloads page](http://getcloudify.org/downloads/get_cloudify_3x.html) corresponding with the version you would like to install.
 * Run the executable
 * Follow the installation instructions.
 * When the installation is finished, double click the new Cloudify icon on your desktop. This will open a terminal with the virtualenv already activated.
@@ -76,7 +76,7 @@ To install via rpm packages, you must have Python2.7.x and pip 1.5+ installed an
 
 ### Centos/RHEL
 
-* Download the installer from the [Downloads page](downloads/get_cloudify_3x.html) corresponding with the version you would like to install.
+* Download the installer from the [Downloads page](http://getcloudify.org/downloads/get_cloudify_3x.html) corresponding with the version you would like to install.
 * Open a terminal at the directory where you downloaded the file.
 * Run (replacing `<pkg.rpm>` with the name of file you downloaded):
 
@@ -89,6 +89,9 @@ Now try running `cfy -h` in your terminal. You should get an output describing h
 
 For more info on the installation script, see [here](#installing-using-the-script).
 
+### Ubuntu/Debian
+
+Installers for Debian based distros will be added in the future.
 
 ## OS X
 
