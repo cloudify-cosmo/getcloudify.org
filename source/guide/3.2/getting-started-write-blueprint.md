@@ -26,6 +26,10 @@ In Cloudify, an application is described in YAML format in a structure (one or m
 
 Other than the YAML itself, a Blueprint can comprise of multiple resources such as configuration and installation scripts (or Puppet Manifests, or Chef Recipes, etc..), code, random application related data, and basically any other resource you require for running your application.
 
+If you want to write a blueprint now, continue reading. Otherwise, you can skip this guide and [upload a sample blueprint](getting-started-upload-blueprint.html).
+
+
+# Writing a Cloudify Blueprint
 
 {%tip title=Tip%}
 The [Terminology Reference Page]({{page.terminology_link}}) will help you understand some of the terms stated in this guide.

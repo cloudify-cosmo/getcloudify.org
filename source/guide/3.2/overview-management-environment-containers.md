@@ -9,6 +9,15 @@ pageord: 210
 {%summary%}{{page.abstract}}{%endsummary%}
 
 
+The Cloudify Management Environment is bootstrapped on top of Docker.
+
+Bootstrapping using Docker provides several advantages:
+
+* The Cloudify Manager is available on varius Linux distributions running Docker. Note that some distributions require minimal adjustments
+* Users can upgrade containers specific to the service they want to upgrade (Currently, there's only one Application container. In the near future, each container will host one service [e.g. Logstash, Elasticsearch, etc..])
+* Using Docker simplifies Cloudify's bootstrap process, and will help in making it much faster in future versions.
+
+
 Cloudify's Management Environment structure consists of two Docker images:
 
 * Cloudify Application Image - an image running Cloudify's Application Stack.
