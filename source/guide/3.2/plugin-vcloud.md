@@ -421,13 +421,10 @@ The [vCloud manager blueprint](reference-vcloud-manager.html) store the vCloud c
 # Misc
 
 ## VApp template
-Template should have:
 
-* one VM with root disk with OS, SSH server and VMware Tools installed.
-
-Template should not have:
-
-* any networks connected.
+* Template should have one VM with root disk with OS, SSH server and VMware Tools installed.
+* The vApp template’s VM should have one or zero NIC, which should not be connected to any network.
+* The vApp template should neither define any vApp networks nor “import” any Org VDC networks.
 
 
 ## Resources prefix support
