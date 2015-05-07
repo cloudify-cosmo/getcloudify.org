@@ -225,7 +225,7 @@ token generator implementation).
 ### SSL
 It is possible to interact with a manager that is secured by [SSL](http://en.wikipedia.org/wiki/Transport_Layer_Security).
 
-The SSL configurations is lcoated under 'ssl'.
+The SSL configuration is located under `ssl`.<br>
 This is the default SSL configuration:
   {% highlight yaml %}
   ssl: {
@@ -244,16 +244,14 @@ This is the default SSL configuration:
       private_key_path: path-to-private-key
     }
   {% endhighlight %}
-  This means that the manager will be secured by SSL with the given certificate and key.
-
+  This means that the manager will be secured by SSL with the given certificate and key.<br>
   It also means that every request to the manager must be on port 443 using the 'https' protocol 
   and that the certificate will be sent to any client that asks to verify it. 
 
-{%tip title=Using self-signed certificate%}
+{%tip title=Using a self-signed certificate%}
 
-  A [self-signed certificate](http://en.wikipedia.org/wiki/Self-signed_certificate) can be used- this is a certificate that is signed by the manager itself, not by a CA (certificate authority) 
-
-  In this case, every client that wants to verify the manager's certificate needs to recieve a copy of the certificate file in order to use it for verification (see [Verifying a manager's certificate](#verifying-a-managers-certificate)).
+  A [self-signed certificate](http://en.wikipedia.org/wiki/Self-signed_certificate) can be used- this is a certificate that is signed by the manager itself, not by a CA (certificate authority)<br>
+  In this case, every client that wants to verify the manager's certificate needs to recieve a copy of the certificate file in order to use it for verification (see [Manager's certificate verification](#ssl-1) )
 
 
   The following command can be used for creating a self-sigend certificate: 
@@ -264,47 +262,9 @@ This is the default SSL configuration:
 {%endtip%}
 
 {%note title=The certificate's CommonName%}
-  If certificate verification is expected by clients, the certificate's common name should be consistent with the manager's ip, because the SSL verification process denies certificates where the common name does not match the URL and all requests to the manager will use the manager's ip as the URL.
-  If no certificate verification is expected, then the only requirment is to specify paths to a valid certificate and key files (self-singed or not and with any common name).
+  If certificate verification is expected by clients, the certificate's common name should be consistent with the manager's ip, because the SSL verification process denies certificates where the common name does not match the URL and all requests to the manager will use the manager's ip as the URL.<br>
+  If no certificate verification is expected, then the only requirment is to specify paths to valid certificate and key files (with any common name).
 {%endnote%}
-
-#### **Connecting to a manager secured with SSL**
-
-*CLI client:*
-  
-  - After bootstrap, using the CLI, every request to the secured manager will be on port 443, using the 'https' protocol.
-  - The `use` command requires specifing the port option to be 443 
-    e.g. 
-    {% highlight bash %}
-      'use -t <manager-ip-address> --port 443'
-    {% endhighlight %}
-
-*REST client:*
-  
-  Specify the following parameters when creating a CloudifyClient:
-
-  - `port`: `443` (default for 'https' protocol)
-  - `protocol`: `https`
-
-
-#### **Verifying a manager's certificate:**
-By default, the manager's certificate will be verified.
-To avoid certificate verification, the trust_all parameter should be set to True.
-
-*CLI client:*
-  
-  - To avoid certificate verification, set the environment variable `CLOUDIFY_SSL_TRUST_ALL` to any non empty value.
-  - If `CLOUDIFY_SSL_TRUST_ALL` is not set and the manager's certificate is self-signed, 
-      the `CLOUDIFY_SSL_CERT_PATH` environment veriable must be set with the path to the certificate file.
-
-*REST client:*
-  
-  Specify the following parameters when creating a CloudifyClient (in addition to the port and protocol parameters):
-
-  - `cert`: optional path to a self-signed-certificate to be verified
-  - `trust_all`: `False` (default) the manager's certificate will be verified
-
-  *If `trust_all` is False and the manager's certificate is self-signed, the cert parameter must be specified.*
 
 
 ### Logging
@@ -351,8 +311,26 @@ request. Setting these values is done once, via these environment variables:
  - CLOUDIFY_USERNAME
  - CLOUDIFY_PASSWORD
 
+### SSL CLI configuration
+
+#### Connect with a manager secured by SSL:
+  - After bootstrap, every request to the secured manager will be on port 443, using the 'https' protocol.
+  - The `use` command requires specifing the port option to be 443 
+      <br>e.g. 
+      {% highlight bash %}
+        'use -t <manager-ip-address> --port 443'
+      {% endhighlight %}
+
+#### Manager's certificate verification:
+By default, the manager's certificate will be verified.<br>
+There are two environment variables that can be set:
+  
+  - `CLOUDIFY_SSL_TRUST_ALL` - set to any non empty value to avoid certificate verification.
+  - `CLOUDIFY_SSL_CERT_PATH` - set the path to a copy of the manager's certificate in case verification is wanted (trust all is not set) and the manager's certificate is a self-signed certificate. 
+
+
 {%note title=Note%}
-This client only supports authentication with username-password - TBD
+This client only supports authentication with username-password
 {%endnote%}
 
 ## Other REST clients
