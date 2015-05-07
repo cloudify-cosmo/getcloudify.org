@@ -47,3 +47,8 @@ Currently uploading a blueprint via the CLI supports the following blueprint arc
 ## UI Archive Formats Support
 
 Currently, the only supported file extension is tar.gz.
+
+
+# What's Next
+
+You should now be able to [upload your blueprint](getting-started-upload-blueprint.html) to Cloudify's Management Environment.

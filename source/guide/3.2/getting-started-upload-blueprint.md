@@ -12,6 +12,8 @@ pageord: 300
 
 For Cloudify to be able to deploy your application's blueprint, you need to upload the blueprint to Cloudify's Management Environment where it, and its resources will be available for deployment. You can upload a blueprint via the CLI or the WEB UI.
 
+If you haven't already written a blueprint, you can either [write one now](getting-started-write-bluerpint.html) or you can download an [example blueprint](https://github.com/cloudify-cosmo/cloudify-nodecellar-example) for you to upload.
+
 
 # Uploading a Blueprint
 
@@ -45,3 +47,8 @@ Once all the required fields are filled, the `Save` button becomes available.
 ![The user can enter a custom blueprint name](/guide/images/ui/ui-upload-blueprint-with-input.png)
 
 Clicking the `Save` button will cause it to be grayed out until the blueprint file is fully uploaded to Cloudify. After the upload is done, the user will be redirected to the blueprint's page.
+
+
+# What's Next
+
+You should now have a Blueprint ready for you to [deploy](getting-started-create-deployment.html)

@@ -15,7 +15,7 @@ terminology_link: reference-terminology.html
 
 # Overview
 
-For Cloudify to be able to deploy your application it parses the uploaded blueprint YAML (the logical representation) and manifests a structure we call a Deployment. A deployment is a "Technical" drilled down representation of your application. For instance, if a blueprint describes a Server node with multiple instances, the deployment will be comprised of only the instances themselves provided with their unique identifiers. A deployment's structure is not exposed to the user.
+For Cloudify to be able to deploy your application it parses the uploaded blueprint YAML (the logical representation) and manifests a structure we call a Deployment. A deployment is a "Technical" drilled down representation of your application. For instance, if a blueprint describes a Server node with multiple instances, the deployment will be comprised of only the instances themselves provided with their unique identifiers.
 
 
 # Creating a Deployment
@@ -46,3 +46,8 @@ After creating the deployment, you will be directed to the deployment's page to 
 
 Once the initialization is complete, you will be able to start using the deployment and execute [workflows]({{page.terminology_workflow}}):<br/>
 ![Deployment ready to use](/guide/images/ui/ui-deployment-ready.jpg)
+
+
+# What's Next
+
+After creating a deployment, you're not ready to [execute it!](getting-started-execute-workflow.html)

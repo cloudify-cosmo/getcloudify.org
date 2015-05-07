@@ -22,7 +22,7 @@ agent_overview_link: agents-description.html
 
 # Overview
 
-An application is described in YAML format in a structure (one or multiple files) we call a Blueprint. In a Blueprint you will provide the application's components, how they relate to eachother, how they are installed and configured and how they're monitored and maintained. A blueprint is a logical representation of your application.
+In Cloudify, an application is described in YAML format in a structure (one or multiple files) we call a Blueprint based on a standard called [TOSCA](https://www.oasis-open.org/committees/tosca/). In a Blueprint you will provide the application's components, how they relate to eachother, how they are installed and configured and how they're monitored and maintained. A Blueprint YAML file is a logical representation of your application.
 
 Other than the YAML itself, a Blueprint can comprise of multiple resources such as configuration and installation scripts (or Puppet Manifests, or Chef Recipes, etc..), code, random application related data, and basically any other resource you require for running your application.
 
@@ -895,9 +895,9 @@ outputs:
 
 {%endhighlight%}
 
-That's it, this a fully functioning blueprint that can be used with a Cloudify Manager to install the nodecellar application on an existing host.
+That's it, this a fully functioning blueprint that can be used with a Cloudify Management Environment to install the nodecellar application on an existing host.
+
 
 # What's Next
 
-* Now that you know how to write a basic blueprint, you can [Write an Openstack blueprint]({{page.openstack_blueprint_link}}).
-* Or.. you can read the [Write-a-Plugin guide]({{page.plugin_guide_link}}) to gain a better understanding of how plugins work (and write your first plugin if you like).
+Now that you know how to write a basic blueprint, you can [create an archive](getting-started-package-blueprint.html) containing your Blueprint's resources or you can directly [upload your blueprint](getting-started-upload-blueprint.html) to Cloudify's Management Environment.

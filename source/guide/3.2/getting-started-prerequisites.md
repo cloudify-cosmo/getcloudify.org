@@ -14,9 +14,16 @@ agent_packager_link: agents-packager.html
 ---
 {%summary%}{{page.abstract}}{%endsummary%}
 
-Cloudify can be installed by using different methods.
+# Overview
 
-Since it is based on a set of premade packages, it can be deployed using shell scripts, configuration management tools, cloud specific orchestration tools (CloudFormation, Heat, etc..) or Cloudify's CLI tool which provides a smooth experience for getting a fully working, cli manageable Cloudify Management Environment.
+Cloudify can be installed using different methods.
+
+Since it is based on a set of premade Docker images, it can be deployed using shell scripts, configuration management tools, cloud specific orchestration tools (CloudFormation, Heat, etc..) or Cloudify's CLI tool which provides a smooth experience for getting a fully working, CLI-manageable Cloudify Management Environment.
+
+Cloudify has a set of prerequisites both from an infrastructure and OS point of view.
+
+Not to worry though, Cloudify's CLI along with Cloudify's [manager-blueprints](https://github.com/cloudify-cosmo/cloudify-manager-blueprints) will create the environment for you on your chosen cloud while allowing you to configure it as you see fit.
+
 
 # Prerequisites
 
@@ -29,7 +36,7 @@ A Cloudify manager must run on a 64-bit machine and requires at the very least 2
 
 {%note title=Note%}
 These are the minimal requirements for Cloudify to run. You will have to provision larger machines to actually utilize Cloudify.
-We do not recommend running Cloudify with even one deployment on a minimally provisioned machine.
+We do not recommend running Cloudify with even one application on a minimally provisioned machine.
 {%endnote%}
 
 #### Recommended Requirements
@@ -39,7 +46,7 @@ The recommended requirements can vary based on the following:
 * Amount of concurrent logs and events you're going to send from your [hosts]({{page.terminology_link}}#host).
 * Amount of concurrent metrics you're going to send from your hosts.
 
-As a general recommendation for the average system, Cloudify would require at least 4GB of RAM and 4 CPU Cores. Disk space requirements varies according to the amount of logs, events and metrics sent as Cloudify doesn't currently clean or rotate them.
+As a general recommendation for the average system, Cloudify would require at least 8GB of RAM and 4 CPU Cores. Disk space requirements varies according to the amount of logs, events and metrics sent as Cloudify doesn't currently clean or rotate them.
 
 ### Network
 The Manager must be available in the following ports:
@@ -67,11 +74,11 @@ Please see [here](agents-description.html#provided-agent-packages) for the suppo
 Agents are provided for these OS distributions, but using the [Cloudify Agent Packager]({{page.agent_packager_link}}), you can create you own agents for your distribution.
 
 ## Docker
-If you bootstrap using the Docker images, you must have Docker 1.3+ installed.
+As Cloudify's Management Environment runs above Docker containers, Docker 1.3+ is required.
 
 Cloudify will attempt to install Docker on Ubuntu 14.04 (Trusty) ONLY as other images may require kernel upgrades and additional package installations.
 
 
 # What's Next
 
-Next, you should [install the Cloudify CLI](installation-cli.html). Once you've installed it, you will be able to boostrap a Cloudify manager on the environment of your choice.
+Next, you should [boostrap](getting-started-bootstrapping.html) a Cloudify Management Environment on the Cloud provider of your choice.
