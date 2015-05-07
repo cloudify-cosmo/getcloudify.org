@@ -225,7 +225,7 @@ token generator implementation).
 ### SSL
 It is possible to interact with a manager that is secured by [SSL](http://en.wikipedia.org/wiki/Transport_Layer_Security).
 
-The SSL configurations is lcoated under `ssl`.<br>
+The SSL configuration is located under `ssl`.<br>
 This is the default SSL configuration:
   {% highlight yaml %}
   ssl: {
@@ -311,22 +311,7 @@ request. Setting these values is done once, via these environment variables:
  - CLOUDIFY_USERNAME
  - CLOUDIFY_PASSWORD
 
-{%note title=Note%}
-This client only supports authentication with username-password - TBD
-{%endnote%}
-
-## Other REST clients
-other REST clients (e.g. cURL) must explicitly add credentials to each request.<br>
-For example:
-
- - Get the server status, authenticate with username and password:<br>
-curl -u 'MY_USERNAME':'MY_PASSWORD' MANAGER_IP/status
- - Get a token, authenticate with username and password:<br>
-curl -u 'MY_USERNAME':'MY_PASSWORD' MANAGER_IP/tokens
- - Get all the blueprints, authenticate with a token:<br>
-curl -H 'Authentication-Token:MY_TOKEN' MANAGER_IP/blueprints
-
-### SSL
+### SSL CLI configuration
 
 #### Connect with a manager secured by SSL:
   - After bootstrap, every request to the secured manager will be on port 443, using the 'https' protocol.
@@ -342,6 +327,22 @@ There are two environment variables that can be set:
   
   - `CLOUDIFY_SSL_TRUST_ALL` - set to any non empty value to avoid certificate verification.
   - `CLOUDIFY_SSL_CERT_PATH` - set the path to a copy of the manager's certificate in case verification is wanted (trust all is not set) and the manager's certificate is a self-signed certificate. 
+
+
+{%note title=Note%}
+This client only supports authentication with username-password
+{%endnote%}
+
+## Other REST clients
+other REST clients (e.g. cURL) must explicitly add credentials to each request.<br>
+For example:
+
+ - Get the server status, authenticate with username and password:<br>
+curl -u 'MY_USERNAME':'MY_PASSWORD' MANAGER_IP/status
+ - Get a token, authenticate with username and password:<br>
+curl -u 'MY_USERNAME':'MY_PASSWORD' MANAGER_IP/tokens
+ - Get all the blueprints, authenticate with a token:<br>
+curl -H 'Authentication-Token:MY_TOKEN' MANAGER_IP/blueprints
 
 
 # Behind the Scenes / Advanced
