@@ -50,6 +50,8 @@ The Windows installer is a single executable which performs the following (offli
 
 {%note title=Installing Prerequisites%}
 If Python is not already installed, the executable will attempt to install it. During Python's installation you will be able to choose different installation options such as installing pip, adding the python executable to the path, and so on. If you choose, for instance, to not install pip and continue with the installation, you will be notified that you must install pip and it will be installed for you. The same goes for virtualenv.
+
+Python's installation requires a specific Microsoft Visual C++ 2008 Redistributable Package provided [here](https://www.microsoft.com/en-us/download/details.aspx?id=29). Install it if you stumble upon an error during the Python installation.
 {%endnote%}
 
 {%note title=Installation Environment%}
@@ -132,8 +134,8 @@ If you are using Linux, and you choose to use either the `--force` flag or the `
 
 ## Installing the latest Stable Release using the default flags
 
-1. Download the [script](http://gigaspaces-repository-eu.s3.amazonaws.com/org/cloudify3/get-cloudify.py)
-1. Run
+* Download the [script](http://gigaspaces-repository-eu.s3.amazonaws.com/org/cloudify3/get-cloudify.py)
+* Run
 {% highlight bash %}
 python get-cloudify.py
 {% endhighlight %}
