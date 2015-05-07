@@ -66,9 +66,9 @@ The blueprint builds the following topology on vCloud:
 The blueprint contains the following nodes:
 
   - *management_network* - A vCloud routed network for communication between the Cloudify manager and agent machines.
-  - *management_network_internet_access* - SNAT rule to enable internet access from management network.
+  - *management_network_nat* - SNAT rule to enable internet access from management network.
   - *management_port* - connection between Manager Server and Management Network.
-  - *management_server_internet_access* - NAT rules for providing access from internet to the Cloudify manager machine.
+  - *management_server_nat* - NAT rules for providing access from internet to the Cloudify manager machine.
   - *manager_server* - The server on which the Cloudify manager will be installed.
   - *vcloud_configuration* - A node which represents configuration settings for connecting with vCloud.
   - *manager* - The node which represents the manager. You may find more information about this node in the [Types Reference](#reference-types.html#cloudifymanager-type) section as well as in the [Manager Blueprints Authoring guide](guide-authoring-manager-blueprints.html).
