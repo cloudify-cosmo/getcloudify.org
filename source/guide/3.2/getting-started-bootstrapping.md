@@ -3,18 +3,18 @@ layout: bt_wiki
 title: Bootstrapping
 category: Getting Started
 publish: true
-abstract: Instructions on how to bootstrap a Cloudify Management Environment
+abstract: Instructions on how to bootstrap a Cloudify Manager
 pageord: 50
 ---
 {%summary%}{{page.abstract}}{%endsummary%}
 
 # Overview
 
-While Cloudify's CLI provides [very limited support for deploying an application](LOCAL_WORKFLOWS_LINK!), to be able to fully utilize Cloudify to deploy your application using the different Cloudify plugins, you'll have to bootstrap a Cloudify Management Environment.
+While Cloudify's CLI provides [very limited support for deploying an application](LOCAL_WORKFLOWS_LINK!), to be able to fully utilize Cloudify to deploy your application using the different Cloudify plugins, you'll have to bootstrap a Cloudify Manager.
 
-A Cloudify Management Environment comprises of [several underlying open-source tools](overview-components.html) all integrated via Cloudify's code to create a dynamic environment supporting the different operational flows you might be interested in when deploying a production environment.
+A Cloudify Manager comprises of [several underlying open-source tools](overview-components.html) all integrated via Cloudify's code to create a dynamic environment supporting the different operational flows you might be interested in when deploying your application.
 
-The bootstrap process will create the infrastructure (servers, networks, security groups and rules, etc..) required for Cloudify's Management Environment to run and install Cloudify on that environment.
+The bootstrap process will create the infrastructure (servers, networks, security groups and rules, etc..) required for Cloudify's Manager to run and deploy Cloudify on that environment.
 
 
 # Initialization
@@ -31,9 +31,9 @@ but you shouldn't care about that for now.
 
 # Preparing Bootstrap Configuration
 
-Bootstrapping a Cloudify manager is done by using [Manager Blueprints](reference-terminology.html#manager-blueprints) - these are standard Cloudify blueprints which have been constructed to bring up a management environment and topology on various providers and/or scenarios.
+Bootstrapping a Cloudify Manager is done by using [Manager Blueprints](reference-terminology.html#manager-blueprints) - these are standard Cloudify blueprints which have been constructed to bring up a Manager and its topology on various providers.
 
-First, clone the [Cloudify-Manager-Blueprints](https://github.com/cloudify-cosmo/cloudify-manager-blueprints) repository from github, or copy your desired blueprint folder from there.
+First, clone the [Cloudify-Manager-Blueprints](https://github.com/cloudify-cosmo/cloudify-manager-blueprints) repository from Github, or copy your desired blueprint folder from there.
 
 {% highlight bash %}
 mkdir -p ~/cloudify-manager
@@ -116,6 +116,10 @@ to fit your specific openstack installation.
 Notice that the `resources_prefix` parameter is set to "cloudify" so that all resources provisioned during
 this guide are prefixed for easy identification.
 
+For more information on the different management environment structures, please refer to
+
+For more information see the [Openstack Manager Reference](reference-openstack-manager.html).
+
 {% endtabcontent %}
 
 {% tabcontent SoftLayer %}
@@ -168,6 +172,7 @@ This tutorial uses softlayer manager blueprint on Docker and it requires:
     * for example: [a script that installs curl](https://raw.githubusercontent.com/cloudify-cosmo/cloudify-softlayer-plugin/master/softlayer_plugin/scripts/postprov.sh)
     * Alternatively, create an image id of a server on SoftLayer that have curl or docker installed on it, and specify the `image_template_id` instead of the `os` input.
 {%endinfo%}
+
 
 For more information see the [Softlayer Manager Reference](reference-softlayer-manager.html).
 

@@ -6,10 +6,10 @@ publish: true
 abstract: Executing Cloudify Workflows (and more specifically, the Install and Uninstall Workflows)
 pageord: 500
 
-terminology_topology: http://getcloudify.org/guide/3.1/reference-terminology.html#sts=Topology
+terminology_link: reference-terminology.html
+workflows_link: reference-builtin-workflows.html
 ---
 {%summary%} {{page.abstract}}{%endsummary%}
-{%summary%}This is an overview of a single blueprint topology view badge states in Cloudify's User Interface{%endsummary%}.
 
 
 # Overview
