@@ -10,8 +10,9 @@ pageord: 200
 
 # Overview
 
-As we've [previously seen](getting-started-write-blueprint.html#overview), a Blueprint can contain multiple files. These files can reside under a single directory with subdirectories or an archive. While Cloudify's CLI can take care of archiving process for you during the [upload process](getting-started-upload-blueprint.html), you might want to create archives prior to uploading the blueprint so that you can keep them in a fileserver, upload them via Cloudify's WEB UI or send them to others.
+As we've [previously seen](getting-started-write-blueprint.html#overview), a Blueprint can contain multiple files. These files can reside under a single directory with subdirectories or an archive. While Cloudify's CLI can take care of archiving process for you during the [upload process](getting-started-upload-blueprint.html), you might want to create archives prior to uploading the blueprint so that you can keep them in a fileserver, upload them via Cloudify's Web UI or send them to others.
 
+In this guide, we will not be creating an archive but rather uploading directly from the blueprint's directory.
 
 # Packaging a Blueprint
 
@@ -51,4 +52,4 @@ Currently, the only supported file extension is tar.gz.
 
 # What's Next
 
-You should now be able to [upload your blueprint](getting-started-upload-blueprint.html) to Cloudify's Management Environment.
+Whether you created a blueprint archive or not, you should now be able to [upload your blueprint](getting-started-upload-blueprint.html) to Cloudify's Management Environment.

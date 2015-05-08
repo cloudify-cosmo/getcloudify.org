@@ -4,7 +4,7 @@ title: Bootstrapping
 category: Getting Started
 publish: true
 abstract: Instructions on how to bootstrap a Cloudify Manager
-pageord: 50
+pageord: 100
 ---
 {%summary%}{{page.abstract}}{%endsummary%}
 
@@ -17,7 +17,7 @@ A Cloudify Manager comprises of [several underlying open-source tools](overview-
 The bootstrap process will create the infrastructure (servers, networks, security groups and rules, etc..) required for Cloudify's Manager to run and deploy Cloudify on that environment.
 
 
-# Initialization
+# Step 1: Initialize a Working Directory
 
 Navigate to a directory of your choosing, and initialize it as a Cloudify CLI working directory using this command:
 
@@ -29,7 +29,7 @@ This will create a folder named `.cloudify` to save the current context for the 
 but you shouldn't care about that for now.
 
 
-# Preparing Bootstrap Configuration
+# Step 2: Prepare the Bootstrap Configuration
 
 Bootstrapping a Cloudify Manager is done by using [Manager Blueprints](reference-terminology.html#manager-blueprints) - these are standard Cloudify blueprints which have been constructed to bring up a Manager and its topology on various providers.
 
@@ -46,8 +46,9 @@ You can download the correct Cloudify-Manager-Blueprints for the CFY version you
 {%endnote%}
 
 
-Now let's move on to bootstrap configuration.
-We'll configure an inputs YAML file. This file will serve as the configuration for the manager blueprint inputs. Note that the various manager blueprints folders offer an *inputs.yaml.template* file, which can be copied and edited with the desired values.
+Now let's move on to configuration.
+
+We'll configure an Inputs YAML file. This file will serve as the configuration for the manager blueprint inputs. Note that the various manager blueprints folders offer an *inputs.yaml.template* file, which can be copied and edited with the desired values.
 
 Below are examples of input.yaml file configurations for differnet providers. You can also generate a file on your own.
 
@@ -284,7 +285,7 @@ The manager blueprints are comprised not only of the *.yaml* file, but rather th
 If you wish to write a custom manager blueprint (whether it be for a custom behavior or a different provider) or learn more on how manager blueprints work, refer to the [Manager Blueprints Authoring guide](guide-authoring-manager-blueprints.html).
 
 
-# Installing Required Plugins
+# Install Required Plugins
 
 Manager blueprints can use Cloudify Plugins to perform the bootstrapping process.
 While this is good to know, you can ignore this section as we'll be installing Cloudify Plugins as a part of the bootstrap process itself.
@@ -308,7 +309,7 @@ sudo pip install -r requirements.txt
 {%endhighlight%}
 
 
-# Bootstrapping
+# Step 3: Bootstrap a Cloudify Manager
 
 {%note title=Note%}
 Please verify the [prerequisites](getting-started-prerequisites.html) before bootstrapping.
@@ -317,12 +318,10 @@ Please verify the [prerequisites](getting-started-prerequisites.html) before boo
 Finally, run the `cfy bootstrap` command, pointing it to the manager blueprint file and the inputs YAML file, like so:
 
 {% highlight sh %}
-cfy bootstrap -p /path/to/manager/blueprint/file -i /path/to/inputs/yaml/file
+cfy bootstrap -p /path/to/manager/blueprint/file -i /path/to/inputs/yaml/file --install-plugins
 {%endhighlight%}
 
-Below are examples for bootstrapping on different providers.
-
-To bootstrap, type the following command in your shell:
+(Choose the command fitting your provider below)
 
 {% inittab %}
 {% tabcontent OpenStack%}

@@ -19,12 +19,12 @@ This process is called a Workflow.
 
 A Workflow is a Python code which describes the flow of performing differnet actions on your deployment.
 
-The first workflow a user will stumble upon is called the [Install]({{page.workflows_link}}#install) [Workflow]({{page.terminology_link}}#workflow). and is the default workflow provided by Cloudify for deploying your application.
+The first workflow a user will stumble upon is called the [Install]({{page.workflows_link}}#install) [Workflow]({{page.terminology_link}}#workflow) and is the default workflow provided by Cloudify for deploying your application.
 
 A user can create workflows for different types of action such as deploying code, changing infrastructure state and even for overriding the default Install Workflow.
 
 
-# Executing a Workflow via the CLI
+## Executing a Workflow via the CLI
 
 To execute a workflow using Cloudify's CLI execute:
 
@@ -33,11 +33,11 @@ cfy executions start -w <WORKFLOW_NAME> -d <DEPLOYMENT_NAME>
 {%endhighlight%}
 
 
-# Executing a Workflow via the Web UI
+## Executing a Workflow via the Web UI
 
 When executing a `Workflow` for a `Deployment` (e.g. the `install` workflow), the topology nodes show badges that reflect the workflow execution state.
 
-# Badges
+## Badges
 See the `Topology` terminology definition [here]({{page.terminology_topology}}).<br/>
 
 * Install state - The workflow execution is in progress for this node
@@ -47,7 +47,7 @@ See the `Topology` terminology definition [here]({{page.terminology_topology}}).
 
 ![Deployment Topology Node Badges](/guide/images/ui/ui-deployment-topology-badges.png)
 
-# Workflow states represented by badges
+## Workflow states represented by badges
 A deployment before any workflow was executed
 ![Deployment Topology](/guide/images/ui/ui-deployment-topology-1.png)
 
@@ -70,7 +70,7 @@ A deployment with a workflow execution that failed
 ![Deployment Topology Execution Completed Errors](/guide/images/ui/ui-deployment-topology-7.png)
 
 
-# Install the application
+# Step 7: Install the Application
 
 We'll now execute the Install Workflow to deploy our application.
 
@@ -80,7 +80,7 @@ Type the following command in your terminal:
 cfy executions start -w install -d nodecellar
 {%endhighlight%}
 
-This will take a couple of minutes, during which the resources will be created and configured.
+This will take some time (depending on the provider), during which the resources will be created and configured.
 
 To track the progress of the installation, you can look at the events emitted to the terminal window.
 
@@ -97,7 +97,7 @@ In the Web UI, you can checkout the Logs/Events page for an overview of all Logs
 
 <br>
 
-You can also have a look at the Monitoring tab and see some default metrics:
+You can also have a look at the Monitoring tab and see some default metrics once the application has been installed:
 
 ![Metrics](/guide/images3/guide/default_dashboard.png)
 
@@ -106,7 +106,7 @@ The blueprint we installed actually defines a custom collector for the Mongo dat
 To add mongo related graphs to the dashboard, have a look at [Adding Custom Graphs](/guide/3.1/ui-monitoring.html#example---customize-your-dashboard).
 {%endnote%}
 
-# Test Drive the application
+# Step 8: Test Drive the application
 
 Once the workflow execution is complete, we can view the application endpoint by running:
 {%highlight bash%}
@@ -121,7 +121,7 @@ and can access the mongodb database to read the list of wines.
 
 ![Nodecellar](/guide/images3/guide/quickstart-openstack/nodecellar.png)
 
-# Uninstall the application
+# Step 9: Uninstall the application
 
 Uninstalling the deployment is just a matter of running another workflow
 which will teardown all the resources provisioned by the `install` workflow.
@@ -134,3 +134,7 @@ cfy executions start -w uninstall -d nodecellar
 Similarly to the `install` workflow, you can track the progress of the
 uninstall process in the CLI or the web UI using the events that are displayed in both.
 Once the workflow is completed, you can verify that the resources were indeed destroyed.
+
+# What's Next
+
+Now that the uninstallation process is complete, you can [delete the deployment](getting-started-delete-deployment.html).

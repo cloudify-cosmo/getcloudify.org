@@ -4,7 +4,7 @@ title: Writing a Blueprint
 category: Getting Started
 publish: true
 abstract: A simple blueprint authoring tutorial
-pageord: 100
+pageord: 200
 
 types_yaml_link: http://www.getcloudify.org/spec/cloudify/3.2/types.yaml
 plugin_guide_link: guide-plugin-creation.html
@@ -22,16 +22,27 @@ agent_overview_link: agents-description.html
 
 # Overview
 
-In Cloudify, an application is described in YAML format in a structure (one or multiple files) we call a Blueprint based on a standard called [TOSCA](https://www.oasis-open.org/committees/tosca/). In a Blueprint you will provide the application's components, how they relate to eachother, how they are installed and configured and how they're monitored and maintained. A Blueprint YAML file is a logical representation of your application.
+In Cloudify, an application is described in YAML format in a structure (one or multiple files) we call a Blueprint based on a standard called [TOSCA](https://www.oasis-open.org/committees/tosca/).
+
+In a Blueprint you will describe the application's components, how they relate to eachother, how they are installed and configured and how they're monitored and maintained. A Blueprint YAML file is a logical representation of your application.
 
 Other than the YAML itself, a Blueprint can comprise of multiple resources such as configuration and installation scripts (or Puppet Manifests, or Chef Recipes, etc..), code, random application related data, and basically any other resource you require for running your application.
 
 To learn more about blueprint syntax and elements please refer to the [DSL Specification](dsl-spec-general.html).
 
-If you want to write a blueprint now, continue reading. Otherwise, you can skip this guide and [upload a sample blueprint](getting-started-upload-blueprint.html).
+If you want to write a blueprint now, continue reading. Otherwise, you can skip step 4 of this guide and just download an example blueprint like so:
+
+  {% highlight bash %}
+  cd ~/cloudify-manager
+  git clone https://github.com/cloudify-cosmo/cloudify-nodecellar-example.git
+  cd cloudify-nodecellar-example
+  use -t <YOUR MANAGER IP ADDRESS>
+  {% endhighlight %}
+
+  In the `cloudify-nodecellar-example` directory you just cloned, you can see blueprint files alongside other resources related to this blueprint.
 
 
-# Writing a Cloudify Blueprint
+# Step 4: Write a Cloudify Blueprint
 
 {%tip title=Tip%}
 The [Terminology Reference Page]({{page.terminology_link}}) will help you understand some of the terms stated in this guide.

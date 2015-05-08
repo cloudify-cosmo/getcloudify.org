@@ -1,7 +1,7 @@
 ---
 layout: bt_wiki
 title: Components Overview
-category: Product Architecture and Flows
+category: Product Overview
 publish: true
 abstract: Overview of the different components Cloudify is comprised of
 pageord: 200

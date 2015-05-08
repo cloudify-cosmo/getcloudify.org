@@ -1,7 +1,7 @@
 ---
 layout: bt_wiki
 title: The Deployment Creation Flow
-category: Product Architecture and Flows
+category: Product Overview
 publish: true
 abstract: Describes the flow of creating a deployment for an existing Blueprint
 pageord: 500

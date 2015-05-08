@@ -1,7 +1,7 @@
 ---
 layout: bt_wiki
 title: The Metrics Flow
-category: Product Architecture and Flows
+category: Product Overview
 publish: true
 abstract: Describes the flow of streaming metrics from a host to Cloudify's Management Environment
 pageord: 700

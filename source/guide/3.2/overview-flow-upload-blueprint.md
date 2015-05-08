@@ -1,7 +1,7 @@
 ---
 layout: bt_wiki
 title: The Upload Blueprint Flow
-category: Product Architecture and Flows
+category: Product Overview
 publish: true
 abstract: Describes the flow of uploading a Cloudify Blueprint to a Cloudify Management Environment
 pageord: 400

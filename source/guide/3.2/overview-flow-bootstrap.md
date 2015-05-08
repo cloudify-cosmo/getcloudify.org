@@ -1,7 +1,7 @@
 ---
 layout: bt_wiki
 title: The Bootstrap Flow
-category: Product Architecture and Flows
+category: Product Overview
 publish: true
 abstract: Describes the flow of bootstrapping a Cloudify Management Environment
 pageord: 300
