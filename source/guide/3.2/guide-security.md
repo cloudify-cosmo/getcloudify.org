@@ -364,7 +364,7 @@ abstract_userstore.py) and implements:
   The object returned by `get_user` must adhere to Flask-secuREST's [User Model](https://github.com/cloudify-cosmo/flask-securest/blob/master/flask_securest/models.py#L41).
 
 ### LDAP UserStore Example:
-  An example for a userstore class - [LDAPUserStore](https://github.com/cloudify-cosmo/flask-securest/blob/master/flask_securest/userstores/eamples/ldap_userstore.py).<br>
+  An example for a userstore class - [LDAPUserStore](https://github.com/cloudify-cosmo/flask-securest/blob/master/flask_securest/userstores/examples/ldap_userstore.py).<br>
   This class inherits from [AbstractUserstore](https://github.com/cloudify-cosmo/flask-securest/blob/master/flask_securest/userstores/abstract_userstore.py) and implements the `get_user` method as required. 
 
   The properties to initialize this class should be specified in the manager blueprint as described earlier in [Configuring a Userstore](#configuring-a-userstore).<br>
