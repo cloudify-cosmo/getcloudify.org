@@ -57,10 +57,6 @@ request to be completed. Other authenticators will not be called until the next 
 If none of the authenticators can successfully authenticate the request - the request does not reach its endpoint and
 the client receives an "Unauthorized User" error.
 
-A valid authentication provider implementation can be any Python class that inherits from
-[abstract_authentication_provider.py](https://github.com/cloudify-cosmo/flask-securest/blob/master/flask_securest/
-authentication_providers/abstract_authentication_provider.py) and implements an `authenticate` method.
-
 
 ## Token Generator
 We mentioned Token as an authentication method. But in order to send a token with each request, the user must first
@@ -70,9 +66,10 @@ one of the registered authentication providers.
 
 To make things easier, Cloudify can also generate tokens through the REST service endpoint "/tokens".
 To enable this feature a token generator must be configured.
-{%note title=Note%}
+
+{% note title=Note %}
 The request to "/tokens" must itself be authenticated (using a username-password set, for example).
-{%endnote%}
+{% endnote %}
 
 
 # Setting up a secured server
@@ -356,6 +353,7 @@ In future versions, all communications from and to the Cloudify manager will uti
 # Writing your own userstore and authentication providers
 
 ## Custom UserStore Implementation
+
 A valid userstore implementation can be any Python class that inherits from
 [abstract_userstore.py](https://github.com/cloudify-cosmo/flask-securest/blob/master/flask_securest/userstores/
 abstract_userstore.py) and implements: 
@@ -385,8 +383,21 @@ abstract_userstore.py) and implements:
   {% endhighlight %}
   The above properties are specific to this example implementation.
 
-  In order to use this custom userstore the implementation of LDAPUserStore class should be installed on the manager as describe in the following section.
+  In order to use this custom userstore the implementation of LDAPUserStore class should be installed on the manager as describe in [Packaging, Configuring and Installing Custom Implementations](packaging-configuring-and-installing-custom-implementations).
 
+
+## Custom authentication provider Implementation
+
+A valid authentication provider implementation can be any Python class that inherits from
+[AbstractAuthenticationProvider](https://github.com/cloudify-cosmo/flask-securest/blob/master/flask_securest/
+authentication_providers/abstract_authentication_provider.py) and implements an `authenticate` method.
+
+### Password Based Authentication Provider Example:
+  An example for authentication provider - [PasswordAuthenticator](https://github.com/cloudify-cosmo/flask-securest/blob/master/flask_securest/authentication_providers/password.py)
+  This class implements an authentication provider based on password authentication. 
+  The `authenticate` method compares the password given from the user store (using the `get_user()` method) with the one recieved from the user (on the request).
+
+  The properties to initialize this class should be specified in the manager blueprint as described earlier in [Configuring Authentication Providers](#configuring-authentication-providers).<br>
 
 ## Packaging, Configuring and Installing Custom Implementations
 
