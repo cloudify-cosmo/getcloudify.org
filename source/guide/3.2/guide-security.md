@@ -40,15 +40,6 @@ To support a variety of user-store systems and configurations Cloudify security 
 userstore implementations. It's possible to use the default Flask-secuREST simple userstore or to specify a new
 implementation that supports a specific userstore system.
 
-A valid userstore implementation can be any Python class that inherits from
-[abstract_userstore.py](https://github.com/cloudify-cosmo/flask-securest/blob/master/flask_securest/userstores/
-abstract_userstore.py) and implements a `get_user` method.
-The object returned by `get_user` must adhere to Flask-secuREST's User Model, specifying these 3 methods:
-
-- is_active()
-- is_anonymous()
-- get_roles()
-
 
 ## Authentication Provider
 An Authentication Provider is a class that performs authentication. Multiple authentication providers can be configured
@@ -251,7 +242,7 @@ This is the default SSL configuration:
 {%tip title=Using a self-signed certificate%}
 
   A [self-signed certificate](http://en.wikipedia.org/wiki/Self-signed_certificate) can be used- this is a certificate that is signed by the manager itself, not by a CA (certificate authority)<br>
-  In this case, every client that wants to verify the manager's certificate needs to recieve a copy of the certificate file in order to use it for verification (see [Manager's certificate verification](#ssl-1) )
+  In this case, every client that wants to verify the manager's certificate needs to recieve a copy of the certificate file in order to use it for verification (see [Manager's certificate verification](#ssl-cli-configuration) )
 
 
   The following command can be used for creating a self-sigend certificate: 
@@ -364,7 +355,38 @@ In future versions, all communications from and to the Cloudify manager will uti
 
 # Writing your own userstore and authentication providers
 
-## how to write
+## Custom UserStore Implementation
+A valid userstore implementation can be any Python class that inherits from
+[abstract_userstore.py](https://github.com/cloudify-cosmo/flask-securest/blob/master/flask_securest/userstores/
+abstract_userstore.py) and implements: 
+
+- get_user() - returns a relevant user from the userstore. If a matching user is not found, returns None.<br>
+  The object returned by `get_user` must adhere to Flask-secuREST's [User Model](https://github.com/cloudify-cosmo/flask-securest/blob/master/flask_securest/models.py#L41).
+
+### LDAP UserStore Example:
+  An example for a userstore class - [LDAPUserStore](https://github.com/cloudify-cosmo/flask-securest/blob/master/flask_securest/userstores/eamples/ldap_userstore.py).<br>
+  This class inherits from [AbstractUserstore](https://github.com/cloudify-cosmo/flask-securest/blob/master/flask_securest/userstores/abstract_userstore.py) and implements the `get_user` method as required. 
+
+  The properties to initialize this class should be specified in the manager blueprint as described earlier in [Configuring a Userstore](#configuring-a-userstore).<br>
+  For example:
+  {% highlight yaml %}
+  userstore_driver:
+    implementation: flask_securest.authentication_providers.ldap_userstore:LDAPUserStore
+    properties:
+      admin_dn: cloudify.org
+      admin_password: password
+      directory_url: ldap://localhost:389
+      root_dn: dc=cloudify,dc=org
+      identifying_attribute: uid
+      username_attribute: uid
+      user_password_attribute: userPassword
+      user_email_attribute: mail
+      is_active_attribute: is_active
+  {% endhighlight %}
+  The above properties are specific to this example implementation.
+
+  In order to use this custom userstore the implementation of LDAPUserStore class should be installed on the manager as describe in the following section.
+
 
 ## Packaging, Configuring and Installing Custom Implementations
 
