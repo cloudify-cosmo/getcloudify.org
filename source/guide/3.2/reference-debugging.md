@@ -9,21 +9,23 @@ pageord: 400
 
 {%summary%} Cloudify is very pluggable and extendible by its nature; This page explains how to debug custom plugins, workflows and other extensions or components of Cloudify. {%endsummary%}
 
-# Accessing the Container
+# Where Are My Log Files?
 
-Cloudify log files reside in Cloudify's Docker container running on the manager host machine.
-In order to access the container, first ssh into the host machine, and from it access the container using this command:
-`sudo docker exec -it cfy bash`
+Cloudify log files commonly reside on the manager host machine, in a Docker container.
+In order to access the container to view log files, first ssh into the host machine. From it, access the container
+using this command: `sudo docker exec -it cfy bash`
 
 # Security Audit Log
 
 When starting Cloudify manager in a secured mode requests sent to the REST server go through authentication. <br>
-The security audit log file documents successful and failed REST calls, their origin, reason of failure or method of
-authentication if successful.
+The security audit log file documents successful and failed REST calls, their origin, method of authentication and
+the reason of failure, if authentication failed.
 
-The default location of the audit file is in the REST container, at this path: `/var/log/cloudify/rest-security-audit.log`.
-In the `Security` node in the manager blueprint it's possible to set the logging level (defaults to `INFO`), maximum
-file size (defaults to 100 MB) and number of old log file to keep (20).
+As mentioned above, the log file resides on the docker container running on the manager host machine. By default, it is
+located in `/var/log/cloudify/rest-security-audit.log`. The default logging level is `INFO`. The maximum file size is
+100 MB, after which the filename will be appended an index number (e.g. rest-security-audit.log.1) and a new log file
+will be created. Up to 20 old log files can be stored. All these settings can be configured in the manager
+blueprint, as explained [here](/guide/3.2/guide-security.html#logging).
 
 
 # REST Service Logs
