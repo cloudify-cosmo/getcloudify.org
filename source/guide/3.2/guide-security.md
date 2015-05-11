@@ -369,7 +369,7 @@ abstract_userstore.py) and implements:
   For example:
   {% highlight yaml %}
   userstore_driver:
-    implementation: flask_securest.authentication_providers.ldap_userstore:LDAPUserStore
+    implementation: flask_securest.userstores.examples.ldap_userstore:LDAPUserStore
     properties:
       admin_dn: cloudify.org
       admin_password: password
