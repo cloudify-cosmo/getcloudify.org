@@ -9,6 +9,24 @@ pageord: 400
 
 {%summary%} Cloudify is very pluggable and extendible by its nature; This page explains how to debug custom plugins, workflows and other extensions or components of Cloudify. {%endsummary%}
 
+# Where Are My Log Files?
+
+Cloudify log files commonly reside inside the docker container running the management services.
+In order to access the container to view log files, first ssh into the host machine. From it, access the container
+using this command: `sudo docker exec -it cfy bash`
+
+# Security Audit Log
+
+When starting Cloudify manager in a secured mode, requests sent to the REST server go through authentication. <br>
+The security audit log file documents successful and failed REST calls, their origin, method of authentication and
+, if the authentication failed, the reason for the failure.
+
+As mentioned above, the log file resides on the docker container running on the manager host machine. By default, it is
+located in `/var/log/cloudify/rest-security-audit.log`. The default logging level is `INFO`. The maximum file size is
+100 MB, after which the filename will be appended an index number (e.g. rest-security-audit.log.1) and a new log file
+will be created. Up to 20 old log files can be stored. All these settings can be configured in the manager
+blueprint, as explained [here](/guide/3.2/guide-security.html#logging).
+
 
 # REST Service Logs
 
