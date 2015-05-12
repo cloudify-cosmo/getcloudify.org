@@ -32,7 +32,7 @@
 
 <li class="widget">
 <div class="aligncenter">
-<a href="/brochures/Cloudify-NFV.pdf" class="download" title="Cloudify Pure-Play NFV Management & Orchestration Brochure"><img src="/img/NFVBRC.png" width="214" alt="NFV | Network Function Virtualization | SDN Platform"></a></div>
+<a href="/brochures/Cloudify-NFV.pdf" class="directDownload" title="Cloudify Pure-Play NFV Management & Orchestration Brochure"><img src="/img/NFVBRC.png" width="214" alt="NFV | Network Function Virtualization | SDN Platform"></a></div>
 <h5 class="widgetheading">Cloudify Pure-Play NFV Management & Orchestration Brochure</h5></li>
 
 <br/>
@@ -266,7 +266,7 @@ function downloadFile(e)
 function track_download(downloadHref) {
 		var downloadme=downloadHref.split("/")[2]; 
 		//downloadme="/downloads/cloudify-" + downloadme.split("\.zip")[0] + "/get_cloudify";
-		_gaq.push(['_trackEvent', 'NFV White Paper Download', downloadme]);
+		_gaq.push(['_trackEvent', 'NFV Resource Download', downloadme]);
        	//track mixpanel
 		var zipName="";
 		zipName=downloadHref.split("/")[2]; 
@@ -292,7 +292,7 @@ function track_download(downloadHref) {
 		$company: formcompany,
 		$created: new Date(),
 		});
-		mixpanel.track('NFV White Paper Download', {'Zip Name':'NFV White Paper Download', 'Source':document.title});
+		mixpanel.track('NFV Resource Download', {'Zip Name':'NFV Resource Download', 'Source':document.title});
 		mixpanel.people.increment({
 			"Number Of Resource Downloads": 1
 		}); 
