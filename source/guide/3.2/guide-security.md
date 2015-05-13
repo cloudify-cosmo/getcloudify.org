@@ -381,13 +381,12 @@ When we use this term here, we simply mean: custom code that gets installed in t
   An example for a userstore class - [LDAPUserStore](https://github.com/cloudify-cosmo/flask-securest/blob/master/flask_securest/userstores/examples/ldap_userstore.py).<br>
   This class inherits from [AbstractUserstore](https://github.com/cloudify-cosmo/flask-securest/blob/master/flask_securest/userstores/abstract_userstore.py) and implements the `get_user` method as required. 
 
-  The properties to initialize this class should be specified in the manager blueprint as described earlier in [Configuring a Userstore](#configuring-a-userstore).<br>
-  For example:
+  The properties to initialize this class should be specified in the manager blueprint as described earlier in [Configuring a Userstore](#configuring-a-userstore), e.g.
   {% highlight yaml %}
   userstore_driver:
     implementation: flask_securest.userstores.examples.ldap_userstore:LDAPUserStore
     properties:
-      admin_dn: cloudify.org
+      admin_dn: cn=admin,dc=cloudify,dc=org
       admin_password: password
       directory_url: ldap://localhost:389
       root_dn: dc=cloudify,dc=org
@@ -399,7 +398,7 @@ When we use this term here, we simply mean: custom code that gets installed in t
   {% endhighlight %}
   The above properties are specific to this example implementation.
 
-  In order to use this custom userstore the implementation of LDAPUserStore class should be installed on the manager as describe in [Packaging, Configuring and Installing Custom Implementations](#packaging-configuring-and-installing-custom-implementations):
+  In order to use this custom userstore, the implementation of the LDAPUserStore class should be installed on the manager as describe in [Packaging, Configuring and Installing Custom Implementations](#packaging-configuring-and-installing-custom-implementations), e.g.
   {% highlight yaml %}
   node_templates:
     ...
@@ -410,9 +409,49 @@ When we use this term here, we simply mean: custom code that gets installed in t
         cloudify:
           plugins:
             ldap_userstore:
-              source: userstores/examples/ldap_userstore
+              source: userstores
   {% endhighlight %}
+  where userstores is the path to the userstores directory, relative to the manager blueprint's directory, for example:
+  ![An example to a userstores directory](/guide/images3/guide/userstores.png)
 
+  {%note title=Note%}
+  This ldap userstore example uses the [Python LDAP](http://www.python-ldap.org/doc/html/ldap.html#module-ldap) and the [Flask-SecuREST](https://github.com/cloudify-cosmo/flask-securest) modules.<br>
+  To install python-ldap successfully, the following development libraries are needed (package names taken from ubuntu environment):
+    {%highlight bash%}
+    sudo apt-get install -y python-dev libldap2-dev libsasl2-dev libssl-dev
+    {%endhighlight%}
+
+  To do it on Cloudify, the container must have these packages installed.<br>
+  Unfortunately, currently there is no convenient way for specifying non-python packages to be installed on the container.<br>
+  This is a known issue and is intended to be solved in Cloudify 3.3. - link to JIRA ?<br>
+  To work aroung it, one option is to supply a docker container image with the above packages installed (replace the `docker_url` property in the manager blueprint)<br>
+  Another work-around (althogh hecky) is to add the installation command to the setup.py file.<br>  
+    In this case, the setup.py file should look something like this:
+    {%highlight yaml%}
+    import os
+    from setuptools import setup
+
+    os.system('sudo apt-get install -y libldap2-dev libsasl2-dev')
+  
+    setup(
+      name='userstores',
+      version='0.1',
+      url='https://github.com/cloudify-cosmo/flask-securest/userstores/examples',
+      license='LICENSE',
+      author='cosmo-admin',
+      author_email='cosmo-admin@gigaspaces.com',
+      description='userstore examples',
+      packages=[
+          'ldap_userstores'
+      ],
+      install_requires=[
+          'python-ldap>=2.4.19',
+          'Flask-SecuREST>=0.6'
+      ]
+    )
+    {%endhighlight%}
+
+  {%endnote%}
 
 ### Password Based Authentication Provider Example:
   An example for authentication provider - [PasswordAuthenticator](https://github.com/cloudify-cosmo/flask-securest/blob/master/flask_securest/authentication_providers/password.py)
@@ -421,5 +460,4 @@ When we use this term here, we simply mean: custom code that gets installed in t
 
   The properties to initialize this class should be specified in the manager blueprint as described earlier in [Configuring Authentication Providers](#configuring-authentication-providers).<br>
 
-  In order to use this custom authentication provider, the implementation of PasswordAuthenticator class should be installed on the manager as describe in the next section.
 
