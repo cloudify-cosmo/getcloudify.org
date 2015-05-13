@@ -79,14 +79,14 @@ Each type has property `connection_config`. It can be used to pass parameters fo
         * `gateway` network gateway ip. It will be used by the plugin only when `use_dhcp` is false.
         * `ip` server ip address. It will be used by the plugin only when `use_dhcp` is false.
 
-* `connection_config` key-value authentication configuration. If not specified, values that were used for Cloudify bootstrap process will be used.
+* `connection_config` key-value vsphere environment configuration. If not specified, values that were used for Cloudify bootstrap process will be used.
     * `username` vSphere username.
     * `password` user password.
-    * `url` vSphere url.
-    * `port` port which vCenter Server system uses to monitor data transfer from SDK clients (443 by default).
+    * `url` vCenter url.
+    * `port` vCenter port for SDK (443 by default).
     * `datacenter_name` datacenter name.
-    * `resource_pool_name` name of a network resource pool.
-    * `auto_placement` signifies if server is to be automatically placed on a host (false by default).
+    * `resource_pool_name` name of a resource pool. If you do not with to use a resource pool this must be set to 'Resources' as this is the base resource pool on vSphere.
+    * `auto_placement` signifies whether to use vSphere's auto-placement instead of the plugin's. Must be true if you are using clusters. (false by default).
 
 
 ## cloudify.vsphere.nodes.network
@@ -99,7 +99,7 @@ Each type has property `connection_config`. It can be used to pass parameters fo
     * `name` network name
     * `vlan_id` VLAN identifier which will be assigne to the network.
     * `vswitch_name` vswitch name to which the network will be connected
-* `connection_config` key-value authentication configuration. Same as for `cloudify.vsphere.server` type.
+* `connection_config` key-value vsphere environment configuration. Same as for `cloudify.vsphere.server` type.
 
 
 ## cloudify.vsphere.nodes.storage
@@ -110,7 +110,7 @@ Each type has property `connection_config`. It can be used to pass parameters fo
 
 * `storage` key-value storage disk configuration.
     * `storage_size` disk size in GB.
-* `connection_config` key-value authentication configuration. Same as for `cloudify.vsphere.server` type.
+* `connection_config` key-value vsphere environment configuration. Same as for `cloudify.vsphere.server` type.
 
 
 # Examples
