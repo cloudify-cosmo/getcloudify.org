@@ -412,8 +412,20 @@ When we use this term here, we simply mean: custom code that gets installed in t
               source: userstores
   {% endhighlight %}
   where userstores is the path to the userstores directory, relative to the manager blueprint's directory, for example:
-  ![An example to a userstores directory](/guide/images3/guide/userstores.png)
-
+  
+  {% highlight yaml %}
+  
+  my-app:
+    userstores:
+      ldap_userstores:
+        __init__.py
+        simple_ldap_userstore.py
+      README.md
+      setup.py
+    my-manager-blueprint.yaml
+  
+  {% endhighlight %}
+  
   {%note title=Note%}
   This ldap userstore example uses the [Python LDAP](http://www.python-ldap.org/doc/html/ldap.html#module-ldap) and the [Flask-SecuREST](https://github.com/cloudify-cosmo/flask-securest) modules.<br>
   To install python-ldap successfully, the following development libraries are needed (package names taken from ubuntu environment):
