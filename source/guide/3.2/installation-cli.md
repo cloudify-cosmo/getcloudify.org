@@ -33,7 +33,7 @@ The downloadable packages allow for an offline installation of the cli and are d
 
 ###  As a downloadable installation script
 
-The downloadable `get-cloudify.py` script allows you to install the cli from the internet with many different configuration options.
+The downloadable `get-cloudify.py` script allows for an online installation of the cli with many different configuration options.
 The script can install the cli on different distributions of Linux, OSx (Darwin) and Windows.
 
 
@@ -41,17 +41,47 @@ The script can install the cli on different distributions of Linux, OSx (Darwin)
 
 ## Windows
 
-PLACEHOLDER FOR WINDOWS INSTALLATION METHOD
+The Windows installer is a single executable which performs the following (offline) installation:
+
+* Installs Python 2.7.x
+* Installs pip
+* Installs Virtualenv
+* Installs cfy
+
+{%note title=Installing Prerequisites%}
+If Python is not already installed, the executable will attempt to install it. During Python's installation you will be able to choose different installation options such as installing pip, adding the python executable to the path, and so on. If you choose, for instance, to not install pip and continue with the installation, you will be notified that you must install pip and it will be installed for you. The same goes for virtualenv.
+
+Python's installation requires a specific Microsoft Visual C++ 2008 Redistributable Package provided [here](https://www.microsoft.com/en-us/download/details.aspx?id=29). Install it if you stumble upon an error during the Python installation.
+{%endnote%}
+
+{%note title=Installation Environment%}
+Note that a virtualenv will be automatically created during installation and Cloudify's CLI will be installed within it.
+{%endnote%}
+
+To install cfy on Windows:
+
+* Download the installer from the [Downloads page](http://getcloudify.org/downloads/get_cloudify_3x.html) corresponding with the version you would like to install.
+* Run the executable
+* Follow the installation instructions.
+* When the installation is finished, double click the new Cloudify icon on your desktop. This will open a terminal with the virtualenv already activated.
+
+Now try running `cfy -h` in your terminal. You should get an output describing how to use `cfy`.
+
+{%note title=Uninstall%}
+Note that uninstalling the package will not remove Python, pip and Virtualenv whether they were or were not installed during the installation process.
+{%endnote%}
+
 
 ## Linux
 
-* To install via rpm packages, you must have Python2.7.x and pip 1.5+ installed and Python2.7.x must be executable as `python` from the path.
+To install via rpm packages, you must have Python2.7.x and pip 1.5+ installed and Python2.7.x must be executable as `python` from the path.
 
 ### Centos/RHEL
 
-1. Download the rpm package from the [Downloads page](downloads/get_cloudify_3x.html).
-1. Open a terminal at the directory where you downloaded the file.
-1. Run (replacing `<pkg.rpm>` with the name of file you downloaded):
+* Download the installer from the [Downloads page](http://getcloudify.org/downloads/get_cloudify_3x.html) corresponding with the version you would like to install.
+* Open a terminal at the directory where you downloaded the file.
+* Run (replacing `<pkg.rpm>` with the name of file you downloaded):
+
 {% highlight bash %}
 sudo rpm -i <pkg.rpm>
 source /cfy/env/bin/activate
@@ -61,6 +91,9 @@ Now try running `cfy -h` in your terminal. You should get an output describing h
 
 For more info on the installation script, see [here](#installing-using-the-script).
 
+### Ubuntu/Debian
+
+Installers for Debian based distros will be added in the future.
 
 ## OS X
 
@@ -101,8 +134,8 @@ If you are using Linux, and you choose to use either the `--force` flag or the `
 
 ## Installing the latest Stable Release using the default flags
 
-1. Download the [script](http://gigaspaces-repository-eu.s3.amazonaws.com/org/cloudify3/get-cloudify.py)
-1. Run
+* Download the [script](http://gigaspaces-repository-eu.s3.amazonaws.com/org/cloudify3/get-cloudify.py)
+* Run
 {% highlight bash %}
 python get-cloudify.py
 {% endhighlight %}
