@@ -415,7 +415,7 @@ When we use this term here, we simply mean: custom code that gets installed in t
   
   {% highlight yaml %}
   
-  my-app:
+  my_app:
     userstores:
       ldap_userstores:
         __init__.py
@@ -433,37 +433,40 @@ When we use this term here, we simply mean: custom code that gets installed in t
     sudo apt-get install -y python-dev libldap2-dev libsasl2-dev libssl-dev
     {%endhighlight%}
 
-  To do it on Cloudify, the container must have these packages installed.<br>
-  Unfortunately, currently there is no convenient way for specifying non-python packages to be installed on the container.<br>
-  This is a known issue and is intended to be solved in Cloudify 3.3. - link to JIRA ?<br>
-  To work aroung it, one option is to supply a docker container image with the above packages installed (replace the `docker_url` property in the manager blueprint)<br>
-  Another work-around (althogh hecky) is to add the installation command to the setup.py file.<br>  
-    In this case, the setup.py file should look something like this:
-    {%highlight yaml%}
-    import os
-    from setuptools import setup
-
-    os.system('sudo apt-get install -y libldap2-dev libsasl2-dev')
+  In order for the plugin installation to be successfull, these packages must be installed.<br>
+  Unfortunately, currently there is no convenient way for specifying system dependencies as plugin requirements.<br>
+  This is a known issue and is intended to be solved in Cloudify 3.3.<br>
+  To work around it, one option is to supply a custom cloudify manager docker image with the above packages installed (replace the `docker_url` property in the manager blueprint)<br>
+  Another work-around is to add the installation command to the setup.py file, for example:
   
-    setup(
-      name='userstores',
-      version='0.1',
-      url='https://github.com/cloudify-cosmo/flask-securest/userstores/examples',
-      license='LICENSE',
-      author='cosmo-admin',
-      author_email='cosmo-admin@gigaspaces.com',
-      description='userstore examples',
-      packages=[
-          'ldap_userstores'
-      ],
-      install_requires=[
-          'python-ldap>=2.4.19',
-          'Flask-SecuREST>=0.6'
-      ]
-    )
-    {%endhighlight%}
-
   {%endnote%}
+  
+  {%highlight python%}
+
+  import os
+  from setuptools import setup
+  
+  os.system('sudo apt-get install -y libldap2-dev libsasl2-dev')
+  
+  setup(
+    name='userstores',
+    version='0.1',
+    url='https://github.com/cloudify-cosmo/flask-securest/userstores/examples',
+    license='LICENSE',
+    author='cosmo-admin',
+    author_email='cosmo-admin@gigaspaces.com',
+    description='userstore examples',
+    packages=[
+      'ldap_userstores'
+    ],
+    install_requires=[
+      'python-ldap>=2.4.19',
+      'Flask-SecuREST>=0.6'
+    ]
+  )
+
+  {%endhighlight%}
+
 
 ### Password Based Authentication Provider Example:
   An example for authentication provider - [PasswordAuthenticator](https://github.com/cloudify-cosmo/flask-securest/blob/master/flask_securest/authentication_providers/password.py)
