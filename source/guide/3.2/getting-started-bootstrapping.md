@@ -10,9 +10,9 @@ pageord: 100
 
 # Overview
 
-While Cloudify's CLI provides [very limited support for deploying an application](LOCAL_WORKFLOWS_LINK!), to be able to fully utilize Cloudify to deploy your application using the different Cloudify plugins, you'll have to bootstrap a Cloudify Manager.
+While Cloudify's CLI provides [very limited support for deploying an application](LOCAL_WORKFLOWS_LINK!) by itself, to be able to fully utilize Cloudify to deploy your application using the different Cloudify plugins, you'll have to bootstrap a Cloudify Manager.
 
-A Cloudify Manager comprises of [several underlying open-source tools](overview-components.html) all integrated via Cloudify's code to create a dynamic environment supporting the different operational flows you might be interested in when deploying your application.
+A Cloudify Manager comprises of Cloudify's code and [several underlying open-source tools](overview-components.html) all integrated to create a dynamic environment supporting the different operational flows you might be interested in when deploying your application.
 
 The bootstrap process will create the infrastructure (servers, networks, security groups and rules, etc..) required for Cloudify's Manager to run and deploy Cloudify on that environment.
 
@@ -300,13 +300,43 @@ For example, on openstack:
 
 (Alternatively, you may pass the `--install-plugins` flag to the `cfy bootstrap` command which follows soon)
 
-The *install-plugins* functionality only works if you are running from within a virtualenv.
+{%note title=Note%}
+Ths *install-plugins* functionality only works if you are running from within a virtualenv.
 If this is not the case, installing plugins will require sudo permissions and can be done like so:
 
+{% inittab %}
+
+{% tabcontent OpenStack%}
 {% highlight sh %}
-cfy local create-requirements -o requirements.txt -p /path/to/manager/blueprint/file
+cfy local create-requirements -o requirements.txt -p openstack-manager-blueprint.yaml
 sudo pip install -r requirements.txt
 {%endhighlight%}
+{% endtabcontent %}
+
+{% tabcontent SoftLayer%}
+{% highlight sh %}
+cfy local create-requirements -o requirements.txt -p softlayer.yaml
+sudo pip install -r requirements.txt
+{%endhighlight%}
+{% endtabcontent %}
+
+{% tabcontent AWS EC2%}
+{% highlight sh %}
+cfy local create-requirements -o requirements.txt -p aws-ec2-manager-blueprint.yaml
+sudo pip install -r requirements.txt
+{%endhighlight%}
+{% endtabcontent %}
+
+{% tabcontent vCloud%}
+{% highlight sh %}
+cfy local create-requirements -o requirements.txt -p vcloud.yaml
+sudo pip install -r requirements.txt
+{%endhighlight%}
+{% endtabcontent %}
+
+{% endinittab %}
+
+{%endnote%}
 
 
 # Step 3: Bootstrap a Cloudify Manager
@@ -347,49 +377,10 @@ cfy bootstrap --install-plugins -p vcloud.yaml -i inputs.yaml --task-retries 10
 {% endinittab %}
 
 
-{%note title=Note%}
-Ths *install-plugins* functionality only works if you are running from within a virtualenv.
-If this is not the case, installing plugins will require sudo permissions and can be done like so:
-
-{% inittab %}
-
-{% tabcontent OpenStack%}
-{% highlight sh %}
-cfy local create-requirements -o requirements.txt -p openstack-manager-blueprint.yaml
-sudo pip install -r requirements.txt
-{%endhighlight%}
-{% endtabcontent %}
-
-{% tabcontent SoftLayer%}
-{% highlight sh %}
-cfy local create-requirements -o requirements.txt -p softlayer.yaml
-sudo pip install -r requirements.txt
-{%endhighlight%}
-{% endtabcontent %}
-
-{% tabcontent AWS EC2%}
-{% highlight sh %}
-cfy local create-requirements -o requirements.txt -p aws-ec2-manager-blueprint.yaml
-sudo pip install -r requirements.txt
-{%endhighlight%}
-{% endtabcontent %}
-
-{% tabcontent vCloud%}
-{% highlight sh %}
-cfy local create-requirements -o requirements.txt -p vcloud.yaml
-sudo pip install -r requirements.txt
-{%endhighlight%}
-{% endtabcontent %}
-
-{% endinittab %}
-
-{%endnote%}
-
 
 This should take a few minutes to complete (depending on how responsive your Cloud environment is).
 After validating the configuration, `cfy` will create the management VM, related
-networks and security groups (the latter two will not be created if they already exist),
-download the relevant Cloudify packages and install all of the components.
+networks and security groups, download the relevant Cloudify packages and install all of the components.
 At the end of this process you should see the following message:
 
 {% highlight bash %}
@@ -398,10 +389,13 @@ management server is up at <YOUR MANAGER IP ADDRESS>
 {% endhighlight %}
 
 To validate this installation, point your web browser to the manager IP address (port 80).
-You should see Cloudify's Web UI (if you're using the commercial version).
+If you're using the commercial version, you should see Cloudify's Web UI.
 At this point there's nothing much to see since you haven't uploaded any blueprints yet.
 
 When the command is done executing, you'll have an operational Cloudify manager on the desired provider. You may verify this by making a *status* call.
+
+Note that if you're using the commercial version, the Web UI should appear as a running service in the output.
+
 An example output:
 
 {% highlight sh %}

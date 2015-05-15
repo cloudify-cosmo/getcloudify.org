@@ -49,12 +49,13 @@ The recommended requirements can vary based on the following:
 As a general recommendation for the average system, Cloudify would require at least 8GB of RAM and 4 CPU Cores. Disk space requirements varies according to the amount of logs, events and metrics sent as Cloudify doesn't currently clean or rotate them.
 
 ### Network
-The Manager must be available in the following ports:
+The Manager must be accessible via the following ports:
 
 * Inbound - port 80 - For REST API and UI access.
 * Inbound - port 443 - For REST API and UI access (when using SSL).
 * Inbound - port 22 - If [Bootstrapping]({{page.terminology_link}}#bootstrapping) is done via the CLI.
 * Inbound - port 5672 - [Agent]({{page.terminology_link}}#agent) to Manager communication.
+* Inbound - port 53229 - For fileserver access .
 * Outbound - port 22 - If running Linux based host machines and remote agent installation is required.
 * Outbound - port 5985 - If running Windows based host machines and remote agent installation is required.
 
@@ -69,16 +70,14 @@ If the host machine Docker is running on is based on Ubuntu 14.04, we will attem
 {%endnote%}
 
 ### Hosts
-Please see [here](agents-description.html#provided-agent-packages) for the supported distributions.
+Please see [here](agents-general.html#provided-agent-packages) for the supported distributions.
 
 Agents are provided for these OS distributions, but using the [Cloudify Agent Packager]({{page.agent_packager_link}}), you can create you own agents for your distribution.
 
 ## Docker
 As Cloudify's Management Environment runs above Docker containers, Docker 1.3+ is required.
 
-Cloudify will attempt to install Docker on Ubuntu 14.04 (Trusty) ONLY as other images may require kernel upgrades and additional package installations.
-
 
 # What's Next
 
-Next, you should [boostrap](getting-started-bootstrapping.html) a Cloudify Management Environment on the Cloud provider of your choice.
+Next, you should [bootstrap](getting-started-bootstrapping.html) a Cloudify Management Environment on the Cloud provider of your choice.
