@@ -11,7 +11,7 @@ pageord: 700
 
 # Overview
 
-Cloudify also exposes a function for deleting the management environment and its accompanying resources (the servers, networks, security groups and any other resources that were configured within the manager blueprint).
+It's also possible to delete the Manager and its accompanying resources (the servers, networks, security groups and any other resources that were configured within the manager blueprint) via the CLI.
 
 
 # Step 11: Teardown the management environment
