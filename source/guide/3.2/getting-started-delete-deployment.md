@@ -11,7 +11,7 @@ pageord: 600
 
 # Overview
 
-After uninstalling an application you can delete it from the Management Environment. Deleting a deployment has no functional value per se, but it does clean up the environment from excess artifacts. For example, all of its static and runtime properties are still stored in the manager's database.
+After uninstalling an application you can delete it from the Manager. Deleting a deployment has no functional value per se, but it does clean up the environment from excess artifacts. For example, all of its static and runtime properties are still stored in the Manager's database and the deployment specific agents are consuming resources on the Manager after the application has been uninstalled.
 
 
 # Step 10: Delete the Deployment
