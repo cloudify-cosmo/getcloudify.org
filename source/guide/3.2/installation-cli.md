@@ -25,9 +25,7 @@ Cloudify CLI (AKA cfy) is being distributed in two different methods:
 1. As a binary package
 1. As a Python package (via PyPi)
 
-{% tip title=Which distribution method should you choose? %}
-The binary package is only able to bootstrap Openstack manager. If you wish to bootstrap other environments,
-you should [install the CLI via PyPi](#installing-from-pypi).{% endtip %}
+{% tip title=Which distribution method should you choose? %} The Binary package provides commercial features such as commercial plugins and manager blueprints. If you wish to only use the Open Source version of Cloudify, you should install from PyPI.{% endtip %}
 
 # Installing the binary package
 
