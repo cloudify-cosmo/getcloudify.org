@@ -33,18 +33,22 @@ To Create a new deployment, go to the blueprints screen, choose a blueprint and 
 
 A create deployment dialog will open.<br/>
 
-Next, please fill out the deployment name and insert raw input params (optional), then click on `create` button:<br/>
+Next, please fill out the deployment name and insert raw input parameters (optional), then click on the `create` button:<br/>
 ![Create deployment box](/guide/images/ui/ui-create-deployment-box.jpg)
 
 After creating the deployment, you will be directed to the deployment's page to follow the initialization stage:<br/>
 ![Deployment initialize](/guide/images/ui/ui-initialize-deployment.jpg)
 
-Once the initialization is complete, you will be able to start using the deployment and execute [workflows]({{page.terminology_link#workflow}}):<br/>
+Once the initialization is complete, you will be able to start using the deployment and execute [workflows]({{page.terminology_link#workflow}})<br/>
 ![Deployment ready to use](/guide/images/ui/ui-deployment-ready.jpg)
 
 # Step 6: Create a Deployment
 
 We'll now create the deployment for our blueprint.
+
+{%note title=Note%}
+Creating a Deployment doesn't actually create any resources, it simply generates a "Physical" representation of your application from the "Logical" (Blueprint) representation and stores in the database.
+{%endnote%}
 
 To do so, we'll first create an inputs file (just like our Manager Blueprint's inputs file):
 
@@ -255,7 +259,7 @@ We've now created a deployment named `nodecellar` based on a blueprint with the 
 This deployment is not yet materialized, since we haven't issued an installation command.
 
 If you click the "Deployments" icon in the left sidebar in the Web UI, you will see that all nodes are labeled with 0/1, which
-ans they're pending creation.
+means they're pending creation.
 
 ![Nodecellar Deployment](/guide/images3/guide/quickstart-openstack/nodecellar_deployment.png)
 
