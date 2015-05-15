@@ -17,9 +17,9 @@ workflows_link: reference-builtin-workflows.html
 Once a [Deployment is created](getting-started-create-deployment.html), a process is required to perform the actual application's manifestation in your chosen environment.
 This process is called a Workflow.
 
-A Workflow is a Python code which describes the flow of performing differnet actions on your deployment.
+A [Workflow]({{page.terminology_link}}#workflow) is Python code which describes the flow of performing different actions on your deployment.
 
-The first workflow a user will stumble upon is called the [Install]({{page.workflows_link}}#install) [Workflow]({{page.terminology_link}}#workflow) and is the default workflow provided by Cloudify for deploying your application.
+The first workflow a user will stumble upon is called the [Install Workflow]({{page.workflows_link}}#install) and is the default workflow provided by Cloudify for deploying your application.
 
 A user can create workflows for different types of action such as deploying code, changing infrastructure state and even for overriding the default Install Workflow.
 
@@ -80,7 +80,7 @@ Type the following command in your terminal:
 cfy executions start -w install -d nodecellar
 {%endhighlight%}
 
-This will take some time (depending on the provider), during which the resources will be created and configured.
+This will take some time (depending on the IaaS provider), during which the resources will be created and configured.
 
 To track the progress of the installation, you can look at the events emitted to the terminal window.
 
