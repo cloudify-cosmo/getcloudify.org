@@ -1,6 +1,6 @@
 ---
 layout: bt_wiki
-title: Demo Tutorial
+title: A Quick Tutorial
 category: none
 publish: true
 abstract: A quick tutorial for getting started with Cloudify and deploying your first blueprint
