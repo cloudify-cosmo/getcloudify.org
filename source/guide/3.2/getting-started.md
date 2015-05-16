@@ -24,7 +24,7 @@ You can take Cloudify for an instant test drive with an [online trial](http://ge
 
 # Before You Begin
 
-It is recommended that you try the [Demo Tutorial](quickstart.html) first to familiarize
+It is recommended that you try the [Quick Tutorial](quickstart.html) first to familiarize
 yourself with Cloudify and its concepts.
 
 To complete the following section you'll need to have a cloud environment of your choice and credentials on top of verifying that the [prerequisites for bootstrapping](getting-started-prerequisites.html) are met.
@@ -41,10 +41,10 @@ For more information on the CLI's functions check the [CLI Reference](cfy-refere
 Cloudify is mainly comprised of three main entities:
 
 * A Command-Line Interface (The client)
-* A Management Environment (The brain)
+* A Manager (The brain)
 * Agent(s) (The workers)
 
-This Getting Started section will walk you through bootstrapping a Cloudify Management Environment in an IaaS environment using Cloudify's CLI and installing a sample Cloudify blueprint on it. Agents will be installed on the provisioned machines.
+This Getting Started section will walk you through bootstrapping a Cloudify Manager in an IaaS environment using Cloudify's CLI and installing a sample Cloudify blueprint on it. Agents will be installed on the provisioned machines.
 Once everything up and and runnning, you will also be able to teardown the entire thing.
 
 You can choose to bootstrap on one of the following IaaS providers:
@@ -64,4 +64,4 @@ The blueprint you'll be deploying describes a nodejs application that connects t
 
 # What's Next
 
-Let's start by [bootstrapping a Cloudify Management Environment](getting-started-bootstrapping.html).
+Let's start by [bootstrapping a Cloudify Manager](getting-started-bootstrapping.html).
