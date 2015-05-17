@@ -1,10 +1,10 @@
 ---
 layout: bt_wiki
-title: Built-in Workflows Reference
-category: Reference
+title: Built-in Workflows
+category: Workflows
 publish: true
 abstract: "description and details on the Cloudify built-in workflows"
-pageord: 900
+pageord: 100
 ---
 
 {%summary%} Cloudify comes with a few [built-in workflows](guide-workflows.html#built-in-workflows). This page will give a high level description of these workflows. {%endsummary%}

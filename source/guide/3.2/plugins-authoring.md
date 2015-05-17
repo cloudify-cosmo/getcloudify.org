@@ -1,6 +1,6 @@
 ---
 layout: bt_wiki
-title: Plugin Authoring Guide
+title: Plugins Authoring Guide
 category: Plugins
 publish: true
 abstract: This guides you through the steps necessary for writing a Cloudify plugin
