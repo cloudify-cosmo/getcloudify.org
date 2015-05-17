@@ -26,10 +26,11 @@ This plugin can only install agents on an image that meets the following set of 
 To enable WinRM on the machine execute these commands:
 {% highlight bash %}
 winrm quickconfig
-winrm s winrm/config/service '@{AllowUnencrypted="true";MaxConcurrentOperationsPerUser="4294967295"}'
-winrm s winrm/config/service/auth '@{Basic="true"}'
-winrm s winrm/config/winrs '@{MaxShellsPerUser="2147483647"}'
+winrm s winrm/config/service @{AllowUnencrypted="true";MaxConcurrentOperationsPerUser="4294967295"}
+winrm s winrm/config/service/auth @{Basic="true"}
+winrm s winrm/config/winrs @{MaxShellsPerUser="2147483647"}
 {%endhighlight%}
+the above winrm commands will fail in Windows Server 2012 (with PowerShell2), you need to put the @{...} in single quotes like winrm set winrm/config/service/auth '@{Basic="true"}'
 
 {%note title=Note%}
 These settings provide unencrypted WinRM access to the machine. We're working on adding Kerberos support.
