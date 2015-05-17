@@ -20,27 +20,40 @@ Cloudify 3 has a new architecture and a new code base and is composed of the fol
 
 ## The Command-Line Interface
 
-Cloudify's CLI provides various functions:
+Cloudify's CLI is written in Python and comprises of several modules:
 
-* **[Manager Bootstrapping]({{page.terminology_link}}#bootstrapping)**  - This is of course an optional functionality as you may install the manager with your preferred tool.
+* The CLI module itself which provides the interface.
+* Cloudify's DSL parser which parses blueprints.
+* Cloudify's Plugins used for bootstrapping a Cloudify Manager or for executing Cloudify workflows locally.
 
-* **[Managing Application]({{page.terminology_link}}#application)** - The CLI serves as a REST client versus the manager's REST API. It provides the user with the full set of functions for deploying & managing applications including log/event browsing.
-
-![Cloudify components](/guide/images3/architecture/Cloudify_Stack.png)
+The CLI uses Cloudify's REST client module to interact with the Manager running Cloudify's REST service.
+All requests are served via a proxy.
 
 
 ## The Manager
 
-The Cloudify Manager is a stateful orchestrator that deploys and manages applications decribed in orchestration plans called [blueprints](#blueprint). The manager's main responsibility is to run automation processes described in workflow[(?)]({{page.terminology_link}}#workflow) scripts and issue execution commands to the agents[(?)]({{page.terminology_link}}#agent). The manager's flows and components are discussed in detail below.
+Cloudify's Manager comprises of Cloudify's code and a set of Open-Source applications. An elaborate explanation on these applications is provided [here](overview-components.html).
+
+The Manager architecture is designed in such a way to provide support for all potential operational flows you might require when managing your application such as:
+
+* Event Stream Processing
+* Secured Requests
+* Metrics Queuing, Aggregation and Analysis
+* Logs/Events Queuing, Aggregation and Analysis
+* Manual or Automated Task execution and Queuing based on live streams of events or aggregated data.
+* Interaction with Cloudify's Agents for executing tasks on application hosts and maintaining them.
 
 ## The Agents
 
-The Cloudify Agents[(?)]({{page.terminology_link}}#agent) are responsible for managing the manager's command execution using a set of plugins[(?)]({{page.terminology_link}}#plugin).
-There is a manager side agent per application[(?)]({{page.terminology_link}}#application) deployment[(?)]({{page.terminology_link}}#deployment) and optional agent on each application VM.
+Cloudify's Agents are entities designed to execute tasks on application hosts. They're able to listen to task queues and execute tasks when required.
 
-**The manager side agents** handle IaaS related tasks[(?)]({{page.terminology_link}}#task) (e.g. creating a VM or a Network, binding a floating IP to a VM). Manager side agents can also be used with other tools such as [Fabric](http://www.fabfile.org/) or REST to remotely execute tasks.
+The agents are designed to execute tasks using [Cloudify specific Plugins](plugins-general.html).
 
-**The application side agents** are optionally located on application VM's. The user can state in the blueprint[(?)]({{page.terminology_link}}#blueprint) which VM's will have an agent installed on them. The application side agents are installed by the manager side agent as part of the VM creation task. Once running, the application side agent can install plugins and execute tasks locally. Typical tasks will be middleware installaton and configuration and application modules deployment.
+In the background, the same agents used on the hosts are also used in the Manager but in a different context. For instance, each deployment has two agents, one of which talks to IaaS APIs to deploy resources.
+
+Note that Cloudify can run in "Agentless" mode which means that agents can use certain plugins to manage hosts without the agents being installed on them. A user can decide which server nodes will have agents installed on them by stating the choice in the blueprint.
+
+More on agents [here](agents-general.md).
 
 ![Cloudify Manager Architecture](/guide/images3/architecture/cloudify_flows.png)
 
