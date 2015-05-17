@@ -12,7 +12,7 @@ pageord: 100
 
 While Plugins provide a way to interact with different tools or APIs, Workflows are the actual logic behind deploying and managing applications. Workflows (which are actually just Python code) provide the logic for Cloudify to know what to run and when to run it.
 
-The
+The Install Workflow is a good example for a workflow.
 
 
 # What's Next
