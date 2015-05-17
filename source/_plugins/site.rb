@@ -57,7 +57,7 @@ module Jekyll
             "Troubleshooting"]
         payload["categories_3_2_root"] = [
             '/guide/3.2/getting-started.html',
-            '',
+            '/guide/3.2/overview-general.html',
             '/guide/3.2/agents-general.html',
             '/guide/3.2/workflows-general.html',
             '/guide/3.2/plugins-general.html',

@@ -2,37 +2,39 @@
 layout: bt_wiki
 title: Architecture Overview
 category: Product Overview
-publish: true
-abstract: Explains the architecture and flow of Cloudify 3.0 the DevOps Orchestrator
+publish: false
+abstract: Overview of Cloudify's Architecture
 pageord: 100
 
 terminology_link: reference-terminology.html
 ---
 {%summary%} {{page.abstract}}{%endsummary%}
 
-# Architecture
-Cloudify 3.0 has a new architecture and a new code base. Cloudify 3.0 is composed of the following main parts:
+# Overview
 
-* **CLI client**
-* **Manager (Orchestrator)**
+Cloudify 3 has a new architecture and a new code base and is composed of the following main parts:
+
+* **Comand-Line Interface**
+* **Manager**
 * **Agents**
 
-## The CLI client
+## The Command-Line Interface
 
-The CLI client is an executable (written in Python and packaged with python and any relevant dependencies in an executable).
-The CLI can run on Windows, Linux and Mac OS. The CLI provides 2 main functions:
+Cloudify's CLI provides various functions:
 
-* **Manager Bootstrapping[(?)]({{page.terminology_link}}#bootstrapping)**  - This is of course an optional functionality as you may install the manager with your preferred tool.
+* **[Manager Bootstrapping]({{page.terminology_link}}#bootstrapping)**  - This is of course an optional functionality as you may install the manager with your preferred tool.
 
-* **Managing Applications[(?)]({{page.terminology_link}}#application)** - The CLI serves as a REST client versus the Cloudify manager REST interface. It provides the user with the full set of functions for deploying & managing applications including log/event browsing.
+* **[Managing Application]({{page.terminology_link}}#application)** - The CLI serves as a REST client versus the manager's REST API. It provides the user with the full set of functions for deploying & managing applications including log/event browsing.
 
 ![Cloudify components](/guide/images3/architecture/Cloudify_Stack.png)
 
 
-## The Manager (Orchestrator)
+## The Manager
+
 The Cloudify Manager is a stateful orchestrator that deploys and manages applications decribed in orchestration plans called [blueprints](#blueprint). The manager's main responsibility is to run automation processes described in workflow[(?)]({{page.terminology_link}}#workflow) scripts and issue execution commands to the agents[(?)]({{page.terminology_link}}#agent). The manager's flows and components are discussed in detail below.
 
 ## The Agents
+
 The Cloudify Agents[(?)]({{page.terminology_link}}#agent) are responsible for managing the manager's command execution using a set of plugins[(?)]({{page.terminology_link}}#plugin).
 There is a manager side agent per application[(?)]({{page.terminology_link}}#application) deployment[(?)]({{page.terminology_link}}#deployment) and optional agent on each application VM.
 
