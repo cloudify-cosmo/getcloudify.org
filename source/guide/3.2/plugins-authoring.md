@@ -1,7 +1,7 @@
 ---
 layout: bt_wiki
 title: Plugin Authoring Guide
-category: Guides
+category: Plugins
 publish: true
 abstract: This guides you through the steps necessary for writing a Cloudify plugin
 pageord: 500
@@ -217,7 +217,7 @@ def start(**kwargs):
     # start is executed for the first time, start the resource
     if ctx.operation.retry_number == 0:
         iaas.start_vm()
-        
+
         # It will take some time until the VM will be running..
         # Request a retry after 30 seconds
         return ctx.operation.retry(message='Waiting for the VM to start..',
@@ -229,7 +229,7 @@ def start(**kwargs):
 
         # Request a retry after 5 seconds
         return ctx.operation.retry(message='Still waiting for the VM to start..',
-                                   retry_after=5) 
+                                   retry_after=5)
 
     # Resource is up and running
     ctx.logger.info('VM started successfully!')

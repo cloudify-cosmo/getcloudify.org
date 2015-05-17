@@ -13,4 +13,3 @@ The section contains documentation related to plugins officially supported by th
 * The quality of plugins officially supported by the Cloudify team is bound by an SLA.
 * The plugins are automatically tested as a part of Cloudify's delivery pipeline.
 * The plugins may be, but are not necessarily developed by the Cloudify team.
-

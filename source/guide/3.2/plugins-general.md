@@ -21,6 +21,6 @@ To cover the two major types of plugins (IaaS and Management tools), let's also 
 
 # What's Next
 
-Cloudify' Team provides a set of Official Plugins you can use. [Go check them out](plugin-official-general.html). You can also check the [Community Plugins](plugin-contrib-general.html) available which provide a different level of support.
+Cloudify' Team provides a set of Official Plugins you can use. [Go check them out](plugins-official-general.html). You can also check the [Community Plugins](plugins-contrib-general.html) available which provide a different level of support.
 
-You should also check the [Plugins Authoring Guide](guide-plugin-creation.html) if you want to write your own plugin for your chosen tool or IaaS provider.
+You should also check the [Plugins Authoring Guide](plugins-authoring.html) if you want to write your own plugin for your chosen tool or IaaS provider.
