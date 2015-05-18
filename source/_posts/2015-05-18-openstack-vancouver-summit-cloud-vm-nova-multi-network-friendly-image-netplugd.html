@@ -1,0 +1,193 @@
+---
+layout: blogpost
+title: A multi-network friendly Openstack VM image with netplugd
+image: barak.jpg
+author: Barak Merimovich
+tags: 
+ - OpenStack
+ - VMWare
+ - Nova
+ - OpenStack Summit
+ - Cloud
+---
+
+<notextile>
+<img src="/img/openstack-vancouver1.jpg" alt="OpenStack Vancouver Summit | VM | Cloud | OpenStack Nova | Multi-NIC Image | netplugd">
+<br/>
+<br/>
+<h1>A multi-network friendly Openstack VM image with netplugd</h1>
+<p>
+<p>A while (long while. Sorry about that) ago, I <a title="Configuring an Openstack VM with multiple Network Cards" href="https://barakme.wordpress.com/2014/08/19/configuring-an-openstack-vm-with-multiple-network-cards/" target="_blank">posted</a> about setting up a VM in an Openstack cloud so that it worked nicely with <a href="http://getcloudify.org/2014/11/03/openstack-neutron-openstack-nova-network-architecture-automation.html">multiple networks</a>. I also promised that I would explain how to automate this process.
+</p>
+<p >So, in this post, I will explain how to create an <a href="http://getcloudify.org/vmware-hybrid-cloud.html">Openstack VM</a> image that will automatically set up networking for all of the <a href="http://getcloudify.org/2014/05/14/openstack-neutron-networking-nova.html">Openstack networks</a> that are connected to the VM.</p>
+<p >The principles and techniques explained here should work similarly in other clouds that support multiple networks (like Amazon VPC)</p>
+<h2><b>TL;DR</b></h2>
+<p>
+      <ul>
+        <li>Create a VM from your base image, with a single network. </li>
+      </ul>
+    </p>
+    <p>
+      <ul >
+        <li>SSH into the instance and install <a href="https://people.debian.org/~enrico/netplugd_manpage.html">netplugd</a>.</li>
+      </ul>
+    </p>
+
+    <p>
+      <ul >
+        <li>Configure netplugdwith an appropriate<a class="attrlink" href="https://raw.githubusercontent.com/barakm/Netplug-config/master/netplug">script</a>, tweaked for your choice of Linux distribution.</li>
+      </ul>
+    </p>
+
+    <p>
+      <ul >
+        <li>Delete files that are not required, stop the instance and create a new image from the instance. </li>
+      </ul>
+    </p>
+
+    <p>
+      <ul >
+        <li>The new image will work correctly with all connected networks. </li>
+      </ul>
+    </p>
+
+    <p></p>
+
+    <h2><b>The Problem - VM Images with one configured NIC</b></h2>
+
+    <p>As discussed in the previous post, setting up the networks in Neutron and starting a VM that is attached to them is not enough. The VM has to cooperate with the network setup, somehow. </p>
+
+    <p>In many of the images provided by cloud vendors and Linux distributions, only one Network Interface Card – eth0 – is defined, so only the first network is available to the VM.</p>
+
+    <p>You can set up the other NICs using ssh (it network access is possible with only one NIC), or with a user-data script that runs during the VM start-up (I’m not a fan of this approach – more on that in a different post). But the best way (in my opinion, anyway) is by baking this behavior into your image.</p>
+
+    <h2 id="22" ><b>The Solution - VM Images with NICs configured by netplugd</b></h2>
+
+    <p><a href="https://people.debian.org/~enrico/netplugd_manpage.html">netplugd</a> is “a daemon that notifies the status of one or more ethernet interfaces, calling an external script when something changes.”</p>
+
+    <p >And that is exactly what we need. (Another option is <a href="http://0pointer.de/lennart/projects/ifplugd/">ifupd</a>). </p>
+
+    <h2 ><strong>Let's get to work. </strong></h2>
+
+    <p ><span style="text-decoration: underline">Network Setup</span></p>
+
+    <p >I’ll be using the same network setup as in the previous post.</p>
+
+    <p ></p>
+
+    <p><img alt="" src="https://hackpad-attachments.imgix.net/hackpad.com_293roh163zT_p.182721_1431629115296_Network_Topology_Start.png?fit=max&amp;w=882" /></p>
+
+    <p><span style="text-decoration: underline">Base VM</span></p>
+
+    <p>Start by creating a VM that is attached to a single network, and attach a floating IP to the instance. The command line is similar to the ‘nova boot’ command from the previous post, you’ll just need to pass a single network ID instead of two. We’ll be using the same security group and key-pair as well.</p>
+
+    <p><img alt="" src="https://hackpad-attachments.imgix.net/hackpad.com_293roh163zT_p.182721_1431630163476_Network_Topology_With_VM.png?fit=max&amp;w=882" /></p>
+
+    <p><span style="text-decoration: underline">And ssh into the instance: </span></p>
+
+    <code>
+      <p>ssh -i demo-keypair.pem ubuntu@&lt;Floating-IP&gt;</p>
+    </code>
+
+    <p><span style="text-decoration: underline">Now to setup netplugd: </span></p>
+
+    <code>
+      <p>sudo apt-get install netplug</p>
+
+      <p>wget <a href="https://raw.githubusercontent.com/barakm/Netplug-config/master/netplug">https://raw.githubusercontent.com/barakm/Netplug-config/master/netplug</a></p>
+
+      <p>sudo mv netplug /etc/netplug/netplug</p>
+
+      <p>sudo chmod +x /etc/netplug/netplug</p>
+
+    </code>
+
+    <p>You should read the <a href="https://raw.githubusercontent.com/barakm/Netplug-config/master/netplug">netplug</a> file. It is a straightforward script that detects network cards that are plugged in/out, and then edits the interfaces file accordingly.</p>
+
+    <p>Note: your choice of <a href="http://getcloudify.org/guide/3.1/plugin-linux-agent-installer.html">Linux</a> distribution might keep the interfaces configuration in a different location or file format. Some tweaking of this file might be necessary. The script as provided works on Ubuntu 12.04. Feel free to send in a pull request if you want to add your configuration to the repo.</p>
+
+    <p><span style="text-decoration: underline">Now, let’s clean up the VM and close the session:</span></p>
+
+    <code>
+      <p>rm ~/.ssh/authorized_keys</p>
+
+      <p>exit</p>
+
+    </code>
+
+    <p><span style="text-decoration: underline">Power off the instance</span></p>
+
+    <code>
+      <p>nova stop demo-vm</p>
+    </code>
+
+    <p></p>
+
+    <p>Wait until the VM fully shuts down. It should look something like this:</p>
+
+    <p ></p>
+
+    <code>
+      <p>nova list –name demo-vm</p>
+
+      <p><img alt="" src="https://hackpad-attachments.imgix.net/hackpad.com_293roh163zT_p.182721_1431630389816_Nova_Stop_Output_CLI.png?fit=max&amp;w=882" /></p>
+
+    </code>
+
+    <p><span style="text-decoration: underline">Create a snapshot of the image: </span></p>
+
+    <p ></p>
+
+    <code>
+      <p>nova image-create demo-vm “Ubuntu 12.04 with netplugd”</p>
+    </code>
+
+    <p><span style="text-decoration: underline">We can now delete the VM</p>
+
+    <code>
+      <p>nova delete demo-vm</p>
+    </code>
+
+    <p></p>
+
+    <p >Your image is now ready!</p>
+
+    <p ></p>
+
+    <p>Let’s take it out for a spin. We’ll use both networks this time:</p>
+
+    <p ></p>
+
+    <code>
+      <p>nova boot –flavor standard.medium –image “Ubuntu 12.04 with netplugd” –security-groups demo-security-group –key-name demo-keypair –nic net-id=XXXXX-XXXX-XXXX-XXXX-XXXXXXXX –nic net-id=YYYYYY-YYYY-YYYY-YYYY-YYYYYYYYYYYY demo-vm</p>
+
+      <p></p>
+    </code>
+
+    <p>Attach a floating IP to the instance and ssh into it.</p>
+
+    <p ></p>
+
+    <code>
+      <p>ssh -i demo-keypair.pem ubuntu@&lt;Floating-IP&gt; ifconfig</p>
+
+      <p><img  alt="" src="https://hackpad-attachments.imgix.net/hackpad.com_293roh163zT_p.182721_1431640954270_ifconfig-output-two-nics.png?fit=max&amp;w=882" /></p>
+    </code>
+
+    <p ></p>
+
+    <p>Note how both NICs are up and running? You now have a multi-network friendly Openstack Image. Enjoy.</p>
+
+    <p ></p>
+
+    <p>
+        One last thing, and this one always gets first-time users.
+
+        <br />Just cause the NICs are up, doesn’t mean all is well in networking land. You are probably going to need to set up routing rules to determine which NIC should be used for each of your network packets. These rules depend on what you are trying to accomplish in this network configuration. But we’ll leave that for another post. For now, consult with your sysadmin.</p>
+
+    
+  </p>
+</p>
+<hr />
+<h3><strong>This was originally posted at Barak's blog <a href="http://barakme.wordpress.com/" target="_blank"><em>Head in the Clouds</em></a>, find it <a href="https://barakme.wordpress.com/2015/05/15/a-multi-network-friendly-openstack-cloud-image-with-netplugd/" target="_blank">here</a>.</strong></h3>
+</notextile>
