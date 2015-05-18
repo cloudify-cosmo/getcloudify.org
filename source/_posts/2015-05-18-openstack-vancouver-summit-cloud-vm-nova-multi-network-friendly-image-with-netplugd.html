@@ -1,14 +1,14 @@
 ---
 layout: blogpost
-title: A multi-network friendly Openstack VM image with netplugd
+title: A Multi-Network Friendly Openstack VM Image with Netplugd
 image: barak.jpg
 author: Barak Merimovich
 tags:
  - OpenStack
  - VMWare
- - Nova
+ - OpenStack Neutron
  - OpenStack Summit
- - Cloud
+ - Network Orchestration
 ---
 
 <notextile>
@@ -17,9 +17,9 @@ tags:
 <br/>
 <h1>A multi-network friendly Openstack VM image with netplugd</h1>
 <p>
-<p>A while (long while. Sorry about that) ago, I <a title="Configuring an Openstack VM with multiple Network Cards" href="https://barakme.wordpress.com/2014/08/19/configuring-an-openstack-vm-with-multiple-network-cards/" target="_blank">posted</a> about setting up a VM in an Openstack cloud so that it worked nicely with <a href="http://getcloudify.org/2014/11/03/openstack-neutron-openstack-nova-network-architecture-automation.html">multiple networks</a>. I also promised that I would explain how to automate this process.
+<p>A while (long while. Sorry about that) ago, I posted about setting up a VM in an <a title="Configuring an Openstack VM with multiple Network Cards" href="http://getcloudify.org/2014/11/03/openstack-neutron-openstack-nova-network-architecture-automation.html" target="_blank">Openstack cloud</a> so that it worked nicely with multiple networks. I also promised that I would explain how to automate this process.
 </p>
-<p >So, in this post, I will explain how to create an <a href="http://getcloudify.org/vmware-hybrid-cloud.html">Openstack VM</a> image that will automatically set up networking for all of the <a href="http://getcloudify.org/2014/05/14/openstack-neutron-networking-nova.html">Openstack networks</a> that are connected to the VM.</p>
+<p >So, in this post, I will explain how to create an <a href="http://getcloudify.org/openstack-architecture-cloudify.html" target="_blank">Openstack VM</a> image that will automatically set up networking for all of the <a href="http://getcloudify.org/2014/05/14/openstack-neutron-networking-nova.html" target="_blank">Openstack networks</a> that are connected to the VM.</p>
 <p >The principles and techniques explained here should work similarly in other clouds that support multiple networks (like Amazon VPC)</p>
 
 <hr>
@@ -37,13 +37,13 @@ tags:
     </p>
     <p>
       <ul >
-        <li>SSH into the instance and install <a href="https://people.debian.org/~enrico/netplugd_manpage.html">netplugd</a>.</li>
+        <li>SSH into the instance and install <a href="https://people.debian.org/~enrico/netplugd_manpage.html" target="_blank">netplugd</a>.</li>
       </ul>
     </p>
 
     <p>
       <ul >
-        <li>Configure netplugdwith an appropriate<a class="attrlink" href="https://raw.githubusercontent.com/barakm/Netplug-config/master/netplug">script</a>, tweaked for your choice of Linux distribution.</li>
+        <li>Configure netplugd with an appropriate <a class="attrlink" href="https://raw.githubusercontent.com/barakm/Netplug-config/master/netplug" target="_blank">script</a>, tweaked for your choice of Linux distribution.</li>
       </ul>
     </p>
 
@@ -63,7 +63,7 @@ tags:
 
     <h2><b>The Problem - VM Images with one configured NIC</b></h2>
 
-    <p>As discussed in the previous post, setting up the networks in Neutron and starting a VM that is attached to them is not enough. The VM has to cooperate with the network setup, somehow. </p>
+    <p>As discussed in the previous post, setting up the networks in <a href="http://getcloudify.org/tags/Neutron/index.html" target="_blank">OpenStack Neutron</a> and starting a VM that is attached to them is not enough. The VM has to cooperate with the network setup, somehow. </p>
 
     <p>In many of the images provided by cloud vendors and Linux distributions, only one Network Interface Card - eth0 - is defined, so only the first network is available to the VM.</p>
 
@@ -167,7 +167,9 @@ tags:
     <p ></p>
 
     <code>
-      <p>nova boot -flavor standard.medium -image "Ubuntu 12.04 with netplugd" -security-groups demo-security-group -key-name demo-keypair -nic net-id=XXXXX-XXXX-XXXX-XXXX-XXXXXXXX -nic net-id=YYYYYY-YYYY-YYYY-YYYY-YYYYYYYYYYYY demo-vm</p>
+      <p>nova boot -flavor standard.medium -image "Ubuntu 12.04 with netplugd"
+      <br/> -security-groups demo-security-group -key-name demo-keypair -nic net-id=XXXXX-XXXX-XXXX-XXXX-XXXXXXXX
+      <br/> -nic net-id=YYYYYY-YYYY-YYYY-YYYY-YYYYYYYYYYYY demo-vm</p>
 
       <p></p>
     </code>
