@@ -24,28 +24,26 @@ You can take Cloudify for an instant test drive with an [online trial](http://ge
 
 # Before You Begin
 
-It is recommended that you try the [Quick Tutorial](quickstart.html) first to familiarize
+First, verify that you have met the [prerequisites for bootstrapping](getting-started-prerequisites.html).
+
+Also, you need to have an IaaS environment (a cloud) and credentials to complete the following section.
+
+If you hadn't already installed Cloudify's CLI, now would be the time to do so. To install the CLI, follow the steps described in the [CLI Installation guide](installation.html). The CLI allows you to upload blueprints, create deployments, and execute workflows, as well as many other useful functions. For more information on the CLI's functions check the [CLI Reference](cfy-reference.html).
+
+Finally, it is recommended that you try the [Quick Tutorial](quickstart.html) first to familiarize
 yourself with Cloudify and its concepts.
-
-To complete the following section you'll need to have a cloud environment of your choice and credentials on top of verifying that the [prerequisites for bootstrapping](getting-started-prerequisites.html) are met.
-
-If you hadn't already installed Cloudify's CLI, now would be the time to do so.
-To install the CLI follow the steps described in the [CLI Installation guide](installation.html).
-
-The CLI allows you to upload blueprints, create deployments, and execute workflows between many other useful functions.
-For more information on the CLI's functions check the [CLI Reference](cfy-reference.html).
-
 
 # Getting Started with Cloudify
 
-Cloudify is mainly comprised of three main entities:
+Cloudify comprises three distinct entities:
 
-* A Command-Line Interface (The client)
-* A Manager (The brain)
-* Agent(s) (The workers)
+* a command-line interface (the client)
+* a manager (the brain)
+* agent(s) (the workers)
 
-This Getting Started section will walk you through bootstrapping a Cloudify Manager in an IaaS environment using Cloudify's CLI and installing a sample Cloudify blueprint on it. Agents will be installed on the provisioned machines.
-Once everything up and and runnning, you will also be able to teardown the entire thing.
+This Getting Started section will walk you through bootstrapping a Cloudify Manager in the cloud of your choice using Cloudify's CLI. You will then install a sample Cloudify blueprint on it. During execution, agents will be installed on the provisioned machines.
+
+Once everything up and and runnning, we will show you how to tear down the entire thing.
 
 You can choose to bootstrap on one of the following IaaS providers:
 

@@ -10,11 +10,11 @@ pageord: 100
 
 # Overview
 
-While Cloudify's CLI provides [very limited support for deploying an application](LOCAL_WORKFLOWS_LINK!) by itself, to be able to fully utilize Cloudify to deploy your application using the different Cloudify plugins, you'll have to bootstrap a Cloudify Manager.
+While Cloudify's CLI provides [very limited support for deploying an application](LOCAL_WORKFLOWS_LINK!) by itself, you'll have to bootstrap a Cloudify Manager to be able to fully utilize Cloudify to deploy your application.
 
-A Cloudify Manager comprises of Cloudify's code and [several underlying open-source tools](overview-components.html) all integrated to create a dynamic environment supporting the different operational flows you might be interested in when deploying your application.
+A Cloudify Manager comprises of Cloudify's code and [several underlying open-source tools](overview-components.html) all integrated to create a dynamic environment, which will support the different operational flows you might be interested in when deploying your application.
 
-The bootstrap process will create the infrastructure (servers, networks, security groups and rules, etc..) required for Cloudify's Manager to run and deploy Cloudify on that environment.
+Using different Cloudify plugins, the bootstrap process will create the infrastructure (servers, networks, security groups and rules, etc..) required for Cloudify's Manager to run in that environment.
 
 
 # Step 1: Initialize a Working Directory
@@ -25,13 +25,12 @@ Navigate to a directory of your choosing, and initialize it as a Cloudify CLI wo
 cfy init
 {%endhighlight%}
 
-This will create a folder named `.cloudify` to save the current context for the Cloudify CLI,
-but you shouldn't care about that for now.
+This will create a folder in the current directory named `.cloudify`. (Cloudify will store the current context for the Cloudify CLI, but you shouldn't care about that for now.)
 
 
 # Step 2: Prepare the Bootstrap Configuration
 
-Bootstrapping a Cloudify Manager is done by using [Manager Blueprints](reference-terminology.html#manager-blueprints) - these are standard Cloudify blueprints which have been constructed to bring up a Manager and its topology on various providers.
+Bootstrapping a Cloudify Manager uses [Manager Blueprints](reference-terminology.html#manager-blueprints). These are standard Cloudify blueprints that have been constructed to bring up a Manager on various providers.
 
 First, clone the [Cloudify-Manager-Blueprints](https://github.com/cloudify-cosmo/cloudify-manager-blueprints) repository from Github, or copy your desired blueprint folder from there.
 
@@ -60,9 +59,7 @@ Below are examples of input.yaml file configurations for differnet providers. Yo
 
 {% tabcontent OpenStack %}
 
-[HP Cloud](http://www.hpcloud.com/) is a public OpenStack cloud.
-As such it provides a fairly easy starting point for experiencing a fully operational OpenStack environment.
-To use HP Cloud you need to [Setup an account on the HP Helion Cloud](https://horizon.hpcloud.com/).
+[HP Cloud](http://www.hpcloud.com/) is a public OpenStack cloud. As such it provides a fairly easy starting point for experiencing a fully operational OpenStack environment. To use HP Cloud you need to [Setup an account on the HP Helion Cloud](https://horizon.hpcloud.com/).
 
 This blueprint defines quite a few input parameters we need to fill out.
 
@@ -117,13 +114,15 @@ to fit your specific openstack installation.
 Notice that the `resources_prefix` parameter is set to "cloudify" so that all resources provisioned during
 this guide are prefixed for easy identification.
 
-For more information on the different management environment structures, please refer to
-
-For more information see the [Openstack Manager Reference](reference-openstack-manager.html).
+For more information on the different management environment structures, please refer to [Openstack Manager Reference](reference-openstack-manager.html).
 
 {% endtabcontent %}
 
 {% tabcontent SoftLayer %}
+
+{%note title=Note%}
+The Softlayer IaaS plugin is a feature of the commercial version of Cloudify. For more information, [go pro](/goPro.html).
+{%endnote%}
 
 This blueprint defines quite a few input parameters we need to fill out.
 
@@ -181,8 +180,7 @@ For more information see the [Softlayer Manager Reference](reference-softlayer-m
 
 {% tabcontent AWS EC2 %}
 
-[EC2 Compute Classic](http://aws.amazon.com/ec2/) is a public cloud.
-To use AWS you need to [Setup an account on AWS](https://portal.aws.amazon.com/gp/aws/developer/registration/index.html).
+[EC2 Compute Classic](http://aws.amazon.com/ec2/) is a public cloud. To use AWS you need to [Setup an account on AWS](https://portal.aws.amazon.com/gp/aws/developer/registration/index.html).
 
 This blueprint defines quite a few input parameters we need to fill out.
 
@@ -264,7 +262,8 @@ floating_ip_public_ip: ''
 manager_private_key_path: '~/.ssh/manager.pem'
 agent_private_key_path: '~/.ssh/agent.pem'
 manager_public_key: ''
-agent_public_key: ''{% endhighlight %}
+agent_public_key: ''
+{% endhighlight %}
 
 For more information see the [vCloud Manager Reference](reference-vcloud-manager.html).
 
@@ -275,22 +274,22 @@ For more information see the [vCloud Manager Reference](reference-vcloud-manager
 {% endgcloak %}
 
 ## Available manager blueprints
-See The Reference section in the documentation for a reference of all currently available Manager Blueprints.
+See the reference section in the documentation for a reference of all currently available Manager Blueprints.
 
 {%note title=Note%}
-The manager blueprints are comprised not only of the *.yaml* file, but rather the entire directory in which the *.yaml* file resides. Make sure to copy the full directory for when using or editing manager blueprints.
+The manager blueprints are comprised not only of the *.yaml* file, but rather the entire directory in which the *.yaml* file resides. For example, the manager blueprints map bootstrap operations to scripts that perform many of the bootstrap tasks. Make sure to copy the full directory for when using or editing manager blueprints.
 {%endnote%}
 
 ## Authoring manager blueprints
+
 If you wish to write a custom manager blueprint (whether it be for a custom behavior or a different provider) or learn more on how manager blueprints work, refer to the [Manager Blueprints Authoring guide](guide-authoring-manager-blueprints.html).
 
 
 # Install Required Plugins
 
-Manager blueprints can use Cloudify Plugins to perform the bootstrapping process.
-While this is good to know, you can ignore this section as we'll be installing Cloudify Plugins as a part of the bootstrap process itself.
+Manager blueprints can use Cloudify Plugins to perform the bootstrapping process. While this is good to know, you can ignore this section as we'll be installing Cloudify Plugins as a part of the bootstrap process itself.
 
-Anyhow. you can install the blueprint-specific dependencies by running:
+Anyhow. You can install the blueprint-specific dependencies by running:
 
  `cfy local install-plugins -p /path/to/manager/blueprint/file`
 
@@ -298,7 +297,7 @@ For example, on openstack:
 
  `cfy local install-plugins -p cloudify-manager-blueprints/openstack/openstack-manager-blueprint.yaml`
 
-(Alternatively, you may pass the `--install-plugins` flag to the `cfy bootstrap` command which follows soon)
+(Alternatively, you may pass the `--install-plugins` flag to the `cfy bootstrap` command, which follows soon)
 
 {%note title=Note%}
 Ths *install-plugins* functionality only works if you are running from within a virtualenv.
@@ -348,37 +347,61 @@ Please verify the [prerequisites](getting-started-prerequisites.html) before boo
 Finally, run the `cfy bootstrap` command, pointing it to the manager blueprint file and the inputs YAML file, like so:
 
 {% highlight sh %}
-cfy bootstrap -p /path/to/manager/blueprint/file -i /path/to/inputs/yaml/file --install-plugins
+cfy bootstrap --install-plugins -p /path/to/manager/blueprint/file -i /path/to/inputs/yaml/file
 {%endhighlight%}
 
-(Choose the command fitting your provider below)
+
+(Choose the command fitting your provider below.)
+
 
 {% inittab %}
+
 {% tabcontent OpenStack%}
+
 {% highlight bash %}
+
 cfy bootstrap --install-plugins -p openstack-manager-blueprint.yaml -i inputs.yaml
+
 {% endhighlight %}
+
 {% endtabcontent %}
+
 {% tabcontent SoftLayer%}
+
 {% highlight bash %}
+
 cfy bootstrap --install-plugins -p softlayer.yaml -i inputs.yaml --task-retries 25
+
 {% endhighlight %}
+
 {% endtabcontent %}
+
 {% tabcontent AWS EC2%}
+
 {% highlight bash %}
+
 cfy bootstrap --install-plugins -p aws-ec2-manager-blueprint.yaml -i inputs.yaml --task-retries 10
+
 {% endhighlight %}
+
 {% endtabcontent %}
+
 {% tabcontent vCloud%}
+
 {% highlight bash %}
+
 cfy bootstrap --install-plugins -p vcloud.yaml -i inputs.yaml --task-retries 10
+
 {% endhighlight %}
+
 {% endtabcontent %}
+
 {% endinittab %}
 
 
 
-This should take a few minutes to complete (depending on how responsive your Cloud environment is).
+
+This should take a few minutes to complete (depending on how responsive your cloud environment is).
 After validating the configuration, `cfy` will create the management VM, related
 networks and security groups, download the relevant Cloudify packages and install all of the components.
 At the end of this process you should see the following message:
@@ -417,6 +440,7 @@ Services:
 | Logstash                        | running |
 | SSH                             | running |
 +---------------------------------+---------+
+
 {%endhighlight%}
 
 
