@@ -12,7 +12,7 @@ pageord: 100
 
 While Cloudify's CLI provides [very limited support for deploying an application](LOCAL_WORKFLOWS_LINK!) by itself, you'll have to bootstrap a Cloudify Manager to be able to fully utilize Cloudify to deploy your application.
 
-A Cloudify Manager comprises of Cloudify's code and [several underlying open-source tools](overview-components.html) all integrated to create a dynamic environment, which will support the different operational flows you might be interested in when deploying your application.
+A Cloudify Manager comprises Cloudify's code and [several underlying open-source tools](overview-components.html), which have been integrated to create a dynamic environment, and will support the different operational flows that you might be interested in when deploying your application.
 
 Using different Cloudify plugins, the bootstrap process will create the infrastructure (servers, networks, security groups and rules, etc..) required for Cloudify's Manager to run in that environment.
 
@@ -32,7 +32,7 @@ This will create a folder in the current directory named `.cloudify`. (Cloudify 
 
 Bootstrapping a Cloudify Manager uses [Manager Blueprints](reference-terminology.html#manager-blueprints). These are standard Cloudify blueprints that have been constructed to bring up a Manager on various providers.
 
-First, clone the [Cloudify-Manager-Blueprints](https://github.com/cloudify-cosmo/cloudify-manager-blueprints) repository from Github, or copy your desired blueprint folder from there.
+Clone the [Cloudify-Manager-Blueprints](https://github.com/cloudify-cosmo/cloudify-manager-blueprints) repository from Github, or copy your desired blueprint folder from there.
 
 {% highlight bash %}
 mkdir -p ~/cloudify-manager
@@ -109,7 +109,7 @@ In case you are using a different openstack environment, you should also change 
 * `flavor_id`
 * `external_network_name`
 
-to fit your specific openstack installation.
+...to fit your specific openstack installation.
 
 Notice that the `resources_prefix` parameter is set to "cloudify" so that all resources provisioned during
 this guide are prefixed for easy identification.
@@ -214,6 +214,7 @@ agent_security_group_name: cloudify-agent-security-group
 manager_server_name: cloudify-manager-server
 manager_server_user: ubuntu
 agents_user: ubuntu
+ec2_region_name: ''
 {% endhighlight %}
 
 You will, at the very least, have to provide the mandatory inputs.
@@ -274,10 +275,10 @@ For more information see the [vCloud Manager Reference](reference-vcloud-manager
 {% endgcloak %}
 
 ## Available manager blueprints
-See the reference section in the documentation for a reference of all currently available Manager Blueprints.
+See the reference section in the documentation menu for a reference of all currently available Manager Blueprints.
 
 {%note title=Note%}
-The manager blueprints are comprised not only of the *.yaml* file, but rather the entire directory in which the *.yaml* file resides. For example, the manager blueprints map bootstrap operations to scripts that perform many of the bootstrap tasks. Make sure to copy the full directory for when using or editing manager blueprints.
+The manager blueprints comprise not only the *.yaml* file, but also the entire directory in which the *.yaml* file resides. For example, the manager blueprints map bootstrap operations to scripts that perform many of the bootstrap tasks. Make sure to copy the full directory for when using or editing manager blueprints.
 {%endnote%}
 
 ## Authoring manager blueprints
@@ -287,9 +288,9 @@ If you wish to write a custom manager blueprint (whether it be for a custom beha
 
 # Install Required Plugins
 
-Manager blueprints can use Cloudify Plugins to perform the bootstrapping process. While this is good to know, you can ignore this section as we'll be installing Cloudify Plugins as a part of the bootstrap process itself.
+Manager blueprints can use Cloudify plugins to perform the bootstrapping process. While this is good to know, you can ignore this section as we'll be installing Cloudify plugins as a part of the bootstrap process itself.
 
-Anyhow. You can install the blueprint-specific dependencies by running:
+Anyhow, you can install the blueprint-specific dependencies by running:
 
  `cfy local install-plugins -p /path/to/manager/blueprint/file`
 
@@ -297,7 +298,7 @@ For example, on openstack:
 
  `cfy local install-plugins -p cloudify-manager-blueprints/openstack/openstack-manager-blueprint.yaml`
 
-(Alternatively, you may pass the `--install-plugins` flag to the `cfy bootstrap` command, which follows soon)
+(Alternatively, you may pass the `--install-plugins` flag to the `cfy bootstrap` command, which follows soon.)
 
 {%note title=Note%}
 Ths *install-plugins* functionality only works if you are running from within a virtualenv.
@@ -417,7 +418,7 @@ At this point there's nothing much to see since you haven't uploaded any bluepri
 
 When the command is done executing, you'll have an operational Cloudify manager on the desired provider. You may verify this by making a *status* call.
 
-Note that if you're using the commercial version, the Web UI should appear as a running service in the output.
+Note that if you're using the commercial version, the Web UI should appear as a running service in the output. If you are using the standard version, the Cloudify UI status should be "unknown".
 
 An example output:
 

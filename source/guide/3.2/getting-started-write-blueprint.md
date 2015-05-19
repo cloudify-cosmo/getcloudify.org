@@ -22,11 +22,13 @@ agent_overview_link: agents-description.html
 
 # Overview
 
-In Cloudify, an application is described in YAML format in a structure (one or multiple files) we call a Blueprint based on a standard called [TOSCA](https://www.oasis-open.org/committees/tosca/).
+In Cloudify, an application is described in a Blueprint, which is based on a standard called [TOSCA](https://www.oasis-open.org/committees/tosca/).
 
-A Blueprint YAML file is a logical representation of your application. In a Blueprint you will describe the application's components, how they relate to each other, how they are installed and configured and how they're monitored and maintained.
+Blueprints files are written in YAML. They describe the logical representation of an application, which we call a topology. In a Blueprint you will describe the application's components, how they relate to each other, how they are installed and configured and how they're monitored and maintained.
 
-Other than the YAML itself, a Blueprint can comprise of multiple resources such as configuration and installation scripts (or Puppet Manifests, or Chef Recipes, etc..), code, and basically any other resource you require for running your application.
+Other than the YAML itself, a Blueprint can comprise multiple resources such as configuration and installation scripts (or Puppet Manifests, or Chef Recipes, etc..), code, and basically any other resource you require for running your application.
+
+All files in the directory that contains the Blueprint file, are also considered part of the blueprint, and paths described in the Blueprint are relative to that directory.
 
 To learn more about blueprint syntax and elements please refer to the [DSL Specification](dsl-spec-general.html).
 
@@ -137,7 +139,7 @@ inputs:
 
 {%note title=Note%}
 We do not supply any default values for these inputs, this means that users will be obliged to enter values when deploying this blueprint.
-If you do want to supply default values, you can do:
+If you do want to supply default values, you can do so like this:
 
 
 {%highlight yaml%}
@@ -178,7 +180,7 @@ Next up is adding the application specific types. We will have 3 new types: <br>
 
 `node_types` usage is two-fold:
 
-1. Define a *properties schema* that *node_templates* must ad-here to.
+1. Define a *properties schema* that *node_templates* must adhere to.
 2. Define interface operation mappings.
 
 To learn more about `node_types`, please refer to [Node Types Specification](dsl-spec-node-types.html).
