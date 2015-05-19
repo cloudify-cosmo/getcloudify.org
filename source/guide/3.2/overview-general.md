@@ -34,7 +34,7 @@ All requests are served via a proxy.
 
 Cloudify's Manager comprises of Cloudify's code and a set of Open-Source applications. An elaborate explanation on these applications is provided [here](overview-components.html).
 
-The Manager architecture is designed in such a way to provide support for all potential operational flows you might require when managing your application such as:
+The Manager's architecture is designed in such a way to provide support for all potential operational flows you might require when managing your applications such as:
 
 * Event Stream Processing
 * Secured Requests
@@ -56,93 +56,6 @@ Note that Cloudify can run in "Agentless" mode which means that agents can use c
 More on agents [here](agents-general.md).
 
 ![Cloudify Manager Architecture](/guide/images3/architecture/cloudify_flows.png)
-
-## Cloudify Manager Components
-
-
-### Proxy and File Server
-
-Cloudify uses [Nginx](http://nginx.org/) as its frontend reverse proxy and file server (In later versions it will also be used for security related features.)
-
-### REST API
-
-Cloudify is controlled via a REST API. The REST API covers all the Cloud Orchestration and Management functions. See [Cloudify REST API Documentation](http://getcloudify.org/guide/3.1/rest-api/index.html).
-You can use the REST API through Cloudify's Non-interactive CLI or write your own REST client.
-
-Cloudify REST controllers are written in python using the [flask framework](http://flask.pocoo.org/) and run behind a [gUnicorn container](http://gunicorn.org/)
-
-
-
-### Web GUI
-Cloudify's Web GUI works vs. the REST API but adds additional value and visibility.
-
-The GUI has the following screens:
-
-* Blueprints[(?)]({{page.terminology_link}}#blueprint) screen - a catalog of all uploaded blueprints
-* Blueprint Specific Screen - a set of views for a particular blueprint including:
-    * Blueprint Topology[(?)]({{page.terminology_link}}#topology)
-    * Blueprint Network Topology
-    * Blueprint Node list
-    * Blueprint Source
-* Deployments screen
-* Deployment Topology screen
-* Deployment Network Topology screen
-* Deployment Events[(?)]({{page.terminology_link}}#event) screen
-* Deployment Performance Metrics screen
-
-
-### Workflow Engine
-
-Cloudify uses a Workflow engine to allow for any automation process through built-in and custom workflows[(?)]({{page.terminology_link}}#workflow).
-The Workflow engine is responsible for timing and orchestrating tasks for creating / manipulating the application[(?)]({{page.terminology_link}}#application) components. To achieve that the workflow engine interacts with the Blueprint and runtime data to get the properties[(?)]({{page.terminology_link}}#properties) and plugin[(?)]({{page.terminology_link}}#plugin) information and writes tasks[(?)]({{page.terminology_link}}#task) to the task broker.
-Cloudify's workflow engine is built on top of [Celery tasks broker](http://www.celeryproject.org/). The user can write custom workflows in Python using API's that provide access to the topology[(?)]({{page.terminology_link}}#topology) components and allow for steps execution and state[(?)]({{page.terminology_link}}#node-instance-state) reporting.
-
-### Runtime Model
-
-Cloudify uses [Elasticsearch](http://www.elasticsearch.org/) as its data store for deployment[(?)]({{page.terminology_link}}#deployment) state. The deployment model and runtime data[(?)]({{page.terminology_link}}#runtime-data) are stored as JSON documents.
-
-
-### Metrics Database
-
-
-Cloudify uses [InfluxDB](http://influxdb.com/) as the monitoring metrics repository. Influx provides flexible schema for metrics and metrics metadata as well as a query language. Cloudify stores every metric reported by a monitoring tool into influxdb and define time based aggregations as well as statistic calculations.
-
-
-### Policy Engine
-
-Cloudify offers a policy engine[(?)]({{page.terminology_link}}#policy-engine) that runs custom policies[(?)]({{page.terminology_link}}#policy) in order to make runtime decisions about availability, SLA, etc. For example, during installation, the policy engine consumes streams of events coming from monitoring probes or tools. The policy engine analyzes these streams to decide if a specific node[(?)]({{page.terminology_link}}#node) is up and running and provides the required functionality. The results of such "start detection" policies are fed into the runtime model.
-
-Cloudify uses [Riemann.IO CEP](http://riemann.io/) as the core of the policy engine component. A Cloudify user doesn't need to access or config Riemann directly. The Policies are registered, activated, deactivated and deleted by the Workflow Engine as part of the orchestration process.
-
-
-
-The policies are written in [Clojure](http://clojure.org/). Riemann offers many [built it functions for analyazing monitoring information](http://riemann.io/api.html).
-Cloudify offers policy examples for the common use cases.
-
-
-### Task Broker
-
-Cloudify uses [Celery](http://www.celeryproject.org/) with a [RabbitMQ](http://www.rabbitmq.com/) message bus to manage task[(?)]({{page.terminology_link}}#task) distribution and execution.
-Cloudify tasks contain the blueprint[(?)]({{page.terminology_link}}#blueprint) and runtime properties[(?)]({{page.arch_link}}#runtime-properties). (if applicable) of the relevant node[(?)]({{page.arch_link}}#node). the plugin[(?)]({{page.arch_link}}#plugin). (name and URL) that will execute the task and the operation name the plugin needs to execute.
-
-Cloudify agents[(?)]({{page.arch_link}}#agent) that are based on Celery workers listen to the RabbitMQ queues to obtain tasks they need to execute (see more information below). Once a message arrives, they invoke the task and report back.
-
-
-### Tasks
-A Task is the execution of one function in a [plugin](#plugin) with a given set of arguments.
-
-The arguments describe the context of the execution including [node](#node) [properties](#properties) and [Runtime Properties](#runtime-properties).
-
-### Agents
-
-Cloudify agents are based on [Celery](http://www.celeryproject.org/) daemons & workers. an agent can be located remote to the Node it manipulates (by default on the Cloudify Manager VM) or collocated on the same host. Manager side agents are one (by default) or more per deployment.
-Cloudify manager side agents are used typically to execute IaaS API invocation tasks (such as host creation) and other remote tasks (such as agent installation using SSH on new application hosts).
-
-Cloudify agents perform the following:
-
-* **Plugin Installation** - The agent gets instructions about the plugins it should use and loads them. Plugins can be added dynamically at runtime.
-
-* **Operation Execution** - The agents get tasks from the workflow engine that are instructions for Operation (method) execution on a specific plugin. The agent assigns one of its workers to handle the task.
 
 
 ### Plugins

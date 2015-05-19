@@ -12,7 +12,7 @@ diamond_plugin_link: plugin-diamond.html
 {%summary%} {{page.abstract}}{%endsummary%}
 
 {%note title=Note%}
-This is aimed at very advanced users to understand Cloudify's architecture. It provides no user-functional information whatsoever. It does, however, provide information for understanding how Cloudify's architecture supports currently implemented and even potential future flows. Operational knowledge assumed.
+This is aimed at advanced users to understand Cloudify's architecture. It provides no user-functional information whatsoever. It does, however, provide information for understanding how Cloudify's architecture supports currently implemented and even potential future flows. Operational knowledge assumed.
 {%endnote%}
 
 # Components Overview
