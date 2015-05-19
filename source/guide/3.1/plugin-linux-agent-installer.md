@@ -1,7 +1,7 @@
 ---
 layout: bt_wiki
 title: Linux Agent Installer Plugin
-category: Plugins
+category: Official Plugins
 publish: true
 abstract: "Cloudify Linux Agent Installer description and configuration"
 pageord: 500
@@ -50,7 +50,7 @@ node_templates:
         wait_started_interval: 1          # default value
         disable_requiretty: true          # default value
         distro:                           # no default value (automatically resolved at runtime)
-        release:                          # no default value (automatically resolved at runtime)
+        distro_codename:                  # no default value (automatically resolved at runtime)
         celery_config_path:               # a resource provided with the manager by default
         celery_init_path:                 # a resource provided with the manager by default
         disable_requiretty_script_path:   # a resource provided with the manager by default

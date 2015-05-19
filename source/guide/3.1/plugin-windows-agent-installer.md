@@ -1,7 +1,7 @@
 ---
 layout: bt_wiki
 title: Windows Agent Installer Plugin
-category: Plugins
+category: Official Plugins
 publish: true
 abstract: "Cloudify Windows Agent Installer description and configuration"
 pageord: 800

@@ -108,7 +108,13 @@ cloudify:
         task_retry_interval: {task_retry_interval}
     policy_engine:
         start_timeout: {start_timeout}
-{%endhighlight%}        
+    plugins:
+        my_plugin1:
+            source {plugin_source}
+            install_args: {install_args}
+        my_plugin2:
+            ...
+{%endhighlight%}
 
 ### parameters details
 * `resources_prefix` An optional prefix to be added to all resources' names. It is recommended for the prefix to end with an underscore or a dash. If omitted, no prefix will be added (Default: `""`)
@@ -122,7 +128,9 @@ cloudify:
   * `task_retry_interval` Minimum wait time (in seconds) in between workflow task retries (Default: `30`).
 * policy_engine
   * `start_timeout` Timeout (in seconds) for waiting for the policy engine to come up (Default: `30`).
-
+* plugins: a dict of python packages to install on the management server.
+  * `source` URL of package archive or path to package directory relative to the manager blueprint root directory.
+  * `install_args` Optional arguments that should be passed to the `pip install` command used to install the package.
 
 ## cloudify_packages
 
@@ -132,23 +140,19 @@ Links to Cloudify packages to be installed on the manager
 ### schema
 {% highlight yaml %}
 cloudify_packages:
-    server:
-        compnonets_package_url: {url}
-        core_package_url: {url}
-        ui_package_url: {url}
     agents:
         ubuntu_agent_url: {url}
         centos_agent_url: {url}
         windows_agent_url: {url}
+    docker:
+        docker_url: {url}
 {%endhighlight%}
 
 ### parameters details
 
-* server
-  * `components_package_url` The URL for the Cloudify components package (Default: a URL of the relevant package).
-  * `core_package_url` The URL for the Cloudify core package (Default: a URL of the relevant package).
-  * `ui_package_url` The URL for the Cloudify UI package. If provided with an empty string, the UI won’t be installed (Default: a URL of the relevant package).
 * agents
   * `ubuntu_agent_url` The URL for the Ubuntu agent package. If provided with an empty string, no package will be downloaded (Default: a URL of the relevant package).
   * `centos_agent_url` The URL for the CentOS agent package. If provided with an empty string, no package will be downloaded (Default: a URL of the relevant package).
   * `windows_agent_url` The URL for the Windows agent package. If provided with an empty string, no package will be downloaded (Default: a URL of the relevant package).
+* docker
+  * `docker_url` The URL for the Cloudify manager docker image (Default: a URL of the relevant package).

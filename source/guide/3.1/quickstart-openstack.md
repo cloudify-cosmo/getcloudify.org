@@ -169,7 +169,7 @@ In the `cloudify-nodecellar-example` directory you just cloned, you can see a bl
 To upload the blueprint run:
 
 {%highlight bash%}
-cfy blueprints upload -b nodecellar -p openstack-blueprint.yaml​
+cfy blueprints upload -b nodecellar -p openstack-blueprint.yaml
 {%endhighlight%}
 
 The `-b` flag assigns a unique name to this blueprint on the Cloudify manager.

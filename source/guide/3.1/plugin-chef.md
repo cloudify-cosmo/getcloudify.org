@@ -1,7 +1,7 @@
 ---
 layout: bt_wiki
 title: Chef Plugin
-category: Plugins
+category: Official Plugins
 publish: true
 abstract: "Chef plugin description and configuration"
 pageord: 200

@@ -24,7 +24,11 @@ Cloudify's CLI (AKA cfy) is being distributed in two different methods:
 
 ### As downloadable packages
 
+<<<<<<< HEAD
 The downloadable packages allow for an offline installation of the cli and are distributed as:
+=======
+{% tip title=Which distribution method should you choose? %} The Binary package provides commercial features such as commercial plugins and manager blueprints. If you wish to only use the Open Source version of Cloudify, you should install from PyPI.{% endtip %}
+>>>>>>> master
 
 * rpms for Centos 6.5 and 7 (in the future, tar.gz and deb packages will be added.)
 * Executable for Windows.

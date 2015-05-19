@@ -54,10 +54,13 @@ The bootstrap task takes several parameters:
 
   * ***use_sudo*** - Optional parameter. This flag is used to set run permissions on the host VM during bootstrap. If this parameter is omitted, sudo permissions will be used by default.
 
-  * ***privileged*** - Optional parameter. This flag is used to obtain docker read/write permissions on the host VMs home dir in SElinux distributions. If this parameter is omitted, `false` will be assumed.
+  * ***privileged*** - Optional parameter. This flag is used to obtain docker read/write permissions on the host VMs home dir in SELinux distributions. If this parameter is omitted, `false` will be assumed.
 
   * ***docker_service_start_command*** - Optional parameter. The command to use in order to start the docker daemon. If not set, `service docker start` will be assumed.
 
+{%note title=Note%}
+On Red Hat Enterprise Linux 7 and CentOS 7, SELinux services are installed by default and therefore require setting the `privileged` paramter to True. 
+{%endnote%}
 
 {%note title=Note%}
 While not explicitly a part of the signature of the bootstrap task,

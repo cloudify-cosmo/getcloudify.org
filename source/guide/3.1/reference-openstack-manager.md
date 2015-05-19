@@ -100,7 +100,6 @@ The "Openstack manager" blueprint contains the following nodes:
       - 22 (SSH)
       - 80 (HTTP)
     - This security group also opens these ports for incoming connections from the internal network:
-      - 5555 (Riemann)
       - 5672 (RabbitMQ)
       - 53229 (File server)
   - *manager_server_ip* - A floating IP which will be associated with the Cloudify manager machine.
