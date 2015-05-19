@@ -14,14 +14,14 @@ workflows_link: reference-builtin-workflows.html
 
 # Overview
 
-Once a [Deployment is created](getting-started-create-deployment.html), a process is required to perform the actual application's manifestation in your chosen environment.
-This process is called a Workflow.
+Once a [Deployment is created](getting-started-create-deployment.html), we must execute a process that will perform the application's actual manifestation in your chosen environment.
+This process is called a [Workflow]({{page.terminology_link}}#workflow).
 
 A [Workflow]({{page.terminology_link}}#workflow) is Python code which describes the flow of performing different actions on your deployment.
 
 The first workflow a user will stumble upon is called the [Install Workflow]({{page.workflows_link}}#install) and is the default workflow provided by Cloudify for deploying your application.
 
-A user can create workflows for different types of action such as deploying code, changing infrastructure state and even for overriding the default Install Workflow.
+A user can create workflows for different types of actions such as deploying code, changing infrastructure state and even for overriding the default Install Workflow.
 
 
 ## Executing a Workflow via the CLI
@@ -72,7 +72,7 @@ A deployment with a workflow execution that failed
 
 # Step 7: Install the Application
 
-We'll now execute the Install Workflow to deploy our application.
+We'll now execute the Install Workflow from our [Nodecellar deployment](getting-started-create-deployment.html#step-6-create-a-deployment):
 
 Type the following command in your terminal:
 
@@ -123,8 +123,7 @@ and can access the mongodb database to read the list of wines.
 
 # Step 9: Uninstall the application
 
-Uninstalling the deployment is just a matter of running another workflow
-which will teardown all the resources provisioned by the `install` workflow.
+Uninstalling the deployment is just a matter of running another workflow, which will teardown all the resources provisioned by the `install` workflow.
 To run the [uninstall]({{page.workflows_link}}#uninstall) workflow, type the following command:
 
 {%highlight bash%}

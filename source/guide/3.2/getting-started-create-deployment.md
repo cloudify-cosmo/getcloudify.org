@@ -12,7 +12,7 @@ terminology_link: reference-terminology.html
 
 # Overview
 
-For Cloudify to be able to deploy your application it reads the uploaded blueprint YAML (the logical representation) and manifests a structure we call a Deployment. A deployment is a "Technical" drilled down representation of your application. For instance, if a blueprint describes a Server node with multiple instances, the deployment will be comprised of only the instances themselves provided with their unique identifiers.
+For Cloudify to be able to deploy your application it reads the uploaded blueprint YAML (the logical representation) and manifests a structure we call a deployment. A deployment is a "Technical" drilled down representation of your application. For instance, if a blueprint describes a single Server node that is defined to deploy multiple instances, the deployment will be comprised the instances themselves provided with their unique identifiers.
 
 
 ## Creating a Deployment via the CLI
@@ -44,13 +44,14 @@ Once the initialization is complete, you will be able to start using the deploym
 
 # Step 6: Create a Deployment
 
-We'll now create the deployment for our blueprint.
+Picking up from Step 5, [Uploading a Blueprint](getting-started-upload-blueprint.html), we'll now create the deployment for our blueprint using the command line.
 
 {%note title=Note%}
-Creating a Deployment doesn't actually create any resources, it simply generates a "Physical" representation of your application from the "Logical" (Blueprint) representation and stores in the database.
+Creating a Deployment doesn't actually create any resources, it simply generates a "Physical" representation of your application from the "Logical" (Blueprint) representation and stores in the database. Technically, it is a virtual environement on the manager.
 {%endnote%}
 
-To do so, we'll first create an inputs file (just like our Manager Blueprint's inputs file):
+First create an inputs file (just like our Manager Blueprint's inputs dialog):
+
 
   {% togglecloak id=2 %}
   **Define inputs for this blueprint**
@@ -76,7 +77,8 @@ To do so, we'll first create an inputs file (just like our Manager Blueprint's i
         User for connecting to agent VM's
   {%endhighlight%}
 
-  Let's make a copy of the inputs template already provided and edit it:
+
+Let's make a copy of the inputs template already provided and edit it:
 
   {% highlight bash %}
   cd cloudify-nodecellar-example/inputs/openstack.yaml.template
@@ -126,9 +128,10 @@ To do so, we'll first create an inputs file (just like our Manager Blueprint's i
       default: 4174
   {%endhighlight%}
 
-  All inputs have default values so no input file is needed.
+All inputs have default values so no input file is needed.
 
-  To specify differnet values for one or more inputs, create inputs.yaml file with the wanted inputs, for example:
+To specify differnet values for one or more inputs, create inputs.yaml file with the wanted inputs, for example:
+
   {% highlight bash %}
   echo -e "domain: 'my_domain.org'\nlocation: '168642'" > inputs.yaml
   {% endhighlight %}
@@ -156,7 +159,7 @@ To do so, we'll first create an inputs file (just like our Manager Blueprint's i
         User for connecting to agent VM's
   {%endhighlight%}
 
-  Let's make a copy of the inputs template already provided and edit it:
+Let's make a copy of the inputs template already provided and edit it:
 
   {% highlight bash %}
   cd cloudify-nodecellar-example/inputs
@@ -169,7 +172,7 @@ To do so, we'll first create an inputs file (just like our Manager Blueprint's i
     agent_user: ''
   {%endhighlight%}
 
-  The image is again the AMI image ID. The size is the instance_type, and the agent user is the default user agent on the image type.
+The image is again the AMI image ID. The size is the instance_type, and the agent user is the default user agent on the image type.
 
   {% endtabcontent %}
 
@@ -214,7 +217,7 @@ To do so, we'll first create an inputs file (just like our Manager Blueprint's i
 
   {%endhighlight%}
 
-  Let's make a copy of the inputs template already provided and edit it:
+Let's make a copy of the inputs template already provided and edit it:
 
   {% highlight bash %}
   cd cloudify-nodecellar-example/inputs
@@ -258,12 +261,11 @@ We've now created a deployment named `nodecellar` based on a blueprint with the 
 
 This deployment is not yet materialized, since we haven't issued an installation command.
 
-If you click the "Deployments" icon in the left sidebar in the Web UI, you will see that all nodes are labeled with 0/1, which
-means they're pending creation.
+If you click the "Deployments" icon in the left sidebar in the Web UI, you will see that all nodes are labeled with 0/1, which means they're pending creation.
 
 ![Nodecellar Deployment](/guide/images3/guide/quickstart-openstack/nodecellar_deployment.png)
 
 
 # What's Next
 
-After creating a deployment, you're now ready to [execute it!](getting-started-execute-workflow.html)
+After creating a deployment, you're now ready to [execute it!](getting-started-execute-workflow.html).

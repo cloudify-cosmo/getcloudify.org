@@ -58,7 +58,9 @@ Clicking the `Save` button will cause the dialog box to be grayed out until the 
 
 # Step 5: Upload the blueprint
 
-  To upload the Nodecellar blueprint for your IaaS run:
+Picking up from [Writing a Blueprint](getting-started-write-blueprint.html), let's use the CLI to upload the Nodecellar blueprint.
+
+If you have downloaded the cloudify-nodecellar-example from github and you would like to use the particular blueprint for your IaaS, you can run one of the these:
 
   {% inittab %}
 
@@ -88,18 +90,19 @@ Clicking the `Save` button will cause the dialog box to be grayed out until the 
 
   {% endinittab %}
 
-  The `-b` flag assigns a unique name to this blueprint on the Cloudify manager.
-  Before creating a deployment though, let's see what this blueprint looks like.
 
-  Point your browser at the manager's URL again and refresh the screen, you will see the nodecellar blueprint listed there.
+<br/>
+The `-b` flag assigns a unique name to this blueprint on the Cloudify manager. Before creating a deployment though, let's see what this blueprint looks like.
+
+Point your browser at the manager's URL again and refresh the screen, you will see the nodecellar blueprint listed there.
 
   ![Blueprints table](/guide/images3/guide/quickstart/blueprints_table.png)
 
-  Click the blueprint, and you can see its topology.
+Click the blueprint, and you can see its topology.
 
-  A [topology]({{page.terminology_link}}#topology) consists of elements called [nodes]({{page.terminology_link}}#node).
+A [topology]({{page.terminology_link}}#topology) consists of elements called [nodes]({{page.terminology_link}}#node).
 
-  In our case, we have the following nodes:
+In our case, we have the following nodes:
 
   * Two VM's (one for mongo and one for nodejs)
   * A nodejs server
