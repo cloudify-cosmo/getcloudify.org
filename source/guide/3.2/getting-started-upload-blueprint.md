@@ -16,14 +16,25 @@ If you haven't already written a blueprint, you can either [write one now](getti
 
 ## Uploading via the CLI
 
-To upload a blueprint using Cloudify's CLI execute:
+The Cloudify command-line features two ways of uploading your blueprint to the manager:
 
+ * `publish-archive` allows you to upload a pre-packaged archive such as *.tar, *.tar.gz, *.tar.bz, *.zip.
+ * `upload` allows you to specify a path to a Blueprint file, and the Cloudify CLI will take care of compressing the folder and its contents.
+
+Here is an example of `publish_archive`:
 {%highlight bash%}
-cfy blueprints upload -b <BLUEPRINT_NAME> -p </path/to/your/blueprint.yaml​>
+cfy blueprints publish-archive -l ARCHIVE_LOCATION -b BLUEPRINT_ID -n BLUEPRINT_FILENAME
+{%endhighlight%}
+
+Here is an example of `upload`:
+{%highlight bash%}
+cfy blueprints upload -b BLUEPRINT_ID -p BLUEPRINT_FILE_LOCATION
 {%endhighlight%}
 
 
 ## Uploading via the Web UI
+
+You can also upload a pre-packaged Blueprint archive, such as *.tar, *.tar.gz, *.tar.bz, *.zip., in the Cloudify Manager UI.
 
 The upload blueprint button can be found in the "Blueprints" section in the UI:
 
@@ -31,23 +42,23 @@ The upload blueprint button can be found in the "Blueprints" section in the UI:
 
 Clicking on it will cause the blueprint upload dialog to appear.
 
-The user can either type in the path to the blueprint file, or select it from the filesystem by pressing the `+` button:
+The user can either type in the path to the blueprint archive, or select it from the filesystem by pressing the `+` button:
 
 ![The blueprint upload dialog](/guide/images/ui/ui-upload-blueprint.png)
 
 The `Blueprint ID` field is required.
 
-The `Blueprint filename` field is optional. If left blank, the default `blueprint.yaml` file will be used. To override, The user should fill out the name of the YAML file to be used.
+The `Blueprint filename` field is optional and refers to the *.yaml file that contains the application topology. If left blank, the default `blueprint.yaml` file will be used. To override, The user should fill out the name of the YAML file to be used.
 
 Once all the required fields are filled, the `Save` button becomes available.
 
 ![The user can enter a custom blueprint name](/guide/images/ui/ui-upload-blueprint-with-input.png)
 
-Clicking the `Save` button will cause it to be grayed out until the blueprint file is fully uploaded to Cloudify. After the upload is done, the user will be redirected to the blueprint's page.
+Clicking the `Save` button will cause the dialog box to be grayed out until the blueprint file is fully uploaded to Cloudify. After the upload is done, the user will be redirected to the blueprint's page.
 
 # Step 5: Upload the blueprint
 
-  To upload the blueprint run:
+  To upload the Nodecellar blueprint for your IaaS run:
 
   {% inittab %}
 
