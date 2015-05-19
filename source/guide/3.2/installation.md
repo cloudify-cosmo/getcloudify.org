@@ -15,18 +15,19 @@ installation_bootstrapping_link: installation-bootstrapping.html
 {%summary%}{{page.abstract}}{%endsummary%}
 
 
-{%note title=Known Issue (!)%}
-If you have already installed a previous version of the CLI,
-Make sure to delete any *.cloudify* folders inside the destination directory you are about to install into (or any of its parent directories).
+{%note title=Reinstallation (!)%}
+If you have already installed a previous version of the CLI, make sure to delete any *.cloudify* folders inside the current working directory (or any of its parent directories).
 {%endnote%}
 
-Cloudify CLI (AKA cfy) is being distributed in two different methods:
+Cloudify CLI (AKA cfy) is distributed in three different methods:
 
 1. As a binary package
 1. As a Python module (via PyPi)
+1. As original source code
 
 {% tip title=Which distribution method should you choose? %}
-The Binary package provides commercial features such as commercial plugins and manager blueprints. If you wish to only use the Open Source version of Cloudify, you should install from PyPI.{% endtip %}
+The Binary package provides commercial features such as commercial plugins and manager blueprints. If you wish to only use the Open Source version of Cloudify, you should install from PyPI.
+{% endtip %}
 
 # Installing the binary package
 
@@ -50,7 +51,7 @@ an output describing how to use `cfy`.
 1. Download a deb package that matches your system:
 [32bit]({{ page.linux32_link }}) or
 [64bit]({{ page.linux64_link }})
-1. Open a Terminal at the directory where you downloaded the file and run
+1. Open a terminal at the directory where you downloaded the file and run
 `sudo dpkg -i <pkg.deb>` replacing `<pkg.deb>` with the name of file you downloaded.
 1. After a few seconds installation should finish.
 1. Try running `cfy -h` command in your Terminal. You should get an output
@@ -69,7 +70,9 @@ When using the binary package, there is no need to install blueprint dependencie
 You must have Python 2.7.x and PIP installed and configured on your system.
 
 {%tip title=Using virtualenv%}
-It's recommended to create a [virtualenv]({{ page.venv_link }}) and install the CLI in it. To do so type the following commands (replace virtual-env-name with the name of your choice, e.g. cloudify:
+It's recommended to create a [virtualenv]({{ page.venv_link }}) and install the CLI in it.
+
+To do so type the following commands (replace virtual-env-name with the name of your choice, e.g. cloudify:
 
 {% highlight bash %}
 virtualenv virtual-env-name
@@ -79,6 +82,7 @@ source virtual-env-name/bin/activate
 {%endtip%}
 
 ## Installing the latest Stable Release
+
 To install the CLI run the following command:
 
 {% highlight bash %}
@@ -99,16 +103,14 @@ Now let's say you want to install the 3.1rc2 release specifically. You should ru
 pip install cloudify==3.1rc2
 {% endhighlight %}
 
-## installing from Github
-To install the CLI from Github you must install several modules in the correct order.
+## installing from source
+
+You can also install from source using pip.
 
 Let's say you want to install from the `master` branch. run:
 
 {% highlight bash %}
-pip install https://github.com/cloudify-cosmo/cloudify-dsl-parser/archive/master.zip
-pip install https://github.com/cloudify-cosmo/cloudify-rest-client/archive/master.zip
-pip install https://github.com/cloudify-cosmo/cloudify-plugins-common/archive/master.zip
-pip install https://github.com/cloudify-cosmo/cloudify-script-plugin/archive/master.zip
+pip install -r https://raw.githubusercontent.com/cloudify-cosmo/cloudify-cli/master/dev-requirements.txt
 pip install https://github.com/cloudify-cosmo/cloudify-cli/archive/master.zip
 {% endhighlight %}
 
