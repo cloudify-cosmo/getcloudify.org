@@ -610,7 +610,7 @@ node_templates:
 
 {%endhighlight%}
 
-Now we can start adding our application `node_templates`, we start by adding the Mongo database:
+Now we can add the rest of our application `node_templates`. We start with the Mongo database:
 
 {%highlight yaml%}
 mongod:
@@ -766,8 +766,7 @@ node_templates:
 
 ## Step 7: Adding outputs
 
-the `outputs` part of the blueprint is optional, but we recommend adding this section because it might prove useful.
-`outputs` allow the blueprint to expose application characteristics via the [REST](rest-api/index.html) or the [CLI](reference-cfy.html). <br>
+The `outputs` part of the blueprint is optional, but it is useful because `outputs` allow the blueprint to expose application characteristics via the [REST](rest-api/index.html) or the [CLI](reference-cfy.html). <br>
 In this blueprint we will use `outputs` to expose the application url endpoint, like so:
 
 {%highlight yaml%}
@@ -919,7 +918,7 @@ outputs:
 
 {%endhighlight%}
 
-That's it, this a fully functioning blueprint that can be used with a Cloudify Management Environment to install the nodecellar application on an existing host.
+That's it! This a fully functioning blueprint that can be used with a Cloudify Management Environment to install the nodecellar application on an existing host.
 
 
 # What's Next
