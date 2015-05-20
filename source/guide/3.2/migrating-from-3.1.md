@@ -12,7 +12,7 @@ pageord: 100
 # What's changed
 
 This release of Cloudify includes a number of major changes. For a full list, see the [Change Log]{{link here}}.
-For those upgrading from 3.1, the following items are most relevant. 
+For those upgrading from 3.1, the following items are most relevant.
 
 # Backwards incompatible changes
 
@@ -20,6 +20,7 @@ For those upgrading from 3.1, the following items are most relevant.
 
 * The Openstack plugin's `WindowsServer` type will now use the Openstack `get-password` feature by default - meaning it requires either using an image which posts the server's password to Openstack's metadata service, or disabling this behavior by setting the `use_password` property to `false`. See more information in the [Openstack plugin documentation](plugin-openstack.html#cloudifyopenstacknodeswindowsserver)
 
+* The *Provider* API that was deprecated in Cloudify 3.1 has been removed and is no longer available.
 
 # Something that was deprecated
 

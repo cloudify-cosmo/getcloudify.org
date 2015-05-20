@@ -12,6 +12,10 @@ reference_openstack_manager_link: reference-openstack-manager.html
 ---
 {%summary%}{{page.abstract}}{%endsummary%}
 
+{%tip title=Try Instantly%}
+You can take Cloudify for an instant test drive with an [online trial.](http://getcloudify.org/widget.html)
+{%endtip%}
+
 # Overview
 
 In this tutorial you will bootstrap a Cloudify manager in your OpenStack environment
@@ -165,7 +169,7 @@ In the `cloudify-nodecellar-example` directory you just cloned, you can see a bl
 To upload the blueprint run:
 
 {%highlight bash%}
-cfy blueprints upload -b nodecellar -p openstack-blueprint.yaml​
+cfy blueprints upload -b nodecellar -p openstack-blueprint.yaml
 {%endhighlight%}
 
 The `-b` flag assigns a unique name to this blueprint on the Cloudify manager.

@@ -179,21 +179,8 @@ Properties are a [node](#node)'s design-time configuration details.
 
 Properties are expressed as a YAML dictionary in the [blueprint](#blueprint).
 
-### **Provider**
-Providers are python modules that augment the Cloudify CLI and implement the [bootstrapping](#bootstrapping) process for a specific cloud environment.
-
-### **Provider configuration file**
-A YAML file with the configurations for creating a Cloudify manager on a specific Cloud.
-
-The provider configuration file has configuration properties for the some of the following items:
-* Cloud credentials and API endpoint
-* Network settings
-* Manager virtual machine OS and hardware
-* SSH credentials for the manager VM
-* Cloudify packages to use in oreder to install the manager
-
 ### **Provider Context**
-Details of the [provider's](#provider) manager environment such as the name of the management network.
+Details of the manager environment such as the name of the management network.
 
 The provider context is available in any [plugin](#plugin) function in case the plugin code needs such information in order to perform tasks such as agent configuration or VM configuration (as Cloudify needs each VM to be connected also to the management network ifplugin it has an agent installed on it.)
 

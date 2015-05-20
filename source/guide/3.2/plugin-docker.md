@@ -1,27 +1,27 @@
 ---
 layout: bt_wiki
-title: Docker Plugin (Alpha)
+title: Docker Plugin
 category: Plugins
 publish: true
 abstract: "Docker plugin description and configuration"
 pageord: 210
 
-yaml_link: http://getcloudify.org/spec/docker-plugin/1.2/plugin.yaml
+yaml_link: http://getcloudify.org/spec/docker-plugin/1.1/plugin.yaml
 fabric_link: http://getcloudify.org/guide/3.2/plugin-fabric.html
 plugin_version: 1.2
 ---
 {%summary%}The Docker plugin enables you to run Docker containers from a Cloudify Blueprint.{%endsummary%}
 
 
-{%warning title=Disclaimer%}This plugin is in Alpha and has not been thoroughly tested yet.{%endwarning%}
-
 # Plugin Requirements:
 
 * Python Versions:
   * 2.7.x
 
-* No Install
-  * The Docker plugin will not install Docker on your host. You need to either use a host with Docker already installed, or you need to install Docker on it. Below is an example of how one might do that in Openstack:
+{%note title=Notes on Docker installation%}
+  * The Docker plugin will not install Docker on your host. You need to either use a host with Docker already installed, or you need to install Docker on it.
+  * As part of the Docker installation, you should make sure that the user agent, such as ubuntu, is added to the docker group.
+{%endnote%}
 
 # Types
 
@@ -31,8 +31,8 @@ plugin_version: 1.2
 
 **Properties:**
 
-  * `image` *Required*. 
-  * `name` *Required*. 
+  * `image` *Required*.
+  * `name` *Required*.
   * `use_external_resource` a boolean for setting whether to create the resource or use an existing one.
 
 **Mapped Operations:**
@@ -131,12 +131,16 @@ The `name` property is the name of the container.
 
 The `image` property is a dictionary. It must have the `repository` key or the `src` key, or both. It may additionally have the `tag` key.
 
-The `src` key is used when you want to import an image. It must point to a file or URL where there is a tarball, which Docker can use to import an image. For more information on importing images, see [docker import command.](https://docs.docker.com/reference/commandline/cli/#import)
+* If `src` is provided, then it must point to a file or URL where the image's tarball is imported from.
+  * If `repository` is also provided, then its value will be used as the name of the repository once the image is downloaded.
+  * Otherwise, the plugin will name the repository after the Cloudify [instance ID](http://getcloudify.org/guide/3.2/reference-terminology.html#node-instance).
+* Otherwise, `repository` must be provided, and contain the name of the Docker image to pull.
 
-If you pull an image from a Docker hub, `repository` is required. If you are importing an image, you leave it blank. The plugin will name the 
+If you pull an image from a Docker hub, `repository` is required. If you are importing an image, you leave it blank. The plugin will name the
 repository by the Cloudify [instance ID.](http://getcloudify.org/guide/3.2/reference-terminology.html#node-instance)
 
-The `tag` key is also optional. If you want to specify a version of a repository, you can put that in the tag.
+For more information on importing images, see [docker import command](https://docs.docker.com/reference/commandline/cli/#import).
+For more information on pulling images, see [docker pull command](https://docs.docker.com/reference/commandline/cli/#pull).
 
 Here is an example of importing from an URL.
 
@@ -148,7 +152,6 @@ Here is an example of importing from an URL.
       name: cloudify-manager
       image:
         src: http://gigaspaces-repository-eu.s3.amazonaws.com/org/cloudify3/3.2.0/m6-RELEASE/cloudify-docker_3.2.0-m6-b176.tar
-        repository: cloudify-manager-packages
         tag: 3.2.0
 
 {% endhighlight %}

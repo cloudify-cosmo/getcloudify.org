@@ -18,7 +18,7 @@ When clicking on the `Blueprints` tab and choosing a blueprint you will be able 
 
 # Topology
 See the definition [here]({{page.terminology_topology}}).<br/>
-![Blueprint topology](/guide/images/ui/ui-deployment-ready.jpg)
+![Blueprint topology](/guide/images/ui/ui-blueprint-topology.png)
 
 # Network
 A map of networks topology according to the blueprint topology contained internal and external networks, hosts, routers and ports.<br/>

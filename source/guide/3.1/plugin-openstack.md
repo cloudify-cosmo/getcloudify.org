@@ -1,7 +1,7 @@
 ---
 layout: bt_wiki
 title: Openstack Plugin
-category: Plugins
+category: Official Plugins
 publish: true
 abstract: Cloudify Openstack plugin description and configuration
 pageord: 600
@@ -346,7 +346,7 @@ See the [common Runtime Properties section](#runtime-properties).
 # Relationships
 
 {%info title=Information%}
-Not all relationships have built-in types (i.e., some types may simply get connected using standard Cloudify relationships such as `cloudify.relationship.connected_to`).
+Not all relationships have built-in types (i.e., some types may simply get connected using standard Cloudify relationships such as `cloudify.relationships.connected_to`).
 
 Some relationships take effect in non-relationship operations, e.g. a subnet which is connected to a network actually gets connected on subnet's creation (in the `cloudify.interfaces.lifecycle.create` operation) and not in a `cloudify.interfaces.relationship_lifecycle.establish` operation - this occurs whenever the connection information is required on resource creation.
 {%endinfo%}

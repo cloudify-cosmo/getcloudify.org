@@ -15,7 +15,7 @@ Cloudify 3's DSL (Domain Specific Language) is following [OASIS TOSCA](https://w
 
 TOSCA's simplified YAML profile is using YAML objects to describe application components, their lifecycle and  dependencies.
 
-In order to do so, TOSCA is following Object Oriented metaphore where application components are `node_templates` (objects or instances of classes) derived from `node_types` (classes).
+In order to do so, TOSCA is following Object Oriented metaphor where application components are `node_templates` (objects or instances of classes) derived from `node_types` (classes).
 
 Each type defines a set of properties (static configuration) as well as set properties at runtime (i.e runtime properties)
 

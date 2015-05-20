@@ -1,7 +1,7 @@
 ---
 layout: bt_wiki
 title: Puppet Plugin
-category: Plugins
+category: Official Plugins
 publish: true
 abstract: "Puppet plugin description and configuration"
 pageord: 700
