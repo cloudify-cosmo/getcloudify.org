@@ -12,7 +12,7 @@ terminology_link: reference-terminology.html
 
 # Overview
 
-Cloudify 3 has a new architecture and a new code base and is composed of the following main parts:
+Cloudify comprises the following main parts:
 
 * **Comand-Line Interface**
 * **Manager**
@@ -20,14 +20,11 @@ Cloudify 3 has a new architecture and a new code base and is composed of the fol
 
 ## The Command-Line Interface
 
-Cloudify's CLI is written in Python and comprises of several modules:
+Cloudify's CLI is written in Python and comprises several modules:
 
 * The CLI module itself which provides the interface.
 * Cloudify's DSL parser which parses blueprints.
 * Cloudify's Plugins used for bootstrapping a Cloudify Manager or for executing Cloudify workflows locally.
-
-The CLI uses Cloudify's REST client module to interact with the Manager running Cloudify's REST service.
-All requests are served via a proxy.
 
 
 ## The Manager
@@ -43,6 +40,10 @@ The Manager's architecture is designed in such a way to provide support for all 
 * Manual or Automated Task execution and Queuing based on live streams of events or aggregated data.
 * Interaction with Cloudify's Agents for executing tasks on application hosts and maintaining them.
 
+You can also communicate with the Manager via the CLI, which uses Cloudify's REST client module to interact with the Cloudify REST service.
+
+All requests are served via a proxy.
+
 ## The Agents
 
 Cloudify's Agents are entities designed to execute tasks on application hosts. They're able to listen to task queues and execute tasks when required.
@@ -51,7 +52,9 @@ The agents are designed to execute tasks using [Cloudify specific Plugins](plugi
 
 In the background, the same agents used on the hosts are also used in the Manager but in a different context. For instance, each deployment has two agents, one of which talks to IaaS APIs to deploy resources.
 
+{%note title=Note%}
 Note that Cloudify can run in "Agentless" mode which means that agents can use certain plugins to manage hosts without the agents being installed on them. A user can decide which server nodes will have agents installed on them by stating the choice in the blueprint.
+{%endnote%}
 
 More on agents [here](agents-general.md).
 
@@ -59,24 +62,31 @@ More on agents [here](agents-general.md).
 
 
 ### Plugins
-Plugins are python facades for any third party tool you want to use with any Cloudify workflow. Notable examples are plugins for IaaS API's, plugins for Configuration Management tools and even plugins for installation and configuration of monitoring agents.
+
+Plugins are python packages that abstract third party tools that you may want to use in a Cloudify workflow. Notable examples are plugins for IaaS API's, plugins for Configuration Management tools, and even plugins for installation and configuration of monitoring agents.
 
 The plugin has methods that correspond to Node Interface Operations. These methods are decorated with the `@operation` decorator and get the `context` argument that holds handlers to node runtime properties, the plugin logger, and in case of a relationship task, to the other Node in the relationship.
 
 
 
 ### Logs and Events
+
 Cloudify offers logs & events as the main troubleshooting and tracing tools:
 
 * **Events** - Cloudify reports user facing events for any step in the workflow and task execution. The events are in JSON format and have all the relevant context included.
 
 * **Logs** - Cloudify has a logger that enriches log entries with all relevant context information.
 
-These can later be used to perform manual and automated past and predictive analysis of system states and outages.
+Events and logs enable manual or automated analysis of system states and outages.
 
 ### Log & Event gathering mechanism
+
 Cloudify has a built-in mechanism for log & events shipping, indexing and storage.
-This mechanism is currently only used for Cloudify's logs and events but will be extended to support application related information later on. The mechanism is composed of [RabbitMQ](http://www.rabbitmq.com) as the main transport and queueing component. [Logstash](http://logstash.net/), as the means to format and enrich logs (so we can format and pipe them in various formats for different integrations) and [Elasticsearch](http://www.elasticsearch.org/) as the indexing and storage mechanism.
+This mechanism is currently only used for Cloudify's logs and events but will be extended to support application related information later on. The mechanism is composed of:
+
+ * [RabbitMQ](http://www.rabbitmq.com) as the main transport and queueing component,
+ * [Logstash](http://logstash.net/), as the means to format and enrich logs (so we can format and pipe them in various formats for different integrations),
+ * and [Elasticsearch](http://www.elasticsearch.org/) as the indexing and storage mechanism.
 
 To enjoy the benefits of this mechanism, the REST API exposes some methods to run queries on Elasticsearch and other methods for getting events and logs for a particular workflow execution.
 
@@ -85,20 +95,24 @@ To enjoy the benefits of this mechanism, the REST API exposes some methods to ru
 Cloudify's architecture supports the following main technical flows:
 
 ## Bootstrap
-Bootstrapping is the process of installing the Cloudify [manager](#the-manager-orchestrator). It is executed via the CLI using a blueprint (called manager blueprint). This blueprint, describes the cloud resources to provision including the manager VM. The blueprint also describes the manager installation using either Deb packages or a Docker container.
+
+Bootstrapping is the process of installing the Cloudify [Manager](#the-manager-orchestrator). It is executed via the CLI using a blueprint (called manager blueprint). This blueprint, describes the cloud resources to provision including the manager VM. The blueprint also describes the manager installation using either Deb packages or a Docker container.
 
 ## [Blueprint](reference-terminology.html#blueprint) Upload
+
 The first step the user must take to install an application is to have the application orchestration plan (aka `blueprint`) and its related resources uploaded to the manager. This is done by using the GUI or the CLI [command](reference-cfy.html#blueprints-upload) `cfy blueprints upload`. When using the CLI, This command will pack the blueprint YAML file folder to a `tar.gz` file and upload it to the Cloudify manager REST server. Once the blueprint has been validated, it will be stored in the Cloudify manager file server (hosted by [nginx](http://nginx.org)).
 
 ## [Deployment](reference-terminology.html#deployment) Creation
+
 In order to deploy and manage an application you need to create a runtime data model in the manager. This is where the manager keeps the state of the application. Multiple deployments can be created out of a single blueprint, but once a deployment is created it is independent of other deplyoments of the same blueprint.
 
 To create a deployment, use the GUI or the CLI [command](reference-cfy.html#deployments-create) `cfy deployments create`.
 This will create the deployment data in the manager, including the deployment's [nodes](reference-terminology.html#node) and [node-instances](reference-terminology.html#node-instance) data. Additionally, creating a deployment will execute the `deployment_environment.create` [workflow](reference-terminology.html#workflow), which will install the deployment-specific Cloudify agents on the manager and their relevant plugins. The agents installation happens in the background, but it is required to finish before other workflows may be executed for the given deployment.
 
 ## [Workflow](reference-terminology.html#workflow) Execution
-Any automation process from initial setup to auto-scaling is performed by running a workflow script.
-In order to execute a workflow use the GUI or the CLI [command](reference-cfy.html#deployments-execute) `cfy deployments execute`. This will create an [execution](reference-terminology.html#execution) object for the deployment in the manager and run the script.
+
+Any automation process, from initial setup to auto-scaling, is performed by running a workflow script.
+In order to execute a workflow, use the GUI or the CLI [command](reference-cfy.html#deployments-execute) `cfy deployments execute`. This will create an [execution](reference-terminology.html#execution) object for the deployment in the manager and run the script.
 
 A general diagram of a workflow's execution:
 
