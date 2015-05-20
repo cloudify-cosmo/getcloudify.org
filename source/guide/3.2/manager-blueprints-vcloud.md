@@ -1,7 +1,7 @@
 ---
 layout: bt_wiki
-title: vCloud Manager Reference
-category: Reference
+title: vCloud Manager Blueprint Reference
+category: Manager Blueprints
 publish: true
 abstract: "Reference on how to bootstrap a Cloudify manager on vCloud"
 pageord: 1000
@@ -54,7 +54,7 @@ This reference only explains the structure and various values in the blueprint. 
 # Topology
 
 The blueprint builds the following topology on vCloud:
-  
+
   - vCloud routed network for communication between the Cloudify manager and Cloudify agent machines.
   - A floating IP for the Cloudify manager machine.
   - A port to connect Cloudify Manager to management network.

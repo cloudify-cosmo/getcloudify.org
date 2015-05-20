@@ -1,7 +1,7 @@
 ---
 layout: bt_wiki
-title: Built-in Policies Reference
-category: Reference
+title: Built-in Policies
+category: Policies
 publish: true
 abstract: "description and details on the Cloudify built-in policies"
 pageord: 900

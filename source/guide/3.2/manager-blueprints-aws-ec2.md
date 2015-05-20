@@ -1,7 +1,7 @@
 ---
 layout: bt_wiki
-title: AWS Manager Reference
-category: Reference
+title: AWS Manager Blueprint Reference
+category: Manager Blueprints
 publish: true
 abstract: "Reference on how to bootstrap a Cloudify manager on AWS EC2"
 pageord: 1000
@@ -39,7 +39,7 @@ pageord: 1000
 # Topology
 
 The blueprint builds the following topology on AWS:
-  
+
   - A floating IP for the Cloudify manager machine.
   - A server which will host the Cloudify manager.
   - Two security groups, one for the Cloudify manager machine and another for Cloudify agent machines.

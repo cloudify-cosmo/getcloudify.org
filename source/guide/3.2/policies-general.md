@@ -1,8 +1,8 @@
 ---
 layout: bt_wiki
-title: Policies Guide
-category: Guides
-publish: true
+title: Policies Overview
+category: Policies
+publish: false
 abstract: "A guide to Cloudify Policies"
 pageord: 500
 
@@ -16,7 +16,7 @@ diamond_package_ref: https://github.com/BrightcoveOS/Diamond
 {%summary%}This guide explains what policies are and how to use them{%endsummary%}
 
 
-# Introduction to Policies
+# Overview
 
 Policies provide a way of analyzing a stream of events that correspond to a group of nodes (and their instances).
 The analysis process occurs in real time and enables triggering actions based on its outcome.

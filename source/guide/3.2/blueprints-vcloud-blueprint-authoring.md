@@ -1,7 +1,7 @@
 ---
 layout: bt_wiki
 title: vCloud Blueprint Authoring Guide
-category: Guides
+category: Blueprints
 publish: true
 abstract: vCloud blueprint authoring tutorial
 pageord: 300

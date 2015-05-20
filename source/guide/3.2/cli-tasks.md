@@ -1,7 +1,7 @@
 ---
 layout: bt_wiki
 title: CLI Tasks Reference
-category: Reference
+category: Command-Line Interface
 publish: true
 abstract: "high level information on the Cloudify CLI tasks"
 pageord: 900
@@ -59,7 +59,7 @@ The bootstrap task takes several parameters:
   * ***docker_service_start_command*** - Optional parameter. The command to use in order to start the docker daemon. If not set, `service docker start` will be assumed.
 
 {%note title=Note%}
-On Red Hat Enterprise Linux 7 and CentOS 7, SELinux services are installed by default and therefore require setting the `privileged` paramter to True. 
+On Red Hat Enterprise Linux 7 and CentOS 7, SELinux services are installed by default and therefore require setting the `privileged` paramter to True.
 {%endnote%}
 
 {%note title=Note%}

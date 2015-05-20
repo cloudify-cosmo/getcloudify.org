@@ -1,7 +1,7 @@
 ---
 layout: bt_wiki
-title: Nova-net Openstack Manager Reference
-category: Reference
+title: Nova-net Openstack Manager Blueprint Reference
+category: Manager Blueprints
 publish: true
 abstract: "Reference on how to bootstrap a Cloudify manager on Nova-net Openstack"
 pageord: 1010
