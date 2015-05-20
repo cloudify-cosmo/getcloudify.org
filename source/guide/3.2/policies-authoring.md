@@ -1,7 +1,7 @@
 ---
 layout: bt_wiki
-title: Policies Authoring Guide
-category: Guides
+title: Authoring Guide
+category: Policies
 publish: true
 abstract: "A guide to authoring Cloudify policy types"
 pageord: 600

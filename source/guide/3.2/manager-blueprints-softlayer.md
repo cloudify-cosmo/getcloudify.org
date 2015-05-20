@@ -1,7 +1,7 @@
 ---
 layout: bt_wiki
-title: SoftLayer Manager Reference
-category: Reference
+title: SoftLayer Manager Blueprint Reference
+category: Manager Blueprints
 publish: true
 abstract: "Reference on how to bootstrap a Cloudify manager on SoftLayer"
 pageord: 1000
@@ -17,7 +17,7 @@ This reference only explains the structure and various values in the blueprint. 
 # Inputs
 
 ## Required inputs
-  
+
   * `username` A SoftLayer username.
   * `api_key` A user-specific API Key.
   * `location` The name or id of the data center in which the VS should reside, e.g. *352494* the id of Hong Kong 2.
@@ -27,7 +27,7 @@ This reference only explains the structure and various values in the blueprint. 
   * `disk` The item id of the first disk to add, e.g. *1178* - the item id for 25 GB (SAN).
   * `os` The item id of the operating system to use, e.g. *4668* - the item id for Ubuntu Linux 14.04 LTS Trusty Tahr - Minimal Install (64 bit).
   * `ssh_keys` A list of the SSH keys to add to the root user.
-  * `ssh_key_filename` The path on the local machine to the private key file that will be used with Cloudify manager and agents. 
+  * `ssh_key_filename` The path on the local machine to the private key file that will be used with Cloudify manager and agents.
     * This key should correspond with the public key on SoftLayer that matches an id that appears in the `ssh_keys` input.
 
 ## Optional inputs
@@ -48,8 +48,8 @@ This reference only explains the structure and various values in the blueprint. 
 
 {%tip title=Tip%}
 Some of the required inputs may actually be left empty when appropriate:
-  
-  * `username` and `api_key` properties can be left empty if the following standard SoftLayer environment variables are set: 
+
+  * `username` and `api_key` properties can be left empty if the following standard SoftLayer environment variables are set:
     - *SL_USERNAME* (sets `username`)
     - *SL_API_KEY* (sets `api_key`)
   * `os` property can be left empty if one of `image_template_global_id` or `image_template_id` is specified.
@@ -64,7 +64,7 @@ For more information see [SoftLayer plugin](plugin-softlayer.html)
 # Topology
 
 The blueprint builds the following topology on SoftLayer:
-  
+
   - A server which will host the Cloudify manager.
 
 
@@ -82,5 +82,5 @@ The "SoftLayer manager" blueprint contains the following nodes:
 The *manager's* node *configure* lifecycle operation is mapped to a method in the configure.py module which takes the following actions:
 
   - It sets the *provider context* with the `ssh_keys`, which will be used by the SoftLayer plugin when installing applications at later stages.
-  - It creates a file on the Cloudify manager server, which holds the configuration settings for connecting with SoftLayer. 
+  - It creates a file on the Cloudify manager server, which holds the configuration settings for connecting with SoftLayer.
     This file will be used by the SoftLayer plugin when installing applications at later stages.

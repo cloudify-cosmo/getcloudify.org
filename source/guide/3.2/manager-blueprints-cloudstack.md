@@ -1,7 +1,7 @@
 ---
 layout: bt_wiki
-title: Cloudstack Manager Reference
-category: Reference
+title: Cloudstack Manager Blueprint Reference
+category: Manager Blueprints
 publish: true
 abstract: "Reference on how to bootstrap a Cloudify manager on Cloudstack with networking"
 pageord: 1000
@@ -60,7 +60,7 @@ Additionally, the following optional inputs may also be set by using standard Cl
 # Toplogy
 
 The blueprint builds the following topology on Cloudstack:
-  
+
   - An internal network, for communication between the Cloudify manager and Cloudify agent machines (that may be created later when installing blueprints).
   - A floating IP for the Cloudify manager machine.
   - A server which will host the Cloudify manager.
@@ -91,4 +91,3 @@ The *manager's* node *configure* lifecycle operation is mapped to a method in th
 
   - It sets the *provider context*, which will be used by the Cloudstack plugin when installing applications at later stages.
   - It creates a file on the Cloudify manager server, which holds the configuration settings for connecting with Cloudstack. This file will be used by the Cloudstack plugin when installing applications at later stages.
-  

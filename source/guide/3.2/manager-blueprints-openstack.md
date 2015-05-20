@@ -1,7 +1,7 @@
 ---
 layout: bt_wiki
-title: Openstack Manager Reference
-category: Reference
+title: Openstack Manager Blueprint Reference
+category: Manager Blueprints
 publish: true
 abstract: "Reference on how to bootstrap a Cloudify manager on Openstack"
 pageord: 1000
@@ -74,7 +74,7 @@ Additionally, the following optional inputs may also be set by using standard Op
 # Topology
 
 The blueprint builds the following topology on Openstack:
-  
+
   - An internal network and subnet (layer 3 network), for communication between the Cloudify manager and Cloudify agent machines (that may be created later in a separate process).
   - A router which connects the internal network to the external network, for connectivity between the Cloudify manager and the outside world.
   - A floating IP for the Cloudify manager machine.

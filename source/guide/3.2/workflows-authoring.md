@@ -1,6 +1,6 @@
 ---
 layout: bt_wiki
-title: Workflows Authoring Guide
+title: Authoring Guide
 category: Workflows
 publish: true
 abstract: "A guide to authoring Cloudify Workflows"
