@@ -436,36 +436,34 @@ When we use this term here, we simply mean: custom code that gets installed in t
   In order for the plugin installation to be successfull, these packages must be installed.<br>
   Unfortunately, currently there is no convenient way for specifying system dependencies as plugin requirements.<br>
   This is a known issue and is intended to be solved in Cloudify 3.3.<br>
-  To work around it, one option is to supply a custom cloudify manager docker image with the above packages installed (replace the `docker_url` property in the manager blueprint)<br>
+  To work around it, one option is to supply a custom cloudify manager docker image with the above packages installed (see [Generate a custom Cloudify manager image](https://github.com/cloudify-cosmo/cloudify-packager/blob/master/README.md#generate-a-custom-cloudify-manager-image))<br>
   Another work-around is to add the installation command to the setup.py file, for example:
   
-  {%endnote%}
-  
-  {%highlight python%}
+{%highlight yaml%}
+import os
+from setuptools import setup
 
-  import os
-  from setuptools import setup
-  
-  os.system('sudo apt-get install -y libldap2-dev libsasl2-dev')
-  
-  setup(
-    name='userstores',
-    version='0.1',
-    url='https://github.com/cloudify-cosmo/flask-securest/userstores/examples',
-    license='LICENSE',
-    author='cosmo-admin',
-    author_email='cosmo-admin@gigaspaces.com',
-    description='userstore examples',
-    packages=[
-      'ldap_userstores'
-    ],
-    install_requires=[
-      'python-ldap>=2.4.19',
-      'Flask-SecuREST>=0.6'
-    ]
-  )
+os.system('sudo apt-get install -y libldap2-dev libsasl2-dev')
 
-  {%endhighlight%}
+setup(
+  name='userstores',
+  version='0.1',
+  url='https://github.com/cloudify-cosmo/flask-securest/userstores/examples',
+  license='LICENSE',
+  author='cosmo-admin',
+  author_email='cosmo-admin@gigaspaces.com',
+  description='userstore examples',
+  packages=[
+    'ldap_userstores'
+  ],
+  install_requires=[
+  'python-ldap>=2.4.19',
+    'Flask-SecuREST>=0.6'
+  ]
+)
+{%endhighlight%}
+
+{%endnote%}
 
 
 ### Password Based Authentication Provider Example:
