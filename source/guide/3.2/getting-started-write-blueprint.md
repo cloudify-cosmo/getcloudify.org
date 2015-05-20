@@ -13,7 +13,7 @@ getting_started_link: quickstart.html
 terminology_link: reference-terminology.html
 singlehost_nodecellar_url: https://github.com/cloudify-cosmo/cloudify-nodecellar-example/blob/master/singlehost-blueprint.yaml
 nodecellar_url: https://github.com/cloudify-cosmo/cloudify-nodecellar-example
-nodecellar_scripts_url: https://github.com/cloudify-cosmo/cloudify-nodecellar-example/tree/master/scripts
+nodecellar_scripts_url: https://github.com/cloudify-cosmo/cloudify-nodecellar-example/tree/3.2/scripts
 nodecellar_link: http://coenraets.org/blog/2012/10/nodecellar-sample-application-with-backbone-js-twitter-bootstrap-node-js-express-and-mongodb/
 agent_overview_link: agents-description.html
 
@@ -210,7 +210,11 @@ This means that every node template who's type is `nodecellar.nodes.MongoDatabas
 `install` workflow. The node properties are accessible in the bash scripts via the *ctx* utility. For example, to retrieve the *port* property you can do:
 
 {%highlight bash%}
-port=$(ctx node properties port)
+#!/bin/bash -e
+...
+PORT=$(ctx node properties port)
+...
+ctx logger info "The port is ${PORT}"
 {%endhighlight%}
 
 For more examples of using the *ctx* utility refer to [Context Proxy Utility](plugin-script.html#context-proxy). <br>
@@ -286,7 +290,7 @@ node_types:
 Also, two points are worth mentioning regarding the scripts:
 
  1. Should be written in an idempotent manner. As is it possible they will be executed several times per execution, on account of retires due to failures.
- 2. Should be synchronous and wait for processes to start before existing. For example in the *start-mongo.sh* script we wait for mongo to run:
+ 2. Should be synchronous and wait for processes to start before exiting. For example, in the *start-mongo.sh* script we wait for mongo to run:
 
 {%highlight yaml%}
 COMMAND="${MONGO_BINARIES_PATH}/bin/mongod --port ${PORT} --dbpath ${MONGO_DATA_PATH} --rest --journal --shardsvr"
@@ -324,7 +328,7 @@ Cloudify's [built-in types definitions]({{page.types_yaml_link}}) comes with a r
 
 Cloudify's [built-in types definitions]({{page.types_yaml_link}}) comes with a relationship of type `cloudify.relationships.contained_in`, which also seems appropriate.
 
-Note that these relationships do not define any implementation of the relationship, since this is of course application dependent. What it does is define the basic operations one can implement.
+Note that these relationships do not currently define any implementation of the relationship, since this is of course application dependent. What it does is define the basic operations one can implement.
 Similar to the lifecycle operation, relationship operations will also be invoked as part of the `install` workflow execution.
 
 To learn more about relationships, please refer to [Relationships Specification](dsl-spec-relationships.html).
@@ -332,16 +336,17 @@ To learn more about relationships, please refer to [Relationships Specification]
 So, lets see how we use these relationships. First off, we will define our custom `cloudify.relationships.connected_to` relationship type:
 
 {%highlight yaml%}
-node_connected_to_mongo:
-  derived_from: cloudify.relationships.connected_to
-  target_interfaces:
-    cloudify.interfaces.relationship_lifecycle:
-      postconfigure: scripts/mongo/set-mongo-url.sh
+relationships:
+  node_connected_to_mongo:
+    derived_from: cloudify.relationships.connected_to
+    target_interfaces:
+      cloudify.interfaces.relationship_lifecycle:
+        postconfigure: scripts/mongo/set-mongo-url.sh
 {%endhighlight%}
 
-In this example, we have created a new relationship type called *node_connected_to_mongo*.
-Notice it is derived from the base relationship type we talked about, the `cloudify.relationships.connected_to` type.
-We also map its target interface *postconfigure* operation to, you guessed it, a bash script. <br>
+In this example, we create a new relationship type called *node_connected_to_mongo*.
+It is derived from the base relationship type we talked about, the `cloudify.relationships.connected_to` type.
+We map its target interface *postconfigure* operation to, you guessed it, a bash script. <br>
 Each relationship has two edges, a *source* node and a *target* node, The definition we used here answers two questions:
 
  1. When will the *set-mongo-url.sh* script be executed?
@@ -355,7 +360,7 @@ On the VM hosting that *target* node.
 This [script]({{page.nodecellar_scripts_url}}/mongo/set-mongo-url.sh) uses the [Context API]({{page.terminology_link}}#context-object)
 to set [runtime properties]({{page.terminology_link}}#runtime-properties) that determine the MongoDB URL on the *source* node of this relationship.
 
-In the same manner, we define the second relationship, this should now be rather clear:
+In the same manner, we define the second relationship, this should now be clear:
 
 {%highlight yaml%}
 node_contained_in_nodejs:
@@ -446,7 +451,7 @@ relationships:
 
 ## Step 6: Adding node_templates
 
-So far, all we have mainly done is define *types*, be it `node_types` or `relationship` types. Types themselves do not constitute a valid blueprint,
+So far, we have mainly defined *types*, be it `node_types` or `relationship` types. Types themselves do not constitute a valid blueprint,
 they are meant to be used by `node_templates`, which are basically just occurrences of specific `node_types`. <br>
 
 To learn more about `node_templates`, please refer to [Node Templates Specification](dsl-spec-node-templates.html).
@@ -460,7 +465,7 @@ host:
   type: cloudify.nodes.Compute
 {%endhighlight%}
 
-We now defined a node template called *host*, and specified that its type is `cloudify.nodes.Compute`.
+Just now, we defined a node template called *host*, and specified that its type is `cloudify.nodes.Compute`.
 This type is one that is provided by Cloudify's [built-in types definitions]({{page.types_yaml_link}}).
 We talked about `node_types` and the fact that they can define a *properties schema*. This is exactly what the `cloudify.nodes.Compute` does. Lets have a look:
 
@@ -477,8 +482,8 @@ cloudify.nodes.Compute:
 
 so we have 3 properties defined here:
 
-- *install_agent* - This tells cloudify whether or not to install an [Agent]({{page.agent_overview_link}}) on this host.
-This default to true and you shouldn't worry about this in this example.
+- *install_agent* - This tells cloudify whether or not to install a Cloudify [Agent]({{page.agent_overview_link}}) on this host.
+This defaults to true and you shouldn't worry about this in this example.
 - *cloudify_agent* - This is a dictionary that will contain agent configuration, among other things, its most important keys will be connection details to the host.
 This defaults to an empty dictionary because its auto-populated when running in a **Cloud Environment**, however, since we run this application on an existing vm, we will have to populate these values.
 - *ip* - The host ip.
@@ -605,7 +610,7 @@ node_templates:
 
 {%endhighlight%}
 
-Now we can start adding our application `node_templates`, we start by adding the Mongo database:
+Now we can add the rest of our application `node_templates`. We start with the Mongo database:
 
 {%highlight yaml%}
 mongod:
@@ -761,8 +766,7 @@ node_templates:
 
 ## Step 7: Adding outputs
 
-the `outputs` part of the blueprint is optional, but we recommend adding this section because it might prove useful.
-`outputs` allow the blueprint to expose application characteristics via the [REST](rest-api/index.html) or the [CLI](reference-cfy.html). <br>
+The `outputs` part of the blueprint is optional, but it is useful because `outputs` allow the blueprint to expose application characteristics via the [REST](rest-api/index.html) or the [CLI](reference-cfy.html). <br>
 In this blueprint we will use `outputs` to expose the application url endpoint, like so:
 
 {%highlight yaml%}
@@ -914,7 +918,7 @@ outputs:
 
 {%endhighlight%}
 
-That's it, this a fully functioning blueprint that can be used with a Cloudify Management Environment to install the nodecellar application on an existing host.
+That's it! This a fully functioning blueprint that can be used with a Cloudify Management Environment to install the nodecellar application on an existing host.
 
 
 # What's Next
