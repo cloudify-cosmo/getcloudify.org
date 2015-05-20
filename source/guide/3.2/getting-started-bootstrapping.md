@@ -51,6 +51,7 @@ We'll configure an Inputs YAML file. This file will serve as the configuration f
 
 Below are examples of input.yaml file configurations for differnet providers. You can also generate a file on your own.
 
+
 {% togglecloak id=1 %}**Configuring your Manager Blueprint**{% endtogglecloak %}
 
 {% gcloak 1 %}
