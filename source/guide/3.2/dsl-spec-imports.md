@@ -1,7 +1,7 @@
 ---
 layout: bt_wiki
 title: Imports
-category: DSL Specification
+category: Blueprints DSL
 publish: true
 abstract: "Importing YAML Files"
 pageord: 300

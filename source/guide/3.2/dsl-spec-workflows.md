@@ -1,7 +1,7 @@
 ---
 layout: bt_wiki
 title: Workflows
-category: DSL Specification
+category: Blueprints DSL
 publish: true
 abstract: "Workflow definitions"
 pageord: 300

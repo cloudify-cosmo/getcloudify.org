@@ -1,7 +1,7 @@
 ---
 layout: bt_wiki
 title: Inputs
-category: DSL Specification
+category: Blueprints DSL
 publish: true
 pageord: 200
 
@@ -21,7 +21,7 @@ inputs:
   input1:
     ...
   input2:
-    ...  
+    ...
 {%endhighlight%}
 
 

@@ -1,7 +1,7 @@
 ---
 layout: bt_wiki
 title: Node Types
-category: DSL Specification
+category: Blueprints DSL
 publish: true
 abstract: "Node Types Declarations"
 pageord: 300

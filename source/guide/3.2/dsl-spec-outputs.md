@@ -1,7 +1,7 @@
 ---
 layout: bt_wiki
 title: Outputs
-category: DSL Specification
+category: Blueprints DSL
 publish: true
 pageord: 200
 

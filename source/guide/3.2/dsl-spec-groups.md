@@ -1,7 +1,7 @@
 ---
 layout: bt_wiki
 title: Groups
-category: DSL Specification
+category: Blueprints DSL
 publish: true
 pageord: 220
 

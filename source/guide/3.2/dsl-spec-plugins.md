@@ -1,7 +1,7 @@
 ---
 layout: bt_wiki
 title: Plugins
-category: DSL Specification
+category: Blueprints DSL
 publish: true
 abstract: "Specifying plugins to use with the blueprint"
 pageord: 300
