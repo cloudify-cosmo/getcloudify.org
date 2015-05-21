@@ -58,6 +58,7 @@ module Jekyll
             "Agents",
             "Guides",
             "Reference",
+            "APIs",
             "Troubleshooting"]
         payload["categories_3_2_root"] = [
             '/guide/3.2/getting-started.html',
@@ -73,6 +74,7 @@ module Jekyll
             '/guide/3.2/plugins-contrib-general.html',
             '/guide/3.2/policies-general.html',
             '/guide/3.2/agents-general.html',
+            '',
             '',
             '',
             ''];

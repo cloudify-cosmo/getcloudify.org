@@ -42,7 +42,7 @@ After creating the deployment, you will be directed to the deployment's page to 
 Once the initialization is complete, you will be able to start using the deployment and execute [workflows]({{page.terminology_link#workflow}})<br/>
 ![Deployment ready to use](/guide/images/ui/ui-deployment-ready.jpg)
 
-# Step 6: Create a Deployment
+# Actionable: Create a Deployment
 
 Picking up from Step 5, [Uploading a Blueprint](getting-started-upload-blueprint.html), we'll now create the deployment for our blueprint using the command line.
 

@@ -11,6 +11,6 @@ Cloudify's Command-Line Interface is the default method for interacting with Clo
 
 The interface can be accessed by running the `cfy` command. `cfy -h` will get you started.
 
-A full reference to `cfy`'s commands can be found [here](cli_cfy_reference.md).
+A full `cfy` commands reference can be found [here](cli-cfy-reference.html).
 
 Note that some features, such as viewing metric graphs and application topologies are only available via the Web UI.

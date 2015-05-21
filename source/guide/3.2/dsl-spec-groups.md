@@ -69,4 +69,4 @@ Inside the trigger's `parameters` section, `{ get_property: [SELF, property_name
 
 ## Example
 
-See [Using Policies](guide-policies.html#using-policies)
+See [Using Policies](policies-general.html#using-policies)

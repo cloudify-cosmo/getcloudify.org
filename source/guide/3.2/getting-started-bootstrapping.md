@@ -17,7 +17,7 @@ A Cloudify Manager comprises Cloudify's code and [several underlying open-source
 Using different Cloudify plugins, the bootstrap process will create the infrastructure (servers, networks, security groups and rules, etc..) required for Cloudify's Manager to run in that environment.
 
 
-# Step 1: Initialize a Working Directory
+# Actionable: Initialize a Working Directory
 
 Navigate to a directory of your choosing, and initialize it as a Cloudify CLI working directory using this command:
 
@@ -28,7 +28,7 @@ cfy init
 This will create a folder in the current directory named `.cloudify`. (Cloudify will store the current context for the Cloudify CLI, but you shouldn't care about that for now.)
 
 
-# Step 2: Prepare the Bootstrap Configuration
+# Actionable: Prepare the Bootstrap Configuration
 
 Bootstrapping a Cloudify Manager uses [Manager Blueprints](reference-terminology.html#manager-blueprints). These are standard Cloudify blueprints that have been constructed to bring up a Manager on various providers.
 
@@ -340,7 +340,7 @@ sudo pip install -r requirements.txt
 {%endnote%}
 
 
-# Step 3: Bootstrap a Cloudify Manager
+# Actionable: Bootstrap a Cloudify Manager
 
 {%note title=Note%}
 Please verify the [prerequisites](getting-started-prerequisites.html) before bootstrapping.

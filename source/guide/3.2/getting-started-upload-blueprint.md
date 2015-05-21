@@ -56,7 +56,7 @@ Once all the required fields are filled, the `Save` button becomes available.
 
 Clicking the `Save` button will cause the dialog box to be grayed out until the blueprint file is fully uploaded to Cloudify. After the upload is done, the user will be redirected to the blueprint's page.
 
-# Step 5: Upload the blueprint
+# Actionable: Upload the blueprint
 
 Picking up from [Writing a Blueprint](getting-started-write-blueprint.html), let's use the CLI to upload the Nodecellar blueprint.
 

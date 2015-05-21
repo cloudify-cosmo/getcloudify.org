@@ -32,7 +32,7 @@ All files in the directory that contains the Blueprint file, are also considered
 
 To learn more about blueprint syntax and elements please refer to the [DSL Specification](dsl-spec-general.html).
 
-If you want to write a blueprint now, continue reading. Otherwise, you can skip step 4 of this guide and just download an example blueprint like so:
+If you want to write a blueprint now, continue reading. Otherwise, you can skip the actionable in this page and just download an example blueprint like so:
 
   {% highlight bash %}
   cd ~/cloudify-manager
@@ -44,7 +44,7 @@ If you want to write a blueprint now, continue reading. Otherwise, you can skip 
   In the `cloudify-nodecellar-example` directory you just cloned, you can see blueprint files alongside other resources related to this blueprint.
 
 
-# Step 4: Write a Cloudify Blueprint
+# Actionable: Write a Cloudify Blueprint
 
 {%tip title=Tip%}
 The [Terminology Reference Page]({{page.terminology_link}}) will help you understand some of the terms stated in this guide.

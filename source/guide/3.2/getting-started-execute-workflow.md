@@ -70,9 +70,9 @@ A deployment with a workflow execution that failed
 ![Deployment Topology Execution Completed Errors](/guide/images/ui/ui-deployment-topology-7.png)
 
 
-# Step 7: Install the Application
+# Actionable: Install the Application
 
-We'll now execute the Install Workflow from our [Nodecellar deployment](getting-started-create-deployment.html#step-6-create-a-deployment):
+We'll now execute the Install Workflow from our [Nodecellar deployment](getting-started-create-deployment.html#actionable-create-a-deployment):
 
 Type the following command in your terminal:
 
@@ -106,7 +106,7 @@ The blueprint we installed actually defines a custom collector for the Mongo dat
 To add mongo related graphs to the dashboard, have a look at [Adding Custom Graphs](/guide/3.1/ui-monitoring.html#example---customize-your-dashboard).
 {%endnote%}
 
-# Step 8: Test Drive the application
+# Actionable: Test Drive the application
 
 Once the workflow execution is complete, we can view the application endpoint by running:
 {%highlight bash%}
@@ -121,7 +121,7 @@ and can access the mongodb database to read the list of wines.
 
 ![Nodecellar](/guide/images3/guide/quickstart-openstack/nodecellar.png)
 
-# Step 9: Uninstall the application
+# Actionable: Uninstall the application
 
 Uninstalling the deployment is just a matter of running another workflow, which will teardown all the resources provisioned by the `install` workflow.
 To run the [uninstall]({{page.workflows_link}}#uninstall) workflow, type the following command:

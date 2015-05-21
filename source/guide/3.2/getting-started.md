@@ -45,6 +45,11 @@ This Getting Started section will walk you through bootstrapping a Cloudify Mana
 
 Once everything up and and runnning, we will show you how to tear down the entire thing.
 
+{%note title=Actionable%}
+Each step in the Getting Started section is called an `Actionable` - which means that now is a part of the guide in which you take action.
+All other information is descriptive Cloudify context.
+{%endnote%}
+
 You can choose to bootstrap on one of the following IaaS providers:
 
   - [OpenStack](plugin-openstack.html)

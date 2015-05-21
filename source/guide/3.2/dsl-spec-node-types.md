@@ -52,7 +52,7 @@ When a type derives from another type, its `interfaces` and `properties` keys ge
 {%note title=Note%}
 When not deriving from any other type, it's good practice to derive from the `cloudify.types.Root` type defined in the [Cloudify built-in types](reference-types.html).
 
-Not doing so will require either [writing custom workflows](guide-authoring-workflows.html) or declaring the `cloudify.interfaces.lifecycle` interface in this new type, since the [built-in *install* and *uninstall* workflows](reference-builtin-workflows.html) are based on interfaces declared for the `cloudify.types.Root` type.
+Not doing so will require either [writing custom workflows](workflows-authoring.html) or declaring the `cloudify.interfaces.lifecycle` interface in this new type, since the [built-in *install* and *uninstall* workflows](workflows-built-in.html) are based on interfaces declared for the `cloudify.types.Root` type.
 {%endnote%}
 
 
