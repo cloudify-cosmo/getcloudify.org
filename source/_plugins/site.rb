@@ -46,6 +46,7 @@ module Jekyll
             "Getting Started",
             "Product Overview",
             "Command-Line Interface",
+            "Web Interface",
             "Manager Blueprints",
             "Blueprints",
             "Workflows",
@@ -57,12 +58,12 @@ module Jekyll
             "Agents",
             "Guides",
             "Reference",
-            "User Interface",
             "Troubleshooting"]
         payload["categories_3_2_root"] = [
             '/guide/3.2/getting-started.html',
             '/guide/3.2/overview-general.html',
             '/guide/3.2/cli-general.html',
+            '/guide/3.2/webui-general.md',
             '/guide/3.2/manager-blueprints-general.html',
             '/guide/3.2/blueprints-general.html',
             '/guide/3.2/workflows-general.html',
@@ -72,7 +73,6 @@ module Jekyll
             '/guide/3.2/policies-general.html',
             '/guide/3.2/dsl-spec-general.html',
             '/guide/3.2/agents-general.html',
-            '',
             '',
             '',
             ''];

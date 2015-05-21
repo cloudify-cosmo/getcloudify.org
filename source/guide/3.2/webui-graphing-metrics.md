@@ -1,9 +1,9 @@
 ---
 layout: bt_wiki
-title: Monitoring
-category: User Interface
+title: Metrics Visualization
+category: Web Interface
 publish: true
-abstract: Monitoring guide page
+abstract: Cloudify's Grafana Based Metrics Visualization
 pageord: 190
 
 grafana: http://grafana.org
@@ -18,10 +18,10 @@ grafana_export_and_import: http://grafana.org/docs/features/export_import/
 cloudify_nodecellar_example: https://github.com/cloudify-cosmo/cloudify-nodecellar-example
 terminology_link: reference-terminology.html
 ---
-{%summary%} {{page.abstract}}{%endsummary%}
+{%summary%}{{page.abstract}}{%endsummary%}
 
 
-# Monitoring
+# Overview
 
 Cloudify's Monitoring Implementation uses [Grafana]({{page.grafana}}) for tracking system metrics.
 The monitoring section can be found on each deployment's page in the user interface:
@@ -46,9 +46,9 @@ The default dashboard includes the following metrics:
 * Network IO - TX
 
 
-# Setting up your blueprint for monitoring
+# Setting up your blueprint for metrics collection and shipping
 
-The Default dashboard will display metrics only if the blueprint is configured to deliver metrics corresponding with the default dashboard's configured view.
+The Default dashboard will display metrics only if the blueprint is configured to ship metrics corresponding with the default dashboard's configured view.
 
 For an example of an already configured blueprint, go to [cloudify-nodecellar-example]({{page.cloudify_nodecellar_example}}).
 

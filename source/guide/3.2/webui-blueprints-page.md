@@ -1,14 +1,11 @@
 ---
 layout: bt_wiki
 title: The Blueprints Page
-category: User Interface
+category: Web Interface
 publish: true
 abstract: Blueprint Page Reference
 pageord: 110
 
-terminology_topology: http://getcloudify.org/guide/3.1/reference-terminology.html#sts=Topology
-terminology_execution: http://getcloudify.org/guide/3.1/reference-terminology.html#sts=Execution
-ui_monitoring: http://getcloudify.org/guide/3.1/ui-monitoring.html
 terminology_link: reference-terminology.html
 ---
 {%summary%}{{page.abstract}}{%endsummary%}
@@ -17,7 +14,7 @@ terminology_link: reference-terminology.html
 When clicking on the `Blueprints` tab and choosing a blueprint you will be able to choose one of the following:
 
 # Topology
-See the definition [here]({{page.terminology_topology}}).<br/>
+See the definition [here]({{page.terminology_link}}#topology).<br/>
 ![Blueprint topology](/guide/images/ui/ui-blueprint-topology.png)
 
 # Network

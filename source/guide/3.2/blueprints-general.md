@@ -12,3 +12,5 @@ The way Cloudify users use Cloudify to deploy their application is by utilizing 
 To understand how to write blueprints you can read the [Authoring Guide](getting-started-write-blueprint.html).
 
 You can follow the [DSL Specification](dsl-spec-general.html) to learn more about blueprint syntax and elements.
+
+As Blueprints are the basic building blocks for your application, basic information about blueprints can be found within the [Getting Started](getting-started.html) section.
