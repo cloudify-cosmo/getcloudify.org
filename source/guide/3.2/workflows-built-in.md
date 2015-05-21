@@ -3,14 +3,52 @@ layout: bt_wiki
 title: Built-in Workflows
 category: Workflows
 publish: true
-abstract: "description and details on the Cloudify built-in workflows"
-pageord: 100
+abstract: Description and details on Cloudify's built-in Workflows
+pageord: 600
+
+types_yaml_link: reference-types.html
+default_workflows_source_link: https://github.com/cloudify-cosmo/cloudify-plugins-common/blob/3.1/cloudify/plugins/workflows.py
 ---
 
-{%summary%} Cloudify comes with a few [built-in workflows](guide-workflows.html#built-in-workflows). This page will give a high level description of these workflows. {%endsummary%}
+{%summary%}{{page.abstract}}{%endsummary%}
 
 
-# Install
+# Overview
+
+Cloudify comes with a number of built-in workflows - currently these are the workflows for application *install* and *uninstall*, as well as a generic workflow for executing operations called *execute_operation*.
+
+Built-in workflows are declared and mapped in the blueprint in [`types.yaml`]({{page.types_yaml_link}}), which is usually imported either directly or indirectly via other imports.
+
+{% highlight yaml %}
+# snippet from types.yaml
+workflows:
+    install: default_workflows.cloudify.plugins.workflows.install
+    uninstall: default_workflows.cloudify.plugins.workflows.uninstall
+    execute_operation:
+        mapping: default_workflows.cloudify.plugins.workflows.execute_operation
+        parameters:
+            operation: {}
+            operation_kwargs:
+                default: {}
+            run_by_dependency_order:
+                default: false
+            type_names:
+                default: []
+            node_ids:
+                default: []
+            node_instance_ids:
+                default: []
+{% endhighlight %}
+
+
+The implementations for these workflows can be found at [`cloudify-plugins-common`]({{page.default_workflows_source_link}}).
+
+Built-in workflows are not special in any way - they use the same API and framework as any custom workflow is able to use, and one may replace them with different workflows with the same names.
+
+For more information and detailed description of the built-in workflows, visit the [Built-in workflows reference](worklows-built-in.html).
+
+
+# The Install Workflow
 
 **Workflow name:** *install*
 
@@ -37,7 +75,7 @@ For each node, for each node instance (in parallel):
 2. Execute all tasks mapped to this node's relationship lifecycle operation.
 </sub>
 
-# Uninstall
+# The Uninstall Workflow
 
 **Workflow name:** *uninstall*
 
@@ -61,7 +99,7 @@ For each node, for each node instance (in parallel):
 2. Execute all tasks mapped to this node's relationship lifecycle operation.
 </sub>
 
-# Execute Operation
+# The Execute Operation Workflow
 
 **Workflow name**: *execute_operation*
 
@@ -107,7 +145,7 @@ For each of the remaining node instances:
 1. Note that the dependency may be indirect, e.g. in a case where instance A is dependent on instance B, which is in turn dependent on instance C, and only B was filtered out, instance A's operation execution will still only happen after instance C's operation execution.
 </sub>
 
-# Heal
+# The Heal Workflow
 
 **Workflow name:** *heal*
 
@@ -193,7 +231,7 @@ This sub-graph determines the operations that will be executed during the workfl
 * The following relationships will be re-established: `war_1` **connected to** `database_1` and `webserver_host_1` **connected to** `floating_ip_1`.
 {%endnote%}
 
-# Scale
+# The Scale Workflow
 
 **Workflow name:** *scale*
 

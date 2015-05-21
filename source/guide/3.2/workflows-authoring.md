@@ -3,8 +3,8 @@ layout: bt_wiki
 title: Authoring Guide
 category: Workflows
 publish: true
-abstract: "A guide to authoring Cloudify Workflows"
-pageord: 200
+abstract: A guide to authoring Cloudify Workflows
+pageord: 700
 ---
 
 {%summary%}This guide explains how to create your own custom workflows{%endsummary%}
