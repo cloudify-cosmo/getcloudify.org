@@ -1,6 +1,6 @@
 ---
 layout: bt_wiki
-title: Components Overview
+title: Manager Components Overview
 category: Product Overview
 publish: true
 abstract: Overview of the different components Cloudify is comprised of
@@ -15,26 +15,28 @@ diamond_plugin_link: plugin-diamond.html
 This is aimed at advanced users to understand Cloudify's architecture. It provides no user-functional information whatsoever. It does, however, provide information for understanding how Cloudify's architecture supports currently implemented and even potential future flows. Operational knowledge assumed.
 {%endnote%}
 
-# Components Overview
+# Overview
 
 Cloudify's Manager comprises (mainly) of the following open-source components:
 
 * [Nginx](http://nginx.com/)
+* [Gunicorn](http://gunicorn.org/)
+* [Flask](http://flask.pocoo.org/)
 * [Elasticsearch](https://www.elastic.co/products/elasticsearch)
 * [Logstash](https://www.elastic.co/products/logstash)
 * [RabbitMQ](http://www.rabbitmq.com/)
 * [Riemann](http://riemann.io/)
 * [Celery](http://www.celeryproject.org/)
-* [Grafana](http://grafana.org/)
 * [InfluxDB](http://influxdb.com/)
-* [Flask](http://flask.pocoo.org/)
-* [Gunicorn](http://gunicorn.org/)
+* [Grafana](http://grafana.org/)
 
 Cloudify's code and the components' configuration is what makes Cloudify.. well.. Cloudify.
 
 ![Cloudify components](/guide/images3/architecture/cloudify_advanced_architecture.png)
 
 ## Ports and Entry Points
+
+Rather than specifying the ports in each component's overview, ports are specified here so that you can easily review network requirements.
 
 ### External
 
@@ -64,7 +66,38 @@ Internally, the following ports are exposed:
 * InfluxDB exposes its standard 8086 port for HTTP API access.
 * Logstash exposes a dummy 9999 port for liveness verification.
 
-## Elasticsearch Indices
+# Component Roles
+
+## Nginx
+
+Nginx is a highly performant web server.
+
+In Cloudify's Manager, Nginx serves two purposes:
+
+* A Proxy for Cloudify's REST service and Web UI
+* A File Server to host Cloudify specific resources, agent packages and blueprint resources.
+
+### File Server
+
+The fileserver served by Nginx, while tied to Nginx by default, is not logically bound to it. That is, while we currently access it directly in several occurences (via disk rather than via network), we will be working towards having it completely decoupled from the management environment itself so that it can be deployed anywhere.
+
+## Gunicorn & Flask
+
+Gunicorn is a WSGI HTTP server. Flask is a web framework.
+
+Gunicorn and Flask together serve Cloudify's REST service.
+Essentially, Cloudify's REST service is what makes Cloudify tick and is the integrator of all parts of the the system.
+
+## Elasticsearch
+
+Elasticsearch is a JSON based document store.
+
+In Cloudify's Manager, Elasticsearch serves two purposes:
+
+* Main DB which holds the application's model (i.e. blueprints, deployments, runtime properties)
+* Indexing and Storing Logs and Events
+
+### Indices
 
 Elasticsearch is initially provisioned with two indices:
 
@@ -73,18 +106,53 @@ Elasticsearch is initially provisioned with two indices:
 
 The indices and their mappings are generated at build time and are provided within the Docker image(s). To keep the indices and their data persistent, they are mapped to a Data Container.
 
-## Management and Deployment Specific Agents
+## Logstash
 
-Both the `deployment workflow agent` and the `deployment agent` drawn in the diagram are deployment specific. For every deployment created, 2 of these agents are spawned.
+Logstash is a data handler. It can pull/push messages using several inputs, apply filters and output to different outputs.
 
-In addition to these agents, an entity removed from the diagram is a management agent containing a Cloudify plugin able to spawn the deployment specific agents. This agent is provided within the Docker image and is run during the bootstrap process.
+Logstash is used by Cloudify to pull log and event messages from RabbitMQ and index them in Elasticsearch.
+
+## RabbitMQ
+
+RabbitMQ is a queue based messaging platform.
+
+RabbitMQ is used by Cloudify as a message queue for different purposes:
+
+* Queuing deployment tasks
+* Queuing Logs and Events
+* Queuing Metrics
+
+Currently not all requests between Cloudify's Manager and the hosts it manages go through RabbitMQ. We aim to make it so.
+
+## Riemann
+
+Riemann is an event stream processor used mainly for monitoring.
+
+Riemann is used within Cloudify as a policy based decision maker. For more information on policies, refer to the [policies](policies-general.html) section.
+
+## Celery
+
+Celery is a distributed task queue.
+
+Cloudify's Management Worker, the Deployment Specific agents and the host agents are based on Celery.
+
+### Deployment Specific Agents
+
+Both the `deployment workflow agent` and the `deployment agent` drawn in the diagram are deployment specific. For every deployment created, two of these agents are spawned.
+
+* The `deployment workflow agent` executes deployment specific workflows.
+* The `deplomyent workflow` executes API calls to IaaS providers to create deployment resources or submits tasks to RabbitMQ so that host agents can execute them.
 
 Note that all agents (Management, Deployment Specific, Host) are actually the same physical entity (a virtualenv with Python modules - Cloudify plugins installed in them).
 
-## File Server
+### Management Worker (or Agent)
 
-The fileserver served by Nginx, while tied to Nginx by default, is not logically bound to it. That is, while we currently access it directly in several occurences (via disk rather than via network), we will be working towards having it completely decoupled from the management environment itself so that it can be deployed anywhere.
+An entity removed from the diagram is a management agent containing a Cloudify plugin able to spawn the aforementioned deployment specific agents. This agent is provided within the Docker image and is run during the bootstrap process.
 
-## Metrics Consumer
+## InfluxDB, Grafana and the Metrics Consumer
 
-Another entity not drawn in the diagram is a propriatary poller we use to consume metrics from RabbitMQ and feed them into InfluxDB.
+InfluxDB is a time series database. Grafana is a graphical dashboard for InfluxDB.
+
+* A proprietary metrics consumer is used to pull metrics from RabbitMQ and submit them to InfluxDB.
+* InfluxDB is used by Cloudify to store metrics submitted (mainly) by the application's hosts.
+* Grafana is embedded within Cloudify's Web UI to graph metrics stored within InfluxDB.
