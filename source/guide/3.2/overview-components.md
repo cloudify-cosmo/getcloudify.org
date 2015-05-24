@@ -19,16 +19,16 @@ This is aimed at advanced users to understand Cloudify's architecture. It provid
 
 Cloudify's Manager comprises (mainly) of the following open-source components:
 
-* [Nginx](http://nginx.com/)
-* [Gunicorn](http://gunicorn.org/)
-* [Flask](http://flask.pocoo.org/)
-* [Elasticsearch](https://www.elastic.co/products/elasticsearch)
-* [Logstash](https://www.elastic.co/products/logstash)
-* [RabbitMQ](http://www.rabbitmq.com/)
-* [Riemann](http://riemann.io/)
-* [Celery](http://www.celeryproject.org/)
-* [InfluxDB](http://influxdb.com/)
-* [Grafana](http://grafana.org/)
+* [Nginx](#nginx)
+* [Gunicorn](#gunicorn-and-flask)
+* [Flask](#gunicorn-and-flask)
+* [Elasticsearch](#elasticsearch)
+* [Logstash](#logstash)
+* [RabbitMQ](#rabbitmq)
+* [Riemann](#riemann)
+* [Celery](#celery)
+* [InfluxDB](#influxdb-and-grafana)
+* [Grafana](#influxdb-and-grafana)
 
 Cloudify's code and the components' configuration is what makes Cloudify.. well.. Cloudify.
 
@@ -66,38 +66,36 @@ Internally, the following ports are exposed:
 * InfluxDB exposes its standard 8086 port for HTTP API access.
 * Logstash exposes a dummy 9999 port for liveness verification.
 
-# Component Roles
+# Nginx
 
-## Nginx
-
-Nginx is a highly performant web server.
+[Nginx](http://nginx.com/) is a highly performant web server.
 
 In Cloudify's Manager, Nginx serves two purposes:
 
 * A Proxy for Cloudify's REST service and Web UI
 * A File Server to host Cloudify specific resources, agent packages and blueprint resources.
 
-### File Server
+## File Server
 
 The fileserver served by Nginx, while tied to Nginx by default, is not logically bound to it. That is, while we currently access it directly in several occurences (via disk rather than via network), we will be working towards having it completely decoupled from the management environment itself so that it can be deployed anywhere.
 
-## Gunicorn & Flask
+# Gunicorn and Flask
 
-Gunicorn is a WSGI HTTP server. Flask is a web framework.
+[Gunicorn](http://gunicorn.org/) is a WSGI HTTP server. [Flask](http://flask.pocoo.org/) is a web framework.
 
-Gunicorn and Flask together serve Cloudify's REST service.
+Gunicorn and Flask together serve as Cloudify's REST service. The REST service itself is written using Flask while Gunicorn is the server. Nginx, is the proxy to that server.
 Essentially, Cloudify's REST service is what makes Cloudify tick and is the integrator of all parts of the the system.
 
-## Elasticsearch
+# Elasticsearch
 
-Elasticsearch is a JSON based document store.
+[Elasticsearch](https://www.elastic.co/products/elasticsearch) is a JSON based document store.
 
 In Cloudify's Manager, Elasticsearch serves two purposes:
 
 * Main DB which holds the application's model (i.e. blueprints, deployments, runtime properties)
 * Indexing and Storing Logs and Events
 
-### Indices
+## Indices
 
 Elasticsearch is initially provisioned with two indices:
 
@@ -106,15 +104,15 @@ Elasticsearch is initially provisioned with two indices:
 
 The indices and their mappings are generated at build time and are provided within the Docker image(s). To keep the indices and their data persistent, they are mapped to a Data Container.
 
-## Logstash
+# Logstash
 
-Logstash is a data handler. It can pull/push messages using several inputs, apply filters and output to different outputs.
+[Logstash](https://www.elastic.co/products/logstash) is a data handler. It can pull/push messages using several inputs, apply filters and output to different outputs.
 
 Logstash is used by Cloudify to pull log and event messages from RabbitMQ and index them in Elasticsearch.
 
-## RabbitMQ
+# RabbitMQ
 
-RabbitMQ is a queue based messaging platform.
+[RabbitMQ](http://www.rabbitmq.com/) is a queue based messaging platform.
 
 RabbitMQ is used by Cloudify as a message queue for different purposes:
 
@@ -124,19 +122,19 @@ RabbitMQ is used by Cloudify as a message queue for different purposes:
 
 Currently not all requests between Cloudify's Manager and the hosts it manages go through RabbitMQ. We aim to make it so.
 
-## Riemann
+# Riemann
 
-Riemann is an event stream processor used mainly for monitoring.
+[Riemann](http://riemann.io/) is an event stream processor used mainly for monitoring.
 
 Riemann is used within Cloudify as a policy based decision maker. For more information on policies, refer to the [policies](policies-general.html) section.
 
-## Celery
+# Celery
 
-Celery is a distributed task queue.
+[Celery](http://www.celeryproject.org/) is a distributed task queue.
 
 Cloudify's Management Worker, the Deployment Specific agents and the host agents are based on Celery.
 
-### Deployment Specific Agents
+## Deployment Specific Agents
 
 Both the `deployment workflow agent` and the `deployment agent` drawn in the diagram are deployment specific. For every deployment created, two of these agents are spawned.
 
@@ -145,13 +143,13 @@ Both the `deployment workflow agent` and the `deployment agent` drawn in the dia
 
 Note that all agents (Management, Deployment Specific, Host) are actually the same physical entity (a virtualenv with Python modules - Cloudify plugins installed in them).
 
-### Management Worker (or Agent)
+## Management Worker (or Agent)
 
 An entity removed from the diagram is a management agent containing a Cloudify plugin able to spawn the aforementioned deployment specific agents. This agent is provided within the Docker image and is run during the bootstrap process.
 
-## InfluxDB, Grafana and the Metrics Consumer
+# InfluxDB and Grafana
 
-InfluxDB is a time series database. Grafana is a graphical dashboard for InfluxDB.
+[InfluxDB](http://influxdb.com/) is a time series database. [Grafana](http://grafana.org/) is a graphical dashboard for InfluxDB.
 
 * A proprietary metrics consumer is used to pull metrics from RabbitMQ and submit them to InfluxDB.
 * InfluxDB is used by Cloudify to store metrics submitted (mainly) by the application's hosts.
