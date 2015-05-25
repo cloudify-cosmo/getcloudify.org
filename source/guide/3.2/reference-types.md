@@ -140,23 +140,19 @@ Links to Cloudify packages to be installed on the manager
 ### schema
 {% highlight yaml %}
 cloudify_packages:
-    server:
-        compnonets_package_url: {url}
-        core_package_url: {url}
-        ui_package_url: {url}
     agents:
         ubuntu_agent_url: {url}
         centos_agent_url: {url}
         windows_agent_url: {url}
+    docker:
+        docker_url: {url}
 {%endhighlight%}
 
 ### parameters details
 
-* server
-  * `components_package_url` The URL for the Cloudify components package (Default: a URL of the relevant package).
-  * `core_package_url` The URL for the Cloudify core package (Default: a URL of the relevant package).
-  * `ui_package_url` The URL for the Cloudify UI package. If provided with an empty string, the UI won’t be installed (Default: a URL of the relevant package).
 * agents
   * `ubuntu_agent_url` The URL for the Ubuntu agent package. If provided with an empty string, no package will be downloaded (Default: a URL of the relevant package).
   * `centos_agent_url` The URL for the CentOS agent package. If provided with an empty string, no package will be downloaded (Default: a URL of the relevant package).
   * `windows_agent_url` The URL for the Windows agent package. If provided with an empty string, no package will be downloaded (Default: a URL of the relevant package).
+* docker
+  * `docker_url` The URL for the Cloudify manager docker image (Default: a URL of the relevant package).

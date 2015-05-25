@@ -22,10 +22,29 @@ The vSphere plugin.yaml configuration file can be found in this [link.]({{page.p
 {% endnote %}
 
 
-# Plugin Requirements:
+# Plugin Requirements
 
 * Python Versions:
-  * 2.7.x
+    * 2.7.x
+
+## vSphere Environment 
+
+* You will require a working vSphere environment. The plugin was tested with version 5.5, with updates 1 and 2 installed.
+
+## SSH Keys
+* You will need SSH keys generated for both the manager and the application VM's. If you are using the default key locations in the inputs, these can be created with the following commands:
+
+{% highlight bash %}
+ssh-keygen -b2048 -N "" -q -f ~/.ssh/cloudify-manager-kp.pem
+ssh-keygen -b2048 -N "" -q -f ~/.ssh/cloudify-agent-kp.pem
+{% endhighlight %}
+
+## OS Templates
+
+* You need two OS templates of your preffered operating systems (e.g. Ubuntu Trusty) within the vSphere datastores. One for the Cloudify manager and one for the application VMs. The application VM template should accept the Cloudify agent public key for its root user. The Cloudify manager template must accept the cloudify manager public key. Note that you can choose to use same template for both the manager and the application VMs, in that case the shared template must accept both public keys.
+* Both temlates must have SSH activated and open on the firewall.
+* Both templates must have VMWare tools installed. Instructions for this can be found on the [VMWare site](http://kb.vmware.com/selfservice/microsites/search.do?language=en_US&cmd=displayKC&externalId=2075048). Please note, however, that the instructions on this site give incorrect tools for importing keys (it should be using `rpm --import <key>` rather than the apt-key equivalent). After following the instructions you should also run: `chkconfig vmtoolsd on`.
+* The template should not have any network interfaces.
 
 
 # Types
@@ -60,14 +79,14 @@ Each type has property `connection_config`. It can be used to pass parameters fo
         * `gateway` network gateway ip. It will be used by the plugin only when `use_dhcp` is false.
         * `ip` server ip address. It will be used by the plugin only when `use_dhcp` is false.
 
-* `connection_config` key-value authentication configuration. If not specified, values that were used for Cloudify bootstrap process will be used.
+* `connection_config` key-value vsphere environment configuration. If not specified, values that were used for Cloudify bootstrap process will be used.
     * `username` vSphere username.
     * `password` user password.
-    * `url` vSphere url.
-    * `port` port which vCenter Server system uses to monitor data transfer from SDK clients (443 by default).
+    * `url` vCenter url.
+    * `port` vCenter port for SDK (443 by default).
     * `datacenter_name` datacenter name.
-    * `resource_pool_name` name of a network resource pool.
-    * `auto_placement` signifies if server is to be automatically placed on a host (false by default).
+    * `resource_pool_name` name of a resource pool. If you do not with to use a resource pool this must be set to 'Resources' as this is the base resource pool on vSphere.
+    * `auto_placement` signifies whether to use vSphere's auto-placement instead of the plugin's. Must be true if you are using clusters. (false by default).
 
 
 ## cloudify.vsphere.nodes.network
@@ -80,7 +99,7 @@ Each type has property `connection_config`. It can be used to pass parameters fo
     * `name` network name
     * `vlan_id` VLAN identifier which will be assigne to the network.
     * `vswitch_name` vswitch name to which the network will be connected
-* `connection_config` key-value authentication configuration. Same as for `cloudify.vsphere.server` type.
+* `connection_config` key-value vsphere environment configuration. Same as for `cloudify.vsphere.server` type.
 
 
 ## cloudify.vsphere.nodes.storage
@@ -91,7 +110,7 @@ Each type has property `connection_config`. It can be used to pass parameters fo
 
 * `storage` key-value storage disk configuration.
     * `storage_size` disk size in GB.
-* `connection_config` key-value authentication configuration. Same as for `cloudify.vsphere.server` type.
+* `connection_config` key-value vsphere environment configuration. Same as for `cloudify.vsphere.server` type.
 
 
 # Examples
@@ -165,19 +184,6 @@ Node by node explanation:
 3. Creates a storage. We specified desired storage size as 1 GB and wish to add this storage to example_server vm.
 
 {% endgcloak %}
-
-
-# Misc
-
-## Virtual machine template
-Template should have:
-
-* root disk with OS, SSH server and vSphere Tools installed.
-* user account, with manager and agent SSH keys in authorized_hosts.
-
-Template should not have:
-
-* any network interfaces connected.
 
 
 ## Resources prefix support

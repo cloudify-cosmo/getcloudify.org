@@ -75,7 +75,6 @@ The "Cloudstack manager" blueprint contains the following nodes:
   - *management_network* - An internal network for communication between the Cloudify manager and agent machines.
     - A firewall/security group is defined in the network node enabling the following ports:
       - 22 (SSH)
-      - 5555(riemann)
       - 5672(rabbitMQ)
       - 53229 (File server)
       - 8100 (rest-service)
