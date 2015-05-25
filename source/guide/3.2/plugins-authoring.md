@@ -4,7 +4,7 @@ title: Authoring Guide
 category: Plugins
 publish: true
 abstract: This guides you through the steps necessary for writing a Cloudify plugin
-pageord: 400
+pageord: 100
 
 plugin_link: https://github.com/cloudify-cosmo/cloudify-python-plugin
 template_link: https://github.com/cloudify-cosmo/cloudify-plugin-template

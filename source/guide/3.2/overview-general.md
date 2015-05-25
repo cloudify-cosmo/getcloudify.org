@@ -14,11 +14,12 @@ terminology_link: reference-terminology.html
 
 Cloudify comprises the following main parts:
 
-* **Comand-Line Interface**
-* **Manager**
-* **Agents**
+* [Command-Line Interface](#the-command-line-interface)
+* [Manager](#the-manager)
+* [Agents](#the-agents)
+* [Web UI](#the-web-ui) (only in Commercial Edition)
 
-## The Command-Line Interface
+# The Command-Line Interface
 
 Cloudify's CLI is written in Python and comprises several modules:
 
@@ -27,7 +28,7 @@ Cloudify's CLI is written in Python and comprises several modules:
 * Cloudify's Plugins used for bootstrapping a Cloudify Manager or for executing Cloudify workflows locally.
 
 
-## The Manager
+# The Manager
 
 Cloudify's Manager comprises of Cloudify's code and a set of Open-Source applications. An elaborate explanation on these applications is provided [here](overview-components.html).
 
@@ -44,7 +45,7 @@ You can also communicate with the Manager via the CLI, which uses Cloudify's RES
 
 All requests are served via a proxy.
 
-## The Agents
+# The Agents
 
 Cloudify's Agents are entities designed to execute tasks on application hosts. They're able to listen to task queues and execute tasks when required.
 
@@ -61,7 +62,7 @@ More on agents [here](agents-general.md).
 ![Cloudify Manager Architecture](/guide/images3/architecture/cloudify_flows.png)
 
 
-### Plugins
+## Plugins
 
 Plugins are python packages that abstract third party tools that you may want to use in a Cloudify workflow. Notable examples are plugins for IaaS API's, plugins for Configuration Management tools, and even plugins for installation and configuration of monitoring agents.
 
@@ -69,9 +70,9 @@ The plugin has methods that correspond to Node Interface Operations. These metho
 
 
 
-### Logs and Events
+## Logs and Events
 
-Cloudify offers logs & events as the main troubleshooting and tracing tools:
+Cloudify offers log/event aggregation and shipping as the main troubleshooting and tracing tool:
 
 * **Events** - Cloudify reports user facing events for any step in the workflow and task execution. The events are in JSON format and have all the relevant context included.
 
@@ -79,7 +80,7 @@ Cloudify offers logs & events as the main troubleshooting and tracing tools:
 
 Events and logs enable manual or automated analysis of system states and outages.
 
-### Log & Event gathering mechanism
+## Log & Event gathering mechanism
 
 Cloudify has a built-in mechanism for log & events shipping, indexing and storage.
 This mechanism is currently only used for Cloudify's logs and events but will be extended to support application related information later on. The mechanism is composed of:
@@ -89,6 +90,11 @@ This mechanism is currently only used for Cloudify's logs and events but will be
  * and [Elasticsearch](http://www.elasticsearch.org/) as the indexing and storage mechanism.
 
 To enjoy the benefits of this mechanism, the REST API exposes some methods to run queries on Elasticsearch and other methods for getting events and logs for a particular workflow execution.
+
+# The Web UI
+
+Cloudify's Commercial Edition features a Web UI. The Web UI provides most of the features the CLI provides and more. For now, Cloudify's Web UI is deployed alongside the manager. We're working on modularization and decoupling so that it can be deployed anywhere.
+
 
 # Cloudify Technical Scenarios
 
