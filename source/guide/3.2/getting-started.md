@@ -6,10 +6,6 @@ publish: false
 abstract: How to get started
 pageord: 200
 
-openstack_blueprint_file_link: https://raw.githubusercontent.com/cloudify-cosmo/cloudify-nodecellar-example/3.1/openstack-blueprint.yaml
-softlayer_blueprint_file_link: https://raw.githubusercontent.com/cloudify-cosmo/cloudify-nodecellar-example/master/softlayer-blueprint.yaml
-aws_ec2_blueprint_file_link: https://raw.githubusercontent.com/cloudify-cosmo/cloudify-nodecellar-example/master/aws-ec2-blueprint.yaml
-vcloud_blueprint_file_link: https://raw.githubusercontent.com/achirko/cloudify-nodecellar-example/vcloud-plugin/vcloud-blueprint.yaml
 terminology_link: reference-terminology.html
 workflows_link: reference-builtin-workflows.html
 
@@ -58,11 +54,6 @@ You can choose to bootstrap on one of the following IaaS providers:
   - [vCloud](plugin-vsphere.html)
 
 The blueprint you'll be deploying describes a nodejs application that connects to a MongoDB database and presents a wine catalog.
-
-  - [OpenStack nodecellar blueprint]({{page.openstack_blueprint_file_link}})
-  - [SoftLayer nodecellar blueprint]({{page.softlayer_blueprint_file_link}})
-  - [AWS EC2 nodecellar blueprint]({{page.aws_ec2_blueprint_file_link}})
-  - [vCloud nodecellar blueprint]({{page.vcloud_blueprint_file_link}})
 
 
 # What's Next
