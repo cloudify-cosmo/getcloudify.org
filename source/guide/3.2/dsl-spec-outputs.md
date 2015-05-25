@@ -1,7 +1,7 @@
 ---
 layout: bt_wiki
 title: Outputs
-category: DSL Specification
+category: Blueprints DSL
 publish: true
 pageord: 200
 
@@ -60,7 +60,7 @@ output:
 {%endhighlight%}
 
 ## Reading Outputs
-You can view the outputs either by using the [cfy](reference-cfy.html) CLI
+You can view the outputs either by using the [cfy](cli-cfy-reference.html) CLI
 {% highlight bash %}
 cfy deployments outputs -d DEPLOYMENT_ID
 {% endhighlight %}
