@@ -20,8 +20,6 @@ You can take Cloudify for an instant test drive with an [online trial](http://ge
 
 # Before You Begin
 
-First, verify that you have met the [prerequisites for bootstrapping](getting-started-prerequisites.html).
-
 Also, you need to have an IaaS environment (a cloud) and credentials to complete the following section.
 
 If you hadn't already installed Cloudify's CLI, now would be the time to do so. To install the CLI, follow the steps described in the [CLI Installation guide](installation.html). The CLI allows you to upload blueprints, create deployments, and execute workflows, as well as many other useful functions. For more information on the CLI's functions check the [CLI Reference](cfy-reference.html).
@@ -58,4 +56,4 @@ The blueprint you'll be deploying describes a nodejs application that connects t
 
 # What's Next
 
-Let's start by [bootstrapping a Cloudify Manager](getting-started-bootstrapping.html).
+First, verify that you have met the [prerequisites for bootstrapping](getting-started-prerequisites.html).
