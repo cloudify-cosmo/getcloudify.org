@@ -67,7 +67,7 @@ module Jekyll
             '/guide/3.2/webui-general.html',
             '/guide/3.2/manager-blueprints-general.html',
             '/guide/3.2/blueprints-general.html',
-            '/guide/3.2/blueprints-dsl-general.html',
+            '/guide/3.2/dsl-spec-general.html',
             '/guide/3.2/workflows-general.html',
             '/guide/3.2/plugins-general.html',
             '/guide/3.2/plugins-official-general.html',

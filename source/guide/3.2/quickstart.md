@@ -24,13 +24,9 @@ You can take Cloudify for an instant test drive with an [online trial.](http://g
 {%endtip%}
 
 
-# What is Cloudify?
-
-Cloudify is a Cloud Application Orchestrator. It automates common processes you need to perform to manage your applications in a cloud environment or a traditional data center.
-
 # Overview
 
-In this tutorial you will start a Cloudify manager within a Vagrant box on your laptop, and install a sample blueprint on it.
+In this tutorial you will start a Cloudify Manager within a Vagrant box on your laptop, and install a sample blueprint on it.
 
 If you'd like to install an [application]({{page.terminology_link}}#application) on an actual cloud,
 please refer to the [Cloudify Getting Started Guide]({{page.quickstart_link}}).
@@ -137,7 +133,7 @@ The inputs values are located at ~/cloudify/blueprints/inputs/nodecellar-singleh
 These are the values relevant for our example:
 
 {%highlight yaml%}
-agent_key_file : ~/.ssh/agent_key.pem  
+agent_key_file : ~/.ssh/agent_key.pem
 agent_user: root
 host_ip: 127.0.0.1
 {%endhighlight%}
