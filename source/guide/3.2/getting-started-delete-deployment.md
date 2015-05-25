@@ -26,4 +26,4 @@ cfy deployments delete -d nodecellar
 
 # What's Next
 
-Next, you can [teardown the Manager](getting-started-teardown.html).
+Next, you can [delete the blueprint](getting-started-delete-blueprint.html).

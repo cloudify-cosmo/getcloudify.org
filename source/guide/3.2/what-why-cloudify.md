@@ -55,3 +55,17 @@ Users can write and deploy their own plugins and import them in their blueprints
 # Open-Source
 
 Cloudify comprises several open-source tools and proprietary Python code which allows for easy composability.
+
+
+# The Big Picture
+
+Cloudify, having the entire application spread at its feet, can help you make smart decisions. Instread of looking only at the infrastructure level, or only at the application, Cloudify assumes that any resource (up to the hypervisor), log message, or metric, is a part of your application. This allows you to achieve a level of granularity when managing your application that takes everything into consideration.
+
+For instance, let's say that you're running a web application. You can use Cloudify to make a smart decision about scaling based on:
+
+* Metrics sent from the application
+* Metrics sent from the servers
+* Some log messages
+* The number of instances currently deployed
+* The scripts previously run on that specific server
+* Any other resource that your system comprises.

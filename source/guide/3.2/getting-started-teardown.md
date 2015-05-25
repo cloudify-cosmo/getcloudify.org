@@ -4,7 +4,7 @@ title: Tearing Down
 category: Getting Started
 publish: true
 abstract: How to delete the management environment related resources
-pageord: 700
+pageord: 800
 ---
 {%summary%} {{page.abstract}}{%endsummary%}
 
