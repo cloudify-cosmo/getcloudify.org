@@ -1,7 +1,7 @@
 ---
 layout: bt_wiki
 title: Plugins
-category: DSL Specification
+category: Blueprints DSL
 publish: true
 abstract: "Specifying plugins to use with the blueprint"
 pageord: 300
@@ -10,7 +10,7 @@ openstack_plugin_link: https://github.com/cloudify-cosmo/cloudify-openstack-plug
 openstack_plugin_yaml_link: http://www.getcloudify.org/spec/openstack-plugin/1.1/plugin.yaml
 terminology_link: reference-terminology.html
 agent_packager_link: agents-packager.html
-plugin_authoring_link: guide-plugin-creation.html
+plugin_authoring_link: plugins-authoring.html
 ---
 {%summary%}{{page.abstract}}{%endsummary%}
 {%summary%}
@@ -43,6 +43,7 @@ install           | no          | boolean     | Whether to install the plugin or
 Example:
 
 {%highlight yaml%}
+tosca_definitions_version: cloudify_dsl_1_1
 
 imports:
     - {{page.openstack_plugin_yaml_link}}

@@ -1,7 +1,7 @@
 ---
 layout: bt_wiki
 title: Chef Plugin
-category: Plugins
+category: Official Plugins
 publish: true
 abstract: "Chef plugin description and configuration"
 pageord: 200
@@ -273,14 +273,14 @@ node_templates:
       - type: cloudify.relationships.connected_to
         target: example_db_server
 
-    example_db_server:
-      type: cloudify.chef.nodes.DBMS
-      ...
-      properties:
-        chef_config:
-          ...
-          attributes:
-            db_port: {related_chef_attribute: db.port}
+  example_db_server:
+    type: cloudify.chef.nodes.DBMS
+    ...
+    properties:
+      chef_config:
+        ...
+        attributes:
+          db_port: 27017
 {%endhighlight%}
 
 

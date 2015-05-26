@@ -1,7 +1,7 @@
 ---
 layout: bt_wiki
 title: Relationships
-category: DSL Specification
+category: Blueprints DSL
 publish: true
 abstract: "Node Relationships"
 pageord: 300

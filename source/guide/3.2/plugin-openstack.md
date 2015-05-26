@@ -1,7 +1,7 @@
 ---
 layout: bt_wiki
 title: Openstack Plugin
-category: Plugins
+category: Official Plugins
 publish: true
 abstract: Cloudify Openstack plugin description and configuration
 pageord: 600
@@ -30,7 +30,7 @@ For more information about OpenStack, please refer to: [https://www.openstack.or
 
 **Properties:**
 
-  * `server` key-value server configuration as described in [OpenStack compute create server API](http://docs.openstack.org/api/openstack-compute/2/content/POST_createServer__v2__tenant_id__servers_CreateServers.html).
+  * `server` key-value server configuration as described in [OpenStack compute create server API](http://developer.openstack.org/api-ref-compute-v2.html#compute_servers).
     * **Notes:**
       * Usage of the `nics` key should be avoided. To connect the server to networks, the Server node should be connected to Network nodes and/or Port nodes via relationships. These will then be translated into the appropriate `nics` definitions automatically.
       * The public key which is set for the server needs to match the private key file whose path is set for the `cloudify_agent`'s `key` property (see [cloudify.nodes.Compute's properties](reference-types.html)). The public key may be set in a number of ways:
@@ -117,7 +117,7 @@ See the [common Runtime Properties section](#runtime-properties).
 
 **Properties:**
 
-  * `subnet` *Required*. key-value subnet configuration as described in [OpenStack network create subnet API](http://docs.openstack.org/api/openstack-network/2.0/content/create_subnet.html).
+  * `subnet` *Required*. key-value subnet configuration as described in [OpenStack network create subnet API](http://developer.openstack.org/api-ref-networking-v2.html#subnets).
     * **Notes:**
       * The `network_id` key should not be used. Instead, the Subnet node should be connected to *exactly* one Network node via a relationship. It will then be placed on that network automatically.
   * `use_external_resource` a boolean for setting whether to create the resource or use an existing one. See the [using existing resources section](#using-existing-resources). Defaults to `false`.
@@ -142,12 +142,12 @@ See the [common Runtime Properties section](#runtime-properties).
 
 **Properties:**
 
-  * `security_group` key-value security_group configuration as described in [OpenStack network create security group API](http://docs.openstack.org/api/openstack-network/2.0/content/POST_createSecGroup__v2.0_security-groups_security_groups.html). Defaults to `{}`.
+  * `security_group` key-value security_group configuration as described in [OpenStack network create security group API](http://developer.openstack.org/api-ref-networking-v2.html#security_groups). Defaults to `{}`.
     * **Sugaring:**
       * `port` key may be used instead of the `port_range_max` and `port_range_min` keys to limit the rule to a single port.
       * `remote_group_node` can be used instead of `remote_group_id` to specify a remote group, by supplying this key with a value which is the name of the remote security group node. The target node must be a node the current security-group node has a relationship (of any type) to. Note that like the `remote_group_id` key, this shouldn't be provided if `remote_ip_prefix` was provided.
       * `remote_group_name` will automatically resolve the Openstack name of a security group into a `remote_group_id`. Note that like the `remote_group_id` key, this shouldn't be provided if `remote_ip_prefix` was provided.
-  * `rules` key-value security_group_rule configuration as described in [OpenStack network create security group rule](http://docs.openstack.org/api/openstack-network/2.0/content/POST_createSecGroupRule__security-group-rules_.html). Defaults to `[]`.
+  * `rules` key-value security_group_rule configuration as described in [OpenStack network create security group rule](http://developer.openstack.org/api-ref-networking-v2.html#security_groups). Defaults to `[]`.
     * Note: Each rule will be parsed with default values, which will take effect unless overridden. The default values are:
       * `direction`: `ingress`
       * `ethertype`: `IPv4`
@@ -181,21 +181,12 @@ See the [common Runtime Properties section](#runtime-properties).
 
 **Properties:**
 
-  * `router` key-value router configuration as described in [OpenStack network create router API](http://docs.openstack.org/api/openstack-network/2.0/content/router_create.html). Defaults to `{}`.
-    * **Notes:**
-      * There are several ways to connect a router to an external network: 
-        * The most direct way is to use the `external_network` property, which allows providing either the name or ID of the external network to connect to. 
-        * Another option which may be preferred, especially if there's already a node representing the external network in the blueprint, is to connect the router to the external network using a relationship.  
-        * It's possible to pass the external network ID via the standard Neutron API by using the nested `network_id` key under the `external_gateway_info` key of the `router` property. This will override the value given under the `external_network` property.
-        * If none of the above is provided, and the external-network used by the Cloudify Manager is available in the [Provider-context](#misc), it may be automatically used as the gateway for the router, depending on the value of the `default_to_managers_external_network` property.
-
-      * Don't provide an external network by both an ID/name *and* by relationship - this will result in an error.
-
+  * `router` key-value router configuration as described in [OpenStack network create router API](http://developer.openstack.org/api-ref-networking-v2.html#layer3). Defaults to `{}`.
 
 {%warning title=Deprecation Notice%}
 The `network_name` sugaring under the `external_gateway_info` key is now deprecated; Use the `external_netowrk` property to connect the router to an external network by giving either the external network's name or ID.
 
-See more information in the [migration guide](Migrating_from_3_1.html).
+See more information in the [migration guide](migrating-from-3.1.html).
 {%endwarning%}
 
   * `external_network` An external network name or ID. If given, the router will use this external network as a gateway. Defaults to `''` (empty string).
@@ -204,6 +195,14 @@ See more information in the [migration guide](Migrating_from_3_1.html).
   * `resource_id` name to give to the new resource or the name or ID of an existing resource when the `use_external_resource` property is set to `true` (see the [using existing resources section](#using-existing-resources)). Defaults to `''` (empty string).
   * `openstack_config` see the [Openstack Configuration](#openstack-configuration).
 
+**Notes:**
+
+  * There are several ways to connect a router to an external network: 
+    * The most direct way is to use the `external_network` property, which allows providing either the name or ID of the external network to connect to. 
+    * Another option which may be preferred, especially if there's already a node representing the external network in the blueprint, is to connect the router to the external network using a relationship.  
+    * It's possible to pass the external network ID via the standard Neutron API by using the nested `network_id` key under the `external_gateway_info` key of the `router` property. This will override the value given under the `external_network` property.
+    * If none of the above is provided, and the external-network used by the Cloudify Manager is available in the [Provider-context](#misc), it may be automatically used as the gateway for the router, depending on the value of the `default_to_managers_external_network` property.
+  * Don't provide an external network by both an ID/name *and* by relationship - this will result in an error.
 
 **Mapped Operations:**
 
@@ -223,7 +222,7 @@ See the [common Runtime Properties section](#runtime-properties).
 
 **Properties:**
 
-  * `port` key-value port configuration as described in [OpenStack network create port API](http://docs.openstack.org/api/openstack-network/2.0/content/Create_Port.html). Defaults to `{}`.
+  * `port` key-value port configuration as described in [OpenStack network create port API](http://developer.openstack.org/api-ref-networking-v2.html#ports). Defaults to `{}`.
     * **Notes:**
       * The `network_id` key should not be used. Instead, the Port node should be connected to a *single* Network node via a relationship. It will then be placed on that network automatically.
   * `fixed_ip` may be used to request a specific fixed IP for the port. If the IP is unavailable (either already taken or does not belong to a subnet the port is on) an error will be raised. Defaults to `''`.
@@ -251,7 +250,7 @@ Additionally, the Port's fixed-IP is available via the `fixed_ip_address` runtim
 
 **Properties:**
 
-  * `network` key-value network configuration as described in [OpenStack network create network API](http://docs.openstack.org/api/openstack-network/2.0/content/Create_Network.html). Defaults to `{}`.
+  * `network` key-value network configuration as described in [OpenStack network create network API](http://developer.openstack.org/api-ref-networking-v2.html#networks). Defaults to `{}`.
   * `use_external_resource` a boolean for setting whether to create the resource or use an existing one. See the [using existing resources section](#using-existing-resources). Defaults to `false`.
   * `resource_id` name to give to the new resource or the name or ID of an existing resource when the `use_external_resource` property is set to `true` (see the [using existing resources section](#using-existing-resources)). Defaults to `''` (empty string).
   * `openstack_config` see the [Openstack Configuration](#openstack-configuration).
@@ -274,7 +273,7 @@ See the [common Runtime Properties section](#runtime-properties).
 
 **Properties:**
 
-  * `floatingip` key-value floatingip configuration as described in [OpenStack network create floating ip API](http://docs.openstack.org/api/openstack-network/2.0/content/floatingip_create.html). Defaults to `{}`.
+  * `floatingip` key-value floatingip configuration as described in [OpenStack network create floating ip API](http://developer.openstack.org/api-ref-networking-v2.html#layer3). Defaults to `{}`.
     * **Notes:**
       * a `floating_ip_address` key can be passed for using an existing allocated floating IP. The value is the existing floating IP address.
     * **Sugaring:**
@@ -331,7 +330,7 @@ This is a Nova-net specific type. See more in the [Nova-net Support section](#no
 
 **Properties:**
 
-  * `floatingip` key-value floatingip configuration as described in [OpenStack Nova create floating ip API](http://docs.openstack.org/api/openstack-compute/2/content/POST_os-floating-ips-v2_AllocateFloatingIP__v2__tenant_id__os-floating-ips_ext-os-floating-ips.html​). Defaults to `{}`.
+  * `floatingip` key-value floatingip configuration as described in [OpenStack Nova create floating ip API](http://developer.openstack.org/api-ref-compute-v2-ext.html#ext-os-floating-ips). Defaults to `{}`.
   * `use_external_resource` a boolean for setting whether to create the resource or use an existing one. See the [using existing resources section](#using-existing-resources). Defaults to `false`.
   * `resource_id` the IP or ID of an existing floating IP when the `use_external_resource` property is set to `true` (see the [using existing resources section](#using-existing-resources)). Defaults to `''` (empty string).
   * `openstack_config` see the [Openstack Configuration](#openstack-configuration).
@@ -360,10 +359,10 @@ This is a Nova-net specific type. See more in the [Nova-net Support section](#no
 **Properties:**
 
   * `description` *Required*. The description for the security-group.
-  * `security_group` key-value security_group configuration as described in [OpenStack Nova create security group API](http://docs.openstack.org/api/openstack-compute/2/content/POST_os-security-groups-v2_createSecGroup__v2__tenant_id__os-security-groups_ext-os-security-groups.html). Defaults to `{}`.
+  * `security_group` key-value security_group configuration as described in [OpenStack Nova create security group API](http://developer.openstack.org/api-ref-compute-v2-ext.html#ext-os-security-groups). Defaults to `{}`.
     * **Notes:**
       * this property supports the same sugaring described for the equivalent property in the [Neutron security-group type](#cloudifyopenstacknodessecuritygroup).
-  * `rules` key-value security group rule configuration as described in [OpenStack Nova security group API](http://docs.openstack.org/openstack-ops/content/security_groups.html). Defaults to `[]`.
+  * `rules` key-value security group rule configuration as described in [OpenStack Nova security group API](http://developer.openstack.org/api-ref-compute-v2-ext.html#ext-os-security-group-default-rules). Defaults to `[]`.
     * Note: Each rule will be parsed with default values, which will take effect unless overridden. The default values are:
       * `from_port`: `1`
       * `to_port`: `65535`

@@ -1,0 +1,181 @@
+---
+layout: blogpost
+title: Auto-Scaling your Apps with OpenStack Heat - An Orchestration Tool Comparison Pt I of II
+image: elip.jpeg
+author: Eli Polonsky
+tags:
+ - OpenStack
+ - OpenStack Heat
+ - Network Orchestration
+ - OpenStack Summit
+ - Cloud Automation
+---
+
+<notextile>
+<img src="http://getcloudify.org/img/blog/openstackheat.png" alt="OpenStack Vancouver Summit | Cloud Application Orchestration | OpenStack Heat | OpenStack Orchestration | Cloud Automation | Auto-Scaling">
+<br/>
+<br/>
+
+<p>Scaling - it’s all the rave.</p>
+
+<p>When having a conversation about <a href="http://getcloudify.org/cloud_orchestration_cloud_automation.html" target="_blank">cloud orchestration</a> (all the cool kids are doing it these days), you just can't go ten minutes without someone being the party pooper and chiming in with the goold old: &quot;Yeah, but can you auto-scale my application?.” </p>
+
+<p>In fact, I am one of those party poopers myself. You can't really blame us; ever since cloud computing emerged, scaling large application topologies has become much more feasible, because now you can provision any kind of resource via API in a matter of minutes.</p>
+
+<p>However, horizontal scaling is, and will always remain, a very non-trivial problem to solve. First and foremost, the application you are trying to scale must be aware that it may be scaled, and not rely on any state that may change upon scale. </p>
+
+<hr>
+
+<span class="pullquote-left">
+  <font style="font-weight: bold" size="5" face="Baskerville Old Face"><em>OpenStack Orchestration made easy with Cloudify. Get it now.</em></font>&nbsp; <a class="btn btn-medium btn-theme btn-rounded" id="downloadBtnInner" href="http://getcloudify.org/downloads/get_cloudify_3x.html" target="_blank"><i class="icon-plus"></i> Go </a></span>
+  
+<hr>
+
+<p>Take a Web Server instance, for example, in order to be able to scale it cannot store session details that are relevant for subsequent requests, as those requests may be handled by other instances. Only once this requirement is met, can we start talking about the other, more “generic” challenges:</p>
+
+<ul>
+  <li>
+    <p>How and what kind of metrics to measure.</p>
+  </li>
+
+  <li>
+    <p>How to trigger the scaling process.</p>
+  </li>
+
+  <li>
+    <p>How to build the process itself.</p>
+  </li>
+</ul>
+
+<p>In this post, I will be talking about these aspects and we will see how one can approach this problem in an <a href="http://getcloudify.org/openstack-architecture-cloudify.html" target="_blank">OpenStack cloud</a> environment.</p>
+
+<h2>Scaling On OpenStack via Heat</h2>
+
+<p><a href="http://getcloudify.org/openstack-architecture-cloudify.html#Heat" target="_blank">OpenStack Heat</a> is an application orchestration engine designed for the OpenStack Cloud. It is integrated in the OpenStack distro and can be used via CLI or via the Horizon GUI. Heat uses a proprietary templating language called HOT (Heat Orchestration Template) for defining application topologies.</p>
+
+<p>This section assumes basic knowledge of Heat. If you don’t happen to have this knowledge, you can have a look at the following links to help you understand what it's all about:</p>
+
+<ul>
+  <li>
+    <p><a href="http://docs.openstack.org/developer/heat/template_guide/hot_guide.html" target="_blank">HOT Guide</a> - Simple guide for writing HOT templates</p>
+  </li>
+
+  <li>
+    <p><a href="http://docs.openstack.org/hot-reference/content/reference_overview.html" target="_blank">HOT Reference</a> - Glossary</p>
+  </li>
+</ul>
+
+<p>Autoscaling in Heat is done with the help of three main types:</p>
+
+<p><a href="http://docs.openstack.org/hot-reference/content/OS__Heat__AutoScalingGroup.html" target="_blank">OS::Heat::AutoScalingGroup</a></p>
+
+<p>An AutoScalingGroup is a resource type that is used to encapsulate the resource that we wish to scale, and some properties related to the scale process.</p>
+
+<p><a href="http://docs.openstack.org/hot-reference/content/OS__Heat__ScalingPolicy.html" target="_blank">OS::Heat::ScalingPolicy</a></p>
+
+<p>A ScalingPolicy is a resource type that is used to define the effect a scale process will have on the scaled resource.</p>
+
+<p><a href="http://docs.openstack.org/hot-reference/content/OS__Ceilometer__Alarm.html" target="_blank">OS::Ceilometer::Alarm</a></p>
+
+<p>An Alarm is a resource type the is used to define under which conditions the ScalingPolicy should be triggered.</p>
+
+<p>This will all become much clearer once we look at an example, so lets go ahead and do that.</p>
+
+<p>Our use case will be auto-scaling a Wordpress server that connects to a static and shared MariaDB instance.</p>
+
+<p>The following are excerpts from the full <a href="https://github.com/openstack/heat-templates/blob/master/hot/autoscaling.yaml" target="_blank">auto-scaling</a> example.</p>
+
+<p>This is the definition of the MariaDB server:</p>
+<script src="https://gist.github.com/shar1z/11346aff3b1709db2233.js"></script>
+
+<p>We can see that it is simply a resource of type <a href="http://docs.openstack.org/hot-reference/content/OS__Nova__Server.html" target="_blank">OS::Nova::Server</a> with a user_data property for installing the MariaDB via yum.</p>
+
+<p>Now let's see how the auto-scaling part comes into play.</p>
+
+<p>Any auto-scaling process implementation should always answer three basic questions:</p>
+
+<ol>
+  <li>
+    <p>Which resource to scale?</p>
+  </li>
+
+  <li>
+    <p>What does the scaling process do?</p>
+  </li>
+
+  <li>
+    <p>When should the scaling process be triggered?</p>
+  </li>
+</ol>
+
+<h2>Q1: The Which</h2>
+<script src="https://gist.github.com/shar1z/b44e001b817a0746b339.js"></script>
+
+<p>This is a resource of type OS::Heat::AutoScalingGroup, and it defines that we want to scale a resource of type OS::Nova::Server that installs <a href="http://httpd.apache.org/" target="_blank">httpd</a> and deploys the <a href="https://wordpress.com/">Wordpress</a> application onto it. Note that the scaled resource could be defined outside the scaling group and then referenced using the get_resource intrinsic function.</p>
+
+<h2>Q2: The What</h2>
+<script src="https://gist.github.com/shar1z/8c53dc8e5b5539cc3d94.js"></script>
+
+<p>This is a resource of type OS::Heat::ScalingPolicy. Let’s have a closer look at its properties</p>
+
+<ul>
+  <li>
+    <p>auto_scaling_group_id:</p>
+
+    <ul>
+      <li>
+        <p>This is how we link this policy to a specific scaling group, which in turn, defines the resource to scale.</p>
+      </li>
+    </ul>
+  </li>
+
+  <li>
+    <p>adjustment_type:</p>
+
+    <ul>
+      <li>
+        <p>This specifies that we are going to create a change relative to the current capacity. Other options here can be &quot;exact_capacity&quot; or &quot;percent_change_in_capacity&quot;.</p>
+      </li>
+    </ul>
+  </li>
+
+  <li>
+    <p>scaling_adjustment:</p>
+
+    <ul>
+      <li>
+        <p>This is the whole point really, each time this policy is triggered, we want to add one more Wordpress instance.</p>
+      </li>
+    </ul>
+  </li>
+</ul>
+
+<h2>Q3: The When</h2>
+<script src="https://gist.github.com/shar1z/eeedda00ec65b1feb186.js"></script>
+
+<p>We see that this alarm is a resource of type OS::Ceilometer::Alarm that defines properties which basically tell the Heat engine to: </p>
+
+<p>trigger the web_server_scaleup_policy once the average CPU on the Wordpress server is bigger than 50% for at least 1 minute</p>
+
+<p>Alright, it took us a while but we made it through defining a HOT template with auto-scaling capabilities. Now let's address the scaling aspects we mentioned in the beginning of the post with regards to the example we just saw:</p>
+
+<h2>Metrics</h2>
+
+<p>We see that metric measurements are done via <a href="https://wiki.openstack.org/wiki/Ceilometer" target="_blank">Ceilometer</a>, which is a built in monitoring and metering system integrated into OpenStack. It provides various metrics on all kinds of OpenStack resources. In the current example, we were using the cpu_util metric to check CPU utilization of the Wordpress server. There are a lot of different metrics to choose from, ranging from <a href="http://docs.openstack.org/admin-guide-cloud/content/section_telemetry-lbaas-meters.html" target="_blank">Compute</a> instances to <a href="http://docs.openstack.org/admin-guide-cloud/content/section_telemetry-lbaas-meters.html" target="_blank">LBaaS</a>. </p>
+
+<p>However, there is something missing. In many cases, what we are really interested in,&#160; are application/middleware specific metrics. That is, I want my Wordpress server to scale when there are too many requests hitting the current endpoint. This type of information is in no way exposed via Ceilometer, which of course makes sense, since it does not have any knowledge as to what exactly is deployed on the servers it is keeping track of. The semi good news is that, technically speaking, you can push custom metrics to Ceilometer via the <a href="http://docs.openstack.org/developer/ceilometer/webapi/v2.html#user-defined-data" target="_blank">User Defined Data API</a>. In practice, this is a non-trivial engineering effort that needs to be done by the user. Ideally, it would be nice if you could configure which custom metrics will be pushed to Ceilometer via the template, and have a built-in component on the server that actually does the work.</p>
+
+<h2>Triggering</h2>
+
+<p>The scaling process is triggered automatically as soon as the alarm threshold is breached. Heat also provides a webhook for explicitly triggering scaling policies using the alarm_url attribute attached to the policy itself. </p>
+
+<h2>Process</h2>
+
+<p>So far, we haven’t really discussed what the scaling process actually does, i.e, does it just create a new instance of the resource and that’s it? What does it look like? Where is it defined? </p>
+
+<p>This isn’t by accident, it is simply because all of this information is hidden from users, and therefore, by definition, the same process will apply to any kind of resource. For example if I wanted to scale the MariaDB instance instead, I would simply reference that resource inside the AutoScalingGroup instead of the resource inlined.</p>
+
+<p>However, what if scaling a DB instance has different administrative implications on my system than scaling a Web Server instance? Sometimes you might want the ability to execute certain operations prior to launching the new instance. Perhaps there are some SLA issues that need to be enforced that take place using a third-party endpoints. Actually, this aspect is not specifically tied to automatic scaling; the same arguments can be applied to the creation of the stack, deletion, updating...and, well, you see my point.</p>
+
+<p>Ok, I think this was a mouthful and provided a lot to work with regarding auto-scaling in an OpenStack environment, but this is only the half of it.&#160; In my next post, I’d like to compare this process with a TOSCA-based process, that is relevant to any other cloud, or even hybrid cloud environments with OpenStack.&#160; More to come.</p>
+</notextile>

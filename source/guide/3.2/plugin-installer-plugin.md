@@ -1,7 +1,7 @@
 ---
 layout: bt_wiki
 title: Plugin Installer Plugin
-category: Plugins
+category: Official Plugins
 publish: true
 abstract: "Cloudify plugin installer description"
 pageord: 650

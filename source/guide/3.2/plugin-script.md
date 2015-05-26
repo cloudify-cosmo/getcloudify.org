@@ -1,7 +1,7 @@
 ---
 layout: bt_wiki
 title: Script Plugin
-category: Plugins
+category: Official Plugins
 publish: true
 abstract: "Cloudify script plugin description and configuration"
 pageord: 100

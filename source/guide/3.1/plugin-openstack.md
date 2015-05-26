@@ -1,7 +1,7 @@
 ---
 layout: bt_wiki
 title: Openstack Plugin
-category: Plugins
+category: Official Plugins
 publish: true
 abstract: Cloudify Openstack plugin description and configuration
 pageord: 600

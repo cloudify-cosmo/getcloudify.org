@@ -1,7 +1,7 @@
 ---
 layout: bt_wiki
 title: Interfaces
-category: DSL Specification
+category: Blueprints DSL
 publish: true
 abstract: Declaring and using Interfaces
 pageord: 300

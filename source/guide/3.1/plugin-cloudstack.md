@@ -1,7 +1,7 @@
 ---
 layout: bt_wiki
 title: CloudStack Plugin
-category: Plugins
+category: Official Plugins
 publish: true
 abstract: Cloudify CloudStack plugin description and configuration
 pageord: 650
