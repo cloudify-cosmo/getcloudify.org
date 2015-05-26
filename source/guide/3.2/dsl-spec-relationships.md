@@ -192,7 +192,7 @@ The same `connection_type` configuration can be applied to a `cloudify.relations
 
 ## *connection_type*: *all_to_all* and *all_to_one*
 As mentioned previously, the relationship types `cloudify.relationships.connected_to` and `cloudify.relationships.depends_on` and those that derive from it have a property named `connection_type` whose value can be either `all_to_all` or `all_to_one` (The default value is `all_to_all`).
-The following diagrams aim to make their semantics a little clearer.
+The following diagrams aim to make their semantics clearer.
 
 ### *all_to_all*
 Consider this blueprint:
@@ -214,7 +214,7 @@ node_templates:
       deploy: 2
 {%endhighlight%}
 
-When deployed, we will have 2 instances of the `application` node and 2 instances of the `database` node. *All* `application` node instances will be connected to *all* `database` node instances as follows:
+When deployed, we will have 2 node instances of the `application` node and 2 node instances of the `database` node. *All* `application` node instances will be connected to *all* `database` node instances as follows:
 
 ![all_to_all diagram](/guide/images3/guide/relationships-all-to-all.png)
 
@@ -238,7 +238,7 @@ node_templates:
       deploy: 2
 {%endhighlight%}
 
-When deployed, we will have 2 instances of the `application` node and 2 instances of the `database` node. *All* `application` node instances will be connected to *one* `database` node instance (chosen at random) as follows:
+When deployed, we will have 2 node instances of the `application` node and 2 node instances of the `database` node. *All* `application` node instances will be connected to *one* `database` node instance (chosen at random) as follows:
 
 ![all_to_one diagram](/guide/images3/guide/relationships-all-to-one.png)
 
