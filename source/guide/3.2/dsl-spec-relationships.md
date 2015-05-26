@@ -214,7 +214,9 @@ node_templates:
       deploy: 2
 {%endhighlight%}
 
-When deployed, we will have 2 node instances of the `application` node and 2 node instances of the `database` node. *All* `application` node instances will be connected to *all* `database` node instances as follows:
+When deployed, we will have 2 node instances of the `application` node and 2 node instances of the `database` node. *All* `application` node instances will be connected to *all* `database` node instances.
+
+For example, consider 2 Node.js application servers that need to connect to 2 memcached nodes.
 
 ![all_to_all diagram](/guide/images3/guide/relationships-all-to-all.png)
 
@@ -238,7 +240,9 @@ node_templates:
       deploy: 2
 {%endhighlight%}
 
-When deployed, we will have 2 node instances of the `application` node and 2 node instances of the `database` node. *All* `application` node instances will be connected to *one* `database` node instance (chosen at random) as follows:
+When deployed, we will have 2 node instances of the `application` node and 2 node instances of the `database` node. *All* `application` node instances will be connected to *one* `database` node instance (chosen at random).
+
+For example, consider 2 Node.js application servers that need to add themselves as users on a single cassandra node.
 
 ![all_to_one diagram](/guide/images3/guide/relationships-all-to-one.png)
 
