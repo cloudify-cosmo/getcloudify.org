@@ -43,6 +43,9 @@ Use `-h` with any incomplete `cfy-watchdog` command to learn about the syntax an
 {%endtip%}
 
 
+The manager must be up and available at the time when the watchdog is first launched, since the watchdog requires context information from the manager.
+However, it's important to note that the manager is not required to be so when the watchdog is re-launched (e.g. when the watchdog is installed as a service and its host rebooted) - the watchdog will recognize its target manager is down and perform recovery as expected.
+
 
 
 # Examples
