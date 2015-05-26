@@ -55,15 +55,18 @@ An example for an Openstack manager blueprint which deploys the manager watchdog
 # Running as a service
 
 It's recommended to run the manager watchdog as a service.
-The following is an example setup on Ubuntu Trusty (using Upstart)
+The following is an example configuration on Ubuntu Trusty (using Upstart)
 
 {% highlight bash %}
 start on runlevel [2345]
 stop on runlevel [016]
 
+respawn
+respawn limit 10 5
+
 env CLOUDIFY_USERNAME=<username>
 env CLOUDIFY_PASSWORD=<password>
 
-`/usr/local/bin/cfy-watchdog -t <manager_ip> -k <keypair_path> --logger-enabled --logger-file-path <log_file_path>`
+/usr/local/bin/cfy-watchdog -t <manager_ip> -k <keypair_path> --logger-enabled --logger-file-path <log_file_path>
 
 {%endhighlight%}
