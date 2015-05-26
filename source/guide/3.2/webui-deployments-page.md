@@ -8,7 +8,6 @@ pageord: 130
 
 terminology_link: reference-terminology.html
 ---
-{%summary%} {{page.abstract}}{%endsummary%}
 {%summary%}This is a view of a single blueprint in Cloudify's User Interface{%endsummary%}.
 
 When clicking on the `Deployments` tab and choosing a deployment you will be able to choose one of the following:
