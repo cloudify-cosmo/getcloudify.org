@@ -20,8 +20,10 @@ tags:
 <hr>
 
 <span class="pullquote-left">
+  <font style="font-weight: bold" size="5" face="Baskerville Old Face"><em>Cloud Orchestration to the Max. Download Cloudify today.</em></font>&nbsp; <a class="btn btn-medium btn-theme btn-rounded" id="downloadBtnInner" href="http://getcloudify.org/downloads/get_cloudify_3x.html" target="_blank"><i class="icon-plus"></i> Go </a></span>
   
 <hr>
+<h2><strong>Quick Walkthrough</strong></h2>
 <p>The DeploymentProxy node lets you set up a startup dependency between deployments.  A DeploymentProxy node is inserted in the dependent <a href="http://getcloudify.org/guide/3.1/guide-openstack-blueprint.html">blueprint</a>, and is configured to refer to the outputs of the independent blueprint, or more precisely, the independent deployment.  The source for the plugin is on <a onclick="javascript:pageTracker._trackPageview('/outgoing/github.com/dfilppi/cfy3/tree/master/dproxy');"  href="https://github.com/dfilppi/cfy3/tree/master/dproxy">github</a>, and includes an example.  The example demonstrates a <a onclick="javascript:pageTracker._trackPageview('/outgoing/nodejs.org/');"  href="https://nodejs.org/">NodeJS</a> blueprint that depends on a <a onclick="javascript:pageTracker._trackPageview('/outgoing/www.mongodb.org/');"  href="https://www.mongodb.org/">MongoDB</a> blueprint.  The details of the dependency are somewhat contrived, but good enough for a demonstration.</p>
 <p>The DeploymentProxy uses the blueprint &#8220;<a onclick="javascript:pageTracker._trackPageview('/outgoing/getcloudify.org/guide/3.1/guide-blueprint.html#step-7-adding-outputs');"  href="http://getcloudify.org/guide/3.1/guide-blueprint.html#step-7-adding-outputs">outputs</a>&#8221; feature as the integration point.  So in this example, the first step is to establish meaningful outputs in the MongoDB blueprint.</p>
 <script src="http://gist.github.com/845b0c7ee7b8f33e490e.js"></script>
@@ -34,6 +36,7 @@ tags:
 <script src="http://gist.github.com/d7badd6942b693d1fd19.js"></script>
 <p>In the &#8220;node_connected_to_mongo&#8221; relationship, slightly modified from the original version in the standard NodeCellar blueprint, the postconfigure lifecycle method gets the MongoDB host and port.  In the original version, it gets the values from the MongoDB nodes that are in the current blueprint.  In this version, since MongoDB has a completely separate blueprint, it gets the host and port from the proxy node.  This is shown in the NodeJS blueprint in the relationship implementation at /scripts/mongo/set-mongo-url.sh.</p>
 <script src="http://gist.github.com/25f49a7f5d2e798e7d56.js"></script>
+<h2><strong>A Little Deeper</strong></h2>
 <p>The plugin has but a single implementation function, &#8220;wait&#8221;, that waits for conditions on the outputs of the target deployment. When the &#8220;start&#8221; method is invoked, &#8220;wait&#8221; receives the following parameters:</p>
 <ul>
 <li><strong>deployment_id</strong> : the deployment to depend on.</li>
@@ -48,5 +51,6 @@ tags:
 </ul>
 <p>The &#8220;wait&#8221; function calls the Cloudify REST API to get the outputs from the configured deployment id. It either checks whether a specific output property exists, or evaluates a supplied python boolean expression to check more complicated conditions. If an expression is configured, the dict &#8220;outputs&#8221; containing the target deployment &#8220;outputs&#8221; dict is in scope when the expression is evaluated. The function attempts to satisfy the condition for &#8220;timeout&#8221; seconds, at which point a &#8220;RecoverableError&#8221; is raised. This causes the Cloudify install workflow to enter it&#8217;s own retry loop. This continues until the install workflow finally gives up, or the expression evaluates as true. When the DeploymentProxy completes, it copies the outputs of the target deployment into it&#8217;s own runtime properties. This allows other nodes in the containing blueprint easy access to the outputs where, for example, a server IP address and port<br />
 might be located.</p>
+<h2>Conclusion and Future Directions</h2>
 <p>The cloudify.nodes.DeploymentProxy node provides a basic dependency mechanism between deployments.  It masquerades as a local deployment node, while accessing another deployment, waiting for a ready state described by its outputs.  This is just the tip of the iceberg for this concept, as the communication is limited to outputs and is uni-directional.  There is no reason, in principle, that this plugin couldn&#8217;t be extended to actually trigger the install of the target deployment, access and expose runtime properties, and update outputs and other properties continuously.  The source is available on <a onclick="javascript:pageTracker._trackPageview('/outgoing/github.com/dfilppi/cfy3/tree/1.0/dproxy');" title="DeploymentProxy source"  href="https://github.com/dfilppi/cfy3/tree/1.0/dproxy">github</a>, along with the usage example from the walkthrough in this post.</p>
 </notextile>
