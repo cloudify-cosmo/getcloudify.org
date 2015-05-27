@@ -22,7 +22,7 @@ The Cloudify manager watchdog is a long-running Python process which monitors a 
 
 # Usage
 
-The manager watchdog may run in any environment which contains the requirements for performing recovery for the manager - meaning that it requires connectivity to the manager machine and the private key file used to connect to the manager's host.
+The manager watchdog may run in any environment which contains the requirements for performing recovery of the manager - meaning that it requires connectivity to the manager machine and the private key file used to connect to the manager's host (The key will be used to connect to the new host, which will be assigned with the same public key as the original host, in a recovery scenario).
 
 {%info title=Information%}
 The manager watchdog is agnostic to Cloudify's security features, in the sense that it'll use them transparently when they're configured, without any additional setup or configuration to the watchdog itself.
