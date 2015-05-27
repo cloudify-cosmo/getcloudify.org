@@ -28,10 +28,10 @@ The manager watchdog may run in any environment which contains the requirements 
 The manager watchdog is agnostic to Cloudify's security features, in the sense that it'll use them transparently when they're configured, without any additional setup or configuration to the watchdog itself.
 {%endinfo%}
 
-The manager watchdog is operated via the command-line program `cfy-watchdog`. Mandatory arguments are the monitored manager's IP and the path to the private key file.
+The manager watchdog is operated via `cfy-watchdog`, a command-line program which is deployed in the environment where the `cloudify_watchdog` package is installed (via pip or otherwise). Mandatory arguments are the monitored manager's IP and the path to the private key file.
 
 {%note title=Note%}
-When attempting recovery of the manager, the watchdog will run a local workflow similar to the one run during bootstrap. It is therefore needed for any plugins required by the manager-blueprint which was used in bootstrap to be installed in the manager watchdog's environment as well.
+When attempting recovery of the manager, the watchdog will run the Cloudify CLI's `cfy recover` command, which in turn runs a local workflow similar to the one run during bootstrap. It is therefore needed for any plugins required by the manager-blueprint which was used in bootstrap to be installed in the manager watchdog's environment as well.
 
 The `cfy-watchdog` program provides an option (similar to the one provided by the Cloudify CLI) to install any required plugins, by using the `--install-plugins` flag when launching the manager watchdog.
 {%endnote%}
