@@ -32,7 +32,7 @@ This will create a folder in the current directory named `.cloudify`. (Cloudify 
 
 Bootstrapping a Cloudify Manager uses [Manager Blueprints](reference-terminology.html#manager-blueprints). These are standard Cloudify blueprints that have been constructed to bring up a Manager on various providers.
 
-Clone the [Cloudify-Manager-Blueprints](https://github.com/cloudify-cosmo/cloudify-manager-blueprints) repository from Github, or copy your desired blueprint folder from there.
+Clone the [Cloudify-Manager-Blueprints](https://github.com/cloudify-cosmo/cloudify-manager-blueprints) repository from GitHub, or copy your desired blueprint folder from there.
 
 {% highlight bash %}
 mkdir -p ~/cloudify-manager
@@ -41,7 +41,7 @@ git clone https://github.com/cloudify-cosmo/cloudify-manager-blueprints
 {% endhighlight %}
 
 {%note title=Note%}
-You can download the correct Cloudify-Manager-Blueprints for the CFY version you're using from [Cloudify-Manager-Blueprints](https://github.com/cloudify-cosmo/cloudify-manager-blueprints/releases)
+Make sure you use a tag from [Cloudify-Manager-Blueprints](https://github.com/cloudify-cosmo/cloudify-manager-blueprints/releases) that matches your Cloudify version. Blueprints taken from the master branch might not work for you.
 {%endnote%}
 
 
