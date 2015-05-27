@@ -242,7 +242,7 @@ This blueprint defines quite a few input parameters we need to fill out.
 Let's make a copy of the inputs template already provided and edit it:
 
 {% highlight bash %}
-cd cloudify-manager-blueprints/vcloud-air
+cd cloudify-manager-blueprints/vcloud
 cp inputs.yaml.template inputs.yaml
 {% endhighlight %}
 
@@ -253,6 +253,7 @@ vcloud_username: ''
 vcloud_password: ''
 vcloud_url: ''
 vcloud_service: ''
+vcloud_org: ''
 vcloud_vdc: ''
 manager_server_name: ''
 manager_server_catalog: ''
@@ -260,7 +261,6 @@ manager_server_template: ''
 management_network_use_existing: true
 management_network_name: ''
 edge_gateway: ''
-floating_ip_public_ip: ''
 manager_private_key_path: '~/.ssh/manager.pem'
 agent_private_key_path: '~/.ssh/agent.pem'
 manager_public_key: ''
@@ -330,7 +330,7 @@ sudo pip install -r requirements.txt
 
 {% tabcontent vCloud%}
 {% highlight sh %}
-cfy local create-requirements -o requirements.txt -p vcloud.yaml
+cfy local create-requirements -o requirements.txt -p vcloud-manager-blueprint.yaml
 sudo pip install -r requirements.txt
 {%endhighlight%}
 {% endtabcontent %}
@@ -392,7 +392,7 @@ cfy bootstrap --install-plugins -p aws-ec2-manager-blueprint.yaml -i inputs.yaml
 
 {% highlight bash %}
 
-cfy bootstrap --install-plugins -p vcloud.yaml -i inputs.yaml --task-retries 10
+cfy bootstrap --install-plugins -p vcloud-manager-blueprint.yaml -i inputs.yaml --task-retries 10
 
 {% endhighlight %}
 
