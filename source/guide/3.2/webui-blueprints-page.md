@@ -20,26 +20,25 @@ Each of the blueprint nodes is displayed as a square container, which can contai
 [Relationships]({{page.relationships_link}}) between nodes are marked with arrows, starts from the connected node and ends in the target node.<br>
 The topology view shows only the application nodes and not the network nodes. If a node has network dependency, it will be displayed as a bullet icon in the node title.<br>
 The number of [node instances]({{page.terminology_link}}#node-instance) is marked in a bullet beside the node type icon.<br>
-Pressing a node title will open a side panel with details of the selected node.<br>
 
 ![Blueprint topology](/guide/images/ui/ui-blueprint-topology.png)
 
-Pressing a node title will open a side panel with details of the selected node.<br>
+Clicking a node's title will open a side panel with details of the selected node.<br>
 
 ![Blueprint node details](/guide/images/ui/ui-blueprint-floating-panel.png)
 
 # Network
-A map of networks topology according to the blueprint topology contained internal and external networks, hosts, routers.<br/>
-The network name is displayed as a grey title, each network contains sub-networks displayed as a colored lines underneath.
-Network devices, such as hosts & routers, are displayed as icons, each icon indicates the device type.
-Connections between sub-networks and devices are marked with colored line, by the color of the connected sub-network.<br>
-Pressing a device will open a side panel with details of the selected device.<br>
+A map of networks topologies according to the blueprint's topology contains internal and external networks, hosts, routers.<br/>
+The network's name is displayed as a grey title, each network contains sub-networks displayed as colored lines underneath.
+Network devices, such as hosts & routers, are displayed as icons, each icon indicates the device's type.
+Connections between sub-networks and devices are marked with a colored line, by the color of the connected sub-network.<br>
+Clicking a device will open a side panel with details of the selected device.<br>
 
 ![Blueprint networks](/guide/images/ui/ui-deployment-networks.jpg)
 
 # Nodes
 A list of nodes according to the blueprint topology.<br/>
-In every node row shown its type, number of instance, and relationships. By pressing the magnifier icon, a side panel will be opened with the selected node details.<br>
+For every node, its type, number of instance, and relationships are shown. By clicking the magnifier icon, a side panel will be opened with the selected node's details.
 ![Blueprint nodes](/guide/images/ui/ui-deployment-nodes.jpg)
 
 # Source

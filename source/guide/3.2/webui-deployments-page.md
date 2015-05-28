@@ -22,6 +22,7 @@ The topology view shows only the application nodes and not the network nodes. If
 [Host nodes]({{page.terminology_link}}#host-node) are shown with number bullet beside the node type icon, which indicates the number of [instances]({{page.terminology_link}}#node-instance) and number of initiated instances. Contained nodes are shown with status bullet beside the node type icon, which indicates the node status by bullet icon & color.
 The contained nodes bullet indicates the status of all instances of the specific node. For example, if at least one instance raised an error, the bullet will be colored in red.
 The bullet color indicates the node current status:<br>
+
 ![Loading status](/guide/images/ui/ui-node-status-process.png) - Node is in loading process<br>
 ![Error status](/guide/images/ui/ui-node-status-error.png) - An error occurred while running the node<br>
 ![Warning status](/guide/images/ui/ui-node-status-warning.png) - Warning raised while running the node<br>
@@ -29,22 +30,22 @@ The bullet color indicates the node current status:<br>
 
 ![Deployment topology](/guide/images/ui/ui-deployment-ready.jpg)
 
-Pressing a node title will open a side panel with [runtime properties]({{page.terminology_link}}#runtime-properties) of the selected node. The floating panel allows the user to select which instance details to show.<br>
+Clicking a node's title will open a side panel with [runtime properties]({{page.terminology_link}}#runtime-properties) of the selected node. The floating panel allows the user to select which instance details to show.<br>
 
 ![Deployment node details](/guide/images/ui/ui-deployment-floating-panel.png)
 
 # Network
-A map of networks topology according to the blueprint topology contained internal and external networks, hosts, routers.<br/>
-The network name is displayed as a grey title, each network contains sub-networks displayed as a colored lines underneath.
-Network devices, such as hosts & routers, are displayed as icons, each icon indicates the device type.
-Connections between sub-networks and devices are marked with colored line, by the color of the connected sub-network.<br>
-Pressing a device will open a side panel with details of the selected device.<br>
+A map of networks topologies according to the blueprint's topology contains internal and external networks, hosts, routers.<br/>
+The network's name is displayed as a grey title, each network contains sub-networks displayed as colored lines underneath.
+Network devices, such as hosts & routers, are displayed as icons, each icon indicates the device's type.
+Connections between sub-networks and devices are marked with a colored line, by the color of the connected sub-network.<br>
+Clicking a device will open a side panel with details of the selected device.<br>
 
 ![Deployment networks](/guide/images/ui/ui-deployment-networks.jpg)
 
 # Nodes
 A list of nodes according to the blueprint's topology.<br/>
-In every node row shown its type, number of instance, and relationships. By pressing the magnifier icon, a side panel will be opened with the selected node details.<br>
+For every node, its type, number of instance, and relationships are shown. By clicking the magnifier icon, a side panel will be opened with the selected node's details.
 ![Deployment nodes](/guide/images/ui/ui-deployment-nodes.jpg)
 
 # Executions
