@@ -428,7 +428,7 @@ The [vCloud manager blueprint](reference-vcloud-manager.html) store the vCloud c
 * Template should have one VM with root disk with OS, SSH server and VMware Tools installed.
 * The vApp template’s VM should have one or zero NIC, which should not be connected to any network.
 * The vApp template should neither define any vApp networks nor “import” any Org VDC networks.
-* If you want to customize CPU count or RAM size, you must use template from organisation catalog.
+* If you want to customize CPU count or RAM size on subscription account, you must use template from organisation's catalog.
 
 ## Resources prefix support
 
