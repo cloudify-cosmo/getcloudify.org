@@ -1,6 +1,6 @@
 ---
 layout: bt_wiki
-title: REST Client API Reference
+title: JavaScript Client
 category: APIs
 publish: true
 abstract: REST Client API Documentation for the Cloudify Manager
@@ -8,41 +8,15 @@ pageord: 400
 ---
 
 {%summary%}
-In this section we will talk about clients you can use to call our API, how to set them up and use them.
-
-We will elaborate on the javascript client and show how you can overcome CORS problems and use it to build your own UI.
+In this section we will talk about our javascript client and show how you can overcome CORS problems and use it to build your own UI.
+Read our <a href="https://s3.amazonaws.com/cloudifyjs.gsdev.info/3.2.0/index.html" target="_blank">technical documentation</a> for more information.
 {%endsummary%}
-
-
-# Supported SDKs
-
- - <a href="http://cloudify-rest-client.readthedocs.org/en/3.2/" target="_blank">python</a>
- - <a href="https://s3.amazonaws.com/cloudifyjs.gsdev.info/3.2.0/index.html" target="_blank">javascript</a>
-
 
 {%note title=Note%}
 For using the javascript client from frontend, you will need to setup CORS manually.
 Read below to see how.
 {%endnote%}
 
-
-# Python Client
-
-To use this client run the command `pip install  cloudify-rest-client==3.2.0` or add it to your dependencies file.
-
-Here is an example of how to get blueprints
-
-{% highlight python %}
-
-from cloudify_rest_client import CloudifyClient
-
-client = CloudifyClient('http://MANAGER_HOST')
-blueprints = client.blueprints.list()
-
-for blueprint in blueprints:
-print blueprint.id
-
-{%endhighlight%}
 
 # NodeJS Client
 
