@@ -33,7 +33,7 @@ Not selecting any deployments is equivalent to selecting all deployments in the 
 This page is not filtered live. You should click on the `Show` button to apply the filter.<br/>
 ![Show](/guide/images/ui/ui-hosts-show.png)
 
-And the filter result is displayed
+And the filter results is displayed
 ![Show Results](/guide/images/ui/ui-hosts-show-results.png)
 
 # Search hosts
