@@ -42,6 +42,7 @@ Pressing a device will open a side panel with details of the selected device.<br
 
 # Nodes
 A list of nodes according to the blueprint's topology.<br/>
+In every node row shown its type, number of instance, and relationships. By pressing the magnifier icon, a side panel will be opened with the selected node details.<br>
 ![Deployment nodes](/guide/images/ui/ui-deployment-nodes.jpg)
 
 # Executions
