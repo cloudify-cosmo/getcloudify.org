@@ -35,6 +35,20 @@ cfy executions start -w <WORKFLOW_NAME> -d <DEPLOYMENT_NAME>
 
 ## Executing a Workflow via the Web UI
 
+Navigate to the relevant `Deployment`.
+![workflows1](/guide/images/ui/ui-workflows1.png)
+
+Select the desired `Workflow` from the dropdown.
+
+*Note that until a workflow is selected, the 'run execution' play button is disabled.*
+![workflows2](/guide/images/ui/ui-workflows2.png)
+
+Click the 'run execution' play button to start the workflow execution.
+![workflows3](/guide/images/ui/ui-workflows3.png)
+
+After the 'run execution' button is clicked, the progress spinner is displayed. The execution can be cancelled by clicking on the 'cancel execution' X button.
+ ![workflows4](/guide/images/ui/ui-workflows4.png)
+
 When executing a `Workflow` for a `Deployment` (e.g. the `install` workflow), the topology nodes show badges that reflect the workflow execution state.
 
 ## Badges

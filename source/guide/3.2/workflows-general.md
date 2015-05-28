@@ -33,23 +33,6 @@ When a workflow is executed, an Execution object is created for the deployment, 
 
 An execution is considered to be a *running execution* until it reaches one of the three final statuses: *terminated*, *failed* or *cancelled*. For more information, refer to the [workflow execution statuses](workflows-statuses.html) section in this page.
 
-# Executing Workflows from the UI
-
-Navigate to the relevant deployment.
-![workflows1](/guide/images/ui/ui-workflows1.png)
-
-Select the desired workflow from the dropdown.
-
-*Note that until a workflow is selected, the 'run execution' play button is disabled.*
-![workflows2](/guide/images/ui/ui-workflows2.png)
-
-Click the 'run execution' play button to start the workflow execution.
-![workflows3](/guide/images/ui/ui-workflows3.png)
-
-After the 'run execution' button is clicked, the progress spinner is displayed. The execution can be cancelled by clicking on the 'cancel execution' X button.
- ![workflows4](/guide/images/ui/ui-workflows4.png)
-
-
 {%note title=Note%}
 It is recommended to only have one *running execution* per deployment at any point in time. By default, an attempt to execute a workflow while another execution is running for the same deployment will raise an error. To override this behavior and allow for multiple executions to run in parallel, use the `force` flag for each execute command. For a syntax reference, see the [CLI commands reference](cli-cfy-reference.html).
 {%endnote%}
