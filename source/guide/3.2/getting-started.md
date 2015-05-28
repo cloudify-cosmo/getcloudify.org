@@ -49,7 +49,7 @@ You can choose to bootstrap on one of the following IaaS providers:
   - [OpenStack](plugin-openstack.html)
   - [Softlayer](plugin-softlayer.html)
   - [AWS EC2](plugin-aws.html)
-  - [vCloud](plugin-vsphere.html)
+  - [vCloud](plugin-vcloud.html)
 
 The blueprint you'll be deploying describes a nodejs application that connects to a MongoDB database and presents a wine catalog.
 

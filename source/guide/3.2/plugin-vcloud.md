@@ -21,6 +21,9 @@ The vCloud plugin allows users to use a vCloud based infrastructure for deployin
 * Python Versions:
   * 2.7.x
 
+* vCloud API Versions:
+  * 5.6 or later
+
 
 # Types
 
@@ -410,7 +413,7 @@ The structure of the JSON file in section (1), as well as of the `vcloud_config`
 * `service_type` service type. Can be `subscription`, `ondemand` or `private`. Defaults to `subscription`.
 * `api_version` vCloud API version. For Subscription defaults to `5.6`, for OnDemand to `5.7`.
 * `instance` instance ID. Applies for OnDemand. For obtaining `instance` use [vca_cli](https://github.com/vmware/vca-cli) utility.
-* `org_url` organization url. Required only for `private` service type.
+* `org_url` organization url. Required for private vcloud deployments. Skip it for vCloudAir.
 * `edge_gateway` edge gateway name.
 
 
@@ -425,7 +428,7 @@ The [vCloud manager blueprint](reference-vcloud-manager.html) store the vCloud c
 * Template should have one VM with root disk with OS, SSH server and VMware Tools installed.
 * The vApp template’s VM should have one or zero NIC, which should not be connected to any network.
 * The vApp template should neither define any vApp networks nor “import” any Org VDC networks.
-
+* If you want to customize CPU count or RAM size, you must use template from organisation catalog.
 
 ## Resources prefix support
 
