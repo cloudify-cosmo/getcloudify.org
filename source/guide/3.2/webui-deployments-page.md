@@ -17,16 +17,19 @@ The [Topology]({{page.terminology_link}}#topology) is an application’s graph o
 Each of the blueprint nodes is displayed as a square container, which can contain another nodes. Each of the nodes has a title describing its name, and an icon to indicate the node type.<br>
 Relationships between nodes are marked with arrows, starts from the connected node and ends in the target node.<br>
 The topology view shows only the application nodes and not the network nodes. If a node has network dependency, it will be displayed as a bullet icon in the node title.<br>
-The numbers of node instances and number of initiated instances are marked in a bullet beside the node type icon. The bullet color indicates the node current status:<br>
-<ul>
-<li>Black - Node is not running</li>
-<li>Red - An error occurred while running the node</li>
-<li>Yellow - Warning raised while running the node</li>
-<li>Green - Node was initiated successfully</li>
-</ul>
-Pressing a node title will open a side panel with details of the selected node.<br>
+Hosts nodes are shown with number bullet beside the node type icon, which indicates the number of instances and number of initiated instances. Contained nodes are shown with status bullet beside the node type icon, which indicates the node status by bullet icon & color.
+The contained nodes bullet indicates the status of all instances of the specific node. For example, if at least one instance raised an error, the bullet will be colored in red.
+The bullet color indicates the node current status:<br>
+![Loading status](/guide/images/ui/ui-node-status-process.png) - Node is in loading process<br>
+![Error status](/guide/images/ui/ui-node-status-error.png) - An error occurred while running the node<br>
+![Warning status](/guide/images/ui/ui-node-status-warning.png) - Warning raised while running the node<br>
+![Success status](/guide/images/ui/ui-node-status-success.png) - Node was initiated successfully<br>
 
 ![Deployment topology](/guide/images/ui/ui-deployment-ready.jpg)
+
+Pressing a node title will open a side panel with details of the selected node. The floating panel allows the user to select which instance details to show.<br>
+
+![Deployment node details](/guide/images/ui/ui-deployment-floating-panel.png)
 
 # Network
 A map of networks topology according to the blueprint topology contained internal and external networks, hosts, routers.<br/>

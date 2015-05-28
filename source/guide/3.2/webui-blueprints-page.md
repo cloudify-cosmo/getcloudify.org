@@ -22,6 +22,10 @@ Pressing a node title will open a side panel with details of the selected node.<
 
 ![Blueprint topology](/guide/images/ui/ui-blueprint-topology.png)
 
+Pressing a node title will open a side panel with details of the selected node.<br>
+
+![Blueprint node details](/guide/images/ui/ui-blueprint-floating-panel.png)
+
 # Network
 A map of networks topology according to the blueprint topology contained internal and external networks, hosts, routers.<br/>
 The network name is displayed as a grey title, each network contains sub-networks displayed as a colored lines underneath.
