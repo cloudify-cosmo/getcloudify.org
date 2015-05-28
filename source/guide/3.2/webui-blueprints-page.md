@@ -7,6 +7,8 @@ abstract: Blueprint Page Reference
 pageord: 110
 
 terminology_link: reference-terminology.html
+node_types_link: dsl-spec-node-types.html
+relationships_link: dsl-spec-relationships.html
 ---
 {%summary%}This is a view of a single blueprint in Cloudify's User Interface{%endsummary%}.
 
@@ -14,10 +16,10 @@ When clicking on the `Blueprints` tab and choosing a blueprint you will be able 
 
 # Topology
 The [Topology]({{page.terminology_link}}#topology) is an application’s graph of nodes and their relationships, which describes the lifecycle events or other operations that each node and relationship exposes for use in workflows.<br>
-Each of the blueprint nodes is displayed as a square container, which can contain another nodes. Each of the nodes has a title describing its name, and an icon to indicate the node type.<br>
-Relationships between nodes are marked with arrows, starts from the connected node and ends in the target node.<br>
+Each of the blueprint nodes is displayed as a square container, which can contain another nodes. Each of the nodes has a title describing its name, and an icon to indicate the [node type]({{page.node_types_link}}).<br>
+[Relationships]({{page.relationships_link}}) between nodes are marked with arrows, starts from the connected node and ends in the target node.<br>
 The topology view shows only the application nodes and not the network nodes. If a node has network dependency, it will be displayed as a bullet icon in the node title.<br>
-The number of node instances is marked in a bullet beside the node type icon.<br>
+The number of [node instances]({{page.terminology_link}}#node-instance) is marked in a bullet beside the node type icon.<br>
 Pressing a node title will open a side panel with details of the selected node.<br>
 
 ![Blueprint topology](/guide/images/ui/ui-blueprint-topology.png)

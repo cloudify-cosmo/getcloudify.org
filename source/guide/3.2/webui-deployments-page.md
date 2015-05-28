@@ -7,6 +7,8 @@ abstract: Deployment Page Reference
 pageord: 130
 
 terminology_link: reference-terminology.html
+node_types_link: dsl-spec-node-types.html
+relationships_link: dsl-spec-relationships.html
 ---
 {%summary%}This is a view of a single blueprint in Cloudify's User Interface{%endsummary%}.
 
@@ -14,10 +16,10 @@ When clicking on the `Deployments` tab and choosing a deployment you will be abl
 
 # Topology
 The [Topology]({{page.terminology_link}}#topology) is an application’s graph of nodes and their relationships, which describes the lifecycle events or other operations that each node and relationship exposes for use in workflows.<br>
-Each of the blueprint nodes is displayed as a square container, which can contain another nodes. Each of the nodes has a title describing its name, and an icon to indicate the node type.<br>
-Relationships between nodes are marked with arrows, starts from the connected node and ends in the target node.<br>
+Each of the blueprint nodes is displayed as a square container, which can contain another nodes. Each of the nodes has a title describing its name, and an icon to indicate the [node type]({{page.node_types_link}}).<br>
+[Relationships]({{page.relationships_link}}) between nodes are marked with arrows, starts from the connected node and ends in the target node.<br>
 The topology view shows only the application nodes and not the network nodes. If a node has network dependency, it will be displayed as a bullet icon in the node title.<br>
-Hosts nodes are shown with number bullet beside the node type icon, which indicates the number of instances and number of initiated instances. Contained nodes are shown with status bullet beside the node type icon, which indicates the node status by bullet icon & color.
+[Host nodes]({{page.terminology_link}}#host-node) are shown with number bullet beside the node type icon, which indicates the number of [instances]({{page.terminology_link}}#node-instance) and number of initiated instances. Contained nodes are shown with status bullet beside the node type icon, which indicates the node status by bullet icon & color.
 The contained nodes bullet indicates the status of all instances of the specific node. For example, if at least one instance raised an error, the bullet will be colored in red.
 The bullet color indicates the node current status:<br>
 ![Loading status](/guide/images/ui/ui-node-status-process.png) - Node is in loading process<br>
@@ -27,7 +29,7 @@ The bullet color indicates the node current status:<br>
 
 ![Deployment topology](/guide/images/ui/ui-deployment-ready.jpg)
 
-Pressing a node title will open a side panel with details of the selected node. The floating panel allows the user to select which instance details to show.<br>
+Pressing a node title will open a side panel with [runtime properties]({{page.terminology_link}}#runtime-properties) of the selected node. The floating panel allows the user to select which instance details to show.<br>
 
 ![Deployment node details](/guide/images/ui/ui-deployment-floating-panel.png)
 
