@@ -122,7 +122,8 @@ For more information on the different management environment structures, please 
 {% tabcontent SoftLayer %}
 
 {%note title=Note%}
-The Softlayer IaaS plugin is a feature of the commercial version of Cloudify. For more information, [go pro](/goPro.html).
+The Softlayer IaaS plugin is a feature of the commercial version of Cloudify, it comes with the downloadable packages of the cli, see [Installing using premade packages](installation.html#installing-using-premade-packages).<br>
+For more information, [go pro](/goPro.html).
 {%endnote%}
 
 This blueprint defines quite a few input parameters we need to fill out.
@@ -130,7 +131,7 @@ This blueprint defines quite a few input parameters we need to fill out.
 Let's make a copy of the inputs template already provided and edit it:
 
 {% highlight bash %}
-cd cloudify-manager-blueprints/softlayer
+cd softlayer
 cp inputs.yaml.template inputs.yaml
 {% endhighlight %}
 
@@ -170,12 +171,17 @@ This tutorial uses softlayer manager blueprint on Docker and it requires:
 
   * The `os` input should be *4668* - the item id of *Ubuntu Linux 14.04 LTS Trusty Tahr - Minimal Install (64 bit)*
   * A link to a script that installs curl must be specified (needed for the Docket installation) in the `provision_scripts` input.
-    * for example: [a script that installs curl](https://raw.githubusercontent.com/cloudify-cosmo/cloudify-softlayer-plugin/master/softlayer_plugin/scripts/postprov.sh)
-    * Alternatively, create an image id of a server on SoftLayer that have curl or docker installed on it, and specify the `image_template_id` instead of the `os` input.
+  	<br>e.g. create a script with the following command:
+
+  		{% highlight bash %}
+  		apt-get -q -y instll curl
+  		{% endhighlight %}
+
+  * Alternatively, create an image id of a server on SoftLayer that have curl or docker installed on it, and specify the `image_template_id` instead of the `os` input.
 {%endinfo%}
 
 
-For more information see the [Softlayer Manager Reference](reference-softlayer-manager.html).
+For more information see the [Softlayer Manager Blueprints Reference](manager-blueprints-softlayer.html).
 
 {% endtabcontent %}
 
@@ -276,7 +282,7 @@ For more information see the [vCloud Manager Reference](reference-vcloud-manager
 {% endgcloak %}
 
 ## Available manager blueprints
-See the reference section in the documentation menu for a reference of all currently available Manager Blueprints.
+See the [Manager Blueprints](manager-blueprints-general.html) section in the documentation menu for a reference of all currently available Manager Blueprints.
 
 {%note title=Note%}
 The manager blueprints comprise not only the *.yaml* file, but also the entire directory in which the *.yaml* file resides. For example, the manager blueprints map bootstrap operations to scripts that perform many of the bootstrap tasks. Make sure to copy the full directory for when using or editing manager blueprints.
