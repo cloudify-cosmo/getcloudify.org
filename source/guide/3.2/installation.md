@@ -69,10 +69,10 @@ To install cfy on Windows:
 Run:
 
 ```shell
-setup.exe /SILENT /VERYSILENT /SUPPRESSMSGBOXES /DIR="C:\cloudify-cli"'
+setup.exe /SILENT /VERYSILENT /SUPPRESSMSGBOXES /DIR="<destination dir> "'
 ```
 
-Where DIR is the destination directory.
+Where <destination dir> is the path to install in. Default path is Program Files (x86).
 
 When the installation is finished, double click the new Cloudify icon on your desktop. This will open a terminal with the virtualenv already activated.
 
