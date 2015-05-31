@@ -16,7 +16,7 @@ When clicking on the `Blueprints` tab and choosing a blueprint you will be able 
 
 # Topology
 The [Topology]({{page.terminology_link}}#topology) is an application’s graph of nodes and their relationships, which describes the lifecycle events or other operations that each node and relationship exposes for use in workflows.<br>
-Each of the blueprint nodes is displayed as a square container, which can contain another nodes. Each of the nodes has a title describing its name, and an icon to indicate the [node type]({{page.node_types_link}}).<br>
+Each of the blueprint's nodes is displayed as a square container, which can contain other nodes. Each of the nodes has a title describing its name, and an icon to indicate the [node type]({{page.node_types_link}}).<br>
 [Relationships]({{page.relationships_link}}) between nodes are marked with arrows, starts from the connected node and ends in the target node.<br>
 The topology view shows only the application nodes and not the network nodes. If a node has network dependency, it will be displayed as a bullet icon in the node title.<br>
 The number of [node instances]({{page.terminology_link}}#node-instance) is marked in a bullet beside the node type icon.<br>
@@ -39,7 +39,7 @@ Clicking a device will open a side panel with details of the selected device.<br
 # Nodes
 A list of nodes according to the blueprint topology.<br/>
 For every node, its type, number of instance, and relationships are shown. By clicking the magnifier icon, a side panel will be opened with the selected node's details.
-![Blueprint nodes](/guide/images/ui/ui-deployment-nodes.jpg)
+![Blueprint's nodes](/guide/images/ui/ui-deployment-nodes.jpg)
 
 # Source
 Displays highlight blueprint source code, Python plugins and other text files includes in your blueprint package.<br/>
