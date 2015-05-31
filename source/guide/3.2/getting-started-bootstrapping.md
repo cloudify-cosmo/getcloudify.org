@@ -41,7 +41,8 @@ git clone https://github.com/cloudify-cosmo/cloudify-manager-blueprints
 {% endhighlight %}
 
 {%note title=Note%}
-You can download the correct Cloudify-Manager-Blueprints for the CFY version you're using from [Cloudify-Manager-Blueprints](https://github.com/cloudify-cosmo/cloudify-manager-blueprints/releases)
+You can download the correct Cloudify-Manager-Blueprints for the CFY version you're using from [Cloudify-Manager-Blueprints](https://github.com/cloudify-cosmo/cloudify-manager-blueprints/releases), or you can use the commercial version of Cloudify - [Installing using premade packages](installation.html#installing-using-premade-packages) 
+(for more information, [go pro](/goPro.html))
 {%endnote%}
 
 
@@ -122,7 +123,8 @@ For more information on the different management environment structures, please 
 {% tabcontent SoftLayer %}
 
 {%note title=Note%}
-The Softlayer IaaS plugin is a feature of the commercial version of Cloudify, it comes with the downloadable packages of the cli, see [Installing using premade packages](installation.html#installing-using-premade-packages).<br>
+The Softlayer IaaS plugin is a feature of the commercial version of Cloudify, it comes with the downloadable packages of the cli, 
+see [Installing using premade packages](installation.html#installing-using-premade-packages).<br>
 For more information, [go pro](/goPro.html).
 {%endnote%}
 
@@ -131,7 +133,7 @@ This blueprint defines quite a few input parameters we need to fill out.
 Let's make a copy of the inputs template already provided and edit it:
 
 {% highlight bash %}
-cd softlayer
+cd /cfy/cloudify-manager-blueprints-commercial/softlayer
 cp inputs.yaml.template inputs.yaml
 {% endhighlight %}
 
@@ -308,7 +310,7 @@ For example, on openstack:
 (Alternatively, you may pass the `--install-plugins` flag to the `cfy bootstrap` command, which follows soon.)
 
 {%note title=Note%}
-Ths *install-plugins* functionality only works if you are running from within a virtualenv.
+The *install-plugins* functionality only works if you are running from within a virtualenv.
 If this is not the case, installing plugins will require sudo permissions and can be done like so:
 
 {% inittab %}
@@ -321,10 +323,8 @@ sudo pip install -r requirements.txt
 {% endtabcontent %}
 
 {% tabcontent SoftLayer%}
-{% highlight sh %}
-cfy local create-requirements -o requirements.txt -p softlayer.yaml
-sudo pip install -r requirements.txt
-{%endhighlight%}
+There is no need to *install-plugins* because the SoftLayer plugin is a feature of [the commercial version of Cloudify](/goPro.html) 
+and it comes along with the required plugins in [the downloadable packages of the cli](installation.html#installing-using-premade-packages).
 {% endtabcontent %}
 
 {% tabcontent AWS EC2%}
@@ -378,7 +378,7 @@ cfy bootstrap --install-plugins -p openstack-manager-blueprint.yaml -i inputs.ya
 
 {% highlight bash %}
 
-cfy bootstrap --install-plugins -p softlayer.yaml -i inputs.yaml --task-retries 25
+cfy bootstrap -p softlayer-manager-blueprint.yaml -i inputs.yaml --task-retries 25
 
 {% endhighlight %}
 

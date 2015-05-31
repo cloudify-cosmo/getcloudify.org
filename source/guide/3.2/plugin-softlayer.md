@@ -13,6 +13,10 @@ This section describes how to use a SoftLayer based cloud infrastructure in your
 For more information about SoftLayer, please refer to: [http://www.softlayer.com/](http://www.softlayer.com/).
 {%endsummary%}
 
+{%note title=Note%}
+The Softlayer IaaS plugin is a feature of the commercial version of Cloudify, it comes with the downloadable packages of the cli, see [Installing using premade packages](installation.html#installing-using-premade-packages).<br>
+For more information, [go pro](/goPro.html).
+{%endnote%}
 
 # Types
 
