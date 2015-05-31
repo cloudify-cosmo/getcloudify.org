@@ -123,9 +123,8 @@ For more information on the different management environment structures, please 
 {% tabcontent SoftLayer %}
 
 {%note title=Note%}
-The Softlayer IaaS plugin is a feature of the commercial version of Cloudify, it comes with the downloadable packages of the cli, 
-see [Installing using premade packages](installation.html#installing-using-premade-packages).<br>
-For more information, [go pro](/goPro.html).
+The Softlayer IaaS plugin is a feature of [the commercial version of Cloudify](/goPro.html), it comes with the downloadable packages of the cli, 
+see [Installing using premade packages](installation.html#installing-using-premade-packages).
 {%endnote%}
 
 This blueprint defines quite a few input parameters we need to fill out.
