@@ -24,7 +24,7 @@ See the definition [here]({{page.terminology_link}}#blueprint).<br/>
 # Deployments
 See the definition [here]({{page.terminology_link}}#deployment).<br/>
 This list is affected by the selection of blueprints. <br/>
-If the blueprints selection is consisted only of undeployed blueprints, this dropdown will not be visible.<br/>
+If the blueprints selection consists only of undeployed blueprints, this dropdown will not be visible.<br/>
 Likewise, it will not include a deployment if the blueprint it is based on wasn't selected.<br/>
 Not selecting any deployments is equivalent to selecting all deployments in the list.<br/>
 ![Deployments](/guide/images/ui/ui-logsNevents-deployment-selection.png)
