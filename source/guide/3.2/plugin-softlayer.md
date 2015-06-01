@@ -24,7 +24,7 @@ For more information about SoftLayer, please refer to: [http://www.softlayer.com
   The plugin extends the [VSManager class](https://softlayer-api-python-client.readthedocs.org/en/latest/api/managers/vs/) and declares the [verify_place_order](https://github.com/cloudify-cosmo/cloudify-softlayer-plugin/blob/master/softlayer_plugin/extended_vs_manager.py#L113) and [place_order](https://github.com/cloudify-cosmo/cloudify-softlayer-plugin/blob/master/softlayer_plugin/extended_vs_manager.py#L145) methods which enable specifying all the needed items for creating a virtual server, corresponding to the properties of the [Cloudify Softlayer VirtualServer](#cloudifysoftlayernodesvirtualserver) type.
   {%endnote%}
 
-# installation
+# Installation
   As Softlayer plugin is included in the commercial cli packages, the plugin and its requirements are pre installed.<br> 
   See [Installing using premade packages](installation.html#installing-using-premade-packages).
 
