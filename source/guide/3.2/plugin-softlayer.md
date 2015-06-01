@@ -13,6 +13,20 @@ This section describes how to use a SoftLayer based cloud infrastructure in your
 For more information about SoftLayer, please refer to: [http://www.softlayer.com/](http://www.softlayer.com/).
 {%endsummary%}
 
+# Requirements
+  * A SoftLayer account, see [SoftLayer Authentication](#softlayer-authentication).
+  * [The commercial version of Cloudify](/goPro.html) 
+
+# Compatibility
+  The SoftLayer plugin uses the [SoftLayer for python 3.3.0](https://pypi.python.org/pypi/SoftLayer/3.3.0).
+
+  {%note title=Note%}
+  The plugin extends the [VSManager class](https://softlayer-api-python-client.readthedocs.org/en/latest/api/managers/vs/) and declares the [verify_place_order](https://github.com/cloudify-cosmo/cloudify-softlayer-plugin/blob/master/softlayer_plugin/extended_vs_manager.py#L113) and [place_order](https://github.com/cloudify-cosmo/cloudify-softlayer-plugin/blob/master/softlayer_plugin/extended_vs_manager.py#L145) methods which enable specifying all the needed items for creating a virtual server, corresponding to the properties of the [Cloudify Softlayer VirtualServer](#cloudifysoftlayernodesvirtualserver) type.
+  {%endnote%}
+
+# installation
+  As Softlayer plugin is included in the commercial cli packages, the plugin and its requirements are pre installed.<br> 
+  See [Installing using premade packages](installation.html#installing-using-premade-packages).
 
 # Types
 
