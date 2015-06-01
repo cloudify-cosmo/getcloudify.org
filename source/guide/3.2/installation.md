@@ -58,9 +58,23 @@ Note that a virtualenv will be automatically created during installation and Clo
 To install cfy on Windows:
 
 * Download the installer from the [Downloads page](http://getcloudify.org/downloads/get_cloudify_3x.html) corresponding with the version you would like to install.
+
+### via the installation wizard:
+
 * Run the executable
 * Follow the installation instructions.
-* When the installation is finished, double click the new Cloudify icon on your desktop. This will open a terminal with the virtualenv already activated.
+
+### via the command-line (silent):
+
+Run:
+
+```shell
+setup.exe /SILENT /VERYSILENT /SUPPRESSMSGBOXES /DIR="<destination dir> "'
+```
+
+Where <destination dir> is the path to install in. Default path is Program Files (x86).
+
+When the installation is finished, double click the new Cloudify icon on your desktop. This will open a terminal with the virtualenv already activated.
 
 Now try running `cfy -h` in your terminal. You should get an output describing how to use `cfy`.
 
