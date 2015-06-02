@@ -106,6 +106,10 @@ To upload the blueprint run:
 cfy blueprints upload -b nodecellar -p singlehost-blueprint.yaml
 {%endhighlight%}
 
+{%note title=DNS address%}
+The DNS address used by cloudify in the getting-started box is set to 8.8.8.8.
+{%endnote%}
+
 The `-b` flag specifies the unique name we've assigned to this blueprint on the Cloudify manager.
 Before creating a deployment, let's see what this blueprint looks like.
 
