@@ -419,7 +419,7 @@ At this point there's nothing much to see since you haven't uploaded any bluepri
 
 When the command is done executing, you'll have an operational Cloudify manager on the desired provider. You may verify this by making a *status* call.
 
-Note that if you're using the commercial version, the Web UI should appear as a running service in the output. If you are using the standard version, the Cloudify UI status should be "unknown".
+Note that if you're using the commercial version, the Web UI should appear as a running service in the output. If you are using the standard version, the Web UI will not be included in the package and will not appear in the status output.
 
 An example output:
 
