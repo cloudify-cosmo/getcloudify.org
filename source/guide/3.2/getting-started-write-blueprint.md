@@ -87,7 +87,7 @@ First lets create a folder with the name `nodecellar` and create a blueprint.yam
 Lets also give our blueprint a version:
 
 {%highlight yaml%}
-tosca_definitions_version: cloudify_dsl_1_0
+tosca_definitions_version: cloudify_dsl_1_1
 {%endhighlight%}
 
 To learn more about blueprint versioning, refer to [Versions](dsl-spec-versioning.html)

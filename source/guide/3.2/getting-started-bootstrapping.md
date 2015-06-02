@@ -32,7 +32,7 @@ This will create a folder in the current directory named `.cloudify`. (Cloudify 
 
 Bootstrapping a Cloudify Manager uses [Manager Blueprints](reference-terminology.html#manager-blueprints). These are standard Cloudify blueprints that have been constructed to bring up a Manager on various providers.
 
-Clone the [Cloudify-Manager-Blueprints](https://github.com/cloudify-cosmo/cloudify-manager-blueprints) repository from Github, or copy your desired blueprint folder from there.
+Clone the [Cloudify-Manager-Blueprints](https://github.com/cloudify-cosmo/cloudify-manager-blueprints) repository from GitHub, or copy your desired blueprint folder from there.
 
 {% highlight bash %}
 mkdir -p ~/cloudify-manager
@@ -41,8 +41,7 @@ git clone https://github.com/cloudify-cosmo/cloudify-manager-blueprints
 {% endhighlight %}
 
 {%note title=Note%}
-You can download the correct Cloudify-Manager-Blueprints for the CFY version you're using from [Cloudify-Manager-Blueprints](https://github.com/cloudify-cosmo/cloudify-manager-blueprints/releases), or you can use the commercial version of Cloudify - [Installing using premade packages](installation.html#installing-using-premade-packages) 
-(for more information, [go pro](/goPro.html))
+Make sure you use a tag from [Cloudify-Manager-Blueprints](https://github.com/cloudify-cosmo/cloudify-manager-blueprints/releases) that matches your Cloudify version. Blueprints taken from the master branch might not work for you.
 {%endnote%}
 
 
@@ -123,7 +122,7 @@ For more information on the different management environment structures, please 
 {% tabcontent SoftLayer %}
 
 {%note title=Note%}
-The Softlayer IaaS plugin is a feature of [the commercial version of Cloudify](/goPro.html), it comes with the downloadable packages of the cli, 
+The Softlayer IaaS plugin is a feature of [the premium edition of Cloudify](/goPro.html), it comes with the downloadable packages of the cli, 
 see [Installing using premade packages](installation.html#installing-using-premade-packages).
 {%endnote%}
 
@@ -322,7 +321,7 @@ sudo pip install -r requirements.txt
 {% endtabcontent %}
 
 {% tabcontent SoftLayer%}
-There is no need to *install-plugins* because the SoftLayer plugin is a feature of [the commercial version of Cloudify](/goPro.html) 
+There is no need to *install-plugins* because the SoftLayer plugin is a feature of [the premium edition of Cloudify](/goPro.html) 
 and it comes along with the required plugins in [the downloadable packages of the cli](installation.html#installing-using-premade-packages).
 {% endtabcontent %}
 
@@ -419,12 +418,12 @@ management server is up at <YOUR MANAGER IP ADDRESS>
 {% endhighlight %}
 
 To validate this installation, point your web browser to the manager IP address (port 80).
-If you're using the commercial version, you should see Cloudify's Web UI.
+If you're using the premium edition, you should see Cloudify's Web UI.
 At this point there's nothing much to see since you haven't uploaded any blueprints yet.
 
 When the command is done executing, you'll have an operational Cloudify manager on the desired provider. You may verify this by making a *status* call.
 
-Note that if you're using the commercial version, the Web UI should appear as a running service in the output. If you are using the standard version, the Cloudify UI status should be "unknown".
+Note that if you're using the premium edition, the Web UI should appear as a running service in the output. If you are using the standard version, the Cloudify UI status should be "unknown".
 
 An example output:
 
