@@ -122,7 +122,8 @@ For more information on the different management environment structures, please 
 {% tabcontent SoftLayer %}
 
 {%note title=Note%}
-The Softlayer IaaS plugin is a feature of the commercial version of Cloudify. For more information, [go pro](/goPro.html).
+The Softlayer IaaS plugin is a feature of [the premium edition of Cloudify](/goPro.html), it comes with the downloadable packages of the cli, 
+see [Installing using premade packages](installation.html#installing-using-premade-packages).
 {%endnote%}
 
 This blueprint defines quite a few input parameters we need to fill out.
@@ -130,7 +131,7 @@ This blueprint defines quite a few input parameters we need to fill out.
 Let's make a copy of the inputs template already provided and edit it:
 
 {% highlight bash %}
-cd cloudify-manager-blueprints/softlayer
+cd /cfy/cloudify-manager-blueprints-commercial/softlayer
 cp inputs.yaml.template inputs.yaml
 {% endhighlight %}
 
@@ -170,12 +171,17 @@ This tutorial uses softlayer manager blueprint on Docker and it requires:
 
   * The `os` input should be *4668* - the item id of *Ubuntu Linux 14.04 LTS Trusty Tahr - Minimal Install (64 bit)*
   * A link to a script that installs curl must be specified (needed for the Docket installation) in the `provision_scripts` input.
-    * for example: [a script that installs curl](https://raw.githubusercontent.com/cloudify-cosmo/cloudify-softlayer-plugin/master/softlayer_plugin/scripts/postprov.sh)
-    * Alternatively, create an image id of a server on SoftLayer that have curl or docker installed on it, and specify the `image_template_id` instead of the `os` input.
+  	<br>e.g. create a script with the following command:
+
+  		{% highlight bash %}
+  		apt-get -q -y instll curl
+  		{% endhighlight %}
+
+  * Alternatively, create an image id of a server on SoftLayer that have curl or docker installed on it, and specify the `image_template_id` instead of the `os` input.
 {%endinfo%}
 
 
-For more information see the [Softlayer Manager Reference](reference-softlayer-manager.html).
+For more information see the [Softlayer Manager Blueprints Reference](manager-blueprints-softlayer.html).
 
 {% endtabcontent %}
 
@@ -276,7 +282,7 @@ For more information see the [vCloud Manager Reference](reference-vcloud-manager
 {% endgcloak %}
 
 ## Available manager blueprints
-See the reference section in the documentation menu for a reference of all currently available Manager Blueprints.
+See the [Manager Blueprints](manager-blueprints-general.html) section in the documentation menu for a reference of all currently available Manager Blueprints.
 
 {%note title=Note%}
 The manager blueprints comprise not only the *.yaml* file, but also the entire directory in which the *.yaml* file resides. For example, the manager blueprints map bootstrap operations to scripts that perform many of the bootstrap tasks. Make sure to copy the full directory for when using or editing manager blueprints.
@@ -302,7 +308,7 @@ For example, on openstack:
 (Alternatively, you may pass the `--install-plugins` flag to the `cfy bootstrap` command, which follows soon.)
 
 {%note title=Note%}
-Ths *install-plugins* functionality only works if you are running from within a virtualenv.
+The *install-plugins* functionality only works if you are running from within a virtualenv.
 If this is not the case, installing plugins will require sudo permissions and can be done like so:
 
 {% inittab %}
@@ -315,10 +321,8 @@ sudo pip install -r requirements.txt
 {% endtabcontent %}
 
 {% tabcontent SoftLayer%}
-{% highlight sh %}
-cfy local create-requirements -o requirements.txt -p softlayer.yaml
-sudo pip install -r requirements.txt
-{%endhighlight%}
+There is no need to *install-plugins* because the SoftLayer plugin is a feature of [the premium edition of Cloudify](/goPro.html) 
+and it comes along with the required plugins in [the downloadable packages of the cli](installation.html#installing-using-premade-packages).
 {% endtabcontent %}
 
 {% tabcontent AWS EC2%}
@@ -372,7 +376,7 @@ cfy bootstrap --install-plugins -p openstack-manager-blueprint.yaml -i inputs.ya
 
 {% highlight bash %}
 
-cfy bootstrap --install-plugins -p softlayer.yaml -i inputs.yaml --task-retries 25
+cfy bootstrap -p softlayer-manager-blueprint.yaml -i inputs.yaml --task-retries 25
 
 {% endhighlight %}
 
@@ -414,12 +418,12 @@ management server is up at <YOUR MANAGER IP ADDRESS>
 {% endhighlight %}
 
 To validate this installation, point your web browser to the manager IP address (port 80).
-If you're using the commercial version, you should see Cloudify's Web UI.
+If you're using the premium edition, you should see Cloudify's Web UI.
 At this point there's nothing much to see since you haven't uploaded any blueprints yet.
 
 When the command is done executing, you'll have an operational Cloudify manager on the desired provider. You may verify this by making a *status* call.
 
-Note that if you're using the commercial version, the Web UI should appear as a running service in the output. If you are using the standard version, the Cloudify UI status should be "unknown".
+Note that if you're using the premium edition, the Web UI should appear as a running service in the output. If you are using the standard version, the Cloudify UI status should be "unknown".
 
 An example output:
 
