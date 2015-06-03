@@ -115,7 +115,7 @@ In case you are using a different openstack environment, you should also change 
 Notice that the `resources_prefix` parameter is set to "cloudify" so that all resources provisioned during
 this guide are prefixed for easy identification.
 
-For more information on the different management environment structures, please refer to [Openstack Manager Reference](reference-openstack-manager.html).
+For more information on the different management environment structures, please refer to [Openstack Manager Reference](manager-blueprints-openstack.html).
 
 {% endtabcontent %}
 
@@ -237,7 +237,7 @@ You will, at the very least, have to provide the following:
 
 {%endinfo%}
 
-For more information see the [AWS EC2 Manager Reference](reference-aws-ec2-manager.html).
+For more information see the [AWS EC2 Manager Reference](manager-blueprints-aws-ec2.html).
 
 {% endtabcontent %}
 
@@ -273,7 +273,7 @@ manager_public_key: ''
 agent_public_key: ''
 {% endhighlight %}
 
-For more information see the [vCloud Manager Reference](reference-vcloud-manager.html).
+For more information see the [vCloud Manager Reference](manager-blueprints-vcloud.html).
 
 {% endtabcontent %}
 
@@ -290,7 +290,7 @@ The manager blueprints comprise not only the *.yaml* file, but also the entire d
 
 ## Authoring manager blueprints
 
-If you wish to write a custom manager blueprint (whether it be for a custom behavior or a different provider) or learn more on how manager blueprints work, refer to the [Manager Blueprints Authoring guide](guide-authoring-manager-blueprints.html).
+If you wish to write a custom manager blueprint (whether it be for a custom behavior or a different provider) or learn more on how manager blueprints work, refer to the [Manager Blueprints Authoring guide](manager-blueprints-authoring.html).
 
 
 # Install Required Plugins

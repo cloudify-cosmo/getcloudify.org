@@ -7,7 +7,7 @@ abstract: Executing Cloudify Workflows (and more specifically, the Install and U
 pageord: 500
 
 terminology_link: reference-terminology.html
-workflows_link: reference-builtin-workflows.html
+workflows_link: workflows-built-in.html
 ---
 {%summary%} {{page.abstract}}{%endsummary%}
 

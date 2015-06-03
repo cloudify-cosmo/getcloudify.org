@@ -90,12 +90,12 @@ groups:
 
 Cloudify comes with a number of built-in policies, which are declared in [`types.yaml`]({{page.types_yaml_link}}) (which is usually imported either directly or indirectly via other imports).
 
-Refer to [Built-in policies reference](reference-builtin-policies.html) for more details.
+Refer to [Built-in policies reference](policies-builtin.html) for more details.
 
 # Writing a Custom Policy
 
 Advanced users may wish to write custom policies.
-To learn how to write a custom policy, refer to the [policies authoring guide](guide-authoring-policies.html).
+To learn how to write a custom policy, refer to the [policies authoring guide](policies-authoring.html).
 
 # Auto Healing
 

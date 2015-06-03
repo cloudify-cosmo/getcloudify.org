@@ -7,7 +7,8 @@ abstract: Cloudify Terms and Concepts (In a nutshell)
 pageord: 100
 
 tosca_link: https://www.oasis-open.org/committees/tc_home.php?wg_abbrev=tosca
-arch_link: overview-architecture.html
+arch_link: overview-components.html
+bootsrap_link: getting-started-bootstrapping.html
 ---
 
 {% linklist h3 %}
@@ -52,7 +53,7 @@ Cloudify blueprints are inspired by the [OASIS TOSCA]({{page.tosca_link}}) evolv
 ### **Blueprint Resource** (Coming soon...)
 
 ### **Bootstrap**
-See the definition [here]({{page.arch_link}}#bootstrap).
+See the definition [here]({{page.bootsrap_link}}#Overview).
 
 ### **Bootstrap Context** (Coming soon...)
 
@@ -131,7 +132,7 @@ A node instance(#node-instance) which is not in either the `uninitialized` or `d
 When a blueprint is uploaded to the [manager](#manager), this is the name specified. The entire directory containing the main blueprint file will be uploaded. After that, the main blueprint file will be parsed. Additional YAML files may imported by this blueprint file.
 
 ### **Manager**
-See the definition [here]({{page.arch_link}}#the-manager-orchestrator).
+See the definition [here]({{page.arch_link}}#Overview).
 
 ### **Manager Blueprints**
 Standard Cloudify blueprints which are used to bootstrap a Cloudify manager on various providers and/or scenarios.
@@ -172,7 +173,7 @@ Plugins interface with an API or a CLI in order to execute lifecycle events of a
 ### **Policy** (Coming soon...)
 
 ### **Policy Engine**
-See the definition [here]({{page.arch_link}}#policy-engine).
+See the definition [here]({{page.policies-general.html}}#Overview).
 
 ### **Properties**
 Properties are a [node](#node)'s design-time configuration details.
@@ -222,10 +223,10 @@ A Task is the execution of one [operation](#operation) in a [plugin](#plugin) wi
 The arguments describe the context of the execution including [node](#node) [properties](#properties) and [node instance](#node-instance) [runtime properties](#runtime-properties).
 
 ### **Task Broker**
-See the definition [here]({{page.arch_link}}#task-broker).
+See the definition [here]({{page.arch_link}}#celery).
 
 ### **Teardown**
-See the definition [here]({{page.arch_link}}#teardown).
+See the definition [here]({{page.getting-started-teardown.html}}#overview).
 
 ### **Topology**
 A Topology is an [application](#application)'s graph of [nodes](#node) and their [relationships](#relationship).
@@ -255,4 +256,4 @@ A workflow is an automation process algorithm.
 Workflows are described in Python and use dedicated API's for reading and writing a [node's](#node) state, reading a node's configuration and sending [tasks](#task) for execution. Workflows are executed via Cloudify's workflow engine.
 
 ### **Workflow Engine**
-See the definition [here]({{page.arch_link}}#workflow-engine).
+See the definition [here]({{page.workflows-general.html}}#overview).

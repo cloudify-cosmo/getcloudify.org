@@ -12,9 +12,9 @@ virtualbox_link: https://www.virtualbox.org/
 vagrant_link: http://www.vagrantup.com
 vagrant_file_link: http://gigaspaces-repository-eu.s3.amazonaws.com/org/cloudify3/3.2.0/ga-RELEASE/Vagrantfile
 terminology_link: reference-terminology.html
-workflows_link: reference-builtin-workflows.html
+workflows_link: workflows-built-in.html
 blueprint_guide_link: understanding-blueprints.html
-installation_general_link: installation-general.html
+installation_general_link: installation.html
 
 ---
 {%summary%}{{page.abstract}}{%endsummary%}

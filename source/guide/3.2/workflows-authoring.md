@@ -11,7 +11,7 @@ pageord: 700
 
 
 {%note title=Note%}
-This section is aimed at advanced users. Before reading it, make sure you have a good understanding of [Cloudify terminology](reference-terminology.html), [Workflows](guide-workflows.html), [Blueprints](guide-blueprint.html), and [Plugin authoring](guide-plugin-creation.html).
+This section is aimed at advanced users. Before reading it, make sure you have a good understanding of [Cloudify terminology](reference-terminology.html), [Workflows](workflows-authoring.html), [Blueprints](getting-started-write-blueprint.html), and [Plugin authoring](plugins-authoring.html).
 {%endnote%}
 
 
@@ -457,4 +457,4 @@ Coming soon...
 
 ## Packaging the Workflow
 
-Since workflows are joined to the blueprint the same way plugins do, they are also packaged the same way. Refer to the [Plugin creation guide](guide-plugin-creation.html#the-plugin-template) for more information.
+Since workflows are joined to the blueprint the same way plugins do, they are also packaged the same way. Refer to the [Plugin creation guide](plugins-authoring.html#the-plugin-template) for more information.

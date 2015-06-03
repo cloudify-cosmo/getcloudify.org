@@ -408,7 +408,7 @@ node_templates:
 
 This example will show how to launch a Flex image on SoftLayer with a local workflow
 
-It will also show how to use the outputs section to get the public ip, username and password of a server, in the same way that all runtime_properties can be accessed (see [Blueprint Authoring Guide - adding-outputs](http://getcloudify.org/guide/3.2/guide-blueprint.html#step-7-adding-outputs))
+It will also show how to use the outputs section to get the public ip, username and password of a server, in the same way that all runtime_properties can be accessed (see [Blueprint Authoring Guide - adding-outputs](getting-started-write-blueprint.html#step-7-adding-outputs))
 
 {% togglecloak id=3 %}
 Example III
