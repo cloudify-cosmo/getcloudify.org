@@ -23,7 +23,7 @@ To cover the two major types of plugins (IaaS and Management tools), let's also 
 You should check out the [Plugins Authoring Guide](plugins-authoring.html) if you want to write your own plugin for your chosen tool or IaaS provider.
 
 The Python module which provides the API for a plugin to interact with Cloudify is called the cloudify-plugins-common module.
-The module provides features for getting and setting context, downloading blueprint resources and much more and its reference can be found [here](plugins-common-api.html).
+The module provides features for getting and setting context, downloading blueprint resources and much more and its reference can be found [here](apis-plugins-common.html).
 
 
 # What's Next
