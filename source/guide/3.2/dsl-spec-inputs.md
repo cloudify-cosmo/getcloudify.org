@@ -43,8 +43,8 @@ Example:
 tosca_definitions_version: cloudify_dsl_1_0
 
 imports:
-  - http://www.getcloudify.org/spec/cloudify/3.1/types.yaml
-  - http://www.getcloudify.org/spec/openstack-plugin/1.1/plugin.yaml
+  - http://www.getcloudify.org/spec/cloudify/3.2/types.yaml
+  - http://www.getcloudify.org/spec/openstack-plugin/1.2/plugin.yaml
 
 inputs:
   image_name:

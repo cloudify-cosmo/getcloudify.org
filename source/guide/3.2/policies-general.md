@@ -6,7 +6,7 @@ publish: false
 abstract: "A guide to Cloudify Policies"
 pageord: 500
 
-types_yaml_link: http://www.getcloudify.org/spec/cloudify/3.1/types.yaml
+types_yaml_link: http://www.getcloudify.org/spec/cloudify/3.21/types.yaml
 diamond_plugin_ref: plugin-diamond.html
 dsl_groups_spec: dsl-spec-groups.html
 workflows_dsl_spec: dsl-spec-workflows.html

@@ -60,7 +60,7 @@ Work in progress
 
 The `ctx` object used by workflow methods is of type `CloudifyWorkflowContext`. It offers access to context data and various services. Additionally, any node, node instance, relationship or relationship instance objects returned by the context object (or from objects returned by the context object) will be wrapped in types which offer additional context data and services.
 
-For full API reference, refer to the documentation over at [cloudify-plugins-common.readthedocs.org](http://cloudify-plugins-common.readthedocs.org/en/3.1/workflows.html).
+For full API reference, refer to the documentation over at [cloudify-plugins-common.readthedocs.org](http://cloudify-plugins-common.readthedocs.org/en/3.2/workflows.html).
 
 
 # Graph Framework

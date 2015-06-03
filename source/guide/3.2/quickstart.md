@@ -91,7 +91,7 @@ You'll have to clone a sample blueprint from our Github repository from the Vagr
 cd blueprints
 git clone https://github.com/cloudify-cosmo/cloudify-nodecellar-example
 cd cloudify-nodecellar-example/
-git checkout tags/3.1
+git checkout tags/3.2
 {%endhighlight%}
 
 ## Step 4: Upload the Blueprint and Create a Deployment
@@ -193,7 +193,7 @@ You can also have a look at the Monitoring tab and see some default metrics:
 ![Metrics](/guide/images3/guide/default_dashboard.png)
 
 {%note title=Note%}
-The blueprint we installed actually defines a custom collector for the Mongo database. To add mongo related graphs to the dashboard, have a look at [Adding Custom Graphs](/guide/3.1/ui-monitoring.html#example---customize-your-dashboard).
+The blueprint we installed actually defines a custom collector for the Mongo database. To add mongo related graphs to the dashboard, have a look at [Adding Custom Graphs](webui-graphing-metrics.html).
 {%endnote%}
 
 ## Step 6: Test Drive the Application

@@ -7,7 +7,7 @@ abstract: Description and details on Cloudify's built-in Workflows
 pageord: 600
 
 types_yaml_link: reference-types.html
-default_workflows_source_link: https://github.com/cloudify-cosmo/cloudify-plugins-common/blob/3.1/cloudify/plugins/workflows.py
+default_workflows_source_link: https://github.com/cloudify-cosmo/cloudify-plugins-common/blob/3.2/cloudify/plugins/workflows.py
 ---
 
 {%summary%}{{page.abstract}}{%endsummary%}
