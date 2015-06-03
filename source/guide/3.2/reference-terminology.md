@@ -8,7 +8,7 @@ pageord: 100
 
 tosca_link: https://www.oasis-open.org/committees/tc_home.php?wg_abbrev=tosca
 arch_link: overview-components.html
-bootsrap_link: getting-started-bootstrapping.html
+bootstrap_link: getting-started-bootstrapping.html
 ---
 
 {% linklist h3 %}
@@ -53,7 +53,7 @@ Cloudify blueprints are inspired by the [OASIS TOSCA]({{page.tosca_link}}) evolv
 ### **Blueprint Resource** (Coming soon...)
 
 ### **Bootstrap**
-See the definition [here]({{page.bootsrap_link}}#Overview).
+See the definition [here]({{page.bootstrap_link}}#Overview).
 
 ### **Bootstrap Context** (Coming soon...)
 
@@ -221,9 +221,6 @@ Unlike [node](#node) [properties](#properties), which are explicitly specified i
 A Task is the execution of one [operation](#operation) in a [plugin](#plugin) with a given set of arguments.
 
 The arguments describe the context of the execution including [node](#node) [properties](#properties) and [node instance](#node-instance) [runtime properties](#runtime-properties).
-
-### **Task Broker**
-See the definition [here]({{page.arch_link}}#celery).
 
 ### **Teardown**
 See the definition [here]({{page.getting-started-teardown.html}}#overview).
