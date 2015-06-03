@@ -1,6 +1,6 @@
 ---
 layout: blogpost
-title: Auto-Scaling your Apps with OpenStack Heat - An Orchestration Tool Comparison Pt II of II
+title: Auto-Scaling your Apps with TOSCA & Cloudify - An Orchestration Tool Comparison Pt II of II
 image: elip.jpeg
 author: Eli Polonsky
 tags:
@@ -15,12 +15,12 @@ tags:
 <img src="http://getcloudify.org/img/blog/openstackheat.png" alt="OpenStack Vancouver Summit | Cloud Application Orchestration | OpenStack Heat | OpenStack Orchestration | Cloud Automation | Auto-Scaling">
 <br/>
 <br/>
-
+<p>This is the second part of our Orchestration tool comparison. You can find part I <a href="http://getcloudify.org/2015/05/20/openstack-summit-vancouver-cloud-network-orchestration-automation-heat-scaling.html" target="_blank">here</a>.</p>
 <p style="line-height: 1.38; margin-top: 0pt; margin-bottom: 0pt;"
  dir="ltr"><span
  style="font-size: 15px; font-family: Arial; color: rgb(67, 67, 67); background-color: transparent; font-weight: normal; font-style: normal; font-variant: normal; text-decoration: none; vertical-align: baseline;">This
 section assumes basic knowledge of Cloudify and </span><a
- href="http://getcloudify.org/openstack-architecture-cloudify.html#TOSCA"
+ href="http://getcloudify.org/openstack-architecture-cloudify.html#TOSCA" target="_blank"
  style="text-decoration: none;"><span
  style="font-size: 15px; font-family: Arial; color: rgb(17, 85, 204); background-color: transparent; font-weight: normal; font-style: normal; font-variant: normal; text-decoration: underline; vertical-align: baseline;">TOSCA</span></a><span
  style="font-size: 15px; font-family: Arial; color: rgb(67, 67, 67); background-color: transparent; font-weight: normal; font-style: normal; font-variant: normal; text-decoration: none; vertical-align: baseline;">.
@@ -34,7 +34,7 @@ following links to help you understand what they’re all about:</span></p>
     <p
  style="line-height: 1.38; margin-top: 0pt; margin-bottom: 0pt;"
  dir="ltr"><a
- href="https://www.oasis-open.org/committees/tosca/"
+ href="https://www.oasis-open.org/committees/tosca/" target="_blank"
  style="text-decoration: none;"><span
  style="font-size: 15px; font-family: Arial; color: rgb(17, 85, 204); background-color: transparent; font-weight: normal; font-style: normal; font-variant: normal; text-decoration: underline; vertical-align: baseline;">TOSCA</span></a></p>
   </li>
@@ -43,7 +43,7 @@ following links to help you understand what they’re all about:</span></p>
  dir="ltr">
     <p
  style="line-height: 1.38; margin-top: 0pt; margin-bottom: 0pt;"
- dir="ltr"><a href="http://getcloudify.org/"
+ dir="ltr"><a href="http://getcloudify.org/" target="_blank"
  style="text-decoration: none;"><span
  style="font-size: 15px; font-family: Arial; color: rgb(17, 85, 204); background-color: transparent; font-weight: normal; font-style: normal; font-variant: normal; text-decoration: underline; vertical-align: baseline;">Cloudify</span></a></p>
   </li>
@@ -56,7 +56,7 @@ is an evolving open standard for a templating language to orchestrate
 applications on the cloud. It is not bound to any specific cloud
 provider, and is in itself nothing but a templating language, with no
 engine to back it up. This is inherently different from </span><a
- href="https://wiki.openstack.org/wiki/Heat"
+ href="https://wiki.openstack.org/wiki/Heat" target="_blank"
  style="text-decoration: none;"><span
  style="font-size: 15px; font-family: Arial; color: rgb(17, 85, 204); background-color: transparent; font-weight: normal; font-style: normal; font-variant: normal; text-decoration: underline; vertical-align: baseline;">Heat</span></a><span
  style="font-size: 15px; font-family: Arial; color: rgb(67, 67, 67); background-color: transparent; font-weight: normal; font-style: normal; font-variant: normal; text-decoration: none; vertical-align: baseline;">,
@@ -82,7 +82,7 @@ demonstrating in this section.</span></p>
  dir="ltr"><span
  style="font-size: 15px; font-family: Arial; color: rgb(67, 67, 67); background-color: transparent; font-weight: normal; font-style: normal; font-variant: normal; text-decoration: none; vertical-align: baseline;">The
 most important concept to understand about </span><a
- href="http://docs.oasis-open.org/tosca/TOSCA/v1.0/os/TOSCA-v1.0-os.pdf"
+ href="http://docs.oasis-open.org/tosca/TOSCA/v1.0/os/TOSCA-v1.0-os.pdf" target="_blank"
  style="text-decoration: none;"><span
  style="font-size: 15px; font-family: Arial; color: rgb(17, 85, 204); background-color: transparent; font-weight: normal; font-style: normal; font-variant: normal; text-decoration: underline; vertical-align: baseline;">TOSCA
 templates</span></a><span
@@ -112,7 +112,7 @@ and a </span><span
 </span><span
  style="font-size: 15px; font-family: Arial; color: rgb(67, 67, 67); background-color: transparent; font-weight: normal; font-style: normal; font-variant: normal; text-decoration: none; vertical-align: baseline;">is
 equivalent to the various </span><a
- href="http://docs.openstack.org/developer/heat/template_guide/openstack.html#"
+ href="http://docs.openstack.org/developer/heat/template_guide/openstack.html#" target="_blank"
  style="text-decoration: none;"><span
  style="font-size: 15px; font-family: Arial; color: rgb(17, 85, 204); background-color: transparent; font-weight: normal; font-style: normal; font-variant: normal; text-decoration: underline; vertical-align: baseline;">Heat
 Resource Types</span></a><span
@@ -129,7 +129,7 @@ will prove very important to us later on.</span></p>
 again, let’s dive right in to an example. We will try to adapt the same
 use case from before, auto-scaling a Wordpress server that connects to
 a static and shared MariaDB instance, to be written in </span><a
- href="http://getcloudify.org/guide/3.2/dsl-spec-general.html"
+ href="http://getcloudify.org/guide/3.2/dsl-spec-general.html" target="_blank"
  style="text-decoration: none;"><span
  style="font-size: 15px; font-family: Arial; color: rgb(17, 85, 204); background-color: transparent; font-weight: normal; font-style: normal; font-variant: normal; text-decoration: underline; vertical-align: baseline;">TOSCA</span></a><span
  style="font-size: 15px; font-family: Arial; color: rgb(67, 67, 67); background-color: transparent; font-weight: normal; font-style: normal; font-variant: normal; text-decoration: none; vertical-align: baseline;">
@@ -221,7 +221,7 @@ capabilities. We can see that the </span><span
  style="font-size: 15px; font-family: Consolas; color: rgb(106, 168, 79); background-color: rgb(243, 243, 243); font-weight: normal; font-style: normal; font-variant: normal; text-decoration: none; vertical-align: baseline;">cloudify.interfaces.monitoring_agent</span><span
  style="font-size: 15px; font-family: Arial; color: rgb(67, 67, 67); background-color: transparent; font-weight: normal; font-style: normal; font-variant: normal; text-decoration: none; vertical-align: baseline;">
 takes care of installing a monitoring agent called </span><a
- href="http://getcloudify.org/guide/3.2/plugin-diamond.html"
+ href="http://getcloudify.org/guide/3.2/plugin-diamond.html" target="_blank"
  style="text-decoration: none;"><span
  style="font-size: 15px; font-family: Arial; color: rgb(17, 85, 204); background-color: transparent; font-weight: normal; font-style: normal; font-variant: normal; text-decoration: underline; vertical-align: baseline;">Diamond</span></a><span
  style="font-size: 15px; font-family: Arial; color: rgb(67, 67, 67); background-color: transparent; font-weight: normal; font-style: normal; font-variant: normal; text-decoration: none; vertical-align: baseline;">,
@@ -230,7 +230,7 @@ and the </span><span
  style="font-size: 15px; font-family: Arial; color: rgb(67, 67, 67); background-color: transparent; font-weight: normal; font-style: normal; font-variant: normal; text-decoration: none; vertical-align: baseline;">
 configures the agent with various collectors that gather data from the
 host. Remember that with </span><a
- href="http://getcloudify.org/openstack-architecture-cloudify.html#Heat"
+ href="http://getcloudify.org/openstack-architecture-cloudify.html#Heat" target="_blank"
  style="text-decoration: none;"><span
  style="font-size: 15px; font-family: Arial; color: rgb(17, 85, 204); background-color: transparent; font-weight: normal; font-style: normal; font-variant: normal; text-decoration: underline; vertical-align: baseline;">OpenStack
 Heat</span></a><span
@@ -250,17 +250,17 @@ on this </span><span
 </span><span
  style="font-size: 15px; font-family: Arial; color: rgb(67, 67, 67); background-color: transparent; font-weight: normal; font-style: normal; font-variant: normal; text-decoration: none; vertical-align: baseline;">as
 well, which tells the monitoring agent on the host to add an </span><a
- href="https://github.com/python-diamond/Diamond/wiki/collectors-HttpdCollector"
+ href="https://github.com/python-diamond/Diamond/wiki/collectors-HttpdCollector" target="_blank"
  style="text-decoration: none;"><span
  style="font-size: 15px; font-family: Arial; color: rgb(17, 85, 204); background-color: transparent; font-weight: normal; font-style: normal; font-variant: normal; text-decoration: underline; vertical-align: baseline;">HttpdCollector</span></a><span
  style="font-size: 15px; font-family: Arial; color: rgb(67, 67, 67); background-color: transparent; font-weight: normal; font-style: normal; font-variant: normal; text-decoration: none; vertical-align: baseline;">,
 which is part of many </span><a
- href="https://github.com/python-diamond/Diamond/wiki/Collectors"
+ href="https://github.com/python-diamond/Diamond/wiki/Collectors" target="_blank"
  style="text-decoration: none;"><span
  style="font-size: 15px; font-family: Arial; color: rgb(17, 85, 204); background-color: transparent; font-weight: normal; font-style: normal; font-variant: normal; text-decoration: underline; vertical-align: baseline;">built-in
 collectors</span></a><span
  style="font-size: 15px; font-family: Arial; color: rgb(67, 67, 67); background-color: transparent; font-weight: normal; font-style: normal; font-variant: normal; text-decoration: none; vertical-align: baseline;">
-in </span><a href="https://github.com/BrightcoveOS/Diamond"
+in </span><a href="https://github.com/BrightcoveOS/Diamond" target="_blank"
  style="text-decoration: none;"><span
  style="font-size: 15px; font-family: Arial; color: rgb(17, 85, 204); background-color: transparent; font-weight: normal; font-style: normal; font-variant: normal; text-decoration: underline; vertical-align: baseline;">Diamond</span></a><span
  style="font-size: 15px; font-family: Arial; color: rgb(67, 67, 67); background-color: transparent; font-weight: normal; font-style: normal; font-variant: normal; text-decoration: none; vertical-align: baseline;">.
@@ -276,12 +276,12 @@ The What</span></p>
  style="font-size: 15px; font-family: Arial; color: rgb(67, 67, 67); background-color: transparent; font-weight: normal; font-style: normal; font-variant: normal; text-decoration: none; vertical-align: baseline;">Now
 we want to understand exactly what the scaling process will do. In
 Cloudify, every process is thought of as a </span><a
- href="http://getcloudify.org/guide/3.2/guide-workflows.html"
+ href="http://getcloudify.org/guide/3.2/guide-workflows.html" target="_blank"
  style="text-decoration: none;"><span
  style="font-size: 15px; font-family: Arial; color: rgb(17, 85, 204); background-color: transparent; font-weight: normal; font-style: normal; font-variant: normal; text-decoration: underline; vertical-align: baseline;">workflow</span></a><span
  style="font-size: 15px; font-family: Arial; color: rgb(67, 67, 67); background-color: transparent; font-weight: normal; font-style: normal; font-variant: normal; text-decoration: none; vertical-align: baseline;">
 (to learn more about this you can read this post “</span><a
- href="http://getcloudify.org/2015/04/02/what-is-workflow-software-automation-engine-open-source.html"
+ href="http://getcloudify.org/2015/04/02/what-is-workflow-software-automation-engine-open-source.html" target="_blank"
  style="text-decoration: none;"><span
  style="font-size: 15px; font-family: Arial; color: rgb(17, 85, 204); background-color: transparent; font-weight: normal; font-style: normal; font-variant: normal; text-decoration: underline; vertical-align: baseline;">What
 is a Workflow?</span></a><span
@@ -302,7 +302,7 @@ workflow definition itself is part of the template:</span></p>
  dir="ltr"><span
  style="font-size: 15px; font-family: Arial; color: rgb(67, 67, 67); background-color: transparent; font-weight: normal; font-style: normal; font-variant: normal; text-decoration: none; vertical-align: baseline;">And
 the workflow code is a python method written with the </span><a
- href="http://getcloudify.org/guide/3.2/guide-authoring-workflows.html"
+ href="http://getcloudify.org/guide/3.2/guide-authoring-workflows.html" target="_blank"
  style="text-decoration: none;"><span
  style="font-size: 15px; font-family: Arial; color: rgb(17, 85, 204); background-color: transparent; font-weight: normal; font-style: normal; font-variant: normal; text-decoration: underline; vertical-align: baseline;">Cloudify
 Workflow API</span></a><span
@@ -323,7 +323,7 @@ implements the lifecycle operations differently, and these are what
 embody the difference between scaling a MariaDB instance or a Wordpress
 instance. But the process remains the same. Also, because this is all
 part of the template itself, and not part of the </span><a
- href="http://getcloudify.org/2015/04/17/open-source-docker-orchestration-automation-management-workflow-engine-software.html"
+ href="http://getcloudify.org/2015/04/17/open-source-docker-orchestration-automation-management-workflow-engine-software.html" target="_blank"
  style="text-decoration: none;"><span
  style="font-size: 15px; font-family: Arial; color: rgb(17, 85, 204); background-color: transparent; font-weight: normal; font-style: normal; font-variant: normal; text-decoration: underline; vertical-align: baseline;">workflow
 engine</span></a><span
@@ -413,11 +413,11 @@ these parameters are telling the engine to add an additional </span><span
  style="font-size: 15px; font-family: Arial; color: rgb(67, 67, 67); background-color: transparent; font-weight: normal; font-style: normal; font-variant: normal; text-decoration: none; vertical-align: baseline;">On
 the backend side of Cloudify, all of the metrics are stored in a time
 series metric database called </span><a
- href="http://influxdb.com/" style="text-decoration: none;"><span
+ href="http://influxdb.com/" style="text-decoration: none;" target="_blank"><span
  style="font-size: 15px; font-family: Arial; color: rgb(17, 85, 204); background-color: transparent; font-weight: normal; font-style: normal; font-variant: normal; text-decoration: underline; vertical-align: baseline;">InfluxDB</span></a><span
  style="font-size: 15px; font-family: Arial; color: rgb(67, 67, 67); background-color: transparent; font-weight: normal; font-style: normal; font-variant: normal; text-decoration: none; vertical-align: baseline;">,
 which can be easily queried. Cloudify also provides a very elegant </span><a
- href="https://github.com/cloudify-cosmo/cloudify-rest-client"
+ href="https://github.com/cloudify-cosmo/cloudify-rest-client" target="_blank"
  style="text-decoration: none;"><span
  style="font-size: 15px; font-family: Arial; color: rgb(17, 85, 204); background-color: transparent; font-weight: normal; font-style: normal; font-variant: normal; text-decoration: underline; vertical-align: baseline;">python
 rest client</span></a><span
@@ -430,7 +430,7 @@ like:</span></p>
  dir="ltr"><span
  style="font-size: 15px; font-family: Arial; color: rgb(67, 67, 67); background-color: transparent; font-weight: normal; font-style: normal; font-variant: normal; text-decoration: none; vertical-align: baseline;">This
 is of course also available via </span><a
- href="http://getcloudify.org/guide/3.2/reference-rest-client-api.html"
+ href="http://getcloudify.org/guide/3.2/reference-rest-client-api.html" target="_blank"
  style="text-decoration: none;"><span
  style="font-size: 15px; font-family: Arial; color: rgb(17, 85, 204); background-color: transparent; font-weight: normal; font-style: normal; font-variant: normal; text-decoration: underline; vertical-align: baseline;">REST
 API</span></a><span
@@ -462,7 +462,7 @@ covers pretty much all there currently is.</span></p>
  dir="ltr"><span
  style="font-size: 15px; font-family: Arial; color: rgb(67, 67, 67); background-color: transparent; font-weight: normal; font-style: normal; font-variant: normal; text-decoration: none; vertical-align: baseline;">The
 first method was done using the native </span><a
- href="http://getcloudify.org/openstack-architecture-cloudify.html"
+ href="http://getcloudify.org/openstack-architecture-cloudify.html" target="_blank"
  style="text-decoration: none;"><span
  style="font-size: 15px; font-family: Arial; color: rgb(17, 85, 204); background-color: transparent; font-weight: normal; font-style: normal; font-variant: normal; text-decoration: underline; vertical-align: baseline;">OpenStack
 orchestration</span></a><span
@@ -480,7 +480,7 @@ for the most common ones. </span></p>
  dir="ltr"><span
  style="font-size: 15px; font-family: Arial; color: rgb(67, 67, 67); background-color: transparent; font-weight: normal; font-style: normal; font-variant: normal; text-decoration: none; vertical-align: baseline;">The
 second way was by using an </span><a
- href="http://getcloudify.org/" style="text-decoration: none;"><span
+ href="http://getcloudify.org/" style="text-decoration: none;" target="_blank"><span
  style="font-size: 15px; font-family: Arial; color: rgb(17, 85, 204); background-color: transparent; font-weight: normal; font-style: normal; font-variant: normal; text-decoration: underline; vertical-align: baseline;">open
 source orchestration</span></a><span
  style="font-size: 15px; font-family: Arial; color: rgb(67, 67, 67); background-color: transparent; font-weight: normal; font-style: normal; font-variant: normal; text-decoration: none; vertical-align: baseline;">
@@ -489,7 +489,7 @@ this tool gives you more native integration with applications of
 various sorts, but less integration with OpenStack resources. You might
 find that some resource types are not yet supported, but overall it has
 very good coverage of the </span><a
- href="https://github.com/cloudify-cosmo/cloudify-openstack-plugin/blob/master/plugin.yaml"
+ href="https://github.com/cloudify-cosmo/cloudify-openstack-plugin/blob/master/plugin.yaml" target="_blank"
  style="text-decoration: none;"><span
  style="font-size: 15px; font-family: Arial; color: rgb(17, 85, 204); background-color: transparent; font-weight: normal; font-style: normal; font-variant: normal; text-decoration: underline; vertical-align: baseline;">OpenStack
 API</span></a><span
