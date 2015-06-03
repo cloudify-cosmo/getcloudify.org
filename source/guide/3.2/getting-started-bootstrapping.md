@@ -10,7 +10,7 @@ pageord: 100
 
 # Overview
 
-While Cloudify's CLI provides [very limited support for deploying an application](LOCAL_WORKFLOWS_LINK!) by itself, you'll have to bootstrap a Cloudify Manager to be able to fully utilize Cloudify to deploy your application.
+While Cloudify's CLI provides very limited support for deploying an application by itself (*documentation for "cfy local" will be provided shortly...*), you'll have to bootstrap a Cloudify Manager to be able to fully utilize Cloudify to deploy your application.
 
 A Cloudify Manager comprises Cloudify's code and [several underlying open-source tools](overview-components.html), which have been integrated to create a dynamic environment, and will support the different operational flows that you might be interested in when deploying your application.
 
