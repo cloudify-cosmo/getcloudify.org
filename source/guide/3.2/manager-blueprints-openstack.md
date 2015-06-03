@@ -171,7 +171,7 @@ this manner.
 
 {%tip title=Tip%}
 The *heal* workflow is a generic workflow that allows for the recovery from
-any node instance failure. To learn more see [Heal Workflow](workflows-built-in.html.html#the-heal-workflow)
+any node instance failure. To learn more see [Heal Workflow](workflows-built-in.html#the-heal-workflow)
 {%endtip%}
 
 ## Usage

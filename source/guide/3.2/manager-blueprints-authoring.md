@@ -114,7 +114,7 @@ There are a few conventions for writing Manager blueprints which, while not bein
 
 # Tips
 
-* Use the [Simple Manager reference](reference-simple-manager.html) as a reference. This blueprint contains very little beyond what's completely necessary for any Manager blueprint, and thus it serves as a good example to learn from as to what a basic Manager blueprint should look like.
+* Use the [Simple Manager reference](manager-blueprints-simple.html) as a reference. This blueprint contains very little beyond what's completely necessary for any Manager blueprint, and thus it serves as a good example to learn from as to what a basic Manager blueprint should look like.
 
 * In many cases, there might be a need to set up the Manager environment in one way or another before the bootstrap task is executed, e.g. uploading files to the Manager machine. This is often done by simply mapping an additional task before the bootstrap task on the *manager* node,
 so for example if the bootstrap task is mapped to the *manager* node's `cloudify.interfaces.lifecycle.start` operation, the configuring task can be mapped to the `cloudify.interfaces.lifecycle.configure` operation.
