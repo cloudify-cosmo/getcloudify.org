@@ -9,8 +9,8 @@ pageord: 220
 virtualenv_link: http://virtualenv.readthedocs.org/en/latest/virtualenv.html
 terminology_link: reference-terminology.html
 celery_link: http://www.celeryproject.org/
-rest_client_api_link: http://cloudify-rest-client.readthedocs.org/en/3.2/
-plugins_common_api_link: http://cloudify-plugins-common.readthedocs.org/en/3.2/
+rest_client_api_link: apis-rest-client.html
+plugins_common_api_link: apis-plugins-common.html
 diamond_plugin_link: plugin-diamond.html
 script_plugin_link: plugin-script.html
 linux_agent_installer_link: plugin-linux-agent-installer.html

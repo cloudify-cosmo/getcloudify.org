@@ -766,7 +766,7 @@ node_templates:
 
 ## Step 7: Adding outputs
 
-The `outputs` part of the blueprint is optional, but it is useful because `outputs` allow the blueprint to expose application characteristics via the [REST](rest-api/index.html) or the [CLI](http://cloudify-cli.readthedocs.org/en/3.2/). <br>
+The `outputs` part of the blueprint is optional, but it is useful because `outputs` allow the blueprint to expose application characteristics via the [REST](rest-api/index.html) or the [CLI](cli-cfy-reference.html). <br>
 In this blueprint we will use `outputs` to expose the application url endpoint, like so:
 
 {%highlight yaml%}
