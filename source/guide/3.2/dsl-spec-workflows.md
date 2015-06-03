@@ -74,7 +74,7 @@ The second workflow is named `test_connection_workflow`. It is mapped to the met
 tosca_definitions_version: cloudify_dsl_1_0
 
 imports:
-  - http://www.getcloudify.org/spec/cloudify/3.1/types.yaml
+  - http://www.getcloudify.org/spec/cloudify/3.2/types.yaml
 
 
 plugins:

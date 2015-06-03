@@ -6,7 +6,7 @@ publish: true
 abstract: "Docker plugin description and configuration"
 pageord: 210
 
-yaml_link: http://getcloudify.org/spec/docker-plugin/1.1/plugin.yaml
+yaml_link: http://getcloudify.org/spec/docker-plugin/1.2/plugin.yaml
 fabric_link: http://getcloudify.org/guide/3.2/plugin-fabric.html
 plugin_version: 1.2
 ---

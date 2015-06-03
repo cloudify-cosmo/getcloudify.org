@@ -7,7 +7,7 @@ abstract: Executing Cloudify Workflows (and more specifically, the Install and U
 pageord: 500
 
 terminology_link: reference-terminology.html
-workflows_link: reference-builtin-workflows.html
+workflows_link: workflows-built-in.html
 ---
 {%summary%} {{page.abstract}}{%endsummary%}
 
@@ -103,7 +103,7 @@ You can also have a look at the Monitoring tab and see some default metrics once
 
 {%note title=Note%}
 The blueprint we installed actually defines a custom collector for the Mongo database.
-To add mongo related graphs to the dashboard, have a look at [Adding Custom Graphs](/guide/3.1/ui-monitoring.html#example---customize-your-dashboard).
+To add mongo related graphs to the dashboard, have a look at [Adding Custom Graphs](webui-graphing-metrics.html).
 {%endnote%}
 
 # Actionable: Test Drive the application

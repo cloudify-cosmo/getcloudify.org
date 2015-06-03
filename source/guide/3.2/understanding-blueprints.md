@@ -170,5 +170,5 @@ workflows:
 
 # Built-in Types and Interfaces
 
-[Look here for all built-in types and interfaces](types-reference.html)
+[Look here for all built-in types and interfaces](reference-types.html)
 

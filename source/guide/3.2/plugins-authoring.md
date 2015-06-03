@@ -12,7 +12,7 @@ blueprint_guide_link: guide-blueprint.html
 plugins_common_link: https://github.com/cloudify-cosmo/cloudify-plugins-common
 plugins_common_ref_link: reference-plugins-common.html
 architecture_link: overview-architecture.html
-openstack_plugin_link: https://github.com/cloudify-cosmo/cloudify-openstack-plugin/blob/1.1/nova_plugin/server.py#L379
+openstack_plugin_link: https://github.com/cloudify-cosmo/cloudify-openstack-plugin/blob/1.2/nova_plugin/server.py#L379
 plugins_common_docs_link: http://cloudify-plugins-common.readthedocs.org/
 terminology_link: reference-terminology.html
 dsl_inputs_link: dsl-spec-inputs.html
@@ -298,7 +298,7 @@ def start(**kwargs):
 
 # Testing Your Plugin
 
-In most cases, the recommendation is to test your plugin's logic using local workflows and only then, run them as part of a Cloudify [deployment]({{page.terminology_link}}#deployment). The [Plugin Template]({{page.template_link}}/blob/3.1/plugin/tests/test_plugin.py) has an example of doing just that.
+In most cases, the recommendation is to test your plugin's logic using local workflows and only then, run them as part of a Cloudify [deployment]({{page.terminology_link}}#deployment). The [Plugin Template]({{page.template_link}}/blob/3.2/plugin/tests/test_plugin.py) has an example of doing just that.
 
 If you want to unit test a specific function that needs a `ctx` object, you can use `cloudify.mocks.MockCloudifyContext` which is provided by `cloudify-plugins-common`.
 

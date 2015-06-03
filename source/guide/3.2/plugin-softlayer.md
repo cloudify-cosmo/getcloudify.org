@@ -408,7 +408,7 @@ node_templates:
 
 This example will show how to launch a Flex image on SoftLayer with a local workflow
 
-It will also show how to use the outputs section to get the public ip, username and password of a server, in the same way that all runtime_properties can be accessed (see [Blueprint Authoring Guide - adding-outputs](http://getcloudify.org/guide/3.2/guide-blueprint.html#step-7-adding-outputs))
+It will also show how to use the outputs section to get the public ip, username and password of a server, in the same way that all runtime_properties can be accessed (see [Blueprint Authoring Guide - adding-outputs](getting-started-write-blueprint.html#step-7-adding-outputs))
 
 {% togglecloak id=3 %}
 Example III
@@ -420,7 +420,7 @@ Example III
 tosca_definitions_version: cloudify_dsl_1_0
 
 imports:
-    - http://www.getcloudify.org/spec/cloudify/3.1/types.yaml
+    - http://www.getcloudify.org/spec/cloudify/3.2/types.yaml
     - https://raw.githubusercontent.com/cloudify-cosmo/cloudify-softlayer-plugin/widget/plugin.yaml
 
 inputs:

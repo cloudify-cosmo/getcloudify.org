@@ -6,7 +6,7 @@ publish: false
 abstract: "Guide for Cloudify CLI"
 pageord: 900
 
-cli_reference_link: reference-cfy.html
+cli_reference_link: cli-cfy-reference.html
 ---
 {%summary%}{{page.abstract}}{%endsummary%}
 

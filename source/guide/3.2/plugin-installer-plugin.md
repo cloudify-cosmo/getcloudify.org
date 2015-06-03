@@ -77,7 +77,7 @@ The following `plugins` argument should be provided:
 plugins = [
   {
     'name': cloudify-bash-plugin,
-    'source': https://github.com/cloudify-cosmo/cloudify-bash-plugin/archive/1.1.zip,
+    'source': https://github.com/cloudify-cosmo/cloudify-bash-plugin/archive/1.2.zip,
     'install': true,
     'executor': host_agent
   }
