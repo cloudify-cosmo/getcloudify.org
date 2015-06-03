@@ -35,40 +35,19 @@ cfy executions start -w <WORKFLOW_NAME> -d <DEPLOYMENT_NAME>
 
 ## Executing a Workflow via the Web UI
 
-When executing a `Workflow` for a `Deployment` (e.g. the `install` workflow), the topology nodes show badges that reflect the workflow execution state.
+Navigate to the relevant `Deployment`.
+![workflows1](/guide/images/ui/ui-workflows1.png)
 
-## Badges
-See the `Topology` terminology definition [here]({{page.terminology_topology}}).<br/>
+Select the desired `Workflow` from the dropdown.
 
-* Install state - The workflow execution is in progress for this node
-* Done state - The workflow execution was completed successfully for this node
-* Alerts state - The workflow execution was partially completed for this node
-* Failed state - The workflow execution failed for this node
+*Note that until a workflow is selected, the 'run execution' play button is disabled.*
+![workflows2](/guide/images/ui/ui-workflows2.png)
 
-![Deployment Topology Node Badges](/guide/images/ui/ui-deployment-topology-badges.png)
+Click the 'run execution' play button to start the workflow execution.
+![workflows3](/guide/images/ui/ui-workflows3.png)
 
-## Workflow states represented by badges
-A deployment before any workflow was executed
-![Deployment Topology](/guide/images/ui/ui-deployment-topology-1.png)
-
-A deployment with a workflow execution in progress
-![Deployment Topology Execution In Progress](/guide/images/ui/ui-deployment-topology-2.png)
-
-A deployment with a workflow execution in progress, partially completed
-![Deployment Topology Execution Partially Completed](/guide/images/ui/ui-deployment-topology-3.png)
-
-A deployment with a workflow execution completed successfully
-![Deployment Topology Execution Completed Successfully](/guide/images/ui/ui-deployment-topology-4.png)
-
-A deployment with a workflow execution partially completed successfully with some alerts
-![Deployment Topology Execution Completed Partially Alerts](/guide/images/ui/ui-deployment-topology-5.png)
-
-A deployment with a workflow execution that partially failed
-![Deployment Topology Execution Completed Partially Errors](/guide/images/ui/ui-deployment-topology-6.png)
-
-A deployment with a workflow execution that failed
-![Deployment Topology Execution Completed Errors](/guide/images/ui/ui-deployment-topology-7.png)
-
+After the 'run execution' button is clicked, the progress spinner is displayed. The execution can be cancelled by clicking on the 'cancel execution' X button.
+ ![workflows4](/guide/images/ui/ui-workflows4.png)
 
 # Actionable: Install the Application
 
