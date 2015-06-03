@@ -34,7 +34,7 @@ Alternatively, it's possible to work with an existing management server, by issu
 
 {%note title=Note%}It's highly recommended to initialize and work with the CLI from a designated folder{%endnote%}
 
-A complete command reference page is available [here](reference-cfy.html).
+A complete command reference page is available [here](cli-cfy-reference.html).
 
 
 

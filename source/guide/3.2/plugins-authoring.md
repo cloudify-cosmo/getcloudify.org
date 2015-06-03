@@ -8,10 +8,10 @@ pageord: 100
 
 plugin_link: https://github.com/cloudify-cosmo/cloudify-python-plugin
 template_link: https://github.com/cloudify-cosmo/cloudify-plugin-template
-blueprint_guide_link: guide-blueprint.html
+blueprint_guide_link: getting-started-write-blueprint.html
 plugins_common_link: https://github.com/cloudify-cosmo/cloudify-plugins-common
 plugins_common_ref_link: reference-plugins-common.html
-architecture_link: overview-architecture.html
+architecture_link: overview-general.html
 openstack_plugin_link: https://github.com/cloudify-cosmo/cloudify-openstack-plugin/blob/1.2/nova_plugin/server.py#L379
 plugins_common_docs_link: http://cloudify-plugins-common.readthedocs.org/
 terminology_link: reference-terminology.html
@@ -236,7 +236,7 @@ def start(**kwargs):
 {%endhighlight%}
 
 {%tip title=Tip%}
-`ctx.operation.max_retries` can be configured in Cloudify's manager blueprint. More information can be found in the [Workflows guide](guide-workflows.html#workflow-error-handling).
+`ctx.operation.max_retries` can be configured in Cloudify's manager blueprint. More information can be found in the [Workflows guide](workflows-error-handling.html).
 {%endtip%}
 
 

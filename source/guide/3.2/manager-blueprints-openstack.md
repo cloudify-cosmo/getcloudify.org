@@ -11,7 +11,7 @@ pageord: 1000
 
 
 {%note title=Note%}
-This reference only explains the structure and various values in the blueprint. For better understanding of it, make yourself familiar with [Cloudify blueprints DSL](guide-blueprint.html), the [Cloudify Openstack plugin](plugin-openstack.html), and the [Manager Blueprints Authoring guide](guide-authoring-manager-blueprints.html).
+This reference only explains the structure and various values in the blueprint. For better understanding of it, make yourself familiar with [Cloudify blueprints DSL](dsl-spec-general.html), the [Cloudify Openstack plugin](plugin-openstack.html), and the [Manager Blueprints Authoring guide](getting-started-write-blueprint.html).
 {%endnote%}
 
 # Inputs
@@ -25,8 +25,8 @@ This reference only explains the structure and various values in the blueprint. 
 * `region` Region on Openstack (e.g. "region-b.geo-1").
 * `manager_public_key_name` The name on Openstack of the keypair that will be used with the Cloudify manager.
 * `agent_public_key_name` The name on Openstack of the keypair that will be used with Cloudify agents.
-* `image_id` The id of the image to be used for the Cloudify manager host (Ensure compatibility with the [Prerequisites section](installation-general.html#prerequisites)).
-* `flavor_id` The id of the flavor to be used for the Cloudify manager host (Ensure compatibility with the [Prerequisites section](installation-general.html#prerequisites)).
+* `image_id` The id of the image to be used for the Cloudify manager host (Ensure compatibility with the [Prerequisites section](getting-started-prerequisites.html#prerequisites)).
+* `flavor_id` The id of the flavor to be used for the Cloudify manager host (Ensure compatibility with the [Prerequisites section](getting-started-prerequisites.html#prerequisites)).
 * `external_network_name` The name of the external network on Openstack.
 
 ## Optional inputs
@@ -118,7 +118,7 @@ The "Openstack manager" blueprint contains the following nodes:
   - *manager_data* - This is a node of type `cloudify.nodes.FileSystem`, it will create a mount point on the manager server, that is mounted on the volume node. Its purpose is to mount the */var/lib/docker* directory on the manager server to a cinder volume. By doing so, all the information docker will write to this directory, will be persisted even if the server is terminated or is inaccessible. To achieve this, it defines 2 relationships:
     - `cloudify.relationships.file_system_depends_on_volume` --> *volume*
     - `cloudify.relationships.file_system_contained_in_compute` --> *manager_server*
-  - *manager* - The node which represents the manager. You may find more information about this node in the [Types Reference](#reference-types.html#cloudifymanager-type) section as well as in the [Manager Blueprints Authoring guide](guide-authoring-manager-blueprints.html).
+  - *manager* - The node which represents the manager. You may find more information about this node in the [Types Reference](#reference-types.html#cloudifymanager-type) section as well as in the [Manager Blueprints Authoring guide](getting-started-write-blueprint.html).
 
 
 # Configuration Operations
@@ -171,12 +171,12 @@ this manner.
 
 {%tip title=Tip%}
 The *heal* workflow is a generic workflow that allows for the recovery from
-any node instance failure. To learn more see [Heal Workflow](reference-builtin-workflows.html#heal)
+any node instance failure. To learn more see [Heal Workflow](workflows-built-in.html.html#the-heal-workflow)
 {%endtip%}
 
 ## Usage
 
-To use this ability we have added a new command in our [CLI](reference-cfy
+To use this ability we have added a new command in our [CLI](cli-cfy-reference
 .html) called *cfy recover*.
 
 You can use this command from any machine, not necessarily the machine you
