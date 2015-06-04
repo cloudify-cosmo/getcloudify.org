@@ -12,9 +12,9 @@ virtualbox_link: https://www.virtualbox.org/
 vagrant_link: http://www.vagrantup.com
 vagrant_file_link: http://gigaspaces-repository-eu.s3.amazonaws.com/org/cloudify3/3.2.0/ga-RELEASE/Vagrantfile
 terminology_link: reference-terminology.html
-workflows_link: reference-builtin-workflows.html
+workflows_link: workflows-built-in.html
 blueprint_guide_link: understanding-blueprints.html
-installation_general_link: installation-general.html
+installation_general_link: installation.html
 
 ---
 {%summary%}{{page.abstract}}{%endsummary%}
@@ -91,7 +91,7 @@ You'll have to clone a sample blueprint from our Github repository from the Vagr
 cd blueprints
 git clone https://github.com/cloudify-cosmo/cloudify-nodecellar-example
 cd cloudify-nodecellar-example/
-git checkout tags/3.1
+git checkout tags/3.2
 {%endhighlight%}
 
 ## Step 4: Upload the Blueprint and Create a Deployment
@@ -105,6 +105,10 @@ To upload the blueprint run:
 {%highlight bash%}
 cfy blueprints upload -b nodecellar -p singlehost-blueprint.yaml
 {%endhighlight%}
+
+{%note title=DNS address%}
+The DNS address used by cloudify in the getting-started box is set to 8.8.8.8.
+{%endnote%}
 
 The `-b` flag specifies the unique name we've assigned to this blueprint on the Cloudify manager.
 Before creating a deployment, let's see what this blueprint looks like.
@@ -189,7 +193,7 @@ You can also have a look at the Monitoring tab and see some default metrics:
 ![Metrics](/guide/images3/guide/default_dashboard.png)
 
 {%note title=Note%}
-The blueprint we installed actually defines a custom collector for the Mongo database. To add mongo related graphs to the dashboard, have a look at [Adding Custom Graphs](/guide/3.1/ui-monitoring.html#example---customize-your-dashboard).
+The blueprint we installed actually defines a custom collector for the Mongo database. To add mongo related graphs to the dashboard, have a look at [Adding Custom Graphs](webui-graphing-metrics.html).
 {%endnote%}
 
 ## Step 6: Test Drive the Application

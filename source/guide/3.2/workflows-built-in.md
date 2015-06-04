@@ -7,7 +7,7 @@ abstract: Description and details on Cloudify's built-in Workflows
 pageord: 600
 
 types_yaml_link: reference-types.html
-default_workflows_source_link: https://github.com/cloudify-cosmo/cloudify-plugins-common/blob/3.1/cloudify/plugins/workflows.py
+default_workflows_source_link: https://github.com/cloudify-cosmo/cloudify-plugins-common/blob/3.2/cloudify/plugins/workflows.py
 ---
 
 {%summary%}{{page.abstract}}{%endsummary%}
@@ -45,7 +45,7 @@ The implementations for these workflows can be found at [`cloudify-plugins-commo
 
 Built-in workflows are not special in any way - they use the same API and framework as any custom workflow is able to use, and one may replace them with different workflows with the same names.
 
-For more information and detailed description of the built-in workflows, visit the [Built-in workflows reference](worklows-built-in.html).
+For more information and detailed description of the built-in workflows, visit the [Built-in workflows reference](workflows-built-in.html).
 
 
 # The Install Workflow

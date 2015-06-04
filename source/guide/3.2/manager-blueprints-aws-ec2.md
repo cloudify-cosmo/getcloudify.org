@@ -17,8 +17,8 @@ pageord: 1000
 
 * `aws_access_key_id` Your aws_access_key_id, which can be found in your AWS account manager.
 * `aws_secret_access_key` Your aws_secret_access_key, which can be found in your AWS account manager.
-* `image_id` The id of the image to be used for the Cloudify manager host (Ensure compatibility with the [Prerequisites section](installation-general.html#prerequisites)).
-* `instance_type` The instance type to be used for the Cloudify manager host (Ensure compatibility with the [Prerequisites section](installation-general.html#prerequisites)).
+* `image_id` The id of the image to be used for the Cloudify manager host (Ensure compatibility with the [Prerequisites section](getting-started-prerequisites.html#prerequisites)).
+* `instance_type` The instance type to be used for the Cloudify manager host (Ensure compatibility with the [Prerequisites section](getting-started-prerequisites.html#prerequisites)).
 * `manager_keypair_name` The name on AWS of the keypair that will be used with the Cloudify manager.
 * `agent_keypair_name` The name on AWS of the keypair that will be used with Cloudify agents.
 
@@ -66,7 +66,7 @@ The "AWS EC2 manager" blueprint contains the following nodes:
   - *manager_server_ip* - A floating IP which will be associated with the Cloudify manager machine.
   - *manager_server* - The server on which the Cloudify manager will be installed.
   - *aws_configuration* - A node which represents configuration settings for connecting with AWS.
-  - *manager* - The node which represents the manager. You may find more information about this node in the [Types Reference](#reference-types.html#cloudifymanager-type) section as well as in the [Manager Blueprints Authoring guide](guide-authoring-manager-blueprints.html).
+  - *manager* - The node which represents the manager. You may find more information about this node in the [Types Reference](#reference-types.html#cloudifymanager-type) section as well as in the [Manager Blueprints Authoring guide](getting-started-write-blueprint.html).
 
 
 # Configuration Operations

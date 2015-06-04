@@ -34,7 +34,7 @@ The downloadable `get-cloudify.py` script allows for an online installation of t
 The script can install the cli on different distributions of Linux, OSx (Darwin) and Windows.
 
 
-# Installing using premade packages
+# Installing Using Packages
 
 ## Windows
 
@@ -102,6 +102,15 @@ Now try running `cfy -h` in your terminal. You should get an output describing h
 
 For more info on the installation script, see [here](#installing-using-the-script).
 
+{%info title=The plugins location%}
+After installing the packages, the plugins can be found under `/cfy/cloudify-manager-blueprints-commercial`
+{%endinfo%}
+
+{% tip title=Tip %}
+It is recommended to copy the manager blueprints to a new folder to avoid dealing with permissions in the future, e.g.
+`cp -a /cfy/cloudify-manager-blueprints-commercial ~/my-manager-blueprints`
+{% endtip %}
+
 ### Ubuntu/Debian
 
 Installers for Debian based distros will be added in the future.
@@ -111,8 +120,7 @@ Installers for Debian based distros will be added in the future.
 Currently, to install Cloudify on OS X, you must use the `get-cloudify.py` [script](#installing-using-the-script).
 In following versions, we'll be supplying a package compiled for OS X.
 
-
-# Installing using the script
+# Installing Using the Installation Script
 
 A script is supplied for you to install Cloudify on different OS distributions.
 
@@ -173,7 +181,7 @@ python get-cloudify.py --version 3.2a4
 {% endhighlight %}
 
 
-# Installing from PyPI
+# Installing From PyPI
 
 Cloudify's CLI is also distributed to PyPI. You can install Cloudify from PyPI though we recommend using the script as installing from PyPI does not handle prerequisites and does not provide some other comforts the script is designed to provide.
 
@@ -248,6 +256,6 @@ You can change this by editing the 'config.yaml' file found at '{cli_installatio
 {% endtip %}
 
 
-# What's Next
-* Now that you know the requirements and have the CLI installed, you can [bootstrap your own manager]({{ page.installation_bootstrapping_link }})
+# What's Next?
+Now that you know the requirements and have the CLI installed, you can [bootstrap your own manager]({{ page.installation_bootstrapping_link }})
 

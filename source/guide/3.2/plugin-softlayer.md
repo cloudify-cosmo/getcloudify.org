@@ -13,20 +13,26 @@ This section describes how to use a SoftLayer based cloud infrastructure in your
 For more information about SoftLayer, please refer to: [http://www.softlayer.com/](http://www.softlayer.com/).
 {%endsummary%}
 
+{%note title=Note%}
+The Softlayer IaaS plugin is a feature of [the premium edition of Cloudify](/goPro.html), 
+it comes with the downloadable packages of the cli.<br>
+To install the packages see [Installing using packages](installation.html#installing-using-packages).
+{%endnote%}
+
 # Requirements
   * A SoftLayer account, see [SoftLayer Authentication](#softlayer-authentication).
   * [The commercial version of Cloudify](/goPro.html) 
 
 # Compatibility
-  The SoftLayer plugin uses the [SoftLayer for python 3.3.0](https://pypi.python.org/pypi/SoftLayer/3.3.0).
+  The SoftLayer plugin uses the [SoftLayer 3.3.0](https://pypi.python.org/pypi/SoftLayer/3.3.0) (SoftLayer API bindings for Python).
 
   {%note title=Note%}
-  The plugin extends the [VSManager class](https://softlayer-api-python-client.readthedocs.org/en/latest/api/managers/vs/) and declares the [verify_place_order](https://github.com/cloudify-cosmo/cloudify-softlayer-plugin/blob/master/softlayer_plugin/extended_vs_manager.py#L113) and [place_order](https://github.com/cloudify-cosmo/cloudify-softlayer-plugin/blob/master/softlayer_plugin/extended_vs_manager.py#L145) methods which enable specifying all the needed items for creating a virtual server, corresponding to the properties of the [Cloudify Softlayer VirtualServer](#cloudifysoftlayernodesvirtualserver) type.
+  In order to offer full support for the virtual server catalog, the Softlayer plugin extends the [VSManager class](https://softlayer-api-python-client.readthedocs.org/en/latest/api/managers/vs/) and declares the [verify_place_order](https://github.com/cloudify-cosmo/cloudify-softlayer-plugin/blob/master/softlayer_plugin/extended_vs_manager.py#L113) and [place_order](https://github.com/cloudify-cosmo/cloudify-softlayer-plugin/blob/master/softlayer_plugin/extended_vs_manager.py#L145) methods which enable specifying all the needed items for creating a virtual server, corresponding to the properties of the [Cloudify Softlayer VirtualServer](#cloudifysoftlayernodesvirtualserver) type.
   {%endnote%}
 
 # Installation
   As Softlayer plugin is included in the commercial cli packages, the plugin and its requirements are pre installed.<br> 
-  See [Installing using premade packages](installation.html#installing-using-premade-packages).
+  See [Installing using packages](installation.html#installing-using-packages).
 
 # Types
 
@@ -417,7 +423,7 @@ node_templates:
 
 This example will show how to launch a Flex image on SoftLayer with a local workflow
 
-It will also show how to use the outputs section to get the public ip, username and password of a server, in the same way that all runtime_properties can be accessed (see [Blueprint Authoring Guide - adding-outputs](http://getcloudify.org/guide/3.2/guide-blueprint.html#step-7-adding-outputs))
+It will also show how to use the outputs section to get the public ip, username and password of a server, in the same way that all runtime_properties can be accessed (see [Blueprint Authoring Guide - adding-outputs](getting-started-write-blueprint.html#step-7-adding-outputs))
 
 {% togglecloak id=3 %}
 Example III
@@ -429,7 +435,7 @@ Example III
 tosca_definitions_version: cloudify_dsl_1_0
 
 imports:
-    - http://www.getcloudify.org/spec/cloudify/3.1/types.yaml
+    - http://www.getcloudify.org/spec/cloudify/3.2/types.yaml
     - https://raw.githubusercontent.com/cloudify-cosmo/cloudify-softlayer-plugin/widget/plugin.yaml
 
 inputs:

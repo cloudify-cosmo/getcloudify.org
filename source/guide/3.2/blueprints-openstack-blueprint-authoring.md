@@ -33,7 +33,7 @@ This file contains the openstack plugin and types definitions.
 
 {%highlight yaml%}
 imports:
-  - http://www.getcloudify.org/spec/openstack-plugin/1.1/plugin.yaml
+  - http://www.getcloudify.org/spec/openstack-plugin/1.2/plugin.yaml
 {%endhighlight%}
 
 ## Step 2: Changing our inputs
