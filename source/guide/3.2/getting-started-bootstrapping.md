@@ -39,9 +39,12 @@ mkdir -p ~/cloudify-manager
 cd ~/cloudify-manager
 git clone https://github.com/cloudify-cosmo/cloudify-manager-blueprints
 cd cloudify-manager-blueprints
-git checkout -b <tag> <tag>
+git checkout -b cloudify <tag>
 {% endhighlight %}
 
+{%note title=Note%}
+Make sure you use a tag from [Cloudify-Manager-Blueprints](https://github.com/cloudify-cosmo/cloudify-manager-blueprints/releases) that matches your Cloudify version. Blueprints taken from the master branch might not work for you.
+{%endnote%}
 
 Now let's move on to configuration.
 
@@ -101,7 +104,9 @@ You will, at the very least, have to provide the following:
 * `keystone_password`
 * `keystone_tenant_name`
 
-Note: `manager_public_key_name` and `agent_public_key_name` will be created automatically under `private_key_path`
+{%note title=Note%}
+`manager_public_key_name` and `agent_public_key_name` will be created automatically under `private_key_path`.
+{%endnote%}
 
 In case you are using a different openstack environment, you should also change the following values:
 
