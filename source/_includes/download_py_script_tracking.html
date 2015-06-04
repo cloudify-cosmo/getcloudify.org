@@ -1,0 +1,186 @@
+<script type="text/javascript">
+
+//MANAGE CLI TRACK DOWNLOADS
+    $(function () {
+     regisFormValid();
+//Manage Downloads Gating;
+//========================================//
+var gotName = false;
+var gotValidCaptcha = false;
+var downloadHref="";
+var strVar="";
+var formEmail="";
+var formName="";
+var formcompany ="";
+var dataBtnName=""; // this is the name of the mixpanel resource
+var dataBtnSplit="";
+
+//Manage Downloads Gating;
+//========================================//
+var strVar="";
+strVar += "<div class=\"modal fade\" id=\"myCliModal\" tabindex=\"-1\" role=\"dialog\" aria-labelledby=\"myModalLabel\" aria-hidden=\"true\">";
+strVar += "            <a  style=\"float:right \" class=\"gattingWrapperClose\" href=\"#\"><i class=\"fa fa-times\">&nbsp;&nbsp;<\/i> <\/a>";
+strVar += "<div class=\"gattingWrapper\">";
+strVar += "           <form id=\"regiterToDownload\" action=\"https:\/\/www.salesforce.com\/servlet\/servlet.WebToLead?encoding=UTF-8\" method=\"POST\">";
+strVar += "			<div class=\"regTitle\">Verify You're Human<\/div>";
+strVar += "			<div style=\"position:relative\">";
+strVar += "				<input  id=\"last_name\" name=\"last_name\" type=\"text\" class=\"cuInput\" placeholder=\"Your Name\" \/>";
+strVar += "				<div class=\"cuValid\"><\/div>";
+strVar += "			<\/div>";
+strVar += "			<div style=\"position:relative\">";
+strVar += "				<input  id=\"email\" name=\"email\"  type=\"text\"  placeholder=\"Your Email\"\/>";
+strVar += "				<div class=\"cuValid\"><\/div>";
+strVar += "			<\/div>";
+strVar += "			<div style=\"position:relative\">";
+strVar += "				<input  id=\"company\" name=\"company\"  type=\"text\"  placeholder=\"Your Company\"\/>";
+strVar += "				<div class=\"cuValid\"><\/div>";
+strVar += "			<\/div>";
+
+strVar +="          <input id=\"website\" name=\"website\" type=\"text\" value=\"\"  \/>";
+strVar += "			<input type=\"submit\" class=\"cuSendGatting btn btn-info\" name=\"submit\" value=\"Download\" \/>";
+strVar += "   <br\/><br\/>";
+
+strVar += "			<\/form>";
+strVar += "        <\/div>";
+strVar += "        <\/div>";
+
+
+//set cookie download
+function setCookie(key, value) {
+    var expires = new Date();
+    expires.setTime(expires.getTime() + (180 * 24 * 60 * 60 * 1000));
+    document.cookie = key + '=' + value + ';expires=' + expires.toUTCString();
+}
+
+function getCookie(key) {
+    var keyValue = document.cookie.match('(^|;) ?' + key + '=([^;]*)(;|$)');
+    return keyValue ? keyValue[2] : null;
+}
+
+//Blocking Spam http://blog.supermedia.com/honeypot-technique/
+$('#regiterToDownload').submit(function(){    
+        if ($('input#website').val().length != 0) {
+            return false;
+        } 
+});
+//End Blocking Spam
+
+$("body,.testimonial").on('click', '.gattingWrapperClose', function(){
+    $('#myCliModal').modal('hide');	
+  });
+  
+
+$(".openRegisForm").click(function(e) {  
+	e.preventDefault(); 
+	$("#myCliModal").remove();
+	if (getCookie('cfydirect') == null) {
+	    $(this).before(strVar);
+	    regisFormValid(e);
+	    $('#myCliModal').modal('toggle');
+	} else {
+	    openCliPageFunction();
+	}
+});
+
+
+
+function openCliPageFunction() {
+    setCookie('cfydirect', formName + "," + formEmail + "," + formcompany);
+	track_registerUser();
+	$('#myCliModal').modal('hide');	
+	window.open('http://gigaspaces-repository-eu.s3.amazonaws.com/org/cloudify3/get-cloudify.py', '_blank');
+	
+}
+
+
+function regisFormValid(e){
+ $.validator.addMethod("regexp", function (value, element) {
+    return this.optional(element) || /^[a-zA-Z\-_.,\s]+$/.test(value);
+}, 'You can use only letters and those special characters (-_.,)');
+  //Validation
+   $('#regiterToDownload').validate({ // initialize the plugin
+        errorLabelContainer: "#error-note",
+        rules: {
+            last_name: {
+                required: true,
+				regexp: true
+            },
+			email: {
+                required: true,
+                email: true
+            },
+			company: {
+                required: true   
+            }
+
+			},
+        messages: {
+            last_name: {
+                required: "Please enter your first name",
+            },
+            email: {
+                required: "Please specify your email",
+                email: "Correct format is name@domain.com"
+            },
+			company: {
+                required: "Please enter your company name"
+            }
+
+        },
+        submitHandler: function (form,e) { // for demo
+            formalyzer_call_onclick(12206); 
+            if ($('input#website').val().length != 0) {
+                return false;
+            } else{
+				formEmail =  $(".gattingWrapper #email").val();	
+				formName =  $(".gattingWrapper #last_name").val();
+				formcompany =  $(".gattingWrapper #company").val();
+				openCliPageFunction();
+				$('#myCliModal').modal('hide');	
+            }
+            return false; // for demo
+        }
+    });
+  //End Validation
+}
+
+
+function track_registerUser() {
+		_gaq.push(['_trackEvent','Product Download', 'CLI Download']);
+       	//track mixpanel
+		formEmail =  $(".gattingWrapper #email").val();	
+		formName =  $(".gattingWrapper #last_name").val();
+		formcompany =  $(".gattingWrapper #company").val();
+		mixpanel.identify(formEmail);
+		mixpanel.alias(formName, formEmail, formcompany);
+		mixpanel.name_tag(formName) ;
+		mixpanel.register();
+		mixpanel.people.set({
+			"resource": 'CLI Download', // sets the property 'Resource' for this user to the boolean value true		
+			$email: formEmail,
+			$first_name: formName,
+			$company: formcompany,
+			$created: new Date(),
+		});
+		mixpanel.track('Resource', {'Name':'CLI Download', 'Source':'Download Page'});
+		mixpanel.people.increment({
+			"Number Of Resource Downloads": 1
+		}); 
+	}
+
+
+//Blocking Spam http://blog.supermedia.com/honeypot-technique/
+$('#regiterToDownload').submit(function(){    
+        if ($('input#website').val().length != 0) {
+            return false;
+        } 
+});
+//End Blocking Spam
+
+
+
+});
+
+
+
+</script>
