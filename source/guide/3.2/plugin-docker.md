@@ -1,7 +1,7 @@
 ---
 layout: bt_wiki
 title: Docker Plugin
-category: Plugins
+category: Official Plugins
 publish: true
 abstract: "Docker plugin description and configuration"
 pageord: 210
