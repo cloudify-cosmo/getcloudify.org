@@ -15,7 +15,7 @@ singlehost_nodecellar_url: https://github.com/cloudify-cosmo/cloudify-nodecellar
 nodecellar_url: https://github.com/cloudify-cosmo/cloudify-nodecellar-example
 nodecellar_scripts_url: https://github.com/cloudify-cosmo/cloudify-nodecellar-example/tree/3.2/scripts
 nodecellar_link: http://coenraets.org/blog/2012/10/nodecellar-sample-application-with-backbone-js-twitter-bootstrap-node-js-express-and-mongodb/
-agent_overview_link: agents-description.html
+agent_overview_link: agents-general.html
 
 ---
 {%summary%} {{page.abstract}}{%endsummary%}
@@ -73,7 +73,7 @@ It includes the following components:
 
 The topology looks like this:
 
-![nodecllar app](/guide/images3/guide/quickstart/nodecellar_singlehost_topology.png)
+![nodecllar app](/guide/images3.2/guide/quickstart/nodecellar_singlehost_topology.png)
 
 ## Cloudify YAML DSL
 
@@ -766,7 +766,7 @@ node_templates:
 
 ## Step 7: Adding outputs
 
-The `outputs` part of the blueprint is optional, but it is useful because `outputs` allow the blueprint to expose application characteristics via the [REST](rest-api/index.html) or the [CLI](reference-cfy.html). <br>
+The `outputs` part of the blueprint is optional, but it is useful because `outputs` allow the blueprint to expose application characteristics via the [REST](rest-api/index.html) or the [CLI](cli-cfy-reference.html). <br>
 In this blueprint we will use `outputs` to expose the application url endpoint, like so:
 
 {%highlight yaml%}

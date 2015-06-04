@@ -54,7 +54,7 @@ In our `bandersnatch.conf` file we have configured the following:
     }
 
 This means that nginx will serve the files located under `/srv/cloudify` on `<server-ip>:<server-port>/cloudify`. So we need to make every file that is used in our blueprint available under /srv/cloudify.  
-For example have a look at the [Hello-World example](https://github.com/cloudify-cosmo/cloudify-hello-world-example). In `blueprint.yaml` we import `http://www.getcloudify.org/spec/openstack-plugin/1.1/plugin.yaml`, but you can see that [plugin.yaml](http://www.getcloudify.org/spec/openstack-plugin/1.1/plugin.yaml) is using `https://github.com/cloudify-cosmo/cloudify-openstack-plugin/archive/1.1.zip`. So we must make [plugin.yaml](http://www.getcloudify.org/spec/openstack-plugin/1.1/plugin.yaml) as well as [1.1.zip](https://github.com/cloudify-cosmo/cloudify-openstack-plugin/archive/1.1.zip) available on our HTTP server.
+For example have a look at the [Hello-World example](https://github.com/cloudify-cosmo/cloudify-hello-world-example). In `blueprint.yaml` we import `http://www.getcloudify.org/spec/openstack-plugin/1.2/plugin.yaml`, but you can see that [plugin.yaml](http://www.getcloudify.org/spec/openstack-plugin/1.2/plugin.yaml) is using `https://github.com/cloudify-cosmo/cloudify-openstack-plugin/archive/1.2.zip`. So we must make [plugin.yaml](http://www.getcloudify.org/spec/openstack-plugin/1.2/plugin.yaml) as well as [1.2.zip](https://github.com/cloudify-cosmo/cloudify-openstack-plugin/archive/1.2.zip) available on our HTTP server.
 
 ### Step 4 - Creating a template image for Cloudify
 In order to configure pip and Easy-install to use our PyPi mirror instead of the PyPi central repository by default we will have to create a template image with configuration files for pip and Easy-install.  
@@ -91,8 +91,8 @@ or `git clone https://github.com/cloudify-cosmo/cloudify-hello-world-example.git
 We need to make all the files required by the Blueprint available in our HTTP server. To do this we will check `blueprint.yaml` for external files **recursively**.  
 `blueprint.yaml` is using the following external files:
 
-- [types.yaml](http://www.getcloudify.org/spec/cloudify/3.1/types.yaml)
-- [plugin.yaml](http://www.getcloudify.org/spec/openstack-plugin/1.1/plugin.yaml)
+- [types.yaml](http://www.getcloudify.org/spec/cloudify/3.2/types.yaml)
+- [plugin.yaml](http://www.getcloudify.org/spec/openstack-plugin/1.2/plugin.yaml)
 
 `types.yaml` is using the following external files:
 
@@ -102,17 +102,17 @@ We need to make all the files required by the Blueprint available in our HTTP se
 
 `plugin.yaml` is using the following external files:
 
-- [1.1.zip](https://github.com/cloudify-cosmo/cloudify-openstack-plugin/archive/1.1.zip)
+- [1.2.zip](https://github.com/cloudify-cosmo/cloudify-openstack-plugin/archive/1.2.zip)
 
-We need to make all of these files available under `/srv/cloudify` in our HTTP server. A best practice would be to make each file available under its full path. For example store `http://www.getcloudify.org/spec/cloudify/3.1/types.yaml` under `/srv/cloudify/spec/cloudify/3.1/types.yaml` etc.  
+We need to make all of these files available under `/srv/cloudify` in our HTTP server. A best practice would be to make each file available under its full path. For example store `http://www.getcloudify.org/spec/cloudify/3.2/types.yaml` under `/srv/cloudify/spec/cloudify/3.2/types.yaml` etc.  
 
-Also note that the location of `types.yaml` has just changed to `<HTTP-server-IP>:<HTTP-server-port>/cloudify/spec/cloudify/3.1/types.yaml` so we will have to change it in our `blueprint.yaml` file as well.  
+Also note that the location of `types.yaml` has just changed to `<HTTP-server-IP>:<HTTP-server-port>/cloudify/spec/cloudify/3.2/types.yaml` so we will have to change it in our `blueprint.yaml` file as well.  
 We need to repeat this process for each of the files that are used by our `blueprint.yaml`, **recursively**.
 
 ### Step 5 - Bootstrap, upload a blueprint, create a deployment and install it
 Everything is ready for the final step:  
 
-Follow the instructions under the [bootstrapping guide](http://localhost:8080/guide/3.1/installation-bootstrapping.html). Use the `cfy-template` snapshot that you have created before as the image for the Cloudify management machine.  
+Follow the instructions under the [bootstrapping guide](http://localhost:8080/guide/3.2/installation-bootstrapping.html). Use the `cfy-template` snapshot that you have created before as the image for the Cloudify management machine.  
 Then
 {% highlight bash %} cfy blueprints upload -p <PATH-TO-BLUEPRINT> -b hello-offline
 {%endhighlight%}

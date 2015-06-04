@@ -259,7 +259,7 @@ This client only supports authentication with username-password.
 {%endnote%}
 
 {%note title=Note%}
-Available in the Commercial version only
+Available in the premium edition only
 {%endnote%}
 
 ## Cloudify CLI: cfy commands

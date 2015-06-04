@@ -11,7 +11,7 @@ pageord: 1000
 
 
 {%note title=Note%}
-This reference only explains the structure and various values in the blueprint. For better understanding of it, make yourself familiar with [Cloudify blueprints DSL](guide-blueprint.html), the [Cloudify SoftLayer plugin](plugin-softlayer.html), and the [Manager Blueprints Authoring guide](guide-authoring-manager-blueprints.html).
+This reference only explains the structure and various values in the blueprint. For better understanding of it, make yourself familiar with [Cloudify blueprints DSL](dsl-spec-general.html), the [Cloudify SoftLayer plugin](plugin-softlayer.html), and the [Manager Blueprints Authoring guide](getting-started-write-blueprint.html).
 {%endnote%}
 
 # Inputs
@@ -74,7 +74,7 @@ The "SoftLayer manager" blueprint contains the following nodes:
 
   - *manager_host* - The server on which the Cloudify manager will be installed.
   - *softlayer_configuration* - A node which represents configuration settings for connecting with SoftLayer.
-  - *manager* - The node which represents the manager. You may find more information about this node in the [Types Reference](reference-types.html#cloudifymanager-type) section as well as in the [Manager Blueprints Authoring guide](guide-authoring-manager-blueprints.html).
+  - *manager* - The node which represents the manager. You may find more information about this node in the [Types Reference](reference-types.html#cloudifymanager-type) section as well as in the [Manager Blueprints Authoring guide](getting-started-write-blueprint.html).
 
 
 # Configuration Operations
