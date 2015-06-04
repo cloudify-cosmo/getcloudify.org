@@ -134,7 +134,7 @@ cfy bootstrap --install-plugins -p openstack.yaml -i inputs.json
 
 {%note title=Note%}
 
-Ths *install-plugins* functionality only works if you are running from within a virtualenv.
+The *install-plugins* functionality only works if you are running from within a virtualenv.
 If this is not the case, installing plugins will require sudo permissions and can be done like so:
 
 {% highlight sh %}
