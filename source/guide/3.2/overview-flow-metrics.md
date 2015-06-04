@@ -5,6 +5,8 @@ category: Product Overview
 publish: true
 abstract: Describes the flow of streaming metrics from a host to Cloudify's Management Environment
 pageord: 700
+diamond_plugin_link: https://github.com/python-diamond/Diamond/wiki
+
 ---
 {%summary%} {{page.abstract}}{%endsummary%}
 
