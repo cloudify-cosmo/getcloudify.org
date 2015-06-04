@@ -57,8 +57,8 @@ The Manager listens on the following ports:
 
 * port 80 - REST API and UI. This port should be accessible when SSL is not enabled.
 * port 443 - REST API and UI. This port should be accessible when SSL is enabled.
-* port 8101 - REST API. This port is used for internal access and as such should only be accessible by [Agent]({{page.terminology_link}}#agent) VMs.
-* port 22 - During [Bootstrapping]({{page.terminology_link}}#bootstrapping), manager components are installed and configured via SSH. It (SSH) is used during [Manager Recovery]({{page.manager_blueprints_openstack_link}}#recovery) as well.
+* port 8101 - REST API. This port is used for internal access and as such should only be accessible from [Agent]({{page.terminology_link}}#agent) VMs.
+* port 22 - During [Bootstrapping]({{page.terminology_link}}#bootstrapping), manager components are installed and configured via SSH. It is used during [Manager Recovery]({{page.manager_blueprints_openstack_link}}#recovery) as well.
 * port 5672 - RabbitMQ. This port should be accessible from agent VMs.
 * port 53229 - File server. This port should be accessible from agent VMs.
 
