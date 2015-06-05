@@ -4,7 +4,7 @@ title: Writing a Blueprint
 category: Getting Started
 publish: true
 abstract: A simple blueprint authoring tutorial
-pageord: 200
+pageord: 150
 
 types_yaml_link: http://www.getcloudify.org/spec/cloudify/3.2/types.yaml
 plugin_guide_link: guide-plugin-creation.html
