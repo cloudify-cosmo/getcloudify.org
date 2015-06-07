@@ -59,7 +59,7 @@ For example have a look at the [Hello-World example](https://github.com/cloudify
 ### Step 4 - Creating a template image for Cloudify
 In order to configure pip and Easy-install to use our PyPi mirror instead of the PyPi central repository by default we will have to create a template image with configuration files for pip and Easy-install.  
 In order to do so we will launch an instance and pre-configure it.  
-You can choose any base image that matches the required manager image as described in the [prerequisites](installation-general.html#prerequisites) section. We will be using ubuntu precise.  
+You can choose any base image that matches the required manager image as described in the [prerequisites](getting-started-prerequisites.html#prerequisites) section. We will be using ubuntu precise.  
 After launcing an instance you will have to:
 
 - Download [pip.conf](https://raw.githubusercontent.com/cloudify-cosmo/cloudify-packager/7e7ee9c9422b4fe91cba54adcd2ca339b23e8ab9/offline-configuration/pip.conf) and save it under `$HOME/.pip`. Configure `<PyPi-mirror-ip>` to point at the IP of your PyPi mirror / HTTP server.

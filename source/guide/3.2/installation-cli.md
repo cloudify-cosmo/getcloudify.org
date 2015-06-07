@@ -10,7 +10,7 @@ windows_link: http://gigaspaces-repository-eu.s3.amazonaws.com/org/cloudify3/3.1
 linux32_link: http://gigaspaces-repository-eu.s3.amazonaws.com/org/cloudify3/3.1.0/ga-RELEASE/cloudify-linux32-cli_3.1.0-ga-b85_i386.deb
 linux64_link: http://gigaspaces-repository-eu.s3.amazonaws.com/org/cloudify3/3.1.0/ga-RELEASE/cloudify-linux64-cli_3.1.0-ga-b85_amd64.deb
 venv_link: http://virtualenv.readthedocs.org/en/latest/
-installation_bootstrapping_link: installation-bootstrapping.html
+installation_bootstrapping_link: getting-started-bootstrapping.html
 ---
 {%summary%}{{page.abstract}}{%endsummary%}
 
