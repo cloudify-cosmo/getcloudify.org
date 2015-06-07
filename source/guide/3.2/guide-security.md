@@ -186,21 +186,19 @@ It is possible to interact with a manager that is secured by [SSL](http://en.wik
 The SSL configuration is located under `ssl`.<br>
 This is the default SSL configuration:
   {% highlight yaml %}
-  ssl: {
+  ssl:
     enabled: false,
-    certificate_path: '',
+    certificate_path: ''
     private_key_path: ''
-  }
   {% endhighlight %}
   This means that SSL is turned off, the manager will not be secured by SSL protocol and all requests to it will be made over port 80 using the protocol 'http'.
 
   To enable an SSL connection set `enabled` to `true` and specify the certificate and key paths:
   {% highlight yaml %}
-    ssl: {
+    ssl:
       enabled: true,
-      certificate_path: path-to-certificate,
+      certificate_path: path-to-certificate
       private_key_path: path-to-private-key
-    }
   {% endhighlight %}
   This means that the manager will be secured by SSL with the given certificate and key.<br>
   It also means that every request to the manager must be on port 443 using the 'https' protocol 
