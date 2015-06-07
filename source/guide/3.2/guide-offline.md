@@ -112,7 +112,7 @@ We need to repeat this process for each of the files that are used by our `bluep
 ### Step 5 - Bootstrap, upload a blueprint, create a deployment and install it
 Everything is ready for the final step:  
 
-Follow the instructions under the [bootstrapping guide](http://localhost:8080/guide/3.2/installation-bootstrapping.html). Use the `cfy-template` snapshot that you have created before as the image for the Cloudify management machine.  
+Follow the instructions under the [bootstrapping guide](getting-started-bootstrapping.html). Use the `cfy-template` snapshot that you have created before as the image for the Cloudify management machine.  
 Then
 {% highlight bash %} cfy blueprints upload -p <PATH-TO-BLUEPRINT> -b hello-offline
 {%endhighlight%}
