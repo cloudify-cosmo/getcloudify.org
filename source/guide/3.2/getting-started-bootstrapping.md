@@ -49,15 +49,11 @@ Now let's move on to configuration.
 
 We'll configure an Inputs YAML file. This file will serve as the configuration for the manager blueprint inputs. Note that the various manager blueprints folders offer an *inputs.yaml.template* file, which can be copied and edited with the desired values.
 
-Below are examples of input.yaml file configurations for differnet providers. You can also generate a file on your own.
-
+Below are examples of input.yaml file configurations for differnet providers. You can also generate a file on your own.<br>
 
 {% togglecloak id=1 %}**Configuring your Manager Blueprint**{% endtogglecloak %}
-
 {% gcloak 1 %}
-
 {% inittab %}
-
 {% tabcontent OpenStack %}
 
 [HP Cloud](http://www.hpcloud.com/) is a public OpenStack cloud. As such it provides a fairly easy starting point for experiencing a fully operational OpenStack environment. To use HP Cloud you need to [Setup an account on the HP Helion Cloud](https://horizon.hpcloud.com/).
@@ -172,6 +168,9 @@ You will, at the very least, have to provide the mandatory inputs.
 This tutorial uses softlayer manager blueprint on Docker and it requires:
 
   * The `os` input should be *4668* - the item id of *Ubuntu Linux 14.04 LTS Trusty Tahr - Minimal Install (64 bit)*
+  * The `ssh_keys` list should contain an ID on SoftLayer of an SSH key for connecting with the manager and agents.<br>
+  	For more information refer to the `ssh_keys` property in [Cloudify Softlayer VirtualServer](plugin-softlayer.html#cloudifysoftlayernodesvirtualserver).
+  * The `ssh_key_filename` property should be set to the path of the private key file.
   * A link to a script that installs curl must be specified (needed for the Docket installation) in the `provision_scripts` input.
   	<br>e.g. create a script with the following command:
 
