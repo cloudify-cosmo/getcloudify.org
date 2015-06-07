@@ -165,7 +165,7 @@ function track_download(downloadHref) {
 		var zipName="";
 		zipName=downloadHref.split("/")[dataBtnSplit]; 
 		mixpanel.track(dataBtnName, {'Zip Name':zipName, 'Source':document.URL});
-		if(mixpanel.cookie.props.__alias==undefined){
+		if (getCookie('cfydirect') == null) {
             formEmail =  $(".gattingWrapper #email").val();	
             formName =  $(".gattingWrapper #last_name").val();
 			formcompany =  $(".gattingWrapper #company").val();
@@ -173,10 +173,11 @@ function track_download(downloadHref) {
             mixpanel.alias(formName, formEmail, formcompany);
             mixpanel.name_tag(formName) ;
 			mixpanel.register();
+			//create cookie;
+			setCookie('cfydirect', formName + "," + formEmail + "," + formcompany);
 			
         }else{
-		//formEmail = mixpanel.cookie.props.__alias;
-		//formName= mixpanel.cookie.props.mp_name_tag;
+			mixpanel.identify(formEmail);
         }
 
 		mixpanel.people.set({
@@ -189,7 +190,9 @@ function track_download(downloadHref) {
 		mixpanel.track('Resource', {'Zip Name':zipName, 'Source':'Download Page'});
 		mixpanel.people.increment({
 			"Number Of Resource Downloads": 1
-		}); 
+		});
+		
+		
 	}
 
 
@@ -236,7 +239,7 @@ function downloadValid(){
             if ($('input#website').val().length != 0) {
                 return false;
             } else {
-                setCookie('cfydirect', formName + "," + formEmail + "," + formcompany);
+                //setCookie('cfydirect', formName + "," + formEmail + "," + formcompany);
                 directDownload(e);
             }
             //return false; // for demo
