@@ -176,8 +176,7 @@ any node instance failure. To learn more see [Heal Workflow](workflows-built-in.
 
 ## Usage
 
-To use this ability we have added a new command in our [CLI](cli-cfy-reference
-.html) called *cfy recover*.
+To use this ability we have added a new command in our [CLI](cli-cfy-reference.html) called *cfy recover*.
 
 You can use this command from any machine, not necessarily the machine you
 used to bootstrap your manager. To run it from a different
