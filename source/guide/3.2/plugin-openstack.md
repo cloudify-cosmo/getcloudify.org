@@ -22,6 +22,38 @@ For more information about OpenStack, please refer to: [https://www.openstack.or
   * 2.7.x
 
 
+# Compatibility
+
+The Openstack plugin has been tested against Openstack Icehouse, Juno and Kilo.
+
+{%note title=Note%}
+In Openstack Kilo, Neutron security-groups must have a description, yet the plugin doesn't enforce this (expected to be fixed in plugin version 1.2.1). To overcome this issue, one may provide a description to a security group by using the `security_group` property like so:
+
+  {% highlight yaml %}
+  node_templates:
+    my_security_group_node:
+      properties:
+        security_group:
+          description: some-description
+        ...
+      ...
+  {%endhighlight%}
+{%endnote%}
+
+
+The Openstack plugin uses various Openstack clients packages. The versions used in Openstack Plugin version 1.2 are as follows:
+
+  * [Nova client](https://github.com/openstack/python-novaclient) - 2.17.0
+  * [Neutron client](https://github.com/openstack/python-neutronclient) - 2.3.9
+  * [Cinder client](https://github.com/openstack/python-cinderclient) - 1.0.9
+  * [Keystone client](https://github.com/openstack/python-keystoneclient) - 0.7.1
+
+{%note title=Note%}
+Due to some of these versions being slightly outdated (expected to be fixed in plugin version 1.2.1), Nova quota-related errors raised from Openstack Juno (or newer) may result in an *AttributeError*, masking the original error.
+{%endnote%}
+
+
+
 # Types
 
 ## cloudify.openstack.nodes.Server
