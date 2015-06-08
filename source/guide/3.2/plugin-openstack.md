@@ -30,12 +30,13 @@ The Openstack plugin has been tested against Openstack Icehouse, Juno and Kilo.
 In Openstack Kilo, Neutron security-groups must have a description, yet the plugin doesn't enforce this (expected to be fixed in plugin version 1.2.1). To overcome this issue, one may provide a description to a security group by using the `security_group` property like so:
 
   {% highlight yaml %}
-  my_security_group_node:
-    properties:
-      security_group:
-        description: some-description
+  node_templates:
+    my_security_group_node:
+      properties:
+        security_group:
+          description: some-description
+        ...
       ...
-    ...
   {%endhighlight%}
 {%endnote%}
 
