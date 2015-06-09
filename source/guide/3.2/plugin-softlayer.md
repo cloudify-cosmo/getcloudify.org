@@ -16,8 +16,23 @@ For more information about SoftLayer, please refer to: [http://www.softlayer.com
 {%note title=Note%}
 The Softlayer IaaS plugin is a feature of [the premium edition of Cloudify](/goPro.html), 
 it comes with the downloadable packages of the cli.<br>
-To install the packages see [Installing using premade packages](installation.html#installing-using-premade-packages).
+To install the packages see [Installing using packages](installation.html#installing-using-packages).
 {%endnote%}
+
+# Requirements
+  * A SoftLayer account, see [SoftLayer Authentication](#softlayer-authentication).
+  * [The Cloudify Premium edition](/goPro.html) 
+
+# Compatibility
+  The SoftLayer plugin uses the [SoftLayer 3.3.0](https://pypi.python.org/pypi/SoftLayer/3.3.0) (SoftLayer API bindings for Python).
+
+  {%note title=Note%}
+  In order to offer full support for SoftLayer's virtual server catalog, the Softlayer plugin extends the [VSManager class](https://softlayer-api-python-client.readthedocs.org/en/latest/api/managers/vs/) and declares the [verify_place_order](https://github.com/cloudify-cosmo/cloudify-softlayer-plugin/blob/master/softlayer_plugin/extended_vs_manager.py#L113) and [place_order](https://github.com/cloudify-cosmo/cloudify-softlayer-plugin/blob/master/softlayer_plugin/extended_vs_manager.py#L145) methods which enable specifying all the needed items for creating a virtual server, corresponding to the properties of the [Cloudify Softlayer VirtualServer](#cloudifysoftlayernodesvirtualserver) type.
+  {%endnote%}
+
+# Installation
+  As Softlayer plugin is included in the commercial cli packages, the plugin and its requirements are pre installed.<br> 
+  For installing the commercial cli packages see [Installing using packages](installation.html#installing-using-packages).
 
 # Types
 
@@ -67,7 +82,9 @@ To install the packages see [Installing using premade packages](installation.htm
       * By default SoftLayer will assign the public VLAN.
     * `provision_scripts` A list of the URIs of the post-install scripts to run after creating the server
       * Each URI should start with https
-    * `ssh_keys` A list of SSH keys to add to the root user
+    * `ssh_keys` A list of Softlayer IDs, representing SSH keys that were added to SoftLayer.
+      * An SSH key ID is created by SoftLayer when the SSH key is added, see how to [Add an SSH Key](http://knowledgelayer.softlayer.com/procedure/add-ssh-key) to SoftLayer, using the [SoftLyaer Customer Portal](https://control.softlayer.com/).
+      * An example of how to retrieve an SSH key ID from SoftLayer can be found in the following Notes.
     * `bandwidth` The item id of the amount of bandwidth for this server
       * default: 439 – the item id of 0 GB bandwidth
     * `pri_ip_addresses` The item id of Primary IP Addresses
@@ -91,6 +108,15 @@ To install the packages see [Installing using premade packages](installation.htm
     * If `private_network_only` is set to true, the `port_speed` item id should describe a private only port speed, otherwise, it will be changed to a private only port speed.
     * Another way to declare a private only server is to set the port speed property with an item id that describes a private only port speed, e.g. item id 498 for 1 Gbps Private Network Uplink.
     <br>In that case, the `public_vlan` property cannot be specified.
+    * One way to get the SSH key ID (for the `ssh_keys`) is to use the [SoftLayer 3.3.0 API](https://pypi.python.org/pypi/SoftLayer/3.3.0), specifically, use the [SshKeyManager](https://softlayer-api-python-client.readthedocs.org/en/latest/api/managers/sshkey/#SoftLayer.managers.sshkey.SshKeyManager) class to get the SSH key ID from the SSH key list, e.g.
+{% highlight python %}
+import SoftLayer
+sshkeymamager = SoftLayer.SshKeyManager(SoftLayer.Client(username, api_key))
+ssh_key_id = [key for key in sshkeymamager.list_keys() if key['label']==SSH-KEY-NAME][0]['id']
+{% endhighlight %}
+
+
+
 
 **Mapped Operations:**
 

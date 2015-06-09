@@ -26,9 +26,10 @@ This reference only explains the structure and various values in the blueprint. 
   * `cpu` The item id of the desired server's CPU, e.g. *859* - the item id for 4 X 2.0 GHz Cores.
   * `disk` The item id of the first disk to add, e.g. *1178* - the item id for 25 GB (SAN).
   * `os` The item id of the operating system to use, e.g. *4668* - the item id for Ubuntu Linux 14.04 LTS Trusty Tahr - Minimal Install (64 bit).
-  * `ssh_keys` A list of the SSH keys to add to the root user.
+  * `ssh_keys` A list of SSH key IDs (SoftLayer IDs), to add to the root user
+    * refer to the `ssh_keys` property in [Cloudify Softlayer VirtualServer](plugin-softlayer.html#cloudifysoftlayernodesvirtualserver) 
   * `ssh_key_filename` The path on the local machine to the private key file that will be used with Cloudify manager and agents.
-    * This key should correspond with the public key on SoftLayer that matches an id that appears in the `ssh_keys` input.
+    * This private key should correspond with the public key on SoftLayer that matches an id that appears in the `ssh_keys` input.<br>
 
 ## Optional inputs
 

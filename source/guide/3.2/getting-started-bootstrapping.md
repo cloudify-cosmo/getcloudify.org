@@ -50,15 +50,11 @@ Now let's move on to configuration.
 
 We'll configure an Inputs YAML file. This file will serve as the configuration for the manager blueprint inputs. Note that the various manager blueprints folders offer an *inputs.yaml.template* file, which can be copied and edited with the desired values.
 
-Below are examples of input.yaml file configurations for differnet providers. You can also generate a file on your own.
-
+Below are examples of input.yaml file configurations for differnet providers. You can also generate a file on your own.<br>
 
 {% togglecloak id=1 %}**Configuring your Manager Blueprint**{% endtogglecloak %}
-
 {% gcloak 1 %}
-
 {% inittab %}
-
 {% tabcontent OpenStack %}
 
 [HP Cloud](http://www.hpcloud.com/) is a public OpenStack cloud. As such it provides a fairly easy starting point for experiencing a fully operational OpenStack environment. To use HP Cloud you need to [Setup an account on the HP Helion Cloud](https://horizon.hpcloud.com/).
@@ -127,10 +123,12 @@ For more information on the different management environment structures, please 
 
 {%note title=Note%}
 The Softlayer IaaS plugin is a feature of [the premium edition of Cloudify](/goPro.html), it comes with the downloadable packages of the cli, 
-see [Installing using premade packages](installation.html#installing-using-premade-packages).
+see [Installing using packages](installation.html#installing-using-packages).
 {%endnote%}
 
-This blueprint defines quite a few input parameters we need to fill out.
+Once you have the commercial packages, you can use the softlayer manager blueprint to bootstrap a Cloudify manager on SoftLayer.<br>
+For more information see the [Softlayer Manager Blueprints Reference](manager-blueprints-softlayer.html)<br>
+This manager blueprint defines quite a few input parameters that should be supplied.
 
 Let's make a copy of the inputs template already provided and edit it:
 
@@ -170,10 +168,13 @@ resources_prefix: ''
 
 You will, at the very least, have to provide the mandatory inputs.
 
-{%info%}
+{%info title=Requirements%}
 This tutorial uses softlayer manager blueprint on Docker and it requires:
 
   * The `os` input should be *4668* - the item id of *Ubuntu Linux 14.04 LTS Trusty Tahr - Minimal Install (64 bit)*
+  * The `ssh_keys` list should contain a SoftLayer ID of an SSH key for connecting with the manager and agents.<br>
+  	For more information refer to the `ssh_keys` property in [Cloudify Softlayer VirtualServer](plugin-softlayer.html#cloudifysoftlayernodesvirtualserver).
+  * The `ssh_key_filename` property should be set to the path of the private key file.
   * A link to a script that installs curl must be specified (needed for the Docket installation) in the `provision_scripts` input.
   	<br>e.g. create a script with the following command:
 
@@ -183,9 +184,6 @@ This tutorial uses softlayer manager blueprint on Docker and it requires:
 
   * Alternatively, create an image id of a server on SoftLayer that have curl or docker installed on it, and specify the `image_template_id` instead of the `os` input.
 {%endinfo%}
-
-
-For more information see the [Softlayer Manager Blueprints Reference](manager-blueprints-softlayer.html).
 
 {% endtabcontent %}
 
