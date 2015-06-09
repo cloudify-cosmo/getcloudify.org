@@ -32,7 +32,7 @@ To install the packages see [Installing using packages](installation.html#instal
 
 # Installation
   As Softlayer plugin is included in the commercial cli packages, the plugin and its requirements are pre installed.<br> 
-  See [Installing using packages](installation.html#installing-using-packages).
+  For installing the commercial cli packages see [Installing using packages](installation.html#installing-using-packages).
 
 # Types
 
@@ -82,11 +82,9 @@ To install the packages see [Installing using packages](installation.html#instal
       * By default SoftLayer will assign the public VLAN.
     * `provision_scripts` A list of the URIs of the post-install scripts to run after creating the server
       * Each URI should start with https
-    * `ssh_keys` A list of SSH key IDs on SoftLayer, to add to the root user
-      * The IDs represent existing SSH keys that was added to SoftLayer.
-        * [Generate SSH keys](https://help.github.com/articles/generating-ssh-keys/).
-        * [Add an SSH Key](http://knowledgelayer.softlayer.com/procedure/add-ssh-key) to SoftLayer, using the [SoftLyaer Customer Portal](https://control.softlayer.com/).
-        * See how to retrieve an SSH key ID on SoftLayer in the following Notes.
+    * `ssh_keys` A list of Softlayer IDs, representing SSH keys that were added to SoftLayer.
+      * An SSH key ID is created by SoftLayer when the SSH key is added, see how to [Add an SSH Key](http://knowledgelayer.softlayer.com/procedure/add-ssh-key) to SoftLayer, using the [SoftLyaer Customer Portal](https://control.softlayer.com/).
+      * An example of how to retrieve an SSH key ID from SoftLayer can be found in the following Notes.
     * `bandwidth` The item id of the amount of bandwidth for this server
       * default: 439 – the item id of 0 GB bandwidth
     * `pri_ip_addresses` The item id of Primary IP Addresses
@@ -114,7 +112,7 @@ To install the packages see [Installing using packages](installation.html#instal
 {% highlight python %}
 import SoftLayer
 sshkeymamager = SoftLayer.SshKeyManager(SoftLayer.Client(username, api_key))
-ssh_key_id = [key for key in sshkeymamager.list_keys() if key['label']=='cloudify-dev'][0]['id']
+ssh_key_id = [key for key in sshkeymamager.list_keys() if key['label']==SSH-KEY-NAME][0]['id']
 {% endhighlight %}
 
 

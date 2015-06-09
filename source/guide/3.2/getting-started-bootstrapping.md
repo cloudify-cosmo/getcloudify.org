@@ -122,9 +122,9 @@ The Softlayer IaaS plugin is a feature of [the premium edition of Cloudify](/goP
 see [Installing using packages](installation.html#installing-using-packages).
 {%endnote%}
 
-Once you got the commercial packages, you can use the softlayer manager blueprint for bootstrap a Cloudify manager on SoftLayer.<br>
+Once you have the commercial packages, you can use the softlayer manager blueprint to bootstrap a Cloudify manager on SoftLayer.<br>
 For more information see the [Softlayer Manager Blueprints Reference](manager-blueprints-softlayer.html)<br>
-This manager blueprint defines quite a few input parameters we need to fill out.
+This manager blueprint defines quite a few input parameters that should be supplied.
 
 Let's make a copy of the inputs template already provided and edit it:
 
@@ -168,7 +168,7 @@ You will, at the very least, have to provide the mandatory inputs.
 This tutorial uses softlayer manager blueprint on Docker and it requires:
 
   * The `os` input should be *4668* - the item id of *Ubuntu Linux 14.04 LTS Trusty Tahr - Minimal Install (64 bit)*
-  * The `ssh_keys` list should contain an ID on SoftLayer of an SSH key for connecting with the manager and agents.<br>
+  * The `ssh_keys` list should contain a SoftLayer ID of an SSH key for connecting with the manager and agents.<br>
   	For more information refer to the `ssh_keys` property in [Cloudify Softlayer VirtualServer](plugin-softlayer.html#cloudifysoftlayernodesvirtualserver).
   * The `ssh_key_filename` property should be set to the path of the private key file.
   * A link to a script that installs curl must be specified (needed for the Docket installation) in the `provision_scripts` input.
