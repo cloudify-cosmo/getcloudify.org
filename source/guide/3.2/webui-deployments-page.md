@@ -17,7 +17,7 @@ When clicking on the `Deployments` tab and choosing a deployment you will be abl
 # Topology
 The [Topology]({{page.terminology_link}}#topology) is an application’s graph of nodes and their relationships, which describes the lifecycle events or other operations that each node and relationship exposes for use in workflows.<br>
 Each of the blueprint's nodes is displayed as a square container, which can contain other nodes. Each node has a title describing its name, and an icon to indicate the [node's type]({{page.node_types_link}}).<br>
-[Relationships]({{page.relationships_link}}) between nodes are marked with arrows, starts from the connected node and ends in the target node.<br>
+[Relationships]({{page.relationships_link}}) between nodes are marked with arrows, starts from the connected node and ends at the target node.<br>
 The topology view shows only the application nodes and not the network nodes. If a node has a network dependency, it will be displayed as a bullet icon in the node's title.<br>
 [Host nodes]({{page.terminology_link}}#host-node) are shown with number bullet beside the node type icon, which indicates the number of [instances]({{page.terminology_link}}#node-instance) and number of initiated instances. Contained nodes are shown with status bullet beside the node type icon, which indicates the node status by bullet icon & color.
 The contained nodes bullet indicates the status of all instances of the specific node. For example, if at least one instance raised an error, the bullet will be colored in red.
@@ -45,7 +45,7 @@ Clicking a device will open a side panel with details of the selected device.<br
 
 # Nodes
 A list of nodes according to the blueprint's topology.<br/>
-For every node, its type, number of instance, and relationships are shown. By clicking the magnifier icon, a side panel will be opened with the selected node's details.
+For every node, its type, number of instances, and relationships are shown. By clicking the magnifier icon, a side panel will be opened with the selected node's details.
 ![Deployment nodes](/guide/images/ui/ui-deployment-nodes.jpg)
 
 # Executions
