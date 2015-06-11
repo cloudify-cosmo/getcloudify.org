@@ -26,7 +26,7 @@ For more information about the library, please refer to: [http://boto.readthedoc
 
 # Compatibility
 
-The AWS EC2 plugin currently only supports classic EC2 VPC.
+The AWS EC2 plugin currently only supports classic EC2.
 
 The AWS plugin uses the following client libraries:
 
