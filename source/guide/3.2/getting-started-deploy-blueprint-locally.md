@@ -46,7 +46,7 @@ If you execute the workflow from within that directory or a subdirectory of it, 
 cfy local init --blueprint-path /path/to/nodecellar-clone/cloudify-nodecellar-example/local-blueprint.yaml
 
 # execute install workflow. in this example we do not require an inputs file, but you can add one.
-cfy local execute -w install [-i inputs.yaml]
+cfy local execute -w install
 
 {%endhighlight%}
 
