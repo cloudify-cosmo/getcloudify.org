@@ -144,7 +144,7 @@ ability to spin up another VM and use it as our management server.
 
 ## How is this possible?
 
-This is where some of the cloud awesomeness comes in to play. This manager
+This is where some of the cloud awesomeness comes into play. This manager
 blueprint defines 3 crucial types for making this happen:
 
 - `cloudify.openstack.nodes.FloatingIP` - Provides a way to have a fixed,
