@@ -514,7 +514,8 @@ In case of a failed execution:
 You can look at the [CLI implementation]({{page.client_reference_link}}) for reference.
 
 # Troubleshooting:
-#### nohup 
+
+### nohup 
 When you use `nohup` in your scripts, don't forget to redirect the output and stderr to `/dev/null`
 and to run the operation in the background using `&`.
 For example:
@@ -522,7 +523,7 @@ For example:
 nohup python -m SimpleHTTPServer > /dev/null 2>&1 &
 {%endhighlight%}
 
-#### File not found error
+### File not found error
 Different linux distributions use different default shells. Thus one might use bash, while the other uses sh. So while bash will noramlly return an informative message in regards to the shebang line, sh message might look something like this:
 {% highlight bash %}
 /bin/sh: 1: <tmp_path>/...<script_name>: not found
