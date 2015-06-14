@@ -149,7 +149,7 @@ For each of the remaining node instances:
 
 **Workflow name:** *heal*
 
-**Workflow description:** Reinstalls the whole subgraph of the system topology applying the `uninstall` and `install` workflows' logic respectively. The subgraph consists of all the node instances that are contained in the compute node instance which contains the failing node instance and/or the compute node instance itself. Additionally, this workflow handles unlinking and establishing all affected relationships in an appropriate order.
+**Workflow description:** Reinstalls the whole subgraph of the system topology by applying the `uninstall` and `install` workflows' logic respectively. The subgraph consists of all the node instances that are contained in the compute node instance which contains the failing node instance and/or the compute node instance itself. Additionally, this workflow handles unlinking and establishing all affected relationships in an appropriate order.
 
 **Workflow parameters:**
 
