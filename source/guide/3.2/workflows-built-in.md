@@ -173,7 +173,7 @@ For each of the remaining node instances:
 1. Effectively, all node instances that are contained inside the compute node instance of the failing node instance, are considered failed as well and will be re-installed.
 </sub>
 
-A compute sub-graph can be though of as a blueprint that defines only nodes that are contained inside a compute node.
+A compute sub-graph can be thought of as a blueprint that defines only nodes that are contained inside a compute node.
 For example, if the full blueprint looks something like this:
 {%highlight yaml%}
 ...
