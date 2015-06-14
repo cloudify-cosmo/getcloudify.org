@@ -513,7 +513,7 @@ In case of a failed execution:
 
 You can look at the [CLI implementation]({{page.client_reference_link}}) for reference.
 
-# Troubleshooting:
+# Troubleshooting
 
 ### nohup 
 When you use `nohup` in your scripts, don't forget to redirect the output and stderr to `/dev/null`
