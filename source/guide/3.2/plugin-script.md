@@ -524,8 +524,8 @@ nohup python -m SimpleHTTPServer > /dev/null 2>&1 &
 {%endhighlight%}
 
 ### File not found error
-Different linux distributions use different default shells. Thus one might use bash, while the other uses sh. So while bash will noramlly return an informative message in regards to the shebang line, sh message might look something like this:
+Different linux distributions use different default interpreters. Thus one might use bash, while the other uses sh. Hence while bash will noramlly return an informative message in regards to the shebang line, the sh message might look something like this:
 {% highlight bash %}
 /bin/sh: 1: <tmp_path>/...<script_name>: not found
 {%endhighlight%}
-This basically means that the path specified is invalid.
+This basically means that the specified interpreter path is invalid.
