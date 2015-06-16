@@ -14,7 +14,7 @@ var formName="";
 var formcompany ="";
 var dataBtnName=""; // this is the name of the mixpanel resource
 var dataBtnSplit="";
-
+var source="";
 //Manage Downloads Gating;
 //========================================//
 var strVar="";
@@ -73,12 +73,13 @@ $("body,.testimonial").on('click', '.gattingWrapperClose', function(){
 $(".openRegisForm").click(function(e) {  
 	e.preventDefault(); 
 	$("#myCliModal").remove();
+	source = "openRegisForm";
 	if (getCookie('cfydirect') == null) {
 	    $(this).before(strVar);
 	    regisFormValid(e);
 	    $('#myCliModal').modal('toggle');
 	} else {
-	    openCliPageFunction();
+	    openCliPageFunction(source);
 	}
 });
 
@@ -88,7 +89,12 @@ function openCliPageFunction() {
     setCookie('cfydirect', formName + "," + formEmail + "," + formcompany);
 	track_registerUser();
 	$('#myCliModal').modal('hide');	
+	if(source!=""){
 	window.open('http://gigaspaces-repository-eu.s3.amazonaws.com/org/cloudify3/get-cloudify.py', '_blank');
+	}else{
+	window.open('http://gigaspaces-repository-eu.s3.amazonaws.com/org/cloudify3/3.2.0/ga-RELEASE/cloudify-virtualbox_3.2.0-ga-b200.box', '_blank');
+	}
+	//window.open('http://gigaspaces-repository-eu.s3.amazonaws.com/org/cloudify3/get-cloudify.py', '_blank');
 	//window.open('http://gigaspaces-repository-eu.s3.amazonaws.com/org/cloudify3/3.2.0/ga-RELEASE/cloudify-virtualbox_3.2.0-ga-b200.box', '_blank');
 	
 	
