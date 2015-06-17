@@ -168,7 +168,7 @@ Operation inputs passed to the `run_script` task will be available as environmen
 Complex data structures such as dictionaries and lists will be JSON encoded when exported as environment variables.
 
 {%note title=Note%}
-`fabric_env`, `script_path` and `fabric_env` are reserved operation inputs used by the `run_script` task and therefore won't be available as environment variables.
+`fabric_env`, `script_path` and `process` are reserved operation inputs used by the `run_script` task and therefore won't be available as environment variables.
 {%endnote%}
 
 
