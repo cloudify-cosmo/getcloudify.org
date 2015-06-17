@@ -8,7 +8,7 @@ pageord: 100
 
 types_yaml_link: http://www.getcloudify.org/spec/cloudify/3.2/types.yaml
 repo_link: https://github.com/cloudify-cosmo/cloudify-script-plugin
-client_reference_link: https://github.com/cloudify-cosmo/cloudify-script-plugin/blob/master/script_runner/ctx_proxy.py#L331
+client_reference_link: https://github.com/cloudify-cosmo/cloudify-plugins-common/blob/3.2/cloudify/proxy/client.py
 hello_world_example_link: https://github.com/cloudify-cosmo/cloudify-hello-world-example
 ---
 {%summary%}
@@ -360,7 +360,7 @@ Workflow scripts are always evaluated as python code. At the moment it is not po
 
 # Context Proxy
 
-In the previous examples, `ctx` was referenced from within the scripts several times. This mechanism provides means for accessing the `ctx` object the way it is usually accessed when [writing plugins](guide-plugin-creation.html).
+In the previous examples, `ctx` was referenced from within the scripts several times. This mechanism provides means for accessing the `ctx` object the way it is usually accessed when [writing plugins](plugins-authoring.html).
 
 What follows is a description of how calls to the `ctx` executable, translate to the `ctx` object access.
 

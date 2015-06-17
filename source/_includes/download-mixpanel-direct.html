@@ -1,0 +1,187 @@
+<script type="text/javascript">
+
+//MANAGE AND TRACK DOWNLOADS
+ $(function() {  
+	 
+downloadValid();
+
+//Manage Downloads Gating;
+//========================================//
+var gotName = false;
+var gotValidCaptcha = false;
+var downloadHref="";
+var formEmail="";
+var formName="";
+var formcompany ="";
+var dataBtnName=""; // this is the name of the mixpanel resource
+var dataBtnSplit="";
+
+
+
+function openDownloadWindowFunction() {
+    setCookie('cfydirect', formName + "," + formEmail + "," + formcompany);
+	window.open("/test/get_cloudify_3x_abtest2_direct.html", "MsgWindow", "width=600, height=600 ,toolbar=yes,menubar=yes");
+}
+
+function setCookie(key, value) {
+            var expires = new Date();
+            expires.setTime(expires.getTime() + (180 * 24 * 60 * 60 * 1000));
+            document.cookie = key + '=' + value + ';expires=' + expires.toUTCString();
+        }
+
+function getCookie(key) {
+	var keyValue = document.cookie.match('(^|;) ?' + key + '=([^;]*)(;|$)');
+	return keyValue ? keyValue[2] : null;
+}
+
+
+
+
+
+//Blocking Spam http://blog.supermedia.com/honeypot-technique/
+$('#regiterToDownload').submit(function(e){ 
+
+        if ($('input#website').val().length != 0) {
+           return false;
+       } 
+	   
+		
+});
+//End Blocking Spam
+
+  
+
+
+$("#downloadme,.eaTitle,.downloadme,.download").click(function(e) {  
+    //$('#myModal').modal('toggle');
+    if (getCookie('cfydirect') != null) {
+		downloadHref = $(this).attr('href'); 
+		dataBtnName = $(this).attr("data-btn-type");
+		dataBtnSplit = $(this).attr("data-btn-split");
+		//$("#myModal").remove();	
+		//$(this).before(strVar);
+		downloadValid();
+		directDownload(e);
+	}else{
+		e.preventDefault();
+		window.location.href = "/test/get_cloudify_3x_abtest2.html";
+	}
+});
+
+function directDownload(e){
+e.preventDefault();
+var verName="";
+verName=downloadHref.split("/")[dataBtnSplit]; 
+//track google and mixpanel 
+track_download(downloadHref);
+//$('#myModal').modal('hide');	
+//self.delay(500); 
+setTimeout(function() {
+	window.location.href = downloadHref; 
+	setTimeout(function() {
+		//window.location.href = "/thank_you.htm";
+	}, 4000);
+}, 500);
+
+//
+}
+
+
+//this function track download data for mixpanel 
+function track_download(downloadHref) {
+		var downloadme=downloadHref.split("/")[dataBtnSplit]; 
+		//downloadme="/downloads/cloudify-" + downloadme.split("\.zip")[0] + "/get_cloudify";
+		_gaq.push(['_trackEvent','Product Download', downloadme]);
+       	//track mixpanel
+		var zipName="";
+		zipName=downloadHref.split("/")[dataBtnSplit]; 
+		mixpanel.track(dataBtnName, {'Zip Name':zipName, 'Source':document.URL});
+		if(mixpanel.cookie.props.__alias==undefined){
+		    formEmail = getCookie('cfydirect').split(",")[1];
+		    formName = getCookie('cfydirect').split(",")[0];
+		    formcompany = getCookie('cfydirect').split(",")[2];
+			mixpanel.identify(formEmail);
+            mixpanel.alias(formName, formEmail, formcompany);
+            mixpanel.name_tag(formName) ;
+			mixpanel.register();
+			
+        }else{
+		//formEmail = mixpanel.cookie.props.__alias;
+		//formName= mixpanel.cookie.props.mp_name_tag;
+        }
+
+		mixpanel.people.set({
+		"resource": zipName, // sets the property 'Resource' for this user to the boolean value true		
+		$email: formEmail,
+		$first_name: formName,
+		$company: formcompany,
+		$created: new Date(),
+		});
+		mixpanel.track('Resource', {'Zip Name':zipName, 'Source':'Download Page'});
+		mixpanel.people.increment({
+			"Number Of Resource Downloads": 1
+		}); 
+	}
+
+function downloadValid(e){
+
+ $.validator.addMethod("regexp", function (value, element) {
+    return this.optional(element) || /^[a-zA-Z\-_.,\s]+$/.test(value);
+}, 'You can use only letters and those special characters (-_.,)');
+
+  //Validation
+   $('#regiterToDownload').validate({ // initialize the plugin
+        errorLabelContainer: "#error-note",
+        rules: {
+            last_name: {
+                required: true,
+				regexp: true
+            },
+			email: {
+                required: true,
+                email: true
+            },
+			company: {
+                required: true   
+            }
+
+			},
+        messages: {
+            last_name: {
+                required: "Please enter your first name",
+            },
+            email: {
+                required: "Please specify your email",
+                email: "Correct format is name@domain.com"
+            },
+			company: {
+                required: "Please enter your company name"
+            }
+
+        },
+        submitHandler: function (form,e) { // for demo
+            formalyzer_call_onclick(12206); 
+            if ($('input#website').val().length != 0) {
+                return false;
+            } else{
+				formEmail =  $(".gattingWrapper #email").val();	
+				formName =  $(".gattingWrapper #last_name").val();
+				formcompany =  $(".gattingWrapper #company").val();
+
+				openDownloadWindowFunction()
+            }
+            return false; // for demo
+        }
+    });
+  //End Validation
+}
+
+});
+
+
+
+</script>
+
+
+
+

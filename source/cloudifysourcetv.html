@@ -62,17 +62,22 @@ category: video
 </section>
 
 <script>
-    var playListURL = 'http://gdata.youtube.com/feeds/api/playlists/PLD470957921551B9A?v=2&alt=json&max-results=50';
+    //var playListURL = 'http://gdata.youtube.com/feeds/api/playlists/PLD470957921551B9A?v=2&alt=json&max-results=50';
+	//var playListURL ='https://www.googleapis.com/youtube/v3/playlists?part=snippet&channelId=UCIegYGhJPPz6tlqJ0OyBcbw&maxResults=50&key=AIzaSyBxP7kyMwmEapE2-xHSFk2-PajyIIMOH4g';
+	//var playListURL = 'https://www.googleapis.com/youtube/v3/playlists?part=snippet&id=PLD470957921551B9A&alt=json&maxResults=50&key=AIzaSyBxP7kyMwmEapE2-xHSFk2-PajyIIMOH4g';
+	  var playListURL = 'https://www.googleapis.com/youtube/v3/playlistItems?part=snippet%2C+id&playlistId=PLD470957921551B9A&maxResults=50&key=AIzaSyBxP7kyMwmEapE2-xHSFk2-PajyIIMOH4g';
     var videoURL= 'http://www.youtube.com/embed/';
     $.getJSON(playListURL, function(data) {
         var list_data="";
-        $.each(data.feed.entry, function(i, item) {
-            var feedTitle = item.title.$t;
-            var feedURL = item.link[1].href;
-            var fragments = feedURL.split("/");
-            var videoID = fragments[fragments.length - 2];
+        $.each(data.items, function(i, item) {
+            var feedTitle = item.snippet.title;
+            //var feedURL = item.link[1].href;
+            //var fragments = feedURL.split("/");
+            //var videoID = item.snippet.thumbnails.default.url.split("/")[4];
+			var videoID = item.snippet.resourceId.videoId;
             var url = videoURL + videoID + '?autoplay=1';
             var thumb = "http://img.youtube.com/vi/"+ videoID +"/0.jpg";
+			//var thumb = item.snippet.thumbnails.high.url;
             list_data += '<li class="item-thumbs span3 design" data-id="id-0" data-type="web"><div class="videoDesc">"'+ feedTitle +'"</div><a  id="'+ i +'"  class="hover-wrap fancybox fancybox.iframe" data-fancybox-group="gallery" href="'+ url +'" title="'+ feedTitle +'"><span class="overlay-img"></span><span class="overlay-img-thumb font-icon-play"></span></a><img alt="'+ feedTitle+'" src="'+ thumb +'"></li>';
         });
         $(list_data).appendTo("#thumbs");
@@ -95,7 +100,7 @@ category: video
     //$(function() {
     $(window).bind("load", function () {
         //how much items per page to show
-        var show_per_page = 8;
+        var show_per_page = 16;
         //getting the amount of elements inside content div
         var number_of_items = $('#thumbs').children().size();
         //calculate the number of pages we are going to have

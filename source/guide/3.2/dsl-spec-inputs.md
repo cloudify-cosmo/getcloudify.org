@@ -1,7 +1,7 @@
 ---
 layout: bt_wiki
 title: Inputs
-category: DSL Specification
+category: Blueprints DSL
 publish: true
 pageord: 200
 
@@ -21,7 +21,7 @@ inputs:
   input1:
     ...
   input2:
-    ...  
+    ...
 {%endhighlight%}
 
 
@@ -43,8 +43,8 @@ Example:
 tosca_definitions_version: cloudify_dsl_1_0
 
 imports:
-  - http://www.getcloudify.org/spec/cloudify/3.1/types.yaml
-  - http://www.getcloudify.org/spec/openstack-plugin/1.1/plugin.yaml
+  - http://www.getcloudify.org/spec/cloudify/3.2/types.yaml
+  - http://www.getcloudify.org/spec/openstack-plugin/1.2/plugin.yaml
 
 inputs:
   image_name:
