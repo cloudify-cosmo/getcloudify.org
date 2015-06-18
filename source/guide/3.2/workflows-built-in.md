@@ -137,7 +137,7 @@ If *run_by_dependency_order* is set to `true`:
 
 For each of the remaining node instances:
 
-  1. Send a node instance event about starting the execution the operation.
+  1. Send a node instance event about starting the execution operation.
   2. Execute the *operation* operation for the instance, with the *operation_kwargs* passed to the operation invocation.
   3. Send a node instance event about completing the execution of the operation.
 
