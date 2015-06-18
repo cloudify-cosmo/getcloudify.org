@@ -100,7 +100,7 @@ source /cfy/env/bin/activate
 
 Now try running `cfy -h` in your terminal. You should get an output describing how to use `cfy`.
 
-For more info on the installation script, see [here](#installing-using-the-script).
+For more info on the installation script, see [here](#installing-using-the-installation-script).
 
 {%info title=The plugins location%}
 After installing the packages, the plugins can be found under `/cfy/cloudify-manager-blueprints-commercial`
@@ -117,7 +117,7 @@ Installers for Debian based distros will be added in the future.
 
 ## OS X
 
-Currently, to install Cloudify on OS X, you must use the `get-cloudify.py` [script](#installing-using-the-script).
+Currently, to install Cloudify on OS X, you must use the `get-cloudify.py` [script](#installing-using-the-installation-script).
 In following versions, we'll be supplying a package compiled for OS X.
 
 # Installing Using the Installation Script
