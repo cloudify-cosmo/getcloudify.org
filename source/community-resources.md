@@ -62,7 +62,7 @@ title: Community Resources
 					<td style="background-color:transparent;">
 						<h2><strong>Source Code</strong></h2>
 						<p>
-							Cloudify is Open Source under <a href="http://www.apache.org/licenses/LICENSE-2.0.html">the Apache 2 License</a>. The code is <a href="http://github.com/cloudify-cosmo">hosted on Github</a> under the code name Cosmo (we just love <a href="http://en.wikipedia.org/wiki/Cosmo_Kramer">Kramer</a>, what can you do). You're most welcome to clone the code, fork it and submit pull requests. Read about <a href="/how-to-contribute.html"><strong>How to Contribute</strong></a> to Cloudify.			
+							Cloudify is Open Source under <a href="http://www.apache.org/licenses/LICENSE-2.0.html">the Apache 2 License</a>. The code is <a href="http://github.com/cloudify-cosmo">hosted on Github</a> under the code name Cosmo (we just love <a href="http://en.wikipedia.org/wiki/Cosmo_Kramer">Kramer</a>, what can you do). You're most welcome to clone the code, fork it and submit pull requests. Read about <a href="{{ site.baseurl }}/how-to-contribute.html"><strong>How to Contribute</strong></a> to Cloudify.			
 						</p>												
 					</td>
 				</tr>				
