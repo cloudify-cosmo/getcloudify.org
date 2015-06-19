@@ -36,18 +36,18 @@ cfy executions start -w <WORKFLOW_NAME> -d <DEPLOYMENT_NAME>
 ## Executing a Workflow via the Web UI
 
 Navigate to the relevant `Deployment`.
-![workflows1](/guide/images/ui/ui-workflows1.png)
+![workflows1]({{ site.baseurl }}/guide/images/ui/ui-workflows1.png)
 
 Select the desired `Workflow` from the dropdown.
 
 *Note that until a workflow is selected, the 'run execution' play button is disabled.*
-![workflows2](/guide/images/ui/ui-workflows2.png)
+![workflows2]({{ site.baseurl }}/guide/images/ui/ui-workflows2.png)
 
 Click the 'run execution' play button to start the workflow execution.
-![workflows3](/guide/images/ui/ui-workflows3.png)
+![workflows3]({{ site.baseurl }}/guide/images/ui/ui-workflows3.png)
 
 After the 'run execution' button is clicked, the progress spinner is displayed. The execution can be cancelled by clicking on the 'cancel execution' X button.
- ![workflows4](/guide/images/ui/ui-workflows4.png)
+ ![workflows4]({{ site.baseurl }}/guide/images/ui/ui-workflows4.png)
 
 # Actionable: Install the Application
 
@@ -72,13 +72,13 @@ the deployment name and the node in our topology that it relates to, e.g.
 
 In the Web UI, you can checkout the Logs/Events page for an overview of all Logs and Events in a specific Manager.
 
-![Events](/guide/images3/guide/quickstart-openstack/events.png)
+![Events]({{ site.baseurl }}/guide/images3/guide/quickstart-openstack/events.png)
 
 <br>
 
 You can also have a look at the Monitoring tab and see some default metrics once the application has been installed:
 
-![Metrics](/guide/images3/guide/default_dashboard.png)
+![Metrics]({{ site.baseurl }}/guide/images3/guide/default_dashboard.png)
 
 {%note title=Note%}
 The blueprint we installed actually defines a custom collector for the Mongo database.
@@ -98,7 +98,7 @@ The nodecellar application should be up on your screen.
 Click the "Browse wines" button to verify that the application was installed successfully
 and can access the mongodb database to read the list of wines.
 
-![Nodecellar](/guide/images3/guide/quickstart-openstack/nodecellar.png)
+![Nodecellar]({{ site.baseurl }}/guide/images3/guide/quickstart-openstack/nodecellar.png)
 
 # Actionable: Uninstall the application
 

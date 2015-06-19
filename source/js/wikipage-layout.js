@@ -122,9 +122,9 @@ function initWikiPageLayout() {
 
             var getContent = function () {
                 divExpandIframe.contents().find("body").css("background", "none");
-                //divExpandIframe.contents().find("head").append('<link rel="stylesheet" href="/css/template.css" type="text/css"/>');
-                //divExpandIframe.contents().find("head").append('<link rel="stylesheet" href="/css/jquery-ui-1.8.17.custom.css" type="text/css" media="all"/>');
-                //divExpandIframe.contents().find("head").append('<link rel="stylesheet" type="text/css" href="/scripts/prettify/prettify.css">');
+                //divExpandIframe.contents().find("head").append('<link rel="stylesheet" href="{{ site.baseurl }}/css/template.css" type="text/css"/>');
+                //divExpandIframe.contents().find("head").append('<link rel="stylesheet" href="{{ site.baseurl }}/css/jquery-ui-1.8.17.custom.css" type="text/css" media="all"/>');
+                //divExpandIframe.contents().find("head").append('<link rel="stylesheet" type="text/css" href="{{ site.baseurl }}/scripts/prettify/prettify.css">');
                 divExpandIframe.contents().find("body").css("background", "none !important");
 
                 var data = divExpandIframe.contents().find("#docsWrap");

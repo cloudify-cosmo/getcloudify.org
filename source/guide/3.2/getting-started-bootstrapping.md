@@ -122,7 +122,7 @@ For more information on the different management environment structures, please 
 {% tabcontent SoftLayer %}
 
 {%note title=Note%}
-The Softlayer IaaS plugin is a feature of [the premium edition of Cloudify](/goPro.html), it comes with the downloadable packages of the cli, 
+The Softlayer IaaS plugin is a feature of [the premium edition of Cloudify]({{ site.baseurl }}/goPro.html), it comes with the downloadable packages of the cli, 
 see [Installing using packages](installation.html#installing-using-packages).
 {%endnote%}
 
@@ -323,7 +323,7 @@ sudo pip install -r requirements.txt
 {% endtabcontent %}
 
 {% tabcontent SoftLayer%}
-There is no need to *install-plugins* because the SoftLayer plugin is a feature of [the premium edition of Cloudify](/goPro.html) 
+There is no need to *install-plugins* because the SoftLayer plugin is a feature of [the premium edition of Cloudify]({{ site.baseurl }}/goPro.html) 
 and it comes along with the required plugins in [the downloadable packages of the cli](installation.html#installing-using-premade-packages).
 {% endtabcontent %}
 

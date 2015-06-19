@@ -26,7 +26,7 @@ The CLI can run on Windows, Linux and Mac OS. The CLI provides 2 main functions:
 
 * **Managing Applications[(?)]({{page.terminology_link}}#application)** - The CLI serves as a REST client versus the Cloudify manager REST interface. It provides the user with the full set of functions for deploying & managing applications including log/event browsing.
 
-![Cloudify components](/guide/images3/architecture/Cloudify-Achitecture.png)
+![Cloudify components]({{ site.baseurl }}/guide/images3/architecture/Cloudify-Achitecture.png)
 
 
 ## The Manager (Orchestrator)
@@ -40,7 +40,7 @@ There is a manager side agent per application[(?)]({{page.terminology_link}}#app
 
 **The application side agents** are optionally located on application VM's. The user can state in the blueprint[(?)]({{page.terminology_link}}#blueprint) which VM's will have an agent installed on them. The application side agents are installed by the manager side agent as part of the VM creation task. Once running, the application side agent can install plugins and execute tasks locally. Typical tasks will be middleware installaton and configuration and application modules deployment.
 
-![Cloudify Manager Architecture](/guide/images3/architecture/cloudify_manager_flows.png)
+![Cloudify Manager Architecture]({{ site.baseurl }}/guide/images3/architecture/cloudify_manager_flows.png)
 
 ## Cloudify Manager Components
 
@@ -176,7 +176,7 @@ In order to execute a workflow use the GUI or the CLI [command](reference-cfy.ht
 
 A general diagram of a workflow's execution:
 
-![Task Execution Example](/guide/images3/architecture/cloudify_workflow_processing.png)
+![Task Execution Example]({{ site.baseurl }}/guide/images3/architecture/cloudify_workflow_processing.png)
 
 The Workflow engine runs the workflow algorithm and in each step processes the selected nodes:
 

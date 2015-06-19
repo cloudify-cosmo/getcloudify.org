@@ -218,7 +218,7 @@ When deployed, we will have 2 node instances of the `application` node and 2 nod
 
 For example, consider 2 Node.js application servers that need to connect to 2 memcached nodes.
 
-![all_to_all diagram](/guide/images3/guide/relationships-all-to-all.png)
+![all_to_all diagram]({{ site.baseurl }}/guide/images3/guide/relationships-all-to-all.png)
 
 ### *all_to_one*
 Consider this blueprint:
@@ -244,7 +244,7 @@ When deployed, we will have 2 node instances of the `application` node and 2 nod
 
 For example, consider 2 Node.js application servers that need to add themselves as users on a single cassandra node.
 
-![all_to_one diagram](/guide/images3/guide/relationships-all-to-one.png)
+![all_to_one diagram]({{ site.baseurl }}/guide/images3/guide/relationships-all-to-one.png)
 
 
 # Relationship Instances

@@ -17,7 +17,7 @@ npm install angular
 Then add a `<script>` to your `index.html`:
 
 ```html
-<script src="/node_modules/angular/angular.js"></script>
+<script src="{{ site.baseurl }}/node_modules/angular/angular.js"></script>
 ```
 
 Note that this package is not in CommonJS format, so doing `require('angular')` will return `undefined`.
@@ -34,7 +34,7 @@ bower install angular
 Then add a `<script>` to your `index.html`:
 
 ```html
-<script src="/bower_components/angular/angular.js"></script>
+<script src="{{ site.baseurl }}/bower_components/angular/angular.js"></script>
 ```
 
 ## Documentation

@@ -73,7 +73,7 @@ It includes the following components:
 
 The topology looks like this:
 
-![nodecllar app](/guide/images3.2/guide/quickstart/nodecellar_singlehost_topology.png)
+![nodecllar app]({{ site.baseurl }}/guide/images3.2/guide/quickstart/nodecellar_singlehost_topology.png)
 
 ## Cloudify YAML DSL
 

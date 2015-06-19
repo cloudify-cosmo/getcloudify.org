@@ -51,10 +51,12 @@ $(document).ready(function() {
 		var version = document.location.href.split("/guide/")[1].split("/")[0];
 		var tocUrl = '/guide/' + version + '/toc.html';
 
+                var baseurl = document.location.href.split("/guide/")[0].split("/").slice(3).join("/")
 		// Grab the menu data
 		$.ajax({
 		    type:'GET',
-		    url:'/guide/' + version + '/toc.html',                                
+		    url:'/' + [baseurl, 'guide', version, 'toc.html'].filter(function (val) {return val;}).join("/"),
+		    //url:'/guide/' + version + '/toc.html',                                
 		    success:function (data) {
 				// Once we have the menu in place, process it
 
