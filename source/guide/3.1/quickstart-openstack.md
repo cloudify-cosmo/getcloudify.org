@@ -176,7 +176,7 @@ The `-b` flag assigns a unique name to this blueprint on the Cloudify manager.
 Before creating a deployment though, let's see what this blueprint looks like.
 Point your browser at the manager's URL again and refresh the screen. You will see the nodecellar blueprint listed there.
 
-![Blueprints table](/guide/images3/guide/quickstart/blueprints_table.png)
+![Blueprints table]({{ site.baseurl }}/guide/images3/guide/quickstart/blueprints_table.png)
 
 Click the blueprint, and you can see its topology. A [topology]({{page.terminology_link}}#topology) consists of elements called [nodes]({{page.terminology_link}}#node).
 
@@ -187,11 +187,11 @@ In our case, we have the following nodes:
 * A MongoDB database
 * A nodejs application called nodecellar (which is a nice sample nodejs application backed by mongodb).
 
-![Nodecellar Blueprint](/guide/images3/guide/quickstart-openstack/nodecellar_openstack_topology.png)
+![Nodecellar Blueprint]({{ site.baseurl }}/guide/images3/guide/quickstart-openstack/nodecellar_openstack_topology.png)
 
 This blueprint defines some input parameters:
 
-![Nodecellar Inputs](/guide/images3/guide/quickstart-openstack/nodecellar_openstack_inputs.png)
+![Nodecellar Inputs]({{ site.baseurl }}/guide/images3/guide/quickstart-openstack/nodecellar_openstack_inputs.png)
 
 Let's make a copy of the inputs template already provided and edit it:
 
@@ -218,7 +218,7 @@ cfy deployments create -b nodecellar -d nodecellar --inputs inputs.json
 
 We've now created a deployment named `nodecellar` based on a blueprint with the same name. This deployment is not yet materialized, since we haven't issued an installation command. If you click the "Deployments" icon in the left sidebar in the web UI, you will see that all nodes are labeled with 0/1, which means they're pending creation.
 
-![Nodecellar Deployment](/guide/images3/guide/quickstart-openstack/nodecellar_deployment.png)
+![Nodecellar Deployment]({{ site.baseurl }}/guide/images3/guide/quickstart-openstack/nodecellar_deployment.png)
 
 ## Step 5: Install the Deployment
 
@@ -242,17 +242,17 @@ the deployment name and the node in our topology that it relates to, e.g.
 
 In the Web UI, you can checkout the Logs/Events page for an overview of all Logs and Events in a specific Manager.
 
-![Events](/guide/images3/guide/quickstart-openstack/events.png)
+![Events]({{ site.baseurl }}/guide/images3/guide/quickstart-openstack/events.png)
 
 <br>
 
 You can also have a look at the Monitoring tab and see some default metrics:
 
-![Metrics](/guide/images3/guide/default_dashboard.png)
+![Metrics]({{ site.baseurl }}/guide/images3/guide/default_dashboard.png)
 
 {%note title=Note%}
 The blueprint we installed actually defines a custom collector for the Mongo database.
-To add mongo related graphs to the dashboard, have a look at [Adding Custom Graphs](/guide/3.1/ui-monitoring.html#example---customize-your-dashboard).
+To add mongo related graphs to the dashboard, have a look at [Adding Custom Graphs]({{ site.baseurl }}/guide/3.1/ui-monitoring.html#example---customize-your-dashboard).
 {%endnote%}
 
 ## Step 6: Test Drive the Application
@@ -264,7 +264,7 @@ The marvelous nodecellar application should be up on your screen.
 Click the "Browse wines" button to verify that the application was installed successfully
 and can access the mongodb database to read the list of wines.
 
-![Nodecellar](/guide/images3/guide/quickstart-openstack/nodecellar.png)
+![Nodecellar]({{ site.baseurl }}/guide/images3/guide/quickstart-openstack/nodecellar.png)
 
 ## Step 7: Uninstall the Deployment
 

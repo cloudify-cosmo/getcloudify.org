@@ -21,11 +21,11 @@ Each of the blueprint's nodes is displayed as a square container, which can cont
 The topology view shows only the application nodes and not the network nodes. If a node has a network dependency, it will be displayed as a bullet icon in the node's title.<br>
 The number of [node instances]({{page.terminology_link}}#node-instance) is marked in a bullet beside the node's type icon.<br>
 
-![Blueprint topology](/guide/images/ui/ui-blueprint-topology.png)
+![Blueprint topology]({{ site.baseurl }}/guide/images/ui/ui-blueprint-topology.png)
 
 Clicking a node's title will open a side panel with details of the selected node.<br>
 
-![Blueprint node details](/guide/images/ui/ui-blueprint-floating-panel.png)
+![Blueprint node details]({{ site.baseurl }}/guide/images/ui/ui-blueprint-floating-panel.png)
 
 # Network
 A map of networks topologies according to the blueprint's topology contains internal and external networks, hosts, routers.<br/>
@@ -34,13 +34,13 @@ Network devices, such as hosts & routers, are displayed as icons, each icon indi
 Connections between sub-networks and devices are marked with a colored line, by the color of the connected sub-network.<br>
 Clicking a device will open a side panel with details of the selected device.<br>
 
-![Blueprint networks](/guide/images/ui/ui-deployment-networks.jpg)
+![Blueprint networks]({{ site.baseurl }}/guide/images/ui/ui-deployment-networks.jpg)
 
 # Nodes
 A list of nodes according to the blueprint topology.<br/>
 For every node, its type, number of instances, and relationships are shown. By clicking the magnifier icon, a side panel will be opened with the selected node's details.
-![Blueprint's nodes](/guide/images/ui/ui-deployment-nodes.jpg)
+![Blueprint's nodes]({{ site.baseurl }}/guide/images/ui/ui-deployment-nodes.jpg)
 
 # Source
 Displays highlight blueprint source code, Python plugins and other text files includes in your blueprint package.<br/>
-![Blueprint source code](/guide/images/ui/ui-blueprint-sourcecode.jpg)
+![Blueprint source code]({{ site.baseurl }}/guide/images/ui/ui-blueprint-sourcecode.jpg)
