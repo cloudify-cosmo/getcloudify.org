@@ -965,6 +965,16 @@ my_subnet_node:
     * `port_range_max`: `0` (code)
     * `remote_ip_prefix`: `0.0.0.0/0`
 
+* API specific parameters grouped under one property named after the type of a particular OpenStack Plugin's node can contain arbitrary parameters accepted by those OpenStack APIs when creating objects corresponding to those nodes. For example, in case of a network, one can specify a `provider:network_type` parameter (described [here](http://developer.openstack.org/api-ref-networking-v2-ext.html#createProviderNetwork)) in the following way:
+
+{% highlight yaml %}
+my_network:
+  type: cloudify.openstack.nodes.Network
+    properties:
+      network:
+        # Note that for this parameter to work, OpenStack must be configured to use Neutron's ML2 extensions
+        provider:network_type: vxlan
+{%endhighlight%}
 
 # Misc
 
