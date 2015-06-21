@@ -164,7 +164,7 @@ This deployment is not yet materialized, since we haven't issued an installation
 
 ## Step 5: Install the Deployment
 
-In Cloudify, installing a certain `deployment` is done by executing the a [install]({{page.workflows_link}}#install) [workflow]({{page.terminology_link}}#workflow).
+In Cloudify, installing a certain `deployment` is done by executing the [install]({{page.workflows_link}}#install) [workflow]({{page.terminology_link}}#workflow).
 
 Type the following command in your terminal:
 
