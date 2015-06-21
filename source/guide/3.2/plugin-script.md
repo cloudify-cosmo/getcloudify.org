@@ -528,4 +528,4 @@ Different linux distributions use different default interpreters. Thus one might
 {% highlight bash %}
 /bin/sh: 1: <tmp_path>/...<script_name>: not found
 {%endhighlight%}
-This basically means that the specified interpreter path is invalid.
+This basically means that the specified path in the shebang line is invalid (might be a syntax error or the path specified doesn't lead anywhere).
