@@ -4,7 +4,7 @@ title: Writing a Blueprint
 category: Getting Started
 publish: true
 abstract: A simple blueprint authoring tutorial
-pageord: 200
+pageord: 50
 
 types_yaml_link: http://www.getcloudify.org/spec/cloudify/3.2/types.yaml
 plugin_guide_link: guide-plugin-creation.html
@@ -38,7 +38,6 @@ If you want to write a blueprint now, continue reading. Otherwise, you can skip 
   cd ~/cloudify-manager
   git clone https://github.com/cloudify-cosmo/cloudify-nodecellar-example.git
   cd cloudify-nodecellar-example
-  use -t <YOUR MANAGER IP ADDRESS>
   {% endhighlight %}
 
   In the `cloudify-nodecellar-example` directory you just cloned, you can see blueprint files alongside other resources related to this blueprint.
@@ -923,4 +922,4 @@ That's it! This a fully functioning blueprint that can be used with a Cloudify M
 
 # What's Next
 
-Now that you know how to write a basic blueprint, you can [create an archive](getting-started-package-blueprint.html) containing your Blueprint's resources or you can directly [upload your blueprint](getting-started-upload-blueprint.html) to Cloudify's Management Environment.
+Now that you know how to write a basic blueprint, you can try to [install it locally](getting-started-deploy-blueprint-locally.html).

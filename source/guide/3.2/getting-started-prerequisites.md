@@ -4,7 +4,7 @@ title: Prerequisites for Bootstrapping
 category: Getting Started
 publish: true
 abstract: How do you go about installing Cloudify?
-pageord: 40
+pageord: 150
 
 manual_install_link: installation-manual.html
 terminology_link: reference-terminology.html

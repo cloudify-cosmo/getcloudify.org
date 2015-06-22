@@ -4,7 +4,7 @@ title: Bootstrapping
 category: Getting Started
 publish: true
 abstract: Instructions on how to bootstrap a Cloudify Manager
-pageord: 100
+pageord: 200
 ---
 {%summary%}{{page.abstract}}{%endsummary%}
 
@@ -448,4 +448,4 @@ Services:
 
 # What's Next
 
-Next, you should either [try and write your first blueprint](getting-started-write-blueprint.html), or [download an example blueprint and upload it](getting-started-upload-blueprint.html).
+Now, [create an archive](getting-started-package-blueprint.html) containing your Blueprint's resources or directly [upload your blueprint](getting-started-upload-blueprint.html) to Cloudify's Management Environment.
