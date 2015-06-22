@@ -9,7 +9,7 @@ pageord: 100
 
 # Overview
 
-While when deploying applications regularly you might use Cloudify's Manager (discussed later on in the Getting Started section), you can deploy your applications on your local machine or on a designated VM by utilizing Cloudify's Local Workflows.
+While you might use Cloudify's Manager (discussed later on in the Getting Started section) when deploying applications regularly, you can deploy your applications on your local machine or on a designated VM by utilizing Cloudify's Local Workflows.
 
 Local workflows allow you to execute Cloudify [Workflows](workflows-general.html) on your local environment.
 
@@ -42,7 +42,7 @@ cfy local execute -w install
 {%endhighlight%}
 
 {%warning title=The Subfolder Conundrum%}
-Part of the `local workflow` mechanism is to process the blueprint's directory and subdirectories. You need to run the following commands from the Blueprint's root directory.SS
+Part of the `local workflow` mechanism is to process the blueprint's directory and subdirectories. You need to run the following commands from the Blueprint's root directory.
 {%endwarning%}
 
 # What's Next
