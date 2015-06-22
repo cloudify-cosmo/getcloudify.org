@@ -35,7 +35,7 @@ Cloudify comprises three distinct entities:
 * a manager (the brain)
 * agent(s) (the workers)
 
-This Getting Started section will walk you through bootstrapping a Cloudify Manager in the cloud of your choice using Cloudify's CLI. You will then install a sample Cloudify blueprint on it. During execution, agents will be installed on the provisioned machines.
+This Getting Started section will walk you through writing your first Cloudify Blueprint and testing it on your local environment using Cloudify's CLI. You will then bootstrap a Cloudify Manager in the Cloud of your choosing which will allow you to intall your Blueprint on that Cloud Environment. During execution, agents will be installed on the provisioned machines.
 
 Once everything up and and runnning, we will show you how to tear down the entire thing.
 
@@ -44,7 +44,7 @@ Each step in the Getting Started section is called an `Actionable` - which means
 All other information is descriptive Cloudify context.
 {%endnote%}
 
-You can choose to bootstrap on one of the following IaaS providers:
+By the way, you can choose to bootstrap Cloudify on one of the following IaaS providers:
 
   - [OpenStack](plugin-openstack.html)
   - [Softlayer](plugin-softlayer.html)
