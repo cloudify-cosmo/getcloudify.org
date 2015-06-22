@@ -6,7 +6,7 @@
 {% capture currentVersion %}{{ page.url | remove: "/guide/" | split:"/" | first }}{% endcapture %}
 
 <body>
-<script src="/js/doc-layout.js"></script>
+<script src="{{ site.baseurl }}/js/doc-layout.js"></script>
 <div id="wrapper">
 	<!-- start header -->
 	{% include header.html %}
@@ -18,8 +18,8 @@
 				<div class="row bt_wiki-breadcrumb">
 					<ul class="breadcrumb">{% capture currentVersion %}{{ page.url | remove: "/guide/" | split:"/" | first }}{% endcapture %}
 						<li><a href="/"><i class="icon-home"></i></a><i class="icon-angle-right"></i></li>
-						<li><a href="/guide">Docs</a><i class="icon-angle-right"></i></li>
-						<li><a href="/guide/{{currentVersion}}">{{currentVersion}}</a><i class="icon-angle-right"></i></li>						
+						<li><a href="{{ site.baseurl }}/guide">Docs</a><i class="icon-angle-right"></i></li>
+						<li><a href="{{ site.baseurl }}/guide/{{currentVersion}}">{{currentVersion}}</a><i class="icon-angle-right"></i></li>						
 						<li class="active">{{ page.title }}</li>
 					</ul>
 				</div>
@@ -48,8 +48,8 @@
 
 <!-- javascript footer_scripts-->
 {% include footer_scripts.html %}
-<script src="/js/cookie.js"></script>
-<script src="/js/wikipage-layout.js"></script>
+<script src="{{ site.baseurl }}/js/cookie.js"></script>
+<script src="{{ site.baseurl }}/js/wikipage-layout.js"></script>
 
 <!-- javascript footer_scripts-->
 

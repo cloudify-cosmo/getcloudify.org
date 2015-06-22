@@ -11,7 +11,7 @@ pageord: 1000
 
 
 {%note title=Note%}
-This reference only explains the structure and various values in the blueprint. For better understanding of it, make yourself familiar with [Cloudify blueprints DSL](guide-blueprint.html), the [Cloudify SoftLayer plugin](plugin-softlayer.html), and the [Manager Blueprints Authoring guide](guide-authoring-manager-blueprints.html).
+This reference only explains the structure and various values in the blueprint. For better understanding of it, make yourself familiar with [Cloudify blueprints DSL](dsl-spec-general.html), the [Cloudify SoftLayer plugin](plugin-softlayer.html), and the [Manager Blueprints Authoring guide](getting-started-write-blueprint.html).
 {%endnote%}
 
 # Inputs
@@ -26,9 +26,10 @@ This reference only explains the structure and various values in the blueprint. 
   * `cpu` The item id of the desired server's CPU, e.g. *859* - the item id for 4 X 2.0 GHz Cores.
   * `disk` The item id of the first disk to add, e.g. *1178* - the item id for 25 GB (SAN).
   * `os` The item id of the operating system to use, e.g. *4668* - the item id for Ubuntu Linux 14.04 LTS Trusty Tahr - Minimal Install (64 bit).
-  * `ssh_keys` A list of the SSH keys to add to the root user.
+  * `ssh_keys` A list of SSH key IDs (SoftLayer IDs), to add to the root user
+    * refer to the `ssh_keys` property in [Cloudify Softlayer VirtualServer](plugin-softlayer.html#cloudifysoftlayernodesvirtualserver) 
   * `ssh_key_filename` The path on the local machine to the private key file that will be used with Cloudify manager and agents.
-    * This key should correspond with the public key on SoftLayer that matches an id that appears in the `ssh_keys` input.
+    * This private key should correspond with the public key on SoftLayer that matches an id that appears in the `ssh_keys` input.<br>
 
 ## Optional inputs
 
@@ -74,7 +75,7 @@ The "SoftLayer manager" blueprint contains the following nodes:
 
   - *manager_host* - The server on which the Cloudify manager will be installed.
   - *softlayer_configuration* - A node which represents configuration settings for connecting with SoftLayer.
-  - *manager* - The node which represents the manager. You may find more information about this node in the [Types Reference](reference-types.html#cloudifymanager-type) section as well as in the [Manager Blueprints Authoring guide](guide-authoring-manager-blueprints.html).
+  - *manager* - The node which represents the manager. You may find more information about this node in the [Types Reference](reference-types.html#cloudifymanager-type) section as well as in the [Manager Blueprints Authoring guide](getting-started-write-blueprint.html).
 
 
 # Configuration Operations

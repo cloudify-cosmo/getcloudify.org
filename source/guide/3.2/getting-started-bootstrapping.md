@@ -10,7 +10,7 @@ pageord: 200
 
 # Overview
 
-While Cloudify's CLI provides [very limited support for deploying an application](LOCAL_WORKFLOWS_LINK!) by itself, you'll have to bootstrap a Cloudify Manager to be able to fully utilize Cloudify to deploy your application.
+While Cloudify's CLI provides very limited support for deploying an application by itself (*which documentation for will be provided shortly...*), you'll have to bootstrap a Cloudify Manager to be able to fully utilize Cloudify to deploy your application.
 
 A Cloudify Manager comprises Cloudify's code and [several underlying open-source tools](overview-components.html), which have been integrated to create a dynamic environment, and will support the different operational flows that you might be interested in when deploying your application.
 
@@ -32,32 +32,29 @@ This will create a folder in the current directory named `.cloudify`. (Cloudify 
 
 Bootstrapping a Cloudify Manager uses [Manager Blueprints](reference-terminology.html#manager-blueprints). These are standard Cloudify blueprints that have been constructed to bring up a Manager on various providers.
 
-Clone the [Cloudify-Manager-Blueprints](https://github.com/cloudify-cosmo/cloudify-manager-blueprints) repository from Github, or copy your desired blueprint folder from there.
+Clone the [Cloudify-Manager-Blueprints](https://github.com/cloudify-cosmo/cloudify-manager-blueprints) repository from GitHub, or copy your desired blueprint folder from there.
 
 {% highlight bash %}
 mkdir -p ~/cloudify-manager
 cd ~/cloudify-manager
 git clone https://github.com/cloudify-cosmo/cloudify-manager-blueprints
+cd cloudify-manager-blueprints
+git checkout -b cloudify <tag>
 {% endhighlight %}
 
 {%note title=Note%}
-You can download the correct Cloudify-Manager-Blueprints for the CFY version you're using from [Cloudify-Manager-Blueprints](https://github.com/cloudify-cosmo/cloudify-manager-blueprints/releases)
+Make sure you use a tag from [Cloudify-Manager-Blueprints](https://github.com/cloudify-cosmo/cloudify-manager-blueprints/releases) that matches your Cloudify version. Blueprints taken from the master branch might not work for you.
 {%endnote%}
-
 
 Now let's move on to configuration.
 
 We'll configure an Inputs YAML file. This file will serve as the configuration for the manager blueprint inputs. Note that the various manager blueprints folders offer an *inputs.yaml.template* file, which can be copied and edited with the desired values.
 
-Below are examples of input.yaml file configurations for differnet providers. You can also generate a file on your own.
-
+Below are examples of input.yaml file configurations for differnet providers. You can also generate a file on your own.<br>
 
 {% togglecloak id=1 %}**Configuring your Manager Blueprint**{% endtogglecloak %}
-
 {% gcloak 1 %}
-
 {% inittab %}
-
 {% tabcontent OpenStack %}
 
 [HP Cloud](http://www.hpcloud.com/) is a public OpenStack cloud. As such it provides a fairly easy starting point for experiencing a fully operational OpenStack environment. To use HP Cloud you need to [Setup an account on the HP Helion Cloud](https://horizon.hpcloud.com/).
@@ -89,7 +86,6 @@ use_existing_manager_keypair: false
 use_existing_agent_keypair: false
 manager_server_name: cloudify-management-server
 manager_server_user: ubuntu
-manager_server_user_home: /home/ubuntu
 manager_private_key_path: ~/.ssh/cloudify-manager-kp.pem
 agent_private_key_path: ~/.ssh/cloudify-agent-kp.pem
 agents_user: ubuntu
@@ -104,6 +100,10 @@ You will, at the very least, have to provide the following:
 * `keystone_password`
 * `keystone_tenant_name`
 
+{%note title=Note%}
+`manager_public_key_name` and `agent_public_key_name` will be created automatically under `private_key_path`.
+{%endnote%}
+
 In case you are using a different openstack environment, you should also change the following values:
 
 * `image_id`
@@ -115,22 +115,25 @@ In case you are using a different openstack environment, you should also change 
 Notice that the `resources_prefix` parameter is set to "cloudify" so that all resources provisioned during
 this guide are prefixed for easy identification.
 
-For more information on the different management environment structures, please refer to [Openstack Manager Reference](reference-openstack-manager.html).
+For more information on the different management environment structures, please refer to [Openstack Manager Reference](manager-blueprints-openstack.html).
 
 {% endtabcontent %}
 
 {% tabcontent SoftLayer %}
 
 {%note title=Note%}
-The Softlayer IaaS plugin is a feature of the commercial version of Cloudify. For more information, [go pro](/goPro.html).
+The Softlayer IaaS plugin is a feature of [the premium edition of Cloudify]({{ site.baseurl }}/goPro.html), it comes with the downloadable packages of the cli, 
+see [Installing using packages](installation.html#installing-using-packages).
 {%endnote%}
 
-This blueprint defines quite a few input parameters we need to fill out.
+Once you have the commercial packages, you can use the softlayer manager blueprint to bootstrap a Cloudify manager on SoftLayer.<br>
+For more information see the [Softlayer Manager Blueprints Reference](manager-blueprints-softlayer.html)<br>
+This manager blueprint defines quite a few input parameters that should be supplied.
 
 Let's make a copy of the inputs template already provided and edit it:
 
 {% highlight bash %}
-cd cloudify-manager-blueprints/softlayer
+cd /cfy/cloudify-manager-blueprints-commercial/softlayer
 cp inputs.yaml.template inputs.yaml
 {% endhighlight %}
 
@@ -165,17 +168,22 @@ resources_prefix: ''
 
 You will, at the very least, have to provide the mandatory inputs.
 
-{%info%}
+{%info title=Requirements%}
 This tutorial uses softlayer manager blueprint on Docker and it requires:
 
   * The `os` input should be *4668* - the item id of *Ubuntu Linux 14.04 LTS Trusty Tahr - Minimal Install (64 bit)*
+  * The `ssh_keys` list should contain a SoftLayer ID of an SSH key for connecting with the manager and agents.<br>
+  	For more information refer to the `ssh_keys` property in [Cloudify Softlayer VirtualServer](plugin-softlayer.html#cloudifysoftlayernodesvirtualserver).
+  * The `ssh_key_filename` property should be set to the path of the private key file.
   * A link to a script that installs curl must be specified (needed for the Docket installation) in the `provision_scripts` input.
-    * for example: [a script that installs curl](https://raw.githubusercontent.com/cloudify-cosmo/cloudify-softlayer-plugin/master/softlayer_plugin/scripts/postprov.sh)
-    * Alternatively, create an image id of a server on SoftLayer that have curl or docker installed on it, and specify the `image_template_id` instead of the `os` input.
+  	<br>e.g. create a script with the following command:
+
+  		{% highlight bash %}
+  		apt-get -q -y instll curl
+  		{% endhighlight %}
+
+  * Alternatively, create an image id of a server on SoftLayer that have curl or docker installed on it, and specify the `image_template_id` instead of the `os` input.
 {%endinfo%}
-
-
-For more information see the [Softlayer Manager Reference](reference-softlayer-manager.html).
 
 {% endtabcontent %}
 
@@ -231,7 +239,7 @@ You will, at the very least, have to provide the following:
 
 {%endinfo%}
 
-For more information see the [AWS EC2 Manager Reference](reference-aws-ec2-manager.html).
+For more information see the [AWS EC2 Manager Reference](manager-blueprints-aws-ec2.html).
 
 {% endtabcontent %}
 
@@ -267,7 +275,7 @@ manager_public_key: ''
 agent_public_key: ''
 {% endhighlight %}
 
-For more information see the [vCloud Manager Reference](reference-vcloud-manager.html).
+For more information see the [vCloud Manager Reference](manager-blueprints-vcloud.html).
 
 {% endtabcontent %}
 
@@ -276,7 +284,7 @@ For more information see the [vCloud Manager Reference](reference-vcloud-manager
 {% endgcloak %}
 
 ## Available manager blueprints
-See the reference section in the documentation menu for a reference of all currently available Manager Blueprints.
+See the [Manager Blueprints](manager-blueprints-general.html) section in the documentation menu for a reference of all currently available Manager Blueprints.
 
 {%note title=Note%}
 The manager blueprints comprise not only the *.yaml* file, but also the entire directory in which the *.yaml* file resides. For example, the manager blueprints map bootstrap operations to scripts that perform many of the bootstrap tasks. Make sure to copy the full directory for when using or editing manager blueprints.
@@ -284,7 +292,7 @@ The manager blueprints comprise not only the *.yaml* file, but also the entire d
 
 ## Authoring manager blueprints
 
-If you wish to write a custom manager blueprint (whether it be for a custom behavior or a different provider) or learn more on how manager blueprints work, refer to the [Manager Blueprints Authoring guide](guide-authoring-manager-blueprints.html).
+If you wish to write a custom manager blueprint (whether it be for a custom behavior or a different provider) or learn more on how manager blueprints work, refer to the [Manager Blueprints Authoring guide](manager-blueprints-authoring.html).
 
 
 # Install Required Plugins
@@ -302,7 +310,7 @@ For example, on openstack:
 (Alternatively, you may pass the `--install-plugins` flag to the `cfy bootstrap` command, which follows soon.)
 
 {%note title=Note%}
-Ths *install-plugins* functionality only works if you are running from within a virtualenv.
+The *install-plugins* functionality only works if you are running from within a virtualenv.
 If this is not the case, installing plugins will require sudo permissions and can be done like so:
 
 {% inittab %}
@@ -315,10 +323,8 @@ sudo pip install -r requirements.txt
 {% endtabcontent %}
 
 {% tabcontent SoftLayer%}
-{% highlight sh %}
-cfy local create-requirements -o requirements.txt -p softlayer.yaml
-sudo pip install -r requirements.txt
-{%endhighlight%}
+There is no need to *install-plugins* because the SoftLayer plugin is a feature of [the premium edition of Cloudify]({{ site.baseurl }}/goPro.html) 
+and it comes along with the required plugins in [the downloadable packages of the cli](installation.html#installing-using-premade-packages).
 {% endtabcontent %}
 
 {% tabcontent AWS EC2%}
@@ -372,7 +378,7 @@ cfy bootstrap --install-plugins -p openstack-manager-blueprint.yaml -i inputs.ya
 
 {% highlight bash %}
 
-cfy bootstrap --install-plugins -p softlayer.yaml -i inputs.yaml --task-retries 25
+cfy bootstrap -p softlayer-manager-blueprint.yaml -i inputs.yaml --task-retries 25
 
 {% endhighlight %}
 
@@ -414,12 +420,12 @@ management server is up at <YOUR MANAGER IP ADDRESS>
 {% endhighlight %}
 
 To validate this installation, point your web browser to the manager IP address (port 80).
-If you're using the commercial version, you should see Cloudify's Web UI.
+If you're using the premium edition, you should see Cloudify's Web UI.
 At this point there's nothing much to see since you haven't uploaded any blueprints yet.
 
 When the command is done executing, you'll have an operational Cloudify manager on the desired provider. You may verify this by making a *status* call.
 
-Note that if you're using the commercial version, the Web UI should appear as a running service in the output. If you are using the standard version, the Cloudify UI status should be "unknown".
+Note that if you're using the premium edition, the Web UI should appear as a running service in the output. If you are using the standard version, the Cloudify UI will not be included in the package and will not appear in the status output.
 
 An example output:
 

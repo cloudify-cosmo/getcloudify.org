@@ -6,8 +6,8 @@ publish: true
 abstract: "Specifying plugins to use with the blueprint"
 pageord: 300
 
-openstack_plugin_link: https://github.com/cloudify-cosmo/cloudify-openstack-plugin/archive/1.1.zip
-openstack_plugin_yaml_link: http://www.getcloudify.org/spec/openstack-plugin/1.1/plugin.yaml
+openstack_plugin_link: https://github.com/cloudify-cosmo/cloudify-openstack-plugin/archive/1.2.zip
+openstack_plugin_yaml_link: http://www.getcloudify.org/spec/openstack-plugin/1.2/plugin.yaml
 terminology_link: reference-terminology.html
 agent_packager_link: agents-packager.html
 plugin_authoring_link: plugins-authoring.html

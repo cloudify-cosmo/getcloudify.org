@@ -22,6 +22,38 @@ For more information about OpenStack, please refer to: [https://www.openstack.or
   * 2.7.x
 
 
+# Compatibility
+
+The Openstack plugin has been tested against Openstack Icehouse, Juno and Kilo.
+
+{%note title=Note%}
+In Openstack Kilo, Neutron security-groups must have a description, yet the plugin doesn't enforce this (expected to be fixed in plugin version 1.2.1). To overcome this issue, one may provide a description to a security group by using the `security_group` property like so:
+
+  {% highlight yaml %}
+  node_templates:
+    my_security_group_node:
+      properties:
+        security_group:
+          description: some-description
+        ...
+      ...
+  {%endhighlight%}
+{%endnote%}
+
+
+The Openstack plugin uses various Openstack clients packages. The versions used in Openstack Plugin version 1.2 are as follows:
+
+  * [Nova client](https://github.com/openstack/python-novaclient) - 2.17.0
+  * [Neutron client](https://github.com/openstack/python-neutronclient) - 2.3.9
+  * [Cinder client](https://github.com/openstack/python-cinderclient) - 1.0.9
+  * [Keystone client](https://github.com/openstack/python-keystoneclient) - 0.7.1
+
+{%note title=Note%}
+Due to some of these versions being slightly outdated (expected to be fixed in plugin version 1.2.1), Nova quota-related errors raised from Openstack Juno (or newer) may result in an *AttributeError*, masking the original error.
+{%endnote%}
+
+
+
 # Types
 
 ## cloudify.openstack.nodes.Server
@@ -610,7 +642,7 @@ The environment variables mentioned in (1) are the standard Openstack environmen
 
 
 {%tip title=Tip%}
-The [Openstack manager blueprint](reference-openstack-manager.html) and the Openstack provider store the Openstack configuration used for the bootstrap process in a JSON file as described in (2) at `~/openstack-config.json`. Therefore, if they've been used for bootstrap, the Openstack configuration for applications isn't required as the plugin will default to these same settings.
+The [Openstack manager blueprint](manager-blueprints-openstack.html) and the Openstack provider store the Openstack configuration used for the bootstrap process in a JSON file as described in (2) at `~/openstack-config.json`. Therefore, if they've been used for bootstrap, the Openstack configuration for applications isn't required as the plugin will default to these same settings.
 {%endtip%}
 
 
@@ -933,6 +965,16 @@ my_subnet_node:
     * `port_range_max`: `0` (code)
     * `remote_ip_prefix`: `0.0.0.0/0`
 
+* API specific parameters grouped under one property named after the type of a particular OpenStack Plugin's node can contain arbitrary parameters accepted by those OpenStack APIs when creating objects corresponding to those nodes. For example, in case of a network, one can specify a `provider:network_type` parameter (described [here](http://developer.openstack.org/api-ref-networking-v2-ext.html#createProviderNetwork)) in the following way:
+
+{% highlight yaml %}
+my_network:
+  type: cloudify.openstack.nodes.Network
+    properties:
+      network:
+        # Note that for this parameter to work, OpenStack must be configured to use Neutron's ML2 extensions
+        provider:network_type: vxlan
+{%endhighlight%}
 
 # Misc
 
@@ -940,6 +982,6 @@ my_subnet_node:
 
 * The plugin's operations are each *transactional* (and therefore also retryable on failures), yet not *idempotent*. Attempting to execute the same operation twice is likely to fail.
 
-* Over this documentation, it's been mentioned multiple times that some configuration-saving information may be available in the [Provider Context](reference-terminology.html#provider-context). The [Openstack manager blueprint](reference-openstack-manager.html) and Openstack provider both create this relevant information, and therefore if either was used for bootstrapping, the Provider Context will be available for the Openstack plugin to use.
+* Over this documentation, it's been mentioned multiple times that some configuration-saving information may be available in the [Provider Context](reference-terminology.html#provider-context). The [Openstack manager blueprint](manager-blueprints-openstack.html) and Openstack provider both create this relevant information, and therefore if either was used for bootstrapping, the Provider Context will be available for the Openstack plugin to use.
 
   The exact details of the structure of the Openstack Provider Context are not documented since this feature is going through deprecation and will be replaced with a more advanced one.

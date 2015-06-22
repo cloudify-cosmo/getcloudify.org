@@ -11,7 +11,7 @@ pageord: 700
 
 
 {%note title=Note%}
-This section is aimed at advanced users. Before reading it, make sure you have a good understanding of [Cloudify terminology](reference-terminology.html), [Workflows](guide-workflows.html), [Blueprints](guide-blueprint.html), and [Plugin authoring](guide-plugin-creation.html).
+This section is aimed at advanced users. Before reading it, make sure you have a good understanding of [Cloudify terminology](reference-terminology.html), [Workflows](workflows-authoring.html), [Blueprints](getting-started-write-blueprint.html), and [Plugin authoring](plugins-authoring.html).
 {%endnote%}
 
 
@@ -60,7 +60,7 @@ Work in progress
 
 The `ctx` object used by workflow methods is of type `CloudifyWorkflowContext`. It offers access to context data and various services. Additionally, any node, node instance, relationship or relationship instance objects returned by the context object (or from objects returned by the context object) will be wrapped in types which offer additional context data and services.
 
-For full API reference, refer to the documentation over at [cloudify-plugins-common.readthedocs.org](http://cloudify-plugins-common.readthedocs.org/en/3.1/workflows.html).
+For full API reference, refer to the documentation over at [cloudify-plugins-common.readthedocs.org](http://cloudify-plugins-common.readthedocs.org/en/3.2/workflows.html).
 
 
 # Graph Framework
@@ -457,4 +457,4 @@ Coming soon...
 
 ## Packaging the Workflow
 
-Since workflows are joined to the blueprint the same way plugins do, they are also packaged the same way. Refer to the [Plugin creation guide](guide-plugin-creation.html#the-plugin-template) for more information.
+Since workflows are joined to the blueprint the same way plugins do, they are also packaged the same way. Refer to the [Plugin creation guide](plugins-authoring.html#the-plugin-template) for more information.

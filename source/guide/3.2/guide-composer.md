@@ -38,30 +38,30 @@ Currently each user can only save one blueprint, modifying that blueprint and sa
 
 The topology section allows you to add and remove nodes from the blueprint. Simply choose a node type on the left and drag it to the canvas on the right. This will add the node to the blueprint. To delete it, click on the node to open the properties panel and click on Delete button.
 
-![Blueprint Composer topology](/guide/images/ui/composer/topology.png)
+![Blueprint Composer topology]({{ site.baseurl }}/guide/images/ui/composer/topology.png)
 
 Each of the nodes has an editable name and may contain [properties]({{page.terminology_link}}#properties), [interfaces]({{page.terminology_link}}#interface) and [relationships]({{page.terminology_link}}#relationship-type).
 The Composer interface allows selecting one node at a time, to see the node properties simply click the node and a panel will appear.
 
-![Blueprint Composer topology](/guide/images/ui/composer/sidepane.png)
+![Blueprint Composer topology]({{ site.baseurl }}/guide/images/ui/composer/sidepane.png)
 
 ### Inputs
 
 The inputs page contains an option to add inputs to a blueprint.yaml.
 The 'Name' field is mandatory and must be unique.
 
-![Blueprint Composer inputs](/guide/images/ui/composer/inputs.png)
+![Blueprint Composer inputs]({{ site.baseurl }}/guide/images/ui/composer/inputs.png)
 
 ### Source
 
 The source page contains a read only presentation of the generated blueprint file.
 The blueprint is generated with some out of the box list of plugins.
 
-![Blueprint Composer source](/guide/images/ui/composer/source.png)
+![Blueprint Composer source]({{ site.baseurl }}/guide/images/ui/composer/source.png)
 
 ## More Actions
 
-![Blueprint Composer source](/guide/images/ui/composer/actions-bar.png)
+![Blueprint Composer source]({{ site.baseurl }}/guide/images/ui/composer/actions-bar.png)
 
 ### Save
 

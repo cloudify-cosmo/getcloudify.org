@@ -7,7 +7,7 @@ abstract: How to get started
 pageord: 200
 
 terminology_link: reference-terminology.html
-workflows_link: reference-builtin-workflows.html
+workflows_link: workflows-built-in.html
 
 ---
 
@@ -22,7 +22,7 @@ You can take Cloudify for an instant test drive with an [online trial](http://ge
 
 Also, you need to have an IaaS environment (a cloud) and credentials to complete the following section.
 
-If you hadn't already installed Cloudify's CLI, now would be the time to do so. To install the CLI, follow the steps described in the [CLI Installation guide](installation.html). The CLI allows you to upload blueprints, create deployments, and execute workflows, as well as many other useful functions. For more information on the CLI's functions check the [CLI Reference](cfy-reference.html).
+If you hadn't already installed Cloudify's CLI, now would be the time to do so. To install the CLI, follow the steps described in the [CLI Installation guide](installation.html). The CLI allows you to upload blueprints, create deployments, and execute workflows, as well as many other useful functions. For more information on the CLI's functions check the [CLI Reference](cli-cfy-reference.html).
 
 Finally, it is recommended that you try the [Quick Tutorial](quickstart.html) first to familiarize
 yourself with Cloudify and its concepts.

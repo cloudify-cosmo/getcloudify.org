@@ -10,7 +10,7 @@ pageord: 800
 
 ## Flow Diagram
 
-![Cloudify Logs Flow](/guide/images3/architecture/cloudify_flow_logs.png)
+![Cloudify Logs Flow]({{ site.baseurl }}/guide/images3/architecture/cloudify_flow_logs.png)
 
 This flow is pretty self explanatory and corresponds with the same principles the metrics flow is based upon.
 
