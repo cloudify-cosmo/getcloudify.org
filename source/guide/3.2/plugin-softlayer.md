@@ -14,14 +14,14 @@ For more information about SoftLayer, please refer to: [http://www.softlayer.com
 {%endsummary%}
 
 {%note title=Note%}
-The Softlayer IaaS plugin is a feature of [the premium edition of Cloudify](/goPro.html), 
+The Softlayer IaaS plugin is a feature of [the premium edition of Cloudify]({{ site.baseurl }}/goPro.html), 
 it comes with the downloadable packages of the cli.<br>
 To install the packages see [Installing using packages](installation.html#installing-using-packages).
 {%endnote%}
 
 # Requirements
   * A SoftLayer account, see [SoftLayer Authentication](#softlayer-authentication).
-  * [The Cloudify Premium edition](/goPro.html) 
+  * [The Cloudify Premium edition]({{ site.baseurl }}/goPro.html) 
 
 # Compatibility
   The SoftLayer plugin uses the [SoftLayer 3.3.0](https://pypi.python.org/pypi/SoftLayer/3.3.0) (SoftLayer API bindings for Python).

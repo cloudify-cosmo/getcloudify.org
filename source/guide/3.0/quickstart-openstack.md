@@ -167,7 +167,7 @@ The `-b` parameter is the unique name we've given to this blueprint on the Cloud
 
 Click the row with the blueprint. You will now see the topology of this blueprint. A topology consists of elements called nodes. In our case, we have the following nodes: a network, a subnet, a security group, two VMs, a nodejs server, a mongodb server, and a nodejs application called nodecellar (which is a nice sample nodejs application backed by mongodb).
 
-![Nodecellar Blueprint](/guide/images3/guide/nodecellar_topology.png)
+![Nodecellar Blueprint]({{ site.baseurl }}/guide/images3/guide/nodecellar_topology.png)
 
 Next, we need to create a deployment so we can create this topology in our OpenStack cloud. To do so, type the following command:
 

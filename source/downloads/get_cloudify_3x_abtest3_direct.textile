@@ -28,16 +28,10 @@ cat: User Guide
 					<div class="span12">
 						<h2><strong><i class="icon-magic"></i> Quick Start Trial</strong></h2>
 						<div class="field-content"><p><strong>Cloudify Vagrant Box</strong></p>
-						
-						{%note%}The Vagrant Box below contains a complete manager and CLI installation.  It is only provided for getting started and demoing purposes and should not be used in production. This version should be downloaded and run on your desktop.{%endnote%}
-						
-										
 						</div>
 					</div>
                        
 						<div class=" span12 direct gattingWrapper" style="margin:0 0 0 0px;width:100%">
-						</br>
-									<h4 style="margin:0 0 0 30px;"><strong>Please Fill in Your Information Below</strong></h4>
 									<br/>
 									<form id="regiterToDownload"  novalidate="novalidate" method="POST">
 										<div class="span3">
@@ -58,23 +52,22 @@ cat: User Guide
 												<div class="cuValid"></div>
 											</div>
 										</div>
-										<div class="span3">
+										<div class="span12">
 											<input id="website" name="website" type="text" value=""  />
-											<input type="submit" class="cuSendGatting btn btn-medium btn-theme btn-rounded " name="submit" value="Vagrant Box (~1.1GB)" />
+											<input type="submit" class="cuSendGatting btn btn-medium btn-theme-red btn-rounded " name="submit" value="Vagrant Box (~1.1GB)" />
 										</div>
 									</form><br/>
 									
 						</div>
-						<div class="span12">
-							<p><strong>For more details on how to get started with them please follow the Cloudify 3.2 <a href="/guide/3.2/quickstart.html" target="_blank"><i class="icon-book"></i> Getting Started Guide</strong></a>.</p>
-						</div>
-		</div>
+	</div>
+								<p>For more details on how to get started with them please follow the Cloudify 3.2 <a href="{{ site.baseurl }}/guide/3.2/quickstart.html" target="_blank"><i class="icon-book"></i> Getting Started Guide</a>.</p>
+								
+								{%note%}The Vagrant Box contains a complete manager and CLI installation.  It is only provided for getting started and demoing purposes and should not be used in production. This version should be downloaded and run on your desktop.{%endnote%}
 					<hr/>
-					<h2><strong><i class="icon icon-bolt"></i> Cloudify Full Install</strong> (See Full Feature List <a href="/cloudify-features.html" target="_blank">Here</a>)</h2>
-					{%note%}The Cloudify CLI should be run on datacenters and clouds. Please choose from the options below.{%endnote%}
-					<p><strong>Please Note:</strong> Starting with version 3.2.0, the Ubuntu CLI packages have been replaced by a direct installation script.</p>
+					<h2><strong><i class="icon icon-bolt"></i> Cloudify Full Install</strong> (See Full Feature List <a href="{{ site.baseurl }}/cloudify-features.html" target="_blank">Here</a>)</h2>
+										
 						<div class="dropdown">
-						  <button class="btn btn-default dropdown-toggle btn-rounded " type="button" id="dropdownMenu1" data-toggle="dropdown" aria-expanded="true">
+						  <button class="btn-theme-red  btn dropdown-toggle btn-medium btn-rounded " type="button" id="dropdownMenu1" data-toggle="dropdown" aria-expanded="true">
 							Other Operating Systems
 							<span class="caret"></span>
 						  </button>
@@ -85,11 +78,12 @@ cat: User Guide
 							<li role="presentation"><a href="http://getcloudify.org/guide/3.2/installation-cli.html#installing-using-the-script" class="download" data-btn-split="7" data-btn-type="GA Product Download 3.2.0"><i class="icon-30 icon-download-alt"></i>&nbsp;Ubuntu</a></li>
 						  </ul>
 						</div>
+						{%note%}The Cloudify CLI should be run on datacenters and clouds. Please choose from the options below.{%endnote%}
 						<br/><br/>						
 		<div class="clear"></div>
 		<div class="row">
 					<div class="span12">
-						<div class="well">By downloading Cloudify you agree to the <a href="/license.html" target="">End User License Agreement</a></div>
+						<div class="well">By downloading Cloudify you agree to the <a href="{{ site.baseurl }}/license.html" target="">End User License Agreement</a></div>
 					</div>
 		</div>
 	</div>

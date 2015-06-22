@@ -25,7 +25,7 @@ As mentioned above, the log file resides on the docker container running on the 
 located in `/var/log/cloudify/rest-security-audit.log`. The default logging level is `INFO`. The maximum file size is
 100 MB, after which the filename will be appended an index number (e.g. rest-security-audit.log.1) and a new log file
 will be created. Up to 20 old log files can be stored. All these settings can be configured in the manager
-blueprint, as explained [here](/guide/3.2/guide-security.html#logging).
+blueprint, as explained [here]({{ site.baseurl }}/guide/3.2/guide-security.html#logging).
 
 
 # REST Service Logs
