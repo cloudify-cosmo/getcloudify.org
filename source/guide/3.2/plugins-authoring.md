@@ -315,7 +315,7 @@ The `ctx` context object contains contextual parameters mirrored from the bluepr
 
 ### Properties context objects
 
-* `ctx.instance.id` - The unique ID of the node's intance.
+* `ctx.instance.id` - The unique ID of the node's instance.
 * `ctx.node.properties` - The properties of the node as declared under the `properties` dict.
 * `ctx.instance.runtime_properties` - The properties that are assigned to a **node's instance** at runtime. These properties are either populated by the plugin itself (for instance, an automatically generated port that the plugin exposes when it's run), or are generated prior to the invocation of the plugin (for instance, the ip of the machine the plugin is running on).
 
