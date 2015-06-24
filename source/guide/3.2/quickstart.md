@@ -137,9 +137,9 @@ The inputs values are located at ~/cloudify/blueprints/inputs/nodecellar-singleh
 These are the values relevant for our example:
 
 {%highlight yaml%}
-agent_key_file : ~/.ssh/agent_key.pem
-agent_user: root
-host_ip: 127.0.0.1
+agent_private_key_path: /root/.ssh/id_rsa
+agent_user: vagrant
+host_ip: 10.10.1.10
 {%endhighlight%}
 
 {%note title=Limitations%}
