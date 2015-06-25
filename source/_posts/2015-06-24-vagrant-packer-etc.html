@@ -1,0 +1,261 @@
+---
+layout: blogpost
+title:  We started using Vagrant and Packer for our build process. You won't believe what happened next...
+image: nircohen.jpg
+author: Nir Cohen
+tags:
+ - Docker
+ - Cloud Orchestration
+ - OpenStack Orchestration
+ - AWS
+ - Vagrant
+---
+
+<notextile>
+
+<div class="aligncenter">
+<img src="/img/vagrantpacker.png" alt="Open Source | Docker | AWS | Automation | VM | OpenStack | CloudStack | Vagrant | Packer"></div>
+<br/>
+<br/>
+
+<p>There are <a href="http://blog.codeship.com/immutable-deployments/">good</a> <a href="http://www.infoq.com/articles/virtual-panel-immutable-infrastructure">reasons</a> for applying immutable infrastructure practices; one of which is that you don't have to worry about your servers containing leftovers from previous deployments. Additionally, your deployment processes can be extremely clean as they don't have to deal with the ins and outs of the live updates of middleware and code but rather the creation of images/containers and the infrastructure containing them.</p>
+
+<p>At Cloudify, we have many artifacts to build. From <a href="http://getcloudify.org/docker-orchestration-docker-container-deployment-cloud.html" target="_blank">Docker</a> and machine images to potentially relocatable Python virtualenvs, node.js tar files and Windows binaries. </p>
+
+<p>We want to our build process to be immutable.</p>
+
+<hr>
+
+<span class="pullquote-left">
+  <font style="font-weight: bold" size="5" face="Baskerville Old Face"><em>Experience the awesomeness of the Cloudify Blueprint Composer today.</em></font>&nbsp; <a class="btn btn-medium btn-theme btn-rounded" id="downloadBtnInner" href="http://getcloudify.org/downloads/get_cloudify_3x.html" target="_blank"><i class="icon-plus"></i> Go </a></span>
+  
+  <hr>
+
+<h2>Vagrant</h2>
+
+<p>As we're not a SaaS company, but rather a provider of Open-Source software, we thought: Why not use the same concept of immutable infrastructure to build our artifacts? What that practically means is spinning up a new environment each time we want to create a binary. And what's the easiest way to spin up a temporary environment? <a href="http://getcloudify.org/2015/03/08/vagrant-cloud-tutorial-virtualbox-desktop-cloudify.html" target="_blank">Vagrant</a>.</p>
+
+<p>Let's say we want to create a Docker image. We create a ``Vagrantfile` containing 2 VMs:</p>
+
+<p><code># -*- mode: ruby -*-</code></p>
+
+<p><code># vi: set ft=ruby :</code></p>
+
+<p><code>
+    <br /></code></p>
+
+<p><code>AWS_ACCESS_KEY_ID = ENV['AWS_ACCESS_KEY_ID']</code></p>
+
+<p><code>AWS_ACCESS_KEY = ENV['AWS_ACCESS_KEY']</code></p>
+
+<p><code>
+    <br /></code></p>
+
+<p><code>BASE_BOX_NAME = 'ubuntu/trusty64'</code></p>
+
+<p><code>
+    <br /></code></p>
+
+<p><code>Vagrant.configure('2') do |config|</code></p>
+
+<p><code>&#160; config.vm.define &quot;ubuntu&quot; do |ubuntu|</code></p>
+
+<p><code><a href="https://notes.dropbox.com/?q=%23dummy">#dummy</a> box, will be overriden</code></p>
+
+<p><code>&#160;&#160;&#160; ubuntu.vm.box = &quot;dummy&quot;</code></p>
+
+<p><code>&#160;&#160;&#160; ubuntu.vm.box_url = &quot;<a href="https://github.com/mitchellh/vagrant-aws/raw/master/dummy.box">https://github.com/mitchellh/vagrant-aws/raw/master/dummy.box</a>&quot;</code></p>
+
+<p><code>
+    <br /></code></p>
+
+<p><code>&#160;&#160;&#160; ubuntu.vm.provider :aws do |aws, override|</code></p>
+
+<p><code>&#160;&#160;&#160;&#160;&#160; aws.access_key_id = AWS_ACCESS_KEY_ID</code></p>
+
+<p><code>&#160;&#160;&#160;&#160;&#160; aws.secret_access_key = AWS_ACCESS_KEY</code></p>
+
+<p><code>
+    <br /></code></p>
+
+<p><code>&#160;&#160;&#160;&#160;&#160; # official ubuntu 14.04 64bit box</code></p>
+
+<p><code>&#160;&#160;&#160;&#160;&#160; aws.ami = &quot;ami-036eaa74&quot;</code></p>
+
+<p><code>&#160;&#160;&#160;&#160;&#160; aws.region = &quot;eu-west-1&quot;</code></p>
+
+<p><code>&#160;&#160;&#160;&#160;&#160; aws.instance_type = &quot;m3.medium&quot;</code></p>
+
+<p><code>
+    <br /></code></p>
+
+<p><code>&#160;&#160;&#160;&#160;&#160; aws.keypair_name = &quot;vagrant_build&quot;</code></p>
+
+<p><code>&#160;&#160;&#160;&#160;&#160; override.ssh.username = &quot;ubuntu&quot;</code></p>
+
+<p><code>&#160;&#160;&#160;&#160;&#160; override.ssh.private_key_path = &quot;/home/.ssh/aws/vagrant_build.pem&quot;</code></p>
+
+<p><code>
+    <br /></code></p>
+
+<p><code>&#160;&#160;&#160;&#160;&#160; aws.tags = {</code></p>
+
+<p><code>&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160; &quot;Name&quot; =&gt; &quot;vagrant docker images build&quot;,</code></p>
+
+<p><code>&#160;&#160;&#160;&#160;&#160; }</code></p>
+
+<p><code>&#160;&#160;&#160;&#160;&#160;&#160;&#160; aws.security_groups = &quot;vagrant_cfy_build&quot;</code></p>
+
+<p><code>&#160;&#160;&#160; end</code></p>
+
+<p><code>
+    <br /></code></p>
+
+<p><code>&#160;&#160;&#160; # need to sync folders</code></p>
+
+<p><code>&#160;&#160;&#160; ubuntu.vm.synced_folder &quot;../../&quot;, &quot;/cloudify-packager&quot;, create: true</code></p>
+
+<p><code>&#160;&#160;&#160; ubuntu.vm.provision &quot;shell&quot;, path: &quot;provision.sh&quot;, privileged: false</code></p>
+
+<p><code>&#160; end</code></p>
+
+<p><code>
+    <br /></code></p>
+
+<p><code>&#160; config.vm.define :local do |local|</code></p>
+
+<p><code>&#160;&#160;&#160; local.vm.provider :virtualbox do |vb|</code></p>
+
+<p><code>&#160;&#160;&#160;&#160;&#160; vb.customize ['modifyvm', :id, '--memory', '1024']</code></p>
+
+<p><code>&#160;&#160;&#160; end</code></p>
+
+<p><code>&#160;&#160;&#160; local.vm.box = BASE_BOX_NAME</code></p>
+
+<p><code>&#160;&#160;&#160; local.vm.hostname = 'local'</code></p>
+
+<p><code>&#160;&#160;&#160; local.vm.synced_folder &quot;../../&quot;, &quot;/cloudify-packager&quot;, create: true</code></p>
+
+<p><code>&#160;&#160;&#160; local.vm.provision &quot;shell&quot;, path: &quot;provision.sh&quot;, privileged: false</code></p>
+
+<p><code>&#160; end</code></p>
+
+<p><code>end</code></p>
+
+<p>The first AWS VM is used in our official build process.</p>
+
+<p>Thanks to Vagrant's abstraction over the IaaS, we can choose the properties of the machine fitting a specific build which allows for easier optimization of the build process. For instance, if we know we have a long and complex build process for a specific artifact, we might want to provide lots of resources to the build machine (and vice versa).</p>
+
+<p>By using Vagrant, we're also able to provide locally executable build systems. The 2nd VM allows people to build whatever artifacts they need locally instead of being tied up to a specific build system. </p>
+
+<p>The `provision.sh` script is simply the script required to generate the artifact. In this particular case, we install and configure <a href="https://www.docker.com/">Docker</a> and <a href="https://docs.docker.com/compose/">docker-compose</a>; run a `docker-compose build ...` on a Dockerfile residing within the synced directory and save the image to a tar. Then, we push the tar to S3 automatically. `cloudify-packager` in the above example contains the files requires for the build process so they're rsync-ed up automatically and used from within the VM.</p>
+
+<p>Another example would be creating <a href="http://getcloudify.org/guide/3.2/agents-general.html" target="_blank">Cloudify agents</a> for different distributions. We require compiling our agents on Ubuntu Trusty and Precise, CentOS 6.4, Debian Jessie and Windows Server 2013.</p>
+
+<p>We have a `Vagrantfile` containing <a href="http://getcloudify.org/2015/04/05/vagrant-cloud-aws-nested-virtualization-vagrant-box.html" target="_blank">AWS and Virtualbox</a> based VMs with images matching the OS and distributions we need. We supply a multi-distro supporting `provision.sh` file to build all Linux based agents and another `provision.windows.bat` file specifically for windows.</p>
+
+<p>All that's left then is to run `Vagrant up debian_jessie_aws` and poof!, a debian jessie agent is generated.</p>
+
+<h2>Decoupling Heaven</h2>
+
+<p>This process completely decouples each artifact's generation mechanism from the specific build system managing it. It also allows us to parallelize our build process as we can spin up endless amounts of Vagrant machines in whatever IaaS provider we choose (as long as there's a Vagrant plugin for that provider) and don't have to rely on our <a href="http://getcloudify.org/2015/04/09/jenkins-ci-server-automation-cloud-cd-continuous-integration-delivery.html" target="_blank">Jenkins</a> cluster's capacity or on us writing logic for generating machines for the build process.</p>
+
+<p>In addition, it doesn't matter which build system we're using to create the artifacts. It's all just about executing the same command in different environments.</p>
+
+<p>This decoupling mechanism also allows us to provide a way for our customers to generate artifacts on their own. Being Open-Source, a `git clone` and `Vagrant up` is all a customer needs to build their own artifact.</p>
+
+<h2>Readable Logs</h2>
+
+<p>Vagrant provides decently readable logs during its provisioning process. This allows us to relatively easily debug build related problems. In the future, we intend to ship these logs to an external ELK stack, to Logentries, or to Loggly to be able to analyze our build process in deeper granularity.</p>
+
+<h2>Where Packer comes in to play</h2>
+
+<p>Obviously, we're not interested in installing all build requirements each time a VM is spun up.</p>
+
+<p>We're going to use <a href="http://packer.io">Packer</a> to build images containing the basic requirements for our build process.</p>
+
+<p>We'll use a packerfile.json file that contains configuration for creating an image containing Docker to be used by our Vagrantfile later on. (yes. We could use the Docker builder but as it runs on the local machine, and we'd rather spin up a new, clean VM, we do it this way.)</p>
+
+<p><code>{</code></p>
+
+<p><code>&#160; &quot;variables&quot;: {</code></p>
+
+<p><code>&#160;&#160;&#160; &quot;aws_access_key&quot;: &quot;{{env `AWS_ACCESS_KEY_ID`}}&quot;,</code></p>
+
+<p><code>&#160;&#160;&#160; &quot;aws_secret_key&quot;: &quot;{{env `AWS_ACCESS_KEY`}}&quot;,</code></p>
+
+<p><code>&#160;&#160;&#160; &quot;aws_source_ami&quot;: &quot;&quot;,</code></p>
+
+<p><code>&#160;&#160;&#160; &quot;instance_type&quot;: &quot;m3.large&quot;,</code></p>
+
+<p><code>&#160;&#160;&#160; &quot;virtualbox_source_image&quot;: &quot;&quot;,</code></p>
+
+<p><code>&#160;&#160;&#160; &quot;insecure_private_key&quot;: &quot;./keys/insecure_private_key&quot;</code></p>
+
+<p><code>&#160;&#160;&#160; },</code></p>
+
+<p><code>&#160; &quot;builders&quot;: [</code></p>
+
+<p><code>&#160;&#160;&#160; {</code></p>
+
+<p><code>&#160;&#160;&#160;&#160;&#160; &quot;name&quot;: &quot;cloudify_docker_image_generator_image&quot;,</code></p>
+
+<p><code>&#160;&#160;&#160;&#160;&#160; &quot;type&quot;: &quot;amazon-ebs&quot;,</code></p>
+
+<p><code>&#160;&#160;&#160;&#160;&#160; &quot;access_key&quot;: &quot;{{user `aws_access_key`}}&quot;,</code></p>
+
+<p><code>&#160;&#160;&#160;&#160;&#160; &quot;secret_key&quot;: &quot;{{user `aws_secret_key`}}&quot;,</code></p>
+
+<p><code>&#160;&#160;&#160;&#160;&#160; &quot;ssh_private_key_file&quot;: &quot;{{user `insecure_private_key`}}&quot;,</code></p>
+
+<p><code>&#160;&#160;&#160;&#160;&#160; &quot;region&quot;: &quot;eu-west-1&quot;,</code></p>
+
+<p><code>&#160;&#160;&#160;&#160;&#160; &quot;source_ami&quot;: &quot;{{user `aws_source_ami`}}&quot;,</code></p>
+
+<p><code>&#160;&#160;&#160;&#160;&#160; &quot;instance_type&quot;: &quot;{{user `instance_type`}}&quot;,</code></p>
+
+<p><code>&#160;&#160;&#160;&#160;&#160; &quot;ssh_username&quot;: &quot;vagrant&quot;,</code></p>
+
+<p><code>&#160;&#160;&#160;&#160;&#160; &quot;user_data_file&quot;: &quot;userdata/add_vagrant_user.sh&quot;,</code></p>
+
+<p><code>&#160;&#160;&#160;&#160;&#160; &quot;ami_name&quot;: &quot;cloudify docker image builder {{timestamp}}&quot;</code></p>
+
+<p><code>&#160;&#160;&#160; },</code></p>
+
+<p><code>&#160;&#160;&#160; ... more builders with different images according to the relevant distro...</code></p>
+
+<p><code>&#160; ],</code></p>
+
+<p><code>&#160; &quot;provisioners&quot;: [</code></p>
+
+<p><code>&#160;&#160;&#160; {</code></p>
+
+<p><code>&#160;&#160;&#160;&#160;&#160; &quot;type&quot;: &quot;shell&quot;,</code></p>
+
+<p><code>&#160;&#160;&#160;&#160;&#160; &quot;script&quot;: &quot;provision/provision.sh&quot;</code></p>
+
+<p><code>&#160;&#160;&#160; }</code></p>
+
+<p><code>&#160; ]</code></p>
+
+<p><code>}</code></p>
+
+<p><code>
+    <br /></code></p>
+
+<p>The `provision.sh`, in this case, installs Docker and `docker-compose` and exposes the Docker API (for docker-compose). The generated AMI is then used in the Vagrantfile. Another example would be generating our agent packages which require ruby, <a href="https://github.com/jordansissel/fpm">fpm</a> and <a href="https://packman.readthedocs.org/en/latest/">packman</a>. We can use Packer to create an image containing them for each distro and.. fun!</p>
+
+<h2>There are cons, but even so...</h2>
+
+<p>This solution isn't perfect. Spinning up VMs takes time and is a process prone to environmental failures. In addition, it costs more money and exposes some security related issues (obviously, security-wise, no-VMs is better than VMs).</p>
+
+<h2>Win!</h2>
+
+<p>What we've come to see is that it's worth it. Before making the switch, unclean machines were generating our artifacts and we constantly stumbled upon failing builds. Adding several minutes to a parallel execution of multiple artifact build flows is not a deal breaker. The machines are not up long enough to be breached (and security-groups are configured properly of course); and the few hundreds of dollars a month are not an issue when this solution provides us with the ability to get a clean environment every time.</p>
+
+<p>By the way, the time added to spin up VMs can also be reduced by building on clouds providing faster VM provisioning like local OpenStack installations, Exoscale (hosted Cloudstack) or Digital-Ocean. We chose AWS thanks to its stability and availability. We might (and probably will) switch to a different provider in the near future. Who knows... maybe we'll start using Docker for that...</p>
+
+<h2>So?</h2>
+
+<p>Since we started building our artifacts as described above, we've mostly only experienced problems with build process logic and (rarely) missing prerequirements. These can be substantially reduced by using images which contain as many prerequirements as possible.</p>
+  </notextile>
