@@ -15,7 +15,7 @@ var formcompany ="";
 var dataBtnName=""; // this is the name of the mixpanel resource
 var dataBtnSplit="";
 
-//Manage Downloads Gating;
+//Manage Downloads Gating modal pop up form;
 //========================================//
 var strVar="";
 strVar += "<div class=\"modal fade\" id=\"myModal\" tabindex=\"-1\" role=\"dialog\" aria-labelledby=\"myModalLabel\" aria-hidden=\"true\">";
@@ -45,6 +45,35 @@ strVar += "        <\/div>";
 strVar += "        <\/div>";
 
 
+//Manage Downloads Gating collapse form ;
+//========================================//
+var strCollapse="";
+strCollapse += "<div class=\"collapse\" id=\"myCollapse\" tabindex=\"-1\" role=\"dialog\" aria-labelledby=\"myCollapseLabel\" aria-hidden=\"true\">";
+strCollapse += "<div class=\"gattingWrapper\" style=\"margin:0;\">";
+strCollapse += "           <form id=\"regiterToDownload\" action=\"https:\/\/www.salesforce.com\/servlet\/servlet.WebToLead?encoding=UTF-8\" method=\"POST\">";
+strCollapse += "			<div class=\"regTitle\" style=\"text-align:left;\">Verify You're Human<\/div>";
+strCollapse += "			<div style=\"position:relative\">";
+strCollapse += "				<input  id=\"last_name\" name=\"last_name\" type=\"text\" class=\"cuInput\" placeholder=\"Your Name\" \/>";
+strCollapse += "				<div class=\"cuValid\"><\/div>";
+strCollapse += "			<\/div>";
+strCollapse += "			<div style=\"position:relative\">";
+strCollapse += "				<input  id=\"email\" name=\"email\"  type=\"text\"  placeholder=\"Your Email\"\/>";
+strCollapse += "				<div class=\"cuValid\"><\/div>";
+strCollapse += "			<\/div>";
+strCollapse += "			<div style=\"position:relative\">";
+strCollapse += "				<input  id=\"company\" name=\"company\"  type=\"text\"  placeholder=\"Your Company\"\/>";
+strCollapse += "				<div class=\"cuValid\"><\/div>";
+strCollapse += "			<\/div>";
+
+strCollapse +="          <input id=\"website\" name=\"website\" type=\"text\" value=\"\"  \/>";
+strCollapse += "			<input type=\"submit\" class=\"cuSendGatting btn btn-medium btn-theme-red btn-rounded\" name=\"submit\" value=\"Download\" \/>";
+strCollapse += "   <br\/><br\/>";
+
+strCollapse += "			<\/form>";
+strCollapse += "        <\/div>";
+strCollapse += "        <\/div>";
+
+
 
 
 //set download cookie
@@ -56,7 +85,7 @@ function openDownloadWindowFunction() {
 function setCookie(key, value) {
     var expires = new Date();
     expires.setTime(expires.getTime() + (180 * 24 * 60 * 60 * 1000));
-    document.cookie = key + '=' + value + ';expires=' + expires.toUTCString();
+    document.cookie = key + '=' + value + ';expires=' + expires.toUTCString()+';path=/';
 }
 
 function getCookie(key) {
@@ -85,10 +114,24 @@ $("body,.testimonial").on('click', '.gattingWrapperClose', function(){
   $(".download").bind("contextmenu",function(e){
        return false;
     }); 
-  
 
 
-  $("#downloadme,.eaTitle,.downloadme,.download").click(function (e) {
+$(".downloadClps").click(function (e) {   
+          downloadHref = $(this).attr('href');
+          dataBtnName = $(this).attr("data-btn-type");
+          dataBtnSplit = $(this).attr("data-btn-split");
+          if (getCookie('cfydirect') == null) {
+          $("#myCollapse").remove();
+          //$("#wrapper").before(strCollapse);
+		  $(this).closest("div.addFormAfter").after(strCollapse);
+          downloadValid();
+          downloadFile(e);
+      } else {
+          directDownload(e);
+      }
+});
+
+$("#downloadme,.eaTitle,.downloadme,.download").click(function (e) {
       
           downloadHref = $(this).attr('href');
           dataBtnName = $(this).attr("data-btn-type");
@@ -123,6 +166,8 @@ setTimeout(function() {
 }
 
 
+
+
 //this function manage download process
 function downloadFile(e)
 	{
@@ -130,6 +175,7 @@ function downloadFile(e)
 			e.preventDefault();
 			//Gating PopUp
 			$('#myModal').modal('toggle');
+			$('#myCollapse').addClass('in');
 			if(gotName == false){
 				//randomgen();
 				if ($("#regiterToDownload").validate()==true){
