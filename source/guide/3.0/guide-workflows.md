@@ -57,14 +57,14 @@ Viewing a workflow's parameters can be done in the CLI using the following comma
 This command shows information on the `my_workflow` workflow of the `my_deployment` deployment, including the workflow's mandatory parameters as well as the optional parameters and their default values.
 
 *Example: Retrieving a workflow's parameters*
-![Workflows Get CLI screenshot](/guide/images3/guide/workflows-get.png)
+![Workflows Get CLI screenshot]({{ site.baseurl }}/guide/images3/guide/workflows-get.png)
 *The workflow has a single mandatory parameter named* `mandatory_parameter`*, and two optional parameters, one named* `optional_parameter` *which has a default value of* `optional_parameter_default_value`*, and another named* `nested_parameter` *which has a complex default value.*
 
 <br>
 When executing a workflow, it's required to specify values for all mandatory parameters, and it's possible to override the default values for any of the optional parameters. Parameters are passed in the CLI with the `-p` flag, and in JSON format.
 
 *Example: Executing a workflow with parameters*
-![Execute with parameters CLI screenshot](/guide/images3/guide/execute-with-parameters.png)
+![Execute with parameters CLI screenshot]({{ site.baseurl }}/guide/images3/guide/execute-with-parameters.png)
 *Executing the workflow and passing the value* `mandatory_parameter_value` *for the* `mandatory_parameter` *parameter, and overriding the value of the* `nested_parameter` *parameter with a new complex value (though it could have been overridden with a non-complex value as well).*
 
 <br>
@@ -78,7 +78,7 @@ Both workflows and executions live in the context of a deployment - The reason t
 
 
 *Example: Retrieving an execution's parameters*
-![Executions Get CLI screenshot](/guide/images3/guide/executions-get.png)
+![Executions Get CLI screenshot]({{ site.baseurl }}/guide/images3/guide/executions-get.png)
 *The workflow was executed with three parameters with the presented values. It can be seen that the* `optional parameter` *parameter was assigned with its default value, while the* `nested_parameter` *parameter's value was overridden with the new complex value.*
 
 <br>

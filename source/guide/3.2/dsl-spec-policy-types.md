@@ -1,7 +1,7 @@
 ---
 layout: bt_wiki
 title: Policy Types
-category: DSL Specification
+category: Blueprints DSL
 publish: true
 pageord: 290
 
@@ -12,7 +12,7 @@ Policies provide a way of analyzing a stream of events that correspond to a grou
 
 Policy Types specify the implementation of event stream analyzers and declare the properties that define their behavior.
 
-See [Policies Authoring Guide](guide-authoring-policies.html) for further details on creating custom policies.
+See [Policies Authoring Guide](policies-authoring.html) for further details on creating custom policies.
 
 ## Policy Types Declaration
 

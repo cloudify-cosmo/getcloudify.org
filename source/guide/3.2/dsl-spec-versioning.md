@@ -1,7 +1,7 @@
 ---
 layout: bt_wiki
 title: Versioning
-category: DSL Specification
+category: Blueprints DSL
 publish: true
 abstract: "Cloudify DSL Versioning"
 pageord: 300

@@ -1,0 +1,156 @@
+---
+layout: blogpost
+title: Orchestration Tool Roundup - Docker Swarm vs. Kubernetes, TerraForm vs. TOSCA/Cloudify vs. Heat
+image: nati.png
+author: Nati Shalom
+tags:
+ - Cloud Orchestration
+ - Docker
+ - Orchestration Tools
+ - TOSCA
+ - OpenStack Heat
+---
+
+<notextile>
+<img src="http://getcloudify.org/img/blog/roundup.png" alt="OpenStack Heat | Cloud Application Orchestration | OpenStack Orchestration | TOSCA | Orchestration Tools | Docker">
+<br/>
+<br/>
+
+<p>Containers was definitely one of major topics during the OpenStack Summit in Vancouver.</p>
+
+<p>There many announcements and projects that aim to leverage containers in various ways. The most notable one was the new Magnum project, which aims to make <a href="http://getcloudify.org/2015/04/26/dockerfile-docker-container-tutorial-images-cloud-vm.html" target="_blank">Docker</a> and <a href="http://getcloudify.org/2014/12/14/TOSCA-docker-container-orchestration-microservices-architecture-kubernetes.html" target="_blank">Kubernetes</a> first class citizens in OpenStack.</p>
+
+<p>Having said that, it's not too hard to see that the container space is becoming very crowded and <a href="http://getcloudify.org/docker-orchestration-docker-container-deployment-cloud.html" target="_blank">container orchestration</a> specifically is now a hot area and, as such, very confusing. My session during the summit was aimed to map the orchestration landscape for those who feel confused.</p>
+
+<p>Apparently comparing the various <a href="http://getcloudify.org/2015/06/02/openstack-heat-orchestration-cloud-network-automation-scaling.html" target="_blank">orchestration tools</a> was much more challenging than what I had originally anticipated. Part of the reason was that every orchestration framework took a fairly different approach depending on the underlying assumption by which it was built. </p>
+
+<p>In this post I wanted to highlight the main takeaway from this exercise.</p>
+
+<hr>
+
+<span class="pullquote-left">
+  <font style="font-weight: bold" size="5" face="Baskerville Old Face"><em>Hear this talk and many others at OpenStack Israel 2015!</em></font>&nbsp;&nbsp; <a class="btn btn-medium btn-theme btn-rounded" id="downloadBtnInner" href="http://www.openstack-israel.org/" target="_blank"><i class="icon-plus"></i> Go </a></span>
+  
+<hr>
+
+<p>I'll start with some basic definitions to set the stage - specifically, what is orchestration and then what was the method we used to compare the different approaches to orchestration.&#160; I will end by giving some guidelines on how to choose the right orchestration for the job. </p>
+
+<p><b></b></p>
+
+<h2>Orchestration 101</h2>
+
+<p>Orchestration is a means with which to automate manual processes. A good analogy for this is the role of Robots in the car manufacturing pipeline.</p>
+
+<p>Similar to these robots, Orchestration is programmed to take an IT management task done manually and automate it.</p>
+
+<p class="aligncenter"><img src="http://getcloudify.org/img/blog/orchestrationcars.png" /></p>
+
+<p>The common characteristics behind most orchestrations is that they often use some sort of DSL or script to define the application deployment process. The orchestration engine uses this definition as an input and translates it into a set of tasks that interact with the underlying infrastructure which allow it to spawn VM's, configure, and install apps.</p>
+
+<p>Different assumptions led to different approaches. For example, if you're assuming that your world is based only on containers, your approach would be similar to that of Docker. If you're specifically designing for Micro-Services then Kubernetes may be the right choice. However, if your looking for orchestration of a specific cloud infrastructure, <a href="http://getcloudify.org/2015/05/22/openstack-cloud-tosca-network-orchestration-automation-yaml-heat-summit-vancouver.html" target="_blank">OpenStack Heat</a> or Amazon CloudFormation would be the right approach. Similarly, if your environment is a mix of containers and non containerized workloads, and you may be using a mix of OpenStack and other clouds, then you may need an orchestration tool that isn't bound to a specific infrastructure or container technology. This is where TOSCA/Cloudify and Terraform could be the right choice.</p>
+
+<p><b></b></p>
+
+<h2>Orchestration Roundup</h2>
+
+<p>For the orchestration roundup we ended up choosing 5 different orchestration tools which cover three main categories:</p>
+
+<ul>
+  <li><b>Container</b><b>-</b><b>centric</b><b> </b>- Docker, Kubernetes </li>
+</ul>
+
+<ul>
+  <li><b>Pure-Play </b>- TOSCA/Cloudify, Terraform</li>
+</ul>
+
+<ul>
+  <li><b>Infrastructure-centric</b> - OpenStack Heat</li>
+</ul>
+
+<p>As the scope of this exercise was too broad, we decided deliberately to exclude PaaS solutions like OpenShift and CloudFoundry as well as configuration management tools such as Chef, Puppet, Ansible and SaltStack. We also decided not to cover all the possible orchestration tools but rather pick a selected sample per category with the assumption that they would serve as a good representation of all the rest.</p>
+
+<p>Finally, we decided not to take a deep dive into each technology but rather focus on measuring the different approaches and compare them on a semi technical/semi conceptual level.</p>
+
+<p><b></b></p>
+
+<h2>The method of comparison</h2>
+
+<p>We chose a NodeJS + MongoDB application, which is a fairly popular stack, and measured what it takes to automate the process of installation, configuration and management of this application in each tool starting from setting up the infrastructure (i.e. compute, storage, network) to the point where we have a full production-ready deployment.</p>
+
+<p class="aligncenter"><img src="http://getcloudify.org/img/blog/nodemongo.png"/></p>
+
+<p>We also measured how each tool handles the following set of common characteristics:</p>
+
+<ul>
+  <li><b>Dependency </b><b>M</b><b>anagement</b> - The ability to provision and configure the elements in a stack in the right order.</li>
+</ul>
+
+<ul>
+  <li><b>Reproducible</b> - The ability to wipe the entire deployment, start it all over again, and get the exact same results as the previous run.</li>
+</ul>
+
+<ul>
+  <li><b>Cloneable</b> - The ability to create multiple instances of the same application between QA, DEV, Production.</li>
+</ul>
+
+<ul>
+  <li><b>Recoverable</b> - The ability to recover from failure during the deployment or provisioning process.</li>
+</ul>
+
+<p>What's interesting is that the steps needed to orchestrate even a relatively simple stack proved to require lots of steps that are often overlooked. </p>
+
+<p>You can see the full details of that comparison on the slides and recording of the <a href="http://www.slideshare.net/giganati/orchestration-tool-roundup-kubernetes-vs-docker-vs-heat-vs-terra-form-vs-tosca-1" target="_blank">session from the summit:</a></p>
+
+<p><b></b></p>
+
+<p class="aligncenter"><iframe src="//www.slideshare.net/slideshow/embed_code/key/NEdB00KbjfUYf" width="425" height="355" frameborder="0" marginwidth="0" marginheight="0" scrolling="no" style="border:1px solid #CCC; border-width:1px; margin-bottom:5px; max-width: 100%;" allowfullscreen> </iframe> <div style="margin-bottom:5px"> <strong> <a href="//www.slideshare.net/giganati/orchestration-tool-roundup-kubernetes-vs-docker-vs-heat-vs-terra-form-vs-tosca-1" title="Orchestration tool roundup kubernetes vs. docker vs. heat vs. terra form vs. tosca (1)" target="_blank">Orchestration tool roundup kubernetes vs. docker vs. heat vs. terra form vs. tosca (1)</a> </strong> from <strong><a href="//www.slideshare.net/giganati" target="_blank">Nati Shalom</a></strong> </div></iframe></p>
+
+<p><strong></strong></p>
+
+<h2>Potential Synergies </h2>
+
+<p>We started the exercise by comparing the different approaches to orchestration. However, the reality is that each tool has its own sweet-spots and weaknesses, and therefore it is common to see a combination of the tools as a way to make the best out of each tool.</p>
+
+<p>Strong evidence of this was the announcement of the Magnum project which uses Heat to create the OpenStack infrastructure for running Kubernetes or <a href="http://getcloudify.org/2015/05/19/openstack-summit-vancouver-releases-cloud-kilo-juno-TOSCA-nfv-orchestration.html" target="_blank">Swarm</a>. In this case Heat is used where its best suited, which is to setup the OpenStack infrastructure and Kubernetes and Swarm to run containers on top of OpenStack.</p>
+
+<p>Similarly Cloudify/TOSCA also announced <a href="http://getcloudify.org/guide/3.2/plugin-docker.html" target="_blank">support for containers</a>, which will allow portability between Docker, CoreOS and other container technologies. The next step would be to serve as a complementary orchestrator to that of Kubernetes and Swarm, allowing for a way to setup the environment for containers on clouds other than OpenStack as well as by allowing management of mixed workloads that are not bounded to containers only.</p>
+
+<p><b></b></p>
+
+<h2>Which Orchestration to choose?</h2>
+
+<p>The bottom line of this entire exercise was to help users map the orchestration landscape. In a nutshell, I would say that if you're looking to orchestrating for Docker, then you should look at Docker Swarm. If you're looking for orchestration of Micro-Services in a way that you are not bounded to Docker, you should look to use Kubernetes.</p>
+
+<p>If you are looking for orchestration that is strictly bounded to OpenStack, a good starting point would be OpenStack Heat. On the other hand, if you're looking for orchestrating a mixed environment, you should be looking at TOSCA/Cloudify.</p>
+
+<p>As I mentioned in the section above, the reality is that in most enterprises we'll see a mix of containers and non-container workload in which case it makes sense to look at the combinations of orchestration tools rather than looking for a single solution to cover them all.</p>
+
+<p>You can find a more detailed response to this question on a previous interview on the subject <a href="http://opensource.com/business/15/5/interview-nati-shalom-gigaspaces" target="_blank">here</a>.</p>
+
+<p><b></b></p>
+
+<h2>Final Worlds - The only constant is change!</h2>
+
+<p>I've been a regular visitor at almost every OpenStack Summit event. I've also been covering the user-survey from the summit regularly. If there's been one thing that I can see clearly, year after year, it's that in each survey the top list of popular tools tends to vary quite dramatically between Puppet, Chef and later Ansible and SaltStack. Now containers and Docker.</p>
+
+<p>I'm also seeing the growth in popularity of TOSCA specifically in the enterprise and Carrier/NFV world. So, in my personal opinion, when we approach the orchestration and management challenge we need to assume that we'll continue to see this sort of dynamic where new tools and disruption are becoming a constant reality.</p>
+
+<p>A good indication of this was the recent move by Google who teamed with CoreOS to create an alternative stack to that of Docker as was recently announced <a href="http://www.forbes.com/sites/benkepes/2015/04/06/coreos-and-google-make-their-defensive-plays-is-docker-the-victim/" target="_blank">here</a>.</p>
+
+<p>So rather than continually jumping to the next big thing every time a new tool pops up, we can use an integration approach to allow us to plug-in those new technologies as they come along, and this has been the approach that we've taken with the Cloudify project. </p>
+
+<p><b></b></p>
+
+<h2>Special thanks</h2>
+
+<p>It wouldn't have been possible to cover all these vast amounts of information without the help of my friends at GigaSpaces who jumped on the challenge and spent hours and nights making sure that we are giving fair and honest coverage of each tool in the market.</p>
+
+<p>Special thanks goes to <a href="https://www.linkedin.com/in/uricohen">Uri Cohen</a> for covering the Test-Application and Terraform, and <a href="https://www.linkedin.com/pub/dan-kilman/56/934/2a0">Dan Kiliman</a> for covering Docker-Swarm and Kubernetes. I would also like to thank <a href="https://www.linkedin.com/in/idanmo">Idan Moyal</a> and <a href="https://www.linkedin.com/pub/yoram-weinreb/1/914/218">Yoram Weinreb</a> who helped me by covering TOSCA and Heat.</p>
+
+<p><b></b></p>
+
+<p><b>Further reading ..</b></p>
+
+<p><a href="http://opensource.com/business/15/5/interview-nati-shalom-gigaspaces" target="_blank">How to orchestrate containers in OpenStack</a></p><P></P>
+
+</notextile>

@@ -6,19 +6,19 @@
 {% capture next_month %}{{ post.previous.date | date: "%B" }}{% endcapture %}
 {% capture next_month_num %}{{ post.previous.date | date: "%m" }}{% endcapture %}	
 	{% if forloop.first %}
-<h2 class='archives'><a href="/{{this_year}}">{{this_year}}</a></h2>
-<h3><a href="/{{this_year}}/{{this_month_num}}">{{this_month}}</a></h3>
+<h2 class='archives'><a href="{{ site.baseurl }}/{{this_year}}">{{this_year}}</a></h2>
+<h3><a href="{{ site.baseurl }}/{{this_year}}/{{this_month_num}}">{{this_month}}</a></h3>
 <ul>{% endif %}{% include post-listing-inner.html %}
 	  {% if forloop.last %}</ul>
 	  {% else %}
 	  {% if this_year != next_year %}
 </ul>
-<h2 class='archives'><a href="/{{next_year}}">{{next_year}}</a></h2>
-<h3><a href="/{{next_year}}/{{next_month_num}}">{{next_month}}</a></h3>
+<h2 class='archives'><a href="{{ site.baseurl }}/{{next_year}}">{{next_year}}</a></h2>
+<h3><a href="{{ site.baseurl }}/{{next_year}}/{{next_month_num}}">{{next_month}}</a></h3>
 <ul>
       {% else %}{% if this_month != next_month %}
 </ul>
-<h3><a href="/{{this_year}}/{{next_month_num}}">{{next_month}}</a></h3>
+<h3><a href="{{ site.baseurl }}/{{this_year}}/{{next_month_num}}">{{next_month}}</a></h3>
 <ul>            {% endif %}
       {% endif %}
 	{% endif %}

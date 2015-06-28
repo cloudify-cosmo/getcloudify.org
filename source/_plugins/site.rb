@@ -42,8 +42,42 @@ module Jekyll
 		    payload["categories"]=["Getting Started", "Agents", "Release Notes","Installation & Setup","Bootstrapping","Developing Recipes","Common Patterns","Deploying Services & Applications","Monitoring Your Applications","Developing Cloud Drivers", "Plugins and Probes","Integration","REST API","Reference","Contributing", "User Interface"]
         payload["categories_3_1"]=["Installation", "Agents", "Guides", "Product Overview", "Reference", "Official Plugins", "Contributed Plugins", "DSL Specification", "User Interface", "Troubleshooting"]
         payload["categories_3_1_root"] = ['','','','','','/guide/3.1/plugin-official-general.html','/guide/3.1/plugin-contrib-general.html','/guide/3.1/dsl-spec-general.html','',''];
-        payload["categories_3_2"]=["Installation", "Agents", "Guides", "Product Overview", "Reference", "Official Plugins", "Contributed Plugins", "DSL Specification", "User Interface", "Troubleshooting"]
-        payload["categories_3_2_root"] = ['','','','','','/guide/3.2/plugin-official-general.html','/guide/3.2/plugin-contrib-general.html','/guide/3.2/dsl-spec-general.html','',''];
+        payload["categories_3_2"]=[
+            "Getting Started",
+            "Product Overview",
+            "Command-Line Interface",
+            "Web Interface",
+            "Manager Blueprints",
+            "Blueprints",
+            "Blueprints DSL",
+            "Workflows",
+            "Plugins",
+            "Official Plugins",
+            "Contributed Plugins",
+            "Policies",
+            "Agents",
+            "Guides",
+            "Reference",
+            "APIs",
+            "Troubleshooting"]
+        payload["categories_3_2_root"] = [
+            '/guide/3.2/getting-started.html',
+            '/guide/3.2/overview-general.html',
+            '/guide/3.2/cli-general.html',
+            '/guide/3.2/webui-general.html',
+            '/guide/3.2/manager-blueprints-general.html',
+            '/guide/3.2/blueprints-general.html',
+            '/guide/3.2/dsl-spec-general.html',
+            '/guide/3.2/workflows-general.html',
+            '/guide/3.2/plugins-general.html',
+            '/guide/3.2/plugins-official-general.html',
+            '/guide/3.2/plugins-contrib-general.html',
+            '/guide/3.2/policies-general.html',
+            '/guide/3.2/agents-general.html',
+            '',
+            '',
+            '',
+            ''];
         h["site"] = payload
         h
     end

@@ -33,17 +33,17 @@ The output file of the tar command above will be `blueprint-name.tar.gz`.
 Cloudify's UI allows the user to upload a packaged blueprint TAR file to the Cloudify Manager.
 The upload blueprint button can be found in the "Blueprints" section in the UI:
 
-![The blueprint upload button](/guide/images/ui/ui_upload_blueprint_button.png)
+![The blueprint upload button]({{ site.baseurl }}/guide/images/ui/ui_upload_blueprint_button.png)
 
 
 Once the blueprint upload dialog appears, the user can select a blueprint TAR file from the filesystem by pressing the `+` button:
 
-![The blueprint upload dialog](/guide/images/ui/ui_upload_dialog.png)
+![The blueprint upload dialog]({{ site.baseurl }}/guide/images/ui/ui_upload_dialog.png)
 
 
 After a blueprint TAR file is selected, the `Save` button will become available. The blueprint name is an optional field. The user can enter a custom blueprint name, or leave this input field blank & Cloudify will use the name defined in the blueprint YAML.
 
-![The user can enter a custom blueprint name](/guide/images/ui/ui_upload_dialog_with_name.png)
+![The user can enter a custom blueprint name]({{ site.baseurl }}/guide/images/ui/ui_upload_dialog_with_name.png)
 
 
 Once the `Save` button is clicked, the button will be grayed out until the blueprint file is fully uploaded to Cloudify. After the upload is done, the user will be redirected to the blueprint's page.

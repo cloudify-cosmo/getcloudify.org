@@ -15,10 +15,10 @@ The following [types]({{page.terminology_link}}#type) are basic types from which
 
 * `cloudify.nodes.Root` - The base type for all built-in types. declares the following interfaces:
 
-  - `cloudify.interfaces.lifecycle`: An interface for standard life cycle operations (e.g. create, start, stop, etc.). Operations of this interface are called from the [built-in](guide-workflows.html#built-in-workflows) [*install*](reference-builtin-workflows.html#install) and [*uninstall*](reference-builtin-workflows.html#uninstall) workflows.
-  - `cloudify.interfaces.validation`: An interface for pre-creation and pre-deletion validation operations. These may be called by using the [*execute_operation*](reference-builtin-workflows.html#execute-operation) built-in workflow or by a [custom workflow](guide-workflows.html#writing-a-custom-workflow). The Cloudify CLI calls these operations before the bootstrap and teardown of the Cloudify manager.
-  - `cloudify.interfaces.monitoring_agent`: An interface for monitoring agent. Operations of this interface are called from the [built-in](guide-workflows.html#built-in-workflows) [*install*](reference-builtin-workflows.html#install) and [*uninstall*](reference-builtin-workflows.html#uninstall) workflows.
-  - `cloudify.interfaces.monitoring`: An interface for monitoring configuration. Operations of this interface are called from the [built-in](guide-workflows.html#built-in-workflows) [*install*](reference-builtin-workflows.html#install) and [*uninstall*](reference-builtin-workflows.html#uninstall) workflows.
+  - `cloudify.interfaces.lifecycle`: An interface for standard life cycle operations (e.g. create, start, stop, etc.). Operations of this interface are called from the [built-in](workflows-built-in.html) [*install*](workflows-built-in.html#the-install-worklow) and [*uninstall*](workflows-built-in.html#the-uninstall-worklow) workflows.
+  - `cloudify.interfaces.validation`: An interface for pre-creation and pre-deletion validation operations. These may be called by using the [*execute_operation*](workflows-built-in.html#the-execute-operation-worklow) built-in workflow or by a [custom workflow](workflows-authoring.html). The Cloudify CLI calls these operations before the bootstrap and teardown of the Cloudify manager.
+  - `cloudify.interfaces.monitoring_agent`: An interface for monitoring agent. Operations of this interface are called from the [built-in](workflows-built-in.html) [*install*](workflows-built-in.html#the-install-worklow) and [*uninstall*](workflows-built-in.html#the-uninstall-worklow) workflows.
+  - `cloudify.interfaces.monitoring`: An interface for monitoring configuration. Operations of this interface are called from the [built-in](workflows-built-in.html) [*install*](workflows-built-in.html#the-install-worklow) and [*uninstall*](workflows-built-in.html#the-uninstall-worklow) workflows.
 
 * `cloudify.nodes.Tier` - A marker for a future scale group
 
@@ -140,23 +140,19 @@ Links to Cloudify packages to be installed on the manager
 ### schema
 {% highlight yaml %}
 cloudify_packages:
-    server:
-        compnonets_package_url: {url}
-        core_package_url: {url}
-        ui_package_url: {url}
     agents:
         ubuntu_agent_url: {url}
         centos_agent_url: {url}
         windows_agent_url: {url}
+    docker:
+        docker_url: {url}
 {%endhighlight%}
 
 ### parameters details
 
-* server
-  * `components_package_url` The URL for the Cloudify components package (Default: a URL of the relevant package).
-  * `core_package_url` The URL for the Cloudify core package (Default: a URL of the relevant package).
-  * `ui_package_url` The URL for the Cloudify UI package. If provided with an empty string, the UI won’t be installed (Default: a URL of the relevant package).
 * agents
   * `ubuntu_agent_url` The URL for the Ubuntu agent package. If provided with an empty string, no package will be downloaded (Default: a URL of the relevant package).
   * `centos_agent_url` The URL for the CentOS agent package. If provided with an empty string, no package will be downloaded (Default: a URL of the relevant package).
   * `windows_agent_url` The URL for the Windows agent package. If provided with an empty string, no package will be downloaded (Default: a URL of the relevant package).
+* docker
+  * `docker_url` The URL for the Cloudify manager docker image (Default: a URL of the relevant package).

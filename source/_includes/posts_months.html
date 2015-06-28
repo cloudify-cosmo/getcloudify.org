@@ -7,7 +7,7 @@
 	{% capture next_month_num %}{{ post.previous.date | date: "%m" }}{% endcapture %}
 
 	{% if forloop.first %}
-<li><a href="/{{this_year}}/{{this_month_num}}">{{this_month}} {{this_year}}</a> <span class="blue">({{ site.monthly_count[this_year][this_month_num] }})</span></li>
+<li><a href="{{ site.baseurl }}/{{this_year}}/{{this_month_num}}">{{this_month}} {{this_year}}</a> <span class="blue">({{ site.monthly_count[this_year][this_month_num] }})</span></li>
 
 	{% endif %}
 
@@ -16,11 +16,11 @@
 	{% else %}
 		{% if this_year != next_year %}
 
-<li><a href="/{{next_year}}/{{next_month_num}}">{{next_month}} {{next_year}}</a> <span class="blue">({{ site.monthly_count[next_year][next_month_num] }})</span></li>
+<li><a href="{{ site.baseurl }}/{{next_year}}/{{next_month_num}}">{{next_month}} {{next_year}}</a> <span class="blue">({{ site.monthly_count[next_year][next_month_num] }})</span></li>
 
 		{% else %}
 			{% if this_month != next_month %}
-<li><a href="/{{this_year}}/{{next_month_num}}">{{next_month}} {{this_year}}</a> <span class="blue">({{ site.monthly_count[this_year][next_month_num] }})</span></li>
+<li><a href="{{ site.baseurl }}/{{this_year}}/{{next_month_num}}">{{next_month}} {{this_year}}</a> <span class="blue">({{ site.monthly_count[this_year][next_month_num] }})</span></li>
 
 			{% endif %}
 		{% endif %}
