@@ -61,14 +61,17 @@ widgetModule.controller('widgetController', function( $scope, $timeout, $control
                 $scope.widgetController.widgetStarted = true;
                 $scope.widgetController.machineStarted = true;
                 $scope.widgetController.machineIp = mockIp;
-                $scope.widgetController.butterflySource = $sce.trustAsResourceUrl('http://' + $scope.widgetController.machineIp + ':8011/');
+                if ( mockIp !== '1.1.1.1') {
+                    $scope.widgetController.butterflySource = $sce.trustAsResourceUrl('http://' + $scope.widgetController.machineIp + ':8011/');
+                }
                 $scope.widgetController.expires = new Date( new Date().getTime() + 3600000 );
                 $scope.widgetController.timeLeft = new Date( 3600000 );
-
-                return;
+                //
+                return true;
             }
         }catch(e){
             console.log('check for mock failed');
+            return;
         }
 
 
