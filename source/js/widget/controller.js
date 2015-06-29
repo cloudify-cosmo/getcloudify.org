@@ -53,6 +53,25 @@ widgetModule.controller('widgetController', function( $scope, $timeout, $control
     }
 
     $scope.tryItNowBtn = function() {
+
+        try {
+            if ( location.search.indexOf('mockIp') >= 0) {
+                var mockIp = location.search.split(['mockIp='])[1].split('&')[0];
+                // simulate started on ip X
+                $scope.widgetController.widgetStarted = true;
+                $scope.widgetController.machineStarted = true;
+                $scope.widgetController.machineIp = mockIp;
+                $scope.widgetController.butterflySource = $sce.trustAsResourceUrl('http://' + $scope.widgetController.machineIp + ':8011/');
+                $scope.widgetController.expires = new Date( new Date().getTime() + 3600000 );
+                $scope.widgetController.timeLeft = new Date( 3600000 );
+
+                return;
+            }
+        }catch(e){
+            console.log('check for mock failed');
+        }
+
+
         if ($scope.widgetController.widgetLoaded) {
             if ($scope.widgetController.alreadyRegistered) {
                 // Start the machine
