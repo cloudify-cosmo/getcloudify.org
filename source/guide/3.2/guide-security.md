@@ -210,9 +210,9 @@ This is the default SSL configuration:
   In this case, every client that wants to verify the manager's certificate needs to recieve a copy of the certificate file in order to use it for verification (see [Manager's certificate verification](#ssl-cli-configuration) )
 
 
-  The following command can be used for creating a self-sigend certificate: 
+  The following command can be used for creating a self-signed certificate: 
   {% highlight bash %}
-    openssl req -x509 -newkey rsa:2048 -keyout key.pem -out certificate.pem -days 365 
+    openssl req -x509 -nodes -newkey rsa:2048 -keyout key.pem -out certificate.pem -days 365 -batch
   {% endhighlight %}
   For more information see [The openssl req command](https://www.openssl.org/docs/apps/req.html).
 {%endtip%}
