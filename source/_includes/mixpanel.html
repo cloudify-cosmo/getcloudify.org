@@ -35,7 +35,9 @@
                 'page name': document.title,
                 'url': window.location.pathname
             });
-        });	//Try It Now Click
+        });	
+		
+		//Try It Now Click
         $("a.hp-tryItNow").click(function () {
             mixpanel.track("Try it Now HP Button Clicks", {
                 'page name': document.title,
@@ -124,6 +126,16 @@
         mixpanel.people.set({
             "Page Views": document.title
         });
+		
+		
+		//Get Cloudify Button Clicks - on download page
+        $(".analyticsTest").click(function () {
+            mixpanel.track("Analytics Test Page", {
+                'page name': document.title,
+                'url': window.location.pathname,
+				'Analytics Test download-type':this.attributes[3].value
+            });
+        });	
 
     }
 
