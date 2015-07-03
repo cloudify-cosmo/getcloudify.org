@@ -250,9 +250,10 @@ It applies DNAT and SNAT rules for `any` protocol and `any` original and transla
 
 ## cloudify.vcloud.net_connected_to_public_nat
 **Description:** A relationship for associating PublicNAT and Network.
+*Note*: PublicNAT node, uses with this relationship, can contains only 'SNAT' rule type.
 
 **Mapped Operations:**
-
+  * `cloudify.interfaces.relationship_lifecycle.preconfigure`: Validate rule type restriction.
   * `cloudify.interfaces.relationship_lifecycle.establish`: associates PublicNAT with Network.
   * `cloudify.interfaces.relationship_lifecycle.unlink`: dissociates PublicNAT from Network.
 
