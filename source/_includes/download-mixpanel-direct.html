@@ -19,15 +19,13 @@ var dataBtnSplit="";
 
 
 function openDownloadWindowFunction() {
-    //var myWindow = window.open("/test/get_cloudify_3x_direct.html", "MsgWindow", "width=600, height=600");
-    //myWindow.document.write();
-	setCookie('direct',formName+","+formEmail+","+formcompany);
-	window.open("/test/get_cloudify_3x_direct.html", "MsgWindow", "width=600, height=600 ,toolbar=yes,menubar=yes");
+    setCookie('cfydirect', formName + "," + formEmail + "," + formcompany);
+	window.open("/downloads/get_cloudify_3x_abtest3_direct.html", "MsgWindow", "width=600, height=600 ,toolbar=yes,menubar=yes");
 }
 
 function setCookie(key, value) {
             var expires = new Date();
-            expires.setTime(expires.getTime() + (1 * 24 * 60 * 60 * 1000));
+            expires.setTime(expires.getTime() + (180 * 24 * 60 * 60 * 1000));
             document.cookie = key + '=' + value + ';expires=' + expires.toUTCString();
         }
 
@@ -56,7 +54,7 @@ $('#regiterToDownload').submit(function(e){
 
 $("#downloadme,.eaTitle,.downloadme,.download").click(function(e) {  
     //$('#myModal').modal('toggle');
-	if(getCookie('direct')!=null){
+    if (getCookie('cfydirect') != null) {
 		downloadHref = $(this).attr('href'); 
 		dataBtnName = $(this).attr("data-btn-type");
 		dataBtnSplit = $(this).attr("data-btn-split");
@@ -66,7 +64,7 @@ $("#downloadme,.eaTitle,.downloadme,.download").click(function(e) {
 		directDownload(e);
 	}else{
 		e.preventDefault();
-		window.location.href = "/test/get_cloudify_3x_frm.html";
+		window.location.href = "/downloads/get_cloudify_3x_abtest3.html";
 	}
 });
 
@@ -99,9 +97,9 @@ function track_download(downloadHref) {
 		zipName=downloadHref.split("/")[dataBtnSplit]; 
 		mixpanel.track(dataBtnName, {'Zip Name':zipName, 'Source':document.URL});
 		if(mixpanel.cookie.props.__alias==undefined){
-            formEmail =  getCookie('direct').split(",")[1];
-            formName =  getCookie('direct').split(",")[0];
-			formcompany =  getCookie('direct').split(",")[2];
+		    formEmail = getCookie('cfydirect').split(",")[1];
+		    formName = getCookie('cfydirect').split(",")[0];
+		    formcompany = getCookie('cfydirect').split(",")[2];
 			mixpanel.identify(formEmail);
             mixpanel.alias(formName, formEmail, formcompany);
             mixpanel.name_tag(formName) ;
@@ -150,7 +148,7 @@ function downloadValid(e){
 			},
         messages: {
             last_name: {
-                required: "Please enter your name",
+                required: "Please enter your first name",
             },
             email: {
                 required: "Please specify your email",

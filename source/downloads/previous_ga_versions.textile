@@ -36,10 +36,47 @@ cat: User Guide
 
 	<!--<h2>We just released the GA of version 2.6.0 and we're now working on our next build.  Stay tuned.</h2>-->
 
+<h2 class="name"><strong>3.1 GA</strong></h2>
+<p><strong>Cloudify CLI Installers</strong></p>
+<p>The CLI installer installs the Cloudify CLI and enables you to boostrap a Cloudify manager, interact with it and manage blueprints and deployments. Refer to the <a href="{{ site.baseurl }}/guide/3.0/guide-cli.html">CLI guide</a> for more details. For boostrapping directions refer to the boostrapping tutorials for the cloud of your choice.</p>
+<p><strong>To install the CLI on operating systems other than the ones listed below please refer to the <a href="{{ site.baseurl }}/guide/3.1/guide-cli.html">CLI guide</a>.</strong></p>
+<p class="download"> <a class="eaTitle" href="http://gigaspaces-repository-eu.s3.amazonaws.com/org/cloudify3/3.1.0/ga-RELEASE/cloudify-linux64-cli_3.1.0-ga-b85_amd64.deb" data-btn-type="GA Previous Product Download 3.1" onclick="javascript: _gaq.push(['_trackEvent', 'Previous Product Download', 'Cloudify 3x', '/downloads/cloudify3/3.1.0/ga-RELEASE/cloudify-linux64-cli_3.1.0-ga-b85_amd64.deb/get_cloudify_3x']);">UBUNTU/DEBIAN 64</a>
+<p class="download"> <a class="eaTitle" href="http://gigaspaces-repository-eu.s3.amazonaws.com/org/cloudify3/3.1.0/ga-RELEASE/cloudify-linux32-cli_3.1.0-ga-b85_i386.deb" data-btn-type="GA Previous Product Download 3.0" onclick="javascript: _gaq.push(['_trackEvent', 'Previous Product Download', 'Cloudify 3x', '/downloads/cloudify3/3.1.0/ga-RELEASE/cloudify-linux32-cli_3.1.0-ga-b85_i386.deb/get_cloudify_3x']);">UBUNTU/DEBIAN 32</a>
+<p class="download"> <a class="eaTitle" href="http://gigaspaces-repository-eu.s3.amazonaws.com/org/cloudify3/3.1.0/ga-RELEASE/cloudify-windows-cli_3.1.0-ga-b85.exe" data-btn-type="GA Previous Product Download 3.0" onclick="javascript: _gaq.push(['_trackEvent', 'Previous Product Download', 'Cloudify 3x', '/downloads/cloudify3/3.1.0/ga-RELEASE/cloudify-windows-cli_3.1.0-ga-b85.exe/get_cloudify_3x']);">WINDOWS</a>
+<p>&nbsp;</p>
+<p><strong>Quick Start Trial</strong></p>
+<p class="bs-callout bs-callout-warning">The Vagrant box and Vagrant file below contain a complete manager and CLI installation. They are only provided for getting started and demoing purposes and should not be used in production.</p>
+<p class="download"> <a class="eaTitle" href="http://gigaspaces-repository-eu.s3.amazonaws.com/org/cloudify3/3.1.0/ga-RELEASE/cloudify-virtualbox_3.2.0-ga-b85.box" data-btn-type="Vagrant Trial Download" onclick="javascript: _gaq.push(['_trackEvent', 'Previous Product Download', 'Cloudify 3x', '/downloads/cloudify_3.1.0_virtualbox.box/get_cloudify_3x']);">VAGRANT BOX (~1.1GB)</a>
+<p class="download"> <a class="eaTitle" href="http://gigaspaces-repository-eu.s3.amazonaws.com/org/cloudify3/3.1.0/ga-RELEASE/Vagrantfile" data-btn-type="Vagrant Trial Download" onclick="javascript: _gaq.push(['_trackEvent', 'Previous Product Download', 'Cloudify 3x', '/downloads/cloudify3/3.1.0/ga-RELEASE/Vagrantfile/get_cloudify_3x']);">VAGRANT FILE</a>
+<p><strong>For more details on how to get started with them please follow the Cloudify 3.1 <a href="{{ site.baseurl }}/guide/3.1/quickstart.html">Getting Started Guide</a></strong>.</p>
+<p>&nbsp;</p>
+<p><strong>Release Notes</strong></p>
+<p>Below is a list of new features, improvements, fixed issues, and known issues in Cloudify. We track all the issues in our public <a href="https://cloudifysource.atlassian.net/browse/CFY" target="_blank">JIRA</a>.</p>
+<ul>
+	<li><a href="https://cloudifysource.atlassian.net/issues/?filter=15581" target="_blank">Important Issues </a></li>
+	<li><a href="https://cloudifysource.atlassian.net/issues/?filter=14884" target="_blank">Bug Fixes </a></li>
+	<li><a href="https://cloudifysource.atlassian.net/issues/?filter=14885" target="_blank">New Features &amp; Improvements</a></li>
+	<li><a href="https://cloudifysource.atlassian.net/issues/?filter=14886" target="_blank">Known Issues</a></li>
+</ul>
+             <br class="clear"/>
+             <br class="clear"/>
+<p><strong>Cloudify Advanced Packages</strong></p>
+<p>The resources here are the individual Cloudify 3 packages that are installed on the server and application VM side. All components are installed in the manager VM, and the Cloudify agent is installed by default (although this can be overridden) on every new VM that is created by the manager as part of the installation of a specific deployment.</p>
+<p> <a href="http://gigaspaces-repository-eu.s3.amazonaws.com/org/cloudify3/3.1.0/ga-RELEASE/cloudify-core_3.1.0-ga-b85_amd64.deb" class="download" data-btn-type="Cloudify Manager Download" onclick="javascript: _gaq.push(['_trackEvent', 'Previous Product Download', 'Cloudify 3x', '/downloads/cloudify3/3.1.0/ga-RELEASE/cloudify-core_3.1.0-ga-b85_amd64.deb/get_cloudify_3x']);">Core</a><br>
+	<a href="http://gigaspaces-repository-eu.s3.amazonaws.com/org/cloudify3/3.1.0/ga-RELEASE/cloudify-components_3.1.0-ga-b85_amd64.deb" class="download" data-btn-type="Cloudify Manager Download" onclick="javascript: _gaq.push(['_trackEvent', 'Previous Product Download','Cloudify 3x', '/downloads/cloudify3/3.1.0/ga-RELEASE/cloudify-components_3.1.0-ga-b85_amd64.deb/get_cloudify_3x']);">Components</a><br>
+	<a href="http://gigaspaces-repository-eu.s3.amazonaws.com/org/cloudify3/3.1.0/ga-RELEASE/cloudify-ubuntu-agent_3.1.0-ga-b85_amd64.deb" class="download" data-btn-type="Cloudify Manager Download" onclick="javascript: _gaq.push(['_trackEvent', 'Previous Product Download', 'Cloudify 3x', '/downloads/cloudify3/3.1.0/ga-RELEASE/cloudify-ubuntu-agent_3.1.0-ga-b85_amd64.deb/get_cloudify_3x']);">Ubuntu Agent</a><br>
+	<a href="http://gigaspaces-repository-eu.s3.amazonaws.com/org/cloudify3/3.1.0/ga-RELEASE/cloudify-centos-final-agent_3.1.0-ga-b85_amd64.deb" class="download" data-btn-type="Cloudify Manager Download" onclick="javascript: _gaq.push(['_trackEvent', 'Previous Product Download', 'Cloudify 3x', '/downloads/cloudify3/3.1.0/ga-RELEASE/cloudify-centos-final-agent_3.1.0-ga-b85_amd64.deb/get_cloudify_3x']);">CentOS Agent</a><br>
+	<a href="http://gigaspaces-repository-eu.s3.amazonaws.com/org/cloudify3/3.1.0/ga-RELEASE/cloudify-windows-agent_3.1.0-ga-b85_amd64.deb" class="download" data-btn-type="Cloudify Manager Download" onclick="javascript: _gaq.push(['_trackEvent', 'Previous Product Download', 'Cloudify 3x', '/downloads/cloudify3/3.1.0/ga-RELEASE/cloudify-windows-agent_3.1.0-ga-b85_amd64.deb/get_cloudify_3x']);">Windows Agent</a><br>
+	<a href="http://gigaspaces-repository-eu.s3.amazonaws.com/org/cloudify3/3.1.0/ga-RELEASE/cloudify-ui_3.1.0-ga-b85_amd64.deb" class="download" data-btn-type="Cloudify Manager Download" onclick="javascript: _gaq.push(['_trackEvent', 'Previous Product Download', 'Cloudify 3x', '/downloads/cloudify3/3.1.0/ga-RELEASE/cloudify-ui_3.1.0-ga-b85_amd64.deb/get_cloudify_3x']);">UI</a><br>
+	<a href="http://gigaspaces-repository-eu.s3.amazonaws.com/org/cloudify3/3.1.0/ga-RELEASE/cloudify-docker_3.1.0-ga-b85.tar" class="download" data-btn-type="Cloudify Manager Download" onclick="javascript: _gaq.push(['_trackEvent', 'Previous Product Download', 'Cloudify 3x', '/downloads/cloudify3/3.1.0/ga-RELEASE/cloudify-docker_3.1.0-ga-b85.tar/get_cloudify_3x']);">Docker Image</a><br>
+	<a href="http://gigaspaces-repository-eu.s3.amazonaws.com/org/cloudify3/3.1.0/ga-RELEASE/cloudify-docker-data_3.1.0-ga-b85.tar" class="download" data-btn-type="Cloudify Manager Download" onclick="javascript: _gaq.push(['_trackEvent', 'Previous Product Download', 'Cloudify 3x', '/downloads/cloudify3/3.1.0/ga-RELEASE/cloudify-docker-data_3.1.0-ga-b85.tar/get_cloudify_3x']);">Docker Data Image</a><br>
+		<p><strong>Please refer to the <a href="{{ site.baseurl }}/guide/3.1/installation-general.html">Cloudify installation page</a> for more details about each of the packages.</strong></p>
+</p>
+</p></p></p></p></p>
+
+<hr/>
 <h2 class="name"><strong>3.0 GA</strong></h2>
 <p><strong>Cloudify CLI Installers</strong></p>
-<p>The CLI installer installs the Cloudify CLI and enables you to boostrap a Cloudify manager, interact with it and manage blueprints and deployments. Refer to the <a href="/guide/3.0/guide-cli.html">CLI guide</a> for more details. For boostrapping directions refer to the boostrapping tutorials for the cloud of your choice.</p>
-<p><strong>To install the CLI on operating systems other than the ones listed below please refer to the <a href="/guide/3.0/guide-cli.html">CLI guide</a>.</strong></p>
 <p class="download"> <a class="eaTitle" href="http://gigaspaces-repository-eu.s3.amazonaws.com/org/cloudify3/3.0.0/nightly_6/cloudify-cli_3.0.0-ga-b6_amd64.deb" data-btn-type="GA Previous Product Download 3.0" onclick="javascript: _gaq.push(['_trackEvent', 'Previous Product Download', 'Cloudify 3x', '/downloads/cloudify3/3.0.0/nightly_6/cloudify-cli_3.0.0-ga-b6_amd64.deb/get_cloudify_3x']);">UBUNTU/DEBIAN 64</a>
 <p class="download"> <a class="eaTitle" href="http://gigaspaces-repository-eu.s3.amazonaws.com/org/cloudify3/3.0.0/nightly_6/cloudify-cli_3.0.0-ga-b6_i386.deb" data-btn-type="GA Previous Product Download 3.0" onclick="javascript: _gaq.push(['_trackEvent', 'Previous Product Download', 'Cloudify 3x', '/downloads/cloudify3/3.0.0/nightly_6/cloudify-cli_3.0.0-ga-b6_i386.deb/get_cloudify_3x']);">UBUNTU/DEBIAN 32</a>
 <p class="download"> <a class="eaTitle" href="http://gigaspaces-repository-eu.s3.amazonaws.com/org/cloudify3/3.0.0/nightly_6/cloudify-cli_3.0.0-ga-b6.exe" data-btn-type="GA Previous Product Download 3.0" onclick="javascript: _gaq.push(['_trackEvent', 'Previous Product Download', 'Cloudify 3x', '/downloads/cloudify3/3.0.0/nightly_6/cloudify-cli_3.0.0-ga-b6.exe/get_cloudify_3x']);">WINDOWS</a>
@@ -48,7 +85,7 @@ cat: User Guide
 <p class="bs-callout bs-callout-warning">The Vagrant box and Vagrant file below contain a complete manager and CLI installation. They are only provided for getting started and demoing purposes and should not be used in production.</p>
 <p class="download"> <a class="eaTitle" href="http://gigaspaces-repository-eu.s3.amazonaws.com/org/cloudify3/3.0.1/ga-RELEASE/cloudify_3.0.1_virtualbox.box" data-btn-type="Vagrant Trial Download" onclick="javascript: _gaq.push(['_trackEvent', 'Previous Product Download', 'Cloudify 3x', '/downloads/cloudify_3.0.1_virtualbox.box/get_cloudify_3x']);">VAGRANT BOX (~1.5GB)</a>
 <p class="download"> <a class="eaTitle" href="http://gigaspaces-repository-eu.s3.amazonaws.com/org/cloudify3/3.0.0/nightly_6/Vagrantfile" data-btn-type="Vagrant Trial Download" onclick="javascript: _gaq.push(['_trackEvent', 'Previous Product Download', 'Cloudify 3x', '/downloads/cloudify3/3.0.0/nightly_6/Vagrantfile/get_cloudify_3x']);">VAGRANT FILE</a>
-<p><strong>For more details on how to get started with them please follow the Cloudify 3.0 <a href="/guide/3.0/quickstart.html">Getting Started Guide</a></strong>.</p>
+<p><strong>For more details on how to get started with them please follow the Cloudify 3.0 <a href="{{ site.baseurl }}/guide/3.0/quickstart.html">Getting Started Guide</a></strong>.</p>
 <p>&nbsp;</p>
 <p><strong>Release Notes</strong></p>
 <p>Below is a list of new features, improvements, fixed issues, and known issues in Cloudify. We track all the issues in our public <a href="https://cloudifysource.atlassian.net/browse/CFY" target="_blank">JIRA</a>.</p>
@@ -67,19 +104,19 @@ cat: User Guide
 	<a href="http://gigaspaces-repository-eu.s3.amazonaws.com/org/cloudify3/3.0.0/nightly_6/cloudify-centos-agent_3.0.0-ga-b6_amd64.deb" class="download" data-btn-type="Cloudify Manager Download" onclick="javascript: _gaq.push(['_trackEvent', 'Previous Product Download', 'Cloudify 3x', '/downloads/cloudify3/3.0.0/nightly_6/cloudify-centos-agent_3.0.0-ga-b6_amd64.deb/get_cloudify_3x']);">CentOS Agent</a><br>
 	<a href="http://gigaspaces-repository-eu.s3.amazonaws.com/org/cloudify3/3.0.0/nightly_6/cloudify-windows-agent_3.0.0-ga-b6_amd64.deb" class="download" data-btn-type="Cloudify Manager Download" onclick="javascript: _gaq.push(['_trackEvent', 'Previous Product Download', 'Cloudify 3x', '/downloads/cloudify3/3.0.0/nightly_6/cloudify-windows-agent_3.0.0-ga-b6_amd64.deb/get_cloudify_3x']);">Windows Agent</a><br>
 	<a href="http://gigaspaces-repository-eu.s3.amazonaws.com/org/cloudify3/3.0.1/ga-RELEASE/cloudify-ui_3.0.1-ga-b6_amd64.deb" class="download" data-btn-type="Cloudify Manager Download" onclick="javascript: _gaq.push(['_trackEvent', 'Previous Product Download', 'Cloudify 3x', '/downloads/cloudify3/3.0.1/ga-RELEASE/cloudify-ui_3.0.1-ga-b6_amd64.deb/get_cloudify_3x']);">UI</a><br>
-		<p><strong>Please refer to the <a href="/guide/3.0/installation-general.html">Cloudify installation page</a> for more details about each of the packages.</strong></p>
+		<p><strong>Please refer to the <a href="{{ site.baseurl }}/guide/3.0/installation-general.html">Cloudify installation page</a> for more details about each of the packages.</strong></p>
 </p>
 </p></p></p></p></p>
-<hr />
+<!--<hr />
 <h2 class="name"><strong>2.7.1 GA</strong></h2>
 <p class="download"> <a class="eaTitle" href="https://s3-eu-west-1.amazonaws.com/gigaspaces-repository-eu/org/cloudifysource/2.7.1-6300-RELEASE/gigaspaces-cloudify-2.7.1-ga-b6300.zip" onClick="javascript: _gaq.push(['_trackEvent', 'Previous Product Download', 'Cloudify 2x', '/downloads/cloudify2/2.7/gigaspaces-cloudify-2.7.1-ga-b6300.zip/previous_ga_versions']);">Download Cloudify 2.7.1 GA</a> - published on July 2014
 <p><h4><em>IMPORTANT NOTE:</em> JDK 7u51 & 6u30 do not work properly with JClouds, since those releases broke the compatibility with Google Guava. Therefore, Cloudify JClouds cloud drivers cannot run with it. You can use 7u45 or earlier versions. For more info, please read <a href="https://cloudifysource.atlassian.net/browse/CLOUDIFY-2378">this</a>.</h4></p>
-<a class="rmore-ea" target="_blank" href="/guide/2.7/release_notes/release_notes.html#v271m2"> 
+<a class="rmore-ea" target="_blank" href="{{ site.baseurl }}/guide/2.7/release_notes/release_notes.html#v271m2"> 
              Please read the Release Notes prior to using this GA version.</a>
              <br class="clear"/>
              <br class="clear"/>   
-         </p>        	    
-<p class="well">By downloading Cloudify you agree to the <a href="/license.html" target="">End User License Agreement</a></p>
+         </p>-->        	    
+<p class="well">By downloading Cloudify you agree to the <a href="{{ site.baseurl }}/license.html" target="">End User License Agreement</a></p>
 
     <div class="clear"></div>
                                     </div>
@@ -109,7 +146,7 @@ cat: User Guide
 									<p class="name"> 
 										<i class=" icon-36 icon-download"></i>Get the GA Release
 									</p>
-									<span class="info"><a class="dwnGoBtn" href="/downloads/get_cloudify_3x.html"><strong>Download the latest stable version</strong></a></span>
+									<span class="info"><a class="dwnGoBtn" href="{{ site.baseurl }}/downloads/get_cloudify_3x.html"><strong>Download the latest stable version</strong></a></span>
 							</div>
 						</div>
 						</div>
@@ -119,7 +156,7 @@ cat: User Guide
 									<p class="name"> 
 										<i class=" icon-36 fa-code"></i>Latest Build
 									</p>
-									<span class="info"><a class="dwnGoBtn" href="/downloads/early_access.html" ><strong>Get the Latest Milestone Build</strong></a></span>
+									<span class="info"><a class="dwnGoBtn" href="{{ site.baseurl }}/downloads/early_access.html" ><strong>Get the Latest Milestone Build</strong></a></span>
 							</div>
 						</div>
 					</div>

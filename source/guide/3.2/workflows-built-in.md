@@ -7,7 +7,7 @@ abstract: Description and details on Cloudify's built-in Workflows
 pageord: 600
 
 types_yaml_link: reference-types.html
-default_workflows_source_link: https://github.com/cloudify-cosmo/cloudify-plugins-common/blob/3.1/cloudify/plugins/workflows.py
+default_workflows_source_link: https://github.com/cloudify-cosmo/cloudify-plugins-common/blob/3.2/cloudify/plugins/workflows.py
 ---
 
 {%summary%}{{page.abstract}}{%endsummary%}
@@ -45,7 +45,7 @@ The implementations for these workflows can be found at [`cloudify-plugins-commo
 
 Built-in workflows are not special in any way - they use the same API and framework as any custom workflow is able to use, and one may replace them with different workflows with the same names.
 
-For more information and detailed description of the built-in workflows, visit the [Built-in workflows reference](worklows-built-in.html).
+For more information and detailed description of the built-in workflows, visit the [Built-in workflows reference](workflows-built-in.html).
 
 
 # The Install Workflow
@@ -137,7 +137,7 @@ If *run_by_dependency_order* is set to `true`:
 
 For each of the remaining node instances:
 
-  1. Send a node instance event about starting the execution the operation.
+  1. Send a node instance event about starting the execution operation.
   2. Execute the *operation* operation for the instance, with the *operation_kwargs* passed to the operation invocation.
   3. Send a node instance event about completing the execution of the operation.
 
@@ -149,7 +149,7 @@ For each of the remaining node instances:
 
 **Workflow name:** *heal*
 
-**Workflow description:** Reinstalls the whole subgraph of the system topology applying the `uninstall` and `install` workflows' logic respectively. The subgraph consists of all the node instances that are contained in the compute node instance which contains the failing node instance and/or the compute node instance itself. Additionally, this workflow handles unlinking and establishing all affected relationships in an appropriate order.
+**Workflow description:** Reinstalls the whole subgraph of the system topology by applying the `uninstall` and `install` workflows' logic respectively. The subgraph consists of all the node instances that are contained in the compute node instance which contains the failing node instance and/or the compute node instance itself. Additionally, this workflow handles unlinking and establishing all affected relationships in an appropriate order.
 
 **Workflow parameters:**
 
@@ -173,7 +173,7 @@ For each of the remaining node instances:
 1. Effectively, all node instances that are contained inside the compute node instance of the failing node instance, are considered failed as well and will be re-installed.
 </sub>
 
-A compute sub-graph can be though of as a blueprint that defines only nodes that are contained inside a compute node.
+A compute sub-graph can be thought of as a blueprint that defines only nodes that are contained inside a compute node.
 For example, if the full blueprint looks something like this:
 {%highlight yaml%}
 ...
@@ -217,11 +217,11 @@ node_templates:
 
 Then the corresponding graph will look like so:
 
-![Blueprint as Graph](/guide/images3/blueprint/blueprint-as-graph.png)
+![Blueprint as Graph]({{ site.baseurl }}/guide/images3/blueprint/blueprint-as-graph.png)
 
 And a compute sub-graph for the **`webserver_host`** will look like:
 
-![Blueprint as Graph](/guide/images3/blueprint/sub-blueprint-as-graph.png)
+![Blueprint as Graph]({{ site.baseurl }}/guide/images3/blueprint/sub-blueprint-as-graph.png)
 
 {%note title=Note%}
 

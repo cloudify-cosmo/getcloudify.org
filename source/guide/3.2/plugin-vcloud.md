@@ -250,9 +250,10 @@ It applies DNAT and SNAT rules for `any` protocol and `any` original and transla
 
 ## cloudify.vcloud.net_connected_to_public_nat
 **Description:** A relationship for associating PublicNAT and Network.
+*Note*: PublicNAT node, uses with this relationship, can contains only 'SNAT' rule type.
 
 **Mapped Operations:**
-
+  * `cloudify.interfaces.relationship_lifecycle.preconfigure`: Validate rule type restriction.
   * `cloudify.interfaces.relationship_lifecycle.establish`: associates PublicNAT with Network.
   * `cloudify.interfaces.relationship_lifecycle.unlink`: dissociates PublicNAT from Network.
 
@@ -418,7 +419,7 @@ The structure of the JSON file in section (1), as well as of the `vcloud_config`
 
 
 {%tip title=Tip%}
-The [vCloud manager blueprint](reference-vcloud-manager.html) store the vCloud configuration used for the bootstrap process in a JSON file as described in (1) at `~/vcloud_config.json`. Therefore, if they've been used for bootstrap, the vCloud configuration for applications isn't mandatory as the plugin will default to these same settings.
+The [vCloud manager blueprint](manager-blueprints-vcloud.html) store the vCloud configuration used for the bootstrap process in a JSON file as described in (1) at `~/vcloud_config.json`. Therefore, if they've been used for bootstrap, the vCloud configuration for applications isn't mandatory as the plugin will default to these same settings.
 {%endtip%}
 
 # Misc

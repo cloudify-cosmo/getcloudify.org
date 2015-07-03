@@ -136,7 +136,7 @@ In our case, we have the following nodes:
 * A MongoDB instance
 * A nodejs application called nodecellar (which is a nice sample nodejs application backed by mongodb).
 
-![Nodecellar Blueprint](/guide/images3/guide/nodecellar_topology.png)
+![Nodecellar Blueprint]({{ site.baseurl }}/guide/images3/guide/nodecellar_topology.png)
 
 Next, we need to create a deployment. To do so, type the following command:
 

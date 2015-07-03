@@ -1,0 +1,311 @@
+<script type="text/javascript">
+
+//MANAGE AND TRACK DOWNLOADS
+ $(function() {   
+
+//Manage Downloads Gating;
+//========================================//
+var gotName = false;
+var gotValidCaptcha = false;
+var downloadHref="";
+var strVar="";
+var formEmail="";
+var formName="";
+var formcompany ="";
+var dataBtnName=""; // this is the name of the mixpanel resource
+var dataBtnSplit="";
+
+//Manage Downloads Gating modal pop up form;
+//========================================//
+var strVar="";
+strVar += "<div class=\"modal fade\" id=\"myModal\" tabindex=\"-1\" role=\"dialog\" aria-labelledby=\"myModalLabel\" aria-hidden=\"true\">";
+strVar += "            <a  style=\"float:right \" class=\"gattingWrapperClose\" href=\"#\"><i class=\"fa fa-times\">&nbsp;&nbsp;<\/i> <\/a>";
+strVar += "<div class=\"gattingWrapper\">";
+strVar += "           <form id=\"regiterToDownload\" action=\"https:\/\/www.salesforce.com\/servlet\/servlet.WebToLead?encoding=UTF-8\" method=\"POST\">";
+strVar += "			<div class=\"regTitle\">Verify You're Human<\/div>";
+strVar += "			<div style=\"position:relative\">";
+strVar += "				<input  id=\"last_name\" name=\"last_name\" type=\"text\" class=\"cuInput\" placeholder=\"Your Name\" \/>";
+strVar += "				<div class=\"cuValid\"><\/div>";
+strVar += "			<\/div>";
+strVar += "			<div style=\"position:relative\">";
+strVar += "				<input  id=\"email\" name=\"email\"  type=\"text\"  placeholder=\"Your Email\"\/>";
+strVar += "				<div class=\"cuValid\"><\/div>";
+strVar += "			<\/div>";
+strVar += "			<div style=\"position:relative\">";
+strVar += "				<input  id=\"company\" name=\"company\"  type=\"text\"  placeholder=\"Your Company\"\/>";
+strVar += "				<div class=\"cuValid\"><\/div>";
+strVar += "			<\/div>";
+
+strVar +="          <input id=\"website\" name=\"website\" type=\"text\" value=\"\"  \/>";
+strVar += "			<input type=\"submit\" class=\"cuSendGatting btn btn-info\" name=\"submit\" value=\"Download\" \/>";
+strVar += "   <br\/><br\/>";
+
+strVar += "			<\/form>";
+strVar += "        <\/div>";
+strVar += "        <\/div>";
+
+
+//Manage Downloads Gating collapse form ;
+//========================================//
+var strCollapse="";
+strCollapse += "<div class=\"collapse\" id=\"myCollapse\" tabindex=\"-1\" role=\"dialog\" aria-labelledby=\"myCollapseLabel\" aria-hidden=\"true\">";
+strCollapse += "<div class=\"gattingWrapper\" style=\"margin:0;\">";
+strCollapse += "           <form id=\"regiterToDownload\" action=\"https:\/\/www.salesforce.com\/servlet\/servlet.WebToLead?encoding=UTF-8\" method=\"POST\">";
+strCollapse += "			<div class=\"regTitle\" style=\"text-align:left;\">Verify You're Human<\/div>";
+strCollapse += "			<div style=\"position:relative\">";
+strCollapse += "				<input  id=\"last_name\" name=\"last_name\" type=\"text\" class=\"cuInput\" placeholder=\"Your Name\" \/>";
+strCollapse += "				<div class=\"cuValid\"><\/div>";
+strCollapse += "			<\/div>";
+strCollapse += "			<div style=\"position:relative\">";
+strCollapse += "				<input  id=\"email\" name=\"email\"  type=\"text\"  placeholder=\"Your Email\"\/>";
+strCollapse += "				<div class=\"cuValid\"><\/div>";
+strCollapse += "			<\/div>";
+strCollapse += "			<div style=\"position:relative\">";
+strCollapse += "				<input  id=\"company\" name=\"company\"  type=\"text\"  placeholder=\"Your Company\"\/>";
+strCollapse += "				<div class=\"cuValid\"><\/div>";
+strCollapse += "			<\/div>";
+
+strCollapse +="          <input id=\"website\" name=\"website\" type=\"text\" value=\"\"  \/>";
+strCollapse += "			<input type=\"submit\" class=\"cuSendGatting btn btn-medium btn-theme-red btn-rounded\" name=\"submit\" value=\"Download\" \/>";
+strCollapse += "   <br\/><br\/>";
+
+strCollapse += "			<\/form>";
+strCollapse += "        <\/div>";
+strCollapse += "        <\/div>";
+
+
+
+
+//set download cookie
+function openDownloadWindowFunction() {
+    setCookie('cfydirect', formName + "," + formEmail + "," + formcompany);
+    window.open("/downloads/get_cloudify_3x_abtest3_direct.html", "MsgWindow", "width=600, height=600 ,toolbar=yes,menubar=yes");
+}
+
+function setCookie(key, value) {
+    var expires = new Date();
+    expires.setTime(expires.getTime() + (180 * 24 * 60 * 60 * 1000));
+    document.cookie = key + '=' + value + ';expires=' + expires.toUTCString()+';path=/';
+}
+
+function getCookie(key) {
+    var keyValue = document.cookie.match('(^|;) ?' + key + '=([^;]*)(;|$)');
+    return keyValue ? keyValue[2] : null;
+}
+
+
+
+
+
+
+//Blocking Spam http://blog.supermedia.com/honeypot-technique/
+$('#regiterToDownload').submit(function(){    
+        if ($('input#website').val().length != 0) {
+            return false;
+        } 
+});
+//End Blocking Spam
+
+$("body,.testimonial").on('click', '.gattingWrapperClose', function(){
+    $('#myModal').modal('hide');	
+  });
+  
+  
+  $(".download").bind("contextmenu",function(e){
+       return false;
+    }); 
+
+
+$(".downloadClps").click(function (e) {   
+          downloadHref = $(this).attr('href');
+          dataBtnName = $(this).attr("data-btn-type");
+          dataBtnSplit = $(this).attr("data-btn-split");
+          if (getCookie('cfydirect') == null) {
+          $("#myCollapse").remove();
+          //$("#wrapper").before(strCollapse);
+		  $(this).closest("div.addFormAfter").after(strCollapse);
+          downloadValid();
+          downloadFile(e);
+      } else {
+          directDownload(e);
+      }
+});
+
+$("#downloadme,.eaTitle,.downloadme,.download").click(function (e) {
+      
+          downloadHref = $(this).attr('href');
+          dataBtnName = $(this).attr("data-btn-type");
+          dataBtnSplit = $(this).attr("data-btn-split");
+          if (getCookie('cfydirect') == null) {
+          $("#myModal").remove();
+          $("#wrapper").before(strVar);
+          downloadValid();
+          downloadFile(e);
+      } else {
+          directDownload(e);
+      }
+});
+
+
+function directDownload(e){
+e.preventDefault();
+var verName="";
+verName=downloadHref.split("/")[dataBtnSplit]; 
+//track google and mixpanel 
+track_download(downloadHref);
+$('#myModal').modal('hide');	
+//self.delay(500); 
+setTimeout(function() {
+	window.location.href = downloadHref; 
+	setTimeout(function() {
+		window.location.href = "/thank_you.htm";
+	}, 4000);
+}, 500);
+
+//
+}
+
+
+
+
+//this function manage download process
+function downloadFile(e)
+	{
+		try  {
+			e.preventDefault();
+			//Gating PopUp
+			$('#myModal').modal('toggle');
+			$('#myCollapse').addClass('in');
+			if(gotName == false){
+				//randomgen();
+				if ($("#regiterToDownload").validate()==true){
+				gotName = true;
+				//track mixpanel
+				var verName="";
+				var downloadHref = $('a#downloadme').attr('href');
+				verName=downloadHref.split("/")[dataBtnSplit]; 
+				//track google and mixpanel 
+				track_download(downloadHref);
+				//self.delay(500); 
+				setTimeout(function() {
+					window.location.href = downloadHref; 
+					setTimeout(function() {
+						window.location.href = "/thank_you.htm";
+					}, 4000);
+				}, 500);
+				}
+						   
+			}
+	    } catch(e) {
+	    	console.log(["Error while tracking download", e]);
+	    }
+	    return false; 
+}
+
+//this function track download data for mixpanel 
+function track_download(downloadHref) {
+		var downloadme=downloadHref.split("/")[dataBtnSplit]; 
+		//downloadme="/downloads/cloudify-" + downloadme.split("\.zip")[0] + "/get_cloudify";
+		_gaq.push(['_trackEvent','Product Download', downloadme]);
+       	//track mixpanel
+		var zipName="";
+		zipName=downloadHref.split("/")[dataBtnSplit]; 
+		mixpanel.track(dataBtnName, {'Zip Name':zipName, 'Source':document.URL});
+		if (getCookie('cfydirect') == null) {
+            formEmail =  $(".gattingWrapper #email").val();	
+            formName =  $(".gattingWrapper #last_name").val();
+			formcompany =  $(".gattingWrapper #company").val();
+			mixpanel.identify(formEmail);
+            mixpanel.alias(formName, formEmail, formcompany);
+            mixpanel.name_tag(formName) ;
+			mixpanel.register();
+			//create cookie;
+			setCookie('cfydirect', formName + "," + formEmail + "," + formcompany);
+			
+        }else{
+			mixpanel.identify(formEmail);
+        }
+
+		mixpanel.people.set({
+		"resource": zipName, // sets the property 'Resource' for this user to the boolean value true		
+		$email: formEmail,
+		$first_name: formName,
+		$company: formcompany,
+		$created: new Date(),
+		});
+		mixpanel.track('Resource', {'Zip Name':zipName, 'Source':'Download Page'});
+		mixpanel.people.increment({
+			"Number Of Resource Downloads": 1
+		});
+		
+		
+	}
+
+
+function downloadValid(){
+
+ $.validator.addMethod("regexp", function (value, element) {
+    return this.optional(element) || /^[a-zA-Z\-_.,\s]+$/.test(value);
+}, 'You can use only letters and those special characters (-_.,)');
+
+
+
+  //Validation
+   $('#regiterToDownload').validate({ // initialize the plugin
+        errorLabelContainer: "#error-note",
+        rules: {
+            last_name: {
+                required: true,
+				regexp: true
+            },
+			email: {
+                required: true,
+                email: true
+            },
+			company: {
+                required: true   
+            }
+
+			},
+        messages: {
+            last_name: {
+                required: "Please enter your first name",
+            },
+            email: {
+                required: "Please specify your email",
+                email: "Correct format is name@domain.com"
+            },
+			company: {
+                required: "Please enter your company name"
+            }
+
+        },
+        submitHandler: function (form,e) { // for demo
+            formalyzer_call_onclick(12206); 
+            if ($('input#website').val().length != 0) {
+                return false;
+            } else {
+                //setCookie('cfydirect', formName + "," + formEmail + "," + formcompany);
+                directDownload(e);
+            }
+            //return false; // for demo
+        }
+    });
+  //End Validation
+}
+
+//Blocking Spam http://blog.supermedia.com/honeypot-technique/
+$('#regiterToDownload').submit(function(){    
+        if ($('input#website').val().length != 0) {
+            return false;
+        } 
+});
+//End Blocking Spam
+
+
+
+});
+
+
+
+</script>

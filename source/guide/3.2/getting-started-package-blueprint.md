@@ -4,7 +4,7 @@ title: Packaging a Blueprint
 category: Getting Started
 publish: true
 abstract: How to package a Cloudify Blueprint and its resources
-pageord: 200
+pageord: 250
 ---
 {%summary%} {{page.abstract}}{%endsummary%}
 

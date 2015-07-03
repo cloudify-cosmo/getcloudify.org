@@ -7,7 +7,7 @@ abstract: "description and details on the Cloudify built-in policies"
 pageord: 900
 ---
 
-{%summary%} Cloudify comes with a few [built-in policies](guide-policies.html#built-in-policies). This page will give a high level description of these policies. {%endsummary%}
+{%summary%} Cloudify comes with a few [built-in policies](policies-general.html#built-in-policies). This page will give a high level description of these policies. {%endsummary%}
 
 
 # Host Failure

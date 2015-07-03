@@ -8,4 +8,4 @@ pageord: 600
 ---
 {%summary%} {{page.abstract}}{%endsummary%}
 
-![Cloudify Execute Workflow](/guide/images3/architecture/cloudify_flow_execute_workflow.png)
+![Cloudify Execute Workflow]({{ site.baseurl }}/guide/images3/architecture/cloudify_flow_execute_workflow.png)

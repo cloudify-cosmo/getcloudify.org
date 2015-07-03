@@ -24,6 +24,19 @@ For more information about the library, please refer to: [http://boto.readthedoc
   * Your AWS [Access Keys](http://docs.aws.amazon.com/AWSSecurityCredentials/1.0/AboutAWSCredentials.html#)
 
 
+# Compatibility
+
+The AWS EC2 plugin currently only supports classic EC2.
+
+The AWS plugin uses the following client libraries:
+
+  * [Boto client](https://github.com/boto/boto) - 2.34.0
+
+{%note title=Note%}
+This version of Boto EC2 Connection supports (AWS) APIVersion = '2014-10-01'.
+{%endnote%}
+
+
 # Types
 
 The following are [node](reference-terminology.html#node) type definitions. Nodes describe cloud resources in your cloud infrastructure. For more information, see [nodes](reference-terminology.html#node).

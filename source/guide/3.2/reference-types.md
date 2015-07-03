@@ -15,10 +15,10 @@ The following [types]({{page.terminology_link}}#type) are basic types from which
 
 * `cloudify.nodes.Root` - The base type for all built-in types. declares the following interfaces:
 
-  - `cloudify.interfaces.lifecycle`: An interface for standard life cycle operations (e.g. create, start, stop, etc.). Operations of this interface are called from the [built-in](guide-workflows.html#built-in-workflows) [*install*](reference-builtin-workflows.html#install) and [*uninstall*](reference-builtin-workflows.html#uninstall) workflows.
-  - `cloudify.interfaces.validation`: An interface for pre-creation and pre-deletion validation operations. These may be called by using the [*execute_operation*](reference-builtin-workflows.html#execute-operation) built-in workflow or by a [custom workflow](guide-workflows.html#writing-a-custom-workflow). The Cloudify CLI calls these operations before the bootstrap and teardown of the Cloudify manager.
-  - `cloudify.interfaces.monitoring_agent`: An interface for monitoring agent. Operations of this interface are called from the [built-in](guide-workflows.html#built-in-workflows) [*install*](reference-builtin-workflows.html#install) and [*uninstall*](reference-builtin-workflows.html#uninstall) workflows.
-  - `cloudify.interfaces.monitoring`: An interface for monitoring configuration. Operations of this interface are called from the [built-in](guide-workflows.html#built-in-workflows) [*install*](reference-builtin-workflows.html#install) and [*uninstall*](reference-builtin-workflows.html#uninstall) workflows.
+  - `cloudify.interfaces.lifecycle`: An interface for standard life cycle operations (e.g. create, start, stop, etc.). Operations of this interface are called from the [built-in](workflows-built-in.html) [*install*](workflows-built-in.html#the-install-worklow) and [*uninstall*](workflows-built-in.html#the-uninstall-worklow) workflows.
+  - `cloudify.interfaces.validation`: An interface for pre-creation and pre-deletion validation operations. These may be called by using the [*execute_operation*](workflows-built-in.html#the-execute-operation-worklow) built-in workflow or by a [custom workflow](workflows-authoring.html). The Cloudify CLI calls these operations before the bootstrap and teardown of the Cloudify manager.
+  - `cloudify.interfaces.monitoring_agent`: An interface for monitoring agent. Operations of this interface are called from the [built-in](workflows-built-in.html) [*install*](workflows-built-in.html#the-install-worklow) and [*uninstall*](workflows-built-in.html#the-uninstall-worklow) workflows.
+  - `cloudify.interfaces.monitoring`: An interface for monitoring configuration. Operations of this interface are called from the [built-in](workflows-built-in.html) [*install*](workflows-built-in.html#the-install-worklow) and [*uninstall*](workflows-built-in.html#the-uninstall-worklow) workflows.
 
 * `cloudify.nodes.Tier` - A marker for a future scale group
 

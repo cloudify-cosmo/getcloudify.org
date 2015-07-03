@@ -13,6 +13,26 @@ This section describes how to use a SoftLayer based cloud infrastructure in your
 For more information about SoftLayer, please refer to: [http://www.softlayer.com/](http://www.softlayer.com/).
 {%endsummary%}
 
+{%note title=Note%}
+The Softlayer IaaS plugin is a feature of [the premium edition of Cloudify]({{ site.baseurl }}/goPro.html), 
+it comes with the downloadable packages of the cli.<br>
+To install the packages see [Installing using packages](installation.html#installing-using-packages).
+{%endnote%}
+
+# Requirements
+  * A SoftLayer account, see [SoftLayer Authentication](#softlayer-authentication).
+  * [The Cloudify Premium edition]({{ site.baseurl }}/goPro.html) 
+
+# Compatibility
+  The SoftLayer plugin uses the [SoftLayer 3.3.0](https://pypi.python.org/pypi/SoftLayer/3.3.0) (SoftLayer API bindings for Python).
+
+  {%note title=Note%}
+  In order to offer full support for SoftLayer's virtual server catalog, the Softlayer plugin extends the [VSManager class](https://softlayer-api-python-client.readthedocs.org/en/latest/api/managers/vs/) and declares the [verify_place_order](https://github.com/cloudify-cosmo/cloudify-softlayer-plugin/blob/master/softlayer_plugin/extended_vs_manager.py#L113) and [place_order](https://github.com/cloudify-cosmo/cloudify-softlayer-plugin/blob/master/softlayer_plugin/extended_vs_manager.py#L145) methods which enable specifying all the needed items for creating a virtual server, corresponding to the properties of the [Cloudify Softlayer VirtualServer](#cloudifysoftlayernodesvirtualserver) type.
+  {%endnote%}
+
+# Installation
+  As Softlayer plugin is included in the commercial cli packages, the plugin and its requirements are pre installed.<br> 
+  For installing the commercial cli packages see [Installing using packages](installation.html#installing-using-packages).
 
 # Types
 
@@ -62,7 +82,9 @@ For more information about SoftLayer, please refer to: [http://www.softlayer.com
       * By default SoftLayer will assign the public VLAN.
     * `provision_scripts` A list of the URIs of the post-install scripts to run after creating the server
       * Each URI should start with https
-    * `ssh_keys` A list of SSH keys to add to the root user
+    * `ssh_keys` A list of Softlayer IDs, representing SSH keys that were added to SoftLayer.
+      * An SSH key ID is created by SoftLayer when the SSH key is added, see how to [Add an SSH Key](http://knowledgelayer.softlayer.com/procedure/add-ssh-key) to SoftLayer, using the [SoftLyaer Customer Portal](https://control.softlayer.com/).
+      * An example of how to retrieve an SSH key ID from SoftLayer can be found in the following Notes.
     * `bandwidth` The item id of the amount of bandwidth for this server
       * default: 439 – the item id of 0 GB bandwidth
     * `pri_ip_addresses` The item id of Primary IP Addresses
@@ -86,6 +108,15 @@ For more information about SoftLayer, please refer to: [http://www.softlayer.com
     * If `private_network_only` is set to true, the `port_speed` item id should describe a private only port speed, otherwise, it will be changed to a private only port speed.
     * Another way to declare a private only server is to set the port speed property with an item id that describes a private only port speed, e.g. item id 498 for 1 Gbps Private Network Uplink.
     <br>In that case, the `public_vlan` property cannot be specified.
+    * One way to get the SSH key ID (for the `ssh_keys`) is to use the [SoftLayer 3.3.0 API](https://pypi.python.org/pypi/SoftLayer/3.3.0), specifically, use the [SshKeyManager](https://softlayer-api-python-client.readthedocs.org/en/latest/api/managers/sshkey/#SoftLayer.managers.sshkey.SshKeyManager) class to get the SSH key ID from the SSH key list, e.g.
+{% highlight python %}
+import SoftLayer
+sshkeymamager = SoftLayer.SshKeyManager(SoftLayer.Client(username, api_key))
+ssh_key_id = [key for key in sshkeymamager.list_keys() if key['label']==SSH-KEY-NAME][0]['id']
+{% endhighlight %}
+
+
+
 
 **Mapped Operations:**
 
@@ -403,7 +434,7 @@ node_templates:
 
 This example will show how to launch a Flex image on SoftLayer with a local workflow
 
-It will also show how to use the outputs section to get the public ip, username and password of a server, in the same way that all runtime_properties can be accessed (see [Blueprint Authoring Guide - adding-outputs](http://getcloudify.org/guide/3.2/guide-blueprint.html#step-7-adding-outputs))
+It will also show how to use the outputs section to get the public ip, username and password of a server, in the same way that all runtime_properties can be accessed (see [Blueprint Authoring Guide - adding-outputs](getting-started-write-blueprint.html#step-7-adding-outputs))
 
 {% togglecloak id=3 %}
 Example III
@@ -415,7 +446,7 @@ Example III
 tosca_definitions_version: cloudify_dsl_1_0
 
 imports:
-    - http://www.getcloudify.org/spec/cloudify/3.1/types.yaml
+    - http://www.getcloudify.org/spec/cloudify/3.2/types.yaml
     - https://raw.githubusercontent.com/cloudify-cosmo/cloudify-softlayer-plugin/widget/plugin.yaml
 
 inputs:
