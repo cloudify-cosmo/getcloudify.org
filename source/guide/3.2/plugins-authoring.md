@@ -8,15 +8,15 @@ pageord: 100
 
 plugin_link: https://github.com/cloudify-cosmo/cloudify-python-plugin
 template_link: https://github.com/cloudify-cosmo/cloudify-plugin-template
-blueprint_guide_link: guide-blueprint.html
+blueprint_guide_link: getting-started-write-blueprint.html
 plugins_common_link: https://github.com/cloudify-cosmo/cloudify-plugins-common
 plugins_common_ref_link: reference-plugins-common.html
-architecture_link: overview-architecture.html
-openstack_plugin_link: https://github.com/cloudify-cosmo/cloudify-openstack-plugin/blob/1.1/nova_plugin/server.py#L379
+architecture_link: overview-general.html
+openstack_plugin_link: https://github.com/cloudify-cosmo/cloudify-openstack-plugin/blob/1.2/nova_plugin/server.py#L379
 plugins_common_docs_link: http://cloudify-plugins-common.readthedocs.org/
 terminology_link: reference-terminology.html
 dsl_inputs_link: dsl-spec-inputs.html
-local_workflows_api_link: http://cloudify-cli.readthedocs.org/en/latest/commands.html
+local_workflows_api_link: http://cloudify-cli.readthedocs.org/en/latest/commands.html#local
 ---
 {%summary%} {{page.abstract}}{%endsummary%}
 
@@ -236,7 +236,7 @@ def start(**kwargs):
 {%endhighlight%}
 
 {%tip title=Tip%}
-`ctx.operation.max_retries` can be configured in Cloudify's manager blueprint. More information can be found in the [Workflows guide](guide-workflows.html#workflow-error-handling).
+`ctx.operation.max_retries` can be configured in Cloudify's manager blueprint. More information can be found in the [Workflows guide](workflows-error-handling.html).
 {%endtip%}
 
 
@@ -298,7 +298,7 @@ def start(**kwargs):
 
 # Testing Your Plugin
 
-In most cases, the recommendation is to test your plugin's logic using local workflows and only then, run them as part of a Cloudify [deployment]({{page.terminology_link}}#deployment). The [Plugin Template]({{page.template_link}}/blob/3.1/plugin/tests/test_plugin.py) has an example of doing just that.
+In most cases, the recommendation is to test your plugin's logic using local workflows and only then, run them as part of a Cloudify [deployment]({{page.terminology_link}}#deployment). The [Plugin Template]({{page.template_link}}/blob/3.2/plugin/tests/test_plugin.py) has an example of doing just that.
 
 If you want to unit test a specific function that needs a `ctx` object, you can use `cloudify.mocks.MockCloudifyContext` which is provided by `cloudify-plugins-common`.
 
@@ -315,7 +315,7 @@ The `ctx` context object contains contextual parameters mirrored from the bluepr
 
 ### Properties context objects
 
-* `ctx.instance.id` - The unique ID of the node's intance.
+* `ctx.instance.id` - The unique ID of the node's instance.
 * `ctx.node.properties` - The properties of the node as declared under the `properties` dict.
 * `ctx.instance.runtime_properties` - The properties that are assigned to a **node's instance** at runtime. These properties are either populated by the plugin itself (for instance, an automatically generated port that the plugin exposes when it's run), or are generated prior to the invocation of the plugin (for instance, the ip of the machine the plugin is running on).
 
@@ -412,7 +412,7 @@ Inside the tests folder you can find the `test_plugin.py` file in which you can 
 
 You should note the following:
 
-* The test_plugin.py file imports the `local` attribute from the cloudify.workflows module (a part of the `cloudify-plugins-common` module). This will allow you to run your operations locally using the [local workflows API]({{page.local_workflows_api_link#local}}).
+* The test_plugin.py file imports the `local` attribute from the cloudify.workflows module (a part of the `cloudify-plugins-common` module). This will allow you to run your operations locally using the [local workflows API]({{page.local_workflows_api_link}}).
 * The `blueprint_path` variable is already supplied so that you can run your operations against a given blueprint (will get to that later)
 * the `inputs` dictionary will allow you to supply [inputs]({{page.dsl_inputs_link}}) for your blueprint.
 * The `self.env` object will assist you in executing the operations locally and in the context of your blueprints.

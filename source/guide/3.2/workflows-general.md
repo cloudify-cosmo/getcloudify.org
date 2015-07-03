@@ -33,7 +33,6 @@ When a workflow is executed, an Execution object is created for the deployment, 
 
 An execution is considered to be a *running execution* until it reaches one of the three final statuses: *terminated*, *failed* or *cancelled*. For more information, refer to the [workflow execution statuses](workflows-statuses.html) section in this page.
 
-
 {%note title=Note%}
 It is recommended to only have one *running execution* per deployment at any point in time. By default, an attempt to execute a workflow while another execution is running for the same deployment will raise an error. To override this behavior and allow for multiple executions to run in parallel, use the `force` flag for each execute command. For a syntax reference, see the [CLI commands reference](cli-cfy-reference.html).
 {%endnote%}

@@ -7,7 +7,7 @@ abstract: Executing Cloudify Workflows (and more specifically, the Install and U
 pageord: 500
 
 terminology_link: reference-terminology.html
-workflows_link: reference-builtin-workflows.html
+workflows_link: workflows-built-in.html
 ---
 {%summary%} {{page.abstract}}{%endsummary%}
 
@@ -35,40 +35,19 @@ cfy executions start -w <WORKFLOW_NAME> -d <DEPLOYMENT_NAME>
 
 ## Executing a Workflow via the Web UI
 
-When executing a `Workflow` for a `Deployment` (e.g. the `install` workflow), the topology nodes show badges that reflect the workflow execution state.
+Navigate to the relevant `Deployment`.
+![workflows1]({{ site.baseurl }}/guide/images/ui/ui-workflows1.png)
 
-## Badges
-See the `Topology` terminology definition [here]({{page.terminology_topology}}).<br/>
+Select the desired `Workflow` from the dropdown.
 
-* Install state - The workflow execution is in progress for this node
-* Done state - The workflow execution was completed successfully for this node
-* Alerts state - The workflow execution was partially completed for this node
-* Failed state - The workflow execution failed for this node
+*Note that until a workflow is selected, the 'run execution' play button is disabled.*
+![workflows2]({{ site.baseurl }}/guide/images/ui/ui-workflows2.png)
 
-![Deployment Topology Node Badges](/guide/images/ui/ui-deployment-topology-badges.png)
+Click the 'run execution' play button to start the workflow execution.
+![workflows3]({{ site.baseurl }}/guide/images/ui/ui-workflows3.png)
 
-## Workflow states represented by badges
-A deployment before any workflow was executed
-![Deployment Topology](/guide/images/ui/ui-deployment-topology-1.png)
-
-A deployment with a workflow execution in progress
-![Deployment Topology Execution In Progress](/guide/images/ui/ui-deployment-topology-2.png)
-
-A deployment with a workflow execution in progress, partially completed
-![Deployment Topology Execution Partially Completed](/guide/images/ui/ui-deployment-topology-3.png)
-
-A deployment with a workflow execution completed successfully
-![Deployment Topology Execution Completed Successfully](/guide/images/ui/ui-deployment-topology-4.png)
-
-A deployment with a workflow execution partially completed successfully with some alerts
-![Deployment Topology Execution Completed Partially Alerts](/guide/images/ui/ui-deployment-topology-5.png)
-
-A deployment with a workflow execution that partially failed
-![Deployment Topology Execution Completed Partially Errors](/guide/images/ui/ui-deployment-topology-6.png)
-
-A deployment with a workflow execution that failed
-![Deployment Topology Execution Completed Errors](/guide/images/ui/ui-deployment-topology-7.png)
-
+After the 'run execution' button is clicked, the progress spinner is displayed. The execution can be cancelled by clicking on the 'cancel execution' X button.
+ ![workflows4]({{ site.baseurl }}/guide/images/ui/ui-workflows4.png)
 
 # Actionable: Install the Application
 
@@ -93,17 +72,17 @@ the deployment name and the node in our topology that it relates to, e.g.
 
 In the Web UI, you can checkout the Logs/Events page for an overview of all Logs and Events in a specific Manager.
 
-![Events](/guide/images3/guide/quickstart-openstack/events.png)
+![Events]({{ site.baseurl }}/guide/images3/guide/quickstart-openstack/events.png)
 
 <br>
 
 You can also have a look at the Monitoring tab and see some default metrics once the application has been installed:
 
-![Metrics](/guide/images3/guide/default_dashboard.png)
+![Metrics]({{ site.baseurl }}/guide/images3/guide/default_dashboard.png)
 
 {%note title=Note%}
 The blueprint we installed actually defines a custom collector for the Mongo database.
-To add mongo related graphs to the dashboard, have a look at [Adding Custom Graphs](/guide/3.1/ui-monitoring.html#example---customize-your-dashboard).
+To add mongo related graphs to the dashboard, have a look at [Adding Custom Graphs](webui-graphing-metrics.html).
 {%endnote%}
 
 # Actionable: Test Drive the application
@@ -119,7 +98,7 @@ The nodecellar application should be up on your screen.
 Click the "Browse wines" button to verify that the application was installed successfully
 and can access the mongodb database to read the list of wines.
 
-![Nodecellar](/guide/images3/guide/quickstart-openstack/nodecellar.png)
+![Nodecellar]({{ site.baseurl }}/guide/images3/guide/quickstart-openstack/nodecellar.png)
 
 # Actionable: Uninstall the application
 

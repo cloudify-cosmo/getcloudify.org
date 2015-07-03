@@ -4,13 +4,14 @@ title: Prerequisites for Bootstrapping
 category: Getting Started
 publish: true
 abstract: How do you go about installing Cloudify?
-pageord: 40
+pageord: 150
 
 manual_install_link: installation-manual.html
 terminology_link: reference-terminology.html
 cli_install_link: installation-cli.html
 simple_install_link: installation-simple-provider.html
 agent_packager_link: agents-packager.html
+manager_blueprints_openstack_link: manager-blueprints-openstack.html
 ---
 {%summary%}{{page.abstract}}{%endsummary%}
 
@@ -52,15 +53,15 @@ As a general recommendation for the average system, Cloudify would require at le
 
 ### Network
 
-The Manager must be accessible via the following ports:
+The Manager listens on the following ports:
 
-* Inbound - port 80 - For REST API and UI access.
-* Inbound - port 443 - For REST API and UI access (when using SSL).
-* Inbound - port 22 - If [Bootstrapping]({{page.terminology_link}}#bootstrapping) is done via the CLI.
-* Inbound - port 5672 - [Agent]({{page.terminology_link}}#agent) to Manager communication.
-* Inbound - port 53229 - For fileserver access.
-* Outbound - port 22 - If running Linux based host machines and remote agent installation is required.
-* Outbound - port 5985 - If running Windows based host machines and remote agent installation is required.
+* port 80 - REST API and UI. This port should be accessible when SSL is not enabled.
+* port 443 - REST API and UI. This port should be accessible when SSL is enabled.
+* port 8101 - REST API. This port is used for internal access and as such should only be accessible from [Agent]({{page.terminology_link}}#agent) VMs.
+* port 22 - During [Bootstrapping]({{page.terminology_link}}#bootstrapping), manager components are installed and configured via SSH. It is used during [Manager Recovery]({{page.manager_blueprints_openstack_link}}#recovery) as well.
+* port 5672 - RabbitMQ. This port should be accessible from agent VMs.
+* port 53229 - File server. This port should be accessible from agent VMs.
+
 
 ## OS Distributions
 
