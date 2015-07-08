@@ -29,7 +29,7 @@ sudo service celeryd-<deployment_id>_workflows stop
 
 ## Step 2: Delete deployment directories
 
-Each deployment will have two directories dedicated fro this deployment. These directories are tied to the above mentioned workers.
+Each deployment will have two directories dedicated for this deployment. These directories are tied to the above mentioned workers.
 To delete them, execute the following commands:
 
 {% highlight bash %}
