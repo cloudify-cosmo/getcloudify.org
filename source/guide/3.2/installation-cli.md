@@ -136,7 +136,7 @@ If you are using Linux, and you choose to use either the `--force` flag or the `
 
 ## Installing the latest Stable Release using the default flags
 
-* Download the [script](http://gigaspaces-repository-eu.s3.amazonaws.com/org/cloudify3/get-cloudify.py)
+* Download the [script](http://gigaspaces-repository-eu.s3.amazonaws.com/org/cloudify3/get-cloudify.py){: .openRegisForm}
 * Run
 {% highlight bash %}
 python get-cloudify.py
