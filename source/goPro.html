@@ -22,7 +22,7 @@ support and enhanced features, Cloudify Premium lets you take your cloud orchest
 	<section id="content">
 	<div class="container">
 		<div class="row">
-			<div class="span12">
+			<div class="span7">
 			<h2><strong>Feature highlights:</strong></h2>
 
 			<p><img src="img/Enterprise-GradeSupport.png" width="48"> Enterprise-Grade Support</p>
@@ -32,8 +32,112 @@ support and enhanced features, Cloudify Premium lets you take your cloud orchest
 			<p><img src="img/AdvancedBlueprints.png" width="48"> Advanced Blueprints</p>	
 
 			</div>
+			
+						<div class="span5">
+				<h2><strong>Get in Touch For Details on Cloudify Premium</strong></h2>
+				<form id="contactform" action="http://formspree.io/hello@getcloudify.org" method="post" class="validateform" name="send-contact" onsubmit="return checkform(this);">
+				<input type="hidden" name="_next" value="/thank_you_premium.html" />
+				<input type="hidden" name="_subject" value="New submission!" />
+				<input type="text" name="_gotcha" style="display:none" />
+					<div id="sendmessage">
+						 Your message has been sent. Thank you!
+					</div>
+						<div class="row">
+						<div class="span4 field">
+							<input type="text" id="first_name" name="first_name" placeholder="* Name " data-rule="maxlen:2" data-msg="Please enter at least 2 chars" />
+							<div class="validation">
+							</div>
+						</div>
+						<div class="span4 field">
+							<input type="text"  id="email"  name="email" placeholder="* Company Email" data-rule="email" data-msg="Please enter a valid email" />
+							<div class="validation">
+							</div>
+						</div>
+						<div class="span4 field">
+							<input type="text"  id="company"  name="company" placeholder="* Company Name" data-rule="maxlen:1" data-msg="Please enter your company name" />
+							<div class="validation">
+							</div>
+						</div>
+						<div class="span4 margintop10 field">
+							<textarea style="height:80px" id="message" rows="12" name="message" class="input-block-level" placeholder="Tell us about your requirements here." data-rule-required="false" data-msg="Please write something"></textarea>
+							<div class="validation">
+							</div>
+						</div>
+						<!--<div class="span4 field">-->
+						    <!--http://www.tothemoon.com/2013/01/simple-javascript-captcha-you-can-add-to-any-form/-->
+							<!--<font color="#000000">Enter This Code >></font> <span id="txtCaptchaDiv" style="color:#000"></span>--><!--this is where the script will place the generated code-->
+							<!--<input type="hidden" id="txtCaptcha"/></label>--><!-- this is where the script will place a copy of the code for validation: this is a hidden field -->
+							<!--<input type="text" name="txtInput" id="txtInput" size="15"  placeholder="* Enter the code above "/>-->
+							<p>
+								<button class="btn btn-theme margintop10 pull-left" type="submit">Get Cloudify Premium</button>
+							</p>						
+						</div>
+						<!--<span class="span4 margintop20">* Please fill all required form field, thanks!</span>-->
+					</div>
+				{% include leadlanderform.html %}
+				</form>
+				<script type="text/javascript">
+					function checkform(theform){
+					var why = "";
+					if(theform.txtInput.value == ""){
+					why += "- Security code should not be empty.\n";
+					}
+					if(theform.txtInput.value != ""){
+						if(ValidCaptcha(theform.txtInput.value) == false){
+							why += "- Security code did not match.\n";
+						}else{
+							if (!theform.checkValidity || theform.checkValidity()) {
+									track_contactForm();
+							}
+						}
+					
+					}
+					if(why != ""){
+					alert(why);
+					document.getElementById("txtInput").focus();
+					return false;
+					}
+					}
+					//Generates the captcha function
+					var a = Math.ceil(Math.random() * 9);
+					var b = Math.ceil(Math.random() * 9);
+					var c = Math.ceil(Math.random() * 9);
+					var d = Math.ceil(Math.random() * 9);
+					var e = Math.ceil(Math.random() * 9);
+					var code = a + b + c + d + e;
+					document.getElementById("txtCaptcha").value = code;
+					document.getElementById("txtCaptchaDiv").innerHTML = code;
+					// Validate the Entered input aganist the generated security code function
+					function ValidCaptcha(){
+					var str1 = removeSpaces(document.getElementById("txtCaptcha").value);
+					var str2 = removeSpaces(document.getElementById("txtInput").value);
+					if (str1 == str2){
+					return true;
+					}else{
+					return false;
+					}
+					}
+					// Remove the spaces from the entered and generated code
+					function removeSpaces(string){
+					return string.split(" ").join("");
+					}
+				</script>
+			</div>
 
 			</div>
+			
+			
+			
+
+
+			
+			
+			
+			
+			
+			
+			
+			
 			</div>
 			</section>
 
@@ -464,7 +568,7 @@ support and enhanced features, Cloudify Premium lets you take your cloud orchest
 						</div>
 						<div class="span2">
 						<div class="aligncenter">
-						<a class="btn btn-large btn-theme btn-rounded" id="getintouchBtn" href="mailto:hello@getcloudify.org?subject=I%20want%20to%20hear%20more%20about%20Cloudify%20Premium"><i class="icon-envelope"></i>  Get In Touch</a>
+						<!--<a class="btn btn-large btn-theme btn-rounded" id="getintouchBtn" href="mailto:hello@getcloudify.org?subject=I%20want%20to%20hear%20more%20about%20Cloudify%20Premium"><i class="icon-envelope"></i>  Get In Touch</a>-->
 						<br/>
 						<p>&nbsp;</p>
 						<a class="btn btn-large btn-green btn-rounded" href="brochures/Cloudify-Premium.pdf" target="_blank"><i class="icon-file"></i>  Spec Sheet</a></div>
@@ -535,7 +639,46 @@ support and enhanced features, Cloudify Premium lets you take your cloud orchest
 			</div>
 		</div>
 </div>
+<script>
+//set download cookie
+function setCookie(key, value) {
+    var expires = new Date();
+    expires.setTime(expires.getTime() + (180 * 24 * 60 * 60 * 1000));
+    document.cookie = key + '=' + value + ';expires=' + expires.toUTCString()+';path=/';
+}
 
+function getCookie(key) {
+    var keyValue = document.cookie.match('(^|;) ?' + key + '=([^;]*)(;|$)');
+    return keyValue ? keyValue[2] : null;
+}
+function track_contactForm() {
+		//_gaq.push(['_trackEvent','Product Download', downloadme]);
+       	//track mixpanel
+		if (getCookie('cfydirect') == null) {
+            var formEmail =  $("#contactform #email").val();	
+            var formName =  $("#contactform #first_name").val();
+			var formcompany =  $("#contactform #company").val();
+			mixpanel.identify(formEmail);
+            mixpanel.alias(formName, formEmail, formcompany);
+            mixpanel.name_tag(formName) ;
+			mixpanel.register();
+			
+			mixpanel.people.set({
+			$email: formEmail,
+			$first_name: formName,
+			$company: formcompany,
+			$created: new Date(),
+			});	
+			//create cookie;
+			setCookie('cfydirect', formName + "," + formEmail + "," + formcompany);	
+        }else{
+			var formEmail = getCookie('cfydirect').split(",")[1];
+			mixpanel.identify(formEmail);
+        }
+
+		
+	}
+</script>
 </notextile>
 
 						
