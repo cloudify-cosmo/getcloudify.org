@@ -34,7 +34,7 @@ support and enhanced features, Cloudify Premium lets you take your cloud orchest
 			</div>
 			
 						<div class="span5">
-				<h2><strong>Get in Touch For Details on Cloudify Premium</strong></h2>
+				<h2><strong>Contact Us About Cloudify Premium</strong></h2>
 				<form id="contactform" action="http://formspree.io/hello@getcloudify.org" method="post" class="validateform" name="send-contact" onsubmit="return checkform(this);">
 				<input type="hidden" name="_next" value="/thank_you_premium.html" />
 				<input type="hidden" name="_subject" value="New submission!" />
@@ -59,67 +59,24 @@ support and enhanced features, Cloudify Premium lets you take your cloud orchest
 							</div>
 						</div>
 						<div class="span4 margintop10 field">
-							<textarea style="height:80px" id="message" rows="12" name="message" class="input-block-level" placeholder="Tell us about your requirements here." data-rule-required="false" data-msg="Please write something"></textarea>
+							<textarea style="height:80px" id="message" rows="12" name="message" class="input-block-level" placeholder="Ler us know your requirements here" data-rule-required="false" data-msg="Please write something"></textarea>
 							<div class="validation">
 							</div>
 						</div>
-						<!--<div class="span4 field">-->
-						    <!--http://www.tothemoon.com/2013/01/simple-javascript-captcha-you-can-add-to-any-form/-->
-							<!--<font color="#000000">Enter This Code >></font> <span id="txtCaptchaDiv" style="color:#000"></span>--><!--this is where the script will place the generated code-->
-							<!--<input type="hidden" id="txtCaptcha"/></label>--><!-- this is where the script will place a copy of the code for validation: this is a hidden field -->
-							<!--<input type="text" name="txtInput" id="txtInput" size="15"  placeholder="* Enter the code above "/>-->
+						<div class="span4 field">
 							<p>
 								<button class="btn btn-theme margintop10 pull-left" type="submit">Get Cloudify Premium</button>
 							</p>						
 						</div>
-						<!--<span class="span4 margintop20">* Please fill all required form field, thanks!</span>-->
+						<span class="span4 margintop20">* Please fill all required form field, thanks!</span>
 					</div>
 				{% include leadlanderform.html %}
 				</form>
 				<script type="text/javascript">
 					function checkform(theform){
-					var why = "";
-					if(theform.txtInput.value == ""){
-					why += "- Security code should not be empty.\n";
-					}
-					if(theform.txtInput.value != ""){
-						if(ValidCaptcha(theform.txtInput.value) == false){
-							why += "- Security code did not match.\n";
-						}else{
-							if (!theform.checkValidity || theform.checkValidity()) {
-									track_contactForm();
-							}
+						if (!theform.checkValidity || theform.checkValidity()) {
+							track_contactForm();
 						}
-					
-					}
-					if(why != ""){
-					alert(why);
-					document.getElementById("txtInput").focus();
-					return false;
-					}
-					}
-					//Generates the captcha function
-					var a = Math.ceil(Math.random() * 9);
-					var b = Math.ceil(Math.random() * 9);
-					var c = Math.ceil(Math.random() * 9);
-					var d = Math.ceil(Math.random() * 9);
-					var e = Math.ceil(Math.random() * 9);
-					var code = a + b + c + d + e;
-					document.getElementById("txtCaptcha").value = code;
-					document.getElementById("txtCaptchaDiv").innerHTML = code;
-					// Validate the Entered input aganist the generated security code function
-					function ValidCaptcha(){
-					var str1 = removeSpaces(document.getElementById("txtCaptcha").value);
-					var str2 = removeSpaces(document.getElementById("txtInput").value);
-					if (str1 == str2){
-					return true;
-					}else{
-					return false;
-					}
-					}
-					// Remove the spaces from the entered and generated code
-					function removeSpaces(string){
-					return string.split(" ").join("");
 					}
 				</script>
 			</div>
