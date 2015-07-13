@@ -219,9 +219,9 @@ function track_contactForm() {
 		//_gaq.push(['_trackEvent','Product Download', downloadme]);
        	//track mixpanel
 		if (getCookie('cfydirect') == null) {
-            var formEmail =  $("#contactform #email").val();	
-            var formName =  $("#contactform #first_name").val();
-			var formcompany =  $("#contactform #company").val();
+            var formEmail =  $("#regiterToblueprint #email").val();	
+            var formName =  $("#regiterToblueprint #first_name").val();
+			var formcompany =  $("#regiterToblueprint #company").val();
 			mixpanel.identify(formEmail);
             mixpanel.alias(formName, formEmail, formcompany);
             mixpanel.name_tag(formName) ;
@@ -436,9 +436,7 @@ function downloadValid(){
             if ($('input#website').val().length != 0) {
                 return false;
             } else {
-                //setCookie('cfydirect', formName + "," + formEmail + "," + formcompany);
-                //directDownload(e);
-				//alert("ffff");
+				 track_contactForm();
 				 form.submit();
 				return true;
             }
