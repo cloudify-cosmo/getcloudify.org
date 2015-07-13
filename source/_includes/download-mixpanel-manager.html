@@ -75,6 +75,52 @@ strCollapse += "        <\/div>";
 
 
 
+//Contact us Gating modal pop up form 
+//=====================================//
+var strContactForm="";
+strContactForm += "<div class=\"modal fade\" id=\"myModal\" tabindex=\"-1\" role=\"dialog\" aria-labelledby=\"myModalLabel\" aria-hidden=\"true\">";
+strContactForm += "            <a  style=\"float:right \" class=\"gattingWrapperClose\" href=\"#\"><i class=\"fa fa-times\">&nbsp;&nbsp;<\/i> <\/a>";
+strContactForm += "				<div class=\"gattingWrapper\">";
+strContactForm += "				<form id=\"regiterToblueprint\" action=\"http:\/\/formspree.io\/hello@getcloudify.org\" method=\"post\" class=\"validateform\" name=\"send-contact\" >";
+strContactForm += "				<input type=\"hidden\" name=\"_next\" value=\"\/thank_you_blueprint_composer.html\" \/>";
+strContactForm += "				<input type=\"hidden\" name=\"_subject\" value=\"New submission!\" \/>";
+strContactForm += "				<input type=\"text\" name=\"_gotcha\" style=\"display:none\" \/>";
+strContactForm += "					<div id=\"sendmessage\">";
+strContactForm += "						 Your message has been sent. Thank you!";
+strContactForm += "					<\/div>";
+
+
+strContactForm += "			<div class=\"regTitle\">please contact us<\/div>";
+strContactForm += "			<div style=\"position:relative\">";
+strContactForm += "				<input  id=\"first_name\" name=\"first_name\" type=\"text\" class=\"cuInput\" placeholder=\"Your Name\" \/>";
+strContactForm += "				<div class=\"cuValid\"><\/div>";
+strContactForm += "			<\/div>";
+strContactForm += "			<div style=\"position:relative\">";
+strContactForm += "				<input  id=\"email\" name=\"email\"  type=\"text\"  placeholder=\"Your Email\"\/>";
+strContactForm += "				<div class=\"cuValid\"><\/div>";
+strContactForm += "			<\/div>";
+strContactForm += "			<div style=\"position:relative\">";
+strContactForm += "				<input  id=\"company\" name=\"company\"  type=\"text\"  placeholder=\"Your Company\"\/>";
+strContactForm += "				<div class=\"cuValid\"><\/div>";
+strContactForm += "			<\/div>";
+strContactForm += "			<div style=\"position:relative\">";
+strContactForm += "				<textarea style=\"height:60px\" id=\"message\" rows=\"12\" name=\"message\" class=\"input-block-level\" placeholder=\"Your message here...\" data-rule-required=\"false\" data-msg=\"Please write something\"><\/textarea>";
+strContactForm += "				<div class=\"cuValid\"><\/div>";
+strContactForm += "			<\/div>";
+strContactForm +="          <input id=\"website\" name=\"website\" type=\"text\" value=\"\"  \/>";
+strContactForm += "						<div class=\"span4 field\">";
+strContactForm += "							<p>";
+strContactForm += "								<button id=\"btnSndBlueprintForm\" class=\"btn btn-theme margintop10 pull-left\" type=\"submit\">Get Cloudify Premium<\/button>";
+strContactForm += "							<\/p>						";
+strContactForm += "						<\/div>";
+strContactForm += "					<\/div>";
+strContactForm += "				<\/form>";
+strContactForm += "<br><br>";
+strContactForm += "	<\/div>";
+strContactForm += "	<\/div>";
+
+
+
 
 //set download cookie
 function openDownloadWindowFunction() {
@@ -145,6 +191,67 @@ $("#downloadme,.eaTitle,.downloadme,.download").click(function (e) {
           directDownload(e);
       }
 });
+
+//strContactForm 
+$(".blueComp").click(function (e) {
+      
+          //downloadHref = $(this).attr('href');
+          //dataBtnName = $(this).attr("data-btn-type");
+          //dataBtnSplit = $(this).attr("data-btn-split");
+          if (getCookie('cfydirect') == null) {
+          $("#myModal").remove();
+          $("#wrapper").before(strContactForm);
+		  $('#myModal').modal('toggle');
+		  downloadValid();
+		   //$('#myCollapse').addClass('in');
+          //downloadValid();
+          //downloadFile(e);
+      } else {
+          //directDownload(e);
+      }
+});
+
+
+
+
+
+function track_contactForm() {
+		//_gaq.push(['_trackEvent','Product Download', downloadme]);
+       	//track mixpanel
+		if (getCookie('cfydirect') == null) {
+            var formEmail =  $("#contactform #email").val();	
+            var formName =  $("#contactform #first_name").val();
+			var formcompany =  $("#contactform #company").val();
+			mixpanel.identify(formEmail);
+            mixpanel.alias(formName, formEmail, formcompany);
+            mixpanel.name_tag(formName) ;
+			mixpanel.register();
+			
+			mixpanel.people.set({
+			$email: formEmail,
+			$first_name: formName,
+			$company: formcompany,
+			$created: new Date(),
+			});	
+			//create cookie;
+			setCookie('cfydirect', formName + "," + formEmail + "," + formcompany);	
+        }else{
+			var formEmail = getCookie('cfydirect').split(",")[1];
+			mixpanel.identify(formEmail);
+        }
+
+		
+}
+
+
+
+function checkform(theform){
+	if (!theform.checkValidity || theform.checkValidity()) {
+		track_contactForm();
+	}
+}
+
+
 
 
 function directDownload(e){
@@ -292,6 +399,57 @@ function downloadValid(){
         }
     });
   //End Validation
+  
+  
+  
+  $('#regiterToblueprint').validate({ // initialize the plugin
+        errorLabelContainer: "#error-note",
+        rules: {
+            first_name: {
+                required: true,
+				regexp: true
+            },
+			email: {
+                required: true,
+                email: true
+            },
+			company: {
+                required: true   
+            }
+
+			},
+        messages: {
+            first_name: {
+                required: "Please enter your first name",
+            },
+            email: {
+                required: "Please specify your email",
+                email: "Correct format is name@domain.com"
+            },
+			company: {
+                required: "Please enter your company name"
+            }
+
+        },
+        submitHandler: function (form,e) { // for demo
+            formalyzer_call_onclick(12206); 
+            if ($('input#website').val().length != 0) {
+                return false;
+            } else {
+                //setCookie('cfydirect', formName + "," + formEmail + "," + formcompany);
+                //directDownload(e);
+				//alert("ffff");
+				 form.submit();
+				return true;
+            }
+            //return false; // for demo
+        }
+    });
+  //End Validation
+  
+  
+  
+  
 }
 
 //Blocking Spam http://blog.supermedia.com/honeypot-technique/
