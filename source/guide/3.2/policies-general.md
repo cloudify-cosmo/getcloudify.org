@@ -161,8 +161,9 @@ groups:
         # Name of the service we want to shortlist (using regular expressions) and
         # watch - every Diamond event has the service field set to some value.
         # In our case, the ExampleCollector sends events with this value set to "example".
-        service:
-           - example
+        properties:
+          service:
+            - example
 
         triggers:
           heal_trigger:
