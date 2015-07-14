@@ -208,7 +208,7 @@ $("#downloadme,.eaTitle,.downloadme,.download").click(function (e) {
 
 //strContactForm 
 $(".blueComp").click(function (e) {  
-          if (getCookie('cfydirect') == null) {
+          if (getCookie('cfybpcomp') == null) {
           $("#myModal").remove();
           $("#wrapper").before(strContactForm);
 		  $('#myModal').modal('toggle');
@@ -227,7 +227,7 @@ $(".blueComp").click(function (e) {
 function track_contactForm() {
 		//_gaq.push(['_trackEvent','Product Download', downloadme]);
        	//track mixpanel
-		if (getCookie('cfydirect') == null) {
+		if (getCookie('cfybpcomp') == null) {
             var formEmail =  $("#regiterToblueprint #email").val();	
             var formName =  $("#regiterToblueprint #first_name").val();
 			var formcompany =  $("#regiterToblueprint #company").val();
@@ -243,9 +243,9 @@ function track_contactForm() {
 			$created: new Date(),
 			});	
 			//create cookie;
-			setCookie('cfydirect', formName + "," + formEmail + "," + formcompany);	
+			setCookie('cfybpcomp', formName + "," + formEmail + "," + formcompany);	
         }else{
-			var formEmail = getCookie('cfydirect').split(",")[1];
+			var formEmail = getCookie('cfybpcomp').split(",")[1];
 			mixpanel.identify(formEmail);
         }
 
