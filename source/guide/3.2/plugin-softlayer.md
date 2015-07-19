@@ -1,7 +1,7 @@
 ---
 layout: bt_wiki
 title: SoftLayer Plugin
-category: Plugins
+category: Official Plugins
 publish: true
 abstract: Cloudify SoftLayer plugin description and configuration
 pageord: 600
@@ -13,6 +13,26 @@ This section describes how to use a SoftLayer based cloud infrastructure in your
 For more information about SoftLayer, please refer to: [http://www.softlayer.com/](http://www.softlayer.com/).
 {%endsummary%}
 
+{%note title=Note%}
+The Softlayer IaaS plugin is a feature of [the premium edition of Cloudify]({{ site.baseurl }}/goPro.html), 
+it comes with the downloadable packages of the cli.<br>
+To install the packages see [Installing using packages](installation.html#installing-using-packages).
+{%endnote%}
+
+# Requirements
+  * A SoftLayer account, see [SoftLayer Authentication](#softlayer-authentication).
+  * [The Cloudify Premium edition]({{ site.baseurl }}/goPro.html) 
+
+# Compatibility
+  The SoftLayer plugin uses the [SoftLayer 3.3.0](https://pypi.python.org/pypi/SoftLayer/3.3.0) (SoftLayer API bindings for Python).
+
+  {%note title=Note%}
+  In order to offer full support for SoftLayer's virtual server catalog, the Softlayer plugin extends the [VSManager class](https://softlayer-api-python-client.readthedocs.org/en/latest/api/managers/vs/) and declares the [verify_place_order](https://github.com/cloudify-cosmo/cloudify-softlayer-plugin/blob/master/softlayer_plugin/extended_vs_manager.py#L113) and [place_order](https://github.com/cloudify-cosmo/cloudify-softlayer-plugin/blob/master/softlayer_plugin/extended_vs_manager.py#L145) methods which enable specifying all the needed items for creating a virtual server, corresponding to the properties of the [Cloudify Softlayer VirtualServer](#cloudifysoftlayernodesvirtualserver) type.
+  {%endnote%}
+
+# Installation
+  As Softlayer plugin is included in the commercial cli packages, the plugin and its requirements are pre installed.<br> 
+  For installing the commercial cli packages see [Installing using packages](installation.html#installing-using-packages).
 
 # Types
 
@@ -33,20 +53,20 @@ For more information about SoftLayer, please refer to: [http://www.softlayer.com
     * `disk` The item id of the desired server's first disk, e.g. item id 1178 for 25 GB (SAN).
 
   * **Optional Properties:**
-    * `api_config` 
+    * `api_config`
       * A dictionary containing the authentication information for connecting to the SoftLayer API:
-        - username: a SoftLayer username 
+        - username: a SoftLayer username
         - api-key: a user-specific API Key
         - endpoint_url: a softLayer endpoint URL of choice
-        
+
         for more information see [SoftLayer-API-Overview](http://sldn.softlayer.com/article/SoftLayer-API-Overview)
-      * An empty dictionary by default - will be taken from other resources if not specified - see [SoftLayer authentication](#softlayer-authentication))  
+      * An empty dictionary by default - will be taken from other resources if not specified - see [SoftLayer authentication](#softlayer-authentication))
     * `hostname` The hostname to use for the new server, e.g. 'my-hostname'
       * An empty string by default - will be generated automatically, see [Resource Naming Convention](#resource-naming-convention)
     * `os` The item id of the operating system to use, e.g. item id 1857 for Windows Server 2008 R2 Standard Edition (64bit)
-    * `image_template_global_id` An image template global id to load the server with. 
+    * `image_template_global_id` An image template global id to load the server with.
       * If an image is used, `os` must not be specified.
-    * `image_template_id` An image template id to load the server with. 
+    * `image_template_id` An image template id to load the server with.
       * If an image is used, `os` must not be specified.
     * `quantity` The amount of servers to order
       * default: 1
@@ -62,7 +82,9 @@ For more information about SoftLayer, please refer to: [http://www.softlayer.com
       * By default SoftLayer will assign the public VLAN.
     * `provision_scripts` A list of the URIs of the post-install scripts to run after creating the server
       * Each URI should start with https
-    * `ssh_keys` A list of SSH keys to add to the root user
+    * `ssh_keys` A list of Softlayer IDs, representing SSH keys that were added to SoftLayer.
+      * An SSH key ID is created by SoftLayer when the SSH key is added, see how to [Add an SSH Key](http://knowledgelayer.softlayer.com/procedure/add-ssh-key) to SoftLayer, using the [SoftLyaer Customer Portal](https://control.softlayer.com/).
+      * An example of how to retrieve an SSH key ID from SoftLayer can be found in the following Notes.
     * `bandwidth` The item id of the amount of bandwidth for this server
       * default: 439 – the item id of 0 GB bandwidth
     * `pri_ip_addresses` The item id of Primary IP Addresses
@@ -82,10 +104,19 @@ For more information about SoftLayer, please refer to: [http://www.softlayer.com
     * `additional_ids` A list of additional item ids, e.g. [397] when 397 is the item id of McAfee anti-virus.
 
   * **Notes:**
-    * Exactly one of the properties `OS`, `image_template_global_id` or `image_template_id` must be defined.  
+    * Exactly one of the properties `OS`, `image_template_global_id` or `image_template_id` must be defined.
     * If `private_network_only` is set to true, the `port_speed` item id should describe a private only port speed, otherwise, it will be changed to a private only port speed.
-    * Another way to declare a private only server is to set the port speed property with an item id that describes a private only port speed, e.g. item id 498 for 1 Gbps Private Network Uplink. 
+    * Another way to declare a private only server is to set the port speed property with an item id that describes a private only port speed, e.g. item id 498 for 1 Gbps Private Network Uplink.
     <br>In that case, the `public_vlan` property cannot be specified.
+    * One way to get the SSH key ID (for the `ssh_keys`) is to use the [SoftLayer 3.3.0 API](https://pypi.python.org/pypi/SoftLayer/3.3.0), specifically, use the [SshKeyManager](https://softlayer-api-python-client.readthedocs.org/en/latest/api/managers/sshkey/#SoftLayer.managers.sshkey.SshKeyManager) class to get the SSH key ID from the SSH key list, e.g.
+{% highlight python %}
+import SoftLayer
+sshkeymamager = SoftLayer.SshKeyManager(SoftLayer.Client(username, api_key))
+ssh_key_id = [key for key in sshkeymamager.list_keys() if key['label']==SSH-KEY-NAME][0]['id']
+{% endhighlight %}
+
+
+
 
 **Mapped Operations:**
 
@@ -101,7 +132,7 @@ For more information about SoftLayer, please refer to: [http://www.softlayer.com
     2. Stops the server, if it’s not already halted.
   * `cloudify.interfaces.lifecycle.delete`
     1. Deletes the server.
-    2. Waits for transactions to start (the delete process has begun). 
+    2. Waits for transactions to start (the delete process has begun).
     3. Waits for for transactions to end (the delete process has terminated).
   * `cloudify.interfaces.validation.creation_validation`
     1. Validates that all required properties are specified.
@@ -118,9 +149,9 @@ For more information about SoftLayer, please refer to: [http://www.softlayer.com
 
 
 **Derived From:** [cloudify.softlayer.nodes.VirtualServer](#cloudifysoftlayernodesvirtualserver)
-	This type has the same properties and operations-mapping as the type above (as it is derived from it), 
-	yet it overrides some of the agent and plugin installations operations-mapping derived from the built-in cloudify.nodes.Compute type. 
-	
+	This type has the same properties and operations-mapping as the type above (as it is derived from it),
+	yet it overrides some of the agent and plugin installations operations-mapping derived from the built-in cloudify.nodes.Compute type.
+
   Use this type when working with a Windows server.
 
 
@@ -129,12 +160,12 @@ For more information about SoftLayer, please refer to: [http://www.softlayer.com
 Node instances of any of the types defined in this plugin are set with the following runtime properties:
 
 Two runtime-properties are available on node instances of these types once the `cloudify.interfaces.lifecycle.create` operation succeeds:
-  
-  * `instance_id` – virtual server instance unique identifier 
+
+  * `instance_id` – virtual server instance unique identifier
   * `hostname` – the hostname determined in the plugin's creation process.
 
-The following runtime-properties are available on node instances of this type once the `cloudify.interfaces.lifecycle.start` operation succeeds: 
-  
+The following runtime-properties are available on node instances of this type once the `cloudify.interfaces.lifecycle.start` operation succeeds:
+
   * `ip` – the private ip of the server
   * `public_ip` – the public ip of the server
   * `username` – server's username
@@ -144,7 +175,7 @@ The following runtime-properties are available on node instances of this type on
 # Resource Naming Convention
 When creating a virtual server, its name on SoftLayer will be `<hostname>.<domain>` where \<hostname> and \<domain> are the values of the `hostname` and the `domain` proeprties respectively.
 
-In case the `hostname` property is not provided, the value of the server's hostname will default to its node-instance-id, which was generated in the deployment creation process. 
+In case the `hostname` property is not provided, the value of the server's hostname will default to its node-instance-id, which was generated in the deployment creation process.
 
 {%note%}
 In case this server is created as part of a deployment that is running on a manager, and the `resource_prefix` property is provided in the manager blueprint, the server's full name on SoftLayer will be `<prefix>-<hostname/node-instance-id>.<domain>`.
@@ -157,7 +188,7 @@ Following the SoftLayer naming convention (see below), some changes may be made 
   - If the truncating mentioned above has created two consecutive dashes, then they will be replaced with a single dash.
 
 Examples:
-  
+
   - If `resource_prefix` property was set to "softlayer" and the node's `hostname` property was set to "my_hostname" then the server's hostname on SoftLayer will be 'softl-hostname' (after unifying consecutive dashes in 'softl-\-hostname')
   - If the hostname and prefix weren't provided, and the server node is defined with the name "sl_server", then the server's hostname on SoftLayer will be `sl-server-XXXXX` (where the XXXXX is the autogenerated part of the node instance's ID).
 
@@ -165,24 +196,24 @@ The domain is a required property and it must follow the SoftLayer naming conven
 
 {%info title=SoftLayer naming convention%}
 The correct SoftLayer naming convention is as follows:
-  The hostname and domain must be alphanumeric strings that may be separated by periods '.'. 
-  
-  The only other allowable special character is the dash '-' 
-  
-  However the special characters '.' and '-' may not be consecutive. 
-  
-  Each alphanumeric string separated by a period is considered a label. 
-  
-  Labels must begin and end with an alphanumeric character. 
-  
-  Each label cannot be solely comprised of digits and must be between 1-63 characters in length. 
-  
-  The last label, the TLD (top level domain) must be between 2-24 alphabetic characters. 
-  
-  The domain portion must consist of least one label followed by a period '.' then ending with the TLD label. 
-  
-  For Microsoft Windows operating systems, the hostname portion may not exceed 15 characters in length. 
-  
+  The hostname and domain must be alphanumeric strings that may be separated by periods '.'.
+
+  The only other allowable special character is the dash '-'
+
+  However the special characters '.' and '-' may not be consecutive.
+
+  Each alphanumeric string separated by a period is considered a label.
+
+  Labels must begin and end with an alphanumeric character.
+
+  Each label cannot be solely comprised of digits and must be between 1-63 characters in length.
+
+  The last label, the TLD (top level domain) must be between 2-24 alphabetic characters.
+
+  The domain portion must consist of least one label followed by a period '.' then ending with the TLD label.
+
+  For Microsoft Windows operating systems, the hostname portion may not exceed 15 characters in length.
+
   Combining the hostname, followed by a period '.', followed by the domain gives the FQDN (fully qualified domain name), which may not exceed 253 characters in total length.
 {%endinfo%}
 
@@ -192,15 +223,15 @@ The correct SoftLayer naming convention is as follows:
 The SoftLayer plugin requires credentials and endpoint setup information in order to authenticate and interact with SoftLayer.
 
 **This information will be gathered by the plugin from the following sources:**
-  
+
   * values specified in the `api_config` property (see api_config property)
   * If not specified, will be taken from the JSON configuration file at `~/softlayer_config.json`
   * If `~/softlayer_config.json` is not defined:
-    * username and API Key will be taken from the environment variables `SL_USERNAME` and `SL_API_KEY` 
+    * username and API Key will be taken from the environment variables `SL_USERNAME` and `SL_API_KEY`
     * An exception is thrown if either of these is not defined
     * The SoftLayer default endpoint will be fine for most use cases.
 
-The mentioned configuration file is a JSON file that holds the username, api_key and endpoint_url. 
+The mentioned configuration file is a JSON file that holds the username, api_key and endpoint_url.
 Specifically, it is expected to look like so:
 {% highlight json %}
 {
@@ -211,7 +242,7 @@ Specifically, it is expected to look like so:
 {%endhighlight%}
 
 {%note%}
-If the Cloudify bootstrap was done using the SoftLayer manager blueprint, the authentication with SoftLayer is taken care of automatically. 
+If the Cloudify bootstrap was done using the SoftLayer manager blueprint, the authentication with SoftLayer is taken care of automatically.
 The plugin does this by using configuration files created for it by the manager during the Cloudify bootstrap process.
 {%endnote%}
 
@@ -295,7 +326,7 @@ node_templates:
       provision_scripts: { get_input: provision_scripts }
       additional_ids: { get_input: additional_ids }
       install_agent: { get_input: install_agent }
-  
+
   softlayer_configuration:
     type: softlayer_configuration
     properties:
@@ -361,7 +392,7 @@ inputs:
     type: integer
     default: ''
   provision_scripts:
-    default: ['https://raw.githubusercontent.com/cloudify-cosmo/cloudify-softlayer-plugin/master/softlayer_plugin/scripts/postprov.cmd']
+    default: ['https://raw.githubusercontent.com/cloudify-cosmo/cloudify-system-tests/master/cosmo_tester/resources/scripts/python_and_winrm_config.cmd']
   additional_ids:
     default: []
   install_agent:
@@ -386,7 +417,7 @@ node_templates:
       provision_scripts: { get_input: provision_scripts }
       additional_ids: { get_input: additional_ids }
       install_agent: { get_input: install_agent }
-  
+
   softlayer_configuration:
     type: softlayer_configuration
     properties:
@@ -403,7 +434,7 @@ node_templates:
 
 This example will show how to launch a Flex image on SoftLayer with a local workflow
 
-It will also show how to use the outputs section to get the public ip, username and password of a server, in the same way that all runtime_properties can be accessed (see [Blueprint Authoring Guide - adding-outputs](http://getcloudify.org/guide/3.2/guide-blueprint.html#step-7-adding-outputs))
+It will also show how to use the outputs section to get the public ip, username and password of a server, in the same way that all runtime_properties can be accessed (see [Blueprint Authoring Guide - adding-outputs](getting-started-write-blueprint.html#step-7-adding-outputs))
 
 {% togglecloak id=3 %}
 Example III
@@ -415,7 +446,7 @@ Example III
 tosca_definitions_version: cloudify_dsl_1_0
 
 imports:
-    - http://www.getcloudify.org/spec/cloudify/3.1/types.yaml
+    - http://www.getcloudify.org/spec/cloudify/3.2/types.yaml
     - https://raw.githubusercontent.com/cloudify-cosmo/cloudify-softlayer-plugin/widget/plugin.yaml
 
 inputs:

@@ -144,7 +144,7 @@
  }
 
  .mobileLogo{ position:absolute;z-index:9999;left:15px;top:40px}
- .mobileLogo a { background:url(/img/logoSmall.png) no-repeat bottom left  !important; display:block; width:62px; height:40px; overflow:hidden}
+ .mobileLogo a { background:url(../img/logoSmall.png) no-repeat bottom left  !important; display:block; width:62px; height:40px; overflow:hidden}
  .mobileLogo:hover a{background-position: 0 2px  !important;}
 
 
@@ -342,7 +342,7 @@ img.img-polaroid {
 	text-align: center;
 	text-decoration: none;
 	float:right;
-	margin:0 0 0 28px;
+	margin:0 0 0 60px;
 	border-radius:15px;
 	text-transform:capitalize;
 	background: #00B4DA !important;
@@ -353,8 +353,42 @@ img.img-polaroid {
 	background: #00a2c4 !important;
 	color: #fefefe !important;
 	border:1px solid #00a2c4 !important;
+
 }
-#header-hidden-link  a.toggle-link.goProBtn{ border-radius:0 0 15px 15px;}
+.topmenu a.toggle-link.tryBtn{
+	outline:0;
+	font-size: 14px;
+	line-height: 19px;
+	padding: 5px 10px !important;
+	height: 20px;
+	display: block;
+	text-align: center;
+	text-decoration: none;
+	float:right;
+	margin:0 0 0 10px;
+	border-radius:0 0 15px 15px;
+	text-transform:capitalize;
+	background: #479c18 !important;
+	border:1px solid #479c18 !important;
+	color: #fefefe !important;
+}
+.topmenu a.toggle-link.tryBtn:hover,.topmenu a.toggle-link.tryBtn:active{
+	background: #3f8d15 !important;
+	color: #fefefe !important;
+	border:1px solid #3f8d15 !important;
+
+}
+#header-hidden-link  a.toggle-link.goProBtn,#header-hidden-link a.toggle-link.tryBtn{ border-radius:0 0 15px 15px;}
+
+@media (max-width:600px) {
+	#header-hidden-link a.toggle-link.tryBtn {
+		display: none;
+	}
+}
+
+#header-hidden-link a.toggle-link.tryBtn{
+	background:#479c18;
+}
 
 #header-hidden-link a.toggle-link:active,#header-hidden-link a.toggle-link:focus,#header-hidden-link a.toggle-link:hover {
 	outline:0;
@@ -549,7 +583,7 @@ select.selectmenu {
 
 .cdnavbar{ position:relative;top:0px}
 .cloudifyLogo{ padding:0 !important; position:relative; z-index:999}
-.cloudifyLogo a { background:url(/img/logoSmall.png) no-repeat bottom left  !important; ; display:block; width:62px; height:28px; overflow:hidden}
+.cloudifyLogo a { background:url(../img/logoSmall.png) no-repeat bottom left  !important; ; display:block; width:62px; height:28px; overflow:hidden}
 .cloudifyLogo:hover a{background-position: 0 10px  !important;}
 .dwnBtn{ /*padding:0px 15px !important; margin-top:10px  !important*/}
 /*.dwnBtn:hover{-webkit-transition: all 1s ease-in-out;

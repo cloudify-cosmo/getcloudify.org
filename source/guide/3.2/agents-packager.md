@@ -9,8 +9,8 @@ pageord: 220
 virtualenv_link: http://virtualenv.readthedocs.org/en/latest/virtualenv.html
 terminology_link: reference-terminology.html
 celery_link: http://www.celeryproject.org/
-rest_client_api_link: reference-rest-client-api.html
-plugins_common_api_link: reference-plugins-common-api.html
+rest_client_api_link: apis-rest-service.html
+plugins_common_api_link: apis-plugins-common.html
 diamond_plugin_link: plugin-diamond.html
 script_plugin_link: plugin-script.html
 linux_agent_installer_link: plugin-linux-agent-installer.html
@@ -25,7 +25,7 @@ cloudify_agent_link: agents-cloudify-agent-module.html
 
 Cloudify's Agent is basically a [virtualenv]({{page.virtualenv_link}}) with a series of modules installed in it and (optionally) a few configuration files attached.
 
-To use Cloudify with distributions other than the [officially supported ones](agents-description.html#provided-agent-packages), we're providing an [Agent-Packager tool](https://github.com/cloudify-cosmo/cloudify-agent-packager) that will assist you in creating an agent for your distribution.
+To use Cloudify with distributions other than the [officially supported ones](agents-general.html#provided-agent-packages), we're providing an [Agent-Packager tool](https://github.com/cloudify-cosmo/cloudify-agent-packager) that will assist you in creating an agent for your distribution.
 
 This tool aims to:
 

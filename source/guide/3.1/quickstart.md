@@ -20,21 +20,13 @@ installation_general_link: installation-general.html
 ---
 {%summary%}{{page.abstract}}{%endsummary%}
 
+{%tip title=Try Instantly%}
+You can take Cloudify for an instant test drive with an [online trial.](http://getcloudify.org/widget.html)
+{%endtip%}
+
 # What is Cloudify?
 
-Cloudify is a Cloud Application Orchestrator. It automates any process you need to perform regarding your applications over any cloud.
-Cloudify provides:
-
-* Infrastructure Setup
-* Application Installation
-* Application Upgrades
-* Infrastructure Upgrades
-* Continuous Deployments
-* Auto-healing
-* Auto-scaling
-* Cloudify can work on any environment: IaaS, virtualized or even non-virtualized.
-* Cloudify executes automation processes using any tool you choose. From shell to Chef, Puppet, Docker, etc.
-* Cloudify monitors your application with any monitoring tool you choose; installing it for you if you like and interfacing with your monitoring tools to get events and metrics into Cloudify’s Policy Engine.
+Cloudify is a Cloud Application Orchestrator. It automates common processes you need to perform to manage your applications in a cloud environment or a traditional data center. 
 
 # Overview
 
@@ -129,7 +121,7 @@ The `-b` flag specifies the unique name we've assigned to this blueprint on the 
 Before creating a deployment, let's see what this blueprint looks like.
 Point your browser at the manager's URL again and refresh the screen. You will see the nodecellar blueprint listed there.
 
-![Blueprints table](/guide/images3/guide/quickstart/blueprints_table.png)
+![Blueprints table]({{ site.baseurl }}/guide/images3/guide/quickstart/blueprints_table.png)
 
 Click the blueprint. You can see its topology. A `topology`([?]({{page.terminology_link}}#topology)) consists of elements called `nodes`([?]({{page.terminology_link}}#node)).
 
@@ -140,11 +132,11 @@ In our case, we have the following nodes:
 * A MongoDB database
 * A nodejs application called nodecellar (which is a nice sample nodejs application backed by mongodb).
 
-![Nodecellar Blueprint](/guide/images3/guide/quickstart/nodecellar_singlehost_topology.png)
+![Nodecellar Blueprint]({{ site.baseurl }}/guide/images3/guide/quickstart/nodecellar_singlehost_topology.png)
 
 This blueprint defines some input parameters:
 
-![Nodecellar Inputs](/guide/images3/guide/quickstart/nodecellar_singlehost_inputs.png)
+![Nodecellar Inputs]({{ site.baseurl }}/guide/images3/guide/quickstart/nodecellar_singlehost_inputs.png)
 
 The inputs values are located at ~/cloudify/blueprints/inputs/nodecellar-singlehost.json.
 These are the values relevant for our example:
@@ -170,7 +162,7 @@ cfy deployments create -b nodecellar -d nodecellar --inputs ../inputs/nodecellar
 
 We've now created a deployment named `nodecellar` based on a blueprint with the same name. This deployment is not yet materialized, since we haven't issued an installation command. If you click the "Deployments" icon in the left sidebar in the web UI and then click on a certain node from the list, you will see, in the Topology tab, that all nodes are labeled with 0/1, which means they're pending creation, once it's done the status will change to 1/1.
 
-![Nodecellar Deployment](/guide/images3/guide/quickstart/nodecellar_deployment.png)
+![Nodecellar Deployment]({{ site.baseurl }}/guide/images3/guide/quickstart/nodecellar_deployment.png)
 
 ## Step 5: Install the Deployment
 
@@ -194,7 +186,7 @@ and the node in our topology that it relates to, e.g.
 
 In the Web UI, you can checkout the Logs/Events page for an overview of all Logs and Events in a specific Manager.
 
-![Events](/guide/images3/guide/quickstart/events.png)
+![Events]({{ site.baseurl }}/guide/images3/guide/quickstart/events.png)
 
 <br>
 
@@ -202,18 +194,18 @@ Alternatively, click on a specific deployment in the deployment tab. A list cont
 
 You can also have a look at the Monitoring tab and see some default metrics:
 
-![Metrics](/guide/images3/guide/default_dashboard.png)
+![Metrics]({{ site.baseurl }}/guide/images3/guide/default_dashboard.png)
 
 {%note title=Note%}
 The blueprint we installed actually defines a custom collector for the Mongo database.
-To add mongo related graphs to the dashboard, have a look at [Adding Custom Graphs](/guide/3.1/ui-monitoring.html#example---customize-your-dashboard).
+To add mongo related graphs to the dashboard, have a look at [Adding Custom Graphs]({{ site.baseurl }}/guide/3.1/ui-monitoring.html#example---customize-your-dashboard).
 {%endnote%}
 
 ## Step 6: Test Drive the Application
 
 To test the application, you will need to access it using its public IP address. Go to [http://11.0.0.7:8080](http://11.0.0.7:8080) to access it from your web browser. The marvelous nodecellar application should be up on your screen. Click the "Browse wines" button, on the top left side, to verify that the application was installed suceesfully and can access the mongodb database to read the list of wines.
 
-![Nodecellar](/guide/images3/guide/quickstart/nodecellar.png)
+![Nodecellar]({{ site.baseurl }}/guide/images3/guide/quickstart/nodecellar.png)
 
 ## Step 7: Uninstall the Deployment
 

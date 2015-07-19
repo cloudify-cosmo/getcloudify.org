@@ -1,7 +1,7 @@
 ---
 layout: bt_wiki
 title: Relationships
-category: DSL Specification
+category: Blueprints DSL
 publish: true
 abstract: "Node Relationships"
 pageord: 300
@@ -188,6 +188,63 @@ In the above example we have two `application` node instances connecting to **on
 The default configuration for `connection_type` is `all_to_all`.
 
 The same `connection_type` configuration can be applied to a `cloudify.relationships.contained_in` relationship type, though it will virtually have no effect.
+
+
+## *connection_type*: *all_to_all* and *all_to_one*
+As mentioned previously, the relationship types `cloudify.relationships.connected_to` and `cloudify.relationships.depends_on` and those that derive from it have a property named `connection_type` whose value can be either `all_to_all` or `all_to_one` (The default value is `all_to_all`).
+The following diagrams aim to make their semantics clearer.
+
+### *all_to_all*
+Consider this blueprint:
+
+{%highlight yaml%}
+node_templates:
+  application:
+    type: web_app
+    instances:
+      deploy: 2
+    relationships:
+      - type: cloudify.relationships.connected_to
+        target: database
+        properties:
+            connection_type: all_to_all
+  database:
+    type: database
+    instances:
+      deploy: 2
+{%endhighlight%}
+
+When deployed, we will have 2 node instances of the `application` node and 2 node instances of the `database` node. *All* `application` node instances will be connected to *all* `database` node instances.
+
+For example, consider 2 Node.js application servers that need to connect to 2 memcached nodes.
+
+![all_to_all diagram]({{ site.baseurl }}/guide/images3/guide/relationships-all-to-all.png)
+
+### *all_to_one*
+Consider this blueprint:
+
+{%highlight yaml%}
+node_templates:
+  application:
+    type: web_app
+    instances:
+      deploy: 2
+    relationships:
+      - type: cloudify.relationships.connected_to
+        target: database
+        properties:
+            connection_type: all_to_one
+  database:
+    type: database
+    instances:
+      deploy: 2
+{%endhighlight%}
+
+When deployed, we will have 2 node instances of the `application` node and 2 node instances of the `database` node. *All* `application` node instances will be connected to *one* `database` node instance (chosen at random).
+
+For example, consider 2 Node.js application servers that need to add themselves as users on a single cassandra node.
+
+![all_to_one diagram]({{ site.baseurl }}/guide/images3/guide/relationships-all-to-one.png)
 
 
 # Relationship Instances

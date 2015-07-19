@@ -1,12 +1,12 @@
 ---
 layout: bt_wiki
 title: vSphere Plugin
-category: Plugins
+category: Official Plugins
 publish: true
 abstract: Cloudify vSphere plugin description and configuration
 pageord: 600
 
-plugin_link: http://getcloudify.org.s3.amazonaws.com/spec/vsphere-plugin/1.1/plugin.yaml
+plugin_link: http://getcloudify.org.s3.amazonaws.com/spec/vsphere-plugin/1.2/plugin.yaml
 ---
 {%summary%}
 {%endsummary%}
@@ -22,10 +22,30 @@ The vSphere plugin.yaml configuration file can be found in this [link.]({{page.p
 {% endnote %}
 
 
-# Plugin Requirements:
+# Plugin Requirements
 
 * Python Versions:
-  * 2.7.x
+    * 2.7.x
+
+## vSphere Environment 
+
+* You will require a working vSphere environment. The plugin was tested with version 5.5, with updates 1 and 2 installed.
+
+## SSH Keys
+* You will need SSH keys generated for both the manager and the application VM's. If you are using the default key locations in the inputs, these can be created with the following commands:
+
+{% highlight bash %}
+ssh-keygen -b2048 -N "" -q -f ~/.ssh/cloudify-manager-kp.pem
+ssh-keygen -b2048 -N "" -q -f ~/.ssh/cloudify-agent-kp.pem
+{% endhighlight %}
+
+## OS Templates
+
+* You need two OS templates of your preferred operating systems (e.g. Ubuntu Trusty) within the vSphere datastores. One for the Cloudify manager and one for the application VMs. The application VM template should accept the Cloudify agent public key for its root user. The Cloudify manager template must accept the cloudify manager public key. Note that you can choose to use same template for both the manager and the application VMs, in that case the shared template must accept both public keys.
+* Both templates must have SSH activated and open on the firewall.
+* Both templates must have VMWare tools installed. Instructions for this can be found on the [VMWare site](http://kb.vmware.com/selfservice/microsites/search.do?language=en_US&cmd=displayKC&externalId=2075048). Please note, however, that the instructions on this site give incorrect tools for importing keys (it should be using `rpm --import <key>` rather than the apt-key equivalent). After following the instructions you should also run: `chkconfig vmtoolsd on`.
+* It is also necessary to install the deployPkg plugin on the VM according to [VMWare documentation](http://kb.vmware.com/selfservice/microsites/search.do?language=en_US&cmd=displayKC&externalId=2075048)
+* The template should not have any network interfaces.
 
 
 # Types
@@ -44,7 +64,7 @@ Each type has property `connection_config`. It can be used to pass parameters fo
 * `server` key-value server configuration.
     * `name` server name.
     * `template` virtual machine template from which server will be spawned. For more information, see the [Misc section - Virtual machine template](#virtual-machine-template).
-    * `cpus` number of cpus.
+    * `cpus` number of CPUs.
     * `memory` amount of RAM, in MB.
 
 * `networking` key-value server networking configuration.
@@ -60,14 +80,14 @@ Each type has property `connection_config`. It can be used to pass parameters fo
         * `gateway` network gateway ip. It will be used by the plugin only when `use_dhcp` is false.
         * `ip` server ip address. It will be used by the plugin only when `use_dhcp` is false.
 
-* `connection_config` key-value authentication configuration. If not specified, values that were used for Cloudify bootstrap process will be used.
+* `connection_config` key-value vSphere environment configuration. If not specified, values that were used for Cloudify bootstrap process will be used.
     * `username` vSphere username.
     * `password` user password.
-    * `url` vSphere url.
-    * `port` port which vCenter Server system uses to monitor data transfer from SDK clients (443 by default).
+    * `url` vCenter url.
+    * `port` vCenter port for SDK (443 by default).
     * `datacenter_name` datacenter name.
-    * `resource_pool_name` name of a network resource pool.
-    * `auto_placement` signifies if server is to be automatically placed on a host (false by default).
+    * `resource_pool_name` name of a resource pool. If you do not with to use a resource pool this must be set to 'Resources' as this is the base resource pool on vSphere.
+    * `auto_placement` signifies whether to use vSphere's auto-placement instead of the plugin's. Must be true if you are using clusters. (false by default).
 
 
 ## cloudify.vsphere.nodes.network
@@ -78,9 +98,9 @@ Each type has property `connection_config`. It can be used to pass parameters fo
 
 * `network` key-value network configuration.
     * `name` network name
-    * `vlan_id` VLAN identifier which will be assigne to the network.
-    * `vswitch_name` vswitch name to which the network will be connected
-* `connection_config` key-value authentication configuration. Same as for `cloudify.vsphere.server` type.
+    * `vlan_id` vLAN identifier which will be assignee to the network.
+    * `vswitch_name` vSwitch name to which the network will be connected
+* `connection_config` key-value vSphere environment configuration. Same as for `cloudify.vsphere.server` type.
 
 
 ## cloudify.vsphere.nodes.storage
@@ -91,7 +111,7 @@ Each type has property `connection_config`. It can be used to pass parameters fo
 
 * `storage` key-value storage disk configuration.
     * `storage_size` disk size in GB.
-* `connection_config` key-value authentication configuration. Same as for `cloudify.vsphere.server` type.
+* `connection_config` key-value vSphere environment configuration. Same as for `cloudify.vsphere.server` type.
 
 
 # Examples
@@ -160,24 +180,11 @@ Node by node explanation:
 
 1. Creates a server. In the server 'networking' property we spefied desired domain name as 'example.com', additional DNS server 8.8.8.8, and three existing networks we want to connect to: example_management_network, example_external_network and example_other_network. In the 'server' property we specified server name as example_server, vm template name as example_server_template, number of cpus as 1, and RAM as 512 MB.
 
-2. Creates a network. We specified network name as example_network, network VLAN id as 1, and an existing vswitch name we want to connect to as example_vswitch.
+2. Creates a network. We specified network name as example_network, network vLAN id as 1, and an existing vSwitch name we want to connect to as example_vswitch.
 
 3. Creates a storage. We specified desired storage size as 1 GB and wish to add this storage to example_server vm.
 
 {% endgcloak %}
-
-
-# Misc
-
-## Virtual machine template
-Template should have:
-
-* root disk with OS, SSH server and vSphere Tools installed.
-* user account, with manager and agent SSH keys in authorized_hosts.
-
-Template should not have:
-
-* any network interfaces connected.
 
 
 ## Resources prefix support

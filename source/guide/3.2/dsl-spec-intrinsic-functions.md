@@ -1,7 +1,7 @@
 ---
 layout: bt_wiki
 title: Intrinsic Functions
-category: DSL Specification
+category: Blueprints DSL
 publish: true
 abstract: "Intrinsic Functions are functions that can be used within Cloudify's DSL. Depending on the function, evaluation occurs on deployment creation or in runtime."
 pageord: 300

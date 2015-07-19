@@ -19,21 +19,21 @@ The page is split into several tabs, each showing a different part of the deploy
 
 # Topology
 A graphical view of the deployment [topology]({{page.terminology_topology}}).<br/>
-![Deployment topology](/guide/images/ui/ui-deployment-ready.jpg)
+![Deployment topology]({{ site.baseurl }}/guide/images/ui/ui-deployment-ready.jpg)
 
 # Network
 A graphical view of the network elements contained in the blueprint. Typical elements shown here are internal and external networks, hosts, routers and ports.<br/>
-![Deployment networks](/guide/images/ui/ui-deployment-networks.jpg)
+![Deployment networks]({{ site.baseurl }}/guide/images/ui/ui-deployment-networks.jpg)
 
 # Nodes
 The list of nodes defined in this deployment.<br/>
-![Deployment nodes](/guide/images/ui/ui-deployment-nodes.jpg)
+![Deployment nodes]({{ site.baseurl }}/guide/images/ui/ui-deployment-nodes.jpg)
 
 # Executions
 List of [executions]({{page.terminology_execution}}) performed by this deployment.<br/>
-![Deployment execution](/guide/images/ui/ui-deployment-execution.jpg)
+![Deployment execution]({{ site.baseurl }}/guide/images/ui/ui-deployment-execution.jpg)
 
 # Monitoring
 [Monitoring]({{page.ui_monitoring}}) information collected for this deployment.
-![Deployment monitorin](/guide/images/ui/ui_monitoring.jpg)
+![Deployment monitorin]({{ site.baseurl }}/guide/images/ui/ui_monitoring.jpg)
 

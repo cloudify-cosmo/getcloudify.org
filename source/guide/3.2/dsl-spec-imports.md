@@ -1,12 +1,12 @@
 ---
 layout: bt_wiki
 title: Imports
-category: DSL Specification
+category: Blueprints DSL
 publish: true
 abstract: "Importing YAML Files"
 pageord: 300
 
-types_yaml_link: http://www.getcloudify.org/spec/cloudify/3.1/types.yaml
+types_yaml_link: http://www.getcloudify.org/spec/cloudify/3.2/types.yaml
 terminology_link: reference-terminology.html
 dsl_node_types_link: dsl-spec-node-types.html
 dsl_groups_link: dsl-spec-groups.html

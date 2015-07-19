@@ -1,14 +1,14 @@
 ---
 layout: bt_wiki
 title: Script Plugin
-category: Plugins
+category: Official Plugins
 publish: true
 abstract: "Cloudify script plugin description and configuration"
 pageord: 100
 
 types_yaml_link: http://www.getcloudify.org/spec/cloudify/3.2/types.yaml
 repo_link: https://github.com/cloudify-cosmo/cloudify-script-plugin
-client_reference_link: https://github.com/cloudify-cosmo/cloudify-script-plugin/blob/master/script_runner/ctx_proxy.py#L331
+client_reference_link: https://github.com/cloudify-cosmo/cloudify-plugins-common/blob/3.2/cloudify/proxy/client.py
 hello_world_example_link: https://github.com/cloudify-cosmo/cloudify-hello-world-example
 ---
 {%summary%}
@@ -232,15 +232,6 @@ This will execute the script using the `powershell` binary.
 ## Hello World Example
 For a more complete usage example, check out our [Hello World]({{page.hello_world_example_link}}) example.
 
-{%note title=Note%}
-When you use `nohup` in your scripts, don't forget to redirect the output and stderr to `/dev/null`
-and to run the operation in the background using `&`.
-For example:
-{% highlight bash %}
-nohup python -m SimpleHTTPServer > /dev/null 2>&1 &
-{%endhighlight%}
-{%endnote%}
-
 
 # Operation Inputs
 
@@ -360,7 +351,7 @@ Workflow scripts are always evaluated as python code. At the moment it is not po
 
 # Context Proxy
 
-In the previous examples, `ctx` was referenced from within the scripts several times. This mechanism provides means for accessing the `ctx` object the way it is usually accessed when [writing plugins](guide-plugin-creation.html).
+In the previous examples, `ctx` was referenced from within the scripts several times. This mechanism provides means for accessing the `ctx` object the way it is usually accessed when [writing plugins](plugins-authoring.html).
 
 What follows is a description of how calls to the `ctx` executable, translate to the `ctx` object access.
 
@@ -521,3 +512,20 @@ In case of a failed execution:
 {%endhighlight%}
 
 You can look at the [CLI implementation]({{page.client_reference_link}}) for reference.
+
+# Troubleshooting
+
+### nohup 
+When you use `nohup` in your scripts, don't forget to redirect the output and stderr to `/dev/null`
+and to run the operation in the background using `&`.
+For example:
+{% highlight bash %}
+nohup python -m SimpleHTTPServer > /dev/null 2>&1 &
+{%endhighlight%}
+
+### File not found error
+Different linux distributions use different default interpreters. Thus one might use bash, while the other uses sh. Hence while bash will noramlly return an informative message in regards to the shebang line, the sh message might look something like this:
+{% highlight bash %}
+/bin/sh: 1: <tmp_path>/...<script_name>: not found
+{%endhighlight%}
+This basically means that the specified path in the shebang line is invalid (might be a syntax error or the path specified doesn't lead anywhere).

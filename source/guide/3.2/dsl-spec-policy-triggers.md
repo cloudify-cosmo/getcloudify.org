@@ -1,11 +1,11 @@
 ---
 layout: bt_wiki
 title: Policy Triggers
-category: DSL Specification
+category: Blueprints DSL
 publish: true
 pageord: 291
 
-types_yaml_link: https://github.com/cloudify-cosmo/cloudify-manager/blob/3.1/resources/rest-service/cloudify/types/types.yaml
+types_yaml_link: https://github.com/cloudify-cosmo/cloudify-manager/blob/3.2/resources/rest-service/cloudify/types/types.yaml
 execute_workflow_trigger_link: https://github.com/cloudify-cosmo/cloudify-manager/blob/3.1/resources/rest-service/cloudify/triggers/execute_workflow.clj
 ---
 {%summary%}

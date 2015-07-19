@@ -39,7 +39,7 @@ It includes the following components:
 
 The topology should look like this:
 
-![nodecllar app](/guide/images3/guide/nodecellar_topology.png "The nodecellar application topology")
+![nodecllar app]({{ site.baseurl }}/guide/images3/guide/nodecellar_topology.png "The nodecellar application topology")
 
 ## Cloudify YAML DSL
 

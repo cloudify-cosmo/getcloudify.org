@@ -12,7 +12,7 @@
 			<div class="span12" style="float:right;">
 				<ul class="breadcrumb">
 					<li><a href="/"><i class="icon-home"></i></a><i class="icon-angle-right"></i></li>
-					<li><a href="/blog">Blog</a><i class="icon-angle-right"></i></li>
+					<li><a href="{{ site.baseurl }}/blog">Blog</a><i class="icon-angle-right"></i></li>
 					<li class="active">{{ page.title }}</li>
 				</ul>
 			</div>
@@ -30,7 +30,7 @@
 					
 					<h1 class="pageTitle">{{ page.title }}</h1>
 					{% if page.title %} 
-					  <span class="blogPostInfo">Posted By: <a href="#">{{ page.author }}</a>  on {{ page.date | date: '%B' }} {{ page.date | date: '%e' }}, {{ page.date | date: '%Y' }}  
+					  <span class="blogPostInfo">Posted By: <a class="" style="text-decoration:none;" href="{{ site.baseurl }}/authors/{{ page.author |  replace: ' ', '-' | downcase }}/">{{ page.author }}</a>   on {{ page.date | date: '%B' }} {{ page.date | date: '%e' }}, {{ page.date | date: '%Y' }}  
 					  </span>
 					  <br/>
 						<!-- Go to www.addthis.com/dashboard to customize your tools -->

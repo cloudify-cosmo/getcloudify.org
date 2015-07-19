@@ -6,14 +6,16 @@ publish: true
 abstract: A quick tutorial for getting started with Cloudify and deploying your first blueprint on vCloud
 pageord: 200
 
-blueprint_file_link: https://raw.githubusercontent.com/achirko/cloudify-nodecellar-example/vcloud-plugin/vcloud-blueprint.yaml
+blueprint_file_link: https://github.com/cloudify-cosmo/cloudify-nodecellar-example/blob/3.1-build/vcloud-blueprint.yaml
 reference_vcloud_manager_link: reference-vcloud-manager.html
+blueprint_guide_link: guide-vcloud-blueprint.html
 
 ---
 {%summary%}{{page.abstract}}{%endsummary%}
 
-
-{%warning title=Disclaimer%}vCloud plugin is under development.{%endwarning%}
+{%tip title=Try Instantly%}
+You can take Cloudify for an instant test drive with an [online trial.](http://getcloudify.org/widget.html)
+{%endtip%}
 
 
 # Overview
@@ -23,7 +25,7 @@ and install a sample Cloudify blueprint on it.
 
 The [blueprint]({{page.blueprint_file_link}}) you'll be deploying,
 describes a nodejs application that connects to a MongoDB database and presents a wine catalog.
-To learn more about blueprint syntax and elements please refer to the [Blueprints Guide]({{blueprint_guide_link}}).
+To learn more about blueprint syntax and elements please refer to the [Blueprints Guide]({{page.blueprint_guide_link}}).
 
 # Before You Begin
 
@@ -44,7 +46,7 @@ To do so follow the steps described in the [CLI installation guide](installation
 Next, let's create a cloudify-manager dir and download the vCloud Manager Blueprint.
 
 {% highlight bash %}
-git clone https://github.com/cloudify-cosmo/tosca-vcloud-plugin/tree/develop
+git clone -b 1.1 https://github.com/cloudify-cosmo/tosca-vcloud-plugin.git
 {% endhighlight %}
 
 Now let's initialize a local Cloudify working environment:
@@ -86,7 +88,9 @@ The inputs.json file should look somewhat like this:
     "floating_ip_public_ip": "",
     "management_network_name": "management",
     "manager_private_key_path": "~/.ssh/vcloud_template.pem",
-    "agent_private_key_path": "~/.ssh/vcloud_template.pem"
+    "agent_private_key_path": "~/.ssh/vcloud_template.pem",
+    "manager_public_key": "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQCi64cS8ZLXP9xgzscr+m7bKBDdnhTxXaarJ8hIVgG5C7FHkF1Yj9Za+JIMqGjlwsOugFt09ZTvR1kQcIXdZQhs5HWhnG8UY7RkuUwO4FOFpL2VtMAleP/ZNXSZIGwwy4Sm/wtYOo8V5GPrJNbQnVtsW2NJNt6mB1geJzlshbl9wpshHlFSOz6jV2L8k2kOq32nt/Wa3qpDk20IbKnO9wJYWHVzvyJ4bTOyHowStAABFEj8O7XmoQp8jdUuTj+qAOgCROTAQh93XbS3PJjaQYBhxLOOreYYeqjKG/8IUlFxtRdUn7MLS6Rd15AP2HnjhjKad2KqnOuFZqiTLBu+CGWf",
+    "agent_public_key": "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQCi64cS8ZLXP9xgzscr+m7bKBDdnhTxXaarJ8hIVgG5C7FHkF1Yj9Za+JIMqGjlwsOugFt09ZTvR1kQcIXdZQhs5HWhnG8UY7RkuUwO4FOFpL2VtMAleP/ZNXSZIGwwy4Sm/wtYOo8V5GPrJNbQnVtsW2NJNt6mB1geJzlshbl9wpshHlFSOz6jV2L8k2kOq32nt/Wa3qpDk20IbKnO9wJYWHVzvyJ4bTOyHowStAABFEj8O7XmoQp8jdUuTj+qAOgCROTAQh93XbS3PJjaQYBhxLOOreYYeqjKG/8IUlFxtRdUn7MLS6Rd15AP2HnjhjKad2KqnOuFZqiTLBu+CGWf"
 }
 
 {% endhighlight %}
@@ -144,7 +148,7 @@ The `-b` flag assigns a unique name to this blueprint on the Cloudify manager.
 Before creating a deployment though, let's see what this blueprint looks like.
 Point your browser at the manager's URL again and refresh the screen. You will see the nodecellar blueprint listed there.
 
-![Blueprints table](/guide/images3/guide/quickstart/blueprints_table.png)
+![Blueprints table]({{ site.baseurl }}/guide/images3/guide/quickstart/blueprints_table.png)
 
 Click the blueprint, and you can see its topology. A [topology]({{page.terminology_link}}#topology) consists of elements called [nodes]({{page.terminology_link}}#node).
 
@@ -155,7 +159,7 @@ In our case, we have the following nodes:
 * A MongoDB database
 * A nodejs application called nodecellar (which is a nice sample nodejs application backed by mongodb).
 
-![Nodecellar Blueprint](/guide/images3/guide/quickstart-openstack/nodecellar_openstack_topology.png)
+![Nodecellar Blueprint]({{ site.baseurl }}/guide/images3/guide/quickstart-openstack/nodecellar_openstack_topology.png)
 
 Let's make a copy of the inputs template already provided and edit it:
 
@@ -190,12 +194,12 @@ cfy deployments create -b nodecellar -d nodecellar --inputs inputs.json
 
 We've now created a deployment named `nodecellar` based on a blueprint with the same name. This deployment is not yet materialized, since we haven't issued an installation command. If you click the "Deployments" icon in the left sidebar in the web UI, you will see that all nodes are labeled with 0/1, which means they're pending creation.
 
-![Nodecellar Deployment](/guide/images3/guide/quickstart-openstack/nodecellar_deployment.png)
+![Nodecellar Deployment]({{ site.baseurl }}/guide/images3/guide/quickstart-openstack/nodecellar_deployment.png)
 
 ## Step 5: Install the Deployment
 
 In Cloudify, installing a certain `deployment` is done by executing
-the a [install]({{page.workflows_link}}#install) [workflow]({{page.terminology_link}}#workflow).
+the [install]({{page.workflows_link}}#install) [workflow]({{page.terminology_link}}#workflow).
 type the following command in your terminal:
 
 {%highlight bash%}
@@ -214,13 +218,13 @@ the deployment name and the node in our topology that it relates to, e.g.
 
 In the Web UI, you can checkout the Logs/Events page for an overview of all Logs and Events in a specific Manager.
 
-![Events](/guide/images3/guide/quickstart-openstack/events.png)
+![Events]({{ site.baseurl }}/guide/images3/guide/quickstart-openstack/events.png)
 
 <br>
 
 You can also have a look at the Monitoring tab and see some default metrics:
 
-![Metrics](/guide/images3/guide/default_dashboard.png)
+![Metrics]({{ site.baseurl }}/guide/images3/guide/default_dashboard.png)
 
 ## Step 6: Test Drive the Application
 
@@ -230,7 +234,7 @@ The marvelous nodecellar application should be up on your screen.
 Click the "Browse wines" button to verify that the application was installed successfully
 and can access the mongodb database to read the list of wines.
 
-![Nodecellar](/guide/images3/guide/quickstart-openstack/nodecellar.png)
+![Nodecellar]({{ site.baseurl }}/guide/images3/guide/quickstart-openstack/nodecellar.png)
 
 ## Step 7: Uninstall the Deployment
 
