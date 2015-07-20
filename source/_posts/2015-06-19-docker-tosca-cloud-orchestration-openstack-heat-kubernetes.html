@@ -14,7 +14,7 @@ tags:
 <notextile>
 
 <div class="aligncenter">
-<img src="/img/docker_orchestration.png" alt="Docker Orchestration | Docker | Open Source | Docker Tutorial | TOSCA Orchestration | OpenStack | Kubernetes | Docker Swarm"></div>
+<img src="/img/docker_orchestration.png" alt="Docker Orchestration | Docker | Open Source | Docker Tutorial | TOSCA Orchestration | OpenStack | Kubernetes | Docker Swarm" width="870px"></div>
 <br/>
 <br/>
 
@@ -32,29 +32,8 @@ tags:
   <font style="font-weight: bold" size="5" face="Baskerville Old Face"><em>Get Cloudify - The Pure-Play, TOSCA-based Docker Orchestrator.</em></font>&nbsp; <a class="btn btn-medium btn-theme btn-rounded" id="downloadBtnInner" href="http://getcloudify.org/downloads/get_cloudify_3x.html" target="_blank"><i class="icon-plus"></i> Go </a></span>
   
   <hr>
-      
-  <div class="clear"></div>
-<div class="article_page_left text_content_container">
-  
-      
-  <div class="text_info text_info_article">
 
 <p>These scenarios have instigated the demand for some kind of orchestrator. The list of container orchestrators is growing fairly fast, as noted in this <a href="http://opensource.com/business/14/12/containers-microservices-and-orchestrating-whole-symphony">excellent post</a> on Docker containers + microservices, also referenced in this <a href="http://www.infoq.com/news/2014/12/microservices-docker">InfoQ article</a>. I&#39;ve listed just some of the known names in this category (obviously there are many more).</p>
-      <div class="clear"></div>
-          
-              
-
-
-
-        
-        
-        
-        
-        <div class="clear"></div>
-    </div>
-
-          
-          
 
 <ul>
   <li><a href="http://kubernetes.io/">Kubernetes</a> - An open source tool from Google for orchestrating Docker containers, specifically designed around orchestration of microservices.</li>
@@ -84,7 +63,7 @@ tags:
 <p>The following is a snippet from a TOSCA blueprint describing a Docker-based MongoDB server which is part of a larger application topology. The mapping is YAML-based, as per the latest <a href="http://docs.oasis-open.org/tosca/TOSCA-Simple-Profile-YAML/v1.0/TOSCA-Simple-Profile-YAML-v1.0.html">TOSCA specification</a>, and a suggested modeling tool for <a href="http://getcloudify.org/guide/3.2/plugin-docker.html">Docker containers</a> using TOSCA.</p>
 
 <pre>
-<code class="language-nolanguage">mongod:
+<code>mongod:
     type: docker_container
     properties: 
       image: dockerfile/mongodb        
@@ -109,7 +88,7 @@ tags:
 
 <p>The <a href="https://github.com/cloudify-cosmo/cloudify-nodecellar-docker-example/blob/master/blueprint/docker-singlehost-blueprint.yaml">nodecellar TOSCA blueprint</a> will also take care of downloading the Docker images from DockerHub and later reuse them for subsequent installation/uninstallation. This will allow us to spawn the entire application in roughly 10 seconds!</p>
 
-<p><img _href="img://2fig1.png" _p="true" alt="" src="http://cdn.infoq.com/statics_s1_20150616-0050/resource/articles/tosca-docker-orchestration/en/resources/2fig1.png" style="width: 517px; height: 309px;" /></p>
+<p class="aligncenter"><img alt="" src="http://cdn.infoq.com/statics_s1_20150616-0050/resource/articles/tosca-docker-orchestration/en/resources/2fig1.png" style="width: 517px; height: 309px;" /></p>
 
 <h2>Step-by-step Guide for Running the Example</h2>
 
