@@ -32,11 +32,11 @@ Currently two tasks are supported:
 
 This operation creates a .ansible.cfg file in the manager agent's home directory. It adds this configuration:
 
-```
+{% highlight yaml %}
 [defaults]
 host_key_checking=False
 private_key_file= #agent_key_path
-```
+{%endhighlight%}
 
 agent_key_path is either a supplied path to a key file, or it is the agent_key from the provider bootstrap context.
 
@@ -51,7 +51,9 @@ This operation runs a list of playbooks against against one or more hosts (liste
 
 # Example Node Templates
 
-```
+This example shows a node that runs single playbook. We are trusting the plugin to correctly identify the desired target host.
+
+{% highlight yaml %}
   my_app:
     type: cloudify.nodes.ApplicationModule
     interfaces:
@@ -66,9 +68,11 @@ This operation runs a list of playbooks against against one or more hosts (liste
           inputs:
             playbooks:
              - resources/playbook.yaml
-```
+{%endhighlight%}
 
-```
+The next example shows us explicitely stating the target hosts and running several playbooks against them.
+
+{% highlight yaml %}
   my_app:
     type: cloudify.nodes.ApplicationModule
     interfaces:
@@ -88,5 +92,4 @@ This operation runs a list of playbooks against against one or more hosts (liste
             playbooks:
               - resources/nodejs.yaml
               - resources/app.yaml
-```
-
+{%endhighlight%}
