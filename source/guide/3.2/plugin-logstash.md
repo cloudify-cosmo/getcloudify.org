@@ -15,6 +15,8 @@ pageord: 650
 * Python Versions:
   * 2.7.x
 
+* Java should be installed and in the executible path.
+
 # Compatibility
 
 * This is tested with Logstash Version 1.5.0.
@@ -45,6 +47,7 @@ pageord: 650
   * `cloudify.interfaces.lifecycle.start` Starts logstash.
     * **Inputs:**
       * `command` Allows you to override the start command.
+        ** `sudo` is required but not forced! **
   * `cloudify.interfaces.lifecycle.stop` Stops logstash.
       * `command` Allows you to override the stop command.
 
