@@ -214,6 +214,26 @@ It applies DNAT and SNAT rules for `any` protocol and `any` original and transla
 
   * `cloudify.interfaces.lifecycle.creation_validation` validates SecurityGroup node parameters
 
+## cloudify.vcloud.nodes.Volume
+
+**Derived From:** [cloudify.nodes.Volume](reference-types.html)
+
+**Properties:**
+
+* `device_name` linux device, where disk will be mount
+* `volume` parameters of volume
+  * `name` name of the disk
+  * `size` disk size in Megabytes
+* `use_external_resource` a boolean for setting whether to create the resource or use an existing one. Defaults to `false`.
+* `resource_id` name of independence disk, if extarnal resource is used.
+* `vcloud_config` see the [vCloud Configuration](#vcloud-configuration).
+
+**Mapped Operations:**
+
+  * `vcloud.server_plugin.volume.creation_validation` validates Volume node parameters
+  * `vcloud.server_plugin.volume.create` create Volume node
+  * `vcloud.server_plugin.volume.delete` delete Volume node
+
 
 # Relationships
 
@@ -264,6 +284,14 @@ It applies DNAT and SNAT rules for `any` protocol and `any` original and transla
 
   * `cloudify.interfaces.relationship_lifecycle.establish`: associates SecurityGroup with Server.
   * `cloudify.interfaces.relationship_lifecycle.unlink`: dissociates SecurityGroup from Server.
+
+## cloudify.vcloud.volume_attached_to_server
+**Description:** A relationship for associating Volume and Server.
+
+**Mapped Operations:**
+
+  * `cloudify.interfaces.relationship_lifecycle.establish`: attach Volume to Server.
+  * `cloudify.interfaces.relationship_lifecycle.unlink`: detach Volume from Server.
 
 # Examples
 
@@ -429,7 +457,6 @@ The [vCloud manager blueprint](reference-vcloud-manager.html) store the vCloud c
 * Template should have one VM with root disk with OS, SSH server and VMware Tools installed.
 * The vApp template’s VM should have one or zero NIC, which should not be connected to any network.
 * The vApp template should neither define any vApp networks nor “import” any Org VDC networks.
-* If you want to customize CPU count or RAM size on subscription account, you must use template from organisation's catalog.
 
 ## Resources prefix support
 
