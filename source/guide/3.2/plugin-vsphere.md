@@ -64,14 +64,21 @@ ssh-keygen -b2048 -N "" -q -f ~/.ssh/cloudify-agent-kp.pem
 
 ## OS Templates
 
-* You need two OS templates of your preferred operating systems (e.g. Ubuntu Trusty) within the vSphere datastores. One for the Cloudify manager and one for the application VMs. The application VM template should accept the Cloudify agent public key for its root user. The Cloudify manager template must accept the cloudify manager public key. Note that you can choose to use same template for both the manager and the application VMs, in that case the shared template must accept both public keys.
+* You need OS templates of your preferred operating systems (e.g. Ubuntu Trusty) within the vSphere datastores.
+* Application VM templates should accept the Cloudify agent public key for its root user. The Cloudify manager template must accept the cloudify manager public key. Note that you can choose to use same template for both the manager and the application VMs, in that case the shared template must accept both public keys.
 * The cloudify manager must meet the manager [requirements.](getting-started-prerequisites.html)
-* Both templates must have SSH activated and open on the firewall.
+* Linux templates must:
+  * Have SSH activated and open on the firewall.
+  * Have a user account with the agent key trusted as an authorized key for application VM templates.
+  * Have a user account with the master key trusted as an authorized key for the manager VM template.
+  * A single template can be used with both sets of keys trusted to act as both the manager VM template and the application VM template.
+  * The user account must have passwordless sudo access. e.g. if the user is a member of the sudo group then /etc/sudoers should contain the line: '%sudo ALL=(ALL:ALL) NOPASSWD:ALL'
 * VM tools deploypkg must be installed on both templates:
   * [Linux requirements](http://kb.vmware.com/selfservice/search.do?cmd=displayKC&docType=kc&docTypeID=DT_KB_1_1&externalId=2075048)
   * Windows requires up to date VMWare tools and sysprep.
+* Windows servers should be [configured to support winrm scripting.](plugin-windows-agent-installer.html)
 * It is also necessary to install the deployPkg plugin on the VM according to [VMWare documentation](http://kb.vmware.com/selfservice/microsites/search.do?language=en_US&cmd=displayKC&externalId=2075048)
-* The template should not have any network interfaces.
+* The template should not have any network interfaces attached.
 * vSphere must be of an appropriate version with any required updates to support customization of your chosen OS. [Compatibility matrix](http://partnerweb.vmware.com/programs/guestOS/guest-os-customization-matrix.pdf)
 
 # Types
@@ -214,18 +221,6 @@ Node by node explanation:
 
 
 # Misc
-
-## Virtual machine template
-Template should have:
-
-* root disk with OS and vSphere Tools installed.
-* Linux servers should have SSH server installed and a user account, with manager and agent SSH keys in authorized_hosts.
-* Windows servers should be [configured to support winrm scripting.](plugin-windows-agent-installer.html)
-
-Template should not have:
-
-* any network interfaces connected.
-
 
 ## Resources prefix support
 
