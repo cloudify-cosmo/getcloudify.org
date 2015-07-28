@@ -65,7 +65,6 @@ ssh-keygen -b2048 -N "" -q -f ~/.ssh/cloudify-agent-kp.pem
 ## OS Templates
 
 * You need OS templates of your preferred operating systems (e.g. Ubuntu Trusty) within the vSphere datastores.
-* Application VM templates should accept the Cloudify agent public key for its root user. The Cloudify manager template must accept the cloudify manager public key. Note that you can choose to use same template for both the manager and the application VMs, in that case the shared template must accept both public keys.
 * The cloudify manager must meet the manager [requirements.](getting-started-prerequisites.html)
 * Linux templates must:
   * Have SSH activated and open on the firewall.
