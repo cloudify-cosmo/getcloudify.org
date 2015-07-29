@@ -257,5 +257,5 @@ You can change this by editing the 'config.yaml' file found at '{cli_installatio
 
 
 # What's Next?
-Now that you know the requirements and have the CLI installed, you can [bootstrap your own manager]({{ page.installation_bootstrapping_link }})
+Now that you know the requirements and have the CLI installed, you can [bootstrap your own manager](getting-started-bootstrapping.html)
 
