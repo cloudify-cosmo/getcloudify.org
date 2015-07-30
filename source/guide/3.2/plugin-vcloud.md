@@ -186,7 +186,7 @@ It applies DNAT and SNAT rules for `any` protocol and `any` original and transla
     * `key` ssh public key value.
     * `user` user name. Default 'ubuntu'
     * `home` user's home directory. Default '/home'. If 'user' is 'root', you must
-    set this value to '' (empty string)
+    set this value to '/'
 
 **Mapped Operations:**
 
