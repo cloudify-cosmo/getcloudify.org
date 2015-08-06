@@ -53,14 +53,7 @@ tags:
 
 <p>`browserify -e helloworld.js -o helloworld.browserify.js` I get the following output</p>
 
-<ul class="code">
-  <li>(function e(t,n,r){function s(o,u){if(!n[o]){if(!t[o]){var a=typeof require==&quot;function&quot;&amp;&amp;require;if(!u&amp;&amp;a)return a(o,!0);if(i)return i(o,!0);var f=new Error(&quot;Cannot find module ’&quot;+o+&quot;’&quot;);throw f.code=&quot;MODULE_NOT_FOUND&quot;,f}var l=n[o]={exports:{}};t[o][0].call(l.exports,function(e){var n=t[o][1][e];return s(n?n:e)},l,l.exports,e,t,n,r)}return n[o].exports}var i=typeof require==&quot;function&quot;&amp;&amp;require;for(var o=0;o&lt;r.length;o++)s(r[o]);return s})({1:[function(require,module,exports){ </li>
-
-  <li><b><u>console.log(’hello world’);</u></b> </li>
-
-  <li>},{}]},{},[1]); 
-    <br /></li>
-</ul>
+<script src="https://gist.github.com/yeshess/c9c3c6eb06443bf197a2.js"></script>
 
 <p>As you can see, Browserify adds a very long line of code, then it simply appends my code, and closes with some brackets. </p>
 
@@ -118,49 +111,13 @@ tags:
 
 <p>As mentioned above we will shortly show how to use it for REST Client. But here is a preview how it will look like when people use it. note they will be able to use it in any framework they wish: angular, jquery, vanilla, and nodejs. </p>
 
-<ul class="code">
-  <li>angular.module(’myApp’,[’travisjs’]) </li>
-
-  <li>function( TravisClient ){ .. } </li>
-
-  <li>new $.TravisClient() </li>
-
-  <li>new window.TravisClient(); </li>
-
-  <li>var travisClient = new require(’travisjs’)(); 
-    <br /></li>
-</ul>
+<script src="https://gist.github.com/yeshess/7c7e3f84683ee2da61a9.js"></script>
 
 <p><b>When it is easier to write code in a different way (could/should)</b></p>
 
 <p>using the transformation feature, you can also use browserify if it is easier to write code differently. For example if there are things easier to write in es6`var log = msg =&gt; console.log(msg);`. or if you have javascript code you need to run in angular: </p>
 
-<ul class="code">
-  <li>function MyCtrl (serviceName){ </li>
-
-  <li>&#160;&#160;&#160; this.message = ’Hello World!’; </li>
-
-  <li>} 
-    <br /></li>
-
-  <li>MyCtrl.prototype.sayHello = function(){ </li>
-
-  <li>&#160;&#160;&#160; console.log(this.message); </li>
-
-  <li>} 
-    <br /></li>
-
-  <li>exports = module.exports = MyCtrl 
-    <br /></li>
-
-  <li>exports[’@ng’] = { </li>
-
-  <li>&#160;&#160;&#160; name: ’myCtrl’, </li>
-
-  <li>&#160;&#160;&#160; type: ’controller’, </li>
-
-  <li>} </li>
-</ul>
+<script src="https://gist.github.com/yeshess/4b885b6dfa821d35db15.js"></script>
 
 <p>I suggest you be very strict about choosing your library here. If you want to simply transform code rather than have it run on node and browser, there are other, probably better libraries that made that their main goal. </p>
 
