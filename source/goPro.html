@@ -35,9 +35,14 @@ support and enhanced features, Cloudify Premium lets you take your cloud orchest
 			
 						<div class="span5">
 				<h2><strong>Contact Us About Cloudify Premium</strong></h2>
-				<form id="contactform" action="http://formspree.io/hello@getcloudify.org" method="post" class="validateform" name="send-contact" onsubmit="return checkform(this);">
-				<input type="hidden" name="_next" value="/thank_you_premium.html" />
+				<form id="contactform" action="https://www.salesforce.com/servlet/servlet.WebToLead?encoding=UTF-8" method="post" class="validateform" name="send-contact" onsubmit="return checkform(this);">
+				<input type=hidden name="oid" value="00D300000000KEt">
+				<input type=hidden name="retURL" value="http://getcloudify.org/thank_you_premium.html">
+				<input type=hidden id="lead_source" name="lead_source" name="oid" value="Cloudify Community">
+				<!--http://formspree.io/hello@getcloudify.org-->
+				<input type="hidden" name="_next" value="http://getcloudify.org/thank_you_premium.html" />
 				<input type="hidden" name="_subject" value="I want to hear more about Cloudify Premium" />
+				<input type="hidden" name="_cc" value="" />
 				<input type="text" name="_gotcha" style="display:none" />
 					<div id="sendmessage">
 						 Your message has been sent. Thank you!
@@ -59,13 +64,13 @@ support and enhanced features, Cloudify Premium lets you take your cloud orchest
 							</div>
 						</div>
 						<div class="span4 margintop10 field">
-							<textarea style="height:80px" id="message" rows="12" name="message" class="input-block-level" placeholder="Let us know your project requirements here" data-rule-required="true" data-msg="Please write something"></textarea>
+							<textarea style="height:80px" id="description" rows="12" name="description" class="input-block-level" placeholder="Let us know your project requirements here" data-rule-required="true" data-msg="Please write something"></textarea>
 							<div class="validation">
 							</div>
 						</div>
 						<div class="span4 field aligncenter">
 							<p>
-								<button class="btn btn-theme btn-large btn-rounded" type="submit">Get Cloudify Premium</button>
+								<button class="btn btn-theme btn-large btn-rounded" type="submit" >Get Cloudify Premium</button>
 							</p>						
 						</div>
 						<!--<span class="span4 margintop20">* Please fill all required form field, thanks!</span>-->

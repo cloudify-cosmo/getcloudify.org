@@ -168,9 +168,12 @@ strVar += "<div class=\"modal fade\" id=\"myModal\" tabindex=\"-1\" role=\"dialo
 strVar += "            <a  style=\"float:right \" class=\"gattingWrapperClose\" href=\"#\"><i class=\"fa fa-times\">&nbsp;&nbsp;<\/i> <\/a>";
 strVar += "<div class=\"gattingWrapper\">";
 strVar += "           <form id=\"regiterToDownload\" action=\"https:\/\/www.salesforce.com\/servlet\/servlet.WebToLead?encoding=UTF-8\" method=\"POST\">";
+strVar += "				<input type=hidden name=\"oid\" value=\"00D300000000KEt\">";
+strVar += "				<input type=hidden id=\"lead_source\" name=\"lead_source\" name=\"oid\" value=\"NFV White Paper DL\">";
+strVar += "				<input type=hidden name=\"retURL\" value=\"http:\/\/getcloudify.org\/brochures/NFV White Paper April 2015.pdf\">";
 strVar += "			<div class=\"regTitle\">Verify You're Human<\/div>";
 strVar += "			<div style=\"position:relative\">";
-strVar += "				<input  id=\"last_name\" name=\"last_name\" type=\"text\" class=\"cuInput\" placeholder=\"Your Name\" \/>";
+strVar += "				<input  id=\"first_name\" name=\"first_name\" type=\"text\" class=\"cuInput\" placeholder=\"Your Name\" \/>";
 strVar += "				<div class=\"cuValid\"><\/div>";
 strVar += "			<\/div>";
 strVar += "			<div style=\"position:relative\">";
@@ -183,12 +186,34 @@ strVar += "				<div class=\"cuValid\"><\/div>";
 strVar += "			<\/div>";
 
 strVar +="          <input id=\"website\" name=\"website\" type=\"text\" value=\"\"  \/>";
-strVar += "			<input type=\"submit\" class=\"cuSendGatting btn btn-info\" name=\"submit\" value=\"Download\" \/>";
+strVar += "			<input type=\"submit\" class=\"cuSendGatting btn btn-info\" name=\"btnSubmit\" value=\"Download\" \/>";
 strVar += "   <br\/><br\/>";
 
 strVar += "			<\/form>";
 strVar += "        <\/div>";
 strVar += "        <\/div>";
+
+
+
+//set download cookie
+function openDownloadWindowFunction() {
+    setCookie('cfydirect', formName + "," + formEmail + "," + formcompany);
+    window.open("/downloads/get_cloudify_3x_abtest3_direct.html", "MsgWindow", "width=600, height=600 ,toolbar=yes,menubar=yes");
+}
+
+function setCookie(key, value) {
+    var expires = new Date();
+    expires.setTime(expires.getTime() + (180 * 24 * 60 * 60 * 1000));
+    document.cookie = key + '=' + value + ';expires=' + expires.toUTCString()+';path=/';
+}
+
+function getCookie(key) {
+    var keyValue = document.cookie.match('(^|;) ?' + key + '=([^;]*)(;|$)');
+    return keyValue ? keyValue[2] : null;
+}
+
+
+
 
 
 $(".testimonial").on('click', '.gattingWrapperClose', function(){
@@ -209,14 +234,14 @@ $("#downloadme,.eaTitle,.downloadme,.download").click(function(e) {
 	dataBtnName = $(this).attr("data-btn-type");
 	$(this).before(strVar);
 	downloadValid();
-	//$(".blockBg").show();
-	//GrabOldMessages();
-	formEmail =  mixpanel.cookie.props.__alias;
-	if(formEmail==undefined){
+	if (getCookie('cfydirect') == null) {
+		// downloadValid();
 		downloadFile(e);
-	}else{
-		directDownload(e);//works only when user already once sign in ;
+	} else {
+		directDownload(e);
 	}
+	
+	
 });
 
 function directDownload(e){
@@ -227,7 +252,7 @@ verName=downloadHref.split("/")[2];
 track_download(downloadHref);
 $('#myModal').modal('hide');	
 //self.delay(500); 
-setTimeout(function() {
+setTimeout(function(e) {
 	window.location.href = downloadHref; 
 	setTimeout(function() {
 		window.location.href = "/thank_you.htm";
@@ -279,18 +304,19 @@ function track_download(downloadHref) {
 		var zipName="";
 		zipName=downloadHref.split("/")[2]; 
 		mixpanel.track(dataBtnName, {'Zip Name':zipName, 'Source':'getcloudify.org'});
-		if(mixpanel.cookie.props.__alias==undefined){
+		if (getCookie('cfydirect') == null) {
             formEmail =  $(".gattingWrapper #email").val();	
-            formName =  $(".gattingWrapper #last_name").val();
+            formName =  $(".gattingWrapper #first_name").val();
 			formcompany =  $(".gattingWrapper #company").val();
 			mixpanel.identify(formEmail);
             mixpanel.alias(formName, formEmail, formcompany);
             mixpanel.name_tag(formName) ;
 			mixpanel.register();
+			//create cookie;
+			setCookie('cfydirect', formName + "," + formEmail + "," + formcompany);
 			
         }else{
-		//formEmail = mixpanel.cookie.props.__alias;
-		//formName= mixpanel.cookie.props.mp_name_tag;
+			mixpanel.identify(formEmail);
         }
 
 		mixpanel.people.set({
@@ -305,6 +331,37 @@ function track_download(downloadHref) {
 			"Number Of Resource Downloads": 1
 		}); 
 	}
+	
+	
+function track_contactForm(downloadHref) {
+		//var downloadme=downloadHref.split("/")[2]; 
+		_gaq.push(['_trackEvent','NFV Resource Download', 'NFV Resource']);
+		mixpanel.track('NFV Resource Download', {'Zip Name':'NFV Resource Download', 'Source':document.title});
+       	//track mixpanel
+		if (getCookie('cfydirect') == null) {
+            formEmail =  $(".gattingWrapper #email").val();	
+            formName =  $(".gattingWrapper #first_name").val();
+			formcompany =  $(".gattingWrapper #company").val();
+			mixpanel.identify(formEmail);
+            mixpanel.alias(formName, formEmail, formcompany);
+            mixpanel.name_tag(formName) ;
+			mixpanel.register();
+			
+			mixpanel.people.set({
+			$email: formEmail,
+			$first_name: formName,
+			$company: formcompany,
+			$created: new Date(),
+			});	
+			//create cookie;
+			setCookie('cfydirect', formName + "," + formEmail + "," + formcompany);	
+        }else{
+			var formEmail = getCookie('cfydirect').split(",")[1];
+			mixpanel.identify(formEmail);
+        }
+
+		
+}	
 
 
 function downloadValid(){
@@ -319,7 +376,7 @@ function downloadValid(){
    $('#regiterToDownload').validate({ // initialize the plugin
         errorLabelContainer: "#error-note",
         rules: {
-            last_name: {
+            first_name: {
                 required: true,
 				regexp: true
             },
@@ -333,7 +390,7 @@ function downloadValid(){
 
 			},
         messages: {
-            last_name: {
+            first_name: {
                 required: "Please enter your first name",
             },
             email: {
@@ -350,7 +407,10 @@ function downloadValid(){
             if ($('input#website').val().length != 0) {
                 return false;
             } else{
-                directDownload(e);
+				//return true;
+                track_contactForm();
+				form.submit();
+				//return true;
             }
             //return false; // for demo
         }
