@@ -1,0 +1,371 @@
+---
+layout: blogpost
+title:  Browserify 101
+image: nircohen.jpg
+author: Nir Cohen
+tags:
+ - DevOps
+ - Ops
+ - Open Source
+ - DevOps Tools
+ - Browserify
+---
+
+<notextile>
+
+<div class="aligncenter">
+<img src="/img/blog/browserify.png" alt="Open Source | DevOps | Operations | Cloud Automation | DevOps Tools | OpenStack | Browserify"></div>
+<br/>
+<br/>
+
+<p><i>The code for this post can be found <a href="https://github.com/guy-mograbi-at-gigaspaces/lectures-demo-code/tree/master/browserify">here</a>.</i></p>
+
+<h2><font style="font-weight: bold">Introduction</font></h2>
+
+<p>Browserify is a nifty library that should be buzzed more.</p>
+
+<p>On its front page it claims to `let you use require in the browser by bundling up all your dependencies`. </p>
+
+<p>However I have to disagree. A lot of libraries give you that while Browserify give you <b><u>node code compatibility to the browser.</u></b></p>
+
+<p>Naman Goel explains this important difference very clearly in his blog post: <a href="http://blog.namangoel.com/browserify-vs-webpack-js-drama">http://blog.namangoel.com/browserify-vs-webpack-js-drama</a>. </p>
+
+<p>While I have seen some cool uses for it in frontend only, in this blog post I will only consider nodejs code as input for Browserify.</p>
+
+<p>Let move on to some examples. </p>
+
+<hr>
+
+<span class="pullquote-left">
+  <font style="font-weight: bold" size="5" face="Baskerville Old Face"><em>Experience the awesomeness of the Cloudify Blueprint Composer today.</em></font>&nbsp; <a class="btn btn-medium btn-theme btn-rounded" id="downloadBtnInner" href="http://getcloudify.org/downloads/get_cloudify_3x.html" target="_blank"><i class="icon-plus"></i> Go </a></span>
+  
+  <hr>
+
+<h2><font style="font-weight: bold">Hello World</font></h2>
+
+<p>If I write the following code for node </p>
+
+<p>`console.log(’hello world’);` </p>
+
+<p>It will run in the browser, but where’s the fun?</p>
+
+<p>I install Browserify with `npm -g install browserify` (use `sudo` if needed) and I run the command: </p>
+
+<p>`browserify -e helloworld.js -o helloworld.browserify.js` I get the following output</p>
+
+<ul class="code">
+  <li>(function e(t,n,r){function s(o,u){if(!n[o]){if(!t[o]){var a=typeof require==&quot;function&quot;&amp;&amp;require;if(!u&amp;&amp;a)return a(o,!0);if(i)return i(o,!0);var f=new Error(&quot;Cannot find module ’&quot;+o+&quot;’&quot;);throw f.code=&quot;MODULE_NOT_FOUND&quot;,f}var l=n[o]={exports:{}};t[o][0].call(l.exports,function(e){var n=t[o][1][e];return s(n?n:e)},l,l.exports,e,t,n,r)}return n[o].exports}var i=typeof require==&quot;function&quot;&amp;&amp;require;for(var o=0;o&lt;r.length;o++)s(r[o]);return s})({1:[function(require,module,exports){ </li>
+
+  <li><b><u>console.log(’hello world’);</u></b> </li>
+
+  <li>},{}]},{},[1]); 
+    <br /></li>
+</ul>
+
+<p>As you can see, Browserify adds a very long line of code, then it simply appends my code, and closes with some brackets. </p>
+
+<p>There are 2 things to notice here </p>
+
+<ul>
+  <li>The definition of require/module and exports at the end of the first line - this what allows code compatibility as is in the browser </li>
+
+  <li>The number `1` at the bottom - this helps Browserify to link different files together later on. Since I did not `require` anything we didn’t get to see it in action. </li>
+</ul>
+
+<p>Obviously we can think of some limitations right ahead. Although we wrote `console.log` which runs on browser, reading a file will not. We will also see how to overcome some of these difficulties. </p>
+
+<h2><font style="font-weight: bold">What is Browserify?</font></h2>
+
+<p>Now that we know what Browserify does, we can say the following</p>
+
+<ul>
+  <li>Browserify makes your nodejs code work on the browser </li>
+
+  <li>It concatenates my files in a smart way. I don’t have to specify all the files to concatenate, nor do I need to specify them in the correct order. I only have to supply it with an entry point. Browserify traverses the dependency tree by finding `require` statements in the code and it figures out the dependencies by itself. </li>
+
+  <li>It brings a version of require, export and module to the frontend - but the important thing here is that it keeps the code readable! If you ever find the need to debug the code in the frontend, I bet you will find it very convenient to have the code you wrote as is in the a single file. </li>
+
+  <li>It manipulates the code and actually allows you to write plugins to manipulate it further. For example, you can find the following nifty plugins: 
+    <ul>
+      <li><b>ngify</b> - allows you to write simple javascript objects, and by adding some annotations to transform it to an angular component. </li>
+
+      <li><b>es6ify</b> - allows you to write ECMAScript 6 code and then transcompiles it to ECMAScript 5. </li>
+
+      <li><b>brfs</b> - find `fs.readFileSync` in your code and injects the file’s content instead. </li>
+    </ul>
+  </li>
+</ul>
+
+<p>Here is a <a href="https://github.com/substack/node-browserify/wiki/list-of-transforms">list of available transformations</a>.</p>
+
+<h2><b>Who is using it?</b></h2>
+
+<p>We use it for our REST API Javascript Client. Other customers include: reactjs, mapbox, elasticsearch and cloudflare. </p>
+
+<p>Travis does not use browserify. We will explore, in just a few moments, how easy it is to write a Travis REST Client with Browserify.</p>
+
+<h2><font style="font-weight: bold">When to use Browserify</font></h2>
+
+<p>So I think I made my opinion quite clear up until now. Browserify is mainly for converting nodejs code to run on browsers. However, even though this is what I think you <u>should</u> do, there are other things you <u>could</u> do. and it will be a shame if we didn’t mention some of those. </p>
+
+<p><b>Project internal reusable code (should)</b></p>
+
+<p>A lot of projects have code that is very usable in backend and frontend. </p>
+
+<p>For example - models can be very useful. Thinking about Travis and the `Repository` model, I can think of a line of code such as `new Repository(data).getName()` that I will want to run in backend and frontend. </p>
+
+<p><b>External api client (should)</b></p>
+
+<p>As mentioned above we will shortly show how to use it for REST Client. But here is a preview how it will look like when people use it. note they will be able to use it in any framework they wish: angular, jquery, vanilla, and nodejs. </p>
+
+<ul class="code">
+  <li>angular.module(’myApp’,[’travisjs’]) </li>
+
+  <li>function( TravisClient ){ .. } </li>
+
+  <li>new $.TravisClient() </li>
+
+  <li>new window.TravisClient(); </li>
+
+  <li>var travisClient = new require(’travisjs’)(); 
+    <br /></li>
+</ul>
+
+<p><b>When it is easier to write code in a different way (could/should)</b></p>
+
+<p>using the transformation feature, you can also use browserify if it is easier to write code differently. For example if there are things easier to write in es6`var log = msg =&gt; console.log(msg);`. or if you have javascript code you need to run in angular: </p>
+
+<ul class="code">
+  <li>function MyCtrl (serviceName){ </li>
+
+  <li>&#160;&#160;&#160; this.message = ’Hello World!’; </li>
+
+  <li>} 
+    <br /></li>
+
+  <li>MyCtrl.prototype.sayHello = function(){ </li>
+
+  <li>&#160;&#160;&#160; console.log(this.message); </li>
+
+  <li>} 
+    <br /></li>
+
+  <li>exports = module.exports = MyCtrl 
+    <br /></li>
+
+  <li>exports[’@ng’] = { </li>
+
+  <li>&#160;&#160;&#160; name: ’myCtrl’, </li>
+
+  <li>&#160;&#160;&#160; type: ’controller’, </li>
+
+  <li>} </li>
+</ul>
+
+<p>I suggest you be very strict about choosing your library here. If you want to simply transform code rather than have it run on node and browser, there are other, probably better libraries that made that their main goal. </p>
+
+<p><b>Any chance you get (could)</b></p>
+
+<p>Some people like to stretch the limits. If you are one of those people, go ahead :) </p>
+
+<p>Here is an image about Browserify at ng-conf 2014 given by <a href="http://www.youtube.com/watch?v=NTPutZ99XWY">Ben Clinkinbeard</a>.</p>
+
+<p>You can see the lecture at: <a href="http://www.youtube.com/watch?v=NTPutZ99XWY">http://www.youtube.com/watch?v=NTPutZ99XWY</a>.</p>
+
+<p><a href="https://github.com/basti1302/angular-browserify">Someone even wrote a seed for it</a>.</p>
+
+<p>However, I do recommend you check out other libraries that for me seem more relevant for this purpose. </p>
+
+<p><img src="/img/blog/guy1.png" /></p>
+
+<h2><font style="font-weight: bold">Writing a Travis Client</font></h2>
+
+<p>I chose one api call in Travis to start implementing. You can read their official documentation at: <a href="http://docs.travis-ci.com/api/#branches">http://docs.travis-ci.com/api/#branches</a></p>
+
+<p><b>First lines of code in node</b></p>
+
+<p>I wrote the following code:</p>
+
+<p><img src="/img/blog/guy2.png" /></p>
+
+<p>`Client.js` is the actual client. It gets a configuration object, which I will probably use further down the road. </p>
+
+<p>`Repos.js` is a start at implementing their api with `/repos` in the url. </p>
+
+<p>The only odd choice I had here is using `superagent` to generate the `http` requests. However there’s a reason for that, superagent supports both nodejs and browser.. read more about it at: https://github.com/visionmedia/superagent</p>
+
+<p>`superagent`’s interface for a `get` request is `superagent.get(url).end(callback)`. It uses a promise like structure but with `end` rather than `then`.. we can work with this right? yeah we can!</p>
+
+<p>At Cloudify we chose to use node’s `request` module and its browser supportive cousin `request-browser`. You can choose your own as long as it has browser and nodejs support. </p>
+
+<p><b>Porting the code to all frameworks</b></p>
+
+<p>The next step is to wrap the code above to support different frameworks. To keep our source organized we will keep a convention to use the framework’s name in the filename - with exception of nodejs, for it we will not use any special file marking. The logic is that for node we are not doing anything special, and so no need to indicate it in any way. You can choose your own logic regarding code organization. </p>
+
+<p>. So we named our wrappers accordingly: </p>
+
+<ul>
+  <li>`TravisClient.jquery.js` - for jquery </li>
+
+  <li>`TravisClient.vanilla.js` - for clean Javascript without any framework. </li>
+
+  <li>`TravisClient.angular.js` - for angularjs </li>
+
+  <li>`TravisClient.js` - for node </li>
+</ul>
+
+<p><img src="/img/blog/guy3.png" /></p>
+
+<p>As you can see, there’s hardly any work done. </p>
+
+<p><b>Using Gruntfile to ease on conversion</b></p>
+
+<p>We use grunt. gulp is also supported.</p>
+
+<p><a href="https://github.com/jmreidy/grunt-browserify">https://github.com/jmreidy/grunt-browserify</a>.</p>
+
+<p>Here is how it looks.<img src="/img/blog/guy4.png" /></p>
+
+<p>We keep our convention here as well. A bit tiresome, but I think it’s worth it. </p>
+
+<p>Once again, nodejs does not require any special treatment.</p>
+
+<p>Browserify will output 3 files to dist folder: vanilla, jquery and angular. You can keep minimizing the code and uglifying it as you wish. Simply use the plugins you know and love right now on the files you will get in the dist folder.</p>
+
+<p><b>Lets use it!!!</b></p>
+
+<p>Using the code will require 3 different HTML files to simulate each framework. </p>
+<undefined>
+
+<li>Vanilla:</undefined> 
+  <p><img src="/img/blog/guy5.png" /></p>
+<undefined></li>
+
+<li>JQuery:</undefined> 
+  <p><img src="/img/blog/guy6.png" /></p>
+<undefined></li>
+
+<li>Angularjs:</undefined> 
+  <p><img src="/img/blog/guy7.png" /></p>
+
+  <p><b>Almost no code, and everything seems to work </b>:)</p>
+
+  <p>So far we barely wrote any code to help make this happen. </p>
+
+  <p>We wrote more test code and configurations than anything else. This is awesome!!!</p>
+
+  <p><u>But wait! Angular does not work! Two-way binding will not work. </u></p>
+
+  <p>This is a problem we need to solve and thanks to our conventions we know exactly how.</p>
+
+  <p>We need to modify `TravisClient.angular.js`. </p>
+<undefined></li>
+
+<li>A small fix for better angular experience</undefined> 
+  <p>I did not do this for this demo, but here is the change we did in our REST API client where we used `request` module. It is very similar to the change needed for `superagent`. Simply wrap the callback invocation with `$timeout`.</p>
+
+  <p><u>Why `$timeout` and not `$rootScope.$apply`?</u></p>
+
+  <p>We chose `$timeout` because we will get an error if `$apply` is already in progress. Since we are async anyway, using `$timeout` is legitimate, plus it can handle the scenario if `$apply` or `$digest`is in progress without errors. </p>
+
+  <p>Here is how it looks in our code. </p>
+
+  <p><img src="/img/blog/guy8.png" /></p>
+
+  <p>You might want to try and venture using `lodash`’s `_.wrap`. In ECMAScript 6 - this will be the perfect scenario to use `proxy`. Alas, we can’t use it yet as this feature does not translate to ECMAScript 5. See comment at: <a href="https://babeljs.io/docs/learn-es6/#proxies">https://babeljs.io/docs/learn-es6/#proxies</a> for more details</p>
+
+  <h2><font style="font-weight: bold">Writing the tests</font></h2>
+
+  <p>Now we need to write tests for 4 different environments. How are we going to do that?</p>
+
+  <p>Exactly the same way!!! </p>
+
+  <p><b>Using libraries that can run both in frontend and backend</b></p>
+
+  <p>Just like we chose `superagent`, we will need to choose libraries that run both in frontend and backend.</p>
+
+  <p>I used `expect.js` , `mocha` and `jasmine 2.0` to get same API across all frameworks. </p>
+
+  <p>Currently `jasmine_node` is still on `jasmine 1`. Whenever they change to 2.0 I might change my stack. </p>
+
+  <p>Thankfully `mocha` and `jasmine 2` both use `done` for async tests.. otherwise this would not have been easy.. </p>
+
+  <p>Running the code in browser will require `karma` and in node we will use `mochaTest grunt plugin`. </p>
+
+  <p><b>When do we use Browserify?</b></p>
+
+  <p>We will use browsierify in the karma config file. </p>
+
+  <p>Browserify has a preprocessor for karma that does the job. </p>
+
+  <p>Read about it at: <a href="https://github.com/nikku/karma-browserify">https://github.com/nikku/karma-browserify</a></p>
+
+  <p><b>Organizing the files</b></p>
+
+  <p>Once again we generate files per framework.</p>
+
+  <p><img src="/img/blog/guy9.png" /></p>
+
+  <p>&#160;</p>
+
+  <p>A bit verbose, but worthwhile.</p>
+
+  <p>As you can see each framework has a different entry point to the tests. </p>
+
+  <p>The actual tests are written in `clientTest` folder. That could will run the same in every framework - just like the client itself. </p>
+
+  <p>We chose to separate `initClient.js` to a different file since we are thinking ahead just like we added the `config` file in the constructor. </p>
+
+  <p>If there is a test that wants to initialize the client with different `config` settings, the test will simply need to override `initClient.js` file. While the rest stays the same. </p>
+
+  <p><b>Writing the wrappers</b></p>
+
+  <p>The goal of each wrapper in our case is to put the client on a global scope. And so, it looks like this:</p>
+
+  <p>&#160;<img src="/img/blog/guy10.png" /></p>
+
+  <p><b>Writing the actual test</b></p>
+
+  <p>The test is pretty standard.. </p>
+
+  <p><img src="/img/blog/guy11.png" /></p>
+
+  <p><b>Writing the grunt configuration</b></p>
+
+  <p>The grunt configuration is pretty standard - note we do not browserify the files here.. </p>
+
+  <p><img src="/img/blog/guy12.png" /></p>
+
+  <p><b>Karma configuration + Browserifying the test files</b></p>
+
+  <p>This is the important step. Let’s see just one of the karma configurations.</p>
+
+  <p><img src="/img/blog/guy13.png" /></p>
+
+  <h2><font style="font-weight: bold">A word about Webpack and friends</font></h2>
+
+  <p>There are a lot of libraries recently that add `require` to frontend or such. This trend even increases as ECMAScript 6 approaches with a built in support for modules. </p>
+
+  <p>I am sure you <u>can</u> use each of them to get the same results we got here. </p>
+
+  <p>Personally, and this is my personal, objective view of things, it is better to use a library for the main purpose it declares. </p>
+
+  <p>use grunt for build, yeoman for project and file generations. npm for backend installations and bower for frontend. </p>
+
+  <p>Writing this, I know that in less than two years time I will probably hold a totally different opinion, as the entire community will probably shift, and that’s fine two years from now. I don’t support jumping ahead of the community. I am not using ECMAScript 6 even though there are transcompilers already and such.</p>
+
+  <p>But that’s just my personal opinion. </p>
+
+  <p>Browserify does the job well and without any effort. </p>
+
+  <p>It took us less than a week to learn, implement and test the entire Cloudify REST API. </p>
+
+  <p>Which is the same amount of time it would have taken us to do the same just for nodejs. So time added by Browserify is negligible. </p>
+
+  <p>The amount of code we had to add in order to get support for each framework is laughable. </p>
+
+  <p>If I wanted to require files at runtime in frontend, I would use `require.js` but that is not what I was set on doing.</p>
+
+  
+</li>
+  </notextile>
