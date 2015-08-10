@@ -381,12 +381,18 @@ img.img-polaroid {
 
 }
 #header-hidden-link  a.toggle-link.goProBtn,#header-hidden-link a.toggle-link.tryBtn{ border-radius:0 0 15px 15px;}
+#header-hidden-link a.jobopenings img{ position:absolute;right:0; max-width:inherit;top:9px;right:19px; height:122px}
 
 @media (max-width:600px) {
 	#header-hidden-link a.toggle-link.tryBtn {
 		display: none;
 	}
+}
+@media (max-width:767px) {
 	#header-hidden-link a.jobopenings {display: none;}
+}
+@media (min-width:1400px) {
+	#header-hidden-link a.jobopenings img{ position:absolute;right:0; max-width:inherit;top:-14px;right:-106px; height:122px}
 }
 
 #header-hidden-link a.toggle-link.tryBtn{
@@ -398,7 +404,8 @@ img.img-polaroid {
  position:relative;
  float:right;
 }
-#header-hidden-link a.jobopenings img{ position:absolute;right:0; max-width:inherit;top:-14px;right:-106px; height:122px}
+
+
 
 #header-hidden-link a.toggle-link:active,#header-hidden-link a.toggle-link:focus,#header-hidden-link a.toggle-link:hover {
 	outline:0;
