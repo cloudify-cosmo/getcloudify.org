@@ -39,6 +39,8 @@ support and enhanced features, Cloudify Premium lets you take your cloud orchest
 				<input type=hidden name="oid" value="00D300000000KEt">
 				<input type=hidden name="retURL" value="http://getcloudify.org/thank_you_premium.html">
 				<input type=hidden id="lead_source" name="lead_source" name="oid" value="Cloudify Community">
+				<input type=hidden id="00N80000003kH2d" name="00N80000003kH2d" value=".org GoPro">
+				
 				<!--http://formspree.io/hello@getcloudify.org-->
 				<input type="hidden" name="_next" value="http://getcloudify.org/thank_you_premium.html" />
 				<input type="hidden" name="_subject" value="I want to hear more about Cloudify Premium" />
@@ -618,7 +620,7 @@ function track_contactForm() {
        	//track mixpanel
 		if (getCookie('cfydirect') == null) {
             var formEmail =  $("#contactform #email").val();	
-            var formName =  $("#contactform #first_name").val();
+            var formName =  $("#contactform #name").val();
 			var formcompany =  $("#contactform #company").val();
 			mixpanel.identify(formEmail);
             mixpanel.alias(formName, formEmail, formcompany);
