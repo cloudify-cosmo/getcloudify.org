@@ -43,4 +43,9 @@ For every node, its type, number of instances, and relationships are shown. By c
 
 # Source
 Displays highlight blueprint source code, Python plugins and other text files includes in your blueprint package.<br/>
+
+{%note title=Uploaded Blueprint Format%}
+Currently displaying the blueprint sources is only supported if the blueprint was packaged and uploaded as a {{.tar.gz}} file (which is the default format used by the CLI when packaging and uploading blueprints to the Cloudify manager). Future versions will support {{.zip}} and plain {{.tar}} formats. 
+{%endnote%}
+
 ![Blueprint source code]({{ site.baseurl }}/guide/images/ui/ui-blueprint-sourcecode.jpg)
