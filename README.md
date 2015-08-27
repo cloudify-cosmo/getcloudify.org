@@ -2,7 +2,7 @@
 [![Circle CI](https://circleci.com/gh/cloudify-cosmo/getcloudify.org.svg?style=svg)](https://circleci.com/gh/cloudify-cosmo/getcloudify.org)
 
 This repository contains the markup files, html templates and javascript sources for the new [Cloudify documentation portal](http://getcloudify.org/).
-It's based on [Jekyll](http://jekyllrb.com/), a Ruby-based static site generator, and uses [Markdown](http://whatismarkdown.com/) as a markup language for the most part. It also uses a number of custom Jekyll plugins for formatting and styling, please refer to the [cheatsheet](http://getcloudify.org/guide/3.0/cheatsheet.html) for details about this plugins and how to use them. 
+It's based on [Jekyll](http://jekyllrb.com/), a Ruby-based static site generator, and uses [Markdown](http://whatismarkdown.com/) as a markup language for the most part. It also uses a number of custom Jekyll plugins for formatting and styling. Please refer to the [cheatsheet](http://getcloudify.org/guide/3.0/cheatsheet.html) for details about these plugins and how to use them. 
 
 ## Help Us Improve! 
 
@@ -30,12 +30,12 @@ To run and test the website locally, you should perform the following steps:
 
         cd getcloudify.org
 
-* Invoke Bundler to install all required Ruby gems
+* Invoke Bundler to install all required Ruby gems.
 
         bundle install 
 
 - If you're using Windows, run `setup-win.bat` with administrative permissions (requires Windows Vista or later).
-This script is a workaround for a known issue in git which ignores symbolic links on windows. 
+This script is a workaround for a known issue in git which ignores symbolic links on Windows. 
 
 * Make the required changes to the docs (if you need to).
 
@@ -59,7 +59,7 @@ You should see the following output if everything was ok:
 
 ## Continuous Deployment 
 
-This website is hosted on AWS S3. Every push to this reposiroty triggers a build process (currently we use the excellent [Circle CI](http://circleci.com) conitnuous integration service), at the end which the generated website is pushed to S3 using the [s3_website](https://github.com/laurilehmijoki/s3_website) library. The Circle CI configuration is located at in the file [`circle.yml`](circle.yml). 
+This website is hosted on AWS S3. Every push to this repository triggers a build process (currently we use the excellent [Circle CI](http://circleci.com) continuous integration service), at the end which the generated website is pushed to S3 using the [s3_website](https://github.com/laurilehmijoki/s3_website) library. The Circle CI configuration is located in the file [`circle.yml`](circle.yml). 
 
 ## Authoring Guidelines
 
