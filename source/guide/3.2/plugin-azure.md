@@ -14,5 +14,5 @@ For more information about Azure, please refer to: [http://azure.microsoft.com/]
 {%endsummary%}
 
 {%note title=Note%}
-The Azure IaaS plugin is uses the Azure's Resource Manager (ARM) API. - This API is aka IaaS V2.
+The Azure IaaS plugin uses Azure's Resource Manager (ARM) API. - This API is aka IaaS V2.
 {%endnote%}
