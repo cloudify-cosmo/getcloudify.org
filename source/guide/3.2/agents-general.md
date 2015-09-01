@@ -42,6 +42,15 @@ Cloudify comes with a set of pre-made agent packages:
 * Ubuntu Trusty Agent - Ubuntu 14.04 with Python 2.7.x (Might work on Debian, but untested)
 * Windows Agent - Windows 2008+ with Python 2.7.x
 
+# Prerequisites
+
+## Network
+
+The agent listens on the following ports:
+
+* port 22 - for SSH access (applicable for Linux hosts only)
+* port 5985 - for WinRM access (applicable for Windows hosts only)
+
 # What's Next
 
 For a more elaborate and technical explanation on agents, and how to create one, please refer to the the [Agent-Packager tool]({{page.agent_packager_link}}).

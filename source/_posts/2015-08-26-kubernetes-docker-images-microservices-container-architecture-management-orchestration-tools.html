@@ -1,0 +1,156 @@
+---
+layout: blogpost
+title: Cloudify Meets Kubernetes - Container Management & Orchestration on Bare Metal
+image: dewayne.jpg
+author: DeWayne Filppi
+tags: 
+ - Cloud Orchestration
+ - Docker
+ - Kubernetes
+ - Microservices
+ - Container Orchestration
+---
+
+<notextile>
+
+<img src="http://blog.gigaspaces.com/wp-content/uploads/2015/08/kub.png" alt="Kubernetes | Docker | Docker Orchestration | Docker Images | Container Management | Container Orchestration | Microservices">
+<br/>
+<br/>
+ 
+<p>Cloudify lives at the extreme end of the "unopinionated" spectrum of application orchestration tools.<a href="http://getcloudify.org/2015/06/11/orchestration-docker-cloud-automation-openstack-heat-tosca-kubernetes.html">  Kubernetes</a><a href="http://www.kubernetes.io" target="_blank"> (http://www.kubernetes.io)</a>, on the other hand, is a <a href="http://getcloudify.org/docker-orchestration-docker-container-deployment-cloud.html">container orchestration</a> system that is very opinionated.  For those committed to a container based deployment architecture, it's a great choice, especially for supporting <a href="http://getcloudify.org/2014/12/14/TOSCA-docker-container-orchestration-microservices-architecture-kubernetes.html">microservices</a>, a good reference on this can be found at: <a href="http://martinfowler.com/articles/microservices.html" target="_blank">http://martinfowler.com/articles/microservices.html</a>.</p>
+<p>For those with a heterogenous environment, possibly including Kubernetes, Cloudify 
+
+provides a solution that can orchestrate everything under one umbrella.  (You can also check out the Cloudify team's excellent talk from OpenStack Vancouver 
+
+on <a href="https://www.openstack.org/summit/vancouver-2015/summit-videos/presentation/orchestration-tool-roundup-kubernetes-vs-heat-vs-fleet-vs-
+
+maestrong-vs-tosca" target="_blank">just this topic</a>).</p>
+
+<hr>
+
+<span class="pullquote-left">
+  <font style="font-weight: bold" size="5" face="Baskerville Old Face"><em>Container orchestration with any tool with Cloudify.</em></font>&nbsp; <a 
+
+class="btn btn-medium btn-theme btn-rounded" id="downloadBtnInner" href="http://getcloudify.org/downloads/get_cloudify_3x.html" target="_blank"><i 
+
+class="icon-plus"></i> Get it!</a></span>
+  
+  <hr>
+
+<p>This post reviews some recent work I've done to provide a means for Cloudify to manage Kubernetes clusters at a high level as part of a heterogenous 
+
+environment.
+
+</p>
+
+<div class="aligncenter">
+<img src="http://blog.gigaspaces.com/wp-content/uploads/2015/08/kub-post2.png">
+</div>
+
+<h3><strong>Integration Overview</strong></h3>
+
+
+<p>Perhaps the most fundamental integration with Kubernetes would be to assume an already existing cluster, and simply connect to it and issue commands.  
+
+While this is a valid use case, it was a little too basic for my taste.  So the initial ambition was to use Cloudify to install a Kubernetes cluster on bare metal (or 
+
+bare VMs in my case).</p>
+
+<p>The approach was to create a <a href="http://getcloudify.org/2015/01/06/cloudify-cloud-open-source-workflow-engine-automation-template-tools-
+
+plugin.html">Cloudify plugin</a> that defined a couple of types that represented the basic components of a Kubernetes cluster: a master node and a minion 
+
+node.  The master host in Kubernetes is equivalent to the manager host in Cloudify.  Minions manage the container lifecycle on hosts across the cluster.  Since 
+
+Google provides handy <a href="http://getcloudify.org/2015/04/26/dockerfile-docker-container-tutorial-images-cloud-vm.html">docker images</a> for the 
+
+various component services of Kubernetes, I used these and automated Google's instructions for <a 
+
+href="https://github.com/kubernetes/kubernetes/tree/release-1.0/docs/getting-started-guides/docker-multinode" target="_blank">setting up a multi-node 
+
+cluster</a>.  
+
+<p>So in a kind of odd twist, Cloudify is orchestrating <a href="http://getcloudify.org/tags/Docker/index.html">docker containers</a> to enable a system that 
+
+orchestrates docker containers.  The main difference between Cloudify's "normal" container orchestration and the approach described here, is that each 
+
+individual container isn't a blueprint node.  The blueprint nodes represent the hosts only.  Once Kubernetes is up and running, it's on it's own, at least in this initial 
+
+bare metal version.
+
+
+<h3><strong>Running it</strong></h3>
+<p>This initial version only supports Ubuntu (only tested on Ubuntu 14), and assumes that docker is preinstalled and running.  It also assume that Python and 
+
+apt-get is installed, has internet access, and has passwordless ssh and sudo setup.  Grab the source at: <a href="http://github.com/dfilppi/cfy3/kub" 
+
+target="_blank">(http://github.com/dfilppi/cfy3/kub)</a>.</p>
+
+<p>This post was written for release 1.4. Edit the "barevm-blueprint" and put in your IP addresses and ssh info.
+<br/>Install a <a href="http://getcloudify.org/guide/3.2/installation.html">Cloudify CLI</a>, and run:
+
+<code>cfy local install-plugins -p barevm-blueprint.yaml</code>
+<br/><code>cfy local init -p barevm-blueprint.yaml</code>
+<br/><code>cfy local execute -w install</code>
+<br/>Enjoy your new Kubernetes cluster.</p>
+
+
+<h3><strong>Plugin Design
+</strong></h3>
+<p>The initial plugin design is quite simple, and only defines two node types, master and minion, and a relationship.  Currently, since the initial support is for 
+
+bare metal, IP addresses and ports are encoded directly into the blueprint.  Since the Kubernetes cluster is being treated as a separate entity, agentless 
+
+orchestration is used via the <a href="http://getcloudify.org/guide/3.2/plugin-fabric.html">Fabric plugin</a>.  This was deemed appropriate because Kubernetes 
+
+provides its own container management and scaling capabilities.  A nice side effect is that the blueprint can be run easily in<a href="http://cloudify-
+
+cli.readthedocs.org/en/3.2/commands.html#local" target="_blank">local mode</a>.  It currently only stands up a Kubernetes cluster, it does not have logic to 
+
+tear it down or run related workflows yet.</p>
+
+
+<h3><strong>Implementation Details
+
+</strong></h3>
+
+<p>The current implementation utilizes the Cloudify Fabric (ssh) plugin, and essentially boils down to automating the steps outlined in Google's documentation 
+
+for multi-node docker-based installation.  The example blueprint is very concise and can be executed directly from the Cloudify local mode (without starting a 
+
+Cloudify manager).
+
+
+<script src="https://gist.github.com/dfilppi/2b4653dc7a8aad796c8e.js"></script>
+
+<p>IPs are specified, since the cluster is being constructed on existing running hosts (running Ubuntu 14.04).  Each of the node types has a Fabric task script 
+
+that is run to set up its particular kind of host (master or minion/node).  The custom relationship merely passes the IP address and port from the master to the 
+
+minion for use in its setup. The ssh_username and key are passed along to Fabric so it can connect and run commands and move files.  
+
+
+<h3><strong>Limitations and next steps
+
+</strong></h3>
+<p>This is a simple first step.  Over time more features and use cases will be added.
+<ul>
+<li>More OS support (CoreOS particularly)</li>
+<li>Custom workflows for performing lifecycle operations on the Kubernetes cluster (basically kubectl commands wrapped as workflows)
+</li>
+<li>Full lifecycle support (uninstall)</li>
+<li>Cloud blueprint with agents to take advantage of Cloudify's VM level auto-healing.</li>
+</ul>
+
+<p>
+Kubernetes is a great system for managing containers and to some degree applications in those containers.  Cloudify can be used to manage Kubernetes 
+
+in a blended environment of containers, virtualization, Cloud platform, and bare metal.</p>
+
+All of the code is available at: <a href="https://github.com/dfilppi/cfy3/tree/master/kub" target="_blank">(https://github.com/dfilppi/cfy3/tree/master/kub)</a>, currently at release 1.4.</p>
+
+<p> Comments always welcome. </p>
+
+
+
+</notextile>
