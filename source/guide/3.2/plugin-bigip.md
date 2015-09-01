@@ -74,45 +74,45 @@ The following example will demonstrate how the BIG-IP plugin is used within an O
 
 {% highlight yaml %}
 inputs:
-    host: {}
-    username: {}
-    password: {}
-    pool_id: {}
-    lb_method:
-        default: LB_METHOD_ROUND_ROBIN
+  host: {}
+  username: {}
+  password: {}
+  pool_id: {}
+  lb_method:
+    default: LB_METHOD_ROUND_ROBIN
 
 node_templates:
-    floating_ip:
-        type: cloudify.openstack.nodes.FloatingIP
+  floating_ip:
+    type: cloudify.openstack.nodes.FloatingIP
 
-    application:
-        type: cloudify.nodes.ApplicationModule
-        properties:
-            port:
-                description: port used to communicate with the application
-                type: integer
+  application:
+    type: cloudify.nodes.ApplicationModule
+    properties:
+      port:
+        description: port used to communicate with the application
+        type: integer
 
-    lb_pool:
-        type: cloudify.bigip.nodes.Pool
-        properties:
-            host: { get_input: host }
-            username: { get_input: username }
-            password: { get_input: password }
-            pool_id: { get_input: pool_id }
-            lb_method: { get_input: lb_method }
-        relationships:
-          - type: cloudify.bigip.pool_to_application
-            target: application
-          - type: cloudify.bigip.pool_to_endpoint
-            target: floating_ip
-            source_interfaces:
-                cloudify.interfaces.relationship_lifecycle:
-                    establish:
-                        inputs:
-                            port: { get_property: [ app, port ] }
-                    unlink:
-                        inputs:
-                            port: { get_property: [ app, port ] }
+  lb_pool:
+    type: cloudify.bigip.nodes.Pool
+    properties:
+      host: { get_input: host }
+      username: { get_input: username }
+      password: { get_input: password }
+      pool_id: { get_input: pool_id }
+      lb_method: { get_input: lb_method }
+    relationships:
+      - type: cloudify.bigip.pool_to_application
+        target: application
+      - type: cloudify.bigip.pool_to_endpoint
+        target: floating_ip
+        source_interfaces:
+          cloudify.interfaces.relationship_lifecycle:
+            establish:
+              inputs:
+                port: { get_property: [ app, port ] }
+            unlink:
+              inputs:
+                port: { get_property: [ app, port ] }
 {%endhighlight%}
 
 Step-by-step explanation:
