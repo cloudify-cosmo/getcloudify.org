@@ -4,9 +4,9 @@ title: How Cloudify Runs on vCloud Air with Zero Footprint
 image: denis.jpg
 author: Denis Makogon
 tags:
- - VMWorld
+ - VMworld
  - Cloud Orchestration
- - VMWare
+ - VMware
  - vCloud
  - TOSCA
 ---
@@ -14,11 +14,11 @@ tags:
 <notextile>
 
 <div class="aligncenter">
-<img src="/img/blog/vcloud-air-cloudify.png"  alt="VMWare | Cloud Orchestration | Hybrid Cloud | TOSCA Orchestration | Orchestration as a service | vCloud Air | TOSCA | Cloud Automation"></div>
+<img src="/img/blog/vcloud-air-cloudify.png"  alt="VMware | Cloud Orchestration | Hybrid Cloud | TOSCA Orchestration | Orchestration as a service | vCloud Air | TOSCA | Cloud Automation"></div>
 <br/>
 <br/>
 
-<p>We recently announced Cloudify's new <a href="http://www.gigaspaces.com/gigaspaces-works-vmware-deliver-pilot-blueprinting-service-vcloud-air">Orchestration-as-a-Service</a> offering jointly built with VMWare, named the vCloud® Air™ Blueprinting Service. In order to create this service, the team was required to add some new functionality, while at the same time cut certain capabilities based on the use case – more about that in an upcoming post.</p>
+<p>We recently announced Cloudify's new <a href="http://www.gigaspaces.com/gigaspaces-works-vmware-deliver-pilot-blueprinting-service-vcloud-air">Orchestration-as-a-Service</a> offering jointly built with VMware, named the vCloud® Air™ Blueprinting Service. In order to create this service, the team was required to add some new functionality, while at the same time cut certain capabilities based on the use case – more about that in an upcoming post.</p>
 
 <p>One of the interesting things about this use case, is that the team needed <a href="http://getcloudify.org">Cloudify</a> to run without utilizing <a href="http://getcloudify.org/guide/3.2/agents-general.html">agents</a> (the software installed on VMs to execute commands), which normally is part of the installation process, and instead used the <a href="http://getcloudify.org/guide/3.2/plugin-fabric.html">Fabric plugin</a> to directly execute commands. This creates an interesting situation that has pluses and minuses, but the best part about the “agentless” installation is that it leaves no footprint on the underlying infrastructure.</p>
 
