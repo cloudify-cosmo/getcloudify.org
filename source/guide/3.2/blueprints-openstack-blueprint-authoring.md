@@ -343,6 +343,3 @@ outputs:
 
 That's it, this a fully functioning blueprint that can be used with a Cloudify Manager to install the nodecellar application on an Openstack Cloud.
 
-# What's Next
-
-Now that you have an Openstack blueprint ready, you can [deploy it]({{page.openstack_deploy_link}}).
