@@ -200,7 +200,7 @@ See the [common Runtime Properties section](#runtime-properties).
 
 **Properties:**
 
-  * `security_group` key-value security_group configuration as described in [OpenStack network create security group API](http://developer.openstack.org/api-ref-networking-v2.html#security_groups). (**DEPRECATED - Use the `args` input in create operation instead**)
+  * `security_group` key-value security_group configuration as described in [OpenStack network create security group API](http://developer.openstack.org/api-ref-networking-v2-ext.html#createSecGroup). (**DEPRECATED - Use the `args` input in create operation instead**)
   * `rules` key-value security_group_rule configuration as described in [OpenStack network create security group rule](http://developer.openstack.org/api-ref-networking-v2.html#security_groups). Defaults to `[]`.
     * Note: Each rule will be parsed with default values, which will take effect unless overridden. The default values are:
       * `direction`: `ingress`
@@ -221,7 +221,7 @@ See the [common Runtime Properties section](#runtime-properties).
 
   * `cloudify.interfaces.lifecycle.create` creates the security group, along with its defined rules.
     * **Inputs:**
-      * `args` key-value security_group configuration as described in [OpenStack network create security group API](http://docs.openstack.org/api/openstack-network/2.0/content/POST_createSecGroup__v2.0_security-groups_security_groups.html). Defaults to `{}`.
+      * `args` key-value security_group configuration as described in [OpenStack network create security group API](http://developer.openstack.org/api-ref-networking-v2-ext.html#createSecGroup). Defaults to `{}`.
         * **Sugaring:**
           * `port` key may be used instead of the `port_range_max` and `port_range_min` keys to limit the rule to a single port.
           * `remote_group_node` can be used instead of `remote_group_id` to specify a remote group, by supplying this key with a value which is the name of the remote security group node. The target node must be a node the current security-group node has a relationship (of any type) to. Note that like the `remote_group_id` key, this shouldn't be provided if `remote_ip_prefix` was provided.
