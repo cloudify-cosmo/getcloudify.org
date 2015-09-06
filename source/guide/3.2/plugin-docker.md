@@ -175,7 +175,7 @@ Maps to the create_container function. You can add any of the parameters availab
          tty: true
          command: nodejs server.js
          environment:
-           NODECELLAR_PORT: 8080
+           NODECELLAR_PORT: { get_input: nodecellar_port }
            MONGO_PORT: 27017
            MONGO_HOST: mongo
 
