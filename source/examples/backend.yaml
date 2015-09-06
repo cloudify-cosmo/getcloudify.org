@@ -1,0 +1,37 @@
+
+database:
+  name: cloudify examples
+  repos:
+    LAMP:
+      type: blueprint
+    cloudify-hello-world-example:
+      url: https://github.com/cloudify-cosmo/cloudify-hello-world-example
+    cloudify-nodecellar-example:
+      url: https://github.com/cloudify-cosmo/cloudify-nodecellar-example
+    cloudify-nodecellar-docker-example:
+      url: https://github.com/cloudify-cosmo/cloudify-nodecellar-docker-example
+    cloudify-elk-blueprint:
+      url: https://github.com/cloudify-cosmo/cloudify-elk-blueprint
+    cloudify-aws-plugin:
+      url: https://github.com/cloudify-cosmo/cloudify-aws-plugin
+    cloudify-openstack-plugin:
+      url: https://github.com/cloudify-cosmo/cloudify-openstack-plugin
+    cloudify-cloudstack-plugin:
+      url: https://github.com/cloudify-cosmo/cloudify-cloudstack-plugin
+    tosca-vcloud-plugin:
+      url: https://github.com/cloudify-cosmo/tosca-vcloud-plugin
+    cloudify-manager-blueprints:
+      url: https://github.com/cloudify-cosmo/cloudify-manager-blueprints
+  actions:
+    blueprints:
+      - download
+      - view source
+      - upload to manager
+    plugins:
+      - download
+      - view source
+      - view documentation
+    integrations:
+      - download
+      - view documentation
+      - view source
