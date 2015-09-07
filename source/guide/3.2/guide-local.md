@@ -7,7 +7,7 @@ abstract: Working with Cloudify in Local Mode
 pageord: 400
 
 ---
-{%summary%} {{page.abstract}}{%endsummary%}
+{%summary%}{{page.abstract}}{%endsummary%}
 
 # Overview
 
