@@ -162,22 +162,26 @@ Since this plugin is based on the Docker-Py python library, you can pass the par
 
 ## Create
 
-Maps to the create_container function. You can add any of the parameters available to the create_container function in Docker-Py
+Maps to the create_container function. You can add any of the parameters available to the create_container function in Docker-Py.
 
 {% highlight yaml %}
 
-  create:
-    implementation: docker.docker_plugin.tasks.create_container
-    inputs:
-      params:
-        ports:
-          - 27017
-          - 28017
-        stdin_open: true
-        tty: true
-        command: mongod --rest --httpinterface --smallfiles
+   create:
+     inputs:
+       params:
+         ports:
+           - 8080: 8080
+         stdin_open: true
+         tty: true
+         command: nodejs server.js
+         environment:
+           NODECELLAR_PORT: { get_input: nodecellar_port }
+           MONGO_PORT: 27017
+           MONGO_HOST: mongo
 
 {% endhighlight %}
+
+Note that if you want to have certain environment variables available inside of the container, you can do so with the "environment" API.
 
 ## Start
 
