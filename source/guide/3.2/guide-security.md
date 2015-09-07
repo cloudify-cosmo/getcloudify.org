@@ -282,7 +282,7 @@ By default, the manager's certificate will be verified.<br>
 There are two environment variables that can be set:
   
   - `CLOUDIFY_SSL_TRUST_ALL` - set to any non empty value to avoid certificate verification.
-  - `CLOUDIFY_SSL_CERT_PATH` - set the path to a copy of the manager's certificate in case verification is wanted (trust all is not set) and the manager's certificate is a self-signed certificate. 
+  - `CLOUDIFY_SSL_CERT` - set the path to a copy of the manager's certificate in case verification is wanted (trust all is not set) and the manager's certificate is a self-signed certificate. 
 
 
 {%note title=Note%}
