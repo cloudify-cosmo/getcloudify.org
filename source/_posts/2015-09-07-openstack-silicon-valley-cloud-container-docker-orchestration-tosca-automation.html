@@ -1,0 +1,89 @@
+---
+layout: blogpost
+title: On the Future of OpenStack, Orchestration, and Containers - Thoughts from OpenStack Silicon Valley 2015
+image: arthur.jpg
+author: Arthur Berezin
+tags: 
+ - OpenStack
+ - OpenStack Orchestration
+ - Cloud Automation
+ - Software Defined Operator
+ - Docker
+---
+
+<notextile>
+
+<img src="/img/blog/openstacksv.png" alt="OpenStack Silicon Valley | Cloud Orchestration | Hybrid Cloud | Containers | Pure-Play | Cloud Automation | SDO">
+<br/>
+<br/>
+
+<h2><b>OpenstackSV Panel</b></h2>
+
+<p>&#160;</p>
+
+<p>Last week I attended my first <a href="http://www.openstacksv.com/">OpenStack Silicon Valley conference</a> in Mountain View. As with the official OpenStack biannual Summit, the main OpenStack cast of characters were all in attendance, but in a more intimate setting, allowing for closer interaction with the community. Among the many great talks, Cloudify CTO <a href="https://natishalom.typepad.com">Nati Shalom</a> spoke on a <a href="http://sched.co/3o5x">panel</a> alongside Mark Shuttleworth, Founder of Canonical, Luke Kanies, Founder and CEO of Puppet Labs and Sumeet Singh, Founder and CEO of AppFormix. It was a great, <a href="https://www.youtube.com/watch?v=-svbH9wVSL8">lively discussion</a> on the role of modern tooling in the OpenStack ecosystem.</p>
+
+<hr>
+
+<span class="pullquote-left">
+  <font style="font-weight: bold" size="5" face="Baskerville Old Face"><em>Get Native OpenStack TOSCA Orchestration with Cloudify.</em></font>&nbsp; <a class="btn btn-medium btn-theme btn-rounded" id="downloadBtnInner" href="http://getcloudify.org/downloads/get_cloudify_3x.html" target="_blank"><i class="icon-plus"></i> Go </a></span>
+  
+  <hr>
+
+<h2><b>Putting Complex Tool-Chains at Work Together </b></h2>
+
+<p>&#160;</p>
+
+<p>The discussion was heavily focused on tools that are used for deployment of OpenStack. Some would argue that the deployment of OpenStack is largely a solved problem. When we look at this problem from the perspective of those who are solving their own problem of deploying OpenStack at large scale, we see a landscape filled with tooling that helps them meet the needs of their environment and configuration.</p>
+
+<p>But when we look at this from a perspective of those whose goal it is to deploy OpenStack easily without going over the learning curve required to do so, we still see a huge diversity of tool-chains with major differences among them, each focusing on specific area. While configuration management solved the issue of deployment to some extent, we can’t ignore that this is still a fairly complex problem. What’s more, if we take the number of production deployments of OpenStack as an indicator of the ease of deployment, the relatively low number indicates that the problem has yet to be solved.</p>
+
+<p>Having said that, we need to recognize that in most cases, a single tool of choice wouldn’t fulfill all the needs of such a complex environment. Commonly, it would require using several tools to reaching a larger end-goal, and the definition of the problem shifts from the question of which tools are we using, to the question of how we put several tools of choice, each addressing a specific problem, to work together. Using all those tools together in a larger DevOps tool-chain becomes an integration problem.</p>
+
+<p>&#160;</p>
+
+<h2><b>Different Types of Orchestration</b></h2>
+
+<p>&#160;</p>
+
+<p>The configuration management space has several generally accepted open-source tools, with Puppet, Chef and Ansible as common tools of choice, each with it’s own approach and benefits in mind. Recently, we are seeing the orchestration space getting more attention as new orchestration tools emerge.</p>
+
+<p>It is important to note that there are different types of orchestration, each with its own focus in mind and each solving different types of problems. Not all orchestration tools are created equal.&#160; </p>
+
+<p><u>Infrastructure Orchestration</u> focuses on imperative commands coordinating manipulation of infrastructure components. Heat is an example of infrastructure orchestration for OpenStack, supporting a descriptive language called HOT (Heat Orchestration Template), which was created for orchestrating OpenStack resources.&#160; </p>
+
+<p><u>Container Orchestration</u> focuses on scheduling and deploying containerized applications at scale, Kubernetes being an example of a new, emerging container orchestration tool, lead by Google and Red Hat.</p>
+
+<p><u>Pure-Play Orchestration</u> focuses on the declarative end state of a deployed application, taking a generic approach, not bound to any specific technology, which allows focusing on the the end goal and using best of bread tools for each specific task involved in orchestrating and maintaining the life-cycle of an application. Pure-Play Orchestration becomes the integration engine between different types of orchestrators and configuration management tools, moving to the path of orchestration of multiple orchestration tools.</p>
+
+<h2><b></b></h2>
+
+<h2><b>Software Defined Operator Era</b></h2>
+
+<p>&#160;</p>
+
+<p>Monitoring is another important key when it comes to keeping a cloud healthy and running. Monitoring that spits nice graphs, metrics and reports requires manual analysis of the metrics and therefore it requires human intervention to act upon the metrics. </p>
+
+<p>In the era of&#160; software defined everything, where every component allows complete control using standard API calls, manual monitoring is simply not enough. Monitoring needs to be tightly integrated into the DevOps cycles, it should focus on its KPIs and take corrective action automatically without the human factor, which is prone to biases when compiling complex metrics. If we look at a downtime analysis of a typical organization, we see that the human factor is the most common cause for downtime.</p>
+
+<p>Introducing the software defined operator, which would take action based on defined monitored metrics and reduce the number of human errors thereby increasing the up-time of production environments tremendously.</p>
+
+<p>Algo-trading is a good analogy to the software defined operator. Investment strategies are automated into stock trading algorithms, which amend stock trades based on the changes in the market according to the determined investment strategy. This allows for a near real-time response to the market and eliminates our natural human biases allowing to outperform manual stock trading.</p>
+
+<p><b></b></p>
+
+<h2><b>The Container Era</b></h2>
+
+<p>&#160;</p>
+
+<p>The main theme of the OpenStack Silicon valley conference revolved largely around containers. It seems that until recently we were in an era of tooling options for OpenStack within VMs and bare metal, and now we have entered a new, trending era of containers with OpenStack. Although for those who are deep into the world of containers, micro-services and cloud native applications, adoption of such tools might seem a mere trivial evolution, it would still take time for the rest of the market to adopt this model and we must not forget that it’s going to be a longer journey than it might seem, thus designing only for containers can be too naive.</p>
+
+<h2><b></b></h2>
+
+<h2><b>Conclusion</b></h2>
+
+<p>&#160;</p>
+
+<p>It’s important to note that the speed of innovation is always faster than the speed of adoption, in this world where "the only constant is change," we need to be ready to adapt new tool-chains supporting modern approaches while at the same time maintaining existing tool-chains to support current and legacy workloads.</p>
+
+</notextile>
