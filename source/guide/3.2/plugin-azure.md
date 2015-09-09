@@ -64,6 +64,6 @@ All cloud resource nodes have common properties:
   * West Europe
   * West US
 *	`vm_name` this can be the name of the virtual machine created. The name of other resources required to create the virtual machine like resource group, storage account, virtual network, etc. will be derived from the vm_name string. Defaults to ‘my_vm’.
-*	`client_id` the location where you will find the client id in azure account on the manage.azure.com portal is marked in red in the screenshot below. Defaults to ‘’ (empty string).
+*	`client_id` the location where you will find the client id in azure account on the manage.azure.com portal is marked in red in the screenshot below. Defaults to ‘’ (empty string). <br/>
 Active Directory->your active directory->Applications->your application->configure->Client ID
 
