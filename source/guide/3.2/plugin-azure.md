@@ -203,13 +203,8 @@ ARM authentication requires to create a service principal using Azure CLI or thr
 *	Connect to the Azure CLI
 *	Authenticate to your Service Principal using the Azure CLI 
 
-
 ## How to install the Azure CLI
 
-### Node.js application: If you don’t have Node.js installed on your system, you can download and install it using following link : [https://nodejs.org/download/](https://nodejs.org/download/)
-
-### Once node.js is installed, please follow the steps given in the link below to install Azure CLI [https://azure.microsoft.com/en-us/documentation/articles/xplat-cli-install/](https://azure.microsoft.com/en-us/documentation/articles/xplat-cli-install/)
-
-### Once you have successfully installed it, you can verify it by typing *“azure”* on your shell or command prompt. It must display the following :
-
-
+1. Node.js application: If you don’t have Node.js installed on your system, you can download and install it using following link : [https://nodejs.org/download/](https://nodejs.org/download/)
+2. Once node.js is installed, please follow the steps given in the link below to install Azure CLI [https://azure.microsoft.com/en-us/documentation/articles/xplat-cli-install/](https://azure.microsoft.com/en-us/documentation/articles/xplat-cli-install/)
+3. Once you have successfully installed it, you can verify it by typing *“azure”* on your shell or command prompt. It must display the following :
