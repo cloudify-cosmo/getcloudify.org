@@ -71,7 +71,9 @@ Active Directory->your active directory->Applications->your application->configu
 
 * `tenant_id` the location where you will find the tenant id in azure account on the manage.azure.com portal is marked in red in the screenshot below. Defaults to ‘’ (empty string).
 Active Directory->your active directory->Applications->your application->view endpoints->tenant id in the URLs as highlighted below.
+
 ![Tenanct]({{ site.baseurl }}/guide/images/azure/tenant_id_screenshot.jpg)
+
 *	`username` is the email address used to login to the Microsoft Azure account portal
 * `password` is the corresponding password used with the account.
 
