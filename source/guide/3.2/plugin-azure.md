@@ -51,7 +51,7 @@ All cloud resource nodes have common properties:
 ![Subscription ID]({{ site.baseurl }}/guide/images/azure/subscription_screenshot.jpg)
 
 *	`location` is the region of the azure data center where you prefer to create the cloud resources. Defaults to 'West US'.
-  * Possible valid values are: 
+ Possible valid values are: 
   * Central US
   * East Asia
   * East US
