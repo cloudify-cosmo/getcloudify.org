@@ -52,6 +52,7 @@ All cloud resource nodes have common properties:
 
 *	`location` is the region of the azure data center where you prefer to create the cloud resources. Defaults to 'West US'.
  Possible valid values are: 
+
    * Central US
    * East Asia
    * East US
