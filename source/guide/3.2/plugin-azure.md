@@ -14,5 +14,6 @@ For more information about Azure, please refer to: [http://azure.microsoft.com/]
 {%endsummary%}
 
 {%note title=Note%}
-The Azure IaaS plugin uses Azure's Resource Manager (ARM) API. - This API is aka IaaS V2.
+The Azure plugin uses Azure's Resource Manager (ARM) API. - This API is aka IaaS V2.
+This plugin allows users to use Cloudify to manage cloud resources on Microsoft Azure. For more information about the library, please refer to the [Azure SDK for Python](http://azure-sdk-for-python.readthedocs.org/en/latest/).
 {%endnote%}
