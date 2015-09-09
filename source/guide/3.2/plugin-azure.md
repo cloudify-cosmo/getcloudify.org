@@ -186,4 +186,27 @@ This connects a nic (network interface card) to public ip. Here, the source is n
 * `cloudify.azure.relationships.server_connected_to_nic`:
 This connects a server i.e. a virtual machine to nic. Here, the source is server and target is nic which means that unless the install workflow for nic is not completed, virtual machine will not be provisioned.
 
+# Tips
+
+* It is highly recommended to **ensure that Azure names are unique.
+
+
+# Misc
+
+The exact details of the structure of the Azure Provider Context are not documented, because parts may change.
+
+# ARM Authentication
+ 
+ARM authentication requires to create a service principal using Azure CLI or through PowerShell. This is a one-time process required to generate authentication token. The steps to create a service principal are as follows:
+
+*	Install the Azure CLI
+*	Connect to the Azure CLI
+*	Authenticate to your Service Principal using the Azure CLI 
+
+
+## Install the Azure CLI:
+### Node.js application: If you don’t have Node.js installed on your system, you can download and install it using following link : [https://nodejs.org/download/](https://nodejs.org/download/)
+### Once node.js is installed, please follow the steps given in the link below to install Azure CLI [https://azure.microsoft.com/en-us/documentation/articles/xplat-cli-install/](https://azure.microsoft.com/en-us/documentation/articles/xplat-cli-install/)
+### Once you have successfully installed it, you can verify it by typing *“azure”* on your shell or command prompt. It must display the following :
+
 
