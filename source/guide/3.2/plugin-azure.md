@@ -223,13 +223,11 @@ ARM authentication requires to create a service principal using Azure CLI or thr
 
 1.	Make sure the service principal is ‘Owner’ in order to get more access.
 Instead of Reader, write ‘Owner’ in the following command while following the steps in the link after it (which steps???)
-<script src="https://gist.github.com/tamirko/3cd9f043d5022c60e947.js"></script>
-```powershell
+```PowerShell
 azure role assignment create --objectId 47193a0a-63e4-46bd-9bee-6a9f6f9c03cb -o Reader -c /subscriptions/{subscriptionId}/
 ```
 2.	While creating an AAD (Azure Active Directory) application, you need to use the following command format:
-<script src="https://gist.github.com/tamirko/7c52be19086935f8eb4d.js"></script>
-```powershell
+```PowerShell
 azure ad app create --name "myapp" --home-page "https://myapp.onmicrosoft.com" --identifier-uris "https://myapp.onmicrosoft.com" –password abc123
 ```
 *	During completion of the authentication using Azure CLI, you will get tenant id, client id (this is nothing but application id which will be given as response on azure CLI) and client secret. 
