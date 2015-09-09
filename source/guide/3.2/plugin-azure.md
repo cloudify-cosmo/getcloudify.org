@@ -36,5 +36,17 @@ The Azure plugin currently supports the new Azure Resource Manager API.
 This version supports (Microsoft Azure) API Version = '2015-05-01-preview’.
 {%endnote%}
 
+# Types
 
+The following are [node](reference-terminology.html#node) type definitions. Nodes describe cloud resources in your cloud infrastructure. For more information, see [nodes](reference-terminology.html#node).
+
+### Common Properties
+
+All cloud resource nodes have common properties:
+
+**Properties**
+
+* `Subscription_id` is the 32 digit subscription id you will get on creation of a Microsoft Azure account in the settings tab of the older manage.azure.com portal. The location where you will find the subscription id is marked in red in the screenshot below. Defaults to ‘’ (empty string).
+
+TAMIR - ADD IMAGE HERE ... TBD 
 
