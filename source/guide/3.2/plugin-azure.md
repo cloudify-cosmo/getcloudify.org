@@ -48,5 +48,4 @@ All cloud resource nodes have common properties:
 
 * `Subscription_id` is the 32 digit subscription id you will get on creation of a Microsoft Azure account in the settings tab of the older manage.azure.com portal. The location where you will find the subscription id is marked in red in the screenshot below. Defaults to ‘’ (empty string).
 
-TAMIR - ADD IMAGE HERE ... TBD 
-
+![Subscription ID]({{ site.baseurl }}/guide/images/azure/subscription_screenshot.jpg)
