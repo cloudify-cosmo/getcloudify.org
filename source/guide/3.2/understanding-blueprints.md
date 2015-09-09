@@ -35,7 +35,7 @@ A Topology is a graph of application components and their relationships describe
 
 Components can be of 3 levels:
 
-* **Infrastructrue** - Components provided by the IaaS layer (e.g. VM, virtual network, virtual load balancer or storage volume) or by non-cloud phyiscal or virtualized layer (e.g. Host and storage volume)
+* **Infrastructure** - Components provided by the IaaS layer (e.g. VM, virtual network, virtual load balancer or storage volume) or by non-cloud phyiscal or virtualized layer (e.g. Host and storage volume)
 
 * **Platform / Middleware** - Components that serve as the application containers (such as webservers, application servers, message servers and database servers)
 
