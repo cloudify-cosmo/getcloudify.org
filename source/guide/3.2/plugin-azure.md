@@ -77,4 +77,91 @@ Active Directory->your active directory->Applications->your application->view en
 *	`username` is the email address used to login to the Microsoft Azure account portal
 * `password` is the corresponding password used with the account.
 
+## cloudify.azure.nodes.ResourceGroup
+
+**Derived From:** [cloudify.nodes.Root](reference-types.html)
+
+**Properties:**
+ 
+All the common properties from the above section.
+ 
+**Mapped Operations:**
+
+* `cloudify.interfaces.lifecycle.create` creates the resource group.
+* `cloudify.interfaces.lifecycle.delete` deletes the resource group and waits for termination.
+* `cloudify.interfaces.validation.creation` see common validations section.
+
+## cloudify.azure.nodes.Server
+
+**Derived From:** [cloudify.nodes.Compute](reference-types.html)
+
+**Properties:**
+* `public_key` Required. The ssh public key to be used to create the virtual machine. The corresponding private key should be used to login to the remote server after creation. Defaults to ‘’ (empty string).
+* `vm_size` Required. The size of the virtual machine. Azure offers standard size values. Defaults to ‘Standard A0’.
+* `vm_os_type` Required. The operating system of the virtual machine to be created. Default string provided: ‘UbuntuServer’.
+
+**Mapped Operations:**
+
+* `cloudify.interfaces.lifecycle.create` creates the virtual machine.
+* `cloudify.interfaces.lifecycle.start` starts the virtual machine, if it’s not already started.
+* `cloudify.interfaces.lifecycle.stop` stops the virtual machine, if it’s not already stopped.
+* `cloudify.interfaces.lifecycle.delete` deletes the virtual machine.
+* `cloudify.interfaces.validation.creation` see common validations section. 
+
+## cloudify.azure.nodes.PublicIP
+
+**Derived From:** [cloudify.nodes.VirtualIP](reference-types.html)
+
+**Properties:**
+
+All the common properties from the above section.
+
+**Mapped Operations:**
+
+•	cloudify.interfaces.lifecycle.create creates the public ip.
+•	cloudify.interfaces.lifecycle.delete deletes the public ip and waits for termination.
+•	cloudify.interfaces.validation.creation see common validations section. 
+
+## cloudify.azure.nodes.StorageAccount
+
+**Derived From:** [cloudify.nodes.Root](reference-types.html)
+
+**Properties:**
+
+All the common properties from the above section.
+
+**Mapped Operations:**
+
+* `cloudify.interfaces.lifecycle.create` creates the storage account.
+* `cloudify.interfaces.lifecycle.delete` deletes the storage account and waits for termination.
+* `cloudify.interfaces.validation.creation` see common validations section.
+
+## cloudify.azure.nodes.NIC
+
+**Derived From:** [cloudify.nodes.Root](reference-types.html)
+
+**Properties:**
+
+All the common properties from the above section.
+
+**Mapped Operations:**
+
+* `cloudify.interfaces.lifecycle.create` creates the network interface card.
+* `cloudify.interfaces.lifecycle.delete` deletes the network interface card and waits for termination.
+* `cloudify.interfaces.validation.creation` see common validations section.
+
+## cloudify.azure.nodes.VNET
+
+**Derived From:** [cloudify.nodes.Network](reference-types.html)
+
+**Properties:**
+ 
+All the common properties from the above section.
+ 
+**Mapped Operations:**
+
+* `cloudify.interfaces.lifecycle.create` creates the virtual network.
+* `cloudify.interfaces.lifecycle.delete` deletes the virtual network and waits for termination.
+* `cloudify.interfaces.validation.creation` see common validations section.
+
 
