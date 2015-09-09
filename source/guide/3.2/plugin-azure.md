@@ -205,11 +205,10 @@ ARM authentication requires to create a service principal using Azure CLI or thr
 
 ## How to install the Azure CLI
 
-1. Node.js application: If you don’t have Node.js installed on your system, you can download and install it using following link : [https://nodejs.org/download/](https://nodejs.org/download/)
-2. Once node.js is installed, please follow the steps given in the link below to install Azure CLI [https://azure.microsoft.com/en-us/documentation/articles/xplat-cli-install/](https://azure.microsoft.com/en-us/documentation/articles/xplat-cli-install/)
-3. Once you have successfully installed it, you can verify it by typing *“azure”* on your shell or command prompt. It must display the following :
+1. Node.js application: If you don’t have [Node.js](https://nodejs.org/download/) installed on your system.
+2. Once node.js is installed, you need to follow [these steps](https://azure.microsoft.com/en-us/documentation/articles/xplat-cli-install/) in order to install Azure CLI.
+3. Once you have successfully installed it, you can verify it by typing *“azure”* on your shell or command prompt. It must display the following : 
 ![Azure Prompt]({{ site.baseurl }}/guide/images/azure/azure_prompt_screenshot.jpg)
-
 
 ## How to connect to Azure CLI
 
@@ -217,18 +216,18 @@ ARM authentication requires to create a service principal using Azure CLI or thr
 
 ## How to authenticate to your Service Principal using the Azure CLI
 
-* In order to authenticate to your service principal using Azure CLI, you need to follow all the steps which are described in the following ["Authentication Guide"](https://azure.microsoft.com/en-us/documentation/articles/resource-group-authenticate-service-principal/#authenticate-service-principal-with-password---azure-cli).
+* In order to authenticate to your service principal using Azure CLI, you need to follow all the steps which are described in the ["Authentication Guide"](https://azure.microsoft.com/en-us/documentation/articles/resource-group-authenticate-service-principal/#authenticate-service-principal-with-password---azure-cli).
 
 ## Notes
 
 1.	Make sure the service principal is ‘Owner’ in order to get more access.
 Instead of Reader, write ‘Owner’ in the above command while following the steps in the following link.
 2.	While creating an AAD (Azure Active Directory) application, you need to use the following command format:
-E.g. : *azure ad app create --name "myapp" --home-page "https://myapp.onmicrosoft.com" --identifier-uris "https://myapp.onmicrosoft.com" –password abc123*
+E.g. : **azure ad app create --name "myapp" --home-page "https://myapp.onmicrosoft.com" --identifier-uris "https://myapp.onmicrosoft.com" –password abc123**
 *	During completion of the authentication using Azure CLI, you will get tenant id, client id (this is nothing but application id which will be given as response on azure CLI) and client secret. 
 *	Please note down the following parameters while following the steps to authenticate via Azure CLI
 
-1.	Application id: This is nothing but ‘client id’ which will be given as one of the inputs to the token generation code.
-2.	Tenant id: Please note down tenant id which will be obtained in the authentication process.
-3.	Client secret: This is nothing but the password you set while creating the application on AAD.
+1.	`Application id`: This is nothing but ‘client id’ which will be given as one of the inputs to the token generation code.
+2.	`Tenant id`: Please note down tenant id which will be obtained in the authentication process.
+3.	`Client secret`: This is nothing but the password you set while creating the application on AAD.
 
