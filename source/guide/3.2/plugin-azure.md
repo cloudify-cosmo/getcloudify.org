@@ -29,5 +29,12 @@ This plugin enables users to use Cloudify for managing cloud resources on Micros
     * Tenant ID
     * Subscription ID
 
+# Compatibility
+The Azure plugin currently supports the new Azure Resource Manager API.
+
+{%note title=Note%}
+This version supports (Microsoft Azure) API Version = '2015-05-01-preview’.
+{%endnote%}
+
 
 
