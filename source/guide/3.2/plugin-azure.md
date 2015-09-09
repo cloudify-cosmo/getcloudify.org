@@ -170,14 +170,19 @@ All the common properties from the above section.
 A [relationship](reference-terminology.html#relationship) represents a dependency and/or a connection between [nodes](reference-terminology.html#node) in Cloudify For example, a virtaul machine can be created within a Resource Group. Or a NIC can depend on a Public IP.
 Oftentimes, a relationship may just require that one node is created before another, because some runtime property of it is required by another node.
 However, sometimes, we map relationship behavior to plugin operations. The following plugin relationship operations are defined in the Azure plugin:
+
 * `cloudify.azure.relationships.storage_account_connected_to_resource_group`: 
 This connects a storage account to a resource group. The source is the storage account and the target is the resource group. This means that unless the install workflow for resource group is not complete, the creation of storage account will not be initiated since a resource group is required for the further resources such as storage account, vnet, nic, public ip and virtual machine to be created.
+
 * `cloudify.azure.relationships.vnet_connected_to_storage_account`:
 This connects a virtual network (vnet) to storage account. Here, the source is vnet and target is storage account which means that unless the install workflow for storage account is not completed, the creation of vnet will not be initiated.
+
 * `cloudify.azure.relationships.public_ip_connected_to_vnet`:
 This connects a public ip to vnet. Here, the source is public ip and target is vnet which means that unless the install workflow for vnet is not completed, the creation of vnet will not be initiated.
+
 * `cloudify.azure.relationships.nic_connected_to_public_ip`:
 This connects a nic (network interface card) to public ip. Here, the source is nic and target is public ip which means that unless the install workflow for public ip is not completed, the creation of nic will not be initiated.
+
 * `cloudify.azure.relationships.server_connected_to_nic`:
 This connects a server i.e. a virtual machine to nic. Here, the source is server and target is nic which means that unless the install workflow for nic is not completed, virtual machine will not be provisioned.
 
