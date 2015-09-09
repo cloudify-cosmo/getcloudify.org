@@ -4,7 +4,7 @@ title: Azure Plugin
 category: Official Plugins
 publish: false
 abstract: Cloudify Azure plugin description and configuration
-pageord: 600
+pageord: 600p
 ---
 
 
@@ -118,9 +118,9 @@ All the common properties from the above section.
 
 **Mapped Operations:**
 
-•	cloudify.interfaces.lifecycle.create creates the public ip.
-•	cloudify.interfaces.lifecycle.delete deletes the public ip and waits for termination.
-•	cloudify.interfaces.validation.creation see common validations section. 
+* `cloudify.interfaces.lifecycle.create` creates the public ip.
+* `cloudify.interfaces.lifecycle.delete` deletes the public ip and waits for termination.
+* `cloudify.interfaces.validation.creation` see common validations section. 
 
 ## cloudify.azure.nodes.StorageAccount
 
