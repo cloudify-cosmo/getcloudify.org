@@ -35,11 +35,11 @@ A Topology is a graph of application components and their relationships describe
 
 Components can be of 3 levels:
 
-* **Infrastructrue** - Components provided by the IaaS layer (e.g. VM, virtual network, virtual load balancer or storage volume) or by non-cloud phyiscal or virtualized layer (e.g. Host and storage voluem)
+* **Infrastructrue** - Components provided by the IaaS layer (e.g. VM, virtual network, virtual load balancer or storage volume) or by non-cloud phyiscal or virtualized layer (e.g. Host and storage volume)
 
 * **Platform / Middleware** - Components that serve as the application containers (such as webservers, application servers, message servers and database servers)
 
-* **Application modules** - The different application artifacts that needs to be deployed and configured on top of the middleware (such as application binaries, application configuration files, database schemas etc) 
+* **Application modules** - The different application artifacts that need to be deployed and configured on top of the middleware (such as application binaries, application configuration files, database schemas etc) 
 
 ![Application as a Graph]({{ site.baseurl }}/guide/images3/blueprint/topology_graph.png) 
 
@@ -69,12 +69,12 @@ There are two types of `type`: portable and concerete.
 
 A portable type that has no implementation details. For examply `cloudify.nodes.Compute` is an abstract type. It doesn't have any implementation details advising the orchestrator how to materialize an instance of it on a particular environment. A portable type will declare an `interface` a set of hooks named `operations` that can be implemented by concrete types using a `operation` mapping to `plugin` methods. For example `cloudify.openstack.nodes.Server` is an `Openstack` implementation of `cloudify.nodes.Compute` using a `plugin` that uses the `Nova` compute API.
 
-*  Abstract types are mainly used as marking interfaces for the user to know which type of compentent the concrete type represents
+*  Abstract types are mainly used as marking interfaces for the user to know which type of component the concrete type represents
 
 *  Use concrete types with your blueprint to make them more easy to read. Use protable nodes ONLY if you plan to deploy the same blueprint on different clouds.
 
 ## The lifecycle Interface
-The `cloudify.nodes.Root` declares the `lifecycle` interface which all types inherit. This interface has the most essential installation and uninstallation hooks. The cloudify built-in `install` and `uninstall` workflows use these hooksto deploy and undeploy applications.
+The `cloudify.nodes.Root` declares the `lifecycle` interface which all types inherit. This interface has the most essential installation and uninstallation hooks. The cloudify built-in `install` and `uninstall` workflows use these hooks to deploy and undeploy applications.
 The operations for this interface are:
 * `create` - component installation
 * `configure` - component configuration changes post installation
@@ -83,7 +83,7 @@ The operations for this interface are:
 * `delete` - component uninstallation
 
 ## Node Properties
-The `node` `properties` section is a YAML `map`. It can be as nested map as you want. Node properties are defined by the `type` this node is instance of. Usually, the `node` properties will be only ones that are indifferent to the underlying cloud or to the tool used to materialize the component. For example a webserver port property is indifferent to any infrastructure or tool (while image_id is a term for specific clouds and the value differes from one cloud to another)
+The `node` `properties` section is a YAML `map`. It can be as nested map as you want. Node properties are defined by the `type` this node is instance of. Usually, the `node` properties are only ones which are indifferent to the underlying cloud or to the tool used to materialize the component. For example a webserver port property is indifferent to any infrastructure or tool (while image_id is a term for specific clouds and the value differes from one cloud to another)
 
 The `type implementation` which is specific for a particular environment or toolchain will have sepcific properties decalred by the concrete type and specific values for this particular instance.
 
@@ -104,9 +104,9 @@ In this case Cloudify will deploy 4 instances of the frontend_host or in other w
 
 ## Relationships
 
-Relationshipd secribes the type of dependency between 2 nodes. There are 3 types of abstract built-inrealtionships:
+Relationships describe the type of dependency between 2 nodes. There are 3 types of abstract built-in realtionships:
 
-* `contained_in` : when one node is installed on another node. for example an apache webserver is installed on a VM. A WAR file is deployed on a Tomcat server, etc. This `relationship` ensures that the `target node` will exist before attempting to create the `source node`
+* `contained_in` : when one node is installed on another node. for example an apache webserver is installed on a VM. A WAR file is deployed on a Tomcat server, etc. This `relationship` ensures that the `target node` exists before attempting to create the `source node`
 
 * `connected_to` : when one node needs a connection to another node. For example a Tomcat server needs a JDBC connection to a mySQL database server. The relationship allows the user to configure the `source node`, the `target node` or both of them before starting these nodes. It also helps to pass runtime information to the `source node` about the `target node`
 
@@ -116,14 +116,14 @@ Relationshipd secribes the type of dependency between 2 nodes. There are 3 types
 
 ### Concrete relationship types
 The above abstract rerltionship types do not provide the implementations for a specific relationship configuration
-For example a connected_to can be a JDBC connection to Oracle or a connection to MongoDb or even a connection between subnet and a router on a specific cloud. There is a need for concrete repationship types that will use concrete plugins to configure specific types of relationships
+For example a connected_to can be a JDBC connection to Oracle or a connection to MongoDb or even a connection between subnet and a router on a specific cloud. There is a need for concrete relationship types that will use concrete plugins to configure specific types of relationships
 
 
 
 ### Relationship Interface
-The realtionship interface is optional. In many cases you don't need to perform any special actions, you just expect the orchestrator to time right the creation and startup of components. However, in cases you do need to change configration in order to wire together two components, the relationship interface and the workflow mechnism for using it come-in handy.
+The relationship interface is optional. In many cases you don't need to perform any special actions, you just expect the orchestrator to time right the creation and startup of components. However, in cases you do need to change configuration in order to wire together two components, the relationship interface and the workflow mechanism for using it comes in handy.
 
-The interface decalres the following operations (on source and on target separately)
+The interface declares the following operations (on source and on target separately)
 
 * `preconfigure` - actions to perform before configuring the component
 * `postconfigure` - actions to perform after configuring the component
@@ -137,11 +137,11 @@ The interface decalres the following operations (on source and on target separat
 Cloudify can orchestrate any process described in a `workflow`
 workflows can be explictly listed in the `workflows` section of the `blueprint`
 
-In many cases you will not see any `workflows` section in the `blueprint`. In this case Cloudify assumes you are allowd to run the built-in workflows on the topology `nodes` listed in this `blueprint`
+In many cases you will not see any `workflows` section in the `blueprint`. In this case Cloudify assumes you are allowed to run the built-in workflows on the topology `nodes` listed in this `blueprint`
 
 ## What is a Workflow?
-A `workflow` is an orchestration algorithm written in a lnaguage that a workflow can execute.
-In the case of Cloudify it is a Pyhton script using dedicated Cloudify APIs and DOM (Domain Object Model)
+A `workflow` is an orchestration algorithm written in a language that a workflow can execute.
+In the case of Cloudify, it is a Python script using dedicated Cloudify APIs and DOM (Domain Object Model)
 
 ## Built-in Workflows
 Currently Cloudify comes with 2 built-in workflows:
