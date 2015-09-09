@@ -9,6 +9,8 @@ pageord: 400
 ---
 {%summary%}{{page.abstract}}{%endsummary%}
 
+{%note title=Disclaimer%}The functionality of working locally is subject to change in future versions.{%endnote%}
+
 # Overview
 
 Cloudify supports working in *Local Mode*. When working in Local Mode, you can:
