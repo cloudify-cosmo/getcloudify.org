@@ -230,9 +230,10 @@ azure role assignment create --objectId 47193a0a-63e4-46bd-9bee-6a9f6f9c03cb -o 
 ```PowerShell
 azure ad app create --name "myapp" --home-page "https://myapp.onmicrosoft.com" --identifier-uris "https://myapp.onmicrosoft.com" –password abc123
 ```
-*	During completion of the authentication using Azure CLI, you will get tenant id, client id (this is the application id which will be given as response on azure CLI) and client secret. 
-*	Please note down the following parameters while following the steps to authenticate via Azure CLI
-** 1.	`Application id`: This is the ‘client id’ which will be given as one of the inputs to the token generation code.
-** 2.	`Tenant id`: Please note down tenant id which will be obtained in the authentication process.
-** 3.	`Client secret`: This is the password that you set while creating the application on AAD.
+3.	During completion of the authentication using Azure CLI, you will get tenant id, client id (this is the application id which will be given as response on azure CLI) and client secret. 
+4.	Please note down the following parameters while following the steps to authenticate via Azure CLI
+
+*	`Application id`: This is the ‘client id’ which will be given as one of the inputs to the token generation code.
+* `Tenant id`: Please note down tenant id which will be obtained in the authentication process.
+* `Client secret`: This is the password that you set while creating the application on AAD.
 
