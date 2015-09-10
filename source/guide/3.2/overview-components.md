@@ -139,7 +139,7 @@ Cloudify's Management Worker, the Deployment Specific agents and the host agents
 Both the `deployment workflow agent` and the `deployment agent` drawn in the diagram are deployment specific. For every deployment created, two of these agents are spawned.
 
 * The `deployment workflow agent` executes deployment specific workflows.
-* The `deplomyent workflow` executes API calls to IaaS providers to create deployment resources or submits tasks to RabbitMQ so that host agents can execute them.
+* The `deployment agent` executes API calls to IaaS providers to create deployment resources or submits tasks to RabbitMQ so that host agents can execute them.
 
 Note that all agents (Management, Deployment Specific, Host) are actually the same physical entity (a virtualenv with Python modules - Cloudify plugins installed in them).
 
