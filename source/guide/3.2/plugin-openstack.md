@@ -868,7 +868,7 @@ my_server:
     - target: my_floating_ip
       type: cloudify.openstack.server_connected_to_floating_ip
     - target: my_security_group
-      type: cloudify.relationships.server_connected_to_security_group
+      type: cloudify.openstack.server_connected_to_security_group
 {%endhighlight%}
 
 Node by node explanation:
