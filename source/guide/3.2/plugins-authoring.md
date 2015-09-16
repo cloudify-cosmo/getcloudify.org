@@ -308,6 +308,8 @@ If you want to unit test a specific function that needs a `ctx` object, you can 
 Assume your plugin code is located in `my_plugin.py`:
 
 {%highlight python%}
+from cloudify import ctx
+
 @operation
 def my_operation(**kwargs):
     prop1 = ctx.node.properties['node_property_1']
@@ -318,6 +320,7 @@ Then you can use the following code to call the `my_operation` operation using a
 
 {%highlight python%}
 from cloudify.mocks import MockCloudifyContext
+from cloudify.state import current_ctx
 import my_plugin
 
 props = {'node_property_1': 'value_1'}
@@ -326,7 +329,11 @@ mock_ctx = MockCloudifyContext(node_id='test_node_id',
                           node_name='test_node_name',
                           properties=props)
 
-my_plugin.my_operation(ctx=mock_ctx)
+try:
+    current_ctx.set(mock_ctx)
+    my_plugin.my_operation()
+finally:
+    current_ctx.clear()
 {%endhighlight%}
 
 (Note: `MockCloudifyContext` accepts various additional parameters. Check the [documentation]({{page.mock_ctx_link}}) for more information.)
