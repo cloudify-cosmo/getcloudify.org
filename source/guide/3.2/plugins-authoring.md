@@ -17,6 +17,7 @@ plugins_common_docs_link: http://cloudify-plugins-common.readthedocs.org/
 terminology_link: reference-terminology.html
 dsl_inputs_link: dsl-spec-inputs.html
 local_workflows_api_link: http://cloudify-cli.readthedocs.org/en/latest/commands.html#local
+mock_ctx_link: http://cloudify-plugins-common.readthedocs.org/en/3.2/mocks.html#cloudify.mocks.MockCloudifyContext
 ---
 {%summary%} {{page.abstract}}{%endsummary%}
 
@@ -300,7 +301,42 @@ def start(**kwargs):
 
 In most cases, the recommendation is to test your plugin's logic using local workflows and only then, run them as part of a Cloudify [deployment]({{page.terminology_link}}#deployment). The [Plugin Template]({{page.template_link}}/blob/3.2/plugin/tests/test_plugin.py) has an example of doing just that.
 
-If you want to unit test a specific function that needs a `ctx` object, you can use `cloudify.mocks.MockCloudifyContext` which is provided by `cloudify-plugins-common`.
+If you want to unit test a specific function that needs a `ctx` object, you can use [`cloudify.mocks.MockCloudifyContext`]({{page.mock_ctx_link}}) which is provided by `cloudify-plugins-common`.
+
+## Example: Using `MockCloudifyContext`
+
+Assume your plugin code is located in `my_plugin.py`:
+
+{%highlight python%}
+from cloudify import ctx
+
+@operation
+def my_operation(**kwargs):
+    prop1 = ctx.node.properties['node_property_1']
+    ctx.logger.info('node_property_1={0}'.format(prop1))
+{%endhighlight%}
+
+Then you can use the following code to call the `my_operation` operation using a mock context object:
+
+{%highlight python%}
+from cloudify.mocks import MockCloudifyContext
+from cloudify.state import current_ctx
+import my_plugin
+
+props = {'node_property_1': 'value_1'}
+
+mock_ctx = MockCloudifyContext(node_id='test_node_id',
+                          node_name='test_node_name',
+                          properties=props)
+
+try:
+    current_ctx.set(mock_ctx)
+    my_plugin.my_operation()
+finally:
+    current_ctx.clear()
+{%endhighlight%}
+
+(Note: `MockCloudifyContext` accepts various additional parameters. Check the [documentation]({{page.mock_ctx_link}}) for more information.)
 
 # The end (Sort of)
 
