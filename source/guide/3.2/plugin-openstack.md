@@ -1137,6 +1137,45 @@ Node by node explanation:
 {% endgcloak %}
 
 
+## Example V
+
+This example shows how to pass scheduler hints to Nova, in order to achieve affinity or anti-affinity effect.
+
+{% togglecloak id=5 %}
+Example V
+{% endtogglecloak %}
+
+{% gcloak 5 %}
+At this stage, the OpenStack plugin does not provide the functionality of managing server groups
+(creation, deletion) through blueprints. Therefore, it is assumed that a server group has already been created
+by other means, for example:
+
+{% highlight bash %}
+nova server-group-create --policy anti-affinity my-anti-affinity-group
+{% endhighlight %}
+
+Given that, you can define a node template as follows (this example receives the server group's name from an
+input):
+
+{% highlight yaml %}
+inputs:
+  server_group:
+    type: string
+
+node_templates:
+  my_server:
+    type: cloudify.openstack.nodes.Server
+    interfaces:
+      cloudify.interfaces.lifecycle:
+        create:
+          inputs:
+            args:
+              scheduler_hints:
+                group: [ get_input: server_group ]
+{% endhighlight %}
+{% endgcloak %}
+
+
 # Tips
 
 * It is highly recommended to **ensure that Openstack names are unique** (for a given type): While Openstack allows for same name objects, having identical names for objects of the same type might lead to ambiguities and errors.
