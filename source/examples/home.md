@@ -6,21 +6,6 @@ title: Cloudify Examples Home
 <script type="text/javascript">
 </script>
 
-<section id="example-search-bar">
-	<div style="background-color:#2CBDD4">
-		<form id="top-search" name="top-search" style="min-width:100%;padding: 25px 0 0 15px" method="get" action="javascript:action">
-			<p>
-				<select id="select-example-type" name="select-example-type" style="color:#000000;max-width:10%;-webkit-appearance:none;border-style:solid;border-color:black;" onChange="this.form.action=this.options[this.selectedIndex].value;">
-	                <option selected disabled>Example Type &#x25BC;</option>
-					<option value="search-results-blueprints.html"> Blueprints </option>
-					<option value="search-results-plugins.html"> Plugins </option>
-					<option value="search-results-integrations.html"> Integrations </option>
-				</select>
-				<input type="text" style="width:85%;border-style:solid;border-color:black;" name="search" placeholder="Search...">
-			</p>
-		</form>
-    </dev>
-</section>
 
 <section id="inner-headline">
 	<div class="container">
@@ -35,7 +20,7 @@ title: Cloudify Examples Home
 				<div class="inner-heading">
 					<h1><strong>Cloudify Examples</strong></h1>	
 				    <p>
-				    	Use the search bar above to search our examples repositories for specific key words. Below you can browse for examples.
+				    	These are example Cloudify blueprints. You can click on the name of the blueprint for a long description, go have a look at the source, or upload to your existing Cloudify Manager.
 					</p>						
 				</div>
 			</div>
@@ -50,42 +35,56 @@ title: Cloudify Examples Home
 			<table style="width:100%;border:0px">
 				<tr>			 		
 					<td style="background-color:transparent;">
-						<h2><strong>Browse Examples</strong></h2>
-						<p>
-							Browse the list of <a href="search-results-blueprints.html">Blueprint Examples</a>
-						</p>						
-						<p>
-							Browse the list of <a href="search-results-plugins.html">Plugin Examples</a>
-						</p>						
-						<p>
-							Browse the list of <a href="search-results-integrations.html">Integration Examples</a>
-						</p>						
+						<h2><strong>Name</strong></h2>
+						<p><a href="example-repo.html">Cloudify Nodecellar Example Ansible</a></p>
+						<p><a href="example-repo.html">Cloudify Nodecellar Example Ansible</a></p>
+						<p><a href="example-repo.html">Cloudify Nodecellar Example Ansible</a></p>
+						<p><a href="example-repo.html">Cloudify Nodecellar Example Ansible</a></p>
+						<p><a href="example-repo.html">Cloudify Nodecellar Example Ansible</a></p>
+						<p><a href="example-repo.html">Cloudify Nodecellar Example Ansible</a></p>
+						<p><a href="example-repo.html">Cloudify Nodecellar Example Ansible</a></p>
+						<p><a href="example-repo.html">Cloudify Nodecellar Example Ansible</a></p>
+						<p><a href="example-repo.html">Cloudify Nodecellar Example Ansible</a></p>
+						<p><a href="example-repo.html">Cloudify Nodecellar Example Ansible</a></p>
 					</td>
 					<td style="background-color:transparent;">
-						<h2><strong>Browse By Cloudify Version</strong></h2>
-						<p>
-							Browse examples by <a href="search-results-3v1.html">Cloudify 3.1</a>
-						</p>						
-						<p>
-							Browse examples by <a href="search-results-3v2.html">Cloudify 3.2</a>
-						</p>						
-						<p>
-							Browse examples by <a href="search-results-latest.html">latest milestone</a>
-						</p>						
+						<h2><strong>Description</strong></h2>
+						<p>A spin on the Cloudify-Nodecellar-Example using Ansible instead of bash scripts.</p>
+						<p>A spin on the Cloudify-Nodecellar-Example using Ansible instead of bash scripts.</p>
+						<p>A spin on the Cloudify-Nodecellar-Example using Ansible instead of bash scripts.</p>
+						<p>A spin on the Cloudify-Nodecellar-Example using Ansible instead of bash scripts.</p>
+						<p>A spin on the Cloudify-Nodecellar-Example using Ansible instead of bash scripts.</p>
+						<p>A spin on the Cloudify-Nodecellar-Example using Ansible instead of bash scripts.</p>
+						<p>A spin on the Cloudify-Nodecellar-Example using Ansible instead of bash scripts.</p>
+						<p>A spin on the Cloudify-Nodecellar-Example using Ansible instead of bash scripts.</p>
+						<p>A spin on the Cloudify-Nodecellar-Example using Ansible instead of bash scripts.</p>
+						<p>A spin on the Cloudify-Nodecellar-Example using Ansible instead of bash scripts.</p>
 					</td>
-				</tr>							
-				<tr>			 		
 					<td style="background-color:transparent;">
-						<h2><strong>Browse by Cloud Provider</strong></h2>
-						<p>
-							Browse the list of <a href="search-results-aws.html">AWS EC2 Examples</a>
-						</p>						
-						<p>
-							Browse the list of <a href="search-results-openstack.html">Openstack Examples</a>
-						</p>						
-						<p>
-							Browse the list of <a href="search-results-vcloud.html">vCloud Air Examples</a>
-						</p>						
+						<h2><strong> Source </strong></h2>
+						<p><a href="https://github.com/cloudify-examples/cloudify-nodecellar-example-ansible"> Source </a> </p>
+						<p><a href="https://github.com/cloudify-examples/cloudify-nodecellar-example-ansible"> Source </a> </p>
+						<p><a href="https://github.com/cloudify-examples/cloudify-nodecellar-example-ansible"> Source </a> </p>
+						<p><a href="https://github.com/cloudify-examples/cloudify-nodecellar-example-ansible"> Source </a> </p>
+						<p><a href="https://github.com/cloudify-examples/cloudify-nodecellar-example-ansible"> Source </a> </p>
+						<p><a href="https://github.com/cloudify-examples/cloudify-nodecellar-example-ansible"> Source </a> </p>
+						<p><a href="https://github.com/cloudify-examples/cloudify-nodecellar-example-ansible"> Source </a> </p>
+						<p><a href="https://github.com/cloudify-examples/cloudify-nodecellar-example-ansible"> Source </a> </p>
+						<p><a href="https://github.com/cloudify-examples/cloudify-nodecellar-example-ansible"> Source </a> </p>
+						<p><a href="https://github.com/cloudify-examples/cloudify-nodecellar-example-ansible"> Source </a> </p>
+					</td>
+					<td style="background-color:transparent;">
+						<h2><strong>Action</strong></h2>
+						<p>Upload to Manager</p>
+						<p>Upload to Manager</p>
+						<p>Upload to Manager</p>
+						<p>Upload to Manager</p>
+						<p>Upload to Manager</p>
+						<p>Upload to Manager</p>
+						<p>Upload to Manager</p>
+						<p>Upload to Manager</p>
+						<p>Upload to Manager</p>
+						<p>Upload to Manager</p>
 					</td>
 				</tr>							
 			</table>
