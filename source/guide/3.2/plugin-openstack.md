@@ -588,7 +588,7 @@ Some relationships take effect in non-relationship operations, e.g. a subnet whi
 
 **Mapped Operations:**
 
-  * `cloudify.interfaces.relationship_lifecycle.unlink`: detaches the volume from the server.
+  * `cloudify.interfaces.relationship_lifecycle.unlink`: detaches the server from the port.
     * **Inputs:**
       * `openstack_config` see the [Openstack Configuration](#openstack-configuration).
 
