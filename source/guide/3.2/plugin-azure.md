@@ -75,13 +75,33 @@ All cloud resource nodes have common properties:
 ![Subscription ID]({{ site.baseurl }}/guide/images/azure/subscription_screenshot.jpg)
 
 *	`location` is the region of the azure data center where you prefer to create the cloud resources. Defaults to 'West US'.
-Possible valid values are: 
+Possible valid values are:
+
+|_ |_ |_ |
 | Central US | East Asia | East US |
 | East US 2 | Japan East | Japan West |
 | North Europe | South Central US | Southeast Asia |
 | West Europe | West US | |
 
-*	`vm_name` this can be the name of the virtual machine created. The name of other resources required to create the virtual machine like resource group, storage account, virtual network, etc. will be derived from the vm_name string. Defaults to ‘my_vm’.
+*	`vm_name` This can be the name of the virtual machine created. The name of other resources required to create the virtual machine like resource group, storage account, virtual network, etc. will be derived from the vm_name string. Defaults to ‘my_vm’.
+
+* `vm_size` The size of VM. Default size is “Standard_A2” if no size is provided.
+
+* `image_reference_publisher` The required VM's publisher. E.G.:
+** For Ubuntu 14.04, the value of this input key is 'Canonical'. 
+** For Ubuntu 12.04, the value of this input key is 'Canonical'.
+** For CentOS 7, value of this input key can be ‘OpenLogic’.
+
+* `image_reference_offer` This specifies the flavor of Linux you want to use on your VM. E.G.:
+** For Ubuntu 14.04: Use 'UbuntuServer'.
+** For Ubuntu 12.04: Use 'UbuntuServer'.
+** For CentOS7: Use 'CentOS'.
+
+* `image_reference_sku`  This specifies the version of your Linux OS on virtual machine. E.G.:
+** For Ubuntu 14.04: Use '14.04.2-LTS'
+** For Ubuntu 12.04.5: Use ' 12.04.5-LTS' 
+** For CentOS7: Use ' 7.0' 
+
 *	`client_id` the location where you will find the client id in azure account on the manage.azure.com portal is marked in red in the screenshot below. Defaults to ‘’ (empty string). <br/>
 Active Directory->your active directory->Applications->your application->configure->Client ID
 
@@ -92,8 +112,17 @@ Active Directory->your active directory->Applications->your application->view en
 
 ![Tenanct]({{ site.baseurl }}/guide/images/azure/tenant_id_screenshot.jpg)
 
-*	`username` is the email address used to login to the Microsoft Azure account portal
-* `password` is the corresponding password used with the account.
+*	`aad_username` is the email address used to login to the Microsoft Azure Active Directory.
+* `aad_password` is the corresponding password used with the aad_username.
+
+* `key_data` This is the **public** key data required for the provisioning of VM. 
+* 
+{%note title=Note%}
+For bootstrapping, you need to place the **private** key file in your client VM **(in ~/.ssh)** and run the following command : **chmod 400 ~/.ssh/id_rsa** prior to bootstrapping.
+This file should be of format ‘.pem’. 
+You will have to invoke this command as a sudoer.
+{%endnote%}
+
 
 ## cloudify.azure.nodes.ResourceGroup
 
@@ -181,6 +210,15 @@ All the common properties from the above section.
 * `cloudify.interfaces.lifecycle.create` creates the virtual network.
 * `cloudify.interfaces.lifecycle.delete` deletes the virtual network and waits for termination.
 * `cloudify.interfaces.validation.creation` see common validations section.
+
+
+# Inputs file
+
+{% highlight yaml %}
+Add an example here bootstrapping ... 
+ ... 
+ ...
+{% endhighlight %}
 
 
 # Relationships
