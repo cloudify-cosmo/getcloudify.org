@@ -30,11 +30,35 @@ This plugin enables users to use Cloudify for managing cloud resources on Micros
     * Subscription ID
 
 # Compatibility
-The Azure plugin currently supports the new Azure Resource Manager API.
+The Azure plugin currently supports the Azure Resource Manager API.
+
+# Azure Terminology
+The ARM (Azure Resource Manager) API introduces a new JSON based templates to deploy VMs on Azure.
+Below you will find a brief overview of the architecture.
 
 {%note title=Note%}
-This version supports (Microsoft Azure) API Version = '2015-05-01-preview’.
+You can get detailed information about new Azure Resource Manager in the link below:
+https://azure.microsoft.com/en-us/documentation/articles/resource-group-overview/
+The Cloudify plugin for azure supports (Microsoft Azure) API Version = '2015-05-01-preview’.
 {%endnote%}
+
+** Resource Group: 
+Before deploying a VM on Azure, we need to create a resource group first, which will store all the resources like storage account, NIC (Network interface card), virtual networks, public ip, virtual machine etc. One resource group can have multiple VMs. It may happen that one resource group contains some resources that are connected to other resources in different resource group.
+For more information, please follow this [link](https://msdn.microsoft.com/en-us/library/azure/dn790546.aspx)
+** Storage Account:
+Storage Accounts are used to store all your information. It gives direct access to blobs, queues or tables on Azure. For more information, please follow this [link](https://azure.microsoft.com/en-us/documentation/articles/storage-create-storage-account/)
+** Network Interface Card (NIC):
+Each VM has at least 1 NIC.Azure ARM has the option of creating NIC for the virtual machine. 
+For more information, please follow this [link](https://msdn.microsoft.com/en-us/library/azure/mt163579.aspx)
+** Virtual Networks:
+Network objects can be created within a virtual network. It reserves an IP address space and defines subnets.
+For more information, please follow this [link](https://msdn.microsoft.com/en-us/library/azure/mt163650.aspx)
+** Public IP:
+Public ip is associated to each VM which will be unique for that VM as it will be used to connect to the internet.
+For more information please follow this [link](https://msdn.microsoft.com/en-us/library/azure/mt163638.aspx)
+** Virtual Machine:
+We can create more than one VMs in one resource group. Each virtual machine is associated with NIC and a public ip.
+For more information please follow this [link](https://msdn.microsoft.com/en-us/library/azure/mt163630.aspx).
 
 # Types
 
