@@ -298,7 +298,7 @@ azure login -u <username>
 ```
 
 CLI output:
-xxx image here d:\docs\Azure\azure_cli_output.jpg
+![azure cli output]({{ site.baseurl }}/guide/images/azure/azure_cli_output.jpg)
 
 ## How to authenticate to your Service Principal using the Azure CLI
 
@@ -324,7 +324,7 @@ For example:
 azure ad app create --name "myapp" --home-page "https://myapp.onmicrosoft.com" --identifier-uris "https://myapp.onmicrosoft.com" –password abc123
 ```
 CLI output:
-xxx image d:\docs\Azure\azure_aad_create_account.jpg
+![azure aad create account]({{ site.baseurl }}/guide/images/azure/azure_aad_create_account.jpg)
 
 Please note down the application id and Object id shown in the success message.
 
