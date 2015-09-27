@@ -304,7 +304,7 @@ xxx image here d:\docs\Azure\azure_cli_output.jpg
 
 * In order to authenticate to your service principal using Azure CLI, you need to follow all the steps which are described in the ["Authentication Guide"](https://azure.microsoft.com/en-us/documentation/articles/resource-group-authenticate-service-principal/#authenticate-service-principal-with-password---azure-cli).
 
-* Step #1
+  * Step #1
   Switch to ARM mode through Azure CLI. Use the following command to do so
 ```PowerShell
 azure config more arm
@@ -314,8 +314,8 @@ azure login
 CLI output:
 xxx image d:\docs\Azure\azure_arm_set.jpg
 
-* Step #2
-  Create a new AAD application using the following command:
+  * Step #2
+   Create a new AAD application using the following command:
 ```PowerShell
 azure ad app create --name "YOUR APPLICATION DISPLAY NAME" --home-page "https://YOUR_APPLICATION_HOME_PAGE" --identifier-uris "https:/YOUR_APPLICATION_URI" –password YOU_PASSWORD
 ```
@@ -323,6 +323,20 @@ For example:
 ```PowerShell
 azure ad app create --name "myapp" --home-page "https://myapp.onmicrosoft.com" --identifier-uris "https://myapp.onmicrosoft.com" –password abc123
 ```
+
+  * Step #3
+   xxxx
+
+  * Step #4
+   xxxx 
+
+  * Step #5
+   xxxx 
+
+  * Step #6
+   xxxx
+
+
 xxxxx
 
 Before you begin to create service principal, you need a 'Work' or 'school' account on Microsoft Azure.
@@ -333,12 +347,12 @@ Grean image here xxx d:\docs\Azure\azure_account_type.jpg
 * Azure Account creation
 
 Please go to https://manage.windowsazure.com and create a new “organization account” (work or school account).
+
   * Once an AAD account is created, please login using username and password.
   xxx imgae here d:\docs\Azure\azure_login.jpg
   * Once you successfully login to AAD account, you will be redirected to the main page as shown below
   xxx image here d:\docs\Azure\azure_aad_account.jpg
 
-  
 xxxxx
 
 
