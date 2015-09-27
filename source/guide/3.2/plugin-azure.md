@@ -38,31 +38,25 @@ Below you will find a brief overview of the architecture.
 
 {%note title=Note%}
 You can get detailed information about new Azure Resource Manager in the following [link](
-https://azure.microsoft.com/en-us/documentation/articles/resource-group-overview/)
+https://azure.microsoft.com/en-us/documentation/articles/resource-group-overview/) <br/>
 The Cloudify plugin for azure supports (Microsoft Azure) API Version = '2015-05-01-preview’.
 {%endnote%}
 
-* Resource Group 
-Before deploying a VM on Azure, we need to create a resource group first, which will store all the resources like storage account, NIC (Network interface card), virtual networks, public ip, virtual machine etc. One resource group can have multiple VMs. It may happen that one resource group contains some resources that are connected to other resources in different resource group.
+* `Resource Group` Prior to deploying a VM on Azure, a resource group needs to be created. The resource group which will store all the resources like storage account, NIC (Network interface card), virtual networks, public ip, virtual machine etc. One resource group can have multiple VMs. A resource group may contain resources that are connected to other resources in different resource groups.
 For more information, please follow this [link](https://msdn.microsoft.com/en-us/library/azure/dn790546.aspx)
 
-* Storage Account
-Storage Accounts are used to store all your information. It gives direct access to blobs, queues or tables on Azure. For more information, please follow this [link](https://azure.microsoft.com/en-us/documentation/articles/storage-create-storage-account/)
+* `Storage Account` Storage Accounts are used to store all your information. It gives a direct access to blobs, queues or tables on Azure. For more information, please follow this [link](https://azure.microsoft.com/en-us/documentation/articles/storage-create-storage-account/)
 
-* Network Interface Card (NIC)
-Each VM has at least 1 NIC.Azure ARM has the option of creating NIC for the virtual machine. 
+* `Network Interface Card (NIC)` Each VM has at least 1 NIC. Azure ARM has the option of creating NIC for the virtual machine. 
 For more information, please follow this [link](https://msdn.microsoft.com/en-us/library/azure/mt163579.aspx)
 
-* Virtual Networks
-Network objects can be created within a virtual network. It reserves an IP address space and defines subnets.
+* `Virtual Networks` Network objects can be created within a virtual network. It reserves an IP address space and defines subnets.
 For more information, please follow this [link](https://msdn.microsoft.com/en-us/library/azure/mt163650.aspx)
 
-* Public IP
-Public ip is associated to each VM which will be unique for that VM as it will be used to connect to the internet.
+* `Public IP` A unique public IP address is associated to each VM. Thia public IP can be used to connect to the internet.
 For more information please follow this [link](https://msdn.microsoft.com/en-us/library/azure/mt163638.aspx)
 
-* Virtual Machine
-We can create more than one VMs in one resource group. Each virtual machine is associated with NIC and a public ip.
+* `Virtual Machine` Each virtual machine is associated with a NIC and a public IP address.
 For more information please follow this [link](https://msdn.microsoft.com/en-us/library/azure/mt163630.aspx).
 
 
@@ -82,17 +76,11 @@ All cloud resource nodes have common properties:
 
 *	`location` is the region of the azure data center where you prefer to create the cloud resources. Defaults to 'West US'.
 Possible valid values are: 
-    * Central US
-    * East Asia
-    * East US
-    * East US 2
-    * Japan East
-    * Japan West
-    * North Europe
-    * South Central US
-    * Southeast Asia
-    * West Europe
-    * West US
+| Central US | East Asia | East US |
+| East US 2 | Japan East | Japan West |
+| North Europe | South Central US | Southeast Asia |
+| West Europe | West US | |
+
 *	`vm_name` this can be the name of the virtual machine created. The name of other resources required to create the virtual machine like resource group, storage account, virtual network, etc. will be derived from the vm_name string. Defaults to ‘my_vm’.
 *	`client_id` the location where you will find the client id in azure account on the manage.azure.com portal is marked in red in the screenshot below. Defaults to ‘’ (empty string). <br/>
 Active Directory->your active directory->Applications->your application->configure->Client ID
