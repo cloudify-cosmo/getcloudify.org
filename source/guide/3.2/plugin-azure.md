@@ -292,9 +292,55 @@ ARM authentication requires to create a service principal using Azure CLI or thr
 
 * Login to your azure account using CLI. - You can read more about it in [this Azure document](https://azure.microsoft.com/en-us/documentation/articles/xplat-cli-connect/#use-the-publish-settings-file-method)
 
+Use the following command to connect to Azure CLI:
+```PowerShell
+azure login -u <username>
+```
+
+CLI output:
+xxx image here d:\docs\Azure\azure_cli_output.jpg
+
 ## How to authenticate to your Service Principal using the Azure CLI
 
 * In order to authenticate to your service principal using Azure CLI, you need to follow all the steps which are described in the ["Authentication Guide"](https://azure.microsoft.com/en-us/documentation/articles/resource-group-authenticate-service-principal/#authenticate-service-principal-with-password---azure-cli).
+
+* Step #1
+  Switch to ARM mode through Azure CLI. Use the following command to do so
+```PowerShell
+azure config more arm
+azure login
+```
+
+CLI output:
+xxx image d:\docs\Azure\azure_arm_set.jpg
+
+* Step #2
+  Create a new AAD application using the following command:
+```PowerShell
+azure ad app create --name "YOUR APPLICATION DISPLAY NAME" --home-page "https://YOUR_APPLICATION_HOME_PAGE" --identifier-uris "https:/YOUR_APPLICATION_URI" –password YOU_PASSWORD
+```
+For example: 
+```PowerShell
+azure ad app create --name "myapp" --home-page "https://myapp.onmicrosoft.com" --identifier-uris "https://myapp.onmicrosoft.com" –password abc123
+```
+xxxxx
+
+Before you begin to create service principal, you need a 'Work' or 'school' account on Microsoft Azure.
+If you don’t have the above type of account, you can create it as shown in the steps below:
+
+Grean image here xxx d:\docs\Azure\azure_account_type.jpg
+
+* Azure Account creation
+
+Please go to https://manage.windowsazure.com and create a new “organization account” (work or school account).
+  * Once an AAD account is created, please login using username and password.
+  xxx imgae here d:\docs\Azure\azure_login.jpg
+  * Once you successfully login to AAD account, you will be redirected to the main page as shown below
+  xxx image here d:\docs\Azure\azure_aad_account.jpg
+
+  
+xxxxx
+
 
 ## Notes
 
@@ -303,12 +349,8 @@ Instead of Reader, write ‘Owner’ in the following command while following th
 ```PowerShell
 azure role assignment create --objectId 47193a0a-63e4-46bd-9bee-6a9f6f9c03cb -o Reader -c /subscriptions/{subscriptionId}/
 ```
-2.	While creating an AAD (Azure Active Directory) application, you need to use the following command format:
-```PowerShell
-azure ad app create --name "myapp" --home-page "https://myapp.onmicrosoft.com" --identifier-uris "https://myapp.onmicrosoft.com" –password abc123
-```
-3.	During completion of the authentication using Azure CLI, you will get tenant id, client id (this is the application id which will be given as response on azure CLI) and client secret. 
-4.	Please note down the following parameters while following the steps to authenticate via Azure CLI
+2.	During completion of the authentication using Azure CLI, you will get tenant id, client id (this is the application id which will be given as response on azure CLI) and client secret. 
+3.	Please note down the following parameters while following the steps to authenticate via Azure CLI
 
 *	`Application id`: This is the ‘client id’ which will be given as one of the inputs to the token generation code.
 * `Tenant id`: Please note down tenant id which will be obtained in the authentication process.
