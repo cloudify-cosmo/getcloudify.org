@@ -298,6 +298,7 @@ azure login -u <username>
 ```
 
 CLI output:
+
 ![azure cli output]({{ site.baseurl }}/guide/images/azure/azure_cli_output.jpg)
 
 ## How to authenticate to your Service Principal using the Azure CLI
@@ -306,25 +307,27 @@ CLI output:
 
   * Step #1
   Switch to ARM mode through Azure CLI. Use the following command to do so
-```PowerShell
-azure config more arm
-azure login
-```
-
-CLI output:
-xxx image d:\docs\Azure\azure_arm_set.jpg
-
+  ```PowerShell
+  azure config more arm
+  azure login
+  ```
+  
+  CLI output:
+  
+  ![azure arm set]({{ site.baseurl }}/guide/images/azure/azure_arm_set.jpg)
+  
   * Step #2
-   Create a new AAD application using the following command:
-```PowerShell
-azure ad app create --name "YOUR APPLICATION DISPLAY NAME" --home-page "https://YOUR_APPLICATION_HOME_PAGE" --identifier-uris "https:/YOUR_APPLICATION_URI" –password YOU_PASSWORD
-```
-For example: 
-```PowerShell
-azure ad app create --name "myapp" --home-page "https://myapp.onmicrosoft.com" --identifier-uris "https://myapp.onmicrosoft.com" –password abc123
-```
-CLI output:
-![azure aad create account]({{ site.baseurl }}/guide/images/azure/azure_aad_create_account.jpg)
+  Create a new AAD application using the following command:
+  ```PowerShell
+  azure ad app create --name "YOUR APPLICATION DISPLAY NAME" --home-page "https://YOUR_APPLICATION_HOME_PAGE"   --identifier-uris "https:/YOUR_APPLICATION_URI" –password YOU_PASSWORD
+  ```
+  For example: 
+  ```PowerShell
+  azure ad app create --name "myapp" --home-page "https://myapp.onmicrosoft.com" --identifier-uris "https://myapp.onmicrosoft.com" –password abc123
+  ```
+  CLI output:
+  
+  ![azure aad create account]({{ site.baseurl }}/guide/images/azure/azure_aad_create_account.jpg)
 
 Please note down the application id and Object id shown in the success message.
 
@@ -346,18 +349,16 @@ xxxxx
 Before you begin to create service principal, you need a 'Work' or 'school' account on Microsoft Azure.
 If you don’t have the above type of account, you can create it as shown in the steps below:
 
-Grean image here xxx d:\docs\Azure\azure_account_type.jpg
+![azure account type]({{ site.baseurl }}/guide/images/azure/azure_account_type.jpg)
 
 * Azure Account creation
 
-Please go to https://manage.windowsazure.com and create a new “organization account” (work or school account).
+  Please go to https://manage.windowsazure.com and create a new “organization account” (work or school account).
 
   * Once an AAD account is created, please login using username and password.
-  xxx imgae here d:\docs\Azure\azure_login.jpg
+  ![azure login]({{ site.baseurl }}/guide/images/azure/azure_login.jpg)
   * Once you successfully login to AAD account, you will be redirected to the main page as shown below
-  xxx image here d:\docs\Azure\azure_aad_account.jpg
-
-xxxxx
+    ![azure aad account]({{ site.baseurl }}/guide/images/azure/azure_aad_account.jpg)
 
 
 ## Notes
