@@ -293,6 +293,7 @@ ARM authentication requires to create a service principal using Azure CLI or thr
 * Login to your azure account using CLI. - You can read more about it in [this Azure document](https://azure.microsoft.com/en-us/documentation/articles/xplat-cli-connect/#use-the-publish-settings-file-method)
 
 Use the following command to connect to Azure CLI:
+
 ```PowerShell
 azure login -u <username>
 ```
@@ -306,7 +307,8 @@ CLI output:
 * In order to authenticate to your service principal using Azure CLI, you need to follow all the steps which are described in the ["Authentication Guide"](https://azure.microsoft.com/en-us/documentation/articles/resource-group-authenticate-service-principal/#authenticate-service-principal-with-password---azure-cli).
 
   * Step #1
-  Switch to ARM mode through Azure CLI. Use the following command to do so
+  Switch to ARM mode through Azure CLI. - Use the following command to do so:
+
 ```PowerShell
   azure config more arm
   azure login
@@ -318,18 +320,21 @@ CLI output:
   
   * Step #2
   Create a new AAD application using the following command:
- ```PowerShell
+
+```PowerShell
   azure ad app create --name "YOUR APPLICATION DISPLAY NAME" --home-page "https://YOUR_APPLICATION_HOME_PAGE"   --identifier-uris "https:/YOUR_APPLICATION_URI" –password YOU_PASSWORD
 ```
+
   For example: 
 ```PowerShell
   azure ad app create --name "myapp" --home-page "https://myapp.onmicrosoft.com" --identifier-uris "https://myapp.onmicrosoft.com" –password abc123
 ```
+
   CLI output:
   
   ![azure aad create account]({{ site.baseurl }}/guide/images/azure/azure_aad_create_account.jpg)
 
-Please note down the application id and Object id shown in the success message.
+  Please note down the application id and Object id shown in the success message.
 
   * Step #3
    xxxx
