@@ -83,6 +83,7 @@ Possible valid values are:
 | North Europe | South Central US | Southeast Asia |
 | West Europe | 'westus' for West US | |
 
+<br/>
 
 *	`vm_name` This can be the name of the virtual machine created. The name of other resources required to create the virtual machine like resource group, storage account, virtual network, etc. will be derived from the vm_name string. Defaults to ‘my_vm’.
 
@@ -119,7 +120,7 @@ Active Directory->your active directory->Applications->your application->view en
 * `key_data` This is the **public** key data required for the provisioning of VM. 
 * 
 {%note title=Note%}
-For bootstrapping, you need to place the **private** key file in your client VM **(in ~/.ssh)** and run the following command : **chmod 400 ~/.ssh/id_rsa** prior to bootstrapping.
+For bootstrapping, you need to place the **private** key file in your client VM **(in ~/.ssh)** and run the following command : **chmod 400 ~/.ssh/id_rsa** prior to bootstrapping. <br/>
 This file should be of format ‘.pem’. 
 You will have to invoke this command as a sudoer.
 {%endnote%}
@@ -294,29 +295,10 @@ ARM authentication requires to create a service principal using Azure CLI or thr
 
 Use the following command to connect to Azure CLI:
 
-``` PowerShell
+```
 azure login -u <username>
 ```
 
-{% highlight ps1 %}
-azure login -u <username> ps1
-{% endhighlight %}
-
-{% highlight ps2 %}
-azure login -u <username> ps2
-{% endhighlight %}
-
-``` Shell
-azure login -u <username> shlll
-```
-
-``` Shell
- azure login -u <username> shlll2
-```
-
-``` bat
-azure login -u <username> bat
-```
 
 CLI output:
 
@@ -329,7 +311,7 @@ CLI output:
   * Step #1
   Switch to ARM mode through Azure CLI. - Use the following command to do so:
 
-``` PowerShell
+```
 azure config more arm
 azure login
 ```
@@ -341,13 +323,13 @@ azure login
   * Step #2
   Create a new AAD application using the following command:
 
-```PowerShell
+```
 azure ad app create --name "YOUR APPLICATION DISPLAY NAME" --home-page "https://YOUR_APPLICATION_HOME_PAGE"   --identifier-uris "https:/YOUR_APPLICATION_URI" –password YOU_PASSWORD
 ```
 
   For example: 
 
-``` PowerShell
+```
 azure ad app create --name "myapp" --home-page "https://myapp.onmicrosoft.com" --identifier-uris "https://myapp.onmicrosoft.com" –password abc123
 ```
 
@@ -360,7 +342,7 @@ azure ad app create --name "myapp" --home-page "https://myapp.onmicrosoft.com" -
   * Step #3
   Create the service principal for your application using the following command:
 
-``` PowerShell
+```
 azure ad sp create b57dd72e-036c-4840-865e-23b71b8098ec
 ```
 
@@ -371,7 +353,7 @@ azure ad sp create b57dd72e-036c-4840-865e-23b71b8098ec
   Make sure that the service principal is ‘Owner’ in order to get more access.
   Instead of Reader, write ‘Owner’ in the following command while following the steps in the link above.
 
-```PowerShell
+```
 azure role assignment create --objectId 47193a0a-63e4-46bd-9bee-6a9f6f9c03cb -o Reader -c /subscriptions/{subscriptionId}/
 ```
 
@@ -380,7 +362,7 @@ azure role assignment create --objectId 47193a0a-63e4-46bd-9bee-6a9f6f9c03cb -o 
   * Step #5
   Determine the Tenant ID using following command: 
 
-```PowerShell
+```
 azure account list
 ```
 
@@ -391,7 +373,7 @@ Please make a note of tenant ID which is shown in success message on CLI.
   * Step #6
   Sign in using service principal as your identity. The command for this step is as follows:
 
-```PowerShell
+```
 azure login -u "ApplicationId" -p "<password>" --service-principal --tenant "<TenantID>"
 ```
 ![azure role assign]({{ site.baseurl }}/guide/images/azure/azure_signin_identity.jpg)
@@ -405,13 +387,13 @@ If you don’t have the above type of account, you can create it as shown in the
 
   Please go to https://manage.windowsazure.com and create a new “organization account” (work or school account).
 
-  * Once an AAD account is created, please login using username and password.
+  * Once an AAD account is created, please login using username and password. <br/>
   
   ![azure login]({{ site.baseurl }}/guide/images/azure/azure_login.jpg)
 
-  * Once you successfully login to AAD account, you will be redirected to the main page as shown below
+  * Once you successfully login to AAD account, you will be redirected to the main page as shown below <br/>
   
-    ![azure aad account]({{ site.baseurl }}/guide/images/azure/azure_aad_account.jpg)
+  ![azure aad account]({{ site.baseurl }}/guide/images/azure/azure_aad_account.jpg)
 
 
 ## Notes
