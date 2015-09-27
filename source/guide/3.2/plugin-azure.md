@@ -226,6 +226,7 @@ image_reference_offer: 'UbuntuServer'
 image_reference_sku: '14.04.2-LTS'         
 client_id: '4de78770-4f98-698s-5733-08d8s3w99812'
 tenant_id: 'r4774dff-2dyt-7y6r-a89c-ff2sfrr662d8'
+aad_username: 'admin@mycompany.com'
 aad_password: 'mypass345'
 key_data:  |
    ---- BEGIN SSH2 PUBLIC KEY ----
