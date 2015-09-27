@@ -294,8 +294,28 @@ ARM authentication requires to create a service principal using Azure CLI or thr
 
 Use the following command to connect to Azure CLI:
 
-```PowerShell
+``` PowerShell
 azure login -u <username>
+```
+
+{% highlight ps1 %}
+azure login -u <username> ps1
+{% endhighlight %}
+
+{% highlight ps2 %}
+azure login -u <username> ps2
+{% endhighlight %}
+
+``` Shell
+azure login -u <username> shlll
+```
+
+``` Shell
+ azure login -u <username> shlll2
+```
+
+``` bat
+azure login -u <username> bat
 ```
 
 CLI output:
@@ -309,9 +329,9 @@ CLI output:
   * Step #1
   Switch to ARM mode through Azure CLI. - Use the following command to do so:
 
-```PowerShell
-  azure config more arm
-  azure login
+``` PowerShell
+azure config more arm
+azure login
 ```
 
   CLI output:
@@ -322,12 +342,13 @@ CLI output:
   Create a new AAD application using the following command:
 
 ```PowerShell
-  azure ad app create --name "YOUR APPLICATION DISPLAY NAME" --home-page "https://YOUR_APPLICATION_HOME_PAGE"   --identifier-uris "https:/YOUR_APPLICATION_URI" –password YOU_PASSWORD
+azure ad app create --name "YOUR APPLICATION DISPLAY NAME" --home-page "https://YOUR_APPLICATION_HOME_PAGE"   --identifier-uris "https:/YOUR_APPLICATION_URI" –password YOU_PASSWORD
 ```
 
   For example: 
-```PowerShell
-  azure ad app create --name "myapp" --home-page "https://myapp.onmicrosoft.com" --identifier-uris "https://myapp.onmicrosoft.com" –password abc123
+
+``` PowerShell
+azure ad app create --name "myapp" --home-page "https://myapp.onmicrosoft.com" --identifier-uris "https://myapp.onmicrosoft.com" –password abc123
 ```
 
   CLI output:
@@ -337,16 +358,43 @@ CLI output:
   Please note down the application id and Object id shown in the success message.
 
   * Step #3
-   xxxx
+  Create the service principal for your application using the following command:
+
+``` PowerShell
+azure ad sp create b57dd72e-036c-4840-865e-23b71b8098ec
+```
+
+![azure sp create]({{ site.baseurl }}/guide/images/azure/azure_sp_create.jpg)
 
   * Step #4
-   xxxx 
+  Grant service principal permission to your application using following command: 
+  Make sure that the service principal is ‘Owner’ in order to get more access.
+  Instead of Reader, write ‘Owner’ in the following command while following the steps in the link above.
+
+```PowerShell
+azure role assignment create --objectId 47193a0a-63e4-46bd-9bee-6a9f6f9c03cb -o Reader -c /subscriptions/{subscriptionId}/
+```
+
+![azure role assign]({{ site.baseurl }}/guide/images/azure/azure_role_assign_output.jpg)
 
   * Step #5
-   xxxx 
+  Determine the Tenant ID using following command: 
+
+```PowerShell
+azure account list
+```
+
+Please make a note of tenant ID which is shown in success message on CLI.
+
+![azure role assign]({{ site.baseurl }}/guide/images/azure/azure_list.jpg)
 
   * Step #6
-   xxxx
+  Sign in using service principal as your identity. The command for this step is as follows:
+
+```PowerShell
+azure login -u "ApplicationId" -p "<password>" --service-principal --tenant "<TenantID>"
+```
+![azure role assign]({{ site.baseurl }}/guide/images/azure/azure_signin_identity.jpg)
 
 Before you begin to create service principal, you need a 'Work' or 'school' account on Microsoft Azure.
 If you don’t have the above type of account, you can create it as shown in the steps below:
@@ -358,21 +406,18 @@ If you don’t have the above type of account, you can create it as shown in the
   Please go to https://manage.windowsazure.com and create a new “organization account” (work or school account).
 
   * Once an AAD account is created, please login using username and password.
-  ![azure login]({{ site.baseurl }}/guide/images/azure/azure_login.jpg)
   
+  ![azure login]({{ site.baseurl }}/guide/images/azure/azure_login.jpg)
+
   * Once you successfully login to AAD account, you will be redirected to the main page as shown below
+  
     ![azure aad account]({{ site.baseurl }}/guide/images/azure/azure_aad_account.jpg)
 
 
 ## Notes
 
-1.	Make sure the service principal is ‘Owner’ in order to get more access.
-Instead of Reader, write ‘Owner’ in the following command while following the steps in the link after it (which steps???)
-```PowerShell
-azure role assignment create --objectId 47193a0a-63e4-46bd-9bee-6a9f6f9c03cb -o Reader -c /subscriptions/{subscriptionId}/
-```
-2.	During completion of the authentication using Azure CLI, you will get tenant id, client id (this is the application id which will be given as response on azure CLI) and client secret. 
-3.	Please note down the following parameters while following the steps to authenticate via Azure CLI
+1.	During completion of the authentication using Azure CLI, you will get tenant id, client id (this is the application id which will be given as response on azure CLI) and client secret. 
+2.	Please note down the following parameters while following the steps to authenticate via Azure CLI
 
 *	`Application id`: This is the ‘client id’ which will be given as one of the inputs to the token generation code.
 * `Tenant id`: Please note down tenant id which will be obtained in the authentication process.
