@@ -77,30 +77,31 @@ All cloud resource nodes have common properties:
 *	`location` is the region of the azure data center where you prefer to create the cloud resources. Defaults to 'West US'.
 Possible valid values are:
 
-|_ |_ |_ |
+| | | |
 | Central US | East Asia | East US |
 | East US 2 | Japan East | Japan West |
 | North Europe | South Central US | Southeast Asia |
 | West Europe | West US | |
+
 
 *	`vm_name` This can be the name of the virtual machine created. The name of other resources required to create the virtual machine like resource group, storage account, virtual network, etc. will be derived from the vm_name string. Defaults to ‘my_vm’.
 
 * `vm_size` The size of VM. Default size is “Standard_A2” if no size is provided.
 
 * `image_reference_publisher` The required VM's publisher. E.G.:
-** For Ubuntu 14.04, the value of this input key is 'Canonical'. 
-** For Ubuntu 12.04, the value of this input key is 'Canonical'.
-** For CentOS 7, value of this input key can be ‘OpenLogic’.
+  * For Ubuntu 14.04, use 'Canonical'. 
+  * For Ubuntu 12.04, use 'Canonical'.
+  * For CentOS 7, use ‘OpenLogic’.
 
 * `image_reference_offer` This specifies the flavor of Linux you want to use on your VM. E.G.:
-** For Ubuntu 14.04: Use 'UbuntuServer'.
-** For Ubuntu 12.04: Use 'UbuntuServer'.
-** For CentOS7: Use 'CentOS'.
+  * For Ubuntu 14.04, use 'UbuntuServer'.
+  * For Ubuntu 12.04, use 'UbuntuServer'.
+  * For CentOS7 use 'CentOS'.
 
 * `image_reference_sku`  This specifies the version of your Linux OS on virtual machine. E.G.:
-** For Ubuntu 14.04: Use '14.04.2-LTS'
-** For Ubuntu 12.04.5: Use ' 12.04.5-LTS' 
-** For CentOS7: Use ' 7.0' 
+  * For Ubuntu 14.04, Use '14.04.2-LTS'
+  * For Ubuntu 12.04, use '12.04.5-LTS' 
+  * For CentOS7, use '7.0' 
 
 *	`client_id` the location where you will find the client id in azure account on the manage.azure.com portal is marked in red in the screenshot below. Defaults to ‘’ (empty string). <br/>
 Active Directory->your active directory->Applications->your application->configure->Client ID
