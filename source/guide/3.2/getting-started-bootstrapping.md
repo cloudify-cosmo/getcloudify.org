@@ -72,7 +72,7 @@ The inputs.yaml file should look somewhat like this:
 
 {% highlight yaml %}
 keystone_username: your_openstack_username
-keystone_password: your_openstack_password
+keystone_password: your_openstack_passwordhttps://github.com/cloudify-cosmo/getcloudify.org/graphs
 keystone_tenant_name: your_openstack_tenant
 keystone_url: https://region-b.geo-1.identity.hpcloudsvc.com:35357/v2.0/
 region: region-b.geo-1
