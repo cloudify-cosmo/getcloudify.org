@@ -23,7 +23,7 @@ Here is an example of how to get blueprints
 
 from cloudify_rest_client import CloudifyClient
 
-client = CloudifyClient('http://MANAGER_HOST')
+client = CloudifyClient('MANAGER_HOST')
 blueprints = client.blueprints.list()
 
 for blueprint in blueprints:
