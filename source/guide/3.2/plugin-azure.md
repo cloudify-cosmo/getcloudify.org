@@ -323,6 +323,10 @@ For example:
 ```PowerShell
 azure ad app create --name "myapp" --home-page "https://myapp.onmicrosoft.com" --identifier-uris "https://myapp.onmicrosoft.com" –password abc123
 ```
+CLI output:
+xxx image d:\docs\Azure\azure_aad_create_account.jpg
+
+Please note down the application id and Object id shown in the success message.
 
   * Step #3
    xxxx
