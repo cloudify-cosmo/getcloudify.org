@@ -74,14 +74,14 @@ All cloud resource nodes have common properties:
 
 ![Subscription ID]({{ site.baseurl }}/guide/images/azure/subscription_screenshot.jpg)
 
-*	`location` is the region of the azure data center where you prefer to create the cloud resources. Defaults to 'West US'.
+*	`location` is the region of the azure data center where you prefer to create the cloud resources. Defaults to 'westus'.
 Possible valid values are:
 
 | | | |
 | Central US | East Asia | East US |
 | East US 2 | Japan East | Japan West |
 | North Europe | South Central US | Southeast Asia |
-| West Europe | West US | |
+| West Europe | 'westus' for West US | |
 
 
 *	`vm_name` This can be the name of the virtual machine created. The name of other resources required to create the virtual machine like resource group, storage account, virtual network, etc. will be derived from the vm_name string. Defaults to ‘my_vm’.
@@ -99,7 +99,7 @@ Possible valid values are:
   * For CentOS7 use 'CentOS'.
 
 * `image_reference_sku`  This specifies the version of your Linux OS on virtual machine. E.G.:
-  * For Ubuntu 14.04, Use '14.04.2-LTS'
+  * For Ubuntu 14.04, use '14.04.2-LTS'
   * For Ubuntu 12.04, use '12.04.5-LTS' 
   * For CentOS7, use '7.0' 
 
@@ -215,10 +215,29 @@ All the common properties from the above section.
 
 # Inputs file
 
+Here's an example of an inputs file for bootstrapping a Cloudify manager on Azure:
 {% highlight yaml %}
-Add an example here bootstrapping ... 
- ... 
- ...
+subscription_id: '12590d2a-3489-5812-fr51-ht750b1dr450' 
+location: 'westus'
+vm_name: 'vm321'
+vm_size: 'Standard_A2'
+image_reference_publisher: 'Canonical'
+image_reference_offer: 'UbuntuServer'
+image_reference_sku: '14.04.2-LTS'         
+client_id: '4de78770-4f98-698s-5733-08d8s3w99812'
+tenant_id: 'r4774dff-2dyt-7y6r-a89c-ff2sfrr662d8'
+aad_password: 'mypass345'
+key_data:  |
+   ---- BEGIN SSH2 PUBLIC KEY ----
+   Comment: "rsa-key-20150901"
+
+   ABGYB3NzaC1yc2EFRTTyJQGT9QEA0Y5tAjA2C9x3577MfU37J3kGUYQzRAbPu2gN
+   9HKKB+/bkzEE+W9zysYgL1vu3heqUewQlnMz2G6gfDca+6FmitGjY6z8E0ZYUy4M
+   CG+fWs/6xT92Os69fj2VQg8lyGqOD+KJEZdMnIbbWyPza5fkeaWEDRNWe2hRNkr0
+   daRY21UCCZG9+zZNR4ndJWxjJyF4Om1G4R7gtjickOs5yECbgEMISpENWmXATc6U
+   UsVhRznp4u6iBusZO3ilH7B3YbDyGhXs4X/TcwBkfhr8aJsHXgfrrL621g4Ppp4I
+   g6QVQSrBpNBe2JC5dfjtlGSBFm7vApUwAYaMSdwt6IcLck/nUQ==
+   ---- END SSH2 PUBLIC KEY ----
 {% endhighlight %}
 
 
