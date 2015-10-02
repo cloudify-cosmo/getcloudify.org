@@ -24,7 +24,7 @@
                 </tr>
                 <tr ng-repeat="repo in repos">
                     <td>
-                        <a href ng-click="showDetails(repo);">{{::repo.full_name}}</a>
+                        <a href ng-click="showDetails(repo);">{{::repo.name}}</a>
                     </td>
                     <td>
                         {{::repo.description}}
@@ -43,7 +43,7 @@
         <div>
             <a href ng-click="showList();" class="to-list">Back</a>
 
-            <h1>{{currentRepo.full_name}}</h1>
+            <h1>{{currentRepo.name}}</h1>
             <ul class="action-links">
                 <li><a href="{{currentRepo.html_url}}" target="_tab_{{currentRepo.id}}">Source</a></li>
                 <li><a href="{{currentRepo.html_url}}/archive/{{currentRepo.default_branch}}.zip">Download</a></li>
