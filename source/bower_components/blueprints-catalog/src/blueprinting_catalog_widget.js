@@ -72,6 +72,7 @@
                 };
 
                 $scope.closeUpload = function () {
+                    $scope.error = undefined;
                     $scope.uploadRepo = undefined;
                 };
 
