@@ -1,0 +1,119 @@
+---
+layout: blogpost
+title: TOSCA and YANG for Application and Network Orchestration
+image: shaynaeh.jpg
+author: Shay Naeh
+tags: 
+ - Netconf/YANG
+ - TOSCA
+ - NFV
+ - Network Orchestration
+ - Cloudify
+---
+
+<notextile>
+
+<img src="/img/TOSCAYANG.png" width="850" alt="NFV | Network Orchestration | Network Automation | VNF - Netconf/YANG - TOSCA ">
+<br/>
+<br/>
+
+  <p>&#160;</p>
+
+<p><b></b>
+
+  <p>I work quite a bit with <a href="http://getcloudify.org/guide/3.1/dsl-spec-general.html" target="_blank">TOSCA</a> based definitions for application orchestration and more specifically to orchestrate virtual network functions (VNFs AKA NFV - <a href="http://getcloudify.org/tags/NFV/" target="_blank">network function virtualization</a>). In this capacity, I’ve recently been encountering quite a number of Telcos and service providers mentioning TOSCA, YANG and modeling languages in general. </p>
+
+  <p>I also have noticed that network personnel mainly discuss Netconf/YANG while application personnel talk TOSCA.&#160; </p>
+
+  <p>Before I dive into TOSCA and YANG and map them out, I’d like to venture my two cents on where the future is going and basic VNFs requirements to get there. </p>
+
+  <p>VNFs are becoming more and more application oriented. They require complex action to be taken, work with databases, records, processes, files -- not to mention, dependencies and order between them and external entities, and even H/A capabilities like self-healing and auto-scaling for high performance loads.</p>
+
+
+
+<hr>
+
+<span class="pullquote-left">
+  <font style="font-weight: bold" size="5" face="Baskerville Old Face"><em>Orchestration for NFV, VNF with TOSCA and Netconf/YANG with Cloudify.</em></font>&nbsp; <a class="btn btn-medium btn-theme btn-rounded" id="downloadBtnInner" href="http://getcloudify.org/downloads/get_cloudify_3x.html" target="_blank"><i class="icon-plus"></i> Go </a></span>
+  
+  <hr>
+
+  <p>The border between applications and network functions are becoming blurred in many cases.&#160; </p>
+
+  <p>Here’s a quick landscape mapping as I see it:</p>
+
+  <ul>
+    <li>You have simple VNFs like vRouters (Vyatta from Brocade and CSR from Cisco for example).</li>
+
+    <li>Beyond that you have DNS, LDAP and a like services which are more application-oriented services. You have to add new records when you provision a new tenant, which is an application action.</li>
+
+    <li>More complex VNFs come with their own databases or rely on an open source relational or noSQL database like Cassandra for example. </li>
+
+    <li>The complex VNFs or chains of VNFs like a CDN subsystem or IMS and EPC subsystems require deep orchestration capabilities, creation orders, network dependencies, relationships and complex actions to be performed.</li>
+  </ul>
+
+
+<script src="https://gist.github.com/shayn1234/c2b1fa63edd5169ba8a4.js"></script>
+
+
+ <p>VNFs require support of application orchestration beyond network resource configuration. </p>
+
+<h2><font style="font-weight: bold">TOSCA and YANG are Commentaries. </font></h2>
+
+<p>Here is a sample to provision a tenant’s Cisco Cloud Services Router (CSR) using a TOSCA-based blueprint. Part of the provisioning of the CSR is the attachment of network interfaces to the management network, inbound network and outbound network. Moreover, it could also be configured to point to an LDAP AAAA server with the right OUs (organizational units) definition as well as to a tenant’s DNS.</p>
+
+<p>TOSCA is very good when it comes to defining virtual application topologies, VNF dependencies and relationships, actions to be performed as part of a lifecycle. In a previous post,I described how to build <a href="http://getcloudify.org/2014/11/02/NFV-openstack-TOSCA-open-source-cloud-Chef.html">NFV</a> on Openstack with an open source IMS from Clearwater and modeled it with a TOSCA-based blueprint.</p>
+
+<p>YANG is very good at configuring network devices and network services. Netconf is the protocol that represents the YANG model on the wire. YANG provides the ability to easily configure network devices in a human readable fashion. </p>
+
+<p>Using Netconf/YANG one can easily configure devices, separate between configuration and operational data as well as apply versions, and compare configurations across devices. </p>
+
+<p>The Netconf/YANG strength is with configuring network devices.</p>
+
+<p>Here is a YANG snippet that describes a host with a network type interface of ATM or ETHERNET with MTU size of 1500 bytes.</p>
+
+<script src="https://gist.github.com/shayn1234/48736e60dda7b9762cbb.js"></script>
+
+<p>With the introduction of clouds and new requirements to support IaaS, PaaS and SaaS and support distributed applications, a need for an new breed of orchestrators has arisen.</p>
+
+<p>Such orchestrators now need to support diverse operations:</p>
+
+<ul>
+  <li>Automatic installation and deployment of distributed applications. as described above, VNFs are becoming application creatures. </li>
+
+  <li>Installation and deployment of infrastructure services such as compute, network and storage components. </li>
+
+  <li>Monitoring capabilities, ability to monitor hosts, networks, cloud components, e.g. OpenStack Keystone, Glance, Neutron, etc. </li>
+
+  <li>Ability to take proactive actions like self-healing and auto-scaling, failover and other remediation activities when needed. </li>
+
+  <li>Support of multiple data centers deployments, federated management views, etc. </li>
+
+  <li>Support of multi-clouds and hybrid clouds like EC2, Openstack, and VMware. </li>
+</ul>
+
+<p>TOSCA is very good supporting the latter requirements, while Netconf/YANG is very good at configuring network devices. Combining the two fuses the best of both worlds which support of the following:</p>
+
+<ul>
+  <li>Provisioning IaaS components which mainly include compute network and storage. (This would be done with the TOSCA-based templating) </li>
+
+  <li>Configuring network devices which include lots of configuration details per device type (This would be done via Netconf/YANG modeling) </li>
+
+  <li>Topology-driven monitoring (TOSCA) </li>
+
+  <li>Day to day operations that are performed on the topology graph like upgrades, self-healing scaling etc. (TOSCA) </li>
+</ul>
+
+<p>Moreover, <a href="http://getcloudify.org/openstack-architecture-cloudify.html#TOSCA">TOSCA orchestration</a> can communicate with Netconf/YANG-based components and drive network configurations and orchestration via Netconf/YANG-based products. In this way, we can leverage the best of the two worlds. </p>
+
+<p><img alt="TOSCAYANG.jpg" src="/img/TOSCAYANG.png" width="624" height="473" /></p>
+
+<p>Here is the model that I would suggest for such purposes.&#160; TOSCA to drive YANG-based products, e.g. Tail-f, they can be on the same level or TOSCA could eventually be an orchestrator of orchestrators. (I know - sounds like a mouthful). The exact configuration will evolve in the next couple of years to meet the vast Telco operators requirements for <a href="http://getcloudify.org/tags/Network%20Automation/" target="_blank">network automation</a> and orchestration of VNFs and subsystems like IMS CDN and EPC.</p>
+
+<p>In my next blog post, I will describe how I actually took a TOSCA-based product and a Netconf/YANG-based product and created a new service ‘Internet service creation", connecting a new customer to the internet&#160; with a mixture of VNFs like vFW, vRouter and more.&#160; </p>
+
+<p>It required the writing of a TOSCA -&gt; Netconf/YANG plugin which knows how to parse TOSCA-based parameters and translate them to YANG.&#160; You can check out the diagram below until then.</p>
+
+<p><img alt="TailFplugin.jpg" src="/img/TailF.png" width="624" height="473" /></p>
+
+</notextile>

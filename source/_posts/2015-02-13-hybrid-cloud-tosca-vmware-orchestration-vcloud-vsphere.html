@@ -1,0 +1,86 @@
+---
+layout: blogpost
+title: Making Hybrid Cloud Simple and Real with vCloud Air, TOSCA and Cloudify
+image: nati.png
+author: Nati Shalom
+tags:
+ - Cloudify
+ - Cloud Orchestration
+ - VMWare
+ - Hybrid Cloud
+ - TOSCA
+---
+
+<notextile>
+
+<div class="aligncenter">
+<img src="http://natishalom.typepad.com/.a/6a00d835457b7453ef01b7c7449341970b-800wi"  alt="VMware Cloud | Hybrid Cloud | vCloud Air | TOSCA | TOSCA Orchestration | Cloud Orchestration"></div>
+<br/>
+<br/>
+
+
+<p>&#160;</p>
+
+<p>While hybrid cloud has been a mainstay discussion in the cloud world for quite some time now (note this post of mine on <a href="http://getcloudify.org/2011/11/15/five-misconceptions-about-cloud-portability.html">hybrid cloud</a> from 2011, when CloudStack was still Cloud.com), the reality is that setting up hybrid cloud has proven a fairly complex process. Therefore we've seen only a few real implementations of true hybrid cloud in the wild.</p>
+
+<p>In this post, I&#160; wanted to describe the joint work that we've invested together with the <a href="http://getcloudify.org/vmware-hybrid-cloud.html" target="_blank">VMware cloud</a> team to change this reality and finally make the hybrid cloud story simple and possible.</p>
+
+ <hr>
+
+<span class="pullquote-left">
+  <font style="font-weight: bold" size="5" face="Baskerville Old Face"><em>TOSCA orchestration for any cloud - VMware to OpenStack. Join us for our joint webinar with VMware to learn how!</em></font>&nbsp; <a class="btn btn-medium btn-theme btn-rounded" id="downloadBtnInner" href="https://cc.readytalk.com/r/frgur0ubrund&eom" target="_blank"><i class="icon-plus"></i> Go </a></span>
+  
+  <hr>
+
+<h3><span style="font-weight: bold">vCloud Air makes hybrid cloud truly simple and real </span></h3>
+
+<p>While most public clouds started as independent public cloud services, and only later started to add private cloud connectivity; the exact opposite is true for vCloud Air, which was designed primarily as an native extension of VMware private cloud. In this context, users are able to use the same tools currently in use to manage their local VMware environment in order to manage their public cloud resources, as well. This makes the hybrid cloud story significantly simpler, as there is no longer the need to worry about the connectivity between the two sides of the data center, and at the same time we get the cost benefit of using resources on-demand on a pay per use basis.</p>
+
+<p>The ability to make hybrid cloud so simple fit well with the Cloudify pure-play orchestration vision, and made the integration with the two platforms a perfect fit.</p>
+
+<p>In this post I wanted to spend some time on what that means for VMware and OpenStack users.</p>
+
+<h3><span style="font-weight: bold">Putting vCloud Air, TOSCA and Cloudify&#160; together</span></h3>
+
+<p>&#160; <a class="asset-img-link" style="display: inline" href="/vmware-hybrid-cloud.html"><img title="Vmware-TOSCA" class="asset  asset-image at-xid-6a00d835457b7453ef01b7c7449341970b image-full img-responsive" border="0" alt="Vmware-TOSCA" src="http://natishalom.typepad.com/.a/6a00d835457b7453ef01b7c7449341970b-800wi" /></a></p>
+
+<p>vCloud Air users needed a simple way to deploy and manage their applications on vCloud Air using DevOps tools similar to Amazon Cloud Formation.</p>
+
+<p>As the landscape is still being shaped, and there’s no clear winner yet, it is very important for these users to have tools that will allow them to keep their options open.</p>
+
+<p><a href="http://getcloudify.org/tags/TOSCA/">TOSCA </a>seemed to be a great fit in such a context, as it provides a standard templating language that doesn’t tie users into a particular platform.</p>
+
+<p>On top of this, <a href="http://getcloudify.org/vmware-hybrid-cloud.html">TOSCA orchestration</a> also aims to go beyond the installation part of the application and covers all the aspects of the application lifecycle through the addition of workflows and policies that can be used to handle continuous deployment, self-healing, and auto-scaling processes.</p>
+
+<p>On a similar note, many Cloudify users comes from Enterprise and Telco markets. Such users are already heavily invested in VMware. These customers are actively looking for a more agile and cost effective way to run their data center.&#160; The ability to bring capacity on demand seamlessly into private cloud makes the entire private/hybrid cloud story truly attainable.</p>
+
+<p>By putting vCloud Air, TOSCA and Cloudify together we’re getting the cost benefit of using on demand resources for our private data center in a way that doesn’t tie us to a specific platform and at the same time provide a more complete application lifecycle and management solution that enables full automation of our deployment and DevOps processes.</p>
+
+<h3><span style="font-weight: bold">Extending the solution to the rest of the VMware stack</span></h3>
+
+<p>VMware provides three kinds of platforms today, the vCenter/vSphere environment that serves many of the enterprises data centers today, and VMWare Integrated OpenStack, which provides API compatibility with OpenStack for vSphere/vCenter environments.</p>
+
+<p>Cloudify comes with native TOSCA support through plugins that allows you to use TOSCA blueprints as a templating language across both vCloud Air, vSphere and OpenStack that provides a consistent way to manage applications across all three environments.&#160; On top of this, it also makes it simple to build mixed resources of all three environments all with the same blueprint.</p>
+
+<p>Having pure-play orchestration and management that is backed by an industry standard, TOSCA, enables the decoupling of the way to manage applications from the underlying infrastructure. While there is still the need to rely on specific APIs and features of the specific infrastructure, they are now at a point where the cost of the switch isn’t as significant compared with the alternative of binding themselves directly into the specific underlying infrastructure.</p>
+
+<h3><span style="font-weight: bold">The benefit for OpenStack users</span></h3>
+
+<p>Many OpenStack users are Enterprises and Telco customers who are known to be heavy users of VMware platforms. This integration makes the ability to mix and match existing VMware environments together with OpenStack and vCloud Air, providing greater flexibility to decide which applications and workloads fit best in which environment while using common and consistent management for their applications across environments.</p>
+
+<h3><strong>What should we expect next?</strong></h3>
+
+<p>Through our partnership with VMware we’re planning to make this integration simpler for vCloud Air users by allowing them to use TOSCA directly through the vCloud Air public cloud service. In addition, the plan is to make the hybrid cloud story between vCloud Air, vSphere and OpenStack as seamless and simple as possible so we will be adding more examples and tighter integration for all three platforms.</p>
+
+<h3><strong>How should I get started?</strong></h3>
+
+<ul>
+  <li><a href="http://getcloudify.org/2015/02/02/TOSCA-orchestration-openstack-vmware-hybrid-cloud.html">TOSCA Orchestration for VMware - Hybrid Cloud Made Simple</a> </li>
+
+  <li><a href="http://getcloudify.org/guide/3.1/plugin-vsphere.html">vSphere Plugin Docs</a> </li>
+
+  <li><a href="http://getcloudify.org/vmware-hybrid-cloud.html">VMware Hybrid Cloud with Cloudify</a> </li>
+</ul>
+
+
+  </notextile>

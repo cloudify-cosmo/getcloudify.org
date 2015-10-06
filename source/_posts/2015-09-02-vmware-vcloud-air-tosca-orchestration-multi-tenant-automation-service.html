@@ -1,0 +1,76 @@
+---
+layout: blogpost
+title: How Cloudify Runs on vCloud Air with Zero Footprint
+image: denis.jpg
+author: Denis Makogon
+tags:
+ - VMworld
+ - Cloud Orchestration
+ - VMware
+ - vCloud
+ - TOSCA
+---
+
+<notextile>
+
+<div class="aligncenter">
+<img src="/img/blog/vcloud-air-cloudify.png"  alt="VMware | Cloud Orchestration | Hybrid Cloud | TOSCA Orchestration | Orchestration as a service | vCloud Air | TOSCA | Cloud Automation"></div>
+<br/>
+<br/>
+
+<p>We recently announced Cloudify's new <a href="http://www.gigaspaces.com/gigaspaces-works-vmware-deliver-pilot-blueprinting-service-vcloud-air">Orchestration-as-a-Service</a> offering jointly built with VMware, named the vCloud® Air™ Blueprinting Service. In order to create this service, the team was required to add some new functionality, while at the same time cut certain capabilities based on the use case – more about that in an upcoming post.</p>
+
+<p>One of the interesting things about this use case, is that the team needed <a href="http://getcloudify.org">Cloudify</a> to run without utilizing <a href="http://getcloudify.org/guide/3.2/agents-general.html">agents</a> (the software installed on VMs to execute commands), which normally is part of the installation process, and instead used the <a href="http://getcloudify.org/guide/3.2/plugin-fabric.html">Fabric plugin</a> to directly execute commands. This creates an interesting situation that has pluses and minuses, but the best part about the “agentless” installation is that it leaves no footprint on the underlying infrastructure.</p>
+
+<hr>
+
+<span class="pullquote-left">
+  <font style="font-weight: bold" size="5" face="Baskerville Old Face"><em>Cloudify orchestration for vCloud Air - free to vCA users as a service.</em></font>&nbsp; <a class="btn btn-medium btn-theme btn-rounded" id="downloadBtnInner" href="http://getcloudify.org/downloads/get_cloudify_3x.html" target="_blank"><i class="icon-plus"></i> Go </a></span>
+  
+  <hr>
+
+<h2><b>How Cloudify Agents Work</b></h2>
+
+<p>Firstly, we need to understand how Cloudify works and how agents are involved in the deployment creation and workflows. Here is a diagram explaining the basics of Cloudify:</p>
+
+<p>From the above diagram, you can see that agents are software that execute operations against a remote host (or hosts). Using a Cloudify context object, each agent is able to get data regarding the manager that is being used for deployment, so there’s no need to query any additional data to figure out specific attributes necessary to the operations that are being executed.</p>
+
+<h2><b>The Multi</b><b>-</b><b>Tenancy Challenge</b></h2>
+
+<p>Agents share the same manager for multiple deployments and users. In a <a href="http://getcloudify.org/2015/08/28/tosca-vmware-vcloud-vsphere-multi-tenancy-multi-tenant-horizontal-scaling-service-orchestration-engine.html">multi-tenant environment</a> the agent/manager communication needs to isolated per tenant. Agentless deployment obviously makes this go away altogether.</p>
+
+<h2><b>How Does “Agentless” deployment work?</b></h2>
+
+<p>There are actually two types of agents – ones that lives on the manager and others on deployment hosts. Keep in mind that agents manage plugins, and, in Cloudify, there are two types of plugins - workflow and deployment. So, those agents that are living on the manager do most of the infrastructure configuration, such as VM deployment, networking, block storage attachment, which use a workflow plugin, and once it is time to deploy an application the agent uses a deployment plugin.</p>
+
+<p>Since our goal is to create a deployment that doesn’t use Host-site agents (and plugins subsequently), it is necessary to use a plugin that manages workflow and deployment operations through some sort of remote execution. In our case those remote execution tasks will run from the Cloudify manager. Some examples would be the tosca-vcloud-plugin (workflow type), and cloudify-fabric-plugin (deployment type), where the TOSCA plugin does IaaS configuration and deployment and right after that the fabric plugin runs scripts over SSH on remote hosts (those VMs that were deployed). In this case, the VMs don’t have any footprint or manager presence (just as a regular user who runs something over SSH). Such an approach protects users from crucial data discovery.</p>
+
+<h2><b>“Agentless” Concept Limitation</b></h2>
+
+<p>Cloudify provides lots of official plugins, such as the <a href="http://getcloudify.org/guide/3.2/plugin-diamond.html">diamond plugin</a>, chef (<a href="http://docs.chef.io/">http://docs.chef.io/</a>), puppet (<a href="https://puppetlabs.com/">https://puppetlabs.com/</a>), and others that wouldn’t be available in an agentless installation. This approach also puts specific limitations on users, such as:</p>
+
+<ul>
+  <li>Plugin usage limitation - you can only use plugins that are not dependent on agent presence. </li>
+
+  <li>Different way for application delivery - you deploy applications that are using agents to run tasks within remote host. </li>
+</ul>
+
+<p>You might be asking yourself, “Agentless installation with a secure manager doesn’t give any value add, it just brings yet another level of restrictions?” The answer to that is yes, you are completely right. But what costs more, flexibility or account credentials? We already know the answer to that one.</p>
+
+<p>In the case of agentless deployments, it is necessary to pick a specific deployment plugin that will do what’s needed:</p>
+
+<ul>
+  <li>using cloudify-fabric-plugin or cloudify-script-plugin users still be able to run chef and puppet manifests</li>
+
+  <li>execution workflows would still be available </li>
+
+  <li>Cloudify ‘local’ mode can be treated as different approach of running agentless deployments </li>
+
+  <li>agentless deployments can be seen similar to <a href="http://www.ansible.com/home">Ansible</a>, but with templates driven through TOSCA. </li>
+</ul>
+
+<h2>Conclusion</h2>
+
+<p>As you can see, when Cloudify is being used in a multi-tenant environment it is possible that you will face security breaches, one such breach being agents, because agent manager plugins that have access to Cloudify context also have access to the manager information (i.e. all users critical data). To prevent such cases, Cloudify allows zero-footprint deployments (aka “agentless”) out-of-the-box. This mechanism gives users the ability to prevent context leaks from the manager to third-party plugins that are not officially part of the Cloudify software distribution. A side-effect of “agentless” deployments may be better scaling, no footprint deployments, and, of course, a faster deployment process due to the absence of a need to install agent software on the target host.</p>
+
+  </notextile>

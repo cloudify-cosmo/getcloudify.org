@@ -1,0 +1,150 @@
+---
+layout: blogpost
+title: How to Test Drive Cloudify with the Online Widget
+image: trammell.jpg
+author: Luther Trammell
+tags:
+ - Cloud Orchestration
+ - Cloud Automation
+ - Cloudify
+ - Orchestration Tools
+ - Widget
+---
+
+<notextile>
+<img src="http://getcloudify.org/img/blog/widgetpg.png" alt="Cloudify Widget Online Trial | Cloud Application Orchestration | Deployment Automation | Clooudify Tutorial | Orchestration Tools">
+<br/>
+<br/>
+
+  <p>The <a href="http://getcloudify.org">Cloudify</a> widget is a fast way to try out Cloudify without installing anything locally or bootstrapping a manager.</p>
+
+  <p>Cloudify is a <a href="http://getcloudify.org/cloud_orchestration_cloud_automation.html">cloud orchestrator</a> based on <a href="http://getcloudify.org/2015/07/21/what-is-TOSCA-cloud-application-orchestration-tutorial-cloudify.html">TOSCA</a>.</p>
+
+  <p>With it you can manage your resources using virtually <a href="http://getcloudify.org/2015/07/08/openstack-aws--tosca-cloud-automation-orchestration-vcloud-blueprint-portability.html">any cloud provider</a>. The hub of your orchestration takes place through the <a href="http://getcloudify.org/guide/3.2/getting-started-bootstrapping.html">Cloudify manager</a>.</p>
+
+<hr>
+
+<span class="pullquote-left">
+  <font style="font-weight: bold" size="5" face="Baskerville Old Face"><em>Cloudify is Pure-Play Cloud Orchestration based on TOSCA. Get it here.</em></font>&nbsp; <a class="btn btn-medium btn-theme btn-rounded" id="downloadBtnInner" href="http://getcloudify.org/downloads/get_cloudify_3x.html" target="_blank"><i class="icon-plus"></i> Go </a></span>
+  
+<hr>
+
+
+  <p>With the widget, you get 120 minutes with a Cloudify manager, the console, and the command line.</p>
+
+  <p>Go to<a href="http://www.getcloudify.org/widget.html"> http://www.getcloudify.org/widget.html</a> and input your name and your email address to get started.</p>
+
+  <p>Upon initialization, we give you the public IP address of your Cloudify manager. You can open up the UI in a browser or click “try out the interactive shell”.</p>
+
+  <h2><font style="font-weight: bold">Manager UI</font></h2>
+
+  <p>The manager is preloaded with a <a href="http://getcloudify.org/guide/3.2/blueprints-general.html">blueprint</a> for the Nodecellar application.</p>
+
+  <h4><font style="font-weight: bold">Blueprints</font></h4>
+
+  <p>A blueprint is a yaml document that describes an application. Each node can contain application components, as well as virtual hosts, a security groups, key pairs, IP addresses, or other cloud resources.</p>
+
+  <p>The Nodecellar application presents a wines inventory, and you can play with it to add, edit, and delete wines. The Nodecellar blueprint contains a virtual host, a NodeJS server, a Mongo database, and a public IP.</p>
+
+  <p>Point your browser to the public IP of your manager. The screen will show the blueprints tab. You can click on the blueprint to explore its topology, see a list of the nodes it describes, and view the files in the blueprint archive.</p>
+
+  <p>Any file in the blueprint archive can be used by the blueprint. For example, if you want to map one of your node’s lifecycle operations to a custom script, you can include that script in the blueprint archive.</p>
+
+  <h4><font style="font-weight: bold">Deployments</font></h4>
+
+  <p>A deployment is a virtual environment on the manager. It contains all of the packages and instructions that the manager needs to create your application infrastructure.</p>
+
+  <p>Return to the blueprints tab home screen and click “create deployment”. A dialog box opens. Give the deployment a name.</p>
+
+  <p>You also have the ability to provide inputs for the blueprint, if any are defined. You can use the text entry boxes, or a JSON blob.</p>
+
+  <p>Click create.</p>
+
+  <p>The screen transitions to the deployments tab, an initialization indicator and event log.</p>
+
+  <p>When the initialization is complete, you can explore the topology, a network diagram, a list of nodes and their properties, an execution history, and a monitoring tab.</p>
+
+  <p>The information in these menus will be updated over your deployment’s lifecycle.</p>
+
+  <p>You also are presented with a list of available workflows. Select install from the the workflow drop down. Click start, and confirm.</p>
+
+  <p>The install workflow is the stage is your deployment’s lifecycle, where all of the instructions about your application’s creation and configuration are executed.</p>
+
+  <p>While the install workflow is running, you can keep track of the progress in the events log.</p>
+
+  <p>There is also a app status indicator in the top right hand corner.</p>
+
+  <p>When the execution is completed, you will see a message indicating its success or failure in the event log.</p>
+
+  <p>You can navigate to port 8080 on the manager IP to play with the Nodecellar application.</p>
+
+  <h2><font style="font-weight: bold">Interactive Shell</font></h2>
+
+  <p>Return to the widget home screen and try out the Cloudify command line tools. Click the link that says “try out the interactive shell”.</p>
+
+  <p>It’s important to know which version of Cloudify you are running.</p>
+
+  <code>$ cfy --version</code>
+
+  <p>Also you can check the status of the services that are running in your manager:</p>
+
+  <code>$ cfy status</code>
+
+  <p>You get a list of blueprints by typing:</p>
+
+  <code>$ cfy blueprints list</code>
+
+  <p>You can get a list of deployments by typing:</p>
+
+  <code>$ cfy deployments list</code>
+
+  <p>You can get a list of a deployments executions by typing:</p>
+
+  <code>$ cfy executions list -d {a deployment id}</code>
+
+  <p>You can get the event list for an execution:</p>
+
+  <code>$ cfy events list -e {event-id}</code>
+
+  <p>You can toggle the log level of the event list:</p>
+
+  <code>$ cfy events list -e {event-id} -l</code><br>
+
+  <code>$ cfy events list -e {event-id} -v</code><br>
+
+  <code>$ cfy events list -e {event-id} —debug</code><br>
+
+  <p>These are the basic commands that you will need to know in order to find your way around the Cloudify command line.</p>
+
+  <p>You can also add the “-h” flag anytime you need a little guidance:</p>
+
+  <code>$ cfy events list -h</code>
+
+  <p>Let’s say you want to create a deployment of the same blueprint earlier, from the command line:</p>
+
+  <code>$ cfy deployments create -b nodecellar1 -d my_nodecellar_deployment -i ‘{ “agent_user”: “ubuntu”, “image_id”: “your-cloudify-ubuntu-14.04-image”, “flavor_id”: “your-image-size”}’</code>
+
+  <p>This does exactly the same as clicking “create deployment” in the UI steps above.</p>
+
+  <h2><font style="font-weight: bold">Conclusion</font></h2>
+
+  <p>This blog shows the basics for using the <a href="http://getcloudify.org/widget.html">Cloudify Widget</a>. From here, it’s a good idea to explore Getting Started with Cloudify: <a href="http://getcloudify.org/guide/3.2/quickstart.html">http://getcloudify.org/guide/3.2/quickstart.html</a>, where you will download our Vagrant box.</p>
+
+  <p>There you will:</p>
+
+  <ul>
+    <li>
+      <p>Bootstrap your own manager</p>
+    </li>
+
+    <li>
+      <p>Have the ability to edit the blueprints</p>
+    </li>
+  </ul>
+
+  <p>From there, try out the <a href="http://getcloudify.org/docker-orchestration-docker-container-deployment-cloud.html">Docker</a> Nodecellar blueprint, to get an idea of how you can use containers with Cloudify:</p>
+
+  <p><a href="https://github.com/cloudify-cosmo/cloudify-nodecellar-example/tree/3.2">https://github.com/cloudify-cosmo/cloudify-nodecellar-example/tree/3.2</a>
+  </p>
+
+</notextile>

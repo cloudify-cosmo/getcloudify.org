@@ -1,0 +1,137 @@
+---
+layout: blogpost
+title: NFV on OpenStack Cloud – Open Source Everything
+image: shaynaeh.jpg
+author: Shay Naeh
+tags: 
+ - OpenStack
+ - TOSCA
+ - NFV
+ - Hybrid Cloud
+ - NFV Orchestration
+---
+
+<notextile>
+
+<img src="https://31.media.tumblr.com/48cae15aefa0c974c03d08e99bd29694/tumblr_inline_ne9y5gPZmu1sbbxfw.jpg" alt="NFV OpenStack - VNF - SFC - Neutron - TOSCA - Chef | OpenStack">
+<br/>
+<br/>
+
+  <p>&#160;</p>
+
+
+<p>As we get <a href="http://en.wikipedia.org/wiki/Network_Functions_Virtualization" target="_blank">more heavily involved</a> with <a title="NFV" href="http://getcloudify.org/2014/04/09/network_automation_NFV_cloud_orchestration.html" target="_blank">NFV</a>, I would like to share my experience taking a few <strong>VNFs</strong> (virtual network functions) and <strong>SFCs</strong> (service function chains) and implementing them on public and private clouds.</p>
+
+<p>I thought implementing an IMS system on a public cloud would take forever but I was surprised to discover that there are several tools that can expedite the process. I chose to install Clearwater IMS from <a href="http://www.projectclearwater.org/" target="_blank">MetaSwitch</a> on OpenStack.</p>
+
+<hr>
+
+<span class="pullquote-left">
+  <font style="font-weight: bold" size="5" face="Baskerville Old Face"><em>Orchestration for NFV, VNF, SFC - on OpenStack with Cloudify.</em></font>&nbsp; <a class="btn btn-medium btn-theme btn-rounded" id="downloadBtnInner" href="http://getcloudify.org/downloads/get_cloudify_3x.html" target="_blank"><i class="icon-plus"></i> Go </a></span>
+  
+  <hr>
+
+ <h3><strong>Introduction</strong></h3>
+
+
+<h3><strong>Why Open Source NFVs?</strong></h3>
+
+<ol>
+  <li>First it's free and available but not everything that is free worth something :-) but here it’s worth evaluating it. </li>
+
+  <li>Second, open source NFV provides the economics of Over-the-TOP while maintaining Telco standards, and this is quite unique in this domain. </li>
+
+  <li>Third, Its highly available and scales linearly. </li>
+
+  <li>Fourth, it supports resource allocation &amp; optimization quite nicely. </li>
+</ol>
+
+<p>I chose to implement an open source IMS system from MetaSwitch, Clearwater, the distributed version. </p>
+
+<h3><strong>Why OpenStack?</strong></h3>
+
+<ol>
+  <li><a href="http://getcloudify.org/openstack-architecture-cloudify.html" target="_blank">OpenStack</a> becomes more mature With Telco-grade capabilities. </li>
+
+  <li>It's the <a href="http://getcloudify.org/2014/05/19/openstack-statistics.html" target="_blank">open source cloud</a> with the largest community support and contribution </li>
+
+  <li>High availability, e.g. even if Nova fails your application VM continues to function </li>
+
+  <li>With support of the right tools you can make it available across cloud zones, regions of a public cloud and even support multi-clouds. You can run one component in a <a href="http://getcloudify.org/2014/09/11/hybrid-cloud-openstack-multi-cloud.html" target="_blank">VMWare cloud</a> and the second on an OpenStack cloud or failover to an OpenStack cloud.&#160; </li>
+</ol>
+
+<h3><strong>Which VNFs and SFCs?</strong></h3>
+
+<p>Basically you can install single VNFs like vRouter (virtual router), vFW (virtual firewall), vLB (virtuall load balancer) or whole susbsystems like IMS (IP Multimedia System) which together with a vSBC (session border controller), core IMS and P-CF&#160; (policy and charging functions) create a SFC (service function chain) to serve mobile devices connected through an APN (access point name). Another SFC could be EPC (evolved packet core) that has a vFW, charging and policy functions included in the chain.</p>
+
+<h3><strong>The Four Must-Have Components:</strong></h3>
+
+<p>An NFV cloud must have the four following components:</p>
+
+<ol>
+  <li>A hardware component which is based on COTS compute servers, network and storage </li>
+
+  <li>An IaaS system that manages the hardware resources and allocate them optimally like for example OpenStack </li>
+
+  <li>The VNF application component that you virtualize as described above, e.g. open source IMS system </li>
+
+  <li>An orchestration component which is responsible for automatic application installation &amp; deployment including dependencies and relationships between components, KPI monitoring, analytics&#160; and feedback actions like auto-scaling and self-healing. I wrote about these features in a previous post. </li>
+</ol>
+
+<p>For the <a href="http://getcloudify.org/" target="_blank">orchestration</a> component I used Cloudify which provides a complete life-cycle management of applications from deployment to monitoring and analytics. </p>
+
+<p><img alt="image" src="https://31.media.tumblr.com/f5b21726d579e7221b4fe060f0087640/tumblr_inline_ne9wniBH0n1sbbxfw.jpg" /></p>
+
+<p><strong>&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160; 4 must have components</strong></p>
+
+<h3><strong>Clearwater IMS from MetaSwitch</strong></h3>
+
+<p>I will now describe my experience with installing the Clearwater IMS with Cloudify orchestrator + Chef. Clearwater can be installed All-in-One or in a scalable distributed way. The distributed way can scale out linearly. Additional sprout servers can be added based on the number of incoming connections, which is an application scaling method, or by CPU % which is more infrastructure related. The Clearwater architecture is depicted below. </p>
+
+<p><img alt="image" src="https://31.media.tumblr.com/872fa97f7e341d3859c93fcc74d3de43/tumblr_inline_ne9xa2o2am1sbbxfw.jpg" /></p>
+
+<p>&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160; <strong>Clearwater architecture</strong></p>
+
+<h3><strong>The Deployment and Orchestration Process</strong></h3>
+
+<p>The process of deployment and monitoring was done automatically. I described in a simple <a href="http://getcloudify.org/openstack-architecture-cloudify.html#TOSCA" target="_blank">TOSCA</a> like YAML file the application components and relationships. I created VMs for Bono, Sprout, Ellis, Homer, Homeastead and Ralf, as seen in the <a href="http://www.projectclearwater.org/technical/clearwater-architecture/" target="_blank">architecture diagram</a> above. I then deployed the application components using the Cloudify <a href="http://getcloudify.org/chef_cloud_configuration_management.html" target="_blank">Chef configuration management</a> plugin which automates the Chef process.&#160; The way this works, is the Chef client is installed automatically on each node and calls the relevant Chef roles and recipes. The whole process is automated, including the installation of a DNS server and the relationships between the nodes. </p>
+
+<p><img alt="image" src="https://31.media.tumblr.com/67684cab5981df0570ab96507c623ddf/tumblr_inline_ne9y0xduqK1sbbxfw.jpg" /></p>
+
+<p>&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160; Tosca like YAML configuration description</p>
+
+<p><img alt="image" src="https://31.media.tumblr.com/48cae15aefa0c974c03d08e99bd29694/tumblr_inline_ne9y5gPZmu1sbbxfw.jpg" /></p>
+
+<p>&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160; Node Orchestration and Dependencies Map</p>
+
+<p>We can see in the chart above a dependency map which is used by the Cloudify Orchestrator to bring up the right components in the right order and tie them together with adjacent components. TOSCA describes a lifecycle which can be applied to a node or relationship. For example, if the DNS depends on all nodes then when all nodes are created a function can be executed to populate the DNS zone with the IPs of the nodes. Cloudify has a set of various <a href="http://getcloudify.org/guide/3.0/guide-plugin-creation.html" target="_blank">plugins</a> and <a href="http://getcloudify.org/guide/3.0/guide-workflows.html" target="_blank">workflow management</a> which help to easily create this topology map and run day-to-day operations on it utilizing custom and built-in workflows, but that is in a different blog post. </p>
+
+<h3><strong>Public Cloud and Private Cloud</strong></h3>
+
+<p>I installed this on HP cloud, which is a public OpenStack cloud, as well as on our internal OpenStack lab environment. The process was similar: creating the VMs, attaching them to the right network, configuring the DNS, and bringing up all the nodes Bono, Ellis, Sprout, Ralf, Homer and Homestead. I had some issues with the DNS configuration, which I discovered utilizing TCPDUMP and WireShark for packet analysis and protocol decode of communications between the six Clearwater nodes. After fixing it everything ran smoothly. </p>
+
+<p><img alt="image" src="https://31.media.tumblr.com/e29e6488df52f41e9b23e3a2417c58e0/tumblr_inline_ne9zenb0JI1sbbxfw.jpg" /></p>
+
+<p>&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160; <strong>Clearwater servers on HP OpenStack Cloud</strong></p>
+
+<h3><strong>Monitoring KPIs, Auto-Scaling and Self-Healing</strong></h3>
+
+<p>To monitor the system activity and application status I used the collectors that come with Cloudify and enable me to hook in data from multiple data sources like CPU and system collector, SNMP, JMX, RabbitMQ and many others. It is based on the open source Diamond project. The metrics are kept in a metrics DB and I can apply various analytics on them. </p>
+
+<p><img alt="image" src="https://31.media.tumblr.com/c83dc78582772662aac8e979b060060b/tumblr_inline_ne9zum7TyF1sbbxfw.jpg" />&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160; <strong></strong></p>
+
+<h3><strong>Monitoring of Application and System KPIs</strong></h3>
+
+<p>You can see above a chart of SNMP and CPU statistics collected from Bono. At around 15:02 you can see a sharp CPU system time drop from 30% to almost zero. </p>
+
+<p><strong>Dashboards</strong>, several charts can be grouped together, and in this way, we can create a dashboard for an application role which views the application statistics; such as: how many calls are coming in, how many rejects, etc. we can define a dashboard for technical personnel that are responsible for triage, and call tracing.</p>
+
+<h3><strong>Auto-Scaling &amp; Self-Healing</strong></h3>
+
+<p>Based on a monitoring indicator or a group of indicators I can decide to add additional Sprout servers to support more connections, or to shutdown Sprout servers at times of lesser activity. This is called elastic scale-out.</p>
+
+<p>Monitoring an availability KPI, I can decide that anode is not responsive, bring up a new VM, provision the new VM with the failed node capabilities, and add the new node instead of the failed one. </p>
+
+<p>Ok, so that was Part I…I am now in the middle of these stages, and will update on progress with this in my next post…so stay tuned.&#160; It should be interesting.</p>
+
+</notextile>

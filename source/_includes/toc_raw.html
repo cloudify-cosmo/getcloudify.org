@@ -1,0 +1,24 @@
+<div class="leftContentBox">
+{% capture currentVersion %}{{ page.url | remove: "/guide/" | split:"/" | first }}{% endcapture %}
+   <h2 class="widgetheading">Cloudify {{currentVersion}}</h2>
+   <div class="clear"></div>
+   <div id="sidebar" class="list-group docMenu"> 
+	{% for category in site.categories %}		
+		<!--<h5 class="widgetheading">{{ category }}</h5>-->
+		<a href="#{{ category | replace:' ','_' }}" class="list-group-item titleHolder"  data-parent="#sidebar"><i class="icon-caret-right"></i>{{ category }}</a>
+		<div id="{{ category | replace:' ','_' }}" class="list-group subitem none" class="list-group-item"> 				 			
+			  {% for curPage in site.page_categories[category] %}				  
+				  {% if curPage.url contains currentVersion %}
+					<a class="list-group-item" href="{{curPage.url}}">{{curPage.title}}</a>							   
+				  {% endif %}			  
+			  {% endfor %}
+			  {% if category == "Reference" %}			  
+				  <a class="list-group-item" href="{{ site.baseurl }}/guide/{{currentVersion}}/api">Cloudify API Reference</a></li>				 
+				  <a class="list-group-item" href="{{ site.baseurl }}/guide/{{currentVersion}}/restapi/restdoclet.html">Rest API Reference</a>			 
+             {% endif %}			  
+		</div>
+       {% endfor %}		
+</div>
+</div>
+
+

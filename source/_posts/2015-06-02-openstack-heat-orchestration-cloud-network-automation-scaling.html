@@ -1,0 +1,513 @@
+---
+layout: blogpost
+title: Auto-Scaling your Apps with TOSCA & Cloudify - An Orchestration Tool Comparison Pt II of II
+image: elip.jpeg
+author: Eli Polonsky
+tags:
+ - OpenStack
+ - OpenStack Heat
+ - Network Orchestration
+ - TOSCA
+ - Cloud Automation
+---
+
+<notextile>
+<img src="http://getcloudify.org/img/blog/openstackheat.png" alt="OpenStack Vancouver Summit | Cloud Application Orchestration | OpenStack Heat | OpenStack Orchestration | Cloud Automation | Auto-Scaling">
+<br/>
+<br/>
+<p>This is the second part of our Orchestration tool comparison. You can find part I <a href="http://getcloudify.org/2015/05/20/openstack-summit-vancouver-cloud-network-orchestration-automation-heat-scaling.html" target="_blank">here</a>.</p>
+<p><i><b>PLEASE NOTE: This blog post does not offer a fully working example of auto-scaling with TOSCA & Cloudify, only a theoretical example of how it would work. We hope to have a working example in the near future.</b></i></p>
+<p style="line-height: 1.38; margin-top: 0pt; margin-bottom: 0pt;"
+ dir="ltr"><span
+ >This
+section assumes basic knowledge of Cloudify and </span><a
+ href="http://getcloudify.org/openstack-architecture-cloudify.html#TOSCA" target="_blank"
+ style="text-decoration: none;"><span
+ >TOSCA</span></a><span
+ >.
+If you don’t happen to have this knowledge, you can have a look at the
+following links to help you understand what they’re all about:</span></p>
+<br>
+<ul style="margin-top: 0pt; margin-bottom: 0pt;">
+  <li
+ 
+ dir="ltr">
+    <p
+ style="line-height: 1.38; margin-top: 0pt; margin-bottom: 0pt;"
+ dir="ltr"><a
+ href="https://www.oasis-open.org/committees/tosca/" target="_blank"
+ style="text-decoration: none;"><span
+ >TOSCA</span></a></p>
+  </li>
+  <li
+ 
+ dir="ltr">
+    <p
+ style="line-height: 1.38; margin-top: 0pt; margin-bottom: 0pt;"
+ dir="ltr"><a href="http://getcloudify.org/" target="_blank"
+ style="text-decoration: none;"><span
+ >Cloudify</span></a></p>
+  </li>
+</ul>
+<br>
+<p style="line-height: 1.38; margin-top: 0pt; margin-bottom: 0pt;"
+ dir="ltr"><span
+ >TOSCA
+is an evolving open standard for a templating language to orchestrate
+applications on the cloud. It is not bound to any specific cloud
+provider, and is in itself nothing but a templating language, with no
+engine to back it up. This is inherently different from </span><a
+ href="https://wiki.openstack.org/wiki/Heat" target="_blank"
+ style="text-decoration: none;"><span
+ >Heat</span></a><span
+ >,
+which provides both a templating language and the orchestration engine
+behind it.</span></p>
+
+<hr>
+
+<span class="pullquote-left">
+  <font style="font-weight: bold" size="5" face="Baskerville Old Face"><em>OpenStack Orchestration made easy with Cloudify. Get it now.</em></font>&nbsp; <a class="btn btn-medium btn-theme btn-rounded" id="downloadBtnInner" href="http://getcloudify.org/downloads/get_cloudify_3x.html" target="_blank"><i class="icon-plus"></i> Go </a></span>
+  
+<hr>
+
+<p style="line-height: 1.38; margin-top: 0pt; margin-bottom: 0pt;"
+ dir="ltr"><span
+ >So
+just for context, and for those who don’t know much about Cloudify, it
+is an orchestration engine that understands TOSCA templates and can
+interact with multiple cloud providers, and that is what we will be
+demonstrating in this section.</span></p>
+<br>
+<p style="line-height: 1.38; margin-top: 0pt; margin-bottom: 0pt;"
+ dir="ltr"><span
+ >The
+most important concept to understand about </span><a
+ href="http://docs.oasis-open.org/tosca/TOSCA/v1.0/os/TOSCA-v1.0-os.pdf" target="_blank"
+ style="text-decoration: none;"><span
+ >TOSCA
+templates</span></a><span
+ >
+is that every single entity in your application topology is a </span><span
+ >node_template</span><span
+ >, which is of a certain </span><span
+ >node_type</span><span
+ >, and has a </span><span
+ >lifecycle</span><span
+ >
+interface that exactly depicts how to manipulate, create, and delete
+the entity.</span></p>
+<p style="line-height: 1.38; margin-top: 0pt; margin-bottom: 0pt;"
+ dir="ltr"><span
+ >A
+</span><span
+ >node_template</span><span
+ >
+can be thought of as the equivalent to a </span><span
+ >resource</span><span
+ >
+and a </span><span
+ >node_type
+</span><span
+ > is
+equivalent to the various </span><a
+ href="http://docs.openstack.org/developer/heat/template_guide/openstack.html#" target="_blank"
+ style="text-decoration: none;"><span
+ >Heat
+Resource Types</span></a><span
+ >.
+The </span><span
+ >lifecycle</span><span
+ >
+interface however, does not have a correspondent concept. This fact
+will prove very important to us later on.</span></p>
+<br>
+<p style="line-height: 1.38; margin-top: 0pt; margin-bottom: 0pt;"
+ dir="ltr"><span
+ >So
+again, let’s dive right in to an example. We will try to adapt the same
+use case from before, auto-scaling a Wordpress server that connects to
+a static and shared MariaDB instance, to be written in </span><a
+ href="http://getcloudify.org/guide/3.2/dsl-spec-general.html" target="_blank"
+ style="text-decoration: none;"><span
+ >TOSCA</span></a><span
+ >
+and consumed by Cloudify.</span></p>
+<br>
+<script src="https://gist.github.com/shar1z/1e5f9500a80bc61461bd.js"></script>
+<p style="line-height: 1.38; margin-top: 0pt; margin-bottom: 0pt;"
+ dir="ltr"><span
+ >This
+is a definition of a </span><span
+ >node_template</span><span
+ >
+of the host that we want to install the MariaDB instance on. In TOSCA,
+each logical entity in the application should be modeled separately,
+with relationships tying these entities to one another. In order to
+install the MariaDB instance on this host, we define a new </span><span
+ >node_template</span>.</p>
+<br>
+<script src="https://gist.github.com/shar1z/2adde457dc6cd72ffd9c.js"></script>
+<p style="line-height: 1.38; margin-top: 0pt; margin-bottom: 0pt;"
+ dir="ltr"><span
+ >With
+Cloudify you don’t have to use </span><span
+ >user_data</span><span
+ >
+in order to install the software; instead, you break the installation
+process and the </span><span
+ >lifecycle</span><span
+ >
+interface hooks into different installation parts, with all the logic
+itself residing inside scripts. Notice the relationships section, which
+tells the db to be installed specifically on the db_host. Let’s move on
+to the Scaling related part.</span></p>
+<br>
+<p style="line-height: 1.38; margin-top: 0pt; margin-bottom: 0pt;"
+ dir="ltr"><span
+ >So
+like the previous post, I’ll recap, any auto-scaling process
+implementation should always answer three basic questions:</span></p>
+<br>
+<ol style="margin-top: 0pt; margin-bottom: 0pt;">
+  <li
+ 
+ dir="ltr">
+    <p
+ style="line-height: 1.38; margin-top: 0pt; margin-bottom: 0pt;"
+ dir="ltr"><span
+ >Which
+resource to scale?</span></p>
+  </li>
+  <li
+ 
+ dir="ltr">
+    <p
+ style="line-height: 1.38; margin-top: 0pt; margin-bottom: 0pt;"
+ dir="ltr"><span
+ >What
+does the scaling process do?</span></p>
+  </li>
+  <li
+ 
+ dir="ltr">
+    <p
+ style="line-height: 1.38; margin-top: 0pt; margin-bottom: 0pt;"
+ dir="ltr"><span
+ >When
+should the scaling process be triggered?</span></p>
+  </li>
+</ol>
+<br>
+<br>
+<h2>Q1: The Which</h2>
+<br>
+<script src="https://gist.github.com/shar1z/832914ea8e04279df970.js"></script>
+<p style="line-height: 1.38; margin-top: 0pt; margin-bottom: 0pt;"
+ dir="ltr"><span
+ >Here
+we defined a pretty cool </span><span
+ >node_template</span>.<span
+ >
+It is of type </span><span
+ >cloudify.nodes.openstack.Server</span><span
+ >,
+and it has some additional interfaces to give it monitoring
+capabilities. We can see that the </span><span
+ >cloudify.interfaces.monitoring_agent</span><span
+ >
+takes care of installing a monitoring agent called </span><a
+ href="http://getcloudify.org/guide/3.2/plugin-diamond.html" target="_blank"
+ style="text-decoration: none;"><span
+ >Diamond</span></a><span
+ >,
+and the </span><span
+ >cloudify.interfaces.monitoring</span><span
+ >
+configures the agent with various collectors that gather data from the
+host. Remember that with </span><a
+ href="http://getcloudify.org/openstack-architecture-cloudify.html#Heat" target="_blank"
+ style="text-decoration: none;"><span
+ >OpenStack
+Heat</span></a><span
+ >,
+all of this configuration is hidden from the user, but it also exists.
+Now let’s define the actual Wordpress application.</span></p>
+<br>
+<script src="https://gist.github.com/shar1z/c96619f0966dbf02eef0.js"></script>
+<p style="line-height: 1.38; margin-top: 0pt; margin-bottom: 0pt;"
+ dir="ltr"><span
+ >Notice
+that we are defining </span><span
+ >cloudify.interfaces.monitoring</span><span
+ >
+on this </span><span
+ >node_template
+</span><span
+ > as
+well, which tells the monitoring agent on the host to add an </span><a
+ href="https://github.com/python-diamond/Diamond/wiki/collectors-HttpdCollector" target="_blank"
+ style="text-decoration: none;"><span
+ >HttpdCollector</span></a><span
+ >,
+which is part of many </span><a
+ href="https://github.com/python-diamond/Diamond/wiki/Collectors" target="_blank"
+ style="text-decoration: none;"><span
+ >built-in
+collectors</span></a><span
+ >
+in </span><a href="https://github.com/BrightcoveOS/Diamond" target="_blank"
+ style="text-decoration: none;"><span
+ >Diamond</span></a><span
+ >.
+This is awesome, because we can later use these metrics to do some
+intelligent application specific scaling.</span></p>
+<br>
+<h2>Q2: The What</h2>
+<p style="line-height: 1.38; margin-top: 0pt; margin-bottom: 0pt;"
+ dir="ltr"><span
+ >Now
+we want to understand exactly what the scaling process will do. In
+Cloudify, every process is thought of as a </span><a
+ href="http://getcloudify.org/guide/3.2/guide-workflows.html" target="_blank"
+ style="text-decoration: none;"><span
+ >workflow</span></a><span
+ >
+(to learn more about this you can read this post “</span><a
+ href="http://getcloudify.org/2015/04/02/what-is-workflow-software-automation-engine-open-source.html" target="_blank"
+ style="text-decoration: none;"><span
+ >What
+is a Workflow?</span></a><span
+ >”),
+which is essentially an automation process algorithm. Each workflow is
+comprised of invocations to interface operations associated with a
+specific </span><span
+ >node_type</span><span
+ >.</span></p>
+<br>
+<p style="line-height: 1.38; margin-top: 0pt; margin-bottom: 0pt;"
+ dir="ltr"><span
+ >The
+workflow definition itself is part of the template:</span></p>
+<br>
+<script src="https://gist.github.com/shar1z/6f09ad60f4884b95e13b.js"></script>
+<p style="line-height: 1.38; margin-top: 0pt; margin-bottom: 0pt;"
+ dir="ltr"><span
+ >And
+the workflow code is a python method written with the </span><a
+ href="http://getcloudify.org/guide/3.2/guide-authoring-workflows.html" target="_blank"
+ style="text-decoration: none;"><span
+ >Cloudify
+Workflow API</span></a><span
+ >.</span></p>
+<p style="line-height: 1.38; margin-top: 0pt; margin-bottom: 0pt;"
+ dir="ltr"><span
+ ><br>Let's
+see a small snippet:</span></p>
+<br>
+<script src="https://gist.github.com/shar1z/837e150605fa7ec4e364.js"></script>
+<p style="line-height: 1.38; margin-top: 0pt; margin-bottom: 0pt;"
+ dir="ltr"><span
+ >Remember
+that every </span><span
+ >node_template</span><span
+ >
+implements the lifecycle operations differently, and these are what
+embody the difference between scaling a MariaDB instance or a Wordpress
+instance. But the process remains the same. Also, because this is all
+part of the template itself, and not part of the </span><a
+ href="http://getcloudify.org/2015/04/17/open-source-docker-orchestration-automation-management-workflow-engine-software.html" target="_blank"
+ style="text-decoration: none;"><span
+ >workflow
+engine</span></a><span
+ >,
+a user can customize this process how ever he sees fit. </span></p>
+<br>
+<h2>Q3: The When</h2>
+<p style="line-height: 1.38; margin-top: 0pt; margin-bottom: 0pt;"
+ dir="ltr"><span
+ >This
+part is what TOSCA defines as </span><span
+ >Groups
+</span><span
+ >and
+</span><span
+ >Policies</span><span
+ >.
+However, as of writing this post, policies haven’t yet really been
+fully designed. Cloudify has its own version of this, which might find
+its way to the official spec eventually, but for now, this is how it
+looks:</span></p>
+<br>
+<script src="https://gist.github.com/shar1z/c7d15a46b3308591c783.js"></script>
+<p style="line-height: 1.38; margin-top: 0pt; margin-bottom: 0pt;"
+ dir="ltr"><span
+ >Let’s
+break down the elements to understand what’s going on. </span></p>
+<br>
+<p style="line-height: 1.38; margin-top: 0pt; margin-bottom: 0pt;"
+ dir="ltr"><span
+ >For
+the most part, we can see that the terms used here are relatively
+familiar to us. We have a group called </span><span
+ >autoscaling_group</span><span
+ > that
+defines in its </span><span
+ >members</span><span
+ >
+which nodes will be considered for examination. Notice that we are
+specifying the </span><span
+ >wordpress</span><span
+ >
+</span><span
+ >node_type</span>,<span
+ >
+and not the </span><span
+ >wordpress_host</span>,<span
+ > since we are interested in metrics that are specific to the application, not the host. </span></p>
+<br>
+<p style="line-height: 1.38; margin-top: 0pt; margin-bottom: 0pt;"
+ dir="ltr"><span
+ >We
+also define the </span><span
+ >scaleup_one_instance</span><span
+ > policy, which instructs the Cloudify engine to trigger some action once
+the </span><span
+ >ReqPerSec</span><span
+ >
+metric value is above the 1000 threshold for a measurement period of at
+least 60 seconds. It is clearly shown what sort of action the engine
+will take. This is encapsulated in the </span><span
+ >triggers</span><span
+ >
+section of the </span><span
+ >scaleup_one_instance
+</span><span
+ >policy,
+which declares that the </span><span
+ >scale</span><span
+ >
+workflow should be executed with the given parameters, and in our case,
+these parameters are telling the engine to add an additional </span><span
+ <span
+ >wordpress_host</span><span
+ >
+</span><span
+ >instance.</span></p>
+<br>
+<p style="line-height: 1.38; margin-top: 0pt; margin-bottom: 0pt;"
+ dir="ltr"><span
+ >On
+the backend side of Cloudify, all of the metrics are stored in a time
+series metric database called </span><a
+ href="http://influxdb.com/" style="text-decoration: none;" target="_blank"><span
+ >InfluxDB</span></a><span
+ >,
+which can be easily queried. Cloudify also provides a very elegant </span><a
+ href="https://github.com/cloudify-cosmo/cloudify-rest-client" target="_blank"
+ style="text-decoration: none;"><span
+ >python
+rest client</span></a><span
+ >.
+With this client you can very easily trigger any kind of workflow you
+like:</span></p>
+<br>
+<script src="https://gist.github.com/shar1z/4747f9434543e2ca922f.js"></script>
+<p style="line-height: 1.38; margin-top: 0pt; margin-bottom: 0pt;"
+ dir="ltr"><span
+ >This
+is of course also available via </span><a
+ href="http://getcloudify.org/guide/3.2/reference-rest-client-api.html" target="_blank"
+ style="text-decoration: none;"><span
+ >REST
+API</span></a><span
+ >.
+This means that if a curtain calculation is needed upon which scaling
+should be made, and they are not exposed in the policies, it should be
+fairly easy to implement this separately.</span></p>
+<br>
+<h2>Summary</h2>
+<p style="line-height: 1.38; margin-top: 0pt; margin-bottom: 0pt;"
+ dir="ltr"><span
+ >So,
+what did we learn from all of this? The purpose of this post series was
+to understand how one can perform automatic scaling on OpenStack, as
+well as understand the current gaps in the implementations, and see
+what can be improved.</span></p>
+<br>
+<p style="line-height: 1.38; margin-top: 0pt; margin-bottom: 0pt;"
+ dir="ltr"><span
+ >We
+saw two different methods, and I think that it is a fair bet to say
+that you won’t find any good tools out there that do this in a
+completely different manner. So it’s safe to say, that what we just saw
+covers pretty much all there currently is.</span></p>
+<br>
+<p style="line-height: 1.38; margin-top: 0pt; margin-bottom: 0pt;"
+ dir="ltr"><span
+ >The
+first method was done using the native </span><a
+ href="http://getcloudify.org/openstack-architecture-cloudify.html" target="_blank"
+ style="text-decoration: none;"><span
+ >OpenStack
+orchestration</span></a><span
+ >
+tool, aka, Heat. I think that Heat does a very good job with regards to
+what Heat was initially built for, which is orchestrating OpenStack
+infrastructure resources. It still feels like they don’t really live
+and breathe application orchestration, which makes it difficult to
+manage and scale applications, not just infrastructure. The fact that
+the scaling process is hard-coded inside the engine might prove to be a
+serious limitation for complex use cases, but is actually an advantage
+for the most common ones. </span></p>
+<br>
+<p style="line-height: 1.38; margin-top: 0pt; margin-bottom: 0pt;"
+ dir="ltr"><span
+ >The
+second way was by using an </span><a
+ href="http://getcloudify.org/" style="text-decoration: none;" target="_blank"><span
+ >open
+source orchestration</span></a><span
+ >
+engine called Cloudify, which adheres to the TOSCA open standard. Using
+this tool gives you more native integration with applications of
+various sorts, but less integration with OpenStack resources. You might
+find that some resource types are not yet supported, but overall it has
+very good coverage of the </span><a
+ href="https://github.com/cloudify-cosmo/cloudify-openstack-plugin/blob/master/plugin.yaml" target="_blank"
+ style="text-decoration: none;"><span
+ >OpenStack
+API</span></a><span
+ >.
+Using Cloudify, you have full control over the scaling process. You can
+extend and modify the built-in workflow to suit your specific needs,
+which is a great ability to have. </span></p>
+<br>
+<p style="line-height: 1.38; margin-top: 0pt; margin-bottom: 0pt;"
+ dir="ltr"><span
+ >Granted,
+this will require some python coding at the moment, but plans are being
+made to make this workflow composition completely declarative. Another
+thing worth mentioning, is the fact that Cloudify is completely cloud
+agnostic, it does not rely on built-in type definition or monitoring
+capabilities of a specific cloud provider. This is as a direct result
+from using a standard like TOSCA, which makes all of it possible using
+the concept of a </span><span
+ >lifecycle
+</span><span
+ >interface.
+This means that you can take you Cloudify installation and templates,
+and migrate or extend your workload to a different cloud provider with
+no changes to the scaling-related aspects of the template. </span></p>
+<br>
+<span
+ >I
+hope this gives you fairly extensive coverage of the options
+out there. Eventually, you will have to think carefully about your use
+case and choose the approach that best fits what you’re looking to
+achieve. That said, regardless of what that is, you will most
+likely find a solution, which is very good news.</span></b>
+</body>
+</html>
+
+</notextile>

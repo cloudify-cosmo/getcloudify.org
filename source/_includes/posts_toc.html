@@ -1,0 +1,47 @@
+<!--Event groups-->
+<!--<div class="leftContentBox blogLeft-topTitle">
+
+
+	<h3>Recent Posts</h3>
+</div>
+
+
+<div class="leftContentBox blogLeftBox"> 
+ {% for post in site.posts limit:3 %}  
+	<a href="{{ post.url }}">{{ post.title }} 
+	 <img class="noMargin" src="{{ site.baseurl }}/images/arrow-right-blue.png" /></a><br />
+	<span class="date">{{ post.date | date: '%B' }} {{ post.date | date: '%e' }}, {{ post.date | date: '%Y' }}</span>  
+	<br/><br/>
+{% endfor %}		
+</div>
+-->
+
+
+<hr/>
+<a class="btn btn-large btn-theme btn-rounded" id="downloadBtnTOC" href="http://getcloudify.org/downloads/get_cloudify_3x.html" target="_blank"><i class="icon-plus"></i> Get Cloudify </a></span>
+  <br/>
+  <hr/>
+
+
+{% include tumblr.html %}
+
+<hr/>
+<br/>
+<p><strong>Where to Follow Us</strong></p>
+ <!-- Go to www.addthis.com/dashboard to customize your tools -->
+<div class="addthis_vertical_follow_toolbox"></div>
+<br/>
+<hr/>
+
+<!-- Go to www.addthis.com/dashboard to customize your tools -->
+<script type="text/javascript" src="//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-536b49f755961db3"></script>
+
+<div class="leftContentBox blogLeft-topTitle">
+	<h3>Archived Posts</h3>
+</div>
+
+ <ul class="blog-archive-list">
+ {% assign posts_collate = site.posts %}
+ {% include posts_months.html %}
+ </ul>
+ 

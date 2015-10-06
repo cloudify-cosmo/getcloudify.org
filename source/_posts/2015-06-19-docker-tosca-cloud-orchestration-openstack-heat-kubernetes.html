@@ -1,0 +1,164 @@
+---
+layout: blogpost
+title:  Simple TOSCA Orchestration for Docker
+image: nati.png
+author: Nati Shalom
+tags:
+ - Docker
+ - Cloud Orchestration
+ - Docker Orchestration
+ - TOSCA
+ - OpenStack Heat
+---
+
+<notextile>
+
+<div class="aligncenter">
+<img src="/img/docker_orchestration.png" alt="Docker Orchestration | Docker | Open Source | Docker Tutorial | TOSCA Orchestration | OpenStack | Kubernetes | Docker Swarm" width="870px"></div>
+<br/>
+<br/>
+
+<hr><h2>This post was originally published on <strong><a href="http://www.infoq.com/articles/tosca-docker-orchestration" target="_blank">InfoQ.com</a></strong> in February 2015.</h2><hr>
+
+<h2>Mapping the Current Docker Orchestration Landscape</h2>
+
+<p>Following this interesting post on <a href="http://getcloudify.org/2014/11/23/docker-containers-docker-cloud-management.html">Docker orchestration</a> and why you need it &ndash; the basic premise is that orchestration plays the role of timing container creation based on application and tier dependencies, as well as enables the containers to communicate with one another and pass runtime properties to each other &ndash; I&rsquo;d like to take an even deeper dive on this idea in this post.</p>
+
+<p>It&rsquo;s no news that containers represent a portable unit of deployment; however, where it usually becomes more complex is that many times an application is often built out of multiple containers. What&rsquo;s more, setting up a cluster of Docker images can be fairly cumbersome because you need to make one container aware of another and expose intimate details that are required for them to communicate. This is not trivial especially if the containers are not on the same host. For example, think about setting up a Mongo or Cassandra cluster out of Docker containers; you need to know which port to expose, what volumes to mount, and other complexities involved with setting up a clustered container environment.</p>
+
+<hr>
+
+<span class="pullquote-left">
+  <font style="font-weight: bold" size="5" face="Baskerville Old Face"><em>Get Cloudify - The Pure-Play, TOSCA-based Docker Orchestrator.</em></font>&nbsp; <a class="btn btn-medium btn-theme btn-rounded" id="downloadBtnInner" href="http://getcloudify.org/downloads/get_cloudify_3x.html" target="_blank"><i class="icon-plus"></i> Go </a></span>
+  
+  <hr>
+
+<p>These scenarios have instigated the demand for some kind of orchestrator. The list of container orchestrators is growing fairly fast, as noted in this <a href="http://opensource.com/business/14/12/containers-microservices-and-orchestrating-whole-symphony">excellent post</a> on Docker containers + microservices, also referenced in this <a href="http://www.infoq.com/news/2014/12/microservices-docker">InfoQ article</a>. I&#39;ve listed just some of the known names in this category (obviously there are many more).</p>
+
+<ul>
+  <li><a href="http://kubernetes.io/">Kubernetes</a> - An open source tool from Google for orchestrating Docker containers, specifically designed around orchestration of microservices.</li>
+  <li><a href="https://github.com/coreos/fleet">Fleet</a> - CoreOS Docker orchestration designed for installing containers on CoreOS</li>
+  <li>Docker - Docker <a href="http://blog.docker.com/2014/12/announcing-docker-machine-swarm-and-compose-for-orchestrating-distributed-apps/">recently announced</a> Docker Swarm and Compose - Docker orchestration service designed to run Docker clusters.</li>
+</ul>
+
+<p>In addition to this, CoreOS recently announced <a href="https://coreos.com/blog/rocket/">Rocket</a>, an alternative container format so it would be interesting to see how this will impact the orchestration landscape.</p>
+
+<h2>The Need for a Pure-Play Orchestration Specification</h2>
+
+<p>We often use shipping containers to describe the role of software containers as a standard packaging unit. Shipping containers are a great example of the benefit of standardization. Without standard containers, the world of shipping goods would have looked completely different than it does today. As with shipping containers, it doesn&rsquo;t make sense that the actual specification of the shape, size and assembly of containers would belong to a single container manufacturer. As with shipping containers it is very likely that we will have more than one container manufacturer. The recent Rocket announcement by CoreOS is just a first sign in this direction.</p>
+
+<h2>TOSCA to the Rescue</h2>
+
+<p><a href="https://en.wikipedia.org/wiki/OASIS_TOSCA">TOSCA</a> (Topology Orchestration Specification for Cloud Applications) is governed by the OASIS organization (those who brought you XML). <a href="http://getcloudify.org/2014/12/21/oasis-TOSCA-cloud-openstack-heat-orchestration-spec.html">TOSCA orchestration</a> is already fairly mature, with a proven track record and speed of development, and many organizations are betting on and contributing to its success. TOSCA is now beyond its second major revision, has been around for a couple of years now, and is gaining traction in both commercial and open source projects such as: Juju, Cloudify, IBM Cloud Orchestrator, OpenStack Heat. It&rsquo;s also being adopted by leading Telco vendors such as Alcatel-Lucent, Huawei, and Cisco.</p>
+          
+          
+<p>The fact that TOSCA is backed by a standards body (OASIS) makes it a great platform for defining a standard container orchestration specification that is portable across various cloud environments and container providers.</p>
+
+<p>In this post I wanted to provide an example that illustrates how easy it is to map the current Docker API specification into a portable TOSCA specification, thus providing an intuitive way to declaratively describe complex Docker-based application topologies.</p>
+
+<h2>TOSCA Blueprint for Docker</h2>
+
+<p>To make the initial mapping process simple we used the <a href="https://github.com/docker/docker-py">docker</a><a href="https://github.com/docker/docker-py">-py</a><a href="https://github.com/docker/docker-py"> python client</a> as the basis for the proposal below.</p>
+
+<p>The following is a snippet from a TOSCA blueprint describing a Docker-based MongoDB server which is part of a larger application topology. The mapping is YAML-based, as per the latest <a href="http://docs.oasis-open.org/tosca/TOSCA-Simple-Profile-YAML/v1.0/TOSCA-Simple-Profile-YAML-v1.0.html">TOSCA specification</a>, and a suggested modeling tool for <a href="http://getcloudify.org/guide/3.2/plugin-docker.html">Docker containers</a> using TOSCA.</p>
+
+<pre>
+<code>mongod:
+    type: docker_container
+    properties: 
+      image: dockerfile/mongodb        
+      command: mongod --rest --httpinterface --smallfiles      
+      exported_ports:
+        - 27017
+        - 28017
+      port_bindings: 
+        - 27017: 27017
+        - 28017: 28017  
+     volumes: 
+         - ~/my-host-dir, container-dir, rw
+</code></pre>
+
+<p>The TOSCA format is very similar to other kinds of dependency injection, with the main difference being that it is based on YAML and it&rsquo;s more specific to the orchestration domain. As such, it also includes definitions of lifecycles, relationships, policies and plans that also describe the operational aspect of the application services.</p>
+
+<h2>Running a Simple Docker Example with TOSCA</h2>
+
+<p>To get a feel of how TOSCA-based orchestration works, I will use a simple TOSCA command line parser provided through <a href="http://getcloudify.org/">Cloudify</a>, an open source orchestration tool.</p>
+
+<p>We will use the <a href="https://github.com/cloudify-cosmo/cloudify-nodecellar-docker-example">nodecellar application</a> based on a NodeJS as the web app, backed by MongoDB as the database. Each of these services will run on an independent Docker container as illustrated in the diagram below.</p>
+
+<p>The <a href="https://github.com/cloudify-cosmo/cloudify-nodecellar-docker-example/blob/master/blueprint/docker-singlehost-blueprint.yaml">nodecellar TOSCA blueprint</a> will also take care of downloading the Docker images from DockerHub and later reuse them for subsequent installation/uninstallation. This will allow us to spawn the entire application in roughly 10 seconds!</p>
+
+<p class="aligncenter"><img alt="" src="http://cdn.infoq.com/statics_s1_20150616-0050/resource/articles/tosca-docker-orchestration/en/resources/2fig1.png" style="width: 517px; height: 309px;" /></p>
+
+<h2>Step-by-step Guide for Running the Example</h2>
+
+<p>The example was tested on Ubuntu (precise) 12.04 as the underlying operating system. The example comes with two blueprint implementations. One for <a href="https://github.com/cloudify-cosmo/cloudify-nodecellar-docker-example/blob/master/blueprint/docker-singlehost-blueprint.yaml">single host</a> deployments and the other for <a href="https://github.com/cloudify-cosmo/cloudify-nodecellar-docker-example/blob/master/blueprint/docker-openstack-blueprint.yaml">cluster deployments on OpenStack</a>. For the sake of simplicity, in this post I chose to focus on the single host example.</p>
+
+<p>To run the example follow these steps</p>
+
+<table border="1" cellpadding="0" cellspacing="0">
+  <tbody>
+    <tr>
+      <td valign="top" width="275"><small><b>Setting Up the Environment</b></small></td>
+      <td valign="top" width="475">&nbsp;</td>
+    </tr>
+    <tr>
+      <td valign="top" width="275"><small>Install Docker</small></td>
+      <td valign="top" width="475"><small>&gt; curl -sSL https://get.docker.com/ubuntu/ | sudo sh<br />
+      Check the installation with this command:<br />
+      &gt; sudo docker ps</small></td>
+    </tr>
+    <tr>
+      <td valign="top" width="275"><small>Install Cloudify</small></td>
+      <td valign="top" width="475"><small>&gt; pip install cloudify<br />
+      Check the installation with this command<br />
+      &gt; cfy --version<br />
+      You can also use vagrant-box to get a pre-configured cloudify image or use other installation options as outlined <a href="http://getcloudify.org/guide/3.1/quickstart.html">here</a></small></td>
+    </tr>
+    <tr>
+      <td valign="top" width="275"><small><b>Setup the TOSCA/Docker Example</b></small></td>
+      <td valign="top" width="475">&nbsp;</td>
+    </tr>
+    <tr>
+      <td valign="top" width="275"><small>Download the example</small></td>
+      <td valign="top" width="475"><small>Download and unzip the example from <a href="https://github.com/cloudify-cosmo/cloudify-nodecellar-docker-example/archive/3.1.zip">this link</a></small></td>
+    </tr>
+    <tr>
+      <td valign="top" width="275"><small>Set the current TOSCA blueprint to point to the example blueprint file</small></td>
+      <td valign="top" width="475"><small>&gt;cfy local init -p blueprint/docker-singlehost-blueprint.yaml -i blueprint/cfy-local-inputs.json --install-plugins</small></td>
+    </tr>
+    <tr>
+      <td valign="top" width="275"><small>Execute the install workflow</small></td>
+      <td valign="top" width="475"><small>&gt;sudo cfy local execute -w install<br />
+      This command will execute the install workflow on the blueprint that was set in the previous step.<br />
+      The install/uninstall workflow is one of the implicit workflows that is available with every blueprint. The install workflow walks through the TOSCA dependency graph and executes the lifecycle commands of each node based on the order specified in the relationship and dependency definition. Similarly the uninstall workflow does the reverse operation.<br />
+      In this specific blueprint, we will download the docker images on the first run (this may take a few minutes), run two docker instances, one for the mongod instance and the other for the nodejs instance and install the application and the database on those instances respectively.</small></td>
+    </tr>
+    <tr>
+      <td valign="top" width="275"><small>Check the output</small></td>
+      <td valign="top" width="475"><small>&gt; cfy local outputs<br />
+      The output should print the host:port of the nodecellar application</small></td>
+    </tr>
+    <tr>
+      <td valign="top" width="275"><small>Open the application</small></td>
+      <td valign="top" width="475"><small>Open the following link on your browser based on the hostname and port from the previous step:<br />
+      <a href="http://localhost:8080">http</a><a href="http://localhost:8080">:</a><a href="http://localhost:8080">//&lt;output host name&gt;:</a><u>&lt;output port&gt;</u><br />
+      Note that if you&#39;re running on a vagrant-box you should replace the default value for the host_ip attribute from &lsquo;localhost&rsquo; to the host-ip of the vagrant vm</small></td>
+    </tr>
+  </tbody>
+</table>
+
+<h2>Final Notes</h2>
+
+<p>With the current pace of IT infrastructure evolution, we need to assume that it is likely that we will continue to have more than one container provider and orchestration engine. With this in mind, it only makes sense that the specification for the way we define and manage containers clusters will be standardized and supported by more than one container or orchestration provider. Otherwise the entire promise of containers as a portable &ldquo;shipping&rdquo; unit becomes questionable.</p>
+
+<p>In addition, we need to assume that for many organizations it would be unrealistic to expect that all of their workloads would be running within containers. It is more likely to assume that they will be running a mixed workload. Having a separate orchestration engine per workload type could easily become an operational nightmare. This is another reason for having a more independent orchestration engine that can support not just different containers, but also a mixed environments that include non-containerized services based on Chef, Puppet, SaltStack, et al.</p>
+
+<p>TOSCA is currently fairly advanced in its specification for orchestration which makes it an ideal candidate for becoming the standard blueprint definition for containers.</p>
+
+<p>Having a standard orchestration format isn&rsquo;t the only consideration for choosing TOSCA. Unlike most of the current container-based orchestrators that deal almost exclusively with the initial setup and installation stage, TOSCA covers the entire application lifecycle, including post-deployment aspects such as monitoring, additional workflows (continuous deployment, scaling out, remediation), and policies to automatically trigger some of these workflows. Thus providing a more holistic orchestration definition.</p>
+
+<p>The purpose of this exercise was to illustrate how simple it is to orchestrate Docker workloads using standard TOSCA YAML. I hope that this post will provide a good basis for discussion and brainstorming with the community.</p>
+
+
+  </notextile>
