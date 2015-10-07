@@ -17,19 +17,27 @@
     padding-right: 10px;
 }
 
+.bl-catalog hr {
+    clear: both;
+}
+
+.bl-catalog .versions-list {
+    float: left;
+}
+
 .bl-catalog .action-links {
     float: right;
 }
 
-.bl-catalog .to-list {
-    float: left;
-}
-
 .bl-catalog .to-list:before {
-    content: '\3008';
+    content: '\227A';
 }
 
-.bl-catalog .upload-backdrop {
+.bl-catalog .versions-list .version-selected {
+    background-color: #337ab7;
+}
+
+.bl-catalog .modal-backdrop {
     position: fixed;
     top: 0;
     right: 0;
@@ -40,37 +48,52 @@
     background-color: #000;
 }
 
-.bl-catalog .upload-popup {
+.bl-catalog .modal {
+    display: inherit;
     position: fixed;
     top: 30px;
-    left: 0;
-    right: 0;
+    left: 50%;
     width: 400px;
-    margin: auto;
+    margin-left: -200px;
     z-index: 3001;
-    background-color: #fff;
-    border-radius: 3px;
-    padding: 10px 15px;
-    overflow: hidden;
 }
 
-.bl-catalog .upload-popup .close-popup {
+.bl-catalog .modal-dialog {
+    background-color: #fff;
+    overflow: hidden;
+    width: 100%;
+}
+
+.bl-catalog .modal-dialog .modal-content {
+    padding: 0 10px 10px;
+}
+
+.bl-catalog .modal-dialog .modal-content.no-header {
+    padding-top: 10px;
+}
+
+.bl-catalog .modal-dialog .modal-header {
+    border-bottom: none;
+    padding: 13px 0;
+}
+
+.bl-catalog .modal-dialog .close-popup {
     float: right;
 }
 
-.bl-catalog .upload-popup .upload-content form label {
+.bl-catalog .modal-dialog .modal-body form label {
     display: block;
 }
 
-.bl-catalog .upload-popup .upload-content form select {
+.bl-catalog .modal-dialog .modal-body form select {
     width: 314px;
 }
 
-.bl-catalog .upload-popup .upload-content form input {
+.bl-catalog .modal-dialog .modal-body form input {
     width: 300px;
 }
 
-.bl-catalog .upload-popup .upload-content .alert {
+.bl-catalog .modal-dialog .modal-body .alert {
     overflow-y: auto;
     overflow-x: hidden;
     max-height: 150px;
