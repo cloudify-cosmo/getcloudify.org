@@ -64,13 +64,12 @@
                 <li><a href ng-click="showUpload(currentRepo);">Upload to Manager</a></li>
             </ul>
             <div class="versions-list" ng-hide="githubLimit">
-                <label>Branches & Tags:</label>
-                <ul>
-                    <li ng-repeat="v in currentRepo.versionsList" ng-switch="v.name === currentRepo.currentVersion.name">
-                        <span ng-switch-when="true" class="label version-selected">{{v.name}}</span>
-                        <a ng-click="switchVersion(v);" href ng-switch-when="false" class="label version">{{v.name}}</a>
-                    </li>
-                </ul>
+                <label>
+                    Branches & Tags:
+                    <select ng-model="currentRepo.currentVersion" ng-change="switchVersion(currentRepo.currentVersion);"
+                            ng-options="v as v.name for v in currentRepo.versionsList" required>
+                    </select>
+                </label>
             </div>
         </div>
 
