@@ -8,9 +8,10 @@
 
     var blueprintRegex = /blueprint.yaml$/i;
 
-    var githubQuery = '/search/repositories?q=*-example+user:cloudify-examples';
+    var githubQuery = '/search/repositories?q=repo:*-example+user:cloudify-examples';
     var defaultVersion = '';
-    var blueprintsEndpoint = '';
+    var catalogDefaultManager = '';
+    var catalogCorsProxy = '';
 
     var __scope;
 
@@ -24,7 +25,8 @@
                     listTitle: '@catalogListTitle',
                     listDescription: '@catalogListDescription',
                     backText: '@catalogBackText',
-                    blueprintsEndpoint: '@catalogDefaultManager',
+                    catalogDefaultManager: '@catalogDefaultManager',
+                    catalogCorsProxy: '@catalogCorsProxy',
                     defaultVersion: '@catalogDefaultVersion'
                 },
                 templateUrl: 'blueprinting_catalog_widget_tpl.html',
@@ -39,8 +41,11 @@
                     if ($scope.defaultVersion) {
                         defaultVersion = $scope.defaultVersion;
                     }
-                    if ($scope.blueprintsEndpoint) {
-                        blueprintsEndpoint = $scope.blueprintsEndpoint;
+                    if ($scope.catalogDefaultManager) {
+                        catalogDefaultManager = $scope.catalogDefaultManager;
+                    }
+                    if ($scope.catalogCorsProxy) {
+                        catalogCorsProxy = $scope.catalogCorsProxy;
                     }
 
                     $scope.loading = true;
@@ -83,7 +88,7 @@
                             }
                         });
 
-                        $scope.managerEndpoint = blueprintsEndpoint;
+                        $scope.managerEndpoint = catalogDefaultManager;
                         $scope.blueprint = {
                             id: repo.name
                         };
@@ -117,6 +122,8 @@
                                 .then(function () {
                                     $scope.uploadRepo = undefined;
                                 }, function (response) {
+                                    $log.debug(LOG_TAG, 'upload failed', response);
+
                                     $scope.error = CatalogHelper.getErrorFromResponse(response);
                                 })
                                 .finally(function () {
@@ -259,7 +266,7 @@
 
         return {
             upload: function doUpload(endpoint, blueprint) {
-                var queryParams = [], query;
+                var queryParams = [], query, url;
                 if (blueprint.path) {
                     queryParams.push('application_file_name=' + encodeURIComponent(blueprint.path));
                 }
@@ -267,11 +274,23 @@
                     queryParams.push('blueprint_archive_url=' + encodeURIComponent(blueprint.url));
                 }
                 query = queryParams.length ? ('?' + queryParams.join('&')) : '';
+                url = endpoint + '/blueprints/' + encodeURIComponent(blueprint.id) + query;
 
-                return $http({
-                    method: 'PUT',
-                    url: endpoint + '/blueprints/' + encodeURIComponent(blueprint.id) + query
-                });
+                if (catalogCorsProxy) {
+                    return $http({
+                        method: 'POST',
+                        url: catalogCorsProxy,
+                        data: {
+                            method: 'PUT',
+                            url: url
+                        }
+                    });
+                } else {
+                    return $http({
+                        method: 'PUT',
+                        url: url
+                    });
+                }
             }
         };
     }]);

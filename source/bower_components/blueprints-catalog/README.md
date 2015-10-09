@@ -36,8 +36,9 @@ Add the following markup to the your page to initialize widget (add the `ng-app=
     data-catalog-list-title="Cloudify Examples"
     data-catalog-back-text="back"
     data-catalog-list-description='These are example blueprint archives that are ready to deploy. Click on "Upload to Manager" to publish to an existing manager and create a deployment now, or you can download and customize to your needs. Click on the "Source" to see the source at GitHub. Click on the name of the blueprint for more information about what it does.'
-    data-catalog-github-query="/search/repositories?q=*-example+user:cloudify-examples"
+    data-catalog-github-query="/search/repositories?q=repo:*-example+user:cloudify-examples"
     data-catalog-default-manager="https://getcloudify.org"
+    data-catalog-cors-proxy="https://example-example"
     data-catalog-default-version="master">
 </div>
 ```
@@ -47,11 +48,24 @@ The following options are supported:
 
 `data-catalog-list-description` - Defines the description under the title (_Default:_ `none`)
 
-`data-catalog-back-text` - Defines the title of the back link on the details view (_Default:_ `'back'`)
+`data-catalog-back-text` - Defines the title of the back link on the details view (_Default:_ `none`)
 
-`data-catalog-github-query` - Defines the github search query to be used to retrieve the repositories list (_Default:_ `'/search/repositories?q=*-example+user:cloudify-cosmo'`)
+`data-catalog-github-query` - Defines the github search query to be used to retrieve the repositories list (_Default:_ `'/search/repositories?q=repo:*-example+user:cloudify-cosmo'`)
 
-`data-catalog-default-manager` - Defines the default value for "Manager Endpoint" field (_Default:_ `''`)
+`data-catalog-default-manager` - Defines the default value for "Manager Endpoint" field (_Default:_ `none`)
+
+`data-catalog-cors-proxy` - Define proxy which should be used to upload blueprint to user-provided manager endpoint. (_Default:_ `none`)
+__Note:__ the proxy is used to allow user to upload blueprints to the manager endpoints which do not support [CORS](https://developer.mozilla.org/en-US/docs/Web/HTTP/Access_control_CORS).
+The proxy server should accept POST requests with the following json body:
+
+```json
+{
+    "method": "PUT",
+    "url": "http://cloudify-manager-api/blueprints/new"
+}
+```
+
+It should sent the request to the provided url and respond with any success status (e.g. 200) in case of success or any error status (e.g. 400) and error message in the body in case of failure.
 
 `data-catalog-default-version` - Defines the default selected branch / tag (_Default:_ `repository's default branch`)
 
