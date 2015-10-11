@@ -4,55 +4,48 @@ title: Cloudify Roadmap - Features & Bug Fixes
 category: Roadmap
 ---
 
-h1. *Cloudify Roadmap | Version 3.2*
+h1. *Cloudify Roadmap | Version 3.3*
 
-h2. Target Date: Q2 2015
+h2. Target Date: Q4 2015
 
 h1. <i class="icon-star"></i> *Features*
 
-h2. <i class="icon-star-empty"></i> *Manager data persistency to external volume*
+h2. <i class="icon-star-empty"></i> *Manager and Agents Offline Installation*
 
-The Cloudify manager state will be persisted to a file system on an external volume in order to ensure more robust data persistency.
-
-
-h2. <i class="icon-star-empty"></i> *Manager recovery from external volume*
-
-This will enable recovery from crashes, restarts, and open the door for automated upgrades.
-
-h2. <i class="icon-star-empty"></i> *IPv6 support*
-
-IPv6 is much required in the Telecom vertical, and this will further enable NFV functionality.
-
-h2. <i class="icon-star-empty"></i> *Autoscale*
-
-Moving forward from the APIs introduced in 3.1 to policies and workflows, with some additions to the manager core.
-
-h2. <i class="icon-star-empty"></i> *vCloud Support*
-
-3.2 will introduce support for the creation of virtual machines, network settings, and storage over vCloud.
-
-h2. <i class="icon-star-empty"></i> *SoftLayer Support*
-
- In addition, 3.2 will also introduce support for IBM's SoftLayer IaaS, enabling orchestration from the infrastructure through the application level.
-
-h2. <i class="icon-star-empty"></i> *Docker Plugin*
-
-The GA of the much-discussed and needed Docker plugin will be available in this version.
-
-h2. <i class="icon-star-empty"></i> *Security*
-
-3.2 will bring with it enhanced security features including REST API authentication vs. LDAP and encryption between the CLI and manager.
-
-h2. <i class="icon-star-empty"></i> *GUI*
-
-This version will bring with it some GUI enhancements including an improved view for logs, as well as some UX improvements, so stay tuned.
+Cloudify Manager and agents are shipped and can be installed from a local repository without internet connection.
 
 
-h2. <i class="icon-star-empty"></i> *Manager distribution into Docker containers per component*
+h2. <i class="icon-star-empty"></i> *Distributed Manager Blueprint*
 
+Allows separating deployment of Cloudify Manager components on multiple nodes.
 
+h2. <i class="icon-star-empty"></i> *Cloudify Manager Images*
 
-h2. <i class="icon-asterisk"></i> *<em>Premium Feature</em> - Blueprint graphic composer (MVP release)*
+Deploy the manager using an Image.
+
+h2. <i class="icon-star-empty"></i> *Offline plugin installation*
+
+h2. <i class="icon-star-empty"></i> *Agent installation via cloud-init allowing SSH-less agent installation*
+
+h2. <i class="icon-star-empty"></i> *Improved manager process management for more scalability*
+
+ h2. <i class="icon-star-empty"></i> *Role Based Access Control/Access Control List for REST API*
+
+h2. <i class="icon-star-empty"></i> *Security Enhancements in Manager*
+
+h2. <i class="icon-star-empty"></i> *Live Migration/Upgrade Path for new versions*
+
+h2. <i class="icon-star-empty"></i> *TOSCA Composer*
+
+TOSCA web UI composer allowing to model application using Web User Interface.
+
+h2. <i class="icon-star-empty"></i> *Web GUI enhancements*
+
+h2. <i class="icon-star-empty"></i> *Manager REST API Versioning*
+
+h2. <i class="icon-star-empty"></i> *RHEL/CentOS Support*
+
+h2. <i class="icon-star-empty"></i> *Azure Plugin*
 
 
 <hr/>
@@ -62,29 +55,25 @@ h1. *Looking Forward - Future Thoughts*
 
 We have a lot in store in the planning for after the next version as well - so be sure to comment, reach out and provide your input, so we know that we're on the right track.
 
-h2. <i class="icon-star-empty"></i> *TOSCA Enhancements - Support for requirements and capabilities*
+h2. <i class="icon-star-empty"></i> *Mult-Tenancy Support of the manager*
 
- This is a TOSCA feature for validations and auto-wiring of components that serve as an implicit alternative to the existing explicit relationships.
+h2. <i class="icon-star-empty"></i> *Mult-Cloud Support*
 
-h2. <i class="icon-star-empty"></i> *Support for deployment time governance & SLA policies*
+h2. <i class="icon-star-empty"></i> *Cloudify Manager HA*
 
-Such as: placement (anti-affinity, affinity, etc), white list / black list of libraries and SW, and more.
+h2. <i class="icon-star-empty"></i> *Improving Auto healing and auto scaling*
 
-h2. <i class="icon-star-empty"></i> *Highly available Cloudify manager with hot failover and leader election*
+h2. <i class="icon-star-empty"></i> *Support for Policy Engine*
 
+h2. <i class="icon-star-empty"></i> *Cooling period API*
 
-h2. <i class="icon-star-empty"></i> *Advanced security including:*
+h2. <i class="icon-star-empty"></i> *Update deployment*
 
-* SSO support
-* Pluggable authorization
-* Agent authentication 
+h2. <i class="icon-star-empty"></i> *Universal data bags*
 
+h2. <i class="icon-star-empty"></i> *Deployment states*
 
-h2. <i class="icon-star-empty"></i> *Blueprint graphic composer – GA*
-
-h2. <i class="icon-star-empty"></i> *Support for Google Compute Engine*
-
-h2. <i class="icon-star-empty"></i> *Support for Microsoft Azure*
+h2. <i class="icon-star-empty"></i> *Security enhancements*
 
 
 
