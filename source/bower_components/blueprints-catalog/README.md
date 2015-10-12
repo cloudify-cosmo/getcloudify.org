@@ -32,21 +32,27 @@ If you would like to use the widget on the page without AngularJS, you would nee
 
 Add the following markup to the your page to initialize widget (add the `ng-app="blueprintingCatalogApp"` attribute to any parent element if you had not used AngularJS on the page):
 ```html
-<div blueprinting-catalog
-    data-catalog-list-title="Cloudify Examples"
-    data-catalog-back-text="back"
-    data-catalog-list-description='These are example blueprint archives that are ready to deploy. Click on "Upload to Manager" to publish to an existing manager and create a deployment now, or you can download and customize to your needs. Click on the "Source" to see the source at GitHub. Click on the name of the blueprint for more information about what it does.'
-    data-catalog-github-query="/search/repositories?q=repo:*-example+user:cloudify-examples"
-    data-catalog-default-manager="https://getcloudify.org"
-    data-catalog-cors-proxy="https://example-example"
-    data-catalog-default-version="master">
-</div>
+<section blueprinting-catalog
+         data-catalog-list-title="Cloudify Examples"
+         data-catalog-list-description='These are example blueprint archives that are ready to deploy. Click on "Upload to Manager" to publish to an existing manager and create a deployment now, or you can download and customize to your needs. Click on the "Source" to see the source at GitHub. Click on the name of the blueprint for more information about what it does.'
+         data-catalog-back-text="back"
+         data-catalog-how-use-link="http://example.com/faq"
+         data-catalog-how-contribute-link="http://example.com/contribute"
+         data-catalog-github-query="/search/repositories?q=repo:*-example+user:cloudify-examples"
+         data-catalog-default-manager="http://example.com"
+         data-catalog-cors-proxy="https://example.com/proxy"
+         data-catalog-default-version="master">
+</section>
 ```
 The following options are supported:
 
 `data-catalog-list-title` - Defines the title of the repositories list (_Default:_ `none`)
 
 `data-catalog-list-description` - Defines the description under the title (_Default:_ `none`)
+
+`data-catalog-how-use-link` - Defines the link to the "How to Use" instruction (_Default:_ `none`)
+
+`data-catalog-how-contribute-link` - Defines the link to the "How to Contribute" instruction (_Default:_ `none`)
 
 `data-catalog-back-text` - Defines the title of the back link on the details view (_Default:_ `none`)
 

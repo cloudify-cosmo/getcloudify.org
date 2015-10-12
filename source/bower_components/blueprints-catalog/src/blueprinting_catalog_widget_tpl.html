@@ -4,7 +4,12 @@
         <div>
             <h1>{{::listTitle}}</h1>
 
-            <p>{{::listDescription}}</p>
+            <p class="catalog-description">
+                {{::listDescription}}
+
+                <a ng-href="{{howUseLink}}" target="_how_use" ng-if="howUseLink">How to Use</a>
+                <a ng-href="{{howContributeLink}}" target="_how_contribute" ng-if="howContributeLink">How to Contribute</a>
+            </p>
         </div>
 
         <div>
@@ -40,7 +45,7 @@
                         {{::repo.description}}
                     </td>
                     <td>
-                        <a href="{{::repo.html_url}}" target="_tab_{{::repo.id}}">Source</a>
+                        <a ng-href="{{::repo.html_url}}" target="_tab_{{::repo.id}}">Source</a>
                     </td>
                     <td ng-switch="!!githubLimit">
                         <a href ng-switch-when="false" ng-click="showUpload(repo);">Upload to Manager</a>
@@ -59,8 +64,8 @@
                 {{currentRepo.name}}
             </h1>
             <ul class="action-links" ng-hide="githubLimit">
-                <li><a href="{{currentRepo.html_url}}/tree/{{currentRepo.currentVersion.name}}" target="_tab_{{currentRepo.id}}">Source</a></li>
-                <li><a href="{{currentRepo.html_url}}/archive/{{currentRepo.currentVersion.name}}.zip">Download</a></li>
+                <li><a ng-href="{{currentRepo.html_url}}/tree/{{currentRepo.currentVersion.name}}" target="_tab_{{currentRepo.id}}">Source</a></li>
+                <li><a ng-href="{{currentRepo.html_url}}/archive/{{currentRepo.currentVersion.name}}.zip">Download</a></li>
                 <li><a href ng-click="showUpload(currentRepo);">Upload to Manager</a></li>
             </ul>
             <div class="versions-list" ng-hide="githubLimit">
@@ -91,7 +96,7 @@
                 <div class="modal-body">
                     <form novalidate name="blueprintForm">
                         <label>
-                            Blueprint Name<br/>
+                            Blueprint ID<br/>
                             <input type="text" ng-model="blueprint.id" placeholder="enter blueprint name" required/>
                         </label>
                         <label>

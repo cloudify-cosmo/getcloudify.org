@@ -24,6 +24,8 @@
                     githubQuery: '@catalogGithubQuery',
                     listTitle: '@catalogListTitle',
                     listDescription: '@catalogListDescription',
+                    howUseLink: '@catalogHowUseLink',
+                    howContributeLink: '@catalogHowContributeLink',
                     backText: '@catalogBackText',
                     catalogDefaultManager: '@catalogDefaultManager',
                     catalogCorsProxy: '@catalogCorsProxy',
