@@ -1,0 +1,42 @@
+<div class="repos-list">
+    <div class="search-repos">
+        <input type="text" ng-model="search.name" placeholder="search repos by name" />
+    </div>
+    <table>
+        <colgroup>
+            <col class="col-name"/>
+            <col class="col-descr"/>
+            <col class="col-source"/>
+            <col class="col-action"/>
+        </colgroup>
+        <thead>
+        <tr>
+            <th>Name</th>
+            <th>Description</th>
+            <th>Source</th>
+            <th>Action</th>
+        </tr>
+        </thead>
+        <tr ng-show="!loading && !repos.length">
+            <td colspan="4">No Data Found</td>
+        </tr>
+        <tr ng-show="loading">
+            <td colspan="4">Loading...</td>
+        </tr>
+        <tr ng-repeat="repo in repos | filter:search">
+            <td>
+                <a href ng-click="showDetails({repo: repo});">{{::repo.name}}</a>
+            </td>
+            <td>
+                {{::repo.description}}
+            </td>
+            <td>
+                <a ng-href="{{::repo.html_url}}" target="_tab_{{::repo.id}}">Source</a>
+            </td>
+            <td ng-switch="!!githubLimit">
+                <a href ng-switch-when="false" ng-click="showUpload({repo: repo});">Upload to Manager</a>
+                <span ng-switch-when="true" title="GitHub API rate limit exceeded. Please wait some time and refresh the page.">Upload to Manager</span>
+            </td>
+        </tr>
+    </table>
+</div>

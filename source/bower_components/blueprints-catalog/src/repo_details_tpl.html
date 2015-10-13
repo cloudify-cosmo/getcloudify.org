@@ -1,0 +1,27 @@
+<div>
+    <h1>
+        <a href ng-click="navigateToList();" class="to-list">{{backText}}</a>
+        {{currentRepo.name}}
+    </h1>
+    <ul class="action-links" ng-hide="githubLimit">
+        <li><a ng-href="{{currentRepo.html_url}}/tree/{{currentRepo.currentVersion.name}}" target="_tab_{{currentRepo.id}}">Source</a></li>
+        <li><a ng-href="{{currentRepo.html_url}}/archive/{{currentRepo.currentVersion.name}}.zip">Download</a></li>
+        <li><a href ng-click="showUpload(currentRepo);">Upload to Manager</a></li>
+    </ul>
+    <div class="versions-list" ng-hide="githubLimit">
+        <label>
+            Branches & Tags:
+            <select ng-model="currentRepo.currentVersion" ng-change="switchVersion(currentRepo.currentVersion);"
+                    ng-options="v as v.name for v in currentRepo.versionsList" required>
+            </select>
+        </label>
+    </div>
+
+    <hr/>
+
+    <div ng-bind-html="currentRepo.readmeContents[currentRepo.currentVersion.name]" ng-hide="githubLimit"></div>
+
+    <div class="alert alert-danger" ng-show="githubLimit">
+        GitHub API rate limit exceeded. Please wait some time and refresh the page.
+    </div>
+</div>

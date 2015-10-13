@@ -20,7 +20,8 @@ If you are already use AngularJS on your page then you just need to include the 
 
 <script src="dist/blueprinting_catalog_widget.min.js"></script>
 ```
-And add a `blueprintingCatalogWidget` to your app dependencies.
+And add a `blueprintingCatalogWidget` to your app dependencies. 
+__Important note:__ if you are using routes you __have to__ set the _reloadOnSearch_ options to FALSE for the routes corresponding to the page with plugin.
 
 If you would like to use the widget on the page without AngularJS, you would need to add angular script and additional widget asset before the assets, added on previous step:
 ```html
@@ -41,7 +42,8 @@ Add the following markup to the your page to initialize widget (add the `ng-app=
          data-catalog-github-query="/search/repositories?q=repo:*-example+user:cloudify-examples"
          data-catalog-default-manager="http://example.com"
          data-catalog-cors-proxy="https://example.com/proxy"
-         data-catalog-default-version="master">
+         data-catalog-default-version="CFY-3574-Ansible-Nodecellar"
+         data-catalog-default-version-fallback="master">
 </section>
 ```
 The following options are supported:
@@ -73,7 +75,9 @@ The proxy server should accept POST requests with the following json body:
 
 It should sent the request to the provided url and respond with any success status (e.g. 200) in case of success or any error status (e.g. 400) and error message in the body in case of failure.
 
-`data-catalog-default-version` - Defines the default selected branch / tag (_Default:_ `repository's default branch`)
+`data-catalog-default-version` - Defines the default selected branch / tag (_Default:_ `value defined via "data-catalog-default-version-fallback" option`)
+
+`data-catalog-default-version-fallback` - Defines the branch / tag to be selected in case of no default branch (_Default:_ `repository's default branch`)
 
 ## Styling
 

@@ -10,13 +10,14 @@
 
     var githubQuery = '/search/repositories?q=repo:*-example+user:cloudify-examples';
     var defaultVersion = '';
+    var defaultVersionFallback = '';
     var catalogDefaultManager = '';
     var catalogCorsProxy = '';
 
     var __scope;
 
-    catalog.directive('blueprintingCatalog', ['Github', 'CloudifyManager', 'CatalogHelper', '$q', '$log',
-        function (Github, CloudifyManager, CatalogHelper, $q, $log) {
+    catalog.directive('blueprintingCatalog', ['Github', 'CloudifyManager', 'CatalogHelper', '$location', '$q', '$log',
+        function (Github, CloudifyManager, CatalogHelper, $location, $q, $log) {
 
             return {
                 restrict: 'A',
@@ -29,7 +30,8 @@
                     backText: '@catalogBackText',
                     catalogDefaultManager: '@catalogDefaultManager',
                     catalogCorsProxy: '@catalogCorsProxy',
-                    defaultVersion: '@catalogDefaultVersion'
+                    defaultVersion: '@catalogDefaultVersion',
+                    defaultVersionFallback: '@catalogDefaultVersionFallback'
                 },
                 templateUrl: 'blueprinting_catalog_widget_tpl.html',
                 link: function ($scope) {
@@ -43,6 +45,9 @@
                     if ($scope.defaultVersion) {
                         defaultVersion = $scope.defaultVersion;
                     }
+                    if ($scope.defaultVersionFallback) {
+                        defaultVersionFallback = $scope.defaultVersionFallback;
+                    }
                     if ($scope.catalogDefaultManager) {
                         catalogDefaultManager = $scope.catalogDefaultManager;
                     }
@@ -51,13 +56,40 @@
                     }
 
                     $scope.loading = true;
-                    Github.getRepositories().then(function (response) {
+                    var getReposDefer = Github.getRepositories().then(function (response) {
                         $log.debug(LOG_TAG, 'fetched repos', response);
 
                         $scope.repos = response.data && response.data.items || [];
                     }).finally(function () {
                         $scope.loading = false;
                     });
+
+                    $scope.$watch(function () {
+                        return $location.search().repo;
+                    }, function (repoId) {
+                        if (repoId) {
+                            $q.when(getReposDefer, function () {
+                                for (var i = 0, len = $scope.repos.length, repo; i < len; i++) {
+                                    repo = $scope.repos[i];
+                                    if (repo.id === +repoId) {
+                                        $scope.showDetails(repo);
+                                        break;
+                                    }
+                                }
+                            });
+                        } else {
+                            $scope.showList();
+                        }
+                    });
+
+                    $scope.navigateToDetails = function (repo) {
+                        $location.search('repo', repo.id);
+                    };
+
+                    $scope.navigateToList = function () {
+                        $location.replace();
+                        $location.search('repo', ''); //do not use NULL in order to avoid full page reload
+                    };
 
                     $scope.showDetails = function (repo) {
                         $q.when(CatalogHelper.fillVersions(repo), function () {
@@ -138,6 +170,21 @@
 
         }]);
 
+    catalog.directive('reposList', [function () {
+        return {
+            restrict: 'E',
+            replace: true,
+            scope: {
+                repos: '=',
+                loading: '=',
+                githubLimit: '=',
+                showDetails: '&',
+                showUpload: '&'
+            },
+            templateUrl: 'repos_list_tpl.html'
+        };
+    }]);
+
     catalog.factory('CatalogHelper', ['Github', '$q', '$sce', '$log', function (Github, $q, $sce, $log) {
 
         return {
@@ -159,15 +206,19 @@
 
                     return $q.all([branchesPromise, tagsPromise]).then(function (response) {
                         versionsList = versionsList.concat(response[0].data || []).concat(response[1].data || []);
-                        var repoDefaultVersion = defaultVersion || repo.default_branch;
+                        var repoDefaultVersionName = defaultVersion || defaultVersionFallback;
+                        var repoDefaultBranchName = repo.default_branch;
+                        var repoDefaultVersion, repoDefaultBranch;
                         for (var i = 0, len = versionsList.length, v; i < len; i++) {
                             v = versionsList[i];
-                            if (v.name === repoDefaultVersion) {
+                            if (v.name === repoDefaultVersionName) {
                                 repoDefaultVersion = v;
-                                break;
+                            }
+                            if (v.name === repoDefaultBranchName) {
+                                repoDefaultBranch = v;
                             }
                         }
-                        repo.currentVersion = repoDefaultVersion;
+                        repo.currentVersion = repoDefaultVersion || repoDefaultBranch;
 
                         repo.versionsList = versionsList;
                     }, this.handleGithubLimit);

@@ -7,8 +7,8 @@
             <p class="catalog-description">
                 {{::listDescription}}
 
-                <a ng-href="{{howUseLink}}" target="_how_use" ng-if="howUseLink">How to Use</a>
-                <a ng-href="{{howContributeLink}}" target="_how_contribute" ng-if="howContributeLink">How to Contribute</a>
+                <a ng-href="{{howUseLink}}" target="_how_use" ng-if="howUseLink"><br/>How to Use</a>
+                <a ng-href="{{howContributeLink}}" target="_how_contribute" ng-if="howContributeLink"><br/>How to Contribute</a>
             </p>
         </div>
 
@@ -16,117 +16,22 @@
             <div class="alert alert-danger" ng-show="githubLimit">
                 GitHub API rate limit exceeded. Please wait some time and refresh the page.
             </div>
-            <table>
-                <colgroup>
-                    <col class="col-name"/>
-                    <col class="col-descr"/>
-                    <col class="col-source"/>
-                    <col class="col-action"/>
-                </colgroup>
-                <thead>
-                <tr>
-                    <th>Name</th>
-                    <th>Description</th>
-                    <th>Source</th>
-                    <th>Action</th>
-                </tr>
-                </thead>
-                <tr ng-show="!loading && !repos.length">
-                    <td colspan="4">No Data Found</td>
-                </tr>
-                <tr ng-show="loading">
-                    <td colspan="4">Loading...</td>
-                </tr>
-                <tr ng-repeat="repo in repos">
-                    <td>
-                        <a href ng-click="showDetails(repo);">{{::repo.name}}</a>
-                    </td>
-                    <td>
-                        {{::repo.description}}
-                    </td>
-                    <td>
-                        <a ng-href="{{::repo.html_url}}" target="_tab_{{::repo.id}}">Source</a>
-                    </td>
-                    <td ng-switch="!!githubLimit">
-                        <a href ng-switch-when="false" ng-click="showUpload(repo);">Upload to Manager</a>
-                        <span ng-switch-when="true" title="GitHub API rate limit exceeded. Please wait some time and refresh the page.">Upload to Manager</span>
-                    </td>
-                </tr>
-            </table>
+            <repos-list data-repos="repos"
+                        data-loading="loading"
+                        data-github-limit="githubLimit"
+                        data-show-details="navigateToDetails(repo)"
+                        data-show-upload="showUpload(repo)">
+            </repos-list>
         </div>
     </div>
 
     <!--Repository's details-->
     <div ng-show="currentRepo">
-        <div>
-            <h1>
-                <a href ng-click="showList();" class="to-list">{{backText}}</a>
-                {{currentRepo.name}}
-            </h1>
-            <ul class="action-links" ng-hide="githubLimit">
-                <li><a ng-href="{{currentRepo.html_url}}/tree/{{currentRepo.currentVersion.name}}" target="_tab_{{currentRepo.id}}">Source</a></li>
-                <li><a ng-href="{{currentRepo.html_url}}/archive/{{currentRepo.currentVersion.name}}.zip">Download</a></li>
-                <li><a href ng-click="showUpload(currentRepo);">Upload to Manager</a></li>
-            </ul>
-            <div class="versions-list" ng-hide="githubLimit">
-                <label>
-                    Branches & Tags:
-                    <select ng-model="currentRepo.currentVersion" ng-change="switchVersion(currentRepo.currentVersion);"
-                            ng-options="v as v.name for v in currentRepo.versionsList" required>
-                    </select>
-                </label>
-            </div>
-        </div>
-
-        <section>
-            <hr/>
-            <div ng-bind-html="currentRepo.readmeContents[currentRepo.currentVersion.name]" ng-hide="githubLimit"></div>
-
-            <div class="alert alert-danger" ng-show="githubLimit">
-                GitHub API rate limit exceeded. Please wait some time and refresh the page.
-            </div>
-        </section>
+        <ng-include src="'repo_details_tpl.html'"></ng-include>
     </div>
 
     <!--Upload popup-->
-    <div ng-show="uploadRepo && !githubLimit" class="modal-backdrop"></div>
-    <div class="modal" ng-show="uploadRepo && !githubLimit">
-        <div class="modal-dialog">
-            <div class="modal-content no-header">
-                <div class="modal-body">
-                    <form novalidate name="blueprintForm">
-                        <label>
-                            Blueprint ID<br/>
-                            <input type="text" ng-model="blueprint.id" placeholder="enter blueprint name" required/>
-                        </label>
-                        <label>
-                            Manager Endpoint URL<br/>
-                            <input type="url" ng-model="managerEndpoint" placeholder="enter manager url" required/>
-                        </label>
-                        <label>
-                            Blueprint File Name<br/>
-                            <select ng-model="blueprint.path"
-                                    ng-options="b for b in uploadRepo.blueprintFiles[uploadRepo.currentVersion.name]" required>
-                            </select>
-                        </label>
-                        <label>
-                            Source<br/>
-                            <select ng-model="uploadRepo.currentVersion" ng-change="selectNewVersion(uploadRepo.currentVersion);"
-                                    ng-options="v as v.name for v in uploadRepo.versionsList" required>
-                            </select>
-                        </label>
-
-                        <div class="alert alert-danger" ng-show="error">{{error}}</div>
-                    </form>
-                    <div class="modal-buttons">
-                        <button class="btn btn-default" ng-disabled="processing" ng-click="closeUpload();">Cancel</button>
-                        <button class="btn btn-primary" ng-disabled="processing || blueprintForm.$invalid" ng-click="uploadBlueprint();">
-                            <span ng-show="processing">Uploading...</span>
-                            <span ng-hide="processing">Upload</span>
-                        </button>
-                    </div>
-                </div>
-            </div>
-        </div>
+    <div ng-show="uploadRepo && !githubLimit">
+        <ng-include src="'upload_tpl.html'"></ng-include>
     </div>
 </section>

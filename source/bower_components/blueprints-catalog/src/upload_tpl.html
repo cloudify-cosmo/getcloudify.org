@@ -1,0 +1,40 @@
+<div class="modal-backdrop"></div>
+<div class="modal">
+    <div class="modal-dialog">
+        <div class="modal-content no-header">
+            <div class="modal-body">
+                <form novalidate name="blueprintForm">
+                    <label>
+                        Blueprint ID<br/>
+                        <input type="text" ng-model="blueprint.id" placeholder="enter blueprint name" required/>
+                    </label>
+                    <label>
+                        Manager Endpoint URL<br/>
+                        <input type="url" ng-model="managerEndpoint" placeholder="enter manager url" required/>
+                    </label>
+                    <label>
+                        Blueprint File Name<br/>
+                        <select ng-model="blueprint.path"
+                                ng-options="b for b in uploadRepo.blueprintFiles[uploadRepo.currentVersion.name]" required>
+                        </select>
+                    </label>
+                    <label>
+                        Source<br/>
+                        <select ng-model="uploadRepo.currentVersion" ng-change="selectNewVersion(uploadRepo.currentVersion);"
+                                ng-options="v as v.name for v in uploadRepo.versionsList" required>
+                        </select>
+                    </label>
+
+                    <div class="alert alert-danger" ng-show="error">{{error}}</div>
+                </form>
+                <div class="modal-buttons">
+                    <button class="btn btn-default" ng-disabled="processing" ng-click="closeUpload();">Cancel</button>
+                    <button class="btn btn-primary" ng-disabled="processing || blueprintForm.$invalid" ng-click="uploadBlueprint();">
+                        <span ng-show="processing">Uploading...</span>
+                        <span ng-hide="processing">Upload</span>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
