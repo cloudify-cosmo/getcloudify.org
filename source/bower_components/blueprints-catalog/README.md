@@ -58,7 +58,11 @@ The following options are supported:
 
 `data-catalog-back-text` - Defines the title of the back link on the details view (_Default:_ `none`)
 
-`data-catalog-github-query` - Defines the github search query to be used to retrieve the repositories list (_Default:_ `'/search/repositories?q=repo:*-example+user:cloudify-cosmo'`)
+`data-catalog-blueprints-github-query` - Defines the github search query to be used to retrieve the blueprints repositories list (_Default:_ `'-example+in:name+fork:true+user:cloudify-examples'`)
+
+`data-catalog-plugins-github-query` - Defines the github search query to be used to retrieve the plugins repositories list (_Default:_ `'-plugin+in:name+fork:true+user:cloudify-examples'`)
+
+`data-catalog-integrations-github-query` - Defines the github search query to be used to retrieve the integrations repositories list (_Default:_ `'-integration+in:name+fork:true+user:cloudify-examples'`)
 
 `data-catalog-default-manager` - Defines the default value for "Manager Endpoint" field (_Default:_ `none`)
 

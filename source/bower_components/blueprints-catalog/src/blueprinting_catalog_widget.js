@@ -8,7 +8,25 @@
 
     var blueprintRegex = /blueprint.yaml$/i;
 
-    var githubQuery = '/search/repositories?q=repo:*-example+user:cloudify-examples';
+    var groups = {
+        blueprints: {
+            order: 1,
+            name: 'blueprints',
+            githubQuery: '-example+in:name+fork:true+user:cloudify-examples',
+            canUpload: true
+        },
+        plugins: {
+            order: 2,
+            name: 'plugins',
+            githubQuery: '-plugin+in:name+fork:true+user:cloudify-examples'
+        },
+        integrations: {
+            order: 3,
+            name: 'integrations',
+            githubQuery: '-integration+in:name+fork:true+user:cloudify-examples'
+        }
+    };
+
     var defaultVersion = '';
     var defaultVersionFallback = '';
     var catalogDefaultManager = '';
@@ -22,7 +40,9 @@
             return {
                 restrict: 'A',
                 scope: {
-                    githubQuery: '@catalogGithubQuery',
+                    blueprintsGithubQuery: '@catalogBlueprintsGithubQuery',
+                    pluginsGithubQuery: '@catalogPluginsGithubQuery',
+                    integrationsGithubQuery: '@catalogIntegrationsGithubQuery',
                     listTitle: '@catalogListTitle',
                     listDescription: '@catalogListDescription',
                     howUseLink: '@catalogHowUseLink',
@@ -37,10 +57,14 @@
                 link: function ($scope) {
                     __scope = $scope;
 
-                    if ($scope.githubQuery) {
-                        githubQuery = $scope.githubQuery;
-
-                        $log.debug(LOG_TAG, 'default search query was overridden with', githubQuery);
+                    if ($scope.blueprintsGithubQuery) {
+                        groups.blueprints.githubQuery = $scope.blueprintsGithubQuery;
+                    }
+                    if ($scope.pluginsGithubQuery) {
+                        groups.plugins.githubQuery = $scope.pluginsGithubQuery;
+                    }
+                    if ($scope.integrationsGithubQuery) {
+                        groups.integrations.githubQuery = $scope.integrationsGithubQuery;
                     }
                     if ($scope.defaultVersion) {
                         defaultVersion = $scope.defaultVersion;
@@ -55,25 +79,40 @@
                         catalogCorsProxy = $scope.catalogCorsProxy;
                     }
 
-                    $scope.loading = true;
-                    var getReposDefer = Github.getRepositories().then(function (response) {
-                        $log.debug(LOG_TAG, 'fetched repos', response);
+                    $scope.groups = groups;
 
-                        $scope.repos = response.data && response.data.items || [];
-                    }).finally(function () {
-                        $scope.loading = false;
+                    var reposDefers = [];
+                    angular.forEach(groups, function (model, type) {
+                        model.loading = true;
+                        reposDefers.push(Github.getRepositories(model.githubQuery).then(function (response) {
+                            $log.debug(LOG_TAG, 'fetched repos ', type, response);
+
+                            var repos = response.data && response.data.items || [];
+                            for (var i = 0, len = repos.length; i < len; i++) {
+                                repos[i].canUpload = !!model.canUpload;
+                            }
+                            model.repos = repos;
+                        }, CatalogHelper.handleGithubLimit).finally(function () {
+                            model.loading = false;
+                        }));
                     });
 
                     $scope.$watch(function () {
                         return $location.search().repo;
                     }, function (repoId) {
                         if (repoId) {
-                            $q.when(getReposDefer, function () {
-                                for (var i = 0, len = $scope.repos.length, repo; i < len; i++) {
-                                    repo = $scope.repos[i];
-                                    if (repo.id === +repoId) {
-                                        $scope.showDetails(repo);
-                                        break;
+                            $q.all(reposDefers).then(function () {
+                                var repos;
+                                for (var type in groups) {
+                                    if (groups.hasOwnProperty(type)) {
+                                        repos = groups[type].repos;
+                                        for (var i = 0, len = repos.length, repo; i < len; i++) {
+                                            repo = repos[i];
+                                            if (repo.id === +repoId) {
+                                                $scope.showDetails(repo);
+                                                return;
+                                            }
+                                        }
                                     }
                                 }
                             });
@@ -133,9 +172,12 @@
                     $scope.selectNewVersion = function (version) {
                         var repo = $scope.uploadRepo;
 
+                        $scope.blueprint.url = repo.html_url + '/archive/' + version.name + '.zip';
+
                         $q.when(CatalogHelper.changeVersion(repo, version), function () {
-                            $scope.blueprint.url = repo.html_url + '/archive/' + version.name + '.zip';
-                            $scope.blueprint.path = repo.blueprintFiles[version.name][0];
+                            if ($scope.blueprint) {
+                                $scope.blueprint.path = repo.blueprintFiles[version.name][0];
+                            }
                         });
                     };
 
@@ -176,14 +218,71 @@
             replace: true,
             scope: {
                 repos: '=',
+                type: '=',
                 loading: '=',
-                githubLimit: '=',
+                canUpload: '=',
                 showDetails: '&',
                 showUpload: '&'
             },
             templateUrl: 'repos_list_tpl.html'
         };
     }]);
+
+    catalog.directive('copyToClipboard', ['$document', '$log', function ($document, $log) {
+        return {
+            restrict: 'A',
+            scope: {
+                text: '='
+            },
+            link: function (scope, element) {
+
+                var _document = $document[0];
+
+                element.on('click', function () {
+                    copy(scope.text);
+                });
+
+                function copy(text) {
+                    var el = createHiddenTexarea(text);
+                    _document.body.appendChild(el);
+                    try {
+                        copyText(el);
+
+                        $log.debug(LOG_TAG, 'copied: ' + text);
+                    } catch (err) {
+                        $log.warn(LOG_TAG, 'command not supported by your browser', err);
+                    }
+                    _document.body.removeChild(el);
+                }
+
+                function createHiddenTexarea(text) {
+                    var el = _document.createElement('textarea');
+                    el.style.position = 'absolute';
+                    el.style.left = '-5000px';
+                    el.textContent = text;
+                    return el;
+                }
+
+                function copyText(el) {
+                    el.select();
+
+                    if (!_document.execCommand('copy')) {
+                        throw('failed to  copy');
+                    }
+                }
+            }
+        };
+    }]);
+
+    catalog.filter("toArray", function () {
+        return function (obj) {
+            var result = [];
+            angular.forEach(obj, function (val) {
+                result.push(val);
+            });
+            return result;
+        };
+    });
 
     catalog.factory('CatalogHelper', ['Github', '$q', '$sce', '$log', function (Github, $q, $sce, $log) {
 
@@ -193,7 +292,10 @@
 
                 repo.currentVersion = version;
 
-                return $q.all([this.fillReadme(repo, version), this.fillBlueprints(repo, version)]);
+                return $q.all([
+                    this.fillReadme(repo, version),
+                    this.fillBlueprints(repo, version)
+                ]);
             },
 
             fillVersions: function (repo) {
@@ -279,10 +381,10 @@
         var endpoint = 'https://api.github.com';
 
         return {
-            getRepositories: function () {
+            getRepositories: function (query) {
                 return $http({
                     method: 'GET',
-                    url: endpoint + githubQuery
+                    url: endpoint + '/search/repositories?q=' + query
                 });
             },
             getTags: function (repo_url) {

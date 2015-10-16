@@ -6,7 +6,7 @@
     <ul class="action-links" ng-hide="githubLimit">
         <li><a ng-href="{{currentRepo.html_url}}/tree/{{currentRepo.currentVersion.name}}" target="_tab_{{currentRepo.id}}">Source</a></li>
         <li><a ng-href="{{currentRepo.html_url}}/archive/{{currentRepo.currentVersion.name}}.zip">Download</a></li>
-        <li><a href ng-click="showUpload(currentRepo);">Upload to Manager</a></li>
+        <li ng-show="currentRepo.canUpload"><a href ng-click="showUpload(currentRepo);">Upload to Manager</a></li>
     </ul>
     <div class="versions-list" ng-hide="githubLimit">
         <label>

@@ -16,12 +16,15 @@
             <div class="alert alert-danger" ng-show="githubLimit">
                 GitHub API rate limit exceeded. Please wait some time and refresh the page.
             </div>
-            <repos-list data-repos="repos"
-                        data-loading="loading"
-                        data-github-limit="githubLimit"
-                        data-show-details="navigateToDetails(repo)"
-                        data-show-upload="showUpload(repo)">
-            </repos-list>
+            <div ng-repeat="model in groups | toArray | orderBy:'order'">
+                <repos-list data-repos="model.repos"
+                            data-type="model.name"
+                            data-loading="model.loading"
+                            data-can-upload="!githubLimit && model.canUpload"
+                            data-show-details="navigateToDetails(repo)"
+                            data-show-upload="showUpload(repo)">
+                </repos-list>
+            </div>
         </div>
     </div>
 

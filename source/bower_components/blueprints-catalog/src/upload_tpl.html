@@ -3,14 +3,14 @@
     <div class="modal-dialog">
         <div class="modal-content no-header">
             <div class="modal-body">
-                <form novalidate name="blueprintForm">
+                <form novalidate name="$parent.blueprintForm">
                     <label>
                         Blueprint ID<br/>
                         <input type="text" ng-model="blueprint.id" placeholder="enter blueprint name" required/>
                     </label>
                     <label>
                         Manager Endpoint URL<br/>
-                        <input type="url" ng-model="managerEndpoint" placeholder="enter manager url" required/>
+                        <input type="url" ng-model="$parent.managerEndpoint" placeholder="enter manager url" required/>
                     </label>
                     <label>
                         Blueprint File Name<br/>
@@ -18,11 +18,12 @@
                                 ng-options="b for b in uploadRepo.blueprintFiles[uploadRepo.currentVersion.name]" required>
                         </select>
                     </label>
-                    <label>
+                    <label class="archive-url">
                         Source<br/>
                         <select ng-model="uploadRepo.currentVersion" ng-change="selectNewVersion(uploadRepo.currentVersion);"
                                 ng-options="v as v.name for v in uploadRepo.versionsList" required>
                         </select>
+                        <a href class="clipboard" copy-to-clipboard data-text="blueprint.url" style="float: right;">Copy to Clipboard</a>
                     </label>
 
                     <div class="alert alert-danger" ng-show="error">{{error}}</div>
