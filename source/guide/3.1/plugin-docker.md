@@ -13,7 +13,7 @@ plugin_version: 1.1
 {%summary%}The Docker plugin enables you to run Docker containers from a Cloudify Blueprint.{%endsummary%}
 
 
-{%warning title=Disclaimer%}This plugin is in Alpha and has not been thoroughly tested yet.{%endwarning%}
+{%warning title=Disclaimer%}This plugin is in Alpha and has yet to be thoroughly tested.{%endwarning%}
 
 # Plugin Requirements:
 
@@ -131,16 +131,16 @@ The `name` property is the name of the container.
 
 ### image:
 
-The `image` property is a dictionary. It must have the `repository` key or the `src` key, or both. It may additionally have the `tag` key.
+The `image` property is a dictionary. It must have either the `repository` key, the `src` key, or both. It may additionally have the `tag` key.
 
 The `src` key is used when you want to import an image. It must point to a file or URL where there is a tarball, which Docker can use to import an image. For more information on importing images, see [docker import command.](https://docs.docker.com/reference/commandline/cli/#import)
 
-If you pull an image from a Docker hub, `repository` is required. If you are importing an image, you leave it blank. The plugin will name the 
+If you pull an image from Docker Hub, `repository` is required. If you are importing an image, you must leave it blank. The plugin will name the 
 repository by the Cloudify [instance ID.](http://getcloudify.org/guide/3.1/reference-terminology.html#node-instance)
 
 The `tag` key is also optional. If you want to specify a version of a repository, you can put that in the tag.
 
-Here is an example of importing from an URL.
+Here is an example of importing from a URL.
 
 {% highlight yaml %}
 
@@ -161,7 +161,7 @@ Since this plugin is based on the Docker-Py python library, you can pass the par
 
 ## Create
 
-Maps to the create_container function. You can add any of the parameters available to the create_container function in Docker-Py
+Maps to the create_container function. You can add any of the parameters available to the create_container function in Docker-Py.
 
 {% highlight yaml %}
 
@@ -180,7 +180,7 @@ Maps to the create_container function. You can add any of the parameters availab
 
 ## Start
 
-Maps to the start function. You can add any of the parameters available to the start function in Docker-Py
+Maps to the start function. You can add any of the parameters available to the start function in Docker-Py.
 
 {% highlight yaml %}
 
@@ -196,7 +196,7 @@ Maps to the start function. You can add any of the parameters available to the s
 
 ## Stop
 
-Maps to the stop function. You can add any of the parameters available to the stop function in Docker-Py
+Maps to the stop function. You can add any of the parameters available to the stop function in Docker-Py.
 
 {% highlight yaml %}
 
@@ -210,7 +210,7 @@ Maps to the stop function. You can add any of the parameters available to the st
 
 ## remove_container
 
-Maps to the remove_container function. You can add any of the parameters available to the remove_container function in Docker-Py
+Maps to the remove_container function. You can add any of the parameters available to the remove_container function in Docker-Py.
 
 {% highlight yaml %}
 
@@ -223,17 +223,17 @@ Maps to the remove_container function. You can add any of the parameters availab
 {% endhighlight %}
 
 
-Many of the options exposed in the Docker-Py Python Docker API are available through the Cloudify Docker Plugin. That documentation can suppliment this feature:
+Many of the options exposed in the Docker-Py Python Docker API are available through the Cloudify Docker Plugin. That documentation can supplement this feature:
 [docker python client.](https://github.com/docker/docker-py)
 
 If there is a lack of description of certain parameters,
-more details can be found in
+more details can be found in the
 [docker command line documentation.](https://docs.docker.com/reference/commandline/cli/)
 
 
 ## Using the plugin
 
-The plugin is designed to follow the Docker Py Docker Python API library and not the Docker CLI. And so, it also differs from the Docker CLI in some respects. For example, `docker run` is split into `create` and `start`.
+The plugin is designed to follow the Docker Py Docker Python API library and not the Docker CLI. It also differs from the Docker CLI in some respects. For example: `docker run` is split into `create` and `start`.
 
 Here are the operations that this plugin currently supports:
 
