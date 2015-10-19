@@ -228,7 +228,7 @@
         };
     }]);
 
-    catalog.directive('copyToClipboard', ['$document', '$log', function ($document, $log) {
+    catalog.directive('copyToClipboard', ['$window', '$log', function ($window, $log) {
         return {
             restrict: 'A',
             scope: {
@@ -236,7 +236,7 @@
             },
             link: function (scope, element) {
 
-                var _document = $document[0];
+                var _document = $window.document;
 
                 element.on('click', function () {
                     copy(scope.text);
@@ -251,6 +251,9 @@
                         $log.debug(LOG_TAG, 'copied: ' + text);
                     } catch (err) {
                         $log.warn(LOG_TAG, 'command not supported by your browser', err);
+                        $log.warn(LOG_TAG, 'using fallback impl.');
+
+                        $window.prompt("Copy to clipboard & hit enter", text);
                     }
                     _document.body.removeChild(el);
                 }
