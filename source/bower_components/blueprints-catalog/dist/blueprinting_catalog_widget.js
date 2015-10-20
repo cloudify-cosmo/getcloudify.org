@@ -243,7 +243,7 @@
                 });
 
                 function copy(text) {
-                    var el = createHiddenTexarea(text);
+                    var el = createHiddenTextarea(text);
                     _document.body.appendChild(el);
                     try {
                         copyText(el);
@@ -258,7 +258,7 @@
                     _document.body.removeChild(el);
                 }
 
-                function createHiddenTexarea(text) {
+                function createHiddenTextarea(text) {
                     var el = _document.createElement('textarea');
                     el.style.position = 'absolute';
                     el.style.left = '-5000px';
@@ -472,7 +472,7 @@ angular.module('blueprintingCatalogWidget').run(['$templateCache', function($tem
 
 
   $templateCache.put('upload_tpl.html',
-    "<div class=\"modal-backdrop\"></div> <div class=\"modal\"> <div class=\"modal-dialog\"> <div class=\"modal-content no-header\"> <div class=\"modal-body\"> <form novalidate name=\"$parent.blueprintForm\"> <label> Blueprint ID<br> <input type=\"text\" ng-model=\"blueprint.id\" placeholder=\"enter blueprint name\" required> </label> <label> Manager Endpoint URL<br> <input type=\"url\" ng-model=\"$parent.managerEndpoint\" placeholder=\"enter manager url\" required> </label> <label> Blueprint File Name<br> <select ng-model=\"blueprint.path\" ng-options=\"b for b in uploadRepo.blueprintFiles[uploadRepo.currentVersion.name]\" required> </select> </label> <label class=\"archive-url\"> Source<br> <select ng-model=\"uploadRepo.currentVersion\" ng-change=\"selectNewVersion(uploadRepo.currentVersion);\" ng-options=\"v as v.name for v in uploadRepo.versionsList\" required> </select> <a href class=\"clipboard\" copy-to-clipboard data-text=\"blueprint.url\" style=\"float: right\">Copy to Clipboard</a> </label> <div class=\"alert alert-danger\" ng-show=\"error\">{{error}}</div> </form> <div class=\"modal-buttons\"> <button class=\"btn btn-default\" ng-disabled=\"processing\" ng-click=\"closeUpload();\">Cancel</button> <button class=\"btn btn-primary\" ng-disabled=\"processing || blueprintForm.$invalid\" ng-click=\"uploadBlueprint();\"> <span ng-show=\"processing\">Uploading...</span> <span ng-hide=\"processing\">Upload</span> </button> </div> </div> </div> </div> </div>"
+    "<div class=\"modal-backdrop\"></div> <div class=\"modal\"> <div class=\"modal-dialog\"> <div class=\"modal-content no-header\"> <div class=\"modal-body\"> <form novalidate name=\"$parent.blueprintForm\"> <label> Blueprint ID<br> <input type=\"text\" ng-model=\"blueprint.id\" placeholder=\"enter blueprint name\" required> </label> <label> Manager Endpoint URL<br> <input type=\"url\" ng-model=\"$parent.managerEndpoint\" placeholder=\"enter manager url\" required> </label> <label> Blueprint File Name<br> <select ng-model=\"blueprint.path\" ng-options=\"b for b in uploadRepo.blueprintFiles[uploadRepo.currentVersion.name]\" required> </select> </label> <label class=\"archive-url\"> Source<br> <select ng-model=\"uploadRepo.currentVersion\" ng-change=\"selectNewVersion(uploadRepo.currentVersion);\" ng-options=\"v as v.name for v in uploadRepo.versionsList\" required> </select> <a href class=\"clipboard\" copy-to-clipboard data-text=\"blueprint.url\">Copy to Clipboard</a> </label> <div class=\"alert alert-danger\" ng-show=\"error\">{{error}}</div> </form> <div class=\"modal-buttons\"> <button class=\"btn btn-default\" ng-disabled=\"processing\" ng-click=\"closeUpload();\">Cancel</button> <button class=\"btn btn-primary\" ng-disabled=\"processing || blueprintForm.$invalid\" ng-click=\"uploadBlueprint();\"> <span ng-show=\"processing\">Uploading...</span> <span ng-hide=\"processing\">Upload</span> </button> </div> </div> </div> </div> </div>"
   );
 
 }]);
