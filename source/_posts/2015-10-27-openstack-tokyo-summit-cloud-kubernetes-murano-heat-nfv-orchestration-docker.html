@@ -46,55 +46,19 @@ tags:
 
 <p>See details on how to package Cloudify blueprints for Murano in the technical details below, and <a href="https://www.youtube.com/watch?v=CiSSAOk44Jc">watch the video</a> for a deeper walk-through.</p>
 
-<p>Technical Details</p>
+<h3>Technical Details</h3>
 
 <p>The plugin has two essential python files: cloudify_tosca_package.py, which specifies the way <a href="http://getcloudify.org/2015/07/21/what-is-TOSCA-cloud-application-orchestration-tutorial-cloudify.html">Cloudify TOSCA</a> blueprints will be packaged, and cloudify_client.py, which interacts with the Cloudify Manager's Rest API via HTTP.</p>
 
 <p>When you package a blueprint archive for upload to Murano, it should have something like the following structure:</p>
 
-<p>./</p>
-
-<p>| LICENSE</p>
-
-<p>| logo.png</p>
-
-<p>| manifest.yaml</p>
-
-<p>| README.rst</p>
-
-<p>| Resources</p>
-
-<p>| | some-blueprint.yaml</p>
-
-<p>| | types/</p>
-
-<p>| | scripts/</p>
+<script src="https://gist.github.com/yeshess/05a18a369f8920835d98.js"></script>
 
 <p>The Resources directory contains the Cloudify Blueprint and required files, while the the Manifest.yaml tells Murano what’s going on:</p>
 
 <p>The EntryPoint in the Manifest.yaml specifies the name of the Cloudify blueprint file to be uploaded to the Cloudify Manager. For example in our example folder structure above, you that would be “some-blueprint.yaml”.</p>
 
-<p>Format: Cloudify.TOSCA/1.0</p>
-
-<p>Type: Application</p>
-
-<p>FullName: org.getcloudify.muranoapps.examples.MyApp</p>
-
-<p>EntryPoint: some-blueprint.yaml</p>
-
-<p>Name: My App</p>
-
-<p>Description: &gt;</p>
-
-<p>This is my application</p>
-
-<p>Author: Me</p>
-
-<p>Tags:</p>
-
-<p>- TOSCA</p>
-
-<p>- Cloudify</p>
+<script src="https://gist.github.com/yeshess/1c35a0fdc718a29f5a6d.js"></script>
 
 <p>This is called by the Cloudify Murano Plugin Code(cloudify_tosca_package.py):</p>
 <script src="https://gist.github.com/yeshess/75a62a7a2ec3a9b42aa0.js"></script>
