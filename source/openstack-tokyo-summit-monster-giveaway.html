@@ -1,7 +1,7 @@
 ---
-layout: bt_about
-title: Cloud Orchestration | Cloud Automation
-category: cloud orchestration cloud automation
+layout: bt_default
+title: Win Our Monster Giveaway
+category: Win Our Monster Giveaway
 ---
 
 
@@ -59,16 +59,19 @@ category: cloud orchestration cloud automation
                                 <div class="aligncenter">
 									<!-- Begin MailChimp Signup Form -->
                                     <h4>Enter to Win Our  <strong>Monster Giveaway</strong></h4>
-                                    <!--<form id="contactform" action="contact/contact.php" method="post" class="validateform" name="send-contact">-->
-									
-                                    <form action="//cloudifysource.us4.list-manage.com/subscribe/post?u=5e963581396e0c0e43ed217f8&amp;id=75adb769ed" method="post" id="mc-embedded-subscribe-form" name="mc-embedded-subscribe-form" class="validate" target="_blank" novalidate>
-						    <div id="mc_embed_signup_scroll">
+                                   
+   
+						
+
+<form action="http://cloudifysource.us4.list-manage.com/subscribe/post-json?u=5e963581396e0c0e43ed217f8&id=75adb769ed&amp;c=?" method="post" id="mc-embedded-subscribe-form" name="mc-embedded-subscribe-form" class="validate" target="_blank" novalidate>
+         
+          
+		   <div id="mc_embed_signup_scroll">
 							<h2>Subscribe to our mailing list</h2>
-						<div class="indicates-required"><span class="asterisk">*</span> indicates required</div>
 						<div class="mc-field-group">
 							<label for="mce-EMAIL">Email Address  <span class="asterisk">*</span>
 						</label>
-							<input type="email" value="" name="EMAIL" class="required email" id="mce-EMAIL">
+							<input type="email" value="" name="EMAIL" class="email" id="mce-EMAIL" required>
 						</div>
 						<div class="mc-field-group">
 							<label for="mce-FNAME">First Name </label>
@@ -81,41 +84,78 @@ category: cloud orchestration cloud automation
 						<div class="mc-field-group">
 							<label for="mce-MMERGE3">Company  <span class="asterisk">*</span>
 						</label>
-							<input type="text" value="" name="MMERGE3" class="required" id="mce-MMERGE3">
+							<input type="text" value="" name="MMERGE3" class="company" id="mce-MMERGE3" required>
 						</div>
 						<div class="mc-field-group">
 							<label for="mce-MMERGE4">Title  <span class="asterisk">*</span>
 						</label>
-							<input type="text" value="" name="MMERGE4" class="required" id="mce-MMERGE4">
+							<input type="text" value="" name="MMERGE4" class="title" id="mce-MMERGE4" required>
 						</div>
-							<div id="mce-responses" class="clear">
-								<div class="response" id="mce-error-response" style="display:none"></div>
-								<div class="response" id="mce-success-response" style="display:none"></div>
-							</div>    <!-- real people should not fill this in and expect good things - do not remove this or risk form bot signups-->
-						    <div style="position: absolute; left: -5000px;"><input type="text" name="b_5e963581396e0c0e43ed217f8_75adb769ed" tabindex="-1" value=""></div>
-						    <div class="clear"><input type="submit" value="Subscribe" name="subscribe" id="mc-embedded-subscribe" class="button"></div>
-						    </div>
-						</form>
+						</div>
+		  
+		  
+		  
+		  
+          <div style="position: absolute; left: -5000px;"><input type="text" name="b_58abcfa203271a9db312e69fc_ee0af79b60" value=""></div>
+        
+          <input type="submit" value="Subscribe" name="subscribe" id="mc-embedded-subscribe" class="button">
+        </form>
+<div id="notification_container"></div>
 
-									
-                                        <div id="sendmessage">
-                                             Your message has been sent. Thank you!
-                                        </div>
-                                        <!--<div class="row">
-                                            <div class="span4 field">
-					<input type="email" value="" name="EMAIL" class="required subscribeTxt email" id="mce-EMAIL" placeholder="* Enter your email address" data-rule="email"  data-msg="Please enter a valid email" title="Please enter a valid email address.">
-						<div class="validation">
-                                               </div>
-                                          </div>
-                                           
-                                        </div>-->
+<script type="text/javascript">
+$(function () {
+  var $form = $('#mc-embedded-subscribe-form');
+
+  $('#mc-embedded-subscribe').on('click', function(event) {
+    if(event) event.preventDefault();
+    register($form);
+  });
+});
+
+function register($form) {
+  $.ajax({
+    type: $form.attr('method'),
+    url: $form.attr('action'),
+    data: $form.serialize(),
+    cache       : false,
+    dataType    : 'json',
+    contentType: "application/json; charset=utf-8",
+    error       : function(err) { $('#notification_container').html('<span class="alert">Could not connect to server. Please try again later.</span>'); },
+    success     : function(data) {
+     
+      if (data.result != "success") {
+        var message = data.msg.substring(4);
+        $('#notification_container').html('<span class="alert">'+message+'</span>');
+      } 
+
+      else {
+        var message = data.msg;
+        $('#notification_container').html('<span class="success">'+message+'</span>');
+		track_contactForm();
+		mixpanel.track('Register for Win Our Monster Giveaway', {'page name' : document.title, 'url' : window.location.pathname});	
+      }
+    }
+  });
+}
+</script>
+
+
+<div id="mce-responses" class="clear">
+	<div class="response" id="mce-error-response" style="display:none"></div>
+	<div class="response" id="mce-success-response" style="display:none"></div>
+</div>
+<!-- End MailChimp Signup Form -->
+<div id="messageBox"></div>
+
+                                        <div class="row">
+                               
 										<!-- LeadLander -->
 										<script type="text/javascript">llfrmid=12206</script> 
 										<script type="text/javascript" src="http://formalyzer.com/formalyze_init.js"></script> 
 										<script type="text/javascript" src="http://formalyzer.com/formalyze_call.js"></script> 
 										<!-- End LeadLander -->
-                                    </form>
-									<div id="messageBox"></div>
+                                  
+									
                         </div> 
                     </div>
 			</div>
@@ -151,6 +191,7 @@ category: cloud orchestration cloud automation
 					</section>
 
 <script>
+
 //set download cookie
 function setCookie(key, value) {
     var expires = new Date();
@@ -163,12 +204,13 @@ function getCookie(key) {
     return keyValue ? keyValue[2] : null;
 }
 function track_contactForm() {
+
 		//_gaq.push(['_trackEvent','Product Download', downloadme]);
        	//track mixpanel
 		if (getCookie('cfydirect') == null) {
-            var formEmail =  $("#contactform #email").val();	
-            var formName =  $("#contactform #name").val();
-			var formcompany =  $("#contactform #company").val();
+            var formEmail =  $("#mc-embedded-subscribe-form #mce-EMAIL").val();	
+            var formName =  $("#mc-embedded-subscribe-form #mce-FNAME").val();
+			var formcompany =  $("#mc-embedded-subscribe-form #mce-MMERGE3").val();
 			mixpanel.identify(formEmail);
             mixpanel.alias(formName, formEmail, formcompany);
             mixpanel.name_tag(formName) ;
@@ -182,6 +224,8 @@ function track_contactForm() {
 			});	
 			//create cookie;
 			setCookie('cfydirect', formName + "," + formEmail + "," + formcompany);	
+			
+			
         }else{
 			var formEmail = getCookie('cfydirect').split(",")[1];
 			mixpanel.identify(formEmail);
@@ -189,4 +233,13 @@ function track_contactForm() {
 
 		
 	}
+	
+	
+	$("#mc-embedded-subscribe-form").validate({
+  submitHandler: function(form) {
+    form.submit();
+  }
+ });
+	
+
 </script>
