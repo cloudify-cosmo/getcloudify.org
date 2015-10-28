@@ -42,11 +42,8 @@ tags:
 
 <p>On a personal note, it’s been an excellent experience working with the stellar engineering team at Mirantis to extend Murano to additional clouds and use cases. We expect this integration to simplify deployment on hybrid environments, as well as other popular clouds, including VMware, GCP, and more.</p>
 
-<p>You can <a href="https://github.com/openstack/murano">fork the code</a> and definitely be sure to provide us with feedback.</p>
 
-<p>See details on how to package Cloudify blueprints for Murano in the technical details below, and <a href="https://www.youtube.com/watch?v=CiSSAOk44Jc">watch the video</a> for a deeper walk-through.</p>
-
-<h3>Technical Details</h3>
+<h3>Now let's see how it works under the hood</h3>
 
 <p>The plugin has two essential python files: cloudify_tosca_package.py, which specifies the way <a href="http://getcloudify.org/2015/07/21/what-is-TOSCA-cloud-application-orchestration-tutorial-cloudify.html">Cloudify TOSCA</a> blueprints will be packaged, and cloudify_client.py, which interacts with the Cloudify Manager's Rest API via HTTP.</p>
 
@@ -65,5 +62,17 @@ tags:
 
 <p>When the application is executed in a later stage the entire Resources directory will be compressed by Cloudify, when Murano makes the rest API call:</p>
 <script src="https://gist.github.com/yeshess/d60d192b05b11e201e24.js"></script>
+
+<p>You can <a href="https://github.com/openstack/murano">fork the code</a> and definitely be sure to provide us with feedback.</p>
+
+<p>Watch the video below for a deeper walk-through.</p>
+
+<div class="flexslider">
+	<ul class="slides">
+		<li style="display: list-item;">
+		<a class="hover-wrap fancybox fancybox.iframe" data-fancybox-group="gallery" title="Cloudify Murano Plugin" href="https://www.youtube.com/embed/CiSSAOk44Jc?enablejsapi=1&amp;wmode=opaque"><img src="img/blog/muranoimg.jpg" alt="Cloudify Murano Plugin"></a>
+		</li>
+	</ul>
+</div>
 
 </notextile>
