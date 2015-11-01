@@ -39,7 +39,12 @@ tags:
 
 <h3>Replacing Fabric</h3>
 
-<p>Using the <a href="http://getcloudify.org/guide/3.2/plugin-fabric.html">Fabric plugin</a> is great both for quickly developing blueprints and plugins, and also for non-cloud deployment targets without a manager. For a cloud such as Openstack, the standard managed approach is more desirable. All the actual fabric task code resides in the <a href="https://github.com/dfilppi/cfy3/blob/master/kub/plugin/kube_plugin/start-master-ubuntu14-tasks.py">start-master-ubuntu14-tasks.py</a>and <a href="https://github.com/dfilppi/cfy3/blob/master/kub/plugin/kube_plugin/start-node-ubuntu14-tasks.py">start-node-ubuntu14-tasks.py</a> files. The porting effort boils down to replacing Fabric calls (e.g. run, sudo, put) with calls to the python standard “subprocess” library. A representative example of such a translation: &lt;br&gt; Before [gist id=d68d1f780b494b4bed11] After [gist id=991d94b51930f7693a71]</p>
+<p>Using the <a href="http://getcloudify.org/guide/3.2/plugin-fabric.html">Fabric plugin</a> is great both for quickly developing blueprints and plugins, and also for non-cloud deployment targets without a manager. For a cloud such as Openstack, the standard managed approach is more desirable. All the actual fabric task code resides in the <a href="https://github.com/dfilppi/cfy3/blob/master/kub/plugin/kube_plugin/start-master-ubuntu14-tasks.py">start-master-ubuntu14-tasks.py</a>and <a href="https://github.com/dfilppi/cfy3/blob/master/kub/plugin/kube_plugin/start-node-ubuntu14-tasks.py">start-node-ubuntu14-tasks.py</a> files. The porting effort boils down to replacing Fabric calls (e.g. run, sudo, put) with calls to the python standard “subprocess” library. A representative example of such a translation: <br>'
+Before <br>
+<script src="https://gist.github.com/dfilppi/d68d1f780b494b4bed11.js"></script>
+After <br>
+<script src="https://gist.github.com/dfilppi/991d94b51930f7693a71.js"></script>
+</p>
 
 <p>Another minor side effect of replacing the Fabric plugin is removing the Fabric configuration from the blueprint itself. The plugin executor also gets changed from <code>central_deployment_agent</code> to <code>host_agent</code>.</p>
 
