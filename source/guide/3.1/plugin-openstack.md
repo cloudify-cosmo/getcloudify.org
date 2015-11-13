@@ -810,3 +810,16 @@ my_subnet_node:
 * Over this documentation, it's been mentioned multiple times that some configuration-saving information may be available in the [Provider Context](reference-terminology.html#provider-context). The [Openstack manager blueprint](reference-openstack-manager.html) and Openstack provider both create this relevant information, and therefore if either was used for bootstrapping, the Provider Context will be available for the Openstack plugin to use.
 
   The exact details of the structure of the Openstack Provider Context are not documented since this feature is going through deprecation and will be replaced with a more advanced one.
+
+* This plugin provides the following defaults for the security_group.rule property:
+```
+   DEFAULT_RULE_VALUES = {
+    'direction': 'ingress',
+    'ethertype': 'IPv4',
+    'port_range_min': 1,
+    'port_range_max': 65535,
+    'protocol': 'tcp',
+    'remote_group_id': None,
+    'remote_ip_prefix': '0.0.0.0/0',
+}
+```

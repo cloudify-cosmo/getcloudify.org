@@ -1,0 +1,69 @@
+---
+layout: blogpost
+title: Orchestrating Kuberenetes On OpenStack
+image: dewayne.jpg
+author: DeWayne Filppi
+tags:
+ - OpenStack
+ - OpenStack Summit
+ - Kubernetes
+ - Microservices
+ - TOSCA
+---
+
+<notextile>
+
+<img src="http://getcloudify.org/img/blog/cloudify_kubernetes.png" alt="OpenStack | OpenStack Summit | TOSCA Cloud Orchestration | Microservices | Kubernetes Orchestration | OpenStack NFV | Kubernetes Cluster">
+<br/>
+<br/>
+
+<p>In my previous post, I discussed enhancing the original, basic <a href="http://getcloudify.org/2015/10/26/openstack-tokyo-summit-kubernetes-cloudify-tosca-nfv-orchestration-microservices.html">Kubernetes</a> plugin into a version that was reasonably functional. That version was designed to use <a href="http://getcloudify.org/guide/3.2/plugin-fabric.html">Fabric</a> and operate on preexisting machines (virtual or “bare metal”). This post discusses the changes needed to create the same hybrid deployment as before, but hosted on <a href="http://getcloudify.org/2015/10/22/openstack-liberty-summit-releases-cloud-kubernetes-neutron-nfv.html" target="_blank">OpenStack</a>.</p>
+
+<h2><a></a>Executive Summary</h2>
+
+<p>For anyone interested in the end result without the technical details, the advancement since the previous post consists of porting the plugin for use in a Cloudify managed environment, and creating an Openstack blueprint that:</p>
+
+<ol>
+  <li>Provisions virtual machines to hold a <a href="http://getcloudify.org/2015/08/26/kubernetes-docker-images-microservices-container-architecture-management-orchestration-tools.html" target="_blank">Kubernetes cluster</a> and a MongoDB instance.</li>
+
+  <li>Installs Kubernetes and MongoDB separately. </li>
+
+  <li>Deploys and configures a distributed NodeJs app on the hybrid platform: NodeJS and the Nodecellar webapp as a Kubernetes pod, and MongoDB (mongod) and the related Nodecellar database. </li>
+</ol>
+
+<p>The code is on <a href="https://github.com/cloudify-examples/cloudify-kubernetes">github</a>. A video describing the <a href="http://getcloudify.org/cloudifysourcetv.html#5" target="_blank">orchestration</a> project at a high level is available on the Cloudify website.</p>
+
+<hr>
+
+<h2>Some Technical Details</h2>
+
+<h3>Replacing Fabric</h3>
+
+<p>Using the <a href="http://getcloudify.org/guide/3.2/plugin-fabric.html">Fabric plugin</a> is great both for quickly developing blueprints and plugins, and also for non-cloud deployment targets without a manager. For a cloud such as OpenStack, the standard managed approach is more desirable. All the actual fabric task code resides in the <a href="https://github.com/dfilppi/cfy3/blob/master/kub/plugin/kube_plugin/start-master-ubuntu14-tasks.py">start-master-ubuntu14-tasks.py</a>and <a href="https://github.com/dfilppi/cfy3/blob/master/kub/plugin/kube_plugin/start-node-ubuntu14-tasks.py">start-node-ubuntu14-tasks.py</a> files. The porting effort boils down to replacing Fabric calls (e.g. run, sudo, put) with calls to the python standard “subprocess” library. A representative example of such a translation: <br><br>
+<i>Before</i> <br>
+<script src="https://gist.github.com/dfilppi/d68d1f780b494b4bed11.js"></script>
+<i>After</i> <br>
+<script src="https://gist.github.com/dfilppi/991d94b51930f7693a71.js"></script>
+</p>
+
+<p>Another minor side effect of replacing the Fabric plugin is removing the Fabric configuration from the blueprint itself. The plugin executor also gets changed from <code>central_deployment_agent</code> to <code>host_agent</code>.</p>
+
+<h3>Getting Late Bound Runtime Properties</h3>
+
+<p>One side effect of moving to Openstack is that IP addresses are no longer statically defined. Since the blueprint must configure the Kubernetes microservice the IP address of the MongoDB instance, some means of getting that information at runtime, after the MongoDB host has been started, must be used. The intrinsic <code>get_attribute</code> function won’t work in this case, so the plugin supplies a custom syntax for injecting runtime properties:<code>@{ node, attribute}</code>. Example:</p>
+
+<pre><code>      config_overrides:
+        - &quot;['spec']['containers'][0]['env'][0]['value'] = <a href="mailto:'@{mongod_host,ip}'&quot;">'@{mongod_host,ip}'&quot;
+</a></code></pre>
+
+<p>The custom syntax is implemented with some simple regex manipulation, and has the added virtue of being more readable than the intrinsics anyway.</p>
+
+<h2>Conclusion</h2>
+
+<p>The port of the “local mode” blueprint and plugin to OpenStack is straightforward, as shown above. The remainder of the blueprint construction is just ensuring the proper inter-node dependencing and defining security groups and public ips so everything can talk. Next on the list: container monitoring and autoscaling for Kubernetes provided by Cloudify. As always, comments welcome.</p>
+
+<p>For a deeper dive on Cloudify and Kubernetes in a hybrid environment on OpenStack, watch the video below:</p><br>
+
+<iframe width="800" height="450" src="https://www.youtube.com/embed/eT92TBKTUEk" frameborder="0" allowfullscreen></iframe>
+
+</notextile>
