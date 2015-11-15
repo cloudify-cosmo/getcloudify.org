@@ -50,7 +50,7 @@ Now let's move on to configuration.
 
 We'll configure an Inputs YAML file. This file will serve as the configuration for the manager blueprint inputs. Note that the various manager blueprints folders offer an *inputs.yaml.template* file, which can be copied and edited with the desired values.
 
-Below are examples of input.yaml file configurations for differnet providers. You can also generate a file on your own.<br>
+Below are examples of input.yaml file configurations for different providers. You can also generate a file on your own.<br>
 
 {% togglecloak id=1 %}**Configuring your Manager Blueprint**{% endtogglecloak %}
 {% gcloak 1 %}
