@@ -84,7 +84,7 @@ Bellow is the default values that you could use to configure cloudify for DevSta
 [HP Cloud](http://www.hpcloud.com/) is a public OpenStack cloud. As such it is a fairly easy way get a hold of a fully operational OpenStack environment.
 To use HP Cloud you need [setup an account on the HP Helion Cloud](https://horizon.hpcloud.com/).
 
-<p>Please note, according to the HP Cloud website: <i>As of October 21st, 2015, we are no longer accepting new customer accounts on the HP Helion Public Cloud. This service will be shutting down on January 31st, 2016. For more information, please view the announcement.</i></p>
+<p><b>Note:</b> According to the HP Cloud website: <i>As of October 21st, 2015, we are no longer accepting new customer accounts on the HP Helion Public Cloud. This service will be shutting down on January 31st, 2016. For more information, please view the <a href="http://h30499.www3.hp.com/t5/Grounded-in-the-Cloud/A-new-model-to-deliver-public-cloud/ba-p/6804409" target="_blank">announcement</a>.</i></p>
 
 If you're going to use HP Cloud, you will only need to change the following configuration elements in the `cloudify-config.yaml` and type in your account username, password and tenant name. The tenant name is the project in the HP Cloud console (or your OpenStack Horizon dashboard).
 
