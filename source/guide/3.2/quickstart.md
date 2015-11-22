@@ -19,9 +19,9 @@ installation_general_link: installation.html
 ---
 {%summary%}{{page.abstract}}{%endsummary%}
 
-{%tip title=Try Instantly%}
+<!--{%tip title=Try Instantly%}
 You can take Cloudify for an instant test drive with an [online trial.](http://getcloudify.org/widget.html)
-{%endtip%}
+{%endtip%}-->
 
 
 # Overview
