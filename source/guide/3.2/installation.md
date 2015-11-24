@@ -124,7 +124,7 @@ In following versions, we'll be supplying a package compiled for OS X.
 
 A script is supplied for you to install Cloudify on different OS distributions.
 
-You can download the script from <a href="http://gigaspaces-repository-eu.s3.amazonaws.com/org/cloudify3/get-cloudify.py" class="download" onclick="javascript: _gaq.push(['_trackEvent', 'Product Download', 'Cloudify Pip Install', 'Get-Cloudify.py Install']);">here</a>.
+You can download the script from <a href="http://gigaspaces-repository-eu.s3.amazonaws.com/org/cloudify3/get-cloudify.py" class="download" onclick="javascript: _gaq.push(['_trackEvent', 'Product Download', 'Cloudify Pip Install', 'Get-Cloudify.py Install']);" download>here</a>.
 
 {%note title=Script's help%}
 Please consider running `python get-cloudify.py -h` before installing to get familiarized with what this script provides.
@@ -153,7 +153,7 @@ If you are using Linux, and you choose to use either the `--force` flag or the `
 
 ## Installing the latest Stable Release using the default flags
 
-* Download the <a href="http://gigaspaces-repository-eu.s3.amazonaws.com/org/cloudify3/get-cloudify.py" class="download" onclick="javascript: _gaq.push(['_trackEvent', 'Product Download', 'Cloudify Pip Install', 'Get-Cloudify.py Install']);"> script</a>
+* Download the <a href="http://gigaspaces-repository-eu.s3.amazonaws.com/org/cloudify3/get-cloudify.py" class="download" onclick="javascript: _gaq.push(['_trackEvent', 'Product Download', 'Cloudify Pip Install', 'Get-Cloudify.py Install']);" download> script</a>
 * Run
 {% highlight bash %}
 python get-cloudify.py
