@@ -307,11 +307,11 @@ function downloadFile(e)
 function track_download(downloadHref) {
 		var downloadme=downloadHref.split("/")[2]; 
 		//downloadme="/downloads/cloudify-" + downloadme.split("\.zip")[0] + "/get_cloudify";
-		_gaq.push(['_trackEvent', 'NFV Resource Download', downloadme]);
+		//_gaq.push(['_trackEvent', 'NFV Resource Download', downloadme]);
        	//track mixpanel
 		var zipName="";
 		zipName=downloadHref.split("/")[2]; 
-		mixpanel.track(dataBtnName, {'Zip Name':zipName, 'Source':'getcloudify.org'});
+		//mixpanel.track(dataBtnName, {'Zip Name':zipName, 'Source':'getcloudify.org'});
 		if (getCookie('cfydirect') == null) {
             formEmail =  $(".gattingWrapper #email").val();	
             formName =  $(".gattingWrapper #first_name").val();
@@ -320,14 +320,26 @@ function track_download(downloadHref) {
             mixpanel.alias(formName, formEmail, formcompany);
             mixpanel.name_tag(formName) ;
 			mixpanel.register();
-			//create cookie;
-			setCookie('cfydirect', formName + "," + formEmail + "," + formcompany);
 			
+			mixpanel.people.set({
+			$email: formEmail,
+			$first_name: formName,
+			$company: formcompany,
+			$created: new Date(),
+			});	
+			//create cookie;
+			setCookie('cfydirect', formName + "," + formEmail + "," + formcompany);	
+			_gaq.push(['_trackEvent','NFV Resource Download', 'NFV Resource']);
+			mixpanel.track('NFV Resource Download', {'Zip Name':'NFV Resource Download', 'Source':document.title});
         }else{
+			var formEmail = getCookie('cfydirect').split(",")[1];
 			mixpanel.identify(formEmail);
+			_gaq.push(['_trackEvent','NFV Resource Download', 'NFV Resource']);
+			mixpanel.track('NFV Resource Download', {'Zip Name':'NFV Resource Download', 'Source':document.title});
+
         }
 
-		mixpanel.people.set({
+		/*mixpanel.people.set({
 		"resource": zipName, // sets the property 'Resource' for this user to the boolean value true		
 		$email: formEmail,
 		$first_name: formName,
@@ -337,14 +349,11 @@ function track_download(downloadHref) {
 		mixpanel.track('NFV Resource Download', {'Zip Name':'NFV Resource Download', 'Source':document.title});
 		mixpanel.people.increment({
 			"Number Of Resource Downloads": 1
-		}); 
+		}); */
 	}
 	
 	
 function track_contactForm(downloadHref) {
-		//var downloadme=downloadHref.split("/")[2]; 
-		_gaq.push(['_trackEvent','NFV Resource Download', 'NFV Resource']);
-		mixpanel.track('NFV Resource Download', {'Zip Name':'NFV Resource Download', 'Source':document.title});
        	//track mixpanel
 		if (getCookie('cfydirect') == null) {
             formEmail =  $(".gattingWrapper #email").val();	
@@ -363,9 +372,14 @@ function track_contactForm(downloadHref) {
 			});	
 			//create cookie;
 			setCookie('cfydirect', formName + "," + formEmail + "," + formcompany);	
+			_gaq.push(['_trackEvent','NFV Resource Download', 'NFV Resource']);
+			mixpanel.track('NFV Resource Download', {'Zip Name':'NFV Resource Download', 'Source':document.title});
         }else{
 			var formEmail = getCookie('cfydirect').split(",")[1];
 			mixpanel.identify(formEmail);
+			_gaq.push(['_trackEvent','NFV Resource Download', 'NFV Resource']);
+			mixpanel.track('NFV Resource Download', {'Zip Name':'NFV Resource Download', 'Source':document.title});
+
         }
 
 		
