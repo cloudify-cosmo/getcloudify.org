@@ -322,6 +322,7 @@ function track_download(downloadHref) {
 			mixpanel.register();
 			
 			mixpanel.people.set({
+			"resource": zipName, // sets the property 'Resource' for this user to the boolean value true		
 			$email: formEmail,
 			$first_name: formName,
 			$company: formcompany,
@@ -365,6 +366,7 @@ function track_contactForm(downloadHref) {
 			mixpanel.register();
 			
 			mixpanel.people.set({
+			"resource": "NFV White Paper April 2015.pdf", // sets the property 'Resource' for this user to the boolean value true		
 			$email: formEmail,
 			$first_name: formName,
 			$company: formcompany,
