@@ -7,10 +7,10 @@ abstract: A quick tutorial for getting started with Cloudify and deploying your 
 pageord: 200
 
 quickstart_link: getting-started.html
-blueprint_file_link: https://raw.githubusercontent.com/cloudify-cosmo/cloudify-nodecellar-example/3.2/singlehost-blueprint.yaml
+blueprint_file_link: https://raw.githubusercontent.com/cloudify-cosmo/cloudify-nodecellar-example/3.2.1/singlehost-blueprint.yaml
 virtualbox_link: https://www.virtualbox.org/
 vagrant_link: http://www.vagrantup.com
-vagrant_file_link: http://gigaspaces-repository-eu.s3.amazonaws.com/org/cloudify3/3.2.0/ga-RELEASE/Vagrantfile
+vagrant_file_link: http://gigaspaces-repository-eu.s3.amazonaws.com/org/cloudify3/3.2.1/ga-RELEASE/Vagrantfile
 terminology_link: reference-terminology.html
 workflows_link: workflows-built-in.html
 blueprint_guide_link: understanding-blueprints.html
@@ -91,7 +91,7 @@ You'll have to clone a sample blueprint from our Github repository from the Vagr
 cd blueprints
 git clone https://github.com/cloudify-cosmo/cloudify-nodecellar-example
 cd cloudify-nodecellar-example/
-git checkout tags/3.2
+git checkout tags/3.2.1
 {%endhighlight%}
 
 ## Step 4: Upload the Blueprint and Create a Deployment
