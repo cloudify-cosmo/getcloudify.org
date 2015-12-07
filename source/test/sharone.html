@@ -97,12 +97,11 @@ category: cloud orchestration cloud automation
 								<p style="vertical-align:top;">Cloudify is OpenStack native, this means it was built to work seamlessly with OpenStack deployments of all kinds enabling you to orchestrate your apps easily for any use case: hybrid cloud, NFV, simplified migration, or hybrid workload environments (bare metal, containers and more).</p>
 								<p style="vertical-align:top;"> As part of the native approach, Cloudify is deeply integrated with leading OpenStack projects:</p>
 								<ul>
-								<li><a href="{{ site.baseurl }}/"><strong>OpenStack Heat:</strong></a></li>
-								<li><a href="{{ site.baseurl }}/"><strong>OpenStack Murano:</strong></a></li>
-								<li><a href="{{ site.baseurl }}/"><strong>TOSCA:</strong></a></li>
-								<li>Neutron, Nova, Keystone and more: </li>
+								<li><a href="/openstack-architecture-cloudify.html#Heat"><strong>OpenStack Heat:</strong></a> Cloudify can be provisioned on an OpenStack environment using a Heat template. OpenStack users can use this template to modify and control the Cloudify manager configuration just like they would with any other service.</li>
+								<li><a href="{{ site.baseurl }}/"><strong>OpenStack Murano:</strong></a>Murano, like Cloudify, is pluggable with a built-in plugin system - so it was only natural for the Cloudify team to partner with the engineering team behind Murano to create a Cloudify plugin for Murano. This plugin allows Murano to manage TOSCA templates directly, and deploy them to OpenStack and other clouds directly, using Cloudify. By using this plugin, users can essentially extend Murano to any infrastructure, and even deploy and model applications on mixed infrastructures.</li>
+								<li><strong>OpenStack Neutron:</strong>Cloudify includes support for all the networking elements, and can help automate the creation and management of these networking requirements all as part of the application deployment.</li>
 								</ul>
-								<p>Loremipsum something something</p>
+								
 								
 							
 						</div>
@@ -146,15 +145,7 @@ category: cloud orchestration cloud automation
 				<div class="span8"><div class="pad35">
 				<h2 style="vertical-align:top;"><strong><font color="#00B4DA" style="font-size:16px;">Docker Orchestration for Hybrid Workloads</font></strong></h2>
 								<p style="text
-								-align:top;">Cloudify is OpenStack native, this means it was built to work seamlessly with OpenStack deployments of all kinds enabling you to orchestrate your apps easily for any use case: hybrid cloud, NFV, simplified migration, or hybrid workload environments (bare metal, containers and more).</p>
-								<p style="vertical-align:top;"> As part of the native approach, Cloudify is deeply integrated with leading OpenStack projects:</p>
-								<ul style="vertical-align:top;">
-								<li><a href="{{ site.baseurl }}/"><strong>Kubernetes Plugin</strong></a></li>
-								<li><a href="{{ site.baseurl }}/"><strong>OpenStack Murano:</strong></a></li>
-								<li><a href="{{ site.baseurl }}/"><strong>TOSCA:</strong></a></li>
-								<li>Neutron, Nova, Keystone and more: </li>
-								</ul>
-								<p>Loremipsum something something</p>
+								-align:top;">Cloudify has a built-in Docker plugin and matching types, which allows users to use Docker containers as part of any topology. This provides a full-blown orchestration and automation method for large-scale Docker-based systems. On top of this, Cloudify has a  built-in plugin for Kubernetes.  Cloudify through its TOSCA engine, has created a language that models Kubernetes into TOSCA to easily extend it to any cloud or environment, or fuse microservices alongside non-microservices in the same template, and provide cross-cloud, environment and workload orchestration for the entire system.</p>
 								
 								<a name="HPLink2"></a>
 	
@@ -219,7 +210,7 @@ category: cloud orchestration cloud automation
 							</div>
 							<div class="text">
 							<br/>
-							<h3><strong><font color="#00B4DA">From Hybrid Cloud to Workloads</font> with Cloudify</strong> </h3>
+							<h3><strong><font color="#00B4DA">Hybrid Cloud & Workloads</font> with Cloudify</strong> </h3>
 								<p>Real environments are many times are comprised of diverse workloads running on diverse infrastructure - from container and database clusters and even stateful services such as big data and analytics systems on bare metal through non-virtualized and even legacy environments.  In order to connect this new wave of hybrid environments and workloads - including everything from setup and provisioning of networking and other complex services on any cloud, an orchestration platform is necessary.  Cloudify through its TOSCA engine, has created a single pane of glass for entire complex systems of today. </p>
 															
 							</div>
