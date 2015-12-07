@@ -67,7 +67,7 @@ category: cloud orchestration cloud automation
 				</div>
 			</section>	
 				
-	<section class="callaction">	
+	<section class="bottom">	
 	<div class="container">
 		<div class="row">
 			
@@ -91,9 +91,9 @@ category: cloud orchestration cloud automation
 
 
 				<div class="span8"><div class="pad35">
-				<h2><strong><font color="#00B4DA" style="font-size:16px;">OpenStack Orchestration for Any Use Case</font></strong></h2>
-								<p>Cloudify is OpenStack native, this means it was built to work seamlessly with OpenStack deployments of all kinds enabling you to orchestrate your apps easily for any use case: hybrid cloud, NFV, simplified migration, or hybrid workload environments (bare metal, containers and more).</p>
-								<p> As part of the native approach, Cloudify is deeply integrated with leading OpenStack projects:</p>
+				<h2 style="vertical-align:top;"><strong><font color="#00B4DA" style="font-size:16px;">OpenStack Orchestration for Any Use Case</font></strong></h2>
+								<p style="vertical-align:top;">Cloudify is OpenStack native, this means it was built to work seamlessly with OpenStack deployments of all kinds enabling you to orchestrate your apps easily for any use case: hybrid cloud, NFV, simplified migration, or hybrid workload environments (bare metal, containers and more).</p>
+								<p style="vertical-align:top;"> As part of the native approach, Cloudify is deeply integrated with leading OpenStack projects:</p>
 								<ul>
 								<li><a href="{{ site.baseurl }}/"><strong>OpenStack Heat:</strong></a></li>
 								<li><a href="{{ site.baseurl }}/"><strong>OpenStack Murano:</strong></a></li>
@@ -111,8 +111,8 @@ category: cloud orchestration cloud automation
 					<div class="row">
 					<div class="row-fluid">
 						<div class=" span8"><div class="pad35">
-				<h2><strong><font color="#00B4DA" style="font-size:16px;">TOSCA Orchestration for Any VMware Stack</font></strong></h2>
-								<p>Through the VMware-Cloudify integration, users now have a framework for automating the installation, deployment and post-deployment processes (such as monitoring, self-healing, auto-scaling and continuous delivery) of applications in a consistent manner across the VMware stack using a standards-based deployment (TOSCA). VMware users can also use Cloudify to extend their VMware environment into other clouds - including <a href="{{ site.baseurl }}/openstack-architecture-cloudify.html">OpenStack</a>, to form a true hybrid cloud, as well as for pure-play <a href="{{ site.baseurl }}/network-function-virtualization-vnf-nfv-orchestration-sdn-platform.html">NFV orchestration</a>.</p>
+				<h2 style="vertical-align:top;"><strong><font color="#00B4DA" style="font-size:16px;">TOSCA Orchestration for Any VMware Stack</font></strong></h2>
+								<p style="vertical-align:top;">Through the VMware-Cloudify integration, users now have a framework for automating the installation, deployment and post-deployment processes (such as monitoring, self-healing, auto-scaling and continuous delivery) of applications in a consistent manner across the VMware stack using a standards-based deployment (TOSCA). VMware users can also use Cloudify to extend their VMware environment into other clouds - including <a href="{{ site.baseurl }}/openstack-architecture-cloudify.html">OpenStack</a>, to form a true hybrid cloud, as well as for pure-play <a href="{{ site.baseurl }}/network-function-virtualization-vnf-nfv-orchestration-sdn-platform.html">NFV orchestration</a>.</p>
 								
 							
 						</div></div>
@@ -142,10 +142,11 @@ category: cloud orchestration cloud automation
 
 
 				<div class="span8"><div class="pad35">
-				<h2><strong><font color="#00B4DA" style="font-size:16px;">Docker Orchestration for Hybrid Workloads</font></strong></h2>
-								<p>Cloudify is OpenStack native, this means it was built to work seamlessly with OpenStack deployments of all kinds enabling you to orchestrate your apps easily for any use case: hybrid cloud, NFV, simplified migration, or hybrid workload environments (bare metal, containers and more).</p>
-								<p> As part of the native approach, Cloudify is deeply integrated with leading OpenStack projects:</p>
-								<ul>
+				<h2 style="vertical-align:top;"><strong><font color="#00B4DA" style="font-size:16px;">Docker Orchestration for Hybrid Workloads</font></strong></h2>
+								<p style="text
+								-align:top;">Cloudify is OpenStack native, this means it was built to work seamlessly with OpenStack deployments of all kinds enabling you to orchestrate your apps easily for any use case: hybrid cloud, NFV, simplified migration, or hybrid workload environments (bare metal, containers and more).</p>
+								<p style="vertical-align:top;"> As part of the native approach, Cloudify is deeply integrated with leading OpenStack projects:</p>
+								<ul style="vertical-align:top;">
 								<li><a href="{{ site.baseurl }}/"><strong>Kubernetes Plugin</strong></a></li>
 								<li><a href="{{ site.baseurl }}/"><strong>OpenStack Murano:</strong></a></li>
 								<li><a href="{{ site.baseurl }}/"><strong>TOSCA:</strong></a></li>
@@ -191,16 +192,20 @@ category: cloud orchestration cloud automation
 <section id="content">
 	<div class="container">
 					<div class="row">
+					<div class="span12">
+					<h1><strong>Whatever your</strong> Use Case</h1></div></div>
+					<div class="row">
 							<div class="span6">
 							<div class="box alignjustify">
 							<div class="aligncenter icon">
-									<img src="/img/ScalableOrc.png" width="200">
+									<img src="/img/Cloudify-SDN.png" width="350">
 							</div>
 							<div class="text">
 								<br/>
-								<h4><strong>Multiple applications that can span thousands of nodes</strong></h4>
-								<p>Managing and monitoring of an application requires tight integration with the application to enable quick failure-detection, scaling and other reactive actions. As this makes orchestration tasks heavier, many existing orchestration tools are limited by their monitoring and orchestration engine. This is particularly challenging with big data or networking services that can span to thousands of instances for a single deployment.</p>
-								<p>Cloudify 3 provides management and monitoring of large scale applications using a message broker, such as RabbitMQ, to manage the communication with its managed instances and a logging and analysis engine, through logstash and Elasticsearch, for big data scale.</p>
+								<h3><strong>The only pure-play technology agnostic MANO implementation</strong></h3>
+								<p>Cloudify, based on TOSCA is currently the only real-world and most extensive technology agnostic implementation of ETSI's MANO specification.</p>
+								<p>This is witnessed by Tier-1 telcos selecting Cloudify as their tool of choice for NFV orchestration.  See the work done by  <a href="https://github.com/Orange-OpenSource/opnfv-cloudify-clearwater" target="_blank"><strong><font color="#ff6600">Orange France</font></strong></a> using Cloudify for orchestration in their vIMS POC (and even <i class="icon icon-fork"></i>fork the code) .</p>
+								<p>Watch the <a class="hover-wrap fancybox fancybox.iframe" data-fancybox-group="gallery" title="VNF Deployment Lifecycle - vIMS Application & Service Onboarding Demo" href="http://www.youtube.com/embed/ZsT78d1BR5s?enablejsapi=1&wmode=opaque"><i class="icon icon-play"></i> vIMS + Clearwater example</a> or visit our NFV page.</p>
 							</div>
 							</div>
 							</div>
@@ -208,11 +213,11 @@ category: cloud orchestration cloud automation
 							<div class="span6">
 							<div class="box alignjustify">
 							<div class="aligncenter icon">
-									<img src="/img/GraphicManager.png" width="200">
+									<img src="/img/hybridworkloads.png" width="200">
 							</div>
 							<div class="text">
 							<br/>
-							<h4><strong>New Topology-Driven Monitoring</strong></h4>
+							<h3><strong>From Hybrid Cloud to Workloads</strong> with Cloudify</h3>
 								<p>Many existing monitoring tools were designed to monitor applications only after they have been deployed. In a DevOps environment in which the application continuously changes, sometimes hundreds of times each day, keeping the monitoring system in sync with the actual application deployment is a challenge. As the monitoring systems are often not equipped to map the application topology and architecture, complex and error-prone discovery models are needed to map the application deployment and the dependencies of its components.</p>
 								<p>Cloudify 3 introduces a new concept of topology-driven monitoring in which the entire application management and tracking system is centralized around the application topology, rather than the infrastructure. This makes it possible, at any given moment, to track not only the state of the application, but also the status of deployment, updates, and scaling processes through a single view. As the monitoring system is integrated with the orchestration engine, the two systems are always in sync and up to date, eliminating the need to rely on external discovery services.</p>
 							
