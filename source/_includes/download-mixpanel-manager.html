@@ -14,6 +14,7 @@ var formName="";
 var formcompany ="";
 var dataBtnName=""; // this is the name of the mixpanel resource
 var dataBtnSplit="";
+var btnName="";
 
 //Manage Downloads Gating modal pop up form;
 //========================================//
@@ -166,7 +167,7 @@ $('#regiterToDownload').submit(function(){
 });
 //End Blocking Spam
 
-$("body,.testimonial").on('click', '.gattingWrapperClose', function(){
+$("body,.testimonial,modal").on('click', '.gattingWrapperClose', function(){
     $('#myModal').modal('hide');	
   });
   
@@ -196,6 +197,7 @@ $("#downloadme,.eaTitle,.downloadme,.download").click(function (e) {
           downloadHref = $(this).attr('href');
           dataBtnName = $(this).attr("data-btn-type");
           dataBtnSplit = $(this).attr("data-btn-split");
+		  dataBtnId = $(this).attr("data-btn-id");
           if (getCookie('cfydirect') == null) {
           $("#myModal").remove();
           $("#wrapper").before(strVar);
@@ -268,7 +270,26 @@ $('#myModal').modal('hide');
 setTimeout(function() {
 	window.location.href = downloadHref; 
 	setTimeout(function() {
-		window.location.href = "/thank_you.htm";
+		//window.location.href = "/thank_you1.htm";
+		switch(dataBtnId) {
+    case "Centos 6.5 CLI 3.3.0":
+		window.location.href ="/thank_you_centos_6_5.htm";
+        break;
+    case "Centos 7 CLI 3.3.0":
+		window.location.href ="/thank_you_centos_7.htm";
+        break;
+    case "Windows CLI 3.3.0":
+		window.location.href ="/thank_you_windows.htm";
+        break;
+    case "Pip Install CLI 3.3.0":
+		window.location.href ="/thank_you_pip.htm";
+        break;	
+	case "Vagrant Trial Download 3.3.0":
+		window.location.href ="/thank_you_vagrant.htm";
+        break;			
+    default:
+         window.location.href = "/thank_you.htm";
+}
 	}, 4000);
 }, 500);
 
@@ -300,7 +321,25 @@ function downloadFile(e)
 				setTimeout(function() {
 					window.location.href = downloadHref; 
 					setTimeout(function() {
-						window.location.href = "/thank_you.htm";
+						switch(dataBtnId) {
+							case "Centos 6.5 CLI 3.3.0":
+								window.location.href ="/thank_you_centos_6_5.htm";
+								break;
+							case "Centos 7 CLI 3.3.0":
+								window.location.href ="/thank_you_centos_7.htm";
+								break;
+							case "Windows CLI 3.3.0":
+								window.location.href ="/thank_you_windows.htm";
+								break;
+							case "Pip Install CLI 3.3.0":
+								window.location.href ="/thank_you_pip.htm";
+								break;
+							case "Vagrant Trial Download 3.3.0":
+								window.location.href ="/thank_you_vagrant.htm";
+								break;	
+							default:
+								 window.location.href = "/thank_you.htm";
+						}
 					}, 4000);
 				}, 500);
 				}
