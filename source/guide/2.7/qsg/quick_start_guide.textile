@@ -47,7 +47,7 @@ h2. To install the Cloudify shell
 # "(newwindow)Download(Click here to download the Cloudify zip file)":http://bit.ly/ztbg9u and unzip the Cloudify distribution file.
 # Go to the @<cloudify installation folder>/bin@ folder, and then run @cloudify.bat@ (Windows) or @cloudify.sh@ (==*==nix) depending on the operating system running on your machine.
 
-For more information, see <span class="inlineExpandBtn" title="../setup/installing_the_cloudify_client">Installing the Cloudify Shell</span>.
+For more information, see <span class="inlineExpandBtn" title="../setup/installing_the_cloudify_client.html">Installing the Cloudify Shell</span>.
 
 h1(#step2). Step 2 - Bootstrap on a Local Cloud
 
@@ -66,7 +66,7 @@ h4(info). To obtain a list of all the available commands, type @<tab>@, or to vi
 <img src="../../images/setup/shell_boot3.jpg" width="630" height="300" />
 
 Your local cloud is now ready for deploying the PetClinic application.
-For more information about bootstrapping on a local cloud, see <span class="inlineExpandBtn" title="../bootstrapping/bootstrapping_localcloud">Boostrap a Local Cloud</span>.
+For more information about bootstrapping on a local cloud, see <span class="inlineExpandBtn" title="../bootstrapping/bootstrapping_localcloud.html">Boostrap a Local Cloud</span>.
 
 h1(#step3). Step 3 - Understand the Recipe
 
@@ -135,7 +135,7 @@ For more information, see "(newwindow)The Service Recipe":../developing/service_
 h3. <span class="inlineToggleExpandBtn">The Lifecycle Scripts</span>
 
 <div class="expand">
-If you view any of the Groovy scripts in the tomcat recipe folder, and you will notice that they are essentially regular groovy scripts in which you can write any Groovy or Java code. The only difference is the use of the Cloudify API ("(newwindow)ServiceContext API":../developing/the_service_context_api)..html This API exposes the service runtime details to the script, so that a service can locate and use the details of another service within the same application. For example, in our PetClinic application we use the API to expose the port of the @mongod@ service instance to the all the other services in the PetClinic application.html
+If you view any of the Groovy scripts in the tomcat recipe folder, and you will notice that they are essentially regular groovy scripts in which you can write any Groovy or Java code. The only difference is the use of the Cloudify API ("(newwindow)ServiceContext API":../developing/the_service_context_api.html This API exposes the service runtime details to the script, so that a service can locate and use the details of another service within the same application. For example, in our PetClinic application we use the API to expose the port of the @mongod@ service instance to the all the other services in the PetClinic application.html
 
 For more information, see the following topics:
 * "(newwindow)Lifecycle Events":../developing/lifecycle_events.html
@@ -249,7 +249,7 @@ Cloudify enables each service to define a scaling rule for deciding if the servi
 Here's a snippet of a @tomcat@ service file : 
 <script src="https://gist.github.com/2580529.js?file=mini_tomcat_auto_scaling.groovy"></script>
 
-For more information, see <span class="inlineExpandBtn" title="../developing/scaling_rules">Scaling Rules</span>.
+For more information, see <span class="inlineExpandBtn" title="../developing/scaling_rules.html">Scaling Rules</span>.
 
 h1(#step7). Step 7 - Uninstall the Application
 
@@ -259,7 +259,7 @@ h1(#step8). Step 8 - Teardown the Local Cloud
 
 To shut down the local cloud installation, at the Cloudify shell prompt, type: *teardown-localcloud*.
 
-<h4 class="impt">To see it in action, watch the demonstration <a href="http://www.cloudifysource.org/cloudifysourcetv#bUmt6NX7M9I" rel="bUmt6NX7M9I" class="youtube wtd" data-bitly-type="bitly_hover_card">video</a>.</h4>
+<h4 class="impt">To see it in action, watch the demonstration <a href="https://www.youtube.com/watch?v=V3NNreNRxMQ" target="_blank" rel="bUmt6NX7M9I" class="youtube wtd" data-bitly-type="bitly_hover_card">video</a>.</h4>
 
 h1. What's Next?
 

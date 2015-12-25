@@ -13,7 +13,7 @@ installation_openstack_link: installation-openstack-provider.html
 # Overview
 
 In this tutorial you will start a Cloudify manager on your OpenStack environment, and install a sample Cloudify 3.0 blueprint on it.
-The [blueprint](https://github.com/cloudify-cosmo/cloudify-nodecellar-openstack/blob/master/blueprint.yaml) describes a nodejs application that connects to a MongoDB database and presents a wine catalog. To learn more about blueprint syntax and elements please refer to the [Blueprints Tutorial](guide-blueprint.html).
+The [blueprint](https://github.com/cloudify-cosmo/cloudify-nodecellar-example/blob/master/openstack-blueprint.yaml) describes a nodejs application that connects to a MongoDB database and presents a wine catalog. To learn more about blueprint syntax and elements please refer to the [Blueprints Tutorial](guide-blueprint.html).
 
 # Before You Begin
 

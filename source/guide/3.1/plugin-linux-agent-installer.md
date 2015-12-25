@@ -8,9 +8,9 @@ pageord: 500
 
 celery_link: http://www.celeryproject.org/
 autoscale_link: http://docs.celeryproject.org/en/latest/userguide/workers.html#autoscaling
-celery_config_link: https://github.com/cloudify-cosmo/cloudify-packager/blob/master/package-configuration/ubuntu-agent/Ubuntu-celeryd-cloudify.conf.template
-celery_init_link: https://github.com/cloudify-cosmo/cloudify-packager/blob/master/package-configuration/ubuntu-agent/Ubuntu-celeryd-cloudify.init.template
-disable_requiretty_link: https://github.com/cloudify-cosmo/cloudify-packager/blob/master/package-configuration/ubuntu-agent/Ubuntu-agent-disable-requiretty.sh
+celery_config_link: https://github.com/cloudify-cosmo/cloudify-packager/blob/b46fb8a84d3246612c9a6b437422144340ea8172/package-configuration/ubuntu-commercial-agent/Ubuntu-celeryd-cloudify.conf.template
+celery_init_link: https://github.com/cloudify-cosmo/cloudify-packager/blob/b46fb8a84d3246612c9a6b437422144340ea8172/package-configuration/ubuntu-commercial-agent/Ubuntu-celeryd-cloudify.init.template
+disable_requiretty_link: https://github.com/cloudify-cosmo/cloudify-packager/blob/master/package-configuration/ubuntu-commercial-agent/Ubuntu-agent-disable-requiretty.sh
 ---
 {%summary%}
 {%endsummary%}

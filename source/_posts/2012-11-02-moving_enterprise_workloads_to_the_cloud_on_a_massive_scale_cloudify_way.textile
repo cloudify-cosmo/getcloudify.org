@@ -11,7 +11,7 @@ tags:
  - Virtualization
 ---
            
-<p><a href="/images/cloudlamp.jpg"><img style="margin: 0px 12px 0px 0px; display: inline; float: left" title="CloudifyLightbulb" alt="CloudifyLightbulb" align="left" src="/images/cloudlamp.jpg" width="240" height="240" /></a>In my previous post <a href="2012-10-30-moving_enterprise_workloads_to_the_cloud_on_a_massive_scale,html">Moving Enterprise Workloads to the Cloud on a Massive Scale</a>, I pointed out the reasons for moving Enterprise workloads to the cloud.</p>
+<p><a href="/images/cloudlamp.jpg"><img style="margin: 0px 12px 0px 0px; display: inline; float: left" title="CloudifyLightbulb" alt="CloudifyLightbulb" align="left" src="/images/cloudlamp.jpg" width="240" height="240" /></a>In my previous post <a href="http://getcloudify.org/2012/10/30/moving_enterprise_workloads_to_the_cloud_on_a_massive_scale.html">Moving Enterprise Workloads to the Cloud on a Massive Scale</a>, I pointed out the reasons for moving Enterprise workloads to the cloud.</p>
 
 <p>I also argued that the current approach doesn't work, as we need to think of moving apps not as one-off projects, or as an afterthought, but at a large-scale. Moving apps at a large scale requires a completely different thinking.</p>
 
@@ -41,7 +41,7 @@ tags:
 
 <p>The least common denominator with all applications, regardless of their size and language, is that they all map to a group of processes with some degree of interdependency between them. Cloudify manages applications at the process level, and as such uses the same underlying architecture for any application regardless of the language or the technology stack that comprises the application. Having said that, working at the process level is often not enough as not all processes were made the same. For example, databases behave quite differently from web containers and load-balancers. In order for us to still get in-depth knowledge about the managed application's processes, Cloudify uses a recipe-based approach. The recipe-based approach enables us to describe the elements that are specific to that individual process such as, the configuration element, the dependency on other processes, the specific key performance indicators that tell if that process' behavior is aligned with its SLA, and such. </p>
 
-<p>Working on the process level makes it possible to plug-in to a large variety of infrastructure environments whether they happen to be in public, private or bare-metal environments. Cloudify uses an abstraction layer known as the <strong><em><a href="/guide/clouddrivers/cloud_driver.html">Cloud Driver</a></em></strong> that allows it to plug-in to a large variety of cloud and private data center environments through simple configuration.</p>
+<p>Working on the process level makes it possible to plug-in to a large variety of infrastructure environments whether they happen to be in public, private or bare-metal environments. Cloudify uses an abstraction layer known as the <strong><em><a href="/guide/2.7/clouddrivers/cloud_driver.html">Cloud Driver</a></em></strong> that allows it to plug-in to a large variety of cloud and private data center environments through simple configuration.</p>
 
 <p>Here is how Cloudify maps to the specific principles that I laid out above:</p>
 

@@ -374,7 +374,7 @@ The environment variables mentioned in (1) are the standard CloudStack environme
 * `CS_API_URL`
 
 {%tip title=Tip%}
-The [CloudStack manager blueprint](reference-cloudstack-manager.html) and the CloudStack provider store the CloudStack configuration used for the bootstrap process in a JSON file as described in (2) at `~/cloudstack-config.json`. Therefore, if they've been used for bootstrap, the CloudStack configuration for applications isn't required as the plugin will default to these same settings.
+The [CloudStack manager blueprint](manager-blueprints-cloudstack.html) and the CloudStack provider store the CloudStack configuration used for the bootstrap process in a JSON file as described in (2) at `~/cloudstack-config.json`. Therefore, if they've been used for bootstrap, the CloudStack configuration for applications isn't required as the plugin will default to these same settings.
 {%endtip%}
 
 # Example

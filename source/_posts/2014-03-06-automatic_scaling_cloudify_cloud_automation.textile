@@ -24,7 +24,7 @@ tags:
 <p>Manual scaling, as is inferred, requires human involvement of either a sysadmin or cloud admin.&#160;&#160; The cloud/sys admin, monitors the environment, either through Cloudify (which also provides a built-in application monitoring mechanism),&#160; based on metrics specified in the recipe (and displayed in the Cloudify web UI), or any other monitoring tool that can be integrated with Cloudify. </p>
 <p>When the cloud admin sees that a metric threshold has been breached, for example, that there are heavy loads or that an environment is too busy,&#160; they can then choose to add additional VMs or instances of any service needed without affecting the existing environments.</p>
 <p>Through manual scaling, Cloudify can also kill machines in the same manner, without end users seeing any downtime at all.</p>
-<p>Manual scaling is easily performed through the Cloudify CLI, by invoking the <a href="/guide/2.7/recipe/command_line_reference#set_instances">set-instances command</a> and specifying the number of instances you want.</p>
+<p>Manual scaling is easily performed through the Cloudify CLI, by invoking the <a href="/guide/2.7/recipe/command_line_reference.html#set_instances">set-instances command</a> and specifying the number of instances you want.</p>
 <p>For example, if you want four MySQL instances, all you need to do is to invoke the following set-instances command : <strong>set-instances mysql 4</strong> and within a few minutes, the instances specified will be up and running.</p>
 <h3>Automatic Scaling (Auto-Scaling)</h3>
 <p>As with most IT processes, many times you'll want to automate these processes, and not have to have someone monitoring the system manually. </p>
@@ -51,5 +51,5 @@ tags:
   <br />In this way, even if you find yourself unprepared with the correct rules in place, you can take manual measures to scale your system on demand, in real time.</p>
 <p>Here's a video that shows how to invoke scaling rules from the Cloudify Web UI :<br/></p>
 <p><a href="https://www.youtube.com/watch?v=N3YzohZd4ks" rel="N3YzohZd4ks" class="video fancybox-media"><img src="/images/scaling_rules.png" alt="Cloudify scaling rules" /></a></p>
-<p>Learn more about the <a href="http://www.cloudifysource.org/guide/2.7/developing/scaling_rules">cloud automation</a> and scaling rules in our wiki.</p> 
+<p>Learn more about the <a href="http://www.cloudifysource.org/guide/2.7/developing/scaling_rules.html">cloud automation</a> and scaling rules in our wiki.</p> 
 </notextile>

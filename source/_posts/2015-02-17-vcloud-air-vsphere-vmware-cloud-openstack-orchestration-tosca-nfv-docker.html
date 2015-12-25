@@ -25,7 +25,7 @@ tags:
 
 <p>In this post, I wanted to put my money where my mouth is - and actually show a live demo of this type of hybrid cloud model in action.&#160; A use case we’re constantly presented with by Telco and enterprises alike is the much-needed virtualization of network functions (i.e. VNFs or NFV), which is an ongoing pain point.</p>
 
-<p>When we demonstrate the hybrid cloud model we usually do so through a simple web app based on a NodeJS frontend, and MongoDB backend (we call this our <a href="http://getcloudify.org/guide/guide-blueprint.html" target="_blank">nodecellar app example</a>), which can also be demoed in Docker containers.</p>
+<p>When we demonstrate the hybrid cloud model we usually do so through a simple web app based on a NodeJS frontend, and MongoDB backend (we call this our <a href="http://getcloudify.org/guide/3.1/guide-blueprint.html" target="_blank">nodecellar app example</a>), which can also be demoed in Docker containers.</p>
 
  <hr>
 
@@ -50,11 +50,11 @@ tags:
 
 <p><img src="https://lh5.googleusercontent.com/rAF6mt9aCURFtsfSM1yLXcQ8VZzVneqrwdZnkDbcQDyUF-Tr8SNW15clWBpvfZi-gyLg_scjlWD4HJWWNFhpEW93DIbs8vm_xUxIX9FOtpueLYbp0U8d3xF0NZWHHusYL9c" width="624" height="257" /></p>
 
-<p>We started by creating the compute and network services for each of the 12 components listed in the diagram above.&#160; Clearwater comes with a set of preconfigured&#160; Chef cookbooks so it only made sense that we will use the <a href="http://getcloudify.org/guide/plugin-chef.html" target="_blank">Cloudify Chef Plugin</a> to configure and install each of these services on the relevant VM.</p>
+<p>We started by creating the compute and network services for each of the 12 components listed in the diagram above.&#160; Clearwater comes with a set of preconfigured&#160; Chef cookbooks so it only made sense that we will use the <a href="http://getcloudify.org/guide/3.1/plugin-chef.html" target="_blank">Cloudify Chef Plugin</a> to configure and install each of these services on the relevant VM.</p>
 
 <p>On top of that Cloudify adds a monitoring agent using <a href="https://collectd.org/" target="_blank">Collectd</a>, and set logging and monitoring using logstash and Elasticsearch.</p>
 
-<p>The result of this <a href="http://getcloudify.org/guide/understanding-blueprints.html" target="_blank">TOSCA blueprint</a> looks something like this:</p>
+<p>The result of this <a href="http://getcloudify.org/guide/3.1/understanding-blueprints.html" target="_blank">TOSCA blueprint</a> looks something like this:</p>
 
 <p><img src="https://lh3.googleusercontent.com/hCrbJ6kTVGkEU7tdgjmE4IBemc4YXr72oBIw8Mg3J1UtfdGPvVa77qUTiUgAa6A6rRncvWlJ0xqTao_3NOXT2eBZ1YBsHOMOA9i__0kNzxQnbT952OBzpb1FuWN53qpkuNw" width="624" height="308" /></p>
 

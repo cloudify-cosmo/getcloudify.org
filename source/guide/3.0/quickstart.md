@@ -7,7 +7,7 @@ abstract: A quick tutorial for getting started with Cloudify and deploying your 
 pageord: 100
 
 quickstart_openstack_link: quickstart-openstack.html
-blueprint_file_link: https://github.com/cloudify-cosmo/cloudify-nodecellar-singlehost/blob/master/blueprint.yaml
+blueprint_file_link: https://github.com/cloudify-cosmo/cloudify-nodecellar-example/
 virtualbox_link: https://www.virtualbox.org/
 vagrant_link: http://www.vagrantup.com
 vagrant_file_link: http://gigaspaces-repository-eu.s3.amazonaws.com/org/cloudify3/3.0.0/nightly_6/Vagrantfile

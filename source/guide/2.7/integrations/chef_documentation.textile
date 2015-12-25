@@ -74,7 +74,7 @@ To deploy the Chef Server:
 # Connect to the Cloudify Management machine: From the Cloudify shell prompt, type: *@connect <cloudify REST gateway URL>@*
 # Deploy the Chef Server: From the Cloudify shell prompt, type: *@install-service@* @<cloudifyRoot>/recipes/services/chef-server@ (the recipe location can be any location on your local disk to which you've downloaded the Cloudify Chef server recipe).
 
-Once the Chef server is deployed, its location is published as the "global attribute":..developing/attributes_api.html @chef_server_url@ in Cloudify's attributes store.
+Once the Chef server is deployed, its location is published as the "global attribute":developing/attributes_api.html @chef_server_url@ in Cloudify's attributes store.
 
 h4(info). Alternatively, you can configure Cloudify to use an existing Chef Server by setting this attribute manually using the Cloudify shell, as presented below. This can be a Chef server you installed separately or the "Hosted Chef":http://www.opscode.com/hosted-chef/ service. <br/><script src="https://gist.github.com/3705045.js?file=chef-set-attributes"></script>
 

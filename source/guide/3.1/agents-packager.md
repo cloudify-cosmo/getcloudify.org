@@ -6,7 +6,7 @@ publish: true
 abstract: Using the agent packager to create an agent for your distribution
 pageord: 220
 
-virtualenv_link: http://virtualenv.readthedocs.org/en/latest/virtualenv.html
+virtualenv_link: http://virtualenv.readthedocs.org/en/latest/
 terminology_link: reference-terminology.html
 celery_link: http://www.celeryproject.org/
 rest_client_api_link: reference-rest-client-api.html
@@ -139,7 +139,7 @@ Using the tool from python allows you to pass the configuration dictionary direc
 
 ## The Agent Configuration Files
 
-You can obtain the [files](#agent-configuration-files) from [here](https://github.com/cloudify-cosmo/cloudify-packager/tree/master/package-configuration/ubuntu-agent).
+You can obtain the [files](#agent-configuration-files) from [here](https://github.com/cloudify-cosmo/cloudify-packager/tree/master/package-configuration/ubuntu-commercial-agent).
 
 {%note title=Note%}
 These files will not necessarily work on all distributions/releases and you might provide your own.

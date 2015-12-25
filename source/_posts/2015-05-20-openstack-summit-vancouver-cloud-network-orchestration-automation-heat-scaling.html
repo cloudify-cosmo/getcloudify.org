@@ -61,21 +61,21 @@ tags:
   </li>
 
   <li>
-    <p><a href="http://docs.openstack.org/hot-reference/content/reference_overview.html" target="_blank">HOT Reference</a> - Glossary</p>
+    <p><a href="http://docs.openstack.org/developer/heat/template_guide/openstack.html" target="_blank">HOT Reference</a> - Glossary</p>
   </li>
 </ul>
 
 <p>Autoscaling in Heat is done with the help of three main types:</p>
 
-<p><a href="http://docs.openstack.org/hot-reference/content/OS__Heat__AutoScalingGroup.html" target="_blank">OS::Heat::AutoScalingGroup</a></p>
+<p><a href="http://docs.openstack.org/developer/heat/template_guide/openstack.html#OS::Heat::AutoScalingGroup" target="_blank">OS::Heat::AutoScalingGroup</a></p>
 
 <p>An AutoScalingGroup is a resource type that is used to encapsulate the resource that we wish to scale, and some properties related to the scale process.</p>
 
-<p><a href="http://docs.openstack.org/hot-reference/content/OS__Heat__ScalingPolicy.html" target="_blank">OS::Heat::ScalingPolicy</a></p>
+<p><a href="http://docs.openstack.org/developer/heat/template_guide/openstack.html#OS::Heat::ScalingPolicy" target="_blank">OS::Heat::ScalingPolicy</a></p>
 
 <p>A ScalingPolicy is a resource type that is used to define the effect a scale process will have on the scaled resource.</p>
 
-<p><a href="http://docs.openstack.org/hot-reference/content/OS__Ceilometer__Alarm.html" target="_blank">OS::Ceilometer::Alarm</a></p>
+<p><a href="http://docs.openstack.org/developer/heat/template_guide/openstack.html#OS::Ceilometer::Alarm" target="_blank">OS::Ceilometer::Alarm</a></p>
 
 <p>An Alarm is a resource type the is used to define under which conditions the ScalingPolicy should be triggered.</p>
 
@@ -88,7 +88,7 @@ tags:
 <p>This is the definition of the MariaDB server:</p>
 <script src="https://gist.github.com/shar1z/11346aff3b1709db2233.js"></script>
 
-<p>We can see that it is simply a resource of type <a href="http://docs.openstack.org/hot-reference/content/OS__Nova__Server.html" target="_blank">OS::Nova::Server</a> with a user_data property for installing the MariaDB via yum.</p>
+<p>We can see that it is simply a resource of type <a href="http://docs.openstack.org/developer/heat/template_guide/openstack.html#OS::Nova::Server" target="_blank">OS::Nova::Server</a> with a user_data property for installing the MariaDB via yum.</p>
 
 <p>Now let's see how the auto-scaling part comes into play.</p>
 

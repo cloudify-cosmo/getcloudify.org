@@ -11,7 +11,7 @@ plugin_guide_link: guide-plugin-creation.html
 openstack_blueprint_link: guide-openstack-blueprint.html
 getting_started_link: quickstart.html
 terminology_link: reference-terminology.html
-singlehost_nodecellar_url: https://github.com/cloudify-cosmo/cloudify-nodecellar-example/blob/master/singlehost-blueprint.yaml
+singlehost_nodecellar_url: https://raw.githubusercontent.com/cloudify-cosmo/cloudify-nodecellar-example/3.1/singlehost-blueprint.yaml
 nodecellar_url: https://github.com/cloudify-cosmo/cloudify-nodecellar-example
 nodecellar_scripts_url: https://github.com/cloudify-cosmo/cloudify-nodecellar-example/tree/master/scripts
 nodecellar_link: http://coenraets.org/blog/2012/10/nodecellar-sample-application-with-backbone-js-twitter-bootstrap-node-js-express-and-mongodb/

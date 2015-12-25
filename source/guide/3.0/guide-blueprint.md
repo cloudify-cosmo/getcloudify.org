@@ -76,7 +76,7 @@ blueprint:
 
 ## Step 2: Adding a Host for nodejs
 
-<a href="https://github.com/cloudify-cosmo/cloudify-nodecellar-singlehost/compare/step1...step2" class="btn btn-default" role="button"><i class="fa fa-search"></i>  Code Diff</a>
+<a href="https://github.com/cloudify-cosmo/cloudify-nodecellar-example/" class="btn btn-default" role="button"><i class="fa fa-search"></i>  Code Diff</a>
 
 Lets add the nodejs_host as the first node in the list of nodes. To do so we need a `type`([?]({{page.terminology_link}}#type)) as each node is an instance of a type.
 Types are like classes in an OO program. They represent a type of component in an application at any level: Infrastructure (hosts, networks etc), middleware (application servers, web servers, etc) or application (application modules, database schemas, etc).
@@ -165,7 +165,7 @@ Under properties you can see 2 key-value pairs:
 
 ## Step 3: Adding a Host for MongoDB
 
-<a href="https://github.com/cloudify-cosmo/cloudify-nodecellar-singlehost/compare/step2...step3" class="btn btn-default" role="button"><i class="fa fa-search"></i>  Code Diff</a>
+<a href="hhttps://github.com/cloudify-cosmo/cloudify-nodecellar-example/" class="btn btn-default" role="button"><i class="fa fa-search"></i>  Code Diff</a>
 
 In a similar manner we will now add the mongod_vm node (it is a simple copy and paste with a different name):
 
@@ -181,7 +181,7 @@ In a similar manner we will now add the mongod_vm node (it is a simple copy and 
 
 ## Step 4: Adding MongoDB
 
-<a href="https://github.com/cloudify-cosmo/cloudify-nodecellar-singlehost/compare/step3...step4" class="btn btn-default" role="button"><i class="fa fa-search"></i>  Code Diff</a>
+<a href="https://github.com/cloudify-cosmo/cloudify-nodecellar-example/" class="btn btn-default" role="button"><i class="fa fa-search"></i>  Code Diff</a>
 
 Now let’s add the middleware nodes of the application. In this blueprint we are using bash types which in turn use the bash plugin to install and start the nodes.
 
@@ -221,7 +221,7 @@ The scripts are uploaded with the blueprint under the subfolder mongo-scripts. T
 
 ## Step 5: Refining the Blueprint with a Custom Type
 
-<a href="https://github.com/cloudify-cosmo/cloudify-nodecellar-singlehost/compare/step4...step5" class="btn btn-default" role="button"><i class="fa fa-search"></i>  Code Diff</a>
+<a href="https://github.com/cloudify-cosmo/cloudify-nodecellar-example/" class="btn btn-default" role="button"><i class="fa fa-search"></i>  Code Diff</a>
 
 We have just declared a mongod node of type cloudify.bash.db_server. This type doesn’t enforce any properties except for scripts. In the case of a mongo database we probably need to make sure the user gives us configuration details such as the role in the mongo cluster and the port on which it listens. We will therefore subtype cloudify.bash.db_server and add schema property declarations:
 
@@ -273,7 +273,7 @@ Finally we need to add the mongod relationships. This node has only one relation
 
 ## Step 6: Adding nodejs
 
-<a href="https://github.com/cloudify-cosmo/cloudify-nodecellar-singlehost/compare/step5...step6" class="btn btn-default" role="button"><i class="fa fa-search"></i>  Code Diff</a>
+<a href="https://github.com/cloudify-cosmo/cloudify-nodecellar-example/" class="btn btn-default" role="button"><i class="fa fa-search"></i>  Code Diff</a>
 
 Now we can declare the nodejs node:
 
@@ -295,7 +295,7 @@ It uses the same type of relationship (cloudify.relationships.contained_in
 
 ## Step 7: Refining the nodejs Type
 
-<a href="https://github.com/cloudify-cosmo/cloudify-nodecellar-singlehost/compare/step6...step7" class="btn btn-default" role="button"><i class="fa fa-search"></i>  Code Diff</a>
+<a href="https://github.com/cloudify-cosmo/cloudify-nodecellar-example/" class="btn btn-default" role="button"><i class="fa fa-search"></i>  Code Diff</a>
 
 We can refine this node as well by using a subtype in case we want specific properties in the future. The subtype will look like this:
 
@@ -323,7 +323,7 @@ Now let’s try and [deploy](quickstart.html) what we have created so far to get
 
 ## Step 8: Adding the nodejs Application Code
 
-<a href="https://github.com/cloudify-cosmo/cloudify-nodecellar-singlehost/compare/step7...step8" class="btn btn-default" role="button"><i class="fa fa-search"></i>  Code Diff</a>
+<a href="https://github.com/cloudify-cosmo/cloudify-nodecellar-example/" class="btn btn-default" role="button"><i class="fa fa-search"></i>  Code Diff</a>
 
 we can now add the application layer by adding the nodecellar_app node. it is of type nodejs_app (which again we need to decalre inline).
 
@@ -368,7 +368,7 @@ Lets [deploy](quickstart.html) again and see the entire application stack but wi
 
 ## Step 9: Connecting the nodejs Application to MongoDB
 
-<a href="https://github.com/cloudify-cosmo/cloudify-nodecellar-singlehost/compare/step8...step9" class="btn btn-default" role="button"><i class="fa fa-search"></i>  Code Diff</a>
+<a href="https://github.com/cloudify-cosmo/cloudify-nodecellar-example/" class="btn btn-default" role="button"><i class="fa fa-search"></i>  Code Diff</a>
 
 We need to connect the node.js application to the mongo database to make it fully functional. To do so we need a plugin that will get the runtime details of the mongod node and will configure the nodecellar_app node. The plugin API gets both nodes details in the context of a relationship from the workflow engine, so it is easy to code such a plugin. In this case we are going to use a custom plugin called nodecellar_config_plugin.
 

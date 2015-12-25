@@ -14,11 +14,11 @@ h2. Service Descriptor File
 The service descriptor file describes the following information:
 * *"General":#general*: Describes the service name, service type, number of service instances, and the service icon filename
 * *Compute*: Specifies the template name to use when provisioning machines. The template name corresponds to a template name specified in the cloud driver, that describes the hardware profiles a the pool of machines that can be used when provisioning service instances. A hardware profile maps to a specific hardware setup and image size (e.g. in Amazon EC2 it would map to the combination of the hardware id [m1.small, c1.medium, etc.] and an ami id). This allows for clear separation between the application recipe and the cloud environment on which it runs. For more information, see "Cloud Drivers":../clouddrivers/cloud_driver.html
-* *"Lifecycle Events":lifecycle_events*: Maps events to handling scripts or closures and, as such, is the most important part of the service recipe. An event handler can be an external Groovy script, a shell script, or a batch file (depending on the operating system). The handlers must reside in the service folder
+* *"Lifecycle Events":lifecycle_events.html*: Maps events to handling scripts or closures and, as such, is the most important part of the service recipe. An event handler can be an external Groovy script, a shell script, or a batch file (depending on the operating system). The handlers must reside in the service folder
 <h4 class="info">Cloudify can use the same recipe for different operating systems, as long as you specify the relevant instructions for each within the recipe, or the instructions are generic to all of them. The use of handler files is optional. For example, if a post-installation script is not specified in the service recipe, then Cloudify does not execute a handler after the service has been installed.</h4>
-* *"Custom Commands":custom_commands*: Maps custom commands to handling scripts that can be invoked as commands using the Cloudify shell
-* *"Probes":plugins*: For monitoring service configuration, performance, and availability
-* *"UI Layout":configuring_ui_section*: Describes the layout to use for displaying the collected metrics in the "Cloudify web management console":../monitoring/the_web_management_console.html
+* *"Custom Commands":custom_commands.html*: Maps custom commands to handling scripts that can be invoked as commands using the Cloudify shell
+* *"Probes":plugins.html*: For monitoring service configuration, performance, and availability
+* *"UI Layout":configuring_ui_section.html*: Describes the layout to use for displaying the collected metrics in the "Cloudify web management console":../monitoring/the_web_management_console.html
 <h4 class="info">In future releases, Cloudify will also support "*provided services*". These services are not provisioned by Cloudify and are only monitored for availability.</h4>
 
 h3(#general). General Section
@@ -78,7 +78,7 @@ Any of the sections in the service descriptor file can be described in an extern
 
 h4(info). Groovy variables defined in the *General* section of the service descriptor file can be used within the external file.
 
-For example, you can create a standard layout for your "web management console":configuring_ui_section metrics, as follows:
+For example, you can create a standard layout for your "web management console":configuring_ui_section.html metrics, as follows:
 
 # Describe the @userInterface@ section in an external file.
 <script src="https://gist.github.com/3181845.js"> </script>

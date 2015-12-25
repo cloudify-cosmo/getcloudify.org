@@ -86,13 +86,13 @@ tags:
 
 <p>We will use the <a href="https://github.com/cloudify-cosmo/cloudify-nodecellar-docker-example">nodecellar application</a> based on a NodeJS as the web app, backed by MongoDB as the database. Each of these services will run on an independent Docker container as illustrated in the diagram below.</p>
 
-<p>The <a href="https://github.com/cloudify-cosmo/cloudify-nodecellar-docker-example/blob/master/blueprint/docker-singlehost-blueprint.yaml">nodecellar TOSCA blueprint</a> will also take care of downloading the Docker images from DockerHub and later reuse them for subsequent installation/uninstallation. This will allow us to spawn the entire application in roughly 10 seconds!</p>
+<p>The nodecellar TOSCA blueprint will also take care of downloading the Docker images from DockerHub and later reuse them for subsequent installation/uninstallation. This will allow us to spawn the entire application in roughly 10 seconds!</p>
 
 <p class="aligncenter"><img alt="" src="http://cdn.infoq.com/statics_s1_20150616-0050/resource/articles/tosca-docker-orchestration/en/resources/2fig1.png" style="width: 517px; height: 309px;" /></p>
 
 <h2>Step-by-step Guide for Running the Example</h2>
 
-<p>The example was tested on Ubuntu (precise) 12.04 as the underlying operating system. The example comes with two blueprint implementations. One for <a href="https://github.com/cloudify-cosmo/cloudify-nodecellar-docker-example/blob/master/blueprint/docker-singlehost-blueprint.yaml">single host</a> deployments and the other for <a href="https://github.com/cloudify-cosmo/cloudify-nodecellar-docker-example/blob/master/blueprint/docker-openstack-blueprint.yaml">cluster deployments on OpenStack</a>. For the sake of simplicity, in this post I chose to focus on the single host example.</p>
+<p>The example was tested on Ubuntu (precise) 12.04 as the underlying operating system. The example comes with two blueprint implementations. One for single host deployments and the other for <a href="https://github.com/cloudify-cosmo/cloudify-nodecellar-docker-example/blob/master/inputs/openstack.yaml.template">cluster deployments on OpenStack</a>. For the sake of simplicity, in this post I chose to focus on the single host example.</p>
 
 <p>To run the example follow these steps</p>
 
