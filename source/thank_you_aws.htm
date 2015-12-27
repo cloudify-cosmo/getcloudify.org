@@ -125,3 +125,14 @@ cat: thank you pages
 			media : {}
 		}
 	});
+	//download py file
+	//$('.span12').find("#Pip_Install_CLI_3_3_0").trigger('click');
+	function getCookie(key) {
+    var keyValue = document.cookie.match('(^|;) ?' + key + '=([^;]*)(;|$)');
+    return keyValue ? keyValue[2] : null;
+}
+	if (getCookie('cfydirect') != null) {
+		$('#Pip_Install_CLI_3_3_0').get(0).click();
+	}
+  });
+</script>
