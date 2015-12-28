@@ -1,0 +1,192 @@
+---
+layout: blogpost
+title: 6 OpenStack & Docker Predictions for 2016
+image: nati.png
+author: Nati Shalom
+tags:
+ - OpenStack
+ - Hybrid Cloud
+ - NFV
+ - Docker
+ - Hybrid Cloud
+---
+
+<notextile>
+
+<img src="https://lh6.googleusercontent.com/RprADz8n8QdwHkxEjtrtWOQ0Uoywi7Z0qyFBp940tjMlopTiePHrR82-DpBq0J2z6YDiQR3JvXQAxhYbPVQm1PFEz83E8QzPFkjzv57_UpUwT5ln5DMjrwyLAFIXgb5cXCnJSvdvCXheiwAy" alt="Service Now | Automation | Orchestration | Hybrid Cloud | Open Source Cloud | Cloud Security | Open Source">
+<br/>
+<br/>
+
+
+<p><b></b>
+  <h2><font style="font-weight: bold">Originally posted at <a href="http://vmblog.com/archive/2015/12/14/gigaspaces-2016-predictions-6-openstack-docker-predictions.aspx" target="_blank">@VMBlog</a></font></h2>
+  
+  <hr />
+
+
+<p>&#160;</p>
+
+
+<p>While this has been said many times, before, I believe that 2015 will likely be remembered as the year of the cloud, largely due to the most notable event of the year* (read: decade/century…), the whopping Dell/EMC deal, which clearly marks a change in era.&#160; This is a blatant demonstration that literally all the traditional IT players are now fighting for their survival,&#160; as I noted in a post titled, “<a href="http://natishalom.typepad.com/nati_shaloms_blog/2015/10/the-disruption-cycle-a-dime-a-dozen.html">The Disruption Cycle: A Dime a Dozen</a>”.</p>
+
+<p>This (r)evolution puts OpenStack in a fairly interesting spot, as many of these “enterprise” players&#160; - from Cisco to HP to IBM, are also some of the strongest driving forces behind OpenStack. New players such as Mirantis have established themselves as the *new* leaders with a second Intel investment of yet another $100M! While Red Hat is still big in the game and is pretty much using its Linux distribution as a way to lock in its existing customer-base.</p>
+
+
+<hr>
+
+<span class="pullquote-left">
+  <font style="font-weight: bold" size="5" face="Baskerville Old Face"><em>Cloudify 3.3 has landed - and it's awesome.</em></font>&nbsp; <a class="btn btn-medium btn-theme btn-rounded" id="downloadBtnInner" href="http://getcloudify.org/downloads/get_cloudify.html" target="_blank"><i class="icon-plus"></i> Get it! </a></span>
+  
+  <hr>
+
+
+<p>We have also seen new emerging startups such as Platform 9 and Stratoscale that are now aiming to disrupt not just the traditional incumbents, but also the new leaders i.e. Mirantis and Red Hat,... So bearing all this in mind, it definitely makes for a very interesting scene for my annual prediction exercise. :)</p>
+
+<p>Before I jump into 2016 predictions let me start with a quick recap from my previous <a href="http://cloud-computing.tmcnet.com/columns/articles/402358-what-expect-from-openstack.htm">2015 predictions</a>.</p>
+
+<p>My first prediction was that one of the core services in <a href="http://getcloudify.org/openstack-architecture-cloudify.html">OpenStack </a>(and any cloud), the compute service will go through a massive transformation from being hypervisor-centric to a shift into the container/bare metal combo.</p>
+
+<p>Indeed, according to the <a href="https://drive.google.com/file/d/0B4vq3W3Lm2-4RWszZlBqVmxfWWs/view">latest OpenStack user survey</a> a total of 31% are using a combination of bare metal, LXC and containers. That move became the main news for the OpenStack Tokyo summit, i.e. the fact that OpenStack can support all kinds of flavors of compute resources is clearly one of the biggest differentiators in the cloud space. This also fits well with Rob Whiteley's, VP of Marketing at Hedvig, <a href="http://www.hedviginc.com/blog/four-predictions-for-openstack-in-2016">2016 predictions</a> which anticipate that Docker will become the #2 hypervisor in OpenStack.</p>
+
+<p><img alt="" src="https://lh3.googleusercontent.com/V4hOOGLRrLFKx8XQjlUlxjoS-mSKd-9M2VR-X9WYXVKmDssWt6kH6FmwyDzFRfhq0rRP58R5fegVYmC02cSN2UmYRe6IzopYVwQ-HMI1FzjAqdhHsQHaE9BB-YiPKTz-Rn-K3v4RhY9s1sm-" width="540" height="315" /></p>
+
+<p>In addition, the 2015 report saw the rise of NFV popularity within the OpenStack community, that is also part of a bigger convergence between Telco and Enterprise IT.</p>
+
+<p>The latest survey shows that <a href="http://events.linuxfoundation.org/sites/events/files/slides/OPNFV%202015.pdf">containers and NFV</a> are now considered the top areas of innovation within the OpenStack community even more than a PaaS (don’t worry..I’ll come back to that shortly...).</p>
+
+<p><img alt="" src="https://lh6.googleusercontent.com/Khz0JSvylMe1v-AkEf46JOU4eoct11jRzHekwgF8EKloLhr9ENMGP0TA30hBgsB-eB-P7AcyRvGcxbOoS_y1jpMpXlNVJ4drBEWG1beUNOJ_6mhOXHuP05-6FusInxfWbfZno7MtV-bGu5MT" width="661" height="251" /></p>
+
+<p>2014 was the year where Docker burst onto the scene, and basically disrupted everything in its path. It became too big for it to be controlled by a single owner. The latest move by<a href="http://www.forbes.com/sites/benkepes/2015/04/06/coreos-and-google-make-their-defensive-plays-is-docker-the-victim/"> Google and CoreOS</a> in April of 2015 forced Docker to loosen its control over core engine behind Docker and open the rest of the stack to plugins in order to avoid competition from its own ecosystem. In June 2015 Docker announced that it <a href="https://blog.docker.com/2015/06/open-container-project-foundation/">established an industry coalition under the Linux Foundation</a>.</p>
+
+<p>In retrospect I think that my 2015 predictions weren’t a wild guess after all, which brings me to the topic of this post - 2016 OpenStack predictions. In the paraphrased words of Adrian Cockcroft, “follow developer adoption not IT spend. If you're looking at spend over adoption, then you're looking back in time”.</p>
+
+<p>As in the previous case, I will use the OpenStack user survey in conjunction with a few other reports and predictions as the main basis for my analysis. (The list of resources is provided at the bottom of this post).</p>
+
+<h2>2016 OpenStack/Private Cloud Predictions</h2>
+
+<h3>The elephant in the room -</h3>
+
+<p>I remember the days when OpenStack just started, and we used to compare it with the Linux project. Indeed there are lots of similarities - both are big open source projects that falls right in the heart of our data center architecture. After six years on this journey, I realized that this analogy may have a significant flaw. A cloud is a significantly more complex beast than an operating system, and the biggest challenge isn’t necessarily even a technology or cost challenge. In order to be successful in the cloud business you have to have the skillset and organizational structure and culture that is much closer to that of Amazon, Google and the likes. Clearly most of the enterprises, including those who run big data centers, don’t have that skillset and culture, and more importantly the ROI for building one isn’t clear</p>
+
+<p>.<img alt="" src="https://lh3.googleusercontent.com/W5B86MMW2LDMHmg_fa4wkuTUVdVZhWDzoifeB3HQT8QfgiwMbi5rbcYYGw5hlCo9qsXhg-YZMfIqgjajRCgXE_Ij8W8633UJzQBkJ8y5p4bzZz0J3lFDYr9fo7iNO6XnpOzLLHgfWSfi-6e4" width="366" height="450" /></p>
+
+<p>What that means is that the entire assumption behind building an OpenStack distro follows the same Linux distro model may be completely broken at its core. It assumes that enterprises have IT that will be able to operate the cloud by taking a distro and managing it in typical IT fashion with vendors like Red Hat, Ubuntu, Mirantis backing it up with support. The reality though, is that most IT organizations are not sufficiently skilled for such an undertaking, and the effort of transforming them into a cloud business doesn’t seem to have an apparent ROI behind it.</p>
+
+<p>This was echoed by other predictions, such as the aforementioned Rob Whiteley <a href="http://www.hedviginc.com/blog/four-predictions-for-openstack-in-2016">predictions</a>: Talent, not technology, is the No. 1 inhibitor to OpenStack success.</p>
+
+<p>Another interesting indication that may point to this flaw is the declining number of small organizations that are adopting OpenStack vs. a growing number of large organizations, as demonstrated in the diagram below:</p>
+
+<p><img alt="" src="https://lh5.googleusercontent.com/mGKs8gcHYgmM_KogAKJTZ-2noMqm6tBs1-kGBalMOEpQ7hLQuznluLYnDMKsrIGys0N0Zg49gsiMTO7AW3b5S3OjT1Th-V9TWFlpcII8CYTbVYwORWFbN4xy1dgRnJXV1i9Ohb2TlOSm6nBK" width="540" height="259" /></p>
+
+<p>Given the current barriers for building any private cloud (OpenStack included), this trend makes sense - i.e. for small-sized organizations, it will be more economical to use a public cloud or a simple Docker-based infrastructure than investing in OpenStack. What’s more, is that even large organizations are still running fairly small-sized deployments of OpenStack as indicated in the diagram below, which makes the argument for OpenStack ROI questionable even for fairly sizable organizations.</p>
+
+<p><img alt="" src="https://lh3.googleusercontent.com/hrdexyKwuG0U6rbjUTBJtg27VvFQPxayWRsigq0bnF0P3Sy6pmf7jSCE44jZvon8tAppAtWYgMQ7IeDM18nxN3i7qxmIfXy2lZJYLCLsr1hZ_k-Y4ml9GQDoquexduU6J4DSXQZKmapLcND2" width="510" height="276" /></p>
+
+<h4><span style="font-weight: bold">Prediction 1: Opinionated OpenStack appliances and hosted deployment options will start to replace the plain distro model.</span></h4>
+
+<p>In the immediate/short-term that would mean that organizations will have to rely on others to provide a fully operational OpenStack environment. That means that we will start to see a bigger shift from delivering distros, to pre-packaged appliances that come with an opinionated version of OpenStack coupled with its hardware. Indeed Mirantis, HP, Cisco are leading the trend in this regard alongside new startups such as <a href="http://www.stratoscale.com/">Stratoscale</a>.</p>
+
+<p>I expect that we will also see more organizations relying on a hosted version of OpenStack, in which case they will outsource the entire private cloud operation to external experts in this domain. RackSpace alongside traditional system integrators such as CSC, Accenture et al, will be leading this category.</p>
+
+<p>Having said all that, the above solution may address the skill set challenge required to operate an OpenStack cloud, but it doesn’t come close to addressing the issue of why you would want to run OpenStack in the first place, which is often to increase business agility and reduce costs. In order for OpenStack to remain a relevant proposition, it needs to go beyond the boundaries of its software distribution and combine other low cost clouds. Which leads me to the next prediction...</p>
+
+<h4><span style="font-weight: bold">Prediction 2 - The rise of new OpenStack platforms which use OpenStack as a universal abstraction on other private/public clouds</span></h4>
+
+<p><a href="http://getcloudify.org/vmware-hybrid-cloud.html">VMware</a> has announced its support for OpenStack with VIO. The interesting thing about VIO is that it uses OpenStack as an abstraction layer on top of the traditional VMware stack, and thus allows VMware users to move to OpenStack while leveraging maturity of the VMware infrastructure. It will also allow those users to leverage their existing VMware skill set and this makes the transition to OpenStack from VMware a simpler task.</p>
+
+<p><a href="http://platform9.com/">Platform 9</a> is a new and promising startup that offers an OpenStack service on top of Amazon, or any other cloud resources. What’s interesting about the Platform 9 approach is that it also reduces the barrier for running OpenStack significantly, and in addition, it leverages the maturity and cost benefit of other clouds such as AWS, GCE, VMware as the underlying cloud resources, and thus uses OpenStack as a universal abstraction for all those clouds.</p>
+
+<h4><span style="font-weight: bold">Prediction 3: PaaS is Dead. Long live the new PaaS </span></h4>
+
+<p>Docker provides a ubiquitous deployment model which makes the traditional opinionated PaaS offering less attractive as I noted in the post “<a href="http://natishalom.typepad.com/nati_shaloms_blog/2014/11/do-i-need-paas-if-i-use-docker.html">Do I Need PaaS if I Use Docker?</a>.&#160; The recent OpenStack user survey shows that Kubernetes which was designed purely around Docker and microservices is gaining momentum quickly, alongside Docker Swarm, Mesos and Cloudify. What’s interesting about this list is that all of them represent a new and fairly different approach for application management and automation to that of the “Heroku” style PaaS. CloudFoundry is still in the lead with OpenShift coming in a close third, however both CloudFoundry and OpenShift had to pivot their entire product to fit the shift to containers. The most notable one is OpenShift that have been re-engineered around Kubernetes.</p>
+
+<p>Another interesting observation about this list is that none of these projects is part of the OpenStack distribution. One possible explanation for the latter is that users tend to decouple their application platform from that of the infrastructure.</p>
+
+<p>I expect that in 2016, all of the application platforms will have support for containers and Kubernetes. I also expect that Kubernetes will take a clear lead in this category. <a href="http://getcloudify.org/2015/06/11/orchestration-docker-cloud-automation-openstack-heat-tosca-kubernetes.html">Mesos and Kubernetes</a> have largely been considered complementary to one another so far. I expect that as the two platforms continue to grow up the stack the level of overlap between the two platforms will make them more competing alternatives than complementary ones. The uncertainty around Pivotal due to the Dell/EMC deal, along with the rise of Docker/Kubernetes will be the catalyst for a swift takeover of the adoption of Pivotal/CloudFoundry. I believe OpenShift is in a better position in this regard as it has already made moves to align itself with Kubernetes. Having said that, it remains to be seen whether the additional added value that OpenShift covers on top of Kubernetes is worth the risk of adding another layer of abstraction.</p>
+
+<p>While we can see clear indications for widespread adoption of containers, I expect that the transition to a fully containerized world will take good couple of years, and even more so for microservices.&#160; I, therefore expect that in 2016 most of the deployments won’t be able to run the entire workload in microservices/Kubernetes style and would therefore, end up with a mixed workload environment. A good example for this is the use of Kubernetes as a deployment target for microservices and other orchestrations for running the database, big data, event processing and more complex workloads. Cloudify and OpenStack/Magnum are being positioned as the integration platforms that will allow the gluing of these different kinds of tools and workloads together as mentioned in this post <a href="http://getcloudify.org/2015/10/26/openstack-tokyo-summit-kubernetes-cloudify-tosca-nfv-orchestration-microservices.html.">Cloudify Meets Kubernetes</a></p>
+
+<p><a href="http://getcloudify.org/2015/10/26/openstack-tokyo-summit-kubernetes-cloudify-tosca-nfv-orchestration-microservices.html."><img alt="" src="https://lh6.googleusercontent.com/RprADz8n8QdwHkxEjtrtWOQ0Uoywi7Z0qyFBp940tjMlopTiePHrR82-DpBq0J2z6YDiQR3JvXQAxhYbPVQm1PFEz83E8QzPFkjzv57_UpUwT5ln5DMjrwyLAFIXgb5cXCnJSvdvCXheiwAy" width="624" height="453" /></a></p>
+
+<h4><span style="font-weight: bold">Prediction 4: Telcos are going to lead the adoption of OpenStack simply because they have no other choice.</span></h4>
+
+<p>While the case for OpenStack ROI in the enterprise domain is being challenged by public clouds for telcos, OpenStack is probably the only possible option as they are in direct competition with many of the public cloud providers. That’s why we're seeing a significant rise of <a href="http://getcloudify.org/network-function-virtualization-vnf-nfv-orchestration-sdn-platform.html">Network Function Virtualization</a> among OpenStack users as noted in the graph below:</p>
+
+<p><img alt="" src="https://lh5.googleusercontent.com/SmEpJt5TrpfBoVJ7hUiS8xrnxY5dYnmnmwRE912JU7bnNamXcVT39Xj4SdinGKRoOLGq66Vcc6xvoTX0xMn6KfgjQ8KIqJyr__qYzyHzUgWaULcB4i8iR1HkJg29UFFAUauDAvnFjPAzYlaC" width="624" height="243" /></p>
+
+<p>I expect that by 2016 telcos will be the clear leaders of OpenStack deployments over enterprises.</p>
+
+<h4><span style="font-weight: bold">Prediction 5: 2nd generation of OpenStack? Using Docker natively with OpenStack will require more fundamental changes in the OpenStack core. </span></h4>
+
+<p>The approach for integrating <a href="http://getcloudify.org/2014/11/14/openstack-docker-orchestration.html">Docker</a> into OpenStack so far included the addition of Docker as a compute node, as well as adding support for the layers up the stack such as Kubernetes, Mesos using Magnum.</p>
+
+<p>While this seem to be the right first step, it misses some of the fundamental values of containers which offer a complete alternative compute, network and storage stack.</p>
+
+<p>To fully embrace containers, OpenStack will have to go beyond the current OpenStack core and think of a potentially new OpenStack core that will be designed with native support for containers.&#160; <a href="http://ht.ly/UC5fO">Red Hat</a> seem to be ahead of the curve in this regard, and are offering a container native stack that has been announced in Tokyo.&#160; (Note that in this announcement there's very little correlation to the current OpenStack services). I believe that in 2016 we'll start to see a bigger push toward&#160; native integration of Docker into the core of OpenStack. I believe that the outcome of this thinking will set the groundwork for the next generation of OpenStack which will take a container native approach and will therefore become simpler and lighter than its predecessor.</p>
+
+<h4><span style="font-weight: bold">Prediction 6: Hybrid cloud takes center stage (finally)</span></h4>
+
+<p>When OpenStack started, it was thought that it could be an alternative to AWS and other clouds.</p>
+
+<p>In reality however, OpenStack is always used in conjunction with other clouds, the most popular one being VMware on the private side, and AWS on the public cloud front.</p>
+
+<p>Having said that, most users have taken a fairly loose approach toward <a href="http://getcloudify.org/2015/08/27/vmware-openstack-orchestration-tosca-containers-kubernetes-architecture.html">hybrid cloud</a> in which they were operating OpenStack, VMware or Amazon completely differently with very little integration between the two environments. Part of the reason for that approach was that in reality building a hybrid cloud deployment was fairly hard.</p>
+
+<p>There are three things that change this:</p>
+
+<ol>
+  <li>
+    <p>Tooling - new orchestration frameworks and network virtualization now make it possible to automate the process of deployment of applications across multiple clouds.</p>
+  </li>
+
+  <li>
+    <p>Containers provide portable packaging units which makes the ability to run the same software package on multiple clouds significantly simpler than before removing the dependency on a proprietary image format.</p>
+  </li>
+
+  <li>
+    <p>Built-in support for containers by most major clouds provides a common substrate that makes it easier to move workloads between one cloud to another.</p>
+  </li>
+</ol>
+
+<p>Another strong motivation for using a hybrid cloud strategy is the ROI. As I mentioned earlier, the cost for building OpenStack can be fairly high. One of the ways to reduce the cost of OpenStack infrastructure is by integrating OpenStack with other public clouds, which enables extensibility of private cloud instances with on-demand instances, and thus increases the business agility and reduces the overall cost.</p>
+
+<p>All of the above leads me to believe that in 2016 the majority of OpenStack projects will take a tighter hybrid cloud approach as a barring requirement.</p>
+
+<p>The use of containers and&#160; Kubernetes, in conjunction with the support of <a href="http://www.infoq.com/articles/tosca-docker-orchestration">TOSCA</a> by OpenStack, as demonstrated through the TOSCA Parser project, coupled with Cloudify will lead the way in this regard.</p>
+
+<h2>Final Notes: The only constant is change</h2>
+
+<p>In this dynamic world predictions become a fairly challenging task.</p>
+
+<p>What I like about OpenStack is that I feel that it is certainly getting better at the way it listens and responds to its users demands.&#160; The investment in the OpenStack user survey is evidence to that.&#160; The latest user survey is by far the most comprehensive and insightful report. Kudos to the Foundation for a great delivery!</p>
+
+<p>In this prediction exercise I relied on the user survey along with other prediction reports that I’ve listed below and hopefully the result of this process will yield more accurate predictions.</p>
+
+<p>Regardless of all this, what’s clear is that the only constant is change - so if I have one piece of advice to give it would be - embrace change. When planning your 2016 OpenStack strategy make sure that your choices will allow you to adopt new technology faster, as your speed of innovation is going to be determined by the speed of adoption.</p>
+
+<p><img alt="" src="https://lh5.googleusercontent.com/mKthmMAG721QLhmdJA8todSCSYge7yPvj39isjVrerDW0SffuXA0M1GiW7yZWco-BMiyZD7mJwB3Aj3_TDJr_6Ezxru90mDXiMsecDZT-W_5Nr_sI04Qr6CYQ7yJ0mmOWW96F3o4vKbL1o39" width="624" height="276" /></p>
+
+<h4>References</h4>
+
+<p><a href="https://medium.com/structure-series/a-look-back-at-the-state-of-the-cloud-and-a-few-new-predictions-for-2015-6631523b9518">https://medium.com/structure-series/a-look-back-at-the-state-of-the-cloud-and-a-few-new-predictions-for-2015-6631523b9518</a></p>
+
+<p><a href="http://www.hedviginc.com/blog/four-predictions-for-openstack-in-2016">http://www.hedviginc.com/blog/four-predictions-for-openstack-in-2016</a></p>
+
+<p><a href="http://www.gartner.com/newsroom/id/3143718">http://www.gartner.com/newsroom/id/3143718</a></p>
+
+<p><a href="http://www.forbes.com/sites/sap/2015/11/05/idc-releases-top-ten-2016-it-market-predictions/">http://www.forbes.com/sites/sap/2015/11/05/idc-releases-top-ten-2016-it-market-predictions/</a></p>
+
+<p><a href="http://natishalom.typepad.com/nati_shaloms_blog/2015/10/the-disruption-cycle-a-dime-a-dozen.html">http://natishalom.typepad.com/nati_shaloms_blog/2015/10/the-disruption-cycle-a-dime-a-dozen.html</a></p>
+
+<p>OpenStack User Survey</p>
+
+<p><a href="https://drive.google.com/file/d/0B4vq3W3Lm2-4RWszZlBqVmxfWWs/view">https://drive.google.com/file/d/0B4vq3W3Lm2-4RWszZlBqVmxfWWs/view</a></p>
+
+<p>Other References</p>
+
+<p><a href="http://natishalom.typepad.com/nati_shaloms_blog/2014/11/do-i-need-paas-if-i-use-docker.html">http://natishalom.typepad.com/nati_shaloms_blog/2014/11/do-i-need-paas-if-i-use-docker.html</a></p>
+
+  						{% include downloadbuttons.html %}
+
+
+</notextile>
