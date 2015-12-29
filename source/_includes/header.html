@@ -3,7 +3,7 @@
 	
 	<!-- end toggle top area -->
 	<!-- start header -->
-	<header class=" grayGrediant fixed-top">
+	<header class=" bgBlack fixed-top">
 		<!--<div class="hidden-top">
 		<div class="hidden-top-inner container">
 			<div class="row">
@@ -16,32 +16,7 @@
 		</div>
 	</div>-->
 	<div class="container ">
-	
-		<!-- hidden top area toggle link -->
-		<div class="mobileLogo ">
-					<a href="{{ site.baseurl }}/"></a>
-		</div>
-		<div id="header-hidden-link">
-			
-			<!--<a href="http://jobs.gigaspaces.com/" class="jobopenings" title="Job Openings" data-target=".hidden-top" target="_blanc"><img src="{{ site.baseurl }}/images/job_openings.jpg"/></strong><a>-->
-			<a href="{{ site.baseurl }}/goPro.html" class="toggle-link goProBtn" title="Go Pro with Cloudify Premium" data-target=".hidden-top"><strong>
-			<i class="icon icon-plus"></i> PREMIUM</strong><a>
-			<!-- <a class="toggle-link tryBtn" href="{{ site.baseurl }}/widget.html" data-toggle="tooltip" data-placement="bottom" title="Try Cloudify Now">
-				<i class="icon icon-dashboard"></i> TEST DRIVE</a> -->
-			<div class="widget cdsearch">
 
-			<form>
-			  <input type="text" id="st-search-input" class="st-search-input" />
-			</form>
-
-			<!-- <form id="searchForm" class="form-search" action="#" method="get">
-				<input id="search" placeholder="Search..." type="text" class="input-medium search-query ">
-				<button id="goBtn" type="submit" class=" btn goBtn"><i class="iconsearch"></i></button>
-			</form> -->
-			</div>	
-
-		</div>
-		<!-- end toggle link -->	
 		
 			
 				
@@ -49,10 +24,9 @@
 				
 		
 		
-			
-				<div class="logo navbar-toggle">
+			<!--<div class="logo navbar-toggle">
 					<a href="{{ site.baseurl }}/"></a>
-				</div>
+				</div>-->
 			
 			  <nav class="navbar navbar-default" role="navigation">
                   <!-- Brand and toggle get grouped for better mobile display -->
@@ -63,7 +37,10 @@
                       <span class="icon-bar"></span>
                       <span class="icon-bar"></span>
                     </button>
-                    
+                    <a href="//getcloudify.org" class="navbar-brand">
+        <img src="http://docs.getcloudify.org/3.3.0/images/logo.png">
+        <span class="gs-font">Cloudify</span>
+      </a>
                     
                   </div>		
 					<!--<<div class="cdnavbar navbar  navbar-default" role="navigation">
@@ -73,12 +50,12 @@
 									<!-- <ul class="nav topnav bold">-->
                     <div class="cdnavbar collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                                     <ul class="nav navbar-nav">
-                                        <li class="cloudifyLogo"><a href="{{ site.baseurl }}/"></a></li>
+                    
 										<li class="dropdown topmenu">
 										<a href="{{ site.baseurl }}/community-resources.html">Community</a>
 										</li>
 										<li class="dropdown topmenu">
-										<a href="#">Docs <i class="icon-angle-down"></i></a>
+										<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button">Docs <i class="icon-angle-down"></i></a>
 											<ul class="dropdown-menu bold" style="display: none;">
 												<li class="topmenu"><a href="http://docs.getcloudify.org/">3.3 (Latest GA)</a></li>
 												<li class="topmenu"><a href="{{ site.baseurl }}/guide/3.2/">3.2 </a></li>
@@ -86,7 +63,7 @@
 											</ul>
 										</li>
 										<li class="dropdown topmenu">
-											<a href="#">Product  <i class="icon-angle-down"></i></a>
+											<a class="dropdown-toggle" data-toggle="dropdown" role="button">Product  <i class="icon-angle-down"></i></a>
 											<ul class="dropdown-menu bold">
 												<li class="topmenu"> <a href="{{ site.baseurl }}/downloads/get_cloudify.html">Download Cloudify</a></li>
 												<!-- <li class="topmenu"> <a href="{{ site.baseurl }}/widget.html" target="_blank">Try it Now</a></li> -->
@@ -99,7 +76,7 @@
 												</ul>
 										</li>
 										<li class="dropdown topmenu">
-											<a href="#">Resources <i class="icon-angle-down"></i></a>
+											<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button">Resources <i class="icon-angle-down"></i></a>
 											<ul class="dropdown-menu bold">
 												<li class="topmenu"> <a href="{{ site.baseurl }}/examples">Examples Catalog</a></li>
 												<li class="topmenu"><a href="{{ site.baseurl }}/cloudifysourcetv.html">Videos & Tutorials</a></li>
@@ -117,15 +94,31 @@
 										<li class="topmenu">
 											<a href="http://www.gigaspaces.com/cloudify" target="_blank"><strong>.Com <i class="fa fa-external-link-square"></i></strong></a>
 										</li>
- 										<li class="topmenu">
-											<a class="toggle-link dwnBtn" href="{{ site.baseurl }}/downloads/get_cloudify.html" data-toggle="tooltip" data-placement="bottom" title="Get Cloudify">
-											<i class="icon icon-download"></i> <strong>DOWNLOAD</strong></a>
-										</li>
+ 										
 										<!-- <li class="topmenu">
 											<a class="toggle-link tryBtn btn-rounded btn-small btn-green" href="{{ site.baseurl }}/widget.html" data-toggle="tooltip" data-placement="bottom" title="Try Cloudify">
 											<i class="icon icon-dashboard"></i> <strong>TEST DRIVE</strong></a>
 										</li> -->
 									</ul>
+
+		<div class="navbar-right">
+		<div class="widget cdsearch">
+			<form>
+				<input type="text" id="st-search-input" class="st-search-input" />
+			</form>
+		</div>
+        <a href="http://getcloudify.org/downloads/get_cloudify_3x.html" class="hidden-xs hidden-sm">
+          <button type="button" class="btn btn-primary navbar-btn btn-red" title="Get Cloudify">
+            <i class="fa fa-arrow-circle-o-down"></i> <span>download</span>
+          </button>
+        </a>
+        <a href="http://getcloudify.org/goPro.html">
+          <button type="button" class="btn btn-action btn-blue navbar-btn" title="Cloudify Premium">
+            <span>premium</span>
+          </button>
+        </a>
+
+      </div>  
 				</div> 
         <!-- /.navbar-collapse -->
 </nav>
