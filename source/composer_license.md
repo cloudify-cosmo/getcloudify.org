@@ -102,16 +102,7 @@ and employees from any and all claims, damages, liabilities, costs, and expenses
 attorney’s fees) arising from claims related to your use of the Software as well as from your
 failure to comply with these Terms.
 
-8. CLOUDIFY COMPOSER DISCLAIMER. THE COMPOSER IS AN EVALUATION VERSION SOFTWARE AND MAY NOT REPRESENT THE FINAL PRODUCT
-AND MAY CONTAIN BUGS, ERRORS AND OTHER PROBLEMS. YOU WILL PROMPTLY
-RETURN OR DESTROY ALL COPIES OF THE COMPOSER UPON THE EARLIER OF
-GIGASPACES’ REQUEST OR THE COMMERCIAL RELEASE OF A FINAL PRODUCT.
-YOUR USE OF THE COMPOSER IS AT YOUR OWN RISK TAKING INTO THE FACT
-THAT YOU ARE AWARE THAT THIS IS AN EVALUATION VERSION
-SOFTWARE. SEE SECTION 9 FOR ADDITIONAL LIMITED WARRANTY AND LIABILITY
-LIMITATIONS RELATED TO THE COMPOSER.
-
-9. LIMITATION OF LIABILITY AND WARRANTY. TO THE FULLEST EXTENT PROVIDED
+8. LIMITATION OF LIABILITY AND WARRANTY. TO THE FULLEST EXTENT PROVIDED
 BY LAW, THE COMPOSER IS PROVIDED “AS IS” WITHOUT WARRANTY OF ANY KIND.
 GIGASPACES, ITS AFFILIATES, SUBSIDIARIES AND ITS THIRD PARTY LICENSORS
 DISCLAIM ANY WARRANTIES REGARDING THE SECURITY, RELIABILITY,
@@ -141,7 +132,7 @@ EVENT WILL GIGASPACES’ TOTAL LIABILITY TO YOU EXCEED US$100.
 YOU AGREE TO THE ALLOCATION OF LIABILITY RISK WHICH IS SET FORTH IN THIS
 SECTION.
 
-10. GOVERNMENT USE. If you are part of an agency, department, or other entity of the United
+9. GOVERNMENT USE. If you are part of an agency, department, or other entity of the United
 States Government (“Government”), the use, duplication, reproduction, release,
 modification, disclosure or transfer of the Composer is restricted in accordance with the
 Federal Acquisition Regulations as applied to civilian agencies and the Defense Federal
@@ -150,12 +141,12 @@ Acquisition Regulation Supplement as applied to military agencies. The Composer 
 documentation”. In accordance with such provisions, any use of the Software by the
 Government shall be governed solely by the terms of these Terms.
 
-11. EXPORT CONTROLS. You acknowledge that the Composer may be subject to
+10. EXPORT CONTROLS. You acknowledge that the Composer may be subject to
 international rules that govern the export of software. You agree to comply with all
 applicable international and national laws that apply to the Composer as well as end-user,
 end-use and destination restrictions issued by national governments.
 
-12. MISCELLANEOUS. These Terms represent the complete agreement concerning the
+11. MISCELLANEOUS. These Terms represent the complete agreement concerning the
 Composer between you and GigaSpaces and supersedes all prior agreements and
 representations between you and GigaSpaces. If any provision of these Terms is held to
 be unenforceable for any reason, such provision shall be reformed only to the extent
@@ -173,13 +164,13 @@ You hereby agree to service of process in accordance with the rules of such cour
 action or proceeding to enforce rights under these Terms, the prevailing party shall be
 entitled to recover costs and attorneys’ fees.
 
-13. SURVIVAL. The provisions in the paragraphs above labeled LICENSE RESTRICTIONS,
+12. SURVIVAL. The provisions in the paragraphs above labeled LICENSE RESTRICTIONS,
 OWNERSHIP; COPYRIGHT PROTECTION, OPEN SOURCE SOFTWARE, TERM AND
 TERMINATION, INDEMNITY, CLOUDIFY COMPOSER DISCLAIMER, LIMITATION OF 
 LIABILITY AND WARRANTY, MISCELLANEOUS and this SURVIVAL section will survive
 any termination of these Terms.
 
-14. YOU EXPRESSLY ACKNOWLEDGE THAT YOU HAVE READ THESE TERMS AND
+13. YOU EXPRESSLY ACKNOWLEDGE THAT YOU HAVE READ THESE TERMS AND
 UNDERSTAND THE RIGHTS, OBLIGATIONS, TERMS AND CONDITIONS SET FORTH
 HEREIN. BY ONLINE SIGNING ON THIS LICENSE AND/OR CONTINUING TO INSTALL
 OR USE THE SOFTWARE, YOU EXPRESSLY CONSENT TO BE BOUND BY THESE
