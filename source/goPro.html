@@ -35,14 +35,18 @@ support and enhanced features, Cloudify Premium lets you take your cloud orchest
 			
 						<div class="span5">
 				<h2><strong>Contact Us About Cloudify Premium</strong></h2>
-				<form id="contactform" action="https://www.salesforce.com/servlet/servlet.WebToLead?encoding=UTF-8" method="post" class="validateform" name="send-contact" onsubmit="return checkform(this);">
+				<div class="cognito">
+				<script src="https://services.cognitoforms.com/s/H-nl20OXU0mP3VV5u8Y6CA"></script>
+				<script>Cognito.load("forms", { id: "1" });</script>
+				</div>
+				<!--<form id="contactform" action="https://www.salesforce.com/servlet/servlet.WebToLead?encoding=UTF-8" method="post" class="validateform" name="send-contact" onsubmit="return checkform(this);">
 				<input type=hidden name="oid" value="00D300000000KEt">
 				<input type=hidden name="retURL" value="http://getcloudify.org/thank_you_premium.html">
 				<input type=hidden id="lead_source" name="lead_source" name="oid" value="Cloudify Community">
-				<input type=hidden id="00N80000003kH2d" name="00N80000003kH2d" value=".org GoPro">
+				<input type=hidden id="00N80000003kH2d" name="00N80000003kH2d" value=".org GoPro">-->
 				
 				<!--http://formspree.io/hello@getcloudify.org-->
-				<input type="hidden" name="_next" value="http://getcloudify.org/thank_you_premium.html" />
+				<!--<input type="hidden" name="_next" value="http://getcloudify.org/thank_you_premium.html" />
 				<input type="hidden" name="_subject" value="I want to hear more about Cloudify Premium" />
 				<input type="hidden" name="_cc" value="" />
 				<input type="text" name="_gotcha" style="display:none" />
@@ -74,7 +78,7 @@ support and enhanced features, Cloudify Premium lets you take your cloud orchest
 							<p>
 								<button class="btn btn-theme btn-large btn-rounded" type="submit" >Get Cloudify Premium</button>
 							</p>						
-						</div>
+						</div>-->
 						<!--<span class="span4 margintop20">* Please fill all required form field, thanks!</span>-->
 					</div>
 				{% include leadlanderform.html %}
