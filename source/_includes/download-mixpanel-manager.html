@@ -22,7 +22,7 @@ var strVar="";
 strVar += "<div class=\"modal fade\" id=\"myModal\" tabindex=\"-1\" role=\"dialog\" aria-labelledby=\"myModalLabel\" aria-hidden=\"true\">";
 strVar += "            <a  style=\"float:right \" class=\"gattingWrapperClose\" href=\"#\"><i class=\"fa fa-times\">&nbsp;&nbsp;<\/i> <\/a>";
 strVar += "<div class=\"gattingWrapper\">";
-strVar += "           <form id=\"regiterToDownload\" action=\"https:\/\/www.salesforce.com\/servlet\/servlet.WebToLead?encoding=UTF-8\" method=\"POST\">";
+strVar += "           <form id=\"regiterToDownload\" action=\"http:\/\/formspree.io\/hello@getcloudify.org\" method=\"POST\">";
 strVar += "			<div class=\"regTitle\">Verify You're Human<\/div>";
 strVar += "			<div style=\"position:relative\">";
 strVar += "				<input  id=\"last_name\" name=\"last_name\" type=\"text\" class=\"cuInput\" placeholder=\"Your Name\" \/>";
@@ -51,7 +51,7 @@ strVar += "        <\/div>";
 var strCollapse="";
 strCollapse += "<div class=\"collapse\" id=\"myCollapse\" tabindex=\"-1\" role=\"dialog\" aria-labelledby=\"myCollapseLabel\" aria-hidden=\"true\">";
 strCollapse += "<div class=\"gattingWrapper\" style=\"margin:0;\">";
-strCollapse += "           <form id=\"regiterToDownload\" action=\"https:\/\/www.salesforce.com\/servlet\/servlet.WebToLead?encoding=UTF-8\" method=\"POST\">";
+strCollapse += "           <form id=\"regiterToDownload\" action=\"http:\/\/formspree.io\/hello@getcloudify.org\" method=\"POST\">";
 strCollapse += "			<div class=\"regTitle\" style=\"text-align:left;\">Verify You're Human<\/div>";
 strCollapse += "			<div style=\"position:relative\">";
 strCollapse += "				<input  id=\"last_name\" name=\"last_name\" type=\"text\" class=\"cuInput\" placeholder=\"Your Name\" \/>";
@@ -176,6 +176,35 @@ $("body,.testimonial,modal").on('click', '.gattingWrapperClose', function(){
        return false;
     }); 
 
+//Checkbox Validation on before btn download.
+$(':checkbox').click(function(){
+  if(this.checked){
+	$("#btnComposer").removeAttr("disabled");	
+  }else{ 
+	$("#btnComposer").attr("disabled", "disabled");		
+  }  
+});
+$('#btnComposer').click(function(e){
+  if($(':checkbox').is(':checked')){
+		downloadHref = $(this).attr('href');
+          dataBtnName = $(this).attr("data-btn-type");
+          dataBtnSplit = $(this).attr("data-btn-split");
+		  dataBtnId = $(this).attr("data-btn-id");
+          if (getCookie('cfydirect') == null) {
+          $("#myModal").remove();
+          $("#wrapper").before(strVar);
+          downloadValid();
+          downloadFile(e);
+		  } else {
+			  directDownload(e);
+		  }
+  }else{ 
+	e.preventDefault();	
+  }  
+});	
+	
+	
+	
 
 $(".downloadClps").click(function (e) {   
           downloadHref = $(this).attr('href');
