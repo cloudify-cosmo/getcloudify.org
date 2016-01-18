@@ -1,38 +1,34 @@
 ---
 layout: bt_default
-title: Thank you for downloading Cloudify for CentOS
+title: Cloudify Vagrant Box
 cat: thank you pages
 ---
 <section id="content">
         <div class="container">
             <div class="row marginbot30">
                 <div class="span12">
-                     <h1 class="heading"><i class=" icon-thumbs-up"></i><strong>Thank you for downloading the Cloudify VagrantBox Trial.</strong> </h1> 
+                     <h1 class="heading"><i class=" icon-thumbs-up"></i><strong>Thank you for downloading the Cloudify Vagrant Box.</strong> </h1> 
                     <p><strong>Below are the first tips you need for getting started.</strong></p>
                     <br/>
-                    <h2><img src="/img/vagrant-logo2.png" width="50"><strong>&nbsp;&nbsp;VagrantBox Install</strong></h2>
+                    <!--<h2><img src="/img/vagrant-logo2.png" width="50"><strong>&nbsp;&nbsp;VagrantBox Install</strong></h2>-->
 
-                    <h3><font color="4aac49"> <i class="fa fa-check-square-o"></i></font><font color="#000000"><strong><strike>&nbsp;&nbsp;Step 1: Download the Vagrantfile and run a VM</strike></strong></font></h3>
+                    <input type="checkbox" checked="checked"><strike> Step 1: Download the Vagrantfile</strike></input><br>
 
-                    <p><h3><i class="fa fa-square-o"></i>&nbsp;&nbsp;<strong>Step 2:  Run the command</strong></h3><code>vagrant up </code></p>
+                    <input type="checkbox"> Step 2: Run the command</strong> <code>vagrant up</code> in your terminal</input><br>
 
-                    <p>Once the Cloudify Vagrant box is up, you can access the manager web console through your local browser by pointing the browser to <a href="http://10.10.1.10/">http://10.10.1.10/</a>.</p>
+                    <p>Once the Cloudify Vagrant box is up, you can access the manager web console through your local browser by pointing the browser to <a href="http://10.10.1.10/">http://10.10.1.10/</a>.</input><br>
 
-                    <h3><i class="fa fa-square-o"></i>&nbsp;&nbsp;<strong>Step 3: SSH to the Vagrant Box and Connect to the Running Manager</strong></h3>
+                    <input type="checkbox"> Step 3: SSH to the Vagrant Box and connect to the Running Manager by running <code>vagrant ssh</code> after which Cloudify&rsquo;s CLI will be at your disposal.</input><br>
 
-                    <p>To connect to the newly Up&rsquo;d box, type<code> vagrant ssh</code></p>
-
-
-                    <p>&hellip;after which Cloudify&rsquo;s CLI will be at your disposal.</p>
-
-                    <h3><i class="fa fa-square-o"></i>&nbsp;&nbsp;<strong>Step 4: Download the blueprint</strong></h3>
+                    <input type="checkbox"> Step 4: Download the blueprint</input><br>
 
                     <p>Cloudify uses <a href="reference-terminology.html
                     #blueprint">blueprints</a> to describe the overall application orchestration, including the application nodes, workflows, and relationships.</p>
 
-                    <p>You&rsquo;ll have to clone a sample blueprint from our Github repository from the Vagrant box.</p>
+                    <p>You&rsquo;ll have to clone a sample blueprint from our Github repository from the terminal as follows:</p>
 
-                    <p><pre class="bash language-bash" data-lang="bash"> <code class="bash">cd blueprints<br/>
+                    <p><pre class="bash language-bash" data-lang="bash"> <code class="bash"><br>
+                    cd blueprints<br/>
                     git clone https://github.com/cloudify-cosmo/cloudify-nodecellar-example<br/>
                     cd cloudify-nodecellar-example/<br/>
                     git checkout tags/3.3<br/>
@@ -40,11 +36,9 @@ cat: thank you pages
                      </code> </pre>
                     </p>
 
-                    <h3><i class="fa fa-square-o"></i>&nbsp;&nbsp;<strong>Step 5: Upload the Blueprint and Create a Deployment</strong></h3>
+                    <input type="checkbox"> Step 5: Upload the Blueprint and Create a Deployment</input>
 
-                    <p>Now, we upload a sample <a href="reference-terminology.html
-                    #blueprint">blueprint</a> to the Cloudify manager and create a <a href="reference-terminology.html
-                    #deployment">deployment</a> based on it.</p>
+                    <p>Now, we upload a sample <a href="reference-terminology.html#blueprint">blueprint</a> to the Cloudify manager and create a <a href="reference-terminology.html#deployment">deployment</a> based on it.</p>
 
                     <p>In the <code>cloudify-nodecellar-example</code> directory that you just cloned, you can see a blueprint file (named <code>singlehost-blueprint.yaml</code>) alongside other resources related to this blueprint.</p>
 
@@ -52,7 +46,7 @@ cat: thank you pages
                     </p>
 
 
-                     <h3><i class="icon icon-book"></i>Continue <strong><a href="http://docs.getcloudify.org/3.3.0/manager/getting-started/" onclick="javascript: _gaq.push(['_trackEvent', 'Thank You Page Docs Click', 'Cloudify VagrantBox Install', 'Cloudify VagrantBox Install']);">reading the docs</a></strong> to get fully up and running.</h3>
+                     <h3><i class="icon icon-book"></i>Continue <strong><a href="http://docs.getcloudify.org/3.3.0/manager/getting-started/" onclick="javascript: _gaq.push(['_trackEvent', 'Thank You Page Docs Click', 'Cloudify VagrantBox Install', 'Cloudify VagrantBox Install']);">reading the docs</a></strong> to install and see your application in action.</h3>
 
                                       <hr/>
 
