@@ -31,6 +31,7 @@ var dataBtnName=""; // this is the name of the mixpanel resource
 var dataBtnSplit="";
 var btnName="";
 var dataBtnId = "";
+var leadSource = "";
 
 
 //Manage Downloads CLI pop up form ;
@@ -246,6 +247,8 @@ function track_cli_contactForm(e) {
 			$company: cliFormCompany,
 			$created: new Date(),
 		});
+		//set Lead Source;
+		$("#regiterCliDownload #entry_388986873").val(leadSource);
 		//create cookie;
 		setCookie('cfydirect', cliFormName + "," + cliFormEmail + "," + cliFormCompany);
 		gotName = true;
@@ -359,11 +362,12 @@ function track_download(downloadHref) {
 	}
 
 
-$(".downloadCli").click(function (e) {   
-          downloadHref = $(this).attr('href');
-          dataBtnName = $(this).attr("data-btn-type");
-          dataBtnSplit = $(this).attr("data-btn-split");
-		  dataBtnId = $(this).attr("data-btn-id");
+function downloadBtnClick(e){
+		  e.preventDefault(); 
+          downloadHref = e.target.attributes["href"].value;//$(this).attr('href');
+          dataBtnName = e.target.attributes["data-btn-type"].value; //$(this).attr("data-btn-type");
+          dataBtnSplit = e.target.attributes["data-btn-split"].value;//$(this).attr("data-btn-split");
+		  dataBtnId = e.target.attributes["data-btn-id"].value; //$(this).attr("data-btn-id");
 			if (getCookie('cfydirect') == null) {
 				$("#myModal").remove();
 				$("#wrapper").before(strVar);
@@ -372,7 +376,35 @@ $(".downloadCli").click(function (e) {
 			} else {
 				directCLIDownload(e);
 			}
+}
+//Cli 
+$(".downloadCli").click(function (e) {	   
+		  leadSource = "CLI Download";
+		  downloadBtnClick(e);
 });
+//Vagrant
+$(".downloadVagrant").click(function (e) {
+		  leadSource = "Vagrant Trial Download";
+		  downloadBtnClick(e);
+});
+//Composer
+//Checkbox Validation on before btn download.
+$(':checkbox').click(function(){
+  if(this.checked){
+	$("#btnComposer").removeAttr("disabled");	
+  }else{ 
+	$("#btnComposer").attr("disabled", "disabled");		
+  }  
+});
+
+$('#btnComposer').click(function(e){
+  if($(':checkbox').is(':checked')){
+		leadSource = "Composer Download";
+		downloadBtnClick(e);
+  }else{ 
+	e.preventDefault();	
+  }  
+});	
 
 
                   
@@ -441,50 +473,7 @@ $("body,.testimonial,modal").on('click', '.gattingWrapperClose', function(){
        return false;
     }); 
 
-//Checkbox Validation on before btn download.
-$(':checkbox').click(function(){
-  if(this.checked){
-	$("#btnComposer").removeAttr("disabled");	
-  }else{ 
-	$("#btnComposer").attr("disabled", "disabled");		
-  }  
-});
-$('#btnComposer').click(function(e){
-  if($(':checkbox').is(':checked')){
-		downloadHref = $(this).attr('href');
-          dataBtnName = $(this).attr("data-btn-type");
-          dataBtnSplit = $(this).attr("data-btn-split");
-		  dataBtnId = $(this).attr("data-btn-id");
-          if (getCookie('cfydirect') == null) {
-          $("#myModal").remove();
-          $("#wrapper").before(strVar);
-          downloadValid();
-          downloadFile(e);
-		  } else {
-			  directDownload(e);
-		  }
-  }else{ 
-	e.preventDefault();	
-  }  
-});	
-	
-	
-	
-
-$(".downloadClps").click(function (e) {   
-          downloadHref = $(this).attr('href');
-          dataBtnName = $(this).attr("data-btn-type");
-          dataBtnSplit = $(this).attr("data-btn-split");
-          if (getCookie('cfydirect') == null) {
-          $("#myCollapse").remove();
-          //$("#wrapper").before(strCollapse);
-		  $(this).closest("div.addFormAfter").after(strCollapse);
-          downloadValid();
-          downloadFile(e);
-      } else {
-          directDownload(e);
-      }
-});
+			
 
 //$("#downloadme,.eaTitle,.downloadme,.download").click(function (e) {
 $("#downloadme2,.eaTitle2,.downloadme2").click(function (e) {      
