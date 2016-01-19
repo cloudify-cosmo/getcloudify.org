@@ -364,10 +364,10 @@ function track_download(downloadHref) {
 
 function downloadBtnClick(e){
 		  e.preventDefault(); 
-          downloadHref = e.target.attributes["href"].value;//$(this).attr('href');
-          dataBtnName = e.target.attributes["data-btn-type"].value; //$(this).attr("data-btn-type");
-          dataBtnSplit = e.target.attributes["data-btn-split"].value;//$(this).attr("data-btn-split");
-		  dataBtnId = e.target.attributes["data-btn-id"].value; //$(this).attr("data-btn-id");
+          downloadHref = e.currentTarget.attributes["href"].value;//$(this).attr('href');
+          dataBtnName = e.currentTarget.attributes["data-btn-type"].value; //$(this).attr("data-btn-type");
+          dataBtnSplit = e.currentTarget.attributes["data-btn-split"].value;//$(this).attr("data-btn-split");
+		  dataBtnId = e.currentTarget.attributes["data-btn-id"].value; //$(this).attr("data-btn-id");
 			if (getCookie('cfydirect') == null) {
 				$("#myModal").remove();
 				$("#wrapper").before(strVar);
@@ -392,6 +392,12 @@ $(".downloadAmi").click(function (e) {
 		  leadSource = "AMI Download";
 		  downloadBtnClick(e);
 });
+//NFV
+$(".downloadNfv").click(function (e) {
+		  leadSource = "NFV White Paper Download";
+		  downloadBtnClick(e);
+});
+
 //Composer
 //Checkbox Validation on before btn download.
 $(':checkbox').click(function(){
