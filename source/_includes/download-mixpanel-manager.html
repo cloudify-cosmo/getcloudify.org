@@ -32,7 +32,7 @@ var dataBtnSplit="";
 var btnName="";
 var dataBtnId = "";
 var leadSource = "";
-
+var dataThanks="";
 
 //Manage Downloads CLI pop up form ;
 //========================================//
@@ -287,26 +287,26 @@ $('#myModal').modal('hide');
 setTimeout(function() {
 	window.location.href = downloadHref; 
 	setTimeout(function() {
-		switch(dataBtnId) {
-    case "Centos 6.5 CLI 3.3.1":
+		switch(dataThanks) {
+    case "thank_you_centos_6_5":
 		window.location.href ="/thank_you_centos_6_5.htm";
         break;
-    case "Centos 7 CLI 3.3.1":
+    case "thank_you_centos_7":
 		window.location.href ="/thank_you_centos_7.htm";
         break;
-    case "Windows CLI 3.3.1":
+    case "thank_you_windows":
 		window.location.href ="/thank_you_windows.htm";
         break;
-    case "Pip Install CLI 3.3.1":
+    case "thank_you_pip":
 		window.location.href ="/thank_you_pip.htm";
         break;	
-	case "Vagrant Trial Download 3.3.1":
+	case "thank_you_vagrant":
 		window.location.href ="/thank_you_vagrant.htm";
         break;
-    case "Amazon AMI Download 0.0.1":
+    case "thank_you_aws":
 		window.location.href ="/thank_you_aws.htm";
         break;
-	case "Composer Download 3.3.0":
+	case "thank_you_composer":
 		window.location.href ="/thank_you_composer.htm";
 		break;			
     default:
@@ -368,6 +368,7 @@ function downloadBtnClick(e){
           dataBtnName = e.currentTarget.attributes["data-btn-type"].value; //$(this).attr("data-btn-type");
           dataBtnSplit = e.currentTarget.attributes["data-btn-split"].value;//$(this).attr("data-btn-split");
 		  dataBtnId = e.currentTarget.attributes["data-btn-id"].value; //$(this).attr("data-btn-id");
+		  dataThanks = e.currentTarget.attributes["data-thanks-page"].value;
 			if (getCookie('cfydirect') == null) {
 				$("#myModal").remove();
 				$("#wrapper").before(strVar);
@@ -740,7 +741,7 @@ function downloadValid(){
 
         },
         submitHandler: function (form,e) { // for demo
-            formalyzer_call_onclick(12206); 
+            //formalyzer_call_onclick(12206); 
             if ($('input#website').val().length != 0) {
                 return false;
             } else {
@@ -784,7 +785,7 @@ function downloadValid(){
 
         },
         submitHandler: function (form,e) { // for demo
-            formalyzer_call_onclick(12206); 
+            //formalyzer_call_onclick(12206); 
             if ($('input#website').val().length != 0) {
                 return false;
             } else {
