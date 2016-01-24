@@ -79,7 +79,7 @@ h2(#q03). *Q: Is Cloudify provided as a service?*
 
 h2(#q04). *Q: What’s the quickest way to try Cloudify out?*
 
- *A:* Download it "here":http://getcloudify.org/downloads/get_cloudify_3x.html, and then head over to the "Getting Started":/guide/3.1 guide, and follow the instructions. 
+ *A:* Download it "here":http://getcloudify.org/downloads/get_cloudify.html, and then head over to the "Getting Started":http://docs.getcloudify.org/3.3.0/intro/getting-started/ guide, and follow the instructions. 
  
 <br/>
 "Back to top":#top
@@ -89,7 +89,7 @@ h2(#q05A). *Q: How is Cloudify different than configuration management tools lik
 
  *A:* Configuration management (CM) tools are great for configuring individual servers and preparing them for service. Given a server and a desired state, they will make sure to take all the required steps to configure that server so that it ends up in the desired state.* 
  
-Cloudify, on the other hand, looks at things from an application perspective - i.e. given a description of an application stack with all its tiers, their dependencies, and the details for each tier, Cloudify will take all the steps required to realize that application stack. This includes provisioning infrastructure resources on the cloud (compute, storage and network), assigning the right roles to each provisioned VM, configuring this CM (which is typically done by CM tools), injecting the right pieces of information to each tier, starting them up in the right order, and then continuously monitoring the instances of each tier, healing it on failure and scaling that tier when needed. Cloudify can indeed integrate with these CM tools as needed for configuring individual VMs, and in fact this a best practice we encourage our users to follow.  You can check out our plugins for "Chef":http://getcloudify.org/guide/3.1/plugin-chef.html, "Puppet":http://getcloudify.org/guide/3.1/plugin-puppet.html, "Salt":http://getcloudify.org/guide/3.1/plugin-salt.html, and our "Script Plugin":http://getcloudify.org/guide/3.1/plugin-script.html.  You can also read about using "Docker":http://getcloudify.org/2014/10/30/Docker-cloud-orchestration-configuration-management.html for configuration management and checkout our "Docker Plugin":http://getcloudify.org/guide/3.1/plugin-docker.html as well.
+Cloudify, on the other hand, looks at things from an application perspective - i.e. given a description of an application stack with all its tiers, their dependencies, and the details for each tier, Cloudify will take all the steps required to realize that application stack. This includes provisioning infrastructure resources on the cloud (compute, storage and network), assigning the right roles to each provisioned VM, configuring this CM (which is typically done by CM tools), injecting the right pieces of information to each tier, starting them up in the right order, and then continuously monitoring the instances of each tier, healing it on failure and scaling that tier when needed. Cloudify can indeed integrate with these CM tools as needed for configuring individual VMs, and in fact this a best practice we encourage our users to follow.  You can check out our plugins for "Chef":http://docs.getcloudify.org/3.3.0/plugins/chef/, "Puppet":http://docs.getcloudify.org/3.3.0/plugins/puppet/, <!--"Salt":http://getcloudify.org/guide/3.1/plugin-salt.html, -->and our "Script Plugin":http://docs.getcloudify.org/3.3.0/plugins/script/.  You can also read about using "Docker":http://getcloudify.org/2014/10/30/Docker-cloud-orchestration-configuration-management.html for configuration management and checkout our "Docker Plugin":http://docs.getcloudify.org/3.3.0/plugins/docker/ as well.
 
 
 "Back to top":#top
@@ -98,7 +98,7 @@ Cloudify, on the other hand, looks at things from an application perspective - i
 
 h2(#q05B). *Q: Can I use my existing Chef recipes or Puppet manifests with Cloudify?*
 
- *A:* Yup, see above. Cloudify enables you to leverage any Chef cookbook or Puppet manifest.  So working with either tool is really intuitive with Cloudify.  We have a whole area dedicated to using "Chef":http://getcloudify.org/chef_cloud_configuration_management.html with Cloudify, and you can check out how to get started with the "Puppet plugin here":http://getcloudify.org/guide/3.1/plugin-puppet.html. So be sure to check it out if you're using one of these tools.*
+ *A:* Yup, see above. Cloudify enables you to leverage any Chef cookbook or Puppet manifest.  So working with either tool is really intuitive with Cloudify.  We have a whole area dedicated to using "Chef":http://docs.getcloudify.org/3.3.0/plugins/chef/ with Cloudify, and you can check out how to get started with the "Puppet plugin":http://docs.getcloudify.org/3.3.0/plugins/puppet/ here. So be sure to check it out if you're using one of these tools.*
 
  
 "Back to top":#top
@@ -125,7 +125,7 @@ h2(#q07). *Q: What are the prerequisites for Cloudify?*
 
 h2(#q08A). *Q: What clouds does Cloudify support anyway? And how does it do it?*
 
- *A:* Cloudify supports pretty much "any cloud":http://getcloudify.org/cloud_orchestration_cloud_automation.html#HPLink.  No wait it’s true - hear us out.  There are clouds that are supported out of the box with already available "plugins":http://getcloudify.org/guide/3.1/quickstart.html - the most common clouds OpenStack, CloudStack, Softlayer, AWS and a bunch of others, you can check out our documentation for the full list.
+ *A:* Cloudify supports pretty much "any cloud":http://getcloudify.org/cloud_orchestration_cloud_automation.html#HPLink.  No wait it’s true - hear us out.  There are clouds that are supported out of the box with already available "plugins":http://docs.getcloudify.org/3.3.0/plugins/overview/ - the most common clouds OpenStack, vCloud, Azure CloudStack, Softlayer, AWS and a bunch of others, you can check out our documentation for the full list.
  
 If you’re looking to use a cloud that doesn’t have an existing provider - you can write the provider yourself (isn’t open source great?), or you can reach out to us for help.
   
@@ -166,7 +166,7 @@ h2(#q10). *Q: What other technologies does Cloudify integrate with?*
 h2(#q11). *Q: How do I get started with Cloudify blueprints, and where do I find them?*
 
  *A:* You can find all of the available blueprints in "Github":https://github.com/cloudify-cosmo.  You can take a test drive with the Cloudify widget and interactive shell (coming soon), and see how the blueprints work in action before doing so.  You can also check out our "video tutorials":/cloudifysourcetv.html :for how to get started with Cloudify blueprints.
-To get started just follow our "quick start guide":http://getcloudify.org/guide/3.1/guide-blueprint.html.
+To get started just follow our "quick start guide":http://docs.getcloudify.org/3.3.0/blueprints/overview/.
 
 
 <br/>
@@ -177,7 +177,7 @@ h2(#q16). *Q: Can I write my own Cloudify blueprints? How hard is it?*
 
  *A:*Of course you can. 
  From newbie to ninja – somewhere in the vicinity of green belt.  
-If there is a blueprint you need that doesn’t exist "in our repo":https://github.com/cloudify-cosmo, you can copy the syntax from the existing blueprints and create your own.  Our blueprints are written in YAML so they’re pretty straightforward.  To learn how to get started check out "these resources":http://getcloudify.org/guide/3.1/guide-blueprint.html, you can also purchase "pro support":#q17 which offers custom blueprint support.*
+If there is a blueprint you need that doesn’t exist "in our repo":https://github.com/cloudify-cosmo, you can copy the syntax from the existing blueprints and create your own.  Our blueprints are written in YAML so they’re pretty straightforward.  To learn how to get started check out "these resources":http://docs.getcloudify.org/3.3.0/blueprints/overview/, you can also purchase "pro support":#q17 which offers custom blueprint support.*
 
 
 <br/>
@@ -188,7 +188,7 @@ If there is a blueprint you need that doesn’t exist "in our repo":https://gith
 
 h2(#q12). *Q: Can I use Cloudify on a single desktop?*
 
- *A:* Yup.  Cloudify supports "Vagrant based installation":http://getcloudify.org/downloads/get_cloudify_3x.html, which means for testing purposes or any other reason you may have, you can bootstrap Cloudify on your local environment and get started. Read how "here.":http://getcloudify.org/guide/3.1/quickstart.html
+ *A:* Yup.  Cloudify supports "Vagrant based installation":http://getcloudify.org/downloads/get_cloudify.html, which means for testing purposes or any other reason you may have, you can bootstrap Cloudify on your local environment and get started. Read how "here.":http://docs.getcloudify.org/3.3.0/intro/getting-started/
 
  
 <br/>
@@ -223,7 +223,7 @@ Read more about becoming "OpenStack native":http://getcloudify.org/2014/09/02/Op
 
 h2(#q15). *Q: So Enterprise Cloudify vs. open source – what’s the deal?*
 
- *A:* Cloudify comes in the free for life open source version that you are able to fork "here":https://github.com/cloudify-cosmo and customize to your needs, and a Premium edition that includes all of the open source edition's features, and some other goodies.  Learn more about the two versions "here":http://www.gigaspaces.com/cloudify-cloud-automation/go-pro, and feel free to "get in touch":mailto:hello@getcloudify.org?subject=I'd%20like%20to%20hear%20more%20about%20Cloudify%20Premium. if you'd like to hear more.
+ *A:* Cloudify comes in the free for life open source version that you are able to fork "here":https://github.com/cloudify-cosmo and customize to your needs, and a Premium edition that includes all of the open source edition's features, and some other goodies.  Learn more about the two versions "here":http://getcloudify.org/goPro.html, and feel free to "get in touch":mailto:hello@getcloudify.org?subject=I'd%20like%20to%20hear%20more%20about%20Cloudify%20Premium. if you'd like to hear more.
 
 <br/>
 "Back to top":#top
@@ -232,7 +232,7 @@ h2(#q15). *Q: So Enterprise Cloudify vs. open source – what’s the deal?*
 
 h2(#q17). *Q: How about support?*
 
- *A:* Support packages are available for puchase as an add-on to Cloudify, and if you choose the Cloudify Premium edition, the support is included as part of the package.  You can find out more about Cloudify Premium "here":http://www.gigaspaces.com/cloudify-cloud-automation/go-pro.
+ *A:* Support packages are available for puchase as an add-on to Cloudify, and if you choose the Cloudify Premium edition, the support is included as part of the package.  You can find out more about Cloudify Premium "here":http://getcloudify.org/goPro.html.
 
  <br/>
 "Back to top":#top
