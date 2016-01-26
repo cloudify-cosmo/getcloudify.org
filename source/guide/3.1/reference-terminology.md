@@ -96,7 +96,7 @@ An Execution (unlike a [deployment](#deployment) or a [blueprint](#blueprint) ha
 
 #### **Standard Cancellation** (Coming soon...)
 
-#### **Forced Cacncellation** (Coming soon...)
+#### **Forced Cancellation** (Coming soon...)
 
 ### **Host**
 A single instance of a Virtual Machine, Physical Machine or a Linux Container.
