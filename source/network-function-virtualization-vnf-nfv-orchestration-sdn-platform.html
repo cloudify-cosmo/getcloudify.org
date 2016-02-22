@@ -49,10 +49,13 @@ category: NFV
 				<div class="row">
 				<div class="span5">
 				<h2><strong>Pure-Play Standard-Driven NFV Made Easy</strong></h2>
-				<p>Many big Telcos have chosen and are evaluating Cloudify in large part due to it being open source, as well as modular in nature, enabling pluggability with existing and new toolsets and environments.  On top of this, Cloudify provides many plugins to interface with peripheral network databases, such as DNS and LDAP, and has already demonstrated its capabilities to orchestrate large subsystems like IMS, internet activation and provisioning per tenant out of the box .  With the ability to have one manager that supports multiple clouds (from VMware to OpenStack) as well as multiple data centers and availability zones, Cloudify, is very attractive to mid to large Telcos, ISPs, and enterprises with a hybrid cloud model.  </p>
+				<p>MCloudify, was built from the bottom up as an open source pure-play generic cloud orchestrator, enabling us to focus entirely on optimizing orchestration and management targeted towards NFV being designed to integrate seamlessly with industry-embraced networking standards and modeling languages such as ETSI & MANO, YANG, NETCONF/RESTCONF, and TOSCA.  This means it is specifically geared for integration, making it possible to run any workload on any cloud environment, regardless of vendor or technology stack.</p>
 
-				<p>VMware is just one such company that has selected Cloudify as their orchestration platform of choice to launch applications and VNFs on vCloud Air.  To watch the recent webinar on this, as well as a live demo visit: <a href="{{ site.baseurl }}/vmware-hybrid-cloud.html" target="_blank">Cloudify for VMware</a>.</p>
+				<p>Many big Telcos have chosen and are evaluating Cloudify in large part due to it being open source, as well as modular in nature, enabling pluggability with existing and new toolsets and environments. In addition to serving as the NFVO, Cloudify is also capable of fulfilling the role of VNF manager (VNFM), and has proven multi-VIM capabilities.</p>
+
+				<p>On top of this, Cloudify provides many plugins to interface with peripheral network databases, such as DNS and LDAP, SDN controllers - ODL and more - including the full service management and chaining, and has already demonstrated its capabilities to orchestrate large subsystems like IMS, internet activation and provisioning per tenant out of the box . With the ability to have one manager that supports multiple clouds (from <a href="http://getcloudify.org/vmware-hybrid-cloud.html" target="_blank">VMware</a> to <a href="http://getcloudify.org/openstack-architecture-cloudify.html" target="_blank">OpenStack</a>) as well as multiple data centers and availability zones, Cloudify, is very attractive to mid to large Telcos, ISPs, and enterprises with a hybrid cloud model, enabling easy migration between past install-bases, and the current trendiest infrastructure including containers (see our Kubernetes example), through the next technology that hasn’t even yet landed.</p>
 				
+				<p>VMware is just one such company that has selected Cloudify as their orchestration platform of choice to launch applications and VNFs on vCloud Director (vCD), VMware Integrated OpenStack, vCloud Air, and even vSphere and vRealize. To watch the recent webinar on this, as well as a live demo visit: <a href="{{ site.baseurl }}/vmware-hybrid-cloud.html" target="_blank">Cloudify for VMware</a>.</p>
 										<br/>
 					
 
@@ -102,48 +105,17 @@ category: NFV
 					<p></p>
 					<div class="well">
 						
-					<h3><b>Use Case: NFV in a Week with Open Source Tooling</b></h3>
+					<h3><b>Use Case: Data Plane Acceleration with Enhanced Platform Awareness</b></h3>
 
-					<p>A major Telco was looking to  expand its offering to provide on-demand internet connectivity for small to medium-sized offices.  This would include a web portal that provides a simple experience to choose an internet provider, as well as infrastructure considerations -- speed, security, and VPN - and any other additional services required, instantaneously, and get connected.  Much like on-demand cloud resources.</p>
-					<p>To be able to truly be able to offer such an added value service, this entire process would need to be automated, be able to support the connection to many devices that are software driven, with consistent management and orchestration.</p>
-					<p>To do so, they realized they would need an NFV architecture, coupled with a standard-driven orchestration engine to provide the backbone for this virtualized networking environment. </p>
+					<p>The successful adoption of NFV highly depends on the ability of a virtualized cloud infrastructure to deliver sufficient performance compared to existing proprietary network appliances. Many network functions today are I/O intensive, sending many packets of data over a short time frame, and the generic hardware prevalent among telcos and carriers is simply not equipped nor configured to handle this kind of load, or deliver the level of performance required.</p>
 
-					<p>Through the Cloudify orchestrator the Telco was able to define a TOSCA blueprint that brings up all of the pieces in the architecture, and places them in the right service chain.</p>
-
-					<div class="aligncenter">
+					<p>Advanced processor and networking technologies embedded in silicon and in PCIe devices (commonly referred to as Data Plane Acceleration) solve the hardware challenge - but only when coupled with Enhanced Platform Awareness (EPA) and Intelligent workload-aware orchestration, telco and carrier-grade NFV performance are enabled.</p>
 					
-					<h2><strong>The Bits & Bytes</strong></h2></div>
+					<p class="aligncenter"><img src="http://getcloudify.org/img/blog/cloudify_epa_dpa.png"></p>
 
-					<p>Through the Cloudify orchestrator the Telco was able to define a TOSCA blueprint that brings up all of the pieces in the architecture, and places them in the right service chain.</p>
-
-					<div class="aligncenter">
-					<img src="{{ site.baseurl }}/img/nfvint-arch.png" alt="NFV | NFV Architecture | OpenStack NFV">
-					<p></p>
-					<p><strong>Figure 1: Reference Architecture</strong></p></div>
-					<hr/>
-
+					<p>The ability of an intelligent orchestrator to perform both smart placement and configuration to be able to best leverage these capabilities, all while ensuring high availability and low latency is critical to the performance and reliability of large-scale NFV systems these days.</p>
 					
-
-					<p> This was how the overall architecture looks, it is comprised of two main parts:</p>
-
-					<ul>
-					<li>Shared services which are part of the carrier backend.</li>
-					<li>A set of services that are created per tenant/customer as part of the internet activiation process – that includes services like vfirewalls, vDPI, vRouter and VPN connectivity.</li>
-					</ul>
-					<p>In some cases Tail-F was also used to configure the network devices after they have been established.</p>
-
-					<p>This was achieved through the following workflow:</p>
-					<div class="aligncenter">
-					<img src="{{ site.baseurl }}/img/nfvworkflow.png" alt="NFV Management | NFV Monitoring">
-					<p></p>
-					<p><strong>Figure 2: NFV Workflow</strong></p>
-					</div>
-					<hr/>
-
-
-					<p>The resulting blueprint and topology are as seen below.</p>
-
-					<img src="{{ site.baseurl }}/img/nfvblueprint.png" width="400"> &nbsp; &nbsp; <img src="{{ site.baseurl }}/img/nfvtopology.png" width="400">
+					<p>Doing so on a multi-VIM environment, supporting both OpenStack and VMware stacks, enables carriers to run their mission and performance critical workloads in cloud environments without compromising performance, all the while getting simple, easy to use, service orchestration, leveraging cloud management best practices and a truly open architecture.</p>
 				
 					</div>
 
