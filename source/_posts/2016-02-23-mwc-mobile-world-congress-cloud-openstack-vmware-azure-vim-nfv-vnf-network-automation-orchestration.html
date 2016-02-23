@@ -1,0 +1,53 @@
+---
+layout: blogpost
+title: NFV Orchestration on OpenStack, VMware, and More (Multi-VIM) with Cloudify and TOSCA
+image: shaynaeh.jpg
+author: Shay Naeh
+tags: 
+ - Cloud Orchestration
+ - MWC
+ - NFV
+ - TOSCA
+ - Network Automation
+---
+
+<notextile>
+
+<img src="http://getcloudify.org/img/blog/nfvorchestration.png" alt="MWC16 | Mobile World Congress | Cloud Automation | TOSCA Cloud Orchestration | NFV | Multi-VIM | VNF | OpenStack NFV | VMware | Azure" width="870">
+<br/>
+<br/>
+
+<h2>What is a VIM? </h2>
+
+<p>A VIM, according to the <a href="http://getcloudify.org/2015/03/22/mobile-world-congress-nfv-sdn-network-orchestration-automation.html#sts=NFV, SDN, ETSI &amp; MANO...Enough acronyms?" target="_blank">MANO specification</a>, is a virtual infrastructure manager. In a nutshell, a VIM is the same as IaaS in the cloud domain and <a href="http://getcloudify.org" target="_blank">Cloudify</a> brings that IaaS concept to the telco world.</p>
+
+<hr>
+
+<span class="pullquote-left">
+  <font style="font-weight: bold" size="5" face="Baskerville Old Face"><em>Intelligent NFV orchestration for any telco environment. Download today.</em></font>  <a class="btn btn-medium btn-theme btn-rounded" id="downloadBtnInner" href="http://getcloudify.org/downloads/get_cloudify.html" target="_blank"><i class="icon-plus"></i> Go </a></span>
+  
+  <hr>
+
+<p>While, <a href="http://getcloudify.org/openstack-architecture-cloudify.html" target="_blank">OpenStack</a> has been receiving much attention in the NFV space, and has been playing a leading part in many <a href="http://getcloudify.org/network-function-virtualization-vnf-nfv-orchestration-sdn-platform.html" target="_blank">Telco NFV</a> strategies, the reality is that many Telcos have other clouds like <a href="http://getcloudify.org/vmware-hybrid-cloud.html" target="_blank">VMware</a> (vCloud Director, vSphere or even VMware Integrated OpenStack AKA VIO), Softlayer, Azure or even Amazon. As a result, many would like to make a transition to OpenStack, but would still like to keep their current private cloud environment setup for many reasons,from the time and resources invested in building it, to the skill set of the team running it. That is why it has become a fundamental requirement to be able to support multiple VIMs in the application automation and orchestration lifecycle when transitioning to NFV.</p>
+
+<h2>Mutli-VIM VNF Orchestration with Cloudify and TOSCA</h2>
+
+<p><a href="http://getcloudify.org/2015/07/21/what-is-TOSCA-cloud-application-orchestration-tutorial-cloudify.html" target="_blank">TOSCA</a>, is a very good fit to support multi-VIM, as it enables you to model your application or service once through our <a href="http://getcloudify.org/downloads/get_cloudify.html" target="_blank">graphical composer</a> and generate the YAML file automatically or by writing it yourself through a simple blueprint, which you can then run on any cloud. The benefits here are enormous because you are able keep the core part of the VNF definitions as well as the <a href="http://getcloudify.org/2015/10/13/nfv-vnf-network-topology-architecture-automation-tosca-service-chaining-orchestration.html" target="_blank">service chain</a> (that is composed of a chain of VNFs, e.g. vCPE, vIMS, vEPC), all while leaving the definitions untouched and deploying any workload, on any cloud.</p>
+
+<p>Moreover, you can mix and match, and split and run some VNFs on one cloud, and other VNFs on another cloud; for example, some VNFs can run on your private cloud, and when you are out of resources, you can utilize public clouds to extend your resources - compute, network, and storage. That said, you can also run certain VNFs based on geographical considerations, and bring them closer to the customer's location to minimize network latency and reserve network traffic, and provide faster response times. You can read more about this in our post on <a href="http://getcloudify.org/2016/02/22/mobile-world-congress-mwc-sdn-nfv-vnf-telco-cloud-dpa-epa-network-orchestration.html" target="_blank">enhanced platform awareness</a>.</p>
+
+<p>This multi-VIM approach opens the door to VNF providers, to package their VNFs with a TOSCA blueprint, and ship just like that, and the customer can decide which cloud they would like to run it on.</p>
+
+<p>At a large Telco provider in Europe we now have a POC of running a vIMS system where we utilize two cloud APIs - one is OpenStack with KVM hypervisors, and the second is VCD from VMware. In the future we plan to also add a VIO-based cloud with NSX features like micro-segmentation which comes with unparalleled security capabilities.</p>
+
+<p>Cloudify is equipped to handle any of the various approaches to manage resources on a VIM, whether by having the NFVO manage the VIM resources or through the VNF manager, i.e. VNF managed resources or NFVO managed resources, all while remaining true to best practices that dictate that each layer should be autonomous and should contain its own intrinsic objects.</p>
+
+<p>We have used the multi-VIM approach in a number of real world use cases, you can watch our <a href="https://www.youtube.com/watch?v=8Nkgz2q26CY" target="_blank">vIMS demo</a> that shows how to take a typical VNF, model it in the composer - with all of its diverse services and microservices, and then deploy it to both VIO and OpenStack. Another excellent example is running data intensive VNFs on both OpenStack and VMware as demo in our <a href="https://www.youtube.com/watch?v=iyhE4Lvmxqc" target="_blank">data plane acceleration video</a>.</p>
+
+<p>The ability to support multi-VIM enables Telcos to leverage their previous install-base, all while foraying into the brave new world of open cloud through OpenStack, and leverage the benefits of both worlds.</p>
+
+<p>Stay tuned for some more great content during Mobile World Congress (#MWC16) on <a href="http://getcloudify.org/tags/NFV/index.html" target="_blank">everything NFV</a>.</p>
+
+<p>And don't forget to tune in to the 8th <a href="https://www.youtube.com/watch?v=a4f-5yXwSw4" target="_blank">OpenStack & Beyond podcast</a> directly from the event on Thursday, Feb 25th at 11am CET with guests from Intel, VMware, and Metaswitch.</p>
+
+</notextile>
