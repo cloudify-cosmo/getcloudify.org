@@ -1,0 +1,101 @@
+---
+layout: blogpost
+title: The Missing Link - Service Function Chaining and Its Relationship to NFV
+image: simond.png
+author: Simon Dredge, Guest Post
+tags:
+ - Cloud Orchestration
+ - Network Automation
+ - MWC
+ - NFV
+ - SDN
+---
+
+<notextile>
+
+<img src="http://getcloudify.org/img/blog/sfcexample.png" alt="SDN | Open Source | Software Defined Networking | MWC | Mobile World Congress | ETSI | NFV Orchestration | Network Automation | Network Functions Virtualization">
+<br/>
+<br/>
+
+<p><i>This article was written by <a href="http://www.metaswitch.com/the-switch/author/simon-dredge" target="_blank">Simon Dredge</a> and originally published on the <a href="http://www.metaswitch.com/the-switch/the-missing-link-service-function-chaining-and-its-relationship-to-nfv" target="_blank">Metaswitch Blogs</a>. Simon is Director of Technical Marketing at Metaswitch. The article is being re-published with the express written consent of the author.</i></p>
+
+<p>I remember that ‘aha’ moment when I first heard about Service Function Chaining (SFC). It was that realization that, along with NFV, I was witnessing another technological proposition in its embryonic stage which could fundamentally change the business model of network operators and the way network services are delivered. If that sounds a little melodramatic, that’s good - I have been rehearsing my dramatic prose, of late. If you don’t want to buy into my hysteria, that’s probably wise, however SFC still warrants a look-see.</p>
+
+<br />
+
+<hr>
+
+<span class="pullquote-left">
+  <font style="font-weight: bold" size="5" face="Baskerville Old Face"><em>Get our free NFV White Paper today.</em></font>&nbsp; <a class="btn btn-medium btn-theme btn-rounded" href="http://getcloudify.org/network-function-virtualization-vnf-nfv-orchestration-sdn-platform.html#dtag" target="_blank"><i class="icon-plus"></i> Go </a></span>
+
+<hr>
+
+
+<p>I should start off by clarifying some terminology: NFV purists talk about virtualized network functions (VNFs) and VNF forwarding graphs (VNFFG or simply VNFG). However, when it came time for the ETSI industry specifications group (ISG) to engage a standards body to progress the idea of automated end-to-end service deployments - in this case the IETF - those crafting the working group charter needed to ensure that physical network functions, which will naturally continue to be prevalent in service delivery architectures, were not excluded. Thus, the service function and service function chaining nomenclature was adopted, but unless you are dealing with the aforementioned annoying purists, they are the same thing, to all intents and purposes.</p>
+
+<p>The desire for service function chaining pretty much solidified the relationship between NFV and Carrier Software Defined Networking (SDN). That is to make the distinction between multilayer LAN/WAN SDN and data center (LAN) SDN, which would have been deployed regardless, as network operators built-out their NFV cloud infrastructures. All this obfuscation isn’t intentional -- honest! While SDN was but an afterthought in the introductory NFV white paper (Oct 2012), a sea change occurred soon after when late-night number crunching indicated that the savings from hardware confederation alone (CAPEX) would not be as significant as first expected. Those lost savings, however mythical at that point, would have to come from digging deeper into the OPEX pot -- in this case, man-hours -- which meant peeking over the fence and looking longingly at the service chaining visions of WAN SDN controllers, which were coincidently emerging around the beginning of 2013.</p>
+
+<p>Things came to a head 6 months later and with the appropriate liaisons in place, a BoF (Birds of a Feather) was formed at IETF 87 in July 2013 (under the title Network Service Chaining / NSC) with a second in November that same year -- this time with the SFC moniker. The SFC working group was formed soon after -- quick by even IETF standards.</p>
+
+<p>It’s a common misconception that the ‘chain’ encompasses every network element or function employed to deliver a particular service. In fact, the chain only comprises devices which cannot (or are not) addressable through layer 3 (IP) - that is, devices which are typically physically cabled into a path or are only locally addressable (i.e. Layer 2). This should not be confused with NFV orchestrators, like Cloudify and JuJu that manage the relationships between (potentially layer 3) VNFs or VNCs. Simply put, service function chaining replaces wires and cross connects. If you are unfortunate enough to hang with the wrong types of people, you would have heard such devices referred to as ‘middleboxes*’ or ‘bumps in the wire’.</p>
+
+<p>In the IETF SFC WG mobile use case (informational) draft by Haeffner et al, the authors have put these middleboxes into 3 categories. As I like the approach have replicated that structure here, with the caveat that it’s an early draft and therefore subject to change… and error in my interpretation! Category 1 are used by all services, category 2 are value added services while the authors suggest category 3 are mobile-specific - - perhaps evidence that the primary application for SFC is in mobile networks, which should not be surprising.**</p>
+
+<p><img src="http://getcloudify.org/img/blog/sfcmiddleware.png" width="640" style="width: 640px; display: block; margin-left: auto; margin-right: auto;"></p>
+
+<p style="text-align: center;"><em>The types of middleboxes that are used when delivering end-to-end services</em></p>
+
+<p>“But you are a VoIP company, Metaswitch! Where are your functions? Surely, as a security function, the session border controller is a middlebox!? And if they are not, why are you making me read this article?” OK, OK – Calm down. All good questions. The answer is simple: VoIP functions -- including the SBC -- are addressed at layer 3. Though either an IP address or URL, you tell the SIP (VoIP) UE how to access the voice service. The access point would be the SBC and from there, the SBC also uses layer 3 techniques to reach other required platforms, such as the IMS core and telephony application servers.*** So why are we posting this article? Because SFC is critical to the success of NFV, which we here at Metaswitch are passionate about. And it’s way cool, as well.</p>
+
+<p>Alright, but these devices are used today to deliver services, so how do SFC methodologies differ? Service function chaining turns the provisioning of these services on its head. We move from a statically associating with one or more cross-connected links (i.e. VLANs) to each function to dynamically establishing a path through all applicable functions.</p>
+
+<p>There are plenty of references out there that give examples of devices such as these being employed in service function chains in order to deliver an end-to-end service. Let me just throw one out, though, as a point of reference in this humble blog post.</p>
+
+<p><img src="http://getcloudify.org/img/blog/sfcexample.png" width="640" style="width: 640px; display: block; margin-left: auto; margin-right: auto;"></p>
+
+<p style="text-align: center;"><em>An example of Mobile and Fixed-Line Service Function Chaining</em></p>
+
+<p>The key takeaway from the examples(s) above is that a traffic flow need only be identified once. Once that has occurred, the packets will be dynamically steered through the required functions by the network devices without the need for establishing and maintaining any fixed cross connects, mapping or cabling. The network takes care of it all automatically… like it’s ‘software defined’, or something. Which, with a separated control plane managing the service chain flow descriptors, it is, of course. The classifier itself is also just a function and may be integrated into existing devices, such as the PGW or an edge router, or it may be a stand-alone deep packet inspection (DPI) function. For example, hundreds of unique access point names (APNs) can be configured in your average PGW and can be considered a classification parameter. As the BNG interacts with an AAA server it also knows the subscriber identity and policy for each traffic flow and can be the classifier. That does not exclude evolutions of these devices including DPI functionality, such as that proposed in the 3GPP’s PGW evolution which includes a Traffic Detection Function (TDF).</p>
+
+<p>This is also a good time to note that other standards and specifications bodies haven’t been sitting on their hands, here. The Broadband Forum (BBF) has been studying Flexible Service Chaining in their Service Innovation and Market Requirements (SIMR) Working Group (WG) while the open networking foundation (ONF) has, as you might expect, been promoting the use of OpenFlow in SFC.</p>
+
+<p>So the classifier, whatever form it takes, has done its job but how is traffic (individual data packets and the like) steered across the network and through the correct service functions? That, ladies and gentlemen, takes Meta. No -- not this Meta -- the other Meta: Metadata.</p>
+
+<p>For those who missed the whole Ed Snowden thing, metadata is data about data. For our purposes, here, it is characterized as providing “…contextual information about the data packets which traverse a Service Function Chain.” (via IETF Draft - Rijsman, et al.) The metadata is appended at the classifier (PGW, BNG, etc.) based on instructions from the (SDN) controller and is used to signal service-routing information to places deep within the service function infrastructure, that can remain blissfully unaware of what traffic it is forwarding and why. Naturally, unlike current SFC-like solutions, the service functions themselves can be equally unaware of each other – vendor agnostic, platform independent and geo-diverse.</p>
+
+<p>While there are a number of potential solutions for defining a service chain, I will just highlight two which have arguably received the most attention and are diverse enough to be interesting: Segment Routing (SR) and the Network Service Header (NSH). Segment Routing has evolved under the direction of the IETF Source Packet Routing in Networking (SPRING) working group and has broader applications for traffic engineering and resiliency outside SFC while the NSH is a standards track activity in the SFC working group. I also want to make it clear that I’m not discounting alternatives such as ONF/OpenFlow or the IETF Nvo3 Working Group’s Generic Network Virtualization Encapsulation (Geneve) -- or that fact that all of these could play a role, in one form or another… or together (SR + NSH). My head hurts.</p>
+
+<p>There are two versions of segment routing: One that defines a new IPv6 Segment Routing Extension Header (SRH), containing a list of segments the packet should traverse and a second which employs stacked MPLS label techniques with similar results but no changes to the MPLS data plane itself. Although MPLS is not exactly pushed deep into the datacenter right now, where the service functions will reside, it is that variant which is most commonly referenced in association with SFC and certainly represents the most straightforward SFC implementation, for network operators already employing MPLS in their infrastructures. Does this blog show my MPLS bigotry? Be honest, now.</p>
+
+<p>In a pure segment routing domain, there is no need to employ any label distribution, such as LDP or RSVP. Segments are defined and pre-established in the network, providing paths between adjacent nodes (an Adjacent Segment) and non-adjacent nodes, known as Nodal Segments. With predefined and well-advertised paths to the network service functions, an SDN controller -- complete with a Path Computation Element (PCE) and using the PCE Protocol (PCEP) -- calculates the most appropriate route and tells the classifier, a label edge router (LER), to apply a stack of MPLS labels to the traffic flow. At the end of the chain, the last label is popped and the traffic goes on its merry way using whatever transport technique the network operator desires. Saving 1,000 more words, let me show a picture.</p>
+
+<p><img src="http://getcloudify.org/img/blog/sfcrouting.png" width="640" style="width: 640px; display: block; margin-left: auto; margin-right: auto;"></p>
+
+<p style="text-align: center;"><em>Service Function Chaining With MPLS Segment Routing</em></p>
+
+<p>Now, unfortunately, things aren’t quite as clear-cut as I suggested in my introduction. While the Core MPLS Label Switch Routers (LERs) can be those currently deployed with the operator’s infrastructure, there is an assumption that the Classification LER’s and the Data Center LER’s are modern MPLS Label Edge Router platforms. This is especially true for the DC LER, that must feature the ability to ‘push’ all but the last label ‘popped’ from the stack back onto the traffic flow, once it’s traversed the (non-MPLS-aware) Service Function.</p>
+
+<p>This could be a basic feature of the DC LER in SFC mode or it may be an action explicitly triggered by the SDN Controller. The fact that these platforms would likely be built on generic and highly-programmable ‘white box’ switch hardware, featuring the MPLS capabilities of embedded silicon, such as Broadcom’s StrataXGS® Trident II chip sets, make either option viable. Considering the fact that this platform would be widely deployed across highly distributed across data centers, a white box implementation of this LER functionality would also mitigate costs.</p>
+
+<p>So while SR SFC employs an unmodified MPLS data plane, we would still need to overhaul (or build-out) a large portion of our network infrastructure to support it. Given the importance of SFC, does segment routing merely represent a ‘life hack’? Shouldn’t we just start from scratch and deliver a solution targeted specifically at the problem of service function chaining? That’s certainly what the proponents of the Network Service Header (NSH) are suggesting.</p>
+
+<p>The advantage of the NSH is that it can be implemented, without prejudice, in any transport infrastructure. The NSH has also been architected to front not only IPv4 and IPv6 payloads, but also Ethernet. The Network Service Header, itself, is a fixed-length shim comprising a 4 byte Base Header and a 4 byte Service Path Header. Following that are two NSH metadata payload options, which consist of four mandatory 4-byte (16 byte total) Context Headers (MD Type 1) or optional variable-length Context Headers (MD Type 2). </p>
+
+<p><img src="http://getcloudify.org/img/blog/sfcnetwork.png" width="640" style="width: 640px; display: block; margin-left: auto; margin-right: auto;"></p>
+
+<p style="text-align: center;"><em>The Network Service Header over IP with Metadata (MD) Options 1 and 2</em></p>
+
+<p>Referred to as CH1 through CH4, the contents of the four Mandatory Context Headers (MD 1) vary depending on the use case (i.e. Broadband, Data Center or Mobility). MD 2 allows additional metadata to be encoded as a Type-Length-Value (TLV) element for carrying anything from network-centric forwarding context (VLAN ID, MPLS Label, etc.) to explicit information about the content being carried, such as the type of video, for billing purposes and such like. Highly extensible or over-engineered? I’m going to let people smarter than me make that call.</p>
+
+<p>Regardless, implementing the Network Service Header for Service Function Chaining not only requires NSH-aware network switches (virtualized or otherwise) but, much like the Segment Routing option, it will require a SDN Controller to define service chains and build service paths. So, whatever flavor (or flavors) of SFC are implemented, there remains an undeniable link between SDN and the realization of NFV.</p>
+
+<p>For some legitimate information on Service Function Chaining, check out this paper from Gabriel Brown at Heavy Reading, sponsored by our friends at Qosmos: <a href="http://www.qosmos.com/wp-content/uploads/2015/02/Service-Chaining-in-Carrier-Networks_WP_Heavy-Reading_Qosmos_Feb2015.pdf">http://www.qosmos.com/wp-content/uploads/2015/02/Service-Chaining-in-Carrier-Networks_WP_Heavy-Reading_Qosmos_Feb2015.pdf</a></p>
+
+<p><sup>* A phrase actually coined by John Postel, together with Lizia Zhang.</sup><br><sup>** This loose categorization in no way dictates the order in which service functions are applied to the traffic flow.</sup><br><sup>*** As you do more digging on this topic you may find several diagrams that have an SBC as part of a SFC. I believe this stemmed from a miss-fire in one diagram in the early (NSC) days that has continued to propagate.</sup> </p></span>
+
+<hr>
+<p>Stay tuned for some more great content during Mobile World Congress on <a href="http://getcloudify.org/tags/NFV/index.html" target="_blank">everything NFV</a>.</p>
+
+<p>And don't forget to join us for the 8th <a href="https://www.youtube.com/watch?v=a4f-5yXwSw4" target="_blank">OpenStack & Beyond podcast</a> directly from the event on Thursday, Feb 25th at 11am CET.</p>
+
+</notextile>
