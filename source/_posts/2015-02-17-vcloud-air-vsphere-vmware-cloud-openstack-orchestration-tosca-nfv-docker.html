@@ -23,7 +23,7 @@ tags:
 
 <p>In my previous post, I discussed how to achieve <a href="http://getcloudify.org/2015/02/13/hybrid-cloud-tosca-vmware-orchestration-vcloud-vsphere.html" target="_blank">hybrid cloud</a> in the real world for VMware and OpenStack - which was previously an involved undertaking and today, can be done fairly simply.</p>
 
-<p>In this post, I wanted to put my money where my mouth is - and actually show a live demo of this type of hybrid cloud model in action.&#160; A use case we’re constantly presented with by Telco and enterprises alike is the much-needed virtualization of network functions (i.e. VNFs or NFV), which is an ongoing pain point.</p>
+<p>In this post, I wanted to put my money where my mouth is - and actually show a live demo of this type of hybrid cloud model in action.&#160; A use case we’re constantly presented with by Telecom and enterprises alike is the much-needed virtualization of network functions (i.e. VNFs or NFV), which is an ongoing pain point.</p>
 
 <p>When we demonstrate the hybrid cloud model we usually do so through a simple web app based on a NodeJS frontend, and MongoDB backend (we call this our <a href="http://getcloudify.org/guide/3.1/guide-blueprint.html" target="_blank">nodecellar app example</a>), which can also be demoed in Docker containers.</p>
 
@@ -38,7 +38,7 @@ tags:
 
 <p>You can read more about this <a href="http://getcloudify.org/2014/11/12/vmware-vsphere-vcloud-openstack-hybrid-cloud.html" target="_blank">VMware/OpenStack</a> example, and watch also the video in this follow-up post on <a href="http://getcloudify.org/2015/02/02/TOSCA-orchestration-openstack-vmware-hybrid-cloud.html" target="_blank">TOSCA orchestration</a> for VMware.</p>
 
-<p>However, we know that the enterprise and Telco <a href="http://getcloudify.org/2014/11/02/NFV-openstack-TOSCA-open-source-cloud-Chef.html" target="_blank">NFV</a> use case is often times much more complex - and so to demonstrate the kind of complexity involved with orchestrating really intricate networking functions - we built an on-demand “Skype”-like application - based on <a href="http://www.metaswitch.com/clearwater" target="_blank">Metaswitch’s Clearwater</a>, that we then ran on VMware vCloud Air and OpenStack - all using the same blueprint and UI for easy management.</p>
+<p>However, we know that the enterprise and Telecom <a href="http://getcloudify.org/2014/11/02/NFV-openstack-TOSCA-open-source-cloud-Chef.html" target="_blank">NFV</a> use case is often times much more complex - and so to demonstrate the kind of complexity involved with orchestrating really intricate networking functions - we built an on-demand “Skype”-like application - based on <a href="http://www.metaswitch.com/clearwater" target="_blank">Metaswitch’s Clearwater</a>, that we then ran on VMware vCloud Air and OpenStack - all using the same blueprint and UI for easy management.</p>
 
 <p>So let’s get going, and talk about how we did this.</p>
 
@@ -222,7 +222,7 @@ type: clearwater.nodes.Server </code>
 
 <p>The second example points to a real life use case of setting up an entire video conferencing service, which is based on an open source project named Clearwater by Metaswitch, which is basically very similar to Skype.&#160; In the case of Clearwater it isn’t too hard to imagine what it takes to manage the deployment of such a complex video conference service today. </p>
 
-<p>Now what if we’re a Telco operator and we want to manage not just a single instance of that service but many instances of that service per customer? The complexity in this case hits the roof!</p>
+<p>Now what if we’re a Telecom operator and we want to manage not just a single instance of that service but many instances of that service per customer? The complexity in this case hits the roof!</p>
 
 <p>This example shows how extensively we can automate even a fairly complex stack, and create a production-ready environment that goes beyond the initial installation, and also includes monitoring, logging, self-healing, and all through a single deployment command; all while using TOSCA to build this level of automation. As you can see, the TOSCA model provides a fairly simple and elegant abstraction of how we define many details of this application, but at the same time keeps the level of verbosity to a minimum.</p>
 
