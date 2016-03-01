@@ -34,6 +34,24 @@ $(document).ready(function() {
 		
 	})();
 
+	
+	//$('#da-slider').cslider();
+	$('#da-slider').cslider({
+
+	current		: 0, 	
+	// index of current slide
+	
+	bgincrement	: 50,	
+	// increment the background position 
+	// (parallax effect) when sliding
+	
+	autoplay	: true,
+	// slideshow on / off
+	
+	interval	: 8000  
+	// time between transitions
+	
+});
 
 	//for highlight current pages
 	//http://docs.shopify.com/support/configuration/store-customization/how-do-i-style-active-link-with-javascript-and-css
