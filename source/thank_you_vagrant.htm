@@ -12,18 +12,15 @@ cat: thank you pages
                     <br/>
                     <h2><img src="/img/vagrant-logo2.png" width="50"><strong>&nbsp;&nbsp;VagrantBox Install</strong></h2>
 
-                    <h3><font color="4aac49"> <i class="fa fa-check-square-o"></i></font><font color="#000000"><strong><strike>&nbsp;&nbsp;Step 1: Download the Vagrantfile and run a VM</strike></strong></font></h3>
+                    <h3><font color="4aac49"> <i class="fa fa-check-square-o"></i></font><font color="#000000"><strong><strike>&nbsp;&nbsp;Step 1: Download the Vagrantfile</strike></strong></font></h3>
 
-                    <p><h3><i class="fa fa-square-o"></i>&nbsp;&nbsp;<strong>Step 2:  Run the command</strong></h3><code>vagrant up </code></p>
+                    <h3><i class="fa fa-square-o"></i>&nbsp;&nbsp;<strong>Step 2: Install <a href="https://www.vagrantup.com/downloads.html" target="_blank">Vagrant</a> then run the command</strong><code>vagrant up </code></h3>
 
                     <p>Once the Cloudify Vagrant box is up, you can access the manager web console through your local browser by pointing the browser to <a href="http://10.10.1.10/">http://10.10.1.10/</a>.</p>
 
                     <h3><i class="fa fa-square-o"></i>&nbsp;&nbsp;<strong>Step 3: SSH to the Vagrant Box and Connect to the Running Manager</strong></h3>
 
-                    <p>To connect to the newly Up&rsquo;d box, type<code> vagrant ssh</code></p>
-
-
-                    <p>&hellip;after which Cloudify&rsquo;s CLI will be at your disposal.</p>
+                    <p>To connect to the newly Up&rsquo;d box, type <code>vagrant ssh</code> after which Cloudify&rsquo;s CLI will be at your disposal.</p>
 
                     <h3><i class="fa fa-square-o"></i>&nbsp;&nbsp;<strong>Step 4: Download the blueprint</strong></h3>
 
@@ -32,10 +29,10 @@ cat: thank you pages
 
                     <p>You&rsquo;ll have to clone a sample blueprint from our Github repository from the Vagrant box.</p>
 
-                    <p><pre class="bash language-bash" data-lang="bash"> <code class="bash">cd blueprints<br/>
+                    <p><pre class="bash language-bash" data-lang="bash"> <code class="bash"><br/>cd blueprints<br/>
                     git clone https://github.com/cloudify-cosmo/cloudify-nodecellar-example<br/>
                     cd cloudify-nodecellar-example/<br/>
-                    git checkout tags/3.3<br/>
+                    git checkout tags/3.3.1<br/>
 
                      </code> </pre>
                     </p>
@@ -46,9 +43,9 @@ cat: thank you pages
                     #blueprint">blueprint</a> to the Cloudify manager and create a <a href="reference-terminology.html
                     #deployment">deployment</a> based on it.</p>
 
-                    <p>In the <code>cloudify-nodecellar-example</code> directory that you just cloned, you can see a blueprint file (named <code>singlehost-blueprint.yaml</code>) alongside other resources related to this blueprint.</p>
+                    <p>In the <code>cloudify-nodecellar-example</code> directory that you just cloned, you can see a blueprint file (named <code>simple-blueprint.yaml</code>) alongside other resources related to this blueprint.</p>
 
-                    <p>To upload the blueprint run: <code>cfy blueprints upload -b nodecellar -p singlehost-blueprint.yaml</code>
+                    <p>To upload the blueprint run: <code>cfy blueprints upload -b nodecellar -p simple-blueprint.yaml</code>
                     </p>
 
 
