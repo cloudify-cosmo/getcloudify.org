@@ -13,7 +13,7 @@ Cloudify `Blueprints` are cloud application orchestration plans. The main part o
 `Blueprints` has 2 main sections:
 
 * **Topology** - the application topology (the `nodes` section in the `blueprint` YAML file)
-* **Worflows** - the different automation process for the application (the `workflows` section in the `blueprint` YAML file )
+* **Workflows** - the different automation process for the application (the `workflows` section in the `blueprint` YAML file )
 
 {% highlight YAML %}
 node_templates:
@@ -65,7 +65,7 @@ node_templates:
 
 Each `node` is an instance of a `type`. A `type` can be defined in the blueprint file, in another YAML file or imported from the product built-in types.
 
-There are two types of `type`: portable and concerete.
+There are two types of `type`: portable and concrete.
 
 A portable type that has no implementation details. For examply `cloudify.nodes.Compute` is an abstract type. It doesn't have any implementation details advising the orchestrator how to materialize an instance of it on a particular environment. A portable type will declare an `interface` a set of hooks named `operations` that can be implemented by concrete types using a `operation` mapping to `plugin` methods. For example `cloudify.openstack.nodes.Server` is an `Openstack` implementation of `cloudify.nodes.Compute` using a `plugin` that uses the `Nova` compute API.
 
