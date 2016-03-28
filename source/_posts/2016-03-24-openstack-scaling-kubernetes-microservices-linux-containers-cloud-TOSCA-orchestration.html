@@ -44,7 +44,7 @@ tags:
 <li>Deploy a microservice to Kubernetes.</li>
 <li>Autoscale that microservice based on metrics received from the deployed microservice, by delegating to Kubernetes itself.</li>
 </ol>
-<p><img src="kub3-overview.png" alt="solution architecture"></p>
+<p><img src="http://getcloudify.org/img/kub3-overview.png" alt="solution architecture"></p>
 <h4><a id="Using_the_Deployment_Proxy_23"></a>Using the Deployment Proxy</h4>
 <p>In order to separate the deployment of the microservice (Nodecellar), the deployment proxy was used.  This permitted the overall orchestration to be composed of three blueprints.  Participants in the deployment proxy pattern supply information to other participants via deployment <a href="http://docs.getcloudify.org/3.3.1/blueprints/spec-outputs/">outputs</a>.</p>
 <pre><code class="language-yaml"><span class="hljs-string">outputs:</span>
