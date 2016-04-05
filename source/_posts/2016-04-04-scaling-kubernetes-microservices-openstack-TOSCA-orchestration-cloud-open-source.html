@@ -1,0 +1,126 @@
+---
+layout: blogpost
+title: Scaling Kubernetes Microservices on OpenStack With TOSCA Orchestration Pt II of II
+image: dewayne.jpg
+author: DeWayne Filppi
+tags:
+ - OpenStack
+ - OpenStack Summit
+ - Kubernetes
+ - Microservices
+ - TOSCA
+---
+
+<notextile>
+
+<img src="http://getcloudify.org/img/blog/kubernetes-cloudify.png" alt="OpenStack Austin Summit | OpenStack Orchestration | TOSCA Cloud Orchestration | Kubernetes Docker | Kubernetes Orchestration | Cloud Automation | Kubernetes Cluster">
+<br/>
+<br/>
+
+    <p>In my previous <a href="http://getcloudify.org/2016/03/24/openstack-scaling-kubernetes-microservices-linux-containers-cloud-TOSCA-orchestration.html">post</a>, I described orchestrating a hybrid architecture that included <a href="http://getcloudify.org/2015/11/01/openstack-tokyo-summit-kubernetes-cloudify-tosca-nfv-orchestration-microservices.html" target="_blank">Kubernetes</a>, Kubernetes hosted microservices, and a cloud hosted database, all running on <a href="http://getcloudify.org/2014/07/10/what-is-openstack-tutorial.html" target="_blank">Openstack</a>. That post described how everything was deployed, but left the implementation of post deployment dynamism to the imagination. This post finishes the story.</p>
+
+<hr>
+<span class="pullquote-left">
+  <font style="font-weight: bold" size="5" face="Baskerville Old Face"><em>Manage and orchestrate containers with Cloudify + Kubernetes. Try it.</em></font>&nbsp; <a class="btn btn-medium btn-theme btn-rounded" id="downloadBtnInner" href="" target="_blank"><i class="icon-plus"></i> Go </a></span>
+<hr>
+
+    <h3>Review</h3>
+    
+    <p>We resume our story with the deployment in the following configuration:</p>
+    
+    <ul>
+        <li>Openstack cloud platform.</li>
+        <li>A Kubernetes master and node server on separate VMs.</li>
+        <li>
+            <a href="https://nodejs.org/">Nodejs</a> running behind a Kubernetes service endpoint in Kubernetes in a pod with a <a href="https://github.com/BrightcoveOS/Diamond">Diamond</a> collector.</li>
+        <li>A MongoDb instance (single node) on a separate VM.</li>
+    </ul>
+    
+    <p>The very simple Diamond metric collector is feeding TCP connection metrics to a <a href="https://www.rabbitmq.com/">RabbitMQ</a> queue which is consumed by both <a href="https://influxdata.com/">InfluxDb</a> and <a href="http://riemann.io/">Riemann</a> on the Cloudify server. Influxdb is storing the metrics for querying. Riemann is responsible for triggering actions based on the metrics stream.</p>
+    
+    <p>The objective is to <a href="http://getcloudify.org/2015/10/26/openstack-tokyo-summit-kubernetes-cloudify-tosca-nfv-orchestration-microservices.html" target="_blank">scale Kubernetes microservices</a> based on metrics from containers emanating from those microservices (as provided by the previously mentioned Diamond collector).</p>
+    
+    <h2>High Level Overview of Solution</h2>
+    
+    <p>Since the goal is to scale Cloudify deployed Kubernetes microservices, the rest of this post will focus on the essentials for that goal:</p>
+    
+    <ul>
+        <li>Gathering metrics from containers that don't contain Cloudify agents.</li>
+        <li>Creating a workflow to scale microservices on Kubernetes.</li>
+        <li>Defining a Riemann policy to execute the Kubernetes scaling workflow.</li>
+        <li>Configuring the blueprint properly to facilitate the preceding.</li>
+    </ul>
+    
+    <p><img alt="container metrics" src="http://getcloudify.org/img/blog/kubernetes-containers-cloudify.png"></p>
+    
+    <h4>Summary: Gathering Metrics From Containers</h4>
+    
+    <p>Kubernetes defines scaling in units called "pods" (which are groups of containers on a single host), and a "replication controller" which scales and maintains pods. Pods share the same network namespace, so on a given pod, the experience for a container is similar to conventional processes on a host (i.e. two containers can "see" each other). Our microservice of interest is a Nodejs server and webapp. In order to monitor it, a separate container was created just hosting the Diamond collector that will monitor it. Together these are assembled into a pod and deployed into Kubernetes. When the pod starts, the collector only sees it's companion in the pod and send the metrics to the Cloudify server (and ultimately Riemann).</p>
+    
+    <p><img alt="kubernetes scale" src="http://getcloudify.org/img/blog/kubernetes-containers-scale.png"></p>
+    
+    <h4>Summary: The Workflow to Scale Microservices</h4>
+    
+    <p>The Kubernetes CLI has a simple scale command for scaling up replication controllers. The Kubernetes scale workflow simply logs into to the Kubernetes master node and executes the CLI to scale the replication controller as required. The Kubernetes CLI simply allows a user to set the number of replicas, which isn't really enough for what we need, so the workflow has the ability to specify a scaling increment (e.g. +1 +2 etc...).</p>
+    
+    <h4>Summary: Defining the Riemann Policy</h4>
+    
+    <p>The Riemann policy observes the arriving metrics from the various Diamond containers and maintains an adjustable sliding window of values. It also keeps track internally of the number of containers reporting metrics. It takes the sum of the sliding window and divides by the host count, and triggers the scale workflow on the Cloudify server when the threshold parameter is breached. It's also parameterized to define scale down behavior as well as scale up, and permits a "cooldown" period to avoid thrashing.</p>
+    
+    <h4>Summary: Configuring the Blueprint</h4>
+    
+    <p>In the blueprint, as described in the Cloudify <a href="http://docs.getcloudify.org/3.3.1/manager_policies/overview/">docs</a>, a policy type is defined that points to the actual Riemann policy code, references the Kubernetes scaling workflow, and has a list of the blueprint nodes that will be affected (just the Kubernetes node in this case).</p>
+    
+    <h2>Some Detailed Discussion of the Solution</h2>
+    
+    <h3>Sending Metrics from Kubernetes Pods</h3>
+    
+    <p>As mentioned in the overview, the approach for metrics gathering is to define a container that gathers and transmits the metrics and forwards them to the Cloudify server. In practice, this means essentially putting a portion of what would normally be considered the Cloudify agent in a container in a pod. Running <a href="https://github.com/python-diamond/Diamond">Diamond</a> collectors is really quite simple and not the subject of this post. However, some of the mechanics of submitting metrics to Cloudify outside the "normal" path may be of interest.</p>
+    
+    <p>Submitting metrics to Cloudify means "writing a message to a RabbitMQ topic on the Cloudify server". Among other things, that means the container (and ultimately the Diamond configuration) have to be informed of the IP address of the Cloudify server. Kubernetes native descriptors allow the definition of environment variables that get passed to containers at deploy time (as described in my previous post). Overriding those environment variables with runtime information was one of the duties of the Kubernetes plugin, and the reason for this:</p>
+    
+    <script src="https://gist.github.com/yeshess/33a6ea9088eee4ee4fe9f36300afb8f4.js"></script>
+    
+    <p>Note the <code>%{management_ip%}</code> token. It grabs the IP address of the manager and sets it in the Kubernetes descriptor for the Diamond container. Once that is done Diamond can connect and start sending.</p>
+    
+    <h4>More Metric Sending Details</h4>
+    
+    <p>The Diamond service sends metrics to Cloudify in a JSON map/dictionary. A Diamond service consists of one of more "collectors" and one or more "handlers". The collectors measure the metrics, and the handler push them to particular receiving systems. The handler is what assembles the JSON that gets pushed to the RabbitMQ broker on the server. In order to do so successfully, it must use the proper keys in the map and send to the appropriate routing key. In the case of Cloudify the topic is 'cloudify-monitoring', and the routing key is the deployment id. The topic is fixed in the container configuration, but the deployment id is passed in a similar manner as the manager ip was:</p>
+    
+    <script src="https://gist.github.com/yeshess/46cc8176759947780f86f1a397d49556.js"></script>
+
+    <h3>The Kubernetes Scaling Workflow</h3>
+    
+    <p>To scale our microservice/replication controller inside of Kubernetes, we need a custom workflow. The default scaling workflow will increase the number of instances of a given node in a blueprint. Of course, we don't want to launch an entire new Kubernetes cluster when our Nodejs server runs out of connections, we simply want to command Kubernetes to scale the number of instances of the pod we deployed. As mentioned earlier,
+    Kubernetes supplies an easy means of doing so through its CLI. Something like:</p>
+    
+    <code>kubectl scale --replicas=&lt;count&gt; rc &lt;replication-controller-name&gt;</code>
+    
+    <p>So ultimately, we just need our workflow <code>ssh</code> to the Kubernetes master node and run <code>kubectl</code>. Except, when we get notified to "scale", we won't be given the number of nodes to scale to, we'll just be informed that scaling is needed. The workflow can be parameterized for the scale increment:</p>
+    
+    <script src="https://gist.github.com/yeshess/6fa4de500363f34e64b61250be1217c6.js"></script>
+
+    <p>Note the "amount" property. The workflow interprets this as either an absolute number (unlikely to need that), or an increment (signed integer). Note also the ssh information is required for the Kubernetes node, and the node name of the Kubernetes master (or proxy), along with the actual microservice node name (in case more than one microservice were running). To hande increments, a simple algorithm that reads the current replica count, increments it and then sets it, is used.</p>
+    
+    <h3>Defining the Policy</h3>
+    
+    <p>The scaling policy, executed by Riemann, is Clojure code that tracks the number of hosts reporting, maintains a sliding window of metrics, and invokes the Cloudify supplied function <code>process-policy-triggers</code>, which has the effect of commanding
+    the manager to invoke the Kubernetes scale workflow. Policies in Cloudify (and TOSCA of course) are defined first by defining a policy type. The policy type used here is:</p>
+    
+    <script src="https://gist.github.com/yeshess/5d9b43ef6b38e7b71c3da1e6ce8426a5.js"></script>
+    
+    <p>Note that we're pointing to some code (scale.clj), and defining a bunch of parameters. When Cloudify creates a deployment, one of the things it does is start up a Riemann core dedicated to processing events from the deployment. This Riemann core is given a configuration file (also Clojure code) that includes the defined policies, along with code to connect to RabbitMQ properly and define various utility functions (like <code>process-policy-triggers</code>, among other things. Before it copies
+    the policy code into the Riemann config file, it runs it through the <a href="http://jinja.pocoo.org/docs/dev/">Jinja2</a> template processor, substituting the properties for configured values (and doing whatever Jinja stuff you might like). So an excerpt of the policy looks like the following (note the {{}} property references:</p>
+    
+    https://gist.github.com/yeshess/15603c00c1b9b8316429c1edd47400de
+
+    <p>Note the call to <code>process-policy-triggers</code>. It is guarded by a list of conditions, including that the cooldown period is not in effect, that the scaling limit has not been reached, and that the scaling threshold has indeed been breached. Also note the <code>riemann.index/update</code> call after a scale has been commanded. It simply writes a synthetic event into Riemann's <em>index</em> (by default a hash map), and sets the time to live to be the cooldown period as specified in the blueprint. Riemann evicts events from the index when they expire, so we can use that to implement the cooldown. Also note the <code>{{scale_direction}}</code> token. The value of this property in the blueprint is actual Clojure code, either <code>&lt;</code> for scale up behavior, or <code>&gt;</code> for scale down behavior.</p>
+    
+    <h3>Conclusion</h3>
+    
+    <p>Thus ends the journey to a Cloudify managed hybrid cloud deployment including Kubernetes, Kubernetes deployed microservices, and external services outside of Kubernetes. Note also that the standard <code>scale</code> workflow in Cloudify works for Kubernetes itself, so in reality the suite of blueprints included can scale not only Kubernetes microservices, but Kubernetes itself. Watch this <a href="https://www.dropbox.com/s/6hr5dbe4em5j7gt/kub-autoscale.mp4?dl=0">video</a> to see the autoscaling in action. The code is on <a href="https://github.com/cloudify-examples/cloudify-kubernetes/tree/master/openstack-proxy-example">github</a>. As always, comments are welcome.</p>
+
+    <p>Stay tuned to this channel for more OpenStack, containers, security, and NFV posts throughout the month as we prepare for OpenStack Austin!</p>
+
+
+</notextile>
