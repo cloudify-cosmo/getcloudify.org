@@ -94,7 +94,7 @@ tags:
     <p>To scale our microservice/replication controller inside of Kubernetes, we need a custom workflow. The default scaling workflow will increase the number of instances of a given node in a blueprint. Of course, we don't want to launch an entire new Kubernetes cluster when our Nodejs server runs out of connections, we simply want to command Kubernetes to scale the number of instances of the pod we deployed. As mentioned earlier,
     Kubernetes supplies an easy means of doing so through its CLI. Something like:</p>
     
-    <code>kubectl scale --replicas=&lt;count&gt; rc &lt;replication-controller-name&gt;</code>
+    <code>kubectl scale --replicas=&lt;count&gt; rc &lt;replication-controller-name&gt;</code><br><br>
     
     <p>So ultimately, we just need our workflow <code>ssh</code> to the Kubernetes master node and run <code>kubectl</code>. Except, when we get notified to "scale", we won't be given the number of nodes to scale to, we'll just be informed that scaling is needed. The workflow can be parameterized for the scale increment:</p>
     
