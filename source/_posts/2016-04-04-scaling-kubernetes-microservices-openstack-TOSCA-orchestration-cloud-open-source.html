@@ -52,21 +52,21 @@ tags:
     </ul>
     
     <p><img alt="container metrics" src="http://getcloudify.org/img/blog/kubernetes-containers-cloudify.png"></p>
-    
+    <br><br>
     <h4>Summary: Gathering Metrics From Containers</h4>
     
     <p>Kubernetes defines scaling in units called "pods" (which are groups of containers on a single host), and a "replication controller" which scales and maintains pods. Pods share the same network namespace, so on a given pod, the experience for a container is similar to conventional processes on a host (i.e. two containers can "see" each other). Our microservice of interest is a Nodejs server and webapp. In order to monitor it, a separate container was created just hosting the Diamond collector that will monitor it. Together these are assembled into a pod and deployed into Kubernetes. When the pod starts, the collector only sees it's companion in the pod and send the metrics to the Cloudify server (and ultimately Riemann).</p>
     
     <p><img alt="kubernetes scale" src="http://getcloudify.org/img/blog/kubernetes-containers-scale.png"></p>
-    
+    <br><br>
     <h4>Summary: The Workflow to Scale Microservices</h4>
     
     <p>The Kubernetes CLI has a simple scale command for scaling up replication controllers. The Kubernetes scale workflow simply logs into to the Kubernetes master node and executes the CLI to scale the replication controller as required. The Kubernetes CLI simply allows a user to set the number of replicas, which isn't really enough for what we need, so the workflow has the ability to specify a scaling increment (e.g. +1 +2 etc...).</p>
-    
+    <br><br>
     <h4>Summary: Defining the Riemann Policy</h4>
     
     <p>The Riemann policy observes the arriving metrics from the various Diamond containers and maintains an adjustable sliding window of values. It also keeps track internally of the number of containers reporting metrics. It takes the sum of the sliding window and divides by the host count, and triggers the scale workflow on the Cloudify server when the threshold parameter is breached. It's also parameterized to define scale down behavior as well as scale up, and permits a "cooldown" period to avoid thrashing.</p>
-    
+    <br><br>
     <h4>Summary: Configuring the Blueprint</h4>
     
     <p>In the blueprint, as described in the Cloudify <a href="http://docs.getcloudify.org/3.3.1/manager_policies/overview/">docs</a>, a policy type is defined that points to the actual Riemann policy code, references the Kubernetes scaling workflow, and has a list of the blueprint nodes that will be affected (just the Kubernetes node in this case).</p>
@@ -82,7 +82,7 @@ tags:
     <script src="https://gist.github.com/yeshess/33a6ea9088eee4ee4fe9f36300afb8f4.js"></script>
     
     <p>Note the <code>%{management_ip%}</code> token. It grabs the IP address of the manager and sets it in the Kubernetes descriptor for the Diamond container. Once that is done Diamond can connect and start sending.</p>
-    
+    <br><br>
     <h4>More Metric Sending Details</h4>
     
     <p>The Diamond service sends metrics to Cloudify in a JSON map/dictionary. A Diamond service consists of one of more "collectors" and one or more "handlers". The collectors measure the metrics, and the handler push them to particular receiving systems. The handler is what assembles the JSON that gets pushed to the RabbitMQ broker on the server. In order to do so successfully, it must use the proper keys in the map and send to the appropriate routing key. In the case of Cloudify the topic is 'cloudify-monitoring', and the routing key is the deployment id. The topic is fixed in the container configuration, but the deployment id is passed in a similar manner as the manager ip was:</p>
