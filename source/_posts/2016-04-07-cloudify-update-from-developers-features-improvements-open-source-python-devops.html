@@ -1,0 +1,58 @@
+---
+layout: blogpost
+title: Cloudify 3.4 Milestone 3 | Features and Improvements Update From the Developers
+image: chen.png
+author: Chen Roth
+tags: 
+ - Cloud Orchestration
+ - Cloudify
+ - Bash
+ - Python
+ - Github
+---
+
+<notextile>
+
+<img src="/img/cloudifycrop.png" alt="Cloudify | GitHub | Open Source | Bash | Python | Cloud Orchestration | Docker | Kubernetes | Container Orchestration" width="100%">
+<br/>
+<br/>
+
+
+<p><b></b>
+<p><i>Introduction by Jeremy Hess, Cloudify Community Manager</i></p>
+<p>Our goal at Cloudify, aside from building the most awesome <a href="http://getcloudify.org" target="_blank">cloud orchestration</a> platform, is to be as transparent as possible about what&rsquo;s happening on the inside. We are, after all, an open source software product. In keeping with that theme, we have decided to bring you detailed info on every single milestone update when it becomes available, straight from one of our awesome core developers.</p>
+
+<p>Enjoy and let us know what you think.</p>
+
+<hr>
+
+<span class="pullquote-left">
+  <font style="font-weight: bold" size="5" face="Baskerville Old Face"><em>Easily orchestrate any workload, even multiple ones, with Cloudify. Try it.</em></font>&nbsp; <a class="btn btn-medium btn-theme btn-rounded" id="downloadBtnInner" href="http://getcloudify.org/downloads/get_cloudify.html" target="_blank"><i class="icon-plus"></i> Go </a></span>
+  
+<hr>
+
+<p>Today we released Cloudify 3.4 M3 for early access download. Our ragtag band of misfits&#8230; uh, I mean us awesome developers, are working toward a really ambitious goal for the 3.4 GA release. One of the most important changes is around manager blueprint handling. As we get closer to GA, we will be writing more blog posts on this topic and you will get a small taste here as well. We did, however, want to give you an idea of the critical updates and features that have been added in this latest milestone release. So, here goes:</p>
+
+<ul>
+
+<li><strong>Blueprint composition:</strong> Manager blueprints can get quite long. The purpose of the new blueprint composition is to split manager blueprints into multiple, smaller blueprints for each component. This gives users a clearer view of his/her blueprint ecosystem. We also added functionality to import multiple input and output files as well as node_templates, and the CLI can pass multiple input arguments in the form of key value pairs, json strings, file paths, wildcards, and directories</il>
+
+<li><strong>Windows Improvements:</strong> We created a new plugin for &lsquo;psutil&rsquo; which is a monitoring plugin for Windows so users can now add monitoring. We also have AWS Plugin support for Windows which allows you to setup a Windows VM on EC2.</li>
+
+<li><strong>Team collaboration:</strong> We now have a really cool integration setup with tmux that allows multiple users to collaborate simultaneously (like Google Docs) on the same manager terminal using the command <code>cfy ssh tmux</code></li>
+
+<li><strong>Simplified CLI commands:</strong> In the CLI, the <code>cfy install</code> command now invokes <code>blueprints upload</code>, <code>deployments create</code>, and <code>executions start -w install</code> workflow without the need to enter each command separately. The same applies to the <code>cfy uninstall</code> command which now invokes <code>executions start -w uninstall</code> and <code>deployments delete</code>.</li>
+
+<li><strong>CTX module support in Fabric:</strong> If you write Python scripts that run with the Fabric plugin, you can now import the &lsquo;ctx&rsquo; module using <code>from cloudify import ctx</code></li>
+
+<li><strong>Important breaking change:</strong> We are now using only Python scripts (bash is still supported) for bootstrapping the manager. All manager blueprint scripts were migrated from bash to Python, so if a user modifies manager blueprint scripts, it&rsquo;s now only in Python for easier maintenance and dealing with future changes.</li>
+
+<li><strong>Error Reporting:</strong> We have also made some important changes to clarify the error text in the CLI when using the <code>-help</code> command.</li>
+
+</ul>
+
+<p>I hope this gave you a nice taste of what we are working on and what the bigger picture of Cloudify 3.4 is going to be. Blueprint composition (not the composer) is a big part of that larger vision for Cloudify going forward in an effort to create a more modular system for componentized blueprints with versioning and composition as well as allowing for zero-downtime when making changes to a deployment in production.</p>
+
+<p>We hope you stay tuned to this channel for more about Cloudify and we will be serving up more details in the coming months.</p>
+
+</notextile>
