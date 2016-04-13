@@ -23,38 +23,34 @@ h1. *Cloudify Roadmap*
 <p>Below you will find our roadmap for new features and improvements to Cloudify, including notes on those currently being worked on.</p>
 
 <div class="bs-callout bs-callout-warning"><strong>Note</strong><br>
-    Cloudify aims for a minor release every 4-6 months with new features, bug fixes, security enhancements, and more. A service release with bug and security fixes is also intended for delivery every 1-2 months.
+    Cloudify aims for a minor release every 4-6 months with new features, bug fixes, security enhancements, and more. A service release with bug and security fixes is also intended for delivery every 1-2 months. The next release is Cloudify 3.4, expected in June 2016. Items that are marked as <strong>In Progress</strong> below are included in this release. 
 </div>
 
   <h2>Cloudify Manager Enhancements</h2>
 
   <ul>
     <li>
-      <p>Cloudify Manager upgrade process improvements <strong>&#42;In Progress&#42;</strong></p>
+      <p>Cloudify Manager upgrade process improvements, spcifically the ability to easily upgrade the manager in-place without bringing it down <strong>&#42;In Progress&#42;</strong></p>
     </li>
 
     <li>
-      <p>Cloudify Manager high availability </p>
+      <p>Cloudify Manager high availability: HA setup for all critical manager components, specifically ElasticSearch, RabbitMQ, InfluxDB and the manager REST API server</p>
     </li>
 
     <li>
-      <p>Dynamic Manager settings configuration</p>
+      <p>Dynamic Manager settings configuration: The ability to modify and apply in runtime various manager configuration elements via dedicated CLI commands and GUI elements</p>
     </li>
 
     <li>
-      <p>Encrypted data store for credentials to be used by application blueprints </p>
+      <p>Enrypted data store: Encrypted key/value store for storing various blueprint related data such as cloud credentials, secrets and configuration partamters, and then access them from within blueorints using a dedicated intrinsic function.</p>
     </li>
 
     <li>
-      <p>Improved Manager bootstrap process <strong>&#42;In Progress&#42;</strong></p>
+      <p>Improved Manager bootstrap process: support for a single tar for all manager components (instead of multiple RPMs), QCOW2 and OVA manager images, embdding the Python runtime in both manager and CLI<strong>&#42;In Progress&#42;</strong></p>
     </li>
 
     <li>
-      <p>Pre-bootstrap verification command</p>
-    </li>
-
-    <li>
-      <p>Built-in authentication user store</p>
+      <p>Pre-bootstrap verification command: a command that verifies as many variables as possible before actually initiating the bootstrap process. SPecifically - IaaS API credentials and quotas, validity of specified parameters such as image ID, etc.</p>
     </li>
 
     <li>
@@ -67,68 +63,73 @@ h1. *Cloudify Roadmap*
 
   <ul>
     <li>
-      <p>Requirement for all communications to travel via SSL <strong>&#42;In Progress&#42;</strong></p>
+      <p>Securing all internal communication via SSL <strong>&#42;In Progress&#42;</strong></p>
     </li>
 
     <li>
-      <p>Access control lists for resources managed by Cloudify</p>
+      <p>Access control lists for resources managed by Cloudify such as blueprints and deployments</p>
     </li>
 
     <li>
-      <p>Resource multi-tenancy </p>
+      <p>Multitenancy support: the ability to associate every tenant and operation with a Cloudify tenant and isolate resources of one tenant from other tenants</p>
     </li>
 
-    <li>
-      <p>Use Let’s Encrypt SSL certificates </p>
-    </li>
   </ul>
 
-  <h2>App Modeling and DSL Improvements</h2>
+  <h2>App Modeling, Orchestration and DSL Improvements</h2>
 
   <ul>
     <li>
-      <p>Ability to model application in separate blueprints and simply import the files into a master blueprint <strong>&#42;In Progress&#42;</strong></p>
+      <p>Live topology update: The ability to update the topology of a running deployment, e.g. add / remove nodes, change properties, update referenced workflow and life cycle scripts <strong>&#42;In Progress&#42;</strong></p>
     </li>
 
     <li>
-      <p>Resource grouping: Allows resources to be grouped to ensure concurrent execution of their lifecycle operations <strong>&#42;In Progress&#42;</strong></p>
+      <p>Blueprint composition: Ability to model application components in separate yaml files and stitch them all together into a single blueprint using the import funtionality <strong>&#42;In Progress&#42;</strong></p>
     </li>
 
     <li>
-      <p>Input number of instances </p>
+      <p>Blueprint composition: Ability to reference existing deployments and blueprints from another blueprint, allowing for a "meta-blueprint" that simply references other deployments and blueprints (as opposed to just stitching together multiple yaml files)</p>
     </li>
 
     <li>
-      <p>Application blueprint versioning</p>
+      <p>Resource grouping: Ability to group together a set of nodes in a blueprint (e.g. a VM, two volumes and a floating IP) to allow users to scale them together as a one aggregate resource <strong>&#42;In Progress&#42;</strong></p>
     </li>
 
     <li>
-      <p>TOSCA composition and substitution</p>
+      <p>Allow to specify number of instances via a blueprint input <strong>&#42;In Progress&#42;</strong></p>
     </li>
 
     <li>
-      <p>TOSCA requirements and capabilities </p>
+      <p>Application blueprint versioning: the ability to upload a new version of an existing blueprint, and then apply the new version selectively to running deployments, by using the topology update feature</p>
     </li>
+
+    <li>
+      <p>Increase alingment with the TOSCA simple profile specification, specifically support for TOSCA normative types, requirements &amp; capabilities, substition mappings and more</p>
+    </li>
+
+    <li>
+      <p>resume failed workflows from the last successful execution point. This is useful when the workflow fails mid-way due to infrastructure allocation error, quotas, etc. </p>
+    </li>
+
+    <li>Scheduled workflow execution: The ability schedule a workflow execution to a future time, e.g. scale the number of web server VM at a certain time of the day.</li>
+
   </ul>
 
-  <h2>Command Line</h2>
+  <h2>Command Line Interface</h2>
 
   <ul>
     <li>
-      <p>Simplify install process via CLI <strong>&#42;In Progress&#42;</strong></p>
+      <p>Simplify the CLI installation process by embedding the Python runtime in the CLI package <strong>&#42;In Progress&#42;</strong></p>
     </li>
 
     <li>
-      <p>Mac Package of Cloudify CLI</p>
+      <p>Mac OSX Package of Cloudify CLI</p>
     </li>
 
     <li>
       <p>Ubuntu Package of Cloudify CLI</p>
     </li>
   
-    <li>
-      <p>Unify Cloudify Manager control via CLI and Cloudify CLI application execution with same experience</p>
-    </li>
   </ul>
 
   <h2>Web UI Management Console </h2>
@@ -143,19 +144,24 @@ h1. *Cloudify Roadmap*
     </li>
 
     <li>
-      <p>Modernize Web Management user interface</p>
+      <p>Enable and disable maintenance mode from the UI <strong>&#42;In Progress&#42;</strong></p>
     </li>
+
+    <li>
+      <p>Support for embedding the UI in other web pages via a dedicated embed mode the strips out the header and the footer for the page <strong>&#42;In Progress&#42;</strong></p>
+    </li>
+    
   </ul>
 
-  <h2>Provider Plugins</h2>
+  <h2>Plugins &amp; Integrations</h2>
 
   <ul>
     <li>
-      <p>Google Cloud Platform plugin <strong>&#42;In Progress&#42;</strong></p>
     </li>
+      <p>Google Cloud Platform plugin <strong>&#42;In Progress&#42;</strong></p>
 
     <li>
-      <p>Azure Plugin <strong>&#42;In Progress&#42;</strong></p>
+      <p>Microsoft Azure Plugin <strong>&#42;In Progress&#42;</strong></p>
     </li>
 
     <li>
@@ -167,18 +173,9 @@ h1. *Cloudify Roadmap*
     </li>
 
     <li>
-      <p>Plugin extension mechanism </p>
+      <p>Ability to extend and reuse plugins and workflows more easily </p>
     </li>
 
-    <li>
-      <p>Workflow extension mechanism </p>
-    </li>
-
-    <li>
-      <p>Allow resume operation for failed workflows </p>
-    </li>
-
-    <li>Scheduled workflow execution engine</li>
   </ul>
 
 
