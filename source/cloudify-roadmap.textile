@@ -46,7 +46,7 @@ h1. *Cloudify Roadmap*
     </li>
 
     <li>
-      <p>Improved Manager bootstrap process: support for a single tar for all manager components (instead of multiple RPMs), QCOW2 and OVA manager images, embdding the Python runtime in both manager and CLI<strong>&#42;In Progress&#42;</strong></p>
+      <p>Improved Manager bootstrap process: support for a single tar for all manager components (instead of multiple RPMs), QCOW2 and OVA manager images, embdding the Python runtime in both manager and CLI <strong>&#42;In Progress&#42;</strong></p>
     </li>
 
     <li>
@@ -54,7 +54,7 @@ h1. *Cloudify Roadmap*
     </li>
 
     <li>
-      <p>Application deployment states </p>
+      <p>More efficient deployment management: Improvements to the plugin library management to allow the Cloudify manager to easily manage thoudsands of deployments.</p>
     </li>
 
   </ul>
@@ -132,7 +132,7 @@ h1. *Cloudify Roadmap*
   
   </ul>
 
-  <h2>Web UI Management Console </h2>
+  <h2>Web UI Management Console</h2>
 
   <ul>
     <li>
@@ -153,13 +153,45 @@ h1. *Cloudify Roadmap*
     
   </ul>
 
+    <h2>Cloudify Blueprint Composer</h2>
+    <ul>
+        <li>
+            <p>Blueprint import: the ability to import a full blown existing blueprint archive, including all releated resources (scripts, artifacts, binaries, etc.) into the composer and update it in it <strong>&#42;In Progress&#42;</strong></p>
+        </li>
+        <li>
+            <p>Full CRUD support for custom type and relathionship definitions: The ability to introduce, use, update and delete custom user defined TOSCA type and relationships definitions <strong>&#42;In Progress&#42;</strong></p>
+        </li>
+	<li>
+            Layout enhancements: improved auto layout functionlity for complex blueprints that contain amny nodes and relationships
+	</li>
+
+    </ul>
+    
+    <h2>Network Function Virtualization</h2>
+    <ul>
+        <li>
+            <p>Dedicated Cloudify Telco NFV edition, that will include dedicated NFV orineted plugins and integrations (see below) and carrier grade support SLA</p>
+        </li>
+        <li>
+            Certification for VMWare VIM components (VMWare Integrated OpenStack, vCloud Director, vSphere, NSX)
+        </li>
+        <li>
+            YANG to TOSCA converter and Netconf YANG plugin: The ability to generate a TOSCA model from YANG descriptors, use the generated TOSCA types in a blueprint, and translate to Netconf commands upon blueprint installation
+        </li>
+        <li>
+            Robust IMS reference implementations: Clearwater IMS 
+        </li>
+        <li>
+            Intel EPA certification 
+        </li>
+    </ul>
+
   <h2>Plugins &amp; Integrations</h2>
 
   <ul>
     <li>
+        <p>Google Cloud Platform plugin <strong>&#42;In Progress&#42;</strong></p>
     </li>
-      <p>Google Cloud Platform plugin <strong>&#42;In Progress&#42;</strong></p>
-
     <li>
       <p>Microsoft Azure Plugin <strong>&#42;In Progress&#42;</strong></p>
     </li>
