@@ -36,8 +36,8 @@ var dataThanks="";
 
 //Manage Downloads CLI pop up form ;
 //========================================//
-/*var strVar="";
-strVar += "<div class=\"modal fade\" id=\"myModalb\" tabindex=\"-1\" role=\"dialog\" aria-labelledby=\"myModalLabel\" aria-hidden=\"true\">";
+var strVar="";
+strVar += "<div class=\"modal fade\" id=\"myModal\" tabindex=\"-1\" role=\"dialog\" aria-labelledby=\"myModalLabel\" aria-hidden=\"true\">";
 strVar += "            <a  style=\"float:right \" class=\"gattingWrapperClose\" href=\"#\"><i class=\"fa fa-times\">&nbsp;&nbsp;<\/i> <\/a>";
 strVar += "<div class=\"gattingWrapper\">";
 strVar += "    <iframe name=\"hidden_iframe\" id=\"hidden_iframe\" style=\"display:none;\" onload=\"formSubmitted()\"><\/iframe>";
@@ -103,20 +103,6 @@ strVar += "        <\/div>";
 strVar += "    <\/form>";
 strVar += "";
 
-
-
-
-
-strVar += "        <\/div>";
-strVar += "        <\/div>";
-
-*/
-
-strVar += "";
-strVar += "<div class=\"modal fade\" id=\"myModal\" tabindex=\"-1\" role=\"dialog\" aria-labelledby=\"myModalLabel\" aria-hidden=\"true\">";
-strVar += "            <a  style=\"float:right \" class=\"gattingWrapperClose\" href=\"#\"><i class=\"fa fa-times\">&nbsp;&nbsp;<\/i> <\/a>";
-strVar += "			<div class=\"regTitle\">Verify You're Human<\/div>";
-strVar += "<div class=\"gattingWrapper\">";
 strVar += "        <\/div>";
 strVar += "        <\/div>";
 
@@ -248,9 +234,9 @@ function track_cli_contactForm(e) {
 	//_gaq.push(['_trackEvent','Go Pro Form', downloadme]);
 	//track mixpanel
 	if (getCookie('cfydirect') == null) {
-		cliFormName = $('input[name="company"]').val();
-		cliFormEmail = $('input[name="email"]').val();
-		cliFormCompany = $('input[name="company"]').val();
+		cliFormName = $("#regiterCliDownload #entry_1810960422").val();
+		cliFormEmail = $("#regiterCliDownload #entry_1702721951").val();
+		cliFormCompany = $("#regiterCliDownload #entry_1433052851").val();
 		mixpanel.identify(cliFormEmail);
 		mixpanel.alias(cliFormName, cliFormEmail, cliFormCompany);
 		mixpanel.name_tag(cliFormName);
@@ -284,17 +270,6 @@ function downloadCliFile(e)
 			e.preventDefault();
 			//Gating PopUp
 			$('#myModal').modal('toggle');
-			hbspt.forms.create({ 
-				portalId: '1918719',
-				formId: '8e363e10-19ce-4dc7-9cd1-16e5368508e7',
-				onFormReady($form, ctx){
-					var hubspotHtmlForm=$(".hbspt-form");
-					$( ".gattingWrapper" ).append( hubspotHtmlForm );
-				},
-				 onFormSubmit: function($form) {
-					track_cli_contactForm(e);
-				} 
-			  });
 			$('#myCollapse').addClass('in');
 	    } catch(e) {
 	    	console.log(["Error while tracking download", e]);
