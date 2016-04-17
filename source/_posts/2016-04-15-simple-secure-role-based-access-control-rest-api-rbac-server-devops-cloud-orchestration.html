@@ -1,0 +1,154 @@
+---
+layout: blogpost
+title: Simple, Secure Role Based Access Control (RBAC) For REST APIs
+image: noa.jpg
+author: Noa Kuperberg 
+tags: 
+ - DevOps
+ - Security
+ - REST Service
+ - Server
+ - Access Control
+---
+
+<notextile>
+
+<img src="/img/blog/rbac_headr.png" width="870px" alt="RBAC | Server | REST Service | Access Control | DevOps | Cloud Application Orchestration | Cloud Orchestration Tools | Cloud Security">
+<br/>
+<br/>
+
+<h2>A Bit About Roles</h2>
+<p>Role Based Access Control (RBAC) is a common approach to managing users&rsquo; access to resources or operations. Permissions specify exactly which resources and actions can be accessed. The basic principle is this: instead of separately managing the permissions of each user, permissions are given to roles, which are then assigned to users, or better - groups of users.</p>
+
+<h3>Roles Bundle Permissions</h3>
+<p>Managing permissions per user can be a tedious task when many users are involved. As users are added to the system, maintaining user permissions becomes harder and more prone to errors. Incorrect assignment of permissions can block users&rsquo; access to required systems, or worse - allow unauthorized users to access restricted areas or perform risky operations.</p> 
+
+ <hr>
+
+<span class="pullquote-left">
+  <font style="font-weight: bold" size="5" face="Baskerville Old Face"><em>Security conscious, full lifecycle cloud orchestration for your stack. Get Cloudify.</em></font>&nbsp; <a class="btn btn-medium btn-theme btn-rounded" href="http://www.openstackpodcast.com" target="_blank"><i class="icon-plus"></i> Go </a>
+  
+  <hr>
+
+    <p>In this post, I&rsquo;ll introduce my take on how to elegantly control access to RESTful applications. There are many different access control models, such as Role Based Access Control (RBAC) and Discretionary access control (DAC). While the principles explained in the document can apply to various models, I’ve chosen RBAC as a reference as it is widely accepted and very intuitive.</p>
+    
+    <h2>A Bit About Roles</h2>
+    
+    <p>Role Based Access Control is a common approach to managing users&rsquo; access to resources or operations. Permissions specify exactly which resources and actions can be accessed. The basic principle is this: instead of separately managing &nbsp;the permissions of each user, permissions are given to roles, which are then assigned to users, or better - groups of users.</p>
+    
+    <h3>Roles Bundle Permissions</h3>
+    <p>Managing permissions per user can be a tedious task when many users are involved. As users are added to the system, maintaining user permissions becomes harder and more prone to errors. Incorrect assignment of permissions can block users&rsquo; access to required systems, or worse - allow unauthorized users to access restricted areas or perform risky operations.</p>
+    
+    <p>Reviewing users&rsquo; activities usually only yields a limited number of actions that users perform (e.g. read data, submit forms). A closer look into these user actions can reveal that some actions tend to go together, meaning that users who perform action A usually also perform action B. For example, reading and updating reports, or removing and adding accounts. These &nbsp;can then be bundled into &ldquo;roles&rdquo;, such as &ldquo;Editor&rdquo; or &ldquo;Account Administrator&rdquo;. Note that roles are not necessarily related to job titles or organizational structure, but rather reflect related user actions in a meaningful way. &nbsp;Once roles are properly identified and assigned to each user, permissions can then be assigned to roles, instead of users. Managing the permissions of a small number of roles is a much easier task.</p>
+    
+    <p>As always, an illustration goes a long way:</p>
+    
+    <p>Here is a set of users and their assigned permissions, linked directly without roles:</p>
+    <p class="aligncenter"><img src="http://getcloudiufy.org/img/blog/rbac1.png"></p>
+    
+    <p>And here, <strong>the exact same set of users and permissions</strong>, organized with roles:</p>
+    <p class="aligncenter"><img src="http://getcloudiufy.org/img/blog/rbac2.png"></p>
+
+    <p>So, you can clearly see how roles make permissions management a lot easier!</p>
+    
+    <h3>Groups Bundle Users</h3>
+    <p>An even better practice is assigning roles to groups of users, instead of individual users.</p>
+
+    <p>When reviewing patterns of users&rsquo; actions with respect to the roles above, we often find there are a great many commonalities between users, i.e. groups of users tend to &ldquo;behave&rdquo; alike - perform the same operations on common
+    resources. This allows us to organize users into groups, and then assign roles to only a few groups, instead of many users. Following the previous examples, it is a likely scenario to find several users that require the &ldquo;Account Administrator&rdquo; role, so we can create a group named &ldquo;Account Admins&rdquo;, add the users to this group and assign that role to the group, instead of each individual user.</p>
+    
+    <h2>Implementing Roles - Do&rsquo;s and Dont&rsquo;s</h2>
+    <h4>Never Couple Actions and Authorization Details</h4>
+    <p>In many systems, developers restrict access to a particular operation by specifying permissions &nbsp;directly on the implementing method. Yes, in the code! Typically, a role check is added to the secured method, often by annotating it. Here is an example from a Spring Security based code:</p>
+    
+    <code>@PreAuthorize("hasRole('Editor')")</code>
+    <code>public void update_order(Order order);</code>
+    
+    <p>This is a very common practice used in different languages and frameworks. While very easy to implement, it unfortunately creates an undesired coupling between the required role and the actual implementation of the action. Imagine dozens of methods
+    annotated with hard-coded role names. Tracking the effective permissions of each role becomes so difficult that you can almost certainly count on having inaccurate or outdated documentation, or, even worse - unknown, unmanaged permissions scattered in your application.</p>
+
+    <p>From the customer&rsquo;s standpoint, this sort of coupling makes it impossible to modify the set of roles defined beforehand by the developer, or their permissions, because changing it means the code would have to be compiled and packaged each time (!) - probably not the user experience we should aim for. &nbsp;</p>
+    
+    <h4>How to Avoid Coupling?</h4>
+    <p>A better approach would be to first extract the list of possible actions from the code to be handled by an external authorization mechanism (explained below). Then, we can make the code unaware of roles or any other authorization detail, and simply ask if the current user (however it is retrieved) has the required permission (wherever it is defined) &nbsp;to execute the specific method.</p>
+    
+    <p>This would allow us to use a generic annotation, like
+    this one:</p>
+    
+    <code>@Secured</code>
+    <code>public void update_order(Order order);</code>
+    
+    <p>Mapping roles and permissions (i.e. the permission to perform a specific action) can now be done in a configuration file, easily customized by customers!</p>
+    
+    <p>For example, consider this roles_config.yaml file:</p>
+    
+    <script src="https://gist.github.com/yeshess/de8c402b3525b693f01476904683dbd9.js"></script>
+    
+    <p>The <code>@secured</code> wrapper can now evaluate if the current user is allowed to execute &lsquo;update_order&rsquo; based on the given configuration file. In this case, it would mean the current user must be assigned the &ldquo;order_manager&rdquo; role, which is now both clear and easily configurable. Still, the authorization mechanism must somehow know how to match each permission to a specific method in the code , and someone must do some work and document all available methods (i.e. create_order, view_order etc.). This is resolved (almost) magically below.</p>
+    
+    <h4>Separate Concerns - Authorize Externally</h4>
+    <p>Now that the method implementation code does not include authorization details, the entire authorization logic can be moved to a separate, independent module. By using a generic title (e.g. the annotation &ldquo;secured&rdquo;) we allow the entire authorization mechanism to be modified without affecting the application&rsquo;s code. For example, it would be possible to implement &ldquo;secured&rdquo; as a role check, but it would also be possible to use Access Control Lists (ACLs). For example,
+    evaluating if the current user is listed on the order&rsquo;s ACL list. Another solution could be to use oauth, by asking a third-party (e.g. Facebook) whether the user is allowed to perform that action or not.</p>
+    
+    <h2>REST is the Best</h2>
+    
+    <h4>Action Extraction - Out Of The Box</h4>
+    <p>REST is definitely better, or at least the easiest to match this model. RESTful systems (designed properly) already expose resources and methods through a standard HTTP-based API, &nbsp;resources are identified by URIs, and methods are modeled by HTTP verbs (e.g. GET, PUT).</p>
+    <p>For example, <code>OST http://www.domain.com/bookings</code> will create a new booking, and <code>GET http://www.domain.com/orders/12345</code> will return details on order #12345. That means the extraction of actions discussed above is ready right out of the box!</p>
+    
+    <h4>Request Gateway</h4>
+    <p>Apart from neatly modeling actions, REST services are typically a good place in the request flow to evaluate authentication and authorization, as this is often the main entry point to a system. For an access control mechanism to make sense, it is recommended to block all other routes to the system, such as direct access to data stores or any remote call mechanism in the code. Another great advantage of this architecture would be response filtering, in case some of the data should not be returned to the user.</p>
+
+    <h4>Requests Are Also Access Control Tools</h4>
+    <p>REST services process incoming requests, meaning the information found on the requests can be used to make access control decisions. Some useful details are:</p>
+    <ul>
+        <li>
+            <p>Request origin - Allows blocking requests that
+            are sent from unknown IP addresses or subnets.</p>
+        </li>
+        <li>
+            <p>Headers - Many interesting details can be passed
+            in headers, such as user credentials, which open the door for a
+            full-blown authentication/authorization process to take
+            place.</p>
+        </li>
+        <li>
+            <p>Target endpoint - As indicated by the request&rsquo;s URI (e.g. &lsquo;secrets&rsquo; in &lsquo;<a href="http://domain.com/secrets/1234">http://domain.com/secrets/</a>&rsquo;). Access can be restricted to just a subset of the application
+            endpoints, depending on other conditions. For example, while the &lsquo;version&rsquo; endpoint is open to all, the &lsquo;secrets&rsquo; endpoint is only open to authenticated users.</p>
+        </li>
+        <li>
+            <p>Target method - As represented by the HTTP verb (e.g. DELETE), which means it&rsquo;s possible to pass or block requests based on the called method.</p>
+        </li>
+    </ul>
+    <p><br>
+    <br>
+    <br></p>
+    <h2>Putting It All Together - Using REST for Access Control</h2>
+    
+    <p>Remember the simple roles-to-permissions configuration file above? It looked pretty elegant but did entail some work behind the scenes (not shown in this document), such as getting a list of all the methods a user might call and matching each permission to a specific method with that name. Not fun.</p>
+    
+    <p>This is now resolved!</p>
+    
+    <p>All available resources are exposed via REST URIs, which, together with HTTP verbs, can cover all the actions that can be performed and need to be secured. In the example below, 3 roles are configured:</p>
+    <ul>
+        <li>
+            <p>order_manager - can view, create, update and
+            delete orders</p>
+        </li>
+        <li>
+            <p>order_editor - can view, create and update
+            orders, but not delete them</p>
+        </li>
+        <li>
+            <p>order_inspector - can only view
+            orders</p>
+        </li>
+    </ul>
+    
+    <script src="https://gist.github.com/yeshess/78f35a0b80c23a538d4f6a480732b845.js"></script>
+    
+    <p>So now we know RESTful systems are a natural fit for access control. By processing incoming requests the REST service is able to retrieve valuable information that can be handed over to a separate module to perform authentication and authorization. If the user is authorized to perform the requested method on the target resource, request processing can continue. Otherwise, this is a proper place to deny further access before reaching any internal application code.</p>
+    
+    <p>In my next post, I&rsquo;ll explain how we implement this RBAC model in Cloudify, so check back soon.</p>
+
+</notextile>
