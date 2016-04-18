@@ -36,82 +36,6 @@ var dataThanks="";
 
 //Manage Downloads CLI pop up form ;
 //========================================//
-/*var strVar="";
-strVar += "<div class=\"modal fade\" id=\"myModalb\" tabindex=\"-1\" role=\"dialog\" aria-labelledby=\"myModalLabel\" aria-hidden=\"true\">";
-strVar += "            <a  style=\"float:right \" class=\"gattingWrapperClose\" href=\"#\"><i class=\"fa fa-times\">&nbsp;&nbsp;<\/i> <\/a>";
-strVar += "<div class=\"gattingWrapper\">";
-strVar += "    <iframe name=\"hidden_iframe\" id=\"hidden_iframe\" style=\"display:none;\" onload=\"formSubmitted()\"><\/iframe>";
-strVar += "    <form action=\"https:\/\/docs.google.com\/forms\/d\/1jKtDzaVI88me3e3IEJTMv8riA_6-8hfeowCrLyV6XR4\/formResponse\" method=\"post\" target=\"hidden_iframe\" onsubmit=\"submitted=true;\" id=\"regiterCliDownload\">";
-//strVar += "<form action=\"https:\/\/docs.google.com\/forms\/d\/1jKtDzaVI88me3e3IEJTMv8riA_6-8hfeowCrLyV6XR4\/formResponse\" method=\"POST\" id=\"\" target=\"_self\" onsubmit=\"\">";
-strVar += "			<div class=\"regTitle\">Verify You're Human<\/div>";
-strVar += "        <div class=\"ss-form-question errorbox-good\" role=\"listitem\">";
-strVar += "            <div dir=\"auto\" class=\"ss-item ss-item-required ss-text\">";
-strVar += "                <div class=\"ss-form-entry\">";
-strVar += "                    <label class=\"ss-q-item-label\" for=\"entry_1810960422\">";
-strVar += "                        <div class=\"ss-q-title\">";
-strVar += "                            Name *";
-strVar += "                        <\/div>";
-strVar += "                    <\/label>";
-strVar += "                    <input type=\"text\" name=\"entry.1810960422\" value=\"\" class=\"ss-q-short\" id=\"entry_1810960422\" dir=\"auto\" aria-label=\"Name  \" aria-required=\"true\" required=\"\" title=\"\">";
-strVar += "                    <div class=\"error-message\" id=\"1087319035_errorMessage\"><\/div>";
-strVar += "                    <div class=\"required-message\"><\/div>";
-strVar += "                <\/div>";
-strVar += "            <\/div>";
-strVar += "        <\/div>";
-strVar += "        <div class=\"ss-form-question errorbox-good\" role=\"listitem\">";
-strVar += "            <div dir=\"auto\" class=\"ss-item ss-item-required ss-text\">";
-strVar += "                <div class=\"ss-form-entry\">";
-strVar += "                    <label class=\"ss-q-item-label\" for=\"entry_1702721951\">";
-strVar += "                        <div class=\"ss-q-title\">";
-strVar += "                            Company Email *";
-strVar += "                        <\/div>";
-strVar += "                    <\/label>";
-strVar += "                    <input type=\"email\" name=\"entry.1702721951\" value=\"\" class=\"ss-q-short\" id=\"entry_1702721951\" dir=\"auto\" aria-label=\"Company Email  Must be a valid email address\" aria-required=\"true\" required=\"\" title=\"Must be a valid email address\">";
-strVar += "                    <div class=\"error-message\" id=\"299412873_errorMessage\"><\/div>";
-strVar += "                    <div class=\"required-message\"><\/div>";
-strVar += "                <\/div>";
-strVar += "            <\/div>";
-strVar += "        <\/div>";
-strVar += "        <div class=\"ss-form-question errorbox-good\" role=\"listitem\">";
-strVar += "            <div dir=\"auto\" class=\"ss-item ss-item-required ss-text\">";
-strVar += "                <div class=\"ss-form-entry\">";
-strVar += "                    <label class=\"ss-q-item-label\" for=\"entry_1433052851\">";
-strVar += "                        <div class=\"ss-q-title\">";
-strVar += "                            Company *";
-strVar += "                        <\/div>";
-strVar += "                    <\/label>";
-strVar += "                    <input type=\"text\" name=\"entry.1433052851\" value=\"\" class=\"ss-q-short\" id=\"entry_1433052851\" dir=\"auto\" aria-label=\"Company  \" aria-required=\"true\" required=\"\" title=\"\">";
-strVar += "                    <div class=\"error-message\" id=\"373713453_errorMessage\"><\/div>";
-strVar += "                    <div class=\"required-message\"><\/div>";
-strVar += "                <\/div>";
-strVar += "            <\/div>";
-strVar += "        <\/div>";
-strVar += "        <input type=\"hidden\" name=\"entry.388986873\" value=\"CLI Download\" class=\"ss-q-short\" id=\"entry_388986873\" dir=\"auto\" aria-label=\"Lead Source Specifics (hidden) CLI Download \" title=\"\">";
-strVar += "        <input type=\"hidden\" name=\"draftResponse\" value=\"[,,&quot;-2465352058317800152&quot;]";
-strVar += "\">";
-strVar += "        <input type=\"hidden\" name=\"pageHistory\" value=\"0\">";
-strVar += "";
-strVar += "        <input type=\"hidden\" name=\"fvv\" value=\"0\">";
-strVar += "        ";
-strVar += "        <input type=\"text\" name=\"website\" id=\"website\" value=\"\">";
-strVar += "";
-strVar += "        <input type=\"hidden\" name=\"fbzx\" value=\"-2465352058317800152\">";
-strVar += "";
-strVar += "        <div class=\"ss-item ss-navigate\">";
-strVar += "            <input type=\"submit\" name=\"submit\" value=\"Download\" id=\"ss-submit\" class=\"cuSendGatting btn btn-info \">";
-strVar += "        <\/div>";
-strVar += "    <\/form>";
-strVar += "";
-
-
-
-
-
-strVar += "        <\/div>";
-strVar += "        <\/div>";
-
-*/
-
 strVar += "";
 strVar += "<div class=\"modal fade\" id=\"myModal\" tabindex=\"-1\" role=\"dialog\" aria-labelledby=\"myModalLabel\" aria-hidden=\"true\">";
 strVar += "            <a  style=\"float:right \" class=\"gattingWrapperClose\" href=\"#\"><i class=\"fa fa-times\">&nbsp;&nbsp;<\/i> <\/a>";
@@ -275,6 +199,99 @@ function track_cli_contactForm(e) {
 
 
 }
+//CLI Downloads HubSpotForms//
+function getCentOS7Form(e){
+			hbspt.forms.create({ 
+				portalId: '1918719',
+				formId: '41bf7fe9-d5f1-4718-8b3e-9202fc4509f6',
+				onFormReady($form, ctx){
+					var hubspotHtmlForm=$(".hbspt-form");
+					$( ".gattingWrapper" ).append( hubspotHtmlForm );
+				},
+				 onFormSubmit: function($form) {
+					track_cli_contactForm(e);
+				} 
+			  });
+}
+function getCentOS6_5Form(e){
+			hbspt.forms.create({ 
+				portalId: '1918719',
+				formId: 'a918493f-16d8-4f89-b952-360730947c61',
+				onFormReady($form, ctx){
+					var hubspotHtmlForm=$(".hbspt-form");
+					$( ".gattingWrapper" ).append( hubspotHtmlForm );
+				},
+				 onFormSubmit: function($form) {
+					track_cli_contactForm(e);
+				} 
+			  });
+}
+function getWindowsForm(e){
+			hbspt.forms.create({ 
+				portalId: '1918719',
+				formId: '6398a0f3-8cbe-46b7-bb1b-c8d220e9a22d',
+				onFormReady($form, ctx){
+					var hubspotHtmlForm=$(".hbspt-form");
+					$( ".gattingWrapper" ).append( hubspotHtmlForm );
+				},
+				 onFormSubmit: function($form) {
+					track_cli_contactForm(e);
+				} 
+			  });
+}
+function getOtherForm(e){
+			hbspt.forms.create({ 
+				portalId: '1918719',
+				formId: 'e7b478aa-bf4c-4ed3-8f5e-b339b0106faf',
+				onFormReady($form, ctx){
+					var hubspotHtmlForm=$(".hbspt-form");
+					$( ".gattingWrapper" ).append( hubspotHtmlForm );
+				},
+				 onFormSubmit: function($form) {
+					track_cli_contactForm(e);
+				} 
+			  });
+}
+function getAwsForm(e){
+			hbspt.forms.create({ 
+				portalId: '1918719',
+				formId: '5e7e7bb4-1a10-4dd0-b3f5-73d063c36f16',
+				onFormReady($form, ctx){
+					var hubspotHtmlForm=$(".hbspt-form");
+					$( ".gattingWrapper" ).append( hubspotHtmlForm );
+				},
+				 onFormSubmit: function($form) {
+					track_cli_contactForm(e);
+				} 
+			  });
+}
+function getVagrantForm(e){
+			hbspt.forms.create({ 
+				portalId: '1918719',
+				formId: '0c9717ef-1ea2-4ef2-92c5-4e243644c284',
+				onFormReady($form, ctx){
+					var hubspotHtmlForm=$(".hbspt-form");
+					$( ".gattingWrapper" ).append( hubspotHtmlForm );
+				},
+				 onFormSubmit: function($form) {
+					track_cli_contactForm(e);
+				} 
+			  });
+}
+function getComposerForm(e){
+			hbspt.forms.create({ 
+				portalId: '1918719',
+				formId: 'bb5b531a-475e-40e1-a0db-4e0e89e25a3c',
+				onFormReady($form, ctx){
+					var hubspotHtmlForm=$(".hbspt-form");
+					$( ".gattingWrapper" ).append( hubspotHtmlForm );
+				},
+				 onFormSubmit: function($form) {
+					track_cli_contactForm(e);
+				} 
+			  });
+}
+//CLI Downloads HubSpotForms//
 
 
 //this function open modal process
@@ -284,17 +301,35 @@ function downloadCliFile(e)
 			e.preventDefault();
 			//Gating PopUp
 			$('#myModal').modal('toggle');
-			hbspt.forms.create({ 
-				portalId: '1918719',
-				formId: '8e363e10-19ce-4dc7-9cd1-16e5368508e7',
-				onFormReady($form, ctx){
-					var hubspotHtmlForm=$(".hbspt-form");
-					$( ".gattingWrapper" ).append( hubspotHtmlForm );
-				},
-				 onFormSubmit: function($form) {
-					track_cli_contactForm(e);
-				} 
-			  });
+			//This call right form depand which btn was clicked.
+					switch(dataThanks) {
+						case "thank_you_centos_6_5":
+							getCentOS6_5Form(e);
+							break;
+						case "thank_you_centos_7":
+							getCentOS7Form(e);
+							break;
+						case "thank_you_windows":
+							getWindowsForm(e);
+							break;
+						case "thank_you_pip":
+							getOtherForm(e);
+							break;	
+						case "thank_you_vagrant":
+							getVagrantForm(e);
+							break;
+						case "thank_you_aws":
+							getAwsForm(e);
+							break;
+						case "thank_you_composer":
+							getComposerForm(e);
+							break;			
+						default:
+							 getOtherForm(e);
+					}
+			
+			
+
 			$('#myCollapse').addClass('in');
 	    } catch(e) {
 	    	console.log(["Error while tracking download", e]);
