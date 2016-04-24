@@ -6,7 +6,7 @@ machine:
       2.7.8
   ruby:
     version:
-      2.2
+      2.2.0
 
 ## Customize dependencies
 dependencies:
@@ -19,8 +19,7 @@ dependencies:
         timeout: 3600
     # - pip install LinkChecker
   cache_directories:
-    - /home/ubuntu/.rvm/gems/ruby-2.2
-
+    - /home/ubuntu/.rvm/gems/ruby-2.2.0
 test:
   override:
     - cd _site ; sudo -E python -mSimpleHTTPServer 80:
