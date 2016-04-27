@@ -1,0 +1,133 @@
+---
+layout: blogpost
+title: Cloudify NFV Lab on Demand - A Full Scale NFV Environment in a Single Click
+image: assaf.jpg
+author: Assaf Lev
+tags: 
+ - NFV
+ - OpenStack Suummit
+ - VNF Management
+ - Cloudify
+ - Network Automation
+---
+
+<notextile>
+
+<img src="/img/blog/cloudifylabsheader.png" alt="NFV Orchestration | OpenStack Summit Austin | Cloud Orchestration | VNF Management | ETSI | MANO | Network Automation">
+<br/>
+<br/>
+
+<p><b></b>
+
+  <h2><b>Overview</b></h2>
+
+<p>The demand for NFV is growing rapidly and steadily over the past two years as can be seen in the job trends graph below.<br>
+<b>NFV Job Trends (Source: Indeed.com)</b></p>
+
+<p>The first steps in the NFV journey involve learning and experimenting of many new technologies and best practices such as OpenStack, Multi-VIM, Orchestration, TOSCA, ETSI MANO, Service-Chaining etc.</p>
+
+<p>Many of the organization that we have worked with over the years were focused on building their own lab to experiment and test these new technologies and concepts. The lab was often designed to fit into a production environment and therefore comes with tight security constraints and performance optimizations that set a high barrier to entry if you only want to experiment with new technologies.</p>
+
+<p>As a result, we found that in every POC engagement users had to waste weeks, if not months, just going over the logistics of getting the environment ready for the POC. The fact that each environment tends to have its own security tweaks caused us to spend a lot of time tweaking the new software being evaluated so it fits into this environment.</p>
+
+<p>&nbsp;</p>
+
+<hr>
+
+<span class="pullquote-left">
+  <font style="font-weight: bold" size="5" face="Baskerville Old Face"><em>Register for our On-Demand NFV Lab today!</em></font>&nbsp; <a class="btn btn-medium btn-theme btn-rounded" id="downloadBtnInner" href="http://getcloudify.org/NFV-Labs-On-Demand.html" target="_blank"><i class="icon-plus"></i> Go </a></span>
+  
+  <hr>
+
+
+<p>As the pressure of those organizations to ramp up their NFV initiative started to increase, it became clear to us that this process was a major roadblock for executing their NFV agenda and we need to come up with a different approach that will allow users to “get their hands dirty” with NFV in a simpler way.</p>
+
+<p>The goals that we set to ourselves were:</p>
+<ol>
+<li>Allow access to a new private cloud environment in few minutes (OpenStack or VMWARE based for that matter)</li>
+<li>Learn the core concept around NFV Orchestration and service chaining</li>
+<li>Experience the process of managing and deploying a VNF</li>
+</ol>
+
+<p><b>All these goals need to be achieved in no more than an hour!</b></p>
+
+<p>We also wanted to give those users the ability to write their own VNF on their free time and for it to be free and able to be done at scale.</p>
+
+<p>To make it affordable, we realized that we have to rely on on-demand and pay-as you go mode. To make it scalable, we realized that a large part of the process needs to be designed for self-service.</p>
+
+<p>In this post I want to introduce our On-Demand NFV Lab and explain how we were able to meet all the desired goals.</p>
+
+<h2><b>Enter The NFV Lab</b></h2>
+In this section, I wanted to share with you how we were able to meet the goals reviewed earlier, point by point.
+
+<p>Allow access to a new private cloud environment in few minutes (OpenStack or VMware-based for that matter):</p>
+<ul>
+<li>The environment includes all required components to learn and experience how to orchestrate VNF’s including:</li>
+<ul>
+<li>OpenStack or VMware-based infrastructure</li>
+<li>Pre-installed version of TOSCA Orchestration based on Cloudify</li>
+<li>Pre-installed applications (for now a version of ClearWater - additional applications will be added going forward).</li>
+</ul>
+<li>The environment is a fresh installation, to be used only by the user (not a shared environment)</li>
+<li>The user has access to the infrastructure configuration and the user can modify the configuration as needed (as it is a private environment!)</li>
+</ul>
+
+<p>Learn the core concepts around NFV Orchestration and service chaining:</p>
+<ul>
+<li>The lab includes a free one hour online training session that provides an overview of NFV and orchestration concepts, live walk through of NFV modeling as well as on-boarding and management of a real life VNF based on MetaSwitch's Clearwater vIMS</li>
+</ul>
+
+<p>Experience the process of managing and deploying a VNF (coming soon):</p>
+<ul>
+<li>The lab will include a built-in demo that will allow the user to build their own VNF in their free time.</li>
+</ul>
+
+<p>Make it free:</p>
+<ul>
+<li>The environment runs on public cloud resources and it is easy to create/destroy on-demand, and thereby leverage the on-demand cost benefit associated with this environment.</li>
+</ul>
+
+<p>Make it scale</p>
+<ul>
+<li>This whole process can be done in a self-service manner allowing the user to best utilize their time and the ability to work and progress on their free time.</li>
+</ul>
+
+
+<h2><b>How It Works</b></h2>
+
+<p>We have officially <a href="http://getcloudify.org/NFV-Labs-On-Demand.html" target="_blank">opened up our NFV lab</a> for early access through pre-registration for a liited number of users. After signing up for early access, a session will be set with one of our NFV experts. This session will include an introduction to orchestration and TOSCA, a Clearwater vIMS orchestration demo, and an overview of the NFV lab.</p>
+
+<p>Following the session, you will receive a link with access to the live NFV lab including clear instructions on how to use it - see screenshot below.</p>
+
+<p>This setup provides a full scale NFV lab on top of OpenStack, controlled and accessed by you only, with full access to the OpenStack layers as well.</p>
+
+<p>Voila. NFV simplified.</p>
+
+<div class="aligncenter"><img width="600px" src="/img/blog/nfvlab.png">
+<br><strong>NFV Lab Access Page</strong></div>
+<br><br>
+
+<p>After connecting to the environment, you can open the Cloudify UI (see below), or work from the command line and deploy applications.</p>
+
+<br><br>
+
+<div class="aligncenter"><img width="600px" src="/img/blog/clearwaterblueprint.png"><br>
+<strong>Cloudify Web UI - vIMS Clearwater Deployed</strong></div>
+<br><br>
+
+<div class="aligncenter"><img width="600px" src="/img/blog/nfvlablogin.png"><br>
+<strong>vIMS Clearwater Login Page - Post-Deployment</strong></div><br><br>
+
+
+<h2><b>So what&rsquo;s next?</b></h2>
+
+<p>We are opening our NFV lab to a limited number of external users to familiarize themselves with a live NFV environment. Some come on and join the NFV world!!!</p>
+
+<p>Potential users can request access through the <a href="http://getcloudify.org/NFV-Labs-On-Demand.html">Cloudify NFV Lab Page</a> and after a short, introductory session, they will receive full access to the lab!</p>
+
+<p>We intend to add more examples to the NFV lab covering additional use cases and examples in the future.</p>
+
+<p><br /> </p>
+
+
+</notextile>
