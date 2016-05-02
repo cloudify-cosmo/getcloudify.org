@@ -291,6 +291,21 @@ function getComposerForm(e){
 				} 
 			  });
 }
+
+function getNfvForm(e){
+			hbspt.forms.create({ 
+				portalId: '1918719',
+				formId: '07c40acf-c792-4dc3-9d09-245cfec11b56',
+				onFormReady($form, ctx){
+					var hubspotHtmlForm=$(".hbspt-form");
+					$( ".gattingWrapper" ).append( hubspotHtmlForm );
+				},
+				 onFormSubmit: function($form) {
+					track_cli_contactForm(e);
+				} 
+			  });
+}
+
 //CLI Downloads HubSpotForms//
 
 
@@ -323,6 +338,9 @@ function downloadCliFile(e)
 							break;
 						case "thank_you_composer":
 							getComposerForm(e);
+							break;	
+						case "NFV White Paper Download":
+							getNfvForm(e);
 							break;			
 						default:
 							 getOtherForm(e);
@@ -428,7 +446,9 @@ function downloadBtnClick(e){
           dataBtnName = e.currentTarget.attributes["data-btn-type"].value; //$(this).attr("data-btn-type");
           dataBtnSplit = e.currentTarget.attributes["data-btn-split"].value;//$(this).attr("data-btn-split");
 		  dataBtnId = e.currentTarget.attributes["data-btn-id"].value; //$(this).attr("data-btn-id");
-		  dataThanks = e.currentTarget.attributes["data-thanks-page"].value;
+		  if(dataThanks==""){
+				  dataThanks = e.currentTarget.attributes["data-thanks-page"].value;
+		  }
 			if (getCookie('cfydirect') == null) {
 				$("#myModal").remove();
 				$("#wrapper").before(strVar);
@@ -456,6 +476,7 @@ $(".downloadAmi").click(function (e) {
 //NFV
 $(".downloadNfv").click(function (e) {
 		  leadSource = "NFV White Paper Download";
+		  dataThanks = "NFV White Paper Download";
 		  downloadBtnClick(e);
 });
 
