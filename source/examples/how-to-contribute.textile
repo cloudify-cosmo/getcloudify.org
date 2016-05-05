@@ -1,0 +1,59 @@
+---
+layout: bt_about
+title: Getting Involved. How to Contribute to Cloudify Examples.
+category: Contributing
+---
+
+h1. *Getting Involved.* How to Contribute to Cloudify Examples.
+
+This guide will present the criteria for accepting contributions to the Cloudify Examples Section.
+
+h1. *Repository Packaging*
+
+Each example must be packaged as a Github repository under the Cloudify-Examples Github organization.
+
+The repository itself should contain the following files:
+
+* A package Readme.md file.
+* At least one example blueprint.
+* Any necessary files for the successful execution, including example inputs files.
+
+h2. *What goes in the Readme*
+
+* First - a brief summary of the example.
+* Next - any disclaimers about usability, supported behavior, warnings, etc.
+* An About section, which includes supported versions of Cloudify, OS, which version of dependencies (e.g. Docker or Puppet), whether the example is for use with a Cloudify Manager or local workflows, or both, etc.
+* An Execution Instructions section.
+
+h2. *Example Blueprint*
+
+The example blueprint(s) should follow the file naming convention of [provider]-blueprint.yaml in the file name. For example:
+
+* local-blueprint.yaml
+* openstack-blueprint.yaml
+
+If relevant, there should be a blueprint for each of the main providers (AWS/Openstack/vCloud air).
+
+h2. *Blueprint organization*
+
+Blueprints should adhere to the following order:
+
+* DSL_VERSION declaration
+* imports section
+* inputs section
+* node_types definition section
+* relationships definition section
+* node_templates section
+
+Inside of the node_templates section, there is a convention of the following order:
+
+* First, application related node templates.
+* Then, infrastructure related node templates.
+
+h1. *How to submit*
+
+"Get in touch with us":http://getcloudify.org/contactus.html.
+
+h1. *What's Next*
+
+To learn more about writing examples, see "blueprint authoring":http://getcloudify.org/guide/3.2/blueprints_authoring.html and "plugin authoring":http://getcloudify.org/guide/3.2/plugins_authoring.html guides.

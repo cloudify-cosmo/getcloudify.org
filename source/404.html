@@ -1,0 +1,34 @@
+---
+layout: bt_default
+title: Oops, Page Not Found. Cloudify - The Devops Automation Platform 
+cat: 404
+---
+
+<script type="text/javascript">
+if ( !( $(location).attr("href").match("\.html$") ) ) {	
+	var newPage = $(location).attr("href") + ".html";
+	//alert("404.html newPage: " + newPage);
+	$(location).attr("href", newPage);
+}
+else { 
+	if ( $(location).attr("href").match("^.*/guide/.*$") )  {
+		if ( !( $(location).attr("href").match("^.*/guide/\\d+\.\\d+.*$") ) ) {
+			var parts = $(location).attr("href").split("/guide/");
+			var newPage2 = parts[0] + "http://docs.getcloudify.org/" + parts[1];
+		    //alert("newPage2: " + newPage2);
+			$(location).attr("href", newPage2);
+		}
+	}
+}	
+
+
+</script>
+
+<div class="contentWrap">
+    <section id="content"> 
+            <p align="center">
+                <a style="border:none !important;" href="/"><img src="{{ site.baseurl }}/images/404.jpg" /></a>
+            <p>
+            <br/><br/>
+    </section>
+</div>

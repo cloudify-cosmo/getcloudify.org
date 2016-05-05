@@ -1,0 +1,94 @@
+---
+layout: blogpost
+title: Docker orchestration…what it means and why you need it.
+image: yaron.jpg
+author: Yaron Parasol
+tags: 
+ - DevOps
+ - Docker
+ - Docker Orchestration
+ - Cloud Orchestration
+ - Cloud Automation
+---
+
+<notextile>
+
+<img src="https://lh4.googleusercontent.com/rqME5ohnIHrCr6iT_DJXz7h7YOBl5gymKNoOINgaGqC8yVd9E5hXlGnRHs2c2Ocxq_99olp-5qtTdqOkxmS24CZYXckv7MpD4QK-8Nd1rxvDfyqaY26HrHt9p-O_nN9x5w" width="600" alt="Docker Orchestration | Docker Containers | Cloud Orchestration ">
+<br/>
+<br/>
+
+
+<p><b></b>
+
+  <p><a href="http://getcloudify.org/docker-orchestration-docker-container-deployment-cloud.html" target="_blank">Docker containers</a> were created to help enable the fast, and reliable deployment of application components or tiers, by creating a container that holds a self-contained ready to deploy parts of applications, with the middleware and the app business logic needed to run them successfully.&#160; For example, a Spring application within a Tomcat container.&#160; By design, <a href="http://getcloudify.org/2014/10/30/Docker-cloud-orchestration-configuration-management.html" target="_blank">Docker</a> is purposely an isolated self-contained part of the application, typically one tier or even one node in a tier. </p>
+
+  <p>However, an application is typically multi-tier in its architecture and that means you have tiers with dependencies between them, where the nature of the dependencies can be anything from network connections and remote API invocations, to exchange of messages between application tiers.&#160; And hence an app is a set of different containers with specific configurations.&#160; This is why you need a way to glue the pieces of your app together. </p>
+
+  <p>While, Docker has a basic solution for connecting containers using a Docker bridge, this solution is not always the preferred one, especially when deploying the container across different hosts and you need to take care of real network settings. </p>
+
+<hr>
+
+<span class="pullquote-left">
+  <font style="font-weight: bold" size="5" face="Baskerville Old Face"><em>Docker orchestration with TOSCA + Cloudify.  Check it out.</em></font>&nbsp; <a class="btn btn-medium btn-theme btn-rounded" id="downloadBtnInner" href="http://getcloudify.org/downloads/get_cloudify.html" target="_blank"><i class="icon-plus"></i> Go </a></span>
+  
+  <hr>
+
+  <p>So, what role does the orchestrator play? </p>
+
+  <p>The orchestrator will take care of two things: </p>
+
+  <ol>
+    <li>
+      <p>The timing of container creation - as containers need to be created by order of dependencies and</p>
+    </li>
+
+    <li>
+      <p>Container configuration in order to allow containers to communicate with one another - and for that the orchestrator needs to pass runtime properties between containers.&#160; </p>
+    </li>
+  </ol>
+
+  <p>As a side note here: With Docker you need a special tweak here, as you typically don’t touch config files inside a container, you keep the container intact, so there is an interesting workaround for cases that this is required. </p>
+
+  <p>One method to do this is by using a YAML-based orchestration plan to orchestrate the deployment of apps and post-deployment automation processes, which is the approach Cloudify employs.&#160; Based on <a href="http://getcloudify.org/openstack-architecture-cloudify.html#TOSCA" target="_blank">TOSCA</a> (topology and orchestration standard of cloud apps), this orchestration plan describes the components and their lifecycle, and the relationships between components, especially when it comes to complex topologies.&#160; This includes, what’s connected to what, what’s hosted on what, and other such considerations.&#160; TOSCA is able to describe the infrastructure, as well as, the middleware tier, and app layers on top of these.&#160; Cloudify basically takes this TOSCA orchestration plan (dubbed blueprints in Cloudify speak) and materializes these using workflows that traverse the graph of components, or this plan of components and issues commands to agents.&#160; These then create the app components and glue them together.&#160;&#160; </p>
+
+  <p>The agents use extensions called plugins that are adaptors between the Cloudify configuration and the various infrastructure as a service (IaaS) and automation tools’ APIs. </p>
+
+  <p>In our case, we created a plugin to interface with the Docker API. </p>
+
+  <h3><font style="font-weight: bold">Introducing the Docker Cloudify Plugin </font></h3>
+
+  <p>The <a href="https://github.com/cloudify-cosmo/cloudify-docker-plugin" target="_blank">Cloudify-Docker plugin</a> is quite straightforward, it installs the Docker API endpoint/server on the machine and then uses the Docker-Py binding to create, configure, and remove containers.&#160; TOSCA lifecycle events are: </p>
+
+  <ul>
+    <li>
+      <p>Create - installation of the app components</p>
+    </li>
+
+    <li>
+      <p>Configure - configuration of the component</p>
+    </li>
+
+    <li>
+      <p>Start - startup/running the component</p>
+    </li>
+
+    <li>
+      <p>There is also stop &amp; delete - for shutdown and removal</p>
+    </li>
+  </ul>
+
+  <p>We started by using the create - to create the container, we did not implement configure at the beginning, and start to run the application.&#160; But then we realized that for containers with dependencies we need to have runtime properties, such as IP import of the counterpart container in order to create the container for example. When we create an app server container, we need the port and IP of the database container.&#160; So, we pushed the creation of the container to the configure event, and used a TOSCA relationship pre-configure hook, to get the dependent container’s info at runtime. </p>
+
+  <p><b><img alt="Docker Orchestration - What Gives- (1).png" src="https://lh4.googleusercontent.com/rqME5ohnIHrCr6iT_DJXz7h7YOBl5gymKNoOINgaGqC8yVd9E5hXlGnRHs2c2Ocxq_99olp-5qtTdqOkxmS24CZYXckv7MpD4QK-8Nd1rxvDfyqaY26HrHt9p-O_nN9x5w" /></b></p>
+
+  <p>The way to expose the runtime info to the container with the dependencies is by setting them as environment variables. </p>
+
+  <script src="https://gist.github.com/shar1z/915c9a180df70ce56202.js"></script>
+
+  <h3><strong>Nodecellar Example </strong></h3>
+
+  <p>I’d like to explain how this works by using our Nodecellar app as an example. The Nodecellar app is composed of two hosts that, in this case, Cloudify didn’t create but just SSHed into and then installed agents on.&#160; On one we have the MongoD container, with a MongoD process.&#160; On the other we have the Nodecellar container with NodeJS and the Nodecellar app within it.&#160; The Nodecellar container needs a connection to the MongoD container to run the app queries when the app starts. </p>
+
+  <p>Ultimately, an orchestrator should not be limited to software deployment, the whole idea behind Docker Is to allow for agility, so we’d also like to use Docker in situations of auto-scale out and auto-heal, CD.&#160; In our next post we’ll show exactly that - how Cloudify can be used with Docker for post-deployment scenarios.</p></p>
+
+</notextile>

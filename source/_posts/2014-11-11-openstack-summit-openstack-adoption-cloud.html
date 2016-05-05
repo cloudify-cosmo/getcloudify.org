@@ -1,0 +1,192 @@
+---
+layout: blogpost
+title: OpenStack Users are Ready to Move From Hypervisors...and Other Tales from the Summit…
+image: natisharone.jpg
+author: Nati Shalom and Sharone Zitzman
+tags:
+ - OpenStack
+ - VMware
+ - TOSCA Orchestration
+ - OpenStack Releases
+ - OpenStack Summit
+---
+
+<notextile>
+
+<div class="aligncenter">
+<img src="https://lh4.googleusercontent.com/tG_-8-Ute9ES20vUiW6axzQvc3kF-QSuCPY0AgJ7-FKQeReGQNI1_-KrIeJgOXmJ0s7-YEdYeEzb_DRghvzvAbJ7lO6PX6BwUICJ4-pceUyrWDP262UOZN0tq8i-YK3PSA" width="500" alt="OpenStack Summit | OpenStack Foundation | OpenStack Adoption"></div>
+<br/>
+<br/>
+
+<p><b></b>
+
+  <h3>
+    <hr /></h3>
+
+  <h2 align="left"><strong><a href="http://cloudtweaks.com/2014/11/openstack-users-ready-move-hypervisors/" target="_blank">Originally posted at CloudTweaks.com</a></strong></h2>
+
+  <hr />
+
+  <p>&#160;</p>
+
+  <p>I just got back from the <a href="http://getcloudify.org/2014/11/01/openstack-hybrid-cloud-orchestration-TOSCA-NFV-Docker.html">OpenStack Paris Summit </a>a couple weeks ago, and although this is a bit delayed in coming, I did do a talk on this with the <a href="http://www.slideshare.net/giganati/openstack-juno-the-complete-lowdown-and-tales-from-the-summit">OpenStack Online Meetup</a> immediately following my return, but then decided to share my thoughts on the summit in writing as well, for those who missed it.&#160; </p>
+
+  <p>I simply continue to be blown away by how much this summit grows from event to event, but even more so by how many people are actually already using OpenStack, and are not just in the interested in hearing more camp, and especially in the way they’re consuming it.&#160; This has changed in areas that I wouldn’t have anticipated, like in the use of hypervisors, non-private cloud and more - but I’m jumping ahead of myself, I’ll get to that later.</p>
+
+  <p>I found the quote below to echo my sentiment exactly.</p>
+
+  <blockquote>
+    <p>“It seems like that at the last few US events, people were coming to summits to figure out what OpenStack was. But it seems like everyone here that I talk to is using OpenStack. Some are here to get it more production ready, but they’re using it. They’re committed to it.” - Dave Wright, CEO of storage vendor SolidFire</p>
+  </blockquote>
+
+  <p>It was interesting to note that most people also indicated on the ground much different sentiments for the adoption of OpenStack than the first summits I attended, with just a few hundred enthusiasts in attendance. If once upon a time people were adopting OpenStack with cost savings in mind,&#160; today most users will say that the leading driver for adoption for them, which is echoed in the recent user survey (released with every OpenStack version), is the ability to innovate.</p>
+
+  <p><img style="float: none; margin-left: auto; display: block; margin-right: auto" src="https://lh4.googleusercontent.com/KwrHJG3g77U9J2OrQZHCB-TXwxR_Ve4IDKo4Xu9gG1SpjTxugR1YLlkDCFydDZOY3ufxKY9L08nCX5JM1oisQo4Ll3cyxgYojiJxJlmQr2Nd_8hPG-gBiNufiR17zG89yg" width="546" height="459" /></p>
+
+  <p>In the long run after stabilizing and the initial R&amp;D investments, OpenStack often times does introduce cost savings, however most users are actually turning to OpenStack for the nature of the open technology. This allows them to do much more innovative and unique things with OpenStack that is simply not possible with other closed technologies.</p>
+
+
+  <hr>
+
+<span class="pullquote-left">
+  <font style="font-weight: bold" size="5" face="Baskerville Old Face"><em>OpenStack orchestration - TOSCA + Cloudify.  Check it out.</em></font>&nbsp; <a class="btn btn-medium btn-theme btn-rounded" id="downloadBtnInner" href="http://getcloudify.org/downloads/get_cloudify.html" target="_blank"><i class="icon-plus"></i> Go </a></span>
+  
+  <hr>
+
+
+  <h2><font style="font-weight: bold">Main Themes Behind the Juno Release </font></h2>
+
+  <p>One of the major focuses of the event, was of course the <a href="http://getcloudify.org/2014/11/05/openstack-juno-open-source-cloud-open-cloud-statistics.html">OpenStack Juno</a> release, which is the 10th OpenStack release. Where the previous post discussed the major stats, I’d like to just quickly outline here the innovations that Juno brings with it.</p>
+
+  <h2><font style="font-weight: bold">Enterprise Maturity</font></h2>
+
+  <p>From the case studies at the event, you can see that OpenStack is no longer just a niche technology - there are major players backing and adopting the technology and betting the success of their organizations on OpenStack, which is unprecedented to date.&#160; This is just a small snapshot of the companies who presented their stories at the summit.</p>
+
+  <p><img style="float: none; margin-left: auto; display: block; margin-right: auto" src="https://lh4.googleusercontent.com/tG_-8-Ute9ES20vUiW6axzQvc3kF-QSuCPY0AgJ7-FKQeReGQNI1_-KrIeJgOXmJ0s7-YEdYeEzb_DRghvzvAbJ7lO6PX6BwUICJ4-pceUyrWDP262UOZN0tq8i-YK3PSA" width="490" height="532" /></p>
+
+  <p>The most notable and memorable story for me was the BMW story, who use OpenStack for the design of their new cars.&#160; It was interesting to hear their needs for high availability, where even 60 seconds of downtime represent the cost of a BMW i8 - the car they also flamboyantly displayed onstage.</p>
+
+  <p><img style="float: none; margin-left: auto; display: block; margin-right: auto" src="https://lh6.googleusercontent.com/_AcPxzo3TH73n-9R67bjGFYNaxPyucUVXKJtMQCus-bfD9t0ylPugzW9kvDclMod4kwhVA1hvlsjAxYV8esG20TbzrVKaiHf5s_vJEU2AMDu5JtOfcfZgGNHLgvYYlG9Tw" width="624" height="319" /></p>
+
+  <p>Right now, OpenStack Juno is the most widely supported cloud platform to date, which has expanded significantly for testing and plugins.&#160; This can be seen on a few levels:</p>
+
+  <ul>
+    <ul>
+      <li>
+        <p>Storage policies for object storage</p>
+      </li>
+
+      <li>
+        <p>Federated identity enhancements</p>
+      </li>
+
+      <li>
+        <p>Operational improvements</p>
+      </li>
+    </ul>
+  </ul>
+
+  <h2><font style="font-weight: bold">Laying the Foundation for NFV Support</font></h2>
+
+  <p>I’d like to pause and focus a little on the added NFV support introduced in Juno, as I believe this is a game changer in the carrier and networking world.&#160; This was also the topic of my talk at the summit - <a href="http://cloudifysource.tumblr.com/post/101912158011/catch-natishalom-sbercovicis-talk-from-openstack">Application and Network Orchestration Using HEAT &amp; TOSCA</a>. Where, just as an aside, I’ll share an anecdote that, for me, demonstrates the true readiness for real world use.&#160; In the talk, we had a demo of an <a href="http://getcloudify.org/2014/11/02/NFV-openstack-TOSCA-open-source-cloud-Chef.html">NFV OpenStack</a> Skype-like platform we built with Clearwater using Heat, TOSCA and Neutron, and throughout our talk we kept unexpectedly receiving calls by one of my team members who didn’t realize we were in the middle of our session.&#160; So this is just an honest to goodness real-life testimony to the incredible and robust technologies you can build on OpenStack.</p>
+
+  <p>This also correlates with the number of sessions events and participants, and even the number of questions that we answered at the end of our session about NFV and TOSCA, which demonstrates a real need and readiness to adopt these using OpenStack. NFV is clearly an area where OpenStack is a natural home for implementation, being able&#160; to drive an entire industry into cloud and virtualization by providing the control and flexibility of the infrastructure, and by bringing the networks and apps to collaborate together in the same community for the first time.&#160; This community brings application developers into the same room as network and infrastructure architects, as well as carriers that previously used to live in completely separate worlds.</p>
+
+  <p><img style="float: none; margin-left: auto; display: block; margin-right: auto" src="https://lh3.googleusercontent.com/D-WdP9w_JyZs_-7QkitlWGdoqQU1Bgkm6KyJC-hMgKmVG2PQpVgx_1rcvjHe-JeaFDLSyqU-PaHUhS0nLwiO7hUMenctgZT_cx6maDRx8tJg4gNEC08-A1GjdfgdEojlpg" width="624" height="343" /></p>
+
+  <p>The interesting part behind the NFV advancements and features that were released with Juno is the amazing fact that this focus group met for the first time, and outlined a plan at the <a href="http://getcloudify.org/2014/05/21/openstack-summit-highlights-news.html">OpenStack Summit</a> in Atlanta in May. This is such a testament to the commitment and agility possible with open technology that recognizes a gap, and works toward bridging it.</p>
+
+  <h4>New Data Processing Capabilities</h4>
+
+  <p>OpenStack Juno introduced with it new data processing capabilities, and big data support.&#160; Mirantis summed up everything interesting in Sahara in <a href="https://www.mirantis.com/blog/sahara-updates-in-openstack-juno-release/">this post</a> - so I will just quote the highlights of the features introduced into Sahara with the Juno release as they outline it:</p>
+
+  <ul>
+    <li>
+      <p>Two new provisioning plugins and the Cloudera Hadoop Distribution plugin are included.</p>
+    </li>
+
+    <li>
+      <p>Provisioning and EDP engines have been enhanced to support more cluster setups and job types.</p>
+    </li>
+
+    <li>
+      <p>Swift authorization offers better security.</p>
+    </li>
+
+    <li>
+      <p>The Sahara UI has been incorporated into the OpenStack Dashboard project.</p>
+    </li>
+
+    <li>
+      <p>Support for running in distributed mode is in alpha state.</p>
+    </li>
+
+    <li>
+      <p>Other updates are also available.</p>
+    </li>
+  </ul>
+
+  <p>Below is a screenshot of the UI and the architecture of this big data project, and you’ll find more specific references to the project in the Mirantis post above.</p>
+
+  <p><img style="float: none; margin-left: auto; display: block; margin-right: auto" src="https://lh5.googleusercontent.com/shS463UhujcGyqUfrK1azyfquBiCewQBLdoFk71o1hgH25kENnU-v99plemtvrZtKATzJHT9Dj3GEXpPMDJrUHqESc_VLI__dGQOTPR1rXPFSw8OwZy6h-4PJr0aC5kE3g" width="565" height="329" /></p>
+
+  <p><img style="float: none; margin-left: auto; display: block; margin-right: auto" src="https://lh5.googleusercontent.com/afEfm78VqDOGVfUIixJIWjdqtgaEhLsR-qv4GjLxHfYmMn0VD3DBeStiKnXlSlIHUzAO9Lezu8pp8SdKm_Z0J4L3XHjrrLTA6v4N2ZjpFTgqSe_xjI7E8NihgcYD6PzTKA" width="624" height="344" /></p>
+
+  <h5>How Users Are Using OpenStack</h5>
+
+  <p>I mentioned the user survey released with every OpenStack version above, and we will be doing a dedicated post on these <a href="http://getcloudify.org/2014/05/19/openstack-statistics.html">OpenStack statistics</a>, like with previous surveys.&#160; However, I would like to highlight just a few stats that caught my attention and represent interesting trends to keep an eye out for.</p>
+
+  <p>When I look at survey data, I actually like to focus most on the mid-range numbers, as I believe these represent a growing trend that is worthwhile to keep monitoring. I find that these are usually only the beginning of an upward trajectory.&#160; </p>
+
+  <ol>
+    <li>
+      <p>Users are getting more comfortable running OpenStack outside their private clouds.</p>
+    </li>
+  </ol>
+
+  <p>Where once upon a time, OpenStack was perceived as a private cloud solution, many users are now beginning to explore the use of OpenStack for other use cases including hosted private cloud - where Mirantis and Rackspace are the first to offer such a service, through public and even hybrid cloud use of OpenStack.</p>
+
+  <p><img style="float: none; margin-left: auto; display: block; margin-right: auto" src="https://lh5.googleusercontent.com/XgJ6fyCmSMypMNiQjz1nk31vrBFhHvmW07TEIY3LvFWCmDscC3H8ouFO5paaex3B1Z2Zix1c_KINRkWGz5c2aQ7l2AwfOWKxxDB5rZdsMDRgt548pjYfkxBTwJfL0qciPA" width="502" height="421" /></p>
+
+  <ol start="start">
+    <li>
+      <p>30% users are on non-hypervisor VMS. </p>
+    </li>
+  </ol>
+
+  <p>And here I come to possibly the most disruptive trend I’ve found with regards to OpenStack consumption.&#160; If before non-hypervisor usage was almost a blasphemy it looks like there is a growing trend of consuming OpenStack that not only is new to the OpenStacksphere, but is completely unique and possible only with an OpenStack environment - where controlling the infrastructure just isn’t currently supported with other clouds.&#160; For example, there are two ways to run Docker with Nova Compute or a Heat Resource.&#160; However, there is another option of running Docker on bare metal.&#160; This way of consuming OpenStack is why it is considered key to innovation right now.</p>
+
+  <p><img style="float: none; margin-left: auto; display: block; margin-right: auto" src="https://lh6.googleusercontent.com/tA767VcB4OLcIrPu1gHlF3QZ-Q07QA56ogce-Bv0p4MLAwLT5cU7N9HNFJjHdwq4Lk_ZR5JgCIYwVkzgxJ5oZGvapgkR68zWUAd1SmVpTuCrdbk-8NBl1VbuWO6hRzd5rw" width="556" height="463" /></p>
+
+  <ol start="start">
+    <li>
+      <p>New Kids on the Block</p>
+    </li>
+  </ol>
+
+  <p>While Puppet still dominates, the interesting trend is actually what’s happening in production environments.&#160; You can see that Ansible has surpassed Chef in adoption for production environments.&#160; </p>
+
+  <p><img style="float: none; margin-left: auto; display: block; margin-right: auto" src="https://lh6.googleusercontent.com/8sozvIDWBslcFD-n5LtOTwsopypx1oXvE_PlPjulKSidu7QE27uY8rXdIeBzSJfWs3RVL1A5B15VSlDCK7zL7OlI0zwIL4lSRzkBhGMm4J5_xbJ9SZPUCbHsQfqn1DQPDQ" width="465" height="327" /></p>
+
+  <ol start="start">
+    <li>
+      <p>Interoperability with other clouds is key for OpenStack users.</p>
+    </li>
+  </ol>
+
+  <p>The use of multiple clouds is reality, with more than 80% of respondents noting the use of another public cloud. Nearly one fifth are making use of multiple other clouds.&#160; This shows that the consumer side of OpenStack cares and still needs interoperability with other clouds, as opposed to the developers of OpenStack who are quite often still focused on getting the stuff ready, and are less concerned by interoperability.&#160; This is a classic area in which the broad community of Paris can serve to bridge a gap, and where OpenStack needs to encourage external projects to support and embrace OpenStack.</p>
+
+  <p><img style="float: none; margin-left: auto; display: block; margin-right: auto" src="https://lh6.googleusercontent.com/gv6IyC7y0S509TMn1Km7uNjWeP5bLN_cXBfj20p1lf5VXR26zXAP0YeKfka7JQv5iuttojGrC6i-UDj0Hk8ibccLfm9LBIbFJ1Xbk0bHeSVWUqjewNWXWRkw6pczH4uipw" width="504" height="528" /></p>
+
+  <h4>Summing it Up</h4>
+
+  <p>One of the advantage in working with an open community like Openstack is the ability to know directly from the source how people are using it. The survey provides a fairly effective measure on the level of maturity and also, the trends and tools in quantifiable metrics.</p>
+
+  <p>One of the most surprising indications in this report is the level of readiness of users to run OpenStack not just in pure private cloud environments like before, but also in hosted and public cloud environments. It was also quite surprising to me to see the level in which people are starting to deploy OpenStack on non-hypervisor technology. This last fact has the potential to entirely&#160; disrupt the way cloud infrastructure works, especially as we start to think of a cloud that runs purely on containers such as Docker or a combination of bare-metal and containers.</p>
+
+  <p>Every time I attend an OpenStack Summit I’m repeatedly awestruck by the speed of the growth of the community and the truly innovative ways people are taking the technology and using it in the real world.&#160; I have grown immensely and discovered so much through this vibrant community.&#160; I’m already looking forward to the next summit.</p>
+
+  <p>The Cloudify Community Bio</p>
+
+  <p>We are the team behind the open source cloud orchestration tool <a href="http://getcloudify.org/">Cloudify</a>.&#160; Our team of writers hold diverse roles - from our CTO and product team through our application and operations architects, engineers and more, with diverse expertise in many areas of cloud and automation &amp; orchestration technology.&#160; This includes all things OpenStack and DevOps - NFV, TOSCA, application and infrastructure orchestration, through robust and exciting tools like Docker, ElasticSearch, RabbitMQ, Flask, Celery, NGinx, InfluxDB, Grafana and many more.&#160; Expect posts on a wide range of topics.</p></p>
+</notextile>

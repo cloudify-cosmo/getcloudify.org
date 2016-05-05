@@ -1,0 +1,97 @@
+---
+layout: blogpost
+title: Nodecellar Gets Real (Distributed)
+image: dewayne.jpg
+author: DeWayne Filppi
+tags:
+ - Cloud Orchestration
+ - Cloud Automation
+ - Cloud Management
+ - Cloudify
+ - TOSCA
+---
+
+<notextile>
+
+<img src="http://getcloudify.org/img/cloudifycrop.png" alt="Cloud Orchestration | Orchestration Tools | OpenStack Cloud | TOSCA Cloud | Microservices | Kubernetes | NFV | Cloudify">
+<br/>
+<br/>
+
+<p>In a previous post titled “<a href="http://getcloudify.org/2015/05/26/cloudify-cloud-application-automation-orchestration-tosca-devops.html" target="_blank">Deployment Composition In Cloudify</a>”, I described using a custom type/plugin to compose multiple blueprints. This post describes an expansion of that effort, to make nodecellar into a real distributed app. In essence, I describe a concrete implementation of the blueprint described in Nati Shalom's recent post which described various approaches to <a href="http://getcloudify.org/2015/06/11/orchestration-docker-cloud-automation-openstack-heat-tosca-kubernetes.html" target="_blank">application orchestration</a>. The same deployment proxy is used as described before, but the focus here is the growth of the composed blueprints: mongo and nodejs in an Openstack environment.</p>
+
+<p><strong>Requirements</strong></p>
+
+<p>For the Mongodb blueprint to be more realistic, it needs to be a sharded, replicated, distributed cluster, not a single mongod instance. To quickly review Mongodb architecture, there are a few runtime components/services:</p>
+
+<ul>
+  <li>mongod - holds the data </li>
+
+  <li>mongoc - holds cluster configuration </li>
+
+  <li>mongos - shard server </li>
+</ul>
+
+<p>A minimal replicated scenario requires a couple of mongod servers, and three mongoc servers. Mongos is a lightweight service that ideally runs near the client. In our case, the client is nodejs. So the basic layout looks like:</p>
+
+<img src="http://getcloudify.org/img/blog/deployment_layout.PNG">
+
+<hr>
+
+<span class="pullquote-left">
+  <font style="font-weight: bold" size="5" face="Baskerville Old Face"><em>Orchestrate your first deployment in minutes with Cloudify. Try it today!</em></font>&nbsp; <a class="btn btn-medium btn-theme btn-rounded" id="downloadBtnInner" href="mailto:openstack@gigaspaces.com?subject=I%20want%20to%20hear%20more%20about%20OpenStack%20Training" target="_blank"><i class="icon-plus"></i> Go </a></span>
+  
+  <hr>
+
+<p>Since we're moving to <a href="http://getcloudify.org/2015/11/01/openstack-tokyo-summit-kubernetes-cloudify-tosca-nfv-orchestration-microservices.html" target="_blank">Openstack</a>, there is more complexity in the blueprints related to setting up security groups and floating ips, but otherwise they are straightforward to understand. The mongoc and mongod hosts need to have a security group so they can be reached by the mongos nodes in the nodejs blueprint. One the nodejs side, the hosts containing NodeJs need floating IPs so they can be accessed from the internet.</p>
+
+<h2><b>Orchestration Details - mongo blueprint</b></h2>
+
+<p>The orchestration should proceed as follows:</p>
+
+<ul>
+  <li>Start mongod hosts and mongoc hosts (in no particular order) </li>
+
+  <li>Install and start mongod and mongoc services as hosts become available </li>
+
+  <li>Wait for the above steps to complete, publish outputs, and configure replica sets </li>
+</ul>
+
+<p>The first two steps are fairly unremarkable, standard Cloudify precedence defined by relationships. The final step exploits Cloudify relationships by defining a node that doesn't inhabit a VM, but only exists to coordinate and publicize the rest of the action. In the blueprint, this node is called <font face="Courier New">joiner</font>.</p>
+
+<p><font face="Courier New">joiner</font> uses the Cloudify &quot;connected_to&quot; relationship to both force ordering, and to get information from the mongod and mongoc nodes. The node itself is just a &quot;cloudify.nodes.Compute&quot; node, with the &quot;install_agent&quot; property set to false. This has the effect of creating an environment on the Cloudify management server where the coordination can take place, without the need to start an actual VM. When using this technique it is imperative that any interface implementations use the &quot;central_deployment_agent&quot; executor.</p>
+
+<p><font face="Courier New">joiner</font> has the goal, besides waiting for everything else to complete, of publicizing the IP addresses and ports of all the mongo services in the runtime properties &quot;cfghosts&quot; and &quot;dbhosts&quot;, both being comma separated lists. It does this by using the relationship to put each host IP and port in it's own runtime_properties, keyed by a prefix string and the instance id of the target node.</p>
+
+<script src="https://gist.github.com/dfilppi/bbe9822adb9c27faaa9a.js"></script>
+
+<p>After all the relationship scripts have fired, <font face="Courier New">joiner</font> has a runtime property for each mongoc and mongod host in the deployment. The &quot;start&quot; lifecycle script then iterates through the runtime_properties using the REST API. The REST API is used because the ctx object provides no equivalent capability.</p>
+
+<script src="https://gist.github.com/dfilppi/c12dc29e195236be952b.js"></script>
+
+<p>Note that this technique can be used in any situation where you need to aggregate information from connected nodes while avoiding concurrency issues. Once the required values are aggregated, they are set to a runtime property that is exposed by the blueprint's &quot;outputs&quot; section:</p>
+
+<script src="https://gist.github.com/dfilppi/8b105b7715e6f4a5c1fd.js"></script>
+
+<h2><b>Orchestration Details - nodejs blueprint</b></h2>
+
+<p>As discussed in my previous post, the nodejs blueprint uses the deployment proxy plugin to wait for, and then acquire values from the mongo blueprint/deployment. These output values are copied to runtime properties in the proxy node for use elsewhere in the deployment. In this case they are required to initialize and load the database. In the simple nodecellar blueprints, the database is loaded from the webapp itself, which of course is slightly unrealistic. As the database load must occur after the mongos nodes are started, we are faced with a similar situation that <font face="Courier New">joiner</font> was created to solve.</p>
+
+<p>In this case, a node called <font face="Courier New">winedb</font> is used to serve the same purpose. <font face="Courier New">winedb</font> is basically a container for scripting that is contained in a &quot;cloudify.nodes.Compute&quot; node, as discussed before. <font face="Courier New">winedb</font> is dependent on the other nodes in the blueprint, and its scripts are invoked last. It performs the following tasks:</p>
+
+<ul>
+  <li>it collects the various mongos hosts via the technique described in the previous section </li>
+
+  <li>it gets the mongoc and mongod hosts from the proxy </li>
+
+  <li>add a shard for each replicaset found </li>
+
+  <li>load the wine database </li>
+</ul>
+
+<script src="https://gist.github.com/dfilppi/bc1f76c94028c0e645ad.js"></script>
+
+<h2><b>Conclusion</b></h2>
+
+<p>This project took the stock nodecellar example and made it more realistic, but still oriented to a one time demo. A real implementation would no doubt separate the create, destruction, and loading of the database into separate workflows, and checks would be made not to clobber an existing database (if desired). On the other hand, there is no &quot;right answer&quot; for a blueprint; it is very much a product of a specific environment and management policies. Besides taking the next step with &quot;NodeCellar&quot;, this post illustrated a few techniques that can be useful in many common automation scenarios with Cloudify. The source for both projects is located here (<a href="https://github.com/dfilppi/cfy3" target="_blank">https://github.com/dfilppi/cfy3</a>). Comments and suggestions welcome as always.</p>
+
+</notextile>

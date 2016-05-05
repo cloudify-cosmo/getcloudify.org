@@ -1,0 +1,57 @@
+---
+layout: blogpost
+title: VM-less Multi-node Coordination With Cloudify
+image: dewayne.jpg
+author: DeWayne Filppi
+tags:
+ - Cloud Orchestration
+ - Cloud Automation
+ - Cloudify
+ - Blueprints
+ - MongoDB
+---
+
+<notextile>
+<img src="/img/cloudifycrop.png" alt="Cloud Orchestration Tools | Cloud Application Orchestration | Cloud Orchestration Tools | DevOps Orchestration | Cloud Automation | Cloudify">
+<br/>
+<br/>
+
+<p>Not infrequently, a <a href="http://getcloudify.org/guide/3.2/blueprints-general.html" target="_blank">blueprint</a> needs to execute logic that is used to either coordinate the activities of other nodes, act essentially as a thread gate, or both. In practice, this means executing some code that doesn't, beyond the install <a href="http://getcloudify.org/guide/3.2/workflows-general.html" target="_blank">workflow</a>, have any bearing on the runtime operation of the system. This post discusses some simple techniques that are useful for such scenarios.</p>
+
+<hr>
+
+<span class="pullquote-left">
+  <font style="font-weight: bold" size="5" face="Baskerville Old Face"><em>Orchestrate the lifecycle of your apps in the cloud with Cloudify.</em></font>&nbsp; <a class="btn btn-medium btn-theme btn-rounded" id="downloadBtnInner" href="http://getcloudify.org/downloads/get_cloudify.html" target="_blank"><i class="icon-plus"></i> Get it!</a></span>
+  
+  <hr>
+
+<h2><b>VM-free Plugin Execution</b></h2>
+
+<p>It helps to get right to a concrete example to understand the problem domain. Imagine a MongoDb database blueprint. I want a blueprint deployment to run once on my network, and have other blueprints make use of it independently. A previous post of mine discusses a component that can make this connection &lt;ref previous post&gt;, but here I'm concerned with installing and starting a multi-node database, and when done, exposing the information needed to connect to it in the blueprint outputs.</p>
+
+<p>The most natural way to achieve this in <a href="http://getcloudify.org/" target="_blank">Cloudify</a> is to have a blueprint node that has a &quot;depends_on&quot; or &quot;connected_to&quot; relationship to the MongoDb VMs. In this &quot;coordinator&quot; node, I want to gather the IP addresses of the MongoDb servers, and place them in &quot;runtime_properties&quot; so they can be publicized by the blueprint outputs. The problem is, I don't want to actually start (and potentially pay for) a VM just to perform what amounts to a simple scripting task.</p>
+
+<p>The solution is to create a node of type &quot;cloudify.nodes.Compute&quot;, with its &quot;install_agent&quot; property set to false. This will create a scripting environment on the Cloudify manager, but not start a VM, which is just what we're looking for. It is important to note that if you use the script plugin, or any plugin, you must ensure that the executor is set to &quot;central_deployment_agent&quot;.</p>
+
+<p>An example:</p>
+<script src="https://gist.github.com/dfilppi/93d79d268f312e5c1a23.js"></script>
+
+<h2><b>Multi-Instance Information Harvesting</b></h2>
+
+<p>When relationships are executed in Cloudify, they are always between two nodes. In our example Mongo Db case, we might have 10 or more node instances with a relationship to our coordinator node. Recall that one of the goals of the coordinator is to create lists of IP addresses that can be published via blueprint outputs. Since relationships only operate on pairs, my relationship code will be executed once for every pair; if there are 10 &quot;mongod&quot; nodes, there will be 10 different calls. This makes assembling a list somewhat annoying.</p>
+
+<p>The approach I've taken is to, in the relationship code, store each connected node's IP in a specially prefixed property (e.g. &quot;mongod_host_&quot;), and adding the instance id. So, after all the relationships are executed, the &quot;coordinator&quot; might have properties that look like:</p>
+
+<p>mongod_host_14711, mongod_host_14712, mongod_host_14713, ....</p>
+
+<p>Each of these would have a value equal to the IP address. Example of a relationship script setting these:</p>
+<script src="https://gist.github.com/dfilppi/b4859ea82c7ecb0f908c.js"></script>
+
+<p>Now that our coordinator nodes have these runtime properties set, I need to iterate through them to create a list for publication. This is simple using the Cloudify context supplied to the &quot;start&quot; lifecycle method of the coordinator node:</p>
+<script src="https://gist.github.com/dfilppi/cf02a605ff38a8964aad.js"></script>
+
+<h2><font style="font-weight: bold">Conclusion</font></h2>
+
+<p>Coordinating the activities and startup sequence of multiple nodes is a fundamental part of application orchestration. Hopefully these examples will help with some of the specific issues that arise when creating complex blueprints.</p>
+
+</notextile>

@@ -1,0 +1,127 @@
+---
+layout: blogpost
+title: Why Work at Cloudify.
+image: nircohen.jpg
+author: Nir Cohen
+tags:
+ - Ops
+ - Cloud Orchestration
+ - Open Source
+ - Cloudify
+ - Fun
+---
+
+<notextile>
+
+<div class="aligncenter">
+<img src="/img/cloudifycrop.png" alt="Cloudify | Open Source | Cloud | Open Cloud | TOSCA "></div>
+<br/>
+<br/>
+
+
+
+<p><b></b>
+
+  <p>I started working for GigaSpaces about a year ago, after leaving fring, where I managed the Operations team. I decided to make a leap of faith towards a different route (more development oriented). I met Nati, GigaSpaces' CTO at DevOpsDays TLV 2013, and shortly after ended up at <a href="http://www.gigaspaces.com/" target="_blank">Gigaspaces</a>, working on (or for) <a href="http://getcloudify.org/" target="_blank">Cloudify</a>.</p>
+
+  <p>I was initially brought in to build a new team that would provide an Ops point of view on the product and architect Cloudify's stack and operational flows. They wanted people with experience who can view Cloudify as users and provide a different perspective based on their corresponding professions. While it was easier to bring in more developers, they chose to take the chance and build an Ops team (something they had no experience with whatsoever). I loved it.</p>
+
+  <p>Cloudify is officially a product developed by GigaSpaces. Unofficially, it is a startup backed by Gigaspaces with (currently) ~15 developers. The product and development teams are completely oriented towards a startup mentality. This means that changes happen fast to match the pace of the world around us.</p>
+
+
+ <hr>
+
+<span class="pullquote-left">
+  <font style="font-weight: bold" size="5" face="Baskerville Old Face"><em>Ok - so yeah, we're hiring. Learn <a href="http://www.gigaspaces.com/Careers#RD" target="_blank">more</a> or --></em></font>&nbsp; <a class="btn btn-medium btn-theme btn-rounded" href="mailto: jobs@gigaspaces.com?subject=I'd%20like%20to%20hear%20more%20about%20the%20open%20positions%20at%20Cloudify!" target="_blank"><i class="icon-plus"></i> Apply Here </a></span>
+
+  <hr>
+
+
+  <p>Since I was faced with the exact same decision just a mere year ago - I wanted to share my take on why working on (and for) Cloudify is such a treat (I'll try to base some of them on my personal experiences.) </p>
+
+  <h3><strong>Being Exposed to the Wonderful Technologies</strong></h3>
+
+  <p>Cloudify is based on a stack comprised of <a href="http://riemann.io/" target="_blank">Riemann</a>, <a href="http://www.elasticsearch.org/overview/elasticsearch" target="_blank">Elasticsearch</a>, <a href="http://influxdb.com/" target="_blank">InfluxDB</a>, <a href="http://grafana.org/" target="_blank">Grafana</a>, <a href="http://www.elasticsearch.org/overview/logstash" target="_blank">Logstash</a>, <a href="http://nginx.org/" target="_blank">Nginx</a> and <a href="http://www.rabbitmq.com/" target="_blank">RabbitMQ</a> with a lot of Python code sitting on top, NodeJS+Angular for the UI and some Clojure for our policies all packed up in Docker images. It is bundled with infrastructure orchestration plugins for different Clouds like <a href="http://aws.amazon.com/" target="_blank">AWS</a>, <a href="http://cloudstack.apache.org/" target="_blank">Cloudstack</a>, <a href="http://www.vmware.com/products/vsphere">vSphere</a>, <a href="http://www.softlayer.com/">Softlayer</a> and, mainly, <a href="http://www.openstack.org/" target="_blank">OpenStack</a>; and plugins for different provisioning, configuration management, deployment and monitoring tools tools like <a href="http://puppetlabs.com/" target="_blank">Puppet</a>, <a href="https://www.chef.io/chef/" target="_blank">Chef</a>, <a href="https://www.docker.com/" target="_blank">Docker</a> (currently in Alpha), <a href="http://www.fabfile.org/" target="_blank">Fabric</a>, A <a href="">Scripts</a> Plugin, <a href="https://github.com/BrightcoveOS/Diamond" target="_blank">Diamond</a> and <a href="http://www.saltstack.com/" target="_blank">SaltStack</a>. The list is constantly growing.</p>
+
+  <p>While I'm not a fan of making &quot;tools&quot; or &quot;clouds&quot; the center of everything, being exposed to such a large, versatile collection has really given me the opportunity to open my mind to what's out there, and discover and garner expertise with some exciting technologies. I’ve experienced many, many wonderful technologies in my ~5 years at fring and Cloudify is no different when it comes to the steep learning curve it provides.</p>
+
+   <h3><strong>No Bureaucracy to Prevent People from Doing their Job</strong></h3>
+
+ <p>Yes, Gigaspaces is 14 years old. Cloudify, in its new form, is ~1. Bureaucracy will only keep it from developing rapidly. There are no pointless official business procedures and no superfluous, administrative overhead and documents to fill in, executives to report to on every small change, or hardheaded managers to be afraid of. Of course, we're bound by timelines, product requirements and logical decisions, like any healthy business.</p>
+
+  <h3><strong>People are Completely Free to Innovate</strong></h3>
+
+  <p>At the end of the day, this manifests itself in a freedom to create, try, and innovate.&#160; If you want to do something cool, you just do it, as long as it's brainstormed and doesn't conflict with business requirements...enjoy.&#160; It's also never boring, there's always a lot to do - constant optimization, plugin innovation, small, nifty features and large, ground breaking changes.</p>
+
+  <p>An example would be something that I've been working on lately, and has even expanded further to a project with one of the guys from our Core team.</p>
+
+<p>A while ago, we decided we needed a <a href="http://getcloudify.org/guide/3.1/agents-packager.html" target="_blank">cloudify-agent-packager</a> - something that would allow users to generate a custom Cloudify agent. I was afforded the time to work on this, no questions asked. And the exciting part is that it is already being used.</p>
+
+  <p>Sometime after that happened, one of the developers approached me to brainstorm on an idea he had on how to optimize the agent so that it's pretty much a microservice, with its own CLI; that can install itself as a service or run as a foreground process for development easy of use; completely decoupled from Cloudify's Manager and can be generated by the <a href="https://github.com/cloudify-cosmo/cloudify-agent-packager/tree/master/agent_packager" target="_blank">cloudify-agent-packager</a>. This is a major change which will create a lot of waves, but it's a brilliant idea and so it will be a part of the one-after-next version of Cloudify (you can find it <a href="https://github.com/nir0s/cloudify-agent/tree/cloudify-agent-cli" target="_blank">here</a>).</p>
+
+  <p>On top of that, we got to write some open source tools to support our work. We were and always are granted time to do that.</p>
+
+
+  <h3><strong>Quickwins are fun</strong></h3>
+
+  <p>Quickwins, much like <a href="https://medium.com/" target="_blank">medium.com</a>'s <a href="https://medium.com/@verbagetruck/to-do-to-done-jank-n-drank-3231f644a8b1" target="_blank">Jank'n'Drank</a> is a day in which people choose a small task they want to work on, which is completely off the current priorities table and attempt to finish it in one day. From code to tests to docs. We've just recently changed the Quickwins interval to once a month, which makes this a wonderful break in the midst of craziness.</p>
+
+  <p>Unlike Jank'n'Drank, we don't do this after hours as most people need to go back to their families. Instead, it starts in the morning and ends...whenever you want.</p>
+
+  <h3><strong>You're encouraged to go to conferences and meetups (domestic and abroad)</strong></h3>
+
+  <p>It isn't trivial when the project manager says: &quot;Please go to meetups&quot;. And no, not just on your free time - whenever.</p>
+
+  <p>Your time costs money. Apparently, Gigaspaces understands that it's important to show our faces in different meetups and conferences, and, consequently, help our employees expand their horizons and get to meet people from the industry.</p>
+
+  <p>I've had the pleasure to attend three DevOpsDays conferences since arriving at Gigaspaces and a couple of dozens of meetups up until now, and am even a part of the DevOpsDays TLV organizing team (got a shirt to prove it :))</p>
+
+  <p>Two of which were Amsterdam 2014 and the 5th Anniversary at Ghent 2014.  , was the last one in Israel. I've been encouraged to go and participate. I've gotten to speak at two of them which was a wonderful experience.</p>
+
+  <h3><strong>You're encouraged to have a life and discouraged to work long hours</strong></h3>
+
+  <p>It is a breath of fresh air to see people leave early, get in late and have a life. You're not required to work many hours - you just need to deliver. Actually, no one really watches you. You need to do your job and do it well; then build your own schedule.</p>
+
+  <p>I tend to spend between 7 and 7.5 hours at the office daily (aside from when working from home). I do work on the train and at home, but I choose to so rather than am expected to.</p>
+
+  <p>You don't necessarily have to come in everyday</p>
+
+  <p>Is there something you need to do? Work from home. You can also work from home if you need to concentrate on something.</p>
+
+  <p>You're also encouraged to stay home when you're feeling even a little icky, which, in my POV, is a wonderful thing.</p>
+
+  <p>I, for instance, work from home one day a week - usually, on Tuesday, almost every week. This breaks my work week into two parts and lets me come in fresh on Wednesday. As a lot of my work comprises from talking to people and giving feedback, I can’t work from work all the time, but 1 day a week is providing me with all I need.</p>
+
+ <h3><strong>Do more than your job, if you like</strong></h3>
+
+  <p>If you want to contribute to anything other than what your formal position dictates, you're more than welcome to do so.</p>
+
+  <p>People are encouraged to write blog posts on different subjects which will be published in Cloudify's blog or in other, potentially high profile blogs. I had several posts posted in Cloudify's blog, one at Devops.com and one on DZone. </p>
+
+  <p>VPs are guides; not supervisors and policy maintainers</p>
+
+  <p>When I interviewed for Gigaspaces, the VP R&amp;D and VP Product interviewed me (over Google Hangout, as I already met the VP Product at DevOpsDays). I immediately got the feeling that they are not your typical executives. I was right.</p>
+
+  <p>The VP Product, VP R&amp;D and Project Manager, all deal with making sure people are able to do what they need by providing them with the right environment and giving them the freedom to do what they do best rather than micromanaging everyone.</p>
+
+  <p>It was a real differentiator for me to hear our VP Product tell me &quot;give me something cool to do&quot; and our VP R&amp;D tell me &quot;My best achievement is that every one of my employees is more intelligent than I am&quot;.</p>
+
+  <p>It is wonderful to see executives who're not looking for anyone to blame, only how to improve and learn from past mistakes.</p>
+
+  <h3><strong>Everything you say is taken into consideration</strong></h3>
+
+  <p>If all of the examples haven’t convinced you of this yet, then know that you're encouraged to raise any problems and requests. It is always emphasized that it's good to admit that you made mistakes and learn how not to repeat them rather than being afraid of someone blaming you of something and firing you the next day.</p>
+
+  <p>In the Bi-Weekly retrospect, the first thing people do is say &quot;thank-you’s&quot; to others who helped them.</p>
+
+  <h3><strong>Brainstorming</strong></h3>
+
+  <p>Essentially, in my opinion, Cloudify's greatest strength is based on team members brainstorming with each other.  Brainstorming is constant, obsessive and productive. People come up with wonderful ideas, share them with other people and discuss issues to their finest details. Not long ago, it struck me, in the middle of a conversation, that we were discussing which word to use in the documentation, &quot;hash&quot; or &quot;dict&quot;. We spoke about it for like 10 minutes. It was a wonderful realization: we're trying to make things perfect.</p>
+
+  <h3><strong>So, everything is perfect, huh?</strong></h3>
+
+  <p>Obviously nothing is perfect. If it wasn’t work - in the sagacious words of Red Foreman from That 70s Show “it would be called - happy fun play time.” At the end of the day, it’s a job; but comparatively to other work environments, it’s a pretty darn good one. Programmers are encouraged to do what they love - code.&#160; Your requests and complaints don’t fall on deaf ears. It’s a place that values each and every one of its workers, and this is seen in everything that’s invested in making everyone happy. And the best part is that the team is always looking to improve both the product and the working methodologies. It’s great to be working on something that challenges you daily to deliver something truly awesome.</p></p>
+
+
+
+  </notextile>

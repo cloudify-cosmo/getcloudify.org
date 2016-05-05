@@ -1,0 +1,50 @@
+---
+layout: blogpost
+title:  Pack Up the Wagon, We're Going Offline
+image: nircohen.jpg
+author: Nir Cohen
+tags:
+ - DevOps
+ - Ops
+ - DevOps Culture
+ - Operations
+ - Python
+---
+
+<notextile>
+
+<div class="aligncenter">
+<img src="/img/blog/oregontrail.png" alt="DevOps | Ops | DevOps Engineer | AWS | DevOps Days | Chef | Puppet | Configuration Management"></div>
+<br/>
+
+<hr><h2>This post was originally published on <strong><a href="http://www.infoq.com/articles/python-wagon-offline-packages" target="_blank">InfoQ.com</a></strong> in Jan 2016.</h2><hr><br>
+
+<p>We’re a Python shop at <a href="http://getcloudify.org" target="_blank">Cloudify</a> and we needed to be able to ship our plugins to customers. The plugins are sets of multiple Python packages which had to be available for different platforms, in different versions, for installation by our framework. The fact that we work with enterprise companies – banks and the likes – organizations that cannot simply install things off of the internet, is forcing us to provide the entire package and its dependencies available to the internet-less user. “pip install and be done with it” is not an option. This had us searching for solutions.</p>
+
+<p>As such, during my work, I’ve had the distinct pleasure (note the sarcastic tone) of dealing with packaging artifacts, namely, Python packages along with their dependencies. These packages had to be available for installing at runtime and had to contain information on the packages for the installer to read.</p>
+
+<hr>
+
+<span class="pullquote-left">
+  <font style="font-weight: bold" size="5" face="Baskerville Old Face"><em>Changing the face of DevOps. Cloudify glues it all together.</em></font>&nbsp; <a class="btn btn-medium btn-theme btn-rounded" id="downloadBtnInner" href="http://getcloudify.org/downloads/get_cloudify.html" target="_blank"><i class="icon-plus"></i> Go</a></span>
+  
+<hr>
+
+<p>Python doesn’t make handling dependencies easy. While you can <a href="http://stackoverflow.com/questions/1150373/compile-the-python-interpreter-statically" target="_blank">statically link Python</a> and ship it with dependencies, clever dependency handling is not Python’s strong side and it would require a lot of work to achieve a high level of portability although, as you will see, it’s gotten better. On top of that, Python’s default method of installing dependencies requires an internet connection which, even today, is not always a viable prerequisite.</p>
+
+<h2>Alternatives</h2>
+
+<p>At first, we thought about providing a PyPI (Python Package Index) clone along with our product. Unfortunately, PyPI is about 150GB and that is not something we can afford to ship to customers.</p>
+
+<p>We needed a REAL offline solution, so we built one.</p>
+
+<p>We have a lot of experience with virtualenv and Spotify’s <a href="https://github.com/spotify/dh-virtualenv" target="_blank">dh-virtualenv</a> came to mind. We could use it to package an environment with dependencies. Unfortunately, dh-virtualenv revolves around Debian packages and we needed packages for potentially any distribution. Additionally, our agents are already based on virtualenv and we just needed a way to install more plugins into the same environment.</p>
+
+<p><a href="https://pex.readthedocs.org/en/stable/index.html" target="_blank">Twitter’s PEX</a> also came to mind. It is a way to create portable Python environments and ship them easily as single binaries. Unfortunately, after deploying such packages, we would not be able to install additional plugins in runtime, which is a requirement in our case.</p>
+
+<h2>Our Solution</h2>
+
+<p>What we came up with is <a href="http://github.com/cloudify-cosmo/wagon" target="_blank">Wagon</a>  – a very straight-forward solution for creating and installing a Python package. What it does is provide an abstraction for creating an archive which contains a Python package with its dependencies from multiple sources (GitHub, local path, PyPI); allows installing the package directly from the archive, validating it and displaying its metadata.</p>
+
+<p><i>Please see the rest of the article at <a href="http://www.infoq.com/articles/python-wagon-offline-packages" target="_blank">InfoQ</a>.</i></p>
+  </notextile>

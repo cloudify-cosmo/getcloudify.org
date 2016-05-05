@@ -1,0 +1,72 @@
+---
+layout: blogpost
+title: Using Cloudify to Extend Murano Past OpenStack to Multiple Clouds
+image: uritrammell.jpg
+author: Uri Cohen and Luther Trammell
+tags: 
+ - OpenStack
+ - OpenStack Summit
+ - Docker
+ - Kubernetes
+ - TOSCA
+---
+
+<notextile>
+
+<img src="/img/blog/murano-cloudify-openstack.jpg" alt="OpenStack Liberty - NFV | OpenStack Heat | OpenStack Murano | OpenStack Releases | OpenStack Summit | OpenStack Versions | Cloud Automation | Docker | Kubernetes | OpenStack Hybrid Cloud">
+<br/>
+<br/>
+
+
+<p>It’s great to see Murano is gaining popularity and usage since its release, along with additional projects added in the last <a href="http://getcloudify.org/2015/10/22/openstack-liberty-summit-releases-cloud-kubernetes-neutron-nfv.html" target="_blank">OpenStack releases</a> - from Sahara to Marconi, I find the addition and the diversity of projects now available in this growing ecosystem extremely impressive.</p>
+
+<p>So for those who are unfamiliar, OpenStack Murano introduced an application catalog to OpenStack, which allows application developers and cloud administrators to publish their cloud-ready applications in a browsable‎, easily navigable and categorized catalog.</p>
+
+<p>What this essentially means for <a href="http://getcloudify.org/openstack-architecture-cloudify.html">OpenStack</a> users is that they can now submit and upload application packages to Murano in various formats, from <a href="http://getcloudify.org/2015/05/20/openstack-summit-vancouver-cloud-network-orchestration-automation-heat-scaling.html">Heat orchestration</a> templates, to MuranoPL packages (the Murano language), and even Glance images, and deploy these uploaded applications to OpenStack at the click of a button. So formerly if you wanted to set up a Hadoop cluster, or a Kubernetes cluster, this required manual configuration and setup to tie it all together. The big news was that suddenly cloud users, experience and inexperienced ones alike can leverage this catalog to compose reliable application environments at the push of a button.</p>
+
+<hr>
+
+<span class="pullquote-left">
+  <font style="font-weight: bold" size="5" face="Baskerville Old Face"><em>Orchestrate your app deployments on OpenStack, VMware, AWS, and more. Get Cloudify.</em></font>&nbsp; <a class="btn btn-medium btn-theme btn-rounded" href="http://getcloudify.org/downloads/get_cloudify.html" target="_blank"><i class="icon-plus"></i> Go </a></span>
+
+<hr>
+
+
+<p>With Murano, the new backend provides roles and permissions to enable the administration of the applications - so you can have an application developer role (who develops an application and uploads it to Murano) a cloud user role (who uses the uploaded applications) and an administrator role who manages the Murano service itself. This simplifies the management of apps on OpenStack significantly. </p>
+
+<p>Murano makes all of this possible on OpenStack. However, when applications are deployed or shared between multiple clouds or not deployed on OpenStack at all, Murano cannot do much for you.</p>
+
+<p>Murano, like Cloudify, is pluggable with a built-in plugin system - so it was only natural for the Cloudify team to partner with the engineering team behind Murano to create a Cloudify plugin for Murano. This plugin allows Murano to manage TOSCA templates directly, and deploy them to OpenStack and other clouds directly, using Cloudify. This comes in addition to, not in place of, the already existing integrations with Heat, Glance, and the MuranoPL itself. By using this plugin, users can essentially extend Murano to any infrastructure, and even deploy and model applications on mixed infrastructures. </p>
+
+<p>On top of this, Cloudify adds the ability to plugin to additional technologies not available through Murano alone, for example SDN controllers outside of OpenStack (for NFV oriented applications, AKA VNFs). It also enables you to easily model complex application topologies in a standard format (e.g. mixed workloads of containerized non-containerized components, like deploying your web application as part of the Docker container and your mongo database directly on an OpenStack VM). You also automatically receive all of the post-deployment functionality available with Cloudify, application management and monitoring, healing and scaling, along with application portability across clouds.</p>
+
+<p>On a personal note, it’s been an excellent experience working with the stellar engineering team at Mirantis to extend Murano to additional clouds and use cases. We expect this integration to simplify deployment on hybrid environments, as well as other popular clouds, including VMware, GCP, and more.</p>
+
+
+<h3>Now let's see how it works under the hood</h3>
+
+<p>The plugin has two essential python files: cloudify_tosca_package.py, which specifies the way <a href="http://getcloudify.org/2015/07/21/what-is-TOSCA-cloud-application-orchestration-tutorial-cloudify.html">Cloudify TOSCA</a> blueprints will be packaged, and cloudify_client.py, which interacts with the Cloudify Manager's Rest API via HTTP.</p>
+
+<p>When you package a blueprint archive for upload to Murano, it should have something like the following structure:</p>
+
+<script src="https://gist.github.com/yeshess/05a18a369f8920835d98.js"></script>
+
+<p>The Resources directory contains the Cloudify Blueprint and required files, while the the Manifest.yaml tells Murano what’s going on:</p>
+
+<p>The EntryPoint in the Manifest.yaml specifies the name of the Cloudify blueprint file to be uploaded to the Cloudify Manager. For example in our example folder structure above, you that would be “some-blueprint.yaml”.</p>
+
+<script src="https://gist.github.com/yeshess/1c35a0fdc718a29f5a6d.js"></script>
+
+<p>This is called by the Cloudify Murano Plugin Code(cloudify_tosca_package.py):</p>
+<script src="https://gist.github.com/yeshess/75a62a7a2ec3a9b42aa0.js"></script>
+
+<p>When the application is executed in a later stage the entire Resources directory will be compressed by Cloudify, when Murano makes the rest API call:</p>
+<script src="https://gist.github.com/yeshess/d60d192b05b11e201e24.js"></script>
+
+<p>You can <a href="https://github.com/openstack/murano">fork the code</a> and definitely be sure to provide us with feedback.</p>
+
+<p>Watch the video below for a deeper walk-through.</p>
+
+<iframe width="700" height="450" src="https://www.youtube.com/embed/CiSSAOk44Jc" frameborder="0" allowfullscreen></iframe>
+
+</notextile>

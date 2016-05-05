@@ -1,0 +1,102 @@
+---
+layout: blogpost
+title: Deploy an IBM BLU Service on SoftLayer Cloud in One Click
+image: tamir.jpg
+author: Tamir Korem
+tags:
+ - Cloudify
+ - SoftLayer
+ - Cloud Automation
+ - Chef
+ - REST API
+---
+
+<notextile>
+
+<div class="aligncenter">
+<img src="/img/blog/ibmblu.png"  alt="Cloudify | IBM Blu | Blu Acceleration | Softlayer Cloud | AWS | Cloud Automation"></div>
+<br/>
+<br/>
+
+
+ <p><b></b>
+
+  <p>Nowadays, if you're a huge technology company and you're not venturing into the cloud, you're living in the past.&#160; So it’s not surprising that many companies are investing heavily in cloud across the board.&#160; This is also true for IBM, that decided in 2013 to <a href="http://www.forbes.com/sites/bruceupbin/2013/06/04/ibm-buys-privately-held-softlayer-for-2-billion/" target="_blank">acquire SoftLayer</a> for approximately $2B, like many others such as HP who invested just as largely in their <a href="http://www.zdnet.com/article/hp-to-invest-1bn-in-open-source-cloud-computing-launches-helion-portfolio/" target="_blank">Helion play</a>, and this is only one example <a href="http://www.nasdaq.com/article/amazon-invests-2b-to-expand-operations-in-india-analyst-blog-cm375733" target="_blank">of many</a>.</p>
+
+  <p>SoftLayer, which was at that time, the world's largest privately held cloud computing infrastructure provider, served thousands of customers.&#160; Today SoftLayer (under the auspices of IBM) maintains a global cloud infrastructure platform spanning 16 data centers (and counting…) all over the world, and only intends to expand this reach to serve their strategic plans and penetration into the cloud market.</p>
+
+  <h2><strong>Cloud Application Orchestration</strong></h2>
+
+  <p>However, venturing into the cloud is just the first step into actually being able to provide a full and sustainable ecosystem of cloud users.&#160; In order to have an ability to build dynamic and scalable cloud environments with complex application stacks on them, you ought to have diverse cloud tools, and among these <a href="http://getcloudify.org/cloud_orchestration_cloud_automation.html">orchestration tools</a>.</p>
+
+  <p>To that end, IBM chose Cloudify to be their application orchestration enabler for various POCs and in diverse IBM products that are deployed on SoftLayer and on AWS. In this post, I will dive into Cloudify’s role in the deployment of<a href="http://www-01.ibm.com/software/data/db2/linux-unix-windows/db2-blu-acceleration/"> BLU</a> on SoftLayer, a very interesting technical use case.</p>
+
+  <hr>
+
+<span class="pullquote-left">
+  <font style="font-weight: bold" size="5" face="Baskerville Old Face"><em>Cloudify - multi-cloud out of the box. Give it a whirl..</em></font>&nbsp; <a class="btn btn-medium btn-theme btn-rounded" id="downloadBtnInner" href="http://getcloudify.org/downloads/get_cloudify.html" target="_blank"><i class="icon-plus"></i> Go </a></span>
+  
+  <hr>
+
+
+  <h2><strong>Cloudify -&#160; The Cloud Orchestrator</strong></h2>
+
+  <p>IBM DB2 with BLU Acceleration is, slated by IBM to be the next generation database technology that changes the game for in-memory computing. Its primary play is to provide breakthrough performance by delivering instant insight from real-time operational data and historical data.&#160; IBM was looking to deploy BLU Acceleration to SoftLayer, and was looking for a cloud application orchestrator for this purpose.&#160; That was when Cloudify took on this challenge.</p>
+
+  <h2><strong>Cloudify as a Cloud Enabler</strong></h2>
+
+  <p>Cloudify enables IBM users to deploy a full-blown BLU instance in two modes: Trial (Anonymous) and Commercial (Solo).</p>
+
+  <h3><strong>Trial mode:</strong></h3>
+
+  <p>This enables users to launch a BLU instance and play around with it for several hours, where the number of hours is customizable and can be configured.&#160; The VMs in this case, belong to IBM and are killed after several hours unless the user kills them first.</p>
+
+  <h3><strong>Solo mode:</strong></h3>
+
+  <p>This mode enables users to insert their own SoftLayer/AWS credentials and launch a new instance of BLU on their own SoftLayer/AWS account respectively.&#160; Users’ decision to use SoftLayer and not AWS or vice versa is, obviously, made according to the users’ needs,requirements, budget and preference.</p>
+
+  <p>In either case, using the Solo mode costs money, but the users are only charged for the actual usage (i.e. provisioning of the VMs) and not for the software products (BLU).</p>
+
+  <p>Note, that users can use both SoftLayer and AWS and can easily transition between the two because of the Cloudify technological backbone that supports <a href="http://getcloudify.org/cloud_orchestration_cloud_automation.html#HPLink2">multi-cloud</a>, although, one may assume that most users if not all of them, will settle for one of the above.</p>
+
+  <h2><strong>The Architecture</strong></h2>
+
+  <p>In a very high level explanation (and we'll get deeper in a second), we used a web page that hosts a Cloudify Widget/Player as the front end in order to enable IBM users to configure their desired configuration (CPU, memory size, hard disk etc.) and desired cloud provider (SoftLayer or AWS).</p>
+
+  <h2><strong>The Widget Server</strong></h2>
+
+  <p>We chose the Play framework 2.0 as a backend (for VM pool management and UI serving) and after a while, when the requirements grew and evolved, we added Angular to the frontend and separated it from the backend. We use MailChimp's API to populate a MailChimp distribution list and send email to the users via <a href="https://mandrill.com/">Mandrill</a>, for the purpose of receiving credentials, URLs for the application and other communications required to run the service.&#160; </p>
+
+  <p>To manage the VM pool (trial mode) we selected Java, and yes, we are aware of the fact that there are NodeJs cloud libraries.&#160; However, since we, in all honesty, are more experienced in Java; using a threaded implementation seemed be the best approach for the job and has ultimately proven itself.</p>
+
+  <p>So we stayed with Java and we used <a href="http://spring.io/guides/gs/serving-web-content">Spring MVC</a> with Jetty to expose a REST service for managing a VM pool. The UI is written with the latest technology and it uses <a href="https://github.com/yeoman/generator-angular">Yeoman generator for AngularJS</a>, which is pretty nifty. (You can check out this post of ours on just this UI <a href="http://getcloudify.org/2014/11/21/mean-stack-workflow-automation-yeoman-bower-grunt.html">workflow automation</a>).</p>
+
+  <h2><strong>Cloudify and SoftLayer</strong></h2>
+
+  <p>We've developed a Cloudify-SoftLayer cloud driver that enables us to do pretty much everything on SoftLayer, from launching new VMs (CCIs,Flex images) and dedicated bare metal servers, to specifying the amount of memory, CPU etc. for each machine.</p>
+
+  <p>All of the above can be invoked via an interactive mode, a non-interactive mode and, obviously, via the Cloudify Widget.</p>
+
+  <p>The Cloudify cloud driver enables users to deploy, configure, orchestrate, monitor and self-heal any application on any SoftLayer account and on any of SoftLayer's data centers, by specifying SoftLayer item IDs, which provides a pretty neat automation layer on top of SoftLayer. </p>
+
+  <h2><strong>The Chef Server</strong></h2>
+
+  <p>In general, Cloudify enables users to use any of their applications internally and externally, according to their needs.&#160; That means, for example, that if your stack is comprised of several tiers/applications, then you can decide that one (or some) of them will not be a part of the runtime stack and they will be external services and applications that can be accessed at anytime by the other components.</p>
+
+  <p>An external application will not be configured nor deployed by Cloudify, but it can be referenced and used inside Cloudify and still be a part of your environment.&#160; The BLU info and binaries, in our case, are retrieved from a Chef server, so for IBM we've developed a recipe that configures and deploys a Chef server. Eventually the Chef server was externalized to Cloudify by IBM - however, this can be internalized at any time without a hassle.&#160; In the current setup the Chef server has been implemented as an external application, where the components are able to access it, and all the rest of the components’ orchestration is performed by Cloudify, where Cloudify injects the Chef server’s URL to the other components so they are able to access it. (i.e. The configuration, deployment, orchestration, monitoring and all runtime management of all the other components are all done by Cloudify.)</p>
+
+  <p>The Cloudify recipes (blueprints) are flexible in that aspect as well, the same recipe can be used with an internal <a href="http://getcloudify.org/chef_cloud_configuration_management.html">Chef server</a> and with an external one. It's just a matter of configuration and preference.</p>
+
+  <h2><strong>Cloudify &amp; BLU</strong></h2>
+
+  <p>Cloudify installs the &quot;BLU Acceleration for Cloud&quot; instances on SoftLayer by invoking Cloudify BLU recipes that have been developed for this purpose.&#160; These recipes enable users to specify regions from which the BLU binaries are retrieved, thus they enable the BLU application to be efficiently deployed on any of SoftLayer's regions. The Cloudify BLU recipes wrap and run a set of Chef Cookbooks and Roles.</p>
+
+  <p>The Chef Cookbooks and Chef Roles of the BLU instances can be retrieved either from an external Chef-server or from a Chef server which has been installed by a Cloudify recipe that has been developed for this purpose.</p>
+
+  <h2><strong>In Conclusion</strong></h2>
+
+  <p>This service, whose enabler is Cloudify, is currently available both in English and in Chinese and users can deploy it on any of SoftLayer's data centers and on any of AWS' data centers as well.</p>
+
+  <p>Adding support for more languages other than English and Chinese is relatively easy for us and we will add it in the near future and/or upon request. This project overall has been an interesting and challenging one, and we continue to develop and extend its functionality.</p></p>
+
+  </notextile>

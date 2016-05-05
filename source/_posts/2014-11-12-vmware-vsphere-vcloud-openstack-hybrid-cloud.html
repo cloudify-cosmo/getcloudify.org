@@ -1,0 +1,89 @@
+---
+layout: blogpost
+title: From VMWare Virtualization to Public Cloud. Now Hybrid Cloud. 
+image: yoram.jpeg
+author: Yoram Weinreb
+tags: 
+ - OpenStack
+ - Hybrid Cloud
+ - VMWare
+ - Cloud Orchestration
+ - Cloud Automation
+---
+
+<notextile>
+
+<img src="https://yoramweinreb.files.wordpress.com/2014/11/nodecellar.png" alt="OpenStack VMWare | VMWare OpenStack | Hybrid Cloud | vCloudAir | VMWare Public | vCloud Cloud">
+<br/>
+<br/>
+
+
+<h2><strong>vCloud, OpenStack &amp; Cloudify</strong></h2>
+
+<p>VMWare has been in the front of the virtualization space for many years and is by far the most popular <a href="http://getcloudify.org/2013/12/07/eight_cloud_and_big_data_predictions_for_2014.html" target="_blank">enterprise virtualization</a> solution.</p>
+
+<p>In the recent years, as cloud technology became popular, VMWare released its vCloud product line to target private clouds.</p>
+
+<p>More recently, VMware entered the public cloud space too with its vCloudAir product.</p>
+
+<p>We’ve demonstrated in many posts how Cloudify, has broad support for orchestrating applications on many different clouds with the most popular being OpenStack based clouds and EC2.</p>
+
+
+<hr>
+
+<span class="pullquote-left">
+  <font style="font-weight: bold" size="5" face="Baskerville Old Face"><em>Hybrid cloud orchestration - VMWare to OpenStack and back with Cloudify.</em></font>&nbsp; <a class="btn btn-medium btn-theme btn-rounded" id="downloadBtnInner" href="http://getcloudify.org/downloads/get_cloudify.html" target="_blank"><i class="icon-plus"></i> Go </a></span>
+  
+  <hr>
+
+<p>Obviously adding support for the vCloudAir cloud was an important target for us.</p>
+
+<p><a href="http://getcloudify.org/cloud_orchestration_cloud_automation.html#HPLink" target="_blank">VMWare vSphere</a> &amp; vCloudAir plugins allow for provisioning resources on vCloudAir as well as hybrid cloud support in heterogeneous environments that are running <a href="http://getcloudify.org/2014/11/07/openstack-vmware-hybrid-cloud.html" target="_blank">VMWare/Openstack</a> clouds side by side.</p>
+
+<p>It can even orchestrate applications that span across VMWare and Openstack in the same deployment.</p>
+
+<p>Examining the vCloudAir API it became apparent that the vCloudAir API was heavily influenced from the traditional VMWare products and customer base.</p>
+
+<p>Compared to OpenStack and EC2, it is much IT operations focused than developer and <a href="http://getcloudify.org/2014/09/28/DevOps-automation-engineer-orchestration.html" target="_blank">DevOps</a> focused.
+
+  <br />This means the API exposes tremendous amount of customization and control power, but at the same time, completing an operation that takes a couple simple api calls, translated to many more calls in vCloud.</p>
+
+<p>In order to support a new cloud in Cloudify, we have to create or customize a plugin that will expose the different objects and interfaces/operation we can do with this cloud.</p>
+
+<p>In my case, as time was short and I wanted to get going as quickly as possible, I chose to use an existing plugin which exposes Apache LibCloud, which itself lets you interact with different cloud APIs from python.</p>
+
+<p>Cloudify already has a LibCloud plugin that was used for EC2 API.</p>
+
+<p>I just extended it to expose the vCloudAir objects too.</p>
+
+<p>This is a work in progress and I currently have just the server objects (server_plugin) exposed as can be see here:</p>
+
+<p><a title="Libcloud Plugin" href="https://github.com/cloudify-cosmo/cloudify-libcloud-plugin/tree/vcloud-dev">Libcloud Plugin</a></p>
+
+<p>While testing the work I have done with an actual vCloud account, I found that some of the functionality I used in the LibCloud vCloud driver (version 0.15.1) did not agree with the API used for my account. For example, getting network details did not work for me, but listing the networks did work.
+  <br />Because of this, I had to fork the LibCloud repo and make a few changes to bypass these issues.
+
+  <br />My modified version is at:
+
+  <br /><a title="Modified Libcloud" href="https://github.com/yoramw/libcloud/tree/v0.15.11/">Modified Libcloud</a></p>
+
+<p>I used the node-cellar <a href="https://github.com/cloudify-cosmo/cloudify-nodecellar-example" target="_blank">Cloudify blueprint</a> example.</p>
+
+<p>All of the code stays the same and the only difference was focused on the <a href="http://getcloudify.org/guide/3.0/guide-blueprint.html" target="_blank">blueprint YAML</a>:
+
+ <script src="https://gist.github.com/shar1z/8b885540dff4e83db35a.js"></script>
+
+  <br />The rest of the YAML stays exactly the same. I just took out the security groups and floating IPs definition I did not have ready yet in my vCloud plugin.</p>
+
+<p>Since Cloudify lets you define your cloud application orchestration in an independent fashion than the actual cloud IaaS the application would run on, it is very easy to run the same application on different clouds with almost no change.</p>
+
+<p><a href="https://yoramweinreb.files.wordpress.com/2014/11/nodecellar.png"><img class="alignright size-medium wp-image-126" alt="nodecellar" src="https://yoramweinreb.files.wordpress.com/2014/11/nodecellar.png?w=300&amp;h=257" width="403" height="345" /></a></p>
+
+<p>Using common management and orchestration as an abstraction to both VMware and OpenStack provides a common management and deployment infrastructure.</p>
+
+<p>The application is kept aware of whether it is running on OpenStack or VMware. However, since the calls to each of the infrastructure components are now centralized into one driver per environment, it is managed once for all the applications.</p>
+
+<p>Additionally, there is a default implementation for the built-in types, so in most cases the user will need to deal with the details of implementations of each element type only for specific customizations.</p>
+
+
+</notextile>

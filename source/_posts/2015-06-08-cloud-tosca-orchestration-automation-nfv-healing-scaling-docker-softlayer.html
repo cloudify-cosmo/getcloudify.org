@@ -1,0 +1,119 @@
+---
+layout: blogpost
+title: Who Said Cloudify 3.2?!
+image: yaronsharone.png
+author: Yaron Parasol & Sharone Zitzman
+tags:
+ - Cloud Orchestration 
+ - Cloudify
+ - Docker
+ - TOSCA
+ - NFV Orchestration
+---
+
+<notextile>
+<img src="http://getcloudify.org/img/blog/blueprint.png" alt="Cloudify | Cloud Application Orchestration | NFV Orchestration | TOSCA | Docker | NFV Management">
+<br/>
+<br/>
+
+<p>We’re sure the short five months and twenty days (but who’s counting really?) you’ve been waiting for 3.2 to land have been torturous agony - but fear not, it is officially here, and all that nail-biting and lost sleep will have been well worth it when you hear what’s in store in this release.</p>
+
+<h2>Purism at Its Best</h2>
+
+<p>This release, for us, has been a mission in all things pure-play orchestration, and this isn’t just another buzzword.&#160; For us, pure-play orchestration means that Cloudify should be a Cloud Application Orchestrator - no more, no less - or rather, no frills included.</p>
+
+<p>What this means for you, is that Cloudify has been built to be as cloud and tool agnostic as possible.&#160; Ok, so why is that so important to us (and you ultimately)?&#160; </p>
+
+<hr>
+
+<span class="pullquote-left">
+  <font style="font-weight: bold" size="5" face="Baskerville Old Face"><em>Cloudify 3.2 - The Purist Pure-Play Orchestration. Download Free.</em></font>&nbsp; <a class="btn btn-medium btn-theme btn-rounded" id="downloadBtnInner" href="http://getcloudify.org/downloads/get_cloudify.html" target="_blank"><i class="icon-plus"></i> Go </a></span>
+  
+<hr>
+
+<p>We are now seeing major transitions from siloed and manual to automated and agile processes - especially within traditional and enterprise organizations where this was once virtually taboo. And, as with any transition, technologies and methodologies compete over the enterprise IT heart.&#160; What should one use: OS containers (aka VMs), software containers (e.g. Docker), or a combination or both? Which Cloud to use? With which SDN controller?</p>
+
+<p>We heard your gripes, and we listened.</p>
+
+<p>Cloudify is being built to support each of your decisions, including the decision to go with a mixed or hybrid strategy - a growing demand in enterprise IT.</p>
+
+<h2>Gimme, Gimme, Gimme</h2>
+
+<p>Some of the new features and improvements in 3.2 that now make this all possible include a bunch of new and enhanced integrations for your infrastructure of choice:</p>
+
+<ul>
+  <ul>
+    <li>
+      <p>Support for VMWare vCloud in addition to the vSphere support we had before</p>
+    </li>
+
+    <li>
+      <p>Support for IBM SoftLayer </p>
+    </li>
+
+    <li>
+      <p>Improved Docker support with official plugin that now supports links, volumes, and other Docker essentials. </p>
+    </li>
+
+    <li>
+      <p>Improved AWS support - we've revamped the AWS support using Boto</p>
+    </li>
+  </ul>
+</ul>
+
+<p>What’s more, we plan additional development all of the above technologies, as well as adding support for Google Cloud Platform and Microsoft Azure to this list soon, both already in progress. </p>
+
+<p>On top of this, 3.2 has added support for mixed containerized and non-containerized workloads on multiple clouds with emphasis on VMware and Openstack. For example, you can now run your microservices using Docker and your database server directly on the host, using tools like Chef, Puppet or SaltStack. </p>
+
+<p>But wait, there’s more…</p>
+
+<h2>You Want Buzzwords...I’ll Give You Buzzwords.&#160; Ok, NFV.</h2>
+
+<p>Another front which has been gaining traction, and where Cloudify has been investing heavily in providing pure-play capabilities, is <a href="http://getcloudify.org/2015/03/22/mobile-world-congress-nfv-sdn-network-orchestration-automation.html">NFV</a> (<a href="http://getcloudify.org/network-function-virtualization-vnf-nfv-orchestration-sdn-platform.html">Network Function Virtualization</a>) - you can read more by following our <a href="http://getcloudify.org/tags/NFV/">NFV blog</a> tag too.</p>
+
+<p>Thanks to Cloudify’s openness and pluggability with different technologies, Cloudify has become a true enabler for different NFV strategies and supporting paradigms: </p>
+
+<ul>
+  <ul>
+    <li>
+      <p>Agentless installation and configuration of services as well as agent-based using Chef / Puppet.</p>
+    </li>
+
+    <li>
+      <p>Using cloud networking APIs as well as using SDN APIs or even device configuration via <a href="http://getcloudify.org/2014/11/02/NFV-openstack-TOSCA-open-source-cloud-Chef.html">Netconf/Yang</a> - see it live in action through a great example for <a href="https://www.youtube.com/watch?v=p0uLz30XKm8">NFV orchestration</a> via the Metaswitch Clearwater IMS application.</p>
+    </li>
+  </ul>
+</ul>
+
+<h2>Some More Goodies</h2>
+
+<p>In terms of product enhancements, Cloudify 3.2 brings with it some excellent new functionality you’ll want to check out:</p>
+
+<ul>
+  <li>
+    <p>Healing and <a href="http://getcloudify.org/2015/06/02/openstack-heat-orchestration-cloud-network-automation-scaling.html">scaling workflows</a>: Cloudify can now scale or recover any tier in your application, using topology-aware scaling and healing workflows. This means, for example, that if a certain component fails, Cloudify knows which components depend on it, and will re-configure these components to connect to the recovered tier. </p>
+  </li>
+</ul>
+
+<ul>
+  <li>
+    <p>Newly implemented, pluggable authentication framework: As part of our commitment to <a href="http://getcloudify.org/2015/06/01/openstack-tosca-nfv-cloud-orchestration-automation-tools-cloud-heat-nova.html">open source</a>, we've implemented an open source, pluggable authentication framework on top of Flask, the Python framework for creating REST APIs. We also created a few samples for how to implement plugins on top of it for authenticating users with LDAP or a flat file. </p>
+  </li>
+</ul>
+
+<ul>
+  <li>
+    <p>Manager recovery and recovery watchdog: The recovery feature allows the manager to be deployed with an attachment to a specific block storage volume. If the manager then fails (even at a VM-failure level), the recovery mechanism will take care of creating a new instance and attach the same block storage volume for it.</p>
+  </li>
+</ul>
+
+<h2>Last, but Certainly not Least: The Blueprint Composer</h2>
+
+<p>We’ve been hard at work behind the scenes and have really been looking forward to releasing one especially exciting new feature in this version, dubbed the Cloudify Blueprint Composer.&#160; This is a technology preview for our graphical, web based&#160; <a href="http://getcloudify.org/guide/3.2/dsl-spec-general.html">TOSCA </a>composer.&#160; </p>
+
+<p>And now in human speak.&#160; We know that writing TOSCA blueprints requires some skill, so in order to simplify this immensely, we’ve developed this tool that enables you to create a full blown blueprint in a matter of minutes instead of hours and days by dragging and dropping the elements of your topology - and then VOILA.&#160; The graphical blueprint composer outputs your blueprint in TOSCA YAML for you.&#160; Seriously, it’s true.</p>
+
+<p class="aligncenter"><img alt="blueprint-composer-1.png" src="http://getcloudify.org/img/blueprint-composer-1.png" width="624" height="323" /></p>
+
+<p>Ok ok, so what are you waiting for...Cloudify 3.2 is officially available for download, so take it for a spin. Download it at <a href="http://getcloudify.org/downloads/get_cloudify.html">this link</a>.</p>
+</notextile>

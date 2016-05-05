@@ -1,0 +1,95 @@
+---
+layout: blogpost
+title: Taking Jenkins CI from Automation to Orchestration - A Continuous Integration A/B Testing Use Case
+image: tamir.jpg
+author: Tamir Korem
+tags:
+ - Continuous Integration
+ - Jenkins CI
+ - DevOps
+ - Softlayer
+ - Continuous Delivery
+---
+
+<notextile>
+
+<div class="aligncenter">
+<img src="/img/JenkinsCI.png" width="750" alt="Jenkins CI | Jenkins Server | Continuous Integration | CI | CI Server | Build Automation | CD | Continuous Delivery"></div>
+<br/>
+<br/>
+
+
+<p>&#160;</p>
+
+<p>The benefits of continuous integration are clear. The need to enable deployment cycles that used to take six months to a year long to be dramatically shortened, allowing companies to deploy code numerous times per day, is undisputed. However, with this massive amount of daily deployments there has come a growing need to take the automation of this whole process to the next level while ensuring it remains extensible, scalable, and monitorable.</p>
+
+<p>Continuous integration processes have become more complex with different use cases and scenarios that need to be supported - from building a robust CI pipeline through continuous delivery, to the need for A/B testing of deployments before committing to production, among others.</p>
+
+
+  <hr>
+
+<span class="pullquote-left">
+  <font style="font-weight: bold" size="5" face="Baskerville Old Face"><em>Cloudify - taking CI to CD with a simple blueprint. Give it a whirl. </em></font>&nbsp; <a class="btn btn-medium btn-theme btn-rounded" id="downloadBtnInner" href="http://getcloudify.org/downloads/get_cloudify.html" target="_blank"><i class="icon-plus"></i> Go </a></span>
+  
+  <hr>
+
+<p>This is where Cloudify comes in. In this post, I’m going to dive into a more complex use case that enables you to orchestrate the entire CI process using Jenkins, while A/B testing and monitoring the whole process throughout, and last but not least, choosing the code you’d like to deploy to production.</p>
+
+<h2><strong>A/B Testing with Jenkins &amp; Cloudify</strong></h2>
+
+<p>The architecture we chose for this demo is to build three environments, two for testing, and one for production environment - let’s call them A/B test 1, A/B test 2, and Production. </p>
+
+<p>Here’s an image of the environment:</p>
+
+<p><img alt="Jenkins CI | Jenkins Server | Continuous Integration | CI | CI Server | Build Automation | CD | Continuous Delivery" src="https://lh3.googleusercontent.com/8xVCiWChXnvIBXgjk4dL6Ukc9KVZE5R1o3NV7uV0Y7xf8nQT7Oi3jXN-fWnYFuVQoHxWLU1kiCRei8YbrC3fyfKZBsn3J-FjPmSzspuBU5EXzeN9djrNiPXGh7zFeUjd_m-z_Oo" width="624" height="415" /></p>
+
+<p>To start with, we needed to create a single Cloudify main or primary manager as the single point of control for these three environments, which would also be controlled by an additional Cloudify Manager for each environment, along with a Jenkins server.</p>
+
+<p>(Note: Cloudify’s RND actually uses Travis and Circle CI for such procedures, but this same scenario can be run with any CI tool such as QuickBuild, TeamCity, etc.)</p>
+
+<p>This was actually the first time we attempted to deploy a Cloudify Manager with a Cloudify Manager, but lo and behold, success.&#160; Drinking our own merlot worked with some tweaking. This way, each Cloudify Manager inside the “main” manager can manage various deployments independent of any of the other managers.&#160; Just as an aside, for the purpose of this use case, we had to slightly modify the Cloudify Manager blueprint in order to disable Elasticsearch’s <a href="http://en.wikipedia.org/wiki/Multicast">multicast </a>(which is a part of the Cloudify’s manager’s stack), in order to prevent the communication/synchronization between the Cloudify Managers which all reside in the same network or subnet - as the disparity of these environments was actually important in this case.</p>
+
+<p>Here’s the modified manager blueprint’s snippet which disables multicast:</p>
+
+<p><script src="https://gist.github.com/tamirko/46267e0db73235cafaf6.js"></script></p>
+
+<p>This deployment was run on Softlayer (IBM’s cloud provider), so we took a basic Softlayer blueprint and bootstrapped (launched) the main manager and then deployed the three different Cloudify environments by deploying three managers within the main Cloudify manager: one for A/B test 1, one for A/B test 2, and a third for production.&#160; Next, we created a Jenkins blueprint, and configured it to start with three Jenkins jobs:</p>
+
+<p>Two scheduled Jenkins jobs configured to sample a GitHub repository for the testing environments and one idle (ready to be invoked) Jenkins job for the production environment.</p>
+
+<p>Here’s an image that shows the Jenkins role in this scenario:</p>
+
+<p><img alt="Jenkins CI | Jenkins Server | Continuous Integration | CI | CI Server | Build Automation | CD | Continuous Delivery" src="https://lh4.googleusercontent.com/FuXbvTS5fLWN3yoBzsXNMHRmIpC63ADP2VGHz-IOLRDmtw0YPRRZiINiyHCCzrKsgA4drg_VInkMt6dTOxgk_mBWYo3BDRNHJlwZtrqRjQiYsu4BLt6kvPAHTXGwmfob6DEfIEw" width="624" height="481" /></p>
+
+<h2><strong>How it Works</strong></h2>
+
+<p>This scenario works by sampling a Github repository every 15 minutes to detect and deploy any changes made, and then these changes are pushed to the different environments (A/B 1st test and A/B 2nd test respectively). </p>
+
+<p>When a change is detected in the repository, job #1 will deploy it on Cloudify manager #1, and job #2 will deploy on Cloudify manager #2.&#160; In effect, for each code push to GitHub, two jobs will be performed by Jenkins simultaneously, each job will spawn its own independent deployment on its corresponding Cloudify manager.</p>
+
+<p>The third environment behaves slightly differently intentionally, and does not actually run any commands in order to maintain the production job semi-automated. This is because since this is essentially intended to be an A/B testing scenario, the manual intervention enables you to compare the two different testing environments and choose the version you’d like to deploy to production. Once the admin decides on the preferred version, he hits a button to invoke the Cloudify workflow which that accesses Jenkins through the Cloudify Main Manager to move the selected version (from A/B 1st test or from A/B 2nd test) to production.</p>
+
+<p>So while at this point, we are left with two testing environments with minor differences and the semi-automated production deployment, ultimately can be fully scripted, essentially closing the loop from continuous integration to continuous delivery. </p>
+
+<p>In the Jenkins blueprint, we also created a custom workflow that allows users to run any Jenkins CLI command from the Cloudify CLI, so you don’t even have to (though you can)&#160; access the Jenkins CLI to run commands.&#160; This is a great example of how Cloudify’s <a href="http://getcloudify.org/guide/3.0/guide-authoring-workflows.html">workflow engine</a> can be utilized to create custom <a href="http://getcloudify.org/2015/04/02/what-is-workflow-software-automation-engine-open-source.html">workflow automation</a> to remotely access your environments without the need to SSH or use any other agents (you can however still do so, if you prefer).</p>
+
+<p>In this case we chose our application to be Drupal which is one of the most popular CMS platforms, so that every deployment on each one of the Cloudify managers is comprised of three tiers: Apache, MySQL and Memdached.</p>
+
+<p>Here’s an image that shows how the Drupal application is deployed by Jenkins:<img alt="Jenkins CI | Jenkins Server | Continuous Integration | CI | CI Server | Build Automation | CD | Continuous Delivery" src="https://lh6.googleusercontent.com/OHgGZuDdNscQKeQF8E59FslGDzvBNvskVj3sgnlRzz7HMfOXNtx4CW0MnS2x-aG4b1TJU0x9Fm92H0pNqyjHTFtfnf-PXQzNNHTpS8FlKhqUBeF5dhLltNckWR6SQe2yX1T8IOs" width="555" height="455" /></p>
+
+<p>This example also demonstrates how you can leverage all of the added Cloudify capabilities that come out of the box in order to extend Jenkins functionality and deliver robust CI through CD, including everything required for post-deployment, a critical element in <a href="http://getcloudify.org/2015/03/15/continuous-integration-continuous-delivery-deployment-automation-tools.html">continuous delivery</a> processes.&#160; So you can essentially monitor Jenkins - and not just the application itself, but the entire lifecycle of the build and deployment processes (e.g. success/failure), and define custom metrics based on your deployment through Cloudify’s policy engine.&#160; </p>
+
+<p>This enables you to have an intelligent analysis of your system however you built it, and make decisions based on log files collected and other KPIs, receive alerts, and have your system auto-heal and auto-scale based on these policies.&#160; What’s more, being infrastructure agnostic makes it possible to run this example on any VM, bare metal server, or even in Docker containers.</p>
+
+<p>Another important element in continuous integration is cleanup - and not leaving dirty machines behind you.&#160; This too can be scripted into your blueprint, enabling you to then undeploy each Jenkins job and the jobs’ results or actual deployments, and its corresponding Cloudify manager.&#160; Some other cool tweaks and modifications which have been made enable versionizing, with a manual cleanup process, making it possible to versionize deployments, and then choose any version (to move to production) at any time.</p>
+
+<p>There’s plenty you can do with Cloudify and Jenkins - I only just started hacking some nifty capabilities. You can watch the video in action below, and feel free to comment and share any other ideas you may have for getting the most out of your CI.</p>
+
+<p>This whole implementation, including a Jenkins blueprint, is also available in <a href="https://github.com/tamirko/cfyApps/tree/master/ci">Github</a>.</p>
+
+<p>Watch the video of this in action below:
+<div class="aligncenter">
+<a class="hover-wrap fancybox fancybox.iframe" data-fancybox-group="gallery" title="Cloudify, Jenkins and Continuous Integration" href="http://www.youtube.com/embed/AKavkSuQVDk?enablejsapi=1&amp;wmode=opaque"> <img src="/img/CICDThumbnail.png" alt="See how to take your Jenkins CI server to the next level and orchestrate it all with Cloudify - see it in this A/B testing use case." width="600"/></a>
+</div>
+
+  </notextile>

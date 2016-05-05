@@ -1,0 +1,70 @@
+---
+layout: blogpost
+title: Cloud on your Desktop, More Docker + Prettified Cloud Monitoring with 3.1
+image: barak.jpg
+author: Barak Merimovich
+tags: 
+ - Orchestration
+ - Cloudify Local
+ - Docker
+ - TOSCA
+ - Cloudify
+---
+
+<notextile>
+
+<img src="/img/monitoring_screen_crop.png" alt="Cloud Monitoring | Cloud Management | Cloud Desktop | TOSCA | TOSCA Orchestration | Docker | Docker Orchestration">
+<br/>
+<br/>
+
+  
+<p><b></b>
+
+  <p>Cloudify 3.1 is out and the R&amp;D team are really looking forward to getting your feedback on all the cool stuff we’ve been building for the past five months.&#160; While the entire version has a huge list of new features you should check out, there are couple of standout features you should all take a few minutes to get acquainted with.</p>
+
+  <p>The first is “Cloudify Local”. The Cloudify local command basically puts a full <a href="http://getcloudify.org/guide/3.1/dsl-spec-general.html">TOSCA engine</a> at your fingertips, on your laptop or desktop.&#160; What this means in the real world, is that you no longer need a bootstrapped manager to give your TOSCA blueprints a test drive...you can just run them from the Cloudify CLI and see them in action. </p>
+
+  <p>Probably the most useful thing you can do with<code>cfy local</code> is to bootstrap the Cloudify manager! That’s right you can bootstrap the TOSCA runtime engine with (drumroll please)...the TOSCA runtime engine. Fancy that!</p>
+
+<hr>
+
+<span class="pullquote-left">
+  <font style="font-weight: bold" size="5" face="Baskerville Old Face"><em>3.1 is daaaaang awesome. Give it a whirl.</em></font>&nbsp; <a class="btn btn-medium btn-theme btn-rounded" id="downloadBtnInner" href="http://getcloudify.org/downloads/get_cloudify.html" target="_blank"><i class="icon-plus"></i> Go </a></span>
+  
+  <hr>
+
+
+  <p>That means you can tweak your Cloudify manager to match your specific environment using any of the Cloudify types and plugins that we provide, plus you can just bring in your own types and plugins - just about anything you can do in a blueprint that’s running in a Cloudify manager you can also do in the <code>cfy local</code> command.&#160; [While this is probably a given, just thought I'd make sure you know that as a result,&#160; the old manager “provider” model has been deprecated and will be removed from the next version (3.2), but you really shouldn’t need it anymore.]&#160; The manager blueprint gives you so much more then the provider ever could. </p>
+
+  <p>Here on the Cloudify team we wholeheartedly believe we need to use our own tools, (or as some people who apparently eat dogfood regularly call it, eat our own dogfood), and the Cloudify local command is by far the best example of that.&#160; </p>
+
+  <p>One more incredibly cool thing about the <code>cfy local</code> command is that you can now test your brand new plugin from your local console - you don't need a manager anymore.&#160; This makes the develop/deploy/debug process so much faster.&#160; If you’re developing your own plugins - you really must give this new feature a try.</p>
+
+  <p>Moving on - let’s talk about Docker!!! Since everybody’s talking about Docker right? Well, we’re not just talking about it, we’re doing Docker!</p>
+
+  <p>A lot of you in the community have contacted us about our choice of distribution for the Cloudify manager, we use Ubuntu (and personally think it rocks). That said, some of you would like the manager to work with other Linux flavors - RHEL, CentOS, Suse (yeah you know who you are), and a bunch of other distros.&#160; As you might imagine, we don’t really want to set up a manager distribution for each and every Linux flavor out there. Eureka! Docker to the rescue.&#160; </p>
+
+  <p>As of 3.1, you can bring in whatever Linux flavor you want in your manager image as long as it has Docker installed.&#160; We will setup the Cloudify manager as a <a href="http://getcloudify.org/guide/3.1/installation-bootstrapping.html" target="_blank">Docker container</a> on your choice of Linux and we can all live happily ever after.</p>
+
+  <p>All kidding aside, we realize that everyone has their own IT limitations - anything from security teams and guidelines, to a bunch of other things you have to live with.&#160; The Docker-based manager (along with the manager blueprint), lets you set up the Cloudify manager while still adhering to your company’s security and IT policies. We want you to get Cloudify working, so if there is anything else that is getting in your way of adopting Cloudify, give us a shout on the cloudify dev forum, and we’ll work something out.</p>
+
+  <p>Next up on my personal list of things your really really have to check out is the monitoring dashboard.&#160; Check out this pretty picture.</p>
+
+
+  <img src="/img/monitoring_screen.png" alt="Cloud Monitoring | Monitoring Dashboard | Cloud Desktop"> <br/> <br/>
+
+
+
+
+  <p>Yes, we have pretty graphs! </p>
+
+  <p>One of the things about Cloudify is that we don't just bring up your cloud resources, we also install the resources and then we monitor them.&#160; Cloudify’s role is to manage the full lifecycle of cloud applications, and obviously that doesn’t end with deployment. The monitoring dashboard displays information collected from Cloudify's monitoring agents.&#160; (Which can be configured in your blueprint, see a theme here?!) The dashboard is fully configurable so you can tweak it, add your own graphs, add graphs for your custom metrics, do line charts, bar charts, pie charts, and the list goes on.</p>
+
+  <p>The technology stack of the monitoring system is particularly cool.&#160; We use <a href="https://github.com/python-diamond/Diamond/wiki" target="_blank">DiamonD</a> for our monitoring agent (that’s our choice - you can bring your own).&#160; <a href="http://influxdb.com/" target="_blank">InfluxDB</a> as our metrics database, and <a href="http://grafana.org/" target="_blank">Grafana</a> for the dashboard.&#160; We use all of these awesome open source tools with some glue code from the Cloudify devs, and came up with this absolutely awesome monitoring dashboard.&#160; It just goes to show you the true power of open source.&#160; We get to use these best of breed tools and wire them together into something that is greater than the sum of its parts.</p>
+
+  <p>Don’t forget the default monitoring dashboard is just our baseline. You can tweak the dashboard to your heart’s content, save it, and reload it later. We want you to build the perfect dashboard for your app.&#160; </p>
+
+  <p>Well, I’ve been going on for a while now, and we haven’t even covered all of the new stuff, so check out <a href="http://getcloudify.org/downloads/get_cloudify.html" target="_blank">the full list</a>, and let us know what you think.</p></p>
+
+
+</notextile>

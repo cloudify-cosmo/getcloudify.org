@@ -1,0 +1,149 @@
+---
+layout: blogpost
+title: Vagrant Cloud - Creating Vagrant Box Files for a VirtualBox Provider in AWS
+image: michael.JPG
+author: Michael Sverdlik
+tags:
+ - Vagrant
+ - Cloud Orchestration
+ - Open Source
+ - VirtualBox
+ - AWS
+---
+
+<notextile>
+
+<div class="aligncenter">
+<img src="/img/vagrantup.png" alt="Cloudify | Open Source | Vagrant | Vagrant Cloud | VirtualBox | AWS" width="870px"></div>
+<br/>
+<br/>
+
+<hr><h2>This post was originally published on <strong><a href="http://www.developer.com/design/creating-a-reproducible-and-portable-development-environment.html" target="_blank">Developer.com.</a></strong></h2><hr>
+
+
+<h2><b>The Pain Point</b></h2>
+
+<p>Many developers often need to create easily reproducible development environments – for anything from testing to troubleshooting, and even continued development across teams. To this end, many technologies have arisen to answer this need from Vagrant and VirtualBox, and even Docker in certain contexts. However, with the onset of cloud where many companies choose to do dev and test and QA work on resources on demand, this type of virtual development environment comes with its downsides too, namely issues such as nested virtualization.</p>
+
+<hr>
+
+<span class="pullquote-left">
+  <font style="font-weight: bold" size="5" face="Baskerville Old Face"><em>Cloudify! Through a simple Vagrantfile. Try it.</em></font>&nbsp; <a class="btn btn-medium btn-theme btn-rounded" id="downloadBtnInner" href="http://getcloudify.org/downloads/get_cloudify.html" target="_blank"><i class="icon-plus"></i> Go </a></span>
+  
+  <hr>
+
+<p>In the context of our R&amp;D and Ops work on Cloudify, an <a href="http://getcloudify.org/" target="_blank">open source cloud</a> orchestration tool written Python with a TOSCA-based YAML DSL, we often need to create reproducible and portable development environments on the cloud, and had to find a way to overcome these issues. We wanted to find the most seamless process to do this – that too would be easily replicable per environment. So what better way than to start with the most popular cloud – AWS? This post will dive into one such scenario of porting Vagrant .box files for AWS, demonstrating how to overcome issues like nested virtualization and the need for bare metal machines that are also costly and time-consuming to provision. In this post you’ll have a step-by-step tutorial for how to easily create v2v (virtual to virtual) machines, and create a VMDK disk image that can then be uploaded to any AWS environment.</p>
+
+<h2><b>The Demo</b></h2>
+
+<p>For the quick trial of Cloudify, we provide a <a href="http://getcloudify.org/downloads/get_cloudify.html" target="_blank">Vagrantfile</a> and Vagrant box with Cloudify's Manager preinstalled on a <a href="http://getcloudify.org/guide/quickstart.html" target="_blank">VirtualBox image</a>.</p>
+
+<p>By utilizing Vagrant and VirtualBox we are able to provide our customers with a reproducible demo environment to evaluate Cloudify locally on their personal computers.</p>
+
+<p>We could have just provided <a href="http://en.wikipedia.org/wiki/Open_Virtualization_Format" target="_blank">OVF</a> &amp; <a href="http://en.wikipedia.org/wiki/VMDK" target="_blank">VMDK</a> files and have had users import these into VirtualBox; however the point was to make the evaluation as simple as possible, and Vagrant strips away potential issues one might encounter when dealing directly with VirtualBox. So instead of providing a detailed explanation on how to correctly set up a VirtualBox VM, we can summarize our quick start guide in two bullets:</p>
+
+<ol>
+  <li>Download the Vagrantfile </li>
+
+  <li>Run <code>vagrant up</code> </li>
+</ol>
+
+<h2><b>Utilizing Packer to create Vagrant boxes</b></h2>
+
+<p>Creating a Vagrant box is a very straightforward matter. You can create one by using Vagrant itself or one of the many utilities available for performing this task.</p>
+
+<p><a href="http://www.packer.io/" target="_blank">Packer</a>, one such option, is written by <a href="https://hashicorp.com/" target="_blank">the same guys</a> who wrote Vagrant and is a natural choice for this task. Packer works somewhat similarly to Vagrant; however its focus is on producing images at the end of the process, and not running an environment, as Vagrant does.</p>
+
+<p>For VirtualBox images Packer needs to create a virtual machine on VirtualBox, provision it, and export it at the end of the process as a box file.</p>
+
+<p>Our objective seemed very simple to achieve until the moment we realized that we can't run VirtualBox on our build machines.</p>
+
+<h2><b>The nested Virtualization problem</b></h2>
+
+<p>Here at <a href="http://www.gigaspaces.com/" target="_blank">GigaSpaces</a>, most of our infrastructure is virtualized. While this is great and allows us to better utilize our hardware, it does have some unavoidable &quot;side effects&quot;.</p>
+
+<p>One of those side effects is the inability to run VirtualBox inside another VM, since our hypervisor of choice doesn't allow <i>nested virtualization</i>.</p>
+
+<p>Nested virtualization is a feature in virtualization solutions which allows you to run hypervisors inside a hypervisor. Essentially, it allows you to run a VM inside another VM.</p>
+
+<p>Poking around the web, it looks like none of the popular IaaS providers supports nested virtualization either. </p>
+
+<h2><b>Ideas for solutions and new problems</b></h2>
+
+<p>Possible ideas for a solution we had in mind:</p>
+
+<p><b>1. </b><b>Use a bare metal box and avoid the problem: </b></p>
+
+<p>While this is the most obvious solution, it is also the least desirable from our point of view. We don't have any infrastructure in place to support bare metal provisioning. A dedicated bare metal server for a once-a-day image build is a phenomenal waste. Sharing a build machine with other builds is something we're even not going to consider since eventually things break due to collisions between builds, and less than perfect cleanups between one build and the one that comes after.</p>
+
+<p><b>2. </b><b>Use specialized solutions that allow nested virtualization: </b></p>
+
+<ul>
+  <li>Using a hypervisor which supports nested virtualization (VMWare Workstation for example) </li>
+
+  <li>Using solutions from service providers such as <a href="http://www.ravellosystems.com/technology/hvx" target="_blank">Ravello</a> (which piggybacks on AWS) </li>
+</ul>
+
+<p>These solutions provide additional cost (licensing or usage fees) and require us to adapt to unfamiliar APIs which could potentially break our current tool chain (Packer/Vagrant plugins for Ravello anyone?).</p>
+
+<p><b>3. </b><b>Create a disk image without starting a VM in VirtualBox: </b></p>
+
+<p>We can provision a virtual machine, take its disk image and convert it to VMDK. Sounds possible in <i>theory</i>, in practice we had never done this before. </p>
+
+<p>We decided to spend some time on researching alternative number three. </p>
+
+<p>There are several ways to convert physical to virtual (p2v) or virtual to physical (v2p). In our case, what about doing v2v? </p>
+
+<p>AWS <a href="http://aws.amazon.com/ec2/vm-import/" target="_blank">allows you to export</a> machines only if they were previously imported by you as well. As an alternative, we can provision a machine, make an image out of its hard drive and convert it to a VMDK image. Then, all that is left is to add an OVF descriptor, bundle everything with Vagrant's metadata and tar it into a .<a href="https://docs.vagrantup.com/v2/boxes/format.html" target="_blank">BOX file</a>.</p>
+
+<h2><b>Tools of Craft</b></h2>
+
+<ul>
+  <li>Python as the scripting language with: </li>
+
+  <li>Fabric as the task executor over SSH </li>
+
+  <li>Boto as the API for AWS </li>
+
+  <li>Since we are a Python shop when it comes to Cloudify, this is a natural choice for us. </li>
+
+  <li>Packer - for Cloudify Manager provisioning: Packer is not a must in our case since we can script our way in to replicate what Packer does with Boto and Fabric. We'd rather use Packer since it can replicate the process of creating an image on other providers. </li>
+
+  <li>AWS as the IaaS provider: since we are comfortable with its API, our tools support it, and we can run it virtually everywhere without the need to have access to the office. </li>
+</ul>
+
+<h2><b>The Plan</b></h2>
+
+<p>Here is our step by step plan:</p>
+
+<ol>
+  <li>Create a source image (AMI) with Cloudify pre-installed by using Packer. </li>
+
+  <li>Launch a worker instance in AWS with the snapshot or source image as one of its disks. </li>
+
+  <li>On the worker image - create a raw image volume as a file and create an ext4 partition on it. </li>
+
+  <li>Copy over the data from the source image disk to the previously created ext4 partition. </li>
+
+  <li>Install the bootloader (extlinux) on the ext4 partition. </li>
+
+  <li>Convert the raw image into a VMDK. </li>
+
+  <li>Bundle the VMDK using an OVF descriptor and Vagrant metadata and create a tar file with the content and .box extension. </li>
+
+  <li>Upload to S3. </li>
+
+  <li>Cleanup. </li>
+</ol>
+
+<p>Here's a brief sequence diagram of the planned flow.</p>
+
+<div class="aligncenter"><img src="/img/vagrant.png" alt="Cloudify | Open Source | Vagrant | Vagrant Cloud | VirtualBox | AWS | Virtualized Software | Nested Virtualizaion | ">
+</div>
+
+
+
+
+<hr><h2>>>> Read the full post with the step-by-step walkthrough at<strong><a href="http://www.developer.com/design/creating-a-reproducible-and-portable-development-environment.html" target="_blank"> Developer.com.</a></strong></h2><hr>
+
+  </notextile>

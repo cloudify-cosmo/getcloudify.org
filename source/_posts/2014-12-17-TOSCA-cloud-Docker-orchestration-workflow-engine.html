@@ -1,0 +1,117 @@
+---
+layout: blogpost
+title: Booya - Cloudify 3.1 has landed and it is HOT!
+image: yaronsharone.png
+author: Yaron Parasol & Sharone Zitzman
+tags:
+ - DevOps
+ - Cloud Orchestration
+ - Docker
+ - Cloudify
+ - TOSCA
+---
+
+<notextile>
+
+<div class="aligncenter">
+<img src="/img/UImonitoring.png" width="650" alt="Cloudify 3.1 | Cloudify UI | TOSCA | Cloud Orchestration"></div>
+<br/>
+<br/>
+
+<p><b></b></p>
+
+<p><b></b>
+
+<p><b></b>
+
+  <p>The much awaited and anticipated version 3.1 has landed, and with it a number of core features that will deepen Cloudify’s <a href="http://getcloudify.org/cloud_orchestration_cloud_automation.html">orchestration</a>, and extend our <a href="http://getcloudify.org/openstack-architecture-cloudify.html#TOSCA">TOSCA</a> support, which pretty much serves to provide all the rest of the goodies that are now packaged into 3.1.</p>
+
+  <h3><font style="font-weight: bold">TOSCA to the Max</font></h3>
+
+  <p>We’ll start with our even more advanced TOSCA support. Cloudify 3.0 introduced the use of the TOSCA specification based on YAML DSL as its standard templating language, to enable the orchestration of even the most complex topologies using an industry standard format.</p>
+
+  <p>This version deepens this support and has added the TOSCA naming convention, as well as support for blueprint inputs, blueprint outputs, and intrinsic functions.&#160; Aside from the importance of the standardized templating, this also enables everything topology-driven in Cloudify from Docker management &amp; support, customized monitoring &amp; metrics, which then makes the newly available custom policies and so forth and so on...you get the drift.&#160; So this is one of the most important additions to this release, and we intend to align ourselves even more closely with TOSCA for upcoming releases.</p>
+
+
+  <hr>
+
+<span class="pullquote-left">
+  <font style="font-weight: bold" size="5" face="Baskerville Old Face"><em>Cloudify 3.1 is here. You'll want to check this out.</em></font>&nbsp; <a class="btn btn-medium btn-theme btn-rounded" id="downloadBtnInner" href="http://getcloudify.org/downloads/get_cloudify.html" target="_blank"><i class="icon-plus"></i> Go </a></span>
+  
+  <hr>
+
+  <p>To remove the hurdle of coding a provider for each cloud in addition to the plugins, and learning another configuration file format, we converted our CLI to become a mini-TOSCA engine.&#160; This now means that the bootstrap is just another blueprint that describes the manager as an application, and uses the same set of plugins you would then later use with your business applications.&#160; </p>
+
+  <p>We’ll have a dedicated post on all this <a href="http://getcloudify.org/tags/TOSCA/">TOSCA</a>-ness coming very soon.</p>
+
+  <h3><font style="font-weight: bold">Topology-Driven Everything</font></h3>
+
+  <p>We’ve spoken a lot about what’s coming in terms of topology-driven customizable monitoring and metrics and the entire policy engine that goes with it.&#160; Well, it’s finally here, and it’s pretty nifty.</p>
+
+  <p>Cloudify’s <a href="http://getcloudify.org/cloud_orchestration_cloud_automation.html#Monitoring">topology-driven monitoring</a> and management makes it possible to track not only the state of the application, but also the status of deployment, updates, and scaling processes through a single view. Cloudify allows users to install monitoring agents, such as <a href="https://github.com/BrightcoveOS/Diamond">Diamond </a>or <a href="https://collectd.org/">Collectd</a>, configure them and collect metrics for all application components. These metrics will be sent to a built-in metrics database based on <a href="http://influxdb.com/">InfluxDB</a>, and provide insights about application availability and performance. The <a href="http://getcloudify.org/guide/3.1/ui-monitoring.html">Cloudify GUI</a> embeds <a href="http://grafana.org/">Grafana</a> with a customizable, monitoring dashboard to allow users to view and correlate metrics of the same node or compare them across nodes.</p>
+
+  <p>By allowing users to define and push policies for application components to the <a href="http://getcloudify.org/guide/3.1/overview-architecture.html">policy engine</a> through the topology-driven monitoring, the Cloudify policy engine provides a mechanism that can automatically react to any monitored event with appropriate corrective measures, including the ability to auto-scale and self-heal as needed.&#160; This is all built on best of breed and extremely scalable frameworks, including <a href="http://www.celeryproject.org/">Celery</a>, <a href="http://www.rabbitmq.com/">RabbitMQ</a>, <a href="http://www.elasticsearch.org/">Elasticsearch</a>, <a href="http://riemann.io/">Riemann.io</a> and others to ensure this production-proven.</p>
+
+  <p>And we’re not talking small-scale either.</p>
+
+  <p>These policies will process large streams of events and metrics and apply actions to them in real-time. The rules can be based on metrics values as statutes of components and free text fields. The applied actions can be the triggering of a specific workflow or an invocation of a webhook, which means that the user can ultimately customize this to trigger literally any kind of action.</p>
+
+  <h3><font style="font-weight: bold">DOCKERDOCKEREVERYWHERE </font></h3>
+
+  <p>With <a href="http://getcloudify.org/docker-orchestration-docker-container-deployment-cloud.html">Docker</a> being the word and just getting hotter, we just had to package in some Docker goodness into this release.&#160; This release provides built-in Docker management and support on a number of levels. On top of our built-in <a href="http://getcloudify.org/guide/3.1/plugin-docker.html">Docker plugin</a> and matching types, which allows users to use Docker containers as part of any topology (that essentially provides a full-blown orchestration and automation method for large-scale Docker-based systems), this release also comes with a *sweet* <a href="http://getcloudify.org/guide/3.1/installation-bootstrapping.html">Docker management</a> environment. This means you now get pre-made Docker images for deploying your management environment, and out-of-the-box cross Linux-distribution support for a more robust experience, easier &amp; faster upgrades for your management environments, along with a faster bootstrap process.&#160;&#160; This, of course, was built to mesh rather nicely with the Manager Blueprint approach and the Docker and Fabric plugins (which I’m getting to now) for a seamless management environment provisioning experience.</p>
+
+  <h4>New Plugins</h4>
+
+  <p>On top of the core functionality added to Cloudify as a product, we had to make sure we continue to expand our library of plugins to continue to improve the Cloudify experience.&#160; This release introduced a few important plugins, the Script, Remote Execution, and SaltStack plugins.</p>
+
+  <ul>
+    <li>
+      <p><a href="http://getcloudify.org/guide/3.1/plugin-script.html"><strong>Script plugin</strong></a></p>    
+
+  <p>This plugin enables easy access to the node’s context from any programming or scripting language as long as it is executed as a sub-process of the plugin. You can develop your logic for Windows or Linux in any scripting language and gain access to any context list or map using simple client calls. This is done using ZeroMQ.</p></li>
+
+    <li>
+      <p><a href="http://getcloudify.org/guide/3.1/plugin-fabric.html"><strong>Remote Execution plugin (Fabric based)</strong></a></p>
+   
+  <p>An officially supported Fabric plugin will be provided which will allow users to remotely execute commands/tasks and remove the agent installation requirement.</p>
+
+  <p>A user will be able to provide a set of shell commands hardcoded into the blueprint or, alternatively, a file with tasks. The tasks can then be mapped to the different nodes. This will expose an agentless manner of provisioning applications.</p> </li>
+
+    <li>
+      <p><strong><a href="https://github.com/cloudify-cosmo/cloudify-saltstack-plugin" target="_blank">SaltStack Plugin</a></strong></p>  
+
+  <p>SaltStack is a cool python configuration management tool. Cloudify now offers an integration with Saltstack. The SaltStack plugin will install minions for you, login them into the master and make sure they get classified the way you need, so they will install the stack you need, in right the order and timing. </p>  </li>
+</ul>
+  <h3><font style="font-weight: bold">Stepping up OpenStack Support</font></h3>
+
+  <p>Cloudify 3.1 will support the <a href="http://getcloudify.org/guide/3.1/plugin-openstack.html">OpenStack Cinder</a> API with Volume type. This will allow users to create and attach external disks to VMs, as well as detach and delete these volumes.</p>
+
+  <h3><strong>More stuff in this release</strong></h3>
+
+  <p>Since this post is getting long, I’ll just mention shortly some of the additional stuff to check out, and let you get to it.&#160; In this release you’ll also be able to find:</p>
+
+  <ul>
+    <li>
+      <p>Agents support for any distribution on both Python 2.6.x and 2.7.x.&#160; Briding the gap between 2x and 3x has been a top priority for us here.&#160; And this release is moving us closer to doing that.&#160; 3.1 will provide a basic matrix of agents supporting the default Python version on the major distributions. Alongside those agents, a tool will be provided which will allow users to create agents for their specific distribution with either of the supported python versions.</p>
+    </li>
+
+    <li>
+      <p>GUI Enhancements</p>
+    </li>
+
+    <li>
+      <p>Cloud object pages. These pages give the user reports on cloud resources consumed across different deployments. The added value of using this versus a Cloud IaaS portal is the application context reported per resource. Cloudify will have such reports for VMs, networks, floating IPs, routers and more.</p>
+    </li>
+
+    <li>
+      <p>Execution history. This view gives a history of workflow executions per deployment and easy access to relevant logs.</p>
+    </li>
+
+    <li>
+      <p>Better progress tracing. Improving the workflow execution trace UX with an event console that has a more CLI-style of tracing.</p>
+    </li>
+  </ul>
+
+  <p>You can download <a href="http://getcloudify.org/downloads/get_cloudify.html">Cloudify 3.1</a> now, and check out the <a href="http://getcloudify.org/guide/3.1/quickstart.html">docs</a>.&#160; And definitely be sure to comment and give us feedback on what you think - and what you still need.</p></p>
+
+  </notextile>

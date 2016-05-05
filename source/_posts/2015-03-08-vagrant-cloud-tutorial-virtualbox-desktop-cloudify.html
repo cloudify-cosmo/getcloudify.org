@@ -1,0 +1,177 @@
+---
+layout: blogpost
+title: Vagrant Up - Cloudify Your Desktop
+image: dewayne.jpg
+author: DeWayne Filppi
+tags:
+ - Vagrant
+ - Cloud Orchestration
+ - Virtualbox
+ - Docker
+ - Workflow Automation
+---
+
+<notextile>
+
+<div class="aligncenter">
+<img src="/img/vagrantup.png" alt="Vagrant Up | Open Source | Vagrant Cloud | VirtualBox Tutorial | Vagrant Tutorial"></div>
+<br/>
+<br/>
+
+
+<p><a href="http://blog.gigaspaces.com/wp-content/uploads/2015/03/footprints.png"><img style="float: none; margin-left: auto; display: block; margin-right: auto" alt="" src="http://blog.gigaspaces.com/wp-content/uploads/2015/03/footprints-300x49.png" width="300" height="49" /></a></p>
+
+<p>While existing resources can be consulted to created a single node Cloudify 3.1 installation, a single purpose walkthrough of the process can simplify the process and save time.&#160; The purpose of this post is to describe how to install the Cloudify 3.1 CLI, bootstrap the simple manager, and a install a sample blueprint on a laptop (or desktop).&#160; Note that if you want to skip the gory details of preparing an environment from scratch, please refer to the excellent walkthrough in the docs, which is also based on <a href="http://getcloudify.org/guide/3.1/quickstart.html#step-by-step-walkthrough" target="_blank">Vagrant</a>, but which has everything preconfigured.&#160;&#160; The advantage of spelling out the details here is to empower you to test any build of Cloudify at will, and tailor the configuration to your needs.</p>
+
+
+<hr>
+
+<span class="pullquote-left">
+  <font style="font-weight: bold" size="5" face="Baskerville Old Face"><em>Cloudify - try it quickly and easily on your desktop. Just <font color="#ff0000" face="Courier New">vagrant up</font> .</em></font>&nbsp; <a class="btn btn-medium btn-theme btn-rounded" id="downloadBtnInner" href="http://getcloudify.org/downloads/get_cloudify.html" target="_blank"><i class="icon-plus"></i> Go </a></span>
+  
+  <hr>
+
+<h2><strong>System Preparation</strong></h2>
+
+<p>An Ubuntu Linux system version 12.04&#160; is needed to host Cloudify as described here.&#160;&#160; Other versions are supported via <a href="http://getcloudify.org/guide/3.1/installation-general.html#os-distributions)" target="_blank">Docker</a>.&#160; For the purposes of this walkthrough, and especially its goal of being platform independent, Oracle VirtualBox and Vagrant are the tools of choice for creating the proper Ubuntu environment.&#160; You should have at least 2GB of RAM to spare to run the manager and the blueprint, and preferable more.&#160;&#160; Install <a href="https://www.virtualbox.org/" target="_blank">VirtualBox</a>, then once its is installed, install Vagrant as described <a href="https://docs.vagrantup.com/v2/installation/index.html" target="_blank">here</a>.&#160; </p>
+
+<p>Create a directory (say <strong><font color="#ff0000" face="Courier New">cfy</font></strong>), and <font color="#ff0000" face="Courier New"><strong>cd</strong></font> into it.</p>
+
+<p><strong>Start Ubuntu</strong></p>
+
+<p>From the empty &quot;<font face="Courier New"><strong>cfy</strong></font>&quot; directory run <code>vagrant init hashicorp/precise64</code> (assuming you're running a 64-bit OS.&#160; Otherwise use<font color="#ff0000" face="Courier New"><strong> hashicorp/precise32</strong></font>&quot;.&#160; This will create a Vagrantfile in your directory.&#160; Edit the Vagrantfile, and uncomment the line:</p>
+
+<code>config.vm.network &quot;private_network&quot;, ip: &quot;192.168.33.10&#160; </code>
+
+<p>This will give you an IP you can later use to access the box from host OS.&#160; </p>
+
+<p>Also uncomment the line:</p>
+
+<code>config.vm.provider &quot;virtualbox&quot; do |vb| </code>
+
+<p>and the line</p>
+
+<code>vb.customize [&quot;modifyvm&quot;, :id, &quot;--memory&quot;, &quot;1024&quot;]</code>
+
+<p>and the &quot;end&quot; line.&#160;&#160; </p>
+
+<p>Now change the <strong><font color="#ff0000" face="Courier New">1024</font></strong> in the <font color="#ff0000" face="Courier New">vb.customize</font> line to however much memory you can spare, <font color="#ff0000" face="Courier New"><strong>2048</strong></font> for example.&#160; </p>
+
+<p>Prior to starting the instance, copy the file <font color="#ff0000" face="Courier New"> ~/.vagrant.d/insecure_private_key </font> to your current directory (where the Vagrantfile is).&#160; We'll need it later.&#160; Then type <font color="#ff0000" face="Courier New">vagrant up </font>.&#160; This will take awhile, as the box has to be downloaded the first time.&#160; When it's done, type vagrant ssh to enter the new Ubuntu instance.</p>
+
+<p><strong>Start The Manager</strong></p>
+
+<p>Once you have the above prerequisites installed, you are ready to install the Cloudify CLI, and then the manager.&#160; First the CLI:</p>
+
+<ol>
+  <li><code>sudo apt-get update </code></li>
+
+  <li><code>sudo apt-get -y install python-virtualenv </code></li>
+
+  <li><code>virtualenv cfy </code> </li>
+
+  <li><code>cd cfy </code></li>
+
+  <li><code>source bin/activate </code></li>
+
+  <li><code>sudo apt-get -y install python-dev </code></li>
+
+  <li><code>wget <a href="https://bootstrap.pypa.io/get-pip.py">https://bootstrap.pypa.io/get-pip.py</a></code> </li>
+
+  <li><code>python get-pip.py </code> </li>
+
+  <li><code>pip install -U setuptools </code></li>
+
+  <li><code>pip install cloudify==3.1 </code></li>
+</ol>
+
+<p>Next bring up the manager locally:</p>
+
+<ol>
+  <li><code>sudo apt-get install -y git </code></li>
+
+  <li><code>git clone -b 3.1-build <a href="https://github.com/cloudify-cosmo/cloudify-manager-blueprints.git">https://github.com/cloudify-cosmo/cloudify-manager-blueprints.git</a> </code></li>
+
+  <li><code>cfy init </code></li>
+
+  <li><code>cfy local install-plugins -p cloudify-manager-blueprints/simple/simple.yaml </code> </li>
+
+  <li><code>cp&#160; cloudify-manager-blueprints/simple/inputs.json.template inputs.json </code></li>
+
+  <li>edit inputs.json so it looks like this (with your particulars filled in): 
+   
+  <script src="https://gist.github.com/shar1z/0d4754b80d1488c758c0.js"></script>
+
+    <p>The public and private IPs should be the same if you followed the instructions exactly, otherwise you can get them from ip a.&#160; The public IP is the one that was uncommented in the Vagrantfile.</p>
+  </li>
+
+  <li><code>cfy bootstrap -p cloudify-manager-blueprints/simple/simple.yaml&#160; -i inputs.json </code></li>
+</ol>
+
+<p>After awhile (depending on your network), you can verify that the manager is running by pointing a browser at the public ip (e.g.<a href="http://192.168.33.10%29/">http://192.168.33.10)</a>.&#160; You should see the manager UI.</p>
+
+<p><strong>Install and Start a Blueprint from the CLI</strong></p>
+
+<p>From this point forward you can experiment with installing/uninstalling and blueprints.&#160; The nodecellar blueprint is the canonical example.</p>
+
+<ol>
+  <li><code>git clone -b 3.1-build <a href="https://github.com/cloudify-cosmo/cloudify-nodecellar-example.git">https://github.com/cloudify-cosmo/cloudify-nodecellar-example.git</a> </code></li>
+
+  <li><code>cp cloudify-nodecellar-example/inputs/singlehost.json.template ncinputs.json </code></li>
+
+  <li>edit &quot;<font color="#ff0000" face="Courier New">ncinputs.json</font>&quot; so it looks like this: 
+    
+
+    <script src="https://gist.github.com/shar1z/93528dad524f8cfc38d1.js"></script>
+
+    <p>As before, change IPs as needed if you diverged from the steps above.</p>
+  </li>
+
+  <li><code>cfy blueprints upload -b nc -p cloudify-nodecellar-example/singlehost-blueprint.yaml </code></li>
+
+  <li><code>cfy deployments create -b nc -d ncd -i ncinputs.json </code></li>
+
+  <li><code>cfy executions start -w install -d ncd </code></li>
+</ol>
+
+<h2><strong>Install and Start a Blueprint from the UI</strong></h2>
+
+<p>To install and start the blueprint from the UI, perform steps 1-3 above, and then:</p>
+
+<ol>
+  <li>Copy the blueprint directory in your VM to the <font color="#ff0000" face="Courier New">/vagrant</font> directory <font color="#ff0000" face="Courier New">(cp ~/cp -r cloudify-nodecellar-example/ /vagran&quot;)</font> </li>
+
+  <li>In the <font color="#ff0000" face="Courier New"> /vagrant/cloudify-nodecellar-example</font> directory, rename <font color="#ff0000" face="Courier New">singlehost-blueprint.yaml </font> to <font color="#ff0000" face="Courier New">blueprint.yaml</font>. </li>
+
+  <li>In the <font color="#ff0000" face="Courier New">/vagrant </font> directory, run <code>COPYFILE_DISABLE=true tar czf nc.tar.gz cloudify-nodecellar-example/</code></li>
+
+  <li>From the <font color="#ff0000" face="Courier New"><strong>Blueprints</strong></font> tab on the UI, select <font color="#ff0000" face="Courier New"><strong>Upload Blueprint</strong></font> and select the <font color="#ff0000" face="Courier New"><strong>nc.tar.gz</strong></font> file in the directory where you started the Vagrant box. </li>
+
+  <li>Set the blueprint name to <font color="#ff0000" face="Courier New"><strong>nc</strong></font>. </li>
+
+  <li>Select save on the dialog. </li>
+
+  <li>The blueprint is now uploaded.&#160; Press the <font color="#ff0000" face="Courier New">Create Deployment</font> button. </li>
+
+  <li>Name the deployment <font color="#ff0000" face="Courier New">ncd</font>, and fill in the parameter values like so: 
+    <ul>
+      <li><code>agent_private_key_path: /vagrant/insecure_private_key</code> </li>
+
+      <li><code>agent_user: vagrant</code> </li>
+
+      <li><code>host_ip: 192.168.33.10</code> </li>
+    </ul>
+  </li>
+
+  <li>The deployment will be created and you will be placed in the deployments view/tab.&#160; Expect a small delay as the manager side services are spun up for the deployment. </li>
+
+  <li>On the <font color="#ff0000" face="Courier New">select workflow</font> option box, select <font color="#ff0000" face="Courier New">Install</font> and press the arrow to the right.&#160; The install will begin.&#160; It will complete in about 5 minutes, depending on your hardware. </li>
+</ol>
+
+<p>For a detailed exploration of the Nodecellar blueprint, please refer to the <a href="http://getcloudify.org/guide/3.1/quickstart.html#step-5-install-the-deployment">guide</a>.</p>
+
+<h2><strong>Conclusion</strong></h2>
+
+<p>This concludes the walk through.&#160; We've created a handy environment for exploring and even writing your own blueprints.&#160; When you're not in need of the platform you can pause it with the <code>vagrant halt</code> command; to completely destroy the environment, use <code>vagrant destroy</code>;.&#160; If you are exploring the possibilities of writing your own blueprints, do yourself a favor and explore the <code>cfy local</code> <a href="http://cloudify-cli.readthedocs.org/en/3.1/commands.html#local">command</a>; highly recommended.</p>
+
+  </notextile>

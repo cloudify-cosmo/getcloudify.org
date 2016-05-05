@@ -1,0 +1,88 @@
+---
+layout: blogpost
+title: More Reference NFV Architecture Based on TOSCA + NetConf YANG
+image: shaynaeh.jpg
+author: Shay Naeh
+tags: 
+ - Netconf/YANG
+ - TOSCA
+ - NFV
+ - NFV Orchestration
+ - OpenStack
+---
+
+<notextile>
+
+<img src="/img/nfvo_vnfm_mano.png" alt="NFV | Network Orchestration | VNF - Netconf YANG - TOSCA ">
+<br/>
+<br/>
+
+  <p><b></b>
+
+  <p><a href="http://getcloudify.org/tags/TOSCA/" target="_blank">TOSCA</a> is a very good descriptive language for <a href="http://getcloudify.org/2014/11/02/NFV-openstack-TOSCA-open-source-cloud-Chef.html" target="_blank">VNF</a> definition, nodes monitoring and active policies like healing and scaling, as it has the combination of declarative descriptions of the application topology with all its components - from the application and network components down to the compute resources, software and everything else - along with an imperative set of workflows to describe the logic of any process we need to automate.</p>
+
+ <!-- <hr>
+
+<span class="pullquote-left">
+  <font style="font-weight: bold" size="5" face="Baskerville Old Face"><em>Pure-Play NFV Orchestration with TOSCA and Netconf/YANG with Cloudify.</em></font>&nbsp; <a class="btn btn-medium btn-theme btn-rounded" id="downloadBtnInner" href="http://getcloudify.org/downloads/get_cloudify.html" target="_blank"><i class="icon-plus"></i> Go </a></span>
+  
+  <hr>-->
+
+  <hr>
+  
+<span class="pullquote-left">
+  <font style="font-weight: bold" size="5" face="Baskerville Old Face"><em>White Paper: NFV from ETSI to MANO to YANG. Get it today. </em></font>&nbsp; &nbsp; <a class="btn btn-large btn-theme btn-rounded" id="downloadBtnInner" href="http://getcloudify.org/network-function-virtualization-vnf-nfv-orchestration-sdn-platform.html#dtag" target="_blank"><i class="icon-plus"></i> Go </a></span>
+  
+  <hr>
+
+  <p>What this means from an <a href="http://getcloudify.org/network-function-virtualization-vnf-nfv-orchestration-sdn-platform.html#nfvorchestration" target="_blank">NFV orchestration</a> perspective, is that with TOSCA topology each application component or a TOSCA node has lifecycle hooks, where you can define a certain behavior in each hook, e.g. at node configuration, startup, stop - while it can also generate NetConf/YANG templates based on runtime parameters and call YANG for device specific configuration. These lifecycle hooks operate on dependencies and relationships in addition to its operation on nodes, e.g. link, unlink for a relationship or a dependency between a VM and its DNS server. Or when creating a chain of VNFs you can determine the order of instantiation and which VNF will be placed where in the chain.&#160; </p>
+
+  <p><img alt="TOSCA.jpg" src="https://lh6.googleusercontent.com/lxUVvGuwQ2hCw7_hf85PYQ_eoDF5dvVWl-q12EIqckKlu-5_pBH7WOgTZDRSSo3JUPz5cUDKmXxOaFVns5pSVg6zLZ__ubuu74hydezK93UCgyENeWDjc7kPxFCCEqBE9WM6Yjc" width="328" height="264" /></p>
+
+  <p>Cloudify comes with a few built-in NFV reference architectures to facilitate the process of virtualizing network functions, and, in this post I’d like to dive in further to what we discussed in a previous post on TOSCA &amp; <a href="http://getcloudify.org/2015/01/07/VNF-network-function-virtualization-netconf-yang-NFV.html" target="_blank">NetConf/YANG</a>.&#160; Basically, Cloudify can describe a service architecture for VNFs onboarding through the backbone of its orchestration engine, where in this example we will show a generic way to describe reference <a href="http://getcloudify.org/network-function-virtualization-vnf-nfv-orchestration-sdn-platform.html#nfvarchitecture" target="_blank">NFV architecture</a> for VNF-based components which are comprised of infrastructure (IaaS elements) as well as application elements, including instantiation order, and dependencies between the components. We’ll also present some TOSCA to YANG translations where the main service orchestrator is TOSCA, and it generates YANG templates based on runtime parameters to configure network services.</p>
+
+  <p>This blog presents two examples, one is an IMS-based architecture and the second one is an <a href="http://getcloudify.org/network-function-virtualization-vnf-nfv-orchestration-sdn-platform.html#nfvusecase" target="_blank">internet activation service</a> based on TOSCA and is comprised from a chain of VNFs (vRouter, vFW) per tenant. I will demonstrate through both of these scenarios with code snippets throughout the post.</p>
+
+  <p>To begin with we’ll start with a generic TOSCA example that demonstrates inheritance, and can be applied throughout the post in the different scenarios. In this example, you can basically define types that can inherit from other base types.&#160; We utilize this to describe generic root types - (<code>cloudify.nodes.YANGVNF</code> in the example below) and more specific types which inherit from the base type (<code>cloudify.nodes.DNS</code> in the example below), in order to add new specific behavior and capabilities. For example, we have created a TOSCA-to-YANG base object with interface definitions, as well as device properties. In the DNS node type we define a DNS specific behavior where we update a DNS record upon a node creation.</p>
+
+<script src="https://gist.github.com/shar1z/3723cbdd2c0d21cfceca.js"></script>
+
+  <p>Let’s see how this applies to the internet activation scenario, where we would need to create a router per tenant. Below is a snippet where a type inherits from a base type, in this case, a vRouter which is created per tenant and adds router-specific properties. We can have many types for additional network objects - a load balancer, a Wan application controller (WAC), DPI, Web Security Gateway, where any of these nodes can be enhanced with scaling rules, node group definitions, and more.&#160; </p>
+
+  <p>A TOSCA router example:</p>
+
+<script src="https://gist.github.com/shar1z/f2dc0c8ecdf9835d9463.js"></script>
+
+  <p>The ability to define TOSCA base node types and inherit from them to define specific behavior makes the creation of complex VNF chains simple, almost like a lego building blocks.&#160; </p>
+
+  <p>My next example is based on a system I built using the open source <a href="http://www.projectclearwater.org/openstack-heat-templates-and-opnfv/" target="_blank">Clearwater Metaswitch project</a> and onboarded it to OpenStack to demonstrate a telecom IMS-based system for voice and video chatting, including scaling and healing rules utilizing the <a href="http://getcloudify.org/guide/3.1/dsl-spec-general.html" target="_blank">TOSCA language</a> to describe network and application nodes. What's nice here, is that I can use the same language to define a network element like a router or a firewall, or an application element like a web server or Cassandra DB, in the same manner. TOSCA provides the language which is comprised of node types and relationships to describe infrastructure and application-based VNF elements quite easily, and is infrastructure and tool agnostic, enabling easy pluggability and definition of any of these elements.</p>
+
+<script src="https://gist.github.com/shar1z/45e973fdf362786ed7af.js"></script>
+
+  <p>And that’s not the only way TOSCA can be applied to NFV, in the example above you can see a generic way to define several VMs of the type: <code>openstack.nodes.Server</code> which also has a relationship dependency on a security group.&#160; To take this even further we can also add a relationship between nodes which defines a dependence or order of execution between the TOSCA nodes.</p>
+
+<script src="https://gist.github.com/shar1z/134eb7820cffe6a019bb.js"></script>
+
+  <p>If we put everything together we get the following reference architecture which defines the node types and dependencies between them. </p>
+
+  <p><img src="https://lh4.googleusercontent.com/sPIRHq217KlElhLYeKDDgpRBEjoqcQnxUNl-2X6SfBj4_PNb8fGLlDtWDlGrZhyFHiwBDYiVBZ56kXwF4TTXnjMx9-XO9rhfzvTW3g5H4YKHThuzA2GVB7rcTPTTn60hIo0D8LM" width="624" height="361" /></p>
+
+  <h3><font style="font-weight: bold">View the full reference architecture based on </font><a href="https://nfv.hackpad.com/Full-Reference-Architecture-TOSCA-YAML-IMS-Example-PZIX5EYme83" target="_blank"><font style="font-weight: bold">TOSCA YAML</font></a><font style="font-weight: bold"> for the IMS example.</font></h3>
+
+  <p>For healing and scaling, we added a policy node where we define the host groups we would like to monitor and compare the running environment with a required execution model and see if a node type needs healing or scaling.&#160; So essentially, based on this scaling policy, which can be triggered externally as well, we can add elasticity where there&#160; is a need for more capacity, and tear down nodes when we don’t need them anymore. </p>
+
+  <p>Moreover, think of a vNF chain where we can add elasticity to each one of the elements and do it as a built-in part of the architecture.</p>
+
+<script src="https://gist.github.com/shar1z/bc141e0c5fafb0d8c38a.js"></script>
+
+  <p>In the next example, I’d like to show a chain of VNFs that are part of an Internet activation service. This demonstrates how with TOSCA you are able to provision anything from a per tenant router (as demonstrated above), to VPNs, firewall, web application security gateway, DPI or a WAC device chosen from a catalog by the user. TOSCA enables dynamic bindings which means topology updates based on runtime parameters. The blueprint below shows a template architecture with a couple of networks,routers and firewalls per tenant using TOSCA. In this example, we also leveraged TOSCA to YANG to populate YANG templates and configure the network devices with their proper capabilities and functions. </p>
+
+  <h3><font style="font-weight: bold">View the full reference architecture based on </font><a href="https://nfv.hackpad.com/Full-Reference-Architecture-TOSCA-YAML-Internet-Activation-Example-zySCzkwL5TJ" target="_blank"><font style="font-weight: bold">TOSCA YAML</font></a><font style="font-weight: bold"> for the Internet Activation example.</font></h3>
+
+  <p>In these two examples, we demonstrate the powerful TOSCA blueprint language to define infrastructure or application nodes, all in the same syntax and semantics rather simply.&#160; In the internet activation example, we utilized the TOSCA to YANG runtime parameters which were derived from the TOSCA blueprint to generate and populate a YANG template, which in turn is sent to Tail-f to configure the devices.&#160; </p>
+
+  <p>The IMS example shows how we can define a complex application environment, including a Cassandra database through a simple TOSCA blueprint where we used an internal DNS and populated it with all nodes’ FQDN (fully qualified domain name addresses), as well as pointed each node to this DNS.&#160; This was accomplished with operations that were performed on the relationship interface lifecycle both on the target’s part and the source’s part.</p>
+
+  <p>There are more examples of additional VNFs like security gateways, core and edge network VNFs that can easily be modeled using the TOSCA language, and TOSCA to YANG template generation.&#160; We’ll dive into these examples in an future posts.&#160; Where other orchestration tools only provide a partial solution, for example infrastructure-specific orchestration (e.g. Heat for OpenStack or Kubernetes for Docker) - TOSCA provides the full end-to-end orchestration from basic infrastructure to complex application topologies.</p></p>
+
+</notextile>

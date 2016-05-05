@@ -1,0 +1,272 @@
+---
+layout: blogpost
+title: WinRM + Powershell Remote Execution for Windows
+image: barak.jpg
+author: Barak Merimovich
+tags: 
+ - Cloud Automation
+ - Windows Automation
+ - WinRM
+ - Powershell
+ - Deployment Automation
+---
+<notextile>
+
+<img src="/img/blog/WinRM2.png" alt="WinRM + Powershell - Windows Automation">
+<br/>
+<br/>
+
+<p>A while back, I posted about using <a href="http://getcloudify.org/2014/02/24/cloud_automation_with_winrm_vs_ssh.html" target="_blank">WinRM</a> for <a href="http://msdn.microsoft.com/en-us/library/aa384426(v=vs.85).aspx" target="_blank">automating tasks</a> on remote Windows machines. 
+
+  <br />WinRM (Windows Remote Management) is Microsoft's implementation of <a href="http://en.wikipedia.org/wiki/WS-Management">WS-Management</a>, a SOAP based protocol for management of devices and servers. Among other things, it can be used to connect to remote Windows servers and run commands on them, similar to SSH in the Linux world.</p>
+
+<p>In this post, I am going to show an actual example of using WinRM to execute commands on a remote machine using Powershell.</p>
+
+
+<hr>
+
+<span class="pullquote-left">
+  <h2><font style="font-weight: bold" size="5" face="Baskerville Old Face"><em>Beyond simple automation - Windows orchestration made easy.  Test drive Cloudify. </em></font>&nbsp; &nbsp; <a class="btn btn-large btn-theme btn-rounded" id="downloadBtnInner" href="http://getcloudify.org/downloads/get_cloudify.html" target="_blank"><i class="icon-plus"></i> Go </a></h2></span>
+  
+  <hr>
+
+<p>We'll need two Windows hosts for this example, which we will start on the Amazon cloud.</p>
+
+<p><strong>Environment Setup</strong></p>
+
+<p>Let's set up all of the resources we'll need. I'll use the EC2 CLI to set everything up. Of-course, if you already have two windows machine to use, you can skip this part.</p>
+
+<ul>
+  <li><span>Set up the security group</span> </li>
+</ul>
+
+<p>We will need to open two ports - 3389 for Remote Desktop access to the client machine, and 5985 for WinRM access to the server machine.</p>
+
+<code>
+  <p>ec2-create-group -d &quot;WinRM Group&quot; WinRM-Group 
+    <br />ec2-authorize -P TCP -p 3389 -s 0.0.0.0/0 WinRM-Group 
+
+    <br />ec2-authorize -P TCP -p 5985 -s 0.0.0.0/0 WinRM-Group</p>
+</code>
+
+
+<ul>
+  <li><span>Create the keypair for our test</span> </li>
+</ul>
+
+<code>
+  <p>ec2-create-keypair &quot;WinRM-kp&quot;</p>
+</code>
+
+<p>And save the created private key in a file named WinRM-kp.pem</p>
+
+<ul>
+  <li><span>Now let's start the instances</span> </li>
+</ul>
+
+<code>
+  <p>ec2-run-instances ami-678c4c10 -n 2 -g &quot;WinRM-Group&quot; -k &quot;WinRM-kp&quot; -t &quot;m1.medium&quot; 
+    <br />INSTANCE <strong>i-37973874</strong> ami-678c4c10 pending WinRM-kp 0 m1.medium 2014-06-24T07:44:51+0000 eu-west-1a windows monitoring-disabled ebs hvm xen sg-871a25f0 default false 
+
+    <br />INSTANCE <strong>i-36973875</strong> ami-678c4c10 pending WinRM-kp 1 m1.medium 2014-06-24T07:44:51+0000 eu-west-1a windows monitoring-disabled ebs hvm xen sg-871a25f0 default false</p>
+</code>
+
+<p>Note the instance IDs, highlighted above. We'll need them later.</p>
+
+<p>For this example I have chosen to use Windows 2008 R2. The AMI ID is ami-678c4c10 at the time of writing this post, but may of-course change in the future.</p>
+
+<p>I recommend adding the Name tag to the instances to make the API results and web console more readable:</p>
+
+<code>
+  <p>ec2-create-tags i-37973874 -t Name=Client 
+    <br />ec2-create-tags i-36973875 -t Name=Server</p>
+</code>
+
+<p>Make sure to note the public DNS names of the new machines:</p>
+
+<code>
+  <p>~$ec2-describe-instances i-37973874 
+    <br />INSTANCE i-37973874 ami-678c4c10 <strong>ec2-54-73-137-146.eu-west-1.compute.amazonaws.com</strong> ...&#160; <br />TAG instance i-37973874 Name Client 
+
+    <br />~$ ec2-describe-instances i-36973875 
+
+    <br />RESERVATION r-dde5109e 535075449278 WinRM-Group 
+
+    <br />INSTANCE i-36973875 ami-678c4c10 <strong>ec2-54-74-118-124.eu-west-1.compute.amazonaws.com</strong> ... 
+
+    <br />TAG instance i-36973875 Name Server 
+
+    <br /><span></span></p>
+</code>
+
+<ul>
+  <li><span>Now we wait until the Windows passwords become available. This can take a few minutes:</span> </li>
+</ul>
+
+<code>
+  <p>
+    <br />ec2-get-password -k WinRM-kp.pem i-37973874 
+
+    <br /><strong>XXXXXXXX</strong></p>
+
+  <p>ec2-get-password -k WinRM-kp.pem i-36973875 
+    <br /><strong>YYYYYYYY</strong></p>
+</code>
+
+<p><strong>WinRM in Action</strong></p>
+
+<p>OK, our environment is set up. First, lets RDPs (Remote Desktop) to the client machine. 
+  <br />Once on the client machine, we need to set up the client environment. 
+
+  <br />First, open a Powershell window.</p>
+
+<ul>
+  <li><span>Enable WinRM access to the remote machine</span> </li>
+</ul>
+
+<p>We need to tell Windows which remote hosts can be connected to.</p>
+
+<code>
+  <p>Set-Item WSMan:\localhost\Client\TrustedHosts -Value ec2-54-74-118-124.eu-west-1.compute.amazonaws.com -Force</p>
+</code>
+
+<p>Note that you can just allow access to any host with:</p>
+
+<code>
+  <p>Set-Item WSMan:\localhost\Client\TrustedHosts -Value * -Force</p>
+</code>
+
+<ul>
+  <li><span>Enable script execution on the client:</span> </li>
+</ul>
+
+<code>
+  <p>Set-ExecutionPolicy -Force unrestricted</p>
+</code>
+
+<ul>
+  <li><span>Create the Powershell credentials</span> </li>
+</ul>
+
+<p>You can create the credentials interactively, or with a script. 
+  <br />The interactive version brings up a windows pop-up where you enter your username and password:</p>
+
+<code>
+  <p>$cred = Get-Credential</p>
+</code>
+
+<p><span>To skip the interactive bits and run everything automatically:</span></p>
+
+<code>
+  <p>$securePassword = ConvertTo-SecureString -AsPlainText -Force 'YYYYYYYY' 
+    <br />$cred = New-Object System.Management.Automation.PSCredential 'Administrator', $securePassword</p>
+</code>
+
+<ul>
+  <li><span>And start you remote Powershell session</span> </li>
+</ul>
+
+<code>
+  <p>Enter-PSSession -ComputerName ec2-54-74-118-124.eu-west-1.compute.amazonaws.com -Credential $cred</p>
+</code>
+
+<p>That's it. You now have a running remote session. Any command you run in this shell is in fact running on the remote machine.</p>
+
+<p>Note that we did not make any changes to the server - you can just bring up a plain vanilla instance on EC2 and start working on it immediately.</p>
+
+<p><strong>Some Additional Useful Commands</strong></p>
+
+<ul>
+  <li><span>Create a reusable session</span> </li>
+</ul>
+
+<code>
+  <p>New-PSSession -ComputerName ec2-54-74-118-124.eu-west-1.compute.amazonaws.com -Credential $cred 
+    <br />Id Name ComputerName State ConfigurationName Availability 
+
+    <br />-- ---- ------------ ----- ----------------- ------------ 
+
+    <br />2 Session2 ec2-54-74-11... Opened Microsoft.PowerShell Available</p>
+
+  <p>Enter-PSSession 2</p>
+</code>
+
+<p>
+  <br />Creating a session like this lets you open multiple sessions and go back and forth among them without having to open a new session each time.</p>
+
+<ul>
+  <li><span>List Open sessions</span> </li>
+</ul>
+
+<code>
+  <p>Get-PSSession</p>
+</code>
+
+<ul>
+  <li><span>Close a Session</span> </li>
+</ul>
+
+<code>
+  <p>Remove-PSSession 2</p>
+</code>
+
+<ul>
+  <li><span>Remote execute a command</span> </li>
+</ul>
+
+<code>
+  <p>Invoke-Command -ComputerName ec2-54-74-118-124.eu-west-1.compute.amazonaws.com -Credential $cred -ScriptBlock {dir}</p>
+</code>
+
+<p>Really useful for executing that one-line command on the server.</p>
+
+<ul>
+  <li><span>Remote execute a script file</span> </li>
+</ul>
+
+<code>
+  <p>Invoke-Command -ComputerName ec2-54-74-118-124.eu-west-1.compute.amazonaws.com -Credential $cred .\path\to\script.ps1</p>
+</code>
+
+<p><strong>Environment Cleanup</strong></p>
+
+<ul>
+  <li>Undo client side changes </li>
+</ul>
+
+<p>If you are keeping the client machine, you may want to remove the server from the Trusted Hosts list:</p>
+
+<code>
+  <p>Set-Item WSMan:\localhost\Client\TrustedHosts &quot;&quot;</p>
+</code>
+
+<ul>
+  <li>EC2 Cleanup </li>
+</ul>
+
+<p>Let's clean up all of the resources:</p>
+
+<code>
+  <p>ec2-terminate-instances i-37973874 i-36973875</p>
+
+  <p>ec2-delete-group WinRM-Group</p>
+
+  <p>ec2-delete-keypair WinRM-kp</p>
+</code>
+
+<p><strong>Not using EC2?</strong></p>
+
+<p>Your windows server just needs to have WinRM installed and enabled. WinRM is usually available on any reasonably up to date Windows server. To enable WinRM you need to run one command:</p>
+
+<code>
+  <p>Enable-PSRemoting -Force</p>
+</code>
+
+<p>Make sure port 5985 is allowed on whatever firewall system you are using.</p>
+
+<hr/>
+
+<h3><strong>This was originally posted at Barak's blog <a href="http://barakme.wordpress.com/" target="_blank"><em>Head in the Clouds</em></a>, find it <a href="http://barakme.wordpress.com/2014/06/24/windows-remote-execution-with-powershell-and-winrm/" target="_blank">here</a>.</strong></h3>
+
+
+</notextile>

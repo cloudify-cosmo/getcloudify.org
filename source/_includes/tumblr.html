@@ -1,0 +1,42 @@
+               <!--start -->
+                 <div class="leftContentBox blogLeft-topTitle blog-left-title2 tumblr">
+                        <h3>CloudifySource on Tumblr</h3>
+                 </div>   
+                <div class="leftContentBox tumblrFeed">                     
+                <!-- Tumblr -->
+							<script type="text/javascript" src="http://cloudifysource.tumblr.com/api/read/json"></script>
+						
+						<script>
+							// Use tumblr_api_read.
+
+							for (var i=0;i<3;i++) {
+								var thisPost = tumblr_api_read.posts[i]['url'];
+								var thisTitle = tumblr_api_read.posts[i]['slug'];
+								thisTitle = thisTitle.replace(/-+/g, ' ');//remove - from slug
+								var linkText = tumblr_api_read.posts[i]['url-with-slug'];
+								var photosCaption = tumblr_api_read.posts[i]['photo-caption'];
+								var photo = tumblr_api_read.posts[i]['photo-url-100'];
+								
+								if(thisTitle==undefined){
+								 document.write(
+								  '<a target="_blank" href="'+thisPost+'"><i class="fa fa-quote-left"></i> '+linkText+' <i class="fa fa-quote-right"></i></a><br/><br/>'
+								 );
+								}else{
+								 document.write(
+								  '<a target="_blank"  href="'+thisPost+'"><i class="fa fa-quote-left"></i> '+thisTitle+' <i class="fa fa-quote-right"></i></a><br/><br/>'
+								 );
+								}
+								
+								if(photo==undefined){
+								 
+								}else{
+								 document.write(
+								  '<a target="_blank"  href="'+thisPost+'"><image src="'+photo+'"></image> </a><br/><br/>'
+								 );
+								}
+							}
+						</script>
+						
+						<!-- End Tumblr -->
+                </div>
+<!--end-->

@@ -1,0 +1,62 @@
+---
+layout: blogpost
+title: The Heat is on with OpenStack Icehouse
+image: nati.png
+author: Nati Shalom
+tags: 
+ - OpenStack Releases
+ - OpenStack
+ - Heat
+ - Cloud Orchestration
+ - OpenStack Orchestration
+---
+<notextile>
+
+<img src="/img/blog/Icehouse + Heat.jpg" alt="OpenStack Orchestration - OpenStack Icehouse + OpenStack Heat">
+<br/>
+<br/>
+
+<h2>OpenStack Orchestration Moves up the Stack</h2>
+
+<p>OpenStack Icehouse, the Ninth OpenStack Release, was announced at the last summit and was <a href="https://wiki.openstack.org/wiki/Release_Naming">named</a> for a street in Hong Kong. The Icehouse release is primarily focused on stability and maturity. The release marks another milestone in the growth of the project.&#160; Just a few stats.</p>
+
+<p>Icehouse had:</p>
+
+<ul>
+  <li>1,202 contributors, a 32 percent increase from the Havana release six months ago</li>
+
+  <li>Approximately 350 new features added.</li>
+
+  <li>2,902 bug fixes were added in the Icehouse release cycle. </li>
+</ul>
+
+<p>In this post&#160; I’m going to focus on the updates in the OpenStack Heat project, which is a.k.a OpenStack Orchestration.&#160; For a general overview on the Icehouse release I would recommend checking out the <a href="https://wiki.openstack.org/wiki/Release_Naming">OpenStack Icehouse release notes</a> or this article by <a href="http://www.infoq.com/news/2014/01/openstack_icehouse">InfoQ</a>.</p>
+
+<h2><b>Heat Project Icehouse - Main Updates</b><b></b></h2>
+
+<p>The Heat project started as a clone of Amazon CloudFormation which is basically a declarative approach to automate the infrastructure set up on Amazon environments.&#160; The Icehouse release marks an evolution of the project up the stack. If in previous releases Heat was mainly used to orchestrate the OpenStack infrastructure, with Icehouse it has added many more capabilities to handle orchestration of the software stack as part of the application boot process. </p>
+
+<hr>
+
+<span class="pullquote-left">
+  <font style="font-weight: bold" size="5" face="Baskerville Old Face"><em>Cloudify + OpenStack = Nirvana. Seeing is believing.</em></font>&nbsp; <a class="btn btn-large btn-theme btn-rounded" id="downloadBtnInner" href="http://getcloudify.org/downloads/get_cloudify.html" target="_blank"><i class="icon-plus"></i> Go </a></span>
+  
+  <hr>
+  
+<p>This shift is reflected in the new <a href="http://docs.openstack.org/developer/heat/template_guide/hot_spec.html">HOT template format</a>&#160; which allows you to describe a broader aspect of an application configuration including the new <a href="http://docs.openstack.org/developer/heat/template_guide/openstack.html#OS::Heat::ScalingPolicy">OS::Heat::ScalingPolicy</a>. With the Icehouse release these HOT Templates have become the recommended approach. In addition, there is an ongoing effort to introduce <a href="https://www.oasis-open.org/committees/tc_home.php?wg_abbrev=tosca">TOSCA</a> (Topology and Orchestration for Cloud Applications) into Heat, which is an OASIS-led standard. A new <a href="https://github.com/stackforge/heat-translator">TOSCA translator project </a>for Heat is now part of StackForge. A preview of the TOSCA simple profile can be found <a href="https://www.oasis-open.org/committees/download.php/52571/TOSCA-Simple-Profile-YAML-v1.0-wd01-Rev-38.pdf">here</a> supported by IBM, GigaSpaces, Huawei, Vnomic a preview version of a TOSCA-based Orchestration project for OpenStack is available with the new Cloudify 3.0 project.</p>
+
+<p>Other updates include new the Trust-based security model that will allow the delegation of user roles and permissions without passing Keystone tokens or credentials. For more information on the new Heat Trust Model see the Steve Hardy post <b><a href="http://hardysteven.blogspot.co.uk/2014/04/heat-auth-model-updates-part-1-trusts.html">Heat auth model updates - part 1 Trust</a></b>. In addition, the Icehouse release includes improvements to scalability by allowing the distribution of Heat deployments tasks between multiple Heat engines.&#160; <b></b></p>
+
+<p>To learn more about the Heat Project Icehouse updates I’d recommend looking at <a href="http://www.linkedin.com/pub/steve-baker/4/610/568"><b>Steve Baker’s</b></a><b> </b><a href="https://www.youtube.com/watch?v=ObNDx2wtCwc"><b>online presentation</b></a><b> </b></p>
+
+<h2><font style="font-weight: bold">Try Out the Heat Icehouse Release on DevStack</font></h2>
+
+<p><a href="http://www.linkedin.com/profile/view?id=5253428&amp;authType=NAME_SEARCH&amp;authToken=hlX8&amp;locale=en_US&amp;srchid=5750691399460225534&amp;srchindex=1&amp;srchtotal=3&amp;trk=vsrp_people_res_name&amp;trkInfo=VSRPsearchId%3A5750691399460225534%2CVSRPtargetId%3A5253428%2CVSRPcmpt%3Aprimary">Yoram Weinreb</a> a Lead OpenStack Architect from GigaSpaces wrote a detailed example on how you can setup a Heat Icehouse environment on DevStack. What’s interesting with this example is the addition of Neutron orchestration as part of the simple WordPress example. </p>
+
+<p>To try out the example with Heat Icehouse follow the steps from <a href="http://getcloudify.org/2014/05/07/devstack-heat-openstack-cloud.html">Yoram’s post</a>.</p>
+
+<p>I will be demonstrating this example at the upcoming OpenStack Design Summit in Atlanta next week in the talk - <a href="http://openstacksummitmay2014atlanta.sched.org/event/4655c07edd5514577e36705a6f818884#.U2oQXa2Swug">When Networks Meet Apps.</a></p>
+
+<p><a href="http://getcloudify.org/2014/05/07/devstack-heat-openstack-cloud.html"><img alt="Screenshot 2014-05-05 15.22.42.png" src="https://lh5.googleusercontent.com/E-RtE2YlMIExAckYK1OsaYUM2TE0qZOGSzBL4U_c2qvo5eHS43jPTC_NQNWdM1Lv5fmtvfX6mhFxC4dQbe62K3DexKOL7CsDFPXFhCYoOMe8bM6VWan3P29wSeWIincElg" width="624" height="363" /></a></p>
+
+</notextile>

@@ -1,0 +1,59 @@
+---
+layout: blogpost
+title: White-Labeling Cloudify for VMware vCloud Air
+image: jeremy.jpg
+author: Jeremy Hess
+tags:
+ - Cloud Orchestration
+ - VMware
+ - Cloud Automation
+ - vCloud
+ - TOSCA
+---
+
+<notextile>
+
+<img src="/img/blog/vcloud-air-cloudify-orchestration.png" alt="Orchestration as a service | Cloud Orchestration | Hybrid Cloud | TOSCA | Pure-Play | Cloud Automation | VMware | vCloud Air">
+<br/>
+<br/>
+
+<p>We are very clear on what Cloudify is here at GigaSpaces - Cloudify is a pure-play, TOSCA-based cloud orchestration engine. It wasn’t originally designed to provide <a href="http://getcloudify.org/2015/08/31/vmware-cloud-openstack-orchestration-tosca-vcloud-automation-hybrid.html">Orchestration-as-a-Service</a>. However, working with VMWare the past several months on their <a href="http://getcloudify.org/2015/08/28/tosca-vmware-vcloud-vsphere-multi-tenancy-multi-tenant-horizontal-scaling-service-orchestration-engine.html">vCloud Air Blueprinting Service</a>, we have seen just how perfectly Cloudify fits into vCA and offers itself as a bespoke orchestration service for end users.</p>
+
+<p>The outcome of this being that Cloudify is seamlessly integrated with the cloud provider such that end users experience Cloudify as if it was created by the enterprise itself. Here we will go through what we did with VMware in order to show how we tailored the Cloudify service to give it the look and feel of a VMware product and integrated it into their vCloud Air offering. So, how did we achieve this?</p>
+
+<hr>
+
+<span class="pullquote-left">
+  <font style="font-weight: bold" size="5" face="Baskerville Old Face"><em>Pure-Play TOSCA-based Orchestration for VMware with Cloudify 3.2!</em></font>&nbsp; <a class="btn btn-medium btn-theme btn-rounded" id="downloadBtnInner" href="http://getcloudify.org/downloads/get_cloudify.html" target="_blank"><i class="icon-plus"></i> Go </a></span>
+  
+<hr>
+
+<h2><b>User Interface</b></h2>
+
+<p>First and foremost, the UI for the new vCloud Air Blueprinting Service required us to create a web-based version of Cloudify that allowed users to simply upload blueprints via an online portal. As can be seen in the image below, the branding and design were kept purely in line with that of VMware’s. In fact, the white-label name VMware gave it was the Blueprinting Service.</p>
+
+<p class="aligncenter"><img src="/img/blog/vca-blueprinting.PNG"></p>
+
+<h2><b>Command Line Interface</b></h2>
+
+<p>The CLI for Cloudify required modification as well. In the image below, you can see that commands begin with &quot;vca&quot; in order to ensure clients were getting the complete vCloud Air experience without any hint of using a third-party product.</p>
+
+<p class="aligncenter"><img src="/img/blog/vca-cli.PNG"></p>
+
+<h2><b>Authentication/User identity </b></h2>
+
+<p>In order to develop the API for vCloud Air, we used the vAuth mechanism to handle single sign on (SSO) protocol and enable users that are already authenticated with vCloud Air to use the service without the need to go through additional authentication. Users not already authenticated simply need to sign in using their vCloud Air account details.</p>
+
+<p class="aligncenter"><img src="/img/blog/vca-login.PNG"></p>
+
+<h2><b>Behind the Scenes </b></h2>
+
+<p>As you can see, in only a few weeks, Cloudify was transformed into a web-based blueprinting service for VMware as a front-end white-label offering to vCloud Air users. This transformation occurred through the manipulation of the UI, API, and CLI which were all tailored, and connected, with VMware and their branding and design.</p>
+
+<p class="aligncenter"><img src="/img/blog/vca-behind-the-scenes.PNG"></p>
+
+<p>White-labeling can be achieved for all major cloud providers within a short time, and this use case shows just how Cloudify can be made to integrate into the larger infrastructure of a cloud provider.</p>
+
+<p><i>You can access Blueprint samples for vCloud Air on Github at </i><a href="https://github.com/vmware/tosca-blueprints">this link</a><i>.</i></p> 
+
+</notextile>

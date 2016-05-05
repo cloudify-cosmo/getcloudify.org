@@ -1,0 +1,162 @@
+---
+layout: blogpost
+title: What is NFV?
+image: nati.png
+author: Nati Shalom
+tags:
+ - NFV
+ - Networking
+ - Cloud Orchestration
+ - OpenStack
+ - Network Automation
+---
+
+<notextile>
+
+<div class="aligncenter">
+<img src="https://lh4.googleusercontent.com/8rONMDuFoyLihzeTtyCH-IjjWacbUq6-9kzxvndgmkak38pPO-t4ovSG3Ss4vXF5v8_1xoK2STCYKO2pPpFfBelm6qnZSH-AX582d5wNvbnROgOBXblpjSZtvg" width="750" alt="NFV Orchestration | Network Automation | TOSCA Orchestration | MANO | YANG"></div>
+<br/>
+<br/>
+
+<p><b></b></p>
+
+<p id="docs-internal-guid-3689a33d-4ada-798e-c0c1-11a03a1f5ae7" style="margin-bottom: 0pt; margin-top: 0pt; line-height: 1.15" dir="ltr">I first heard the term NFV a year ago as part of the writeup that I was doing with Alcatel Lucent on CloudBand titled <a style="text-decoration: none" href="http://getcloudify.org/2013/03/07/carrier_grade_cloud_paas.html" target="_blank">Carrier Grade PaaS</a> covering our collaboration. Ever since that time it looks like the term has risen in popularity with every network provider or infrastructure provider now launching a new NFV initiative.</p>
+
+<p>&#160;</p>
+
+<p>As with any new hype, the term NFV quickly became overloaded and confusing, so I thought it would be beneficial to try and clarify it a bit.</p>
+
+<p>&#160;</p>
+
+<hr>
+<span class="pullquote-left">
+  <font style="font-weight: bold" size="5" face="Baskerville Old Face"><em>White Paper: NFV from ETSI to MANO to YANG. Get it today. </em></font>&nbsp; &nbsp; <a class="btn btn-large btn-theme btn-rounded download" id="downloadBtnInner" href="http://getcloudify.org/brochures/NFV White Paper April 2015.pdf" target="_blank"><i class="icon-plus"></i> Go </a></span>
+  
+  <hr>
+
+
+<h2>What is NFV (technical definition)?</h2>
+
+<p>NFV stands for <a style="text-decoration: none" href="http://en.wikipedia.org/wiki/Network_Functions_Virtualization">Network Function Virtualization</a> - it basically means that your routers, load balancers and firewalls that are currently shipped in boxes will become a virtual entity rather than a physical box. As in the case of compute or storage virtualization, the process of virtualizing network functions is quite the same; we take each function (box) and turn it into a software function that can run on any given box. The decision of which box is going to serve each function can change at runtime based on the desired SLA and would not involve changing the software piece.</p>
+
+<h2>What does that really mean?</h2>
+
+<p>For most people, network functions do not mean a lot. In addition, the definition that I found over the internet for NFV for the most part comes from people who often tend to speak in a language that only a small community can really understand.</p>
+
+<p>&#160;</p>
+
+<p>To understand what NFV really means we need to take a step back and look at the overall change that the IT industry as a whole is undergoing.</p>
+
+<p>The IT industry is going through a big industrialization change that is very similar to the change that the car industry underwent when Ford came out with Model-T. The change with the Model-T car wasn’t in the making a faster engine, quite the contrary, the Model-T was inferior to other cars that were produced in those days. The industrial revolution with the Model-T was in the ability to produce cars in mass production. This revolution changed the entire automotive industry that propagated to other industries, as well, from consumer electronics through the food industry, which followed the same principles and adopted the same mass production manufacturing principles.</p>
+
+
+
+<p>The IT industry is going through a fairly similar change - until now we used to build our IT manually, and we’re now shifting into mass production of IT, as well.&#160; In this analogy cloud is the manufacturing floor, and DevOps is the process for optimizing and automating the production pipeline.</p>
+
+<p>&#160;</p>
+
+<h3>How IT industrialization is related to NFV?</h3>
+
+<p>The carrier industry today relies on a highly customized infrastructure, no one carrier infrastructure runs in the same way as another carrier infrastructure.&#160; Once upon a time carriers saw this as an advantage and ended up with layers and layers of fairly proprietary and costly setups for running their business.</p>
+
+<p>&#160;</p>
+
+<p>As the competition in this industry became tighter this operational model becomes not just less economical, but a huge threat, as it limits the speed in which carriers can adapt to new economic and market changes.&#160; This already has resulted in their loss of ground quite rapidly to competition from internet shops such as Google, Amazon, Microsoft, and others.</p>
+
+<p>&#160;</p>
+
+<p>Carriers realized that in order to survive in this new world they needed to reduce their operational costs and increase the speed in which they can introduce new services, as well as scale their business.</p>
+
+<p>&#160;</p>
+
+<p>This is where NFV comes into play.&#160; NFV is basically a better operational model for running the carrier backbone.&#160; Instead of a highly customized and costly backbone, we’ll use a commodity based infrastructure, and use opensource frameworks and with that we can innovate faster, scale and all this at a much lower cost.</p>
+
+<p>&#160;</p>
+
+<h2>What NFV is comprised of?</h2>
+
+<p>NFV isn’t a standard (yet) or a product. Even though there are various bodies such as ETSI that try to define standards for NFV, it is very unlikely that we’ll see any real standard emerging from this sort of initiative.&#160; This is simply due to the fact that standards often emerge when an industry reaches a certain level of maturity and we’re just not there yet.</p>
+
+<p>&#160;</p>
+
+<p>At this point it is a set of “de-facto” standards bred from best practices mostly from the cloud providers that proved to be able to deliver a more efficient and agile operational model for running their infrastructure.</p>
+
+<p>&#160;</p>
+
+<p>Quite often that includes the following core components:</p>
+
+<p>&#160;</p>
+
+<ol>
+  <li>
+    <p><strong>Cloud-based infrastructure</strong> - OpenStack is currently the most popular choice for this purpose.</p>
+  </li>
+
+  <li>
+    <p><strong>Software-defined network functions</strong> - This is a mix of the existing network functions provided as software packages, as well as new purely open source players that are making a new entrance into this world.</p>
+  </li>
+
+  <li>
+    <p><strong>Orchestration engine</strong> - Responsible for provisioning of the network functions on a cloud-based infrastructure. TOSCA is a standard orchestration language defined by the OASIS organisation that provides a standard modeling language. Projects such as OpenStack Heat, as infrastructure orchestration in combination with Cloudify as an application orchestration tool are a good reference for this.</p>
+  </li>
+
+  <li>
+    <p><strong>Analytics engine</strong> -&#160; Analytics engines are basically the feedback loop. They are an essential piece to measure which part to measure whether our services meet their desired SLAs and also as a means to analyze and optimize workloads. In the context of NFV, where many of the insights and decisions need to happen in real-time, the analytics engine will be heavily real-time based. A real time analytics engine that is more specific to the operational monitoring domain is Reimann.</p>
+  </li>
+</ol>
+
+<p>
+  <br /><img style="border-top: transparent 0px solid; border-right: transparent 0px solid; border-bottom: transparent 0px solid; border-left: transparent 0px solid" alt="" src="https://lh4.googleusercontent.com/8rONMDuFoyLihzeTtyCH-IjjWacbUq6-9kzxvndgmkak38pPO-t4ovSG3Ss4vXF5v8_1xoK2STCYKO2pPpFfBelm6qnZSH-AX582d5wNvbnROgOBXblpjSZtvg" width="624" height="465" /> 
+
+  <br />
+
+  <br /></p>
+
+<h2>What makes NFV different than any other cloud-based infrastructure?</h2>
+
+<p>For the most part network functions are not different than a database or any other software function that isn’t a defined as a network function. Having said that there are number of characteristics that are more specific to network functions such as:</p>
+
+<ul>
+  <li>
+    <p><strong>Highly distributed deployment</strong> - Carrier data centers tend to span across multi-site deployments</p>
+  </li>
+
+  <li>
+    <p><strong>Deterministic latency and performance</strong> - Network functions are more sensitive to latency and non-deterministic behavior that can be quite common in virtual data centers.</p>
+  </li>
+
+  <li>
+    <p><strong>Support for third-party virtual appliances</strong> - Many of the network functions are packed as VMs. Those third-party VMs are mostly treated as a blackbox and can be accessed only through custom interfaces that are specific to the network function. Managing those functions can be fairly different than that of the other software services, as a result. The main difference, though, is that most management systems install an agent to control each managed service. In the context of network functions, these assumptions are no longer valid, and therefore managing virtual appliances can be done only remotely and not through a local agent.</p>
+  </li>
+
+  <li>
+    <p><strong>Support for legacy network services</strong> - Many of the existing network functions were written in a pre-cloud world, as such they were built with specific assumptions that the high availability and scalability model, as well as the configuration model that are usually very much human-driven. Changing all that in one day isn’t going to be realistic, and therefore, there needs to be a more gradual path to transition those services into the new world or even replacing them with a more modern infrastructure.</p>
+  </li>
+
+  <li>
+    <p><strong>High Degree of Security</strong> - Carrier networks assume a high degree of isolation on the network level. This often maps to a daily sophisticated network setup of VLANs and a separate network hierarchy that is not yet supported by most of the existing cloud infrastructures. </p>
+  </li>
+</ul>
+
+<h2 style="margin-bottom: 0pt; margin-top: 10pt; line-height: 1.15" dir="ltr">The Role of Orchestration in NFV</h2>
+
+<p>In a pre-NFV world setting, provisioning the carrier infrastructure was fairly human driven.&#160; In an NFV world those human operations need to be automated through software. In that context the orchestrator is a software defined operator and it’s the piece that manages the deployment of the network function in the right location and hardware. It is also responsible for orchestrating the network firewalls, routers and such, to fit a specific service deployment and security constraints. Like the human operator it is also responsible for continuously monitoring the deployed services and ensuring that they meet their desired SLA.</p>
+
+<h2>Final words</h2>
+
+<p>NFV is part of a broader shift toward industrialization of IT. In this particular case NFV is simply a way to make the operational model of carriers more efficient by adopting similar best practices and tools that have already proven themselves at scale by the major cloud providers such a Amazon, Google, Microsoft and others.</p>
+
+<p>On the business side it has disrupted the entire networking industry that used to sell proprietary boxes. In the new virtualized world, boxes have become commoditized and the software on top becomes the main play. This opens up the door to new players that will have a pure software solution that will be specifically designed for a virtualized setup.</p>
+
+<p>As with any disruptive force we will see big players that find it difficult to adapt to this change phased out to make room for new players who will take over, in a similar fashion to the way the internet wave brought Google, Amazon, PayPal and other players who were completely new commoners at the time and became the new market leaders.</p>
+
+<p>On the technical side of things virtualizing the network function is only the first step. In order to experience the full potential of a virtualized carriers, we need to have the entire deployment and management completely automated. What we are missing in this picture is the software equivalent of the human operator, which is also known as the orchestrator. The orchestrator will become the major piece in putting all of this together.&#160;&#160; </p>
+
+<p>In the next post I’ll describe in more depth the role of an orchestrator in the context of NFV.</p>
+
+<p>
+  <br />
+
+  
+
+  </notextile>

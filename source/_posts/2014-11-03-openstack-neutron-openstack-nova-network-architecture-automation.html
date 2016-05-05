@@ -1,0 +1,117 @@
+---
+layout: blogpost
+title: Advanced OpenStack Networking - Configuring an OpenStack VM with Multiple Network Cards
+image: barak.jpg
+author: Barak Merimovich
+tags: 
+ - OpenStack
+ - OpenStack Neutron
+ - Network Automation
+ - IaaS
+ - Cloud Orchestration
+---
+
+<notextile>
+
+<img src="http://www.datacenterknowledge.com/wp-content/uploads/2011/11/openstack-cloud.jpg" alt="OpenStack Neutron - Networking | Network Automation | Network Orchestration">
+<br/>
+<br/>
+
+   <p>We have discussed <a href="http://getcloudify.org/2014/05/14/openstack-neutron-networking-nova.html" target="_blank">OpenStack networking</a> extensively in previous posts.&#160; In this post, I’d like to dive into a more advanced OpenStack networking scenario.</p>
+
+<p>Many cloud images are not configured to automatically bring up all network cards that are available. They will usually only have a single network card configured. To correctly set up a host in the cloud with multiple network cards, log on to the machine and bring up the additional interfaces.</p>
+
+<p>On an Ubuntu Image, this usually looks like this:
+  <script src="https://gist.github.com/shar1z/3f75ee505016ff061968.js"></script>
+
+<p><strong>Networks in the cloud</strong></p>
+
+<p>A complex <a href="http://getcloudify.org/2014/02/14/networking_from_then_to_cloud.html" target="_blank">network architecture</a> is a mainstay of modern IaaS clouds. Understanding how to configure your cloud-based networks, and hosts, is critical to getting your application working in the cloud. This is especially true with Cloudify, the <a href="http://www.getcloudify.org/" target="_blank">open source cloud</a> orchestration platform I work on.</p>
+
+<hr>
+
+<span class="pullquote-left">
+  <font style="font-weight: bold" size="5" face="Baskerville Old Face"><em>Network orchestration for any cloud with Cloudify. Get Started.</em></font>&nbsp; <a class="btn btn-medium btn-theme btn-rounded" id="downloadBtnInner" href="http://getcloudify.org/downloads/get_cloudify.html" target="_blank"><i class="icon-plus"></i> Go </a></span>
+  
+  <hr>
+
+
+<p><strong>The cloud, like the world, used to be flat</strong></p>
+
+<p>It was not that long a time ago that most IaaS providers only supported flat networks – all of your hosts were in one large network. Separation between services running in the cloud was enforced in software or with firewalls/security-groups. But technically, all of the hosts were connected to the same network and visible to each other.</p>
+
+<p>The flat network model is simple, and therefore easy to reason and understand. It was a good choice for the early days of the IaaS cloud and no doubt helped with getting applications into the cloud in the first place. It was one of the things that made <a href="http://aws.amazon.com/ec2">EC2</a> so easy to use for anyone just starting out with the ‘cloud’. This model is in fact still available on Amazon Web Services under the title ‘EC2-Classic’. And for many applications, a flat network is good enough.</p>
+
+<p>But as cloud adoption increases, more complex applications are moving into the clouds, and issues like network separation, security, SLA and broadcast domains make more complex networks models a must. Software Defined Networks (SDN) fill that gap. They are now a staple of most major IaaS clouds. AWS has <a href="http://aws.amazon.com/vpc/">AWS-VPC</a>, <a href="http://getcloudify.org/openstack-architecture-cloudify.html" target="_blank">OpenStack</a> has the <a href="https://wiki.openstack.org/wiki/Neutron">Neutron</a> project and there are many other implementations.</p>
+
+<p>Working with SDN requires knowing a bit more about how information moves around between your cloud resources. In this post I am going to discuss how to set up a host in the cloud so it will play nice with complex networks. I’ll be using OpenStack, but the concepts are similar for other cloud infrastructures.</p>
+
+<p><strong>Openstack configuration</strong>
+
+  <br />I am going to start with an empty tenant, only the public network is available.</p>
+
+<p>
+  <br /><strong>First, lets set up out networks and router:</strong>
+
+<script src="https://gist.github.com/shar1z/4bb85bf1557029fd83f0.js"></script>
+
+  <br /><strong>Note the network IDs:</strong>
+ <script src="https://gist.github.com/shar1z/8b97621560d6408e99a9.js"></script>
+
+<p><strong>We’ll start with a standard Ubuntu cloud image:</strong>
+   <script src="https://gist.github.com/shar1z/ba3e75da466ddd9babba.js"></script>
+
+<p><strong>Create the keypair and security group:</strong>
+
+<script src="https://gist.github.com/shar1z/46702a7f59ad88a21e9a.js"></script>
+
+
+<p><strong>Let’s spin up an instance connected to both our networks:</strong>
+<script src="https://gist.github.com/shar1z/7266e1bbb6519a9f6f77.js"></script>
+
+<p><strong>And set up floating IPs for the first network:</strong>
+
+  <script src="https://gist.github.com/shar1z/a79ed8de2edcaa7be241.js"></script>
+
+<p>Note how we matched the VM’s IP to its port, and associated the floating IP to the port. I wish there was an easier way to do this from the CLI…</p>
+
+<p>If everything worked correctly, you should have the following setup:</p>
+
+<p><img alt="image" src="https://barakme.files.wordpress.com/2014/10/network_topology2.png?w=700" /></p>
+
+<p><strong>Let’s make sure ssh works correctly:</strong>
+
+  <br /><code>ssh -i demo-keypair.pem ubuntu@192.168.15.31 hostname
+    <br />demo-vm</code></p>
+
+<p>Cool, ssh works. Now, we should have two network cards, right?
+  <script src="https://gist.github.com/shar1z/bda1eb8c725b05aa2f6c.js"></script>
+
+<p>Huh?! The VM only has one working network interface! Where is my second NIC? Was there a configuration problem with the OpenStack network setup? The answer is here:
+  <script src="https://gist.github.com/shar1z/521fa4e11a4a99da5495.js"></script>
+
+<p>The second NIC exists, but is not running.</p>
+
+<p>The issue is not with the OpenStack network configuration – it’s with the image. The image itself should be configured to work correctly with multiple NICs. All we have to do is bring up the NIC. So we ssh into the instance:
+  <br /><code>ssh -i demo-keypair.pem ubuntu@192.168.15.31</code></p>
+
+<p><strong>And run the following commands:</strong>
+
+<script src="https://gist.github.com/shar1z/8da78bfab83fae828a9e.js"></script>
+
+<p><strong>The second NIC should now be running:</strong>
+<script src="https://gist.github.com/shar1z/b86caf0c0b2307447275.js"></script>
+
+<p>And there you go – your VM can access both networks.</p>
+
+<p>This issue can make life complicated when setting up a complex, or even a not very complex, application. When will this issue hurt you? Well, imagine a scenario where you have a web server and a database server. The web server is connected to both Network1 and Network2, and the database server is only connected to Network2. Network1 is connected to the external world over a router, and Network 2 is completely internal, adding another layer of security to the critical database server. So what happens if the web server only has one network card? If only the NIC for Network1 is up, the web server can’t access the database. If only the NIC for Network2 is up, the web server can’t be reached from the external world. Even worse, if this web server is accessed via a floating IP, this IP will also not work, so you won’t be able to access the web server and fix the issue. Tricky.</p>
+
+<p><strong>In conclusion</strong></p>
+
+<p>The above commands will bring up your additional network card. You will of-course need to repeat this process for each additional network card, and for each VM. You can use a start-up script (a.k.a. user-data script) or system service to run these commands, but there are better ways. I’ll discuss how to automate the network setup in a follow-up post.</p>
+
+
+<h3><strong>This was originally posted at Barak's blog <a href="http://barakme.wordpress.com/" target="_blank"><em>Head in the Clouds</em></a>, find it <a href="http://barakme.wordpress.com/2014/08/19/configuring-an-openstack-vm-with-multiple-network-cards/" target="_blank">here</a>.</strong></h3>
+
+
+</notextile>

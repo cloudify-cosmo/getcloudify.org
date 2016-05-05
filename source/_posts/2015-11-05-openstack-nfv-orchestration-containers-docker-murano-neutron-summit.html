@@ -1,0 +1,74 @@
+---
+layout: blogpost
+title: Musings from the OpenStack Tokyo Summit
+image: jeremy.jpg
+author: Jeremy Hess
+tags: 
+ - OpenStack
+ - OpenStack Summit
+ - NFV
+ - Containers
+ - Networking
+---
+
+<notextile>
+
+<img src="http://www.businesscloudnews.com/files/2015/10/openstack-tokyo-summit.jpg" alt="OpenStack Liberty - NFV | OpenStack Neutron | OpenStack Ironic | OpenStack Releases | OpenStack Summit | OpenStack Versions | Open Source Cloud | OpenStack Docker Kubernetes | OpenStack Hybrid Cloud">
+<br/>
+<br/>
+
+
+<p><b></b>
+
+  <p>Well, folks, another <a href="http://getcloudify.org/2015/11/03/openstack-podcast-summit-tokyo-docker-containers-neutron-nova-murano.html" target="_blank">OpenStack Summit</a> is behind us. That means we will have to wait until 2016 for the next one, which is slated to take place in <a href="https://www.openstack.org/summit/austin-2016/" target="_blank">Austin</a>, TX at the end of April. With an amazing turnout of more than 6,000 attendees from around the world, OpenStack Tokyo was a real trend setter for what the future of OpenStack might look like.</p>
+
+  <p>There were three leading trends that we spotted, both from a big picture perspective as well as the orchestration niche in particular: Containers, Enterprise, and NFV.</p>
+
+  <p>Here’s a short breakdown of some key elements of the OpenStack Summit to give you a sense of what we mean.</p>
+
+
+<hr>
+
+<span class="pullquote-left">
+  <font style="font-weight: bold" size="5" face="Baskerville Old Face"><em>Open cloud orchestration for OpenStack releases - Liberty to Mitaka. Get Started.</em></font>&nbsp; <a class="btn btn-medium btn-theme btn-rounded" id="downloadBtnInner" href="http://getcloudify.org/downloads/get_cloudify.html" target="_blank"><i class="icon-plus"></i> Go </a></span>
+  
+  <hr>
+
+
+  <p>In his keynote, <a href="https://www.youtube.com/watch?v=Prm2_E3ONEw" target="_blank">John Bryce</a> made it clear that containers are not just a sideshow with a small fan club, but full-fledged, first-class citizens in the eyes of <a href="http://getcloudify.org/openstack-architecture-cloudify.html" target="_blank">OpenStack</a> and the cloud community. He stressed that OpenStack can manage VMs, containers, and containers on bare metal, which shows that there is clearly a move to non-hypervisor setups.</p>
+
+  <p>In the second day keynote, Mark Collier spent time talking all about <a href="http://getcloudify.org/2014/05/14/openstack-neutron-networking-nova.html" target="_blank">OpenStack Neutron</a>, now the most active project in OpenStack, as well as SDN and <a href="http://getcloudify.org/network-function-virtualization-vnf-nfv-orchestration-sdn-platform.html" target="_blank">NFV</a>. Additional keynotes presented diverse container projects from Kuryr (networking for containers) by IBM, and Carina (containers as a service) from Rackspace. </p>
+
+  <p>Throughout the keynotes, we were introduced to many large enterprises, from Telecoms to tech giants, who are all using OpenStack to cut operating costs and speed up innovation.</p>
+
+  <h2>Hypervisors, Bare Metal, Containers and more - which way is up?</h2>
+
+  <p>There is a clear shift that has been gaining traction in the past couple of years: OpenStack is being used more and more on non-hypervisor VMs.</p>
+
+  <p>As you can see from the below , according to the latest numbers, at least in production, KVM and QEMU have seen 2% drops in usage, whereas Bare Metal and Linux Containers have each jumped 5% and 3% respectively.</p>
+
+  <p><img src="https://lh5.googleusercontent.com/-V42f27Coe3z2kIhaPoGpARaUiCt_jUmEe9ML7BYyMombVA-rjfQ2jGjOI8fMASYHmIWYok4Ec6cRuMVrK1WoAyJqNPKmeWAmTavfd7rOKW4gbstaC3tgp2WabnjaAUpqAZryzpu" width="617" height="504" /></p>
+
+  <p>OpenStack User Survey: http://superuser.openstack.org/articles/openstack-users-share-how-their-deployments-stack-up</p>
+
+  <p>Although the percentages may seem small, this movement is definitely taking hold. As Nati Shalom, CTO of GigaSpaces, noted in his post after the <a href="http://getcloudify.org/2014/11/11/openstack-summit-openstack-adoption-cloud.html" target="_blank">OpenStack Paris</a> Summit in 2014:</p>
+
+  <p>“...Possibly the most disruptive trend I’ve found with regards to OpenStack consumption.&#160; If before non-hypervisor usage was almost a blasphemy it looks like there is a growing trend of consuming OpenStack that not only is new to the OpenStack sphere, but is completely unique and possible only with an OpenStack environment...This way of consuming OpenStack is why it is considered key to innovation right now.”</p>
+
+  <p>Similarly, after the Vancouver Summit earlier this year, in his post about <a href="http://getcloudify.org/2015/05/19/openstack-summit-vancouver-releases-cloud-kilo-juno-TOSCA-nfv-orchestration.html" target="_blank">NFV and Orchestration in the Cloud</a>, Nati wrote:</p>
+
+  <p>“The primary trend of note to me is the move away from hypervisors to a fusion between containers and bare metal…Part of the reason this migration is becoming a popular option is because with containers it’s simpler to run dynamic workloads on bare metal while still ensuring isolation between one workload and another. This... comes with a lot of performance and utilization benefits, not to mention simplicity, especially in specific cases where a full-blown cloud may be overkill. So I believe this is only the start of such a trend - especially with the addition of Ironic in the latest <a href="http://getcloudify.org/2015/05/16/openstack-kilo-summit-releases-versions-ironic-bare-metal-neutron-nfv.html" target="_blank">OpenStack Kilo</a> release...”</p>
+
+  <p>It goes without saying that more companies are looking for hybrid environments with bare metal and other containerized workloads. We expect to see this trend grow over the next year at an even faster pace than it has the past two years.</p>
+
+  <h2>NFV and Enterprise Cloud</h2>
+
+  <p>With no less than 15 talks about NFV in Telecom companies, this summit brought the feeling of OpenStack not just being ready for enterprise, but for enterprises being ready for OpenStack.</p>
+
+  <p>In the keynotes we saw how NTT is working toward making SDN/NFV an integral part of their network infrastructure. We also saw the introduction of new projects like Tacker, looking to bridge gaps around NFV orchestration.</p>
+
+  <p>There is a definitive convergence that we are seeing with NFV and enterprise Telecoms, especially with this new, dedicated OpenStack NFV orchestration project, which serves only to confirm the importance of cloud orchestration as well as the TOSCA specification.</p>
+
+  <p>However, we must keep in mind that OpenStack is only one slice of the very large cloud management pie. There will definitely be a need for more robust orchestration services that can service hybrid workloads and clouds, as we have seen from various Telecoms, will be aligned with TOSCA. </p></p>
+
+</notextile>

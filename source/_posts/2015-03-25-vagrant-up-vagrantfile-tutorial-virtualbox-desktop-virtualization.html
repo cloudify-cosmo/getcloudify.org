@@ -1,0 +1,50 @@
+---
+layout: blogpost
+title: Cloudify Laptop Setup Simplified
+image: dewayne.jpg
+author: DeWayne Filppi
+tags:
+ - Vagrant
+ - Cloud Orchestration
+ - Virtualbox
+ - Docker
+ - Workflow Automation
+---
+
+<notextile>
+
+<div class="aligncenter">
+<img src="/img/vagrantup.png" alt="Vagrant Up | Open Source | Vagrant Cloud | VirtualBox Tutorial | Vagrant Tutorial"></div>
+<br/>
+<br/>
+
+
+<h3><strong>Introduction</strong></h3>
+
+As mentioned in my previous post, there is a Vagrant box available that cuts through the complexity of setting up a box yourself.  For convenience, I'll share the steps described elsewhere, with some minor tweaks.  In this way you can have a running Cloudify manager with far fewer steps.
+
+
+<hr>
+
+<span class="pullquote-left">
+  <font style="font-weight: bold" size="5" face="Baskerville Old Face"><em>Cloudify - try it quickly and easily on your desktop. Just <font color="#ff0000" face="Courier New">vagrant up</font> .</em></font>&nbsp; <a class="btn btn-medium btn-theme btn-rounded" id="downloadBtnInner" href="http://getcloudify.org/downloads/get_cloudify.html" target="_blank"><i class="icon-plus"></i> Go </a></span>
+  
+  <hr>
+
+<h3><strong>System Preparation</strong></h3>
+
+You should have at least <strong>2GB of RAM to spare</strong> to run the manager and the blueprint, and preferable more.   To grab the latest <a href="https://www.virtualbox.org/" target="_blank">VirtualBox  </a> and install it.  Once VirtualBox is installed, then install Vagrant as described <a href="https://docs.vagrantup.com/v2/installation/index.html" target="_blank">here</a>.  Create a directory (say "cfy"), and "cd" to it.
+
+<h3><strong>Get And Start The Cloudify Manager Box</strong></h3>
+
+Download this <a href="http://gigaspaces-repository-eu.s3.amazonaws.com/org/cloudify3/3.1.0/ga-RELEASE/Vagrantfile" target="_blank">Vagrantfile</a> to your local directory. Then, run the command:
+<code>vagrant box add http://gigaspaces-repository-eu.s3.amazonaws.com/org/cloudify3/3.1.0/ga-RELEASE/cloudify-virtualbox_3.1.0-ga-b85.box <br/>--name=cloudify-box</code>
+Be patient as the download is large and will take awhile.  Now type:
+<code>vagrant up</code>
+Once Vagrant completes, you have a running Cloudify manager sufficient in size to run the <a href="https://github.com/cloudify-cosmo/cloudify-nodecellar-example" target="_blank">Nodecellar</a> example.  If you have more memory to spare, and want to experiment with larger deployments, you can edit the Vagrantfile and increase the value in the "--memory" line.  You can access your new Cloudify manager either via the web <a href="http://11.0.0.7/#/blueprints">UI</a>, or via command line: "vagrant ssh".
+
+To install the sample Nodecellar application, please refer to the <a href="http://getcloudify.org/guide/3.1/quickstart.html#step-2-ssh-to-the-vagrant-box-and-connect-to-the-running-manager" target="_blank">guide</a> for step by step instructions.
+
+&nbsp;
+
+  </notextile>

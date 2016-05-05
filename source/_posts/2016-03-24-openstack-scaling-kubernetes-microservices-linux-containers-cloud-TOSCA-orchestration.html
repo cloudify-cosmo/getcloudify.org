@@ -1,0 +1,96 @@
+---
+layout: blogpost
+title: Scaling Kubernetes Microservices on OpenStack With TOSCA Orchestration Pt I of II
+image: dewayne.jpg
+author: DeWayne Filppi
+tags:
+ - Cloud Orchestration
+ - Collaboration Summit
+ - Kubernetes
+ - Microservices
+ - TOSCA
+---
+
+<notextile>
+
+<img src="http://getcloudify.org/img/blog/cloudify_kubernetes.png" alt="Collaboration Summit | Linux Foundation | TOSCA Cloud Orchestration | Kubernetes Microservices | Kubernetes Orchestration | Cloud Automation | Kubernetes Cluster">
+<br/>
+<br/>
+
+<p>In a previous <a href="http://getcloudify.org/2015/11/01/openstack-tokyo-summit-kubernetes-cloudify-tosca-nfv-orchestration-microservices.html">post</a>, I converted a Fabric-based plugin implementation to an <a href="http://getcloudify.org/2014/07/10/what-is-openstack-tutorial.html">Openstack</a> agent-based implementation.  In this episode, I finally reached one of the key goals of this long running effort; to automate scaling on Kubernetes using Cloudify native means. The path to this goal leads through some of the more exotic parts of Cloudify (the policy engine), a slightly unorthodox approach to metrics gathering, and makes use of another topic I mentioned awhile back, the <a href="https://github.com/cloudify-examples/cloudify-proxy-plugin">deployment proxy</a>.</p>
+
+<hr>
+<span class="pullquote-left">
+  <font style="font-weight: bold" size="5" face="Baskerville Old Face"><em>Manage and orchestrate containers with Cloudify + Kubernetes. Try it.</em></font>&nbsp; <a class="btn btn-medium btn-theme btn-rounded" id="downloadBtnInner" href="http://getcloudify.org/downloads/get_cloudify.html" target="_blank"><i class="icon-plus"></i> Go </a></span>
+<hr>
+
+<h3><a id="Overview_3"></a>Overview</h3>
+<p>The latest iteration of the Kubernetes plugin adds support for orchetsrations that use the blueprint proxy, which permits a one-to-one correspondence between Cloudify blueprints and Kubernetes-hosted microservices.  The latest version represents a culmination of one of the key goals of the project: hybrid cloud orchestration that support autoscaling Kubernetes.  New features:</p>
+<ul>
+<li>a simple container hosting a Diamond collector to send metrics from the Kubernetes Pod to the Cloudify server.</li>
+<li>extended syntax in the plugin to support multiple Kubernetes descriptors per microservice.  This to support Kubernetes service endpoints across multiple instances of the pod.</li>
+<li>additional logic in the plugin to recognize deployment proxy references, and treat them as though the foreign deployment is actually local.</li>
+<li>a scaling workflow for Kubernetes</li>
+<li>a Cloudify-native scaling algorithm for the embedded Riemann, that ultimately triggers the scaling workflow.</li>
+<li>a multi-blueprint approach using the deployment <a href="https://github.com/cloudify-examples/cloudify-proxy-plugin">proxy</a>.  This results in separated, coordinated blueprints for Kubernetes itself, for the Kubernetes microservice pod, and the MongoDb instance.</li>
+</ul>
+<p>The end result of these features is three orchestrations that work together;  MongoDb running in the cloud (Openstack),  Kubernetes deployed to Openstack; and The Nodecellar Nodejs app <em>and</em> a Diamond collector container deployed as a microservice pod (replication controller) into the Kubernetes instance.  The Diamond collector delivers a count of connections to the Cloudify manager, which scales the number of pod instances in Kubernetes based on the connection count reported by the Diamond collector.  This scenario demonstrates the scope of difficult orchestration problems Cloudify can handle.</p>
+<h3><a id="Digging_A_Little_Deeper_14"></a>Digging A Little Deeper</h3>
+<h4><a id="The_Driving_Vision_15"></a>The Driving Vision</h4>
+<p>The changes in this iteration were driven by the desire to enable a specific hybrid cloud scenario:</p>
+<ol>
+<li>Deploy, configure, and start Kubernetes on multiple nodes.</li>
+<li>Deploy, configure, and start MongoDb on a cloud.</li>
+<li>Deploy a microservice to Kubernetes.</li>
+<li>Autoscale that microservice based on metrics received from the deployed microservice, by delegating to Kubernetes itself.</li>
+</ol>
+<p><img src="http://getcloudify.org/img/kub3-overview.png" alt="solution architecture"></p>
+<h4><a id="Using_the_Deployment_Proxy_23"></a>Using the Deployment Proxy</h4>
+<p>In order to separate the deployment of the microservice (Nodecellar), the deployment proxy was used.  This permitted the overall orchestration to be composed of three blueprints.  Participants in the deployment proxy pattern supply information to other participants via deployment <a href="http://docs.getcloudify.org/3.3.1/blueprints/spec-outputs/">outputs</a>.</p>
+<pre><code class="language-yaml"><span class="hljs-string">outputs:</span>
+<span class="hljs-label">  kubernetes_info:</span>
+<span class="hljs-label">    description:</span> Kuberenetes master info
+<span class="hljs-label">    value:</span>
+<span class="hljs-label">      url:</span> {<span class="hljs-string">concat:</span> [<span class="hljs-string">"http://"</span>,{ <span class="hljs-string">get_attribute:</span> [ master_ip, floating_ip_address ]},<span class="hljs-string">":"</span>,{ <span class="hljs-string">get_property:</span> [ master, master_port ]}]}
+</code></pre>
+<p>Here, the <em>master</em> node in the blueprint is advertised by exposing a URL consisting of its IP address and port.  Inside the microservice blueprint, the master is referenced by a relationship to a proxy node:</p>
+<p>The proxy:</p>
+<pre><code class="language-yaml">  <span class="hljs-attribute">kubernetes_proxy</span>:
+    <span class="hljs-attribute">type</span>: cloudify.nodes.DeploymentProxy
+    <span class="hljs-attribute">properties</span>:
+      <span class="hljs-attribute">inherit_outputs</span>:
+        - <span class="hljs-string">'kubernetes_info'</span>
+</code></pre>
+<p>The reference:</p>
+<pre><code class="language-yaml">  nodecellar:
+    type: cloudify<span class="hljs-class">.kubernetes</span><span class="hljs-class">.Microservice</span>
+    relationships:
+      - type: cloudify<span class="hljs-class">.kubernetes</span><span class="hljs-class">.relationships</span><span class="hljs-class">.connected_to_master</span>
+        target: kubernetes_proxy
+</code></pre>
+<p>The <code>cloudify.kubernetes.relationships.connected_to_master</code> relationship understands a both internal and proxy targets.  The function of the relationship is simply to collect the IP and port of the Kubernetes master.</p>
+<h4><a id="Enhancing_the_Microservice_Syntax_53"></a>Enhancing the Microservice Syntax</h4>
+<p>Once the <code>Microservice</code> node has the information about the Kubernetes master, it needs to identify the Kubernetes descriptor files that the microservice consists of.  In the case of the example blueprint, this consists of a <code>ReplicationController</code> descriptor (<code>pod.yaml</code>), and a <code>Service</code> descriptor (<code>service2.yaml</code>).</p>
+<pre><code class="language-yaml">nodecellar:
+    type: cloudify.kubernetes.Microservice
+    properties:
+        config_files:
+        - file: pod.yaml
+          overrides:
+            - <span class="hljs-string">"<span class="hljs-subst">['spec']</span><span class="hljs-subst">['template']</span><span class="hljs-subst">['spec']</span><span class="hljs-subst">['containers']</span><span class="hljs-subst">[0]</span><span class="hljs-subst">['env']</span><span class="hljs-subst">[1]</span><span class="hljs-subst">['value']</span> = '@{mongo_proxy,mongo_info,ip}'"</span>
+            - <span class="hljs-string">"<span class="hljs-subst">['spec']</span><span class="hljs-subst">['template']</span><span class="hljs-subst">['spec']</span><span class="hljs-subst">['containers']</span><span class="hljs-subst">[0]</span><span class="hljs-subst">['env']</span><span class="hljs-subst">[2]</span><span class="hljs-subst">['value']</span> = '@{mongo_proxy,mongo_info,port}'"</span>
+            - <span class="hljs-string">"<span class="hljs-subst">['spec']</span><span class="hljs-subst">['template']</span><span class="hljs-subst">['spec']</span><span class="hljs-subst">['containers']</span><span class="hljs-subst">[1]</span><span class="hljs-subst">['env']</span><span class="hljs-subst">[0]</span><span class="hljs-subst">['value']</span> = '%{management_ip}'"</span>
+            - <span class="hljs-string">"<span class="hljs-subst">['spec']</span><span class="hljs-subst">['template']</span><span class="hljs-subst">['spec']</span><span class="hljs-subst">['containers']</span><span class="hljs-subst">[1]</span><span class="hljs-subst">['env']</span><span class="hljs-subst">[2]</span><span class="hljs-subst">['value']</span> = '%{deployment.id}'"</span>
+            - <span class="hljs-string">"<span class="hljs-subst">['spec']</span><span class="hljs-subst">['template']</span><span class="hljs-subst">['spec']</span><span class="hljs-subst">['containers']</span><span class="hljs-subst">[1]</span><span class="hljs-subst">['env']</span><span class="hljs-subst">[3]</span><span class="hljs-subst">['value']</span> = '%{node.id}'"</span>
+            - <span class="hljs-string">"<span class="hljs-subst">['spec']</span><span class="hljs-subst">['template']</span><span class="hljs-subst">['spec']</span><span class="hljs-subst">['containers']</span><span class="hljs-subst">[1]</span><span class="hljs-subst">['env']</span><span class="hljs-subst">[4]</span><span class="hljs-subst">['value']</span> = '%{instance.id}'"</span>
+        - file: service2.yaml
+</code></pre>
+<p>To support the needs of the Diamond collector, a special syntax was added to the <code>overrides</code> section parser.  Tokens bracketed by <code>%{</code> and <code>}</code> are evaluated by treating them as fields in the plugin context object.  For example <code>%{deployment.id}</code> is evaluated as <code>ctx.deployment.id</code> during the plugin execution.  A special identifier <code>%{management_ip}</code> causes the IP address of the management node to be substituted.  These syntax conventions (along with the <code>@{}</code> syntax) are a little ugly, but serve the purpose.  As before, The purpose of the overrides is to permit unchanged Kubernetes descriptors to be used in a blueprint.
+The <code>ReplicationController</code> descriptor defines a Kubernetes pod that refers to containers with Node.js and the Nodecellar app, along with a container that runs a very simple Diamond collector that counts the number of connections to the Nodecellar port and forwards the metrics to the Cloudify server.</p>
+<h4><a id="Collecting_metrics_73"></a>Collecting metrics</h4>
+<p>The actual collections of the metrics, pushing the metrics into the Cloudify server Rabbitmq instance, processing the metrics in a Riemann event stream, and triggering the scaling of Kubernetes, is left to my next post.</p>
+<h3><a id="Conclusion_76"></a>Conclusion</h3>
+<p>Creating a hybrid orchestration that demonstrates a full range of Cloudify capabilities has been the goal of the Kubernetes plugin effort.  The effort has culminated in a plugin and blueprint that demonstrates full lifecycle management and coordination of Kubernetes, Kubernetes microservices, and Cloud services, including arbitrary metric triggering of automatic scaling behavior.  The next post will dig into the metric gathering and scaling mechanisms.  The code is on <a href="https://github.com/cloudify-examples/cloudify-kubernetes/tree/master/openstack-proxy-example">github</a>. As always, comments are welcome.</p>
+
+
+</notextile>
