@@ -19,10 +19,7 @@ tags:
 
 <p>In a previous <a href="http://getcloudify.org/2015/11/01/openstack-tokyo-summit-kubernetes-cloudify-tosca-nfv-orchestration-microservices.html">post</a>, I converted a Fabric-based plugin implementation to an <a href="http://getcloudify.org/2014/07/10/what-is-openstack-tutorial.html">Openstack</a> agent-based implementation.  In this episode, I finally reached one of the key goals of this long running effort; to automate scaling on Kubernetes using Cloudify native means. The path to this goal leads through some of the more exotic parts of Cloudify (the policy engine), a slightly unorthodox approach to metrics gathering, and makes use of another topic I mentioned awhile back, the <a href="https://github.com/cloudify-examples/cloudify-proxy-plugin">deployment proxy</a>.</p>
 
-<hr>
-<span class="pullquote-left">
-  <font style="font-weight: bold" size="5" face="Baskerville Old Face"><em>Manage and orchestrate containers with Cloudify + Kubernetes. Try it.</em></font>&nbsp; <a class="btn btn-medium btn-theme btn-rounded" id="downloadBtnInner" href="http://getcloudify.org/downloads/get_cloudify.html" target="_blank"><i class="icon-plus"></i> Go </a></span>
-<hr>
+{% include blogcta_kubernetes.html %}
 
 <h3><a id="Overview_3"></a>Overview</h3>
 <p>The latest iteration of the Kubernetes plugin adds support for orchetsrations that use the blueprint proxy, which permits a one-to-one correspondence between Cloudify blueprints and Kubernetes-hosted microservices.  The latest version represents a culmination of one of the key goals of the project: hybrid cloud orchestration that support autoscaling Kubernetes.  New features:</p>

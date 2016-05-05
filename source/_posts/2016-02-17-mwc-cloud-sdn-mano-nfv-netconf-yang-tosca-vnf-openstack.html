@@ -21,12 +21,7 @@ tags:
 
 <p>YANG originated as the data modeling language for the NETCONF protocol, similarly to SMI for the SNMP protocol. In fact, <a href="http://getcloudify.org/2015/05/17/TOSCA-NFV-orchestration-SDN-VNF-network-function-virtualization-netconf-yang.html" target="_blank">NETCONF</a> is considered by many as the  potential successor for SNMP. As such, NETCONF is used to configure and interact with (both physical and virtual) network devices such as routers, firewalls and switches.</p>
 
-<hr>
-
-<span class="pullquote-left">
-  <font style="font-weight: bold" size="5" face="Baskerville Old Face"><em>Cloudify - built for NFV, SDN, service chaining - the works. Get it.</em></font>&nbsp; <a class="btn btn-medium btn-theme btn-rounded" id="downloadBtnInner" href="http://getcloudify.org/downloads/get_cloudify.html" target="_blank"><i class="icon-plus"></i> Go </a></span>
-  
-<hr>
+{% include blogcta_nfv.html %}
 
 <p><a href="http://getcloudify.org/2015/07/21/what-is-TOSCA-cloud-application-orchestration-tutorial-cloudify.html" target="_blank">TOSCA</a>, in the context of <a href="http://getcloudify.org/network-function-virtualization-vnf-nfv-orchestration-sdn-platform.html" target="_blank">NFV</a>, is a language that enables data modeling as well, however that is not its primary use case (it is only a byproduct of the way it was written - being very flexible).  TOSCA’s primary uses is its focus on topology and workflows, processes, and policies.  Therefore, when you want to manage the full lifecycle of orchestration in an NFV use case, you usually have to start with provisioning VIM resources, next deploy software components and VNFs, then wire them in and push configurations to these devices to make everything work, and chain them to other services as needed.</p>
 
