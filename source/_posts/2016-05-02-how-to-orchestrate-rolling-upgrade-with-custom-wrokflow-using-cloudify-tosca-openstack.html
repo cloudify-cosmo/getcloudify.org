@@ -106,7 +106,7 @@ tags:
 <pre class="sourceCode yaml"><code class="sourceCode yaml"><span class="fu">upgradeable_webapp:</span>
   <span class="fu">derived_from:</span> cloudify.nodes.Root
     <span class="fu">interfaces:</span>
-      <span class="fu">cloudify.interfaces.webapp_upgrade:</span>
+      <span class="fu">webapp_upgrade:</span>
         <span class="fu">upgrade:</span> <span class="kw">{}</span>
         <span class="fu">rollback:</span> <span class="kw">{}</span></code></pre>
 <p>The interface is defined inside a base type (in <code>blueprint/types/upgrade.yaml</code>) that concrete implementations (e.g. <code>nodejs.nodes.NodeJSApplicationModule</code>) derive from. The example implementation is for a very specific Nodejs scenario, and simplistic versioning scheme that also involves a file naming convention to identify versions. The <code>upgrade</code> operation is passed the version number and url for the new webapp. If the webapp is already (or beyond) the specified version, the upgrade request is ignored, otherwise it is honored. In addition to upgrading, it saves away the current version for potential future rollbacks. The <code>rollback</code> operation simply takes the previously saved version and restores it. There is only one level of rollback supported in the example.</p>
