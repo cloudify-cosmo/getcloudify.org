@@ -1,0 +1,104 @@
+---
+layout: blogpost
+title: How to Orchestrate Rolling Upgrades With A Custom Workflow Using Cloudify and TOSCA
+image: dewayne.jpg
+author: DeWayne Filppi
+tags:
+ - Cloud Orchestration
+ - OpenStack Orchestration
+ - TOSCA
+ - Cloudify
+ - Cloud Automation
+---
+
+<notextile>
+
+<img src="http://getcloudify.org/img/blog/cloudifygearsheader.png" alt="OpenStack Cloud Orchestration | Upgrade Rollback | TOSCA Orchestration | Cloud Automation | TOSCA | OpenStack Summit">
+<br/>
+<br/>
+
+<h2 id="roll-your-own-upgrade-with-a-custom-workflow">Roll Your Own Upgrade With A Custom Workflow</h2>
+<p>One of the differentiators in the marketplace for Cloudify is its ability to automate complex post deployment tasks. One such task is a rolling upgrade of software in a web server content. This is a multi-step process that typically involves a coordinated dance between the loadbalancer and the web servers, along with the installation of new content and possibly restarting services. This post is about a sample implementation of a workflow to automate the process of a zero downtime upgrade of such load balanced resources.</p>
+
+<hr>
+<span class="pullquote-left">
+  <font style="font-weight: bold" size="5" face="Baskerville Old Face"><em>Try the Kubernetes Orchestration as a Service Tool today!</em></font>&nbsp; <a class="btn btn-medium btn-theme btn-rounded" id="downloadBtnInner" href="http://getcloudify.org/downloads/get_cloudify.html" target="_blank"><i class="icon-plus"></i> Go </a></span>
+<hr>
+
+
+<h2 id="the-manual-process">The Manual Process</h2>
+<p>It is always a useful (probably essential) exercise in any kind of automation to precisely define the manual steps necessary to accomplish the end goal, and only then attempt automation. In order to have a more precise description of the process, it is helpful to target a specific technology stack rather than deal in generalizations. In this simplified walkthrough, we will use our old friend the Nodecellar demo, the [version)(https://github.com/cloudify-cosmo/cloudify-nodecellar-example/tree/3.3.1-build) that includes an HAProxy front end. The stack looks like:</p>
+<div class="aligncenter">
+<img src="http://getcloudify.org/img/blog/haproxystack.png">
+</div>
+<p>To perform an upgrade, we'll need to follow this basic algorithm: * Identify the nodes that we want to upgrade. * For each node * Remove the node from the load balancer * Upgrade the node, possibly restarting * Add the node to the load balancer</p>
+<p>For this example we'll add a few additional requirements (that don't alter the basic algorithm) * Add a version identifier to the process. If the version isn't newer than the already deployed s/w, ingnore it. * During the upgrade process, have each node save the previous version to permit rollback. * Add a parameter to the upgrade, &quot;percentage&quot;, that only upgrades a portion of the candidate nodes (for canary-style deployments). * Add a parameter to the upgrade, &quot;delay&quot;, that will cause a pause between upgrades.</p>
+<h2 id="a-cloudifytosca-oriented-design">A Cloudify/TOSCA Oriented Design</h2>
+<p>TOSCA models deployments as graphs of nodes, which each node being a component that you might desire to orchestrate. As such, things such as load balancers, web servers, network components ( routers, networks, subnets), security constructs, applications, or really anything else you can think of. Node types can be created as needed; there is no fixed set of types. It also defines arbitrary relationships between the nodes, including dependency relationships. It is this graph of nodes that an &quot;install&quot; workflow traverses, orders, and uses to locate and execute related code (VM creation, for example). Our model needs a new workflow, we'll call it <code>webapp_upgrade</code>. Workflows have total visibility over the models they operate on. In this case, we need to operate on a very simple model, as described above. The workflow will implement the algorithm previously described. Let's reconsider it with a TOSCA frame of mind:</p>
+<ul>
+<li><strong>Identify the nodes we want to upgrade.</strong> TOSCA (and Cloudify naturally) defines a concept of <em>interface</em>. An interface defines operations that can be executed on nodes. In our case, we will be upgrading applications on web servers, so we'll define a new type called <code>nodejs.nodes.NodeJSApplicationModule</code>. Our new workflow will look for these nodes. But rather than hard code the node type name in the workflow, we'll define a new interface that the workflow can look for: <code>webapp_upgrade</code>. This interface will define two operations to support the workflow: <code>upgrade</code> and <code>rollback</code>.</li>
+<li><strong>For each node</strong></li>
+<li><strong>Remove the node from the load balancer.</strong> The existence of a load balancer is a given for this workflow. This implies that there will be a <em>connected</em>to_ relationship from the apps to the load balancer. So in order to remove the node from the load balancer, we'll just execute the operation associated with that relationship that disconnects a balancer target. Normally this code is only executed by the install process; but we can reuse it to make the workflow less coupled to the implementation.</li>
+<li><strong>Upgrade the node, possibly restarting.</strong> This will be done by the code that will be associated with the new interface we've described. Recall that the upgrade request may be ignored based on the version. Since we'll be using the interface, the workflow will have no dependency on the particular algorithm that an implementer might use. One such detail is whether the web server needs to be restarted, and details about the version id scheme.</li>
+<li><strong>Add the node to the load balancer.</strong> Here we'll resuse the same concept from the &quot;remove node&quot; step. We'll execute the operation that establishes a link between the load balancer, thereby re-adding it.</li>
+</ul>
+<h2 id="a-cloudify-sample-blueprint-implementation-walkthrough">A Cloudify Sample Blueprint Implementation Walkthrough</h2>
+<p>A sample implementation of the design is <a href="http://github.com/cloudify-examples/cloudify-rolling-upgrade.git">here</a>. For the sake of simplicity, it is implemented entirely using the <a href="http://docs.getcloudify.org/3.3.1/plugins/script/">script plugin</a>. Creating a Cloudify <a href="http://docs.getcloudify.org/3.3.1/plugins/creating-your-own-plugin">plugin</a> from the code would make it more reusable, if that were needed. The sample runs on Openstack. ### The Model The model/blueprint is in the file <code>openstack-blueprint.yaml</code>. Among the node definitions in the <code>node_templates</code> section are the two nodes of most interest here: <code>haproxy</code> and <code>nodejs_app</code>. The <code>haproxy</code> node represents the load balancer we'll need to update, and <code>nodejs_app</code> is the application to be updated. Note that <code>nodejs_app</code> has a relationship (<code>app_connected_to_haproxy</code>) that connects it to the <code>haproxy</code> node. This is the relationship that the workflow will manipulate. The <code>nodejs_app</code> node has a type of <code>nodejs.nodes.NodeJSApplicationModule</code>. This type is defined in the <em>types/nodejs.yaml</em> file. Here you can see it derives from a type named <code>upgradeable_webapp</code>, and finally <code>upgradeable_webapp</code> implements the interface <code>webapp_upgrade</code>. This is the interface discussed earlier that our new workflow will look for.</p>
+<pre class="sourceCode yaml"><code class="sourceCode yaml">  <span class="fu">upgradeable_webapp:</span>
+    <span class="fu">derived_from:</span> cloudify.nodes.Root
+    <span class="fu">interfaces:</span>
+      <span class="fu">webapp_upgrade:</span>
+        <span class="fu">upgrade:</span> <span class="kw">{}</span>
+        <span class="fu">rollback:</span> <span class="kw">{}</span></code></pre>
+<p>Back in the <code>nodejs.nodes.NodeJSApplicationModule</code>, the implementation for the interface is defined. We'll go through the implementation later.</p>
+<pre class="sourceCode yaml"><code class="sourceCode yaml"><span class="fu">webapp_upgrade:</span>
+  <span class="fu">upgrade:</span>
+    <span class="fu">implementation:</span> <span class="st">&quot;scripts/nodejs/upgrade.py&quot;</span>
+    <span class="fu">inputs:</span>
+      <span class="fu">version:</span>
+        <span class="fu">description:</span> version upgrading to (float)
+  <span class="fu">rollback:</span>
+    <span class="fu">implementation:</span> <span class="st">&quot;scripts/nodejs/rollback.py&quot;</span></code></pre>
+<h3 id="the-workflow-definition">The Workflow Definition</h3>
+<p>The workflow is also defined in the <code>openstack-blueprint.yaml</code> file at the bottom:</p>
+<pre class="sourceCode yaml"><code class="sourceCode yaml"><span class="fu">workflows:</span>
+  <span class="fu">webapp_upgrade:</span>
+    <span class="fu">mapping:</span> scripts/upgrade_workflow.py
+    <span class="fu">parameters:</span>
+      <span class="fu">version:</span>
+        <span class="fu">description:</span> version of upgraded app.  An float for easy comparison
+      <span class="fu">url:</span>
+        <span class="fu">description:</span> location of app
+      <span class="fu">pause:</span>
+        <span class="fu">description:</span> number of seconds to pause between each instance upgrade
+        <span class="fu">default:</span> 0
+      <span class="fu">percentage:</span>
+        <span class="fu">description:</span> optional to perform a/b upgrade
+        <span class="fu">default:</span> 100
+      <span class="fu">lb_relationship:</span>
+        <span class="fu">description:</span> the relationship name for the load balancer connection
+        <span class="fu">default:</span> cloudify.relationships.connected_to</code></pre>
+<p>The <code>mapping</code> key points to the implementation in the <code>scripts/upgrade_workflow.py</code> file. Here we find the algorithm implementation. The main loop looks at all node instances, and looks for those derived from the specified interface (<code>cloudify.relationships.connected_to</code>). ### The Interface Definition and Implementation In order to make the upgrade process generic, a means of abstracting the upgrading and rollback processes on the target node(s). In TOSCA, this is done by defining an interface. The interface here will have two operations (as mentioned earlier): update and rollback.</p>
+<pre class="sourceCode yaml"><code class="sourceCode yaml"><span class="fu">upgradeable_webapp:</span>
+  <span class="fu">derived_from:</span> cloudify.nodes.Root
+    <span class="fu">interfaces:</span>
+      <span class="fu">huawei.interfaces.webapp_upgrade:</span>
+        <span class="fu">upgrade:</span> <span class="kw">{}</span>
+        <span class="fu">rollback:</span> <span class="kw">{}</span></code></pre>
+<p>The interface is defined inside a base type (in <code>blueprint/types/upgrade.yaml</code>) that concrete implementations (e.g. <code>nodejs.nodes.NodeJSApplicationModule</code>) derive from. The example implementation is for a very specific Nodejs scenario, and simplistic versioning scheme that also involves a file naming convention to identify versions. The <code>upgrade</code> operation is passed the version number and url for the new webapp. If the webapp is already (or beyond) the specified version, the upgrade request is ignored, otherwise it is honored. In addition to upgrading, it saves away the current version for potential future rollbacks. The <code>rollback</code> operation simply takes the previously saved version and restores it. There is only one level of rollback supported in the example.</p>
+<h3 id="the-workflow-implementation">The Workflow Implementation</h3>
+<p>The workflow implementation is in the <code>scripts/upgrade_workflow.py</code> file. The algorithm has been covered above, but a few points of potential interest for aspiring workflow writers are worth covering. #### Identifying Target Nodes for Upgrade A key part of the algorithm is figuring out which nodes will be actually upgraded (their upgrade operation called). In the <code>get_targets</code> function, a simple loop discovers the target nodes by looping through the instances:</p>
+<pre class="sourceCode python"><code class="sourceCode python">  <span class="kw">for</span> node in ctx.nodes:
+    <span class="kw">if</span>(<span class="st">&quot;webapp_upgrade.rollback&quot;</span> in node.operations):
+      <span class="kw">for</span> instance in node.instances:
+        targets.append(instance)
+  <span class="kw">return</span> targets</code></pre>
+<p>Note that workflows have visibility of the entire deployment and all of it's instances. Contrast this with plugins, which are typically supplied with visibility only on a specific node or node relationship pair. The logic is a typical nested loop that looks for the &quot;rollback&quot; operation in order to identify the interface.<br />#### Processing The Instances Once the instances have been identified, the main algorithm kicks in. The first step is to remove target instances based on the supplied <code>percentage</code> parameter. Then each node is upgraded by first removing the node from the load balancer by exploiting the TOSCA relationship and the <code>cloudify.interfaces.relationship_lifecycle.unlink</code> interface operation:</p>
+<pre class="sourceCode python"><code class="sourceCode python">    <span class="kw">for</span> rel in instance.relationships:
+      <span class="kw">if</span>(rel.relationship.is_derived_from(p[<span class="st">&#39;lb_interface&#39;</span>])):
+        ctx.logger.info(<span class="st">&quot;unlinking {}</span><span class="ch">\n</span><span class="st">&quot;</span>.<span class="dt">format</span>(instance.<span class="dt">id</span>))
+        ret=rel.execute_target_operation(<span class="st">&quot;cloudify.interfaces.relationship_lifecycle.unlink&quot;</span>)
+        <span class="kw">break</span></code></pre>
+<p>As mentioned previously, <em>all</em> of the deployment is visible via the workflow context, and that includes relationships. Next the node is actually upgraded by calling the <code>upgrade</code> operation:</p>
+<pre class="sourceCode python"><code class="sourceCode python">instance.execute_operation(<span class="st">&quot;webapp_upgrade.upgrade&quot;</span>,kwargs={<span class="st">&quot;version&quot;</span>:p[<span class="st">&quot;version&quot;</span>],<span class="st">&quot;url&quot;</span>:p[<span class="st">&quot;url&quot;</span>]})</code></pre>
+<p>Note the <code>version</code> being passed from the workflow parameters to the actual operation. After the upgrade of the instance, it is restored to the load balancer by executing the <code>establish</code> operation from the <code>relationship_lifecycle</code> interface. #### Rolling Back The logic for rolling back instances is interleaved in the upgrade logic because the process is virtually identical, except that <code>rollback</code> is called instead of upgrade. ## Conclusion Many discussions about Cloudify revolve around how it can deploy onto multiple cloud platforms in a standards based manner, and perform automated operations such as auto-healing and auto-scaling. Often the ability of the platform to execute complex custom workflows on previously deployed systems is overlooked. This post demonstrated the implementation of a generic framework for rolling upgrades, and a specific simple implementation that updates a webapp running on NodeJS. The example is easily extensible for other load balanced resources, and illustrates the power of custom workflow capability of Cloudify. The code is available on <a href="http://github.com/cloudify-examples/cloudify-rolling-upgrade.git">github</a>. As always, comments are welcome.</p>
