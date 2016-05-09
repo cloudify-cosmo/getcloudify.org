@@ -1,0 +1,56 @@
+---
+layout: blogpost
+title: An NFV Customer Use Case on Creating Custom Workflows With Cloudify and TOSCA
+image: yoram.jpeg
+author: Yoram Weinreb
+tags: 
+ - NFV
+ - SDN
+ - TOSCA
+ - Cloudify
+ - MANO
+---
+
+<notextile>
+
+<img src="http://getcloudify.org/img/blog/nfvtosca.png" alt="NFV TOSCA | SDN | ETSI MANO | Cloud Orchestration | Open Source Orchestration Tools | Network Functions Virtualization | VNF | Cloudify" width="100%">
+<br/>
+<br/>
+
+<p>Recently, I worked with a prospect in the NFV domain who had quite a complex topology. They wished to orchestrate with TOSCA in an environment that included dozens of different VMs with different roles. In addition, there were many different networks, and some of the VMs had multiple ports on different networks.</p>
+
+<p>When we discussed the use case, the prospect was looking to define a &ldquo;complete&rdquo; topology blueprint, but instantiate it in steps, or rather, be able to control which subset of nodes will be created and installed, and later, build on top of it and deploy an additional subset of nodes.</p>
+
+<hr>
+
+<span class="pullquote-left">
+  <font style="font-weight: bold" size="5" face="Baskerville Old Face"><em>Intelligent NFV orchestration for any telecom environment. Download today.</em></font>  <a class="btn btn-medium btn-theme btn-rounded" id="downloadBtnInner" href="http://getcloudify.org/downloads/get_cloudify.html" target="_blank"><i class="icon-plus"></i> Go </a></span>
+  
+  <hr>
+
+<p>Cloudify&rsquo;s built-in &ldquo;install&rdquo; workflow traversed the entire topology and instantiated the nodes based on the dependency graph implied by the blueprint. This fits many use cases, but was not a good fit with this prospects specific use case.</p>
+
+<p>Cloudify lets you express such workflows with its custom workflow feature. Custom workflows are implemented using plugins, typically in python. Cloudify injects into these custom workflow methods a context that gives the workflow developer a handle to the blueprint topology and allows the developer to traverse the nodes and their relationships.</p>
+
+<p>Pleased with the good fit between the requirements and custom workflow functionality, we went on to define the specific workflows we would need:<br />
+ <br />
+<strong><i>Install_subset(subset_name, nodes, install_dependencies=True)</i></strong></p>
+
+<p>This takes a list of nodes and checks dependencies to make sure they are not dependent on nodes that are running. If there are such nodes, it will either start them by default as well <code>install_dependencies=True</code> or fail the workflow during validation phase due to unmet dependencies <code>install_dependencies=False</code>.</p>
+
+<p>The nodes that were started will be tagged with the <code>subset_name</code> parameter.</p>
+
+<p><strong><i>Uninstall_subset(subset_name)</i></strong></p>
+
+<p>This takes a <code>subset_name</code> for a subset that was installed with the &ldquo;Install_subset&rdquo; workflow, checks dependencies to make sure that by uninstalling the subset group of nodes, no dependencies are left unmet for running nodes afterwards (i.e. if node A is connected to node B and node B is about to be uninstalled by the workflow, if node A is not in the subset of nodes for &ldquo;uninstall&rdquo;, the workflow will fail - node A can run without node B).</p>
+
+<p><script src="https://gist.github.com/yoramw/9be78f81363c9a007b5bf8d8625840f3.js"></script></p>
+
+<p>The implementation code is quite straightforward. It first validates the dependencies, then uses the lifecycle &ldquo;install&rdquo; operation to get the subset installed and, finally, tags the affected nodes with the subset name that was given:<br />
+<script src="https://gist.github.com/yoramw/0b9cd746c1bb0872e75c05cdce2fceaa.js"></script></p>
+
+<p>In order to use a custom workflow, a plugin.yaml file with the plugin declaration and pointer to the plugin archive has to be imported for the blueprints that want to add the &ldquo;install&rdquo; and &ldquo;uninstall&rdquo; subset workflows. No other change is needed.</p>
+
+<p>After going through the implementation and starting to use the new custom workflows, I think they can be quite useful for other use cases, too. Who knows, maybe one day we will include them as built-in workflows without the need to import anything.</p>
+
+</notextile>
