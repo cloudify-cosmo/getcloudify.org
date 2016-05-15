@@ -1,0 +1,114 @@
+---
+layout: blogpost
+title: Making TOSCA Truly Portable
+image: nati.png
+author: Nati Shalom
+tags:
+ - Cloud Orchestration
+ - NFV Orchestration
+ - TOSCA
+ - Kubernetes
+ - Open Source
+---
+
+<notextile>
+
+<img src="http://getcloudify.org/img/blog/toscaheader.png" alt="TOSCA | openstack | openstack tosca | openstack orchestration | NFV | Open Source Cloud Automation | Cloud Orchestration Tools | Telecom Open Source | Kubernetes | Containers">
+<br/>
+<br/>
+
+
+<p><b></b>
+
+<p style="float:left">Over the past few months I&rsquo;ve been involved in various forums and discussion on what the right approach should be for achieving a common <a href="http://getcloudify.org/2015/06/11/orchestration-docker-cloud-automation-openstack-heat-tosca-kubernetes.html">orchestration</a> modeling language.<br>
+
+<br>I felt that while there&rsquo;s a growing consensus that <a href="http://getcloudify.org/2014/12/21/oasis-TOSCA-cloud-openstack-heat-orchestration-spec.html">TOSCA</a> is currently best positioned to fit the bill, most notably in the <a href="http://getcloudify.org/2015/05/17/TOSCA-NFV-orchestration-SDN-VNF-network-function-virtualization-netconf-yang.html">NFV</a> space, there are still different views on what should be the right approach to implement the standard. Some view TOSCA simply as an abstraction layer able to wrap any orchestration framework and by that provide a standard modeling on top of proprietary modeling languages.</p>
+
+<img src="http://getcloudify.org/img/blog/toscaportability.png">
+
+<hr>
+
+<span class="pullquote-left">
+  <font style="font-weight: bold" size="5" face="Baskerville Old Face"><em>Get our free NFV White Paper today.</em></font>&nbsp; <a class="btn btn-medium btn-theme btn-rounded" href="http://getcloudify.org/network-function-virtualization-vnf-nfv-orchestration-sdn-platform.html#dtag" target="_blank"><i class="icon-plus"></i> Go </a></span>
+
+<hr>
+
+<p>Some view TOSCA as more than a language or abstraction layer, that represents a whole new set of philosophies on how to truly build portable orchestration.</p>
+
+<p>Regardless of the approach, I think that most people would agree that the main promise of TOSCA is in its portability.</p>
+
+<p>In this post, I wanted to examine more closely which of the approaches is best suited to enable true portability.</p>
+<h2>The state of TOSCA &amp; the promise of portability</h2>
+<p><a href="https://www.oasis-open.org/committees/tosca/">TOSCA</a> is at the center of many of the new open NFV focused orchestration projects such as Cloudify, Tacker, Open-O, OSM just to name a few, and is quickly becoming the clear winner of common orchestration modeling languages in the Telecom NFV domain.</p>
+
+<p>For those choosing TOSCA, one of the primary highlights is its promise of portability through its inherent technology agnosticism, by providing a common modeling language that can be ported across different clouds, and even orchestration frameworks. This much-coveted portability proclamation, at least theoretically, will allow users to define their application once and then run it anywhere. That said, the reality is that most of the orchestration tools that claim to support TOSCA are not really fully compatible with the specification yet.</p>
+
+<p>More importantly the true value of portability isn&rsquo;t just achieved by reducing lock-in, but also by enabling a greater degree of collaboration - let me explain:</p>
+<h2>Portability - The big picture</h2>
+<p>To fully understand the value of having a common standard and a portable deployment model, I would like to use what I believe to be a useful analogy from the manufacturing industry.</p>
+
+<p><a href="https://en.wikipedia.org/wiki/Computer-aided_manufacturing">Computer Aided Design</a> (CAD) provided a common modeling language to describe the manufacturing of parts. Having a common modeling language enabled much more advanced collaboration in the globalization era. It enabled different companies to define a product design in one part of the globe, and then simply and cost efficiently manufacture it on the other side of the world - exactly as originally designed. This sort of collaboration was the enabler of a revolution in design, and made it possible to manufacture much larger and complex systems such as <a href="http://boeing.mediaroom.com/2013-09-18-Boeing-Celebrates-Global-Supplier-Partners-as-787-9-Dreamliner-Completes-First-Flight">Boeing Dreamliner&nbsp; 787</a> <strong><em>at scale</em></strong>.</p>
+
+<div class="aligncenter"><img src="http://getcloudify.org/img/blog/boeing.png"></div>
+
+<p><em>&ldquo;</em><em>The 787 program has more than 50 Tier 1 partners located around the world, including in the United States, Australia, Canada, France, Germany, Italy, Japan, Russia and the United Kingdom. There are suppliers to the 787 program in 38 U.S. states, including significant contributions from California, Kansas, Ohio, Oklahoma, South Carolina and Washington. In all, suppliers to the 787 program are located in 19 countries and were selected based on their ability to do the work with high quality, affordability and reliability.&rdquo;</em></p>
+
+<p>The IT industry is now undergoing a similar industrial revolution to the one the manufacturing industry underwent couple of decades ago already.&nbsp; As with the manufacturing industry the lack of a common modeling language was a major inhibitor that limited the scale and speed at which the IT or NFV industries are able to collaborate, and consequently innovate.</p>
+
+<p>When we think of portability in this context, it becomes clear that not having true portability is simply not a&nbsp; viable option.</p>
+<h2>Comparing portability approaches - TOSCA abstraction vs. Common Language Runtime&nbsp; (CLR)</h2>
+<p>There are two main approaches for handling TOSCA portability that can be classified as follows:</p>
+
+<ul>
+<li><strong>TOSCA Abstraction</strong> - In this option we rely on TOSCA as a spec and let each provider implement the spec in their own way.</li>
+<li><strong>Common Runtime</strong> - The other approach is having a common language runtime in which we use not just a common spec but also a common runtime that implements the TOSCA spec.</li>
+</ul>
+
+<p>To compare which of the two approaches is best suited to deliver the portability promise I would start by looking at how other languages handles the portability challenge.</p>
+<h3><strong>Lessons from the past on language portability - (C++ vs. Java) </strong></h3>
+<h4>Common language specification - different runtime</h4>
+<p>C++ is a good example for the first approach. We have a common spec and different providers implemented their own compiler that follows that spec. The result of that experiment is that C++ never really achieved true portability. Only when GCC became the common compiler, did we ultimately get much closer to true portability in Linux.&nbsp;</p>
+<p><h4>Common runtime and spec</h4></p>
+<p>Java on the other hand was born on the promise of portability - &ldquo;write once run anywhere&rdquo;. The reason why Java was much more successful than C++ in this regard is the use of a common runtime (JVM), which provided a common substrate for executing the Java bytecode format and the Java language. On top of this, the ability to define a clear separation between the Java language and the common runtime made the Java runtime a great platform for supporting multiple languages in addition&nbsp; to Java, at a later stage.</p>
+<p><h4>What can we learn from C++ and Java ?</h4></p>
+<p>TOSCA is a DSL and comes with many characteristics of a true language such as interfaces, inheritance etc.&nbsp; The lessons from the C++ and Java experience is therefore a useful lesson when we look for the right option for achieving true portability with TOSCA.</p>
+
+<p>Based on this analogy, I would argue that if we want to achieve true portability we shouldn&rsquo;t solely rely on a common spec, but rather allow each provider to implement the spec all while relying on a common runtime that implements the spec. By doing so we ensure that there's going to be one common way to interpret the spec, especially in areas where the spec is vague (and theres are still many of those areas). It is also important though to provide a useful platform to feed the spec with new features, this however should only be after they have been tested and validated. Without a common runtime it&rsquo;s going to be much harder to experiment with new features before they become part of the spec.</p>
+
+<h2>Using a common runtime with other orchestration engines and data models</h2>
+
+<p>The challenge with having a common orchestration runtime is that while a common runtime may provide a common way to interpret the spec it may be limited by its ability to support other orchestration platforms. In the complex world of IT we cannot assume that there will forever be a single orchestration engine that will rule them all, and we need to have a way to integrate with other orchestration platforms.&nbsp; Some examples are network orchestration (ODL), data modeling languages such as (<a href="http://getcloudify.org/2015/01/07/VNF-network-function-virtualization-netconf-yang-NFV.html">YANG</a>) or container orchestration such as <a href="http://getcloudify.org/2015/10/26/openstack-tokyo-summit-kubernetes-cloudify-tosca-nfv-orchestration-microservices.html">Kubernetes</a>.</p>
+
+<p>There are multiple ways in which this can ultimately be achieved.</p>
+
+<h2>Using TOSCA as an abstraction layer</h2>
+<p>In this way, we use can the TOSCA DSL (without the common runtime) and integrate it as an abstraction layer on top of other orchestration API.</p>
+
+<p>The challenge with this approach is that by doing so we can only achieve limited portability as this leaves a high degree of freedom for interpreting the spec which ultimately results in different ways of actually applying portability in the real world. In addition, the complexity of adding TOSCA support for systems that were not designed to support TOSCA adds a fairly high barrier of complexity for integrating those systems.&nbsp; That is because, with this approach such platforms need to implement <strong><em>ALL</em></strong> of the TOSCA features, and not just the relevant subset that maps natively into their platforms.</p>
+<h2>Extending the common runtime through plugins</h2>
+<p>The other option would be to open the common orchestration runtime to support other orchestration platforms and data models through a set of plugins.</p>
+<p>In this specific case plugins should provide a simple way to map other orchestration platforms as yet another TOSCA type library - a good example to that is the work we at Cloudify have done around integrating <a href="http://getcloudify.org/2015/10/26/openstack-tokyo-summit-kubernetes-cloudify-tosca-nfv-orchestration-microservices.html">Kubernetes</a> into TOSCA, as well as integrating other data models, for example <a href="http://getcloudify.org/2016/02/17/mwc-cloud-sdn-mano-nfv-netconf-yang-tosca-vnf-openstack.html">TOSCA/YANG</a> integration.</p>
+<h2>Mapping the current options for TOSCA Runtime</h2>
+<h3>OpenStack TOSCA parser projects</h3>
+
+<ul>
+<li><strong>The </strong><a href="http://getcloudify.org/2015/05/22/openstack-cloud-tosca-network-orchestration-automation-yaml-heat-summit-vancouver.html"><strong>OpenStack TOSCA Parser</strong></a><strong> - </strong>This OpenStack project maps TOSCA into the Heat orchestration project. In this context, Heat serves as the execution platform. The main limitation of this approach is that Heat itself was designed to be OpenStack-specific orchestration and by tying TOSCA tightly to OpenStack through Heat, we are unable to leverage the TOSCA portability promise. We also inherit other limitations of Heat, which unlike TOSCA wasn&rsquo;t designed to support the full application lifecycle management.</li>
+</ul>
+
+<ul>
+<li><a href="http://ariatosca.org/"><strong>Project ARIA</strong></a> - which was announced during <a href="http://www.businesswire.com/news/home/20160223005483/en/GigaSpaces-Announces-ARIA-Open-Source-Open-Governance">Mobile World Congress 2016</a>, is a new, open source project that aims to provide a reference implementation of TOSCA and make it easier for both network providers and carriers to embrace the standard through a simple Python library.</li>
+</ul>
+
+<h1>Final notes</h1>
+<p>The IT industry is going through an industrial revolution similar to the&nbsp; manufacturing industry a few decades ago. Without a portable and standard CAD model in the manufacturing industry we wouldn&rsquo;t have been able to build complex systems such as the Boeing 787 in a way that is economically possible.</p>
+
+<p>Having a similar standard and portable modeling language is as critical to the IT and Telco industry to enable full automation of complex systems, and to open the door for more intelligent self-managed systems, and provide better cost efficiency.</p>
+
+<p>TOSCA provides a standard modeling language that is a front runner in this regard, however to realize true portability we need to learn from the lessons of other languages such as C++ and Java on what should be the best approach to enable this truly achievable. Having a common spec is often not enough as we&rsquo;ve experienced with C++, and the addition of common language runtime (CLR) as in the case of Java proved to be significantly more successful model.</p>
+
+
+<p>Standards bodies such as <a href="http://www.oasis.org/">OASIS</a>, <a href="http://www.etsi.org/">ETSI</a>, <a href="https://www.mef.net/">MEF</a> as well project <a href="https://www.open-o.org/">Open-O</a> and <a href="https://osm.etsi.org/">open-MANO</a> (OSM) provides a great platform for bringing vendors and customers together to agree on this, and other supporting standards to make this a true collaborative effort.</p>
+
+<p>I hope that with this post will help to advance this discussion toward a final conclusion.</p>
+
+</notextile>
