@@ -1,0 +1,1053 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />	
+	<title>Pure-Play Cloud Orchestration & Automation Based on TOSCA | Cloudify</title>
+	
+
+<meta class="swiftype" name="score" data-type="float" content="1.0" />
+<meta class="swiftype" name="section" data-type="string" content="gen" />
+<meta content="Cloudify - Pure-Play Cloud Orchestration & Automation Based on TOSCA" property="og:site_name">
+
+  <meta content="Pure-Play Cloud Orchestration & Automation Based on TOSCA" property="og:title">
+
+
+  <meta content="article" property="og:type">
+
+
+  <meta content="" property="og:description">
+
+
+  <meta content="http://getcloudify.org//index.html" property="og:url">
+
+
+
+  <meta content="http://getcloudify.org/assets/img/logo-high-resolution.png" property="og:image">
+
+
+
+  
+
+		
+	<script src="//cdn.optimizely.com/js/59503762.js"></script>
+	
+	<link rel="canonical" href="http://getcloudify.org/index.html"/>	
+	<!-- custom -->
+	<!--<link rel="alternate" type="application/rss+xml" title="RSS 2.0" href="/atom.xml" />-->
+	<!-- css -->
+
+    <!-- build:css({.tmp,_site}) styles/main.css -->
+	<link href="/css/bootstrap.css" rel="stylesheet" />
+	<link href="/css/bootstrap-responsive.css" rel="stylesheet" />		
+	<link href="/css/guide.css" rel="stylesheet" />
+	<link href="/css/fancybox/jquery.fancybox.css" rel="stylesheet">
+	<link href="/css/jcarousel.css" rel="stylesheet" />
+	<link href="/css/flexslider.css" rel="stylesheet" />
+	<link href="/css/cslider.css" rel="stylesheet" />
+	<link href="/css/style.css" rel="stylesheet" />	
+	<link href="/css/syntax.css" rel="stylesheet" />
+	<link href='https://fonts.googleapis.com/css?family=Varela' rel='stylesheet' type='text/css'>
+    <!-- endbuild -->
+
+    <link href="/css/main.css" rel="stylesheet" /> <!-- this is a sass file, search for main.scss instead -->
+
+	<link href="http://netdna.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.css" rel="stylesheet">
+	<!-- Theme skin -->
+	<link id="t-colors" href="/skins/blue.css" rel="stylesheet" />
+	<!-- boxed bg -->
+	<link id="bodybg" href="/bodybg/bg1.css" rel="stylesheet" type="text/css" />
+	<!-- HTML5 shim, for IE6-8 support of HTML5 elements -->
+	<!--[if lt IE 9]>
+		  <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+		<![endif]-->
+	<!-- Fav and touch icons -->
+	<link rel="apple-touch-icon-precomposed" sizes="144x144" href="/ico/apple-touch-icon-144-precomposed.png" />
+	<link rel="apple-touch-icon-precomposed" sizes="114x114" href="/ico/apple-touch-icon-114-precomposed.png" />
+	<link rel="apple-touch-icon-precomposed" sizes="72x72" href="/ico/apple-touch-icon-72-precomposed.png" />
+	<link rel="apple-touch-icon-precomposed" href="/ico/apple-touch-icon-57-precomposed.png" />
+	<link rel="shortcut icon" href="/favicon.ico" type="image/x-icon" />
+    <!-- build:js({.tmp,app,_site}) scripts/headsection.js -->
+	<script src="/js/jquery.js"></script>
+	<script src="http://code.jquery.com/ui/1.10.3/jquery-ui.js"></script>
+    <script src="/bower_components/angular/angular.min.js"></script>
+    <script src="/bower_components/cloudify-widget-angular-controller/index.js"></script>
+    <script src="/js/widget/controller.js"></script>
+    <!-- endbuild -->
+    <!--Highlight.js -->
+    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.0.0/styles/xcode.min.css">
+    <link rel="stylesheet" href="/css/highlightjs-override.css">
+	<script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.0.0/highlight.min.js"></script>
+	<script>hljs.initHighlightingOnLoad();</script>
+
+</head>
+
+<body>
+<div id="wrapper">
+   <!-- toggle top area -->
+
+	
+	<!-- end toggle top area -->
+	<!-- start header -->
+	<header class=" bgBlack fixed-top">
+		<!--<div class="hidden-top">
+		<div class="hidden-top-inner container">
+			<div class="row">
+				<div class="span12">
+					<ul>
+						<li><strong><i class="icon-briefcase"></i>Go Pro! Find out about</strong><a class="black" href="/goPro.html"> Cloudify Premium<sup>TM</sup></a></li>
+						</ul>
+					</div>
+			</div>
+		</div>
+	</div>-->
+	<div class="container ">
+
+		
+			
+				
+			
+				
+		
+		
+			<!--<div class="logo navbar-toggle">
+					<a href="/"></a>
+				</div>-->
+			
+			  <nav class="navbar navbar-default" role="navigation">
+                  <!-- Brand and toggle get grouped for better mobile display -->
+                  <div class="navbar-header">
+                    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                      <span class="sr-only">Toggle navigation</span>
+                      <span class="icon-bar"></span>
+                      <span class="icon-bar"></span>
+                      <span class="icon-bar"></span>
+                    </button>
+                    <a href="//getcloudify.org" class="navbar-brand">
+        <img src="http://docs.getcloudify.org/3.3.0/images/logo.png">
+        <span class="gs-font">Cloudify</span>
+      </a>
+                    
+                  </div>		
+					<!--<<div class="cdnavbar navbar  navbar-default" role="navigation">
+							
+								<div class="navigation navigation-bottom">
+								nav>-->
+									<!-- <ul class="nav topnav bold">-->
+                    <div class="cdnavbar collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                                    <ul class="nav navbar-nav">
+                    
+										<li class="dropdown topmenu">
+										<a href="/community-resources.html">Community</a>
+										</li>
+										<li class="dropdown topmenu">
+										<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button">Docs <i class="icon-angle-down"></i></a>
+											<ul class="dropdown-menu bold" style="display: none;">
+												<li class="topmenu"><a href="http://docs.getcloudify.org/3.4.0/">3.4.0 (Early Access)</a></li>
+												<li class="topmenu"><a href="http://docs.getcloudify.org/3.3.1">3.3.1 (Latest GA)</a></li>
+												<li class="topmenu"><a href="http://docs.getcloudify.org/3.3.0">3.3.0</a></li>
+												<li class="topmenu"><a href="/guide/3.2/">3.2 </a></li>
+												<li class="topmenu"><a href="/guide/3.1/">3.1</a></li>
+											</ul>
+										</li>
+										<li class="dropdown topmenu">
+											<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button">Product  <i class="icon-angle-down"></i></a>
+											<ul class="dropdown-menu bold">
+												<li class="topmenu"> <a href="/downloads/get_cloudify.html">Download Cloudify</a></li>
+												<!-- <li class="topmenu"> <a href="/widget.html" target="_blank">Try it Now</a></li> -->
+												<li class="topmenu"><a href="/cloud_orchestration_cloud_automation.html">About Cloudify</a></li>
+												<li class="topmenu"><a href="/how-it-works.html">How it Works</a></li>
+												<!-- <li class="topmenu"> <a href="/cloudifyRecipeCatalog.html">Test Drive</a></li> -->
+												
+												<li class="topmenu"> <a href="/cloudify-roadmap.html">Cloudify Roadmap</a></li>
+			
+												</ul>
+										</li>
+										<li class="dropdown topmenu">
+											<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button">Resources <i class="icon-angle-down"></i></a>
+											<ul class="dropdown-menu bold">
+												<li class="topmenu"> <a href="/examples">Examples Catalog</a></li>
+												<li class="topmenu"><a href="/cloudifysourcetv.html">Videos & Tutorials</a></li>
+												<li class="topmenu"><a href="/participate.htm">Events</a></li>
+											<!--	<li class="topmenu"><a href="/community-resources/">Community Resources</a></li>
+												<li class="topmenu"><a href="/press-and-coverage/">Press & Coverage</a></li> -->
+												<li class="topmenu"> <a target="_blank" href="http://cloudifysource.tumblr.com/">Cloudify Tumblr <i class="fa fa-external-link-square"></i></a></li>
+												<li class="topmenu"><a href="/FAQ_cloud_devops_automation.html">FAQ</a></li>
+												<li class="topmenu"><a href="http://jobs.gigaspaces.com" target="_blank">Careers</a></li>
+											</ul>
+										</li>
+										<li class="topmenu">
+											<a href="/blog/" >Blog</a>
+										</li>
+										<li class="topmenu">
+											<a href="http://www.gigaspaces.com/cloudify" target="_blank"><strong>.Com <i class="fa fa-external-link-square"></i></strong></a>
+										</li>
+ 										
+										<!-- <li class="topmenu">
+											<a class="toggle-link tryBtn btn-rounded btn-small btn-green" href="/widget.html" data-toggle="tooltip" data-placement="bottom" title="Try Cloudify">
+											<i class="icon icon-dashboard"></i> <strong>TEST DRIVE</strong></a>
+										</li> -->
+									</ul>
+
+		<div class="navbar-right">
+		<div class="widget cdsearch">
+			<form>
+				<input type="text" id="st-search-input" class="st-search-input" />
+			</form>
+		</div>
+        <a href="http://getcloudify.org/downloads/get_cloudify.html" class="hidden-xs hidden-sm">
+          <button type="button" class="btn btn-primary navbar-btn btn-orange" title="Get Cloudify">
+            <i class="fa fa-arrow-circle-o-down"></i> <span>download</span>
+          </button>
+        </a>
+        <a href="http://getcloudify.org/goPro.html">
+          <button type="button" class="btn btn-action btn-blue navbar-btn" title="Cloudify Premium">
+            <span>premium</span>
+          </button>
+        </a>
+
+      </div>  
+				</div> 
+        <!-- /.navbar-collapse -->
+</nav>
+</div>
+		
+</header>	
+<div class="fixedTopHeight"></div>
+<!-- end header -->	
+
+	 
+	<section id="featured" class=" hpBanner">
+	<!-- start slider -->
+	<div class="container">
+		<div class="row">
+	<div id="da-slider" class="da-slider">
+		<!-- Slide 1 -->
+		<div class="da-slide">
+			<div class="bannerText span12">
+				<h1> Pure-Play Open Source Cloud Orchestration</h1>
+				<a href="/downloads/get_cloudify.html" class="hp-btn-getCloudify da-link">Download Now</a>
+				<br/><font color="#ffffff" style="font-size:13px;">Or </font><a href="/cloud_orchestration_cloud_automation.html"><strong><font color="#ffffff" style="font-size:13px;">Read More</strong></a></font> 
+			</div>
+			<a class="hover-wrap fancybox fancybox.iframe" data-fancybox-group="gallery" title="Cloudify Intelligent Orchestration on Any Cloud" href="http://www.youtube.com/embed/1OFTneg_WKE?enablejsapi=1&wmode=opaque">
+			<img  class="bannerTextImg" src="img/hpBanner2.png" alt="Cloudify - New Intelligence in Cloud Orchestration and Cloud Automation" /></a>	
+		</div>
+		<!-- Slide 1 End -->
+
+		<!-- Slide 2 -->
+		<div class="da-slide">
+ 			<div class="bannerText span12">
+ 				<h1> <span style="font-size:38px">Join The Cloudify NFV Lab Today!</span></h1>
+ 				<a href="/NFV-Labs-On-Demand.html" class="hp-btn-getCloudify da-link">Register Now</a>
+ 				<br/><font color="#ffffff" style="font-size:13px;">Or </font><a href="/2016/04/27/cloudify-nfv-lab-on-demand-full-scale-environment-openstack-summit-cloud-orchestration.html"><strong><font color="#ffffff" style="font-size:13px;">Read More</strong></a></font> 
+ 			</div>
+ 			<img  class="bannerTextImg" src="img/hpbannernfv.png" alt="Cloudify - Intelligent NFV Orchestration in Multi-VIM Environments" /></a>	
+  		</div>
+		<!-- Slide 2 End -->
+		<nav class="da-arrows">
+			<span class="da-arrows-prev"></span>
+			<span class="da-arrows-next"></span>
+		</nav>
+	</div>
+	</div>
+	</div>
+	<!-- end slider -->
+	</section>
+	<section class="content" style="background:#f9f9f9;">
+	<div class="container">
+	<div class="row">
+	<br/>
+	<br/>	
+			<div class="span12 aligncenter no-margin">
+		
+				<span style="font-size: 24px;vertical-align: -webkit-baseline-middle;padding-bottom: 10px;">
+					<strong><font color="#00B4DA">Cloudify 3.3 </font> Has Landed!</strong>
+				</span>
+				<a class="btn btn-large btn-theme btn-rounded" href="/cloudify-3.3-nfv-hybrid-cloud-workloads-orchestration-openstack-murano-kubernetes.html"><i class="icon-bolt"></i><strong> Learn More</strong></a>
+				
+			</div>
+		
+			<div class="span3"></div>
+		</div>
+
+	<hr/>
+
+			<div class="row">
+	<div class="span3">
+						<div class="box aligncenter">
+							<div class="aligncenter icon">
+								<i class="icon">
+								<a href="/openstack-architecture-cloudify.html"><img src="img/HPTile-OS2.png" width="135"/></a>
+								</i>
+							</div>
+							<div class="text">
+								<h3><strong>Native to OpenStack</strong></h3>
+								<a href="/openstack-architecture-cloudify.html">Learn More</a>
+							</div>
+						</div>
+					</div>
+
+					<div class="span3">
+						<div class="box aligncenter">
+							<div class="aligncenter icon">
+								<i class="icon">
+								<a href="/vmware-hybrid-cloud.html"><img src="img/HPTile-VMW.png" width="135"/></a>
+								</i>
+							</div>
+							<div class="text">
+								<h3><strong>Cloudify for VMware</strong></h3>
+								<a href="/vmware-hybrid-cloud.html">Learn More</a>
+							</div>
+						</div>
+					</div>
+							<div class="span3">
+						<div class="box aligncenter">
+							<div class="aligncenter icon">
+								<i class="icon">
+									<a href="cloud_orchestration_cloud_automation.html#HPLink2"><img src="img/HPTile-Cloud2.png" width="135" /></a>
+								</i>
+							</div>
+							<div class="text">
+								<h3><strong>Or Any Other Cloud</strong></h3>
+								<a href="cloud_orchestration_cloud_automation.html#HPLink2">Learn more</a>
+							</div>
+						</div>
+					</div>
+					<div class="span3">
+						<div class="box aligncenter">
+							<div class="aligncenter icon">
+								<i class="icon">
+									<a href="network-function-virtualization-vnf-nfv-orchestration-sdn-platform.html"><img src="img/HPTile-NFV.png" width="135"/></a>
+								</i>
+							</div>
+							<div class="text">
+								<h3><strong>NFV MANO with TOSCA</strong></h3>
+								<a href="network-function-virtualization-vnf-nfv-orchestration-sdn-platform.html">Learn more</a>
+							</div>
+						</div>
+					</div>
+					
+					<div class="span1"></div>
+				</div>
+		</div>
+</section>
+
+<section id="content">
+	<div class="container">	
+	<div class="row">
+			<div class="span12">
+			<br/>
+			<br/>
+				<h2 style="margin-top:30px;"><a href="http://getcloudify.org/examples">A Plugin for<strong> Any Technology</strong></a></h2>
+				<ul id="mycarousel" class="jcarousel-skin-tango recent-jcarousel clients">
+					<li>
+					<a href="http://docs.getcloudify.org/3.3.0/plugins/openstack/" target="_blank" class="recipeName">
+					<img src="img/recipes/OpenStack Logo-BS.png" class="client-logo" alt="OpenStack Plugin" />
+					</a>
+					</li>
+					<li>
+					<a href="http://docs.getcloudify.org/3.3.0/plugins/vcloud/" target="_blank" class="recipeName">
+					<img src="img/recipes/VMware Logo-BS.png" class="client-logo" alt="vCloud Plugin" />
+					</a>
+					</li>
+					<li>
+					<a href="http://docs.getcloudify.org/3.3.0/plugins/aws/" target="_blank" class="recipeName">
+					<img src="img/recipes/AWS Logo-BS.png" class="client-logo" alt="AWS Plugin" />
+					</a>
+					</li>
+					<li>
+					<a href="http://getcloudify.org/examples/home.html#?repo=46219796" target="_blank" class="recipeName">
+					<img src="img/recipes/clearwater.jpg" class="client-logo" alt="Clearwater Plugin" />
+					</a>
+					</li>
+					<li>
+					<a href="http://getcloudify.org/cloudify-kubernetes-orchestration-docker-container-cluster-mist.html" target="_blank" class="recipeName">
+					<img src="img/recipes/kubernetes.jpg" class="client-logo" alt="Kubernetes Plugin" />
+					</a>
+					</li>	
+					<li>
+					<a href="http://docs.getcloudify.org/3.3.0/plugins/docker/" target="_blank" class="recipeName">
+					<img src="img/recipes/Docker Logo-BS.png" class="client-logo" alt="Docker Plugin" />
+					</a>
+					</li>
+					<li>
+					<a href="https://github.com/cloudify-examples/elk-blueprint" target="_blank" class="recipeName">
+					<img src="img/recipes/elk_stack.jpg" class="client-logo" alt="ELK Plugin" />
+					</a>
+					</li>
+					<li>
+					<a href="http://getcloudify.org/examples/home.html#?repo=44914404" target="_blank" class="recipeName">
+					<img src="img/recipes/gihk.jpg" class="client-logo" alt="GIHK Plugin" />
+					</a>
+					</li>
+					<li>
+					<a href="http://docs.getcloudify.org/3.3.0/plugins/puppet/" target="_blank" class="recipeName">
+					<img src="img/recipes/Puppet Logo-BS.png" class="client-logo" alt="Puppet Plugin" />
+					</a>
+					</li>
+					<li>
+					<a href="http://docs.getcloudify.org/3.3.0/plugins/fabric/" target="_blank" class="recipeName">
+					<img src="img/recipes/Fabric Logo-BS.png" class="client-logo" alt="Fabric Plugin" />
+					</a>
+					</li>
+					<li>
+					<a href="http://getcloudify.org/guide/3.2/plugin-softlayer.html" target="_blank" class="recipeName">
+					<img src="img/recipes/Softlayer Logo-BS.png" class="client-logo" alt="SoftLayer Plugin" />
+					</a>
+					</li>
+				</ul>
+				<div class="clear">
+					
+					<br/>
+					<br/>
+				</div>
+			</div>
+				
+		</div>
+	</div>
+</div>
+</section>
+
+
+<section class="callaction" >	
+	<div class="container">
+		<div class="row">
+			
+		<div class="row-fluid">
+	<div class="span4">
+	<div class="box aligncenter">
+							<div class="pad35">
+								<img src="img/CloudifyBanner3.png" /> 
+								</div>
+								</div>
+								</div>
+			<div class="span8"><div class="box alignjustify"><div class="pad35"><h2><strong><font color="#00B4DA" style="font-size:16px;">From Blueprint to Production</font></strong></h2>
+			<div class="text"><p>With Cloudify you can deploy the same application in your own data center or on the cloud of your choice using your favorite automation and configuration management tools. This enables you to build a robust <strong><em><font color="#00B4DA" style="font-size:16px;">continuous delivery pipeline</font></em></strong> by standardizing deployment, orchestration and build processes to  create smoother transitions between development and production environments.</p></div>
+			</div></div></div>	
+			</div>
+
+
+	<div class="row-fluid">
+			<div class="span8"><div class="box alignjustify"><div class="pad35"><h2><strong><font color="#00B4DA" style="font-size:16px;">Automation & Orchestration Through the Entire App Lifecycle</font></strong></h2>
+			<div class="text"><p>With built-in auto-everything rules - scaling, failover, or even your own custom metrics, you can rest assured that Cloudify has you covered.  Cloudify's post-deployment support even extends to <strong><em><font color="#00B4DA" style="font-size:16px;">effortless infrastructure upgrades</font></em></strong> and fine-tuning through our blueprint & custom command technology.</p></div>
+			</div></div></div>	
+
+				<div class="span4"><div class="box aligncenter">
+							<div class="pad35">
+								<img src="img/CloudifyBanner4.png" />
+								
+							</div></div>
+							</div>
+							</div>
+</div>
+	</section>
+	
+	
+	<!-- <section id="content">
+	<div class="container">
+		<div class="row">
+			<div class="span12">
+				<div class="row">
+					<div class="span3">
+						<div class="box aligncenter">
+							<div class="aligncenter icon">
+								<i class="icon">
+								<img src="img/BlueprintCatalog140.png" />
+								</i>
+							</div>
+							<div class="text">
+								<h3><strong>From Blueprint to Production</strong></h3>
+								<p>Deploy the same application in your own data center or on the cloud of your choice using your favorite automation and configuration management tools.							</p>
+							</div>
+						</div>
+					</div>
+					<div class="span3">
+						<div class="box aligncenter">
+							<div class="aligncenter icon">
+								<i class="icon">
+									<img src="img/hpIcons/3.png" />
+								</i>
+							</div>
+							<div class="text">
+								<h3><strong>Continuous Delivery</strong></h3>
+								<p>Standardize deployment, orchestration and build processes to  create smoother transitions between development and production environments.</p>
+							</div>
+						</div>
+					</div>
+							<div class="span3">
+						<div class="box aligncenter">
+							<div class="aligncenter icon">
+								<i class="icon">
+									<img src="img/hpIcons/2.png" />
+								</i>
+							</div>
+							<div class="text">
+								<h3><strong>Automate Everything</strong></h3>
+								<p>With built-in auto-everything rules - scaling, failover, or even your own custom metrics, you can rest assured that Cloudify has you covered.</p>
+							</div>
+						</div>
+					</div>
+					<div class="span3">
+						<div class="box aligncenter">
+							<div class="aligncenter icon">
+								<i class="icon">
+									<img src="img/hpIcons/4.png" />
+								</i>
+							</div>
+							<div class="text">
+								<h3><strong>Effortless Upgrades</strong></h3>
+								<p>Cloudify supports post-deployment infrastructure upgrades and fine-tuning through our blueprint & custom command technology.</p>
+								<br/>
+							</div>
+					</div>
+				</div>
+			</div>
+		</div> 
+		<div class="row">
+			<div class="span12">
+				</div>
+		</div>
+	</section> -->
+		
+<!-- Cloudify Products -->
+
+
+<section id="content" style="background:#3b4250">
+	<div class="container">	
+	<div class="row">
+			<div class="span12">
+			<br/>
+			<br/>
+				<h2 style="margin-top:30px;"> <font color="#ffffff">Written<strong> By & About Cloudify</strong></font></h2></div>
+				<div class="row">
+				<div class="span1"></div>
+					<div class="span2">
+					<div class="aligncenter">
+					<a href="http://venturebeat.com/2015/05/17/why-youll-never-nail-that-devops-interview/" target="_blank" class="recipeName">
+					<img src="img/sites/VentureBeat-Logo-BS.png" onmouseover="this.src='img/sites/Read-Logo-BS.png'" onmouseout="this.src='img/sites/VentureBeat-Logo-BS.png'" class="client-logo" alt="VentureBeat" width="175" />
+					</a></div></div>
+					<div class="span2">
+					<div class="aligncenter">
+					<a href="http://www.techrepublic.com/article/five-open-source-paas-options-you-should-know/" target="_blank" class="recipeName">
+					<img src="img/sites/TechRepublic-Logo-BS.png" onmouseover="this.src='img/sites/Read-Logo-BS.png'" onmouseout="this.src='img/sites/TechRepublic-Logo-BS.png'" class="client-logo" alt="TechRepublic" width="175"/>
+					</a></div></div>
+					<div class="span2">
+					<div class="aligncenter">
+					<a href="http://www.infoworld.com/article/2890410/cloud-computing/docker-tools-could-stifle-growing-docker-tools-community.html" target="_blank" class="recipeName">
+					<img src="img/sites/InfoWorld-Logo-BS.png" onmouseover="this.src='img/sites/Read-Logo-BS.png'" onmouseout="this.src='img/sites/InfoWorld-Logo-BS.png'" class="client-logo" alt="InfoWorld" width="175" />
+					</a></div></div>						
+					<div class="span2">
+					<div class="aligncenter">					
+					<a href="http://www.infoq.com/articles/tosca-docker-orchestration" target="_blank" class="recipeName">
+					<img src="img/sites/Infoq-Logo-BS.png" onmouseover="this.src='img/sites/Read-Logo-BS.png'" onmouseout="this.src='img/sites/Infoq-Logo-BS.png'" class="client-logo" alt="InfoQ" width="175"/>
+					</a></div></div>
+					<div class="span2">
+					<div class="aligncenter">
+					<a href="https://opensource.com/business/14/12/containers-microservices-and-orchestrating-whole-symphony" target="_blank" class="recipeName">
+					<img src="img/sites/OSCom-Logo-BS copy.png" onmouseover="this.src='img/sites/Read-Logo-BS.png'" onmouseout="this.src='img/sites/OSCom-Logo-BS copy.png'" class="client-logo" alt="OpenSource.com" width="175" />
+					</a></div></div>
+					<div class="span1"></div>
+					</div>
+					<div class="row">
+					<div class="span1"></div>
+					<div class="span2">
+					<div class="aligncenter">
+					<a href="http://getcloudify.org/brochures/Heavy%20Reading%20NFV%20MANO%20Cloudify%20Snapshot.pdf" target="_blank" class="recipeName">
+					<img src="img/sites/HeavyReading-Logo-BS copy.png" onmouseover="this.src='img/sites/Read-Logo-BS.png'" onmouseout="this.src='img/sites/HeavyReading-Logo-BS copy.png'" class="client-logo" alt="Heavy Reading" width="175"/>
+					</a></div></div>					
+					<div class="span2">
+					<div class="aligncenter">
+					<a href="http://superuser.openstack.org/articles/openstack-in-numbers-the-real-stats" target="_blank" class="recipeName">
+					<img src="img/sites/SuperUser-Logo-BS.png" onmouseover="this.src='img/sites/Read-Logo-BS.png'" onmouseout="this.src='img/sites/SuperUser-Logo-BS.png'" class="client-logo" alt="OpenStack Superuser" width="175" />
+					</a></div></div>
+					<div class="span2">
+					<div class="aligncenter">
+					<a href="https://dzone.com/users/1025723/shar1z.html?sort=articles" target="_blank" class="recipeName">
+					<img src="img/sites/MVB-Logo-BS.png" onmouseover="this.src='img/sites/Read-Logo-BS.png'" onmouseout="this.src='img/sites/MVB-Logo-BS.png'" class="client-logo" alt="DZone MVB" width="175" />
+					</a></div></div>
+					<div class="span2">
+					<div class="aligncenter">
+					<a href="http://devops.com/2014/09/23/buzzword-abuse-anatomy-devops-engineer/" target="_blank" class="recipeName">
+					<img src="img/sites/DevOps-Logo-BS.png" onmouseover="this.src='img/sites/Read-Logo-BS.png'" onmouseout="this.src='img/sites/DevOps-Logo-BS.png'" class="client-logo" alt="DevOps.Com" width="175"/>
+					</a></div></div>
+					<div class="span2">
+					<div class="aligncenter">
+					<a href="http://www.developer.com/design/creating-a-reproducible-and-portable-development-environment.html" target="_blank" class="recipeName">
+					<img src="img/sites/DevCom-Logo-BS.png" onmouseover="this.src='img/sites/Read-Logo-BS.png'" onmouseout="this.src='img/sites/DevCom-Logo-BS.png'" class="client-logo" alt="Developer.com" width="175" />
+					</a></div></div>
+					<div class="span1"></div>
+					</div>
+					
+					
+				
+				<div class="clear">
+					
+					<br/>
+					<br/>
+				</div>
+			</div>
+				
+		</div>
+	
+</section>
+
+	
+		<section id="content">
+	<div class="container">
+			<div class="row">
+				<div class="span12">
+				<div class="aligncenter">
+				<img src="img/CloudifyIcon-Grey256.png" width="180">
+				<h2><strong>Github Goodies from Cloudify</strong></h2>
+				</div>
+				</div>
+				</div>
+				<div class="row">
+					<div class="span3">
+						<div class="box aligncenter">
+							<div class="aligncenter icon">
+								<i class="icon">
+									<img src="img/packman-TXT.png" width="175">
+								</i>
+							</div>
+							<div class="text">
+								<h3><strong>Packman by Cloudify</strong></h3>
+								<p>Packman creates packages. The project was initially launched to create Cloudify packages and is now progressing towards being a standalone, simple open source solution for creating different types of packages.
+								</p>
+								<br>
+								<a href="http://getcloudify.org/2014/06/18/packman-open-source-package-manager.html" target="_blank"><strong> READ MORE</strong></a>
+								<br>
+								<a href="https://github.com/cloudify-cosmo/packman" class="btn btn-rounded btn-theme btn-medium fork" target="_blank" data-fork-btn="Packman by Cloudify"><i class="fa fa-code-fork"></i><strong> Fork It</strong></a>
+							</div>
+						</div>
+					</div>
+							<div class="span3">
+						<div class="box aligncenter">
+							<div class="aligncenter icon">
+								<i class="icon">
+									<img src="img/pylogv1.png" width="175" />
+								</i>
+							</div>
+							<div class="text">
+								<h3><strong>Feedr by Cloudify</strong></h3>
+								<p>Feedr generates easily extendable events/logs using a specified formatter, and sends them using the specified transport. It can also generate fake data using fake-factory.</p>
+								<br>
+								<br>
+								<br>
+								<a href="https://github.com/nir0s/feedr" target="_blank" class="btn btn-rounded btn-theme btn-medium fork" data-fork-btn="Feeder by Cloudify"><i class="fa fa-code-fork"></i><strong> Fork It</strong></a></a>
+							</div>
+						</div>
+					</div>
+					<div class="span3">
+						<div class="box aligncenter">
+							<div class="aligncenter icon">
+								<i class="icon">
+									<img src="img/large_v-trans.png" width="202">
+								</i>
+							</div>
+							<div class="text">
+								<h3><strong>Docker Plugin by Cloudify</strong></h3>
+								<p>Cloudify has a built-in Docker plugin and matching types, allowing users to leverage Docker containers as part of any topology, providing a full-blown orchestration & automation method for large-scale Docker-based systems.
+								</p>
+								<br/>
+								<a href="/docker-orchestration-docker-container-deployment-cloud.html" target="_blank"><strong> READ MORE</strong></a>
+								<br>
+								<a href="https://github.com/cloudify-cosmo/cloudify-docker-plugin" class="btn btn-rounded btn-theme btn-medium fork" target="_blank" data-fork-btn="Docker Plugin by Cloudify"><i class="fa fa-code-fork"></i><strong> Fork It</strong></a>
+							</div>
+						</div>
+					</div>
+
+					<div class="span3">
+						<div class="box aligncenter">
+							<div class="aligncenter icon">
+								<i class="icon">
+									<img src="img/Github-Octocat.png" width="180" />
+								</i>
+							</div>
+							<div class="text">
+								<h3><strong>All Cloudify Repos</strong></h3>
+								<p>Fork all the Cloudify goodness, and enjoy all the new features Cloudify has to offer - intelligent orchestration, topology-driven monitoring, scalable multi-tenant workflows, and more. </p>
+								<br>
+								<br>
+								<br>
+								<a href="https://github.com/cloudify-cosmo" target="_blank" class="btn btn-rounded btn-theme btn-medium fork" data-fork-btn="All Cloudify Repos"><i class="fa fa-code-fork"></i><strong> Fork It</strong></a></a>
+							</div>
+						</div>
+					</div>
+			
+		
+		
+		<!-- divider -->
+		<div class="row">
+			<div class="span12">
+						<a href="https://plus.google.com/108176824099212244178" rel="publisher"></a>
+
+				
+			</div>
+		</div>
+		
+
+	</section>
+
+
+	   
+	 <div class="clear"></div>  
+   	<footer style="position:relative;padding-top:30px;">
+		<div class="container footerlist" style="margin-top:0px;">
+		<div class="row">
+			<div class="span3">
+				<div class="widget">
+					<h5 class="widgetheading"><strong>Browse pages</strong></h5>
+					<ul class="link-list">
+						<!-- <li><a href="/cloudifyRecipeCatalog.html">Cloudify Test Drive</a></li> -->
+						<li><a href="/network-function-virtualization-vnf-nfv-orchestration-sdn-platform.html">NFV Orchestration & Management with Cloudify</a></li>
+						<li><a href="/docker-orchestration-docker-container-deployment-cloud.html">Docker Orchestration & Management with Cloudify</a></li>
+						<li><a href="/configuration_management_ssh_cloud_orchestration_puppet_ansible_chef_open_source.html">Cloudify and Configuration Management Tooling</a></li>
+						<li><a href="/openstack-architecture-cloudify.html">Cloudify - OpenStack Native</a></li>
+						<li><a href="/vmware-hybrid-cloud.html">Cloudify for VMWare</a></li>
+						
+					</ul>
+				</div>
+			</div>
+			<div class="span3">
+				<div class="widget">
+					<h5 class="widgetheading"><strong>Important stuff</strong></h5>
+					<ul class="link-list">
+					<!--	<li><a href="#">Press & Coverage</a></li> -->
+						<li><a href="/about_us.html">About Us</a></li>
+						<li><a href="/goPro.html">Cloudify Premium<sup>TM</sup></sup></a></li>
+						<li><a href="/terms_of_use.html">Terms of Use</a></li>
+						<li><a href="/privacy_policy.html">Privacy Policy</a></li>
+						
+					</ul>
+				</div>
+			</div>
+			<div class="span3">
+				<div class="widget">
+					<h5 class="widgetheading"><strong>Community stuff</strong></h5>
+					<ul class="link-list">
+				<li><a href="/how-to-contribute.html">How to Contribute</a></li>
+				<li><a href="/how-it-works.html">How it Works</a></li>
+						<li><a href="https://github.com/cloudify-cosmo" target="_blank">Github Repo</a></li>						
+						<li><a href="/contactus.html">Get in Touch with Us</a></li>
+						<li><a href="http://www.gigaspaces.com/Careers" target="_blank">We're Hiring!</a></li>
+						<li><a href="/FAQ_cloud_devops_automation.html">FAQ</a></li>
+
+				</ul>
+				</div>
+			</div>
+			<div class="span3">
+				<div class="widget">
+					<h5 class="widgetheading"><strong>Where to get support</strong><br></h5>
+					
+					 	<p style="color:white">
+						<i class="icon-comments-alt"></i><a href="https://groups.google.com/forum/#!forum/cloudify-users" target="_blank"> Users Mailing List</a><br>
+						<i class="icon-envelope-alt"></i><a href="mailto:hello@getcloudify.org"> hello@getcloudify.org</a><br>
+						<i class="fa fa-stack-overflow"></i><a href="http://stackoverflow.com/questions/tagged/cloudify"target="_blank"> stackoverflow</a><br>
+						<br/>
+						<div class="subscribeForm">
+							<form class="validate" name="mc-embedded-subscribe-form" id="mc-embedded-subscribe-form" method="post" action="http://cloudifysource.us4.list-manage.com/subscribe/post?u=5e963581396e0c0e43ed217f8&amp;id=b43defea9b">
+							<input type="email" title="Please enter a valid email address." placeholder="Subscribe for Updates" id="mce-EMAIL" class="required subscribeTxt email" name="EMAIL">
+							<input type="submit" class="btn btn-theme btn-rounded pull-right " id="mc-embedded-subscribe" name="subscribe" value="Go">
+							<!-- LeadLander -->
+							<script type="text/javascript">llfrmid=12206</script> 
+							<script type="text/javascript" src="http://formalyzer.com/formalyze_init.js"></script> 
+							<script type="text/javascript" src="http://formalyzer.com/formalyze_call.js"></script> 
+							<!-- End LeadLander -->
+							</form>
+					</div>
+					</p>
+				</div>
+			</div>
+		</div>
+	</div>
+		<div id="sub-footer">
+		<div class="container">
+			<div class="row">
+				<div class="span6">
+					<div class="copyright">
+						<p>
+							<span>&copy; <a href="http://www.gigaspaces.com/" target="_blank">GigaSpaces Technologies</a> 2016, All Rights Reserved.</span>
+						</p>
+					</div>
+				</div>
+				<div class="span6">
+						<ul class="social-network">
+						
+						<li><a href="https://www.facebook.com/GetCloudify/" data-placement="bottom" title="Facebook" target="_blank" class="socialbtn"><i class="icon-facebook icon-square"></i></a></li>
+						<li><a href="https://twitter.com/intent/follow?screen_name=cloudifysource" data-placement="bottom" title="Twitter" target="_blank" class="socialbtn"><i class="icon-twitter icon-square"></i></a></li>
+						<li><a href="http://www.tumblr.com/follow/cloudifysource" data-placement="bottom" title="Tumblr" target="_blank" class="socialbtn"><i class="fa-tumblr icon-square"></i></a></li>
+						<li><a href="http://www.youtube.com/cloudifysource" data-placement="bottom" title="YouTube" target="_blank" class="socialbtn"><i class="fa-youtube icon-square"></i></a></li>
+						<li><a href="http://getcloudify.org/atom.xml" data-placement="bottom" title="RSS" target="_blank" class="socialbtn"><i class="fa-rss icon-square"></i></a></li>	
+						<a href="https://mixpanel.com/f/partner"><img src="//cdn.mxpnl.com/site_media/images/partner/badge_blue.png" alt="Mobile Analytics" width="70"/></a>	
+						<li><a href="//www.jetbrains.com/idea/"><img src="http://getcloudify.org/img/intellijidea.jpg" alt="The best Java IDE" border="0" width="25"/></a></li>				
+					</ul>
+				</div>
+			</div>
+		</div>
+	</div>
+
+
+	<div class="clear"></div>
+	</footer>
+
+
+   
+</div>
+<a href="#" class="scrollup"><i class="icon-chevron-up"></i></a>
+<!-- javascript footer_scripts
+    ================================================== -->
+<!-- Placed at the end of the document so the pages load faster -->
+<script src="/js/jquery.easing.1.3.js"></script>
+<script src="/js/bootstrap.js"></script>
+<script src="/js/jcarousel/jquery.jcarousel.min.js"></script>
+<script src="/js/jquery.fancybox.pack.js"></script>
+<script src="/js/jquery.fancybox-media.js"></script>
+<script src="/js/google-code-prettify/prettify.js"></script>
+<script src="/js/portfolio/jquery.quicksand.js"></script>
+<script src="/js/portfolio/setting.js"></script>
+<script src="/js/jquery.flexslider.js"></script>
+<script src="/js/jquery.nivo.slider.js"></script>
+<script src="/js/modernizr.custom.79639.js"></script>
+<script src="/js/jquery.ba-cond.min.js"></script>
+<script src="/js/jquery.slitslider.js"></script>
+<script src="/js/jquery.cslider.js"></script>
+<script src="/js/animate.js"></script>
+<script src="/js/custom.js"></script>
+<script src="/js/jquery.simplePagination.js"></script>
+<script src="/js/jquery.validate.min.js"></script>
+<script src="/js/validate.js"></script>
+<script src="/js/search/search.js"></script>
+<script src="http://www.youtube.com/player_api"></script>
+
+
+<!-- includes -->
+<script type="text/javascript">
+	<!-- start Mixpanel -->
+	(function(e,b){if(!b.__SV){var a,f,i,g;window.mixpanel=b;a=e.createElement("script");a.type="text/javascript";a.async=!0;a.src=("https:"===e.location.protocol?"https:":"http:")+'//cdn.mxpnl.com/libs/mixpanel-2.2.min.js';f=e.getElementsByTagName("script")[0];f.parentNode.insertBefore(a,f);b._i=[];b.init=function(a,e,d){function f(b,h){var a=h.split(".");2==a.length&&(b=b[a[0]],h=a[1]);b[h]=function(){b.push([h].concat(Array.prototype.slice.call(arguments,0)))}}var c=b;"undefined"!==
+	typeof d?c=b[d]=[]:d="mixpanel";c.people=c.people||[];c.toString=function(b){var a="mixpanel";"mixpanel"!==d&&(a+="."+d);b||(a+=" (stub)");return a};c.people.toString=function(){return c.toString(1)+".people (stub)"};i="disable track track_pageview track_links track_forms register register_once alias unregister identify name_tag set_config people.set people.set_once people.increment people.append people.track_charge people.clear_charges people.delete_user".split(" ");for(g=0;g<i.length;g++)f(c,i[g]);
+	b._i.push([a,e,d])};b.__SV=1.2}})(document,window.mixpanel||[]);
+	mixpanel.init("96365f48f34c41c7b91e045b4f48d53d");
+	<!-- end Mixpanel -->
+
+
+	trackPage();
+
+	$(function() {
+		initMixpanelTracking();
+	});
+
+    function initMixpanelTracking() {
+
+        ////////////////////////////////////////
+        //// MIXPANEL EVENTS////
+        //////////////////////////////////////
+        // Home Page Download Button Clicks
+        $("a.hp-btn-getCloudify").click(function () {
+            mixpanel.track("Home Page Download Button Clicks", {
+                'page name': document.title,
+                'url': window.location.pathname
+            });
+        });
+        // Download Button Clicks
+        $("a.dwnBtn").click(function () {
+            mixpanel.track("Download Button Clicks", {'page name': document.title, 'url': window.location.pathname});
+        });
+        //Get Cloudify Button Clicks - on download page
+        $("a.downloadme").click(function () {
+            mixpanel.track("Get Cloudify Button Clicks", {
+                'page name': document.title,
+                'url': window.location.pathname
+            });
+        });	
+		
+		//Try It Now Click
+        $("a.hp-tryItNow").click(function () {
+            mixpanel.track("Try it Now HP Button Clicks", {
+                'page name': document.title,
+                'url': window.location.pathname
+            });
+        });
+        //Search
+        $("#goBtn").click(function () {
+            var value = $('#search').val();
+            mixpanel.track("Search", {"keyword": value});
+        });
+        //Social Button Clicks
+        $("a.socialbtn").click(function () {
+            var socialNetwork = $(this).attr("data-original-title");
+            mixpanel.track("Social Button Clicks", {
+                'page name': document.title,
+                'url': window.location.pathname,
+                'social-network': socialNetwork
+            });
+        });
+        //Pro button nav bar clicks
+        $("a.goProBtn").click(function () {
+            mixpanel.track("Pro button nav bar clicks", {'page name': document.title, 'url': window.location.pathname});
+        });
+        //Go Pro Button Inner Pages
+        $("#goProInner").click(function () {
+            mixpanel.track("Go Pro Button Inner Pages", {'page name': document.title, 'url': window.location.pathname});
+        });
+        // GoPro Get In Touch Btn
+        $("#getintouchBtn").click(function () {
+            mixpanel.track("GoPro Get In Touch Btn", {'page name': document.title, 'url': window.location.pathname});
+        });
+        //Download Button Inner Pages
+        $("#downloadBtnInner").click(function () {
+            mixpanel.track("Download Button Inner Pages", {
+                'page name': document.title,
+                'url': window.location.pathname
+            });
+        });
+        //Download Button Blog TOC
+        $("#downloadBtnTOC").click(function () {
+            mixpanel.track("Download Button Blog TOC", {'page name': document.title, 'url': window.location.pathname});
+
+        });
+        //Get Started button home page
+        $("a#getStartedBtn").click(function () {
+            mixpanel.track("Get Started button home page", {
+                'page name': document.title,
+                'url': window.location.pathname
+            });
+        });
+        //Documentation Edit Button Clicks
+        $("button#edit-on-github").click(function () {
+            mixpanel.track("Documentation Edit Button Clicks", {
+                'page name': document.title,
+                'url': window.location.pathname
+            });
+        });
+        //Launch Button
+        $(".launchPlay").click(function () {
+            mixpanel.track("Chef Campaign Widget Play", {'page name': document.title, 'url': window.location.pathname});
+        });
+        //Chef Campaign Widget Stop
+        $(".launchStop").click(function () {
+            mixpanel.track("Chef Campaign Widget Stop", {'page name': document.title, 'url': window.location.pathname});
+        });
+        //Chef Campaign Button Clicks
+        $("#manage,#use").click(function () {
+            mixpanel.track("Chef Campaign Button Clicks", {
+                'page name': document.title,
+                'url': window.location.pathname
+            });
+        });
+
+        if (document.location.href.search("guide") != -1) {
+            mixpanel.identify();
+            mixpanel.people.increment({
+                "Wiki page read": 1
+            });
+            mixpanel.people.set({
+                "Wiki page Name": document.title
+            });
+        }
+        // create Page-view property
+        mixpanel.identify();
+        mixpanel.people.set({
+            "Page Views": document.title
+        });
+		
+		
+		//Get Cloudify Button Clicks - on download page
+        $(".analyticsTest").click(function () {
+            mixpanel.track("Analytics Test Page", {
+                'page name': document.title,
+                'url': window.location.pathname,
+				'Analytics Test download-type':this.attributes[3].value
+            });
+        });	
+
+    }
+
+    // mixpanel- trakc only if email requested
+    var currEmail = "";
+    $("body").live('change', function () {
+        $("#ki_form").live('change', function () {
+            if ($("#ki_question_99437").length != 0) {
+                currEmail = $("input.ki_explain_small").val();
+                mixpanel.track_links("#ki_submit_button", "Qualaroo", function (ele) {
+                    if ($('input').hasClass('ki_explain_small')) {
+                        var currEmail = $("input.ki_explain_small").val();
+                        mixpanel.name_tag(currEmail);
+                        mixpanel.identify(currEmail);
+                        mixpanel.people.set({
+                            $email: currEmail,
+                            $first_name: currEmail,
+                            $created: new Date(),
+                        });
+                    }
+                    return {type: $(ele).attr('type'), email: currEmail}
+                });
+            }
+        });
+
+    });
+
+    //
+    //$("#ki_submit_button").click(function() {
+
+    //if($('input').hasClass('ki_explain_small')){
+    // var currEmail =  $("input.ki_explain_small").val();
+    // mixpanel.name_tag(currEmail);
+    // mixpanel.people.identify(currEmail);
+    // mixpanel.people.set({
+    // $email: currEmail,
+    // $first_name: currEmail,
+    //  });
+    //}
+    //});
+
+	function trackPage(){
+		//mixpanel global page tracking:
+		//mixpanel.track_forms('#ki_form', 'Qualaroo');
+		mixpanel.track('Cloudify Community Page Views', {'page name' : document.title, 'url' : window.location.pathname});
+
+        //TRACK FORMS
+        /*-----------------------------------*/
+        mixpanel.track_forms("#searchForm", "Search", {'page name': document.title, 'url': window.location.pathname});
+        //Track Subscribers
+        mixpanel.track_forms('#mc-embedded-subscribe-form', 'Register for Event Button Clicks', {
+            'page name': document.title,
+            'url': window.location.pathname
+        });
+        mixpanel.track_forms('#ki_form', 'Qualaroo');
+        mixpanel.track_forms(".regiterToMixpanel", "Search", {
+            'page name': document.title,
+            'url': window.location.pathname
+        });
+        mixpanel.track_forms("#butterfly-iframe iframe", "Chef Campaign Interactive Shell", {
+            'page name': document.title,
+            'url': window.location.pathname
+        });
+
+
+        //track Cloudify Early Access Builds
+        //mixpanel.track_links("a.eaTitle", "Product Download - Early Access Builds", {'referrer': document.referrer });
+
+    }
+</script>
+
+ <!-- FeedBack Barometer -->
+<style type='text/css'>@import url('http://getbarometer.s3.amazonaws.com/assets/barometer/css/barometer.css');</style>
+<script src='http://getbarometer.s3.amazonaws.com/assets/barometer/javascripts/barometer.js' type='text/javascript'></script>
+<script type="text/javascript" charset="utf-8">
+  BAROMETER.load('eK6DysdanMfc9HGHjDn6n');
+</script>
+ <!-- End FeedBack Barometer -->
+
+<!-- Google Tag Manager -->
+<noscript><iframe src="//www.googletagmanager.com/ns.html?id=GTM-P4L26C"
+height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+'//www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+})(window,document,'script','dataLayer','GTM-P4L26C');</script>
+<!-- End Google Tag Manager -->	
+</body>
+</html>
