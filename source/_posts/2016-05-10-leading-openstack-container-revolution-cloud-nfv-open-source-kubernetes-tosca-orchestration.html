@@ -1,0 +1,127 @@
+---
+layout: blogpost
+title: Leading the OpenStack Container Management Revolution
+image: nati.png
+author: Nati Shalom
+tags:
+ - OpenStack
+ - Container Orchestration
+ - TOSCA
+ - Kubernetes
+ - NFV Orchestration
+---
+
+<notextile>
+
+<img src="http://getcloudify.org/img/blog/summitcloudifyheader.png" alt="openstack summit | openstack tosca | openstack orchestration | NFV MANO | Open Source Cloud Automation | Cloud Orchestration Tools | Telco NFV | Kubernetes | Containers">
+<br/>
+<br/>
+
+<p><b></b>
+
+<p>The latest <a href="http://getcloudify.org/2014/07/10/what-is-openstack-tutorial.html" target="_blank">OpenStack</a> user survey on application platforms reveals an interesting trend when comparing this year’s survey with last year’s. See below.
+</p>
+
+<table align="center" width="870">
+<tbody>
+<tr>
+<td width="435">
+<p><strong>2015</strong></p>
+</td>
+<td width="435">
+<p><strong>2016</strong></p>
+</td>
+</tr>
+<tr>
+<td width="435"><img src="/img/blog/openstacksurvey2015.png" width="100%"></td>
+<td width="435"><img src="/img/blog/openstacksurvey2016.png" width="100%"></td>
+</tr>
+<tr>
+<td width="435">
+<p><a href="https://www.openstack.org/assets/survey/Public-User-Survey-Report.pdf">https://www.openstack.org/assets/survey/Public-User-Survey-Report.pdf</a></p>
+</td>
+<td width="435">
+<p><a href="http://www.openstack.org/assets/survey/April-2016-User-Survey-Report.pdf">http://www.openstack.org/assets/survey/April-2016-User-Survey-Report.pdf</a></p>
+</td>
+</tr>
+</tbody>
+</table>
+
+<hr>
+
+<span class="pullquote-left">
+  <font style="font-weight: bold" size="5" face="Baskerville Old Face"><em>Try the Kubernetes Orchestration as a Service Tool today!</em></font>  <a class="btn btn-medium btn-theme btn-rounded" id="downloadBtnInner" href="http://getcloudify.org/cloudify-kubernetes-orchestration-docker-container-cluster-mist.html" target="_blank"><i class="icon-plus"></i> Go </a></span>
+  
+  <hr>
+
+<p>Here are some things you might have noticed:</p>
+<ol>
+<li><a href="http://getcloudify.org/2015/10/26/openstack-tokyo-summit-kubernetes-cloudify-tosca-nfv-orchestration-microservices.html" target="_blank">Kubernetes</a> gained popularity 30% up (from 21% to 27%) over CloudFoundry which is down by 30% (from 23% to 16%) in terms of popularity! And Mesos which is down by 25% (from 16% to 11%) which put Kubernetes the leading platform for container management in OpenStack</li>
+<li><a href="http://getcloudify.org/docker-orchestration-docker-container-deployment-cloud.html" target="_blank">Docker</a> Swarm went down in popularity by 80% from 16% to 2%! Cloudify popularity increased by 20%!</li>
+</ol>
+
+<h2>Outside the tent</h2>
+
+<p>What’s interesting about this list is that none of the application frameworks listed on this survey are specific to OpenStack or even developed under OpenStack's Big Tent.</p>
+
+<p>There are some interesting lessons to be learned in this regard:</p>
+
+<ol>
+<li>Developers tend to choose an application platform that is not tied to a specific infrastructure.</li>
+<li>The fact that OpenStack is open source makes it possible to provide native integration to OpenStack by external projects without being part of OpenStack thanks to the rich set of OpenStack APIs as described in this session: <a href="https://www.youtube.com/watch?v=ckgBMp963PE" target="_blank">How to Develop for OpenStack APIs</a>
+</li>
+</ol>
+
+
+<p>The main question that comes from all this is: Should the OpenStack community continue to invest in building application framework projects or simply focus on making the integration of external projects with OpenStack simpler?</p>
+
+<p>Interestingly enough, during the summit, <a href="https://www.openstack.org/summit/austin-2016/summit-schedule/speakers/2103">Thomas Morin</a>, Network Architect from Orange Labs, provided <a href="https://youtu.be/1BRXi1yrVKc?t=40m35s">great insight</a> into why they tend to select open source tools from the broader ecosystem rather than limiting themselves to OpenStack projects during a panel discussion on <a href="https://youtu.be/1BRXi1yrVKc?t=44m25s">Open Source NFV Lessons Learned from End Users</a> which also included members from ATT, NTT and China Mobile. I think that Thomas' view is a good representation of how most OpenStack developers think when they make their choice of application platforms and tools.</p>
+
+<p>This was also echoed by <a href="http://www.cbronline.com/news/cloud/public/mark-shuttleworth-canonical-founder-dot-com-bubble-collapse-set-to-hit-openstack-as-the-big-tent-comes-falling-down-4877564">Mark Shuttleworth</a>, founder of Canonical, in his comment about the future of Big Tent:</p>
+
+<p>&ldquo;If you look at OpenStack it has this frame big tent, well the truth is the tent will collapse and that's going to be traumatic for everybody,&rdquo; said Shuttleworth.</p>
+
+<p>This is not to say that the whole of OpenStack will fail, as he believes that open source will continue to grow stronger as an Infrastructure as a Service. The core of network and compute will remain while all of the complexity on top with the as-a-Service components will disappear. (<a href="http://www.cbronline.com/news/cloud/private/5-mart-things-said-at-the-openstack-summit-that-hold-great-significance-for-the-future-of-the-open-source-cloud-4879603">Source</a>)</p>
+
+<h2>Cloudify updates from the summit</h2>
+
+<div class="aligncenter"><img src="/img/blog/openstackcloudify.png"></div><p>&nbsp;</p>
+
+<p>Anyway, the Austin summit was probably the best event yet for the <a href="http://getcloudify.org" target="_blank">Cloudify</a> team with more than 6 talks, 12 people on the ground, a book signing, back to back meetings and lots of new stuff - here is a short summary for those who missed the party.</p>
+
+<p>Cloudify was noted as one of the top 5 application and container frameworks according to the OpenStack survey!</p>
+<p>&nbsp;</p>
+<div class="aligncenter"><img src="/img/blog/cloudifyteam.png"></div><p>&nbsp;</p>
+
+<p>The following sessions from the summit provide a good overview about how Cloudify works with OpenStack:</p>
+<br>
+<ul>
+<li><a href="https://www.openstack.org/videos/video/cloudify-by-gigaspaces-orchestrating-kubernetes-on-openstack-aws-and-azure">Cloudify integration with Kubernetes </a>- Demonstrates how you can use Cloudify to install Kubernetes on OpenStack and other clouds, manage kubernetes micro-services composition and dependencies as well as manage a hybrid deployment of micro-services and non micro-services applications. We also announced the availability of new Cloudify/Kubernetes as a service</li>
+<li><a href="http://ariatosca.org/">Project ARIA</a> - Simple TOSCA based NFV Orchestration- demonstrating how you can deploy NFV application and service-chaining through a simple python library. See also the ARIA session from the summit <a href="https://www.youtube.com/watch?v=_Wc2pecqai8">here</a></li>
+<li><a href="https://www.youtube.com/playlist?list=PLA5cw9-zZ-uMEut71TTTGtuWgPNKKYNri">Cloudify Play List</a> from the summit - We've put together all the Cloudify related talks from the summit on youtube playlist</li>
+</ul>
+
+<p>This week we also announced the <a href="http://getcloudify.org/2016/04/27/cloudify-nfv-lab-on-demand-full-scale-environment-openstack-summit-cloud-orchestration.html">NFV Lab</a> on demand which shows how you can get your own private OpenStack environment with Cloudify pre-integrated on-demand and experiment with orchestrating their first NFV service.</p>
+
+<p>I would like to close by thanking the members of the community for their support.</p>
+
+<p>I really enjoied being in Austin again and were now fully energised to continue the OpenStack&nbsp; momentum as a co-organisers of the <a href="http://www.openstack-israel.org" target="_blank">OpenStack Day Israel</a> event and the first <a href="http://www.openstackeast.com/" target="_blank">OpenStack Days East</a> in NYC!
+<p>&nbsp;</p>
+<div class="aligncenter"><img src="/img/blog/openstackisrael.png"></div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</notextile>
