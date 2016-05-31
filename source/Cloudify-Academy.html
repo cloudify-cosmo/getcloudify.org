@@ -1,0 +1,218 @@
+---
+layout: bt_default
+title: Cloudify Learning Management System - Learn How To Use Cloudify!
+category: Cloudify
+---
+
+
+		<section id="content">
+				<div class="container">
+				<div class="row">
+				<div class="span12">
+					<div class="aligncenter">
+						<div class="well">
+						<h1><strong>Join the Cloudify Academy and Learn How to Use & Leverage Cloudify!</strong> </h1>
+						</div>
+					</div>
+				</div>
+				</div>
+				</div>
+		</section>		
+		<section id="content">
+				<div class="container">
+				<div class="row">		
+					<div class="span7">
+							<h2>Online training program for Cloud Architects & Application Developers Deploying in the Cloud</h2>
+							<p> Cloud Orchestration is the the movement that is radically changing the efficiency of cloud computing.</p>
+							<p> <a href="{{site.baseurl }}/"> Cloudify</a>, with its unique open source cloud orchestration product, has taken on the role of providing in depth training aimed at cloud architects and application developers interested learning more about how to implement the Cloudify project in their cloud deployments.
+							<h3>What will I learn?</h3>
+							<ul>
+								<li>Intro to <a href="{{site.baseurl }}/2015/07/21/what-is-TOSCA-cloud-application-orchestration-tutorial-cloudify.html">TOSCA</a></li>
+									<ul>
+									<li>Fundamentals of TOSCA Orchestration</li>
+									<li>How TOSCA is implemented in Cloudify</li>	
+									</ul>
+							</ul>
+							<h3>What is the first course comprised of?</h3>
+							<ul>
+								<li>The course contains four modules:</li>
+									<ul>
+									<li>Two Theoretical Modules</li>
+									<li>Two Hands-on Labs Modules</li>
+									</ul>
+							</ul>
+							<h3>Access to a <strong>Live Virtual OpenStack Lab</strong></h3>		
+							<p>Our experts will guide you through a interactive OpenStack lab, and work with you on how to properly setup your cloud orchestration.</p>
+						</div>
+					<div class="span5">
+						<h2><strong>Sign Up For the Cloudify Learning Center</sup></strong></h2>
+						<!--[if lte IE 8]>
+							<script charset="utf-8" type="text/javascript" src="//js.hsforms.net/forms/v2-legacy.js"></script>
+							<![endif]-->
+							<script charset="utf-8" type="text/javascript" src="//js.hsforms.net/forms/v2.js"></script>
+							<script>
+							  hbspt.forms.create({ 
+							    portalId: '1918719',
+							    formId: '60272a90-cd39-4784-890c-31e7e29b9727'
+							  });
+							</script>
+
+					</div>
+				</div>
+				</div>	
+		</section>
+			<section id="content">
+				<div class="container">
+				<div class="row">
+				<div class="span12">
+				<div class="aligncenter">
+				<div class="well"><h2><img src="{{ site.baseurl }}/img/logo.png" width="120"> Learn more about <a href="{{ site.baseurl }}/cloud_orchestration_cloud_automation.html"><strong> Cloud Orchestration.</strong></a></h2></div>
+				</div>
+				</div>
+				</div>
+				</div>
+			</section>	
+		
+<div id="notification_container"></div>
+
+<script type="text/javascript">
+$(function () {
+  var $form = $('#mc-embedded-subscribe-form');
+
+  $('#mc-embedded-subscribe').on('click', function(event) {
+    if(event) event.preventDefault();
+    register($form);
+  });
+});
+
+function register($form) {
+  $.ajax({
+    type: $form.attr('method'),
+    url: $form.attr('action'),
+    data: $form.serialize(),
+    cache       : false,
+    dataType    : 'json',
+    contentType: "application/json; charset=utf-8",
+    error       : function(err) { $('#notification_container').html('<span class="alert">Could not connect to server. Please try again later.</span>'); },
+    success     : function(data) {
+     
+      if (data.result != "success") {
+        var message = data.msg.substring(4);
+        $('#notification_container').html('<span class="alert">'+message+'</span>');
+      } 
+
+      else {
+        var message = data.msg;
+        $('#notification_container').html('<span class="success">'+message+'</span>');
+		track_contactForm();
+		mixpanel.track('Register for NFV', {'page name' : document.title, 'url' : window.location.pathname});	
+      }
+    }
+  });
+}
+</script>
+
+
+<div id="mce-responses" class="clear">
+	<div class="response" id="mce-error-response" style="display:none"></div>
+	<div class="response" id="mce-success-response" style="display:none"></div>
+</div>
+<!-- End MailChimp Signup Form -->
+<div id="messageBox"></div>
+
+                                        <div class="row">
+                               
+											<!-- LeadLander Form Tracking -->
+											<script type="text/javascript">llfrmid=29185</script> 
+											<script type="text/javascript" src="https://formalyzer.com/formalyze_init.js"></script> 
+											<script type="text/javascript" src="https://formalyzer.com/formalyze_call_secure.js"></script>
+											<!-- End LeadLander -->
+                                  
+									
+                        </div> 
+                    </div>
+			</div>
+		</section>
+			
+			
+	
+
+		<section id="bottom">
+			<div class="container">
+
+		<div class="row">
+		<div class="span2"></div>
+		<div class="span8">
+		<div class="aligncenter">
+			
+				<h2><strong>Learn more about Cloudify Premium<sup>TM</sup> or Download Now for Free</sup></strong></h2>
+						<br/>
+							<a class="btn btn-large btn-green btn-rounded" id="goProInner" href="{{ site.baseurl }}/goPro.html"><i class="icon-plus"></i>  Go Pro!</a>
+							&nbsp; &nbsp;
+							<a class="btn btn-large btn-theme btn-rounded" id="downloadBtnInner" href="{{ site.baseurl }}/downloads/get_cloudify.html"><i class="icon-download"></i>  Download Now</a>
+							<br/>
+							</br>
+							</div>
+						
+						</div>
+						<div class="span2"></div>
+					</div>
+					</div>
+			<div class="container">
+			{% include addthis.html %}
+			</div>
+					</section>
+
+<script>
+
+//set download cookie
+function setCookie(key, value) {
+    var expires = new Date();
+    expires.setTime(expires.getTime() + (180 * 24 * 60 * 60 * 1000));
+    document.cookie = key + '=' + value + ';expires=' + expires.toUTCString()+';path=/';
+}
+
+function getCookie(key) {
+    var keyValue = document.cookie.match('(^|;) ?' + key + '=([^;]*)(;|$)');
+    return keyValue ? keyValue[2] : null;
+}
+function track_contactForm() {
+
+		//_gaq.push(['_trackEvent','Product Download', downloadme]);
+       	//track mixpanel
+		if (getCookie('cfydirect') == null) {
+            var formEmail =  $("#mc-embedded-subscribe-form #mce-EMAIL").val();	
+            var formName =  $("#mc-embedded-subscribe-form #mce-FNAME").val();
+			var formcompany =  $("#mc-embedded-subscribe-form #mce-MMERGE3").val();
+			mixpanel.identify(formEmail);
+            mixpanel.alias(formName, formEmail, formcompany);
+            mixpanel.name_tag(formName) ;
+			mixpanel.register();
+			
+			mixpanel.people.set({
+			$email: formEmail,
+			$first_name: formName,
+			$company: formcompany,
+			$created: new Date(),
+			});	
+			//create cookie;
+			setCookie('cfydirect', formName + "," + formEmail + "," + formcompany);	
+			
+			
+        }else{
+			var formEmail = getCookie('cfydirect').split(",")[1];
+			mixpanel.identify(formEmail);
+        }
+
+		
+	}
+	
+	
+	$("#mc-embedded-subscribe-form").validate({
+  submitHandler: function(form) {
+    form.submit();
+  }
+ });
+	
+
+</script>
