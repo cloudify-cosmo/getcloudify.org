@@ -4314,14 +4314,14 @@ a#barometer_tab{right:0 !important;left:auto !important}
 }
 
 
+	
+}
 
 /* ============================
-24. Academy Panel 
+24. Academy Lab 
 ============================= */
 
- .x .col.s12 .col.s3.panel, .x .panel {
-    background-image:url('/img/academy-panel.png');
-    min-width: 220px;
+ .lab {
     width: 22%;
     margin-right: 30px;
     float: left;
@@ -4330,19 +4330,21 @@ a#barometer_tab{right:0 !important;left:auto !important}
     padding: 30px;
     height: 340px;
     margin-bottom: 30px;
+    background-image:url('/img/academy-panel.png');
+    min-width: 220px;
+	}
 }
 
-.x .panel.cloudify {
-    background: #1d1934;
-}
 
-.action.start, .x .panel .action.start {
+
+.action.start {
     background: #258093;
     border-bottom: 2px solid #d76500;
 }
 
 
-.panel .action {
+
+.lab .action, .lab a.action {
     height: 58px;
     position: absolute;
     left: 0;
@@ -4357,7 +4359,8 @@ a#barometer_tab{right:0 !important;left:auto !important}
     font-weight: 100;
 }
 
-.x .panel .count, .x .panel a.count {
+
+.lab .count, .lab a.count {
     color: white;
     text-align: right;
     float: right;
@@ -4373,5 +4376,19 @@ a#barometer_tab{right:0 !important;left:auto !important}
 }
 
 
+.lab .count2, .lab a.count2 {
+    color: white;
+    text-align: center;
+    float: bottom;
+    border: 2px solid #258093;
+    padding: 5px 10px;
+    font-size: 18px;
+    border-radius: 20px;
+    text-transform: uppercase;
+    max-width: 130px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
 
 }
+
