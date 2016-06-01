@@ -1,0 +1,53 @@
+---
+layout: blogpost
+title: OpenStack TOSCA Parser for Network Functions Virtualization (NFV)
+image: sahdev.jpg
+author: Sahdev Zala, Community Contributed
+tags: 
+ - OpenStack
+ - NFV Orchestration
+ - TOSCA
+ - VNF
+ - OpenStack Summit
+---
+
+<notextile>
+
+<img src="/img/blog/toscaopenstackheader.jpg" alt="OpenStack Summit | TOSCA Orchestration | Cloud Orchestration | OpenStack Orcehstration | Open Source Orchestration Tools | OpenStack NFV | Cloudify | NFV VNF" width="870px">
+<br/>
+<br/>
+
+<p><i>This article was written by Sahdev Zala, OpenStack Software Engineer at IBM and <a href="https://developer.ibm.com/opentech/2016/03/07/openstack-tosca-parser-for-network-functions-virtualization-nfv/" target="_blank">originally published</a> on the IBM OpenTech blog. The article is being re-published with the author's consent.</i></p>
+<hr>
+
+<p>The recent release of OpenStack <a href="https://github.com/openstack/tosca-parser" target="_blank">TOSCA-Parser</a> for <a href="https://www.oasis-open.org/committees/tc_home.php?wg_abbrev=tosca" target="_blank">TOSCA Simple Profile in YAML</a> has added initial support for parsing <a href="https://www.oasis-open.org/committees/tc_home.php?wg_abbrev=tosca" target="_blank">TOSCA Network Functions Virtualization (NFV)</a> simple profile templates.</p>
+<p>The <a href="http://getcloudify.org/2016/02/23/mwc-mobile-world-congress-cloud-openstack-vmware-azure-vim-nfv-vnf-network-automation-orchestration.html" target="_blank">TOSCA NFV</a> profile specifies a NFV specific data model using TOSCA language. NFV aims to transform the way that network operators architect networks by evolving standard IT virtualization technology to consolidate many network equipment types onto industry standard high volume servers, switches and storage, which could be located in Datacenters, Network Nodes and in the end user premises. The <a href="http://getcloudify.org/2014/07/10/what-is-openstack-tutorial.html" target="_blank">OpenStack</a> <a href="https://github.com/openstack/tacker" target="_blank">Tacker</a> project is building an Open NFV Orchestrator with a built-in general purpose VNF Manager to deploy and operate <a href="http://getcloudify.org/2015/03/22/mobile-world-congress-nfv-sdn-network-orchestration-automation.html" target="_blank">Virtual Network Functions</a> (VNFs) on an NFV Platform.</p>
+
+<hr>
+<span class="pullquote-left">
+  <font style="font-weight: bold" size="5" face="Baskerville Old Face"><em>Cloudify - Intelligent Cloud Orchestration Done Better. Download Free.</em></font>&nbsp; <a class="btn btn-medium btn-theme btn-rounded" id="downloadBtnInner" href="http://getcloudify.org/downloads/get_cloudify.html" target="_blank"><i class="icon-plus"></i> Go </a></span>
+<hr>
+
+<p>The TOSCA Simple Profile in YAML uses the concept of service templates to describe cloud workloads as a graph of node templates modeling the components that a workload is made up of and as relationship templates modeling the relations between those components. Towards the end of 2015, the OpenStack TOSCA Parser project, TOSCA-Parser, was created out of the OpenStack <a href="https://github.com/openstack/heat-translator" target="_blank">Heat-Translator</a> project which now provides a stand alone Parser for the TOSCA Simple Profile in  YAML.</p>
+<p>During the OpenStack 2016 Mitaka summit in Tokyo, Japan, many attendees were interested in knowing more about <a href="http://getcloudify.org/2015/07/21/what-is-TOSCA-cloud-application-orchestration-tutorial-cloudify.html" target="_blank">TOSCA</a> related activities, in particular, TOSCA Simple Profile and NFV Simple Profile and related development work. Members of the Tosca-Parser development team and I had a meeting with the Tacker development team about possible collaboration on enabling TOSCA NFV parsing support in the TOSCA-Parser. Bob Haddleton of Alcatel-Lucent willingly volunteered to provide development contribution to the TOSCA-Parser project from the NFV development team. Bob has been an outstanding collaborator and contributor in this space. After the summit, we had many brainstorming sessions via IRC meetings, emails and code patches, to design and code the work. As a result, the latest PyPI release of TOSCA-Parser, 0.4.0, now provides initial support to parse TOSCA NFV Simple Profile templates. Below I am covering details on how to use the TOSCA-Parser for NFV templates, the architectural overview related to NFV support and future plan.</p>
+<p><strong>Parsing NFV templates</strong></p>
+<ol>
+The NFV simple profile templates can be parsed the same way as the TOSCA simple profile by simply providing the template as an input to the TOSCA-Parser on the command line.  For example,
+<pre>tosca-parser --template-file=toscaparser/extensions/nfv/tests/data/tosca_helloworld_nfv.yaml</pre>
+<p> Above example assumes that tosca-parser PyPI 0.4.0 is installed in your system and provided path to the <code>--template-file</code> is valid.<br>
+<br>
+To invoke tosca-parser programmatically, either provide an NFV simple profile template in YAML or provide template in the form of YAML dictionary.  For example,
+</p><pre>ToscaTemplate(nfv_template_path)</pre>
+</ol>
+
+<p><strong>Architectural overview</strong></p>
+<ol>
+The NFV profile support has been enabled in a generic way by means of an extension. This allows us to keep NFV related code in TOSCA-Parser on its own and independently structured which provides a clear place to host code for any future extension for any other TOSCA related initiatives that may use the TOSCA-Parser project. The version  <code>tosca_simple_profile_for_nfv_1_0_0</code> recognizes the template as an NFV template. Any new extensions, as needed in future, can be added to the <code>toscaparser/extensions</code> directory. Refer to the code under the <code>toscaparser/extensions/nfv</code> to learn more about NFV extension.
+</ol>
+<p><strong>Future plans</strong></p>
+<ol>
+Work is already going on to enhance the NFV support, with complex use cases, that we have introduced in the TOSCA-Parser 0.4.0 PyPI release. We also have a talk going on for a possible collaboration between TOSCA-Parser and the Linux Foundation’s <a href="https://wiki.opnfv.org/" target="_blank">Open Platform for NFV project (OPNFV)</a> development team. The TOSCA-Parser team is fortunate to have Srinivas Tedpalli of Tata Consultancy Services who contributes to TOSCA-Parser as well as OPNFV project development, which will aid in ongoing development collaboration efforts between the two teams.
+</ol>
+<p>The original article can be found <a href="https://developer.ibm.com/opentech/2016/03/07/openstack-tosca-parser-for-network-functions-virtualization-nfv/" target="_blank">here</a>.</p>
+
+</notextile>
