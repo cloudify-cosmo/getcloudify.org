@@ -71,10 +71,11 @@ category: video
 		nextPageToken = data.nextPageToken;
         $.each(data.items, function(i, item) {
             var feedTitle = item.snippet.title;
+            var videoDescription = item.snippet.description;
 			var videoID = item.snippet.resourceId.videoId;
             var url = videoURL + videoID + '?autoplay=1';
             var thumb = "http://img.youtube.com/vi/"+ videoID +"/0.jpg";
-            list_data += '<li class="item-thumbs span3 design" data-id="id-0" data-type="web"><div class="videoDesc">"'+ feedTitle +'"</div><a  id="'+ i +'"  class="hover-wrap fancybox fancybox.iframe" data-fancybox-group="gallery" href="'+ url +'" title="'+ feedTitle +'"><span class="overlay-img"></span><span class="overlay-img-thumb font-icon-play"></span></a><img alt="'+ feedTitle+'" src="'+ thumb +'"></li>';
+            list_data += '<li class="item-thumbs span3 design" data-id="id-0" data-type="web"><div class="videoDesc">"'+ feedTitle +'"</div><a  id="'+ i +'"  class="hover-wrap fancybox fancybox.iframe" data-fancybox-group="gallery" href="'+ url +'" title="'+ feedTitle +'"><span class="overlay-img"></span><span class="overlay-img-thumb font-icon-play"></span></a><img alt="'+ videoDescription+'" src="'+ thumb +'"></li>';
         });
         $(list_data).appendTo("#thumbs");
 		//retrieve more videos after 50 items
@@ -91,7 +92,7 @@ category: video
 							var videoID = item.snippet.resourceId.videoId;
 							var url = videoURL + videoID + '?autoplay=1';
 							var thumb = "http://img.youtube.com/vi/"+ videoID +"/0.jpg";
-							list_data += '<li class="item-thumbs span3 design" data-id="id-0" data-type="web"><div class="videoDesc">"'+ feedTitle +'"</div><a  id="'+ i +'"  class="hover-wrap fancybox fancybox.iframe" data-fancybox-group="gallery" href="'+ url +'" title="'+ feedTitle +'"><span class="overlay-img"></span><span class="overlay-img-thumb font-icon-play"></span></a><img alt="'+ feedTitle+'" src="'+ thumb +'"></li>';
+							list_data += '<li class="item-thumbs span3 design" data-id="id-0" data-type="web"><div class="videoDesc">"'+ feedTitle +'"</div><a  id="'+ i +'"  class="hover-wrap fancybox fancybox.iframe" data-fancybox-group="gallery" href="'+ url +'" title="'+ feedTitle +'"><span class="overlay-img"></span><span class="overlay-img-thumb font-icon-play"></span></a><img alt="'+ videoDescription+'" src="'+ thumb +'"></li>';
 						});
 						$(list_data).appendTo("#thumbs");
 					});
@@ -216,12 +217,13 @@ category: video
             var list_data="";
             $.each(data.feed.entry, function(i, item) {
                 var feedTitle = item.title.$t;
+                var videoDescription = item.description.$t;
                 var feedURL = item.link[1].href;
                 var fragments = feedURL.split("/");
                 var videoID = fragments[fragments.length - 2];
                 var url = videoURL + videoID + '?autoplay=1';
                 var thumb = "http://img.youtube.com/vi/"+ videoID +"/0.jpg";
-                list_data += '<li class="item-thumbs span3 design" data-id="id-0" data-type="web"><div class="videoDesc">"'+ feedTitle +'"</div><a class="hover-wrap fancybox fancybox.iframe" data-fancybox-group="gallery" href="'+ url +'" title="'+ feedTitle +'"><span class="overlay-img"></span><span class="overlay-img-thumb font-icon-play"></span></a><img alt="'+ feedTitle+'" src="'+ thumb +'"></li>';
+                list_data += '<li class="item-thumbs span3 design" data-id="id-0" data-type="web"><div class="videoDesc">"'+ feedTitle +'"</div><a class="hover-wrap fancybox fancybox.iframe" data-fancybox-group="gallery" href="'+ url +'" title="'+ feedTitle +'"><span class="overlay-img"></span><span class="overlay-img-thumb font-icon-play"></span></a><img alt="'+ videoDescription+'" src="'+ thumb +'"></li>';
             });
             $(list_data).appendTo("#thumbs");
         });
