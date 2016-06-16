@@ -1,0 +1,46 @@
+---
+layout: blogpost
+title: DICE deployment tools - Cloudify Orchestration with TOSCA
+image: matej.jpg
+author: Matej Artač, Guest Post
+tags:
+ - Cloud Orchestration
+ - TOSCA
+ - Cloud Automation
+ - YAML
+ - Orchestration Tools
+---
+
+<notextile>
+
+<img src="/img/blog/dice.jpg" alt="cloud orchestration tools | cloud automation | devops | TOSCA Orchestration | TOSCA Blueprint">
+<br/>
+<br/>
+
+<p><i>This article was originally published on the <a href="http://www.dice-h2020.eu/2016/03/02/dice-deployment-tools/" target="_blank">DICE</a> blog. Matej is Project Manager at <a href="http://www.xlab.si/rd/current-projects/dice/">XLAB</a>. The article is being re-published with the author's consent.</i></p>
+
+<p><strong>Introduction by Jeremy Hess</strong></p>
+<a href="http://www.dice-h2020.eu/">DICE</a> is a European research consortium that is working on "delivering methods and tools that will help satisfying quality requirements in data-intensive applications by iterative enhancement of their architecture design." In their research, they have found that <a href="http://getcloudify.org">Cloudify</a> <a href="http://getcloudify.org/cloud_orchestration_cloud_automation.html">open source orchestration</a> with <a href="http://getcloudify.org/2015/07/21/what-is-TOSCA-cloud-application-orchestration-tutorial-cloudify.html">TOSCA</a>, is a great framework for use with their deployment tool. In our communication, Matej noted that his company, <a href="http://xlab.si">XLAB</a>, is working "to give the developers a simple way to push their application to be deployed in a testbed or in a cloud." We were very pleased to learn of XLAB's interest in Cloudify for the DICE deployment tool, so we wanted to bring you some of their blog posts highlighting their very interesting work with Cloudify.
+
+<hr>
+
+<span class="pullquote-left">
+  <font style="font-weight: bold" size="5" face="Baskerville Old Face"><em>Cloudify - Intelligent Cloud Orchestration Done Better. Download Free.</em></font>&nbsp; <a class="btn btn-medium btn-theme btn-rounded" id="downloadBtnInner" href="http://getcloudify.org/downloads/get_cloudify.html" target="_blank"><i class="icon-plus"></i> Go </a></span>
+  
+<hr>
+
+<p>Let us suppose that you or your customer have a lot of data: collected in a database somewhere, or filling up from the daily activities. Or perhaps a set of IoT sensors costantly stream their measurements. You know about Map/Reduce or other modern ways of processing data. So now you need to design and create an application, which uses Big Data technologies, to mine the data and get real-time insights into the deeper aspects of your data. DICE will help you to quickly get from a concept to a fully deployed code in the test bed – when you start and whenever you change something.</p>
+
+<p>The DICE tools aim at simplifying and speeding up the process of developing data-intensive applications. By this we mean that if you want to create an application, which deals with Big Data, you should not have to graduate from all the ins and outs of designing, testing and deploying your application. One of the bigger hurdles in using Big Data technologies is the process of installing, configuring and starting up the various services before an application can even start processing any data.</p>
+
+<p>One of the great things about living in a modern world is that there are a lot of tools already available that solve problems of <strong>applying DevOps</strong>, treating infrastructure as code, and packaging complex installation processes into easily usable cookbooks. So potentially it should be an easy matter to, say, quickly whip together a few nodes that run a Zookeeper service, some Storm nodes and a Kafka messaging bus. Yet in our experience, the user always has to understand a lot of seemingly arcane details about each service, experiment with the community-provided cookbooks and tune configuration before the combination of services can start to work together.</p>
+
+<p>In the DICE deployment tool, we bring together the good from various communities. First, we adopted an emerging industry standard for describing an application as a topology or a <strong>blueprint</strong>. <a href="https://en.wikipedia.org/wiki/OASIS_TOSCA" rel="nofollow">OASIS TOSCA</a> offers a simple, clear and efficient way of expressing the building blocks of any Cloud application: nodes, services, their relationships and any set of the needed parameters.</p>
+
+<p>Next, a <strong>cloud orchestrator</strong> needs to consume this blueprint and execute the necessary steps to bring the blueprint to reality. In DICE, we use the <a href="http://getcloudify.org/" rel="nofollow">Cloudify</a>, an open source cloud orchestration framework provided by the <a href="http://www.gigaspaces.com/" rel="nofollow">GigaSpaces Technologies</a>. Cloudify packs support for a wide range of public and private cloud platforms, existing blueprint constructs for expressing the required components of an application, and is also reasonably close to the TOSCA standard.</p>
+
+<p>Cloudify serves as a mediator between an abstract description of an application on one side, and the tools that perform the installing and configuring on the other side. At this low level, one can use anything from simple bash and Python scripts to employing <a href="https://www.chef.io/" rel="nofollow">Chef</a> cookbooks, <a href="https://puppetlabs.com/" rel="nofollow">Puppet</a> recipes or any other configuration manager. Orchestration here means that Cloudify brings a notion of a whole application, so each individual node’s configuration comes with a context of the other interdependent nodes.</p>
+
+<p >With the DICE deployment tool, we work to improve that by providing ready-made packages of libraries, which employ Chef cookbooks tested to work together. If you use the DICE deployment tool as a stand-alone component, then defining an application to be deployed is a matter of writing down the services by type in a simple <strong>YAML</strong> file, and the tool will do the rest.</p>
+
+</notextile>
