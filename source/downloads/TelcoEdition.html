@@ -1,0 +1,208 @@
+---
+layout: bt_default
+title: 	Cloudify Telco Edition | Built for NFV Orchestration
+category: NFV
+---
+
+
+		<section id="content">
+				<div class="container">
+				<div class="row">
+				<div class="span12">
+					<div class="aligncenter">
+					<p>&nbsp;</p>
+						<div class="well">
+						<h1><strong>Register now for early access to Cloudify new NFV Telecom edition!</strong> </h1>
+						</div>
+					</div>
+				</div>
+				</div>
+				</div>
+		</section>		
+		<section id="content">
+				<div class="container">
+				<div class="row">		
+					<div class="span7">
+							<h2>Access the Power of Cloudify - Tailor Made for Telcos!</h2>
+							<p> Cloudify Telecom Edition is slated for release in July, but you can sign up today to access the early release with the new features targeted for NFV environments</p>
+							<br>
+							<p> The Cloudify Telco Edition, based on the telecom-friendly TOSCA standard, will be delivered with the <a href="http://ariatosca.org/"> ARIA TOSCA </a> Orchestration Engine at its core, an open source and open governance embeddable reference implementation of TOSCA targeted for NFV users.  Cloudify, as the only open source NFV MANO leveraging TOSCA’s native multi-VIM interoperability capabilities, has built-in support and blueprints for OpenStack, as well as the entire VMware stack, including  - vCloud Director, VMware Integrated OpenStack, and vSphere. It also enables extensibility of hybrid workloads and microservices, as well as bursting to public clouds for disaster recovery applications.
+							<h3>What's included?</h3>
+							<ul>
+								<li>Clearwater vIMS blueprints and plugins</li>
+								<li>F5 BigIP plugin</li>
+								<li>Netconf plugin</li>
+								<li>Network service management</li>
+								<li>TOSCA/YANG data modeling interoperability</li>
+								<li>VNF updates for running VNFs and services</li>
+								<li>NIC ordering</li>
+								<li>Support for Cloud Native services through Kubernetes plugin</li>
+								<li>Overlay Service Chaining</li>
+							</ul>	
+							<h3>Access to a <strong>Live Virtual NFV Lab</strong></h3>
+							<p>In the NFV Lab you will have access to a dedicated OpenStack environment, built for NFV specifications, as well as your own technology stack. You can also continue evaluating the NFV environment, and deploying other examples as well.</p>
+							<img src="http://getcloudify.org/img/ETSIdiagram.png" alt="NFV Management and Orchestration with TOSCA" height="350" width="500"/></a>
+						</div>
+					<div class="span5">
+						<h2><strong>Sign Up For Early Access to Cloudify Telecom Edition</sup></strong></h2>
+						<!--[if lte IE 8]>
+						<script charset="utf-8" type="text/javascript" src="//js.hsforms.net/forms/v2-legacy.js"></script>
+						<![endif]-->
+						<script charset="utf-8" type="text/javascript" src="//js.hsforms.net/forms/v2.js"></script>
+						<script>
+						  hbspt.forms.create({ 
+						    portalId: '1918719',
+						    formId: '7db107d0-f425-4ee7-84dc-28ef9ccc17b8'
+						  });
+						</script>
+					</div>
+				</div>
+				</div>	
+		</section>
+			
+	
+	
+
+		<section id="bottom">
+			<div class="container">
+			<div class="row">
+				<div class="span12">
+				<div class="aligncenter">
+				<h2><img src="{{ site.baseurl }}/img/logo.png" width="100"> Find out how Cloudify is revolutionizing <a href="{{ site.baseurl }}/network-function-virtualization-vnf-nfv-orchestration-sdn-platform.html"><strong> NFV Orchestration.</strong></a></h2>
+				</div>
+				</div>
+				</div>
+		<div class="row">
+		<div class="span2"></div>
+		<div class="span8">
+		<div class="aligncenter">
+			<h2><strong>Download Now for Free</strong></h2>
+						<br/>
+						<a class="btn btn-large btn-theme btn-rounded" id="downloadBtnInner" href="{{ site.baseurl }}/downloads/get_cloudify.html"><i class="icon-download"></i>  Download Now</a>
+							<br/>
+							<hr/>
+							</br>
+
+							</div>
+							{% include addthis.html %}
+
+						
+						</div>
+						<div class="span2"></div>
+					</div>
+					</div>
+					</section>
+
+
+	
+
+<script type="text/javascript">
+$(function () {
+  var $form = $('#mc-embedded-subscribe-form');
+
+  $('#mc-embedded-subscribe').on('click', function(event) {
+    if(event) event.preventDefault();
+    register($form);
+  });
+});
+
+function register($form) {
+  $.ajax({
+    type: $form.attr('method'),
+    url: $form.attr('action'),
+    data: $form.serialize(),
+    cache       : false,
+    dataType    : 'json',
+    contentType: "application/json; charset=utf-8",
+    error       : function(err) { $('#notification_container').html('<span class="alert">Could not connect to server. Please try again later.</span>'); },
+    success     : function(data) {
+     
+      if (data.result != "success") {
+        var message = data.msg.substring(4);
+        $('#notification_container').html('<span class="alert">'+message+'</span>');
+      } 
+
+      else {
+        var message = data.msg;
+        $('#notification_container').html('<span class="success">'+message+'</span>');
+		track_contactForm();
+		mixpanel.track('Register for NFV', {'page name' : document.title, 'url' : window.location.pathname});	
+      }
+    }
+  });
+}
+</script>
+
+
+<div id="mce-responses" class="clear">
+	<div class="response" id="mce-error-response" style="display:none"></div>
+	<div class="response" id="mce-success-response" style="display:none"></div>
+</div>
+<!-- End MailChimp Signup Form -->
+<div id="messageBox"></div>
+
+                                        <div class="row">
+                               
+											<!-- LeadLander Form Tracking -->
+											<script type="text/javascript">llfrmid=29185</script> 
+											<script type="text/javascript" src="https://formalyzer.com/formalyze_init.js"></script> 
+											<script type="text/javascript" src="https://formalyzer.com/formalyze_call_secure.js"></script>
+											<!-- End LeadLander -->
+                                  
+									
+                        </div> 
+                    			
+			
+<script>
+
+//set download cookie
+function setCookie(key, value) {
+    var expires = new Date();
+    expires.setTime(expires.getTime() + (180 * 24 * 60 * 60 * 1000));
+    document.cookie = key + '=' + value + ';expires=' + expires.toUTCString()+';path=/';
+}
+
+function getCookie(key) {
+    var keyValue = document.cookie.match('(^|;) ?' + key + '=([^;]*)(;|$)');
+    return keyValue ? keyValue[2] : null;
+}
+function track_contactForm() {
+
+		//_gaq.push(['_trackEvent','Product Download', downloadme]);
+       	//track mixpanel
+		if (getCookie('cfydirect') == null) {
+            var formEmail =  $("#mc-embedded-subscribe-form #mce-EMAIL").val();	
+            var formName =  $("#mc-embedded-subscribe-form #mce-FNAME").val();
+			var formcompany =  $("#mc-embedded-subscribe-form #mce-MMERGE3").val();
+			mixpanel.identify(formEmail);
+            mixpanel.alias(formName, formEmail, formcompany);
+            mixpanel.name_tag(formName) ;
+			mixpanel.register();
+			
+			mixpanel.people.set({
+			$email: formEmail,
+			$first_name: formName,
+			$company: formcompany,
+			$created: new Date(),
+			});	
+			//create cookie;
+			setCookie('cfydirect', formName + "," + formEmail + "," + formcompany);	
+			
+			
+        }else{
+			var formEmail = getCookie('cfydirect').split(",")[1];
+			mixpanel.identify(formEmail);
+        }
+
+		
+	}
+	
+	
+	$("#mc-embedded-subscribe-form").validate({
+  submitHandler: function(form) {
+    form.submit();
+  }
+ });
+	
+
+</script>
