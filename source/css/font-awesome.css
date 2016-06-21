@@ -251,7 +251,44 @@ a [class*=" icon-"] {
 }
 /* EXTRAS
  * -------------------------- */
-/* Stacked and layered icon */
+/* Icon pulse */
+.fa-pulsing {
+  display: inline-block;
+  -moz-animation: pulsing 2s linear;
+  -o-animation: pulsing 2s linear;
+  -webkit-animation: pulsing 2s linear;
+  animation: pulsing 2s linear;
+  -webkit-animation-iteration-count: 2;
+  animation-iteration-count: 2;
+}
+
+@-webkit-keyframes pulsing {
+  0% { opacity: 1; }
+  50% { opacity: 0; }
+  100% { opacity: 1; }
+}
+@-moz-keyframes pulsing {
+  0% { opacity: 1; }
+  50% { opacity: 0; }
+  100% { opacity: 1; }
+}
+@-o-keyframes pulsing {
+  0% { opacity: 1; }
+  50% { opacity: 0; }
+  100% { opacity: 1; }
+}
+@-ms-keyframes pulsing {
+  0% { opacity: 1; }
+  50% { opacity: 0; }
+  100% { opacity: 1; }
+}
+@keyframes pulsing {
+  0% { opacity: 1; }
+  50% { opacity: 0; }
+  100% { opacity: 1; }
+}
+
+ /* Stacked and layered icon */
 .icon-stack {
   position: relative;
   display: inline-block;
