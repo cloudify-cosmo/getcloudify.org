@@ -1,8 +1,8 @@
 ---
 layout: blogpost
 title: How The OPNFV Functest Team Tests The Clearwater vIMS Deployment Using Cloudify
-image: valentin.jpg
-author: Valentin Boucher, Community Contributed
+image: sivan.jpg
+author: Sivan Barzily
 tags:
  - NFV
  - VNF Management
@@ -17,7 +17,6 @@ tags:
 <br/>
 <br/>
 
-<h2><i>Introduction by Jeremy Hess</i></h2>
 <p>By now, you are probably very familiar with the <a href="https://www.opnfv.org/">OPNFV Project</a> from the <a href="http://www.linuxfoundation.org/">Linux Foundation</a>. If not, the quick and dirty explanation is that OPNFV is basically an open source platform that brings together various NFV components and tests them in order to help carriers and vendors release virtual network functions (VNFs) in a quick and reliable manner.</p>
 <p>One of the most enjoyable aspects of building an open source tool is that you are often pleasantly surprised to find out that someone has just grabbed your code and used it for their project. In this case, the Functest (functional testing) team at OPNFV, specifically <a href="https://github.com/boucherv">Valentin Boucher</a> and <a href="https://wiki.opnfv.org/display/~mrichomme">Morgan Richomme</a> from Orange Labs, contacted us to let us know about their OPNFV vIMS test-case. Functest intention is to test and verify the OPNFV Platform functionality covering the VIM and NFVI components. In looking for an orchestrator and VNF Manager, they found Cloudify fit the bill.</p>
 <p>Join Cloudify at the <a href="events.linuxfoundation.org/events/opnfv-summit" target="_blank">OPNFV Summit</a> booth #C01 to talk all about <a href="http://getcloudify.org/2015/10/13/nfv-vnf-network-topology-architecture-automation-tosca-service-chaining-orchestration.html" target="_blank">NFV orchestration</a>.</p>
@@ -29,6 +28,7 @@ tags:
   
 <hr>
 
+<p><i>This section was writted by Valentin Boucher.</i></p>
 <h2>Functest for Arno and Brahmaputra</h2>
 <p>Into the first OPNFV release named &ldquo;Arno&rdquo;, Functest focused on NFVI,VIM and SDN integration testing. Functest test suites are run to validate every OPNFV platform deployment.</p>
 <p>The second OPNFV release named &ldquo;Brahmaputra&rdquo; includes some new test-cases to better check the OPNFV platform capacity to host complex VNF. The vIMS has been selected for various reasons: it is a complex VNF with various components requiring some configuration for communication between the different VMs and it requires a basic workflow to set up all the VNF components. Thankfully, MetaSwitch open sourced their vIMS solution (Clearwater) that is very well documented and using cloud-ready software architecture.</p>
