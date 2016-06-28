@@ -8,6 +8,9 @@
 <meta class="swiftype" name="score" data-type="float" content="{% pagescore %}" />
 <meta class="swiftype" name="section" data-type="string" content="{% currentsection %}" />
 <meta content="Cloudify - {{ page.title }}" property="og:site_name">
+{% if page.noindex %}
+<meta name="robots" content="noindex,follow"/>
+{% endif %}
 {% if page.title %}
   <meta content="{{ page.title }}" property="og:title">
 {% else %}
