@@ -4074,6 +4074,171 @@ a#barometer_tab{right:0 !important;left:auto !important}
   }
 }
 
+
+
+/*New Layout 28/6/16 By 4Hilton */
+/* Pattern overlay
+------------------------- */
+.dwnCenter{    
+	position: absolute;
+    color: #fff;
+    left: 20px;
+    top: 74px;
+    z-index: 1;
+}
+.dwnTopBanner{ color:#fff; background: url(../images/download/dwnTopBanner.jpg) no-repeat center center #1D2041;}
+.dwnTopBanner h1{ color:#fff; font-size:72px; line-height:72px;}
+.dwnBtnsWrap{max-width:608px}
+.dwnBtnsWrap a{-moz-border-radius: 22px;
+-webkit-border-radius: 22px;
+border-radius: 22px; /* border radius */
+-moz-background-clip: padding;
+-webkit-background-clip: padding-box;
+background-clip: padding-box; /* prevents bg color from leaking outside the border */
+background-color: #ff7f00; /* layer fill content */
+border:1px solid #ff7f00;
+width:197px;
+}
+.dwnBtnsWrap a:hover{border:1px solid #cf1a07;}
+.righHandBg {
+    padding: 0px;
+    margin: 0;
+	position:relative;
+}
+.dwnBoxText{ text-align: center; padding:20px 60px 20px 70px;}
+.dwnBoxText li{display:block; list-style:none;}
+.dwnBoxText li a{display:inline-block; padding:10px; text-decoration:none;}
+.clyManagerBox li a{width:255px; margin-bottom:20px; position:relative;}
+.clyManagerBox .downloadAmi span{
+	font-size: 9px;
+    display: block;
+    color: #000;
+    position: absolute;
+    left: 0;
+    right: 0;
+    margin: auto;
+    top: 23px;
+}
+.txtLead{ text-align:left;}
+.txtBlue{ color:#39b9d4;}
+.btn-s6{
+	-moz-border-radius: 16px / 20px;
+-webkit-border-radius: 16px / 20px;
+border-radius: 16px / 20px; /* border radius */
+-moz-background-clip: padding;
+-webkit-background-clip: padding-box;
+background-clip: padding-box; /* prevents bg color from leaking outside the border */
+background-color: #fff; /* layer fill content */
+-moz-box-shadow: 0 2px 2px rgba(0,0,0,.2); /* drop shadow */
+-webkit-box-shadow: 0 2px 2px rgba(0,0,0,.2); /* drop shadow */
+box-shadow: 0 2px 2px rgba(0,0,0,.2); /* drop shadow */
+ background:#fff;
+ color:#39b9d4;
+
+}
+.btn-s6:hover{
+	background:#1d2041;
+	color:#fff;
+}
+.or-spacer {
+  position: relative;
+}
+.or-spacer .mask {
+  overflow: hidden;
+  height: 20px;
+}
+.or-spacer .mask:after {
+  content: '';
+  display: block;
+  margin: -25px auto 0;
+  width: 100%;
+  height: 25px;
+  border-radius: 125px / 12px;
+  box-shadow: 0 0 8px black;
+}
+
+.or-spacer-vertical {
+  display: inline-block;
+  margin-top: 0;
+  margin-left: 0;
+  width: 100%;
+  position: relative;
+}
+.or-spacer-vertical .mask {
+  overflow: hidden;
+  width: 75px;
+  height: 100%;
+  position:absolute;
+}
+.or-spacer-vertical.left .mask:after {
+  content: '';
+  display: block;
+  margin-left: -20px;
+  width: 20px;
+  height: 100%;
+  border-radius: 12px / 125px;
+  box-shadow: 0 0 8px black;
+}
+.or-spacer-vertical.right .mask:before {
+  content: '';
+  display: block;
+  margin-left: 20px;
+  width: 20px;
+  height: 100%;
+  border-radius: 12px / 125px;
+  box-shadow: 0 0 8px black;
+}
+
+.bgGrayRow{ background:#e6e6e6;}
+.allPacksWrap{text-align:center;}
+.allPacksWrap h4{text-align:center; margin-top:35px; display:inline-block;}
+.allPacks{text-align:center; margin:0;}
+.allPacks  li{ display:inline-block; margin:0 15px 10px}
+
+
+
+
+.jumbotron .container {
+  position: relative;
+  z-index: 2;
+}
+.jumbotron:after {
+  content: '';
+  display: block;
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  background: url(../images/download/dwnTopBanner.jpg) no-repeat center center #1D2041;
+  opacity: 1;
+  
+}
+
+@media screen and (max-width: 980px) {
+.clyManagerBox li a{width:165px;}	
+}
+@media screen and (max-width: 778px) {
+.clyManagerBox li a{width:255px;}	
+.dwnBoxText{padding:20px 0}
+.dwnBtnsWrap .row-fluid{ margin-bottom:0 !important}
+.or-spacer{ display:block !important; }
+.or-spacer-vertical .mask{ display:none !important; }
+}
+
+
+
+@media
+only screen and (-webkit-min-device-pixel-ratio: 2),
+only screen and (   min--moz-device-pixel-ratio: 2),
+only screen and (     -o-min-device-pixel-ratio: 2/1) {
+
+  .jumbotron:after {
+    background-size: 150px 150px;
+  }
+
+}
+
 /* ============================
 23. Premium page
 ============================= */
@@ -4391,4 +4556,87 @@ a#barometer_tab{right:0 !important;left:auto !important}
     text-overflow: ellipsis;
 
 }
+
+
+
+
+
+
+
+/* ============================
+25. Plugin Container 
+============================= */
+
+ .plugin-container {
+    width: 22%;
+    margin-right: 30px;
+    float: left;
+    color: white;
+    position: relative;
+    padding: 30px;
+    height: 140px;
+    margin-bottom: 30px;
+    background-image:url('/img/academy-panel.png');
+    min-width: 220px;
+	}
+}
+
+
+
+.action.start {
+    background: #258093;
+    border-bottom: 2px solid #d76500;
+}
+
+
+
+.plugin-container .action, .lab a.action {
+    height: 58px;
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    width: 100%;
+    display: block;
+    color: #FFF;
+    text-align: center;
+    line-height: 58px;
+    font-size: 125%;
+    font-weight: 100;
+}
+
+
+.plugin-container  .count, .lab a.count {
+    color: white;
+    text-align: right;
+    float: right;
+    border: 2px solid #FFF;
+    padding: 5px 10px;
+    font-size: 12px;
+    border-radius: 20px;
+    text-transform: uppercase;
+    max-width: 130px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+
+.plugin-container .count2, .lab a.count2 {
+    color: white;
+    text-align: center;
+    float: bottom;
+    border: 2px solid #258093;
+    padding: 5px 10px;
+    font-size: 18px;
+    border-radius: 20px;
+    text-transform: uppercase;
+    max-width: 130px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+
+}
+
+
 
