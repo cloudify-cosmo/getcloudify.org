@@ -213,10 +213,10 @@ function getCentOS7Form(e){
 				} 
 			  });
 }
-function getCentOS6_5Form(e){
+function getDebianForm(e){
 			hbspt.forms.create({ 
 				portalId: '1918719',
-				formId: 'a918493f-16d8-4f89-b952-360730947c61',
+				formId: 'ba57e9f0-58f8-4f88-94af-b4206b650c62',
 				onFormReady($form, ctx){
 					var hubspotHtmlForm=$(".hbspt-form");
 					$( ".gattingWrapper" ).append( hubspotHtmlForm );
@@ -318,8 +318,8 @@ function downloadCliFile(e)
 			$('#myModal').modal('toggle');
 			//This call right form depand which btn was clicked.
 					switch(dataThanks) {
-						case "thank_you_centos_6_5":
-							getCentOS6_5Form(e);
+						case "thank_you_debian":
+							getDebianForm(e);
 							break;
 						case "thank_you_centos_7":
 							getCentOS7Form(e);
@@ -366,17 +366,17 @@ setTimeout(function() {
 	window.location.href = downloadHref; 
 	setTimeout(function() {
 		switch(dataThanks) {
-    case "thank_you_centos_6_5":
-		window.location.href ="/thank_you_centos_6_5.htm";
+    case "thank_you_debian":
+		window.location.href ="http://docs.getcloudify.org/3.4.0/installation/from-packages/#linux";
         break;
     case "thank_you_centos_7":
-		window.location.href ="/thank_you_centos_7.htm";
+		window.location.href ="http://docs.getcloudify.org/3.4.0/installation/from-packages/#linux";
         break;
     case "thank_you_windows":
-		window.location.href ="/thank_you_windows.htm";
+		window.location.href ="http://docs.getcloudify.org/3.4.0/installation/from-packages/#windows";
         break;
     case "thank_you_pip":
-		window.location.href ="/thank_you_pip.htm";
+		window.location.href ="http://docs.getcloudify.org/3.4.0/installation/from-script/";
         break;	
 	case "thank_you_vagrant":
 		window.location.href ="/thank_you_vagrant.htm";
@@ -648,25 +648,25 @@ setTimeout(function() {
 	setTimeout(function() {
 		//window.location.href = "/thank_you1.htm";
 		switch(dataBtnId) {
-    case "Centos 6.5 CLI 3.3.0":
-		window.location.href ="/thank_you_centos_6_5.htm";
+    case "Debian CLI 3.4":
+		window.location.href ="http://docs.getcloudify.org/3.4.0/installation/from-packages/#linux";
         break;
-    case "Centos 7 CLI 3.3.0":
-		window.location.href ="/thank_you_centos_7.htm";
+    case "Centos 7 CLI 3.4":
+		window.location.href ="http://docs.getcloudify.org/3.4.0/installation/from-packages/#linux";
         break;
-    case "Windows CLI 3.3.0":
-		window.location.href ="/thank_you_windows.htm";
+    case "Windows CLI 3.4":
+		window.location.href ="http://docs.getcloudify.org/3.4.0/installation/from-packages/#windows";
         break;
-    case "Pip Install CLI 3.3.0":
-		window.location.href ="/thank_you_pip.htm";
+    case "Pip Install CLI 3.4":
+		window.location.href ="http://docs.getcloudify.org/3.4.0/installation/from-script/";
         break;	
-	case "Vagrant Trial Download 3.3.0":
+	case "Vagrant Trial Download 3.4":
 		window.location.href ="/thank_you_vagrant.htm";
         break;
     case "Amazon AMI Download 0.0.1":
 		window.location.href ="/thank_you_aws.htm";
         break;
-	case "Composer Download 3.3.0":
+	case "Composer Download 3.4":
 		window.location.href ="/thank_you_composer.htm";
 		break;			
     default:
@@ -704,29 +704,29 @@ function downloadFile(e)
 					window.location.href = downloadHref; 
 					setTimeout(function() {
 						switch(dataBtnId) {
-							case "Centos 6.5 CLI 3.3.0":
-								window.location.href ="/thank_you_centos_6_5.htm";
-								break;
-							case "Centos 7 CLI 3.3.0":
-								window.location.href ="/thank_you_centos_7.htm";
-								break;
-							case "Windows CLI 3.3.0":
-								window.location.href ="/thank_you_windows.htm";
-								break;
-							case "Pip Install CLI 3.3.0":
-								window.location.href ="/thank_you_pip.htm";
-								break;
-							case "Vagrant Trial Download 3.3.0":
+							case "Debian CLI 3.4":
+								window.location.href ="http://docs.getcloudify.org/3.4.0/installation/from-packages/#linux";
+						        break;
+						    case "Centos 7 CLI 3.4":
+								window.location.href ="http://docs.getcloudify.org/3.4.0/installation/from-packages/#linux";
+						        break;
+						    case "Windows CLI 3.4":
+								window.location.href ="http://docs.getcloudify.org/3.4.0/installation/from-packages/#windows";
+						        break;
+						    case "Pip Install CLI 3.4":
+								window.location.href ="http://docs.getcloudify.org/3.4.0/installation/from-script/";
+						        break;	
+							case "Vagrant Trial Download 3.4":
 								window.location.href ="/thank_you_vagrant.htm";
-								break;	
-							case "Amazon AMI Download 0.0.1":
+						        break;
+						    case "Amazon AMI Download 0.0.1":
 								window.location.href ="/thank_you_aws.htm";
-								break;	
-							case "Composer Download 3.3.0":
+						        break;
+							case "Composer Download 3.4":
 								window.location.href ="/thank_you_composer.htm";
-								break;		
-							default:
-								 window.location.href = "/thank_you.htm";
+								break;			
+						    default:
+						         window.location.href = "/thank_you.htm";
 						}
 					}, 1000);
 				}, 500);
