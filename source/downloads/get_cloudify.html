@@ -19,10 +19,10 @@ category: Get Cloudify
       <div class="span10"> 
         <div class="row-fluid">
           <div class="span6"> 
-				<a class="btn btn-red btn-medium  downloadCli" href="http://repository.cloudifysource.org/org/cloudify3/3.4.0/ga-RELEASE/cloudify_3.4.0~ga-400_amd64.deb"  data-btn-split="7" data-btn-type="GA Product Download 3.4" data-btn-id="Centos 7 CLI 3.4" id="Centos 7 CLI 3.4" data-thanks-page="thank_you_centos_7" onclick="dataLayer.push({'event': 'GAEvent', 'eventCategory': 'Product Download','eventAction': 'Cloudify CLI Download','eventLabel': 'Cloudify CLI Download 3.4 - Centos 7'});"><i class="icon-debian"></i>&nbsp;Debian <span style="font-size:9px;color:#eeeee;">&nbsp;&nbsp;(.deb)</span></a>
+				<a class="btn btn-red btn-medium  downloadCli" href="http://repository.cloudifysource.org/org/cloudify3/3.4.0/ga-RELEASE/cloudify_3.4.0~ga-400_amd64.deb"  data-btn-split="7" data-btn-type="GA Product Download 3.4" data-btn-id="Debian CLI 3.4" id="Debian CLI 3.4" data-thanks-page="thank_you_debian" onclick="dataLayer.push({'event': 'GAEvent', 'eventCategory': 'Product Download','eventAction': 'Cloudify CLI Download','eventLabel': 'Cloudify CLI Download 3.4 - Centos 7'});"><i class="icon-debian"></i>&nbsp;Debian <span style="font-size:9px;color:#eeeee;">&nbsp;&nbsp;(.deb)</span></a>
 		  </div> 
           <div class="span6">
-						   <a class="btn btn-red btn-medium downloadCli" href="http://repository.cloudifysource.org/org/cloudify3/3.4.0/ga-RELEASE/cloudify-3.4.0~ga-400.el6.x86_64.rpm"  data-btn-split="7" data-btn-type="GA Product Download 3.4" data-btn-id="Centos 6.5 CLI 3.4" id="Centos 6.5 CLI 3.4" data-thanks-page="thank_you_centos_6_5" onclick="dataLayer.push({'event': 'GAEvent', 'eventCategory': 'Product Download','eventAction': 'Cloudify CLI Download','eventLabel': 'Cloudify CLI Download 3.4 - Centos 6.5'});"><i class="icon-centos"></i>&nbsp;Centos<span style="font-size:9px;color:#eeeee;">&nbsp;&nbsp;(.RPM)</span></a>
+						   <a class="btn btn-red btn-medium downloadCli" href="http://repository.cloudifysource.org/org/cloudify3/3.4.0/ga-RELEASE/cloudify-3.4.0~ga-400.el6.x86_64.rpm"  data-btn-split="7" data-btn-type="GA Product Download 3.4" data-btn-id="Centos 7 CLI 3.4" id="Centos 7 CLI 3.4" data-thanks-page="thank_you_centos_7" onclick="dataLayer.push({'event': 'GAEvent', 'eventCategory': 'Product Download','eventAction': 'Cloudify CLI Download','eventLabel': 'Cloudify CLI Download 3.4 - Centos 7'});"><i class="icon-centos"></i>&nbsp;Centos<span style="font-size:9px;color:#eeeee;">&nbsp;&nbsp;(.RPM)</span></a>
 		  
 		  </div> 
         </div> 
@@ -768,6 +768,118 @@ setTimeout(function() {
 //
 }
 
+
+
+
+
+function directDownload(e){
+e.preventDefault();
+var verName="";
+verName=downloadHref.split("/")[dataBtnSplit]; 
+//track google and mixpanel 
+track_download(downloadHref);
+$('#myModal').modal('hide');	
+//self.delay(500); 
+setTimeout(function() {
+	window.location.href = downloadHref; 
+	setTimeout(function() {
+		//window.location.href = "/thank_you1.htm";
+		switch(dataBtnId) {
+    case "Debian CLI 3.4":
+		window.location.href ="http://docs.getcloudify.org/3.4.0/installation/from-packages/#linux";
+        break;
+    case "Centos 7 CLI 3.4":
+		window.location.href ="http://docs.getcloudify.org/3.4.0/installation/from-packages/#linux";
+        break;
+    case "Windows CLI 3.4":
+		window.location.href ="http://docs.getcloudify.org/3.4.0/installation/from-packages/#windows";
+        break;
+    case "Pip Install CLI 3.4":
+		window.location.href ="http://docs.getcloudify.org/3.4.0/installation/from-script/";
+        break;	
+	case "Vagrant Trial Download 3.4":
+		window.location.href ="/thank_you_vagrant.htm";
+        break;
+    case "Amazon AMI Download 0.0.1":
+		window.location.href ="/thank_you_aws.htm";
+        break;
+	case "Composer Download 3.4":
+		window.location.href ="/thank_you_composer.htm";
+		break;			
+    default:
+         window.location.href = "/thank_you.htm";
+}
+	}, 1000);
+}, 500);
+
+//
+}
+
+
+
+
+//this function manage download process
+function downloadFile(e)
+	{
+		try  {
+			e.preventDefault();
+			//Gating PopUp
+			$('#myModal').modal('toggle');
+			$('#myCollapse').addClass('in');
+			if(gotName == false){
+				//randomgen();
+				if ($("#regiterToDownload").validate()==true){
+				gotName = true;
+				//track mixpanel
+				var verName="";
+				var downloadHref = $('a#downloadme').attr('href');
+				verName=downloadHref.split("/")[dataBtnSplit]; 
+				//track google and mixpanel 
+				track_download(downloadHref);
+				//self.delay(500); 
+				setTimeout(function() {
+					window.location.href = downloadHref; 
+					setTimeout(function() {
+						switch(dataBtnId) {
+							case "Debian CLI 3.4":
+								window.location.href ="http://docs.getcloudify.org/3.4.0/installation/from-packages/#linux";
+								break;
+							case "Centos 7 CLI 3.4":
+								window.location.href ="http://docs.getcloudify.org/3.4.0/installation/from-packages/#linux";
+								break;
+							case "Windows CLI 3.4":
+								window.location.href ="http://docs.getcloudify.org/3.4.0/installation/from-packages/#windows";
+								break;
+							case "Pip Install CLI 3.4":
+								window.location.href ="http://docs.getcloudify.org/3.4.0/installation/from-script/";
+								break;
+							case "Vagrant Trial Download 3.4":
+								window.location.href ="/thank_you_vagrant.htm";
+								break;	
+							case "Amazon AMI Download 0.0.1":
+								window.location.href ="/thank_you_aws.htm";
+								break;	
+							case "Composer Download 3.4":
+								window.location.href ="/thank_you_composer.htm";
+								break;		
+							default:
+								 window.location.href = "/thank_you.htm";
+						}
+					}, 1000);
+				}, 500);
+				}
+						   
+			}
+	    } catch(e) {
+	    	console.log(["Error while tracking download", e]);
+	    }
+	    return false; 
+}
+
+
+
+
+
 //this function track download data for mixpanel 
 function track_download(downloadHref) {
 		var downloadme=downloadHref.split("/")[dataBtnSplit]; 
@@ -965,112 +1077,6 @@ function track_contactForm() {
 
 
 
-
-
-
-function directDownload(e){
-e.preventDefault();
-var verName="";
-verName=downloadHref.split("/")[dataBtnSplit]; 
-//track google and mixpanel 
-track_download(downloadHref);
-$('#myModal').modal('hide');	
-//self.delay(500); 
-setTimeout(function() {
-	window.location.href = downloadHref; 
-	setTimeout(function() {
-		//window.location.href = "/thank_you1.htm";
-		switch(dataBtnId) {
-    case "Centos 6.5 CLI 3.3.0":
-		window.location.href ="/thank_you_centos_6_5.htm";
-        break;
-    case "Centos 7 CLI 3.3.0":
-		window.location.href ="/thank_you_centos_7.htm";
-        break;
-    case "Windows CLI 3.3.0":
-		window.location.href ="/thank_you_windows.htm";
-        break;
-    case "Pip Install CLI 3.3.0":
-		window.location.href ="/thank_you_pip.htm";
-        break;	
-	case "Vagrant Trial Download 3.3.0":
-		window.location.href ="/thank_you_vagrant.htm";
-        break;
-    case "Amazon AMI Download 0.0.1":
-		window.location.href ="/thank_you_aws.htm";
-        break;
-	case "Composer Download 3.3.0":
-		window.location.href ="/thank_you_composer.htm";
-		break;			
-    default:
-         window.location.href = "/thank_you.htm";
-}
-	}, 1000);
-}, 500);
-
-//
-}
-
-
-
-
-//this function manage download process
-function downloadFile(e)
-	{
-		try  {
-			e.preventDefault();
-			//Gating PopUp
-			$('#myModal').modal('toggle');
-			$('#myCollapse').addClass('in');
-			if(gotName == false){
-				//randomgen();
-				if ($("#regiterToDownload").validate()==true){
-				gotName = true;
-				//track mixpanel
-				var verName="";
-				var downloadHref = $('a#downloadme').attr('href');
-				verName=downloadHref.split("/")[dataBtnSplit]; 
-				//track google and mixpanel 
-				track_download(downloadHref);
-				//self.delay(500); 
-				setTimeout(function() {
-					window.location.href = downloadHref; 
-					setTimeout(function() {
-						switch(dataBtnId) {
-							case "Centos 6.5 CLI 3.3.0":
-								window.location.href ="/thank_you_centos_6_5.htm";
-								break;
-							case "Centos 7 CLI 3.3.0":
-								window.location.href ="/thank_you_centos_7.htm";
-								break;
-							case "Windows CLI 3.3.0":
-								window.location.href ="/thank_you_windows.htm";
-								break;
-							case "Pip Install CLI 3.3.0":
-								window.location.href ="/thank_you_pip.htm";
-								break;
-							case "Vagrant Trial Download 3.3.0":
-								window.location.href ="/thank_you_vagrant.htm";
-								break;	
-							case "Amazon AMI Download 0.0.1":
-								window.location.href ="/thank_you_aws.htm";
-								break;	
-							case "Composer Download 3.3.0":
-								window.location.href ="/thank_you_composer.htm";
-								break;		
-							default:
-								 window.location.href = "/thank_you.htm";
-						}
-					}, 1000);
-				}, 500);
-				}
-						   
-			}
-	    } catch(e) {
-	    	console.log(["Error while tracking download", e]);
-	    }
-	    return false; 
-}
 
 //this function track download data for mixpanel 
 function track_download(downloadHref) {
