@@ -289,6 +289,158 @@ a:active {
 .launchPlay,.launchPlay:hover {margin:12px 0px 0 15px !important ;background:#479c18 !important;color:white !important}*/
 .panel-body #log{ max-height: 126px; overflow-y: auto;}
 .progress {margin-top:15px;}
+
+
+
+
+/* ===================================
+Home page 06/07/16
+==================================== */
+.hpBannerWrap .bannerText h1{color:#5f5e5e !important;}
+.hpBannerWrap h1 span{color:#39b9d4;}
+.bannerText .orgDwnBtn{margin:0 20px 30px 0}
+.bannerText .orgDwnBtn,.bannerText .regBtn{display:inline-block; font-size:14px !important;}
+.orgDwnBtn,.orgDwnBtn:hover{
+-moz-border-radius: 25px !important;
+-webkit-border-radius: 25px !important;
+border-radius: 25px !important; /* border radius */
+-moz-background-clip: padding !important;
+-webkit-background-clip: padding-box !important;
+background-clip: padding-box !important; /* prevents bg color from leaking outside the border */
+background-color: #ff7f00 !important; /* layer fill content + color overlay */
+text-transform:uppercase !important; 
+padding:5px 40px;
+text-align:center;
+color:#fff;
+border:solid 1px #ff7f00;
+text-decoration:none !important;
+}
+
+.regBtn{
+border:solid 1px #3ab9d4;
+-moz-border-radius: 25px !important;
+-webkit-border-radius: 25px !important;
+border-radius: 25px !important; /* border radius */
+-moz-background-clip: padding !important;
+-webkit-background-clip: padding-box !important;
+background-clip: padding-box !important; /* prevents bg color from leaking outside the border */
+background-color: #fff !important; /* layer fill content + color overlay */
+text-transform:uppercase !important; 
+padding:5px 40px;
+text-align:center;
+text-decoration:none !important;
+}
+.regBtn:hover{
+border:solid 1px #3ab9d4;
+-moz-border-radius: 25px !important;
+-webkit-border-radius: 25px !important;
+border-radius: 25px !important; /* border radius */
+-moz-background-clip: padding !important;
+-webkit-background-clip: padding-box !important;
+background-clip: padding-box !important; /* prevents bg color from leaking outside the border */
+background-color: #3ab9d4 !important; /* layer fill content + color overlay */
+text-transform:uppercase !important; 
+padding:5px 40px;
+text-align:center;
+color:#fff;
+text-decoration:none !important;
+}
+
+.regBtnBlue{
+border:solid 1px #39b9d4;
+-moz-border-radius: 25px !important;
+-webkit-border-radius: 25px !important;
+border-radius: 25px !important; /* border radius */
+-moz-background-clip: padding !important;
+-webkit-background-clip: padding-box !important;
+background-clip: padding-box !important; /* prevents bg color from leaking outside the border */
+background-color: #39b9d4 !important; /* layer fill content + color overlay */
+text-transform:uppercase !important; 
+padding:5px 40px;
+text-align:center;
+text-decoration:none !important;
+color:#fff;
+}
+.regBtnBlue:hover{
+border:solid 1px #00a2c4;
+-moz-border-radius: 25px !important;
+-webkit-border-radius: 25px !important;
+border-radius: 25px !important; /* border radius */
+-moz-background-clip: padding !important;
+-webkit-background-clip: padding-box !important;
+background-clip: padding-box !important; /* prevents bg color from leaking outside the border */
+background-color: #00a2c4 !important; /* layer fill content + color overlay */
+text-transform:uppercase !important; 
+padding:5px 40px;
+text-align:center;
+color:#fff;
+text-decoration:none !important;
+}
+
+
+.hpBannerWrap .da-dots{display:none;}
+
+#twoColorsBoxes{background: linear-gradient(102deg, #fff 50%, #1d1934 50%);}
+ #twoColorsBoxes .row-fluid{margin-top:30px;}
+ .hpLeftBoxImage{ background:url(../img/homePage/hpLeftBanner.png) no-repeat top center; padding:30px;}
+ .hpRightBoxImage{ background:url(../img/homePage/hpRightBanner.png) no-repeat top center;padding:30px;}
+ .hpLeftBoxImage,.hpRightBoxImage{background-size:80%;position:relative;}
+ #twoColorsBoxes .span6 .hpBoxTitle{position:absolute; top:5px; font-size:25px; left:0;right:0;margin:0;}
+  #twoColorsBoxes .hpRightBoxImage .hpBoxTitle{right:0; color:#fff;}
+.hpLeftBoxText {}
+.hpRightBoxText,.hpRightBoxText h3,.hpRightBoxText p {color:#fff;}
+.hpBoxgeneral {text-align:center; padding:40% 8% 0}
+.hpBoxgeneral a{display:inline-block;}
+.hpBoxgeneral li{text-decoration:none; list-style-type:none}
+
+/*dark gray shapes box*/
+#darkGrayShapes{ background:#5f5e5e; text-align:center;position:relative;}
+#darkGrayShapes:before{ 
+    content: " ";
+    background: url(../img/homePage/box33Top.jpg) no-repeat top center;
+    width: 100%;
+    height: 117px;
+    position: absolute;
+    margin: auto;
+    left: 0;
+    right: 0;
+}
+#darkGrayShapes:after{ 
+    content: " ";
+    background: url(../img/homePage/box33Btm.jpg) no-repeat bottom center;
+    width: 100%;
+    height: 113px;
+    position: absolute;
+    margin: auto;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    top: inherit;
+}
+
+.hpBoxLanded{ padding:100px 0; color:#a7a4a4;}
+.hpBoxLanded h2{color:#fff;}
+.hpBoxLanded ul li,#darkGrayShapes ul li{list-style-type:none; }
+
+@media (max-width:767px) {
+.bannerText .orgDwnBtn{margin:0 0px 30px 0}
+#twoColorsBoxes{background: linear-gradient(180deg, #fff 50%, #1d1934 50%);}
+.hpBoxgeneral a{font-size:12px;}
+ #twoColorsBoxes .row-fluid{margin:0px;}
+ .hpLeftBoxImage,.hpRightBoxImage{background-size:80%;padding:0px;}
+ .hpRightBoxImage{background-position:50% 35px;}
+  #twoColorsBoxes .span6 .hpBoxTitle{top:50px; font-size:18px;}
+  /*#twoColorsBoxes .hpRightBoxImage .hpBoxTitle{right:10px; color:#fff;}
+  #twoColorsBoxes .hpLeftBoxImage .hpBoxTitle{width:100px; text-align:left;}*/
+}
+
+
+
+
+
+
+
+
 /* ===================================
 2. layout
 ==================================== */
