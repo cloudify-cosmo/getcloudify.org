@@ -1,0 +1,106 @@
+---
+layout: blogpost
+title: Achieving Hybrid Cloud Without Compromising On The Least Common Denominator
+image: nati.png
+author: Nati Shalom
+tags:
+ - Cloud Orchestration
+ - Hybrid Cloud
+ - TOSCA
+ - Cloud Portability
+ - Multi-Cloud
+---
+
+<notextile>
+
+<img src="/img/blog/portabilityheader.png" alt="TOSCA | Hybrid Cloud | Cloud Portability | Cloud Orchestration | Hybrid IT | Open Source Cloud Automation | Cloud Orchestration Tools | Kubernetes | Containers">
+<br/>
+<br/>
+
+
+<p><b></b>
+
+<p>Survey says, that hybrid cloud, what once was perceived as virtually mission impossible, is becoming pretty much mainstream. According to <a href="http://english.usaita.org/cloud-computing-trends-2016-state-of-the-cloud-survey/">this survey</a>, and <a href="https://www.veritas.com/content/dam/Veritas/docs/reports/veritas-survey-report-rev-w-2016-01-17.pdf">this </a><a href="https://www.veritas.com/content/dam/Veritas/docs/reports/veritas-survey-report-rev-w-2016-01-17.pdf">survey</a>, some users are currently running on as many as <strong>6 clouds</strong> simultaneously on average per organization, with an even split between private and public clouds, both for real deployments as well as for experimentation, and 74% of enterprises are currently leveraging two or more cloud infrastructure vendors; making the need for robust cloud portability mission critical, not just nice to have.</p>
+
+<hr>
+
+<span class="pullquote-left">
+  <font style="font-weight: bold" size="5" face="Baskerville Old Face"><em>The only constant is change. Download Cloudify today.</em></font>  <a class="btn btn-medium btn-theme btn-rounded" id="downloadBtnInner" href="http://getcloudify.org/downloads/get_cloudify.html" target="_blank"><i class="icon-plus"></i> Go </a></span>
+  
+  <hr>
+
+<p>From my experience though, when people refer to hybrid cloud, they often times don&rsquo;t necessarily mean the same thing.&nbsp; With the diversity of use cases for hybrid cloud, where each one of them drives a different strategy or approach, it is difficult to lump hybrid cloud into one simplistic category.</p>
+
+<p>On top of this, most of the discussion, and even the tooling built for this purpose, is focused on bridging specific aspects of the infrastructure, e.g. compute and networking as an example, and quite often caters to a wider market, forcing a &ldquo;least common denominator&rdquo; approach which inherently limits the use of the underlying cloud (I will get into this more below).</p>
+
+<p>In addition, many of the existing tools are missing the key part in such deployment models; the actual application itself. Running an application in a hybrid cloud environment requires the handling of the entire application stack in which the infrastructure is really only one component. This includes the configuration management, containers, monitoring, logging, and policies as well as maintenance of the application itself through its entire lifecycle.</p>
+
+<p>I find myself writing a post on just this subject every couple of months, since the landscape changes so rapidly (see my <a href="http://getcloudify.org/2015/10/21/configuration-management-chef-puppet-ansible-emc-dell-vmware-orchestration.html">disruption cycle post</a> if you want more on that). That said, recent developments have gotten me thinking again, and I wanted to revisit the different <a href="http://getcloudify.org/2015/06/09/cloud-tosca-orchestration-automation-openstack-hybrid-enterprise-migration.html">hybrid cloud</a> use cases and suggest a different approach to hybrid cloud that doesn&rsquo;t force a least common denominator and handles the entire application lifecycle and stack.</p>
+
+<p>So just to set the stage, and make sure we&rsquo;re all on the same page, let&rsquo;s start start with the obvious - the definition of hybrid cloud and identifying the diversity of use cases.</p>
+
+<h2>Few know what hybrid cloud actually means</h2>
+
+<p>What the experts say:</p><br>
+
+<img src="/img/blog/idcquote.png"><br><br>
+
+<p>In layman&rsquo;s terms:</p>
+
+<p>Hybrid cloud is, in simple terms, the use of multiple clouds simultaneously, where cloud portability is the <strong><em>enabler</em></strong> of this deployment model.</p>
+
+<h2>Where Cloud Portability Comes In</h2>
+
+<p>Cloud portability is the ability to run the same application on multiple cloud infrastructures, private or public. This is basically what makes hybrid cloud possible.</p>
+
+<p>The distinction between the two is important, as in the case of hybrid cloud we&rsquo;re talking about&nbsp; multiple clouds attempting to act as one unified infrastructure, and with the second, we&rsquo;re&nbsp; basically talking about the option to run on multiple clouds, but not necessarily at the same time.</p>
+
+<p>This post will dive into use cases for both.</p>
+
+<h2>Cloud portability use cases</h2>
+<p>We often tend to associate cloud portability with cloud bursting, and many times it&rsquo;s even used erroneously interchangeably with hybrid cloud, but these only represent a couple of use cases, and, truthfully, not even the most common ones. In fact, the need for cloud portability spans across a vastly wider number of use cases that are much more common, but at the same time less known, ironically. Let me explain with the following:</p>
+
+<ul>
+<li><strong>Future proofing</strong> - With the uncertainty around VMware or OpenStack and the emergence of a new class of cloud native infrastructure it has become abundantly clear that we're going to continue to experience more disruption on the infrastructure level. In order for the strategy to &ldquo;future proof&rdquo; your application from those changes and keep your options open to benefit from new developments as they happen, it is important to decouple the application from the underlying infrastructure by designing the application for cloud portability.</li>
+</ul>
+
+<ul>
+<li><strong>Application deployment portability</strong> - Many software vendors that develop software applications need to allow application portability to give their customers a simple way to provision and deploy their software products on their cloud of choice. In this context, cloud portability can be analogous to operating system portability between Windows, Linux and Mac or even mobile app portability across iOS and Android. Cloud represents a market and by designing for portability you maximize the reach of your products to those markets.</li>
+</ul>
+
+<ul>
+<li><strong>Same application across multiple clouds - </strong>The previous use case describes a situation in which we allow portability at deployment time, i.e. users are able to choose the target environment for deploying their application, but once they have completed the moving process from that environment, it would be considered a completely separate deployment.</li>
+</ul>
+
+<p>There are a number of cases in which the same application would need to span its resources and services across multiple clouds at the same time. Here are a few:</p>
+
+<ul>
+<li><strong>Cloud Bursting</strong> - Probably the most common use case for spanning application resources across clouds is known as cloud bursting. This use case is aimed to handle the need for on-demand access capacity and optimize the cost of those resources by allowing to run on a fixed pool of resources during the steady state periods and span to on-demand cloud resources during peak loads.</li>
+</ul>
+
+<ul>
+<li><strong>Migration</strong> - Another lesser known use case for cloud portability is cloud migration. A common example would be an organization that is migrating from their VMware environment into OpenStack or from private cloud into public cloud. In this case, portability allows you to smooth out the process and reduce risk by providing a common management layer across the two environments, thus allowing the organization to selectively transition the application between the two environments while at the same time manage them as one.</li>
+</ul>
+
+<ul>
+<li><strong>Portability between the same cloud versions - </strong>Another lesser known, but probably the most common, cloud portability use case is the move between versions of the same infrastructure. One of the common strategies to allow upgrade of the infrastructure is to create new instances (cloud sites) of a newer version, and then gradually transition apps onto this new version. Cloud portability make that process simpler as it decouples the application from the infrastructure, and in this way from the changes between versions.</li>
+</ul>
+
+<h2>The least common denominator approach</h2>
+<p>The number of use cases that would benefit from cloud portability could be fairly vast. As noted above, though, the reality is that many of the existing solutions for cloud portability are fairly limited and are not well suited to fit into all of those use cases.</p>
+
+<p>One of the main reasons for this is that most solutions take a least common denominator approach in which they rely on a common layer of API abstraction (mostly around the compute API and to a lesser degree storage and networking) across all clouds and by doing so force limited use of the underlying cloud infrastructure.</p>
+
+<img src="/img/blog/hybridcloudportability.png">
+
+<h2>Cloud is much more than Compute, Storage, Network</h2>
+
+<p>The common API abstraction already limits itself to Compute, Storage and Network and even at that layer the abstraction tends to be fairly simplistic and quite often doesn't expose many of the more advanced features of the underlying infrastructure, and there are many exciting features constantly being rolled out in the cloudsphere.</p>
+
+<p>In addition to features, cloud infrastructure today provides a rich set of services such as&nbsp; database services, analytics services, LBaaS, you name it...the list goes on, that just cannot be easily abstracted.</p>
+
+<p>The result is that relying on this layer of abstraction comes with a high toll of compromising on the least common denominator, one size fits all model, and thus losing many of the benefits that modern clouds provide today.&nbsp; And we are rarely one size fits all.</p>
+
+<p>In my next post, I&rsquo;ll dive into how to achieve true cloud portability without forgoing all of the benefits hybrid cloud deployments actually make possible.</p>
+
+</notextile>
