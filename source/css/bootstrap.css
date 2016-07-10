@@ -6251,3 +6251,46 @@ border-color: #5bc0de;
 .alignCenter{position:absolute; margin:auto;top:0;right:0;bottom:0;left:0}
 .iconHolder{ height:230px}
 .pad35{ padding:35px}
+
+
+
+.jumbotron .container {
+  position: relative;
+  z-index: 2;
+}
+.jumbotron:after {
+  content: '';
+  display: block;
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  background: url(../images/download/dwnTopBanner.jpg) no-repeat center center #1D2041;
+  opacity: 1;
+  
+}
+
+@media screen and (max-width: 980px) {
+.clyManagerBox li a{width:165px;} 
+}
+@media screen and (max-width: 778px) {
+.clyManagerBox li a{width:255px;} 
+.dwnBoxText{padding:20px 0}
+.dwnBtnsWrap .row-fluid{ margin-bottom:0 !important}
+.or-spacer{ display:block !important; }
+.or-spacer-vertical .mask{ display:none !important; }
+}
+
+
+
+@media
+only screen and (-webkit-min-device-pixel-ratio: 2),
+only screen and (   min--moz-device-pixel-ratio: 2),
+only screen and (     -o-min-device-pixel-ratio: 2/1) {
+
+  .jumbotron:after {
+    background-size: 150px 150px;
+  }
+
+}
