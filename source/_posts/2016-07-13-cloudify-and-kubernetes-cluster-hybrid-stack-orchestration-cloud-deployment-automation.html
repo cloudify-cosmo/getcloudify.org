@@ -1,0 +1,72 @@
+---
+layout: blogpost
+title: Deployment and Orchestration of a Kubernetes Cluster With Auto-Scaling and Auto-Healing in a Hybrid Environment Using Cloudify
+image: trammell.jpg
+author: Luther Trammell
+tags:
+ - Cloud Orchestration
+ - Hybrid Cloud
+ - Kubernetes
+ - OpenStack Orchestration
+ - Container Orchestration
+---
+
+<notextile>
+<img src="/img/blog/kuborchestration.png" alt="OpenStack | Cloud Orchestration | Kubernetes | Kubernetes Cluster | Hybrid Cloud | Cloud Automation | Container Management">
+<br/>
+<br/>
+
+  <p>At <a href="openstack-israel.org" target="_blank">Openstack Israel 2016</a>, I participated in a presentation where we compared a few cloud orchestrators, among them <a href="http://getcloudify.org/2016/04/04/scaling-kubernetes-microservices-openstack-TOSCA-orchestration-cloud-open-source.html" target="_blank">Kubernetes</a> and <a href="http://getcloudify.org" target="_blank">Cloudify</a>. In short, I presented Kubernetes as a container-focused orchestrator, while Cloudify I presented as a more general orchestrator. The division isn’t exact. Kubernetes has a lot of integration with infrastructure. And Cloudify has been dabbling in containers for several years.</p>
+
+  <p>I was talking about core focus.</p>
+
+<hr>
+
+<span class="pullquote-left">
+  <font style="font-weight: bold" size="5" face="Baskerville Old Face"><em>Get the new Cloudify 3.4 for all you hybrid stack and hybrid workload needs!</em></font>&nbsp; <a class="btn btn-medium btn-theme btn-rounded" id="downloadBtnInner" href="http://getcloudify.org/downloads/get_cloudify.html" target="_blank"><i class="icon-plus"></i> Go </a></span>
+  
+<hr>
+
+<p>At <a href="http://getcloudify.org/2014/07/10/what-is-openstack-tutorial.html" target="_blank">Openstack</a> Austin in April, we presented (video below) the first <a href="https://github.com/cloudify-examples/cloudify-kubernetes-plugin" target="_blank">Cloudify Kubernetes Plugin</a> and <a href="http://getcloudify.org/2015/12/26/openstack-docker-kubernetes-hybrid-cloud-nfv-orchestration-mano-etsi-cloudify.html" target="_blank">hybrid cloud</a> example. It deploys a Kubernetes Cluster and allows you to package Kubernetes configurations with Cloudify. The example we provided included the deployment of a regular MongoDB on a VM and a NodeJS app managed by Kubernetes.</p>
+
+<br>
+
+<p class="aligncenter"><iframe width="560" height="315" src="https://www.youtube.com/embed/YtLjSTwKmZU?rel=0&amp;showinfo=0" frameborder="0" 
+allowfullscreen></iframe></p>
+
+<br>
+
+<p>This was a good start. It showed that it was possible to manage Kubernetes from Cloudify. However, managing Kubernetes with Cloudify is generally not a typical use case for developers. Kubernetes is successful because it makes managing containers easy.</p>
+
+<p>Cloudify is good at what it does because it makes integrating various systems easy. We want Kubernetes to manage containers, and Cloudify to tie it in with other environments, including non-virtualized, stateful services or legacy apps; in other words, what we call a hybrid stack.
+
+<p>The best place I thought to start was to have Cloudify manage the underlying infrastructure. I recently adapted the <a href="https://github.com/cloudify-examples/cloudify-kubernetes-plugin" target="_blank">Cloudify Kubernetes Plugin</a> to fit what I’ve described; a <a href="https://github.com/cloudify-examples/kubernetes-cluster-blueprint" target="_blank">Kubernetes Cluster</a> running in an environment managed by Cloudify. It is a Cloudify Blueprint that defines the following processes:</p>
+
+<ol>
+  <li>Build Openstack Infrastructure: VMs, Security Groups, etc.</li>
+  <li>Deploy a Kubernetes Cluster (one master, two or more nodes).</li>
+  <li>Auto-scaling of the VMs that the nodes run on, plus the nodes themselves.</li>
+  <li>Auto-healing of the VMs that the nodes run on, plus the nodes themselves.</li>
+</ol>
+
+<p>After deploying this, you have a Kubernetes Cluster that can work with any configuration that you send to Kubernetes. When Cloudify senses that the nodes are not sufficient for the workload it will add VMs to Openstack, install the Kubernetes nodes on them and add the nodes to the Kubernetes master.</p>
+
+<p>Example auto-scaling code:</p>
+
+<br>
+<div class="aligncenter"><img src="/img/blog/kubscale.png"></div>
+<br>
+
+<p>Example auto-healing code:</p>
+
+<br>
+<div class="aligncenter"><img src="/img/blog/kubheal.png"></div>
+<br>
+
+<p>This is a starting point for my ideal hybrid cloud orchestration model - multiple orchestration technologies working side by side, across multiple environments. Each orchestrator is focused on what it does best.</p>
+
+<p>The next step in this project is to see Cloudify become more aware of Kubernetes' needs. This will require new modules in Kubernetes as well as new features to the existing Cloudify infrastructure plugins.</p>
+
+<p>Cloudify will react to environmental needs with feedback from technologies like Kubernetes, resulting in highly intelligent self-running code.</p>
+
+</notextile>
