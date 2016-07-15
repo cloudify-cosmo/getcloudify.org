@@ -6,8 +6,6 @@ category: Get Cloudify
 
 
 <notextile>
-
-
     <div class="jumbotron subhead" id="overview">
         <h5 class="dwnCenter">Cloudify Download Center</h5>
         <div class="container dwnTopBanner">
@@ -18,10 +16,10 @@ category: Get Cloudify
                 <div class="span10">
                     <div class="row-fluid">
                         <div class="span6">
-                            <a class="btn btn-red btn-medium  downloadCli" href="http://repository.cloudifysource.org/org/cloudify3/3.4.0/ga-RELEASE/cloudify_3.4.0~ga-400_amd64.deb" data-btn-split="7" data-btn-type="GA Product Download 3.4" data-btn-id="Debian CLI 3.4" id="Debian CLI 3.4" data-thanks-page="thank_you_debian" onclick="dataLayer.push({'event': 'GAevent', 'eventCategory': 'Product Download','eventAction': 'Cloudify CLI Download','eventLabel': 'Cloudify CLI Download 3.4 - Debian'});"><i class="icon-debian"></i>&nbsp;Debian <span style="font-size:9px;color:#eeeee;">&nbsp;&nbsp;(.deb)</span></a>
+                            <a  class="btn btn-red btn-medium  downloadCli" href="http://repository.cloudifysource.org/org/cloudify3/3.4.0/ga-RELEASE/cloudify_3.4.0~ga-400_amd64.deb" data-btn-split="7" data-btn-type="GA Product Download 3.4" data-btn-id="Debian CLI 3.4" id="Debian CLI 3.4" data-thanks-page="thank_you_debian" onclick="dataLayer.push({'event': 'GAevent', 'eventCategory': 'Product Download','eventAction': 'Cloudify CLI Download','eventLabel': 'Cloudify CLI Download 3.4 - Debian'});"><i class="icon-debian"></i>&nbsp;Debian <span style="font-size:9px;color:#eeeee;">&nbsp;&nbsp;(.deb)</span></a>
                         </div>
                         <div class="span6">
-                            <a class="btn btn-red btn-medium downloadCli" href="http://repository.cloudifysource.org/org/cloudify3/3.4.0/ga-RELEASE/cloudify-3.4.0~ga-400.el6.x86_64.rpm" data-btn-split="7" data-btn-type="GA Product Download 3.4" data-btn-id="Centos 7 CLI 3.4" id="Centos 7 CLI 3.4" data-thanks-page="thank_you_centos_7" onclick="dataLayer.push({'event': 'GAevent', 'eventCategory': 'Product Download','eventAction': 'Cloudify CLI Download','eventLabel': 'Cloudify CLI Download 3.4 - Centos 7'});"><i class="icon-centos"></i>&nbsp;Centos<span style="font-size:9px;color:#eeeee;">&nbsp;&nbsp;(.RPM)</span></a>
+                            <a   class="btn btn-red btn-medium downloadCli" href="http://repository.cloudifysource.org/org/cloudify3/3.4.0/ga-RELEASE/cloudify-3.4.0~ga-400.el6.x86_64.rpm" data-btn-split="7" data-btn-type="GA Product Download 3.4" data-btn-id="Centos 7 CLI 3.4" id="Centos 7 CLI 3.4" data-thanks-page="thank_you_centos_7" onclick="dataLayer.push({'event': 'GAevent', 'eventCategory': 'Product Download','eventAction': 'Cloudify CLI Download','eventLabel': 'Cloudify CLI Download 3.4 - Centos 7'});"><i class="icon-centos"></i>&nbsp;Centos<span style="font-size:9px;color:#eeeee;">&nbsp;&nbsp;(.RPM)</span></a>
 
                         </div>
                     </div>
@@ -185,6 +183,8 @@ category: Get Cloudify
 
 <script type="text/javascript">
 
+    //this make cli download btns active
+
 
     //this shows after the form is submitted
     var submitted = false;
@@ -202,7 +202,6 @@ category: Get Cloudify
 
     //MANAGE AND TRACK DOWNLOADS
     $(function() {
-
         //Manage Downloads Gating;
         //========================================//
         var gotName = false;
@@ -260,7 +259,7 @@ category: Get Cloudify
 
         //Send data to Mixpanel and Google analytics
         $(document).on("submit", "form", function (e) {
-            track_cli_contactForm(e);
+           // track_cli_contactForm(e);
             //$('#myModal').modal('hide');
         });
 
@@ -301,8 +300,22 @@ category: Get Cloudify
             hbspt.forms.create({
                 portalId: '1918719',
                 formId: 'ba57e9f0-58f8-4f88-94af-b4206b650c62',
-                onFormReady($form, ctx){
-              var hubspotHtmlForm=$(".hbspt-form");
+                onFormReady:function($form){
+                    var hubspotHtmlForm=$(".hbspt-form");
+                    $( ".gattingWrapper" ).append( hubspotHtmlForm );
+                },
+                onFormSubmit: function($form) {
+                    track_cli_contactForm(e);
+                }
+            });
+        }
+
+        function getCentOS7Form(e){
+            hbspt.forms.create({
+                portalId: '1918719',
+                formId: '41bf7fe9-d5f1-4718-8b3e-9202fc4509f6',
+                onFormReady:function($form, ctx){
+                    var hubspotHtmlForm=$(".hbspt-form");
             $( ".gattingWrapper" ).append( hubspotHtmlForm );
         },
         onFormSubmit: function($form) {
@@ -310,25 +323,11 @@ category: Get Cloudify
         }
     });
     }
-
-    function getCentOS7Form(e){
-        hbspt.forms.create({
-            portalId: '1918719',
-            formId: '41bf7fe9-d5f1-4718-8b3e-9202fc4509f6',
-            onFormReady($form, ctx){
-                var hubspotHtmlForm=$(".hbspt-form");
-        $( ".gattingWrapper" ).append( hubspotHtmlForm );
-    },
-    onFormSubmit: function($form) {
-        track_cli_contactForm(e);
-    }
-    });
-    }
     function getCentOS6_5Form(e){
         hbspt.forms.create({
             portalId: '1918719',
             formId: 'a918493f-16d8-4f89-b952-360730947c61',
-            onFormReady($form, ctx){
+            onFormReady:function($form, ctx){
                 var hubspotHtmlForm=$(".hbspt-form");
         $( ".gattingWrapper" ).append( hubspotHtmlForm );
     },
@@ -341,7 +340,7 @@ category: Get Cloudify
         hbspt.forms.create({
             portalId: '1918719',
             formId: '6398a0f3-8cbe-46b7-bb1b-c8d220e9a22d',
-            onFormReady($form, ctx){
+            onFormReady:function($form, ctx){
                 var hubspotHtmlForm=$(".hbspt-form");
         $( ".gattingWrapper" ).append( hubspotHtmlForm );
     },
@@ -354,7 +353,7 @@ category: Get Cloudify
         hbspt.forms.create({
             portalId: '1918719',
             formId: 'e7b478aa-bf4c-4ed3-8f5e-b339b0106faf',
-            onFormReady($form, ctx){
+            onFormReady:function($form, ctx){
                 var hubspotHtmlForm=$(".hbspt-form");
         $( ".gattingWrapper" ).append( hubspotHtmlForm );
     },
@@ -367,7 +366,7 @@ category: Get Cloudify
         hbspt.forms.create({
             portalId: '1918719',
             formId: '5e7e7bb4-1a10-4dd0-b3f5-73d063c36f16',
-            onFormReady($form, ctx){
+            onFormReady:function($form, ctx){
                 var hubspotHtmlForm=$(".hbspt-form");
         $( ".gattingWrapper" ).append( hubspotHtmlForm );
     },
@@ -380,7 +379,7 @@ category: Get Cloudify
         hbspt.forms.create({
             portalId: '1918719',
             formId: '0c9717ef-1ea2-4ef2-92c5-4e243644c284',
-            onFormReady($form, ctx){
+            onFormReady:function($form, ctx){
                 var hubspotHtmlForm=$(".hbspt-form");
         $( ".gattingWrapper" ).append( hubspotHtmlForm );
     },
@@ -393,7 +392,7 @@ category: Get Cloudify
         hbspt.forms.create({
             portalId: '1918719',
             formId: 'bb5b531a-475e-40e1-a0db-4e0e89e25a3c',
-            onFormReady($form, ctx){
+            onFormReady:function($form, ctx){
                 var hubspotHtmlForm=$(".hbspt-form");
         $( ".gattingWrapper" ).append( hubspotHtmlForm );
     },
@@ -407,7 +406,7 @@ category: Get Cloudify
         hbspt.forms.create({
             portalId: '1918719',
             formId: '07c40acf-c792-4dc3-9d09-245cfec11b56',
-            onFormReady($form, ctx){
+            onFormReady:function($form, ctx){
                 var hubspotHtmlForm=$(".hbspt-form");
         $( ".gattingWrapper" ).append( hubspotHtmlForm );
     },
@@ -421,7 +420,7 @@ category: Get Cloudify
         hbspt.forms.create({
             portalId: '1918719',
             formId: '4b3da2f9-dc73-4d05-8836-8b6bd17ae366',
-            onFormReady($form, ctx){
+            onFormReady: function ($form, ctx) {
                 var hubspotHtmlForm=$(".hbspt-form");
         $( ".gattingWrapper" ).append( hubspotHtmlForm );
     },
@@ -668,5 +667,17 @@ category: Get Cloudify
 </script>
 <!-- LeadLander End -->
 
-
-
+<script>
+var perfData = window.performance.timing;
+    var pageLoadTime = perfData.domComplete - perfData.navigationStart;
+    var loadTime = "";
+    if (pageLoadTime < 1000) { loadTime = "0-1 seconds"; }
+    else if (pageLoadTime < 2000) { loadTime = "1-2 seconds"; }
+    else if (pageLoadTime < 3000) { loadTime = "2-3 seconds"; }
+    else if (pageLoadTime < 4000) { loadTime = "3-4 seconds"; }
+    else if (pageLoadTime < 5000) { loadTime = "4-5 seconds"; }
+    else if (pageLoadTime < 6000) { loadTime = "5-6 seconds"; }
+    else if (pageLoadTime < 10000) { loadTime = "6-10 seconds"; }
+    else { loadTime = "10+ seconds"; }
+    dataLayer.push ({ 'event': 'GAEvent', 'eventCategory': 'Page Load Time', 'eventAction': loadTime, 'nonInteraction': 1 });
+</script>
