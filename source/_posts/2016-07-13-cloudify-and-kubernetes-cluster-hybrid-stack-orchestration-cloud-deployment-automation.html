@@ -27,18 +27,16 @@ tags:
   
 <hr>
 
-<p>At <a href="http://getcloudify.org/2014/07/10/what-is-openstack-tutorial.html" target="_blank">Openstack</a> Austin in April, we presented (video below) the first <a href="https://github.com/cloudify-examples/cloudify-kubernetes-plugin" target="_blank">Cloudify Kubernetes Plugin</a> and <a href="http://getcloudify.org/2015/12/26/openstack-docker-kubernetes-hybrid-cloud-nfv-orchestration-mano-etsi-cloudify.html" target="_blank">hybrid cloud</a> example. It deploys a Kubernetes Cluster and allows you to package Kubernetes configurations with Cloudify. The example we provided included the deployment of a regular MongoDB on a VM and a NodeJS app managed by Kubernetes.</p>
-
-<br>
-
-<p class="aligncenter"><iframe width="560" height="315" src="https://www.youtube.com/embed/YtLjSTwKmZU?rel=0&amp;showinfo=0" frameborder="0" 
-allowfullscreen></iframe></p>
-
-<br>
+<p>At <a href="http://getcloudify.org/2014/07/10/what-is-openstack-tutorial.html" target="_blank">Openstack</a> Austin in April, <a href="https://www.youtube.com/watch?v=YtLjSTwKmZU" target="_blank">we presented</a> the first <a href="https://github.com/cloudify-examples/cloudify-kubernetes-plugin" target="_blank">Cloudify Kubernetes Plugin</a> and <a href="http://getcloudify.org/2015/12/26/openstack-docker-kubernetes-hybrid-cloud-nfv-orchestration-mano-etsi-cloudify.html" target="_blank">hybrid cloud</a> example. It deploys a Kubernetes Cluster and allows you to package Kubernetes configurations with Cloudify. The example we provided included the deployment of a regular MongoDB on a VM and a NodeJS app managed by Kubernetes.</p>
 
 <p>This was a good start. It showed that it was possible to manage Kubernetes from Cloudify. However, managing Kubernetes with Cloudify is generally not a typical use case for developers. Kubernetes is successful because it makes managing containers easy.</p>
 
 <p>Cloudify is good at what it does because it makes integrating various systems easy. We want Kubernetes to manage containers, and Cloudify to tie it in with other environments, including non-virtualized, stateful services or legacy apps; in other words, what we call a hybrid stack.
+
+<br>
+<div class="aligncenter"><h3>See the Kubernetes Orchestration video</h3></div>
+  <div class="aligncenter"><a class="hover-wrap fancybox fancybox.iframe" data-fancybox-group="gallery" title="Orchestrating a Kubernetes Cluster with Cloudify" href="https://www.youtube.com/embed/z49W8OaMvKA?enablejsapi=1&amp;wmode=opaque"><img src="/img/kub-ui_play.png" style="display: inline; margin-right:10px;" width="640px"></a></div>
+<br>
 
 <p>The best place I thought to start was to have Cloudify manage the underlying infrastructure. I recently adapted the <a href="https://github.com/cloudify-examples/cloudify-kubernetes-plugin" target="_blank">Cloudify Kubernetes Plugin</a> to fit what I’ve described; a <a href="https://github.com/cloudify-examples/kubernetes-cluster-blueprint" target="_blank">Kubernetes Cluster</a> running in an environment managed by Cloudify. It is a Cloudify Blueprint that defines the following processes:</p>
 
