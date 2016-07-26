@@ -21,7 +21,7 @@
   <meta content="" property="og:description">
 
 
-  <meta content="http://getcloudify.org//index.html" property="og:url">
+  <meta content="http://getcloudify.org/index.html" property="og:url">
 
 
 
@@ -54,6 +54,7 @@
 
     <link href="/css/main.css" rel="stylesheet" /> <!-- this is a sass file, search for main.scss instead -->
 
+	<link href="/css/cfy.css" rel="stylesheet">
 	<link href="http://netdna.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.css" rel="stylesheet">
 	<!-- Theme skin -->
 	<link id="t-colors" href="/skins/blue.css" rel="stylesheet" />
@@ -145,8 +146,10 @@
 										<li class="dropdown topmenu">
 										<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button">Docs <i class="icon-angle-down"></i></a>
 											<ul class="dropdown-menu bold" style="display: none;">
-												<li class="topmenu"><a href="http://docs.getcloudify.org/3.4.0/">3.4.0 (Early Access)</a></li>
-												<li class="topmenu"><a href="http://docs.getcloudify.org/3.3.1">3.3.1 (Latest GA)</a></li>
+												<li class="topmenu"><a href="http://docs.getcloudify.org/3.4.0/">3.4.0 (GA)</a></li>
+												<li class="topmenu"><a href="http://docs.getcloudify.org/3.4.1/">3.4.0 (EARlY ACCESS)</a></li>
+												<li class="topmenu"><a href="http://docs.getcloudify.org/3.5.0/">3.5.0 (EARLY ACCESS)</a></li>
+												<li class="topmenu"><a href="http://docs.getcloudify.org/3.3.1">3.3.1</a></li>
 												<li class="topmenu"><a href="http://docs.getcloudify.org/3.3.0">3.3.0</a></li>
 												<li class="topmenu"><a href="/guide/3.2/">3.2 </a></li>
 												<li class="topmenu"><a href="/guide/3.1/">3.1</a></li>
@@ -199,7 +202,7 @@
 		</div>
         <a href="http://getcloudify.org/downloads/get_cloudify.html" class="hidden-xs hidden-sm">
           <button type="button" class="btn btn-primary navbar-btn btn-orange" title="Get Cloudify">
-            <i class="fa fa-arrow-circle-o-down"></i> <span>download</span>
+            <i class="fa fa-arrow-circle-o-down"></i> <span>free download</span>
           </button>
         </a>
         <a href="http://getcloudify.org/goPro.html">
@@ -218,44 +221,240 @@
 <div class="fixedTopHeight"></div>
 <!-- end header -->	
 
-	 
-	<section id="featured" class=" hpBanner">
+	 	<section id="featured" class=" hpBannerWrap">
 	<!-- start slider -->
 	<div class="container">
 		<div class="row">
-	<div id="da-slider" class="da-slider">
-		<!-- Slide 1 -->
-		<div class="da-slide">
-			<div class="bannerText span12">
-				<h1> Pure-Play Open Source Cloud Orchestration</h1>
-				<a href="/downloads/get_cloudify.html" class="hp-btn-getCloudify da-link">Download Now</a>
-				<br/><font color="#ffffff" style="font-size:13px;">Or </font><a href="/cloud_orchestration_cloud_automation.html"><strong><font color="#ffffff" style="font-size:13px;">Read More</strong></a></font> 
-			</div>
-			<a class="hover-wrap fancybox fancybox.iframe" data-fancybox-group="gallery" title="Cloudify Intelligent Orchestration on Any Cloud" href="http://www.youtube.com/embed/1OFTneg_WKE?enablejsapi=1&wmode=opaque">
-			<img  class="bannerTextImg" src="img/hpBanner2.png" alt="Cloudify - New Intelligence in Cloud Orchestration and Cloud Automation" /></a>	
-		</div>
-		<!-- Slide 1 End -->
-		
-		<!-- Slide 2 -->
-		<div class="da-slide">
- 			<div class="bannerText span12">
- 				<h1> <span style="font-size:38px">Join The Cloudify NFV Lab Today!</span></h1>
- 				<a href="/NFV-Labs-On-Demand.html" class="hp-btn-getCloudify da-link">Register Now</a>
- 				<br/><font color="#ffffff" style="font-size:13px;">Or </font><a href="/2016/04/27/cloudify-nfv-lab-on-demand-full-scale-environment-openstack-summit-cloud-orchestration.html"><strong><font color="#ffffff" style="font-size:13px;">Read More</strong></a></font> 
- 			</div>
- 			<img  class="bannerTextImg" src="img/hpbannernfv.png" alt="Cloudify - Intelligent NFV Orchestration in Multi-VIM Environments" /></a>	
-  		</div>
-		<!-- Slide 2 End -->
-		<nav class="da-arrows">
-			<span class="da-arrows-prev"></span>
-			<span class="da-arrows-next"></span>
-		</nav>
-	</div>
+
+            <div id="da-slider" class="da-slider">
+                <!-- Slide 1 -->
+                <div class="da-slide">
+                    <div class="bannerText span12">
+                        <h1>The New<span> Hybrid Cloud Stack.</span> One Tool.</h1>
+                        <a href="/downloads/get_cloudify.html" class="orgDwnBtn">Free Download</a>
+                        <a class="regBtn" href="/cloud_orchestration_cloud_automation.html">Read More</a>
+                    </div>
+                    <a class="hover-wrap fancybox fancybox.iframe" data-fancybox-group="gallery" title="Cloudify Intelligent Orchestration on Any Cloud" href="http://www.youtube.com/embed/1OFTneg_WKE?enablejsapi=1&wmode=opaque">
+                        <img class="bannerTextImg" src="img/homePage/hpBanner1.png" alt="Cloudify - New Intelligence in Cloud Orchestration and Cloud Automation" />
+                    </a>
+                </div>
+                <!-- Slide 1 End -->
+                <!-- Slide 2 -->
+                <!--<div class="da-slide">
+                    <div class="bannerText span12">
+                        <h1> <span style="font-size:38px">Join The Cloudify NFV Lab Today!</span></h1>
+                        <a href="/NFV-Labs-On-Demand.html" class="hp-btn-getCloudify da-link">Register Now</a>
+                        <br /><font color="#ffffff" style="font-size:13px;">Or </font><a href="/2016/04/27/cloudify-nfv-lab-on-demand-full-scale-environment-openstack-summit-cloud-orchestration.html"><strong><font color="#ffffff" style="font-size:13px;">Read More</strong></a></font>
+                    </div>
+                    <img class="bannerTextImg" src="img/hpbannernfv.png" alt="Cloudify - Intelligent NFV Orchestration in Multi-VIM Environments" /></a>
+                </div>-->
+                <!-- Slide 2 End -->
+                <!--<nav class="da-arrows">
+                    <span class="da-arrows-prev"></span>
+                    <span class="da-arrows-next"></span>
+                </nav>-->
+            </div>
 	</div>
 	</div>
 	<!-- end slider -->
 	</section>
-	<section class="content" style="background:#f9f9f9;">
+
+
+
+<!--2 colors boxes ENTERPRISE CLOUD & NFV -->
+<section id="twoColorsBoxes">
+    <div class="container-fluid">
+        <div class="row-fluid">
+            <div class="span6  hpLeftBoxImage">
+                <div class="hpLeftBoxText hpBoxgeneral">
+                    <div class="hpBoxTitle" style="text-align:left; font-size:28px;">ENTERPRISE CLOUD</div>
+                     <p>&#160;</p>
+
+                    <h3>
+                        <strong>The Only Constant is Change</strong>
+                    </h3>
+                    <p>&#160;</p>
+
+                    <p>
+                        The new Cloudify release now provides coverage for 90% of the workloads being used in large enterprises today - from hybrid cloud models through our plugin support of the top 5 clouds, alongside containerized and non-containerized workloads.  Cloudify makes it possible to manage your full application lifecycle on hybrid infrastructure plugging in diverse toolsets through a single pane of glass.</p>
+                        
+
+
+                    <ul>
+                    <p>&#160;</p>
+                        <li><a class="regBtn" href="/downloads/get_cloudify.html">Download</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="span6 hpRightBoxImage">
+                <div class="hpRightBoxText hpBoxgeneral">
+                    <div class="hpBoxTitle" style="text-align:right; font-size:28px; margin-bottom: 10px;">NFV MANO</div>
+                    <h3>
+                        <strong>Bringing Web-Scale Best Practices to Telcos & Enterprises</strong>
+                    </h3>
+                     <p>&#160;</p>
+
+                    <p>
+                        Cloudify Telecom Edition was built to provide the full suite of NFV MANO, serving as the NFVO (orchestrator) and G-VNFM (generic VNF manager), to support Day 0 through Day 2 operations through a robust set of new features, NFV-specific plugins, and blueprints showcasing modeling of VNFs (Virtual Network Functions) and SFC (Service Function Chaining) using TOSCA.
+                    </p>
+                    <p>&#160;</p>
+                    <ul>
+                        <li><a class="regBtn" href="/network-function-virtualization-vnf-nfv-orchestration-sdn-platform.html">Learn More</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+
+<!--PLUGINS  -->
+<section id="content" style="background:#eeeeee">
+    <div class="container">
+        <div class="row">
+            <div class="span12">
+                <h2 style="margin-top:0px;color:#000;text-align:center; font-weight:bold;"> Support for Any Technology</h2>
+            </div>
+            <div class="row">
+                <div class="span1"></div>
+                <div class="span2">
+                    <div class="aligncenter">
+                        <a href="http://docs.getcloudify.org/3.4.0/plugins/openstack/" target="_blank" class="recipeName">
+                            <img src="img/homePage/plgOpenstackGr.jpg" onmouseover="this.src = 'img/homePage/plgOpenstackCo.jpg'" onmouseout="    this.src = 'img/homePage/plgOpenstackGr.jpg'" class="client-logo" alt="VentureBeat" width="175" />
+                        </a>
+                    </div>
+                </div>
+                <div class="span2">
+                    <div class="aligncenter">
+                        <a href="http://docs.getcloudify.org/3.4.0/plugins/vsphere/" target="_blank" class="recipeName">
+                            <img src="img/homePage/plgVmwareGr.jpg" onmouseover="this.src = 'img/homePage/plgVmwareBl.jpg'" onmouseout="    this.src = 'img/homePage/plgVmwareGr.jpg'" class="client-logo" alt="VentureBeat" width="175" />
+                        </a>
+                    </div>
+                </div>
+                <div class="span2">
+                    <div class="aligncenter">
+                        <a href="http://docs.getcloudify.org/3.4.0/plugins/aws/" target="_blank" class="recipeName">
+                            <img src="img/homePage/plgAwsGr.jpg" onmouseover="this.src = 'img/homePage/plgAwsCo.jpg'" onmouseout="    this.src = 'img/homePage/plgAwsGr.jpg'" class="client-logo" alt="VentureBeat" width="175" />
+                        </a>
+                    </div>
+                </div>
+                <div class="span2">
+                    <div class="aligncenter">
+                        <a href="#" target="_blank" class="recipeName">
+                            <img src="img/homePage/plgClearwaterGr.jpg" onmouseover="this.src = 'img/homePage/plgClearwaterCo.jpg'" onmouseout="    this.src = 'img/homePage/plgClearwaterGr.jpg'" class="client-logo" alt="VentureBeat" width="175" />
+                        </a>
+                    </div>
+                </div>
+                <div class="span2">
+                    <div class="aligncenter">
+                        <a href="http://docs.getcloudify.org/3.4.0/plugins/fabric/" target="_blank" class="recipeName">
+                            <img src="img/homePage/plgFabricGr.jpg" onmouseover="this.src = 'img/homePage/plgFabricCo.jpg'" onmouseout="    this.src = 'img/homePage/plgFabricGr.jpg'" class="client-logo" alt="VentureBeat" width="175" />
+                        </a>
+                    </div>
+                </div>
+                <div class="span1"></div>
+            </div>
+            <div class="row">
+                <div class="span2">
+                    <div class="aligncenter">
+                        <a href="https://github.com/cloudify-examples/kubernetes-cluster-blueprint" target="_blank" class="recipeName">
+                            <img src="img/homePage/plgKuberGr.jpg" onmouseover="this.src = 'img/homePage/plgKuberCo.jpg'" onmouseout="    this.src = 'img/homePage/plgKuberGr.jpg'" class="client-logo" alt="VentureBeat" width="175" />
+                        </a>
+                    </div>
+                </div>
+                <div class="span2">
+                    <div class="aligncenter">
+                        <a href="http://docs.getcloudify.org/3.4.0/plugins/azure/" target="_blank" class="recipeName">
+                            <img src="img/homePage/plgWinGr.jpg" onmouseover="this.src = 'img/homePage/plgWinCo.jpg'" onmouseout="    this.src = 'img/homePage/plgWinGr.jpg'" class="client-logo" alt="VentureBeat" width="175" />
+                        </a>
+                    </div>
+                </div>
+                <div class="span2">
+                    <div class="aligncenter">
+                        <a href="http://docs.getcloudify.org/3.4.0/plugins/docker/" target="_blank" class="recipeName">
+                            <img src="img/homePage/plgDockGr.jpg" onmouseover="this.src = 'img/homePage/plgDockCo.jpg'" onmouseout="    this.src = 'img/homePage/plgDockGr.jpg'" class="client-logo" alt="VentureBeat" width="175" />
+                        </a>
+                    </div>
+                </div>
+                <div class="span2">
+                    <div class="aligncenter">
+                        <a href="https://github.com/cloudify-examples/ansible-blueprint" target="_blank" class="recipeName">
+                            <img src="img/homePage/plgAnsibleGr.jpg" onmouseover="this.src = 'img/homePage/plgAnsibleCo.jpg'" onmouseout="    this.src = 'img/homePage/plgAnsibleGr.jpg'" class="client-logo" alt="VentureBeat" width="175" />
+                        </a>
+                    </div>
+                </div>
+                <div class="span2">
+                    <div class="aligncenter">
+                        <a href="https://github.com/cloudify-examples/elk-blueprint" target="_blank" class="recipeName">
+                            <img src="img/homePage/plgElasticGr.jpg" onmouseover="this.src = 'img/homePage/plgElasticCo.jpg'" onmouseout="    this.src = 'img/homePage/plgElasticGr.jpg'" class="client-logo" alt="VentureBeat" width="175" />
+                        </a>
+                    </div>
+                </div>
+                <div class="span2">
+                    <div class="aligncenter">
+                        <a href="https://github.com/cloudify-examples/cloudify-saltstack-plugin" target="_blank" class="recipeName">
+                            <img src="img/homePage/plgSaltGr.jpg" onmouseover="this.src = 'img/homePage/plgSaltCo.jpg'" onmouseout="    this.src = 'img/homePage/plgSaltGr.jpg'" class="client-logo" alt="VentureBeat" width="175" />
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="clear">
+            </div>
+            <p>&#160;</p>
+            <ul>
+                <li style="list-style-type:none; text-align:center;"><a class="regBtnBlue" href="/examples">View All</a></li>
+            </ul>
+        </div>
+
+    </div>
+
+</section>
+
+<!--Cloudify 3.4 Has Landed! -->
+<section id="darkGrayShapes">
+    <div class="container">
+        <div class="row-fluid">
+            <div class="span12 ">
+                <div class="hpBoxLanded">
+                    <h2>
+                        <strong>Cloudify <span style="color:#39b9d4">3.4</span> Has Landed!</strong>
+                    </h2>
+                    <p>
+                        Cloudify 3.4 Takes <span style="color:#39b9d4">Cloud Portability</span> to the next level with new Azure support alongside support for the entire VMware stack, and OpenStack private clouds.  Through our open source orchestration platform that is now the only to offer support for hybrid stacks, orchestrating microservices and containers and non-containerized stacks and stateful services, through a single blueprint with our new out of the box Kubernetes support.
+                    </p>
+                    <p>&#160;</p>
+                    <ul>
+                        <li style="list-style-type:none; text-align:center;"><a class="regBtnBlue" href="/cloudify-3.4-enterprise-hybrid-cloud-kubernetes-cloud-orchestration-amazon-openstack-gcp-azure.html">Learn More</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+	<!--<section class="content" style="background:#f9f9f9;">
 	<div class="container">
 	<div class="row">
 	<br/>
@@ -332,9 +531,9 @@
 					<div class="span1"></div>
 				</div>
 		</div>
-</section>
+</section>-->
 
-<section id="content">
+<!--<section id="content">
 	<div class="container">	
 	<div class="row">
 			<div class="span12">
@@ -408,110 +607,30 @@
 		</div>
 	</div>
 </div>
-</section>
+</section>-->
 
 
-<section class="callaction" >	
+<section class="callaction" style="background:#fff;" >	
 	<div class="container">
-		<div class="row">
 			
 		<div class="row-fluid">
-	<div class="span4">
-	<div class="box aligncenter">
-							<div class="pad35">
-								<img src="img/CloudifyBanner3.png" /> 
-								</div>
-								</div>
-								</div>
-			<div class="span8"><div class="box alignjustify"><div class="pad35"><h2><strong><font color="#00B4DA" style="font-size:16px;">From Blueprint to Production</font></strong></h2>
-			<div class="text"><p>With Cloudify you can deploy the same application in your own data center or on the cloud of your choice using your favorite automation and configuration management tools. This enables you to build a robust <strong><em><font color="#00B4DA" style="font-size:16px;">continuous delivery pipeline</font></em></strong> by standardizing deployment, orchestration and build processes to  create smoother transitions between development and production environments.</p></div>
-			</div></div></div>	
-			</div>
-
-
-	<div class="row-fluid">
-			<div class="span8"><div class="box alignjustify"><div class="pad35"><h2><strong><font color="#00B4DA" style="font-size:16px;">Automation & Orchestration Through the Entire App Lifecycle</font></strong></h2>
-			<div class="text"><p>With built-in auto-everything rules - scaling, failover, or even your own custom metrics, you can rest assured that Cloudify has you covered.  Cloudify's post-deployment support even extends to <strong><em><font color="#00B4DA" style="font-size:16px;">effortless infrastructure upgrades</font></em></strong> and fine-tuning through our blueprint & custom command technology.</p></div>
-			</div></div></div>	
-
-				<div class="span4"><div class="box aligncenter">
-							<div class="pad35">
-								<img src="img/CloudifyBanner4.png" />
+	
 								
-							</div></div>
+								
+			<div class="span5"><img src="/img/HPTileForrester.png" width="200" style="float: left; display: inline; margin-right:10px;"><font color="#00B4DA" style="font-size:20px;"><i class="icon-quote-left"></i></font><font color="#5f5e5e" style="font-size:20px;">Cloudify <strong><font color="#1d1934">enables telcos to manage and orchestrate their NFV deployments</font></strong> on hybrid infrastructure including containers, through a single pane of glass.</font><font color="#00B4DA" style="font-size:20px;"><i class="icon-quote-right"></i></font></div>
+
+		
+            <div class="span1">&nbsp;</div>
+
+			<div class="span6">&nbsp;&nbsp;&nbsp;&nbsp;<img src="/img/HPTile451.png" width="200" style="float: left; display: inline; margin-right:10px;"><font color="#00B4DA" style="font-size:20px;"><i class="icon-quote-left"></i></font><font color="#5f5e5e" style="font-size:20px;">GigaSpaces’ Cloudify [has] automated scaling and support for multiple private and public cloud platforms. Cloudify <strong><font color="#1d1934">focuses on accelerating the app and infrastructure life-cycle hybrid cloud management</font></strong> use cases.</font><font color="#00B4DA" style="font-size:20px;"><i class="icon-quote-right"></i></font> </div>
+			
+
+				
 							</div>
 							</div>
-</div>
 	</section>
 	
 	
-	<!-- <section id="content">
-	<div class="container">
-		<div class="row">
-			<div class="span12">
-				<div class="row">
-					<div class="span3">
-						<div class="box aligncenter">
-							<div class="aligncenter icon">
-								<i class="icon">
-								<img src="img/BlueprintCatalog140.png" />
-								</i>
-							</div>
-							<div class="text">
-								<h3><strong>From Blueprint to Production</strong></h3>
-								<p>Deploy the same application in your own data center or on the cloud of your choice using your favorite automation and configuration management tools.							</p>
-							</div>
-						</div>
-					</div>
-					<div class="span3">
-						<div class="box aligncenter">
-							<div class="aligncenter icon">
-								<i class="icon">
-									<img src="img/hpIcons/3.png" />
-								</i>
-							</div>
-							<div class="text">
-								<h3><strong>Continuous Delivery</strong></h3>
-								<p>Standardize deployment, orchestration and build processes to  create smoother transitions between development and production environments.</p>
-							</div>
-						</div>
-					</div>
-							<div class="span3">
-						<div class="box aligncenter">
-							<div class="aligncenter icon">
-								<i class="icon">
-									<img src="img/hpIcons/2.png" />
-								</i>
-							</div>
-							<div class="text">
-								<h3><strong>Automate Everything</strong></h3>
-								<p>With built-in auto-everything rules - scaling, failover, or even your own custom metrics, you can rest assured that Cloudify has you covered.</p>
-							</div>
-						</div>
-					</div>
-					<div class="span3">
-						<div class="box aligncenter">
-							<div class="aligncenter icon">
-								<i class="icon">
-									<img src="img/hpIcons/4.png" />
-								</i>
-							</div>
-							<div class="text">
-								<h3><strong>Effortless Upgrades</strong></h3>
-								<p>Cloudify supports post-deployment infrastructure upgrades and fine-tuning through our blueprint & custom command technology.</p>
-								<br/>
-							</div>
-					</div>
-				</div>
-			</div>
-		</div> 
-		<div class="row">
-			<div class="span12">
-				</div>
-		</div>
-	</section> -->
-		
-<!-- Cloudify Products -->
 
 
 <section id="content" style="background:#3b4250">
@@ -520,7 +639,8 @@
 			<div class="span12">
 			<br/>
 			<br/>
-				<h2 style="margin-top:30px;"> <font color="#ffffff">Written<strong> By & About Cloudify</strong></font></h2></div>
+            <div class="aligncenter">
+				<h2> <font color="#ffffff">Written<strong> By & About Cloudify</strong></font></h2></div></div>
 				<div class="row">
 				<div class="span1"></div>
 					<div class="span2">
@@ -596,30 +716,28 @@
 	
 		<section id="content">
 	<div class="container">
-			<div class="row">
+			<!--<div class="row">
 				<div class="span12">
 				<div class="aligncenter">
 				<img src="img/CloudifyIcon-Grey256.png" width="180">
 				<h2><strong>Github Goodies from Cloudify</strong></h2>
 				</div>
 				</div>
-				</div>
+				</div> -->
 				<div class="row">
 					<div class="span3">
 						<div class="box aligncenter">
 							<div class="aligncenter icon">
 								<i class="icon">
-									<img src="img/packman-TXT.png" width="175">
+									<img src="/img/HPTile-OS2.png" width="175">
 								</i>
 							</div>
 							<div class="text">
-								<h3><strong>Packman by Cloudify</strong></h3>
-								<p>Packman creates packages. The project was initially launched to create Cloudify packages and is now progressing towards being a standalone, simple open source solution for creating different types of packages.
+								<h3><strong>OpenStack Native</strong></h3>
+								<p>Cloudify was rewritten and redesigned to fit natively into the OpenStack project implementing a similar stack and architecture in order to integrate seamlessly with OpenStack components and core services - Nova, Neutron, Cinder, Keystone, Heat.
 								</p>
 								<br>
-								<a href="http://getcloudify.org/2014/06/18/packman-open-source-package-manager.html" target="_blank"><strong> READ MORE</strong></a>
-								<br>
-								<a href="https://github.com/cloudify-cosmo/packman" class="btn btn-rounded btn-theme btn-medium fork" target="_blank" data-fork-btn="Packman by Cloudify"><i class="fa fa-code-fork"></i><strong> Fork It</strong></a>
+								<a href="http://getcloudify.org/openstack-architecture-cloudify.html" class="btn btn-rounded btn-theme btn-medium fork" target="_blank" data-fork-btn="OpenStack"><strong> Read More</strong></a>
 							</div>
 						</div>
 					</div>
@@ -627,16 +745,14 @@
 						<div class="box aligncenter">
 							<div class="aligncenter icon">
 								<i class="icon">
-									<img src="img/pylogv1.png" width="175" />
+									<img src="/img/HPTile-VMW.png" width="175" />
 								</i>
 							</div>
 							<div class="text">
-								<h3><strong>Feedr by Cloudify</strong></h3>
-								<p>Feedr generates easily extendable events/logs using a specified formatter, and sends them using the specified transport. It can also generate fake data using fake-factory.</p>
+								<h3><strong>Full VMware Stack </strong></h3>
+								<p>Through this integration, VMware users now have a framework for automating the installation, deployment monitoring, self-healing, auto-scaling and continuous delivery of applications across the VMware stack using TOSCA.</p>
 								<br>
-								<br>
-								<br>
-								<a href="https://github.com/nir0s/feedr" target="_blank" class="btn btn-rounded btn-theme btn-medium fork" data-fork-btn="Feeder by Cloudify"><i class="fa fa-code-fork"></i><strong> Fork It</strong></a></a>
+								<a href="/vmware-hybrid-cloud.html" target="_blank" class="btn btn-rounded btn-theme btn-medium fork" data-fork-btn="VMware"></i><strong> Read More</strong></a></a>
 							</div>
 						</div>
 					</div>
@@ -644,17 +760,15 @@
 						<div class="box aligncenter">
 							<div class="aligncenter icon">
 								<i class="icon">
-									<img src="img/large_v-trans.png" width="202">
+									<img src="/img/kub-tile.png" width="175">
 								</i>
 							</div>
 							<div class="text">
-								<h3><strong>Docker Plugin by Cloudify</strong></h3>
-								<p>Cloudify has a built-in Docker plugin and matching types, allowing users to leverage Docker containers as part of any topology, providing a full-blown orchestration & automation method for large-scale Docker-based systems.
+								<h3><strong>Leading the Container Management Revolution</strong></h3>
+								<p>Cloudify is one of the top five open source projects leading the container management revolution, as referenced in the last OpenStack survey.  Learn more about how we're making this possible.
 								</p>
-								<br/>
-								<a href="/docker-orchestration-docker-container-deployment-cloud.html" target="_blank"><strong> READ MORE</strong></a>
-								<br>
-								<a href="https://github.com/cloudify-cosmo/cloudify-docker-plugin" class="btn btn-rounded btn-theme btn-medium fork" target="_blank" data-fork-btn="Docker Plugin by Cloudify"><i class="fa fa-code-fork"></i><strong> Fork It</strong></a>
+								<p>&nbsp;<p>
+								<a href="/container-docker-kubernetes-orchestration-management-cloud-deployment-automation.html" class="btn btn-rounded btn-theme btn-medium fork" target="_blank" data-fork-btn="Docker"><strong> Read More</strong></a>
 							</div>
 						</div>
 					</div>
@@ -663,16 +777,16 @@
 						<div class="box aligncenter">
 							<div class="aligncenter icon">
 								<i class="icon">
-									<img src="img/Github-Octocat.png" width="180" />
+									<img src="/img/CloudifyBanner3.png" width="175" />
 								</i>
 							</div>
 							<div class="text">
-								<h3><strong>All Cloudify Repos</strong></h3>
-								<p>Fork all the Cloudify goodness, and enjoy all the new features Cloudify has to offer - intelligent orchestration, topology-driven monitoring, scalable multi-tenant workflows, and more. </p>
+								<h3><strong>Cloudify and the Commmunity</strong></h3>
+								<p>Cloudify built open source and for the community offers diverse resources to get you started and get you involved with Cloudify. </p>
 								<br>
 								<br>
-								<br>
-								<a href="https://github.com/cloudify-cosmo" target="_blank" class="btn btn-rounded btn-theme btn-medium fork" data-fork-btn="All Cloudify Repos"><i class="fa fa-code-fork"></i><strong> Fork It</strong></a></a>
+								<p>&nbsp;</p>
+								<a href="/community-resources.html" target="_blank" class="btn btn-rounded btn-theme btn-medium fork" data-fork-btn="Community"><strong> Read More</strong></a></a>
 							</div>
 						</div>
 					</div>
@@ -692,7 +806,8 @@
 	</section>
 
 
-	   
+
+  
 	 <div class="clear"></div>  
    	<footer style="position:relative;padding-top:30px;">
 		<div class="container footerlist" style="margin-top:0px;">
