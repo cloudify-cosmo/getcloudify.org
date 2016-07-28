@@ -1,0 +1,75 @@
+---
+layout: blogpost
+title: We Created an Awesome Search Tool for Github Repos in Python
+image: haviv.jpg
+author: Haviv Weizman
+tags:
+ - DevOps
+ - Github
+ - Python
+ - Cloudify
+ - Surch
+---
+<notextile>
+
+<img src="/img/blog/githubsearch.png" alt="cloud orchestration | volte deployment | nfv | vEPC | vIMS | vnf manager | vmware | cloud automation">
+<br/>
+<br/> 
+
+<h2><strong>Background</strong></h2>
+<p>Recently, we got a notification from Amazon that one of our secret keys, which was accidentally left in a public Github repo, was being abused. Since it wasn't our own team doing the abusing, we decided to put a stop to this happening in the future. So, the idea here was to create a mechanism to search Github for any string variable that matched any of our secret keys. Naturally, you can use this to search any string variable.</p>
+
+<p>We looked for some of the other apps out there that can already do this and we found <a href="https://github.com/michenriksen/gitrob" target="_blank">gitrob</a>, a Ruby-based tool which didn't offer many integrations, and was a bit heavy on the code. It also doesn't include much documentation or have any sort of community to turn to for help.</p>
+
+<p>So, we decided to build our own tool - and it's called <strong>Surch</strong>!</p>
+
+<hr>
+
+<span class="pullquote-left">
+  <font style="font-weight: bold" size="5" face="Baskerville Old Face"><em>Changing the face of DevOps - automate all things with Cloudify.</em></font>&nbsp; <a class="btn btn-medium btn-theme btn-rounded" id="downloadBtnInner" href="http://getcloudify.org/downloads/get_cloudify.html" target="_blank"><i class="icon-plus"></i> Go</a></span>
+  
+<hr>
+
+<h2><strong>What is Surch?</strong></h2>
+<p><a href="http://github.com/cloudify-cosmo/surch">Surch</a> is an open source Python package that can be installed with command <code>pip install Surch</code>. Simply run your Surch search in the terminal. If a commit is found with a string matching one of your predetermined strings, you will see the log showing it on the screen and can proceed to manually delete the problematic commit, then notify Github to remove it using 'sha commit'. <strong>NOTE:</strong> It's up to you if you would prefer to change the credentials, but we would highly suggest it.</p>
+
+<h2><strong>Building Surch</strong></h2>
+
+<p>When we started talking about how to build this tool, our original thought process went something like this:</p>
+
+<ul>
+<li>We want one script that simply runs the search on Github organizations searching all repos within</li>
+<li>It needs to have the ability to run on public repos (private repos have passwords and are more complicated to handle)</li>
+</ul>
+
+<p>For our purposes, we added a Jenkins job to automatically run Surch once per day.</p>
+
+<p>By the time our first release came around, it was actually a lot more sophisticated, with the following additional features:</p>
+
+<ul>
+<li>You can choose to only search a specific repo by adding it to the search string</li>
+<li>You can choose to only search a specific user's repo by adding it to the search string</li>
+<li>Options to include or exclude repos based on your search parameters</li>
+<li>Integrations with PagerDuty for instant notifications</li>
+<li>Vault integration - Vault allows for safe secret or password storage, and we integrated it to automatically update Surch when a secret key is updated</li>
+</ul>
+
+<h2><strong>Future Features</strong></h2>
+<ul>
+<li>Integration with Slack</li>
+<li>Integration with AWS Lambda - git would notify Lambda that a commit was made and Surch automatically conducts a search on that specific commit only</li>
+<li>The ability to run searches on private repos</li>
+<li>Automate the handling and fixing of problematic commits</li>
+</ul>
+
+<h2><strong>Surch Basics</strong></h2>
+<ol>
+<li>Install with <code>pip install Surch</code></li>
+<li>Run <code>Surch repo REPO_URL -FLAGS</code> to search a specific repo</li>
+<li>Run <code>Surch org ORG_NAME -FLAGS</code> to search all repos in that organization</li>
+<li>add <code>--incude-repo REPO_NAME</code> to search only that specific repo in an organization and add the same flag multiple times to search many repos</li>
+</ol>
+
+<p>For more info on this project, see <a href="https://github.com/cloudify-cosmo/surch/blob/master/README.md" target="_blank">the docs</a>. All contributions are appreciated!</p>
+
+</notextile>
