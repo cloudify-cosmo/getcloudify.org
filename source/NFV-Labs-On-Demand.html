@@ -47,8 +47,15 @@ category: NFV
 						<script>
 						  hbspt.forms.create({ 
 						    portalId: '1918719',
-						    formId: '33853134-010c-475d-becf-b602f75d7f5c'
-						  });
+						    formId: '33853134-010c-475d-becf-b602f75d7f5c',
+								onFormSubmit: function($form) { dataLayer.push({
+								'event' : 'GAevent',
+								'eventCategory': 'Form Completion',
+								'eventAction': 'Submitted NFV Lab Form',
+								'eventLabel': 'NFV Lab',
+								})
+								}
+				  			});
 						</script>
 					</div>
 				</div>

@@ -36,8 +36,15 @@ category: Kubernetes
 						<script>
 						  hbspt.forms.create({ 
 						    portalId: '1918719',
-						    formId: 'f9bdd905-2fd2-49ef-a29a-25da8e477fc6'
-						  });
+						    formId: 'f9bdd905-2fd2-49ef-a29a-25da8e477fc6',
+	                            onFormSubmit: function($form) { dataLayer.push({
+	                            'event' : 'GAevent',
+	                            'eventCategory': 'Form Completion',
+	                            'eventAction': 'Submitted Kubernetes Orchestration Form',
+	                            'eventLabel': 'Kubernetes Orchestration',
+	                            })
+	                            }
+	                      });
 						</script>
 
 					</div>

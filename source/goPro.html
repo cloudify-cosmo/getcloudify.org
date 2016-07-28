@@ -113,7 +113,14 @@ category: Go Pro
                                         <script>
                                           hbspt.forms.create({
                                             portalId: '1918719',
-                                            formId: 'cfa4a3e2-a13a-416c-be72-2cbb3db05883'
+                                            formId: 'cfa4a3e2-a13a-416c-be72-2cbb3db05883',
+                                                onFormSubmit: function($form) { dataLayer.push({
+                                                'event' : 'GAevent',
+                                                'eventCategory': 'Form Completion',
+                                                'eventAction': 'Submitted Premium Form',
+                                                'eventLabel': 'GoPro',
+                                                })
+                                                }
                                           });
                                         </script>                                  
                                    </div>
