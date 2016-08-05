@@ -8,7 +8,7 @@ pageord: 300
 --- 
 
 # Overview
-Cloudify `Blueprints` are cloud application orchestration plans. The main part of the plan is written in a declarative YAML DSL (Doamin Specific Language). Cloudify DSL is following the concepts of [OASIS TOSCA](http://www.oasis-open.org/committees/tc_home.php?wg_abbrev=tosca) (Topology and Orchestration Standard for Cloud Application)
+Cloudify `Blueprints` are cloud application orchestration plans. The main part of the plan is written in a declarative YAML DSL (Domain Specific Language). Cloudify DSL is following the concepts of [OASIS TOSCA](http://www.oasis-open.org/committees/tc_home.php?wg_abbrev=tosca) (Topology and Orchestration Standard for Cloud Application)
 
 `Blueprints` has 2 main sections:
 
