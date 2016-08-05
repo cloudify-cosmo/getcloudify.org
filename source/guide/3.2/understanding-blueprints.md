@@ -56,7 +56,7 @@ node_templates:
     type: cloudify.types.host
     # omitted for brevity
   second_node
-    type: clouydify.types.web_server
+    type: cloudify.types.web_server
     # omitted for brevity
 
 {% endhighlight %}
