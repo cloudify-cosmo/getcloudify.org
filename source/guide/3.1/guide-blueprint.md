@@ -261,7 +261,7 @@ node_types:
 
 Also, two points are worth mentioning regarding the scripts:
 
- 1. Should be written in an idempotent manner. As is it possible they will be executed several times per execution, on account of retires due to failures.
+ 1. Should be written in an idempotent manner. As is it possible they will be executed several times per execution, on account of retries due to failures.
  2. Should be synchronous and wait for processes to start before existing. For example in the *start-mongo.sh* script we wait for mongo to run:
 
 {%highlight yaml%}
