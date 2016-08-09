@@ -1,0 +1,259 @@
+---
+layout: blogpost
+title: Cloud Management Roundup - Orchestration vs PaaS vs CMP
+image: nati.png
+author: Nati Shalom
+tags:
+ - Cloud Orchestration
+ - Cloud Management
+ - PaaS
+ - CMP
+ - Cloud Automation
+---
+
+<notextile>
+
+<img src="/img/blog/cmp_paas_orchestration.png" alt="TOSCA | Hybrid Cloud | Cloud Portability | Cloud Orchestration | Hybrid IT | Open Source Cloud Automation | Cloud Orchestration Tools | Kubernetes | Containers">
+<br/>
+<br/>
+
+
+<p><b></b>
+
+<p>There are basically three main approaches to managing applications in a cloud environment: Orchestration, PaaS (Platform as a Service) and CMP (Cloud Management Platform). The end goal of all three is fairly similar - have a fully managed application on the cloud. It is therefore not surprising that users have a hard time choosing which of the approaches best suits their needs.</p>
+
+<p>In this post, I wanted to make a simple distinction between these three options and offer some guidance on when you should consider each of the approaches. </p>
+
+<hr>
+
+<span class="pullquote-left">
+  <font style="font-weight: bold" size="5" face="Baskerville Old Face"><em>The only constant is change. Download the all-new Cloudify 3.4 today!</em></font>  <a class="btn btn-medium btn-theme btn-rounded" id="downloadBtnInner" href="http://getcloudify.org/downloads/get_cloudify.html" target="_blank"><i class="icon-plus"></i> Go </a></span>
+  
+  <hr>
+
+<p>We will use the following categories as the basis for the comparison of the three different cloud management approaches:</p>
+
+<p><strong>Application Workloads</strong></p>
+
+<p>In this category we compare the three approaches based on the kind of application workload that best fits each platform, for example: web applications,
+    stateful applications, big-data, legacy, etc.</p>
+
+<p><strong>Support for Advanced IaaS Services</strong></p>
+
+<p>In this category we compare the three approaches based on the depth of IaaS support, for example: how much each platform can utilize advances IaaS services
+    such as DBaaS, LBaaS, EMR, etc.</p>
+
+<p><strong>Support for DevOps Processes</strong></p>
+
+<p>DevOps processes such as continuous deployment tend to be application specific as they touch not just the application itself, but also other services that
+    are external to the application such as - support system, build-system etc. A typical DevOps process involves creating new environments for QA, Production,
+etc. or updating existing deployments. There are different techniques such as <a href="https://www.infoq.com/news/2013/03/canary-release-improve-quality">Canary</a>, <a href="https://medium.com/devops-learnings/blue-green-deployments-in-data-center-e704f93f9f70#.qsmeqondd">Blue/Green</a>, or <a href="https://www.infoq.com/news/2013/08/immutable-servers">Immutable</a> that are often used to handle those processes. In this category we compare the
+    three approaches based on the degree of support for those DevOps patterns.</p>
+
+<p><strong>Support for Containers and Cloud Native Stack</strong></p>
+
+<p>Containers can be viewed as lightweight VMs or application packages. The use of containers removes a large part of the application configuration management
+    and packaging complexity. In this category, we compare the three approaches based on the degree of support for that container technology e.g. Docker,
+    Swarm, Kubernetes, Mesos, Fleet.</p>
+
+<p><strong>Support for Bare Metal</strong></p>
+
+<p>Bare Metal machines are often used to allow maximum performance and utilization of the HW resources by bypassing the virtualization layer overhead. Bare
+    metal is becoming a popular target for application deployment with the introduction of new bare metal cloud as well as containers that provide a cost
+    effective way to use bare metal resources. In this category we compare the three approaches based on their support for a bare metal environment.</p>
+
+<p><strong>Support for Network Orchestration</strong></p>
+
+<p>Many enterprises and clouds support virtual networking through SDN. In this category we compare the three approaches based on the degree of support for
+    network orchestration.</p>
+
+<p><strong>Target Users</strong></p>
+
+<p>This category will compare the different approach fits well with Developers in a DevOps role as well as Operations.</p>
+
+<br><p>Let’s take a deep dive into the different cloud management options.</p>
+
+<h2><strong>Orchestration Defined</strong></h2>
+
+<div class="aligncenter"><img src="/img/blog/orchestration_venn.png" width="300px"></div>
+
+<p>
+     <strong>Definition</strong>
+</p>
+<p>
+    Cloud Orchestration is basically a method for automating manual IT processes such as provisioning, installation, configuration management, remediation,
+    maintenance, monitoring, scaling, etc.
+</p>
+<ul><p>
+   <li><strong>Application Workloads</strong>:<br>
+    The automation approach is fairly un-opinionated and therefore can address any use case that can be mapped into distinct manual steps. Because of this, it can be applied to a large variety of workloads starting from simple web applications to Big Data and analytics, or even legacy applications.</p>
+</li>
+<li>
+   <p><strong>Support for Advanced IaaS Services</strong>:<br>
+    Orchestration/automation doesn’t limit you from the use of any IaaS services as it doesn’t impose a layer of abstraction to manage a hybrid cloud
+    environment.</p>
+</li>
+<li>
+   <p><strong>Support for DevOps Processes</strong>:<br>
+    Orchestration models the application into blueprints which makes it easy to create new instances of the same blueprint for Dev/Test or Production in a
+    consistent way (a blueprint represents an environment meta-model). Orchestration also provides a way to interact with the existing deployments through
+    workflows. Workflows are used to implement the DevOps processes. Since workflows are basically an execution script, they can easily interact with any
+external system such as build system or support system as part of the    <a href="http://getcloudify.org/2015/04/09/jenkins-ci-server-automation-cloud-cd-continuous-integration-delivery.html">continuous deployment</a> process.</p>
+</li>
+<li>
+   <p><strong>Support for Containers and Cloud Native Stack</strong>:<br>
+    Most of the container based platforms (Docker, CoreOS) come with built-in orchestration. There’s also other types of container-centric orchestration such as Kubernetes which provides a more complete solution for managing applications.</p>
+   
+   <p>Other “pure play” orchestration tools such as Cloudify and Terraform provide support for setting up a container-based infrastructure and also integrate a hybrid stack of multiple containers technologies such as Kubernetes and Mesos, alongside non-container stack technologies such as databases, Big Data and legacy apps.</p>
+</li>
+<li>
+    <p><strong>Support for Bare Metal</strong>:<br>
+Orchestrators are basically automation tools and can orchestrate applications on a cloud-based environment or bare metal. Some of the orchestration uses a <a href="https://github.com/cloudify-examples/host-pool-demo-blueprint">resource pool mechanism</a> to allow dynamic allocation of the application resources on a pool of bare metal machines.</p>
+</li>
+<li>
+   <p><strong>Support for Network Orchestration</strong>:<br>
+    Network orchestration is considered a core piece in NFV. There are two modeling languages that are commonly used for network orchestration: TOSCA, a
+    standard for application topology definition, and YANG, a standard modeling language for configuration of network devices. The two modeling languages can also be combined to <a href="http://getcloudify.org/2016/02/17/mwc-cloud-sdn-mano-nfv-netconf-yang-tosca-vnf-openstack.html">deploy network-centric services</a>.</p>
+</li>
+<li>
+    </p><strong>Target Users</strong>:<br>
+    The automation approach fits well for Developers in a DevOps role as well as Operations engineers.</p>
+</li>
+</ul>
+<p>
+    Additional Reference:
+    <a href="http://getcloudify.org/2015/06/11/orchestration-docker-cloud-automation-openstack-heat-tosca-kubernetes.html">
+        Orchestration Tool Roundup - Docker Swarm vs. Kubernetes, TerraForm vs. TOSCA/Cloudify vs. Heat
+    </a>
+</p>
+
+<h2><strong>PaaS Defined</strong></h2>
+
+<div class="aligncenter"><img src="/img/blog/paaslogos.png" width="300px"></div>
+
+<p><strong>Definition</strong></p>
+<p>PaaS takes a more a developer-centric approach. It was built as an abstraction layer that is aimed to help the developers focus on writing code by abstracting all the infrastructure and operational aspects. To achieve this goal, most of the PaaS platforms come with a fairly opinionated approach on how applications should be running on those platforms (Cloud Foundry refers to this as the <a href="http://12factor.net/">12 factors</a>).</p>
+<ul>
+<li><strong>Application Workloads</strong>:</li>
+
+<p>PaaS products are mostly suited for greenfield applications that fit the 12 factors definition. They are also suited mostly to web application and not so much to Big Data or legacy applications.</p>
+
+
+<li><strong>Support for Advance IaaS Services</strong>:</li>
+
+<p>The abstraction approach provided by most PaaS products aims to &ldquo;hide&rdquo; the complexity of the infrastructure from the developers through a relatively &ldquo;thick&rdquo; layer of abstraction. One of the side effects that comes with that abstraction approach is it limits the use of the infrastructure to a basic compute and storage pool of resources where in reality many of the modern cloud infrastructures today provide much more advanced services such as DBaaS, LBaaS, EMR etc. This also causes lots of duplication of logic for handling things like user management, billing, and quota, that are already provided by the infrastructure.</p>
+
+<p>In addition, a PaaS often comes with its own set of logging, monitoring and development tools. DevOps users on the other hand tend to build their own tool chain, and the set of tools they use tend to vary between users, and over time, quite rapidly.</p>
+
+
+<li><strong>Support for DevOps Processes</strong>:</li>
+
+<p>Most PaaS products provide built-in implementations of some of the continuous deployment processes, e.g.&nbsp; <a href="https://www.infoq.com/news/2013/03/canary-release-improve-quality">Canary</a>,&nbsp; <a href="https://medium.com/devops-learnings/blue-green-deployments-in-data-center-e704f93f9f70#.qsmeqondd">Blue/Green</a>. However, those implementations tend to be tied to the platform with only a fairly limited degree of customization as the user is not expected to have access to the internals of the platform such as the load-balancer.</p>
+
+
+<li><strong>Support for Containers and Cloud Native Stack</strong>:</li>
+
+<p>Both OpenShift and Cloud Foundry are built on top of containers. OpenShift, specifically, is built on top of Kubernetes. Having said that, PaaS doesn&rsquo;t provide direct control over the underlying container orchestration and therefore limits the use of container orchestration within the PaaS platform.</p>
+
+<p>On top of that, PaaS rely on a specific container technology, therefore users don&rsquo;t have the flexibility to use their container orchestration of choice such as Core-OS Fleet, Docker Swarm, Mesos.</p>
+
+
+<li><strong>Support for Bare Metal</strong>:</li>
+
+<p>Most of the PaaS solutions were designed to run on top of a virtualized cloud-based environment and were not built to run on bare metal.</p>
+
+
+<li><strong>Support for Network Orchestration</strong>:</li>
+
+<p>PaaS doesn&rsquo;t expose most of the aspects of the network configuration to the end user and therefore comes with their own, opinionated, network configuration architecture.</p>
+
+
+<li><strong>Target Users</strong>:</li>
+
+<p>Developers</p>
+</ul>
+
+<p>Additional Reference: PaaS vs Orchestration - <a href="http://cloudtweaks.com/2014/12/paas-vs-docker-heated-debate/">PaaS vs Docker</a></p>
+
+<h2><strong>CMP Defined</strong></h2>
+
+<div class="aligncenter"><img src="/img/blog/cmplogos.png" width="300px"></div>
+
+<p><strong>Definition</strong></p>
+<p>CMP stands for Cloud Management Platform. CMPs take an infrastructure-centric approach where the main focus is monitoring and managing of infrastructure resources such as virtual machines, storage, network etc. It can be used indirectly to manage applications by combining some orchestration capabilities as part of the platform.</p>
+
+<ul>
+<li><strong>Application Workloads</strong>:</li>
+
+<p>Similar to automation, CMPs come less opinionated and can therefore address a wide range of applications. Having said that, many CMPs were designed to provide infrastructure management and control the virtual machine that hosts the application, but not the application itself. CMPs don&rsquo;t come with strong application management and automation capabilities to handle certain aspects such as dependency management, discovery, configuration management, application management, etc.</p>
+
+<p>Automating the full lifecycle of a given application, including configuration management and automation of post deployment aspects such as fail-over and scaling, would require more integration work with third party tools in order to fill this gap.</p>
+
+
+<li><strong>Support for Advanced IaaS Services</strong>:</li>
+
+<p>The main value of Multi-Cloud CMPs is that they often provide a &ldquo;single pane of glass&rdquo; for controlling and monitoring cloud infrastructure across different cloud providers. To achieve this goal, many of the CMPs have to force some degree of &ldquo;least common denominator&rdquo; abstraction where they view the cloud infrastructure as a simple pool of compute and storage resources. By doing so, they limit the use of more advanced services provided by most of the modern cloud infrastructures today, as mentioned above.</p>
+
+
+<li><strong>Support for DevOps Processes</strong>:</li>
+
+<p>Most of the CMP products focus on managing infrastructure resources. Continuous deployment processes tend to be application-centric by definition. Handling DevOps processes through a CMP is often non-trivial and requires integration with third party tools to handle this task, but quite often, the level of interaction needed between the two systems requires tight integration.</p>
+
+<p>In addition to that CMPs often come with a fairly monolithic architecture that includes their own Monitoring, Logging, Billing, etc and therefore doesn&rsquo;t fit well in a DevOps environment. DevOps users tend to build their own tool chain and the set of tools that they would use tend to vary between users, and over time, quite rapidly.</p>
+
+
+<li><strong>Support for Containers and Cloud Native Stack</strong>:</li>
+
+<p>Most CMP can run containers on top of VMs.</p>
+
+
+<li><strong>Support for Bare Metal</strong>:</li>
+
+<p>Most of the CMP solutions were designed to manage virtualized, cloud-based environments and were not built to manage bare metal resources.&nbsp;</p>
+
+
+<li><strong>Support for Network Orchestration</strong>:</li>
+
+<p>Most of the multi-cloud CMP solutions provide a limited set of network configuration mostly related to configuration of security groups and the load balancer. Advanced networking configuration, such as creating private network per apps, micro-segmentation, routers, firewall, and WAN gateways, are often not supported.</p>
+
+
+<li><strong>Target Users</strong>:</li>
+
+<p>Operations</p>
+</ul>
+
+<p>Additional Reference: <a href="https://www.infoq.com/articles/devops-not-a-feature">DevOps is not a Feature</a></p>
+
+<h2><strong>Application Delivery</strong></h2>
+
+<p>The purpose of this comparison was to demonstrate the differences between the three approaches for managing applications on a cloud-based environment. All of these approaches are a means to an end, and one of the most common use cases for these management frameworks is to allow faster delivery of applications.</p>
+<p>To allow faster delivery of applications we need to provide the developers with the right tools for the job. Every developer may have different needs and, therefore, tools needed to serve his application as I pointed out in one of my previous posts entitled &ldquo;<a href="https://www.infoq.com/articles/what-developers-want-from-cloud">What Developers Want</a>&rdquo;.</p>
+<p>Based on the above analysis, we can measure each of the approaches under the following criteria:</p>
+
+<h3>The Key Benchmarks</h3>
+
+<ul>
+
+<li><strong>How fast you can serve the tools that developers need to become productive? </strong></li>
+
+<p>The open-source world offers plenty of new frameworks and tools which are being announced almost on a daily basis. Developers want to have access to them all, as, in many cases, those tools will allow them to gain better productivity and thus speed up the development process. What developers care less about is the process of managing and configuring those tools.</p></ul>
+<ul>
+<li><strong>Choosing a specific tool, such as a specific PaaS, is not a strategy.</strong></li>
+
+<p>Don&rsquo;t build a strategy based on a specific tool, as by the time you are ready to support it, a new platform will emerge. Instead, be ready to support multiple platforms and tools even if they overlap to allow maximum flexibility for developers to then choose the right tool for the job rather that forcing them to fit into a specific platform stack.</p></ul>
+
+<p>As we can see in the following OpenStack surveys from 2015 and 2016, the popularity of the various platforms tends to change rapidly. In this specific case, we can see that Kubernetes grew almost 30% at the expense of Cloud Foundry. Cloudify grew 20% in use with OpenStack in production, according to users.</p>
+<p>So, what we can understand from this analysis is that in order to serve those developers well the challenges are:</p>
+<ol>
+<li>How fast you can introduce a new framework into your cloud?</li>
+<li>How capable are you at managing many different types of frameworks?</li>
+</ol>
+<p>It becomes clear now that in order to achieve this goal we need to have a generic way that will allow us to take any application and framework and offer it as a managed service.</p>
+
+
+<h1>Conclusion</h1>
+<p>In my personal opinion, the ability to introduce new frameworks fast is directly related to the flexibility of the management platform. Orchestration frameworks are more targeted to this approach because they are built to automate manual processes - in this case, installation, configuration, etc &ndash; directly, not indirectly as in PaaS or CMP options.</p>
+
+<p>Having said that, the three options may not always be mutually exclusive, and it is also common to see a combination of some of the tools. For example, a generic Orchestration tool can be used to configure and setup a PaaS like Cloud Foundry or Kubernetes. A CMP can have an Orchestration framework as an add-on service that runs through the CMP thereby providing both the application and infrastructure view combined.</p>
+
+</notextile>
