@@ -228,6 +228,9 @@ Orchestrators are basically automation tools and can orchestrate applications on
 
 <p>The purpose of this comparison was to demonstrate the differences between the three approaches for managing applications on a cloud-based environment. All of these approaches are a means to an end, and one of the most common use cases for these management frameworks is to allow faster delivery of applications.</p>
 <p>To allow faster delivery of applications we need to provide the developers with the right tools for the job. Every developer may have different needs and, therefore, tools needed to serve his application as I pointed out in one of my previous posts entitled &ldquo;<a href="https://www.infoq.com/articles/what-developers-want-from-cloud">What Developers Want</a>&rdquo;.</p>
+<br>
+<div class="aligncenter"><img src="/img/blog/devperspective.png" width="500px"></div>
+
 <p>Based on the above analysis, we can measure each of the approaches under the following criteria:</p>
 
 <h3>The Key Benchmarks</h3>
@@ -243,14 +246,18 @@ Orchestrators are basically automation tools and can orchestrate applications on
 <p>Don&rsquo;t build a strategy based on a specific tool, as by the time you are ready to support it, a new platform will emerge. Instead, be ready to support multiple platforms and tools even if they overlap to allow maximum flexibility for developers to then choose the right tool for the job rather that forcing them to fit into a specific platform stack.</p></ul>
 
 <p>As we can see in the following OpenStack surveys from 2015 and 2016, the popularity of the various platforms tends to change rapidly. In this specific case, we can see that Kubernetes grew almost 30% at the expense of Cloud Foundry. Cloudify grew 20% in use with OpenStack in production, according to users.</p>
+<br>
+<div class="aligncenter"><img src="/img/blog/openstack_user_survey.png" width="500px"></div>
+<br>
 <p>So, what we can understand from this analysis is that in order to serve those developers well the challenges are:</p>
 <ol>
 <li>How fast you can introduce a new framework into your cloud?</li>
 <li>How capable are you at managing many different types of frameworks?</li>
 </ol>
-<p>It becomes clear now that in order to achieve this goal we need to have a generic way that will allow us to take any application and framework and offer it as a managed service.</p>
-
-
+<p>It becomes clear now that in order to achieve this goal we need to have a generic way that will allow us to take any application and framework and offer it as a managed service, as shown in the diagram below: </p>
+<br>
+<div class="aligncenter"><img src="/img/blog/orchestration_engine.png" width="500px"></div>
+<br>
 <h1>Conclusion</h1>
 <p>In my personal opinion, the ability to introduce new frameworks fast is directly related to the flexibility of the management platform. Orchestration frameworks are more targeted to this approach because they are built to automate manual processes - in this case, installation, configuration, etc &ndash; directly, not indirectly as in PaaS or CMP options.</p>
 
