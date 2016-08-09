@@ -9,19 +9,24 @@
     var blueprintRegex = /blueprint.yaml$/i;
 
     var groups = {
-        blueprints: {
+        nfv: {
             order: 1,
+            name: 'NFV',
+            githubQuery: '-nfv+in:name+fork:true+user:cloudify-examples'
+        },
+        blueprints: {
+            order: 2,
             name: 'blueprints',
             githubQuery: '-blueprint+in:name+fork:true+user:cloudify-examples',
             canUpload: true
         },
         plugins: {
-            order: 2,
+            order: 3,
             name: 'plugins',
             githubQuery: '-plugin+in:name+fork:true+user:cloudify-examples'
         },
         integrations: {
-            order: 3,
+            order: 4,
             name: 'integrations',
             githubQuery: '-integration+in:name+fork:true+user:cloudify-examples'
         }
@@ -43,6 +48,7 @@
                     blueprintsGithubQuery: '@catalogBlueprintsGithubQuery',
                     pluginsGithubQuery: '@catalogPluginsGithubQuery',
                     integrationsGithubQuery: '@catalogIntegrationsGithubQuery',
+                    nfvGithubQuery: '@catalogNFVGithubQuery',
                     listTitle: '@catalogListTitle',
                     listDescription: '@catalogListDescription',
                     howUseLink: '@catalogHowUseLink',
@@ -65,6 +71,9 @@
                     }
                     if ($scope.integrationsGithubQuery) {
                         groups.integrations.githubQuery = $scope.integrationsGithubQuery;
+                    }
+                    if ($scope.nfvGithubQuery) {
+                        groups.nfv.githubQuery = $scope.nfvGithubQuery;
                     }
                     if ($scope.defaultVersion) {
                         defaultVersion = $scope.defaultVersion;
