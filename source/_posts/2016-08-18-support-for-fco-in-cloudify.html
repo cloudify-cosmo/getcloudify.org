@@ -1,0 +1,130 @@
+---
+layout: blogpost
+title: Support for FCO in Cloudify
+image: matej.jpg
+author: Matej Artač, Guest Post
+tags:
+ - Cloud Orchestration
+ - TOSCA
+ - Cloud Automation
+ - YAML
+ - Orchestration Tools
+---
+
+<notextile>
+
+<img src="/img/blog/dice.jpg" alt="cloud orchestration tools | cloud automation | devops | TOSCA Orchestration | TOSCA Blueprint">
+<br/>
+<br/>
+
+<p><i>This article was originally published on the <a href="http://www.dice-h2020.eu/2016/03/02/support-for-fco-in-cloudify/" target="_blank">DICE</a> blog. Matej and Tadej Borovšak work at <a href="http://www.xlab.si/rd/current-projects/dice/">XLAB</a>. The article is being re-published with the consent of the authors.</i></p>
+
+<p><a href="http://getcloudify.org" target="_blank">Cloudify</a> is an important component of the <a href="http://www.dice-h2020.eu/" target="_blank">DICE deployment tool</a>. It enables that the users can describe their applications in a human-readable text format YAML, using a <a href="http://getcloudify.org/2015/07/21/what-is-TOSCA-cloud-application-orchestration-tutorial-cloudify.html" target="_blank">TOSCA</a> dialect to describe the application&rsquo;s topology. The blueprint containing the topology normally includes specification of nodes (virtual machines), services needed by the application (e.g., Kafka, Spark, Zookeeper etc.), which service runs on which node, and what are the relationships between services. Cloudify then takes care of <a href="http://getcloudify.org/how-it-works.html" target="_blank">provisinoning resources</a> and installing the components in a public and private Cloud provider of choice. The original list includes the <a href="http://docs.getcloudify.org/3.4.0/plugins/aws/" target="_blank">Amazon&rsquo;s EC2</a>, <a href="http://getcloudify.org/2014/07/10/what-is-openstack-tutorial.html" target="_blank">OpenStack</a>, <a href="http://docs.getcloudify.org/3.4.0/plugins/vsphere/" target="_blank">vSphere</a> and others. In DICE, we extended support to the Flexiant Cloud Orchestrator (FCO) as well.</p>
+
+<hr>
+
+<span class="pullquote-left">
+  <font style="font-weight: bold" size="5" face="Baskerville Old Face"><em>Cloudify - Intelligent Cloud Orchestration Done Better. Download Free.</em></font>&nbsp; <a class="btn btn-medium btn-theme btn-rounded" id="downloadBtnInner" href="http://getcloudify.org/downloads/get_cloudify.html" target="_blank"><i class="icon-plus"></i> Go </a></span>
+  
+<hr>
+
+<p>With the added support to the FCO, this cloud platform now has a great alternative way of being used, taking advantage of the TOSCA, the growing industry standard. In this post we will show how to use the FCO plug-in in a simple web service topology.</p>
+<p>At this time, using the Cloudify in the FCO requires that the Cloudify Manager is installed in a manually created Virtual Machine in the FCO. Simply deploy a new CentOS 7 instance in the FCO with at least 4 GB RAM and 2 CPUs. Then make sure you can connect to the instance using <code>ssh</code>.</p>
+<p>Next, follow the instructions for <a href="http://docs.getcloudify.org/3.3.1/intro/installation/" rel="nofollow">installing Cloudify</a>. We use the simple plug-in to bootstrap the Cloudify manager, so edit the <code>simple-manager-blueprint-inputs.yaml</code> with inputs looking something like:</p>
+<pre><code>public_ip: '109.231.122.110'
+private_ip: '127.0.0.1'
+ssh_user: 'centos'
+ssh_key_filename: '/path/to/id_rsa' # path on your local machine to your ssh key
+agents_user: 'centos'</code></pre>
+<p>The Cloudify Manager bootstrapping process takes several minutes. Once it finishes, the Cloudify Manager can accept bluprints, similar to the following one.</p>
+<p>At the top of the document, we first need to specify the language version. Then we define the &ldquo;libraries&rdquo; imported from the ready-made node type and relationship type definitions. In this case we import the basic Cloudify&rsquo;s types and the DICE provided plug-in with the definitions for the FCO.</p>
+<pre><code>tosca_definitions_version: cloudify_dsl_1_2
+imports:
+ - http://www.getcloudify.org/spec/cloudify/3.3.1/types.yaml
+ - https://github.com/dice-project/DICE-FCO-Plugin-Cloudify/raw/master/plugin.yaml</code></pre>
+<p>Then we need to define the input parameters required by the FCO plug-in. These inputs need to then appear in the inputs file with the corresponding valid values.</p>
+<pre><code>inputs:
+ # General inputs
+ agent_user:
+ description: &gt;
+ User that is used to ssh to new server (you'll want ubuntu for ubuntu
+ based images and centos for centos based images here)
+ # Flexiant inputs
+ fco_username:
+ description: &gt;
+ User name of the FCO account.
+ fco_password:
+ description: &gt;
+ The password for the FCO account.
+ fco_customer:
+ description: &gt;
+ The UUID of the FCO customer.
+ fco_image_uuid:
+ description: &gt;
+ FCO OS image UUID to be used as the base image.
+ fco_server_offer:
+ description: &gt;
+ Name of the server offer for the hosts
+ fco_disk_offer:
+ description: &gt;
+ Name of the disk offer
+ fco_vdc_uuid:
+ description: &gt;
+ FCO Virtual Data Center UUID.
+ fco_network_uuid:
+ description: &gt;
+ FCO network UUID.
+ fco_agent_key:
+ description: &gt;
+ SSH key that is used for Cloudify to connect to server</code></pre>
+<p>This gives us all the necessary data to place a host to represent a virtual machine in the FCO:</p>
+<pre><code>node_templates:
+ fco_host:
+ type: cloudify.flexiant.nodes.Server
+ properties:
+ image: { get_input: fco_image_uuid }
+ server_type: { get_input: fco_server_offer }
+ disk: { get_input: fco_disk_offer }
+ vdc: { get_input: fco_vdc_uuid }
+ network: { get_input: fco_network_uuid }
+ agent_key: { get_input: fco_agent_key }
+ auth:
+ username: { get_input: fco_username }
+ password: { get_input: fco_password }
+ customer: { get_input: fco_customer }
+ url: "https://cp.diceproject.flexiant.net"
+ verify_ca_cert: False
+ cloudify_agent:
+ user: { get_input: agent_user }</code></pre>
+<p>If we want to place a web server to be located in this host, we can do it in a standard TOSCA way by adding an appropriate node template. Assuming that our blueprint source includes the scripts for configuring, starting and stopping, then we can write:</p>
+<pre><code> http_web_server:
+ type: cloudify.nodes.WebServer
+ properties:
+ port: 8080
+ interfaces:
+ cloudify.interfaces.lifecycle:
+ configure: scripts/configure.sh
+ start: scripts/start.sh
+ stop: scripts/stop.sh
+ relationships:
+ - type: cloudify.relationships.contained_in
+ target: fco_host</code></pre>
+<p>Finally, we can supply the outputs of the blueprint:</p>
+<pre><code>outputs:
+ webserver_ip:
+ description: Web server's external host address
+ value:
+ - get_attribute: [ fco_host, ip ]
+ url:
+ description: The URL to the web application
+ value:
+ concat:
+ - 'http://'
+ - { get_attribute: [ fco_host, ip ] }
+ - ':'
+ - { get_attribute: [ http_web_server, port ] }
+ - '/'</code></pre>
+<p>Successfully deploying and running an application in a cloud platform normally requires specification of the elements that are auxiliary to any physical entities or software installations. For instance, certain nodes need to permit network traffic to and from certain ports of a publically accessible network, while blocking any other traffic. The blueprint needs to provide the means to specify the related properties, and the orchestrator needs to configure the cloud environment accordingly. Our FCO plug in does not explicitly support this yet, but this is a planned functionality for the near future updates, which will also be the topic upcoming blog posts.</p>
+<p>Matej Artač (XLAB), Tadej Borov&scaron;ak (XLAB)</p>
+
+</notextile>
