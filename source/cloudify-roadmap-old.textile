@@ -1,0 +1,269 @@
+---
+layout: bt_about
+title: Cloudify Roadmap - Features & Bug Fixes
+category: Roadmap
+---
+
+<section id="inner-headline">
+	<div class="container">
+		<div class="row">
+			<div class="span12">
+				<ul class="breadcrumb">
+					<li><a href="/"><i class="icon-home"></i></a><i class="icon-angle-right"></i></li>
+					<li class="active">Roadmap</li>
+				</ul>
+				<br/>
+			</div>
+		</div>
+	</div>
+</section>
+
+h1. *Cloudify Roadmap*
+
+<p>Below you will find our roadmap for new features and improvements to Cloudify, including notes on those currently being worked on.</p>
+
+<div class="bs-callout bs-callout-warning"><strong>Note</strong><br>
+    Cloudify aims for a minor release every 4-6 months with new features, bug fixes, security enhancements, and more. A service release with bug and security fixes is also intended for delivery every 1-2 months. The next release is Cloudify 3.4, expected in June 2016. Items that are marked as <strong>In Progress</strong> below are included in this release. 
+</div>
+
+  <h2>Cloudify Manager Enhancements</h2>
+
+  <ul>
+    <li>
+      <p>Cloudify Manager upgrade process improvements, spcifically the ability to easily upgrade the manager in-place without bringing it down <strong>&#42;Done&#42;</strong></p>
+    </li>
+
+    <li>
+      <p>Cloudify Manager high availability: HA setup for all critical manager components, specifically ElasticSearch, RabbitMQ, InfluxDB and the manager REST API server</p>
+    </li>
+
+    <li>
+      <p>Dynamic Manager settings configuration: The ability to modify and apply in runtime various manager configuration elements via dedicated CLI commands and GUI elements</p>
+    </li>
+
+    <li>
+      <p>Enrypted data store: Encrypted key/value store for storing various blueprint related data such as cloud credentials, secrets and configuration partamters, and then access them from within blueorints using a dedicated intrinsic function.</p>
+    </li>
+
+    <li>
+      <p>Improved Manager bootstrap process: support for a single tar for all manager components (instead of multiple RPMs), QCOW2 and OVA manager images, embdding the Python runtime in both manager and CLI <strong>&#42;Done&#42;</strong></p>
+    </li>
+
+    <li>
+      <p>Pre-bootstrap verification command: a command that verifies as many variables as possible before actually initiating the bootstrap process. SPecifically - IaaS API credentials and quotas, validity of specified parameters such as image ID, etc.</p>
+    </li>
+
+    <li>
+      <p>More efficient deployment management: Improvements to the plugin library management to allow the Cloudify manager to easily manage thoudsands of deployments.</p>
+    </li>
+
+  </ul>
+
+  <h2>Security</h2>
+
+  <ul>
+    <li>
+      <p>Securing all internal communication via SSL <strong>&#42;Done&#42;</strong></p>
+    </li>
+
+    <li>
+      <p>Access control lists for resources managed by Cloudify such as blueprints and deployments</p>
+    </li>
+
+    <li>
+      <p>Multitenancy support: the ability to associate every tenant and operation with a Cloudify tenant and isolate resources of one tenant from other tenants</p>
+    </li>
+
+  </ul>
+
+  <h2>App Modeling, Orchestration and DSL Improvements</h2>
+
+  <ul>
+    <li>
+      <p>Live topology update: The ability to update the topology of a running deployment, e.g. add / remove nodes, change properties, update referenced workflow and life cycle scripts <strong>&#42;Done&#42;</strong></p>
+    </li>
+
+    <li>
+      <p>Blueprint composition: Ability to model application components in separate yaml files and stitch them all together into a single blueprint using the import funtionality <strong>&#42;Done&#42;</strong></p>
+    </li>
+
+    <li>
+      <p>Blueprint composition: Ability to reference existing deployments and blueprints from another blueprint, allowing for a "meta-blueprint" that simply references other deployments and blueprints (as opposed to just stitching together multiple yaml files)</p>
+    </li>
+
+    <li>
+      <p>Resource grouping: Ability to group together a set of nodes in a blueprint (e.g. a VM, two volumes and a floating IP) to allow users to scale them together as a one aggregate resource <strong>&#42;Done&#42;</strong></p>
+    </li>
+
+    <li>
+      <p>Allow to specify number of instances via a blueprint input <strong>&#42;Done&#42;</strong></p>
+    </li>
+
+    <li>
+      <p>Application blueprint versioning: the ability to upload a new version of an existing blueprint, and then apply the new version selectively to running deployments, by using the topology update feature</p>
+    </li>
+
+    <li>
+      <p>Increase alingment with the TOSCA simple profile specification, specifically support for TOSCA normative types, requirements &amp; capabilities, substition mappings and more</p>
+    </li>
+
+    <li>
+      <p>resume failed workflows from the last successful execution point. This is useful when the workflow fails mid-way due to infrastructure allocation error, quotas, etc. </p>
+    </li>
+
+    <li>Scheduled workflow execution: The ability schedule a workflow execution to a future time, e.g. scale the number of web server VM at a certain time of the day.</li>
+
+  </ul>
+
+  <h2>Command Line Interface</h2>
+
+  <ul>
+    <li>
+      <p>Simplify the CLI installation process by embedding the Python runtime in the CLI package <strong>&#42;Done&#42;</strong></p>
+    </li>
+
+    <li>
+      <p>Mac OSX Package of Cloudify CLI</p>
+    </li>
+
+    <li>
+      <p>Ubuntu Package of Cloudify CLI</p>
+    </li>
+  
+  </ul>
+
+  <h2>Web UI Management Console</h2>
+
+  <ul>
+    <li>
+      <p>Plugins CRUD Management in user interface <strong>&#42;Done&#42;</strong></p>
+    </li>
+
+    <li>
+      <p>Snapshots management in user interface <strong>&#42;Done&#42;</strong></p>
+    </li>
+
+    <li>
+      <p>Enable and disable maintenance mode from the UI <strong>&#42;Done&#42;</strong></p>
+    </li>
+
+    <li>
+      <p>Support for embedding the UI in other web pages via a dedicated embed mode the strips out the header and the footer for the page <strong>&#42;Done&#42;</strong></p>
+    </li>
+    
+  </ul>
+
+    <h2>Cloudify Blueprint Composer</h2>
+    <ul>
+        <li>
+            <p>Blueprint import: the ability to import a full blown existing blueprint archive, including all releated resources (scripts, artifacts, binaries, etc.) into the composer and update it in it <strong>&#42;Done&#42;</strong></p>
+        </li>
+        <li>
+            <p>Full CRUD support for custom type and relathionship definitions: The ability to introduce, use, update and delete custom user defined TOSCA type and relationships definitions <strong>&#42;Done&#42;</strong></p>
+        </li>
+	<li>
+            Layout enhancements: improved auto layout functionlity for complex blueprints that contain amny nodes and relationships
+	</li>
+
+    </ul>
+    
+    <h2>Network Function Virtualization</h2>
+    <ul>
+        <li>
+            <p>Dedicated Cloudify Telco NFV edition, that will include dedicated NFV orineted plugins and integrations (see below) and carrier grade support SLA</p>
+        </li>
+        <li>
+            Certification for VMWare VIM components (VMWare Integrated OpenStack, vCloud Director, vSphere, NSX)
+        </li>
+        <li>
+            YANG to TOSCA converter and Netconf YANG plugin: The ability to generate a TOSCA model from YANG descriptors, use the generated TOSCA types in a blueprint, and translate to Netconf commands upon blueprint installation
+        </li>
+        <li>
+            Robust IMS reference implementations: Clearwater IMS 
+        </li>
+        <li>
+            Intel EPA certification 
+        </li>
+    </ul>
+
+  <h2>Plugins &amp; Integrations</h2>
+
+  <ul>
+    <li>
+        <p>Google Cloud Platform plugin <strong>&#42;Done&#42;</strong></p>
+    </li>
+    <li>
+      <p>Microsoft Azure Plugin <strong>&#42;Done&#42;</strong></p>
+    </li>
+
+    <li>
+      <p>Kubernetes Plugin <strong>&#42;Done&#42;</strong></p>
+    </li>
+
+    <li>
+      <p>Mesos Plugin</p>
+    </li>
+
+    <li>
+      <p>Ability to extend and reuse plugins and workflows more easily </p>
+    </li>
+
+  </ul>
+
+
+<br/>
+
+   <hr/>
+             <section id="content">
+					<div class="container">
+                    <div class="row">
+                                <div class="span12">
+                                    <h2>How to Get  <strong>Support</strong></h4></div>
+
+				<div class="row">
+					<div class="span4">
+						<div class="box aligncenter">
+								<font color="#00B4DA"><i class="icon icon-4x icon-comments-alt"></i></font>
+
+							<div class="text">
+								<h3>Mailing Lists</h3>
+								</div>
+									</div>
+								<p>
+									Join our <a href="https://groups.google.com/forum/#!forum/cloudify-users" target="_blank">cloudify-users</a> or <a href="https://groups.google.com/forum/#!forum/cloudify-developers" target="_blank">cloudify-developers</a> mailing list, and get support from the community.
+								</p>
+
+
+						</div>
+							<div class="span4">
+						<div class="box aligncenter">
+								<font color="#00B4DA"><i class="fa fa-stack-overflow icon-4x"></i></font>
+
+							<div class="text">
+								<h3>Stack Overflow</h3>
+								</div>
+								</div>
+								<p>
+									 Subscribe to the <a href="http://stackoverflow.com/questions/tagged/cloudify" target="_blank">Cloudify tag</a> on Stack Overflow, and feel free to ask your questions amongst cloud pros.
+								</p>
+															</div>
+					<div class="span4">
+						<div class="box aligncenter">
+								<font color="#00B4DA"><i class="icon icon-4x icon-envelope-alt"></i></font>
+
+							<div class="text">
+								<h3>Shoot us an Email</h3>
+									</div>
+									</div>
+								<p>
+									 Feel free to reach out by <a href="mailto:hello@getcloudify.org">email</a> with any question you may have - we're always happy to help.
+								</p>
+
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+</div>
+</section>
