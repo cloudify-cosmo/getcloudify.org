@@ -292,10 +292,10 @@ function getComposerForm(e){
 			  });
 }
 
-function getNfvForm(e){
+function getOrchForm(e){
 			hbspt.forms.create({ 
 				portalId: '1918719',
-				formId: '07c40acf-c792-4dc3-9d09-245cfec11b56',
+				formId: 'd1c3a4f1-a47d-46f6-b31a-2b4b1d309d56',
 				onFormReady($form, ctx){
 					var hubspotHtmlForm=$(".hbspt-form");
 					$( ".gattingWrapper" ).append( hubspotHtmlForm );
@@ -341,7 +341,10 @@ function downloadCliFile(e)
 							break;	
 						case "NFV White Paper Download":
 							getNfvForm(e);
-							break;			
+							break;	
+						case "Orchestration White Paper Download":
+							getOrchForm(e);
+							break;					
 						default:
 							 getOtherForm(e);
 					}
@@ -477,6 +480,12 @@ $(".downloadAmi").click(function (e) {
 $(".downloadNfv").click(function (e) {
 		  leadSource = "NFV White Paper Download";
 		  dataThanks = "NFV White Paper Download";
+		  downloadBtnClick(e);
+});
+//Orchestration White Paper
+$(".downloadOrch").click(function (e) {
+		  leadSource = "Orchestration White Paper Download";
+		  dataThanks = "Orchestration White Paper Download";
 		  downloadBtnClick(e);
 });
 
