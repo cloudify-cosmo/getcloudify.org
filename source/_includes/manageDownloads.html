@@ -1,0 +1,438 @@
+<script type="text/javascript">
+//this make cli download btns active
+    //this shows after the form is submitted
+    var submitted = false;
+    function formSubmitted() {
+        if (submitted) {
+            $('#regiterToDownload').find("input[type=text],input[type=email], textarea").val("");
+            $('#regiterToDownload').hide();
+            $('#thankYou').show();
+        }
+    }
+    //MANAGE AND TRACK DOWNLOADS
+    $(function () {
+        /*Check If IE Browser*/
+        detectIE();
+        /**/
+        //Manage Downloads Gating;
+        //========================================//
+        var gotName = false;
+        var gotValidCaptcha = false;
+        var downloadHref="";
+        var strVar="";
+        var formEmail="";
+        var formName="";
+        var formcompany ="";
+        var dataBtnName=""; // this is the name of the mixpanel resource
+        var dataBtnSplit="";
+        var btnName="";
+        var dataBtnId = "";
+        var leadSource = "";
+        var dataThanks="";
+        //Manage Downloads CLI pop up form ;
+        //========================================//
+        strVar += "";
+        strVar += "<div class=\"modal fade\" id=\"myModal\" tabindex=\"-1\" role=\"dialog\" aria-labelledby=\"myModalLabel\" aria-hidden=\"true\">";
+        strVar += "            <a  style=\"float:right \" class=\"gattingWrapperClose\" href=\"#\"><i class=\"fa fa-times\">&nbsp;&nbsp;<\/i> <\/a>";
+        strVar += "			<div class=\"regTitle\">Verify You're Human<\/div>";
+        strVar += "<div class=\"gattingWrapper\">";
+        strVar += "        <\/div>";
+        strVar += "        <\/div>";
+        /*////////////////New Code For HUBSPOT FORMS TRACKING ///////////////////////*/
+        //CLI Forms Values
+        var cliFormName = "";
+        var cliFormEmail = "";
+        var cliFormcompany = "";
+        //set cloudify cookie
+        function openDownloadWindowFunction() {
+            setCookie('cfydirect', cliFormName + "," + cliFormEmail + "," + cliFormcompany);
+            window.open("/downloads/get_cloudify_3x_abtest3_direct.html", "MsgWindow", "width=600, height=600 ,toolbar=yes,menubar=yes");
+        }
+        function setCookie(key, value) {
+            var expires = new Date();
+            expires.setTime(expires.getTime() + (180 * 24 * 60 * 60 * 1000));
+            document.cookie = key + '=' + value + ';expires=' + expires.toUTCString() + ';path=/';
+        }
+        function getCookie(key) {
+            var keyValue = document.cookie.match('(^|;) ?' + key + '=([^;]*)(;|$)');
+            return keyValue ? keyValue[2] : null;
+        }
+        //End set cloudify cookie
+        //Send data to Mixpanel and Google analytics
+        function track_cli_contactForm(e) {
+            //track mixpanel
+            if (getCookie('cfydirect') == null) {
+                cliFormName = $('input[name="company"]').val();
+                cliFormEmail = $('input[name="email"]').val();
+                cliFormCompany = $('input[name="company"]').val();
+                //set Lead Source;
+                $("#regiterCliDownload #entry_388986873").val(leadSource);
+                //create cookie;
+                setCookie('cfydirect', cliFormName + "," + cliFormEmail + "," + cliFormCompany);
+                gotName = true;
+                //downloadCliFile(e);
+                directCLIDownload(e);
+            } else {
+                var cliFormEmail = getCookie('cfydirect').split(",")[1];
+                //mixpanel.identify(cliFormEmail);
+            }
+        }
+        //CLI Downloads HubSpotForms//
+        function getDebianForm(e){
+            hbspt.forms.create({
+                portalId: '1918719',
+                formId: 'ba57e9f0-58f8-4f88-94af-b4206b650c62',
+                onFormReady:function($form){
+                    var hubspotHtmlForm=$(".hbspt-form");
+                    $( ".gattingWrapper" ).append( hubspotHtmlForm );
+                },
+                onFormSubmit: function($form) {
+                    track_cli_contactForm(e);
+                }
+            });
+        }
+        function getCentOS7Form(e){
+            hbspt.forms.create({
+                portalId: '1918719',
+                formId: '41bf7fe9-d5f1-4718-8b3e-9202fc4509f6',
+                onFormReady:function($form, ctx){
+                    var hubspotHtmlForm=$(".hbspt-form");
+            $( ".gattingWrapper" ).append( hubspotHtmlForm );
+        },
+        onFormSubmit: function($form) {
+            track_cli_contactForm(e);
+        }
+    });
+    }
+    function getCentOS6_5Form(e){
+        hbspt.forms.create({
+            portalId: '1918719',
+            formId: 'a918493f-16d8-4f89-b952-360730947c61',
+            onFormReady:function($form, ctx){
+                var hubspotHtmlForm=$(".hbspt-form");
+        $( ".gattingWrapper" ).append( hubspotHtmlForm );
+    },
+    onFormSubmit: function($form) {
+        track_cli_contactForm(e);
+    }
+    });
+    }
+    function getWindowsForm(e){
+        hbspt.forms.create({
+            portalId: '1918719',
+            formId: '6398a0f3-8cbe-46b7-bb1b-c8d220e9a22d',
+            onFormReady:function($form, ctx){
+                var hubspotHtmlForm=$(".hbspt-form");
+        $( ".gattingWrapper" ).append( hubspotHtmlForm );
+    },
+    onFormSubmit: function($form) {
+        track_cli_contactForm(e);
+    }
+    });
+    }
+    function getOtherForm(e){
+        hbspt.forms.create({
+            portalId: '1918719',
+            formId: 'e7b478aa-bf4c-4ed3-8f5e-b339b0106faf',
+            onFormReady:function($form, ctx){
+                var hubspotHtmlForm=$(".hbspt-form");
+        $( ".gattingWrapper" ).append( hubspotHtmlForm );
+    },
+    onFormSubmit: function($form) {
+        track_cli_contactForm(e);
+    }
+    });
+    }
+    function getAwsForm(e){
+        hbspt.forms.create({
+            portalId: '1918719',
+            formId: '5e7e7bb4-1a10-4dd0-b3f5-73d063c36f16',
+            onFormReady:function($form, ctx){
+                var hubspotHtmlForm=$(".hbspt-form");
+        $( ".gattingWrapper" ).append( hubspotHtmlForm );
+    },
+    onFormSubmit: function($form) {
+        track_cli_contactForm(e);
+    }
+    });
+    }
+    function getVagrantForm(e){
+        hbspt.forms.create({
+            portalId: '1918719',
+            formId: '0c9717ef-1ea2-4ef2-92c5-4e243644c284',
+            onFormReady:function($form, ctx){
+                var hubspotHtmlForm=$(".hbspt-form");
+        $( ".gattingWrapper" ).append( hubspotHtmlForm );
+    },
+    onFormSubmit: function($form) {
+        track_cli_contactForm(e);
+    }
+    });
+    }
+    function getComposerForm(e){
+        hbspt.forms.create({
+            portalId: '1918719',
+            formId: 'bb5b531a-475e-40e1-a0db-4e0e89e25a3c',
+            onFormReady:function($form, ctx){
+                var hubspotHtmlForm=$(".hbspt-form");
+        $( ".gattingWrapper" ).append( hubspotHtmlForm );
+    },
+    onFormSubmit: function($form) {
+        track_cli_contactForm(e);
+    }
+    });
+    }
+    function getNfvForm(e){
+        hbspt.forms.create({
+            portalId: '1918719',
+            formId: '07c40acf-c792-4dc3-9d09-245cfec11b56',
+            onFormReady:function($form, ctx){
+                var hubspotHtmlForm=$(".hbspt-form");
+        $( ".gattingWrapper" ).append( hubspotHtmlForm );
+    },
+    onFormSubmit: function($form) {
+        track_cli_contactForm(e);
+    }
+    });
+    }
+    function getOpenStackForm(e){
+        hbspt.forms.create({
+            portalId: '1918719',
+            formId: '4b3da2f9-dc73-4d05-8836-8b6bd17ae366',
+            onFormReady: function ($form, ctx) {
+                var hubspotHtmlForm=$(".hbspt-form");
+        $( ".gattingWrapper" ).append( hubspotHtmlForm );
+    },
+    onFormSubmit: function($form) {
+        track_cli_contactForm(e);
+    }
+    });
+    }
+    //CLI Downloads HubSpotForms//
+    //this function open modal process
+    function downloadCliFile(e)
+    {
+        try  {
+            e.preventDefault();
+            //Gating PopUp
+            $('#myModal').modal('toggle');
+            //This call right form depand which btn was clicked.
+            switch(dataThanks) {
+                case "thank_you_debian":
+                    getDebianForm(e);
+                    break;
+                case "thank_you_centos_6_5":
+                    getCentOS6_5Form(e);
+                    break;
+                case "thank_you_centos_7":
+                    getCentOS7Form(e);
+                    break;
+                case "thank_you_windows":
+                    getWindowsForm(e);
+                    break;
+                case "thank_you_pip":
+                    getOtherForm(e);
+                    break;
+                case "thank_you_vagrant":
+                    getVagrantForm(e);
+                    break;
+                case "thank_you_aws":
+                    getAwsForm(e);
+                    break;
+                case "thank_you_composer":
+                    getComposerForm(e);
+                    break;
+                case "NFV White Paper Download":
+                    getNfvForm(e);
+                    break;
+                case "thank_you_openstack":
+                    getOpenStackForm(e);
+                    break;
+                default:
+                    getOtherForm(e);
+            }
+            $('#myCollapse').addClass('in');
+        } catch(e) {
+            console.log(["Error while tracking download", e]);
+        }
+        return false;
+    }
+    //This function switch dataThanks for setting the right thanks landing page
+    function directCLIDownload(e){
+        //track google and mixpanel
+        track_download(downloadHref);
+        $('#myModal').modal('hide');
+        setTimeout(function() {
+            window.location.href = downloadHref;
+            setTimeout(function() {
+                switch(dataThanks) {
+                    case "thank_you_debian":
+                        window.location.href = "http://docs.getcloudify.org/{{ site.Docs_version }}/installation/from-packages/#linux";
+                        break;
+                    case "thank_you_centos_6_5":
+                        window.location.href = "http://docs.getcloudify.org/{{ site.Docs_version }}/installation/from-packages/#linux";
+                        break;
+                    case "thank_you_centos_7":
+                        window.location.href = "http://docs.getcloudify.org/{{ site.Docs_version }}/installation/from-packages/#linux";
+                        break;
+                    case "thank_you_windows":
+                        window.location.href = "http://docs.getcloudify.org/{{ site.Docs_version }}/installation/from-packages/#windows";
+                        break;
+                    case "thank_you_pip":
+                        window.location.href = "http://docs.getcloudify.org/{{ site.Docs_version }}/installation/from-script/";
+                        break;
+                    case "thank_you_vagrant":
+                        window.location.href = "http://docs.getcloudify.org/{{ site.Docs_version }}/manager/getting-started/";
+                        break;
+                    case "thank_you_aws":
+                        window.location.href ="/thank_you_aws.htm";
+                        break;
+                    case "thank_you_composer":
+                        window.location.href ="/thank_you_composer.htm";
+                        break;
+                    case "thank_you_openstack":
+                        window.location.href = "http://docs.getcloudify.org/{{ site.Docs_version }}/manager/bootstrapping/#deploying-a-manager-image";
+                        break;
+                    default:
+                        window.location.href = "/thank_you.htm";
+                }
+            }, 1000);
+        }, 500);
+        //
+    }
+    //this function track download data for mixpanel
+    function track_download(downloadHref) {
+        //create cookie after form is submmited.
+        if (getCookie('cfydirect') == null) {
+            formEmail =  $(".gattingWrapper #email").val();
+            formName =  $(".gattingWrapper #last_name").val();
+            formcompany =  $(".gattingWrapper #company").val();
+            //create cookie and holds user data;
+            setCookie('cfydirect', formName + "," + formEmail + "," + formcompany);
+        }else{
+            //if cookie is not empty create this vars for later use.
+            formName = getCookie('cfydirect').split(",")[0];
+            formEmail =getCookie('cfydirect').split(",")[1];
+            formcompany = getCookie('cfydirect').split(",")[2];
+        }
+    }
+    function downloadBtnClick(e){
+        e.preventDefault();
+        downloadHref = e.currentTarget.attributes["href"].value;//$(this).attr('href');
+        dataBtnName = e.currentTarget.attributes["data-btn-type"].value; //$(this).attr("data-btn-type");
+        dataBtnSplit = e.currentTarget.attributes["data-btn-split"].value;//$(this).attr("data-btn-split");
+        dataBtnId = e.currentTarget.attributes["data-btn-id"].value; //$(this).attr("data-btn-id");
+        if(dataThanks==""){
+            dataThanks = e.currentTarget.attributes["data-thanks-page"].value;
+        }
+        if (getCookie('cfydirect') == null) {
+            $("#myModal").remove();
+            $("#wrapper").before(strVar);
+            downloadCliFile(e);
+        } else {
+            directCLIDownload(e);
+        }
+    }
+    //Cli
+    $(".downloadCli").click(function (e) {
+        leadSource = "CLI Download";
+        downloadBtnClick(e);
+    });
+    //Vagrant
+    $(".downloadVagrant").click(function (e) {
+        leadSource = "Vagrant Trial Download";
+        downloadBtnClick(e);
+    });
+    //Ami
+    $(".downloadAmi").click(function (e) {
+        leadSource = "AMI Download";
+        downloadBtnClick(e);
+    });
+    //NFV
+    $(".downloadNfv").click(function (e) {
+        leadSource = "NFV White Paper Download";
+        dataThanks = "NFV White Paper Download";
+        downloadBtnClick(e);
+    });
+    //Composer
+    //Checkbox Validation on before btn download.
+    $(':checkbox').click(function(){
+        if(this.checked){
+            $("#btnComposer").removeAttr("disabled");
+        }else{
+            $("#btnComposer").attr("disabled", "disabled");
+        }
+    });
+    $('#btnComposer').click(function(e){
+        if($(':checkbox').is(':checked')){
+            leadSource = "Composer Download";
+            downloadBtnClick(e);
+        }else{
+            e.preventDefault();
+        }
+    });
+    //close form with X
+    $("body,.testimonial,modal").on('click', '.gattingWrapperClose', function(){
+        $('#myModal').modal('hide');
+    });
+    });
+ /**
+ * detect IE
+ * returns version of IE or false, if browser is not Internet Explorer
+ */
+    function detectIE() {
+        var ua = window.navigator.userAgent;
+        var msie = ua.indexOf('MSIE ');
+        if (msie > 0) {
+            //display alert msg.
+            $('#detectIe').show();
+            // IE 10 or older => return version number
+            return parseInt(ua.substring(msie + 5, ua.indexOf('.', msie)), 10);
+        }
+        var trident = ua.indexOf('Trident/');
+        if (trident > 0) {
+            // IE 11 => return version number
+            var rv = ua.indexOf('rv:');
+            return parseInt(ua.substring(rv + 3, ua.indexOf('.', rv)), 10);
+        }
+        var edge = ua.indexOf('Edge/');
+        if (edge > 0) {
+            // Edge (IE 12+) => return version number
+            return parseInt(ua.substring(edge + 5, ua.indexOf('.', edge)), 10);
+        }
+        // other browser
+        return false;
+    }
+    /*////////////////New Code For Hubspot FORMS TRACKING ///////////////////////*/
+</script>
+<!-- Global Javascripts -->
+<!-- LeadLander -->
+<script type="text/javascript">llfrmid=29185</script> <br />
+<script type="text/javascript" src="https://formalyzer.com/formalyze_init.js"></script> <br />
+<script type="text/javascript" src="https://formalyzer.com/formalyze_call_secure.js"></script><br />
+<!-- End LeadLander --><br />
+<script charset="utf-8" type="text/javascript" src="//js.hsforms.net/forms/v2.js"></script>
+<script type="text/javascript" language="javascript">
+    var sf14gv = 29185;
+    (function() {
+        var sf14g = document.createElement('script'); sf14g.type = 'text/javascript'; sf14g.async = true;
+        sf14g.src = ('https:' == document.location.protocol ? 'https://' : 'http://') + 't.sf14g.com/sf14g.js';
+        var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(sf14g, s);
+    })();
+</script>
+<!-- LeadLander End -->
+<script>
+var perfData = window.performance.timing;
+    var pageLoadTime = perfData.domComplete - perfData.navigationStart;
+    var loadTime = "";
+    if (pageLoadTime < 1000) { loadTime = "0-1 seconds"; }
+    else if (pageLoadTime < 2000) { loadTime = "1-2 seconds"; }
+    else if (pageLoadTime < 3000) { loadTime = "2-3 seconds"; }
+    else if (pageLoadTime < 4000) { loadTime = "3-4 seconds"; }
+    else if (pageLoadTime < 5000) { loadTime = "4-5 seconds"; }
+    else if (pageLoadTime < 6000) { loadTime = "5-6 seconds"; }
+    else if (pageLoadTime < 10000) { loadTime = "6-10 seconds"; }
+    else { loadTime = "10+ seconds"; }
+    dataLayer.push ({ 'event': 'GAEvent', 'eventCategory': 'Page Load Time', 'eventAction': loadTime, 'nonInteraction': 1 });
+</script>
+         

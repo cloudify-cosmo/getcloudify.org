@@ -5,17 +5,23 @@ redcarpet:
   extensions: ["no_intra_emphasis", "fenced_code_blocks", "autolink", "tables", "with_toc_data"]
 highlighter: true
 encoding: UTF-8
-exclude: ["node_modules"]
+#exclude: ["node_modules"]
+#do not commit this exclude part
+#exclude:
+#  - '_posts'
+#  - 'guide' 
+#  - 'author_generator'
+#end - do not commit this exclude part
 paginate: 5
 paginate_path: "blog/page:num"
 
-latest_cloudify_version: 3.2
+latest_cloudify_version: 3.4
 
-github_blueprints_search_query: "-blueprint+in:name+fork:true+user:cloudify-examples"
-github_plugins_search_query: "-plugin+in:name+fork:true+user:cloudify-examples"
-github_integrations_search_query: "-integration+in:name+fork:true+user:cloudify-examples"
-github_nfv_search_query: "-nfv+in:name+fork:true+user:cloudify-examples"
 
-default_examples_version: "master"
-default_examples_version_fallback: "master"
-examples_cors_proxy: "https://d95fn1u5c9.execute-api.us-west-2.amazonaws.com/prod/proxy"
+#Manage Download files:
+#-----------------------Change this when new version is up---------------------#
+Release_version: 3.4.0~1-401
+Cloudify_version: 3.4.0.1
+Docs_version: 3.4.1
+Short_version: 3.4
+Release: 401
