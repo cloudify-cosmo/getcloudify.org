@@ -49,7 +49,7 @@ cat: User Guide
                                  </div>
 
                                     <div class="row">
-                                    <div class="span6">
+                                    <div class="span10">
 
                          <h1><strong>Release 3.4 (3-JUL-2016)</strong></h1>
 						<div width="100%" text-align="center" class="aligncenter">
@@ -72,7 +72,7 @@ cat: User Guide
                         </div>
                         </div>
  <div class="row">
- <div class="span9">
+ <div class="span10">
 
 <a name="highlights"></a>
 <hr>
@@ -264,15 +264,13 @@ cat: User Guide
 		<li><a href="https://cloudifysource.atlassian.net/browse/CFY-4956">CFY-4956</a> - .git folder will now be ignored when archiving the manager deployment during bootstrap; additionally, there&rsquo;s now a validation over the size of the manager deployment to ensure no other unnecessary resources get archived (max 50MB).</li>
 		<li><a href="https://cloudifysource.atlassian.net/browse/CFY-4832">CFY-4832</a> - improve executions page : Deployments execution page, now shows is the execution is a system workflow and what are his parameters.</li>
 		<li><a href="https://cloudifysource.atlassian.net/browse/CFY-4762">CFY-4762</a> - management worker&rsquo;s log severity level is now configurable via the `management_worker_log_level` input in the manager blueprint.</li>
-		<li><a href="https://cloudifysource.atlassian.net/browse/CFY-4867">CFY-4876</a></li>
-				<span style="margin-left:5em">CLI now accepts several verbosity levels.</span><br>
-				<span style="margin-left:10em">-v will display tracebacks</span><br>
-				<span style="margin-left:10em">-vv will also display debug log messages</span><br>
-				<span style="margin-left:10em">-vvv will also display debug logging for loggers defined in config.yaml</span><br>
-				<span style="margin-left:5em">CLI commands that also display events/logs now accept an optional --json flag that will make each event/log be emitted as json in its own <span style="margin-left:5em">line, to be easily parsable by external processes</span></span><br>
-				<span style="margin-left:5em">Debug log messages are now stored in elasticsearch. They can be viewed in the cli by passing -vv (verbosity level 2)</span>
-		<li><a href="https://cloudifysource.atlassian.net/browse/CFY-4860">CFY-4860</a></li>
-		<span style="margin-left:5em">plugin.workdir added as an API for plugins to get a work directory that is unique to the (deployment, plugin) tuple</span><br>
+		<li><a href="https://cloudifysource.atlassian.net/browse/CFY-4867">CFY-4876</a><span style="margin-left:5em">CLI now accepts several verbosity levels.</span><br>
+				<li style="margin-left:5em">-v will display tracebacks</li>
+				<li style="margin-left:5em">-vv will also display debug log messages</li>
+				<li style="margin-left:5em">-vvv will also display debug logging for loggers defined in config.yaml</li>
+				<li style="margin-left:5em">CLI commands that also display events/logs now accept an optional --json flag that will make each event/log be emitted as json in its own line, to be easily parsable by external processes</li>
+				<li style="margin-left:5em">Debug log messages are now stored in elasticsearch. They can be viewed in the cli by passing -vv (verbosity level 2)</li>
+		<li><a href="https://cloudifysource.atlassian.net/browse/CFY-4860">CFY-4860</a><span style="margin-left:5em">plugin.workdir added as an API for plugins to get a work directory that is unique to the (deployment, plugin) tuple</span></li><br>
 		<span style="margin-left:5em">plugin.prefix can be used to get the prefix where the plugin was installed</span><br>
 		<span style="margin-left:5em">These two features were used to fix the diamond plugin for 3.4 (which broke to some extent after smart deployments was added)</span>
 		<li><a href="https://cloudifysource.atlassian.net/browse/CFY-4931">CFY-4931</a> Added Windows Support to Host Pool</li>
@@ -280,13 +278,13 @@ cat: User Guide
 				<span style="margin-left:5em">added proper agent inputs for Windows hosts</span>
 		<li><a href="https://cloudifysource.atlassian.net/browse/CFY-4940">CFY-4940</a> Added init script, debug loggers, and new lifecycle scripts</li>
 		<li><a href="https://cloudifysource.atlassian.net/browse/CFY-4959">CFY-4959</a> Host Pool Plugin/Service Major Rewrite</li>
-				<span style="margin-left:5em">Rewrote API server</span></li><br>
-				<span style="margin-left:5em">Added service logging</span></li><br>
-				<span style="margin-left:5em">Changed backend to TinyDB</span></li><br>
-				<span style="margin-left:5em">Added mixed-OS pool support</span></li><br>
-				<span style="margin-left:5em">Removed requirement for config YAML file</span></li><br>
-				<span style="margin-left:5em">Added non-daemon service option</span></li><br>
-				<span style="margin-left:5em">Added flask-restful exception handling</span></li>
+				<li style="margin-left:5em">Rewrote API server</li>
+				<li style="margin-left:5em">Added service logging</li>
+				<li style="margin-left:5em">Changed backend to TinyDB</li>
+				<li style="margin-left:5em">Added mixed-OS pool support</li>
+				<li style="margin-left:5em">Removed requirement for config YAML file</li>
+				<li style="margin-left:5em">Added non-daemon service option</li>
+				<li style="margin-left:5em">Added flask-restful exception handling</li>
 		<li><a href="https://cloudifysource.atlassian.net/browse/CFY-5035">CFY-5035</a> OS/Tags Filtering in Host Pool Service</li><a name="fixed"></a>
 		
 		<span style="margin-left:5em">Add support for adding os property and tags, as a list, to pool hosts and filtering during allocate.</span>
@@ -306,9 +304,9 @@ cat: User Guide
 	<li><a href="https://cloudifysource.atlassian.net/browse/CFY-5450">CFY-5450</a> - Update wagon to 0.3.2 across the board</li>
 	<li><a href="https://cloudifysource.atlassian.net/browse/CFY-5586">CFY-5586</a> - Execution parameters schema in elasticsearch will no longer be indexed, allowing for different executions to have parameters of the same name with a different schema (including executions of different workflows and on different deployments)</li>
 	<li><a href="https://cloudifysource.atlassian.net/browse/CFY-5536">CFY-5536</a> - Several step types are no longer supported in the deployment update mechanism:</li>
-			<span style="margin-left:5em">Adding/removing/changing the target of a contained_in relationship. (or any relationship derived from contained_in)</span><br>
-			<span style="margin-left:5em">Changing node type.</span><br>
-			<span style="margin-left:5em">In both cases, in order to make those changes, renaming of the node is required. The old node would be deleted and a new one would be <span style="margin-left:5em">installed (This behaviour is consistent with those change - changing the contained in or modifying node type).</span></span>
+			<li style="margin-left:5em">Adding/removing/changing the target of a contained_in relationship. (or any relationship derived from contained_in)</li>
+			<li style="margin-left:5em">Changing node type.</li>
+			<li style="margin-left:5em">In both cases, in order to make those changes, renaming of the node is required. The old node would be deleted and a new one would be <span style="margin-left:5em">installed (This behaviour is consistent with those change - changing the contained in or modifying node type).</span></li>
 </ul>
 
 <ul>
