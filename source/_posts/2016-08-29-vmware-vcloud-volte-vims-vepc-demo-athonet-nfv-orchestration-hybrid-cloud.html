@@ -1,0 +1,73 @@
+---
+layout: blogpost
+title: Cloud-Native VNFs VoLTE Demo - vIMS & vEPC on VMware vCloud with Group Scale
+image: yoram.jpeg
+author: Yoram Weinreb & Sharone Zitzman
+tags:
+ - Cloud Orchestration
+ - VMware
+ - NFV 
+ - Network Orchestration
+ - Hybrid Cloud
+---
+
+<notextile>
+
+<img src="/img/vmw-demo.png" alt="nfv orchestration | cloud native VNF | VoLTE orchestration | vIMS | vEPC | network automation | devops | TOSCA Orchestration | TOSCA Blueprint">
+<br/>
+<br/>
+<p>Many existing network functions have only recently undergone the transition from being physical appliances to being delivered virtually, which was a revolution unto itself. &nbsp;That transition required mostly performance optimization to accommodate the additional I/O overhead of the hypervisor and some configuration changes to accommodate the fact that VMs can be more dynamic in nature.</p>
+<p>Before this transition has even been fully realized, the NFV market is undergoing yet another and possibly even more disruptive revolution, of virtual network functions that are now transitioning to <a href="http://getcloudify.org/network-function-virtualization-vnf-nfv-orchestration-sdn-platform.html"><strong><em>cloud native</em></strong> VNFs</a>. (This is not surprising, based on this excellent pieced: <a href="http://getcloudify.org/2015/10/21/configuration-management-chef-puppet-ansible-emc-dell-vmware-orchestration.html">The Disruption Cycle</a>).</p>
+<p><strong><strong>&nbsp;</strong></strong></p>
+<p>
+<blockquote>&ldquo;The main requirements that differentiate a cloud native network function from the traditional network function is centered around self-management, and scale. A cloud native VNF also needs to fit within a DevOps environment and expose APIs for controlling all of the aspects of the VNF by other software, and not just by an human operator. That includes DevOps processes to allow continuous upgrades of the service without any downtime.&rdquo; Nati Shalom</blockquote></p>
+<p><strong><strong><br /><br /></strong></strong></p>
+<p>In a world, where the only constant is change, the real challenge isn't supporting a specific technology, but rather being so flexible that you are able to support <strong><em>any</em></strong> technology without compromising on the benefits that technology provides - i.e. offering such a thick abstraction layer, that you cannot realize the benefits of the technology underneath. &nbsp;Or what is called &ldquo;the least common denominator&rdquo; effect. &nbsp;Read more on <a href="http://getcloudify.org/2016/07/07/achiecing-hybrid-cloud-without-compromising-on-least-common-denominator-tosca-portability.html">Achieving Hybrid Cloud Without Compromising On The Least Common Denominator.</a> </p>
+
+<hr>
+
+<span class="pullquote-left">
+  <font style="font-weight: bold" size="5" face="Baskerville Old Face"><em>Cloudify - Intelligent Multi-VIM NFV Orchestration. Download Free.</em></font>&nbsp; <a class="btn btn-medium btn-theme btn-rounded" id="downloadBtnInner" href="http://getcloudify.org/downloads/get_cloudify.html" target="_blank"><i class="icon-plus"></i> Go </a></span>
+  
+<hr>
+
+
+<p><strong><strong>&nbsp;</strong></strong></p>
+<p>As we prepare for VMworld, starting today in Las Vegas, we have decided to create a real-world demo of what is really means for today&rsquo;s VNFs to be cloud-native, including:</p>
+<p><strong>
+ </p>
+<ul>
+<li>Self-healing </li>
+<li>Auto-scaling </li>
+<li>Monitoring</li>
+<li>Policy Management</li>
+<li>Security and Multi-Tenancy </li>
+</ul>
+<p><strong><strong><br /><br /></strong></strong></p>
+<p>What you&rsquo;ll see in the demo:</p>
+<p><strong>VoLTE - Voice over LTE</strong> is based on the <a href="https://en.wikipedia.org/wiki/IP_Multimedia_Subsystem">IP Multimedia Subsystem</a> (IMS) network, with specific profiles for <a href="https://en.wikipedia.org/wiki/Control_plane">control</a> and <a href="https://en.wikipedia.org/w/index.php?title=Media_plane&amp;action=edit&amp;redlink=1">media planes</a> of voice service on <a href="https://en.wikipedia.org/wiki/LTE_(telecommunication)">LTE</a> which is enabled by an EPC (Evolved Packet Core), which unifies voice and data on an Internet Protocol (IP) transport.</p>
+<p><strong><strong><br /><br /></strong></strong></p>
+<p>This demo will show the full orchestration and management of Athonet IMS and EPC services using a TOSCA blueprint executed by the Cloudify NFVO &amp; VNFM on top of a VMware vCloud environment, running on commodity Intel hardware.</p>
+<p><strong><strong>&nbsp;</strong></strong></p>
+<p><a class="hover-wrap fancybox fancybox.iframe" data-fancybox-group="gallery" title="Cloudify - The Open NFV Disruptor" href="http://www.youtube.com/embed/NfkCkj3Hd8U?enablejsapi=1&wmode=opaque">
+                        <img src="/img/vmw-demo.png" alt="Cloudify - The Open NFV Disruptor" /></strong></p>
+<p><strong>Orchestration</strong></p>
+<p>In just a few simple steps, Cloudify creates and uploads a TOSCA blueprint that describes the VolTLE solution topology and deployment, as a catalog item, and then binds the specific parameters to a specific environment. &nbsp;This creates a dependency graph for this topology. &nbsp;Next Cloudify executes the INSTALL workflow that instructs Cloudify to traverse the dependency graph and execute the relevant provisioning operations of the TOSCA nodes and their relationships, including:</p>
+<ol>
+<li>Viewing the topology status changes as the installation is progressing</li>
+<li>Viewing the vCloud Director UI for the changes to the actual cloud environment.</li>
+</ol>
+<p> In this case, two VMs are created, one for the vIMS and another for the vEPC. Afterwards, you can see how Cloudify configures the different network connections for each VM. Next, once deployment is completed successfully (all nodes in the Cloudify UI are green), the VoLTE solution is deployed and VOIP calls can be placed using the newly deployed services.</p>
+</ol>
+<p><strong>Scaling</strong></p>
+<p>At this point, when the service is available and in steady state, we can demo a Day 2 operations scenario of scaling. Scaling is performed in pairs of vIMS and vEPC nodes working together as one scaling unit. In Cloudify terminology this is called a scaling group.</p>
+<p><strong><strong>&nbsp;</strong></strong></p>
+<p>How this is done:</p>
+<ol>
+<li>We execute a scale workflow and provide as parameters the node we would like to scale, in our case, it is the group node which contains the vIMS and vEPC. </li>
+<li>The scale workflow add a new pair of vIMS and vEPC VMS, installs the VNF software and configure the new instance</li>
+<li>As soon as the scaling workflow completes its execution, the additional instances will be utilize to service new call sessions.</li>
+</ol>
+<p>This is a common real-world scenario we encounter all of the time the demonstrates the true Day 0 through Day 2 operations VNF providers, alongside operators require these days.  Being able to provide cloud-native VNFs, </p>
+
+</notextile>
