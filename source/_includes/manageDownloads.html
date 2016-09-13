@@ -195,6 +195,19 @@
     }
     });
     }
+    function getNfvOrcForm(e) {
+        hbspt.forms.create({
+            portalId: '1918719',
+            formId: 'd1c3a4f1-a47d-46f6-b31a-2b4b1d309d56',
+            onFormReady: function ($form, ctx) {
+                var hubspotHtmlForm = $(".hbspt-form");
+                $(".gattingWrapper").append(hubspotHtmlForm);
+            },
+            onFormSubmit: function ($form) {
+                track_cli_contactForm(e);
+            }
+        });
+    }
     function getOpenStackForm(e){
         hbspt.forms.create({
             portalId: '1918719',
@@ -244,6 +257,9 @@
                     break;
                 case "NFV White Paper Download":
                     getNfvForm(e);
+                    break;
+                case "Orchestration White Paper Download":
+                    getNfvOrcForm(e);
                     break;
                 case "thank_you_openstack":
                     getOpenStackForm(e);
@@ -352,6 +368,12 @@
     $(".downloadNfv").click(function (e) {
         leadSource = "NFV White Paper Download";
         dataThanks = "NFV White Paper Download";
+        downloadBtnClick(e);
+    });
+    //NFV Orchestration White Paper Download Form
+    $(".downloadNfvOrc").click(function (e) {
+        leadSource = "Orchestration White Paper Download";
+        dataThanks = "Orchestration White Paper Download";
         downloadBtnClick(e);
     });
     //Composer
