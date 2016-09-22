@@ -1,0 +1,336 @@
+---
+layout: blogpost
+title: Orchestrating Docker 1.12 Swarm With Cloudify
+image: dewayne.jpg
+author: DeWayne Filppi
+tags: 
+ - Cloud Orchestration
+ - Docker
+ - Cloudify
+ - Docker Swarm
+ - Docker
+---
+
+<notextile>
+
+<img src="/img/blog/cloudify_docker_swarm.png" alt="Docker | Docker Swarm | Cloud Orchestration | Kubernetes | Cloud Automation | DevOps | Containers" width="100%">
+<br/>
+<br/>
+ 
+
+<p><b></b>
+
+<p>The recent release of Docker 1.12 introduced a highly upgraded version of <a href="https://docs.docker.com/engine/swarm/">Swarm</a> baked into it. This new release
+    puts native <a href="http://localhost:4000/container-docker-kubernetes-orchestration-management-cloud-deployment-automation.html" target="_blank">Docker container orchestration</a> in direct competition with Google's
+    <a href="http://getcloudify.org/2016/07/13/cloudify-and-kubernetes-cluster-hybrid-stack-orchestration-cloud-deployment-automation.html" target="_blank">Kubernetes</a>, although Swarm doesn't match all of
+    Kubernetes capabilities yet. The addition of features such as load balanced services,
+    scaling, overlay networking, placement affinity and anti-affinity, security and high
+    availability make for a compelling platform.</p>
+
+
+<hr>
+
+<span class="pullquote-left">
+  <font style="font-weight: bold" size="5" face="Baskerville Old Face"><em>Leading the Container Management Revolution. Get Cloudify.</em></font>&nbsp; <a class="btn btn-medium btn-theme btn-rounded" id="downloadBtnInner" href="http://getcloudify.org/downloads/get_cloudify.html" target="_blank"><i class="icon-plus"></i> Go </a></span>
+  
+  <hr>
+    
+
+    <h3>Orchestration Strategy for Docker Swarm</h3>
+
+    <p>Having <a href="http://getcloudify.org/2016/05/10/leading-openstack-container-revolution-cloud-nfv-open-source-kubernetes-tosca-orchestration.html" target="_blank">container orchestration</a> native to the Docker platform makes the creation of
+    cluster much easier than with Kubernetes. Swarm has a familiar master/worker
+    architecture, with the capability of high availability for the master. Swarm uses a
+    <a href="https://raft.github.io/raft.pdf">Raft</a> implementation for leader election
+    and consensus storage rather than an external provider (e.g. etcd). It also includes
+    built-in overlay networking. The integrated nature of Swarm makes the orchestration
+    straightforward.</p>
+
+    <p align="center"><img src="/img/blog/swarm_architecture.png" alt="swarm arch" width="500px" /></p>
+
+    <p>As with the Cloudify <a href="https://github.com/cloudify-examples/kubernetes-cluster-blueprint">Kubernetes
+    Cluster Blueprint</a>, the main value delivered by the orchestration of Swarm is:</p>
+
+    <ul>
+      <li>creating a cluster in an infrastructure neutral way</li>
+
+      <li>auto-healing the cluster when cluster nodes fail</li>
+
+      <li>manual and/or auto-scaling the cluster when arbitrary metrics indicate the
+      need.</li>
+    </ul>
+
+    <p>Given these goals, the orchestration can be fairly simple because they fall into
+    well worn patterns that Cloudify supports directly. This initial attempt starts a
+    single manager and an arbitrary number of workers. The workers depend on the manager.
+    The workers are outfitted with Diamond metric collectors, and scale and heal policies
+    are defined in the blueprint. When workers are spun up, the get the security token
+    from the manager and join swarm. When they are scaled down, the process is reversed.
+    A load generating image is provided in the form of a Dockerfile to ease validating
+    the scaling behavior, and part of the orchestration is the generation of the image on
+    each worker node.</p>
+
+    <h3>Orchestration Details</h3>
+
+    <p>The blueprint defines two node types corresponding to the different Swarm node
+    roles, manager and worker. The blueprint targets Openstack, and each of the roles is
+    contained in a corresponding <code>cloudify.openstack.nodes.Server</code> type. The
+    worker host nodes are outfitted with standard Cloudify metric collectors. The worker
+    nodes are configured to depend on the manager node. The blueprint assumes that Docker
+    is preinstalled on the image. While Cloudify could easily automate the install of
+    Docker itself, the process is too time consuming to make sense in an auto-scaling use
+    case.</p>
+
+    <p align="center"><img src="/img/blog/swarm_blueprint_ui.png" alt="docker swarm  blueprint" /><br />
+    Blueprint Representation In Cloudify UI<br /></p>
+
+    <h3>The Manager</h3>
+
+    <p>The manager stores its cluster token in runtime properties, which is used later by
+    workers to join the swarm. The script that enables this is quite simple and is called
+    as the result of the manager configuration in the blueprint.</p>
+
+    <div class="highlight highlight-source-yaml">
+      <pre>
+  <span class="pl-ent">manager:</span>
+    <span class="pl-ent">type:</span> <span class=
+"pl-s">cloudify.nodes.SoftwareComponent</span>
+    <span class="pl-ent">interfaces:</span>
+      <span class="pl-ent">cloudify.interfaces.lifecycle:</span>
+        <span class="pl-ent">start:</span>
+          <span class="pl-ent">implementation:</span> <span class=
+"pl-s">scripts/start-manager.sh</span>
+          <span class="pl-ent">inputs:</span>
+            <span class="pl-ent">process:</span>
+              <span class="pl-ent">env:</span>
+                <span class="pl-ent">IP:</span> <span class=
+"pl-s">{get_attribute: [manager_host, ip]}</span>
+    <span class="pl-ent">relationships:</span>
+      - <span class="pl-ent">target:</span> <span class="pl-s">manager_host</span>
+        <span class="pl-ent">type:</span> <span class=
+"pl-s">cloudify.relationships.contained_in</span>
+</pre>
+    </div>
+
+    <p>Note that the IP of the containing host is passed through the environment to the
+    very minimal configuration/startup required by Docker Swarm.</p>
+
+    <div class="highlight highlight-source-shell">
+      <pre>
+sudo docker swarm init --advertise-addr <span class="pl-smi">$IP</span>
+
+ctx instance runtime-properties master_token <span class="pl-s"><span class=
+"pl-pds">$(</span>sudo docker swarm join-token -q manager<span class=
+"pl-pds">)</span></span>
+ctx instance runtime-properties worker_token <span class="pl-s"><span class=
+"pl-pds">$(</span>sudo docker swarm join-token -q worker<span class=
+"pl-pds">)</span></span>
+</pre>
+    </div>
+
+    <p>To initialize a Swarm manager, only the <code>init</code> command is needed. The
+    script then stores away the access tokens for future reference in the node runtime
+    properties.</p>
+
+    <h3></a>The Worker</h3>
+
+    <p>The worker configuration is likewise simple and depends on the existence of the
+    manager. A first step, to support easy demonstration of scaling, but which could also
+    be used as a pattern for loading arbitrary images, is to put the "stress" image on
+    each worker. The blueprint indicates this for the worker node as follows:</p>
+
+    <div class="highlight highlight-source-yaml">
+      <pre>
+  <span class="pl-ent">worker:</span>
+    <span class="pl-ent">type:</span> <span class=
+"pl-s">cloudify.nodes.SoftwareComponent</span>
+    <span class="pl-ent">interfaces:</span>
+      <span class="pl-ent">cloudify.interfaces.lifecycle:</span>
+        <span class="pl-ent">configure:</span> <span class=
+"pl-s">scripts/configure-worker.sh</span>
+<span class="pl-s">   ......</span>
+</pre>
+    </div>
+
+    <p>The configure-worker script uploads an archive from the blueprint that contains a
+    Dockerfile and supporting artifacts, and builds it:</p>
+
+    <div class="highlight highlight-source-shell">
+      <pre>
+<span class="pl-c"># create image for generating cpu load</span>
+ctx download-resource containers/stress.tgz /tmp/stress.tgz
+<span class="pl-c1">cd</span> /tmp
+tar xzf /tmp/stress.tgz
+<span class="pl-c1">cd</span> /tmp/stress
+sudo docker build -t stress:latest <span class="pl-c1">.</span>
+</pre>
+    </div>
+
+    <p>The next step is to actually start the worker and join the swarm. This is
+    facilitated by Cloudify intrinsic functions that put required deployment info into
+    the environment of the <code>start-worker.sh</code> script:</p>
+
+    <div class="highlight highlight-source-yaml">
+      <pre>
+        <span class="pl-ent">start:</span>
+          <span class="pl-ent">implementation:</span> <span class=
+"pl-s">scripts/start-worker.sh</span>
+          <span class="pl-ent">inputs:</span>
+            <span class="pl-ent">process:</span>
+              <span class="pl-ent">env:</span>
+                <span class="pl-ent">IP:</span> <span class=
+"pl-s">{get_attribute: [worker_host, ip]}</span>
+                <span class="pl-ent">MASTERIP:</span> <span class=
+"pl-s">{get_attribute: [manager_host, ip]}</span>
+                <span class="pl-ent">TOKEN:</span> <span class=
+"pl-s">{get_attribute: [manager, worker_token]}</span>
+</pre>
+    </div>
+
+    <p><code>start-worker.sh</code> then can run the very simple <code>join</code>
+    command from Docker to join the cluster:</p>
+
+    <div class="highlight highlight-source-shell">
+      <pre>
+sudo docker swarm join --advertise-addr <span class=
+"pl-smi">$IP</span> --token <span class="pl-smi">$TOKEN</span> <span class=
+"pl-smi">$MASTERIP</span>
+</pre>
+    </div>
+
+    <h3>Scaling and Healing</h3>
+
+    <p>Worker hosts are installed with standard Cloudify <a href="http://docs.getcloudify.org/3.4.0/plugins/diamond/">Diamond Plugin</a> facilitated
+    metric collectors for metrics related to cpu, memory, and I/O. Autoscaling
+    configuration in Cloudify consists of defining a group, which associates a number of
+    blueprint nodes with a policy. The policy dictates under what circumstance the
+    scaling (or other workflow) is triggered. The actual workflow (scale/heal or other)
+    is associated in the scaling group definition. This means that the policy itself is
+    just raising a flag (as it were): it doesn't command a certain workflow to execute,
+    or even send parameters to a certain workflow. Since each group is statically defined
+    in the blueprint, a separate group must be defined for each potential action. In the
+    case of this Swarm blueprint, that means separate groups for scale up, scale down,
+    and heal. Looking at the scale up group, you can see the policy association, and the
+    policy configuration, which sets the threshold for scaling, the metric to use, and
+    other parameters. Note that the actual policy implementation, in
+    <code>policies/scale.clj</code>, is not baked into Cloudify itself, but is a general
+    purpose autoscaling detection policy that you can reuse in your own blueprints.</p>
+
+    <div class="highlight highlight-source-yaml">
+      <pre>
+ <span class="pl-ent">scale_up_group:</span>
+   <span class="pl-ent">members:</span> <span class="pl-s">[worker_host]</span>
+   <span class="pl-ent">policies:</span>
+     <span class="pl-ent">auto_scale_up:</span>
+       <span class="pl-ent">type:</span> <span class="pl-s">scale_policy_type</span>
+       <span class="pl-ent">properties:</span>
+         <span class="pl-ent">policy_operates_on_group:</span> <span class=
+"pl-c1">true</span>
+         <span class="pl-ent">scale_limit:</span> <span class="pl-c1">4</span>
+         <span class="pl-ent">scale_direction:</span> <span class="pl-s"><span class=
+"pl-pds">'</span>&lt;<span class="pl-pds">'</span></span>
+         <span class="pl-ent">scale_threshold:</span> <span class="pl-c1">50</span>
+         <span class="pl-ent">service_selector:</span> <span class=
+"pl-s">.*worker_host.*cpu.total.user</span>
+         <span class="pl-ent">cooldown_time:</span> <span class="pl-c1">120</span>
+       <span class="pl-ent">triggers:</span>
+         <span class="pl-ent">execute_scale_workflow:</span>
+           <span class="pl-ent">type:</span> <span class=
+"pl-s">cloudify.policies.triggers.execute_workflow</span>
+           <span class="pl-ent">parameters:</span>
+             <span class="pl-ent">workflow:</span> <span class="pl-s">scale</span>
+             <span class="pl-ent">workflow_parameters:</span>
+               <span class="pl-ent">delta:</span> <span class="pl-c1">1</span>
+               <span class="pl-ent">scalable_entity_name:</span> <span class=
+"pl-s">worker_host</span>
+               <span class="pl-ent">scale_compute:</span> <span class="pl-c1">true</span>
+</pre>
+    </div>
+
+    <p>Note that <code>scale_policy_type</code> is defined in the imported
+    <code>imports/scale.yaml</code> file, which ultimately points at
+    <code>policies/scale.clj</code>. The <code>triggers</code> section defines the
+    workflow that will be executed (and its parameters) when the policy "raises its flag"
+    (actually it calls the <code>process-policy-triggers</code> function). Nothing new or
+    exotic here. The scale down group is almost identical, with slightly tweaked policy
+    and workflow parameters. The heal group uses the built in <a href="http://docs.getcloudify.org/3.4.0/manager_policies/built-in-policies/#host-failure">host
+    failure policy</a>, which then triggers the built in <a href="http://docs.getcloudify.org/3.4.0/workflows/built-in-workflows/#the-heal-workflow">heal
+    workflow</a>.</p>
+
+    <h2>Test Drive</h2>
+
+    <p>In order to test drive the Swarm integration with auto healing and scaling, you'll
+    need access to a Openstack cloud and <a href="http://docs.getcloudify.org/3.4.0/manager/bootstrapping/">bootstrap a manager</a>
+    there. Recall that you'll need an Ubuntu 14+ image with Docker 1.12 installed. Then
+    clone the blueprint from the git <a href="wiki/TBD">repo</a> and edit the
+    <code>inputs/openstack.yaml</code> file. Upload the blueprint to the manager and
+    create a deployment using the inputs. Alternatively, you can create the deployment
+    from UI and enter the inputs manually. Run the install workflow on the deployment.
+    This will create a Swarm cluster with one manager and one worker.</p>
+
+    <h3>Autoheal</h3>
+
+    <p>From your Openstack Horizon dashboard, terminate the worker instance. Now return
+    to the Cloudify Manager UI and note on the deployment view that the heal workflow has
+    started.</p>
+
+    <p align="center"><img src="/img/blog/swarm_heal.png" alt="swarm heal" /></p>
+
+    <h3>Autoscale</h3>
+
+    <p>From the Cloudify UI in the deployments view, get the public IP of the Swarm
+    manager.</p>
+
+    <p align="center"><img src="/img/blog/swarm_ip.png" alt="swarm ip" /></p>
+
+    <p>You'll need to access to the agent key for the Swarm manager to ssh there. ssh to
+    the manager first from the CLI:</p>
+
+    <p><code>cfy ssh</code></p>
+
+    <p>Now ssh to the manager using the IP you got from the UI:</p>
+
+    <p><code>sudo ssh -i /root/.ssh/agent-key.pem ubuntu@&lt;manager-ip&gt;</code></p>
+
+    <p>Now that you're on the Swarm manager host, you can run the pre-installed service
+    to generate load:</p>
+
+    <p><code>sudo docker service create --constraint 'node.role == worker'
+    --restart-condition none stress /start.sh</code></p>
+
+    <p>This will run the <a href="https://people.seas.harvard.edu/%7Eapw/stress/">stress</a> tool on an arbitrary
+    worker. In the current blueprint configuration, only the workers can auto-scale, and
+    only metrics from the workers are used to decide whether to scale. This means the
+    stress must be limited to worker nodes, which the Docker service placement constraint
+    mechanism nicely supplies. Return to the Cloudify deployment view and see the scale
+    workflow start:</p>
+
+    <p align="center"><img src="/img/blog/swarm_scale.png" alt="swarm scale" /></p>
+
+    <p>Keep watching for a couple of minutes and another instance will join the cluster.
+    Wait around for a few more minutes, and the deployment will scale down automatically
+    to accommodate the decreased load.</p>
+
+    <h3>Conclusion</h3>
+
+    <p>Docker Swarm has stepped up big time to become a real competitor in the container
+    management space. Cloudify can add value to a Swarm deployment by supplying
+    portability, healing, and scaling capabilities beyond the container scaling and
+    healing provided by Swarm itself. Cloudify can also orchestrate Swarm services in
+    concert with systems external (possibly not containerized) to the Swarm
+    infrastructure. The source code is available on <a href="wiki/TBD">github</a>. As
+    always, comments are most welcome.</p>
+
+     <div class="flexslider aligncenter">
+     <p>Watch the video of this demo below:</p>
+							<ul class="slides">
+								<li style="display: list-item;">
+								<a class="hover-wrap fancybox fancybox.iframe" data-fancybox-group="gallery" title="Automating Deployment of a Docker Swarm Cluster on OpenStack with Cloudify" href="https://www.youtube.com/embed/c1QWkKtVZX8?enablejsapi=1&amp;wmode=opaque">
+								<br> <br>
+								<img src="/img/swarm_example.png" alt="Automating Deployment of a Docker Swarm Cluster on OpenStack with Cloudify"></a>
+								</li>
+							</ul>
+						</div>
+
+
+</notextile>
