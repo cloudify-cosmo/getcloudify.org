@@ -28,7 +28,33 @@ cat: User Guide
 					<div class="span12">
 						<div class="wrapper">
 							<div class="testimonial">
-												
+									
+								<!-- <div class="collapse" id="collapsible"> -->
+                                    <div class="row">
+                                    <div class="span10">
+
+                         <h1><strong>Release 3.4.0.2 Patch (22-SEP-2016)</strong></h1>
+                                 <h2>Release Highlights</h2>
+                                 <ul>
+                                 	<li><a href="https://cloudifysource.atlassian.net/browse/CFY-5606&sa=D&ust=1474552426693000&usg=AFQjCNFSRETHnhNUdcEAyVFLe_on5Kk86Q">CFY-5606</a> Increase auto-generated ID section's range. Cloudify auto-generates 5 hexa characters to be appended to every node instance's name, this may not be enough in some scenarios, both in testing and real-world ones. The range should be increased.</li>
+
+                                 	</ul>
+                                 	<h2>Fixed Issues</h2>
+                               		<ul>
+
+                               		<li><a href="https://cloudifysource.atlassian.net/browse/CFY-5971&sa=D&ust=1474552426697000&usg=AFQjCNHZ9Yc4MAeevgYaF3MB9sqgZgjBPA">CFY-5971</a> Windows 3.2.1 blueprints broken on new managers.</li>                                 	
+                                 	<li><a href="https://cloudifysource.atlassian.net/browse/CFY-5866&sa=D&ust=1474552426698000&usg=AFQjCNETeAHgq-q24_yF1IE5gmv48sRfnA">CFY-5866</a> Deployment update resource removal isn't in order. When removing a set of nodes with dependencies between them, the order of removal isn't as it should be. E.g: trying to remove the "A connected_to B" graph, will result in trying to remove B first, and only then A. This should obviously be reversed.</li>
+                                 	<li><a href="https://cloudifysource.atlassian.net/browse/CFY-5782&sa=D&ust=1474552426699000&usg=AFQjCNHg__i8pl8gGL63Jdy7LchBFTjqDA">CFY-5782</a> Deployment update broken for deployments migrated from 3.2.1.</li>
+                                 	<li><a href="https://cloudifysource.atlassian.net/browse/CFY-5698&sa=D&ust=1474552426701000&usg=AFQjCNEfIQZH0W1ZW5ym-_pujJVJ4z-9bQ">CFY-5698</a> Management worker sporadically doesn't restart after reboot.</li>
+                                 	<li><a href="https://cloudifysource.atlassian.net/browse/CFY-5640&sa=D&ust=1474552426702000&usg=AFQjCNHk9J8phpy__Vw2MnC3zVy15wX4dQ">CFY-5640</a> Snapshot restore fails on missing broker key. When trying to restore a snapshot from a manager that has stuck deployments it has empty dicts which makes the restore process to fail.</li>
+                                 	<li><a href="https://cloudifysource.atlassian.net/browse/CFY-5632&sa=D&ust=1474552426704000&usg=AFQjCNGT7RIlaPIeHFRqR7K5m5xULNAc0g">CFY-5632</a> Snapshot restore may fail on elasticsearch timeout. When a snapshot is restored using elasticseach.helpers.bulk on a large snapshot, the operation may fail due to read timeout.</li>
+                                 	<li><a href="https://cloudifysource.atlassian.net/browse/CFY-5631&sa=D&ust=1474552426705000&usg=AFQjCNGSvuy3KVAQ_Y2Qd2SHDof77bFnuA">CFY-5631</a> Dereferencing anchors aren't properly supported in blueprints. If an anchor holds some value which is overridden in the dereferenced object, the final value is sometimes the dereferenced one, and sometimes the overridden one.</li>
+                                 	<li><a href="https://cloudifysource.atlassian.net/browse/CFY-5493&sa=D&ust=1474552426706000&usg=AFQjCNGOTZJEUFkZKCN9DbKDbXWyATyffw">CFY-5493</a> Scale workflow failure when scaling a node template which is a part of a group.</li>
+                                 	<li><a href="https://cloudifysource.atlassian.net/browse/CFY-5453&sa=D&ust=1474552426707000&usg=AFQjCNG_JQc9pR4UYXEE_x0p-7oox9-TGA">CFY-5453</a> Deployment's ‘updated_at’ field isn't updated on a deployment update. Deployment objects have a ‘updated_at’ field. Unfortunately, it doesn't actually get updated on a deployment update.</li>
+                                 </ul>
+
+                                 </div>
+                                 </div>			
 								
                                <!-- <div class="collapse" id="collapsible"> -->
                                     <div class="row">
