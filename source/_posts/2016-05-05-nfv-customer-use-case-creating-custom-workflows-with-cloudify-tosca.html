@@ -36,7 +36,7 @@ tags:
  <br />
 <strong><i>Install_subset(subset_name, nodes, install_dependencies=True)</i></strong></p>
 
-<p>This takes a list of nodes and checks dependencies to make sure they are not dependent on nodes that are running. If there are such nodes, it will either start them by default as well <code>install_dependencies=True</code> or fail the workflow during validation phase due to unmet dependencies <code>install_dependencies=False</code>.</p>
+<p>This takes a list of nodes and checks dependencies to make sure they are not dependent on nodes that are not running. If there are such nodes, it will either start them by default as well <code>install_dependencies=True</code> or fail the workflow during validation phase due to unmet dependencies <code>install_dependencies=False</code>.</p>
 
 <p>The nodes that were started will be tagged with the <code>subset_name</code> parameter.</p>
 
@@ -49,7 +49,7 @@ tags:
 <p>The implementation code is quite straightforward. It first validates the dependencies, then uses the lifecycle &ldquo;install&rdquo; operation to get the subset installed and, finally, tags the affected nodes with the subset name that was given:<br />
 <script src="https://gist.github.com/yoramw/0b9cd746c1bb0872e75c05cdce2fceaa.js"></script></p>
 
-<p>In order to use a custom workflow, a plugin.yaml file with the plugin declaration and pointer to the plugin archive has to be imported for the blueprints that want to add the &ldquo;install&rdquo; and &ldquo;uninstall&rdquo; subset workflows. No other change is needed.</p>
+<p>In order to use a custom workflow, a plugin.yaml file with the plugin declaration and pointer to the plugin archive has to be imported for the blueprints that want to add the &ldquo;install_selective:&rdquo; and &ldquo;uninstall_selective:&rdquo; subset workflows. No other change is needed.</p>
 
 <p>After going through the implementation and starting to use the new custom workflows, I think they can be quite useful for other use cases, too. Who knows, maybe one day we will include them as built-in workflows without the need to import anything.</p>
 
