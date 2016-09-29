@@ -1,0 +1,65 @@
+---
+layout: blogpost
+title: Here's How We Embedded Python Into Our CLI Download Packages
+image: gil.jpg
+author: Gil Zellner
+tags:
+ - DevOps
+ - Python
+ - Cloudify
+ - Linux
+ - Ops
+---
+
+<notextile>
+
+<img src="/img/blog/cloudify_python.png" alt="DevOps | Python | Cloud Orchestration | Cloud Automation | Linux | Cloudify" width="870px">
+<br/>
+<br/>
+
+<p>Installing new apps is fun. You get to play around with a new tool, which to us engineers is like a toy. We always want to try the latest and the greatest, and we love toying around with all the new features. But installation isn&rsquo;t always a breeze, especially in Linux, where asking you to compile your own tools is rather common, or editing makefiles, etc.</p>
+
+<p>So we tried to make our installation process a little bit easier.</p>
+
+<p>In version 3.4, we introduced <a href="http://getcloudify.org" target="_blank">Cloudify</a> CLI Packages with embedded Python. Now, it doesn&rsquo;t matter if your version of Centos 6.5 has Python 2.7 or not, or you use a Golden Image with no compilers. We bring our Python with us, packaged to install on your system with almost no prerequisites.</p>
+
+<p>You don&rsquo;t have to compile anything!</p>
+
+<hr>
+<span class="pullquote-left">
+  <font style="font-weight: bold" size="5" face="Baskerville Old Face"><em>Changing the face of DevOps, Cloudify glues it all together. Download Free.</em></font>&nbsp; <a class="btn btn-medium btn-theme btn-rounded" id="downloadBtnInner" href="http://getcloudify.org/downloads/get_cloudify.html" target="_blank"><i class="icon-plus"></i> Go </a></span>
+<hr>
+
+<p>We used Omnibus to create self-contained packages which you can simply &lt;code&gt;rpm -i&lt;/code&gt;, so you can start playing around with Cloudify more easily, instead of having to deal with prerequisites.</p>
+
+<p>We also brought back Debian packages which are tested on Ubuntu. Another neat thing is that, plugins install into this environment so you don&rsquo;t put things in your system Python which you didn&rsquo;t intend to.</p>
+
+<p>The next logical step is making <a href="http://docs.getcloudify.org/3.4.0/manager/bootstrapping/" target="_blank">Cloudify Manager</a> install more easily via the same system. We built upon the process created in the CLI to make manager packages install more easily. This will be available in the next Cloudify release.</p>
+
+<p>Each component now comes with its own Python environment so that you can install a manager on your own Golden Image, even if it isn&rsquo;t exactly what we planned for, but you are limited, of course, to Centos 7 / RHEL 7 variants.</p>
+
+<p>So how did we do it?</p>
+
+<p>We started out with a <a href="https://github.com/lusis/sample-python-omnibus-app">sample Python application on Omnibus</a>. </p>
+
+<p>This is a simple example on how to package a Python application this way. The guide, by the way, from lusis is very amusing as well as effective.</p>
+
+<p>We then started adding our own components as if we were installing a local copy. We do this by <a href="https://github.com/cloudify-cosmo/cloudify-manager/tree/master/packaging/mgmtworker/omnibus/config/software">adding more modules to the same project</a>.</p>
+
+<p>The Omnibus syntax is rather simple and, for the things you don&rsquo;t know, you can always use shell encapsulation or Ruby:</p>
+<p class="aligncenter"><img src="/img/blog/embedpython1.png" alt="embedded python" width="550px"></p>
+<p>Consider this akin to the way many companies are creating immutable AMI&rsquo;s by simply installing their software the same way they did earlier, but keeping a copy of the new, &ldquo;clean&rdquo; install.</p>
+
+<p>We do this for each module in the package:</p>
+<p class="aligncenter"><img src="/img/blog/embedpython2.png" alt="embedded python" width="550px"></p>
+<p>And put them all together in the project file:</p>
+<p class="aligncenter"><img src="/img/blog/embedpython3.png" alt="embedded python" width="550px"></p>
+<p>At the end of the process you get something like this: </p>
+<p class="aligncenter"><img src="/img/blog/embedpython4.png" alt="embedded python" width="550px"></p>
+<p>And you are done! You now have an rpm, or deb, or even pkg of your application, which can run in many places without modification.</p>
+
+<p>Overall, we are making an effort to make Cloudify easier for you to install and use, and this is part of that effort. We also encourage you to <a href="https://github.com/cloudify-cosmo" target="_blank">read through the code</a> and <a href="http://getcloudify.org/how-to-contribute.html" target="_blank">contribute</a>, since Cloudify is all about open source and community participation.</p>
+
+<p>Cheers!</p>
+
+</notextile>
