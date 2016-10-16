@@ -1,0 +1,155 @@
+---
+layout: blogpost
+title: Hybrid Cloud Orchestration on OpenStack With Cloudify and TOSCA
+image: arthur.jpg
+author: Arthur Berezin 
+tags: 
+ - OpenStack
+ - OpenStack Summit
+ - Hybrid Cloud
+ - Cloudify
+ - TOSCA
+---
+
+<notextile>
+
+<img src="/img/blog/hybridcloudopenstack.png" width="870" alt="OpenStack Summit | OpenStack Orchestration | Hybrid Cloud Orchestration | Cloud Orchestration | TOSCA | Cloud Application Orchestration | Cloud Orchestration Tools">
+<br/>
+<br/>
+
+  <p>
+    
+    In this post I’d like to share some thoughts on <a href="http://getcloudify.org/2014/09/11/hybrid-cloud-openstack-multi-cloud.html" target="_blank">managing hybrid clouds</a>, more specifically, hybrid cloud with an open and hybrid stack running on top. I
+    don't want to overwhelm with too much detail, so I’m going to focus on the general concept, based on our vision and perspective, on how to <a href="http://getcloudify.org/how-it-works.html" target="_blank">manage and orchestrate applications</a> on a hybrid cloud with an open source technology stack.
+</p>
+
+  <hr>
+
+<span class="pullquote-left">
+  <font style="font-weight: bold" size="5" face="Baskerville Old Face"><em>Join our Kubernetes webinar - Moving Monoliths to Microservices.</em></font>&nbsp; <a class="btn btn-medium btn-theme btn-rounded" id="downloadBtnInner" href="http://getcloudify.org/webinars/monolith-to-microservices-webinar.html" target="_blank"><i class="icon-plus"></i> Go </a></span>
+  
+<hr>
+
+
+<p>
+    
+    Orchestration is about automation and intelligent synchronization of multiple dependent processes. We’ve witnessed a major shift in our industry in the
+    past decade, in which basic service has become available via standard interfaces. This change allows automation of all the components and services. But
+    where we want to get is, in essence, to the point where applications are self-aware, aware of the clouds they run on, and can consume the clouds in most
+    efficient way.
+</p>
+<p align="center">
+    
+    <img
+        width="500"
+        src="/img/blog/orchestrationasaservice.png"
+        alt="orchestration as a service"
+    />
+</p>
+<p>
+    
+    For example, if you're running on <a href="http://getcloudify.org/openstack-architecture-cloudify.html" target="_blank">OpenStack</a>, you want to consume OpenStack resources as best as possible. Or, if you're running on Azure, or even <a href="http://getcloudify.org/2016/09/15/cloud-orchestration-with-azure-openstack-less-explored-hybrid-cloud.html" target="_blank">OpenStack
+    and Azure in hybrid cloud mode</a>, you want to be able to consume resources in the best possible manner each platform offers.
+</p>
+<p>
+    
+    Our goal is to have the application be self-aware and react based on the its location in the cloud. if we look at a typical application, which is
+    multi-tier, has multiple components, multiple virtual IP addresses, etc., all which reside with different components as the basis of the application’s
+    architecture. So, you have some parts that use specific networking components, for example, to enable provider networks or to enable GRE tunnels, in
+    OpenStack. All these use various types of components and various types of technologies which, together, construct your application. The idea is that we
+    have multiple technologies and multiple API's that we can leverage to construct the application.
+</p>
+<p>
+    
+    Now, what if we could use all those resources, model our application once, and then use that same model with multiple technologies? For example, if you're
+    deploying your application on OpenStack and tomorrow you would like to use containers within that same application, you shouldn't have to model the
+    application again or do any manual transitioning of that application. You should be able to consume that application within the same model that you already
+    created.
+</p>
+<h2>
+    
+    <strong>Different Types of Orchestration</strong>
+</h2>
+<p>
+    
+    There are different types of orchestration. Infrastructure-specific orchestration focuses on being able to orchestrate resources of a specific
+    infrastructure. <a href="http://getcloudify.org/2015/06/11/orchestration-docker-cloud-automation-openstack-heat-tosca-kubernetes.html" target="_blank">OpenStack Heat</a> is a good example of that as it only orchestrates OpenStack resources. In the container world, you have <a href="http://getcloudify.org/2016/07/13/cloudify-and-kubernetes-cluster-hybrid-stack-orchestration-cloud-deployment-automation.html" target="_blank">Kubernetes</a> which is an example
+    where you use another tool to <a href="http://getcloudify.org/container-docker-kubernetes-orchestration-management-cloud-deployment-automation.html" target="_blank">orchestrate container-based workloads</a>.
+</p>
+<p align="center">
+    
+    <img width="500" src="/img/blog/orchestrationtypes.png"/>
+</p>
+<p>
+    
+    Cloudify is a pure play orchestrator, able to consume all those types of resources and model the application once using various <a href="http://docs.getcloudify.org/3.4.0/plugins/overview/" target="_blank">plugins</a> for other orchestrators, containers, and any other tool in your stack. We use <a href="http://getcloudify.org/2016/05/12/making-tosca-truly-portable-openstack-cloud-nfv-open-source-orchestration.html" target="_blank">TOSCA</a> to model this application and since TOSCA is vendor agnostic, you just
+    describe your application and consume the various technologies underneath.
+</p>
+<h2>
+    
+    <strong>How TOSCA Works</strong>
+</h2>
+<p>
+    
+    TOSCA stands for Topology Orchestration Specification for Cloud Applications. It basically works by describing all components in the architecture of your
+    cloud application. You can describe <a href="http://getcloudify.org/2016/04/04/scaling-kubernetes-microservices-openstack-TOSCA-orchestration-cloud-open-source.html" target="_blank">microservices</a>, virtual machines, applications, databases and others, defining their dependencies, requirements and
+    relationships.
+</p>
+<p align="center">
+    
+    <img width="500" src="/img/blog/toscablueprint.png"/>
+</p>
+<p>
+    
+    For example, a database which is contained in a virtual machine and an application that's reading data from the database. In this case, you describe the
+    topology of that application as part of that modeling process, and then you describe the workflows to deploy and undeploy those applications. These
+    workflows could be vendor specific or they could be generalized using the general workflow mechanisms. As part of the workflow definition you describe how
+    you want to install or uninstall those specific components that are part of the topology. Lastly, you have the policies where you describe and define the
+    policies for what should happen, for example, when your database goes down or when you need to scale out your web application.
+</p>
+<h2>
+    
+    <strong>Deploying the Application</strong>
+</h2>
+<p>
+    
+    Once you have the TOSCA blueprint ready, Cloudify takes it and, using various plugins, deploys it onto clouds of choice. Cloudify provisions the VMs on
+    your cloud using the various plugins, and configures all the components. For example, if your application has some parts using <a href="http://getcloudify.org/configuration_management_ssh_cloud_orchestration_puppet_ansible_chef_open_source.html" target="_blank">Ansible playbooks</a> or Puppet
+    modules to deploy the specific application server, you model the whole thing in the TOSCA application blueprint and then use all the components to
+    provision, configure, and manage that application.
+</p>
+<h2>
+    
+    <strong>Why Cloudify</strong>
+</h2>
+<p>
+    
+    Cloudify lets you integrate all the various tools that you already use and enables you to extend them, whether you are working with a hybrid cloud model or
+    containerized and non-containerized components. If you're working with Kubernetes, for example, you can use our <a href="https://github.com/cloudify-examples/kubernetes-cluster-blueprint" target="_blank">Kubernetes plugin</a> which will create a new
+    node type as part of that application. You won’t have to change the whole model of the application, only specific components.
+</p>
+<p align="center">
+    
+    <img width="500" src="/img/blog/cloudifytosca.png"/>
+</p>
+<p>
+   
+    With Cloudify and TOSCA, you can define multiple clouds in the same blueprint, for the same application, using the same orchestration engine, and yes,
+    multiple technologies within that application - and deploy them repeatedly without changing your core code.
+</p>
+<h2>
+    
+    <strong>Further Reading and Demos</strong>
+</h2>
+<p>
+    Here are some other resources, including video demos and sample blueprints that might interest you.<br>
+    <ul>
+      <li><a href="https://www.youtube.com/watch?v=0Vvlp0mDg7Y" target="_blank">Kubernetes Cluster Deployment Demo</a></li>
+      <li><a href="https://www.youtube.com/watch?v=J-4jGJcqdLY" target="_blank">Hybrid Cloud Application Deployment Demo</a></li>
+      <li><a href="https://www.youtube.com/watch?v=c1QWkKtVZX8" target="_blank">Docker Swarm Cluster Deployment Demo</a></li>
+      <li><a href="getcloudify.org/examples/" target="_blank">Ready-to-use Blueprint Examples</a></li>
+      <li><a href="http://getcloudify.org/Cloudify-Academy.html" target="_blank">Cloudify Academy</a> - Learn how to use Cloudify and get an on-demand virtual environment to practice.</li>
+    </ul>
+</p>
+
+</notextile>
