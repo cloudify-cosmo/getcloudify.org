@@ -1,0 +1,78 @@
+---
+layout: blogpost
+title: Announcing Cloudify's OpenStack Plugin 1.5 Release
+description: Here are the features and updates that have been added to the latest version of our OpenStack plugin.
+image: jessie.png
+author: Jessie Brami
+tags: 
+ - OpenStack
+ - OpenStack Summit
+ - Cloudify
+ - Cloud Automation
+---
+
+<notextile>
+
+<img src="/img/blog/cloudify_openstack_plugin.png" alt="Cloudify with OpenStack Plugin" width="870">
+<br/>
+<br/>
+
+<p>It&rsquo;s no secret that <a href="http://getcloudify.org/openstack-architecture-cloudify.html" target="_blank">OpenStack</a> has joined the ranks of the top cloud software platforms. They are showing consistent growth year over year with a vast community of developers working, upstream and downstream, to drive this open source cloud platform forward.</p>
+
+<p>In an effort to keep our users as updated as possible about <a href="http://getcloudify.org/" target="_blank">Cloudify</a>, we are announcing the latest release of our OpenStack Plugin - version 1.5.</p>
+
+  <hr>
+
+<span class="pullquote-left">
+  <font style="font-weight: bold" size="5" face="Baskerville Old Face"><em>Get Cloudify for Powerful OpenStack and Hybrid Orchestration.</em></font>&nbsp; <a class="btn btn-medium btn-theme btn-rounded" id="downloadBtnInner" href="http://getcloudify.org/downloads/get_cloudify.html" target="_blank"><i class="icon-plus"></i> Try Free </a></span>
+  
+  <hr>
+
+<h2>Features</h2>
+<p>The latest update gives sysadmins a better user experience with Cloudify, allowing users to manage and control their OpenStack configurations in a more simple, automated fashion. Here are some of the interesting features added in this version:</p>
+
+<ul>
+<li>Create projects, assign existing users with roles, and customize quotas - Cloudify can automate the creation of a new project, assign users, and fix quotas directly from the blueprint.</li>
+<li>Create image from file (local workflow only) or url - Cloudify now allows uploading a local image via Glance to create a new image in OpenStack.</li>
+<li>Boot server from volume - Cloudify supports booting a server from block storage and not only from an image, as was the case in previous versions.</li>
+<li>Get MAC address from port after creation - The Cloudify API can now be used to find the MAC address of any port.</li>
+</ul>
+
+<p>These features, along with clearer error handling and reporting, are now available using the latest <a href="https://github.com/cloudify-cosmo/cloudify-openstack-plugin">OpenStack plugin</a>. You can also see the <a href="https://github.com/cloudify-cosmo/cloudify-openstack-plugin/blob/master/CHANGELOG.txt">full changelog</a> on Github. Feel free to star the repo to follow our progress. We have some more important updates coming to Cloudify and our OpenStack plugin in the next few months.</p>
+<h2>Samples</h2>
+<p>Below you can see a couple of sample snippets for creating a project with a Cloudify blueprint and creating an image.</p>
+
+<ol>
+<li>Create project (tenant), assign existing users with roles and customize quotas. <br><br>
+<script src="https://gist.github.com/yeshess/5e61d4b2325b3d878c2aa5766730d0fc.js"></script>
+</li>
+</ol>
+
+<ol start="2">
+<li>Create image from file (local workflow only) or url.<br><br>
+<script src="https://gist.github.com/yeshess/2d4ca9485899236b75cc78bd0bad112b.js"></script>
+</li>
+</ol>
+
+<h2>OpenStack Summit Barcelona</h2>
+<p>We also had a blast at the <a href="http://getcloudify.org/2016/10/23/openstack-summit-barcelona-here-find-us-booth-c4-talking-hybrid-cloud-hybrid-stack-orchestration.html" target="_blank">OpenStack Summit</a> and some great speaking opportunities as well (videos and slides to come):</p>
+
+<ul>
+<li>A demo theater showing deployment of a Fortigate VNF on EDD hardware with an OpenStack controller.</li>
+<li>A talk with Orange Labs&rsquo; Morgan Richomme and Cloudify&rsquo;s Arthur Berezin talking about the vIMS that the OPNFV Functest team uses to test the platform on a daily basis.</li>
+<li>A panel on running OpenStack community events with our own Sharone Zitzman and other big names in the community.</li>
+</ul>
+
+<h2>More OpenStack Resources</h2>
+<p>You can also see our various OpenStack cloud orchestration demos and blog posts below.</p>
+
+<p>Videos:</p>
+<p><a href="https://www.youtube.com/watch?v=J-4jGJcqdLY">Hybrid Cloud Deployment of Nodejs and MongoDB on OpenStack and VMware vSphere</a></p>
+<p><a href="https://www.youtube.com/watch?v=aH7-oZfI79w">How to Bootstrap Cloudify Manager on OpenStack</a></p>
+
+<p>Blog Posts:</p>
+<p><a href="http://getcloudify.org/2016/10/13/hybrid-cloud-orchestration-on-openstack-with-cloudify-tosca.html">Hybrid Cloud Orchestration on OpenStack With Cloudify and TOSCA</a></p>
+<p><a href="http://getcloudify.org/2016/09/15/cloud-orchestration-with-azure-openstack-less-explored-hybrid-cloud.html">Cloud Orchestration with Azure and OpenStack - The Less Explored Hybrid Cloud</a></p>
+
+
+</notextile>
