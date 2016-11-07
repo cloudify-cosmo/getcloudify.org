@@ -51,6 +51,16 @@ title: Community Resources
 						</p>												
 					</td>
 				<tr>			 		
+					<td style="background-color:transparent;width:5%; text-align:center;">
+						<h2><i class="fa fa-slack fa-3x">
+					<td style="background-color:transparent;width:5%">
+					<td style="background-color:transparent;">
+						<h2><strong>Slack Channel</strong></h2>
+						<p>
+							Join us in real-time to ask questions, meet our engineers, and get all the latest news by joining on our <a href="http://getcloudify.org/cloudify-community-slack.html">Slack channel</a>. 
+						</p>						
+					</td>
+				<tr>			 		
 					<td style="background-color:transparent;width:5%">
 						<h2><i class="icon-3x icon-github"> 
 					<td style="background-color:transparent;width:5%">
@@ -79,7 +89,8 @@ title: Community Resources
 						<p>
 							Issues and feature requests can be filed in our <a href="https://cloudifysource.atlassian.net/browse/CFY">project Jira</a>. Note that you'll need to <a href="https://cloudifysource.atlassian.net/admin/users/sign-up">create an account</a> first. If you are not sure whether it's an issue, please post a question at one of our mailing lists first.
 						</p>												
-					</td>			
+					</td>	
+
 
 {% include leadlanderform.html %}
 
