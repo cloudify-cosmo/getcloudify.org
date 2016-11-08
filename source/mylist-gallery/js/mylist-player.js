@@ -60,7 +60,7 @@ var x;
 // Check how many players on the page
 var numPlaylists = playListID.length;
 //console.log("numPlaylists: "+numPlaylists);
-for (var n=1;n<numPlaylists;n++) {
+for (var n=0;n<numPlaylists;n++) {
 	//console.log(n);
 	vidIDs[n] = [];
 	videosURL[n] = "https://www.googleapis.com/youtube/v3/playlistItems?playlistId="+playListID[n]+"&key="+apiKey+"&fields=items&part=snippet&maxResults=50&vq=hd1080";
@@ -81,7 +81,7 @@ function onYouTubeIframeAPIReady() {
       }
     });
 
-	for (var n=1;n<numPlaylists;n++) {
+	for (var n=0;n<numPlaylists;n++) {
 		doAjaxCallStuff(n);
 	}
 	
@@ -359,7 +359,7 @@ window.addEventListener("resize", getPlayerSize);
 
 // make sure to set scroll amount for each player on page
 function getPlayerSize() {
-    for (var n=1;n<numPlaylists;n++) {
+    for (var n=0;n<numPlaylists;n++) {
 		setScrollAmt(n);
 	}
 }
