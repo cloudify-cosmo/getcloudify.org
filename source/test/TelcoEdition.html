@@ -83,30 +83,29 @@ category: NFV
             <div id="pageContent" class="container">
                     <div class="row">
                                         <div class="span12">
-                                        <!-- <div class="tabbable tabs-below"> -->
-                                            <ul class="nav nav-tabs">
-                                                <li class="active"><a href="#one" data-toggle="tab"><i class="fa fa-download" aria-hidden="true"></i> <span style="font-size: 18px">Step 1: Download Cloudify CLI</span></a></li>
-                                                <li><a href="#two" data-toggle="tab"><i class="fa fa-wrench" aria-hidden="true"></i> <span style="font-size: 18px">Step 2: Install Cloudify Manager (Bootstrap)</span></a></li>
-                                                <li><a href="#three" data-toggle="tab"><i class="fa fa-cog" aria-hidden="true"></i> <span style="font-size: 18px">Step 3: Install Cloudify Manager (Using Image)</span></a></li>
-                                            </ul>
-                                            <div class="tab-content">
-                                                <div class="tab-pane active" id="one">
-                                                        <div class="views-field-body">
-                                                                        <div class="field-content"><p>
-                        <h2>Download Cloudify CLI on your local machine in order to install Cloudify Manager on your cloud.</h2><br>
+                                        
+                        <!--<h2>Download Cloudify CLI on your local machine in order to install Cloudify Manager on your cloud.</h2><br>-->
+                    
+                    <p style="font-size:18px;">Step 1: <i class="fa fa-download" aria-hidden="true"></i>&nbsp;&nbsp;<button class="btn btn-blue btn-medium" data-toggle="collapse" data-target="#installcli">Download Cloudify CLI</button>
+
+                    <div id="installcli" class="collapse">
+                    <br>
                     
                         <a class="btn btn-orange btn-rounded btn-medium " href="http://repository.cloudifysource.org/org/cloudify3/LatestRelease/cloudify-telecom-{{ site.Release_version}}.el6.x86_64.rpm" data-btn-split="7" data-btn-type="GA Product Download {{ site.Short_version }}" data-btn-id="Centos 7 CLI {{ site.Short_version }}" id="Centos 7 CLI {{ site.Short_version }}" data-thanks-page="thank_you_centos_7" onclick="dataLayer.push({'event': 'GAevent', 'eventCategory': 'Product Download','eventAction': 'Cloudify CLI Download','eventLabel': 'Cloudify CLI Download {{ site.Short_version }} - Centos 7'});"><i class="icon-centos"></i>&nbsp;RHEL/Centos<span style="font-size:9px;color:#eeeee;">&nbsp;&nbsp;(.RPM)</span></a>
                     
                         <a class="btn btn-orange btn-rounded btn-medium  " href="http://repository.cloudifysource.org/org/cloudify3/LatestRelease/cloudify-telecom_{{ site.Release_version }}_amd64.deb" data-btn-split=data-btn-split ="7" data-btn-type="GA Product Download {{ site.Short_version }}" data-btn-id="Debian CLI {{ site.Short_version }}" id="Debian CLI {{ site.Short_version }}" data-thanks-page="thank_you_debian" onclick="dataLayer.push({'event': 'GAevent', 'eventCategory': 'Product Download','eventAction': 'Cloudify CLI Download','eventLabel': 'Cloudify CLI Download {{ site.Short_version }} - Debian'});"><i class="icon-debian"></i>&nbsp;Ubuntu/Debian <span style="font-size:9px;color:#eeeee;">&nbsp;&nbsp;(.deb)</span></a>
                     
-                        <a class="btn btn-orange btn-rounded btn-medium " data-btn-id="Windows CLI {{ site.Short_version }}" href="http://repository.cloudifysource.org/org/cloudify3/LatestRelease/cloudify-telecom-windows-cli_{{ site.Cloudify_version }}-ga-b{{ site.Release }}.exe" data-btn-split="7" data-btn-type="GA Product Download {{ site.Short_version }}" id="Windows CLI {{ site.Short_version }}" data-thanks-page="thank_you_windows" onclick="dataLayer.push({'event': 'GAevent', 'eventCategory': 'Product Download','eventAction': 'Cloudify CLI Download','eventLabel': 'Cloudify CLI Download {{ site.Short_version }} - Windows'});"><i class="icon-windows"></i>&nbsp;Windows<span style="font-size:9px;color:#eeeee;">&nbsp;&nbsp;(.EXE)</span></a>
+                        <a class="btn btn-orange btn-rounded btn-medium " data-btn-id="Windows CLI {{ site.Short_version }}" href="http://repository.cloudifysource.org/org/cloudify3/LatestRelease/cloudify-telecom-windows-cli_{{ site.Cloudify_version }}-ga-b{{ site.Release }}.exe" data-btn-split="7" data-btn-type="GA Product Download {{ site.Short_version }}" id="Windows CLI {{ site.Short_version }}" data-thanks-page="thank_you_windows" onclick="dataLayer.push({'event': 'GAevent', 'eventCategory': 'Product Download','eventAction': 'Cloudify CLI Download','eventLabel': 'Cloudify CLI Download {{ site.Short_version }} - Windows'});"><i class="icon-windows"></i>&nbsp;Windows<span style="font-size:9px;color:#eeeee;">&nbsp;&nbsp;(.EXE)</span></a></p>
                     
-                        
-                              <!-- BEGIN DOCS CONTENT -->
-                        
-        <hr>
-          
-          <h2><b>How to Install Cloudify CLI</b></h2>
+                                                      <!-- BEGIN DOCS CONTENT -->
+    </div>
+    <hr>      
+
+<p style="font-size:18px;">Step 2: <i class="fa fa-wrench" aria-hidden="true"></i>&nbsp;&nbsp;<button class="btn btn-blue btn-medium" data-toggle="collapse" data-target="#installcfy">Install Cloudify CLI</button></p>
+
+<div id="installcfy" class="collapse">
+
+<h1>How to Install Cloudify CLI</h1>
 
 <h2 id="linux">Linux</h2>
 
@@ -179,22 +178,26 @@ they would like to uninstall these components or not.</p>
 <p>In order to uninstall Python, follow the same steps as above only choosing Python
 instead of Cloudify CLI.</p>
 
-</div>
-        
-      <div style="text-align: right"><a class="btn btn-red btn-medium" href="#top">Back to top</a></div>
+
+    
       <!-- END DOCS CONTENT -->
         </div>
+        <div style="text-align: right"><a class="btn btn-red btn-medium" href="#top">Back to top</a></div>
                </div>
                     </div>
-
-                        <div class="tab-pane" id="two">
-                            <div class="field-content">
-
+</div>
+<hr>
 <!-- BEGIN DOCS CONTENT -->
 
-          <h1>Installing Cloudify Manager</h1>
-          <hr>
-          
+                
+                    <div class="row">
+                        <div class="span12">
+
+<p style="font-size:18px;">Step 3: <i class="fa fa-cog" aria-hidden="true"></i>&nbsp;&nbsp;<button class="btn btn-blue btn-medium" data-toggle="collapse" data-target="#installmanager">Install Cloudify Manager</button></p>
+
+<div id="installmanager" class="collapse">
+
+<h1>Option 1 - Bootstrap Cloudify Manager</h1>
 
 <p>Cloudify Manager comprises Cloudify’s code and <a href="http://docs.getcloudify.org/3.4.0/manager_architecture/components/">several underlying open-source tools</a>, which have been integrated to create a dynamic environment, and will support the different operational flows that you might be interested in when deploying and managing your application.</p>
 
@@ -402,14 +405,12 @@ Services:
 <p>Now that you have a manager running, you can <a href="//docs.getcloudify.org/3.4.0/manager/upload-blueprint/">upload your blueprint</a>.</p>
 
 <div style="text-align: right"><a class="btn btn-red btn-medium" href="#top">Back to top</a></div>
-        
-<!-- END DOCS CONTENT -->
-                                                </div>
 
-                                                </div>
-          
-                        <div class="tab-pane" id="three">
-                                   <div class="field-content"><h1 id="deploying-a-manager-image">Deploying a Manager Image</h1>
+
+        <hr>
+<!-- END DOCS CONTENT -->
+
+<h1>Option 2 - Deploy Cloudify Manager Image</h1>
 
 <p>Images are provided with all dependencies and the manager pre-installed for AWS and OpenStack. These allow you to get up and running with Cloudify with minimal user input required.</p>
 
@@ -627,19 +628,20 @@ $ <span class="hljs-built_in">echo</span> | openssl s_client -connect <span clas
 <p>Now that you have a manager running, you can <a href="//docs.getcloudify.org/3.4.0/manager/upload-blueprint/">upload your blueprint</a>.</p>
 
 <div style="text-align: right"><a class="btn btn-red btn-medium" href="#top">Back to top</a></div>
-                                    </div>
-                                                                                         
-                        </div>
+</div>
+</div>
+</div>
+<hr>
+                             
                                                 <a name="abouttelco"></a>
                                                 
                                         <!-- end tab -->
-                                        
-
-                                    </div>
+                        
 
                             </div>
                     </div>
             </div>
+
         </section>
 
 
