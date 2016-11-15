@@ -1,0 +1,57 @@
+---
+layout: blogpost
+title: Closed Loop Monitoring, Alerting, and Healing with Cloudify's VMware vRealize Operations Integration
+description: Here we give you a primer on the Cloudify Management Pack for vRealize Ops with a demo using the Clearwater IMS.
+image: michaels.jpg
+author: Michael Shnizer
+tags: 
+ - NFV
+ - VMware
+ - Cloud Automation
+ - VNF Management
+ - vSphere
+---
+
+<notextile>
+
+<img src="/img/blog/vmware_vrealize_ops.png" alt="Cloudify Management Pack on VMware vRealize Ops" width="870">
+<br/>
+<br/>
+
+<p>Imagine, if you will, that you are currently running your <a href="http://getcloudify.org/cloud-native-vnf.html" target="_blank">VNF</a> in production on <a href="http://getcloudify.org/2016/10/19/vmware-and-cloudify-collaboration-redux.html" target="_blank">vSphere</a> with vRealize Ops. Now, imagine some nodes fail to provide services or even become unavailable for one reason or another. You get paged in the middle of the night and wake up in a panic. What happened? How? Why? How do I fix it? You proceed by trying to navigate the daunting task of finding the source of the issue and working out the proper procedure to heal the system, taking into account multiple connections and dependencies of your <a href="http://getcloudify.org/network-function-virtualization-vnf-nfv-orchestration-sdn-platform.html" target="_blank">NFV solution</a>, while your customers become enraged at their loss of service.</p>
+
+<p>When you finally manage to resolve the issue and get the system up and running, you think to yourself - If only I had a system that gave me the information I needed right away in order to save time and help me correct the fault more quickly.</p>
+
+  <hr>
+
+<span class="pullquote-left">
+  <font style="font-weight: bold" size="5" face="Baskerville Old Face"><em>Join one of our technical webinars today! </em></font>&nbsp; <a class="btn btn-medium btn-theme btn-rounded" id="downloadBtnInner" href="http://bitly.com/microservices-webinar" target="_blank"><i class="icon-plus"></i> Register Now </a></span>
+  
+  <hr>
+
+<p><a href="http://getcloudify.org" target="_blank">Cloudify</a> has you covered with its new management pack for vRealize Ops Manager. With this tight integration, Cloudify can be used to monitor, identify, alert, make recommendations, and heal your deployments with a single click. And you can see everything happening directly from Cloudify's custom dashboard for vROps. Check out the demo video below showing the Cloudify Management Pack Dashboard recognizing when a VM, in the <a href="http://getcloudify.org/2016/06/21/opnfv-functest-team-tests-clearwater-vims-deployment-using-cloudify-with-100-percent-success-nfv-orcehstration.html" target="_blank">Clearwater IMS</a> VNF deployment, is taken down and then alerts the user as to the issue, prompting the user to heal the node, and with one click, the node is brought back up and reconfigured by Cloudify.</p>
+
+	<div class="flexslider aligncenter">
+		<ul class="slides">
+			<li style="display: list-item;">
+				<a class="hover-wrap fancybox fancybox.iframe" data-fancybox-group="gallery" title="Cloudify Management Pack with VMware vRealize Operations Demo" href="https://www.youtube.com/watch?v=LAnhtJzmnZA?enablejsapi=1&amp;wmode=opaque">
+				<br> <br>
+				<img src="/img/blog/node_healed.png" alt="Cloudify Management Pack with VMware vRealize Operations Demo"></a>
+			</li>
+		</ul>
+	</div>
+
+<p>The Cloudify Management Pack includes a Java adapter which is used to collect all of the Cloudify resources such as deployments, node instances, etc and manages their relationships to each of the virtual machine objects. This ensures that your deployment instances are aware of each other and fully managed by Cloudify.</p>
+
+<p>From there, Cloudify and vROps continuously monitor your deployment and quickly identify if a node instance has failed. Then, when an instance is problematic, Cloudify is able to quickly identify which VM has been affected and heal the deployment taking into account all dependencies of the faulty component.</p><br>
+
+<p class="aligncenter"><img src="/img/blog/vrops_node_down.png"><br><span style="font-size: 11px; font-weight: bold;">VM goes down</span></p>
+
+<p>Another useful aspect of the integration is the ability to select any deployment from vRealize Operations Manager and launch Cloudify UI to bring you directly to the object you selected in that exact context.</p>
+
+<p>A future integration, currently being built, will allow for running workflows, such as install, heal, and scale, directly from vROps giving users a seamless experience right from the vROps Cloudify Dashboard.</p>
+
+<p class="aligncenter"><img src="/img/blog/heal_clearwater_vrops.png"><br><span style="font-size: 11px; font-weight: bold;">Cloudify heal workflow in action</span></p>
+
+
+</notextile>
