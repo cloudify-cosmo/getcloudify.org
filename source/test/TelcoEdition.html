@@ -15,7 +15,7 @@ category: NFV
     <div class="container dwnTopBanner">
         <p>&nbsp;</p>
         <h1>Get Cloudify Telecom Edition</h1>
-        <p class="lead">Follow the steps below to get started installing Cloudify Manager on the cloud of your choice so you can <br>deploy and orchestrate your VNFs across multiple VIMs. <a href="#abouttelco">Learn More</a></p>
+        <p class="lead">Follow the steps below to get started installing Cloudify Manager on the cloud of your choice so you can <br>deploy and orchestrate your VNFs across multiple VIMs.
         <a name="top"></a>
     </div>
 </div>
@@ -194,12 +194,19 @@ instead of Cloudify CLI.</p>
                         <div class="span12">
 
 <p style="font-size:18px;">Step 3: <i class="fa fa-cog" aria-hidden="true"></i>&nbsp;&nbsp;<button class="btn btn-blue btn-medium" data-toggle="collapse" data-target="#installmanager">Install Cloudify Manager</button></p>
-
+<br>
 <div id="installmanager" class="collapse">
 
-<h1>Option 1 - Bootstrap Cloudify Manager</h1>
-
-<p>Cloudify Manager comprises Cloudify’s code and <a href="http://docs.getcloudify.org/3.4.0/manager_architecture/components/">several underlying open-source tools</a>, which have been integrated to create a dynamic environment, and will support the different operational flows that you might be interested in when deploying and managing your application.</p>
+    <ul class="nav nav-tabs">
+    <li class="active"><a href="#one" data-toggle="tab"> <span style="font-size: 18px">Option 1: Bootstrap Cloudify Manager</span></a></li>
+    <li><a href="#two" data-toggle="tab"><span style="font-size: 18px">Option 2: Deploy Cloudify Manager Image</span></a></li>
+    </ul>
+        <div class="tab-content">
+        <div class="tab-pane active" id="one">
+        <div class="views-field-body">
+        <div class="field-content">
+        <h1>Installing Cloudify Manager (Bootstrap Method)</h1>
+    <p>Cloudify Manager comprises Cloudify’s code and <a href="http://docs.getcloudify.org/3.4.0/manager_architecture/components/">several underlying open-source tools</a>, which have been integrated to create a dynamic environment, and will support the different operational flows that you might be interested in when deploying and managing your application.</p>
 
 <p>Using different Cloudify plugins, the bootstrap process will create the infrastructure (servers, networks, security groups and rules, etc..) required for Cloudify’s Manager to run in that environment.</p>
 
@@ -407,11 +414,15 @@ Services:
 <div style="text-align: right"><a class="btn btn-red btn-medium" href="#top">Back to top</a></div>
 
 
-        <hr>
-<!-- END DOCS CONTENT -->
+        
+                                                            </div>
+                                                        </div>
+                                                </div>
 
-<h1>Option 2 - Deploy Cloudify Manager Image</h1>
-
+<!-- START TAB TWO -->
+<div class="tab-pane" id="two">
+<div class="field-content">
+<h1>Installing Cloudify Manager (Image Deployment Method)</h1>
 <p>Images are provided with all dependencies and the manager pre-installed for AWS and OpenStack. These allow you to get up and running with Cloudify with minimal user input required.</p>
 
 <p>(These images make sensible assumptions about how the manager is set up. If you want fine-grained control over your manager setup have a look at the <a href="http://docs.getcloudify.org/3.4.0/manager/bootstrap-ref-aws">AWS</a> or <a href="http://docs.getcloudify.org/3.4.0/manager/bootstrap-reference-openstack">OpenStack</a> bootstrapping guides instead).</p>
@@ -631,12 +642,10 @@ $ <span class="hljs-built_in">echo</span> | openssl s_client -connect <span clas
 </div>
 </div>
 </div>
-<hr>
                              
                                                 <a name="abouttelco"></a>
-                                                
+                                               
                                         <!-- end tab -->
-                        
 
                             </div>
                     </div>
@@ -662,6 +671,7 @@ $ <span class="hljs-built_in">echo</span> | openssl s_client -connect <span clas
         </div>
         </div>
         </div>
+
 </section>
 
 <section id="bottom">
@@ -676,10 +686,7 @@ $ <span class="hljs-built_in">echo</span> | openssl s_client -connect <span clas
         
 
                 </div>
-                {% include addthis.html %}
-
-
-            <div class="span2"></div>
+                
         
 </section>
 
