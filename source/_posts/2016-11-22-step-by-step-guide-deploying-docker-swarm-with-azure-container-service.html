@@ -1,0 +1,246 @@
+---
+layout: blogpost
+title: Step-by-Step Guide to Deploying Docker Swarm with Azure Container Service (ACS)
+description: The Awesome Sauce roundup brings you the good, the great, and the funny of DevOps news each month! 
+image: jeremy.jpg
+author: Jeremy Hess
+tags: 
+ - DevOps
+ - Cloud Automation
+ - Container Orchestration
+ - Docker
+ - Azure
+---
+
+<notextile>
+
+<img src="/img/blog/swarm_on_azure_container_service.png" alt="Deploy Docker Swarm on Microsoft Azure" width="870px">
+<br/>
+<br/>
+ 
+
+<p><b></b>
+
+<p><strong>Docker Swarm</strong> is one of the most popular tools today for clustering and turning pools of Docker hosts into a single host. Through the <a href="https://azure.microsoft.com/en-us/services/container-service/">Azure Container Service (ACS)</a>, the creation of Docker Swarm is simple, and becomes a time-saving and efficient option for bringing optimization and portability to your system.</p>
+
+<p><strong>Azure</strong> is one of the <a href="http://www.businessinsider.com/microsoft-azure-vs-aws-revenue-2016-1">fastest growing infrastructure services today</a>. It supports the ability to scale on demand, with customer support over 19 regions across the globe, as well as the ability to create hybrid environments, big data insights and more.</p>
+
+<div class="bs-callout bs-callout-warning"><strong><p>Extending Your Deployment </strong><br>
+If you are looking to deploy <a href="http://getcloudify.org/2016/09/21/orchestrating-docker-swarm-with-cloudify.html" target="_blank">Docker Swarm</a> or other containers on a hybrid environment, such as <a href="http://getcloudify.org/2016/09/15/cloud-orchestration-with-azure-openstack-less-explored-hybrid-cloud.html" target="_blank">Azure and OpenStack</a>, it is worth considering <a href="http://getcloudify.org" target="_blank">Cloudify open source orchestration</a> which is built for portability and interoperability.</p></div>
+
+<p>The Azure Container Service supports two different orchestrators for the cluster. Note that users must have an Azure account in order to get started.</p>
+
+<ul>
+<li><strong>Docker Swarm</strong> uses the native Docker stack, so you can directly use <a href="https://docs.docker.com/engine/reference/commandline/">Docker commands</a> to deploy containers. The containers are deployed after connecting on Master using SSH, and then executing a Docker command. This process is described in more detail later in this article.</li>
+<li><a href="https://dcos.io/">DC/OS</a>, a datacenter operating system, runs containers in different formats, including Docker images.</li>
+</ul>
+
+<p>In this article we will take you step-by-step, creating a <a href="https://docs.docker.com/swarm/">Docker Swarm</a> cluster on <a href="http://docs.getcloudify.org/3.4.0/plugins/azure/">Azure</a> using ACS. </p>
+
+<hr>
+
+<span class="pullquote-left">
+  <font style="font-weight: bold" size="5" face="Baskerville Old Face"><em>Join our upcoming Azure webinar in January!</em></font>&nbsp; <a class="btn btn-medium btn-theme btn-rounded" id="downloadBtnInner" href="http://getcloudify.org/webinars/Azure-plugin-for-cloudify-webinar.html" target="_blank"><i class="icon-plus"></i> Register Now </a></span>
+  
+  <hr>
+
+<h2>Step-by-Step: Creating a Docker Swarm Cluster</h2>
+
+<h3>RSA Key Preparation</h3>
+
+<p>First, we need to hold an RSA key, which will be required on the following deployment steps. &nbsp;</p>
+
+<p>Let&rsquo;s open your terminal (if you&rsquo;re on a UNIX-based OS). If you are a Windows, you&rsquo;ll need to get a UNIX-based terminal for Windows machines such as <a href="https://desktop.github.com/">GitHub for Windows</a> or <a href="https://www.cygwin.com/">Cygwin</a>.</p>
+
+<p>Now, we will start with executing commands for generating keys. The first command after entering the terminal is: $ ssh-keygen</p>
+
+<p>After clicking <em>ENTER</em>, you will be asked for a location for where to save the key.</p>
+
+<div class="aligncenter"><img src="/img/blog/ssh_rsa_key.png"><br>
+<strong><span style="font-size: 10px">SSH RSA Key Generation</span></strong></p></div>
+
+<p>If you&rsquo;re a Windows user and want to point to a location somewhere inside the user&rsquo;s folder, you&rsquo;ll have to type the location (the part where we put <code>~/azure_keys/id_rsa</code>). This should be something like <code>/c/Users/&lt;user&gt;/azure_keys/</code>. </p>
+
+<p>If you are a Linux/Mac user, you can type something like <code>~/azure_keys</code> (where the ~ character points to a user&rsquo;s location). On some Linux terminal emulators for Windows, such as Cygwin, the tilde character does the same thing. </p>
+
+<p>After clicking <em>Enter</em> again, you will be asked for a passphrase for this key. If you don&rsquo;t need the passphrase, just click <em>Enter</em> again; otherwise enter your passphrase for this key. You will then get a notification about successfully saved private/public key pairs, which you can see in the specified location. </p>
+
+<h2>Docker Swarm Cluster Deployment </h2>
+
+<p>Enter your Azure account portal, and click on the <strong>+</strong> (new) button, and search for <em>container</em>.</p>
+
+<div class="aligncenter"><img src="/img/blog/azure_portal.png"><br>
+<strong><span style="font-size: 10px">Azure&rsquo;s User Portal</span></strong></p></div>
+
+<p>Click <strong>Azure Container Service</strong>. In the next view, Azure Container Service will show as the first item. After clicking the <strong>Create</strong> button, the views for creating Docker Swarm will appear.</p>
+
+<div class="aligncenter"><img src="/img/blog/azure_search_list.png"><br>
+<strong><span style="font-size: 10px">Azure Container Service in the Search List</span></strong></p></div>
+
+<p>After clicking Create, we can start with filling in the <strong>Basics</strong> configuration settings. The first field is the username of the administrator for virtual machines inside the Docker Swarm cluster. This information should be user-specific.</p>
+
+<div class="aligncenter"><img src="/img/blog/docker_swarm_basic_config.png"><br>
+<strong><span style="font-size: 10px">Docker Swarm Basics Configuration</span></strong></p></div>
+
+<p>The second field is the SSH public key, which we created in the first step. Select the generated files that have the extensions<em> .PUB, </em>open them in your text editor, and paste them in the area just below the <em>SSH public key</em> label.</p>
+
+<p>Next, select your subscription, and create a new resource group for your Docker Swarm cluster with the name you specified. In the last field for Basics configuration, select the location of the data center. In our case we selected West US, but in the drop-down you have over 15 Azure regions to choose from.</p>
+
+<div class="aligncenter"><img src="/img/blog/azure_framework_config.png"><br>
+<strong><span style="font-size: 10px">Framework Configuration</span></strong></p></div>
+
+<p>In the next step, you have to provide configure the Orchestrator, which is Docker Swarm.</p>
+
+<div class="aligncenter"><img src="/img/blog/azure_service_settings.png"><br>
+<strong><span style="font-size: 10px">Service Settings</span></strong></p></div>
+
+<p>Go to <strong>Service</strong> <strong>Settings</strong>, where you&rsquo;ll need to provide the number of agents (in our case, we will use 2). This number can be as high as 100. For the number of masters, we will use 1, and for the master and agent DNS prefix, we will use a meaningful term, <em>dockerswarm-</em>. </p>
+
+<p>After clicking <strong>OK</strong>, you will see the Summary view:</p>
+
+<div class="aligncenter"><img src="/img/blog/azure_summary_pg.png"><br>
+<strong><span style="font-size: 10px">Summary Page</span></strong></p></div>
+
+<p>Next, click <strong>OK</strong> and you will be transferred to the last step, <strong>Buy</strong>. Here you can pass the validation by clicking once more on the <em>Purchase </em>button. After clicking <em>Purchase</em>, you will be redirected to your home page (the dashboard) where you will see that your Docker Swarm cluster is awaiting deployment.</p>
+
+<div class="aligncenter"><img src="/img/blog/azure_dashboard_swarm.png"><br>
+<strong><span style="font-size: 10px">Dashboard, and Waiting for Docker Swarm Deployment</span></strong></p></div>
+
+<p>Deploying Docker Swarm takes some time after which you will see the Docker Swarm resources on the dashboard. Click on any of them to see details of the deployed Docker Swarm cluster.</p>
+
+<div class="aligncenter"><img src="/img/blog/azure_swarm_deployed.png"><br>
+<strong><span style="font-size: 10px">Deployed Docker Swarm: Dashboard View</span></strong></p></div>
+
+<h2>Connect to the Master</h2>
+
+<p>Once you have created and deployed Docker Swarm, you will need to connect to the Master to be sure that everything is where it should be. Click on the Docker Swarm resource shown on the dashboard. Select the <em>Deployments </em>item on the left menu, under the <em>Settings </em>section.</p>
+
+<div class="aligncenter"><img src="/img/blog/azure_swarm_details.png"><br>
+<strong><span style="font-size: 10px">Docker Swarm Cluster - Deployment Details</span></strong></p></div>
+
+<p>Under the <strong>Deployments </strong>entries, select the last one, which is actually the first entry in the list. On the right side, you will find information about the deployment. Here you can find the DNS of the master as the command for connecting via SSH to the master. We will copy the command from the field - which is labeled <em>SSHMASTER0</em> - and use it in the terminal.</p>
+
+<p>SSH command to connect to the master:</p>
+
+<code>ssh &lt;DNS_FROM_FIELD&gt; -A -p 2200 -i &lt;PUB_FILE_LOCATION&gt;</code>
+<p>&nbsp;</p>
+
+<p>The above command is constructed when you click on the <strong>Copy </strong>icon next to the text box, where the part with argument <code>-i &lt;PUB_FILE_LOCATION&gt;</code> is added. This is added because sometimes users have several pairs of private/public keys. They aren&rsquo;t usually stored in the default SSH folder of UNIX based OSes, so we want to avoid any conflicts and generate the pair without interfering with default system configurations.</p>
+
+<div class="aligncenter"><img src="/img/blog/azure_swarm_network_interface.png"><br>
+<strong><span style="font-size: 10px">Network Interface of Master</span></strong></p></div>
+
+<p>Once successfully connected with the master, we want to get information about the cluster. Before doing that, we need the IP address of the master. We will now need to click on the <strong>See More</strong> link inside the resource box of the Docker Swarm cluster. When we click on Swarm master virtual machines and then select the Network Interfaces on the left side menu of the Swarm master detail view, we will notice the IP address in the result table. So, head back to the terminal and then type the command: </p>
+
+<code>docker -H 172.16.0.5:2375 info </code>
+<p>&nbsp;</p>
+<p>The cluster info output should look something like this:</p>
+
+<script src="https://gist.github.com/yeshess/9c8ab3ec467bbbf163f9dc868ce9ba5b.js"></script>
+
+<h2>Using Azure CLI</h2>
+
+<p>Before moving onto commands for creating a cluster, you have to first log in to Azure from <a href="https://azure.microsoft.com/en-us/documentation/articles/virtual-machines-linux-docker-swarm/">Azure CLI</a>, which can be done in several ways (all of which are explained in <a href="https://azure.microsoft.com/en-us/documentation/articles/xplat-cli-connect/">this article</a>)<a href="https://azure.microsoft.com/en-us/documentation/articles/xplat-cli-connect/">.</a> Docker also has to be installed on the machine; installation instructions can be found on the official <a href="https://docs.docker.com/engine/installation/">Docker site</a>. </p>
+
+<p>Here we will describe how to create a Docker Swarm cluster with the <a href="https://azure.microsoft.com/en-us/documentation/articles/xplat-cli-install/">Azure CLI</a> tool. After linking your account through Azure CLI, you can also verify that it worked. Type the following command into the terminal:</p>
+
+<code>azure account show</code>
+<p>&nbsp;</p>
+<p>In the output, you will get something like the following:</p>
+
+<script src="https://gist.github.com/yeshess/1ebe72911a07d788f756662a48b63499.js"></script>
+
+<p>Now we will proceed with creating the Docker Swarm cluster. The next series of commands will create one master, which has the role of maintaining the cluster and two nodes for the containers. &nbsp;</p>
+
+<p>Azure CLI Commands for Creating Master and Nodes:</p>
+
+<code>azure vm docker create &lt;NAME_OF_SWARM_MASTER&gt; -l &lt;LOCATION&gt; -e 22 b39f27a8b8c64d52b05eac6a62ebad85__Ubuntu-14_04-LTS-amd64-server-20140618.1-en-us-30GB ops &lt;PASSWORD&gt;</code>
+
+<code>azure vm docker create &lt;NAME_OF_SWARM_NODE01&gt; -l &lt;LOCATION&gt; -e 22 b39f27a8b8c64d52b05eac6a62ebad85__Ubuntu-14_04-LTS-amd64-server-20140618.1-en-us-30GB ops &lt;PASSWORD&gt;</code>
+
+<code>azure vm docker create &lt;NAME_OF_SWARM_NODE02&gt; -l &lt;LOCATION&gt; -e 22 b39f27a8b8c64d52b05eac6a62ebad85__Ubuntu-14_04-LTS-amd64-server-20140618.1-en-us-30GB ops &lt;PASSWORD&gt;</code>
+<p>&nbsp;</p>
+
+<p>The output will look something like this:</p>
+
+<script src="https://gist.github.com/yeshess/958b1617417ed7f5b2155ea8c79e73cf.js"></script>
+
+<p>To verify that VMs were created and are ready to use, you can type the command <code>azure vm list</code>, which will return:</p>
+
+<div class="aligncenter"><img src="/img/blog/swarm_vms_list.png"><br>
+<strong><span style="font-size: 10px">The List of Created VMs</span></strong></p></div>
+
+<p>Now we will use these VMs and create the Docker Swarm cluster. The first thing we will do is connect to the master machine. Then we will execute the swarm image in order to generate a token that we will use later for discovering members and creating the swarm group. </p>
+
+<p>The command that has to be executed on the master is: </p>
+
+<code>docker --tls -H tcp://&lt;DNS_NAME_OF_MASTER_FROM_PICTURE_ABOVE&gt;:2376 run --rm swarm create</code>
+<p>&nbsp;</p>
+
+<p>The <em>DNS name</em> of the master is located in the table above, which we got when we listed all VMs that are created. The swarm output created is shown below.</p>
+
+<div class="aligncenter"><img src="/img/blog/swarm_create_output_example.png"><br>
+<strong><span style="font-size: 10px">Swarm Create Output Example</span></strong></p></div>
+
+<p>The token generated as a result of executing the previous command needs to be saved, as it will be used shortly.</p>
+
+<p>Now we will begin with joining the node VMs into the cluster. Before that, we will need to retrieve the Docker port from the nodes in order to use it for joining the cluster. For this, we will use Azure CLI and the following command:</p>
+
+<code>azure vm endpoint list &lt;NAME_OF_NODE01&gt;</code>
+<p>&nbsp;</p>
+
+<p>Which will generate output similar to the one below.</p>
+
+<div class="aligncenter"><img src="/img/blog/node_endpoint_example.png"><br>
+<strong><span style="font-size: 10px">Node Endpoint Example</span></strong></p></div>
+
+<p>Now using the docker and -H argument we will join the first node into the cluster.</p>
+
+<code>docker --tls -H tcp://&lt;DNS_NAME_OF_NODE01_FROM_TABLE_OF_VM&gt;:2376 run -d swarm join --addr=&lt;VIRTUAL_IP_FROM_ENDPOINT_OUTPUT&gt;:2376 token://&lt;STORED_TOKEN_FROM_SWARM&gt;</code>
+<p>&nbsp;</p>
+
+<p>The command for joining the node into the cluster contains information including the DNS name and IP of the node which can be found in the VMs lists. In addition, we will use the token that we got when creating the swarm master machine.</p>
+
+<p>We will repeat these steps for the second node.</p>
+
+<p>Then we will join the nodes to the cluster -</p>
+
+<code>docker --tls -H tcp://&lt;DNS_NAME_OF_NODE02_FROM_TABLE_OF_VM&gt;:2376 run -d swarm join --addr=&lt;VIRTUAL_IP_FROM_ENDPOINT_OUTPUT&gt;:2376 token://&lt;STORED_TOKEN_FROM_SWARM&gt;</code>
+<p>&nbsp;</p>
+
+<p>Both commands for joining the nodes into the cluster generate a similar output.</p>
+
+<div class="aligncenter"><img src="/img/blog/swarm_output_example.png"><br>
+<strong><span style="font-size: 10px">Swarm Join Output Example</span></strong></p></div>
+
+<p>To verify that both nodes executed the swarm join command well, you can type the command:</p>
+
+<code>docker --tls -H tcp://&lt;DNS_NAME_NODES&gt;:2376 ps -a</code>
+<p>&nbsp;</p>
+
+<p>As output, both nodes will generate the output as below.</p>
+
+<div class="aligncenter"><img src="/img/blog/swarm_nodes_output.png"></div>
+
+<p>After all steps are done, we will execute the <a href="https://docs.docker.com/swarm/reference/manage/">swarm manage command</a>. This creates the Swarm manager, whose purpose is to receive commands and assign containers to Swarm nodes.</p>
+
+<code>docker --tls -H tcp://&lt;DNS_NAME_OF_MASTER&gt;:2376 run -d -p 2375:2375 swarm manage token://&lt;TOKEN&gt;</code>
+<p>&nbsp;</p>
+
+<p>In order to list your nodes using the master node, you can type the following command:</p>
+
+<code>docker --tls -H tcp://&lt;DNS_NAME_OF_MASTER&gt;:2376 run --rm &nbsp;swarm list token://&lt;TOKEN&gt;</code>
+<p>&nbsp;</p>
+
+<p>As the output of this command, you will see the IPs of the created nodes.</p>
+
+<h2>Summary</h2>
+
+<p>In this article, we described in detail how to create a <a href="http://getcloudify.org/2016/09/21/orchestrating-docker-swarm-with-cloudify.html" target="_blank">Docker Swarm cluster</a> using the Azure Container Service. The Azure Container Service is intended for hosting container-like solutions and orchestrating them through a flexible and user-friendly portal. This approach is best for those looking for a fast solution for cluster deployment, where, through a few clicks and entering some basic information, users can create clusters that can be easily controlled. </p>
+
+<p>The second, more low-level, approach is to use the Azure CLI shell. With this approach the automation of creating/managing the cluster can be achieved, and the approach can be highly useful for those who like to work on scripting and automatization processes. </p>
+
+<p>In conclusion, we can say that creating a Docker Swarm cluster through both approaches can be done relatively quickly, and that problems that occur in the path of creation are generally minor. With good support and documentation, this serves as an easy, user-friendly solution for those deploying Docker Swarm on the Azure cloud.</p>
+
+
+</notextile>
