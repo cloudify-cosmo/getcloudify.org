@@ -1,0 +1,450 @@
+---
+layout: blogpost
+title: Deploying Your App Onto AWS and OpenStack With Hybrid Cloud Orchestration Using a Single Cloudify TOSCA Blueprint
+image: trammell.jpg
+author: Luther Trammell
+tags:
+ - Cloud Orchestration
+ - Hybrid Cloud
+ - OpenStack Orchestration
+ - AWS
+ - Multi-Cloud
+---
+
+<notextile>
+<img src="/img/blog/aws_openstack_hybrid_cloud.jpg" alt="OpenStack | Cloud Orchestration | Kubernetes | Kubernetes Cluster | Hybrid Cloud | Cloud Automation | Container Management" width="870">
+<br/>
+<br/>
+
+<p>There is no limit to the variety of system layouts. The most basic would be a database and an application on a single VM. However, very few operations teams have all of their infrastructure in one place.</p>
+
+<p>At <a href="http://getcloudify.org">Cloudify</a>, we&rsquo;ve been referring to real world scenarios with the term <a href="http://getcloudify.org/2016/10/13/hybrid-cloud-orchestration-on-openstack-with-cloudify-tosca.html">Hybrid Cloud</a>, which actually is an umbrella term that includes non-cloud resources. It includes all forms of compute, storage, and network resourcing. An umbrella term for other umbrella terms.</p>
+
+<p>One of my missions over the past few months has been to create some Cloudify demos that illustrate hybrid cloud design. I think the most common hybrid cloud scenario will involve some non-cloud resources, but for demos that&rsquo;s not really applicable.</p>
+
+<hr>
+
+<span class="pullquote-left">
+  <font style="font-weight: bold" size="5" face="Baskerville Old Face"><em>Download our "Cloud Management in the Enterprise" white paper!</em></font>&nbsp; <a class="btn btn-medium btn-theme btn-rounded" id="downloadBtnInner" href="http://getcloudify.org/cloud-management-in-the-enterprise.html" target="_blank"><i class="icon-plus"></i> Go </a></span>
+  
+<hr>
+
+<p>Orchestrating a hybrid cloud is not easy. Every environment has its own terminology, its own set of functionalities, and limitations. Also, every software, version, build, etc has its own specific configuration constellation that must be tuned to the target deployment environment.</p>
+
+<p>From a demo perspective there are two stages to hybrid cloud. The first is the configuration of the hybrid cloud environment. The second is deploying an application onto the hybrid cloud. Let&rsquo;s see how it&rsquo;s done.</p>
+
+<p><strong>Stage 1: Setup the Hybrid Cloud Environment</strong></p>
+
+<p>To simplify these demos, I stick to a hybrid cloud scenario of two environments - one <a href="http://getcloudify.org/2016/10/31/azure-versus-aws-for-enterprise.html">AWS</a>, and one <a href="http://getcloudify.org/2014/07/10/what-is-openstack-tutorial.html">Openstack</a> - connected via an IPsec tunnel. (I am working <a href="http://getcloudify.org/2016/11/22/step-by-step-guide-deploying-docker-swarm-with-azure-container-service.html">Azure</a> and <a href="http://getcloudify.org/2016/11/15/closed-loop-monitoring-alerting-healing-cloudify-vmware-vrealize-operations-integration.html">vSphere</a> as well.) The AWS formulation looks something like this:</p>
+
+<div class="aligncenter"><img src="/img/blog/awsvpc.png" width="600"><br><span style="font-size: 9px">Source: <a href="http://docs.aws.amazon.com/AmazonVPC/latest/UserGuide/VPC_VPN.html">http://docs.aws.amazon.com/AmazonVPC/latest/UserGuide/VPC_VPN.html</a><span></div>
+
+<p>Cloudify handles the full deployment and configuration of the VPC. It also handles the creation of the AWS VPC Connection feature and the IPsec tunnel. Both are quite simple in a Cloudify blueprint:</p>
+
+<table width="100%" style="font-family: Courier; font-size: 13px">
+<tbody>
+<tr>
+<td>
+<p> &nbsp;vpc_configuration:</p>
+<p> &nbsp;&nbsp;&nbsp;type: aws_node_type</p>
+<p> &nbsp;&nbsp;&nbsp;relationships:</p>
+<p> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;- type: cloudify.relationships.depends_on</p>
+<p> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;target: openstack_virtual_machine</p>
+<p><strong> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;- type: cloudify.relationships.depends_on</strong></p>
+<p><strong> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;target: aws_customer_gateway</strong></p>
+
+</td>
+</tr>
+</tbody>
+</table>
+<p style="font-size: 9px">Source: <a href="https://github.com/cloudify-examples/multicloud-fortigate-nfv-blueprint/blob/master/blueprint.yaml#L340">https://github.com/cloudify-examples/multicloud-fortigate-nfv-blueprint/blob/master/blueprint.yaml#L340</a></p>
+
+<p>Essentially, we want to make sure that before we request a VPC Connection from AWS, we have an AWS Customer Gateway and a virtual machine in Openstack. This can be any virtual appliance that features an IPsec VPN. In this blueprint that is a Fortinet 5.4 VM. </p>
+
+<p>The relationship to the aws_customer_gateway node template points to code that requests the VPC Connection configuration from AWS. It looks something like this:</p>
+
+<table width="100%" style="font-family: Courier; font-size: 13px">
+<tbody>
+<tr>
+<td>
+<p>customer_gateway_configuration = xmltodict.parse(vpc_connection.customer_gateway_configuration)</p>
+</td>
+</tr>
+</tbody>
+</table>
+<p style="font-size: 9px">Source: <a href="https://github.com/cloudify-examples/multicloud-fortigate-nfv-blueprint/blob/master/plugins/cloudify-aws-plugin-extension/cloudify_aws_vpc_extension/vpc_connection.py#L68">https://github.com/cloudify-examples/multicloud-fortigate-nfv-blueprint/blob/master/plugins/cloudify-aws-plugin-extension/cloudify_aws_vpc_extension/vpc_connection.py#L68</a></p>
+
+<p>It then puts most of this information into runtime properties that will be used later by the IPsec tunnel configuration.</p>
+
+<table width="100%" style="font-family: Courier; font-size: 13px">
+<tbody>
+<tr>
+<td>
+<p> &nbsp;ipsec_tunnel1:</p>
+<p> &nbsp;&nbsp;&nbsp;type: cloudify.Fortinet.FortiGate.Config</p>
+<p> &nbsp;&nbsp;&nbsp;relationships:</p>
+<p> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;- type: cloudify.relationships.contained_in</p>
+<p> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;target: example_openstack_virtual_machine</p>
+<p> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;- type: cloudify.relationships.depends_on</p>
+<p> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;target: tunnel1_phase_2_interface</p>
+
+</td>
+</tr>
+</tbody>
+</table>
+<p style="font-size: 9px">Source: <a href="https://github.com/cloudify-examples/multicloud-fortigate-nfv-blueprint/blob/master/fortigate/tunnel1/interfaces.yaml#L47">https://github.com/cloudify-examples/multicloud-fortigate-nfv-blueprint/blob/master/fortigate/tunnel1/interfaces.yaml#L47</a></p>
+
+<p>After the creation of the VPC Connection, we add necessary configurations to the appliance and finish off with the creation of the IPsec tunnel.</p>
+
+<p>The code here is basically just Fortigate CLI commands interpreted by the Fortinet plugin:</p>
+
+<table width="100%" style="font-family: Courier; font-size: 13px">
+<tbody>
+<tr>
+<td>
+<p>config_name: system interface</p>
+<p>config_id: ipsec_tunnel1</p>
+<p>config:</p>
+<p> &nbsp;- vdom: root</p>
+<p> &nbsp;- type: tunnel</p>
+<p> &nbsp;- ip:</p>
+<p><strong> &nbsp;&nbsp;&nbsp;- { get_attribute: [ vpn_configuration, ipsec_tunnel, '0', 'cgw_internal_ip' ] }</strong></p>
+<p> &nbsp;&nbsp;&nbsp;- '255.255.255.255'</p>
+<p> &nbsp;- allowaccess: ping</p>
+<p> &nbsp;- interface: port1</p>
+<p><strong> &nbsp;- remote-ip: { get_attribute: [ vpn_configuration, ipsec_tunnel, '0', 'vgw_internal_ip' ] }</strong></p>
+
+
+</td>
+</tr>
+</tbody>
+</table>
+<p style="font-size: 9px">Source: <a href="https://github.com/cloudify-examples/multicloud-fortigate-nfv-blueprint/blob/master/fortigate/tunnel1/interfaces.yaml#L47">https://github.com/cloudify-examples/multicloud-fortigate-nfv-blueprint/blob/master/fortigate/tunnel1/interfaces.yaml#L47</a></p>
+
+<p>In order to deploy <a href="https://github.com/cloudify-examples/multicloud-fortigate-nfv-blueprint/blob/master/blueprint.yaml">this blueprint</a>, you need an AWS account, Openstack account, and Openstack Fortigate VM image with the license already installed. </p>
+
+<p>Create an inputs file:</p>
+
+<table width="100%" style="font-family: Courier; font-size: 13px">
+<tbody>
+<tr>
+<td>
+<p># # Openstack Inputs</p>
+<p>keystone_password: 'myppass'</p>
+<p>keystone_tenant_name: ''</p>
+<p>keystone_url: ''</p>
+<p>keystone_username: ''</p>
+<p>region: ''</p>
+
+<p># Fortigate VM</p>
+<p>example_openstack_virtual_machine_image_id: ''</p>
+<p>example_openstack_virtual_machine_flavor_id: ''</p>
+
+<p>example_openstack_network_port_address_pairs: [ip_address: 0.0.0.0/0]</p>
+<p>example_openstack_private_network_port_address_pairs: [ip_address: 0.0.0.0/0]</p>
+<p>example_openstack_private_network_subnet_enable_dhcp: true</p>
+
+<p># # AWS INPUTS</p>
+<p>aws_secret_access_key: ''</p>
+<p>aws_access_key_id: ''</p>
+
+<p># Cloudify AMI (here using us-east-1)</p>
+<p>example_aws_virtual_machine_image_id: ami-165bdf01</p>
+
+
+</td>
+</tr>
+</tbody>
+</table>
+
+<p>Then execute the install in local mode:</p>
+<table width="100%" style="font-family: Courier; font-size: 13px">
+<tbody>
+<tr>
+<td>
+<p>user# cfy install multicloud-nfv-example/blueprint.yaml -i inputs.yaml --task-retries=30 --task-retry-interval=30</p>
+</td>
+</tr>
+</tbody>
+</table>
+
+<p>This will create the VPC, Openstack Networks, all routes, as well as Fortigate Configuration. </p>
+
+<p>You can also use an existing infrastructure via the usual API in Cloudify for using external resources:</p>
+
+<table width="100%">
+<tbody>
+<tr>
+<td>
+<p>example_aws_vpc:</p>
+<p> &nbsp;type: cloudify.aws.nodes.VPC</p>
+<p> &nbsp;properties:</p>
+<p> &nbsp;&nbsp;&nbsp;aws_config: { get_input: aws_configuration }</p>
+<p><strong> &nbsp;&nbsp;&nbsp;use_external_resource: { get_input: use_existing_example_aws_vpc }</strong></p>
+<p><strong> &nbsp;&nbsp;&nbsp;resource_id: { get_input: example_aws_vpc_id }</strong></p>
+<p> &nbsp;&nbsp;&nbsp;cidr_block: { get_input: example_aws_vpc_cidr }</p>
+
+
+</td>
+</tr>
+</tbody>
+</table>
+<p style="font-size: 9px">Source: <a href="https://github.com/cloudify-examples/aws-azure-openstack-blueprint/blob/master/aws/network/vpc.yaml">https://github.com/cloudify-examples/aws-azure-openstack-blueprint/blob/master/aws/network/vpc.yaml</a></p>
+
+<p>Here is the log output of the IPsec configuration:</p>
+<table width="100%" style="font-family: Courier; font-size: 13px">
+<tbody>
+<tr>
+<td>
+<p>2016-11-23 13:30:28.282 &nbsp;LOG &lt;multicloud-nfv-example&gt; [ipsec_tunnel2_3fx5t6.create] INFO: Executing config system interface</p>
+<p>edit vpn-464f5e27-1</p>
+<p>set vdom root</p>
+<p>set type tunnel</p>
+<p>set ip xxx.xxx.xxx.xxx 255.255.255.255</p>
+<p>set allowaccess ping</p>
+<p>set interface port1</p>
+<p>set remote-ip xxx.xxx.xxx.xxx</p>
+<p>end</p>
+
+</td>
+</tr>
+</tbody>
+</table>
+
+<p>In the end, you have a fully functional <a href="http://getcloudify.org/2016/07/07/achiecing-hybrid-cloud-without-compromising-on-least-common-denominator-tosca-portability.html">multi-cloud environment</a>. The deployment outputs give you the inputs to your demo application blueprint:</p>
+
+<table width="100%" style="font-family: Courier; font-size: 13px">
+<tbody>
+<tr>
+<td>
+<p>user# cfy deployments outputs -b multicloud-nfv-example</p>
+<p>{</p>
+<p> &nbsp;"example_aws_elastic_ip": {</p>
+<p> &nbsp;&nbsp;&nbsp;"example_aws_elastic_ip": "xxx.xxx.xxx.xxx"</p>
+<p> &nbsp;}, </p>
+<p> &nbsp;"example_aws_private_subnet": {</p>
+<p> &nbsp;&nbsp;&nbsp;"example_aws_private_subnet": "subnet-xxxxxxxx"</p>
+<p> &nbsp;}, </p>
+<p> &nbsp;"example_aws_public_subnet": {</p>
+<p> &nbsp;&nbsp;&nbsp;"example_aws_public_subnet": "subnet-xxxxxxxy"</p>
+<p> &nbsp;}, </p>
+<p> &nbsp;"example_aws_security_group": {</p>
+<p> &nbsp;&nbsp;&nbsp;"example_aws_security_group": "sg-xxxxxxxx"</p>
+<p> &nbsp;}, </p>
+<p> &nbsp;"example_aws_vpc": {</p>
+<p> &nbsp;&nbsp;&nbsp;"example_aws_vpc": "vpc-xxxxxxxx"</p>
+<p> &nbsp;}, </p>
+<p> &nbsp;"example_openstack_floating_ip": {</p>
+<p> &nbsp;&nbsp;&nbsp;"example_openstack_floating_ip": "xxx.xxx.xxx.xxx"</p>
+<p> &nbsp;}, </p>
+<p> &nbsp;"example_openstack_group": {</p>
+<p> &nbsp;&nbsp;&nbsp;"example_openstack_group": "xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx"</p>
+<p> &nbsp;}, </p>
+<p> &nbsp;"example_openstack_network": {</p>
+<p> &nbsp;&nbsp;&nbsp;"example_openstack_network": "xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx"</p>
+<p> &nbsp;}, </p>
+<p> &nbsp;"example_openstack_network_router": {</p>
+<p> &nbsp;&nbsp;&nbsp;"example_openstack_network_router": "xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx"</p>
+<p> &nbsp;}, </p>
+<p> &nbsp;"example_openstack_network_subnet": {</p>
+<p> &nbsp;&nbsp;&nbsp;"example_openstack_network_subnet": "xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxy"</p>
+<p> &nbsp;}, </p>
+<p> &nbsp;"example_openstack_private_network": {</p>
+<p> &nbsp;&nbsp;&nbsp;"example_openstack_private_network": "xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxy"</p>
+<p> &nbsp;}, </p>
+<p> &nbsp;"example_openstack_private_network_subnet": {</p>
+<p> &nbsp;&nbsp;&nbsp;"example_openstack_private_network_subnet": "xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxy"</p>
+<p> &nbsp;}</p>
+<p>}</p>
+
+
+</td>
+</tr>
+</tbody>
+</table>
+<br>
+<p>Now, you have everything that you need to deploy one of the multi-cloud demos.</p>
+
+<p><strong>Stage 2: Deploy Your App Onto the Hybrid Cloud Demo</strong></p>
+
+<p>The two hybrid demos cover two related use cases: <a href="http://getcloudify.org/2016/07/21/building-your-application-for-cloud-portability-new-approach-hybrid-cloud.html">Cloud Portability</a> and Cloud Bursting.</p>
+
+<p>Cloud Portability refers to the idea that you can take one blueprint, run it in one environment, say AWS, then run it in a different environment, like Openstack, without modifying the blueprint. Cloud Bursting means that you have an application running in one cloud, like AWS, and you want to horizontally scale out into another cloud, like Openstack. On the blueprint level, what this requires is that the application is designed to work in both cases. This presents a bit of a challenge for Cloudify and for TOSCA, because blueprints should be very specific. The <em>node_template</em> of a compute node, should not only say what cloud it should be created in, but which region and availability zone, and which network.</p>
+
+<p>The solution in Cloudify is to imagine a separation between the application and infrastructure layers in the blueprint. On the application layer, we put our application. In the infrastructure layer, we put <em>node_templates</em> for all possible compute nodes. In between them, we put an intermediary compute node that essentially &ldquo;decides&rdquo; which cloud to deploy to.</p>
+
+<p><strong>Cloud Portability Example</strong></p>
+
+<p>For example, suppose we have a load balancer that has backends in both AWS and Openstack. </p>
+
+<p>We will have a node template for the load balancer:</p>
+
+<table width="100%" style="font-family: Courier; font-size: 13px">
+<tbody>
+<tr>
+<td>
+<p>haproxy:</p>
+<p> &nbsp;type: nodecellar.nodes.MonitoredHAProxy</p>
+<p> &nbsp;properties:</p>
+<p> &nbsp;&nbsp;&nbsp;backend_app_port: { get_property: [ nodecellar, port ] }</p>
+<p> &nbsp;relationships:</p>
+<p> &nbsp;&nbsp;&nbsp;- type: cloudify.relationships.contained_in</p>
+<p> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;target: haproxy_frontend_host</p>
+
+</td>
+</tr>
+</tbody>
+</table>
+
+<p>Notice that it is &ldquo;contained in&rdquo; haproxy_frontend_host&rdquo;.</p>
+
+<p>We might want to put the HAproxy Load Balancer in either AWS or Openstack in the blueprint, so we declare both possibilities:</p>
+
+<table width="100%" style="font-family: Courier; font-size: 13px"> 
+<tbody>
+<tr>
+<td>
+<p>haproxy_aws_virtual_machine:</p>
+<p> &nbsp;type: cloudify.aws.nodes.Instance</p>
+<p> &nbsp;capabilities:</p>
+<p> &nbsp;&nbsp;&nbsp;scalable:</p>
+<p> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;properties:</p>
+<p> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;default_instances: { get_input: haproxy_aws_instances }</p>
+<p> &nbsp;properties:</p>
+<p> &nbsp;&nbsp;&nbsp;aws_config: { get_input: aws_configuration }</p>
+<p> &nbsp;&nbsp;&nbsp;agent_config:</p>
+<p> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;install_method: none</p>
+<p> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;user: { get_input: aws_agent_username }</p>
+<p> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;key: { get_input: aws_agent_local_path_to_key_file }</p>
+<p> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;port: { get_input: aws_agent_port }</p>
+<p> &nbsp;&nbsp;&nbsp;use_external_resource: { get_input: use_existing_aws }</p>
+<p> &nbsp;&nbsp;&nbsp;resource_id: { get_input: haproxy_aws_virtual_machine }</p>
+<p> &nbsp;&nbsp;&nbsp;image_id: { get_input: haproxy_aws_virtual_machine_image_id }</p>
+<p> &nbsp;&nbsp;&nbsp;instance_type: { get_input: instance_type }</p>
+<p> &nbsp;&nbsp;&nbsp;parameters:</p>
+<p> &nbsp;relationships:</p>
+<p> &nbsp;&nbsp;&nbsp;- type: cloudify.aws.relationships.instance_contained_in_subnet</p>
+<p> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;target: example_aws_public_subnet</p>
+
+</td>
+</tr>
+</tbody>
+</table>
+<p style="font-size: 9px">Source: <a href="https://github.com/cloudify-examples/mixed-iaas-plugin/blob/master/examples/multicloud-nodecellar/aws/compute/virtual-machine.yaml#L67">https://github.com/cloudify-examples/mixed-iaas-plugin/blob/master/examples/multicloud-nodecellar/aws/compute/virtual-machine.yaml#L67</a></p>
+
+
+<table width="100%" style="font-family: Courier; font-size: 13px">
+<tbody>
+<tr>
+<td>
+<p>haproxy_openstack_virtual_machine:</p>
+<p> &nbsp;type: cloudify.openstack.nodes.Server</p>
+<p> &nbsp;capabilities:</p>
+<p> &nbsp;&nbsp;&nbsp;scalable:</p>
+<p> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;properties:</p>
+<p> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;default_instances: { get_input: haproxy_openstack_instances }</p>
+<p> &nbsp;properties:</p>
+<p> &nbsp;&nbsp;&nbsp;openstack_config: { get_input: openstack_configuration }</p>
+<p> &nbsp;&nbsp;&nbsp;agent_config:</p>
+<p> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;install_method: none</p>
+<p> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;user: { get_input: openstack_agent_username }</p>
+<p> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;key: { get_input: openstack_agent_local_path_to_key_file }</p>
+<p> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;port: { get_input: openstack_agent_port }</p>
+<p> &nbsp;&nbsp;&nbsp;use_external_resource: { get_input: use_existing_os }</p>
+<p> &nbsp;&nbsp;&nbsp;resource_id: { get_input: haproxy_openstack_virtual_machine }</p>
+<p> &nbsp;&nbsp;&nbsp;server:</p>
+<p> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;image: { get_input: image_id }</p>
+<p> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;flavor: { get_input: example_openstack_virtual_machine_flavor_id }</p>
+<p> &nbsp;relationships:</p>
+<p> &nbsp;&nbsp;&nbsp;- type: cloudify.relationships.contained_in</p>
+<p> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;target: example_openstack_network</p>
+<p> &nbsp;&nbsp;&nbsp;- target: example_openstack_key</p>
+<p> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;type: cloudify.openstack.server_connected_to_keypair</p>
+<p> &nbsp;&nbsp;&nbsp;- target: haproxy_openstack_network_port</p>
+<p> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;type: cloudify.openstack.server_connected_to_port</p>
+
+</td>
+</tr>
+</tbody>
+</table>
+<p style="font-size: 9px">Source: <a href="https://github.com/cloudify-examples/mixed-iaas-plugin/blob/master/examples/multicloud-nodecellar/openstack/compute/virtual-machine.yaml#L55">https://github.com/cloudify-examples/mixed-iaas-plugin/blob/master/examples/multicloud-nodecellar/openstack/compute/virtual-machine.yaml#L55</a></p>
+
+<p>Each node uses an input haproxy_openstack_instances or haproxy_aws_instances to decide whether there will be any instances of this node deployed. These are a mutually exclusive &ldquo;1&rdquo; or &ldquo;0&rdquo;. </p>
+
+<p>Next you have the &ldquo;intermediary&rdquo; node that contains the rule set, which determines which target VM to deploy the Load Balancer software on:</p>
+
+
+<table width="100%" style="font-family: Courier; font-size: 13px">
+<tbody>
+<tr>
+<td>
+<p> &nbsp;haproxy_frontend_host:</p>
+<p> &nbsp;&nbsp;&nbsp;type: cloudify.nodes.DeploymentPlan</p>
+<p> &nbsp;&nbsp;&nbsp;capabilities:</p>
+<p> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;scalable:</p>
+<p> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;properties:</p>
+<p> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;default_instances: 1</p>
+<p> &nbsp;&nbsp;&nbsp;properties:</p>
+<p> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;deployment_plans:</p>
+<p> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;haproxy_aws_virtual_machine:</p>
+<p><strong> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;capacity: { get_input: haproxy_aws_instances }</strong></p>
+<p> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;haproxy_openstack_virtual_machine:</p>
+<p><strong> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;capacity: { get_input: haproxy_openstack_instances }</strong></p>
+<p> &nbsp;&nbsp;&nbsp;relationships:</p>
+<p> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;- type: cloudify.dp.relationships.plans</p>
+<p> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;target: haproxy_aws_virtual_machine</p>
+<p> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;- type: cloudify.dp.relationships.plans</p>
+<p> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;target: haproxy_openstack_virtual_machine</p>
+
+
+</td>
+</tr>
+</tbody>
+</table>
+<p style="font-size: 9px">Source: <a href="https://github.com/cloudify-examples/mixed-iaas-plugin/blob/master/examples/multicloud-nodecellar/nodecellar/nodecellar-vm.yaml#L22">https://github.com/cloudify-examples/mixed-iaas-plugin/blob/master/examples/multicloud-nodecellar/nodecellar/nodecellar-vm.yaml#L22</a></p>
+
+<p>This is accomplished by giving the intermediary node a set of rules for the nodes that it &ldquo;manages&rdquo;. In this case we have the AWS VM and the Openstack VM. We map the max number of node instances to a capacity, which takes the same inputs as the previously mentioned nodes in order to assign the target cloud. </p>
+
+<p>Thus if haproxy_openstack_instances is 1, the only node instance will be Openstack.</p>
+
+<p>(At present, this plugin is not handling bad inputs, so if a user provides invalid values, that&rsquo;s their fault.)</p>
+
+<p><strong>Cloud Bursting Example</strong></p>
+
+<p>Bursting means scaling horizontally into a parallel cloud. For example, we want a maximum 10 instances in AWS and once that threshold is reached, we want to provision instances in Openstack. The Burst example uses the same &ldquo;intermediary&rdquo; node mechanism to handle horizontal scaling to a parallel cloud. We use the same mechanism to give constraints to the &ldquo;intermediary node&rdquo;. Suppose, just like the Load Balancer, we had configured an AWS and Openstack webserver backend node template. We want to scale into Openstack after there are 10 AWS instances.</p>
+
+<table width="100%" style="font-family: Courier; font-size: 13px">
+<tbody>
+<tr>
+<td>
+<p>nodejs_host:</p>
+<p> &nbsp;type: cloudify.nodes.DeploymentPlan</p>
+<p> &nbsp;capabilities:</p>
+<p> &nbsp;&nbsp;&nbsp;scalable:</p>
+<p> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;properties:</p>
+<p> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;default_instances: { get_input: nodejs_instances_total }</p>
+<p> &nbsp;properties:</p>
+<p> &nbsp;&nbsp;&nbsp;deployment_plans:</p>
+<p> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;nodejs_aws_virtual_machine:</p>
+<p> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;capacity: 10</p>
+<p> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;nodejs_openstack_virtual_machine:</p>
+<p> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;constraints:</p>
+<p> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;nodejs_aws_virtual_machine: 10</p>
+<p> &nbsp;relationships:</p>
+<p> &nbsp;&nbsp;&nbsp;- type: cloudify.dp.relationships.plans</p>
+<p> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;target: nodejs_openstack_virtual_machine</p>
+<p> &nbsp;&nbsp;&nbsp;- type: cloudify.dp.relationships.plans</p>
+<p> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;target: nodejs_aws_virtual_machine</p>
+
+
+</td>
+</tr>
+</tbody>
+</table>
+<p style="font-size: 9px">Source: <a href="https://github.com/cloudify-examples/mixed-iaas-plugin/blob/master/examples/multicloud-nodecellar/nodecellar/nodecellar-vm.yaml#L86">https://github.com/cloudify-examples/mixed-iaas-plugin/blob/master/examples/multicloud-nodecellar/nodecellar/nodecellar-vm.yaml#L86</a></p>
+
+<p>With this configuration, every scale action will scale the AWS target until there are 10 AWS instances. Then it will start creating Openstack instances.</p>
+
+<p>For complete deployment instructions see the READMEs for these blueprints.</p>
+
+</notextile>
