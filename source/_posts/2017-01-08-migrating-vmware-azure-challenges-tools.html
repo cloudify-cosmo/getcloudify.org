@@ -1,0 +1,100 @@
+---
+layout: blogpost
+title: Migrating Your VMware to Azure - Challenges and Tools
+description: Learn how to migrate your VMware environments to Azure using the right tools and understanding the challenges. 
+image: jeremy.jpg
+author: Jeremy Hess
+tags: 
+ - DevOps
+ - Cloud Automation
+ - Azure
+ - VMware
+ - Hybrid Cloud
+---
+
+<notextile>
+
+<img src="/img/vmware_azure.png" alt="VMware and Azure" width="870px">
+<br/>
+<br/>
+ 
+
+<p><b></b>
+
+<p>More and more enterprises today are moving their cloud services to <a href="http://getcloudify.org/2016/10/31/azure-versus-aws-for-enterprise.html">Microsoft Azure</a>. Azure has been quickly closing the gap on Amazon Web Services (AWS). It leverages its presence in the enterprise marketplace, and leads with its <a href="http://getcloudify.org/2016/12/01/deploying-app-aws-openstack-hybrid-cloud-orchestration-single-cloudify-tosca-blueprint.html">hybrid cloud</a> strategy and ability to provide service and workload mobility between on-premises and in-cloud workloads. Azure&rsquo;s growth is driven in large part due to Microsoft&rsquo;s Enterprise Agreement (EA), which provides enterprises with a single agreement for central IT and other departments to enjoy the various benefits that Azure presents to its customers.</p>
+
+<p>As enterprises migrate to <a href="http://getcloudify.org/webinars/Azure-plugin-for-cloudify-webinar.html">Azure</a>, however, they need to consider what applications are being used in their organizations, as well as how to effectively plan and choose which tools are needed in order to ensure a smooth migration. Compatibility and the cost of running applications in on-demand cloud resources are other factors to consider for a successful migration.</p>
+
+<p>In this article, we will discuss some of the challenges of migrating your <a href="http://getcloudify.org/2016/11/15/closed-loop-monitoring-alerting-healing-cloudify-vmware-vrealize-operations-integration.html">VMware</a> environment to Azure, and some solutions and best practices for ensuring a seamless migration.</p>
+
+<hr>
+
+<span class="pullquote-left">
+  <font style="font-weight: bold" size="5" face="Baskerville Old Face"><em>Join our upcoming Azure webinar on January 10th!</em></font>&nbsp; <a class="btn btn-medium btn-theme btn-rounded" id="downloadBtnInner" href="http://getcloudify.org/webinars/Azure-plugin-for-cloudify-webinar.html" target="_blank"><i class="icon-plus"></i> Register Now </a></span>
+  
+  <hr>
+
+<h2>VMware Migration Challenges</h2>
+<p>Moving large amounts of data from Virtual Machines in your on-premises environment into Azure is not without its challenges. These include having sufficient bandwidth for replication and data transfer and potential downtime that can occur for Production VMs running business operations. And, adding to that is the veteran enterprise IT environment -- data centers filled with complex legacy installations that include multiple systems interdependencies.</p>
+
+<p>While challenges are inevitable, all virtualized Microsoft environments are based on the same technology, Hyper-V, which makes migration significantly easier. Azure also provides the tools to migrate pools of resources from VMware as well as physical machines, using <a href="https://azure.microsoft.com/en-us/services/site-recovery/">Azure Site Recovery</a> (ASR).</p>
+
+<h2>Migrating with Microsoft ASR</h2>
+<p>The recommended method of migrating virtual machines to Azure is to use ASR. Using ASR, organizations can replicate their on-premises Hyper-V virtual machines, physical servers and VMware virtual machines to Azure. This is useful for disaster recovery to perform failovers, and also to migrate from an on-premises environment to Azure.</p>
+
+<p>One of the major benefits of using ASR for replication of on-premises virtualized environments is that you pay only for the resources that you use, when you use them. When you actually do failover to Azure, Azure creates the VMs with the replicated data. When customers migrate from their on-premises environment to Azure, they can use their existing Windows Server licenses in Azure by using <a href="https://azure.microsoft.com/en-us/pricing/hybrid-use-benefit/">Azure Hybrid Use Benefit</a>.</p>
+
+<p>In order to use ASR you will need first to <a href="https://azure.microsoft.com/en-us/documentation/articles/backup-azure-vms-first-look-arm/">create a new </a><a href="https://azure.microsoft.com/en-us/documentation/articles/backup-azure-vms-first-look-arm/">r</a><a href="https://azure.microsoft.com/en-us/documentation/articles/backup-azure-vms-first-look-arm/">ecovery vault</a>. The recovery vault can be created in the Azure portal by clicking on More Services, and searching for &lsquo;Recovery Services vault&rsquo;. Once this is done, click Add and fill in the required information.</p>
+
+<p class="aligncenter"><img src="/img/blog/azure_recovery1.png"></p>
+
+<p>Once this is created you can then start to prepare the infrastructure. This is done by choosing your protection goals, which is to replicate machines to Azure from VMware.</p>
+
+<p class="aligncenter"><img src="/img/blog/azure_recovery2.png"></p>
+
+<p>The next step is to prepare the <strong>Configuration Server</strong>. This server is a Windows Server 2012 R2 which should be hosted on your on-premises VMware environment. The &lsquo;Microsoft Azure Site Recovery Unified Setup&rsquo; needs to be downloaded and installed, as well as the vault registration key. The Configuration Server needs to have PowerCLI 6.0 installed.</p>
+
+<p><strong>Note: </strong><a href="https://labs.vmware.com/flings/vsphere-replication-capacity-planning-appliance">VMware offers a capacity planning tool</a> to help estimate the amount of resources that the replication will use for the Configuration Server.</p>
+
+<p class="aligncenter"><img src="/img/blog/azure_recovery3.png"></p>
+
+<p>When &lsquo;Microsoft Azure Site Recovery Unified Setup&rsquo; is installed, there will be a shortcut on the desktop called cspsconfigtool.exe. This tool needs to be run to add an account and give ASR access to your VMware environment. The account permissions can be <a href="https://azure.microsoft.com/en-us/documentation/articles/site-recovery-vmware-to-azure/#vmware-account-permissions">found here</a>.</p>
+
+<p>Once the source is set up, the target environment needs to be set up. This consists of the Azure subscription, deployment model, a storage account for the replicated data and a dedicated virtual network.</p>
+
+<p class="aligncenter"><img src="/img/blog/azure_recovery4.png"></p>
+
+<p>Once the target is set up, it is time to configure the replication settings:</p>
+
+<p class="aligncenter"><img src="/img/blog/azure_recovery5.png"></p>
+<br>
+<p class="aligncenter"><img src="/img/blog/azure_recovery6.png"></p>
+
+<p>For a VMware machine to be replicated to Azure, the <strong>Mobility Service</strong> needs to be installed. This service captures data writes on the VM and forwards it to the Configuration Server. The Mobility Service can either be pushed out automatically or manually. To install it manually, the setup files can be found on the Configuration server at &lt;code&gt;<em>C:\Program Files (x86)\Microsoft Azure Site Recovery\home\svsystems\pushinstallsvc\repositor</em>.&lt;/code&gt;</p>
+
+<p>The next step is to enable replication for the VMs. This is where you select the source environment that was set up previously, select the target environment such as the storage account to replicate the VM, the destination virtual network and the VM that has the mobility service installed.</p>
+
+<p class="aligncenter"><img src="/img/blog/azure_recovery7.png"></p>
+
+<p>Once the virtual machine has been fully replicated, it will show up as <em>&ldquo;protected&rdquo;</em> in the Replicated items section in the Recovery Services vaults. When the virtual machine is protected, an unplanned failover can be performed.</p>
+
+<p>Depending on the VMware account permissions specified earlier, the VMware machine is shut down, and Azure then creates the virtual machine from the data replicated to the Storage account. Once the virtual machine has successfully failed over and completed, &lsquo;Complete Migration&rsquo; can be selected - which will then stop the source virtual machine from being replicated.</p>
+
+<p>The virtual machine will now be running in Azure. Depending on how you have your Azure environment set up, if you have a site-to-site VPN or an Azure Expressroute, and if you migrated the virtual machine to be in the virtual network associated with the VPN or Expressroute, you can then change your on-premises DNS settings to point to the new Azure private IP, and connect to it. Providing that the virtual machine replicated successfully, you can then decommission the on-premises server.</p>
+
+<h2><strong>Recovery Plans</strong></h2>
+<p>ASR includes a failover automation feature called <a href="https://azure.microsoft.com/en-us/documentation/articles/site-recovery-create-recovery-plans/">R</a><a href="https://azure.microsoft.com/en-us/documentation/articles/site-recovery-create-recovery-plans/">ecovery Plans</a>. The Recovery Plan allows you to define groups of machines which need to be restored together (i.e., an N-tier application), as well as the order that those systems failover and are brought online. The recovery plan capability can help you test and iterate fixes to your migration plan. When you enable replication, the data is copied into the ASR Vault. The Recovery Plan controls the order that the replicated data/machines are spun up into an Azure VM.</p>
+
+<p>In addition to the steps above, the following diagram nicely illustrates the steps Microsoft recommends to migrate an on-premises application to Azure using ASR. You will need to have <a href="https://azure.microsoft.com/en-us/documentation/articles/storage-introduction/">LRS or GRS (redundant) storage</a> and a Site Recovery Vault under your Azure account, and both should be deployed in the same region. Next you will need to create your network topology and then use recovery plans to perform migration tests.</p>
+
+<p class="aligncenter"><img src="/img/blog/azure_recovery8.png"><br><span style="font-size: 10px">Source: <a href="https://azure.microsoft.com/en-gb/blog/migrate-heterogeneous-it-environments-to-azure-with-asr/">Microsoft</a></span></p>
+
+<p>For more information on the prerequisites and exact steps required to migrate using ASR, take a look at <a href="https://azure.microsoft.com/en-us/documentation/articles/site-recovery-vmware-to-azure/">this detailed Azure documentation</a>.</p>
+<h1>Final Note</h1>
+<p>Over the last few years, the huge investments made in cloud infrastructure have enabled a new world of hosting options that make deploying a VM to the cloud more manageable than ever before. When migrating VMware to Azure, several migration paths and approaches can be considered, with each having its advantages and disadvantages.</p>
+
+<p>Moving VMs to the Azure cloud provides enterprises with a huge range of scalability and redundancy options. Tools like <a href="https://azure.microsoft.com/en-us/overview/azure-stack/">Azure Stack</a> enable scaling when and how enterprises need it.</p>
+<h1>Want More Azure? Join Our Webinar!</h1>
+<p>On January 10, the Azure team will be joining us for an informative and interesting webinar on the Azure technology and features, the future of Azure in the enterprise, and will feature an application deployment demonstration on Azure. <a href="http://bit.ly/2i3m2nq">Join us at this link</a>.</p>
+
+</notextile>
