@@ -1,0 +1,71 @@
+---
+layout: blogpost
+title: Openness Is the True Path of NFV
+description: Nati Shalom discusses the reasons why telecoms operators need to move away from propietary vendor solutions and embrace open source in NFV.
+image: nati.png
+author: Nati Shalom
+tags:
+ - NFV
+ - Telecom
+ - Network Orchestration
+ - TOSCA
+ - MWC
+---
+
+<notextile>
+
+<img src="/img/blog/open_source_nfv.png" alt="Open Source NFV Architecture">
+<br/>
+<br/>
+
+
+<h3><em><a href="https://www.sdxcentral.com/articles/contributed/openness-true-path-nfv/2017/01/" target="_blank">This post</a> first appeared in <a href="https://www.sdxcentral.com/" target="_blank">SDxCentral</a> on January 2, 2017.</em></h3>
+
+<p>A recent SDxCentral contributed post asked, &ldquo;<a title="" href="https://www.sdxcentral.com/articles/contributed/does-nfv-create-vendor-lock-in/2016/11/#comment-100899" target="_blank">Does NFV create vendor lock-in?</a>&rdquo; In it, author Shehzad Merchant posits that the current trajectory of <a href="http://getcloudify.org/network-function-virtualization-vnf-nfv-orchestration-sdn-platform.html">network functions virtualization (NFV)</a> is headed down a path of tighter vendor lock-in by virtue of &ldquo;the use of specialized acceleration engines and network interface cards (NICs) for performance improvements within the server <em>plus</em> the use of dedicated, stateful load-balancer appliances to distribute traffic across servers.&rdquo;</p>
+<p>I applaud Merchant for raising the issue, but the <em>important</em> issue here isn&rsquo;t the one he raises. Rather, the important issue is this: lock-in with NFV derives from proprietary solutions. Openness is the true path of NFV. It&rsquo;s already happening. Here&rsquo;s why.</p>
+
+<hr>
+
+<span class="pullquote-left">
+  <font style="font-weight: bold" size="5" face="Baskerville Old Face"><em>Join our Open vCPE Live Webinar!</em></font>  <a class="btn btn-medium btn-theme btn-rounded" id="downloadBtnInner" href="http://bit.ly/2ijvCRy" target="_blank"><i class="icon-plus"></i> Register Now </a></span>
+  
+  <hr>
+
+<h2><strong>We&rsquo;re From Cisco, and We&rsquo;re Here to Help You</strong></h2>
+
+<p>First, the lock-in Merchant speaks of results from hardware vendors&rsquo; inherent conflicts of interest. They are biased toward promoting their own proprietary hardware extensions under the guise of &ldquo;openness.&rdquo; In direct contrast, let&rsquo;s look at pure-play, open source options. Network operators have choices in orchestration and <a href="http://getcloudify.org/2016/12/06/hybrid-vnf-container-orchestration-kubernetes-docker-swarm-using-cloudify.html">virtual network functions (VNFs)</a>&nbsp;including (<a title="Cloudify" href="https://www.sdxcentral.com/products/gigaspace-cloudify/">Cloudify</a>, <a href="http://getcloudify.org/2016/06/21/opnfv-functest-team-tests-clearwater-vims-deployment-using-cloudify-with-100-percent-success-nfv-orcehstration.html" target="_blank">Clearwater</a>, etc.) where&nbsp;openness is core to the model. When you look at the market from these two diametrically opposed views, you can begin to see how the open example promoted by AT&amp;T is one that proprietary vendors like <a title="" href="http://getcloudify.org/2016/04/26/where-att-leads-cisco-cannot-follow-openstack-summit-cloud-nfv-orchestration.html" target="_blank">Cisco cannot follow</a>.</p>
+
+<h2><strong>Want Portability? Look Up the Stack</strong></h2>
+
+<p>Next, we need to reevaluate our understanding of portability. Or, to use a worn-out business phrase, we need to &ldquo;shift our paradigm.&rdquo; To achieve portability, we need high-level abstraction&mdash;that is, abstraction at the orchestration level rather than the infrastructure level. The <a href="http://getcloudify.org" target="_blank">open-source Cloudify</a> project offers <a title="Building Your Applications for Cloud Portability" href="http://natishalom.typepad.com/nati_shaloms_blog/2016/07/building-your-application-for-cloud-portability-an-alternative-approach-to-hybrid-cloud.html" target="_blank">examples</a> that demonstrate how to achieve portability, not just between different infrastructure providers, but also between different software stacks.</p>
+
+<h2><strong>You Say &lsquo;Turnkey,&rsquo; I Say &lsquo;Lock-In&rsquo;</strong></h2>
+
+<p>The allure of single-vendor, turnkey solutions is seductive. It&rsquo;s also the road to lock-in, because you become increasingly dependent on a single vendor to develop, ship, and support every feature (or most of them) in the stack&mdash;regardless if the stack is open source or proprietary. Merchant misses this key point, as (paradoxically) do writers who think open source automatically reduces lock-in.</p>
+
+<h2><strong>Making Open&hellip; Open</strong></h2>
+
+<p>The open source alternative to proprietary <a href="http://getcloudify.org/2014/04/19/what-is-nfv-network-function-virtualization-vnf.html" target="_blank">NFV</a> solutions requires a different engagement model between vendors and operators. Primarily, this means a partnership model that looks more like a joint venture relationship with the vendors that are part of the solution. This means that the carrier (or enterprise operator of a large, distributed network) needs to be part of the solution and not just the one that defines requirements for vendors. This isn&rsquo;t as hard as you might think: there are growing numbers of open source solutions that can fill in the stack.</p>
+
+<p>To help get you started, here&rsquo;s a dirt-simple &ldquo;openness&rdquo; checklist:</p>
+
+<ul>
+<li>How simple is it to integrate new stacks/services without involvement from the vendor?</li>
+<li>Can I install or customize the solution for free without vendor involvement?</li>
+<li>Can it work with different clouds/infrastructures?</li>
+<li>Will it integrate with other&mdash;potentially competing&mdash;products?</li>
+<li>Are the open source projects on which it&rsquo;s based supported by an active community where decisions are made inclusively via an open governance process?</li>
+<li>Does it support commonly accepted scale-out networking standards like topology and orchestration specification for cloud applications (TOSCA) and YANG?</li>
+</ul>
+
+<p>If vendors pass these tests, you&rsquo;re off to a great start.</p>
+
+<h2><strong>&ldquo;Turnkey by Default&rdquo; is the Problem, not Openness</strong></h2>
+
+<p>The NFV solutions Merchant is talking about fail to deliver a true open solution. I argue that the reason for this is that customers are voluntarily locking themselves in by asking for turnkey solutions, which lead them to lock in by default. To achieve a true open NFV solution, carriers must first embrace a best-of-breed approach, working with vendors offering business models that don&rsquo;t conflict with their anti-lock-in needs.</p>
+
+<p>Perhaps the question Merchant raises, &ldquo;Does NFV create vendor lock-in?&rdquo; should be modified to &ldquo;Are carriers really ready to commit to an Open NFV strategy?&rdquo; Because if they&rsquo;re ready to change old habits, they can get an open solution that puts them in control, not their vendors.</p>
+
+<p>If you are interested in meeting at Mobile World Congress to speak about multi-VIM, NFV MANO, please send us an email at <a href="mailto:hello@getcloudify.org">hello@getcloudify.org</a>.</p>
+
+</notextile>
