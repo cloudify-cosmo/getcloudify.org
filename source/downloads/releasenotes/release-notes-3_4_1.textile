@@ -33,7 +33,7 @@ cat: User Guide
                                     <div class="row">
                                     <div class="span10">
 
-                         <h1><strong>Release 3.4.1 Service Pack (JAN-2017)</strong></h1>
+                         <h1><strong>Release 3.4.1 Service Pack (15-JAN-2017)</strong></h1>
                                  <h2>Release Highlights</h2>
                                  <ul>
                                  	<li><a href="https://cloudifysource.atlassian.net/browse/CFY-5996">CFY-5996</a> An automated process has been created that ensures that Cloudify agents connect to the correct Cloudify Manager IP in the event that Cloudify Manager has more than one private IP address.</li>
@@ -45,7 +45,7 @@ cat: User Guide
 <li><a href= "https://cloudifysource.atlassian.net/browse/CFY-6162">CFY-6162</a> A maximum limit has been set for data that can be returned from the Web server in response to a request by a client.</li>
 <li><a href= "https://cloudifysource.atlassian.net/browse/CFY-6163">CFY-6163</a> The reasonable default value set in CFY-6162 is configurable.</li>
 <li><a href= "https://cloudifysource.atlassian.net/browse/CFY-6164">CFY-6164</a> A maximum limit has been set for data that can be returned from an Elasticsearch request.</li>
-<li<a href= "https://cloudifysource.atlassian.net/browse/CFY-6129">>CFY-6129</a> The system can detect the current available memory in Cloudify Manager. If the available size is less than the configurable size, the request is dropped.</li>
+<li><a href= "https://cloudifysource.atlassian.net/browse/CFY-6129">CFY-6129</a> The system can detect the current available memory in Cloudify Manager. If the available size is less than the configurable size, the request is dropped.</li>
 </ul></li>
                                  	</ul>
                                  	<h2>Fixed Issues</h2>
@@ -65,7 +65,7 @@ cat: User Guide
                                  	<h2>Known Issues</h2>
                                		<ul>
 									
-									<li><a href="https://cloudifysource.atlassian.net/browse/CFY6301">CF-6301</a> When you upgrade Cloudify Manager from version 3.4 to version 3.4.1, existing agents are uninstalled but content in shared directories is not uninstalled. As a result, you cannot install a new agent to a host machine because the installer detects the residual content and assumes the agent is already installed.<br>
+									<li><a href="https://cloudifysource.atlassian.net/browse/CFY6301">CF-6301</a> If you have a running deployment and you upgrade the Cloudify agent from 3.4 to 3.4.1, performing an uninstall and then install on this deployment will not work as expected. If you wish to perform uninstall and then install on the deployment, perform the workaround instructions after uninstall and before install.<br>
 <strong>Workaround:</strong> Delete the following from the machine on which you want to install the agent:<br>
 										<ul>
 										<li>&#47;home&#47;centos&#47;cfy-agent&#47;vm_<var>xxxxx</var>.json</li>
