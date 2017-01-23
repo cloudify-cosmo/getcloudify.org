@@ -3,7 +3,22 @@ layout: bt_events
 title: Upcoming Events and Webinars
 category: Events
 ---
+    <link rel="stylesheet" href="{{ site.baseurl }}/fullcalendar/fullcalendar.css" />
+	<script src="{{ site.baseurl }}/fullcalendar/lib/moment.min.js"></script>
+	<script src="{{ site.baseurl }}/fullcalendar/fullcalendar.js"></script>
+	<script type="text/javascript" src="{{ site.baseurl }}/fullcalendar/gcal.js"></script>
+	<script type='text/javascript'>
 
+$(document).ready(function() {
+    $('#calendar').fullCalendar({
+        googleCalendarApiKey: 'AIzaSyDyaAQw4pia3O8sPSI-hdLxEpzRJVIMS-U',
+        events: {
+            googleCalendarId: 'gigaspaces.com_5fjp2kc2661p8uefr0u6vp261g@group.calendar.google.com'
+        }
+    });
+});
+
+</script>
 
 
 <div id="calendar"></div>
