@@ -1,0 +1,124 @@
+---
+layout: blogpost
+title: Orchestrating A Kubernetes Managed Virtual Network Function With Cloudify
+description: This post explores the process of containerizing Quagga and deploying it using Kubernetes.
+image: dewayne.jpg
+author: DeWayne Filppi
+tags: 
+ - NFV
+ - Kubernetes
+ - VNF Management
+ - Microservices
+ - Containers
+---
+
+<notextile>
+
+<div class="aligncenter"><img src="/img/blog/k8s_quagga.png" alt="Quagga inside Kubernetes" width="400"></div>
+<br/>
+<br/>
+
+<p><b></b>
+
+<p>An important use case for <a href="http://getcloudify.org/network-function-virtualization-vnf-nfv-orchestration-sdn-platform.html" target="_blank">virtual network functions (VNF)</a> is using <a href="http://getcloudify.org/container-docker-kubernetes-orchestration-management-cloud-deployment-automation.html" target="_blank">container technology</a> rather than OS virtualization. The advantages of containerization include agility, performance, and density/efficiency. Kubernetes (managing <a href="http://getcloudify.org/2015/06/19/docker-tosca-cloud-orchestration-openstack-heat-kubernetes.html" target="_blank">Docker containers</a>) is the leading (and most capable) container management platform today, and the logical platform to use for technical exploration. In this post, we'll explore a Cloudify orchestrated example of deploying a VNF as a microservice in Kubernetes.</p>
+
+<hr>
+
+<span class="pullquote-left">
+  <font style="font-weight: bold" size="5" face="Baskerville Old Face"><em>Register for our Open vCPE Webinar Today!</em></font>&nbsp; <a class="btn btn-medium btn-theme btn-rounded" id="downloadBtnInner" href="hhttp://getcloudify.org/webinars/open-vCPE-framework-webinar.html" target="_blank"><i class="icon-plus"></i> Go </a></span>
+  
+  <hr>
+
+<p>The <a href="http://www.nongnu.org/quagga">Quagga</a> router is software that turns a Linux host into a router. Any Linux host with IP forwarding capability can function as a router simply by modifying the kernel routing table using standard shell commands (.e.g. ip route). Quagga builds on this capability and provides dynamic routing capability via various standard routing protocols, including OSPF, RIP, BGP and others. This post explores the process of containerizing Quagga and deploying it using <a href="http://getcloudify.org/2016/12/06/hybrid-vnf-container-orchestration-kubernetes-docker-swarm-using-cloudify.html" target="_blank">Kubernetes</a>. In the project, Cloudify is used to run Kubernetes, and deploys Quagga as a microservice using <a href="http://getcloudify.org/2017/01/11/openness-the-true-path-nfv.html" target="_blank">TOSCA modeling</a>.</p>
+<div align="center"><img src="/img/blog/kubernetes_quagga.png" alt="" /></div>
+<h2>Containerization Issues</h2>
+<p>Docker containers (on Linux) typically run in their own network namespace. In practical terms, this means they have a network stack (including routing tables) independent from the host network stack. Generally, this is highly desirable, but in the case of a VNF that emulates a general purpose router, it is not desireable. Fortunately, Docker containers can be configured to use the host network stack when running in privileged mode. In the case of Quagga, the practical consequence is that the inter-routing procotols will be visible, and changes to the host routing table will actually cause the node to behave as expected. Taking this approach sacrifices networking isolation on the target host, but the use case justifies it. Kubernetes supports the starting of privileged containers, so the pod configuration is straightforward. The key properties are <code>hostNetwork</code> and <code>securityContext</code>:</p>
+<div class="highlight highlight-source-yaml">
+<pre> <span class="pl-ent">spec</span>:
+ <span class="pl-ent">hostNetwork</span>: <span class="pl-c1">true</span>
+ <span class="pl-ent">containers</span>:
+ - <span class="pl-ent">name</span>: <span class="pl-s">quagga</span>
+ <span class="pl-ent">image</span>: <span class="pl-s">quagga</span>
+ <span class="pl-ent">workingDir</span>: <span class="pl-s">/root</span>
+ <span class="pl-ent">command</span>: <span class="pl-s">["bash","/root/start.sh"]</span>
+ <span class="pl-ent">ports</span>:
+ - <span class="pl-ent">containerPort</span>: <span class="pl-c1">80</span>
+ <span class="pl-ent">hostIP</span>: <span class="pl-s">0.0.0.0</span>
+ <span class="pl-ent">securityContext</span>:
+ <span class="pl-ent">privileged</span>: <span class="pl-c1">true</span>
+ <span class="pl-ent">env</span>:
+ - <span class="pl-ent">name</span>: <span class="pl-s">INTERFACES</span>
+ <span class="pl-ent">value</span>: <span class="pl-s">eth0,eth1</span>
+ - <span class="pl-ent">name</span>: <span class="pl-s">ROUTES</span>
+ <span class="pl-ent">value</span>: <span class="pl-s">10.0.0.0/24 172.16.0.1,10.10.0.0/24 172.16.0.1</span></pre>
+</div>
+<p>Beyond networking configuration, the initial configuration of static routes needs to be addressed. Note the <code>command</code> property in the preceding excerpt. This identifies the <code>start.sh</code> script as the startup command for the container. This example uses environment variables, defined in the <code>env</code> section, to configure initial static routes by updating the Quagga configuration file and starting the Quagga service.</p>
+<div class="highlight highlight-source-shell">
+<pre>IFS=<span class="pl-s"><span class="pl-pds">"</span>,<span class="pl-pds">"</span></span>
+<span class="pl-k">for</span> <span class="pl-smi">I</span> <span class="pl-k">in</span> <span class="pl-smi">$INTERFACES</span>
+<span class="pl-k">do</span>
+ <span class="pl-c1">echo</span> <span class="pl-s"><span class="pl-pds">"</span>interface <span class="pl-smi">$I</span><span class="pl-pds">"</span></span> <span class="pl-k">&gt;&gt;</span> /etc/quagga/zebra.conf
+<span class="pl-k">done</span>
+<span class="pl-k">for</span> <span class="pl-smi">R</span> <span class="pl-k">in</span> <span class="pl-smi">$ROUTES</span>
+<span class="pl-k">do</span>
+ <span class="pl-c1">echo</span> <span class="pl-s"><span class="pl-pds">"</span>ip route <span class="pl-smi">$R</span><span class="pl-pds">"</span></span> <span class="pl-k">&gt;&gt;</span> /etc/quagga/zebra.conf
+<span class="pl-k">done</span>
+service quagga start
+tail -f /dev/null</pre>
+</div>
+<p>After the script runs, Quagga modifies the host routing tables. This example only addressed static routing, which is the basis for the dynamic routing protocol implementation.</p>
+<h2>Placement</h2>
+<p>A multi-node <a href="http://getcloudify.org/2016/07/13/cloudify-and-kubernetes-cluster-hybrid-stack-orchestration-cloud-deployment-automation.html" target="_blank">Kubernetes deployment</a> is likely to want to constrain the location of the router in the cluster to access multiple interfaces. Kubernetes permits the labeling of nodes in a cluster with arbitrary values, and then requesting the placement algorithm to filter candidates based on the labels. This is one area Cloudify can provide value as part of the Kubernetes installation. See the <a href="https://github.com/cloudify-examples/kubernetes-cluster-blueprint">Kubernetes example blueprint</a> for a sample <a href="http://getcloudify.org" target="_blank">Cloudify orchestration</a>. A simple extension to the schema and some additional logic can provide the needed functionality. The addition of a <code>labels</code> input to the <code>start.py</code> script for the kubernetes node provides the labels:</p>
+<div class="highlight highlight-source-yaml">
+<pre> <span class="pl-ent">cloudify.interfaces.lifecycle</span>:
+ <span class="pl-ent">start</span>:
+ <span class="pl-ent">implementation</span>: <span class="pl-s">scripts/kubernetes/node/start.py</span>
+ <span class="pl-ent">inputs</span>:
+ <span class="pl-ent">&lt;&lt;</span>: <span class="pl-s">*kubernetes_environment</span>
+ <span class="pl-c"><span class="pl-c">#</span> ADDED LABELS INPUT</span>
+ <span class="pl-ent">labels</span>:
+ - <span class="pl-ent">role</span>: <span class="pl-s">router</span></pre>
+</div>
+<p>Naturally, the <code>start.py</code> script needs to be modified to add the <code>--labels</code> parameter for the <code>hyperkube</code> startup. Once done, Kubernetes is ready to filter once started.</p>
+<h2>The Router Microservice Definition</h2>
+<p>A separate Cloudify blueprint from the blueprint that started Kubernetes can be used to model the Quagga router. The blueprint is small enough to include:</p>
+<div class="highlight highlight-source-yaml">
+<pre><span class="pl-ent">node_templates</span>:
+ <span class="pl-ent">kubernetes_proxy</span>:
+ <span class="pl-ent">type</span>: <span class="pl-s">cloudify.nodes.DeploymentProxy</span>
+ <span class="pl-ent">properties</span>:
+ <span class="pl-ent">inherit_outputs</span>:
+ - <span class="pl-s"><span class="pl-pds">'</span>kubernetes_info<span class="pl-pds">'</span></span>
+<span class="pl-s">....</span>
+ <span class="pl-ent">quagga</span>:
+ <span class="pl-ent">type</span>: <span class="pl-s">cloudify.kubernetes.Microservice</span>
+ <span class="pl-ent">properties</span>:
+ <span class="pl-ent">name</span>: <span class="pl-s">nginx</span>
+ <span class="pl-ent">ssh_username</span>: <span class="pl-s">ubuntu</span>
+ <span class="pl-ent">ssh_keyfilename</span>: <span class="pl-s">/root/.ssh/agent_key.pem</span>
+ <span class="pl-ent">config_files</span>:
+ - <span class="pl-ent">file</span>: <span class="pl-s">resources/kubernetes/pod.yaml</span>
+ <span class="pl-ent">relationships</span>:
+ - <span class="pl-ent">type</span>: <span class="pl-s">cloudify.kubernetes.relationships.connected_to_master</span>
+ <span class="pl-ent">target</span>: <span class="pl-s">kubernetes_proxy</span></pre>
+</div>
+<p>Since no overrides are specified for the <a href="http://getcloudify.org/2016/03/24/openstack-scaling-kubernetes-microservices-linux-containers-cloud-TOSCA-orchestration.html" target="_blank">microservice</a>, the Cloudify blueprint is fairly trivial. It identifies the Kubernetes master node and <code>pod.yaml</code> file (excerpt at the beginning of the post), as well as ssh information for logging into the Kubernetes. The reason the login information is needed is this sample implementation relies on the <code>kubectl</code> command line tool on the master. The only additional modification needed for placement is to the <code>pod.yaml</code> file to target the router node:</p>
+<div class="highlight highlight-source-yaml">
+<pre> <span class="pl-ent">spec</span>:
+ <span class="pl-ent">hostNetwork</span>: <span class="pl-c1">true</span>
+ <span class="pl-c"><span class="pl-c">#</span> ADD NODE SELECTOR</span>
+ <span class="pl-ent">nodeSelector</span>:
+ <span class="pl-ent">role</span>: <span class="pl-s">router</span>
+ <span class="pl-ent">containers</span>:
+ - <span class="pl-ent">name</span>: <span class="pl-s">quagga</span>
+ <span class="pl-ent">image</span>: <span class="pl-s">quagga</span>
+ <span class="pl-ent">workingDir</span>: <span class="pl-s">/root</span>
+<span class="pl-s">....</span></pre>
+</div>
+<h2>Conclusion</h2>
+<p>Kubernetes, Docker, and Cloudify work together seamlessly to create a containerized VNF platform that can deliver high availability, high performance, and high density, while retaining the benefits of a micrservices architecture.</p>
+
+<h2>Come Meet us at Mobile World Congress</h2>
+<p>We are going to be on the ground at Mobile World Congress in Barcelona talking all about Cloud Native Virtual Network Functions, vCPE, and more. Just <a href="mailto:hello@getcloudify.org" target="_blank">send us an email</a> and let's meet!</p>
+
+</notextile>
