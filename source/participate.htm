@@ -10,16 +10,21 @@ category: Events
 	<script type='text/javascript'>
 
 $(document).ready(function() {
-    $('#calendar').fullCalendar({
-        googleCalendarApiKey: 'AIzaSyDyaAQw4pia3O8sPSI-hdLxEpzRJVIMS-U',
-        events: {
-            googleCalendarId: 'gigaspaces.com_5fjp2kc2661p8uefr0u6vp261g@group.calendar.google.com'
-        }
-    });
+   $('#calendar').fullCalendar({
+    defaultView: 'listYear',
+    googleCalendarApiKey: 'AIzaSyDyaAQw4pia3O8sPSI-hdLxEpzRJVIMS-U',
+
+    events: 'gigaspaces.com_5fjp2kc2661p8uefr0u6vp261g@group.calendar.google.com',
+
+    header: false
+    
+	});
 });
 
 </script>
 
+<div class="aligncenter" style="font-size: 28px"><b>Cloudify Events Calendar 2017</b><br>
+<span style="font-size: 10px"><em>scroll down for more</em></span></div>
 
 <div id="calendar"></div>
 <br>
