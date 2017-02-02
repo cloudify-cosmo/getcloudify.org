@@ -23,11 +23,24 @@ category: cloud orchestration cloud automation
 					<div class="span12 no-margin">
 						<img src="/img/containers_sphere.png" style="float: right; display: inline; margin-left:10px;"><h1><strong>Container Orchestration in a Cloud Native World</strong></h1>
 						<p>Linux containers have quickly taken a large role in the cloud computing industry for their lightweight characteristics and ability to efficiently share underlying resources. Container architecture also provides a method of simplifying the portability of applications between various clouds such as OpenStack, VMware, and others.</p>
-						<p>Cloudify delivers robust container orchestration of heterogeneous stacks and environments - containers alongside non-containers.  By providing clusters on demand, auto-healing and scaling at the infrastructure level, Cloudify now makes containers and microservices truly production-grade.</p>
+
+						<p>Cloudify delivers robust container orchestration of heterogeneous stacks and environments - containers alongside non-containers, stateful and non-stateful service, all through a single application blueprint</p> 
+						<p>This includes:</p>
+						<ul>
+						<li>Multiple hosts</li> 
+						<li>Placement control</li>
+						<li>Network orchestration</li>
+						<li>Placement</li>
+						<li>Affinity/anti-affinity</li>
+						<li>High availability</li>
+						<li>Scaling</li>
+						<li>Load balancing</li>
+						<li>Rolling upgrades</li>
+						</ul>
 						
-						<p>With service-modeling based on TOSCA, Cloudify is uniquely suited to the deployment automation and lifecycle management of containers, and microservices by enabling the deployment of applications and services in containers and alongside not containerized environments, on heterogeneous infrastructure, all while being infrastructure-aware. </p>
-						<br/>
+						<p>With service-modeling based on TOSCA, Cloudify is uniquely suited to the deployment automation and lifecycle management of containers, and microservices.  By providing clusters on demand, auto-healing and scaling at the infrastructure level, Cloudify now makes containers and microservices truly production-grade.</p>
 						
+					
 						
 					
 						</div>
@@ -110,7 +123,7 @@ category: cloud orchestration cloud automation
 				<div class="pullquote-bottom"><h1><strong>Model-Driven Cloud Native Orchestration</strong></h1></div>
 					<p></p>
 					<p><img src="/img/container_orchestration.png" style="float: right; display: inline; margin-right:20px;">
-					The ability to create a generic model for your automation shows demonstrates significant value when you need to dynamically change your application’s flow (a common need), such as workflows and policies.</p>
+					Model-driven automation versus purpose-built demonstrates significant value when you need to dynamically change your application’s flow (a common need), such as workflows and policies.</p>
 					<p>This is especially true with containers and microservices architectures, that are highly componentized, and fragile when it comes to static processes and workflows - and can even lead to cascading failures, when these processes are broken. The monitoring of a model driven topology gives you a much deeper, robust ability to react and respond to changes</p>	
 
 					<p><strong>Model Driven (TOSCA) Service Orchestration</strong></p>
@@ -171,9 +184,9 @@ category: cloud orchestration cloud automation
 				<div class="row">
 				<div class="span6">
 					<h2><strong></strong></h2>
-					<p>Kubernetes has turned into possibly the most widely adopted Docker container management project, surpassing Docker Swarm, which is now making strides, and gaining renewed adoption. Kubernetes is a very opinionated system, built for container-specific architecture, but for heterogeneous environments, there is still a need for an orchestration solution. Cloudify can automate the management of Kubernetes as well as Docker and other containers on any infrastructure in a hybrid environment.</p>
+					<p>Kubernetes has turned into possibly the most widely adopted Docker container management project, surpassing Docker Swarm, which is now making strides, and gaining renewed adoption. That said, bringing up a Kubernetes cluster can often times be a complex undertaking, while deploying code can many times be error-prone, with a lot of manual intervention and no way simple to rollback,  and infrastructure scaling  can be time consuming and often times under-utilizes the underlying infrastructure. Cloudify can automate the deployment, management of Kubernetes as well as Docker and other containers on any infrastructure in a hybrid environment, in a manner that is infrastructure-aware, enabling cost savings through maximum utilization.</p>
 					<br>
-					<p>Cloudify has a <a href="http://getcloudify.org/examples/home.html#?repo=58148713" target="_blank">Kubernetes plugin</a> available with some limitations. The GA of this plugin will be released with the Cloudify 3.4 GA. Below is a video on Kubernetes Orchestration with Cloudify to give you an idea of how it works.</p><br>
+					<p>Cloudify has a <a href="http://getcloudify.org/examples/home.html#?repo=58148713" target="_blank">Kubernetes plugin</a> as well as <a href="http://getcloudify.org/examples/home.html#?repo=45144454" target="_blank">Kuberneted blueprint</a>, that you can find in our examples catalog. </p><br>
 					
 					</div>
 
@@ -199,8 +212,8 @@ category: cloud orchestration cloud automation
 					<div class="span6">
 					<h2><strong></strong></h2>
 
-					<p>Mesos has become a popular cluster scheduler, and is used often times to manage container clusters at a massive scale.  Cloudify has integrated with Mesos to deliver clusters on demand, as well as auto-scale and heal, even Mesos-scale deployments. </p>
-					<br><hr>
+					<p>Mesos has become a popular container and cloud cluster scheduler, and is used often times to manage container clusters at a massive scale.  Cloudify has integrated with Mesos to deliver clusters on demand, as well as auto-scale and heal, even Mesos-scale deployments. </p>
+					
 					
 
 
@@ -259,9 +272,10 @@ category: cloud orchestration cloud automation
 					<h2>Read More:</h2>
 					<p>For more content on Docker and Kubernetes, read our blog posts:</p>
 					<p>
+					<div class="aligncenter">
 					<div class="feedgrabbr_widget" id="fgid_1a4c9e1e5ffa949979b2dda1e"></div>
 					<script> if (typeof(fg_widgets)==="undefined") fg_widgets = new Array();fg_widgets.push("fgid_1a4c9e1e5ffa949979b2dda1e");</script>
-					<script src="http://www.feedgrabbr.com/widget/fgwidget.js"></script>
+					<script src="http://www.feedgrabbr.com/widget/fgwidget.js"></script></div>
 					</p>
 
 				</div>
