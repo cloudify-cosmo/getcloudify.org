@@ -124,37 +124,7 @@ category: cloud orchestration cloud automation
 				</div>
 				</div>
 
-				<div class="row">
-				<div class="span12">
-					<div class="pullquote-bottom"><h1><strong><img src="/img/kub-tile.png" width="75">Kubernetes Orchestration</strong></h1></div>
-					<p></p>
-						</div>
-					</div>
-				<div class="row">
-				<div class="span6">
-					<h2><strong></strong></h2>
-					<p>As containers became more widely used, there naturally became a need to manage those containers. Kubernetes has turned into possibly the most widely adopted Docker container management project. Kubernetes is a very opinionated system, built for container-specific architecture, but for heterogeneous environments, there is still a need for an orchestration solution. Cloudify can automate the management of Kubernetes as well as Docker and other containers on any infrastructure in a hybrid environment.</p>
-					<br>
-					<p>Cloudify has a <a href="http://getcloudify.org/examples/home.html#?repo=58148713" target="_blank">Kubernetes plugin</a> available with some limitations. The GA of this plugin will be released with the Cloudify 3.4 GA. Below is a video on Kubernetes Orchestration with Cloudify to give you an idea of how it works.</p><br>
-					
-					</div>
 
-					<div class="span6">
-					<h2><strong>Show Me the Code</strong></h2>	
-					<p><script src="https://gist.github.com/shar1z/6af4c5ebb63ff0b82f6c1745fe04d604.js"></script></p>
-					</div>
-
-
-
-					</div>
-					</div>
-
-				
-				</section>	
-				
-				<section id="content">
-				<div class="container">
-		
 				<div class="row">
 				<div class="span12">					
 					<div class="pullquote-bottom"><h1><strong><img src="/img/dockerswarm-tile.png" width="75">Docker Orchestration & Docker Swarm</strong></h1></div>
@@ -167,9 +137,69 @@ category: cloud orchestration cloud automation
 					<h2><strong></strong></h2>
 
 					<p>Docker containers were created for fast and reliable deployment of self-contained application components on any underlying infrastructure. However, applications are typically multi-tier in their architecture, which means that each container has dependencies which need to be managed properly.</p>
-					<p>Cloudify is the answer to this problem. Our Docker orchestration will take care of the timing of container creation by order of dependency, as well as all of the necessary configurations to allow the containers to communicate and pass the required runtime properties to one another.</p>
+					<p>Cloudify's Docker orchestration will take care of the timing of container creation by order of dependency, as well as all of the necessary configurations to allow the containers to communicate and pass the required runtime properties to one another.</p>
 					<p>Based on TOSCA, Cloudify's YAML-based blueprints, enable you to describe even the most complex topologies, including the infrastructure, middleware tier, and app layers on top of these.</p>
 					<p>Cloudify has a built-in <a href="https://github.com/cloudify-cosmo/cloudify-docker-plugin">Docker plugin</a> and matching types, which allow users to use Docker containers as part of any topology. This provides a full-blown orchestration and automation method for large-scale Docker-based systems.</p>
+					<p>Being API-driven, Cloudify is also able to plugin to Docker Swarm and orchestrate southbound, as Docker Swarm manages the higher-level applicative components.</p>
+					<br><hr>
+					
+
+
+					</div>
+					<div class="span6">
+					<h2><strong>Show Me the Code</strong></h2>
+					<p><script src="https://gist.github.com/shar1z/c6934f5a6f9751a255202445eaf97855.js"></script></p>
+					
+									
+					
+					</div>
+					
+				</div>
+
+
+								
+				</section>	
+				
+				<section id="content">
+				<div class="container">
+		<div class="row">
+				<div class="span12">
+					<div class="pullquote-bottom"><h1><strong><img src="/img/kub-tile.png" width="75">Kubernetes Orchestration</strong></h1></div>
+					<p></p>
+						</div>
+					</div>
+				<div class="row">
+				<div class="span6">
+					<h2><strong></strong></h2>
+					<p>Kubernetes has turned into possibly the most widely adopted Docker container management project, surpassing Docker Swarm, which is now making strides, and gaining renewed adoption. Kubernetes is a very opinionated system, built for container-specific architecture, but for heterogeneous environments, there is still a need for an orchestration solution. Cloudify can automate the management of Kubernetes as well as Docker and other containers on any infrastructure in a hybrid environment.</p>
+					<br>
+					<p>Cloudify has a <a href="http://getcloudify.org/examples/home.html#?repo=58148713" target="_blank">Kubernetes plugin</a> available with some limitations. The GA of this plugin will be released with the Cloudify 3.4 GA. Below is a video on Kubernetes Orchestration with Cloudify to give you an idea of how it works.</p><br>
+					
+					</div>
+
+					<div class="span6">
+					<h2><strong>Show Me the Code</strong></h2>	
+					<p><script src="https://gist.github.com/shar1z/621c0847450a60366d887bafd760a78e.js"></script></p>
+					</div>
+
+
+
+					</div>
+					</div>
+				
+
+				<div class="row">
+				<div class="span12">					
+					<div class="pullquote-bottom"><h1><strong><img src="/img/mesos-tile.png" width="75">Mesos Orchestration</strong></h1></div>
+					</div>
+					</div>
+					<p></p>
+
+					<div class="row">
+					<div class="span6">
+					<h2><strong></strong></h2>
+
+					<p>Mesos has become a popular cluster scheduler, and is used often times to manage container clusters at a massive scale.  Cloudify has integrated with Mesos to deliver clusters on demand, as well as auto-scale and heal, even Mesos-scale deployments. </p>
 					<br><hr>
 					
 
