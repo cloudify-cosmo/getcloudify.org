@@ -1,0 +1,124 @@
+---
+layout: blogpost
+title: vCPE 2.0 – The Business Case for An Open vCPE Framework
+description: This post will demystify the vCPE cost model and offer CSPs an alternative method of building a vCPE solution that’s more cost effective and future proof.
+image: oded.jpg
+author: Oded Nahum
+tags: 
+ - NFV
+ - TOSCA
+ - VNF
+ - Cloud Native
+ - Telecom
+---
+
+<notextile>
+
+<div class="aligncenter"><img src="/img/blog/cloudify-open-source-vcpe.png" alt="Open Source vCPE with Cloudify Orchestration" width="870"></div>
+<br/>
+<br/>
+<hr>
+<p style="font-size: 22px">This article was originally published on <a href="https://www.sdxcentral.com/articles/contributed/vcpe-2-0-business-case-open-vcpe-framework/2017/01/" target="_blank">SDxCentral</a> on January 27, 2017.</p>
+<hr>
+<p>Lots of virtual ink has been spilled describing the benefits of <a href="http://getcloudify.org/webinars/open-vCPE-framework-webinar.html">Virtual CPE (vCPE)</a>. The thought of simplifying the complex world of enterprise wide-area network (WAN) has ignited the imagination of many network engineers and enterprise IT admins. The vision of being able to consume, configure, and manage the WAN and its services through self-service portals and <a href="http://getcloudify.org/whitepapers/intro-to-cloudify.html" target="_blank">automation</a> has made vCPE the most common <a href="http://getcloudify.org/network-function-virtualization-vnf-nfv-orchestration-sdn-platform.html" target="_blank">network functions virtualization (NFV)</a> use case.</p>
+<p>Another major driver is the cost savings from using low cost CPE devices and network services delivered over the top. For CSPs, it&rsquo;s also about eliminating site visits, creating flexible service options, automating service creation, and virtualizing assets.</p>
+<p>On paper this plan looked perfect. However, when we started deploying these solutions we realized that reality is more complex. Additionally, the vCPE services failed to deliver promised savings, and in some cases they were more expensive and lower quality.</p>
+<p>In this post, I will try to demystify the vCPE cost model and offer an alternative way of building a vCPE solution that&rsquo;s more cost effective and innovative, future proof, and provides the flexibility and adaptability that CSPs need in order to remain relevant.</p>
+
+
+<hr>
+
+<span class="pullquote-left">
+  <font style="font-weight: bold" size="5" face="Baskerville Old Face"><em>Register today for our live Open vCPE Webinar on Feb 16!</em></font>&nbsp; <a class="btn btn-medium btn-theme btn-rounded" id="downloadBtnInner" href="hhttp://getcloudify.org/webinars/open-vCPE-framework-webinar.html" target="_blank"><i class="icon-plus"></i> Go </a></span>
+  
+  <hr>
+
+
+<h2><strong>Show Me the Money</strong></h2>
+<p>To better understand the CPE cost model and the evolution to virtual CPE, let&rsquo;s look at how WAN services have traditionally been delivered. WAN services are built around three elements; the CPE, the network, and the telco delivering the service. Price was based on the functionality, value, and reliability of the services built into the CPE device and the associated network connectivity, bandwidth, and service offering. Therefore, enterprises wanting reliable services had to invest in expensive CPE boxes and reliable network services (MPLS).</p>
+<p>Here&rsquo;s the math: Service (CPE + Network*) <strong>x</strong> Number of sites = Total cost per site/month.</p>
+<p>*Network refers to type (e.g., MPLS), bandwidth, and service (e.g., MPLS VPN)</p>
+<p>The architecture looked something like this:</p>
+<p class="aligncenter"><img src="/img/blog/classic-vcpe-business-model.png" alt="" width="496" height="210" /></p>
+
+<p>Back in 2012,&nbsp;<a href="http://getcloudify.org/2017/01/11/openness-the-true-path-nfv.html" target="_blank">NFV</a> surfaced and the evolution to vCPE started. The idea was brilliant and simple: shift the functionality, value, and cost&hellip;</p>
+<ul>
+<li>&hellip;from the network edges to a centralized cloud</li>
+<li>&hellip;from hardware to software-based functions</li>
+<li>&hellip;from MPLS to over-the-top (OTT) networking and direct Internet access</li>
+<li>&hellip;from labor-intensive delivery to self-service and automation</li>
+</ul>
+<p>The new architecture looked like this:</p>
+<p class="aligncenter"><img src="/img/blog/new-vcpe-architecture.png" alt="" width="496" height="210" /></p>
+<h2><strong>So, Why Didn&rsquo;t We Get the Expected Results?</strong></h2>
+<p>Let&rsquo;s explore what happened to our three main solution elements during this evolution.</p>
+<h2><strong>The CPE</strong></h2>
+<p>Prices dropped and market commoditization is underway. However, we cannot yet deliver functionality similar to a traditional CPE with a $50 white-label box. Major network vendors have no incentive to support this evolution, and in fact, are making it difficult by bundling the service with a specific, proprietary CPE device.</p>
+<h2><strong>The Network</strong></h2>
+<p>Most vCPE solutions leverage OTT networking like software-defined wide area networking (SD-WAN) which&mdash;in theory&mdash;drive down the cost of bandwidth. As Enterprises are offered OTT networking solutions from non-traditional service providers and networking vendors, traditional CSPs will be forced to adopt this technology and cannibalize existing WAN revenue streams.</p>
+<h2><strong>The Cloud / VNFs</strong></h2> 
+<p>This is a challenging and misunderstood problem. It&rsquo;s expensive and complex to run <a href="http://getcloudify.org/from-virtual-appliance-to-cloud-native-vnf-whitepaper.html" target="_blank">virtual network functions (VNFs)</a> while delivering a positive service experience.</p>
+<p>Let&rsquo;s take a deeper look at this. There are a variety of network functions needed to build an enterprise WAN Service offering:</p>
+<ul>
+<li>Routing Stacks</li>
+<li>Security and unified threat management</li>
+<li>Quality of service</li>
+<li>Application visibility</li>
+<li>Content management</li>
+<li>And more&hellip;.</li>
+</ul>
+<p>Legacy networking vendors that built their solutions on dedicated hardware are being forced to quickly adopt a software model. Most vendors took the easy way by simply offering a &ldquo;virtual appliance.&rdquo; This takes the same code base as the hardware&nbsp;solution and runs it in software on a hypervisor. Most of these virtual appliances inherit the same behavior as their hardware&nbsp;ancestors, those being:</p>
+<ul>
+<li>Closed or proprietary management interface</li>
+<li>Lack of service and capacity elasticity</li>
+<li>Legacy cost model and licensing</li>
+<li>Heavy virtualization footprint</li>
+</ul>
+<p>Let&rsquo;s put these elements in our cost formula again: Service (CPE + network + VNF) <strong>x</strong> Number of sites = Total cost per site/month.</p>
+<p>The addition of a VNF element to the cost formula is challenging and largely misunderstood. To find out the <em>real cost</em> of the VNFs we need to include costs for:</p>
+<ul>
+<li>VNF licensing</li>
+<li>Virtual infrastructure (CPU, RAM, storage)</li>
+<li>Management and orchestration</li>
+</ul>
+<p>First-generation vCPE solutions are driven by legacy networking vendors promoting a turnkey solution. Their solution provides the CPE with the network gear, the VNFs, and the orchestration framework. These solutions promise:</p>
+<ul>
+<li>Faster time to market</li>
+<li>Lower up front costs</li>
+<li>Open application program interfaces (APIs)</li>
+<li>Turnkey integration</li>
+</ul>
+<h2><strong>Turnkey = Lock-in</strong></h2>
+<p>These first-generation solutions have a dark side: lock-in. Turnkey vCPE solutions are just another kind of &ldquo;networking box&rdquo; that is closed, expensive, and tightly locked into the vendor&rsquo;s revenue model. We end up with a solution in which the savings of CPE commoditization and OTT networking are outweighed by the cost increase of legacy VNFs and the infrastructure needed to run them.</p>
+<p class="aligncenter"><img src="/img/blog/turnkey-nfv-solution.png" alt="" width="496" /></p>
+
+<h2><strong>Forward Thinking</strong></h2>
+<p>As Nati Shalom wrote in a previous SDxCentral contributed article, <strong><a href="https://www.sdxcentral.com/articles/contributed/openness-true-path-nfv/2017/01/" target="_blank">Openness is the way forward</a>&nbsp;&mdash;</strong>&nbsp;I still believe that the logic of centralizing network functionality and value is the right way to build vCPE models and achieve the promised cost model. But the only way to get there is by opening up the model to use innovative, cloud native functions. This next-generation vCPE will be built on network functions adhering to the following principles:</p>
+<ul>
+<li>Standard based and model driven</li>
+<li>Simplified and streamlined on-boarding</li>
+<li>Service and capacity elasticity</li>
+<li>API Driven</li>
+<li>Open and extensible</li>
+<li>Use a cloud economics cost model</li>
+</ul>
+<h2><strong>An Early Open Source Option</strong></h2>
+<p>The vCPE framework powered by open source cloudify is an <a href="http://getcloudify.org/2016/11/17/open-source-orchestration-management-complex-vnfs-using-openstack-controller-edd-devices.html" target="_blank">open NFV orchestration</a> platform enabling CSPs to deliver next-generation vCPE solutions based on these principles. CSPs can build vCPE solutions leveraging any CPE device, use any network service and facilitate on-boarding of any VNF. The next-generation, <a title="" href="http://getcloudify.org/from-virtual-appliance-to-cloud-native-vnf-whitepaper.html" target="_blank">cloud-native network functions</a> market is growing fast. We&rsquo;re already using functions that deliver enhanced services at a fraction of legacy infrastructure and licensing costs. Rapid development is also happening in the <a title="" href="http://getcloudify.org/2016/12/06/hybrid-vnf-container-orchestration-kubernetes-docker-swarm-using-cloudify.html" target="_blank">adoption of container technologies for network functions</a>.</p>
+<p class="aligncenter"><img src="/img/blog/cloudify-open-source-vcpe.png" alt="" width="496" /></p>
+
+<h2><strong>Future Proofing vCPE Models</strong></h2>
+<p>The open vCPE framework emphasizes orchestration and model-driven service design. This is radically different than turnkey solutions designed &ldquo;bottom up,&rdquo; which start with stack components and build an orchestration framework designed to work only with these components. Cloudify model-driven, topology and orchestration specification for cloud applications (TOSCA)-based orchestration takes a &ldquo;top down&rdquo; approach. It assumes the components of a service will change over time but the service and the way it&rsquo;s orchestrated don&rsquo;t.</p>
+<p>This philosophy has several advantages:</p>
+<ul>
+<li>Easily adopt new technologies (VNFs)</li>
+<li>Service agility</li>
+<li>CSP service differentiation</li>
+<li>Enhanced user experience</li>
+<li>CSP solution ownership</li>
+</ul>
+<h2><strong>Why Operators Need an Open vCPE Framework</strong></h2>
+<p>Commercially, successful models must adopt a framework that drives cost reduction of all solution elements&mdash;from the CPEs, the network, and the VNFs. They must embrace fast technological innovation to unlock new opportunities, capabilities, and models that CSPs can benefit from. The only way to build the network of the future is to keep it open.</p>
+
+
+
+</notextile>
