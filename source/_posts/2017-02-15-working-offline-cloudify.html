@@ -1,0 +1,291 @@
+---
+layout: blogpost
+title: Working Offline with Cloudify 3.4
+description: Learn how to install Cloudify Manager without an internet connection.
+image: isaac.jpg
+author: Isaac Shabtay
+tags:
+ - Cloud Orchestration
+ - Cloudify
+ - TOSCA
+ - YAML
+ - Cloud Automation
+---
+
+<notextile>
+
+<div class="aligncenter"><img src="/img/blog/cloudify_offline_install.png" alt="Cloudify Manager Offline Installation" width="870"></div>
+<br/>
+<br/>
+
+<p>The expression "working offline", when it comes to <a href="http://getcloudify.org" target="_blank">Cloudify</a>, refers to the practice of installing and configuring Cloudify Manager in a <em>self-contained</em> manner; that is, all resources required by Cloudify Manager &mdash; ranging from the <a href="http://docs.getcloudify.org/3.4.0/manager/bootstrapping/">bootstrap process</a> to <a href="http://docs.getcloudify.org/3.4.0/workflows/overview/">workflow execution</a> &mdash; are contained within the Cloudify Manager, rather than being retrieved from any other source, be it an internal network or (more commonly) the public network.</p>
+
+<h2>Why Work Offline?</h2>
+
+<p>Having a Cloudify topology work offline bears with it, first and foremost, the benefits of stability and security. Consider that access to any network &mdash; especially the public network &mdash; embodies a certain level of risk. For example, if Cloudify Manager requires access to the public network for the purpose of downloading YAML files (or plugin packages), then outbound access to the public network needs to be allowed. For certain organizations, such access is strictly prohibited, be it at the corporate level or, at times, even legally; for other organizations, providing access to the public network raises audit compliance issues (which may or may not be eventually accepted). Regardless, though, providing outbound access to the public network can always be perceived as an added security concern, which should (or must, depending on the circumstances) be avoided.</p>
+
+<hr>
+
+<span class="pullquote-left">
+  <font style="font-weight: bold" size="5" face="Baskerville Old Face"><em>Register today for our live Open vCPE Webinar on Feb 16!</em></font>&nbsp; <a class="btn btn-medium btn-theme btn-rounded" id="downloadBtnInner" href="hhttp://getcloudify.org/webinars/open-vCPE-framework-webinar.html?utm_campaign=vCPE Webinar&utm_medium=website_jh&utm_source=internal blog post" target="_blank"><i class="icon-plus"></i> Go </a></span>
+  
+  <hr>
+
+
+<h2>The Bootstrap Process</h2>
+
+<p>The bootstrap process involves using the Cloudify CLI to install a manager blueprint. Behind the scenes, the CLI runs in what's called "<em>local mode</em>" (AKA "<em>cfy local</em>"), installing a manager blueprint in much the same way that a Cloudify Manager runs the <em>install</em> workflow on any application blueprint. There is nothing special about a manager blueprint from that perspective.</p>
+
+<p>The bootstrap process in Cloudify 3.4 has a few online prerequisites:</p>
+<table width="100%">
+<tbody>
+<tr style="background-color: grey">
+<td>
+<p><strong>Online Prerequisites</strong></p>
+</td>
+<td>
+<p><strong>Must Be Available For...</strong></p>
+</td>
+
+</tr>
+
+<tr>
+<td style="background-color:white">
+<p>Any YAML file imported by the manager blueprint</p>
+</td>
+<td style="background-color:white">
+<p>The machine where the bootstrap process is executing from</p>
+</td>
+</tr>
+
+<tr>
+<td style="background-color:white">
+<p>Any other YAML files specified via the <span style="font-family: Courier">dsl_resources</span> manager blueprint input</p>
+</td>
+<td style="background-color:white">
+</td>
+</tr>
+
+<tr>
+<td style="background-color:white">
+<p>Plugin packages, denoted by the "<span style="font-family: Courier">source</span>" field of each and every plugin declaration contained within the manager blueprint</p>
+</td>
+<td style="background-color:white">
+</td>
+</tr>
+
+<tr>
+<td style="background-color:white">
+<p>The Cloudify Manager resources package, which is a <span style="font-family: Courier">tar.gz</span> file containing all packages that comprise Cloudify Manager and its dependencies</p>
+</td>
+<td style="background-color:white">
+<p>The machine that is going to host the Cloudify Manager</p>
+</td>
+
+</tr>
+
+</tbody>
+</table>
+
+<br><p>Let's look at how to prepare the bootstrap client machine (that is, the machine where the bootstrap process is executing from; for brevity, we will refer to it as the <em>CLI machine</em>), and the target <a href="http://getcloudify.org/2017/01/18/step-by-step-guide-installing-cloudify-manager-local-machine.html" target="_blank">Cloudify Manager</a> VM, so the bootstrap process can be be performed completely offline.</p>
+
+
+<h2>Setting Up the Bootstrap Client Machine (the CLI Machine)</h2>
+
+<h3>YAML Files Imported by Manager Blueprint</h3>
+
+<ol>
+<li>Take note of all externally-available YAML files' URLs imported by the manager blueprint, transitively (that is: YAML files which are imported directly or indirectly by the manager blueprint).</li>
+</ol>
+
+<ol start="2">
+<li>Look at the YAML files' URL's and aggregate them based on common URL prefixes, trying to minimize the number of groups. For example, consider the following list of URLs:</li>
+</ol>
+
+<table width="100%">
+<tr>
+<td style="background-color:white">
+<p>http://www.getcloudify.org/spec/cloudify/3.4.1/types.yaml<br>
+http://www.getcloudify.org/spec/fabric-plugin/1.4.1/plugin.yaml<br>
+http://www.some-site.org/some-path/plugin.yaml<br>
+http://www.some-site.org/some-other-path/plugin.yaml</p>
+</td>
+</tr>
+</table>
+<br>
+
+<p>You can easily notice that the most economical way of aggregating them would be as follows:</p>
+
+<table width="100%">
+<tr>
+<td style="background-color:white">
+<p>http://www.getcloudify.org/*<br>
+http://www.some-site.org/*</p>
+</td>
+</tr>
+</table>
+<br>
+<p>(Usually, grouping per domain name would be the best way to go)</p>
+
+<ol start="3">
+<li>Download all YAML files into the CLI machine. The files need to be laid out in a directory hierarchy, which will make it feasible to later write <em>Import Resolver rules</em> for them. This can be done in the following manner:</li>
+<ol type="a">
+<li>For each group concluded in the previous step, create a separate directory on the CLI machine. Continuing the aforementioned example, you could create the following directories:
+<ol type="i">
+<li><span style="font-family: Courier">/tmp/yaml/cloudify</span></li>
+<li><span style="font-family: Courier">/tmp/yaml/some-site</span></li>
+</ol>
+<li>Place YAML files into these directories, each file located relatively to the root with accordance to the original YAML URL. Example:</li>
+<ol type="i">
+<li><span style="font-family: Courier">/tmp/yaml/cloudify/spec/cloudify/3.4.1/types.yaml</span></li>
+<li><span style="font-family: Courier">/tmp/yaml/cloudify/spec/fabric-plugin/1.4.1/plugin.yaml</span></li>
+<li><span style="font-family: Courier">/tmp/yaml/some-site/some-path/plugin.yaml</span></li>
+<li><span style="font-family: Courier">/tmp/yaml/some-site/some-other-path/plugin.yaml</span></li>
+</ol>
+</li>
+</ol>
+</ol>
+
+
+<ol start="4">
+<li>Follow the documentation for <a href="http://docs.getcloudify.org/3.4.0/blueprints/import-resolver/#declaration-in-the-cloudify-configuration-file">writing Import Resolver rules</a>, in the directory from which you are going to invoke the bootstrap process. For example, if &mdash; on the CLI machine &mdash; you are going to run the bootstrap process from <span style="font-family: Courier">/home/isaac/cfy/boot:</span></li>
+</ol>
+
+<table width="100%">
+<tr>
+<td style="background-color:white">
+<p><code>cd /home/isaac/cfy/boot</code><br>
+<code>cfy init -r</code><br>
+<code>vim .cloudify/config.yaml</code></p>
+</td>
+</tr>
+</table>
+<br>
+<p>&mdash; and then add the Import Resolver rules as necessary. For the example above:</p>
+
+<table width="100%">
+<tr>
+<td style="background-color:white">
+import_resolver:<br>
+&nbsp;&nbsp;parameters:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;rules:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;- "http://www.getcloudify.org": "file:///tmp/yaml/cloudify"<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;- "http://www.some-site.org": "file:///tmp/yaml/some-site"
+</td>
+</tr>
+</table>
+<br>
+<p>By following the steps above, you make sure that the Cloudify DSL parser is able to read all imported YAML files by using its Import Resolver, without accessing the external network.</p>
+
+<h3>DSL Resources</h3>
+
+<p>The <span style="font-family: Courier">dsl_resources</span> manager blueprint input is a useful mechanism for uploading arbitrary files to the Cloudify Manager machine. Most typically, it is used to upload YAML files, so they become available for serving by the Cloudify Manager itself, through Import Resolver rules.</p>
+
+<table width="100%">
+<tr>
+<td style="background-color:white">
+<p>It is important to differentiate between this step and the preceding step.</p>
+
+<p>The preceding step discussed how to make YAML files, required by the bootstrap process itself, available <em>to the bootstrap process</em>.</p>
+
+<p>This step, on the other hand, discusses how to make YAML files &mdash; which may be required by blueprints uploaded to the manager &mdash; available offline (that is, having them served by the Cloudify Manager instead of depending on these resources being available on the external network).</p>
+</td>
+</tr>
+</table>
+<br>
+<p>DSL resources, uploaded to the Cloudify Manager machine during the bootstrap process, are always &mdash; without exception &mdash; uploaded to a path which is relative to <span style="font-family: Courier">/opt/manager/resources</span>.</p>
+
+<p>The default value of the <span style="font-family: Courier">dsl_resources</span> input handles the following YAML files:</p>
+
+<ul>The Cloudify global types file (<span style="font-family: Courier">types.yaml</span>)
+<li>The <span style="font-family: Courier">plugin.yaml</span> file of the following plugins:</li>
+<ul>
+<li>Fabric</li>
+<li>Diamond</li>
+</ul>
+<li>For a manager blueprint that is IaaS-specific (note: these will be removed in Cloudify 4.0): the <span style="font-family: Courier">plugin.yaml</span> file of the Cloudify plugin that corresponds to the IaaS being used (the <span style="font-family: Courier">simple</span> manager blueprint uploads the <span style="font-family: Courier">plugin.yaml</span> files of all IaaS plugins)</li>
+</ul>
+
+<p>You may, of course, add entries to the <span style="font-family: Courier">dsl_resources</span> input. However, you must make sure that all resources denoted by <span style="font-family: Courier">source_path</span> are available to the CLI machine <em>at the time of bootstrap</em>.</p>
+
+<h3>Manager-Side Import Resolver Rules</h3>
+
+<p>By default, the Cloudify DSL parser at the Cloudify Manager side is configured with a single Import Resolver rule:</p>
+
+<p><code>http://www.getcloudify.org/spec file:///opt/manager/resources/spec</code></p>
+
+<p>This single rule, combined with the value of the <span style="font-family: Courier">dsl_resources</span> input, is sufficient to serve all out-of-the-box Cloudify YAML files offline. If you have your own YAML files which are uploaded to the manager (either via the <span style="font-family: Courier">dsl_resources</span> input, or manually after bootstrap), you will need to update the Import Resolver rules accordingly.</p>
+
+<div class="bs-callout bs-callout-warning txtLead">
+Currently, there is no official mechanism to update the Import Resolver rules after bootstrap. Contact <a href="https://groups.google.com/forum/#!forum/cloudify-users" target="_blank">Cloudify Support</a> for more information.
+</div>
+
+<h3>Plugin Packages</strong></h3>
+
+<p>The bootstrap process itself, orchestrated by the CLI, requires access to the code of each and every plugin referred-to by the manager blueprint.</p>
+
+<p>Typically, the <span style="font-family: Courier">--install-plugins</span> switch takes care of that. When specified, the "<span style="font-family: Courier">source</span>" value of each "<span style="font-family: Courier">plugin</span>" declaration included in the manager blueprint, is retrieved and then installed (using "<span style="font-family: Courier">pip install</span>" semantics) on the active Python virtual environment (<span style="font-family: Courier">virtualenv</span>). If the plugin's source has dependencies, these dependencies are downloaded and installed as well (again, through <span style="font-family: Courier">pip</span>'s own dependency resolution mechanism).</p>
+
+<p>However, in an offline environment, or an environment where access to the public network is limited, <span style="font-family: Courier">--install-plugins</span> may not be applicable. To make it applicable:</p>
+<ul>
+<li>Out-of-the-box YAML files (such as <span style="font-family: Courier">plugin.yaml</span> files for Cloudify's official plugins) would need to be edited so the <span style="font-family: Courier">source</span> field points to an accessible location.</li>
+<li>If the plugin package has dependencies, those dependencies would have to exist in a <span style="font-family: Courier">pip</span> mirror which is accessible to the CLI machine (and, of course, the local <span style="font-family: Courier">pip</span> configuration would have to be modified to search the mirror instead of the official <span style="font-family: Courier">pip</span> site).</li>
+</ul>
+<br>
+<p>While possible, this approach is not recommended. Doing so requires system administrators to modify out-of-the-box YAML files, as well as set up a local <span style="font-family: Courier">pip</span> mirror &mdash; both pose an administration overhead.</p>
+
+<p>Instead, if <span style="font-family: Courier">--install-plugins</span> is not applicable, the recommended approach is to pre-install plugin packages on the CLI's <span style="font-family: Courier">virtualenv</span>, and avoid specifying that switch in the command-line:</p>
+<ul>
+<li>Download each plugin package to the CLI machine (follow the <span style="font-family: Courier">source</span> field)</li>
+<li>Download all dependencies for all plugin packages</li>
+<li>Install all dependencies and plugin packages on the CLI's <span style="font-family: Courier">virtualenv</span></li>
+</ul>
+
+<h3>Cloudify Manager Resources Package</h3>
+
+<p>During the bootstrap process, the Cloudify Manager Resources Package (located where the <span style="font-family: Courier">manager_resources_package</span> input points to) is downloaded into the manager's machine. The download is initiated from within the manager's machine; therefore, the URL specified by <span style="font-family: Courier">manager_resources_package</span> must be accessible from there.</p>
+
+<p>By default, <span style="font-family: Courier">manager_resources_package</span> points to Cloudify's S3 bucket, which exists on the public network. If the manager's machine has n access to the public network, you'll need to download the manager resources package and host it in an accessible location.</p>
+
+<table width="100%">
+<tr>
+<td style="background-color:white">
+<p>If you're using the <span style="font-family: Courier">simple</span> manager blueprint, then the manager's machine, by definition, already exists. You may wish to have the manager resources package available on that machine, and modify the <span style="font-family: Courier">manager_resources_package</span> input so it contains a <span style="font-family: Courier">file://</span> URL leading to the downloaded file.</p>
+</td>
+</tr>
+</table>
+
+<h2>Post-Bootstrap Adjustments</h2>
+
+<h3>Offline Plugins</h3>
+
+<p>During deployment creation, Cloudify retrieves the code for each plugin used by the deployment. The retrieval algorithm works as follows:</p>
+
+<ul>
+<li>If the plugin definition contains <span style="font-family: Courier">package_name</span> and <span style="font-family: Courier">package_version</span>:</li>
+<ul>
+<li>Conclude the operating system distribution and version, for the machine on which the operation is currently being run (the manager's machine if the operation's executor is <span style="font-family: Courier">central_deployment_agent</span>, or the agent machine if the executor is <span style="font-family: Courier">host_agent</span>).</li>
+<li>Look up an <em>offline plugin package</em> (also called "Wagon") that satisfies the <span style="font-family: Courier">package_name</span>, <span style="font-family: Courier">package_version</span> and the OS distribution/version in question.</li>
+<li>If a match is found, obtain the plugin's source from the Wagon and exit.</li>
+</ul>
+<li>Obtain the plugin's code from the URL denoted by the <span style="font-family: Courier">source key</span>.</li>
+<li>Install the plugin's code using <span style="font-family: Courier">pip</span>.</li>
+</ul>
+
+<p>Therefore, in order to make the Cloudify installation self-contained, it is required to upload Wagons to the Cloudify Manager.</p>
+
+<table width="100%">
+<tr>
+<td style="background-color:white">
+<p>Wagons need only be uploaded once; they are stored using a composite key of <span style="font-family: Courier">package_name</span>, <span style="font-family: Courier">package_version</span> and distribution/version, and are shared between all deployments on the same Cloudify Manager installation.</p>
+</td>
+</tr>
+</table>
+<br>
+<p><a href="http://getcloudify.org/downloads/plugin-packages.html">Cloudify's official plugins are provided as Wagons</a> for various distributions and versions (except for plugins that typically run on the Cloudify Manager machine, in which case, only RHEL 7.x / CentOS 7.x Wagons are provided). For custom plugins, you can use the <a href="https://github.com/cloudify-cosmo/wagon">Wagon tool</a> to create a Wagon files. Wagon files can then be uploaded to the Cloudify Manager instance using the <a href="http://docs.getcloudify.org/3.4.0/cli/plugins/">command-line interface</a> or the <a href="http://docs.getcloudify.org/api/#upload-plugin">REST API</a>.</p>
+
+
+<h2>Summary</h2>
+
+<p>As demonstrated, "working offline" with Cloudify requires certain additional effort to the Cloudify Manager setup process depending on the level of separation required from the public networks (or any network, including internal ones). However, when weighed against the benefits involved in running with a self-contained Cloudify Manager, the scale clearly tips towards working offline, especially in mission-critical Cloudify Manager installations. The feedback we receive from our customers is pretty much unanimous: working offline helped reduce outages borne out of network instabilities impacting access to online resources, which is why we recommend this approach to our customers.</p>
+</notextile>
