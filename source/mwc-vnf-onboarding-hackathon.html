@@ -1,0 +1,219 @@
+---
+layout: bt_default
+title: Virtual Network Function (VNF) Onboarding Hackathon
+description: Register for the first ever VNF on-boarding hackathon at Mobile World Congress 2017 in Barcelona. 
+category: Whitepapers
+---
+
+
+
+		
+<div class="jumbotron subhead" id="overview">
+    <h5 class="dwnCenter"></h5>
+    <div class="container dwnTopBanner">
+        <p>&nbsp;</p>        
+        <h1>Virtual Network Function (VNF) Onboarding Hackathon</h1>
+        <h2><font color="#3ab9d4"><strong>Register to join!</strong></font></h2>
+                
+	
+                     <div class="row">
+                    <div class="span12">
+                    <img src="/img/Evolution-light.png" style="float: right; display: inline;" width="300">
+
+                    </div>
+                    
+                 
+            </div>
+        </div>
+    </div>
+
+		<section id="content">
+				<div class="container">
+				<div class="row">		
+					<div class="span7">
+							<h2>Calling all NFV industry professionals to come together and accelerate NFV deployments</h2>
+							<p>There is still space in the first Virtual Network Function (VNF) Onboarding Hackathon that will take place at Mobile World Congress 2017 at the VMware stand, Hall 3, Stand K10. The Hackathon aims to accelerate cloud-based telecom service deployments by addressing key challenges of Network Functions Virtualization (NFV).</p>
+							<p>This event is not just for developers; CTOs, Director of Sales Engineering, Engineering Managers, Technical Product Managers, Sales Engineers, etc. will benefit from this learning opportunity.</p>
+							<h3>Learn How:</h3>
+							<ul>
+								<li>TOSCA blueprints add value to your product offerings</li>
+								<li>To explain and articulate NFV/VNF value to your customers, and lead design and architecture discussions regarding deployment</li>
+								<li>Industry trends are shaping the NFV landscape and your customer’s pain points and challenges in deployment</li>
+								<li>To create and modify TOSCA blueprints for your customer deployments</li>
+								<li>To make VNF on boarding easier for your customers</li>
+							</ul>
+							<p>You can read more about the Hackathon here: https://blogs.vmware.com/telco</p>
+							<h3>Agenda at a glance</h3>
+							<p>Wednesday March 1st, Hall 3 Stand K10, VMware booth.</p>
+							<ul>
+								<li>2:30pm – 3:00pm Theater Session – overview of the initiative.</li>
+								<li>3:00pm – 5:30pm VNF Onboarding Session</li>
+								<li>5:30pm – 6:30pm VNF Hackathon Reception</li>
+							</ul>	
+							<br>
+						</div>
+					<div class="span5">
+						<h2><strong>Register for the hackathon</sup></strong></h2>
+						<!--[if lte IE 8]>
+							<script charset="utf-8" type="text/javascript" src="//js.hsforms.net/forms/v2-legacy.js"></script>
+							<![endif]-->
+							<script charset="utf-8" type="text/javascript" src="//js.hsforms.net/forms/v2.js"></script>
+							<script>
+							  hbspt.forms.create({ 
+							    portalId: '1918719',
+							    formId: '9ef0eaaa-fed5-454c-839b-48db502084fe',
+								onFormSubmit: function($form) { dataLayer.push({
+								'event' : 'GAevent',
+								'eventCategory': 'Form Completion',
+								'eventAction': 'Submitted hackathon Form',
+								'eventLabel': 'Hackathon Registration',
+								})
+								}
+				  			});
+							</script>
+
+					</div>
+				</div>
+				</div>	
+		</section>
+			<section id="content">
+				<div class="container">
+				<div class="row">
+				<div class="span12">
+				<div class="aligncenter">
+				<div class="well"><h2><img src="{{ site.baseurl }}/img/logo.png" width="120"> Find out how Cloudify is revolutionizing <a href="{{ site.baseurl }}/"><strong> Cloud Orchestration.</strong></a></h2></div>
+				</div>
+				</div>
+				</div>
+				</div>
+			</section>	
+		
+<script type="text/javascript">
+$(function () {
+  var $form = $('#mc-embedded-subscribe-form');
+
+  $('#mc-embedded-subscribe').on('click', function(event) {
+    if(event) event.preventDefault();
+    register($form);
+  });
+});
+
+function register($form) {
+  $.ajax({
+    type: $form.attr('method'),
+    url: $form.attr('action'),
+    data: $form.serialize(),
+    cache       : false,
+    dataType    : 'json',
+    contentType: "application/json; charset=utf-8",
+    error       : function(err) { $('#notification_container').html('<span class="alert">Could not connect to server. Please try again later.</span>'); },
+    success     : function(data) {
+     
+      if (data.result != "success") {
+        var message = data.msg.substring(4);
+        $('#notification_container').html('<span class="alert">'+message+'</span>');
+      } 
+
+      else {
+        var message = data.msg;
+        $('#notification_container').html('<span class="success">'+message+'</span>');
+		track_contactForm();
+		mixpanel.track('Register for NFV', {'page name' : document.title, 'url' : window.location.pathname});	
+      }
+    }
+  });
+}
+</script>
+		<section>
+					<div id="messageBox"></div>
+                                        <div class="row">
+											<!-- LeadLander Form Tracking -->
+											<script type="text/javascript">llfrmid=29185</script> 
+											<script type="text/javascript" src="https://formalyzer.com/formalyze_init.js"></script> 
+											<script type="text/javascript" src="https://formalyzer.com/formalyze_call_secure.js"></script>
+											<!-- End LeadLander -->
+                        				</div> 
+		</section>
+			
+			
+	
+
+		<section id="bottom">
+			<div class="container">
+
+		<div class="row">
+		<div class="span2"></div>
+		<div class="span8">
+		<div class="aligncenter">
+			
+				<h2><strong>Learn more about Cloudify Premium<sup>TM</sup> or Download Now for Free</sup></strong></h2>
+						<br/>
+							<a class="btn btn-large btn-green btn-rounded" id="goProInner" href="{{ site.baseurl }}/goPro.html"><i class="icon-plus"></i>  Go Pro!</a>
+							&nbsp; &nbsp;
+							<a class="btn btn-large btn-theme btn-rounded" id="downloadBtnInner" href="{{ site.baseurl }}/downloads/get_cloudify.html"><i class="icon-download"></i>  Download Now</a>
+							<br/>
+							</br>
+							</div>
+						
+						</div>
+						<div class="span2"></div>
+					</div>
+					</div>
+			<div class="container">
+			{% include addthis.html %}
+			</div>
+					</section>
+
+<script>
+
+//set download cookie
+function setCookie(key, value) {
+    var expires = new Date();
+    expires.setTime(expires.getTime() + (180 * 24 * 60 * 60 * 1000));
+    document.cookie = key + '=' + value + ';expires=' + expires.toUTCString()+';path=/';
+}
+
+function getCookie(key) {
+    var keyValue = document.cookie.match('(^|;) ?' + key + '=([^;]*)(;|$)');
+    return keyValue ? keyValue[2] : null;
+}
+function track_contactForm() {
+
+		//_gaq.push(['_trackEvent','Product Download', downloadme]);
+       	//track mixpanel
+		if (getCookie('cfydirect') == null) {
+            var formEmail =  $("#mc-embedded-subscribe-form #mce-EMAIL").val();	
+            var formName =  $("#mc-embedded-subscribe-form #mce-FNAME").val();
+			var formcompany =  $("#mc-embedded-subscribe-form #mce-MMERGE3").val();
+			mixpanel.identify(formEmail);
+            mixpanel.alias(formName, formEmail, formcompany);
+            mixpanel.name_tag(formName) ;
+			mixpanel.register();
+			
+			mixpanel.people.set({
+			$email: formEmail,
+			$first_name: formName,
+			$company: formcompany,
+			$created: new Date(),
+			});	
+			//create cookie;
+			setCookie('cfydirect', formName + "," + formEmail + "," + formcompany);	
+			
+			
+        }else{
+			var formEmail = getCookie('cfydirect').split(",")[1];
+			mixpanel.identify(formEmail);
+        }
+
+		
+	}
+	
+	
+	$("#mc-embedded-subscribe-form").validate({
+  submitHandler: function(form) {
+    form.submit();
+  }
+ });
+	
+
+</script>
