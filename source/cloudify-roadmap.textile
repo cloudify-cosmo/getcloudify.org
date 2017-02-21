@@ -23,16 +23,18 @@ h1. *Cloudify Roadmap*
 <p>Below you will find our roadmap for new features and improvements to Cloudify, including notes on those currently being worked on.</p>
 
 <div class="bs-callout bs-callout-warning"><strong>Note</strong><br>
-    Cloudify aims for a minor release every 4-6 months with new features, bug fixes, security enhancements, and more. A service release with bug and security fixes is also intended for delivery every 1-2 months. The next release is Cloudify 4.0, expected in Q1 2017. Items that are marked as <strong>In Progress</strong> below are included in this release. 
+    Cloudify aims for a minor release every 4-6 months with new features, bug fixes, security enhancements, and more. A service release with bug and security fixes is also intended for delivery every 1-2 months. The next release is Cloudify 4.0, expected in Q1 2017. Items that are marked as <strong>In Progress - 4.0</strong> below are included in this release. 
 </div>
 
 <h2>Cloudify Manager </h2>
 <ul>
-<li><strong>High Availability</strong>: HA setup will ensure the uptime of Cloudify Manager in production environments. <strong>IN-PROGRESS</strong></li>
-<li><strong>Multi-tenancy</strong>: The ability to set tenants with a Cloudify Manager and isolate resources among them, such that one tenant does not have visibility of, nor the ability to access, data/resources of another. <strong>IN-PROGRESS</strong></li>
+<li><strong>High Availability</strong>: HA setup will ensure the uptime of Cloudify Manager in production environments. <strong>IN-PROGRESS - 4.0</strong></li>
+<li><strong>Multi-tenancy</strong>: The ability to set tenants with a Cloudify Manager and isolate resources among them, such that one tenant does not have visibility of, nor the ability to access, data/resources of another. Also, the ability to set a resource as public to the whole tenant or private (only admins and owner(s) can access it). <strong>IN-PROGRESS - 4.0</strong></li>
 <li><strong>Pre-bootstrap Verification</strong>: As part of the bootstrap process, Cloudify automatically verifies as many variables as possible before actually initiating the bootstrap process. Specifically &ndash; IaaS API credentials and quotas, validity of specified parameters such as image ID, etc in order to ensure successful bootstrap of Cloudify Manager. <strong>IN-PROGRESS</strong></li>
-<li><strong>Encrypted Data Store</strong>: Encrypted key/value store for storing application-sensitive data such as cloud credentials, secrets and configuration parameters, which users can then access via blueprints.</li>
-<li><strong>Manager Settings Configuration</strong>: Allows users to easily modify and apply manager configuration elements to Cloudify Manager, during runtime, via dedicated CLI commands and GUI elements.</li>
+<li><strong>Encrypted Data Store</strong>: Encrypted key/value store for storing application-sensitive data such as cloud credentials, secrets and configuration parameters, which users can then access via blueprints. <strong>IN-PROGRESS - 4.0</strong></li>
+<li><strong>Manager Settings Configuration</strong>: Allows users to easily modify and apply manager configuration elements to Cloudify Manager, during runtime, via dedicated CLI commands and GUI elements. <strong>IN-PROGRESS - 4.0</strong></li>
+<li><strong>Encrypted Communication</strong>: Agents communicate with the manager via an encrypted channel (SSL). IN-PROGRESS</li>
+<li><strong>RBAC</strong>: Allow setting permissions to resources based on users roles, and by that providing a fine-grained access control. Also, with the permissions mechanism the owners of a resource will be able to give specific permissions to specific users in the tenant.) - IN-PROGRESS</li>
 </ul>
 <h2>Core Orchestration, DSL, and App Modeling</h2>
 <ul>
@@ -44,10 +46,10 @@ h1. *Cloudify Roadmap*
 <li><strong>Scheduled Workflow Execution</strong>: The ability to schedule a workflow execution at a future time, such as scaling the number of web server VMs at a certain time of the day.</li>
 <li><strong><strong>Improved Multi-cloud Support</strong>: Better support for multi and hybrid cloud environments.</strong></li>
 </ul>
-<h2>Cloudify Ops Console (Cloudify WebUI)</h2>
+<h2>Cloudify UI Framework</h2>
 <ul>
-<li><strong>Ops Console Widgets Mechanism</strong>: Frontend re-architecture with the ability to load dynamic widgets.</li>
-<li><strong>Application Service Management</strong>: <strong>IN-PROGRESS</strong></li>
+<li><strong>Widget-based UI Framework</strong>: Frontend re-architecture with the ability to load dynamic widgets for visualization of Cloudify data and operations, and for integrating with external systems. <strong>IN-PROGRESS - 4.0</strong></li>
+<li><strong>Application Service Management</strong>: <strong>IN-PROGRESS - 4.0</strong></li>
 <ul>
 <li>User/Tenant</li>
 <li>Service Quota</li>
@@ -59,23 +61,31 @@ h1. *Cloudify Roadmap*
 </ul>
 <h2>Cloudify Plugins and Integrations</h2>
 <ul>
-<li><strong>GCP Plugin</strong>: Complete integration with GCP. <strong>IN-PROGRESS</strong></li>
-<li><strong>OpenStack Mitaka</strong>: Add support for Mitaka release of OpenStack</li>
+<li><strong>GCP Plugin</strong>: Complete integration with GCP. <strong>DONE</strong></li>
+<li><strong>OpenStack Mitaka</strong>: Add support for Mitaka release of OpenStack. <strong>DONE</strong></li>
+<li><strong>OpenStack Newton</strong>: Add support for Newton release of OpenStack. </li>
+<li><strong>vSphere Plugin</strong>: Complete integration with VMware vSphere. <strong>IN-PROGRESS</strong></li>
+<li><strong>NSX Plugin</strong>: Complete integration with VMware NSX. <strong>IN-PROGRESS</strong></li>
 <li><strong>Mesos Plugin</strong>: Support for Mesos integration for orchestrating and scheduling cluster deployments.</li>
+<li><strong>Azure Plugin</strong></li>
 <li><strong>General Plugin Improvements</strong>: Ability to extend and reuse plugins and workflows more easily.</li>
 </ul>
 <h2>Cloudify Composer</h2>
 <ul>
-<li><strong>User Experience</strong>: Simplify and improve the day to day user experience of Cloudify Composer</li>
-<li><strong>Two-way blueprint editing </strong>: 2-Way Editing between of the application topology UI and source.</li>
-<li>Built-in blueprint templates for common scenarios</li>
+<li><strong>User Experience</strong>: Simplify and improve the day to day user experience of Cloudify Composer. <strong>DONE</strong></li>
+<li><strong>SaaS</strong>: Provide Composer-as-a-Service which will enable hosting the Composer (on premise or externally). <strong>IN-PROGRESS - COMPOSER 2.4</strong></li>
+<li><strong>Tenants Support</strong>: So you can upload a blueprint to a 4.0 Cloudify Manager and enjoy all of this version’s benefits. <strong>IN-PROGRESS - COMPOSER 2.4</strong></li>
+<li><strong>Imports and Examples Catalog</strong>: Improved experience for importing external blueprints, plugins and stencils (node types) to the Composer, and also allowing you to configure the imports you want to have OOTB with any new blueprint, and to upload your most commonly used blueprints to the catalog. </li>
+<li><strong>Source Tab Editing Ability</strong>: Allows you to make changes in the code and they will be reflected in the topology.</li>
+<li><strong>Upload Blueprint to Github</strong>: So you can manage them directly from there. </li>
+<li><strong>Improved Ease-of-Use</strong>: With much-desired functionalities like Undo, Node clone, Multiple selection of nodes and more.</li>
 </ul>
 <h2>Cloudify For NFV</h2>
 <ul>
-<li><strong>VMware VIM</strong>: Certification for VMWare VIM components (VMWare Integrated OpenStack, vCloud Director, vSphere, NSX)</li>
-<li><strong>YANG to TOSCA translator and Netconf YANG plugin</strong>: The ability to generate TOSCA models from YANG descriptors, using the generated TOSCA types in a blueprint, and translate to Netconf commands upon blueprint installation.</li>
-<li><strong>Robust IMS Reference Implementations</strong>: Clearwater IMS</li>
-<li><strong>Intel EPA certification</strong></li>
+<li><strong>VMware VIM</strong>: Certification for VMWare VIM components (VMWare Integrated OpenStack, vCloud Director, vSphere, NSX). <strong>DONE</strong></li>
+<li><strong>TOSCA/YANG and Netconf/YANG Plugin</strong>: The ability to support TOSCA/YANG descriptors to control Netconf/YANG devices. <strong>IN-PROGRESS</strong></li>
+<li><strong>Robust IMS Reference Implementations</strong>: Clearwater IMS <strong>DONE</strong></li>
+<li><strong>Intel EPA certification</strong> <strong>IN-PROGRESS</strong></li>
 </ul>
 
 <br/>
