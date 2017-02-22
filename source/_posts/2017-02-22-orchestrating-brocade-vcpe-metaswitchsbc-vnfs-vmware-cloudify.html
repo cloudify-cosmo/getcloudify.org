@@ -1,0 +1,92 @@
+---
+layout: blogpost
+title: Orchestrating Brocade vCPE and Metaswitch SBC VNFs on VMware Using Cloudify
+image: yoram.jpeg
+author: Yoram Weinreb
+tags: 
+ - NFV
+ - VMware
+ - vCPE
+ - VNF
+ - MWC
+---
+
+<notextile>
+
+<img src="/img/blog/vmware_brocade_metaswitch_cloudify.png" width="870" alt="Architecture with VMware, MetaSwitch, Brocade vCPE and Cloudify orchestration">
+<br/>
+<br/>
+
+<p><b></b></p>
+
+<p>Since we at <a href="http://getcloudify.org/" target="_blank">Cloudify</a> have been working closely with <a href="http://vmware.com/" target="_blank">VMWare</a>, <a href="http://brocade.com/" target="_blank">Brocade</a>, and <a href="http://metaswitch.com/" target="_blank">MetaSwitch</a> for quite some time, it made perfect sense to showcase how the different pieces can be orchestrated together to demonstrate how a single solution stack made of multiple parts comes together.</p>
+
+<p>We chose to go with Brocade Vyatta as the basis for the vCPE VNF for connecting multiple branch offices and allowing for chaining additional services on the cloud. We chose Metaswitch SBC to allow the customer to utilize existing on-premise PBX assets while enabling connectivity across branches and to external PBXs managed by a cloud based Session Border Controller.</p>
+
+
+<hr>
+
+<span class="pullquote-left">
+  <font style="font-weight: bold" size="5" face="Baskerville Old Face"><em>Set a meeting with us at Mobile World Congress</em></font>&nbsp; <a class="btn btn-medium btn-theme btn-rounded" id="downloadBtnInner" href="http://getcloudify.org/meeting.html" target="_blank"><i class="icon-plus"></i> Go </a></span>
+  
+  <hr>
+
+<p>VMWare NFV stack offered the power of NSX and vCenter with the cloud layer of vCloud.</p>
+<br>
+<div class="aligncenter"><img src="/img/blog/vyatta_deploy.png" width="600"></div>
+<br/>
+<p>Cloudify serves as both the <a href="http://getcloudify.org/whitepapers/intro-to-cloudify.html" target="_blank">orchestrator</a> and <a href="http://getcloudify.org/from-virtual-appliance-to-cloud-native-vnf-whitepaper.html" target="_blank">VNF Manager</a> (VNFM) for these VNFs. Cloudify provides not only the power of <a href="http://getcloudify.org/webinars/tosca-training-videos.html#register" target="_blank">TOSCA</a> and open standards, but is also tightly integrated with the entire <a href="http://getcloudify.org/vmware-hybrid-cloud.html" target="_blank">VMWare NFV stack</a>, including plugin support for vCloud, vSphere, NSX and a <a href="http://getcloudify.org/2016/11/15/closed-loop-monitoring-alerting-healing-cloudify-vmware-vrealize-operations-integration.html" target="_blank">management pack for VROPS</a>.</p>
+
+<p>In this post, I will focus on the experience I had with the onboarding of the Brocade Vyatta VNF and how to configure a Site to Site IPSec tunnel overlay between two Vyatta VNFs.</p>
+
+<p>Getting Vyatta up and running was simple. All it took was getting a template uploaded to the vCloud Catalog, which we have done manually, provisioning the necessary networks, provisioning the VM and connecting it to the networks.</p>
+<br>
+<div class="aligncenter"><img src="/img/blog/vcloud_director.png" width="600"></div>
+<br/>
+<p>When the Vyatta was up and running, it provided a RESTful API we used for configuring its settings such as the data planes, the FW zones, rules and NAT. I did all this using the awesome vRouter plugin that one of our engineers, Josh, built a few months back which mapped these configurations to tidy TOSCA types.</p>
+
+<p>When that was all configured, I continued to the Site to Site IPSec tunnel configuration. The plugin I used did not have this area covered, and, at first, I was tempted to add the missing types to the plugin which was nicely architected so that I could reuse most of Josh&rsquo;s work and just focus on the types.</p>
+<br>
+<div class="aligncenter"><img src="/img/blog/vyatta_bp.png" width="600"></div>
+<br/>
+<p>However, on second thought, I remembered these Vyatta devices supported <a href="http://getcloudify.org/2016/02/17/mwc-cloud-sdn-mano-nfv-netconf-yang-tosca-vnf-openstack.html" target="_blank">Netconf</a> and we have already had some basic example of how to use our Netconf plugin with Vyatta to establish an <a href="https://github.com/cloudify-cosmo/cloudify-netconf-plugin/blob/master/blueprint_examples/vpn-yatta.yaml" target="_blank">OpenVPN tunnel</a>.</p>
+
+<p>I decided to explore this route and focus on adding the VPN overlay using Netconf. I found an article explaining how to manually establish Site-Site VPN and opened the Vyatta YANG models to match the configuration described in the article with that model.</p>
+
+<p>This proved to be quite an efficient process and, in a couple of hours, I had the Netconf configuration already written in the blueprint:</p>
+
+<script src="https://gist.github.com/yeshess/afd453863558769325c23184c9ee4376.js"></script>
+
+
+<p>After placing this YAML into the blueprint, I tried testing it. The first attempt resulted in a failure. It turned out the Netconf service was not on by default on the Vyatta VNF.&nbsp; To fix that, I chose the easy route and just updated the template with a configuration that started Netconf by default. With Netconf enabled, I could see the configuration changes applied to Vyatta.</p>
+<br>
+<div class="aligncenter"><img src="/img/blog/sip_client.png" width="600"></div>
+<br/>
+<p>Once I created a second copy with the matching site configuration, the tunnel was created and traffic could flow between the sites - quite cool.</p>
+
+<p>For me, this was quite an important experience combining two different approaches:</p>
+<ul>
+<li>A custom plugin with TOSCA types mapped for each supported function.</li>
+<li>A generic Netconf plugin utilizing the existing YANG models that are supported by the device itself.</li>
+</ul>
+
+<p>I see pros and cons with both approaches, but my personal choice from now on would be that if the VNF does not have a pre-built plugin, and Netconf is supported with published <a href="http://getcloudify.org/2015/01/07/VNF-network-function-virtualization-netconf-yang-NFV.html" target="_blank">YANG</a> models for it, I would choose the Netconf path.</p>
+
+<p>Below is a detailed view of the architecture of the service provider network connected to the customer premises.</p>
+<br>
+<div class="aligncenter"><img src="/img/blog/vmware_brocade_metaswitch_cloudify.png" width="600"></div>
+<br/>
+<p>Watch the full video, courtesy of VMware, showing the Fully Orchestrated vCPE with Dynamic Service Insertion on VMware with Cloudify Orchestration.</p>
+
+<div class="flexslider aligncenter">
+		    <ul class="slides">
+		      <li style="display: list-item;">
+		        <a class="hover-wrap fancybox fancybox.iframe" data-fancybox-group="gallery" title="Cloudify Orchestration of Vyatta vCPE with Dynamic Service Insertion on vSphere" href="https://www.youtube.com/embed/uA7rxjIeyII?enablejsapi=1&amp;wmode=opaque">
+		        <br>
+		        <img src="/img/vcpe_orchestration_cover.png" alt="Cloudify Orchestration of Vyatta vCPE with Dynamic Service Insertion on vSphere" width="600"></a>
+		      </li>
+		    </ul>
+		  </div>
+
+
+</notextile>
