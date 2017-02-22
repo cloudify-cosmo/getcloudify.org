@@ -3,7 +3,25 @@ layout: bt_default
 title: Meet us on the ground | Cloudify
 category: Meetings
 ---
+							   <link rel="stylesheet" href="{{ site.baseurl }}/fullcalendar/fullcalendar.css" />
+								<script src="{{ site.baseurl }}/fullcalendar/lib/moment.min.js"></script>
+								<script src="{{ site.baseurl }}/fullcalendar/fullcalendar.js"></script>
+								<script type="text/javascript" src="{{ site.baseurl }}/fullcalendar/gcal.js"></script>
+								<script type='text/javascript'>
 
+							$(document).ready(function() {
+							   $('#calendar').fullCalendar({
+							    defaultView: 'listYear',
+							    googleCalendarApiKey: 'AIzaSyDyaAQw4pia3O8sPSI-hdLxEpzRJVIMS-U',
+
+							    events: 'gigaspaces.com_5fjp2kc2661p8uefr0u6vp261g@group.calendar.google.com',
+
+							    header: false
+							    
+								});
+							});
+
+							</script>
 
 		<section id="content">
 				<div class="container">
@@ -25,12 +43,12 @@ category: Meetings
 							<p> Whether you want to talk shop about the world of NFV, hybrid cloud, or using <a href="{{site.baseurl }}/cloud_orchestration_cloud_automation.html"> Cloud Orchestration</a> in your organization, the Cloudify team of experts is available to meet face to face at many developer conferences and events.</p>
 							<br/>
 
-							<div class="testimonial">
+							<div id="calendar"></div>
+							<!-- <div class="testimonial">
 									<h3><strong><i class="icon-50 icon-calendar"></i>Upcoming Events</strong></h3>
 										<br/>
-										<p><img src="/img/openstackimg.png" width="35"><strong>&nbsp;&nbsp;OpenStack Barcelona</strong>&nbsp;<!--<a  href="http://twitter.com/home?status=I'm going to meet %40cloudifysource at %23opnfvsummit June 20-23!"  target="_blank" class="btn btn-theme btn-sm hover-wrap"><i class="icon-twitter" ></i>&nbsp;Tweet</a>--></p>
-										<p>(October 25-27, CCIB, Barcelona, Spain - Booth C4)&nbsp;<!--<a data-fancybox-group="map" title="<h4>Intercontinental Hotel Berlin</h4> <p>OPNFV Summit is an annual conference to collaborate, innovate, and explore Network Functions Virtualization (NFV). The summit brings together developers, end users, and upstream communities working to advance open source NFV.</p>" href="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2428.4787880849185!2d13.3456783!3d52.5066738!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x47a851acba63a517%3A0x35cf90f26b930a56!2sBudapester+Str.+2%2C+10787+Berlin%2C+Germany!5e0!3m2!1sen!2s!4v1466326246653" class="btn btn-info btn-sm fancybox fancybox.iframe"> 
-										 <i class="icon-map-marker"></i>&nbsp;Map</a>--></p>
+										<p><img src="/img/openstackimg.png" width="35"><strong>&nbsp;&nbsp;OpenStack Barcelona</strong>&nbsp;</p>
+										<p>(October 25-27, CCIB, Barcelona, Spain - Booth C4)&nbsp;</p>
 										<p><img src="/img/vcloudairlogo.png" width="35"><strong>&nbsp;&nbsp;VMworld Barcelona</strong></p>
 										<p>(October 17-20, Fira Gran Via, Barcelona - Pod B in the New Innovator Pavilion)</p>
 
@@ -39,7 +57,7 @@ category: Meetings
 								<p><i class="fa fa-microphone" aria-hidden="true"></i> Stay tuned for on the ground podcasts with<a href="http://www.openstackpodcast.com" target="_blank">  OpenStack & Beyond</a> at these events.</p>
 								
 
-							</div>
+							</div> -->
 						</div>
 
 						<div class="span5">
