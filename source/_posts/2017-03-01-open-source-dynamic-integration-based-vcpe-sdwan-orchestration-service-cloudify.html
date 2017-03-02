@@ -1,0 +1,60 @@
+---
+layout: blogpost
+title: An Open Source, Dynamic, and Integration-Based vCPE/SD-WAN Orchestration Service Built with Cloudify
+description: This post dicsusses how taking an integration-based approach to vCPE/SD-WAN orchestration with Cloudify offers a dynamic service for real-time VNF onboarding and service chaining.
+image: shaynaeh.jpg
+author: Shay Naeh
+tags: 
+ - NFV
+ - vCPE
+ - NFV Orchestration
+ - TOSCA
+ - Network Automation
+---
+
+<notextile>
+
+<img src="/img/blog/vcpe_cloudify_service.png" alt="Cloudify's vCPE/SD-WAN orchestration service" width="870">
+<br/>
+<br/>
+
+<p>Analysts are definitely in agreement that <a href="http://getcloudify.org/2017/02/22/orchestrating-brocade-vcpe-metaswitchsbc-vnfs-vmware-cloudify.html">vCPE</a> and SD-WAN are both <a href="http://www.telecomnews.co.il/image/users/228328/ftp/my_files/General%20Files/vCPE-business-case-whitepaper-Analysys%20Mason-Oct2015.pdf?id=25752733">incredibly lucrative</a> and <a href="http://www.networkcomputing.com/data-centers/gartner-cli-use-will-dwindle-2020/324641783">growing</a> at an incredible pace. CSPs are looking to significantly lower costs with virtualization and automation of their networks. There are also many new players building their own CPE devices and management tools to help make this happen.</p>
+
+<p>However, it&rsquo;s not the new devices that CSPs are worried about, it&rsquo;s their current install base of <a href="http://getcloudify.org/2016/04/26/where-att-leads-cisco-cannot-follow-openstack-summit-cloud-nfv-orchestration.html">Cisco ISRs</a><a href="http://getcloudify.org/2016/04/26/where-att-leads-cisco-cannot-follow-openstack-summit-cloud-nfv-orchestration.html"> and other proprietary solutions</a> that are keeping them in vendor lock-in. The biggest concern for CSPs is how to dynamically orchestrate all the network components and replace any <a href="http://getcloudify.org/2017/01/25/orchestrating-kubernetes-managed-virtual-network-function-cloudify.html">VNF</a> with another brand, or open source alternative, on the fly.</p>
+
+<hr>
+
+<span class="pullquote-left">
+  <font style="font-weight: bold" size="5" face="Baskerville Old Face"><em>Read the full vCPE/SD-WAN White Paper.</em></font>  <a class="btn btn-medium btn-theme btn-rounded" id="downloadBtnInner" href="http://getcloudify.org/whitepapers/vcpe-sdwan-network-orchestration.html?utm_campaign=vcpe%20white%20paper&utm_source=website_blogs_jh" target="_blank"><i class="icon-plus"></i> Go </a></span>
+  
+  <hr>
+
+<p><strong>Integration-Based, Open Source Orchestration</strong></p>
+<p>Taking an integration-based approach, <a href="http://getcloudify.org">Cloudify</a> is able to consume existing components and integrate new ones with its very flexible and modular architecture. This is due to Cloudify&rsquo;s strong TOSCA modeling capabilities, and blueprint update features which enable updating and changing running deployments in real time.</p>
+
+<p>The key here is orchestration. More specifically - a dynamic, open source, generic orchestration engine. This approach integrates existing CPE devices, establishes secure overlay network connections, and chains <a href="http://getcloudify.org/network-function-virtualization-vnf-nfv-orchestration-sdn-platform.html">virtual network functions</a> (VNFs), such as vRouters and vFirewalls, creating an end-to-end flexible, dynamic service.</p>
+
+<p>This service will securely connect a remote branch to its corporate headquarters, the internet, and cloud-based provisioned applications, or another branch. The service has to be dynamic and customers should be able to manipulate its capabilities in real time based on ad-hoc business requirements.</p>
+
+<p><strong>How it Works</strong></p>
+<p>Assuming the provider already has zero touch provisioning capabilities to register a new device at a remote location, Cloudify will automatically orchestrate the provisioning, configuration, deployment, and post-deployment workflows to get the branch connection up and running per the client&rsquo;s requirements.</p>
+
+<p>Overlay connections are also required to connect the branch office. Cloudify supports both <a href="http://getcloudify.org/2015/05/17/TOSCA-NFV-orchestration-SDN-VNF-network-function-virtualization-netconf-yang.html">Netconf/YANG</a> and CLI/SSH methods for configuring overlay connections in order to connect a branch to the host data center or clouds, and utilizes different plugins for each device type.</p>
+
+<p>Additional functionality is introduced through the provisioning of VNFs in the data center and making them part of the service chain. The below image shows a schematic diagram of a virtual firewall (vFW) being deployed into the service chain.</p>
+
+<div class="aligncenter"><img src="/img/blog/vcpe_vfw_vnf.png"></div>
+
+<p>Additional VNFs, open and proprietary, can be added as well and chained together, or removed, dynamically in real time.</p>
+
+<p><strong>Complex Topologies Made Easy With TOSCA</strong></p>
+<p>Topologies which involve many branches, data centers, HQ and cloud applications can become complex to describe and model. <a href="http://getcloudify.org/webinars/tosca-training-videos.html#register">TOSCA</a> is a standard for modeling and describing the topology of many various components like infrastructure and applications for configuration and deployment.</p>
+
+<p>The provisioning and management of an integration-based approach to vCPE/SD-WAN requires orchestration, and TOSCA is an ideal candidate to define the service topology data model as well as the VNF lifecycle events. With Cloudify, users can also manage physical network functions (PNFs) along with their VNFs.</p>
+
+<div class="aligncenter"><img src="/img/blog/multi_tenant_orchestration.png"></div>
+
+<p><strong>Summary</strong></p>
+<p>In short, with generic, <a href="http://getcloudify.org/cloud_orchestration_cloud_automation.html">open source cloud orchestration</a>, it is possible to break free of vendor lock-in via a <a href="http://getcloudify.org/webinars/open-vCPE-framework-webinar.html">vCPE/SD-WAN</a> engine that is dynamically configured to simplify the setup, deployment, and post-deployment of any new remote branch device automatically upon registration with the headquarters. Cloudify, together with TOSCA, is able to ensure even the most complex topologies are orchestrated as well as service chaining VNFs and updating any service in the environment on the fly.</p>
+
+</notextile>
