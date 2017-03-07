@@ -1,0 +1,193 @@
+---
+layout: bt_default
+title: Israel Open Source Seminar - 2017
+description: Join Cloudify, Amdocs and the Linux Foundation for this exclusive open source seminar
+category: events
+---
+
+
+<div class="jumbotron subhead" id="overview">
+    <h5 class="dwnCenter"></h5>
+    <div class="container dwnTopBanner">
+        <p>&nbsp;</p>        
+        <h2><font color="#3ab9d4"><strong><p style="font-size:40px">Exclusive Event</p></strong></font></h2>
+        <h1>Open Source Seminar - March 19, 2017</h1>
+
+        <div class="row-fluid">
+            <div class="span10"> 
+            <a class="regBtn" href="#register"><i class="icon-plus"></i>&nbsp;Register</a>
+
+                     <div class="row">
+                    <div class="span12">
+
+                    </div>
+                    
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</div>
+
+		
+		<section id="content">
+				<div class="container">
+				<div class="row">		
+					<div class="span7">
+					<br/>
+					<br/>
+
+							<h2><b>Join us for a seminar on Open Source use in Telcos</b></h2>
+							<p>Marc Cohn, the Executive Director, OPEN-O and Vice President, Network Strategy at the The Linux Foundation, will be headlining this half day seminar of the role of Open Source in the ongoing Network Virtualization Function revolution.</p>
+							<h3><strong>Join us to learn and discuss:</strong></h3>
+							<ul>
+								<li>Openness and open source for telecommunications</li>
+								<li>Knowledge transfer between the ECOMP and OPEN-O communities</li>
+								<li>Learn how open source is reshaping standards</li>
+								<li>Examine the evolving open source methodology</li>
+								<li>Learn more about ONAP including why the merge makes sense</li>
+								<li>Get an overview of OPEN-O</li>	
+							</ul>		
+							<a name="register">
+					<div class="span5">
+					<br/>
+					<br/>
+					<h2><strong>Sign Up Now</sup></strong></h2>
+					<!--[if lte IE 8]>
+						<script charset="utf-8" type="text/javascript" src="//js.hsforms.net/forms/v2-legacy.js"></script>
+						<![endif]-->
+						<script charset="utf-8" type="text/javascript" src="//js.hsforms.net/forms/v2.js"></script>
+						<script>
+						  hbspt.forms.create({
+						    portalId: '1918719',
+						    formId: 'aa86374d-90e6-40af-bcdb-cb45043376bc',
+								onFormSubmit: function($form) { dataLayer.push({
+								'event' : 'GAevent',
+								'eventCategory': 'Form Completion',
+								'eventAction': 'Submitted Open Source seminar Form',
+								'eventLabel': 'Open Source seminar',
+								})
+								}
+				  			});
+						</script>
+					</div>
+					<center><p><a href="mailto:marketing@getcloudify.org"> Email us for more information or any questions</a></p></center>
+				</div>
+				</div>	
+		</section>
+		
+<div id="notification_container"></div>
+
+<script type="text/javascript">
+$(function () {
+  var $form = $('#mc-embedded-subscribe-form');
+
+  $('#mc-embedded-subscribe').on('click', function(event) {
+    if(event) event.preventDefault();
+    register($form);
+  });
+});
+
+function register($form) {
+  $.ajax({
+    type: $form.attr('method'),
+    url: $form.attr('action'),
+    data: $form.serialize(),
+    cache       : false,
+    dataType    : 'json',
+    contentType: "application/json; charset=utf-8",
+    error       : function(err) { $('#notification_container').html('<span class="alert">Could not connect to server. Please try again later.</span>'); },
+    success     : function(data) {
+     
+      if (data.result != "success") {
+        var message = data.msg.substring(4);
+        $('#notification_container').html('<span class="alert">'+message+'</span>');
+      } 
+
+      else {
+        var message = data.msg;
+        $('#notification_container').html('<span class="success">'+message+'</span>');
+		track_contactForm();
+		mixpanel.track('Register for NFV', {'page name' : document.title, 'url' : window.location.pathname});	
+      }
+    }
+  });
+}
+</script>
+
+
+<div id="mce-responses" class="clear">
+	<div class="response" id="mce-error-response" style="display:none"></div>
+	<div class="response" id="mce-success-response" style="display:none"></div>
+</div>
+<!-- End MailChimp Signup Form -->
+<div id="messageBox"></div>
+
+                                        <div class="row">
+                               
+											<!-- LeadLander Form Tracking -->
+											<script type="text/javascript">llfrmid=29185</script> 
+											<script type="text/javascript" src="https://formalyzer.com/formalyze_init.js"></script> 
+											<script type="text/javascript" src="https://formalyzer.com/formalyze_call_secure.js"></script>
+											<!-- End LeadLander -->
+                                  
+									
+                        </div> 
+                    </div>
+			</div>
+		</section>	
+
+<script>
+
+//set download cookie
+function setCookie(key, value) {
+    var expires = new Date();
+    expires.setTime(expires.getTime() + (180 * 24 * 60 * 60 * 1000));
+    document.cookie = key + '=' + value + ';expires=' + expires.toUTCString()+';path=/';
+}
+
+function getCookie(key) {
+    var keyValue = document.cookie.match('(^|;) ?' + key + '=([^;]*)(;|$)');
+    return keyValue ? keyValue[2] : null;
+}
+function track_contactForm() {
+
+		//_gaq.push(['_trackEvent','Product Download', downloadme]);
+       	//track mixpanel
+		if (getCookie('cfydirect') == null) {
+            var formEmail =  $("#mc-embedded-subscribe-form #mce-EMAIL").val();	
+            var formName =  $("#mc-embedded-subscribe-form #mce-FNAME").val();
+			var formcompany =  $("#mc-embedded-subscribe-form #mce-MMERGE3").val();
+			mixpanel.identify(formEmail);
+            mixpanel.alias(formName, formEmail, formcompany);
+            mixpanel.name_tag(formName) ;
+			mixpanel.register();
+			
+			mixpanel.people.set({
+			$email: formEmail,
+			$first_name: formName,
+			$company: formcompany,
+			$created: new Date(),
+			});	
+			//create cookie;
+			setCookie('cfydirect', formName + "," + formEmail + "," + formcompany);	
+			
+			
+        }else{
+			var formEmail = getCookie('cfydirect').split(",")[1];
+			mixpanel.identify(formEmail);
+        }
+
+		
+	}
+	
+	
+	$("#mc-embedded-subscribe-form").validate({
+  submitHandler: function(form) {
+    form.submit();
+  }
+ });
+	
+
+</script>
