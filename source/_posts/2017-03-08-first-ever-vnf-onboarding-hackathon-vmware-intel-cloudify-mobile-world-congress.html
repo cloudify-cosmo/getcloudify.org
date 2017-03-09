@@ -1,0 +1,73 @@
+---
+layout: blogpost
+title: The First Ever VNF Onboarding Hackathon with VMware, Intel, and Cloudify at Mobile World Congress 2017
+description: Read about our very successful VNF onboarding hackathon, with many top vendors and integrators, at MWC 2017.
+image: yoramshayn.png
+author: Yoram Weinreb & Shay Naeh
+tags: 
+ - NFV
+ - vCPE
+ - NFV Orchestration
+ - TOSCA
+ - VNF
+---
+
+<notextile>
+
+<img src="/img/blog/vmware-intel-cloudify-hackathon-mwc.png" alt="Cloudify's vCPE/SD-WAN orchestration service" width="870">
+<br/>
+<br/>
+
+<h2>Hackathon Goals: Shared Library of VNFs for Onboarding</h2>
+<p>At Mobile World Congress 2017 in Barcelona, VMWare, Intel, and Cloudify hosted the first ever open VNF onboarding hackathon. The main goal of this event was to demonstrate the ease with which virtual network functions (VNF) onboarding can be done. We were very pleased by the turnout, with around 30 of the most innovative VNF solution providers as well as integrators taking part.</p>
+
+<p>The current VNF onboarding process is quite labor intensive and requires deep understanding of the orchestrator language as well as the underlying infrastructure (VIMs such as Openstack, vCloud Director, VIO, etc.) it is being deployed on.</p>
+<hr>
+
+<span class="pullquote-left">
+  <font style="font-weight: bold" size="5" face="Baskerville Old Face"><em>Read the vCPE/SD-WAN Orchestration White Paper.&nbsp;</em></font>  <a class="btn btn-medium btn-theme btn-rounded" id="downloadBtnInner" href="http://getcloudify.org/whitepapers/vcpe-sdwan-network-orchestration.html?utm_campaign=vcpe%20white%20paper&utm_source=website_blogs_jh" target="_blank"><i class="icon-plus"></i> Go </a></span>
+  
+  <hr>
+
+<p>With this hackathon, we wanted to propose a simpler way to onboard network functions with TOSCA as a common standard language for VNF definition, including advanced life-cycle events and the ability to compose multiple VNF definitions into a service chain. This cuts down the time required for a VNF vendor to take virtualized software and make it cloud native VNF ready.</p>
+
+<p>The ultimate goal is to create a shared common library of VNF definitions where vendors can add their VNF and operators can make use of any vendors&rsquo; VNFs. Utilizing the TOSCA standard, users create an agnostic definition that runs on any VIM and offers a standard way to take any existing virtualized function (VF) and onboard it.</p>
+
+<p>Cloudify is used as a TOSCA compliant parser as well as workflow execution engine to deploy VNFs.</p>
+
+<h2>Blueprint Generator</h2>
+<p>The hackathon demo came with a wizard the team created, together with VMware and Intel, to define the VNF type and specify its image and requirements, like memory and disk storage, as depicted in Figure 1.</p>
+
+<div class="aligncenter"><img src="/img/blog/vnf-onboarding-wizard1.png">
+<p style="font-size: 10px">Figure 1 - TOSCA Wizard</p></div>
+
+<p>Essentially, the wizard creates a VM to run the chosen VNF with the specified requirements. It can run on any underlying VIM. The VM is then populated with the VNF software.</p>
+
+<p>The next step is to connect the network interfaces (management, inbound and outbound interfaces) correctly. The wizard then prompts you to customize the NIC ordering by specifying which NIC is connected to what network as depicted in Figure 2.</p>
+
+<div class="aligncenter"><img src="/img/blog/vnf-onboarding-wizard2.png">
+<p style="font-size: 10px">Figure 2 - NIC ordering</p></div>
+
+<p>Users can also specify scripts for different lifecycle stages (configure, post-conf, start, stop, delete). In the future, we plan to add monitoring, logging and scaling capabilities as well.</p>
+
+<p>This process then generates a downloadable TOSCA compliant file which is ready for onboarding as depicted in Figure 3. You can view the generated sample TOSCA code <a href="https://gist.githubusercontent.com/shayn1234/efc6ed4a784fab08020ce4cd272dd984/raw/7c4f351a967e81c66c89ef72f63a36d09525bd51/gistfile1.txt">here</a>.</p>
+
+<div class="aligncenter"><img src="/img/blog/vnf-onboarding-wizard3.png">
+<p style="font-size: 10px">Figure 3 - download a TOSCA compliant VNF definition</p></div>
+
+<p>We then demonstrated how to take several VNF definitions and create a service chain with an example of vCPE service chaining a vFW and vUTM (URL filtering) VNFs.</p>
+
+<h2>Lessons Learned</h2>
+<p>Many vendors with various VNF types participated in this great event, including vFW, vLB vendors as well as new VNF vendors that we encountered the first time.</p>
+
+<p>Vendors were definitely satisfied and, at the same time, surprised how we easily transformed their virtualized software and made it VNF ready, saving them lots of time as well as the need to understand different VIM APIs and specific language definitions.</p>
+
+<p>We achieved our goal of creating one common standard language to define and onboard various VNF types, simple as well as complex.</p>
+
+<p>Many of the VNFs were single VM VNFs, but there were some vendors that asked for a more complex VNF, including multiple VDUs, and we showed them how simple it was with the wizard-generated TOSCA output, even though the wizard was built for a simple, single VM VNF (Cloudify supports complex VNFs with multiple VDUs, and much more).</p>
+
+<p>We got requests to enhance the wizard to support EPA features from Intel. Additional requests were for adding self-healing and scalability for the generated VNF.</p>
+
+<p>Overall, we feel the hackathon was very successful and our partners, VMware and Intel, were really great to work with. Expect to see more from the VNF Onboarding Wizard in the near future.</p>
+
+</notextile>
