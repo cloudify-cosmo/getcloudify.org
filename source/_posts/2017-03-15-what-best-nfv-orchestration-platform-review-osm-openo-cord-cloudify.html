@@ -1,0 +1,87 @@
+---
+layout: blogpost
+title: What is the best NFV Orchestration platform? A review of OSM, Open-O, CORD, and Cloudify
+description: The OpenStack Unlocked team at Mirantis note that Cloudify "emerges as the most mature orchestration solution among the reviewed platforms."
+image: openstack-unlocked.png
+author: Dmitriy Andrushko & Gregory Elkinbard
+tags: 
+ - NFV
+ - VNF
+ - ETSI
+ - TOSCA
+ - MANO
+---
+
+<notextile>
+
+<img src="/img/blog/nfv-orchestration-competitors.png" alt="Cloudify, Open-O, OSM, CORD NFV Orchestrators" width="870">
+<br/>
+<br/>
+
+<h3><em>This article was originally posted on the <a href="https://www.mirantis.com/blog/which-nfv-orchestration-platform-best-review-osm-open-o-cord-cloudify/" target="_blank">OpenStack Unlocked Blog</a>.</em></h3>
+
+<p>As Network Functions Virtualization (NFV) technology matures, multiple <a href="http://getcloudify.org">NFV orchestration</a> solutions have emerged and 2016 was a busy year. While some commercial products were already available on the market, multiple open source initiatives were also launched, with most delivering initial code releases, and others planning to roll-out software artifacts later this year.</p>
+<p>With so much going on, we thought we&rsquo;d provide you with a technical overview of some of the various NFV orchestration options, so you can get a feel for what&rsquo;s right for you. In particular, we&rsquo;ll cover:</p>
+<ul>
+<li><a href="https://osm.etsi.org/">Open Source MANO (OSM)</a></li>
+<li><a href="https://www.open-o.org/">OPEN-O</a></li>
+<li><a href="http://opencord.org/">CORD</a></li>
+<li><a href="http://docs.getcloudify.org/">Gigaspaces Cloudify</a></li>
+</ul>
+<p>In addition, multiple NFV projects have been funded under European Union R&amp;D programs. Projects such as OpenBaton, T-NOVA/TeNor and SONATA have their codebases available in public repos, but industry support, involvement of external contributors and further sustainability might be a challenging for these projects, so for now we&rsquo;ll consider them out of scope for this post, where we&rsquo;ll review and compare orchestration projects across the following areas:</p>
+<ul>
+<li>General overview and current project state</li>
+<li>Compliance with NFV MANO reference architecture</li>
+<li>Software architecture</li>
+<li>NSD definition approach</li>
+<li>VIM and VNFM support</li>
+<li>Capabilities to provision End to End service</li>
+<li>Interaction with relevant standardization bodies and communities</li>
+</ul>
+
+<hr>
+
+<span class="pullquote-left">
+  <font style="font-weight: bold" size="5" face="Baskerville Old Face"><em>Read the vCPE/SD-WAN Orchestration White Paper.&nbsp;</em></font>  <a class="btn btn-medium btn-theme btn-rounded" id="downloadBtnInner" href="http://getcloudify.org/whitepapers/vcpe-sdwan-network-orchestration.html?utm_campaign=vcpe%20white%20paper&utm_source=website_blogs_jh" target="_blank"><i class="icon-plus"></i> Go </a></span>
+  
+  <hr>
+
+<h2>General overview and current project state</h2>
+<p>We&rsquo;ll start with a general overview of each project, along with, its ambitions, development approach, the involved community, and related information.</p>
+<h3>OSM</h3>
+<p>The OpenSource MANO project was officially launched at the World Mobile Congress (WMC) in 2016. Starting with several founding members, including Mirantis, Telef&oacute;nica, BT, Canonical, Intel, RIFT.io, Telekom Austria Group and Telenor, the OSM community now includes 55 different organisations. The OSM project is hosted at ETSI facilities and targets delivering an open source management and orchestration (MANO) stack closely aligned with the ETSI NFV reference architecture.</p>
+<p>OSM issued two releases,Rel 0 and Rel 1, during 2016. The most recent at the time of this writing, OSM Rel. 1, has been publicly available since October, 2016, and can be downloaded from the <a href="https://osm.etsi.org">official website</a>. Project governance is managed via several groups, including the Technical Steering group responsible for OSM&rsquo;s technical aspects, the Leadership group, and the End User Advisory group. You can find more details about OSM project may be found at the <a href="https://osm.etsi.org/wikipub/index.php/Main_Page">official Wiki</a>.</p>
+<h3>OPEN-O</h3>
+<p>The <a href="https://www.open-o.org/">OPEN-O project</a> is hosted by the Linux foundation and was also formally announced at 2016 MWC. Initial project advocates were mostly from Asian companies, such as Huawei, ZTE and China Mobile. Eventually, the project project got further support from Brocade, Ericsson, GigaSpaces, Intel and others.</p>
+<p>The main project objective is to enable end-to-end service agility across multiple domains using unified platform for NFV and SDN orchestration. The OPEN-O project delivered its first release in November, 2016 plans to roll-out future releases in a 6 month cycle. Overall project governance is managed by the project Board, with technology-specific issues managed by the Technical Steering Committee. You can find more general details about the OPEN-O project may be found at <a href="https://www.open-o.org/">the project web-site</a>.</p>
+<h3>CORD/XOS</h3>
+<p>Originally CORD (Central Office Re-architected as a Datacenter) was introduced as one of the use cases for the ONOS SDN Controller, but it grew-up into a separate project under ON.Lab governance. (ON.Lab recently merged with the Open Networking Foundation.)</p>
+<p>The ultimate project goal is to combine NFV, SDN and the elasticity of commodity clouds to <a href="http://opencord.org/">bring datacenter economics and cloud agility to the Telco Central Office</a>. The reference implementation of CORD combines commodity servers, white-box switches, and disaggregated access technologies with open source software to provide an extensible service delivery platform. CORD Rel.1 and Rel.2 integrate a number of open source projects, such as ONOS to manage SDN infrastructure, <a href="https://www.mirantis.com/software/openstack/?utm_campaign=MOS%20weight%20increasing">OpenStack</a> to deploy NFV workloads, and XOS as a service orchestrator. To reflect use cases&rsquo; uniqueness, CORD introduces a number of service profiles, such as Mobile (M-CORD), Residential (R-CORD), and Enterprise (E-CORD). You can find more details about CORD project can be found at <a href="http://opencord.org/">the official project web site</a>.</p>
+<h3>Gigaspaces Cloudify</h3>
+<p><a href="http://docs.getcloudify.org/">Gigaspaces&rsquo; Cloudify</a> is the open source TOSCA-based cloud orchestration software platform. Originally introduced as a pure cloud orchestration solution (similar to OpenStack HEAT), the platform was further expanded to include NFV-related use cases, and the Cloudify Telecom Edition emerged.</p>
+<p>Considering its original platform purpose, Cloudify has an extensible architecture and can interact with multiple IaaS/PaaS providers such as AWS, OpenStack, Microsoft Azure and so on. Overall, Cloudify software is open source under the Apache 2 license and the source code is hosted in a public repository. While the Cloudify platform is open source and welcomes community contributions, the overall project roadmap is defined by Gigaspaces. You can find more details about the Cloudify platform at <a href="http://docs.getcloudify.org/">the official web site</a>.</p>
+<h2>Compliance with ETSI NFV MANO reference architecture</h2>
+<p>At the time of this writing, a number of alternatives and specific approaches, such as Lifecycle Service Orchestration (LSO) from Metro Ethernet Forum, have emerged, huge industry support and involvement has helped to promote <a href="http://www.etsi.org/deliver/etsi_gs/NFV-MAN/001_099/001/01.01.01_60/gs_NFV-MAN001v010101p.pdf">ETSI NFV Management and Orchestration (MANO)</a> as the de-facto reference NFV architecture. From this standpoint, NFV MANO provides comprehensive guidance for entities, reference points and workflows to be implemented by appropriate NFV platforms (fig. 1):</p>
+<p><a href="https://cdn.mirantis.com/wp-content/uploads/2017/03/ETSI-NFV-MANO-reference-architecture.png"><img src="https://cdn.mirantis.com/wp-content/uploads/2017/03/ETSI-NFV-MANO-reference-architecture.png" sizes="(max-width: 783px) 100vw, 783px" srcset="https://cdn.mirantis.com/wp-content/uploads/2017/03/ETSI-NFV-MANO-reference-architecture.png?resize=783x534 783w, https://cdn.mirantis.com/wp-content/uploads/2017/03/ETSI-NFV-MANO-reference-architecture.png?resize=390x265 390w, https://cdn.mirantis.com/wp-content/uploads/2017/03/ETSI-NFV-MANO-reference-architecture.png?resize=260x177 260w, https://cdn.mirantis.com/wp-content/uploads/2017/03/ETSI-NFV-MANO-reference-architecture.png?resize=200x136 200w, https://cdn.mirantis.com/wp-content/uploads/2017/03/ETSI-NFV-MANO-reference-architecture.png?resize=160x109 160w" alt="ETSI NFV MANO reference architecture" width="783" height="534" /></a></p>
+<p>Figure 1 &ndash; ETSI NFV MANO reference architecture</p>
+<h3>OSM</h3>
+<p>As this project is hosted by ETSI, the OSM community tries to be compliant with the ETSI NFV MANO reference architecture, respecting appropriate IFA working group specifications. Key reference points, such as Or-Vnfm and Or-Vi might be identified within OSM components. The VNF and Network Service (NS) catalog are explicitly present in an OSM service orchestrator (SO) component. Meanwhile, a lot of further development efforts are planned to reach feature parity with currently specified features and interfaces.</p>
+<h3>OPEN-O</h3>
+<p>While the OPEN-O project in general has no objective to be compliant with NFV MANO, the NFVO component of OPEN-O is aligned with an ETSI reference model, and all key MANO elements, such as VNFM and VIM might be found in an NFVO architecture. Moreover, the scope of the OPEN-O project goes beyond just NFV orchestration, and as a result goes beyond the scope identified by the ETSI NFV MANO reference architecture. One important piece of this project relates to SDN-based networking services provisioning and orchestration, which might be further used either in conjunction with NFV services or as a standalone feature.</p>
+<h3>CORD</h3>
+<p>Since its invention, CORD has defined its own reference architecture and cross-component communication logic. The reference CORD implementation is very OpenFlow-centric around ONOS, the orchestration component (XOS), and whitebox hardware. Technically, most of the CORD building blocks might be mapped to MANO-defined NFVI, VIM and VNFM, but this is incidental; the overall architectural approach defined by ETSI MANO, as well as the appropriate reference points and interfaces were not considered in scope by the CORD community. Similar to OPEN-O, the scope of this project goes beyond just NFV services provisioning. Instead, NFV services provisioning is considered as one of the several possible use cases for the CORD platform.</p>
+<h3>Gigaspaces Cloudify</h3>
+<p>The original focus of the Cloudify platform was orchestration of application deployment in a cloud. Later, when the NFV use case emerged, the Telecom Edition of the Cloudify platform was delivered. This platform combines both NFVO and generic VNFM components of the MANO defined entities (fig. 2).</p>
+<p><a href="https://cdn.mirantis.com/wp-content/uploads/2017/03/Cloudify-in-relation-to-a-NFV-MANO-reference-architecture.png"><img src="https://cdn.mirantis.com/wp-content/uploads/2017/03/Cloudify-in-relation-to-a-NFV-MANO-reference-architecture.png" sizes="(max-width: 604px) 100vw, 604px" srcset="https://cdn.mirantis.com/wp-content/uploads/2017/03/Cloudify-in-relation-to-a-NFV-MANO-reference-architecture.png?resize=604x586 604w, https://cdn.mirantis.com/wp-content/uploads/2017/03/Cloudify-in-relation-to-a-NFV-MANO-reference-architecture.png?resize=300x291 300w, https://cdn.mirantis.com/wp-content/uploads/2017/03/Cloudify-in-relation-to-a-NFV-MANO-reference-architecture.png?resize=200x194 200w, https://cdn.mirantis.com/wp-content/uploads/2017/03/Cloudify-in-relation-to-a-NFV-MANO-reference-architecture.png?resize=150x145 150w, https://cdn.mirantis.com/wp-content/uploads/2017/03/Cloudify-in-relation-to-a-NFV-MANO-reference-architecture.png?resize=120x116 120w" alt="Cloudify in relation to a NFV MANO reference architecture" width="604" height="586" /></a></p>
+<p>Figure 2 &ndash; <a href="http://getcloudify.org/network-function-virtualization-vnf-nfv-orchestration-sdn-platform.html">Cloudify in relation to a NFV MANO reference architecture</a></p>
+<p>By its very nature, Cloudify Blueprints might be considered as the NS and VNF catalog entities defined by MANO. Meanwhile, some interfaces and actions specified by the NFV IFA subgroup are not present or considered as out of scope for the Cloudify platform. From this standpoint, you could say that Cloudify is aligned with the MANO reference architecture but not fully compliant.</p>
+<h2>Conclusions</h2>
+<p>Summarising the current state of the NFV orchestration platforms, we may conclude the following:</p>
+<p>The OSM platform is already suitable for evaluation purposes, and has relatively simple and straightforward architecture. Several sample NSDs and VNFDs are available for evaluation in the public gerrit repo. As a result, the platform can be easily installed and integrated with an appropriate VIM to evaluate basic NFV capabilities, trial use cases and PoCs. The project is relatively young, however, and a number of features still require development and will be available in upcoming releases. Furthermore, lack of support for end-to-end NFV service provisioning across multiple regions, including underlay network provisioning, should be considered in relation to your desired use case. Considering mature OSM community and close interaction with ETSI NFV group this project might emerge as a viable option for production-grade NFV Orchestration.</p>
+<p>At the time of this writing, the main visible benefit of the OPEN-O platform is the flexible and extendable microservices-based architecture. The OPEN-O approach considers End-to-End service provisioning spanning multiple SDN and NFV regions from the very beginning. Additionally, the OPEN-O project actively collaborates with the OPNFV community toward tight integration of the Orchestrator with OPNFV platform. Unfortunately, at the time of this writing, the OPEN-O platform requires further development to be capable of providing arbitrary NFV service provisioning. Additionally a lack of documentation makes it hard to understand the microservice logic and the interaction workflow. Meanwhile, the recent <a href="https://www.open-o.org/news/news/2017/02/linux-foundation-announces-merger-open-source-ecomp-and-open-o-form-new-open">OPEN-O and ECOMP merge</a> under the <a href="https://www.onap.org/">ONAP</a> project creates powerful open source community with strong industry support, which may reshape the overall NFV orchestration market.</p>
+<p>The CORD project is the right option when OpenFlow and whiteboxes are the primary option for computing and networking infrastructure. The platform considers multiple use cases, and a large community is involved in platform development. Meanwhile, at the time of this writing, the CORD platform is a relatively &ldquo;niche&rdquo; solution around OpenFlow and related technologies pushed to the market by ONF.</p>
+<p>Gigaspaces Cloudify is a platform that already has a relatively long history, and at the time of this writing emerges as the most mature orchestration solution among the reviewed platforms. While the NFV use case for a Cloudify platform wasn&rsquo;t originally considered, Cloudify&rsquo;s pluggable and extendable architecture and embedded workflow engine enables arbitrary NFV service provisioning. However, if you do consider Cloudify as an orchestration engine, be sure to consider the risk of having the decision-making process regarding the overall platform strategy controlled solely by Gigaspaces.</p>
+
+<h3>See the full blog post on the <a href="https://www.mirantis.com/blog/which-nfv-orchestration-platform-best-review-osm-open-o-cord-cloudify/" target="_blank">OpenStack Unlocked Blog</a>.</h3>
+
+</notextile>
