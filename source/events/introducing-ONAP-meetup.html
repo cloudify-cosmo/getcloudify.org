@@ -1,0 +1,198 @@
+---
+layout: bt_default
+title: Introducing ONAP Meetup at the Open Networking Summit
+description:  Join the Linux Foundation along with an Executive Panel for an excellent meetup during the Open Networking Summit
+category: Events
+noindex: true
+---
+
+
+		<section id="content">
+				<div class="container">
+				<div class="row">
+				<div class="span12">
+					<div class="aligncenter">
+						<h1><strong>Introducing ONAP with the Linux Foundation at the Bay Area Open Networking Meetup</strong> </h1>
+						<h2><strong>VIP Cocktail Party Registration</strong></h2>
+						<p><strong>Tuesday April 4, 2017</strong></p>
+						<p><strong>6:00 PM - 8:00PM </strong></p>
+						<p><strong></strong>
+					</div>
+				</div>
+				</div>
+				</div>
+		</section>		
+
+		<section id="content">
+				<div class="container">
+				<div class="row">		
+					<div class="span7">
+					<br>
+					<p>Over the past few years, open source has emerged as a catalyst for change in the telecommunications and cable industry. By leveraging shared investments in technology, and collaborative innovation, operators and solution providers alike are in the midst of a complete overhaul of the software development lifecycle.</p>
+					<p>As large-scale open source platforms beginning with the OpenDaylight project, continue to gain momentum, telecommunications play an increasingly important role in the open source communities, and are beginning to evolve the open source methodology to address the needs of the world's largest operators and their technology partners.</p>
+					<p>In this seminar, we intend to address this new methodology, relying upon the Linux Foundation best practices and experience driving among the most important open source projects in telecommunications. As open source migrates up the stack, we will present examples based on the OPEN-O open orchestration project, which is in the process of merging into the Open Network Automation Platform (ONAP), along with open source ECOMP.</p>
+					</ul>
+
+					<p>Please register for the <strong>VIP Cocktail Party</strong> following the event. Confirmation will be received from the Cloudify team.</p>
+					</ul>
+					<p>&nbsp;</p>
+							
+						<div class="testimonial">
+							<h3><strong><i class="icon-50 icon-calendar"></i>On the Agenda:</strong></h3>
+							<br/>
+							<p><strong>6:00</strong>&nbsp;&nbsp;Arrival & Mingling</p>
+							<p><strong>6:30</strong>&nbsp;&nbsp;Introducing ONAP and Vision (Linux Foundation)</p>
+							<p><strong>7:00</strong>&nbsp;&nbsp;Open Source Networking Landscape - How they can work together and what are the challenges? [Ed Warnicke (Cisco), Chris Donley (Huawei), Amir Levy (Cloudify), along with the Linux Foundation. Panel Moderator: Cary Dym]</strong></p>
+							<p><strong>7:30</strong>&nbsp;&nbsp;Cocktail Party
+						</div>
+
+					
+					<br/>
+
+					</div>
+						<div class="span5">
+						<h2><strong>Register Now</strong></h2>
+							<!--[if lte IE 8]>
+							<script charset="utf-8" type="text/javascript" src="//js.hsforms.net/forms/v2-legacy.js"></script>
+							<![endif]-->
+							<script charset="utf-8" type="text/javascript" src="//js.hsforms.net/forms/v2.js"></script>
+							<script>
+							  hbspt.forms.create({ 
+							    portalId: '1918719',
+							    formId: '945b2217-aa3b-496d-aa9c-fa28d89c2ffc'
+							  });
+							</script>
+
+						
+					</div>
+
+				</div>
+				</div>
+					
+		</section>
+
+
+		<!--	<section id="content">
+				<div class="container">
+				<div class="row">
+				<div class="span12">
+				<div class="aligncenter">
+				<div class="well"><h2><img src="{{ site.baseurl }}/img/logo.png" width="120"> Find out about Cloudify's <a href="{{ site.baseurl }}/NFV-Labs-On-Demand.html"><strong> NFV Lab</strong></a></h2></div>
+				</div>
+				</div>
+				</div>
+				</div>
+			</section>	-->
+		
+
+<script type="text/javascript">
+$(function () {
+  var $form = $('#mc-embedded-subscribe-form');
+
+  $('#mc-embedded-subscribe').on('click', function(event) {
+    if(event) event.preventDefault();
+    register($form);
+  });
+});
+
+function register($form) {
+  $.ajax({
+    type: $form.attr('method'),
+    url: $form.attr('action'),
+    data: $form.serialize(),
+    cache       : false,
+    dataType    : 'json',
+    contentType: "application/json; charset=utf-8",
+    error       : function(err) { $('#notification_container').html('<span class="alert">Could not connect to server. Please try again later.</span>'); },
+    success     : function(data) {
+     
+      if (data.result != "success") {
+        var message = data.msg.substring(4);
+        $('#notification_container').html('<span class="alert">'+message+'</span>');
+      } 
+
+      else {
+        var message = data.msg;
+        $('#notification_container').html('<span class="success">'+message+'</span>');
+		track_contactForm();
+		mixpanel.track('Register for NFV', {'page name' : document.title, 'url' : window.location.pathname});	
+      }
+    }
+  });
+}
+</script>
+
+
+<div id="mce-responses" class="clear">
+	<div class="response" id="mce-error-response" style="display:none"></div>
+	<div class="response" id="mce-success-response" style="display:none"></div>
+</div>
+<!-- End MailChimp Signup Form -->
+
+                               
+											<!-- LeadLander Form Tracking -->
+											<script type="text/javascript">llfrmid=29185</script> 
+											<script type="text/javascript" src="https://formalyzer.com/formalyze_init.js"></script> 
+											<script type="text/javascript" src="https://formalyzer.com/formalyze_call_secure.js"></script>
+											<!-- End LeadLander -->
+                                  
+									
+            
+			
+			
+	
+
+
+<script>
+
+//set download cookie
+function setCookie(key, value) {
+    var expires = new Date();
+    expires.setTime(expires.getTime() + (180 * 24 * 60 * 60 * 1000));
+    document.cookie = key + '=' + value + ';expires=' + expires.toUTCString()+';path=/';
+}
+
+function getCookie(key) {
+    var keyValue = document.cookie.match('(^|;) ?' + key + '=([^;]*)(;|$)');
+    return keyValue ? keyValue[2] : null;
+}
+function track_contactForm() {
+
+		//_gaq.push(['_trackEvent','Product Download', downloadme]);
+       	//track mixpanel
+		if (getCookie('cfydirect') == null) {
+            var formEmail =  $("#mc-embedded-subscribe-form #mce-EMAIL").val();	
+            var formName =  $("#mc-embedded-subscribe-form #mce-FNAME").val();
+			var formcompany =  $("#mc-embedded-subscribe-form #mce-MMERGE3").val();
+			mixpanel.identify(formEmail);
+            mixpanel.alias(formName, formEmail, formcompany);
+            mixpanel.name_tag(formName) ;
+			mixpanel.register();
+			
+			mixpanel.people.set({
+			$email: formEmail,
+			$first_name: formName,
+			$company: formcompany,
+			$created: new Date(),
+			});	
+			//create cookie;
+			setCookie('cfydirect', formName + "," + formEmail + "," + formcompany);	
+			
+			
+        }else{
+			var formEmail = getCookie('cfydirect').split(",")[1];
+			mixpanel.identify(formEmail);
+        }
+
+		
+	}
+	
+	
+	$("#mc-embedded-subscribe-form").validate({
+  submitHandler: function(form) {
+    form.submit();
+  }
+ });
+	
+
+</script>
