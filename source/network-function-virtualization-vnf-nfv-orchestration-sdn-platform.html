@@ -137,12 +137,15 @@ category: NFV
 
 					<p>vCPE and SD-WAN are arguably the top priority for CSPs and Telcos right now as they look to significantly lower costs associated with virtualization and automation of their networks. However, there are two areas that are holding them back from reaping the benefits of pure, open source network automation: vendor lock-in and business model.</p>
 					<p><strong>Vendor Lock-In</strong></p>
-					<p>Most CSPs are looking for a turnkey solution that will take care of their network and automation, but when they get to orchestration, they generally settle with whatever orchestrator their <a href="http://getcloudify.org/2016/04/26/where-att-leads-cisco-cannot-follow-openstack-summit-cloud-nfv-orchestration.html" target="_blank">proprietary hardware vendor</a> gives them because it's free. And now, the Telco is stuck with that vendor - because it was easier.</p>
+					<p>Most CSPs are looking for a turnkey solution that will take care of their network and automation, but when they get to orchestration, they generally settle with whatever orchestrator their <a href="{{ site.baseurl }}/2016/04/26/where-att-leads-cisco-cannot-follow-openstack-summit-cloud-nfv-orchestration.html" target="_blank">proprietary hardware vendor</a> gives them because it's free. And now, the Telco is stuck with that vendor - because it was easier.</p>
 					<p><strong>vCPE Business Model</strong></p>
-					<p>The vCPE business model was supposed to make a monumental shift when it was introduced, by lowering costs at all areas of the network and shifting only some of that cost to the Telco cloud side with software-based Virtual Network Functions. However, this didn't quite work for <a href="http://getcloudify.org/2017/02/06/vcpe-20-business-case-open-framework.html" target="_blank">various reasons</a>, including vendor lock-in.</p>
+					<p>The vCPE business model was supposed to make a monumental shift when it was introduced, by lowering costs at all areas of the network and shifting only some of that cost to the Telco cloud side with software-based Virtual Network Functions. However, this didn't quite work for various reasons, including vendor lock-in.</p>
 					<p><strong>Open Source, Future Proof vCPE with Cloudify</strong></p>
 					<p>Open source orchestration from Cloudify enables Telcos and CSPs to break free from lock-in with a model-driven service design that delivers those same turnkey capabilities, and allows switching between network functions - physical and virtual, open and proprietary - in real-time, all while ensuring Day 0 to Day 2 operations are completed from a single blueprint.</p>
 					<p>It's time for Telcos take back their networks.</p>
+					<hr>
+					<p class="aligncenter"><b>Read more about this in our blog post: <a href="{{ site.baseurl }}/2017/02/06/vcpe-20-business-case-open-framework.html" target="_blank">vCPE 2.0 – The Business Case for An Open vCPE Framework</a></b></p>
+					<hr>
 					<br>
 
 					</div>
@@ -204,7 +207,7 @@ category: NFV
 					<div class="span6">
 					<h2><strong></strong></h2>
 					<p>A Virtual IP Multimedia Subsystem (vIMS) is a core network solution that delivers rich, real-time communication services to client devices, such as voice, video, etc. The Clearwater vIMS from Metaswitch is an open source VNF that is quite complex with over six microservices. Cloudify is able to configure, provision, and deploy the vIMS VNF in order to create an online Skype-like communications system with audio and video.</p>
-					<p>The <a href="http://getcloudify.org/2016/06/21/opnfv-functest-team-tests-clearwater-vims-deployment-using-cloudify-with-100-percent-success-nfv-orcehstration.html" target="_blank">OPNFV Functest team uses Cloudify</a> to test the deployment of the Clearwater vIMS using the OPNFV platform numerous times per day as well.</p>
+					<p>The <a href="{{ site.baseurl }}/2016/06/21/opnfv-functest-team-tests-clearwater-vims-deployment-using-cloudify-with-100-percent-success-nfv-orcehstration.html" target="_blank">OPNFV Functest team uses Cloudify</a> to test the deployment of the Clearwater vIMS using the OPNFV platform numerous times per day as well.</p>
 
 					<p>Checkout the README and <a href="https://github.com/cloudify-examples/clearwater-nfv-blueprint" target="_blank">Clearwater blueprint</a> in our examples catalog.</p>				
 					<p>&nbsp;</p>
@@ -252,7 +255,7 @@ category: NFV
 					</div>
 				</div>
 				<p>&nbsp;</p>
-				<p class="aligncenter"><a class="regBtn" href="http://getcloudify.org/cloudify-use-cases.html#NFV" target="_blank"><i class="icon-plus"></i>&nbsp;Read More About Some of Our NFV Use Cases</a></p>
+				<p class="aligncenter"><a class="regBtn" href="{{ site.baseurl }}/cloudify-use-cases.html#NFV" target="_blank"><i class="icon-plus"></i>&nbsp;Read More About Some of Our NFV Use Cases</a></p>
 				</div>
 				</div>
 
@@ -262,7 +265,7 @@ category: NFV
 				<hr>
 				
 				<div class="aligncenter">
-  					<font style="font-weight: bold; color: grey" size="5" face="Baskerville Old Face"><em>Read our blog posts on how <a href="http://getcloudify.org/2017/01/11/openness-the-true-path-nfv.html" target="_blank">Openness is the True Path to NFV</a> and <a href="http://getcloudify.org/2017/02/06/vcpe-20-business-case-open-framework.html" target="_blank">why operators need an open vCPE framework.</a></em></font><br><br>
+  					<font style="font-weight: bold; color: grey" size="5" face="Baskerville Old Face"><em>Read our blog post on how <a href="{{ site.baseurl }}/2017/01/11/openness-the-true-path-nfv.html" target="_blank">Openness is the True Path to NFV</a>.</em></font><br><br>
 
   					<img src="/img/blog/vcpe_cloudify_service.png" width="600px">
 
@@ -389,7 +392,7 @@ category: NFV
 
 				<p>Many big Telcos have chosen and are evaluating Cloudify in large part due to it being open source, as well as modular in nature, enabling pluggability with existing and new toolsets and environments. In addition to serving as the NFVO, Cloudify is also capable of fulfilling the role of VNF manager (VNFM), and has proven multi-VIM capabilities.</p>
 
-				<p>On top of this, Cloudify provides many plugins to interface with peripheral network databases, such as DNS and LDAP, SDN controllers - ODL and more - including the full service management and chaining, and has already demonstrated its capabilities to orchestrate large subsystems like IMS, internet activation and provisioning per tenant out of the box . With the ability to have one manager that supports multiple clouds (from <a href="http://getcloudify.org/vmware-hybrid-cloud.html" target="_blank">VMware</a> to <a href="http://getcloudify.org/openstack-architecture-cloudify.html" target="_blank">OpenStack</a>) as well as multiple data centers and availability zones, Cloudify, is very attractive to mid to large Telcos, ISPs, and enterprises with a hybrid cloud model, enabling easy migration between past install-bases, and the current trendiest infrastructure including containers (see our Kubernetes example), through the next technology that hasn’t even yet landed.</p>
+				<p>On top of this, Cloudify provides many plugins to interface with peripheral network databases, such as DNS and LDAP, SDN controllers - ODL and more - including the full service management and chaining, and has already demonstrated its capabilities to orchestrate large subsystems like IMS, internet activation and provisioning per tenant out of the box . With the ability to have one manager that supports multiple clouds (from <a href="{{ site.baseurl }}/vmware-hybrid-cloud.html" target="_blank">VMware</a> to <a href="{{ site.baseurl }}/openstack-architecture-cloudify.html" target="_blank">OpenStack</a>) as well as multiple data centers and availability zones, Cloudify, is very attractive to mid to large Telcos, ISPs, and enterprises with a hybrid cloud model, enabling easy migration between past install-bases, and the current trendiest infrastructure including containers (see our Kubernetes example), through the next technology that hasn’t even yet landed.</p>
 				
 				<br/>
 					
@@ -495,7 +498,7 @@ category: NFV
 
 			<p>TOSCA has the combination of declarative descriptions of the application topology with all its components - including the load balancer, network, the compute resources, software and everything else, along with an imperative set of workflows to describe the logic of any process we need to automate. What this means from an NFV perspective, is that TOSCA is very good when it comes to defining virtual application topologies, VNF dependencies and relationships, actions to be performed as part of a lifecycle. This significantly simplifies the complexities involved with exposing networking elements and  end-to-end lifecycle management for NFV, by abstracting the networking piece of the deployment into an application blueprint.</p>
 
-			<p>You can learn more about the <a href="http://getcloudify.org/guide/3.1/dsl-spec-general.html" target="_blank">TOSCA spec</a> in our docs.</p>
+			<p>You can learn more about the <a href="{{ site.baseurl }}/guide/3.1/dsl-spec-general.html" target="_blank">TOSCA spec</a> in our docs.</p>
 
 
 
