@@ -1,0 +1,80 @@
+---
+layout: blogpost
+title: Utilizing Declarative Model-Driven TOSCA Orchestration for NFV
+description: This post explains how to take the right advantages of TOSCA Orchestration for NFV with a model-driven approach as opposed to BPMN and others.
+image: arthur.jpg
+author: Arthur Berezin 
+tags: 
+ - OpenStack
+ - OpenStack Summit
+ - Hybrid Cloud
+ - Cloudify
+ - TOSCA
+---
+
+<notextile>
+
+<img src="/img/blog/toscaheader.png" width="870" alt="TOSCA service template">
+<br/>
+<br/>
+
+<p>Declarative, model-driven <a href="{{ site.baseurl }}">orchestration</a> is an elegant and streamlined approach to solving the needs of <a href="{{ site.baseurl }}/2014/04/19/what-is-nfv-network-function-virtualization-vnf.html">NFV orchestration</a>. Utilizing <a href="{{ site.baseurl }}/2017/03/13/cloudify-TOSCA-ARIA-convergence-infographic.html">TOSCA</a> as a declarative language to model network services and functions for the needs of NFV makes perfect sense, but we need to ensure old habits don&rsquo;t creep in and cripple the whole NFV solution.</p>
+
+<p>Hard-coding and scripting the manual step-by-step procedures of an on-boarding process is NOT orchestration but can be used as part of it. I&rsquo;ve had to repeat this concept too many times recently.&nbsp; In this article, I will take a high-level look at why model-driven orchestration is a fundamentally more robust method than business process workflows by comparing their approaches to NFV orchestration, and offering an approach to leverage existing BPMN workflows with TOSCA declarative orchestration.&nbsp;</p>
+
+  <hr>
+
+<span class="pullquote-left">
+  <font style="font-weight: bold" size="5" face="Baskerville Old Face"><em>Join our Kubernetes webinar - Moving Monoliths to Microservices.</em></font>&nbsp; <a class="btn btn-medium btn-theme btn-rounded" id="downloadBtnInner" href="{{ site.baseurl }}/webinars/monolith-to-microservices-webinar.html" target="_blank"><i class="icon-plus"></i> Go </a></span>
+  
+<hr>
+
+<h2>Why Telcos Need NFV Orchestration</h2>
+<p>Until very recently, communication service providers (CSPs) went through a manual and drawn-out process for on-boarding services that could take up to 18 months to make a new service available to the end user. The manual on-boarding process includes instantiating the service alongside all of the dependent components it requires, and then integrating the service with the other existing services in the CSP network.</p>
+
+<p>This long and cumbersome process is a major challenge for CSPs to overcome. <a href="{{ site.baseurl }}/2017/03/20/onap-driving-standards-nfv.html">Network Functions Virtualization</a> (NFV) proposes a more modern approach for offering services. <a href="{{ site.baseurl }}/2014/04/19/what-is-nfv-network-function-virtualization-vnf.html">NFV</a> allows communication service providers much greater flexibility by following a software-based approach using off-the-shelf hardware. When on-boarding new services the whole process is fully automated with the help of an orchestrator. The main advantages of NFV over the traditional approach are much greater flexibility and speed of service delivery, since the solution is software defined and much quicker to instantiate as a result of automation. Operators are looking to deploy new services quickly and require a much more flexible and adaptable network - one that can be rapidly and easily provisioned and activated.</p>
+
+<p>To achieve this pinnacle and reach a high degree of flexibility the operator needs to be able to automate the entire end-to-end process, including instantiation of virtual resources, configuration of networking devices, instantiation and configuration of software components, as well as have the ability to coordinate them with existing running processes. This mostly results in running a large set of coordinated tasks that instantiate the new service and chain it with existing operational services.</p>
+
+<p>It is the role of the orchestrator to coordinate dependent and independent components when onboarding a new service. After the service is onboarded - a day zero operation - it is the orchestrator&rsquo;s role to instantiate - day one operation - and then&nbsp; manage the day two operations of that service. Day two operations commonly include scaling the different tiers of the service, maintenance of the service, service upgrade, and others.</p>
+
+<h2>Declarative Model-Driven Orchestration</h2>
+<p>Model-Driven Orchestration helps to on-board services, instantiate them, and then run and manage day 2 operations, with a simple, and very powerful approach. It allows creating the model of a service using a declarative, human readable language - <a href="{{ site.baseurl }}/2017/03/13/cloudify-TOSCA-ARIA-convergence-infographic.html">TOSCA</a>.</p>
+
+<p>The service model describes the service&rsquo;s components, relationships between components of the service, dependencies, requirements, and capabilities of each component in the template. The model declares reusable types and uses them to construct the structure of the application. Types can represent Nodes and Relationships helping to define connections between nodes of the model.</p>
+
+<p class="aligncenter"><img src="/img/blog/tosca-service-template.png" width="600"></p>
+
+<p>After we have the Nodes defining the model, node types and relationship types can define their lifecycle interfaces and trigger their implementation. The service template, in fact, represents the graph of the application. Once we have the application graph, <strong>typical application workflows are based on the service graph.</strong></p>
+
+<p>Common workflows, such as Install/Uninstall, traverse through the service graph and initiate lifecycle operations of each node of the graph and interact with the state of the <strong>service state</strong>. Other operational workflows such as Scale, Heal, Upgrade, Maintenance and others query the graph described by the template, query the <strong>service</strong> <strong>state</strong>, then execute a specific set of operations based on the <strong>graph</strong> and the <strong>context</strong> in which the workflow is executed. Interaction with the graph can read information and modify the <strong>service state</strong>.</p>
+
+<p>The <strong>service state</strong> enables interacting with the <strong>service graph</strong> and discovery of relationships and state of components and services. Additionally, the <strong>service state</strong> allows passing contextual properties between components, allowing transactionality and idempotency of operations.</p>
+
+<p class="aligncenter"><img src="/img/blog/tosca-application-template.png" width="600"></p>
+
+<p>For example, when executing the Install workflow on a service template, an <a href="{{ site.baseurl }}/2014/07/10/what-is-openstack-tutorial.html">OpenStack</a> Instance is provisioned, the <strong>service state</strong> keeps information about the instance, including its credentials and connection details. When the next node of&nbsp; the graph is executed, it can pull contextual information from the service state to perform the next needed operation, for example, connect to the VM instance and install software.</p>
+
+<p>This is in contrast to standalone workflows, such a with BPMN, which are standalone, one-off, implementations of specific task-oriented cases. Once execution of a BPMN workflow is completed, the contextual information is lost and the workflow engine has no information on the application graph, let alone introducing changes to the application graph.&nbsp; Thus, performing operations on BPML instantiated services require developing new custom workflows that match only the latest state of the service.</p>
+
+<h2>Business Process Workflows</h2>
+<p>Business process workflows are an imperative, scripted organization of tasks performed in a specific order for implementing a use-case. A workflow allows defining a repeatable, step-by-step procedure which can represent business cases such as purchase orders, shipment fulfilment, or a process for onboarding a new service. Workflows can define repetitions of tasks, and include if statements for conditional execution.</p>
+
+<p class="aligncenter"><img src="/img/blog/BPMN.png" width="600"></p>
+
+<p>As such, each workflow is a tailor-made implementation of a certain flow or use-case. This approach may be suitable for immutable business processes which are static and predefined by nature, but they introduce difficulties and unnecessary risk in software defined environments where changes are wanted and can occur frequently.</p>
+
+<p>What happens when a change, such as replacing a component, is required in the process? What happens when there&rsquo;s a need to implement a different use-case using similar components? All these would be cumbersome to implement and would require re-implementing the entire use-case while posing&nbsp; fundamental challenges in integration with existing, additional running components.</p>
+
+<h2>The Object Modeling vs Printer Instruction-Sets Analogy</h2>
+<p>Other domains employ a very similar approach. TOSCA allows defining the service model which describes &ldquo;WHAT&rdquo; it is we want to achieve, instead of scripting an immutable &ldquo;HOW-TO&rdquo; workflow. In the manufacturing domain, CAD models are used to design physical objects. Imagine what would it take for hardware engineers to write direct instruction-sets for the CNC manufacturing machines or script an instruction-set to a printer to print this article, instead of using a word processor for writing text, and letting the printer driver translate the text (model) into printer instruction-sets (TOSCA nodes and relationships types lifecycle implementations), telling it to make the physical movements and spread ink on a piece of paper.</p>
+
+<h2>Utilizing BPMN with TOSCA</h2>
+<p>TOSCA allows defining the service graph and then executes a set of operations on the declarative, model-based graph. Operations of each node rely on external implementation. This mechanism allows choosing the implementation of each node type, which can be a BPMN workflow, allowing model-driven orchestration while utilizing existing BPMN artifacts.</p>
+
+<p class="aligncenter"><img src="/img/blog/tosca-bpmn.png" width="600"></p>
+
+<h2>Conclusion</h2>
+<p>The Model-driven approach allows a much more simplified implementation for constructing and orchestrating new services. It allows users to focus on the services themselves instead of focusing on tasks needed to be performed. It makes it easier to modify and interact with existing services, since we have the service graph and contextual state of each node in the graph, thus eliminating the need to reprogram every single use case and rather just interact with the service directly.</p>
+
+</notextile>
