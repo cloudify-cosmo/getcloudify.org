@@ -52,7 +52,12 @@
                                     <ul class="nav navbar-nav">
                     
 										<li class="dropdown topmenu">
-										<a href="{{ site.baseurl }}/community-resources.html">Community</a>
+										<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button">Community <i class="icon-angle-down"></i></a>
+										<ul class="dropdown-menu bold" style="display: none;">
+												<li class="topmenu"><a href="/community-resources.html">Community Resources</a></li>
+												<li class="topmenu"><a href="/how-to-contribute.html">How to Contribute</a></li>
+												<!--<li class="topmenu"><a href="/contributers.html">Our Contributors</a></li>-->
+											</ul>
 										</li>
 										<li class="dropdown topmenu">
 										<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button">Docs <i class="icon-angle-down"></i></a>
@@ -62,8 +67,6 @@
 												<li class="topmenu"><a href="http://docs.getcloudify.org/3.4.0/">3.4.0</a></li>
 												<li class="topmenu"><a href="http://docs.getcloudify.org/3.3.1">3.3.1</a></li>
 												<li class="topmenu"><a href="http://docs.getcloudify.org/3.3.0">3.3.0</a></li>
-												<li class="topmenu"><a href="{{ site.baseurl }}/guide/3.2/">3.2 </a></li>
-												<li class="topmenu"><a href="{{ site.baseurl }}/guide/3.1/">3.1</a></li>
 											</ul>
 										</li>
 										<li class="dropdown topmenu">
@@ -89,8 +92,8 @@
 												
 											<!--	<li class="topmenu"><a href="{{ site.baseurl }}/community-resources/">Community Resources</a></li>
 												<li class="topmenu"><a href="{{ site.baseurl }}/press-and-coverage/">Press & Coverage</a></li> -->
-												<li class="topmenu"> <a target="_blank" href="http://getcloudify.org/whitepapers.html">Whitepapers</a></li>
-												<li class="topmenu"> <a target="_blank" href="http://getcloudify.org/cloudify-use-cases.html">Use Cases</a></li>
+												<li class="topmenu"> <a target="_blank" href="{{ site.baseurl }}/whitepapers.html">Whitepapers</a></li>
+												<li class="topmenu"> <a target="_blank" href="{{ site.baseurl }}/cloudify-use-cases.html">Use Cases</a></li>
 												<!-- <li class="topmenu"><a href="{{ site.baseurl }}/FAQ_cloud_devops_automation.html">FAQ</a></li> -->
 												<!-- <li class="topmenu"><a href="http://jobs.gigaspaces.com" target="_blank">Careers</a></li> -->
 												<li class="topmenu"><a href="{{ site.baseurl }}/webinars.html">Webinars</a></li>
@@ -102,7 +105,7 @@
 											<a href="{{ site.baseurl }}/blog/" >Blog</a>
 										</li>
 										<li class="topmenu">
-											<a href="http://getcloudify.org/Cloudify-Academy.html" target="_blank"><strong>Academy <i class="fa fa-graduation-cap fa-pulsing" aria-hidden="true"></i></strong></a>
+											<a href="{{ site.baseurl }}/Cloudify-Academy.html" target="_blank"><strong>Academy <i class="fa fa-graduation-cap fa-pulsing" aria-hidden="true"></i></strong></a>
 										</li>
  										
 										<!-- <li class="topmenu">
@@ -117,12 +120,12 @@
 				<input type="text" id="st-search-input" class="st-search-input" />
 			</form>
 		</div>
-        <a href="http://getcloudify.org/downloads/get_cloudify.html" class="hidden-xs hidden-sm">
+        <a href="{{ site.baseurl }}/downloads/get_cloudify.html" class="hidden-xs hidden-sm">
           <button type="button" class="btn btn-primary navbar-btn btn-orange" title="Get Cloudify">
             <i class="fa fa-arrow-circle-o-down"></i> <span>free download</span>
           </button>
         </a>
-        <a href="http://getcloudify.org/goPro.html">
+        <a href="{{ site.baseurl }}/goPro.html">
           <button type="button" class="btn btn-action btn-blue navbar-btn" title="Cloudify Premium">
             <span>premium</span>
           </button>
