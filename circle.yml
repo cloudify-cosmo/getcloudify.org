@@ -32,9 +32,4 @@ deployment:
   demo-site:
     branch: staging-site
     commands:
-      - bundle exec new_s3_website push
-  stage:
-    branch: /^((?!master).)*$/
-    commands:
-      - AWS_ACCESS_KEY_ID=$STAGE_S3_ACCESS_KEY_ID AWS_SECRET_ACCESS_KEY=$STAGE_S3_SECRET_KEY aws s3 rm "s3://stage.getcloudify.org/$CIRCLE_BRANCH/" --recursive --region eu-west-1
-      - AWS_ACCESS_KEY_ID=$STAGE_S3_ACCESS_KEY_ID AWS_SECRET_ACCESS_KEY=$STAGE_S3_SECRET_KEY aws s3 cp _site/ "s3://stage.getcloudify.org/$CIRCLE_BRANCH/" --recursive --region eu-west-1 --acl public-read
+      - bundle exec s3_website push
