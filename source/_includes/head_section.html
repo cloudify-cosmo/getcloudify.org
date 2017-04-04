@@ -29,16 +29,16 @@
   <meta content="{{ site.description }}" property="og:description">
 {% endif %}
 {% if page.url %}
-  <meta content="http://getcloudify.org{{page.url}}" property="og:url">
+  <meta content="{{ siteUrl }}{{page.url}}" property="og:url">
 {% endif %}
 {% if page.date %}
   <meta content="{{ page.date | date_to_xmlschema }}" property="article:published_time">
-  <meta content="http://getcloudify.org/about/" property="article:author">
+  <meta content="{{ siteUrl }}/about/" property="article:author">
 {% endif %}
 {% if page.image %}
- <meta content="http://getcloudify.org/img/{{ page.image }}" property="og:image">
+ <meta content="{{ siteUrl }}/img/{{ page.image }}" property="og:image">
 {% else %}
-  <meta content="http://getcloudify.org/img/Logo-BlueWebNoGS1.png" property="og:image">
+  <meta content="{{ siteUrl }}/img/Logo-BlueWebNoGS1.png" property="og:image">
 {% endif %}
 {% if page.categories %}
   {% for category in page.categories limit:1 %}
@@ -53,7 +53,7 @@
 		
 	<script src="//cdn.optimizely.com/js/59503762.js"></script>
 	
-	<link rel="canonical" href="http://getcloudify.org{{page.url}}"/>	
+	<link rel="canonical" href="{{ siteUrl }}{{page.url}}"/>	
 	<!-- custom -->
 	<!--<link rel="alternate" type="application/rss+xml" title="RSS 2.0" href="{{ site.baseurl }}/atom.xml" />-->
 	<!-- css -->
@@ -88,7 +88,7 @@
 	<link rel="apple-touch-icon-precomposed" sizes="114x114" href="{{ site.baseurl }}/ico/apple-touch-icon-114-precomposed.png" />
 	<link rel="apple-touch-icon-precomposed" sizes="72x72" href="{{ site.baseurl }}/ico/apple-touch-icon-72-precomposed.png" />
 	<link rel="apple-touch-icon-precomposed" href="{{ site.baseurl }}/ico/apple-touch-icon-57-precomposed.png" />
-	<link rel="shortcut icon" href="http://getcloudify.org/favicon.ico" type="image/x-icon" />
+	<link rel="shortcut icon" href="{{ siteUrl }}/favicon.ico" type="image/x-icon" />
     <!-- build:js({.tmp,app,_site}) scripts/headsection.js -->
 	<script src="{{ site.baseurl }}/js/jquery.js"></script>
 	<script src="http://code.jquery.com/ui/1.10.3/jquery-ui.js"></script>
