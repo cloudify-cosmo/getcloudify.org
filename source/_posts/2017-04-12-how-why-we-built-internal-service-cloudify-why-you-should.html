@@ -1,0 +1,71 @@
+---
+layout: blogpost
+title: How and Why We Built an Internal Service for Cloudify - and Why You Should, Too
+description: In this post, Omer takes us through Cloudify Service, the service built for internal testing of CLoudify, using Cloudify. He also notes why this is a good practice for any development team.
+image: omerf.png
+author: Omer Fogel
+tags: 
+ - Cloud Orchestration
+ - DevOps Automation
+ - Cloudify
+ - Cloud Automation
+ - AWS
+---
+
+<notextile>
+
+<img src="/img/blog/cloudify-service-header.png" alt="Cloudify Service" width="870">
+<br/>
+<br/>
+
+<h2>Introduction</h2>
+<p><a href="http://getcloudify.org">Cloudify</a> is a complex piece of software which handles most of the application&rsquo;s orchestration tasks. Because of it&rsquo;s versatility, there are many different use cases and points of failure that can be discovered during user adoption.</p>
+<p>Recently, we started the process of building a service solution in order to deal with many of our struggles and make the development process easier and more robust. In this post, I will detail why any organization should consider building a similar internal service, and how we approached building ours.</p>
+
+<h2>Why Build an Internal Service</h2>
+<p><strong>Shorter Development Cycles</strong></p>
+<p>Our main reason for creating this service was to improve our own development process. One way we approached this was to make the Cloudify team the first users of the service (our sales engineers, support, and devs). This way new bugs, edge cases, and irrational behaviors are discovered at a much earlier stage and return directly to the production process before the release is closed.</p>
+<p><strong>You Are Your First Customer</strong></p>
+<p>Each software has it&rsquo;s own usability issues. When our own developers and internal teams start to use Cloudify as actual users, many UI/UX issues are already flagged and take into consideration way before it reaches paying customers.</p>
+<p><strong>Monitor and Test our Software in Production</strong></p>
+<p>When your software is running in a &ldquo;real-life&rdquo; production environment, your tests are far more accurate and able to simulate more customer cases. Additionally, you can now perform real monitoring in order to gain insights on what is happening to your software, which will help you answer customer concerns and fit your product to their cases. </p>
+<p><strong><em><br /></em></strong><strong>Log Analysis for Common Problems and Better Debugging</strong></p>
+<p>Stable software which runs well and can be used consistently for long periods of time, allows you to deep dive into software analysis and gain a better understanding of your system&rsquo;s behavior. </p>
+<br>
+<hr>
+<span class="pullquote-left">
+  <font style="font-weight: bold" size="5" face="Baskerville Old Face"><em>Check out our free, on-demand webinars on all things cloud.&nbsp;</em></font>  <a class="btn btn-medium btn-theme btn-rounded" id="downloadBtnInner" href="http://getcloudify.org/webinars.html?utm_campaign=webinars&utm_source=website_blogs_jh" target="_blank"><i class="icon-plus"></i> Go </a></span>
+  
+  <hr>
+
+
+<h2>How We Built Our Internal Service</h2>
+<p><strong>Users</strong></p>
+<p>Users of our internal &ldquo;Cloudify Service&rdquo; are based on two main groups:</p>
+<ul>
+<li>R&amp;D - Cloudify developers and QA team. We use Cloudify Service as a test-case for production environments. In that format, we have shortened the development cycle (each feature is used immediately in a &ldquo;real time&rdquo; environment) and improved it.</li>
+<li>Demos and POCs - Our second goal was to create a tool which would allow us to show the desired (most of the time the latest) version of Cloudify - with the brand new features and capabilities. This led to the creation of a single, stable environment for all of our POCs and Demos (instead of creating one for each case and each relevant team member) and enables users to share examples, use cases, and best practices.</li>
+</ul>
+<p><strong>Design</strong></p>
+<p>While working on making this a stable service, we stumbled upon several problems, the worst of them being that to be able to access a manager, you need agents to have a direct line of communication with it. Usually for our customers this is a no brainer, as they run Cloudify in a closed environment where network access is restricted to their needs. Since we&rsquo;re running Cloudify Service publically, we couldn&rsquo;t afford that and had to come up with a solution to the problem.</p>
+<p>We decided to trust what many other services are doing and use the internet as a gateway between the user&rsquo;s application environment and the service.</p>
+<p>We created an agent called &ldquo;controller,&rdquo; which is our way of decoupling the environment from the service. It performs all IaaS API calls for the relevant environment, and all ssh (and later, winrm) connections are performed using the fabric plugin.</p>
+<h2>Cloudify Service Explained</h2>
+<p>After a lot of thought and effort, below is the solution we came up with, as well as an explanation of the various components.</p>
+<p class="aligncenter"><img src="/img/blog/cloudify-service-architecture.png" width="600"></p>
+<ul>
+<li><strong>Service components - </strong>As deployed today in AWS.</li>
+</ul>
+<p class="aligncenter"><img src="/img/blog/cloudify-service-aws.png" width="600"></p>
+<ul>
+<li><strong><strong>Monitoring &amp; logging</strong></strong></li>
+</ul>
+<p>When dealing with complex software systems, one of the first things you want to do in order to understand things better is monitor your system and make it easier to handle the logs. Exposing Cloudify as a usable service allows us to start this process correctly, monitor our product in a &ldquo;real&rdquo; environment, analyze it, and better understand its performance and points of failure.</p>
+<ul>
+<li><strong><strong>Automating the process</strong></strong></li>
+</ul>
+<p>Of course, when talking about a service, we need to keep in mind that when the usage increases, the system can fail and things can break. Hence, a quick recovery process is needed with as few manual tasks as possible. We created an agent to handle this process. Basically it&rsquo;s a machine which &ldquo;lives&rdquo; in the same environment as our service and contains all the scripts and tasks to recover\heal\update\scale it. We call it the &ldquo;supervisor.&rdquo; Funnily enough, most of the process for creating Cloudify Service is actually done by Cloudify.</p>
+<h2>Conclusion</h2>
+<p>The purpose of this post was to describe an internal process which the Cloudify R&amp;D Team created. The goal is to share an approach for solving some of the problems we came across and encourage those facing similar problems to think about trying do the same. As with all things in life, you will have your fair share of struggles on the way - we sure did (mainly security issues and conflicts with our original product code). But once you overcome them, things get much easier.</p>
+
+</notextile>
