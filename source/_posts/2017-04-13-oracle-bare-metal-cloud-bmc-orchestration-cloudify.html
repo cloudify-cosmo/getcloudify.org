@@ -1,0 +1,64 @@
+---
+layout: blogpost
+title: Oracle Bare Metal Cloud (BMC) Orchestration With Cloudify
+description: This post dives into the Oracle BMC plugin for Cloudify and how to get started.
+image: dewayne.jpg
+author: DeWayne Filppi
+tags: 
+ - Cloud Orchestration
+ - Bare Metal
+ - Cloud Automation
+ - Oracle
+ - TOSCA
+---
+
+<notextile>
+
+<div class="aligncenter"><img src="/img/blog/oracle-bmc-cloudify-header.png" alt="Oracle Bare Metal Cloud with Cloudify" width="870"></div>
+<br/>
+<br/>
+
+<p><b></b>
+
+<p>Late last year, Oracle <a href="https://blogs.oracle.com/cloud/entry/oracle_bare_metal_cloud_services">announced</a> the availability of their Bare Metal Cloud IAAS to the world. The Bare Metal Cloud (BMC) combines physical instances combined with a fully virtualized networking infrastructure that emulates a traditional datacenter, but with the convenience and agility that infrastructure as a service provides. With non-virtualized compute and microsecond inter-host network latency, the BMC is particularly suited to demanding high performance workloads. For the latest on the bare metal cloud, see the Oracle <a href="https://cloud.oracle.com/en_US/bare-metal">website</a>. This post covers the Cloudify integration with the Oracle BMC.</p>
+<h2><strong>The Cloudify Oracle BMC Plugin</strong></h2>
+<p>Like all IAAS plugins for <a href="/">Cloudify</a>, the BMC plugin maps nouns in the underlying IAAS API to <a href="/2017/03/13/cloudify-TOSCA-ARIA-convergence-infographic.html">TOSCA</a> types, and the verbs get mapped to orchestrator lifecycle events (e.g. "create" and "configure"). The current version of the BMC plugin only addresses compute and networking domains of the BMC <a href="https://oracle-bare-metal-cloud-services-python-sdk.readthedocs.io/en/latest/">SDK</a>. The plugin provides the ability to orchestrate instances (both <a href="/2015/08/26/kubernetes-docker-images-microservices-container-architecture-management-orchestration-tools.html">bare metal</a> and virtual), along with related networking components such as networks, subnets, security, and internet gateways.</p>
+<hr>
+
+<span class="pullquote-left">
+  <font style="font-weight: bold" size="5" face="Baskerville Old Face"><em>Watch our Kubernetes Webinar Today!</em></font>&nbsp; <a class="btn btn-medium btn-theme btn-rounded" id="downloadBtnInner" href="/webinars.html?utm_campaign=webinars_website&utm_source=website_blogs_jh" target="_blank"><i class="icon-plus"></i> Go </a></span>
+  
+  <hr>
+
+<p class="aligncenter"><img src="/img/blog/cloudify-oracle-bmc-plugin.png" width="600"></p>
+<p>The following components and relationships are supported:</p>
+<p>1) <code>cloudify.oraclebmc.nodes.Instance</code></p>
+<p>This represents a compute node, either bare metal or virtual (based on the "instance_shape") property. It accepts configuration properties such as <span style="font-family: Consolas, serif;">image_id</span>, <span style="font-family: Consolas, serif;">instance_shape</span>, <span style="font-family: Consolas, serif;">compartment_id</span>, and <span style="font-family: Consolas, serif;">availability_domain</span>. After the install workflow is complete, the instance will have attributes <span style="font-family: Consolas, serif;">public_ip</span> and <span style="font-family: Consolas, serif;">private_ip</span>. It is connected to a subnet (described below), via the <span style="font-family: Consolas, serif;">cloudify.oraclebmc.relationships.instance_connected_to_subnet</span> relationship.</p>
+<p>2) <code>cloudify.oraclebmc.nodes.VCN</code></p>
+<p>This node type represents a network. The main unique configuration property is the network <span style="font-family: Consolas, serif;">cidr_block</span>, from which subnets are carved out.</p>
+<p>3) <code>cloudify.oraclebmc.nodes.Subnet</code></p>
+<p>This node type represents a subnet network. This node is configured with a <span style="font-family: Consolas, serif;">cidr_block</span> and <span style="font-family: Consolas, serif;">security_list</span>, among other properties. <span style="font-family: Consolas, serif;">cidr_block</span> represents the portion of the VNC network CIDR block, and the <span style="font-family: Consolas, serif;">security_list</span> is a list of firewall rules. It is associated with a target network via the cloudify.oraclebmc.relationships.subnet_in_network relationship.</p>
+<p>4) <code>cloudify.oraclebmc.nodes.Gateway</code></p>
+<p>This node represents an internet gateway. It is configured with a list of routing rules, which amounts to an internet firewall. It is associated with a target network via the <span style="font-family: Consolas, serif;">cloudify.oraclebmc.relationships.gateway_connected_to_network</span> relationship.</p>
+<p>A simple, single instance sample blueprint can be found in the plugin <a href="https://github.com/cloudify-incubator/cloudify-oraclebmc-plugin/blob/master/examples/blueprint/test.yaml">examples</a> directory. Bear in mind that it, and the other example mentioned later, rely on images that have <span style="font-family: Consolas, serif;">firewalld</span> disabled.</p>
+<br>
+<script src="https://gist.github.com/yeshess/2ed15c72730ae67eeea1e673e6506a76.js"></script>
+<br>
+<p>A more elaborate example blueprint can be found in the Cloudify Examples <a href="https://github.com/cloudify-examples/simple-kubernetes-blueprint/blob/master/bmc-blueprint.yaml">repo</a>, which starts an autoscaling/autohealing <a href="/2017/01/25/orchestrating-kubernetes-managed-virtual-network-function-cloudify.html">Kubernetes cluster</a>.</p>
+<h3><strong>Limitations</strong></h3>
+<p>When used with Cloudify Manager, the plugin must be installed via the <span style="font-family: Consolas, serif;">cfy plugins upload</span> method. A <span style="font-family: Consolas, serif;">wgn</span> package is included in the <a href="https://github.com/cloudify-incubator/cloudify-oraclebmc-plugin">repo</a>. The plugin currently only addresses compute and networking aspects of the cloud API. Future revisions will expand support to other aspects such as storage.</p>
+<h2><strong>The Cloudify Oracle BMC Manager Blueprint</strong></h2>
+<p>In order to fully support Cloudify orchestration capabilities, a Cloudify Manager is needed. In the <a href="https://github.com/cloudify-incubator/cloudify-oraclebmc-plugin/tree/master/examples/manager">examples/manager</a> directory, there is a Cloudify manager <a href="https://github.com/cloudify-incubator/cloudify-oraclebmc-plugin/blob/master/examples/manager/oracle-bmc-manager-blueprint.yaml">blueprint</a> that supports the Oracle Bare Metal Cloud. This blueprint is used to bootstrap a Cloudify manager in a similar fashion to manager blueprints for <a href="https://github.com/cloudify-cosmo/cloudify-manager-blueprints">other</a> clouds. The blueprint <a href="https://github.com/cloudify-incubator/cloudify-oraclebmc-plugin/blob/master/examples/manager/oracle-bmc-manager-blueprint-inputs.yaml">inputs</a> file has description of the settings needed.</p>
+<p class="aligncenter"><img src="/img/blog/cloudfy-4-architecture.png" width="600"></p>
+<h3><strong>Prerequisites</strong></h3>
+<p>The image used must be a Centos 7 image on an instance shape with at least 8GB of RAM. The image must have <span style="font-family: Consolas, serif;">firewalld</span> (enabled by default) <em>disabled</em>. You'll need Oracle BMC API credentials as well. The blueprints directory contains the file <span style="font-family: Consolas, serif;">oracle--agent.tar.gz</span>. After manager bootstrap, this file should be added to the /opt/manager/resources/packages/agents directory, if you'll be running agents on Oracle Linux machines.</p>
+<h3><strong>Bootstrapping</strong></h3>
+<p>The bootstrapping process is no different from the standard <a href="http://docs.getcloudify.org/3.4.1/cli/bootstrap">process</a>. First you'll need to get the Cloudify <a href="http://getcloudify.org/downloads/get_cloudify.html">CLI</a> and install it on a machine with internet access to the BMC API. Then just:</p>
+<ul>
+<li><code>cfy bootstrap --install-plugins -p oracle-bmc-manager-blueprint.yaml -i oracle-bmc-manager-blueprint-inputs.yaml</code></li>
+</ul>
+<p>After the bootstrap is complete, you can upload blueprints and have full Cloudify Manager functionality.</p>
+<h2><strong>Conclusion</strong></h2>
+<p>Oracle has bridged the gap between conventional data centers and the Cloud by providing an infrastructure-as-a-service interface to bare metal servers, while retaining the flexibility of virtual networking. Now this powerful environment has been added to the ever growing Cloudify family of supported clouds. As always, the code and examples are available on <a href="https://github.com/cloudify-incubator/cloudify-oraclebmc-plugin">github</a>.</p>
+
+</notextile>
