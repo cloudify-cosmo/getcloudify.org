@@ -124,9 +124,37 @@ Two additional runtime-properties are available on node instances of this type o
   * `cloudify.interfaces.lifecycle.creation_validation` validates Port node parameters
 
 
+## cloudify.vcloud.nodes.PublicNAT
+
+**Derived From:** [cloudify.nodes.VirtualIP](reference-types.html)
+
+**Properties:**
+
+* `nat` key-value NAT configuration.
+    * `edge_gateway` vCloud gateway name
+    * `public_ip` public ip. If not specified public ip will be allocated from the pool of free public ips.
+* `rules` list of NAT rules configurations.
+    * `type` NAT types. Can be 'SNAT' or 'DNAT'.
+    * `protocol` network protocol. Can be 'tcp', 'udp', 'tcpudp' or 'any'. Applies only for 'DNAT'.
+    * `original_port` original port. Applies only for 'DNAT'.
+    * `translated_port` translated port. Applies only for 'DNAT'.
+* `use_external_resource` a boolean for setting whether to create the resource or use an existing one. Defaults to `false`.
+* `vcloud_config` see the [vCloud Configuration](#vcloud-configuration).
+
+**Mapped Operations:**
+
+  * `cloudify.interfaces.lifecycle.creation_validation` validates PublicNAT node parameters
+
+**Attributes:**
+
+  * `public_ip` public ip address
+
 ## cloudify.vcloud.nodes.FloatingIP
 
 **Derived From:** [cloudify.nodes.VirtualIP](reference-types.html)
+
+This type is simplified version of cloudify.vcloud.nodes.PublicNAT node.
+It applies DNAT and SNAT rules for `any` protocol and `any` original and translated ports.
 
 **Properties:**
 
@@ -138,32 +166,6 @@ Two additional runtime-properties are available on node instances of this type o
 **Mapped Operations:**
 
   * `cloudify.interfaces.lifecycle.creation_validation` validates FloatingIP node parameters
-
-**Attributes:**
-
-  * `public_ip` public ip address
-
-
-## cloudify.vcloud.nodes.PublicNAT
-
-**Derived From:** [cloudify.nodes.VirtualIP](reference-types.html)
-
-**Properties:**
-
-* `nat` key-value NAT configuration.
-    * `edge_gateway` vCloud gateway name
-    * `public_ip` public ip. If not specified public ip will be allocated from the pool of free public ips.
-* `rules` key-value NAT rules configuration.
-    * `protocol` network protocol. Can be 'tcp', 'udp' or 'any'. Applies only for 'DNAT'.
-    * `original_port` original port. Applies only for 'DNAT'.
-    * `translated_port` translated port. Applies only for 'DNAT'.
-    * `type` list of NAT types. Can be 'SNAT', 'DNAT' or both.
-* `use_external_resource` a boolean for setting whether to create the resource or use an existing one. Defaults to `false`.
-* `vcloud_config` see the [vCloud Configuration](#vcloud-configuration).
-
-**Mapped Operations:**
-
-  * `cloudify.interfaces.lifecycle.creation_validation` validates PublicNAT node parameters
 
 **Attributes:**
 
@@ -195,7 +197,7 @@ Two additional runtime-properties are available on node instances of this type o
 * `security_group` key-value SecurityGroup configuration
     * `edge_gateway` vCloud gateway name
 * `rules` security group rules; list of key-value configurations
-    * `protocol` 'tcp', 'udp', 'icmp' or 'any'
+    * `protocol` 'tcp', 'udp', 'icmp', 'tcpudp' or 'any'
     * `source` source of traffic to apply firewall rule on. Can be 'internal', 'external', 'host', 'any', ip address or ip range.
     * `source_port` port number or 'any'
     * `destination` destination of traffic to apply firewall rule on. Can be 'internal', 'external', 'host', 'any', ip address or ip range.
@@ -233,7 +235,7 @@ Two additional runtime-properties are available on node instances of this type o
 
 ## cloudify.vcloud.server_connected_to_network
 **Description:** A relationship for connecting Server to Network.
-*Note*: This relationship has no operations associated with it; The server will use this relationship to connect to the network upon server creation. It will use DHCP for ip allocation.
+*Note*: This relationship has no operations associated with it; The server will use this relationship to connect to the network upon server creation. It will use POOL for ip allocation.
 
 ## cloudify.vcloud.server_connected_to_public_nat
 **Description:** A relationship for associating PublicNAT and Server.
@@ -243,14 +245,6 @@ Two additional runtime-properties are available on node instances of this type o
   * `cloudify.interfaces.relationship_lifecycle.establish`: associates PublicNAT with Server.
   * `cloudify.interfaces.relationship_lifecycle.unlink`: dissociates PublicNAT from Server.
 
-## cloudify.vcloud.server_connected_to_security_group
-**Description:** A relationship for associating SecurityGroup and Server.
-
-**Mapped Operations:**
-
-  * `cloudify.interfaces.relationship_lifecycle.establish`: associates SecurityGroup with Server.
-  * `cloudify.interfaces.relationship_lifecycle.unlink`: dissociates SecurityGroup from Server.
-
 ## cloudify.vcloud.net_connected_to_public_nat
 **Description:** A relationship for associating PublicNAT and Network.
 
@@ -259,6 +253,13 @@ Two additional runtime-properties are available on node instances of this type o
   * `cloudify.interfaces.relationship_lifecycle.establish`: associates PublicNAT with Network.
   * `cloudify.interfaces.relationship_lifecycle.unlink`: dissociates PublicNAT from Network.
 
+## cloudify.vcloud.server_connected_to_security_group
+**Description:** A relationship for associating SecurityGroup and Server.
+
+**Mapped Operations:**
+
+  * `cloudify.interfaces.relationship_lifecycle.establish`: associates SecurityGroup with Server.
+  * `cloudify.interfaces.relationship_lifecycle.unlink`: dissociates SecurityGroup from Server.
 
 # Examples
 
@@ -319,13 +320,6 @@ example_port:
         - target: example_network
           type: cloudify.vcloud.port_connected_to_network
 
-example_network:
-    type: cloudify.vcloud.nodes.Network
-    properties:
-        use_external_resource: true
-        resource_id: existing-network
-        vcloud_config: { get_property: [vcloud_configuration, vcloud_config] }
-
 example_port2:
     type: cloudify.vcloud.nodes.Port
     properties:
@@ -339,6 +333,13 @@ example_port2:
     relationships:
         - target: example_network2
           type: cloudify.vcloud.port_connected_to_network
+
+example_network:
+    type: cloudify.vcloud.nodes.Network
+    properties:
+        use_external_resource: true
+        resource_id: existing-network
+        vcloud_config: { get_property: [vcloud_configuration, vcloud_config] }
 
 example_network2:
     type: cloudify.vcloud.nodes.Network
@@ -394,8 +395,9 @@ The structure of the JSON file in section (1), as well as of the `vcloud_config`
     "service": "",
     "service_type": "",
     "api_version": "",
-    "region": "",
-    "org_url": ""
+    "instance": "",
+    "org_url": "",
+    "edge_gateway": ""
 }
 {%endhighlight%}
 
@@ -406,8 +408,8 @@ The structure of the JSON file in section (1), as well as of the `vcloud_config`
 * `vdc` Virtual Datacenter name.
 * `service` vCloud Service name.
 * `service_type` service type. Can be `subscription`, `ondemand` or `private`. Defaults to `subscription`.
-* `api_version` vCloud API version. For Subscription defaults to `5.6`, for OnDemand - to `5.7`.
-* `region` region name. Applies for OnDemand.
+* `api_version` vCloud API version. For Subscription defaults to `5.6`, for OnDemand to `5.7`.
+* `instance` instance ID. Applies for OnDemand. For obtaining `instance` use [vca_cli](https://github.com/vmware/vca-cli) utility.
 * `org_url` organization url. Required only for `private` service type.
 * `edge_gateway` edge gateway name.
 
@@ -416,17 +418,13 @@ The structure of the JSON file in section (1), as well as of the `vcloud_config`
 The [vCloud manager blueprint](manager-blueprints-vcloud.html) store the vCloud configuration used for the bootstrap process in a JSON file as described in (1) at `~/vcloud_config.json`. Therefore, if they've been used for bootstrap, the vCloud configuration for applications isn't mandatory as the plugin will default to these same settings.
 {%endtip%}
 
-
 # Misc
 
 ## VApp template
-Template should have:
 
-* one VM with root disk with OS, SSH server and VMware Tools installed.
-
-Template should not have:
-
-* any networks connected.
+* Template should have one VM with root disk with OS, SSH server and VMware Tools installed.
+* The vApp template’s VM should have one or zero NIC, which should not be connected to any network.
+* The vApp template should neither define any vApp networks nor “import” any Org VDC networks.
 
 
 ## Resources prefix support

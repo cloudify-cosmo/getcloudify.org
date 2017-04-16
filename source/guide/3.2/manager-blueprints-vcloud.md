@@ -34,16 +34,16 @@ This reference only explains the structure and various values in the blueprint. 
 
 ## Optional inputs
 * `vcloud_service_type` vCloud service type. Default is 'subscription'.
-* `vcloud_region` OnDemand region name.
+* `vcloud_instance` OnDemand instance ID. Only required if using 'ondemand' service type. For obtaining `instance` use [vca_cli](https://github.com/vmware/vca-cli) utility.
 * `vcloud_org_url` Only required if using token based login on a private vcloud director. This can be obtained by following the vcloud API example docs.
 * `manager_server_cpus` manager VM cpu count. Default is 2.
 * `manager_server_memory` manager VM memory size. Default is 4096.
 * `management_network_use_existing` Default is false.
-* `management_port_ip_allocation_mode` IP allocation mode for manager Port (Default: `dhcp`).
+* `management_port_ip_allocation_mode` IP allocation mode for manager Port (Default: `POOL`).
 * `management_port_ip_address` If IP allocation mode was set to `manual` this will be used as Port ip address (Default: `''`).
 * `management_network_public_ip` Management network public ip to allow internet access from the network. If empty string is specified, then public will be allocated from a pool of free public ips (Default: `''`).
 * `management_network_public_nat_use_existing` Default is false.
-* `floating_ip_public_ip` Manager public ip. If empty string is specified, then public will be allocated from a pool of free public ips (Default: `''`).
+* `manager_server_public_ip` Manager public ip. If empty string is specified, then public will be allocated from a pool of free public ips (Default: `''`).
 * `manager_server_user` The name of the user that will be used to access the Cloudify manager (Default: `ubuntu`).
 * `manager_private_key_path` The path on the local machine to the private key file that will be used with the Cloudify manager (Default: `~/.ssh/cloudify-manager-kp.pem`).
 * `agent_private_key_path` The path on the local machine to the private key file that will be used with Cloudify agents (Default: `~/.ssh/cloudify-agent-kp.pem`).
@@ -66,9 +66,9 @@ The blueprint builds the following topology on vCloud:
 The blueprint contains the following nodes:
 
   - *management_network* - A vCloud routed network for communication between the Cloudify manager and agent machines.
-  - *management_network_internet_access* - SNAT rule to enable internet access from management network.
+  - *management_network_nat* - SNAT rule to enable internet access from management network.
   - *management_port* - connection between Manager Server and Management Network.
-  - *manager_floating_ip* - A floating IP which will be associated with the Cloudify manager machine.
+  - *management_server_nat* - NAT rules for providing access from internet to the Cloudify manager machine.
   - *manager_server* - The server on which the Cloudify manager will be installed.
   - *vcloud_configuration* - A node which represents configuration settings for connecting with vCloud.
   - *manager* - The node which represents the manager. You may find more information about this node in the [Types Reference](#reference-types.html#cloudifymanager-type) section as well as in the [Manager Blueprints Authoring guide](getting-started-write-blueprint.html).
@@ -77,3 +77,7 @@ The blueprint contains the following nodes:
 # Configuration Operations
 
 The *manager's* node *configure* lifecycle operation is mapped to a method in the configure.py module. It creates a file on the Cloudify manager server, which holds the configuration settings for connecting with vCloud. This file can be used by the vCloud plugin when installing applications.
+
+{%note title=Gateway firewall%}
+Before bootstrap vCloud manager, VDC gateway firewall must be enabled.
+{%endnote%}
