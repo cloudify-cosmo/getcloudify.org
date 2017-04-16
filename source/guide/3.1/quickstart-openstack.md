@@ -72,6 +72,7 @@ Let's make a copy of the inputs template already provided and edit it:
 
 {% highlight bash %}
 cd cloudify-manager-blueprints/openstack
+git checkout -b 3.1 3.1
 cp inputs.json.template inputs.json
 {% endhighlight %}
 
