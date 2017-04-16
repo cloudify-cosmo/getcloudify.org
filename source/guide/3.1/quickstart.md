@@ -261,6 +261,6 @@ vagrant box remove cloudify-box
 
 # What's Next
 
-* Understand the requirements for bootstrapping your very own Cloudify Manager by reading [this]({{page.installation_general_link}}).
+* Understand the requirements for bootstrapping your very own Cloudify Manager by reading under [Installation]({{page.installation_general_link}}).
 * Try to install the same application on OpenStack by following the [OpenStack Tutorial]({{page.quickstart_openstack_link}}).
 * Learn more about blueprints by following the [Blueprints Tutorial]({{page.blueprint_guide_link}}).
