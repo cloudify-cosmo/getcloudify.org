@@ -46,3 +46,4 @@ For more information on the packages, please refer to the [Cloudify installation
 You can now direct your browser at http://manager-ip-address to access the UI or run `cfy use manager-ip-address` (depending on what interface you're using).
 
 Enjoy!
+uju
