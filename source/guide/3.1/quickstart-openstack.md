@@ -72,6 +72,7 @@ Let's make a copy of the inputs template already provided and edit it:
 
 {% highlight bash %}
 cd cloudify-manager-blueprints/openstack
+git checkout -b 3.1 3.1
 cp inputs.json.template inputs.json
 {% endhighlight %}
 
@@ -106,19 +107,18 @@ The inputs.json file should look somewhat like this:
 
 {% endhighlight %}
 
-You will, at the very least, have to provide the following:
+You will, at the very least, have to provide the first chunck of parameters 
+(i.e. keystone_username,keystone_password, keystone_tenant_name,keystone_url, region, manager_public_key_name, agent_public_key_name, image_id, flavor_id, external_network_name)
 
-* `keystone_username`
-* `keystone_password`
-* `keystone_tenant_name`
-
-In case you are using a different openstack environment, you should also change the following values:
+In case you are using a different (non-HPCloud) openstack environment, you'll need to change the following values:
 
 * `image_id`
 * `flavor_id`
 * `external_network_name`
 
 to fit your specific openstack installation.
+
+Please refer to the [Openstack Manager Reference]({{page.reference}}#Openstack_Manager_Reference) for detailed explanation of each parameter.
 
 Notice that the `resources_prefix` parameter is set to "cloudify" so that all resources provisioned during
 this guide are prefixed for easy identification.

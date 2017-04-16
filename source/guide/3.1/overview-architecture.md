@@ -105,7 +105,7 @@ Cloudify uses [Riemann.IO CEP](http://riemann.io/) as the core of the policy eng
 
 
 
-The policies are written in [Clojure](http://clojure.org/). Riemann offers many [built it functions for analyazing monitoring information](http://riemann.io/api.html).
+The policies are written in [Clojure](http://clojure.org/). Riemann offers many [built in functions for analyzing monitoring information](http://riemann.io/api.html).
 Cloudify offers policy examples for the common use cases.
 
 

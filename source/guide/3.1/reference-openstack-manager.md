@@ -37,7 +37,7 @@ This reference only explains the structure and various values in the blueprint. 
 * `manager_server_user_home` The path to the home directory on the Cloudify manager of the user that will be used to access it (Default: `/home/ubuntu`).
 * `manager_private_key_path` The path on the local machine to the private key file that will be used with the Cloudify manager. This key should match the public key that is set for the `manager_public_key_name` input (Default: `~/.ssh/cloudify-manager-kp.pem`).
 * `agent_private_key_path` The path on the local machine to the private key file that will be used with Cloudify agents. This key should match the public key that is set for the `agent_public_key_name` input (Default: `~/.ssh/cloudify-agent-kp.pem`).
-* `agents_user` The default username to be used when connecting into applications' agent VMs (for agent installtion).
+* `agents_user` The default username to be used when connecting into applications' agent VMs (for agent installation).
 * `nova_url` Explicit URL for Openstack Nova (compute) service endpoint.
 * `neutron_url` Explicit URL for Openstack Neutron (networking) service endpoint.
 * `resources_prefix` Resource prefix to be attached to cloud resources' names.
