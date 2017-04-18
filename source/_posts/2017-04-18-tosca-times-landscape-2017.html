@@ -1,0 +1,55 @@
+---
+layout: blogpost
+title: The TOSCA Times Pt I - The TOSCA Landscape in 2017
+description: In this first installment, Michael discusses the current landscape of TOSCA in 2017 and why he believes this is the year of TOSCA.
+image: brenner.jpg
+author: Michael Brenner
+tags: 
+ - NFV
+ - TOSCA
+ - Cloud Automation
+ - Hybrid Cloud
+ - ETSI
+---
+
+<notextile>
+
+<img src="/img/blog/tosca-timeline-header.png" width="870" alt="TOSCA timeline">
+<br/>
+<br/>
+
+<p><em>This article was <a href="https://www.sdxcentral.com/articles/contributed/understanding-tosca-landscape-2017/2017/02/" target="_blank">originally posted</a> on SDxCentral on February 28th, 2017.</em></p>
+
+<p>As a person who has had a front-row seat witnessing intensified efforts related to <a href="" target="_blank">TOSCA</a> over the course of the past few years, I&rsquo;m excited to see 2017 shaping up as &ldquo;the year of TOSCA&rdquo;.</p>
+<p>This is based on my involvement in multiple standards organizations (OASIS, ETSI NFV, MEF), in diverse open source communities (Open-O, <a href="/2016/10/13/hybrid-cloud-orchestration-on-openstack-with-cloudify-tosca.html" target="_blank">OpenStack</a>, <a href="/2016/06/21/opnfv-functest-team-tests-clearwater-vims-deployment-using-cloudify-with-100-percent-success-nfv-orcehstration.html" target="_blank">OPNFV</a>, <a href="http://ariatosca.org/" target="_blank">ARIA</a>), in other venues featuring information/data modeling activities (Layer 123 NFV/SDN World Congress, Multi-SDO Information Modelling workshops, &hellip;) and most importantly, in direct product engagements and deployments with customers (Operators, Enterprise) and <a href="/cloud-native-vnf.html" target="_blank">VNF vendors</a>.</p>
+<p>In my searches for more data on TOSCA, I was looking for something to break it down for me simply and give me an overview of history, developments, and what&rsquo;s coming - and since I didn&rsquo;t manage to find any kind of document of the sort, I decided to write it myself to help others who may feel the same way.</p>
+<p>This is important because while all this attention to TOSCA is good news, many questions and challenges remain to be addressed if we&rsquo;d like this to pan out to be  &ldquo;the <strong><em>good</em></strong> year of TOSCA&rdquo;.</p>
+
+  <hr>
+
+<span class="pullquote-left">
+  <font style="font-weight: bold" size="5" face="Baskerville Old Face"><em>Meet us at NFV World Congress in San Jose &nbsp;</em></font>  <a class="btn btn-medium btn-theme btn-rounded" id="downloadBtnInner" href="/participate.htm?utm_campaign=meeting_website&utm_source=website_blogs_jh" target="_blank"><i class="icon-plus"></i> Go </a></span>
+  
+<hr>
+
+<p>So I&rsquo;m going to take a moment to backtrack a little to cover background and landscape for those only getting their feet wet with TOSCA. This is because I&rsquo;m looking to make TOSCA knowledge more accessible to those who may be interested, but cannot afford to follow and/or influence the ongoing activities, in addition to those who are already involved. </p>
+<p>[<strong><em>NOTE</em></strong>: Unless otherwise specified, I will use &ldquo;TOSCA&rdquo; to mean &ldquo;the TOSCA ecosystem, framework of artifacts, philosophy&rdquo; in a broad sense, encompassing everything related to TOSCA. I will do my best to be more specific when referring to a particular specification, or an implementation, or some other artifact.]</p>
+<p>TOSCA stands for &ldquo;Topology and Orchestration Specification for Cloud Applications&rdquo;.  <a href="http://docs.oasis-open.org/tosca/TOSCA/v1.0/TOSCA-v1.0.html">Version 1.0</a> of this specification relied on XML Schema 1.0, and was published by OASIS in November 2013, and starts by stating its intent: </p>
+<p style="margin-left: 20px; margin-right: 20px"><em>&ldquo;Cloud computing can become more valuable if the semi-automatic creation and management of application layer services can be ported across alternative cloud implementation environments so that the services remain interoperable. This core TOSCA specification provides a language to describe service components and their relationships using a service topology, and it provides for describing the management procedures that create or modify services using <a href="/cloud_orchestration_cloud_automation.html" target="_blank">orchestration</a> processes. The combination of topology and orchestration in a Service Template describes what is needed to be preserved across deployments in different environments to enable interoperable deployment of cloud services and their management throughout the complete lifecycle (e.g. scaling, patching, monitoring, etc.) when the applications are ported over alternative cloud environments.&rdquo;</em></p>
+<p>Since then, OASIS switched gears to develop the <a href="http://docs.oasis-open.org/tosca/TOSCA-Simple-Profile-YAML/v1.0/TOSCA-Simple-Profile-YAML-v1.0">TOSCA Simple Profile</a> in YAML Version 1.0, published in December 2016, that starts with:</p>
+<p style="margin-left: 20px; margin-right: 20px"><em>&ldquo;The TOSCA Simple Profile in YAML specifies a rendering of TOSCA which aims to provide a more accessible syntax as well as a more concise and incremental expressiveness of the TOSCA DSL in order to minimize the learning curve and speed the adoption of the use of TOSCA to portably describe cloud applications.&rdquo;</em></p>
+<p>The work on &ldquo;Simple YAML&rdquo; continues and we expect a new version to be published this year &hellip; and not stopping there.</p>
+<p>A lot of additional TOSCA related projects were, and still are happening in parallel inside and outside OASIS (not all of them directly visible to OASIS) &ndash; and most of those are at the same time NFV-related. In the <figure></figure> below I paint a non-exhaustive landscape/timeline of projects in different organizations that either impact TOSCA or are impacted by TOSCA &ndash; and the relatively complex (in some cases, circular) dependencies between them.</p>
+<p class="aligncenter"><img src="/img/blog/tosca-times-landscape.jpg" width="600"><br><span style="font-size: 10px">Figure 1: &ldquo;TOSCA&rdquo; landscape and timeline</span></p>
+<p>One can indeed see by the agglomeration of, and industry interest in TOSCA-related activities, why my instinct says that 2017 is shaping up to finally be &ldquo;the year of TOSCA&rdquo;. This becomes even more apparent when compared to any other potential candidate specification/framework pitched for deployment, orchestration or automation of cloud and <a href="/network-function-virtualization-vnf-nfv-orchestration-sdn-platform.html" target="_blank">NFV</a> workloads. This is a great sign that TOSCA is emerging as the consensus primary vehicle in this space.  Which is an important milestone in standardizing and defragmenting this industry.</p>
+
+<p>Although, that said, we do need to strive to ensure that these multiple dependencies and [too] many open questions about evolution will receive the significant industry efforts required in the standards bodies (ETSI NFV, OASIS/TOSCA) to reach optimal, or at least satisfactory, resolutions. While an initial satisfactory specification, e.g. &ldquo;<em>TOSCA for NFV</em>&rdquo; is within reach in 2017, I believe that the &ldquo;optimal TOSCA&rdquo; may undergo resets and iterations because of the multiple parallel tracks that will continue their activities at least into 2018.</p>
+
+<p>One thing important to note, is that the accelerated emergence of potential TOSCA extensions implemented in open source projects today is a good sign that those communities are willing to adopt standards.  This essentially means that the standards community will have to reciprocate by taking into consideration this important and integral feedback from live implementations &ndash; a de-facto healthy coopetition that will ultimately serve to accelerate industry adoption.</p>
+
+<p>A word of suggestion to the operators, service providers, and telcos that are &ldquo;almost&rdquo; sold on TOSCA may have to make hard interim decisions, while waiting for the optimal outcome. This is also true for vendors that are committed to TOSCA. Ultimately a product that works well and is close enough to compliance is preferable to a product that is compliant, but only close to working well. </p>
+<p>Albeit, given the landscape painted above, it looks like the community will continue to ask during 2017 &ldquo;compliant to which TOSCA specification?&rdquo;</p>
+<p>I will be following up in upcoming posts with specific developments, issues, challenges and successes in different TOSCA-related projects mentioned in the landscape. </p>
+<p>You are welcome to reach out and comment if you have any questions or would like to have upcoming posts focus on a specific subject, so we can build a conversation around TOSCA.</p>
+
+</notextile>
