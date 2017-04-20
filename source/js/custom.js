@@ -2,6 +2,12 @@
 $(document).ready(function() {
 	"use strict";
 
+  // mobile menu
+
+  $('#menu_toggle').on('click',function(){
+    $(this).toggleClass('open');
+    $('.mobile_header .top_nav_mobile').slideToggle(300);
+  });
 
 	(function() {
 
