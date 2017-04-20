@@ -1,2 +1,163 @@
 
 /** enter sass rules here **/
+
+/*
+ * Fonts
+ */
+@import url('https://fonts.googleapis.com/css?family=Kanit:300,400,500,700|Podkova:400,500');
+
+/*
+ * Variables
+ */
+
+// Fonts
+$pod: 'Podkova', serif; //400,500
+$kan: 'Kanit', sans-serif; // 300,400,500,700
+
+// Colors
+$dark: #000068;
+$yellow: #fdca37;
+$sky: #30abe0;
+$lightblue: #d7e2e8;
+$white: #f7f7f7;
+$lightgrey: #f7f7f7;
+
+
+// Media Queries
+$phablet: 600px;
+$tablet: 992px;
+$desktop: 1200px;
+
+/*
+ * Grid
+ */
+
+
+
+/*
+ * Footer
+ */
+
+#footer{
+	background-color: $white;
+
+	.container{
+
+		.row{
+			padding-top: 82px;
+			display: flex;
+			flex-direction: row;
+			flex-wrap: wrap;
+			align-items: stretch;
+			justify-content: left;
+			margin: 0;
+
+			&:before{
+				display: none;
+			}
+
+			@media (min-width: $tablet){
+				flex-wrap: nowrap;
+			}
+
+			& > div{
+				flex: 1 1 auto;
+				width: 100%;
+
+				@media (min-width: $tablet){
+					width: 50%;
+				}
+				@media (min-width: $desktop){
+					width: 16.66666667%;
+				}
+			}
+
+			.widget{
+				margin: 0 0 70px;
+
+				.widget_title{
+					color: $dark;
+					border: 0;
+					font-family: $kan !important;
+					font-weight: 600;
+					font-size: 16px;
+					letter-spacing: 0;
+					padding: 0;
+					margin-bottom: 7px;
+				}
+
+				&.widget_nav_menu{
+					ul{
+						margin: 0;
+						padding: 0;
+
+						li{
+							display: block;
+							width: 100%;
+							font-weight: 300;
+							margin-bottom: 5px;
+
+							a{
+								color: $dark;
+								font-size: 14px;
+								line-height: 16px;
+								font-family: $kan;
+								font-weight: 300;
+
+								&:hover{
+									color: $sky;
+									text-decoration: none !important;
+								}
+							}
+						}
+					}
+				}
+			}
+
+
+		}
+	}
+}
+
+.copyright_row{
+	background-color: $white;
+
+	.copyright_row_wr{
+		border-top: 1px solid rgba($dark, 0.5) !important;
+		padding: 23px 0 9px;
+
+		.socials{
+			float: right;
+			width: 50%;
+			ul{
+				list-style: none;
+				padding: 0;
+				margin: 0;
+				float: right;
+				li{
+					float: left;
+					margin: 0 0 8px 8px;
+					a{
+						display: block;
+						width: 32px;
+						height: 32px;
+						border-radius: 32px;
+						background: $white;
+						text-align: center;
+						line-height: 32px;
+						color: $dark;
+						text-decoration: none !important;
+						transition: all 0.3s ease;
+						font-size: 24px;
+					}
+				}
+			}
+		}
+
+		.copyright{
+			color: $dark;
+			font-size: 12px;
+		}
+	}
+}
+
