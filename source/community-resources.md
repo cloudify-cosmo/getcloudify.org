@@ -28,6 +28,16 @@ title: Community Resources
 			<table style="width:100%;border:0px">
 				<tr>			 		
 					<td style="background-color:transparent;width:5%">
+						<h2><i class="icon-3x icon-github"> 
+					<td style="background-color:transparent;width:5%">
+					<td style="background-color:transparent;">
+						<h2><strong>How to Contribute</strong></h2>
+						<p>
+							We strive to make this project a real community effort to which any developer can contribute. The best place to start is by <a href="http://docs.getcloudify.org/{{ site.Docs_version }}/plugins/creating-your-own-plugin/">writing a new plugin</a>. Read more about <a href="{{ site.baseurl }}/how-to-contribute.html"><strong>How to Contribute</strong></a> to Cloudify.			
+						</p>												
+					</td>
+				<tr>			 		
+					<td style="background-color:transparent;width:5%">
 						<h2><i class="icon-3x icon-envelope-alt"> 
 					<td style="background-color:transparent;width:5%">
 					<td style="background-color:transparent;">
@@ -36,9 +46,9 @@ title: Community Resources
 							<a href="https://groups.google.com/forum/#!forum/cloudify-users">cloudify-users</a> is the mailing list where Cloudify users can seek and get help and discuss all kinds of matters surrounding Cloudify. 
 							Use the <a href="https://groups.google.com/forum/#!forum/cloudify-developers">cloudify-developers</a> mailing list if you'd like to contribute to the Cloudify core modules, develop plugin and extensions and get help on dev related issues.
 						</p>						
-						<p>
+						<!--<p>
 							If you're a Cloudify 2.7 user, please refer the <a href="https://cloudifysource.zendesk.com/forums">2.7 mailing lists</a>. 
-						</p>
+						</p>-->
 					</td>
 				<tr>			 		
 					<td style="background-color:transparent;width:5%">
@@ -61,13 +71,13 @@ title: Community Resources
 						</p>						
 					</td>
 				<tr>			 		
-					<td style="background-color:transparent;width:5%">
-						<h2><i class="icon-3x icon-github"> 
+					<td style="background-color:transparent;width:5%; text-align:center;">
+						<h2><i class="fa fa-file-code-o fa-3x">
 					<td style="background-color:transparent;width:5%">
 					<td style="background-color:transparent;">
 						<h2><strong>Source Code</strong></h2>
 						<p>
-							Cloudify is Open Source under <a href="http://www.apache.org/licenses/LICENSE-2.0.html">the Apache 2 License</a>. The code is <a href="http://github.com/cloudify-cosmo">hosted on Github</a> under the code name Cosmo (we just love <a href="http://en.wikipedia.org/wiki/Cosmo_Kramer">Kramer</a>, what can you do). You're most welcome to clone the code, fork it and submit pull requests. Read about <a href="{{ site.baseurl }}/how-to-contribute.html"><strong>How to Contribute</strong></a> to Cloudify.			
+							Cloudify is Open Source under <a href="http://www.apache.org/licenses/LICENSE-2.0.html">the Apache 2 License</a>. The code is <a href="http://github.com/cloudify-cosmo">hosted on Github</a> under the code name Cosmo (we just love <a href="http://en.wikipedia.org/wiki/Cosmo_Kramer">Kramer</a>, what can you do). You're most welcome to clone the code, fork it and submit pull requests.
 						</p>												
 					</td>		
 				<tr>			 		
@@ -91,8 +101,6 @@ title: Community Resources
 						</p>												
 					</td>	
 
-
-{% include leadlanderform.html %}
 
 
 
