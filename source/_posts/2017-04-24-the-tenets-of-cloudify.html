@@ -1,0 +1,78 @@
+---
+layout: blogpost
+title: The Tenets of Cloudify
+description: This post lays out the principles we have followed from the beginning through our latest release - Cloudify 4.0. 
+image: sharone.jpg
+author: Sharone Zitzman
+tags: 
+ - Cloud Orchestration
+ - Cloudify
+ - Open Source
+ - ARIA
+ - Cloud Automation
+---
+
+<notextile>
+
+<div><img src="/img/blog/cloudify_new_logo.png" width="870px" alt="Cloudify Logo"></div>
+<br/>
+<br/>
+
+
+<p><b></b>
+
+<p>When we set out to build <a href="/">Cloudify</a>, we had a few guiding principles that were the backbone that drove us from our early version 2.x, through our evolution to 3.x and now 4.x.</p>
+<p>We discovered that basically all of our tenets strengthen each other, with the same basic ideology, starting with the open source core. Now with 4.0, a major milestone in our growth as a product and company, we felt it&rsquo;s time we shared these basic tenets that tie together into the underlying fabric of our product, company and culture.</p>
+
+  <hr>
+<span class="pullquote-left">
+  <font style="font-weight: bold" size="5" face="Baskerville Old Face"><em>Register for our Cloudify 4.0 webinar - the next evolution.</em></font>&nbsp; <a class="btn btn-medium btn-theme btn-rounded" id="downloadBtnInner" href="{{ site.baseurl }}/webinars/the-new-cloudify-4.html?utm_campaign=4.0%20Release%20Webinar&utm_source=blog_cta&utm_medium=jeremy" target="_blank"><i class="icon-plus"></i> Join Now </a></span>
+<hr>
+
+<h2><strong>Open </strong></h2>
+<p>The principles behind open source are well-known, and so I won&rsquo;t drone on too long about why open source. If you need to read more on why open source, here are <a href="https://www.thoughtworks.com/insights/blog/open-source-drives-virtuous-loop-innovation">some places</a> <a href="http://producingoss.com/en/open-source-and-the-organization.html">to start</a>.</p>
+<p>If I need to borrow a quote (in the open source way), from those who have likely said it better than me, and are fostering a safe place for such projects (our own <a href="http://ariatosca.org">ARIA</a> among them), then I&rsquo;d quote the Apache Software Foundation&rsquo;s principles for code:</p>
+<ul>
+<li>collaborative software development</li>
+<li>commercial-friendly standard license</li>
+<li>consistently high quality software</li>
+<li>respectful, honest, technical-based interaction</li>
+<li>faithful implementation of standards</li>
+<li>security as a mandatory feature</li>
+</ul>
+<p>While open source is only one attribute of openness, there are many other aspects of being open including open governance, standards, and agnosticism. Since there will never be a one size fits all scenario, inclusivity and openness are increasingly important to enable interoperability and portability of all types of stacks.</p>
+<p>Then when I think about it further, if I had to establish categories of thought, &ldquo;open source&rdquo; falls under the &ldquo;how&rdquo; category, whereas the real questions that we needed to ask ourselves were &ldquo;what&rdquo;. <em>What are the primary challenges of typical IT organizations today? </em><strong><em>What can we do differently?</em></strong></p>
+<p>I feel that the other core tenets are those that ultimately answer this.</p>
+<h2><strong>Technology-Inclusive</strong></h2>
+<p>Based on the same principles as openness, if there was something we understood early on, it was the importance of inclusivity (vs. exclusivity) - building a collaborative, integrative platform. Because a &ldquo;Jack of all trades,&rdquo; is a master of none. And one company alone simply cannot deliver on all of the important technological features that enterprises require today. At least not well. </p>
+<p>An integrative approach enables companies to build their own best of breed stack, whether it&rsquo;s homegrown tools or favorite tools that dev and ops teams simply don&rsquo;t want to replace. We respect all code and, even more so, our peers. While it may sound cheesy, we&rsquo;re not looking to compete with anyone. We have often times collaborated with projects and tools that very much overlap with what we do, and have found the places to be better together. </p>
+<p><img src="/img/blog/constant_change.png"></p>
+<p>It&rsquo;s not a surprise that our internal motto, turned t-shirts, turned banners...without even planning, has been &ldquo;<strong><em>the only constant is change</em></strong>&rdquo; all along. With the complexity of the adoption model, and the tooling, infrastructure, technology landscape changing so rapidly you must take an integration and adaptation approach in order to survive. We have <a href="http://natishalom.typepad.com/nati_shaloms_blog/2017/03/onap-is-driving-much-needed-standards-in-nfv.html">learned through collaborative projects</a> we are involved in, that many times they combine and fuse together because, most times, as it turns out... you just can&rsquo;t go it alone. This is the DNA that makes projects timeless and sustainable.</p>
+<p><strong>Think: Collaborative, Technical-based interaction, Consistently high-quality</strong></p>
+<h2><strong>Model-Driven</strong></h2>
+<p>Nati Shalom, Cloudify CTO, who drives the DNA of the project, code, and company, is whom I often quote as my personal thought leader. When we set out to <a href="http://getcloudify.org/2014/10/08/open-source-cloud-architecture-TOSCA-OpenStack.html">rewrite Cloudify from 2.x to 3.x</a> - which we have discussed this many times, in order to get closer to other open source projects through code; but likely one of the more critical aspects was to drive standard-based templating for cloud applications. That&rsquo;s what we initially called the horse before we identified its real name. <strong><em>Model-driven design</em></strong>. </p>
+<p>We&rsquo;ve referenced this in the context of the <a href="https://www.infoq.com/articles/devops-not-a-feature">model T assembly line</a>, and in the context of <a href="http://getcloudify.org/2016/05/12/making-tosca-truly-portable-openstack-cloud-nfv-open-source-orchestration.html">Boeing and Computer Aided Design</a> (CAD), but it took us an evolution all the way through to Cloudify 4.0 to understand what we were really preaching by being early adopters of TOSCA. </p>
+<p class="aligncenter"><img src="/img/blog/early_adopters.png" width="500px"></p>
+<p>Standards, or service models, are important on numerous levels. By driving a unified service model you are building a canonical, repetitive, best practice for making applications so portable, so replicable in distributed environments you will never have to reinvent the wheel. The modeling language is essentially the enabler for automation, as it was for the manufacturing industry. This type of standard needs to be open and nonproprietary to any vendor, to enable true community-level adoption and contribution. </p>
+<p>Another important aspect of such a model-driven approach enables you to include security and hardening into the service model, and replicate this across environments - providing inherent security features from the ground up, and not as an afterthought. </p>
+<p>If we can drive a common standard for cloud applications, the software will be in the driver&rsquo;s seat, not the infrastructure. However, for the skeptics among us, we don&rsquo;t mean standardization in the sense that forces mediocrity such as a standard API, or &ldquo;a least common denominator&rdquo;. We understand the importance of enabling different parts of the puzzle to take part in the same automation task, and the best way to do so is enable finer-grained modularity of the service model itself, and not via a restrictive API.</p>
+<p>Having to rewrite code into complex models, like the <a href="https://12factor.net/">12-factor model</a>, will no longer be relevant. We can concentrate on writing excellent code and refactoring existing good enough code that drives our business - this ties into being application-centric. Having to constantly be concerned about interoperability or compliance of code is only a hindrance. This is true for traditional stacks, and hybrid stacks, you will be able to plugin to any infrastructure (including new and exciting technologies, read: containers today, the new thing tomorrow).</p>
+<p><strong>Think: Faithful implementation of standards, Security as a mandatory feature, and truly free (in the autonomous sense) software.</strong></p>
+<h2><strong>Web Scale</strong></h2>
+<p>When I reference web-scale as a tenet, it&rsquo;s not the quantity I&rsquo;m referring to, but rather the school of thought that has arisen as a result. The by-product of web-scale, and learning how to do things more efficiently, is based on principles of automation, scale, redundancy, repeatability, and modularity, all during runtime. No need to elaborate on the <a href="https://www.thoughtworks.com/insights/blog/when-to-automate-and-why">need for automation</a> - that too has been discussed to no end - human error, exact replication of activities, bottlenecks, testing, etc. etc. </p>
+<p>When we discuss Cloudify in the context of web-scale, it&rsquo;s because web-scale is a fact. Data is growing along with load, usage, and more. You need to build your applications to be ready for this type of growth, and build for the diversity of people in the process. Remember inclusivity? Not everyone is a power user, not all tools are yet known, not all workflows worked out. </p>
+<p>Under this bucket falls the concept of DevOps, but not in its buzzwordy sense, more in instilling a shared ownership across the organization from the application owner all the way through central IT, and this can only be enabled through common tooling, frameworks, and common interfaces. This means that tooling needs to be adoptable by end users and power users alike to build a common management platform to serve both the IT and business unit, as opposed to the NoOPS school of thoughts.</p>
+
+<p><strong>Think: Respectful, honest more humane code through automation, Security, high availability, collaboration through roles and responsibilities in the process</strong></p>
+<h2><strong>Application First, Network Aware</strong></h2>
+<p>We chose the <a href="https://www.youtube.com/watch?v=YhDNKyP_s7U&amp;index=53&amp;list=PLD470957921551B9A">application-first</a> (aka orchestration-first, application-centric) approach because we know that organizations that want to adopt new technology simply do not have the luxury to just &ldquo;throw out&rdquo; all their existing, in-house technology and start over. Most &ldquo;legacy&rdquo; technology (and yes, some of the most popular frameworks and tools - from LAMP to JBoss - have received the &ldquo;legacy&rdquo; stamp already), is still around because it is a company&rsquo;s core business. Telling organizations to get rid of it all if they want to be innovative is simply unrealistic, and a non-starter many times.</p>
+<p>The way to approach such a problem is by being pragmatic, and optimizing first, building new in the background. Demonstrating time-to-value for companies looking to adopt new technology. This is a top-down, application-centric approach versus an infrastructure-first approach. Many times, to achieve the benefits of the cloud, you can only start small. Work with what you have - plugin existing applications, drive innovation through automation, workflows, breaking down of silos, unifying tooling, terminology. </p>
+<p>Another important and often overlooked aspect of the stack is the networking. Where web-scale and DevOps best practices were only made possible once data centers began to adopt principles of being software-driven, the same revolution needs to be more widely adopted on the networking layer. </p>
+<p>We believe that building standard cloud management practices for running core network services is part and parcel to the application lifecycle, and should be treated similarly to compute and storage by being driven by the application and not externally from it. This is even more true in a multi-cloud environment which opens a whole new set of network security vulnerabilities. Once this occurs, central IT will be able to deliver services to organizational business units much like a service provider, preventing technology fragmentation and bypassing of IT, addressing all aspects of the stack.</p>
+<h2><strong>Cloud Native</strong></h2>
+<p>Like web scale, when we reference cloud native, it&rsquo;s more in the sense of the concept and what it signifies, rather than the strange twist of fate where cloud native is associated with containers only. Similar to cloud applications, we believe that the diversity in this area will only expand, and interoperability will be of the essence. This warrants a standalone category as it&rsquo;s somewhere between the service model, and the application layer. We believe that in order to be able to build for web scale and be technology inclusive you need to architect for independent services. This doesn&rsquo;t need to be tied to a specific platform or technology. That is the true essence of cloud native. </p>
+<h2><strong>Conclusion</strong></h2>
+<p>It took us a long time to put these elements down on paper, as we ourselves were still undergoing an evolution, and learning what exactly we were driving at. We had the instincts, but were lacking the terminology. We have been working hard behind the scenes to deliver on these promises through our latest release and our ongoing roadmap. If there is a line I have used from day one it&rsquo;s been &ldquo;Cloudify was built for integration&rdquo;. This is what we know how to do best. We are hoping this school of thought will help us drive an open standard and collaboration model.</p>
+
+
+</notextile>
