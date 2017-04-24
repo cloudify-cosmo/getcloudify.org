@@ -12,30 +12,30 @@ tags:
 ---
 
 <notextile>
-<img src="http://getcloudify.org/img/blog/cloudify_orchestration.png" alt="Cloud Automation | Cloud Application Orchestration | OpenStack Heat | TOSCA | Cloud Migration | Hybrid Cloud">
+<img src="{{ site.baseurl }}/img/blog/cloudify_orchestration.png" alt="Cloud Automation | Cloud Application Orchestration | OpenStack Heat | TOSCA | Cloud Migration | Hybrid Cloud">
 <br/>
 <br/>
 
 <p>Cloud portability is the ability to move applications and data from one cloud computing environment to another with minimal disruption.</p>
 
-  <p>There have been numerous attempts and approaches to deal with this challenge on various levels of the stack, such as <a href="http://getcloudify.org/2015/04/05/vagrant-cloud-aws-nested-virtualization-vagrant-box.html" target="_blank">nested virtualization</a>, <a href="http://getcloudify.org/2014/12/14/TOSCA-docker-container-orchestration-microservices-architecture-kubernetes.html" target="_blank">containers</a>, API abstraction, PaaS, <a href="http://getcloudify.org/cloud_orchestration_cloud_automation.html" target="_blank">cloud orchestration</a>, among others. The reality though, is the speed in which cloud technology evolves has simply made this challenge even more complex over time.</p>
+  <p>There have been numerous attempts and approaches to deal with this challenge on various levels of the stack, such as <a href="{{ site.baseurl }}/2015/04/05/vagrant-cloud-aws-nested-virtualization-vagrant-box.html" target="_blank">nested virtualization</a>, <a href="{{ site.baseurl }}/2014/12/14/TOSCA-docker-container-orchestration-microservices-architecture-kubernetes.html" target="_blank">containers</a>, API abstraction, PaaS, <a href="{{ site.baseurl }}/cloud_orchestration_cloud_automation.html" target="_blank">cloud orchestration</a>, among others. The reality though, is the speed in which cloud technology evolves has simply made this challenge even more complex over time.</p>
 
-  <p class="aligncenter"><img src="http://getcloudify.org/img/blog/app_portability.png" /></p>
+  <p class="aligncenter"><img src="{{ site.baseurl }}/img/blog/app_portability.png" /></p>
 
   <p>That’s why, I wanted to dive into the pros and cons in each approach, and later attempt to arrive at a recommendation on how to best layer these options together to achieve true portability that could address a wide range of application workloads and use cases.</p>
 
 <hr>
 
 <span class="pullquote-left">
-  <font style="font-weight: bold" size="5" face="Baskerville Old Face"><em>Cloudify 3.2 is now available for all your Cloud Orchestration needs.</em></font>&nbsp; <a class="btn btn-medium btn-theme btn-rounded" id="downloadBtnInner" href="http://getcloudify.org/downloads/get_cloudify.html" target="_blank"><i class="icon-plus"></i> Go </a></span>
+  <font style="font-weight: bold" size="5" face="Baskerville Old Face"><em>Cloudify 3.2 is now available for all your Cloud Orchestration needs.</em></font>&nbsp; <a class="btn btn-medium btn-theme btn-rounded" id="downloadBtnInner" href="{{ site.baseurl }}/downloads/get_cloudify.html" target="_blank"><i class="icon-plus"></i> Go </a></span>
   
 <hr>
 
   <h2>Nested Virtualization</h2>
 
-  <p>Nested <a href="http://getcloudify.org/2014/11/12/vmware-vsphere-vcloud-openstack-hybrid-cloud.html" target="_blank">virtualization</a> makes it possible to run a VM within another VM. The following diagram provide a useful visualization for how nested virtualization works.</p>
+  <p>Nested <a href="{{ site.baseurl }}/2014/11/12/vmware-vsphere-vcloud-openstack-hybrid-cloud.html" target="_blank">virtualization</a> makes it possible to run a VM within another VM. The following diagram provide a useful visualization for how nested virtualization works.</p>
 
-  <p class="aligncenter"><img src="http://getcloudify.org/img/blog/nested_virtualization.png" /></p>
+  <p class="aligncenter"><img src="{{ site.baseurl }}/img/blog/nested_virtualization.png" /></p>
 
   <p>As can be seen in the diagram above, nested virtualization can run on top of a cloud hypervisor. This allows a simple model of portability which enables the packaging of an application into a portable VM, and then the shipping it into other clouds by running the same hypervisor engine on both the private cloud and public cloud. For more detailed information on how nested virtualization works see <a href="http://www.ibm.com/developerworks/cloud/library/cl-nestedvirtualization/" target="_blank">here</a>, and how to overcome nested virtualization issues <a href="http://www.developer.com/design/creating-a-reproducible-and-portable-development-environment.html" target="_blank">here</a>.</p>
 
@@ -77,7 +77,7 @@ tags:
 
   <p>Unlike virtual machines that need to run through a hypervisor layer, containers run as service within the operating system, and as a result this provides a significantly lighter and more portable packaging model. Most of the popular cloud providers have recently added support for containers, which makes applications that are packed into containers portable, and able to be shipped easily to any of these clouds.</p>
 
-  <p class="aligncenter"><img src="http://getcloudify.org/img/blog/containers.png" /></p>
+  <p class="aligncenter"><img src="{{ site.baseurl }}/img/blog/containers.png" /></p>
 
   <p>As can be seen in the diagram above, since containers run on top of the operating system, they can also run in a nested virtualization approach. While this is a viable option, my personal take is that this option has fairly minimal value.</p>
 
@@ -105,11 +105,11 @@ tags:
 
   <p>API compatibility basically presents the ability to provide a common API that will work across all clouds. There are basically two families of cloud compatibility APIs. The first are API compatibility frameworks such as JCLouds or LibCloud. Those frameworks provide a mapping of the cloud API into an intermediate API that exposes the least common denominator of all clouds, and are often times limited to mapping just the compute semantics (storage and network mapping in both frameworks are fairly limited to nonexistent). </p>
 
-  <p>The other family is using one of the existing cloud APIs as the standard for the rest of the clouds. A good example for this is CloudScaling (now part of EMC), who chose to map the AWS API to <a href="http://getcloudify.org/2014/07/10/what-is-openstack-tutorial.html" target="_blank">OpenStack</a>. There are also various attempts to use OpenStack as a compatibility API for other clouds. An interesting example in that regard is VMware Integrated OpenStack (VIO), which uses the OpenStack pluggable architecture in order to wire in <a href="http://getcloudify.org/vmware-hybrid-cloud.html" target="_blank">VMware</a> resources as the underlying resources. A few more are:</p>
+  <p>The other family is using one of the existing cloud APIs as the standard for the rest of the clouds. A good example for this is CloudScaling (now part of EMC), who chose to map the AWS API to <a href="{{ site.baseurl }}/2014/07/10/what-is-openstack-tutorial.html" target="_blank">OpenStack</a>. There are also various attempts to use OpenStack as a compatibility API for other clouds. An interesting example in that regard is VMware Integrated OpenStack (VIO), which uses the OpenStack pluggable architecture in order to wire in <a href="{{ site.baseurl }}/vmware-hybrid-cloud.html" target="_blank">VMware</a> resources as the underlying resources. A few more are:</p>
 
   <ul>
     <li>
-      <p>IBM, who have also announced support for OpenStack on top of their <a href="http://getcloudify.org/2014/12/22/softlayer-cloud-ibm-blu-acceleration-multi-cloud-AWS.html" target="_blank">Softlayer</a> API. </p>
+      <p>IBM, who have also announced support for OpenStack on top of their <a href="{{ site.baseurl }}/2014/12/22/softlayer-cloud-ibm-blu-acceleration-multi-cloud-AWS.html" target="_blank">Softlayer</a> API. </p>
     </li>
 
     <li>
@@ -117,13 +117,13 @@ tags:
     </li>
 
     <li>
-      <p>And again, VMware who have been doing the same thing with <a href="http://getcloudify.org/guide/3.2/plugin-vcloud.html" target="_blank">vCloud</a> and vCloud Air (their private and public cloud offerings).</p>
+      <p>And again, VMware who have been doing the same thing with <a href="{{ site.baseurl }}/guide/3.2/plugin-vcloud.html" target="_blank">vCloud</a> and vCloud Air (their private and public cloud offerings).</p>
     </li>
   </ul>
 
   <p>This approach makes sense in cases where the primary cloud of choice has already been made, and extending this cloud API between environments makes more sense, as it enables you to maintain the same tools sets to manage your apps on both private and public cloud environments in a consistent fashion.</p>
 
-  <p class="aligncenter"><img src="http://getcloudify.org/img/blog/api_compatibility.png" /></p>
+  <p class="aligncenter"><img src="{{ site.baseurl }}/img/blog/api_compatibility.png" /></p>
 
   <p>Pros:</p>
 
@@ -157,7 +157,7 @@ tags:
 
   <p>The main limitation of this approach is that this high level abstraction can be too limiting, and there are groups of applications that require access to the underlying cloud services. This include existing and legacy applications, real time analytics, big data, among others. This group can be fairly large group which makes the use of PaaS as a cloud abstraction at times too narrow.</p>
 
-  <p class="aligncenter"><img src="http://getcloudify.org/img/blog/paas.png" /></p>
+  <p class="aligncenter"><img src="{{ site.baseurl }}/img/blog/paas.png" /></p>
 
   <p>Pros</p>
 
@@ -185,13 +185,13 @@ tags:
 
   <h2>Orchestration &amp; Automation</h2>
 
-  <p><a href="http://getcloudify.org/guide/3.2/what-why-cloudify.html#sts=Application Orchestration" target="_blank">Orchestration</a> is basically a way to model the manual process required to manage and deploy specific applications and automate them. Automation can be applied to a wide range of applications without any change. It enables portability on the application management layer. The application modeling is often kept portable and thus enables the execution of the same deployment across any of the clouds that are supported by the orchestration engine.</p>
+  <p><a href="{{ site.baseurl }}/guide/3.2/what-why-cloudify.html#sts=Application Orchestration" target="_blank">Orchestration</a> is basically a way to model the manual process required to manage and deploy specific applications and automate them. Automation can be applied to a wide range of applications without any change. It enables portability on the application management layer. The application modeling is often kept portable and thus enables the execution of the same deployment across any of the clouds that are supported by the orchestration engine.</p>
 
-  <p>There are two main families of orchestration platforms. The first is pure-play orchestration such as <a href="http://getcloudify.org/downloads/get_cloudify.html" target="_blank">Cloudify</a> or Mesosphere, and the second is container orchestration such as Kubernetes or <a href="http://getcloudify.org/2015/04/26/dockerfile-docker-container-tutorial-images-cloud-vm.html" target="_blank">Docker Orchestration</a>.</p>
+  <p>There are two main families of orchestration platforms. The first is pure-play orchestration such as <a href="{{ site.baseurl }}/downloads/get_cloudify.html" target="_blank">Cloudify</a> or Mesosphere, and the second is container orchestration such as Kubernetes or <a href="{{ site.baseurl }}/2015/04/26/dockerfile-docker-container-tutorial-images-cloud-vm.html" target="_blank">Docker Orchestration</a>.</p>
 
   <p>If you're targeting a heterogeneous deployment and applications in which containers are going to be part of the mix, Cloudify and Mesosphere would probably be a better choice. If you're main priority is containers then Kubernetes or Docker orchestration is likely a better fit.</p>
 
-  <p class="aligncenter"><img src="http://getcloudify.org/img/blog/orchestration_comparison.png">
+  <p class="aligncenter"><img src="{{ site.baseurl }}/img/blog/orchestration_comparison.png">
 
   <p>Pros:</p>
 
@@ -229,7 +229,7 @@ tags:
 
   <p>The diagram below shows a layered approach that combines containers, PaaS and orchestration together.</p>
 
-  <p class="aligncenter"><img src="http://getcloudify.org/img/blog/hybrid_orchestration.png" /></p>
+  <p class="aligncenter"><img src="{{ site.baseurl }}/img/blog/hybrid_orchestration.png" /></p>
 
   <p>Containers provides portable and lightweight packages that can be easily migrated between clouds. PaaS provides an abstraction layer for handling simple and greenfield apps, and orchestration provides a common automation layer that can provide a portable way to manage the deployment, monitoring, auto-scaling and self healing of big data, real time analytics, legacy, network apps (NFV), and other complex apps. Containers can run directly on the cloud infrastructure through the orchestration layer, or indirectly through the PaaS.</p>
 
@@ -237,7 +237,7 @@ tags:
 
   <h2>Adding <a href="http://en.wikipedia.org/wiki/OASIS_TOSCA" target="_blank">TOSCA</a> to the Mix</h2>
 
-  <p>The approach described above provides a fairly good solution for ensuring application portability across clouds. But what about the orchestration service? In a way, the portability challenge has been tossed from the cloud infrastructure layer to the orchestration layer. This is where <a href="http://getcloudify.org/2014/12/21/oasis-TOSCA-cloud-openstack-heat-orchestration-spec.html" target="_blank">TOSCA</a> becomes handy, as it provides a standard modeling language that works across various cloud infrastructures.</p>
+  <p>The approach described above provides a fairly good solution for ensuring application portability across clouds. But what about the orchestration service? In a way, the portability challenge has been tossed from the cloud infrastructure layer to the orchestration layer. This is where <a href="{{ site.baseurl }}/2014/12/21/oasis-TOSCA-cloud-openstack-heat-orchestration-spec.html" target="_blank">TOSCA</a> becomes handy, as it provides a standard modeling language that works across various cloud infrastructures.</p>
 
   <h2>Final Words</h2>
 

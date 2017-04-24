@@ -22,7 +22,7 @@ tags:
 
 <p>Docker is <a href="http://benincosa.com/?p=2691" target="_blank">everything</a>. Some have even claimed that it can prevent crime and famine. (I probably don't need to ask you to note the sarcastic tone).</p>
 
-<p>But seriously, for the disruption it has brought on in the industry, and the true market gap it has filled for many, it deserves respect. However, like with all tools, <a href="http://getcloudify.org/docker-orchestration-docker-container-deployment-cloud.html" target="_blank">Docker</a> has its upsides and downsides. One common pain point we constantly encountered when using Docker was image size. In order to be able to truly leverage Docker to its utmost potential in our daily work, we needed to find a way to optimize the output image significantly, for the most part, since the majority of our clients require offline installations rendering DockerHub unusable to us.</p>
+<p>But seriously, for the disruption it has brought on in the industry, and the true market gap it has filled for many, it deserves respect. However, like with all tools, <a href="{{ site.baseurl }}/docker-orchestration-docker-container-deployment-cloud.html" target="_blank">Docker</a> has its upsides and downsides. One common pain point we constantly encountered when using Docker was image size. In order to be able to truly leverage Docker to its utmost potential in our daily work, we needed to find a way to optimize the output image significantly, for the most part, since the majority of our clients require offline installations rendering DockerHub unusable to us.</p>
 
 <p>This post is going to dive into a hands-on guide for the process we went through to cut our Dockerfiles down to half in size (using a single example), with the final real working example complete with documentation and all.</p>
 
@@ -31,13 +31,13 @@ tags:
 <hr>
 
 <span class="pullquote-left">
-  <font style="font-weight: bold" size="5" face="Baskerville Old Face"><em>Cloudify + Docker = Awesomeness! Try it today.</em></font>&nbsp; <a class="btn btn-medium btn-theme btn-rounded" id="downloadBtnInner" href="http://getcloudify.org/downloads/get_cloudify.html" target="_blank"><i class="icon-plus"></i> Go </a></span>
+  <font style="font-weight: bold" size="5" face="Baskerville Old Face"><em>Cloudify + Docker = Awesomeness! Try it today.</em></font>&nbsp; <a class="btn btn-medium btn-theme btn-rounded" id="downloadBtnInner" href="{{ site.baseurl }}/downloads/get_cloudify.html" target="_blank"><i class="icon-plus"></i> Go </a></span>
   
   <hr>
 
 <h2><b>Docker? Why?</b></h2>
 
-<p>Working on <a href="http://getcloudify.org/" target="_blank">Cloudify</a> has eventually brought us to work with <a href="http://getcloudify.org/2014/12/14/TOSCA-docker-container-orchestration-microservices-architecture-kubernetes.html" target="_blank">containers</a>. Why, you ask? Well, containers for us provided the following:</p>
+<p>Working on <a href="{{ site.baseurl }}/" target="_blank">Cloudify</a> has eventually brought us to work with <a href="{{ site.baseurl }}/2014/12/14/TOSCA-docker-container-orchestration-microservices-architecture-kubernetes.html" target="_blank">containers</a>. Why, you ask? Well, containers for us provided the following:</p>
 
 <ul>
   <li><strong>Multi-distro support:</strong> We're able to run our stack on different distros with very minimal adjustments.</li>
@@ -63,11 +63,11 @@ Using containers will allow us to substantially reduce the number of moving part
 
 <h2><b>Orange you glad I didn't say Dockerfile?</b></h2>
 
-<p>A lot of articles on the web suggest different methods for <a href="http://getcloudify.org/2014/10/30/Docker-cloud-orchestration-configuration-management.html" target="_blank">optimizing Docker images</a>.</p>
+<p>A lot of articles on the web suggest different methods for <a href="{{ site.baseurl }}/2014/10/30/Docker-cloud-orchestration-configuration-management.html" target="_blank">optimizing Docker images</a>.</p>
 
 <p>As Docker images are made out of writable layers, and each layer is added on top of the previous layer rather than replaces it, it's important to understand the bits and bytes of building consolidated Dockerfiles.</p>
 
-<p>Let's take an example Dockerfile and see how we can optimize it. We'll use a <a href="http://getcloudify.org/2014/03/27/logging_event_handling_logstash_elasticsearch.html#sts=Getting Started With Logstash" target="_blank">logstash</a> Dockerfile as an example.</p>
+<p>Let's take an example Dockerfile and see how we can optimize it. We'll use a <a href="{{ site.baseurl }}/2014/03/27/logging_event_handling_logstash_elasticsearch.html#sts=Getting Started With Logstash" target="_blank">logstash</a> Dockerfile as an example.</p>
 
 <p>We won't be spending time on learning how to write Dockerfiles though. To learn about the Dockerfile syntax, see Docker's <a href="https://docs.docker.com/reference/builder/" target="_blank">documentation</a>.</p>
 

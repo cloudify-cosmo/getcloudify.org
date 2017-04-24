@@ -19,20 +19,20 @@ tags:
 
   <h3><strong>Cloudify OpenStack Native approach - The Story behind the Scenes </strong> </h3>
 
-  <p>In the previous post I outlined what I mean by native-approach to the <a href="http://getcloudify.org/2014/09/02/Open-Cloud-OpenStack-Cloud.html" target="_blank">OpenStack cloud</a>. In a nutshell, a native approach represents out of the box tighter integration with OpenStack, all without being limited only to OpenStack. </p>
+  <p>In the previous post I outlined what I mean by native-approach to the <a href="{{ site.baseurl }}/2014/09/02/Open-Cloud-OpenStack-Cloud.html" target="_blank">OpenStack cloud</a>. In a nutshell, a native approach represents out of the box tighter integration with OpenStack, all without being limited only to OpenStack. </p>
 
-  <p>In this post I want to share some of the stories behind the design of Cloudify 3.0 and the approach that we have taken to make Cloudify *native* to <a href="http://getcloudify.org/openstack-architecture-cloudify.html" target="_blank">OpenStack</a>.&#160; I would first start by outlining our motivation behind this approach.</p>
+  <p>In this post I want to share some of the stories behind the design of Cloudify 3.0 and the approach that we have taken to make Cloudify *native* to <a href="{{ site.baseurl }}/openstack-architecture-cloudify.html" target="_blank">OpenStack</a>.&#160; I would first start by outlining our motivation behind this approach.</p>
 
 <hr>
 
 <span class="pullquote-left">
-  <font style="font-weight: bold" size="5" face="Baskerville Old Face"><em>TOSCA - smart orchestration for OpenStack with Cloudify.</em></font>&nbsp; <a class="btn btn-medium btn-theme btn-rounded" id="downloadBtnInner" href="http://getcloudify.org/downloads/get_cloudify.html" target="_blank"><i class="icon-plus"></i> Go </a></span>
+  <font style="font-weight: bold" size="5" face="Baskerville Old Face"><em>TOSCA - smart orchestration for OpenStack with Cloudify.</em></font>&nbsp; <a class="btn btn-medium btn-theme btn-rounded" id="downloadBtnInner" href="{{ site.baseurl }}/downloads/get_cloudify.html" target="_blank"><i class="icon-plus"></i> Go </a></span>
   
   <hr>
 
   <h3><strong>OpenStack-only or Not-only-OpenStack?</strong></h3>
 
-  <p>It is our core belief that for the foreseeable future supporting <a href="http://getcloudify.org/2014/09/11/hybrid-cloud-openstack-multi-cloud.html" target="_blank">hybrid cloud</a> is going to be important for many of the OpenStack users for the following reasons:</p>
+  <p>It is our core belief that for the foreseeable future supporting <a href="{{ site.baseurl }}/2014/09/11/hybrid-cloud-openstack-multi-cloud.html" target="_blank">hybrid cloud</a> is going to be important for many of the OpenStack users for the following reasons:</p>
 
   <ol>
     <li>
@@ -44,13 +44,13 @@ tags:
     </li>
   </ol>
 
-  <p>At the same time we wanted to have a more intimate integration with OpenStack in order to leverage the fact that it is <a href="http://getcloudify.org/2014/07/10/what-is-openstack-tutorial.html" target="_blank">open source</a> and allows for a deeper integration with its core services. Through that we were able to enable smooth and simple integration of Cloudify into OpenStack.</p>
+  <p>At the same time we wanted to have a more intimate integration with OpenStack in order to leverage the fact that it is <a href="{{ site.baseurl }}/2014/07/10/what-is-openstack-tutorial.html" target="_blank">open source</a> and allows for a deeper integration with its core services. Through that we were able to enable smooth and simple integration of Cloudify into OpenStack.</p>
 
   <h3><strong>Extending or Rewriting?</strong></h3>
 
-  <p>Cloudify 2.x already took a step toward deeper integration with OpenStack and we were one of the first to announce our support for OpenStack. Recently, we also added support for <a href="http://getcloudify.org/2014/05/14/openstack-neutron-networking-nova.html" target="_blank">OpenStack Neutron</a>. </p>
+  <p>Cloudify 2.x already took a step toward deeper integration with OpenStack and we were one of the first to announce our support for OpenStack. Recently, we also added support for <a href="{{ site.baseurl }}/2014/05/14/openstack-neutron-networking-nova.html" target="_blank">OpenStack Neutron</a>. </p>
 
-  <p>We realized that if we want to make Cloudify fit natively into the OpenStack infrastructure it is not enough to have integration with the <a href="http://getcloudify.org/2014/07/18/openstack-wiki-open-cloud.html" target="_blank">OpenStack components</a>.&#160; We also need to ensure that the design behind Cloudify will be consistent with the way other projects and services of OpenStack are implemented. This led us to the conclusion that we wouldn’t be able to be a first class citizen with OpenStack unless we underwent a major redesign of Cloudify. </p>
+  <p>We realized that if we want to make Cloudify fit natively into the OpenStack infrastructure it is not enough to have integration with the <a href="{{ site.baseurl }}/2014/07/18/openstack-wiki-open-cloud.html" target="_blank">OpenStack components</a>.&#160; We also need to ensure that the design behind Cloudify will be consistent with the way other projects and services of OpenStack are implemented. This led us to the conclusion that we wouldn’t be able to be a first class citizen with OpenStack unless we underwent a major redesign of Cloudify. </p>
 
   <h3><strong>Going Python?</strong></h3>
 
@@ -62,7 +62,7 @@ tags:
 
   <h3><strong>Going TOSCA?</strong></h3>
 
-  <p>Cloudify 2.x was designed around a proprietary Groovy-based domain specific language (DSL) for defining application topology and configuration. It became apparent that the DSL had become a central piece of Cloudify architecture. As a result, maintaining a proprietary DSL would only serve as a barrier going forward. <a href="http://getcloudify.org/openstack-architecture-cloudify.html#TOSCA" target="_blank">TOSCA</a> (Topology Orchestration Specification for Cloud Applications led by the Oasis Foundation) defines a standard templating language. TOSCA was similar and richer in concept to our previous 2.x specification. Because of this, using TOSCA seemed like a natural evolution. </p>
+  <p>Cloudify 2.x was designed around a proprietary Groovy-based domain specific language (DSL) for defining application topology and configuration. It became apparent that the DSL had become a central piece of Cloudify architecture. As a result, maintaining a proprietary DSL would only serve as a barrier going forward. <a href="{{ site.baseurl }}/openstack-architecture-cloudify.html#TOSCA" target="_blank">TOSCA</a> (Topology Orchestration Specification for Cloud Applications led by the Oasis Foundation) defines a standard templating language. TOSCA was similar and richer in concept to our previous 2.x specification. Because of this, using TOSCA seemed like a natural evolution. </p>
 
   <p>At the time when we decided to use TOSCA, the specification was provided in a fairly complex XML. Our first step for adopting TOSCA was to come with a simplified YAML based version which better fits into the spirit of OpenStack. After the OpenStack summit in Hong Kong, when we first introduced the idea, it became apparent that members from the Oasis group were already thinking along this line. We decided to join forces and join the Oasis organization. We started working with the team to incorporate TOSCA as an official part of OpenStack. During the Atlanta summit, it was decided to integrate the TOSCA project into the Heat project and now there is an official definition of the TOSCA specification based on YAML. Our goal is to use the TOSCA 1.2 specification as the official templating language for Cloudify instead of our current TOSCA like DSL. </p>
 
@@ -90,7 +90,7 @@ tags:
 
   <h3><strong>Integrating your DevOps toolchain of choice </strong></h3>
 
-  <p>One thing that has become clear through the various <a href="http://getcloudify.org/2014/05/19/openstack-statistics.html">OpenStack statistics</a> based on their annual survey, is that many of the OpenStack users are using a toolchain that is comprised of tools available through OpenStack infrastructure, as well as tools that are not specific to OpenStack such as Docker, Chef, Puppet, Ansible, JClouds and others. </p>
+  <p>One thing that has become clear through the various <a href="{{ site.baseurl }}/2014/05/19/openstack-statistics.html">OpenStack statistics</a> based on their annual survey, is that many of the OpenStack users are using a toolchain that is comprised of tools available through OpenStack infrastructure, as well as tools that are not specific to OpenStack such as Docker, Chef, Puppet, Ansible, JClouds and others. </p>
 
   <p>Integrating all these tools as part of a deployment system becomes a fairly complex task that can takes weeks and even months. </p>
 

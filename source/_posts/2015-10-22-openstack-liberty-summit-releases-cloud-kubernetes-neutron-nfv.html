@@ -22,12 +22,12 @@ tags:
 
 <h2><strong>Give me Liberty</strong></h2>
 
-<p>The OpenStack train is not slowing down for anyone with 161 companies contributing to the project (the usual suspects at the top of the list are: HP, Mirantis, Red Hat, Rackspace, IBM), a 6% increase from Kilo. It also had a 26% jump in individual contributors, with 400 more than the previous release. <a href="http://getcloudify.org/2015/05/18/openstack-neutron-nova-cloud-vm-networking-network-automation-orchestration.html" target="_blank">Neutron</a> in particular has been incredibly active, boasting over 4,000 changes, an increase of 68% from <a href="http://getcloudify.org/2015/05/16/openstack-kilo-summit-releases-versions-ironic-bare-metal-neutron-nfv.html" target="_blank">OpenStack Kilo</a>. In fact, Neutron has been so active that it has even surpassed activity in Nova, which signals, at least to us, that Networking (read IPv6, NFV, Security, etc) is really the next frontier to conquer in cloud computing.</p>
+<p>The OpenStack train is not slowing down for anyone with 161 companies contributing to the project (the usual suspects at the top of the list are: HP, Mirantis, Red Hat, Rackspace, IBM), a 6% increase from Kilo. It also had a 26% jump in individual contributors, with 400 more than the previous release. <a href="{{ site.baseurl }}/2015/05/18/openstack-neutron-nova-cloud-vm-networking-network-automation-orchestration.html" target="_blank">Neutron</a> in particular has been incredibly active, boasting over 4,000 changes, an increase of 68% from <a href="{{ site.baseurl }}/2015/05/16/openstack-kilo-summit-releases-versions-ironic-bare-metal-neutron-nfv.html" target="_blank">OpenStack Kilo</a>. In fact, Neutron has been so active that it has even surpassed activity in Nova, which signals, at least to us, that Networking (read IPv6, NFV, Security, etc) is really the next frontier to conquer in cloud computing.</p>
 
 <hr>
 
 <span class="pullquote-left">
-  <font style="font-weight: bold" size="5" face="Baskerville Old Face"><em>Open cloud orchestration for OpenStack releases - Liberty to Mitaka. Get Started.</em></font>&nbsp; <a class="btn btn-medium btn-theme btn-rounded" id="downloadBtnInner" href="http://getcloudify.org/downloads/get_cloudify.html" target="_blank"><i class="icon-plus"></i> Go </a></span>
+  <font style="font-weight: bold" size="5" face="Baskerville Old Face"><em>Open cloud orchestration for OpenStack releases - Liberty to Mitaka. Get Started.</em></font>&nbsp; <a class="btn btn-medium btn-theme btn-rounded" id="downloadBtnInner" href="{{ site.baseurl }}/downloads/get_cloudify.html" target="_blank"><i class="icon-plus"></i> Go </a></span>
   
   <hr>
 
@@ -38,33 +38,33 @@ tags:
 <ul>
   <li><strong>Manageability</strong>: Adding common libraries and role-based access control, Liberty gives operators better control and makes management easier.</li>
 
-  <li><strong>Scalability</strong>: In order to ensure performance, as well as stability, with larger deployments, OpenStack Liberty adds improved <a href="http://getcloudify.org/2015/06/02/openstack-heat-orchestration-cloud-network-automation-scaling.html" target="_blank">scaling</a> across Nova, Horizon, Neutron, and Cinder. Nova Cells v2 was also introduced, which can support much large, multi-location deployments.</li>
+  <li><strong>Scalability</strong>: In order to ensure performance, as well as stability, with larger deployments, OpenStack Liberty adds improved <a href="{{ site.baseurl }}/2015/06/02/openstack-heat-orchestration-cloud-network-automation-scaling.html" target="_blank">scaling</a> across Nova, Horizon, Neutron, and Cinder. Nova Cells v2 was also introduced, which can support much large, multi-location deployments.</li>
 
   <li><strong>Extensibility</strong>: Containers are another hot topic in Liberty, with Magnum’s first release. Also, the new big tent model lends itself to making OpenStack an integration engine for the many smaller projects it has incorporated into Liberty.</li>
 </ul>
 
-<p>Network, as mentioned earlier, has been given the biggest push for this latest release, from a contributor perspective, seeing a great string of new features, including improved support for <a href="http://getcloudify.org/2014/04/19/what-is-nfv-network-function-virtualization-vnf.html">NFV</a>, IPv6, LBaaS, RBAC, router HA, and QoS for fine-grained policy creation and bandwidth limiting.</p>
+<p>Network, as mentioned earlier, has been given the biggest push for this latest release, from a contributor perspective, seeing a great string of new features, including improved support for <a href="{{ site.baseurl }}/2014/04/19/what-is-nfv-network-function-virtualization-vnf.html">NFV</a>, IPv6, LBaaS, RBAC, router HA, and QoS for fine-grained policy creation and bandwidth limiting.</p>
 
 <h3><font style="font-weight: bold">Some key new features by OpenStack component:</font></h3>
 
 <ul>
-  <li>Nova added a really important update in Cells v2, which brings <a href="http://getcloudify.org/2015/08/28/tosca-vmware-vcloud-vsphere-multi-tenancy-multi-tenant-horizontal-scaling-service-orchestration-engine.html" target="_blank">horizontal scalability</a> across machines anywhere in the world. NFV is a great use case for this as telecoms and cable companies generally have many smaller and separate OpenStack instances. This will allow them to have consistency over all those instances.</li>
+  <li>Nova added a really important update in Cells v2, which brings <a href="{{ site.baseurl }}/2015/08/28/tosca-vmware-vcloud-vsphere-multi-tenancy-multi-tenant-horizontal-scaling-service-orchestration-engine.html" target="_blank">horizontal scalability</a> across machines anywhere in the world. NFV is a great use case for this as telecoms and cable companies generally have many smaller and separate OpenStack instances. This will allow them to have consistency over all those instances.</li>
 
-  <li>Magnum’s first full release looks to make deployment of <a href="http://getcloudify.org/2015/08/26/kubernetes-docker-images-microservices-container-architecture-management-orchestration-tools.html" target="_blank">Kubernetes</a>, Mesos, and <a href="http://getcloudify.org/2015/06/11/orchestration-docker-cloud-automation-openstack-heat-tosca-kubernetes.html" target="_blank">Docker Swarm</a> container tools much simpler.</li>
+  <li>Magnum’s first full release looks to make deployment of <a href="{{ site.baseurl }}/2015/08/26/kubernetes-docker-images-microservices-container-architecture-management-orchestration-tools.html" target="_blank">Kubernetes</a>, Mesos, and <a href="{{ site.baseurl }}/2015/06/11/orchestration-docker-cloud-automation-openstack-heat-tosca-kubernetes.html" target="_blank">Docker Swarm</a> container tools much simpler.</li>
 
-  <li>Heat has added many new resources for <a href="http://getcloudify.org/" target="_blank">automation and orchestration</a> as well as scalability. There is also a new convergence engine to assist with the complex actions and offer more resilience.</li>
+  <li>Heat has added many new resources for <a href="{{ site.baseurl }}/" target="_blank">automation and orchestration</a> as well as scalability. There is also a new convergence engine to assist with the complex actions and offer more resilience.</li>
 </ul>
 
 <p>Of course, Swift, Keystone, Cinder and other saw great improvements as well.</p>
 
-<p>You can read the full release notes <a href="https://wiki.openstack.org/wiki/ReleaseNotes/Liberty">here</a>, and follow our <a href="http://getcloudify.org/tags/OpenStack/">OpenStack</a> tag this week and next for an excellent lineup of posts - from <a href="http://getcloudify.org/tags/Kubernetes/">Kubernetes</a> to <a href="http://getcloudify.org/tags/TOSCA/">TOSCA</a>, <a href="http://getcloudify.org/tags/NFV/">NFV</a>, Murano and more.</p>
+<p>You can read the full release notes <a href="https://wiki.openstack.org/wiki/ReleaseNotes/Liberty">here</a>, and follow our <a href="{{ site.baseurl }}/tags/OpenStack/">OpenStack</a> tag this week and next for an excellent lineup of posts - from <a href="{{ site.baseurl }}/tags/Kubernetes/">Kubernetes</a> to <a href="{{ site.baseurl }}/tags/TOSCA/">TOSCA</a>, <a href="{{ site.baseurl }}/tags/NFV/">NFV</a>, Murano and more.</p>
 
 <p>We are also planning an on-the-ground <a href="https://soundcloud.com/openstacknbeyond">OpenStack &amp; Beyond podcast</a> for Thursday, October 29th, so stay tuned for more info on that as well.</p>
 
 <h2>OpenStack Cloudify</h2>
 
-<p>We are very happy to note that Cloudify is Liberty-ready and can be used out-of-the-box with the latest OpenStack release. As always, <a href="http://getcloudify.org/openstack-architecture-cloudify.html" target="_blank">Cloudify is OpenStack Native</a>, integrating with OpenStack components and core services - Nova, Neutron, Cinder, Keystone, Heat, and more, as well as following the implementation guidelines for OpenStack projects.</p>
+<p>We are very happy to note that Cloudify is Liberty-ready and can be used out-of-the-box with the latest OpenStack release. As always, <a href="{{ site.baseurl }}/openstack-architecture-cloudify.html" target="_blank">Cloudify is OpenStack Native</a>, integrating with OpenStack components and core services - Nova, Neutron, Cinder, Keystone, Heat, and more, as well as following the implementation guidelines for OpenStack projects.</p>
 
-<!--<p>Our latest version of Cloudify also included some really important updates such as the fantastic Blueprint Composer GUI, IPv6 support, multi-host distributed manager blueprint, and stronger security. If you’re interested in seeing the full feature list, have a <a href="http://getcloudify.org/cloudify-features.html">look here</a>.</p>-->
+<!--<p>Our latest version of Cloudify also included some really important updates such as the fantastic Blueprint Composer GUI, IPv6 support, multi-host distributed manager blueprint, and stronger security. If you’re interested in seeing the full feature list, have a <a href="{{ site.baseurl }}/cloudify-features.html">look here</a>.</p>-->
 
 </notextile>

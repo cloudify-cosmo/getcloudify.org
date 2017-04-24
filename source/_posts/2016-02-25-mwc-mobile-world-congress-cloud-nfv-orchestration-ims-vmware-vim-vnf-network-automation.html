@@ -13,7 +13,7 @@ tags:
 
 <notextile>
 
-<img src="http://getcloudify.org/img/blog/cloudifymanager.png" alt="MWC16 | Mobile World Congress | Cloud Automation | TOSCA Cloud Orchestration | NFV | Multi-VIM | VNF Orchestration | VMware" width="870">
+<img src="{{ site.baseurl }}/img/blog/cloudifymanager.png" alt="MWC16 | Mobile World Congress | Cloud Automation | TOSCA Cloud Orchestration | NFV | Multi-VIM | VNF Orchestration | VMware" width="870">
 <br/>
 <br/>
 
@@ -24,46 +24,46 @@ tags:
 <hr>
 
 <span class="pullquote-left">
-  <font style="font-weight: bold" size="5" face="Baskerville Old Face"><em>Watch our Clearwater orchestration video now.</em></font>  <a class="btn btn-medium btn-theme btn-rounded" id="downloadBtnInner" href="http://getcloudify.org/cloudifysourcetv.html#2" target="_blank"><i class="icon-plus"></i> Go </a></span>
+  <font style="font-weight: bold" size="5" face="Baskerville Old Face"><em>Watch our Clearwater orchestration video now.</em></font>  <a class="btn btn-medium btn-theme btn-rounded" id="downloadBtnInner" href="{{ site.baseurl }}/cloudifysourcetv.html#2" target="_blank"><i class="icon-plus"></i> Go </a></span>
   
   <hr>
 
 <p>Next, you will use Cloudify Composer to model the whole thing. See below for an idea of what this looks like.</p>
 
-<p class="aligncenter"><img src="http://getcloudify.org/img/blog/vims1.png"></p>
+<p class="aligncenter"><img src="{{ site.baseurl }}/img/blog/vims1.png"></p>
 
 <p>On the left side of the composer you can see the various components that I used. You can see a server component, a network component that can run on any cloud, and multiple clouds, such as OpenStack, vCloud Director, VMware integrated OpenStack or VIO, Amazon, and other clouds as well.</p>
 
 <p>Next, I assign IP addresses to each VNF. You can check the interface, the network and you can do the same for all of the components.</p>
 
-<p class="aligncenter"><img src="http://getcloudify.org/img/blog/vims2.png"></p>
+<p class="aligncenter"><img src="{{ site.baseurl }}/img/blog/vims2.png"></p>
 
 <p>Now, let's launch and create a blueprint. As you can see below, Composer actually generates a TOSCA file which in turn will be uploaded to Cloudify Manager.</p>
 
-<p class="aligncenter"><img src="http://getcloudify.org/img/blog/vims3.png"></p>
+<p class="aligncenter"><img src="{{ site.baseurl }}/img/blog/vims3.png"></p>
 
 <p>For this demo, I used the VMware NFV Orchestrator to hold the blueprint and uploaded the blueprint to the Manager. The <a href="https://github.com/cloudify-examples/clearwater-nfv-blueprint" target="_blank">Clearwater IMS</a> example is available on Github.</p>
 
-<p class="aligncenter"><img src="http://getcloudify.org/img/blog/vims4.png"></p>
+<p class="aligncenter"><img src="{{ site.baseurl }}/img/blog/vims4.png"></p>
 
 <p>Going now to the WebUI, you should see Cloudify Manager showing all of the components and connections as well as all of the TOSCA relationships with the DNS and the other applications (Sprout, Bono, etc.). You can look at the network topology and source code as well.</p>
 
 <p>If you click into the source code, you can see the TOSCA definition, the imported components, the plug-ins, the relationships and node types. If you continue to scroll down, you can see the inputs and node templates as well the anti-affinity rules. Moving down, Ellis, Homer, and Homestead each have anti-affinity rules as they each have to run on different hypervisors. Scrolling down further, we can finally see the other nodes as well as the applications that preside within the nodes.</p>
 
-<p class="aligncenter"><img src="http://getcloudify.org/img/blog/vims5.png"></p>
+<p class="aligncenter"><img src="{{ site.baseurl }}/img/blog/vims5.png"></p>
 
 <p>Going back to Deployments on the left sidebar, we can now see the actual deployment of the application. You can see all of the relationships, policy node, Bono VM, DNS VM, Ellis VM, Homer, Homestead, Ralf, and Sprout. Note that everything is green, which means it is running correctly and the deployment was successful.</p>
 
-<p class="aligncenter"><img src="http://getcloudify.org/img/blog/vims6.png"></p>
+<p class="aligncenter"><img src="{{ site.baseurl }}/img/blog/vims6.png"></p>
 
 <p>You can also see the various VM's launched on the NFVI.</p>
 
-<p class="aligncenter"><img src="http://getcloudify.org/img/blog/vims7.png"></p>
+<p class="aligncenter"><img src="{{ site.baseurl }}/img/blog/vims7.png"></p>
 
 <p>With everything working as expected, you can now place a call using the application.</p>
 
-<p class="aligncenter"><img src="http://getcloudify.org/img/blog/vims8.png"></p>
+<p class="aligncenter"><img src="{{ site.baseurl }}/img/blog/vims8.png"></p>
 
-<p>Don't miss the rest of our <a href="http://getcloudify.org/tags/MWC/index.html" target="_blank">great content</a> from the MWC 2016 event!</p>
+<p>Don't miss the rest of our <a href="{{ site.baseurl }}/tags/MWC/index.html" target="_blank">great content</a> from the MWC 2016 event!</p>
 
 </notextile>

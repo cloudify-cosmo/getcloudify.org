@@ -22,14 +22,14 @@ tags:
 
 <h2>Mapping the Current Docker Orchestration Landscape</h2>
 
-<p>Following this interesting post on <a href="http://getcloudify.org/2014/11/23/docker-containers-docker-cloud-management.html">Docker orchestration</a> and why you need it &ndash; the basic premise is that orchestration plays the role of timing container creation based on application and tier dependencies, as well as enables the containers to communicate with one another and pass runtime properties to each other &ndash; I&rsquo;d like to take an even deeper dive on this idea in this post.</p>
+<p>Following this interesting post on <a href="{{ site.baseurl }}/2014/11/23/docker-containers-docker-cloud-management.html">Docker orchestration</a> and why you need it &ndash; the basic premise is that orchestration plays the role of timing container creation based on application and tier dependencies, as well as enables the containers to communicate with one another and pass runtime properties to each other &ndash; I&rsquo;d like to take an even deeper dive on this idea in this post.</p>
 
 <p>It&rsquo;s no news that containers represent a portable unit of deployment; however, where it usually becomes more complex is that many times an application is often built out of multiple containers. What&rsquo;s more, setting up a cluster of Docker images can be fairly cumbersome because you need to make one container aware of another and expose intimate details that are required for them to communicate. This is not trivial especially if the containers are not on the same host. For example, think about setting up a Mongo or Cassandra cluster out of Docker containers; you need to know which port to expose, what volumes to mount, and other complexities involved with setting up a clustered container environment.</p>
 
 <hr>
 
 <span class="pullquote-left">
-  <font style="font-weight: bold" size="5" face="Baskerville Old Face"><em>Get Cloudify - The Pure-Play, TOSCA-based Docker Orchestrator.</em></font>&nbsp; <a class="btn btn-medium btn-theme btn-rounded" id="downloadBtnInner" href="http://getcloudify.org/downloads/get_cloudify.html" target="_blank"><i class="icon-plus"></i> Go </a></span>
+  <font style="font-weight: bold" size="5" face="Baskerville Old Face"><em>Get Cloudify - The Pure-Play, TOSCA-based Docker Orchestrator.</em></font>&nbsp; <a class="btn btn-medium btn-theme btn-rounded" id="downloadBtnInner" href="{{ site.baseurl }}/downloads/get_cloudify.html" target="_blank"><i class="icon-plus"></i> Go </a></span>
   
   <hr>
 
@@ -49,7 +49,7 @@ tags:
 
 <h2>TOSCA to the Rescue</h2>
 
-<p><a href="https://en.wikipedia.org/wiki/OASIS_TOSCA">TOSCA</a> (Topology Orchestration Specification for Cloud Applications) is governed by the OASIS organization (those who brought you XML). <a href="http://getcloudify.org/2014/12/21/oasis-TOSCA-cloud-openstack-heat-orchestration-spec.html">TOSCA orchestration</a> is already fairly mature, with a proven track record and speed of development, and many organizations are betting on and contributing to its success. TOSCA is now beyond its second major revision, has been around for a couple of years now, and is gaining traction in both commercial and open source projects such as: Juju, Cloudify, IBM Cloud Orchestrator, OpenStack Heat. It&rsquo;s also being adopted by leading Telecom vendors such as Alcatel-Lucent, Huawei, and Cisco.</p>
+<p><a href="https://en.wikipedia.org/wiki/OASIS_TOSCA">TOSCA</a> (Topology Orchestration Specification for Cloud Applications) is governed by the OASIS organization (those who brought you XML). <a href="{{ site.baseurl }}/2014/12/21/oasis-TOSCA-cloud-openstack-heat-orchestration-spec.html">TOSCA orchestration</a> is already fairly mature, with a proven track record and speed of development, and many organizations are betting on and contributing to its success. TOSCA is now beyond its second major revision, has been around for a couple of years now, and is gaining traction in both commercial and open source projects such as: Juju, Cloudify, IBM Cloud Orchestrator, OpenStack Heat. It&rsquo;s also being adopted by leading Telecom vendors such as Alcatel-Lucent, Huawei, and Cisco.</p>
           
           
 <p>The fact that TOSCA is backed by a standards body (OASIS) makes it a great platform for defining a standard container orchestration specification that is portable across various cloud environments and container providers.</p>
@@ -60,7 +60,7 @@ tags:
 
 <p>To make the initial mapping process simple we used the <a href="https://github.com/docker/docker-py">docker</a><a href="https://github.com/docker/docker-py">-py</a><a href="https://github.com/docker/docker-py"> python client</a> as the basis for the proposal below.</p>
 
-<p>The following is a snippet from a TOSCA blueprint describing a Docker-based MongoDB server which is part of a larger application topology. The mapping is YAML-based, as per the latest <a href="http://docs.oasis-open.org/tosca/TOSCA-Simple-Profile-YAML/v1.0/TOSCA-Simple-Profile-YAML-v1.0.html">TOSCA specification</a>, and a suggested modeling tool for <a href="http://getcloudify.org/guide/3.2/plugin-docker.html">Docker containers</a> using TOSCA.</p>
+<p>The following is a snippet from a TOSCA blueprint describing a Docker-based MongoDB server which is part of a larger application topology. The mapping is YAML-based, as per the latest <a href="http://docs.oasis-open.org/tosca/TOSCA-Simple-Profile-YAML/v1.0/TOSCA-Simple-Profile-YAML-v1.0.html">TOSCA specification</a>, and a suggested modeling tool for <a href="{{ site.baseurl }}/guide/3.2/plugin-docker.html">Docker containers</a> using TOSCA.</p>
 
 <pre>
 <code>mongod:
@@ -82,7 +82,7 @@ tags:
 
 <h2>Running a Simple Docker Example with TOSCA</h2>
 
-<p>To get a feel of how TOSCA-based orchestration works, I will use a simple TOSCA command line parser provided through <a href="http://getcloudify.org/">Cloudify</a>, an open source orchestration tool.</p>
+<p>To get a feel of how TOSCA-based orchestration works, I will use a simple TOSCA command line parser provided through <a href="{{ site.baseurl }}/">Cloudify</a>, an open source orchestration tool.</p>
 
 <p>We will use the <a href="https://github.com/cloudify-cosmo/cloudify-nodecellar-docker-example">nodecellar application</a> based on a NodeJS as the web app, backed by MongoDB as the database. Each of these services will run on an independent Docker container as illustrated in the diagram below.</p>
 
@@ -113,7 +113,7 @@ tags:
       <td valign="top" width="475"><small>&gt; pip install cloudify<br />
       Check the installation with this command<br />
       &gt; cfy --version<br />
-      You can also use vagrant-box to get a pre-configured cloudify image or use other installation options as outlined <a href="http://getcloudify.org/guide/3.1/quickstart.html">here</a></small></td>
+      You can also use vagrant-box to get a pre-configured cloudify image or use other installation options as outlined <a href="{{ site.baseurl }}/guide/3.1/quickstart.html">here</a></small></td>
     </tr>
     <tr>
       <td valign="top" width="275"><small><b>Setup the TOSCA/Docker Example</b></small></td>

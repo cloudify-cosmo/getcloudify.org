@@ -13,15 +13,15 @@ tags:
 
 <notextile>
 
-<img src="http://getcloudify.org/img/blog/cloudify_kubernetes.png" alt="OpenStack | OpenStack Summit | TOSCA Cloud Orchestration | Microservices | Kubernetes Orchestration | OpenStack NFV | Kubernetes Cluster">
+<img src="{{ site.baseurl }}/img/blog/cloudify_kubernetes.png" alt="OpenStack | OpenStack Summit | TOSCA Cloud Orchestration | Microservices | Kubernetes Orchestration | OpenStack NFV | Kubernetes Cluster">
 <br/>
 <br/>
 
-<p>Integrating <a href="http://getcloudify.org/2015/08/26/kubernetes-docker-images-microservices-container-architecture-management-orchestration-tools.html" target="_blank">Cloudify with Kubernetes</a> is compelling for those with <a href="http://getcloudify.org/2015/02/02/TOSCA-orchestration-openstack-vmware-hybrid-cloud.html" target="_blank">hybrid environments</a> (<a href="http://getcloudify.org/docker-orchestration-docker-container-deployment-cloud.html" target="_blank">containers</a>, virtualization, cloud, bare metal, even hardware), who would like to leverage Kubernetes' container management instead of Cloudify's, and/or leverage Cloudify's event driven workflows to perform autoscaling or other automatic processes. In my last post, I described an initial integration with Kubernetes, which was focused on installing Kubernetes itself via a Cloudify blueprint and associated plugin. This post reviews more recent work which focuses more on integrating Kubernetes microservices into the Cloudify ecosystem.
+<p>Integrating <a href="{{ site.baseurl }}/2015/08/26/kubernetes-docker-images-microservices-container-architecture-management-orchestration-tools.html" target="_blank">Cloudify with Kubernetes</a> is compelling for those with <a href="{{ site.baseurl }}/2015/02/02/TOSCA-orchestration-openstack-vmware-hybrid-cloud.html" target="_blank">hybrid environments</a> (<a href="{{ site.baseurl }}/docker-orchestration-docker-container-deployment-cloud.html" target="_blank">containers</a>, virtualization, cloud, bare metal, even hardware), who would like to leverage Kubernetes' container management instead of Cloudify's, and/or leverage Cloudify's event driven workflows to perform autoscaling or other automatic processes. In my last post, I described an initial integration with Kubernetes, which was focused on installing Kubernetes itself via a Cloudify blueprint and associated plugin. This post reviews more recent work which focuses more on integrating Kubernetes microservices into the Cloudify ecosystem.
 
 <h2>Microservices</h2>
 
-Given that the Kubernetes raison d'etre is <a href="http://martinfowler.com/microservices/#what">microservices</a>, it made sense to enhance the integration in that direction as quickly as possible. By their design, <a href="http://getcloudify.org/2014/12/14/TOSCA-docker-container-orchestration-microservices-architecture-kubernetes.html" target="_blank">microservices</a> are highly dynamic in nature. Small separately deployable building blocks of applications. In Cloudify, most dynamism is provided by <a href="http://getcloudify.org/guide/3.2/workflows-general.html">workflows</a>, So an easy first step was to add a few workflows that would operate a Kuberenetes cluster. Such workflows also foreshadow the longer term goal of using Cloudify <a href-"http://getcloudify.org/2015/06/02/openstack-heat-orchestration-cloud-network-automation-scaling.html" target="_blank">autoscaling</a> on Kubernetes clusters.
+Given that the Kubernetes raison d'etre is <a href="http://martinfowler.com/microservices/#what">microservices</a>, it made sense to enhance the integration in that direction as quickly as possible. By their design, <a href="{{ site.baseurl }}/2014/12/14/TOSCA-docker-container-orchestration-microservices-architecture-kubernetes.html" target="_blank">microservices</a> are highly dynamic in nature. Small separately deployable building blocks of applications. In Cloudify, most dynamism is provided by <a href="{{ site.baseurl }}/guide/3.2/workflows-general.html">workflows</a>, So an easy first step was to add a few workflows that would operate a Kuberenetes cluster. Such workflows also foreshadow the longer term goal of using Cloudify <a href-"{{ site.baseurl }}/2015/06/02/openstack-heat-orchestration-cloud-network-automation-scaling.html" target="_blank">autoscaling</a> on Kubernetes clusters.
 
 <h2>Workflows</h2>
 
@@ -34,12 +34,12 @@ These workflows just delegate to <code>kubectl</code> on the master. They all sh
 
 <hr>
 <span class="pullquote-left">
-  <font style="font-weight: bold" size="5" face="Baskerville Old Face"><em>Try the Kubernetes Orchestration as a Service Tool today!</em></font>&nbsp; <a class="btn btn-medium btn-theme btn-rounded" id="downloadBtnInner" href="http://getcloudify.org/downloads/get_cloudify.html" target="_blank"><i class="icon-plus"></i> Go </a></span>
+  <font style="font-weight: bold" size="5" face="Baskerville Old Face"><em>Try the Kubernetes Orchestration as a Service Tool today!</em></font>&nbsp; <a class="btn btn-medium btn-theme btn-rounded" id="downloadBtnInner" href="{{ site.baseurl }}/downloads/get_cloudify.html" target="_blank"><i class="icon-plus"></i> Go </a></span>
 <hr>
 
   <h2>Microservice node</h2>
 
-  <p>The workflows provide a convenient front end for commanding a Kubernetes cluster, making Kubernetes accessible via both the Cloudify CLI and REST API. This is good, but stops short of providing any kind of TOSCA integration. A <a href="http://getcloudify.org/2015/07/21/what-is-TOSCA-cloud-application-orchestration-tutorial-cloudify.html">TOSCA</a> orchestration is defined by it's nodes and relationships, so a microservice needs a node abstraction of it's own.</p>
+  <p>The workflows provide a convenient front end for commanding a Kubernetes cluster, making Kubernetes accessible via both the Cloudify CLI and REST API. This is good, but stops short of providing any kind of TOSCA integration. A <a href="{{ site.baseurl }}/2015/07/21/what-is-TOSCA-cloud-application-orchestration-tutorial-cloudify.html">TOSCA</a> orchestration is defined by it's nodes and relationships, so a microservice needs a node abstraction of it's own.</p>
 
   <p>The development of the <code>cloudify.kubernetes.Microservice</code> node occured in three phases, that address three use cases:</p>
 
@@ -64,7 +64,7 @@ These workflows just delegate to <code>kubectl</code> on the master. They all sh
   <p>Rather than simply running commands using <code>kubectl</code> options, services can (should be) configured using native Kubernetes YAML manifests. The second mode of operation allows embedding Kubernetes native manifest YAML directly in the Cloudify blueprint. An example:</p>
   <script src="https://gist.github.com/dfilppi/3c77f1b3646ac5332fed.js"></script>
 
-  <p>By embedding the YAML directly in the blueprint, it is a simple matter to use <a href="http://getcloudify.org/guide/3.2/dsl-spec-intrinsic-functions.html">intrinsic functions</a> to populate it with other blueprint values. To use embedded YAML, only the <code>config</code> property is used. All subordinate YAML statements are exported (after substitution) to a standard YAML manifest that is fed to the <code>kubectl create</code> statement on the master node.</p>
+  <p>By embedding the YAML directly in the blueprint, it is a simple matter to use <a href="{{ site.baseurl }}/guide/3.2/dsl-spec-intrinsic-functions.html">intrinsic functions</a> to populate it with other blueprint values. To use embedded YAML, only the <code>config</code> property is used. All subordinate YAML statements are exported (after substitution) to a standard YAML manifest that is fed to the <code>kubectl create</code> statement on the master node.</p>
 
   <h2>Kubernetes File With Overrides</h2>
 

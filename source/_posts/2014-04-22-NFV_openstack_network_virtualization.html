@@ -32,20 +32,20 @@ tags:
 
 <p><strong>The Solution</strong></p>
 <ol>
-<p><strong><li>For automatic deployment</strong> and dependencies among tiers I used <a href="http://getcloudify.org/">Cloudify</a>. Cloudify provides a simple way to write recipes and dependencies between components. The experiment that I did, I took off the shelf software that creates video streamers and run it on a Tomcat Web container. I used Tomcat and a virtual software load-balancer to enable elasticity. Tomcat, in its turn registers itself with the virtual load-balancer that I created utilizing Apache. Here you can read more on Apache <a href="http://httpd.apache.org/docs/2.2/mod/mod_proxy_balancer.html" target="_blank">mod_proxy_balancer</a>. The Apache LB is a virtual network function that directs traffic to multiple video streamer based on a predefined policy. I used a simple policy of round-robin, to direct requests among the Tomcat servers evenly. </p>
+<p><strong><li>For automatic deployment</strong> and dependencies among tiers I used <a href="{{ site.baseurl }}/">Cloudify</a>. Cloudify provides a simple way to write recipes and dependencies between components. The experiment that I did, I took off the shelf software that creates video streamers and run it on a Tomcat Web container. I used Tomcat and a virtual software load-balancer to enable elasticity. Tomcat, in its turn registers itself with the virtual load-balancer that I created utilizing Apache. Here you can read more on Apache <a href="http://httpd.apache.org/docs/2.2/mod/mod_proxy_balancer.html" target="_blank">mod_proxy_balancer</a>. The Apache LB is a virtual network function that directs traffic to multiple video streamer based on a predefined policy. I used a simple policy of round-robin, to direct requests among the Tomcat servers evenly. </p>
 
 <p>I also used a Tomcat connector so whenever a new Tomcat starts it connects to the load-balancer announcing there is an additional video streamer and you can direct traffic to me, I am available.</p>
 
 <!--<hr>
 
 <span class="pullquote-left">
-  <font style="font-weight: bold" size="5" face="Baskerville Old Face"><em>Cloudify + NFV = not just a buzzword anymore. Try it out.</em></font>&nbsp; <a class="btn btn-large btn-theme btn-rounded" id="downloadBtnInner" href="http://getcloudify.org/downloads/get_cloudify.html" target="_blank"><i class="icon-plus"></i> Go </a></span>
+  <font style="font-weight: bold" size="5" face="Baskerville Old Face"><em>Cloudify + NFV = not just a buzzword anymore. Try it out.</em></font>&nbsp; <a class="btn btn-large btn-theme btn-rounded" id="downloadBtnInner" href="{{ site.baseurl }}/downloads/get_cloudify.html" target="_blank"><i class="icon-plus"></i> Go </a></span>
   
   <hr>-->
 
   <hr>
 <span class="pullquote-left">
-  <font style="font-weight: bold" size="5" face="Baskerville Old Face"><em>White Paper: NFV from ETSI to MANO to YANG. Get it today. </em></font>&nbsp; &nbsp; <a class="btn btn-large btn-theme btn-rounded download" id="downloadBtnInner" href="http://getcloudify.org/brochures/NFV White Paper April 2015.pdf" target="_blank"><i class="icon-plus"></i> Go </a></span>
+  <font style="font-weight: bold" size="5" face="Baskerville Old Face"><em>White Paper: NFV from ETSI to MANO to YANG. Get it today. </em></font>&nbsp; &nbsp; <a class="btn btn-large btn-theme btn-rounded download" id="downloadBtnInner" href="{{ site.baseurl }}/brochures/NFV White Paper April 2015.pdf" target="_blank"><i class="icon-plus"></i> Go </a></span>
   
   <hr>
 

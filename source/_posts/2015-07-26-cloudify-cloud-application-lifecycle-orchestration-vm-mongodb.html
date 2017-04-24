@@ -16,12 +16,12 @@ tags:
 <br/>
 <br/>
 
-<p>Not infrequently, a <a href="http://getcloudify.org/guide/3.2/blueprints-general.html" target="_blank">blueprint</a> needs to execute logic that is used to either coordinate the activities of other nodes, act essentially as a thread gate, or both. In practice, this means executing some code that doesn't, beyond the install <a href="http://getcloudify.org/guide/3.2/workflows-general.html" target="_blank">workflow</a>, have any bearing on the runtime operation of the system. This post discusses some simple techniques that are useful for such scenarios.</p>
+<p>Not infrequently, a <a href="{{ site.baseurl }}/guide/3.2/blueprints-general.html" target="_blank">blueprint</a> needs to execute logic that is used to either coordinate the activities of other nodes, act essentially as a thread gate, or both. In practice, this means executing some code that doesn't, beyond the install <a href="{{ site.baseurl }}/guide/3.2/workflows-general.html" target="_blank">workflow</a>, have any bearing on the runtime operation of the system. This post discusses some simple techniques that are useful for such scenarios.</p>
 
 <hr>
 
 <span class="pullquote-left">
-  <font style="font-weight: bold" size="5" face="Baskerville Old Face"><em>Orchestrate the lifecycle of your apps in the cloud with Cloudify.</em></font>&nbsp; <a class="btn btn-medium btn-theme btn-rounded" id="downloadBtnInner" href="http://getcloudify.org/downloads/get_cloudify.html" target="_blank"><i class="icon-plus"></i> Get it!</a></span>
+  <font style="font-weight: bold" size="5" face="Baskerville Old Face"><em>Orchestrate the lifecycle of your apps in the cloud with Cloudify.</em></font>&nbsp; <a class="btn btn-medium btn-theme btn-rounded" id="downloadBtnInner" href="{{ site.baseurl }}/downloads/get_cloudify.html" target="_blank"><i class="icon-plus"></i> Get it!</a></span>
   
   <hr>
 
@@ -29,7 +29,7 @@ tags:
 
 <p>It helps to get right to a concrete example to understand the problem domain. Imagine a MongoDb database blueprint. I want a blueprint deployment to run once on my network, and have other blueprints make use of it independently. A previous post of mine discusses a component that can make this connection &lt;ref previous post&gt;, but here I'm concerned with installing and starting a multi-node database, and when done, exposing the information needed to connect to it in the blueprint outputs.</p>
 
-<p>The most natural way to achieve this in <a href="http://getcloudify.org/" target="_blank">Cloudify</a> is to have a blueprint node that has a &quot;depends_on&quot; or &quot;connected_to&quot; relationship to the MongoDb VMs. In this &quot;coordinator&quot; node, I want to gather the IP addresses of the MongoDb servers, and place them in &quot;runtime_properties&quot; so they can be publicized by the blueprint outputs. The problem is, I don't want to actually start (and potentially pay for) a VM just to perform what amounts to a simple scripting task.</p>
+<p>The most natural way to achieve this in <a href="{{ site.baseurl }}/" target="_blank">Cloudify</a> is to have a blueprint node that has a &quot;depends_on&quot; or &quot;connected_to&quot; relationship to the MongoDb VMs. In this &quot;coordinator&quot; node, I want to gather the IP addresses of the MongoDb servers, and place them in &quot;runtime_properties&quot; so they can be publicized by the blueprint outputs. The problem is, I don't want to actually start (and potentially pay for) a VM just to perform what amounts to a simple scripting task.</p>
 
 <p>The solution is to create a node of type &quot;cloudify.nodes.Compute&quot;, with its &quot;install_agent&quot; property set to false. This will create a scripting environment on the Cloudify manager, but not start a VM, which is just what we're looking for. It is important to note that if you use the script plugin, or any plugin, you must ensure that the executor is set to &quot;central_deployment_agent&quot;.</p>
 

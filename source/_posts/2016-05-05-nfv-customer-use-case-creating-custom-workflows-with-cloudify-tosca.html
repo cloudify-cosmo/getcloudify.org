@@ -13,24 +13,24 @@ tags:
 
 <notextile>
 
-<img src="http://getcloudify.org/img/blog/nfvtosca.png" alt="NFV TOSCA | SDN | ETSI MANO | Cloud Orchestration | Open Source Orchestration Tools | Network Functions Virtualization | VNF | Cloudify" width="100%">
+<img src="{{ site.baseurl }}/img/blog/nfvtosca.png" alt="NFV TOSCA | SDN | ETSI MANO | Cloud Orchestration | Open Source Orchestration Tools | Network Functions Virtualization | VNF | Cloudify" width="100%">
 <br/>
 <br/>
 
-<p>Recently, I worked with a prospect in the <a href="http://getcloudify.org/2014/04/19/what-is-nfv-network-function-virtualization-vnf.html" target="_blank">NFV</a> domain who had quite a complex topology. They wished to orchestrate with <a href="http://getcloudify.org/2015/07/21/what-is-TOSCA-cloud-application-orchestration-tutorial-cloudify.html" target="_blank">TOSCA</a> in an environment that included dozens of different VMs with different roles. In addition, there were many different networks, and some of the VMs had multiple ports on different networks.</p>
+<p>Recently, I worked with a prospect in the <a href="{{ site.baseurl }}/2014/04/19/what-is-nfv-network-function-virtualization-vnf.html" target="_blank">NFV</a> domain who had quite a complex topology. They wished to orchestrate with <a href="{{ site.baseurl }}/2015/07/21/what-is-TOSCA-cloud-application-orchestration-tutorial-cloudify.html" target="_blank">TOSCA</a> in an environment that included dozens of different VMs with different roles. In addition, there were many different networks, and some of the VMs had multiple ports on different networks.</p>
 
 <p>When we discussed the use case, the prospect was looking to define a &ldquo;complete&rdquo; topology <a href="http://docs.getcloudify.org/3.3.1/blueprints/overview/" target="_blank">blueprint</a>, but instantiate it in steps, or rather, be able to control which subset of nodes will be created and installed, and later, build on top of it and deploy an additional subset of nodes.</p>
 
 <hr>
 
 <span class="pullquote-left">
-  <font style="font-weight: bold" size="5" face="Baskerville Old Face"><em>Intelligent NFV orchestration for any telecom environment. Download today.</em></font>  <a class="btn btn-medium btn-theme btn-rounded" id="downloadBtnInner" href="http://getcloudify.org/downloads/get_cloudify.html" target="_blank"><i class="icon-plus"></i> Go </a></span>
+  <font style="font-weight: bold" size="5" face="Baskerville Old Face"><em>Intelligent NFV orchestration for any telecom environment. Download today.</em></font>  <a class="btn btn-medium btn-theme btn-rounded" id="downloadBtnInner" href="{{ site.baseurl }}/downloads/get_cloudify.html" target="_blank"><i class="icon-plus"></i> Go </a></span>
   
   <hr>
 
 <p>Cloudify&rsquo;s built-in &ldquo;install&rdquo; workflow traversed the entire topology and instantiated the nodes based on the dependency graph implied by the blueprint. This fits many use cases, but was not a good fit with this prospects specific use case.</p>
 
-<p><a href="http://getcloudify.org">Cloudify</a> lets you express such workflows with its custom workflow feature. Custom workflows are implemented using plugins, typically in python. Cloudify injects into these custom workflow methods a context that gives the workflow developer a handle to the blueprint topology and allows the developer to traverse the nodes and their relationships.</p>
+<p><a href="{{ site.baseurl }}">Cloudify</a> lets you express such workflows with its custom workflow feature. Custom workflows are implemented using plugins, typically in python. Cloudify injects into these custom workflow methods a context that gives the workflow developer a handle to the blueprint topology and allows the developer to traverse the nodes and their relationships.</p>
 
 <p>Pleased with the good fit between the requirements and custom workflow functionality, we went on to define the specific workflows we would need:<br />
  <br />

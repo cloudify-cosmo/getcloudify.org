@@ -22,7 +22,7 @@ tags:
 
   <h2><strong>The Cloudify Script Plugin from the Inside Out</strong></h2>
 
-  <p>Hot on the heels of Barak’s previous post, that explores <a href="http://getcloudify.org/2015/01/19/tosca-cloud-monitoring-dashboard-docker-container.html" target="_blank">new features and functionality available in 3.1</a>, I’d like to take a deeper technical dive into a specific feature, so you can have a bit of a better understanding how to really leverage these new tools. In this post I’m going to focus on the newly added <a href="http://getcloudify.org/guide/3.1/plugin-script.html">Script Plugin</a> that fuses together the functionality of two plugins (the Bash and Python plugins) to bring the best of both worlds together.</p>
+  <p>Hot on the heels of Barak’s previous post, that explores <a href="{{ site.baseurl }}/2015/01/19/tosca-cloud-monitoring-dashboard-docker-container.html" target="_blank">new features and functionality available in 3.1</a>, I’d like to take a deeper technical dive into a specific feature, so you can have a bit of a better understanding how to really leverage these new tools. In this post I’m going to focus on the newly added <a href="{{ site.baseurl }}/guide/3.1/plugin-script.html">Script Plugin</a> that fuses together the functionality of two plugins (the Bash and Python plugins) to bring the best of both worlds together.</p>
 
   <p>The basic functionality of the script plugin provides the ability to execute scripts. These are commonly bash scripts, but can generally be written in any language - including <a href="https://www.python.org/" target="_blank">Python</a>, <a href="https://www.ruby-lang.org/" target="_blank">Ruby</a>, <a href="https://technet.microsoft.com/en-us/scriptcenter/powershell.aspx" target="_blank">PowerShell</a>, etc... (whatever is supported in your agent’s environment).</p>
 
@@ -30,7 +30,7 @@ tags:
 <hr>
 
 <span class="pullquote-left">
-  <font style="font-weight: bold" size="5" face="Baskerville Old Face"><em>3.1 with plugins galore. Get it now.</em></font>&nbsp; <a class="btn btn-medium btn-theme btn-rounded" id="downloadBtnInner" href="http://getcloudify.org/downloads/get_cloudify.html" target="_blank"><i class="icon-plus"></i> Go </a></span>
+  <font style="font-weight: bold" size="5" face="Baskerville Old Face"><em>3.1 with plugins galore. Get it now.</em></font>&nbsp; <a class="btn btn-medium btn-theme btn-rounded" id="downloadBtnInner" href="{{ site.baseurl }}/downloads/get_cloudify.html" target="_blank"><i class="icon-plus"></i> Go </a></span>
   
   <hr>
 
@@ -49,7 +49,7 @@ tags:
 
   <p><code>port=$(ctx target instance runtime-properties port)</code></p>
 
-  <p>Our <a href="http://getcloudify.org/guide/3.1/dsl-spec-general.html" target="_blank">DSL parser</a> was also extended to make mapping operations to scripts much simpler. Without the extension to the DSL parser, in order to map an operation to a script, you would have to do something like this:</p>
+  <p>Our <a href="{{ site.baseurl }}/guide/3.1/dsl-spec-general.html" target="_blank">DSL parser</a> was also extended to make mapping operations to scripts much simpler. Without the extension to the DSL parser, in order to map an operation to a script, you would have to do something like this:</p>
 
   <p><script src="https://gist.github.com/shar1z/1969a1349abb1c03317a.js"></script></p>
 
@@ -60,7 +60,7 @@ tags:
 <p><script src="https://gist.github.com/shar1z/787f63bebe455e761d4b.js"></script></p>
   
 
-  <p>Well, that’s about it for now. You can read the docs <a href="http://getcloudify.org/guide/3.1/plugin-script.html" target="_blank">here</a>, and play around with it.&#160; </p></p>
+  <p>Well, that’s about it for now. You can read the docs <a href="{{ site.baseurl }}/guide/3.1/plugin-script.html" target="_blank">here</a>, and play around with it.&#160; </p></p>
 
 
 </notextile>

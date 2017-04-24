@@ -18,22 +18,22 @@ tags:
 <br/>
 <br/>
 
-<p>Developing data intensive applications is a complex process, but it shouldn't be complex for the wrong reasons. One part of the complexity comes from the fact that deploying platforms of Big Data technologies is not a simple task, particularly when undertaken manually. Automating deployments is the key solution in reducing this complexity. But the automation should also enable switching between cloud providers in a trivial way. In the <a href="http://www.dice-h2020.eu/">DICE</a> project, we have been succeeding in achieving both aspects thanks to flexibility of the TOSCA specification and the use of <a href="http://getcloudify.org" target="_blank">Cloudify</a> as the core orchestration engine. Nati Shalom, CTO of Cloudify, discussed the importance of cloud portability and true hybrid cloud capabilities in more detail in a recent blog post, &ldquo;<a href="http://getcloudify.org/2016/07/07/achiecing-hybrid-cloud-without-compromising-on-least-common-denominator-tosca-portability.html">Achieving Hybrid Cloud Without Compromising on the Least Common Denominator</a>.&rdquo;</p>
+<p>Developing data intensive applications is a complex process, but it shouldn't be complex for the wrong reasons. One part of the complexity comes from the fact that deploying platforms of Big Data technologies is not a simple task, particularly when undertaken manually. Automating deployments is the key solution in reducing this complexity. But the automation should also enable switching between cloud providers in a trivial way. In the <a href="http://www.dice-h2020.eu/">DICE</a> project, we have been succeeding in achieving both aspects thanks to flexibility of the TOSCA specification and the use of <a href="{{ site.baseurl }}" target="_blank">Cloudify</a> as the core orchestration engine. Nati Shalom, CTO of Cloudify, discussed the importance of cloud portability and true hybrid cloud capabilities in more detail in a recent blog post, &ldquo;<a href="{{ site.baseurl }}/2016/07/07/achiecing-hybrid-cloud-without-compromising-on-least-common-denominator-tosca-portability.html">Achieving Hybrid Cloud Without Compromising on the Least Common Denominator</a>.&rdquo;</p>
 
 <hr>
 
 <span class="pullquote-left">
-  <font style="font-weight: bold" size="5" face="Baskerville Old Face"><em>Watch the Big Data for DevOps Webinar!</em></font>&nbsp; <a class="btn btn-medium btn-theme btn-rounded" id="downloadBtnInner" href="http://getcloudify.org/webinars/devops-data-intensive-applications-webinar.html" target="_blank"><i class="icon-plus"></i> Go </a></span>
+  <font style="font-weight: bold" size="5" face="Baskerville Old Face"><em>Watch the Big Data for DevOps Webinar!</em></font>&nbsp; <a class="btn btn-medium btn-theme btn-rounded" id="downloadBtnInner" href="{{ site.baseurl }}/webinars/devops-data-intensive-applications-webinar.html" target="_blank"><i class="icon-plus"></i> Go </a></span>
   
 <hr>
 
 <p>A growing number of platforms and technologies for Big Data naturally increases a number of options for solving specific problems related to storing and processing a large amount of data. These opportunities usually come at a cost of having to overcome a barrier that is deploying and maintaining the support services such as Storm, Spark or Hadoop. These services represent a platform for the applications, which solve the actual problems.</p>
 
-<p>Many of the Big Data services work on any cloud platform as long as they have network connectivity, RAM, computation and storage resources available. Cloudify's platform-specific plugins enable expressing these concepts in <a href="http://getcloudify.org/2015/07/21/what-is-TOSCA-cloud-application-orchestration-tutorial-cloudify.html" target="_blank">TOSCA blueprints</a>, offering to users the ability to work with any of the supported platforms without having to work with that platform's API directly.</p>
+<p>Many of the Big Data services work on any cloud platform as long as they have network connectivity, RAM, computation and storage resources available. Cloudify's platform-specific plugins enable expressing these concepts in <a href="{{ site.baseurl }}/2015/07/21/what-is-TOSCA-cloud-application-orchestration-tutorial-cloudify.html" target="_blank">TOSCA blueprints</a>, offering to users the ability to work with any of the supported platforms without having to work with that platform's API directly.</p>
 
 <p>The DICE project builds on top of these concepts, by having been developing a technology library. We have been focusing on helping developers to approach Big Data more easily, so that they can employ Continuous Integration processes into their development cycle. The library abstracts components normally deployed in Big Data clusters, while hiding away the complexities of orchestrating and configuring these services.</p>
 
-<p>The library itself is packed as a set of <a href="http://getcloudify.org/downloads/plugin-packages.html" target="_blank">Cloudify plugins</a>, that are split into platform-specific node types for resources, and the node types of the Big Data services. For example, the following header would appear at the top of a blueprint for OpenStack:</p>
+<p>The library itself is packed as a set of <a href="{{ site.baseurl }}/downloads/plugin-packages.html" target="_blank">Cloudify plugins</a>, that are split into platform-specific node types for resources, and the node types of the Big Data services. For example, the following header would appear at the top of a blueprint for OpenStack:</p>
 
 <p><script src="https://gist.github.com/yeshess/83cac5d500336e461f484ae445863ade.js"></script></p>
 
@@ -43,7 +43,7 @@ tags:
 
 <p>Migrating to another infrastructure is therefore a matter of changing the plugins to be imported at the top of the blueprint, and replacing the inputs declaration with the inputs relevant for the target infrastructure.</p>
 
-<p>At this time, DICE supports <a href="http://getcloudify.org/2014/07/10/what-is-openstack-tutorial.html" target="_blank">OpenStack</a> (Icehouse and newer, including Mitaka) and <a href="https://www.flexiant.com/flexiant-cloud-orchestrator/">Flexiant's Cloud Orchestrator</a>. Examples of working blueprints that use the DICE technology library are available at <a href="https://github.com/dice-project/DICE-Deployment-Examples">GitHub</a>.</p>
+<p>At this time, DICE supports <a href="{{ site.baseurl }}/2014/07/10/what-is-openstack-tutorial.html" target="_blank">OpenStack</a> (Icehouse and newer, including Mitaka) and <a href="https://www.flexiant.com/flexiant-cloud-orchestrator/">Flexiant's Cloud Orchestrator</a>. Examples of working blueprints that use the DICE technology library are available at <a href="https://github.com/dice-project/DICE-Deployment-Examples">GitHub</a>.</p>
 
 <p>A combination of powerful orchestration solution, Cloudify, and its plugins, along with the flexibility of OASIS TOSCA, are together the enablers of a solution that is both easy to use for the end users and portable across different cloud providers.</p>
 

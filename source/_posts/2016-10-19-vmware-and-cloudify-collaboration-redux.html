@@ -29,14 +29,14 @@ tags:
 <hr>
 
 <span class="pullquote-left">
-  <font style="font-weight: bold" size="5" face="Baskerville Old Face"><em>Cloudify Orchestration + VMware NFV - try it for free today!</em></font>  <a class="btn btn-medium btn-theme btn-rounded" id="downloadBtnInner" href="http://getcloudify.org/downloads/get_cloudify.html" target="_blank"><i class="icon-plus"></i> Go </a></span>
+  <font style="font-weight: bold" size="5" face="Baskerville Old Face"><em>Cloudify Orchestration + VMware NFV - try it for free today!</em></font>  <a class="btn btn-medium btn-theme btn-rounded" id="downloadBtnInner" href="{{ site.baseurl }}/downloads/get_cloudify.html" target="_blank"><i class="icon-plus"></i> Go </a></span>
   
   <hr>
 
 <h2>How it all started - a recap</h2>
-<p>Those who know me, and know the Cloudify project, engage with us frequently through the <a href="http://getcloudify.org/openstack-architecture-cloudify.html">OpenStack</a> and <a href="http://getcloudify.org/2016/05/12/making-tosca-truly-portable-openstack-cloud-nfv-open-source-orchestration.html">TOSCA</a> communities.</p>
+<p>Those who know me, and know the Cloudify project, engage with us frequently through the <a href="{{ site.baseurl }}/openstack-architecture-cloudify.html">OpenStack</a> and <a href="{{ site.baseurl }}/2016/05/12/making-tosca-truly-portable-openstack-cloud-nfv-open-source-orchestration.html">TOSCA</a> communities.</p>
 
-<p>A big part of our work with both of these communities set the stage for the beginning of our relationship with <a href="http://getcloudify.org/vmware-hybrid-cloud.html">VMware</a>, which started with the <a href="http://www.gigaspaces.com/gigaspaces-works-vmware-deliver-pilot-blueprinting-service-vcloud-air">vCloud Air team</a> as a result of a VMware decision to adopt a standard orchestration language (TOSCA) as part of its cloud strategy. Our first engagement was intended to offer an <a href="http://blogs.vmware.com/vcloud/2015/06/tosca-blueprints-vcloud-air.html">open standard blueprinting service</a> (similar to AWS CloudFormation) for vCloud Air. It was through that initial experience that we came to learn about, know and appreciate VMware as a product, and as a company.</p>
+<p>A big part of our work with both of these communities set the stage for the beginning of our relationship with <a href="{{ site.baseurl }}/vmware-hybrid-cloud.html">VMware</a>, which started with the <a href="http://www.gigaspaces.com/gigaspaces-works-vmware-deliver-pilot-blueprinting-service-vcloud-air">vCloud Air team</a> as a result of a VMware decision to adopt a standard orchestration language (TOSCA) as part of its cloud strategy. Our first engagement was intended to offer an <a href="http://blogs.vmware.com/vcloud/2015/06/tosca-blueprints-vcloud-air.html">open standard blueprinting service</a> (similar to AWS CloudFormation) for vCloud Air. It was through that initial experience that we came to learn about, know and appreciate VMware as a product, and as a company.</p>
 
 <p>As karma would have it, around that same time VMware launched a new NFV group focused on delivering a new NFV platform. This NFV team learned about&nbsp; the work we&rsquo;d done to integrate TOSCA into vCloud Air and saw how it could be beneficial for NFV. This was more or less obvious due to the fact that TOSCA and open orchestration had already started to emerge as high-priority requirements in many NFV projects.</p>
 
@@ -65,7 +65,7 @@ tags:
 <li>Open standard and open infrastructure&mdash;As mentioned above, the relationship with VMware is based on shared interest in TOSCA as an orchestration standard, and we are both committed to increasing its momentum.</li>
 </ul>
 
-<p>So, while VMware may not be, strictly speaking, an open source infrastructure player, it actively supports the open orchestration agenda as a strategic technology option for customers and selects partners with this core value in mind. VMware is also an active member and contributor in <a href="http://getcloudify.org/" target="_blank">open orchestration</a> initiatives such as Open Source MANO and Open-O.</p>
+<p>So, while VMware may not be, strictly speaking, an open source infrastructure player, it actively supports the open orchestration agenda as a strategic technology option for customers and selects partners with this core value in mind. VMware is also an active member and contributor in <a href="{{ site.baseurl }}/" target="_blank">open orchestration</a> initiatives such as Open Source MANO and Open-O.</p>
 
 <h2>The technology/product behind Cloudify and VMware vCloud NFV integration</h2>
 <p>The second criterion for a sustainable partnership is actually having substance behind the solution. By this I mean real product features and interoperability that would make the two work as first-class citizens in each&nbsp; partner&rsquo;s respective product portfolios.</p>
@@ -101,13 +101,13 @@ tags:
 <p>VMware comes with a strong partner and ecosystem DNA.</p>
 <p>Through our work with VMware&rsquo;s Telco NFV group, we have brought together many of its ecosystem partners to collaborate and create joint solutions that actually work. In our case, this partnership includes work with <a href="http://www.metaswitch.com/">Meta</a><a href="http://www.metaswitch.com/">s</a><a href="http://www.metaswitch.com/">witch</a>, <a href="http://www.brocade.com/">Brocade</a>, <a href="http://www.athonet.com/">Athonet</a>, and <a href="http://www.versa-networks.com/">Versa</a> just to name a few.</p>
 
-<p>In the context of NFV this ecosystem DNA has become a critical and driving force, as it is clear that a single-vendor solution <a href="http://getcloudify.org/2016/04/26/where-att-leads-cisco-cannot-follow-openstack-summit-cloud-nfv-orchestration.html">works against the entire idea behind the move to NFV in the first place</a>. At the same time taking the best of breed approach comes with a high toll of complexity and maintenance.</p>
+<p>In the context of NFV this ecosystem DNA has become a critical and driving force, as it is clear that a single-vendor solution <a href="{{ site.baseurl }}/2016/04/26/where-att-leads-cisco-cannot-follow-openstack-summit-cloud-nfv-orchestration.html">works against the entire idea behind the move to NFV in the first place</a>. At the same time taking the best of breed approach comes with a high toll of complexity and maintenance.</p>
 
 <p>After lots of hurdles at the beginning, I feel that we are starting to see the fruits of this work which at the end of the day provides the flexibility of choosing the best solution, all without the hassle involved with making them to work together. Our VMware-led collaboration has resulted in the creation of an initial set of VNF blueprints:</p>
 
 <ul>
 <li><a href="https://www.youtube.com/watch?v=T37cNUQVYac">vIMS</a>&mdash;through the collaboration with VMware vCloud NFV, MetaSwitch</li>
-<li><a href="http://getcloudify.org/2016/08/29/vmware-vcloud-volte-vims-vepc-demo-athonet-nfv-orchestration-hybrid-cloud.html">VoLTE</a>&mdash;through the collaboration between VMware vCloud NFV, Athonet and Cloudify</li>
+<li><a href="{{ site.baseurl }}/2016/08/29/vmware-vcloud-volte-vims-vepc-demo-athonet-nfv-orchestration-hybrid-cloud.html">VoLTE</a>&mdash;through the collaboration between VMware vCloud NFV, Athonet and Cloudify</li>
 <li><a href="https://drive.google.com/file/d/0B7-qipg_P_hHYktySHIzc2Z3OW8/view">vEPC</a>&mdash;and integration Brocade vEPC solution</li>
 <li>vCPE&mdash;through the collaboration between VMware vCloud NFV, MetaSwitch SBC,Brocade vRouter. and Cloudify</li>
 <li>SD-WAN&mdash;through the collaboration between VMware vCloud NFV, Versa, Cloudify</li>
@@ -142,13 +142,13 @@ tags:
 </ul>
 <p>We continue to enhance the list of supported VNF blueprints with the addition of MetaSwitch SBC, Brocade vRouter, Fortigate, Versa, Cisco, Palo Alto Firewall, Athonet VoLTE. This will be part of our Cloud Native VNF initiative ...</p>
 
-<p>All this comes in addition to the many other Cloudify 4.x features such as enhanced multi-tenancy and security, hot-failover, integration with <a href="http://ariatosca.org/">ARIA</a> that will include full TOSCA compliant support, support for the Cloud Native stack through Kubernetes and Docker Swarm which together provides a great platform for driving the next generation <a href="http://getcloudify.org/from-vnf-to-cloud-native-vnf-whitepaper.html">Cloud Native VNF</a>&nbsp; so stay tuned!</p>
+<p>All this comes in addition to the many other Cloudify 4.x features such as enhanced multi-tenancy and security, hot-failover, integration with <a href="http://ariatosca.org/">ARIA</a> that will include full TOSCA compliant support, support for the Cloud Native stack through Kubernetes and Docker Swarm which together provides a great platform for driving the next generation <a href="{{ site.baseurl }}/from-vnf-to-cloud-native-vnf-whitepaper.html">Cloud Native VNF</a>&nbsp; so stay tuned!</p>
 
 <p class="aligncenter"><img src="/img/blog/openstack-barcelona-summit.png" width="600px"></p>
 
 <h2>Meet us at OpenStack Summit Barcelona</h2>
 <p>Both the Cloudify and VMware NFV team will be presenting at this week's OpenStack Barcelona.&nbsp; For those at the show this could be a great opportunity to meet you in person and demonstrate how this joint collaboration can be useful for NFV and OpenStack community.</p>
 
-<p>You can find details on <a href="http://getcloudify.org/2016/10/23/openstack-summit-barcelona-here-find-us-booth-c4-talking-hybrid-cloud-hybrid-stack-orchestration.html">where to find us at the event</a> or simply <a href="http://getcloudify.org/meeting.html">schedule a meeting</a>.</p>
+<p>You can find details on <a href="{{ site.baseurl }}/2016/10/23/openstack-summit-barcelona-here-find-us-booth-c4-talking-hybrid-cloud-hybrid-stack-orchestration.html">where to find us at the event</a> or simply <a href="{{ site.baseurl }}/meeting.html">schedule a meeting</a>.</p>
 
 </notextile>

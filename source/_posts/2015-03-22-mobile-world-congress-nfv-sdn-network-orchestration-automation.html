@@ -12,17 +12,17 @@ tags:
 ---
 
 <notextile>
-<img src="http://getcloudify.org/img/blog/opnfv.png" alt="Cloud Automation | Cloud Application Orchestration | NFV Orchestration Management | SDN | ETSI | OPNFV">
+<img src="{{ site.baseurl }}/img/blog/opnfv.png" alt="Cloud Automation | Cloud Application Orchestration | NFV Orchestration Management | SDN | ETSI | OPNFV">
 <br/>
 <br/>
-<p>Following the <a href="https://www.sdxcentral.com/articles/news/mobile-world-congress-2015-sdxcentral-news-roundup/2015/03/">Mobile World Congress</a>, which took place a couple of weeks ago in Barcelona, NFV and SDN are again all the buzz. While this is no new concept, I still find that I&rsquo;m still often asked what the deal is with NFV and what it all means. A great starting reference can be found in this post &ldquo;<a href="http://getcloudify.org/network-function-virtualization-vnf-nfv-orchestration-sdn-platform.html">What is NFV?</a>&rdquo;, which demonstrates that this concept has been around for some time now. That said, NFV, SDN, VNFs and everything in between, have seen a lot of new developments from architecture, modeling languages, and requirements that have arisen or gained momentum since, and I&rsquo;d love to recap and review some of the new terminology and trends.</p>
+<p>Following the <a href="https://www.sdxcentral.com/articles/news/mobile-world-congress-2015-sdxcentral-news-roundup/2015/03/">Mobile World Congress</a>, which took place a couple of weeks ago in Barcelona, NFV and SDN are again all the buzz. While this is no new concept, I still find that I&rsquo;m still often asked what the deal is with NFV and what it all means. A great starting reference can be found in this post &ldquo;<a href="{{ site.baseurl }}/network-function-virtualization-vnf-nfv-orchestration-sdn-platform.html">What is NFV?</a>&rdquo;, which demonstrates that this concept has been around for some time now. That said, NFV, SDN, VNFs and everything in between, have seen a lot of new developments from architecture, modeling languages, and requirements that have arisen or gained momentum since, and I&rsquo;d love to recap and review some of the new terminology and trends.</p>
 
 <p>So we&rsquo;ll start from the top.</p>
 
 <hr>
 
 <span class="pullquote-left">
-  <font style="font-weight: bold" size="5" face="Baskerville Old Face"><em>Pure-Play NFV Management & Orchestration with Cloudify. Download Free.</em></font>&nbsp; <a class="btn btn-medium btn-theme btn-rounded" id="downloadBtnInner" href="http://getcloudify.org/downloads/get_cloudify.html" target="_blank"><i class="icon-plus"></i> Go </a></span>
+  <font style="font-weight: bold" size="5" face="Baskerville Old Face"><em>Pure-Play NFV Management & Orchestration with Cloudify. Download Free.</em></font>&nbsp; <a class="btn btn-medium btn-theme btn-rounded" id="downloadBtnInner" href="{{ site.baseurl }}/downloads/get_cloudify.html" target="_blank"><i class="icon-plus"></i> Go </a></span>
   
 <hr>
 
@@ -57,7 +57,7 @@ tags:
 		<li >The Orchestrator, as its name implies, basically serves the purposes of orchestrating and managing the software and infrastructure resources of the VIM, and realizing the NFVI&rsquo;s network services.</li>
 	</ul>
 
-<div class="aligncenter"><img alt="nfv orchestration | mano | etsi | opnfv" src="http://getcloudify.org/img/blog/nfv-mano-etsi-opnfv.png"></div>
+<div class="aligncenter"><img alt="nfv orchestration | mano | etsi | opnfv" src="{{ site.baseurl }}/img/blog/nfv-mano-etsi-opnfv.png"></div>
 
 <p>All of these together are intended to provide the full end-to-end lifecycle of NFV orchestration and management - from installation and deployment through post-deployment, or in the telecom industry terminology - Day 0 through Day 2 support.</p>
 
@@ -69,7 +69,7 @@ tags:
 
 <p>To this end, we&rsquo;re seeing the importance and adoption of a standard like TOSCA becoming an important criterion in the choice of an orchestration platform. <a href="http://en.wikipedia.org/wiki/Tosca">TOSCA</a>, (Topology and Orchestration Specification for Cloud Applications), is a standard written by the <a href="http://www.oasisfoundationdc.org/">Oasis Foundation</a>(those who brought us XML), and is backed by some of the largest organizations in the world - including IBM, CA, HP, Huawei, Fujitsu, Alcatel-Lucent, as well as has been selected by one of the largest orchestration projects in the world to be the templating language of choice, <a href="https://wiki.openstack.org/wiki/Heat">OpenStack Heat</a>, (that is working on integrating it into the main project via the <a href="https://github.com/openstack/heat-translator">Heat Translator project</a>).</p>
 
-<p>As a result, the formerly disparate IT worlds of NFV and enterprises are beginning to converge, and TOSCA has been playing a leading role in becoming the standard for <a href="http://getcloudify.org/network-function-virtualization-vnf-nfv-orchestration-sdn-platform.html#nfvarchitecture">NFV orchestration</a> for both these industries. On top of TOSCA and MANO, many carriers and telecoms use YANG/Netconf for the purpose of service-chaining on the VNF level. With TOSCA as the pure-play orchestration specification, it is very easy to plugin to other standards, such as YANG to be able to minimize the learning curve, and leverage existing know-how among networking administrators.</p>
+<p>As a result, the formerly disparate IT worlds of NFV and enterprises are beginning to converge, and TOSCA has been playing a leading role in becoming the standard for <a href="{{ site.baseurl }}/network-function-virtualization-vnf-nfv-orchestration-sdn-platform.html#nfvarchitecture">NFV orchestration</a> for both these industries. On top of TOSCA and MANO, many carriers and telecoms use YANG/Netconf for the purpose of service-chaining on the VNF level. With TOSCA as the pure-play orchestration specification, it is very easy to plugin to other standards, such as YANG to be able to minimize the learning curve, and leverage existing know-how among networking administrators.</p>
 
 <p>TOSCA has the combination of declarative descriptions of the application topology with all its components - including the load balancer, network, the compute resources, software and everything else, along with an imperative set of workflows to describe the logic of any process we need to automate. What this means from an NFV perspective, is that TOSCA is very good when it comes to defining virtual application topologies, VNF dependencies and relationships, actions to be performed as part of a lifecycle. This significantly simplifies the complexities involved with exposing networking elements and end-to-end lifecycle management for NFV, by abstracting the networking piece of our deployment into an application blueprint.</p>
 

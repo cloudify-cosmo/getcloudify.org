@@ -19,18 +19,18 @@ tags:
 
 
 
-<p>OpenStack is an<a href="http://getcloudify.org/2014/09/02/Open-Cloud-OpenStack-Cloud.html"> open source cloud</a> infrastructure that is considered by many as a cost-effective alternative to VMware.</p>
-<p>In reality, the transition from VMware to OpenStack isn’t that trivial, which leads most enterprises to take a<a href="http://getcloudify.org/2014/09/11/hybrid-cloud-openstack-multi-cloud.html"> hybrid cloud</a> approach. This means they run their OpenStack infrastructure alongside their existing<a href="http://getcloudify.org/cloud_orchestration_cloud_automation.html#HPLink"> VMware infrastructure</a> with an aim to gradually transition workloads into their new OpenStack environment.</p>
+<p>OpenStack is an<a href="{{ site.baseurl }}/2014/09/02/Open-Cloud-OpenStack-Cloud.html"> open source cloud</a> infrastructure that is considered by many as a cost-effective alternative to VMware.</p>
+<p>In reality, the transition from VMware to OpenStack isn’t that trivial, which leads most enterprises to take a<a href="{{ site.baseurl }}/2014/09/11/hybrid-cloud-openstack-multi-cloud.html"> hybrid cloud</a> approach. This means they run their OpenStack infrastructure alongside their existing<a href="{{ site.baseurl }}/cloud_orchestration_cloud_automation.html#HPLink"> VMware infrastructure</a> with an aim to gradually transition workloads into their new OpenStack environment.</p>
 <p>Recently, VMware announced their own <a href="http://www.vmware.com/products/openstack">VMware Integrated OpenStack</a>, which is a VMware-supported OpenStack distribution providing tighter integration between existing VMware environments and OpenStack.</p>
 <p>In this post I will discuss three of the options for putting OpenStack and VMware together and weigh what I believe are the pros and cons of each approach.</p>
 <p>1. Using OpenStack with VMware Hypervisor plug-in</p>
-<p><a href="http://getcloudify.org/openstack-architecture-cloudify.html">OpenStack Nova</a> comes with a pluggable architecture for integrating various hypervisors. It supports both KVM, VMware as well as Hyper-V.</p>
+<p><a href="{{ site.baseurl }}/openstack-architecture-cloudify.html">OpenStack Nova</a> comes with a pluggable architecture for integrating various hypervisors. It supports both KVM, VMware as well as Hyper-V.</p>
 
 
 <hr>
 
 <span class="pullquote-left">
-  <font style="font-weight: bold" size="5" face="Baskerville Old Face"><em>Open source hybrid cloud made easy with Cloudify - VMWare or OpenStack. Your choice.</em></font>&nbsp; <a class="btn btn-medium btn-theme btn-rounded" id="downloadBtnInner" href="http://getcloudify.org/downloads/get_cloudify.html" target="_blank"><i class="icon-plus"></i> Go </a></span>
+  <font style="font-weight: bold" size="5" face="Baskerville Old Face"><em>Open source hybrid cloud made easy with Cloudify - VMWare or OpenStack. Your choice.</em></font>&nbsp; <a class="btn btn-medium btn-theme btn-rounded" id="downloadBtnInner" href="{{ site.baseurl }}/downloads/get_cloudify.html" target="_blank"><i class="icon-plus"></i> Go </a></span>
   
   <hr>
 
@@ -75,11 +75,11 @@ tags:
 </ol>
 <p>My Take</p>
 <p>Given that the cloud infrastructure world keeps on changing and evolving very rapidly (not just between OpenStack and VMware), any tight integration approach will have a higher chance of breaking compatibility or being limited to the least common denominator at some point. We also need to be aware that even though in the first two options we remain compatible with the OpenStack API, we still end up with different OpenStack implementations from a behavior perspective.</p>
-<p>On top of that, we need to be prepared for new disruptions. This is actually taking place right now, for example, with <a href="http://getcloudify.org/2014/10/30/Docker-cloud-orchestration-configuration-management.html">Docker orchestration</a> that continues to disrupt and challenge the way we handle our compute and network infrastructure.</p>
+<p>On top of that, we need to be prepared for new disruptions. This is actually taking place right now, for example, with <a href="{{ site.baseurl }}/2014/10/30/Docker-cloud-orchestration-configuration-management.html">Docker orchestration</a> that continues to disrupt and challenge the way we handle our compute and network infrastructure.</p>
 <p>With this in mind it would be too risky not to keep our options open.</p>
 <p>Having an abstraction layer at a higher level of the stack gives us the benefit of being less vulnerable to changes at the lower level infrastructure. It also provides us the flexibility to adopt new infrastructure changes in the future.</p>
 <p>Having said all this, the question “Are we minimizing or just shifting the risk?” still lingers.</p>
-<p>This is where TOSCA comes in handy. TOSCA provides a standard way to describe our application blueprint. This significantly reduces our dependency on a specific implementation of the orchestration and management layer and this was one of the main reasons that led us to choose TOSCA when we designed the third generation of our <a href="http://getcloudify.org/openstack-architecture-cloudify.html">orchestration</a> with Cloudify.</p>
+<p>This is where TOSCA comes in handy. TOSCA provides a standard way to describe our application blueprint. This significantly reduces our dependency on a specific implementation of the orchestration and management layer and this was one of the main reasons that led us to choose TOSCA when we designed the third generation of our <a href="{{ site.baseurl }}/openstack-architecture-cloudify.html">orchestration</a> with Cloudify.</p>
 <p>References</p>
 <ul>
 <li>
@@ -95,7 +95,7 @@ tags:
 <p><a href="http://cloudarchitectmusings.com/2013/06/24/openstack-for-vmware-admins-nova-compute-with-vsphere-part-1/">OPENSTACK COMPUTE FOR VSPHERE ADMINS </a>(highly recommended and the source for many of the diagrams in this article)</p>
 </li>
 <li>
-<p><a href="http://getcloudify.org/">Cloudify - Tosca Based Orchestration</a></p>
+<p><a href="{{ site.baseurl }}/">Cloudify - Tosca Based Orchestration</a></p>
 </li>
 </ul>
 

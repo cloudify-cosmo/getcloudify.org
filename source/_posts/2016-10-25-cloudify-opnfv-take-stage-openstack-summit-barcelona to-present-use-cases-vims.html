@@ -18,20 +18,20 @@ tags:
 <br/>
 <br/>
 
-<p><a href="https://www.opnfv.org/">OPNFV</a> is an open source project from the <a href="https://www.linuxfoundation.org/">Linux Foundation</a> that brings together the work of the various standards bodies and <a href="http://getcloudify.org/network-function-virtualization-vnf-nfv-orchestration-sdn-platform.html">open source NFV</a> projects into a single platform, and tests them, to help carriers and vendors release <a href="http://getcloudify.org/2015/03/22/mobile-world-congress-nfv-sdn-network-orchestration-automation.html">virtual network functions</a> (VNFs) more quickly and reliably.</p>
-<p>We were surprised and excited to find out that the Functest team at OPNFV, headed by Orange Labs, grabbed the <a href="http://getcloudify.org/">Cloudify</a> code from Github and started using it in their own project. That&rsquo;s what we love about open source!</p>
+<p><a href="https://www.opnfv.org/">OPNFV</a> is an open source project from the <a href="https://www.linuxfoundation.org/">Linux Foundation</a> that brings together the work of the various standards bodies and <a href="{{ site.baseurl }}/network-function-virtualization-vnf-nfv-orchestration-sdn-platform.html">open source NFV</a> projects into a single platform, and tests them, to help carriers and vendors release <a href="{{ site.baseurl }}/2015/03/22/mobile-world-congress-nfv-sdn-network-orchestration-automation.html">virtual network functions</a> (VNFs) more quickly and reliably.</p>
+<p>We were surprised and excited to find out that the Functest team at OPNFV, headed by Orange Labs, grabbed the <a href="{{ site.baseurl }}/">Cloudify</a> code from Github and started using it in their own project. That&rsquo;s what we love about open source!</p>
 
   <hr>
 
 <span class="pullquote-left">
-  <font style="font-weight: bold" size="5" face="Baskerville Old Face"><em>For all your OpenStack + NFV orchestration needs. Cloudify.</em></font>&nbsp; <a class="btn btn-medium btn-theme btn-rounded" id="downloadBtnInner" href="http://getcloudify.org/downloads/get_cloudify.html" target="_blank"><i class="icon-plus"></i> Try Free </a></span>
+  <font style="font-weight: bold" size="5" face="Baskerville Old Face"><em>For all your OpenStack + NFV orchestration needs. Cloudify.</em></font>&nbsp; <a class="btn btn-medium btn-theme btn-rounded" id="downloadBtnInner" href="{{ site.baseurl }}/downloads/get_cloudify.html" target="_blank"><i class="icon-plus"></i> Try Free </a></span>
   
   <hr>
 
 <p><strong>About Functest</strong></p>
 <p>The Functest team tests and verifies OPNFV Platform functionality covering the VIM and NFVI components. The Functest team, in looking for an orchestrator and VNF Manager, and selected Cloudify because, as they have written:</p>
-<p><em>&ldquo;To manage a complex VNF, it&rsquo;s necessary to use an orchestrator and we selected Cloudify because it fits all the vIMS test-case requirements (open source solution, workflow, </em><a href="http://getcloudify.org/2015/07/21/what-is-TOSCA-cloud-application-orchestration-tutorial-cloudify.html"><em>TOSCA</em></a><em> modeling, good integration with OpenStack components, openness with plugins&hellip;).&rdquo;</em></p>
-<p>The latest OPNFV release, Brahmaputra, includes new test cases for more complete platform capacity checks of the OPNFV platform to host complex VNFs. The choice for these tests was a vIMS as it is a complex VNF with various components requiring some configuration for communication between the different VMs. It also requires a basic workflow to set up all the VNF components. The VNF chosen for this was Clearwater, an <a href="http://getcloudify.org/2016/04/21/nfv-sdn-vmware-metaswitch-gigaspaces-demo-orchestrated-volte-vnf-orchestration.html">open source vIMS</a> from MetaSwitch.</p>
+<p><em>&ldquo;To manage a complex VNF, it&rsquo;s necessary to use an orchestrator and we selected Cloudify because it fits all the vIMS test-case requirements (open source solution, workflow, </em><a href="{{ site.baseurl }}/2015/07/21/what-is-TOSCA-cloud-application-orchestration-tutorial-cloudify.html"><em>TOSCA</em></a><em> modeling, good integration with OpenStack components, openness with plugins&hellip;).&rdquo;</em></p>
+<p>The latest OPNFV release, Brahmaputra, includes new test cases for more complete platform capacity checks of the OPNFV platform to host complex VNFs. The choice for these tests was a vIMS as it is a complex VNF with various components requiring some configuration for communication between the different VMs. It also requires a basic workflow to set up all the VNF components. The VNF chosen for this was Clearwater, an <a href="{{ site.baseurl }}/2016/04/21/nfv-sdn-vmware-metaswitch-gigaspaces-demo-orchestrated-volte-vnf-orchestration.html">open source vIMS</a> from MetaSwitch.</p>
 <p class="aligncenter"><img src="/img/blog/opnfv.png" width="600"></p>
 <p><strong>vIMS Test Cases</strong></p>
 <p>Here are some of the various vIMS test cases the Functest team runs:</p>
@@ -43,13 +43,13 @@ tags:
 <li>Push result (push the deployment duration and tests results)</li>
 </ol>
 <p class="aligncenter"><img src="/img/blog/vIMS_blueprint.png" width="600"></p>
-<p>You can read more about the details of the test cases in <a href="http://getcloudify.org/2016/06/21/opnfv-functest-team-tests-clearwater-vims-deployment-using-cloudify-with-100-percent-success-nfv-orcehstration.html">this post</a> contributed by the OPNFV team.</p>
+<p>You can read more about the details of the test cases in <a href="{{ site.baseurl }}/2016/06/21/opnfv-functest-team-tests-clearwater-vims-deployment-using-cloudify-with-100-percent-success-nfv-orcehstration.html">this post</a> contributed by the OPNFV team.</p>
 <p><strong>Our Joint Talk at OpenStack Summit</strong></p>
 <p>Our Director of Product for Cloudify, Arthur Berezin, together with Morgan Richomme and Valentin Boucher of Orange Labs and OPNFV, will be <a href="https://www.openstack.org/summit/barcelona-2016/summit-schedule/events/16116/project-opnfv-base-system-functionality-testing-functest-of-a-vims-on-openstack">speaking at the OpenStack Summit</a> in a session titled &ldquo;Project: OPNFV - Base System Functionality Testing (Functest) of a vIMS on OpenStack.&rdquo; The session, taking place on Wednesday, October 26 from 3:05pm-3:45pm, will include a lot more technical information about how Cloudify works within the vIMS use case from OPNFV.</p>
 
-<p>Cloudify will also be at booth C4 in the marketplace at the <a href="https://www.openstack.org/summit/barcelona-2016/">OpenStack Summit</a> in Barcelona, so please come by to talk with us and check out our latest <a href="http://getcloudify.org/cloudifysourcetv.html">video demos</a> of complex <a href="http://getcloudify.org/2016/10/13/hybrid-cloud-orchestration-on-openstack-with-cloudify-tosca.html">hybrid cloud orchestration</a> and <a href="http://getcloudify.org/cloud-native-vnf.html">VNF on-boarding</a> use cases.</p>
+<p>Cloudify will also be at booth C4 in the marketplace at the <a href="https://www.openstack.org/summit/barcelona-2016/">OpenStack Summit</a> in Barcelona, so please come by to talk with us and check out our latest <a href="{{ site.baseurl }}/cloudifysourcetv.html">video demos</a> of complex <a href="{{ site.baseurl }}/2016/10/13/hybrid-cloud-orchestration-on-openstack-with-cloudify-tosca.html">hybrid cloud orchestration</a> and <a href="{{ site.baseurl }}/cloud-native-vnf.html">VNF on-boarding</a> use cases.</p>
 
-<p>Don&rsquo;t forget to check out our online <a href="http://getcloudify.org/NFV-Labs-On-Demand.html">NFV Lab</a> to test out the Clearwater vIMS deployment on <a href="http://getcloudify.org/2014/07/10/what-is-openstack-tutorial.html">OpenStack</a> as well as test your own VNF deployment.</p>
+<p>Don&rsquo;t forget to check out our online <a href="{{ site.baseurl }}/NFV-Labs-On-Demand.html">NFV Lab</a> to test out the Clearwater vIMS deployment on <a href="{{ site.baseurl }}/2014/07/10/what-is-openstack-tutorial.html">OpenStack</a> as well as test your own VNF deployment.</p>
 
 <p>We look forward to meeting you there!</p>
 

@@ -17,15 +17,15 @@ tags:
 <br/>
 <h1>A multi-network friendly Openstack VM image with netplugd</h1>
 <p>
-<p>A while (long while. Sorry about that) ago, I posted about setting up a VM in an <a title="Configuring an Openstack VM with multiple Network Cards" href="http://getcloudify.org/2014/11/03/openstack-neutron-openstack-nova-network-architecture-automation.html" target="_blank">Openstack cloud</a> so that it worked nicely with multiple networks. I also promised that I would explain how to automate this process.
+<p>A while (long while. Sorry about that) ago, I posted about setting up a VM in an <a title="Configuring an Openstack VM with multiple Network Cards" href="{{ site.baseurl }}/2014/11/03/openstack-neutron-openstack-nova-network-architecture-automation.html" target="_blank">Openstack cloud</a> so that it worked nicely with multiple networks. I also promised that I would explain how to automate this process.
 </p>
-<p >So, in this post, I will explain how to create an <a href="http://getcloudify.org/openstack-architecture-cloudify.html" target="_blank">Openstack VM</a> image that will automatically set up networking for all of the <a href="http://getcloudify.org/2014/05/14/openstack-neutron-networking-nova.html" target="_blank">Openstack networks</a> that are connected to the VM.</p>
+<p >So, in this post, I will explain how to create an <a href="{{ site.baseurl }}/openstack-architecture-cloudify.html" target="_blank">Openstack VM</a> image that will automatically set up networking for all of the <a href="{{ site.baseurl }}/2014/05/14/openstack-neutron-networking-nova.html" target="_blank">Openstack networks</a> that are connected to the VM.</p>
 <p >The principles and techniques explained here should work similarly in other clouds that support multiple networks (like Amazon VPC)</p>
 
 <hr>
 
 <span class="pullquote-left">
-  <font style="font-weight: bold" size="5" face="Baskerville Old Face"><em>Cloudify - Easy OpenStack Orchestration. Get it today.</em></font>&nbsp; <a class="btn btn-medium btn-theme btn-rounded" id="downloadBtnInner" href="http://getcloudify.org/downloads/get_cloudify.html" target="_blank"><i class="icon-plus"></i> Go </a></span>
+  <font style="font-weight: bold" size="5" face="Baskerville Old Face"><em>Cloudify - Easy OpenStack Orchestration. Get it today.</em></font>&nbsp; <a class="btn btn-medium btn-theme btn-rounded" id="downloadBtnInner" href="{{ site.baseurl }}/downloads/get_cloudify.html" target="_blank"><i class="icon-plus"></i> Go </a></span>
   
 <hr>
 
@@ -63,7 +63,7 @@ tags:
 
     <h2><b>The Problem - VM Images with one configured NIC</b></h2>
 
-    <p>As discussed in the previous post, setting up the networks in <a href="http://getcloudify.org/tags/Neutron/index.html" target="_blank">OpenStack Neutron</a> and starting a VM that is attached to them is not enough. The VM has to cooperate with the network setup, somehow. </p>
+    <p>As discussed in the previous post, setting up the networks in <a href="{{ site.baseurl }}/tags/Neutron/index.html" target="_blank">OpenStack Neutron</a> and starting a VM that is attached to them is not enough. The VM has to cooperate with the network setup, somehow. </p>
 
     <p>In many of the images provided by cloud vendors and Linux distributions, only one Network Interface Card - eth0 - is defined, so only the first network is available to the VM.</p>
 
@@ -117,7 +117,7 @@ tags:
 
     <p>You should read the <a href="https://raw.githubusercontent.com/barakm/Netplug-config/master/netplug">netplug</a> file. It is a straightforward script that detects network cards that are plugged in/out, and then edits the interfaces file accordingly.</p>
 
-    <p>Note: your choice of <a href="http://getcloudify.org/guide/3.1/plugin-linux-agent-installer.html">Linux</a> distribution might keep the interfaces configuration in a different location or file format. Some tweaking of this file might be necessary. The script as provided works on Ubuntu 12.04. Feel free to send in a pull request if you want to add your configuration to the repo.</p>
+    <p>Note: your choice of <a href="{{ site.baseurl }}/guide/3.1/plugin-linux-agent-installer.html">Linux</a> distribution might keep the interfaces configuration in a different location or file format. Some tweaking of this file might be necessary. The script as provided works on Ubuntu 12.04. Feel free to send in a pull request if you want to add your configuration to the repo.</p>
 
     <p><span style="text-decoration: underline">Now, let's clean up the VM and close the session:</span></p>
 
@@ -183,7 +183,7 @@ tags:
 
       <p><img  alt="" src="https://hackpad-attachments.imgix.net/hackpad.com_293roh163zT_p.182721_1431640954270_ifconfig-output-two-nics.png?fit=max&amp;w=882" /></p>
     
-    <p>Note how both NICs are up and running? You now have a multi-network friendly <a href="http://getcloudify.org/2014/07/10/what-is-openstack-tutorial.html" target="_blank">OpenStack</a> Image. Enjoy.</p>
+    <p>Note how both NICs are up and running? You now have a multi-network friendly <a href="{{ site.baseurl }}/2014/07/10/what-is-openstack-tutorial.html" target="_blank">OpenStack</a> Image. Enjoy.</p>
 
     <p ></p>
 

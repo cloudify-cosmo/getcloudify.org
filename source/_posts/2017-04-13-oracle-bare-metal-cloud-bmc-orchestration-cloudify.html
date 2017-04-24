@@ -53,7 +53,7 @@ tags:
 <h3><strong>Prerequisites</strong></h3>
 <p>The image used must be a Centos 7 image on an instance shape with at least 8GB of RAM. The image must have <span style="font-family: Consolas, serif;">firewalld</span> (enabled by default) <em>disabled</em>. You'll need Oracle BMC API credentials as well. The blueprints directory contains the file <span style="font-family: Consolas, serif;">oracle--agent.tar.gz</span>. After manager bootstrap, this file should be added to the /opt/manager/resources/packages/agents directory, if you'll be running agents on Oracle Linux machines.</p>
 <h3><strong>Bootstrapping</strong></h3>
-<p>The bootstrapping process is no different from the standard <a href="http://docs.getcloudify.org/3.4.1/cli/bootstrap">process</a>. First you'll need to get the Cloudify <a href="http://getcloudify.org/downloads/get_cloudify.html">CLI</a> and install it on a machine with internet access to the BMC API. Then just:</p>
+<p>The bootstrapping process is no different from the standard <a href="http://docs.getcloudify.org/3.4.1/cli/bootstrap">process</a>. First you'll need to get the Cloudify <a href="{{ site.baseurl }}/downloads/get_cloudify.html">CLI</a> and install it on a machine with internet access to the BMC API. Then just:</p>
 <ul>
 <li><code>cfy bootstrap --install-plugins -p oracle-bmc-manager-blueprint.yaml -i oracle-bmc-manager-blueprint-inputs.yaml</code></li>
 </ul>

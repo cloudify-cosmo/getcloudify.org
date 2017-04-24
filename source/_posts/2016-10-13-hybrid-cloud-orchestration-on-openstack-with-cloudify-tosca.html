@@ -20,14 +20,14 @@ tags:
 
   <p>
     
-    In this post I’d like to share some thoughts on <a href="http://getcloudify.org/2014/09/11/hybrid-cloud-openstack-multi-cloud.html" target="_blank">managing hybrid clouds</a>, more specifically, hybrid cloud with an open and hybrid stack running on top. I
-    don't want to overwhelm with too much detail, so I’m going to focus on the general concept, based on our vision and perspective, on how to <a href="http://getcloudify.org/how-it-works.html" target="_blank">manage and orchestrate applications</a> on a hybrid cloud with an open source technology stack.
+    In this post I’d like to share some thoughts on <a href="{{ site.baseurl }}/2014/09/11/hybrid-cloud-openstack-multi-cloud.html" target="_blank">managing hybrid clouds</a>, more specifically, hybrid cloud with an open and hybrid stack running on top. I
+    don't want to overwhelm with too much detail, so I’m going to focus on the general concept, based on our vision and perspective, on how to <a href="{{ site.baseurl }}/how-it-works.html" target="_blank">manage and orchestrate applications</a> on a hybrid cloud with an open source technology stack.
 </p>
 
   <hr>
 
 <span class="pullquote-left">
-  <font style="font-weight: bold" size="5" face="Baskerville Old Face"><em>Join our Kubernetes webinar - Moving Monoliths to Microservices.</em></font>&nbsp; <a class="btn btn-medium btn-theme btn-rounded" id="downloadBtnInner" href="http://getcloudify.org/webinars/monolith-to-microservices-webinar.html" target="_blank"><i class="icon-plus"></i> Go </a></span>
+  <font style="font-weight: bold" size="5" face="Baskerville Old Face"><em>Join our Kubernetes webinar - Moving Monoliths to Microservices.</em></font>&nbsp; <a class="btn btn-medium btn-theme btn-rounded" id="downloadBtnInner" href="{{ site.baseurl }}/webinars/monolith-to-microservices-webinar.html" target="_blank"><i class="icon-plus"></i> Go </a></span>
   
 <hr>
 
@@ -49,7 +49,7 @@ tags:
 </p>
 <p>
     
-    For example, if you're running on <a href="http://getcloudify.org/openstack-architecture-cloudify.html" target="_blank">OpenStack</a>, you want to consume OpenStack resources as best as possible. Or, if you're running on Azure, or even <a href="http://getcloudify.org/2016/09/15/cloud-orchestration-with-azure-openstack-less-explored-hybrid-cloud.html" target="_blank">OpenStack
+    For example, if you're running on <a href="{{ site.baseurl }}/openstack-architecture-cloudify.html" target="_blank">OpenStack</a>, you want to consume OpenStack resources as best as possible. Or, if you're running on Azure, or even <a href="{{ site.baseurl }}/2016/09/15/cloud-orchestration-with-azure-openstack-less-explored-hybrid-cloud.html" target="_blank">OpenStack
     and Azure in hybrid cloud mode</a>, you want to be able to consume resources in the best possible manner each platform offers.
 </p>
 <p>
@@ -74,8 +74,8 @@ tags:
 <p>
     
     There are different types of orchestration. Infrastructure-specific orchestration focuses on being able to orchestrate resources of a specific
-    infrastructure. <a href="http://getcloudify.org/2015/06/11/orchestration-docker-cloud-automation-openstack-heat-tosca-kubernetes.html" target="_blank">OpenStack Heat</a> is a good example of that as it only orchestrates OpenStack resources. In the container world, you have <a href="http://getcloudify.org/2016/07/13/cloudify-and-kubernetes-cluster-hybrid-stack-orchestration-cloud-deployment-automation.html" target="_blank">Kubernetes</a> which is an example
-    where you use another tool to <a href="http://getcloudify.org/container-docker-kubernetes-orchestration-management-cloud-deployment-automation.html" target="_blank">orchestrate container-based workloads</a>.
+    infrastructure. <a href="{{ site.baseurl }}/2015/06/11/orchestration-docker-cloud-automation-openstack-heat-tosca-kubernetes.html" target="_blank">OpenStack Heat</a> is a good example of that as it only orchestrates OpenStack resources. In the container world, you have <a href="{{ site.baseurl }}/2016/07/13/cloudify-and-kubernetes-cluster-hybrid-stack-orchestration-cloud-deployment-automation.html" target="_blank">Kubernetes</a> which is an example
+    where you use another tool to <a href="{{ site.baseurl }}/container-docker-kubernetes-orchestration-management-cloud-deployment-automation.html" target="_blank">orchestrate container-based workloads</a>.
 </p>
 <p align="center">
     
@@ -83,7 +83,7 @@ tags:
 </p>
 <p>
     
-    Cloudify is a pure play orchestrator, able to consume all those types of resources and model the application once using various <a href="http://docs.getcloudify.org/3.4.0/plugins/overview/" target="_blank">plugins</a> for other orchestrators, containers, and any other tool in your stack. We use <a href="http://getcloudify.org/2016/05/12/making-tosca-truly-portable-openstack-cloud-nfv-open-source-orchestration.html" target="_blank">TOSCA</a> to model this application and since TOSCA is vendor agnostic, you just
+    Cloudify is a pure play orchestrator, able to consume all those types of resources and model the application once using various <a href="http://docs.getcloudify.org/3.4.0/plugins/overview/" target="_blank">plugins</a> for other orchestrators, containers, and any other tool in your stack. We use <a href="{{ site.baseurl }}/2016/05/12/making-tosca-truly-portable-openstack-cloud-nfv-open-source-orchestration.html" target="_blank">TOSCA</a> to model this application and since TOSCA is vendor agnostic, you just
     describe your application and consume the various technologies underneath.
 </p>
 <h2>
@@ -93,7 +93,7 @@ tags:
 <p>
     
     TOSCA stands for Topology Orchestration Specification for Cloud Applications. It basically works by describing all components in the architecture of your
-    cloud application. You can describe <a href="http://getcloudify.org/2016/04/04/scaling-kubernetes-microservices-openstack-TOSCA-orchestration-cloud-open-source.html" target="_blank">microservices</a>, virtual machines, applications, databases and others, defining their dependencies, requirements and
+    cloud application. You can describe <a href="{{ site.baseurl }}/2016/04/04/scaling-kubernetes-microservices-openstack-TOSCA-orchestration-cloud-open-source.html" target="_blank">microservices</a>, virtual machines, applications, databases and others, defining their dependencies, requirements and
     relationships.
 </p>
 <p align="center">
@@ -115,7 +115,7 @@ tags:
 <p>
     
     Once you have the TOSCA blueprint ready, Cloudify takes it and, using various plugins, deploys it onto clouds of choice. Cloudify provisions the VMs on
-    your cloud using the various plugins, and configures all the components. For example, if your application has some parts using <a href="http://getcloudify.org/configuration_management_ssh_cloud_orchestration_puppet_ansible_chef_open_source.html" target="_blank">Ansible playbooks</a> or Puppet
+    your cloud using the various plugins, and configures all the components. For example, if your application has some parts using <a href="{{ site.baseurl }}/configuration_management_ssh_cloud_orchestration_puppet_ansible_chef_open_source.html" target="_blank">Ansible playbooks</a> or Puppet
     modules to deploy the specific application server, you model the whole thing in the TOSCA application blueprint and then use all the components to
     provision, configure, and manage that application.
 </p>
@@ -149,7 +149,7 @@ tags:
       <li><a href="https://www.youtube.com/watch?v=J-4jGJcqdLY" target="_blank">Hybrid Cloud Application Deployment Demo</a></li>
       <li><a href="https://www.youtube.com/watch?v=c1QWkKtVZX8" target="_blank">Docker Swarm Cluster Deployment Demo</a></li>
       <li><a href="getcloudify.org/examples/" target="_blank">Ready-to-use Blueprint Examples</a></li>
-      <li><a href="http://getcloudify.org/Cloudify-Academy.html" target="_blank">Cloudify Academy</a> - Learn how to use Cloudify and get an on-demand virtual environment to practice.</li>
+      <li><a href="{{ site.baseurl }}/Cloudify-Academy.html" target="_blank">Cloudify Academy</a> - Learn how to use Cloudify and get an on-demand virtual environment to practice.</li>
     </ul>
 </p>
 

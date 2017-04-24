@@ -18,16 +18,16 @@ tags:
 <br/>
 
 
-<p>It’s great to see Murano is gaining popularity and usage since its release, along with additional projects added in the last <a href="http://getcloudify.org/2015/10/22/openstack-liberty-summit-releases-cloud-kubernetes-neutron-nfv.html" target="_blank">OpenStack releases</a> - from Sahara to Marconi, I find the addition and the diversity of projects now available in this growing ecosystem extremely impressive.</p>
+<p>It’s great to see Murano is gaining popularity and usage since its release, along with additional projects added in the last <a href="{{ site.baseurl }}/2015/10/22/openstack-liberty-summit-releases-cloud-kubernetes-neutron-nfv.html" target="_blank">OpenStack releases</a> - from Sahara to Marconi, I find the addition and the diversity of projects now available in this growing ecosystem extremely impressive.</p>
 
 <p>So for those who are unfamiliar, OpenStack Murano introduced an application catalog to OpenStack, which allows application developers and cloud administrators to publish their cloud-ready applications in a browsable‎, easily navigable and categorized catalog.</p>
 
-<p>What this essentially means for <a href="http://getcloudify.org/openstack-architecture-cloudify.html">OpenStack</a> users is that they can now submit and upload application packages to Murano in various formats, from <a href="http://getcloudify.org/2015/05/20/openstack-summit-vancouver-cloud-network-orchestration-automation-heat-scaling.html">Heat orchestration</a> templates, to MuranoPL packages (the Murano language), and even Glance images, and deploy these uploaded applications to OpenStack at the click of a button. So formerly if you wanted to set up a Hadoop cluster, or a Kubernetes cluster, this required manual configuration and setup to tie it all together. The big news was that suddenly cloud users, experience and inexperienced ones alike can leverage this catalog to compose reliable application environments at the push of a button.</p>
+<p>What this essentially means for <a href="{{ site.baseurl }}/openstack-architecture-cloudify.html">OpenStack</a> users is that they can now submit and upload application packages to Murano in various formats, from <a href="{{ site.baseurl }}/2015/05/20/openstack-summit-vancouver-cloud-network-orchestration-automation-heat-scaling.html">Heat orchestration</a> templates, to MuranoPL packages (the Murano language), and even Glance images, and deploy these uploaded applications to OpenStack at the click of a button. So formerly if you wanted to set up a Hadoop cluster, or a Kubernetes cluster, this required manual configuration and setup to tie it all together. The big news was that suddenly cloud users, experience and inexperienced ones alike can leverage this catalog to compose reliable application environments at the push of a button.</p>
 
 <hr>
 
 <span class="pullquote-left">
-  <font style="font-weight: bold" size="5" face="Baskerville Old Face"><em>Orchestrate your app deployments on OpenStack, VMware, AWS, and more. Get Cloudify.</em></font>&nbsp; <a class="btn btn-medium btn-theme btn-rounded" href="http://getcloudify.org/downloads/get_cloudify.html" target="_blank"><i class="icon-plus"></i> Go </a></span>
+  <font style="font-weight: bold" size="5" face="Baskerville Old Face"><em>Orchestrate your app deployments on OpenStack, VMware, AWS, and more. Get Cloudify.</em></font>&nbsp; <a class="btn btn-medium btn-theme btn-rounded" href="{{ site.baseurl }}/downloads/get_cloudify.html" target="_blank"><i class="icon-plus"></i> Go </a></span>
 
 <hr>
 
@@ -45,7 +45,7 @@ tags:
 
 <h3>Now let's see how it works under the hood</h3>
 
-<p>The plugin has two essential python files: cloudify_tosca_package.py, which specifies the way <a href="http://getcloudify.org/2015/07/21/what-is-TOSCA-cloud-application-orchestration-tutorial-cloudify.html">Cloudify TOSCA</a> blueprints will be packaged, and cloudify_client.py, which interacts with the Cloudify Manager's Rest API via HTTP.</p>
+<p>The plugin has two essential python files: cloudify_tosca_package.py, which specifies the way <a href="{{ site.baseurl }}/2015/07/21/what-is-TOSCA-cloud-application-orchestration-tutorial-cloudify.html">Cloudify TOSCA</a> blueprints will be packaged, and cloudify_client.py, which interacts with the Cloudify Manager's Rest API via HTTP.</p>
 
 <p>When you package a blueprint archive for upload to Murano, it should have something like the following structure:</p>
 

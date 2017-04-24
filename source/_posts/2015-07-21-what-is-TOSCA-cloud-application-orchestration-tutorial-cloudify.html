@@ -13,16 +13,16 @@ tags:
 ---
 
 <notextile>
-<img src="http://getcloudify.org/img/blog/cloudtosca.png" alt="What is TOSCA | Cloud Application Orchestration | Cloud Automation | TOSCA Tutorial | Hybrid Cloud | Cloud TOSCA">
+<img src="{{ site.baseurl }}/img/blog/cloudtosca.png" alt="What is TOSCA | Cloud Application Orchestration | Cloud Automation | TOSCA Tutorial | Hybrid Cloud | Cloud TOSCA">
 <br/>
 <br/>
 
-<p>This article aims to introduce <a href="http://getcloudify.org/2014/12/21/oasis-TOSCA-cloud-openstack-heat-orchestration-spec.html">TOSCA</a> (Topology and Orchestration Specification for Cloud Applications) in the simplest of terms, so that users understand what it is, why it’s important to <a href="http://getcloudify.org/downloads/get_cloudify.html">Cloudify</a>, and some of its basic concepts.</p>
+<p>This article aims to introduce <a href="{{ site.baseurl }}/2014/12/21/oasis-TOSCA-cloud-openstack-heat-orchestration-spec.html">TOSCA</a> (Topology and Orchestration Specification for Cloud Applications) in the simplest of terms, so that users understand what it is, why it’s important to <a href="{{ site.baseurl }}/downloads/get_cloudify.html">Cloudify</a>, and some of its basic concepts.</p>
 
 <hr>
 
 <span class="pullquote-left">
-  <font style="font-weight: bold" size="5" face="Baskerville Old Face"><em>Orchestration magic made with TOSCA & Cloudify. Get it now.</em></font>&nbsp; <a class="btn btn-medium btn-theme btn-rounded" id="downloadBtnInner" href="http://getcloudify.org/downloads/get_cloudify.html" target="_blank"><i class="icon-plus"></i> Go </a></span>
+  <font style="font-weight: bold" size="5" face="Baskerville Old Face"><em>Orchestration magic made with TOSCA & Cloudify. Get it now.</em></font>&nbsp; <a class="btn btn-medium btn-theme btn-rounded" id="downloadBtnInner" href="{{ site.baseurl }}/downloads/get_cloudify.html" target="_blank"><i class="icon-plus"></i> Go </a></span>
   
 <hr>
 
@@ -30,7 +30,7 @@ tags:
 
 <p>First, TOSCA is a specification that aims to standardize how we describe software applications and everything that is required for them to run in the “cloud”.</p>
 
-<p>This means that <a href="http://getcloudify.org/2015/01/07/VNF-network-function-virtualization-netconf-yang-NFV.html">TOSCA</a> provides a way to describe not only an application, but also its dependencies and supporting (cloud) infrastructure.</p>
+<p>This means that <a href="{{ site.baseurl }}/2015/01/07/VNF-network-function-virtualization-netconf-yang-NFV.html">TOSCA</a> provides a way to describe not only an application, but also its dependencies and supporting (cloud) infrastructure.</p>
 
 <h2><font style="font-weight: bold">What are the basic concepts of TOSCA?</font></h2>
 
@@ -59,11 +59,11 @@ tags:
 
 <h2><font style="font-weight: bold">How is Cloudify Related to TOSCA?</font></h2>
 
-<p>In a market of young <a href="http://getcloudify.org/cloud_orchestration_cloud_automation.html">cloud orchestration tools</a> and products, Cloudify aims to be the best that is implementing this standard.</p>
+<p>In a market of young <a href="{{ site.baseurl }}/cloud_orchestration_cloud_automation.html">cloud orchestration tools</a> and products, Cloudify aims to be the best that is implementing this standard.</p>
 
-<p>Cloudify’s DSL is based on TOSCA’s YAML Simple Profile, which his a way of writing <a href="http://getcloudify.org/2015/06/19/docker-tosca-cloud-orchestration-openstack-heat-kubernetes.html">TOSCA blueprints</a> in YAML. (Originally, TOSCA is written in XML, but since XML has lots of unnecessary punctuation, the YAML profile is easier to use.)</p>
+<p>Cloudify’s DSL is based on TOSCA’s YAML Simple Profile, which his a way of writing <a href="{{ site.baseurl }}/2015/06/19/docker-tosca-cloud-orchestration-openstack-heat-kubernetes.html">TOSCA blueprints</a> in YAML. (Originally, TOSCA is written in XML, but since XML has lots of unnecessary punctuation, the YAML profile is easier to use.)</p>
 
-<p>Part of Cloudify’s core is the Cloudify DSL Parser, which aspires to read and validate TOSCA (YAML) blueprints, and provide a mechanism for mapping operations to <a href="http://getcloudify.org/2015/01/06/cloudify-cloud-open-source-workflow-engine-automation-template-tools-plugin.html">Cloudify plugins</a>.</p>
+<p>Part of Cloudify’s core is the Cloudify DSL Parser, which aspires to read and validate TOSCA (YAML) blueprints, and provide a mechanism for mapping operations to <a href="{{ site.baseurl }}/2015/01/06/cloudify-cloud-open-source-workflow-engine-automation-template-tools-plugin.html">Cloudify plugins</a>.</p>
 
 <p>All TOSCA blueprints specify the TOSCA definitions version adhered to in the blueprint. In Cloudify, we are currently using a specific Cloudify DSL version that looks for namespacing specific to Cloudify.</p>
 
@@ -83,7 +83,7 @@ tags:
 
 <p>For further reading, I suggest the <a href="http://docs.oasis-open.org/tosca/TOSCA-Simple-Profile-YAML/v1.0/csd03/TOSCA-Simple-Profile-YAML-v1.0-csd03.html">TOSCA Simple Profile doc</a>.</p>
 
-<p>I also recommend the documentation on Cloudify’s DSL for Cloudify version 3.2: <a href="http://getcloudify.org/guide/3.2/dsl-spec-general.html">Cloudify DSL</a></p>
+<p>I also recommend the documentation on Cloudify’s DSL for Cloudify version 3.2: <a href="{{ site.baseurl }}/guide/3.2/dsl-spec-general.html">Cloudify DSL</a></p>
 
 <p>In my upcoming blog posts, I will begion to expand on TOSCA and Cloudify with more advanced examples.</p>
 

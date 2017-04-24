@@ -19,14 +19,14 @@ tags:
  
 
 <p>I'm taking a break from blogging about my various Openstack related shenanigans. This time I want to talk about monitoring cloud usage.</p>
-<p>I work with IaaS clouds &#8211; lots of them. The list includes several different <a href="http://getcloudify.org/guide/3.2/plugin-aws.html" target="_blank">AWS</a> accounts and several HP cloud accounts. It also includes occasional &#8216;guest&#8217; accounts on Softlayer as well as private <a href="http://getcloudify.org/guide/3.1/plugin-openstack.html" target="_blank">Openstack</a> and <a href="http://getcloudify.org/guide/3.1/plugin-cloudstack.html" target="_blank">Cloudstack</a> accounts. With so many resources, and so many projects, stuff gets dropped once in a while. VMs are left running, forgotten by the developer that was using them or missed by the automation that was supposed to shut them down. And in the cloud, if you forget something, you pay for it. Literally. VMs are billed for the time they are active, whether or not you were actually doing something useful with them. And before you know it, the bills start mounting, and the people from accounting show up at my desk.</p>
+<p>I work with IaaS clouds &#8211; lots of them. The list includes several different <a href="{{ site.baseurl }}/guide/3.2/plugin-aws.html" target="_blank">AWS</a> accounts and several HP cloud accounts. It also includes occasional &#8216;guest&#8217; accounts on Softlayer as well as private <a href="{{ site.baseurl }}/guide/3.1/plugin-openstack.html" target="_blank">Openstack</a> and <a href="{{ site.baseurl }}/guide/3.1/plugin-cloudstack.html" target="_blank">Cloudstack</a> accounts. With so many resources, and so many projects, stuff gets dropped once in a while. VMs are left running, forgotten by the developer that was using them or missed by the automation that was supposed to shut them down. And in the cloud, if you forget something, you pay for it. Literally. VMs are billed for the time they are active, whether or not you were actually doing something useful with them. And before you know it, the bills start mounting, and the people from accounting show up at my desk.</p>
 <p>So I need some way to monitor my cloud usage across multiple clouds and accounts. I spent a while looking online for a good cloud monitoring solution that would give me a quick overview of my current cloud usage. I love dashboards, by the way. Being able to see everything that interests me in one place makes things so much easier.</p>
 
  
 <hr>
 
 <span class="pullquote-left">
-  <font style="font-weight: bold" size="5" face="Baskerville Old Face"><em>Cloud management & monitoring on any cloud with Cloudify.</em></font>&nbsp; <a class="btn btn-medium btn-theme btn-rounded" id="downloadBtnInner" href="http://getcloudify.org/downloads/get_cloudify.html" target="_blank"><i class="icon-plus"></i> Go </a></span>
+  <font style="font-weight: bold" size="5" face="Baskerville Old Face"><em>Cloud management & monitoring on any cloud with Cloudify.</em></font>&nbsp; <a class="btn btn-medium btn-theme btn-rounded" id="downloadBtnInner" href="{{ site.baseurl }}/downloads/get_cloudify.html" target="_blank"><i class="icon-plus"></i> Go </a></span>
   
   <hr>
 
@@ -41,7 +41,7 @@ EC2, Rackspace, Openstack, Linode, Google Compute Engine, SoftLayer, Digital Oce
 <p><a href="https://barakme.files.wordpress.com/2015/04/mist_io_console_redacted.png"><img class="alignnone  wp-image-57" src="https://barakme.files.wordpress.com/2015/04/mist_io_console_redacted.png?w=695&#038;h=213" alt="mist_io_console_redacted" width="695" height="213" /></a></p>
 <p>But for my project I also need to maintain history and statistics about my usage.</p>
 <p><strong>Quickbuild</strong></p>
-<p>The <a href="http://getcloudify.org/2014/04/29/testing_automation_continuous_integration.html" target="_blank">continuous integration</a> (CI) system we use for Cloudify is <a href="http://www.pmease.com/" target="_blank">Quickbuild</a>. We've been using it for a very long time and it has proven to be a rock-solid system. Quickbuild also has a flexible dashboard system, where I can plug in my own custom data sources.</p>
+<p>The <a href="{{ site.baseurl }}/2014/04/29/testing_automation_continuous_integration.html" target="_blank">continuous integration</a> (CI) system we use for Cloudify is <a href="http://www.pmease.com/" target="_blank">Quickbuild</a>. We've been using it for a very long time and it has proven to be a rock-solid system. Quickbuild also has a flexible dashboard system, where I can plug in my own custom data sources.</p>
 <p>While this post deals a lot with the specifics of Quickbuild, the principles should be pretty much the same for any CI/Automation system.</p>
 <p><strong>The glue</strong></p>
 <p>The general idea is to define a configuration in Quickbuild that will poll the mist.io API for running VMs, collect historical data and display the latest results on a Quickbuild dashboard.</p>

@@ -13,7 +13,7 @@ tags:
 
 <notextile>
 
-<img src="http://getcloudify.org/img/blog/sfcexample.png" alt="SDN | Open Source | Software Defined Networking | MWC | Mobile World Congress | ETSI | NFV Orchestration | Network Automation | Network Functions Virtualization">
+<img src="{{ site.baseurl }}/img/blog/sfcexample.png" alt="SDN | Open Source | Software Defined Networking | MWC | Mobile World Congress | ETSI | NFV Orchestration | Network Automation | Network Functions Virtualization">
 <br/>
 <br/>
 
@@ -26,7 +26,7 @@ tags:
 <hr>
 
 <span class="pullquote-left">
-  <font style="font-weight: bold" size="5" face="Baskerville Old Face"><em>Get our free NFV White Paper today.</em></font>&nbsp; <a class="btn btn-medium btn-theme btn-rounded" href="http://getcloudify.org/network-function-virtualization-vnf-nfv-orchestration-sdn-platform.html#dtag" target="_blank"><i class="icon-plus"></i> Go </a></span>
+  <font style="font-weight: bold" size="5" face="Baskerville Old Face"><em>Get our free NFV White Paper today.</em></font>&nbsp; <a class="btn btn-medium btn-theme btn-rounded" href="{{ site.baseurl }}/network-function-virtualization-vnf-nfv-orchestration-sdn-platform.html#dtag" target="_blank"><i class="icon-plus"></i> Go </a></span>
 
 <hr>
 
@@ -41,7 +41,7 @@ tags:
 
 <p>In the IETF SFC WG mobile use case (informational) draft by Haeffner et al, the authors have put these middleboxes into 3 categories. As I like the approach have replicated that structure here, with the caveat that it’s an early draft and therefore subject to change… and error in my interpretation! Category 1 are used by all services, category 2 are value added services while the authors suggest category 3 are mobile-specific - - perhaps evidence that the primary application for SFC is in mobile networks, which should not be surprising.**</p>
 
-<p><img src="http://getcloudify.org/img/blog/sfcmiddleware.png" width="640" style="width: 640px; display: block; margin-left: auto; margin-right: auto;"></p>
+<p><img src="{{ site.baseurl }}/img/blog/sfcmiddleware.png" width="640" style="width: 640px; display: block; margin-left: auto; margin-right: auto;"></p>
 
 <p style="text-align: center;"><em>The types of middleboxes that are used when delivering end-to-end services</em></p>
 
@@ -51,7 +51,7 @@ tags:
 
 <p>There are plenty of references out there that give examples of devices such as these being employed in service function chains in order to deliver an end-to-end service. Let me just throw one out, though, as a point of reference in this humble blog post.</p>
 
-<p><img src="http://getcloudify.org/img/blog/sfcexample.png" width="640" style="width: 640px; display: block; margin-left: auto; margin-right: auto;"></p>
+<p><img src="{{ site.baseurl }}/img/blog/sfcexample.png" width="640" style="width: 640px; display: block; margin-left: auto; margin-right: auto;"></p>
 
 <p style="text-align: center;"><em>An example of Mobile and Fixed-Line Service Function Chaining</em></p>
 
@@ -69,7 +69,7 @@ tags:
 
 <p>In a pure segment routing domain, there is no need to employ any label distribution, such as LDP or RSVP. Segments are defined and pre-established in the network, providing paths between adjacent nodes (an Adjacent Segment) and non-adjacent nodes, known as Nodal Segments. With predefined and well-advertised paths to the network service functions, an SDN controller -- complete with a Path Computation Element (PCE) and using the PCE Protocol (PCEP) -- calculates the most appropriate route and tells the classifier, a label edge router (LER), to apply a stack of MPLS labels to the traffic flow. At the end of the chain, the last label is popped and the traffic goes on its merry way using whatever transport technique the network operator desires. Saving 1,000 more words, let me show a picture.</p>
 
-<p><img src="http://getcloudify.org/img/blog/sfcrouting.png" width="640" style="width: 640px; display: block; margin-left: auto; margin-right: auto;"></p>
+<p><img src="{{ site.baseurl }}/img/blog/sfcrouting.png" width="640" style="width: 640px; display: block; margin-left: auto; margin-right: auto;"></p>
 
 <p style="text-align: center;"><em>Service Function Chaining With MPLS Segment Routing</em></p>
 
@@ -81,7 +81,7 @@ tags:
 
 <p>The advantage of the NSH is that it can be implemented, without prejudice, in any transport infrastructure. The NSH has also been architected to front not only IPv4 and IPv6 payloads, but also Ethernet. The Network Service Header, itself, is a fixed-length shim comprising a 4 byte Base Header and a 4 byte Service Path Header. Following that are two NSH metadata payload options, which consist of four mandatory 4-byte (16 byte total) Context Headers (MD Type 1) or optional variable-length Context Headers (MD Type 2). </p>
 
-<p><img src="http://getcloudify.org/img/blog/sfcnetwork.png" width="640" style="width: 640px; display: block; margin-left: auto; margin-right: auto;"></p>
+<p><img src="{{ site.baseurl }}/img/blog/sfcnetwork.png" width="640" style="width: 640px; display: block; margin-left: auto; margin-right: auto;"></p>
 
 <p style="text-align: center;"><em>The Network Service Header over IP with Metadata (MD) Options 1 and 2</em></p>
 
@@ -94,7 +94,7 @@ tags:
 <p><sup>* A phrase actually coined by John Postel, together with Lizia Zhang.</sup><br><sup>** This loose categorization in no way dictates the order in which service functions are applied to the traffic flow.</sup><br><sup>*** As you do more digging on this topic you may find several diagrams that have an SBC as part of a SFC. I believe this stemmed from a miss-fire in one diagram in the early (NSC) days that has continued to propagate.</sup> </p></span>
 
 <hr>
-<p>Stay tuned for some more great content during Mobile World Congress on <a href="http://getcloudify.org/tags/NFV/index.html" target="_blank">everything NFV</a>.</p>
+<p>Stay tuned for some more great content during Mobile World Congress on <a href="{{ site.baseurl }}/tags/NFV/index.html" target="_blank">everything NFV</a>.</p>
 
 <p>And don't forget to join us for the 8th <a href="https://www.youtube.com/watch?v=a4f-5yXwSw4" target="_blank">OpenStack & Beyond podcast</a> directly from the event on Thursday, Feb 25th at 11am CET.</p>
 

@@ -16,7 +16,7 @@ tags:
 <br/>
 <br/>
 
-<p>When we developed the FastContest application and deployed it on the Amazon cloud using <a href="http://getcloudify.org/cloud_orchestration_cloud_automation.html" target="_blank">Cloudify</a>, we decided to perform automated load tests to:</p>
+<p>When we developed the FastContest application and deployed it on the Amazon cloud using <a href="{{ site.baseurl }}/cloud_orchestration_cloud_automation.html" target="_blank">Cloudify</a>, we decided to perform automated load tests to:</p>
 
 <ul>
   <li>evaluate the maximum load that our application could support</li>
@@ -33,7 +33,7 @@ tags:
 <hr>
 
 <span class="pullquote-left">
-  <font style="font-weight: bold" size="5" face="Baskerville Old Face"><em>Cloudify, open source, and native to any language + environment. Try it out.</em></font>&nbsp; <a class="btn btn-large btn-theme btn-rounded" id="downloadBtnInner" href="http://getcloudify.org/downloads/get_cloudify.html" target="_blank"><i class="icon-plus"></i> Go </a></span>
+  <font style="font-weight: bold" size="5" face="Baskerville Old Face"><em>Cloudify, open source, and native to any language + environment. Try it out.</em></font>&nbsp; <a class="btn btn-large btn-theme btn-rounded" id="downloadBtnInner" href="{{ site.baseurl }}/downloads/get_cloudify.html" target="_blank"><i class="icon-plus"></i> Go </a></span>
   
   <hr>
 
@@ -81,7 +81,7 @@ tags:
 <h3><b>Cloudification</b></h3>
 
 <p>To perform load tests in near real conditions we have cloudified Gatling by automating its installation and operation on Amazon VMs.
-  <br />With <a href="http://getcloudify.org" target="_blank">Cloudify</a>, we can now launch load tests on the Internet on as many machines as we want. The recipes are relatively simple, since essentially all you have to do is download and unzip the Gatling installation folder. Since the scenarios are uploaded with the recipe, they must be placed in the Gatling /simulation directory.
+  <br />With <a href="{{ site.baseurl }}" target="_blank">Cloudify</a>, we can now launch load tests on the Internet on as many machines as we want. The recipes are relatively simple, since essentially all you have to do is download and unzip the Gatling installation folder. Since the scenarios are uploaded with the recipe, they must be placed in the Gatling /simulation directory.
 
   <br />The bench is run using a custom command “executeBench”, with the name of the scenario to be run as the first parameter and the name given to the simulation as the second. The custom command then launches the load test for all instances of Gatling on each VM. Reports are generated individually on each VM.</p>
 

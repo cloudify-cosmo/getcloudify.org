@@ -21,11 +21,11 @@ tags:
 
 <p><b></b></p>
 
-<p>In my previous post, I discussed how to achieve <a href="http://getcloudify.org/2015/02/13/hybrid-cloud-tosca-vmware-orchestration-vcloud-vsphere.html" target="_blank">hybrid cloud</a> in the real world for VMware and OpenStack - which was previously an involved undertaking and today, can be done fairly simply.</p>
+<p>In my previous post, I discussed how to achieve <a href="{{ site.baseurl }}/2015/02/13/hybrid-cloud-tosca-vmware-orchestration-vcloud-vsphere.html" target="_blank">hybrid cloud</a> in the real world for VMware and OpenStack - which was previously an involved undertaking and today, can be done fairly simply.</p>
 
 <p>In this post, I wanted to put my money where my mouth is - and actually show a live demo of this type of hybrid cloud model in action.&#160; A use case we’re constantly presented with by Telecom and enterprises alike is the much-needed virtualization of network functions (i.e. VNFs or NFV), which is an ongoing pain point.</p>
 
-<p>When we demonstrate the hybrid cloud model we usually do so through a simple web app based on a NodeJS frontend, and MongoDB backend (we call this our <a href="http://getcloudify.org/guide/3.1/guide-blueprint.html" target="_blank">nodecellar app example</a>), which can also be demoed in Docker containers.</p>
+<p>When we demonstrate the hybrid cloud model we usually do so through a simple web app based on a NodeJS frontend, and MongoDB backend (we call this our <a href="{{ site.baseurl }}/guide/3.1/guide-blueprint.html" target="_blank">nodecellar app example</a>), which can also be demoed in Docker containers.</p>
 
  <hr>
 
@@ -36,9 +36,9 @@ tags:
 
 <p>The basic process for this is to install the Docker images, configure the network ports (and any other networking considerations required), and then just run the app.&#160; (Yes it is seriously that simple).&#160; That’s if you’re running locally - if you’d like to run on the cloud - OpenStack or vCloud Air for the sake of the example, you would simply modify the blueprint to use a vCloud Air VM rather than a local VM.&#160;&#160; Obviously when we run on a *real* cloud we would like to use more advanced security, networking and storage resources, so we’ll have to include those detailed in the blueprint as well. The rest of the process is the same.</p>
 
-<p>You can read more about this <a href="http://getcloudify.org/2014/11/12/vmware-vsphere-vcloud-openstack-hybrid-cloud.html" target="_blank">VMware/OpenStack</a> example, and watch also the video in this follow-up post on <a href="http://getcloudify.org/2015/02/02/TOSCA-orchestration-openstack-vmware-hybrid-cloud.html" target="_blank">TOSCA orchestration</a> for VMware.</p>
+<p>You can read more about this <a href="{{ site.baseurl }}/2014/11/12/vmware-vsphere-vcloud-openstack-hybrid-cloud.html" target="_blank">VMware/OpenStack</a> example, and watch also the video in this follow-up post on <a href="{{ site.baseurl }}/2015/02/02/TOSCA-orchestration-openstack-vmware-hybrid-cloud.html" target="_blank">TOSCA orchestration</a> for VMware.</p>
 
-<p>However, we know that the enterprise and Telecom <a href="http://getcloudify.org/2014/11/02/NFV-openstack-TOSCA-open-source-cloud-Chef.html" target="_blank">NFV</a> use case is often times much more complex - and so to demonstrate the kind of complexity involved with orchestrating really intricate networking functions - we built an on-demand “Skype”-like application - based on <a href="http://www.metaswitch.com/clearwater" target="_blank">Metaswitch’s Clearwater</a>, that we then ran on VMware vCloud Air and OpenStack - all using the same blueprint and UI for easy management.</p>
+<p>However, we know that the enterprise and Telecom <a href="{{ site.baseurl }}/2014/11/02/NFV-openstack-TOSCA-open-source-cloud-Chef.html" target="_blank">NFV</a> use case is often times much more complex - and so to demonstrate the kind of complexity involved with orchestrating really intricate networking functions - we built an on-demand “Skype”-like application - based on <a href="http://www.metaswitch.com/clearwater" target="_blank">Metaswitch’s Clearwater</a>, that we then ran on VMware vCloud Air and OpenStack - all using the same blueprint and UI for easy management.</p>
 
 <p>So let’s get going, and talk about how we did this.</p>
 
@@ -50,11 +50,11 @@ tags:
 
 <p><img src="https://lh5.googleusercontent.com/rAF6mt9aCURFtsfSM1yLXcQ8VZzVneqrwdZnkDbcQDyUF-Tr8SNW15clWBpvfZi-gyLg_scjlWD4HJWWNFhpEW93DIbs8vm_xUxIX9FOtpueLYbp0U8d3xF0NZWHHusYL9c" width="624" height="257" /></p>
 
-<p>We started by creating the compute and network services for each of the 12 components listed in the diagram above.&#160; Clearwater comes with a set of preconfigured&#160; Chef cookbooks so it only made sense that we will use the <a href="http://getcloudify.org/guide/3.1/plugin-chef.html" target="_blank">Cloudify Chef Plugin</a> to configure and install each of these services on the relevant VM.</p>
+<p>We started by creating the compute and network services for each of the 12 components listed in the diagram above.&#160; Clearwater comes with a set of preconfigured&#160; Chef cookbooks so it only made sense that we will use the <a href="{{ site.baseurl }}/guide/3.1/plugin-chef.html" target="_blank">Cloudify Chef Plugin</a> to configure and install each of these services on the relevant VM.</p>
 
 <p>On top of that Cloudify adds a monitoring agent using <a href="https://collectd.org/" target="_blank">Collectd</a>, and set logging and monitoring using logstash and Elasticsearch.</p>
 
-<p>The result of this <a href="http://getcloudify.org/guide/3.1/understanding-blueprints.html" target="_blank">TOSCA blueprint</a> looks something like this:</p>
+<p>The result of this <a href="{{ site.baseurl }}/guide/3.1/understanding-blueprints.html" target="_blank">TOSCA blueprint</a> looks something like this:</p>
 
 <p><img src="https://lh3.googleusercontent.com/hCrbJ6kTVGkEU7tdgjmE4IBemc4YXr72oBIw8Mg3J1UtfdGPvVa77qUTiUgAa6A6rRncvWlJ0xqTao_3NOXT2eBZ1YBsHOMOA9i__0kNzxQnbT952OBzpb1FuWN53qpkuNw" width="624" height="308" /></p>
 
@@ -152,7 +152,7 @@ type: clearwater.nodes.Server </code>
 
 <p>Now that we created the VM instances, and connected them to the network, the next step is to install the software services in each of those VMs. </p>
 
-<p>There are many ways in which we can install and configure software components, and Cloudify comes with a rich set of plugins that support <a href="http://getcloudify.org/guide/3.1/plugin-chef.html" target="_blank">Chef</a>, <a href="http://getcloudify.org/guide/3.1/plugin-puppet.html" target="_blank">Puppet</a>, <a href="http://getcloudify.org/guide/3.1/plugin-docker.html" target="_blank">Docker</a>, <a href="http://getcloudify.org/guide/3.1/plugin-salt.html" target="_blank">SaltStack</a> or even a simple script model.</p>
+<p>There are many ways in which we can install and configure software components, and Cloudify comes with a rich set of plugins that support <a href="{{ site.baseurl }}/guide/3.1/plugin-chef.html" target="_blank">Chef</a>, <a href="{{ site.baseurl }}/guide/3.1/plugin-puppet.html" target="_blank">Puppet</a>, <a href="{{ site.baseurl }}/guide/3.1/plugin-docker.html" target="_blank">Docker</a>, <a href="{{ site.baseurl }}/guide/3.1/plugin-salt.html" target="_blank">SaltStack</a> or even a simple script model.</p>
 
 <p>The Clearwater application happens to be configured using Chef, so in this specific case we will use the Cloudify Chef plugin. Using this plugin, we will call the Chef client and provide the Chef Cookbook and runlist configuration per service.</p>
 
@@ -186,7 +186,7 @@ type: clearwater.nodes.Server </code>
 <p>&#160;</p>
 
 
-<p>Here, you can read more about how <a href="http://getcloudify.org/guide/3.1/ui-monitoring.html#setting-up-your-blueprint-for-monitoring">Cloudify monitoring</a> works.</p>
+<p>Here, you can read more about how <a href="{{ site.baseurl }}/guide/3.1/ui-monitoring.html#setting-up-your-blueprint-for-monitoring">Cloudify monitoring</a> works.</p>
 
   <li>
     <p>Add Policies and Workflows </p>

@@ -33,13 +33,13 @@ tags:
 <hr>
 
 <span class="pullquote-left">
-  <font style="font-weight: bold" size="5" face="Baskerville Old Face"><em>Bootstrap Cloudify 3.0 with DevStack. Easy as pie. Try it out.</em></font>&nbsp; <a class="btn btn-medium btn-theme btn-rounded" id="downloadBtnInner" href="http://getcloudify.org/downloads/get_cloudify.html" target="_blank"><i class="icon-plus"></i> Go </a></span>
+  <font style="font-weight: bold" size="5" face="Baskerville Old Face"><em>Bootstrap Cloudify 3.0 with DevStack. Easy as pie. Try it out.</em></font>&nbsp; <a class="btn btn-medium btn-theme btn-rounded" id="downloadBtnInner" href="{{ site.baseurl }}/downloads/get_cloudify.html" target="_blank"><i class="icon-plus"></i> Go </a></span>
   
   <hr>
 
 <p>Add an Ubuntu image (12.04 LTS is recommended) from the <a href="http://cloud-images.ubuntu.com/precise/current/precise-server-cloudimg-amd64-disk1.img" target="_blank">Ubuntu official cloud images</a> to your new DevStack environment. Once Devstack is installed, I recommend signing into its web UI and spawning a small Ubuntu instance as a validation that the installation was indeed successful.</p>
 
-<p>Next, go to the <a href="http://getcloudify.org/downloads/get_cloudify.html">Cloudify download page,</a> and choose the relevant Debian package (either 32 or 64 bit). Install the package: <code>dpkg –I ./ cloudify-cli_3.0.0-ga-b6_amd64.deb </code> Then we will need to configure Cloudify to use its Openstack plugin for bootstrapping. It is recommended to do it in a dedicated folder: <code>mkdir cloudify_work</code> cd Cloudify_work cfy init openstack Follow the steps in the Cloudify Quick Start <a href="http://getcloudify.org/guide/3.0/quickstart-openstack.html"> OpenStack Tutorial.</a> Devstack defaults for the cloudify-config.yaml:</p>
+<p>Next, go to the <a href="{{ site.baseurl }}/downloads/get_cloudify.html">Cloudify download page,</a> and choose the relevant Debian package (either 32 or 64 bit). Install the package: <code>dpkg –I ./ cloudify-cli_3.0.0-ga-b6_amd64.deb </code> Then we will need to configure Cloudify to use its Openstack plugin for bootstrapping. It is recommended to do it in a dedicated folder: <code>mkdir cloudify_work</code> cd Cloudify_work cfy init openstack Follow the steps in the Cloudify Quick Start <a href="{{ site.baseurl }}/guide/3.0/quickstart-openstack.html"> OpenStack Tutorial.</a> Devstack defaults for the cloudify-config.yaml:</p>
 
 
 <p><script src="https://gist.github.com/yoramw/e923ec6a2a12402d1dc5.js"></script></p>

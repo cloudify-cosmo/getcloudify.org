@@ -13,23 +13,23 @@ tags:
 
 <notextile>
 
-<img src="http://getcloudify.org/img/blog/cloudify_vnf_orchestration.png" alt="MWC | Mobile World Congress | Network Automation | Cloud Orchestration | NFV SDN | Open Source Cloud | EPA | DPA | data plane acceleration | ETSI | Multi-VIM" width="870">
+<img src="{{ site.baseurl }}/img/blog/cloudify_vnf_orchestration.png" alt="MWC | Mobile World Congress | Network Automation | Cloud Orchestration | NFV SDN | Open Source Cloud | EPA | DPA | data plane acceleration | ETSI | Multi-VIM" width="870">
 <br/>
 <br/>
 
 
-<p>We hear the term data plane acceleration (DPA) tossed around a lot in the context of <a href="http://getcloudify.org/network-function-virtualization-vnf-nfv-orchestration-sdn-platform.html">NFV</a> (Network Functions Virtualization), and this is because the successful adoption of NFV highly depends on the ability of a virtualized <a href="http://getcloudify.org/cloud_orchestration_cloud_automation.html">cloud infrastructure</a> to deliver sufficient performance compared to today's proprietary network appliances. </p>
+<p>We hear the term data plane acceleration (DPA) tossed around a lot in the context of <a href="{{ site.baseurl }}/network-function-virtualization-vnf-nfv-orchestration-sdn-platform.html">NFV</a> (Network Functions Virtualization), and this is because the successful adoption of NFV highly depends on the ability of a virtualized <a href="{{ site.baseurl }}/cloud_orchestration_cloud_automation.html">cloud infrastructure</a> to deliver sufficient performance compared to today's proprietary network appliances. </p>
   
 <hr>
 
 <span class="pullquote-left">
-  <font style="font-weight: bold" size="5" face="Baskerville Old Face"><em>Intelligent NFV orchestration for any telecom environment. Download today.</em></font>  <a class="btn btn-medium btn-theme btn-rounded" id="downloadBtnInner" href="http://getcloudify.org/downloads/get_cloudify.html" target="_blank"><i class="icon-plus"></i> Go </a></span>
+  <font style="font-weight: bold" size="5" face="Baskerville Old Face"><em>Intelligent NFV orchestration for any telecom environment. Download today.</em></font>  <a class="btn btn-medium btn-theme btn-rounded" id="downloadBtnInner" href="{{ site.baseurl }}/downloads/get_cloudify.html" target="_blank"><i class="icon-plus"></i> Go </a></span>
   
   <hr>
 
 <p>This is basically talking about network functions that are I/O intensive, where many packets are sent over a short time frame - e.g. EPC, and today's generic hardware is simply not equipped nor configured to handle this kind of load and with the needed performance telcos and carriers require. In order to achieve this kind of performance, you need hardware optimized for DPA - advanced processor and networking technologies embedded in silicon and in PCIe devices that enable the extreme throughput required for NFV workloads, but the story doesn't end there. Even if your hardware is optimized for I/O intensive workloads, you need to ensure your VNFs are ultimately able to leverage these capabilities. </p>
 
-<p>This means that your VNFs will need to declare their needs from the hardware, and the environment should be set to support such declarations. Imagine you are deploying a vRouter which can run at great performance - providing that DPDK is enabled on the hosts it is running on. There needs to be some way to connect between what the vRouter requires (DPDK) and what the environment supports and can provide. This is where Enhanced Platform Awareness coupled with intelligent workload-aware <a href="http://getcloudify.org/">orchestration</a> come into play.</p>
+<p>This means that your VNFs will need to declare their needs from the hardware, and the environment should be set to support such declarations. Imagine you are deploying a vRouter which can run at great performance - providing that DPDK is enabled on the hosts it is running on. There needs to be some way to connect between what the vRouter requires (DPDK) and what the environment supports and can provide. This is where Enhanced Platform Awareness coupled with intelligent workload-aware <a href="{{ site.baseurl }}/">orchestration</a> come into play.</p>
 
 <p>EPA and EPA-enabled orchestration are the glue that ties between your workload requirements, and your environment's capabilities, while also enabling automation and operational efficiency in an NFV environment without compromising telco grade performance. </p>
 
@@ -39,9 +39,9 @@ tags:
 
 <p>Below you can see a reference architecture for how this would work.</p>
 
-<p class="aligncenter"><img style="display: block; margin-left: auto; margin-right: auto;" src="http://getcloudify.org/img/blog/cloudify_epa_dpa.png" alt="" /></p>
+<p class="aligncenter"><img style="display: block; margin-left: auto; margin-right: auto;" src="{{ site.baseurl }}/img/blog/cloudify_epa_dpa.png" alt="" /></p>
 
-<p>You'll then get optimized placement and configuration for your workload resulting in the performance you are after, in a manner supporting optimized lifecycle management of your service in the NFV environment and without restricting that environment to only one VIM as the solution spans <a href="http://getcloudify.org/openstack-architecture-cloudify.html">OpenStack</a> and <a href="http://getcloudify.org/vmware-hybrid-cloud.html">VMware</a>.</p>
+<p>You'll then get optimized placement and configuration for your workload resulting in the performance you are after, in a manner supporting optimized lifecycle management of your service in the NFV environment and without restricting that environment to only one VIM as the solution spans <a href="{{ site.baseurl }}/openstack-architecture-cloudify.html">OpenStack</a> and <a href="{{ site.baseurl }}/vmware-hybrid-cloud.html">VMware</a>.</p>
 
 <p>Leveraging the proper EPA methods for the relevant VNFs is where TOSCA-based orchestration comes in as the smart orchestrator, through the ability to define nodes and types and the placement within the service chain and more, this enables the level of intelligent matching between hardware, calling the right APIs, and the proper placement on relevant hosts.</p>
 
@@ -51,7 +51,7 @@ tags:
 
 <div class="aligncenter"><iframe width="560" height="315" src="https://www.youtube.com/embed/iyhE4Lvmxqc" frameborder="0" allowfullscreen></iframe></div>
 
-<p>Stay tuned for some more great content during Mobile World Congress on <a href="http://getcloudify.org/tags/NFV/index.html" target="_blank">everything NFV</a>.</p>
+<p>Stay tuned for some more great content during Mobile World Congress on <a href="{{ site.baseurl }}/tags/NFV/index.html" target="_blank">everything NFV</a>.</p>
 
 <p>And don't forget to join us for the 8th <a href="https://www.youtube.com/watch?v=a4f-5yXwSw4" target="_blank">OpenStack & Beyond podcast</a> directly from the event on Thursday, Feb 25th at 11am CET.</p>
 

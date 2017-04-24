@@ -18,7 +18,7 @@ tags:
 <br/>
 <br/>
 
-<p>In this post, I will show you how <a href="http://getcloudify.org" target="_blank">Cloudify can be used to automate the deployment, and lifecycle operations, of a web application on three different cloud environments: <a href="http://getcloudify.org/2014/07/10/what-is-openstack-tutorial.html" target="_blank">OpenStack</a> in Dev, to <a href="http://getcloudify.org/2016/12/01/deploying-app-aws-openstack-hybrid-cloud-orchestration-single-cloudify-tosca-blueprint.html" target="_blank">AWS</a> in QA, and finally, <a href="http://getcloudify.org/2016/11/15/closed-loop-monitoring-alerting-healing-cloudify-vmware-vrealize-operations-integration.html" target="_blank">VMware</a> in Production.</p>
+<p>In this post, I will show you how <a href="{{ site.baseurl }}" target="_blank">Cloudify can be used to automate the deployment, and lifecycle operations, of a web application on three different cloud environments: <a href="{{ site.baseurl }}/2014/07/10/what-is-openstack-tutorial.html" target="_blank">OpenStack</a> in Dev, to <a href="{{ site.baseurl }}/2016/12/01/deploying-app-aws-openstack-hybrid-cloud-orchestration-single-cloudify-tosca-blueprint.html" target="_blank">AWS</a> in QA, and finally, <a href="{{ site.baseurl }}/2016/11/15/closed-loop-monitoring-alerting-healing-cloudify-vmware-vrealize-operations-integration.html" target="_blank">VMware</a> in Production.</p>
 
   <hr>
 
@@ -30,33 +30,33 @@ tags:
 
 <p>The first step here is to make a change to one of the files and commit it. I make a simple change to the background image of the web app in a style sheet and commit. Taking a look at the Kanban board, we simply refresh and see the code change with the Dev deployment in progress. Clicking on the stencil, you will see the deployment details by scrolling down on the right hand sidebar.</p>
 
-<br><p class="aligncenter"><img src="http://getcloudify.org/img/blog/cheese.png"></p><br>
+<br><p class="aligncenter"><img src="{{ site.baseurl }}/img/blog/cheese.png"></p><br>
 
 <p>This change is being performed on the OpenStack cloud we set up and, going back to Cloudify UI, we can view the deployment and see the install workflow being executed. This workflow was started automatically as changes were detected in the Github repository. Once the installation is finished, we will be able to access the application and see the result.</p>
 
-<br><p class="aligncenter"><img src="http://getcloudify.org/img/blog/install_workflow.png"></p><br>
+<br><p class="aligncenter"><img src="{{ site.baseurl }}/img/blog/install_workflow.png"></p><br>
 
 <p>Going back to the deployment, we can see that nodes of the application are becoming green as the installation progresses. We can also examine the logs to see which tasks are currently running and how the install workflow builds the application on this cloud environment.</p>
 
 <p>Next, we can see the deployment is finished by taking a look at Cloudify Manager, we see that the install workflow has been successfully executed. Now, we can either see the application URL, which we can access, and see that the updated background image which is the image of the wines. We can also find this IP address of the application in the outputs of Cloudify deployments.</p>
 
-<br><p class="aligncenter"><img src="http://getcloudify.org/img/blog/wines.png"></p><br>
+<br><p class="aligncenter"><img src="{{ site.baseurl }}/img/blog/wines.png"></p><br>
 
 <p>The next step, once we are happy with the application, would be to promote it to QA by dragging it to the QA section of the Kanban board. We can now see that the status color has changed to blue, and, if we click on it, we can see &ldquo;QA deployment requested&rdquo; on the right-hand side.</p>
 
-<br><p class="aligncenter"><img src="http://getcloudify.org/img/blog/move_application.png"></p><br>
+<br><p class="aligncenter"><img src="{{ site.baseurl }}/img/blog/move_application.png"></p><br>
 
 <p>For this stage, I'm going to switch to a QA administration user and we can see new request. Now we can see the details of the request, and, clicking into the request, I simply click &ldquo;Deploy to QA.&rdquo; Once the deployment process is started, the system automatically deploys the current application to the AWS cloud we use for QA, and I can see the status that the QA deployment is in progress. I can also see the details of Cloudify Manager as it is performing the process.</p>
 
 <p>Going back to Cloudify UI, you can see we are not reinstalling the whole deployment from scratch, we are just executing some operations that update the runtime code of the application. Seeing the deployment color turn green on the dashboard, the QA deployment has now finished successfully. You can go to the &ldquo;Inputs &amp; Outputs&rdquo; tab and enter the IP address into your browser to see the updated application with the wine background.</p>
 
-<br><p class="aligncenter"><img src="http://getcloudify.org/img/blog/inputs_outputs.png"></p><br>
+<br><p class="aligncenter"><img src="{{ site.baseurl }}/img/blog/inputs_outputs.png"></p><br>
 
 <p>Now, we go back and change the wine background back to the cheese image for the application. Heading back to the dashboard, we see the change was made and the deployment is running in the test environment. Taking a look back at the manager now, we can see that the uninstall workflow is triggered to remove the previous application. Once the uninstall workflow has been successfully executed, the install workflow is started and deploys the newly updated application.</p>
 
 <p>When the install workflow has finished, we will see the development branch turn green on the Kanban board. Entering the new application URL in the browser, we see the cheese background has been updated.</p>
 
-<br><p class="aligncenter"><img src="http://getcloudify.org/img/blog/cheese2.png"></p><br>
+<br><p class="aligncenter"><img src="{{ site.baseurl }}/img/blog/cheese2.png"></p><br>
 
 <p>What we are left with now is two environments: The Dev environment on OpenStack now shows the cheese background and the QA environment is running with the wine background.</p>
 
@@ -64,7 +64,7 @@ tags:
 
 <p>As the load is increased, we go back to Cloudify Manager and can see that the scale workflow gets triggered, causing additional nodes to be created for the Node.js web server. As the load goes back down, we see Cloudify launch the scale workflow again, this time destroying one of the Node.js instances. </p>
 
-<br><p class="aligncenter"><img src="http://getcloudify.org/img/blog/scale_app.png"></p><br>
+<br><p class="aligncenter"><img src="{{ site.baseurl }}/img/blog/scale_app.png"></p><br>
 
 <p>Finally, we are ready to move our application into production by simply dragging the stencil to the VMware production environment. From there on, it's the same process as we followed earlier moving from dev to QA.</p>
 

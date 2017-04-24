@@ -27,14 +27,14 @@ tags:
 
   <h2><strong>Cloud Application Orchestration</strong></h2>
 
-  <p>However, venturing into the cloud is just the first step into actually being able to provide a full and sustainable ecosystem of cloud users.&#160; In order to have an ability to build dynamic and scalable cloud environments with complex application stacks on them, you ought to have diverse cloud tools, and among these <a href="http://getcloudify.org/cloud_orchestration_cloud_automation.html">orchestration tools</a>.</p>
+  <p>However, venturing into the cloud is just the first step into actually being able to provide a full and sustainable ecosystem of cloud users.&#160; In order to have an ability to build dynamic and scalable cloud environments with complex application stacks on them, you ought to have diverse cloud tools, and among these <a href="{{ site.baseurl }}/cloud_orchestration_cloud_automation.html">orchestration tools</a>.</p>
 
   <p>To that end, IBM chose Cloudify to be their application orchestration enabler for various POCs and in diverse IBM products that are deployed on SoftLayer and on AWS. In this post, I will dive into Cloudify’s role in the deployment of<a href="http://www-01.ibm.com/software/data/db2/linux-unix-windows/db2-blu-acceleration/"> BLU</a> on SoftLayer, a very interesting technical use case.</p>
 
   <hr>
 
 <span class="pullquote-left">
-  <font style="font-weight: bold" size="5" face="Baskerville Old Face"><em>Cloudify - multi-cloud out of the box. Give it a whirl..</em></font>&nbsp; <a class="btn btn-medium btn-theme btn-rounded" id="downloadBtnInner" href="http://getcloudify.org/downloads/get_cloudify.html" target="_blank"><i class="icon-plus"></i> Go </a></span>
+  <font style="font-weight: bold" size="5" face="Baskerville Old Face"><em>Cloudify - multi-cloud out of the box. Give it a whirl..</em></font>&nbsp; <a class="btn btn-medium btn-theme btn-rounded" id="downloadBtnInner" href="{{ site.baseurl }}/downloads/get_cloudify.html" target="_blank"><i class="icon-plus"></i> Go </a></span>
   
   <hr>
 
@@ -57,7 +57,7 @@ tags:
 
   <p>In either case, using the Solo mode costs money, but the users are only charged for the actual usage (i.e. provisioning of the VMs) and not for the software products (BLU).</p>
 
-  <p>Note, that users can use both SoftLayer and AWS and can easily transition between the two because of the Cloudify technological backbone that supports <a href="http://getcloudify.org/cloud_orchestration_cloud_automation.html#HPLink2">multi-cloud</a>, although, one may assume that most users if not all of them, will settle for one of the above.</p>
+  <p>Note, that users can use both SoftLayer and AWS and can easily transition between the two because of the Cloudify technological backbone that supports <a href="{{ site.baseurl }}/cloud_orchestration_cloud_automation.html#HPLink2">multi-cloud</a>, although, one may assume that most users if not all of them, will settle for one of the above.</p>
 
   <h2><strong>The Architecture</strong></h2>
 
@@ -69,7 +69,7 @@ tags:
 
   <p>To manage the VM pool (trial mode) we selected Java, and yes, we are aware of the fact that there are NodeJs cloud libraries.&#160; However, since we, in all honesty, are more experienced in Java; using a threaded implementation seemed be the best approach for the job and has ultimately proven itself.</p>
 
-  <p>So we stayed with Java and we used <a href="http://spring.io/guides/gs/serving-web-content">Spring MVC</a> with Jetty to expose a REST service for managing a VM pool. The UI is written with the latest technology and it uses <a href="https://github.com/yeoman/generator-angular">Yeoman generator for AngularJS</a>, which is pretty nifty. (You can check out this post of ours on just this UI <a href="http://getcloudify.org/2014/11/21/mean-stack-workflow-automation-yeoman-bower-grunt.html">workflow automation</a>).</p>
+  <p>So we stayed with Java and we used <a href="http://spring.io/guides/gs/serving-web-content">Spring MVC</a> with Jetty to expose a REST service for managing a VM pool. The UI is written with the latest technology and it uses <a href="https://github.com/yeoman/generator-angular">Yeoman generator for AngularJS</a>, which is pretty nifty. (You can check out this post of ours on just this UI <a href="{{ site.baseurl }}/2014/11/21/mean-stack-workflow-automation-yeoman-bower-grunt.html">workflow automation</a>).</p>
 
   <h2><strong>Cloudify and SoftLayer</strong></h2>
 
@@ -85,7 +85,7 @@ tags:
 
   <p>An external application will not be configured nor deployed by Cloudify, but it can be referenced and used inside Cloudify and still be a part of your environment.&#160; The BLU info and binaries, in our case, are retrieved from a Chef server, so for IBM we've developed a recipe that configures and deploys a Chef server. Eventually the Chef server was externalized to Cloudify by IBM - however, this can be internalized at any time without a hassle.&#160; In the current setup the Chef server has been implemented as an external application, where the components are able to access it, and all the rest of the components’ orchestration is performed by Cloudify, where Cloudify injects the Chef server’s URL to the other components so they are able to access it. (i.e. The configuration, deployment, orchestration, monitoring and all runtime management of all the other components are all done by Cloudify.)</p>
 
-  <p>The Cloudify recipes (blueprints) are flexible in that aspect as well, the same recipe can be used with an internal <a href="http://getcloudify.org/chef_cloud_configuration_management.html">Chef server</a> and with an external one. It's just a matter of configuration and preference.</p>
+  <p>The Cloudify recipes (blueprints) are flexible in that aspect as well, the same recipe can be used with an internal <a href="{{ site.baseurl }}/chef_cloud_configuration_management.html">Chef server</a> and with an external one. It's just a matter of configuration and preference.</p>
 
   <h2><strong>Cloudify &amp; BLU</strong></h2>
 

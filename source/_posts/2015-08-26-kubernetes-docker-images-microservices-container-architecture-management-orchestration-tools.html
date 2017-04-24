@@ -13,11 +13,11 @@ tags:
 
 <notextile>
 
-<img src="http://getcloudify.org/img/blog/kub.png" alt="Kubernetes | Docker | Docker Orchestration | Docker Images | Container Management | Container Orchestration | Microservices">
+<img src="{{ site.baseurl }}/img/blog/kub.png" alt="Kubernetes | Docker | Docker Orchestration | Docker Images | Container Management | Container Orchestration | Microservices">
 <br/>
 <br/>
  
-<p>Cloudify lives at the extreme end of the "unopinionated" spectrum of application orchestration tools.<a href="http://getcloudify.org/2015/06/11/orchestration-docker-cloud-automation-openstack-heat-tosca-kubernetes.html">  Kubernetes</a><a href="http://www.kubernetes.io" target="_blank"> (http://www.kubernetes.io)</a>, on the other hand, is a <a href="http://getcloudify.org/docker-orchestration-docker-container-deployment-cloud.html">container orchestration</a> system that is very opinionated.  For those committed to a container based deployment architecture, it's a great choice, especially for supporting <a href="http://getcloudify.org/2014/12/14/TOSCA-docker-container-orchestration-microservices-architecture-kubernetes.html">microservices</a>, a good reference on this can be found at: <a href="http://martinfowler.com/articles/microservices.html" target="_blank">http://martinfowler.com/articles/microservices.html</a>.</p>
+<p>Cloudify lives at the extreme end of the "unopinionated" spectrum of application orchestration tools.<a href="{{ site.baseurl }}/2015/06/11/orchestration-docker-cloud-automation-openstack-heat-tosca-kubernetes.html">  Kubernetes</a><a href="http://www.kubernetes.io" target="_blank"> (http://www.kubernetes.io)</a>, on the other hand, is a <a href="{{ site.baseurl }}/docker-orchestration-docker-container-deployment-cloud.html">container orchestration</a> system that is very opinionated.  For those committed to a container based deployment architecture, it's a great choice, especially for supporting <a href="{{ site.baseurl }}/2014/12/14/TOSCA-docker-container-orchestration-microservices-architecture-kubernetes.html">microservices</a>, a good reference on this can be found at: <a href="http://martinfowler.com/articles/microservices.html" target="_blank">http://martinfowler.com/articles/microservices.html</a>.</p>
 <p>For those with a heterogenous environment, possibly including Kubernetes, Cloudify 
 
 provides a solution that can orchestrate everything under one umbrella.  (You can also check out the Cloudify team's excellent talk from OpenStack Vancouver 
@@ -28,7 +28,7 @@ maestrong-vs-tosca" target="_blank">just this topic</a>).</p>
 
 <hr>
 <span class="pullquote-left">
-  <font style="font-weight: bold" size="5" face="Baskerville Old Face"><em>Try the Kubernetes Orchestration as a Service Tool today!</em></font>&nbsp; <a class="btn btn-medium btn-theme btn-rounded" id="downloadBtnInner" href="http://getcloudify.org/downloads/get_cloudify.html" target="_blank"><i class="icon-plus"></i> Go </a></span>
+  <font style="font-weight: bold" size="5" face="Baskerville Old Face"><em>Try the Kubernetes Orchestration as a Service Tool today!</em></font>&nbsp; <a class="btn btn-medium btn-theme btn-rounded" id="downloadBtnInner" href="{{ site.baseurl }}/downloads/get_cloudify.html" target="_blank"><i class="icon-plus"></i> Go </a></span>
 <hr>
 
 <p>This post reviews some recent work I've done to provide a means for Cloudify to manage Kubernetes clusters at a high level as part of a heterogenous 
@@ -47,13 +47,13 @@ While this is a valid use case, it was a little too basic for my taste.  So the 
 
 bare VMs in my case).</p>
 
-<p>The approach was to create a <a href="http://getcloudify.org/2015/01/06/cloudify-cloud-open-source-workflow-engine-automation-template-tools-
+<p>The approach was to create a <a href="{{ site.baseurl }}/2015/01/06/cloudify-cloud-open-source-workflow-engine-automation-template-tools-
 
 plugin.html">Cloudify plugin</a> that defined a couple of types that represented the basic components of a Kubernetes cluster: a master node and a minion 
 
 node.  The master host in Kubernetes is equivalent to the manager host in Cloudify.  Minions manage the container lifecycle on hosts across the cluster.  Since 
 
-Google provides handy <a href="http://getcloudify.org/2015/04/26/dockerfile-docker-container-tutorial-images-cloud-vm.html">docker images</a> for the 
+Google provides handy <a href="{{ site.baseurl }}/2015/04/26/dockerfile-docker-container-tutorial-images-cloud-vm.html">docker images</a> for the 
 
 various component services of Kubernetes, I used these and automated Google's instructions for <a 
 
@@ -61,7 +61,7 @@ href="https://github.com/kubernetes/kubernetes/tree/release-1.0/docs/getting-sta
 
 cluster</a>.  
 
-<p>So in a kind of odd twist, Cloudify is orchestrating <a href="http://getcloudify.org/tags/Docker/index.html">docker containers</a> to enable a system that 
+<p>So in a kind of odd twist, Cloudify is orchestrating <a href="{{ site.baseurl }}/tags/Docker/index.html">docker containers</a> to enable a system that 
 
 orchestrates docker containers.  The main difference between Cloudify's "normal" container orchestration and the approach described here, is that each 
 
@@ -78,7 +78,7 @@ apt-get is installed, has internet access, and has passwordless ssh and sudo set
 target="_blank">(http://github.com/dfilppi/cfy3/kub)</a>.</p>
 
 <p>This post was written for release 1.4. Edit the "barevm-blueprint" and put in your IP addresses and ssh info.
-<br/>Install a <a href="http://getcloudify.org/guide/3.2/installation.html">Cloudify CLI</a>, and run:
+<br/>Install a <a href="{{ site.baseurl }}/guide/3.2/installation.html">Cloudify CLI</a>, and run:
 
 <code>cfy local install-plugins -p barevm-blueprint.yaml</code>
 <br/><code>cfy local init -p barevm-blueprint.yaml</code>
@@ -92,7 +92,7 @@ target="_blank">(http://github.com/dfilppi/cfy3/kub)</a>.</p>
 
 bare metal, IP addresses and ports are encoded directly into the blueprint.  Since the Kubernetes cluster is being treated as a separate entity, agentless 
 
-orchestration is used via the <a href="http://getcloudify.org/guide/3.2/plugin-fabric.html">Fabric plugin</a>.  This was deemed appropriate because Kubernetes 
+orchestration is used via the <a href="{{ site.baseurl }}/guide/3.2/plugin-fabric.html">Fabric plugin</a>.  This was deemed appropriate because Kubernetes 
 
 provides its own container management and scaling capabilities.  A nice side effect is that the blueprint can be run easily in <a href="http://cloudify-
 

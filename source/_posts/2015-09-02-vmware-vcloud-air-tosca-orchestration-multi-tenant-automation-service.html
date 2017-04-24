@@ -20,12 +20,12 @@ tags:
 
 <p>We recently announced Cloudify's new <a href="http://www.gigaspaces.com/gigaspaces-works-vmware-deliver-pilot-blueprinting-service-vcloud-air">Orchestration-as-a-Service</a> offering jointly built with VMware, named the vCloud® Air™ Blueprinting Service. In order to create this service, the team was required to add some new functionality, while at the same time cut certain capabilities based on the use case – more about that in an upcoming post.</p>
 
-<p>One of the interesting things about this use case, is that the team needed <a href="http://getcloudify.org">Cloudify</a> to run without utilizing <a href="http://getcloudify.org/guide/3.2/agents-general.html">agents</a> (the software installed on VMs to execute commands), which normally is part of the installation process, and instead used the <a href="http://getcloudify.org/guide/3.2/plugin-fabric.html">Fabric plugin</a> to directly execute commands. This creates an interesting situation that has pluses and minuses, but the best part about the “agentless” installation is that it leaves no footprint on the underlying infrastructure.</p>
+<p>One of the interesting things about this use case, is that the team needed <a href="{{ site.baseurl }}">Cloudify</a> to run without utilizing <a href="{{ site.baseurl }}/guide/3.2/agents-general.html">agents</a> (the software installed on VMs to execute commands), which normally is part of the installation process, and instead used the <a href="{{ site.baseurl }}/guide/3.2/plugin-fabric.html">Fabric plugin</a> to directly execute commands. This creates an interesting situation that has pluses and minuses, but the best part about the “agentless” installation is that it leaves no footprint on the underlying infrastructure.</p>
 
 <hr>
 
 <span class="pullquote-left">
-  <font style="font-weight: bold" size="5" face="Baskerville Old Face"><em>Cloudify orchestration for vCloud Air - free to vCA users as a service.</em></font>&nbsp; <a class="btn btn-medium btn-theme btn-rounded" id="downloadBtnInner" href="http://getcloudify.org/downloads/get_cloudify.html" target="_blank"><i class="icon-plus"></i> Go </a></span>
+  <font style="font-weight: bold" size="5" face="Baskerville Old Face"><em>Cloudify orchestration for vCloud Air - free to vCA users as a service.</em></font>&nbsp; <a class="btn btn-medium btn-theme btn-rounded" id="downloadBtnInner" href="{{ site.baseurl }}/downloads/get_cloudify.html" target="_blank"><i class="icon-plus"></i> Go </a></span>
   
   <hr>
 
@@ -37,7 +37,7 @@ tags:
 
 <h2><b>The Multi</b><b>-</b><b>Tenancy Challenge</b></h2>
 
-<p>Agents share the same manager for multiple deployments and users. In a <a href="http://getcloudify.org/2015/08/28/tosca-vmware-vcloud-vsphere-multi-tenancy-multi-tenant-horizontal-scaling-service-orchestration-engine.html">multi-tenant environment</a> the agent/manager communication needs to isolated per tenant. Agentless deployment obviously makes this go away altogether.</p>
+<p>Agents share the same manager for multiple deployments and users. In a <a href="{{ site.baseurl }}/2015/08/28/tosca-vmware-vcloud-vsphere-multi-tenancy-multi-tenant-horizontal-scaling-service-orchestration-engine.html">multi-tenant environment</a> the agent/manager communication needs to isolated per tenant. Agentless deployment obviously makes this go away altogether.</p>
 
 <h2><b>How Does “Agentless” deployment work?</b></h2>
 
@@ -47,7 +47,7 @@ tags:
 
 <h2><b>“Agentless” Concept Limitation</b></h2>
 
-<p>Cloudify provides lots of official plugins, such as the <a href="http://getcloudify.org/guide/3.2/plugin-diamond.html">diamond plugin</a>, chef (<a href="http://docs.chef.io/">http://docs.chef.io/</a>), puppet (<a href="https://puppetlabs.com/">https://puppetlabs.com/</a>), and others that wouldn’t be available in an agentless installation. This approach also puts specific limitations on users, such as:</p>
+<p>Cloudify provides lots of official plugins, such as the <a href="{{ site.baseurl }}/guide/3.2/plugin-diamond.html">diamond plugin</a>, chef (<a href="http://docs.chef.io/">http://docs.chef.io/</a>), puppet (<a href="https://puppetlabs.com/">https://puppetlabs.com/</a>), and others that wouldn’t be available in an agentless installation. This approach also puts specific limitations on users, such as:</p>
 
 <ul>
   <li>Plugin usage limitation - you can only use plugins that are not dependent on agent presence. </li>

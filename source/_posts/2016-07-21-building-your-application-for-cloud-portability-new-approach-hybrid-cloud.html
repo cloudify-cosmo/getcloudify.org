@@ -21,13 +21,13 @@ tags:
 <p><b></b>
 
 <p>
-    In my previous post, I discussed the differences between <a href="http://getcloudify.org/2016/07/07/achiecing-hybrid-cloud-without-compromising-on-least-common-denominator-tosca-portability.html" target="_blank">hybrid cloud</a> and <a href="http://getcloudify.org/2015/07/08/openstack-aws--tosca-cloud-automation-orchestration-vcloud-blueprint-portability.html" target="_blank">cloud portability</a>, as well as how to achieve true hybrid cloud deployments without compromising on infrastructure API abstraction, by providing several use cases for cloud portability.
+    In my previous post, I discussed the differences between <a href="{{ site.baseurl }}/2016/07/07/achiecing-hybrid-cloud-without-compromising-on-least-common-denominator-tosca-portability.html" target="_blank">hybrid cloud</a> and <a href="{{ site.baseurl }}/2015/07/08/openstack-aws--tosca-cloud-automation-orchestration-vcloud-blueprint-portability.html" target="_blank">cloud portability</a>, as well as how to achieve true hybrid cloud deployments without compromising on infrastructure API abstraction, by providing several use cases for cloud portability.
 </p>
 
 <hr>
 
 <span class="pullquote-left">
-  <font style="font-weight: bold" size="5" face="Baskerville Old Face"><em>True hybrid cloud is achievable. Download the all-new Cloudify 3.4 today!</em></font>  <a class="btn btn-medium btn-theme btn-rounded" id="downloadBtnInner" href="http://getcloudify.org/downloads/get_cloudify.html" target="_blank"><i class="icon-plus"></i> Go </a></span>
+  <font style="font-weight: bold" size="5" face="Baskerville Old Face"><em>True hybrid cloud is achievable. Download the all-new Cloudify 3.4 today!</em></font>  <a class="btn btn-medium btn-theme btn-rounded" id="downloadBtnInner" href="{{ site.baseurl }}/downloads/get_cloudify.html" target="_blank"><i class="icon-plus"></i> Go </a></span>
   
   <hr>
 
@@ -79,7 +79,7 @@ tags:
     In this section, I will refer to this specific project as a means by which to illustrate the principles that I mentioned above in more concrete terms.
 </p>
 <p>
-    Project <a href="http://ariatosca.org/">ARIA</a> is a new Apache-licensed project that provide simple, zero footprint <a href="http://getcloudify.org/2016/07/11/cloudify-3_4-has-dropped-orchestrate-all-clouds-hybrid-enterprise-orchestration-kubernetes-azure-windows-aws-gcp.html" target="_blank">multi-cloud orchestration</a> based on TOSCA. It was built originally as the core orchestration for <a href="http://getcloudify.org/" target="_blank">Cloudify</a> and is now an independent project.
+    Project <a href="http://ariatosca.org/">ARIA</a> is a new Apache-licensed project that provide simple, zero footprint <a href="{{ site.baseurl }}/2016/07/11/cloudify-3_4-has-dropped-orchestrate-all-clouds-hybrid-enterprise-orchestration-kubernetes-azure-windows-aws-gcp.html" target="_blank">multi-cloud orchestration</a> based on TOSCA. It was built originally as the core orchestration for <a href="{{ site.baseurl }}/" target="_blank">Cloudify</a> and is now an independent project.
 </p>
 <p>
     The diagram below provides an inside look at the ARIA architecture.
@@ -104,7 +104,7 @@ tags:
     TOSCA Templating Language vs. API Abstraction
 </h3>
 <p>
-    ARIA utilizes the <a href="http://getcloudify.org/2015/07/21/what-is-TOSCA-cloud-application-orchestration-tutorial-cloudify.html" target="_blank">TOSCA templating language</a> in its <a href="http://docs.getcloudify.org/3.4.0/blueprints/overview/" target="_blank">application blueprints</a> which provides a means for deploying and orchestrating a single application on multiple infrastructures through individual plugins, thereby circumventing the need for a single abstraction layer.
+    ARIA utilizes the <a href="{{ site.baseurl }}/2015/07/21/what-is-TOSCA-cloud-application-orchestration-tutorial-cloudify.html" target="_blank">TOSCA templating language</a> in its <a href="http://docs.getcloudify.org/3.4.0/blueprints/overview/" target="_blank">application blueprints</a> which provides a means for deploying and orchestrating a single application on multiple infrastructures through individual plugins, thereby circumventing the need for a single abstraction layer.
 </p>
 <p>
     Templating languages, such as TOSCA, provide far greater flexibility for abstraction than API abstraction as it allows easy extensibility and customization without the need to develop or change the underlying implementation code. This is done by mapping the underlying cloud API into types and allowing the user to define the way it accesses and uses those types through scripts.

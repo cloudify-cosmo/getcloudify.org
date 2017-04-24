@@ -20,7 +20,7 @@ tags:
 
 <p><b></b></p>
 
-<p>Since we at <a href="http://getcloudify.org/" target="_blank">Cloudify</a> have been working closely with <a href="http://vmware.com/" target="_blank">VMWare</a>, <a href="http://brocade.com/" target="_blank">Brocade</a>, and <a href="http://metaswitch.com/" target="_blank">MetaSwitch</a> for quite some time, it made perfect sense to showcase how the different pieces can be orchestrated together to demonstrate how a single solution stack made of multiple parts comes together.</p>
+<p>Since we at <a href="{{ site.baseurl }}/" target="_blank">Cloudify</a> have been working closely with <a href="http://vmware.com/" target="_blank">VMWare</a>, <a href="http://brocade.com/" target="_blank">Brocade</a>, and <a href="http://metaswitch.com/" target="_blank">MetaSwitch</a> for quite some time, it made perfect sense to showcase how the different pieces can be orchestrated together to demonstrate how a single solution stack made of multiple parts comes together.</p>
 
 <p>We chose to go with Brocade Vyatta as the basis for the vCPE VNF for connecting multiple branch offices and allowing for chaining additional services on the cloud. We chose Metaswitch SBC to allow the customer to utilize existing on-premise PBX assets while enabling connectivity across branches and to external PBXs managed by a cloud based Session Border Controller.</p>
 
@@ -28,7 +28,7 @@ tags:
 <hr>
 
 <span class="pullquote-left">
-  <font style="font-weight: bold" size="5" face="Baskerville Old Face"><em>Set a meeting with us at Mobile World Congress</em></font>&nbsp; <a class="btn btn-medium btn-theme btn-rounded" id="downloadBtnInner" href="http://getcloudify.org/meeting.html" target="_blank"><i class="icon-plus"></i> Go </a></span>
+  <font style="font-weight: bold" size="5" face="Baskerville Old Face"><em>Set a meeting with us at Mobile World Congress</em></font>&nbsp; <a class="btn btn-medium btn-theme btn-rounded" id="downloadBtnInner" href="{{ site.baseurl }}/meeting.html" target="_blank"><i class="icon-plus"></i> Go </a></span>
   
   <hr>
 
@@ -36,7 +36,7 @@ tags:
 <br>
 <div class="aligncenter"><img src="/img/blog/vyatta_deploy.png" width="600"></div>
 <br/>
-<p>Cloudify serves as both the <a href="http://getcloudify.org/whitepapers/intro-to-cloudify.html" target="_blank">orchestrator</a> and <a href="http://getcloudify.org/from-virtual-appliance-to-cloud-native-vnf-whitepaper.html" target="_blank">VNF Manager</a> (VNFM) for these VNFs. Cloudify provides not only the power of <a href="http://getcloudify.org/webinars/tosca-training-videos.html#register" target="_blank">TOSCA</a> and open standards, but is also tightly integrated with the entire <a href="http://getcloudify.org/vmware-hybrid-cloud.html" target="_blank">VMWare NFV stack</a>, including plugin support for vCloud, vSphere, NSX and a <a href="http://getcloudify.org/2016/11/15/closed-loop-monitoring-alerting-healing-cloudify-vmware-vrealize-operations-integration.html" target="_blank">management pack for VROPS</a>.</p>
+<p>Cloudify serves as both the <a href="{{ site.baseurl }}/whitepapers/intro-to-cloudify.html" target="_blank">orchestrator</a> and <a href="{{ site.baseurl }}/from-virtual-appliance-to-cloud-native-vnf-whitepaper.html" target="_blank">VNF Manager</a> (VNFM) for these VNFs. Cloudify provides not only the power of <a href="{{ site.baseurl }}/webinars/tosca-training-videos.html#register" target="_blank">TOSCA</a> and open standards, but is also tightly integrated with the entire <a href="{{ site.baseurl }}/vmware-hybrid-cloud.html" target="_blank">VMWare NFV stack</a>, including plugin support for vCloud, vSphere, NSX and a <a href="{{ site.baseurl }}/2016/11/15/closed-loop-monitoring-alerting-healing-cloudify-vmware-vrealize-operations-integration.html" target="_blank">management pack for VROPS</a>.</p>
 
 <p>In this post, I will focus on the experience I had with the onboarding of the Brocade Vyatta VNF and how to configure a Site to Site IPSec tunnel overlay between two Vyatta VNFs.</p>
 
@@ -50,7 +50,7 @@ tags:
 <br>
 <div class="aligncenter"><img src="/img/blog/vyatta_bp.png" width="600"></div>
 <br/>
-<p>However, on second thought, I remembered these Vyatta devices supported <a href="http://getcloudify.org/2016/02/17/mwc-cloud-sdn-mano-nfv-netconf-yang-tosca-vnf-openstack.html" target="_blank">Netconf</a> and we have already had some basic example of how to use our Netconf plugin with Vyatta to establish an <a href="https://github.com/cloudify-cosmo/cloudify-netconf-plugin/blob/master/blueprint_examples/vpn-yatta.yaml" target="_blank">OpenVPN tunnel</a>.</p>
+<p>However, on second thought, I remembered these Vyatta devices supported <a href="{{ site.baseurl }}/2016/02/17/mwc-cloud-sdn-mano-nfv-netconf-yang-tosca-vnf-openstack.html" target="_blank">Netconf</a> and we have already had some basic example of how to use our Netconf plugin with Vyatta to establish an <a href="https://github.com/cloudify-cosmo/cloudify-netconf-plugin/blob/master/blueprint_examples/vpn-yatta.yaml" target="_blank">OpenVPN tunnel</a>.</p>
 
 <p>I decided to explore this route and focus on adding the VPN overlay using Netconf. I found an article explaining how to manually establish Site-Site VPN and opened the Vyatta YANG models to match the configuration described in the article with that model.</p>
 
@@ -71,7 +71,7 @@ tags:
 <li>A generic Netconf plugin utilizing the existing YANG models that are supported by the device itself.</li>
 </ul>
 
-<p>I see pros and cons with both approaches, but my personal choice from now on would be that if the VNF does not have a pre-built plugin, and Netconf is supported with published <a href="http://getcloudify.org/2015/01/07/VNF-network-function-virtualization-netconf-yang-NFV.html" target="_blank">YANG</a> models for it, I would choose the Netconf path.</p>
+<p>I see pros and cons with both approaches, but my personal choice from now on would be that if the VNF does not have a pre-built plugin, and Netconf is supported with published <a href="{{ site.baseurl }}/2015/01/07/VNF-network-function-virtualization-netconf-yang-NFV.html" target="_blank">YANG</a> models for it, I would choose the Netconf path.</p>
 
 <p>Below is a detailed view of the architecture of the service provider network connected to the customer premises.</p>
 <br>

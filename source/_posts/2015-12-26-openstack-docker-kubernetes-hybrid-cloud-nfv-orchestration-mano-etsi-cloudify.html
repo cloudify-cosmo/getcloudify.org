@@ -36,7 +36,7 @@ tags:
 <hr>
 
 <span class="pullquote-left">
-  <font style="font-weight: bold" size="5" face="Baskerville Old Face"><em>Cloudify 3.3 has landed - and it's awesome.</em></font>&nbsp; <a class="btn btn-medium btn-theme btn-rounded" id="downloadBtnInner" href="http://getcloudify.org/downloads/get_cloudify.html" target="_blank"><i class="icon-plus"></i> Get it! </a></span>
+  <font style="font-weight: bold" size="5" face="Baskerville Old Face"><em>Cloudify 3.3 has landed - and it's awesome.</em></font>&nbsp; <a class="btn btn-medium btn-theme btn-rounded" id="downloadBtnInner" href="{{ site.baseurl }}/downloads/get_cloudify.html" target="_blank"><i class="icon-plus"></i> Get it! </a></span>
   
   <hr>
 
@@ -45,7 +45,7 @@ tags:
 
 <p>Before I jump into 2016 predictions let me start with a quick recap from my previous <a href="http://cloud-computing.tmcnet.com/columns/articles/402358-what-expect-from-openstack.htm">2015 predictions</a>.</p>
 
-<p>My first prediction was that one of the core services in <a href="http://getcloudify.org/openstack-architecture-cloudify.html">OpenStack </a>(and any cloud), the compute service will go through a massive transformation from being hypervisor-centric to a shift into the container/bare metal combo.</p>
+<p>My first prediction was that one of the core services in <a href="{{ site.baseurl }}/openstack-architecture-cloudify.html">OpenStack </a>(and any cloud), the compute service will go through a massive transformation from being hypervisor-centric to a shift into the container/bare metal combo.</p>
 
 <p>Indeed, according to the <a href="https://drive.google.com/file/d/0B4vq3W3Lm2-4RWszZlBqVmxfWWs/view">latest OpenStack user survey</a> a total of 31% are using a combination of bare metal, LXC and containers. That move became the main news for the OpenStack Tokyo summit, i.e. the fact that OpenStack can support all kinds of flavors of compute resources is clearly one of the biggest differentiators in the cloud space. This also fits well with Rob Whiteley's, VP of Marketing at Hedvig, <a href="http://www.hedviginc.com/blog/four-predictions-for-openstack-in-2016">2016 predictions</a> which anticipate that Docker will become the #2 hypervisor in OpenStack.</p>
 
@@ -93,7 +93,7 @@ tags:
 
 <h4><span style="font-weight: bold">Prediction 2 - The rise of new OpenStack platforms which use OpenStack as a universal abstraction on other private/public clouds</span></h4>
 
-<p><a href="http://getcloudify.org/vmware-hybrid-cloud.html">VMware</a> has announced its support for OpenStack with VIO. The interesting thing about VIO is that it uses OpenStack as an abstraction layer on top of the traditional VMware stack, and thus allows VMware users to move to OpenStack while leveraging maturity of the VMware infrastructure. It will also allow those users to leverage their existing VMware skill set and this makes the transition to OpenStack from VMware a simpler task.</p>
+<p><a href="{{ site.baseurl }}/vmware-hybrid-cloud.html">VMware</a> has announced its support for OpenStack with VIO. The interesting thing about VIO is that it uses OpenStack as an abstraction layer on top of the traditional VMware stack, and thus allows VMware users to move to OpenStack while leveraging maturity of the VMware infrastructure. It will also allow those users to leverage their existing VMware skill set and this makes the transition to OpenStack from VMware a simpler task.</p>
 
 <p><a href="http://platform9.com/">Platform 9</a> is a new and promising startup that offers an OpenStack service on top of Amazon, or any other cloud resources. What’s interesting about the Platform 9 approach is that it also reduces the barrier for running OpenStack significantly, and in addition, it leverages the maturity and cost benefit of other clouds such as AWS, GCE, VMware as the underlying cloud resources, and thus uses OpenStack as a universal abstraction for all those clouds.</p>
 
@@ -103,15 +103,15 @@ tags:
 
 <p>Another interesting observation about this list is that none of these projects is part of the OpenStack distribution. One possible explanation for the latter is that users tend to decouple their application platform from that of the infrastructure.</p>
 
-<p>I expect that in 2016, all of the application platforms will have support for containers and Kubernetes. I also expect that Kubernetes will take a clear lead in this category. <a href="http://getcloudify.org/2015/06/11/orchestration-docker-cloud-automation-openstack-heat-tosca-kubernetes.html">Mesos and Kubernetes</a> have largely been considered complementary to one another so far. I expect that as the two platforms continue to grow up the stack the level of overlap between the two platforms will make them more competing alternatives than complementary ones. The uncertainty around Pivotal due to the Dell/EMC deal, along with the rise of Docker/Kubernetes will be the catalyst for a swift takeover of the adoption of Pivotal/CloudFoundry. I believe OpenShift is in a better position in this regard as it has already made moves to align itself with Kubernetes. Having said that, it remains to be seen whether the additional added value that OpenShift covers on top of Kubernetes is worth the risk of adding another layer of abstraction.</p>
+<p>I expect that in 2016, all of the application platforms will have support for containers and Kubernetes. I also expect that Kubernetes will take a clear lead in this category. <a href="{{ site.baseurl }}/2015/06/11/orchestration-docker-cloud-automation-openstack-heat-tosca-kubernetes.html">Mesos and Kubernetes</a> have largely been considered complementary to one another so far. I expect that as the two platforms continue to grow up the stack the level of overlap between the two platforms will make them more competing alternatives than complementary ones. The uncertainty around Pivotal due to the Dell/EMC deal, along with the rise of Docker/Kubernetes will be the catalyst for a swift takeover of the adoption of Pivotal/CloudFoundry. I believe OpenShift is in a better position in this regard as it has already made moves to align itself with Kubernetes. Having said that, it remains to be seen whether the additional added value that OpenShift covers on top of Kubernetes is worth the risk of adding another layer of abstraction.</p>
 
-<p>While we can see clear indications for widespread adoption of containers, I expect that the transition to a fully containerized world will take good couple of years, and even more so for microservices.&#160; I, therefore expect that in 2016 most of the deployments won’t be able to run the entire workload in microservices/Kubernetes style and would therefore, end up with a mixed workload environment. A good example for this is the use of Kubernetes as a deployment target for microservices and other orchestrations for running the database, big data, event processing and more complex workloads. Cloudify and OpenStack/Magnum are being positioned as the integration platforms that will allow the gluing of these different kinds of tools and workloads together as mentioned in this post <a href="http://getcloudify.org/2015/10/26/openstack-tokyo-summit-kubernetes-cloudify-tosca-nfv-orchestration-microservices.html.">Cloudify Meets Kubernetes</a></p>
+<p>While we can see clear indications for widespread adoption of containers, I expect that the transition to a fully containerized world will take good couple of years, and even more so for microservices.&#160; I, therefore expect that in 2016 most of the deployments won’t be able to run the entire workload in microservices/Kubernetes style and would therefore, end up with a mixed workload environment. A good example for this is the use of Kubernetes as a deployment target for microservices and other orchestrations for running the database, big data, event processing and more complex workloads. Cloudify and OpenStack/Magnum are being positioned as the integration platforms that will allow the gluing of these different kinds of tools and workloads together as mentioned in this post <a href="{{ site.baseurl }}/2015/10/26/openstack-tokyo-summit-kubernetes-cloudify-tosca-nfv-orchestration-microservices.html.">Cloudify Meets Kubernetes</a></p>
 
-<p><a href="http://getcloudify.org/2015/10/26/openstack-tokyo-summit-kubernetes-cloudify-tosca-nfv-orchestration-microservices.html."><img alt="" src="https://lh6.googleusercontent.com/RprADz8n8QdwHkxEjtrtWOQ0Uoywi7Z0qyFBp940tjMlopTiePHrR82-DpBq0J2z6YDiQR3JvXQAxhYbPVQm1PFEz83E8QzPFkjzv57_UpUwT5ln5DMjrwyLAFIXgb5cXCnJSvdvCXheiwAy" width="624" height="453" /></a></p>
+<p><a href="{{ site.baseurl }}/2015/10/26/openstack-tokyo-summit-kubernetes-cloudify-tosca-nfv-orchestration-microservices.html."><img alt="" src="https://lh6.googleusercontent.com/RprADz8n8QdwHkxEjtrtWOQ0Uoywi7Z0qyFBp940tjMlopTiePHrR82-DpBq0J2z6YDiQR3JvXQAxhYbPVQm1PFEz83E8QzPFkjzv57_UpUwT5ln5DMjrwyLAFIXgb5cXCnJSvdvCXheiwAy" width="624" height="453" /></a></p>
 
 <h4><span style="font-weight: bold">Prediction 4: Telecom companies are going to lead the adoption of OpenStack simply because they have no other choice.</span></h4>
 
-<p>While the case for OpenStack ROI in the enterprise domain is being challenged by public clouds for telecoms, OpenStack is probably the only possible option as they are in direct competition with many of the public cloud providers. That’s why we're seeing a significant rise of <a href="http://getcloudify.org/network-function-virtualization-vnf-nfv-orchestration-sdn-platform.html">Network Function Virtualization</a> among OpenStack users as noted in the graph below:</p>
+<p>While the case for OpenStack ROI in the enterprise domain is being challenged by public clouds for telecoms, OpenStack is probably the only possible option as they are in direct competition with many of the public cloud providers. That’s why we're seeing a significant rise of <a href="{{ site.baseurl }}/network-function-virtualization-vnf-nfv-orchestration-sdn-platform.html">Network Function Virtualization</a> among OpenStack users as noted in the graph below:</p>
 
 <p><img alt="" src="https://lh5.googleusercontent.com/SmEpJt5TrpfBoVJ7hUiS8xrnxY5dYnmnmwRE912JU7bnNamXcVT39Xj4SdinGKRoOLGq66Vcc6xvoTX0xMn6KfgjQ8KIqJyr__qYzyHzUgWaULcB4i8iR1HkJg29UFFAUauDAvnFjPAzYlaC" width="624" height="243" /></p>
 
@@ -119,7 +119,7 @@ tags:
 
 <h4><span style="font-weight: bold">Prediction 5: 2nd generation of OpenStack? Using Docker natively with OpenStack will require more fundamental changes in the OpenStack core. </span></h4>
 
-<p>The approach for integrating <a href="http://getcloudify.org/2014/11/14/openstack-docker-orchestration.html">Docker</a> into OpenStack so far included the addition of Docker as a compute node, as well as adding support for the layers up the stack such as Kubernetes, Mesos using Magnum.</p>
+<p>The approach for integrating <a href="{{ site.baseurl }}/2014/11/14/openstack-docker-orchestration.html">Docker</a> into OpenStack so far included the addition of Docker as a compute node, as well as adding support for the layers up the stack such as Kubernetes, Mesos using Magnum.</p>
 
 <p>While this seem to be the right first step, it misses some of the fundamental values of containers which offer a complete alternative compute, network and storage stack.</p>
 
@@ -131,7 +131,7 @@ tags:
 
 <p>In reality however, OpenStack is always used in conjunction with other clouds, the most popular one being VMware on the private side, and AWS on the public cloud front.</p>
 
-<p>Having said that, most users have taken a fairly loose approach toward <a href="http://getcloudify.org/2015/08/27/vmware-openstack-orchestration-tosca-containers-kubernetes-architecture.html">hybrid cloud</a> in which they were operating OpenStack, VMware or Amazon completely differently with very little integration between the two environments. Part of the reason for that approach was that in reality building a hybrid cloud deployment was fairly hard.</p>
+<p>Having said that, most users have taken a fairly loose approach toward <a href="{{ site.baseurl }}/2015/08/27/vmware-openstack-orchestration-tosca-containers-kubernetes-architecture.html">hybrid cloud</a> in which they were operating OpenStack, VMware or Amazon completely differently with very little integration between the two environments. Part of the reason for that approach was that in reality building a hybrid cloud deployment was fairly hard.</p>
 
 <p>There are three things that change this:</p>
 

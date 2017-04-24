@@ -19,12 +19,12 @@ tags:
 <br/>
 <br/>
 
-<p><span style="font-weight: 400;">The most important use cases for <a href="http://getcloudify.org/" target="_blank">Cloudify orchestration</a> come from the work we do with service providers and clients to ensure their goals are achieved. This post will delve into one such use case that covers the deployment of complex VNFs on top of <a href="http://getcloudify.org/2014/07/10/what-is-openstack-tutorial.html" target="_blank">OpenStack</a> compute nodes running on an Ethernet Demarcation Device (EDD), in this example, <a href="http://www.rad.com/10/Basic-Ethernet-Demarcation-Devices/2281/" target="_blank">ETX hardware</a> from Rad.</span></p>
+<p><span style="font-weight: 400;">The most important use cases for <a href="{{ site.baseurl }}/" target="_blank">Cloudify orchestration</a> come from the work we do with service providers and clients to ensure their goals are achieved. This post will delve into one such use case that covers the deployment of complex VNFs on top of <a href="{{ site.baseurl }}/2014/07/10/what-is-openstack-tutorial.html" target="_blank">OpenStack</a> compute nodes running on an Ethernet Demarcation Device (EDD), in this example, <a href="http://www.rad.com/10/Basic-Ethernet-Demarcation-Devices/2281/" target="_blank">ETX hardware</a> from Rad.</span></p>
 
   <hr>
 
 <span class="pullquote-left">
-  <font style="font-weight: bold" size="5" face="Baskerville Old Face"><em>Get our whitepaper - From Virtual Appliance to Cloud Native VNF. </em></font>&nbsp; <a class="btn btn-medium btn-theme btn-rounded" id="downloadBtnInner" href="http://getcloudify.org/from-virtual-appliance-to-cloud-native-vnf-whitepaper.html" target="_blank"><i class="icon-plus"></i> DOWNLOAD </a></span>
+  <font style="font-weight: bold" size="5" face="Baskerville Old Face"><em>Get our whitepaper - From Virtual Appliance to Cloud Native VNF. </em></font>&nbsp; <a class="btn btn-medium btn-theme btn-rounded" id="downloadBtnInner" href="{{ site.baseurl }}/from-virtual-appliance-to-cloud-native-vnf-whitepaper.html" target="_blank"><i class="icon-plus"></i> DOWNLOAD </a></span>
   
   <hr>
 
@@ -36,7 +36,7 @@ tags:
 <h2><strong>From Physical Appliance to Virtual Network Function</strong></h2>
 <p><span style="font-weight: 400;">The next step in the process is to configure all of these network services. The &ldquo;old&rdquo; method, still mainstream, is to use physical boxes, or appliances, for each network function such as a firewall or router. This is much more complex and expensive, especially when you need to add more boxes and scale.</span></p>
 
-<p><span style="font-weight: 400;">To make this more cost effective, many of the physical boxes have been virtualized into software applications (vRouter, vFirewall, etc) that can be run on much cheaper commodity hardware. This type of application is called a <a href="http://getcloudify.org/2015/03/22/mobile-world-congress-nfv-sdn-network-orchestration-automation.html" target="_blank">Virtual Network Function</a>, or VNF. When you need to scale, you can simply use software methods to add more virtual machines without spending money on more physical boxes.</span></p>
+<p><span style="font-weight: 400;">To make this more cost effective, many of the physical boxes have been virtualized into software applications (vRouter, vFirewall, etc) that can be run on much cheaper commodity hardware. This type of application is called a <a href="{{ site.baseurl }}/2015/03/22/mobile-world-congress-nfv-sdn-network-orchestration-automation.html" target="_blank">Virtual Network Function</a>, or VNF. When you need to scale, you can simply use software methods to add more virtual machines without spending money on more physical boxes.</span></p>
 
 <p><span style="font-weight: 400;">The service provider has now decided on the various networks and applications it requires for its offices and has purchased the VNFs to be used for those purposes. Naturally, with many different offices in a building, you now have a lot of configuration to do for each office. Needless to say that separation and isolation of resources are key aspects in these cases, which means (for example) that users from one office must not be able to view and certainly not access nor use other office&rsquo;s resources.</span></p>
 <p><span style="font-weight: 400;">So, in order to automate the process of deploying and managing, configuring, monitoring, scaling and healing these VNFs from one place, the owner of such environment (for example: an SP = Service Provider) needs a management and orchestration platform/tool.</span></p>
@@ -47,12 +47,12 @@ tags:
 
 <h2><strong>Orchestrating VNFs with Cloudify and OpenStack </strong></h2>
 
-<p><span style="font-weight: 400;">One way of <a href="http://getcloudify.org/2016/02/25/mwc-mobile-world-congress-cloud-nfv-orchestration-ims-vmware-vim-vnf-network-automation.html" target="_blank">deploying VNFs</a> onto the EDD hardware, requires a cloud software to be a middle layer. So in this case, the ETX device has an OpenStack Compute node running on it, which is connected to an OpenStack Controller which is deployed (once) in one of the data centers of the SP.</span></p>
+<p><span style="font-weight: 400;">One way of <a href="{{ site.baseurl }}/2016/02/25/mwc-mobile-world-congress-cloud-nfv-orchestration-ims-vmware-vim-vnf-network-automation.html" target="_blank">deploying VNFs</a> onto the EDD hardware, requires a cloud software to be a middle layer. So in this case, the ETX device has an OpenStack Compute node running on it, which is connected to an OpenStack Controller which is deployed (once) in one of the data centers of the SP.</span></p>
 
 <p><span style="font-weight: 400;">Cloudify comes with a built-in, out-of-the-box <a href="http://docs.getcloudify.org/3.4.0/plugins/openstack/" target="_blank">OpenStack plugin</a> and thus it can interact with the owner&rsquo;s OpenStack account (instance). </span></p>
 <p><span style="font-weight: 400;">Users can then use Cloudify to deploy and configure the necessary VMs and orchestrate the required VNFs (Fortigate, Vyatta, vRouter, etc) based on the offices&rsquo; needs.</span></p>
 
-<p><span style="font-weight: 400;">Many <a href="http://getcloudify.org/cloud-native-vnf.html" target="_blank">VNF vendors</a> enable their VNFs to provide SNMP (Simple Network Management Protocol) metrics, so in our case, we&rsquo;ve implemented an SNMP proxy and deployed it in a data center of the owner of the system (e.g. the SP). </span></p>
+<p><span style="font-weight: 400;">Many <a href="{{ site.baseurl }}/cloud-native-vnf.html" target="_blank">VNF vendors</a> enable their VNFs to provide SNMP (Simple Network Management Protocol) metrics, so in our case, we&rsquo;ve implemented an SNMP proxy and deployed it in a data center of the owner of the system (e.g. the SP). </span></p>
 <p><span style="font-weight: 400;">This SNMP proxy collects the metrics from the various VNFs and pushes these metrics to <a href="http://docs.getcloudify.org/3.4.0/intro/cloudify-manager/" target="_blank">Cloudify Manager</a> (which is also deployed in a data centers of the owner).</span></p>
 
 <p><span style="font-weight: 400;">These metrics are then displayed in the Cloudify Web UI and can be used to trigger actions (such as scaling, healing etc) upon occurrence of specific events (such as high CPU usage, insufficient amount of available memory, high traffic etc.)</span></p>

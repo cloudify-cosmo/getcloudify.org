@@ -19,21 +19,21 @@ tags:
 <br/>
 
 <h2>Hackathon Goals: Shared Library of VNFs for Onboarding</h2>
-<p>At <a href="http://getcloudify.org/tags/MWC/index.html" target="_blank">Mobile World Congress</a> 2017 in Barcelona, VMWare, Intel, and <a href="http://getcloudify.org" target="_blank">Cloudify</a> hosted the first ever open <a href="http://getcloudify.org/2017/02/22/orchestrating-brocade-vcpe-metaswitchsbc-vnfs-vmware-cloudify.html" target="_blank">VNF onboarding</a> hackathon. The main goal of this event was to demonstrate the ease with which virtual network functions (VNF) onboarding can be done. We were very pleased by the turnout, with around 30 of the most innovative VNF solution providers as well as integrators taking part.</p>
+<p>At <a href="{{ site.baseurl }}/tags/MWC/index.html" target="_blank">Mobile World Congress</a> 2017 in Barcelona, VMWare, Intel, and <a href="{{ site.baseurl }}" target="_blank">Cloudify</a> hosted the first ever open <a href="{{ site.baseurl }}/2017/02/22/orchestrating-brocade-vcpe-metaswitchsbc-vnfs-vmware-cloudify.html" target="_blank">VNF onboarding</a> hackathon. The main goal of this event was to demonstrate the ease with which virtual network functions (VNF) onboarding can be done. We were very pleased by the turnout, with around 30 of the most innovative VNF solution providers as well as integrators taking part.</p>
 
 <p>The current VNF onboarding process is quite labor intensive and requires deep understanding of the orchestrator language as well as the underlying infrastructure (VIMs such as Openstack, vCloud Director, VIO, etc.) it is being deployed on.</p>
 <hr>
 
 <span class="pullquote-left">
-  <font style="font-weight: bold" size="5" face="Baskerville Old Face"><em>Read the vCPE/SD-WAN Orchestration White Paper.&nbsp;</em></font>  <a class="btn btn-medium btn-theme btn-rounded" id="downloadBtnInner" href="http://getcloudify.org/whitepapers/vcpe-sdwan-network-orchestration.html?utm_campaign=vcpe%20white%20paper&utm_source=website_blogs_jh" target="_blank"><i class="icon-plus"></i> Go </a></span>
+  <font style="font-weight: bold" size="5" face="Baskerville Old Face"><em>Read the vCPE/SD-WAN Orchestration White Paper.&nbsp;</em></font>  <a class="btn btn-medium btn-theme btn-rounded" id="downloadBtnInner" href="{{ site.baseurl }}/whitepapers/vcpe-sdwan-network-orchestration.html?utm_campaign=vcpe%20white%20paper&utm_source=website_blogs_jh" target="_blank"><i class="icon-plus"></i> Go </a></span>
   
   <hr>
 
-<p>With this hackathon, we wanted to propose a simpler way to onboard network functions with <a href="http://getcloudify.org/2016/05/12/making-tosca-truly-portable-openstack-cloud-nfv-open-source-orchestration.html" target="_blank">TOSCA</a> as a common standard language for VNF definition, including advanced life-cycle events and the ability to compose multiple VNF definitions into a service chain. This cuts down the time required for a VNF vendor to take virtualized software and make it cloud native VNF ready.</p>
+<p>With this hackathon, we wanted to propose a simpler way to onboard network functions with <a href="{{ site.baseurl }}/2016/05/12/making-tosca-truly-portable-openstack-cloud-nfv-open-source-orchestration.html" target="_blank">TOSCA</a> as a common standard language for VNF definition, including advanced life-cycle events and the ability to compose multiple VNF definitions into a service chain. This cuts down the time required for a VNF vendor to take virtualized software and make it cloud native VNF ready.</p>
 
 <p>The ultimate goal is to create a shared common library of VNF definitions where vendors can add their VNF and operators can make use of any vendors&rsquo; VNFs. Utilizing the TOSCA standard, users create an agnostic definition that runs on any VIM and offers a standard way to take any existing virtualized function (VF) and onboard it.</p>
 
-<p>Cloudify is used as a TOSCA compliant parser as well as workflow execution engine to <a href="http://getcloudify.org/2016/11/17/open-source-orchestration-management-complex-vnfs-using-openstack-controller-edd-devices.html" target="_blank">deploy VNFs</a>.</p>
+<p>Cloudify is used as a TOSCA compliant parser as well as workflow execution engine to <a href="{{ site.baseurl }}/2016/11/17/open-source-orchestration-management-complex-vnfs-using-openstack-controller-edd-devices.html" target="_blank">deploy VNFs</a>.</p>
 
 <h2>Blueprint Generator</h2>
 <p>The hackathon demo came with a wizard the team created, together with VMware and Intel, to define the VNF type and specify its image and requirements, like memory and disk storage, as depicted in Figure 1.</p>

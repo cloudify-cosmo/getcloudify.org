@@ -12,16 +12,16 @@ tags:
 ---
 
 <notextile>
-<img src="http://getcloudify.org/img/blog/openstackheat.png" alt="OpenStack Vancouver Summit | Cloud Application Orchestration | OpenStack Heat | OpenStack Orchestration | Cloud Automation | Auto-Scaling">
+<img src="{{ site.baseurl }}/img/blog/openstackheat.png" alt="OpenStack Vancouver Summit | Cloud Application Orchestration | OpenStack Heat | OpenStack Orchestration | Cloud Automation | Auto-Scaling">
 <br/>
 <br/>
-<p>This is the second part of our Orchestration tool comparison. You can find part I <a href="http://getcloudify.org/2015/05/20/openstack-summit-vancouver-cloud-network-orchestration-automation-heat-scaling.html" target="_blank">here</a>.</p>
+<p>This is the second part of our Orchestration tool comparison. You can find part I <a href="{{ site.baseurl }}/2015/05/20/openstack-summit-vancouver-cloud-network-orchestration-automation-heat-scaling.html" target="_blank">here</a>.</p>
 <p><i><b>PLEASE NOTE: This blog post does not offer a fully working example of auto-scaling with TOSCA & Cloudify, only a theoretical example of how it would work. We hope to have a working example in the near future.</b></i></p>
 <p style="line-height: 1.38; margin-top: 0pt; margin-bottom: 0pt;"
  dir="ltr"><span
  >This
 section assumes basic knowledge of Cloudify and </span><a
- href="http://getcloudify.org/openstack-architecture-cloudify.html#TOSCA" target="_blank"
+ href="{{ site.baseurl }}/openstack-architecture-cloudify.html#TOSCA" target="_blank"
  style="text-decoration: none;"><span
  >TOSCA</span></a><span
  >.
@@ -44,7 +44,7 @@ following links to help you understand what they’re all about:</span></p>
  dir="ltr">
     <p
  style="line-height: 1.38; margin-top: 0pt; margin-bottom: 0pt;"
- dir="ltr"><a href="http://getcloudify.org/" target="_blank"
+ dir="ltr"><a href="{{ site.baseurl }}/" target="_blank"
  style="text-decoration: none;"><span
  >Cloudify</span></a></p>
   </li>
@@ -67,7 +67,7 @@ behind it.</span></p>
 <hr>
 
 <span class="pullquote-left">
-  <font style="font-weight: bold" size="5" face="Baskerville Old Face"><em>OpenStack Orchestration made easy with Cloudify. Get it now.</em></font>&nbsp; <a class="btn btn-medium btn-theme btn-rounded" id="downloadBtnInner" href="http://getcloudify.org/downloads/get_cloudify.html" target="_blank"><i class="icon-plus"></i> Go </a></span>
+  <font style="font-weight: bold" size="5" face="Baskerville Old Face"><em>OpenStack Orchestration made easy with Cloudify. Get it now.</em></font>&nbsp; <a class="btn btn-medium btn-theme btn-rounded" id="downloadBtnInner" href="{{ site.baseurl }}/downloads/get_cloudify.html" target="_blank"><i class="icon-plus"></i> Go </a></span>
   
 <hr>
 
@@ -128,7 +128,7 @@ will prove very important to us later on.</span></p>
 again, let’s dive right in to an example. We will try to adapt the same
 use case from before, auto-scaling a Wordpress server that connects to
 a static and shared MariaDB instance, to be written in </span><a
- href="http://getcloudify.org/guide/3.2/dsl-spec-general.html" target="_blank"
+ href="{{ site.baseurl }}/guide/3.2/dsl-spec-general.html" target="_blank"
  style="text-decoration: none;"><span
  >TOSCA</span></a><span
  >
@@ -217,7 +217,7 @@ capabilities. We can see that the </span><span
  >cloudify.interfaces.monitoring_agent</span><span
  >
 takes care of installing a monitoring agent called </span><a
- href="http://getcloudify.org/guide/3.2/plugin-diamond.html" target="_blank"
+ href="{{ site.baseurl }}/guide/3.2/plugin-diamond.html" target="_blank"
  style="text-decoration: none;"><span
  >Diamond</span></a><span
  >,
@@ -226,7 +226,7 @@ and the </span><span
  >
 configures the agent with various collectors that gather data from the
 host. Remember that with </span><a
- href="http://getcloudify.org/openstack-architecture-cloudify.html#Heat" target="_blank"
+ href="{{ site.baseurl }}/openstack-architecture-cloudify.html#Heat" target="_blank"
  style="text-decoration: none;"><span
  >OpenStack
 Heat</span></a><span
@@ -269,12 +269,12 @@ intelligent application specific scaling.</span></p>
  >Now
 we want to understand exactly what the scaling process will do. In
 Cloudify, every process is thought of as a </span><a
- href="http://getcloudify.org/guide/3.2/workflows-general.html" target="_blank"
+ href="{{ site.baseurl }}/guide/3.2/workflows-general.html" target="_blank"
  style="text-decoration: none;"><span
  >workflow</span></a><span
  >
 (to learn more about this you can read this post “</span><a
- href="http://getcloudify.org/2015/04/02/what-is-workflow-software-automation-engine-open-source.html" target="_blank"
+ href="{{ site.baseurl }}/2015/04/02/what-is-workflow-software-automation-engine-open-source.html" target="_blank"
  style="text-decoration: none;"><span
  >What
 is a Workflow?</span></a><span
@@ -295,7 +295,7 @@ workflow definition itself is part of the template:</span></p>
  dir="ltr"><span
  >And
 the workflow code is a python method written with the </span><a
- href="http://getcloudify.org/guide/3.2/workflows-authoring.html" target="_blank"
+ href="{{ site.baseurl }}/guide/3.2/workflows-authoring.html" target="_blank"
  style="text-decoration: none;"><span
  >Cloudify
 Workflow API</span></a><span
@@ -316,7 +316,7 @@ implements the lifecycle operations differently, and these are what
 embody the difference between scaling a MariaDB instance or a Wordpress
 instance. But the process remains the same. Also, because this is all
 part of the template itself, and not part of the </span><a
- href="http://getcloudify.org/2015/04/17/open-source-docker-orchestration-automation-management-workflow-engine-software.html" target="_blank"
+ href="{{ site.baseurl }}/2015/04/17/open-source-docker-orchestration-automation-management-workflow-engine-software.html" target="_blank"
  style="text-decoration: none;"><span
  >workflow
 engine</span></a><span
@@ -417,7 +417,7 @@ like:</span></p>
  dir="ltr"><span
  >This
 is of course also available via </span><a
- href="http://getcloudify.org/guide/3.2/rest-api/index.html" target="_blank"
+ href="{{ site.baseurl }}/guide/3.2/rest-api/index.html" target="_blank"
  style="text-decoration: none;"><span
  >REST
 API</span></a><span
@@ -447,7 +447,7 @@ covers pretty much all there currently is.</span></p>
  dir="ltr"><span
  >The
 first method was done using the native </span><a
- href="http://getcloudify.org/openstack-architecture-cloudify.html" target="_blank"
+ href="{{ site.baseurl }}/openstack-architecture-cloudify.html" target="_blank"
  style="text-decoration: none;"><span
  >OpenStack
 orchestration</span></a><span
@@ -465,7 +465,7 @@ for the most common ones. </span></p>
  dir="ltr"><span
  >The
 second way was by using an </span><a
- href="http://getcloudify.org/" style="text-decoration: none;" target="_blank"><span
+ href="{{ site.baseurl }}/" style="text-decoration: none;" target="_blank"><span
  >open
 source orchestration</span></a><span
  >

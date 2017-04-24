@@ -16,19 +16,19 @@ tags:
 <br/>
 <br/>
 
-<p><a href="http://getcloudify.org/openstack-architecture-cloudify.html#Heat" target="_blank">OpenStack Heat</a> makes orchestrating the deployment of multiple OpenStack elements a breeze using its “stack” concept.</p>
+<p><a href="{{ site.baseurl }}/openstack-architecture-cloudify.html#Heat" target="_blank">OpenStack Heat</a> makes orchestrating the deployment of multiple OpenStack elements a breeze using its “stack” concept.</p>
 
 <p>By defining a HOT (Heat Orchestrating Template) document that describes the stack and “creating” the stack based on the document, Heat will orchestrate the deployment of many elements including networks, subnets, ports, floating IPs, security groups, servers and much more. </p>
 
 <p>Cloudify can harness Heat to bring up the hardware stack and basically continue from where the Heat deployment ends, adding software deployment workflows, monitoring and analytics for ongoing management of your deployments, on top of it.</p>
 
-<p>In this post, I will explain as well as show a live example of one aspect of the integration that lets Cloudify “import” the Heat stack and build a Cloudify blueprint (that is <a href="http://getcloudify.org/openstack-architecture-cloudify.html#TOSCA" target="_blank">TOSCA</a> inspired) on top of it.</p>
+<p>In this post, I will explain as well as show a live example of one aspect of the integration that lets Cloudify “import” the Heat stack and build a Cloudify blueprint (that is <a href="{{ site.baseurl }}/openstack-architecture-cloudify.html#TOSCA" target="_blank">TOSCA</a> inspired) on top of it.</p>
 
 
 <hr>
 
 <span class="pullquote-left">
-  <font style="font-weight: bold" size="5" face="Baskerville Old Face"><em>OpenStack Heat orchestration to the max.  Get Cloudify.</em></font>&nbsp; <a class="btn btn-medium btn-theme btn-rounded" id="downloadBtnInner" href="http://getcloudify.org/downloads/get_cloudify.html" target="_blank"><i class="icon-plus"></i> Go </a></span>
+  <font style="font-weight: bold" size="5" face="Baskerville Old Face"><em>OpenStack Heat orchestration to the max.  Get Cloudify.</em></font>&nbsp; <a class="btn btn-medium btn-theme btn-rounded" id="downloadBtnInner" href="{{ site.baseurl }}/downloads/get_cloudify.html" target="_blank"><i class="icon-plus"></i> Go </a></span>
   
   <hr>
 
@@ -129,7 +129,7 @@ tags:
 <p>Next we need to bootstrap the Cloudify manager into our cloud. </p>
 
 <p>
-  <br /><a href="http://getcloudify.org/downloads/get_cloudify.html" target="_blank">Download Cloudify</a> if you do not already have it and run the following command:</p>
+  <br /><a href="{{ site.baseurl }}/downloads/get_cloudify.html" target="_blank">Download Cloudify</a> if you do not already have it and run the following command:</p>
 
   <p><code>cfy init openstack</code></p>
 

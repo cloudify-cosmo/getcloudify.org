@@ -13,15 +13,15 @@ tags:
 
 <notextile>
 
-<img src="http://getcloudify.org/img/blog/cloudify_kubernetes.png" alt="OpenStack | OpenStack Summit | TOSCA Cloud Orchestration | Microservices | Kubernetes Orchestration | OpenStack NFV | Kubernetes Cluster">
+<img src="{{ site.baseurl }}/img/blog/cloudify_kubernetes.png" alt="OpenStack | OpenStack Summit | TOSCA Cloud Orchestration | Microservices | Kubernetes Orchestration | OpenStack NFV | Kubernetes Cluster">
 <br/>
 <br/>
 
-<p>In my previous post, I discussed enhancing the original, basic <a href="http://getcloudify.org/2015/10/26/openstack-tokyo-summit-kubernetes-cloudify-tosca-nfv-orchestration-microservices.html">Kubernetes</a> plugin into a version that was reasonably functional. That version was designed to use <a href="http://getcloudify.org/guide/3.2/plugin-fabric.html">Fabric</a> and operate on preexisting machines (virtual or “bare metal”). This post discusses the changes needed to create the same hybrid deployment as before, but hosted on <a href="http://getcloudify.org/2015/10/22/openstack-liberty-summit-releases-cloud-kubernetes-neutron-nfv.html" target="_blank">OpenStack</a>.</p>
+<p>In my previous post, I discussed enhancing the original, basic <a href="{{ site.baseurl }}/2015/10/26/openstack-tokyo-summit-kubernetes-cloudify-tosca-nfv-orchestration-microservices.html">Kubernetes</a> plugin into a version that was reasonably functional. That version was designed to use <a href="{{ site.baseurl }}/guide/3.2/plugin-fabric.html">Fabric</a> and operate on preexisting machines (virtual or “bare metal”). This post discusses the changes needed to create the same hybrid deployment as before, but hosted on <a href="{{ site.baseurl }}/2015/10/22/openstack-liberty-summit-releases-cloud-kubernetes-neutron-nfv.html" target="_blank">OpenStack</a>.</p>
 
 <hr>
 <span class="pullquote-left">
-  <font style="font-weight: bold" size="5" face="Baskerville Old Face"><em>Try the Kubernetes Orchestration as a Service Tool today!</em></font>&nbsp; <a class="btn btn-medium btn-theme btn-rounded" id="downloadBtnInner" href="http://getcloudify.org/downloads/get_cloudify.html" target="_blank"><i class="icon-plus"></i> Go </a></span>
+  <font style="font-weight: bold" size="5" face="Baskerville Old Face"><em>Try the Kubernetes Orchestration as a Service Tool today!</em></font>&nbsp; <a class="btn btn-medium btn-theme btn-rounded" id="downloadBtnInner" href="{{ site.baseurl }}/downloads/get_cloudify.html" target="_blank"><i class="icon-plus"></i> Go </a></span>
 <hr>
 
 <h2><a></a>Executive Summary</h2>
@@ -29,14 +29,14 @@ tags:
 <p>For anyone interested in the end result without the technical details, the advancement since the previous post consists of porting the plugin for use in a Cloudify managed environment, and creating an Openstack blueprint that:</p>
 
 <ol>
-  <li>Provisions virtual machines to hold a <a href="http://getcloudify.org/2015/08/26/kubernetes-docker-images-microservices-container-architecture-management-orchestration-tools.html" target="_blank">Kubernetes cluster</a> and a MongoDB instance.</li>
+  <li>Provisions virtual machines to hold a <a href="{{ site.baseurl }}/2015/08/26/kubernetes-docker-images-microservices-container-architecture-management-orchestration-tools.html" target="_blank">Kubernetes cluster</a> and a MongoDB instance.</li>
 
   <li>Installs Kubernetes and MongoDB separately. </li>
 
   <li>Deploys and configures a distributed NodeJs app on the hybrid platform: NodeJS and the Nodecellar webapp as a Kubernetes pod, and MongoDB (mongod) and the related Nodecellar database. </li>
 </ol>
 
-<p>The code is on <a href="https://github.com/cloudify-examples/cloudify-kubernetes">github</a>. A video describing the <a href="http://getcloudify.org/cloudifysourcetv.html#5" target="_blank">orchestration</a> project at a high level is available on the Cloudify website.</p>
+<p>The code is on <a href="https://github.com/cloudify-examples/cloudify-kubernetes">github</a>. A video describing the <a href="{{ site.baseurl }}/cloudifysourcetv.html#5" target="_blank">orchestration</a> project at a high level is available on the Cloudify website.</p>
 
 <hr>
 
@@ -44,7 +44,7 @@ tags:
 
 <h3>Replacing Fabric</h3>
 
-<p>Using the <a href="http://getcloudify.org/guide/3.2/plugin-fabric.html">Fabric plugin</a> is great both for quickly developing blueprints and plugins, and also for non-cloud deployment targets without a manager. For a cloud such as OpenStack, the standard managed approach is more desirable. All the actual fabric task code resides in the <a href="https://github.com/dfilppi/cfy3/blob/master/kub/plugin/kube_plugin/start-master-ubuntu14-tasks.py">start-master-ubuntu14-tasks.py</a>and <a href="https://github.com/dfilppi/cfy3/blob/master/kub/plugin/kube_plugin/start-node-ubuntu14-tasks.py">start-node-ubuntu14-tasks.py</a> files. The porting effort boils down to replacing Fabric calls (e.g. run, sudo, put) with calls to the python standard “subprocess” library. A representative example of such a translation: <br><br>
+<p>Using the <a href="{{ site.baseurl }}/guide/3.2/plugin-fabric.html">Fabric plugin</a> is great both for quickly developing blueprints and plugins, and also for non-cloud deployment targets without a manager. For a cloud such as OpenStack, the standard managed approach is more desirable. All the actual fabric task code resides in the <a href="https://github.com/dfilppi/cfy3/blob/master/kub/plugin/kube_plugin/start-master-ubuntu14-tasks.py">start-master-ubuntu14-tasks.py</a>and <a href="https://github.com/dfilppi/cfy3/blob/master/kub/plugin/kube_plugin/start-node-ubuntu14-tasks.py">start-node-ubuntu14-tasks.py</a> files. The porting effort boils down to replacing Fabric calls (e.g. run, sudo, put) with calls to the python standard “subprocess” library. A representative example of such a translation: <br><br>
 <i>Before</i> <br>
 <script src="https://gist.github.com/dfilppi/d68d1f780b494b4bed11.js"></script>
 <i>After</i> <br>

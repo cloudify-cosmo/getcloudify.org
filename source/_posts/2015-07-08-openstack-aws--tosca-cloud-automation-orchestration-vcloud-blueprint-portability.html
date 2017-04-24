@@ -12,25 +12,25 @@ tags:
 ---
 
 <notextile>
-<img src="http://getcloudify.org/img/blog/cloudify-openstack-aws-softlayer-cloudstack-vcloud.png" alt="OpenStack | Amazon AWS | TOSCA | Softlayer | Cloud Automation | vCloud | Cloudstack">
+<img src="{{ site.baseurl }}/img/blog/cloudify-openstack-aws-softlayer-cloudstack-vcloud.png" alt="OpenStack | Amazon AWS | TOSCA | Softlayer | Cloud Automation | vCloud | Cloudstack">
 <br/>
 <br/>
 
   <p>At present, when you write a blueprint, you are typically writing it for a particular cloud - AWS, Openstack, etc. This is probably the simplest way to do it. And so far all of our demo blueprints are also written this way. </p>
 
-  <p>One of Cloudify’s purported selling points is <a href="http://getcloudify.org/2011/11/15/five-misconceptions-about-cloud-portability.html">cloud portability</a>, and by that we are talking about one blueprint for many clouds.</p>
+  <p>One of Cloudify’s purported selling points is <a href="{{ site.baseurl }}/2011/11/15/five-misconceptions-about-cloud-portability.html">cloud portability</a>, and by that we are talking about one blueprint for many clouds.</p>
 
-  <p>The truth is that <a href="http://getcloudify.org/">Cloudify</a> is built to be portable and it allows users to model portable blueprints using its TOSCA-based DSL. Since nodes in <a href="http://getcloudify.org/2015/06/19/docker-tosca-cloud-orchestration-openstack-heat-kubernetes.html">TOSCA</a> are typed, simple types can derive more complex types.</p>
+  <p>The truth is that <a href="{{ site.baseurl }}/">Cloudify</a> is built to be portable and it allows users to model portable blueprints using its TOSCA-based DSL. Since nodes in <a href="{{ site.baseurl }}/2015/06/19/docker-tosca-cloud-orchestration-openstack-heat-kubernetes.html">TOSCA</a> are typed, simple types can derive more complex types.</p>
 
 <hr>
 
 <span class="pullquote-left">
-  <font style="font-weight: bold" size="5" face="Baskerville Old Face"><em>Pure-Play TOSCA-based Orchestration is here with Cloudify 3.2!</em></font>&nbsp; <a class="btn btn-medium btn-theme btn-rounded" id="downloadBtnInner" href="http://getcloudify.org/downloads/get_cloudify.html" target="_blank"><i class="icon-plus"></i> Go </a></span>
+  <font style="font-weight: bold" size="5" face="Baskerville Old Face"><em>Pure-Play TOSCA-based Orchestration is here with Cloudify 3.2!</em></font>&nbsp; <a class="btn btn-medium btn-theme btn-rounded" id="downloadBtnInner" href="{{ site.baseurl }}/downloads/get_cloudify.html" target="_blank"><i class="icon-plus"></i> Go </a></span>
   
 <hr>
 
 
-  <p>In Cloudify, all <a href="http://getcloudify.org/guide/3.2/dsl-spec-node-types.html">node types</a> are derived from the cloudify.nodes.Root type.</p>
+  <p>In Cloudify, all <a href="{{ site.baseurl }}/guide/3.2/dsl-spec-node-types.html">node types</a> are derived from the cloudify.nodes.Root type.</p>
 
   <p>For example, the “Compute” type in Cloudify, which represents a host, is derived from this cloudify.nodes.Root type:</p>
 
@@ -49,7 +49,7 @@ tags:
 
   <p>So taking node-typing a step further, it’s quite easy to make the mythical portable cloud blueprint a reality.</p>
 
-  <p>I took the Nodecellar example, which we use at Cloudify as a demo app, and made a single blueprint that can be used on <a href="http://getcloudify.org/2014/07/10/what-is-openstack-tutorial.html">Openstack</a>, <a href="http://getcloudify.org/tags/AWS/index.html">AWS</a>, <a href="http://getcloudify.org/guide/3.2/plugin-cloudstack.html">Cloudstack</a>, <a href="http://getcloudify.org/2015/02/13/hybrid-cloud-tosca-vmware-orchestration-vcloud-vsphere.html">vCloud Air</a>, or <a href="http://getcloudify.org/2014/12/22/softlayer-cloud-ibm-blu-acceleration-multi-cloud-AWS.html">Softlayer</a>.</p>
+  <p>I took the Nodecellar example, which we use at Cloudify as a demo app, and made a single blueprint that can be used on <a href="{{ site.baseurl }}/2014/07/10/what-is-openstack-tutorial.html">Openstack</a>, <a href="{{ site.baseurl }}/tags/AWS/index.html">AWS</a>, <a href="{{ site.baseurl }}/guide/3.2/plugin-cloudstack.html">Cloudstack</a>, <a href="{{ site.baseurl }}/2015/02/13/hybrid-cloud-tosca-vmware-orchestration-vcloud-vsphere.html">vCloud Air</a>, or <a href="{{ site.baseurl }}/2014/12/22/softlayer-cloud-ibm-blu-acceleration-multi-cloud-AWS.html">Softlayer</a>.</p>
 
   <p><i>Link:<a href="https://github.com/EarthmanT/cloudify-nodecellar-example/blob/3.2-multicloud/multicloud-blueprint.yaml"> https://github.com/EarthmanT/cloudify-nodecellar-example/blob/3.2-multicloud/multicloud-blueprint.yaml</a></i></p>
 
@@ -61,11 +61,11 @@ tags:
     </li>
 
     <li>
-      <p>The “<a href="http://getcloudify.org/tags/Multi-Cloud/index.html">multicloud</a>” node types, including Openstack, Cloudstack, AWS EC2, Softlayer, and vCloud air.</p>
+      <p>The “<a href="{{ site.baseurl }}/tags/Multi-Cloud/index.html">multicloud</a>” node types, including Openstack, Cloudstack, AWS EC2, Softlayer, and vCloud air.</p>
     </li>
   </ul>
 
-  <p class="aligncenter"><img alt="blueprint cloud portability" src="http://getcloudify.org/img/blog/portability.jpg" /></p>
+  <p class="aligncenter"><img alt="blueprint cloud portability" src="{{ site.baseurl }}/img/blog/portability.jpg" /></p>
 
   <p>Depending on which cloud I am going to use, I specify the corresponding import file. That’s the only thing that I need change when moving to a different cloud.</p>
 
@@ -97,7 +97,7 @@ tags:
 
   <p>By default, the blueprint is ready for you to deploy in AWS EC2. But this can be changed to Openstack or another cloud by uncommenting the Openstack Types import and commenting the aws-ec2 types import: </p>
 
-  <p class="aligncenter"><img alt="multicloud types" src="http://getcloudify.org/img/blog/multicloudtypes.png" /></p>
+  <p class="aligncenter"><img alt="multicloud types" src="{{ site.baseurl }}/img/blog/multicloudtypes.png" /></p>
 
   <p>Cloudify was built with mutli-cloud in mind, so try it out and let us know what you think. And since we’re open source, if you have another cloud that you can expand support for, we’d greatly appreciate it!</p></p>
 </notextile>

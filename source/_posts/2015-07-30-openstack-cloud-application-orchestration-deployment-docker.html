@@ -12,11 +12,11 @@ tags:
 ---
 
 <notextile>
-<img src="http://getcloudify.org/img/blog/openstackheat.png" alt="OpenStack Orchestration | Cloud Application Orchestration | Deployment Automation | Docker Orchestration | Orchestration Tools">
+<img src="{{ site.baseurl }}/img/blog/openstackheat.png" alt="OpenStack Orchestration | Cloud Application Orchestration | Deployment Automation | Docker Orchestration | Orchestration Tools">
 <br/>
 <br/>
 
-  <p>Most software deployments are more complicated than the actual application being deployed. Usually, when we talk about an application, we’re talking about something very simple - some server-side scripting language-based application and a backend database instance. However, when it comes to deploying this application, things become a bit more complicated, because of requirements like security, <a href="http://getcloudify.org/2015/05/01/continuous-integration-cloud-management-monitoring-quickbuild-tools.html">monitoring</a>, recoverability and other such considerations.</p>
+  <p>Most software deployments are more complicated than the actual application being deployed. Usually, when we talk about an application, we’re talking about something very simple - some server-side scripting language-based application and a backend database instance. However, when it comes to deploying this application, things become a bit more complicated, because of requirements like security, <a href="{{ site.baseurl }}/2015/05/01/continuous-integration-cloud-management-monitoring-quickbuild-tools.html">monitoring</a>, recoverability and other such considerations.</p>
 
   <p>On top of this, each deployment also probably requires coordinating any number of elements, such as:</p>
 
@@ -45,21 +45,21 @@ tags:
 <hr>
 
 <span class="pullquote-left">
-  <font style="font-weight: bold" size="5" face="Baskerville Old Face"><em>Cloudify is Pure-Play Cloud Orchestration. Get it now.</em></font>&nbsp; <a class="btn btn-medium btn-theme btn-rounded" id="downloadBtnInner" href="http://getcloudify.org/downloads/get_cloudify.html" target="_blank"><i class="icon-plus"></i> Go </a></span>
+  <font style="font-weight: bold" size="5" face="Baskerville Old Face"><em>Cloudify is Pure-Play Cloud Orchestration. Get it now.</em></font>&nbsp; <a class="btn btn-medium btn-theme btn-rounded" id="downloadBtnInner" href="{{ site.baseurl }}/downloads/get_cloudify.html" target="_blank"><i class="icon-plus"></i> Go </a></span>
   
 <hr>
 
-  <p>Many companies have invested in entire data centers and IT teams to systematically handle the <a href="http://getcloudify.org/guide/3.2/getting-started-create-deployment.html">deployment process</a>, both of which are aging.</p>
+  <p>Many companies have invested in entire data centers and IT teams to systematically handle the <a href="{{ site.baseurl }}/guide/3.2/getting-started-create-deployment.html">deployment process</a>, both of which are aging.</p>
 
-  <p><a href="http://getcloudify.org/2014/09/16/OpenStack-cloud-deployment-heat.html">Deploying applications in the cloud</a> is notably simpler - it takes both less time and less manpower, where freeing up both to work on more interesting things is the ultimate goal.</p>
+  <p><a href="{{ site.baseurl }}/2014/09/16/OpenStack-cloud-deployment-heat.html">Deploying applications in the cloud</a> is notably simpler - it takes both less time and less manpower, where freeing up both to work on more interesting things is the ultimate goal.</p>
 
   <p>Many new products are entirely cloud-based and vastly more advanced than applications that aren’t yet five years old.</p>
 
-  <p>Most organizations are transitioning to the cloud often based on <a href="http://getcloudify.org/openstack-architecture-cloudify.html">OpenStack environments</a>, due to its open nature, but still have at least one foot planted in a traditional data center. They may be bogged down by bureaucracy, but they have a lot of brains on their payrolls.</p>
+  <p>Most organizations are transitioning to the cloud often based on <a href="{{ site.baseurl }}/openstack-architecture-cloudify.html">OpenStack environments</a>, due to its open nature, but still have at least one foot planted in a traditional data center. They may be bogged down by bureaucracy, but they have a lot of brains on their payrolls.</p>
 
   <p>These organizations are looking for something like this, albeit much more complicated:</p>
 
-  <p class="aligncenter"><img src="http://getcloudify.org/img/blog/openstack_orchestration1.png" width="344" height="315" /></p>
+  <p class="aligncenter"><img src="{{ site.baseurl }}/img/blog/openstack_orchestration1.png" width="344" height="315" /></p>
   
   <p>The topology of the application is essentially:</p>
 
@@ -79,22 +79,22 @@ tags:
 
   <p>But certain expensive projects stand between reality and this end goal. For example, enabling DNS servers to interact with IaaS or moving application endpoints to IaaS. Each such project can involve several departments, approval processes, and QA tests at the very least.</p>
 
-  <p>Putting portable <a href="http://getcloudify.org/2014/12/14/TOSCA-docker-container-orchestration-microservices-architecture-kubernetes.html">cloud orchestration</a> tools in the hands of the “human swiss army knives” of the world will enable organizations to migrate from their aging hardware swiftly and systematically.&#160; Normally, orchestrators centralize the design and management of application deployments, which is akin to the importance of a project manager role in software deployment.</p>
+  <p>Putting portable <a href="{{ site.baseurl }}/2014/12/14/TOSCA-docker-container-orchestration-microservices-architecture-kubernetes.html">cloud orchestration</a> tools in the hands of the “human swiss army knives” of the world will enable organizations to migrate from their aging hardware swiftly and systematically.&#160; Normally, orchestrators centralize the design and management of application deployments, which is akin to the importance of a project manager role in software deployment.</p>
 
   <p>Such a scenario, again simplified, would look like this:</p>
 
-  <p class="aligncenter"><img src="http://getcloudify.org/img/blog/openstack_orchestration1.png" width="344" height="315" /></p>
+  <p class="aligncenter"><img src="{{ site.baseurl }}/img/blog/openstack_orchestration1.png" width="344" height="315" /></p>
 
   <p>There are many orchestration tools out there, and each one has a unique approach to how it treats applications and application deployments. (And if you’d like to learn more about this, you can catch our team’s talk on just this from OpenStack Vancouver - “<a href="https://www.openstack.org/summit/vancouver-2015/summit-videos/presentation/orchestration-tool-roundup-kubernetes-vs-heat-vs-fleet-vs-maestrong-vs-tosca">Orchestration Tool Roundup</a>” - where they dive into the differences and synergies of the different tooling, and how to choose the right tool for the job).</p>
 
-  <p>The majority are cloud-specific, which means that once you invest in learning how to use one, you’re pretty much stuck to the cloud provider that comes with it.&#160; For example, once you are established with <a href="http://getcloudify.org/2014/07/10/what-is-openstack-tutorial.html">OpenStack</a>, moving to <a href="http://getcloudify.org/guide/3.2/plugin-cloudstack.html">Cloudstack</a> would be a complicated and lengthy undertaking.</p>
+  <p>The majority are cloud-specific, which means that once you invest in learning how to use one, you’re pretty much stuck to the cloud provider that comes with it.&#160; For example, once you are established with <a href="{{ site.baseurl }}/2014/07/10/what-is-openstack-tutorial.html">OpenStack</a>, moving to <a href="{{ site.baseurl }}/guide/3.2/plugin-cloudstack.html">Cloudstack</a> would be a complicated and lengthy undertaking.</p>
 
   <p>New tools are available that not only work on a multitude of platforms, but also work well together.</p>
 
-  <p><a href="http://getcloudify.org/2015/06/19/docker-tosca-cloud-orchestration-openstack-heat-kubernetes.html">Docker</a> is a wonderful tool because it enables you to create super-portable everything-included application containers, and their new tools Docker Machine and <a href="http://getcloudify.org/docker-orchestration-docker-container-deployment-cloud.html">Docker Swarm</a>, enable you to easily install Docker machines and clusters of containers in a variety of environments with simple commands. Essentially simplifying this even more.</p>
+  <p><a href="{{ site.baseurl }}/2015/06/19/docker-tosca-cloud-orchestration-openstack-heat-kubernetes.html">Docker</a> is a wonderful tool because it enables you to create super-portable everything-included application containers, and their new tools Docker Machine and <a href="{{ site.baseurl }}/docker-orchestration-docker-container-deployment-cloud.html">Docker Swarm</a>, enable you to easily install Docker machines and clusters of containers in a variety of environments with simple commands. Essentially simplifying this even more.</p>
 
-  <p><a href="http://getcloudify.org/docker-orchestration-docker-container-deployment-cloud.html">Orchestrating with Docker</a> is a nice way to work because with it you can roll up all of the logic of the application packaging, including its environment, and separate it from the infrastructure deployment.</p>
+  <p><a href="{{ site.baseurl }}/docker-orchestration-docker-container-deployment-cloud.html">Orchestrating with Docker</a> is a nice way to work because with it you can roll up all of the logic of the application packaging, including its environment, and separate it from the infrastructure deployment.</p>
 
-  <p>In the next post, I will take the above and outline a practical example, and demonstrate how to orchestrate workloads in a hybrid environment - of traditional and cloud infrastructure - using Docker and OpenStack through a <a href="http://getcloudify.org/2014/12/14/TOSCA-docker-container-orchestration-microservices-architecture-kubernetes.html">microservices</a> use case.&#160; </p>
+  <p>In the next post, I will take the above and outline a practical example, and demonstrate how to orchestrate workloads in a hybrid environment - of traditional and cloud infrastructure - using Docker and OpenStack through a <a href="{{ site.baseurl }}/2014/12/14/TOSCA-docker-container-orchestration-microservices-architecture-kubernetes.html">microservices</a> use case.&#160; </p>
 
 </notextile>

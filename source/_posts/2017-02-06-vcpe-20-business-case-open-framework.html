@@ -20,7 +20,7 @@ tags:
 <hr>
 <p style="font-size: 22px">This article was originally published on <a href="https://www.sdxcentral.com/articles/contributed/vcpe-2-0-business-case-open-vcpe-framework/2017/01/" target="_blank">SDxCentral</a> on January 27, 2017.</p>
 <hr>
-<p>Lots of virtual ink has been spilled describing the benefits of <a href="http://getcloudify.org/webinars/open-vCPE-framework-webinar.html">Virtual CPE (vCPE)</a>. The thought of simplifying the complex world of enterprise wide-area network (WAN) has ignited the imagination of many network engineers and enterprise IT admins. The vision of being able to consume, configure, and manage the WAN and its services through self-service portals and <a href="http://getcloudify.org/whitepapers/intro-to-cloudify.html" target="_blank">automation</a> has made vCPE the most common <a href="http://getcloudify.org/network-function-virtualization-vnf-nfv-orchestration-sdn-platform.html" target="_blank">network functions virtualization (NFV)</a> use case.</p>
+<p>Lots of virtual ink has been spilled describing the benefits of <a href="{{ site.baseurl }}/webinars/open-vCPE-framework-webinar.html">Virtual CPE (vCPE)</a>. The thought of simplifying the complex world of enterprise wide-area network (WAN) has ignited the imagination of many network engineers and enterprise IT admins. The vision of being able to consume, configure, and manage the WAN and its services through self-service portals and <a href="{{ site.baseurl }}/whitepapers/intro-to-cloudify.html" target="_blank">automation</a> has made vCPE the most common <a href="{{ site.baseurl }}/network-function-virtualization-vnf-nfv-orchestration-sdn-platform.html" target="_blank">network functions virtualization (NFV)</a> use case.</p>
 <p>Another major driver is the cost savings from using low cost CPE devices and network services delivered over the top. For CSPs, it&rsquo;s also about eliminating site visits, creating flexible service options, automating service creation, and virtualizing assets.</p>
 <p>On paper this plan looked perfect. However, when we started deploying these solutions we realized that reality is more complex. Additionally, the vCPE services failed to deliver promised savings, and in some cases they were more expensive and lower quality.</p>
 <p>In this post, I will try to demystify the vCPE cost model and offer an alternative way of building a vCPE solution that&rsquo;s more cost effective and innovative, future proof, and provides the flexibility and adaptability that CSPs need in order to remain relevant.</p>
@@ -29,7 +29,7 @@ tags:
 <hr>
 
 <span class="pullquote-left">
-  <font style="font-weight: bold" size="5" face="Baskerville Old Face"><em>Register today for our live Open vCPE Webinar on Feb 16!</em></font>&nbsp; <a class="btn btn-medium btn-theme btn-rounded" id="downloadBtnInner" href="http://getcloudify.org/webinars/open-vCPE-framework-webinar.html" target="_blank"><i class="icon-plus"></i> Go </a></span>
+  <font style="font-weight: bold" size="5" face="Baskerville Old Face"><em>Register today for our live Open vCPE Webinar on Feb 16!</em></font>&nbsp; <a class="btn btn-medium btn-theme btn-rounded" id="downloadBtnInner" href="{{ site.baseurl }}/webinars/open-vCPE-framework-webinar.html" target="_blank"><i class="icon-plus"></i> Go </a></span>
   
   <hr>
 
@@ -41,7 +41,7 @@ tags:
 <p>The architecture looked something like this:</p>
 <p class="aligncenter"><img src="/img/blog/classic-vcpe-business-model.png" alt="" width="496" height="210" /></p>
 
-<p>Back in 2012,&nbsp;<a href="http://getcloudify.org/2017/01/11/openness-the-true-path-nfv.html" target="_blank">NFV</a> surfaced and the evolution to vCPE started. The idea was brilliant and simple: shift the functionality, value, and cost&hellip;</p>
+<p>Back in 2012,&nbsp;<a href="{{ site.baseurl }}/2017/01/11/openness-the-true-path-nfv.html" target="_blank">NFV</a> surfaced and the evolution to vCPE started. The idea was brilliant and simple: shift the functionality, value, and cost&hellip;</p>
 <ul>
 <li>&hellip;from the network edges to a centralized cloud</li>
 <li>&hellip;from hardware to software-based functions</li>
@@ -57,7 +57,7 @@ tags:
 <h2><strong>The Network</strong></h2>
 <p>Most vCPE solutions leverage OTT networking like software-defined wide area networking (SD-WAN) which&mdash;in theory&mdash;drive down the cost of bandwidth. As Enterprises are offered OTT networking solutions from non-traditional service providers and networking vendors, traditional CSPs will be forced to adopt this technology and cannibalize existing WAN revenue streams.</p>
 <h2><strong>The Cloud / VNFs</strong></h2> 
-<p>This is a challenging and misunderstood problem. It&rsquo;s expensive and complex to run <a href="http://getcloudify.org/from-virtual-appliance-to-cloud-native-vnf-whitepaper.html" target="_blank">virtual network functions (VNFs)</a> while delivering a positive service experience.</p>
+<p>This is a challenging and misunderstood problem. It&rsquo;s expensive and complex to run <a href="{{ site.baseurl }}/from-virtual-appliance-to-cloud-native-vnf-whitepaper.html" target="_blank">virtual network functions (VNFs)</a> while delivering a positive service experience.</p>
 <p>Let&rsquo;s take a deeper look at this. There are a variety of network functions needed to build an enterprise WAN Service offering:</p>
 <ul>
 <li>Routing Stacks</li>
@@ -103,7 +103,7 @@ tags:
 <li>Use a cloud economics cost model</li>
 </ul>
 <h2><strong>An Early Open Source Option</strong></h2>
-<p>The vCPE framework powered by open source cloudify is an <a href="http://getcloudify.org/2016/11/17/open-source-orchestration-management-complex-vnfs-using-openstack-controller-edd-devices.html" target="_blank">open NFV orchestration</a> platform enabling CSPs to deliver next-generation vCPE solutions based on these principles. CSPs can build vCPE solutions leveraging any CPE device, use any network service and facilitate on-boarding of any VNF. The next-generation, <a title="" href="http://getcloudify.org/from-virtual-appliance-to-cloud-native-vnf-whitepaper.html" target="_blank">cloud-native network functions</a> market is growing fast. We&rsquo;re already using functions that deliver enhanced services at a fraction of legacy infrastructure and licensing costs. Rapid development is also happening in the <a title="" href="http://getcloudify.org/2016/12/06/hybrid-vnf-container-orchestration-kubernetes-docker-swarm-using-cloudify.html" target="_blank">adoption of container technologies for network functions</a>.</p>
+<p>The vCPE framework powered by open source cloudify is an <a href="{{ site.baseurl }}/2016/11/17/open-source-orchestration-management-complex-vnfs-using-openstack-controller-edd-devices.html" target="_blank">open NFV orchestration</a> platform enabling CSPs to deliver next-generation vCPE solutions based on these principles. CSPs can build vCPE solutions leveraging any CPE device, use any network service and facilitate on-boarding of any VNF. The next-generation, <a title="" href="{{ site.baseurl }}/from-virtual-appliance-to-cloud-native-vnf-whitepaper.html" target="_blank">cloud-native network functions</a> market is growing fast. We&rsquo;re already using functions that deliver enhanced services at a fraction of legacy infrastructure and licensing costs. Rapid development is also happening in the <a title="" href="{{ site.baseurl }}/2016/12/06/hybrid-vnf-container-orchestration-kubernetes-docker-swarm-using-cloudify.html" target="_blank">adoption of container technologies for network functions</a>.</p>
 <p class="aligncenter"><img src="/img/blog/cloudify-open-source-vcpe.png" alt="" width="496" /></p>
 
 <h2><strong>Future Proofing vCPE Models</strong></h2>

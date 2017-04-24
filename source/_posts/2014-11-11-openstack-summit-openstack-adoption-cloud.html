@@ -29,7 +29,7 @@ tags:
 
   <p>&#160;</p>
 
-  <p>I just got back from the <a href="http://getcloudify.org/2014/11/01/openstack-hybrid-cloud-orchestration-TOSCA-NFV-Docker.html">OpenStack Paris Summit </a>a couple weeks ago, and although this is a bit delayed in coming, I did do a talk on this with the <a href="http://www.slideshare.net/giganati/openstack-juno-the-complete-lowdown-and-tales-from-the-summit">OpenStack Online Meetup</a> immediately following my return, but then decided to share my thoughts on the summit in writing as well, for those who missed it.&#160; </p>
+  <p>I just got back from the <a href="{{ site.baseurl }}/2014/11/01/openstack-hybrid-cloud-orchestration-TOSCA-NFV-Docker.html">OpenStack Paris Summit </a>a couple weeks ago, and although this is a bit delayed in coming, I did do a talk on this with the <a href="http://www.slideshare.net/giganati/openstack-juno-the-complete-lowdown-and-tales-from-the-summit">OpenStack Online Meetup</a> immediately following my return, but then decided to share my thoughts on the summit in writing as well, for those who missed it.&#160; </p>
 
   <p>I simply continue to be blown away by how much this summit grows from event to event, but even more so by how many people are actually already using OpenStack, and are not just in the interested in hearing more camp, and especially in the way they’re consuming it.&#160; This has changed in areas that I wouldn’t have anticipated, like in the use of hypervisors, non-private cloud and more - but I’m jumping ahead of myself, I’ll get to that later.</p>
 
@@ -49,14 +49,14 @@ tags:
   <hr>
 
 <span class="pullquote-left">
-  <font style="font-weight: bold" size="5" face="Baskerville Old Face"><em>OpenStack orchestration - TOSCA + Cloudify.  Check it out.</em></font>&nbsp; <a class="btn btn-medium btn-theme btn-rounded" id="downloadBtnInner" href="http://getcloudify.org/downloads/get_cloudify.html" target="_blank"><i class="icon-plus"></i> Go </a></span>
+  <font style="font-weight: bold" size="5" face="Baskerville Old Face"><em>OpenStack orchestration - TOSCA + Cloudify.  Check it out.</em></font>&nbsp; <a class="btn btn-medium btn-theme btn-rounded" id="downloadBtnInner" href="{{ site.baseurl }}/downloads/get_cloudify.html" target="_blank"><i class="icon-plus"></i> Go </a></span>
   
   <hr>
 
 
   <h2><font style="font-weight: bold">Main Themes Behind the Juno Release </font></h2>
 
-  <p>One of the major focuses of the event, was of course the <a href="http://getcloudify.org/2014/11/05/openstack-juno-open-source-cloud-open-cloud-statistics.html">OpenStack Juno</a> release, which is the 10th OpenStack release. Where the previous post discussed the major stats, I’d like to just quickly outline here the innovations that Juno brings with it.</p>
+  <p>One of the major focuses of the event, was of course the <a href="{{ site.baseurl }}/2014/11/05/openstack-juno-open-source-cloud-open-cloud-statistics.html">OpenStack Juno</a> release, which is the 10th OpenStack release. Where the previous post discussed the major stats, I’d like to just quickly outline here the innovations that Juno brings with it.</p>
 
   <h2><font style="font-weight: bold">Enterprise Maturity</font></h2>
 
@@ -88,13 +88,13 @@ tags:
 
   <h2><font style="font-weight: bold">Laying the Foundation for NFV Support</font></h2>
 
-  <p>I’d like to pause and focus a little on the added NFV support introduced in Juno, as I believe this is a game changer in the carrier and networking world.&#160; This was also the topic of my talk at the summit - <a href="http://cloudifysource.tumblr.com/post/101912158011/catch-natishalom-sbercovicis-talk-from-openstack">Application and Network Orchestration Using HEAT &amp; TOSCA</a>. Where, just as an aside, I’ll share an anecdote that, for me, demonstrates the true readiness for real world use.&#160; In the talk, we had a demo of an <a href="http://getcloudify.org/2014/11/02/NFV-openstack-TOSCA-open-source-cloud-Chef.html">NFV OpenStack</a> Skype-like platform we built with Clearwater using Heat, TOSCA and Neutron, and throughout our talk we kept unexpectedly receiving calls by one of my team members who didn’t realize we were in the middle of our session.&#160; So this is just an honest to goodness real-life testimony to the incredible and robust technologies you can build on OpenStack.</p>
+  <p>I’d like to pause and focus a little on the added NFV support introduced in Juno, as I believe this is a game changer in the carrier and networking world.&#160; This was also the topic of my talk at the summit - <a href="http://cloudifysource.tumblr.com/post/101912158011/catch-natishalom-sbercovicis-talk-from-openstack">Application and Network Orchestration Using HEAT &amp; TOSCA</a>. Where, just as an aside, I’ll share an anecdote that, for me, demonstrates the true readiness for real world use.&#160; In the talk, we had a demo of an <a href="{{ site.baseurl }}/2014/11/02/NFV-openstack-TOSCA-open-source-cloud-Chef.html">NFV OpenStack</a> Skype-like platform we built with Clearwater using Heat, TOSCA and Neutron, and throughout our talk we kept unexpectedly receiving calls by one of my team members who didn’t realize we were in the middle of our session.&#160; So this is just an honest to goodness real-life testimony to the incredible and robust technologies you can build on OpenStack.</p>
 
   <p>This also correlates with the number of sessions events and participants, and even the number of questions that we answered at the end of our session about NFV and TOSCA, which demonstrates a real need and readiness to adopt these using OpenStack. NFV is clearly an area where OpenStack is a natural home for implementation, being able&#160; to drive an entire industry into cloud and virtualization by providing the control and flexibility of the infrastructure, and by bringing the networks and apps to collaborate together in the same community for the first time.&#160; This community brings application developers into the same room as network and infrastructure architects, as well as carriers that previously used to live in completely separate worlds.</p>
 
   <p><img style="float: none; margin-left: auto; display: block; margin-right: auto" src="https://lh3.googleusercontent.com/D-WdP9w_JyZs_-7QkitlWGdoqQU1Bgkm6KyJC-hMgKmVG2PQpVgx_1rcvjHe-JeaFDLSyqU-PaHUhS0nLwiO7hUMenctgZT_cx6maDRx8tJg4gNEC08-A1GjdfgdEojlpg" width="624" height="343" /></p>
 
-  <p>The interesting part behind the NFV advancements and features that were released with Juno is the amazing fact that this focus group met for the first time, and outlined a plan at the <a href="http://getcloudify.org/2014/05/21/openstack-summit-highlights-news.html">OpenStack Summit</a> in Atlanta in May. This is such a testament to the commitment and agility possible with open technology that recognizes a gap, and works toward bridging it.</p>
+  <p>The interesting part behind the NFV advancements and features that were released with Juno is the amazing fact that this focus group met for the first time, and outlined a plan at the <a href="{{ site.baseurl }}/2014/05/21/openstack-summit-highlights-news.html">OpenStack Summit</a> in Atlanta in May. This is such a testament to the commitment and agility possible with open technology that recognizes a gap, and works toward bridging it.</p>
 
   <h4>New Data Processing Capabilities</h4>
 
@@ -134,7 +134,7 @@ tags:
 
   <h5>How Users Are Using OpenStack</h5>
 
-  <p>I mentioned the user survey released with every OpenStack version above, and we will be doing a dedicated post on these <a href="http://getcloudify.org/2014/05/19/openstack-statistics.html">OpenStack statistics</a>, like with previous surveys.&#160; However, I would like to highlight just a few stats that caught my attention and represent interesting trends to keep an eye out for.</p>
+  <p>I mentioned the user survey released with every OpenStack version above, and we will be doing a dedicated post on these <a href="{{ site.baseurl }}/2014/05/19/openstack-statistics.html">OpenStack statistics</a>, like with previous surveys.&#160; However, I would like to highlight just a few stats that caught my attention and represent interesting trends to keep an eye out for.</p>
 
   <p>When I look at survey data, I actually like to focus most on the mid-range numbers, as I believe these represent a growing trend that is worthwhile to keep monitoring. I find that these are usually only the beginning of an upward trajectory.&#160; </p>
 
@@ -188,5 +188,5 @@ tags:
 
   <p>The Cloudify Community Bio</p>
 
-  <p>We are the team behind the open source cloud orchestration tool <a href="http://getcloudify.org/">Cloudify</a>.&#160; Our team of writers hold diverse roles - from our CTO and product team through our application and operations architects, engineers and more, with diverse expertise in many areas of cloud and automation &amp; orchestration technology.&#160; This includes all things OpenStack and DevOps - NFV, TOSCA, application and infrastructure orchestration, through robust and exciting tools like Docker, ElasticSearch, RabbitMQ, Flask, Celery, NGinx, InfluxDB, Grafana and many more.&#160; Expect posts on a wide range of topics.</p></p>
+  <p>We are the team behind the open source cloud orchestration tool <a href="{{ site.baseurl }}/">Cloudify</a>.&#160; Our team of writers hold diverse roles - from our CTO and product team through our application and operations architects, engineers and more, with diverse expertise in many areas of cloud and automation &amp; orchestration technology.&#160; This includes all things OpenStack and DevOps - NFV, TOSCA, application and infrastructure orchestration, through robust and exciting tools like Docker, ElasticSearch, RabbitMQ, Flask, Celery, NGinx, InfluxDB, Grafana and many more.&#160; Expect posts on a wide range of topics.</p></p>
 </notextile>

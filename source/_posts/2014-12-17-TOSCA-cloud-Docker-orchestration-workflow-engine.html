@@ -24,7 +24,7 @@ tags:
 
 <p><b></b>
 
-  <p>The much awaited and anticipated version 3.1 has landed, and with it a number of core features that will deepen Cloudify’s <a href="http://getcloudify.org/cloud_orchestration_cloud_automation.html">orchestration</a>, and extend our <a href="http://getcloudify.org/openstack-architecture-cloudify.html#TOSCA">TOSCA</a> support, which pretty much serves to provide all the rest of the goodies that are now packaged into 3.1.</p>
+  <p>The much awaited and anticipated version 3.1 has landed, and with it a number of core features that will deepen Cloudify’s <a href="{{ site.baseurl }}/cloud_orchestration_cloud_automation.html">orchestration</a>, and extend our <a href="{{ site.baseurl }}/openstack-architecture-cloudify.html#TOSCA">TOSCA</a> support, which pretty much serves to provide all the rest of the goodies that are now packaged into 3.1.</p>
 
   <h3><font style="font-weight: bold">TOSCA to the Max</font></h3>
 
@@ -36,21 +36,21 @@ tags:
   <hr>
 
 <span class="pullquote-left">
-  <font style="font-weight: bold" size="5" face="Baskerville Old Face"><em>Cloudify 3.1 is here. You'll want to check this out.</em></font>&nbsp; <a class="btn btn-medium btn-theme btn-rounded" id="downloadBtnInner" href="http://getcloudify.org/downloads/get_cloudify.html" target="_blank"><i class="icon-plus"></i> Go </a></span>
+  <font style="font-weight: bold" size="5" face="Baskerville Old Face"><em>Cloudify 3.1 is here. You'll want to check this out.</em></font>&nbsp; <a class="btn btn-medium btn-theme btn-rounded" id="downloadBtnInner" href="{{ site.baseurl }}/downloads/get_cloudify.html" target="_blank"><i class="icon-plus"></i> Go </a></span>
   
   <hr>
 
   <p>To remove the hurdle of coding a provider for each cloud in addition to the plugins, and learning another configuration file format, we converted our CLI to become a mini-TOSCA engine.&#160; This now means that the bootstrap is just another blueprint that describes the manager as an application, and uses the same set of plugins you would then later use with your business applications.&#160; </p>
 
-  <p>We’ll have a dedicated post on all this <a href="http://getcloudify.org/tags/TOSCA/">TOSCA</a>-ness coming very soon.</p>
+  <p>We’ll have a dedicated post on all this <a href="{{ site.baseurl }}/tags/TOSCA/">TOSCA</a>-ness coming very soon.</p>
 
   <h3><font style="font-weight: bold">Topology-Driven Everything</font></h3>
 
   <p>We’ve spoken a lot about what’s coming in terms of topology-driven customizable monitoring and metrics and the entire policy engine that goes with it.&#160; Well, it’s finally here, and it’s pretty nifty.</p>
 
-  <p>Cloudify’s <a href="http://getcloudify.org/cloud_orchestration_cloud_automation.html#Monitoring">topology-driven monitoring</a> and management makes it possible to track not only the state of the application, but also the status of deployment, updates, and scaling processes through a single view. Cloudify allows users to install monitoring agents, such as <a href="https://github.com/BrightcoveOS/Diamond">Diamond </a>or <a href="https://collectd.org/">Collectd</a>, configure them and collect metrics for all application components. These metrics will be sent to a built-in metrics database based on <a href="http://influxdb.com/">InfluxDB</a>, and provide insights about application availability and performance. The <a href="http://getcloudify.org/guide/3.1/ui-monitoring.html">Cloudify GUI</a> embeds <a href="http://grafana.org/">Grafana</a> with a customizable, monitoring dashboard to allow users to view and correlate metrics of the same node or compare them across nodes.</p>
+  <p>Cloudify’s <a href="{{ site.baseurl }}/cloud_orchestration_cloud_automation.html#Monitoring">topology-driven monitoring</a> and management makes it possible to track not only the state of the application, but also the status of deployment, updates, and scaling processes through a single view. Cloudify allows users to install monitoring agents, such as <a href="https://github.com/BrightcoveOS/Diamond">Diamond </a>or <a href="https://collectd.org/">Collectd</a>, configure them and collect metrics for all application components. These metrics will be sent to a built-in metrics database based on <a href="http://influxdb.com/">InfluxDB</a>, and provide insights about application availability and performance. The <a href="{{ site.baseurl }}/guide/3.1/ui-monitoring.html">Cloudify GUI</a> embeds <a href="http://grafana.org/">Grafana</a> with a customizable, monitoring dashboard to allow users to view and correlate metrics of the same node or compare them across nodes.</p>
 
-  <p>By allowing users to define and push policies for application components to the <a href="http://getcloudify.org/guide/3.1/overview-architecture.html">policy engine</a> through the topology-driven monitoring, the Cloudify policy engine provides a mechanism that can automatically react to any monitored event with appropriate corrective measures, including the ability to auto-scale and self-heal as needed.&#160; This is all built on best of breed and extremely scalable frameworks, including <a href="http://www.celeryproject.org/">Celery</a>, <a href="http://www.rabbitmq.com/">RabbitMQ</a>, <a href="http://www.elasticsearch.org/">Elasticsearch</a>, <a href="http://riemann.io/">Riemann.io</a> and others to ensure this production-proven.</p>
+  <p>By allowing users to define and push policies for application components to the <a href="{{ site.baseurl }}/guide/3.1/overview-architecture.html">policy engine</a> through the topology-driven monitoring, the Cloudify policy engine provides a mechanism that can automatically react to any monitored event with appropriate corrective measures, including the ability to auto-scale and self-heal as needed.&#160; This is all built on best of breed and extremely scalable frameworks, including <a href="http://www.celeryproject.org/">Celery</a>, <a href="http://www.rabbitmq.com/">RabbitMQ</a>, <a href="http://www.elasticsearch.org/">Elasticsearch</a>, <a href="http://riemann.io/">Riemann.io</a> and others to ensure this production-proven.</p>
 
   <p>And we’re not talking small-scale either.</p>
 
@@ -58,7 +58,7 @@ tags:
 
   <h3><font style="font-weight: bold">DOCKERDOCKEREVERYWHERE </font></h3>
 
-  <p>With <a href="http://getcloudify.org/docker-orchestration-docker-container-deployment-cloud.html">Docker</a> being the word and just getting hotter, we just had to package in some Docker goodness into this release.&#160; This release provides built-in Docker management and support on a number of levels. On top of our built-in <a href="http://getcloudify.org/guide/3.1/plugin-docker.html">Docker plugin</a> and matching types, which allows users to use Docker containers as part of any topology (that essentially provides a full-blown orchestration and automation method for large-scale Docker-based systems), this release also comes with a *sweet* <a href="http://getcloudify.org/guide/3.1/installation-bootstrapping.html">Docker management</a> environment. This means you now get pre-made Docker images for deploying your management environment, and out-of-the-box cross Linux-distribution support for a more robust experience, easier &amp; faster upgrades for your management environments, along with a faster bootstrap process.&#160;&#160; This, of course, was built to mesh rather nicely with the Manager Blueprint approach and the Docker and Fabric plugins (which I’m getting to now) for a seamless management environment provisioning experience.</p>
+  <p>With <a href="{{ site.baseurl }}/docker-orchestration-docker-container-deployment-cloud.html">Docker</a> being the word and just getting hotter, we just had to package in some Docker goodness into this release.&#160; This release provides built-in Docker management and support on a number of levels. On top of our built-in <a href="{{ site.baseurl }}/guide/3.1/plugin-docker.html">Docker plugin</a> and matching types, which allows users to use Docker containers as part of any topology (that essentially provides a full-blown orchestration and automation method for large-scale Docker-based systems), this release also comes with a *sweet* <a href="{{ site.baseurl }}/guide/3.1/installation-bootstrapping.html">Docker management</a> environment. This means you now get pre-made Docker images for deploying your management environment, and out-of-the-box cross Linux-distribution support for a more robust experience, easier &amp; faster upgrades for your management environments, along with a faster bootstrap process.&#160;&#160; This, of course, was built to mesh rather nicely with the Manager Blueprint approach and the Docker and Fabric plugins (which I’m getting to now) for a seamless management environment provisioning experience.</p>
 
   <h4>New Plugins</h4>
 
@@ -66,12 +66,12 @@ tags:
 
   <ul>
     <li>
-      <p><a href="http://getcloudify.org/guide/3.1/plugin-script.html"><strong>Script plugin</strong></a></p>    
+      <p><a href="{{ site.baseurl }}/guide/3.1/plugin-script.html"><strong>Script plugin</strong></a></p>    
 
   <p>This plugin enables easy access to the node’s context from any programming or scripting language as long as it is executed as a sub-process of the plugin. You can develop your logic for Windows or Linux in any scripting language and gain access to any context list or map using simple client calls. This is done using ZeroMQ.</p></li>
 
     <li>
-      <p><a href="http://getcloudify.org/guide/3.1/plugin-fabric.html"><strong>Remote Execution plugin (Fabric based)</strong></a></p>
+      <p><a href="{{ site.baseurl }}/guide/3.1/plugin-fabric.html"><strong>Remote Execution plugin (Fabric based)</strong></a></p>
    
   <p>An officially supported Fabric plugin will be provided which will allow users to remotely execute commands/tasks and remove the agent installation requirement.</p>
 
@@ -84,7 +84,7 @@ tags:
 </ul>
   <h3><font style="font-weight: bold">Stepping up OpenStack Support</font></h3>
 
-  <p>Cloudify 3.1 will support the <a href="http://getcloudify.org/guide/3.1/plugin-openstack.html">OpenStack Cinder</a> API with Volume type. This will allow users to create and attach external disks to VMs, as well as detach and delete these volumes.</p>
+  <p>Cloudify 3.1 will support the <a href="{{ site.baseurl }}/guide/3.1/plugin-openstack.html">OpenStack Cinder</a> API with Volume type. This will allow users to create and attach external disks to VMs, as well as detach and delete these volumes.</p>
 
   <h3><strong>More stuff in this release</strong></h3>
 
@@ -112,6 +112,6 @@ tags:
     </li>
   </ul>
 
-  <p>You can download <a href="http://getcloudify.org/downloads/get_cloudify.html">Cloudify 3.1</a> now, and check out the <a href="http://getcloudify.org/guide/3.1/quickstart.html">docs</a>.&#160; And definitely be sure to comment and give us feedback on what you think - and what you still need.</p></p>
+  <p>You can download <a href="{{ site.baseurl }}/downloads/get_cloudify.html">Cloudify 3.1</a> now, and check out the <a href="{{ site.baseurl }}/guide/3.1/quickstart.html">docs</a>.&#160; And definitely be sure to comment and give us feedback on what you think - and what you still need.</p></p>
 
   </notextile>

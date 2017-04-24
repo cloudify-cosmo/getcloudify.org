@@ -20,7 +20,7 @@ tags:
 
 <p><b></b>
 
-  <p><a href="http://getcloudify.org/docker-orchestration-docker-container-deployment-cloud.html" target="_blank">Docker containers</a> were created to help enable the fast, and reliable deployment of application components or tiers, by creating a container that holds a self-contained ready to deploy parts of applications, with the middleware and the app business logic needed to run them successfully.&#160; For example, a Spring application within a Tomcat container.&#160; By design, <a href="http://getcloudify.org/2014/10/30/Docker-cloud-orchestration-configuration-management.html" target="_blank">Docker</a> is purposely an isolated self-contained part of the application, typically one tier or even one node in a tier. </p>
+  <p><a href="{{ site.baseurl }}/docker-orchestration-docker-container-deployment-cloud.html" target="_blank">Docker containers</a> were created to help enable the fast, and reliable deployment of application components or tiers, by creating a container that holds a self-contained ready to deploy parts of applications, with the middleware and the app business logic needed to run them successfully.&#160; For example, a Spring application within a Tomcat container.&#160; By design, <a href="{{ site.baseurl }}/2014/10/30/Docker-cloud-orchestration-configuration-management.html" target="_blank">Docker</a> is purposely an isolated self-contained part of the application, typically one tier or even one node in a tier. </p>
 
   <p>However, an application is typically multi-tier in its architecture and that means you have tiers with dependencies between them, where the nature of the dependencies can be anything from network connections and remote API invocations, to exchange of messages between application tiers.&#160; And hence an app is a set of different containers with specific configurations.&#160; This is why you need a way to glue the pieces of your app together. </p>
 
@@ -29,7 +29,7 @@ tags:
 <hr>
 
 <span class="pullquote-left">
-  <font style="font-weight: bold" size="5" face="Baskerville Old Face"><em>Docker orchestration with TOSCA + Cloudify.  Check it out.</em></font>&nbsp; <a class="btn btn-medium btn-theme btn-rounded" id="downloadBtnInner" href="http://getcloudify.org/downloads/get_cloudify.html" target="_blank"><i class="icon-plus"></i> Go </a></span>
+  <font style="font-weight: bold" size="5" face="Baskerville Old Face"><em>Docker orchestration with TOSCA + Cloudify.  Check it out.</em></font>&nbsp; <a class="btn btn-medium btn-theme btn-rounded" id="downloadBtnInner" href="{{ site.baseurl }}/downloads/get_cloudify.html" target="_blank"><i class="icon-plus"></i> Go </a></span>
   
   <hr>
 
@@ -49,7 +49,7 @@ tags:
 
   <p>As a side note here: With Docker you need a special tweak here, as you typically don’t touch config files inside a container, you keep the container intact, so there is an interesting workaround for cases that this is required. </p>
 
-  <p>One method to do this is by using a YAML-based orchestration plan to orchestrate the deployment of apps and post-deployment automation processes, which is the approach Cloudify employs.&#160; Based on <a href="http://getcloudify.org/openstack-architecture-cloudify.html#TOSCA" target="_blank">TOSCA</a> (topology and orchestration standard of cloud apps), this orchestration plan describes the components and their lifecycle, and the relationships between components, especially when it comes to complex topologies.&#160; This includes, what’s connected to what, what’s hosted on what, and other such considerations.&#160; TOSCA is able to describe the infrastructure, as well as, the middleware tier, and app layers on top of these.&#160; Cloudify basically takes this TOSCA orchestration plan (dubbed blueprints in Cloudify speak) and materializes these using workflows that traverse the graph of components, or this plan of components and issues commands to agents.&#160; These then create the app components and glue them together.&#160;&#160; </p>
+  <p>One method to do this is by using a YAML-based orchestration plan to orchestrate the deployment of apps and post-deployment automation processes, which is the approach Cloudify employs.&#160; Based on <a href="{{ site.baseurl }}/openstack-architecture-cloudify.html#TOSCA" target="_blank">TOSCA</a> (topology and orchestration standard of cloud apps), this orchestration plan describes the components and their lifecycle, and the relationships between components, especially when it comes to complex topologies.&#160; This includes, what’s connected to what, what’s hosted on what, and other such considerations.&#160; TOSCA is able to describe the infrastructure, as well as, the middleware tier, and app layers on top of these.&#160; Cloudify basically takes this TOSCA orchestration plan (dubbed blueprints in Cloudify speak) and materializes these using workflows that traverse the graph of components, or this plan of components and issues commands to agents.&#160; These then create the app components and glue them together.&#160;&#160; </p>
 
   <p>The agents use extensions called plugins that are adaptors between the Cloudify configuration and the various infrastructure as a service (IaaS) and automation tools’ APIs. </p>
 

@@ -19,12 +19,12 @@ tags:
 
 <p><b></b></p>
 
-<p>Recently I was asked to design a SaaS offering with a major partner that will feature <a href="http://getcloudify.org/2015/07/21/what-is-TOSCA-cloud-application-orchestration-tutorial-cloudify.html">TOSCA orchestration</a> for applications. Cloudify version 3 was already out with significant features and design tenets that made it extremely easy to extend and embed; enabling it to be commonly used to <a href="http://getcloudify.org/cloud_orchestration_cloud_automation.html">application orchestration</a> on various clouds and even bare metal servers. </p>
+<p>Recently I was asked to design a SaaS offering with a major partner that will feature <a href="{{ site.baseurl }}/2015/07/21/what-is-TOSCA-cloud-application-orchestration-tutorial-cloudify.html">TOSCA orchestration</a> for applications. Cloudify version 3 was already out with significant features and design tenets that made it extremely easy to extend and embed; enabling it to be commonly used to <a href="{{ site.baseurl }}/cloud_orchestration_cloud_automation.html">application orchestration</a> on various clouds and even bare metal servers. </p>
 
 <hr>
 
 <span class="pullquote-left">
-  <font style="font-weight: bold" size="5" face="Baskerville Old Face"><em>Blueprinting as a service - now possible with Cloudify.</em></font>&nbsp; <a class="btn btn-medium btn-theme btn-rounded" id="downloadBtnInner" href="http://getcloudify.org/downloads/get_cloudify.html" target="_blank"><i class="icon-plus"></i> Go </a></span>
+  <font style="font-weight: bold" size="5" face="Baskerville Old Face"><em>Blueprinting as a service - now possible with Cloudify.</em></font>&nbsp; <a class="btn btn-medium btn-theme btn-rounded" id="downloadBtnInner" href="{{ site.baseurl }}/downloads/get_cloudify.html" target="_blank"><i class="icon-plus"></i> Go </a></span>
   
   <hr>
 
@@ -33,7 +33,7 @@ tags:
 <ol>
   <li>Multi-user and multi-tenant support, alongside integration with external identity management services. </li>
 
-  <li><a href="http://getcloudify.org/2015/06/02/openstack-heat-orchestration-cloud-network-automation-scaling.html">Horizontal scaling</a> of the <a href="http://getcloudify.org/2015/04/02/what-is-workflow-software-automation-engine-open-source.html">orchestration engine </a></li>
+  <li><a href="{{ site.baseurl }}/2015/06/02/openstack-heat-orchestration-cloud-network-automation-scaling.html">Horizontal scaling</a> of the <a href="{{ site.baseurl }}/2015/04/02/what-is-workflow-software-automation-engine-open-source.html">orchestration engine </a></li>
 
   <li>Minimal footprint (in terms of resources) per application deployment and VMs within the deployment </li>
 </ol>
@@ -42,18 +42,18 @@ tags:
 
 <p>So I decided to take on the challenge myself. The approach we took to achieve this, based on the above, was the following: </p>
 
-<p>Utilize Cloudify managers as our <a href="http://getcloudify.org/guide/3.2/overview-components.html">service orchestration</a> engine, but wrap it with a facade that will - on the one hand keep the same <a href="http://getcloudify.org/guide/3.2/rest-api/index.html">RESTful API</a> Cloudify exposed, yet still make it a smart façade that will not only front the Cloudify managers, but will also provide the multi-user multi-tenancy functionality our service required, as well as the horizontal scaling. The third point, minimizing the deployment footprint was the only point we left for the core product to address in the short timeframe we had. </p>
+<p>Utilize Cloudify managers as our <a href="{{ site.baseurl }}/guide/3.2/overview-components.html">service orchestration</a> engine, but wrap it with a facade that will - on the one hand keep the same <a href="{{ site.baseurl }}/guide/3.2/rest-api/index.html">RESTful API</a> Cloudify exposed, yet still make it a smart façade that will not only front the Cloudify managers, but will also provide the multi-user multi-tenancy functionality our service required, as well as the horizontal scaling. The third point, minimizing the deployment footprint was the only point we left for the core product to address in the short timeframe we had. </p>
 
-<p>We designed the <a href="http://getcloudify.org/2014/08/04/workflow-management-automation-engine.html">multi-tenancy</a> by using our partner’s token-based identity service. We created separation between tenants in a single orchestration engine, by creating a hash algorithm that adds uniquely identified tenant encoding into all of the engine keys (such as blueprint IDs and deployment IDs), and filtering back to each tenant only its own private data. </p>
+<p>We designed the <a href="{{ site.baseurl }}/2014/08/04/workflow-management-automation-engine.html">multi-tenancy</a> by using our partner’s token-based identity service. We created separation between tenants in a single orchestration engine, by creating a hash algorithm that adds uniquely identified tenant encoding into all of the engine keys (such as blueprint IDs and deployment IDs), and filtering back to each tenant only its own private data. </p>
 
-<p>We handled the horizontal scaling, by allowing all tenants to access a single point (our façade), and load-balance between multiple orchestration engines on the backend. We also added stickiness to the load balancing. Since this service is part of a large <a href="http://getcloudify.org/2015/02/17/vcloud-air-vsphere-vmware-cloud-openstack-orchestration-tosca-nfv-docker.html">public cloud </a>offering by our partner, we were interested in maintaining the same user experience, and using the same tools used by its customers. Both the CLI and UI were addressed. The CLI support was added by adding command verbs to the existing CLI tool. Even though Cloudify has an impressive UI in its own right, to ensure an optimal user experience, we built a new UI from the ground up to match the existing cloud UI. The amazing part here is that due to the easy RESTful API that we had, the UI was built in a couple of weeks in parallel to the work on the façade. In the first week it used the Cloudify orchestration engine's RESTful API and by the second week, once the façade API was ready, the switch was nearly transparent and took a couple of hours. </p>
+<p>We handled the horizontal scaling, by allowing all tenants to access a single point (our façade), and load-balance between multiple orchestration engines on the backend. We also added stickiness to the load balancing. Since this service is part of a large <a href="{{ site.baseurl }}/2015/02/17/vcloud-air-vsphere-vmware-cloud-openstack-orchestration-tosca-nfv-docker.html">public cloud </a>offering by our partner, we were interested in maintaining the same user experience, and using the same tools used by its customers. Both the CLI and UI were addressed. The CLI support was added by adding command verbs to the existing CLI tool. Even though Cloudify has an impressive UI in its own right, to ensure an optimal user experience, we built a new UI from the ground up to match the existing cloud UI. The amazing part here is that due to the easy RESTful API that we had, the UI was built in a couple of weeks in parallel to the work on the façade. In the first week it used the Cloudify orchestration engine's RESTful API and by the second week, once the façade API was ready, the switch was nearly transparent and took a couple of hours. </p>
 
 <p>Another interesting point I wanted to bring up is how we managed the operation of the service and its development. Due to the very short timeframe we operated in, we managed the development in weekly sprints and each sprint resulted in a deployment to production of that sprint functionality. 
   <br />To allow us this aggressive deployment process we basically drink our own Kool Aid. We created a blueprint of the service frontend and backend services and used Cloudify to orchestrate the deployment and scaling of our service itself. 
 
   <p>Looking back, I am extremely happy with the approach we took. </p>
 
-<p>The Cloudify product has improved in these couple of months and its new <a href="http://getcloudify.org/downloads/get_cloudify.html" target="_blank">3.2.1 release</a> already supports some of the elements we built ourselves. Others are still in the works, but this challenge afforded us flexibility in fronting the orchestration engines, which is something that we continue to take advantage of and leverage in order to tailor the service for our users.</p>
+<p>The Cloudify product has improved in these couple of months and its new <a href="{{ site.baseurl }}/downloads/get_cloudify.html" target="_blank">3.2.1 release</a> already supports some of the elements we built ourselves. Others are still in the works, but this challenge afforded us flexibility in fronting the orchestration engines, which is something that we continue to take advantage of and leverage in order to tailor the service for our users.</p>
 
 
 </notextile>

@@ -29,7 +29,7 @@ tags:
   <hr>
 
 <span class="pullquote-left">
-  <font style="font-weight: bold" size="5" face="Baskerville Old Face"><em>Cloudify - taking CI to CD with a simple blueprint. Give it a whirl. </em></font>&nbsp; <a class="btn btn-medium btn-theme btn-rounded" id="downloadBtnInner" href="http://getcloudify.org/downloads/get_cloudify.html" target="_blank"><i class="icon-plus"></i> Go </a></span>
+  <font style="font-weight: bold" size="5" face="Baskerville Old Face"><em>Cloudify - taking CI to CD with a simple blueprint. Give it a whirl. </em></font>&nbsp; <a class="btn btn-medium btn-theme btn-rounded" id="downloadBtnInner" href="{{ site.baseurl }}/downloads/get_cloudify.html" target="_blank"><i class="icon-plus"></i> Go </a></span>
   
   <hr>
 
@@ -71,13 +71,13 @@ tags:
 
 <p>So while at this point, we are left with two testing environments with minor differences and the semi-automated production deployment, ultimately can be fully scripted, essentially closing the loop from continuous integration to continuous delivery. </p>
 
-<p>In the Jenkins blueprint, we also created a custom workflow that allows users to run any Jenkins CLI command from the Cloudify CLI, so you don’t even have to (though you can)&#160; access the Jenkins CLI to run commands.&#160; This is a great example of how Cloudify’s <a href="http://getcloudify.org/guide/3.0/guide-authoring-workflows.html">workflow engine</a> can be utilized to create custom <a href="http://getcloudify.org/2015/04/02/what-is-workflow-software-automation-engine-open-source.html">workflow automation</a> to remotely access your environments without the need to SSH or use any other agents (you can however still do so, if you prefer).</p>
+<p>In the Jenkins blueprint, we also created a custom workflow that allows users to run any Jenkins CLI command from the Cloudify CLI, so you don’t even have to (though you can)&#160; access the Jenkins CLI to run commands.&#160; This is a great example of how Cloudify’s <a href="{{ site.baseurl }}/guide/3.0/guide-authoring-workflows.html">workflow engine</a> can be utilized to create custom <a href="{{ site.baseurl }}/2015/04/02/what-is-workflow-software-automation-engine-open-source.html">workflow automation</a> to remotely access your environments without the need to SSH or use any other agents (you can however still do so, if you prefer).</p>
 
 <p>In this case we chose our application to be Drupal which is one of the most popular CMS platforms, so that every deployment on each one of the Cloudify managers is comprised of three tiers: Apache, MySQL and Memdached.</p>
 
 <p>Here’s an image that shows how the Drupal application is deployed by Jenkins:<img alt="Jenkins CI | Jenkins Server | Continuous Integration | CI | CI Server | Build Automation | CD | Continuous Delivery" src="https://lh6.googleusercontent.com/OHgGZuDdNscQKeQF8E59FslGDzvBNvskVj3sgnlRzz7HMfOXNtx4CW0MnS2x-aG4b1TJU0x9Fm92H0pNqyjHTFtfnf-PXQzNNHTpS8FlKhqUBeF5dhLltNckWR6SQe2yX1T8IOs" width="555" height="455" /></p>
 
-<p>This example also demonstrates how you can leverage all of the added Cloudify capabilities that come out of the box in order to extend Jenkins functionality and deliver robust CI through CD, including everything required for post-deployment, a critical element in <a href="http://getcloudify.org/2015/03/15/continuous-integration-continuous-delivery-deployment-automation-tools.html">continuous delivery</a> processes.&#160; So you can essentially monitor Jenkins - and not just the application itself, but the entire lifecycle of the build and deployment processes (e.g. success/failure), and define custom metrics based on your deployment through Cloudify’s policy engine.&#160; </p>
+<p>This example also demonstrates how you can leverage all of the added Cloudify capabilities that come out of the box in order to extend Jenkins functionality and deliver robust CI through CD, including everything required for post-deployment, a critical element in <a href="{{ site.baseurl }}/2015/03/15/continuous-integration-continuous-delivery-deployment-automation-tools.html">continuous delivery</a> processes.&#160; So you can essentially monitor Jenkins - and not just the application itself, but the entire lifecycle of the build and deployment processes (e.g. success/failure), and define custom metrics based on your deployment through Cloudify’s policy engine.&#160; </p>
 
 <p>This enables you to have an intelligent analysis of your system however you built it, and make decisions based on log files collected and other KPIs, receive alerts, and have your system auto-heal and auto-scale based on these policies.&#160; What’s more, being infrastructure agnostic makes it possible to run this example on any VM, bare metal server, or even in Docker containers.</p>
 

@@ -13,17 +13,17 @@ tags:
 ---
 
 <notextile>
-<img src="http://getcloudify.org/img/blog/roundup.png" alt="OpenStack Heat | Cloud Application Orchestration | OpenStack Orchestration | TOSCA | Orchestration Tools | Docker">
+<img src="{{ site.baseurl }}/img/blog/roundup.png" alt="OpenStack Heat | Cloud Application Orchestration | OpenStack Orchestration | TOSCA | Orchestration Tools | Docker">
 <br/>
 <br/>
 
 <p>Containers was definitely one of major topics during the OpenStack Summit in Vancouver.</p>
 
-<p>There many announcements and projects that aim to leverage containers in various ways. The most notable one was the new Magnum project, which aims to make <a href="http://getcloudify.org/2015/04/26/dockerfile-docker-container-tutorial-images-cloud-vm.html" target="_blank">Docker</a> and <a href="http://getcloudify.org/2014/12/14/TOSCA-docker-container-orchestration-microservices-architecture-kubernetes.html" target="_blank">Kubernetes</a> first class citizens in OpenStack.</p>
+<p>There many announcements and projects that aim to leverage containers in various ways. The most notable one was the new Magnum project, which aims to make <a href="{{ site.baseurl }}/2015/04/26/dockerfile-docker-container-tutorial-images-cloud-vm.html" target="_blank">Docker</a> and <a href="{{ site.baseurl }}/2014/12/14/TOSCA-docker-container-orchestration-microservices-architecture-kubernetes.html" target="_blank">Kubernetes</a> first class citizens in OpenStack.</p>
 
-<p>Having said that, it's not too hard to see that the container space is becoming very crowded and <a href="http://getcloudify.org/docker-orchestration-docker-container-deployment-cloud.html" target="_blank">container orchestration</a> specifically is now a hot area and, as such, very confusing. My session during the summit was aimed to map the orchestration landscape for those who feel confused.</p>
+<p>Having said that, it's not too hard to see that the container space is becoming very crowded and <a href="{{ site.baseurl }}/docker-orchestration-docker-container-deployment-cloud.html" target="_blank">container orchestration</a> specifically is now a hot area and, as such, very confusing. My session during the summit was aimed to map the orchestration landscape for those who feel confused.</p>
 
-<p>Apparently comparing the various <a href="http://getcloudify.org/2015/06/02/openstack-heat-orchestration-cloud-network-automation-scaling.html" target="_blank">orchestration tools</a> was much more challenging than what I had originally anticipated. Part of the reason was that every orchestration framework took a fairly different approach depending on the underlying assumption by which it was built. </p>
+<p>Apparently comparing the various <a href="{{ site.baseurl }}/2015/06/02/openstack-heat-orchestration-cloud-network-automation-scaling.html" target="_blank">orchestration tools</a> was much more challenging than what I had originally anticipated. Part of the reason was that every orchestration framework took a fairly different approach depending on the underlying assumption by which it was built. </p>
 
 <p>In this post I wanted to highlight the main takeaway from this exercise.</p>
 
@@ -44,11 +44,11 @@ tags:
 
 <p>Similar to these robots, Orchestration is programmed to take an IT management task done manually and automate it.</p>
 
-<p class="aligncenter"><img src="http://getcloudify.org/img/blog/orchestrationcars.png" /></p>
+<p class="aligncenter"><img src="{{ site.baseurl }}/img/blog/orchestrationcars.png" /></p>
 
 <p>The common characteristics behind most orchestrations is that they often use some sort of DSL or script to define the application deployment process. The orchestration engine uses this definition as an input and translates it into a set of tasks that interact with the underlying infrastructure which allow it to spawn VM's, configure, and install apps.</p>
 
-<p>Different assumptions led to different approaches. For example, if you're assuming that your world is based only on containers, your approach would be similar to that of Docker. If you're specifically designing for Micro-Services then Kubernetes may be the right choice. However, if your looking for orchestration of a specific cloud infrastructure, <a href="http://getcloudify.org/2015/05/22/openstack-cloud-tosca-network-orchestration-automation-yaml-heat-summit-vancouver.html" target="_blank">OpenStack Heat</a> or Amazon CloudFormation would be the right approach. Similarly, if your environment is a mix of containers and non containerized workloads, and you may be using a mix of OpenStack and other clouds, then you may need an orchestration tool that isn't bound to a specific infrastructure or container technology. This is where TOSCA/Cloudify and Terraform could be the right choice.</p>
+<p>Different assumptions led to different approaches. For example, if you're assuming that your world is based only on containers, your approach would be similar to that of Docker. If you're specifically designing for Micro-Services then Kubernetes may be the right choice. However, if your looking for orchestration of a specific cloud infrastructure, <a href="{{ site.baseurl }}/2015/05/22/openstack-cloud-tosca-network-orchestration-automation-yaml-heat-summit-vancouver.html" target="_blank">OpenStack Heat</a> or Amazon CloudFormation would be the right approach. Similarly, if your environment is a mix of containers and non containerized workloads, and you may be using a mix of OpenStack and other clouds, then you may need an orchestration tool that isn't bound to a specific infrastructure or container technology. This is where TOSCA/Cloudify and Terraform could be the right choice.</p>
 
 <p><b></b></p>
 
@@ -78,7 +78,7 @@ tags:
 
 <p>We chose a NodeJS + MongoDB application, which is a fairly popular stack, and measured what it takes to automate the process of installation, configuration and management of this application in each tool starting from setting up the infrastructure (i.e. compute, storage, network) to the point where we have a full production-ready deployment.</p>
 
-<p class="aligncenter"><img src="http://getcloudify.org/img/blog/nodemongo.png"/></p>
+<p class="aligncenter"><img src="{{ site.baseurl }}/img/blog/nodemongo.png"/></p>
 
 <p>We also measured how each tool handles the following set of common characteristics:</p>
 
@@ -112,9 +112,9 @@ tags:
 
 <p>We started the exercise by comparing the different approaches to orchestration. However, the reality is that each tool has its own sweet-spots and weaknesses, and therefore it is common to see a combination of the tools as a way to make the best out of each tool.</p>
 
-<p>Strong evidence of this was the announcement of the Magnum project which uses Heat to create the OpenStack infrastructure for running Kubernetes or <a href="http://getcloudify.org/2015/05/19/openstack-summit-vancouver-releases-cloud-kilo-juno-TOSCA-nfv-orchestration.html" target="_blank">Swarm</a>. In this case Heat is used where its best suited, which is to setup the OpenStack infrastructure and Kubernetes and Swarm to run containers on top of OpenStack.</p>
+<p>Strong evidence of this was the announcement of the Magnum project which uses Heat to create the OpenStack infrastructure for running Kubernetes or <a href="{{ site.baseurl }}/2015/05/19/openstack-summit-vancouver-releases-cloud-kilo-juno-TOSCA-nfv-orchestration.html" target="_blank">Swarm</a>. In this case Heat is used where its best suited, which is to setup the OpenStack infrastructure and Kubernetes and Swarm to run containers on top of OpenStack.</p>
 
-<p>Similarly Cloudify/TOSCA also announced <a href="http://getcloudify.org/guide/3.2/plugin-docker.html" target="_blank">support for containers</a>, which will allow portability between Docker, CoreOS and other container technologies. The next step would be to serve as a complementary orchestrator to that of Kubernetes and Swarm, allowing for a way to setup the environment for containers on clouds other than OpenStack as well as by allowing management of mixed workloads that are not bounded to containers only.</p>
+<p>Similarly Cloudify/TOSCA also announced <a href="{{ site.baseurl }}/guide/3.2/plugin-docker.html" target="_blank">support for containers</a>, which will allow portability between Docker, CoreOS and other container technologies. The next step would be to serve as a complementary orchestrator to that of Kubernetes and Swarm, allowing for a way to setup the environment for containers on clouds other than OpenStack as well as by allowing management of mixed workloads that are not bounded to containers only.</p>
 
 <p><b></b></p>
 

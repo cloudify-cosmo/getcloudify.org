@@ -17,7 +17,7 @@ tags:
 <br/>
 <br/>
 
-   <p>We have discussed <a href="http://getcloudify.org/2014/05/14/openstack-neutron-networking-nova.html" target="_blank">OpenStack networking</a> extensively in previous posts.&#160; In this post, I’d like to dive into a more advanced OpenStack networking scenario.</p>
+   <p>We have discussed <a href="{{ site.baseurl }}/2014/05/14/openstack-neutron-networking-nova.html" target="_blank">OpenStack networking</a> extensively in previous posts.&#160; In this post, I’d like to dive into a more advanced OpenStack networking scenario.</p>
 
 <p>Many cloud images are not configured to automatically bring up all network cards that are available. They will usually only have a single network card configured. To correctly set up a host in the cloud with multiple network cards, log on to the machine and bring up the additional interfaces.</p>
 
@@ -26,12 +26,12 @@ tags:
 
 <p><strong>Networks in the cloud</strong></p>
 
-<p>A complex <a href="http://getcloudify.org/2014/02/14/networking_from_then_to_cloud.html" target="_blank">network architecture</a> is a mainstay of modern IaaS clouds. Understanding how to configure your cloud-based networks, and hosts, is critical to getting your application working in the cloud. This is especially true with Cloudify, the <a href="http://www.getcloudify.org/" target="_blank">open source cloud</a> orchestration platform I work on.</p>
+<p>A complex <a href="{{ site.baseurl }}/2014/02/14/networking_from_then_to_cloud.html" target="_blank">network architecture</a> is a mainstay of modern IaaS clouds. Understanding how to configure your cloud-based networks, and hosts, is critical to getting your application working in the cloud. This is especially true with Cloudify, the <a href="http://www.getcloudify.org/" target="_blank">open source cloud</a> orchestration platform I work on.</p>
 
 <hr>
 
 <span class="pullquote-left">
-  <font style="font-weight: bold" size="5" face="Baskerville Old Face"><em>Network orchestration for any cloud with Cloudify. Get Started.</em></font>&nbsp; <a class="btn btn-medium btn-theme btn-rounded" id="downloadBtnInner" href="http://getcloudify.org/downloads/get_cloudify.html" target="_blank"><i class="icon-plus"></i> Go </a></span>
+  <font style="font-weight: bold" size="5" face="Baskerville Old Face"><em>Network orchestration for any cloud with Cloudify. Get Started.</em></font>&nbsp; <a class="btn btn-medium btn-theme btn-rounded" id="downloadBtnInner" href="{{ site.baseurl }}/downloads/get_cloudify.html" target="_blank"><i class="icon-plus"></i> Go </a></span>
   
   <hr>
 
@@ -42,7 +42,7 @@ tags:
 
 <p>The flat network model is simple, and therefore easy to reason and understand. It was a good choice for the early days of the IaaS cloud and no doubt helped with getting applications into the cloud in the first place. It was one of the things that made <a href="http://aws.amazon.com/ec2">EC2</a> so easy to use for anyone just starting out with the ‘cloud’. This model is in fact still available on Amazon Web Services under the title ‘EC2-Classic’. And for many applications, a flat network is good enough.</p>
 
-<p>But as cloud adoption increases, more complex applications are moving into the clouds, and issues like network separation, security, SLA and broadcast domains make more complex networks models a must. Software Defined Networks (SDN) fill that gap. They are now a staple of most major IaaS clouds. AWS has <a href="http://aws.amazon.com/vpc/">AWS-VPC</a>, <a href="http://getcloudify.org/openstack-architecture-cloudify.html" target="_blank">OpenStack</a> has the <a href="https://wiki.openstack.org/wiki/Neutron">Neutron</a> project and there are many other implementations.</p>
+<p>But as cloud adoption increases, more complex applications are moving into the clouds, and issues like network separation, security, SLA and broadcast domains make more complex networks models a must. Software Defined Networks (SDN) fill that gap. They are now a staple of most major IaaS clouds. AWS has <a href="http://aws.amazon.com/vpc/">AWS-VPC</a>, <a href="{{ site.baseurl }}/openstack-architecture-cloudify.html" target="_blank">OpenStack</a> has the <a href="https://wiki.openstack.org/wiki/Neutron">Neutron</a> project and there are many other implementations.</p>
 
 <p>Working with SDN requires knowing a bit more about how information moves around between your cloud resources. In this post I am going to discuss how to set up a host in the cloud so it will play nice with complex networks. I’ll be using OpenStack, but the concepts are similar for other cloud infrastructures.</p>
 

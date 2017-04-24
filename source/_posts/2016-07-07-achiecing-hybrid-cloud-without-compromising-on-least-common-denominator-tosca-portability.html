@@ -25,7 +25,7 @@ tags:
 <hr>
 
 <span class="pullquote-left">
-  <font style="font-weight: bold" size="5" face="Baskerville Old Face"><em>The only constant is change. Download the all-new Cloudify 3.4 today!</em></font>  <a class="btn btn-medium btn-theme btn-rounded" id="downloadBtnInner" href="http://getcloudify.org/downloads/get_cloudify.html" target="_blank"><i class="icon-plus"></i> Go </a></span>
+  <font style="font-weight: bold" size="5" face="Baskerville Old Face"><em>The only constant is change. Download the all-new Cloudify 3.4 today!</em></font>  <a class="btn btn-medium btn-theme btn-rounded" id="downloadBtnInner" href="{{ site.baseurl }}/downloads/get_cloudify.html" target="_blank"><i class="icon-plus"></i> Go </a></span>
   
   <hr>
 
@@ -35,7 +35,7 @@ tags:
 
 <p>In addition, many of the existing tools are missing the key part in such deployment models; the actual application itself. Running an application in a hybrid cloud environment requires the handling of the entire application stack in which the infrastructure is really only one component. This includes the configuration management, containers, monitoring, logging, and policies as well as maintenance of the application itself through its entire lifecycle.</p>
 
-<p>I find myself writing a post on just this subject every couple of months, since the landscape changes so rapidly (see my <a href="http://getcloudify.org/2015/10/21/configuration-management-chef-puppet-ansible-emc-dell-vmware-orchestration.html">disruption cycle post</a> if you want more on that). That said, recent developments have gotten me thinking again, and I wanted to revisit the different <a href="http://getcloudify.org/2015/06/09/cloud-tosca-orchestration-automation-openstack-hybrid-enterprise-migration.html">hybrid cloud</a> use cases and suggest a different approach to hybrid cloud that doesn&rsquo;t force a least common denominator and handles the entire application lifecycle and stack.</p>
+<p>I find myself writing a post on just this subject every couple of months, since the landscape changes so rapidly (see my <a href="{{ site.baseurl }}/2015/10/21/configuration-management-chef-puppet-ansible-emc-dell-vmware-orchestration.html">disruption cycle post</a> if you want more on that). That said, recent developments have gotten me thinking again, and I wanted to revisit the different <a href="{{ site.baseurl }}/2015/06/09/cloud-tosca-orchestration-automation-openstack-hybrid-enterprise-migration.html">hybrid cloud</a> use cases and suggest a different approach to hybrid cloud that doesn&rsquo;t force a least common denominator and handles the entire application lifecycle and stack.</p>
 
 <p>So just to set the stage, and make sure we&rsquo;re all on the same page, let&rsquo;s start start with the obvious - the definition of hybrid cloud and identifying the diversity of use cases.</p>
 
@@ -61,7 +61,7 @@ tags:
 <p>We often tend to associate cloud portability with cloud bursting, and many times it&rsquo;s even used erroneously interchangeably with hybrid cloud, but these only represent a couple of use cases, and, truthfully, not even the most common ones. In fact, the need for cloud portability spans across a vastly wider number of use cases that are much more common, but at the same time less known, ironically. Let me explain with the following:</p>
 
 <ul>
-<li><strong>Future proofing</strong> - With the uncertainty around <a href="http://getcloudify.org/vmware-hybrid-cloud.html" target="_blank">VMware</a> or <a href="http://getcloudify.org/openstack-architecture-cloudify.html" target="_blank">OpenStack</a> and the emergence of a new class of cloud native infrastructure it has become abundantly clear that we're going to continue to experience more disruption on the infrastructure level. In order for the strategy to &ldquo;future proof&rdquo; your application from those changes and keep your options open to benefit from new developments as they happen, it is important to decouple the application from the underlying infrastructure by designing the application for cloud portability.</li>
+<li><strong>Future proofing</strong> - With the uncertainty around <a href="{{ site.baseurl }}/vmware-hybrid-cloud.html" target="_blank">VMware</a> or <a href="{{ site.baseurl }}/openstack-architecture-cloudify.html" target="_blank">OpenStack</a> and the emergence of a new class of cloud native infrastructure it has become abundantly clear that we're going to continue to experience more disruption on the infrastructure level. In order for the strategy to &ldquo;future proof&rdquo; your application from those changes and keep your options open to benefit from new developments as they happen, it is important to decouple the application from the underlying infrastructure by designing the application for cloud portability.</li>
 </ul>
 
 <ul>

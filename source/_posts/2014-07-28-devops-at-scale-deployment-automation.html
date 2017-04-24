@@ -18,24 +18,24 @@ tags:
 
 <p>Once upon a time, deploying a large scale application required a large IT team to provision and organize resources, for example to buy machines, set up hosting, guarantee network bandwidth, and so forth. All this before the actual application code can even be deployed to the machines, and the whole thing can be started up.</p>
 
-<p>The cloud world, and the <a href="http://getcloudify.org/cloud_orchestration_cloud_automation.html">DevOps tools</a> that have sprung up around it, have simplified this process significantly, although some of the fundamental issues surrounding large scale deployments have still not changed much to date.</p>
+<p>The cloud world, and the <a href="{{ site.baseurl }}/cloud_orchestration_cloud_automation.html">DevOps tools</a> that have sprung up around it, have simplified this process significantly, although some of the fundamental issues surrounding large scale deployments have still not changed much to date.</p>
 
 <p>Obviously, building an application that can handle 1,000 concurrent users is very different than building an application that can handle 100 million concurrent users, and with the growth of users and data on an exponential scale, applications these days, just can’t afford to not be able to meet the load.&#160; It’s not just the raw computing and storage powers needed to handle such volumes, it’s the system’s inherent design and algorithms that must “scale” to meet the requirements, as well.</p>
 
 <hr>
 
 <span class="pullquote-left">
-  <font style="font-weight: bold" size="5" face="Baskerville Old Face"><em>Cloudify 3.0 - deploy thousands of node instances without losing control.</em></font>&nbsp; <a class="btn btn-medium btn-theme btn-rounded" id="downloadBtnInner" href="http://getcloudify.org/downloads/get_cloudify.html" target="_blank"><i class="icon-plus"></i> Go </a></span>
+  <font style="font-weight: bold" size="5" face="Baskerville Old Face"><em>Cloudify 3.0 - deploy thousands of node instances without losing control.</em></font>&nbsp; <a class="btn btn-medium btn-theme btn-rounded" id="downloadBtnInner" href="{{ site.baseurl }}/downloads/get_cloudify.html" target="_blank"><i class="icon-plus"></i> Go </a></span>
   
   <hr>
   
-<p>Application <a href="http://getcloudify.org/2014/02/27/from_simple_automation_to_proactive_orchestration.html">orchestration </a>often requires intimate and continuous integration with the application in order for it to detect failure in sub-seconds and take corrective actions as needed. That often imposes a more complex scalability challenge.</p>
+<p>Application <a href="{{ site.baseurl }}/2014/02/27/from_simple_automation_to_proactive_orchestration.html">orchestration </a>often requires intimate and continuous integration with the application in order for it to detect failure in sub-seconds and take corrective actions as needed. That often imposes a more complex scalability challenge.</p>
 
-<p>Cloudify 2.x used a hierarchy of managers where each manager controls 100+ nodes as a scaling architecture. One of the things that we experienced over the last year is that there is a growing class of services such as&#160; big data, and<a href="http://getcloudify.org/2014/04/09/network_automation_NFV_cloud_orchestration.html"> Network Function Virtualization (NFV) </a>in which a single service can be comprised of hundreds and potentially even thousands of instances, and therefore the manager of managers approach didn’t fit well with those use cases.</p>
+<p>Cloudify 2.x used a hierarchy of managers where each manager controls 100+ nodes as a scaling architecture. One of the things that we experienced over the last year is that there is a growing class of services such as&#160; big data, and<a href="{{ site.baseurl }}/2014/04/09/network_automation_NFV_cloud_orchestration.html"> Network Function Virtualization (NFV) </a>in which a single service can be comprised of hundreds and potentially even thousands of instances, and therefore the manager of managers approach didn’t fit well with those use cases.</p>
 
 <p>To enable scaling of thousands of nodes per manager we decided to use a message broker approach based on AMQP, as well as, to separate the provisioning, logging and real-time monitoring tasks into separate services that can scale independently. This allows us to also control the level of intimacy between the Cloudify Manager and the application services. As an example we can tune Cloudify to handle the provisioning and logging only, and use the real-time information already gathered by the infrastructure. This is specifically important in the context of OpenStack as we expect that a large part of the metrics can be gathered through the infrastructure itself.</p>
 
-<p>With <a href="http://getcloudify.org/downloads/get_cloudify.html">Cloudify 3.0</a>, deploying large scale apps was very much one of our core targets, when we chose to redesign our product.&#160; We constantly faced the question, what does it really take to correctly deploy an application that requires 1000 compute instances?&#160; And we found that the main points of this ultimate question were:</p>
+<p>With <a href="{{ site.baseurl }}/downloads/get_cloudify.html">Cloudify 3.0</a>, deploying large scale apps was very much one of our core targets, when we chose to redesign our product.&#160; We constantly faced the question, what does it really take to correctly deploy an application that requires 1000 compute instances?&#160; And we found that the main points of this ultimate question were:</p>
 
 <ul>
   <li>

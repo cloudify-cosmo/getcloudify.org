@@ -27,13 +27,13 @@ tags:
 
   <p>When we design the blueprint, it’s important to think about when certain data is available. Inputs to the blueprint can be used at any time, but some data is only available at runtime.</p>
 
-  <p>In my previous post <strong><em><a href="http://getcloudify.org/2015/04/02/what-is-workflow-software-automation-engine-open-source.html" target="_blank">What is a Workflow?</a></em></strong> I described the basic premise behind workflows, how these flows work, and what they’re comprised of. I used a simple example, and the order of operations required in order for them install correctly.&#160; </p>
+  <p>In my previous post <strong><em><a href="{{ site.baseurl }}/2015/04/02/what-is-workflow-software-automation-engine-open-source.html" target="_blank">What is a Workflow?</a></em></strong> I described the basic premise behind workflows, how these flows work, and what they’re comprised of. I used a simple example, and the order of operations required in order for them install correctly.&#160; </p>
 
 
    <hr>
 
 <span class="pullquote-left">
-  <font style="font-weight: bold" size="5" face="Baskerville Old Face"><em>Cloudify workflows out of the box - at any scale.</em></font>&nbsp; <a class="btn btn-medium btn-theme btn-rounded" id="downloadBtnInner" href="http://getcloudify.org/downloads/get_cloudify.html" target="_blank"><i class="icon-plus"></i> Go </a></span>
+  <font style="font-weight: bold" size="5" face="Baskerville Old Face"><em>Cloudify workflows out of the box - at any scale.</em></font>&nbsp; <a class="btn btn-medium btn-theme btn-rounded" id="downloadBtnInner" href="{{ site.baseurl }}/downloads/get_cloudify.html" target="_blank"><i class="icon-plus"></i> Go </a></span>
   
   <hr>
 
@@ -145,9 +145,9 @@ tags:
 
   <p>During the workflow, runtime properties of the nodes will be assigned.</p>
 
-  <p>In order to access such properties in a blueprint, you need to use get_attribute. This is an intrinsic function of the Cloudify <a href="http://getcloudify.org/guide/3.1/dsl-spec-intrinsic-functions.html#getattribute">TOSCA </a>DSL. </p>
+  <p>In order to access such properties in a blueprint, you need to use get_attribute. This is an intrinsic function of the Cloudify <a href="{{ site.baseurl }}/guide/3.1/dsl-spec-intrinsic-functions.html#getattribute">TOSCA </a>DSL. </p>
 
-  <p>Hint: Remember that you can only use this function in an input to an <a href="http://getcloudify.org/guide/3.1/reference-terminology.html#operation">operation</a>, or in a blueprint output. </p>
+  <p>Hint: Remember that you can only use this function in an input to an <a href="{{ site.baseurl }}/guide/3.1/reference-terminology.html#operation">operation</a>, or in a blueprint output. </p>
 
   <p>When a blueprint requires Docker containers running on separate hosts, we require runtime properties of some of the nodes.</p>
 
@@ -163,7 +163,7 @@ tags:
 
   <p>When creating blueprints and working with workflows, it’s important to consider the implications of using particular elements in certain places.</p>
 
-  <p>You can find the differences between the different node types and relationship types in our <a href="http://getcloudify.org/guide/3.1/reference-builtin-workflows.html" target="_blank">documentation</a>, and where and when to use each.</p>
+  <p>You can find the differences between the different node types and relationship types in our <a href="{{ site.baseurl }}/guide/3.1/reference-builtin-workflows.html" target="_blank">documentation</a>, and where and when to use each.</p>
 
   <p>The different operations that are available in the install workflow ensure that you are able to gracefully and flexibly design your orchestration blueprint.</p>
 

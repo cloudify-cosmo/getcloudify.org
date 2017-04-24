@@ -20,7 +20,7 @@ tags:
 
 <h3><em>This guide has recently been updated. To find the latest version, in PDF format, click <a href="/downloads/workingofflinewithcloudify3.4-latest.pdf" download>this link</a> to download.</em></h3>
 
-<p>The expression "working offline", when it comes to <a href="http://getcloudify.org" target="_blank">Cloudify</a>, refers to the practice of installing and configuring Cloudify Manager in a <em>self-contained</em> manner; that is, all resources required by Cloudify Manager &mdash; ranging from the <a href="http://docs.getcloudify.org/3.4.0/manager/bootstrapping/">bootstrap process</a> to <a href="http://docs.getcloudify.org/3.4.0/workflows/overview/">workflow execution</a> &mdash; are contained within the Cloudify Manager, rather than being retrieved from any other source, be it an internal network or (more commonly) the public network.</p>
+<p>The expression "working offline", when it comes to <a href="{{ site.baseurl }}" target="_blank">Cloudify</a>, refers to the practice of installing and configuring Cloudify Manager in a <em>self-contained</em> manner; that is, all resources required by Cloudify Manager &mdash; ranging from the <a href="http://docs.getcloudify.org/3.4.0/manager/bootstrapping/">bootstrap process</a> to <a href="http://docs.getcloudify.org/3.4.0/workflows/overview/">workflow execution</a> &mdash; are contained within the Cloudify Manager, rather than being retrieved from any other source, be it an internal network or (more commonly) the public network.</p>
 
 <h2>Why Work Offline?</h2>
 
@@ -29,7 +29,7 @@ tags:
 <hr>
 
 <span class="pullquote-left">
-  <font style="font-weight: bold" size="5" face="Baskerville Old Face"><em>Register today for our live Open vCPE Webinar on Feb 16!</em></font>&nbsp; <a class="btn btn-medium btn-theme btn-rounded" id="downloadBtnInner" href="hhttp://getcloudify.org/webinars/open-vCPE-framework-webinar.html?utm_campaign=vCPE Webinar&utm_medium=website_jh&utm_source=internal blog post" target="_blank"><i class="icon-plus"></i> Go </a></span>
+  <font style="font-weight: bold" size="5" face="Baskerville Old Face"><em>Register today for our live Open vCPE Webinar on Feb 16!</em></font>&nbsp; <a class="btn btn-medium btn-theme btn-rounded" id="downloadBtnInner" href="h{{ site.baseurl }}/webinars/open-vCPE-framework-webinar.html?utm_campaign=vCPE Webinar&utm_medium=website_jh&utm_source=internal blog post" target="_blank"><i class="icon-plus"></i> Go </a></span>
   
   <hr>
 
@@ -89,7 +89,7 @@ tags:
 </tbody>
 </table>
 
-<br><p>Let's look at how to prepare the bootstrap client machine (that is, the machine where the bootstrap process is executing from; for brevity, we will refer to it as the <em>CLI machine</em>), and the target <a href="http://getcloudify.org/2017/01/18/step-by-step-guide-installing-cloudify-manager-local-machine.html" target="_blank">Cloudify Manager</a> VM, so the bootstrap process can be be performed completely offline.</p>
+<br><p>Let's look at how to prepare the bootstrap client machine (that is, the machine where the bootstrap process is executing from; for brevity, we will refer to it as the <em>CLI machine</em>), and the target <a href="{{ site.baseurl }}/2017/01/18/step-by-step-guide-installing-cloudify-manager-local-machine.html" target="_blank">Cloudify Manager</a> VM, so the bootstrap process can be be performed completely offline.</p>
 
 
 <h2>Setting Up the Bootstrap Client Machine (the CLI Machine)</h2>
@@ -284,7 +284,7 @@ Currently, there is no official mechanism to update the Import Resolver rules af
 </tr>
 </table>
 <br>
-<p><a href="http://getcloudify.org/downloads/plugin-packages.html">Cloudify's official plugins are provided as Wagons</a> for various distributions and versions (except for plugins that typically run on the Cloudify Manager machine, in which case, only RHEL 7.x / CentOS 7.x Wagons are provided). For custom plugins, you can use the <a href="https://github.com/cloudify-cosmo/wagon">Wagon tool</a> to create a Wagon files. Wagon files can then be uploaded to the Cloudify Manager instance using the <a href="http://docs.getcloudify.org/3.4.0/cli/plugins/">command-line interface</a> or the <a href="http://docs.getcloudify.org/api/#upload-plugin">REST API</a>.</p>
+<p><a href="{{ site.baseurl }}/downloads/plugin-packages.html">Cloudify's official plugins are provided as Wagons</a> for various distributions and versions (except for plugins that typically run on the Cloudify Manager machine, in which case, only RHEL 7.x / CentOS 7.x Wagons are provided). For custom plugins, you can use the <a href="https://github.com/cloudify-cosmo/wagon">Wagon tool</a> to create a Wagon files. Wagon files can then be uploaded to the Cloudify Manager instance using the <a href="http://docs.getcloudify.org/3.4.0/cli/plugins/">command-line interface</a> or the <a href="http://docs.getcloudify.org/api/#upload-plugin">REST API</a>.</p>
 
 
 <h2>Summary</h2>

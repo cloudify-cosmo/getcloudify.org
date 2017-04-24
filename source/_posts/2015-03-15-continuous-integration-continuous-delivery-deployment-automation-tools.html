@@ -36,7 +36,7 @@ tags:
 <hr>
 
 <span class="pullquote-left">
-  <font style="font-weight: bold" size="5" face="Baskerville Old Face"><em>Cloudify - build a robust continuous delivery pipeline with a simple blueprint.</em></font>&nbsp; <a class="btn btn-medium btn-theme btn-rounded" id="downloadBtnInner" href="http://getcloudify.org/downloads/get_cloudify.html" target="_blank"><i class="icon-plus"></i> Go </a></span>
+  <font style="font-weight: bold" size="5" face="Baskerville Old Face"><em>Cloudify - build a robust continuous delivery pipeline with a simple blueprint.</em></font>&nbsp; <a class="btn btn-medium btn-theme btn-rounded" id="downloadBtnInner" href="{{ site.baseurl }}/downloads/get_cloudify.html" target="_blank"><i class="icon-plus"></i> Go </a></span>
   
   <hr>
 
@@ -97,7 +97,7 @@ tags:
 
 <p><img src="/img/CDGuideCI3.png" width="600" alt="continuous integration | continuous delivery | devops"></p>
 
-<p>There is also the need for container orchestration - to time the creation of the containers, and tie the different application components together, however that is a whole post unto itself, so I can just suggest further reading on container / <a href="http://getcloudify.org/2014/11/23/docker-containers-docker-cloud-management.html">Docker orchestration</a>.</p>
+<p>There is also the need for container orchestration - to time the creation of the containers, and tie the different application components together, however that is a whole post unto itself, so I can just suggest further reading on container / <a href="{{ site.baseurl }}/2014/11/23/docker-containers-docker-cloud-management.html">Docker orchestration</a>.</p>
 
 <h2><strong>Continuous Delivery...From Theory to Practice</strong></h2>
 
@@ -131,7 +131,7 @@ tags:
   </li>
 
   <li>
-    <p>Choosing the type of deployment process. (There are a few common controlled <a href="http://getcloudify.org/2014/02/27/from_simple_automation_to_proactive_orchestration.html">deployment methods</a> - Canary, Blue-Green (AKA A/B) and there is much to be said about these - the most important aspect of each lies in the next bullet).</p>
+    <p>Choosing the type of deployment process. (There are a few common controlled <a href="{{ site.baseurl }}/2014/02/27/from_simple_automation_to_proactive_orchestration.html">deployment methods</a> - Canary, Blue-Green (AKA A/B) and there is much to be said about these - the most important aspect of each lies in the next bullet).</p>
   </li>
 
   <li>
@@ -177,7 +177,7 @@ tags:
 
 <p>So whether you choose to do a canary or blue-green deployment, an orchestrator will come in very handy in either scenario to manage business continuity and data integrity.&#160; With the complexity involved with pushing code to live systems in production, the orchestrator should be built in a manner that enables you to address the entire application lifecycle - a good example for this is TOSCA (Topology and Orchestration Specification for Cloud Applications).&#160; TOSCA is an open cloud standard language from the Oasis organization (the same organization that brought us XML) that is based on YAML. </p>
 
-<p><a href="http://getcloudify.org/tags/TOSCA/">TOSCA </a>has the combination of declarative descriptions of the application topology with all its components - including the load balancer, network, the compute resources, software and everything else, along with an imperative set of workflows to describe the logic of any process we need to automate. What this means from a continuous delivery perspective, is that with TOSCA topology each application component has lifecycle hooks, that enable the adding of more hooks to cope with new processes, such as the invocation of A/B testing of deployments, testing, and monitoring. </p>
+<p><a href="{{ site.baseurl }}/tags/TOSCA/">TOSCA </a>has the combination of declarative descriptions of the application topology with all its components - including the load balancer, network, the compute resources, software and everything else, along with an imperative set of workflows to describe the logic of any process we need to automate. What this means from a continuous delivery perspective, is that with TOSCA topology each application component has lifecycle hooks, that enable the adding of more hooks to cope with new processes, such as the invocation of A/B testing of deployments, testing, and monitoring. </p>
 
 <p>With these new CI/CD capabilities, a line of business that once upon a time had to go through the process of requesting a feature from engineering based on business-level requirements, and then spend another year waiting for these to actually reach the market, organizations can now expect a new feature to be shipped to production within just a few weeks.&#160; Needless to say the business impact of such processes is driving an unprecedented evolution in IT, that will only progress and gain momentum in the near future, however, with all new technology - continuous delivery needs to be implemented with safe measures while taking all of the complexities into account - as the negative business impact of CD gone wrong can by far out-weigh the positive aspects.</p>
 

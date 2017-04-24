@@ -18,14 +18,14 @@ tags:
 
 <p>There is no limit to the variety of system layouts. The most basic would be a database and an application on a single VM. However, very few operations teams have all of their infrastructure in one place.</p>
 
-<p>At <a href="http://getcloudify.org">Cloudify</a>, we&rsquo;ve been referring to real world scenarios with the term <a href="http://getcloudify.org/2016/10/13/hybrid-cloud-orchestration-on-openstack-with-cloudify-tosca.html">Hybrid Cloud</a>, which actually is an umbrella term that includes non-cloud resources. It includes all forms of compute, storage, and network resourcing. An umbrella term for other umbrella terms.</p>
+<p>At <a href="{{ site.baseurl }}">Cloudify</a>, we&rsquo;ve been referring to real world scenarios with the term <a href="{{ site.baseurl }}/2016/10/13/hybrid-cloud-orchestration-on-openstack-with-cloudify-tosca.html">Hybrid Cloud</a>, which actually is an umbrella term that includes non-cloud resources. It includes all forms of compute, storage, and network resourcing. An umbrella term for other umbrella terms.</p>
 
 <p>One of my missions over the past few months has been to create some Cloudify demos that illustrate hybrid cloud design. I think the most common hybrid cloud scenario will involve some non-cloud resources, but for demos that&rsquo;s not really applicable.</p>
 
 <hr>
 
 <span class="pullquote-left">
-  <font style="font-weight: bold" size="5" face="Baskerville Old Face"><em>Download our "Cloud Management in the Enterprise" white paper!</em></font>&nbsp; <a class="btn btn-medium btn-theme btn-rounded" id="downloadBtnInner" href="http://getcloudify.org/cloud-management-in-the-enterprise.html" target="_blank"><i class="icon-plus"></i> Go </a></span>
+  <font style="font-weight: bold" size="5" face="Baskerville Old Face"><em>Download our "Cloud Management in the Enterprise" white paper!</em></font>&nbsp; <a class="btn btn-medium btn-theme btn-rounded" id="downloadBtnInner" href="{{ site.baseurl }}/cloud-management-in-the-enterprise.html" target="_blank"><i class="icon-plus"></i> Go </a></span>
   
 <hr>
 
@@ -35,7 +35,7 @@ tags:
 
 <p><strong>Stage 1: Setup the Hybrid Cloud Environment</strong></p>
 
-<p>To simplify these demos, I stick to a hybrid cloud scenario of two environments - one <a href="http://getcloudify.org/2016/10/31/azure-versus-aws-for-enterprise.html">AWS</a>, and one <a href="http://getcloudify.org/2014/07/10/what-is-openstack-tutorial.html">Openstack</a> - connected via an IPsec tunnel. (I am working <a href="http://getcloudify.org/2016/11/22/step-by-step-guide-deploying-docker-swarm-with-azure-container-service.html">Azure</a> and <a href="http://getcloudify.org/2016/11/15/closed-loop-monitoring-alerting-healing-cloudify-vmware-vrealize-operations-integration.html">vSphere</a> as well.) The AWS formulation looks something like this:</p>
+<p>To simplify these demos, I stick to a hybrid cloud scenario of two environments - one <a href="{{ site.baseurl }}/2016/10/31/azure-versus-aws-for-enterprise.html">AWS</a>, and one <a href="{{ site.baseurl }}/2014/07/10/what-is-openstack-tutorial.html">Openstack</a> - connected via an IPsec tunnel. (I am working <a href="{{ site.baseurl }}/2016/11/22/step-by-step-guide-deploying-docker-swarm-with-azure-container-service.html">Azure</a> and <a href="{{ site.baseurl }}/2016/11/15/closed-loop-monitoring-alerting-healing-cloudify-vmware-vrealize-operations-integration.html">vSphere</a> as well.) The AWS formulation looks something like this:</p>
 
 <div class="aligncenter"><img src="/img/blog/awsvpc.png" width="600"><br><span style="font-size: 9px">Source: <a href="http://docs.aws.amazon.com/AmazonVPC/latest/UserGuide/VPC_VPN.html">http://docs.aws.amazon.com/AmazonVPC/latest/UserGuide/VPC_VPN.html</a><span></div>
 
@@ -211,7 +211,7 @@ tags:
 </tbody>
 </table>
 
-<p>In the end, you have a fully functional <a href="http://getcloudify.org/2016/07/07/achiecing-hybrid-cloud-without-compromising-on-least-common-denominator-tosca-portability.html">multi-cloud environment</a>. The deployment outputs give you the inputs to your demo application blueprint:</p>
+<p>In the end, you have a fully functional <a href="{{ site.baseurl }}/2016/07/07/achiecing-hybrid-cloud-without-compromising-on-least-common-denominator-tosca-portability.html">multi-cloud environment</a>. The deployment outputs give you the inputs to your demo application blueprint:</p>
 
 <table width="100%" style="font-family: Courier; font-size: 13px">
 <tbody>
@@ -267,7 +267,7 @@ tags:
 
 <p><strong>Stage 2: Deploy Your App Onto the Hybrid Cloud Demo</strong></p>
 
-<p>The two hybrid demos cover two related use cases: <a href="http://getcloudify.org/2016/07/21/building-your-application-for-cloud-portability-new-approach-hybrid-cloud.html">Cloud Portability</a> and Cloud Bursting.</p>
+<p>The two hybrid demos cover two related use cases: <a href="{{ site.baseurl }}/2016/07/21/building-your-application-for-cloud-portability-new-approach-hybrid-cloud.html">Cloud Portability</a> and Cloud Bursting.</p>
 
 <p>Cloud Portability refers to the idea that you can take one blueprint, run it in one environment, say AWS, then run it in a different environment, like Openstack, without modifying the blueprint. Cloud Bursting means that you have an application running in one cloud, like AWS, and you want to horizontally scale out into another cloud, like Openstack. On the blueprint level, what this requires is that the application is designed to work in both cases. This presents a bit of a challenge for Cloudify and for TOSCA, because blueprints should be very specific. The <em>node_template</em> of a compute node, should not only say what cloud it should be created in, but which region and availability zone, and which network.</p>
 

@@ -13,28 +13,28 @@ tags:
 
 <notextile>
 
-<img src="http://getcloudify.org/img/blog/nfvorchestration.png" alt="MWC16 | Mobile World Congress | Cloud Automation | TOSCA Cloud Orchestration | NFV | Multi-VIM | VNF | OpenStack NFV | VMware | Azure" width="870">
+<img src="{{ site.baseurl }}/img/blog/nfvorchestration.png" alt="MWC16 | Mobile World Congress | Cloud Automation | TOSCA Cloud Orchestration | NFV | Multi-VIM | VNF | OpenStack NFV | VMware | Azure" width="870">
 <br/>
 <br/>
 
 <h2>What is a VIM? </h2>
 
-<p>A VIM, according to the <a href="http://getcloudify.org/2015/03/22/mobile-world-congress-nfv-sdn-network-orchestration-automation.html#sts=NFV, SDN, ETSI &amp; MANO...Enough acronyms?" target="_blank">MANO specification</a>, is a virtual infrastructure manager. In a nutshell, a VIM is the same as IaaS in the cloud domain and <a href="http://getcloudify.org" target="_blank">Cloudify</a> brings that IaaS concept to the telecom world.</p>
+<p>A VIM, according to the <a href="{{ site.baseurl }}/2015/03/22/mobile-world-congress-nfv-sdn-network-orchestration-automation.html#sts=NFV, SDN, ETSI &amp; MANO...Enough acronyms?" target="_blank">MANO specification</a>, is a virtual infrastructure manager. In a nutshell, a VIM is the same as IaaS in the cloud domain and <a href="{{ site.baseurl }}" target="_blank">Cloudify</a> brings that IaaS concept to the telecom world.</p>
 
 <hr>
 
 <span class="pullquote-left">
-  <font style="font-weight: bold" size="5" face="Baskerville Old Face"><em>Intelligent NFV orchestration for any telecom environment. Download today.</em></font>  <a class="btn btn-medium btn-theme btn-rounded" id="downloadBtnInner" href="http://getcloudify.org/downloads/get_cloudify.html" target="_blank"><i class="icon-plus"></i> Go </a></span>
+  <font style="font-weight: bold" size="5" face="Baskerville Old Face"><em>Intelligent NFV orchestration for any telecom environment. Download today.</em></font>  <a class="btn btn-medium btn-theme btn-rounded" id="downloadBtnInner" href="{{ site.baseurl }}/downloads/get_cloudify.html" target="_blank"><i class="icon-plus"></i> Go </a></span>
   
   <hr>
 
-<p>While, <a href="http://getcloudify.org/openstack-architecture-cloudify.html" target="_blank">OpenStack</a> has been receiving much attention in the NFV space, and has been playing a leading part in many <a href="http://getcloudify.org/network-function-virtualization-vnf-nfv-orchestration-sdn-platform.html" target="_blank">Telecom NFV</a> strategies, the reality is that many Telecoms have other clouds like <a href="http://getcloudify.org/vmware-hybrid-cloud.html" target="_blank">VMware</a> (vCloud Director, vSphere or even VMware Integrated OpenStack AKA VIO), Softlayer, Azure or even Amazon. As a result, many would like to make a transition to OpenStack, but would still like to keep their current private cloud environment setup for many reasons,from the time and resources invested in building it, to the skill set of the team running it. That is why it has become a fundamental requirement to be able to support multiple VIMs in the application automation and orchestration lifecycle when transitioning to NFV.</p>
+<p>While, <a href="{{ site.baseurl }}/openstack-architecture-cloudify.html" target="_blank">OpenStack</a> has been receiving much attention in the NFV space, and has been playing a leading part in many <a href="{{ site.baseurl }}/network-function-virtualization-vnf-nfv-orchestration-sdn-platform.html" target="_blank">Telecom NFV</a> strategies, the reality is that many Telecoms have other clouds like <a href="{{ site.baseurl }}/vmware-hybrid-cloud.html" target="_blank">VMware</a> (vCloud Director, vSphere or even VMware Integrated OpenStack AKA VIO), Softlayer, Azure or even Amazon. As a result, many would like to make a transition to OpenStack, but would still like to keep their current private cloud environment setup for many reasons,from the time and resources invested in building it, to the skill set of the team running it. That is why it has become a fundamental requirement to be able to support multiple VIMs in the application automation and orchestration lifecycle when transitioning to NFV.</p>
 
 <h2>Mutli-VIM VNF Orchestration with Cloudify and TOSCA</h2>
 
-<p><a href="http://getcloudify.org/2015/07/21/what-is-TOSCA-cloud-application-orchestration-tutorial-cloudify.html" target="_blank">TOSCA</a>, is a very good fit to support multi-VIM, as it enables you to model your application or service once through our <a href="http://getcloudify.org/downloads/get_cloudify.html" target="_blank">graphical composer</a> and generate the YAML file automatically or by writing it yourself through a simple blueprint, which you can then run on any cloud. The benefits here are enormous because you are able keep the core part of the VNF definitions as well as the <a href="http://getcloudify.org/2015/10/13/nfv-vnf-network-topology-architecture-automation-tosca-service-chaining-orchestration.html" target="_blank">service chain</a> (that is composed of a chain of VNFs, e.g. vCPE, vIMS, vEPC), all while leaving the definitions untouched and deploying any workload, on any cloud.</p>
+<p><a href="{{ site.baseurl }}/2015/07/21/what-is-TOSCA-cloud-application-orchestration-tutorial-cloudify.html" target="_blank">TOSCA</a>, is a very good fit to support multi-VIM, as it enables you to model your application or service once through our <a href="{{ site.baseurl }}/downloads/get_cloudify.html" target="_blank">graphical composer</a> and generate the YAML file automatically or by writing it yourself through a simple blueprint, which you can then run on any cloud. The benefits here are enormous because you are able keep the core part of the VNF definitions as well as the <a href="{{ site.baseurl }}/2015/10/13/nfv-vnf-network-topology-architecture-automation-tosca-service-chaining-orchestration.html" target="_blank">service chain</a> (that is composed of a chain of VNFs, e.g. vCPE, vIMS, vEPC), all while leaving the definitions untouched and deploying any workload, on any cloud.</p>
 
-<p>Moreover, you can mix and match, and split and run some VNFs on one cloud, and other VNFs on another cloud; for example, some VNFs can run on your private cloud, and when you are out of resources, you can utilize public clouds to extend your resources - compute, network, and storage. That said, you can also run certain VNFs based on geographical considerations, and bring them closer to the customer's location to minimize network latency and reserve network traffic, and provide faster response times. You can read more about this in our post on <a href="http://getcloudify.org/2016/02/22/mobile-world-congress-mwc-sdn-nfv-vnf-telco-cloud-dpa-epa-network-orchestration.html" target="_blank">enhanced platform awareness</a>.</p>
+<p>Moreover, you can mix and match, and split and run some VNFs on one cloud, and other VNFs on another cloud; for example, some VNFs can run on your private cloud, and when you are out of resources, you can utilize public clouds to extend your resources - compute, network, and storage. That said, you can also run certain VNFs based on geographical considerations, and bring them closer to the customer's location to minimize network latency and reserve network traffic, and provide faster response times. You can read more about this in our post on <a href="{{ site.baseurl }}/2016/02/22/mobile-world-congress-mwc-sdn-nfv-vnf-telco-cloud-dpa-epa-network-orchestration.html" target="_blank">enhanced platform awareness</a>.</p>
 
 <p>This multi-VIM approach opens the door to VNF providers, to package their VNFs with a TOSCA blueprint, and ship just like that, and the customer can decide which cloud they would like to run it on.</p>
 
@@ -46,7 +46,7 @@ tags:
 
 <p>The ability to support multi-VIM enables Telecom providers to leverage their previous install-base, all while foraying into the brave new world of open cloud through OpenStack, and leverage the benefits of both worlds.</p>
 
-<p>Stay tuned for some more great content during Mobile World Congress (#MWC16) on <a href="http://getcloudify.org/tags/NFV/index.html" target="_blank">everything NFV</a>.</p>
+<p>Stay tuned for some more great content during Mobile World Congress (#MWC16) on <a href="{{ site.baseurl }}/tags/NFV/index.html" target="_blank">everything NFV</a>.</p>
 
 <p>And don't forget to tune in to the 8th <a href="https://www.youtube.com/watch?v=a4f-5yXwSw4" target="_blank">OpenStack & Beyond podcast</a> directly from the event on Thursday, Feb 25th at 11am CET with guests from Intel, VMware, and Metaswitch.</p>
 

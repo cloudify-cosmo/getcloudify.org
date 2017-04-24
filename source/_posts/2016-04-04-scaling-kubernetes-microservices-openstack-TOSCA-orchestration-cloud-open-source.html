@@ -13,15 +13,15 @@ tags:
 
 <notextile>
 
-<img src="http://getcloudify.org/img/blog/kubernetes-cloudify.png" alt="OpenStack Austin Summit | OpenStack Orchestration | TOSCA Cloud Orchestration | Kubernetes Docker | Kubernetes Orchestration | Cloud Automation | Kubernetes Cluster">
+<img src="{{ site.baseurl }}/img/blog/kubernetes-cloudify.png" alt="OpenStack Austin Summit | OpenStack Orchestration | TOSCA Cloud Orchestration | Kubernetes Docker | Kubernetes Orchestration | Cloud Automation | Kubernetes Cluster">
 <br/>
 <br/>
 
-    <p>In my previous <a href="http://getcloudify.org/2016/03/24/openstack-scaling-kubernetes-microservices-linux-containers-cloud-TOSCA-orchestration.html">post</a>, I described orchestrating a hybrid architecture that included <a href="http://getcloudify.org/2015/11/01/openstack-tokyo-summit-kubernetes-cloudify-tosca-nfv-orchestration-microservices.html" target="_blank">Kubernetes</a>, Kubernetes hosted microservices, and a cloud hosted database, all running on <a href="http://getcloudify.org/2014/07/10/what-is-openstack-tutorial.html" target="_blank">Openstack</a>. That post described how everything was deployed, but left the implementation of post deployment dynamism to the imagination. This post finishes the story.</p>
+    <p>In my previous <a href="{{ site.baseurl }}/2016/03/24/openstack-scaling-kubernetes-microservices-linux-containers-cloud-TOSCA-orchestration.html">post</a>, I described orchestrating a hybrid architecture that included <a href="{{ site.baseurl }}/2015/11/01/openstack-tokyo-summit-kubernetes-cloudify-tosca-nfv-orchestration-microservices.html" target="_blank">Kubernetes</a>, Kubernetes hosted microservices, and a cloud hosted database, all running on <a href="{{ site.baseurl }}/2014/07/10/what-is-openstack-tutorial.html" target="_blank">Openstack</a>. That post described how everything was deployed, but left the implementation of post deployment dynamism to the imagination. This post finishes the story.</p>
 
 <hr>
 <span class="pullquote-left">
-  <font style="font-weight: bold" size="5" face="Baskerville Old Face"><em>Try the Kubernetes Orchestration as a Service Tool today!</em></font>&nbsp; <a class="btn btn-medium btn-theme btn-rounded" id="downloadBtnInner" href="http://getcloudify.org/downloads/get_cloudify.html" target="_blank"><i class="icon-plus"></i> Go </a></span>
+  <font style="font-weight: bold" size="5" face="Baskerville Old Face"><em>Try the Kubernetes Orchestration as a Service Tool today!</em></font>&nbsp; <a class="btn btn-medium btn-theme btn-rounded" id="downloadBtnInner" href="{{ site.baseurl }}/downloads/get_cloudify.html" target="_blank"><i class="icon-plus"></i> Go </a></span>
 <hr>
 
     <h3>Review</h3>
@@ -38,7 +38,7 @@ tags:
     
     <p>The very simple Diamond metric collector is feeding TCP connection metrics to a <a href="https://www.rabbitmq.com/">RabbitMQ</a> queue which is consumed by both <a href="https://influxdata.com/">InfluxDb</a> and <a href="http://riemann.io/">Riemann</a> on the Cloudify server. Influxdb is storing the metrics for querying. Riemann is responsible for triggering actions based on the metrics stream.</p>
     
-    <p>The objective is to <a href="http://getcloudify.org/2015/10/26/openstack-tokyo-summit-kubernetes-cloudify-tosca-nfv-orchestration-microservices.html" target="_blank">scale Kubernetes microservices</a> based on metrics from containers emanating from those microservices (as provided by the previously mentioned Diamond collector).</p>
+    <p>The objective is to <a href="{{ site.baseurl }}/2015/10/26/openstack-tokyo-summit-kubernetes-cloudify-tosca-nfv-orchestration-microservices.html" target="_blank">scale Kubernetes microservices</a> based on metrics from containers emanating from those microservices (as provided by the previously mentioned Diamond collector).</p>
     
     <h2>High Level Overview of Solution</h2>
     
@@ -51,13 +51,13 @@ tags:
         <li>Configuring the blueprint properly to facilitate the preceding.</li>
     </ul>
     
-    <p><img alt="container metrics" src="http://getcloudify.org/img/blog/kubernetes-containers-cloudify.png"></p>
+    <p><img alt="container metrics" src="{{ site.baseurl }}/img/blog/kubernetes-containers-cloudify.png"></p>
     <br><br>
     <h4>Summary: Gathering Metrics From Containers</h4>
     
     <p>Kubernetes defines scaling in units called "pods" (which are groups of containers on a single host), and a "replication controller" which scales and maintains pods. Pods share the same network namespace, so on a given pod, the experience for a container is similar to conventional processes on a host (i.e. two containers can "see" each other). Our microservice of interest is a Nodejs server and webapp. In order to monitor it, a separate container was created just hosting the Diamond collector that will monitor it. Together these are assembled into a pod and deployed into Kubernetes. When the pod starts, the collector only sees it's companion in the pod and send the metrics to the Cloudify server (and ultimately Riemann).</p>
     
-    <p><img alt="kubernetes scale" src="http://getcloudify.org/img/blog/kubernetes-containers-scale.png"></p>
+    <p><img alt="kubernetes scale" src="{{ site.baseurl }}/img/blog/kubernetes-containers-scale.png"></p>
     <br><br>
     <h4>Summary: The Workflow to Scale Microservices</h4>
     

@@ -25,15 +25,15 @@ tags:
 
 <p>When we started developing Cloudify 3.0 (about a year and a half ago) we knew we needed an improved syntax for describing cloud applications and services from what we had&#160; been using in our 2x versions.&#160; We initially thought to invent a new language based on the YAML syntax for describing cloud app services, but thought we likely ought to look for existing standards - instead reinventing the wheel.&#160; </p>
 
-<p>And that’s when we found <a href="http://getcloudify.org/openstack-architecture-cloudify.html#TOSCA">TOSCA </a>which we thought had great potential.</p>
+<p>And that’s when we found <a href="{{ site.baseurl }}/openstack-architecture-cloudify.html#TOSCA">TOSCA </a>which we thought had great potential.</p>
 
-<p>OpenStack Heat was initially launched as an alternative to AWS CloudFormation, that is a closed source project. <a href="http://getcloudify.org/openstack-architecture-cloudify.html#Heat">OpenStack Heat</a>, one of the largest projects to adopt TOSCA as one of the main templating languages, chose TOSCA as it provided the benefit of standardization of templating for cloud orchestration projects, and this, in fact was a major driving force behind TOSCA being adopted by larger projects.&#160; </p>
+<p>OpenStack Heat was initially launched as an alternative to AWS CloudFormation, that is a closed source project. <a href="{{ site.baseurl }}/openstack-architecture-cloudify.html#Heat">OpenStack Heat</a>, one of the largest projects to adopt TOSCA as one of the main templating languages, chose TOSCA as it provided the benefit of standardization of templating for cloud orchestration projects, and this, in fact was a major driving force behind TOSCA being adopted by larger projects.&#160; </p>
 
 
   <hr>
 
 <span class="pullquote-left">
-  <font style="font-weight: bold" size="5" face="Baskerville Old Face"><em>Cloudify 3.1 is with TOSCA out of the box. Give it a whirl..</em></font>&nbsp; <a class="btn btn-medium btn-theme btn-rounded" id="downloadBtnInner" href="http://getcloudify.org/downloads/get_cloudify.html" target="_blank"><i class="icon-plus"></i> Go </a></span>
+  <font style="font-weight: bold" size="5" face="Baskerville Old Face"><em>Cloudify 3.1 is with TOSCA out of the box. Give it a whirl..</em></font>&nbsp; <a class="btn btn-medium btn-theme btn-rounded" id="downloadBtnInner" href="{{ site.baseurl }}/downloads/get_cloudify.html" target="_blank"><i class="icon-plus"></i> Go </a></span>
   
   <hr>
 
@@ -47,7 +47,7 @@ tags:
 
 <p>An interesting fact is that the Heat project agreed to have the heat translator project integrated within it, which de facto, established TOSCA as their primary templating language.&#160; The moment it was integrated into the official project, this was an indication by the OpenStack Foundation was moving towards TOSCA standardization for the entire project.</p>
 
-<p>Cloudify 3.1 supports most of the <a href="http://getcloudify.org/guide/3.1/dsl-spec-general.html">TOSCA spec</a>, and we intend to cover more areas in the spec in our next versions.&#160; One of the coolest features introduced in Cloudify 3.1 is the ability to run a TOSCA template locally (that is on your own laptop or PC) without the need of a cloud of any kind. This makes it very easy for people who want to play around with the spec, and learn about it as well as learn about Cloudify.</p>
+<p>Cloudify 3.1 supports most of the <a href="{{ site.baseurl }}/guide/3.1/dsl-spec-general.html">TOSCA spec</a>, and we intend to cover more areas in the spec in our next versions.&#160; One of the coolest features introduced in Cloudify 3.1 is the ability to run a TOSCA template locally (that is on your own laptop or PC) without the need of a cloud of any kind. This makes it very easy for people who want to play around with the spec, and learn about it as well as learn about Cloudify.</p>
 
 <p>The basic gist is that ordinarily what the nodecellar app does is install a NodeJS app with a Mongo backend. However, this is example is usually run when you have a Cloudify Manager installed, and for the most part in a cloud environment.</p>
 
@@ -143,7 +143,7 @@ tags:
 
 <code>`cfy local execute -w uninstall`</code>
 <p></p>
-<p>As of now 3.1 supports these leading aspects of the TOSCA spec - <a href="http://getcloudify.org/guide/3.1/dsl-spec-inputs.html">inputs</a>, <a href="http://getcloudify.org/guide/3.1/dsl-spec-outputs.html">outputs</a>, <a href="http://getcloudify.org/guide/3.1/dsl-spec-intrinsic-functions.html">intrinsic functions</a>, the <a href="http://getcloudify.org/guide/3.1/dsl-spec-relationships.html">relationships between nodes</a>, <a href="http://getcloudify.org/guide/3.1/dsl-spec-versioning.html">versioning</a>, <a href="http://getcloudify.org/guide/3.1/dsl-spec-workflows.html">workflows </a>and more.&#160; In our next versions we’ll be adding support for requirements and capabilities, nested templates, and policies that include: placement (affinity and anti-affinity), stack governance, etc.</p>
+<p>As of now 3.1 supports these leading aspects of the TOSCA spec - <a href="{{ site.baseurl }}/guide/3.1/dsl-spec-inputs.html">inputs</a>, <a href="{{ site.baseurl }}/guide/3.1/dsl-spec-outputs.html">outputs</a>, <a href="{{ site.baseurl }}/guide/3.1/dsl-spec-intrinsic-functions.html">intrinsic functions</a>, the <a href="{{ site.baseurl }}/guide/3.1/dsl-spec-relationships.html">relationships between nodes</a>, <a href="{{ site.baseurl }}/guide/3.1/dsl-spec-versioning.html">versioning</a>, <a href="{{ site.baseurl }}/guide/3.1/dsl-spec-workflows.html">workflows </a>and more.&#160; In our next versions we’ll be adding support for requirements and capabilities, nested templates, and policies that include: placement (affinity and anti-affinity), stack governance, etc.</p>
 
 <p>At the end of the day, this TOSCA engine partnered with Cloudify is what gives you free hand to decide with which cloud you want to work, since Cloudify actually makes the pluggability of any cloud possible.&#160; This ultimately enables you to run TOSCA templates on any cloud, and the same of course also goes for any configuration management or other tools you’re working with (which Cloudify also integrates with via plugins that are written in the same syntax).&#160; Although TOSCA doesn’t refer to CM tools very much, the integration with Cloudify is what makes this possible.&#160; If in the past you would need to script your own code, or use more tools that are more limited to the deployment aspects, rather than orchestration and such.</p>
 

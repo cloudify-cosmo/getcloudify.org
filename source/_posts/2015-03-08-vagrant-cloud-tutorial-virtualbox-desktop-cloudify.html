@@ -21,19 +21,19 @@ tags:
 
 <p><a href="http://blog.gigaspaces.com/wp-content/uploads/2015/03/footprints.png"><img style="float: none; margin-left: auto; display: block; margin-right: auto" alt="" src="http://blog.gigaspaces.com/wp-content/uploads/2015/03/footprints-300x49.png" width="300" height="49" /></a></p>
 
-<p>While existing resources can be consulted to created a single node Cloudify 3.1 installation, a single purpose walkthrough of the process can simplify the process and save time.&#160; The purpose of this post is to describe how to install the Cloudify 3.1 CLI, bootstrap the simple manager, and a install a sample blueprint on a laptop (or desktop).&#160; Note that if you want to skip the gory details of preparing an environment from scratch, please refer to the excellent walkthrough in the docs, which is also based on <a href="http://getcloudify.org/guide/3.1/quickstart.html#step-by-step-walkthrough" target="_blank">Vagrant</a>, but which has everything preconfigured.&#160;&#160; The advantage of spelling out the details here is to empower you to test any build of Cloudify at will, and tailor the configuration to your needs.</p>
+<p>While existing resources can be consulted to created a single node Cloudify 3.1 installation, a single purpose walkthrough of the process can simplify the process and save time.&#160; The purpose of this post is to describe how to install the Cloudify 3.1 CLI, bootstrap the simple manager, and a install a sample blueprint on a laptop (or desktop).&#160; Note that if you want to skip the gory details of preparing an environment from scratch, please refer to the excellent walkthrough in the docs, which is also based on <a href="{{ site.baseurl }}/guide/3.1/quickstart.html#step-by-step-walkthrough" target="_blank">Vagrant</a>, but which has everything preconfigured.&#160;&#160; The advantage of spelling out the details here is to empower you to test any build of Cloudify at will, and tailor the configuration to your needs.</p>
 
 
 <hr>
 
 <span class="pullquote-left">
-  <font style="font-weight: bold" size="5" face="Baskerville Old Face"><em>Cloudify - try it quickly and easily on your desktop. Just <font color="#ff0000" face="Courier New">vagrant up</font> .</em></font>&nbsp; <a class="btn btn-medium btn-theme btn-rounded" id="downloadBtnInner" href="http://getcloudify.org/downloads/get_cloudify.html" target="_blank"><i class="icon-plus"></i> Go </a></span>
+  <font style="font-weight: bold" size="5" face="Baskerville Old Face"><em>Cloudify - try it quickly and easily on your desktop. Just <font color="#ff0000" face="Courier New">vagrant up</font> .</em></font>&nbsp; <a class="btn btn-medium btn-theme btn-rounded" id="downloadBtnInner" href="{{ site.baseurl }}/downloads/get_cloudify.html" target="_blank"><i class="icon-plus"></i> Go </a></span>
   
   <hr>
 
 <h2><strong>System Preparation</strong></h2>
 
-<p>An Ubuntu Linux system version 12.04&#160; is needed to host Cloudify as described here.&#160;&#160; Other versions are supported via <a href="http://getcloudify.org/guide/3.1/installation-general.html#os-distributions)" target="_blank">Docker</a>.&#160; For the purposes of this walkthrough, and especially its goal of being platform independent, Oracle VirtualBox and Vagrant are the tools of choice for creating the proper Ubuntu environment.&#160; You should have at least 2GB of RAM to spare to run the manager and the blueprint, and preferable more.&#160;&#160; Install <a href="https://www.virtualbox.org/" target="_blank">VirtualBox</a>, then once its is installed, install Vagrant as described <a href="https://docs.vagrantup.com/v2/installation/index.html" target="_blank">here</a>.&#160; </p>
+<p>An Ubuntu Linux system version 12.04&#160; is needed to host Cloudify as described here.&#160;&#160; Other versions are supported via <a href="{{ site.baseurl }}/guide/3.1/installation-general.html#os-distributions)" target="_blank">Docker</a>.&#160; For the purposes of this walkthrough, and especially its goal of being platform independent, Oracle VirtualBox and Vagrant are the tools of choice for creating the proper Ubuntu environment.&#160; You should have at least 2GB of RAM to spare to run the manager and the blueprint, and preferable more.&#160;&#160; Install <a href="https://www.virtualbox.org/" target="_blank">VirtualBox</a>, then once its is installed, install Vagrant as described <a href="https://docs.vagrantup.com/v2/installation/index.html" target="_blank">here</a>.&#160; </p>
 
 <p>Create a directory (say <strong><font color="#ff0000" face="Courier New">cfy</font></strong>), and <font color="#ff0000" face="Courier New"><strong>cd</strong></font> into it.</p>
 
@@ -168,7 +168,7 @@ tags:
   <li>On the <font color="#ff0000" face="Courier New">select workflow</font> option box, select <font color="#ff0000" face="Courier New">Install</font> and press the arrow to the right.&#160; The install will begin.&#160; It will complete in about 5 minutes, depending on your hardware. </li>
 </ol>
 
-<p>For a detailed exploration of the Nodecellar blueprint, please refer to the <a href="http://getcloudify.org/guide/3.1/quickstart.html#step-5-install-the-deployment">guide</a>.</p>
+<p>For a detailed exploration of the Nodecellar blueprint, please refer to the <a href="{{ site.baseurl }}/guide/3.1/quickstart.html#step-5-install-the-deployment">guide</a>.</p>
 
 <h2><strong>Conclusion</strong></h2>
 

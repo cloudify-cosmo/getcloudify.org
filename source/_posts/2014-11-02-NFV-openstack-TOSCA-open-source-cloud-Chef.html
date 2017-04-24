@@ -13,26 +13,26 @@ tags:
 
 <notextile>
 
-<img src="http://getcloudify.org/img/blog/vIMS_blueprint.png" alt="NFV OpenStack - VNF - SFC - Neutron - TOSCA - Chef | OpenStack">
+<img src="{{ site.baseurl }}/img/blog/vIMS_blueprint.png" alt="NFV OpenStack - VNF - SFC - Neutron - TOSCA - Chef | OpenStack">
 <br/>
 <br/>
 
   <p>&#160;</p>
 
 
-<p>As we get <a href="http://en.wikipedia.org/wiki/Network_Functions_Virtualization" target="_blank">more heavily involved</a> with <a title="NFV" href="http://getcloudify.org/2014/04/09/network_automation_NFV_cloud_orchestration.html" target="_blank">NFV</a>, I would like to share my experience taking a few <strong>VNFs</strong> (virtual network functions) and <strong>SFCs</strong> (service function chains) and implementing them on public and private clouds.</p>
+<p>As we get <a href="http://en.wikipedia.org/wiki/Network_Functions_Virtualization" target="_blank">more heavily involved</a> with <a title="NFV" href="{{ site.baseurl }}/2014/04/09/network_automation_NFV_cloud_orchestration.html" target="_blank">NFV</a>, I would like to share my experience taking a few <strong>VNFs</strong> (virtual network functions) and <strong>SFCs</strong> (service function chains) and implementing them on public and private clouds.</p>
 
 <p>I thought implementing an IMS system on a public cloud would take forever but I was surprised to discover that there are several tools that can expedite the process. I chose to install Clearwater IMS from <a href="http://www.projectclearwater.org/" target="_blank">MetaSwitch</a> on OpenStack.</p>
 
 <!--<hr>
 
 <span class="pullquote-left">
-  <font style="font-weight: bold" size="5" face="Baskerville Old Face"><em>Orchestration for NFV, VNF, SFC - on OpenStack with Cloudify.</em></font>&nbsp; <a class="btn btn-medium btn-theme btn-rounded" id="downloadBtnInner" href="http://getcloudify.org/downloads/get_cloudify.html" target="_blank"><i class="icon-plus"></i> Go </a></span>
+  <font style="font-weight: bold" size="5" face="Baskerville Old Face"><em>Orchestration for NFV, VNF, SFC - on OpenStack with Cloudify.</em></font>&nbsp; <a class="btn btn-medium btn-theme btn-rounded" id="downloadBtnInner" href="{{ site.baseurl }}/downloads/get_cloudify.html" target="_blank"><i class="icon-plus"></i> Go </a></span>
   
   <hr>-->
 <hr>
 <span class="pullquote-left">
-  <font style="font-weight: bold" size="5" face="Baskerville Old Face"><em>White Paper: NFV from ETSI to MANO to YANG. Get it today. </em></font>&nbsp; &nbsp; <a class="btn btn-large btn-theme btn-rounded download" id="downloadBtnInner" href="http://getcloudify.org/network-function-virtualization-vnf-nfv-orchestration-sdn-platform.html#dtag" target="_blank"><i class="icon-plus"></i> Go </a></span>
+  <font style="font-weight: bold" size="5" face="Baskerville Old Face"><em>White Paper: NFV from ETSI to MANO to YANG. Get it today. </em></font>&nbsp; &nbsp; <a class="btn btn-large btn-theme btn-rounded download" id="downloadBtnInner" href="{{ site.baseurl }}/network-function-virtualization-vnf-nfv-orchestration-sdn-platform.html#dtag" target="_blank"><i class="icon-plus"></i> Go </a></span>
   
   <hr>
 
@@ -56,13 +56,13 @@ tags:
 <h3><strong>Why OpenStack?</strong></h3>
 
 <ol>
-  <li><a href="http://getcloudify.org/openstack-architecture-cloudify.html" target="_blank">OpenStack</a> becomes more mature With Telecom-grade capabilities. </li>
+  <li><a href="{{ site.baseurl }}/openstack-architecture-cloudify.html" target="_blank">OpenStack</a> becomes more mature With Telecom-grade capabilities. </li>
 
-  <li>It's the <a href="http://getcloudify.org/2014/05/19/openstack-statistics.html" target="_blank">open source cloud</a> with the largest community support and contribution </li>
+  <li>It's the <a href="{{ site.baseurl }}/2014/05/19/openstack-statistics.html" target="_blank">open source cloud</a> with the largest community support and contribution </li>
 
   <li>High availability, e.g. even if Nova fails your application VM continues to function </li>
 
-  <li>With support of the right tools you can make it available across cloud zones, regions of a public cloud and even support multi-clouds. You can run one component in a <a href="http://getcloudify.org/2014/09/11/hybrid-cloud-openstack-multi-cloud.html" target="_blank">VMWare cloud</a> and the second on an OpenStack cloud or failover to an OpenStack cloud.&#160; </li>
+  <li>With support of the right tools you can make it available across cloud zones, regions of a public cloud and even support multi-clouds. You can run one component in a <a href="{{ site.baseurl }}/2014/09/11/hybrid-cloud-openstack-multi-cloud.html" target="_blank">VMWare cloud</a> and the second on an OpenStack cloud or failover to an OpenStack cloud.&#160; </li>
 </ol>
 
 <h3><strong>Which VNFs and SFCs?</strong></h3>
@@ -83,7 +83,7 @@ tags:
   <li>An orchestration component which is responsible for automatic application installation &amp; deployment including dependencies and relationships between components, KPI monitoring, analytics&#160; and feedback actions like auto-scaling and self-healing. I wrote about these features in a previous post. </li>
 </ol>
 
-<p>For the <a href="http://getcloudify.org/" target="_blank">orchestration</a> component I used Cloudify which provides a complete life-cycle management of applications from deployment to monitoring and analytics. </p>
+<p>For the <a href="{{ site.baseurl }}/" target="_blank">orchestration</a> component I used Cloudify which provides a complete life-cycle management of applications from deployment to monitoring and analytics. </p>
 
 <p><img alt="image" src="https://31.media.tumblr.com/f5b21726d579e7221b4fe060f0087640/tumblr_inline_ne9wniBH0n1sbbxfw.jpg" /></p>
 
@@ -99,7 +99,7 @@ tags:
 
 <h3><strong>The Deployment and Orchestration Process</strong></h3>
 
-<p>The process of deployment and monitoring was done automatically. I described in a simple <a href="http://getcloudify.org/openstack-architecture-cloudify.html#TOSCA" target="_blank">TOSCA</a> like YAML file the application components and relationships. I created VMs for Bono, Sprout, Ellis, Homer, Homeastead and Ralf, as seen in the <a href="http://www.projectclearwater.org/technical/clearwater-architecture/" target="_blank">architecture diagram</a> above. I then deployed the application components using the Cloudify <a href="http://getcloudify.org/chef_cloud_configuration_management.html" target="_blank">Chef configuration management</a> plugin which automates the Chef process.&#160; The way this works, is the Chef client is installed automatically on each node and calls the relevant Chef roles and recipes. The whole process is automated, including the installation of a DNS server and the relationships between the nodes. </p>
+<p>The process of deployment and monitoring was done automatically. I described in a simple <a href="{{ site.baseurl }}/openstack-architecture-cloudify.html#TOSCA" target="_blank">TOSCA</a> like YAML file the application components and relationships. I created VMs for Bono, Sprout, Ellis, Homer, Homeastead and Ralf, as seen in the <a href="http://www.projectclearwater.org/technical/clearwater-architecture/" target="_blank">architecture diagram</a> above. I then deployed the application components using the Cloudify <a href="{{ site.baseurl }}/chef_cloud_configuration_management.html" target="_blank">Chef configuration management</a> plugin which automates the Chef process.&#160; The way this works, is the Chef client is installed automatically on each node and calls the relevant Chef roles and recipes. The whole process is automated, including the installation of a DNS server and the relationships between the nodes. </p>
 
 <p><img alt="image" src="https://31.media.tumblr.com/67684cab5981df0570ab96507c623ddf/tumblr_inline_ne9y0xduqK1sbbxfw.jpg" /></p>
 
@@ -109,7 +109,7 @@ tags:
 
 <p>&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160; Node Orchestration and Dependencies Map</p>
 
-<p>We can see in the chart above a dependency map which is used by the Cloudify Orchestrator to bring up the right components in the right order and tie them together with adjacent components. TOSCA describes a lifecycle which can be applied to a node or relationship. For example, if the DNS depends on all nodes then when all nodes are created a function can be executed to populate the DNS zone with the IPs of the nodes. Cloudify has a set of various <a href="http://getcloudify.org/guide/3.0/guide-plugin-creation.html" target="_blank">plugins</a> and <a href="http://getcloudify.org/guide/3.0/guide-workflows.html" target="_blank">workflow management</a> which help to easily create this topology map and run day-to-day operations on it utilizing custom and built-in workflows, but that is in a different blog post. </p>
+<p>We can see in the chart above a dependency map which is used by the Cloudify Orchestrator to bring up the right components in the right order and tie them together with adjacent components. TOSCA describes a lifecycle which can be applied to a node or relationship. For example, if the DNS depends on all nodes then when all nodes are created a function can be executed to populate the DNS zone with the IPs of the nodes. Cloudify has a set of various <a href="{{ site.baseurl }}/guide/3.0/guide-plugin-creation.html" target="_blank">plugins</a> and <a href="{{ site.baseurl }}/guide/3.0/guide-workflows.html" target="_blank">workflow management</a> which help to easily create this topology map and run day-to-day operations on it utilizing custom and built-in workflows, but that is in a different blog post. </p>
 
 <h3><strong>Public Cloud and Private Cloud</strong></h3>
 

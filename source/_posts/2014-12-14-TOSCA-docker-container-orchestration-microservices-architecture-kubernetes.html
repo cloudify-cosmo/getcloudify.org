@@ -33,7 +33,7 @@ tags:
   <hr>
 
 <span class="pullquote-left">
-  <font style="font-weight: bold" size="5" face="Baskerville Old Face"><em>Cloudify 3.1 - everything pure-play orchestration based on TOSCA. Try it.</em></font>&nbsp; <a class="btn btn-medium btn-theme btn-rounded" id="downloadBtnInner" href="http://getcloudify.org/downloads/get_cloudify.html" target="_blank"><i class="icon-plus"></i> Go </a></span>
+  <font style="font-weight: bold" size="5" face="Baskerville Old Face"><em>Cloudify 3.1 - everything pure-play orchestration based on TOSCA. Try it.</em></font>&nbsp; <a class="btn btn-medium btn-theme btn-rounded" id="downloadBtnInner" href="{{ site.baseurl }}/downloads/get_cloudify.html" target="_blank"><i class="icon-plus"></i> Go </a></span>
   
   <hr>
 
@@ -88,7 +88,7 @@ tags:
 
 <p>The idea with TOSCA is to deploy each piece in the most ideal approach for it. If it’s a simple stateless microservice, then the best method is to use Docker and Kubernetes (or the likes of it). When you're dealing with more complex topologies that require intricate orchestration (e.g. a fully replicated and sharded mongo cluster, or a more complex microservice), this would be the scenario to use a TOSCA blueprint. Naturally, a TOSCA blueprint can also be used for the former case (i.e. spawn a few instances of a Docker image) if you want to stick with a single way of doing things.</p>
 
-<p>An example of this kind of implementation is with the Cloudify <a href="http://getcloudify.org/docker-orchestration-docker-container-deployment-cloud.html">Docker orchestration</a> plugin that leverages TOSCA for simple microservices deployment (using <a href="http://getcloudify.org/guide/3.1/dsl-spec-outputs.html">TOSCA</a> output parameters as means to expose a specific service's endpoint) and more complex topologies through support for the orchestration of complex application stacks. Based on this approach, you also get the side benefit of support for post-deployment concerns, e.g. auto scaling, monitoring and auto-healing, that are made possible through Cloudify’s TOSCA-based blueprints.</p>
+<p>An example of this kind of implementation is with the Cloudify <a href="{{ site.baseurl }}/docker-orchestration-docker-container-deployment-cloud.html">Docker orchestration</a> plugin that leverages TOSCA for simple microservices deployment (using <a href="{{ site.baseurl }}/guide/3.1/dsl-spec-outputs.html">TOSCA</a> output parameters as means to expose a specific service's endpoint) and more complex topologies through support for the orchestration of complex application stacks. Based on this approach, you also get the side benefit of support for post-deployment concerns, e.g. auto scaling, monitoring and auto-healing, that are made possible through Cloudify’s TOSCA-based blueprints.</p>
 
 
   </notextile>

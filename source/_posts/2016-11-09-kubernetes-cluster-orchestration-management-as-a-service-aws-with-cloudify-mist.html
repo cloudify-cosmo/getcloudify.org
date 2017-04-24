@@ -14,15 +14,15 @@ tags:
 
 <notextile>
 
-<img src="http://getcloudify.org/img/blog/cloudify-mist-kubernetes.png" alt="Cloudify and Mist.io Kubernetes Cluster" width="870">
+<img src="{{ site.baseurl }}/img/blog/cloudify-mist-kubernetes.png" alt="Cloudify and Mist.io Kubernetes Cluster" width="870">
 <br/>
 <br/>
 
-<p>Back in April, the teams at <a href="http://getcloudify.org">Cloudify</a> and <a href="http://mist.io">Mist.io</a> jointly announced <a href="http://blog.mist.io/post/143342560136/cloudify-as-a-service">Cloudify-as-a-Service</a>, an open source, standards-based project with the goal of making it easier to deploy applications seamlessly across public and private clouds using the <a href="http://getcloudify.org/cloud_orchestration_cloud_automation.html">cloud orchestration</a> power of Cloudify and the Mist.io cloud management platform. This goal is achieved with the use of a single, reusable Cloudify blueprint, based on <a href="http://getcloudify.org/2016/10/13/hybrid-cloud-orchestration-on-openstack-with-cloudify-tosca.html">TOSCA</a>, to quickly provision infrastructure and application resources and nodes all managed from the Mist.io platform.</p>
+<p>Back in April, the teams at <a href="{{ site.baseurl }}">Cloudify</a> and <a href="http://mist.io">Mist.io</a> jointly announced <a href="http://blog.mist.io/post/143342560136/cloudify-as-a-service">Cloudify-as-a-Service</a>, an open source, standards-based project with the goal of making it easier to deploy applications seamlessly across public and private clouds using the <a href="{{ site.baseurl }}/cloud_orchestration_cloud_automation.html">cloud orchestration</a> power of Cloudify and the Mist.io cloud management platform. This goal is achieved with the use of a single, reusable Cloudify blueprint, based on <a href="{{ site.baseurl }}/2016/10/13/hybrid-cloud-orchestration-on-openstack-with-cloudify-tosca.html">TOSCA</a>, to quickly provision infrastructure and application resources and nodes all managed from the Mist.io platform.</p>
 
-<p>In this blog post, we are going to walk you through an actual example of the Cloudify and Mist.io integration demonstrating the deployment of a <a href="http://getcloudify.org/container-docker-kubernetes-orchestration-management-cloud-deployment-automation.html">Kubernetes cluster</a> on AWS all from the Mist.io UI.</p>
+<p>In this blog post, we are going to walk you through an actual example of the Cloudify and Mist.io integration demonstrating the deployment of a <a href="{{ site.baseurl }}/container-docker-kubernetes-orchestration-management-cloud-deployment-automation.html">Kubernetes cluster</a> on AWS all from the Mist.io UI.</p>
 
-<p class="aligncenter"><img src="http://getcloudify.org/img/blog/mist_io_dashboard.png"></p>
+<p class="aligncenter"><img src="{{ site.baseurl }}/img/blog/mist_io_dashboard.png"></p>
 
   <hr>
 
@@ -37,37 +37,37 @@ tags:
 
 <p>Once you have your cloud provider, you will be brought to a screen on which to enter your credentials and enter the required information. For AWS, those are Region, API Key, and API Secret.</p>
 
-<p class="aligncenter"><img src="http://getcloudify.org/img/blog/mist_io_cloud.png"></p>
+<p class="aligncenter"><img src="{{ site.baseurl }}/img/blog/mist_io_cloud.png"></p>
 
 <h2>Choose a Template (or create your own)</h2>
 <p>The next step in the process is to click on the &ldquo;Templates&rdquo; item in the left sidebar and choose one of the blueprints in the catalog or you can create your own by clicking on the &ldquo;+&rdquo; sign at the bottom right-hand corner. We obviously chose the Kubernetes blueprint available in the catalog, and you can see, in the below image, the information that is required.</p>
 
-<p class="aligncenter"><img src="http://getcloudify.org/img/blog/mist_io_kubernetes_template.png"></p>
+<p class="aligncenter"><img src="{{ site.baseurl }}/img/blog/mist_io_kubernetes_template.png"></p>
 
 <h2>Create a Stack</h2>
 <p>After you have the blueprint ready, you will click on the &ldquo;Create Stack&rdquo; button at the top right-hand corner of the screen. As always, enter the required information for the instance size, image type, etc. Then, click on the &ldquo;Create Stack&rdquo; button at the bottom.</p>
 
-<p class="aligncenter"><img src="http://getcloudify.org/img/blog/mist_io_stack.png"></p>
+<p class="aligncenter"><img src="{{ site.baseurl }}/img/blog/mist_io_stack.png"></p>
 
-<p>On the next screen, you will see Cloudify&rsquo;s output at the bottom, as it installs <a href="http://docs.getcloudify.org/3.4.0/manager/bootstrapping/">Cloudify Manager</a>, a worker node, and installs <a href="http://getcloudify.org/2015/11/01/openstack-tokyo-summit-kubernetes-cloudify-tosca-nfv-orchestration-microservices.html">Kubernetes</a> for you. While waiting for that to finish, you can login to your EC2 account, or cloud of choice, and see the progress of the deployment.</p>
+<p>On the next screen, you will see Cloudify&rsquo;s output at the bottom, as it installs <a href="http://docs.getcloudify.org/3.4.0/manager/bootstrapping/">Cloudify Manager</a>, a worker node, and installs <a href="{{ site.baseurl }}/2015/11/01/openstack-tokyo-summit-kubernetes-cloudify-tosca-nfv-orchestration-microservices.html">Kubernetes</a> for you. While waiting for that to finish, you can login to your EC2 account, or cloud of choice, and see the progress of the deployment.</p>
 
-<p class="aligncenter"><img src="http://getcloudify.org/img/blog/aws_ec2_cloudify.png"></p>
+<p class="aligncenter"><img src="{{ site.baseurl }}/img/blog/aws_ec2_cloudify.png"></p>
 
 <h2>Accessing the Kubernetes Cluster</h2>
 <p>Once AWS has completed the deployment process, you will receive the URL and login information with which to access your Kubernetes cluster.</p>
 
-<p class="aligncenter"><img src="http://getcloudify.org/img/blog/kubernetes_login.png"></p>
+<p class="aligncenter"><img src="{{ site.baseurl }}/img/blog/kubernetes_login.png"></p>
 
 <p>Next, simply copy the URL, paste it into your browser, and enter the login information provided. And, voila - your Kubernetes cluster is now available!</p>
 
-<p class="aligncenter"><img src="http://getcloudify.org/img/blog/kubernetes_cluster.png"></p>
+<p class="aligncenter"><img src="{{ site.baseurl }}/img/blog/kubernetes_cluster.png"></p>
 
 <p>If you want to uninstall Kubernetes, head back to the Mist.io dashboard, find your stack, click on the &ldquo;&#8285;&rdquo; next to the workflows and choose the &ldquo;UNINSTALL&rdquo; option.</p>
 
 <p>Post-Deployment Workflows</p>
 <p>Finally, the integration with Mist.io includes that ability to run a scale or heal workflow, using Cloudify, on your deployment directly from the UI with a single click.</p>
 
-<p class="aligncenter"><img src="http://getcloudify.org/img/blog/mist_io__cloudify_workflows.png"></p>
+<p class="aligncenter"><img src="{{ site.baseurl }}/img/blog/mist_io__cloudify_workflows.png"></p>
 
 <h2>Video</h2>
 <p>Here you can see the complete demo of this Kubernetes cluster deployment from a user&rsquo;s perspective using the Mist.io UI with Cloudify integration.</p>
@@ -78,7 +78,7 @@ tags:
 <p>With this integration, users can also run hybrid cloud orchestration scenarios using a single Cloudify blueprint that provisions VMs on multiple clouds. Watch our <a href="https://www.youtube.com/watch?v=J-4jGJcqdLY">video</a> showing a Wordpress site deployment consisting of a MongoDB backend and NodeJS frontend running separately on OpenStack and VMware, and orchestrated by Cloudify.</p>
 
 <h2>More Resources</h2>
-<p>Read more about the Kubernetes-as-a-service at <a href="http://getcloudify.org/cloudify-kubernetes-orchestration-docker-container-cluster-mist.html">this link</a>.
+<p>Read more about the Kubernetes-as-a-service at <a href="{{ site.baseurl }}/cloudify-kubernetes-orchestration-docker-container-cluster-mist.html">this link</a>.
 
 <p>For more details on this use case, see the <a href="http://docs.mist.io/article/119-kubernetes-getting-started-guide">Kubernetes Getting Started Guide</a> by the Mist.io team.</p>
 

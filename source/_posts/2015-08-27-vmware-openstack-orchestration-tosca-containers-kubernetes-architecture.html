@@ -19,7 +19,7 @@ tags:
 <br/>
 
 
-<p>Last week I had the honor of moderating with my co-presenter, Sharone Zitzman, our fourth <a href="https://www.facebook.com/openstackbeyond" target="_blank">OpenStack &amp; Beyond Podcast</a>. This time the topic was -&#160; <a href="http://getcloudify.org/2015/08/19/openstack-podcast-docker-containers-neutron-networking-enterprise.html">Is OpenStack Really Ready for the Enterprise</a> - with Lauren Nelson, a senior analyst from <a href="http://www.forrester.com" target="_blank">Forrester Research</a> and Kristian Köhntopp, a veteran cloud architect from hosting company <a href="http://www.syseleven.de" target="_blank">SysEleven</a>.&#160; </p>
+<p>Last week I had the honor of moderating with my co-presenter, Sharone Zitzman, our fourth <a href="https://www.facebook.com/openstackbeyond" target="_blank">OpenStack &amp; Beyond Podcast</a>. This time the topic was -&#160; <a href="{{ site.baseurl }}/2015/08/19/openstack-podcast-docker-containers-neutron-networking-enterprise.html">Is OpenStack Really Ready for the Enterprise</a> - with Lauren Nelson, a senior analyst from <a href="http://www.forrester.com" target="_blank">Forrester Research</a> and Kristian Köhntopp, a veteran cloud architect from hosting company <a href="http://www.syseleven.de" target="_blank">SysEleven</a>.&#160; </p>
 
 <p>The discussion was centered around the Forrester report <a href="https://www.openstack.org/assets/pdf-downloads/OpenStack-Is-Ready-Are-You.pdf" target="_blank">OpenStack Is Ready — Are You?</a>, an excellent research piece led by Lauren as well as on Kristian's talk “<a href="https://www.youtube.com/watch?v=xTibZXix-T0" target="_blank">45 Minutes of OpenStack Hate</a>” in which he laid out his challenges from his experience in building a web-scale service using OpenStack.</p>
 
@@ -27,7 +27,7 @@ tags:
 <hr>
 
 <span class="pullquote-left">
-  <font style="font-weight: bold" size="5" face="Baskerville Old Face"><em>OpenStack/VMware + TOSCA + container orchestration - the works.  Get Cloudify.</em></font>&nbsp; <a class="btn btn-medium btn-theme btn-rounded" id="downloadBtnInner" href="http://getcloudify.org/downloads/get_cloudify.html" target="_blank"><i class="icon-plus"></i> Go </a></span>
+  <font style="font-weight: bold" size="5" face="Baskerville Old Face"><em>OpenStack/VMware + TOSCA + container orchestration - the works.  Get Cloudify.</em></font>&nbsp; <a class="btn btn-medium btn-theme btn-rounded" id="downloadBtnInner" href="{{ site.baseurl }}/downloads/get_cloudify.html" target="_blank"><i class="icon-plus"></i> Go </a></span>
   
   <hr>
 
@@ -59,9 +59,9 @@ tags:
 
 <p>The good news is that we don't have to wait for OpenStack to solve the portability and interoperability issues. This is where the ecosystem can be fairly handy.</p>
 
-<p>As I laid out in one of my previous posts, <a href="http://getcloudify.org/2015/06/09/cloud-tosca-orchestration-automation-openstack-hybrid-enterprise-migration.html">Cloud Migration in the Enterprise</a>, there are a couple of techniques to address the interoperability and portability challenge starting from nested virtualization through API portability, through automation and orchestration. Quite often it would be necessary to combine a few of these techniques to achieve the best results.</p>
+<p>As I laid out in one of my previous posts, <a href="{{ site.baseurl }}/2015/06/09/cloud-tosca-orchestration-automation-openstack-hybrid-enterprise-migration.html">Cloud Migration in the Enterprise</a>, there are a couple of techniques to address the interoperability and portability challenge starting from nested virtualization through API portability, through automation and orchestration. Quite often it would be necessary to combine a few of these techniques to achieve the best results.</p>
 
-<p>In this post, I wanted to touch specifically on the portability between <a href="http://getcloudify.org/vmware-hybrid-cloud.html">VMware/OpenStack</a> environments, as this is probably the most common use case where such portability is needed.</p>
+<p>In this post, I wanted to touch specifically on the portability between <a href="{{ site.baseurl }}/vmware-hybrid-cloud.html">VMware/OpenStack</a> environments, as this is probably the most common use case where such portability is needed.</p>
 
 <p>&#160;</p>
 
@@ -77,26 +77,26 @@ tags:
 
 <h3><b>OpenStack &amp; VMware </b><b>P</b><b>ortability </b><b>U</b><b>sing TOSCA</b><b>-</b><b>based </b><b>O</b><b>rchestration</b></h3>
 
-<p>Another approach to <a href="http://getcloudify.org/2015/07/08/openstack-aws--tosca-cloud-automation-orchestration-vcloud-blueprint-portability.html">cloud portability</a> is to use orchestration as an abstraction layer between the VMware and OpenStack environments. The main advantage of this approach is that it can work natively with each environment and provide abstraction at the application management layer. That means that I can &quot;templatize&quot; or &quot;templatify&quot; my application using <a href="http://getcloudify.org/2015/07/21/what-is-TOSCA-cloud-application-orchestration-tutorial-cloudify.html">TOSCA </a>and deploy it on either <a href="http://getcloudify.org/guide/3.2/plugin-openstack.html">OpenStack</a>, <a href="http://getcloudify.org/guide/3.2/plugin-vsphere.html">v</a><a href="http://getcloudify.org/guide/3.2/plugin-vsphere.html">Sphere</a> or <a href="http://getcloudify.org/guide/3.2/plugin-vcloud.html">v</a><a href="http://getcloudify.org/guide/3.2/plugin-vcloud.html">CD</a> etc. The orchestrator takes care of mapping this template into the underlying environment infrastructure. </p>
+<p>Another approach to <a href="{{ site.baseurl }}/2015/07/08/openstack-aws--tosca-cloud-automation-orchestration-vcloud-blueprint-portability.html">cloud portability</a> is to use orchestration as an abstraction layer between the VMware and OpenStack environments. The main advantage of this approach is that it can work natively with each environment and provide abstraction at the application management layer. That means that I can &quot;templatize&quot; or &quot;templatify&quot; my application using <a href="{{ site.baseurl }}/2015/07/21/what-is-TOSCA-cloud-application-orchestration-tutorial-cloudify.html">TOSCA </a>and deploy it on either <a href="{{ site.baseurl }}/guide/3.2/plugin-openstack.html">OpenStack</a>, <a href="{{ site.baseurl }}/guide/3.2/plugin-vsphere.html">v</a><a href="{{ site.baseurl }}/guide/3.2/plugin-vsphere.html">Sphere</a> or <a href="{{ site.baseurl }}/guide/3.2/plugin-vcloud.html">v</a><a href="{{ site.baseurl }}/guide/3.2/plugin-vcloud.html">CD</a> etc. The orchestrator takes care of mapping this template into the underlying environment infrastructure. </p>
 
 <p><b>Looking into the </b><b>F</b><b>uture - Interoperability with </b><b>C</b><b>ontainers and Kubernetes</b></p>
 
 <p>It is clear that containers are going to be the dominant layer for cloud native applications.</p>
 
-<p><a href="http://getcloudify.org/2014/12/14/TOSCA-docker-container-orchestration-microservices-architecture-kubernetes.html">Container architecture</a> provides a great way to simplify the portability task for those applications simply by the fact that the application packaging format is portable between OpenStack, VMware as well as other clouds.</p>
+<p><a href="{{ site.baseurl }}/2014/12/14/TOSCA-docker-container-orchestration-microservices-architecture-kubernetes.html">Container architecture</a> provides a great way to simplify the portability task for those applications simply by the fact that the application packaging format is portable between OpenStack, VMware as well as other clouds.</p>
 
 <p>While containers solve the challenge of application packaging portability, most of the solutions that rely on containers work on an environment that relies completely on containers and don't fit as well with more heterogeneous environments in which containers are part of a more heterogeneous blend.</p>
 
-<p>To address this gap we can use the same TOSCA-based <a href="http://getcloudify.org/2015/06/19/docker-tosca-cloud-orchestration-openstack-heat-kubernetes.html">container orchestration</a> approach to extend our OpenStack or VMware environment into the next generation container-based environment, as outlined in the diagram below. What's interesting is that we can also deploy the entire stack on plain bare metal environments in just the same way.</p>
+<p>To address this gap we can use the same TOSCA-based <a href="{{ site.baseurl }}/2015/06/19/docker-tosca-cloud-orchestration-openstack-heat-kubernetes.html">container orchestration</a> approach to extend our OpenStack or VMware environment into the next generation container-based environment, as outlined in the diagram below. What's interesting is that we can also deploy the entire stack on plain bare metal environments in just the same way.</p>
 
 <p><div class="aligncenter"><img src="https://hackpad-attachments.imgix.net/hackpad.com_o0LRjcZApWr_p.22377_1440592559839_undefined?fit=max&amp;w=882" /></div></p>
 
 <br/>
-<p>You can read the full details in Dewayne Flippi's post which includes an example for provisioning <a href="http://getcloudify.org/2015/08/26/kubernetes-docker-images-microservices-container-architecture-management-orchestration-tools.html">Kubernetes </a>on bare metal - &quot;<i>Cloudify Meets Kubernetes - Container Management &amp; Orchestration on Bare Metal</i>&quot;.</p>
+<p>You can read the full details in Dewayne Flippi's post which includes an example for provisioning <a href="{{ site.baseurl }}/2015/08/26/kubernetes-docker-images-microservices-container-architecture-management-orchestration-tools.html">Kubernetes </a>on bare metal - &quot;<i>Cloudify Meets Kubernetes - Container Management &amp; Orchestration on Bare Metal</i>&quot;.</p>
 
 <h3><b>Worth </b><b>N</b><b>oting </b><b>N</b><b>ew </b><b>P</b><b>ortability </b><b>F</b><b>eatures </b></h3>
 
-<p>We've positioned Cloudify as pure-play, <a href="http://getcloudify.org/">open source orchestration</a>. I believe that right now, it's the only open source orchestration that integrates natively with OpenStack and VMware. There are a couple of things that we've been working on lately to make this interoperability story stronger. The first thing to note is that we've released our <a href="http://getcloudify.org/2015/08/10/cloud-tosca-application-orchestration-automation-nfv-softlayer-vsphere.html">vSphere plugin</a> as part of Cloudify 3.2.1. which supports both vSphere 5.1 and 5.5. We also made a major update to our vCloud support which is a result of a long joint effort with VMware - expect a big announcement on this front next week at <a href="http://www.vmworld.com/en/us/index.html" target="_blank">VMworld</a>!</p>
+<p>We've positioned Cloudify as pure-play, <a href="{{ site.baseurl }}/">open source orchestration</a>. I believe that right now, it's the only open source orchestration that integrates natively with OpenStack and VMware. There are a couple of things that we've been working on lately to make this interoperability story stronger. The first thing to note is that we've released our <a href="{{ site.baseurl }}/2015/08/10/cloud-tosca-application-orchestration-automation-nfv-softlayer-vsphere.html">vSphere plugin</a> as part of Cloudify 3.2.1. which supports both vSphere 5.1 and 5.5. We also made a major update to our vCloud support which is a result of a long joint effort with VMware - expect a big announcement on this front next week at <a href="http://www.vmworld.com/en/us/index.html" target="_blank">VMworld</a>!</p>
 
 <p>Wer'e also making many efforts to make it easy for users to leverage our TOSCA engine independently from Cloudify. We'll be announcing more on this front on the upcoming <a href="https://www.openstack.org/summit/tokyo-2015/" target="_blank">OpenStack Summit</a> in Tokyo..</p>
 

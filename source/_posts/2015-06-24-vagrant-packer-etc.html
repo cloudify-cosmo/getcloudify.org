@@ -21,20 +21,20 @@ tags:
 
 <p>There are <a href="http://blog.codeship.com/immutable-deployments/">good</a> <a href="http://www.infoq.com/articles/virtual-panel-immutable-infrastructure">reasons</a> for applying immutable infrastructure practices; one of which is that you don't have to worry about your servers containing leftovers from previous deployments. Additionally, your deployment processes can be extremely clean as they don't have to deal with the ins and outs of the live updates of middleware and code but rather the creation of images/containers and the infrastructure containing them.</p>
 
-<p>At Cloudify, we have many artifacts to build. From <a href="http://getcloudify.org/docker-orchestration-docker-container-deployment-cloud.html" target="_blank">Docker</a> and machine images to potentially relocatable Python virtualenvs, node.js tar files and Windows binaries. </p>
+<p>At Cloudify, we have many artifacts to build. From <a href="{{ site.baseurl }}/docker-orchestration-docker-container-deployment-cloud.html" target="_blank">Docker</a> and machine images to potentially relocatable Python virtualenvs, node.js tar files and Windows binaries. </p>
 
 <p>We want to our build process to be immutable.</p>
 
 <hr>
 
 <span class="pullquote-left">
-  <font style="font-weight: bold" size="5" face="Baskerville Old Face"><em>Experience the awesomeness of the Cloudify Blueprint Composer today.</em></font>&nbsp; <a class="btn btn-medium btn-theme btn-rounded" id="downloadBtnInner" href="http://getcloudify.org/downloads/get_cloudify.html" target="_blank"><i class="icon-plus"></i> Go </a></span>
+  <font style="font-weight: bold" size="5" face="Baskerville Old Face"><em>Experience the awesomeness of the Cloudify Blueprint Composer today.</em></font>&nbsp; <a class="btn btn-medium btn-theme btn-rounded" id="downloadBtnInner" href="{{ site.baseurl }}/downloads/get_cloudify.html" target="_blank"><i class="icon-plus"></i> Go </a></span>
   
   <hr>
 
 <h2>Vagrant</h2>
 
-<p>As we're not a SaaS company, but rather a provider of Open-Source software, we thought: Why not use the same concept of immutable infrastructure to build our artifacts? What that practically means is spinning up a new environment each time we want to create a binary. And what's the easiest way to spin up a temporary environment? <a href="http://getcloudify.org/2015/03/08/vagrant-cloud-tutorial-virtualbox-desktop-cloudify.html" target="_blank">Vagrant</a>.</p>
+<p>As we're not a SaaS company, but rather a provider of Open-Source software, we thought: Why not use the same concept of immutable infrastructure to build our artifacts? What that practically means is spinning up a new environment each time we want to create a binary. And what's the easiest way to spin up a temporary environment? <a href="{{ site.baseurl }}/2015/03/08/vagrant-cloud-tutorial-virtualbox-desktop-cloudify.html" target="_blank">Vagrant</a>.</p>
 
 <p>Let's say we want to create a Docker image. We create a `Vagrantfile` containing 2 VMs:</p>
 
@@ -48,15 +48,15 @@ tags:
 
 <p>The `provision.sh` script is simply the script required to generate the artifact. In this particular case, we install and configure <a href="https://www.docker.com/">Docker</a> and <a href="https://docs.docker.com/compose/">docker-compose</a>; run a `docker-compose build ...` on a Dockerfile residing within the synced directory and save the image to a tar. Then, we push the tar to S3 automatically. `cloudify-packager` in the above example contains the files requires for the build process so they're rsync-ed up automatically and used from within the VM.</p>
 
-<p>Another example would be creating <a href="http://getcloudify.org/guide/3.2/agents-general.html" target="_blank">Cloudify agents</a> for different distributions. We require compiling our agents on Ubuntu Trusty and Precise, CentOS 6.4, Debian Jessie and Windows Server 2013.</p>
+<p>Another example would be creating <a href="{{ site.baseurl }}/guide/3.2/agents-general.html" target="_blank">Cloudify agents</a> for different distributions. We require compiling our agents on Ubuntu Trusty and Precise, CentOS 6.4, Debian Jessie and Windows Server 2013.</p>
 
-<p>We have a `Vagrantfile` containing <a href="http://getcloudify.org/2015/04/05/vagrant-cloud-aws-nested-virtualization-vagrant-box.html" target="_blank">AWS and Virtualbox</a> based VMs with images matching the OS and distributions we need. We supply a multi-distro supporting `provision.sh` file to build all Linux based agents and another `provision.windows.bat` file specifically for windows.</p>
+<p>We have a `Vagrantfile` containing <a href="{{ site.baseurl }}/2015/04/05/vagrant-cloud-aws-nested-virtualization-vagrant-box.html" target="_blank">AWS and Virtualbox</a> based VMs with images matching the OS and distributions we need. We supply a multi-distro supporting `provision.sh` file to build all Linux based agents and another `provision.windows.bat` file specifically for windows.</p>
 
 <p>All that's left then is to run `Vagrant up debian_jessie_aws` and poof!, a debian jessie agent is generated.</p>
 
 <h2>Decoupling Heaven</h2>
 
-<p>This process completely decouples each artifact's generation mechanism from the specific build system managing it. It also allows us to parallelize our build process as we can spin up endless amounts of Vagrant machines in whatever IaaS provider we choose (as long as there's a Vagrant plugin for that provider) and don't have to rely on our <a href="http://getcloudify.org/2015/04/09/jenkins-ci-server-automation-cloud-cd-continuous-integration-delivery.html" target="_blank">Jenkins</a> cluster's capacity or on us writing logic for generating machines for the build process.</p>
+<p>This process completely decouples each artifact's generation mechanism from the specific build system managing it. It also allows us to parallelize our build process as we can spin up endless amounts of Vagrant machines in whatever IaaS provider we choose (as long as there's a Vagrant plugin for that provider) and don't have to rely on our <a href="{{ site.baseurl }}/2015/04/09/jenkins-ci-server-automation-cloud-cd-continuous-integration-delivery.html" target="_blank">Jenkins</a> cluster's capacity or on us writing logic for generating machines for the build process.</p>
 
 <p>In addition, it doesn't matter which build system we're using to create the artifacts. It's all just about executing the same command in different environments.</p>
 

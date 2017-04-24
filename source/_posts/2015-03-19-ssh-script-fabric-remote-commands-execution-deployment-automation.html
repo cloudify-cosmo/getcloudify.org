@@ -24,7 +24,7 @@ tags:
 
 <p><b></b>
 
-  <p>I have recently been involved in an interesting project that was added in the latest version of <a href="http://getcloudify.org/guide">Cloudify</a> -&#160; the Fabric plugin.&#160; This got me thinking about taking a deeper dive on <a href="http://getcloudify.org/guide/3.1/plugin-fabric.html">remote execution</a> in general -- i.e. the tools, why it’s needed, and how to actually make the best use of it, and where the Fabric plugin comes into play.</p>
+  <p>I have recently been involved in an interesting project that was added in the latest version of <a href="{{ site.baseurl }}/guide">Cloudify</a> -&#160; the Fabric plugin.&#160; This got me thinking about taking a deeper dive on <a href="{{ site.baseurl }}/guide/3.1/plugin-fabric.html">remote execution</a> in general -- i.e. the tools, why it’s needed, and how to actually make the best use of it, and where the Fabric plugin comes into play.</p>
 
   <h2><strong>Ok, So What is Remote Execution?</strong></h2>
 
@@ -33,7 +33,7 @@ tags:
   <hr>
 
 <span class="pullquote-left">
-  <font style="font-weight: bold" size="5" face="Baskerville Old Face"><em>Cloudify - from deployment to post-deployment with the tool of your choice. Check it out. </em></font>&nbsp; <a class="btn btn-medium btn-theme btn-rounded" id="downloadBtnInner" href="http://getcloudify.org/downloads/get_cloudify.html" target="_blank"><i class="icon-plus"></i> Go </a></span>
+  <font style="font-weight: bold" size="5" face="Baskerville Old Face"><em>Cloudify - from deployment to post-deployment with the tool of your choice. Check it out. </em></font>&nbsp; <a class="btn btn-medium btn-theme btn-rounded" id="downloadBtnInner" href="{{ site.baseurl }}/downloads/get_cloudify.html" target="_blank"><i class="icon-plus"></i> Go </a></span>
   
   <hr>
 
@@ -95,7 +95,7 @@ tags:
     </li>
   </ul>
 
-  <p>[You are also welcome to read this post on <a href="http://getcloudify.org/2014/02/24/cloud_automation_with_winrm_vs_ssh.html">WinRM vs. SSH</a> that can help give some context.]</p>
+  <p>[You are also welcome to read this post on <a href="{{ site.baseurl }}/2014/02/24/cloud_automation_with_winrm_vs_ssh.html">WinRM vs. SSH</a> that can help give some context.]</p>
 
   <p>Fabric and Capistrano are usually referred to in the context of code deployment while Ansible is referred to in the context of code deployment and configuration management.</p>
 
@@ -179,7 +179,7 @@ tags:
 
   <ol>
     <li>
-      <p>Writing commands directly in your <a href="http://getcloudify.org/guide/3.0/guide-blueprint.html" target="_blank">TOSCA</a> blueprint</p>
+      <p>Writing commands directly in your <a href="{{ site.baseurl }}/guide/3.0/guide-blueprint.html" target="_blank">TOSCA</a> blueprint</p>
     </li>
 
     <li>
@@ -187,11 +187,11 @@ tags:
     </li>
 
     <li>
-      <p>Providing a <a href="http://getcloudify.org/guide/3.1/guide-plugin-creation.html" target="_blank">Python module</a> installed somewhere on your manager that contains the required task, that will then execute it</p>
+      <p>Providing a <a href="{{ site.baseurl }}/guide/3.1/guide-plugin-creation.html" target="_blank">Python module</a> installed somewhere on your manager that contains the required task, that will then execute it</p>
     </li>
   </ol>
 
-  <p>This is useful because you can manage your entire infrastructure using only the <a href="http://getcloudify.org/guide/">Cloudify manager</a>. This way, companies with stricter policies for installing agents no longer have to deal with that decision., and can take advantage of all of the benefits of remote execution.</p></p>
+  <p>This is useful because you can manage your entire infrastructure using only the <a href="{{ site.baseurl }}/guide/">Cloudify manager</a>. This way, companies with stricter policies for installing agents no longer have to deal with that decision., and can take advantage of all of the benefits of remote execution.</p></p>
   
 
   </notextile>

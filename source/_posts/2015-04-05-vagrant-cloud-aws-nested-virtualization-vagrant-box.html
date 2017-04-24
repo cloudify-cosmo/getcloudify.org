@@ -28,15 +28,15 @@ tags:
 <hr>
 
 <span class="pullquote-left">
-  <font style="font-weight: bold" size="5" face="Baskerville Old Face"><em>Cloudify! Through a simple Vagrantfile. Try it.</em></font>&nbsp; <a class="btn btn-medium btn-theme btn-rounded" id="downloadBtnInner" href="http://getcloudify.org/downloads/get_cloudify.html" target="_blank"><i class="icon-plus"></i> Go </a></span>
+  <font style="font-weight: bold" size="5" face="Baskerville Old Face"><em>Cloudify! Through a simple Vagrantfile. Try it.</em></font>&nbsp; <a class="btn btn-medium btn-theme btn-rounded" id="downloadBtnInner" href="{{ site.baseurl }}/downloads/get_cloudify.html" target="_blank"><i class="icon-plus"></i> Go </a></span>
   
   <hr>
 
-<p>In the context of our R&amp;D and Ops work on Cloudify, an <a href="http://getcloudify.org/" target="_blank">open source cloud</a> orchestration tool written Python with a TOSCA-based YAML DSL, we often need to create reproducible and portable development environments on the cloud, and had to find a way to overcome these issues. We wanted to find the most seamless process to do this – that too would be easily replicable per environment. So what better way than to start with the most popular cloud – AWS? This post will dive into one such scenario of porting Vagrant .box files for AWS, demonstrating how to overcome issues like nested virtualization and the need for bare metal machines that are also costly and time-consuming to provision. In this post you’ll have a step-by-step tutorial for how to easily create v2v (virtual to virtual) machines, and create a VMDK disk image that can then be uploaded to any AWS environment.</p>
+<p>In the context of our R&amp;D and Ops work on Cloudify, an <a href="{{ site.baseurl }}/" target="_blank">open source cloud</a> orchestration tool written Python with a TOSCA-based YAML DSL, we often need to create reproducible and portable development environments on the cloud, and had to find a way to overcome these issues. We wanted to find the most seamless process to do this – that too would be easily replicable per environment. So what better way than to start with the most popular cloud – AWS? This post will dive into one such scenario of porting Vagrant .box files for AWS, demonstrating how to overcome issues like nested virtualization and the need for bare metal machines that are also costly and time-consuming to provision. In this post you’ll have a step-by-step tutorial for how to easily create v2v (virtual to virtual) machines, and create a VMDK disk image that can then be uploaded to any AWS environment.</p>
 
 <h2><b>The Demo</b></h2>
 
-<p>For the quick trial of Cloudify, we provide a <a href="http://getcloudify.org/downloads/get_cloudify.html" target="_blank">Vagrantfile</a> and Vagrant box with Cloudify's Manager preinstalled on a <a href="http://getcloudify.org/guide/quickstart.html" target="_blank">VirtualBox image</a>.</p>
+<p>For the quick trial of Cloudify, we provide a <a href="{{ site.baseurl }}/downloads/get_cloudify.html" target="_blank">Vagrantfile</a> and Vagrant box with Cloudify's Manager preinstalled on a <a href="{{ site.baseurl }}/guide/quickstart.html" target="_blank">VirtualBox image</a>.</p>
 
 <p>By utilizing Vagrant and VirtualBox we are able to provide our customers with a reproducible demo environment to evaluate Cloudify locally on their personal computers.</p>
 

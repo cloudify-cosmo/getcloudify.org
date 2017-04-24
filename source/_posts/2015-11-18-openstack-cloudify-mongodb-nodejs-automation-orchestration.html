@@ -13,11 +13,11 @@ tags:
 
 <notextile>
 
-<img src="http://getcloudify.org/img/cloudifycrop.png" alt="Cloud Orchestration | Orchestration Tools | OpenStack Cloud | TOSCA Cloud | Microservices | Kubernetes | NFV | Cloudify">
+<img src="{{ site.baseurl }}/img/cloudifycrop.png" alt="Cloud Orchestration | Orchestration Tools | OpenStack Cloud | TOSCA Cloud | Microservices | Kubernetes | NFV | Cloudify">
 <br/>
 <br/>
 
-<p>In a previous post titled “<a href="http://getcloudify.org/2015/05/26/cloudify-cloud-application-automation-orchestration-tosca-devops.html" target="_blank">Deployment Composition In Cloudify</a>”, I described using a custom type/plugin to compose multiple blueprints. This post describes an expansion of that effort, to make nodecellar into a real distributed app. In essence, I describe a concrete implementation of the blueprint described in Nati Shalom's recent post which described various approaches to <a href="http://getcloudify.org/2015/06/11/orchestration-docker-cloud-automation-openstack-heat-tosca-kubernetes.html" target="_blank">application orchestration</a>. The same deployment proxy is used as described before, but the focus here is the growth of the composed blueprints: mongo and nodejs in an Openstack environment.</p>
+<p>In a previous post titled “<a href="{{ site.baseurl }}/2015/05/26/cloudify-cloud-application-automation-orchestration-tosca-devops.html" target="_blank">Deployment Composition In Cloudify</a>”, I described using a custom type/plugin to compose multiple blueprints. This post describes an expansion of that effort, to make nodecellar into a real distributed app. In essence, I describe a concrete implementation of the blueprint described in Nati Shalom's recent post which described various approaches to <a href="{{ site.baseurl }}/2015/06/11/orchestration-docker-cloud-automation-openstack-heat-tosca-kubernetes.html" target="_blank">application orchestration</a>. The same deployment proxy is used as described before, but the focus here is the growth of the composed blueprints: mongo and nodejs in an Openstack environment.</p>
 
 <p><strong>Requirements</strong></p>
 
@@ -33,7 +33,7 @@ tags:
 
 <p>A minimal replicated scenario requires a couple of mongod servers, and three mongoc servers. Mongos is a lightweight service that ideally runs near the client. In our case, the client is nodejs. So the basic layout looks like:</p>
 
-<img src="http://getcloudify.org/img/blog/deployment_layout.PNG">
+<img src="{{ site.baseurl }}/img/blog/deployment_layout.PNG">
 
 <hr>
 
@@ -42,7 +42,7 @@ tags:
   
   <hr>
 
-<p>Since we're moving to <a href="http://getcloudify.org/2015/11/01/openstack-tokyo-summit-kubernetes-cloudify-tosca-nfv-orchestration-microservices.html" target="_blank">Openstack</a>, there is more complexity in the blueprints related to setting up security groups and floating ips, but otherwise they are straightforward to understand. The mongoc and mongod hosts need to have a security group so they can be reached by the mongos nodes in the nodejs blueprint. One the nodejs side, the hosts containing NodeJs need floating IPs so they can be accessed from the internet.</p>
+<p>Since we're moving to <a href="{{ site.baseurl }}/2015/11/01/openstack-tokyo-summit-kubernetes-cloudify-tosca-nfv-orchestration-microservices.html" target="_blank">Openstack</a>, there is more complexity in the blueprints related to setting up security groups and floating ips, but otherwise they are straightforward to understand. The mongoc and mongod hosts need to have a security group so they can be reached by the mongos nodes in the nodejs blueprint. One the nodejs side, the hosts containing NodeJs need floating IPs so they can be accessed from the internet.</p>
 
 <h2><b>Orchestration Details - mongo blueprint</b></h2>
 
