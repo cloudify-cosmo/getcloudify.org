@@ -38,7 +38,11 @@
 20. Spacer, margin
 21. Media queries 
 22. Events
-23. New Header and Footer
+23. 
+24. Academy Lab
+25. New Plugin Container
+26. New Header and Footer
+27. Floater Download Page
 
 ==================================== */
 
@@ -5039,6 +5043,11 @@ only screen and (     -o-min-device-pixel-ratio: 2/1) {
 
 
 
+
+/* ============================
+26. New Header and Footer
+============================= */
+
 /** use only @import statements here... css rules should be in partials in folder _sass **/
 /** enter sass rules here **/
 /*
@@ -5687,4 +5696,63 @@ body.header_style_2 .header_top .logo a {
       margin-top: 100px;
       padding-left: 44px;
       height: 310px; }
+
+
+
+
+
+/* ============================
+27. Floater Download Page
+============================= */
+
+.floater {
+  background-color: #000068;
+  width: 170px;
+  padding: 15px 20px 25px 20px;
+  position: fixed;
+  top: 50vh;
+  float: left;
+
+  -webkit-transform: translateY(-50%);
+          transform: translateY(-50%);
+  display: none;
+  z-index: 99;
+  border-top: 1px solid rgba(215, 226, 232, 0.5);
+  border-right: 1px solid rgba(215, 226, 232, 0.5);
+  border-bottom: 1px solid rgba(215, 226, 232, 0.5); }
+  @media (min-width: 1200px) {
+
+  .floater {
+      display: block; } }
+
+ .floater .closebox {
+    position: absolute;
+    top: 5px;
+    right: 5px;
+    cursor: pointer;
+    color: rgba(247, 247, 247, 0.6);
+    font-size: 16px;
+    line-height: 1; }
+
+  .floater .closebox:hover {
+      color: #f7f7f7; }
+
+  .floater h2 {
+    color: #f7f7f7;
+    line-height: 1.3;
+    font-size: 20px;
+    margin-bottom: 10px; }
+    .floater h2:after {
+      display: none; }
+
+  .floater a {
+    color: #fdca37;
+    text-decoration: none;
+    font-weight: bold; }
+   
+   .floater a:hover {
+      color: #d7e2e8;
+      text-decoration: none; 
+  }
+
 
