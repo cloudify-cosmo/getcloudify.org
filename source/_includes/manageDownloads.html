@@ -234,6 +234,101 @@
     }
     });
     }
+
+    //CLI Community Downloads HubSpotForms//
+    function getOpenStackCMForm(e){
+        hbspt.forms.create({
+            portalId: '1918719',
+            formId: '6c982907-c629-41fb-9552-74320436ccbe',
+            onFormReady: function ($form, ctx) {
+                var hubspotHtmlForm=$(".hbspt-form");
+        $( ".gattingWrapper" ).append( hubspotHtmlForm );
+    },
+    onFormSubmit: function($form) {
+        track_cli_contactForm(e);
+    }
+    });
+    }
+    function getAwsCMForm(e){
+        hbspt.forms.create({
+            portalId: '1918719',
+            formId: 'bfec58ff-e9d1-4698-b5ca-faf5bfe6235c',
+            onFormReady:function($form, ctx){
+                var hubspotHtmlForm=$(".hbspt-form");
+        $( ".gattingWrapper" ).append( hubspotHtmlForm );
+    },
+    onFormSubmit: function($form) {
+        track_cli_contactForm(e);
+    }
+    });
+    }
+        function getDebianCMForm(e){
+            hbspt.forms.create({
+                portalId: '1918719',
+                formId: '65111b3f-70a7-43dd-b250-4c8cd6d31ebd',
+                onFormReady:function($form){
+                    var hubspotHtmlForm=$(".hbspt-form");
+                    $( ".gattingWrapper" ).append( hubspotHtmlForm );
+                },
+                onFormSubmit: function($form) {
+                    track_cli_contactForm(e);
+                }
+            });
+        }
+        function getCentOS7CMForm(e){
+            hbspt.forms.create({
+                portalId: '1918719',
+                formId: '61f8d310-b88a-429b-92c1-7bfcf7e9ba66',
+                onFormReady:function($form, ctx){
+                    var hubspotHtmlForm=$(".hbspt-form");
+            $( ".gattingWrapper" ).append( hubspotHtmlForm );
+        },
+        onFormSubmit: function($form) {
+            track_cli_contactForm(e);
+        }
+    });
+    }
+    function getWindowsCMForm(e){
+        hbspt.forms.create({
+            portalId: '1918719',
+            formId: 'ccaf1e32-007b-4400-bfb4-cb0ad59068d2',
+            onFormReady:function($form, ctx){
+                var hubspotHtmlForm=$(".hbspt-form");
+        $( ".gattingWrapper" ).append( hubspotHtmlForm );
+    },
+    onFormSubmit: function($form) {
+        track_cli_contactForm(e);
+    }
+    });
+    }
+    function getOtherCMForm(e){
+        hbspt.forms.create({
+            portalId: '1918719',
+            formId: '020524a7-0541-4093-9896-8de7252a8e90',
+            onFormReady:function($form, ctx){
+                var hubspotHtmlForm=$(".hbspt-form");
+        $( ".gattingWrapper" ).append( hubspotHtmlForm );
+    },
+    onFormSubmit: function($form) {
+        track_cli_contactForm(e);
+    }
+    });
+    }
+    function getVagrantCMForm(e){
+        hbspt.forms.create({
+            portalId: '1918719',
+            formId: 'a1b567cf-3274-4d3f-b9f8-00d2cde241a9',
+            onFormReady:function($form, ctx){
+                var hubspotHtmlForm=$(".hbspt-form");
+        $( ".gattingWrapper" ).append( hubspotHtmlForm );
+    },
+    onFormSubmit: function($form) {
+        track_cli_contactForm(e);
+    }
+    });
+    }
+
+
     //CLI Downloads HubSpotForms//
     //this function open modal process
     function downloadCliFile(e)
@@ -247,23 +342,47 @@
                 case "thank_you_debian":
                     getDebianForm(e);
                     break;
+                case "thank_you_debian_cm":
+                    getDebianCMForm(e);
+                    break;
                 case "thank_you_centos_6_5":
                     getCentOS6_5Form(e);
                     break;
                 case "thank_you_centos_7":
                     getCentOS7Form(e);
                     break;
+                case "thank_you_centos_7_cm":
+                    getCentOS7CMForm(e);
+                    break;
                 case "thank_you_windows":
                     getWindowsForm(e);
+                    break;
+                case "thank_you_windows_cm":
+                    getWindowsCMForm(e);
                     break;
                 case "thank_you_pip":
                     getOtherForm(e);
                     break;
+                case "thank_you_pip_cm":
+                    getOtherCMForm(e);
+                    break;
                 case "thank_you_vagrant":
                     getVagrantForm(e);
                     break;
+                case "thank_you_vagrant_cm":
+                    getVagrantCMForm(e);
+                    break;
                 case "thank_you_aws":
                     getAwsForm(e);
+                    break;
+                case "thank_you_aws_cm":
+                    getAwsCMForm(e);
+                    break;
+                case "thank_you_openstack":
+                    getOpenStackForm(e);
+                    break;
+                case "thank_you_openstack_cm":
+                    getOpenStackCMForm(e);
                     break;
                 case "thank_you_composer":
                     getComposerForm(e);
@@ -276,9 +395,6 @@
                     break;
                 case "Orchestration White Paper Download":
                     getNfvOrcForm(e);
-                    break;
-                case "thank_you_openstack":
-                    getOpenStackForm(e);
                     break;
                 default:
                     getOtherForm(e);
@@ -301,32 +417,50 @@
                     case "thank_you_debian":
                         window.location.href = "http://docs.getcloudify.org/{{ site.Docs_version }}/installation/from-packages/";
                         break;
+                    case "thank_you_debian_cm":
+                        window.location.href = "http://docs.getcloudify.org/{{ site.Docs_version }}/installation/from-packages/";
+                        break;
                     case "thank_you_centos_6_5":
                         window.location.href = "http://docs.getcloudify.org/{{ site.Docs_version }}/installation/from-packages/";
                         break;
                     case "thank_you_centos_7":
                         window.location.href = "http://docs.getcloudify.org/{{ site.Docs_version }}/installation/from-packages/";
                         break;
+                    case "thank_you_centos_7_cm":
+                        window.location.href = "http://docs.getcloudify.org/{{ site.Docs_version }}/installation/from-packages/";
+                        break;
                     case "thank_you_windows":
+                        window.location.href = "http://docs.getcloudify.org/{{ site.Docs_version }}/installation/from-packages/#windows";
+                        break;
+                    case "thank_you_windows_cm":
                         window.location.href = "http://docs.getcloudify.org/{{ site.Docs_version }}/installation/from-packages/#windows";
                         break;
                     case "thank_you_pip":
                         window.location.href = "http://docs.getcloudify.org/{{ site.Docs_version }}/installation/from-script/";
                         break;
+                    case "thank_you_pip_cm":
+                        window.location.href = "http://docs.getcloudify.org/{{ site.Docs_version }}/installation/from-script/";
+                        break;
                     case "thank_you_vagrant":
                         window.location.href = "http://docs.getcloudify.org/{{ site.Docs_version }}/manager/getting-started/";
+                        break;
+                    case "thank_you_vagrant_cm":
+                        window.location.href = "http://docs.getcloudify.org/{{ site.Docs_version }}/manager/getting-started/";
+                        break;
+                    case "thank_you_aws":
+                        window.location.href ="/thank_you_aws_ent.htm";
                         break;
                     case "thank_you_aws_cm":
                         window.location.href ="/thank_you_aws_cm.htm";
                         break;
-                    case "thank_you_aws_ent":
-                        window.location.href ="/thank_you_aws_ent.htm";
+                    case "thank_you_openstack":
+                        window.location.href = "http://docs.getcloudify.org/{{ site.Docs_version }}/manager/bootstrapping/";
+                        break;
+                    case "thank_you_openstack_cm":
+                        window.location.href = "http://docs.getcloudify.org/{{ site.Docs_version }}/manager/bootstrapping/";
                         break;
                     case "thank_you_composer":
                         window.location.href ="/thank_you_composer.htm";
-                        break;
-                    case "thank_you_openstack":
-                        window.location.href = "http://docs.getcloudify.org/{{ site.Docs_version }}/manager/bootstrapping/";
                         break;
                     default:
                         window.location.href = "/thank_you.htm";
