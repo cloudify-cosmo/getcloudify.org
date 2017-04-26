@@ -1,0 +1,68 @@
+---
+layout: blogpost
+title: The End of Cloud Management As We Know It - Part 1
+description: Nati Shalom explains why old school cloud management tools are not sufficient anymore and how to prepare for the end of cloud management.
+image: nati.png
+author: Nati Shalom
+tags: 
+ - Cloud Orchestration
+ - CMP
+ - Cloud Management
+ - DevOps Automation
+ - Cloud Automation
+---
+
+<notextile>
+
+<img src="/img/blog/newUI_banner.png" alt="Cloudify 4.0 User Interface">
+<br/>
+<br/>
+
+<p>We&rsquo;ve all read the reports about IT and business units becoming more tightly coupled as DevOps gains momentum. Puppet Labs&rsquo; <a href="https://puppet.com/resources/white-paper/2016-state-of-devops-report">State of DevOps</a> report is one of the better ones, and it tells us that high-performing IT organizations deploy 200 times more frequently than low performers, with a stunning 2,555 times faster lead time to deployment. </p>
+<p>The numbers speak for themselves, and the conclusion is unavoidable: the tools we&rsquo;ve used to manage cloud in the early stages of its growth are no longer sufficient for an agile, responsive world in which business unit developers and central IT are moving faster and covering larger and more complex application portfolios than ever before.</p>
+<p>In this two-part post, we&rsquo;ll explore what&rsquo;s happening in this rapidly changing environment and how we can prepare for the end of cloud management as we know it.</p>
+
+<hr>
+
+<span class="pullquote-left">
+  <font style="font-weight: bold" size="5" face="Baskerville Old Face"><em>Register for our Cloudify 4.0 webinar - the next evolution.&nbsp;</em></font>  <a class="btn btn-medium btn-theme btn-rounded" id="downloadBtnInner" href="{{ site.baseurl }}/webinars/the-new-cloudify-4.html?utm_campaign=4.0%20Release%20Webinar&utm_source=blog_cta&utm_medium=jeremy" target="_blank"><i class="icon-plus"></i> Join Now </a></span>
+  
+  <hr>
+
+<h2>Reality Setting in</h2>
+<p>Reports like the one linked above show that business units and central IT are tightly coupled in terms of the time to market and strategic business goals. At the same time, the tools and processes being used to manage (or, &ldquo;un-manage?&rdquo;) applications and IT environments are indicating an opposite trend. The introduction of on-demand cloud resources has suddenly shifted control of IT resources. Today, control is dispersed and access is freely available to anyone at the click of button, posing a major disruption to how corporate IT formerly provisioned infrastructure.</p>
+<p>This enabled speed for developers by enabling the onboarding of green-field apps quickly to their environment of choice. They can now quickly roll up their sleeves and get to work instead of waiting on the bottleneck of Central IT. As a result, typical large-scale enterprises are facing a major disruption of what can only be likened to a &ldquo;wild west&rdquo; and hodge-podge of infrastructure, tools, stacks and more, leading to silos of application stacks and management tooling across business units.</p>
+<div class="aligncenter"><img src="/img/blog/cloud_management_wild_west.png"></div>
+<p class="aligncenter" style="font-size: 12px"><em>&mdash;The shift of power to business units has led to a &ldquo;wild West&rdquo; cloud application management tools.&mdash;</em></p>
+<h2>New Challenges to Address</h2>
+<p>From our experience with some of the largest banks, insurance, satellite, and analytics companies, that are all facing this same reality of different management silos, and the distribution of power and control in IT has opened the door to many pain points:</p>
+<ul>
+<li>Lack of consistent methodologies on how to manage applications in a cloud environment</li>
+<li>Low reusability and lots of custom work required to build and administer the automation and management of each application</li>
+<li>No continuity and integration with existing systems</li>
+<li>Slow pace of adoption of new technologies, mainly due to a steep learning curve, lack of skill set and tooling required to handle each new cloud or infrastructure stack.</li>
+</ul>
+<div class="aligncenter"><img src="/img/blog/cloud_infrastructures.png"></div>
+<p class="aligncenter" style="font-size: 12px"><em>&mdash;Each environment has its own tooling, processes and platforms, leading to silos.&mdash;</em></p>
+<p>Another major challenge is the risks stemming from a lack of common tooling and governance. This risk is seen in greater exposure to security issues and potential breaches that can result from a lack of adherence to corporate security policies and practices. On top of this, higher costs are often incurred due to the lack of ability to maximize the utilization of existing resources or prevent waste due to misuse of cloud resources. Exposure to these security and cost risks ultimately hinders the transition to cloud.</p>
+<h2>Survey Says&hellip;</h2>
+<p>According to the last <a href="http://www.rightscale.com/blog/cloud-industry-insights/cloud-computing-trends-2017-state-cloud-survey">State of Cloud</a> report from RightScale, we&rsquo;re seeing a strong shift toward centralization, with more central IT teams taking a broader view of their role in cloud.</p>
+<p>While central IT perceive themselves at the primary selector of public clouds and private clouds (more than 60%), as a subject matter expert of deciding which applications to move to the cloud (63%), there is clearly a significant gap between how the business units actually perceive corporate IT&rsquo;s role in the organization, with more than 55% of those surveyed responding to the contrary.</p>
+<div class="aligncenter"><img src="/img/blog/enterprise_it_surveys.png"></div><br>
+<p>This gap between what Enterprise IT wants and the way Business unit see them imposes a new class of challenges:</p>
+<ul>
+<ul>
+<li>There&rsquo;s a general mistrust between the business unit and the central IT resist the move to DevOps and Cloud. </li>
+<li>In addition to that there's an inherent conflict between the need for better control by the central IT which often led to a choice of tools that often focused on infrastructure management and monitoring and the need of the business unit for automating the development processes from build to production which led to application centric and automation centric set of tools.</li>
+</ul>
+</ul>
+<p>This perception gap imposes a new class of challenges, first and foremost there&rsquo;s a general mistrust between the business unit with central IT largely resisting the move to DevOps and cloud. All while there's an inherent conflict between the need for better control by corporate IT, often times leading to a choice of tools focused on infrastructure management and monitoring as well as the needs of business units to automate the development processes from build to production which led to application-centric and automation-centric tools.</p>
+<h2>The End of Cloud Management as we Know It</h2>
+<p>We&rsquo;ve all heard the &ldquo;break down the silos&rdquo; mantra. The reality is that the promise of DevOps can&rsquo;t be delivered when the organization can&rsquo;t use a common set of tooling to manage applications. Common tooling and more centralized management would serve both the business unit and centralized IT, while providing better governance.</p>
+<p>In one of my earlier posts, <a href="http://getcloudify.org/2016/08/08/cloud-management-roundup-orchestration-paas-cmp.html">Cloud Management Roundup - Orchestration vs PaaS vs CMP</a>, I compared the different alternative approaches for cloud application management. This comparison led me to the realization that the existing cloud management frameworks such as Redhat CloudForms and RIghtScale were built with an infrastructure-centric mindset. They are, by definition, better at serving central IT than the business units.</p>
+<p>Similarly, PaaS frameworks provide a set of tools that were set to empower the developers of the business unit. Unfortunately, and quite often, they limit the choice of applications that can be delivered by the platform and at the same time doesn&rsquo;t address the needs of central IT to have full visibility and control over the application and infrastructure.</p>
+<p>A third approach, orchestration frameworks, tends to focus on automation but are often lacking the ability to provide a central system view needed by central IT. Orchestration tools also tend to be too sophisticated and low-level for the average developer in the business unit.</p>
+<p>In summary, the existing set of management tools and approaches cater to either IT ( CMP) or Business Units (PaaS) or DevOps (orchestration). None of them serve both business unit developers (both the PaaS developers and the &ldquo;power users&rdquo;) without significant compromises. </p>
+<p><br />This calls for new thinking: a next-generation cloud management platform.</p>
+
+</notextile>
