@@ -1,0 +1,81 @@
+---
+layout: blogpost
+title: Cloudify 4.0 Has Landed - Next-Gen, Orchestration-First CMP!
+description: Introducing Cloudify 4, the next evolution in cloud orchestration and multicloud management.
+image: sivan.jpg
+author: Sivan Barzily
+tags: 
+ - Cloud Orchestration
+ - Cloudify
+ - Cloud Management
+ - RBAC
+ - LDAP
+---
+
+<notextile>
+
+<img src="/img/blog/cloudify_new_logo_transparent.png" alt="Cloudify Logo" width="870px">
+<br/>
+<br/>
+
+<p>We&rsquo;re proud and excited to share with you the new evolution of Cloudify, the <a href="/product">Orchestration-First Model-Driven CMP</a>, with our major release of <a href="/download">Cloudify 4.0</a>.</p>
+<p>Cloudify 4.0 is built For:</p>
+<ul>
+<li>Efficiency through common tooling</li>
+<li>Self-service - No more bottlenecks</li>
+<li>Faster adoption of technologies</li>
+<li>Security through improved governance</li>
+</ul>
+<p>This feature-rich release represents a no-compromises CMP, enabling any organization to achieve successful cloud architecture and deployment while guaranteeing freedom of choice when it comes to user experience, technology selection, and ongoing day to day operations.</p>
+<p>We also put strong emphasis on ease of use, so all the benefits of Cloudify 4.0 can be reaped without complicating user experience. This is achieved through tools like a shiny new, drag and drop customizable UI, an improved CLI, and a built-in catalog filled with usage examples.</p>  
+
+  <hr>
+<span class="pullquote-left">
+  <font style="font-weight: bold" size="5" face="Baskerville Old Face"><em>Watch our Cloudify 4.0 webinar on demand - the next-gen CMP.</em></font>&nbsp; <a class="btn btn-medium btn-theme btn-rounded" id="downloadBtnInner" href="{{ site.baseurl }}/webinars/the-new-cloudify-4.html?utm_campaign=4.0%20Release%20Webinar&utm_source=blog_cta&utm_medium=jeremy" target="_blank"><i class="icon-plus"></i> Join Now </a></span>
+<hr>
+
+
+<h2>More than ready for production: multi-tenancy, HA, LDAP</h2>
+<h3><a href="http://docs.getcloudify.org/4.0.0/manager/implement-multi-tenancy/">Multi-Tenancy</a></h3>
+<p>Cloudify 4.0 introduces the concept of multiple tenants in a single Cloudify Manager. Multi-tenancy enables you to create multiple independent logical groups as isolated environments that can be managed by a single Cloudify Manager. User and tenant management can be easily integrated with your LDAP/AD setup.</p>
+<h3><a href="http://docs.getcloudify.org/4.0.0/manager/high-availability-clusters/">Clustering Cloudify Managers for High Availability</a></h3>
+<p>Cloudify 4.0 includes the ability to cluster multiple Cloudify Manager instances, ensuring resilience in the event of a manager becoming unavailable. Cloudify clusters are truly dynamic, so you can add and remove managers to/from your cluster even after its initial setup, accommodating your business needs as they develop and change. Automated state replication and failover ensure no data loss in the case of a failure, and a smooth user experience if such a failure occurs.</p>
+<h3><a href="http://docs.getcloudify.org/4.0.0/manager/implement-multi-tenancy/">LDAP Integration</a></h3>
+<p>LDAP/AD integration is greatly improved from previous versions. Simply configure Cloudify with your LDAP system and users, groups, and tenants will be seamlessly permitted to the Cloudify operations, while authenticating against LDAP.</p>
+<h2>Taking user experience to the next level</h2>
+<h3>User Interface</h3>
+<p>We know user experience is not a one size fits all, so with Cloudify 4.0 we completely rewrote our UI as a customizable framework, allowing you to design your own experience with full control over what you see and how you see it.</p>
+<p>Cloudify UI includes out-of-the-box templates for admins and end-users, to which you can add new dashboards, change display preferences, and even configure the behavior of each and every component! The new UI also enables you to create your own building blocks, whether these are visualizations of Cloudify operations or integrations with external systems (we included Git integration as an example).</p>
+<p class="aligncenter"><img src="/img/blog/cloudfy-4-ui.png" width="600px"></p>
+<p>More about the Cloudify 4.0 UI:</p>
+<ul>
+<li>Easily and intuitively configured, so you can build a personalized view of the specific data that most interests you.</li>
+<li>Enables writing your own widgets, whether their data is Cloudify-based or from external systems, and integrating them as part of your Cloudify dashboard.</li>
+<li>Supports different views, according to the user role.</li>
+</ul>
+<h3>Command-Line Interface</h3>
+<p>We made significant improvements to our CLI, so it is now very intuitive to use. We&rsquo;ve added shortcuts for popular commands, suggestions when commands are not recognized, alignment between syntax, whether local or remote modes are used, and much more.</p>
+<h3>Built-In Catalog</h3>
+<p>Cloudify 4.0 comes with an examples catalog, showing you what directions you can take Cloudify with some inspiring usage examples. We gathered up our most useful Blueprints and Plugins and put them all in one place, so you can start by importing those into your Cloudify Manager and adding your unique business needs directly on top.</p>
+<h2>Security to the max</h2>
+<p>We significantly enhanced our take on security in Cloudify 4.0. We will be releasing a post on Cloudify security soon, but just to give you a taste, here are the highlights:</p>
+<p class="aligncenter"><img src="/img/blog/cloudfy-4-architecture.png" width="600px"></p>
+<ul>
+<li><em>Encrypted Communication</em>: Starting in 4.0, all communication between the Cloudify agents and Cloudify Manager is SSL/TLS encrypted. This is the default behavior in 4.0 and does not require any manual step to enable.</li>
+<li><em>Secret Store: </em>A key-value store is implemented inside the Cloudify PostgreSQL database, which provides tenant-wide, variable storage. Writing and reading of variables can be done via APIs and by blueprints, plugins, and users.</li>
+<li><em>Secured Bootstrap</em>: Cloudify 4.0 supports only the secured bootstrap method, ensuring all subsequent operations are done with user credentials.</li>
+<li><em>User Permissions</em>: Cloudify includes built-in user roles with which users are associated. Each role has different permissions, ensuring a role-based access control operation. Roles are also reflected in the UI, with different templates for each user role.</li>
+<li><em>Authenticated Access</em>: Access to Cloudify&rsquo;s File Server, RabbitMQ, and REST APIs is always authenticated and requires an authorized user.</li>
+</ul>
+<h2>That's Not All</h2>
+<ul>
+<li>Cloudify 4.0 installation just got a lot easier! We have <a href="/download">images available</a> for OpenStack and AWS, and we will be releasing Azure and vSphere soon.</li>
+<li>Image bakery for creation of your own images, based on environment specification, is available as well.</li>
+<li>Cloudify agent installation location can be configured.</li>
+<li>Bootstrapping port can now be configured.</li>
+<li>We&rsquo;ve added many bootstrap validations so the process will fail as early as possible if anything is missing for its completion.</li>
+<li>Cloudify Composer 3.2 release is <a href="/download">available for download</a> as well. We plan to publish a blog post about this acclaimed blueprint composition tool soon.</li>
+</ul>
+<h2>Meet us at OpenStack Boston</h2>
+<p>We will be out in numbers at OpenStack Boston Summit. Meet us at booth D21 and join our <a href="https://www.openstack.org/summit/boston-2017/summit-schedule/#track=150" target="_blank">Cloudify Open Source Day</a> at the summit!</p>
+</notextile>
