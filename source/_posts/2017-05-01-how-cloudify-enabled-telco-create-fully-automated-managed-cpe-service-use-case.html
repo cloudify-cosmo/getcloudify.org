@@ -1,0 +1,99 @@
+---
+layout: blogpost
+title: How Cloudify Enabled a Telco to Create a Fully Automated, Managed CPE Service - A Use Case
+description: Tamir talks about his personal experience helping a large telco create a completely automated CPE service for its customers with an orchestration first approach.
+image: tamir.jpg
+author: Tamir Korem
+tags:
+ - NFV
+ - Cloud Automation
+ - vCPE
+ - VNF Management
+ - NFV Orchestration
+---
+
+<notextile>
+
+<div class="aligncenter">
+<img src="/img/blog/vcpe_cloudify_banner.png" width="870" alt="Cloudify's vCPE architecture"></div>
+<br/>
+<br/>
+
+<p>In this post, I will share with you my experience leading and managing a very significant project in which Cloudify enabled a large telco to create a fully automated, managed CPE service for their customers as well as provide the them with internet and network services for all their branches.</p>
+<p>The telco&rsquo;s customers can be large companies or small and medium-sized companies (SMBs). They may have one branch, ten branches, or even hundreds of branches/sites/offices and each branch/site/office of each company may have different requirements and different needs.</p>
+<p>For this telco in particular, small companies are companies with one branch/office, so the scenario which interests them most is SMBs.</p>
+
+  <hr>
+
+<span class="pullquote-left">
+  <font style="font-weight: bold" size="5" face="Baskerville Old Face"><em>Learn how Cloudify delivers an open source, integration-based vCPE/SD-WAN engine. </em></font>&nbsp; <a class="btn btn-medium btn-theme btn-rounded" id="downloadBtnInner" href="http://cloudify.co/whitepapers/vcpe-sdwan-network-orchestration.html?utm_campaign=Social%20-%20Blog%20Posts&utm_source=website_cta&utm_medium=jh" target="_blank"><i class="icon-plus"></i> READ WHITEPAPER </a></span>
+  
+  <hr>
+
+<h2>Orchestration with no human intervention</h2>
+<p>In some cases, telco customers may want to enable users of specific branches to</p>
+<p>access other branches, and in other cases, users are not allowed to do so. Customers may need firewalling capabilities, anti-spam, antivirus, URL filtering, and other value-added services.</p>
+<p>Cloudify&rsquo;s solution enables them to do so. It also provides them with one single pane of glass for managing their CPEs, VNFs, and services. The fully automated and orchestrated solution that we&rsquo;ve built, which orchestrated the system without a human touch, also provides better visibility and clarity of the status of the customers' networks as well as reduces time to market.</p>
+<h2>How it works</h2>
+<p>A typical customer starts by calling the telco's BSS, in this case, Siebel (but it can be any other CRM). This step is currently done over the phone, but will be automated in the next phase.</p>
+<p>Users can specify the number of CPEs and pay for them. Several things happen as a result. The telco's internal provisioning system notifies the Customer Service Portal backend and integration hub about the new purchased services. We developed this service exactly for such scenarios. The backend is based on customized code and a Postgres database.</p>
+<p>The integration hub then creates a new tenant for each customer in Cloudify.</p>
+<p>Even when everything is ready and works well, if a telco or any such provider doesn't have an automated solution like we've built, it may take them months per customer, whereas with this solution, it takes minutes, and no technician needs to come to the customer&rsquo;s premises.</p>
+<p>Next, the user enters the customer service portal UI and configures their purchased products and services and allocates new resources. The UI is based on React on top of Nodejs. React is a JavaScript library for building user interfaces. Below is a screenshot of the UI in which you can see some of the value added services that a customer has purchased.</p>
+<p class="aligncenter"><img src="/img/blog/vcpe_ui_services.png"></p>
+<p>While configuring the service, the portal UI allocates new resources by calling the proprietary Resource Management System. The RMS can also be orchestrated and maintained by Cloudify. It is based on Apache PHP on top of a MySQL database. The resources which are allocated by the RMS can be VLANs, IP addresses, categories, application etc. The identifiers of these allocated resources are displayed in the UI and are also saved in the back-end.</p>
+<p>The customer then leaves the UI, and, at the same time, the CPEs - which are the physical devices - are shipped, and they reach the customer's branches and offices. Such devices can be the Juniper SRX-110, Juniper SRX-300, DrayTek or any other CPE type.</p>
+<p class="aligncenter"><img src="/img/blog/cpe_devices.png"></p>
+<p>This post will focus on one CPE and one branch. Every such CPE, when it's connected, calls &ldquo;home&rdquo; via Syslog. &ldquo;Home&rdquo; is the component which notifies the RMS about new CPEs. Similar to the RMS, &ldquo;home&rdquo; is also based on Apache PHP on top of MySQL. Obviously, the &ldquo;home&rdquo; itself can be deployed and maintained by Cloudify. The RMS notifies the integration hub and the "alive" call reaches Cloudify.</p>
+<p>In Cloudify, everything is modeled by using the TOSCA standard which enables a simplified and streamlined onboarding of any resource type, including any CPE, any VNF, any network element, and any application.</p>
+<p>Since Cloudify is built from a pluggable technology and uses a model-driven approach, every component here can be easily replaced with another component. This applies to the components that I've already described above and to the ones that I am writing about below.</p>
+<h2>Support for every infrastructure type</h2>
+<p>Cloudify then triggers a NetConf call with an XML configuration and configures the CPE. All the aspects of the CPE are taken care of. This means doing an actual setup of all the infrastructure types that this specific CPE supports.</p>
+<p>In this case it's <strong>Metro</strong>, <strong>LTE,</strong> and <strong>ADSL</strong>, but it can be any other type as well.</p>
+<ul>
+<li><strong>Metro</strong> is a proprietary infrastructure of the telco.</li>
+<li><strong>LTE</strong> is a standard for high-speed wireless communication for mobile phones and data terminals. </li>
+<li><strong>ADSL</strong> stands for asymmetric digital subscriber line, which is a data communication technology that enables data transmission.</li>
+</ul>
+<p>The next one in the chain is the Termination Point (TP). In this case, the physical device is Juniper SRX-1500. The SRX-1500 is a high-performance firewall and is currently being used at the telco mainly for IpSec tunneling. Everything is configured by Cloudify here as well, including the virtual routers, which are configured by using the Cloudify NetConf plugin that enables Cloudify to selectively set and define complex network configurations in every device which supports the NetConf protocol.</p>
+<p>Next in line is the Junction Point (JP). In this case, the physical device is Juniper MX-480 which is a router and switch that is used here as a hub of termination points and also connects the physical and virtual devices. Same as with every other component, the junction point is configured by Cloudify over NetConf, including VRFs and VLANs per customer.</p>
+<p>Then Cloudify configures the VNF, which is Fortigate in this case, but in the near future, there will be more VNFs and Cloudify will orchestrate and maintain the service-chaining and lifecycle operations of all of them. Cloudify configures Fortigate by using SSH and allocated resources from the RMS, which Cloudify attaches to the VNF.</p>
+<p>The last component is the Layer-3-Gateway, which is also a Juniper MX-480 device. In this solution, the telco uses the routing features of the MX-480 in order to route traffic to the world and it's all configured by Cloudify using the NetConf plugin.</p>
+<h2>Monitoring</h2>
+<p>Cloudify also enables users to monitor their systems and networks. In this case, the CPE emits SNMP metrics, and we decided to use a monitoring proxy which collects metrics from all the CPEs and displays them inside a widget in the portal UI by using the Cloudify UI framework.</p>
+<p>There are various ways of implementing a monitoring proxy. In this case, we decided to install such a proxy on its own dedicated VM and have it retrieve metrics from all the relevant devices, VMs, VNFs, etc and send them to Cloudify Manager where they are displayed per CPE, per customer.</p>
+<p>Here&rsquo;s a screenshot of some metrics (memory, CPU and temperature of a Tel-Aviv CPE):</p>
+<p class="aligncenter"><img src="/img/blog/cpe_metrics.png"></p>
+<h2>Day-2 Operations and more</h2>
+<p>Cloudify can also perform Day-2 operations: reset, upgrade, CPE configuration backup </p>
+<p>and configuration restore, etc. Being an open source and API-driven software with open modeling, enables telcos and other providers to optimize their existing infrastructures and VNFs. Cloudify can use existing PNFs (physical network functions) and VNFs as well as provision new ones, and can also maintain mixed environments. By &ldquo;mixed&rdquo;, I mean environments in which some of the components are installed or deployed without Cloudify and others are provisioned by Cloudify. This gives our customers a lot of flexibility. </p>
+<h2>Multi tenancy and multiple VIMs</h2>
+<p>In addition, Cloudify's multi-tenancy and orchestration layer also allow complete automation of pluggable infrastructure and new VNF additions at any time. Cloudify also helps avoid vendor lock-in. In this case, it's the ability to offer new CPE types according to the customer&rsquo;s preference. Again, this can be done at any time and without breaking the existing systems. </p>
+<p>Cloudify can also be used to maintain multiple VIMs, and the usage of shared resources provides higher utilization and reduces the licensing costs per VNF and per PNF. So, in general, the full end-to-end automation reduces the labor cost.</p>
+<h2>The value of orchestration first</h2>
+<p>By using existing PNFs and VNFs and the "orchestration first" approach, the telco managed to leverage their team's skill set and significantly reduce the time it would</p>
+<p>take them to deploy such a service if they chose to create a new infrastructure and VNFs first (prior to taking care of the orchestration).</p>
+<p>The architecture that was used here is focused on a specific use case, but it's not limited to that. We&rsquo;ve built a flexible solution which can support new VNFs, new infrastructures, and any other use case. This allows incremental progress and enhancements of any such projects and ensures the project's needs and business value are met.</p>
+<p>Usually when telcos want to create an NFV and VPCE service for their customers, they first move the physical infrastructure into a virtual cloud infrastructure, and they also convert the network services into virtual network services. This approach costs millions of dollars and takes between 12 and 18 months to become fully functional, due to the significant initial investment which is required in order to replace an entire infrastructure, transform a whole set of network services, and also cultivate a new skill set for the existing teams.</p>
+<p>The &ldquo;orchestration first&rdquo; approach enables companies to provide a self-service and central control-plan for managing network services on top of the existing infrastructure and CPE (brown field) and only once it&rsquo;s done, ready and mature, plug-in new VNFs and cloud infrastructure as needed.</p>
+<h2>More on the user interface</h2>
+<p>In the UI, the owner of the system, and the customers as well, can see the topology of all the CPEs. For each CPE, users can see the CPE name, the branch name and more useful info.</p>
+<p>In the following diagram, you can see a CPE which is located in Tel Aviv. The branch name is &ldquo;Headquarters&rdquo;. Also available is its serial number, model type, and status. Some more details about the customer are also displayed along with the value-added services the customer has purchased: Antivirus, URL filtering, Application Control, Anti-Spam and SSL-login. </p>
+<p>On the right-hand side, there is also a list of services/products that the customer has purchased.</p>
+<p class="aligncenter"><img src="/img/blog/vcpe_ui_dashboard.png"></p>
+<h2>Per CPE</h2>
+<p>By right-clicking a specific CPE icon in UI, you can reset the CPE or configure its settings. You can also configure the CPE&rsquo;s private and public LAN and Voice LAN (if purchased). These values are populated from the RMS that I mentioned above.</p>
+<p>You can set the CPE Gateway value, among other values, by allocating it from the RMS with a click. You can also configure and set the SD-WAN load-balancing mode (Active/Active or Active/Backup) per CPE by specifying which infrastructure (LTE/Metro/ADSL) is the primary one and which is backup.</p>
+<p>We exposed many of the CPE&rsquo;s settings and features in the UI and it&rsquo;s entirely up to you to decide how far or deep you want to take this. The options are virtually endless and you can relatively easily enable users to configure every feature which is available in every CPE of yours.</p>
+<h2>Value Added Services</h2>
+<p>The value-added services are configurable per customer in this case, and not per CPE. All the values (categories, applications) are populated by invoking a call against the RMS, and the specific user&rsquo;s selections are kept in the portal&rsquo;s database and send an &ldquo;Alive&rdquo; call to Cloudify which triggers a call from the portal&rsquo;s backend to a Cloudify Manager. </p>
+<p>Users can create Firewalling rules, SSL VPN users, and NAT forwarding. The users can also enable/disable access to/from a specific port and/or to/from any two specific branches/CPEs.</p>
+<p>Full and direct access to the VNF (Fortigate in this case) is also enabled, and thus users can also configure their VNFs directly, if they want, without accessing the CSP.</p>
+<p>Everything is configurable. It's an entirely self service portal which gives you the</p>
+<p>ability to control all the systems, all the networks and every component of it, and</p>
+<p>new components are relatively easy to add. So, by using Cloudify and a tailored customizable solution, your customers can have a fully automated self-service portal for managing their CPEs and VNFs.</p>
+
+<h2>Meet us at NFV World Congress</h2>
+<p>Cloudify will be on the ground at the NFV World Congress event in San Jose. If you would like to meet, please <a href="http://cloudify.co/meeting">contact us</a> and we will be happy to schedule a meeting.</p>
+
+  </notextile>
