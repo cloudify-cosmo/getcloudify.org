@@ -543,10 +543,8 @@ $(document).ready(function() {
 		$('.mobile_header .top_nav_mobile').slideToggle(300); });
 
 
-					}
-				}
-			});
-	   
+					
+				
 	
 
 
