@@ -1,0 +1,89 @@
+---
+layout: blogpost
+title: The TOSCA Times Pt 2 - Handling Workflows in TOSCA vs Similar DSLs
+description: In this second installment, Michael discusses how TOSCA workflows differ from other DSLs, such as BPMN/BPML and BPEL due to its model-driven, vs task-driven, design.
+image: brenner.jpg
+author: Michael Brenner
+tags: 
+ - NFV
+ - TOSCA
+ - Cloud Automation
+ - Hybrid Cloud
+ - ETSI
+---
+
+<notextile>
+
+<img src="/img/blog/tosca-timeline-header.png" width="870" alt="TOSCA timeline">
+<br/>
+<br/>
+
+<h2><strong>Introduction</strong></h2>
+<p>Let&rsquo;s all agree that pretty much no production deployment, and/or orchestration of the deployed infrastructure and VNFs, can truly be automated without workflows. Have you asked yourself how workflows are handled in TOSCA? I have. And what I found is no less complex and challenging than the overall <a href="https://www.sdxcentral.com/articles/contributed/understanding-tosca-landscape-2017/2017/02/">TOSCA landscape</a>.</p>
+<p>Workflows appeared in TOSCA 1.0 (XML) but were not included in TOSCA Simple Profile for YAML 1.0. They are making a comeback, however, in the yet-to-be-approved TOSCA Simple Profile for YAML 1.1, and may continue to evolve beyond this.</p>
+<p>So, how were workflows handled by the TOSCA users in the time period from 2013 (when TOSCA 1.0 first emerged) until now - or, more correctly - the time when TOSCA Simple Profile for YAML (Yet Another Markup Language) will be published?</p>
+<p>Companies and open source projects apparently filled the four-year gap by continuing with their own workflows, which allowed industry to progress, and possibly put pressure on OASIS TOSCA to refocus on workflows in 2017.</p>
+
+  <hr>
+
+<span class="pullquote-left">
+  <font style="font-weight: bold" size="5" face="Baskerville Old Face"><em>Meet us at NFV World Congress in San Jose &nbsp;</em></font>  <a class="btn btn-medium btn-theme btn-rounded" id="downloadBtnInner" href="/participate.htm?utm_campaign=meeting_website&utm_source=website_blogs_jh" target="_blank"><i class="icon-plus"></i> Go </a></span>
+  
+<hr>
+
+
+<p>In the meantime, open source implementations such as <a href="http://getcloudify.org">Cloudify</a>, and more recently <a href="http://ariatosca.org">ARIA</a>, are already supporting workflows via TOSCA-like Domain Specific Languages (DSLs). These are DSLs that use YAML as the markup language and have been inspired by TOSCA 1.0 (XML), but in many ways have leapfrogged the TOSCA Simple Profile for YAML, workflows and more.</p>
+<p>The image below is a snapshot of timelines showing the TOSCA specifications versus those DSLs, and it is useful to understand why those DSLs may still be very much needed in 2017 until the maturation of TOSCA.</p>
+<p class="aligncenter"><img src="/img/blog/tosca-workflows-landscape.png">
+<br>
+<span style="font-size: 9px">Figure 1: TOSCA/DSL landscape (viewed through the &ldquo;workflows&rdquo; perspective)</span></p>
+<p>And then, of course, there are broader and more complex languages focusing on business process modelling (BPMN/BPML) and business process execution (BPEL) that preceded the TOSCA handling of workflows. They were, in fact, developed before the acceleration of the move to cloud, so from a DevOps perspective they can be considered &ldquo;legacy&rdquo;.</p>
+<h2><strong>Workflow Defined</strong></h2>
+<p>This is how we will define workflow. A workflow is an orchestrated and repeatable pattern representing an execution plan expressed as a directed graph of tasks that is simple to define, reason, execute, and visualize.</p>
+<p>DevOps workflows are used to orchestrate operations in infrastructure and applications, automate complex CI/CD processes etc. A typical use case for a DevOps workflow includes &ldquo;Day 0&rdquo; operations such as an install/uninstall workflow which executes the lifecycle operation of an application and its associated infrastructure.</p>
+<p>Things get vastly more complex when a workflow deals with processes that need to update/change an existing deployment, based on &ldquo;Day 2&rdquo; operations. Typical workflows that fit into this category include:</p>
+<ul>
+<li>Heal workflow - fix a failed node (typically by re-executing the failed node lifecycle operation and relationship)</li>
+<li>Scale workflow - increase the capacity of a given application node (typically by executing the lifecycle operation of the target node multiple times on each scale instance)</li>
+<li>Update workflow - a common pattern for update is referred to as blue/green. (typical implementation includes taking a snapshot of the current state -&gt; pushing the new update -&gt; redirecting traffic to the new deployment -&gt; gradually redirecting all traffic to the new version -&gt; if failed, roll-back to the previous version)</li>
+<li>Topology update (aka blueprint update) - adding/removing an entire service from and existing application topology. A typical implementation includes comparing the new blueprint with the existing version -&gt; identifying the changes -&gt; executing the changes and updating the model accordingly.</li>
+</ul>
+<h2><strong>Task-Based vs Model-Based Workflows</strong></h2>
+<p>There are basically two main approaches to workflow execution: a task-based approach and a model-driven approach. In a task-based system we execute a workflow by breaking it into a specific set of tasks, mapping each step, and executing it. For example, let&rsquo;s imagine a simple use case of installing a nodeJS instance on a virtual machine. The workflow for that task includes the following steps:</p>
+<ol>
+<li>Provision the VM</li>
+<li>Setup network (public/private IP, security group, etc)</li>
+<li>Install and configure the nodeJS instance</li>
+<li>Start the nodeJS instance</li>
+</ol>
+<p>In a model-driven system I would define the model first, and the workflow execution is driven from the model and generated implicitly. The core components of a model-driven workflow are:</p>
+<ul>
+<li>Model (Graph) - describes the nodes and their relationships</li>
+<li>State - maintain the actual state of execution of each node</li>
+<li>Execution - the actual code that maps to the specific lifecycle operation of each node</li>
+</ul>
+<p>The key difference between the model-driven and task-driven approach is that task-driven workflows tend to be purpose-built (allows for more specificity, but less re-usability) while the model-driven approach is more generic and flexible.</p>
+<p>In other words, a model-driven workflow is simpler to change as it groups the tasks into their respective node-types and thus provides more building blocks that are easier to change and maintain. It&rsquo;s also easier to read and follow, and fits better with a designer&rsquo;s task.</p>
+<p><strong>Business Process Modeling In More Detail</strong></p>
+<p>With this in mind, let&rsquo;s take a look at some of the languages mentioned before.</p>
+<h2><strong>BPMN/BPML</strong></h2>
+<p>Business Process Modeling Notation (BPMN) is what a business process analyst will use to design executable business processes. BPMN is used in the design phase, and is not an executable language. BPMN directly translates into BMPL that is then executed using an execution engine. Business Process Modeling Language (BPML) is a &ldquo;meta-language for the modeling of business processes.&rdquo; (bpmi.org) It is compared to XML which is a meta-language for the modeling of business data. BPML provides an abstracted execution model for collaborative and transactional business processes based on the concept of a transactional, finite-state machine.</p>
+<p>The figure below shows an example of how BPMN and BPML relate to each other.</p>
+<p class="aligncenter"><img src="/img/blog/bpmn_bpml.png"></p>
+<h2><strong>BPEL</strong></h2>
+<p>Next came BPEL, which some consider a super-set, others a subset, of BPML, but it is the de-facto BPMN SOA/Web pairing as an execution language. Web services by themselves just perform atomic actions. They take in a group of inputs and provide some output. In order to have Web Services cooperate to provide a greater degree of service, there needs to be a means of specifying the interaction of cooperating services. BPEL4WS provides this means. It specifies the order in which the web services will be invoked, provides a mechanism for recovering from faults, and provides consistency and reliability for Web service applications. BPEL4WS is based on XML. A business process, adequately described in BPEL, is executable by a BPEL engine, just like a process modeled in BPML is executable by a BPML engine.</p>
+<p>Workflow services in BPEL enable you to interleave human interactions with connectivity to systems and services within an end-to-end process flow. As shown in the figure below, workflow services are linked to a BPEL process through a WSDL (Web Service Definition Language) contract, like any other Web service. The process assigns a task to a user or role and waits for a response.</p>
+<p class="aligncenter"><img src="/img/blog/bpel_workflow.png"></p>
+<p>What do BPML and BPEL have in common? First off, the conformance to BPMN. Second, XML. Third, they are both task-driven when it comes to workflows. In other words, they are geared towards a bottom-up approach where one assumes each task as a process (including the workflow task) and they exchange requests and responses as dictated by the tasks.</p>
+<h2><strong>TOSCA XML</strong></h2>
+<p>TOSCA_XML came about very much under the influence of SOA and XML, and defers to the BPML handling of workflows by introducing &ldquo;plans&rdquo; (runtime aspects are addressed by providing a container for specifying models of plans which support the management of instances of services).</p>
+<p>Plans&nbsp;defined in a Service Template describe the management aspects of service instances, especially their creation and termination. These plans are defined as process models, i.e. a workflow of one or more steps. Instead of providing another language for defining process models, the specification relies on existing languages like BPMN or BPEL. Relying on existing standards in this space facilitates portability and interoperability, but any language for defining process models can be used. The TOSCA metamodel provides containers to either refer to a process model (via&nbsp;Plan Model Reference) or to include the actual model in the plan (via&nbsp;Plan Model). A process model can contain tasks (using BPMN terminology) that refer to operations of Interfaces of Node Templates (or operations defined by the Node Types specified in the&nbsp;type&nbsp;attribute of the Node Templates, respectively), operations of Interfaces of Relationship Templates (or operations defined by the Relationship Types specified in the&nbsp;type&nbsp;attribute of the Relationship Templates, respectively), or any other interface (such as the invocation of an external service for licensing). In doing so, a plan can directly manipulate nodes of the topology of a service or interact with external systems.</p>
+<p>Making a concrete instance of a Topology Template can be done by running a corresponding Plan (so-called instantiating management plan, aka build plan). This build plan could be provided by the service developer who also creates the Service Template. The build plan can be adapted to the concrete environment of a particular service provider. Other management plans, useful in various states of the whole lifecycle of a service, could be specified as part of a Service Template. Similar to build plans, such management plans can be adapted to the concrete environment of a particular service provider.</p>
+<p>Even with its partiality towards BPML, it is to be commended that TOSCA_XML principals had the wisdom to avoid adopting and incorporating a particular business process modelling specification, and instead chose to just have an optional mechanism by which the use of such a specification could be defined. Remember this point, since we will come back to it later.</p>
+<h2><strong>XML? I Think Not </strong></h2>
+<p>So it is 2013, TOSCA_XML arrives. However, it is loaded with XML, with the implication that it can potentially use BPML or BPEL for workflow, and no one is really ready to use it because the development community (DevOps in particular) hates XML.</p>
+<p>What is the industry to do? The industry responded as it usually responds when a standard is created that is technically great, but does not jive well with the evolution of other technologies in the domain that it is supposed to be applied (in this case, cloud): it adopted the TOSCA philosophy, but moved away from XML towards YAML, from imperative task-oriented architecture towards declarative model-driven architecture, and from task-oriented workflows towards model-oriented workflows.</p>
+<h2>Handling Workflows Part 2</h2>
+<p>In our next installment of The TOSCA Times, Michael will get into more detail about how Cloudify and ARIA take the model-driven approach and how TOSCA then adopted declarative, model-driven workflows, making 2017 the good year of TOSCA.</p>
+
+</notextile>
