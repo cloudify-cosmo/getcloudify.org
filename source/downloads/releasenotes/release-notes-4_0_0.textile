@@ -58,298 +58,1629 @@ cat: User Guide
                                  </p> 
                                  
                                  
+                                 <a id="whatsnew>"></a>
                                  
-                                 
                         </div>
                         </div>
                         </div>
-<h2 id="">What's New</h2>
-<h2>Cloudify Manager </h2>
-<ul>
-<li><a href="http://docs.getcloudify.org/4.0.0/manager/implement-multi-tenancy/"><strong>Multi-Tenancy</strong></a> This version of Cloudify introduces the concept of multiple tenants in Cloudify Manager, for Premium customers. Multi-tenancy enables you to create multiple independent logical groups as isolated environments that can be managed by a single Cloudify Manager. A tenant is a logical entity that contains all its resources, for example blueprints, deployments and workflows. All operations are performed within a tenant. <br /><br />A single default tenant is created during Cloudify Manager installation, and you add other tenants as required. You can assign users and user groups to each tenant and assign user roles, enabling you to specify the content within Cloudify Manager that users are able to access and manage. User management can be integrated with your LDAP/AD setup.<br /><br /><em>In the case of Community Edition users, a single tenant with a single user is created during installation. When you log into Cloudify Manager, the built-in credentials are used.</em><br /><br />The default tenant cannot be deleted. <br /><br></li>
-<li><a href="http://docs.getcloudify.org/4.0.0/manager/high-availability-clusters/"><strong>Clustering Cloudify Managers for High Availability</strong></a> Premium customers now have the ability to cluster multiple Cloudify Manager instances, to ensure resilience in the event of a manager becoming unavailable. <br /><br />One Cloudify Manager is designated as the active manager and the others (two) are designated as hot standbys that are constant mirrors of the data of the active manager. In the event that the active Cloudify Manager fails, an automatic failover switch activates one of the hot standbys. <br /><br /></li>
-</ul>
-<ul>
-<li><a href="http://docs.getcloudify.org/4.0.0/manager_webui/configure-display/"><strong>User Interface</strong></a> A new user interface is displayed on Cloudify Manager. The user interface enables you to create dashboards that are:</li>
-<ul>
-<li>Easily and intuitively configured, to build a personalized view of the specific data that most interests you</li>
-<li>Write your own widgets, whether their data is Cloudify based or from external systems, and to integrate them as part of your Cloudify dashboard.</li>
-<li>Support different views, according to the user role.<br /><br /></li>
-</ul>
-<li><a href="http://docs.getcloudify.org/4.0.0/manager/implement-multi-tenancy/"><strong>LDAP Integration</strong></a> LDAP/AD (a Premium user feature) integration is improved from previous versions. You configure Cloudify with the LDAP configuration during the bootstrap process, or via the API (on a clean Cloudify Manager.) <br /><br />When a user logs in to Cloudify Manager, their credentials are passed to the LDAP/AD service for authentication.Following authentication, the user is able to access any tenants in the Cloudify Manager to which they have been assigned, either as an individual or as part of an assigned LDAP group.<br /><br />LDAP passwords are no longer stored in the Cloudify database. Authentication is performed via LDAP and a token is generated and used for the user session.</li>
-</ul>
-<h2>Web User Interface</h2>
-<ul>
-<li>The Web user interface, for Premium edition users, has been upgraded to provide a more streamlined user experience. </li>
-<ul>
-<li>Out-of-the-box dashboards display widgets for the most commonly required data and viewing preferences.</li>
-<li>The dashboards are customizable so that you can easily and intuitively configure them to build a personalized view for the specific data that interests you most.</li>
-<li>You can create your own dashboard pages.</li>
-<li>You can write your own widgets, regardless of whether their data is Cloudify-based or derived from external systems, and integrate them as part of your Cloudify dashboards.</li>
-<li>The display of different views according to the user roles (users/admins) is supported.</li>
-</ul>
-</ul>
-<h2>Cloudify Command-Line Interface</h2>
-
-<ul>
-<li>The following commands have been added to the CLI:</li>
-<ul>
-<li>profiles</li>
-<li>tenants</li>
-<li>cluster</li>
-<li>users</li>
-<li>user-groups</li>
-<li>ldap</li>
-</ul>
-</ul>
-
-<ul>
-<li>The following commands have been removed from the CLI:</li>
-<ul>
-<li><strong>recover<strong> </strong></strong></li>
-<li>teardown</li>
-</ul>
-</ul>
 
 
-<ul>
-<li><strong>Technical Preview Feature</strong> <strong><br /></strong>In the CLI, you can create resources that are private to your account that will not be shared across the tenant. The CLI optional argument is --private-resource.</li>
-</ul>
-<h2><a href="http://docs.getcloudify.org/4.0.0/manager_architecture/security/">Security</a></h2>
-<ul>
-<li>Cloudify includes built-in user roles with which users are associated. Each role has different permissions, ensuring a role-based access control operation.<br /><br />Cloudify supports the concept of users, user groups, and tenants. These elements can be either defined locally in Cloudify, or taken from an external user management system (LDAP integration is native). In the latter case, passwords are not stored in Cloudify, authentication is performed via LDAP and a token is generated and used for the user session.<br /><br />Communication from the outside world to Cloudify Manager and its SSL/TLS configuration is the user&rsquo;s responsibility (CA/host verification, etc.), where the endpoints include the UI and REST API. <br /><br />If an self-signed certificate is used, you must use the following commands from the UI machine in order for the UI to be available:</li>
-</ul>
-<p><strong>/etc/sysconfig/cloudify-stage</strong><strong><br /></strong>NODEJS_HOME=/opt/nodejs<br />STAGE_HOME=/opt/cloudify-stage<br />NODE_TLS_REJECT_UNAUTHORIZED=0</p>
-<p>Then run sudo systemctl restart cloudify-stage to restart the cloudify-stage service.<br /><br />Communication between Cloudify agents and Cloudify Manager (and within Cloudify Manager) is the responsibility of Cloudify, and is determined by Cloudify. Cloudify generates the necessary certificates for internal communication.<br /><br /></p>
-<ul>
-<li>SSL is enabled for agent-manager communication. All communications between the client the server are encrypted. When a connection is established, Cloudify Manager presents a signed certificate to the client. The client can use that certificate to validate the authenticity of the manager.<br /><br /></li>
-<li>A secret store is implemented inside the Cloudify PostgreSQL database, which provides a tenant-wide variable store.<br /><br /></li><a name="migrating"></a>
-<li>Security operations, such as authenticating success or failure and user details, are audited in dedicated log file on the management server.</li>
-</ul>
-<h2>Migrating from Cloudify 3.4.x to Cloudify 4.0.0</h2>
-<p>To migrate from Cloudify 3.4.x to Cloudify 4.0.0, you must create a snapshot of your 3.4.x machine, to upload to Cloudify 4.0.0. Follow this procedure perform the migration.</p>
-<p><strong>Migration Procedure</strong></p>
-<p><strong>P</strong><strong>REREQUISITE</strong></p>
-<p>Before taking the snapshot, verify that there are not any instances of node ID or deployment ID that include an underscore. For example, change node_ID to node-ID.</p>
-<ul>
-<li><strong>Take a snapshot of Cloudify 3.4.x according to the <a href="http://docs.getcloudify.org/3.4.2/manager/snapshots/">installation instructions</a> in the Cloudify 3.4.x documentation.</strong></li>
-</ul>
-<ul>
-<li>Install Cloudify 4.0.0 according to the <a href="http://docs.getcloudify.org/4.0.0/installation/installation-overview/">installation instructions</a> in the Cloudify 4.0.0 documentation.</li>
-</ul>
-<ul>
-<li>On the newly installed manager, upload and restore the 3.4 snapshot. <br />You can restore a snapshot to a manager that does not have any data on it (clean), or to one with existing content.<br /><br /></li>
-</ul>
-<p><strong>Note: </strong>The snapshot is uploaded to the tenant on which you performed the upload operation.<br /><br /></p>
-<p>Restore the uploaded snapshot into a specific tenant by specifying a new (unique) tenant name. The tenant is created as part of the restore process, and is populated with the snapshot content.</p><a name="new"></a>
-<ul>
-<li><strong>Restoration using the CLI is described <a href="http://docs.getcloudify.org/4.0.0/cli/snapshots/">here</a>.</strong></li>
-</ul>
-<ul>
-<li>Restoration from the UI is described <a href="http://docs.getcloudify.org/4.0.0/manager_webui/plugins-snapshots-page/">here</a>.</li>
-</ul>
-<h2>New Features</h2>
-<p>The following new features are available in this release:</p>
-<h2>Bootstrapping/Installation</h2>
-<ul>
-<li><a href="https://cloudifysource.atlassian.net/browse/CFY-6380">CFY-6380 - Cloudify agent installations on Windows are now located under %PROGRAM FILES%</a>.</li>
-<li><a href="https://cloudifysource.atlassian.net/browse/CFY-6092">CFY-6092</a> - <a href="https://cloudifysource.atlassian.net/browse/CFY-6092">Elasticsearch</a> has been replaced by PostgreSQL, which is installed during Cloudify Manager bootstrapping.</li>
-<li><a href="https://cloudifysource.atlassian.net/browse/CFY-XXXX">CFY-4837</a> - Bootstrapping can now run on ports other than port 22.</li>
-<li><a href="https://cloudifysource.atlassian.net/browse/CFY-6145">CFY-6145</a> - The bootstrap admin user cannot be deleted or modified.</li>
-<li><a href="https://cloudifysource.atlassian.net/browse/CFY-6146">CFY-6146</a> - Only the bootstrap admin can restore v4.x snapshots.</li>
-</ul>
-<h2>Cloudify Manager</h2>
-<ul>
-<li><a href="https://cloudifysource.atlassian.net/browse/CFY-6129">CFY-6129</a> - `logstash jdbc` and `postgresql` plugins have been added to the Cloudify Manager resources file.</li>
-<li><a href="https://cloudifysource.atlassian.net/browse/CFY-6000">CFY-6000</a> - High Availability functionality has been added to Cloudify MANAGER to the manager</li>
-<li><a href="https://cloudifysource.atlassian.net/browse/CFY-6075">CFY-6075</a> - Database replication has been added as part of the HA configuration.</li>
-</ul>
-<p><br /><br /></p>
-<h2>Security</h2>
-<ul>
-<li><a href="https://cloudifysource.atlassian.net/browse/CFY-6184">CFY-6184</a> - LDAP passwords are no longer stored in the Cloudify DB.</li>
-<li><a href="https://cloudifysource.atlassian.net/browse/CFY-6497">CFY-6497</a> - <a href="https://cloudifysource.atlassian.net/browse/CFY-6497">Generate internal SSL certificates on Cloudify manager image first boot</a></li>
-<li><a href="https://cloudifysource.atlassian.net/browse/CFY-6514">CFY-6514</a> - Sync security configuration files</li>
-<li><a href="https://cloudifysource.atlassian.net/browse/CFY-6365">CFY-6365</a> - Automatically-generated SSL certificates are passed from Cloudify Manager to the agent during the agent&rsquo;s creation.</li>
-<li><a href="https://cloudifysource.atlassian.net/browse/CFY-6370">CFY-6370</a> - Permissions are verified for every file server request.</li>
-<li><a href="https://cloudifysource.atlassian.net/browse/CFY-6435">CFY-6435</a> - To enable secure communication between the agent and the Cloudify Manager, file server credentials are passed to the agent.</li>
-<li><a href="https://cloudifysource.atlassian.net/browse/CFY-6364">CFY-6364</a> - An SSL certificate for Cloudify Manager/agent communication is automatically generated during bootstrapping.</li>
-<li><a href="https://cloudifysource.atlassian.net/browse/CFY-6369">CFY-6369</a> - An API call has been created that validates the permission of a user to access a file server resource.</li>
-</ul>
-<ul>
-<li><a href="https://cloudifysource.atlassian.net/browse/CFY-6367">CFY-6367</a> - All internal (agent/mgmtworker to rest service) REST communications are now SSL encrypted over port 53333.</li>
-<li><a href="https://cloudifysource.atlassian.net/browse/CFY-6492">CFY-6492</a> - File server access is now possible only through port 53333 (with the suffix `/resources`) and is also SSL encrypted</li>
-<li><a href="https://cloudifysource.atlassian.net/browse/CFY-6319">CFY-6319</a> - You can generate random salt and secret key during bootstrapping.</li>
-<li><a href="https://cloudifysource.atlassian.net/browse/CFY-6236">CFY-6236</a> - Validate manager credentials when using `cfy profiles set/unset`</li>
-<li><a href="https://cloudifysource.atlassian.net/browse/CFY-5948">CFY-5948</a> - Enforce user authentication and authorization by default (replace flask_securest).</li>
-</ul>
-<h2>CLI</h2>
-<ul>
-<li><a href="https://cloudifysource.atlassian.net/browse/CFY-6236">CFY-6236</a> - Cloudify Manager credentials are validated when using `cfy profiles set/unset`</li>
-<li><a href="https://cloudifysource.atlassian.net/browse/CFY-6472">CFY-6472</a> - A<a href="https://cloudifysource.atlassian.net/browse/CFY-6472"> default maximum for workflow operation retries</a> (60) has been specified.</li>
-<li><a href="https://cloudifysource.atlassian.net/browse/CFY-6502">CFY-6502</a> - The`cfy cluster set-active` command is supported</li>
-<li><a href="https://cloudifysource.atlassian.net/browse/CFY-6349">CFY-6349</a> - During boot-up, if the `set_manager_ip_on_boot` parameter is set to `true`, the Cloudify Manager image updates the private IP address of Cloudify Manager, assuming that `admin_password` has been specified.</li>
-<li><a href="https://cloudifysource.atlassian.net/browse/CFY-6350">CFY-6350</a> - The `get Cloudify version`, `get user tenants` and `get user token` requests can be implemented without a specific tenant having to be specified.</li>
-<li><a href="https://cloudifysource.atlassian.net/browse/CFY-6382">CFY-6382</a> - The service_name property has been added to the Cloudify agent AgentConfig data type</li>
-<li><a href="https://cloudifysource.atlassian.net/browse/CFY-5821">CFY-5821</a> - Snapshots are managed via PostgreSQL, but it is still possible to load older Elasticsearch-based snapshots.</li>
-<li><a href="https://cloudifysource.atlassian.net/browse/CFY-5509">CFY-5509</a> - cfy plugins upload support use of a URL</li>
-<li><a href="https://cloudifysource.atlassian.net/browse/CFY-XXXX">CFY-5296</a> - &lsquo;cfy * list&rsquo; supports sorting.</li>
-<li><a href="https://cloudifysource.atlassian.net/browse/CFY-5451">CFY-5451</a> - `cfy events list` now includes logs by default. You can use the `--no-logs` flag to hide logs.</li>
-<li><a href="https://cloudifysource.atlassian.net/browse/CFY-6130">CFY-6130</a> - &lsquo;cfy profile&rsquo; commands have been rearranged.</li>
-<li><a href="https://cloudifysource.atlassian.net/browse/CFY-6135">CFY-6135</a> - &lsquo;cfy use&rsquo; and &lsquo;cfy profile&rsquo;s have been consolidated.</li>
-<li>Context-dependent commands are now available, according to whether a manager is being used.</li>
-</ul>
-<ul>
-<li>`cfy init` is no longer required before `cfy use` or `cfy bootstrap`.</li>
-<li>The `cfy use` flag has been added to set user and ssh-key path.</li>
-<li>`cfy local` has been removed, to consolidate its commands with &ldquo;manager&rdquo; commands. </li>
-<li>`.cloudify` now resides under `~` unless an environment variable called `CFY_WORKDIR` is set, in which case it is switched to that dir.</li>
-<li>A profile is now created per manager. To that end, `cfy profiles` is introduced. It provides the `list`, `delete`, `import` and `export` commands.</li>
-<li>Importing and exporting profiles can include SSH keys via the `--include-keys` flag.</li>
-<li>`cfy init -r` no longer resets logger and coloring configuration. Use the `--hard` flag.</li>
-<li>Replace flags with positional arguments where necessary. </li>
-<li>`--skip-logging` is removed from `cfy init`.</li>
-<li>The `--debug` flag, which was an alias for `-vvv` is removed..</li>
-<li>Names for blueprints and deployments are always automatically generated, unless there is a blueprint or deployment already with the same name. Names can still be explicitly specified.</li>
-<li>Task retry related flags have been added to `cfy teardown`.</li>
-<li>`cfy blueprints publish-archive` has been deleted. `cfy blueprints upload` can now receive a path to a local yaml, a path to a local archive, or the URL of an archive. If an archive is is provided, the `--blueprint-filename` flag is now mandatory.</li>
-<li>`cfy inputs` has been added to enable local context inputs.</li>
-</ul>
-<ul>
-<li>`output` flags have all been renamed to `output-path`.</li>
-<li>all `--force`-like flags have been renamed to `--force`.</li>
-<li>Bootstrap validations are ignored when `--skip-validations` is provided in `cfy upgrade`.</li>
-<li>A `--skip-sanity` flag is now available for to the bootstrap process.</li>
-<li>`cfy install` and `cfy blueprints upload` can now receive either a local path to a yaml, local path to an archive, URL to an archive and a Docker/Vagrant-like string to a repository.</li>
-<li>`cfy profiles export` can now receive the `--include-keys` flag, which includes the SSH keys (if applicable) of the profiles in the archive. `cfy profiles import` imports any keys in the archive and places them in their original paths.</li>
-<li>`cfy profiles get-active` prints out the currently used profile. `cfy profiles list` now shows an asterisk next to the active profile.</li>
-<li>`cfy blueprints upload` and `cfy install` now auto-generates blueprint and deployment names only once per blueprint.</li>
-<li>`cfy blueprints package` has been added. This command packages a blueprint into a tar.gz or ZIP archive according to the OS. This archive is installable or uploadable via `cfy install` and `cfy blueprints upload`.</li>
-<li>Setting the env var CFY_MULTIPLE_BLUEPRINTS to `true` enables you to initialize multiple blueprints locally. </li>
-</ul>
-<h2>Orchestration</h2>
-<ul>
-<li><a href="https://cloudifysource.atlassian.net/browse/CFY-6389">CFY-6389</a> - The `CloudifySettings` blueprint has been removed from Cloudify Manager images.</li>
-<li><a href="https://cloudifysource.atlassian.net/browse/CFY-5665">CFY-5665</a> - Remove transient deployment workers mode configuration from manager blueprints</li>
-</ul>
-<ul>
-<li><a href="https://cloudifysource.atlassian.net/browse/CFY-6319">CFY-6319</a> - You can generate random salt and secret key during bootstrapping.</li>
-<li><a href="https://cloudifysource.atlassian.net/browse/CFY-6336">CFY-6336</a> - The token API now returns a user&rsquo;s role.</li>
-<li><a href="https://cloudifysource.atlassian.net/browse/CFY-6340">CFY-6340</a> - You can work with the bootstrap admin role, even when LDAP is configured.</li>
-<li><a href="https://cloudifysource.atlassian.net/browse/CFY-6206">CFY-6206</a> - Support has been added to enable deletion of tenants/groups/users.</li>
-<li><a href="https://cloudifysource.atlassian.net/browse/CFY-6096">CFY-6096</a> - Support has been added for private resources and resource permissions.</li>
-<li><a href="https://cloudifysource.atlassian.net/browse/CFY-6139">CFY-6193</a> - `tenant` and `permission` responses have been added to the CLI.</li>
-</ul>
-<h2>API</h2>
-<ul>
-<li><a href="https://cloudifysource.atlassian.net/browse/CFY-6369">CFY-6369</a> - An API call has been created that validates the permission of a user to access a file server resource.</li>
-</ul>
-<ul><a name="addressed"></a>
-<li><a href="https://cloudifysource.atlassian.net/browse/CFY-6139">CFY-6193</a> - `tenant` and `permission` responses have been added to the API.</li>
-<li><a href="https://cloudifysource.atlassian.net/browse/CFY-6162">CFY-6162</a> - To optimize performance, as a response from the REST API, the maximum value that can be set for a pages is 1000 records.</li>
-</ul>
-<h2>Issues Addressed</h2>
-<p>The following known issues have been addressed in this release:</p>
-<h2>Bootstrapping/Installation</h2>
-<ul>
-<li><a href="https://cloudifysource.atlassian.net/browse/CFY-6052">CFY-6052</a> - Bootstrap no longer fails if a Cloudify Manager VM image doesn't contain /root/.ssh.</li>
-</ul>
-<ul>
-<li><strong><a href="https://cloudifysource.atlassian.net/browse/CFY-6510">CFY-6510</a> -<a href="https://cloudifysource.atlassian.net/browse/CFY-6504">CFY-6504</a> - <a href="https://cloudifysource.atlassian.net/browse/CFY-6504">Offline bootstrap no longer fails due to dsl_resources input</a>.</strong></li>
-</ul>
-<ul>
-<li><a href="https://cloudifysource.atlassian.net/browse/CFY-5745">CFY-5745</a> - If you attempt to bootstrap without auth env variables, an error message is displayed.</li>
-</ul>
-<h2>CLI</h2>
+<p class=MsoNormal><o:p>&nbsp;</o:p></p>
 
-<ul>
-<li><a href="https://cloudifysource.atlassian.net/browse/CFY-6003">CFY-6003</a> - The redundant deployment-id argument has been deleted from `cfy deployments create`.</li>
-<li><a href="https://cloudifysource.atlassian.net/browse/CFY-6005">CFY-6005</a> - Error messages that are displayed when executing `cfy teardown -f --ignore-deployments` have been made clearer.</li>
-<li><a href="https://cloudifysource.atlassian.net/browse/CFY-6006">CFY-6006</a> - Windows CLI package upload blueprint from secured URL no longer fails on certificate verification.</li>
-<li><a href="https://cloudifysource.atlassian.net/browse/CFY-5995">CFY-5995 </a>- When using get_attribute in secure mode, dispatch evaluate_functions no longer attempts to use ctx before it is set. </li>
-</ul>
+<h1><a name="_kbcd2g9km12h"></a>What’s New?</h1>
 
-<ul>
-<li><strong><a href="https://cloudifysource.atlassian.net/browse/CFY-6510">CFY-6510</a> - The message displayed in the event of a bug in which the manager does not return an argument that the CLI expected to get in the list response has been clarified.</strong></li>
-</ul>
-<h2>Orchestration</h2>
+<h2><a name="_ectxfucrs4ju"></a>Cloudify Manager </h2>
 
-<ul>
-<li><a href="https://cloudifysource.atlassian.net/browse/CFY-6496">CFY-6496</a> - Issues with security groups in Cloudify Manager blueprints have been addressed.</li>
-<li><a href="https://cloudifysource.atlassian.net/browse/CFY-6473">CFY-6473</a> - <a href="https://cloudifysource.atlassian.net/browse/CFY-6473">An infinite loop no longer occurs in dispatch if the workflow executor reaches an invalid state</a>.</li>
-<li><a href="https://cloudifysource.atlassian.net/browse/CFY-4233">CFY-4233</a> - Unicode characters are not supported in blueprints. Strings in blueprints are now checked to ensure there are no unicode characters.</li>
-<li><a href="https://cloudifysource.atlassian.net/browse/CFY-6156">CFY-6156</a> - You can now successfully use cfy blueprints upload from GitHub.</li>
-<li><a href="https://cloudifysource.atlassian.net/browse/CFY-XXXX">CFY-5699</a> - The blueprint parsing error in which a circular get_property was detected even though it didn&rsquo;t exist has been addressed.</li>
-</ul>
+<p class=MsoNormalCxSpFirst style='margin-left:.5in;mso-add-space:auto;
+text-indent:-.25in;mso-list:l3 level1 lfo16'><![if !supportLists]><span
+style='mso-list:Ignore'>&#9679;<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span><![endif]><span dir=LTR></span><a
+href="http://docs.getcloudify.org/4.0.0/manager/implement-multi-tenancy/"><b
+style='mso-bidi-font-weight:normal'><span style='color:#1155CC'>Multi-Tenancy</span></b></a>
+This version of Cloudify introduces the concept of multiple tenants in Cloudify
+Manager, for Premium customers. Multi-tenancy enables you to create multiple
+independent logical groups as isolated environments that can be managed by a
+single Cloudify Manager. A tenant is a logical entity that contains all its
+resources, for example blueprints, deployments and workflows. All operations
+are performed within a tenant. <br>
+<br>
+A single default tenant is created during Cloudify Manager installation, and
+you add other tenants as required. You can assign users and user groups to each
+tenant and assign user roles, enabling you to specify the content within
+Cloudify Manager that users are able to access and manage. User management can
+be integrated with your LDAP/AD setup.<br>
+<br>
+In the case of Community Edition users, a
+single tenant with a single user is created during installation. When you log
+into Cloudify Manager, the built-in credentials are used.<br>
+<br>
+The default tenant cannot be deleted. <br>
+</p>
 
-<ul>
-<li><strong><a href="https://cloudifysource.atlassian.net/browse/CFY-5971">CFY-5971</a> - Backwards compatibility for installing agents on Windows hosts for pre-3.3.0 blueprints is now available.</strong></li>
-</ul>
-<ul>
-<li><a href="https://cloudifysource.atlassian.net/browse/CFY-5631">CFY-5631</a>, <a href="https://cloudifysource.atlassian.net/browse/CFY-5561">CFY-5561</a> - Dereferencing of anchors in blueprints has been fixed. The behavior was inconsistent, and different values were set each time. </li>
-<li><a href="https://cloudifysource.atlassian.net/browse/CFY-6476">CFY-6476</a> - The issue related to source plugin TAR creation when uploading a blueprint has been addressed.</li>
-<li><a href="https://cloudifysource.atlassian.net/browse/CFY-6388">CFY-6388</a> - The situation in which `logstash` failed to fetch logs and events that were written after exchanges from logs and events were deleted has been addressed.</li>
-<li><a href="https://cloudifysource.atlassian.net/browse/CFY-6333">CFY-6333</a> - The situation in which the `create snapshot` command failed when the snapshot file was too big has been addressed.</li>
-<li><a href="https://cloudifysource.atlassian.net/browse/CFY-6437">CFY-6437</a>, <a href="https://cloudifysource.atlassian.net/browse/CFY-6341">CFY-6341</a>, <a href="https://cloudifysource.atlassian.net/browse/CFY-6128">CFY-6128</a> - The issue related to creating and restoring snapshots has been addressed.</li>
-<li><a href="https://cloudifysource.atlassian.net/browse/CFY-5493">CFY-5493</a> - The scale workflow for scaling a node template that is part of a group and is contained in another node not part of that group has been fixed.</li>
-<li><a href="https://cloudifysource.atlassian.net/browse/CFY-XXXX">CFY-5589</a> - Workflow parameters types are validated before attempts to execute the workflow.</li>
-<li><a href="https://cloudifysource.atlassian.net/browse/CFY-XXXX">CFY-5711</a> - The validation of workflow parameters now operates as expected.</li>
-</ul>
-<h2>API</h2>
-<ul>
-<li><a href="https://cloudifysource.atlassian.net/browse/CFY-5371">CFY-5371</a> - The issue in which filtering was not supported in REST service snapshots endpoints, has been addressed.</li>
-<li><a href="https://cloudifysource.atlassian.net/browse/CFY-5838">CFY-5838</a> - The issue in which workflow_test decorator (for uni-tests) was checking for the wrong directory path has been addressed.</li>
-</ul>
-<h2>General</h2>
-<ul>
-<li><a href="https://cloudifysource.atlassian.net/browse/CFY-6498">CFY-6498</a> - It is now possible <a href="https://cloudifysource.atlassian.net/browse/CFY-6498">to specify a file path for manager_resources_package</a>.</li>
-<li><a href="https://cloudifysource.atlassian.net/browse/CFY-6197">CFY-6196</a> - The error message returned when creating a user with an existing name has been clarified.</li>
-<li><a href="https://cloudifysource.atlassian.net/browse/CFY-3902">CFY-3902</a> - The Diamond agent restarts when Cloudify Manager is restarted.</li>
-<li><a href="https://cloudifysource.atlassian.net/browse/CFY-5877">CFY-5877</a> - &nbsp;The error message when the agent installer fails to connect to VM has been clarified.</li>
-<li><a href="https://cloudifysource.atlassian.net/browse/CFY-5464">CFY-5464</a> - Descending sort by time is supported in sorting search results.</li>
-<li><a href="https://cloudifysource.atlassian.net/browse/CFY-5782">CFY-5782</a> - Fix deployment update broken for deployments migrated from Cloudify 3.2.1</li><a name="known"></a>
-<li><a href="https://cloudifysource.atlassian.net/browse/CFY-5453">CFY-5453</a> - The issue in which a deployment's updated_at field was not updated during deployment update has been addressed.</li>
-<li><a href="https://cloudifysource.atlassian.net/browse/CFY-5698">CFY-5698</a> - The issue in which a management worker sporadically doesn't restart after reboot has been addressed.</li>
-</ul>
-<h2>Known Issues</h2>
-<p>The following issues are known to exist in this release:</p>
-<h2>Cloudify Manager</h2>
-<h3>Multi-Tenancy</h3>
-<h4>Limitations</h4>
-<ul>
-<li>Roles can only be assigned to individual users, not user groups.</li>
-<li>Resource sharing between tenants is not available.</li>
-<li>You can only delete tenants or user groups if they are empty, and users if they are unassigned.</li>
-<li>LDAP is not supported for nested groups.</li>
-<li>You cannot customize password strength rules.</li>
-</ul>
-<h4>Issues</h4>
-<ul>
-<li><a href="https://cloudifysource.atlassian.net/browse/CFY-6660">CFY-6660</a> - REST calls do not support private resource and resource creator fields. </li>
-</ul>
-<h2>Web User Interface</h2>
-<h4>Limitations</h4>
-<ul>
-<li>The interface only supports uploads of public resources.</li>
-<li>The created-by field is not displayed.</li>
-<li>High availability is not supported in the user interface.</li>
-<li>Multiple Cloudify Managers are not supported in the user interface.</li>
-</ul>
-<h4>Issues</h4>
-<ul>
-<li><a href="https://cloudifysource.atlassian.net/browse/CFY-6673">CFY-6673</a> - Deletion of plugins is implemented using the --force flag. A plugin will be deleted even if it is in use.</li>
-</ul>
-<h2>CLI</h2>
-<ul>
-<li><a href="https://cloudifysource.atlassian.net/browse/CFY-6616">CFY-6616</a> - If you delete a Cloudify Manager and you are using the CLI as a client, you must delete the CLI profile of the manager.</li>
-<li><a href="https://cloudifysource.atlassian.net/browse/CFY-6646">CFY-6646 </a>- In the event that the private key used for installing and uninstalling an agent is passed in a blueprint as a file path on Cloudify Manager, it is not replicated in a cluster. Therefore, using that key to install from one Cloudify Manager and uninstall from another (after failover) will fail.<br /><strong>Workaround:</strong><br />Copy the private key to the Cloudify Manager that is becoming activate.</li>
-</ul>
-<h2>REST API</h2>
-<ul>
-<li><a href="https://cloudifysource.atlassian.net/browse/CFY-6660">CFY-6660</a> - If you make a REST API call using the _include=created_by argument, you will receive a corrupted response.</li>
-</ul>
-<nav><a href="https://html-online.com/editor/" rel="nofollow">HTML Editor</a> | <a href="https://htmlg.com/" rel="nofollow">Pro HTML Editor</a> | <a href="https://wordhtml.com/" rel="nofollow">Word to HTML</a> | <a href="http://divtable.com/" rel="nofollow">Div Table</a> | <a href="http://htmlcheatsheet.com/" rel="nofollow">HTML CheatSheet</a></nav>
-<p>&ndash; Please leave this line unchanged or subscribe for a premium HTML editor membership at htmlg.com</p>
+<p class=MsoNormalCxSpMiddle style='margin-left:.5in;mso-add-space:auto;
+text-indent:-.25in;mso-list:l3 level1 lfo16'><![if !supportLists]><span
+style='mso-list:Ignore'>&#9679;<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span><![endif]><span dir=LTR></span><a
+href="http://docs.getcloudify.org/4.0.0/manager/high-availability-clusters/"><b
+style='mso-bidi-font-weight:normal'><span style='color:#1155CC'>Clustering
+Cloudify Managers for High Availability</span></b></a><b style='mso-bidi-font-weight:
+normal'> </b>Premium customers now have the ability to cluster multiple
+Cloudify Manager instances, to ensure resilience in the event of a manager
+becoming unavailable. <br>
+<br>
+One Cloudify Manager is designated as the active manager and the others (two)
+are designated as hot standbys that are constant mirrors of the data of the
+active manager. In the event that the active Cloudify Manager fails, an
+automatic failover switch activates one of the hot standbys. <br
+style='mso-special-character:line-break'>
+<![if !supportLineBreakNewLine]><br style='mso-special-character:line-break'>
+<![endif]></p>
+
+<p class=MsoNormalCxSpMiddle style='margin-left:.5in;mso-add-space:auto;
+text-indent:-.25in;mso-list:l3 level1 lfo16'><![if !supportLists]><span
+style='mso-list:Ignore'>&#9679;<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span><![endif]><span dir=LTR></span><a
+href="http://docs.getcloudify.org/4.0.0/manager_webui/configure-display/"><b
+style='mso-bidi-font-weight:normal'><span style='color:#1155CC'>User Interface</span></b></a>
+A new user interface is displayed on Cloudify Manager. The user interface
+enables you to create dashboards that are:</p>
+
+<p class=MsoNormalCxSpMiddle style='margin-left:1.0in;mso-add-space:auto;
+text-indent:-.25in;mso-list:l3 level2 lfo16'><![if !supportLists]><span
+style='mso-list:Ignore'>&#9675;<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span><![endif]><span dir=LTR></span>Easily and intuitively configured,
+to build a personalized view of the specific data that most interests you</p>
+
+<p class=MsoNormalCxSpMiddle style='margin-left:1.0in;mso-add-space:auto;
+text-indent:-.25in;mso-list:l3 level2 lfo16'><![if !supportLists]><span
+style='mso-list:Ignore'>&#9675;<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span><![endif]><span dir=LTR></span>Write your own widgets, whether
+their data is Cloudify based or from external systems, and to integrate them as
+part of your Cloudify dashboard.</p>
+
+<p class=MsoNormalCxSpMiddle style='margin-left:1.0in;mso-add-space:auto;
+text-indent:-.25in;mso-list:l3 level2 lfo16'><![if !supportLists]><span
+style='mso-list:Ignore'>&#9675;<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span><![endif]><span dir=LTR></span>Support different views, according
+to the user role.<br style='mso-special-character:line-break'>
+<![if !supportLineBreakNewLine]><br style='mso-special-character:line-break'>
+<![endif]></p>
+
+<p class=MsoNormalCxSpLast style='margin-left:.5in;mso-add-space:auto;
+text-indent:-.25in;mso-pagination:widow-orphan lines-together;mso-list:l0 level1 lfo12'><![if !supportLists]><span
+style='mso-list:Ignore'><span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span><![endif]><span dir=LTR></span><a
+href="http://docs.getcloudify.org/4.0.0/manager/implement-multi-tenancy/"><b
+style='mso-bidi-font-weight:normal'><span style='color:#1155CC'>LDAP
+Integration</span></b></a> LDAP/AD (a Premium user feature) integration is
+improved from previous versions. You configure Cloudify with the LDAP
+configuration during the bootstrap process, or via the API (on a clean Cloudify
+Manager.) <br>
+<br>
+When a user logs in to Cloudify Manager, their credentials are passed to the
+LDAP/AD service for authentication. Following authentication, the user is able
+to access any tenants in the Cloudify Manager to which they have been assigned,
+either as an individual or as part of an assigned LDAP group.<br>
+<br>
+LDAP<span style='mso-spacerun:yes'>  </span>passwords are no longer stored in
+the Cloudify database. Authentication is performed via LDAP and a token is
+generated and used for the user session.</p>
+
+<h2><a name="_83o411jas8m3"></a>Web User Interface</h2>
+
+<p class=MsoNormalCxSpFirst style='margin-left:.5in;mso-add-space:auto;
+text-indent:-.25in;mso-list:l16 level1 lfo4'><![if !supportLists]><span
+style='mso-list:Ignore'>&#9679;<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span><![endif]><span dir=LTR></span>The Web user interface, for
+Premium edition users, has been upgraded to provide a more streamlined user
+experience. </p>
+
+<p class=MsoNormalCxSpMiddle style='margin-left:1.0in;mso-add-space:auto;
+text-indent:-.25in;mso-list:l16 level2 lfo4'><![if !supportLists]><span
+style='mso-list:Ignore'>&#9675;<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span><![endif]><span dir=LTR></span>Out-of-the-box dashboards display
+widgets for the most commonly required data and viewing preferences.</p>
+
+<p class=MsoNormalCxSpMiddle style='margin-left:1.0in;mso-add-space:auto;
+text-indent:-.25in;mso-list:l16 level2 lfo4'><![if !supportLists]><span
+style='mso-list:Ignore'>&#9675;<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span><![endif]><span dir=LTR></span>The dashboards are customizable so
+that you can e<span style='color:#222222;background:white;mso-highlight:white'>asily
+and intuitively configure them to build a personalized view for the specific
+data that interests you most.</span></p>
+
+<p class=MsoNormalCxSpMiddle style='margin-left:1.0in;mso-add-space:auto;
+text-indent:-.25in;mso-list:l16 level2 lfo4'><![if !supportLists]><span
+style='mso-list:Ignore'>&#9675;<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span><![endif]><span dir=LTR></span><span style='color:#222222;
+background:white;mso-highlight:white'>You can create your own dashboard pages.</span></p>
+
+<p class=MsoNormalCxSpMiddle style='margin-left:1.0in;mso-add-space:auto;
+text-indent:-.25in;mso-list:l16 level2 lfo4'><![if !supportLists]><span
+style='mso-list:Ignore'>&#9675;<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span><![endif]><span dir=LTR></span><span style='color:#222222;
+background:white;mso-highlight:white'>You can write your own widgets,
+regardless of whether their data is Cloudify-based or derived from external
+systems, and integrate them as part of your Cloudify dashboards.</span></p>
+
+<p class=MsoNormalCxSpLast style='margin-left:1.0in;mso-add-space:auto;
+text-indent:-.25in;mso-list:l16 level2 lfo4'><![if !supportLists]><span
+style='mso-list:Ignore'>&#9675;<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span><![endif]><span dir=LTR></span><span style='color:#222222;
+background:white;mso-highlight:white'>The display of different views according
+to the user roles (users/admins) is supported.</span></p>
+
+<h2><a name="_abm6ej82100x"></a>Cloudify Command-Line Interface</h2>
+
+<p class=MsoNormalCxSpFirst style='margin-left:.5in;mso-add-space:auto;
+text-indent:-.25in;mso-list:l8 level1 lfo1'><![if !supportLists]><span
+style='mso-list:Ignore'>&#9679;<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span><![endif]><span dir=LTR></span>The following commands have been
+added to the CLI:</p>
+
+<p class=MsoNormalCxSpMiddle style='margin-left:1.0in;mso-add-space:auto;
+text-indent:-.25in;mso-list:l8 level2 lfo1'><![if !supportLists]><span
+style='font-family:"Courier New";mso-fareast-font-family:"Courier New"'><span
+style='mso-list:Ignore'>&#9675;<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;
+</span></span></span><![endif]><span dir=LTR></span><span style='font-family:
+"Courier New";mso-fareast-font-family:"Courier New"'>profiles<b
+style='mso-bidi-font-weight:normal'> </b><o:p></o:p></span></p>
+
+<p class=MsoNormalCxSpMiddle style='margin-left:1.0in;mso-add-space:auto;
+text-indent:-.25in;mso-list:l8 level2 lfo1'><![if !supportLists]><span
+style='font-family:"Courier New";mso-fareast-font-family:"Courier New"'><span
+style='mso-list:Ignore'>&#9675;<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;
+</span></span></span><![endif]><span dir=LTR></span><span style='font-family:
+"Courier New";mso-fareast-font-family:"Courier New"'>tenants<b
+style='mso-bidi-font-weight:normal'> <o:p></o:p></b></span></p>
+
+<p class=MsoNormalCxSpMiddle style='margin-left:1.0in;mso-add-space:auto;
+text-indent:-.25in;mso-list:l8 level2 lfo1'><![if !supportLists]><span
+style='font-family:"Courier New";mso-fareast-font-family:"Courier New"'><span
+style='mso-list:Ignore'>&#9675;<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;
+</span></span></span><![endif]><span dir=LTR></span><span style='font-family:
+"Courier New";mso-fareast-font-family:"Courier New"'>cluster<b
+style='mso-bidi-font-weight:normal'><span style='mso-spacerun:yes'>  </span><o:p></o:p></b></span></p>
+
+<p class=MsoNormalCxSpMiddle style='margin-left:1.0in;mso-add-space:auto;
+text-indent:-.25in;mso-list:l8 level2 lfo1'><![if !supportLists]><span
+style='font-family:"Courier New";mso-fareast-font-family:"Courier New"'><span
+style='mso-list:Ignore'>&#9675;<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;
+</span></span></span><![endif]><span dir=LTR></span><span style='font-family:
+"Courier New";mso-fareast-font-family:"Courier New"'>users<b style='mso-bidi-font-weight:
+normal'><span style='mso-spacerun:yes'>  </span><o:p></o:p></b></span></p>
+
+<p class=MsoNormalCxSpMiddle style='margin-left:1.0in;mso-add-space:auto;
+text-indent:-.25in;mso-list:l8 level2 lfo1'><![if !supportLists]><span
+style='font-family:"Courier New";mso-fareast-font-family:"Courier New"'><span
+style='mso-list:Ignore'>&#9675;<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;
+</span></span></span><![endif]><span dir=LTR></span><span style='font-family:
+"Courier New";mso-fareast-font-family:"Courier New"'>user-groups<b
+style='mso-bidi-font-weight:normal'><span style='mso-spacerun:yes'>  </span><o:p></o:p></b></span></p>
+
+<p class=MsoNormalCxSpMiddle style='margin-left:1.0in;mso-add-space:auto;
+text-indent:-.25in;mso-list:l8 level2 lfo1'><![if !supportLists]><span
+style='font-family:"Courier New";mso-fareast-font-family:"Courier New"'><span
+style='mso-list:Ignore'>&#9675;<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;
+</span></span></span><![endif]><span dir=LTR></span><span class=SpellE><span
+style='font-family:"Courier New";mso-fareast-font-family:"Courier New"'>ldap</span></span><b
+style='mso-bidi-font-weight:normal'><span style='font-family:"Courier New";
+mso-fareast-font-family:"Courier New"'><span style='mso-spacerun:yes'>  </span><o:p></o:p></span></b></p>
+
+<p class=MsoNormalCxSpMiddle style='margin-left:.5in;mso-add-space:auto;
+text-indent:-.25in;mso-list:l8 level1 lfo1'><![if !supportLists]><span
+style='mso-list:Ignore'>&#9679;<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span><![endif]><span dir=LTR></span>The following commands have been
+removed from the CLI:</p>
+
+<p class=MsoNormalCxSpMiddle style='margin-left:1.0in;mso-add-space:auto;
+text-indent:-.25in;mso-list:l8 level2 lfo1'><![if !supportLists]><span
+style='font-family:"Courier New";mso-fareast-font-family:"Courier New"'><span
+style='mso-list:Ignore'>&#9675;<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;
+</span></span></span><![endif]><span dir=LTR></span><span style='font-family:
+"Courier New";mso-fareast-font-family:"Courier New"'>recover<b
+style='mso-bidi-font-weight:normal'><span style='mso-spacerun:yes'>  </span><o:p></o:p></b></span></p>
+
+<p class=MsoNormalCxSpMiddle style='margin-left:1.0in;mso-add-space:auto;
+text-indent:-.25in;mso-list:l8 level2 lfo1'><![if !supportLists]><span
+style='font-family:"Courier New";mso-fareast-font-family:"Courier New"'><span
+style='mso-list:Ignore'>&#9675;<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;
+</span></span></span><![endif]><span dir=LTR></span><span style='font-family:
+"Courier New";mso-fareast-font-family:"Courier New"'>teardown<b
+style='mso-bidi-font-weight:normal'> <o:p></o:p></b></span></p>
+
+<p class=MsoNormalCxSpLast style='margin-left:.5in;mso-add-space:auto;
+text-indent:-.25in;mso-list:l0 level1 lfo12'><![if !supportLists]><span
+style='mso-list:Ignore'><span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span><![endif]><span dir=LTR></span><b style='mso-bidi-font-weight:
+normal'>Technical Preview Feature</b><b style='mso-bidi-font-weight:normal'><span
+style='font-family:"Courier New";mso-fareast-font-family:"Courier New"'> <br>
+</span></b>In the CLI, you can create resources that are private to your
+account that will not be shared across the tenant. The CLI optional argument is
+<span style='font-family:"Courier New";mso-fareast-font-family:"Courier New"'>--private-resource</span>.</p>
+
+<h2><a name="_7hg0m7xi6454"></a><a
+href="http://docs.getcloudify.org/4.0.0/manager_architecture/security/"><span
+style='color:#1155CC'>Security</span></a></h2>
+
+<p class=MsoNormalCxSpFirst style='margin-top:0in;margin-right:0in;margin-bottom:
+8.0pt;margin-left:.5in;mso-add-space:auto;text-indent:-.25in;mso-list:l18 level1 lfo17'><![if !supportLists]><span
+style='mso-list:Ignore'>&#9679;<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span><![endif]><span dir=LTR></span><span style='
+line-height:115%;color:#333333;background:white;mso-highlight:white'>Cloudify
+includes built-in user roles with which users are associated. Each role has
+different permissions, ensuring a role-based access control operation.<br>
+<br>
+Cloudify supports the concept of users, user groups, and tenants. These
+elements can be either defined locally in Cloudify, or taken from an external
+user management system (LDAP integration is native). In the latter case,
+passwords are not stored in Cloudify, authentication is performed via LDAP and
+a token is generated and used for the user session.<br>
+<br>
+Communication from the outside world to Cloudify Manager and its SSL/TLS
+configuration is the user’s responsibility (CA/host verification, etc.), where
+the endpoints include the UI and REST API. <br>
+<br>
+If an self-signed certificate is used, you must use the following commands from
+the UI machine in order for the UI to be available:</span></p>
+
+<p class=MsoNormal style='margin-top:0in;margin-right:0in;margin-bottom:8.0pt;
+margin-left:1.0in'><span style='line-height:115%;font-family:
+"Courier New";mso-fareast-font-family:"Courier New";color:#333333;background:
+white;mso-highlight:white;mso-bidi-font-weight:bold'>/<span class=SpellE>etc</span>/<span
+class=SpellE>sysconfig</span>/cloudify-stage</span><b style='mso-bidi-font-weight:
+normal'><span style='line-height:115%;font-family:"Courier New";
+mso-fareast-font-family:"Courier New";color:#333333;background:white;
+mso-highlight:white'><br>
+</span></b><span style='line-height:115%;font-family:"Courier New";
+mso-fareast-font-family:"Courier New";color:#333333;background:white;
+mso-highlight:white'>NODEJS_HOME=/opt/<span class=SpellE>nodejs</span><br>
+STAGE_HOME=/opt/cloudify-stage<br>
+NODE_TLS_REJECT_UNAUTHORIZED=0<o:p></o:p></span></p>
+
+<p class=MsoNormal style='margin-top:8.0pt;margin-right:0in;margin-bottom:0in;
+margin-left:.5in;margin-bottom:.0001pt'><span style='
+line-height:115%;color:#333333;background:white;mso-highlight:white'>Then run </span><span
+class=SpellE><span style='line-height:115%;font-family:"Courier New";
+mso-fareast-font-family:"Courier New";color:#333333;background:white;
+mso-highlight:white'>sudo</span></span><span style='
+line-height:115%;font-family:"Courier New";mso-fareast-font-family:"Courier New";
+color:#333333;background:white;mso-highlight:white'> <span class=SpellE>systemctl</span>
+restart cloudify-stage</span><span style='line-height:115%;
+color:#333333;background:white;mso-highlight:white'> to restart the cloudify-stage
+service.</span><span style='line-height:115%;font-family:"Courier New";
+mso-fareast-font-family:"Courier New";color:#333333;background:white;
+mso-highlight:white'><br>
+<br>
+</span><span style='line-height:115%;color:#333333;background:
+white;mso-highlight:white'>Communication between Cloudify agents and Cloudify
+Manager (and within Cloudify Manager) is the responsibility of Cloudify, and is
+determined by Cloudify. Cloudify generates the necessary certificates for
+internal communication.<br style='mso-special-character:line-break'>
+<![if !supportLineBreakNewLine]><br style='mso-special-character:line-break'>
+<![endif]><o:p></o:p></span></p>
+
+<p class=MsoNormalCxSpMiddle style='margin-left:.5in;mso-add-space:auto;
+text-indent:-.25in;mso-list:l18 level1 lfo17'><![if !supportLists]><span
+style='line-height:115%;color:#333333;background:white;
+mso-highlight:white'>&#9679;<span
+style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span></span></span><![endif]><span
+dir=LTR></span><span style='line-height:115%;color:#333333;
+background:white;mso-highlight:white'>SSL is enabled for agent-manager
+communication. All communications between the client the server are encrypted.
+When a connection is established, Cloudify Manager presents a signed
+certificate to the client. The client can use that certificate to validate the
+authenticity of the manager.<br style='mso-special-character:line-break'>
+<![if !supportLineBreakNewLine]><br style='mso-special-character:line-break'>
+<![endif]><o:p></o:p></span></p>
+
+<p class=MsoNormalCxSpMiddle style='margin-top:0in;margin-right:0in;margin-bottom:
+8.0pt;margin-left:.5in;mso-add-space:auto;text-indent:-.25in;mso-list:l18 level1 lfo17'><![if !supportLists]><span
+style='line-height:115%;color:#333333;background:white;
+mso-highlight:white'>&#9679;<span
+style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span></span></span><![endif]><span
+dir=LTR></span><span style='line-height:115%;color:#333333;
+background:white;mso-highlight:white'>A secret store is implemented inside the
+Cloudify PostgreSQL database, which provides a tenant-wide variable store.<br
+style='mso-special-character:line-break'>
+<![if !supportLineBreakNewLine]><br style='mso-special-character:line-break'>
+<![endif]><o:p></o:p></span></p>
+<a id="migrating"></a>
+<p class=MsoNormalCxSpLast style='margin-top:0in;margin-right:0in;margin-bottom:
+8.0pt;margin-left:.5in;mso-add-space:auto;text-indent:-.25in;mso-list:l18 level1 lfo17'><![if !supportLists]><span
+style='line-height:115%;color:#333333;background:white;
+mso-highlight:white'>&#9679;<span
+style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span></span></span><![endif]><span
+dir=LTR></span><span style='line-height:115%;color:#333333;
+background:white;mso-highlight:white'>Security operations, such as
+authenticating success or failure and user details, are audited in dedicated
+log file on the management server.<o:p></o:p></span></p>
+
+<h1><a name="_tsjfx2vn1u8m"></a>Migrating from Cloudify 3.4.x to Cloudify 4.0.0</h1>
+
+<p class=MsoNormal style='page-break-after:avoid'>To migrate from Cloudify
+3.4.x to Cloudify 4.0.0, you must create a snapshot of your 3.4.x machine, to
+upload to Cloudify 4.0.0. Follow this procedure perform the migration.</p>
+
+<p class=MsoNormal style='page-break-after:avoid'><span style='mso-bidi-font-weight:
+bold'><o:p>&nbsp;</o:p></span></p>
+
+<p class=MsoNormal style='page-break-after:avoid'><b style='mso-bidi-font-weight:
+normal'>Migration Procedure<o:p></o:p></b></p>
+
+<p class=MsoNormal style='page-break-after:avoid'><span style='mso-bidi-font-weight:
+bold'><o:p>&nbsp;</o:p></span></p>
+
+<p class=MsoNormal><b style='mso-bidi-font-weight:normal'><span
+style=';line-height:115%'>P</span></b><b style='mso-bidi-font-weight:
+normal'><span style='font-size:10.0pt;line-height:115%'>REREQUISITE<o:p></o:p></span></b></p>
+
+<p class=MsoNormal>Before taking the snapshot, verify that there are not <span
+style='color:#222222;background:white;mso-highlight:white'>any instances of
+node ID or deployment ID that include an underscore. For example, change </span><span
+class=SpellE><span style='font-family:"Courier New";mso-fareast-font-family:
+"Courier New";color:#222222;background:white;mso-highlight:white'>node_ID</span></span><span
+style='color:#222222;background:white;mso-highlight:white'> to </span><span
+style='font-family:"Courier New";mso-fareast-font-family:"Courier New";
+color:#222222;background:white;mso-highlight:white'>node-ID</span><span
+style='color:#222222;background:white;mso-highlight:white'>.</span></p>
+
+<p class=MsoNormal><o:p>&nbsp;</o:p></p>
+
+<p class=MsoNormalCxSpMiddle style='margin-left:.5in;mso-add-space:auto;
+text-indent:-.25in;mso-list:l6 level1 lfo11'><![if !supportLists]><span
+style='mso-bidi-font-weight:bold'>1.<span
+style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp; </span></span></span><![endif]><span
+dir=LTR></span>Take a snapshot of Cloudify 3.4.x according to the <a
+href="http://docs.getcloudify.org/3.4.2/manager/snapshots/"><span
+style='color:#1155CC'>installation instructions</span></a><span
+style='mso-spacerun:yes'>  </span>in the Cloudify 3.4.x documentation.<span
+style='mso-bidi-font-weight:bold'><o:p></o:p></span></p>
+
+<p class=MsoNormalCxSpMiddle style='margin-left:.5in;mso-add-space:auto;
+text-indent:-.25in;mso-list:l6 level1 lfo11'><![if !supportLists]><span
+style='mso-bidi-font-weight:bold'>2.<span
+style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp; </span></span></span><![endif]><span
+dir=LTR></span>Install Cloudify 4.0.0 according to the <a
+href="http://docs.getcloudify.org/4.0.0/installation/installation-overview/"><span
+style='color:#1155CC'>installation instructions</span></a> in the Cloudify
+4.0.0 documentation.<span style='mso-bidi-font-weight:bold'><o:p></o:p></span></p>
+
+<p class=MsoNormalCxSpMiddle style='margin-left:.5in;mso-add-space:auto;
+text-indent:-.25in;mso-list:l6 level1 lfo11'><![if !supportLists]><span
+style='mso-bidi-font-weight:bold'>3.<span
+style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp; </span></span></span><![endif]><span
+dir=LTR></span>On the newly installed manager, upload and restore the 3.4.x
+snapshot. <br>
+You can restore a snapshot to a Manager that does not have any data on it
+(clean), or to one with existing content.<br style='mso-special-character:line-break'>
+<![if !supportLineBreakNewLine]><br style='mso-special-character:line-break'>
+<![endif]><span style='mso-bidi-font-weight:bold'><o:p></o:p></span></p>
+
+<p class=MsoNormal style='margin-left:.5in'><b style='mso-bidi-font-weight:
+normal'>Note: </b>The snapshot is uploaded to the tenant on which you performed
+the upload operation.<br style='mso-special-character:line-break'>
+<![if !supportLineBreakNewLine]><br style='mso-special-character:line-break'>
+<![endif]></p>
+
+<p class=MsoNormal style='margin-left:.5in'>Restore the uploaded snapshot into
+a specific tenant by specifying a new (unique) tenant name. The tenant is
+created as part of the restore process, and is populated with the snapshot
+content.<span style='mso-bidi-font-weight:bold'><o:p></o:p></span></p>
+
+<p class=MsoNormalCxSpMiddle style='margin-left:1.0in;mso-add-space:auto;
+text-indent:-.25in;mso-list:l6 level2 lfo11'><![if !supportLists]><span
+style='mso-bidi-font-weight:bold'>&#9675;<span
+style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span></span></span><![endif]><span
+dir=LTR></span>Restoration using the CLI is described <a
+href="http://docs.getcloudify.org/4.0.0/cli/snapshots/"><span style='color:
+#1155CC'>here</span></a>.<span style='mso-bidi-font-weight:bold'><o:p></o:p></span></p>
+<a id="new"></a>
+<p class=MsoNormalCxSpLast style='margin-left:1.0in;mso-add-space:auto;
+text-indent:-.25in;mso-list:l6 level2 lfo11'><![if !supportLists]><span
+style='mso-bidi-font-weight:bold'>&#9675;<span
+style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span></span></span><![endif]><span
+dir=LTR></span>Restoration from the UI is described <a
+href="http://docs.getcloudify.org/4.0.0/manager_webui/plugins-snapshots-page/"><span
+style='color:#1155CC'>here</span></a>.<span style='mso-bidi-font-weight:bold'><o:p></o:p></span></p>
+
+<h1 style='margin-top:14.0pt'><a name="_kaza3c7vbpsp"></a>New Features</h1>
+
+<p class=MsoTitle style='margin-bottom:0in;margin-bottom:.0001pt'><a
+name="_3pzemyrlgfvz"></a><span style='font-size:11.0pt;line-height:115%'>The
+following new features are available in this release:<o:p></o:p></span></p>
+
+<h2><a name="_gok2egssww3"></a>Bootstrapping/Installation</h2>
+
+<p class=MsoNormalCxSpFirst style='margin-left:.5in;mso-add-space:auto;
+text-indent:-.25in;line-height:137%;mso-list:l9 level1 lfo8'><![if !supportLists]><span
+style='mso-list:Ignore'>&#9679;<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span><![endif]><span dir=LTR></span><a
+href="https://cloudifysource.atlassian.net/browse/CFY-6380"><span
+style='color:#1155CC'>CFY-6380</span></a><a
+href="https://cloudifysource.atlassian.net/browse/CFY-6380"><span
+style='line-height:137%;color:#3B73AF;background:white;
+mso-highlight:white;text-decoration:none;text-underline:none'> </span></a>-
+Cloudify agent installations on Windows are now located under %PROGRAM FILES%.</p>
+
+<p class=MsoNormalCxSpMiddle style='margin-left:.5in;mso-add-space:auto;
+text-indent:-.25in;line-height:137%;mso-list:l9 level1 lfo8'><![if !supportLists]><span
+style='mso-list:Ignore'>&#9679;<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span><![endif]><span dir=LTR></span><a
+href="https://cloudifysource.atlassian.net/browse/CFY-6092"><span
+style='color:#1155CC'>CFY-6092</span></a> - <span class=SpellE>Elasticsearch</span>
+has been replaced by PostgreSQL, which is installed during Cloudify Manager
+bootstrapping.</p>
+
+<p class=MsoNormalCxSpMiddle style='margin-left:.5in;mso-add-space:auto;
+text-indent:-.25in;line-height:150%;mso-list:l9 level1 lfo8'><![if !supportLists]><span
+style='mso-list:Ignore'>&#9679;<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span><![endif]><span dir=LTR></span><a
+href="https://cloudifysource.atlassian.net/browse/CFY-XXXX"><span
+style='color:#1155CC'>CFY-4837</span></a> - Bootstrapping can now run on ports
+other than port 22.</p>
+
+<p class=MsoNormalCxSpMiddle style='margin-top:10.0pt;margin-right:60.0pt;
+margin-bottom:0in;margin-left:.5in;margin-bottom:.0001pt;mso-add-space:auto;
+text-indent:-.25in;line-height:150%;mso-list:l9 level1 lfo8'><![if !supportLists]><span
+style='font-size:9.5pt;line-height:150%;color:#222222;background:white;
+mso-highlight:white'>&#9679;<span
+style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span></span></span><![endif]><span
+dir=LTR></span><a href="https://cloudifysource.atlassian.net/browse/CFY-6145"><span
+style='color:#1155CC;background:white;mso-highlight:white'>CFY-6145</span></a><span
+style='font-size:9.5pt;line-height:150%;color:#222222;background:white;
+mso-highlight:white'> -</span> <span style='color:#333333;background:white;
+mso-highlight:white'>The bootstrap </span><span style='font-family:"Courier New";
+mso-fareast-font-family:"Courier New";color:#333333;background:white;
+mso-highlight:white'>admin </span><span style='color:#333333;background:white;
+mso-highlight:white'>user cannot be deleted or modified.</span><span
+style='font-size:9.5pt;line-height:150%;color:#222222;background:white;
+mso-highlight:white'><o:p></o:p></span></p>
+
+<p class=MsoNormalCxSpLast style='margin-top:10.0pt;margin-right:60.0pt;
+margin-bottom:0in;margin-left:.5in;margin-bottom:.0001pt;mso-add-space:auto;
+text-indent:-.25in;line-height:150%;mso-list:l9 level1 lfo8'><![if !supportLists]><span
+style='font-size:9.5pt;line-height:150%;color:#222222;background:white;
+mso-highlight:white'>&#9679;<span
+style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span></span></span><![endif]><span
+dir=LTR></span><a href="https://cloudifysource.atlassian.net/browse/CFY-6146"><span
+style='color:#1155CC;background:white;mso-highlight:white'>CFY-6146</span></a><span
+style='font-size:9.5pt;line-height:150%;color:#222222;background:white;
+mso-highlight:white'> </span><span style='color:#333333;background:white;
+mso-highlight:white'>- Only the bootstrap admin can restore v4.x snapshots.</span><span
+style='font-size:9.5pt;line-height:150%;color:#222222;background:white;
+mso-highlight:white'><o:p></o:p></span></p>
+
+<h2><a name="_2haif4fe6h6j"></a>Cloudify Manager</h2>
+
+<p class=MsoNormalCxSpFirst style='margin-left:.5in;mso-add-space:auto;
+text-indent:-.25in;line-height:137%;mso-list:l7 level1 lfo2'><![if !supportLists]><span
+style='line-height:137%;color:#333333;background:white;
+mso-highlight:white'>&#9679;<span
+style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span></span></span><![endif]><span
+dir=LTR></span><a href="https://cloudifysource.atlassian.net/browse/CFY-6129"><span
+style='color:#1155CC'>CFY-6129</span></a> - `<span class=SpellE>logstash</span>
+<span class=SpellE>jdbc</span>` and `<span class=SpellE>postgresql</span>`
+plugins have been added to the Cloudify Manager resources file.<span
+style='line-height:137%;color:#333333;background:white;
+mso-highlight:white'><o:p></o:p></span></p>
+
+<p class=MsoNormalCxSpMiddle style='margin-left:.5in;mso-add-space:auto;
+text-indent:-.25in;line-height:137%;mso-list:l7 level1 lfo2'><![if !supportLists]><span
+style='mso-list:Ignore'>&#9679;<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span><![endif]><span dir=LTR></span><a
+href="https://cloudifysource.atlassian.net/browse/CFY-6000"><span
+style='color:#1155CC'>CFY-6000</span></a> - <span style='
+line-height:137%;color:#333333;background:white;mso-highlight:white'>High
+Availability functionality has been added to Cloudify MANAGER to the manager</span></p>
+
+<p class=MsoNormalCxSpLast style='margin-left:.5in;mso-add-space:auto;
+text-indent:-.25in;line-height:137%;mso-list:l7 level1 lfo2'><![if !supportLists]><span
+style='mso-list:Ignore'>&#9679;<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span><![endif]><span dir=LTR></span><a
+href="https://cloudifysource.atlassian.net/browse/CFY-6075"><span
+style='color:#1155CC'>CFY-6075</span></a> - Database replication has been added
+as part of the HA configuration.</p>
+
+<h2><a name="_nv556qgufowi"></a>Security</h2>
+
+<p class=MsoNormalCxSpFirst style='margin-left:.5in;mso-add-space:auto;
+text-indent:-.25in;mso-list:l12 level1 lfo20'><![if !supportLists]><span
+style='mso-list:Ignore'>&#9679;<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span><![endif]><span dir=LTR></span><a
+href="https://cloudifysource.atlassian.net/browse/CFY-6184"><span
+style='line-height:115%;color:#1155CC'>CFY-6184</span></a><span
+style='line-height:115%'> - </span>LDAP passwords are no
+longer stored in the Cloudify DB.</p>
+
+<p class=MsoNormalCxSpMiddle style='margin-left:.5in;mso-add-space:auto;
+text-indent:-.25in;line-height:137%;mso-list:l12 level1 lfo20'><![if !supportLists]><span
+style='mso-list:Ignore'>&#9679;<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span><![endif]><span dir=LTR></span><a
+href="https://cloudifysource.atlassian.net/browse/CFY-6497"><span
+style='color:#1155CC'>CFY-6497</span></a> - Generate internal SSL certificates
+on Cloudify manager image first boot.</p>
+
+<p class=MsoNormalCxSpMiddle style='margin-left:.5in;mso-add-space:auto;
+text-indent:-.25in;line-height:137%;mso-list:l12 level1 lfo20'><![if !supportLists]><span
+style='mso-list:Ignore'>&#9679;<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span><![endif]><span dir=LTR></span><a
+href="https://cloudifysource.atlassian.net/browse/CFY-6514"><span
+style='color:#1155CC'>CFY-6514</span></a> - Sync security configuration files</p>
+
+<p class=MsoNormalCxSpMiddle style='margin-left:.5in;mso-add-space:auto;
+text-indent:-.25in;line-height:137%;mso-list:l12 level1 lfo20'><![if !supportLists]><span
+style='mso-list:Ignore'>&#9679;<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span><![endif]><span dir=LTR></span><a
+href="https://cloudifysource.atlassian.net/browse/CFY-6365"><span
+style='color:#1155CC'>CFY-6365</span></a> - Automatically-generated SSL certificates
+are passed from Cloudify Manager to the agent during the agent’s creation.</p>
+
+<p class=MsoNormalCxSpMiddle style='margin-left:.5in;mso-add-space:auto;
+text-indent:-.25in;line-height:137%;mso-list:l12 level1 lfo20'><![if !supportLists]><span
+style='mso-list:Ignore'>&#9679;<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span><![endif]><span dir=LTR></span><a
+href="https://cloudifysource.atlassian.net/browse/CFY-6370"><span
+style='color:#1155CC'>CFY-6370</span></a> - Permissions are verified for every
+file server request.</p>
+
+<p class=MsoNormalCxSpMiddle style='margin-left:.5in;mso-add-space:auto;
+text-indent:-.25in;line-height:137%;mso-list:l12 level1 lfo20'><![if !supportLists]><span
+style='mso-list:Ignore'>&#9679;<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span><![endif]><span dir=LTR></span><a
+href="https://cloudifysource.atlassian.net/browse/CFY-6435"><span
+style='color:#1155CC'>CFY-6435</span></a> - To enable secure communication
+between the agent and the Cloudify Manager, file server credentials are passed
+to the agent.</p>
+
+<p class=MsoNormalCxSpMiddle style='margin-left:.5in;mso-add-space:auto;
+text-indent:-.25in;line-height:137%;mso-list:l12 level1 lfo20'><![if !supportLists]><span
+style='mso-list:Ignore'>&#9679;<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span><![endif]><span dir=LTR></span><a
+href="https://cloudifysource.atlassian.net/browse/CFY-6364"><span
+style='color:#1155CC'>CFY-6364</span></a> - An SSL certificate for Cloudify
+Manager/agent communication is automatically generated during bootstrapping.</p>
+
+<p class=MsoNormalCxSpMiddle style='margin-left:.5in;mso-add-space:auto;
+text-indent:-.25in;line-height:137%;mso-list:l12 level1 lfo20'><![if !supportLists]><span
+style='mso-list:Ignore'>&#9679;<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span><![endif]><span dir=LTR></span><a
+href="https://cloudifysource.atlassian.net/browse/CFY-6369"><span
+style='color:#1155CC'>CFY-6369</span></a> - An API call has been created that
+validates the permission of a user to access a file server resource.</p>
+
+<p class=MsoNormalCxSpMiddle style='margin-left:.5in;mso-add-space:auto;
+text-indent:-.25in;line-height:137%;mso-list:l1 level1 lfo3'><![if !supportLists]><span
+style='line-height:137%;color:#333333'><span style='mso-list:
+Ignore'>&#9679;<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span></span><![endif]><span dir=LTR></span><a
+href="https://cloudifysource.atlassian.net/browse/CFY-6367"><span
+style='color:#1155CC'>CFY-6367</span></a> - All internal (agent/<span
+class=SpellE>mgmtworker</span> to rest service) REST communications are now SSL
+encrypted over port 53333.<span style='line-height:137%;
+color:#333333'><o:p></o:p></span></p>
+
+<p class=MsoNormalCxSpMiddle style='margin-left:.5in;mso-add-space:auto;
+text-indent:-.25in;line-height:137%;mso-list:l1 level1 lfo3'><![if !supportLists]><span
+style='line-height:137%;color:#333333'><span style='mso-list:
+Ignore'>&#9679;<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span></span><![endif]><span dir=LTR></span><a
+href="https://cloudifysource.atlassian.net/browse/CFY-6492"><span
+style='color:#1155CC'>CFY-6492</span></a> - File server access is now possible
+only through port 53333 (with the suffix `/resources`) and is also SSL
+encrypted<span style='line-height:137%;color:#333333'><o:p></o:p></span></p>
+
+<p class=MsoNormalCxSpMiddle style='margin-left:.5in;mso-add-space:auto;
+text-indent:-.25in;line-height:137%;mso-list:l1 level1 lfo3'><![if !supportLists]><span
+style='mso-list:Ignore'>&#9679;<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span><![endif]><span dir=LTR></span><a
+href="https://cloudifysource.atlassian.net/browse/CFY-6319"><span
+style='color:#1155CC'>CFY-6319</span></a> - You can generate random salt and
+secret key during bootstrapping.</p>
+
+<p class=MsoNormalCxSpMiddle style='margin-left:.5in;mso-add-space:auto;
+text-indent:-.25in;mso-list:l1 level1 lfo3'><![if !supportLists]><span
+style='font-size:9.5pt;line-height:115%;color:#222222;background:white;
+mso-highlight:white'>&#9679;<span
+style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span></span></span><![endif]><span
+dir=LTR></span><a href="https://cloudifysource.atlassian.net/browse/CFY-6236"><span
+style='color:#1155CC'>CFY-6236</span></a><span style='font-size:9.5pt;
+line-height:115%;color:#222222;background:white;mso-highlight:white'> - </span>Validate
+manager credentials when using `<span class=SpellE>cfy</span> profiles
+set/unset`<span style='font-size:9.5pt;line-height:115%;color:#222222;
+background:white;mso-highlight:white'><o:p></o:p></span></p>
+
+<p class=MsoNormalCxSpMiddle style='margin-left:.5in;mso-add-space:auto;
+text-indent:-.25in;line-height:137%;mso-list:l1 level1 lfo3'><![if !supportLists]><span
+style='line-height:137%;color:#333333;background:white;
+mso-highlight:white'>&#9679;<span
+style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span></span></span><![endif]><span
+dir=LTR></span><a href="https://cloudifysource.atlassian.net/browse/CFY-5948"><span
+style='line-height:137%;color:#1155CC;background:white;
+mso-highlight:white'>CFY-5948</span></a> - Enforce user authentication and
+authorization by default (replace <span class=SpellE>flask_securest</span>).<span
+style='line-height:137%;color:#333333;background:white;
+mso-highlight:white'><o:p></o:p></span></p>
+
+<p class=MsoNormal><o:p>&nbsp;</o:p></p>
+
+<h2><a name="_oc3r85fphz9f"></a>CLI</h2>
+
+<p class=MsoNormalCxSpFirst style='margin-left:.5in;mso-add-space:auto;
+text-indent:-.25in;page-break-after:avoid;mso-list:l12 level1 lfo20'><![if !supportLists]><span
+style='mso-list:Ignore'>&#9679;<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span><![endif]><span dir=LTR></span><a
+href="https://cloudifysource.atlassian.net/browse/CFY-6236"><span
+style='color:#1155CC'>CFY-6236</span></a><span style='font-size:9.5pt;
+line-height:115%;color:#222222;background:white;mso-highlight:white'> - </span>Cloudify
+Manager credentials are validated when using `<span class=SpellE><span
+style='font-family:"Courier New";mso-fareast-font-family:"Courier New"'>cfy</span></span><span
+style='font-family:"Courier New";mso-fareast-font-family:"Courier New"'>
+profiles set/unset</span>`</p>
+
+<p class=MsoNormalCxSpMiddle style='margin-left:.5in;mso-add-space:auto;
+text-indent:-.25in;line-height:137%;page-break-after:avoid;mso-list:l12 level1 lfo20'><![if !supportLists]><span
+style='mso-list:Ignore'>&#9679;<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span><![endif]><span dir=LTR></span><a
+href="https://cloudifysource.atlassian.net/browse/CFY-6472"><span
+style='color:#1155CC'>CFY-6472</span></a> - A default maximum for workflow
+operation retries (60) has been specified.</p>
+
+<p class=MsoNormalCxSpMiddle style='margin-left:.5in;mso-add-space:auto;
+text-indent:-.25in;line-height:137%;mso-list:l12 level1 lfo20'><![if !supportLists]><span
+style='mso-list:Ignore'>&#9679;<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span><![endif]><span dir=LTR></span><a
+href="https://cloudifysource.atlassian.net/browse/CFY-6502"><span
+style='color:#1155CC'>CFY-6502</span></a> - <span class=SpellE>The`<span
+style='font-family:"Courier New";mso-fareast-font-family:"Courier New"'>cfy</span></span><span
+style='font-family:"Courier New";mso-fareast-font-family:"Courier New"'>
+cluster set-active</span>` command is supported</p>
+
+<p class=MsoNormalCxSpMiddle style='margin-left:.5in;mso-add-space:auto;
+text-indent:-.25in;line-height:137%;mso-list:l12 level1 lfo20'><![if !supportLists]><span
+style='mso-list:Ignore'>&#9679;<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span><![endif]><span dir=LTR></span><a
+href="https://cloudifysource.atlassian.net/browse/CFY-6349"><span
+style='color:#1155CC'>CFY-6349</span></a> - During boot-up, if the `<span
+class=SpellE><span style='font-family:"Courier New";mso-fareast-font-family:
+"Courier New"'>set_manager_ip_on_boot</span></span>` parameter is set to `<span
+style='font-family:"Courier New";mso-fareast-font-family:"Courier New"'>true</span>`,
+the Cloudify Manager image updates the private IP address of Cloudify Manager,
+assuming that `<span class=SpellE><span style='font-family:"Courier New";
+mso-fareast-font-family:"Courier New"'>admin_password</span></span>` has been
+specified.</p>
+
+<p class=MsoNormalCxSpMiddle style='margin-left:.5in;mso-add-space:auto;
+text-indent:-.25in;line-height:137%;mso-list:l12 level1 lfo20'><![if !supportLists]><span
+style='mso-list:Ignore'>&#9679;<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span><![endif]><span dir=LTR></span><a
+href="https://cloudifysource.atlassian.net/browse/CFY-6350"><span
+style='color:#1155CC'>CFY-6350</span></a> - The `<span style='font-family:"Courier New";
+mso-fareast-font-family:"Courier New"'>get Cloudify version</span>`, `<span
+style='font-family:"Courier New";mso-fareast-font-family:"Courier New"'>get
+user tenants</span>` and `<span style='font-family:"Courier New";mso-fareast-font-family:
+"Courier New"'>get user token</span>` requests can be implemented without a
+specific tenant having to be specified.</p>
+
+<p class=MsoNormalCxSpMiddle style='margin-left:.5in;mso-add-space:auto;
+text-indent:-.25in;line-height:137%;mso-list:l12 level1 lfo20'><![if !supportLists]><span
+style='mso-list:Ignore'>&#9679;<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span><![endif]><span dir=LTR></span><a
+href="https://cloudifysource.atlassian.net/browse/CFY-6382"><span
+style='color:#1155CC'>CFY-6382</span></a> - The <span class=SpellE>service_name</span>
+property has been added to the Cloudify agent <span class=SpellE><span
+style='font-family:"Courier New";mso-fareast-font-family:"Courier New"'>AgentConfig</span></span><span
+style='font-family:"Courier New";mso-fareast-font-family:"Courier New"'> </span>data
+type</p>
+
+<p class=MsoNormalCxSpMiddle style='margin-left:.5in;mso-add-space:auto;
+text-indent:-.25in;line-height:137%;mso-list:l12 level1 lfo20'><![if !supportLists]><span
+style='mso-list:Ignore'>&#9679;<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span><![endif]><span dir=LTR></span><a
+href="https://cloudifysource.atlassian.net/browse/CFY-5821"><span
+style='color:#1155CC'>CFY-5821</span></a> - Snapshots are managed via
+PostgreSQL, but it is still possible to load older <span class=SpellE>Elasticsearch</span>-based
+snapshots.</p>
+
+<p class=MsoNormalCxSpMiddle style='margin-left:.5in;mso-add-space:auto;
+text-indent:-.25in;line-height:142%;mso-list:l12 level1 lfo20'><![if !supportLists]><span
+style='mso-list:Ignore'>&#9679;<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span><![endif]><span dir=LTR></span><a
+href="https://cloudifysource.atlassian.net/browse/CFY-5509"><span
+style='color:#1155CC'>CFY-5509</span></a> - <span class=SpellE>cfy</span>
+plugins upload support use of a URL</p>
+
+<p class=MsoNormalCxSpMiddle style='margin-left:.5in;mso-add-space:auto;
+text-indent:-.25in;line-height:137%;mso-list:l12 level1 lfo20'><![if !supportLists]><span
+style='mso-list:Ignore'>&#9679;<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span><![endif]><span dir=LTR></span><a
+href="https://cloudifysource.atlassian.net/browse/CFY-XXXX"><span
+style='color:#1155CC'>CFY-5296</span></a> - <span style='color:#333333;
+background:white;mso-highlight:white'>‘</span><span class=SpellE><span
+style='font-family:"Courier New";mso-fareast-font-family:"Courier New";
+color:#333333;background:white;mso-highlight:white'>cfy</span></span><span
+style='font-family:"Courier New";mso-fareast-font-family:"Courier New";
+color:#333333;background:white;mso-highlight:white'> * list</span><span
+style='color:#333333;background:white;mso-highlight:white'>’ supports sorting</span>.</p>
+
+<p class=MsoNormalCxSpMiddle style='margin-left:.5in;mso-add-space:auto;
+text-indent:-.25in;line-height:137%;mso-list:l12 level1 lfo20'><![if !supportLists]><span
+style='mso-list:Ignore'>&#9679;<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span><![endif]><span dir=LTR></span><a
+href="https://cloudifysource.atlassian.net/browse/CFY-5451"><span
+style='color:#1155CC'>CFY-5451</span></a> - `<span class=SpellE><span
+style='font-family:"Courier New";mso-fareast-font-family:"Courier New"'>cfy</span></span><span
+style='font-family:"Courier New";mso-fareast-font-family:"Courier New"'> events
+list</span>` now includes logs by default. You can use the `<span
+style='font-family:"Courier New";mso-fareast-font-family:"Courier New"'>--no-log</span>s`
+flag to hide logs.</p>
+
+<p class=MsoNormalCxSpMiddle style='margin-left:.5in;mso-add-space:auto;
+text-indent:-.25in;line-height:137%;mso-list:l12 level1 lfo20'><![if !supportLists]><span
+style='mso-list:Ignore'>&#9679;<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span><![endif]><span dir=LTR></span><a
+href="https://cloudifysource.atlassian.net/browse/CFY-6130"><span
+style='color:#1155CC'>CFY-6130</span></a> - ‘<span class=SpellE><span
+style='font-family:"Courier New";mso-fareast-font-family:"Courier New";
+color:#333333;background:white;mso-highlight:white'>cfy</span></span><span
+style='font-family:"Courier New";mso-fareast-font-family:"Courier New";
+color:#333333;background:white;mso-highlight:white'> profile</span><span
+style='color:#333333;background:white;mso-highlight:white'>’ commands have been
+rearranged.</span></p>
+
+<p class=MsoNormalCxSpMiddle style='margin-left:.5in;mso-add-space:auto;
+text-indent:-.25in;line-height:137%;mso-list:l12 level1 lfo20'><![if !supportLists]><span
+style='color:#333333;background:white;mso-highlight:white'><span
+style='mso-list:Ignore'>&#9679;<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span></span><![endif]><span dir=LTR></span><a
+href="https://cloudifysource.atlassian.net/browse/CFY-6135"><span
+style='color:#1155CC'>CFY-6135</span></a> - ‘<span class=SpellE><span
+style='font-family:"Courier New";mso-fareast-font-family:"Courier New";
+color:#333333;background:white;mso-highlight:white'>cfy</span></span><span
+style='font-family:"Courier New";mso-fareast-font-family:"Courier New";
+color:#333333;background:white;mso-highlight:white'> use</span><span
+style='color:#333333;background:white;mso-highlight:white'>’ and ‘</span><span
+class=SpellE><span style='font-family:"Courier New";mso-fareast-font-family:
+"Courier New";color:#333333;background:white;mso-highlight:white'>cfy</span></span><span
+style='font-family:"Courier New";mso-fareast-font-family:"Courier New";
+color:#333333;background:white;mso-highlight:white'> profile’s</span><span
+style='color:#333333;background:white;mso-highlight:white'> have been
+consolidated.<o:p></o:p></span></p>
+
+<p class=MsoNormalCxSpMiddle style='margin-left:.5in;mso-add-space:auto;
+text-indent:-.25in;line-height:142%;mso-list:l12 level1 lfo20'><![if !supportLists]><span
+style='mso-list:Ignore'>&#9679;<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span><![endif]><span dir=LTR></span>Context-dependent commands are now
+available, according to whether a manager is being used.</p>
+
+<p class=MsoNormalCxSpMiddle style='margin-left:.5in;mso-add-space:auto;
+text-indent:-.25in;line-height:137%;mso-list:l17 level1 lfo7'><![if !supportLists]><span
+style='mso-list:Ignore'>&#9679;<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span><![endif]><span dir=LTR></span>`<span class=SpellE><span
+style='font-family:"Courier New";mso-fareast-font-family:"Courier New"'>cfy</span></span><span
+style='font-family:"Courier New";mso-fareast-font-family:"Courier New"'> <span
+class=SpellE>init</span></span>` is no longer required before `<span
+class=SpellE><span style='font-family:"Courier New";mso-fareast-font-family:
+"Courier New"'>cfy</span></span><span style='font-family:"Courier New";
+mso-fareast-font-family:"Courier New"'> use</span>` or `<span class=SpellE><span
+style='font-family:"Courier New";mso-fareast-font-family:"Courier New"'>cfy</span></span><span
+style='font-family:"Courier New";mso-fareast-font-family:"Courier New"'>
+bootstrap</span>`.</p>
+
+<p class=MsoNormalCxSpMiddle style='margin-left:.5in;mso-add-space:auto;
+text-indent:-.25in;line-height:137%;mso-list:l17 level1 lfo7'><![if !supportLists]><span
+style='mso-list:Ignore'>&#9679;<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span><![endif]><span dir=LTR></span>The<span
+style='mso-spacerun:yes'>  </span>`<span class=SpellE><span style='font-family:
+"Courier New";mso-fareast-font-family:"Courier New"'>cfy</span></span><span
+style='font-family:"Courier New";mso-fareast-font-family:"Courier New"'> use</span>`
+flag has been added to set user and <span class=SpellE>ssh</span>-key path.</p>
+
+<p class=MsoNormalCxSpMiddle style='margin-left:.5in;mso-add-space:auto;
+text-indent:-.25in;line-height:137%;mso-list:l17 level1 lfo7'><![if !supportLists]><span
+style='mso-list:Ignore'>&#9679;<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span><![endif]><span dir=LTR></span>`<span class=SpellE><span
+style='font-family:"Courier New";mso-fareast-font-family:"Courier New"'>cfy</span></span><span
+style='font-family:"Courier New";mso-fareast-font-family:"Courier New"'> local</span>`
+has been removed, to consolidate its commands with “manager” commands. </p>
+
+<p class=MsoNormalCxSpMiddle style='margin-left:.5in;mso-add-space:auto;
+text-indent:-.25in;line-height:137%;mso-list:l17 level1 lfo7'><![if !supportLists]><span
+style='mso-list:Ignore'>&#9679;<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span><![endif]><span dir=LTR></span>`<span style='font-family:"Courier New";
+mso-fareast-font-family:"Courier New"'>.cloudify</span>` now resides under `<span
+style='font-family:"Courier New";mso-fareast-font-family:"Courier New"'>~</span>`
+unless an environment variable called `<span style='font-family:"Courier New";
+mso-fareast-font-family:"Courier New"'>CFY_WORKDIR</span>` is set, in which
+case it is switched to that dir.</p>
+
+<p class=MsoNormalCxSpMiddle style='margin-left:.5in;mso-add-space:auto;
+text-indent:-.25in;line-height:137%;mso-list:l17 level1 lfo7'><![if !supportLists]><span
+style='mso-list:Ignore'>&#9679;<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span><![endif]><span dir=LTR></span>A profile is now created per
+manager. To that end, `<span class=SpellE><span style='font-family:"Courier New";
+mso-fareast-font-family:"Courier New"'>cfy</span></span><span style='font-family:
+"Courier New";mso-fareast-font-family:"Courier New"'> profiles</span>` is
+introduced. It provides the `<span style='font-family:"Courier New";mso-fareast-font-family:
+"Courier New"'>list</span>`, `<span style='font-family:"Courier New";
+mso-fareast-font-family:"Courier New"'>delete</span>`, `<span style='font-family:
+"Courier New";mso-fareast-font-family:"Courier New"'>import</span>` and `<span
+style='font-family:"Courier New";mso-fareast-font-family:"Courier New"'>export</span>`
+commands.</p>
+
+<p class=MsoNormalCxSpMiddle style='margin-left:.5in;mso-add-space:auto;
+text-indent:-.25in;line-height:137%;mso-list:l17 level1 lfo7'><![if !supportLists]><span
+style='mso-list:Ignore'>&#9679;<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span><![endif]><span dir=LTR></span>Importing and exporting profiles
+can include SSH keys via the `<span style='font-family:"Courier New";
+mso-fareast-font-family:"Courier New"'>--include-keys</span>` flag.</p>
+
+<p class=MsoNormalCxSpMiddle style='margin-left:.5in;mso-add-space:auto;
+text-indent:-.25in;line-height:137%;mso-list:l17 level1 lfo7'><![if !supportLists]><span
+style='mso-list:Ignore'>&#9679;<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span><![endif]><span dir=LTR></span>`<span class=SpellE><span
+style='font-family:"Courier New";mso-fareast-font-family:"Courier New"'>cfy</span></span><span
+style='font-family:"Courier New";mso-fareast-font-family:"Courier New"'> <span
+class=SpellE>init</span> -r</span>` no longer resets logger and coloring
+configuration. Use the `<span style='font-family:"Courier New";mso-fareast-font-family:
+"Courier New"'>--hard</span>` flag.</p>
+
+<p class=MsoNormalCxSpMiddle style='margin-left:.5in;mso-add-space:auto;
+text-indent:-.25in;line-height:137%;mso-list:l17 level1 lfo7'><![if !supportLists]><span
+style='mso-list:Ignore'>&#9679;<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span><![endif]><span dir=LTR></span>Replace flags with positional
+arguments where necessary. </p>
+
+<p class=MsoNormalCxSpMiddle style='margin-left:.5in;mso-add-space:auto;
+text-indent:-.25in;line-height:137%;mso-list:l17 level1 lfo7'><![if !supportLists]><span
+style='mso-list:Ignore'>&#9679;<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span><![endif]><span dir=LTR></span><span style='font-family:"Courier New";
+mso-fareast-font-family:"Courier New"'>`--skip-logging</span>` is removed from
+`<span class=SpellE><span style='font-family:"Courier New";mso-fareast-font-family:
+"Courier New"'>cfy</span></span><span style='font-family:"Courier New";
+mso-fareast-font-family:"Courier New"'> <span class=SpellE>init</span></span>`.</p>
+
+<p class=MsoNormalCxSpMiddle style='margin-left:.5in;mso-add-space:auto;
+text-indent:-.25in;line-height:137%;mso-list:l17 level1 lfo7'><![if !supportLists]><span
+style='mso-list:Ignore'>&#9679;<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span><![endif]><span dir=LTR></span>The `<span style='font-family:
+"Courier New";mso-fareast-font-family:"Courier New"'>--debug</span>` flag,
+which was an alias for `<span style='font-family:"Courier New";mso-fareast-font-family:
+"Courier New"'>-<span class=SpellE>vvv</span></span>` is removed..</p>
+
+<p class=MsoNormalCxSpMiddle style='margin-left:.5in;mso-add-space:auto;
+text-indent:-.25in;line-height:137%;mso-list:l17 level1 lfo7'><![if !supportLists]><span
+style='mso-list:Ignore'>&#9679;<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span><![endif]><span dir=LTR></span>Names for blueprints and
+deployments are always automatically generated, unless there is a blueprint or
+deployment already with the same name. Names can still be explicitly specified.</p>
+
+<p class=MsoNormalCxSpMiddle style='margin-left:.5in;mso-add-space:auto;
+text-indent:-.25in;line-height:137%;mso-list:l17 level1 lfo7'><![if !supportLists]><span
+style='mso-list:Ignore'>&#9679;<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span><![endif]><span dir=LTR></span>Task retry related flags have been
+added to `<span class=SpellE><span style='font-family:"Courier New";mso-fareast-font-family:
+"Courier New"'>cfy</span></span><span style='font-family:"Courier New";
+mso-fareast-font-family:"Courier New"'> teardown</span>`.</p>
+
+<p class=MsoNormalCxSpMiddle style='margin-left:.5in;mso-add-space:auto;
+text-indent:-.25in;line-height:137%;mso-list:l17 level1 lfo7'><![if !supportLists]><span
+style='mso-list:Ignore'>&#9679;<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span><![endif]><span dir=LTR></span>`<span class=SpellE><span
+style='font-family:"Courier New";mso-fareast-font-family:"Courier New"'>cfy</span></span><span
+style='font-family:"Courier New";mso-fareast-font-family:"Courier New"'>
+blueprints publish-archive</span>` has been deleted. `<span class=SpellE><span
+style='font-family:"Courier New";mso-fareast-font-family:"Courier New"'>cfy</span></span><span
+style='font-family:"Courier New";mso-fareast-font-family:"Courier New"'>
+blueprints upload</span>` can now receive a path to a local <span class=SpellE>yaml</span>,
+a path to a local archive, or the URL of an archive. If an archive is <span
+class=SpellE>is</span> provided, the `<span style='font-family:"Courier New";
+mso-fareast-font-family:"Courier New"'>--blueprint-filename</span>` flag is now
+mandatory.</p>
+
+<p class=MsoNormalCxSpMiddle style='margin-left:.5in;mso-add-space:auto;
+text-indent:-.25in;line-height:137%;mso-list:l17 level1 lfo7'><![if !supportLists]><span
+style='mso-list:Ignore'>&#9679;<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span><![endif]><span dir=LTR></span>`<span class=SpellE><span
+style='font-family:"Courier New";mso-fareast-font-family:"Courier New"'>cfy</span></span><span
+style='font-family:"Courier New";mso-fareast-font-family:"Courier New"'> inputs</span>`
+has been added to enable local context inputs.</p>
+
+<p class=MsoNormalCxSpMiddle style='margin-left:.5in;mso-add-space:auto;
+text-indent:-.25in;line-height:137%;mso-list:l12 level1 lfo20'><![if !supportLists]><span
+style='mso-list:Ignore'>&#9679;<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span><![endif]><span dir=LTR></span>`<span style='font-family:"Courier New";
+mso-fareast-font-family:"Courier New"'>output</span>` flags have all been
+renamed to `<span style='font-family:"Courier New";mso-fareast-font-family:
+"Courier New"'>output-path</span>`.</p>
+
+<p class=MsoNormalCxSpMiddle style='margin-left:.5in;mso-add-space:auto;
+text-indent:-.25in;line-height:137%;mso-list:l12 level1 lfo20'><![if !supportLists]><span
+style='mso-list:Ignore'>&#9679;<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span><![endif]><span dir=LTR></span>all `<span style='font-family:
+"Courier New";mso-fareast-font-family:"Courier New"'>--force</span>`-like flags
+have been renamed to `<span style='font-family:"Courier New";mso-fareast-font-family:
+"Courier New"'>--force</span>`.</p>
+
+<p class=MsoNormalCxSpMiddle style='margin-left:.5in;mso-add-space:auto;
+text-indent:-.25in;line-height:137%;mso-list:l12 level1 lfo20'><![if !supportLists]><span
+style='mso-list:Ignore'>&#9679;<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span><![endif]><span dir=LTR></span>Bootstrap validations are ignored
+when <span style='font-family:"Courier New";mso-fareast-font-family:"Courier New"'>`--skip-validations</span>`
+is provided in `<span class=SpellE><span style='font-family:"Courier New";
+mso-fareast-font-family:"Courier New"'>cfy</span></span><span style='font-family:
+"Courier New";mso-fareast-font-family:"Courier New"'> upgrade</span>`.</p>
+
+<p class=MsoNormalCxSpMiddle style='margin-left:.5in;mso-add-space:auto;
+text-indent:-.25in;line-height:137%;mso-list:l12 level1 lfo20'><![if !supportLists]><span
+style='mso-list:Ignore'>&#9679;<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span><![endif]><span dir=LTR></span>A `<span style='font-family:"Courier New";
+mso-fareast-font-family:"Courier New"'>--skip-sanity</span>` flag is now
+available for to the bootstrap process.</p>
+
+<p class=MsoNormalCxSpMiddle style='margin-left:.5in;mso-add-space:auto;
+text-indent:-.25in;line-height:137%;mso-list:l12 level1 lfo20'><![if !supportLists]><span
+style='mso-list:Ignore'>&#9679;<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span><![endif]><span dir=LTR></span>`<span class=SpellE><span
+style='font-family:"Courier New";mso-fareast-font-family:"Courier New"'>cfy</span></span><span
+style='font-family:"Courier New";mso-fareast-font-family:"Courier New"'> instal</span>l`
+and `<span class=SpellE><span style='font-family:"Courier New";mso-fareast-font-family:
+"Courier New"'>cfy</span></span><span style='font-family:"Courier New";
+mso-fareast-font-family:"Courier New"'> blueprints upload</span>` can now
+receive either a local path to a <span class=SpellE>yaml</span>, local path to
+an archive, URL to an archive and a Docker/Vagrant-like string to a repository.</p>
+
+<p class=MsoNormalCxSpMiddle style='margin-left:.5in;mso-add-space:auto;
+text-indent:-.25in;line-height:137%;mso-list:l12 level1 lfo20'><![if !supportLists]><span
+style='mso-list:Ignore'>&#9679;<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span><![endif]><span dir=LTR></span>`<span class=SpellE><span
+style='font-family:"Courier New";mso-fareast-font-family:"Courier New"'>cfy</span></span><span
+style='font-family:"Courier New";mso-fareast-font-family:"Courier New"'> profiles
+export</span>` can now receive the `<span style='font-family:"Courier New";
+mso-fareast-font-family:"Courier New"'>--include-keys</span>` flag, which
+includes the SSH keys (if applicable) of the profiles in the archive. `<span
+class=SpellE><span style='font-family:"Courier New";mso-fareast-font-family:
+"Courier New"'>cfy</span></span><span style='font-family:"Courier New";
+mso-fareast-font-family:"Courier New"'> profiles import</span>` imports any
+keys in the archive and places them in their original paths.</p>
+
+<p class=MsoNormalCxSpMiddle style='margin-left:.5in;mso-add-space:auto;
+text-indent:-.25in;line-height:137%;mso-list:l12 level1 lfo20'><![if !supportLists]><span
+style='mso-list:Ignore'>&#9679;<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span><![endif]><span dir=LTR></span>`<span class=SpellE><span
+style='font-family:"Courier New";mso-fareast-font-family:"Courier New"'>cfy</span></span><span
+style='font-family:"Courier New";mso-fareast-font-family:"Courier New"'>
+profiles get-active</span>` prints out the currently used profile. <span
+style='font-family:"Courier New";mso-fareast-font-family:"Courier New"'>`<span
+class=SpellE>cfy</span> profiles list</span>` now shows an asterisk next to the
+active profile.</p>
+
+<p class=MsoNormalCxSpMiddle style='margin-left:.5in;mso-add-space:auto;
+text-indent:-.25in;line-height:137%;mso-list:l12 level1 lfo20'><![if !supportLists]><span
+style='mso-list:Ignore'>&#9679;<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span><![endif]><span dir=LTR></span>`<span class=SpellE><span
+style='font-family:"Courier New";mso-fareast-font-family:"Courier New"'>cfy</span></span><span
+style='font-family:"Courier New";mso-fareast-font-family:"Courier New"'>
+blueprints upload</span>` and `<span class=SpellE><span style='font-family:
+"Courier New";mso-fareast-font-family:"Courier New"'>cfy</span></span><span
+style='font-family:"Courier New";mso-fareast-font-family:"Courier New"'>
+install</span>` now auto-generates blueprint and deployment names only once per
+blueprint.</p>
+
+<p class=MsoNormalCxSpMiddle style='margin-left:.5in;mso-add-space:auto;
+text-indent:-.25in;line-height:137%;mso-list:l12 level1 lfo20'><![if !supportLists]><span
+style='mso-list:Ignore'>&#9679;<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span><![endif]><span dir=LTR></span><span style='font-family:"Courier New";
+mso-fareast-font-family:"Courier New"'>`<span class=SpellE>cfy</span>
+blueprints package</span>` has been added. This command packages a blueprint
+into a tar.gz or ZIP archive according to the OS. This archive is installable
+or <span class=SpellE>uploadable</span> via `<span class=SpellE><span
+style='font-family:"Courier New";mso-fareast-font-family:"Courier New"'>cfy</span></span><span
+style='font-family:"Courier New";mso-fareast-font-family:"Courier New"'>
+install</span>` and `<span class=SpellE><span style='font-family:"Courier New";
+mso-fareast-font-family:"Courier New"'>cfy</span></span><span style='font-family:
+"Courier New";mso-fareast-font-family:"Courier New"'> blueprints upload</span>`.</p>
+
+<p class=MsoNormalCxSpLast style='margin-left:.5in;mso-add-space:auto;
+text-indent:-.25in;line-height:137%;mso-list:l12 level1 lfo20'><![if !supportLists]><span
+style='mso-list:Ignore'>&#9679;<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span><![endif]><span dir=LTR></span>Setting the <span class=SpellE><span
+style='font-family:"Courier New";mso-fareast-font-family:"Courier New"'>env</span></span><span
+style='font-family:"Courier New";mso-fareast-font-family:"Courier New"'> <span
+class=SpellE>var</span> CFY_MULTIPLE_BLUEPRINTS</span> to `<span
+style='font-family:"Courier New";mso-fareast-font-family:"Courier New"'>true</span>`
+enables you to initialize multiple blueprints locally. </p>
+
+<h2><a name="_43kdlpbp254n"></a>Orchestration</h2>
+
+<p class=MsoNormalCxSpFirst style='margin-left:.5in;mso-add-space:auto;
+text-indent:-.25in;line-height:137%;page-break-after:avoid;mso-list:l14 level1 lfo13'><![if !supportLists]><span
+style='line-height:137%;color:#333333;background:white;
+mso-highlight:white'>&#9679;<span
+style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span></span></span><![endif]><span
+dir=LTR></span><a href="https://cloudifysource.atlassian.net/browse/CFY-6389"><span
+style='color:#1155CC'>CFY-6389</span></a> - The `<span class=SpellE><span
+style='font-family:"Courier New";mso-fareast-font-family:"Courier New"'>CloudifySettings</span></span>`
+blueprint has been removed from Cloudify Manager images.<span style='font-size:
+10.5pt;line-height:137%;color:#333333;background:white;mso-highlight:white'><o:p></o:p></span></p>
+
+<p class=MsoNormalCxSpMiddle style='margin-left:.5in;mso-add-space:auto;
+text-indent:-.25in;line-height:137%;mso-list:l14 level1 lfo13'><![if !supportLists]><span
+style='mso-list:Ignore'>&#9679;<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span><![endif]><span dir=LTR></span><a
+href="https://cloudifysource.atlassian.net/browse/CFY-5665"><span
+style='color:#1155CC'>CFY-5665</span></a><span style='color:#333333'> - Remove
+transient deployment workers mode configuration from manager blueprints</span></p>
+
+<p class=MsoNormalCxSpMiddle style='margin-left:.5in;mso-add-space:auto;
+text-indent:-.25in;line-height:137%;mso-list:l12 level1 lfo20'><![if !supportLists]><span
+style='mso-list:Ignore'>&#9679;<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span><![endif]><span dir=LTR></span><a
+href="https://cloudifysource.atlassian.net/browse/CFY-6319"><span
+style='color:#1155CC'>CFY-6319</span></a> - You can generate random salt and
+secret key during bootstrapping.</p>
+
+<p class=MsoNormalCxSpMiddle style='margin-left:.5in;mso-add-space:auto;
+text-indent:-.25in;line-height:137%;mso-list:l12 level1 lfo20'><![if !supportLists]><span
+style='mso-list:Ignore'>&#9679;<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span><![endif]><span dir=LTR></span><a
+href="https://cloudifysource.atlassian.net/browse/CFY-6336"><span
+style='color:#1155CC'>CFY-6336</span></a> - The token API now returns a user’s
+role.</p>
+
+<p class=MsoNormalCxSpMiddle style='margin-left:.5in;mso-add-space:auto;
+text-indent:-.25in;line-height:137%;mso-list:l12 level1 lfo20'><![if !supportLists]><span
+style='mso-list:Ignore'>&#9679;<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span><![endif]><span dir=LTR></span><a
+href="https://cloudifysource.atlassian.net/browse/CFY-6340"><span
+style='color:#1155CC'>CFY-6340</span></a> - You can work with the bootstrap
+admin role, even when LDAP is configured.</p>
+
+<p class=MsoNormalCxSpMiddle style='margin-left:.5in;mso-add-space:auto;
+text-indent:-.25in;mso-list:l12 level1 lfo20'><![if !supportLists]><span
+style='mso-list:Ignore'>&#9679;<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span><![endif]><span dir=LTR></span><a
+href="https://cloudifysource.atlassian.net/browse/CFY-6206"><span
+style='color:#1155CC'>CFY-6206</span></a><span style='font-size:9.5pt;
+line-height:115%;color:#222222;background:white;mso-highlight:white'> -<span
+style='mso-spacerun:yes'>  </span></span>Support has been added to enable
+deletion of tenants/groups/users.</p>
+
+<p class=MsoNormalCxSpMiddle style='margin-left:.5in;mso-add-space:auto;
+text-indent:-.25in;line-height:137%;mso-list:l12 level1 lfo20'><![if !supportLists]><span
+style='mso-list:Ignore'>&#9679;<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span><![endif]><span dir=LTR></span><a
+href="https://cloudifysource.atlassian.net/browse/CFY-6096"><span
+style='color:#1155CC'>CFY-6096</span></a><span style='mso-spacerun:yes'> 
+</span>- Support has been added for private resources and resource permissions.</p>
+
+<p class=MsoNormalCxSpLast style='margin-left:.5in;mso-add-space:auto;
+text-indent:-.25in;line-height:137%;mso-list:l12 level1 lfo20'><![if !supportLists]><span
+style='mso-list:Ignore'>&#9679;<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span><![endif]><span dir=LTR></span><a
+href="https://cloudifysource.atlassian.net/browse/CFY-6139"><span
+style='color:#1155CC'>CFY-6193</span></a><span style='mso-spacerun:yes'> 
+</span>- `<span style='font-family:"Courier New";mso-fareast-font-family:"Courier New"'>tenant</span>`
+and `<span style='font-family:"Courier New";mso-fareast-font-family:"Courier New"'>permission</span>`
+responses have been added to the CLI.</p>
+
+<h2 style='line-height:137%'><a name="_5t6hzx57jpj7"></a>API</h2>
+
+<p class=MsoNormalCxSpFirst style='margin-left:.5in;mso-add-space:auto;
+text-indent:-.25in;line-height:137%;mso-list:l13 level1 lfo6'><![if !supportLists]><span
+style='mso-list:Ignore'>&#9679;<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span><![endif]><span dir=LTR></span><a
+href="https://cloudifysource.atlassian.net/browse/CFY-6369"><span
+style='color:#1155CC'>CFY-6369</span></a> - An API call has been created that
+validates the permission of a user to access a file server resource.</p>
+
+<p class=MsoNormalCxSpMiddle style='margin-left:.5in;mso-add-space:auto;
+text-indent:-.25in;line-height:137%;mso-list:l12 level1 lfo20'><![if !supportLists]><span
+style='mso-list:Ignore'>&#9679;<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span><![endif]><span dir=LTR></span><a
+href="https://cloudifysource.atlassian.net/browse/CFY-6139"><span
+style='color:#1155CC'>CFY-6193</span></a><span style='mso-spacerun:yes'> 
+</span>- `<span style='font-family:"Courier New";mso-fareast-font-family:"Courier New"'>tenant</span>`
+and `<span style='font-family:"Courier New";mso-fareast-font-family:"Courier New"'>permission</span>`
+responses have been added to the API.</p>
+<a id="addressed"></a>
+<p class=MsoNormalCxSpLast style='margin-left:.5in;mso-add-space:auto;
+text-indent:-.25in;line-height:137%;mso-list:l12 level1 lfo20'><![if !supportLists]><span
+style='mso-list:Ignore'>&#9679;<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span><![endif]><span dir=LTR></span><a
+href="https://cloudifysource.atlassian.net/browse/CFY-6162"><span
+style='color:#1155CC'>CFY-6162</span></a><span style='font-size:9.5pt;
+line-height:137%;color:#222222;background:white;mso-highlight:white'><span
+style='mso-spacerun:yes'>  </span>- </span><span style='
+line-height:137%'>To optimize performance, as a response from the REST API, the
+maximum value that can be set for a pages is 1000 records.</span></p>
+
+<h1 style='margin-top:14.0pt'><a name="_dqmqg39k4ata"></a>Issues Addressed</h1>
+
+<p class=MsoTitle style='margin-bottom:0in;margin-bottom:.0001pt'><a
+name="_88sg4033b6fr"></a><span style='font-size:11.0pt;line-height:115%'>The
+following known issues have been addressed in this release:<o:p></o:p></span></p>
+
+<h2><a name="_hf0l0dcialvc"></a>Bootstrapping/Installation</h2>
+
+<p class=MsoNormalCxSpFirst style='margin-left:.5in;mso-add-space:auto;
+text-indent:-.25in;mso-list:l19 level1 lfo18'><![if !supportLists]><span
+style='line-height:115%;color:#333333;background:white;
+mso-highlight:white'>&#9679;<span
+style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span></span></span><![endif]><span
+dir=LTR></span><a href="https://cloudifysource.atlassian.net/browse/CFY-6052"><span
+style='color:#1155CC'>CFY-6052</span></a> - Bootstrap no longer fails if a
+Cloudify Manager VM image doesn't contain <span style='font-family:"Courier New";
+mso-fareast-font-family:"Courier New"'>/root/.<span class=SpellE>ssh</span></span>.<span
+style='line-height:115%;color:#333333;background:white;
+mso-highlight:white'><o:p></o:p></span></p>
+
+<p class=MsoNormalCxSpMiddle style='margin-left:.5in;mso-add-space:auto;
+text-indent:-.25in;line-height:137%;mso-list:l19 level1 lfo18'><![if !supportLists]><span
+style='mso-list:Ignore'>&#9679;<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span><![endif]><span dir=LTR></span><a
+href="https://cloudifysource.atlassian.net/browse/CFY-6510"><span
+style='color:#1155CC'>CFY-6510</span></a> -<a
+href="https://cloudifysource.atlassian.net/browse/CFY-6504"><span
+style='color:#1155CC'>CFY-6504</span></a> - Offline bootstrap no longer fails
+due to <span class=SpellE><span style='font-family:"Courier New";mso-fareast-font-family:
+"Courier New"'>dsl_resources</span></span> input.<b style='mso-bidi-font-weight:
+normal'><o:p></o:p></b></p>
+
+<p class=MsoNormalCxSpLast style='margin-left:.5in;mso-add-space:auto;
+text-indent:-.25in;line-height:137%;mso-list:l19 level1 lfo18'><![if !supportLists]><span
+style='mso-list:Ignore'>&#9679;<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span><![endif]><span dir=LTR></span><a
+href="https://cloudifysource.atlassian.net/browse/CFY-5745"><span
+style='color:#1155CC'>CFY-5745</span></a> - If you attempt to bootstrap without
+<span class=SpellE><span style='font-family:"Courier New";mso-fareast-font-family:
+"Courier New"'>auth</span></span><span style='font-family:"Courier New";
+mso-fareast-font-family:"Courier New"'> <span class=SpellE>env</span></span>
+variables, an error message is displayed.</p>
+
+<h2><a name="_d0omob2h5ptp"></a>CLI</h2>
+
+<p class=MsoNormalCxSpFirst style='margin-left:.5in;mso-add-space:auto;
+text-indent:-.25in;line-height:137%;page-break-after:avoid;mso-list:l12 level1 lfo20'><![if !supportLists]><span
+style='mso-list:Ignore'>&#9679;<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span><![endif]><span dir=LTR></span><a
+href="https://cloudifysource.atlassian.net/browse/CFY-6003"><span
+style='color:#1155CC'>CFY-6003</span></a> - The redundant deployment-id
+argument has been deleted from `<span class=SpellE><span style='font-family:
+"Courier New";mso-fareast-font-family:"Courier New"'>cfy</span></span><span
+style='font-family:"Courier New";mso-fareast-font-family:"Courier New"'>
+deployments create</span>`.</p>
+
+<p class=MsoNormalCxSpMiddle style='margin-left:.5in;mso-add-space:auto;
+text-indent:-.25in;line-height:137%;mso-list:l12 level1 lfo20'><![if !supportLists]><span
+style='mso-list:Ignore'>&#9679;<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span><![endif]><span dir=LTR></span><a
+href="https://cloudifysource.atlassian.net/browse/CFY-6005"><span
+style='color:#1155CC'>CFY-6005</span></a> - Error messages that are displayed
+when executing `<span class=SpellE><span style='font-family:"Courier New";
+mso-fareast-font-family:"Courier New"'>cfy</span></span><span style='font-family:
+"Courier New";mso-fareast-font-family:"Courier New"'> teardown -f
+--ignore-deployments</span>` have been made clearer.</p>
+
+<p class=MsoNormalCxSpMiddle style='margin-left:.5in;mso-add-space:auto;
+text-indent:-.25in;line-height:137%;mso-list:l12 level1 lfo20'><![if !supportLists]><span
+style='mso-list:Ignore'>&#9679;<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span><![endif]><span dir=LTR></span><a
+href="https://cloudifysource.atlassian.net/browse/CFY-6006"><span
+style='color:#1155CC'>CFY-6006</span></a> - Windows CLI package upload
+blueprint from secured URL no longer fails on certificate verification.</p>
+
+<p class=MsoNormalCxSpMiddle style='margin-left:.5in;mso-add-space:auto;
+text-indent:-.25in;line-height:137%;mso-list:l12 level1 lfo20'><![if !supportLists]><span
+style='mso-list:Ignore'>&#9679;<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span><![endif]><span dir=LTR></span><a
+href="https://cloudifysource.atlassian.net/browse/CFY-5995"><span
+style='color:#1155CC'>CFY-5995</span></a><a
+href="https://cloudifysource.atlassian.net/browse/CFY-5995"><span
+style='color:windowtext;text-decoration:none;text-underline:none'> </span></a>-
+When using <span class=SpellE><span style='font-family:"Courier New";
+mso-fareast-font-family:"Courier New"'>get_attribute</span></span> in secure
+mode, <span style='font-family:"Courier New";mso-fareast-font-family:"Courier New"'>dispatch
+<span class=SpellE>evaluate_functions</span></span> no longer attempts to use <span
+class=SpellE><span style='font-family:"Courier New";mso-fareast-font-family:
+"Courier New"'>ctx</span></span><span style='font-family:"Courier New";
+mso-fareast-font-family:"Courier New"'> </span>before it is set. </p>
+
+<p class=MsoNormalCxSpLast style='margin-left:.5in;mso-add-space:auto;
+text-indent:-.25in;line-height:137%;mso-list:l12 level1 lfo20'><![if !supportLists]><span
+style='mso-list:Ignore'>&#9679;<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span><![endif]><span dir=LTR></span><span
+style='mso-spacerun:yes'> </span><a
+href="https://cloudifysource.atlassian.net/browse/CFY-6510"><span
+style='color:#1155CC'>CFY-6510</span></a> - <span style='
+line-height:137%'>The message displayed in the event of a bug in which the
+manager does not return an argument that the CLI expected to get in the list
+response has been clarified.</span><b style='mso-bidi-font-weight:normal'><o:p></o:p></b></p>
+
+<h2><a name="_bbbzw2xeppxw"></a>Orchestration</h2>
+
+<p class=MsoNormalCxSpFirst style='margin-left:.5in;mso-add-space:auto;
+text-indent:-.25in;line-height:137%;mso-list:l10 level1 lfo14'><![if !supportLists]><span
+style='line-height:137%;color:#333333'><span style='mso-list:
+Ignore'>&#9679;<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span></span><![endif]><span dir=LTR></span><a
+href="https://cloudifysource.atlassian.net/browse/CFY-6496"><span
+style='color:#1155CC'>CFY-6496</span></a> - Issues with security groups in
+Cloudify Manager blueprints have been addressed.<span style='
+line-height:137%;color:#333333'><o:p></o:p></span></p>
+
+<p class=MsoNormalCxSpMiddle style='margin-left:.5in;mso-add-space:auto;
+text-indent:-.25in;line-height:137%;mso-list:l10 level1 lfo14'><![if !supportLists]><span
+style='mso-list:Ignore'>&#9679;<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span><![endif]><span dir=LTR></span><a
+href="https://cloudifysource.atlassian.net/browse/CFY-6473"><span
+style='color:#1155CC'>CFY-6473</span></a> - An infinite loop no longer occurs
+in dispatch if the workflow executor reaches an invalid state.</p>
+
+<p class=MsoNormalCxSpMiddle style='margin-left:.5in;mso-add-space:auto;
+text-indent:-.25in;line-height:137%;mso-list:l10 level1 lfo14'><![if !supportLists]><span
+style='color:#333333;background:white;mso-highlight:white'><span
+style='mso-list:Ignore'>&#9679;<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span></span><![endif]><span dir=LTR></span><a
+href="https://cloudifysource.atlassian.net/browse/CFY-4233"><span
+style='color:#1155CC'>CFY-4233</span></a> - <span style='
+line-height:137%;color:#333333'>Unicode characters are not supported in
+blueprints. Strings in blueprints are now checked to ensure there are no
+unicode characters.</span><span style='color:#333333;background:white;
+mso-highlight:white'><o:p></o:p></span></p>
+
+<p class=MsoNormalCxSpMiddle style='margin-left:.5in;mso-add-space:auto;
+text-indent:-.25in;line-height:137%;mso-list:l10 level1 lfo14'><![if !supportLists]><span
+style='mso-list:Ignore'>&#9679;<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span><![endif]><span dir=LTR></span><a
+href="https://cloudifysource.atlassian.net/browse/CFY-6156"><span
+style='color:#1155CC'>CFY-6156</span></a><span style='mso-spacerun:yes'> 
+</span>- You can now successfully use <span class=SpellE><span
+style='font-family:"Courier New";mso-fareast-font-family:"Courier New"'>cfy</span></span><span
+style='font-family:"Courier New";mso-fareast-font-family:"Courier New"'>
+blueprints upload</span> from GitHub.</p>
+
+<p class=MsoNormalCxSpMiddle style='margin-left:.5in;mso-add-space:auto;
+text-indent:-.25in;line-height:137%;mso-list:l10 level1 lfo14'><![if !supportLists]><span
+style='mso-list:Ignore'>&#9679;<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span><![endif]><span dir=LTR></span><a
+href="https://cloudifysource.atlassian.net/browse/CFY-XXXX"><span
+style='color:#1155CC'>CFY-5699</span></a> - The b<span style='color:#333333;
+background:white;mso-highlight:white'>lueprint parsing error in which a
+circular </span><span class=SpellE><span style='font-family:"Courier New";
+mso-fareast-font-family:"Courier New";color:#333333;background:white;
+mso-highlight:white'>get_property</span></span><span style='color:#333333;
+background:white;mso-highlight:white'> was detected even though it didn’t exist
+has been addressed</span>.</p>
+
+<p class=MsoNormalCxSpMiddle style='margin-left:.5in;mso-add-space:auto;
+text-indent:-.25in;line-height:137%;mso-list:l10 level1 lfo14'><![if !supportLists]><span
+style='line-height:137%;color:#333333;background:white;
+mso-highlight:white'>&#9679;<span
+style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span></span></span><![endif]><span
+dir=LTR></span><a href="https://cloudifysource.atlassian.net/browse/CFY-5971"><span
+style='line-height:137%;color:#1155CC;background:white;
+mso-highlight:white'>CFY-5971</span></a> - Backwards compatibility for
+installing agents on Windows hosts for pre-3.3.0 blueprints is now available.<b
+style='mso-bidi-font-weight:normal'><span style='line-height:
+137%;color:#333333;background:white;mso-highlight:white'><o:p></o:p></span></b></p>
+
+<p class=MsoNormalCxSpMiddle style='margin-left:.5in;mso-add-space:auto;
+text-indent:-.25in;line-height:142%;mso-list:l10 level1 lfo14'><![if !supportLists]><span
+style='mso-list:Ignore'>&#9679;<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span><![endif]><span dir=LTR></span><a
+href="https://cloudifysource.atlassian.net/browse/CFY-5631"><span
+style='color:#1155CC'>CFY-5631</span></a><u><span style='color:#1155CC'>, </span></u><a
+href="https://cloudifysource.atlassian.net/browse/CFY-5561"><span
+style='color:#1155CC'>CFY-556</span></a><u><span style='color:#1155CC'>1 </span></u>-
+Dereferencing of anchors in blueprints has been fixed. The behavior was
+inconsistent, and different values were set each time. </p>
+
+<p class=MsoNormalCxSpMiddle style='margin-left:.5in;mso-add-space:auto;
+text-indent:-.25in;line-height:137%;mso-list:l10 level1 lfo14'><![if !supportLists]><span
+style='mso-list:Ignore'>&#9679;<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span><![endif]><span dir=LTR></span><a
+href="https://cloudifysource.atlassian.net/browse/CFY-6476"><span
+style='color:#1155CC'>CFY-6476</span></a> - The issue related to source plugin
+TAR creation when uploading a blueprint has been addressed.</p>
+
+<p class=MsoNormalCxSpMiddle style='margin-left:.5in;mso-add-space:auto;
+text-indent:-.25in;line-height:137%;mso-list:l10 level1 lfo14'><![if !supportLists]><span
+style='mso-list:Ignore'>&#9679;<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span><![endif]><span dir=LTR></span><a
+href="https://cloudifysource.atlassian.net/browse/CFY-6388"><span
+style='color:#1155CC'>CFY-6388</span></a> - The situation in which `<span
+class=SpellE><span style='font-family:"Courier New";mso-fareast-font-family:
+"Courier New"'>logstash</span></span>` failed to fetch logs and events that
+were written after exchanges from logs and events were deleted has been
+addressed.</p>
+
+<p class=MsoNormalCxSpMiddle style='margin-left:.5in;mso-add-space:auto;
+text-indent:-.25in;line-height:137%;mso-list:l10 level1 lfo14'><![if !supportLists]><span
+style='mso-list:Ignore'>&#9679;<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span><![endif]><span dir=LTR></span><a
+href="https://cloudifysource.atlassian.net/browse/CFY-6333"><span
+style='color:#1155CC'>CFY-6333</span></a> - The situation in which the `<span
+style='font-family:"Courier New";mso-fareast-font-family:"Courier New"'>create
+snapshot</span>` command failed when the snapshot file was too big has been
+addressed.</p>
+
+<p class=MsoNormalCxSpMiddle style='margin-left:.5in;mso-add-space:auto;
+text-indent:-.25in;line-height:137%;mso-list:l10 level1 lfo14'><![if !supportLists]><span
+style='line-height:137%;color:#333333;background:white;
+mso-highlight:white'>&#9679;<span
+style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span></span></span><![endif]><span
+dir=LTR></span><a href="https://cloudifysource.atlassian.net/browse/CFY-6437"><span
+style='color:#1155CC'>CFY-6437</span></a>, <a
+href="https://cloudifysource.atlassian.net/browse/CFY-6341"><span
+style='color:#1155CC'>CFY-6341</span></a>, <a
+href="https://cloudifysource.atlassian.net/browse/CFY-6128"><span
+style='color:#1155CC'>CFY-6128</span></a> - The issue related to creating and
+restoring snapshots has been addressed.<span style='
+line-height:137%;color:#333333;background:white;mso-highlight:white'><o:p></o:p></span></p>
+
+<p class=MsoNormalCxSpMiddle style='margin-left:.5in;mso-add-space:auto;
+text-indent:-.25in;line-height:142%;mso-list:l10 level1 lfo14'><![if !supportLists]><span
+style='mso-list:Ignore'>&#9679;<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span><![endif]><span dir=LTR></span><a
+href="https://cloudifysource.atlassian.net/browse/CFY-5493"><span
+style='color:#1155CC'>CFY-5493</span></a><span style='mso-spacerun:yes'> 
+</span>- The scale workflow for scaling a node template that is part of a group
+and is contained in another node not part of that group has been fixed.</p>
+
+<p class=MsoNormalCxSpMiddle style='margin-left:.5in;mso-add-space:auto;
+text-indent:-.25in;line-height:137%;mso-list:l10 level1 lfo14'><![if !supportLists]><span
+style='mso-list:Ignore'>&#9679;<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span><![endif]><span dir=LTR></span><a
+href="https://cloudifysource.atlassian.net/browse/CFY-XXXX"><span
+style='color:#1155CC'>CFY-5589</span></a> - <span style='color:#333333;
+background:white;mso-highlight:white'>Workflow parameters types are validated
+before attempts to execute the workflow</span>.</p>
+
+<p class=MsoNormalCxSpLast style='margin-left:.5in;mso-add-space:auto;
+text-indent:-.25in;line-height:137%;mso-list:l10 level1 lfo14'><![if !supportLists]><span
+style='mso-list:Ignore'>&#9679;<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span><![endif]><span dir=LTR></span><a
+href="https://cloudifysource.atlassian.net/browse/CFY-XXXX"><span
+style='color:#1155CC'>CFY-5711</span></a> - <span style='color:#333333'>The
+validation of workflow parameters now operates as expected.</span></p>
+
+<h2 style='line-height:137%'><a name="_uzdzq2g9qqmp"></a>API</h2>
+
+<p class=MsoNormalCxSpFirst style='margin-left:.5in;mso-add-space:auto;
+text-indent:-.25in;line-height:142%;mso-list:l10 level1 lfo14'><![if !supportLists]><span
+style='line-height:142%;color:#333333;background:white;
+mso-highlight:white'>&#9679;<span
+style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span></span></span><![endif]><span
+dir=LTR></span><a href="https://cloudifysource.atlassian.net/browse/CFY-5371"><span
+style='color:#1155CC'>CFY-5371</span></a> - The issue in which <span
+style='line-height:142%;background:white;mso-highlight:white'>filtering
+was not supported in REST service snapshots endpoints, has been addressed.<span
+style='color:#333333'><o:p></o:p></span></span></p>
+
+<p class=MsoNormalCxSpLast style='margin-left:.5in;mso-add-space:auto;
+text-indent:-.25in;line-height:142%;mso-list:l10 level1 lfo14'><![if !supportLists]><span
+style='mso-list:Ignore'>&#9679;<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span><![endif]><span dir=LTR></span><a
+href="https://cloudifysource.atlassian.net/browse/CFY-5838"><span
+style='color:#1155CC'>CFY-5838</span></a> - The issue in which <span
+class=SpellE><span style='font-family:"Courier New";mso-fareast-font-family:
+"Courier New"'>workflow_test</span></span><span style='font-family:"Courier New";
+mso-fareast-font-family:"Courier New"'> decorator</span> (for <span
+class=SpellE>uni</span>-tests) was checking for the wrong directory path has
+been addressed.</p>
+
+<h2 style='line-height:137%'><a name="_2z4eufgmriwl"></a>General</h2>
+
+<p class=MsoNormalCxSpFirst style='margin-left:.5in;mso-add-space:auto;
+text-indent:-.25in;line-height:137%;mso-list:l11 level1 lfo9'><![if !supportLists]><span
+style='mso-list:Ignore'>&#9679;<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span><![endif]><span dir=LTR></span><a
+href="https://cloudifysource.atlassian.net/browse/CFY-6498"><span
+style='color:#1155CC'>CFY-6498</span></a> - It is now possible to specify a
+file path for <span class=SpellE><span style='font-family:"Courier New";
+mso-fareast-font-family:"Courier New"'>manager_resources_package</span></span>.</p>
+
+<p class=MsoNormalCxSpMiddle style='margin-left:.5in;mso-add-space:auto;
+text-indent:-.25in;line-height:137%;mso-list:l11 level1 lfo9'><![if !supportLists]><span
+style='color:#333333;background:white;mso-highlight:white'><span
+style='mso-list:Ignore'>&#9679;<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span></span><![endif]><span dir=LTR></span><a
+href="https://cloudifysource.atlassian.net/browse/CFY-6197"><span
+style='color:#1155CC;background:white;mso-highlight:white'>CFY-6196</span></a><span
+style='color:#333333;background:white;mso-highlight:white'> - The error message
+returned when creating a user with an existing name has been clarified.<o:p></o:p></span></p>
+
+<p class=MsoNormalCxSpMiddle style='margin-left:.5in;mso-add-space:auto;
+text-indent:-.25in;mso-list:l11 level1 lfo9'><![if !supportLists]><span
+style='line-height:115%;color:#333333;background:white;
+mso-highlight:white'>&#9679;<span
+style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span></span></span><![endif]><span
+dir=LTR></span><a href="https://cloudifysource.atlassian.net/browse/CFY-3902"><span
+style='color:#1155CC'>CFY-3902</span></a><span style='font-size:9.5pt;
+line-height:115%;color:#222222;background:white;mso-highlight:white'> </span>-
+The Diamond agent restarts when Cloudify Manager is restarted.<span
+style='line-height:115%;color:#333333;background:white;
+mso-highlight:white'><o:p></o:p></span></p>
+
+<p class=MsoNormalCxSpMiddle style='margin-left:.5in;mso-add-space:auto;
+text-indent:-.25in;mso-list:l11 level1 lfo9'><![if !supportLists]><span
+style='line-height:115%;color:#333333;background:white;
+mso-highlight:white'>&#9679;<span
+style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span></span></span><![endif]><span
+dir=LTR></span><a href="https://cloudifysource.atlassian.net/browse/CFY-5877"><span
+style='color:#1155CC'>CFY-5877</span></a> - <span style='color:#333333;
+background:white;mso-highlight:white'><span
+style='mso-spacerun:yes'> </span>The error message</span> when the agent
+installer fails to connect to VM <span style='color:#333333;background:white;
+mso-highlight:white'>has been clarified.</span><span style='
+line-height:115%;color:#333333;background:white;mso-highlight:white'><o:p></o:p></span></p>
+
+<p class=MsoNormalCxSpMiddle style='margin-left:.5in;mso-add-space:auto;
+text-indent:-.25in;line-height:142%;mso-list:l11 level1 lfo9'><![if !supportLists]><span
+style='line-height:142%;color:#333333;background:white;
+mso-highlight:white'>&#9679;<span
+style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span></span></span><![endif]><span
+dir=LTR></span><a href="https://cloudifysource.atlassian.net/browse/CFY-5464"><span
+style='color:#1155CC'>CFY-5464</span></a> - Descending sort by time is
+supported in sorting search results.<span style='line-height:
+142%;color:#333333;background:white;mso-highlight:white'><o:p></o:p></span></p>
+
+<p class=MsoNormalCxSpMiddle style='margin-left:.5in;mso-add-space:auto;
+text-indent:-.25in;line-height:142%;mso-list:l11 level1 lfo9'><![if !supportLists]><span
+style='mso-list:Ignore'>&#9679;<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span><![endif]><span dir=LTR></span><a
+href="https://cloudifysource.atlassian.net/browse/CFY-5782"><span
+style='color:#1155CC'>CFY-5782</span></a> - Fix deployment update broken for
+deployments migrated from Cloudify 3.2.1</p>
+
+<p class=MsoNormalCxSpMiddle style='margin-left:.5in;mso-add-space:auto;
+text-indent:-.25in;line-height:142%;mso-list:l11 level1 lfo9'><![if !supportLists]><span
+style='mso-list:Ignore'>&#9679;<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span><![endif]><span dir=LTR></span><a
+href="https://cloudifysource.atlassian.net/browse/CFY-5453"><span
+style='color:#1155CC'>CFY-5453</span></a> - The issue in which a deployment's <span
+class=SpellE><span style='font-family:"Courier New";mso-fareast-font-family:
+"Courier New"'>updated_at</span></span> field was not updated during deployment
+update has been addressed.</p>
+<a id="known"></a>
+<p class=MsoNormalCxSpLast style='margin-left:.5in;mso-add-space:auto;
+text-indent:-.25in;line-height:142%;mso-list:l11 level1 lfo9'><![if !supportLists]><span
+style='mso-list:Ignore'>&#9679;<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span><![endif]><span dir=LTR></span><a
+href="https://cloudifysource.atlassian.net/browse/CFY-5698"><span
+style='color:#1155CC'>CFY-5698</span></a> - The issue in which a management
+worker sporadically doesn't restart after reboot has been addressed.</p>
+
+<h1 style='margin-top:14.0pt;mso-pagination:widow-orphan'><a
+name="_s16jzw8oel55"></a><a name="_m0ifjg9o75ts"></a>Known Issues</h1>
+
+<p class=MsoNormal style='page-break-after:avoid'>The following issues are
+known to exist in this release:</p>
+
+<h2><a name="_bfcshd8kny6d"></a>Cloudify Manager</h2>
+
+<h3><a name="_6g28m5fbmmk7"></a>Multi-Tenancy</h3>
+
+<h4><a name="_3ys3x4plgjkz"></a>Limitations</h4>
+
+<p class=MsoNormalCxSpFirst style='margin-left:.5in;mso-add-space:auto;
+text-indent:-.25in;page-break-after:avoid;mso-list:l12 level1 lfo20'><![if !supportLists]><span
+style='mso-list:Ignore'>&#9679;<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span><![endif]><span dir=LTR></span>Roles can only be assigned to
+individual users, not user groups.</p>
+
+<p class=MsoNormalCxSpMiddle style='margin-left:.5in;mso-add-space:auto;
+text-indent:-.25in;mso-list:l12 level1 lfo20'><![if !supportLists]><span
+style='mso-list:Ignore'>&#9679;<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span><![endif]><span dir=LTR></span>Resource sharing between tenants
+is not available.</p>
+
+<p class=MsoNormalCxSpMiddle style='margin-left:.5in;mso-add-space:auto;
+text-indent:-.25in;mso-list:l12 level1 lfo20'><![if !supportLists]><span
+style='mso-list:Ignore'>&#9679;<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span><![endif]><span dir=LTR></span>You can only delete tenants or
+user groups if they are empty, and users if they are unassigned.</p>
+
+<p class=MsoNormalCxSpMiddle style='margin-left:.5in;mso-add-space:auto;
+text-indent:-.25in;mso-list:l12 level1 lfo20'><![if !supportLists]><span
+style='mso-list:Ignore'>&#9679;<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span><![endif]><span dir=LTR></span>LDAP is not supported for nested
+groups.</p>
+
+<p class=MsoNormalCxSpLast style='margin-left:.5in;mso-add-space:auto;
+text-indent:-.25in;mso-list:l12 level1 lfo20'><![if !supportLists]><span
+style='mso-list:Ignore'>&#9679;<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span><![endif]><span dir=LTR></span>You cannot customize password
+strength rules.</p>
+
+<h4><a name="_jqxysmitjn81"></a>Issues</h4>
+
+<p class=MsoNormal style='margin-left:.5in;mso-add-space:auto;text-indent:-.25in;
+mso-list:l15 level1 lfo10'><![if !supportLists]>&#9679;<span
+style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span></span><![endif]><span
+dir=LTR></span><a href="https://cloudifysource.atlassian.net/browse/CFY-6660"><span
+style='color:#1155CC'>CFY-6660</span></a><span
+style=''> - </span>REST calls do not support <span
+style='font-family:"Courier New";mso-fareast-font-family:"Courier New"'>private
+resource</span> and <span style='font-family:"Courier New";mso-fareast-font-family:
+"Courier New"'>resource creator</span> fields. </p>
+
+<h2><a name="_r4huszn5w372"></a>Web User Interface</h2>
+
+<h4><a name="_xzyuz3q4khis"></a>Limitations</h4>
+
+<p class=MsoNormalCxSpFirst style='margin-left:.5in;mso-add-space:auto;
+text-indent:-.25in;page-break-after:avoid;mso-list:l4 level1 lfo5'><![if !supportLists]><span
+style='mso-list:Ignore'>&#9679;<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span><![endif]><span dir=LTR></span>The interface only supports
+uploads of public resources.</p>
+
+<p class=MsoNormalCxSpMiddle style='margin-left:.5in;mso-add-space:auto;
+text-indent:-.25in;mso-list:l4 level1 lfo5'><![if !supportLists]><span
+style='mso-list:Ignore'>&#9679;<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span><![endif]><span dir=LTR></span>The <span style='font-family:"Courier New";
+mso-fareast-font-family:"Courier New"'>created-by</span> field is not
+displayed.</p>
+
+<p class=MsoNormalCxSpMiddle style='margin-left:.5in;mso-add-space:auto;
+text-indent:-.25in;mso-list:l4 level1 lfo5'><![if !supportLists]><span
+style='mso-list:Ignore'>&#9679;<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span><![endif]><span dir=LTR></span>High availability is not supported
+in the user interface.</p>
+
+<p class=MsoNormalCxSpLast style='margin-left:.5in;mso-add-space:auto;
+text-indent:-.25in;mso-list:l4 level1 lfo5'><![if !supportLists]><span
+style='mso-list:Ignore'>&#9679;<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span><![endif]><span dir=LTR></span>Multiple Cloudify Managers are not
+supported in the user interface.</p>
+
+<h4><a name="_3z227y9p0oea"></a>Issues</h4>
+
+<p class=MsoNormal style='margin-left:.5in;mso-add-space:auto;text-indent:-.25in;
+mso-list:l15 level1 lfo10'><![if !supportLists]>&#9679;<span
+style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span></span><![endif]><span
+dir=LTR></span><a href="https://cloudifysource.atlassian.net/browse/CFY-6673"><span
+style='color:#1155CC'>CFY-6673</span></a> - Deletion of plugins is implemented
+using the <span style='font-family:"Courier New";mso-fareast-font-family:"Courier New"'>--force</span>
+flag. A plugin will be deleted even if it is in use.</p>
+
+<h2><a name="_vrhmcibqt162"></a>CLI</h2>
+
+<p class=MsoNormalCxSpFirst style='margin-left:.5in;mso-add-space:auto;
+text-indent:-.25in;mso-list:l12 level1 lfo20'><![if !supportLists]><span
+style='mso-list:Ignore'>&#9679;<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span><![endif]><span dir=LTR></span><a
+href="https://cloudifysource.atlassian.net/browse/CFY-6616"><span
+style='color:#1155CC'>CFY-6616</span></a> - If you delete a Cloudify Manager
+and you are using the CLI as a client, you must delete the CLI profile of the
+manager.</p>
+
+<p class=MsoNormalCxSpLast style='margin-left:.5in;mso-add-space:auto;
+text-indent:-.25in;mso-list:l12 level1 lfo20'><![if !supportLists]><span
+style='mso-list:Ignore'>&#9679;<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span><![endif]><span dir=LTR></span><a
+href="https://cloudifysource.atlassian.net/browse/CFY-6646"><span
+style='color:#1155CC'>CFY-6646 </span></a>- In the event that the private key
+used for installing and uninstalling an agent is passed in a blueprint as a
+file path on Cloudify Manager, it is not replicated in a cluster. Therefore,
+using that key to install from one Cloudify Manager and uninstall from another
+(after failover) will fail.<br>
+<b style='mso-bidi-font-weight:normal'>Workaround:</b><br>
+<span style='line-height:115%;color:#333333'>Copy the private
+key to the Cloudify Manager that is becoming activate.</span></p>
+
+<h2><a name="_mvsr9ft3iuny"></a>REST API</h2>
+
+<p class=MsoNormal style='margin-left:.5in;mso-add-space:auto;text-indent:-.25in;
+line-height:137%;mso-list:l2 level1 lfo15'><![if !supportLists]><span
+style='mso-list:Ignore'>&#9679;<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span><![endif]><span dir=LTR></span><a
+href="https://cloudifysource.atlassian.net/browse/CFY-6660"><span
+style='color:#1155CC'>CFY-6660</span></a> - If you make a REST API call using
+the<span style='mso-spacerun:yes'>  </span><span style='font-family:"Courier New";
+mso-fareast-font-family:"Courier New"'>_include=<span class=SpellE>created_by</span></span>
+argument, you will receive a corrupted response.</p>
 
 </div>
 </div>
