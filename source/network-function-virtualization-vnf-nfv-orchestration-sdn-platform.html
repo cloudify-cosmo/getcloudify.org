@@ -62,10 +62,10 @@ category: NFV
 					Telcos and enterprises alike have been undergoing a transformation in the network, moving from physical appliances - firewalls, load balancers, routers, etc - to virtual network functions (VNF), which are essentially software versions of the same appliance running on generic, off-the-shelf hardware. While this move does make the network more dynamic and performance optimized, the next stage in this evolution is even more significant.</p>
 					<p>Cloud native VNFs are a much more disruptive revolution to this industry in both the architecture, to accommodate hyper-scale and multi-tenancy, as well as the business model, which needs to be more consumption based, rather than fixed.</p>
 
-					<p><strong>Requirements for Cloud Native VNFs</strong></p>
+					<h3><strong>Requirements for Cloud Native VNFs</strong></h3>
 					<p>The main requirements that differentiate a cloud native network function from the traditional network function are self-management, multi-tenancy, and scale. As we move to a cloud native virtual network function, the management piece, which formerly with a traditional network function was just an enabler that provided web-based configuration and control over the network function for the most part, has now become a central piece in the architecture that handles not just the configuration but the deployment, scaling, upgrades, and essentially the entire service’s lifecycle.</p>
 					
-					<p><strong>Cloudify & ARIA Cloud Native Support for Existing and New VNFs</strong></p>
+					<h3><strong>Cloudify & ARIA Cloud Native Support for Existing and New VNFs</strong></h3>
 					<p><a href="http://ariatosca.org" target="_blank">ARIA</a> is an open source, open governance lightweight TOSCA orchestration engine under the Apache Software Foundation. VNF providers should consider ARIA to gain TOSCA support, automation of deployment and configuration across multiple clouds such as OpenStack, VMware, or any other cloud, as well as portability between different container-based architectures such as Docker Swarm or Kubernetes.</p>
 					<p>Cloudify includes ARIA as its core orchestration engine, so by definition, it inherits all of ARIA’s capabilities in addition to the capabilities that are provided by Cloudify Manager. VNF providers should consider Cloudify in cases where they would want to gain more advanced management, ongoing automation and security such as:</p>
 					<ul>
@@ -87,11 +87,11 @@ category: NFV
 					<p><img src="img/blog/cloudify-open-source-vcpe.png" style="float: right; display: inline; margin-right:20px;"></p>
 
 					<p>vCPE and SD-WAN are arguably the top priority for CSPs and Telcos right now as they look to significantly lower costs associated with virtualization and automation of their networks. However, there are two areas that are holding them back from reaping the benefits of pure, open source network automation: vendor lock-in and business model.</p>
-					<p><strong>Vendor Lock-In</strong></p>
+					<h3><strong>Vendor Lock-In</strong></h3>
 					<p>Most CSPs are looking for a turnkey solution that will take care of their network and automation, but when they get to orchestration, they generally settle with whatever orchestrator their <a href="{{ site.baseurl }}/2016/04/26/where-att-leads-cisco-cannot-follow-openstack-summit-cloud-nfv-orchestration.html" target="_blank">proprietary hardware vendor</a> gives them because it's free. And now, the Telco is stuck with that vendor - because it was easier.</p>
-					<p><strong>vCPE Business Model</strong></p>
+					<h3><strong>vCPE Business Model</strong></h3>
 					<p>The vCPE business model was supposed to make a monumental shift when it was introduced, by lowering costs at all areas of the network and shifting only some of that cost to the Telco cloud side with software-based Virtual Network Functions. However, this didn't quite work for various reasons, including vendor lock-in.</p>
-					<p><strong>Open Source, Future Proof vCPE with Cloudify</strong></p>
+					<h3><strong>Open Source, Future Proof vCPE with Cloudify</strong></h3>
 					<p>Open source orchestration from Cloudify enables Telcos and CSPs to break free from lock-in with a model-driven service design that delivers those same turnkey capabilities, and allows switching between network functions - physical and virtual, open and proprietary - in real-time, all while ensuring Day 0 to Day 2 operations are completed from a single blueprint.</p>
 					<p>It's time for Telcos take back their networks.</p>
 					<hr>
