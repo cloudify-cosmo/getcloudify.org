@@ -1,0 +1,97 @@
+---
+layout: blogpost
+title: The New Cloudify UI - Features and Tutorial
+description: Tali explains all the new features and capabilities of Cloudify UI and runs through a brief tutorial of the basic functionality.
+image: tali.jpg
+author: Tali Sela
+tags: 
+ - Cloud Orchestration
+ - Cloud Management
+ - Cloud Automation
+ - Cloudify
+ - High Availability
+---
+
+<notextile>
+
+<div class="aligncenter"><img src="/img/blog/dashboard-ui.png" alt="Cloudify UI dashboard" width="870"></div>
+<br/>
+<br/>
+
+<h2>Introduction</h2>
+<p>We recently wrote about our most innovative release yet, <a href="http://cloudify.co/2017/04/27/cloudify-4-landed-next-gen-orchestration-first-cmp.html">Cloudify 4.0</a>. Part of this grand release was the shiny new user interface. With this post, I want to highlight most of the components of the UI, and hopefully give you all a good idea of the work that went into building this as well as the power of this dashboard tool.</p>
+<p>The main concept behind the Cloudify UI framework is to supply a catalog of different components, each showing a specific scope of data, allow users to build their own personalized dashboards by combining the components that are most relevant to their deployments, and control them from a single pane of glass. We call these components &ldquo;widgets&rdquo;.</p>
+
+
+<hr>
+
+<span class="pullquote-left">
+  <font style="font-weight: bold" size="5" face="Baskerville Old Face"><em>Watch our Cloudify 4.0 webinar on-demand today!</em></font>&nbsp; <a class="btn btn-medium btn-theme btn-rounded" id="downloadBtnInner" href="/webinars/the-new-cloudify-4.html?utm_campaign=Webinars&utm_source=website_cta&utm_medium=jh" target="_blank"><i class="icon-plus"></i> Go </a></span>
+  
+  <hr>
+
+<h2>Cloudify UI Framework - Overview and Concepts</h2>
+<h3>UI Structure: Templates and Pages</h3>
+<p>Cloudify&rsquo;s UI framework is built from templates. A template is a pre-defined set of pages, where each page offers a view of specific aspects of the system. The pages, and the way they are organized, optimize the presentation of the relevant data for the current user. We provide two out-of-the-box templates &ndash; one for <a href="/">Cloudify</a> users who might want to run services from a catalog and manage them, and one for sysadmins who orchestrate the environment and manage Cloudify&rsquo;s settings. </p>
+<h3>Widgets</h3>
+<p>The building blocks of the UI framework are the widgets (on the left sidebar). Cloudify&rsquo;s UI comes with a catalog of out-of-the-box widgets which are designed to present different types of data in a variety of forms. We provide a blueprints + deployments + executions view, plugins and snapshots lists, monitoring graphs, and data regarding the users, groups, and tenants in the system, and more. The catalog also contains graphs, action buttons, topology and source views, and even widgets that retrieve data from external applications like Github.</p>
+<h3>Edit Mode</h3>
+<p>Edit Mode allows the users to add more pages and customize them with new widgets from the catalog. This option is always available for admins, and can be made available to users if enabled by an admin in the configuration settings.</p>
+<h3>Custom Widgets</h3>
+<p>As part of Cloudify&rsquo;s &ldquo;open architecture&rdquo; concept, the UI framework allows users to write their own widgets and publish them in the catalog. Users can write widgets that present Cloudify&rsquo;s data, and even combine widgets that share an external system&rsquo;s information which you would like to present as part of a unified dashboard.</p>
+<p>Users can also define a different configuration for each widget they create regarding its behavior, presentation, or access control. For example, you might want to limit the access of some of your widgets so that only admins are able to add them to their pages. </p>
+<h3>Customizable Design</h3>
+<p>The colors, logos, and appearance of the screens can be edited to fit your company&rsquo;s needs as well. This is Cloudify&rsquo;s way of ensuring your dashboards are customized to your needs and preferences, and truly represents what you would like to see in your applications management portal.</p>
+<h2>Performing Actions in Cloudify UI</h2>
+<p>This section of the blog post will cover user and admin-only actions from the point of view of someone inside the UI. We will be uploading a video soon to show these steps in a visual manner.</p>
+<h2>Admin and User Actions</h2>
+<h3>Login and Logout</h3>
+<p>Cloudify 4.0 supports user management, and you must therefore login to the manager with a user - either one that is defined in Cloudify itself, or via an LDAP system that Cloudify is set to work with. You can see the logged-in user in the top right corner of the screen, and perform action from the user drop-down menu.</p><br>
+<p class="aligncenter"><img src="/img/blog/dropdown-ui.png"></p>
+<h3>Tenants Management</h3>
+<p>Cloudify 4.0 supports resources separation between different tenants on the same manager. </p>
+<p>Upon login into the manager, each user will have a list of the tenants available for him, and switching between them is done simply by choosing the desired tenant from the list.</p>
+<p>Each action regarding a Cloudify resource - blueprint, deployment, execution, plugin - is made in the context of the current tenant. That means a blueprint uploaded to a specific tenant will only be available to users who are permitted to access this tenant. If you can&rsquo;t see a resource you created, make sure you are in the right tenant.</p><br>
+<p class="aligncenter"><img src="/img/blog/tenants-ui.png"></p>
+<p>The default tenant is the tenant automatically created upon the Manager&rsquo;s creation. No users or resources are automatically assigned to it, or to any other tenant. </p>
+<h3>Dashboard </h3>
+<p>The first page in the template is an overview dashboard presenting the status of the system. Admins will see how many deployments, plugins and nodes are running, and also a list of the systems&rsquo; logs and events. User&rsquo;s template dashboard will show statuses of deployments and executions. </p>
+<h3>Blueprints Catalog</h3>
+<p>The blueprints catalog contains a widget showing the <a href="http://cloudify.co/examples/home.html">Cloudify Examples</a> Github repository. You can set the widget to show the content of different repositories. If the repository contains a PNG file named &ldquo;blueprint.png&rdquo;, that image will be presented as the icon in the catalog. To upload an application blueprint from the repository, just choose &ldquo;upload&rdquo;.</p><br>
+<p class="aligncenter"><img src="/img/blog/blueprint-catalog-ui.png"></p>
+<h3>Local Blueprints</h3>
+<p>On this screen you can see the blueprints that have been uploaded to the current tenant and choose to deploy them. The widget can be configured to show the blueprints in either a catalog or table view.</p>
+<p>When clicking on a specific blueprint you get to the blueprint&rsquo;s drill-down page where you can see its topology, the deployments instances from this blueprint, inputs, outputs, and the blueprint&rsquo;s source code. You can also upload new blueprints from this page, by choosing the &ldquo;upload&rdquo; option. </p><br>
+<p class="aligncenter"><img src="/img/blog/local-blueprints-ui.png"></p>
+<h3>Deployments </h3>
+<p>The deployments page presents the active deployments in the current tenant and the statuses of their nodes. From this page you can perform actions on deployments, such as executing a workflow, and drill-down into a specific deployment to see it&rsquo;s executions, topology, inputs and outputs, and source code. You can also execute workflows from the inner page of the deployment.</p><br>
+<p class="aligncenter"><img src="/img/blog/deployments-ui.png"></p>
+<h2>Admin-Specific actions</h2>
+<h3>Managing tenants, groups and users</h3>
+<p>Tenants, user-groups, and users management can be done from the tenant-management page, which is available in the admin template out-of-the-box.</p><br>
+<p class="aligncenter"><img src="/img/blog/tenant-management-ui.png"></p>
+<h3>Connecting to LDAP</h3>
+<p>To work with users managed in an external, LDAP-based user management system, you will first need to make sure our Cloudify server is configured for that option. This is done either while bootstrapping Cloudify Manager or by setting that option when the Manager is still clean, meaning no actions were performed on it yet.</p>
+<p>You will then need to create Cloudify user-groups which are connected to the appropriate LDAP groups. Once you assign those groups to Cloudify tenants, you create the connection between LDAP groups and users, and Cloudify resources.</p>
+<p>Now you can log in with an LDAP user that is a member of the chosen group. Cloudify will address the LDAP system for authentication, and will then allow the users to login to any tenant their group has access to. Once the user has logged into Cloudify, he will appear in the users list, but no actions on it will be available from Cloudify, to prevent creating gaps between the two systems.</p>
+<h3>Creating and restoring snapshots</h3>
+<p>Snapshots creation and restore is done from the snapshots widget. Upon migrating from an older, tenant-less version to Cloudify 4.0, you might want to restore a Manager&rsquo;s snapshot to a specific tenant (by doing so you can restore snapshots from different managers to one manager with full separation). When you are performing this restore make sure to specify a new, non-existing tenant to restore to. </p><br>
+<p class="aligncenter"><img src="/img/blog/snapshot-restore-ui.png" width="600px"></p>
+<h3>Uploading plugins</h3>
+<p>Plugins are uploaded to the manager as <a href="http://docs.getcloudify.org/4.0.0/plugins/packaging-your-plugin/">wagons</a>. Like all other resources, plugins are uploaded to the manager in the context of the current tenant, so you might need to upload a plugin to more than one tenant if you want to use it with blueprints from different tenants.</p>
+<p>You can find the OOTB cloudify plugins at <a href="http://getcloudify.org/downloads/plugin-packages.html">http://getcloudify.org/downloads/plugin-packages.html</a>.</p>
+<p>For more information about plugins, please refer to the <a href="http://docs.getcloudify.org/4.0.0/plugins/overview/">plugin documentation</a>.</p>
+<h3>Creating Secrets </h3>
+<p>Secrets storage is implemented inside the Cloudify database in order to provide a variable store for data that you do not want to expose in plain text in Cloudify blueprints. For example, you might not want to expose login credentials for a platform to all blueprint users. You can therefore add those secrets and their keys here in the Secret Store page.</p>
+<p>For more information on using secrets via the CLI, refer to the <a href="http://docs.getcloudify.org/4.0.0/cli/secrets/">CLI documentation</a>.</p><br>
+<p class="aligncenter"><img src="/img/blog/secret-store-ui.png"></p>
+<h3>Defining HA</h3>
+<p>In Cloudify Premium, an admin user can create a cluster of Cloudify Managers to provide high availability of Cloudify Managers. To do that, we create a cluster containing one Cloudify Manager that is designated the active Cloudify Manager, and others which are designated hot standbys. The standbys concurrently mirror the data of the active Manager. In the event that the master Cloudify Manager fails, an automatic failover switch activates one of the hot standbys as the master.</p>
+<p>You can define and manage the cluster from the HA page. For more information regarding Cloudify&rsquo;s HA solution, please refer to the <a href="http://docs.getcloudify.org/4.0.0/manager/high-availability-clusters/">high availability documentation</a>.</p>
+<br>
+<p class="aligncenter"><img src="/img/blog/high-availability-cluster-ui.png"></p>
+<br>
+<p>In this post, we looked at what Cloudify&rsquo;s new and improved UI offers users interested in having a single pane of glass to handle their cloud deployments. As with Cloudify itself, our UI is designed to be tool agnostic, and users can plug in any external system with an API.</p>
+<p>We are always improving the UI, so come back soon for more Cloudify UI goodness!</p>
+
+</notextile>
