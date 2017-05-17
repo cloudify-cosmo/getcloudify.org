@@ -4,21 +4,8 @@ title: Cloudify Roadmap - Features & Bug Fixes
 category: Roadmap
 ---
 
-<section id="inner-headline">
-	<div class="container">
-		<div class="row">
-			<div class="span12">
-				<ul class="breadcrumb">
-					<li><a href="/"><i class="icon-home"></i></a><i class="icon-angle-right"></i></li>
-					<li class="active">Roadmap</li>
-				</ul>
-				<br/>
-			</div>
-		</div>
-	</div>
-</section>
 
-h1. *Cloudify Roadmap*
+<h1>Cloudify Roadmap</h1>
 
 <p>Below you will find our roadmap for new features and improvements to Cloudify, including notes on those currently being worked on.</p>
 
@@ -26,60 +13,111 @@ h1. *Cloudify Roadmap*
     Cloudify aims for a minor release every 4-6 months with new features, bug fixes, security enhancements, and more. A service release with bug and security fixes is also intended for delivery every 1-2 months. The next release is Cloudify 4.0, expected in March 2017. Items that are marked as <strong>In Progress - 4.0</strong> below are included in this release. 
 </div>
 
-<h2>Cloudify Manager </h2>
+<h2 dir="ltr">Core Orchestration, DSL, and App Modeling</h2>
 <ul>
-<li><strong>High Availability</strong>: HA setup will ensure the uptime of Cloudify Manager in production environments. <strong>IN-PROGRESS - 4.0</strong></li>
-<li><strong>Multi-tenancy</strong>: The ability to set tenants (user groups) with a Cloudify Manager and isolate resources among them, such that one tenant does not have visibility of, nor the ability to access, data/resources of another. <strong>IN-PROGRESS - 4.0</strong></li>
-<li><strong>Pre-bootstrap Verification</strong>: As part of the bootstrap process, Cloudify automatically verifies as many variables as possible before actually initiating the bootstrap process. Specifically &ndash; IaaS API credentials and quotas, validity of specified parameters such as image ID, etc in order to ensure successful bootstrap of Cloudify Manager. <strong>IN-PROGRESS</strong></li>
-<li><strong>Encrypted Data Store</strong>: Encrypted key/value store for storing application-sensitive data such as cloud credentials, secrets and configuration parameters, which users can then access via blueprints. <strong>IN-PROGRESS</strong></li>
-<li><strong>Manager Settings Configuration</strong>: Allows users to easily modify and apply manager configuration elements to Cloudify Manager, during runtime, via dedicated CLI commands and GUI elements. <strong>IN-PROGRESS - 4.0</strong></li>
-<li><strong>Encrypted Communication</strong>: Agents communicate with the manager via an encrypted channel (SSL). IN-PROGRESS</li>
-<li><strong>RBAC</strong>: Allow setting permissions to resources based on users roles, and by that providing a fine-grained access control. Also, with the permissions mechanism the owners of a resource will be able to give specific permissions to specific users in the tenant.) - IN-PROGRESS</li>
+<li dir="ltr">
+<p dir="ltr"><strong>OASIS TOSCA Simple Profile YAML 1.0</strong>: Introduce support for modeling applications and VNFs using standard OASIS TOSCA Simple Profile 1.0 YAML DSL. <strong>IN PROGRESS</strong></p>
+</li>
+<li dir="ltr">
+<p dir="ltr"><strong>ARIA Integration</strong>: Utilizing the <a href="http://ariatosca.org/">ARIA TOSCA</a> Orchestration Library for TOSCA Simple Profile 1.0 Support. <strong>IN-PROGRESS</strong></p>
+</li>
+<li dir="ltr">
+<p dir="ltr"><strong>Service Composition</strong>: Consume existing, running deployed services with new application blueprints for service composition and building microservices architecture.</p>
+</li>
+<li dir="ltr">
+<p dir="ltr"><strong>Application Blueprint Versioning</strong>: The ability to upload new versions of application blueprints, and apply them selectively to running deployments.</p>
+</li>
+<li dir="ltr">
+<p dir="ltr"><strong>Resuming Failed Workflows</strong>: Built-in ability for Cloudify Manager to resume from the last successful execution point. This is useful when the workflow fails due to infrastructure allocation error, quotas, etc.</p>
+</li>
+<li dir="ltr">
+<p dir="ltr"><strong>Scheduled Workflow Execution</strong>: The ability to schedule a workflow execution at a future time, such as scaling the number of web server VMs at a certain time of the day.</p>
+</li>
+<li dir="ltr">
+<p dir="ltr"><strong>Improved Multi-cloud Support</strong>: Better support for multi and hybrid cloud environments.</p>
+</li>
 </ul>
-<h2>Core Orchestration, DSL, and App Modeling</h2>
+<h2 dir="ltr">Cloudify UI Framework</h2>
 <ul>
-<li><strong>OASIS TOSCA Simple Profile YAML 1.0</strong>: Introduce support for modeling applications and VNFs using standard OASIS TOSCA Simple Profile 1.0 YAML DSL. <strong>IN PROGRESS</strong></li>
-<li><strong>ARIA Integration</strong>: Utilizing the <a href="http://ariatosca.org/">ARIA TOSCA</a> Orchestration Library for TOSCA Simple Profile 1.0 Support.<strong> IN-PROGRESS</strong></li>
-<li><strong>Service Composition</strong>: Consume existing, running deployed services with new application blueprints for service composition and building microservices architecture.</li>
-<li><strong>Application Blueprint Versioning</strong>: The ability to upload new versions of application blueprints, and apply them selectively to running deployments.</li>
-<li><strong>Resuming Failed Workflows</strong>: Built-in ability for Cloudify Manager to resume from the last successful execution point. This is useful when the workflow fails due to infrastructure allocation error, quotas, etc.</li>
-<li><strong>Scheduled Workflow Execution</strong>: The ability to schedule a workflow execution at a future time, such as scaling the number of web server VMs at a certain time of the day.</li>
-<li><strong><strong>Improved Multi-cloud Support</strong>: Better support for multi and hybrid cloud environments.</strong></li>
+<li dir="ltr">
+<p dir="ltr"><strong>Widget-based UI Framework</strong>: Frontend re-architecture with the ability to load dynamic widgets for visualization of Cloudify data and operations, and for integrating with external systems. <strong>Done</strong></p>
+</li>
+<li dir="ltr">
+<p dir="ltr"><strong>Application Service Management</strong>: <strong>Done</strong></p>
+</li>
+<li dir="ltr">
+<p dir="ltr"><strong>Custom template creation</strong>: <strong>IN-PROGRESS</strong></p>
+</li>
+<li dir="ltr">
+<p dir="ltr"><strong>Multi Managers support&nbsp;</strong></p>
+</li>
 </ul>
-<h2>Cloudify UI Framework</h2>
+<h2 dir="ltr">Cloudify Plugins and Integrations</h2>
 <ul>
-<li><strong>Widget-based UI Framework</strong>: Frontend re-architecture with the ability to load dynamic widgets for visualization of Cloudify data and operations, and for integrating with external systems. <strong>IN-PROGRESS - 4.0</strong></li>
-<li><strong>Application Service Management</strong>: <strong>IN-PROGRESS - 4.0</strong></li>
+<li dir="ltr">
+<p dir="ltr"><strong>GCP Plugin</strong>: Complete integration with GCP. <strong>DONE</strong></p>
+</li>
+<li dir="ltr">
+<p dir="ltr"><strong>OpenStack Mitaka</strong>: Add support for Mitaka release of OpenStack. <strong>DONE</strong></p>
+</li>
+<li dir="ltr">
+<p dir="ltr"><strong>OpenStack Newton</strong>: Add support for Newton release of OpenStack.</p>
+</li>
+<li dir="ltr">
+<p dir="ltr"><strong>vSphere Plugin</strong>: Complete integration with VMware vSphere. <strong>IN-PROGRESS</strong></p>
+</li>
+<li dir="ltr">
+<p dir="ltr"><strong>NSX Plugin</strong>: Complete integration with VMware NSX. <strong>IN-PROGRESS</strong></p>
+</li>
+<li dir="ltr">
+<p dir="ltr"><strong>Mesos Plugin</strong>: Support for Mesos integration for orchestrating and scheduling cluster deployments.</p>
+</li>
+<li dir="ltr">
+<p dir="ltr"><strong>Azure Plugin</strong></p>
+</li>
+<li dir="ltr">
+<p dir="ltr"><strong>General Plugin Improvements</strong>: Ability to extend and reuse plugins and workflows more easily.</p>
+</li>
 </ul>
-<h2>Cloudify Plugins and Integrations</h2>
+<h2 dir="ltr">Cloudify Composer</h2>
 <ul>
-<li><strong>GCP Plugin</strong>: Complete integration with GCP. <strong>DONE</strong></li>
-<li><strong>OpenStack Mitaka</strong>: Add support for Mitaka release of OpenStack. <strong>DONE</strong></li>
-<li><strong>OpenStack Newton</strong>: Add support for Newton release of OpenStack. </li>
-<li><strong>vSphere Plugin</strong>: Complete integration with VMware vSphere. <strong>IN-PROGRESS</strong></li>
-<li><strong>NSX Plugin</strong>: Complete integration with VMware NSX. <strong>IN-PROGRESS</strong></li>
-<li><strong>Mesos Plugin</strong>: Support for Mesos integration for orchestrating and scheduling cluster deployments.</li>
-<li><strong>Azure Plugin</strong></li>
-<li><strong>General Plugin Improvements</strong>: Ability to extend and reuse plugins and workflows more easily.</li>
+<li dir="ltr">
+<p dir="ltr"><strong>User Experience</strong>: Simplify and improve the day to day user experience of Cloudify Composer. <strong>DONE</strong></p>
+</li>
+<li dir="ltr">
+<p dir="ltr"><strong>Manager Integration</strong>: Ability to upload composed blueprints to Cloudify Manager. <strong>Done</strong></p>
+</li>
+<li dir="ltr">
+<p dir="ltr"><strong>Imports and Examples Catalog</strong>: Improved experience for importing external blueprints, plugins and stencils (node types) to the Composer: <strong>IN-PROGRESS &ndash; COMPOSER 2.4</strong></p>
+</li>
+<li dir="ltr">
+<p dir="ltr"><strong>Source Tab Editing Ability</strong>: Enables changing the generated TOSCA code and having it reflected in the topology view.</p>
+</li>
+<li dir="ltr">
+<p dir="ltr"><strong>Upload Blueprint to Github</strong>: Eases the work with Github.</p>
+</li>
+<li dir="ltr">
+<p dir="ltr"><strong>Improved Ease-of-Use</strong>: With functionalities including Undo, Node clone, Multiple selection of nodes and more.</p>
+</li>
+<li dir="ltr">
+<p dir="ltr"><strong>Integrating the Composer's installation with the Cloudify Manager's installation</strong>: <strong>IN-PROGRESS - COMPOSER 2.4</strong></p>
+</li>
 </ul>
-<h2>Cloudify Composer</h2>
+<h2 dir="ltr">Cloudify For NFV</h2>
 <ul>
-<li><strong>User Experience</strong>: Simplify and improve the day to day user experience of Cloudify Composer. <strong>DONE</strong></li>
-<li><strong>SaaS</strong>: Provide Composer-as-a-Service which will enable hosting the Composer (on premise or externally). <strong>IN-PROGRESS - COMPOSER 2.4</strong></li>
-<li><strong>Manager Integration</strong>: Ability to upload composed blueprints to Cloudify Manager. <strong>IN-PROGRESS - COMPOSER 2.4</strong></li>
-<li><strong>Imports and Examples Catalog</strong>: Improved experience for importing external blueprints, plugins and stencils (node types) to the Composer. </li>
-<li><strong>Source Tab Editing Ability</strong>: Enables changing the generated TOSCA code and having it reflected in the topology view.</li>
-<li><strong>Upload Blueprint to Github</strong>: Eases the work with Github. </li>
-<li><strong>Improved Ease-of-Use</strong>: With functionalities including Undo, Node clone, Multiple selection of nodes and more.</li>
+<li dir="ltr">
+<p dir="ltr"><strong>VMware VIM</strong>: Certification for VMWare VIM components (VMWare Integrated OpenStack, vCloud Director, vSphere, NSX). <strong>DONE</strong></p>
+</li>
+<li dir="ltr">
+<p dir="ltr"><strong>TOSCA/YANG and Netconf/YANG Plugin</strong>: The ability to support TOSCA/YANG descriptors to control Netconf/YANG devices. <strong>IN-PROGRESS</strong></p>
+</li>
+<li dir="ltr">
+<p dir="ltr"><strong>Robust IMS Reference Implementations</strong>: <strong>Clearwater IMS DONE</strong></p>
+</li>
+<li dir="ltr">
+<p dir="ltr"><strong>Intel EPA certification</strong>: <strong>IN-PROGRESS</strong></p>
+</li>
 </ul>
-<h2>Cloudify For NFV</h2>
-<ul>
-<li><strong>VMware VIM</strong>: Certification for VMWare VIM components (VMWare Integrated OpenStack, vCloud Director, vSphere, NSX). <strong>DONE</strong></li>
-<li><strong>TOSCA/YANG and Netconf/YANG Plugin</strong>: The ability to support TOSCA/YANG descriptors to control Netconf/YANG devices. <strong>IN-PROGRESS</strong></li>
-<li><strong>Robust IMS Reference Implementations</strong>: Clearwater IMS <strong>DONE</strong></li>
-<li><strong>Intel EPA certification</strong> <strong>IN-PROGRESS</strong></li>
-</ul>
-
 <br/>
 
    <hr/>
