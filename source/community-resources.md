@@ -28,6 +28,16 @@ title: Community Resources
 			<table style="width:100%;border:0px">
 				<tr>			 		
 					<td style="background-color:transparent;width:5%">
+						<h2 class="aligncenter"><i class="fa fa-map-marker fa-3x"> 
+					<td style="background-color:transparent;width:5%">
+					<td style="background-color:transparent;">
+						<h2><strong>Cloudify Roadmap</strong></h2>
+						<p>
+							Want to know what the future holds for Cloudify? Look no further than our technical <a href="/roadmap">roadmap</a>.			
+						</p>												
+					</td>
+				<tr>			 		
+					<td style="background-color:transparent;width:5%">
 						<h2><i class="icon-3x icon-github"> 
 					<td style="background-color:transparent;width:5%">
 					<td style="background-color:transparent;">
