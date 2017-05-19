@@ -35,8 +35,8 @@ cat: User Guide
 <h1><span>4.0.1 Service Pack (8-May-2017)</span></h1>
 <h3><span>Highlights</span></h3>
 <ul>
-<li><span> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span>Support has been added for the complete uninstallation of Cloudify, using the </span><span>cfy teardown</span><span> command.</span></li>
-<li><span> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span>Cloudify Manager no longer uses a </span><span>root </span><span>user for its operation.</span></li>
+<li><span> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span>Support has been added for the complete uninstallation of Cloudify, using the </span><span style="font-family: Courier New">cfy teardown</span><span> command.</span></li>
+<li><span> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span>Cloudify Manager no longer uses a </span><span style="font-family: Courier New">root </span><span>user for its operation.</span></li>
 </ul>
 <h3><span>Upgrading Cloudify Manager 4.0.0</span></h3>
 <p><span>Use the following procedure to upgrade Cloudify Manager 4.0.0 to version 4.0.1 or later, on the same VM, with the same IP address.</span></p>
@@ -47,60 +47,60 @@ cat: User Guide
 <ol>
 <li><span> &nbsp;&nbsp;&nbsp;&nbsp;</span><span>Run the following command to take a snapshot of Cloudify Manager 4.0.0 and download it.:</span></li>
 </ol>
-<p><span>cfy snapshots create my_snapshot</span></p>
-<p><span>cfy snapshots download my_snapshot -o {{ /path/to/the/snapshot/file }}</span></p>
+<p><span style="font-family: Courier New">cfy snapshots create my_snapshot</span></p>
+<p><span style="font-family: Courier New">cfy snapshots download my_snapshot -o {{ /path/to/the/snapshot/file }}</span></p>
 <ol start="2">
 <li><span> &nbsp;&nbsp;&nbsp;&nbsp;</span><span>(Optional) If you have Cloudify agents with which you want the new instance of Cloudify Manager to communicate, using SSH, on the Manager VM run the following command to save the SSL directory in another location (for example, the home directory:</span></li>
 </ol>
-<p><span>cp -r /etc/cloudify/ssl {{ your home dir, I.E: /home/centos }}</span></p>
+<p><span style="font-family: Courier New">cp -r /etc/cloudify/ssl {{ your home dir, I.E: /home/centos }}</span></p>
 <ol start="3">
 <li><span> &nbsp;&nbsp;&nbsp;&nbsp;</span><span>Tear down Cloudify Manager 4.0.0, </span><span>using the procedure described </span><span>here</span><span>.</span></li>
 <li><span> &nbsp;&nbsp;&nbsp;&nbsp;</span><a href="http://docs.getcloudify.org/4.0.0/installation/#option-2-bootstrapping-a-cloudify-manager"><span>Bootstrap</span></a><span> a new Cloudify Manager on the same VM.</span></li>
 </ol>
-<p><span>To use the agents from the previous Cloudify Manager make sure that you pass the same </span><span>rabbitmq_username</span><span> and </span><span>rabbitmq_password</span><span> as you did when bootstrapping the original Manager. If you did not pass any username or password, do not pass them during bootstrapping the new Manager, in which case the default values will be used. If you used a Cloudify Manager 4.0.0 image,- both values are </span><span>cloudify</span><span>.</span></p>
+<p><span>To use the agents from the previous Cloudify Manager make sure that you pass the same </span><span style="font-family: Courier New">rabbitmq_username</span><span> and </span><span style="font-family: Courier New">rabbitmq_password</span><span> as you did when bootstrapping the original Manager. If you did not pass any username or password, do not pass them during bootstrapping the new Manager, in which case the default values will be used. If you used a Cloudify Manager 4.0.0 image,- both values are </span><span style="font-family: Courier New">cloudify</span><span>.</span></p>
 <ol start="5">
 <li><span> &nbsp;&nbsp;&nbsp;&nbsp;</span><span>Run the following commands to restore the snapshot from the old Manager on the new Manager.</span></li>
 </ol>
-<p><span>cfy snapshots upload {{ /path/to/the/snapshot/file }} --snapshot-id my_snapshot</span></p>
-<p><span>cfy snapshots restore my_snapshot</span></p>
+<p><span style="font-family: Courier New">cfy snapshots upload {{ /path/to/the/snapshot/file }} --snapshot-id my_snapshot</span></p>
+<p><span style="font-family: Courier New">cfy snapshots restore my_snapshot</span></p>
 <p><span>After the execution is complete, you can run the following command to check it&rsquo;s status:</span></p>
-<p><span>cfy executions list --include-system-workflows</span></p>
+<p><span style="font-family: Courier New">cfy executions list --include-system-workflows</span></p>
 <ol start="6">
 <li><span> &nbsp;&nbsp;&nbsp;&nbsp;</span><span>(Optional) ) If you have Cloudify agents with which you want the new instance of Cloudify Manager to communicate, using SSH on the Manager VM run the following command to replace the new Manager&rsquo;s SSL directory with the one you copied from the previous Manager .</span></li>
 </ol>
-<p><span>sudo rm -rf /etc/cloudify/ssl</span></p>
-<p><span>sudo cp -r {{ previously saved ssl dir, I.E: /home/centos/ssl }} /etc/cloudify</span></p>
+<p><span style="font-family: Courier New">sudo rm -rf /etc/cloudify/ssl</span></p>
+<p><span style="font-family: Courier New">sudo cp -r {{ previously saved ssl dir, I.E: /home/centos/ssl }} /etc/cloudify</span></p>
 <p><span>To ensure that the directory has Read permissions, run:</span></p>
-<p><span>sudo chmod -R 644 /etc/cloudify/ssl</span></p>
+<p><span style="font-family: Courier New">sudo chmod -R 644 /etc/cloudify/ssl</span></p>
 <ol start="7">
 <li><span> &nbsp;&nbsp;&nbsp;&nbsp;</span><span>Reboot the Manager VM.</span></li>
 </ol>
-<p><span>You can verify the changes have been successfully implemented by running </span><span>cfy status</span><span>.</span></p>
+<p><span>You can verify the changes have been successfully implemented by running </span><span style="font-family: Courier New">cfy status</span><span>.</span></p>
 <h3><span>Tearing Down Cloudify 4.0.0</span></h3>
 <p><span>This procedure describes how to tear down Cloudify Manager 4.0.0 while keeping the VM alive. You must use this procedure if you want to reinstall or upgrade Cloudify Manager 4.0.0 on the same VM.</span></p>
 <h5><strong>Procedure</strong></h5>
 <ol>
 <li><span> &nbsp;&nbsp;&nbsp;&nbsp;</span><span>(Optional) To keep your existing data, take a snapshot and download it:</span></li>
 </ol>
-<p><span>cfy snapshots create my_snapshot</span></p>
-<p><span>cfy snapshots download my_snapshot -o {{ /path/to/the/snapshot/file }}</span></p>
+<p><span style="font-family: Courier New">cfy snapshots create my_snapshot</span></p>
+<p><span style="font-family: Courier New">cfy snapshots download my_snapshot -o {{ /path/to/the/snapshot/file }}</span></p>
 <ol start="2">
 <li><span> &nbsp;&nbsp;&nbsp;&nbsp;</span><span>Using SSH, on the Manager VM run the following commands to download the teardown script and run it as </span><span>sudo</span><span>.</span></li>
 </ol>
-<p><span>curl -o ~/cfy_teardown_4_0_0.sh </span><a href="https://raw.githubusercontent.com/cloudify-cosmo/cloudify-dev/master/scripts/cfy_teardown_4_0_0.sh"><span>https://raw.githubusercontent.com/cloudify-cosmo/cloudify-dev/master/scripts/cfy_teardown_4_0_0.sh</span></a></p>
-<p><span>sudo bash cfy_teardown_4_0_0.sh</span><span> &nbsp;(You must supply a </span><span>-f</span><span> flag.)</span></p>
+<p><span style="font-family: Courier New">curl -o ~/cfy_teardown_4_0_0.sh </span><a href="https://raw.githubusercontent.com/cloudify-cosmo/cloudify-dev/master/scripts/cfy_teardown_4_0_0.sh"><span>https://raw.githubusercontent.com/cloudify-cosmo/cloudify-dev/master/scripts/cfy_teardown_4_0_0.sh</span></a></p>
+<p><span style="font-family: Courier New">sudo bash cfy_teardown_4_0_0.sh</span><span> &nbsp;(You must supply a </span><span>-f</span><span> flag.)</span></p>
 <ol start="3">
-<li><span> &nbsp;&nbsp;&nbsp;&nbsp;</span><span>It is recommended that you remove the profile directory of this Manager from your local </span><span>~/.cloudify/profiles</span><span> directory:</span></li>
+<li><span> &nbsp;&nbsp;&nbsp;&nbsp;</span><span>It is recommended that you remove the profile directory of this Manager from your local </span><span style="font-family: Courier New">~/.cloudify/profiles</span><span> directory:</span></li>
 </ol>
-<p><span>rm -rf ~/.cloudify/profiles/{{ your Manager&rsquo;s ip }}</span></p>
+<p><span style="font-family: Courier New">rm -rf ~/.cloudify/profiles/{{ your Manager&rsquo;s ip }}</span></p>
 <p><span>The Manager is removed from the VM, and you can bootstrap a new Manager of version 4.0.0, or higher) on the same VM.</span></p>
 <h3><span>Fixed Issues</span></h3>
 <ul>
-<li><span> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><a href="https://cloudifysource.atlassian.net/browse/CFY-6794"><span>CFY-6794</span></a><span> - You can now use </span><span>teardown </span><span>to uninstall Cloudify.</span></li>
+<li><span> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><a href="https://cloudifysource.atlassian.net/browse/CFY-6794"><span>CFY-6794</span></a><span> - You can now use </span><span style="font-family: Courier New">teardown </span><span>to uninstall Cloudify.</span></li>
 <li><span> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><a href="https://cloudifysource.atlassian.net/browse/CFY-6740"><span>CFY-6740</span></a><span> - Ctx runtime properties now work as expected in Cloudify Manager blueprints.</span></li>
-<li><span> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><a href="https://cloudifysource.atlassian.net/browse/CFY-6718"><span>CFY-6718</span></a><span> - </span><span>restore snapshot</span><span> now works with different schemas.</span></li>
+<li><span> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><a href="https://cloudifysource.atlassian.net/browse/CFY-6718"><span>CFY-6718</span></a><span> - </span><span style="font-family: Courier New">restore snapshot</span><span> now works with different schemas.</span></li>
 <li><span> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><a href="https://cloudifysource.atlassian.net/browse/CFY-6711"><span>CFY-6711</span></a><span> - Cloudify Manager image configuration restarts the rabbitmq service after certificates creation on first boot.</span></li>
-<li><span> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><a href="https://cloudifysource.atlassian.net/browse/CFY-6663"><span>CFY-6663</span></a><span> - The issue in which a </span><span>user</span><span> saw an incorrect number of &nbsp;node-instances in the Cloudify Web interface has been addressed.</span></li>
+<li><span> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><a href="https://cloudifysource.atlassian.net/browse/CFY-6663"><span>CFY-6663</span></a><span> - The issue in which a </span><span style="font-family: Courier New">user</span><span> saw an incorrect number of &nbsp;node-instances in the Cloudify Web interface has been addressed.</span></li>
 <li><span> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><a href="https://cloudifysource.atlassian.net/browse/CFY-6660"><span>CFY-6660</span></a><span> - The issue in which the `_include=created_by` property in the REST API did not work, has been addressed.</span></li>
 <li><span> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><a href="https://cloudifysource.atlassian.net/browse/CFY-6709"><span>CFY-6709</span></a><span> - The issue in which the Events API did not filter responses has been addressed.</span></li>
 <li><span> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><a href="https://cloudifysource.atlassian.net/browse/STAGE-308"><span>STAGE-308</span></a><span> - The issue in which the Cloudify Web interface failed to scale a simple &ldquo;hello world&rdquo; blueprint has been addressed.</span></li>
@@ -117,16 +117,14 @@ cat: User Guide
 <li><span> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><a href="https://cloudifysource.atlassian.net/browse/STAGE-267"><span>STAGE-267</span></a><span> - In the Cloudify Web interface Deployments page, node statuses that have no nodes (number is 0) are gray.</span></li>
 <li><span> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><a href="https://cloudifysource.atlassian.net/browse/STAGE-258"><span>STAGE-258</span></a><span> - Only blueprint samples are displayed in the Blueprint Catalog repository.</span></li>
 <li><span> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><a href="https://cloudifysource.atlassian.net/browse/STAGE-225"><span>STAGE-225</span></a><span> - You can use</span><span> ""</span><span> as an empty string for input values.</span></li>
-<li><span> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><a href="https://cloudifysource.atlassian.net/browse/STAGE-190"><span>STAGE-190</span></a><span> - A </span><span>creator </span><span>field has been added to </span><span>blueprints</span><span>, </span><span>deployments</span><span>, </span><span>snapshots</span><span>, </span><span>plugins </span><span>and </span><span>executions </span><span>resources.</span></li>
+<li><span> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><a href="https://cloudifysource.atlassian.net/browse/STAGE-190"><span>STAGE-190</span></a><span> - A </span><span style="font-family: Courier New">creator </span><span>field has been added to </span><span style="font-family: Courier New">blueprints</span><span>, </span><span style="font-family: Courier New">deployments</span><span>, </span><span style="font-family: Courier New">snapshots</span><span>, </span><span style="font-family: Courier New">plugins </span><span>and </span><span style="font-family: Courier New">executions </span><span>resources.</span></li>
 </ul>
 <h3><span>Known Issues</span></h3>
 <ul>
-<li><span> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><a href="https://cloudifysource.atlassian.net/browse/STAGE-312"><span>STAGE-312</span></a><span> - In the Cloudify Web interfaces, if you view &nbsp;a workflows that requires inputs in the </span><span>Execute workflow</span><span>, and you do not refresh the page, when you attempt to run the </span><span>install </span><span>workflow, the execution fails.</span></li>
-<li><span> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><a href="https://cloudifysource.atlassian.net/browse/CFY-6726"><span>CFY-6726</span></a><span> - You should use </span><span>--allow-custom-parameters</span><span> to </span><span>uninstall blueprints that import </span><span>types.yaml</span><span> earlier than version 4.0.</span></li>
+<li><span> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><a href="https://cloudifysource.atlassian.net/browse/STAGE-312"><span>STAGE-312</span></a><span> - In the Cloudify Web interfaces, if you view &nbsp;a workflows that requires inputs in the </span><span style="font-family: Courier New">Execute workflow</span><span>, and you do not refresh the page, when you attempt to run the </span><span style="font-family: Courier New">install </span><span>workflow, the execution fails.</span></li>
+<li><span> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><a href="https://cloudifysource.atlassian.net/browse/CFY-6726"><span>CFY-6726</span></a><span> - You should use </span><span style="font-family: Courier New">--allow-custom-parameters</span><span> to </span><span>uninstall blueprints that import </span><span>types.yaml</span><span> earlier than version 4.0.</span></li>
 <li><span> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><a href="https://cloudifysource.atlassian.net/browse/CFY-6907"><span>CFY-6907</span></a><span> - The </span><span>teardown script</span><span> is not supported for version 4.0.x clusters.</span></li>
 </ul>
-<p>&nbsp;</p>
-<p>Browse Ruwix, the portal dedicated to <a href="https://ruwix.com/" target="_blank">online puzzle programs</a> and tutorials.</p>
 <br>
 <hr>
 								<!-- <div class="collapse" id="collapsible"> -->
