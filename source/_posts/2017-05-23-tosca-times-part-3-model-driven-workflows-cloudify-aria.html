@@ -1,0 +1,81 @@
+---
+layout: blogpost
+title: The TOSCA Times Pt 3 - Model-Driven Workflows with TOSCA, Cloudify, and ARIA
+description: In this third installment of The TOSCA Times, Michael details how Cloudify and ARIA take the model-driven approach and how TOSCA then adopted declarative, model-driven workflows.
+image: brenner.jpg
+author: Michael Brenner
+tags: 
+ - NFV
+ - TOSCA
+ - Cloud Automation
+ - Cloudify
+ - ARIA
+---
+
+<notextile>
+
+<img src="/img/blog/tosca-timeline-header.png" width="870" alt="TOSCA timeline">
+<br/>
+<br/>
+<br/>
+<p style="font-size: 20px"><strong><em>Before reading this post, it is recommended that you first read the previous post on "TOSCA vs Similar DSLs" <a href="http://cloudify.co/2017/05/03/tosca-times-part-2-handling-workflows-tosca-similar-dsl.html">here</a>.</em></strong></p>
+
+<h2><strong>Cloudify and ARIA Circle Back to TOSCA</strong></h2>
+<p>Cloudify&rsquo;s DSL is a good example of the trend towards declarative model-driven architecture. It started by following&nbsp;the initial TOSCA_XML philosophy, but avoided the &ldquo;baggage&rdquo; (XML, BPMN/BPML/BPEL), and has early on (ahead of the emergence of TOSCA_YAML_V1.0) embraced the use of YAML and a declarative, model-oriented workflow approach. With the inclusion of ARIA in 2017 it will come full circle and be fully compliant to TOSCA_YAML_V1.0 and future versions approved by OASIS. Until the maturation of TOSCA_YAML, ARIA will support both the latest approved TOSCA_YAML (now V1.0) and Cloudify DSL, allowing service providers to choose to use the one that satisfies their requirements better.</p>
+<p>In Cloudify&rsquo;s DSL, workflows take the model-driven approach, and are effectively automation process algorithms. They describe the flow of the automation by determining which tasks will be executed and when. A task may be an operation (implemented by a plugin), but it may also be other actions, including arbitrary code. Workflows are written in Python, using dedicated APIs and framework.</p>
+
+  <hr>
+
+<span class="pullquote-left">
+  <font style="font-weight: bold" size="5" face="Baskerville Old Face"><em>Meet us at NFV World Congress in San Jose &nbsp;</em></font>  <a class="btn btn-medium btn-theme btn-rounded" id="downloadBtnInner" href="/participate.htm?utm_campaign=meeting_website&utm_source=website_blogs_jh" target="_blank"><i class="icon-plus"></i> Go </a></span>
+  
+<hr>
+
+<p>Workflows are deployment specific. Every deployment has its own set of workflows (declared in the blueprint &ndash; the equivalent of a TOSCA service template), and executions of a workflow are in the context of that deployment. Workflows can have parameters which are declared in the blueprint, and each parameter can be declared as either mandatory or optional with a default value.</p>
+<p>Cloudify comes with a number of built-in workflows - currently these are the workflows for application&nbsp;install&nbsp;and&nbsp;uninstall, as well as a generic workflows for executing operations called&nbsp;execute_operation. It also supports the writing of custom workflows, and includes built-in workflows, the latter being declared and mapped in the blueprint in <em>types.yaml</em>, which is usually imported either directly or indirectly via other imports.</p>
+<script src="https://gist.github.com/yeshess/ec7b73af4c5c895f3f0a4c4bc448a81a.js"></script>
+<p>Built-in workflows are not special in any way - they use the same API and framework as any custom workflow is able to use, and one may replace them with different workflows with the same names.</p>
+<p>Controlling workflows (i.e. executing, cancelling, etc.) is done via REST calls to the management server. In this guide, the examples will be shown using Cloudify CLI commands which in turn call the above REST API calls.</p>
+<h2><strong>TOSCA Moves to YAML and Declarative, Model-Oriented Workflows</strong></h2>
+<p>I don&rsquo;t know this for a fact, but I would like to think that the work done in the industry (e.g. Cloudify DSL) defining TOSCA-like DSLs that leverage YAML and declarative, model-oriented workflows both inspired and challenged the OASIS TOSCA principals to re-focus their efforts.</p>
+<p>As a result, TOSCA_YAML_V1.0 was approved towards the end of 2016. It moved away from XML and the use of BPMN/BPML/BPEL. Here is how that specification summarizes itself:</p>
+<p><em>&ldquo;</em><em>The TOSCA language introduces a YAML grammar for describing service templates by means of Topology Templates and towards enablement of interaction with a TOSCA instance model perhaps by external APIs or plans. The primary currently is on design time aspects, i.e. the description of services to ensure their exchange between Cloud providers, TOSCA Orchestrators and tooling.&rdquo;</em></p>
+<p>This version of the specification has completely removed the TOSCA_XML &ldquo;plans&rdquo;, and has not included an alternative for the handling of workflows (perhaps deliberately for its initial version).</p>
+<p>However, perhaps an inadvertent leftover reminds us of the &ldquo;special service plans&rdquo;, in the definition of the Instance Model:</p>
+<p><em>&ldquo;A deployed service is a running instance of a Service Template. More precisely, the instance is derived by instantiating the Topology Template of its Service Template, most often by running a special plan defined for the Service Template, often referred to as build plan.&rdquo;</em></p>
+<p>More remarkably, however, is the overall shift towards the declarative style. While the word &ldquo;declarative&rdquo; never appeared once in the TOSCA_XML, it appears in several sections in TOSCA_YAML_V1.0, for example in the TOSCA type definition, TOSCA Networking and TOSCA Policies sections. According to the specification:</p>
+<p><em>&ldquo;The declarative approach is heavily dependent of the definition of basic types that a declarative container must understand. The definition of these types must be very clear such that the operational semantics can be precisely followed by a declarative container to achieve the effects intended by the modeler of a topology in an interoperable manner.&rdquo;</em></p>
+<p>Furthermore, despite the absence of support for workflows in this first version, the intent regarding how to eventually handle workflows is evident in the description of Declarative Network Configuration:</p>
+<p><em>&ldquo;TOSCA orchestrators are responsible for the provisioning of the network connectivity for declarative TOSCA Service Templates (Declarative TOSCA Service Templates don&rsquo;t contain explicit plans). This means that the TOSCA orchestrator must be able to infer a suitable logical connectivity model from the Service Template and then decide how to provision the logical connectivity, referred to as &ldquo;fulfillment&rdquo;, on the available underlying infrastructure.&rdquo;</em></p>
+<p>Last, but not least, the TOSCA Simple Profile for NFV includes the notion of a &ldquo;node state&rdquo; (inexistent in TOSCA_XML) &ndash; another indication of the intent to move towards model-driven architecture and model-oriented workflows, away from task-oriented workflows:</p>
+<p><em>&ldquo;As components (i.e., nodes) of TOSCA applications are deployed, instantiated and orchestrated over their lifecycle using normative lifecycle operations (see section 5.7 for normative lifecycle definitions) it is important define normative values for communicating the states of these components normatively between orchestration and workflow engines and any managers of these applications&rdquo;</em>. The following node states are now recognized: initial, creating, created, configuring, configured, starting, started, stopping, deleting, error &ndash; with additional states considered for future versions of the specification.</p>
+<h2><strong>TOSCA Ready for Success With v1.1 and v1.2</strong></h2>
+<p>Overall, the TOSCA DSL captured under the TOSCA_YAML_V1.0 represents great progress, in terms of alignment with industry and development community trends. Despite that, compliance to this specification is insufficient to address automation of deployment or orchestration of cloud workloads, and until topics such as workflow handling are addressed, TOSCA-like DSLs that are more mature, albeit proprietary, provide a much needed alternative.</p>
+<p>I am looking forward to the approval of the TOSCA_YAML_V1.1 in 2017, and monitoring with interest the already on-going work on TOSCA_YAML_V1.2.</p>
+<p>The new, still-to-be-approved V1.1 defines two different kinds of workflows that can be used to deploy (instantiate and start), manage at runtime or undeploy (stop and delete) a TOSCA topology: declarative and imperative workflows. Declarative workflows are automatically generated by the TOSCA orchestrator based on the nodes, relationships, and groups defined in the topology. Imperative workflows are specified by the author of the topology and allow the specification of any use-case that has not been planned in the definition of node and relationship types or for advanced use-cases (including reuse of existing scripts and workflows).</p>
+<p>Workflows can be triggered on deployment of a topology (deploy workflow), undeployment (undeploy workflow), or during runtime, manually or automatically, based on policies defined for the topology.</p>
+<p>Declarative workflows are the result of the weaving of a topology&rsquo;s nodes, relationships, and groups workflows. The weaving process generates the workflow of every single node in the topology, inserts operations from the relationships and groups, and finally, adds ordering consideration. The weaving process will also take care of the specific lifecycle of some nodes and the TOSCA orchestrator is responsible to trigger errors or warnings in case the weaving cannot be processed, or leads to cycles, for example.</p>
+<p>When a node is abstract the orchestrator is responsible for providing a valid matching resources for the node in order to deploy the topology. The lifecycle of such nodes is the responsibility of the orchestrator and they may not answer to the normative TOSCA lifecycle. Their workflow is considered as "delegate" and acts as a black-box between the initial and started states in the install workflow and the started to deleted states in the uninstall workflow.</p>
+<p>TOSCA relationships between nodes impacts the workflow generation to enable the composition of complex topologies. For example, the <em>dependsOn</em> relationship is used to establish a dependency from one node to another. A source node that depends on a target node will be created only after the other entity has been started &ndash; as in the figure below, where one custom software component depends on another one.</p>
+<p class="aligncenter"><img src="/img/blog/depends_on_workflow.png"></p>
+<p>Imperative workflows are user defined and can define any specific constraints and ordering of activities. They are really flexible and powerful, and can be used for any complex use-case that cannot be solved with declarative workflows. However, they provide less reusability as they are defined for a specific topology rather than being dynamically generated based on the topology content.</p>
+<p>Imperative workflow grammar offers two ways to define a sequence of operations:</p>
+<ul>
+<li>Leverage the&nbsp;<em>on_success</em>&nbsp;definition to define the next steps that will be executed in parallel.</li>
+<li>Leverage a sequence of activity in a step.</li>
+</ul>
+<p>The following example defines multiple steps and the&nbsp;<em>on_success</em>&nbsp;relationship between them.</p>
+<script src="https://gist.github.com/yeshess/f58a27641a2956ba05e7df1942badfd7.js"></script>
+<p>The following schema is the visualization of the above definition in term of sequencing of the steps.</p>
+<p class="aligncenter"><img src="/img/blog/workflow_sequence.png"></p>
+<p>The step definition of a TOSCA imperative workflow allows multiple activities to be defined:</p>
+<script src="https://gist.github.com/yeshess/a1d201a193b107dffa5ddcfd2ac85563.js"></script>
+<p>The sequence shown here defines three different activities that will be performed in a sequential manner. This is just equivalent to writing multiple steps chained together by <em>on_success</em>:&nbsp;</p>
+<script src="https://gist.github.com/yeshess/af4d998245a016138ec117aba7339276.js"></script>
+<p>In both situations the resulting workflow is a sequence of activities:</p>
+<p class="aligncenter"><img src="/img/blog/workflow_activity_sequence.png"></p>
+<p>In conclusion, the turnaround in TOSCA towards the declarative, model-driven approach for workflows is a very positive move, and will help TOSCA have &ldquo;a good year in 2017&rdquo;. There is really nothing wrong with using BPMN/BPML/BPEL, where appropriate. But there is something to be said when we try to use a complex specification designed for a different set of applications, in a domain where an approach that is simple, flexible, and reusable fits better - and the word is &ldquo;overkill&rdquo;.</p>
+<p>So let&rsquo;s support the &ldquo;good year of TOSCA&rdquo; initiative by getting behind TOSCA_YAML_V1.1, and focus on the progress of the improved future versions (TOSCA_YAML_V1.2 and beyond)!</p>
+
+
+</notextile>
