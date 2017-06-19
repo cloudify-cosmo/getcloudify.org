@@ -1,0 +1,109 @@
+---
+layout: blogpost
+title: The End of Cloud Management As We Know It - Part 2
+description: In part 2 of this series, Nati Shalom explains what is needed, and what it means, to deliver a next-generation Cloud Management Platform (CMP).
+image: nati.png
+author: Nati Shalom
+tags: 
+ - Cloud Orchestration
+ - CMP
+ - Cloud Management
+ - DevOps Automation
+ - Cloud Automation
+---
+
+<notextile>
+
+<img src="/img/blog/cfy-ui-dashboard.png" alt="Cloudify 4.0 User Interface Dashboard">
+<br/>
+<br/>
+
+<h2><em>A version of this article was published in <a href="https://thenewstack.io/creating-next-generation-cloud-management-platform/" target="_blank">The New Stack</a> on June 9, 2017.</em></h2>
+
+<p>In the <a href="http://cloudify.co/2017/04/26/the-end-cloud-management-as-we-know-it.html">first part of this series</a>, we looked at the issue of <a href="http://cloudify.co/product/" target="_blank">cloud management</a> silos created by multiple cloud environments and management platforms designed to serve different needs in the software delivery process, proposing a <a href="http://cloudify.co/about" target="_blank">next-generation CMP</a> as the means to deliver a common management toolset to serve the needs of developers in the business units and central IT. </p>
+<p>In this post, we&rsquo;ll examine what is needed to deliver a next-generation CMP.</p>
+
+<hr>
+
+<span class="pullquote-left">
+  <font style="font-weight: bold" size="5" face="Baskerville Old Face"><em>Watch Cloudify 4 webinar - cloud management evolved.&nbsp;</em></font>  <a class="btn btn-medium btn-theme btn-rounded" id="downloadBtnInner" href="{{ site.baseurl }}/webinars/the-new-cloudify-4.html?utm_campaign=4.0%20Release%20Webinar&utm_source=blog_cta&utm_medium=jeremy" target="_blank"><i class="icon-plus"></i> Join Now </a></span>
+  
+  <hr>
+
+
+<h2>Creating a Next-Generation CMP</h2>
+<p>The next-generation <a href="http://cloudify.co/" target="_blank">cloud management platform</a> that we discussed in part 1 must serve both the business unit and central IT. To understand what that means specifically we need to map the needs of each one of them.</p>
+<h2>Mapping the Business Unit and IT Needs</h2>
+<p>First, it&rsquo;s useful to map business unit needs into two distinct user profiles. The first is the <strong>end-user </strong>that wants a simple click through experience to get the needed service without worrying about how to manage it. The <strong>power-user</strong>, by contrast, is the application owner and is responsible for ensuring the performance and configuration of the application. This power-user needs greater control of the infrastructure.</p>
+<p>The Central IT (<strong>operations</strong>) is essentially the cloud service provider in the organization, responsible for managing the common environment and ensuring that the business unit can operate and deliver its applications. It is also responsible for providing a common set of services that are not tied to a specific application such as database services, analytics services, automation and monitoring. Operations is also responsible for addressing cross cutting concerns such as security, regulation and cost.</p>
+
+<div class="aligncenter"><img src="/img/blog/personas.png"></div>
+
+<p><em>&mdash;Three personas in enterprise IT&mdash;</em></p>
+<h2>Key tenets of a next-generation CMP</h2>
+<p>Mapping the business unit and centralized IT needs allows us to identify the key tenets that the next-generation CMP need to support:</p>
+<ul>
+<li><strong>Empower the business unit&mdash;</strong>The business unit has the responsibility not just to deliver the application but also the specification on how to run and manage it on the target environment. The specification often comes in the form of a YAML template (TOSCA is good example for a standard definition of that spec) and can be considered as part of the application source code and packaging. This allows the business unit to have higher degree of flexibility in the choice of cloud, infrastructure resources and even application frameworks and thus create better collaboration and shared responsibility between the business unit and central IT. The fact that the specification on how to run and manage the application is now delivered as code allows to expand the contribution and collaboration practices that were traditionally used between the development teams also as a means to manage collaboration with central IT operations.</li>
+<li><strong>Cloud Native&mdash;</strong><a href="http://cloudify.co/from-virtual-appliance-to-cloud-native-vnf-whitepaper" target="_blank">Cloud native</a> applications are built as a set of <a href="http://cloudify.co/webinars/monolith-to-microservices-webinar.html" target="_blank">microservices</a> and not as a monolithic application. This requires that each application service would be able to have a means to discover and interact with services in a generic way and not be managed in a silo. The new CMP should have native containers support which is the common package and delivery mean for microservices.</li>
+<li><strong>Integration approach at the core</strong>&mdash;Traditional cloud management had to develop new monitoring, billing, logging systems. We now have many open source products that do a pretty good job covering a specific function of the <a href="http://cloudify.co/why/" target="_blank">application management</a> stack such as monitoring, logging, configuration management, and <a href="http://cloudify.co/container-orchestration" target="_blank">container management</a>. This shifts the management challenge from implementing each of those functions to integrating the best of breed solutions through a plug and play experience. The second challenge is how to provide a holistic experience across those best of breed management stacks through a single pane of glass as if they were part of a single platform. </li>
+<li><strong>Allow simple and fast adoption of new frameworks and applications</strong>&mdash;The new CMP must remove the complexity of managing applications through managed services, for example database as a service, reporting as a service, and application server as a service.</li>
+<li><strong>Everything self service&mdash;</strong>Common tooling must be provided through a self-service mode allowing central IT to deliver needed services quickly. </li>
+<li><strong>Application driven KPI and built-in activity monitoring&mdash;</strong>Monitoring focus should shift from infrastructure resources such as CPU and memory to application-driven monitoring and activity monitoring such as number of applications deployed, number of instances per cloud,the size of each deployment, and the state of each deployment.</li>
+<li><strong>Closed loop</strong>&mdash;Monitoring system data was traditionally targeted for central IT. In the new CMP, it should be easily accessible to the application users in the business unit through an API. This will allow application owners to handle self remediation by automation for things like failover and auto-scaling.</li>
+<li><strong>Actionable Insights&mdash;</strong>Rather than providing raw monitoring data which is rarely useful, the monitoring system of the new CMP needs to provide meaningful insights and recommendations. These can include cost-related and utilization insights and can become actionable in the case of failover, scaling, or shutting down unused resources.</li>
+<li><strong>Putting Network and application management together</strong>&mdash;Network configuration such as firewall rules, VPN connectivity, load-balancer have been absent from traditional CMPs. In a <a href="http://cloudify.co/2016/07/21/building-your-application-for-cloud-portability-new-approach-hybrid-cloud.html" target="_blank">hybrid cloud</a> environment, network management becomes key, and it needs to be tightly integrated within the next-generation CMP. Network virtualization allows more than configuration management of the network; it permits full automation of network element instantiation as part of the application life cycle. This opens the door for application-driven network management in which the network follows the application, configured and controlled not just by the network operator but by the application owner.</li>
+</ul>
+<h2>Model driven, orchestration-first approach to cloud management</h2>
+<p>The key enabler for achieving the above requirements is taking a model-driven, orchestration-first approach to cloud management rather than an infrastructure-first approach as with traditional cloud management. The orchestration-first approach drives a holistic integration of the resources that serves the application through its lifecycle. Orchestration-first focuses on automation and provides a generic model for automating application lifecycle by providing a generic framework for turning applications into self-managed services.</p>
+
+<div class="aligncenter"><img src="/img/blog/orchestration-engine.png"></div>
+
+<p><em>&mdash;Orchestration provides a generic automation engine&mdash;</em></p>
+<p>Developers can define the application description and the specific target stack including the way it should be managed through model driven templates, and the orchestrator is responsible for mapping those templates into an automated execution plan that interface with the underlying resources.</p>
+<p>Central IT, as the service provider of the shared <a href="http://cloudify.co/2016/12/01/deploying-app-aws-openstack-hybrid-cloud-orchestration-single-cloudify-tosca-blueprint.html" target="_blank">multi-cloud</a> environment, uses the orchestrator to control which resources should be exposed to application developers and how. </p>
+
+<div class="aligncenter"><img src="/img/blog/model-driven-service-orchestration.png"></div>
+
+<p><em>&mdash;Model-Driven Orchestration provides an interface between the business unit and central IT.&mdash;</em></p>
+<h2>Serving the business unit and Central IT</h2>
+<p>Now that we&rsquo;ve identified the key tenets behind of the next-generation CMP and the central role of the orchestrator in that environment, let&rsquo;s see how those tenants map into specific features and how each of those features addresses the needs personas in the business unit and central IT.</p>
+<h3>Application Developer</h3>
+<p>In my post <a href="https://www.infoq.com/articles/what-developers-want-from-cloud">What Developers Want From Their Technology (But Mostly Cloud)</a>, I talked about what a developer needs from a cloud system. Mostly they want to be able to select the stack and environment that they want. From there, they want to focus on application development for that environment without worrying too much about management. The following set of features is a good example of how a next-generation CMP can address this:</p>
+
+<div class="aligncenter"><img src="/img/blog/blueprint-catalog.png"></div>
+
+<ul>
+<li><strong>Catalog</strong>&mdash;Provide an easy way for developers to select and activate the target environment through self-managed services. </li>
+<li><strong>Built-in integration and support for popular cloud environments</strong>&mdash;The idea is to deliver support without exposing a &ldquo;least common denominator&rdquo;. This includes container frameworks such as Docker and Kubernetes as well as services like DBaaS.</li>
+<li><strong>Simple CLI experience</strong>&mdash;Allow developers to run applications from a local desktop environment for development and testing through a CLI.</li>
+</ul>
+<h3>Power User (a.k.a the &ldquo;DevOps guru&rdquo;)</h3>
+<p>Power-users are responsible for automating the development and deployment lifecycle. They are also responsible for ensuring that the application meets performance, security, availability and cost targets. To meet those responsibilities, the power user needs greater control of the environment and its resources. The following set of features provide a good example of how a next-generation CMP can address these needs:</p>
+
+<div class="aligncenter"><img src="/img/blog/blueprint-composer.png"></div>
+
+<ul>
+<li><strong>Model-driven blueprints&mdash;</strong>Provide the interface for automating key workflows needed to manage the application and interface with underlying resources via a blueprint that&rsquo;s often based in a YAML file. To simplify the development processes it is also common to have a &ldquo;composer&rdquo; which is basically an IDE for blueprint development.</li>
+<li><strong>Model -driven design&mdash;</strong>Provides Restful API access to the resources exposed in the CMP, starting from the infrastructure resources to the monitoring system. </li>
+<li><strong>Extension through plug-Ins&mdash;</strong>Plug-Ins provide an interface to extend the CMP to support any resources or API endpoint that needs to be part of the application life cycle.</li>
+<li><strong>CLI interface&mdash;</strong>A popular choice for integration with the build system.</li>
+</ul>
+<h3>Central IT Operations</h3>
+<p>The operation group is responsible for managing the shared infrastructure which often includes multi-cloud resources and a mix of private and public resources. It is also responsible for governance and assuring that the business unit follows standards on how to run and manage their applications. The features below should be included in a next-generation CMP to address their needs:</p>
+
+<div class="aligncenter"><img src="/img/blog/ui-dashboard.png"></div>
+
+<ul>
+<li><strong>Multi-tenant self service portal&mdash;</strong>The portal provides a central interface to control access and resource allocation.</li>
+<li><strong>Application/Service Reporting and insights&mdash;</strong>A monitoring capability to track key KPIs per application.</li>
+<li><strong>Activity monitoring&mdash;</strong>A feature to allow monitoring of activity per user per application over time.</li>
+</ul>
+<h2>Towards better collaboration</h2>
+<p>The main difference between traditional cloud management and next-generation cloud management is that the role of the business unit is vastly larger. Developers are taking an active role in application management and the choice of cloud stacks needed to serve those applications. Collaboration between the business unit and central IT must become smoother, placing greater emphasis on how central IT empowers the business unit rather than controls it.</p>
+<p>Central IT, as the service provider, can provide a common multi-cloud environment and a structured model for interacting with it. At the same time, it should embrace ideas and input from the business unit that can enable more rapid evolution of the shared environment and keep it up to date with the needs of the business units. The goal for all involved is to avoid turning the shared environment into the next IT bottleneck.</p>
+<h2>Final Notes: Developer Freedom. Your success</h2>
+<p>Enterprise technology spending in 2017 is set to rise 3%, with $3.5 trillion expected to be invested on technology, according to <a href="http://www.informationweek.com/strategic-cio/team-building-and-staffing/gartner-it-spending-will-hit-%2435-trillion-in-2017/d/d-id/1327227">Gartner Research</a>. Within this environment, operations will need to pivot from being seen as a cost center that risks being cut each year to one that helps build the business and is in step with its goals.</p>
+<p>The key is to understand that Central IT serves the business and regains its central position in the organization is by supporting and empowering developers in the business units, turning them into active partners rather than passive consumers. The next-generation CMP is a means to enable this sort of interaction by offering a common platform and a set of self-managed services give developers a life at least as easy as when they were working directly with public cloud. The next-generation CMP also supports extensibility of the system by the business units. </p>
+<p>By delivering these improvements, next-generation CMP creates a higher degree of developer freedom which is key to regaining their trust and driving success for the business.</p>
+
+</notextile>
