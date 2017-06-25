@@ -1,0 +1,55 @@
+---
+layout: blogpost
+title: Bootstrapping Cloudify 4 on OpenStack, AWS, Azure, and more - A Simple Step by Step Tutorial
+description: In this tutorial, we walk users through setting up an AWS or OpenStack environment and installing and configuring Cloudify in a simple step by step manner.
+image: jeremy.jpg
+author: Jeremy Hess
+tags:
+ - Cloud Orchestration
+ - Cloudify
+ - OpenStack Orchestration
+ - AWS
+ - Cloud Automation
+---
+
+<notextile>
+<br/>
+<br/>
+
+<h2>Introduction</h2>
+
+
+
+<p>To ask a question or report an issue, please visit the <a href="https://groups.google.com/forum/#!forum/cloudify-users" target="_blank">Cloudify users group</a>.</p>
+
+
+<h2><a href="#pre-requisites"></a>Prerequisites</h2>
+<p>There are a few things to keep in mind and prepare before getting started, so please read through this post carefully at least once and then begin.</p>
+<ul>
+<li>Python 2.7 installed on your computer.</li>
+<li><a href="https://virtualenv.pypa.io" target="_blank">Virtualenv</a> (or similar) installed on your computer. Virtualenvwrapper is a suggested addition.</li>
+</ul>
+<ul>
+<li>IaaS Cloud provider and API credentials and <strong>sufficient permissions</strong> to provision network and compute resources (a new, clean environment is always best):</li>
+<li><a href="http://docs.aws.amazon.com/general/latest/gr/aws-sec-cred-types.html" target="_blank">AWS Credentials</a> OR</li>
+<li><a href="https://docs.microsoft.com/en-us/azure/azure-resource-manager/resource-manager-api-authentication" target="_blank">Azure Credentials</a></li>
+</ul>
+
+<hr>
+
+<span class="pullquote-left">
+  
+<hr>
+
+<h2><a href="#instructions"></a>Getting Started</h2>
+<br>
+
+<br>
+
+<p>2. Download and extract <a href="https://github.com/cloudify-examples/cloudify-environment-blueprint/archive/latest.zip">this blueprint archive</a> to the directory (folder) of your choice and extract the contents, AND make sure your terminal is currently pointing to the directory to which the files were extracted.</p>
+<br>
+
+<h2>Important Notes Before Step 3</h2>
+<p>A few important notes before we continue:</p>
+<ul>
+<li>Then, go back into the terminal and enter <code>source [PATH_TO_RC_FILE]/[NAME_OF_RC_FILE]</code> in order to ensure your environment is correctly setup.</li>

@@ -22,7 +22,7 @@ tags:
 
 <p>Keep in mind that this method of installing Cloudify Manager is not necessarily ideal, but it will give you the best understanding of what is required to get your environment set up in about five minutes and should work the very first time you try it (barring unforseen circumstances based on your environment or cloud setup).</p>
 
-<p>One last note: We will be installing the Open Source <a href="http://cloudify.co/downloads/cloudify-community-edition.html" target="_blank">Community Edition</a> of Cloudify in this tutorial.</p>
+<p>One last note: We will be installing the Open Source <a href="/downloads/cloudify-community-edition.html" target="_blank">Community Edition</a> of Cloudify in this tutorial.</p>
 
 <p>To ask a question or report an issue, please visit the <a href="https://groups.google.com/forum/#!forum/cloudify-users" target="_blank">Cloudify users group</a>.</p>
 
@@ -50,7 +50,7 @@ tags:
 <br>
 <p class="aligncenter"><img src="/img/blog/newvirtenv.png" width="800" style="border:1px solid"></p>
 
-<p>1. Install <a href="http://cloudify.co/download">Cloudify CLI</a> on your computer by downloading the binary file for your operating system (Linux, Ubuntu, or Windows) and install. If you are using Mac, just run <code>pip install cloudify</code> in the terminal and it will install for you.</p>
+<p>1. Install <a href="/download">Cloudify CLI</a> on your computer by downloading the binary file for your operating system (Linux, Ubuntu, or Windows) and install. If you are using Mac, just run <code>pip install cloudify</code> in the terminal and it will install for you.</p>
 <br>
 <p class="aligncenter"><img src="/img/blog/pipinstallcloudify.png" width="800" style="border:1px solid"></p>
 
@@ -69,7 +69,7 @@ tags:
 </div>
 
 <h3><a href="#for-openstack-run"></a>For OpenStack run:</h3>
-<p><em>Before running this command, make sure you have <a href="https://docs.openstack.org/user-guide/dashboard-manage-images.html" target="_blank">uploaded</a> a Cloudify QCOW image to your OpenStack. You can find the Cloudify QCOW image toward the bottom of the page <a href="http://cloudify.co/download" target="_blank">here</a>. Once uploaded, click into the image and use the ID in the below command.</em></p>
+<p><em>Before running this command, make sure you have <a href="https://docs.openstack.org/user-guide/dashboard-manage-images.html" target="_blank">uploaded</a> a Cloudify QCOW image to your OpenStack. You can find the Cloudify QCOW image toward the bottom of the page <a href="/download" target="_blank">here</a>. Once uploaded, click into the image and use the ID in the below command. You should also be able to find an Ubuntu Trusty image for that input. Also, your "image_flavor" will be dependent on your OpenStack. Contact your IT admin if you are unsure of any of these.</em></p>
 <div>
 <pre>$ cfy install cloudify-environment-setup-latest/openstack-blueprint.yaml -i username=[INSERT_YOUR_OPENSTACK_USERNAME] -i password=[INSERT_YOUR_OPENSTACK_PASSWORD] -i tenant_name=[INSERT_YOUR_OPENSTACK_TENANT_NAME] -i auth_url=[INSERT_YOUR_OPENSTACK_V2.0AUTH_URL] -i region=[INSERT_YOUR_OPENSTACK_REGION] -i external_network_name=[INSERT_YOUR_OPENSTACK_EXTERNAL_NETWORK_NAME] -i cloudify_image_id=[INSERT_YOUR_CLOUDIFY_IMAGE_ID] -i ubuntu_trusty_id_examples=[INSERT_YOUR_OPENSTACK_UBUNTU_TRUSTY_IMAGE_ID] -i small_openstack_image_flavor=[INSERT_YOUR_OPENSTACK_SMALL_IMAGE_FLAVOR_ID] -i large_openstack_image_flavor=[INSERT_YOUR_OPENSTACK_LARGE_IMAGE_FLAVOR_ID] --task-retries=30 --task-retry-interval=5 --install-plugins</pre>
 </div>
