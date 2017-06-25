@@ -67,9 +67,11 @@ tags:
 <div>
 <pre>$ cfy install cloudify-environment-setup-latest/aws-blueprint.yaml -i aws_access_key_id=[INSERT_YOUR_AWS_ACCESS_KEY] -i aws_secret_access_key=[INSERT_YOUR_AWS_SECRET_ACCESS_KEY] --task-retries=30 --task-retry-interval=5 --install-plugins</pre>
 </div>
-<h3><a href="#for-openstack-run"></a>For Openstack run:</h3>
+
+<h3><a href="#for-openstack-run"></a>For OpenStack run:</h3>
+<p><em>Before running this command, make sure you have <a href="https://docs.openstack.org/user-guide/dashboard-manage-images.html" target="_blank">uploaded</a> a Cloudify QCOW image to your OpenStack. You can find the Cloudify QCOW image toward the bottom of the page <a href="http://cloudify.co/download" target="_blank">here</a>. Once uploaded, click into the image and use the ID in the below command.</em></p>
 <div>
-<pre>$ cfy install cloudify-environment-setup-latest/openstack-blueprint.yaml -i username=[INSERT_YOUR_OPENSTACK_USERNAME] -i password=[INSERT_YOUR_OPENSTACK_PASSWORD] -i tenant_name=[INSERT_YOUR_OPENSTACK_TENANT_NAME] -i auth_url=[INSERT_YOUR_OPENSTACK_V2.0AUTH_URL] -i region=[INSERT_YOUR_OPENSTACK_REGION] -i external_network_name=[INSERT_YOUR_OPENSTACK_EXTERNAL_NETWORK_NAME] -i cloudify_image_id=[INSERT_YOUR_OPENSTACK_CENTOS_OR_CLOUDIFY_IMAGE_ID] -i ubuntu_trusty_id_examples=[INSERT_YOUR_OPENSTACK_UBUNTU_TRUSTY_IMAGE_ID] -i small_openstack_image_flavor=[INSERT_YOUR_OPENSTACK_SMALL_IMAGE_FLAVOR_ID] -i large_openstack_image_flavor=[INSERT_YOUR_OPENSTACK_LARGE_IMAGE_FLAVOR_ID] --task-retries=30 --task-retry-interval=5 --install-plugins</pre>
+<pre>$ cfy install cloudify-environment-setup-latest/openstack-blueprint.yaml -i username=[INSERT_YOUR_OPENSTACK_USERNAME] -i password=[INSERT_YOUR_OPENSTACK_PASSWORD] -i tenant_name=[INSERT_YOUR_OPENSTACK_TENANT_NAME] -i auth_url=[INSERT_YOUR_OPENSTACK_V2.0AUTH_URL] -i region=[INSERT_YOUR_OPENSTACK_REGION] -i external_network_name=[INSERT_YOUR_OPENSTACK_EXTERNAL_NETWORK_NAME] -i cloudify_image_id=[INSERT_YOUR_CLOUDIFY_IMAGE_ID] -i ubuntu_trusty_id_examples=[INSERT_YOUR_OPENSTACK_UBUNTU_TRUSTY_IMAGE_ID] -i small_openstack_image_flavor=[INSERT_YOUR_OPENSTACK_SMALL_IMAGE_FLAVOR_ID] -i large_openstack_image_flavor=[INSERT_YOUR_OPENSTACK_LARGE_IMAGE_FLAVOR_ID] --task-retries=30 --task-retry-interval=5 --install-plugins</pre>
 </div>
 <br>
 <p class="aligncenter"><img src="/img/blog/installsuccess.png" width="800" style="border:1px solid"></p>
