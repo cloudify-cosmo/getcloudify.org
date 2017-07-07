@@ -1,0 +1,82 @@
+---
+layout: blogpost
+title: How OPNFV Functest Tests Clearwater vIMS Deployment Using Cloudify - One Year Later
+image: opnfv.jpg
+author: OPNFV Project, Community Contributed
+tags:
+ - NFV
+ - VNF Management
+ - OPNFV
+ - vIMS
+ - NFV Orchestration
+---
+
+<notextile> 
+
+<img src="/img/blog/opnfv-cloudify-functest-clearwater-vims.png" alt="OPNFV, Cloudify, and Clearwater">
+<br/>
+<br/>
+
+<p>The third <a href="http://events.linuxfoundation.org/events/opnfv-summit/program">OPNFV Summit</a> was a great success with 561 participants &ldquo;connecting the global community&rdquo; from the NFV ecosystem.</p>
+<p>Since the last OPNFV Summit in Berlin in June 2016 many rivers have been crossed: 2 new releases have been produced, 2 plugfests have been organized, new features and test suites have been created! Service providers and many vendors indicated they started using OPNFV Danube test tools provided by the community.</p>
+<p>The test case <a href="">Cloudify</a>/Clearwater has been introduced in Brahmaputra (release 2). This test case is detailed in a <a href="/2016/06/21/opnfv-functest-team-tests-clearwater-vims-deployment-using-cloudify-with-100-percent-success-nfv-orcehstration.html">previous blog post</a>.</p>
+
+<hr>
+
+<span class="pullquote-left">
+  <font style="font-weight: bold" size="5" face="Baskerville Old Face"><em>Try the on-demand NFV lab test environment today!</em></font>&nbsp; <a class="btn btn-medium btn-theme btn-rounded" id="downloadBtnInner" href="/labs?utm_campaign=labs&utm_source=website_blogpost_cta&utm_medium=jh" target="_blank"><i class="icon-plus"></i> Go </a></span>
+  
+<hr>
+
+<p>This test case is the foundation for several subjects to address various pain points as defined by the OPNFV End User Advisory Group (EUAG):</p>
+<ul>
+<li>Functest VNF refactoring (using VNF onboarding testing abstraction)</li>
+</ul>
+<ul>
+<li>Software upgrade</li>
+<li>Multisite deployment</li>
+</ul>
+<h2>Refactoring...</h2>
+<p>In OPNFV Brahmaputra release, we introduced the first complex realistic <a href="/from-vnf-to-cloud-native-vnf-whitepaper">VNF</a> test case named &ldquo;cloudify_ims&rdquo;. More than 1000 CI tests ran for this release performed on several platforms from the OPNFV Pharos federation. No major changes were done in Colorado, only some bugs were fixed. In Danube, some adaptations were made at the integration level to use the abstraction created to onboard the VNF for testing. Meanwhile the upstream community (especially the <a href="/product">Cloudify orchestrator</a> and the <a href="/2016/02/25/mwc-mobile-world-congress-cloud-nfv-orchestration-ims-vmware-vim-vnf-network-automation.html">vIMS clearwater</a> solution) is still evolving.</p>
+<p>The main improvements can be described as follows:</p>
+<ul>
+<li><a href="/2017/04/27/cloudify-4-landed-next-gen-orchestration-first-cmp.html">Cloudify 4.0</a> release integration</li>
+<li>Clearwater 122 (Ecthelion) release integration</li>
+<li>Full support of Keystone v3</li>
+<li>SNAPS integration (Testing framework developed by Cable Labs and integrated in OPNFV in Danube)</li>
+</ul>
+<p>Since release 3.4, Cloudify provides a packaged image for <a href="/openstack-orchestration">OpenStack</a>, which simplifies the orchestrator deployment in OpenStack. Moreover, the orchestrator also supports Keystone v3 API!</p>
+<p>If you have an <a href="http://docs.opnfv.org/en/latest/submodules/functest/docs/testing/user/configguide/index.html#installation-and-configuration">OPNFV platform</a>, try it! (Choose the latest version of the functest container)</p>
+<h2>Software Upgrade</h2>
+<p>Upgrading an application on <a href="/nfv">NFV</a> systems should benefit from the cloud agility and should be realized in a different way compared with a legacy PNF. The VNF software upgrade is lightly addressed by open source communities and/or NFV specifications.</p>
+<p>However, some recent activities are emerging:</p>
+<ul>
+<li>Cloudify supports the upgrade of a VNF Descriptor (blueprint) on an existing deployment</li>
+<li>Cloudify supports workflows for the upgrade of the VNF deployment</li>
+<li>ETSI/NFV is working on this topic to improve the NFV specification</li>
+<li>Heat supports HOT Template upgrade</li>
+</ul>
+<p>During the last OPNFV Summit, one presentation dealt with this topic: <em>&ldquo;</em><a href="https://www.youtube.com/watch?v=lqpw9T7Svhs"><em>Devops Approach to Upgrade VNF</em></a><em>&rdquo;</em>.</p><br>
+
+<div class="aligncenter"><img src="/img/blog/opnfv-summit-devops-vnf-upgrade-presentation.png"></div>
+
+<h2>Multisite Deployment</h2>
+<p>In the previous post, we mentioned that the need for a vIMS multisite deployment was indicated. Multisite is one of the pain points reported by OPNFV EUAG. At that time, several challenges were identified at the network level as well as the application and orchestration levels. One year later, it is now possible!</p>
+<p><a href="https://www.metaswitch.com/">MetaSwitch</a> Clearwater can now be shared between 2 sites with the OpenStack Tricircle project and Cloudify 4 automation. A demo has been set up in less than 2 months involving Huawei (OpenStack/Tricircle) and Cloudify/Clearwater (Orange). Another WebRTC application was used to demonstrate multisite capabilities.</p>
+<p>This PoC demonstrates how to automatically deploy a complex VNF on multisite infrastructure and how to manage on-site failure. The multisite vIMS PoC is based on:</p>
+<ul>
+<li>VNF: MetaSwitch Clearwater IMS - release 107</li>
+<li>Orchestrator: Cloudify Manager - release 4.0</li>
+<li>DNS: OpenStack Designate (with Bind)</li>
+<li>Test: clearwater-live-test (included in OPNFV Functest container in Brahmaputra)</li>
+<li>VIM + NFVI: 3 OpenStack Regions with Tricircle</li>
+</ul>
+<p>This PoC focuses on the VNF <a href="/2015/07/13/openstack-podcast-high-availability-open-source-orchestration-virtualization.html">high availability</a>. In <em>Region1</em>, sit all the &ldquo;management&rdquo; components such as DNS or Cloudify Manager, while other vIMS components are deployed in HA mode in both <em>Region2</em> and <em>Region3</em>.</p>
+<p>This shared VNF deployment was executed thanks to the last release of Cloudify. A specific VNF descriptor was created for the multisite deployment. All network components must be created in the &ldquo;central region&rdquo; and other components in the other regions. The <a href="https://github.com/cloudify-cosmo/cloudify-openstack-plugin">Cloudify OpenStack plugin</a> was also updated with minor adaptations to support Tricircle. For example, some code was needed for the floating ip association between the server port and the floating ip. </p>
+<p>The Cloudify plugin modularity enables the update of the OpenStack plugin to support Tricircle and the Cloudify full set of features demonstrates how Cloudify can be used to support the multi-region deployment.</p>
+<p>For general details about the demo, please watch the video <em>&ldquo;</em><a href="https://www.youtube.com/watch?v=tbcc7-eZnkY"><em>Shared Networks to Support VNF High Availability Across OpenStack Multi Region Deployment</em></a><em>.&rdquo;</em></p>
+<h2>Next Steps</h2>
+<p>The last year was really exciting. Most of the pain points can now be addressed. Software upgrade and multisite are still challenging. New OPNFV projects (Bamboo for analytics, Energy) are new challenges applicable to the Cloudify/Clearwater testcase.</p>
+<p>We may also see additional orchestrators follow this example. In Danube we saw the first Open-O/Clearwater, Openbaton/openIMS, Cloudify/vRouter test case reusing the same methodology for onboarding. Integration with <strong>ONAP</strong> will be a new challenge.</p>
+
+</notextile>
