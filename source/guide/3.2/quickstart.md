@@ -23,6 +23,9 @@ installation_general_link: installation.html
 You can take Cloudify for an instant test drive with an [online trial.](http://getcloudify.org/widget.html)
 {%endtip%}-->
 
+{%tip title=Tip%}
+This is documentation for an older version of Cloudify. Go now to the [latest docs]({{http://docs.getcloudify.org/latest/intro/what-is-cloudify/}}).
+{%endtip%}
 
 # Overview
 
