@@ -24,7 +24,7 @@ You can take Cloudify for an instant test drive with an [online trial.](http://g
 {%endtip%}-->
 
 {%tip title=Tip%}
-This is documentation for an older version of Cloudify. Go now to the [latest docs]({{http://docs.getcloudify.org/latest/intro/what-is-cloudify/}}).
+This is documentation for an older version of Cloudify. Go now to the [latest docs](http://docs.getcloudify.org/latest/intro/what-is-cloudify).
 {%endtip%}
 
 # Overview
