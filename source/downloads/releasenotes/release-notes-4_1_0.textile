@@ -173,6 +173,12 @@ cat: User Guide
 <li>An agent upgrade is not automatically performed on tenants, other than the default tenant.<br /> <strong>Workaround</strong>: To upgrade the agent on a tenant other than the default, run <br /> cfy agents install -t TENANT_NAME</li>
 <li>Before taking a snapshot of a Cloudify Manager version 4.0.x, it is important that you run the process described in the documentation including tearing down existing Manager. During the process, essential patches are applied.</li>
 </ul>
+
+<h3>Cloudify Web Interface</h3>
+<ul>
+<li><a href="https://cloudifysource.atlassian.net/browse/STAGE-397">STAGE-397</a> &ndash; A user without admin permissions cannot see a tenant&rsquo;s secrets in the user interface. To use secrets, a user without admin permissions must use the CLI.</li>
+</ul>
+
 <h3>High Availability</h3>
 <ul>
 <li><a href="https://cloudifysource.atlassian.net/browse/CFY-7039">CFY-7039</a> &ndash; If, when you start a cluster user the floating IP of a Manager(default), the required ports are not open, an error message is not displayed. It will appear that the cluster has started correctly.<br /> <strong>Workaround</strong>: After you have started a cluster, view the Nodes list and verify that the node is online and does not have a FAILED DB status.</li>
