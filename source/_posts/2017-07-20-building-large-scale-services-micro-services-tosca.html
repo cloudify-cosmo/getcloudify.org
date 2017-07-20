@@ -1,0 +1,81 @@
+---
+layout: blogpost
+title: Building Large-Scale Services with Micro-Services and TOSCA
+description: In this article, Nati Shalom details how microservices can be used in a model-driven manner, with TOSCA, to create and manage larger services at scale.
+image: nati.png
+author: Nati Shalom
+tags: 
+ - Cloud Orchestration
+ - CMP
+ - Cloud Management
+ - Microservices
+ - Containers
+---
+
+<notextile>
+
+<img src="/img/blog/cloudify-microservices-header.png" alt="Cloudify Microservices Orchestration">
+<br/>
+<br/>
+
+<p>A decade ago, large-scale services were an edge-case scenario, often designed as one-off systems. </p>
+<p>Then, in the mid 2000s, the financial services industry began using <a href="https://en.wikipedia.org/wiki/Algorithmic_trading">algorithmic trading</a> and <a href="https://en.wikipedia.org/wiki/Automated_trading_system">automated trading systems</a>, which required scalability under extreme low-latency in a stateful transactional system. It quickly became clear that the classic tier-based architecture which was popular at the time was insufficient for this use case. That led me in 2007 to write about <a href="/brochures/The%20Scalability%20Revolution%20From%20Dead%20End%20To%20Open%20Road%20(2007).pdf">one of the first alternative architecture patterns for building large-scale systems</a>, also known as <a href="https://en.wikipedia.org/wiki/Space-based_architecture">Space-Based Architecture</a> (SBA). </p>
+<p>Today, applications like social networks, networking services and IoT have made large-scale systems the norm rather than the exception. As a consequence, we need a more systematic model for designing and implementing large-scale, SBA-type systems. <strong>Microservices architecture, in conjunction with the </strong><a href="https://www.oasis-open.org/committees/tc_home.php?wg_abbrev=tosca"><strong>TOSCA</strong></a><strong> modeling language, offers an excellent solution.</strong></p>
+<p>Let&rsquo;s explore how this solution works.</p>
+
+<hr>
+
+<span class="pullquote-left">
+  <font style="font-weight: bold" size="5" face="Baskerville Old Face"><em>Watch the Cloudify 4 Webinar - Orchestration-First Cloud Management.&nbsp;</em></font>  <a class="btn btn-medium btn-theme btn-rounded" id="downloadBtnInner" href="/webinars/the-new-cloudify-4.html?utm_campaign=4.0%20Release%20Webinar&utm_source=blog_cta&utm_medium=jeremy" target="_blank"><i class="icon-plus"></i> Join Now </a></span>
+  
+  <hr>
+
+<h2>Model-driven microservices</h2>
+<p>The key concept behind a <a href="/webinars/monolith-to-microservices-webinar.html">microservices</a> architecture is to break large systems into a set of loosely coupled autonomous services. The <a href="/2017/04/18/tosca-times-landscape-2017.html">TOSCA</a> language lets us describe the domain model behind each individual service, whether it is based on containerized or non-containerized components. </p>
+<p>Model-driven design is an architectural concept in which the application or service domain model is defined first, and the rest of the interaction with the service is driven from that domain model. Take a look at this graphical illustration:</p>
+<div class="aligncenter"><img src="/img/blog/tosca-service-model.png"></div>
+<p>The building blocks provided by TOSCA to model this service include...</p>
+<p><strong>Node:</strong> Analogous to class in other object-oriented languages, a node can define specific interfaces and inherit others. TOSCA comes with a set of built-in nodes, and open source orchestration tools (i.e., <a href="">Cloudify</a> and <a href="http://ariatosca.org/">ARIA</a>) add a set of built-in node libraries that cover popular cloud resources like AWS, OpenStack, VMware, GCP and Azure.</p>
+<p><strong>Relationship:</strong> This defines the relationships among nodes.</p>
+<p><strong>Group:</strong> This feature packages nodes in &ldquo;pods&rdquo; and is used to manage the lifecycle of the group as a single unit.</p>
+<p><strong>Adding Custom Resources as Node Types:</strong> This capability adds custom nodes through imports of other libraries, as is done with similar languages.</p>
+<p><strong>Remote Execution Through Workflow:</strong> Workflow defines business logic, and TOSCA defines implicit and explicit workflows. Implicit workflows (i.e., install) execute the nodes&rsquo; lifecycle operations according to their dependencies. Explicit workflows provide a way to interact with the service nodes in an abstracted manner (i.e., upgrade).</p>
+<p><strong>Discovery Through Relationship:</strong> Relationships let one node discover other, related nodes. </p>
+<h3>Service composition pattern </h3>
+<p>So far we discussed how we can use the TOSCA language to describe the domain model of a particular microservice. Open source orchestration platforms that use TOSCA introduce a new pattern known as the service-proxy in which we can describe a service as a single node type to the other related service. The service-proxy pattern uses the service input/output as a generic way in which a service interfaces with the outside world.</p>
+<p>The example below defines a composite service comprising a set of node types with two special service-proxy node types. The service-proxy node type is responsible for representing the output properties of external services as local properties of that specific node type. It is also responsible for either discovering or launching the related services (Microservice 1 and Microservice 2): </p>
+<div class="aligncenter"><img src="/img/blog/microservices-composite-service1.png"></div>
+<p>This lets us leverage existing TOSCA features for modeling the internal components of a specific service and also the relationship with external services.</p>
+<p>Deployment-update is a feature in the open source orchestration approaches noted above that lets us update a service topology after it has been deployed. We can update existing services after deployment with new nodes, and we can change existing nodes.</p>
+<p>In the example below, we use the service-proxy pattern in conjunction with deployment-update to add a new service to an existing composite service. We use deployment-update to add a new service-proxy node and point it to the new microservice. </p>
+<div class="aligncenter"><img src="/img/blog/microservices-composite-service2.png"></div>
+<h3>Container support with cluster management options</h3>
+<p>TOSCA can be extended to support integrations with popular cluster management tools like <a href="/2016/12/06/hybrid-vnf-container-orchestration-kubernetes-docker-swarm-using-cloudify.html">Docker Swarm</a>, Docker Compose, <a href="/2017/01/25/orchestrating-kubernetes-managed-virtual-network-function-cloudify.html">Kubernetes</a> and Apache Mesos. TOSCA can manage container infrastructure and orchestrate services running on <a href="/container-orchestration">container platforms</a>. </p>
+<h2>The need for generic service orchestration</h2>
+<p>Most large-scale systems never fit into a single platform and quite often come as a set of composite services that are linked together. To automate the processes of managing and delivering those applications, we need a generic service orchestration that is not bound to any of the underlying platforms but instead can integrate with many of them in order to fulfill cross-domain automation tasks.</p>
+<p>This generic services orchestration doesn&rsquo;t have to be an alternative to the more purpose-built orchestration (a.k.a. domain orchestration). It could actually use the domain-specific orchestration as an abstraction layer that hides the complexity of managing a particular service on a given target platform. The built-in neutrality and openness of TOSCA makes it an ideal service orchestration modeling language.</p>
+<div class="aligncenter"><img src="/img/blog/cloudify-end-to-end-orchestration.png"></div>
+<p>In summary</p>
+<p>The explosive growth of IoT and distributed networks&mdash;and the degree to which they are now woven into the fabric of our lives&mdash;has created a dire need for large-scale computing systems that can scale, offer low-latency and high-availability, and are highly automated and manageable. A microservices architecture built with TOSCA is an excellent way to meet these objectives. This approach not only offers all the benefits afforded by microservices (scalability, fault isolation, flexibility, etc.) but also enables integrations with cluster management tools, container platforms and popular cloud resources like <a href="/2017/06/07/installing-cloudify-4-aws-openstack-simple-step-by-step-tutorial.html" target="_blank">AWS</a>, <a href="/2017/06/22/bootstrapping-cloudify-4-openstack-aws-azure-simple-step-by-step-tutorial.html" target="_blank">OpenStack</a>, <a href="/vmware-hybrid-cloud" target="_blank">VMware</a>, GCP and <a href="/2017/01/08/migrating-vmware-azure-challenges-tools.html" target="_blank">Azure</a>. Best of all, the capability to build large-scale systems with microservices and TOSCA is readily available through the open source orchestration tools.</p>
+
+<div class="container">
+<div class="row">
+<div class="span2"></div>
+<div class="span5">
+<h2>Read the full Microservices Whitepaper</h2>
+<p>Fill out the form below.</p>
+<!--[if lte IE 8]>
+<script charset="utf-8" type="text/javascript" src="//js.hsforms.net/forms/v2-legacy.js"></script>
+<![endif]-->
+<script charset="utf-8" type="text/javascript" src="//js.hsforms.net/forms/v2.js"></script>
+<script>
+  hbspt.forms.create({
+    portalId: '1918719',
+    formId: '292206d5-7114-4a94-b279-424e6727934e'
+  });
+</script>
+</div>
+<div class="span5"></div>
+</div>
+</div>
+</notextile>
