@@ -8,6 +8,10 @@ pageord: 100
 
 ---
 
+{%tip title=Tip%}
+This is documentation for an older version of Cloudify. Go now to the [latest docs](http://docs.getcloudify.org/latest/plugins/overview/).
+{%endtip%}
+
 # Overview
 
 While Cloudify itself provides a framework for orchestrating applications, the actual work of interacting with IaaS APIs and running scripts, Configuration Management tools, Monitoring tools and any other tools used when managing applications is done by what we call Plugins.
