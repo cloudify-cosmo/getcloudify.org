@@ -1,14 +1,14 @@
 ---
 layout: null
 ---
-<?xml version="1.0" encoding="utf-8"?>{% assign siteUrl="http://getcloudify.org" %}
+<?xml version="1.0" encoding="utf-8"?>{% assign siteUrl="http://cloudify.co" %}
 <feed xmlns="http://www.w3.org/2005/Atom"  >
 <title type="text" xml:lang="en">Cloudify Community</title>
 <link type="application/xml" href="{{siteUrl}}/feed"  rel="alternate" />
 <link type="text/html" href="{{siteUrl}}" rel="alternate" />
 <updated>{{ site.time | date_to_xmlschema }}</updated>
 <id>{{siteUrl}}/</id>
-<rights>Copyright (c) 2012 Gigaspaces</rights>
+<rights>Copyright (c) 2017 Cloudify</rights>
 {% for post in site.posts limit:30 %}<entry>
 <title>{{ post.title | escape }}</title>
 <link href="{{ siteUrl }}{{ post.url }}"/>
