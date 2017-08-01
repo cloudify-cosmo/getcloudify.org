@@ -38,13 +38,14 @@ cat: User Guide
 </div>
 <!-- &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp;-->
 <!-- IaaS Plugins-->
-<table style="width: 700px">
+<table style="width: 100%">
   <tr>
-    <td>IaaS</td>
+    <td style="width: 138px">IaaS</td>
     <td>Version</td>
     <td>TOSCA Types</td>
-    <td>Wagons</td>
-    <td>Source</td>
+    <td style="width: 208px">Wagons</td>
+    <td style="width: 99px">Source</td>
+    <td>Description</td>
     
   </tr>
 
@@ -56,7 +57,7 @@ cat: User Guide
 
   <td>{{ site.openstack_plugin_version}}</td>
 
-  <td><a href="{{ site.baseurl }}/spec/openstack-plugin/{{ site.openstack_plugin_version}}/plugin.yaml" class="download">plugin.yaml
+  <td><a href="/spec/openstack-plugin/{{ site.openstack_plugin_version}}/plugin.yaml" class="download">plugin.yaml
           </a>
     </td>
 
@@ -75,6 +76,8 @@ cat: User Guide
 
   <td><a href="https://github.com/cloudify-cosmo/cloudify-openstack-plugin/releases">Github Repo</a></td>
 
+  <td>A Cloudify Plugin that provisions resources in OpenStack</td>
+
   </tr>
 
   <tr>
@@ -85,7 +88,7 @@ cat: User Guide
 
   <td>{{ site.vsphere_plugin_version}}</td>
   
-  <td><a class="" href="{{ site.baseurl }}/spec/vsphere-plugin/{{ site.vsphere_plugin_version}}/plugin.yaml" class="download">plugin.yaml
+  <td><a class="" href="/spec/vsphere-plugin/{{ site.vsphere_plugin_version}}/plugin.yaml" class="download">plugin.yaml
           </a>
   </td>
 
@@ -105,11 +108,13 @@ cat: User Guide
   
   <td><a href="https://github.com/cloudify-cosmo/cloudify-vsphere-plugin/releases">Github Repo</a></td>
 
+  <td>A Cloudify Plugin that provisions resources in VMware vSphere</td>
+
   </tr>
   
   <tr>
 <td>
-    <img src="/img/aws.png" width="25"> AWS SDK Plugin
+    <img src="/img/aws.png" width="25"> AWS SDK
   </td>
 
   <td>{{ site.aws_sdk_plugin_version}}</td>
@@ -128,6 +133,8 @@ cat: User Guide
 
   <td><a href="https://github.com/cloudify-incubator/cloudify-awssdk-plugin/releases">Github Repo</a></td>
 
+  <td>Next generation of Cloudify AWS support</td>
+
   </tr>
 
   <tr>
@@ -137,7 +144,7 @@ cat: User Guide
 
   <td>{{ site.aws_plugin_version}}</td>
   
-  <td><a class="" href="{{ site.baseurl }}/spec/aws-plugin/{{ site.aws_plugin_version}}/plugin.yaml" class="download">plugin.yaml</a>
+  <td><a class="" href="/spec/aws-plugin/{{ site.aws_plugin_version}}/plugin.yaml" class="download">plugin.yaml</a>
   </td>
 
 <td>
@@ -157,6 +164,8 @@ cat: User Guide
 
   <td><a href="https://github.com/cloudify-cosmo/cloudify-aws-plugin/releases">Github Repo</a></td>
 
+  <td>A Cloudify Plugin that provisions resources in Amazon Web Services</td>
+
   </tr>
   <tr>
 <td>
@@ -165,7 +174,7 @@ cat: User Guide
 
   <td>{{ site.gcp_plugin_version}}</td>
   
-  <td><a class="" href="{{ site.baseurl }}/spec/gcp-plugin/{{ site.gcp_plugin_version}}/plugin.yaml" class="download">plugin.yaml
+  <td><a class="" href="/spec/gcp-plugin/{{ site.gcp_plugin_version}}/plugin.yaml" class="download">plugin.yaml
           </a>
   </td>
     <td>
@@ -177,6 +186,8 @@ cat: User Guide
     </td>
     
   <td><a href="https://github.com/cloudify-cosmo/cloudify-gcp-plugin/releases">Github Repo</a></td>
+
+  <td>A Cloudify Plugin that provisions resources in Google Cloud Platform</td>
 
   </tr>
 
@@ -204,19 +215,22 @@ cat: User Guide
     
   <td><a href="https://github.com/cloudify-incubator/cloudify-azure-plugin/releases">Github Repo</a></td>
 
+  <td>A Cloudify Plugin that provisions resources in Microsoft Azure</td>
+
   </tr>
 </table>
 
 <br>
 <!-- Other Plugins-->
-<table style="width: 700px">
+<table style="width: 100%">
     <tr>
       <!--<th>  &nbsp;&nbsp; &nbsp;&nbsp; </th>-->
-      <td>Other Plugins</td>
+      <td style="width: 138px">Other Plugins</td>
       <td>Version</td>
       <td>TOSCA Types</td>
-      <td>Wagons</td>
-      <td>Source</td>
+      <td style="width: 208px">Wagons</td>
+      <td style="width: 99px">Source</td>
+      <td>Description</td>
 
     
     <tr>
@@ -240,9 +254,34 @@ cat: User Guide
     </td>
   <td><a href="https://github.com/cloudify-incubator/cloudify-kubernetes-plugin/releases">Github Repo</a></td>
 
+  <td>Cloudify plugin for packaging Kubernetes microservices in Cloudify blueprints</td>
+
   </tr>
 
-    </tr>
+    <tr>
+    <td>
+      <img src="/img/netconf.png" width="25"> Netconf
+    </td>
+    <td>
+      {{ site.netconf_plugin_version}}
+    </td>
+      <td>
+      <a  href="https://github.com/cloudify-cosmo/cloudify-netconf-plugin/blob/master/plugin.yaml" class="download">plugin.yaml
+      </a>
+    </td>
+    <td>
+<!-- Plugin Start -->
+
+          <a href="https://github.com/cloudify-cosmo/cloudify-netconf-plugin/releases/download/{{ site.netconf_plugin_version}}/cloudify_netconf_plugin-{{ site.netconf_plugin_version}}-py27-none-linux_x86_64-centos-Core.wgn" class="download" data-btn-type="Cloudify Plugin Download" onclick="dataLayer.push({'event': 'GAEvent', 'eventCategory': 'Plugin Package Downloads','eventAction': 'Cloudify Wagon Download','eventLabel': 'CentOS Netconf Wagon {{ site.netconf_plugin_version}}'});">linux_x86_64-centos-Core</a>&nbsp;
+
+<!-- Plugin End -->
+    
+    </td>
+  <td><a href="https://github.com/cloudify-cosmo/cloudify-netconf-plugin/releases">Github Repo</a></td>
+
+  <td>Cloudify plugin for serializing TOSCA node templates to netconf configuration</td>
+
+  </tr>
 
 <tr>
     <td>
@@ -256,6 +295,7 @@ cat: User Guide
   <td><a href="https://github.com/cloudify-incubator/cloudify-utilities-plugin/releases/download/{{ site.utilities_plugin_version}}/cloudify_utilities_plugin-{{ site.utilities_plugin_version}}-py27-none-linux_x86_64-centos-Core.wgn" class="download" data-btn-type="Cloudify Plugin Download" onclick="dataLayer.push({'event': 'GAEvent', 'eventCategory': 'Plugin Package Downloads','eventAction': 'Cloudify Wagon Download','eventLabel': 'CentOS Utilities Wagon {{ site.utilities_plugin_version}}'});">linux_x86_64-centos-Core</a>
   </td>
   <td><a href="https://github.com/cloudify-incubator/cloudify-utilities-plugin/releases">Github Repo</a></td>
+  <td>Utilities for extending Cloudify features</td>
 </tr>
 
     <tr>
@@ -266,7 +306,7 @@ cat: User Guide
       {{ site.fabric_plugin_version}}
     </td>
       <td>
-      <a  href="{{ site.baseurl }}/spec/fabric-plugin/{{ site.fabric_plugin_version}}/plugin.yaml" class="download">plugin.yaml
+      <a  href="/spec/fabric-plugin/{{ site.fabric_plugin_version}}/plugin.yaml" class="download">plugin.yaml
       </a>
     </td>
     <td>
@@ -287,6 +327,8 @@ cat: User Guide
 
   <td><a href="https://github.com/cloudify-cosmo/cloudify-fabric-plugin/releases">Github Repo</a></td>  
 
+  <td>For running fabric tasks or commands from the manager</td>
+
   </tr>
   <tr>
   <td>
@@ -296,7 +338,7 @@ cat: User Guide
     {{ site.diamond_plugin_version}}
   </td>
         <td>
-          <a  href="{{ site.baseurl }}/spec/diamond-plugin/{{ site.diamond_plugin_version}}/plugin.yaml" class="download">
+          <a  href="/spec/diamond-plugin/{{ site.diamond_plugin_version}}/plugin.yaml" class="download">
             plugin.yaml
           </a>
     </td>
@@ -342,6 +384,8 @@ cat: User Guide
 
   <td><a href="https://github.com/cloudify-cosmo/cloudify-diamond-plugin/releases">Github Repo</a></td>  
 
+  <td>Cloudify diamond monitoring plugin</td>
+
   </tr>
 
   <tr>
@@ -350,7 +394,7 @@ cat: User Guide
     {{ site.docker_plugin_version}}
   </td>
       <td>
-          <a  href="{{ site.baseurl }}/spec/docker-plugin/{{ site.docker_plugin_version}}/plugin.yaml" class="download">
+          <a  href="/spec/docker-plugin/{{ site.docker_plugin_version}}/plugin.yaml" class="download">
             plugin.yaml
           </a>
     </td>
@@ -374,7 +418,37 @@ cat: User Guide
 
   <td><a href="https://github.com/cloudify-cosmo/cloudify-docker-plugin/releases">Github Repo</a></td>  
 
+  <td>A Cloudify plugin for deploying Docker containers</td>
+
   </tr>
+
+  <tr>
+  <td>
+    <img src="/img/code_icon.png" width="20"> Script Plugin
+  </td>
+  <td>
+    {{ site.script_plugin_version}}
+  </td>
+      <td>
+          <a  href="https://github.com/cloudify-cosmo/cloudify-script-plugin/blob/master/plugin.yaml" class="download">
+            plugin.yaml
+          </a>
+    </td>
+    <td>
+<!-- Plugin Start -->
+
+        <a href="http://repository.cloudifysource.org/cloudify/wagons/cloudify-script-plugin/{{ site.script_plugin_version}}/cloudify_script_plugin-{{ site.script_plugin_version}}-py27-none-linux_x86_64-centos-Core.wgn" class="download" data-btn-type="Cloudify Plugin Download" onclick="dataLayer.push({'event': 'GAEvent', 'eventCategory': 'Plugin Package Downloads','eventAction': 'Cloudify Wagon Download','eventLabel': 'Cloudify Script Wagon {{ site.script_plugin_version}}'});">linux_x86_64-centos-Core
+          </a>&nbsp;
+
+<!-- Plugin End -->
+    </td>
+
+  <td><a href="https://github.com/cloudify-cosmo/cloudify-script-plugin/releases">Github Repo</a></td>  
+
+  <td>This plugin allows mapping scripts to operations and workflows</td>
+
+  </tr>
+
   <tr>
   <td>
     <img src="/img/pluginlogo.png" width="20"> PSUTIL
@@ -383,7 +457,7 @@ cat: User Guide
     {{ site.psutil_plugin_version}}
   </td>
       <td>
-          <a  href="{{ site.baseurl }}/spec/psutil-plugin/{{ site.psutil_plugin_version}}/plugin.yaml" class="download">
+          <a  href="/spec/psutil-plugin/{{ site.psutil_plugin_version}}/plugin.yaml" class="download">
             plugin.yaml
           </a>
     </td>
@@ -398,6 +472,8 @@ cat: User Guide
 
   <td><a href="https://github.com/cloudify-cosmo/cloudify-psutil-plugin/releases">Github Repo</a></td>  
 
+  <td>A plugin for sending operating system metrics to Cloudify</td>
+
   </tr>
   <tr>
   <td>
@@ -407,7 +483,7 @@ cat: User Guide
     {{ site.hostpool_plugin_version}}
   </td>
       <td>
-          <a  href="{{ site.baseurl }}/spec/host-pool-plugin/{{ site.hostpool_plugin_version}}/plugin.yaml" class="download">
+          <a  href="/spec/host-pool-plugin/{{ site.hostpool_plugin_version}}/plugin.yaml" class="download">
             plugin.yaml
           </a>
     </td>
@@ -421,6 +497,8 @@ cat: User Guide
     </td>
 
   <td><a href="https://github.com/cloudify-cosmo/cloudify-host-pool-plugin/releases">Github Repo</a></td>  
+
+  <td>The Host Pool Service is a Python 2 RESTful web service built on <a href="http://flask-restful-cn.readthedocs.org/en/0.3.5/" target="_blank">flask-restful</a></td>
 
   </tr>
   
@@ -440,7 +518,7 @@ cat: User Guide
          <a  href="http://repository.cloudifysource.org/cloudify/wagons/tosca-vcloud-plugin/{{ site.vcloud_plugin_version}}/cloudify_vcloud_plugin-{{ site.vcloud_plugin_version}}-py27-none-linux_x86_64-centos-Core.wgn" class="download" data-btn-type="Cloudify Plugin Download" onclick="dataLayer.push({'event': 'GAEvent', 'eventCategory': 'Plugin Package Downloads','eventAction': 'Cloudify Wagon Download','eventLabel': 'CentOS vCloud Wagon 3.4'});">
             Wagon
           </a>&nbsp;
-          <a  href="{{ site.baseurl }}/spec/tosca-vcloud-plugin/{{ site.vcloud_plugin_version}}/plugin.yaml" class="download">
+          <a  href="/spec/tosca-vcloud-plugin/{{ site.vcloud_plugin_version}}/plugin.yaml" class="download">
             YAML
           </a>
 </div> -->
@@ -454,7 +532,7 @@ cat: User Guide
          <a  href="http://repository.cloudifysource.org/cloudify/wagons/tosca-vcloud-plugin/{{ site.vcloud_plugin_version}}/cloudify_vcloud_plugin-{{ site.vcloud_plugin_version}}-py27-none-linux_x86_64-redhat-Maipo.wgn" class="download" data-btn-type="Cloudify Plugin Download" onclick="dataLayer.push({'event': 'GAEvent', 'eventCategory': 'Plugin Package Downloads','eventAction': 'Cloudify Wagon Download','eventLabel': 'RHEL vCloud Wagon 3.4'});">
             Wagon
           </a>&nbsp;
-          <a  href="{{ site.baseurl }}/spec/tosca-vcloud-plugin/{{ site.vcloud_plugin_version}}/plugin.yaml" class="download">
+          <a  href="/spec/tosca-vcloud-plugin/{{ site.vcloud_plugin_version}}/plugin.yaml" class="download">
             YAML
           </a>
 </div> -->
@@ -531,7 +609,7 @@ cat: User Guide
 <img src="/img/pluginlogo.png" width="40">&nbsp;&nbsp;<a href="http://repository.cloudifysource.org/cloudify/3.3.1/sp-RELEASE/cloudify_psutil_plugin-1.0-py27-none-win32-none-none.wgn" class="download" data-btn-type="Cloudify Manager Download" onClick="javascript: _gaq.push(['_trackEvent', 'Manager Package Downloads', 'Cloudify Plugin Download', 'Windows psutil Wagon 3.4']);">Windows psutil Wagon</a><br/><br/> -->
 
 <div class="pullquote-left">
-<h3><strong>By downloading Cloudify you agree to the <a href="{{ site.baseurl }}/license.html" target="">End User License Agreement</a></strong></h3>
+<h3><strong>By downloading Cloudify you agree to the <a href="/license.html" target="">End User License Agreement</a></strong></h3>
 </div>
 
 </div>
@@ -563,7 +641,7 @@ cat: User Guide
 									<p class="name"> 
 										<i class=" icon-36 icon-download"></i>Get the GA Release
 									</p>
-									<span class="info"><a class="dwnGoBtn" href="{{ site.baseurl }}/downloads/get_cloudify.html"><strong>Download the latest stable version<br><br></strong></a></span>
+									<span class="info"><a class="dwnGoBtn" href="/downloads/get_cloudify.html"><strong>Download the latest stable version<br><br></strong></a></span>
 							</div>
 						</div>
 						</div>
@@ -573,7 +651,7 @@ cat: User Guide
 									<p class="name"> 
 										<i class=" icon-36 fa-code"></i>Latest Build
 									</p>
-									<span class="info"><a class="dwnGoBtn" href="{{ site.baseurl }}/downloads/early_access.html" ><strong>Get the Latest Milestone Build<br><br></strong></a></span>	
+									<span class="info"><a class="dwnGoBtn" href="/downloads/early_access.html" ><strong>Get the Latest Milestone Build<br><br></strong></a></span>	
 
 							</div>
 						</div>
