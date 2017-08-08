@@ -3,7 +3,7 @@ layout: blogpost
 title: Installing Cloudify 4 on AWS and OpenStack - A Simple Step by Step Tutorial
 description: In this tutorial, we walk users through setting up an AWS or OpenStack environment and installing and configuring Cloudify in a simple step by step manner.
 image: trammell.jpg
-author: Luther Trammell
+author: Trammell
 tags:
  - Cloud Orchestration
  - Cloudify
@@ -13,7 +13,7 @@ tags:
 ---
 
 <notextile>
-<img src="/img/blog/cloudify-manager-install-tutorial-header.png" style="border:1px solid" alt="Setup Cloud Environment and Install Cloudify Manager Tutorial" width="870">
+<img src="http://getcloudify.org/img/blog/cloudify-manager-install-tutorial-header.png" style="border:1px solid" alt="Setup Cloud Environment and Install Cloudify Manager Tutorial" width="870">
 <br/>
 <br/>
 
@@ -48,20 +48,20 @@ tags:
 <h2><a href="#instructions"></a>Getting Started</h2>
 <p>It is highly suggested that users run Cloudify in a virtual environment such as virtualenv. Once you have created your environment in the terminal (or command prompt or Powershell), continue with the Cloudify CLI installation.</p>
 <br>
-<p class="aligncenter"><img src="/img/blog/newvirtenv.png" width="800" style="border:1px solid"></p>
+<p style="text-align:center"><img src="http://getcloudify.org/img/blog/newvirtenv.png" width="800" style="border:1px solid"></p>
 
 <p>1. Install <a href="/download">Cloudify CLI</a> on your computer by downloading the binary file for your operating system (Linux, Ubuntu, or Windows) and install. If you are using Mac, just run <code>pip install cloudify</code> in the terminal and it will install for you.</p>
 <br>
-<p class="aligncenter"><img src="/img/blog/pipinstallcloudify.png" width="800" style="border:1px solid"></p>
+<p style="text-align:center"><img src="http://getcloudify.org/img/blog/pipinstallcloudify.png" width="800" style="border:1px solid"></p>
 
 <p><a href="#1-download-and-extract-this-blueprint-archive-link-to-your-current-working-directory"></a>2. Download and extract <a href="https://github.com/cloudify-examples/cloudify-environment-blueprint/archive/latest.zip">this blueprint archive</a> to the directory (folder) of your choice AND make sure your terminal is currently in that directory.</p>
 <br>
-<p class="aligncenter"><img src="/img/blog/cfydirectory.png" width="800" style="border:1px solid"></p>
+<p style="text-align:center"><img src="http://getcloudify.org/img/blog/cfydirectory.png" width="800" style="border:1px solid"></p>
 
 <p><a href="#2-to-install-your-environments-infrastructure-execute-one-of-the-example-commands-below-inserting-your-account-credentials-where-indicated"></a>3. Install your environment's infrastructure by executing one of the example commands below, inserting your account credentials where indicated. The simplest way to do this is to copy the text to a text editor, add the details, and the paste them into the terminal.
 <h4>NOTE: AWS users - this process will automatically be run on US-EAST-1 (N. Virginia). For slightly more advanced users who may want to use a different region, open the "aws-blueprint.yaml" file in a text editor to customize the inputs.</h4>
 <br>
-<p class="aligncenter"><img src="/img/blog/cfyinstallaws.png" width="800" style="border:1px solid"></p>
+<p style="text-align:center"><img src="http://getcloudify.org/img/blog/cfyinstallaws.png" width="800" style="border:1px solid"></p>
 
 <h3><a href="#for-aws-run"></a>For AWS run:</h3>
 <div>
@@ -74,12 +74,12 @@ tags:
 <pre>$ cfy install cloudify-environment-setup-latest/openstack-blueprint.yaml -i username=[INSERT_YOUR_OPENSTACK_USERNAME] -i password=[INSERT_YOUR_OPENSTACK_PASSWORD] -i tenant_name=[INSERT_YOUR_OPENSTACK_TENANT_NAME] -i auth_url=[INSERT_YOUR_OPENSTACK_V2.0AUTH_URL] -i region=[INSERT_YOUR_OPENSTACK_REGION] -i external_network_name=[INSERT_YOUR_OPENSTACK_EXTERNAL_NETWORK_NAME] -i cloudify_image_id=[INSERT_YOUR_CLOUDIFY_IMAGE_ID] -i ubuntu_trusty_id_examples=[INSERT_YOUR_OPENSTACK_UBUNTU_TRUSTY_IMAGE_ID] -i small_openstack_image_flavor=[INSERT_YOUR_OPENSTACK_SMALL_IMAGE_FLAVOR_ID] -i large_openstack_image_flavor=[INSERT_YOUR_OPENSTACK_LARGE_IMAGE_FLAVOR_ID] --task-retries=30 --task-retry-interval=5 --install-plugins</pre>
 </div>
 <br>
-<p class="aligncenter"><img src="/img/blog/installsuccess.png" width="800" style="border:1px solid"></p>
+<p style="text-align:center"><img src="http://getcloudify.org/img/blog/installsuccess.png" width="800" style="border:1px solid"></p>
 
 <p><a href="#3-gather-the-information-you-need-to-configure-your-manager-or-bootstrap-and-then-configure-you-can-get-that-information-from-the-cfy-deployments-outputs-cli-command"></a>4. Get info to configure Cloudify Manager by running 'cfy deployments outputs' in your terminal.</p>
 <p><em>The output should look like this:</em></p>
 <br>
-<p class="aligncenter"><img src="/img/blog/cfydepout.png" width="800" style="border:1px solid"></p>
+<p style="text-align:center"><img src="http://getcloudify.org/img/blog/cfydepout.png" width="800" style="border:1px solid"></p>
 
 <p><strong>For the purpose of this tutorial, you will only need to follow the "Configuration" steps. Ignore the "Bootstrap" and "Demo" sections. This will ready our environment to run the webapp we will deploy in a future post.</strong></p>
 <p><a href="#5-configure-your-manager"></a>5. Configure your manager:</p>
@@ -90,13 +90,13 @@ tags:
 <pre>$ cfy profiles use -s cfyuser -k <span>~</span>/.ssh/cfy-manager-key -u admin -p admin -t default_tenant <span>**</span>.<span>**</span>.<span>***</span>.<span>***</span></pre>
 </div>
 <br>
-<p class="aligncenter"><img src="/img/blog/cfyprofilesuse.png" width="800" style="border:1px solid"></p>
+<p style="text-align:center"><img src="http://getcloudify.org/img/blog/cfyprofilesuse.png" width="800" style="border:1px solid"></p>
 
 <h4><a href="#upload-the-plugins-for-your-manager"></a>Upload the plugins for your manager:</h4>
 <p><strong>Note: the exact plugins you need to upload will vary. For this example, you will be shown the plugins to upload in your outputs.</strong></p>
 
 <br>
-<p class="aligncenter"><img src="/img/blog/cfyplugins.png" width="800" style="border:1px solid"></p>
+<p style="text-align:center"><img src="http://getcloudify.org/img/blog/cfyplugins.png" width="800" style="border:1px solid"></p>
 
 <h4><a href="#create-your-secrets"></a>Create your secrets:</h4>
 <p>Adding secrets to your manager make your deployments more secure. The exact secrets you add also vary by clouds. Again, copy and paste from your previous step outputs and paste into your terminal.</p>
@@ -111,7 +111,7 @@ tags:
 <pre>$ cfy secrets create agent_key_private -s <span><span>"</span><span><span>$(</span><span>&lt;</span>~/.ssh/cfy-agent-key<span>)</span></span><span>"</span></span></pre>
 </div>
 <br>
-<p class="aligncenter"><img src="/img/blog/cfysecrets.png" width="800" style="border:1px solid"></p>
+<p style="text-align:center"><img src="http://getcloudify.org/img/blog/cfysecrets.png" width="800" style="border:1px solid"></p>
 
 <h2><a href="#your-manager-is-now-ready-proceed-to-the-example-blueprints"></a>Your manager is now installed and configured!</h2>
 <p><a href="#6-when-you-are-ready-to-uninstall-your-environment-run"></a>6. When you are ready to uninstall your environment, run:</p>
@@ -126,7 +126,7 @@ $ cfy uninstall --allow-custom-parameters -p ignore_failure=true --task-retries=
 		      <li style="display: list-item;">
 		        <a class="hover-wrap fancybox fancybox.iframe" data-fancybox-group="gallery" title="Using Cloudify to Setup your Cloud Environment and Installing and Configuring Cloudify Manager" href="https://www.youtube.com/embed/RURGw4tJVPQ?enablejsapi=1&amp;wmode=opaque">
 		        <br>
-		        <img src="/img/cfy4installvid.png" alt="Using Cloudify to Setup your Cloud Environment and Installing and Configuring Cloudify Manager" width="600"></a>
+		        <img src="http://getcloudify.org/img/cfy4installvid.png" alt="Using Cloudify to Setup your Cloud Environment and Installing and Configuring Cloudify Manager" width="600"></a>
 		      </li>
 		    </ul>
 		  </div>

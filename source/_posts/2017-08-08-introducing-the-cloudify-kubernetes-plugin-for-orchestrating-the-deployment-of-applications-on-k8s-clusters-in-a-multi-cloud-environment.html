@@ -1,0 +1,69 @@
+---
+layout: blogpost
+title: Introducing the Cloudify Kubernetes Plugin for Orchestrating the Deployment of Applications on K8s Clusters in a Multi-Cloud Environment
+description: Learn about how the new Kubernetes plugin is used for hybrid cloud orchestration of Kubernetes and deploys applications onto the clusters.
+image: trammell.jpg
+author: Trammell
+tags:
+ - Cloud Orchestration
+ - Kubernetes
+ - Containers
+ - Microservices
+ - Hybrid Cloud
+---
+
+<notextile>
+<img src="/img/blog/cloudify-kubernetes-plugin-header.png" alt="Setup Cloud Environment and Install Cloudify Manager Tutorial" width="870">
+<br/>
+<br/>
+
+<p><a href="https://kubernetes.io/" target="_blank">Kubernetes</a> has already become a household name in the <a href="/2017/01/25/orchestrating-kubernetes-managed-virtual-network-function-cloudify.html" target="_blank">container management</a> space since it dropped in 2014. When it comes to orchestration, most <a href="/2017/07/10/devops-concerto-paris-alien4cloud-cloudify.html" target="_blank">DevOps</a> people come back to us with &ldquo;Why orchestrate Kubernetes - it&rsquo;s already an orchestrator of containers?&rdquo;</p>
+
+<p>The answer is simple - diverse workloads!</p>
+
+<p>Yes, you want containers, but you also need infrastructure, configuration management, continuous integration, etc. Cloudify enables generic modeling of your whole stack regardless of the IaaS, CM, or any other tool.</p>
+
+<p><a href="/2016/11/09/kubernetes-cluster-orchestration-management-as-a-service-aws-with-cloudify-mist.html" target="_blank">Kubernetes</a> is amazing at its job - container scheduling, management, and orchestration of containers. However, it was built to run on a per-cloud basis, so it is going to be incredibly difficult and time consuming, if even possible, to get two clusters - one on AWS and the other on OpenStack, let's say - to talk with each other, scale together, etc. Cloudify brings a higher level of orchestration - it understands the whole ecosystem of clouds, cloud management tools, and the total DevOps stack, including your applications. If you're running apps on multiple clouds with different tools, you need a global orchestrator to ensure your container orchestration tasks are working simultaneously between cloud environments. </p>
+
+<hr>
+
+<span style="border-left: 5px solid #000069;">
+  <font style="font-weight: bold; font-size:26px; font-family: podkova"><em> Learn More About Microservices Orchestration</em></font>&nbsp; <a class="btn btn-medium btn-theme btn-rounded" id="downloadBtnInner" href="/whitepaper/microservices-orchestration-large-scale-services/?utm_campaign=whitepapers&utm_source=website_blogpost_cta&utm_medium=jh" target="_blank"><i class="icon-plus"></i> Go </a></span>
+  
+<hr>
+
+<h2>The Plugin</h2>
+
+<p>Currently, the <a href="/plugins" target="_blank">Kubernetes plugin</a> - version 1.2 - currently supports the following:</p>
+
+<ul>
+<li>Lifecycle support for pods and services.</li>
+<li>Get master configuration from runtime properties</li>
+<li>Add ReplicaSet support</li>
+<li>Add PersistentVolume and StorageClass support</li>
+<li>Support Google Authentication for GKE</li>
+<li>Delete Replica Sets by name</li>
+<li>Deployment resource support</li>
+<li>Replication Controller support</li>
+<li>File resource definition support </li>
+</ul>
+
+<h2>Basic Plugin Use Cases</h2>
+
+<p>A prerequisite for using the plugin is to have a Cloudify Manager and Kubernetes cluster running. If you don't already have these, see the <a href="https://github.com/cloudify-examples/cloudify-environment-setup" target="_blank">environment setup example</a> and <a href="https://github.com/cloudify-examples/simple-kubernetes-blueprint" target="_blank">Kubernetes cluster example</a>.</p>
+
+<p>The main use cases for this plugin are:</p>
+
+<ol>
+<li> Add new nodes to a cluster</li>
+<li> Orchestrate <a href="/2016/12/01/deploying-app-aws-openstack-hybrid-cloud-orchestration-single-cloudify-tosca-blueprint.html" target="_blank">hybrid cloud</a> scenarios with regular services and <a href="/2017/07/20/building-large-scale-services-micro-services-tosca.html" target="_blank">microservices</a> in a single deployment (blueprint)</li> 
+<li> Associating pods with particular nodes in your cluster</li> 
+</ol>
+
+<h2>Future Integrations</h2>
+<ul>
+<li>Add support for Heapster</li>
+<li>Add Helm support</li>
+<li>Becoming a Kubernetes Cloud Provider</li>
+</ul>
+</notextile>

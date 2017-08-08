@@ -2,7 +2,7 @@
 layout: blogpost
 title: Deployment and Orchestration of a Kubernetes Cluster With Auto-Scaling and Auto-Healing in a Hybrid Environment Using Cloudify
 image: trammell.jpg
-author: Luther Trammell
+author: Trammell
 tags:
  - Cloud Orchestration
  - Hybrid Cloud
@@ -12,7 +12,7 @@ tags:
 ---
 
 <notextile>
-<img src="/img/blog/kuborchestration.png" alt="OpenStack | Cloud Orchestration | Kubernetes | Kubernetes Cluster | Hybrid Cloud | Cloud Automation | Container Management">
+<img src="http://getcloudify.org/img/blog/kuborchestration.png" alt="OpenStack | Cloud Orchestration | Kubernetes | Kubernetes Cluster | Hybrid Cloud | Cloud Automation | Container Management" width="100%">
 <br/>
 <br/>
 
@@ -34,8 +34,8 @@ tags:
 <p>Cloudify is good at what it does because it makes integrating various systems easy. We want Kubernetes to manage containers, and Cloudify to tie it in with other environments, including non-virtualized, stateful services or legacy apps; in other words, what we call a hybrid stack.
 
 <br>
-<div class="aligncenter"><h3>See the Kubernetes cluster deployment and orchestration video</h3></div>
-  <div class="aligncenter"><a class="hover-wrap fancybox fancybox.iframe" data-fancybox-group="gallery" title="Orchestrating a Kubernetes cluster deployment, including auto-heal and auto-scale on OpenStack with Cloudify" href="https://www.youtube.com/embed/0Vvlp0mDg7Y?enablejsapi=1&amp;wmode=opaque"><img src="/img/kub-ui_play.png" style="display: inline; margin-right:10px;" width="640px"></a></div>
+<div style="text-align: center;"><h3>See the Kubernetes cluster deployment and orchestration video</h3></div>
+  <div style="text-align: center;"><a class="hover-wrap fancybox fancybox.iframe" data-fancybox-group="gallery" title="Orchestrating a Kubernetes cluster deployment, including auto-heal and auto-scale on OpenStack with Cloudify" href="https://www.youtube.com/embed/0Vvlp0mDg7Y?enablejsapi=1&amp;wmode=opaque"><img src="http://getcloudify.org/img/kub-ui_play.png" style="display: inline; margin-right:10px;" width="640px"></a></div>
 <br>
 
 <p>The best place I thought to start was to have Cloudify manage the underlying infrastructure. I recently adapted the <a href="https://github.com/cloudify-examples/cloudify-kubernetes-plugin" target="_blank">Cloudify Kubernetes Plugin</a> to fit what I’ve described; a <a href="https://github.com/cloudify-examples/kubernetes-cluster-blueprint" target="_blank">Kubernetes Cluster</a> running in an environment managed by Cloudify. It is a Cloudify Blueprint that defines the following processes:</p>
@@ -52,13 +52,13 @@ tags:
 <p>Example auto-scaling code:</p>
 
 <br>
-<div class="aligncenter"><img src="/img/blog/kubscale.png"></div>
+<div style="text-align: center;"><img src="http://getcloudify.org/img/blog/kubscale.png"></div>
 <br>
 
 <p>Example auto-healing code:</p>
 
 <br>
-<div class="aligncenter"><img src="/img/blog/kubheal.png"></div>
+<div style="text-align: center;"><img src="http://getcloudify.org/img/blog/kubheal.png"></div>
 <br>
 
 <p>This is a starting point for my ideal hybrid cloud orchestration model - multiple orchestration technologies working side by side, across multiple environments. Each orchestrator is focused on what it does best.</p>

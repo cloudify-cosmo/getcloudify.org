@@ -2,7 +2,7 @@
 layout: blogpost
 title: Deploying Your App Onto AWS and OpenStack With Hybrid Cloud Orchestration Using a Single Cloudify TOSCA Blueprint
 image: trammell.jpg
-author: Luther Trammell
+author: Trammell
 tags:
  - Cloud Orchestration
  - Hybrid Cloud
@@ -12,7 +12,7 @@ tags:
 ---
 
 <notextile>
-<img src="/img/blog/aws_openstack_hybrid_cloud.jpg" alt="OpenStack | Cloud Orchestration | Kubernetes | Kubernetes Cluster | Hybrid Cloud | Cloud Automation | Container Management" width="870">
+<img src="http://getcloudify.org/img/blog/aws_openstack_hybrid_cloud.jpg" alt="OpenStack | Cloud Orchestration | Kubernetes | Kubernetes Cluster | Hybrid Cloud | Cloud Automation | Container Management" width="870">
 <br/>
 <br/>
 
@@ -37,7 +37,7 @@ tags:
 
 <p>To simplify these demos, I stick to a hybrid cloud scenario of two environments - one <a href="{{ site.baseurl }}/2016/10/31/azure-versus-aws-for-enterprise.html">AWS</a>, and one <a href="{{ site.baseurl }}/2014/07/10/what-is-openstack-tutorial.html">Openstack</a> - connected via an IPsec tunnel. (I am working <a href="{{ site.baseurl }}/2016/11/22/step-by-step-guide-deploying-docker-swarm-with-azure-container-service.html">Azure</a> and <a href="{{ site.baseurl }}/2016/11/15/closed-loop-monitoring-alerting-healing-cloudify-vmware-vrealize-operations-integration.html">vSphere</a> as well.) The AWS formulation looks something like this:</p>
 
-<div class="aligncenter"><img src="/img/blog/awsvpc.png" width="600"><br><span style="font-size: 9px">Source: <a href="http://docs.aws.amazon.com/AmazonVPC/latest/UserGuide/VPC_VPN.html">http://docs.aws.amazon.com/AmazonVPC/latest/UserGuide/VPC_VPN.html</a><span></div>
+<div style="text-align: center;"><img src="http://getcloudify.org/img/blog/awsvpc.png" width="600"><br><span style="font-size: 9px">Source: <a href="http://docs.aws.amazon.com/AmazonVPC/latest/UserGuide/VPC_VPN.html">http://docs.aws.amazon.com/AmazonVPC/latest/UserGuide/VPC_VPN.html</a><span></div>
 
 <p>Cloudify handles the full deployment and configuration of the VPC. It also handles the creation of the AWS VPC Connection feature and the IPsec tunnel. Both are quite simple in a Cloudify blueprint:</p>
 
