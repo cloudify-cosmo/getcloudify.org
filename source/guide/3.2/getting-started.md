@@ -13,9 +13,9 @@ workflows_link: workflows-built-in.html
 
 {%summary%}{{page.abstract}}{%endsummary%}
 
-<!--{%tip title=Try Instantly%}
-You can take Cloudify for an instant test drive with an [online trial](http://getcloudify.org/widget.html).
-{%endtip%}-->
+{%tip title=Tip%}
+This is documentation for an older version of Cloudify. Go now to the [latest docs](https://docs.cloudify.co/latest/intro/evaluating-cloudify/).
+{%endtip%}
 
 
 # Before You Begin
