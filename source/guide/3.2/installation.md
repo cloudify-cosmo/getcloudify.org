@@ -9,6 +9,8 @@ pageord: 300
 ---
 {%summary%}{{page.abstract}}{%endsummary%}
 
+{%tip title=Tip%}
+This is documentation for an older version of Cloudify. Go now to the [latest docs](https://docs.cloudify.co/latest/installation/prerequisites/).
 
 {%note title=Known Issue (!)%}
 If you have already installed a previous version of the CLI,
