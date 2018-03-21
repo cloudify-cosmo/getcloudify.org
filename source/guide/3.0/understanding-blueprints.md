@@ -7,6 +7,9 @@ abstract: Explains how Cloudify Blueprints are composed, theor parts and their s
 pageord: 300
 --- 
 
+{%tip title=Tip%}
+This is documentation for an older version of Cloudify. Go now to the [latest docs](https://docs.cloudify.co/latest/blueprints/overview/).
+
 # Overview
 Cloudify `Blueprints` are cloud application orchestration plans. The main part of the plan is written in a declarative YAML DSL (Domain Specific Language). Cloudify DSL is following the concepts of [OASIS TOSCA](http://www.oasis-open.org/committees/tc_home.php?wg_abbrev=tosca) (Topology and Orchestration Standard for Cloud Application)
 
