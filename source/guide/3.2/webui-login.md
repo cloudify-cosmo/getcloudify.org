@@ -10,6 +10,9 @@ pageord: 90
 
 {%summary%}{{page.abstract}}{%endsummary%}
 
+{%tip title=Tip%}
+This is documentation for an older version of Cloudify. Go now to the [latest docs](https://docs.cloudify.co/4.2.0/manager_webui/overview/).
+
 # Overview
 It is possible to bootstrap the manager with security configuration or without it.
 
