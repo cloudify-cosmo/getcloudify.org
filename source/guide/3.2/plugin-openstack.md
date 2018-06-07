@@ -588,7 +588,7 @@ Some relationships take effect in non-relationship operations, e.g. a subnet whi
 
 **Mapped Operations:**
 
-  * `cloudify.interfaces.relationship_lifecycle.unlink`: detaches the volume from the server.
+  * `cloudify.interfaces.relationship_lifecycle.unlink`: detaches the server from the port.
     * **Inputs:**
       * `openstack_config` see the [Openstack Configuration](#openstack-configuration).
 
@@ -1134,6 +1134,45 @@ Node by node explanation:
   * It is set with a relationship to the `my_keypair` node, which will make the server use the it as a public key for authentication, and also use this public key to encrypt its password before posting it to the Openstack metadata service.
   * The worker-installer interface operations are given values for the user and password for the `cloudify_agent` input - the password uses the [get_attribute](dsl-spec-intrinsic-functions.html#getattribute) feature to retrieve the decrypted password from the Server's runtime properties (Note that in this example, only the `install` operation was given with this input, but all of the worker installer operations as well as the plugin installer operations should be given with it).
   * We define custom userdata which configures WinRM and installs Python on the machine (Windows Server 2012 in this example) once it's up. This is required for the Cloudify agent to be installed on the machine.
+{% endgcloak %}
+
+
+## Example V
+
+This example shows how to pass scheduler hints to Nova, in order to achieve affinity or anti-affinity effect.
+
+{% togglecloak id=5 %}
+Example V
+{% endtogglecloak %}
+
+{% gcloak 5 %}
+At this stage, the OpenStack plugin does not provide the functionality of managing server groups
+(creation, deletion) through blueprints. Therefore, it is assumed that a server group has already been created
+by other means, for example:
+
+{% highlight bash %}
+nova server-group-create --policy anti-affinity my-anti-affinity-group
+{% endhighlight %}
+
+Given that, you can define a node template as follows (this example receives the server group's name from an
+input):
+
+{% highlight yaml %}
+inputs:
+  server_group:
+    type: string
+
+node_templates:
+  my_server:
+    type: cloudify.openstack.nodes.Server
+    interfaces:
+      cloudify.interfaces.lifecycle:
+        create:
+          inputs:
+            args:
+              scheduler_hints:
+                group: [ get_input: server_group ]
+{% endhighlight %}
 {% endgcloak %}
 
 
