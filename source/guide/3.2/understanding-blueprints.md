@@ -77,9 +77,13 @@ A portable type that has no implementation details. For examply `cloudify.nodes.
 The `cloudify.nodes.Root` declares the `lifecycle` interface which all types inherit. This interface has the most essential installation and uninstallation hooks. The cloudify built-in `install` and `uninstall` workflows use these hooks to deploy and undeploy applications.
 The operations for this interface are:
 * `create` - component installation
+
 * `configure` - component configuration changes post installation
+
 * `start` - component startup
+
 * `stop` - component shutdown
+
 * `delete` - component uninstallation
 
 ## Node Properties
